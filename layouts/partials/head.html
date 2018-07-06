@@ -1,15 +1,21 @@
-{{- $cssOpts := (dict "targetPath" "css/styles.css") }}
-{{- $styles := resources.Get "sass/styles.sass" | toCSS $cssOpts | minify | fingerprint }}
-{{- $caseStudyStyles := resources.Get "sass/case_study_styles.sass" | toCSS $cssOpts | minify | fingerprint }}
 <meta charset="utf-8">
 <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
-<link rel="stylesheet" type="text/css" href="/css/base_fonts.css" integrity="{{ $styles.Data.Integrity }}">
-{{- if .Params.case_study_styles }}
-<link rel="stylesheet" type="text/css" href="{{ $caseStudyStyles.permalink }}" integrity="{{ $caseStudyStyles.Data.Integrity }}"><!-- custom case_study_styles on -->
+<link rel="stylesheet" type="text/css" href="/css/base_fonts.css">
+{{- if .Site.IsServer }}
+{{- $mainCssOpts := (dict "targetPath" "sass/styles.sass" "enableSourceMap" true) }}
+{{- $mainCss := resources.Get "sass/styles.sass" | toCSS $mainCssOpts }}
+<link rel="stylesheet" media="screen" href="{{ $mainCss.RelPermalink }}"><!-- default styles.css on -->
 {{- else }}
-<link rel="stylesheet" type="text/css" href="{{ $styles.Permalink }}"><!-- default styles.css on -->
+{{- $mainCssOpts := (dict "targetPath" "sass/styles.sass") }}
+{{- $mainCss := resources.Get "sass/styles.sass" | toCSS $mainCssOpts | postCSS | minify | fingerprint }}
+<link rel="stylesheet" media="screen" href="{{ $mainCss.RelPermalink }}" integrity="{{ $mainCss.Data.Digest }}"><!-- default styles.css on -->
+{{- end }}
+{{- if .Params.case_study_styles }}
+{{- $caseStudyCssOpts := (dict "targetPath" "css/styles.css") }}
+{{- $caseStudyCss := resources.Get "sass/case_study_styles.sass" | toCSS $caseStudyCssOpts | postCSS | minify | fingerprint }}
+<link rel="stylesheet" media="screen" href="{{ $caseStudyCss.Permalink }}" integrity="{{ $caseStudyCss.Data.Digest }}"><!-- custom case_study_styles on -->
 {{- end }}
 <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
