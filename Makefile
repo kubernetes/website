@@ -10,10 +10,6 @@ help: ## Show this help.
 
 all: build ## Build site with production settings and put deliverables in _site.
 
-sass: # Rebuild the SASS source into CSS
-	node-sass --output-style compact ./src/sass/styles.sass ./static/css/styles.css
-	node-sass --output-style compact ./src/sass/case_study_styles.sass ./static/css/case_study_styles.css
-
 build: ## Build site with production settings and put deliverables in _site.
 	hugo
 
