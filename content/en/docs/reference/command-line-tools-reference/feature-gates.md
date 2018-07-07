@@ -190,7 +190,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
-- `Intializers`: Enable the [dynamic admission control](/docs/admin/extensible-admission-controllers/)
+- `Intializers`: Enable the [dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
   as an extension to the built-in [admission controllers](/docs/admin/admission-controllers/).
   When the `Initializers` admission controller is enabled, this feature is automatically enabled.
 - `KubeletConfigFile`: Enable loading kubelet configuration from a file specified using a config file.

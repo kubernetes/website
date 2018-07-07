@@ -39,7 +39,7 @@ Successfully running cloud-controller-manager requires some changes to your clus
 * `kubelet` must run with `--cloud-provider=external`. This is to ensure that the kubelet is aware that it must be initialized by the cloud controller manager before it is scheduled any work.
 * `kube-apiserver` SHOULD NOT run the `PersistentVolumeLabel` admission controller
   since the cloud controller manager takes over labeling persistent volumes.
-* For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/admin/extensible-admission-controllers.md#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
+* For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/reference/access-authn-authz/extensible-admission-controllers/#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
 
 {{< codenew file="admin/cloud/pvl-initializer-config.yaml" >}}
 

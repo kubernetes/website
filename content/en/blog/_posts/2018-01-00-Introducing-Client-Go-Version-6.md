@@ -17,7 +17,7 @@ This blog post is one of a number of efforts to make client-go more accessible t
 The following API group promotions are part of Kubernetes 1.9:  
 
 - Workload objects (Deployments, DaemonSets, ReplicaSets, and StatefulSets) have been [promoted to the apps/v1 API group in Kubernetes 1.9](https://kubernetes.io/docs/reference/workloads-18-19/). client-go follows this transition and allows developers to use the latest version by importing the k8s.io/api/apps/v1 package instead of k8s.io/api/apps/v1beta1 and by using Clientset.AppsV1().
-- Admission Webhook Registration has been promoted to the admissionregistration.k8s.io/v1beta1 API group in Kubernetes 1.9. The former ExternalAdmissionHookConfiguration type has been replaced by the incompatible ValidatingWebhookConfiguration and MutatingWebhookConfiguration types. Moreover, the webhook admission payload type AdmissionReview in admission.k8s.io has been promoted to v1beta1. Note that versioned objects are now passed to webhooks. Refer to the admission webhook [documentation](https://kubernetes.io/docs/admin/extensible-admission-controllers/#external-admission-webhooks) for details.
+- Admission Webhook Registration has been promoted to the admissionregistration.k8s.io/v1beta1 API group in Kubernetes 1.9. The former ExternalAdmissionHookConfiguration type has been replaced by the incompatible ValidatingWebhookConfiguration and MutatingWebhookConfiguration types. Moreover, the webhook admission payload type AdmissionReview in admission.k8s.io has been promoted to v1beta1. Note that versioned objects are now passed to webhooks. Refer to the admission webhook [documentation](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) for details.
 
 
 
@@ -84,12 +84,12 @@ spec.version in body should be one of [v1.0.0 v1.0.1]
 
 
 
-Note that with [Admission Webhooks](https://kubernetes.io/docs/admin/extensible-admission-controllers/#external-admission-webhooks), Kubernetes 1.9 provides another beta feature to validate objects before they are created or updated. Starting with 1.9, these webhooks also allow mutation of objects (for example, to set defaults or to inject values). Of course, webhooks work with CRDs as well. Moreover, webhooks can be used to implement validations that are not easily expressible with CRD validation. Note that webhooks are harder to implement than CRD validation, so for many purposes, CRD validation is the right tool.
+Note that with [Admission Webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks), Kubernetes 1.9 provides another beta feature to validate objects before they are created or updated. Starting with 1.9, these webhooks also allow mutation of objects (for example, to set defaults or to inject values). Of course, webhooks work with CRDs as well. Moreover, webhooks can be used to implement validations that are not easily expressible with CRD validation. Note that webhooks are harder to implement than CRD validation, so for many purposes, CRD validation is the right tool.
 
 
 
 ## Creating namespaced informers
-Often objects in one namespace or only with certain labels are to be processed in a controller. Informers [now allow](https://github.com/kubernetes/kubernetes/pull/54660) you to tweak the ListOptions used to query the API server to list and watch objects. Uninitialized objects (for consumption by [initializers](https://kubernetes.io/docs/admin/extensible-admission-controllers/#what-are-initializers)) can be made visible by setting IncludeUnitialized to true. All this can be done using the new NewFilteredSharedInformerFactory constructor for shared informers:  
+Often objects in one namespace or only with certain labels are to be processed in a controller. Informers [now allow](https://github.com/kubernetes/kubernetes/pull/54660) you to tweak the ListOptions used to query the API server to list and watch objects. Uninitialized objects (for consumption by [initializers](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#initializers)) can be made visible by setting IncludeUnitialized to true. All this can be done using the new NewFilteredSharedInformerFactory constructor for shared informers:  
 
 ```
 
