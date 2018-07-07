@@ -466,13 +466,13 @@ metadata:
 #### Internal Behavior
 This admission controller has the following behavior:
 
-  1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
-     node selector.
-  2. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
-     plugin configuration file as the node selector.
-  3. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
-  4. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
-     Conflicts result in rejection.
+1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
+node selector.
+2. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
+plugin configuration file as the node selector.
+3. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
+4. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
+Conflicts result in rejection.
 
 {{< note >}}
 **Note:** PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 
