@@ -12,7 +12,7 @@ weight: 90
 A service account provides an identity for processes that run in a Pod.
 
 *This is a user introduction to Service Accounts.  See also the
-[Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin/).*
+[Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).*
 
 {{< note >}}
 **Note:** This document describes how service accounts behave in a cluster set up
