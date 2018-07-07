@@ -527,9 +527,9 @@ parameters:
   cluster, and `skuName` and `location` are ignored.
 
 During provision, a secret is created for mounting credentials. If the cluster
-has enabled both [RBAC](/docs/admin/authorization/rbac/) and
-[Controller Roles](/docs/admin/authorization/rbac/#controller-roles), add the
-`create` permission of resource `secret` for clusterrole
+has enabled both [RBAC](/docs/reference/access-authn-authz/rbac/) and
+[Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles),
+add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
 
 ### Portworx Volume
