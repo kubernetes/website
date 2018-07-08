@@ -608,7 +608,7 @@ Here are some apiserver flags you may need to set:
 - `--tls-cert-file=/srv/kubernetes/server.cert`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
 - `--enable-admission-plugins=$RECOMMENDED_LIST`
-  - See [admission controllers](/docs/reference/access-authn-authz/controlling-access/) for recommended arguments.
+  - See [admission controllers](/docs/reference/access-authn-authz/admission-controllers/) for recommended arguments.
 - `--allow-privileged=true`, only if you trust your cluster user to run pods as root.
 
 If you are following the firewall-only security approach, then use these arguments:

@@ -152,7 +152,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Dynamic Admission Control
 
-After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/reference/access-authn-authz/controlling-access/) steps. In addition to the built-in steps, there are several extensions:
+After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/reference/access-authn-authz/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
 
 *   The [Image Policy webhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
 *   To make arbitrary admission control decisions, a general [Admission webhook](/docs/admin/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.

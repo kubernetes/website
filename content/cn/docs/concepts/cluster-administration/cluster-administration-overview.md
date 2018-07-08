@@ -58,7 +58,7 @@ content_template: templates/concept
 *  [授权](/docs/admin/authorization)从认证中分离出来，用于控制如何处理 HTTP 请求。
 
 
-*  [使用 Admission Controllers](/docs/reference/access-authn-authz/controlling-access) 阐述了在认证和授权之后拦截到 Kubernetes API 服务的请求的插件。
+*  [使用 Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/) 阐述了在认证和授权之后拦截到 Kubernetes API 服务的请求的插件。
 
 
 * [在 Kubernetes Cluster 中使用 Sysctls](/docs/concepts/cluster-administration/sysctl-cluster/) 描述了管理员如何使用 `sysctl` 命令行工具来设置内核参数。
