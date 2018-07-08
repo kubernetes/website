@@ -10,9 +10,9 @@ cid: partners
     <main>
         <h5>Kubernetes works with partners to create a strong, vibrant codebase that supports a spectrum of complementary platforms.</h5>
         <div class="col-container">
-          <div class="col-nav"><center><h5><b>Kubernetes Certified Service Providers</b></h5><br>Vetted service providers with deep experience helping enterprises successfully adopt Kubernetes.<br><br><br><button id="see-kcsp-partners" class="button" onClick="updateSrc(this.id)">See KCSP Partners</button></center></div>
-          <div class="col-nav"><center><h5><b>Certified Kubernetes Distributions, Hosted Platforms, and Installers</b></h5>Software conformance ensures that every vendor’s version of Kubernetes supports the required APIs.<br><br><br><button id="see-conformance-partners" class="button" onClick="updateSrc(this.id)">See Conformance Partners</button></a></center></div>
-          <div class="col-nav"><center><h5><b>Kubernetes Training Partners</b></h5><br>Vetted training providers who have deep experience in cloud native technology training.<br><br><br><br><button id="see-ktp-partners" class="button" onClick="updateSrc(this.id)">See KTP Partners</button></center></div>
+          <div class="col-nav"><center><h5><b>Kubernetes Certified Service Providers</b></h5><br>Vetted service providers with deep experience helping enterprises successfully adopt Kubernetes.<br><br><br><button id="kcsp" class="button" onClick="updateSrc(this.id)">See KCSP Partners</button></center></div>
+          <div class="col-nav"><center><h5><b>Certified Kubernetes Distributions, Hosted Platforms, and Installers</b></h5>Software conformance ensures that every vendor’s version of Kubernetes supports the required APIs.<br><br><br><button id="conformance" class="button" onClick="updateSrc(this.id)">See Conformance Partners</button></a></center></div>
+          <div class="col-nav"><center><h5><b>Kubernetes Training Partners</b></h5><br>Vetted training providers who have deep experience in cloud native technology training.<br><br><br><br><button id="ktp" class="button" onClick="updateSrc(this.id)">See KTP Partners</button></center></div>
         </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -22,23 +22,23 @@ cid: partners
       var secondLink = "https://landscape.cncf.io/grouping=landscape&landscape=kubernetes-training-partner&embed=true";
 
       function updateSrc(buttonId) {
-      	if (buttonId == "see-kcsp-partners") {
+      	if (buttonId == "kcsp") {
         		$("#landscape").attr("src",defaultLink);
-            window.location.hash = "#see-kcsp-partners";
+            window.location.hash = "#kcsp";
         }
-        if (buttonId == "see-conformance-partners") {
+        if (buttonId == "conformance") {
          		$("#landscape").attr("src",firstLink);
-            window.location.hash = "#see-conformance-partners";
+            window.location.hash = "#conformance";
         }
-        if (buttonId == "see-ktp-partners") {
+        if (buttonId == "ktp") {
         		$("#landscape").attr("src",secondLink);
-            window.location.hash = "#see-ktp-partners";
+            window.location.hash = "#ktp";
         }
       }
 
       // Automatically load the correct iframe based on the URL fragment
       document.addEventListener('DOMContentLoaded', function() {
-        var showContent = "see-kcsp-partners";
+        var showContent = "kcsp";
         if (window.location.hash) {
           console.log('hash is:', window.location.hash.substring(1));
           showContent = window.location.hash.substring(1);
