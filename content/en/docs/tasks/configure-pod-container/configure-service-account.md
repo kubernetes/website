@@ -50,7 +50,7 @@ you can see the `spec.serviceAccountName` field has been
 
 You can access the API from inside a pod using automatically mounted service account credentials,
 as described in [Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
-The API permissions a service account has depend on the [authorization plugin and policy](/docs/admin/authorization/#a-quick-note-on-service-accounts) in use.
+The API permissions of the service account depend on the [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
 In version 1.6+, you can opt out of automounting API credentials for a service account by setting
 `automountServiceAccountToken: false` on the service account:
@@ -122,7 +122,7 @@ secrets:
 
 then you will see that a token has automatically been created and is referenced by the service account.
 
-You may use authorization plugins to [set permissions on service accounts](/docs/admin/authorization/#a-quick-note-on-service-accounts).
+You may use authorization plugins to [set permissions on service accounts](docs/reference/access-authn-authz/authorization/).
 
 To use a non-default service account, simply set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.

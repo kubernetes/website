@@ -72,7 +72,7 @@ The kube-controller-manager flags are:
 
 In 1.7 the experimental "group auto approver" controller is dropped in favor of the new `csrapproving` controller
 that ships as part of [kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled by default.
-The controller uses the [`SubjectAccessReview` API](/docs/admin/authorization/#checking-api-access) to determine
+The controller uses the [`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to determine
 if a given user is authorized to request a CSR, then approves based on the authorization outcome. To prevent
 conflicts with other approvers, the builtin approver doesn't explicitly deny CSRs, only ignoring unauthorized requests.
 

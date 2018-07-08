@@ -51,7 +51,7 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 * start the kubelet with the `--authorization-mode=Webhook` and the `--kubeconfig` flags
 * the kubelet calls the `SubjectAccessReview` API on the configured API server to determine whether each request is authorized
 
-The kubelet authorizes API requests using the same [request attributes](/docs/admin/authorization/#request-attributes) approach as the apiserver.
+The kubelet authorizes API requests using the same [request attributes](/docs/reference/access-authn-authz/authorization/) approach as the apiserver.
 
 The verb is determined from the incoming request's HTTP verb:
 

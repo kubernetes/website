@@ -29,9 +29,9 @@ apiserver (none of the other master components are designed to expose remote
 services). In a typical deployment, the apiserver is configured to listen for
 remote connections on a secure HTTPS port (443) with one or more forms of
 client [authentication](/docs/admin/authentication/) enabled. One or more forms
-of [authorization](/docs/admin/authorization/) should be enabled, especially
-if [anonymous requests](/docs/admin/authentication/#anonymous-requests) or
-[service account tokens](/docs/admin/authentication/#service-account-tokens)
+of [authorization](/docs/reference/access-authn-authz/authorization/) should be
+enabled, especially if [anonymous requests](/docs/admin/authentication/#anonymous-requests)
+or [service account tokens](/docs/admin/authentication/#service-account-tokens)
 are allowed.
 
 Nodes should be provisioned with the public root certificate for the cluster

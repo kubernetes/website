@@ -51,7 +51,7 @@ with the request:
 * Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
 
 All values are opaque to the authentication system and only hold significance
-when interpreted by an [authorizer](/docs/admin/authorization/).
+when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
 
