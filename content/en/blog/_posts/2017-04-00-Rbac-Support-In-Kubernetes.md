@@ -76,7 +76,7 @@ system:controller:certificate-controller ClusterRole.v1beta1.rbac.authorization.
 
 The RBAC system roles have been expanded to cover the necessary permissions for running a Kubernetes cluster with RBAC only.  
 
-During the permission translation from ABAC to RBAC, some of the permissions that were enabled by default in many deployments of ABAC authorized clusters were identified as unnecessarily broad and were [scoped down](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#upgrading-from-15) in RBAC. The area most likely to impact workloads on a cluster is the permissions available to service accounts. With the permissive ABAC configuration, requests from a pod using the pod mounted token to authenticate to the API server have broad authorization. As a concrete example, the curl command at the end of this sequence will return a JSON formatted result when ABAC is enabled and an error when only RBAC is enabled.  
+During the permission translation from ABAC to RBAC, some of the permissions that were enabled by default in many deployments of ABAC authorized clusters were identified as unnecessarily broad and were [scoped down](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#upgrading-from-1-5) in RBAC. The area most likely to impact workloads on a cluster is the permissions available to service accounts. With the permissive ABAC configuration, requests from a pod using the pod mounted token to authenticate to the API server have broad authorization. As a concrete example, the curl command at the end of this sequence will return a JSON formatted result when ABAC is enabled and an error when only RBAC is enabled.
 
 
  ```
