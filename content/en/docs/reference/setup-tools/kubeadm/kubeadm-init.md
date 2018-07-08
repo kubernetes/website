@@ -562,7 +562,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm join](/content/en/docs/reference/setup-tools/kubeadm/kubeadm-join.md) to bootstrap a Kubernetes worker node and join it to the cluster
+* [kubeadm upgrade](/content/en/docs/reference/setup-tools/kubeadm/kubeadm-upgrade.md) to upgrade a Kubernetes cluster to a newer version
+* [kubeadm reset](/content/en/docs/reference/setup-tools/kubeadm/kubeadm-reset.md) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}
