@@ -209,65 +209,65 @@ In this example, we will use fluentd to split audit events by different namespac
 1. install [fluentd, fluent-plugin-forest and fluent-plugin-rewrite-tag-filter][fluentd_install_doc] in the kube-apiserver node
 1. create a config file for fluentd
 
-   ```none
-   $ cat <<EOF > /etc/fluentd/config
-   # fluentd conf runs in the same host with kube-apiserver
-   <source>
-       @type tail
-       # audit log path of kube-apiserver
-       path /var/log/audit
-       pos_file /var/log/audit.pos
-       format json
-       time_key time
-       time_format %Y-%m-%dT%H:%M:%S.%N%z
-       tag audit
-   </source>
+    ```none
+    $ cat <<EOF > /etc/fluentd/config
+    # fluentd conf runs in the same host with kube-apiserver
+    <source>
+        @type tail
+        # audit log path of kube-apiserver
+        path /var/log/audit
+        pos_file /var/log/audit.pos
+        format json
+        time_key time
+        time_format %Y-%m-%dT%H:%M:%S.%N%z
+        tag audit
+    </source>
 
-   <filter audit>
-       #https://github.com/fluent/fluent-plugin-rewrite-tag-filter/issues/13
-       type record_transformer
-       enable_ruby
-       <record>
-        namespace ${record["objectRef"].nil? ? "none":(record["objectRef"]["namespace"].nil? ?  "none":record["objectRef"]["namespace"])}
-       </record>
-   </filter>
+    <filter audit>
+        #https://github.com/fluent/fluent-plugin-rewrite-tag-filter/issues/13
+        type record_transformer
+        enable_ruby
+        <record>
+         namespace ${record["objectRef"].nil? ? "none":(record["objectRef"]["namespace"].nil? ?  "none":record["objectRef"]["namespace"])}
+        </record>
+    </filter>
 
-   <match audit>
-       # route audit according to namespace element in context
-       @type rewrite_tag_filter
-       rewriterule1 namespace ^(.+) ${tag}.$1
-   </match>
+    <match audit>
+        # route audit according to namespace element in context
+        @type rewrite_tag_filter
+        rewriterule1 namespace ^(.+) ${tag}.$1
+    </match>
 
-   <filter audit.**>
-      @type record_transformer
-      remove_keys namespace
-   </filter>
+    <filter audit.**>
+       @type record_transformer
+       remove_keys namespace
+    </filter>
 
-   <match audit.**>
-       @type forest
-       subtype file
-       remove_prefix audit
-       <template>
-           time_slice_format %Y%m%d%H
-           compress gz
-           path /var/log/audit-${tag}.*.log
-           format json
-           include_time_key true
-       </template>
-   </match>
-   ```
+    <match audit.**>
+        @type forest
+        subtype file
+        remove_prefix audit
+        <template>
+            time_slice_format %Y%m%d%H
+            compress gz
+            path /var/log/audit-${tag}.*.log
+            format json
+            include_time_key true
+        </template>
+    </match>
+    ```
 
 1. start fluentd
 
-   ```shell
-   $ fluentd -c /etc/fluentd/config  -vv
-   ```
+    ```shell
+    $ fluentd -c /etc/fluentd/config  -vv
+    ```
 
 1. start kube-apiserver with the following options:
 
-   ```shell
-   --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-log-path=/var/log/kube-audit --audit-log-format=json
-   ```
+    ```shell
+    --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-log-path=/var/log/kube-audit --audit-log-format=json
+    ```
 
 1. check audits for different namespaces in `/var/log/audit-*.log`
 
@@ -280,67 +280,67 @@ different users into different files.
 1. install [logstash][logstash_install_doc]
 1. create config file for logstash
 
-   ```none
-   $ cat <<EOF > /etc/logstash/config
-   input{
-       http{
-           #TODO, figure out a way to use kubeconfig file to authenticate to logstash
-           #https://www.elastic.co/guide/en/logstash/current/plugins-inputs-http.html#plugins-inputs-http-ssl
-           port=>8888
-       }
-   }
-   filter{
-       split{
-           # Webhook audit backend sends several events together with EventList
-           # split each event here.
-           field=>[items]
-           # We only need event subelement, remove others.
-           remove_field=>[headers, metadata, apiVersion, "@timestamp", kind, "@version", host]
-       }
-       mutate{
-           rename => {items=>event}
-       }
-   }
-   output{
-       file{
-           # Audit events from different users will be saved into different files.
-           path=>"/var/log/kube-audit-%{[event][user][username]}/audit"
-       }
-   }
-   ```
+    ```none
+    $ cat <<EOF > /etc/logstash/config
+    input{
+        http{
+            #TODO, figure out a way to use kubeconfig file to authenticate to logstash
+            #https://www.elastic.co/guide/en/logstash/current/plugins-inputs-http.html#plugins-inputs-http-ssl
+            port=>8888
+        }
+    }
+    filter{
+        split{
+            # Webhook audit backend sends several events together with EventList
+            # split each event here.
+            field=>[items]
+            # We only need event subelement, remove others.
+            remove_field=>[headers, metadata, apiVersion, "@timestamp", kind, "@version", host]
+        }
+        mutate{
+            rename => {items=>event}
+        }
+    }
+    output{
+        file{
+            # Audit events from different users will be saved into different files.
+            path=>"/var/log/kube-audit-%{[event][user][username]}/audit"
+        }
+    }
+    ```
 
 1. start logstash
 
-   ```shell
-   $ bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
-   ```
+    ```shell
+    $ bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
+    ```
 
 1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
 
-   ```none
-   $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
-   apiVersion: v1
-   clusters:
-   - cluster:
-       server: http://<ip_of_logstash>:8888
-     name: logstash
-   contexts:
-   - context:
-       cluster: logstash
-       user: ""
-     name: default-context
-   current-context: default-context
-   kind: Config
-   preferences: {}
-   users: []
-   EOF
-   ```
+    ```none
+    $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
+    apiVersion: v1
+    clusters:
+    - cluster:
+        server: http://<ip_of_logstash>:8888
+      name: logstash
+    contexts:
+    - context:
+        cluster: logstash
+        user: ""
+      name: default-context
+    current-context: default-context
+    kind: Config
+    preferences: {}
+    users: []
+    EOF
+    ```
 
 1. start kube-apiserver with the following options:
 
-   ```shell
-   --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
-   ```
+    ```shell
+    --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
+    ```
 
 1. check audits in logstash node's directories `/var/log/kube-audit-*/audit`
 
