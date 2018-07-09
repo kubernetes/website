@@ -15,18 +15,14 @@ If your problem is not listed below, please follow the following steps:
   - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
   - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) and follow the issue template.
 
-- If you are unsure about how kubeadm or kubernetes works, and would like to receive
-  support about your question, please ask on Slack in #kubeadm, or open a question on StackOverflow. Please include
+- If you are unsure about how kubeadm works, you can ask on Slack in #kubeadm, or open a question on StackOverflow. Please include
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
-
-If your cluster is in an error state, you may have trouble in the configuration if you see Pod statuses like `RunContainerError`,
-`CrashLoopBackOff` or `Error`. If this is the case, please read below.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-#### `ebtables` or some similar executable not found during installation
+## `ebtables` or some similar executable not found during installation
 
 If you see the following warnings while running `kubeadm init`
 
@@ -40,7 +36,7 @@ Then you may be missing `ebtables`, `ethtool` or a similar executable on your no
 - For Ubuntu/Debian users, run `apt install ebtables ethtool`.
 - For CentOS/Fedora users, run `yum install ebtables ethtool`.
 
-#### kubeadm blocks waiting for control plane during installation
+## kubeadm blocks waiting for control plane during installation
 
 If you notice that `kubeadm init` hangs after printing out the following line:
 
@@ -69,7 +65,7 @@ This may be caused by a number of problems. The most common are:
 
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
-#### kubeadm blocks when removing managed containers
+## kubeadm blocks when removing managed containers
 
 The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
 
@@ -95,7 +91,7 @@ Inspecting the logs for docker may also be useful:
 journalctl -ul docker
 ```
 
-#### Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
+## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
 
 Right after `kubeadm init` there should not be any pods in these states.
 
@@ -109,14 +105,14 @@ Right after `kubeadm init` there should not be any pods in these states.
   might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 
-#### `coredns` (or `kube-dns`) is stuck in the `Pending` state
+## `coredns` (or `kube-dns`) is stuck in the `Pending` state
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
 should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
 before CoreDNS may deployed fully. Hence the `Pending` state before the network is set up.
 
-#### `HostPort` services do not work
+## `HostPort` services do not work
 
 The `HostPort` and `HostIP` functionality is available depending on your Pod Network
 provider. Please contact the author of the Pod Network solution to find out whether
@@ -129,7 +125,7 @@ For more information, see the [CNI portmap documentation](https://github.com/con
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
 services](/docs/concepts/services-networking/service/#type-nodeport) or use `HostNetwork=true`.
 
-#### Pods are not accessible via their Service IP
+## Pods are not accessible via their Service IP
 
 - Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
@@ -142,7 +138,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
   is to modify `/etc/hosts`, see this [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
   for an example.
 
-#### TLS certificate errors
+## TLS certificate errors
 
 The following error indicates a possible certificate mismatch.
 
@@ -163,7 +159,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
 
-#### Default NIC When using flannel as the pod network in Vagrant
+## Default NIC When using flannel as the pod network in Vagrant
 
 The following error might indicate that something was wrong in the pod network:
 
@@ -177,7 +173,7 @@ Error from server (NotFound): the server could not find the requested resource
 
   This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `--iface eth1` flag to flannel so that the second interface is chosen.
 
-#### Non-public IP used for containers
+## Non-public IP used for containers
 
 In some situations `kubectl logs` and `kubectl run` commands may return with the following errors in an otherwise functional cluster:
 
@@ -203,7 +199,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   systemctl restart kubelet
   ```
 
-#### Services with externalTrafficPolicy=Local are not reachable
+## Services with externalTrafficPolicy=Local are not reachable
 
 On nodes where the hostname for the kubelet is overridden using the `--hostname-override` option, kube-proxy will default to treating 127.0.0.1 as the node IP, which results in rejecting connections for Services configured for `externalTrafficPolicy=Local`. This situation can be verified by checking the output of `kubectl -n kube-system logs <kube-proxy pod name>`:
 
