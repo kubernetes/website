@@ -1,12 +1,13 @@
 ---
 title: Troubleshooting kubeadm
+content_template: templates/concept
+weight: 70
 ---
 
 {{% capture overview %}}
 
-As with any program, you might run into an error using or operating it. Below we have listed 
-common failure scenarios and have provided steps that will help you to understand and hopefully
-fix the problem.
+As with any program, you might run into an error installing or running kubeadm.
+This page lists some common failure scenarios and have provided steps that can help you understand and fix the problem.
 
 If your problem is not listed below, please follow the following steps:
 
@@ -22,6 +23,8 @@ If your cluster is in an error state, you may have trouble in the configuration 
 `CrashLoopBackOff` or `Error`. If this is the case, please read below.
 
 {{% /capture %}}
+
+{{% capture body %}}
 
 #### `ebtables` or some similar executable not found during installation
 
@@ -239,3 +242,4 @@ EOF
 )"
 
 ```
+{{% /capture %}}

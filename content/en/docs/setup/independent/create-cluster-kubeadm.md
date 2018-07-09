@@ -3,6 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Creating a single master cluster with kubeadm
 content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}
