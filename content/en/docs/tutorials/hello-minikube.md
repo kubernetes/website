@@ -26,22 +26,6 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 {{% capture prerequisites %}}
 
-* For OS X, you need [Homebrew](https://brew.sh) to install the `xhyve` driver.
-
-  {{< note >}}
-  **Note:** If you see the following Homebrew error when you run `brew update` after you update your computer to MacOS 10.13:
-  
-  ```
-  Error: /usr/local is not writable. You should change the ownership
-  and permissions of /usr/local back to your user account:
-  sudo chown -R $(whoami) /usr/local
-  ```
-  You can resolve the issue by reinstalling Homebrew:
-  ```
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  ```
-  {{< /note >}}
-
 * [NodeJS](https://nodejs.org/en/) is required to run the sample application.
 
 * Install Docker. On OS X, we recommend
@@ -70,12 +54,14 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
   sudo mv minikube /usr/local/bin/
 ```
 
-Use Homebrew to install the xhyve driver and set its permissions:
+Use `curl` to download and install the Hyperkit driver and set its permissions:
 
 ```shell
-brew install docker-machine-driver-xhyve
-sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit \
+&& chmod +x docker-machine-driver-hyperkit \
+&& sudo mv docker-machine-driver-hyperkit /usr/local/bin/ \
+&& sudo chown root:wheel /usr/local/bin/docker-machine-driver-hyperkit \
+&& sudo chmod u+s /usr/local/bin/docker-machine-driver-hyperkit
 ```
 
 Use Homebrew to download the `kubectl` command-line tool, which you can
@@ -100,28 +86,16 @@ docker images
 If NO proxy is required, start the Minikube cluster:
 
 ```shell
-minikube start --vm-driver=xhyve
+minikube start --vm-driver=hyperkit
 ```
 If a proxy server is required, use the following method to start Minikube cluster with proxy setting:
 
 ```shell
-minikube start --vm-driver=xhyve --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
+minikube start --vm-driver=hyperkit --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
 ```
 
-The `--vm-driver=xhyve` flag specifies that you are using Docker for Mac. The
+The `--vm-driver=hypetkit` flag specifies that you are using Docker for Mac. The
 default VM driver is VirtualBox.
-
-Note if `minikube start --vm-driver=xhyve` is unsuccessful due to the error:
-```
-Error creating machine: Error in driver during machine creation: Could not convert the UUID to MAC address: exit status 1
-```
-
-Then the following may resolve the `minikube start --vm-driver=xhyve` issue:
-```
-rm -rf ~/.minikube
-sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-```
 
 Now set the Minikube context. The context is what determines which cluster
 `kubectl` is interacting with. You can see all your available contexts in the
