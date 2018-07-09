@@ -513,3 +513,4 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301
 
 /docs/admin/high-availability/building/     /docs/setup/independent/high-availability/ 301
+/code-of-conduct/     /community/code-of-conduct/   301
