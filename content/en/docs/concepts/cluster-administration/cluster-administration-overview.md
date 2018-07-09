@@ -62,7 +62,7 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 ### Securing the kubelet
   * [Master-Node communication](/docs/concepts/architecture/master-node-communication/)
-  * [TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/)
+  * [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
   * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
 
 ## Optional Cluster Services

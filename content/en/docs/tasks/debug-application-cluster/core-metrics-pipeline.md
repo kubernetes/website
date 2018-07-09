@@ -3,12 +3,21 @@ reviewers:
 - fgrzadkowski
 - piosz
 title: Core metrics pipeline
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 Starting from Kubernetes 1.8, resource usage metrics, such as container CPU and memory usage,
 are available in Kubernetes through the Metrics API. These metrics can be either accessed directly
 by user, for example by using `kubectl top` command, or used by a controller in the cluster, e.g.
 Horizontal Pod Autoscaler, to make decisions.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## The Metrics API
 
@@ -25,7 +34,9 @@ The API is no different from any other API:
 The API is defined in [k8s.io/metrics](https://github.com/kubernetes/metrics/blob/master/pkg/apis/metrics/v1beta1/types.go)
 repository. You can find more information about the API there.
 
+{{< note >}}
 **Note:** The API requires metrics server to be deployed in the cluster. Otherwise it will be not available.
+{{< /note >}}
 
 ## Metrics Server
 
@@ -42,3 +53,5 @@ Metrics Server registered in the main API server through
 which was introduced in Kubernetes 1.7.
 
 Learn more about the metrics server in [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
+
+{{% /capture %}}

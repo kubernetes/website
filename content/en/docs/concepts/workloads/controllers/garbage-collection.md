@@ -36,17 +36,17 @@ setting the `ownerReference` field.
 
 Here's a configuration file for a ReplicaSet that has three Pods:
 
-{{< code file="my-repset.yaml" >}}
+{{< codenew file="controllers/replicaset.yaml" >}}
 
 If you create the ReplicaSet and then view the Pod metadata, you can see
 OwnerReferences field:
 
 ```shell
-kubectl create -f https://k8s.io/docs/concepts/controllers/my-repset.yaml
+kubectl create -f https://k8s.io/examples/controllers/replicaset.yaml
 kubectl get pods --output=yaml
 ```
 
-The output shows that the Pod owner is a ReplicaSet named my-repset:
+The output shows that the Pod owner is a ReplicaSet named `my-repset`:
 
 ```shell
 apiVersion: v1
@@ -110,15 +110,15 @@ field on the `deleteOptions` argument when deleting an Object. Possible values i
 
 Prior to Kubernetes 1.9, the default garbage collection policy for many controller resources was `orphan`.
 This included ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
-Deployment. For kinds in the extensions/v1beta1, apps/v1beta1, and apps/v1beta2 group versions, unless you 
-specify otherwise, dependent objects are orphaned by default. In Kubernetes 1.9, for all kinds in the apps/v1 
+Deployment. For kinds in the `extensions/v1beta1`, `apps/v1beta1`, and `apps/v1beta2` group versions, unless you 
+specify otherwise, dependent objects are orphaned by default. In Kubernetes 1.9, for all kinds in the `apps/v1` 
 group version, dependent objects are deleted by default.
 
 Here's an example that deletes dependents in background:
 
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \
+curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
 -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
 -H "Content-Type: application/json"
 ```
@@ -127,7 +127,7 @@ Here's an example that deletes dependents in foreground:
 
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \
+curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
 -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
 -H "Content-Type: application/json"
 ```
@@ -136,7 +136,7 @@ Here's an example that orphans dependents:
 
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \
+curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-repset \
 -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
 -H "Content-Type: application/json"
 ```

@@ -2,7 +2,10 @@
 reviewers:
 - jsafrane
 title: Static Pods
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 **If you are running clustered Kubernetes and are using static pods to run a pod on every node, you should probably be using a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)!**
 
@@ -10,6 +13,12 @@ title: Static Pods
 
 Kubelet automatically tries to create a *mirror pod* on the Kubernetes API server for each static pod.
 This means that the pods are visible on the API server but cannot be controlled from there.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Static pod creation
 
@@ -108,7 +117,7 @@ static-web-my-node1        1/1       Running   0          12s
 
 Back to our `my-node1` host, we can try to stop the container manually and see, that kubelet automatically restarts it in a while:
 
-```shell
+```none
 [joe@host ~] $ ssh my-node1
 [joe@my-node1 ~] $ docker stop f6d05272b57e
 [joe@my-node1 ~] $ sleep 20
@@ -132,3 +141,5 @@ Running kubelet periodically scans the configured directory (`/etc/kubelet.d` in
 CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
+
+{{% /capture %}}

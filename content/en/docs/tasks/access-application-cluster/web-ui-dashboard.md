@@ -4,8 +4,11 @@ reviewers:
 - mikedanese
 - rf232
 title: Web UI (Dashboard)
+content_template: templates/concept
 weight: 10
 ---
+
+{{% capture overview %}}
 
 Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster itself along with its attendant resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
@@ -13,7 +16,11 @@ Dashboard also provides information on the state of Kubernetes resources in your
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Deploying the Dashboard UI
 
@@ -39,7 +46,7 @@ Kubectl will handle authentication with apiserver and make Dashboard available a
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 
 ### Master server
-You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to ``https://<master-ip>:<apiserver-port>/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/``, where `<kubernetes-master>` is IP address or domain name of the Kubernetes
+You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to ``https://<master-ip>:<apiserver-port>/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/``, where `<master-ip>` is IP address or domain name of the Kubernetes
 master.
 
 Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/admin/authentication/) for information on how to configure authentication manually.
@@ -165,7 +172,11 @@ Pod lists and detail pages link to logs viewer that is built into Dashboard. The
 
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 
-## More information
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
+
+{{% /capture %}}

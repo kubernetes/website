@@ -37,7 +37,7 @@ During the registration, the device plugin needs to send:
   * The name of its Unix socket.
   * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
-    [extended resource naming scheme](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+    [extended resource naming scheme](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
     as `vendor-domain/resource`.
     For example, an Nvidia GPU is advertised as `nvidia.com/gpu`.
 
@@ -146,6 +146,7 @@ For examples of device plugin implementations, see:
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-{{% /capture %}}
+* The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
 
+{{% /capture %}}
 

@@ -21,7 +21,7 @@ kubeadm alpha phase preflight master [flags]
 
 ### Options
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
@@ -32,7 +32,7 @@ kubeadm alpha phase preflight master [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">help for master</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for master</td>
     </tr>
 
   </tbody>

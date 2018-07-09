@@ -112,11 +112,11 @@ You have successfully set your Docker credentials as a Secret called `regcred` i
 
 Here is a configuration file for a Pod that needs access to your Docker credentials in `regcred`:
 
-{{< code file="private-reg-pod.yaml" >}}
+{{< codenew file="pods/private-reg-pod.yaml" >}}
 
 Download the above file:
 
-    wget -O my-private-reg-pod.yaml https://k8s.io/docs/tasks/configure-pod-container/private-reg-pod.yaml
+    wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
 
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:
 
@@ -141,5 +141,4 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 * See the `imagePullSecrets` field of [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
 {{% /capture %}}
-
 

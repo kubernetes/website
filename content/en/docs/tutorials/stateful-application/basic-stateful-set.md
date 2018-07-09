@@ -60,7 +60,7 @@ example presented in the
 It creates a [Headless Service](/docs/concepts/services-networking/service/#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
-{{< code file="web.yaml" >}}
+{{< codenew file="application/web/web.yaml" >}}
 
 Download the example above, and save it to a file named `web.yaml`
 
@@ -283,7 +283,8 @@ web-0
 web-1
 ```
 
-Note, if you instead see 403 Forbidden responses for the above curl command,
+{{< note >}}
+**Note:** If you instead see 403 Forbidden responses for the above curl command,
 you will need to fix the permissions of the directory mounted by the `volumeMounts`
 (due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)) with:
 
@@ -292,6 +293,7 @@ for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done
 ```
 
 before retrying the curl command above.
+{{< /note >}}
 
 In one terminal, watch the StatefulSet's Pods.
 
@@ -449,7 +451,9 @@ strategy used is determined by the `spec.updateStrategy` field of the
 StatefulSet API Object. This feature can be used to upgrade the container 
 images, resource requests and/or limits, labels, and annotations of the Pods in a 
 StatefulSet. There are two valid update strategies, `RollingUpdate` and 
-`OnDelete`. 
+`OnDelete`.
+
+`RollingUpdate` update strategy is the default for StatefulSets.
 
 ### Rolling Update
 
@@ -927,9 +931,9 @@ terminate all Pods in parallel, and not to wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another 
 Pod.
 
-{{< code file="webp.yaml" >}}
+{{< codenew file="application/web/web-parallel.yaml" >}}
 
-Download the example above, and save it to a file named `webp.yaml`
+Download the example above, and save it to a file named `web-parallel.yaml`
 
 This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy` 
 of the `web` StatefulSet is set to `Parallel`.
@@ -943,7 +947,7 @@ kubectl get po -l app=nginx -w
 In another terminal, create the StatefulSet and Service in the manifest.
 
 ```shell
-kubectl create -f webp.yaml 
+kubectl create -f web-parallel.yaml 
 service "nginx" created
 statefulset "web" created
 ```
