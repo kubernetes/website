@@ -16,7 +16,7 @@ Per [the Kubernetes 1.11 release blog post ](https://kubernetes.io/blog/2018/06/
 
 **IPVS** (**IP Virtual Server**) is built on top of the Netfilter and implements transport-layer load balancing as part of the Linux kernel.
 
-IPVS is incorporated into the LVS(Linux Virtual Server), where it runs on a host and acts as a load balancer in front of a cluster of real servers. IPVS can direct requests for TCP- and UDP-based services to the real servers, and make services of the real servers appear as virtual services on a single IP address. Therefore, IPVS naturally supports Kubernetes Service.
+IPVS is incorporated into the LVS (Linux Virtual Server), where it runs on a host and acts as a load balancer in front of a cluster of real servers. IPVS can direct requests for TCP- and UDP-based services to the real servers, and make services of the real servers appear as virtual services on a single IP address. Therefore, IPVS naturally supports Kubernetes Service.
 
 ## Why IPVS for Kubernetes?
 
@@ -26,17 +26,17 @@ Kube-proxy, the building block of service routing has relied on the battle-harde
 
 Even though Kubernetes already support 5000 nodes in release v1.6, the kube-proxy with iptables is actually a bottleneck to scale the cluster to 5000 nodes. One example is that with NodePort Service in a 5000-node cluster, if we have 2000 services and each services have 10 pods, this will cause at least 20000 iptable records on each worker node, and this can make the kernel pretty busy.
 
-On the other hand, using IPVS-based in-cluster service load balancing can help a lot for such cases. IPVS is specifically designed for load balancing and uses more efficient data structures(hash tables) allowing for almost unlimited scale under the hood.
+On the other hand, using IPVS-based in-cluster service load balancing can help a lot for such cases. IPVS is specifically designed for load balancing and uses more efficient data structures (hash tables) allowing for almost unlimited scale under the hood.
 
 ## IPVS-based Kube-proxy
 
 ### Parameter Changes
 
-**Parameter: --proxy-mode** In addition to existing userspace and iptables modes, IPVS mode is configured via `--proxy-mode=ipvs`. It implicitly uses IPVS NAT mode for Service port mapping.
+**Parameter: --proxy-mode** In addition to existing userspace and iptables modes, IPVS mode is configured via `--proxy-mode=ipvs`. It implicitly uses IPVS NAT mode for service port mapping.
 
 **Parameter: --ipvs-scheduler**
 
-A new kube-proxy parameter will be added to specify the IPVS load balancing algorithm, with the parameter being `--ipvs-scheduler`. If it’s not configured, then round-robin (rr) is the default value.
+A new kube-proxy parameter has been added to specify the IPVS load balancing algorithm, with the parameter being `--ipvs-scheduler`. If it’s not configured, then round-robin (rr) is the default value.
 
 - rr: round-robin
 - lc: least connection
@@ -47,13 +47,13 @@ A new kube-proxy parameter will be added to specify the IPVS load balancing algo
 
 In the future, we can implement Service specific scheduler (potentially via annotation), which has higher priority and overwrites the value.
 
-**Parameter: --cleanup-ipvs** Similar to the --cleanup-iptables parameter, if true, cleanup IPVS configuration and IPTables rules that are created in IPVS mode.
+**Parameter: `--cleanup-ipvs`** Similar to the `--cleanup-iptables` parameter, if true, cleanup IPVS configuration and IPTables rules that are created in IPVS mode.
 
-**Parameter: --ipvs-sync-period** Maximum interval of how often IPVS rules are refreshed (e.g. '5s', '1m'). Must be greater than 0.
+**Parameter: `--ipvs-sync-period`** Maximum interval of how often IPVS rules are refreshed (e.g. '5s', '1m'). Must be greater than 0.
 
-**Parameter: --ipvs-min-sync-period** Minimum interval of how often the IPVS rules are refreshed (e.g. '5s', '1m'). Must be greater than 0.
+**Parameter: `--ipvs-min-sync-period`** Minimum interval of how often the IPVS rules are refreshed (e.g. '5s', '1m'). Must be greater than 0.
 
-**Parameter: --ipvs-exclude-cidrs**  A comma-separated list of CIDR's which the IPVS proxier should not touch when cleaning up IPVS rules because IPVS proxier can't distinguish kube-proxy created ipvs rules from user original ipvs rules. If you are using IPVS proxier with your own IPVS rules in the environment, this parameter should be specified, otherwise your original rule will be cleaned.
+**Parameter: `--ipvs-exclude-cidrs`**  A comma-separated list of CIDR's which the IPVS proxier should not touch when cleaning up IPVS rules because IPVS proxier can't distinguish kube-proxy created IPVS rules from user original IPVS rules. If you are using IPVS proxier with your own IPVS rules in the environment, this parameter should be specified, otherwise your original rule will be cleaned.
 
 ### Design Considerations
 
@@ -61,7 +61,7 @@ In the future, we can implement Service specific scheduler (potentially via anno
 
 When creating a ClusterIP type Service, IPVS proxier will do the following three things:
 
-* Make sure a dummy interface exists in the node, default to kube-ipvs0
+* Make sure a dummy interface exists in the node, defaults to kube-ipvs0
 * Bind Service IP addresses to the dummy interface
 * Create IPVS virtual servers for each Service IP address respectively
 
@@ -93,13 +93,13 @@ TCP  10.102.128.4:3080 rr
   -> 10.244.1.237:8080            Masq    1      0          0   
 ```
 
-Please note that the relationship between a Kubernetes Service and IPVS virtual servers is `1:N`. Consider a Kubernetes Service that has more than one IP addresses, for example, an External IP type Service has two IP addresses(ClusterIP and External IP). Then the IPVS proxier will create 2 IPVS virtual servers - one for Cluster IP and another one for External IP. The relationship between a Kubernetes Endpoint(each IP+Port pair) and an IPVS virtual server is `1:1`.
+Please note that the relationship between a Kubernetes Service and IPVS virtual servers is `1:N`. For example, consider a Kubernetes Service that has more than one IP address. An External IP type Service has two IP addresses - ClusterIP and External IP. Then the IPVS proxier will create 2 IPVS virtual servers - one for Cluster IP and another one for External IP. The relationship between a Kubernetes Endpoint (each IP+Port pair) and an IPVS virtual server is `1:1`.
 
 Deleting of a Kubernetes service will trigger deletion of the corresponding IPVS virtual server, IPVS real servers and its IP addresses bound to the dummy interface.
 
 ####  Port Mapping
 
-There are three proxy modes in IPVS: NAT (masq), IPIP and DR. Only NAT mode supports port mapping. Kube-proxy leverages NAT mode for port mapping. The following example shows IPVS  mapping Service port  3080 to Pod port 8080.
+There are three proxy modes in IPVS: NAT (masq), IPIP and DR. Only NAT mode supports port mapping. Kube-proxy leverages NAT mode for port mapping. The following example shows IPVS mapping Service port 3080 to Pod port 8080.
 
 ```
 TCP  10.102.128.4:3080 rr
@@ -128,7 +128,7 @@ TCP  10.102.128.4:3080 rr persistent 10800
 
 #### Iptables & Ipset in IPVS Proxier
 
-IPVS is for load balancing, it can't handle other workarounds in kube-proxy, e.g. packet filtering, hairpin-masquerade tricks, SNAT, etc.
+IPVS is for load balancing and it can't handle other workarounds in kube-proxy, e.g. packet filtering, hairpin-masquerade tricks, SNAT, etc.
 
 IPVS proxier leverages iptables in the above scenarios. Specifically, ipvs proxier will fall back on iptables in the following 4 scenarios:
 
@@ -158,7 +158,7 @@ In general, for IPVS proxier, the number of iptables rules is static, no matter 
 
 ### Run kube-proxy in IPVS Mode
 
-Currently, local-up scripts, GCE scripts, and kubeadm support switching IPVS proxy mode via exporting environment variables(`KUBE_PROXY_MODE=ipvs`) or specifying flag(`--proxy-mode=ipvs`). Before running IPVS proxier, please ensure IPVS required kernel modules are already installed.
+Currently, local-up scripts, GCE scripts, and kubeadm support switching IPVS proxy mode via exporting environment variables (`KUBE_PROXY_MODE=ipvs`) or specifying flag (`--proxy-mode=ipvs`). Before running IPVS proxier, please ensure IPVS required kernel modules are already installed.
 
 ```
 ip_vs
