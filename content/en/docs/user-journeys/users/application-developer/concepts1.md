@@ -19,21 +19,21 @@ content_template: templates/user-journey-content
 
 ### Image
 
-_An Image_ is a binary package that contains all of the files necessary to run an application inside of an operating system container.
+_An Image_ is a binary package that encapsulates all of the files necessary to run an application inside of an operating system container.<!---We need to cite this-->
 For better understanding, you can think of an image as a class in a programming language and a container as an instance of that class.
 
 ### Container
 
 A _container_ is an active instantiation of an image.
 
-Containers sit on a physical or a virtual host machine and run on the host’s operating system. This makes containers lightweight and portable: only megabytes in size. Containers help ensure that applications deploy quickly unlike virtual machines which are bulky and take a longer time to reboot.
+Containers sit on a physical or a virtual host machine and run on the operating system of the host. This makes containers lightweight and portable: only megabytes in size. Hence, the containers help ensure that applications deploy quickly.
 
 Example:
 
 
 ### Container Runtime
 
-_Container Runtime_ is a program that runs on nodes and sets up containers for you by instantiating an image into a container.
+_Container Runtime_ is a program that runs on nodes <!---have a pop up explaining node--> and sets up containers for you by instantiating an image into a container.
 
 
 ### Control Loop
