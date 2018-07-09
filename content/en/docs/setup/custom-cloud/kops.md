@@ -31,7 +31,7 @@ You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order f
 
 Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
 
-On MacOS:
+On macOS:
 
 ```
 curl -OL https://github.com/kubernetes/kops/releases/download/1.8.0/kops-darwin-amd64

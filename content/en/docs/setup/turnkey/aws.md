@@ -30,7 +30,7 @@ Alternately, you can download the latest Kubernetes release from [this page](htt
 Next, add the appropriate binary folder to your `PATH` to access kubectl:
 
 ```shell
-# OS X
+# macOS
 export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 
 # Linux

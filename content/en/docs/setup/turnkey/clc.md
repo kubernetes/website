@@ -27,7 +27,7 @@ If you run into any problems or want help with anything, we are here to help. Re
 
 The requirements to run this script are:
 
-- A linux administrative host (tested on ubuntu and OSX)
+- A linux administrative host (tested on ubuntu and macOS)
 - python 2 (tested on 2.7.11)
   - pip (installed with python as of 2.7.9)
 - git
@@ -264,7 +264,7 @@ curl \
 ```
 
 But please note, this *does not* work out of the box with the ```curl``` binary
-distributed with OSX.
+distributed with macOS.
 
 ### Accessing the cluster with a browser
 

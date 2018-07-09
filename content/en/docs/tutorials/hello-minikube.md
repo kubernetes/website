@@ -26,10 +26,10 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 {{% capture prerequisites %}}
 
-* For OS X, you need [Homebrew](https://brew.sh) to install the `xhyve` driver.
+* For macOS, you need [Homebrew](https://brew.sh) to install the `xhyve` driver.
 
   {{< note >}}
-  **Note:** If you see the following Homebrew error when you run `brew update` after you update your computer to MacOS 10.13:
+  **Note:** If you see the following Homebrew error when you run `brew update` after you update your computer to macOS 10.13:
   
   ```
   Error: /usr/local is not writable. You should change the ownership
@@ -44,7 +44,7 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 * [NodeJS](https://nodejs.org/en/) is required to run the sample application.
 
-* Install Docker. On OS X, we recommend
+* Install Docker. On macOS, we recommend
 [Docker for Mac](https://docs.docker.com/engine/installation/mac/).
 
 
@@ -57,7 +57,7 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 This tutorial uses [Minikube](https://github.com/kubernetes/minikube) to
 create a local cluster. This tutorial also assumes you are using
 [Docker for Mac](https://docs.docker.com/engine/installation/mac/)
-on OS X. If you are on a different platform like Linux, or using VirtualBox
+on macOS. If you are on a different platform like Linux, or using VirtualBox
 instead of Docker for Mac, the instructions to install Minikube may be
 slightly different. For general Minikube installation instructions, see
 the [Minikube installation guide](/docs/getting-started-guides/minikube/).

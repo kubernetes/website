@@ -135,7 +135,7 @@ secret "mysecret" created
 
 **Encoding Note:** The serialized JSON and YAML values of secret data are
 encoded as base64 strings.  Newlines are not valid within these strings and must
-be omitted.  When using the `base64` utility on Darwin/OS X users should avoid
+be omitted.  When using the `base64` utility on Darwin/macOS users should avoid
 using the `-b` option to split long lines.  Conversely Linux users *should* add
 the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 `-w` option is not available.
