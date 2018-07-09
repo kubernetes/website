@@ -768,24 +768,8 @@ will return a `CNAME` record with the value `my.database.example.com`. Accessing
 `my-service` works in the same way as other Services but with the crucial
 difference that redirection happens at the DNS level rather than via proxying or
 forwarding. Should you later decide to move your database into your cluster, you
-can start its pods, add appropriate selectors or endpoints and change the service `type`.
-
-#### Using ExternalName Services across namespaces
-
-In addition to enabling Kubernetes pods to
-
-```yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: my-service
-  namespace: namespace-a
-spec:
-  type: ExternalName
-  externalName: my-service.namespace-b.svc.cluster.local
-  ports:
-  - port: 80
-```
+can start its pods, add appropriate selectors or endpoints, and change the
+service's `type`.
 
 {{< note >}}
 This section is indebted to the [Kubernetes Tips - Part
