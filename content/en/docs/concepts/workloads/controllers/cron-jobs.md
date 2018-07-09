@@ -36,9 +36,15 @@ If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
-For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time till now. If there are more than 100 missed schedules, then it doesn't start the job. This would mean that, for example, If `concurrencyPolicy` does not allow concurrency, a job will be counted as missed if it was attempted to be scheduled when there was a previously scheduled cronjob still running.
+For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time till now. If there are more than 100 missed schedules, then it will not start the job and it will log the error
 
-It is important to note, that if the field `startingDeadlineSeconds` is set (not `nil`), it will count how many missed jobs occurred from the value of `startingDeadlineSeconds` till now. For example, if `startingDeadlineSeconds` is `200`, It will count how many missed jobs occurred in the last 200 seconds. 
+````
+Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
+````
+
+It is important to note, that if the field `startingDeadlineSeconds` is set (not `nil`), the controller will count how many missed jobs occurred from the value of `startingDeadlineSeconds` till now, rather than from the last scheduled time till now. For example, if `startingDeadlineSeconds` is `200`, the controller will count how many missed jobs occurred in the last 200 seconds. 
+
+A CronJob will be counted as missed if it failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
 
 For example, suppose a cron job is set to start at exactly `08:30:00` and its
 `startingDeadlineSeconds` is set to 10, if the CronJob controller happens to
