@@ -181,8 +181,6 @@ By default, the choice of backend is round robin.
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
 
-Note that in the above diagram, `clusterIP` is shown as `ServiceIP`.
-
 ### Proxy-mode: iptables
 
 In this mode, kube-proxy watches the Kubernetes master for the addition and
@@ -199,8 +197,6 @@ userspace proxier, the iptables proxier cannot automatically retry another
 having working [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#defining-readiness-probes).
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
-
-Note that in the above diagram, `clusterIP` is shown as `ServiceIP`.
 
 ### Proxy-mode: ipvs
 
