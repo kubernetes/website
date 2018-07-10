@@ -306,27 +306,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-deployment": {&extensions.Deployment{}},
 			"nginx-svc":        {&api.Service{}},
 		},
-		"docs/concepts/overview/working-with-objects": {
-			"nginx-deployment": {&extensions.Deployment{}},
-		},
-		"docs/concepts/services-networking": {
-			"curlpod":          {&extensions.Deployment{}},
-			"custom-dns":       {&api.Pod{}},
-			"hostaliases-pod":  {&api.Pod{}},
-			"ingress":          {&extensions.Ingress{}},
-			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
-			"nginx-svc":        {&api.Service{}},
-			"run-my-nginx":     {&extensions.Deployment{}},
-		},
 		"docs/tutorials/clusters": {
 			"hello-apparmor-pod": {&api.Pod{}},
 		},
 		"docs/tutorials/configuration/configmap/redis": {
 			"redis-pod": {&api.Pod{}},
-		},
-		"docs/concepts/overview/object-management-kubectl": {
-			"simple_deployment": {&extensions.Deployment{}},
-			"update_deployment": {&extensions.Deployment{}},
 		},
 		"examples/admin": {
 			"namespace-dev":  {&api.Namespace{}},
@@ -381,6 +365,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-update":  {&extensions.Deployment{}},
 			"nginx-with-request": {&extensions.Deployment{}},
 			"shell-demo":         {&api.Pod{}},
+			"simple_deployment": {&extensions.Deployment{}},
+			"update_deployment": {&extensions.Deployment{}},
 		},
 		"examples/application/cassandra": {
 			"cassandra-service":     {&api.Service{}},
@@ -528,6 +514,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"frontend":      {&api.Service{}, &extensions.Deployment{}},
 			"hello-service": {&api.Service{}},
 			"hello":         {&extensions.Deployment{}},
+		},
+		"examples/service/networking": {
+			"curlpod":          {&extensions.Deployment{}},
+			"custom-dns":       {&api.Pod{}},
+			"hostaliases-pod":  {&api.Pod{}},
+			"ingress":          {&extensions.Ingress{}},
+			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
+			"nginx-svc":        {&api.Service{}},
+			"run-my-nginx":     {&extensions.Deployment{}},
 		},
 		"examples/windows": {
 			"configmap-pod": {&api.ConfigMap{}, &api.Pod{}},
