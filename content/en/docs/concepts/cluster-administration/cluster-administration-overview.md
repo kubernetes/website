@@ -32,7 +32,7 @@ Before choosing a guide, here are some considerations:
 
 Note: Not all distros are actively maintained. Choose distros which have been tested with a recent version of Kubernetes.
 
--If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/setup/salt/).
+-If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/setup/salt/). 
 
 ## Managing a cluster
 
