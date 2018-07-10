@@ -5,7 +5,7 @@ command = "hugo --enableGitInfo && cp netlify_noindex_headers.txt public/_header
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
-HUGO_VERSION = "0.43.1"
+HUGO_VERSION = "0.43"
 HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
@@ -13,13 +13,13 @@ HUGO_ENABLEGITINFO = "true"
 command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
 
 [context.deploy-preview.environment]
-HUGO_VERSION = "0.43.1"
+HUGO_VERSION = "0.43"
 
 [context.branch-deploy]
 command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy.environment]
-HUGO_VERSION = "0.43.1"
+HUGO_VERSION = "0.43"
 
 [context.master]
 # This context is triggered by the master branch and allows search indexing 
