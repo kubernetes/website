@@ -171,7 +171,7 @@ by running the following:
 
 ```console
 $ kubectl get csr my-svc.my-namespace -o jsonpath='{.status.certificate}' \
-    | base64 -d > server.crt
+    | base64 -D > server.crt
 ```
 
 Now you can use `server.crt` and `server-key.pem` as the keypair to start
