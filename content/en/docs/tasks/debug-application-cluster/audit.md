@@ -206,7 +206,11 @@ audit policies.
 [Fluentd][fluentd] is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
 
-1. install [fluentd, fluent-plugin-forest and fluent-plugin-rewrite-tag-filter][fluentd_install_doc] in the kube-apiserver node
+1. install [fluentd][fluentd_install_doc],  fluent-plugin-forest and fluent-plugin-rewrite-tag-filter in the kube-apiserver node
+{{< note >}}
+**Note:**Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc]
+{{< /note >}}
+
 1. create a config file for fluentd
 
     ```none
@@ -398,6 +402,7 @@ and `audit-log-maxage` options.
 [kubeconfig]: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
 [fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
+[fluentd_plugin_management_doc]: https://docs.fluentd.org/v0.12/articles/plugin-management
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
