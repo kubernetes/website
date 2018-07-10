@@ -239,49 +239,24 @@ $ kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump c
 $ kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 
-## Resource types
+### Resource types
 
-The following table includes a list of all the supported resource types and their abbreviated aliases:
+List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
-Resource type   | Abbreviated alias
--------------------- | --------------------
-`all` |
-`certificatesigningrequests` |`csr`
-`clusterrolebindings` |
-`clusterroles` |
-`componentstatuses` |`cs`
-`configmaps` |`cm`
-`controllerrevisions` |
-`cronjobs` |
-`customresourcedefinition` |`crd`, `crds`
-`daemonsets` |`ds`
-`deployments` |`deploy`
-`endpoints` |`ep`
-`events` |`ev`
-`horizontalpodautoscalers` |`hpa`
-`ingresses` |`ing`
-`jobs` |
-`limitranges` |`limits`
-`namespaces` |`ns`
-`networkpolicies` |`netpol`
-`nodes` |`no`
-`persistentvolumeclaims` |`pvc`
-`persistentvolumes` |`pv`
-`poddisruptionbudgets` |`pdb`
-`podpreset` |
-`pods` |`po`
-`podsecuritypolicies` |`psp`
-`podtemplates` |
-`replicasets` |`rs`
-`replicationcontrollers` |`rc`
-`resourcequotas` |`quota`
-`rolebindings` |
-`roles` |
-`secrets` |
-`serviceaccount` |`sa`
-`services` |`svc`
-`statefulsets` |`sts`
-`storageclasses` |`sc`
+```console
+$ kubectl api-resources
+```
+
+Other operations for exploring API resources:
+
+```console
+$ kubectl api-resources --namespaced=true      # All namespaced resources
+$ kubectl api-resources --namespaced=false     # All non-namespaced resources
+$ kubectl api-resources -o name                # All resources with simple output (just the resource name)
+$ kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
+$ kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
+$ kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
+```
 
 ### Formatting output
 
