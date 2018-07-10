@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Dynamic Kubelet Configuration'
-date: 2018-07-10
+date: 2018-07-11
 ---
 
 **Author**: Michael Taufen (Google)
