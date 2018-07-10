@@ -1,74 +1,75 @@
 ---
 layout: blog
 title: "CoreDNS GA for Kubernetes Cluster DNS"
-date: 2018-07-08
+date: 2018-07-10
 ---
 
 **Author**: John Belamaric (Infoblox)
 
+**Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/) on what’s new in Kubernetes 1.11**
+
 ## Introduction
 
-In Kubernetes 1.11, [CoreDNS](https://coredns.io) has reached General Availability (GA) for DNS-based service discovery, as an alternative to the `kube-dns` addon. This means that CoreDNS will be offered as an option in upcoming versions of the various installation tools. In fact, the `kubeadm` team chose to make it the default option starting with Kubernetes 1.11.
+In Kubernetes 1.11, [CoreDNS](https://coredns.io) has reached General Availability (GA) for DNS-based service discovery, as an alternative to the kube-dns addon. This means that CoreDNS will be offered as an option in upcoming versions of the various installation tools. In fact, the kubeadm team chose to make it the default option starting with Kubernetes 1.11.
 
-DNS-based service discovery has been part of Kubernetes for a long time with the `kube-dns` cluster addon. This has generally worked pretty well, but there have been some concerns around the reliability, flexibility and security of the implementation.
+DNS-based service discovery has been part of Kubernetes for a long time with the kube-dns cluster addon. This has generally worked pretty well, but there have been some concerns around the reliability, flexibility and security of the implementation.
 
-CoreDNS is a general-purpose, authoritative DNS server that provides a backwards-compatible, but extensible integration with Kubernetes. It resolves the issues seen with `kube-dns`, and offers a number of unique features that solve a wider variety of use cases.
+CoreDNS is a general-purpose, authoritative DNS server that provides a backwards-compatible, but extensible, integration with Kubernetes. It resolves the issues seen with kube-dns, and offers a number of unique features that solve a wider variety of use cases.
 
-In this article, you will learn about the differences in the implementations of `kube-dns` and CoreDNS, and some of the helpful extensions offered by CoreDNS.
+In this article, you will learn about the differences in the implementations of kube-dns and CoreDNS, and some of the helpful extensions offered by CoreDNS.
 
 ## Implemenation differences
 
-In `kube-dns`, several containers are used within a single pod: `kubedns`, `dnsmasq`, and `sidecar`. The `kubedns`
-container watches the Kubernetes API and serves DNS records based on the [Kubernetes DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), while `dnsmasq` provides caching and stub domain support, and `sidecar` provides metrics and health checks.
+In kube-dns, several containers are used within a single pod: `kubedns`, `dnsmasq`, and `sidecar`. The `kubedns`
+container watches the Kubernetes API and serves DNS records based on the [Kubernetes DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), `dnsmasq` provides caching and stub domain support, and `sidecar` provides metrics and health checks.
 
-This setup leads to a few issues that have been seen over time. For one, since `dnsmasq` is written in C, it is not
-memory-safe. This means it is more prone to certain types of security vulnerabilities, and that has led to the need
+This setup leads to a few issues that have been seen over time. For one, security vulnerabilities in `dnsmasq` have led to the need
 for a security-patch release of Kubernetes in the past. Additionally, because `dnsmasq` handles the stub domains,
 but `kubedns` handles the External Services, you cannot use a stub domain in an external service, which is very
 limiting to that functionality (see [dns#131](https://github.com/kubernetes/dns/issues/131)).
 
 All of these functions are done in a single container in CoreDNS, which is running a process written in Go. The
-different plugins that are enabled replicate (and enhance) the functionality found in `kube-dns`.
+different plugins that are enabled replicate (and enhance) the functionality found in kube-dns.
 
 ## Configuring CoreDNS
 
-In `kube-dns`, you can [modify a ConfigMap](https://kubernetes.io/blog/2017/04/configuring-private-dns-zones-upstream-nameservers-kubernetes/) to change the behavior of your service discovery. This allows the addition of
+In kube-dns, you can [modify a ConfigMap](https://kubernetes.io/blog/2017/04/configuring-private-dns-zones-upstream-nameservers-kubernetes/) to change the behavior of your service discovery. This allows the addition of
 features such as serving stub domains, modifying upstream nameservers, and enabling federation.
 
 In CoreDNS, you similarly can modify the ConfigMap for the CoreDNS [Corefile](https://coredns.io/2017/07/23/corefile-explained/) to change how service discovery
-works. This Corefile configuration offers many more options than you will find in `kube-dns`, since it is the
+works. This Corefile configuration offers many more options than you will find in kube-dns, since it is the
 primary configuration file that CoreDNS uses for configuration of all of its features, even those that are not
 Kubernetes related.
 
-When upgrading from `kube-dns` to CoreDNS using `kubeadm`, your existing ConfigMap will be used to generate the
+When upgrading from kube-dns to CoreDNS using `kubeadm`, your existing ConfigMap will be used to generate the
 customized Corefile for you, including all of the configuration for stub domains, federation, and upstream nameservers. See [Using CoreDNS for Service Discovery](https://kubernetes.io/docs/tasks/administer-cluster/coredns/) for more details.
 
 
 ## Bug fixes and enhancements
 
-There are several open issues with `kube-dns` that are resolved in CoreDNS, including:
+There are several open issues with kube-dns that are resolved in CoreDNS, either in default configuration or with some customized configurations.
 
-  * [dns#55 - Custom DNS entries for kube-dns](https://github.com/kubernetes/dns/issues/55)
-  * [dns#116 - Only one A record set for headless service with pods having single hostname.](https://github.com/kubernetes/dns/issues/116)
-  * [dns#131 - externalName not using stubDomains settings](https://github.com/kubernetes/dns/issues/131)
-  * [dns#167 - enable skyDNS round robin A/AAAA records](https://github.com/kubernetes/dns/issues/167)
-  * [dns#190 - kube-dns cannot run as non-root user](https://github.com/kubernetes/dns/issues/190)
-  * [dns#232 - fix pod hostname to be podname for dns srv records](https://github.com/kubernetes/dns/issues/232)
+  * [dns#55 - Custom DNS entries for kube-dns](https://github.com/kubernetes/dns/issues/55) may be handled using the "fallthrough" mechanism in the [kubernetes plugin](https://coredns.io/plugins/kubernetes), using the [rewrite plugin](https://coredns.io/plugins/rewrite), or simply serving a subzone with a different plugin such as the [file plugin](https://coredns.io/plugins/file).
 
-Most future bug fixes related to DNS will likely appear in CoreDNS before `kube-dns`.
+  * [dns#116 - Only one A record set for headless service with pods having single hostname](https://github.com/kubernetes/dns/issues/116). This issue is fixed without any additional configuration.
+  * [dns#131 - externalName not using stubDomains settings](https://github.com/kubernetes/dns/issues/131). This issue is fixed without any additional configuration.
+  * [dns#167 - enable skyDNS round robin A/AAAA records](https://github.com/kubernetes/dns/issues/167). The equivalent functionality can be configured using the [load balance plugin](https://coredns.io/plugins/loadbalance).
+  * [dns#190 - kube-dns cannot run as non-root user](https://github.com/kubernetes/dns/issues/190). This issue is solved today by using a non-default image, but it will be made the default CoreDNS behavior in a future release.
+  * [dns#232 - fix pod hostname to be podname for dns srv records](https://github.com/kubernetes/dns/issues/232) is an enhancement that is supported through the "endpoint_pod_names" feature described below.
+
 
 ## Metrics
 
-The functional behavior of the default CoreDNS configuration is the same as `kube-dns`. However,
-one difference you need to be aware of is that the published metrics are not the same. In `kube-dns`,
-you get separate metrics for `dnsmasq` and `kube-dns` (skydns). In CoreDNS there is a completely
+The functional behavior of the default CoreDNS configuration is the same as kube-dns. However,
+one difference you need to be aware of is that the published metrics are not the same. In kube-dns,
+you get separate metrics for `dnsmasq` and `kubedns` (skydns). In CoreDNS there is a completely
 different set of metrics, since it is all a single process. You can find more details on these
 metrics on the CoreDNS [Prometheus plugin](https://coredns.io/plugins/metrics/) page.
 
 ## Some special features
 
 The standard CoreDNS Kubernetes configuration is designed to be backwards compatible with the prior
-`kube-dns` behavior. But with some configuration changes, CoreDNS can allow you to modify how the
+kube-dns behavior. But with some configuration changes, CoreDNS can allow you to modify how the
 DNS service discovery works in your cluster. A number of these features are intended to still be
 compliant with the [Kubernetes DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md);
 they enhance functionality but remain backward compatible. Since CoreDNS is not
@@ -77,14 +78,14 @@ can do beyond that specification.
 
 ### Pods verified mode
 
-In `kube-dns`, pod name records are "fake". That is, any `a-b-c-d.namespace.pod.cluster.local` query will
-return the IP address `a.b.c.d`. In some cases, this can weaken the identity guarantees offered by TLS. So,
-CoreDNS offers a `pods verified` mode, which will only return the IP address if there is a pod in the
+In kube-dns, pod name records are "fake". That is, any "a-b-c-d.namespace.pod.cluster.local" query will
+return the IP address "a.b.c.d". In some cases, this can weaken the identity guarantees offered by TLS. So,
+CoreDNS offers a "pods verified" mode, which will only return the IP address if there is a pod in the
 specified namespace with that IP address.
 
 ### Endpoint names based on pod names
 
-In `kube-dns`, when using a headless service, you can use an `SRV` request to get a list of
+In kube-dns, when using a headless service, you can use an SRV request to get a list of
 all endpoints for the service:
 
 ```
@@ -107,7 +108,7 @@ headless.default.svc.cluster.local has SRV record 0 25 443 172-17-0-9.headless.d
 ```
 
 For some applications, it is desirable to have the pod name for this, rather than the pod IP
-address (see for example [kubernetes#47992](https://github.com/kubernetes/kubernetes/issues/47992) and [coredns#1190](https://github.com/coredns/coredns/pull/1190)). To enable this in CoreDNS, you specify the `endpoint_pod_names` option in your Corefile, which results in this:
+address (see for example [kubernetes#47992](https://github.com/kubernetes/kubernetes/issues/47992) and [coredns#1190](https://github.com/coredns/coredns/pull/1190)). To enable this in CoreDNS, you specify the "endpoint_pod_names" option in your Corefile, which results in this:
 
 ```
 dnstools# host -t srv headless
@@ -121,15 +122,15 @@ headless.default.svc.cluster.local has SRV record 0 25 443 headless-65bb4c479f-5
 
 CoreDNS also has a special feature to improve latency in DNS requests for external names. In Kubernetes, the
 DNS search path for pods specifies a long list of suffixes. This enables the use of short names when requesting
-services in the cluster - for example, `headless` above, rather than `headless.default.svc.cluster.local`. However,
-when requesting an external name  - `infoblox.com`, for example - several invalid DNS queries are made by the client,
-requiring a roundtrip from the client to `kube-dns` each time (actually to `dnsmasq` and then to `kube-dns`, since [negative caching is disabled](https://github.com/kubernetes/dns/issues/121)):
+services in the cluster - for example, "headless" above, rather than "headless.default.svc.cluster.local". However,
+when requesting an external name  - "infoblox.com", for example - several invalid DNS queries are made by the client,
+requiring a roundtrip from the client to kube-dns each time (actually to `dnsmasq` and then to `kubedns`, since [negative caching is disabled](https://github.com/kubernetes/dns/issues/121)):
 
-  * `infoblox.com.default.svc.cluster.local` -> `NXDOMAIN`
-  * `infoblox.com.svc.cluster.local` -> `NXDOMAIN`
-  * `infoblox.com.cluster.local` -> `NXDOMAIN`
-  * `infoblox.com.your-internal-domain.com` -> `NXDOMAIN`
-  * `infoblox.com` -> returns a valid record
+  * infoblox.com.default.svc.cluster.local -> NXDOMAIN
+  * infoblox.com.svc.cluster.local -> NXDOMAIN
+  * infoblox.com.cluster.local -> NXDOMAIN
+  * infoblox.com.your-internal-domain.com -> NXDOMAIN
+  * infoblox.com -> returns a valid record
 
 In CoreDNS, an optional feature called [autopath](https://coredns.io/plugins/autopath) can be enabled that will cause this search path to be followed
 *in the server*. That is, CoreDNS will figure out from the source IP address which namespace the client pod is in,
@@ -159,7 +160,7 @@ the upcoming integration with policy engines will allow CoreDNS to make intellig
 to return when a headless service is requested. This could be used to route traffic to a local pod, or
 to a more responsive pod. Many other features are in development, and of course as an open source project, we welcome you to suggest and contribute your own features!
 
-The features and differences described above are just a sampling. There is much more you can do with CoreDNS.
+The features and differences described above are a few examples. There is much more you can do with CoreDNS.
 You can find out more on the [CoreDNS Blog](https://coredns.io/blog).
 
 ### Get involved with CoreDNS
