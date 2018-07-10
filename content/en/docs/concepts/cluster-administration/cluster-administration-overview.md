@@ -32,8 +32,6 @@ Before choosing a guide, here are some considerations:
 
 Note: Not all distros are actively maintained. Choose distros which have been tested with a recent version of Kubernetes.
 
-If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/admin/salt/).
-
 ## Managing a cluster
 
 * [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
