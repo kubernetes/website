@@ -370,6 +370,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-app":          {&api.Service{}, &extensions.Deployment{}},
 			"nginx-with-request": {&extensions.Deployment{}},
 			"shell-demo":         {&api.Pod{}},
+			"simple_deployment": {&extensions.Deployment{}},
+			"update_deployment": {&extensions.Deployment{}},
 		},
 		"examples/application/cassandra": {
 			"cassandra-service":     {&api.Service{}},
@@ -531,6 +533,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"frontend":      {&api.Service{}, &extensions.Deployment{}},
 			"hello-service": {&api.Service{}},
 			"hello":         {&extensions.Deployment{}},
+		},
+		"examples/service/networking": {
+			"curlpod":          {&extensions.Deployment{}},
+			"custom-dns":       {&api.Pod{}},
+			"hostaliases-pod":  {&api.Pod{}},
+			"ingress":          {&extensions.Ingress{}},
+			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
+			"nginx-svc":        {&api.Service{}},
+			"run-my-nginx":     {&extensions.Deployment{}},
 		},
 		"examples/windows": {
 			"configmap-pod":       {&api.ConfigMap{}, &api.Pod{}},
