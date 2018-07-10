@@ -11,26 +11,21 @@ content_template: templates/user-journey-content
 
 ### Cluster
 
-A _cluster_ is the foundation of Kubernetes Engine: the Kubernetes objects that represent your containerized applications all run on top of a cluster. A cluster comprises:
-
-* a unified endpoint that runs the Kubernetes control plane processes, including the Kubernetes API server, scheduler, and core resource controllers.
-* a node (or a group of nodes) where applications or cloud workloads are scheduled.
-
+A _cluster_ is the foundation of Kubernetes Engine: the Kubernetes objects that represent your containerized applications all run on top of a cluster. A cluster comprises a control plane and nodes.
 
 ### Node
 
-A _node_ is a virtual or a physical machine that hosts the kubelet, kubeproxy, and container runtime. A node runs the services necessary to support the containers that make up a cluster's workloads.
+A _node_ is a virtual or a physical machine that hosts the kubelet, kubeproxy, and container runtime. Containers run on a node. A node runs the services necessary to support the containers that make up a cluster's workloads.
 
 
 ### Kubelet
 
-A _Kubelet_ is a service present on each node responsible for monitoring the node and relaying the distribution of pods to its container engine. Kubelet checks that all containers and their pods are running. Kubelets communicate with the container engine to instantiate the container.
+A _kubelet_ is an implementation present on each node responsible for monitoring the node and relaying the distribution of pods to its container runtime. Kubelet verifies that all the containers and pods are running. Kubelets communicate with the container runtime to instantiate the container.
 
-When the controller assigns tasks to a pod, it is the kubelet that directs the pod to run these jobs.
-Kubelets talk to the container engine to instantiate the container.
-1:1 relationship between kubelet and node.
+When the controller assigns pods to a node, it is the kubelet that directs the pod to run these jobs.
+
 
 
 #### Pod
 
-_Pods_ are the only schedulable unit in the Kubernetes environment that you can create and deploy. A Pod is a set of one or more containers that are run together in the container engine and local network. Pods always run on a node.
+A _pod_ is the lowest level unit for scheduling jobs on Kubernetes. A pod comprises a set of one or more containers that run together on the same node.
