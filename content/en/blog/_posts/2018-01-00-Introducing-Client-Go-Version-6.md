@@ -89,7 +89,7 @@ Note that with [Admission Webhooks](https://kubernetes.io/docs/reference/access-
 
 
 ## Creating namespaced informers
-Often objects in one namespace or only with certain labels are to be processed in a controller. Informers [now allow](https://github.com/kubernetes/kubernetes/pull/54660) you to tweak the ListOptions used to query the API server to list and watch objects. Uninitialized objects (for consumption by [initializers](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#initializers)) can be made visible by setting IncludeUnitialized to true. All this can be done using the new NewFilteredSharedInformerFactory constructor for shared informers:  
+Often objects in one namespace or only with certain labels are to be processed in a controller. Informers [now allow](https://github.com/kubernetes/kubernetes/pull/54660) you to tweak the ListOptions used to query the API server to list and watch objects. Uninitialized objects (for consumption by [initializers](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-initializers)) can be made visible by setting IncludeUnitialized to true. All this can be done using the new NewFilteredSharedInformerFactory constructor for shared informers:  
 
 ```
 
