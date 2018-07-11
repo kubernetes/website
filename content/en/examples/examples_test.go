@@ -56,7 +56,6 @@ import (
 	storage_validation "k8s.io/kubernetes/pkg/apis/storage/validation"
 	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
-	schedulerapilatest "k8s.io/kubernetes/pkg/scheduler/api/latest"
 )
 
 func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
@@ -237,7 +236,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 
 // Walks inDir for any json/yaml files. Converts yaml to json, and calls fn for
 // each file found with the contents in data.
-func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) error {
+func walkConfigFiles(inDir string, t *testing.T, fn func(name, path string, data [][]byte)) error {
 	return filepath.Walk(inDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -249,7 +248,6 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 
 		file := filepath.Base(path)
 		if ext := filepath.Ext(file); ext == ".json" || ext == ".yaml" {
-			//glog.Infof("Testing %s", path)
 			data, err := ioutil.ReadFile(path)
 			if err != nil {
 				return err
@@ -285,6 +283,7 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 				docs = append(docs, data)
 			}
 
+			t.Logf("Checking file %s\n", name)
 			fn(name, path, docs)
 		}
 		return nil
@@ -294,41 +293,25 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 func TestExampleObjectSchemas(t *testing.T) {
 	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
-		"docs/concepts/overview/working-with-objects": {
-			"nginx-deployment": {&extensions.Deployment{}},
-		},
-		"docs/concepts/services-networking": {
-			"curlpod":          {&extensions.Deployment{}},
-			"custom-dns":       {&api.Pod{}},
-			"hostaliases-pod":  {&api.Pod{}},
-			"ingress":          {&extensions.Ingress{}},
-			"nginx-secure-app": {&api.Service{}, &extensions.Deployment{}},
-			"nginx-svc":        {&api.Service{}},
-			"run-my-nginx":     {&extensions.Deployment{}},
-		},
-		"docs/concepts/overview/object-management-kubectl": {
-			"simple_deployment": {&extensions.Deployment{}},
-			"update_deployment": {&extensions.Deployment{}},
-		},
-		"examples/admin": {
+		"admin": {
 			"namespace-dev":  {&api.Namespace{}},
 			"namespace-prod": {&api.Namespace{}},
 		},
-		"examples/admin/cloud": {
+		"admin/cloud": {
 			"ccm-example":            {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
 			"pvl-initializer-config": {&admissionregistration.InitializerConfiguration{}},
 		},
-		"examples/admin/dns": {
+		"admin/dns": {
 			"busybox":                   {&api.Pod{}},
 			"dns-horizontal-autoscaler": {&extensions.Deployment{}},
 		},
-		"examples/admin/logging": {
+		"admin/logging": {
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"two-files-counter-pod":                   {&api.Pod{}},
 			"two-files-counter-pod-agent-sidecar":     {&api.Pod{}},
 			"two-files-counter-pod-streaming-sidecar": {&api.Pod{}},
 		},
-		"examples/admin/resource": {
+		"admin/resource": {
 			"cpu-constraints":          {&api.LimitRange{}},
 			"cpu-constraints-pod":      {&api.Pod{}},
 			"cpu-constraints-pod-2":    {&api.Pod{}},
@@ -356,13 +339,13 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"quota-pod":                {&api.ResourceQuota{}},
 			"quota-pod-deployment":     {&extensions.Deployment{}},
 		},
-		"examples/admin/sched": {
+		"admin/sched": {
 			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
 		},
-		"examples/application": {
+		"application": {
 			"deployment":         {&extensions.Deployment{}},
 			"deployment-patch":   {&extensions.Deployment{}},
 			"deployment-scale":   {&extensions.Deployment{}},
@@ -370,14 +353,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-app":          {&api.Service{}, &extensions.Deployment{}},
 			"nginx-with-request": {&extensions.Deployment{}},
 			"shell-demo":         {&api.Pod{}},
-			"simple_deployment": {&extensions.Deployment{}},
-			"update_deployment": {&extensions.Deployment{}},
+			"simple_deployment":  {&extensions.Deployment{}},
+			"update_deployment":  {&extensions.Deployment{}},
 		},
-		"examples/application/cassandra": {
+		"application/cassandra": {
 			"cassandra-service":     {&api.Service{}},
 			"cassandra-statefulset": {&apps.StatefulSet{}, &storage.StorageClass{}},
 		},
-		"examples/application/guestbook": {
+		"application/guestbook": {
 			"frontend-deployment":     {&extensions.Deployment{}},
 			"frontend-service":        {&api.Service{}},
 			"redis-master-deployment": {&extensions.Deployment{}},
@@ -385,44 +368,44 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-slave-deployment":  {&extensions.Deployment{}},
 			"redis-slave-service":     {&api.Service{}},
 		},
-		"examples/application/hpa": {
+		"application/hpa": {
 			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
 		},
-		"examples/application/nginx": {
+		"application/nginx": {
 			"nginx-deployment": {&extensions.Deployment{}},
 			"nginx-svc":        {&api.Service{}},
 		},
-		"examples/application/job": {
+		"application/job": {
 			"cronjob":  {&batch.CronJob{}},
 			"job-tmpl": {&batch.Job{}},
 		},
-		"examples/application/job/rabbitmq": {
+		"application/job/rabbitmq": {
 			"job": {&batch.Job{}},
 		},
-		"examples/application/job/redis": {
+		"application/job/redis": {
 			"job":           {&batch.Job{}},
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
 		},
-		"examples/application/mysql": {
+		"application/mysql": {
 			"mysql-configmap":   {&api.ConfigMap{}},
 			"mysql-deployment":  {&api.Service{}, &extensions.Deployment{}},
 			"mysql-pv":          {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
 			"mysql-services":    {&api.Service{}, &api.Service{}},
 			"mysql-statefulset": {&apps.StatefulSet{}},
 		},
-		"examples/application/web": {
+		"application/web": {
 			"web":          {&api.Service{}, &apps.StatefulSet{}},
 			"web-parallel": {&api.Service{}, &apps.StatefulSet{}},
 		},
-		"examples/application/wordpress": {
+		"application/wordpress": {
 			"mysql-deployment":     {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 			"wordpress-deployment": {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 		},
-		"examples/application/zookeeper": {
+		"application/zookeeper": {
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
-		"examples/controllers": {
+		"controllers": {
 			"daemonset":        {&extensions.DaemonSet{}},
 			"frontend":         {&extensions.ReplicaSet{}},
 			"hpa-rs":           {&autoscaling.HorizontalPodAutoscaler{}},
@@ -431,7 +414,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"replication":      {&api.ReplicationController{}},
 			"nginx-deployment": {&extensions.Deployment{}},
 		},
-		"examples/debug": {
+		"debug": {
 			"counter-pod":                     {&api.Pod{}},
 			"event-exporter":                  {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.Deployment{}},
 			"fluentd-gcp-configmap":           {&api.ConfigMap{}},
@@ -440,13 +423,13 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"node-problem-detector-configmap": {&extensions.DaemonSet{}},
 			"termination":                     {&api.Pod{}},
 		},
-		"examples/federation": {
+		"federation": {
 			"policy-engine-deployment":    {&extensions.Deployment{}},
 			"policy-engine-service":       {&api.Service{}},
 			"replicaset-example-policy":   {&extensions.ReplicaSet{}},
 			"scheduling-policy-admission": {&api.ConfigMap{}},
 		},
-		"examples/podpreset": {
+		"podpreset": {
 			"allow-db":          {&settings.PodPreset{}},
 			"allow-db-merged":   {&api.Pod{}},
 			"configmap":         {&api.ConfigMap{}},
@@ -460,7 +443,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"replicaset-merged": {&api.Pod{}},
 			"replicaset":        {&extensions.ReplicaSet{}},
 		},
-		"examples/pods": {
+		"pods": {
 			"commands":                {&api.Pod{}},
 			"init-containers":         {&api.Pod{}},
 			"lifecycle-events":        {&api.Pod{}},
@@ -472,10 +455,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"simple-pod":              {&api.Pod{}},
 			"two-container-pod":       {&api.Pod{}},
 		},
-		"examples/pods/config": {
+		"pods/config": {
 			"redis-pod": {&api.Pod{}},
 		},
-		"examples/pods/inject": {
+		"pods/inject": {
 			"dapi-envars-container": {&api.Pod{}},
 			"dapi-envars-pod":       {&api.Pod{}},
 			"dapi-volume":           {&api.Pod{}},
@@ -485,20 +468,20 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-envars-pod":     {&api.Pod{}},
 			"secret-pod":            {&api.Pod{}},
 		},
-		"examples/pods/probe": {
+		"pods/probe": {
 			"exec-liveness":                   {&api.Pod{}},
 			"http-liveness":                   {&api.Pod{}},
 			"pod-with-http-healthcheck":       {&api.Pod{}},
 			"pod-with-tcp-socket-healthcheck": {&api.Pod{}},
 			"tcp-liveness-readiness":          {&api.Pod{}},
 		},
-		"examples/pods/qos": {
+		"pods/qos": {
 			"qos-pod":   {&api.Pod{}},
 			"qos-pod-2": {&api.Pod{}},
 			"qos-pod-3": {&api.Pod{}},
 			"qos-pod-4": {&api.Pod{}},
 		},
-		"examples/pods/resource": {
+		"pods/resource": {
 			"cpu-request-limit":       {&api.Pod{}},
 			"cpu-request-limit-2":     {&api.Pod{}},
 			"extended-resource-pod":   {&api.Pod{}},
@@ -507,34 +490,34 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"memory-request-limit-2":  {&api.Pod{}},
 			"memory-request-limit-3":  {&api.Pod{}},
 		},
-		"examples/pods/security": {
+		"pods/security": {
 			"hello-apparmor":     {&api.Pod{}},
 			"security-context":   {&api.Pod{}},
 			"security-context-2": {&api.Pod{}},
 			"security-context-3": {&api.Pod{}},
 			"security-context-4": {&api.Pod{}},
 		},
-		"examples/pods/storage": {
+		"pods/storage": {
 			"projected": {&api.Pod{}},
 			"pv-claim":  {&api.PersistentVolumeClaim{}},
 			"pv-pod":    {&api.Pod{}},
 			"pv-volume": {&api.PersistentVolume{}},
 			"redis":     {&api.Pod{}},
 		},
-		"examples/policy": {
+		"policy": {
 			"privileged-psp": {&policy.PodSecurityPolicy{}},
 			"restricted-psp": {&policy.PodSecurityPolicy{}},
 			"example-psp":    {&policy.PodSecurityPolicy{}},
 		},
-		"examples/service": {
+		"service": {
 			"nginx-service": {&api.Service{}},
 		},
-		"examples/service/access": {
+		"service/access": {
 			"frontend":      {&api.Service{}, &extensions.Deployment{}},
 			"hello-service": {&api.Service{}},
 			"hello":         {&extensions.Deployment{}},
 		},
-		"examples/service/networking": {
+		"service/networking": {
 			"curlpod":          {&extensions.Deployment{}},
 			"custom-dns":       {&api.Pod{}},
 			"hostaliases-pod":  {&api.Pod{}},
@@ -543,7 +526,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-svc":        {&api.Service{}},
 			"run-my-nginx":     {&extensions.Deployment{}},
 		},
-		"examples/windows": {
+		"windows": {
 			"configmap-pod":       {&api.ConfigMap{}, &api.Pod{}},
 			"daemonset":           {&extensions.DaemonSet{}},
 			"deploy-hyperv":       {&extensions.Deployment{}},
@@ -557,7 +540,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 
 	// Note a key in the following map has to be complete relative path
 	filesIgnore := map[string]map[string]bool{
-		"../content/en/examples/audit": {
+		"audit": {
 			"audit-policy": true,
 		},
 	}
@@ -567,12 +550,21 @@ func TestExampleObjectSchemas(t *testing.T) {
 	// PodShareProcessNamespace needed for example share-process-namespace.yaml
 	utilfeature.DefaultFeatureGate.Set("PodShareProcessNamespace=true")
 
-	rootpath := "../content/en/"
 	for dir, expected := range cases {
 		tested := 0
 		numExpected := 0
-		path := rootpath + dir
-		err := walkConfigFiles(path, func(name, path string, docs [][]byte) {
+		path := dir
+		// Test if artifacts do exist
+		for name := range expected {
+			fn := path + "/" + name
+			_, err1 := os.Stat(fn + ".yaml")
+			_, err2 := os.Stat(fn + ".json")
+			if err1 != nil && err2 != nil {
+				t.Errorf("Test case defined for non-existent file %s", fn)
+			}
+		}
+		t.Logf("Checking path %s/\n", path)
+		err := walkConfigFiles(path, t, func(name, path string, docs [][]byte) {
 			expectedTypes, found := expected[name]
 			if !found {
 				p := filepath.Dir(path)
@@ -596,26 +588,17 @@ func TestExampleObjectSchemas(t *testing.T) {
 					t.Logf("skipping : %s/%s\n", path, name)
 					return
 				}
-				if strings.Contains(name, "scheduler-policy-config") {
-					if err := runtime.DecodeInto(schedulerapilatest.Codec, data, expectedType); err != nil {
-						t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(data))
-						return
-					}
-					// TODO: Add validate method for
-					// &schedulerapi.Policy, and remove this
-					// special case
-				} else {
-					codec, err := getCodecForObject(expectedType)
-					if err != nil {
-						t.Errorf("Could not get codec for %s: %s", expectedType, err)
-					}
-					if err := runtime.DecodeInto(codec, data, expectedType); err != nil {
-						t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(data))
-						return
-					}
-					if errors := validateObject(expectedType); len(errors) > 0 {
-						t.Errorf("%s did not validate correctly: %v", path, errors)
-					}
+
+				codec, err := getCodecForObject(expectedType)
+				if err != nil {
+					t.Errorf("Could not get codec for %s: %s", expectedType, err)
+				}
+				if err := runtime.DecodeInto(codec, data, expectedType); err != nil {
+					t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(data))
+					return
+				}
+				if errors := validateObject(expectedType); len(errors) > 0 {
+					t.Errorf("%s did not validate correctly: %v", path, errors)
 				}
 			}
 		})
