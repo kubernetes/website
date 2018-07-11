@@ -58,10 +58,10 @@ You can also install 1.11 using Kubeadm. Version 1.11.0 will be available as Deb
 If you’re interested in exploring these features more in depth, check back in two weeks for our 5 Days of Kubernetes series where we’ll highlight detailed walkthroughs of the following features:
 
 * Day 1: [IPVS-Based In-Cluster Service Load Balancing Graduates to General Availability](/blog/2018/07/09/ipvs-based-in-cluster-load-balancing-deep-dive/)
-* Day 2: CoreDNS Promoted to General Availability
-* Day 3: Dynamic Kubelet Configuration Moves to Beta
-* Day 4: Custom Resource Definitions Can Now Define Multiple Versions
-* Day 5: Overview of CSI Enhancements
+* Day 2: [CoreDNS Promoted to General Availability](/blog/2018/07/10/coredns-ga-for-kubernetes-cluster-dns/)
+* Day 3: [Dynamic Kubelet Configuration Moves to Beta](/blog/2018/07/11/dynamic-kubelet-configuration/)
+* Day 4: [Resizing Persistent Volumes using Kubernetes](/blog/2018/07/11/resizing-persistent-volumes-using-kubernetes/)
+* Day 5: Custom Resource Definitions Can Now Define Multiple Versions
 
 ## Release team
 
