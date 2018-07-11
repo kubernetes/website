@@ -122,7 +122,7 @@ secrets:
 
 then you will see that a token has automatically been created and is referenced by the service account.
 
-You may use authorization plugins to [set permissions on service accounts](docs/reference/access-authn-authz/authorization/).
+You may use authorization plugins to [set permissions on service accounts](docs/reference/access-authn-authz/authorization/#service-account-permissions).
 
 To use a non-default service account, simply set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.
