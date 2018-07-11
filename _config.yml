@@ -48,11 +48,6 @@ defaults:
           githubbranch: "v1.7.3"
           docsbranch: "release-1.7"
           url: https://v1-7.docs.kubernetes.io/docs/home/
-        - fullversion: "v1.6.8"
-          version: "v1.6"
-          githubbranch: "v1.6.8"
-          docsbranch: "release-1.6"
-          url: https://v1-6.docs.kubernetes.io/docs/home/
       deprecated: true
       currentUrl: https://kubernetes.io/docs/home/
       nextUrl: http://kubernetes-io-vnext-staging.netlify.com/
