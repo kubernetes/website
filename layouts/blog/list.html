@@ -1,8 +1,23 @@
 {{ define "main" }}
-	{{ range (.Paginator 1).Pages }}
-	{{ .Render "post" }}
+{{ $pages := ($.Paginator 1).Pages }}
+{{ $.Scratch.Set "pages" $pages }}
+{{ with $.Site.Params.language_alternatives }}
+	{{ if ge (len .) 0 }}
+		{{ $.Scratch.Set "page_lists" (slice $pages) }}
+		{{ range . }}
+		{{ with (where $.Translations ".Lang" . ) }}
+		{{ $p := index . 0 }}
+		{{ $.Scratch.Add "page_lists" (slice (($p.Paginator 1).Pages)) }}
+		{{ end }}
+		{{ end }}
+		{{ partial "lang/alternatives-merge" (dict "ctx" $ "from" "page_lists" "to" "pages") }}
 	{{ end }}
-	<div class="PageNavigation">
+{{ end }}
+{{ $pages := $.Scratch.Get "pages"}}
+{{ range $pages }}
+{{ .Render "post" }}
+{{ end }}
+<div class="PageNavigation">
 	{{ template "_internal/pagination.html" . }}
-	</div>
+</div>
 {{ end }}
