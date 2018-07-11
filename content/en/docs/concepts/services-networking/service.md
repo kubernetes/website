@@ -465,9 +465,7 @@ cloud provider does not support the feature, the field will be ignored.
 
 **Special notes for Azure**: To use user-specified public type `loadBalancerIP`, a static type
 public IP address resource needs to be created first, and it should be in the same resource
-group of the other automatically created resources of the cluster (something like `MC_myResourceGroup_myAKSCluster_eastus
-`). Specify the assigned IP address as loadBalancerIP. Verify you have 
-securityGroupName in the cloud provider configuration file. If you have `CreatingLoadBalancerFailed` permission issues, check [these docs](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [this workaround](https://github.com/Azure/AKS/issues/357). 
+group of the other automatically created resources of the cluster. For example, `MC_myResourceGroup_myAKSCluster_eastus`. Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the securityGroupName in the cloud provider configuration file. For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see, [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
 
 #### Internal load balancer
 In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
