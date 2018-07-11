@@ -23,7 +23,7 @@ by Kubernetes, and normal users.
 Normal users are assumed to be managed by an outside, independent service. An
 admin distributing private keys, a user store like Keystone or Google Accounts,
 even a file with a list of usernames and passwords. In this regard, _Kubernetes
-does not have objects which represent normal user accounts._ Regular users
+does not have objects which represent normal user accounts._ Normal users
 cannot be added to a cluster through an API call.
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
@@ -400,12 +400,12 @@ kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo
 
 Webhook authentication is a hook for verifying bearer tokens.
 
-* `--authentication-token-webhook-config-file` a kubeconfig file describing how to access the remote webhook service.
+* `--authentication-token-webhook-config-file` a configuration file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
 
 The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-file format. Within the file `users` refers to the API server webhook and
-`clusters` refers to the remote service. An example would be:
+file format. Within the file, `clusters` refers to the remote service and
+`users` refers to the API server webhook. An example would be:
 
 ```yaml
 # clusters refers to the remote service.
