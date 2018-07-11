@@ -2,7 +2,7 @@
   <channel>
     <title>{{ .Site.Title }} – {{ .Title }}</title>
     <link>{{ .Permalink }}</link>
-    <description>The blog of the Kubernetes project</description>
+    <description>The Kubernetes project blog</description>
     <generator>Hugo -- gohugo.io</generator>{{ with .Site.LanguageCode }}
     <language>{{.}}</language>{{end}}{{ with .Site.Author.email }}
     <managingEditor>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Author.email }}
