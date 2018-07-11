@@ -24,11 +24,16 @@ defaults:
       githubbranch: "master"
       docsbranch: "master"
       versions:
+        - fullversion: "v1.10.0"
+          version: "v1.10"
+          githubbranch: "v1.10.0"
+          docsbranch: "release-1.10"
+          url: https://kubernetes.io
         - fullversion: "v1.9.0"
           version: "v1.9"
           githubbranch: "v1.9.0"
           docsbranch: "release-1.9"
-          url: https://kubernetes.io
+          url: https://v1-9.docs.kubernetes.io
         - fullversion: "v1.8.4"
           version: "v1.8"
           githubbranch: "v1.8.4"
@@ -44,11 +49,6 @@ defaults:
           githubbranch: "v1.6.8"
           docsbranch: "release-1.6"
           url: https://v1-6.docs.kubernetes.io
-        - fullversion: "v1.5.7"
-          version: "v1.5"
-          githubbranch: "v1.5.7"
-          docsbranch: "release-1.5"
-          url: https://v1-5.docs.kubernetes.io
       deprecated: true
       currentUrl: https://kubernetes.io/docs/home/
       nextUrl: http://kubernetes-io-vnext-staging.netlify.com/
