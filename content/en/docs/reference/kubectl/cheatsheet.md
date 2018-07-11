@@ -5,17 +5,34 @@ reviewers:
 - erictune
 - krousey
 - clove
+content_template: templates/concept
+toc_hide: false
 ---
+
+{{% capture overview %}}
 
 See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath).
 
+This page is an overview of the `kubectl` command.
+
+{{% /capture %}}
+
+{{% capture body %}}
+
+# kubectl - Cheat Sheet
+
 ## Kubectl Autocomplete
 
+### BASH
+
 ```bash
-# BASH
 source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
-# ZSH
+```
+
+### ZSH
+
+```bash
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
 echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
@@ -317,3 +334,15 @@ Verbosity | Description
 `--v=7` | Display HTTP request headers.
 `--v=8` | Display HTTP request contents.
 `--v=9` | Display HTTP request contents without truncation of contents.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+* Learn more about [Overview of kubectl](/docs/reference/kubectl/overview/).
+
+* See [kubectl](/docs/reference/kubectl/kubectl/) options.
+
+* Also [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use it in reusable scripts.
+
+{{% /capture %}}
