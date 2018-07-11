@@ -85,6 +85,7 @@ aliases:
     - bradamant3
     - bradtopol
     - chenopis
+    - kbarnard10
     - mistyhacks
     - rajakavitha1
     - ryanmcginnis
@@ -93,6 +94,7 @@ aliases:
     - xiangpengzhao
     - zacharysarah
     - zhangxiaoyu-zidif
+    - zparnold
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
