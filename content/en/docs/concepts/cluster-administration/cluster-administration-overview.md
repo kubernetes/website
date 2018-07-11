@@ -50,7 +50,7 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 * [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/) describes how to set up permissions for users and service accounts.
 
-* [Authenticating](/docs/admin/authentication/) explains authentication in Kubernetes, including the various authentication options.
+* [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
 
 * [Authorization](/docs/admin/authorization/) is separate from authentication, and controls how HTTP calls are handled.
 
