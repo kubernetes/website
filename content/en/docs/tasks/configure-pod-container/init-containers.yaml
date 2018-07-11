@@ -23,7 +23,6 @@ spec:
     volumeMounts:
     - name: workdir
       mountPath: "/work-dir"
-  dnsPolicy: ClusterFirst
   volumes:
   - name: workdir
     emptyDir: {}
