@@ -1,0 +1,21 @@
+backend:
+  name: git-gateway
+
+publish_mode: editorial_workflow
+media_folder: static/images
+public_folder: /images
+
+collections:
+- name: docs-home
+  label: Docs home
+  files:
+  - file: content/en/docs/_index.md
+
+- name: docs
+  label: Docs
+  folder: content/en/docs
+  fields:
+  - {label: "Title", name: "title", widget: "string"}
+  - {label: "Content template", name: "content_template", widget: "string", required: false}
+  - {label: "Weight", name: "weight", widget: "text", required: false}
+  - {label: "Body", name: "body", widget: "markdown"}
