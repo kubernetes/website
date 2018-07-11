@@ -52,7 +52,7 @@ content_template: templates/concept
 * [控制到 Kubernetes API 的访问](/docs/admin/accessing-the-api) 描述了如何为用户和 service accounts 建立权限许可.
 
 
-*  [用户认证](/docs/reference/access-authn-authz/authentication/) 阐述了 Kubernetes 中的认证功能，包括许多认证选项。
+*  [用户认证](/docs/admin/authentication) 阐述了 Kubernetes 中的认证功能，包括许多认证选项。
 
 
 *  [授权](/docs/admin/authorization)从认证中分离出来，用于控制如何处理 HTTP 请求。

@@ -60,7 +60,7 @@ Kubernetes 有时会使用专门的动词检查授权以获得额外的权限。
 
 * [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)在`extensions` API组中的`podsecuritypolicies`资源上检查`use`动词的授权。
 * [RBAC](/docs/admin/authorization/rbac/#privilege-escalation-prevention-and-bootstrapping) 在`rbac.authorization.k8s.io` API组中的`roles`和`clusterroles`资源上检查`bind`动词的授权。
-* [认证](/docs/reference/access-authn-authz/authentication/) 在核心API组中的`users`，`groups`和`serviceaccounts`上的`impersonate`动词的授权以及`authentication.k8s.io` API组中的`userextras`进行层次检查。
+* [认证](/docs/admin/authentication/) 在核心API组中的`users`，`groups`和`serviceaccounts`上的`impersonate`动词的授权以及`authentication.k8s.io` API组中的`userextras`进行层次检查。
 
 ## 授权模块
 * **ABAC模式**  - 基于属性的访问控制(ABAC)定义了访问控制范例，通过使用将属性组合在一起的策略来授予用户访问权限。策略可以使用任何类型的属性(用户属性，资源属性，对象，环境属性等)。要了解有关使用ABAC模式的更多信息，请参阅[ABAC模式](/docs/admin/authorization/abac/)

@@ -19,7 +19,7 @@ title: Master 节点通信
 ## Cluster -> Master
 
 
-所有从集群到 master 的通信路径都终止于 apiserver（其它 master 组件没有被设计为可暴露远程服务）。在一个典型的部署中，apiserver 被配置为在一个安全的 HTTPS 端口（443）上监听远程连接并启用一种或多种形式的客户端[身份认证](/docs/reference/access-authn-authz/authentication/)机制。一种或多种客户端[身份认证](/docs/reference/access-authn-authz/authentication/)机制应该被启用，特别是在允许使用 [匿名请求](/docs/reference/access-authn-authz/authentication/#anonymous-requests) 或 [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens) 的时候。
+所有从集群到 master 的通信路径都终止于 apiserver（其它 master 组件没有被设计为可暴露远程服务）。在一个典型的部署中，apiserver 被配置为在一个安全的 HTTPS 端口（443）上监听远程连接并启用一种或多种形式的客户端[身份认证](/docs/admin/authentication/)机制。一种或多种客户端[身份认证](/docs/admin/authentication/)机制应该被启用，特别是在允许使用 [匿名请求](/docs/admin/authentication/#anonymous-requests) 或 [service account tokens](/docs/admin/authentication/#service-account-tokens) 的时候。
 
 
 应该使用集群的公共根证书开通节点，如此它们就能够基于有效的客户端凭据安全的连接 apiserver。例如：在一个默认的 GCE 部署中，客户端凭据以客户端证书的形式提供给 kubelet。请查看 [kubelet TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 获取如何自动提供 kubelet 客户端证书。
