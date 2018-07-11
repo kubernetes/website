@@ -7,16 +7,16 @@ install:
 - export PATH=$GOPATH/bin:$PATH
 - mkdir -p $HOME/gopath/src/k8s.io
 - mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/website && cd $HOME/gopath/src/k8s.io/website
-# Fetch dependencies for us to run the tests in test/examples_test.go
-- go get -t -v k8s.io/website/test
-# Make sure we are testing against the correct branch
-- pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.11 && popd
 
-# Simplified deduplication of dependencies.
+# Make sure we are testing against the correct branch
+- pushd $GOPATH/src/k8s.io && git clone https://github.com/kubernetes/kubernetes && popd
+- pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.11 && popd
 - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
 - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
 
+# Fetch additional dependencies to run the tests in examples/examples_test.go
+- go get -t -v k8s.io/website/content/en/examples
+
 script:
-# TODO(bep)
-- go test -v k8s.io/website/test #fixed by https://github.com/kubernetes/website/pull/8388
+- go test -v k8s.io/website/content/en/examples
 #- ./verify-docs-format.sh
