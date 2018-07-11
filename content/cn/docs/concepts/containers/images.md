@@ -284,10 +284,10 @@ spec:
      - 使用集群自动伸缩比手动配置node工作的更好
    - 或者，在更改集群node配置不方便时，使用`imagePullSecrets`
 1. 使用专有镜像的集群，有更严格的访问控制
-   - 保证[AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)开启。否则，所有的pod都可以使用镜像
+   - 保证[AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages)开启。否则，所有的pod都可以使用镜像
    - 将敏感数据存储在"Secret"资源中，而不是打包在镜像里
 1. 多租户集群下，每个租户需要自己的私有仓库
-   - 保证[AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)开启。否则，所有租户的所有的pod都可以使用镜像
+   - 保证[AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages)开启。否则，所有租户的所有的pod都可以使用镜像
    - 私有仓库开启认证
    - 为每个租户获取仓库凭证，放置在secret中，并发布到每个租户的namespace下
    - 租户将secret增加到每个namespace下的imagePullSecrets中

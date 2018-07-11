@@ -86,7 +86,7 @@ title: 资源配额
 | `persistentvolumeclaims` | namespace下允许存在的[PVC](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)的数量。 |
 | `pods` | namespace下允许存在的非终止状态的pod数量。 如果pod 的 `status.phase 为 Failed 或 Succeeded` ， 那么其处于终止状态。  |
 | `replicationcontrollers` | namespace下允许存在的replication controllers的数量。 |
-| `resourcequotas` | namespace下允许存在的 [resource quotas](/docs/reference/access-authn-authz/admission-controllers/#resourcequota) 的数量。 |
+| `resourcequotas` | namespace下允许存在的 [resource quotas](/docs/admin/admission-controllers/#resourcequota) 的数量。 |
 | `services` | namespace下允许存在的service的数量。 |
 | `services.loadbalancers` | namespace下允许存在的load balancer类型的service的数量。 |
 | `services.nodeports` | namespace下允许存在的node port类型的service的数量。 |

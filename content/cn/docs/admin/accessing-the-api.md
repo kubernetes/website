@@ -97,7 +97,7 @@ Kubernetes 支持多种授权模块，例如ABAC模式，RBAC模式和 Webhook�
 
 除了拒绝请求外，准入控制器还可以为对象设置复杂的默认值。
 
-可用的准入控制模块描述 [如下](/docs/reference/access-authn-authz/admission-controllers/)。
+可用的准入控制模块描述 [如下](/docs/admin/admission-controllers/)。
 
 一旦请求通过所有准入控制器，将使用对应API对象的验证流程对其进行验证，然后写入对象存储 (如步骤 **4**)。
 
