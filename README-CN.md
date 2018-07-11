@@ -11,7 +11,7 @@ time：2018-07-11 author：xiaolong@caicloud.io
 
 **注：所有的翻译文件，都要保留原文，一段英文，一段中文，且中英文间隔不要太长，以方便大家 `review`，保证翻译质量。**
 
-`K8SMeetup` 翻译社区 [DashBoard](https://kubernetes.io/chart)，附每周的翻译[文章汇总](contribution-cn.md)。建议翻译之前，了解一下[上游贡献流程](upstream-pr.md)。
+`K8SMeetup` 翻译社区 [DashBoard](https://kubernetes.io/chart)，附每周的翻译[文章汇总](contribution-cn.md)。建议翻译之前，了解一下[上游贡献文档](https://docs.google.com/document/d/1qjJGRw3EyV9-RR50LUAOABrFPm4cOotGcXxgz3DA8Uw/edit)。
 
 
 后期计划: 考虑到英文版本的文档已经可以多版本预览，后期我们也会推出多版本的翻译方法，考虑到社区当前的实际情况，还是维持每周一更的态势，重点是把最新版本的`Kubernetes`资料译好,后面再扩展多版本的翻译分支。
