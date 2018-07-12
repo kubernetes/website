@@ -6,7 +6,7 @@ date:  Monday, July 16, 2018
 
 <b>Author</b>: Craig Box (Google)
 
-At KubeCon EU, my colleague Adam and I were pleased to announce the [Kubernetes Podcast from Google](https://kubernetespodcast.com/). In this weekly conversation, we focus on all the great things that are happening in the world of Kubernetes and Cloud Native. From the news of the week, to interviews with people in the community, we help you stay up to date on everything Kubernetes.
+At KubeCon EU, my colleague Adam Glick and I were pleased to announce the [Kubernetes Podcast from Google](https://kubernetespodcast.com/). In this weekly conversation, we focus on all the great things that are happening in the world of Kubernetes and Cloud Native. From the news of the week, to interviews with people in the community, we help you stay up to date on everything Kubernetes.
 
 We [recently had the pleasure of speaking](https://kubernetespodcast.com/episode/010-kubernetes-1.11/) to the release manager for Kubernetes 1.11, Josh Berkus from Red Hat, and his deputy, the release manager for the upcoming 1.12, Tim Pepper from VMware.  
 
