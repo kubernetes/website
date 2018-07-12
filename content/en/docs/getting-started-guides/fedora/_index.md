@@ -1,5 +1,5 @@
 ---
 title: "Bare Metal"
-weight: 60
+weight: 61
 ---
 
