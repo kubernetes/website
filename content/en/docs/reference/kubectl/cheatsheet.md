@@ -263,21 +263,13 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
-```console
-$ kubectl api-resources
-```
-
-### Resource types
-
-List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
-
-```console
+```bash
 kubectl api-resources
 ```
 
 Other operations for exploring API resources:
 
-```console
+```bash
 kubectl api-resources --namespaced=true      # All namespaced resources
 kubectl api-resources --namespaced=false     # All non-namespaced resources
 kubectl api-resources -o name                # All resources with simple output (just the resource name)
