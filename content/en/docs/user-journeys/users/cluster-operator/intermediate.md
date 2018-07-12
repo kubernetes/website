@@ -59,7 +59,7 @@ Securing your cluster includes work beyond the scope of Kubernetes itself.
 
 In Kubernetes, you configure access control:
 
-* [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/)
+* [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/)
 * [Authenticating](/docs/reference/access-authn-authz/authentication/)
 * [Using Admission Controllers](/docs/admin/admission-controllers/)
 
