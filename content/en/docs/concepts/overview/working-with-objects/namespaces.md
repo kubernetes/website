@@ -98,4 +98,14 @@ in some namespaces.  However namespace resources are not themselves in a namespa
 And low-level resources, such as [nodes](/docs/admin/node) and
 persistentVolumes, are not in any namespace.
 
+To see which Kubernetes resources are and aren't in a namespace:
+
+```shell
+# In a namespace
+$ kubectl api-resources --namespaced=true
+
+# Not in a namespace
+$ kubectl api-resources --namespaced=false
+```
+
 {{% /capture %}}

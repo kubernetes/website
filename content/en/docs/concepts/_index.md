@@ -1,10 +1,17 @@
 ---
 title: Concepts
 main_menu: true
+content_template: templates/concept
 weight: 40
 ---
 
+{{% capture overview %}}
+
 The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your cluster, and helps you obtain a deeper understanding of how Kubernetes works.
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Overview
 
@@ -57,9 +64,12 @@ The nodes in a cluster are the machines (VMs, physical servers, etc) that run yo
 
 * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
 
+{{% /capture %}}
 
-### What's next
+{{% capture whatsnext %}}
 
 If you would like to write a concept page, see
 [Using Page Templates](/docs/home/contribute/page-templates/)
 for information about the concept page type and the concept template.
+
+{{% /capture %}}

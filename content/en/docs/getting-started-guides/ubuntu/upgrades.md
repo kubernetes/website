@@ -111,7 +111,7 @@ Given a deployment where the workers are named kubernetes-alpha.
 
 Deploy new workers:
 
-    juju deploy kubernetes-beta
+    juju deploy kubernetes-alpha
 
 Pause the old workers so your workload migrates:
 
