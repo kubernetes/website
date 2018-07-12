@@ -48,7 +48,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
-* [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/) describes how to set up permissions for users and service accounts.
+* [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) describes how to set up permissions for users and service accounts.
 
 * [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
 
