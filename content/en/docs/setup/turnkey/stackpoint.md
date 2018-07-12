@@ -6,194 +6,181 @@ title: Running Kubernetes on Multiple Clouds with Stackpoint.io
 
 {{< toc >}}
 
-
 ## Introduction
 
-StackPointCloud is the universal control plane for Kubernetes Anywhere.  StackPointCloud allows you to deploy and manage a Kubernetes cluster to the cloud provider of your choice in 3 steps using a web-based interface.
+[StackPointCloud](https://stackpoint.io/) is the universal control plane for Kubernetes Anywhere. StackPointCloud allows you to deploy and manage a Kubernetes cluster to the cloud provider of your choice in 3 steps using a web-based interface.
+
 
 ## AWS
 
 To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
 
-### Choose a Provider
+1. Choose a Provider
 
-Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
+    * Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
 
-Click **+ADD A CLUSTER NOW**.
+    * Click **+ADD A CLUSTER NOW**.
 
-Click to select Amazon Web Services (AWS).
+    * Click to select Amazon Web Services (AWS).
 
-### Configure Your Provider
+1. Configure Your Provider
 
-Add your Access Key ID and a Secret Access Key from AWS. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
+    * Add your Access Key ID and a Secret Access Key from AWS. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
 
-Click **SUBMIT** to submit the authorization information.
+    * Click **SUBMIT** to submit the authorization information.
 
-### Configure Your Cluster
+1. Configure Your Cluster
 
-Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
+    * Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-### Running the Cluster
+1. Running the Cluster
 
-You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
+    * You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/docs/getting-started-guides/aws/).
-
-
+    * For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/docs/getting-started-guides/aws/).
 
 
 ## GCE
 
 To create a Kubernetes cluster on GCE, you will need the Service Account JSON Data from Google.
 
+1. Choose a Provider
 
-### Choose a Provider
+    a. Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
 
-Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
+    b. Click **+ADD A CLUSTER NOW**.
 
-Click **+ADD A CLUSTER NOW**.
+    c. Click to select Google Compute Engine (GCE).
 
-Click to select Google Compute Engine (GCE).
+1. Configure Your Provider
 
-### Configure Your Provider
+    a. Add your Service Account JSON Data from Google. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
 
-Add your Service Account JSON Data from Google. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
+    b. Click **SUBMIT** to submit the authorization information.
 
-Click **SUBMIT** to submit the authorization information.
+1. Configure Your Cluster
 
-### Configure Your Cluster
+    Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
+1. Running the Cluster
 
-### Running the Cluster
+    You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
-
-For information on using and managing a Kubernetes cluster on GCE, [consult the  Kubernetes documentation](/docs/getting-started-guides/gce/).
-
-
-
+    For information on using and managing a Kubernetes cluster on GCE, [consult the  Kubernetes documentation](/docs/getting-started-guides/gce/).
 
 
 ## Google Kubernetes Engine
 
 To create a Kubernetes cluster on Google Kubernetes Engine, you will need the Service Account JSON Data from Google.
 
-### Choose a Provider
+1. Choose a Provider
 
-Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
+    a. Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
 
-Click **+ADD A CLUSTER NOW**.
+    b. Click **+ADD A CLUSTER NOW**.
 
-Click to select Google Kubernetes Engine.
+    c. Click to select Google Kubernetes Engine.
 
-### Configure Your Provider
+1. Configure Your Provider
 
-Add your Service Account JSON Data from Google. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
+    a. Add your Service Account JSON Data from Google. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
 
-Click **SUBMIT** to submit the authorization information.
+    b. Click **SUBMIT** to submit the authorization information.
 
-### Configure Your Cluster
+1. Configure Your Cluster
 
-Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
+    Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
 
-### Running the Cluster
+1. Running the Cluster
 
-You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
+    You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on Google Kubernetes Engine, consult [the official documentation](/docs/home/).
+    For information on using and managing a Kubernetes cluster on Google Kubernetes Engine, consult [the official documentation](/docs/home/).
 
 
 ## DigitalOcean
 
 To create a Kubernetes cluster on DigitalOcean, you will need a DigitalOcean API Token.
 
-### Choose a Provider
+1. Choose a Provider
 
-Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
+    a. Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
 
-Click **+ADD A CLUSTER NOW**.
+    b. Click **+ADD A CLUSTER NOW**.
 
-Click to select DigitalOcean.
+    c. Click to select DigitalOcean.
 
-### Configure Your Provider
+1. Configure Your Provider
 
-Add your DigitalOcean API Token. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
+    a. Add your DigitalOcean API Token. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
 
-Click **SUBMIT** to submit the authorization information.
+    b. Click **SUBMIT** to submit the authorization information.
 
-### Configure Your Cluster
+1. Configure Your Cluster
 
-Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
+    Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-### Running the Cluster
+1. Running the Cluster
 
-You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
+    You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on DigitalOcean, consult [the official documentation](/docs/home/).
-
-
-
+    For information on using and managing a Kubernetes cluster on DigitalOcean, consult [the official documentation](/docs/home/).
 
 
 ## Microsoft Azure
 
 To create a Kubernetes cluster on Microsoft Azure, you will need an Azure Subscription ID, Username/Email, and Password.
 
-### Choose a Provider
+1. Choose a Provider
 
-Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
+    a. Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
 
-Click **+ADD A CLUSTER NOW**.
+    b. Click **+ADD A CLUSTER NOW**.
 
-Click to select Microsoft Azure.
+    c. Click to select Microsoft Azure.
 
-### Configure Your Provider
+1. Configure Your Provider
 
-Add your Azure Subscription ID, Username/Email, and Password. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
+    a. Add your Azure Subscription ID, Username/Email, and Password. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
 
-Click **SUBMIT** to submit the authorization information.
+    b. Click **SUBMIT** to submit the authorization information.
 
-### Configure Your Cluster
+1. Configure Your Cluster
 
-Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
+    Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
+1. Running the Cluster
 
-### Running the Cluster
+    You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
-
-For information on using and managing a Kubernetes cluster on Azure, [consult the  Kubernetes documentation](/docs/getting-started-guides/azure/).
-
-
-
+    For information on using and managing a Kubernetes cluster on Azure, [consult the  Kubernetes documentation](/docs/getting-started-guides/azure/).
 
 
 ## Packet
 
 To create a Kubernetes cluster on Packet, you will need a Packet API Key.
 
-### Choose a Provider
+1. Choose a Provider
 
-Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
+    a. Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
 
-Click **+ADD A CLUSTER NOW**.
+    b. Click **+ADD A CLUSTER NOW**.
 
-Click to select Packet.
+    c. Click to select Packet.
 
-### Configure Your Provider
+1. Configure Your Provider
 
-Add your Packet API Key. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
+    a. Add your Packet API Key. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
 
-Click **SUBMIT** to submit the authorization information.
+    b. Click **SUBMIT** to submit the authorization information.
 
-### Configure Your Cluster
+1. Configure Your Cluster
 
-Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
+    Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-### Running the Cluster
+1. Running the Cluster
 
-You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
+    You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on Packet, consult [the official documentation](/docs/home/).
+    For information on using and managing a Kubernetes cluster on Packet, consult [the official documentation](/docs/home/).
