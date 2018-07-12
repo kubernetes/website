@@ -9,9 +9,6 @@ weight: 60
 The role of the Kubernetes garbage collector is to delete certain objects
 that once had an owner, but no longer have an owner.
 
-**Note**: Garbage collection is a beta feature and is enabled by default in
-Kubernetes version 1.4 and later.
-
 {{% /capture %}}
 
 

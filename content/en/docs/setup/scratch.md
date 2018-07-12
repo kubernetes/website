@@ -236,7 +236,7 @@ You need to prepare several certs:
 Unless you plan to have a real CA generate your certs, you will need
 to generate a root cert and use that to sign the master, kubelet, and
 kubectl certs. How to do this is described in the [authentication
-documentation](/docs/admin/authentication/#creating-certificates/).
+documentation](/docs/concepts/cluster-administration/certificates/).
 
 You will end up with the following files (we will use these variables later on)
 
@@ -262,7 +262,7 @@ The admin user (and any users) need:
 
 Your tokens and passwords need to be stored in a file for the apiserver
 to read.  This guide uses `/var/lib/kube-apiserver/known_tokens.csv`.
-The format for this file is described in the [authentication documentation](/docs/admin/authentication/).
+The format for this file is described in the [authentication documentation](/docs/reference/access-authn-authz/authentication/#static-token-file).
 
 For distributing credentials to clients, the convention in Kubernetes is to put the credentials
 into a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/).
