@@ -33,7 +33,7 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
     * Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-1. Running the Cluster
+1. Run the Cluster
 
     * You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
@@ -62,7 +62,7 @@ To create a Kubernetes cluster on GCE, you will need the Service Account JSON Da
 
     Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-1. Running the Cluster
+1. Run the Cluster
 
     You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
@@ -91,8 +91,7 @@ To create a Kubernetes cluster on Google Kubernetes Engine, you will need the Se
 
     Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-
-1. Running the Cluster
+1. Run the Cluster
 
     You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
@@ -121,7 +120,7 @@ To create a Kubernetes cluster on DigitalOcean, you will need a DigitalOcean API
 
     Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-1. Running the Cluster
+1. Run the Cluster
 
     You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
@@ -150,7 +149,7 @@ To create a Kubernetes cluster on Microsoft Azure, you will need an Azure Subscr
 
     Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-1. Running the Cluster
+1. Run the Cluster
 
     You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
@@ -179,7 +178,7 @@ To create a Kubernetes cluster on Packet, you will need a Packet API Key.
 
     Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
-1. Running the Cluster
+1. Run the Cluster
 
     You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
