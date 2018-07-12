@@ -16,7 +16,22 @@ be used when running Kubernetes on Amazon Web Services.
 
 ### Node Name
 
+#### Default
+
 The AWS cloud provider uses the private DNS name of the AWS instance as the name of the Kubernetes Node object.
+
+#### Explicit
+
+<aside class="warning"> Switching from default node names to explicit node names can orphan volumes</aside>
+
+
+Setting node names with the tag `kubernetes.io/node-name` can be enabled by configuring the kublet's `cloud-config`:
+
+```
+[Global]
+ExplicitNodeNames=true
+```
+
 
 ### Load Balancers
 You can setup [external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/)
