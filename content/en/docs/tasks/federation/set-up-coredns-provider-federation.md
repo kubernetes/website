@@ -60,7 +60,18 @@ The CoreDNS default configuration should be customized to suit the federation.
 Shown below is the Values.yaml, which overrides the default
 configuration parameters on the CoreDNS chart.
 
-{{< code file="Values.yaml" >}}
+```yaml
+isClusterService: false
+serviceType: "LoadBalancer"
+plugins:
+  kubernetes:
+    enabled: false
+  etcd:
+    enabled: true
+    zones:
+    - "example.com."
+    endpoint: "http://etcd-cluster.my-namespace:2379"
+```
 
 The above configuration file needs some explanation:
 

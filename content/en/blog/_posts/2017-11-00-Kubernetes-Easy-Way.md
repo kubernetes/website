@@ -71,7 +71,7 @@ Once you log in, all of your clusters are available within Codefresh.
 
 
 ### Add Cluster
-To add your cluster, click the down arrow, and then click **add cluste** r, select the project and cluster name. You can now deploy images!
+To add your cluster, click the down arrow, and then click **add cluster**, select the project and cluster name. You can now deploy images!
 
 
 

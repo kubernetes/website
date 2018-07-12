@@ -54,6 +54,7 @@ One cpu, in Kubernetes, is equivalent to:
 - 1 AWS vCPU
 - 1 GCP Core
 - 1 Azure vCore
+- 1 IBM vCPU
 - 1 *Hyperthread* on a bare-metal Intel processor with Hyperthreading
 
 Fractional requests are allowed. A Container with
