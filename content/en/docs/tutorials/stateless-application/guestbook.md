@@ -25,15 +25,9 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-Download the following configuration files:
+{{< include "task-tutorial-prereqs.md" >}}
 
-1. [redis-master-deployment.yaml](/examples/application/guestbook/redis-master-deployment.yaml)
-1. [redis-master-service.yaml](/examples/application/guestbook/redis-master-service.yaml)
-1. [redis-slave-deployment.yaml](/examples/application/guestbook/redis-slave-deployment.yaml)
-1. [redis-slave-service.yaml](/examples/application/guestbook/redis-slave-service.yaml)
-1. [frontend-deployment.yaml](/examples/application/guestbook/frontend-deployment.yaml)
-1. [frontend-service.yaml](/examples/application/guestbook/frontend-service.yaml)
+{{< version-check >}}
 
 {{% /capture %}}
 
@@ -52,7 +46,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 1. Launch a terminal window in the directory you downloaded the manifest files.
 1. Apply the Redis Master Deployment from the `redis-master-deployment.yaml` file:
 
-      ```
+      ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
       ```
 
