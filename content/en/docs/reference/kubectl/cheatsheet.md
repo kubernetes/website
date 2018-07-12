@@ -6,7 +6,6 @@ reviewers:
 - krousey
 - clove
 content_template: templates/concept
-toc_hide: false
 ---
 
 {{% capture overview %}}
