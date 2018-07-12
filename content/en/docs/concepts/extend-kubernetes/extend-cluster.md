@@ -132,22 +132,22 @@ Adding an API does not directly let you affect the behavior of existing APIs (e.
 
 ### API Access Extensions
 
-When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [[Accessing the API](/docs/admin/accessing-the-api/)] for more on this flow.
+When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/)] for more on this flow.
 
 Each of these steps offers extension points.
 
-Kubernetes has several built-in authentication methods that it supports. It can also sit behind an authenticating proxy, and it can send a token from an Authorization header to a remote service for verification (a webhook). All of these methods are covered in the [Authentication documentation](/docs/admin/authentication/).
+Kubernetes has several built-in authentication methods that it supports. It can also sit behind an authenticating proxy, and it can send a token from an Authorization header to a remote service for verification (a webhook). All of these methods are covered in the [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
 
 ### Authentication
 
-[Authentication](/docs/admin/authentication) maps headers or certificates in all requests to a username for the client making the request.
+[Authentication](/docs/reference/access-authn-authz/authentication/) maps headers or certificates in all requests to a username for the client making the request.
 
-Kubernetes provides several built-in authentication methods, and an [Authentication webhook](/docs/admin/authentication/#webhook-token-authentication) method if those don't meet your needs.
+Kubernetes provides several built-in authentication methods, and an [Authentication webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) method if those don't meet your needs.
 
 
 ### Authorization
 
- [Authorization](/docs/admin/authorization/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/admin/authorization/webhook/) allows calling out to user-provided code to make an authorization decision.
+ [Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 
 
 ### Dynamic Admission Control
