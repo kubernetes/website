@@ -36,33 +36,45 @@ Pod:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/examples/pods/inject/envars.yaml
+    ```shell
+    kubectl create -f https://k8s.io/examples/pods/inject/envars.yaml
+    ```
 
 1. List the running Pods:
 
-        kubectl get pods -l purpose=demonstrate-envars
+    ```shell
+    kubectl get pods -l purpose=demonstrate-envars
+    ```
 
     The output is similar to this:
 
-        NAME            READY     STATUS    RESTARTS   AGE
-        envar-demo      1/1       Running   0          9s
+    ```log
+    NAME            READY     STATUS    RESTARTS   AGE
+    envar-demo      1/1       Running   0          9s
+    ```
 
 1. Get a shell to the container running in your Pod:
 
-        kubectl exec -it envar-demo -- /bin/bash
+    ```shell
+    kubectl exec -it envar-demo -- /bin/bash
+    ```
 
 1. In your shell, run the `printenv` command to list the environment variables.
 
-        root@envar-demo:/# printenv
+    ```shell
+    root@envar-demo:/# printenv
+    ```
 
     The output is similar to this:
 
-        NODE_VERSION=4.4.2
-        EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
-        HOSTNAME=envar-demo
-        ...
-        DEMO_GREETING=Hello from the environment
-        DEMO_FAREWELL=Such a sweet sorrow
+    ```log
+    NODE_VERSION=4.4.2
+    EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
+    HOSTNAME=envar-demo
+    ...
+    DEMO_GREETING=Hello from the environment
+    DEMO_FAREWELL=Such a sweet sorrow
+    ```
 
 1. To exit the shell, enter `exit`.
 
@@ -70,6 +82,32 @@ Pod:
 **Note:** The environment variables set using the `env` or `envFrom` field
 will override any environment variables specified in the container image.
 {{< /note >}}
+
+## Using environment variables inside of your config
+
+Environment variables that you define in a Pod's configuration can be used elsewhere in the configuration, for example in commands and arguments that you set for the Pod's containers. In the example configuration below, the `GREETING`, `HONORIFIC`, and `NAME` environment variables are set to `Warm greetings to`, `The Most Honorable`, and `Kubernetes`, respectively. Those environment variables are then used in the CLI arguments passed to the `env-print-demo` container.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: print-greeting
+spec:
+  containers:
+  - name: env-print-demo
+    image: bash
+    env:
+    - name: GREETING
+      value: "Warm greetings to"
+    - name: HONORIFIC
+      value: "The Most Honorable"
+    - name: NAME
+      value: "Kubernetes"
+    command: ["echo"]
+    args: ["$(GREETING) $(HONORIFIC) $(NAME)"]
+```
+
+Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes` is run on the container.
 
 {{% /capture %}}
 
@@ -80,6 +118,3 @@ will override any environment variables specified in the container image.
 * See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
 
 {{% /capture %}}
-
-
-
