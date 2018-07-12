@@ -65,18 +65,18 @@ configuration file that was used to create the object.
 
 Here's an example of an object configuration file:
 
-{{< code file="simple_deployment.yaml" >}}
+{{< codenew file="application/simple_deployment.yaml" >}}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -139,12 +139,12 @@ kubectl apply -f <directory>/
 
 Here's an example configuration file:
 
-{{< code file="simple_deployment.yaml" >}}
+{{< codenew file="application/simple_deployment.yaml" >}}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 {{< note >}}
@@ -155,7 +155,7 @@ configuration file instead of a directory.
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -210,7 +210,7 @@ kubectl scale deployment/nginx-deployment --replicas=2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
@@ -257,18 +257,18 @@ spec:
 Update the `simple_deployment.yaml` configuration file to change the image from
 `nginx:1.7.9` to `nginx:1.11.9`, and delete the `minReadySeconds` field:
 
-{{< code file="update_deployment.yaml" >}}
+{{< codenew file="application/update_deployment.yaml" >}}
 
 Apply the changes made to the configuration file:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/update_deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -417,7 +417,7 @@ to calculate which fields should be deleted or set:
 
 Here's an example. Suppose this is the configuration file for a Deployment object:
 
-{{< code file="update_deployment.yaml" >}}
+{{< codenew file="application/update_deployment.yaml" >}}
 
 Also, suppose this is the live configuration for the same Deployment object:
 
@@ -463,7 +463,10 @@ Here are the merge calculations that would be performed by `kubectl apply`:
 
 1. Calculate the fields to delete by reading values from
    `last-applied-configuration` and comparing them to values in the
-   configuration file. In this example, `minReadySeconds` appears in the
+   configuration file.
+   Clear fields explicitly set to null in the local object configuration file
+   regardless of whether they appear in the `last-applied-configuration`.
+   In this example, `minReadySeconds` appears in the
    `last-applied-configuration` annotation, but does not appear in the configuration file.
     **Action:** Clear `minReadySeconds` from the live configuration.
 2. Calculate the fields to set by reading values from the configuration
@@ -516,12 +519,6 @@ spec:
     # ...
   # ...
 ```
-
-{{< comment >}}
-TODO(1.6): For 1.6, add the following bullet point to 1.
-
-- clear fields explicitly set to null in the local object configuration file regardless of whether they appear in the last-applied-configuration
-{{< /comment >}}
 
 ### How different types of fields are merged
 
@@ -716,18 +713,18 @@ not specified when the object is created.
 
 Here's a configuration file for a Deployment. The file does not specify `strategy`:
 
-{{< code file="simple_deployment.yaml" >}}
+{{< codenew file="application/simple_deployment.yaml" >}}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the API server set several fields to default values in the live
@@ -743,9 +740,6 @@ spec:
       app: nginx
   minReadySeconds: 5
   replicas: 1 # defaulted by apiserver
-  selector:
-    matchLabels:
-      app: nginx
   strategy:
     rollingUpdate: # defaulted by apiserver - derived from strategy.type
       maxSurge: 1
@@ -874,31 +868,10 @@ Recommendation: These fields should be explicitly defined in the object configur
 
 ### How to clear server-defaulted fields or fields set by other writers
 
-As of Kubernetes 1.5, fields that do not appear in the configuration file cannot be
-cleared by a merge operation. Here are some workarounds:
-
-Option 1: Remove the field by directly modifying the live object.
-
-{{< note >}}
-**Note:** As of Kubernetes 1.5, `kubectl edit` does not work with `kubectl apply`.
-Using these together will cause unexpected behavior.
-{{< /note >}}
-
-Option 2: Remove the field through the configuration file.
-
-1. Add the field to the configuration file to match the live object.
-1. Apply the configuration file; this updates the annotation to include the field.
-1. Delete the field from the configuration file.
-1. Apply the configuration file; this deletes the field from the live object and annotation.
-
-{{< comment >}}
-TODO(1.6): Update this with the following for 1.6
-
 Fields that do not appear in the configuration file can be cleared by
 setting their values to `null` and then applying the configuration file.
 For fields defaulted by the server, this triggers re-defaulting
 the values.
-{{< /comment >}}
 
 ## How to change ownership of a field between the configuration file and direct imperative writers
 
@@ -996,13 +969,6 @@ template:
     labels:
       controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
-
-## Known Issues
-
-* Prior to Kubernetes 1.6, `kubectl apply` did not support operating on objects stored in a
-  [custom resource](/docs/concepts/api-extension/custom-resources/).
-  For these cluster versions, you should instead use [imperative object configuration](/docs/concepts/overview/object-management-kubectl/imperative-config/).
-{{% /capture %}}
 
 {{% capture whatsnext %}}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
