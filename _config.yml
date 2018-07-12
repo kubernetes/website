@@ -23,11 +23,21 @@ defaults:
       githubbranch: "master"
       docsbranch: "master"
       versions:
+      - fullversion: "v1.11.0"
+          version: "v1.11"
+          githubbranch: "v1.11.0"
+          docsbranch: "release-1.11"
+          url: https://kubernetes.io/docs/
+      - fullversion: "v1.10.0"
+          version: "v1.10"
+          githubbranch: "v1.10.0"
+          docsbranch: "release-1.10"
+          url: https://v1-10.docs.kubernetes.io/docs/home/
         - fullversion: "v1.9.0"
           version: "v1.9"
           githubbranch: "v1.9.0"
           docsbranch: "release-1.9"
-          url: https://kubernetes.io/docs/home/
+          url: https://v1-9.docs.kubernetes.io/docs/home/
         - fullversion: "v1.8.4"
           version: "v1.8"
           githubbranch: "v1.8.4"
@@ -38,16 +48,6 @@ defaults:
           githubbranch: "v1.7.6"
           docsbranch: "release-1.7"
           url: https://v1-7.docs.kubernetes.io/docs/home/
-        - fullversion: "v1.6.8"
-          version: "v1.6"
-          githubbranch: "v1.6.8"
-          docsbranch: "release-1.6"
-          url: https://v1-6.docs.kubernetes.io/docs/home/
-        - fullversion: "v1.5.7"
-          version: "v1.5"
-          githubbranch: "v1.5.7"
-          docsbranch: "release-1.5"
-          url: https://v1-5.docs.kubernetes.io/docs/
       deprecated: true
       currentUrl: https://kubernetes.io/docs/home/
       nextUrl: http://kubernetes-io-vnext-staging.netlify.com/
