@@ -144,11 +144,11 @@ example of authorizing a PodSecurityPolicy, see
 ### Troubleshooting
 
 - The [Controller Manager](/docs/admin/kube-controller-manager/) must be run
-against [the secured API port](/docs/admin/accessing-the-api/), and must not
-have superuser permissions. Otherwise requests would bypass authentication and
-authorization modules, all PodSecurityPolicy objects would be allowed, and users
-would be able to create privileged containers. For more details on configuring
-Controller Manager authorization, see [Controller
+against [the secured API port](/docs/reference/access-authn-authz/controlling-access/), 
+and must not have superuser permissions. Otherwise requests would bypass
+authentication and authorization modules, all PodSecurityPolicy objects would be
+allowed, and users would be able to create privileged containers. For more details
+on configuring Controller Manager authorization, see [Controller
 Roles](/docs/admin/authorization/rbac/#controller-roles).
 
 ## Policy Order

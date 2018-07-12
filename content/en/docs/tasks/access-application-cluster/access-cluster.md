@@ -106,7 +106,7 @@ certificate.
 
 On some clusters, the apiserver does not require authentication; it may serve
 on localhost, or be protected by a firewall.  There is not a standard
-for this.  [Configuring Access to the API](/docs/admin/accessing-the-api)
+for this.  [Configuring Access to the API](/docs/reference/access-authn-authz/controlling-access/)
 describes how a cluster admin can configure this.  Such approaches may conflict
 with future high-availability support.
 

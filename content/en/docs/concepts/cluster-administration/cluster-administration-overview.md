@@ -32,7 +32,7 @@ Before choosing a guide, here are some considerations:
 
 Note: Not all distros are actively maintained. Choose distros which have been tested with a recent version of Kubernetes.
 
-If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/admin/salt/).
+-If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/setup/salt/). 
 
 ## Managing a cluster
 
@@ -48,9 +48,9 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 * [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
-* [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/) describes how to set up permissions for users and service accounts.
+* [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) describes how to set up permissions for users and service accounts.
 
-* [Authenticating](/docs/admin/authentication/) explains authentication in Kubernetes, including the various authentication options.
+* [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
 
 * [Authorization](/docs/admin/authorization/) is separate from authentication, and controls how HTTP calls are handled.
 
