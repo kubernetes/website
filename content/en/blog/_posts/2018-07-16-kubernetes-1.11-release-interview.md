@@ -8,7 +8,7 @@ date:  Monday, July 16, 2018
 
 At KubeCon EU, my colleague Adam Glick and I were pleased to announce the [Kubernetes Podcast from Google](https://kubernetespodcast.com/). In this weekly conversation, we focus on all the great things that are happening in the world of Kubernetes and Cloud Native. From the news of the week, to interviews with people in the community, we help you stay up to date on everything Kubernetes.
 
-We [recently had the pleasure of speaking](https://kubernetespodcast.com/episode/010-kubernetes-1.11/) to the release manager for Kubernetes 1.11, Josh Berkus from Red Hat, and his deputy, the release manager for the upcoming 1.12, Tim Pepper from VMware.  
+We [recently had the pleasure of speaking](https://kubernetespodcast.com/episode/010-kubernetes-1.11/) to the release manager for Kubernetes 1.11, Josh Berkus from Red Hat, and the release manager for the upcoming 1.12, Tim Pepper from VMware.  
 
 In this conversation we learned about the release process, the impact of quarterly releases on end users, and how Kubernetes is like baking.
 
@@ -150,9 +150,9 @@ JOSH BERKUS: Well, we just went through this whole retro, and I put in some reco
 
 Beyond that, I put in a whole bunch of recommendations in the retro, but it's actually up to Tim which recommendations he's going to try to implement. So I'll let him [comment]. 
 
-TIM PEPPER: I think one of the biggest changes that happened in the 1.11 cycle is this emphasis on trying to keep our continuous integration test status always green. That is huge for software development and keeping velocity. If you have this more— I guess at this point antiquated notion of waterfall development where you do feature development for a while and are accepting of destabilization, and somehow later you're going to come back and spend a period on stabilization and fixing, that really elongates the feedback loop for developers. 
+TIM PEPPER: I think one of the biggest changes that happened in the 1.11 cycle is this emphasis on trying to keep our continuous integration test status always green. That is huge for software development and keeping velocity. If you have this more, I guess at this point antiquated notion of waterfall development, where you do feature development for a while and are accepting of destabilization, and somehow later you're going to come back and spend a period on stabilization and fixing, that really elongates the feedback loop for developers. 
 
-And they don't realize what was broken, and the problems become much more complex to sort out as time goes by. One, developers aren't thinking about what it was that they'd been working on anymore. They've lost the context to be able to efficiently solve the problem. 
+And they don't realize what was broken, and the problem's become much more complex to sort out as time goes by. One, developers aren't thinking about what it was that they'd been working on anymore. They've lost the context to be able to efficiently solve the problem. 
 
 But then you start also getting interactions. Maybe a bug was introduced, and other people started working around it or depending on it, and you get complex dependencies then that are harder to fix. And when you're trying to do that type of complex resolution late in the cycle, it becomes untenable over time. So I think continuing on that and building on it, I'm seeing a little bit more focus on test cases and meaningful test coverage. I think that's a great cultural change to have happening. 
 
@@ -208,7 +208,7 @@ TIM PEPPER: It's potentially becoming a lot of cats to herd. But I think even ou
 
 Each of the SIGs [has] a channel. So it would be #SIG-whatever the name is. [In our] case, #SIG-Release. 
 
-I'd also maybe give a plug for a [talk I did at KubeCon](https://github.com/kubernetes/community/tree/master/sig-scalability) in Copenhagen this spring, talking about how the release team specifically can be a path for new contributors coming in. And had some ideas and suggestions there for newcomers. 
+I'd also maybe give a plug for a [talk I did at KubeCon](https://youtu.be/goAph8A20gQ) in Copenhagen this spring, talking about how the release team specifically can be a path for new contributors coming in. And had some ideas and suggestions there for newcomers. 
 
 <b>CRAIG BOX: There's three questions in the Google SRE postmortem template that I really like. And I'm sure you will have gone through these in the retrospective process as you released 1.11, so I'd like to ask them now one at a time. 
 
@@ -220,7 +220,7 @@ TIM PEPPER: Definitely.
 
 JOSH BERKUS: Now partly that went well because we had a spectacular CI lead, [Aish Sundar](https://github.com/aishsundar), who's now in training to become the release lead. 
 
-TIM PEPPER: And I'd count that partly as one of the, where were you lucky? We happened upon a wonderful person who just popped up and volunteered. 
+TIM PEPPER: And I'd count that partly as one of the "Where were you lucky?" areas. We happened upon a wonderful person who just popped up and volunteered. 
 
 JOSH BERKUS: Yes. And then but part of that was also that we said, hey. You know, we're not going to do what we've done before which is not really care about these tests until code slush. We're going to care about these tests now. 
 
@@ -270,6 +270,6 @@ TIM PEPPER: Also, I would maybe argue in a way that a portion of that wasn't jus
 [Josh Berkus](https://github.com/jberkus) hangs out in #sig-release on the [Kubernetes Slack](slack.k8s.io). He maintains a newsletter called "[Last Week in Kubernetes Development](http://lwkd.info/)", with Noah Kantrowitz. You can read him on Twitter at [@fuzzychef](https://twitter.com/fuzzychef), but he does warn you that there's a lot of politics there as well.
 
 
-[Tim Pepper](https://github.com/tpepper) is also on Slack - he's always open to folks reaching out with a question, looking for help or advice.  On Twitter you'll find him at [@pythomit](https://twitter.com/pythomit), which is "Timothy P" backwards. Tim is an avid soccer fan and season ticket holder for the [Portland Timbers](https://www.timbers.com/) and the [Portland Thorns](https://www.timbers.com/thornsfc), so you'll get all sorts of opinions on soccer in addition to technology!
+[Tim Pepper](https://github.com/tpepper) is also on Slack - he's always open to folks reaching out with a question, looking for help or advice.  On Twitter you'll find him at [@pythomit](https://twitter.com/pythomit), which is "Timothy P" backwards. Tim is an avid soccer fan and season ticket holder for the [Portland Timbers](https://portlandtimbers.com/) and the [Portland Thorns](https://portlandthorns.com/), so you'll get all sorts of opinions on soccer in addition to technology!
 
 You can find the [Kubernetes Podcast from Google](http://www.kubernetespodcast.com/) at [@kubernetespod](https://twitter.com/KubernetesPod) on Twitter, and you can [subscribe](https://kubernetespodcast.com/subscribe/) so you never miss an episode.</i>
