@@ -94,14 +94,6 @@ githubbranch = "v1.7.16"
 docsbranch = "release-1.7"
 url = "https://v1-7.docs.kubernetes.io"
 
-[[params.versions]]
-fullversion = "v1.6.13"
-version = "v1.6"
-githubbranch = "v1.6.13"
-docsbranch = "release-1.6"
-url = "https://v1-6.docs.kubernetes.io"
-
-
 # Language definitions.
 
 [languages]
