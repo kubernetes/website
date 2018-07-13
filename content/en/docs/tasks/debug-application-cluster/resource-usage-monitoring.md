@@ -92,4 +92,10 @@ This video shows how to configure and run a Google Cloud Monitoring backed Heaps
 
 {{< figure src="/images/docs/gcm.png" alt="Google Cloud Monitoring dashboard example" title="Google Cloud Monitoring dashboard example" caption="This dashboard shows cluster-wide resource usage." >}}
 
+### Dynatrace Kubernetes monitoring
+
+With [Dynatrace Kubernetes monitoring](https://www.dynatrace.com/technologies/cloud-and-microservices/kubernetes-monitoring/), you can monitor application and cluster health in highly-dynamic Kubernetes environments. 
+
+Dynatrace automatically discovers all containers running on Kubernetes and presents you with a real-time view of all the connections between your containerized processes, hosts, and cloud instances. Dynatrace includes root cause analysis and the ability to replay problems to see how they evolved over time.
+
 {{% /capture %}}
