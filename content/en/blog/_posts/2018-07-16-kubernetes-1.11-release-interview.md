@@ -152,7 +152,7 @@ Beyond that, I put in a whole bunch of recommendations in the retro, but it's ac
 
 TIM PEPPER: I think one of the biggest changes that happened in the 1.11 cycle is this emphasis on trying to keep our continuous integration test status always green. That is huge for software development and keeping velocity. If you have this more, I guess at this point antiquated notion of waterfall development, where you do feature development for a while and are accepting of destabilization, and somehow later you're going to come back and spend a period on stabilization and fixing, that really elongates the feedback loop for developers. 
 
-And they don't realize what was broken, and the problem's become much more complex to sort out as time goes by. One, developers aren't thinking about what it was that they'd been working on anymore. They've lost the context to be able to efficiently solve the problem. 
+And they don't realize what was broken, and the problems become much more complex to sort out as time goes by. One, developers aren't thinking about what it was that they'd been working on anymore. They've lost the context to be able to efficiently solve the problem. 
 
 But then you start also getting interactions. Maybe a bug was introduced, and other people started working around it or depending on it, and you get complex dependencies then that are harder to fix. And when you're trying to do that type of complex resolution late in the cycle, it becomes untenable over time. So I think continuing on that and building on it, I'm seeing a little bit more focus on test cases and meaningful test coverage. I think that's a great cultural change to have happening. 
 
