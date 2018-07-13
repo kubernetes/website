@@ -472,7 +472,7 @@ dd { margin-bottom: 16px; }
 
 #docsContent a { text-decoration: underline; }
 
-#docsContent #TableOfContents > ul > li { list-style: none; }
+#docsContent #TableOfContents > ul > li { list-style: none !important; }
 
 #docsContent #TableOfContents ul, #docsContent #TableOfContents li { list-style: disk; }
 
