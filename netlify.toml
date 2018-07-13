@@ -13,13 +13,13 @@ HUGO_ENABLEGITINFO = "true"
 command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
 
 [context.deploy-preview.environment]
-HUGO_VERSION = "0.43"
+HUGO_VERSION = "0.44"
 
 [context.branch-deploy]
 command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy.environment]
-HUGO_VERSION = "0.43"
+HUGO_VERSION = "0.44"
 
 [context.master]
 # This context is triggered by the master branch and allows search indexing 
