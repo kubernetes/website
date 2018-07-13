@@ -10,7 +10,7 @@ title: Running Kubernetes on AWS EC2
 
 ## Supported Production Grade Tools
 
-* [conjure-up](/docs/getting-started-guides/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
+* [conjure-up](/docs/independent-solutions/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
 
@@ -69,10 +69,10 @@ cluster/kube-down.sh
 IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
 -------------------- | ------------ | ------------- | ----------  | --------------------------------------------- | ---------| ----------------------------
 AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
-AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
-AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | [docs](/docs/getting-started-guides/ubuntu)      | 100%     | Commercial, Community
+AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/setup/turnkey/aws/)      |          | Community
+AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | [docs](/docs/independent-solutions/ubuntu)      | 100%     | Commercial, Community
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/setup/pick-right-solution/#table-of-solutions) chart.
 
 ## Further reading
 

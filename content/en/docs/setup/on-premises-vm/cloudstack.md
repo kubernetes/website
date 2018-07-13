@@ -88,6 +88,6 @@ SSH to it using the key that was created and using the _core_ user and you can l
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack/)                             |          | Community ([@Guiques](https://github.com/ltupin/))
+CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/setup/on-premises-vm/cloudstack/)                             |          | Community ([@Guiques](https://github.com/ltupin/))
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/setup/pick-right-solution/#table-of-solutions) chart.
