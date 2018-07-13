@@ -22,16 +22,15 @@ The AWS cloud provider uses the private DNS name of the AWS instance as the name
 
 #### Explicit
 
-<aside class="warning"> Switching from default node names to explicit node names can orphan volumes</aside>
+<aside class="warning"> In general, the name of an existing Node should not be changed once the node is registerd. Switching from default node names to explicit node names can orphan volumes, invalidate kublet credentials</aside>
+<aside class="warning"> Requires all compoents: kubelet, kube-apiserver, and kube-controller-manager to be at 1.12 or higher</aside>
 
-
-Setting node names with the tag `kubernetes.io/node-name` can be enabled by configuring the kublet's `cloud-config`:
+Setting node names with the aws instance metadata tag `kubernetes.io/node-name` can be enabled by configuring the kublet's `cloud-config`:
 
 ```
 [Global]
 ExplicitNodeNames=true
 ```
-
 
 ### Load Balancers
 You can setup [external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/)
