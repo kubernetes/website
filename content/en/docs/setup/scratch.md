@@ -877,7 +877,7 @@ If you run into trouble, please see the section on [troubleshooting](/docs/setup
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch/)                                |          | Community ([@erictune](https://github.com/erictune))
+any                  | any          | any    | any         | [docs](/docs/setup/scratch/)                                |          | Community ([@erictune](https://github.com/erictune))
 
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions/) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/setup/pick-right-solution/#table-of-solutions/) chart.

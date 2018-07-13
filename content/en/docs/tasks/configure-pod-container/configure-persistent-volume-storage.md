@@ -24,7 +24,7 @@ bound to a suitable PersistentVolume.
 * You need to have a Kubernetes cluster that has only one Node, and the kubectl
 command-line tool must be configured to communicate with your cluster. If you
 do not already have a single-node cluster, you can create one by using
-[Minikube](/docs/getting-started-guides/minikube).
+[Minikube](/docs/setup/minikube/).
 
 * Familiarize yourself with the material in
 [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).

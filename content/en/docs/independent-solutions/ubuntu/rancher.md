@@ -14,7 +14,7 @@ The original documentation for this integration can be found at [https://github.
 {{% capture prerequisites %}}
 To use this guide, you must have a working kubernetes cluster that was deployed using Canonical's juju. 
 
-The full instructions for deploying Kubernetes with juju can be found at [https://kubernetes.io/docs/getting-started-guides/ubuntu/installation/](https://kubernetes.io/docs/getting-started-guides/ubuntu/installation/).  
+The full instructions for deploying Kubernetes with juju can be found at [https://kubernetes.io/docs/independent-solutions/ubuntu/installation/](https://kubernetes.io/docs/independent-solutions/ubuntu/installation/).  
 {{% /capture %}}
 
 
