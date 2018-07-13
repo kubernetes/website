@@ -114,13 +114,13 @@ So some of this is bound to happen, because you always have test escapes. But it
 
 TIM PEPPER: So I guess it's a term in the art, but for those who aren't familiar with it, you have intended behavior that wasn't covered by test, and as a result, an unintended change happens to that. And instead of your intended behavior being shipped, you're shipping something else. 
 
-JOSH BERKUS: The JSON change is a textbook example of this, which is we were testing that the API would continue to accept correct JSON. We were not testing adequately that it wouldn't except incorrect JSON. 
+JOSH BERKUS: The JSON change is a textbook example of this, which is we were testing that the API would continue to accept correct JSON. We were not testing adequately that it wouldn't accept incorrect JSON. 
 
 TIM PEPPER: A test escape, another way to think of it as you shipped a bug because there was not a test case highlighting the possibility of the bug. 
 
 <b>ADAM GLICK: It's the classic, we tested to make sure the feature worked. We didn't test to make sure that breaking things didn't work.</b>
 
-TIM PEPPER: It's common for us to focus on, I've created this feature and I'm testing the positive cases. And this also comes to thinking about things like secure by default and having a really robust system that a harder piece of engineering often is to think about the failure cases and really actively manage those well. 
+TIM PEPPER: It's common for us to focus on "I've created this feature and I'm testing the positive cases". And this also comes to thinking about things like secure by default and having a really robust system. A harder piece of engineering often is to think about the failure cases and really actively manage those well. 
 
 JOSH BERKUS: I had a conversation with a contributor recently where it became apparent that that contributor had never worked on a support team, because their conception of a badly behaved user was, like, a hacker, right? An attacker who comes from outside. 
 
