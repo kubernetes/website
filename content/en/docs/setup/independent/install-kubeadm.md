@@ -150,6 +150,11 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
 
+{{< warning >}}
+Kubeadm and Kubernetes components must be [carefully upgraded](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/),
+and should not be upgraded with other packages. These install instructions exclude all kubernetes packages from system upgrades.
+{{</ warning >}}
+
 For more information on version skews, please read our 
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
 
@@ -163,6 +168,7 @@ deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 apt-get update
 apt-get install -y kubelet kubeadm kubectl
+apt-mark hold kubelet kubeadm kubectl
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
@@ -175,6 +181,7 @@ enabled=1
 gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+exclude=kube*
 EOF
 setenforce 0
 yum install -y kubelet kubeadm kubectl
