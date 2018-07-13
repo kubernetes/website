@@ -1,5 +1,5 @@
 ---
-title: "Release Notes"
-weight: 30
+title: "Downloading Kubernetes"
+weight: 20
 ---
 
