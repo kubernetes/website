@@ -65,7 +65,7 @@ aliases:
     - timothysc
     - luxas
     - roberthbailey
-    - fabriziopandini 
+    - fabriziopandini
   sig-cluster-ops:
     - zehicle
     - jdumars
@@ -83,10 +83,19 @@ aliases:
     - spxtr
   sig-docs: #Team: documentation; GH: sig-docs-pr-reviews
     - bradamant3
-    - steveperry-53
-    - zacharysarah
     - bradtopol
-    - heckj
+    - chenopis
+    - kbarnard10
+    - mistyhacks
+    - rajakavitha1
+    - ryanmcginnis
+    - steveperry-53
+    - stewart-yu
+    - tengqm
+    - xiangpengzhao
+    - zacharysarah
+    - zhangxiaoyu-zidif
+    - zparnold
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
