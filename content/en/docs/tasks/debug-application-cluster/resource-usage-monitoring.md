@@ -7,7 +7,7 @@ title: Tools for Monitoring Compute, Storage, and Network Resources
 
 {{% capture overview %}}
 
-To scale and application and provide a reliable service, you need to
+To scale an application and provide a reliable service, you need to
 understand how an application behaves when it is deployed. You can examine
 application performance in a Kubernetes cluster by examining the containers,
 [pods](/docs/user-guide/pods), [services](/docs/user-guide/services), and
