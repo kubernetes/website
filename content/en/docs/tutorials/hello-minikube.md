@@ -26,6 +26,10 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 {{% capture prerequisites %}}
 
+<div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
+<script src="https://katacoda.com/embed.js"></script>
+<button style="color:#ffffff; background-color: #169bd7; border:2px solid #169bd7" onclick="window.katacoda.init(); ">Launch Terminal</button>
+
 * For OS X, you can use [Homebrew](https://brew.sh) to install Minikube.
 
   {{< note >}}
