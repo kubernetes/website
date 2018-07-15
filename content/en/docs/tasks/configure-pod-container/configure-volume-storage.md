@@ -71,6 +71,8 @@ the Pod:
 1. In your shell, list the running processes:
 
     ```shell
+    root@redis:/data/redis# apt-get update
+    root@redis:/data/redis# apt-get install procps
     root@redis:/data/redis# ps aux
     ```
 
