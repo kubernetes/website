@@ -2,7 +2,7 @@
   <channel>
     <title>{{ .Site.Title }} – {{ .Title }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Recent Hugo news from gohugo.io</description>
+    <description>The Kubernetes project blog</description>
     <generator>Hugo -- gohugo.io</generator>{{ with .Site.LanguageCode }}
     <language>{{.}}</language>{{end}}{{ with .Site.Author.email }}
     <managingEditor>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Author.email }}
@@ -10,8 +10,8 @@
     <copyright>{{.}}</copyright>{{end}}{{ if not .Date.IsZero }}
     <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
     <image>
-      <url>{{ "img/hugo.png" | absURL }}</url>
-      <title>GoHugo.io</title>
+      <url>https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png</url>
+      <title>Kubernetes.io</title>
       <link>{{ .Permalink }}</link>
     </image>
     {{ with .OutputFormats.Get "RSS" }}

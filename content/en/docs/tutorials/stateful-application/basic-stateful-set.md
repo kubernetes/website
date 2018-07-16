@@ -451,7 +451,9 @@ strategy used is determined by the `spec.updateStrategy` field of the
 StatefulSet API Object. This feature can be used to upgrade the container 
 images, resource requests and/or limits, labels, and annotations of the Pods in a 
 StatefulSet. There are two valid update strategies, `RollingUpdate` and 
-`OnDelete`. 
+`OnDelete`.
+
+`RollingUpdate` update strategy is the default for StatefulSets.
 
 ### Rolling Update
 

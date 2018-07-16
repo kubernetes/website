@@ -65,7 +65,7 @@ Guide](http://kubernetes.io/docs/admin/).
 
 ## Writing plugins
 
-* **Authentication** ([Authentication](http://kubernetes.io/docs/admin/authentication/)):
+* **Authentication** ([Authentication](http://kubernetes.io/docs/reference/access-authn-authz/authentication/)):
   The current and planned states of authentication tokens.
 
 * **Authorization Plugins** ([Authorization](http://kubernetes.io/docs/admin/authorization/)):

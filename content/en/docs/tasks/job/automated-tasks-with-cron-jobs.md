@@ -18,7 +18,7 @@ Cron jobs can also schedule individual tasks for a specific time, such as if you
 You should switch to using `batch/v1beta1`, instead, which is enabled by default in the API server.
 Examples in this document use `batch/v1beta1` in all examples.
 
-Cron jobs have limitations and idiosyncracies.
+Cron jobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single cron job can create multiple jobs.
 Therefore, jobs should be idempotent.
 For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).

@@ -34,7 +34,7 @@ received from the external policy engine.
 
 Shown below is an example ConfigMap for the Admission Controller:
 
-{{< code file="scheduling-policy-admission.yaml" >}}
+{{< codenew file="federation/scheduling-policy-admission.yaml" >}}
 
 The ConfigMap contains three files:
 
@@ -84,7 +84,7 @@ Create a Service in the host cluster to contact the external policy engine:
 
 Shown below is an example Service for OPA.
 
-{{< code file="policy-engine-service.yaml" >}}
+{{< codenew file="federation/policy-engine-service.yaml" >}}
 
 Create a Deployment in the host cluster with the Federation control plane:
 
@@ -92,7 +92,7 @@ Create a Deployment in the host cluster with the Federation control plane:
 
 Shown below is an example Deployment for OPA.
 
-{{< code file="policy-engine-deployment.yaml" >}}
+{{< codenew file="federation/policy-engine-deployment.yaml" >}}
 
 ## Configuring placement policies via ConfigMaps
 
@@ -128,7 +128,7 @@ Annotate one of the clusters to indicate that it is PCI certified.
 
 Deploy a Federated ReplicaSet to test the placement policy.
 
-{{< code file="replicaset-example-policy.yaml" >}}
+{{< codenew file="federation/replicaset-example-policy.yaml" >}}
 
 Shown below is the command to deploy a ReplicaSet that *does* match the policy.
 
