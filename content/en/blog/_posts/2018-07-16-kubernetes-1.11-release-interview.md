@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "How the sausage is made: the Kubernetes 1.11 release interview, from the Kubernetes Podcast"
-date:  Monday, July 16, 2018
+date: 2018-07-16
 ---
 
 <b>Author</b>: Craig Box (Google)
