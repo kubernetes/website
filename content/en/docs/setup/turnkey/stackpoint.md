@@ -17,27 +17,27 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 1. Choose a Provider
 
-    * Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
+    a. Log in to [stackpoint.io](https://stackpoint.io) with a GitHub, Google, or Twitter account.
 
-    * Click **+ADD A CLUSTER NOW**.
+    b. Click **+ADD A CLUSTER NOW**.
 
-    * Click to select Amazon Web Services (AWS).
+    c. Click to select Amazon Web Services (AWS).
 
 1. Configure Your Provider
 
-    * Add your Access Key ID and a Secret Access Key from AWS. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
+    a. Add your Access Key ID and a Secret Access Key from AWS. Select your default StackPointCloud SSH keypair, or click **ADD SSH KEY** to add a new keypair.
 
-    * Click **SUBMIT** to submit the authorization information.
+    b. Click **SUBMIT** to submit the authorization information.
 
 1. Configure Your Cluster
 
-    * Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
+    Choose any extra options you may want to include with your cluster, then click **SUBMIT** to create the cluster. 
 
 1. Run the Cluster
 
-    * You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
+    You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-    * For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/docs/getting-started-guides/aws/).
+    For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/docs/getting-started-guides/aws/).
 
 
 ## GCE
