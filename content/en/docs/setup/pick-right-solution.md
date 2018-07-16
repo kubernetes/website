@@ -4,6 +4,7 @@ reviewers:
 - erictune
 - mikedanese
 title: Picking the Right Solution
+weight: 10
 ---
 
 Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to a rack of
@@ -26,11 +27,11 @@ a Kubernetes cluster from scratch.
 
 # Local-machine Solutions
 
-* [Minikube](/docs/getting-started-guides/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
+* [Minikube](/docs/setup/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
 * [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
 
-* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
+* [Ubuntu on LXD](/docs/independent-solutions/ubuntu/local/) supports a nine-instance deployment on localhost.
 
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
 
@@ -71,7 +72,7 @@ a Kubernetes cluster from scratch.
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
 
-* [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
+* [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/independent-solutions/ubuntu/)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [AWS](/docs/setup/turnkey/aws/)
 * [Azure](/docs/setup/turnkey/azure/)
@@ -103,7 +104,7 @@ base operating systems.
 If you can find a guide below that matches your needs, use it. It may be a little out of date, but
 it will be easier than starting from scratch. If you do want to start from scratch, either because you
 have special requirements, or just because you want to understand what is underneath a Kubernetes
-cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scratch/) guide.
+cluster, try the [Getting Started from Scratch](/docs/setup/scratch/) guide.
 
 If you are interested in supporting Kubernetes on a new platform, see
 [Writing a Getting Started Guide](https://git.k8s.io/community/contributors/devel/writing-a-getting-started-guide.md).
@@ -118,34 +119,34 @@ with a single command per machine.
 
 These solutions are combinations of cloud providers and operating systems not covered by the above solutions.
 
-* [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos/)
-* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
-* [Kubespray](/docs/getting-started-guides/kubespray/)
+* [CoreOS on AWS or GCE](/docs/setup/custom-cloud/coreos/)
+* [Kubernetes on Ubuntu](/docs/independent-solutions/ubuntu/)
+* [Kubespray](/docs/setup/custom-cloud/kubespray/)
 * [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
 * [Gardener](https://gardener.cloud/)
 
 ## On-Premises VMs
 
-* [Vagrant](/docs/getting-started-guides/coreos/) (uses CoreOS and flannel)
-* [CloudStack](/docs/getting-started-guides/cloudstack/) (uses Ansible, CoreOS and flannel)
+* [Vagrant](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
+* [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible, CoreOS and flannel)
 * [VMware vSphere](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)
-* [VMware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
-* [VMware](/docs/getting-started-guides/coreos/) (uses CoreOS and flannel)
-* [oVirt](/docs/getting-started-guides/ovirt/)
-* [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
+* [VMware vSphere, OpenStack, or Bare Metal](/docs/independent-solutions/ubuntu/) (uses Juju, Ubuntu and flannel)
+* [VMware](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
+* [oVirt](/docs/setup/on-premises-vm/ovirt/)
+* [Fedora (Multi Node)](/docs/independent-solutions/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
 
 ## Bare Metal
 
-* [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
-* [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
-* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
-* [CoreOS](/docs/getting-started-guides/coreos/)
+* [Fedora (Single Node)](/docs/independent-solutions/fedora/fedora_manual_config/)
+* [Fedora (Multi Node)](/docs/independent-solutions/fedora/flannel_multi_node_cluster/)
+* [Kubernetes on Ubuntu](/docs/independent-solutions/ubuntu/)
+* [CoreOS](/docs/setup/custom-cloud/coreos/)
 
 ## Integrations
 
 These solutions provide integration with third-party schedulers, resource managers, and/or lower level platforms.
 
-* [DCOS](/docs/getting-started-guides/dcos/)
+* [DCOS](/docs/setup/on-premises-vm/dcos/)
   * Community Edition DCOS uses AWS
   * Enterprise Edition DCOS supports cloud hosting, on-premises VMs, and bare metal
 
@@ -166,30 +167,30 @@ Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](http
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/turnkey/gce/)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
 Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/setup/turnkey/azure/)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
-Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config/)            |  Project
-Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
-libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
-KVM                  | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
-DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/getting-started-guides/dcos/)                                   |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
+Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/independent-solutions/fedora/fedora_manual_config/)            |  Project
+Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/independent-solutions/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
+libvirt              | custom       | Fedora | flannel     | [docs](/docs/independent-solutions/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
+KVM                  | custom       | Fedora | flannel     | [docs](/docs/independent-solutions/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
+DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/setup/on-premises-vm/dcos/)                                   |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
 AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/setup/turnkey/aws/)                                 |  Community
-GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires))
-Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
-CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack/)                             |  Community ([@sebgoa](https://github.com/sebgoa))
+GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/setup/custom-cloud/coreos/)                                 |  Community ([@pires](https://github.com/pires))
+Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/setup/custom-cloud/coreos/)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
+CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/setup/on-premises-vm/cloudstack/)                             |  Community ([@sebgoa](https://github.com/sebgoa))
 VMware vSphere       | any          | multi-support | multi-support     | [docs](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)  |  [Community](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/contactus.html)
-Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/getting-started-guides/centos/centos_manual_config/)            |  Community ([@coolsvap](https://github.com/coolsvap))
-lxd                  | Juju         | Ubuntu | flannel/canal            | [docs](/docs/getting-started-guides/ubuntu/local/)              |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
-AWS                  | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
-Azure                | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
-GCE                  | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
-Oracle Cloud         | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
-Rackspace            | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
-VMware vSphere       | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
-Bare Metal           | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/setup/independent/create-cluster-kubeadm/)            |  Community ([@coolsvap](https://github.com/coolsvap))
+lxd                  | Juju         | Ubuntu | flannel/canal            | [docs](/docs/independent-solutions/ubuntu/local/)              |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+AWS                  | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/independent-solutions/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Azure                | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/independent-solutions/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+GCE                  | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/independent-solutions/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Oracle Cloud         | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/independent-solutions/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Rackspace            | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/independent-solutions/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+VMware vSphere       | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/independent-solutions/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
+Bare Metal           | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/independent-solutions/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
 AWS                  | Saltstack    | Debian | AWS         | [docs](/docs/setup/turnkey/aws/)                                    |  Community ([@justinsb](https://github.com/justinsb))
 AWS                  | kops         | Debian | AWS         | [docs](https://github.com/kubernetes/kops/)                                  |  Community ([@justinsb](https://github.com/justinsb))
-Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
-oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
-any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
+Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/independent-solutions/ubuntu/)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
+oVirt                |              |        |             | [docs](/docs/setup/on-premises-vm/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
+any                  | any          | any    | any         | [docs](/docs/setup/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
 any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)

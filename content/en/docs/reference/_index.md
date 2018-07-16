@@ -1,5 +1,5 @@
 ---
-title: Reference Documentation
+title: Reference
 approvers:
 - chenopis
 linkTitle: "Reference"

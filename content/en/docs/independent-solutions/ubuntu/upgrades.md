@@ -13,7 +13,7 @@ This page assumes you have a working deployed cluster.
 {{< warning >}}
 **Warning:** You should always back up all your data before attempting an upgrade.
 Don't forget to include the workload inside your cluster!
-Refer to the [backup documentation](/docs/getting-started-guides/ubuntu/backups).
+Refer to the [backup documentation](/docs/independent-solutions/ubuntu/backups).
 {{< /warning >}}
 
 {{% /capture %}}
@@ -43,7 +43,7 @@ and changes in behaviour will always be documented in the release notes.
 ### Upgrade etcd
 
 Backing up etcd requires an export and snapshot, refer to the
-[backup documentation](/docs/getting-started-guides/ubuntu/backups) to create a snapshot.
+[backup documentation](/docs/independent-solutions/ubuntu/backups) to create a snapshot.
 After the snapshot, upgrade the etcd service with:
 
     juju upgrade-charm etcd
@@ -142,7 +142,7 @@ run the upgrade action on each worker:
 
 `kubectl version` should return the newer version.
 
-It is recommended to rerun a [cluster validation](/docs/getting-started-guides/ubuntu/validation)
+It is recommended to rerun a [cluster validation](/docs/independent-solutions/ubuntu/validation)
 to ensure that the cluster upgrade has successfully completed.
 
 ### Upgrade Flannel
