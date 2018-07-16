@@ -248,4 +248,7 @@ the proper part of the cgroup hierarchy.
 As of Kubernetes version 1.7, `kubelet` supports specifying `storage` as a resource
 for `kube-reserved` and `system-reserved`.
 
+As of Kubernetes version 1.8, the `storage` key name was changed to `ephemeral-storage`
+for the alpha release.
+
 {{% /capture %}}
