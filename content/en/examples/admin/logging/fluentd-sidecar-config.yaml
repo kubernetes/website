@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
 data:
   fluentd.conf: |
     <source>
@@ -20,6 +23,3 @@ data:
     <match **>
       type google_cloud
     </match>
-kind: ConfigMap
-metadata:
-  name: fluentd-config

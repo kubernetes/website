@@ -39,7 +39,7 @@ Once TLS is established, the HTTP request moves to the Authentication step.
 This is shown as step **1** in the diagram.
 The cluster creation script or cluster admin configures the API server to run
 one or more Authenticator Modules.
-Authenticators are described in more detail [here](/docs/admin/authentication/).
+Authenticators are described in more detail [here](/docs/reference/access-authn-authz/authentication/).
 
 The input to the authentication step is the entire HTTP request, however, it typically
 just examines the headers and/or client certificate.

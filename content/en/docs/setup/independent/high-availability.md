@@ -475,12 +475,12 @@ In the following example, replace the list of
 USER=ubuntu # customizable
 CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
 for host in ${CONTROL_PLANE_IPS}; do
-    scp /etc/kubernetes/pki/ca.crt "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/ca.key "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/sa.key "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/sa.pub "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@CONTROL_PLANE_IP:
-    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@CONTROL_PLANE_IP:
+    scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
+    scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
+    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
+    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
 done
 ```
 
