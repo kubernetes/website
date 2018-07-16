@@ -30,7 +30,7 @@ Pods become isolated by having a NetworkPolicy that selects them. Once there is 
 
 ## The `NetworkPolicy` Resource
 
-See the [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking) for a full definition of the resource.
+See the [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) for a full definition of the resource.
 
 An example `NetworkPolicy` might look like this:
 

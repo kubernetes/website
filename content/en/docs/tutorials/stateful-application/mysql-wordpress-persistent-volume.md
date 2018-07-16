@@ -142,7 +142,7 @@ The following manifest describes a single-instance WordPress Deployment and Serv
 1. Create a WordPress Service and Deployment from the `wordpress-deployment.yaml` file:
 
       ```shell
-      kubectl create -f https://k8s.io/examples/wordpress/wordpress-deployment.yaml
+      kubectl create -f https://k8s.io/examples/application/wordpress/wordpress-deployment.yaml
       ```
 
 2. Verify that a PersistentVolume got dynamically provisioned:

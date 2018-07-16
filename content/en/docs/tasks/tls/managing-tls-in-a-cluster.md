@@ -207,7 +207,7 @@ includes who the Kubernetes API trusts. The ability to approve CSRs should
 not be granted broadly or lightly. The requirements of the challenge
 noted in the previous section and the repercussions of issuing a specific
 certificate should be fully understood before granting this permission. See
-[here](/docs/admin/authentication#x509-client-certs) for information on how
+[here](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for information on how
 certificates interact with authentication.
 
 ## A Note to Cluster Administrators

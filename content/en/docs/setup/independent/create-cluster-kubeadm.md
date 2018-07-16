@@ -336,6 +336,16 @@ if they don't know their PodIP.
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
 {{% /tab %}}
+
+{{% tab name="JuniperContrail/TungstenFabric" %}}
+Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
+simultaneous overlay-underlay support, network policy enforcement, network isolation,
+service chaining and flexible load balancing.
+
+There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
+
+Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
+{{% /tab %}}
 {{< /tabs >}}
 
 
