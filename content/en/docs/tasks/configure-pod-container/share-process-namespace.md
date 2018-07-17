@@ -39,16 +39,21 @@ across the system: `--feature-gates=PodShareProcessNamespace=true`.
 Process Namespace Sharing is enabled using the `ShareProcessNamespace` field of
 `v1.PodSpec`. For example:
 
-{{< code file="share-process-namespace.yaml" >}}
+{{< codenew file="pods/share-process-namespace.yaml" >}}
 
 1. Create the pod `nginx` on your cluster:
 
-        $ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/share-process-namespace.yaml
+        kubectl create -f https://k8s.io/examples/pods/share-process-namespace.yaml
 
 1. Attach to the `shell` container and run `ps`:
 
-        $ kubectl attach -it nginx -c shell
+        ```
+        kubectl attach -it nginx -c shell
+        ```
+
         If you don't see a command prompt, try pressing enter.
+
+        ```
         / # ps ax
         PID   USER     TIME  COMMAND
             1 root      0:00 /pause
@@ -56,6 +61,7 @@ Process Namespace Sharing is enabled using the `ShareProcessNamespace` field of
            14 101       0:00 nginx: worker process
            15 root      0:00 sh
            21 root      0:00 ps ax
+        ```
 
 You can signal processes in other containers. For example, send `SIGHUP` to
 nginx to restart the worker process. This requires the `SYS_PTRACE` capability.

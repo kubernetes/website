@@ -1,12 +1,12 @@
 ---
 reviewers:
 - madhusudancs
+content_template: templates/task
 title: Set up Cluster Federation with Kubefed
 ---
 
+{{% capture overview %}}
 {{< include "federation-current-state.md" >}}
-
-{{< toc >}}
 
 Kubernetes version 1.5 and above includes a new command line tool called
 [`kubefed`](/docs/admin/kubefed/) to help you administrate your federated
@@ -18,6 +18,18 @@ This guide explains how to administer a Kubernetes Cluster Federation
 using `kubefed`.
 
 > Note: `kubefed` is a beta feature in Kubernetes 1.6.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Prerequisites
 
@@ -535,3 +547,5 @@ kubectl delete ns federation-system --context=rivendell
 
 Note that `rivendell` is the host cluster name, replace that with the
 appropriate name in your configuration.
+
+{{% /capture %}}

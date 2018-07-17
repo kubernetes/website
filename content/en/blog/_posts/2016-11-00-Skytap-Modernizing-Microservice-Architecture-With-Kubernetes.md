@@ -62,7 +62,7 @@ Deployment adds a layer of complexity for us. Docker images are a great way to p
 
 
 
-We reuse container images across multiple environments. This requires environment-specific configuration to be injected into each container instance. Until recently, we used similar source-based principles to inject these configuration values: each container would copy relevant configuration files from Hg by cURL-ing raw files from the repo at run time. Network availability and variability are a challenge best avoided, though, so we now load the configuration into Kubernetes’ [**ConfigMap**](http://blog.kubernetes.io/2016/04/configuration-management-with-containers.html) feature. This not only simplifies our Docker images, but it also makes pod startup faster and more predictable (because containers don’t have to download files from Hg). &nbsp;&nbsp;
+We reuse container images across multiple environments. This requires environment-specific configuration to be injected into each container instance. Until recently, we used similar source-based principles to inject these configuration values: each container would copy relevant configuration files from Hg by cURL-ing raw files from the repo at run time. Network availability and variability are a challenge best avoided, though, so we now load the configuration into Kubernetes’ [**ConfigMap**](https://kubernetes.io/blog/2016/04/configuration-management-with-containers) feature. This not only simplifies our Docker images, but it also makes pod startup faster and more predictable (because containers don’t have to download files from Hg). &nbsp;&nbsp;
 
 
 

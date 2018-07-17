@@ -3,15 +3,26 @@ reviewers:
 - piosz
 - x13n
 title: Logging Using Stackdriver
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 Before reading this page, it's highly recommended to familiarize yourself
 with the [overview of logging in Kubernetes](/docs/concepts/cluster-administration/logging).
 
+{{< note >}}
 **Note:** By default, Stackdriver logging collects only your container's standard output and
 standard error streams. To collect any logs your application writes to a file (for example),
 see the [sidecar approach](/docs/concepts/cluster-administration/logging#sidecar-container-with-a-logging-agent)
 in the Kubernetes logging overview.
+{{< /note >}}
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Deploying
 
@@ -85,7 +96,7 @@ than Google Kubernetes Engine. Proceed at your own risk.
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
+    kubectl create -f https://k8s.io/examples/debug/fluentd-gcp-configmap.yaml
     ```
 
     The command creates the `ConfigMap` in the `default` namespace. You can download the file
@@ -94,7 +105,7 @@ than Google Kubernetes Engine. Proceed at your own risk.
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-ds.yaml
+    kubectl create -f https://k8s.io/examples/debug/fluentd-gcp-ds.yaml
     ```
 
     You can download and edit this file before using it as well.
@@ -118,16 +129,16 @@ default       fluentd-gcp-v2.0   3         3         3         beta.kubernetes.i
 ```
 
 To understand how logging with Stackdriver works, consider the following
-synthetic log generator pod specification [counter-pod.yaml](/docs/tasks/debug-application-cluster/counter-pod.yaml):
+synthetic log generator pod specification [counter-pod.yaml](/examples/debug/counter-pod.yaml):
 
-{{< code file="counter-pod.yaml" >}}
+{{< codenew file="debug/counter-pod.yaml" >}}
 
 This pod specification has one container that runs a bash script
 that writes out the value of a counter and the date once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
+kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
 ```
 
 You can observe the running pod:
@@ -164,7 +175,7 @@ pod "counter" deleted
 and then recreating it:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
+$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
 pod "counter" created
 ```
 
@@ -213,7 +224,7 @@ command line interface from the [Google Cloud SDK](https://cloud.google.com/sdk/
 It uses Stackdriver Logging [filtering syntax](https://cloud.google.com/logging/docs/view/advanced_filters)
 to query specific logs. For example, you can run the following command:
 
-```shell
+```none
 $ gcloud beta logging read 'logName="projects/$YOUR_PROJECT_ID/logs/count"' --format json | jq '.[].textPayload'
 ...
 "2: Mon Jan  1 00:01:02 UTC 2001\n"
@@ -314,7 +325,7 @@ kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-
 ```
 
 Then in the value for the key `containers.input.conf` insert a new filter right after
-the `source` section. **Note:** order is important.
+the `source` section. **Note:** Order is important.
 
 Updating `ConfigMap` in the apiserver is more complicated than updating `DaemonSet`. It's better
 to consider `ConfigMap` to be immutable. Then, in order to update the configuration, you should
@@ -335,3 +346,5 @@ with minor changes:
 
 Then run `make build push` from this directory. After updating `DaemonSet` to pick up the
 new image, you can use the plugin you installed in the fluentd configuration.
+
+{{% /capture %}}

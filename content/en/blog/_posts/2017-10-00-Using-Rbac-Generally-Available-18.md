@@ -4,9 +4,9 @@ date: 2017-10-28
 slug: using-rbac-generally-available-18
 url: /blog/2017/10/Using-Rbac-Generally-Available-18
 ---
-**_Editor's note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/10/five-days-of-kubernetes-18.html) on what's new in Kubernetes 1.8. Today’s post comes from Eric Chiang, software engineer, CoreOS, and SIG-Auth co-lead._**  
+**_Editor's note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/10/five-days-of-kubernetes-18) on what's new in Kubernetes 1.8. Today’s post comes from Eric Chiang, software engineer, CoreOS, and SIG-Auth co-lead._**  
 
-Kubernetes 1.8 represents a significant milestone for the [role-based access control (RBAC) authorizer](https://kubernetes.io/docs/admin/authorization/rbac/), which was promoted to GA in this release. RBAC is a mechanism for controlling access to the Kubernetes API, and since its [beta in 1.6](http://blog.kubernetes.io/2017/04/rbac-support-in-kubernetes.html), many Kubernetes clusters and provisioning strategies have enabled it by default.  
+Kubernetes 1.8 represents a significant milestone for the [role-based access control (RBAC) authorizer](https://kubernetes.io/docs/admin/authorization/rbac/), which was promoted to GA in this release. RBAC is a mechanism for controlling access to the Kubernetes API, and since its [beta in 1.6](https://kubernetes.io/blog/2017/04/rbac-support-in-kubernetes), many Kubernetes clusters and provisioning strategies have enabled it by default.  
 
 Going forward, we expect to see RBAC become a fundamental building block for securing Kubernetes clusters. This post explores using RBAC to manage user and application access to the Kubernetes API.  
 

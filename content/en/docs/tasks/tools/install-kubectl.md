@@ -12,7 +12,7 @@ Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to d
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-Use a version of kubectl that is the same version as your server or later. Using an older kubectl with a newer server might produce validation errors.
+You must use a kubectl version that is the same, or later, as the version of your cluster. Using the latest version of kubectl helps avoid unforeseen issues.
 {{% /capture %}}
 
 
@@ -26,13 +26,12 @@ Here are a few methods to install kubectl.
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
-apt-get update && apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-apt-get update
-apt-get install -y kubectl
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo touch /etc/apt/sources.list.d/kubernetes.list 
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
 {{< /tab >}}
 {{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -62,7 +61,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 
-        brew install kubectl
+        brew install kubernetes-cli
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 

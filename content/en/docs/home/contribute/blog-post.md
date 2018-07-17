@@ -8,7 +8,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows you how to submit a post for the [Kubernetes blog](https://kubernetes.io/blog).
+This page shows you how to submit a post for the [Kubernetes Blog](https://kubernetes.io/blog).
 
 You’ll receive a response within 5 business days on whether your submission is approved and information about next steps, if any.
 {{% /capture %}}
@@ -25,9 +25,9 @@ or:
 {{% /capture %}}
 
 {{% capture steps %}}
-## Kubernetes blog guidelines
+## Kubernetes Blog guidelines
 
-All content must be original. The Kubernetes blog does not post material previously published elsewhere.
+All content must be original. The Kubernetes Blog does not post material previously published elsewhere.
 
 Suitable Content (with examples):
 

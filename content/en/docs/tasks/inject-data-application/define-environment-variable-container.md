@@ -32,11 +32,11 @@ file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration file for the
 Pod:
 
-{{< code file="envars.yaml" >}}
+{{< codenew file="pods/inject/envars.yaml" >}}
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
+        kubectl create -f https://k8s.io/examples/pods/inject/envars.yaml
 
 1. List the running Pods:
 

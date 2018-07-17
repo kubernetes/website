@@ -59,28 +59,30 @@ This sets the `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
 annotation on each object. The annotation contains the contents of the object
 configuration file that was used to create the object.
 
-**Note**: Add the `-R` flag to recursively process directories.
+{{< note >}}
+**Note:** Add the `-R` flag to recursively process directories.
+{{< /note >}}
 
 Here's an example of an object configuration file:
 
-{{< code file="simple_deployment.yaml" >}}
+{{< codenew file="application/simple_deployment.yaml" >}}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
 was written to the live configuration, and it matches the configuration file:
 
-```shell
+```yaml
 kind: Deployment
 metadata:
   annotations:
@@ -131,31 +133,35 @@ if those objects already exist. This approach accomplishes the following:
 kubectl apply -f <directory>/
 ```
 
-**Note**: Add the `-R` flag to recursively process directories.
+{{< note >}}
+**Note:** Add the `-R` flag to recursively process directories.
+{{< /note >}}
 
 Here's an example configuration file:
 
-{{< code file="simple_deployment.yaml" >}}
+{{< codenew file="application/simple_deployment.yaml" >}}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
+{{< note >}}
 **Note:** For purposes of illustration, the preceding command refers to a single
 configuration file instead of a directory.
+{{< /note >}}
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
 was written to the live configuration, and it matches the configuration file:
 
-```shell
+```yaml
 kind: Deployment
 metadata:
   annotations:
@@ -204,13 +210,13 @@ kubectl scale deployment/nginx-deployment --replicas=2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
 annotation does not contain a `replicas` field:
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -251,18 +257,18 @@ spec:
 Update the `simple_deployment.yaml` configuration file to change the image from
 `nginx:1.7.9` to `nginx:1.11.9`, and delete the `minReadySeconds` field:
 
-{{< code file="update_deployment.yaml" >}}
+{{< codenew file="application/update_deployment.yaml" >}}
 
 Apply the changes made to the configuration file:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/update_deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -274,7 +280,7 @@ The output shows the following changes to the live configuration:
 - The `minReadySeconds` field has been cleared.
 - The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
 
-```shell
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -315,10 +321,12 @@ spec:
   # ...
 ```
 
-**Warning**: Mixing `kubectl apply` with the imperative object configuration commands
+{{< warning >}}
+**Warning:** Mixing `kubectl apply` with the imperative object configuration commands
 `create` and `replace` is not supported. This is because `create`
 and `replace` do not retain the `kubectl.kubernetes.io/last-applied-configuration`
 that `kubectl apply` uses to compute updates.
+{{< /warning >}}
 
 ## How to delete objects
 
@@ -338,11 +346,15 @@ kubectl delete -f <filename>
 
 Only use this if you know what you are doing.
 
+{{< warning >}}
 **Warning:** `kubectl apply --prune` is in alpha, and backwards incompatible
 changes might be introduced in subsequent releases.
+{{< /warning >}}
 
-**Warning**: You must be careful when using this command, so that you
+{{< warning >}}
+**Warning:** You must be careful when using this command, so that you
 do not delete objects unintentionally.
+{{< /warning >}}
 
 As an alternative to `kubectl delete`, you can use `kubectl apply` to identify objects to be deleted after their
 configuration files have been removed from the directory. Apply with `--prune`
@@ -360,11 +372,13 @@ TODO(pwittrock): We need to change the behavior to prevent the user from running
 kubectl apply -f <directory/> --prune -l <labels>
 ```
 
-**Important:** Apply with prune should only be run against the root directory
+{{< warning >}}
+**Warning:** Apply with prune should only be run against the root directory
 containing the object configuration files. Running against sub-directories
 can cause objects to be unintentionally deleted if they are returned
 by the label selector query specified with `-l <labels>` and
 do not appear in the subdirectory.
+{{< /warning >}}
 
 ## How to view an object
 
@@ -376,10 +390,12 @@ kubectl get -f <filename|url> -o yaml
 
 ## How apply calculates differences and merges changes
 
-**Definition:** A *patch* is an update operation that is scoped to specific
+{{< caution >}}
+**Caution:** A *patch* is an update operation that is scoped to specific
 fields of an object instead of the entire object.
 This enables updating only a specific set of fields on an object without
 reading the object first.
+{{< /caution >}}
 
 When `kubectl apply` updates the live configuration for an object,
 it does so by sending a patch request to the API server. The
@@ -401,11 +417,11 @@ to calculate which fields should be deleted or set:
 
 Here's an example. Suppose this is the configuration file for a Deployment object:
 
-{{< code file="update_deployment.yaml" >}}
+{{< codenew file="application/update_deployment.yaml" >}}
 
 Also, suppose this is the live configuration for the same Deployment object:
 
-```shell
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -447,7 +463,10 @@ Here are the merge calculations that would be performed by `kubectl apply`:
 
 1. Calculate the fields to delete by reading values from
    `last-applied-configuration` and comparing them to values in the
-   configuration file. In this example, `minReadySeconds` appears in the
+   configuration file.
+   Clear fields explicitly set to null in the local object configuration file
+   regardless of whether they appear in the `last-applied-configuration`.
+   In this example, `minReadySeconds` appears in the
    `last-applied-configuration` annotation, but does not appear in the configuration file.
     **Action:** Clear `minReadySeconds` from the live configuration.
 2. Calculate the fields to set by reading values from the configuration
@@ -460,7 +479,7 @@ Here are the merge calculations that would be performed by `kubectl apply`:
 
 Here is the live configuration that is the result of the merge:
 
-```shell
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -501,12 +520,6 @@ spec:
   # ...
 ```
 
-{{< comment >}}
-TODO(1.6): For 1.6, add the following bullet point to 1.
-
-- clear fields explicitly set to null in the local object configuration file regardless of whether they appear in the last-applied-configuration
-{{< /comment >}}
-
 ### How different types of fields are merged
 
 How a particular field in a configuration file is merged with
@@ -532,7 +545,9 @@ and merged.
 
 Primitive fields are replaced or cleared.
 
+{{< note >}}
 **Note:** '-' is used for "not applicable" because the value is not used.
+{{< /note >}}
 
 | Field in object configuration file  | Field in live object configuration | Field in last-applied-configuration | Action                                    |
 |-------------------------------------|------------------------------------|-------------------------------------|-------------------------------------------|
@@ -545,7 +560,9 @@ Primitive fields are replaced or cleared.
 
 Fields that represent maps are merged by comparing each of the subfields or elements of the map:
 
+{{< note >}}
 **Note:** '-' is used for "not applicable" because the value is not used.
+{{< /note >}}
 
 | Key in object configuration file    | Key in live object configuration   | Field in last-applied-configuration | Action                           |
 |-------------------------------------|------------------------------------|-------------------------------------|----------------------------------|
@@ -671,10 +688,12 @@ by `name`.
 
 As of Kubernetes 1.5, merging lists of primitive elements is not supported.
 
+{{< note >}}
 **Note:** Which of the above strategies is chosen for a given field is controlled by
 the `patchStrategy` tag in [types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
 If no `patchStrategy` is specified for a field of type list, then
 the list is replaced.
+{{< /note >}}
 
 {{< comment >}}
 TODO(pwittrock): Uncomment this for 1.6
@@ -694,24 +713,24 @@ not specified when the object is created.
 
 Here's a configuration file for a Deployment. The file does not specify `strategy`:
 
-{{< code file="simple_deployment.yaml" >}}
+{{< codenew file="application/simple_deployment.yaml" >}}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/docs/concepts/overview/object-management-kubectl/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the API server set several fields to default values in the live
 configuration. These fields were not specified in the configuration file.
 
-```shell
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 # ...
@@ -721,9 +740,6 @@ spec:
       app: nginx
   minReadySeconds: 5
   replicas: 1 # defaulted by apiserver
-  selector:
-    matchLabels:
-      app: nginx
   strategy:
     rollingUpdate: # defaulted by apiserver - derived from strategy.type
       maxSurge: 1
@@ -852,29 +868,10 @@ Recommendation: These fields should be explicitly defined in the object configur
 
 ### How to clear server-defaulted fields or fields set by other writers
 
-As of Kubernetes 1.5, fields that do not appear in the configuration file cannot be
-cleared by a merge operation. Here are some workarounds:
-
-Option 1: Remove the field by directly modifying the live object.
-
-**Note:** As of Kubernetes 1.5, `kubectl edit` does not work with `kubectl apply`.
-Using these together will cause unexpected behavior.
-
-Option 2: Remove the field through the configuration file.
-
-1. Add the field to the configuration file to match the live object.
-1. Apply the configuration file; this updates the annotation to include the field.
-1. Delete the field from the configuration file.
-1. Apply the configuration file; this deletes the field from the live object and annotation.
-
-{{< comment >}}
-TODO(1.6): Update this with the following for 1.6
-
 Fields that do not appear in the configuration file can be cleared by
 setting their values to `null` and then applying the configuration file.
 For fields defaulted by the server, this triggers re-defaulting
 the values.
-{{< /comment >}}
 
 ## How to change ownership of a field between the configuration file and direct imperative writers
 
@@ -902,7 +899,9 @@ an imperative writer requires manual steps:
 Kubernetes objects should be managed using only one method at a time.
 Switching from one method to another is possible, but is a manual process.
 
-**Exception:** It is OK to use imperative deletion with declarative management.
+{{< note >}}
+**Note:** It is OK to use imperative deletion with declarative management.
+{{< /note >}}
 
 {{< comment >}}
 TODO(pwittrock): We need to make using imperative commands with
@@ -919,16 +918,20 @@ configuration involves several manual steps:
 
 1. Export the live object to a local configuration file:
 
-       kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+     ```shell
+     kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+     ```
 
 1. Manually remove the `status` field from the configuration file.
 
-    **Note:** This step is optional, as `kubectl apply` does not update the status field
-    even if it is present in the configuration file.
+    {{< note >}}**Note:** This step is optional, as `kubectl apply` does not update the status field
+    even if it is present in the configuration file.{{< /note >}}
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-       kubectl replace --save-config -f <kind>_<name>.yaml
+    ```shell
+    kubectl replace --save-config -f <kind>_<name>.yaml
+    ```
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
@@ -940,13 +943,17 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
-       kubectl replace --save-config -f <kind>_<name>.yaml
+    ```shell
+    kubectl replace --save-config -f <kind>_<name>.yaml
+    ```
 
 1. Change processes to use `kubectl apply` for managing the object exclusively.
 
 ## Defining controller selectors and PodTemplate labels
 
-**Warning**: Updating selectors on controllers is strongly discouraged.
+{{< warning >}}
+**Warning:** Updating selectors on controllers is strongly discouraged.
+{{< /warning >}}
 
 The recommended approach is to define a single, immutable PodTemplate label
 used only by the controller selector with no other semantic meaning.
@@ -962,13 +969,6 @@ template:
     labels:
       controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
-
-## Known Issues
-
-* Prior to Kubernetes 1.6, `kubectl apply` did not support operating on objects stored in a
-  [custom resource](/docs/concepts/api-extension/custom-resources/).
-  For these cluster versions, you should instead use [imperative object configuration](/docs/concepts/overview/object-management-kubectl/imperative-config/).
-{{% /capture %}}
 
 {{% capture whatsnext %}}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)

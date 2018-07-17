@@ -10,15 +10,16 @@ The shell code must be evaluated to provide interactive
 completion of kubeadm commands. This can be done by sourcing it from
 the .bash_profile.
 
-Note: this requires the bash-completion framework, which is not installed
-by default on Mac. This can be installed by using homebrew:
+Note: this requires the bash-completion framework.
 
+To install it on Mac use homebrew:
     $ brew install bash-completion
-
 Once installed, bash_completion must be evaluated. This can be done by adding the
 following line to the .bash_profile
-
     $ source $(brew --prefix)/etc/bash_completion
+
+If bash-completion is not installed on Linux, please install the 'bash-completion' package
+via your distribution's package manager.
 
 Note for zsh users: [1] zsh completions are only supported in versions of zsh >= 5.2
 
@@ -49,7 +50,7 @@ source <(kubeadm completion zsh)
 
 ### Options
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
@@ -60,7 +61,7 @@ source <(kubeadm completion zsh)
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">help for completion</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for completion</td>
     </tr>
 
   </tbody>

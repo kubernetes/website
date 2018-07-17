@@ -4,11 +4,12 @@ reviewers:
 - sjenning
 - ConnorDoyle
 - balajismaniam
+content_template: templates/task
 ---
 
-{{< feature-state state="beta" >}}
+{{% capture overview %}}
 
-{{< toc >}}
+{{< feature-state state="beta" >}}
 
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
 from the user. This is by design.  However, some workloads require
@@ -16,6 +17,18 @@ stronger guarantees in terms of latency and/or performance in order to operate
 acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## CPU Management Policies
 
@@ -197,3 +210,4 @@ and `requests` are set equal to `limits` when not explicitly specified. And the
 container's resource limit for the CPU resource is an integer greater than or 
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
+{{% /capture %}}
