@@ -232,24 +232,6 @@ systemctl enable kubelet && systemctl start kubelet
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
-## Configure cgroup driver used by kubelet on Master Node
-
-Make sure that the cgroup driver used by kubelet is the same as the one used by Docker. Verify that your Docker cgroup driver matches the kubelet config:
-
-```bash
-docker info | grep -i cgroup
-cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
-
-If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver. The
-flag you need to change is `--cgroup-driver`. If it's already set, you can update like so:
-
-```bash
-sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
-
-Otherwise, you will need to open the systemd file and add the flag to an existing environment line.
-
 Then restart kubelet:
 
 ```bash
