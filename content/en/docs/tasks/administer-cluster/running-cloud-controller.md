@@ -54,7 +54,7 @@ As of v1.8, cloud controller manager can implement:
 * node controller - responsible for updating kubernetes nodes using cloud APIs and deleting kubernetes nodes that were deleted on your cloud.
 * service controller - responsible for loadbalancers on your cloud against services of type LoadBalancer.
 * route controller - responsible for setting up network routes on your cloud
-* persistent valume labels controller - responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
+* persistent volume labels controller - responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
 * any other features you would like to implement if you are running an out-of-tree provider.
 
 
