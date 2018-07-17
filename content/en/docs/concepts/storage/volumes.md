@@ -772,9 +772,10 @@ in the audience of the token, and otherwise should reject the token. This field
 is optional and it defaults to the identifier of the API server.
 
 The `expirationSeconds` is the expected duration of validity of the service account
-token. It defaults to 1 hour and must be at least 10 minutes (600 seconds).
-The `path` field specifies a relative path to the mount point of the projected
-volume.
+token. It defaults to 1 hour and must be at least 10 minutes (600 seconds). An administrator
+can also limit its maximum value by specifying the `--service-account-max-token-expiration`
+option for the API server. The `path` field specifies a relative path to the mount point
+of the projected volume.
 
 {{< note >}}
 **Note:** A Container using a projected volume source as a [subPath](#using-subpath) volume mount will not
