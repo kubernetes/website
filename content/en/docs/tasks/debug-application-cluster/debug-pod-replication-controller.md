@@ -1,11 +1,28 @@
 ---
 reviewers:
 - bprashanth
-title: Debug Pods and Replication Controllers
-content_template: templates/concept
+title: Debug Pods and ReplicationControllers
+content_template: templates/task
 ---
 
 {{% capture overview %}}
+
+This page shows how to debug Pods and ReplicationControllers.
+
+{{% /capture %}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+* You should be familiar with the basics of
+  [Pods](/docs/concepts/workloads/pods/pod/) and [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
+
+{{% /capture %}}
+
+{{% capture steps %}}
+
+## Debugging Pods
 
 The first step in debugging a pod is taking a look at it. Check the current
 state of the pod and recent events with the following command:
@@ -18,12 +35,6 @@ Look at the state of the containers in the pod. Are they all `Running`?  Have
 there been recent restarts?
 
 Continue debugging depending on the state of the pods.
-
-{{% /capture %}}
-
-{{< toc >}}
-
-{{% capture body %}}
 
 ### My pod stays pending
 
@@ -117,7 +128,7 @@ running on and SSH into that host.
 
 ReplicationControllers are fairly straightforward. They can either create pods
 or they can't. If they can't create pods, then please refer to the
-[instructions above](#debugging_pods) to debug your pods.
+[instructions above](#debugging-pods) to debug your pods.
 
 You can also use `kubectl describe rc ${CONTROLLER_NAME}` to inspect events
 related to the replication controller.
