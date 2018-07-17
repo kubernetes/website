@@ -104,7 +104,7 @@ Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/
 {{<note>}}
 **Note**: Make sure the kubelet has permission to create the mirror pod in the API server.
 If not, the creation request is rejected by the API server. See 
-PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
+[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
 {{</note>}}
 
 ```shell
