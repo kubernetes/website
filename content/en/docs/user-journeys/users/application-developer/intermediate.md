@@ -102,7 +102,7 @@ You (or your {{< glossary_tooltip text="cluster operator" term_id="cluster-opera
 
 For even more comprehensive reading about security best practices, consider checking out the following topics:
 
-* {{< link text="Authentication" url="/docs/admin/authentication/" >}} (Is the user who they say they are?)
+* {{< link text="Authentication" url="/docs/reference/access-authn-authz/authentication/" >}} (Is the user who they say they are?)
 * {{< link text="Authorization" url="/docs/admin/authorization/" >}} (Does the user actually have permissions to do what they're asking?)
 
 #### Resource isolation and management

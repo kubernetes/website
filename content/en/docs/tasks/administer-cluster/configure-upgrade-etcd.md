@@ -3,16 +3,24 @@ reviewers:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
+content_template: templates/task
 ---
+
+{{% capture overview %}}
 
 {{< glossary_definition term_id="etcd" length="all" prepend="etcd is a ">}}
 
-<!-- TODO(mml): Write this doc.
+{{% /capture %}}
 
-For the mechanics behind how kubernetes builds, distributes and deploys etcd,
-see _some doc_.
+{{< toc >}}
 
--->
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Prerequisites
 
@@ -276,6 +284,10 @@ be back with new resource version. That would mean that restarting node
 components is not needed. But the assumptions here may not hold forever.
 {{< /note >}}
 
+{{% /capture %}}
+
+{{% capture discussion %}}
+
 ### Design
 
 This section describes how we are going to do the migration, given the
@@ -399,3 +411,5 @@ you can talk to your cluster's etcd), try:
 ```shell
 curl -X PUT "http://${host}:${port}/v2/keys/_test"
 ```
+
+{{% /capture %}}

@@ -4,9 +4,11 @@ reviewers:
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
+content_template: templates/task
 weight: 90
 ---
 
+{{% capture overview %}}
 A service account provides an identity for processes that run in a Pod.
 
 *This is a user introduction to Service Accounts.  See also the
@@ -25,6 +27,18 @@ usually `admin`, unless your cluster administrator has customized your
 cluster).  Processes in containers inside pods can also contact the apiserver.
 When they do, they are authenticated as a particular Service Account (for example,
 `default`).
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Use the Default Service Account to access the API server.
 
@@ -181,7 +195,7 @@ myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
 Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
 
 ```shell
-kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"acrkey\"}]}'
+kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"myregistrykey\"}]}'
 ```
 
 Interactive version requiring manual edit:
@@ -233,3 +247,14 @@ spec:
 
 TODO: Test and explain how to use additional non-K8s secrets with an existing service account.
 -->
+
+## Service Account Volume Projection
+
+Kubernetes 1.11 and higher supports a new way to project a service account token into a Pod.
+You can specify a token request with audiences, expirationSeconds. The service account token
+becomes invalid when the Pod is deleted. A Projected Volume named
+[ServiceAccountToken](/docs/concepts/storage/volumes/#projected) requests and stores the token.
+
+{{% /capture %}}
+
+

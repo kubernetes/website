@@ -12,7 +12,7 @@ Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to d
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-Use a version of kubectl that is the same version as your server or later. Using an older kubectl with a newer server might produce validation errors.
+You must use a kubectl version that is the same, or later, as the version of your cluster. Using the latest version of kubectl helps avoid unforeseen issues.
 {{% /capture %}}
 
 
@@ -61,7 +61,7 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 
-        brew install kubectl
+        brew install kubernetes-cli
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 

@@ -101,14 +101,17 @@ Right after `kubeadm init` there should not be any pods in these states.
   until you have deployed the network solution.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
   after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution that you installed is somehow broken.
-  You might have to grant it more RBAC privileges or use a newer version. Please file
+  it's very likely that the Pod Network solution and nothing happens to the DNS server, it's very
+  likely that the Pod Network solution that you installed is somehow broken. You
+  might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 
 #### `coredns` (or `kube-dns`) is stuck in the `Pending` state
 
-kubeadm does not install a [pod network solution](https://kubernetes.io/docs/concepts/cluster-administration/addons/)
-by default. You have to install a Pod Network before `coredns` (or `kube-dns`) pods will be scheduled.
+This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
+should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
+of choice. You have to install a Pod Network
+before CoreDNS may deployed fully. Hence the `Pending` state before the network is set up.
 
 #### `HostPort` services do not work
 
@@ -140,7 +143,7 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 
 The following error indicates a possible certificate mismatch.
 
-```sh
+```none
 # kubectl get pods
 Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
 ```

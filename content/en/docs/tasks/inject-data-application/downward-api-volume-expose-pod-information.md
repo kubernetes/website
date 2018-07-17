@@ -36,7 +36,7 @@ Together, these two ways of exposing Pod and Container fields are called the
 In this exercise, you create a Pod that has one Container.
 Here is the configuration file for the Pod:
 
-{{< code file="dapi-volume.yaml" >}}
+{{< codenew file="pods/inject/dapi-volume.yaml" >}}
 
 In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc/podinfo`.
@@ -56,7 +56,7 @@ fields of the Container in the Pod.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-volume.yaml
+kubectl create -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 ```
 
 Verify that Container in the Pod is running:
@@ -156,7 +156,7 @@ The preceding exercise, you stored Pod fields in a DownwardAPIVolumeFile.
 In this next exercise, you store Container fields. Here is the configuration
 file for a Pod that has one Container:
 
-{{< code file="dapi-volume-resources.yaml" >}}
+{{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
 
 In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc/podinfo`.
@@ -171,7 +171,7 @@ should be stored in a file named `cpu_limit`.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-volume-resources.yaml
+kubectl create -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
 ```
 
 Get a shell into the Container that is running in your Pod:
