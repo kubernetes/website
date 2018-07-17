@@ -161,7 +161,7 @@ Output format | Description
 In this example, the following command outputs the details for a single pod as a YAML formatted object:
 
 ```shell
-$ kubectl get pod web-pod-13je7 -o=yaml`
+$ kubectl get pod web-pod-13je7 -o=yaml
 ```
 
 Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
@@ -203,15 +203,18 @@ submit-queue   610995
 This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
 This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
 
-To output object information using this feature, you can add the `--experimental-server-print` flag to a supported `kubectl` command.
+This feature is enabled by default in `kubectl` 1.11 and higher. To disable it, add the
+`--server-print=false` flag to the `kubectl get` command.
 
 ##### Examples
 
+To print information about the status of a pod, use a command like the following:
+
 ```shell
-$ kubectl get pods <pod-name> --experimental-server-print
+kubectl get pods <pod-name> --server-print=false
 ```
 
-The result of running this command is:
+Output looks like this:
 
 ```shell
 NAME       READY     STATUS              RESTARTS   AGE

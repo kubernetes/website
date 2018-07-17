@@ -2,10 +2,11 @@
 reviewers:
 - piosz
 - x13n
+content_template: templates/concept
 title: Events in Stackdriver
 ---
 
-
+{{% capture overview %}}
 
 Kubernetes events are objects that provide insight into what is happening
 inside a cluster, such as what decisions were made by scheduler or why some
@@ -23,17 +24,23 @@ to capture events.
 This article describes a solution that exports Kubernetes events to
 Stackdriver Logging, where they can be processed and analyzed.
 
-**Note:** it is not guaranteed that all events happening in a cluster will be
+{{< note >}}
+**Note:** It is not guaranteed that all events happening in a cluster will be
 exported to Stackdriver. One possible scenario when events will not be
 exported is when event exporter is not running (e.g. during restart or
 upgrade). In most cases it's fine to use events for purposes like setting up
 [metrics][sdLogMetrics] and [alerts][sdAlerts], but you should be aware
 of the potential inaccuracy.
+{{< /note >}}
 
 [sdLogMetrics]: https://cloud.google.com/logging/docs/view/logs_based_metrics
 [sdAlerts]: https://cloud.google.com/logging/docs/view/logs_based_metrics#creating_an_alerting_policy
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Deployment
 
@@ -53,7 +60,7 @@ average, approximately 100Mb RAM and 100m CPU is needed.
 Deploy event exporter to your cluster using the following command:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/event-exporter-deploy.yaml
+kubectl create -f https://k8s.io/examples/debug/event-exporter.yaml
 ```
 
 Since event exporter accesses the Kubernetes API, it requires permissions to
@@ -63,7 +70,7 @@ to allow event exporter to read events. To make sure that event exporter
 pod will not be evicted from the node, you can additionally set up resource
 requests. As mentioned earlier, 100Mb RAM and 100m CPU should be enough.
 
-{{< code file="event-exporter-deploy.yaml" >}}
+{{< codenew file="debug/event-exporter.yaml" >}}
 
 ## User Guide
 
@@ -85,4 +92,6 @@ jsonPayload.source.component="default-scheduler"
 jsonPayload.involvedObject.name:"nginx-deployment"
 ```
 
-<img src="/images/docs/stackdriver-event-exporter-filter.png" alt="Filtered events in the Stackdriver Logging interface" width="500">
+{{< figure src="/images/docs/stackdriver-event-exporter-filter.png" alt="Filtered events in the Stackdriver Logging interface" width="500" >}}
+
+{{% /capture %}}

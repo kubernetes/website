@@ -35,9 +35,10 @@ and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
 Here is a configuration file you can use to create a Secret that holds your
 username and password:
 
-{{< code file="secret.yaml" >}}
+{{< codenew file="pods/inject/secret.yaml" >}}
 
 1. Create the Secret
+
     ```shell
     kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
     ```
@@ -76,11 +77,21 @@ username and password:
         password:   13 bytes
         username:   7 bytes
 
+
+{{< note >}}
+**Note:** If you want to skip the Base64 encoding step, you can create a Secret
+by using the `kubectl create secret` command:
+{{< /note >}}
+
+```shell
+kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
+```
+
 ## Create a Pod that has access to the secret data through a Volume
 
 Here is a configuration file you can use to create a Pod:
 
-{{< code file="secret-pod.yaml" >}}
+{{< codenew file="pods/inject/secret-pod.yaml" >}}
 
 1. Create the Pod:
 
@@ -135,9 +146,10 @@ is exposed:
 
 Here is a configuration file you can use to create a Pod:
 
-{{< code file="secret-envars-pod.yaml" >}}
+{{< codenew file="pods/inject/secret-envars-pod.yaml" >}}
 
 1. Create the Pod:
+
     ```shell
     kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-pod.yaml
     ```

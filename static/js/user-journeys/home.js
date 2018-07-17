@@ -311,11 +311,14 @@ $( document ).ready(function() {
     }
   }
 
+  window.onpopstate = function() {
+    window.history.back();
+  }
+
   function main() {
     // Set up UI
     buildCards();
     attachCardEvents();
-    // Set up and display user journey state
     setupCardState();
   }
 

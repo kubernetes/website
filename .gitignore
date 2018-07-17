@@ -29,3 +29,6 @@ nohup.out
 
 # Hugo output
 public/
+
+# User-specific editorconfig files
+.editorconfig

@@ -22,12 +22,12 @@ This page provides hints on diagnosing DNS problems.
 
 Create a file named busybox.yaml with the following contents:
 
-{{< code file="busybox.yaml" >}}
+{{< codenew file="admin/dns/busybox.yaml" >}}
 
 Then create a pod using this file and verify its status:
 
 ```shell
-$ kubectl create -f busybox.yaml
+$ kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
 pod "busybox" created
 
 $ kubectl get pods busybox
@@ -52,7 +52,7 @@ If the `nslookup` command fails, check the following:
 ### Check the local DNS configuration first
 
 Take a look inside the resolv.conf file.
-(See [Inheriting DNS from the node](#inheriting-dns-from-the-node) and
+(See [Inheriting DNS from the node](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) and
 [Known issues](#known-issues) below for more information)
 
 ```shell
@@ -188,7 +188,7 @@ for more details on Cluster Federation and multi-site support.
 ## References
 
 - [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)
-- [Docs for the DNS cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/README.md)
+- [Docs for the kube-dns DNS cluster addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md)
 
 ## What's next
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).

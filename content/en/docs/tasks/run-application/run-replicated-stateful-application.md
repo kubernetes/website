@@ -60,10 +60,10 @@ and a StatefulSet.
 Create the ConfigMap from the following YAML configuration file:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-configmap.yaml
+kubectl create -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
 
-{{< code file="mysql-configmap.yaml" >}}
+{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
 
 This ConfigMap provides `my.cnf` overrides that let you independently control
 configuration on the MySQL master and slaves.
@@ -80,10 +80,10 @@ based on information provided by the StatefulSet controller.
 Create the Services from the following YAML configuration file:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-services.yaml
+kubectl create -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 ```
 
-{{< code file="mysql-services.yaml" >}}
+{{< codenew file="application/mysql/mysql-services.yaml" >}}
 
 The Headless Service provides a home for the DNS entries that the StatefulSet
 controller creates for each Pod that's part of the set.
@@ -106,10 +106,10 @@ writes.
 Finally, create the StatefulSet from the following YAML configuration file:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-statefulset.yaml
+kubectl create -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
 ```
 
-{{< code file="mysql-statefulset.yaml" >}}
+{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
 
 You can watch the startup progress by running:
 
@@ -200,7 +200,7 @@ Ready before starting Pod `N+1`.
 After the Init Containers complete successfully, the regular containers run.
 The MySQL Pods consist of a `mysql` container that runs the actual `mysqld`
 server, and an `xtrabackup` container that acts as a
-[sidecar](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html).
+[sidecar](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
 
 The `xtrabackup` sidecar looks at the cloned data files and determines if
 it's necessary to initialize MySQL replication on the slave.
