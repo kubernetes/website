@@ -266,7 +266,7 @@ works as follows:
 2.  Apply it using `kubectl create`.
 
       ```shell
-      kubectl create -f ./quota.yml`
+      kubectl create -f ./quota.yml
 
       resourcequota/pods-high created
       resourcequota/pods-medium created
