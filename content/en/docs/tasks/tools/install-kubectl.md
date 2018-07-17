@@ -222,12 +222,12 @@ On CentOS Linux, you may need to install the bash-completion package which is no
 yum install bash-completion -y
 ```
 
-To add kubectl autocompletion to your current shell, run `source <(kubectl completion bash)`.
+To add kubectl autocompletion to your current shell, run `source <(kubectl completion bash) && source /etc/bash_completion`.
 
 To add kubectl autocompletion to your profile, so it is automatically loaded in future shells run:
 
 ```shell
-echo "source <(kubectl completion bash)" >> ~/.bashrc
+echo "source <(kubectl completion bash) && source /etc/bash_completion" >> ~/.bashrc
 ```
 
 ### On macOS, using bash
