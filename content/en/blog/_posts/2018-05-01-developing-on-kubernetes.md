@@ -60,7 +60,7 @@ Implications:
 
 More info:
 
-* [Draft: Kubernetes container development made easy](http://blog.kubernetes.io/2017/05/draft-kubernetes-container-development.html)
+* [Draft: Kubernetes container development made easy](https://kubernetes.io/blog/2017/05/draft-kubernetes-container-development)
 * [Getting Started Guide](https://github.com/Azure/draft/blob/master/docs/getting-started.md)
 
 ### Skaffold

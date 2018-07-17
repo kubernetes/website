@@ -19,28 +19,33 @@ but is not allowed to use more memory than its limit.
 
 Each node in your cluster must have at least 300 MiB of memory.
 
-A few of the steps on this page require that the
-[Heapster](https://github.com/kubernetes/heapster) service is running
-in your cluster. But if you don't have Heapster running, you can do most
-of the steps, and it won't be a problem if you skip the Heapster steps.
+A few of the steps on this page require you to run the
+[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
+service in your cluster. If you don't have metrics-server
++running, you can skip those steps.
 
-If you are running minikube, run the following command to enable heapster:
+If you are running minikube, run the following command to enable
+metrics-server:
 
 ```shell
-minikube addons enable heapster
+minikube addons enable metrics-server
 ```
 
-To see whether the Heapster service is running, enter this command:
+To see whether metrics-server (or another provider of the resource metrics
+API, `metrics.k8s.io`) is running, enter this command:
 
 ```shell
-kubectl get services --namespace=kube-system
+kubectl get apiservices
 ```
 
-If the Heapster service is running, it shows in the output:
+If the resource metrics API is available, the output will include a
+reference to `metrics.k8s.io`.
+
+
 
 ```shell
-NAMESPACE    NAME      CLUSTER-IP    EXTERNAL-IP  PORT(S)  AGE
-kube-system  heapster  10.11.240.9   <none>       80/TCP   6d
+NAME      
+v1beta1.metrics.k8s.io
 ```
 
 {{% /capture %}}
@@ -66,7 +71,7 @@ In this exercise, you create a Pod that has one Container. The Container has a m
 request of 100 MiB and a memory limit of 200 MiB. Here's the configuration file
 for the Pod:
 
-{{< code file="memory-request-limit.yaml" >}}
+{{< codenew file="pods/resource/memory-request-limit.yaml" >}}
 
 In the configuration file, the `args` section provides arguments for the Container when it starts.
 The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 150 MiB of memory.
@@ -74,7 +79,7 @@ The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 1
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/memory-request-limit.yaml --namespace=mem-example
+kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
 ```
 
 Verify that the Pod's Container is running:
@@ -103,29 +108,20 @@ resources:
 ...
 ```
 
-Start a proxy so that you can call the Heapster service:
+Use `kubectl top` to fetch the metrics for the pod:
 
 ```shell
-kubectl proxy
-```
-
-In another command window, get the memory usage from the Heapster service:
-
-```
-curl http://localhost:8001/api/v1/namespaces/kube-system/services/heapster/proxy/api/v1/model/namespaces/mem-example/pods/memory-demo/metrics/memory/usage
+kubectl top pod memory-demo
 ```
 
 The output shows that the Pod is using about 162,900,000 bytes of memory, which
 is about 150 MiB. This is greater than the Pod's 100 MiB request, but within the
 Pod's 200 MiB limit.
 
-```json
-{
- "timestamp": "2017-06-20T18:54:00Z",
- "value": 162856960
-}
 ```
-
+NAME                        CPU(cores)   MEMORY(bytes)
+memory-demo                 <something>  162856960
+```
 
 Delete your Pod:
 
@@ -146,7 +142,7 @@ In this exercise, you create a Pod that attempts to allocate more memory than it
 Here is the configuration file for a Pod that has one Container. The Container has a
 memory request of 50 MiB and a memory limit of 100 MiB.
 
-{{< code file="memory-request-limit-2.yaml" >}}
+{{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
 In the configuration file, in the `args` section, you can see that the Container
 will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limit.
@@ -154,7 +150,7 @@ will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limi
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/memory-request-limit-2.yaml --namespace=mem-example
+kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-2.yaml --namespace=mem-example
 ```
 
 View detailed information about the Pod:
@@ -257,12 +253,12 @@ capacity of any Node in your cluster. Here is the configuration file for a Pod t
 Container. The Container requests 1000 GiB of memory, which is likely to exceed the capacity
 of any Node in your cluster.
 
-{{< code file="memory-request-limit-3.yaml" >}}
+{{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/memory-request-limit-3.yaml --namespace=mem-example
+kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
 ```
 
 View the Pod's status:

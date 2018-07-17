@@ -37,11 +37,11 @@ with your new arguments.
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
 
-{{< code file="commands.yaml" >}}
+{{< codenew file="pods/commands.yaml" >}}
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
+        kubectl create -f https://k8s.io/examples/pods/commands.yaml
 
 1. List the running Pods:
 
@@ -138,6 +138,5 @@ Here are some examples:
 * See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
 
 {{% /capture %}}
-
 
 

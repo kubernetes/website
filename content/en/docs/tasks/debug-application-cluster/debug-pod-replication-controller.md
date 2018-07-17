@@ -2,11 +2,10 @@
 reviewers:
 - bprashanth
 title: Debug Pods and Replication Controllers
+content_template: templates/concept
 ---
 
-{{< toc >}}
-
-## Debugging pods
+{{% capture overview %}}
 
 The first step in debugging a pod is taking a look at it. Check the current
 state of the pod and recent events with the following command:
@@ -17,6 +16,12 @@ Look at the state of the containers in the pod. Are they all `Running`?  Have
 there been recent restarts?
 
 Continue debugging depending on the state of the pods.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ### My pod stays pending
 
@@ -105,3 +110,4 @@ or they can't. If they can't create pods, then please refer to the
 You can also use `kubectl describe rc ${CONTROLLER_NAME}` to inspect events
 related to the replication controller.
 
+{{% /capture %}}

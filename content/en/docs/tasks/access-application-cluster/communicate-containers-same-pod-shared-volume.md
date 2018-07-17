@@ -27,7 +27,7 @@ In this exercise, you create a Pod that runs two Containers. The two containers
 share a Volume that they can use to communicate. Here is the configuration file
 for the Pod:
 
-{{< code file="two-container-pod.yaml" >}}
+{{< codenew file="pods/two-container-pod.yaml" >}}
 
 In the configuration file, you can see that the Pod has a Volume named
 `shared-data`.
@@ -44,7 +44,7 @@ directory of the nginx server.
 
 Create the Pod and the two Containers:
 
-    kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/two-container-pod.yaml
+    kubectl create -f https://k8s.io/examples/pods/two-container-pod.yaml
 
 View information about the Pod and the Containers:
 
@@ -133,7 +133,7 @@ the shared Volume is lost.
 {{% capture whatsnext %}}
 
 * Learn more about
-[patterns for composite containers](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html).
+[patterns for composite containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
 
 * Learn about
 [composite containers for modular architecture](http://www.slideshare.net/Docker/slideshare-burns).

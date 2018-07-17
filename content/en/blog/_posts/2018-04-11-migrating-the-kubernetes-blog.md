@@ -1,12 +1,12 @@
 ---
-title: 'Migrating the Kubernetes blog'
+title: 'Migrating the Kubernetes Blog'
 author: zcorleissen
 date: 2018-04-11
 slug: migrating-the-kubernetes-blog
 date: 2018-04-11
 ---
 
-We recently migrated the Kubernetes blog from the Blogger platform to GitHub. With the change in platform comes a change in URL: formerly at [http://blog.kubernetes.io](http://blog.kubernetes.io), the blog now resides at [https://kubernetes.io/blog](https://kubernetes.io/blog).
+We recently migrated the Kubernetes Blog from the Blogger platform to GitHub. With the change in platform comes a change in URL: formerly at [http://blog.kubernetes.io](http://blog.kubernetes.io), the blog now resides at [https://kubernetes.io/blog](https://kubernetes.io/blog).
 
 All existing posts redirect from their former URLs with `<rel=canonical>` tags, preserving SEO values.
 
@@ -35,4 +35,4 @@ If you have a post that you want to remain confidential until your publish date,
 
 ### Call for reviewers
 
-The Kubernetes blog needs more reviewers! If you're interested in contributing to the Kubernetes project and can participate on a regular, weekly basis, send an introductory email to [k8sblog@linuxfoundation.org](k8sblog@linuxfoundation.org).
+The Kubernetes Blog needs more reviewers! If you're interested in contributing to the Kubernetes project and can participate on a regular, weekly basis, send an introductory email to [k8sblog@linuxfoundation.org](k8sblog@linuxfoundation.org).

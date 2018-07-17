@@ -26,7 +26,7 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 {{% capture prerequisites %}}
 
-* For OS X, you need [Homebrew](https://brew.sh) to install the `xhyve` driver.
+* For OS X, you can use [Homebrew](https://brew.sh) to install Minikube.
 
   {{< note >}}
   **Note:** If you see the following Homebrew error when you run `brew update` after you update your computer to MacOS 10.13:
@@ -62,27 +62,19 @@ instead of Docker for Mac, the instructions to install Minikube may be
 slightly different. For general Minikube installation instructions, see
 the [Minikube installation guide](/docs/getting-started-guides/minikube/).
 
-Use `curl` to download and install the latest Minikube release:
-
+Use Homebrew to install the latest Minikube release:
 ```shell
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && \
-  chmod +x minikube && \
-  sudo mv minikube /usr/local/bin/
+brew cask install minikube
 ```
 
-Use Homebrew to install the xhyve driver and set its permissions:
-
-```shell
-brew install docker-machine-driver-xhyve
-sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-```
+Install the HyperKit driver, as described by the
+[Minikube driver installation guide](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperkit-driver).
 
 Use Homebrew to download the `kubectl` command-line tool, which you can
 use to interact with Kubernetes clusters:
 
 ```shell
-brew install kubectl
+brew install kubernetes-cli
 ```
 
 Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
@@ -100,28 +92,16 @@ docker images
 If NO proxy is required, start the Minikube cluster:
 
 ```shell
-minikube start --vm-driver=xhyve
+minikube start --vm-driver=hyperkit
 ```
 If a proxy server is required, use the following method to start Minikube cluster with proxy setting:
 
 ```shell
-minikube start --vm-driver=xhyve --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
+minikube start --vm-driver=hyperkit --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
 ```
 
-The `--vm-driver=xhyve` flag specifies that you are using Docker for Mac. The
+The `--vm-driver=hyperkit` flag specifies that you are using Docker for Mac. The
 default VM driver is VirtualBox.
-
-Note if `minikube start --vm-driver=xhyve` is unsuccessful due to the error:
-```
-Error creating machine: Error in driver during machine creation: Could not convert the UUID to MAC address: exit status 1
-```
-
-Then the following may resolve the `minikube start --vm-driver=xhyve` issue:
-```
-rm -rf ~/.minikube
-sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-```
 
 Now set the Minikube context. The context is what determines which cluster
 `kubectl` is interacting with. You can see all your available contexts in the
@@ -148,7 +128,7 @@ minikube dashboard
 The next step is to write the application. Save this code in a folder named `hellonode`
 with the filename `server.js`:
 
-{{< code language="js" file="server.js" >}}
+{{< codenew language="js" file="minikube/server.js" >}}
 
 Run your application:
 
@@ -168,7 +148,7 @@ Create a file, also in the `hellonode` folder, named `Dockerfile`. A Dockerfile 
 the image that you want to build. You can build a Docker container image by extending an
 existing image. The image in this tutorial extends an existing Node.js image.
 
-{{< code language="conf" file="Dockerfile" >}}
+{{< codenew language="conf" file="minikube/Dockerfile" >}}
 
 This recipe for the Docker image starts from the official Node.js LTS image
 found in the Docker registry, exposes port 8080, copies your `server.js` file
@@ -183,8 +163,10 @@ sure you are using the Minikube Docker daemon:
 eval $(minikube docker-env)
 ```
 
+{{< note >}}
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
 this change by running `eval $(minikube docker-env -u)`.
+{{< /note >}}
 
 Build your Docker image, using the Minikube Docker daemon (mind the trailing dot):
 
@@ -204,10 +186,12 @@ Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
 Use the `kubectl run` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on your `hello-node:v1` Docker image:
+Pod runs a Container based on your `hello-node:v1` Docker image. Set the 
+`--image-pull-policy` flag to `Never` to always use the local image, rather than
+pulling it from your Docker registry (since you haven't pushed it there):
 
 ```shell
-kubectl run hello-node --image=hello-node:v1 --port=8080
+kubectl run hello-node --image=hello-node:v1 --port=8080 --image-pull-policy=Never
 ```
 
 View the Deployment:

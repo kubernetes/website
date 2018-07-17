@@ -8,7 +8,7 @@ Experimental sub-commands not yet fully functional.
 
 ### Options
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
@@ -19,7 +19,7 @@ Experimental sub-commands not yet fully functional.
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">help for alpha</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for alpha</td>
     </tr>
 
   </tbody>

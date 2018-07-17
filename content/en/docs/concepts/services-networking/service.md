@@ -267,6 +267,8 @@ spec:
     targetPort: 9377
 ```
 
+Note that the port names must only contain lowercase alphanumeric characters and `-`, and must begin & end with an alphanumeric character. `123-abc` and `web` are valid, but `123_abc` and `-web` are not valid names.
+
 ## Choosing your own IP address
 
 You can specify your own cluster IP address as part of a `Service` creation
@@ -409,7 +411,7 @@ The default is `ClusterIP`.
 ### Type NodePort
 
 If you set the `type` field to `NodePort`, the Kubernetes master will
-allocate a port from a flag-configured range (default: 30000-32767), and each
+allocate a port from a range specified by `--service-node-port-range` flag (default: 30000-32767), and each
 Node will proxy that port (the same port number on every Node) into your `Service`.
 That port will be reported in your `Service`'s `.spec.ports[*].nodePort` field.
 

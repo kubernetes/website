@@ -5,7 +5,7 @@ slug: highly-available-kubernetes-clusters
 url: /blog/2017/02/Highly-Available-Kubernetes-Clusters
 ---
 
-Today’s post shows how to set-up a reliable, highly available distributed Kubernetes cluster. The support for running such clusters on Google Compute Engine (GCE) was added as an alpha feature in [Kubernetes 1.5 release](http://blog.kubernetes.io/2016/12/kubernetes-1.5-supporting-production-workloads.html).   
+Today’s post shows how to set-up a reliable, highly available distributed Kubernetes cluster. The support for running such clusters on Google Compute Engine (GCE) was added as an alpha feature in [Kubernetes 1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads).   
 
 **Motivation**  
 
@@ -38,7 +38,7 @@ $ KUBE\_GCE\_ZONE=europe-west1-b ./cluster/kube-up.sh
 
 
 
-Now, we will add two additional pools of worker nodes, each of three nodes, in zones europe-west1-c and europe-west1-d (more details on adding pools of worker nodes can be find [here](http://kubernetes.io/docs/admin/multiple-zones/)):  
+Now, we will add two additional pools of worker nodes, each of three nodes, in zones europe-west1-c and europe-west1-d (more details on adding pools of worker nodes can be find [here](http://kubernetes.io/docs/setup/multiple-zones/)):  
 
 
  ```

@@ -1,4 +1,4 @@
-# Owned by Kubernetes blog reviewers.
+# Owned by Kubernetes Blog reviewers.
 options:
   no_parent_owners: true
 reviewers:

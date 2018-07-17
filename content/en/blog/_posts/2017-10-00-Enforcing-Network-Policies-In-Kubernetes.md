@@ -4,7 +4,7 @@ date: 2017-10-30
 slug: enforcing-network-policies-in-kubernetes
 url: /blog/2017/10/Enforcing-Network-Policies-In-Kubernetes
 ---
-_**Editor's note: this post is part of a [series of in-depth articles](http://blog.kubernetes.io/2017/10/five-days-of-kubernetes-18.html) on what's new in Kubernetes 1.8. Today’s post comes from Ahmet Alp Balkan, Software Engineer, Google.**_  
+_**Editor's note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2017/10/five-days-of-kubernetes-18) on what's new in Kubernetes 1.8. Today’s post comes from Ahmet Alp Balkan, Software Engineer, Google.**_  
 
 
 

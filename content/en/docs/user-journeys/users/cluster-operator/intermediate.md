@@ -59,8 +59,8 @@ Securing your cluster includes work beyond the scope of Kubernetes itself.
 
 In Kubernetes, you configure access control:
 
-* [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/)
-* [Authenticating](/docs/admin/authentication/)
+* [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/)
+* [Authenticating](/docs/reference/access-authn-authz/authentication/)
 * [Using Admission Controllers](/docs/admin/admission-controllers/)
 
 You also configure authorization. That is, you determine not just how users and services authenticate to the API server, or whether they have access, but also what resources they have access to. Role-based access control (RBAC) is the recommended mechanism for controlling authorization to Kubernetes resources. Other authorization modes are available for more specific use cases.
@@ -89,7 +89,7 @@ Kubernetes also supports a [core metrics pipeline](/docs/tasks/debug-application
 A common configuration on [Minikube](https://github.com/kubernetes/minikube) and some Kubernetes clusters uses [Heapster](https://github.com/kubernetes/heapster)
 [along with InfluxDB and Grafana](https://github.com/kubernetes/heapster/blob/master/docs/influxdb.md).
 There is a [walkthrough of how to install this configuration in your cluster](https://blog.kublr.com/how-to-utilize-the-heapster-influxdb-grafana-stack-in-kubernetes-for-monitoring-pods-4a553f4d36c9).
-As of Kubernetes 1.9, the [sig-instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation) team is shifting away from an all-inclusive monitoring pattern with heapster, described in [Prometheus vs. Heapster vs. Kubernetes Metrics APIs](https://brancz.com/2018/01/05/prometheus-vs-heapster-vs-kubernetes-metrics-apis/).
+As of Kubernetes 1.11, Heapster is deprecated, as per [sig-instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation).  See [Prometheus vs. Heapster vs. Kubernetes Metrics APIs](https://brancz.com/2018/01/05/prometheus-vs-heapster-vs-kubernetes-metrics-apis/) for more information alternatives.
 
 Hosted data analytics services such as [Datadog](https://docs.datadoghq.com/integrations/kubernetes/) also offer Kubernetes integration.
 

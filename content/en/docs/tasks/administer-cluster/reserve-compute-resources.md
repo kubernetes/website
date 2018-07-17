@@ -4,9 +4,10 @@ reviewers:
 - derekwaynecarr
 - dashpole
 title: Reserve Compute Resources for System Daemons
+content_template: templates/task
 ---
 
-{{< toc >}}
+{{% capture overview %}}
 
 Kubernetes nodes can be scheduled to `Capacity`. Pods can consume all the
 available capacity on a node by default. This is an issue because nodes
@@ -19,6 +20,18 @@ The `kubelet` exposes a feature named `Node Allocatable` that helps to reserve
 compute resources for system daemons. Kubernetes recommends cluster
 administrators to configure `Node Allocatable` based on their workload density
 on each node.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Node Allocatable
 
@@ -86,7 +99,7 @@ It is not meant to reserve resources for system daemons that are run as pods.
 performance dashboard](http://node-perf-dash.k8s.io/#/builds) exposes `cpu` and
 `memory` usage profiles of `kubelet` and `docker engine` at multiple levels of
 pod density. [This blog
-post](http://blog.kubernetes.io/2016/11/visualize-kubelet-performance-with-node-dashboard.html)
+post](https://kubernetes.io/blog/2016/11/visualize-kubelet-performance-with-node-dashboard)
 explains how the dashboard can be interpreted to come up with a suitable
 `kube-reserved` reservation.
 
@@ -185,6 +198,10 @@ more features are added. Over time, kubernetes project will attempt to bring
 down utilization of node system daemons, but that is not a priority as of now.
 So expect a drop in `Allocatable` capacity in future releases.
 
+{{% /capture %}}
+
+{{% capture discussion %}}
+
 ## Example Scenario
 
 Here is an example to illustrate Node Allocatable computation:
@@ -230,3 +247,5 @@ the proper part of the cgroup hierarchy.
 
 As of Kubernetes version 1.7, `kubelet` supports specifying `storage` as a resource
 for `kube-reserved` and `system-reserved`.
+
+{{% /capture %}}

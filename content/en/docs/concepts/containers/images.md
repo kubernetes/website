@@ -130,12 +130,12 @@ Once you have those variables filled in you can
 
 ### Configuring Nodes to Authenticate to a Private Repository
 
-**Note:** if you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
+**Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
 
-**Note:** if you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
+**Note:** If you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
 manage and update the ECR login credentials. You cannot use this approach.
 
-**Note:** this approach is suitable if you can control node configuration.  It
+**Note:** This approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 
@@ -197,9 +197,9 @@ registry keys are added to the `.docker/config.json`.
 
 ### Pre-pulling Images
 
-**Note:** if you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
+**Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
 
-**Note:** this approach is suitable if you can control node configuration.  It
+**Note:** This approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 

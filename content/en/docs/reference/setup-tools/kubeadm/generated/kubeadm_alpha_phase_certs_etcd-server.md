@@ -18,7 +18,7 @@ kubeadm alpha phase certs etcd-server [flags]
 
 ### Options
 
-<table style="width: 100%;">
+<table style="width: 100%; table-layout: fixed;">
   <colgroup>
     <col span="1" style="width: 10px;" />
     <col span="1" />
@@ -29,21 +29,21 @@ kubeadm alpha phase certs etcd-server [flags]
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">The path where to save the certificates</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the certificates</td>
     </tr>
 
     <tr>
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental</td>
     </tr>
 
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%">help for etcd-server</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for etcd-server</td>
     </tr>
 
   </tbody>

@@ -5,15 +5,19 @@ reviewers:
 - lavalamp
 - liggitt
 title: Managing Service Accounts
+content_template: templates/concept
 weight: 50
 ---
 
-*This is a Cluster Administrator guide to service accounts.  It assumes knowledge of
-the [User Guide to Service Accounts](/docs/user-guide/service-accounts).*
+{{% capture overview %}}
+This is a Cluster Administrator guide to service accounts. It assumes knowledge of
+the [User Guide to Service Accounts](/docs/user-guide/service-accounts).
 
-*Support for authorization and user accounts is planned but incomplete.  Sometimes
-incomplete features are referred to in order to better describe service accounts.*
+Support for authorization and user accounts is planned but incomplete.  Sometimes
+incomplete features are referred to in order to better describe service accounts.
+{{% /capture %}}
 
+{{% capture body %}}
 ## User accounts vs service accounts
 
 Kubernetes distinguishes between the concept of a user account and a service account
@@ -45,16 +49,15 @@ Three separate components cooperate to implement the automation around service a
 ### Service Account Admission Controller
 
 The modification of pods is implemented via a plugin
-called an [Admission Controller](/docs/admin/admission-controllers). It is part of the apiserver.
+called an [Admission Controller](/docs/reference/access-authn-authz/admission-controllers/). It is part of the apiserver.
 It acts synchronously to modify pods as they are created or updated. When this plugin is active
 (and it is by default on most distributions), then it does the following when a pod is created or modified:
 
   1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
-  2. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
-  4. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the
-`ServiceAccount` are added to the pod.
-  5. It adds a `volume` to the pod which contains a token for API access.
-  6. It adds a `volumeSource` to each container of the pod mounted at `/var/run/secrets/kubernetes.io/serviceaccount`.
+  1. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
+  1. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the `ServiceAccount` are added to the pod.
+  1. It adds a `volume` to the pod which contains a token for API access.
+  1. It adds a `volumeSource` to each container of the pod mounted at `/var/run/secrets/kubernetes.io/serviceaccount`.
 
 ### Token Controller
 
@@ -108,3 +111,4 @@ kubectl delete secret mysecretname
 
 Service Account Controller manages ServiceAccount inside namespaces, and ensures
 a ServiceAccount named "default" exists in every active namespace.
+{{% /capture %}}

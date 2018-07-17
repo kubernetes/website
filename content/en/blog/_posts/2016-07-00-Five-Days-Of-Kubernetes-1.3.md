@@ -4,7 +4,7 @@ date: 2016-07-11
 slug: five-days-of-kubernetes-1.3
 url: /blog/2016/07/Five-Days-Of-Kubernetes-1.3
 ---
-Last week we [released Kubernetes 1.3](http://blog.kubernetes.io/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads.html), two years from the day when the first Kubernetes commit was pushed to GitHub. Now 30,000+ commits later from over 800 contributors, this 1.3 releases is jam packed with updates driven by feedback from users.  
+Last week we [released Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), two years from the day when the first Kubernetes commit was pushed to GitHub. Now 30,000+ commits later from over 800 contributors, this 1.3 releases is jam packed with updates driven by feedback from users.  
 
 While many new improvements and features have been added in the latest release, we’ll be highlighting several that stand-out. Follow along and read these in-depth posts on what’s new and how we continue to make Kubernetes the best way to manage containers at scale.&nbsp;  
 
@@ -13,37 +13,37 @@ While many new improvements and features have been added in the latest release, 
 Day 1
  |
 
-\* [Minikube: easily run Kubernetes locally](http://blog.kubernetes.io/2016/07/minikube-easily-run-kubernetes-locally.html)
-\* [rktnetes: brings rkt container engine to Kubernetes](http://blog.kubernetes.io/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes.html)
+\* [Minikube: easily run Kubernetes locally](https://kubernetes.io/blog/2016/07/minikube-easily-run-kubernetes-locally)
+\* [rktnetes: brings rkt container engine to Kubernetes](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes)
  |
 |
 Day 2
  |
-\* [Autoscaling in Kubernetes](http://blog.kubernetes.io/2016/07/autoscaling-in-kubernetes.html)  
-\* _Partner post: [Kubernetes in Rancher, the further evolution](http://blog.kubernetes.io/2016/07/kubernetes-in-rancher-further-evolution.html)_
+\* [Autoscaling in Kubernetes](https://kubernetes.io/blog/2016/07/autoscaling-in-kubernetes)  
+\* _Partner post: [Kubernetes in Rancher, the further evolution](https://kubernetes.io/blog/2016/07/kubernetes-in-rancher-further-evolution)_
  |
 |
 Day 3
  |
-\* [Deploying thousand instances of Cassandra using Pet Set](http://blog.kubernetes.io/2016/07/thousand-instances-of-cassandra-using-kubernetes-pet-set.html)  
-\* _Partner post: [Stateful Applications in Containers, by Diamanti](http://blog.kubernetes.io/2016/07/stateful-applications-in-containers-kubernetes.html)_
+\* [Deploying thousand instances of Cassandra using Pet Set](https://kubernetes.io/blog/2016/07/thousand-instances-of-cassandra-using-kubernetes-pet-set)  
+\* _Partner post: [Stateful Applications in Containers, by Diamanti](https://kubernetes.io/blog/2016/07/stateful-applications-in-containers-kubernetes)_
  |
 |
 Day 4
  |
-\* [Cross Cluster Services](http://blog.kubernetes.io/2016/07/cross-cluster-services.html)  
-_\* Partner post: [Citrix and NetScaler CPX](http://blog.kubernetes.io/2016/07/Citrix-NetScaler-and-Kubernetes.html)_
+\* [Cross Cluster Services](https://kubernetes.io/blog/2016/07/cross-cluster-services)  
+_\* Partner post: [Citrix and NetScaler CPX](https://kubernetes.io/blog/2016/07/Citrix-NetScaler-and-Kubernetes)_
  |
 |
 Day 5
  |
-\* [Dashboard - Full Featured Web Interface for Kubernetes](http://blog.kubernetes.io/2016/07/dashboard-web-interface-for-kubernetes.html)  
-\* _Partner post: [Steering an Automation Platform at Wercker with Kubernetes](http://blog.kubernetes.io/2016/07/automation-platform-at-wercker-with-kubernetes.html)_
+\* [Dashboard - Full Featured Web Interface for Kubernetes](https://kubernetes.io/blog/2016/07/dashboard-web-interface-for-kubernetes)  
+\* _Partner post: [Steering an Automation Platform at Wercker with Kubernetes](https://kubernetes.io/blog/2016/07/automation-platform-at-wercker-with-kubernetes)_
  |
 |
 Bonus
  |
-\* [Updates to Performance and Scalability](http://blog.kubernetes.io/2016/07/kubernetes-updates-to-performance-and-scalability-in-1.3.html)
+\* [Updates to Performance and Scalability](https://kubernetes.io/blog/2016/07/kubernetes-updates-to-performance-and-scalability-in-1.3)
  |
 
 
