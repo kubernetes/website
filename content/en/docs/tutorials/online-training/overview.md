@@ -15,6 +15,8 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x)
 
+* [Getting Started with Kubernetes (Pluralsight)](https://www.pluralsight.com/courses/getting-started-kubernetes)
+
 {{% /capture %}}
 
 
