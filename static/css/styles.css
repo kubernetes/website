@@ -569,7 +569,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #cncf { padding-top: 40px; padding-bottom: 120px; background-color: #f7f7f7; background-image: url(https://www.cncf.io/wp-content/uploads/2017/10/cncf-logo.png); background-position: center 60px; background-repeat: no-repeat; background-size: 300px; }
 
-#cncf p { font-size: 15px; }
+#cncf p { font-size: 20px; }
 
 #cncf a { color: #3371E3; }
 
@@ -893,8 +893,8 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #oceanNodes main:nth-child(1) .image-wrapper { position: absolute; max-width: 48%; transform: translateY(-50%); }
   #oceanNodes main:nth-child(1) .image-wrapper img { max-width: 425px; }
   #video { height: 550px; position: relative; background-image: url(../images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
-  #cncf { padding-top: 40px; padding-bottom: 160px; background-color: #f7f7f7; background-image: url(https://www.cncf.io/wp-content/uploads/2017/10/cncf-logo.png); background-position: center 60px; background-repeat: no-repeat; background-size: auto; }
-  #cncf p { font-size: 20px; }
+  #cncf { padding-top: 60px; padding-bottom: 160px; background-color: #f7f7f7; background-image: url(https://www.cncf.io/wp-content/uploads/2017/10/cncf-logo.png); background-position: center 80px; background-repeat: no-repeat; background-size: 400px; }
+  #cncf p { font-size: 24px; }
   #cncf a { color: #3371E3; }
   #talkToUs h4 br { display: block; }
   #talkToUs #bigSocial div { width: calc(25% - 18px); }
