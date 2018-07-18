@@ -63,7 +63,7 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 fullversion = "v1.11.0"
 version = "v1.11"
 githubbranch = "master"
-docsbranch = "release-1.10"
+docsbranch = "release-1.11"
 url = "https://kubernetes.io/docs/"
 
 [[params.versions]]
