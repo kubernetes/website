@@ -263,19 +263,19 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
-```console
-$ kubectl api-resources
+```bash
+kubectl api-resources
 ```
 
 Other operations for exploring API resources:
 
-```console
-$ kubectl api-resources --namespaced=true      # All namespaced resources
-$ kubectl api-resources --namespaced=false     # All non-namespaced resources
-$ kubectl api-resources -o name                # All resources with simple output (just the resource name)
-$ kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
-$ kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
-$ kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
+```bash
+kubectl api-resources --namespaced=true      # All namespaced resources
+kubectl api-resources --namespaced=false     # All non-namespaced resources
+kubectl api-resources -o name                # All resources with simple output (just the resource name)
+kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
+kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
+kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
 ```
 
 ### Formatting output
