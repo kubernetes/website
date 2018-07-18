@@ -60,7 +60,7 @@ or the custom metrics API (for all other metrics).
 * For object metrics, a single metric is fetched (which describes the object
   in question), and compared to the target value, to produce a ratio as above.
 
-The HorizontalPodAutoscaler normally fetches metrics a series of aggregated APIs (`metrics.k8s.io`,\
+The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,\
 `custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  It can also fetch metrics directly
 from Heapster.  Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
 

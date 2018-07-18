@@ -59,14 +59,14 @@ Securing your cluster includes work beyond the scope of Kubernetes itself.
 
 In Kubernetes, you configure access control:
 
-* [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/)
+* [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/)
 * [Authenticating](/docs/reference/access-authn-authz/authentication/)
-* [Using Admission Controllers](/docs/admin/admission-controllers/)
+* [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
 
 You also configure authorization. That is, you determine not just how users and services authenticate to the API server, or whether they have access, but also what resources they have access to. Role-based access control (RBAC) is the recommended mechanism for controlling authorization to Kubernetes resources. Other authorization modes are available for more specific use cases.
 
-* [Authorization Overview](/docs/admin/authorization/)
-* [Using RBAC Authorization](/docs/admin/authorization/rbac/)
+* [Authorization Overview](/docs/reference/access-authn-authz/authorization/)
+* [Using RBAC Authorization](/docs/reference/access-authn-authz/rbac/)
 
 You should create Secrets to hold sensitive data such as passwords, tokens, or keys. Be aware, however, that there are limitations to the protections that a Secret can provide. See [the Risks section of the Secrets documentation](/docs/concepts/configuration/secret/#risks).
 

@@ -71,7 +71,9 @@ a Kubernetes cluster from scratch.
 
 * [Oracle Container Engine for Kubernetes](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm) is a fully-managed, scalable, and highly available service that you can use to deploy your containerized applications to the cloud.
 
-## Turnkey Cloud Solutions
+* [Kublr](https://kublr.com) offers enterprise-grade secure, scalable, highly reliable Kubernetes clusters on AWS, Azure, GCP, and on-premise. It includes out-of-the-box backup and disaster recovery, multi-cluster centralized logging and monitoring, and built-in alerting.
+
+# Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
@@ -89,6 +91,7 @@ few commands. These solutions are actively developed and have active community s
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Gardener](https://gardener.cloud/)
+* [Kublr](https://kublr.com/)
 
 ## On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -99,6 +102,7 @@ few commands.
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [Kublr](https://kublr.com/)
 
 ## Custom Solutions
 
@@ -128,6 +132,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Kubespray](/docs/setup/custom-cloud/kubespray/)
 * [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
 * [Gardener](https://gardener.cloud/)
+* [Kublr](https://kublr.com/)
 
 ### On-Premises VMs
 
@@ -166,6 +171,7 @@ Stackpoint.io        |              | multi-support       | multi-support   | [d
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
+Kublr       | custom       | multi-support | multi-support | [docs](http://docs.kublr.com/) | Commercial
 Kubermatic       |              | multi-support | multi-support | [docs](http://docs.kubermatic.io/) | Commercial
 Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/turnkey/gce/)                                    | Project

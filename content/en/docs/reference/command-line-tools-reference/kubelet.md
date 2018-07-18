@@ -53,14 +53,14 @@ kubelet [flags]
       <td colspan="2">--allow-privileged</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">log to standard error as well as files</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, allow containers to request privileged mode.</td>
     </tr>
 
     <tr>
       <td colspan="2">--alsologtostderr</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, allow containers to request privileged mode.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">log to standard error as well as files</td>
     </tr>
 
     <tr>

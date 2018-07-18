@@ -3,12 +3,12 @@ reviewers:
 - sig-cluster-lifecycle
 title: Customizing control plane configuration with kubeadm
 content_template: templates/concept
-weight: 50
+weight: 40
 ---
 
 {{% capture overview %}}
 
-kubeadm’s configuration exposes the following fields that can be used to override the default flags passed to control plane components such as the APIServer, ControllerManager and Scheduler:
+The kubeadm configuration exposes the following fields that can override the default flags passed to control plane components such as the APIServer, ControllerManager and Scheduler:
 
 - `APIServerExtraArgs`
 - `ControllerManagerExtraArgs`
