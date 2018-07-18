@@ -166,18 +166,18 @@ Kubeadm kubeconfig files with identities for control plane components:
 
 - A kubeconfig file for kubelet to use, `/etc/kubernetes/kubelet.conf`; inside this file is embedded a client certificate with kubelet identity.
   This client cert should:
-    - Be in the `system:nodes` organization, as required by the [Node Authorization](/docs/admin/authorization/node/) module
+    - Be in the `system:nodes` organization, as required by the [Node Authorization](/docs/reference/access-authn-authz/node/) module
     - Have the CN `system:node:<hostname-lowercased>`
 - A kubeconfig file for controller-manager, `/etc/kubernetes/controller-manager.conf`; inside this file is embedded a client
   certificate with controller-manager identity. This client cert should have the CN `system:kube-controller-manager`, as defined
-by default [RBAC core components roles](/docs/admin/authorization/rbac/#core-component-roles)
+by default [RBAC core components roles](/docs/reference/access-authn-authz/rbac/#core-component-roles)
 - A kubeconfig file for scheduler, `/etc/kubernetes/scheduler.conf`; inside this file is embedded a client certificate with scheduler identity.
-  This client cert should have the CN `system:kube-scheduler`, as defined by default [RBAC core components roles](/docs/admin/authorization/rbac/#core-component-roles)
+  This client cert should have the CN `system:kube-scheduler`, as defined by default [RBAC core components roles](/docs/reference/access-authn-authz/rbac/#core-component-roles)
 
 Additionally, a kubeconfig file for kubeadm to use itself and the admin is generated and save into the `/etc/kubernetes/admin.conf` file.
 The "admin" here is defined the actual person(s) that is administering the cluster and want to have full control (**root**) over the cluster.
 The embedded client certificate for admin should:
-- Be in the `system:masters` organization, as defined by default [RBAC user facing role bindings](/docs/admin/authorization/rbac/#user-facing-roles)
+- Be in the `system:masters` organization, as defined by default [RBAC user facing role bindings](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
 - Include a CN, but that can be anything. Kubeadm uses the `kubernetes-admin` CN
 
 Please note that:
@@ -239,17 +239,17 @@ Other API server flags that are set unconditionally are:
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
  - `--enable-admission-plugins` to:
-    - [`Initializers`](/docs/admin/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/admin/extensible-admission-controllers/).
-    - [`NamespaceLifecycle`](/docs/admin/admission-controllers/#namespacelifecycle) e.g. to avoid deletion of
+    - [`Initializers`](/docs/reference/access-authn-authz/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
+    - [`NamespaceLifecycle`](/docs/reference/access-authn-authz/admission-controllers/#namespacelifecycle) e.g. to avoid deletion of
       system reserved namespaces
-    - [`LimitRanger`](/docs/admin/admission-controllers/#limitranger) and [`ResourceQuota`](/docs/admin/admission-controllers/#resourcequota) to enforce limits on namespaces
-    - [`ServiceAccount`](/docs/admin/admission-controllers/#serviceaccount) to enforce service account automation
-    - [`PersistentVolumeLabel`](/docs/admin/admission-controllers/#persistentvolumelabel) attaches region or zone labels to
+    - [`LimitRanger`](/docs/reference/access-authn-authz/admission-controllers/#limitranger) and [`ResourceQuota`](/docs/reference/access-authn-authz/admission-controllers/#resourcequota) to enforce limits on namespaces
+    - [`ServiceAccount`](/docs/reference/access-authn-authz/admission-controllers/#serviceaccount) to enforce service account automation
+    - [`PersistentVolumeLabel`](/docs/reference/access-authn-authz/admission-controllers/#persistentvolumelabel) attaches region or zone labels to
       PersistentVolumes as defined by the cloud provider (This admission controller is deprecated and will be removed in a future version.
       It is not deployed by kubeadm by default with v1.9 onwards when not explicitly opting into using `gce` or `aws` as cloud providers)
-    - [`DefaultStorageClass`](/docs/admin/admission-controllers/#defaultstorageclass) to enforce default storage class on `PersistentVolumeClaim` objects
-    - [`DefaultTolerationSeconds`](/docs/admin/admission-controllers/#defaulttolerationseconds)
-    - [`NodeRestriction`](/docs/admin/admission-controllers/#noderestriction) to limit what a kubelet can modify
+    - [`DefaultStorageClass`](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass) to enforce default storage class on `PersistentVolumeClaim` objects
+    - [`DefaultTolerationSeconds`](/docs/reference/access-authn-authz/admission-controllers/#defaulttolerationseconds)
+    - [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) to limit what a kubelet can modify
       (e.g. only pods on this node)
  - `--kubelet-preferred-address-types` to `InternalIP,ExternalIP,Hostname;` this makes `kubectl logs` and other API server-kubelet
    communication work in environments where the hostnames of the nodes aren't resolvable
@@ -375,7 +375,7 @@ Please note that:
 
 ### Configure TLS-Bootstrapping for node joining
 
-Kubeadm uses [Authenticating with Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for joining new nodes to an
+Kubeadm uses [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for joining new nodes to an
 existing cluster; for more details see also [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
 
 `kubeadm init` ensures that everything is properly configured for this process, and this includes following steps as well as
@@ -505,7 +505,7 @@ Similarly to `kubeadm init`, also `kubeadm join` internal workflow consists of a
 
 This is split into discovery (having the Node trust the Kubernetes Master) and TLS bootstrap (having the Kubernetes Master trust the Node).
 
-see [Authenticating with Bootstrap Tokens](/docs/admin/bootstrap-tokens/) or the corresponding [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
+see [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) or the corresponding [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
 
 ### Preflight checks
 
