@@ -67,19 +67,32 @@ is disabled, you cannot set `priorityClassName` in new Pods.
 
 ## How to disable preemption
 
-{{< note >}}
-**Note**: In Kubernetes 1.11, critical pods (except DaemonSet pods, which are
-still scheduled by the DaemonSet controller) rely on scheduler preemption to be
-scheduled when a cluster is under resource pressure. For this reason, we do not
-recommend disabling this feature. If you still have to disable this feature,
-follow the instructions below.
-{{< /note >}}
+{{< note >}} **Note**: In Kubernetes 1.11, critical pods (except DaemonSet pods,
+which are still scheduled by the DaemonSet controller) rely on scheduler
+preemption to be scheduled when a cluster is under resource pressure. For this
+reason, you will need to run an older version of Rescheduler if you decide to
+disable preemption. More on this is provided below. {{< /note >}}
+
+#### Option 1: Disable both Pod priority and preemption
+
+Disabling Pod priority disables preemption as well. In order to disable Pod
+Priority, set the feature to false for API server, Scheduler, and Kubelet.
+Disabling the feature on Kubelets is not vital. You can leave the feature on
+for Kubelets if rolling out is hard.
+
+```
+--feature-gates=PodPriority=false
+```
+
+#### Option 2: Disable Preemption only
+
 
 In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag
 `disablePreemption`, which is set to `false` by default.
 
-To disable preemption, set `disablePreemption` to true. This keeps pod priority
-enabled but disables preemption. Here is a sample configuration:
+This option is available in component configs only and is not available in
+old-style command line options. Below is a sample component config to disable
+preemption:
 
 ```yaml
 apiVersion: componentconfig/v1alpha1
@@ -90,11 +103,18 @@ algorithmSource:
 ...
 
 disablePreemption: true
-
 ```
 
-Although preemption of the scheduler is enabled by default, it is disabled if `PodPriority`
-feature is disabled.
+### Start an older version of Rescheduler in the cluster
+
+When priority or preemption is disabled, we must start Rescheduler v0.3.1
+(instead of v0.4.0) to ensure that critical Pods are scheduled when nodes or
+cluster are under resource pressure. Since we do not plan to remove critical
+annotation of Pods, running Rescheduler should be enough and no other changes to
+the configuration of Pods should be needed.
+
+Changing the rescheduler back to v.0.3.1 is the reverse of
+[this PR](https://github.com/kubernetes/kubernetes/pull/65454).
 
 ## PriorityClass
 
@@ -272,6 +292,51 @@ and Pod P could possibly be scheduled on Node N.
 We may consider adding cross Node preemption in future versions if we find an
 algorithm with reasonable performance. We cannot promise anything at this point, 
 and cross Node preemption will not be considered a blocker for Beta or GA.
+
+## Debugging Pod Priority and Preemption
+
+Pod Priority and Preemption is a major feature that could potentially disrupt
+Pod scheduling if it has bugs.
+
+### Potential problems caused by Priority and Preemption
+
+The followings are some of the potential problems that could be caused by bugs
+in the implementation of the feature. This list is not exhaustive.
+
+#### Pods are preempted unnecessarily
+
+Preemption removes existing Pods from a cluster under resource pressure to make
+room for higher priority pending Pods. If a user gives high priorities to
+certain Pods by mistake, these unintentional high priority Pods may cause
+preemption in the cluster. As mentioned above, Pod priority is specified by
+setting the `priorityClassName` field of `podSpec`. The integer value of
+priority is then resolved and populated to the `priority` field of `podSpec`.
+
+To resolve the problem, `priorityClassName` of the Pods must be changed to use
+lower priority classes or should be left empty. Empty `priorityClassName` is
+resolved to zero by default.
+
+When a Pod is preempted, there will be events recorded for the preempted Pod.
+Preemption should happen only when a cluster does not have enough resources for
+a Pod. In such cases, preemption happens only when the priority of the pending
+Pod (preemptor) is higher than the victim Pods. Preemption must not happen when
+there is no pending Pod, or when the pending Pods have equal or higher priority
+than the victims. If preemption happens in such scenarios, please file an issue.
+
+#### Pods are preempted, but the preemptor is not scheduled
+
+When pods are preempted, they receive their requested graceful termination
+period, which is by default 30 seconds, but it can be any different value as
+specified in the PodSpec. If the victim Pods do not terminate within this period
+they are force-terminated. Once all the victims go away, the preemptor Pod can
+be scheduled.
+
+While the preemptor Pod is waiting for the victims to go away, a higher priority
+Pod may be created that fits on the same node. In this case, the scheduler will
+schedule the higher priority Pod instead of the preemptor.
+
+In the absence of such a higher priority Pod, we expect the preemptor Pod to be
+scheduled after the graceful termination period of the victims is over.
 
 {{% /capture %}}
 
