@@ -24,7 +24,7 @@ controller. As this feature matures, you should ensure tokens are bound to a Rol
 
 While any authentication strategy can be used for the kubelet's initial bootstrap credentials, the following two authenticators are recommended for ease of provisioning.
 
-1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) - __alpha__
+1. [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) - __alpha__
 2. [Token authentication file](#token-authentication-file)
 
 Using bootstrap tokens is currently __alpha__ and will simplify the management of bootstrap token management especially in a HA scenario. 
