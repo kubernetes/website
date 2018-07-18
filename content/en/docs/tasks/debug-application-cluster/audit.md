@@ -215,7 +215,7 @@ In this example, we will use fluentd to split audit events by different namespac
     <source>
         @type tail
         # audit log path of kube-apiserver
-        path /var/log/audit
+        path /var/log/kube-audit
         pos_file /var/log/audit.pos
         format json
         time_key time
@@ -225,10 +225,10 @@ In this example, we will use fluentd to split audit events by different namespac
 
     <filter audit>
         #https://github.com/fluent/fluent-plugin-rewrite-tag-filter/issues/13
-        type record_transformer
+        @type record_transformer
         enable_ruby
         <record>
-         namespace ${record["objectRef"].nil? ? "none":(record["objectRef"]["namespace"].nil? ?  "none":record["objectRef"]["namespace"])}
+         namespace ${record["objectRef"].nil? ? "none":(record["objectRef"]["namespace"].nil? ? "none":record["objectRef"]["namespace"])}
         </record>
     </filter>
 
