@@ -166,7 +166,7 @@ Kubeadm kubeconfig files with identities for control plane components:
 
 - A kubeconfig file for kubelet to use, `/etc/kubernetes/kubelet.conf`; inside this file is embedded a client certificate with kubelet identity.
   This client cert should:
-    - Be in the `system:nodes` organization, as required by the [Node Authorization](/docs/admin/authorization/node/) module
+    - Be in the `system:nodes` organization, as required by the [Node Authorization](/docs/reference/access-authn-authz/node/) module
     - Have the CN `system:node:<hostname-lowercased>`
 - A kubeconfig file for controller-manager, `/etc/kubernetes/controller-manager.conf`; inside this file is embedded a client
   certificate with controller-manager identity. This client cert should have the CN `system:kube-controller-manager`, as defined
