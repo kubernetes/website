@@ -51,9 +51,9 @@ administrator to control the following:
 
 Pod security policy control is implemented as an optional (but recommended)
 [admission
-controller](/docs/admin/admission-controllers/#podsecuritypolicy). PodSecurityPolicies
+controller](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy). PodSecurityPolicies
 are enforced by [enabling the admission
-controller](/docs/admin/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in),
+controller](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in),
 but doing so without authorizing any policies **will prevent any pods from being
 created** in the cluster.
 
