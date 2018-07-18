@@ -140,7 +140,7 @@ You must enable the Bootstrap Token Authenticator with the
 `--experimental-bootstrap-token-auth` flag on the API Server.  You must enable
 the TokenCleaner controller via the `--controllers` flag on the Controller
 Manager.  This is done with something like `--controllers=*,tokencleaner`.
-`kubeadm` will do this for you if you are using it to bootstrapping a cluster.
+`kubeadm` will do this for you if you are using it to bootstrap a cluster.
 
 The authenticator authenticates as `system:bootstrap:<Token ID>`.  It is
 included in the `system:bootstrappers` group.  The naming and groups are
