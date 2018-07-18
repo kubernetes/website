@@ -31,7 +31,7 @@ administrator to control the following:
 | Control Aspect                                      | Field Names                                 |
 | ----------------------------------------------------| ------------------------------------------- |
 | Running of privileged containers                    | [`privileged`](#privileged)                                |
-| Usage of the root namespaces                        | [`hostPID`, `hostIPC`](#host-namespaces)    |
+| Usage of host namespaces                            | [`hostPID`, `hostIPC`](#host-namespaces)    |
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
@@ -176,17 +176,17 @@ Set up a namespace and a service account to act as for this example. We'll use
 this service account to mock a non-admin user.
 
 ```shell
-$ kubectl create namespace psp-example
-$ kubectl create serviceaccount -n psp-example fake-user
-$ kubectl create rolebinding -n psp-example fake-editor --clusterrole=edit --serviceaccount=psp-example:fake-user
+kubectl create namespace psp-example
+kubectl create serviceaccount -n psp-example fake-user
+kubectl create rolebinding -n psp-example fake-editor --clusterrole=edit --serviceaccount=psp-example:fake-user
 ```
 
 To make it clear which user we're acting as and save some typing, create 2
 aliases:
 
 ```shell
-$ alias kubectl-admin='kubectl -n psp-example'
-$ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n psp-example'
+alias kubectl-admin='kubectl -n psp-example'
+alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n psp-example'
 ```
 
 ### Create a policy and a pod
@@ -199,13 +199,13 @@ simply prevents the creation of privileged pods.
 And create it with kubectl:
 
 ```shell
-$ kubectl-admin create -f example-psp.yaml
+kubectl-admin create -f example-psp.yaml
 ```
 
 Now, as the unprivileged user, try to create a simple pod:
 
 ```shell
-$ kubectl-user create -f- <<EOF
+kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -222,34 +222,38 @@ Error from server (Forbidden): error when creating "STDIN": pods "pause" is forb
 pod's service account nor `fake-user` have permission to use the new policy:
 
 ```shell
-$ kubectl-user auth can-i use podsecuritypolicy/example
+kubectl-user auth can-i use podsecuritypolicy/example
 no
 ```
 
 Create the rolebinding to grant `fake-user` the `use` verb on the example
 policy:
 
-_Note: This is not the recommended way! See the [next section](#run-another-pod)
+{{< note >}}
+**Note:** _This is not the recommended way! See the [next section](#run-another-pod)
 for the preferred approach._
+{{< /note >}}
 
 ```shell
-$ kubectl-admin create role psp:unprivileged \
+kubectl-admin create role psp:unprivileged \
     --verb=use \
     --resource=podsecuritypolicy \
     --resource-name=example
 role "psp:unprivileged" created
-$ kubectl-admin create rolebinding fake-user:psp:unprivileged \
+
+kubectl-admin create rolebinding fake-user:psp:unprivileged \
     --role=psp:unprivileged \
     --serviceaccount=psp-example:fake-user
 rolebinding "fake-user:psp:unprivileged" created
-$ kubectl-user auth can-i use podsecuritypolicy/example
+
+kubectl-user auth can-i use podsecuritypolicy/example
 yes
 ```
 
 Now retry creating the pod:
 
 ```shell
-$ kubectl-user create -f- <<EOF
+kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -266,7 +270,7 @@ It works as expected! But any attempts to create a privileged pod should still
 be denied:
 
 ```shell
-$ kubectl-user create -f- <<EOF
+kubectl-user create -f- <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -284,7 +288,7 @@ Error from server (Forbidden): error when creating "STDIN": pods "privileged" is
 Delete the pod before moving on:
 
 ```shell
-$ kubectl-user delete pod pause
+kubectl-user delete pod pause
 ```
 
 ### Run another pod
@@ -292,11 +296,13 @@ $ kubectl-user delete pod pause
 Let's try that again, slightly differently:
 
 ```shell
-$ kubectl-user run pause --image=k8s.gcr.io/pause
+kubectl-user run pause --image=k8s.gcr.io/pause
 deployment "pause" created
-$ kubectl-user get pods
+
+kubectl-user get pods
 No resources found.
-$ kubectl-user get events | head -n 2
+
+kubectl-user get events | head -n 2
 LASTSEEN   FIRSTSEEN   COUNT     NAME              KIND         SUBOBJECT                TYPE      REASON                  SOURCE                                  MESSAGE
 1m         2m          15        pause-7774d79b5   ReplicaSet                            Warning   FailedCreate            replicaset-controller                   Error creating: pods "pause-7774d79b5-" is forbidden: no providers available to validate pod request
 ```
@@ -314,7 +320,7 @@ account instead. In this case (since we didn't specify it) the service account
 is `default`:
 
 ```shell
-$ kubectl-admin create rolebinding default:psp:unprivileged \
+kubectl-admin create rolebinding default:psp:unprivileged \
     --role=psp:unprivileged \
     --serviceaccount=psp-example:default
 rolebinding "default:psp:unprivileged" created
@@ -324,7 +330,7 @@ Now if you give it a minute to retry, the replicaset-controller should
 eventually succeed in creating the pod:
 
 ```shell
-$ kubectl-user get pods --watch
+kubectl-user get pods --watch
 NAME                    READY     STATUS    RESTARTS   AGE
 pause-7774d79b5-qrgcb   0/1       Pending   0         1s
 pause-7774d79b5-qrgcb   0/1       Pending   0         1s
@@ -338,7 +344,7 @@ pause-7774d79b5-qrgcb   1/1       Running   0         2s
 Delete the namespace to clean up most of the example resources:
 
 ```shell
-$ kubectl-admin delete ns psp-example
+kubectl-admin delete ns psp-example
 namespace "psp-example" deleted
 ```
 
@@ -346,7 +352,7 @@ Note that `PodSecurityPolicy` resources are not namespaced, and must be cleaned
 up separately:
 
 ```shell
-$ kubectl-admin delete psp example
+kubectl-admin delete psp example
 podsecuritypolicy "example" deleted
 ```
 
