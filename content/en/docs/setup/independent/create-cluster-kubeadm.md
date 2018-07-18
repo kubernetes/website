@@ -8,7 +8,7 @@ content_template: templates/task
 {{% capture overview %}}
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
-lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/admin/bootstrap-tokens/). 
+lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
 
 Because you can install kubeadm on various types of machine (e.g. laptop, server, 
 Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
@@ -335,6 +335,16 @@ if they don't know their PodIP.
 ```shell
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
+{{% /tab %}}
+
+{{% tab name="JuniperContrail/TungstenFabric" %}}
+Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
+simultaneous overlay-underlay support, network policy enforcement, network isolation,
+service chaining and flexible load balancing.
+
+There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
+
+Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
 {{% /tab %}}
 {{< /tabs >}}
 

@@ -51,7 +51,7 @@ with the request:
 * Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
 
 All values are opaque to the authentication system and only hold significance
-when interpreted by an [authorizer](/docs/admin/authorization/).
+when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
 
@@ -140,7 +140,7 @@ You must enable the Bootstrap Token Authenticator with the
 `--experimental-bootstrap-token-auth` flag on the API Server.  You must enable
 the TokenCleaner controller via the `--controllers` flag on the Controller
 Manager.  This is done with something like `--controllers=*,tokencleaner`.
-`kubeadm` will do this for you if you are using it to bootstrapping a cluster.
+`kubeadm` will do this for you if you are using it to bootstrap a cluster.
 
 The authenticator authenticates as `system:bootstrap:<Token ID>`.  It is
 included in the `system:bootstrappers` group.  The naming and groups are
@@ -149,7 +149,7 @@ bootstrapping.  The user names and group can be used (and are used by `kubeadm`)
 to craft the appropriate authorization policies to support bootstrapping a
 cluster.
 
-Please see [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for in depth
+Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
 

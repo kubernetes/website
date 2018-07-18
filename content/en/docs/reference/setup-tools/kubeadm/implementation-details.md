@@ -166,7 +166,7 @@ Kubeadm kubeconfig files with identities for control plane components:
 
 - A kubeconfig file for kubelet to use, `/etc/kubernetes/kubelet.conf`; inside this file is embedded a client certificate with kubelet identity.
   This client cert should:
-    - Be in the `system:nodes` organization, as required by the [Node Authorization](/docs/admin/authorization/node/) module
+    - Be in the `system:nodes` organization, as required by the [Node Authorization](/docs/reference/access-authn-authz/node/) module
     - Have the CN `system:node:<hostname-lowercased>`
 - A kubeconfig file for controller-manager, `/etc/kubernetes/controller-manager.conf`; inside this file is embedded a client
   certificate with controller-manager identity. This client cert should have the CN `system:kube-controller-manager`, as defined
@@ -239,7 +239,7 @@ Other API server flags that are set unconditionally are:
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
  - `--enable-admission-plugins` to:
-    - [`Initializers`](/docs/admin/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/admin/extensible-admission-controllers/).
+    - [`Initializers`](/docs/admin/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
     - [`NamespaceLifecycle`](/docs/admin/admission-controllers/#namespacelifecycle) e.g. to avoid deletion of
       system reserved namespaces
     - [`LimitRanger`](/docs/admin/admission-controllers/#limitranger) and [`ResourceQuota`](/docs/admin/admission-controllers/#resourcequota) to enforce limits on namespaces
@@ -375,7 +375,7 @@ Please note that:
 
 ### Configure TLS-Bootstrapping for node joining
 
-Kubeadm uses [Authenticating with Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for joining new nodes to an
+Kubeadm uses [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for joining new nodes to an
 existing cluster; for more details see also [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
 
 `kubeadm init` ensures that everything is properly configured for this process, and this includes following steps as well as
@@ -505,7 +505,7 @@ Similarly to `kubeadm init`, also `kubeadm join` internal workflow consists of a
 
 This is split into discovery (having the Node trust the Kubernetes Master) and TLS bootstrap (having the Kubernetes Master trust the Node).
 
-see [Authenticating with Bootstrap Tokens](/docs/admin/bootstrap-tokens/) or the corresponding [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
+see [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) or the corresponding [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md).
 
 ### Preflight checks
 

@@ -132,22 +132,22 @@ Adding an API does not directly let you affect the behavior of existing APIs (e.
 
 ### API Access Extensions
 
-When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [[Accessing the API](/docs/admin/accessing-the-api/)] for more on this flow.
+When a request reaches the Kubernetes API Server, it is first Authenticated, then Authorized, then subject to various types of Admission Control. See [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/)] for more on this flow.
 
 Each of these steps offers extension points.
 
-Kubernetes has several built-in authentication methods that it supports. It can also sit behind an authenticating proxy, and it can send a token from an Authorization header to a remote service for verification (a webhook). All of these methods are covered in the [Authentication documentation](/docs/admin/authentication/).
+Kubernetes has several built-in authentication methods that it supports. It can also sit behind an authenticating proxy, and it can send a token from an Authorization header to a remote service for verification (a webhook). All of these methods are covered in the [Authentication documentation](/docs/reference/access-authn-authz/authentication/).
 
 ### Authentication
 
-[Authentication](/docs/admin/authentication) maps headers or certificates in all requests to a username for the client making the request.
+[Authentication](/docs/reference/access-authn-authz/authentication/) maps headers or certificates in all requests to a username for the client making the request.
 
-Kubernetes provides several built-in authentication methods, and an [Authentication webhook](/docs/admin/authentication/#webhook-token-authentication) method if those don't meet your needs.
+Kubernetes provides several built-in authentication methods, and an [Authentication webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) method if those don't meet your needs.
 
 
 ### Authorization
 
- [Authorization](/docs/admin/authorization/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/admin/authorization/webhook/) allows calling out to user-provided code to make an authorization decision.
+ [Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 
 
 ### Dynamic Admission Control
@@ -155,8 +155,8 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/admin/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
 
 *   The [Image Policy webhook](/docs/admin/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
-*   To make arbitrary admission control decisions, a general [Admission webhook](/docs/admin/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
-*   [Initializers](/docs/admin/extensible-admission-controllers/#initializers) are controllers that can modify objects before they are created. Initializers can modify initial object creations but cannot affect updates to objects. Initializers can also reject objects.
+*   To make arbitrary admission control decisions, a general [Admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
+*   [Initializers](/docs/reference/access-authn-authz/extensible-admission-controllers/#initializers) are controllers that can modify objects before they are created. Initializers can modify initial object creations but cannot affect updates to objects. Initializers can also reject objects.
 
 ## Infrastructure Extensions
 
@@ -201,7 +201,7 @@ the nodes chosen for a pod.
 {{% capture whatsnext %}}
 
 * Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
-* Learn about [Dynamic admission control](/docs/admin/extensible-admission-controllers/)
+* Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * Learn more about Infrastructure extensions
   * [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
   * [Device Plugins](/docs/concepts/cluster-administration/device-plugins/)
