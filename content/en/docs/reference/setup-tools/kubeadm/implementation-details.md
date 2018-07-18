@@ -170,14 +170,14 @@ Kubeadm kubeconfig files with identities for control plane components:
     - Have the CN `system:node:<hostname-lowercased>`
 - A kubeconfig file for controller-manager, `/etc/kubernetes/controller-manager.conf`; inside this file is embedded a client
   certificate with controller-manager identity. This client cert should have the CN `system:kube-controller-manager`, as defined
-by default [RBAC core components roles](/docs/admin/authorization/rbac/#core-component-roles)
+by default [RBAC core components roles](/docs/reference/access-authn-authz/rbac/#core-component-roles)
 - A kubeconfig file for scheduler, `/etc/kubernetes/scheduler.conf`; inside this file is embedded a client certificate with scheduler identity.
-  This client cert should have the CN `system:kube-scheduler`, as defined by default [RBAC core components roles](/docs/admin/authorization/rbac/#core-component-roles)
+  This client cert should have the CN `system:kube-scheduler`, as defined by default [RBAC core components roles](/docs/reference/access-authn-authz/rbac/#core-component-roles)
 
 Additionally, a kubeconfig file for kubeadm to use itself and the admin is generated and save into the `/etc/kubernetes/admin.conf` file.
 The "admin" here is defined the actual person(s) that is administering the cluster and want to have full control (**root**) over the cluster.
 The embedded client certificate for admin should:
-- Be in the `system:masters` organization, as defined by default [RBAC user facing role bindings](/docs/admin/authorization/rbac/#user-facing-roles)
+- Be in the `system:masters` organization, as defined by default [RBAC user facing role bindings](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
 - Include a CN, but that can be anything. Kubeadm uses the `kubernetes-admin` CN
 
 Please note that:
