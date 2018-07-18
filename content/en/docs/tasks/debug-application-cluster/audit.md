@@ -208,7 +208,7 @@ In this example, we will use fluentd to split audit events by different namespac
 
 1. install [fluentd][fluentd_install_doc],  fluent-plugin-forest and fluent-plugin-rewrite-tag-filter in the kube-apiserver node
 {{< note >}}
-**Note:**Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc]
+**Note:** Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc]
 {{< /note >}}
 
 1. create a config file for fluentd
