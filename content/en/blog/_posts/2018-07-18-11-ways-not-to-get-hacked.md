@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: 11 Ways (Not) to Get Hacked
-date:  Tuesday, June 05, 2018
+title: "11 Ways (Not) to Get Hacked"
+date:  2018-07-18
 ---
 
 **Author**: Andrew Martin (ControlPlane)
@@ -38,20 +38,17 @@ The control plane is Kubernetes&#39; brain. It has an overall view of every cont
 
 This network diagram by [Lucas Käldström](https://docs.google.com/presentation/d/1Gp-2blk5WExI_QR59EUZdwfO2BWLJqa626mK2ej-huo/edit#slide=id.g1e639c415b_0_56) demonstrates some of the places TLS should ideally be applied: between every component on the master, and between the Kubelet and API server. [Kelsey Hightower](https://twitter.com/kelseyhightower/)&#39;s canonical [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/1.9.0/docs/04-certificate-authority.md) provides detailed manual instructions, as does [etcd&#39;s security model](https://coreos.com/etcd/docs/latest/op-guide/security.html) documentation.
 
-![](images/blog/2018-06-05-11-ways-not-to-get-hacked/kubernetes-control-plane.png)
-
-
+<img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/kubernetes-control-plane.png" width="800" />
 
 Autoscaling Kubernetes nodes was historically difficult, as each node requires a TLS key to connect to the master, and baking secrets into base images is not good practice. [Kubelet TLS bootstrapping](https://medium.com/@toddrosner/kubernetes-tls-bootstrapping-cf203776abc7) provides the ability for a new kubelet to create a certificate signing request so that certificates are generated at boot time.
 
-![](images/blog/2018-06-05-11-ways-not-to-get-hacked/node-tls-bootstrap.png)
+<img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/node-tls-bootstrap.png" width="800" />
 
 ## 2. Enable RBAC with Least Privilege, Disable ABAC, and Monitor Logs
 
 **Role-based access control provides fine-grained policy management for user access to resources, such as access to namespaces.**
 
-
-![](images/blog/2018-06-05-11-ways-not-to-get-hacked/rbac2.png)
+<img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/rbac2.png" width="800" />
 
 Kubernetes' ABAC (Attribute Based Access Control) has been [superseded by RBAC](http://blog.kubernetes.io/2017/04/rbac-support-in-kubernetes.html) since release 1.6, and should not be enabled on the API server. Use this flag to disable it:
 
@@ -196,8 +193,7 @@ Having to run workloads as a non-root user is not going to change until user nam
 
 **By default, Kubernetes networking allows all pod to pod traffic; this can be restricted using a** [**Network Policy**](https://kubernetes.io/docs/concepts/services-networking/network-policies/) **.**
 
-
-![](images/blog/2018-06-05-11-ways-not-to-get-hacked/kubernetes-networking.png)
+<img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/kubernetes-networking.png" width="800" />
 
 Traditional services are restricted with firewalls, which use static IP and port ranges for each service. As these IPs very rarely change they have historically been used as a form of identity. Containers rarely have static IPs - they are built to fail fast, be rescheduled quickly, and use service discovery instead of static IP addresses. These properties mean that firewalls become much more difficult to configure and review.
 
@@ -263,8 +259,7 @@ Cloud provider metadata APIs are a constant source of escalation (as the recent 
 
 Kubernetes permits pods into the cluster through a series of [admission controller](https://kubernetes.io/docs/admin/admission-controllers/) gates, which are applied to pods and other resources like deployments. These gates can validate each pod for admission or change its contents, and they now support backend webhooks.
 
-
-![](images/blog/2018-06-05-11-ways-not-to-get-hacked/admission-controllers.png)
+<img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/admission-controllers.png" width="800" />
 
 These webhooks can be used by container image scanning tools to validate images before they are deployed to the cluster. Images that have failed checks can be refused admission.
 
@@ -278,8 +273,7 @@ Unknown Zero Day vulnerabilities will always exist, and so intrusion detection t
 
 The next stage of security&#39;s &quot;cloud native evolution&quot; looks to be the service mesh, although adoption may take time - migration involves shifting complexity from applications to the mesh infrastructure, and organisations will be keen to understand best-practice.
 
-
-![](images/blog/2018-06-05-11-ways-not-to-get-hacked/service-mesh-@sebiwicb.png)
+<img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/service-mesh-@sebiwicb.png" width="800" />
 
 ## 11. Run a Service Mesh
 
