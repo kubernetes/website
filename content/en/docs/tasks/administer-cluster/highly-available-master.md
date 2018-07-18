@@ -31,7 +31,7 @@ To create a new HA-compatible cluster, you must set the following flags in your 
 * `MULTIZONE=true` - to prevent removal of master replicas kubelets from zones different than server's default zone.
 Required if you want to run master replicas in different zones, which is recommended.
 
-* `ENABLE_ETCD_QUORUM_READS=true` - to ensure that reads from all API servers will return most up-to-date data.
+* `ENABLE_ETCD_QUORUM_READ=true` - to ensure that reads from all API servers will return most up-to-date data.
 If true, reads will be directed to leader etcd replica.
 Setting this value to true is optional: reads will be more reliable but will also be slower.
 
