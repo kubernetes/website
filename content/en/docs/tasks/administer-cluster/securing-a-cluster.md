@@ -55,7 +55,8 @@ an integrated [Role-Based Access Control (RBAC)](/docs/reference/access-authn-au
 set of permissions bundled into roles. These permissions combine verbs (get, create, delete) with
 resources (pods, services, nodes) and can be namespace or cluster scoped. A set of out of the box
 roles are provided that offer reasonable default separation of responsibility depending on what
-actions a client might want to perform. It is recommended that you use the [Node](/docs/admin/authorization/node/) and [RBAC](/docs/reference/access-authn-authz/rbac/) authorizers together, in combination with the
+actions a client might want to perform. It is recommended that you use the [Node](/docs/reference/access-authn-authz/node/)
+and [RBAC](/docs/reference/access-authn-authz/rbac/) authorizers together, in combination with the
 [NodeRestriction](/docs/admin/admission-controllers/#noderestriction) admission plugin.
 
 As with authentication, simple and broad roles may be appropriate for smaller clusters, but as
@@ -70,7 +71,7 @@ being terminated and recreated on other nodes. The out of the box roles represen
 between flexibility and the common use cases, but more limited roles should be carefully reviewed
 to prevent accidental escalation. You can make roles specific to your use case if the out-of-box ones don't meet your needs.
 
-Consult the [authorization reference section](/docs/admin/authorization/) for more information.
+Consult the [authorization reference section](/docs/reference/access-authn-authz/authorization/) for more information.
 
 ## Controlling access to the Kubelet
 

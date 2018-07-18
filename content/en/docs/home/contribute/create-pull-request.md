@@ -117,7 +117,6 @@ Once your pull request is created, a Kubernetes reviewer will take responsibilit
 {{% capture whatsnext %}}
 * Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 {{% /capture %}}
 
 
