@@ -70,7 +70,7 @@ being terminated and recreated on other nodes. The out of the box roles represen
 between flexibility and the common use cases, but more limited roles should be carefully reviewed
 to prevent accidental escalation. You can make roles specific to your use case if the out-of-box ones don't meet your needs.
 
-Consult the [authorization reference section](/docs/admin/authorization/) for more information.
+Consult the [authorization reference section](/docs/reference/access-authn-authz/authorization/) for more information.
 
 ## Controlling access to the Kubelet
 

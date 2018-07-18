@@ -52,7 +52,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
 
-* [Authorization](/docs/admin/authorization/) is separate from authentication, and controls how HTTP calls are handled.
+* [Authorization](/docs/reference/access-authn-authz/authorization/) is separate from authentication, and controls how HTTP calls are handled.
 
 * [Using Admission Controllers](/docs/admin/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
 
