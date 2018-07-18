@@ -239,7 +239,7 @@ Other API server flags that are set unconditionally are:
  - `--allow-privileged` to `true` (required e.g. by kube proxy)
  - `--requestheader-client-ca-file` to `front-proxy-ca.crt`
  - `--enable-admission-plugins` to:
-    - [`Initializers`](/docs/admin/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/admin/extensible-admission-controllers/).
+    - [`Initializers`](/docs/admin/admission-controllers/#initializers-alpha) to enable [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
     - [`NamespaceLifecycle`](/docs/admin/admission-controllers/#namespacelifecycle) e.g. to avoid deletion of
       system reserved namespaces
     - [`LimitRanger`](/docs/admin/admission-controllers/#limitranger) and [`ResourceQuota`](/docs/admin/admission-controllers/#resourcequota) to enforce limits on namespaces
