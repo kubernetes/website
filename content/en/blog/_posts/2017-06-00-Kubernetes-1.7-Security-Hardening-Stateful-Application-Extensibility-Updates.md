@@ -36,7 +36,7 @@ Extensibility:
 
 Additional Features:  
 
-- Alpha support for [external admission controllers](https://kubernetes.io/docs/admin/extensible-admission-controllers/) is introduced, providing two options for adding custom business logic to the API server for modifying objects as they are created and validating policy.&nbsp;
+- Alpha support for [external admission controllers](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) is introduced, providing two options for adding custom business logic to the API server for modifying objects as they are created and validating policy.&nbsp;
 - [Policy-based Federated Resource Placement](https://kubernetes.io/docs/tasks/federation/set-up-placement-policies-federation/) is introduced as Alpha providing placement policies for the federated clusters, based on custom requirements such as regulation, pricing or performance.
 
 Deprecation:&nbsp;  
