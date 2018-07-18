@@ -36,13 +36,13 @@ If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
-For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time till now. If there are more than 100 missed schedules, then it will not start the job and it will log the error
+For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
 
 ````
 Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
 ````
 
-It is important to note, that if the field `startingDeadlineSeconds` is set (not `nil`), the controller will count how many missed jobs occurred from the value of `startingDeadlineSeconds` till now, rather than from the last scheduled time till now. For example, if `startingDeadlineSeconds` is `200`, the controller will count how many missed jobs occurred in the last 200 seconds. 
+It is important to note that if the `startingDeadlineSeconds` field is set (not `nil`), the controller counts how many missed jobs occurred from the value of `startingDeadlineSeconds` until now rather than from the last scheduled time until now. For example, if `startingDeadlineSeconds` is `200`, the controller counts how many missed jobs occurred in the last 200 seconds. 
 
 A CronJob will be counted as missed if it failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
 
