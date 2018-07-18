@@ -39,16 +39,20 @@ spec:
             resourceFieldRef:
               containerName: client-container
               resource: limits.cpu
+              divisor: 1m
           - path: "cpu_request"
             resourceFieldRef:
               containerName: client-container
               resource: requests.cpu
+              divisor: 1m
           - path: "mem_limit"
             resourceFieldRef:
               containerName: client-container
               resource: limits.memory
+              divisor: 1Mi
           - path: "mem_request"
             resourceFieldRef:
               containerName: client-container
               resource: requests.memory
+              divisor: 1Mi
 
