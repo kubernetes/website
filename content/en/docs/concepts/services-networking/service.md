@@ -273,7 +273,7 @@ Note that the port names must only contain lowercase alphanumeric characters and
 
 You can specify your own cluster IP address as part of a `Service` creation
 request.  To do this, set the `.spec.clusterIP` field. For example, if you
-already have an existing DNS entry that you wish to replace, or legacy systems
+already have an existing DNS entry that you wish to reuse, or legacy systems
 that are configured for a specific IP address and difficult to re-configure.
 The IP address that a user chooses must be a valid IP address and within the
 `service-cluster-ip-range` CIDR range that is specified by flag to the API
