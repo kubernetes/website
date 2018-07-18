@@ -30,7 +30,7 @@ There is work in progress being done in Kubernetes for image authorization plugi
 **Limit Direct Access to Kubernetes Nodes**  
 You should limit SSH access to Kubernetes nodes, reducing the risk for unauthorized access to host resource. Instead you should ask users to use "kubectl exec", which will provide direct access to the container environment without the ability to access the host.  
 
-You can use Kubernetes [Authorization Plugins](http://kubernetes.io/docs/admin/authorization/) to further control user access to resources. This allows defining fine-grained-access control rules for specific namespace, containers and operations.  
+You can use Kubernetes [Authorization Plugins](http://kubernetes.io/docs/reference/access-authn-authz/authorization/) to further control user access to resources. This allows defining fine-grained-access control rules for specific namespace, containers and operations.
 
 **Create Administrative Boundaries between Resources**  
 Limiting the scope of user permissions can reduce the impact of mistakes or malicious activities. A Kubernetes namespace allows you to partition created resources into logically named groups. Resources created in one namespace can be hidden from other namespaces. By default, each resource created by a user in Kubernetes cluster runs in a default namespace, called default. You can create additional namespaces and attach resources and users to them. You can use Kubernetes Authorization plugins to create policies that segregate access to namespace resources between different users.  
