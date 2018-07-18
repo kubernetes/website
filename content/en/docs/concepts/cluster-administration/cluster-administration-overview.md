@@ -54,7 +54,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [Authorization](/docs/reference/access-authn-authz/authorization/) is separate from authentication, and controls how HTTP calls are handled.
 
-* [Using Admission Controllers](/docs/admin/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
+* [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
 
 * [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 
