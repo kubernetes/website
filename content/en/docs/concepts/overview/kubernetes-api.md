@@ -12,7 +12,7 @@ Overall API conventions are described in the [API conventions doc](https://git.k
 
 API endpoints, resource types and samples are described in [API Reference](/docs/reference).
 
-Remote access to the API is discussed in the [access doc](/docs/admin/accessing-the-api).
+Remote access to the API is discussed in the [Controlling API Access doc](/docs/reference/access-authn-authz/controlling-access/).
 
 The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [kubectl](/docs/reference/kubectl/overview/) command-line tool can be used to create, update, delete, and get API objects.
 

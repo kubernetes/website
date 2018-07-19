@@ -25,7 +25,7 @@ This article describes a solution that exports Kubernetes events to
 Stackdriver Logging, where they can be processed and analyzed.
 
 {{< note >}}
-**Note:** it is not guaranteed that all events happening in a cluster will be
+**Note:** It is not guaranteed that all events happening in a cluster will be
 exported to Stackdriver. One possible scenario when events will not be
 exported is when event exporter is not running (e.g. during restart or
 upgrade). In most cases it's fine to use events for purposes like setting up
@@ -60,7 +60,7 @@ average, approximately 100Mb RAM and 100m CPU is needed.
 Deploy event exporter to your cluster using the following command:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/event-exporter-deploy.yaml
+kubectl create -f https://k8s.io/examples/debug/event-exporter.yaml
 ```
 
 Since event exporter accesses the Kubernetes API, it requires permissions to
@@ -70,7 +70,7 @@ to allow event exporter to read events. To make sure that event exporter
 pod will not be evicted from the node, you can additionally set up resource
 requests. As mentioned earlier, 100Mb RAM and 100m CPU should be enough.
 
-{{< code file="event-exporter-deploy.yaml" >}}
+{{< codenew file="debug/event-exporter.yaml" >}}
 
 ## User Guide
 

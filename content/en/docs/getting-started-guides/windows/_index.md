@@ -158,6 +158,12 @@ Note: this file assumes that a user previous created 'l2bridge' host networks on
 
 #### For 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay
 
+{{< note >}}
+**Note:** Fully automated setup via Ansible playbooks is [available](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib).
+{{< /note >}}
+
+For manual setup, continue the following steps.
+
 ##### Linux Host Setup
 
 Setting up the central node and the components needed is out of scope of this document. You can read [these instructions](https://github.com/openvswitch/ovn-kubernetes#k8s-master-node-initialization) for that.
@@ -255,112 +261,24 @@ The examples listed below assume running Windows nodes on Windows Server 1709. I
 ### Scheduling Pods on Windows
 Because your cluster has both Linux and Windows nodes, you must explicitly set the `nodeSelector` constraint to be able to schedule pods to Windows nodes. You must set nodeSelector with the label `beta.kubernetes.io/os` to the value `windows`; see the following example:
 
-```yaml
-{
-  "apiVersion": "v1",
-  "kind": "Pod",
-  "metadata": {
-    "name": "iis",
-    "labels": {
-      "name": "iis"
-    }
-  },
-  "spec": {
-    "containers": [
-      {
-        "name": "iis",
-        "image": "microsoft/iis:windowsservercore-1709",
-        "ports": [
-          {
-            "containerPort": 80
-          }
-        ]
-      }
-    ],
-    "nodeSelector": {
-      "beta.kubernetes.io/os": "windows"
-    }
-  }
-}
-```
-**Note:** this example assumes you are running on Windows Server 1709, so uses the image tag to support that. If you are on a different version, you will need to update the tag. For example, if on Windows Server 2016, update to use `"image": "microsoft/iis"` which will default to that OS version.
+{{< codenew file="windows/simple-pod.yaml" >}}
+
+{{< note >}}
+**Note:** This example assumes you are running on Windows Server 1709, so uses the image tag to support that. If you are on a different version, you will need to update the tag. For example, if on Windows Server 2016, update to use `"image": "microsoft/iis"` which will default to that OS version.
+{{< /note >}}
 
 ### Secrets and ConfigMaps
 Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be used as environment variables. See limitations section below for additional details.
 
 **Examples:**
 
- Windows pod with secrets mapped to environment variables
- ```yaml
- apiVersion: v1
-    kind: Secret
-    metadata:
-      name: mysecret
-    type: Opaque
-    data:
-      username: YWRtaW4=
-      password: MWYyZDFlMmU2N2Rm
+Windows pod with secrets mapped to environment variables
 
-    ---
+{{< codenew file="windows/secret-pod.yaml" >}}
 
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: my-secret-pod
-    spec:
-      containers:
-      - name: my-secret-pod
-        image: microsoft/windowsservercore:1709
-        env:
-          - name: USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mysecret
-                key: username
-          - name: PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysecret
-                key: password
-      nodeSelector:
-        beta.kubernetes.io/os: windows
-```
+Windows Pod with configMap values mapped to environment variables
 
- Windows pod with configMap values mapped to environment variables
-
-```yaml
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: example-config
-data:
-  example.property.1: hello
-  example.property.2: world
-
----
-
-apiVersion: v1
-kind: Pod
-metadata:
-  name: my-configmap-pod
-spec:
-  containers:
-  - name: my-configmap-pod
-    image: microsoft/windowsservercore:1709
-    env:
-      - name: EXAMPLE_PROPERTY_1
-        valueFrom:
-          configMapKeyRef:
-            name: example-config
-            key: example.property.1
-      - name: EXAMPLE_PROPERTY_2
-        valueFrom:
-          configMapKeyRef:
-            name: example-config
-            key: example.property.2
-  nodeSelector:
-    beta.kubernetes.io/os: windows
-```
+{{< codenew file="windows/configmap-pod.yaml" >}}
 
 ### Volumes
 Some supported Volume Mounts are local, emptyDir, hostPath.  One thing to remember is that paths must either be escaped, or use forward slashes, for example `mountPath: "C:\\etc\\foo"` or `mountPath: "C:/etc/foo"`.
@@ -369,76 +287,19 @@ Persistent Volume Claims are supported for supported volume types.
 
 **Examples:**
 
- Windows pod with a hostPath volume
- ```yaml
- apiVersion: v1
- kind: Pod
- metadata:
-   name: my-hostpath-volume-pod
- spec:
-   containers:
-   - name: my-hostpath-volume-pod
-     image: microsoft/windowsservercore:1709
-     volumeMounts:
-     - name: foo
-       mountPath: "C:\\etc\\foo"
-       readOnly: true
-   nodeSelector:
-     beta.kubernetes.io/os: windows
-   volumes:
-   - name: foo
-     hostPath:
-       path: "C:\\etc\\foo"
- ```
+Windows pod with a hostPath volume
 
- Windows pod with multiple emptyDir volumes
+{{< codenew file="windows/hostpath-volume-pod.yaml" >}}
 
- ```yaml
- apiVersion: v1
- kind: Pod
- metadata:
-   name: my-empty-dir-pod
- spec:
-   containers:
-   - image: microsoft/windowsservercore:1709
-     name: my-empty-dir-pod
-     volumeMounts:
-     - mountPath: /cache
-       name: cache-volume
-     - mountPath: C:/scratch
-       name: scratch-volume
-   volumes:
-   - name: cache-volume
-     emptyDir: {}
-   - name: scratch-volume
-     emptyDir: {}
-   nodeSelector:
-     beta.kubernetes.io/os: windows
- ```
+Windows pod with multiple emptyDir volumes
+
+{{< codenew file="windows/emptydir-pod.yaml" >}}
 
 ### DaemonSets
 
 DaemonSets are supported
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: DaemonSet
-metadata:
-  name: my-DaemonSet
-  labels:
-    app: foo
-spec:
-  template:
-    metadata:
-      labels:
-        app: foo
-    spec:
-      containers:
-      - name: foo
-        image: microsoft/windowsservercore:1709
-      nodeSelector:
-        beta.kubernetes.io/os: windows
-```
+{{< codenew file="windows/daemonset.yaml" >}}
 
 ### Metrics
 
@@ -448,53 +309,13 @@ Windows Stats use a hybrid model: pod and container level stats come from CRI (v
 
 Container resources (CPU and memory) could be set now for windows containers in v1.10.
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iis
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: iis
-    spec:
-      containers:
-      - name: iis
-        image: microsoft/iis
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: 2
-        ports:
-        - containerPort: 80
-```
+{{< codenew file="windows/deploy-resource.yaml" >}}
 
 ### Hyper-V Containers
 
 Hyper-V containers are supported as experimental in v1.10. To create a Hyper-V container, kubelet should be started with feature gates `HyperVContainer=true` and Pod should include annotation `experimental.windows.kubernetes.io/isolation-type=hyperv`.
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iis
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: iis
-      annotations:
-        experimental.windows.kubernetes.io/isolation-type: hyperv
-    spec:
-      containers:
-      - name: iis
-        image: microsoft/iis
-        ports:
-        - containerPort: 80
-```
+{{< codenew file="windows/deploy-hyperv.yaml" >}}
 
 ### Kubelet and kube-proxy can now run as Windows services
 
@@ -551,3 +372,4 @@ Some of these limitations will be addressed by the community in future releases 
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
 - Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
+

@@ -9,6 +9,11 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+In upcoming releases, Cloud Controller Manager will
+be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers
+can develop their features independently from the core Kubernetes release cycles.**
+
 {{< feature-state for_k8s_version="1.8" state="alpha" >}}
 
 Before going into how to build your own cloud controller manager, some background on how it works under the hood is helpful. The cloud controller manager is code from `kube-controller-manager` utilizing Go interfaces to allow implementations from any cloud to be plugged in. Most of the scaffolding and generic controller implementations will be in core, but it will always exec out to the cloud interfaces it is provided, so long as the [cloud provider interface](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go#L29-L50) is satisfied.

@@ -21,10 +21,10 @@ For more information about contributing to the Kubernetes documentation, see:
 If you'd like, you can build the Kubernetes docs using Docker. To get started, build the image locally:
 
 ```bash
-$ make docker-image
+make docker-image
 
 # The underlying command:
-$ docker build . \
+docker build . \
   --tag kubernetes-hugo \
   --build-arg HUGO_VERSION=0.40.3
 ```
@@ -33,10 +33,10 @@ You can create an image for a different version of Hugo by changing the value of
 Once the `kubernetes-hugo` image has been built locally, you can build the site:
 
 ```bash
-$ make docker-serve
+make stage
 
 # The underlying command:
-$ docker run \
+docker run \
   --rm \
   --interactive \
   --tty \

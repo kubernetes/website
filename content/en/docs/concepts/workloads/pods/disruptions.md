@@ -76,7 +76,7 @@ and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/)
 spread applications across racks (using
 [anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
 or across zones (if using a
-[multi-zone cluster](/docs/admin/multiple-zones).)
+[multi-zone cluster](/docs/setup/multiple-zones).)
 
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
 no voluntary disruptions at all.  However, your cluster administrator or hosting provider

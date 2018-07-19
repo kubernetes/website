@@ -28,12 +28,12 @@ running Container.
 In this exercise, you create a Pod that has one Container. The Container
 runs the nginx image. Here is the configuration file for the Pod:
 
-{{< code file="shell-demo.yaml" >}}
+{{< codenew file="application/shell-demo.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/shell-demo.yaml
+kubectl create -f https://k8s.io/examples/application/shell-demo.yaml
 ```
 
 Verify that the Container is running:

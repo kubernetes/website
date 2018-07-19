@@ -90,7 +90,7 @@ to implement one of the above options:
   - You can also write your own.
 - **Compile support directly into Kubernetes**
   - This can be done by implementing the "Routes" interface of a Cloud Provider module.
-  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce/)) and [AWS](/docs/getting-started-guides/aws/) guides use this approach.
+  - The Google Compute Engine ([GCE](/docs/setup/turnkey/gce/)) and [AWS](/docs/setup/turnkey/aws/) guides use this approach.
 - **Configure the network external to Kubernetes**
   - This can be done by manually running commands, or through a set of externally maintained scripts.
   - You have to implement this yourself, but it can give you an extra degree of flexibility.
@@ -236,7 +236,7 @@ You need to prepare several certs:
 Unless you plan to have a real CA generate your certs, you will need
 to generate a root cert and use that to sign the master, kubelet, and
 kubectl certs. How to do this is described in the [authentication
-documentation](/docs/admin/authentication/#creating-certificates/).
+documentation](/docs/concepts/cluster-administration/certificates/).
 
 You will end up with the following files (we will use these variables later on)
 
@@ -262,7 +262,7 @@ The admin user (and any users) need:
 
 Your tokens and passwords need to be stored in a file for the apiserver
 to read.  This guide uses `/var/lib/kube-apiserver/known_tokens.csv`.
-The format for this file is described in the [authentication documentation](/docs/admin/authentication/).
+The format for this file is described in the [authentication documentation](/docs/reference/access-authn-authz/authentication/#static-token-file).
 
 For distributing credentials to clients, the convention in Kubernetes is to put the credentials
 into a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/).
@@ -470,7 +470,7 @@ traffic to the internet, but have no problem with them inside your GCE Project.
 
 The previous steps all involved "conventional" system administration techniques for setting up
 machines.  You may want to use a Configuration Management system to automate the node configuration
-process.  There are examples of [Saltstack](/docs/admin/salt/), Ansible, Juju, and CoreOS Cloud Config in the
+process.  There are examples of [Saltstack](/docs/setup/salt/), Ansible, Juju, and CoreOS Cloud Config in the
 various Getting Started Guides.
 
 ## Bootstrapping the Cluster
@@ -608,7 +608,7 @@ Here are some apiserver flags you may need to set:
 - `--tls-cert-file=/srv/kubernetes/server.cert`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
 - `--enable-admission-plugins=$RECOMMENDED_LIST`
-  - See [admission controllers](/docs/admin/admission-controllers/) for recommended arguments.
+  - See [admission controllers](/docs/reference/access-authn-authz/admission-controllers/) for recommended arguments.
 - `--allow-privileged=true`, only if you trust your cluster user to run pods as root.
 
 If you are following the firewall-only security approach, then use these arguments:
@@ -851,12 +851,12 @@ Cluster validation succeeded
 
 ### Inspect pods and services
 
-Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/docs/getting-started-guides/gce/#inspect-your-cluster).
+Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/docs/setup/turnkey/gce/#inspect-your-cluster).
 You should see some services.  You should also see "mirror pods" for the apiserver, scheduler and controller-manager, plus any add-ons you started.
 
 ### Try Examples
 
-At this point you should be able to run through one of the basic examples, such as the [nginx example](/docs/tutorials/stateless-application/deployment.yaml).
+At this point you should be able to run through one of the basic examples, such as the [nginx example](/examples/application/deployment.yaml).
 
 ### Running the Conformance Test
 
@@ -869,7 +869,7 @@ pinging or SSH-ing from one node to another.
 
 ### Getting Help
 
-If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce/#troubleshooting), post to the
+If you run into trouble, please see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
 [kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level

@@ -68,9 +68,12 @@ spec:
 
 Then add a nodeSelector like so:
 
-{{< code file="pod.yaml" >}}
+{{< codenew file="pods/pod-nginx.yaml" >}}
 
-When you then run `kubectl create -f pod.yaml`, the pod will get scheduled on the node that you attached the label to! You can verify that it worked by running `kubectl get pods -o wide` and looking at the "NODE" that the pod was assigned to.
+When you then run `kubectl create -f https://k8s.io/examples/pods/pod-nginx.yaml`,
+the Pod will get scheduled on the node that you attached the label to. You can
+verify that it worked by running `kubectl get pods -o wide` and looking at the
+"NODE" that the Pod was assigned to.
 
 ## Interlude: built-in node labels
 
@@ -133,7 +136,7 @@ Node affinity is specified as field `nodeAffinity` of field `affinity` in the Po
 
 Here's an example of a pod that uses node affinity:
 
-{{< code file="pod-with-node-affinity.yaml" >}}
+{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
 This node affinity rule says the pod can only be placed on a node with a label whose key is
 `kubernetes.io/e2e-az-name` and whose value is either `e2e-az1` or `e2e-az2`. In addition,
@@ -188,7 +191,7 @@ And inter-pod anti-affinity is specified as field `podAntiAffinity` of field `af
 
 #### An example of a pod that uses pod affinity:
 
-{{< code file="pod-with-pod-affinity.yaml" >}}
+{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
 
 The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. In this example, the
 `podAffinity` is `requiredDuringSchedulingIgnoredDuringExecution`

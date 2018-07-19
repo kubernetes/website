@@ -12,7 +12,7 @@ weight: 90
 A service account provides an identity for processes that run in a Pod.
 
 *This is a user introduction to Service Accounts.  See also the
-[Cluster Admin Guide to Service Accounts](/docs/admin/service-accounts-admin/).*
+[Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).*
 
 {{< note >}}
 **Note:** This document describes how service accounts behave in a cluster set up
@@ -50,7 +50,7 @@ you can see the `spec.serviceAccountName` field has been
 
 You can access the API from inside a pod using automatically mounted service account credentials,
 as described in [Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
-The API permissions a service account has depend on the [authorization plugin and policy](/docs/admin/authorization/#a-quick-note-on-service-accounts) in use.
+The API permissions of the service account depend on the [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
 In version 1.6+, you can opt out of automounting API credentials for a service account by setting
 `automountServiceAccountToken: false` on the service account:
@@ -122,7 +122,7 @@ secrets:
 
 then you will see that a token has automatically been created and is referenced by the service account.
 
-You may use authorization plugins to [set permissions on service accounts](/docs/admin/authorization/#a-quick-note-on-service-accounts).
+You may use authorization plugins to [set permissions on service accounts](docs/reference/access-authn-authz/authorization/#service-account-permissions).
 
 To use a non-default service account, simply set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.
@@ -248,4 +248,13 @@ spec:
 TODO: Test and explain how to use additional non-K8s secrets with an existing service account.
 -->
 
+## Service Account Volume Projection
+
+Kubernetes 1.11 and higher supports a new way to project a service account token into a Pod.
+You can specify a token request with audiences, expirationSeconds. The service account token
+becomes invalid when the Pod is deleted. A Projected Volume named
+[ServiceAccountToken](/docs/concepts/storage/volumes/#projected) requests and stores the token.
+
 {{% /capture %}}
+
+
