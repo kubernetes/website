@@ -50,7 +50,13 @@ Autoscaling Kubernetes nodes was historically difficult, as each node requires a
 
 <img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/rbac2.png" width="800" />
 
-Kubernetes' ABAC (Attribute Based Access Control) has been [superseded by RBAC](http://blog.kubernetes.io/2017/04/rbac-support-in-kubernetes.html) since release 1.6, and should not be enabled on the API server. Use this flag to disable it:
+Kubernetes' ABAC (Attribute Based Access Control) has been [superseded by RBAC](http://blog.kubernetes.io/2017/04/rbac-support-in-kubernetes.html) since release 1.6, and should not be enabled on the API server. Use RBAC instead:
+
+```
+--authorization-mode=RBAC
+```
+
+Or use this flag to disable it in GKE:
 
 ```
 --no-enable-legacy-authorization
@@ -285,8 +291,7 @@ In &quot;Zero Trust&quot; networks there may be no need for traditional firewall
 
 This shift from traditional networking to Cloud Native security principles is not one we expect to be easy for those with a traditional security mindset, and the [Zero Trust Networking book](https://amzn.to/2Gg6Pav) from SPIFFE&#39;s [Evan Gilman](https://twitter.com/evan2645) is a highly recommended introduction to this brave new world.
 
-Istio [0.8 LTS](https://istio.io/about/notes/0.8/) is out, and the project is approaching 1.0. Its stability versioning is the same as the Kubernetes model: a stable core, with individual APIs identifying themselves under their own alpha/beta stability namespace. Expect to see an uptick in adoption of 0.8 soon!
-
+Istio [0.8 LTS](https://istio.io/about/notes/0.8/) is out, and the project is rapidly approaching a 1.0 release. Its stability versioning is the same as the Kubernetes model: a stable core, with individual APIs identifying themselves under their own alpha/beta stability namespace. Expect to see an uptick Istio adoption over the coming months.
 
 # Conclusion
 
