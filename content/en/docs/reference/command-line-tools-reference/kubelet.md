@@ -970,20 +970,6 @@ kubelet [flags]
     </tr>
 
      <tr>
-       <td colspan="2">--rkt-api-endpoint string</td> 
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The endpoint of the rkt API service to communicate with. Only used if --container-runtime='rkt'. (default "localhost:15441")</td>
-    </tr>
-
-     <tr>
-       <td colspan="2">--rkt-path string</td> 
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path of rkt binary. Leave empty to use the first rkt in $PATH.</td>
-    </tr>
-
-     <tr>
        <td colspan="2">--root-dir string</td> 
     </tr>
     <tr>
