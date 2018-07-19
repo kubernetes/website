@@ -89,41 +89,64 @@ Here's an example of an entry in /_data/tasks.yaml:
 
     - docs/tasks/configure-pod-container/configure-volume-storage.md
 
+## Embedding code in your topic
+
+If you want to include some code in your topic, you can embed the code in your
+file directly using the markdown code block syntax. This is recommended for the
+following cases (not an exhaustive list):
+
+- The code is showing the output from a command such as
+  `kubectl get deploy mydeployment -o json | jq '.status'`.
+- The code is not generic enough for users to try out. As an example, the YAML
+  file for creating a Pod which depends on a specific
+  [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation can be
+  directly embedded into the topic when appropriate.
+- The code is an incomplete example because its purpose is to highlight a
+  portion of an otherwise large file. For example, when describing ways to
+  customize the [PodSecurityPolicy](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
+  for some reasons, you may provide a short snippet directly in your topic file.
+- The code is not meant for users to try out due to other reasons. For example,
+  when describing how a new attribute should be added to a resource using the
+  `kubectl edit` command, you may provide a short example that includes only
+  the attribute to add.
+
 ## Including code from another file
 
-To include a code file in your topic, place the code file in the Kubernetes
-documentation repository, preferably in the same directory as your topic
-file. In your topic file, use the `include` tag:
+Another way to include code in your topic is to create a new, complete sample
+file (or a group of sample files) and then reference the sample(s) from your
+topic. This is the preferred way of including sample YAML files when the sample
+is generic, reusable, and you want the readers to try it out by themselves.
 
-<pre>&#123;% include code.html language="&lt;LEXERVALUE&gt;" file="&lt;RELATIVEPATH&gt;" ghlink="/&lt;PATHFROMROOT&gt;" %&#125;</pre>
+When adding a new standalone sample file (e.g. a YAML file), place the code in
+one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
+the topic. In your topic file, use the `codenew` shortcode:
 
-where:
+<pre>&#123;&#123;&lt; codenew file="&lt;RELPATH&gt;/my-example-yaml&gt;" &gt;&#125;&#125;</pre>
 
-* `<LEXERVALUE>` is the language in which the file was written. This must be
-[a value supported by Rouge](https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers).
-* `<RELATIVEPATH>` is the path to the file you're including, relative to the current file, for example, `local-volume.yaml`.
-* `<PATHFROMROOT>` is the path to the file relative to root, for example, `docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml`.
+where `<RELPATH>` is the path to the file you're including, relative to the
+`examples` directory. For example, the following short code references a YAML
+file located at `content/en/examples/pods/storage/gce-volume.yaml`.
 
-Here's an example of using the `include` tag:
-
-<pre>&#123;% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/tutorials/stateful-application/gce-volume.yaml" %&#125;</pre>
+<pre>&#123;&#123;&lt; codenew file="pods/storage/gce-volume.yaml" &gt;&#125;&#125;</pre>
 
 ## Showing how to create an API object from a configuration file
 
 If you need to show the reader how to create an API object based on a
-configuration file, place the configuration file in the Kubernetes documentation
-repository, preferably in the same directory as your topic file.
+configuration file, place the configuration file in one of the subdirectories
+under `<LANG>/examples`.
 
 In your topic, show this command:
 
-    kubectl create -f https://k8s.io/<PATHFROMROOT>
+```
+kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
+```
 
-where `<PATHFROMROOT>` is the path to the configuration file relative to root,
-for example, `docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml`.
-
-Here's an example of a command that creates an API object from a configuration file:
-
-    kubectl create -f https://k8s.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/local-volumes.yaml
+{{< note >}}
+**NOTE**: When adding new YAML files to the `<LANG>/examples` directory, make
+sure the file is also included into the `<LANG>/examples_test.go` file. The
+Travis CI for the Website automatically runs this test case when PRs are
+submitted to ensure all examples pass the tests.
+{{< /note >}}
 
 For an example of a topic that uses this technique, see
 [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/).
