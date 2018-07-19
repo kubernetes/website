@@ -347,4 +347,22 @@ schedule the higher priority Pod instead of the preemptor.
 In the absence of such a higher priority Pod, we expect the preemptor Pod to be
 scheduled after the graceful termination period of the victims is over.
 
+#### Higher priority Pods are preempted before lower priority pods
+
+The scheduler tries to find nodes that can run a pending Pod and if no node is
+found, it tries to remove Pods with lower priority from one node to make room
+for the pending pod. If a node with low priority Pods is not feasible to run the
+pending Pod, the scheduler may choose another node with higher priority Pods
+(compared to the Pods on the other node) for preemption. The victims must still
+have lower priority than the preemptor Pod.
+
+When there are multiple nodes available for preemption, the scheduler tries to
+choose the node with a set of Pods with lowest priority. However, if such Pods
+have PodDisruptionBudget that would be violated if they are preempted then the
+scheduler may choose another node with higher priority Pods.
+
+When multiple nodes exist for preemption and none of the above scenarios apply,
+we expect the scheduler to choose a node with the lowest priority. If that is
+not the case, it may indicate a bug in the scheduler.
+
 {{% /capture %}}
