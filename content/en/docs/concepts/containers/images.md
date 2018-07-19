@@ -139,8 +139,21 @@ manage and update the ECR login credentials. You cannot use this approach.
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 
-Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put this
-in the `$HOME` of user `root` on a kubelet, then docker will use it.
+Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
+in the search paths list below, kubelet uses it as the credential provider when pulling images.
+
+*   `{--root-dir:-/var/lib/kubelet}/config.json`
+*   `{cwd of kubelet}/config.json`
+*   `${HOME}/.docker/config.json`
+*   `/.docker/config.json`
+*   `{--root-dir:-/var/lib/kubelet}/.dockercfg`
+*   `{cwd of kubelet}/.dockercfg`
+*   `${HOME}/.dockercfg`
+*   `/.dockercfg`
+
+{{< note >}}
+**Note**: You may have to set `HOME=/root` explicitly in your environment file for kubelet.
+{{< /note >}}
 
 Here are the recommended steps to configuring your nodes to use a private registry.  In this
 example, run these on your desktop/laptop:
@@ -150,8 +163,8 @@ example, run these on your desktop/laptop:
    1. Get a list of your nodes, for example:
       - if you want the names: `nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
       - if you want to get the IPs: `nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
-   1. Copy your local `.docker/config.json` to the home directory of root on each node.
-      - for example: `for n in $nodes; do scp ~/.docker/config.json root@$n:/root/.docker/config.json; done`
+   1. Copy your local `.docker/config.json` to one of the search paths list above.
+      - for example: `for n in $nodes; do scp ~/.docker/config.json root@$n:/var/lib/kubelet/config.json; done`
 
 Verify by creating a pod that uses a private image, e.g.:
 
