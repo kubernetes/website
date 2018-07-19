@@ -17,7 +17,7 @@ build-preview: ## Build site with drafts and future posts enabled.
 	hugo -D -F
 
 serve: ## Boot the development server.
-	hugo server
+	hugo server --ignoreCache --disableFastRender
 
 docker-image:
 	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)

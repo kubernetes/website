@@ -1,8 +1,9 @@
 {{- $mainSass := "sass/styles.sass" }}
 {{- $caseStudySass := "sass/case_study_styles.sass" }}
+{{- $extraPageCss := split .Params.css "," }}
 <link rel="stylesheet" type="text/css" href="/css/base_fonts.css">
 {{- if .Site.IsServer }}
-{{- $mainCssOpts := (dict "targetPath" "css/styles.css" "enableSourceMap" true) }}
+{{- $mainCssOpts := (dict "targetPath" "css/styles.css") }}
 {{- $mainCss := resources.Get $mainSass | toCSS $mainCssOpts }}
 <link rel="stylesheet" media="screen" href="{{ $mainCss.RelPermalink }}"><!-- default styles.css on -->
 {{- else }}
@@ -25,8 +26,7 @@
 {{- if eq .Params.class "gridPage" }}
 <link rel="stylesheet" type="text/css" href="{{ "css/gridpage.css" | relURL }}">
 {{- end }}
-{{- with .Params.css }}
-{{- range (split . ",") }}
-<link rel="stylesheet" type="text/css" href="{{ (trim . " ") | relURL }}"><!-- custom css added -->
-{{- end }}
+{{- range $extraPageCss }}
+{{- $url := trim . " " | relURL }}
+<link rel="stylesheet" type="text/css" href="{{ $url }}"><!-- custom css added -->
 {{- end }}
