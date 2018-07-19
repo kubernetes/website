@@ -4,9 +4,10 @@ reviewers:
 - vishh
 - timstclair
 title: Configure Out Of Resource Handling
+content_template: templates/concept
 ---
 
-{{< toc >}}
+{{% capture overview %}}
 
 This page explains how to configure out of resource handling with `kubelet`.
 
@@ -14,6 +15,12 @@ The `kubelet` needs to preserve node stability when available compute resources
 are low. This is especially important when dealing with incompressible
 compute resources, such as memory or disk space. If such resources are exhausted,
 nodes become unstable.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Eviction Policy
 
@@ -369,3 +376,5 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 
 The Pod eviction may evict more Pods than needed due to stats collection timing gap. This can be mitigated by adding
 the ability to get root container stats on an on-demand basis [(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247) in the future.
+
+{{% /capture %}}

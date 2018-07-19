@@ -17,7 +17,7 @@ policies using the supported authorization modules.
 {{% capture body %}}
 In Kubernetes, you must be authenticated (logged in) before your request can be
 authorized (granted permission to access). For information about authentication,
-see [Accessing Control Overview](/docs/admin/accessing-the-api/).
+see [Accessing Control Overview](/docs/reference/access-authn-authz/controlling-access/).
 
 Kubernetes expects attributes that are common to REST API requests. This means
 that Kubernetes authorization works with existing organization-wide or
@@ -44,10 +44,10 @@ Kubernetes reviews only the following API request attributes:
 
  * **user** - The `user` string provided during authentication.
  * **group** - The list of group names to which the authenticated user belongs.
- * **"extra"** - A map of arbitrary string keys to string values, provided by the authentication layer.
+ * **extra** - A map of arbitrary string keys to string values, provided by the authentication layer.
  * **API** - Indicates whether the request is for an API resource.
  * **Request path** - Path to miscellaneous non-resource endpoints like `/api` or `/healthz`.
- * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see **Determine the request verb** below.
+ * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see [Determine the request verb](/docs/reference/access-authn-authz/authorization/#determine-whether-a-request-is-allowed-or-denied) below.
  * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests.
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
@@ -70,17 +70,17 @@ DELETE    | delete (for individual resources), deletecollection (for collections
 Kubernetes sometimes checks authorization for additional permissions using specialized verbs. For example:
 
 * [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) checks for authorization of the `use` verb on `podsecuritypolicies` resources in the `policy` API group.
-* [RBAC](/docs/admin/authorization/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization 
+* [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization 
 of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
-* [Authentication](/docs/admin/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
+* [Authentication](/docs/reference/access-authn-authz/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
 
 ## Authorization Modules
- * **Node** - A special-purpose authorizer that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/admin/authorization/node/).
- * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes, etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/).
- * **RBAC** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/admin/authorization/rbac/)
-   * When specified "RBAC" (Role-Based Access Control) uses the "rbac.authorization.k8s.io" API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
+ * **Node** - A special-purpose authorizer that grants permissions to kubelets based on the pods they are scheduled to run. To learn more about using the Node authorization mode, see [Node Authorization](/docs/reference/access-authn-authz/node/).
+ * **ABAC** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes, etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/reference/access-authn-authz/abac/).
+ * **RBAC** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/reference/access-authn-authz/rbac/)
+   * When specified RBAC (Role-Based Access Control) uses the `rbac.authorization.k8s.io` API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
    * To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
- * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/admin/authorization/webhook/).
+ * **Webhook** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/reference/access-authn-authz/webhook/).
 
 #### Checking API Access
 
@@ -96,7 +96,7 @@ $ kubectl auth can-i create deployments --namespace prod
 no
 ```
 
-Administrators can combine this with ["user impersonation"](/docs/admin/authentication/#user-impersonation)
+Administrators can combine this with [user impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation)
 to determine what action other users can perform.
 
 ```bash
@@ -159,14 +159,6 @@ The following flags can be used:
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
-* To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/).
-* To learn more about Admission Control, see [Using Admission Controllers](/docs/admin/admission-controllers/).
-{{% /capture %}}
-
-
-
 ## Privilege escalation via pod creation
 
 Users who have the ability to create pods in a namespace can potentially
@@ -183,3 +175,9 @@ maps in the namespace; and impersonate any service account in the namespace and
 take any action the account could take. This applies regardless of authorization
 mode.
 {{< /caution >}}
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+* To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
+* To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
+{{% /capture %}}

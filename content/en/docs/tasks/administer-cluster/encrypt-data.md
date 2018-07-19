@@ -21,6 +21,14 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 {{% /capture %}}
 
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
 {{% capture steps %}}
 
 ## Configuration and determining whether encryption at rest is already enabled
@@ -105,7 +113,7 @@ resources:
 
 To create a new secret perform the following steps:
 
-1. Generate a 32 byte random key and base64 encode it. If you're on Linux or Mac OS X, run the following command:
+1. Generate a 32 byte random key and base64 encode it. If you're on Linux or macOS, run the following command:
 
     ```
     head -c 32 /dev/urandom | base64

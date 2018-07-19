@@ -1,19 +1,18 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
+content_template: templates/task
 weight: 30
 ---
 
 {{< toc >}}
 
-# Example: Job with Work Queue with Pod Per Work Item
+{{% capture overview %}}
 
 In this example, we will run a Kubernetes Job with multiple parallel
-worker processes.  You may want to be familiar with the basic,
-non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) first.
+worker processes. 
 
 In this example, as each pod is created, it picks up one unit of work
 from a task queue, completes it, deletes it from the queue, and exits.
-
 
 Here is an overview of the steps in this example:
 
@@ -23,6 +22,21 @@ Here is an overview of the steps in this example:
   this example, a message is just an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
   one task from the message queue, processes it, and repeats until the end of the queue is reached.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+Be familiar with the basic,
+non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Starting a message queue service
 
@@ -167,13 +181,13 @@ We will use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  Here is a very simple
 example program:
 
-{{< code language="python" file="coarse-parallel-processing-work-queue/worker.py" >}}
+{{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
 
 Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.
 Otherwise, make a temporary directory, change to it,
-download the [Dockerfile](Dockerfile?raw=true),
-and [worker.py](worker.py?raw=true).  In either case,
+download the [Dockerfile](/examples/application/job/rabbitmq/Dockerfile),
+and [worker.py](/examples/application/job/rabbitmq/worker.py).  In either case,
 build the image with this command:
 
 ```shell
@@ -205,7 +219,7 @@ Here is a job definition.  You'll need to make a copy of the Job and edit the
 image to match the name you used, and call it `./job.yaml`.
 
 
-{{< code file="coarse-parallel-processing-work-queue/job.yaml" >}}
+{{< codenew file="application/job/rabbitmq/job.yaml" >}}
 
 In this example, each pod works on one item from the queue and then exits.
 So, the completion count of the Job corresponds to the number of work items
@@ -260,6 +274,9 @@ Events:
 
 All our pods succeeded.  Yay.
 
+{{% /capture %}}
+
+{{% capture discussion %}}
 
 ## Alternatives
 
@@ -295,3 +312,5 @@ that the message is acknowledged by the amqp-consume command and the time that t
 exits with success, or if the node crashes before the kubelet is able to post the success of the pod
 back to the api-server, then the Job will not appear to be complete, even though all items
 in the queue have been processed.
+
+{{% /capture %}}

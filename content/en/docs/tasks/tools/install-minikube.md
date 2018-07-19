@@ -22,7 +22,7 @@ VT-x or AMD-v virtualization must be enabled in your computer's BIOS.
 
 If you do not already have a hypervisor installed, install one now.
 
-* For OS X, install
+* For macOS, install
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
 [VMware Fusion](https://www.vmware.com/products/fusion), or
 [HyperKit](https://github.com/moby/hyperkit).
@@ -32,7 +32,7 @@ If you do not already have a hypervisor installed, install one now.
 [KVM](http://www.linux-kvm.org/).
 
   {{< note >}}
-   **Note:** Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Docker is required to use this driver but a hypervisor is not required.
+   **Note:** Minikube also supports a `-\-vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Docker is required to use this driver but a hypervisor is not required.
   {{< /note >}}
 
 * For Windows, install

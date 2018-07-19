@@ -1,21 +1,26 @@
 ---
 title: Parallel Processing using Expansions
+content_template: templates/concept
 weight: 20
 ---
 
-{{< toc >}}
-
-# Example: Multiple Job Objects from Template Expansion
+{{% capture overview %}}
 
 In this example, we will run multiple Kubernetes Jobs created from
 a common template.  You may want to be familiar with the basic,
 non-parallel, use of [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/) first.
 
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
+
 ## Basic Template Expansion
 
-First, download the following template of a job to a file called `job.yaml`
+First, download the following template of a job to a file called `job-tmpl.yaml`
 
-{{< code file="job.yaml" >}}
+{{< codenew file="application/job/job-tmpl.yaml" >}}
 
 Unlike a *pod template*, our *job template* is not a Kubernetes API type.  It is just
 a yaml representation of a Job object that has some placeholders that need to be filled
@@ -42,7 +47,7 @@ Next, expand the template into multiple files, one for each item to be processed
 $ mkdir ./jobs
 $ for i in apple banana cherry
 do
-  cat job.yaml | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
+  cat job-tmpl.yaml | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
 done
 ```
 
@@ -189,3 +194,5 @@ If you have a large number of job objects, you may find that:
 
 In this case, you can consider one of the
 other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
+
+{{% /capture %}}

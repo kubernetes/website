@@ -1,14 +1,13 @@
 ---
 title: Manage TLS Certificates in a Cluster
+content_template: templates/task
 reviewers:
 - mikedanese
 - beacham
 - liggit
 ---
 
-{{< toc >}}
-
-## Overview
+{{% capture overview %}}
 
 Every Kubernetes cluster has a cluster root Certificate Authority (CA). The CA
 is generally used by cluster components to validate the API server's
@@ -19,6 +18,18 @@ Optionally, your workloads can use this CA to establish trust. Your application
 can request a certificate signing using the `certificates.k8s.io` API using a
 protocol that is similar to the
 [ACME draft](https://github.com/ietf-wg-acme/acme/).
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Trusting TLS in a Cluster
 
@@ -43,12 +54,12 @@ Kubernetes service accessed through DNS.
 **Note:** This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://blog.cloudflare.com/introducing-cfssl/) to know more.
 {{< /note >}}
 
-### Step 0. Download and install CFSSL
+## Download and install CFSSL
 
 The cfssl tools used in this example can be downloaded at
 [https://pkg.cfssl.org/](https://pkg.cfssl.org/).
 
-### Step 1. Create a Certificate Signing Request
+## Create a Certificate Signing Request
 
 Generate a private key and certificate signing request (or CSR) by running
 the following command:
@@ -88,7 +99,7 @@ encoded [pkcs#10](https://tools.ietf.org/html/rfc2986) certification request,
 and `server-key.pem` containing the PEM encoded key to the certificate that
 is still to be created.
 
-### Step 2. Create a Certificate Signing Request object to send to the Kubernetes API
+## Create a Certificate Signing Request object to send to the Kubernetes API
 
 Generate a CSR yaml blob and send it to the apiserver by running the following
 command:
@@ -139,13 +150,13 @@ Subject Alternative Names:
 Events: <none>
 ```
 
-### Step 3. Get the Certificate Signing Request Approved
+## Get the Certificate Signing Request Approved
 
 Approving the certificate signing request is either done by an automated
 approval process or on a one off basis by a cluster administrator. More
 information on what this involves is covered below.
 
-### Step 4. Download the Certificate and Use It
+## Download the Certificate and Use It
 
 Once the CSR is signed and approved you should see the following:
 
@@ -160,7 +171,7 @@ by running the following:
 
 ```console
 $ kubectl get csr my-svc.my-namespace -o jsonpath='{.status.certificate}' \
-    | base64 -d > server.crt
+    | base64 --decode > server.crt
 ```
 
 Now you can use `server.crt` and `server-key.pem` as the keypair to start
@@ -196,7 +207,7 @@ includes who the Kubernetes API trusts. The ability to approve CSRs should
 not be granted broadly or lightly. The requirements of the challenge
 noted in the previous section and the repercussions of issuing a specific
 certificate should be fully understood before granting this permission. See
-[here](/docs/admin/authentication#x509-client-certs) for information on how
+[here](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for information on how
 certificates interact with authentication.
 
 ## A Note to Cluster Administrators
@@ -206,3 +217,5 @@ Kubernetes controller manager provides a default implementation of a signer. To
 enable it, pass the `--cluster-signing-cert-file` and
 `--cluster-signing-key-file` parameters to the controller manager with paths to
 your Certificate Authority's keypair.
+
+{{% /capture %}}
