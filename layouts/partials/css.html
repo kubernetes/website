@@ -1,5 +1,5 @@
 {{- $mainSass := "sass/styles.sass" }}
-{{- $cassStudySass := "sass/case_study_styles.sass" }}
+{{- $caseStudySass := "sass/case_study_styles.sass" }}
 <link rel="stylesheet" type="text/css" href="/css/base_fonts.css">
 {{- if .Site.IsServer }}
 {{- $mainCssOpts := (dict "targetPath" "css/styles.css" "enableSourceMap" true) }}
@@ -12,7 +12,7 @@
 {{- end }}
 {{- if .Params.case_study_styles }}
 {{- $caseStudyCssOpts := (dict "targetPath" "css/styles.css") }}
-{{- $caseStudyCss := resources.Get $cassStudySass | toCSS $caseStudyCssOpts | minify | fingerprint }}
+{{- $caseStudyCss := resources.Get $caseStudySass | toCSS $caseStudyCssOpts | minify | fingerprint }}
 <link rel="stylesheet" media="screen" href="{{ $caseStudyCss.Permalink }}" integrity="{{ $caseStudyCss.Data.Integrity }}"><!-- custom case_study_styles on -->
 {{- end }}
 <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
