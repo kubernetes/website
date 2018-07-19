@@ -39,48 +39,60 @@ for details about addon manager and how to disable individual addons.
 
 1. List the StorageClasses in your cluster: 
 
-       kubectl get storageclass
+    ```bash
+    kubectl get storageclass
+    ```
 
     The output is similar to this:
 
-        NAME                 TYPE
-        standard (default)   kubernetes.io/gce-pd
-        gold                 kubernetes.io/gce-pd
+    ```bash
+    NAME                 TYPE
+    standard (default)   kubernetes.io/gce-pd
+    gold                 kubernetes.io/gce-pd
+    ```
 
-   The default StorageClass is marked by `(default)`.
+    The default StorageClass is marked by `(default)`.
 
 1. Mark the default StorageClass as non-default:
 
-   The default StorageClass has an annotation
-   `storageclass.kubernetes.io/is-default-class` set to `true`. Any other value
-   or absence of the annotation is interpreted as `false`.
+      The default StorageClass has an annotation
+      `storageclass.kubernetes.io/is-default-class` set to `true`. Any other value
+      or absence of the annotation is interpreted as `false`.
 
-   To mark a StorageClass as non-default, you need to change its value to `false`:
+      To mark a StorageClass as non-default, you need to change its value to `false`:
 
-       kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+      ```bash
+      kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+      ```
 
-    where `<your-class-name>` is the name of your chosen StorageClass.
+      where `<your-class-name>` is the name of your chosen StorageClass.
 
 1. Mark a StorageClass as default:
 
-   Similarly to the previous step, you need to add/set the annotation
-   `storageclass.kubernetes.io/is-default-class=true`.
+      Similarly to the previous step, you need to add/set the annotation
+      `storageclass.kubernetes.io/is-default-class=true`.
 
-       kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+      ```bash
+      kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+      ```
 
-   Please note that at most one StorageClass can be marked as default. If two
-   or more of them are marked as default, Kubernetes ignores the annotation,
-   i.e. it behaves as if there is no default StorageClass.
+      Please note that at most one StorageClass can be marked as default. If two
+      or more of them are marked as default, Kubernetes ignores the annotation,
+      i.e. it behaves as if there is no default StorageClass.
 
 1. Verify that your chosen StorageClass is default:
 
-       kubectl get storageclass
+      ```bash
+      kubectl get storageclass
+      ```
 
-    The output is similar to this:
+      The output is similar to this:
 
-        NAME             TYPE
-        standard         kubernetes.io/gce-pd
-        gold (default)   kubernetes.io/gce-pd
+      ```bash
+      NAME             TYPE
+      standard         kubernetes.io/gce-pd
+      gold (default)   kubernetes.io/gce-pd
+      ```
 
 {{% /capture %}}
 
