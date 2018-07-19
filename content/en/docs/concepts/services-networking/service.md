@@ -744,7 +744,7 @@ for supported instance types.
 ### Type ExternalName {#externalname}
 
 {{< note >}}
-ExternalName Services are available only with `kube-dns` version 1.7 and later.
+**NOTE:** ExternalName Services are available only with `kube-dns` version 1.7 and later.
 {{< /note >}}
 
 Services of type ExternalName map a service to a DNS name (specified using
