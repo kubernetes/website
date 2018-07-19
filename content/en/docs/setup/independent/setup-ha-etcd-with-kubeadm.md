@@ -26,7 +26,7 @@ when using kubeadm to set up a kubernetes cluster.
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
   can satisfy this requirement.
 
-[toolbox]: /docs/tasks/tools/install-kubeadm/
+[toolbox]: /docs/setup/independent/install-kubeadm/
 
 {{% /capture %}}
 
