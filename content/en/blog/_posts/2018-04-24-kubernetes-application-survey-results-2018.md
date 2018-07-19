@@ -26,7 +26,7 @@ The number of respondents in the past year and 10 months increased at a rate of 
 
 ![Minikube operating system usage](/images/blog/survey-results/2018-application-survey/minikube-os-usage.png)
 
-Minikube is used primarily be people on MacOS and Linux. Yet, according to the 2018 Stack Overflow survey, [almost half of developers use Windows as their primary operating system](https://insights.stackoverflow.com/survey/2018/#technology-developers-primary-operating-systems). This is where Minikube would run.
+Minikube is used primarily by people on macOS and Linux. Yet, according to the 2018 Stack Overflow survey, [almost half of developers use Windows as their primary operating system](https://insights.stackoverflow.com/survey/2018/#technology-developers-primary-operating-systems). This is where Minikube would run.
 
 Seeing differences from other data sets is worth looking more deeply at to better understand our audience, where Kubernetes is at, and where it is on the journey it's headed.
 

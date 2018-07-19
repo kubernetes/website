@@ -27,7 +27,7 @@ you can do one of the following:
 
 - set the `imagePullPolicy` of the container to `Always`;
 - use `:latest` as the tag for the image to use;
-- enable the [AlwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages) admission controller.
+- enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
 
 If you did not specify tag of your image, it will be assumed as `:latest`, with
 pull image policy of `Always` correspondingly.
@@ -139,8 +139,21 @@ manage and update the ECR login credentials. You cannot use this approach.
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 
-Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put this
-in the `$HOME` of user `root` on a kubelet, then docker will use it.
+Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
+in the search paths list below, kubelet uses it as the credential provider when pulling images.
+
+*   `{--root-dir:-/var/lib/kubelet}/config.json`
+*   `{cwd of kubelet}/config.json`
+*   `${HOME}/.docker/config.json`
+*   `/.docker/config.json`
+*   `{--root-dir:-/var/lib/kubelet}/.dockercfg`
+*   `{cwd of kubelet}/.dockercfg`
+*   `${HOME}/.dockercfg`
+*   `/.dockercfg`
+
+{{< note >}}
+**Note**: You may have to set `HOME=/root` explicitly in your environment file for kubelet.
+{{< /note >}}
 
 Here are the recommended steps to configuring your nodes to use a private registry.  In this
 example, run these on your desktop/laptop:
@@ -150,8 +163,8 @@ example, run these on your desktop/laptop:
    1. Get a list of your nodes, for example:
       - if you want the names: `nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
       - if you want to get the IPs: `nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
-   1. Copy your local `.docker/config.json` to the home directory of root on each node.
-      - for example: `for n in $nodes; do scp ~/.docker/config.json root@$n:/root/.docker/config.json; done`
+   1. Copy your local `.docker/config.json` to one of the search paths list above.
+      - for example: `for n in $nodes; do scp ~/.docker/config.json root@$n:/var/lib/kubelet/config.json; done`
 
 Verify by creating a pod that uses a private image, e.g.:
 
@@ -315,10 +328,10 @@ common use cases and suggested solutions.
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 1. Cluster with a proprietary images, a few of which require stricter access control.
-   - Ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 1. A multi-tenant cluster where each tenant needs own private registry.
-   - Ensure [AlwaysPullImages admission controller](/docs/admin/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
    - Run a private registry with authorization required.
    - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
    - The tenant adds that secret to imagePullSecrets of each namespace.
