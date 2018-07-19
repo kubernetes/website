@@ -1,7 +1,7 @@
 ---
 layout: blog
 title:  'KubeVirt: Extending Kubernetes with CRDs for Virtualized Workloads'
-date:   2018-07-09
+date:   2018-07-24
 ---
 
 **Author**: David Vossel (Red Hat)
@@ -99,8 +99,9 @@ A [CRD finalizer](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-
 
 The Kubernetes core apis have the ability to support multiple versions for a single object type and perform conversions between those versions. This gives the Kubernetes core apis a path for advancing the v1alpha1 version of an object to a v1beta1 version and so forth.
 
-Unfortunately in Kubernetes 1.10, CRDs do not have support for multiple versions. This means when we want to progress a CRD from kubevirt.io/v1alpha1 to kubevirt.io/v1beta1, the only path currently available to us is to backup our CRD objects, delete the registered CRD from Kubernetes, register a new CRD with the updated version, convert the backed up CRD objects to the new version, and finally post the migrated CRD objects back to the cluster.
+Prior to Kubernetes 1.11, CRDs did not not have support for multiple versions. This meant when we wanted to progress a CRD from kubevirt.io/v1alpha1 to kubevirt.io/v1beta1, the only path available to was to backup our CRD objects, delete the registered CRD from Kubernetes, register a new CRD with the updated version, convert the backed up CRD objects to the new version, and finally post the migrated CRD objects back to the cluster.
 
-That strategy is not a viable option for us.
+That strategy was not exactly a viable option for us.
 
-Luckily, while we don’t currently have a complete solution in place to handle CRDs with multiple versions, there is [work underway to rectify this issue in Kubernetes](https://github.com/kubernetes/features/issues/544). Looking at the Kubernetes 1.11 release notes, the [initial steps](https://github.com/kubernetes/kubernetes/pull/63830) have already been taken to kick off this feature. CRDs with multiple versions will be supported soon and we look forward to taking advantage of that feature as soon as it lands.
+Fortunately thanks to some recent [work to rectify this issue in Kubernetes](https://github.com/kubernetes/features/issues/544), the latest Kubernetes v1.11 now supports [CRDs with multiple versions](https://github.com/kubernetes/kubernetes/pull/63830). Note however that this initial multi version support is limited. While a CRD can now have multiple versions, the feature does not currently contain a path for performing conversions between versions. In KubeVirt, the lack of conversion makes it difficult us to evolve our api as we progress versions. Luckily, support for conversions between versions is underway and we look forward to taking advantage of that feature once it lands in a future Kubernetes release.
+
