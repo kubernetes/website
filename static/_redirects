@@ -181,6 +181,12 @@
 /docs/getting-started-guides/vsphere/     https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/ 301
 /docs/getting-started-guides/windows/While/     /docs/getting-started-guides/windows/ 301
 /docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
+/docs/getting-started-guides/alibaba-cloud/ /docs/setup/turnkey/alibaba-cloud/ 301
+/docs/getting-started-guides/aws/ /docs/setup/turnkey/aws/ 301
+/docs/getting-started-guides/azure/ /docs/setup/turnkey/azure/ 301
+/docs/getting-started-guides/clc/ /docs/setup/turnkey/clc/ 301
+/docs/getting-started-guides/gce/ /docs/setup/turnkey/gce/ 301
+/docs/getting-started-guides/stackpoint/ /docs/setup/turnkey/stackpoint/ 301
 
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
 /docs/home/contribute/stage-documentation-changes/     /docs/home/contribute/create-pull-request/ 301
