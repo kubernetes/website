@@ -17,7 +17,7 @@ Editor’s note: this post is part of a series of in-depth articles on what’s 
 
 作者: Jun Du(华为), Haibin Xie(华为), Wei Liang(华为)
 
-注意: 这篇文章出自 系列深度文章 介绍Kubernetes 1.11的新特性
+注意: 这篇文章出自系列深度文章介绍Kubernetes 1.11的新特性
 
 <!--
 
@@ -194,7 +194,7 @@ Here comes an example:
 
 -->
 
-这是一个例子:
+举个例子:
 
     # kubectl describe svc nginx-service
     Name:			nginx-service
@@ -252,7 +252,7 @@ IPVS supports client IP session affinity (persistent connection). When a Service
 
 -->
 
-会话关系
+会话亲和性
 
 IPVS支持客户端IP会话关联（持久连接）。 当服务指定会话关系时，IPVS代理将在IPVS虚拟服务器中设置超时值（默认为180分钟= 10800秒）。 例如：
 
@@ -363,7 +363,7 @@ Finally, for Kubernetes v1.10, feature gate SupportIPVSProxyMode is set to true 
     ip_vs_sh
     nf_conntrack_ipv4
 
-最后，对于Kubernetes v1.10，“SupportIPVSProxyMode”默认设置为“true”。 对于Kubernetes v1.11，该选项已完全删除。 但是，您需要在v1.10之前为Kubernetes明确启用--feature-gates = SupportIPVSProxyMode = true。
+最后，对于Kubernetes v1.10，“SupportIPVSProxyMode”默认设置为“true”。 对于Kubernetes v1.11，该选项已完全删除。 但是，您需要在v1.10之前为Kubernetes明确启用--feature-gates=SupportIPVSProxyMode=true。
 
 <!--
 
