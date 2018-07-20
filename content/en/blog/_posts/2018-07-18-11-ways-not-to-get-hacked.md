@@ -291,17 +291,19 @@ In &quot;Zero Trust&quot; networks there may be no need for traditional firewall
 
 This shift from traditional networking to Cloud Native security principles is not one we expect to be easy for those with a traditional security mindset, and the [Zero Trust Networking book](https://amzn.to/2Gg6Pav) from SPIFFE&#39;s [Evan Gilman](https://twitter.com/evan2645) is a highly recommended introduction to this brave new world.
 
-Istio [0.8 LTS](https://istio.io/about/notes/0.8/) is out, and the project is rapidly approaching a 1.0 release. Its stability versioning is the same as the Kubernetes model: a stable core, with individual APIs identifying themselves under their own alpha/beta stability namespace. Expect to see an uptick Istio adoption over the coming months.
+Istio [0.8 LTS](https://istio.io/about/notes/0.8/) is out, and the project is rapidly approaching a 1.0 release. Its stability versioning is the same as the Kubernetes model: a stable core, with individual APIs identifying themselves under their own alpha/beta stability namespace. Expect to see an uptick in Istio adoption over the coming months.
 
 # Conclusion
 
-Cloud Native applications have a greater, more fine-grained set of lightweight security primitives to lock down workloads and infrastructure. The power and flexibility of these tools is both a blessing and curse - with insufficient automation it has become easier to expose insecure workloads which permit breakouts from the container or its isolation model.
+Cloud Native applications have a more fine-grained set of lightweight security primitives to lock down workloads and infrastructure. The power and flexibility of these tools is both a blessing and curse - with insufficient automation it has become easier to expose insecure workloads which permit breakouts from the container or its isolation model.
 
 There are more defensive tools available than ever, but caution must be taken to reduce attack surfaces and the potential for misconfiguration.
 
-However if security slows down an organisation&#39;s pace of feature delivery it will never be a first-class citizen. Applying Continuous Delivery principles to the software supply chain allows an organisation to achieve compliance, continual audit, and high security without impacting the business&#39;s bottom line.
+However if security slows down an organisation&#39;s pace of feature delivery it will never be a first-class citizen. Applying Continuous Delivery principles to the software supply chain allows an organisation to achieve compliance, continuous audit, and enforced governance without impacting the business&#39;s bottom line.
 
-The only way to iterate quickly on software and security is when it is supported by a comprehensive test suite. This is achieved with Continuous Security - an alternative to point-in-time penetration tests, with constant pipeline validation ensuring an organisation&#39;s attack surface is known, and the risk constantly understood and managed. This is ControlPlane&#39;s modus operandi: if we can help kickstart a Continuous Security discipline, deliver Kubernetes security and operations training, or co-implement a secure cloud native evolution for you, please [get in touch](https://control-plane.io).
+Iteratating quickly on security is easiest when supported by a comprehensive test suite. This is achieved with Continuous Security - an alternative to point-in-time penetration tests, with constant pipeline validation ensuring an organisation&#39;s attack surface is known, and the risk constantly understood and managed.
+
+This is ControlPlane&#39;s modus operandi: if we can help kickstart a Continuous Security discipline, deliver Kubernetes security and operations training, or co-implement a secure cloud native evolution for you, please [get in touch](https://control-plane.io).
 
 ---
 
