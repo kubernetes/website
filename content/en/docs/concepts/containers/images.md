@@ -175,7 +175,7 @@ example, run these on your desktop/laptop:
 Verify by creating a pod that uses a private image, e.g.:
 
 ```yaml
-cat <<EOF > /tmp/private-image-test-1.yaml
+kubectl create -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -187,8 +187,6 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
-
-kubectl create -f /tmp/private-image-test-1.yaml
 pod "private-image-test-1" created
 ```
 
