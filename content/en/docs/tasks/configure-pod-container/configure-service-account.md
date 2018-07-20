@@ -85,7 +85,7 @@ Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
 
 ```shell
-$ kubectl get serviceAccounts
+kubectl get serviceAccounts
 NAME      SECRETS    AGE
 default   1          1d
 ```
@@ -93,20 +93,19 @@ default   1          1d
 You can create additional ServiceAccount objects like this:
 
 ```shell
-$ cat > /tmp/serviceaccount.yaml <<EOF
+kubectl create -f - <<EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: build-robot
 EOF
-$ kubectl create -f /tmp/serviceaccount.yaml
 serviceaccount "build-robot" created
 ```
 
 If you get a complete dump of the service account object, like this:
 
 ```shell
-$ kubectl get serviceaccounts/build-robot -o yaml
+kubectl get serviceaccounts/build-robot -o yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -134,7 +133,7 @@ You cannot update the service account of an already created pod.
 You can clean up the service account from this example like this:
 
 ```shell
-$ kubectl delete serviceaccount/build-robot
+kubectl delete serviceaccount/build-robot
 ```
 
 ## Manually create a service account API token.
@@ -143,7 +142,7 @@ Suppose we have an existing service account named "build-robot" as mentioned abo
 a new secret manually.
 
 ```shell
-$ cat > /tmp/build-robot-secret.yaml <<EOF
+kubectl create -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
@@ -152,7 +151,6 @@ metadata:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 EOF
-$ kubectl create -f /tmp/build-robot-secret.yaml
 secret "build-robot-secret" created
 ```
 
@@ -161,7 +159,7 @@ Now you can confirm that the newly built secret is populated with an API token f
 Any tokens for non-existent service accounts will be cleaned up by the token controller.
 
 ```shell
-$ kubectl describe secrets/build-robot-secret
+kubectl describe secrets/build-robot-secret
 Name:           build-robot-secret
 Namespace:      default
 Labels:         <none>
@@ -187,7 +185,7 @@ First, create an imagePullSecret, as described [here](/docs/concepts/containers/
 Next, verify it has been created.  For example:
 
 ```shell
-$ kubectl get secrets myregistrykey
+kubectl get secrets myregistrykey
 NAME             TYPE                              DATA    AGE
 myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
 ```
@@ -201,8 +199,9 @@ kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"my
 Interactive version requiring manual edit:
 
 ```shell
-$ kubectl get serviceaccounts default -o yaml > ./sa.yaml
-$ cat sa.yaml
+kubectl get serviceaccounts default -o yaml > ./sa.yaml
+
+cat sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -214,11 +213,13 @@ metadata:
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 secrets:
 - name: default-token-uudge
-$ vi sa.yaml
+
+vi sa.yaml
 [editor session not shown]
 [delete line with key "resourceVersion"]
 [add lines with "imagePullSecrets:"]
-$ cat sa.yaml
+
+cat sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -231,7 +232,8 @@ secrets:
 - name: default-token-uudge
 imagePullSecrets:
 - name: myregistrykey
-$ kubectl replace serviceaccount default -f ./sa.yaml
+
+kubectl replace serviceaccount default -f ./sa.yaml
 serviceaccounts/default
 ```
 
