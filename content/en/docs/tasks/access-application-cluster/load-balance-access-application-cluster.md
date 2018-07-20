@@ -70,8 +70,10 @@ load-balanced access to an application running in a cluster.
    your service. If the external IP address shows as `<pending>`, repeat the
    command.
 
-   Note: If you are using Minikube, you don't get an external IP address. The
+   {{< note >}}
+   **Note:** If you are using Minikube, you don't get an external IP address. The
    external IP address remains in the pending state.
+   {{< /note >}}
 
        NAME              CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
        example-service   10.0.0.160   <pending>     8080/TCP   40s
@@ -87,7 +89,9 @@ load-balanced access to an application running in a cluster.
 
        Hello Kubernetes!
 
-   Note: If you are using Minikube, enter these commands:
+   {{< note >}}
+   **Note:** If you are using Minikube, enter these commands:
+   {{< /note >}}
 
        kubectl cluster-info
        kubectl describe services example-service

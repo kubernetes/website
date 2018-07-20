@@ -103,7 +103,7 @@ Google
 [7]: https://kubernetes.io/docs/concepts/cluster-administration/logging/
 [8]: https://spark.apache.org/docs/latest/running-on-kubernetes.html#docker-images
 [9]: https://spark.apache.org/docs/latest/running-on-kubernetes.html#rbac
-[10]: http://blog.kubernetes.io/2016/03/using-Spark-and-Zeppelin-to-process-Big-Data-on-Kubernetes.html
+[10]: https://kubernetes.io/blog/2016/03/using-Spark-and-Zeppelin-to-process-Big-Data-on-Kubernetes
 [11]: https://istio.io/
 [12]: https://1.bp.blogspot.com/-hl4pnOqiH4M/Wp4w9QmzghI/AAAAAAAAAL4/jcWoDOKEp3Y6lCzGxzTOlbvl2Mq1-2YeQCK4BGAYYCw/s1600/Screen%2BShot%2B2018-03-05%2Bat%2B10.10.14%2BPM.png
 [13]: https://spark.apache.org/downloads.html

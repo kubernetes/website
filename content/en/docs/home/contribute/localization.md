@@ -1,13 +1,22 @@
 ---
 title: Localizing Kubernetes Documentation
+content_template: templates/concept
 approvers:
 - chenopis
 - zacharysarah
 ---
 
+{{% capture overview %}}
+
 We're happy to add localizations (l10n) of Kubernetes documentation to the website!
 
 Localizations must meet the following requirements for _workflow_ (how to localize) and _output_ (what to localize).
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Workflow  
 
@@ -29,11 +38,16 @@ Source files reside in the `/docs/` directory.
 
 ### Repository
 
-A l10n team will have a repository specifically dedicated to its work, for example: [kubernetes/kubernetes-docs-cn](https://github.com/kubernetes/kubernetes-docs-cn).
+A l10n team will have a repository specifically dedicated to its work, for example: [kubernetes/kubernetes-docs-zh](https://github.com/kubernetes/kubernetes-docs-zh).
 
 {{< note >}}
 **Note:** To open a l10n repository, [contact the SIG docs lead](https://kubernetes.slack.com/messages/C1J0BPD2M) on Slack for assistance.
 {{< /note >}}
+
+#### Repository structure
+
+Each l10n repository must have branches for the different Kubernetes documentation release versions, matching the branches in the main [kubernetes/website](https://github.com/kubernetes/website) documentation repository. For example, the kubernetes/website `release-1.10` branch (https://github.com/kubernetes/website/tree/release-1.10) has a corresponding branch in the kubernetes/kubernetes-docs-zh repository (https://github.com/kubernetes/kubernetes-docs-zh/tree/release-1.10). These version branches keep track of the differences in the documentation between Kubernetes versions.
+
 
 ### Project
 
@@ -44,7 +58,7 @@ Projects must include columns for:
 - In progress
 - Done
 
-For example: the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-cn/projects/1).
+For example: the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-zh/projects/1).
 
 ### Team function
 
@@ -72,12 +86,18 @@ Home | [All heading and subheading URLs](https://kubernetes.io/docs/home/)
 Setup | [All heading and subheading URLs](https://kubernetes.io/docs/setup/)
 Tutorials | [Kubernetes Basics](https://kubernetes.io/docs/tutorials/), [Hello Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
 
-## Next steps
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Once a l10n meets requirements for workflow and minimum output, SIG docs will:
-- Work with the localization team to implement language selection on the website
+
+- Work with the localization team to implement language selection on the website.
 - Publicize availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels.
 
 {{< note >}}
 **Note:** Implementation of language selection is pending Kubernetes' first completed localization project.
 {{< /note >}}
+
+
+{{% /capture %}}

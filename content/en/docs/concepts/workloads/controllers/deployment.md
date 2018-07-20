@@ -4,6 +4,7 @@ reviewers:
 - janetkuo
 title: Deployments
 content_template: templates/concept
+weight: 30
 ---
 
 {{% capture overview %}}
@@ -39,17 +40,17 @@ The following are typical use cases for Deployments:
 
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 
-{{< code file="nginx-deployment.yaml" >}}
+{{< codenew file="controllers/nginx-deployment.yaml" >}}
 
 In this example:
 
-* A Deployment named `nginx-deployment` is created, indicated by the `metadata: name` field.
+* A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
 * The Deployment creates three replicated Pods, indicated by the `replicas` field.
 * The `selector` field defines how the Deployment finds which Pods to manage.
   In this case, we simply select on one label defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
-* The Pod template's specification, or `template: spec` field, indicates that
+* The Pod template's specification, or `.template.spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
   [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
 * The Deployment opens port 80 for use by the Pods.
@@ -70,7 +71,7 @@ The `template` field contains the following instructions:
 To create this Deployment, run the following command:
 
 ```shell
-kubectl create -f  https://raw.githubusercontent.com/kubernetes/website/master/content/en/docs/concepts/workloads/controllers/nginx-deployment.yaml
+kubectl create -f  https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
@@ -100,7 +101,7 @@ When you inspect the Deployments in your cluster, the following fields are displ
 
 Notice how the values in each field correspond to the values in the Deployment specification:
 
-* The number of desired replicas is 3 according to `spec: replicas` field.
+* The number of desired replicas is 3 according to `.spec.replicas` field.
 * The number of current replicas is 0 according to the `.status.replicas` field.
 * The number of up-to-date replicas is 0 according to the `.status.updatedReplicas` field.
 * The number of available replicas is 0 according to the `.status.availableReplicas` field.
@@ -355,9 +356,9 @@ nginx-deployment-2035384211) and new replicas (nginx-deployment-3066724191) are 
 ```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-1564180365   2         2         0       25s
+nginx-deployment-1564180365   2         2         2       25s
 nginx-deployment-2035384211   0         0         0       36s
-nginx-deployment-3066724191   2         2         2       6s
+nginx-deployment-3066724191   2         2         0       6s
 ```
 
 Looking at the Pods created, you will see that the 2 Pods created by new ReplicaSet are stuck in an image pull loop.
@@ -416,7 +417,7 @@ First, check the revisions of this deployment:
 $ kubectl rollout history deployment/nginx-deployment
 deployments "nginx-deployment"
 REVISION    CHANGE-CAUSE
-1           kubectl create -f docs/user-guide/nginx-deployment.yaml --record
+1           kubectl create -f https://k8s.io/examples/controllers/nginx-deployment.yaml --record
 2           kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
 3           kubectl set image deployment/nginx-deployment nginx=nginx:1.91
 ```
@@ -714,7 +715,7 @@ $ kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSecond
 deployment "nginx-deployment" patched
 ```
 Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
-attributes to the Deployment's `status.conditions`:
+attributes to the Deployment's `.status.conditions`:
 
 * Type=Progressing
 * Status=False

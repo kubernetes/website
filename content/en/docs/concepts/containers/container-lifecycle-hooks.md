@@ -4,6 +4,7 @@ reviewers:
 - thockin
 title: Container Lifecycle Hooks
 content_template: templates/concept
+weight: 30
 ---
 
 {{% capture overview %}}

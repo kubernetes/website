@@ -2,7 +2,13 @@
 reviewers:
 - bprashanth
 title: Services
+content_template: templates/concept
+weight: 10
 ---
+
+{{< toc >}}
+
+{{% capture overview %}}
 
 Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) in
@@ -32,7 +38,9 @@ that is updated whenever the set of `Pods` in a `Service` changes.  For
 non-native applications, Kubernetes offers a virtual-IP-based bridge to Services
 which redirects to the backend `Pods`.
 
-{{< toc >}}
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Defining a service
 
@@ -127,32 +135,15 @@ The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
 this example).
 
 An ExternalName service is a special case of service that does not have
-selectors. It does not define any ports or Endpoints. Rather, it serves as a
-way to return an alias to an external service residing outside the cluster.
-
-```yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: my-service
-  namespace: prod
-spec:
-  type: ExternalName
-  externalName: my.database.example.com
-```
-
-When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
-will return a `CNAME` record with the value `my.database.example.com`. Accessing
-such a service works in the same way as others, with the only difference that
-the redirection happens at the DNS level and no proxying or forwarding occurs.
-Should you later decide to move your database into your cluster, you can start
-its pods, add appropriate selectors or endpoints and change the service `type`.
+selectors and uses DNS names instead. For more information, see the
+[ExternalName](#externalname) section later in this document.
 
 ## Virtual IPs and service proxies
 
-Every node in a Kubernetes cluster runs a `kube-proxy`.  `kube-proxy` is
+Every node in a Kubernetes cluster runs a `kube-proxy`. `kube-proxy` is
 responsible for implementing a form of virtual IP for `Services` of type other
-than `ExternalName`.
+than [`ExternalName`](#externalname).
+
 In Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct, the
 proxy was purely in userspace.  In Kubernetes v1.1, the `Ingress` API was added
 (beta) to represent "layer 7"(HTTP) services, iptables proxy was added too,
@@ -259,11 +250,13 @@ spec:
     targetPort: 9377
 ```
 
+Note that the port names must only contain lowercase alphanumeric characters and `-`, and must begin & end with an alphanumeric character. `123-abc` and `web` are valid, but `123_abc` and `-web` are not valid names.
+
 ## Choosing your own IP address
 
 You can specify your own cluster IP address as part of a `Service` creation
-request.  To do this, set the `spec.clusterIP` field. For example, if you
-already have an existing DNS entry that you wish to replace, or legacy systems
+request.  To do this, set the `.spec.clusterIP` field. For example, if you
+already have an existing DNS entry that you wish to reuse, or legacy systems
 that are configured for a specific IP address and difficult to re-configure.
 The IP address that a user chooses must be a valid IP address and within the
 `service-cluster-ip-range` CIDR range that is specified by flag to the API
@@ -338,13 +331,14 @@ can do a DNS SRV query for `"_http._tcp.my-service.my-ns"` to discover the port
 number for `"http"`.
 
 The Kubernetes DNS server is the only way to access services of type
-`ExternalName`.  More information is available in the [DNS Pods and Services](/docs/concepts/services-networking/dns-pod-service/).
+`ExternalName`.  More information is available in the [DNS Pods and
+Services](/docs/concepts/services-networking/dns-pod-service/).
 
 ## Headless services
 
 Sometimes you don't need or want load-balancing and a single service IP.  In
 this case, you can create "headless" services by specifying `"None"` for the
-cluster IP (`spec.clusterIP`).
+cluster IP (`.spec.clusterIP`).
 
 This option allows developers to reduce coupling to the Kubernetes system by
 allowing them freedom to do discovery their own way.  Applications can still use
@@ -368,7 +362,7 @@ For headless services that do not define selectors, the endpoints controller doe
 not create `Endpoints` records. However, the DNS system looks for and configures
 either:
 
-  * CNAME records for `ExternalName`-type services.
+  * CNAME records for [`ExternalName`](#externalname)-type services.
   * A records for any `Endpoints` that share a name with the service, for all
     other types.
 
@@ -386,24 +380,25 @@ The default is `ClusterIP`.
    * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value
      makes the service only reachable from within the cluster. This is the
      default `ServiceType`.
-   * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`).
-     A `ClusterIP` service, to which the `NodePort` service will route, is automatically
-     created.  You'll be able to contact the `NodePort` service, from outside the cluster,
+   * [`NodePort`](#nodeport): Exposes the service on each Node's IP at a static port
+     (the `NodePort`). A `ClusterIP` service, to which the `NodePort` service will
+     route, is automatically created.  You'll be able to contact the `NodePort` service,
+     from outside the cluster,
      by requesting `<NodeIP>:<NodePort>`.
-   * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer.
-     `NodePort` and `ClusterIP` services, to which the external load balancer will route,
-     are automatically created.
-   * `ExternalName`: Maps the service to the contents of the `externalName` field
-     (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
-     No proxying of any kind is set up. This requires version 1.7 or higher of
-     `kube-dns`.
+   * [`LoadBalancer`](#loadbalancer): Exposes the service externally using a cloud
+     provider's load balancer. `NodePort` and `ClusterIP` services, to which the external
+     load balancer will route, are automatically created.
+   * [`ExternalName`](#externalname): Maps the service to the contents of the
+     `externalName` field (e.g. `foo.bar.example.com`), by returning a `CNAME` record
+     with its value. No proxying of any kind is set up. This requires version 1.7 or
+     higher of `kube-dns`.
 
-### Type NodePort
+### Type NodePort {#nodeport}
 
-If you set the `type` field to `"NodePort"`, the Kubernetes master will
-allocate a port from a flag-configured range (default: 30000-32767), and each
+If you set the `type` field to `NodePort`, the Kubernetes master will
+allocate a port from a range specified by `--service-node-port-range` flag (default: 30000-32767), and each
 Node will proxy that port (the same port number on every Node) into your `Service`.
-That port will be reported in your `Service`'s `spec.ports[*].nodePort` field.
+That port will be reported in your `Service`'s `.spec.ports[*].nodePort` field.
 
 If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s) (which is supported since Kubernetes v1.10). A comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 1.2.3.4/32) is used to filter addresses local to this node. For example, if you start kube-proxy with flag `--nodeport-addresses=127.0.0.0/8`, kube-proxy will select only the loopback interface for NodePort Services. The `--nodeport-addresses` is defaulted to empty (`[]`), which means select all available interfaces and is in compliance with current NodePort behaviors.
 
@@ -417,15 +412,15 @@ configure environments that are not fully supported by Kubernetes, or
 even to just expose one or more nodes' IPs directly.
 
 Note that this Service will be visible as both `<NodeIP>:spec.ports[*].nodePort`
-and `spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
 
-### Type LoadBalancer
+### Type LoadBalancer {#loadbalancer}
 
 On cloud providers which support external load balancers, setting the `type`
-field to `"LoadBalancer"` will provision a load balancer for your `Service`.
+field to `LoadBalancer` will provision a load balancer for your `Service`.
 The actual creation of the load balancer happens asynchronously, and
 information about the provisioned balancer will be published in the `Service`'s
-`status.loadBalancer` field.  For example:
+`.status.loadBalancer` field.  For example:
 
 ```yaml
 kind: Service
@@ -457,8 +452,7 @@ cloud provider does not support the feature, the field will be ignored.
 
 **Special notes for Azure**: To use user-specified public type `loadBalancerIP`, a static type
 public IP address resource needs to be created first, and it should be in the same resource
-group of the cluster. Specify the assigned IP address as loadBalancerIP. Verify you have 
-securityGroupName in the cloud provider configuration file.
+group of the other automatically created resources of the cluster. For example, `MC_myResourceGroup_myAKSCluster_eastus`. Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the securityGroupName in the cloud provider configuration file. For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see, [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
 
 #### Internal load balancer
 In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
@@ -703,15 +697,15 @@ with the value set to `nlb`.
 ```
 
 Unlike Classic Elastic Load Balancers, Network Load Balancers (NLBs) forward the
-client's IP through to the node. If a service's `spec.externalTrafficPolicy` is
+client's IP through to the node. If a service's `.spec.externalTrafficPolicy` is
 set to `Cluster`, the client's IP address will not be propagated to the end
 pods.
 
-By setting `spec.externalTrafficPolicy` to `Local`, client IP addresses will be
+By setting `.spec.externalTrafficPolicy` to `Local`, client IP addresses will be
 propagated to the end pods, but this could result in uneven distribution of
 traffic. Nodes without any pods for a particular LoadBalancer service will fail
 the NLB Target Group's health check on the auto-assigned
-`spec.healthCheckNodePort` and not receive any traffic.
+`.spec.healthCheckNodePort` and not receive any traffic.
 
 In order to achieve even traffic, either use a DaemonSet, or specify a
 [pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
@@ -725,11 +719,11 @@ groups are modified with the following IP rules:
 
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
 |------|----------|---------|------------|---------------------|
-| Health Check | TCP | NodePort(s) (`spec.healthCheckNodePort` for `spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-| Client Traffic | TCP | NodePort(s) | `spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
-| MTU Discovery | ICMP | 3,4 | `spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
+| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
+| MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
-Be aware that if `spec.loadBalancerSourceRanges` is not set, Kubernetes will
+Be aware that if `.spec.loadBalancerSourceRanges` is not set, Kubernetes will
 allow traffic from `0.0.0.0/0` to the Node Security Group(s). If nodes have
 public IP addresses, be aware that non-NLB traffic can also reach all instances
 in those modified security groups.
@@ -746,6 +740,40 @@ spec:
 **Note:** NLB only works with certain instance classes, see the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
 for supported instance types.
 
+### Type ExternalName {#externalname}
+
+{{< note >}}
+**NOTE:** ExternalName Services are available only with `kube-dns` version 1.7 and later.
+{{< /note >}}
+
+Services of type ExternalName map a service to a DNS name (specified using
+the `spec.externalName` parameter) rather than to a typical selector like
+`my-service` or `cassandra`. This Service definition, for example, would map
+the `my-service` Service in the `prod` namespace to `my.database.example.com`:
+
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+  namespace: prod
+spec:
+  type: ExternalName
+  externalName: my.database.example.com
+```
+
+When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
+will return a `CNAME` record with the value `my.database.example.com`. Accessing
+`my-service` works in the same way as other Services but with the crucial
+difference that redirection happens at the DNS level rather than via proxying or
+forwarding. Should you later decide to move your database into your cluster, you
+can start its pods, add appropriate selectors or endpoints, and change the
+service's `type`.
+
+{{< note >}}
+This section is indebted to the [Kubernetes Tips - Part
+1](https://akomljen.com/kubernetes-tips-part-1/) blog post from [Alen Komljen](https://akomljen.com/).
+{{< /note >}}
 
 ### External IPs
 
@@ -889,6 +917,11 @@ Service is a top-level resource in the Kubernetes REST API. More details about t
 API object can be found at:
 [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
 
-## For More Information
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).
+
+{{% /capture %}}
+

@@ -9,8 +9,10 @@
 {{ $section := $.ctx.Scratch.Get "section" }}
 {{ $headers := findRE "<h2.*?>(.|\n)*?</h2>" $section }}
 {{ range $headers }}
-{{ $header := . | replaceRE "</?h2.*?>" "" | htmlUnescape }}
-<li><a href="#{{ $header | anchorize }}">{{ $header }}</a></li>
+{{ $id := . | strings.TrimPrefix "<h2 id=\"" }}
+{{ $id := $id | replaceRE "\">.*" "" }}
+{{ $header := . | replaceRE "</?h2.*?>" "" | htmlUnescape | safeHTML }}
+<li><a href="#{{ $id }}">{{ $header }}</a></li>
 {{ end }}
 {{ $.ctx.Scratch.Add "sections" $section }}
 {{ end }}

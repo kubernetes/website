@@ -4,7 +4,7 @@ date: 2018-05-17
 author: rfranzke
 slug: gardener
 ---
-**Authors**: [Rafael Franzke](mailto:rafael.franzke@sap.com) (SAP), [Vasu Chandrasekhara](mailto:vasu.chandraskehara@sap.com) (SAP)
+**Authors**: [Rafael Franzke](mailto:rafael.franzke@sap.com) (SAP), [Vasu Chandrasekhara](mailto:vasu.chandrasekhara@sap.com) (SAP)
 
 Today, Kubernetes is the natural choice for running software in the Cloud. More and more developers and corporations are in the process of containerizing their applications, and many of them are adopting Kubernetes for automated deployments of their Cloud Native workloads.
 
@@ -80,7 +80,7 @@ For every shoot, Gardener creates a dedicated `Namespace` in the seed with appro
 
 ### etcd
 
-The backing data store etcd (cf. `[B]`) of a Kubernetes cluster is deployed as a `StatefulSet` with one replica and a `PersistentVolume(Claim)`. Embracing best practices, we run another etcd shard-instance to store `Events` of a shoot. Anyway, the main etcd pod is enhanced with a sidecar validating the data at rest and taking regular snapshots which are then efficiently backed up to an object store. In case etcd's data is lost or corrupt, the sidecar restores it from the latest available snapshot. We plan to develop incremental/continuous backups to avoid discrepancies [1] (in case of a recovery) between a restored etcd state and the actual state.
+The backing data store etcd (cf. `[B]`) of a Kubernetes cluster is deployed as a `StatefulSet` with one replica and a `PersistentVolume(Claim)`. Embracing best practices, we run another etcd shard-instance to store `Events` of a shoot. Anyway, the main etcd pod is enhanced with a sidecar validating the data at rest and taking regular snapshots which are then efficiently backed up to an object store. In case etcd's data is lost or corrupt, the sidecar restores it from the latest available snapshot. We plan to develop incremental/continuous backups to avoid discrepancies (in case of a recovery) between a restored etcd state and the actual state [1].
 
 ### Kubernetes control plane
 

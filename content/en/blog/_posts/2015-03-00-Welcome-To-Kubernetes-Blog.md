@@ -4,7 +4,7 @@ date: 2015-03-20
 slug: welcome-to-kubernetes-blog
 url: /blog/2015/03/Welcome-To-Kubernetes-Blog
 ---
-Welcome to the new Kubernetes blog. Follow this blog to learn about the Kubernetes Open Source project. We plan to post release notes, how-to articles, events, and maybe even some off topic fun here from time to time.
+Welcome to the new Kubernetes Blog. Follow this blog to learn about the Kubernetes Open Source project. We plan to post release notes, how-to articles, events, and maybe even some off topic fun here from time to time.
 
 
 If you are using Kubernetes or contributing to the project and would like to do a guest post, [please let me know](mailto:kitm@google.com).

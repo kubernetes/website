@@ -12,7 +12,7 @@ We’re pleased to announce the delivery of Kubernetes 1.8, our third release th
 
 ## Spotlight on security
 
-Kubernetes 1.8 graduates support for [role based access control](https://en.wikipedia.org/wiki/Role-based_access_control) (RBAC) to stable. RBAC allows cluster administrators to [dynamically define roles](https://kubernetes.io/docs/admin/authorization/rbac/) to enforce access policies through the Kubernetes API. Beta support for filtering outbound traffic through [network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) augments existing support for filtering inbound traffic to a pod. RBAC and Network Policies are two powerful tools for enforcing organizational and regulatory security requirements within Kubernetes.  
+Kubernetes 1.8 graduates support for [role based access control](https://en.wikipedia.org/wiki/Role-based_access_control) (RBAC) to stable. RBAC allows cluster administrators to [dynamically define roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) to enforce access policies through the Kubernetes API. Beta support for filtering outbound traffic through [network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) augments existing support for filtering inbound traffic to a pod. RBAC and Network Policies are two powerful tools for enforcing organizational and regulatory security requirements within Kubernetes.  
 
 
 Transport Layer Security (TLS) [certificate rotation](https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/) for the Kubelet graduates to beta. Automatic certificate rotation eases secure cluster operation.  

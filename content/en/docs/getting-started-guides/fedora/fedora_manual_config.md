@@ -120,10 +120,7 @@ KUBELET_ADDRESS="--address=0.0.0.0"
 KUBELET_HOSTNAME="--hostname-override=fed-node"
 
 # location of the api-server
-KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeconfig.yaml --require-kubeconfig"
-
-# Add your own!
-KUBELET_ARGS=""
+KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeconfig.yaml"
 
 ```
 

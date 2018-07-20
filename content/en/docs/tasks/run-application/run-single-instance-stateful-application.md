@@ -48,15 +48,20 @@ Note: The password is defined in the config yaml, and this is insecure. See
 [Kubernetes Secrets](/docs/concepts/configuration/secret/)
 for a secure solution.
 
-{{< code file="mysql-deployment.yaml" >}}
+{{< codenew file="application/mysql/mysql-deployment.yaml" >}}
+{{< codenew file="application/mysql/mysql-pv.yaml" >}}
+
+1. Deploy the PV and PVC of the YAML file:
+
+        kubectl create -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
 
 1. Deploy the contents of the YAML file:
 
-       kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
+        kubectl create -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
 
 1. Display information about the Deployment:
 
-       kubectl describe deployment mysql
+        kubectl describe deployment mysql
 
         Name:                 mysql
         Namespace:            default
@@ -96,20 +101,20 @@ for a secure solution.
 
 1. List the pods created by the Deployment:
 
-       kubectl get pods -l app=mysql
+        kubectl get pods -l app=mysql
 
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
 
 1. Inspect the PersistentVolumeClaim:
 
-       kubectl describe pvc mysql-pv-claim
+        kubectl describe pvc mysql-pv-claim
 
         Name:         mysql-pv-claim
         Namespace:    default
         StorageClass:
         Status:       Bound
-        Volume:       mysql-pv
+        Volume:       mysql-pv-volume
         Labels:       <none>
         Annotations:    pv.kubernetes.io/bind-completed=yes
                         pv.kubernetes.io/bound-by-controller=yes
@@ -165,6 +170,7 @@ Delete the deployed objects by name:
 ```
 kubectl delete deployment,svc mysql
 kubectl delete pvc mysql-pv-claim
+kubectl delete pv mysql-pv-volume
 ```
 
 If you manually provisioned a PersistentVolume, you also need to manually

@@ -5,6 +5,7 @@ reviewers:
 - davidopp
 title: Disruptions
 content_template: templates/concept
+weight: 60
 ---
 
 {{% capture overview %}}
@@ -75,7 +76,7 @@ and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/)
 spread applications across racks (using
 [anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
 or across zones (if using a
-[multi-zone cluster](/docs/admin/multiple-zones).)
+[multi-zone cluster](/docs/setup/multiple-zones).)
 
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
 no voluntary disruptions at all.  However, your cluster administrator or hosting provider
@@ -112,7 +113,7 @@ and the tool periodically retries all failed requests until all pods
 are terminated, or until a configurable timeout is reached.
 
 A PDB specifies the number of replicas that an application can tolerate having, relative to how
-many it is intended to have.  For example, a Deployment which has a `spec.replicas: 5` is
+many it is intended to have.  For example, a Deployment which has a `.spec.replicas: 5` is
 supposed to have 5 pods at any given time.  If its PDB allows for there to be 4 at a time,
 then the Eviction API will allow voluntary disruption of one, but not two pods, at a time.
 

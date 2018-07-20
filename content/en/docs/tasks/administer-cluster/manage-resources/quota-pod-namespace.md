@@ -37,12 +37,12 @@ kubectl create namespace quota-pod-example
 
 Here is the configuration file for a ResourceQuota object:
 
-{{< code file="quota-pod.yaml" >}}
+{{< codenew file="admin/resource/quota-pod.yaml" >}}
 
 Create the ResourceQuota:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-pod.yaml --namespace=quota-pod-example
+kubectl create -f https://k8s.io/examples/admin/resource/quota-pod.yaml --namespace=quota-pod-example
 ```
 
 View detailed information about the ResourceQuota:
@@ -67,14 +67,14 @@ status:
 
 Here is the configuration file for a Deployment:
 
-{{< code file="quota-pod-deployment.yaml" >}}
+{{< codenew file="admin/resource/quota-pod-deployment.yaml" >}}
 
 In the configuration file, `replicas: 3` tells Kubernetes to attempt to create three Pods, all running the same application.
 
 Create the Deployment:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-pod-deployment.yaml --namespace=quota-pod-example
+kubectl create -f https://k8s.io/examples/admin/resource/quota-pod-deployment.yaml --namespace=quota-pod-example
 ```
 
 View detailed information about the Deployment:

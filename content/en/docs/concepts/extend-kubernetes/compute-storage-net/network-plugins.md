@@ -4,17 +4,25 @@ reviewers:
 - freehan
 - thockin
 title: Network Plugins
+content_template: templates/concept
 weight: 10
 ---
 
 {{< toc >}}
 
-__Disclaimer__: Network plugins are in alpha. Its contents will change rapidly.
+{{% capture overview %}}
+
+{{< feature-state state="alpha" >}}
+{{< warning >}}Alpha features change rapidly. {{< /warning >}}
 
 Network plugins in Kubernetes come in a few flavors:
 
 * CNI plugins: adhere to the appc/CNI specification, designed for interoperability.
 * Kubenet plugin: implements basic `cbr0` using the `bridge` and `host-local` CNI plugins
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Installation
 
@@ -25,7 +33,7 @@ The kubelet has a single default network plugin, and a default network common to
 
 ## Network Plugin Requirements
 
-Besides providing the [`NetworkPlugin` interface](https://github.com/kubernetes/kubernetes/tree/{{< param "fullversion" >}}/pkg/kubelet/network/plugins.go) to configure and clean up pod networking, the plugin may also need specific support for kube-proxy.  The iptables proxy obviously depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.  For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.  If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
+Besides providing the [`NetworkPlugin` interface](https://github.com/kubernetes/kubernetes/tree/{{< param "fullversion" >}}/pkg/kubelet/dockershim/network/plugins.go) to configure and clean up pod networking, the plugin may also need specific support for kube-proxy.  The iptables proxy obviously depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.  For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.  If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
 
 By default if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like Docker with a bridge) work correctly with the iptables proxy.
 
@@ -71,3 +79,9 @@ This option is provided to the network-plugin; currently **only kubenet supports
 * `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
 * `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
 * `--network-plugin-mtu=9001` specifies the MTU to use, currently only used by the `kubenet` network plugin.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+{{% /capture %}}

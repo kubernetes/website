@@ -1,3 +1,12 @@
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36037335-10"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36037335-10');
+</script>
 <meta charset="utf-8">
 <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +23,17 @@
 {{ end }}{{ else }}<!-- no custom css detected -->{{ end }}
 {{ if .Params.description }}
 <meta name="description" content="{{ .Params.description }}" />
+<meta property="og:description" content="{{ .Params.description }}" />
 {{ else }}
 <meta name="description" content="{{ .Params.title }}" />
+<meta property="og:description" content="{{ .Params.title }}" />
+{{ end }}
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:title" content="{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}" />
+{{ if eq .Section "blog" }}
+{{ with findRE "<img.*?>" .Content 1 }}
+<meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}" />
+{{ end }}
 {{ end }}
 <script
 src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -31,3 +49,4 @@ crossorigin="anonymous"></script>
 <script src="{{ "js/custom-jekyll/tags.js" | relURL }}"></script>
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
+<script async="" defer="" src="//survey.g.doubleclick.net/async_survey?site=6ip6epxiqjqn4qgzemchgtfziy"></script>

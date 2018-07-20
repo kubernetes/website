@@ -59,17 +59,16 @@ h1 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#ffffff;
-  padding-top:4%;
-  padding-bottom:4%;
+  padding: 1%;
   width:100%;
   font-size:24px;
   letter-spacing:0.03em;
   line-height:34px;
   float:left;
-  background-size:100% auto;
   background-color:#666666;
   background-repeat:repeat;
-
+  position: relative;
+  display: inline-block;
 }
 
 .banner3 {
@@ -125,6 +124,8 @@ h1 {
   padding-left:18%;
   float:left;
   text-align:center;
+  z-index: 1;
+  padding-top: 2%;
 }
 
 .banner3text {

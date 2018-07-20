@@ -38,7 +38,7 @@ Together, these two ways of exposing Pod and Container fields are called the
 In this exercise, you create a Pod that has one Container. Here is the
 configuration file for the Pod:
 
-{{< code file="dapi-envars-pod.yaml" >}}
+{{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
 
 In the configuration file, you can see five environment variables. The `env`
 field is an array of
@@ -55,7 +55,7 @@ Container in the Pod.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-envars-pod.yaml
+kubectl create -f https://k8s.io/examples/pods/inject/dapi-envars-pod.yaml
 ```
 
 Verify that the Container in the Pod is running:
@@ -117,7 +117,7 @@ variables. In this next exercise, you use Container fields as the values for
 environment variables. Here is the configuration file for a Pod that has one
 container:
 
-{{< code file="dapi-envars-container.yaml" >}}
+{{< codenew file="pods/inject/dapi-envars-container.yaml" >}}
 
 In the configuration file, you can see four environment variables. The `env`
 field is an array of
@@ -130,7 +130,7 @@ from Container fields.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-envars-container.yaml
+kubectl create -f https://k8s.io/examples/pods/inject/dapi-envars-container.yaml
 ```
 
 Verify that the Container in the Pod is running:
@@ -167,7 +167,4 @@ The output shows the values of selected environment variables:
 * [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
 
 {{% /capture %}}
-
-
-
 

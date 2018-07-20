@@ -1,23 +1,183 @@
 repos:
 - name: kubernetes
   remote: https://github.com/kubernetes/kubernetes.git
-  branch: release-1.9
+  branch: release-1.11
   generate-command: hack/generate-docs.sh
   files:
   - src: docs/admin/cloud-controller-manager.md
-    dst: docs/reference/generated/cloud-controller-manager.md
+    dst: content/en/docs/reference/command-line-tools-reference/kube-controller-manager.md
   - src: docs/admin/kube-apiserver.md
-    dst: docs/reference/generated/kube-apiserver.md
+    dst: content/en/docs/reference/command-line-tools-reference/kube-apiserver.md
   - src: docs/admin/kube-controller-manager.md
-    dst: docs/reference/generated/kube-controller-manager.md
+    dst: content/en/docs/reference/command-line-tools-reference/kube-controller-manager.md
   - src: docs/admin/kubelet.md
-    dst: docs/reference/generated/kubelet.md
+    dst: content/en/docs/reference/command-line-tools-reference/kubelet.md
   - src: docs/admin/kube-proxy.md
-    dst: docs/reference/generated/kube-proxy.md
+    dst: content/en/docs/reference/command-line-tools-reference/kube-proxy.md
   - src: docs/admin/kube-scheduler.md
-    dst: docs/reference/generated/kube-scheduler.md
+    dst: content/en/docs/reference/command-line-tools-reference/kube-scheduler.md
   - src: docs/user-guide/kubectl/kubectl.md
-    dst: docs/reference/generated/kubectl/kubectl.md
+    dst: content/en/docs/reference/kubectl/kubectl.md
+  - src: docs/admin/kubeadm_alpha.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha.md
+  - src: docs/admin/kubeadm_alpha_phase_addon_all.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_addon_all.md
+  - src: docs/admin/kubeadm_alpha_phase_addon_coredns.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_addon_coredns.md
+  - src: docs/admin/kubeadm_alpha_phase_addon_kube-proxy.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_addon_kube-proxy.md
+  - src: docs/admin/kubeadm_alpha_phase_addon.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_addon.md
+  - src: docs/admin/kubeadm_alpha_phase_bootstrap-token_all.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token_all.md
+  - src: docs/admin/kubeadm_alpha_phase_bootstrap-token_cluster-info.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token_cluster-info.md
+  - src: docs/admin/kubeadm_alpha_phase_bootstrap-token_create.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token_create.md
+  - src: docs/admin/kubeadm_alpha_phase_bootstrap-token.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token.md
+  - src: docs/admin/kubeadm_alpha_phase_bootstrap-token_node_allow-auto-approve.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token_node_allow-auto-approve.md
+  - src: docs/admin/kubeadm_alpha_phase_bootstrap-token_node_allow-post-csrs.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token_node_allow-post-csrs.md
+  - src: docs/admin/kubeadm_alpha_phase_bootstrap-token_node.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_bootstrap-token_node.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_all.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_all.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_apiserver-etcd-client.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver-etcd-client.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_apiserver-kubelet-client.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver-kubelet-client.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_apiserver.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_apiserver.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_ca.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_ca.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_etcd-ca.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_etcd-ca.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_etcd-healthcheck-client.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_etcd-healthcheck-client.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_etcd-peer.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_etcd-peer.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_etcd-server.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_etcd-server.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_front-proxy-ca.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_front-proxy-ca.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_front-proxy-client.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_front-proxy-client.md
+  - src: docs/admin/kubeadm_alpha_phase_certs.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs.md
+  - src: docs/admin/kubeadm_alpha_phase_certs_sa.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_certs_sa.md
+  - src: docs/admin/kubeadm_alpha_phase_controlplane_all.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_controlplane_all.md
+  - src: docs/admin/kubeadm_alpha_phase_controlplane_apiserver.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_controlplane_apiserver.md
+  - src: docs/admin/kubeadm_alpha_phase_controlplane_controller-manager.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_controlplane_controller-manager.md
+  - src: docs/admin/kubeadm_alpha_phase_controlplane.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_controlplane.md
+  - src: docs/admin/kubeadm_alpha_phase_controlplane_scheduler.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_controlplane_scheduler.md
+  - src: docs/admin/kubeadm_alpha_phase_etcd_local.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_etcd_local.md
+  - src: docs/admin/kubeadm_alpha_phase_etcd.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_etcd.md
+  - src: docs/admin/kubeadm_alpha_phase_kubeconfig_admin.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig_admin.md
+  - src: docs/admin/kubeadm_alpha_phase_kubeconfig_all.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig_all.md
+  - src: docs/admin/kubeadm_alpha_phase_kubeconfig_controller-manager.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig_controller-manager.md
+  - src: docs/admin/kubeadm_alpha_phase_kubeconfig_kubelet.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig_kubelet.md
+  - src: docs/admin/kubeadm_alpha_phase_kubeconfig.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig.md
+  - src: docs/admin/kubeadm_alpha_phase_kubeconfig_scheduler.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig_scheduler.md
+  - src: docs/admin/kubeadm_alpha_phase_kubeconfig_user.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubeconfig_user.md
+  - src: docs/admin/kubeadm_alpha_phase_kubelet_config_download.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubelet_config_download.md
+  - src: docs/admin/kubeadm_alpha_phase_kubelet_config_enable-dynamic.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubelet_config_enable-dynamic.md
+  - src: docs/admin/kubeadm_alpha_phase_kubelet_config.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubelet_config.md
+  - src: docs/admin/kubeadm_alpha_phase_kubelet_config_upload.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubelet_config_upload.md
+  - src: docs/admin/kubeadm_alpha_phase_kubelet_config_write-to-disk.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubelet_config_write-to-disk.md
+  - src: docs/admin/kubeadm_alpha_phase_kubelet.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubelet.md
+  - src: docs/admin/kubeadm_alpha_phase_kubelet_write-env-file.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_kubelet_write-env-file.md
+  - src: docs/admin/kubeadm_alpha_phase_mark-master.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_mark-master.md
+  - src: docs/admin/kubeadm_alpha_phase.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase.md
+  - src: docs/admin/kubeadm_alpha_phase_preflight_master.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_preflight_master.md
+  - src: docs/admin/kubeadm_alpha_phase_preflight.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_preflight.md
+  - src: docs/admin/kubeadm_alpha_phase_preflight_node.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_preflight_node.md
+  - src: docs/admin/kubeadm_alpha_phase_selfhosting_convert-from-staticpods.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_selfhosting_convert-from-staticpods.md
+  - src: docs/admin/kubeadm_alpha_phase_selfhosting.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_selfhosting.md
+  - src: docs/admin/kubeadm_alpha_phase_upload-config.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_alpha_phase_upload-config.md
+  - src: docs/admin/kubeadm_completion.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_completion.md
+  - src: docs/admin/kubeadm_config_images_list.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_images_list.md
+  - src: docs/admin/kubeadm_config_images.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_images.md
+  - src: docs/admin/kubeadm_config_images_pull.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_images_pull.md
+  - src: docs/admin/kubeadm_config.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config.md
+  - src: docs/admin/kubeadm_config_migrate.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_migrate.md
+  - src: docs/admin/kubeadm_config_print-default.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_print-default.md
+  - src: docs/admin/kubeadm_config_upload_from-file.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_upload_from-file.md
+  - src: docs/admin/kubeadm_config_upload_from-flags.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_upload_from-flags.md
+  - src: docs/admin/kubeadm_config_upload.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_upload.md
+  - src: docs/admin/kubeadm_config_view.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_config_view.md
+  - src: docs/admin/kubeadm_init.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_init.md
+  - src: docs/admin/kubeadm_join.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_join.md
+  - src: docs/admin/kubeadm_reset.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_reset.md
+  - src: docs/admin/kubeadm_token_create.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_token_create.md
+  - src: docs/admin/kubeadm_token_delete.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_token_delete.md
+  - src: docs/admin/kubeadm_token_generate.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_token_generate.md
+  - src: docs/admin/kubeadm_token_list.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_token_list.md
+  - src: docs/admin/kubeadm_token.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_token.md
+  - src: docs/admin/kubeadm_upgrade_apply.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade_apply.md
+  - src: docs/admin/kubeadm_upgrade_diff.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade_diff.md
+  - src: docs/admin/kubeadm_upgrade.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade.md
+  - src: docs/admin/kubeadm_upgrade_node_config.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade_node_config.md
+  - src: docs/admin/kubeadm_upgrade_node.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade_node.md
+  - src: docs/admin/kubeadm_upgrade_plan.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade_plan.md
+  - src: docs/admin/kubeadm_version.md
+    dst: content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_version.md
 - name: federation
   remote: https://github.com/kubernetes/federation.git
 #  # Change this to a release branch when federation has release branches.
@@ -25,18 +185,18 @@ repos:
   generate-command: hack/generate-docs.sh
   files:
   - src: docs/admin/federation-apiserver.md
-    dst: docs/reference/generated/federation-apiserver.md
+    dst: content/en/docs/reference/command-line-tools-reference/federation-apiserver.md
   - src: docs/admin/federation-controller-manager.md
-    dst: docs/reference/generated/federation-controller-manager.md
+    dst: content/en/docs/reference/command-line-tools-reference/federation-controller-manager.md
   - src: docs/admin/kubefed_init.md
-    dst: docs/reference/generated/kubefed_init.md
+    dst: content/en/docs/reference/setup-tools/kubefed/kubefed-init.md
   - src: docs/admin/kubefed_join.md
-    dst: docs/reference/generated/kubefed_join.md
+    dst: content/en/docs/reference/setup-tools/kubefed/kubefed-join.md
   - src: docs/admin/kubefed.md
-    dst: docs/reference/generated/kubefed.md
+    dst: content/en/docs/reference/setup-tools/kubefed/kubefed.md
   - src: docs/admin/kubefed_options.md
-    dst: docs/reference/generated/kubefed_options.md
+    dst: content/en/docs/reference/setup-tools/kubefed/kubefed-options.md
   - src: docs/admin/kubefed_unjoin.md
-    dst: docs/reference/generated/kubefed_unjoin.md
+    dst: content/en/docs/reference/setup-tools/kubefed/kubefed-unjoin.md
   - src: docs/admin/kubefed_version.md
-    dst: docs/reference/generated/kubefed_version.md
+    dst: content/en/docs/reference/setup-tools/kubefed/kubefed-version.md

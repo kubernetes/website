@@ -5,11 +5,6 @@
 
 /* Content
 ----------------------------------------------- */
-.container-fluid {
-  padding: 0px;
-  margin: 0px;
-  padding-left: .01 em;
-}
 body {
   font: normal normal 16px 'Trebuchet MS', Trebuchet, Verdana, sans-serif;
   color: #666666;
@@ -147,9 +142,6 @@ div.header-try a {
   position: relative;
   left: 30%;
   }
-  .pagination a {
-    margin-right: 30%;
-  }
 }
 
 @media (min-width: 450px) {
@@ -164,13 +156,13 @@ div.header-try a {
 .main-outer {
   border-top: 0 solid transparent;
 }
-@media (min-width: 500px) {
+@media (min-width: 992px) {
   .blog-content {
-    padding-left: 100px;
+    padding-left: 50px;
   }
 }
 
-@media (max-width: 499px) {
+@media (max-width: 991px) {
   .blog-content {
     padding-left: 20px;
   }
@@ -282,7 +274,7 @@ h3.post-title{
   position: relative;
   display: block;
   box-sizing: border-box;
-  padding: 0 0 0 55px;
+  padding: 0 0 0 15px;
   margin: 10px 0;
   line-height: 40px;
   white-space: nowrap;
@@ -382,6 +374,10 @@ body {
   .blog-content ul , .blog-content li {
     list-style:initial;
     margin-left: 1em;
+  }
+
+  .blog-content .PageNavigation > ul.navigation, .blog-content .PageNavigation > ul.navigation > li {
+    margin-left: auto;
   }
 
   /* .blog-content .pagination {
@@ -486,6 +482,14 @@ table.post-table ,.post-table tr, .post-table td, .post-table th {
 
 img.big-img {
   width: 100%;
+}
+
+.blog-content img {
+  max-width: 100%;
+}
+
+.blog-content .content {
+  overflow-x: scroll;
 }
 
 /* .content img {

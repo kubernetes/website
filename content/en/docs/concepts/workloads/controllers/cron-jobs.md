@@ -4,21 +4,24 @@ reviewers:
 - soltysh
 - janetkuo
 title: CronJob
+content_template: templates/concept
+weight: 80
 ---
 
-{{< toc >}}
+{{% capture overview %}}
 
-## What is a cron job?
-
-A _Cron Job_ manages time based [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/), namely:
-
-* Once at a specified point in time
-* Repeatedly at a specified point in time
+A _Cron Job_ creates [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) on a time-based schedule.
 
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
 For instructions on creating and working with cron jobs, and for an example of a spec file for a cron job, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Cron Job Limitations
 
@@ -30,10 +33,16 @@ If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
 at least once.
 
-Jobs may fail to run if the CronJob controller is not running or broken for a
-span of time from before the start time of the CronJob to start time plus
-`startingDeadlineSeconds`, or if the span covers multiple start times and
-`concurrencyPolicy` does not allow concurrency.
+For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
+
+````
+Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
+````
+
+It is important to note that if the `startingDeadlineSeconds` field is set (not `nil`), the controller counts how many missed jobs occurred from the value of `startingDeadlineSeconds` until now rather than from the last scheduled time until now. For example, if `startingDeadlineSeconds` is `200`, the controller counts how many missed jobs occurred in the last 200 seconds. 
+
+A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
+
 For example, suppose a cron job is set to start at exactly `08:30:00` and its
 `startingDeadlineSeconds` is set to 10, if the CronJob controller happens to
 be down from `08:29:00` to `08:42:00`, the job will not start.
@@ -42,3 +51,5 @@ starting at all.
 
 The Cronjob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
+
+{{% /capture %}}

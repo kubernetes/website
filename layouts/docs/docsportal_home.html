@@ -26,6 +26,10 @@
     {{ $persona_info := $vv }}
     {{ if $persona_info.short_desc }}
     {{ $persona_info.short_desc }}
+    {{ else if $persona_info.glossary_id }}
+    {{ with $persona_info.glossary_id | printf "%s.md" | ($.Site.GetPage "page" "docs/reference/glossary").Resources.GetMatch }}
+    {{ .Params.short_description }}
+    {{ end }}
     {{ end }}
     </div>
     {{ end }}
@@ -36,8 +40,10 @@
 
 <div id='aboutWrapper'>
   <div class="aboutsection" markdown="1">
-    Kubernetes is an open source system for managing <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">containerized applications</a> across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
-    The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+    <p>
+      Kubernetes is an open source system for managing <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">containerized applications</a> across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
+      The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+    </p>
     <div class="aboutcolumn" markdown="1">
       <a href="{{ "docs/imported/release/notes/" | relURL }}">Download Current Release</a>
     </div>

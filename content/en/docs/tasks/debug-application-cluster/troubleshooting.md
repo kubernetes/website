@@ -2,8 +2,11 @@
 reviewers:
 - brendandburns
 - davidopp
+content_template: templates/concept
 title: Troubleshooting
 ---
+
+{{% capture overview %}}
 
 Sometimes things go wrong. This guide is aimed at making them right. It has
 two sections:
@@ -13,6 +16,12 @@ two sections:
 
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
 you're using.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Getting help
 
@@ -93,3 +102,5 @@ problem, such as:
 * Kubernetes version: `kubectl version`
 * Cloud provider, OS distro, network configuration, and Docker version
 * Steps to reproduce the problem
+
+{{% /capture %}}

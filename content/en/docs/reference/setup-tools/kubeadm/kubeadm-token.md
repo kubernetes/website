@@ -10,7 +10,7 @@ weight: 70
 {{% capture overview %}}
 
 Bootstrap tokens are used for establishing bidirectional trust between a node joining
-the cluster and a master node, as described in [authenticating with bootstrap tokens](/docs/admin/bootstrap-tokens/).
+the cluster and a master node, as described in [authenticating with bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
 
 `kubeadm init` creates an initial token with a 24-hour TTL. The following commands allow you to manage
 such a token and also to create and manage new ones.
@@ -32,5 +32,5 @@ such a token and also to create and manage new ones.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm join](kubeadm-join.md) to bootstrap a Kubernetes worker node and join it to the cluster
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 {{% /capture %}}

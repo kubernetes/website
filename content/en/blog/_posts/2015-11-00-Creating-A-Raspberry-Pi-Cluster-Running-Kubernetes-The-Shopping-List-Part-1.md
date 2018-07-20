@@ -8,7 +8,7 @@ At Devoxx Belgium and Devoxx Morocco, Ray Tsang and I showed a Raspberry Pi clus
 
 ### Wait! Why the heck build a Raspberry Pi cluster running Kubernetes?&nbsp;
 
-We had two big reasons to build the Pi cluster at Quintor. First of all we wanted to experiment with container technology at scale on real hardware. You can try out container technology using virtual machines, but Kubernetes runs great on on bare metal too. To explore what that’d be like, we built a Raspberry Pi cluster just like we would build a cluster of machines in a production datacenter. This allowed us to understand and simulate how Kubernetes would work when we move it to our data centers.  
+We had two big reasons to build the Pi cluster at Quintor. First of all we wanted to experiment with container technology at scale on real hardware. You can try out container technology using virtual machines, but Kubernetes runs great on bare metal too. To explore what that’d be like, we built a Raspberry Pi cluster just like we would build a cluster of machines in a production datacenter. This allowed us to understand and simulate how Kubernetes would work when we move it to our data centers.  
 
 Secondly, we did not want to blow the budget to do this exploration. And what is cheaper than a Raspberry Pi! If you want to build a cluster comprising many nodes, each node should have a good cost to performance ratio. Our Pi cluster has 20 CPU cores, which is more than many servers, yet cost us less than $400. Additionally, the total power consumption is low and the form factor is small, which is great for these kind of demo systems.  
 
@@ -45,7 +45,7 @@ Note the GeauxRobot Stackable Case looks like an alternative for the ModMyPi Sta
 
 Building the Raspberry Pi cluster is pretty straight forward. Most of the work is putting the stackable casing together and mounting the Pi boards on the plexiglass panes. We mounted the network switch and USB Adapter using double side foam tape, which feels strong enough for most situations. Finally, we connected the USB and UTP cables. Next, we installed HypriotOS on every Pi. HypriotOS is a Raspbian based Linux OS for Raspberry Pi’s extended with Docker support. The Hypriot team has an excellent tutorial on [Getting started with Docker on your Raspberry Pi](http://blog.hypriot.com/getting-started-with-docker-on-your-arm-device/). Follow this tutorial to get Linux and Docker running on all Pi’s.  
 
-With that, you’re all set! Next up will be running Kubernetes on the Raspberry Pi cluster. We’ll be covering this the [next post](http://blog.kubernetes.io/2015/12/creating-raspberry-pi-cluster-running.html), so stay tuned!  
+With that, you’re all set! Next up will be running Kubernetes on the Raspberry Pi cluster. We’ll be covering this the [next post](https://kubernetes.io/blog/2015/12/creating-raspberry-pi-cluster-running), so stay tuned!  
 
 
 Arjen Wassink, Java Architect and Team Lead, Quintor  

@@ -21,7 +21,7 @@
   <div class="pages">
   {{ $num_pages := len $pages }}
   {{ if gt $num_pages 0 }}
-  {{ $column_size :=  (div $num_pages 3) | math.Ceil | int | default 1 }}
+  {{ $column_size :=  (div $num_pages 3.0) | math.Ceil | int | default 1 }}
   {{  range $i, $e := $pages.ByWeight }}
     {{ $offset := mod $i $column_size |  add 1 }}
     {{ if eq $offset 1 }}
