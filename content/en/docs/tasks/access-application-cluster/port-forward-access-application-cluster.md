@@ -34,7 +34,7 @@ for database debugging.
 
         deployment "redis-master" created
  
-    When the pod is ready, you can get pod:
+    You can view when the pod is ready by using:
 
         kubectl get pods
 
@@ -43,7 +43,7 @@ for database debugging.
         NAME                            READY     STATUS    RESTARTS   AGE
         redis-master-765d459796-258hz   1/1       Running   0          50s
 
-    And you can get deployment:
+    And you can view the deployment status using:
 
         kubectl get deployment
 
@@ -52,7 +52,7 @@ for database debugging.
         NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
         redis-master 1         1         1            1           55s
 
-    And you can get replicaset:
+    And you can view the replicaset status using:
 
         kubectl get rs
 
