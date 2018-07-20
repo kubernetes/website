@@ -4,6 +4,7 @@
 		{{ partial "head.html" . }}
 	</head>
 	<body>
+		{{ partialCached "header-scripts.html" . }}
 		{{ partialCached "header.html" . "default" }}
 		{{ block "hero" . }}
 		<!--  HERO  -->
