@@ -234,23 +234,23 @@ kubeadm to tell it what to do.
 
 ## Configure cgroup driver used by kubelet on Master Node
 
-Make sure that the cgroup driver used by kubelet is the same as the one used by Docker. Verify that your Docker cgroup driver matches the kubelet config:
+When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
+and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
+
+If you are using a different CRI, you have to modify the file
+`/etc/default/kubelet` with your `cgroup-driver` value, like so:
 
 ```bash
-docker info | grep -i cgroup
-cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+KUBELET_KUBEADM_EXTRA_ARGS=--cgroup-driver=<value>
 ```
 
-If the Docker cgroup driver and the kubelet config don't match, change the kubelet config to match the Docker cgroup driver. The
-flag you need to change is `--cgroup-driver`. If it's already set, you can update like so:
+This file will be used by `kubeadm init` and `kubeadm join` to source extra
+user defined arguments for the kubelet.
 
-```bash
-sed -i "s/cgroup-driver=systemd/cgroup-driver=cgroupfs/g" /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-```
+Please mind, that you **only** have to do that if the cgroup driver of your CRI
+is not `cgroupfs`, because that is the default value in the kubelet already.
 
-Otherwise, you will need to open the systemd file and add the flag to an existing environment line.
-
-Then restart kubelet:
+Restarting the kubelet is required:
 
 ```bash
 systemctl daemon-reload
