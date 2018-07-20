@@ -130,14 +130,20 @@ Once you have those variables filled in you can
 
 ### Configuring Nodes to Authenticate to a Private Repository
 
+{{< note >}}
 **Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
+{{< /note >}}
 
+{{< note >}}
 **Note:** If you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
 manage and update the ECR login credentials. You cannot use this approach.
+{{< /note >}}
 
+{{< note >}}
 **Note:** This approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
+{{< /note >}}
 
 Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
 in the search paths list below, kubelet uses it as the credential provider when pulling images.
@@ -169,7 +175,7 @@ example, run these on your desktop/laptop:
 Verify by creating a pod that uses a private image, e.g.:
 
 ```yaml
-$ cat <<EOF > /tmp/private-image-test-1.yaml
+kubectl create -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -181,22 +187,20 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
-$ kubectl create -f /tmp/private-image-test-1.yaml
 pod "private-image-test-1" created
-$
 ```
 
 If everything is working, then, after a few moments, you should see:
 
 ```shell
-$ kubectl logs private-image-test-1
+kubectl logs private-image-test-1
 SUCCESS
 ```
 
 If it failed, then you will see:
 
 ```shell
-$ kubectl describe pods/private-image-test-1 | grep "Failed"
+kubectl describe pods/private-image-test-1 | grep "Failed"
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
@@ -210,11 +214,15 @@ registry keys are added to the `.docker/config.json`.
 
 ### Pre-pulling Images
 
+{{< note >}}
 **Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
+{{< /note >}}
 
+{{< note >}}
 **Note:** This approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
+{{< /note >}}
 
 By default, the kubelet will try to pull each image from the specified registry.
 However, if the `imagePullPolicy` property of the container is set to `IfNotPresent` or `Never`,
@@ -229,8 +237,10 @@ All pods will have read access to any pre-pulled images.
 
 ### Specifying ImagePullSecrets on a Pod
 
+{{< note >}}
 **Note:** This approach is currently the recommended approach for Google Kubernetes Engine, GCE, and any cloud-providers
 where node creation is automated.
+{{< /note >}}
 
 Kubernetes supports specifying registry keys on a pod.
 
@@ -239,7 +249,7 @@ Kubernetes supports specifying registry keys on a pod.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
-$ kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 secret "myregistrykey" created.
 ```
 
