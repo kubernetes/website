@@ -94,6 +94,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 * [Kong](https://konghq.com/) offers [community](https://discuss.konghq.com/c/kubernetes) or [commercial](https://konghq.com/api-customer-success/) support and maintenance for the [Kong Ingress Controller for Kubernetes](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/)
 * [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
 ([Let's Encrypt](https://letsencrypt.org), secrets, http2, websocket...), and it also comes with commercial support by [Containous](https://containo.us/services)
+* [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)
 
 {{< note >}}
 Review the documentation for your controller to find its specific support policy.
