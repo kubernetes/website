@@ -110,13 +110,16 @@ disablePreemption: true
 
 ### Start an older version of Rescheduler in the cluster
 
-When priority or preemption is disabled, we must start Rescheduler v0.3.1
-(instead of v0.4.0) to ensure that critical Pods are scheduled when nodes or
-cluster are under resource pressure. Since we do not plan to remove critical
-annotation of Pods, running Rescheduler should be enough and no other changes to
-the configuration of Pods should be needed.
+When priority or preemption is disabled, we must run Rescheduler v0.3.1 (instead
+of v0.4.0) to ensure that critical Pods are scheduled when nodes or cluster are
+under resource pressure. Since critical Pod annotation is still supported in
+this release, running Rescheduler should be enough and no other changes to the
+configuration of Pods should be needed.
 
-Changing the rescheduler back to v.0.3.1 is the reverse of
+Rescheduler images can be found at:
+[gcr.io/k8s-image-staging/rescheduler](http://gcr.io/k8s-image-staging/rescheduler).
+
+In the code, changing the Rescheduler version back to v.0.3.1 is the reverse of
 [this PR](https://github.com/kubernetes/kubernetes/pull/65454).
 
 ## PriorityClass
