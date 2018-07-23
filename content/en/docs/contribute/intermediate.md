@@ -328,6 +328,9 @@ but the following guidelines apply:
 - For new content that relates to upcoming but unreleased Kubernetes versions,
   use the pre-release feature branch created for that Kubernetes version.
 
+For more guidance, see
+[Choose which branch to use](docs/contribute/start#choose-which-git-branch-to-use).
+
 After you decide which branch to start your work (or _base it on_, in Git
 terminology), use the following workflow to be sure your work is based on the
 most up-to-date version of that branch.

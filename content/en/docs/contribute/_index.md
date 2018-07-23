@@ -8,11 +8,10 @@ weight: 80
 
 {{% capture overview %}}
 
-If you're reading this page, you might be interested in contributing to the
-Kubernetes documentation or website, and we are glad you're here! Anyone can
-contribute, whether you're new to the project or you've been around a long time,
-and whether you self-identify as a developer, an end user, or someone who just
-can't stand seeing typos.
+If you would like to help contribute to the Kubernetes documentation or website,
+we're happy to have your help! Anyone can contribute, whether you're new to the
+project or you've been around a long time, and whether you self-identify as a
+developer, an end user, or someone who just can't stand seeing typos.
 
 Looking for the [style guide](/docs/contribute/style/style-guide/)?
 {{% /capture %}}
@@ -49,6 +48,7 @@ and organizational decisions that have already been made.
   - Edit user-facing strings in code
   - Improve code comments, Godoc
 - [Maintainer](advanced/)
+  - Publish contributor content by approving and merging PRs
   - Participate in a Kubernetes release team as a docs representative
   - Propose improvements to the style guide
   - Propose improvements to docs tests

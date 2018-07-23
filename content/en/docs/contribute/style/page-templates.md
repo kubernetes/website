@@ -39,7 +39,8 @@ To write a new concept page, create a Markdown file in a subdirectory of the
 `/content/en/docs/concepts` directory, with the following characteristics:
 
 - In the page's YAML front-matter, set `content_template: templates/concept`.
-- In the page's body, set the following `capture` variables:
+- In the page's body, set the required `capture` variables and any optional
+  ones you want to include:
 
     | Variable      | Required? |
     |===============|===========|
@@ -47,7 +48,7 @@ To write a new concept page, create a Markdown file in a subdirectory of the
     | body          | yes       |
     | whatsnext     | no        |
 
-    The page's body will look like this (without any optional sections you don't
+    The page's body will look like this (remove any optional captures you don't
     need):
     
     ```
@@ -91,7 +92,8 @@ To write a new task page, create a Markdown file in a subdirectory of the
 `/content/en/docs/tasks` directory, with the following characteristics:
 
 - In the page's YAML front-matter, set `content_template: templates/task`.
-- In the page's body, set the following `capture` variables:
+- In the page's body, set the required `capture` variables and any optional
+  ones you want to include:
 
     | Variable      | Required? |
     |===============|===========|
@@ -101,7 +103,7 @@ To write a new task page, create a Markdown file in a subdirectory of the
     | discussion    | no        |
     | whatsnext     | no        |
 
-    The page's body will look like this (without any optional sections you don't
+    The page's body will look like this (remove any optional captures you don't
     need):
     
     ```
@@ -138,7 +140,8 @@ To write a new task page, create a Markdown file in a subdirectory of the
   - For `overview`, use a paragraph to set context for the entire topic.
   - Add the `{{< toc >}}` shortcode to show an in-page table of contents.
   - For `prerequisites`, use bullet lists when possible. Add additional
-    prerequisites below the ones included by default.
+    prerequisites below the ones included by the `include` in the example
+    above. The default prerequisites include a running Kubernetes cluster.
   - For `steps`, use numbered lists.
   - For discussion, use normal content to expand upon the information covered
     in `steps`.
@@ -160,7 +163,8 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 `/content/en/docs/tutorials` directory, with the following characteristics:
 
 - In the page's YAML front-matter, set `content_template: templates/tutorial`.
-- In the page's body, set the following `capture` variables:
+- In the page's body, set the required `capture` variables and any optional
+  ones you want to include:
 
     | Variable      | Required? |
     |===============|===========|
@@ -171,7 +175,7 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
     | cleanup       | no        |
     | whatsnext     | no        |
 
-    The page's body will look like this (without any optional sections you don't
+    The page's body will look like this (remove any optional captures you don't
     need):
     
     ```

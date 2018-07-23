@@ -173,6 +173,22 @@ request against the issue and that nobody has left a comment saying they are
 working on the issue recently (3 days is a good rule). Leave a comment saying
 that you would like to work on the issue.
 
+### Choose which Git branch to use
+
+The most important aspect of submitting pull requests is choosing which branch
+to base your work on. Use these guidelines to make the decision:
+
+- Use `master` for fixing problems in content that is already published, or
+  making improvements to content that already exists.
+- Use a release branch (such as `release-1.12`) to document upcoming features
+  or changes for an upcoming release that is not yet published.
+- Use a feature branch that has been agreed upon by sig-docs to collaborate on
+  big improvements or changes to the existing documentation, including content
+  reorganization or changes to the look and feel of the website.
+
+If you're still not sure which branch to choose, ask in #sig-docs on Slack or
+attend a weekly sig-docs meeting to get clarity.
+
 ### Submit a pull request
 
 Follow these steps to submit a pull request to improve the Kubernetes
