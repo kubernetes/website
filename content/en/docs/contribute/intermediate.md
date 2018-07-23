@@ -10,8 +10,12 @@ weight: 20
 
 This page assumes that you've read and mastered the tasks in the
 [start contributing](/docs/contribute/start/) topic and are ready to
-learn about more ways to contribute. You need to use the Git command line client
-and other tools for some of these tasks.
+learn about more ways to contribute.
+
+{{< note >}}
+**Note:** Some tasks require you to use the Git command line client and other
+tools.
+{{< /note >}}
 
 {{% /capture %}}
 
@@ -25,18 +29,20 @@ to gain, deeper knowledge of the following topic areas:
 - Kubernetes concepts
 - Kubernetes documentation workflows
 - Where and how to find information about upcoming Kubernetes features
-- Great research skills in general
+- Strong research skills in general
 
-These tasks are not as sequential as the beginner tasks, and there is no
-expectation that any one person do all of them all of the time.
+These tasks are not as sequential as the beginner tasks. There is no expectation
+that one person does all of them all of the time.
 
 ## Review pull requests
 
-In any given week, a specific docs maintainer volunteers to do initial triage
-and review of [pull requests and issues](#triage-and-categorize-issues). To get
-on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
-not on the schedule for the current week, you can still review pull requests
-(PRs) that are not already under active review.
+In any given week, a specific docs approver volunteers to do initial triage
+and review of [pull requests and issues](#triage-and-categorize-issues). This
+person is the "PR Wrangler" for the week. The schedule is maintained using the
+[PR Wrangler scheduler(https://github.com/kubernetes/website/wiki/PR-Wranglers).
+To be added to this list, attend the weekly SIG Docs meeting and volunteer. Even
+if you are not on the schedule for the current week, you can still review pull
+requests (PRs) that are not already under active review.
 
 In addition to the rotation, an automated system comments on each new PR and
 suggests reviewers and approvers for the PR, based on the list of approvers and
@@ -88,15 +94,19 @@ the number of lines the PR changes.
 The Kubernetes website repo operates differently than some of the Kubernetes
 code repositories when it comes to the roles of reviewers and approvers.
 
-- A reviewer does a technical review, to be sure that the docs are technically
-  accurate. A reviewer completes that task by leaving a `/lgtm` comment on the
-  PR. Don't add an `/lgtm` unless you are confident in the technical accuracy
-  of the documentation modified or introduced in the PR.
+- A reviewer reviews pull request content for technical accuracy. A reviewer 
+  indicates that a PR is technically accurate by leaving a `/lgtm` comment on
+  the PR. 
+  
+    {{< note >}}Don't add an `/lgtm` unless you are confident in the technical
+    accuracy of the documentation modified or introduced in the PR.{{< /note >}}
 
-- A maintainer does a review from a documentation point of view. Approval can
-  only be given by people in the `sig-docs-maintainers` list. To approve a PR,
-  you must be in the `sig-docs-maintainers` group, then leave an `/approved`
-  comment on the PR.
+- An approver reviews pull request content for docs quality and adherence to
+  SIG Docs guidelines, such as the
+  [style guide](/docs/contribute/style/style-guide). Only people listed as
+  approvers in the
+  [`OWNERS`](https://github.com/kubernetes/website/blob/master/OWNERS) file can
+  approve a PR. To approve a PR, leave an `/approved` comment on the PR.
 
 A PR is merged when it has both a `/lgtm` comment from anyone in the Kubernetes
 organization and an `/approved` comment from an approver in the
@@ -194,7 +204,7 @@ true:
   repository, only a reviewer with push access can commit into their PR.
   Authors should be encouraged to push their branch to their fork before
   opening the PR.
-- If the PR author explicitly disallowed edits from maintainers, you can't
+- If the PR author explicitly disallowed edits from approvers, you can't
   commit into their PR unless they change this setting.
 
 #### If the file is already changed by the PR
@@ -497,7 +507,7 @@ changes look like, you can use the `hugo` command to stage the changes locally.
 
 ## Triage and categorize issues
 
-In any given week, a specific docs maintainer volunteers to do initial
+In any given week, a specific docs approver volunteers to do initial
 [triage and review of pull requests](#review-pull-requests) and issues. To get
 on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
 not on the schedule for the current week, you can still review PRs.
@@ -533,7 +543,7 @@ These guidelines are not set in stone and are subject to change.
   in the issue, slash commands used in the comments of the issue, or
   information in the issue text.
 - Some labels are manually added by the person triaging the issue (or the person
-  reporting the issue, if they are a SIG Docs maintainer).
+  reporting the issue, if they are a SIG Docs approvers).
   - `Actionable`: there seems to be enough information for the issue to be fixed
     or acted upon.
   - `good first issue`: Someone with limited Kubernetes or SIG Docs experience
@@ -547,7 +557,7 @@ These guidelines are not set in stone and are subject to change.
     conform to those outlined in the
     [Kubernetes contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority), and can be one of `P1`, `P2`, or `P3`, if set.
 - To add a label, you can use Github's **Labels** widget if you are a Sig Docs
-  maintainer. Anyone who is a member of the Kubernetes organization can add a
+  approver. Anyone who is a member of the Kubernetes organization can add a
   label by leaving a comment like `/label <label-to-add>`. The label must
   already exist. If you try to add a label that does not exist, the command is
   silently ignored.

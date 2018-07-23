@@ -271,7 +271,7 @@ contribution guide.
 
 ## Review docs pull requests
 
-People who are not yet maintainers or reviewers can still review pull requests.
+People who are not yet approvers or reviewers can still review pull requests.
 The reviews are not considered "binding", which means that your review alone
 won't cause a pull request to be merged. However, it can still be helpful. Even
 if you don't leave any review comments, you can get a sense of pull request
@@ -283,7 +283,7 @@ conventions and etiquette and get used to the workflow.
     docs.
 
 2.  By default, the only filter that is applied is `open`, so you don't see
-    pull reuests that have already been closed or merged. It's a good idea to
+    pull requests that have already been closed or merged. It's a good idea to
     apply the `cncf-cla: yes` filter, and for your first review, it's a good
     idea to add `size/S` or `size/XS`. The `size` label is applied automatically
     based on how many lines of code the PR modifies. You can apply filters using
@@ -351,6 +351,6 @@ to submit your proposal.
 
 When you are comfortable with all of the tasks discussed in this topic and you
 want to engage with the Kubernetes docs team in deeper ways, read the
-[internediate docs contribution guide](/docs/contribute/intermediate/).
+[intermediate docs contribution guide](/docs/contribute/intermediate/).
 
 {{% /capture %}}

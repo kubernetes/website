@@ -64,7 +64,7 @@ The SIG Docs representative for a given release coordinates the following tasks:
   artifacts are published.
 
 Coordinating a release is typically a 3-4 month commitment, and the duty is
-rotated among SIG Docs maintainers.
+rotated among SIG Docs approvers.
 
 {{% /capture %}}
 

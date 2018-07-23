@@ -230,6 +230,9 @@
 /docs/reference/generated/kubefed_options/     /docs/reference/setup-tools/kubefed/kubefed-options/ 301
 /docs/reference/generated/kubefed_unjoin/     /docs/reference/setup-tools/kubefed/kubefed-unjoin/ 301
 /docs/reference/generated/kubefed_version/     /docs/reference/setup-tools/kubefed/kubefed-version/ 301
+
+/docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
+
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/workloads-18-19/     https://v1-9.docs.kubernetes.io/docs/reference/workloads-18-19/ 301
 
