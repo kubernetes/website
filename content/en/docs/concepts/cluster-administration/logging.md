@@ -136,7 +136,7 @@ Kubernetes doesn't specify a logging agent, but two optional logging agents are 
 
 You can use a sidecar container in one of the following ways:
 
-* The sidecar container streams application logs to its own `stdout`.
+* The main container streams application logs to its own `stdout`.
 * The sidecar container runs a logging agent, which is configured to pick up logs from an application container.
 
 #### Streaming sidecar container
