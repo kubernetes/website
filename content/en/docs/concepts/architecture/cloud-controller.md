@@ -14,7 +14,7 @@ This document discusses the concepts behind the cloud controller manager and giv
 
 Here's the architecture of a Kubernetes cluster without the cloud controller manager:
 
-![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
+![Pre CCM Kube Arch](/static/images/docs/pre-ccm-arch.png)
 
 {{% /capture %}}
 
@@ -32,7 +32,7 @@ In the preceding diagram, Kubernetes and the cloud provider are integrated throu
 
 The CCM consolidates all of the cloud-dependent logic from the preceding three components to create a single point of integration with the cloud. The new architecture with the CCM looks like this:
 
-![CCM Kube Arch](/images/docs/post-ccm-arch.png)
+![CCM Kube Arch](/static/images/docs/post-ccm-arch.png)
 
 ## Components of the CCM
 
@@ -114,7 +114,7 @@ The cloud controller manager uses Go interfaces to allow implementations from an
 
 The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core. Implementations specific to cloud providers will be built outside of the core and implement interfaces defined in the core.
 
-For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+For more information about developing plugins, see [Developing Cloud Controller Manager](content/en/docs/tasks/administer-cluster/developing-cloud-controller-manager.md).
 
 ## Authorization
 
@@ -260,6 +260,6 @@ The following cloud providers have implemented CCMs:
 ## Cluster Administration
 
 Complete instructions for configuring and running the CCM are provided
-[here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
+[here](/content/en/docs/tasks/administer-cluster/running-cloud-controller.md).
 
 {{% /capture %}}
