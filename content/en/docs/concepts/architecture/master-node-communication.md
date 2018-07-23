@@ -28,17 +28,17 @@ All communication paths from the cluster to the master terminate at the
 apiserver (none of the other master components are designed to expose remote
 services). In a typical deployment, the apiserver is configured to listen for
 remote connections on a secure HTTPS port (443) with one or more forms of
-client [authentication](/docs/reference/access-authn-authz/authentication/) enabled.
-One or more forms of [authorization](/docs/reference/access-authn-authz/authorization/)
-should be enabled, especially if [anonymous requests](/docs/reference/access-authn-authz/authentication/#anonymous-requests)
-or [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+client [authentication](/content/en/docs/reference/access-authn-authz/authentication.md) enabled.
+One or more forms of [authorization](/content/en/docs/reference/access-authn-authz/authorization.md)
+should be enabled, especially if [anonymous requests](/content/en/docs/reference/access-authn-authz/authentication.md#anonymous-requests)
+or [service account tokens](/content/en/docs/reference/access-authn-authz/authentication.md#service-account-tokens)
 are allowed.
 
 Nodes should be provisioned with the public root certificate for the cluster
 such that they can connect securely to the apiserver along with valid client
 credentials. For example, on a default GKE deployment, the client credentials
 provided to the kubelet are in the form of a client certificate. See
-[kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+[kubelet TLS bootstrapping](/content/en/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping.md)
 for automated provisioning of kubelet client certificates.
 
 Pods that wish to connect to the apiserver can do so securely by leveraging a
@@ -78,11 +78,11 @@ To verify this connection, use the `--kubelet-certificate-authority` flag to
 provide the apiserver with a root certificate bundle to use to verify the
 kubelet's serving certificate.
 
-If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
+If that is not possible, use [SSH tunneling](/content/en/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
 between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 
-Finally, [Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/)
+Finally, [Kubelet authentication and/or authorization](/content/cn/docs/admin/kubelet-authentication-authorization.md)
 should be enabled to secure the kubelet API.
 
 ### apiserver -> nodes, pods, and services

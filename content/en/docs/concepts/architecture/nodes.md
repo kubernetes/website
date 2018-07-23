@@ -11,7 +11,7 @@ weight: 10
 
 A `node` is a worker machine in Kubernetes, previously known as a `minion`. A node
 may be a VM or physical machine, depending on the cluster. Each node has
-the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is managed by the master
+the services necessary to run [pods](/content/en/docs/concepts/workloads/pods/pod.md) and is managed by the master
 components. The services on a node include Docker, kubelet and kube-proxy. See
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
@@ -67,9 +67,9 @@ The node condition is represented as a JSON object. For example, the following r
 ]
 ```
 
-If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument is passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/) and all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node.
+If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument is passed to the [kube-controller-manager](/content/en/docs/reference/command-line-tools-reference/kube-controller-manager.md) and all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node.
 
-In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)
+In versions of Kubernetes prior to 1.5, the node controller would [force delete](/content/en/docs/concepts/workloads/pods/pod.md#force-deletion-of-pods)
 these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is
 confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in
 the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has
@@ -77,7 +77,7 @@ permanently left a cluster, the cluster administrator may need to delete the nod
 Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
 Version 1.8 introduced an alpha feature that automatically creates
-[taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
+[taints](/content/en/docs/concepts/configuration/taint-and-toleration.md) that represent conditions.
 To enable this behavior, pass an additional feature gate flag `--feature-gates=...,TaintNodesByCondition=true`
 to the API server, controller manager, and scheduler.
 When `TaintNodesByCondition` is enabled, the scheduler ignores conditions when considering a Node; instead
@@ -104,7 +104,7 @@ The information is gathered by Kubelet from the node.
 
 ## Management
 
-Unlike [pods](/docs/concepts/workloads/pods/pod/) and [services](/docs/concepts/services-networking/service/),
+Unlike [pods](/content/en/docs/concepts/workloads/pods/pod.md) and [services](/content/en/docs/concepts/services-networking/service.md),
 a node is not inherently created by Kubernetes: it is created externally by cloud
 providers like Google Compute Engine, or exists in your pool of physical or virtual
 machines. What this means is that when Kubernetes creates a node, it is really
@@ -195,7 +195,7 @@ Starting in Kubernetes 1.6, the NodeController is also responsible for evicting
 pods that are running on nodes with `NoExecute` taints, when the pods do not tolerate
 the taints. Additionally, as an alpha feature that is disabled by default, the
 NodeController is responsible for adding taints corresponding to node problems like
-node unreachable or not ready. See [this documentation](/docs/concepts/configuration/taint-and-toleration/)
+node unreachable or not ready. See [this documentation](/content/en/docs/concepts/configuration/taint-and-toleration.md)
 for details about `NoExecute` taints and the alpha feature.
 
 Starting in version 1.8, the node controller can be made responsible for creating taints that represent
