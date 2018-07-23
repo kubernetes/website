@@ -39,22 +39,22 @@ Not all tasks can be done in the Github UI, but these are discussed in the
 [intermediate](/docs/contribute/intermediate/) and
 [advanced](/docs/contribute/advanced/) docs contribution guides.
 
-### Participating in sig-docs
+### Participating in SIG Docs
 
 The Kubernetes documentation is maintained by a special interest group (SIG)
-called sig-docs. We communicate using a Slack channel, a mailing list, and
+called Sig Docs. We communicate using a Slack channel, a mailing list, and
 weekly video meetings. New participants are welcome. For more information, see
-[Participating in sig-docs](/docs/contribute/participating/).
+[Participating in SIG Docs](/docs/contribute/participating/).
 
 ### Style guidelines
 
 We maintain a [style guide](/docs/contribute/style/style-guide/) with information
-about choices the sig-docs community has made about grammar, syntax, source
+about choices the SIG Docs community has made about grammar, syntax, source
 formatting, and typographic conventions. Look over the style guide before you
 make your first contribution, and use it when you have questions.
 
-Changes to the style guide are made by sig-docs as a group. To propose a change
-or addition, [add it to the agenda](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#) for an upcoming sig-docs meeting, and attend the meeting to participate in the
+Changes to the style guide are made by SIG Docs as a group. To propose a change
+or addition, [add it to the agenda](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion. See the [advanced contribution](advanced.md) topic for more
 information.
 
@@ -122,16 +122,16 @@ in mind:
   [Code of Conduct](/community/code-of-conduct/) also applies to interactions on
   Kubernetes Github repositories.
 
-## Participate in sig-docs discussions
+## Participate in SIG Docs discussions
 
-The sig-docs team communicates using the following mechanisms:
+The SIG Docs team communicates using the following mechanisms:
 
 - [Join the Kubernetes Slack instance](http://slack.k8s.io/), then join the
   `#sig-docs` channel, where we discuss docs issues in real-time. Be sure to
   introduce yourself!
 - [Join the `kubernetes-sig-docs` mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   where broader discussions take place and official decisions are recorded.
-- Participate in the weekly sig-docs video meeting, which is announced on the
+- Participate in the weekly SIG Docs video meeting, which is announced on the
   Slack channel and the mailing list. Currently, these meetings take place on
   Zoom, so you'll need to download the [Zoom client](https://zoom.us/download)
   or dial in using a phone.
@@ -182,12 +182,12 @@ to base your work on. Use these guidelines to make the decision:
   making improvements to content that already exists.
 - Use a release branch (such as `release-1.12`) to document upcoming features
   or changes for an upcoming release that is not yet published.
-- Use a feature branch that has been agreed upon by sig-docs to collaborate on
+- Use a feature branch that has been agreed upon by SIG Docs to collaborate on
   big improvements or changes to the existing documentation, including content
   reorganization or changes to the look and feel of the website.
 
-If you're still not sure which branch to choose, ask in #sig-docs on Slack or
-attend a weekly sig-docs meeting to get clarity.
+If you're still not sure which branch to choose, ask in `#sig-docs` on Slack or
+attend a weekly SIG Docs meeting to get clarity.
 
 ### Submit a pull request
 

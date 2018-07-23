@@ -1,11 +1,11 @@
 ---
-title: Participating in SIG-DOCS
+title: Participating in SIG Docs
 content_template: templates/concept
 ---
 
 {{% capture overview %}}
 
-SIG-DOCS is one of the [special interest groups](https://github.com/kubernetes/community/blob/master/sig-list.md) within the Kubernetes project, focused on writing, updating, and maintaining the documentation for Kubernetes as a whole.
+SIG Docs is one of the [special interest groups](https://github.com/kubernetes/community/blob/master/sig-list.md) within the Kubernetes project, focused on writing, updating, and maintaining the documentation for Kubernetes as a whole.
 
 {{% /capture %}}
 

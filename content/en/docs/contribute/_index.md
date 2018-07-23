@@ -34,7 +34,7 @@ and organizational decisions that have already been made.
 - [Anyone](start/)
   - File actionable bugs
   - Improve existing docs
-  - Bring up ideas for improvement on Slack or sig-docs mailing list
+  - Bring up ideas for improvement on Slack or SIG docs mailing list
   - Improve docs accessibility
   - Provide non-binding feedback on PRs
   - Write a blog post or case study

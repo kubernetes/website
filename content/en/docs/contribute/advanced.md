@@ -24,12 +24,12 @@ After you've been contributing to the Kubernetes documentation for a while, you
 may have ideas for improvement to the style guide, the toolchain used to build
 the documentation, the website style, the processes for reviewing and merging
 pull requests, or other aspects of the documentation. For maximum transparency,
-these types of proposals need to be discussed in a sig-docs meeting or on the
-[sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+these types of proposals need to be discussed in a SIG Docs meeting or on the
+[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 In addition, it can really help to have some context about the way things
 currently work and why past decisions have been made before proposing sweeping
 changes. The quickest way to get answers to questions about how the documentation
-currently works is to ask in the #sig-docs Slack channel on
+currently works is to ask in the `#sig-docs` Slack channel on
 [kubernetes.slack.com](https://kubernetes.slack.com)
 
 After discussion has taken place and the sig is in agreement about the desired
@@ -47,7 +47,7 @@ sig-testing, and others. To find out more about Kubernetes release processes,
 refer to
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 
-The sig-docs representative for a given release coordinates the following tasks:
+The SIG Docs representative for a given release coordinates the following tasks:
 
 - Monitor the feature-tracking spreadsheet for new or changed features with an
   impact on documentation. If documentation for a given feature won't be ready
@@ -58,13 +58,13 @@ The sig-docs representative for a given release coordinates the following tasks:
   implementing the feature.
 - Merge release-related pull requests and maintain the Git feature branch for
   the release.
-- Mentor other sig-docs contributors who want to learn how to do this role in
+- Mentor other SIG Docs contributors who want to learn how to do this role in
   the future. This is known as "shadowing".
 - Publish the documentation changes related to the release when the release
   artifacts are published.
 
 Coordinating a release is typically a 3-4 month commitment, and the duty is
-rotated among sig-docs maintainers.
+rotated among SIG Docs maintainers.
 
 {{% /capture %}}
 

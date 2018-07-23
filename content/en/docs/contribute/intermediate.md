@@ -34,7 +34,7 @@ expectation that any one person do all of them all of the time.
 
 In any given week, a specific docs maintainer volunteers to do initial triage
 and review of [pull requests and issues](#triage-and-categorize-issues). To get
-on this list, attend the weekly sig-docs meeting and volunteer. Even if you are
+on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
 not on the schedule for the current week, you can still review pull requests
 (PRs) that are not already under active review.
 
@@ -93,8 +93,8 @@ code repositories when it comes to the roles of reviewers and approvers.
   PR. Don't add an `/lgtm` unless you are confident in the technical accuracy
   of the documentation modified or introduced in the PR.
 
-- An approver does a review from a documentation point of view. Approval can
-  only be given by peopl in the `sig-docs-maintainers` list. To approve a PR,
+- A maintainer does a review from a documentation point of view. Approval can
+  only be given by people in the `sig-docs-maintainers` list. To approve a PR,
   you must be in the `sig-docs-maintainers` group, then leave an `/approved`
   comment on the PR.
 
@@ -143,7 +143,7 @@ has signed the CLA.
         **Comment** or **Request Changes**. Add a summary of your review, and
         add appropriate
         [Prow commands](https://prow.k8s.io/command-help) to separate lines in
-        the Review Summary field. sig-docs follows the
+        the Review Summary field. SIG Docs follows the
         [Kubernetes code review process](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process).
         All of your comments will be sent to the PR author in a single
         notification.
@@ -322,7 +322,7 @@ but the following guidelines apply:
 - For general improvements to existing content, start from `master`.
 - For new content that is about features that already exist in a released
   version of Kubernetes, start from `master`.
-- For long-running efforts that multiple sig-docs people will collaborate on,
+- For long-running efforts that multiple SIG Docs contributors will collaborate on,
   such as content reorganization, use a specific feature branch created for that
   effort.
 - For new content that relates to upcoming but unreleased Kubernetes versions,
@@ -470,8 +470,9 @@ most up-to-date version of that branch.
       conflicts.
 
 If you're having trouble resolving conflicts or you get stuck with
-anything else related to your pull request, ask for help on the #sig-docs
-Slack channel.
+anything else related to your pull request, ask for help on the `#sig-docs`
+Slack channel or the
+[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
 ### View your changes locally
 
@@ -498,10 +499,10 @@ changes look like, you can use the `hugo` command to stage the changes locally.
 
 In any given week, a specific docs maintainer volunteers to do initial
 [triage and review of pull requests](#review-pull-requests) and issues. To get
-on this list, attend the weekly sig-docs meeting and volunteer. Even if you are
+on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
 not on the schedule for the current week, you can still review PRs.
 
-People in sig-docs are only responsible for triaging and categorizing
+People in SIG Docs are only responsible for triaging and categorizing
 documentation issues. General website issues are also filed in the
 `kubernetes/website` repository.
 
@@ -512,11 +513,13 @@ When you triage an issue, you:
 - Ask the reporter for more information if the issue doesn't have enough
   detail to be actionable or the template is not filled out adequately.
 - Add labels (sometimes called tags), projects, or milestones to the issue.
-  Projects and milestones are not heavily used by the sig-docs team.
+  Projects and milestones are not heavily used by the SIG Docs team.
 - At your discretion, taking ownership of an issue and submitting a PR for it
   (especially if it is quick or relates to work you were already doing).
 
-If you have questions about triaging an issue, ask in #sig-docs on Slack.
+If you have questions about triaging an issue, ask in `#sig-docs` on Slack or
+the
+[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
 ### More about labels
 
@@ -530,10 +533,10 @@ These guidelines are not set in stone and are subject to change.
   in the issue, slash commands used in the comments of the issue, or
   information in the issue text.
 - Some labels are manually added by the person triaging the issue (or the person
-  reporting the issue, if they are a sig-docs maintainer).
+  reporting the issue, if they are a SIG Docs maintainer).
   - `Actionable`: there seems to be enough information for the issue to be fixed
     or acted upon.
-  - `good first issue`: Someone with limited Kubernetes or sig-docs experience
+  - `good first issue`: Someone with limited Kubernetes or SIG Docs experience
     might be able to tackle this issue.
   - `kind/bug`, `kind/feature`, and `kind/documentation`: If the person who
     filed the issue did not fill out the template correctly, these labels may
@@ -543,7 +546,7 @@ These guidelines are not set in stone and are subject to change.
   - Priority labels: define the relative severity of the issue. These do not
     conform to those outlined in the
     [Kubernetes contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority), and can be one of `P1`, `P2`, or `P3`, if set.
-- To add a label, you can use Github's **Labels** widget if you are a sig-docs
+- To add a label, you can use Github's **Labels** widget if you are a Sig Docs
   maintainer. Anyone who is a member of the Kubernetes organization can add a
   label by leaving a comment like `/label <label-to-add>`. The label must
   already exist. If you try to add a label that does not exist, the command is
@@ -639,7 +642,7 @@ at least a small amount of documentation to show people how to use them.
 
 Often, the SIG responsible for a feature submits draft documentation for the
 feature as a pull request to the appropriate release branch of
-`kubernetes/website` repository, and someone on the sig-docs team provides
+`kubernetes/website` repository, and someone on the SIG Docs team provides
 editorial feedback or edits the draft directly.
 
 ### Find out about upcoming features
@@ -694,7 +697,7 @@ responsible for implementing the new feature. This means that your role may be
 more of a shepherding role for a given feature than developing the documentation
 from scratch.
 
-After you've chosen a feature to document/shepherd, ask about it in the #sig-docs
+After you've chosen a feature to document/shepherd, ask about it in the `#sig-docs`
 Slack channel, in a weekly sig-docs meeting, or directly on the PR filed by the
 feature SIG. If you're given the go-ahead, you can edit into the PR using one of
 the techniques described in
@@ -708,7 +711,7 @@ If you need to write a new topic, the following links are useful:
 ### SIG members documenting new features
 
 If you are a member of a SIG developing a new feature for Kubernetes, you need
-to work with sig-docs to be sure your feature is documented in time for the
+to work with SIG Docs to be sure your feature is documented in time for the
 release. Check the
 [feature tracking spreadsheet](https://github.com/kubernetes/sig-release/tree/master/releases)
 or check in the #sig-release Slack channel to verify scheduling details and
@@ -762,8 +765,8 @@ be able to read it in their language of choice. If you are comfortable
 writing in another language, especially in the software domain, you can help
 localize the Kubernetes documentation or provide feedback on existing localized
 content. See [Localization](/docs/contribute/localization/) and ask on the
-[mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) or
-in `#sig-docs` on Slack if you are interested in helping out.
+[kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+or in `#sig-docs` on Slack if you are interested in helping out.
 
 {{% /capture %}}
 

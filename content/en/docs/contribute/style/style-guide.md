@@ -5,8 +5,6 @@ content_template: templates/concept
 weight: 10
 ---
 
-
-
 {{% capture overview %}}
 This page gives writing style guidelines for the Kubernetes documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
@@ -86,7 +84,7 @@ represents.
   <tr><th>Do</th><th>Don't</th></tr>
   <tr><td>Open the <code>envars.yaml</code> file.</td><td>Open the envars.yaml file.</td></tr>
   <tr><td>Go to the <code>/docs/tutorials</code> directory.</td><td>Go to the /docs/tutorials directory.</td></tr>
-  <tr><td>Open the <code>/_data/concepts.yaml</code> file.</td><td>Open the /_data/concepts.yaml file.</td></tr>
+  <tr><td>Open the <code>/_data/concepts.yaml</code><!--to-unbreak-atom-highlighting_--> file.</td><td>Open the /_data/concepts.yaml<!--to-unbreak-atom-highlighting_--> file.</td></tr>
 </table>
 
 ### Use the international standard for punctuation inside quotes
