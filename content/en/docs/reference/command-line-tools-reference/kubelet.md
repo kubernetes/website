@@ -882,7 +882,7 @@ kubelet [flags]
        <td colspan="2">--pod-infra-container-image string</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The image whose network/ipc namespaces containers in each pod will use. (default "gcr.io/google_containers/pause-amd64:3.0")</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The image whose network/ipc namespaces containers in each pod will use. (default "k8s.gcr.io/pause:3.1")</td>
     </tr>
 
      <tr>
