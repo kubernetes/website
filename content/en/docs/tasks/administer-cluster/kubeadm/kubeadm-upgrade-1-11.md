@@ -22,7 +22,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 - You can upgrade only froom one minor version to the next minor version. That is, you cannot skip versions when you upgrade. For example, you can upgrade only from 1.10 to 1.11, not from 1.9 to 1.11.
 - The default DNS provider in version 1.11 is [CoreDNS](https://coredns.io/) rather than [kube-dns](https://github.com/kubernetes/dns).
-To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade apply`.
+To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade apply`.
 
 {{% /capture %}}
 
@@ -98,7 +98,7 @@ To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade app
     kubeadm upgrade apply v1.11.0
     ```
 
-    If you currently use `kube-dns` and wish to continue doing so, add `--feature-flags=CoreDNS=false`.
+    If you currently use `kube-dns` and wish to continue doing so, add `--feature-gates=CoreDNS=false`.
 
     You should see output similar to this:
 
