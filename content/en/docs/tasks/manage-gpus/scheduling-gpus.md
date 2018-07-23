@@ -38,6 +38,7 @@ You can consume these GPUs from your containers by requesting
 `nvidia.com/gpu` just like you request `cpu` or `memory`.
 However, there are some limitations in how you specify the resource requirements
 when using GPUs:
+
 - GPUs are only supposed to be specified in the `limits` section, which means:
   * You can specify GPU `limits` without specifying `requests` because
     Kubernetes will use the limit as the request value by default.
@@ -74,6 +75,7 @@ There are currently two device plugin implementations for NVIDIA GPUs:
 
 The [official NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
 has the following requirements:
+
 - Kubernetes nodes have to be pre-installed with NVIDIA drivers.
 - Kubernetes nodes have to be pre-installed with [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)
 - nvidia-container-runtime must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
