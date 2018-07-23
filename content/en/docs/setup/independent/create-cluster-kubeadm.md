@@ -347,6 +347,20 @@ There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
 
 Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
 {{% /tab %}}
+{{% tab name="Cilium" %}}
+Cilium is open source software for providing and transparently securing network connectivity and loadbalancing between application workloads.
+
+For more information about using Cilium with Kubernetes, see [Quickstart for Cilium on Kubernetes](http://docs.cilium.io/en/v1.1/kubernetes/quickinstall/) and [Kubernetes Install guide for Cilium](http://docs.cilium.io/en/v1.1/kubernetes/install/).
+
+```shell
+wget https://raw.githubusercontent.com/cilium/cilium/v1.1/examples/kubernetes/$(kubectl version --short | awk '/Server/ {print substr($3, 2)}' | cut -d'.' -f1,2)/cilium.yaml
+vim cilium.yaml
+[adjust etcd addresses]
+
+kubectl create -f cilium.yaml
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 
