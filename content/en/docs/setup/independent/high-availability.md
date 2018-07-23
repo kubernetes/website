@@ -143,7 +143,7 @@ different configuration.
 
         apiVersion: kubeadm.k8s.io/v1alpha2
         kind: MasterConfiguration
-        kubernetesVersion: v1.11.0
+        kubernetesVersion: v1.11.1
         apiServerCertSANs:
         - "LOAD_BALANCER_DNS"
         api:
@@ -431,7 +431,7 @@ done
 
         apiVersion: kubeadm.k8s.io/v1alpha2
         kind: MasterConfiguration
-        kubernetesVersion: v1.11.0
+        kubernetesVersion: v1.11.1
         apiServerCertSANs:
         - "LOAD_BALANCER_DNS"
         api:
