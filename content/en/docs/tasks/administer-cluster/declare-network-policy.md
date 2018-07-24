@@ -21,6 +21,11 @@ You'll need to have a Kubernetes cluster in place, with network policy support. 
 **Note**: The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
 {{% /capture %}}
 
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
 
 {{% capture steps %}}
 

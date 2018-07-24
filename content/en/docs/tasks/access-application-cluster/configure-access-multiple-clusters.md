@@ -26,6 +26,14 @@ You need to have the [`kubectl`](/docs/tasks/tools/install-kubectl/) command-lin
 
 {{% /capture %}}
 
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
 {{% capture steps %}}
 
 ## Define clusters, users, and contexts

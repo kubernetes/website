@@ -1,12 +1,24 @@
 ---
 title: Federated Secrets
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 {{< include "federation-current-state.md" >}}
 
 This guide explains how to use secrets in Federation control plane.
 
+Secrets in federation control plane (referred to as "federated secrets" in
+this guide) are very similar to the traditional [Kubernetes
+Secrets](/docs/concepts/configuration/secret/) providing the same functionality.
+Creating them in the federation control plane ensures that they are synchronized
+across all the clusters in federation.
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Prerequisites
 
@@ -21,15 +33,6 @@ by Kelsey Hightower, are also available to help you.
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/setup/) in
 general and [Secrets](/docs/concepts/configuration/secret/) in particular.
-
-## Overview
-
-Secrets in federation control plane (referred to as "federated secrets" in
-this guide) are very similar to the traditional [Kubernetes
-Secrets](/docs/concepts/configuration/secret/) providing the same functionality.
-Creating them in the federation control plane ensures that they are synchronized
-across all the clusters in federation.
-
 
 ## Creating a Federated Secret
 
@@ -86,3 +89,5 @@ Note that at this point, deleting a federated secret will not delete the
 corresponding secrets from underlying clusters.
 You must delete the underlying secrets manually.
 We intend to fix this in the future.
+
+{{% /capture %}}

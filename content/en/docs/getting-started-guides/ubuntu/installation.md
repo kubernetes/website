@@ -11,7 +11,7 @@ Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://www.u
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-- A working [Juju client](https://jujucharms.com/docs/2.3/reference-install); this does not have to be a Linux machine, it can also be Windows or OSX.
+- A working [Juju client](https://jujucharms.com/docs/2.3/reference-install); this does not have to be a Linux machine, it can also be Windows or macOS.
 - A [supported cloud](#cloud-compatibility).
   - Bare Metal deployments are supported via [MAAS](http://maas.io). Refer to the [MAAS documentation](http://maas.io/docs/) for configuration instructions.
   - OpenStack deployments are currently only tested on Icehouse and newer.

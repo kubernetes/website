@@ -38,7 +38,7 @@ liveness probes to detect and remedy such situations.
 In this exercise, you create a Pod that runs a Container based on the
 `k8s.gcr.io/busybox` image. Here is the configuration file for the Pod:
 
-{{< code file="exec-liveness.yaml" >}}
+{{< codenew file="pods/probe/exec-liveness.yaml" >}}
 
 In the configuration file, you can see that the Pod has a single Container.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
@@ -62,7 +62,7 @@ code. After 30 seconds, `cat /tmp/healthy` returns a failure code.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/exec-liveness.yaml
+kubectl create -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
 ```
 
 Within 30 seconds, view the Pod events:
@@ -122,7 +122,7 @@ Another kind of liveness probe uses an HTTP GET request. Here is the configurati
 file for a Pod that runs a container based on the `k8s.gcr.io/liveness`
 image.
 
-{{< code file="http-liveness.yaml" >}}
+{{< codenew file="pods/probe/http-liveness.yaml" >}}
 
 In the configuration file, you can see that the Pod has a single Container.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
@@ -163,7 +163,7 @@ checks will fail, and the kubelet will kill and restart the Container.
 To try the HTTP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/http-liveness.yaml
+kubectl create -f https://k8s.io/examples/pods/probe/http-liveness.yaml
 ```
 
 After 10 seconds, view Pod events to verify that liveness probes have failed and
@@ -180,7 +180,7 @@ kubelet will attempt to open a socket to your container on the specified port.
 If it can establish a connection, the container is considered healthy, if it
 can’t it is considered a failure.
 
-{{< code file="tcp-liveness-readiness.yaml" >}}
+{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
 
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
@@ -198,7 +198,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/tcp-liveness-readiness.yaml
+kubectl create -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
 ```
 
 After 15 seconds, view Pod events to verify that liveness probes:

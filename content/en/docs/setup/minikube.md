@@ -33,6 +33,7 @@ the following drivers:
 
 * virtualbox
 * vmwarefusion
+* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
@@ -297,10 +298,10 @@ Some drivers will mount a host folder within the VM so that you can easily share
 | Driver | OS | HostFolder | VM |
 | --- | --- | --- | --- |
 | VirtualBox | Linux | /home | /hosthome |
-| VirtualBox | OSX | /Users | /Users |
+| VirtualBox | macOS | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | OSX | /Users | /Users |
-| Xhyve | OSX | /Users | /Users |
+| VMware Fusion | macOS | /Users | /Users |
+| Xhyve | macOS | /Users | /Users |
 
 
 ## Private Container Registries

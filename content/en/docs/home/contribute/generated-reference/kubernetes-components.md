@@ -15,7 +15,7 @@ reference documentation for tools and components in the
 
 {{% capture prerequisites %}}
 
-* You need a machine that is running Linux or MacOS.
+* You need a machine that is running Linux or macOS.
 
 * You need to have this software installed:
 

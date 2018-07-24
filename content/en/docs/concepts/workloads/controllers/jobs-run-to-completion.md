@@ -3,12 +3,11 @@ reviewers:
 - erictune
 - soltysh
 title: Jobs - Run to Completion
+content_template: templates/concept
 weight: 70
 ---
 
-{{< toc >}}
-
-## What is a Job?
+{{% capture overview %}}
 
 A _job_ creates one or more pods and ensures that a specified number of them successfully terminate.
 As pods successfully complete, the _job_ tracks the successful completions.  When a specified number
@@ -21,17 +20,23 @@ due to a node hardware failure or a node reboot).
 
 A Job can also be used to run multiple pods in parallel.
 
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
+
 ## Running an example Job
 
 Here is an example Job config.  It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 
-{{< code file="job.yaml" >}}
+{{< codenew file="controllers/job.yaml" >}}
 
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f ./job.yaml
+$ kubectl create -f https://k8s.io/examples/controllers/job.yaml
 job "pi" created
 ```
 
@@ -123,7 +128,7 @@ There are three main types of jobs:
 1. Parallel Jobs with a *fixed completion count*:
   - specify a non-zero positive value for `.spec.completions`.
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
-  - **not implemented yet:** each pod passed a different index in the range 1 to `.spec.completions`.
+  - **not implemented yet:** Each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
   - do not specify `.spec.completions`, default to `.spec.parallelism`.
   - the pods must coordinate with themselves or an external service to determine what each should work on.
@@ -193,7 +198,7 @@ due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
 considering a Job as failed. The back-off limit is set by default to 6. Failed
 Pods associated with the Job are recreated by the Job controller with an
-exponential back-off delay (10s, 20s, 40s ...) capped at five minutes. The
+exponential back-off delay (10s, 20s, 40s ...) capped at six minutes. The
 back-off count is reset if no new failed Pods appear before the Job's next
 status check.
 
@@ -395,3 +400,5 @@ object, but complete control over what pods are created and how work is assigned
 ## Cron Jobs
 
 Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [cron job documents](/docs/concepts/workloads/controllers/cron-jobs/)
+
+{{% /capture %}}

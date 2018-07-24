@@ -16,7 +16,7 @@ Also, for power users, API aggregation in this release allows user-provided apis
 Security:  
 
 - [The Network Policy API](https://kubernetes.io/docs/concepts/services-networking/network-policies/) is promoted to stable. Network policy, implemented through a network plug-in, allows users to set and enforce rules governing which pods can communicate with each other.&nbsp;
-- [Node authorizer](https://kubernetes.io/docs/admin/authorization/node/) and admission control plugin are new additions that restrict kubelet’s access to secrets, pods and other objects based on its node.
+- [Node authorizer](https://kubernetes.io/docs/reference/access-authn-authz/node/) and admission control plugin are new additions that restrict kubelet’s access to secrets, pods and other objects based on its node.
 - [Encryption for Secrets](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/), and other resources in etcd, is now available as alpha.&nbsp;
 - [Kubelet TLS bootstrapping](https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/) now supports client and server certificate rotation.
 - [Audit logs](https://kubernetes.io/docs/tasks/debug-application-cluster/audit/) stored by the API server are now more customizable and extensible with support for event filtering and webhooks. They also provide richer data for system audit.
@@ -36,7 +36,7 @@ Extensibility:
 
 Additional Features:  
 
-- Alpha support for [external admission controllers](https://kubernetes.io/docs/admin/extensible-admission-controllers/) is introduced, providing two options for adding custom business logic to the API server for modifying objects as they are created and validating policy.&nbsp;
+- Alpha support for [external admission controllers](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) is introduced, providing two options for adding custom business logic to the API server for modifying objects as they are created and validating policy.&nbsp;
 - [Policy-based Federated Resource Placement](https://kubernetes.io/docs/tasks/federation/set-up-placement-policies-federation/) is introduced as Alpha providing placement policies for the federated clusters, based on custom requirements such as regulation, pricing or performance.
 
 Deprecation:&nbsp;  
