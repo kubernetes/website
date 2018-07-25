@@ -2,19 +2,21 @@
 reviewers:
 - jbeda
 title: Authenticating with Bootstrap Tokens
+content_template: templates/concept
 weight: 20
 ---
 
-{{< toc >}}
-
-## Overview
-
+{{% capture overview %}}
 Bootstrap tokens are a simple bearer token that is meant to be used when
 creating new clusters or joining new nodes to an existing cluster.  It was built
-to support [`kubeadm`](/docs/admin/kubeadm/), but can be used in other contexts
+to support [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), but can be used in other contexts
 for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the [Kubelet TLS
-Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) system.
+Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system.
+{{% /capture %}}
+
+{{% capture body %}}
+## Bootstrap Tokens Overview
 
 Bootstrap Tokens are defined with a specific type
 (`bootstrap.kubernetes.io/token`) of secrets that lives in the `kube-system`
@@ -117,10 +119,10 @@ rejected when used for authentication and ignored during ConfigMap signing.
 The expiry value is encoded as an absolute UTC time using RFC3339.  Enable the
 `tokencleaner` controller to automatically delete expired tokens.
 
-## Token Management with `kubeadm`
+## Token Management with kubeadm
 
 You can use the `kubeadm` tool to manage tokens on a running cluster. See the
-[`kubeadm token` docs](/docs/admin/kubeadm/#manage-tokens) for details.
+[kubeadm token docs](/docs/reference/setup-tools/kubeadm/kubeadm-token/) for details.
 
 ## ConfigMap Signing
 
@@ -176,10 +178,13 @@ verify the JWS using the `HS256` scheme (HMAC-SHA256) with the full token (e.g.
 `07401b.f395accd246ae52d`) as the shared secret.  Users _must_ verify that HS256
 is used.
 
-WARNING: Any party with a bootstrapping token can create a valid signature for that
+{{< warning >}}
+**Warning:** Any party with a bootstrapping token can create a valid signature for that
 token. When using ConfigMap signing it's discouraged to share the same token with
 many clients, since a compromised client can potentially man-in-the middle another
 client relying on the signature to bootstrap TLS trust.
+{{< /warning >}}
 
 Consult the [kubeadm security model](/docs/reference/generated/kubeadm/#security-model)
 section for more information.
+{{% /capture %}}

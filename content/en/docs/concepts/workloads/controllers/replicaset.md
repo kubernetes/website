@@ -51,13 +51,13 @@ use a Deployment instead, and define your application in the spec section.
 
 ## Example
 
-{{< code file="frontend.yaml" >}}
+{{< codenew file="controllers/frontend.yaml" >}}
 
 Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster should
 create the defined ReplicaSet and the pods that it manages.
 
 ```shell
-$ kubectl create -f frontend.yaml
+$ kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
 replicaset "frontend" created
 $ kubectl describe rs/frontend
 Name:		frontend
@@ -192,14 +192,14 @@ A ReplicaSet can also be a target for
 a ReplicaSet can be auto-scaled by an HPA. Here is an example HPA targeting
 the ReplicaSet we created in the previous example.
 
-{{< code file="hpa-rs.yaml" >}}
+{{< codenew file="controllers/hpa-rs.yaml" >}}
 
 Saving this manifest into `hpa-rs.yaml` and submitting it to a Kubernetes cluster should
 create the defined HPA that autoscales the target ReplicaSet depending on the CPU usage
 of the replicated pods.
 
 ```shell
-kubectl create -f hpa-rs.yaml
+kubectl create -f https://k8s.io/examples/controllers/hpa-rs.yaml
 ```
 
 Alternatively, you can use the `kubectl autoscale` command to accomplish the same

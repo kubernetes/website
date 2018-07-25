@@ -45,6 +45,8 @@ $ git clone https://github.com/kubernetes/website
 $ cd website
 ```
 
+A l10n team will have a repository specifically dedicated to its work, for example: [kubernetes/kubernetes-docs-zh](https://github.com/kubernetes/kubernetes-docs-zh).
+
 ### Releases
 
 Localizations must use English files from the [most recent major
@@ -84,6 +86,11 @@ $ mkdir content/de
 ### Translating documents
 
 ## Project
+#### Repository structure
+
+Each l10n repository must have branches for the different Kubernetes documentation release versions, matching the branches in the main [kubernetes/website](https://github.com/kubernetes/website) documentation repository. For example, the kubernetes/website `release-1.10` branch (https://github.com/kubernetes/website/tree/release-1.10) has a corresponding branch in the kubernetes/kubernetes-docs-zh repository (https://github.com/kubernetes/kubernetes-docs-zh/tree/release-1.10). These version branches keep track of the differences in the documentation between Kubernetes versions.
+
+### Project
 
 Teams must track their overall progress with a [GitHub project](https://help.github.com/articles/creating-a-project-board/).
 
@@ -93,7 +100,7 @@ Projects must include columns for:
 - In progress
 - Done
 
-For example: the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-cn/projects/1).
+For example: the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-zh/projects/1).
 
 ### Team function
 
@@ -134,6 +141,5 @@ Once a l10n meets requirements for workflow and minimum output, SIG docs will:
 
 - Work with the localization team to implement language selection on the website.
 - Publicize availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels.
-
 
 {{% /capture %}}

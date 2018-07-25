@@ -90,7 +90,7 @@ a deployed cluster. The following example will skip the `Flaky`, `Slow`, and
     juju run-action kubernetes-e2e/0 test skip='\[(Flaky|Slow|Feature:.*)\]'
 
 {{< note >}}
-**Note:** the escaping of the regex due to how bash handles brackets.
+**Note:** The escaping of the regex due to how bash handles brackets.
 {{< /note >}}
 
 To see the different types of tests the Kubernetes end-to-end charm has access

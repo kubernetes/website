@@ -141,11 +141,13 @@ ensure the continuous functioning of the device allocations during the upgrade.
 For examples of device plugin implementations, see:
 
 * The official [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
-    * it requires using [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers
-* The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
+    * Requires [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers.
+* The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-{{% /capture %}}
+* The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
+* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for GPU and FPGA devices
 
+{{% /capture %}}
 

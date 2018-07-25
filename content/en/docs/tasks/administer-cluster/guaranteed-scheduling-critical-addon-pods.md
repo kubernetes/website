@@ -4,18 +4,23 @@ reviewers:
 - filipg
 - piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
+content_template: templates/concept
 ---
 
-{{< toc >}}
-
-## Overview
+{{% capture overview %}}
 
 In addition to Kubernetes core components like api-server, scheduler, controller-manager running on a master machine
 there are a number of add-ons which, for various reasons, must run on a regular cluster node (rather than the Kubernetes master).
-Some of these add-ons are critical to a fully functional cluster, such as Heapster, DNS, and UI.
+Some of these add-ons are critical to a fully functional cluster, such as metrics-server, DNS, and UI.
 A cluster may stop working properly if a critical add-on is evicted (either manually or as a side effect of another operation like upgrade)
 and becomes pending (for example when the cluster is highly utilized and either there are other pending pods that schedule into the space
 vacated by the evicted critical add-on pod or the amount of resources available on the node changed for some other reason).
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Rescheduler: guaranteed scheduling of critical add-ons
 **Rescheduler is deprecated as of Kubernetes 1.10 and will be removed in version 1.12 in
@@ -62,3 +67,5 @@ A pod could also be considered critical, if its priority is greater than or equa
 To be considered critical, the pod has to run in the `kube-system` namespace (configurable via flag) and
 
 * Have the priorityClass set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster and `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string(This will be deprecated too).
+
+{{% /capture %}}

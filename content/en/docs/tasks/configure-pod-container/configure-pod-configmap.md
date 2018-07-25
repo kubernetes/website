@@ -45,8 +45,8 @@ For example:
 
 ```shell
 mkdir -p configure-pod-container/configmap/kubectl/
-wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties -o configure-pod-container/configmap/kubectl/game.properties
-wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/ui.properties -o configure-pod-container/configmap/kubectl/ui.properties
+wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties -O configure-pod-container/configmap/kubectl/game.properties
+wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/ui.properties -O configure-pod-container/configmap/kubectl/ui.properties
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/kubectl/
 ```
 
@@ -157,7 +157,7 @@ Use the option `--from-env-file` to create a ConfigMap from an env-file, for exa
 #   Blank lines are ignored.
 #   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value)).
 
-wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game-env-file.properties -o configure-pod-container/configmap/kubectl/game-env-file.properties
+wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game-env-file.properties -O configure-pod-container/configmap/kubectl/game-env-file.properties
 cat configure-pod-container/configmap/kubectl/game-env-file.properties
 enemies=aliens
 lives=3
@@ -196,7 +196,7 @@ metadata:
 When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
 
 ```shell
-wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/ui-env-file.properties -o configure-pod-container/configmap/kubectl/ui-env-file.properties
+wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/ui-env-file.properties -O configure-pod-container/configmap/kubectl/ui-env-file.properties
 kubectl create configmap config-multi-env-files \
         --from-env-file=configure-pod-container/configmap/kubectl/game-env-file.properties \
         --from-env-file=configure-pod-container/configmap/kubectl/ui-env-file.properties

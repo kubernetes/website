@@ -100,14 +100,16 @@ Migrating from imperative commands to imperative object configuration involves
 several manual steps.
 
 1. Export the live object to a local object configuration file:
-
-       kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+```sh
+kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+```
 
 1. Manually remove the status field from the object configuration file.
 
 1. For subsequent object management, use `replace` exclusively.
-
-       kubectl replace -f <kind>_<name>.yaml
+```sh
+kubectl replace -f <kind>_<name>.yaml
+```
 
 
 ## Defining controller selectors and PodTemplate labels

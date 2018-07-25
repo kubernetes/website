@@ -5,14 +5,21 @@ reviewers:
 - thockin
 - msau42
 title: Storage Classes
+content_template: templates/concept
 weight: 30
 ---
+
+{{% capture overview %}}
 
 This document describes the concept of `StorageClass` in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Introduction
 
@@ -520,9 +527,9 @@ parameters:
   cluster, and `skuName` and `location` are ignored.
 
 During provision, a secret is created for mounting credentials. If the cluster
-has enabled both [RBAC](/docs/admin/authorization/rbac/) and
-[Controller Roles](/docs/admin/authorization/rbac/#controller-roles), add the
-`create` permission of resource `secret` for clusterrole
+has enabled both [RBAC](/docs/reference/access-authn-authz/rbac/) and
+[Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles),
+add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
 
 ### Portworx Volume
@@ -670,3 +677,5 @@ specified by the `WaitForFirstConsumer` volume binding mode.
 Delaying volume binding allows the scheduler to consider all of a pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
+
+{{% /capture %}}
