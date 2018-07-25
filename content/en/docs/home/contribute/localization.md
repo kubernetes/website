@@ -75,9 +75,9 @@ When assigning a `weight` parameter, make sure to see which of the current langu
 
 ### New directory
 
-In order to begin adding documentation for a new localization, you'll need to add a subdirectory to the
+In order to begin adding documentation for a new localization, you'll need to add a subdirectory to the [`content`](https://github.com/kubernetes/website/tree/master/content) folder. The `en` subdirectory, for example, is for English.
 
-In the configuration example [above](#configuration), for example, the two-letter code for German is `de`. That means that a `de` directory needs to be added to the `content` directory:
+In the configuration example [above](#configuration) the two-letter code for German is `de`. That means that a `de` directory needs to be added to the `content` directory:
 
 ```bash
 $ mkdir content/de
