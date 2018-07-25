@@ -87,14 +87,14 @@ Get the Cassandra `Service`.
 kubectl get svc cassandra
 ```
 
-The response should be
+The response is
 
 ```
 NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cassandra   None         <none>        9042/TCP   45s
 ```
 
-If anything else is returned, the Service was not successfully created. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
+Service creation failed if anything else is returned. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
 
 ## Using a StatefulSet to Create a Cassandra Ring
 
