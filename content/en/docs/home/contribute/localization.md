@@ -94,8 +94,6 @@ Home | [All heading and subheading URLs](https://kubernetes.io/docs/home/)
 Setup | [All heading and subheading URLs](https://kubernetes.io/docs/setup/)
 Tutorials | [Kubernetes Basics](https://kubernetes.io/docs/tutorials/), [Hello Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
 
-{{% /capture %}}
-
 ## Project
 
 ### Team function
@@ -130,6 +128,8 @@ Each l10n repository must have branches for the different Kubernetes documentati
 Upstream contributions are welcome and encouraged!
 
 For the sake of efficiency, limit upstream contributions to a single pull request per week, containing a single [squashed commit](https://github.com/todotxt/todo.txt-android/wiki/Squash-All-Commits-Related-to-a-Single-Issue-into-a-Single-Commit).
+
+{{% /capture %}}
 
 {{% capture whatsnext %}}
 
