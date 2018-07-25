@@ -1,6 +1,6 @@
 {{- $languages := .Site.Home.AllTranslations }}
 <ul>
-    {{- range $languages }}
+    {{- range $languages.ByWeight }}
     <li>
         <a href="{{ .Permalink }}">
             {{ .Language.LanguageName }}
