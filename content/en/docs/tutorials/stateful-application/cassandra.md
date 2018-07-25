@@ -9,7 +9,7 @@ weight: 30
 {{% capture overview %}}
 This tutorial shows you how to develop a native cloud [Cassandra](http://cassandra.apache.org/) deployment on Kubernetes. In this example, a custom Cassandra `SeedProvider` enables Cassandra to discover new Cassandra nodes as they join the cluster.
 
-It can be challenging to deploy stateful distributed applications like Cassandra within a clustered environment. StatefulSets greatly simplify this process. Please read about [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) for more information about the features used in this tutorial.
+It can be challenging to deploy stateful distributed applications within a clustered environment. StatefulSets greatly simplify this process. See the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) documentation for more information on the features used in this tutorial.
 
 **Cassandra on Docker**
 
@@ -56,7 +56,7 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 {{< caution >}}
 **Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU. Running Minikube with the default resource configuration may result in insufficient resource errors during this tutorial. To avoid these errors, we recommend running Minikube with 5 GB of memory and 4 CPUs:
 
-```bash
+```shell
 minikube start --memory 5120 --cpus=4
 ```
 {{< /caution >}}
@@ -75,7 +75,7 @@ The following `Service` is used for DNS lookups between Cassandra Pods and clien
 1. Launch a terminal window in the directory you downloaded the manifest files.
 1. Create a `Service` to track all Cassandra StatefulSet Nodes from the `cassandra-service.yaml` file:
 
-    ```bash
+    ```shell
     kubectl create -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
     ```
 
@@ -83,7 +83,7 @@ The following `Service` is used for DNS lookups between Cassandra Pods and clien
 
 Get the Cassandra `Service`.
 
-```bash
+```shell
 kubectl get svc cassandra
 ```
 
@@ -109,7 +109,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 1. Update the StatefulSet if necessary.
 1. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 
-    ```bash
+    ```shell
     kubectl create -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
     ```
 
@@ -117,7 +117,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 
 1. Get the Cassandra StatefulSet:
 
-    ```bash
+    ```shell
     kubectl get statefulset cassandra
     ```
 
@@ -132,13 +132,13 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 
 1. Get the Pods to see the ordered creation status:
 
-    ```bash
+    ```shell
     kubectl get pods -l="app=cassandra"
     ```
        
     The response should be:
        
-    ```bash
+    ```shell
     NAME          READY     STATUS              RESTARTS   AGE
     cassandra-0   1/1       Running             0          1m
     cassandra-1   0/1       ContainerCreating   0          8s
@@ -155,7 +155,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 
 3. Run the Cassandra [nodetool](https://wiki.apache.org/cassandra/NodeTool) to display the status of the ring.
 
-    ```bash
+    ```shell
     kubectl exec -it cassandra-0 -- nodetool status
     ```
 
@@ -178,7 +178,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 1. Run the following command:
 
-    ```bash
+    ```shell
     kubectl edit statefulset cassandra
     ```
 
@@ -211,7 +211,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 1. Get the Cassandra StatefulSet to verify:
 
-    ```bash
+    ```shell
     kubectl get statefulset cassandra
     ```
 
@@ -233,7 +233,7 @@ Deleting or scaling a StatefulSet down does not delete the volumes associated wi
 
 1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:
 
-    ```bash
+    ```shell
     grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
       && kubectl delete statefulset -l app=cassandra \
       && echo "Sleeping $grace" \
@@ -243,7 +243,7 @@ Deleting or scaling a StatefulSet down does not delete the volumes associated wi
 
 1. Run the following command to delete the Cassandra `Service`.
 
-    ```bash
+    ```shell
     kubectl delete service -l app=cassandra
     ```
 
