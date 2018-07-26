@@ -1,5 +1,5 @@
 DOCKER       = docker
-HUGO_VERSION = 0.40.3
+HUGO_VERSION = 0.44
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(PWD):/src
 
@@ -10,10 +10,6 @@ help: ## Show this help.
 
 all: build ## Build site with production settings and put deliverables in _site.
 
-sass: # Rebuild the SASS source into CSS
-	node-sass --output-style compact ./src/sass/styles.sass ./static/css/styles.css
-	node-sass --output-style compact ./src/sass/case_study_styles.sass ./static/css/case_study_styles.css
-
 build: ## Build site with production settings and put deliverables in _site.
 	hugo
 
@@ -21,7 +17,7 @@ build-preview: ## Build site with drafts and future posts enabled.
 	hugo -D -F
 
 serve: ## Boot the development server.
-	hugo server
+	hugo server --ignoreCache --disableFastRender
 
 docker-image:
 	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)
