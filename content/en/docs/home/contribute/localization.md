@@ -94,20 +94,23 @@ Description | URLs
 -----|-----
 Home | [All heading and subheading URLs](https://kubernetes.io/docs/home/)
 Setup | [All heading and subheading URLs](https://kubernetes.io/docs/setup/)
-Tutorials | [Kubernetes Basics](https://kubernetes.io/docs/tutorials/), [Hello Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
+Tutorials | [Kubernetes Basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/), [Hello Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
 
-Translated documents should have the same URL endpoint as the English docs. To translate the [What is Kubernetes?](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) doc into German, for example, copy
+Translated documents should have the same URL endpoint as the English docs (substituting the subdirectory of the `content` folder). To translate the [Kubernetes Basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/) doc into German, for example, create the proper subfolder under the `content/de` folder and copy the English doc:
 
 ```shell
-mkdir -p content/de/docs/concepts/overview
-cp content/en/docs/concepts/overview/what-is-kubernetes.md content/de/docs/concepts/overview/what-is-kubernetes.md
+mkdir -p content/de/docs/tutorials
+cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kubernetes-basics.md
 ```
 
 ## Project
 
-### Team function
+Teams working on localization efforts must provide:
 
-[Teams](#teams-function) working on localization efforts must track their overall progress with a [GitHub project](https://help.github.com/articles/creating-a-project-board/).
+* A single point of contact, including the name and contact information of a person who can respond to or redirect questions or concerns.
+* Their own repository maintainers.
+
+must track their overall progress with a [GitHub project](https://help.github.com/articles/creating-a-project-board/).
 
 Projects must include at least these columns:
 
