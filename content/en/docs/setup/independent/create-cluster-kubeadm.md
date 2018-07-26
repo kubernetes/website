@@ -371,8 +371,8 @@ With output looking something like:
 
 ```
 node "test-01" untainted
-taint key="dedicated" and effect="" not found.
-taint key="dedicated" and effect="" not found.
+taint "node-role.kubernetes.io/master:" not found
+taint "node-role.kubernetes.io/master:" not found
 ```
 
 This will remove the `node-role.kubernetes.io/master` taint from any nodes that
