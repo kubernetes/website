@@ -90,7 +90,7 @@ The value of the `.dockercfg` field is a base64 representation of your Docker cr
 To understand what is in the `.dockercfg` field, convert the secret data to a
 readable format:
 
-    kubectl get secret regcred --output="jsonpath={.data.\.dockercfg}" | base64 -D
+    kubectl get secret regcred --output="jsonpath={.data.\.dockercfg}" | base64 --decode
 
 The output is similar to this:
 
@@ -98,7 +98,7 @@ The output is similar to this:
 
 To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
 
-    echo "c3R...zE2" | base64 -D
+    echo "c3R...zE2" | base64 --decode
 
 The output, username and password concatenated with a `:`, is similar to this:
 
