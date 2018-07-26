@@ -1,22 +1,28 @@
+{{- $inServerMode := .Site.IsServer }}
+{{- $caseStudyStyles := .Params.case_study_styles }}
 {{- $mainSass := "sass/styles.sass" }}
 {{- $caseStudySass := "sass/case_study_styles.sass" }}
-<link rel="stylesheet" type="text/css" href="/css/base_fonts.css">
-{{- if .Site.IsServer }}
-{{- $mainCssOpts := (dict "targetPath" "css/styles.css") }}
+{{- $mainCssOpts := cond ($inServerMode) (dict "targetPath" "css/styles.css" "enableSourceMap" true) (dict "targetPath" "css/styles.css" "outputStyle" "compressed") }}
+{{- $caseStudyCssOpts := cond ($inServerMode) (dict "targetPath" "css/case_study_styles.css" "enableSourceMap" true) (dict "targetPath" "css/case_study_styles.css" "outputStyle" "compressed") }}
+{{- if $inServerMode }}
 {{- $mainCss := resources.Get $mainSass | toCSS $mainCssOpts }}
 <link rel="stylesheet" media="screen" href="{{ $mainCss.RelPermalink }}"><!-- default styles.css on -->
+{{- if $caseStudyStyles }}
+{{- $caseStudyCss := resources.Get $caseStudySass }}
+<link rel="stylesheet" media="screen" href="{{ $caseStudyCss.RelPermalink }}"><!-- custom case_study_styles on -->
+{{- end }}
 {{- else }}
-{{- $mainCssOpts := (dict "targetPath" "css/styles.css") }}
 {{- $mainCss := resources.Get $mainSass | toCSS $mainCssOpts | minify | fingerprint }}
 <link rel="stylesheet" media="screen" href="{{ $mainCss.RelPermalink }}" integrity="{{ $mainCss.Data.Integrity }}"><!-- default styles.css on -->
-{{- end }}
-{{- if .Params.case_study_styles }}
-{{- $caseStudyCssOpts := (dict "targetPath" "css/styles.css") }}
+{{- if $caseStudyStyles }}
 {{- $caseStudyCss := resources.Get $caseStudySass | toCSS $caseStudyCssOpts | minify | fingerprint }}
-<link rel="stylesheet" media="screen" href="{{ $caseStudyCss.Permalink }}" integrity="{{ $caseStudyCss.Data.Integrity }}"><!-- custom case_study_styles on -->
+<link rel="stylesheet" media="screen" href="{{ $caseStudyCss.RelPermalink }}" integrity="{{ $mainCss.Data.Integrity }}"><!-- custom case_study_styles on -->
 {{- end }}
+{{- end }}
+
 <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<link rel="stylesheet" type="text/css" href="{{ "/css/base_fonts.css" | relURL }}">
 <link rel="stylesheet" type="text/css" href="{{ "css/callouts.css" | relURL }}">
 <link rel="stylesheet" type="text/css" href="{{ "css/custom-jekyll/tags.css" | relURL }}">
 {{- if .Params.deprecated }}
