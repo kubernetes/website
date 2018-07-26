@@ -73,6 +73,8 @@ a Kubernetes cluster from scratch.
 
 * [Kublr](https://kublr.com) offers enterprise-grade secure, scalable, highly reliable Kubernetes clusters on AWS, Azure, GCP, and on-premise. It includes out-of-the-box backup and disaster recovery, multi-cluster centralized logging and monitoring, and built-in alerting.
 
+* [APPUiO](https://appuio.ch) runs an OpenShift public cloud platform, supporting any Kubernetes workload. Additionally APPUiO offers Private Managed OpenShift Clusters, running on any public or private cloud.
+
 # Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -93,6 +95,7 @@ few commands. These solutions are actively developed and have active community s
 * [Gardener](https://gardener.cloud/)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kublr](https://kublr.com/)
+* [APPUiO](https://appuio.ch)
 
 ## On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -105,6 +108,7 @@ few commands.
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kublr](https://kublr.com/)
+* [APPUiO](https://appuio.ch)
 
 ## Custom Solutions
 
