@@ -9,11 +9,11 @@ weight: 30
 {{% capture overview %}}
 This tutorial shows you how to develop a native cloud [Cassandra](http://cassandra.apache.org/) deployment on Kubernetes. In this example, a custom Cassandra `SeedProvider` enables Cassandra to discover new Cassandra nodes as they join the cluster.
 
-It can be challenging to deploy stateful distributed applications within a clustered environment. StatefulSets greatly simplify this process. See the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) documentation for more information on the features used in this tutorial.
+`StatefulSet`s make it easier to deploy stateful applications within a clustered environment. For more information on the features used in this tutorial, see the [`StatefulSet`](/docs/concepts/workloads/controllers/statefulset/) documentation.
 
 **Cassandra on Docker**
 
-The Pods use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
+The `Pod`s in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
 image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
 The Docker image above is based on [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)
 and includes OpenJDK 8.
@@ -30,22 +30,22 @@ By using environment variables you can change values that are inserted into `cas
 {{% /capture %}}
 
 {{% capture objectives %}}
-* Create and validate a Cassandra headless [Service](/docs/concepts/services-networking/service/).
-* Use a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) to create a Cassandra ring.
-* Validate the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
-* Modify the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
-* Delete the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) and its [Pods](/docs/concepts/workloads/pods/pod/).
+* Create and validate a Cassandra headless [`Service`](/docs/concepts/services-networking/service/).
+* Use a [`StatefulSet`](/docs/concepts/workloads/controllers/statefulset/) to create a Cassandra ring.
+* Validate the [`StatefulSet`](/docs/concepts/workloads/controllers/statefulset/).
+* Modify the [`StatefulSet`](/docs/concepts/workloads/controllers/statefulset/).
+* Delete the [`StatefulSet`](/docs/concepts/workloads/controllers/statefulset/) and its [`Pod`s](/docs/concepts/workloads/pods/pod/).
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-To complete this tutorial, you should already have a basic familiarity with [Pods](/docs/concepts/workloads/pods/pod/), [Services](/docs/concepts/services-networking/service/), and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/). In addition, you should:
+To complete this tutorial, you should already have a basic familiarity with [`Pod`s](/docs/concepts/workloads/pods/pod/), [`Service`s](/docs/concepts/services-networking/service/), and [`StatefulSet`s](/docs/concepts/workloads/controllers/statefulset/). In addition, you should:
 
-* [Install and Configure](/docs/tasks/tools/install-kubectl/) the `kubectl` command line
+* [Install and Configure](/docs/tasks/tools/install-kubectl/) the `kubectl` command-line tool
 
-* Download [cassandra-service.yaml](/examples/application/cassandra/cassandra-service.yaml)
-  and [cassandra-statefulset.yaml](/examples/application/cassandra/cassandra-statefulset.yaml)
+* Download [`cassandra-service.yaml`](/examples/application/cassandra/cassandra-service.yaml)
+  and [`cassandra-statefulset.yaml`](/examples/application/cassandra/cassandra-statefulset.yaml)
 
-* Have a supported Kubernetes Cluster running
+* Have a supported Kubernetes cluster running
 
 {{< note >}}
 **Note:** Please read the [getting started guides](/docs/setup/pick-right-solution/) if you do not already have a cluster.
@@ -66,14 +66,14 @@ minikube start --memory 5120 --cpus=4
 {{% capture lessoncontent %}}
 ## Creating a Cassandra Headless Service
 
-A Kubernetes [Service](/docs/concepts/services-networking/service/) describes a set of [Pods](/docs/concepts/workloads/pods/pod/) that perform the same task. 
+A Kubernetes [`Service`](/docs/concepts/services-networking/service/) describes a set of [`Pod`s](/docs/concepts/workloads/pods/pod/) that perform the same task. 
 
-The following `Service` is used for DNS lookups between Cassandra Pods and clients within the Kubernetes Cluster.
+The following `Service` is used for DNS lookups between Cassandra `Pod`s and clients within the Kubernetes cluster.
 
 {{< codenew file="application/cassandra/cassandra-service.yaml" >}}
 
 1. Launch a terminal window in the directory you downloaded the manifest files.
-1. Create a `Service` to track all Cassandra StatefulSet Nodes from the `cassandra-service.yaml` file:
+1. Create a `Service` to track all Cassandra `StatefulSet` nodes from the `cassandra-service.yaml` file:
 
     ```shell
     kubectl create -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
@@ -98,16 +98,16 @@ Service creation failed if anything else is returned. Read [Debug Services](/doc
 
 ## Using a StatefulSet to Create a Cassandra Ring
 
-The StatefulSet manifest, included below, creates a Cassandra ring that consists of three Pods.
+The `StatefulSet` manifest, included below, creates a Cassandra ring that consists of three `Pod`s.
 
 {{< note >}}
-**Note:** This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with.
+**Note:** This example uses the default provisioner for Minikube. Please update the following `StatefulSet` for the cloud you are working with.
 {{< /note >}}
 
 {{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
 
-1. Update the StatefulSet if necessary.
-1. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
+1. Update the `StatefulSet` if necessary.
+1. Create the Cassandra `StatefulSet` from the `cassandra-statefulset.yaml` file:
 
     ```shell
     kubectl create -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
@@ -115,7 +115,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 
 ## Validating The Cassandra StatefulSet
 
-1. Get the Cassandra StatefulSet:
+1. Get the Cassandra `StatefulSet`:
 
     ```shell
     kubectl get statefulset cassandra
@@ -128,9 +128,9 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
     cassandra   3         0         13s
     ```
 
-    The StatefulSet resource deploys Pods sequentially.  
+    The `StatefulSet` resource deploys `Pod`s sequentially.  
 
-1. Get the Pods to see the ordered creation status:
+1. Get the `Pod`s to see the ordered creation status:
 
     ```shell
     kubectl get pods -l="app=cassandra"
@@ -144,7 +144,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
     cassandra-1   0/1       ContainerCreating   0          8s
     ```
 
-    Please note that it may take several minutes for all three Pods to deploy. Once they are deployed, the same command returns:
+    Please note that it may take several minutes for all three `Pod`s to deploy. Once they are deployed, the same command returns:
 
     ```
     NAME          READY     STATUS    RESTARTS   AGE
@@ -174,7 +174,7 @@ The StatefulSet manifest, included below, creates a Cassandra ring that consists
 
 ## Modifying the Cassandra StatefulSet
 
-Use `kubectl edit` to modify the size of a Cassandra StatefulSet. 
+Use `kubectl edit` to modify the size of a Cassandra `StatefulSet`. 
 
 1. Run the following command:
 
@@ -182,7 +182,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
     kubectl edit statefulset cassandra
     ```
 
-    This command opens an editor in your terminal. The line you need to change is the `replicas` field. The following sample is an excerpt of the StatefulSet file:
+    This command opens an editor in your terminal. The line you need to change is the `replicas` field. The following sample is an excerpt of the `StatefulSet` file:
 
     ```yaml
     # Please edit the object below. Lines beginning with a '#' will be ignored,
@@ -207,9 +207,9 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 2. Change the number of replicas to 4, and then save the manifest. 
 
-   The StatefulSet now contains 4 Pods.
+   The `StatefulSet` now contains 4 `Pod`s.
 
-1. Get the Cassandra StatefulSet to verify:
+1. Get the Cassandra `StatefulSet` to verify:
 
     ```shell
     kubectl get statefulset cassandra
@@ -225,13 +225,13 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 {{% /capture %}}
 
 {{% capture cleanup %}}
-Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet. This ensures safety first: your data is more valuable than an auto purge of all related StatefulSet resources. 
+Deleting or scaling a `StatefulSet` down does not delete the volumes associated with the `StatefulSet`. This ensures safety first: your data is more valuable than an auto purge of all related StatefulSet resources. 
 
 {{< warning >}}
-**Warning:** Depending on the storage class and reclaim policy, deleting the PersistentVolumeClaims may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
+**Warning:** Depending on the storage class and reclaim policy, deleting the `PersistentVolumeClaim`s may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
 {{< /warning >}}
 
-1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:
+1. Run the following commands (chained together into a single command) to delete everything in the Cassandra `StatefulSet`:
 
     ```shell
     grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
@@ -251,8 +251,8 @@ Deleting or scaling a StatefulSet down does not delete the volumes associated wi
 
 {{% capture whatsnext %}}
 
-* Learn how to [Scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about the [KubernetesSeedProvider](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
+* Learn how to [Scale a `StatefulSet`](/docs/tasks/run-application/scale-stateful-set/).
+* Learn more about the [`KubernetesSeedProvider`](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
 * See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
 
 {{% /capture %}}
