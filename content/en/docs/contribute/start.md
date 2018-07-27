@@ -312,7 +312,7 @@ Slack channel is a great place to do this.
 ## Write a blog post
 
 Anyone can write a blog post and submit it for review. Blog posts should not be
-commercial in nature and should consiste of content that will apply broadly to
+commercial in nature and should consist of content that will apply broadly to
 the Kubernetes community.
 
 To submit a blog post, you can either submit it using the
