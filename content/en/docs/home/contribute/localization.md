@@ -51,13 +51,11 @@ cd website
 git checkout {{< release-branch >}}
 ```
 
-{{< note >}}
-**Note**: There is currently no German translation of the Kubernetes documentation, but you're welcome to create one using the instructions outlined here!
-{{< /note >}}
-
 ## Configuration
 
-We'll walk you through the configuration process using the German language (language code `de`) as an example. There's currently no translation for German, but you're welcome to create one using the instructions here.
+We'll walk you through the configuration process using the German language (language code `de`) as an example.
+
+There's currently no translation for German, but you're welcome to create one using the instructions here.
 
 The Kubernetes website's configuration is in the [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml) file. You need to add a configuration block for the new language to that file, under the existing `[languages]` block. The German block, for example, looks like this:
 
