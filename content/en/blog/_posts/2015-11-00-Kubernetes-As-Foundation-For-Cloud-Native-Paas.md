@@ -38,7 +38,7 @@ With Kubernetes continuing to gain momentum as a critical tool for building and 
 
 
 
-[![](https://2.bp.blogspot.com/-t3L1CANyhUs/Vjj28Zpf9WI/AAAAAAAAAjE/Ef-PLLmHGvU/s400/k8%2Bipaas%2B3.png)](http://2.bp.blogspot.com/-t3L1CANyhUs/Vjj28Zpf9WI/AAAAAAAAAjE/Ef-PLLmHGvU/s1600/k8%2Bipaas%2B3.png)
+[![](https://2.bp.blogspot.com/-t3L1CANyhUs/Vjj28Zpf9WI/AAAAAAAAAjE/Ef-PLLmHGvU/s400/k8%2Bipaas%2B3.png)](https://2.bp.blogspot.com/-t3L1CANyhUs/Vjj28Zpf9WI/AAAAAAAAAjE/Ef-PLLmHGvU/s1600/k8%2Bipaas%2B3.png)
 
 
 
@@ -64,7 +64,7 @@ Huawei has made Kubernetes the core runtime engine for container based applicati
 
 
 
-[![](https://2.bp.blogspot.com/-Ys0Zn4IQzn0/Vjj3JIE0BVI/AAAAAAAAAjM/ktwltzVa1GE/s400/k8%2Bipaas%2B4.png)](http://2.bp.blogspot.com/-Ys0Zn4IQzn0/Vjj3JIE0BVI/AAAAAAAAAjM/ktwltzVa1GE/s1600/k8%2Bipaas%2B4.png)
+[![](https://2.bp.blogspot.com/-Ys0Zn4IQzn0/Vjj3JIE0BVI/AAAAAAAAAjM/ktwltzVa1GE/s400/k8%2Bipaas%2B4.png)](https://2.bp.blogspot.com/-Ys0Zn4IQzn0/Vjj3JIE0BVI/AAAAAAAAAjM/ktwltzVa1GE/s1600/k8%2Bipaas%2B4.png)
 
 
 
