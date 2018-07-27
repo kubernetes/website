@@ -59,7 +59,7 @@ kube-controller-manager ... --cloud-provider=ovirt --cloud-config=/path/to/ovirt
 
 This short screencast demonstrates how the oVirt Cloud Provider can be used to dynamically add VMs to your Kubernetes cluster.
 
-[![Screencast](http://img.youtube.com/vi/JyyST4ZKne8/0.jpg)](http://www.youtube.com/watch?v=JyyST4ZKne8)
+[![Screencast](https://img.youtube.com/vi/JyyST4ZKne8/0.jpg)](https://www.youtube.com/watch?v=JyyST4ZKne8)
 
 ## Support Level
 
