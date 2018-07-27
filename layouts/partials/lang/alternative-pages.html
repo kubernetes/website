@@ -1,0 +1,12 @@
+{{ $adder := .adder | default "pages" }}
+{{ $to := .to | default "pages-language-alternatives" }}
+{{ $adderPartial := printf "lang/pages-lang-list-add-%s"  $adder }}
+{{- $.Scratch.Set "pages-lang-list" (slice) -}}
+{{ partial $adderPartial (dict "ctx" .page "page" .page) }}
+{{- range $.page.Site.Params.language_alternatives -}}
+{{ with (where $.page.Translations ".Lang" . ) }}
+{{ $p := (index . 0) }}
+{{ partial $adderPartial (dict "ctx" $.page "page" $p) }}
+{{ end }}
+{{- end -}}
+{{- partial "lang/alternatives-merge.html" (dict "ctx" $.page "from" "pages-lang-list" "to" $to) -}}

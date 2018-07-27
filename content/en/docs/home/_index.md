@@ -11,4 +11,10 @@ display_browse_numbers: true
 linkTitle: "Documentation"
 main_menu: true
 weight: 5
+menu:
+  main:
+    title: "Documentation"
+    weight: 20
+    post: >
+      <p>Learn how to use Kubernetes with the use of walkthroughs, samples, and reference documentation. You can even <a href="/editdocs/" data-auto-burger-exclude>help contribute to the docs</a>!</p>
 ---

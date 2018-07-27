@@ -1,0 +1,24 @@
+{{ define "main" }}
+{{/* The English site has a hardcoded case-studies listing. */}}
+{{ if ge (len .Content) 300 }}
+{{ .Content }}
+{{ else }}
+<section id="mainContent">
+	<main>
+		<div class="content">
+			<div class="case-studies">
+				{{ partial "lang/alternative-pages.html" (dict "page" .) }}
+				{{ $pages := .Scratch.Get "pages-language-alternatives" }}
+				{{ range $pages }}
+				{{ $logo := .Resources.GetMatch "**logo.png" }}
+				<div class="case-study">
+					<img src="{{ with $logo }}{{ .RelPermalink }}{{ else }}/images/case_studies/ing_feature.png{{ end }}">
+					<p class="quote">{{ .Plain | truncate 100}}</p>
+					<a href="{{ .RelPermalink }}">{{ T "main_read_about"}} {{  replace .Title "Case Study" ""  }}</a>
+				</div>
+				{{ end }}
+		</div>
+	</main>
+</section>
+{{ end}}
+{{ end }}

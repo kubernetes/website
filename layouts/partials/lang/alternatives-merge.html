@@ -1,0 +1,7 @@
+{{ range $i, $e := ($.ctx.Scratch.Get $.from)}}
+  {{ if eq $i 0 }}
+  {{ $.ctx.Scratch.Set $.to $e }}
+  {{ else }}
+  {{ $.ctx.Scratch.Set $.to ($.ctx.Scratch.Get $.to | lang.Merge $e  ) }}
+  {{ end }}
+{{ end }}

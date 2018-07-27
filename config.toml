@@ -22,6 +22,8 @@ pygmentsStyle = "emacs"
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
 
+# disableLanguages = ["no"]
+
 [blackfriday]
 hrefTargetBlank = true
 fractions = false
@@ -134,4 +136,14 @@ description = "Production-Grade Container Orchestration"
 languageName ="Chinese"
 weight = 2
 contentDir = "content/cn"
+[languages.no]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Norsk"
+weight = 3
+contentDir = "content/no"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
+
 

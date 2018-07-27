@@ -1,5 +1,7 @@
 <div class="panel-group" id="blog-archive">
-  {{ range $i, $e := .CurrentSection.Pages.GroupByPublishDate "2006" }}
+  {{ partial "lang/alternative-pages.html" (dict "page" . "adder" "currentsection-pages" "to" "pages") }}
+  {{ $pages := $.Scratch.Get "pages" }}
+  {{ range $i, $e := $pages.GroupByPublishDate "2006" }}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">

@@ -4,7 +4,7 @@ reviewers:
 - erictune
 - mikedanese
 title: Picking the Right Solution
-content_template: templates/concept
+linkTitle: Get Kubernetes
 ---
 
 {{% capture overview %}}

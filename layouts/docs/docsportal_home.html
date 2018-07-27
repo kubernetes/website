@@ -3,7 +3,17 @@
 	 <h1>{{ .Title }}</h1>
     {{ end }}
     {{ template "docs-portal-user-journey" . }}
-    {{ partial "docs/browse.html" (where .Parent.Sections ".Params.toc_hide" "!=" true) }}
+    
+    {{ .Scratch.Set "roots" (slice .Parent.Sections) }}
+    {{ range .Site.Params.language_alternatives }}
+      {{ with (where $.Translations ".Lang" . ) }}
+      {{ $.Scratch.Add "roots" (slice (index . 0).Parent.Sections) }}
+      {{ end }}
+    {{ end }}
+
+    {{ partial "lang/alternatives-merge" (dict "ctx" . "from" "roots" "to" "browse_sections") }}
+    {{ $bsections := (where (.Scratch.Get "browse_sections") ".Params.toc_hide" "!=" true) }}
+    {{ partial "docs/browse.html" (dict "ctx" . "sections" $bsections ) }}
 {{ end }}
 
 {{ define "content-id" }}content{{ end }}
@@ -16,26 +26,30 @@
 </div>
 
 <div class="hide">
-{{  $skip_uj_paths := "migrators" }}
-{{ range $k, $v := $user_personas }}
-
-{{ if strings.Contains $skip_uj_paths $k }}
-{{ else }}
+  {{  $skip_uj_paths := "migrators" }}
+  {{ $glossary := $.Site.GetPage "page" "docs/reference/glossary" }}
+  {{ if not $glossary }}
+  {{ errorf "no glossary defined for language %q" .Lang }}
+  {{ end }}
+  {{ range $k, $v := $user_personas }}
+  {{ if strings.Contains $skip_uj_paths $k }}
+  {{ else }}
   {{ range $kk, $vv := $v }}
-    <div class="persona-def-data" data-name="{{ $kk }}">
+  <div class="persona-def-data" data-name="{{ $kk }}">
     {{ $persona_info := $vv }}
     {{ if $persona_info.short_desc }}
     {{ $persona_info.short_desc }}
     {{ else if $persona_info.glossary_id }}
-    {{ with $persona_info.glossary_id | printf "%s.md" | ($.Site.GetPage "page" "docs/reference/glossary").Resources.GetMatch }}
+    {{ with $glossary }}
+    {{ with $persona_info.glossary_id | printf "%s.md" | .Resources.GetMatch }}
     {{ .Params.short_description }}
     {{ end }}
     {{ end }}
-    </div>
     {{ end }}
-{{ end }}
-
-{{ end }}
+  </div>
+  {{ end }}
+  {{ end }}
+  {{ end }}
 </div>
 
 <div id='aboutWrapper'>
