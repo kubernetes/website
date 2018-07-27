@@ -59,7 +59,7 @@ provisioning to occur. Claims that request the class `""` effectively disable
 dynamic provisioning for themselves.
 
 To enable dynamic storage provisioning based on storage class, the cluster administrator
-needs to enable the `DefaultStorageClass` [admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
+needs to enable the `DefaultStorageClass` [admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
 among the comma-delimited, ordered list of values for the `--enable-admission-plugins` flag of
 the API server component. For more information on API server command line flags,
@@ -215,7 +215,7 @@ You can only resize volumes containing a file system if the file system is XFS, 
 
 When a volume contains a file system, the file system is only resized when a new Pod is started using
 the `PersistentVolumeClaim` in ReadWrite mode. Therefore, if a pod or deployment is using a volume and
-you want to expand it, you need to delete or recreate the pod after the volume has been exxpanded by the cloud provider in the controller-manager. You can check the status of resize operation by running the `kubectl describe pvc` command:
+you want to expand it, you need to delete or recreate the pod after the volume has been expanded by the cloud provider in the controller-manager. You can check the status of resize operation by running the `kubectl describe pvc` command:
 
 ```
 kubectl describe pvc <pvc_name>
@@ -466,7 +466,7 @@ equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
 `""`). A PVC with no `storageClassName` is not quite the same and is treated differently
 by the cluster depending on whether the
-[`DefaultStorageClass` admission plugin](/docs/admin/admission-controllers/#defaultstorageclass)
+[`DefaultStorageClass` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 is turned on.
 
 * If the admission plugin is turned on, the administrator may specify a

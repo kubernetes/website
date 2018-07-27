@@ -217,7 +217,7 @@ To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade app
     apt-get upgrade -y kubelet kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum upgrade -y kubelet kubeadm
+    yum upgrade -y kubelet kubeadm --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 

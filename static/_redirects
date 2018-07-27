@@ -181,6 +181,12 @@
 /docs/getting-started-guides/vsphere/     https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/ 301
 /docs/getting-started-guides/windows/While/     /docs/getting-started-guides/windows/ 301
 /docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
+/docs/getting-started-guides/alibaba-cloud/ /docs/setup/turnkey/alibaba-cloud/ 301
+/docs/getting-started-guides/aws/ /docs/setup/turnkey/aws/ 301
+/docs/getting-started-guides/azure/ /docs/setup/turnkey/azure/ 301
+/docs/getting-started-guides/clc/ /docs/setup/turnkey/clc/ 301
+/docs/getting-started-guides/gce/ /docs/setup/turnkey/gce/ 301
+/docs/getting-started-guides/stackpoint/ /docs/setup/turnkey/stackpoint/ 301
 
 /docs/hellonode/     /docs/tutorials/stateless-application/hello-minikube/ 301
 /docs/home/contribute/stage-documentation-changes/     /docs/home/contribute/create-pull-request/ 301
@@ -218,7 +224,6 @@
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /docs/samples/     /docs/tutorials/ 301
-/docs/setup/independent/install-kubeadm/     /docs/tasks/tools/install-kubeadm/ 301
 /docs/stable/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 
 /docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301
@@ -513,3 +518,4 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301
 
 /docs/admin/high-availability/building/     /docs/setup/independent/high-availability/ 301
+/code-of-conduct/     /community/code-of-conduct/   301
