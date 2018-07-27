@@ -10,19 +10,17 @@ approvers:
 
 The Kubernetes documentation is currently available in [multiple languages](#supported-languages) and we encourage you to add new localizations ([l10n](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/))!
 
-In order for localizations to be accepted, however, they must fulfill some requirements related to [workflow](#workflow) (*how* to localize) and [output](#output) (*what* to localize).
+Currently available languages:
+
+{{< language-repos-list >}}
+
+In order for localizations to be accepted, however, they must fulfill some requirements related to workflow (*how* to localize) and output (*what* to localize).
 
 {{% /capture %}}
 
 {{< toc >}}
 
 {{% capture body %}}
-
-## Supported languages
-
-The Kubernetes documentation is currently available in the following languages:
-
-{{< language-repos-list >}}
 
 ## Workflow
 
@@ -45,8 +43,6 @@ Localizations must use English files from the most recent major release as sourc
 
 In order to add a new localization of the Kubernetes documentation, you'll need to make a few modifications to the site's [configuration](#configuration) and [directory structure](#new-directory), and then you can get to work [translating documents](#translating-documents)!
 
-We'll walk you through this whole process using the German language (language code `de`) as an example.
-
 To get started, clone the website repo and `cd` into it:
 
 ```shell
@@ -61,7 +57,9 @@ git checkout {{< release-branch >}}
 
 ## Configuration
 
-The website's configuration is in the [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml) file. You'll need to add a configuration block for the new language to that file, under the existing `[languages]` block. The German block, for example, looks like this:
+We'll walk you through the configuration process using the German language (language code `de`) as an example. There's currently no translation for German, but you're welcome to create one using the instructions here.
+
+The Kubernetes website's configuration is in the [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml) file. You need to add a configuration block for the new language to that file, under the existing `[languages]` block. The German block, for example, looks like this:
 
 ```toml
 [languages.de]
@@ -72,13 +70,9 @@ contentDir = "content/de"
 weight = 3
 ```
 
-When assigning a `weight` parameter, make sure to see which of the current languages has the highest weight and add 1.
+When assigning a `weight` parameter, see which of the current languages has the highest weight and add 1 to that value.
 
-## New directory
-
-In order to begin adding documentation for a new localization, you'll need to add a subdirectory to the [`content`](https://github.com/kubernetes/website/tree/master/content) folder. The `en` and `cn` subdirectories, for example, are for English and Chinese, respectively.
-
-In the configuration example [above](#configuration) the two-letter code for German is `de`. That means that a `de` directory needs to be added to the `content` directory:
+Now add a language-specific subdirectory to the [`content`](https://github.com/kubernetes/website/tree/master/content) folder. The two-letter code for German is `de`, so add a `content/de` directory:
 
 ```shell
 mkdir content/de
@@ -86,7 +80,7 @@ mkdir content/de
 
 ## Translating documents
 
-We understand that localizing *all* of the Kubernetes documentation would be an enormous task. We're okay with localizations smarting small and expanding later.
+We understand that localizing *all* of the Kubernetes documentation would be an enormous task. We're okay with localizations smarting small and expanding over time.
 
 As an initial requirement, all localizations must include the following documentation at a minimum:
 
@@ -103,14 +97,27 @@ mkdir -p content/de/docs/tutorials
 cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kubernetes-basics.md
 ```
 
-## Project
+## Project logistics
 
-Teams working on localization efforts must provide:
+### Contact with project chairs
 
-* A single point of contact, including the name and contact information of a person who can respond to or redirect questions or concerns.
-* Their own repository maintainers.
+When starting a new localization effort, you should get in touch with one of the chairs of the Kubernetes [SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) organization. The current chairs are listed [here](https://github.com/kubernetes/community/tree/master/sig-docs#chairs).
 
-must track their overall progress with a [GitHub project](https://help.github.com/articles/creating-a-project-board/).
+### Project information
+
+Teams working on localization efforts must provide a single point of contact, including the name and contact information of a person who can respond to or redirect questions or concerns, listed in the translation repository's main [`README`](https://help.github.com/articles/about-readmes/). You can provide an email address, email list, [Slack channel](https://slack.com/), or some other method of contact.
+
+### Maintainers
+
+Each localization repository must select its own maintainers. Maintainers can be from a single organization or multiple organizations.
+
+In addition, all l10n work must be self-sustaining with the team's own resources.
+
+Wherever possible, every localized page must be approved by a reviewer from a different company than the translator.
+
+### GitHub project
+
+Each Kubernetes localization repository must track its overall progress with a [GitHub project](https://help.github.com/articles/creating-a-project-board/).
 
 Projects must include at least these columns:
 
@@ -119,17 +126,8 @@ Projects must include at least these columns:
 - Done
 
 {{< note >}}
-**Note**: For an example, see the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-zh/projects/1).
+**Note**: For an example GitHub project, see the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-zh/projects/1).
 {{< /note >}}
-
-In addition, l10n teams must provide:
-
-* A single point of contact, including the name and contact information of a person who can respond to or redirect questions or concerns.
-* Their own repository maintainers.
-
-In addition, all l10n work must be self-sustaining with the team's own resources.
-
-Wherever possible, every localized page must be approved by a reviewer from a different company than the translator.
 
 ### Repository structure
 
