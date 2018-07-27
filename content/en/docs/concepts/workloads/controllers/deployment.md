@@ -356,9 +356,9 @@ nginx-deployment-2035384211) and new replicas (nginx-deployment-3066724191) are 
 ```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-1564180365   2         2         0       25s
+nginx-deployment-1564180365   2         2         2       25s
 nginx-deployment-2035384211   0         0         0       36s
-nginx-deployment-3066724191   2         2         2       6s
+nginx-deployment-3066724191   2         2         0       6s
 ```
 
 Looking at the Pods created, you will see that the 2 Pods created by new ReplicaSet are stuck in an image pull loop.

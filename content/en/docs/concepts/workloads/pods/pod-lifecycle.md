@@ -55,23 +55,23 @@ array has six possible fields:
 
 * The `message` field is a human-readable message indicating details
   about the transition.
+  
+* The `reason` field is a unique, one-word, CamelCase reason for the condition's last transition.
 
-A Pod has a PodStatus, which has an array of
-[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core). Each element
-of the PodCondition array has a `type` field and a `status` field. The `type`
-field is a string with the following possible values:
+* The `status` field is a string, with possible values "`True`", "`False`", and "`Unknown`".
 
-* `PodScheduled`: the Pod has been scheduled to a node;
-* `Ready`: the Pod is able to serve requests and should be added to the load
-  balancing pools of all matching Services;
-* `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
-  have started successfully;
-* `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
-  due to lacking of resources or other constraints;
-* `ContainersReady`: all containers in the Pod are ready.
+* The `type` field is a string with the following possible values:
 
-The `status` field is a string, with possible values "`True`", "`False`", and
-"`Unknown`".
+  * `PodScheduled`: the Pod has been scheduled to a node;
+  * `Ready`: the Pod is able to serve requests and should be added to the load
+    balancing pools of all matching Services;
+  * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
+    have started successfully;
+  * `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
+    due to lacking of resources or other constraints;
+  * `ContainersReady`: all containers in the Pod are ready.
+
+
 
 ## Container probes
 

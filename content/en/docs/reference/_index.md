@@ -5,7 +5,16 @@ approvers:
 linkTitle: "Reference"
 main_menu: true
 weight: 70
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
+
+This section of the Kubernetes documentation contains references.
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## API Reference
 
@@ -46,3 +55,5 @@ client libraries:
 ## Design Docs
 
 An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+
+{{% /capture %}}

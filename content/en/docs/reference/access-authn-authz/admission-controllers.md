@@ -26,7 +26,7 @@ is authenticated and authorized.  The controllers consist of the
 administrator. In that list, there are two special controllers:
 MutatingAdmissionWebhook and ValidatingAdmissionWebhook.  These execute the
 mutating and validating (respectively) [admission control
-webhooks](/docs/admin/extensible-admission-controllers.md#external-admission-webhooks)
+webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
 which are configured in the API.
 
 Admission controllers may be "validating", "mutating", or both. Mutating
@@ -325,7 +325,7 @@ In any case, the annotations are provided by the user and are not validated by K
 The admission controller determines the initializers of a resource based on the existing
 `InitializerConfiguration`s. It sets the pending initializers by modifying the
 metadata of the resource to be created.
-For more information, please check [Dynamic Admission Control](/docs/admin/extensible-admission-controllers.md).
+For more information, please check [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 
@@ -465,13 +465,14 @@ metadata:
 
 #### Internal Behavior
 This admission controller has the following behavior:
-  1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
-     node selector.
-  1. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
-     plugin configuration file as the node selector.
-  1. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
-  1. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
-     Conflicts result in rejection.
+
+1. If the `Namespace` has an annotation with a key `scheduler.alpha.kubernetes.io/node-selector`, use its value as the
+node selector.
+2. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
+plugin configuration file as the node selector.
+3. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
+4. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
+Conflicts result in rejection.
 
 {{< note >}}
 **Note:** PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 

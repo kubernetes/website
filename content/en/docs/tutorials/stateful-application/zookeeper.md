@@ -848,13 +848,13 @@ This is because the Pods in the `zk` `StatefulSet` have a `PodAntiAffinity` spec
                   - key: "app"
                     operator: In
                     values:
-                    - zk-hs
+                    - zk
               topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingIgnoredDuringExecution` field tells the
-Kubernetes Scheduler that it should never co-locate two Pods from the `zk-hs`
-Service in the domain defined by the `topologyKey`. The `topologyKey`
+Kubernetes Scheduler that it should never co-locate two Pods which have `app` label 
+as `zk` in the domain defined by the `topologyKey`. The `topologyKey`
 `kubernetes.io/hostname` indicates that the domain is an individual node. Using
 different rules, labels, and selectors, you can extend this technique to spread
 your ensemble across physical, network, and power failure domains.
