@@ -24,7 +24,7 @@ Let’s consider a simple application, _PaymentProcessor_, that retrieves, proce
 Due to the sensitive nature of the payment data, the developers and DevOps team really want to make sure that the code meets certain security and compliance requirements, with detailed records on the provenance of this code. There are CI/CD stages that validate the quality of the PaymentProcessor release, but there is no easy way to centrally view/manage this information:
 
 
-[![](https://1.bp.blogspot.com/-WeI6zpGd42A/WfzDkkIonFI/AAAAAAAAAG4/wKUaNaXYvaQ-an9p4_9T9J3EQB_zHkRXwCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.23%2BPM.png)](http://1.bp.blogspot.com/-WeI6zpGd42A/WfzDkkIonFI/AAAAAAAAAG4/wKUaNaXYvaQ-an9p4_9T9J3EQB_zHkRXwCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.23%2BPM.png)  
+[![](https://1.bp.blogspot.com/-WeI6zpGd42A/WfzDkkIonFI/AAAAAAAAAG4/wKUaNaXYvaQ-an9p4_9T9J3EQB_zHkRXwCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.23%2BPM.png)](https://1.bp.blogspot.com/-WeI6zpGd42A/WfzDkkIonFI/AAAAAAAAAG4/wKUaNaXYvaQ-an9p4_9T9J3EQB_zHkRXwCK4BGAYYCw/s1600/Screen%2BShot%2B2017-11-03%2Bat%2B12.28.23%2BPM.png)  
 
 
 ## Visibility and governance over the PaymentProcessor Code
