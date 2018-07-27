@@ -529,7 +529,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #video #desktopKCButton { position: relative; font-size: 18px; background-color: #303030; border-radius: 8px; color: #ffffff; padding: 20px 10px 20px 10px; }
 
-#video #desktopShowVideoButton { position: relative; font-size: 24px; background-color: white; border-radius: 8px; color: #3371e3; padding: 15px 30px 15px 80px; margin-bottom: 15px; }
+#video #desktopShowVideoButton { position: relative; font-size: 24px; background-color: white; border-radius: 8px; color: #3371e3; padding: 15px 30px 15px 80px; }
 
 #video #desktopShowVideoButton:before { content: ""; position: absolute; position: absolute; top: 50%; left: 40px; transform: translate(-50%, -50%); width: 0; height: 0; border-style: solid; border-width: 10px 0 10px 20px; border-color: transparent transparent transparent #3371e3; }
 
@@ -567,6 +567,12 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #features .feature-box > div { width: 100%; margin-bottom: 40px; }
 
+#cncf { padding-top: 40px; padding-bottom: 120px; background-color: #f7f7f7; background-image: url(https://www.cncf.io/wp-content/uploads/2017/10/cncf-logo.png); background-position: center 60px; background-repeat: no-repeat; background-size: 300px; }
+
+#cncf p { font-size: 20px; }
+
+#cncf a { color: #3371E3; }
+
 #community.open-nav .logo, #community.flip-nav .logo, .gridPage.open-nav .logo, .gridPage.flip-nav .logo { background-image: url(/images/nav_logo2.svg); }
 
 #community #hero, .gridPage #hero { padding-bottom: 20px; }
@@ -583,7 +589,12 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #community #mainContent .content:nth-child(even), .gridPage #mainContent .content:nth-child(even) { background-color: #f7f7f7; }
 
-#community #mainContent .company-logos, .gridPage #mainContent .company-logos { text-align: center; max-width: 1200px; margin: 0 auto; }
+#community #mainContent .company-logos, .gridPage #mainContent 
+#talkToUs h3 { margin-bottom: 15px; }
+
+#talkToUs h4 { line-height: normal; margin-bottom: 50px; }
+
+#talkToUs h4 br { display: none; }                    .company-logos { text-align: center; max-width: 1200px; margin: 0 auto; }
 
 #community #mainContent .company-logos img, .gridPage #mainContent .company-logos img { width: auto; margin: 10px; background-color: #f7f7f7; }
 
@@ -723,11 +734,6 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #talkToUs h3, #talkToUs h4 { text-align: center; }
 
-#talkToUs h3 { margin-bottom: 15px; }
-
-#talkToUs h4 { line-height: normal; margin-bottom: 50px; }
-
-#talkToUs h4 br { display: none; }
 
 #talkToUs #bigSocial { overflow: hidden; }
 
@@ -755,13 +761,13 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #home #caseStudiesWrapper div { position: relative; display: inline-block; vertical-align: top; width: 100%; min-height: 230px; padding: 125px 10px 15px; margin-bottom: 30px; background-position: top center; background-repeat: no-repeat; }
 
-#home #caseStudiesWrapper div:nth-child(1) { background-image: url(/images/community_logos/northwestern-mutual.png); }
+#home #caseStudiesWrapper div:nth-child(1) { background-image: url(/images/community_logos/pinterest.png); }
 
-#home #caseStudiesWrapper div:nth-child(2) { background-image: url(/images/community_logos/openai.png); }
+#home #caseStudiesWrapper div:nth-child(2) { background-image: url(/images/community_logos/pearson.png); }
 
-#home #caseStudiesWrapper div:nth-child(3) { background-image: url(/images/community_logos/nyt.png); }
+#home #caseStudiesWrapper div:nth-child(3) { background-image: url(/images/community_logos/capitalone.png); }
 
-#home #caseStudiesWrapper div:nth-child(4) { background-image: url(/images/community_logos/nordstrom.png); }
+#home #caseStudiesWrapper div:nth-child(4) { background-image: url(/images/community_logos/ing.png); }
 
 #home #caseStudiesWrapper p { font-size: 20px; }
 
@@ -887,6 +893,9 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #oceanNodes main:nth-child(1) .image-wrapper { position: absolute; max-width: 48%; transform: translateY(-50%); }
   #oceanNodes main:nth-child(1) .image-wrapper img { max-width: 425px; }
   #video { height: 550px; position: relative; background-image: url(../images/kub_video_banner_homepage.jpg); background-position: center center; background-size: cover; }
+  #cncf { padding-top: 60px; padding-bottom: 160px; background-color: #f7f7f7; background-image: url(https://www.cncf.io/wp-content/uploads/2017/10/cncf-logo.png); background-position: center 80px; background-repeat: no-repeat; background-size: 400px; }
+  #cncf p { font-size: 24px; }
+  #cncf a { color: #3371E3; }
   #talkToUs h4 br { display: block; }
   #talkToUs #bigSocial div { width: calc(25% - 18px); }
   #talkToUs #bigSocial div + div { margin-left: 20px; }
@@ -918,6 +927,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
   #community #hero h1, .gridPage #hero h1 { padding: 20px 100px; }
   #community #tryKubernetes, .gridPage #tryKubernetes { width: auto; background-color: #3371e3; padding: 0 20px; }
   #bigSocial div { width: calc(25% - 18px); }
+  #home #cncf div { width: 24%; min-height: 260px; }
   #home #caseStudiesWrapper div { width: 24%; min-height: 260px; } }
 
 @media screen and (min-width: 1300px) { #vendorStrip { padding-right: 100px; } }

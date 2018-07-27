@@ -39,7 +39,7 @@ Once TLS is established, the HTTP request moves to the Authentication step.
 This is shown as step **1** in the diagram.
 The cluster creation script or cluster admin configures the API server to run
 one or more Authenticator Modules.
-Authenticators are described in more detail [here](/docs/admin/authentication/).
+Authenticators are described in more detail [here](/docs/reference/access-authn-authz/authentication/).
 
 The input to the authentication step is the entire HTTP request, however, it typically
 just examines the headers and/or client certificate.
@@ -104,7 +104,7 @@ Kubernetes authorization requires that you use common REST attributes to interac
 
 Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configured the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
 
-To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/admin/authorization/). 
+To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
 
 
 ## Admission Control
@@ -124,7 +124,7 @@ rejects, then the request is immediately rejected.
 In addition to rejecting objects, admission controllers can also set complex defaults for
 fields.
 
-The available Admission Control Modules are described [here](/docs/admin/admission-controllers/).
+The available Admission Control Modules are described [here](/docs/reference/access-authn-authz/admission-controllers/).
 
 Once a request passes all admission controllers, it is validated using the validation routines
 for the corresponding API object, and then written to the object store (shown as step **4**).

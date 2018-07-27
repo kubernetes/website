@@ -311,10 +311,15 @@ $( document ).ready(function() {
     }
   }
 
+  window.onpopstate = function() {
+    window.history.back();
+  }
+
   function main() {
     // Set up UI
     buildCards();
     attachCardEvents();
+    setupCardState();
   }
 
   // What actually executes on page load
