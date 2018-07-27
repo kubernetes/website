@@ -34,13 +34,26 @@ blog = "/:section/:year/:month/:day/:slug/"
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
-home = [ "HTML", "RSS"]
+home = [ "HTML", "RSS", "HEADERS" ]
 page = [ "HTML"]
 section = [ "HTML"]
+
+# Add a "text/netlify" media type for auto-generating the _headers file
+[mediaTypes]
+[mediaTypes."text/netlify"]
+suffix = ""
+delimiter = ""
 
 [outputFormats]
 [outputFormats.RSS]
 baseName = "feed"
+
+# _headers file output (uses the template at layouts/index.headers)
+[outputFormats.HEADERS]
+mediatype = "text/netlify"
+baseName = "_headers"
+isPlainText = true
+notAlternative = true
 
 [params]
 
@@ -66,6 +79,17 @@ version = "v1.11"
 githubbranch = "v1.11.0"
 docsbranch = "release-1.11"
 url = "https://kubernetes.io"
+
+[params.pushAssets]
+css = [
+  "callouts",
+  "styles",
+  "custom-jekyll/tags"
+]
+js = [
+  "custom-jekyll/tags",
+  "script"
+]
 
 [[params.versions]]
 fullversion = "v1.10.3"
@@ -95,7 +119,6 @@ githubbranch = "v1.7.6"
 docsbranch = "release-1.7"
 url = "https://v1-7.docs.kubernetes.io"
 
-
 # Language definitions.
 
 [languages]
@@ -111,3 +134,4 @@ description = "Production-Grade Container Orchestration"
 languageName = "Chinese"
 weight = 2
 contentDir = "content/cn"
+
