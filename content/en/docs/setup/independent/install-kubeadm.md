@@ -151,8 +151,9 @@ server version. For example, kubelets running 1.7.0 should be fully compatible w
 but not vice versa.
 
 {{< warning >}}
-Kubeadm and Kubernetes components must be [carefully upgraded](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/),
-and should not be upgraded with other packages. These install instructions exclude all kubernetes packages from system upgrades.
+These instructions exclude all Kubernetes packages from any system upgrades.
+This is because kubeadm and Kubernetes require
+[special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
 {{</ warning >}}
 
 For more information on version skews, please read our 
