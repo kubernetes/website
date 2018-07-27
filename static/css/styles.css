@@ -589,7 +589,12 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #community #mainContent .content:nth-child(even), .gridPage #mainContent .content:nth-child(even) { background-color: #f7f7f7; }
 
-#community #mainContent .company-logos, .gridPage #mainContent .company-logos { text-align: center; max-width: 1200px; margin: 0 auto; }
+#community #mainContent .company-logos, .gridPage #mainContent 
+#talkToUs h3 { margin-bottom: 15px; }
+
+#talkToUs h4 { line-height: normal; margin-bottom: 50px; }
+
+#talkToUs h4 br { display: none; }                    .company-logos { text-align: center; max-width: 1200px; margin: 0 auto; }
 
 #community #mainContent .company-logos img, .gridPage #mainContent .company-logos img { width: auto; margin: 10px; background-color: #f7f7f7; }
 
@@ -729,11 +734,6 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #talkToUs h3, #talkToUs h4 { text-align: center; }
 
-#talkToUs h3 { margin-bottom: 15px; }
-
-#talkToUs h4 { line-height: normal; margin-bottom: 50px; }
-
-#talkToUs h4 br { display: none; }
 
 #talkToUs #bigSocial { overflow: hidden; }
 
@@ -761,13 +761,13 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #home #caseStudiesWrapper div { position: relative; display: inline-block; vertical-align: top; width: 100%; min-height: 230px; padding: 125px 10px 15px; margin-bottom: 30px; background-position: top center; background-repeat: no-repeat; }
 
-#home #caseStudiesWrapper div:nth-child(1) { background-image: url(/images/community_logos/capitalone.png); }
+#home #caseStudiesWrapper div:nth-child(1) { background-image: url(/images/community_logos/pinterest.png); }
 
-#home #caseStudiesWrapper div:nth-child(2) { background-image: url(/images/community_logos/ing.png); }
+#home #caseStudiesWrapper div:nth-child(2) { background-image: url(/images/community_logos/pearson.png); }
 
-#home #caseStudiesWrapper div:nth-child(3) { background-image: url(/images/community_logos/northwestern-mutual.png); }
+#home #caseStudiesWrapper div:nth-child(3) { background-image: url(/images/community_logos/capitalone.png); }
 
-#home #caseStudiesWrapper div:nth-child(4) { background-image: url(/images/community_logos/openai.png); }
+#home #caseStudiesWrapper div:nth-child(4) { background-image: url(/images/community_logos/ing.png); }
 
 #home #caseStudiesWrapper p { font-size: 20px; }
 
