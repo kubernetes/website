@@ -3,12 +3,13 @@ reviewers:
 - sig-cluster-lifecycle
 title: Creating a single master cluster with kubeadm
 content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
-lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/admin/bootstrap-tokens/). 
+lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
 
 Because you can install kubeadm on various types of machine (e.g. laptop, server, 
 Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
@@ -20,7 +21,54 @@ kubeadm's simplicity means it can serve a wide range of use cases:
 - Users familiar with Kubernetes can spin up clusters with kubeadm and test their applications.
 - Larger projects can include kubeadm as a building block in a more complex system that can also include other installer tools.
 
-kubeadm's overall feature state is **Beta**. 
+kubeadm is designed to be a simple way for new users to start trying
+Kubernetes out, possibly for the first time, a way for existing users to
+test their application on and stitch together a cluster easily, and also to be
+a building block in other ecosystem and/or installer tool with a larger
+scope.
+
+You can install _kubeadm_ very easily on operating systems that support
+installing deb or rpm packages. The responsible SIG for kubeadm,
+[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
+but you may also on other OSes.
+
+
+### kubeadm Maturity
+
+| Area                      | Maturity Level |
+|---------------------------|--------------- |
+| Command line UX           | beta           |
+| Implementation            | beta           |
+| Config file API           | alpha          |
+| Self-hosting              | alpha          |
+| kubeadm alpha subcommands | alpha          |
+| CoreDNS                   | GA             |
+| DynamicKubeletConfig      | alpha          |
+
+
+kubeadm's overall feature state is **Beta** and will soon be graduated to
+**General Availability (GA)** during 2018. Some sub-features, like self-hosting
+or the configuration file API are still under active development. The
+implementation of creating the cluster may change slightly as the tool evolves,
+but the overall implementation should be pretty stable. Any commands under
+`kubeadm alpha` are by definition, supported on an alpha level.
+
+
+### Support timeframes
+
+Kubernetes releases are generally supported for nine months, and during that
+period a patch release may be issued from the release branch if a severe bug or
+security issue is found. Here are the latest Kubernetes releases and the support
+timeframe; which also applies to `kubeadm`.
+
+| Kubernetes version | Release month  | End-of-life-month |
+|--------------------|----------------|-------------------|
+| v1.6.x             | March 2017     | December 2017     |
+| v1.7.x             | June 2017      | March 2018        |
+| v1.8.x             | September 2017 | June 2018         |
+| v1.9.x             | December 2017  | September 2018    |
+| v1.10.x            | March 2018     | December 2018     |
+| v1.11.x            | June 2018      | March 2019        |
 
 {{% /capture %}}
 
@@ -73,6 +121,8 @@ with the default gateway to advertise the master's IP. To use a different
 network interface, specify the `--apiserver-advertise-address=<ip-address>` argument 
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you 
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
+1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify 
+connectivity to gcr.io registries.   
 
 Now run:
 
@@ -99,11 +149,38 @@ is ready to run Kubernetes. These prechecks expose warnings and exit on errors. 
 then downloads and installs the cluster control plane components. This may take several minutes. 
 The output should look like:
 
-```
+```none
 [init] Using Kubernetes version: vX.Y.Z
 [preflight] Running pre-flight checks
-
-... (log output of initialization workflow) ...
+[kubeadm] WARNING: starting in 1.8, tokens expire after 24 hours by default (if you require a non-expiring token use --token-ttl 0)
+[certificates] Generated ca certificate and key.
+[certificates] Generated apiserver certificate and key.
+[certificates] apiserver serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
+[certificates] Generated apiserver-kubelet-client certificate and key.
+[certificates] Generated sa key and public key.
+[certificates] Generated front-proxy-ca certificate and key.
+[certificates] Generated front-proxy-client certificate and key.
+[certificates] Valid certificates and keys now exist in "/etc/kubernetes/pki"
+[kubeconfig] Wrote KubeConfig file to disk: "admin.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "kubelet.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "controller-manager.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "scheduler.conf"
+[controlplane] Wrote Static Pod manifest for component kube-apiserver to "/etc/kubernetes/manifests/kube-apiserver.yaml"
+[controlplane] Wrote Static Pod manifest for component kube-controller-manager to "/etc/kubernetes/manifests/kube-controller-manager.yaml"
+[controlplane] Wrote Static Pod manifest for component kube-scheduler to "/etc/kubernetes/manifests/kube-scheduler.yaml"
+[etcd] Wrote Static Pod manifest for a local etcd instance to "/etc/kubernetes/manifests/etcd.yaml"
+[init] Waiting for the kubelet to boot up the control plane as Static Pods from directory "/etc/kubernetes/manifests"
+[init] This often takes around a minute; or longer if the control plane images have to be pulled.
+[apiclient] All control plane components are healthy after 39.511972 seconds
+[uploadconfig] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[markmaster] Will mark node master as master by adding a label and a taint
+[markmaster] Master master tainted and labelled with key/value: node-role.kubernetes.io/master=""
+[bootstraptoken] Using token: <token>
+[bootstraptoken] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstraptoken] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstraptoken] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
 
 Your Kubernetes master has initialized successfully!
 
@@ -156,9 +233,8 @@ created, and deleted with the `kubeadm token` command. See the
 You must install a pod network add-on so that your pods can communicate with
 each other.
 
-The network must be deployed before any applications. An
-internal helper service, kube-dns, will not start up before a network is installed. kubeadm
-supports only Container Network Interface (CNI) based networks. It does not support kubenet.
+**The network must be deployed before any applications. Also, CoreDNS will not start up before a network is installed.
+kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. 
@@ -261,13 +337,24 @@ if they don't know their PodIP.
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
 {{% /tab %}}
+
+{{% tab name="JuniperContrail/TungstenFabric" %}}
+Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
+simultaneous overlay-underlay support, network policy enforcement, network isolation,
+service chaining and flexible load balancing.
+
+There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
+
+Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
+{{% /tab %}}
 {{< /tabs >}}
 
-Once you install a pod network, you can confirm that it works by
-checking that the kube-dns pod is Running in the output of `kubectl get pods --all-namespaces`.
-Once the kube-dns pod is up and running, you can continue by joining your nodes.
 
-If your network is not working or kube-dns is not in the Running state, check
+Once a pod network has been installed, you can confirm that it is working by
+checking that the CoreDNS pod is Running in the output of `kubectl get pods --all-namespaces`.
+And once the CoreDNS pod is up and running, you can continue by joining your nodes.
+
+If your network is not working or CoreDNS is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
 ### Master Isolation
@@ -302,6 +389,48 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 
 ``` bash
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+```
+
+If you do not have the token, you can get it by running the following command on the master node:
+
+``` bash
+kubeadm token list
+```
+
+The output is similar to this:
+
+``` console
+TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION            EXTRA GROUPS
+8ewj1p.9r9hcjoqgajrj4gi  23h  2018-06-12T02:51:28Z authentication,  The default bootstrap  system:
+                                                   signing          token generated by     bootstrappers:
+                                                                    'kubeadm init'.        kubeadm:
+                                                                                           default-node-token
+```
+
+By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
+you can create a new token by running the following command on the master node:
+
+``` bash
+kubeadm token create
+```
+
+The output is similar to this:
+
+``` console
+5didvk.d09sbcov8ph2amjw
+```
+
+If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the master node:
+
+``` bash
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
+   openssl dgst -sha256 -hex | sed 's/^.* //'
+```
+
+The output is similar to this:
+
+``` console
+8cb2de97839780a412b93877f8507ad6c94f73add17d5d7058e91741c9d5ec78
 ```
 
 {{< note >}}

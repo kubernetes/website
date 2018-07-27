@@ -12,7 +12,6 @@ worker processes in a given pod.
 In this example, as each pod is created, it picks up one unit of work
 from a task queue, processes it, and repeats until the end of the queue is reached.
 
-
 Here is an overview of the steps in this example:
 
 1. **Start a storage service to hold the work queue.**  In this example, we use Redis to store
@@ -50,16 +49,27 @@ For this example, for simplicity, we will start a single instance of Redis.
 See the [Redis Example](https://github.com/kubernetes/examples/tree/master/guestbook) for an example
 of deploying Redis scalably and redundantly.
 
-Start a temporary Pod running Redis and a service so we can find it.
+If you are working from the website source tree, you can go to the following
+directory and start a temporary Pod running Redis and a service so we can find it.
 
 ```shell
-$ kubectl create -f docs/tasks/job/fine-parallel-processing-work-queue/redis-pod.yaml
+$ cd content/en/examples/application/job/redis
+$ kubectl create -f ./redis-pod.yaml
 pod "redis-master" created
-$ kubectl create -f docs/tasks/job/fine-parallel-processing-work-queue/redis-service.yaml
+$ kubectl create -f ./redis-service.yaml
 service "redis" created
 ```
 
-If you're not working from the source tree, you could also download [`redis-pod.yaml`](redis-pod.yaml?raw=true) and [`redis-service.yaml`](redis-service.yaml?raw=true) directly.
+If you're not working from the source tree, you could also download the following
+files directly:
+
+- [`redis-pod.yaml`](/examples/application/job/redis/redis-pod.yaml)
+- [`redis-service.yaml`](/examples/application/job/redis/redis-service.yaml)
+- [`Dockerfile`](/examples/application/job/redis/Dockerfile)
+- [`job.yaml`](/examples/application/job/redis/job.yaml)
+- [`rediswq.py`](/examples/application/job/redis/rediswq.py)
+- [`worker.py`](/examples/application/job/redis/worker.py)
+
 
 ## Filling the Queue with tasks
 
@@ -122,17 +132,19 @@ We will use a python worker program with a redis client to read
 the messages from the message queue.
 
 A simple Redis work queue client library is provided,
-called rediswq.py ([Download](rediswq.py?raw=true)).
+called rediswq.py ([Download](/examples/application/job/redis/rediswq.py)).
 
 The "worker" program in each Pod of the Job uses the work queue
 client library to get work.  Here it is:
 
-{{< code language="python" file="fine-parallel-processing-work-queue/worker.py" >}}
+{{< codenew language="python" file="application/job/redis/worker.py" >}}
 
-If you are working from the source tree,
-change directory to the `docs/tasks/job/fine-parallel-processing-work-queue/` directory.
-Otherwise, download [`worker.py`](worker.py?raw=true), [`rediswq.py`](rediswq.py?raw=true), and [`Dockerfile`](Dockerfile?raw=true)
-using above links. Then build the image:
+If you are working from the source tree, change directory to the
+`content/en/examples/application/job/redis/` directory.
+Otherwise, download [`worker.py`](/examples/application/job/redis/worker.py),
+[`rediswq.py`](/examples/application/job/redis/rediswq.py), and
+[`Dockerfile`](/examples/application/job/redis/Dockerfile) files, then build
+the image:
 
 ```shell
 docker build -t job-wq-2 .
@@ -166,7 +178,7 @@ gcloud docker -- push gcr.io/<project>/job-wq-2
 
 Here is the job definition:
 
-{{< code file="fine-parallel-processing-work-queue/job.yaml" >}}
+{{< codenew file="application/job/redis/job.yaml" >}}
 
 Be sure to edit the job template to
 change `gcr.io/myproject` to your own path.

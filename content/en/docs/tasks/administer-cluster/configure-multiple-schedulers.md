@@ -73,7 +73,7 @@ for this example. A [Deployment](/docs/concepts/workloads/controllers/deployment
 thereby making the scheduler resilient to failures. Here is the deployment
 config. Save it as `my-scheduler.yaml`:
 
-{{< code file="my-scheduler.yaml" >}}
+{{< codenew file="admin/sched/my-scheduler.yaml" >}}
 
 An important thing to note here is that the name of the scheduler specified as an
 argument to the scheduler command in the container spec should be unique. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether this scheduler is responsible for scheduling a particular pod.
@@ -149,7 +149,7 @@ scheduler in that pod spec. Let's look at three examples.
 
 - Pod spec without any scheduler name
 
-  {{< code file="pod1.yaml" >}}
+  {{< codenew file="admin/sched/pod1.yaml" >}}
 
   When no scheduler name is supplied, the pod is automatically scheduled using the
   default-scheduler.
@@ -162,7 +162,7 @@ kubectl create -f pod1.yaml
 
 - Pod spec with `default-scheduler`
 
-  {{< code file="pod2.yaml" >}}
+  {{< codenew file="admin/sched/pod2.yaml" >}}
 
   A scheduler is specified by supplying the scheduler name as a value to `spec.schedulerName`. In this case, we supply the name of the
   default scheduler which is `default-scheduler`.
@@ -175,7 +175,7 @@ kubectl create -f pod2.yaml
 
 - Pod spec with `my-scheduler`
 
-  {{< code file="pod3.yaml" >}}
+  {{< codenew file="admin/sched/pod3.yaml" >}}
 
   In this case, we specify that this pod should be scheduled using the scheduler that we
   deployed - `my-scheduler`. Note that the value of `spec.schedulerName` should match the name supplied to the scheduler

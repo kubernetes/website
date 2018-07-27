@@ -11,7 +11,7 @@ content_template: templates/concept
 
 In addition to Kubernetes core components like api-server, scheduler, controller-manager running on a master machine
 there are a number of add-ons which, for various reasons, must run on a regular cluster node (rather than the Kubernetes master).
-Some of these add-ons are critical to a fully functional cluster, such as Heapster, DNS, and UI.
+Some of these add-ons are critical to a fully functional cluster, such as metrics-server, DNS, and UI.
 A cluster may stop working properly if a critical add-on is evicted (either manually or as a side effect of another operation like upgrade)
 and becomes pending (for example when the cluster is highly utilized and either there are other pending pods that schedule into the space
 vacated by the evicted critical add-on pod or the amount of resources available on the node changed for some other reason).
