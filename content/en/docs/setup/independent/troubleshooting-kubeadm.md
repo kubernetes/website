@@ -215,27 +215,64 @@ kubectl -n kube-system patch --type json daemonset kube-proxy -p "$(cat <<'EOF'
 [
     {
         "op": "add",
-        "path": "/spec/template/spec/containers/0/env",
-        "value": [
-            {
-                "name": "NODE_NAME",
-                "valueFrom": {
-                    "fieldRef": {
-                        "apiVersion": "v1",
-                        "fieldPath": "spec.nodeName"
-                    }
-                }
+        "path": "/spec/template/spec/volumes/-",
+        "value": {
+                "name": "shared-data",
+                "mountPath": "/shared-data"
             }
-        ]
     },
     {
         "op": "add",
-        "path": "/spec/template/spec/containers/0/command/-",
-        "value": "--hostname-override=${NODE_NAME}"
+        "path": "/spec/template/spec/containers/0/volumeMounts/-",
+        "value": {
+                "name": "shared-data",
+                "mountPath": "/shared-data"
+            }
+    },
+    {
+        "op": "replace",
+        "path": "/spec/template/spec/containers/0/command/1",
+        "value": "--config=/shared-data/config.conf"
+    },
+    {
+        "op": "add",
+        "path": "/spec/template/spec/initContainers",
+        "value": [
+                {
+                    "command": [
+                        "sh",
+                        "-c",
+                        "/bin/sed \"s/hostnameOverride: \\\"\\\"/hostnameOverride: $(NODE_NAME)/\" /var/lib/kube-proxy/config.conf > /shared-data/config.conf"
+                    ],
+                    "env": [
+                        {
+                            "name": "NODE_NAME",
+                            "valueFrom": {
+                                "fieldRef": {
+                                    "apiVersion": "v1",
+                                    "fieldPath": "spec.nodeName"
+                                }
+                            }
+                        }
+                    ],
+                    "image": "k8s.gcr.io/kube-proxy-amd64:v1.11.1",
+                    "imagePullPolicy": "IfNotPresent",
+                    "name": "update-config-file",
+                    "volumeMounts": [
+                    {
+                        "mountPath": "/var/lib/kube-proxy",
+                        "name": "kube-proxy"
+                    },
+                    {
+                        "mountPath": "/shared-data",
+                        "name": "shared-data"
+                    }
+                    ]
+                }
+            ]
     }
 ]
 EOF
 )"
-
 ```
 {{% /capture %}}
