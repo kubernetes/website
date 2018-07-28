@@ -56,7 +56,7 @@ This may be caused by a number of problems. The most common are:
   ```
 
   There are two common ways to fix the cgroup driver problem:
-  
+
  1. Install docker again following instructions
   [here](/docs/setup/independent/install-kubeadm/#installing-docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
