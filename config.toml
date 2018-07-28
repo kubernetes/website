@@ -131,7 +131,7 @@ weight = 1
 [languages.cn]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Chinese"
+languageName = "Chinese"
 weight = 2
 contentDir = "content/cn"
 
