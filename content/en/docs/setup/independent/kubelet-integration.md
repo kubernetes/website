@@ -22,11 +22,11 @@ Subnet and using a different CRI runtime.
 
 Let's say that you have a default service subnet defined as `10.96.0.0/12` and you pass this parameter to kubeadm:
 ```bash
-kubeadm init --service-cidr 10.95.0.0/12
+kubeadm init --service-cidr 10.96.0.0/12
 ```
 
 In this example, the modified value is the subnet used for allocating the Service Virtual IPs.
-This means that the `--cluster-dns` kubelet flag also has to be set, to `10.95.0.10` following this example.
+This means that the `--cluster-dns` kubelet flag also has to be set, to `10.96.0.10` following this example.
 This has to happen **for every kubelet in the cluster** and it imposes a need for some sort of a way to propagate
 global cluster-specific configuration to the Nodes (kubelets) in the cluster.
 
@@ -46,7 +46,7 @@ clusterDNS:
 There are cases where each kubelet has to be configured individually, due to heterogeneous operating systems,
 machine types, and surrounding environments. Here are some examples of instance-specific flags that need to be dynamically
 set depending on the environment:
-- The value of `--resolv-conf` can vary depending on what OS is running on a particular Node. If you're using
+- The value of `--resolv-conf` can vary depending on what OS is running on a particular Node. If you are using
 `systemd-resolved` the path should be `/run/systemd/resolve/resolv.conf`, otherwise it can be `/etc/resolv.conf`.
 If this path is wrong, DNS resolution might not work on your Node.
 
@@ -59,7 +59,7 @@ However, matching the kubelet flag `--cgroup-driver` with what the container run
 of the kubelet.
 
 - Different kubelet parameters need to be passed depending on what CRI runtime is used. In the case of docker,
-you need to specify flags like `--network-plugin=cni` for it to work, but if you're using some other, external runtime
+you need to specify flags like `--network-plugin=cni` for it to work, but if you are using some external runtime
 you should set `--container-runtime=remote` and specify the CRI endpoint with `--container-runtime-endpoint=<path>`.
 
 ### kubeadm's solution (available since v1.11)
@@ -85,7 +85,7 @@ kubeadm also writes to the file dynamic parameters like what cgroup driver that 
 to make the kubelet pick up the latest dynamic flags which were previously written. After that the rest of the regular
 `kubeadm init` workflow continues.
 
-`kubeadm join` on the other hand, uses the Bootstrap Token credential to download the `kubelet-config-1.X` ConfigMap
+On the other hand, `kubeadm join` uses the Bootstrap Token credential to download the `kubelet-config-1.X` ConfigMap
 and write it to `/var/lib/kubelet/config.yaml`.
 
 The dynamic environment file is generated in exactly the same way as `kubeadm init`.
