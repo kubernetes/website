@@ -43,7 +43,9 @@ docker run \
   --volume $(PWD):/src \
   -p 1313:1313 \
   kubernetes-hugo \
-  hugo server --watch --bind 0.0.0.0
+  hugo server \
+  --watch \
+  --bind 0.0.0.0
 ```
 
 As when building without using a Docker container, the results of the build will be published to the `public` directory (the default output directory for [Hugo](https://gohugo.io), the static site generator used to build this site).
