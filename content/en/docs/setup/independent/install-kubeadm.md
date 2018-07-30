@@ -182,11 +182,11 @@ enabled=1
 gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-exclude=kube*
 EOF
 setenforce 0
 yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
+echo "exclude=kube*" >> /etc/yum.repos.d/kubernetes.repo
 ```
 
   **Note:**
