@@ -1,6 +1,12 @@
-## Configuring each kubelet in your cluster using kubeadm
+---
+reviewers:
+- sig-cluster-lifecycle
+title: Configuring each kubelet in your cluster using kubeadm
+content_template: templates/concept
+weight: 40
+---
 
-### Introduction to the relations between kubeadm and the kubelet
+{{% capture overview %}}
 
 The kubeadm CLI tool has a lifecycle that is decoupled from the lifecycle
 of the kubelet daemon - the [Kubernetes Node Agent](/docs/reference/command-line-tools-reference/kubelet).
@@ -14,7 +20,11 @@ as a systemd service. Please note that _any type_ of init system or process mana
 The default kubeadm deb/rpm packages ship a systemd drop-in file for the kubelet populated with
 some CLI flags so that the kubelet is functional.
 
-### Problem 1: Cluster-level information propagated to the kubelets
+{{% /capture %}}
+
+{{% capture body %}}
+
+## Problem 1: Cluster-level information propagated to the kubelets
 
 There is a need for different configuration values to be propagated to the kubelet from the
 `kubeadm init` and/or `kubeadm join` commands. Common scenarios include customizing the Service
@@ -41,7 +51,7 @@ clusterDNS:
 - 10.96.0.10
 ```
 
-### Problem 2: There should be a way to apply instance-specific configuration
+## Problem 2: There should be a way to apply instance-specific configuration
 
 There are cases where each kubelet has to be configured individually, due to heterogeneous operating systems,
 machine types, and surrounding environments. Here are some examples of instance-specific flags that need to be dynamically
@@ -62,7 +72,7 @@ of the kubelet.
 you need to specify flags like `--network-plugin=cni` for it to work, but if you are using some external runtime
 you should set `--container-runtime=remote` and specify the CRI endpoint with `--container-runtime-endpoint=<path>`.
 
-### kubeadm's solution (available since v1.11)
+## kubeadm's solution (available since v1.11)
 
 In kubeadm v1.11, the kubeadm config API type `MasterConfiguration` embeds the kubelet's ComponentConfig under
 the `.kubeletConfiguration.baseConfig` key. This makes it possible for any user writing a `MasterConfiguration`
@@ -100,7 +110,7 @@ At that point the Bootstrap Token is used by the kubelet to perform the TLS Boot
 is stored in `/etc/kubernetes/kubelet.conf`. As of kubeadm v1.11, `kubeadm join` waits for the `/etc/kubernetes/kubelet.conf`
 file to appear on disk, which means that the kubelet has performed the TLS Bootstrap.
 
-###  The kubelet drop-in file that kubeadm uses
+##  The kubelet drop-in file that kubeadm uses
 Here are the contents of the the drop-in file the kubeadm _deb/rpm package_ ships for the kubelet. It is installed in
 the path `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`.
 
@@ -120,8 +130,8 @@ ExecStart=
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
 ```
 
-
 Notes:
+
 - The KubeConfig file to use for the TLS Bootstrap is specified as `/etc/kubernetes/bootstrap-kubelet.conf`,
 but it is not used if `/etc/kubernetes/kubelet.conf` already exists.
 - The KubeConfig file with the unique kubelet identity is `/etc/kubernetes/kubelet.conf`.
@@ -131,12 +141,15 @@ but it is not used if `/etc/kubernetes/kubelet.conf` already exists.
 (for debs), or `/etc/systconfig/kubelet` (for rpms). Note that `KUBELET_EXTRA_ARGS` is last in the flag chain,
 therefore it has the highest priority.
 
-### Kubernetes binaries and package contents
+## Kubernetes binaries and package contents
 
 The deb/rpm packages shipped with the Kubernetes releases are the following:
+
 - `kubeadm` - ships the `/usr/bin/kubeadm` CLI tool and the systemd drop-in for the kubelet described above
 (in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`).
 - `kubelet` - ships the `/usr/bin/kubelet` binary.
 - `kubectl` - ships the `/usr/bin/kubectl` binary.
 - `kubernetes-cni` - ships the official CNI binaries under the `/opt/cni/bin` directory.
 - `cri-tools` - ships the `/usr/bin/crictl` binary from https://github.com/kubernetes-incubator/cri-tools
+
+{{% /capture %}}
