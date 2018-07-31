@@ -84,6 +84,13 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 exclusive allocations across Kubelet restarts.
 {{< /note >}}
 
+{{< note >}}
+**Note:** CPU Manager doesn't support offlining and onlining of
+CPUs at runtime. Also, if the set of online CPUs changes on the node,
+the node must be drained and CPU manager manually reset by deleting the
+state file `cpu_manager_state` in the kubelet root directory.
+{{< /note >}}
+
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
 node. The amount of exclusively allocatable CPUs is equal to the total
 number of CPUs in the node minus any CPU reservations by the kubelet `--kube-reserved` or
