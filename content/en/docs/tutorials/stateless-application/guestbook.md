@@ -10,7 +10,7 @@ weight: 20
 This tutorial shows you how to build and deploy a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
 
 * A single-instance [Redis](https://redis.io/) master to store guestbook entries 
-* Multiple replicated Redis instances to serve reads 
+* Multiple [replicated Redis](https://redis.io/topics/replication) instances to serve reads 
 * Multiple web frontend instances
 
 {{% /capture %}}
