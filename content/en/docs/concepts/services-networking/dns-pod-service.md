@@ -56,10 +56,10 @@ SRV Records are created for named ports that are part of normal or [Headless
 Services](/docs/concepts/services-networking/service/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
-For a regular service, this resolves to the port number and the CNAME:
+For a regular service, this resolves to the port number and the domain name:
 `my-svc.my-namespace.svc.cluster.local`.
 For a headless service, this resolves to multiple answers, one for each pod
-that is backing the service, and contains the port number and a CNAME of the pod
+that is backing the service, and contains the port number and the domain name of the pod
 of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
 
 ## Pods
