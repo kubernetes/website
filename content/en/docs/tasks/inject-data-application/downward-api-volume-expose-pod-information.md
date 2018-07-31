@@ -165,8 +165,9 @@ Look at the `items` array under `downwardAPI`. Each element of the array is a
 DownwardAPIVolumeFile.
 
 The first element specifies that in the Container named `client-container`,
-the value of the `limits.cpu` field
-should be stored in a file named `cpu_limit`.
+the value of the `limits.cpu` field in the format specified by `1m` should be
+stored in a file named `cpu_limit`. The `divisor` field is optional and has the
+default value of `1` which means cores for cpu and bytes for memory.
 
 Create the Pod:
 
