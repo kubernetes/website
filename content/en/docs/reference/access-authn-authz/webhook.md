@@ -29,6 +29,8 @@ file format. Within the file "users" refers to the API Server webhook and
 A configuration example which uses HTTPS client auth:
 
 ```yaml
+#Kubernetes API version
+apiVersion: v1
 # clusters refers to the remote service.
 clusters:
   - name: name-of-remote-authz-service
