@@ -556,7 +556,8 @@ The permissions required by individual control loops are contained in the <a hre
 <td><b>system:node</b></td>
 <td>None in 1.8+</td>
 <td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pod status objects</b>.
-As of 1.7, use of the <a href="/docs/admin/authorization/node/">Node authorizer</a> and <a href="/docs/admin/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
+
+As of 1.7, use of the <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> and <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
 Prior to 1.7, this role was automatically bound to the `system:nodes` group.
 In 1.7, this role was automatically bound to the `system:nodes` group if the `Node` authorization mode is not enabled.
 In 1.8+, no binding is automatically created.
@@ -607,7 +608,8 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:node-bootstrapper</b></td>
 <td>None</td>
-<td>Allows access to the resources required to perform <a href="/docs/admin/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.</td>
+<td>Allows access to the resources required to perform
+<a href="/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.</td>
 </tr>
 <tr>
 <td><b>system:node-problem-detector</b></td>

@@ -55,12 +55,13 @@ array has six possible fields:
 
 * The `message` field is a human-readable message indicating details
   about the transition.
+  
+* The `reason` field is a unique, one-word, CamelCase reason for the condition's last transition.
 
-* The `reason` field is a unique, one-word, CamelCase reason for the condition's last transition
-
-* The `status` field is a string, with possible values "`True`", "`False`", and "`Unknown`"
+* The `status` field is a string, with possible values "`True`", "`False`", and "`Unknown`".
 
 * The `type` field is a string with the following possible values:
+
   * `PodScheduled`: the Pod has been scheduled to a node
   * `Ready`: the Pod is able to serve requests and should be added to the load
     balancing pools of all matching Services

@@ -39,12 +39,12 @@ kubectl create namespace quota-mem-cpu-example
 
 Here is the configuration file for a ResourceQuota object:
 
-{{< code file="quota-mem-cpu.yaml" >}}
+{{< codenew file="admin/resource/quota-mem-cpu.yaml" >}}
 
 Create the ResourceQuota:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-mem-cpu.yaml --namespace=quota-mem-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu.yaml --namespace=quota-mem-cpu-example
 ```
 
 View detailed information about the ResourceQuota:
@@ -65,13 +65,13 @@ The ResourceQuota places these requirements on the quota-mem-cpu-example namespa
 
 Here is the configuration file for a Pod:
 
-{{< code file="quota-mem-cpu-pod.yaml" >}}
+{{< codenew file="admin/resource/quota-mem-cpu-pod.yaml" >}}
 
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
 ```
 
 Verify that the Pod's Container is running:
@@ -108,7 +108,7 @@ status:
 
 Here is the configuration file for a second Pod:
 
-{{< code file="quota-mem-cpu-pod-2.yaml" >}}
+{{< codenew file="admin/resource/quota-mem-cpu-pod-2.yaml" >}}
 
 In the configuration file, you can see that the Pod has a memory request of 700 MiB.
 Notice that the sum of the used memory request and this new memory
@@ -117,14 +117,14 @@ request exceeds the memory request quota. 600 MiB + 700 MiB > 1 GiB.
 Attempt to create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
 ```
 
 The second Pod does not get created. The output shows that creating the second Pod
 would cause the memory request total to exceed the memory request quota.
 
 ```
-Error from server (Forbidden): error when creating "docs/tasks/administer-cluster/quota-mem-cpu-pod-2.yaml":
+Error from server (Forbidden): error when creating "examples/admin/resource/quota-mem-cpu-pod-2.yaml":
 pods "quota-mem-cpu-demo-2" is forbidden: exceeded quota: mem-cpu-demo,
 requested: requests.memory=700Mi,used: requests.memory=600Mi, limited: requests.memory=1Gi
 ```

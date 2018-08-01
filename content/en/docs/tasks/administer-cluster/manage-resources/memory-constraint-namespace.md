@@ -40,12 +40,12 @@ kubectl create namespace constraints-mem-example
 
 Here's the configuration file for a LimitRange:
 
-{{< code file="memory-constraints.yaml" >}}
+{{< codenew file="admin/resource/memory-constraints.yaml" >}}
 
 Create the LimitRange:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints.yaml --namespace=constraints-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints.yaml --namespace=constraints-mem-example
 ```
 
 View detailed information about the LimitRange:
@@ -85,12 +85,12 @@ Here's the configuration file for a Pod that has one Container. The Container ma
 specifies a memory request of 600 MiB and a memory limit of 800 MiB. These satisfy the
 minimum and maximum memory constraints imposed by the LimitRange.
 
-{{< code file="memory-constraints-pod.yaml" >}}
+{{< codenew file="admin/resource/memory-constraints-pod.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints-pod.yaml --namespace=constraints-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints-pod.yaml --namespace=constraints-mem-example
 ```
 
 Verify that the Pod's Container is running:
@@ -127,19 +127,19 @@ kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 Here's the configuration file for a Pod that has one Container. The Container specifies a
 memory request of 800 MiB and a memory limit of 1.5 GiB.
 
-{{< code file="memory-constraints-pod-2.yaml" >}}
+{{< codenew file="admin/resource/memory-constraints-pod-2.yaml" >}}
 
 Attempt to create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints-pod-2.yaml --namespace=constraints-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints-pod-2.yaml --namespace=constraints-mem-example
 ```
 
 The output shows that the Pod does not get created, because the Container specifies a memory limit that is
 too large:
 
 ```
-Error from server (Forbidden): error when creating "docs/tasks/administer-cluster/memory-constraints-pod-2.yaml":
+Error from server (Forbidden): error when creating "examples/admin/resource/memory-constraints-pod-2.yaml":
 pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container is 1Gi, but limit is 1536Mi.
 ```
 
@@ -148,19 +148,19 @@ pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container i
 Here's the configuration file for a Pod that has one Container. The Container specifies a
 memory request of 200 MiB and a memory limit of 800 MiB.
 
-{{< code file="memory-constraints-pod-3.yaml" >}}
+{{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
 
 Attempt to create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints-pod-3.yaml --namespace=constraints-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints-pod-3.yaml --namespace=constraints-mem-example
 ```
 
 The output shows that the Pod does not get created, because the Container specifies a memory
 request that is too small:
 
 ```
-Error from server (Forbidden): error when creating "docs/tasks/administer-cluster/memory-constraints-pod-3.yaml":
+Error from server (Forbidden): error when creating "examples/admin/resource/memory-constraints-pod-3.yaml":
 pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container is 500Mi, but request is 100Mi.
 ```
 
@@ -171,12 +171,12 @@ pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container i
 Here's the configuration file for a Pod that has one Container. The Container does not
 specify a memory request, and it does not specify a memory limit.
 
-{{< code file="memory-constraints-pod-4.yaml" >}}
+{{< codenew file="admin/resource/memory-constraints-pod-4.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints-pod-4.yaml --namespace=constraints-mem-example
+kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints-pod-4.yaml --namespace=constraints-mem-example
 ```
 
 View detailed information about the Pod:

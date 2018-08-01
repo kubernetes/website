@@ -22,12 +22,12 @@ your pods. But there are a number of ways to get even more information about you
 
 For this example we'll use a Deployment to create two pods, similar to the earlier example.
 
-{{< code file="nginx-dep.yaml" >}}
+{{< codenew file="application/nginx-with-request.yaml" >}}
 
 Create deployment by running following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/nginx-dep.yaml
+$ kubectl create -f https://k8s.io/examples/application/nginx-with-request.yaml
 deployment "nginx-deployment" created
 ```
 

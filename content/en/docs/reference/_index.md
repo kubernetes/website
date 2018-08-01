@@ -5,17 +5,26 @@ approvers:
 linkTitle: "Reference"
 main_menu: true
 weight: 70
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
+
+This section of the Kubernetes documentation contains references.
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## API Reference
 
 * [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - Overview of the API for Kubernetes.
 * Kubernetes API Versions
   * [1.11](/docs/reference/generated/kubernetes-api/v1.11/)
-  * [1.10](https://v1-10.docs/kubernetes.io/docs/reference/)
-  * [1.9](https://v1-9.docs.kubernetes.io/docs/reference/)
-  * [1.8](https://v1-8.docs.kubernetes.io/docs/reference/)
-  * [1.7](https://v1-7.docs.kubernetes.io/docs/reference/)
+  * [1.10](https://v1-10.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/)
+  * [1.9](https://v1-9.docs.kubernetes.io/docs/api-reference/v1.9/)
+  * [1.8](https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/)
+  * [1.7](https://v1-7.docs.kubernetes.io/docs/api-reference/v1.7/)
 
 ## API Client Libraries
 
@@ -46,3 +55,5 @@ client libraries:
 ## Design Docs
 
 An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+
+{{% /capture %}}

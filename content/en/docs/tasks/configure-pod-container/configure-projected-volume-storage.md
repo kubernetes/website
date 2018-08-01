@@ -28,7 +28,7 @@ In this exercise, you create username and password Secrets from local files. You
 
 Here is the configuration file for the Pod:
 
-{{< code file="projected-volume.yaml" >}}
+{{< codenew file="pods/storage/projected.yaml" >}}
 
 1. Create the Secrets:
 ```shell
@@ -42,7 +42,7 @@ Here is the configuration file for the Pod:
 ```
 1. Create the Pod:
 ```shell
-       kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/projected-volume.yaml
+       kubectl create -f https://k8s.io/examples/pods/storage/projected.yaml
 ```
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:

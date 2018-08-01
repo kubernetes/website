@@ -71,7 +71,7 @@ In this exercise, you create a Pod that has one Container. The Container has a C
 request of 0.5 cpu and a CPU limit of 1 cpu. Here's the configuration file
 for the Pod:
 
-{{< code file="cpu-request-limit.yaml" >}}
+{{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
 
 In the configuration file, the `args` section provides arguments for the Container when it starts.
 The `-cpus "2"` argument tells the Container to attempt to use 2 cpus.
@@ -79,7 +79,7 @@ The `-cpus "2"` argument tells the Container to attempt to use 2 cpus.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-request-limit.yaml --namespace=cpu-example
+kubectl create -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --namespace=cpu-example
 ```
 
 Verify that the Pod's Container is running:
@@ -97,7 +97,7 @@ kubectl get pod cpu-demo --output=yaml --namespace=cpu-example
 The output shows that the one Container in the Pod has a CPU request of 500 millicpu
 and a CPU limit of 1 cpu.
 
-```shell
+```yaml
 resources:
   limits:
     cpu: "1"
@@ -108,7 +108,7 @@ resources:
 Use `kubectl top` to fetch the metrics for the pod:
 
 ```shell
-kubectl top pod memory-demo
+kubectl top pod cpu-demo --namespace=cpu-example
 ```
 
 The output shows that the Pod is using 974 millicpu, which is just a bit less than
@@ -116,7 +116,7 @@ the limit of 1 cpu specified in the Pod's configuration file.
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
-memory-demo                 794m         <something>
+cpu-demo                    974m         <something>
 ```
 
 Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 cpus.
@@ -167,12 +167,12 @@ the capacity of any Node in your cluster. Here is the configuration file for a P
 that has one Container. The Container requests 100 cpu, which is likely to exceed the
 capacity of any Node in your cluster.
 
-{{< code file="cpu-request-limit-2.yaml" >}}
+{{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-request-limit-2.yaml --namespace=cpu-example
+kubectl create -f https://k8s.io/examples/pods/resource/cpu-request-limit-2.yaml --namespace=cpu-example
 ```
 
 View the Pod's status:
@@ -185,7 +185,7 @@ The output shows that the Pod's status is Pending. That is, the Pod has not been
 scheduled to run on any Node, and it will remain in the Pending state indefinitely:
 
 
-```
+```shell
 kubectl get pod cpu-demo-2 --namespace=cpu-example
 NAME         READY     STATUS    RESTARTS   AGE
 cpu-demo-2   0/1       Pending   0          7m

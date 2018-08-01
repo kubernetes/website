@@ -67,8 +67,8 @@ following steps:
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 
 1. Makes all the necessary configurations for allowing node joining with the
-   [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) and
-   [TLS Bootstrap](/docs/admin/kubelet-tls-bootstrapping/)
+   [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
+   [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
    mechanism:
 
    - Write a ConfigMap for making available all the information required

@@ -71,7 +71,7 @@ In this exercise, you create a Pod that has one Container. The Container has a m
 request of 100 MiB and a memory limit of 200 MiB. Here's the configuration file
 for the Pod:
 
-{{< code file="memory-request-limit.yaml" >}}
+{{< codenew file="pods/resource/memory-request-limit.yaml" >}}
 
 In the configuration file, the `args` section provides arguments for the Container when it starts.
 The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 150 MiB of memory.
@@ -79,7 +79,7 @@ The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 1
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/memory-request-limit.yaml --namespace=mem-example
+kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
 ```
 
 Verify that the Pod's Container is running:
@@ -142,7 +142,7 @@ In this exercise, you create a Pod that attempts to allocate more memory than it
 Here is the configuration file for a Pod that has one Container. The Container has a
 memory request of 50 MiB and a memory limit of 100 MiB.
 
-{{< code file="memory-request-limit-2.yaml" >}}
+{{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
 In the configuration file, in the `args` section, you can see that the Container
 will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limit.
@@ -150,7 +150,7 @@ will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limi
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/memory-request-limit-2.yaml --namespace=mem-example
+kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-2.yaml --namespace=mem-example
 ```
 
 View detailed information about the Pod:
@@ -253,12 +253,12 @@ capacity of any Node in your cluster. Here is the configuration file for a Pod t
 Container. The Container requests 1000 GiB of memory, which is likely to exceed the capacity
 of any Node in your cluster.
 
-{{< code file="memory-request-limit-3.yaml" >}}
+{{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/memory-request-limit-3.yaml --namespace=mem-example
+kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
 ```
 
 View the Pod's status:

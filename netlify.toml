@@ -1,25 +1,24 @@
 [build]
-# This default build command adds the robots noindex directive to the site headers
 publish = "public"
-command = "hugo && cp netlify_noindex_headers.txt public/_headers"
+command = "hugo"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
-HUGO_VERSION = "0.40.3"
+HUGO_VERSION = "0.45.1"
 HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview]
-command = "hugo -b $DEPLOY_PRIME_URL"
+command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
 
 [context.deploy-preview.environment]
-HUGO_VERSION = "0.40.3"
+HUGO_VERSION = "0.45.1"
 
 [context.branch-deploy]
-command = "hugo -b $DEPLOY_PRIME_URL"
+command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy.environment]
-HUGO_VERSION = "0.40.3"
+HUGO_VERSION = "0.45.1"
 
 [context.master]
 # This context is triggered by the master branch and allows search indexing 

@@ -31,12 +31,12 @@ A Job can also be used to run multiple pods in parallel.
 Here is an example Job config.  It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 
-{{< code file="job.yaml" >}}
+{{< codenew file="controllers/job.yaml" >}}
 
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f ./job.yaml
+$ kubectl create -f https://k8s.io/examples/controllers/job.yaml
 job "pi" created
 ```
 

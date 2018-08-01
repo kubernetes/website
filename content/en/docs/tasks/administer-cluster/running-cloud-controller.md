@@ -39,9 +39,9 @@ Successfully running cloud-controller-manager requires some changes to your clus
 * `kubelet` must run with `--cloud-provider=external`. This is to ensure that the kubelet is aware that it must be initialized by the cloud controller manager before it is scheduled any work.
 * `kube-apiserver` SHOULD NOT run the `PersistentVolumeLabel` admission controller
   since the cloud controller manager takes over labeling persistent volumes.
-* For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/admin/extensible-admission-controllers.md#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
+* For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/reference/access-authn-authz/extensible-admission-controllers/#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
 
-{{< code file="persistent-volume-label-initializer-config.yaml" >}}
+{{< codenew file="admin/cloud/pvl-initializer-config.yaml" >}}
 
 Keep in mind that setting up your cluster to use cloud controller manager will change your cluster behaviour in a few ways:
 
@@ -54,7 +54,7 @@ As of v1.8, cloud controller manager can implement:
 * node controller - responsible for updating kubernetes nodes using cloud APIs and deleting kubernetes nodes that were deleted on your cloud.
 * service controller - responsible for loadbalancers on your cloud against services of type LoadBalancer.
 * route controller - responsible for setting up network routes on your cloud
-* persistent valume labels controller - responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
+* persistent volume labels controller - responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
 * any other features you would like to implement if you are running an out-of-tree provider.
 
 
@@ -71,7 +71,7 @@ For cloud controller managers not in Kubernetes core, you can find the respectiv
 
 For providers already in Kubernetes core, you can run the in-tree cloud controller manager as a Daemonset in your cluster, use the following as a guideline:
 
-{{< code file="cloud-controller-manager-daemonset-example.yaml" >}}
+{{< codenew file="admin/cloud/ccm-example.yaml" >}}
 
 
 ## Limitations

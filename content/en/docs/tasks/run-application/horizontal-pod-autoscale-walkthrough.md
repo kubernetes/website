@@ -27,7 +27,7 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [metrics-server](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
 to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics
-(if you followed [getting started on GCE guide](/docs/getting-started-guides/gce.md),
+(if you followed [getting started on GCE guide](/docs/setup/turnkey/gce/),
 metrics-server monitoring will be turned-on by default).
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
@@ -385,12 +385,12 @@ HorizontalPodAutoscaler.
 Instead of using `kubectl autoscale` command to create a HorizontalPodAutoscaler imperatively we
 can use the following file to create it declaratively:
 
-{{< code file="hpa-php-apache.yaml" >}}
+{{< codenew file="application/hpa/php-apache.yaml" >}}
 
 We will create the autoscaler by executing the following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/tasks/run-application/hpa-php-apache.yaml
+$ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 horizontalpodautoscaler "php-apache" created
 ```
 
