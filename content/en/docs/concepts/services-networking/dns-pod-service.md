@@ -56,10 +56,10 @@ SRV Records are created for named ports that are part of normal or [Headless
 Services](/docs/concepts/services-networking/service/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
-For a regular service, this resolves to the port number and the CNAME:
+For a regular service, this resolves to the port number and the domain name:
 `my-svc.my-namespace.svc.cluster.local`.
 For a headless service, this resolves to multiple answers, one for each pod
-that is backing the service, and contains the port number and a CNAME of the pod
+that is backing the service, and contains the port number and the domain name of the pod
 of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
 
 ## Pods
@@ -147,6 +147,10 @@ A record at that name, pointing to the Pod's IP. Both pods "`busybox1`" and
 
 The Endpoints object can specify the `hostname` for any endpoint addresses,
 along with its IP.
+
+{{< note >}}
+**Note:** Because A records are not created for Pod names, `hostname` is required for the Pod's A record to be created. A Pod with no `hostname` but with `subdomain` only will only create the A record for the headless service (`default-subdomain.my-namespace.svc.cluster.local`), pointing to the Pod's IP address.
+{{< /note >}}
 
 ### Pod's DNS Policy
 

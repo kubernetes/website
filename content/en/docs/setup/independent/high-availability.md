@@ -3,6 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Creating Highly Available Clusters with kubeadm
 content_template: templates/task
+weight: 50
 ---
 
 {{% capture overview %}}
@@ -285,12 +286,13 @@ done
 1.  Run the commands to add the node to the etcd cluster:
 
       ```sh
-      CP0_IP=10.0.0.7
-      CP0_HOSTNAME=cp0
-      CP1_IP=10.0.0.8
-      CP1_HOSTNAME=cp1
+      export CP0_IP=10.0.0.7
+      export CP0_HOSTNAME=cp0
+      export CP1_IP=10.0.0.8
+      export CP1_HOSTNAME=cp1
 
-      KUBECONFIG=/etc/kubernetes/admin.conf kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
+      export KUBECONFIG=/etc/kubernetes/admin.conf 
+      kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
       kubeadm alpha phase etcd local --config kubeadm-config.yaml
       ```
 
@@ -376,12 +378,13 @@ done
 1.  Run the commands to add the node to the etcd cluster:
 
       ```sh
-      CP0_IP=10.0.0.7
-      CP0_HOSTNAME=cp0
-      CP2_IP=10.0.0.9
-      CP2_HOSTNAME=cp2
+      export CP0_IP=10.0.0.7
+      export CP0_HOSTNAME=cp0
+      export CP2_IP=10.0.0.9
+      export CP2_HOSTNAME=cp2
 
-      KUBECONFIG=/etc/kubernetes/admin.conf kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP2_HOSTNAME} https://${CP2_IP}:2380
+      export KUBECONFIG=/etc/kubernetes/admin.conf 
+      kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP2_HOSTNAME} https://${CP2_IP}:2380
       kubeadm alpha phase etcd local --config kubeadm-config.yaml
       ```
 
@@ -397,7 +400,7 @@ done
 
 ### Set up the cluster
 
-- Follow [these instructions](/docs/tasks/administer-cluster/setup-ha-etcd-with-kubeadm/)
+- Follow [these instructions](/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
    to set up the etcd cluster.
 
 ### Copy required files to other control plane nodes
