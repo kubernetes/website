@@ -92,8 +92,8 @@ We can list autoscalers by `kubectl get hpa` and get detailed description by `ku
 Finally, we can delete an autoscaler using `kubectl delete hpa`.
 
 In addition, there is a special `kubectl autoscale` command for easy creation of a Horizontal Pod Autoscaler.
-For instance, executing `kubectl autoscale rc foo --min=2 --max=5 --cpu-percent=80`
-will create an autoscaler for replication controller *foo*, with target CPU utilization set to `80%`
+For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
+will create an autoscaler for replication set *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
 The detailed documentation of `kubectl autoscale` can be found [here](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 
