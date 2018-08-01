@@ -15,10 +15,10 @@ The lifecycle of the kubeadm CLI tool is decoupled from the the
 on each Kubernetes master or Node. The kubeadm CLI tool is executed by the user when Kubernetes is
 initialized or upgraded, whereas the kubelet is always running in the background.
 
-Like any daemon process, the state of the kubelet needs to be maintained using a lifecycle management
-process such as an init system or process manager. When the kubelet is installed using DEBs or RPMs,
-`systemd` manages the kubelet. You can configure a different process management system to manage the
-kubelet.
+Since the kubelet is a daemon, it needs to be maintained by some kind of a init
+system or service manager. When the kubelet is installed using DEBs or RPMs,
+systemd is configured to manage the kubelet. You can use a different service
+manager instead, but you need to configure it manually.
 
 Some kublet configuration details need to be the same across all kubelets involved in the cluster, while
 other configuration aspects need to be set on a per-kubelet basis, to accommodate the different
@@ -35,7 +35,7 @@ kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 ## Kubelet configuration patterns
 
 The following sections describe patterns to kubelet configuration that are simplified by
-using kubeadm, rather than managing the kubelet configuration for each Pod manually.
+using kubeadm, rather than managing the kubelet configuration for each Node manually.
 
 ### Propogating cluster-level configuration to each kubelet
 
@@ -44,7 +44,7 @@ commands. Interesting examples include using a different CRI runtime or setting 
 used by services.
 
 If you want your services to use the subnet `10.96.0.0/12` as the default for services, you can pass
-the `--service-cidr` marameter to kubeadm:
+the `--service-cidr` parameter to kubeadm:
 
 ```bash
 kubeadm init --service-cidr 10.96.0.0/12
@@ -73,7 +73,7 @@ for more information.
 ### Providing instance-specific configuration details
 
 Some hosts require specific kubelet configurations, due to differences in hardware, operating system,
-networking, or other host-specific parameters. The following list provices a few examples.
+networking, or other host-specific parameters. The following list provides a few examples.
 
 - The path to the DNS resolution file, as specified by the `--resolve-conf` kubelet
   configuration flag, may differ among operating systems, or depending on whethery ou are using
@@ -93,8 +93,8 @@ networking, or other host-specific parameters. The following list provices a few
   are using an external runtime, you need to specify `--container-runtime=remote` and specify the CRI
   endpoint using the `--container-runtime-path-endpoint=<path>`.
 
-You can specify these flags by configuring an individual kubelet's configuration in your process manager,
-such as `systemd`.
+You can specify these flags by configuring an individual kubelet's configuration in your service manager,
+such as systemd.
 
 ## Configure kubelets using kubeadm
 
@@ -107,7 +107,7 @@ in the cluster.
 
 ### Workflow when using `kubeadm init`
 
-When you call `kubeadm init`, the `.kubeletConfiguration.baseConfig`  structure is marshalled to disk
+When you call `kubeadm init`, the `.kubeletConfiguration.baseConfig` structure is marshalled to disk
 at `/var/lib/kubelet/config.yaml`, and also uploaded to a ConfigMap in the cluster. The ConfigMap
 is named `kubelet-config-1.X`, where `.X` is the minor version of the Kubernetes version you are
 initializing. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf` with the
@@ -130,7 +130,7 @@ parameters such as the cgroup driver and whether to use a different CRI runtime 
 (`--cri-socket`).
 
 After marshalling these two files to disk, kubeadm attempts to run the following two
-commands, if you are using systemd to manage your processes:
+commands, if you are using systemd:
 
 ```bash
 systemctl daemon-reload && systemctl restart kubelet
@@ -140,7 +140,8 @@ If the reload and restart are successful, the normal `kubeadm init` workflow con
 
 ### Workflow when using `kubeadm join`
 
-When you run `kubeadm join`, kubeadm uses the Bootstrap Token credential to download the
+When you run `kubeadm join`, kubeadm uses the Bootstrap Token credential perform
+a TLS bootstrap, which fetches the credential needed to download the
 `kubelet-config-1.X` ConfigMap and writes it to `/var/lib/kubelet/config.yaml`. The dynamic
 environment file is generated in exactly the same way as `kubeadm init`.
 
@@ -159,7 +160,7 @@ has finished performing the TLS Bootstrap.
 ##  The kubelet drop-in file for systemd
 
 The configuration file installed by the kubeadm DEB or RPM package is written to
-`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by `systemd`.
+`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
 
 ```none
 [Service]
