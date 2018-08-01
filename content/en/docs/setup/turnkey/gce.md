@@ -18,7 +18,7 @@ If you want a simplified getting started experience and GUI for managing cluster
 For an easy way to experiment with the Kubernetes development environment, click the button below
 to open a Google Cloud Shell with an auto-cloned copy of the Kubernetes source repo.
 
-[![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/kubernetes/kubernetes&page=editor&open_in_editor=README.md)
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/kubernetes/kubernetes&page=editor&open_in_editor=README.md)
 
 If you want to use custom binaries or pure open source Kubernetes, please continue with the instructions below.
 
@@ -103,10 +103,10 @@ $ kubectl get --all-namespaces services
 should show a set of [services](/docs/user-guide/services) that look something like this:
 
 ```shell
-NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
-default       kubernetes            10.0.0.1         <none>            443/TCP        1d
-kube-system   kube-dns              10.0.0.2         <none>            53/TCP,53/UDP  1d
-kube-system   kube-ui               10.0.0.3         <none>            80/TCP         1d
+NAMESPACE     NAME          TYPE             CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
+default       kubernetes    ClusterIP        10.0.0.1         <none>            443/TCP        1d
+kube-system   kube-dns      ClusterIP        10.0.0.2         <none>            53/TCP,53/UDP  1d
+kube-system   kube-ui       ClusterIP        10.0.0.3         <none>            80/TCP         1d
 ...
 ```
 

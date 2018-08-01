@@ -400,7 +400,7 @@ done
 
 ### Set up the cluster
 
-- Follow [these instructions](/docs/tasks/administer-cluster/setup-ha-etcd-with-kubeadm/)
+- Follow [these instructions](/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
    to set up the etcd cluster.
 
 ### Copy required files to other control plane nodes
