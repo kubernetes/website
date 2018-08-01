@@ -505,7 +505,10 @@ It is designed for use in combination with an authenticating proxy, which sets t
 
 * `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
 * `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
-* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed, the remainder of the header name becomes the extra key, and the header value is the extra value.
+* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed, the remainder of the header name is [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) and becomes the extra key, and the header value is the extra value.
+{{< note >}}
+**Note:** Prior to 1.11.2, the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+{{< /note >}}
 
 For example, with this configuration:
 
@@ -522,6 +525,7 @@ GET / HTTP/1.1
 X-Remote-User: fido
 X-Remote-Group: dogs
 X-Remote-Group: dachshunds
+X-Remote-Extra-Resource%2Fpath: foo/bar/baz
 X-Remote-Extra-Scopes: openid
 X-Remote-Extra-Scopes: profile
 ```
@@ -534,6 +538,8 @@ groups:
 - dogs
 - dachshunds
 extra:
+  resource/path:
+  - foo/bar/baz
   scopes:
   - openid
   - profile
@@ -587,7 +593,11 @@ The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
 * `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User"
-* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User"
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". Characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+
+{{< note >}}
+**Note:** Prior to 1.11.2, `extra name` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+{{< /note >}}
 
 An example set of headers:
 
@@ -596,6 +606,7 @@ Impersonate-User: jane.doe@example.com
 Impersonate-Group: developers
 Impersonate-Group: admins
 Impersonate-Extra-dn: cn=jane,ou=engineers,dc=example,dc=com
+Impersonate-Extra-resource%2Fpath: foo/bar/baz
 Impersonate-Extra-scopes: view
 Impersonate-Extra-scopes: development
 ```
@@ -781,7 +792,7 @@ To use bearer token credentials, the plugin returns a token in the status of the
 ```
 
 Alternatively, a PEM-encoded client certificate and key can be returned to use TLS client auth.
-If the plugin returns a different certificate and key on a subsequent call, `k8s.io/client-go` 
+If the plugin returns a different certificate and key on a subsequent call, `k8s.io/client-go`
 will close existing connections with the server to force a new TLS handshake.
 
 If specified, `clientKeyData` and `clientCertificateData` must both must be present.
