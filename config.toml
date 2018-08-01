@@ -41,7 +41,6 @@ section = [ "HTML"]
 # Add a "text/netlify" media type for auto-generating the _headers file
 [mediaTypes]
 [mediaTypes."text/netlify"]
-suffix = ""
 delimiter = ""
 
 [outputFormats]
