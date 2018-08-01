@@ -83,8 +83,8 @@ Check your Service:
 
 ```shell
 $ kubectl get svc my-nginx
-NAME       CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-my-nginx   10.0.162.149   <none>        80/TCP    21s
+NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 ```
 
 As mentioned previously, a Service is backed by a group of Pods. These Pods are
@@ -173,8 +173,8 @@ Kubernetes offers a DNS cluster addon Service that automatically assigns dns nam
 
 ```shell
 $ kubectl get services kube-dns --namespace=kube-system
-NAME       CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
-kube-dns   10.0.0.10    <none>        53/UDP,53/TCP   8m
+NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
+kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
 If it isn't running, you can [enable it](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/README.md#how-do-i-configure-it).
@@ -341,8 +341,8 @@ Let's now recreate the Service to use a cloud load balancer, just change the `Ty
 ```shell
 $ kubectl edit svc my-nginx
 $ kubectl get svc my-nginx
-NAME       CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
-my-nginx   10.0.162.149   162.222.184.144    80/TCP,81/TCP,82/TCP  21s
+NAME       TYPE        CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
+my-nginx   ClusterIP   10.0.162.149   162.222.184.144    80/TCP,81/TCP,82/TCP  21s
 
 $ curl https://<EXTERNAL-IP> -k
 ...
