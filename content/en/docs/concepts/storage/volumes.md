@@ -631,7 +631,7 @@ writers simultaneously.
 
 See the [NFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs) for more details.
 
-### persistentVolumeClaim {#persistentVolumeClaim}
+### persistentVolumeClaim {#persistentvolumeclaim}
 
 A `persistentVolumeClaim` volume is used to mount a
 [PersistentVolume](/docs/concepts/storage/persistent-volumes/) into a Pod.  PersistentVolumes are a
