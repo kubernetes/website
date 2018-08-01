@@ -165,7 +165,7 @@ uses the host network, you must also add the
 
 Although Daemon Pods respect
 [taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
-the following tolerations are added to DamonSet Pods automatically according to
+the following tolerations are added to DaemonSet Pods automatically according to
 the related features.
 
 | Toleration Key                           | Effect     | Alpha Features                                               | Version | Description                                                  |
