@@ -10,7 +10,7 @@ weight: 40
 
 {{ feature-state for_k8s_version="1.11" state="stable" }}
 
-The lifecycle of the kubeadm CLI tool is decoupled from the the
+The lifecycle of the kubeadm CLI tool is decoupled from the
 [Kubernetes Node Agent](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
 on each Kubernetes master or Node. The kubeadm CLI tool is executed by the user when Kubernetes is
 initialized or upgraded, whereas the kubelet is always running in the background.
@@ -76,7 +76,7 @@ Some hosts require specific kubelet configurations, due to differences in hardwa
 networking, or other host-specific parameters. The following list provides a few examples.
 
 - The path to the DNS resolution file, as specified by the `--resolve-conf` kubelet
-  configuration flag, may differ among operating systems, or depending on whethery ou are using
+  configuration flag, may differ among operating systems, or depending on whether you are using
   `systemd-resolved`. If this path is wrong, DNS resolution will fail on the Node whose kubelet
   is configured incorrectly.
 
