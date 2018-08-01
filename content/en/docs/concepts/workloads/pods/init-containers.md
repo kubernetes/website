@@ -113,12 +113,12 @@ metadata:
     pod.beta.kubernetes.io/init-containers: '[
         {
             "name": "init-myservice",
-            "image": "busybox",
+            "image": "alpine",
             "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]
         },
         {
             "name": "init-mydb",
-            "image": "busybox",
+            "image": "alpine",
             "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]
         }
     ]'
