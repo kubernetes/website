@@ -147,7 +147,7 @@ than [`ExternalName`](#externalname).
 In Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct, the
 proxy was purely in userspace.  In Kubernetes v1.1, the `Ingress` API was added
 (beta) to represent "layer 7"(HTTP) services, iptables proxy was added too,
-and become the default operating mode since Kubernetes v1.2. In Kubernetes v1.8.0-beta.0,
+and became the default operating mode since Kubernetes v1.2. In Kubernetes v1.8.0-beta.0,
 ipvs proxy was added.
 
 ### Proxy-mode: userspace
