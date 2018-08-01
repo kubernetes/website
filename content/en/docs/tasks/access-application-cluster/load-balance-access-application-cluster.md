@@ -80,7 +80,9 @@ load-balanced access to an application running in a cluster.
 
 1. Use your Service object to access the Hello World application:
 
+       ```
        curl <your-external-ip-address>:8080
+       ```
 
    where `<your-external-ip-address>` is the external IP address of your
    service.
