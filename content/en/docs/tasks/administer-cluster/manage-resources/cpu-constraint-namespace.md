@@ -40,12 +40,12 @@ kubectl create namespace constraints-cpu-example
 
 Here's the configuration file for a LimitRange:
 
-{{< code file="cpu-constraints.yaml" >}}
+{{< codenew file="admin/resource/cpu-constraints.yaml" >}}
 
 Create the LimitRange:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints.yaml --namespace=constraints-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-constraints.yaml --namespace=constraints-cpu-example
 ```
 
 View detailed information about the LimitRange:
@@ -91,12 +91,12 @@ Here's the configuration file for a Pod that has one Container. The Container ma
 specifies a CPU request of 500 millicpu and a CPU limit of 800 millicpu. These satisfy the
 minimum and maximum CPU constraints imposed by the LimitRange.
 
-{{< code file="cpu-constraints-pod.yaml" >}}
+{{< codenew file="admin/resource/cpu-constraints-pod.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints-pod.yaml --namespace=constraints-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-constraints-pod.yaml --namespace=constraints-cpu-example
 ```
 
 Verify that the Pod's Container is running:
@@ -133,19 +133,19 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 Here's the configuration file for a Pod that has one Container. The Container specifies a
 CPU request of 500 millicpu and a cpu limit of 1.5 cpu.
 
-{{< code file="cpu-constraints-pod-2.yaml" >}}
+{{< codenew file="admin/resource/cpu-constraints-pod-2.yaml" >}}
 
 Attempt to create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints-pod-2.yaml --namespace=constraints-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-2.yaml --namespace=constraints-cpu-example
 ```
 
 The output shows that the Pod does not get created, because the Container specifies a CPU limit that is
 too large:
 
 ```
-Error from server (Forbidden): error when creating "docs/tasks/administer-cluster/cpu-constraints-pod-2.yaml":
+Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-2.yaml":
 pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 800m, but limit is 1500m.
 ```
 
@@ -154,19 +154,19 @@ pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 8
 Here's the configuration file for a Pod that has one Container. The Container specifies a
 CPU request of 100 millicpu and a CPU limit of 800 millicpu.
 
-{{< code file="cpu-constraints-pod-3.yaml" >}}
+{{< codenew file="admin/resource/cpu-constraints-pod-3.yaml" >}}
 
 Attempt to create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints-pod-3.yaml --namespace=constraints-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-3.yaml --namespace=constraints-cpu-example
 ```
 
 The output shows that the Pod does not get created, because the Container specifies a CPU
 request that is too small:
 
 ```
-Error from server (Forbidden): error when creating "docs/tasks/administer-cluster/cpu-constraints-pod-3.yaml":
+Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-3.yaml":
 pods "constraints-cpu-demo-4" is forbidden: minimum cpu usage per Container is 200m, but request is 100m.
 ```
 
@@ -175,12 +175,12 @@ pods "constraints-cpu-demo-4" is forbidden: minimum cpu usage per Container is 2
 Here's the configuration file for a Pod that has one Container. The Container does not
 specify a CPU request, and it does not specify a CPU limit.
 
-{{< code file="cpu-constraints-pod-4.yaml" >}}
+{{< codenew file="admin/resource/cpu-constraints-pod-4.yaml" >}}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints-pod-4.yaml --namespace=constraints-cpu-example
+kubectl create -f https://k8s.io/examples/admin/resource/cpu-constraints-pod-4.yaml --namespace=constraints-cpu-example
 ```
 
 View detailed information about the Pod:

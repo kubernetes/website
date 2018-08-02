@@ -33,6 +33,7 @@ the following drivers:
 
 * virtualbox
 * vmwarefusion
+* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
@@ -47,9 +48,9 @@ Creating machine...
 Starting local Kubernetes cluster...
 
 $ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-deployment "hello-minikube" created
+deployment.apps/hello-minikube created
 $ kubectl expose deployment hello-minikube --type=NodePort
-service "hello-minikube" exposed
+service/hello-minikube exposed
 
 # We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
 # via the exposed service.
@@ -71,7 +72,7 @@ real path=/
 $ kubectl delete services hello-minikube
 service "hello-minikube" deleted
 $ kubectl delete deployment hello-minikube
-deployment "hello-minikube" deleted
+deployment.extensions "hello-minikube" deleted
 $ minikube stop
 Stopping local Kubernetes cluster...
 Stopping "minikube"...
@@ -297,10 +298,10 @@ Some drivers will mount a host folder within the VM so that you can easily share
 | Driver | OS | HostFolder | VM |
 | --- | --- | --- | --- |
 | VirtualBox | Linux | /home | /hosthome |
-| VirtualBox | OSX | /Users | /Users |
+| VirtualBox | macOS | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | OSX | /Users | /Users |
-| Xhyve | OSX | /Users | /Users |
+| VMware Fusion | macOS | /Users | /Users |
+| Xhyve | macOS | /Users | /Users |
 
 
 ## Private Container Registries

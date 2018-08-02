@@ -3,12 +3,11 @@ reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
+content_template: templates/concept
 weight: 10
 ---
 
-{{< toc >}}
-
-## What is a node?
+{{% capture overview %}}
 
 A `node` is a worker machine in Kubernetes, previously known as a `minion`. A node
 may be a VM or physical machine, depending on the cluster. Each node has
@@ -16,6 +15,12 @@ the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is 
 components. The services on a node include Docker, kubelet and kube-proxy. See
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Node Status
 
@@ -46,6 +51,7 @@ The `conditions` field describes the status of all `Running` nodes.
 | `OutOfDisk`    | `True` if there is insufficient free space on the node for adding new pods, otherwise `False` |
 | `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
 | `MemoryPressure`    | `True` if pressure exists on the node memory -- that is, if the node memory is low; otherwise `False` |
+| `PIDPressure`    | `True` if pressure exists on the processes -- that is, if there are too many processes on the node; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
 | `ConfigOK`    | `True` if the kubelet is correctly configured, otherwise `False` |
@@ -279,3 +285,5 @@ on each kubelet where you want to reserve resources.
 Node is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at:
 [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+
+{{% /capture %}}

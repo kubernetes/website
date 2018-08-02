@@ -4,9 +4,15 @@ reviewers:
 - erictune
 - lavalamp
 title: Controlling Access to the Kubernetes API
+content_template: templates/concept
 weight: 5
 ---
 
+{{% capture overview %}}
+This page provides an overview of controlling access to the Kubernetes API.
+{{% /capture %}}
+
+{{% capture body %}}
 Users [access the API](/docs/tasks/access-application-cluster/access-cluster/) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
 [Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
@@ -33,7 +39,7 @@ Once TLS is established, the HTTP request moves to the Authentication step.
 This is shown as step **1** in the diagram.
 The cluster creation script or cluster admin configures the API server to run
 one or more Authenticator Modules.
-Authenticators are described in more detail [here](/docs/admin/authentication/).
+Authenticators are described in more detail [here](/docs/reference/access-authn-authz/authentication/).
 
 The input to the authentication step is the entire HTTP request, however, it typically
 just examines the headers and/or client certificate.
@@ -52,7 +58,7 @@ is available to subsequent steps to use in their decisions.  Some authenticators
 also provide the group memberships of the user, while other authenticators
 do not.
 
-While Kubernetes uses "usernames" for access control decisions and in request logging,
+While Kubernetes uses `usernames` for access control decisions and in request logging,
 it does not have a `user` object nor does it store usernames or other information about
 users in its object store.
 
@@ -98,7 +104,7 @@ Kubernetes authorization requires that you use common REST attributes to interac
 
 Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configured the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
 
-To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/admin/authorization/). 
+To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
 
 
 ## Admission Control
@@ -118,7 +124,7 @@ rejects, then the request is immediately rejected.
 In addition to rejecting objects, admission controllers can also set complex defaults for
 fields.
 
-The available Admission Control Modules are described [here](/docs/admin/admission-controllers/).
+The available Admission Control Modules are described [here](/docs/reference/access-authn-authz/admission-controllers/).
 
 Once a request passes all admission controllers, it is validated using the validation routines
 for the corresponding API object, and then written to the object store (shown as step **4**).
@@ -156,4 +162,4 @@ When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On
 GCE, a firewall rule is configured on the project to allow external HTTPS
 access to the API. Other cluster setup methods vary.
-
+{{% /capture %}}

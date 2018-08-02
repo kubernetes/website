@@ -2,8 +2,11 @@
 reviewers:
 - mikedanese
 title: Labels and Selectors
+content_template: templates/concept
 weight: 40
 ---
+
+{{% capture overview %}}
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
 Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system.
@@ -21,7 +24,11 @@ Each object can have a set of key/value labels defined.  Each Key must be unique
 
 We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Motivation
 
@@ -194,3 +201,5 @@ selector:
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
 See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.
+
+{{% /capture %}}

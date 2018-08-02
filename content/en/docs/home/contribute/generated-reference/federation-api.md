@@ -67,7 +67,7 @@ image to generate this set of reference docs:
 * /docs/api-reference/v1/definitions.html
 
 The generated files do not get published automatically. They have to be manually copied to the
-[kubernetes/website](https://github.com/kubernetes/website/tree/master/docs/reference/generated)
+[kubernetes/website](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/generated)
 repository.
 
 These files are published at

@@ -18,7 +18,7 @@ If you want a simplified getting started experience and GUI for managing cluster
 For an easy way to experiment with the Kubernetes development environment, click the button below
 to open a Google Cloud Shell with an auto-cloned copy of the Kubernetes source repo.
 
-[![Open in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/kubernetes/kubernetes&page=editor&open_in_editor=README.md)
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/kubernetes/kubernetes&page=editor&open_in_editor=README.md)
 
 If you want to use custom binaries or pure open source Kubernetes, please continue with the instructions below.
 
@@ -63,7 +63,7 @@ cluster/kube-up.sh
 
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
-If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce/#troubleshooting), post to the
+If you run into trouble, please see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
 [kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting/#slack).
 
 The next few steps will show you:
@@ -103,10 +103,10 @@ $ kubectl get --all-namespaces services
 should show a set of [services](/docs/user-guide/services) that look something like this:
 
 ```shell
-NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
-default       kubernetes            10.0.0.1         <none>            443/TCP        1d
-kube-system   kube-dns              10.0.0.2         <none>            53/TCP,53/UDP  1d
-kube-system   kube-ui               10.0.0.3         <none>            80/TCP         1d
+NAMESPACE     NAME          TYPE             CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
+default       kubernetes    ClusterIP        10.0.0.1         <none>            443/TCP        1d
+kube-system   kube-dns      ClusterIP        10.0.0.2         <none>            53/TCP,53/UDP  1d
+kube-system   kube-ui       ClusterIP        10.0.0.3         <none>            80/TCP         1d
 ...
 ```
 
@@ -206,7 +206,7 @@ field values:
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce/)                                    |   | Project
+GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/turnkey/gce/)                                    |   | Project
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 

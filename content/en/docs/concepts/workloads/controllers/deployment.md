@@ -40,7 +40,7 @@ The following are typical use cases for Deployments:
 
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 
-{{< code file="nginx-deployment.yaml" >}}
+{{< codenew file="controllers/nginx-deployment.yaml" >}}
 
 In this example:
 
@@ -71,7 +71,7 @@ The `template` field contains the following instructions:
 To create this Deployment, run the following command:
 
 ```shell
-kubectl create -f  https://raw.githubusercontent.com/kubernetes/website/master/content/en/docs/concepts/workloads/controllers/nginx-deployment.yaml
+kubectl create -f  https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
@@ -356,9 +356,9 @@ nginx-deployment-2035384211) and new replicas (nginx-deployment-3066724191) are 
 ```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-1564180365   2         2         0       25s
+nginx-deployment-1564180365   2         2         2       25s
 nginx-deployment-2035384211   0         0         0       36s
-nginx-deployment-3066724191   2         2         2       6s
+nginx-deployment-3066724191   2         2         0       6s
 ```
 
 Looking at the Pods created, you will see that the 2 Pods created by new ReplicaSet are stuck in an image pull loop.
@@ -417,7 +417,7 @@ First, check the revisions of this deployment:
 $ kubectl rollout history deployment/nginx-deployment
 deployments "nginx-deployment"
 REVISION    CHANGE-CAUSE
-1           kubectl create -f docs/user-guide/nginx-deployment.yaml --record
+1           kubectl create -f https://k8s.io/examples/controllers/nginx-deployment.yaml --record
 2           kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
 3           kubectl set image deployment/nginx-deployment nginx=nginx:1.91
 ```
