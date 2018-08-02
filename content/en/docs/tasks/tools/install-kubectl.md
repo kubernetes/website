@@ -65,6 +65,14 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
+## Install with Macports on macOS
+
+1. If you are on macOS and using [Macports](https://macports.org/) package manager, you can install with:
+
+        port install kubectl
+
+2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
+
 ## Install with Powershell from PSGallery
 
 1. If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update with:
