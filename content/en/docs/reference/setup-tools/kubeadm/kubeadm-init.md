@@ -102,6 +102,9 @@ configuration file options. This file is passed in the `--config` option.
 
 In Kubernetes 1.11 and later, the default configuration can be printed out using the
 [kubeadm config print-default](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+It is **recommended** that you migrate your old `v1alpha1` configuration to `v1alpha2` using
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
+because `v1alpha1` will be removed in Kubernetes 1.12.
 
 For more details on each field in the configuration you can navigate to our
 [API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#MasterConfiguration)
@@ -259,26 +262,10 @@ unifiedControlPlaneImage: ""
 For information about kube-proxy parameters in the MasterConfiguration see:
 - [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig/v1alpha1#KubeProxyConfiguration)
 
-### Passing custom arguments to control plane components {#custom-args}
+### Passing custom flags to control plane components {#control-plane-flags}
 
-If you would like to override or extend the behaviour of a control plane component, you can provide
-extra arguments to kubeadm. When the component is deployed, these additional arguments are added to
-the Pod command itself.
-
-For example, to add additional feature-gate arguments to the API server, your [configuration file](#config-file)
-will need to look like this:
-
-```
-apiVersion: kubeadm.k8s.io/v1alpha2
-kind: MasterConfiguration
-apiServerExtraArgs:
-  feature-gates: APIResponseCompression=true
-```
-
-To customize the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
-
-For more information on parameters for the controller-manager and scheduler, see:
-- [high-availability](/docs/setup/independent/high-availability)
+For information about passing flags to control plane components see:
+- [control-plane-flags](/docs/setup/independent/control-plane-flags/)
 
 ### Using custom images {#custom-images}
 
@@ -294,6 +281,8 @@ Allowed customization are:
 * To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
 * To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
 
+Please note that the configuration field `kubernetesVersion` or the command line flag
+`--kubernetes-version` affect the version of the images.
 
 ### Using custom certificates {#custom-certificates}
 
