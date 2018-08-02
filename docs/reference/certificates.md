@@ -29,7 +29,7 @@ Kubernetes uses PKI for the following operations:
 8. Client and server certificates for the [front-proxy][proxy]
 
 
-In addition, etcd uses mutual TLS for authenticating clients and peers (in an HA cluster).
+In addition, etcd uses mutual TLS for authenticating clients and peers.
 
 ## Where to find them
 
@@ -57,17 +57,18 @@ In that case, you will also need to make all of these:
 
 [2]: For a liveness probe, if self-hosted
 
-| Default CN                    | Parent CA                 | O (in Subject) | kind   | hosts (SAN)                                 |
-|-------------------------------|---------------------------|----------------|--------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server | localhost, 127.0.0.1                        |
-| kube-etcd-peer                | etcd-ca                   |                | peer   | <hostname>, <Host IP>, localhost, 127.0.0.1 |
-| kube-etcd-healthcheck-client  | etcd-ca                   | system:masters | peer   |                                             |
-| kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client |                                             |
-| kube-apiserver                | kubernetes-ca             |                | server | <hostname>, <Host IP>, <advertise IP> , [1] |
-| kube-apiserver-client         | kubernetes-ca             | system:master  | client |                                             |
-| kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client |                                             |
-| front-proxy-client            | kubernetes-front-proxy-ca |                | client |                                             |
+| Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
+|-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
+| kube-etcd                     | etcd-ca                   |                | server, client [<sup>1</sup>][etcdbug] | localhost, 127.0.0.1                        |
+| kube-etcd-peer                | etcd-ca                   |                | peer                                   | <hostname>, <Host IP>, localhost, 127.0.0.1 |
+| kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
+| kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
+| kube-apiserver                | kubernetes-ca             |                | server                                 | <hostname>, <Host IP>, <advertise IP> , [1] |
+| kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
+| front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
+
+[etcdbug]: https://github.com/coreos/etcd/issues/9785
 1: "kubernetes", "kubernetes.default", "kubernetes.default.svc", "kubernetes.default.svc.cluster", "kubernetes.default.svc.cluster.local"
 
 where "kind" is are the [x509 key usage][usage] types:
@@ -104,27 +105,27 @@ The administrator account and service accounts will need to be manually configur
 | filename                | credential name            | Default CN                     | O (in Subject) |
 |-------------------------|----------------------------|--------------------------------|----------------|
 | admin.conf              | default-admin              | kubernetes-admin               | system:masters |
-| kubelet.conf            | default-auth               | system:node:<hostname>         | system:nodes   |
+| kubelet.conf            | default-auth               | system:node:<nodename>         | system:nodes   |
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
 | scheduler.conf          | default-manager            | system:kube-scheduler          |                |
 
 The first step is to generate an x509 cert/key pair with the given CN and O. Then, `kubectl` can be used to generate a config (one per line):
 
 ```shell
-KUBECONFIG=<path> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path to kubernetes ca> --embed-certs
-KUBECONFIG=<path> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
-KUBECONFIG=<path> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
-KUBECONFIG=<path> kubectl config use-context default-system
+KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path to kubernetes ca> --embed-certs
+KUBECONFIG=<filename> kubectl config set-credentials <credential-name> --client-key <path-to-key>.pem --client-certificate <path-to-cert>.pem --embed-certs
+KUBECONFIG=<filename> kubectl config set-context default-system --cluster default-cluster --user <credential-name>
+KUBECONFIG=<filename> kubectl config use-context default-system
 ```
 
-All these kubeconfigs should be copied to locations where they can be used. They should be provided with `--kubeconfig`.
+These files are used as follows:
 
-| name                       | path                    | command                 | comment                                                     |
-|----------------------------|-------------------------|-------------------------|-------------------------------------------------------------|
-| default-admin              | admin.conf              | kubectl                 | used by a user to administer the cluster                    |
-| default-auth               | kubelet.conf            | kubelet                 | one will be needed for every node in the cluster.           |
-| default-controller-manager | controller-manager.conf | kube-controller-manager | add to manifest in `manifests/kube-controller-manager.yaml` |
-| default-scheduler          | scheduler.conf          | kube-scheduler          | add to manifest in `manifests/kube-scheduler.yaml`          |
+| filename                | command                 | comment                                                     |
+|-------------------------|-------------------------|-------------------------------------------------------------|
+| admin.conf              | kubectl                 | used by a user to administer the cluster                    |
+| kubelet.conf            | kubelet                 | one will be needed for every node in the cluster.           |
+| controller-manager.conf | kube-controller-manager | add to manifest in `manifests/kube-controller-manager.yaml` |
+| scheduler.conf          | kube-scheduler          | add to manifest in `manifests/kube-scheduler.yaml`          |
 
 [usage]: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 [kubeadm]: https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/ 
