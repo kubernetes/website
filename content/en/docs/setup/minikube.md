@@ -1,7 +1,7 @@
 ---
 reviewers:
 - dlorenc
-- r2d4
+- balopat
 - aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
