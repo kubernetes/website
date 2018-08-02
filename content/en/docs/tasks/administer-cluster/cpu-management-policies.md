@@ -4,11 +4,12 @@ reviewers:
 - sjenning
 - ConnorDoyle
 - balajismaniam
+content_template: templates/task
 ---
 
-{{< feature-state state="beta" >}}
+{{% capture overview %}}
 
-{{< toc >}}
+{{< feature-state state="beta" >}}
 
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
 from the user. This is by design.  However, some workloads require
@@ -16,6 +17,18 @@ stronger guarantees in terms of latency and/or performance in order to operate
 acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## CPU Management Policies
 
@@ -69,6 +82,13 @@ using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cg
 {{< note >}}
 **Note:** The alpha version of this policy does not guarantee static
 exclusive allocations across Kubelet restarts.
+{{< /note >}}
+
+{{< note >}}
+**Note:** CPU Manager doesn't support offlining and onlining of
+CPUs at runtime. Also, if the set of online CPUs changes on the node,
+the node must be drained and CPU manager manually reset by deleting the
+state file `cpu_manager_state` in the kubelet root directory.
 {{< /note >}}
 
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
@@ -197,3 +217,4 @@ and `requests` are set equal to `limits` when not explicitly specified. And the
 container's resource limit for the CPU resource is an integer greater than or 
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
+{{% /capture %}}

@@ -1,9 +1,10 @@
 ---
 title: Concepts Underlying the Cloud Controller Manager
+content_template: templates/concept
 weight: 30
 ---
 
-## Cloud Controller Manager
+{{% capture overview %}}
 
 The cloud controller manager (CCM) concept (not to be confused with the binary) was originally created to allow cloud specific vendor code and the Kubernetes core to evolve independent of one another. The cloud controller manager runs alongside other master components such as the Kubernetes controller manager, the API server, and scheduler. It can also be started as a Kubernetes addon, in which case it runs on top of Kubernetes.
 
@@ -14,6 +15,12 @@ This document discusses the concepts behind the cloud controller manager and giv
 Here's the architecture of a Kubernetes cluster without the cloud controller manager:
 
 ![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Design
 
@@ -254,3 +261,5 @@ The following cloud providers have implemented CCMs:
 
 Complete instructions for configuring and running the CCM are provided
 [here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
+
+{{% /capture %}}

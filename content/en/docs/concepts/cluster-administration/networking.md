@@ -2,9 +2,11 @@
 reviewers:
 - thockin
 title: Cluster Networking
+content_template: templates/concept
 weight: 50
 ---
 
+{{% capture overview %}}
 Kubernetes approaches networking somewhat differently than Docker does by
 default.  There are 4 distinct networking problems to solve:
 
@@ -14,10 +16,11 @@ default.  There are 4 distinct networking problems to solve:
 3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 
+{{% /capture %}}
+
 {{< toc >}}
 
-
-## Summary
+{{% capture body %}}
 
 Kubernetes assumes that pods can communicate with other pods, regardless of
 which host they land on.  Every pod gets its own IP address so you do not
@@ -266,9 +269,12 @@ Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-pl
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
+{{% /capture %}}
 
-## Other reading
+{{% capture whatsnext %}}
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
 document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+
+{{% /capture %}}

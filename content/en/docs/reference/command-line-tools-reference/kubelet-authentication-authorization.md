@@ -2,7 +2,6 @@
 reviewers:
 - liggitt
 title: Kubelet authentication/authorization
-weight: 30
 ---
 
 {{< toc >}}
@@ -28,7 +27,7 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 
 * start the kubelet with the `--client-ca-file` flag, providing a CA bundle to verify client certificates with
 * start the apiserver with `--kubelet-client-certificate` and `--kubelet-client-key` flags
-* see the [apiserver authentication documentation](/docs/admin/authentication/#x509-client-certs) for more details
+* see the [apiserver authentication documentation](/docs/reference/access-authn-authz/authentication/#x509-client-certs) for more details
 
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
 
@@ -52,7 +51,7 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 * start the kubelet with the `--authorization-mode=Webhook` and the `--kubeconfig` flags
 * the kubelet calls the `SubjectAccessReview` API on the configured API server to determine whether each request is authorized
 
-The kubelet authorizes API requests using the same [request attributes](/docs/admin/authorization/#request-attributes) approach as the apiserver.
+The kubelet authorizes API requests using the same [request attributes](/docs/reference/access-authn-authz/authorization/#review-your-request-attributes) approach as the apiserver.
 
 The verb is determined from the incoming request's HTTP verb:
 

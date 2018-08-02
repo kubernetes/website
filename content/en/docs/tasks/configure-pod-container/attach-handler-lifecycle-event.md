@@ -30,7 +30,7 @@ for the postStart and preStop events.
 
 Here is the configuration file for the Pod:
 
-{{< code file="lifecycle-events.yaml" >}}
+{{< codenew file="pods/lifecycle-events.yaml" >}}
 
 In the configuration file, you can see that the postStart command writes a `message`
 file to the Container's `/usr/share` directory. The preStop command shuts down
@@ -38,7 +38,7 @@ nginx gracefully. This is helpful if the Container is being terminated because o
 
 Create the Pod:
 
-    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/lifecycle-events.yaml
+    kubectl create -f https://k8s.io/examples/pods/lifecycle-events.yaml
 
 Verify that the Container in the Pod is running:
 

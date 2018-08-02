@@ -3,14 +3,21 @@ reviewers:
 - lavalamp
 - thockin
 title: Cluster Management
+content_template: templates/concept
 ---
 
-{{< toc >}}
+{{% capture overview %}}
 
 This document describes several topics related to the lifecycle of a cluster: creating a new cluster,
 upgrading your cluster's
 master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
 running cluster.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Creating and configuring a Cluster
 
@@ -199,9 +206,6 @@ The objects that are stored to disk for a cluster's internal representation of t
 When the supported API changes, these objects may need to be rewritten in the newer API.  Failure to do this will eventually result in resources that are no longer decodable or usable
 by the Kubernetes API server.
 
-`KUBE_API_VERSIONS` environment variable for the `kube-apiserver` binary which controls the API versions that are supported in the cluster. The first version in the list is used as the cluster's storage version. Hence, to set a specific version as the storage version, bring it to the front of list of versions in the value of `KUBE_API_VERSIONS`.  You need to restart the `kube-apiserver` binary
-for changes to this variable to take effect.
-
 ### Switching your config files to a new API version
 
 You can use `kubectl convert` command to convert config files between different API versions.
@@ -210,4 +214,4 @@ You can use `kubectl convert` command to convert config files between different 
 kubectl convert -f pod.yaml --output-version v1
 ```
 
-For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands/#convert) command.
+For more options, please refer to the usage of [kubectl convert](/docs/user-guide/kubectl/{{page.version}}/#convert) command.

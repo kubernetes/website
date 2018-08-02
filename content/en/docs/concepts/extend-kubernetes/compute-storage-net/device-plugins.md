@@ -37,7 +37,7 @@ During the registration, the device plugin needs to send:
   * The name of its Unix socket.
   * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
-    [extended resource naming scheme](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+    [extended resource naming scheme](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
     as `vendor-domain/resource`.
     For example, an Nvidia GPU is advertised as `nvidia.com/gpu`.
 
@@ -141,11 +141,14 @@ ensure the continuous functioning of the device allocations during the upgrade.
 For examples of device plugin implementations, see:
 
 * The official [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
-    * it requires using [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers
-* The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu).
+    * Requires [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers.
+    * A detailed guide on how to [schedule NVIDIA GPUs](/docs/tasks/manage-gpus/scheduling-gpus) on k8s.
+* The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-{{% /capture %}}
+* The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
+* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for GPU and FPGA devices
 
+{{% /capture %}}
 

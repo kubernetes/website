@@ -1,14 +1,20 @@
 ---
 reviewers:
 title: Pods
+content_template: templates/concept
 weight: 20
 ---
 
-{{< toc >}}
-
+{{% capture overview %}}
 
 _Pods_ are the smallest deployable units of computing that can be created and
 managed in Kubernetes.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## What is a Pod?
 
@@ -140,7 +146,7 @@ Pods aren't intended to be treated as durable entities. They won't survive sched
 
 In general, users shouldn't need to create pods directly. They should almost
 always use controllers even for singletons, for example,
-[Deployments](/docs/concepts/workloads/controllers/deployment/)).
+[Deployments](/docs/concepts/workloads/controllers/deployment/).
 Controllers provide self-healing with a cluster scope, as well as replication
 and rollout management.
 Controllers like [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)
@@ -199,3 +205,5 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 Pod is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at:
 [Pod API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+
+{{% /capture %}}

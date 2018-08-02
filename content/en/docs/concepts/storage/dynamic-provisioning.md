@@ -110,7 +110,7 @@ dynamically provisioned if no storage class is specified. A cluster administrato
 can enable this behavior by:
 
 - Marking one `StorageClass` object as *default*;
-- Making sure that the [`DefaultStorageClass` admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
+- Making sure that the [`DefaultStorageClass` admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
   is enabled on the API server.
 
 An administrator can mark a specific `StorageClass` as default by adding the
