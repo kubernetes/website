@@ -368,4 +368,29 @@ When multiple nodes exist for preemption and none of the above scenarios apply,
 we expect the scheduler to choose a node with the lowest priority. If that is
 not the case, it may indicate a bug in the scheduler.
 
+## Interactions of Pod priority and QoS
+
+Pod priority and
+[QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md)
+are two orthogonal features with few interactions and no default restrictions on
+setting the priority of a Pod based on its QoS classes. The scheduler's
+preemption logic does consider QoS when choosing preemption targets. Preemption
+considers Pod priority and attempts to choose a set of targets with the lowest
+priority. Higher-priority Pods are considered for preemption only if the removal
+of the lowest priority Pods is not sufficient to allow the scheduler to schedule
+the preemptor Pod, or if the lowest priority Pods are protected by
+`PodDisruptionBudget`.
+
+The only component that considers both QoS and Pod priority is
+[Kubelet out-of-resource eviction](/docs/tasks/administer-cluster/out-of-resource/).
+The kubelet ranks Pods for eviction first by whether or not their usage of the
+starved resource exceeds requests, then by Priority, and then by the consumption
+of the starved compute resource relative to the Pods’ scheduling requests.
+See
+[Evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
+for more details. Kubelet out-of-resource eviction does not evict Pods whose
+usage does not exceed their requests. If a Pod with lower priority is not
+exceeding its requests, it won't be evicted. Another Pod with higher priority
+that exceeds its requests may be evicted.
+
 {{% /capture %}}
