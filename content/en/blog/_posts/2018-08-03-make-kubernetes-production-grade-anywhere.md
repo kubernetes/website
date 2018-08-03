@@ -6,7 +6,7 @@ date:   2018-08-03
 
 **Authors**: Steven Wong (VMware), Michael Gasch (VMware)
 
-This blog offers some guidelines for running a production-grade Kubernetes cluster in an environment like an on-premise data center or edge location.
+This blog offers some guidelines for running a production grade Kubernetes cluster in an environment like an on-premise data center or edge location.
 
 What does it mean to be “production grade”?
 
@@ -22,9 +22,9 @@ In short, production grade means anticipating accidents and preparing for recove
 
 This article is directed at on-premise Kubernetes deployments on a hypervisor or bare-metal platform, facing finite backing resources compared to the expansibility of the major public clouds. However, some of these recommendations may also be useful in a public cloud if budget constraints limit the resources you choose to consume.
 
-A single node bare-metal Minikube deployment may be cheap and easy, but is not production grade. Conversely, you’re not likely to achieve Google’s Borg experience in a retail store, branch office, or edge location -- nor are you likely to need it.
+A single node bare-metal Minikube deployment may be cheap and easy, but is not production grade. Conversely, you’re not likely to achieve Google’s Borg experience in a retail store, branch office, or edge location, nor are you likely to need it.
 
-This blog offers some guidance on achieving a production-worthy Kubernetes deployment, even when dealing with some resource constraints.
+This blog offers some guidance on achieving a production worthy Kubernetes deployment, even when dealing with some resource constraints.
 
 ![without incidence](/images/blog/2018-08-03-make-kubernetes-production-grade-anywhere/without-incidence.png)
 
@@ -36,7 +36,7 @@ A Kubernetes cluster is a highly distributed system based on a control plane and
 
 ![api server](/images/blog/2018-08-03-make-kubernetes-production-grade-anywhere/api-server.png)
 
-Typically the API server, Controller Manager and Scheduler components are co-located within multiple instances of control plane (aka Master) nodes. Master nodes usually include etcd too – although there are high availability and large cluster scenarios that call for running etcd on independent hosts. The components can be run as containers, and optionally be supervised by Kubernetes, i.e., running as statics pods. The latter requires the kubelet agent on the control plane nodes.
+Typically the API server, Controller Manager and Scheduler components are co-located within multiple instances of control plane (aka Master) nodes. Master nodes usually include etcd too, although there are high availability and large cluster scenarios that call for running etcd on independent hosts. The components can be run as containers, and optionally be supervised by Kubernetes, i.e. running as statics pods.
 
 For high availability, redundant instances of these components are used. The importance and required degree of redundancy varies.
 
@@ -44,7 +44,7 @@ For high availability, redundant instances of these components are used. The imp
 
 ![kubernetes components HA](/images/blog/2018-08-03-make-kubernetes-production-grade-anywhere/kubernetes-components-ha.png)
 
-Risks to these components include hardware failures, software bugs, bad updates, human errors, network outages, and overloaded systems resulting in resource exhaustion. Redundancy can mitigate the impact of many of these hazards. In addition, the resource scheduling and high availability features of a hypervisor platform can be useful to surpass what can be achieved using the Linux operating system, Kubernetes, and container runtime alone.
+Risks to these components include hardware failures, software bugs, bad updates, human errors, network outages, and overloaded systems resulting in resource exhaustion. Redundancy can mitigate the impact of many of these hazards. In addition, the resource scheduling and high availability features of a hypervisor platform can be useful to surpass what can be achieved using the Linux operating system, Kubernetes, and a container runtime alone.
 
 The API Server uses multiple instances behind a load balancer to achieve scale and availability. The load balancer is a critical component for purposes of high availability. Multiple DNS API Server ‘A’ records might be an alternative if you don’t have a load balancer.
 
@@ -108,7 +108,7 @@ On worker nodes, [Node Allocatable](https://kubernetes.io/docs/tasks/administer-
 
 ## Security
 
-Every Kubernetes cluster has a cluster root Certificate Authority (CA). Master, Kubelet, and Kubectl certs need to be generated and installed. If you use an install tool or a distribution this may be handled for you. A manual process is described [here](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/04-certificate-authority.md). You should be prepared to reinstall certificates in the event of node replacements or expansions.
+Every Kubernetes cluster has a cluster root Certificate Authority (CA). The Controller Manager, API Server, Scheduler, kubelet client, kube-proxy and administrator certificates need to be generated and installed. If you use an install tool or a distribution this may be handled for you. A manual process is described [here](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/master/docs/04-certificate-authority.md). You should be prepared to reinstall certificates in the event of node replacements or expansions.
 
 As Kubernetes is entirely API driven, controlling and limiting who can access the cluster and what actions they are allowed to perform is essential. Encryption and authentication options are addressed in this [documentation](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/).
 
@@ -125,7 +125,7 @@ Recommendations:
 * Consider physical security, especially when deploying to edge or remote office locations that may be unattended. Include storage encryption to limit exposure from stolen devices and protection from attachment of malicious devices like USB keys.
 * Protect Kubernetes plain-text cloud provider credentials (access keys, tokens, passwords, etc.)
 
-Kubernetes [secret](https://kubernetes.io/docs/concepts/configuration/secret/) objects are appropriate for holding small amounts of sensitive data. These are retained within etcd. These can be readily used to hold credentials for the Kubernetes API but there are times when a workload or an extension of the cluster itself needs a more full-featured solution. The HashiCorp Vault project is is a popular solution if you need more than the built-in secret objects can provide.
+Kubernetes [secret](https://kubernetes.io/docs/concepts/configuration/secret/) objects are appropriate for holding small amounts of sensitive data. These are retained within etcd. These can be readily used to hold credentials for the Kubernetes API but there are times when a workload or an extension of the cluster itself needs a more full-featured solution. The HashiCorp Vault project is a popular solution if you need more than the built-in secret objects can provide.
 
 ## Disaster Recovery and Backup
 
@@ -145,7 +145,7 @@ All Kubernetes objects are stored on etcd. Periodically backing up the etcd clus
 
 Backing up an etcd cluster can be accomplished with etcd’s [built-in](https://coreos.com/etcd/docs/latest/op-guide/recovery.html) snapshot mechanism, and copying the resulting file to storage in a different failure domain. The snapshot file contains all the Kubernetes states and critical information. In order to keep the sensitive Kubernetes data safe, encrypt the snapshot files.
 
-Using disk volume based snapshot recovery of etcd can have issues; see https://github.com/kubernetes/kubernetes/issues/40027. API-based backup solutions (e.g., [Ark](https://github.com/heptio/ark)) can offer more granular recovery than a etcd snapshot, but also can be slower. You could utilize both snapshot and API-based backups, but you should do one form of etcd backup as a minimum.
+Using disk volume based snapshot recovery of etcd can have issues; see [#40027](https://github.com/kubernetes/kubernetes/issues/40027). API-based backup solutions (e.g., [Ark](https://github.com/heptio/ark)) can offer more granular recovery than a etcd snapshot, but also can be slower. You could utilize both snapshot and API-based backups, but you should do one form of etcd backup as a minimum.
 
 Be aware that some Kubernetes extensions may maintain state in independent etcd clusters, on persistent volumes, or through other mechanisms. If this state is critical, it should have a backup and recovery plan.
 
@@ -168,7 +168,7 @@ Some critical state is held outside etcd. Certificates, container images, and ot
 ## Considerations for your production workloads
 Anti-affinity specifications can be used to split clustered services across backing hosts, but at this time the settings are used only when the pod is scheduled. This means that Kubernetes can restart a failed node of your clustered application, but does not have a native mechanism to rebalance after a fail back. This is a topic worthy of a separate blog, but supplemental logic might be useful to achieve optimal workload placements after host or worker node recoveries or expansions. The [Pod Priority and Preemption feature](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/) can be used to specify a preferred triage in the event of resource shortages caused by failures or bursting workloads.
 
-For stateful services, external attached volume mounts are the standard Kubernetes recommendation for a non-clustered service (e.g., a typical SQL database). At this time Kubernetes managed snapshots of these external volumes is in the category of a [roadmap feature request](https://docs.google.com/presentation/d/1dgxfnroRAu0aF67s-_bmeWpkM1h2LCxe6lB1l1oS0EQ/edit#slide=id.g3ca07c98c2_0_47), likely to align with the Container Storage Interface (CSI) integration. Thus performing backups of such a service would involve application specific, in-pod activity that is beyond the scope of this document. While awaiting better Kubernetes support for a snapshot and backup workflow, running your database service in a VM rather than a container, and exposing it it to your Kubernetes workload may be worth consideration.
+For stateful services, external attached volume mounts are the standard Kubernetes recommendation for a non-clustered service (e.g., a typical SQL database). At this time Kubernetes managed snapshots of these external volumes is in the category of a [roadmap feature request](https://docs.google.com/presentation/d/1dgxfnroRAu0aF67s-_bmeWpkM1h2LCxe6lB1l1oS0EQ/edit#slide=id.g3ca07c98c2_0_47), likely to align with the Container Storage Interface (CSI) integration. Thus performing backups of such a service would involve application specific, in-pod activity that is beyond the scope of this document. While awaiting better Kubernetes support for a snapshot and backup workflow, running your database service in a VM rather than a container, and exposing it to your Kubernetes workload may be worth considering.
 
 Cluster-distributed stateful services (e.g., Cassandra) can benefit from splitting across hosts, using [local persistent volumes](https://kubernetes.io/blog/2018/04/13/local-persistent-volumes-beta/#disclaimer) if resources allow. This would require deploying multiple Kubernetes worker nodes (could be VMs on hypervisor hosts) to preserve a quorum under single point failures.
 
@@ -188,6 +188,6 @@ Your production deployment should utilize an automated installation, configurati
 
 Buying a ticket on a commercial airline is convenient and safe. But when you travel to a remote location with a short runway, that commercial Airbus A320 flight isn’t an option. This doesn’t mean that air travel is off the table. It does mean that some compromises are necessary.
 
-The adage in aviation is that on a single engine aircraft, an engine failure means you crash. With twin engines, at the very least, you get more choices of where you crash. Kubernetes on a small number of hosts is sort of like this. And if your business case justifies it, you might scale up to a larger fleet of mixed large and small vehicles (e.g., FedEx, Amazon).
+The adage in aviation is that on a single engine aircraft, an engine failure means you crash. With twin engines, at the very least, you get more choices of where you crash. Kubernetes on a small number of hosts is similar, and if your business case justifies it, you might scale up to a larger fleet of mixed large and small vehicles (e.g., FedEx, Amazon).
 
 Those designing a production-grade Kubernetes solution have a lot of options and decisions. A blog-length article can’t provide all the answers, and can’t know your specific priorities. We do hope this offers a checklist of things to consider, along with some useful guidance. Some options were left “on the cutting room floor” (e.g., running Kubernetes components using [self-hosting](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-and-alpha-in-v19-self-hosting) instead of static pods). These might be covered in a follow up if there is interest. Also, Kubernetes’ high enhancement rate means that if your search engine found this article after 2019, some content might be past the “sell by” date.
