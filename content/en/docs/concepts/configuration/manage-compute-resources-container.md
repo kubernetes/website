@@ -308,7 +308,7 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 ## Local ephemeral storage
 {{< feature-state state="beta" >}}
 
-Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by pods via EmptyDir volumes, container logs, image layers and container writable layers.
+Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managing local ephemeral storage. In each Kubernetes node, kubelet's root directory (/var/lib/kubelet by default) and log directory (/var/log) are stored on the root partition of the node. This partition is also shared and consumed by Pods via emptyDir volumes, container logs, image layers and container writable layers.
 
 This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
 
@@ -366,11 +366,11 @@ run on. Each node has a maximum amount of local ephemeral storage it can provide
 
 ### How Pods with ephemeral-storage limits run
 
-For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the pod's EmptyDir volumes exceeds the limit, the pod will be evicted.
+For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the Pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the Pod's emptyDir volumes exceeds the limit, the Pod will be evicted.
 
-## Extended Resources
+## Extended resources
 
-Extended Resources are fully-qualified resource names outside the
+Extended resources are fully-qualified resource names outside the
 `kubernetes.io` domain. They allow cluster operators to advertise and users to
 consume the non-Kubernetes-built-in resources.
 
@@ -397,7 +397,7 @@ operation, the node's `status.capacity` will include a new resource. The
 `status.allocatable` field is updated automatically with the new resource
 asynchronously by the kubelet. Note that because the scheduler uses the	node
 `status.allocatable` value when evaluating Pod fitness, there may be a short
-delay between patching the node capacity with a new resource and the first pod
+delay between patching the node capacity with a new resource and the first Pod
 that requests the resource to be scheduled on that node.
 
 **Example:**
@@ -423,7 +423,7 @@ JSON-Pointer. For more details, see
 #### Cluster-level extended resources
 
 Cluster-level extended resources are not tied to nodes. They are usually managed
-by scheduler extenders, which handle the resource comsumption, quota and so on.
+by scheduler extenders, which handle the resource consumption and resource quota.
 
 You can specify the extended resources that are handled by scheduler extenders
 in [scheduler policy
@@ -432,12 +432,13 @@ configuration](https://github.com/kubernetes/kubernetes/blob/release-1.10/pkg/sc
 **Example:**
 
 The following configuration for a scheduler policy indicates that the
-cluster-level extended resource "example.com/foo" is handled by scheduler
+cluster-level extended resource "example.com/foo" is handled by the scheduler
 extender.
- - The scheduler sends a pod to the scheduler extender only if the pod requests
-   "example.com/foo".
- - The `ignoredByScheduler` field specifies that the scheduler does not check
-   the "example.com/foo" resource in its `PodFitsResources` predicate.
+
+- The scheduler sends a Pod to the scheduler extender only if the Pod requests
+     "example.com/foo".
+- The `ignoredByScheduler` field specifies that the scheduler does not check
+     the "example.com/foo" resource in its `PodFitsResources` predicate.
 
 ```json
 {
@@ -460,20 +461,20 @@ extender.
 
 ### Consuming extended resources
 
-Users can consume Extended Resources in Pod specs just like CPU and memory.
+Users can consume extended resources in Pod specs just like CPU and memory.
 The scheduler takes care of the resource accounting so that no more than the
 available amount is simultaneously allocated to Pods.
 
-The API server restricts quantities of Extended Resources to whole numbers.
+The API server restricts quantities of extended resources to whole numbers.
 Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m`.
 
 {{< note >}}
-**Note:** Extended Resources replace Opaque Integer Resources.
-Users can use any domain name prefix other than "`kubernetes.io`" which is reserved.
+**Note:** Extended resources replace Opaque Integer Resources.
+Users can use any domain name prefix other than `kubernetes.io` which is reserved.
 {{< /note >}}
 
-To consume an Extended Resource in a Pod, include the resource name as a key
+To consume an extended resource in a Pod, include the resource name as a key
 in the `spec.containers[].resources.limits` map in the container spec.
 
 {{< note >}}
@@ -482,7 +483,7 @@ must be equal if both are present in a container spec.
 {{< /note >}}
 
 A Pod is scheduled only if all of the resource requests are satisfied, including
-CPU, memory and any Extended Resources. The Pod remains in the `PENDING` state
+CPU, memory and any extended resources. The Pod remains in the `PENDING` state
 as long as the resource request cannot be satisfied.
 
 **Example:**
@@ -533,11 +534,11 @@ consistency across providers and platforms.
 
 {{% capture whatsnext %}}
 
-* Get hands-on experience [assigning Memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
+* Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
-* Get hands-on experience [assigning CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
+* Get hands-on experience [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+* [Container API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core)
 
