@@ -676,7 +676,7 @@ kubectl exec zk-0 -- ps -ef
 ```
 
 The command used as the container's entry point has PID 1, and
-the ZooKeeper process, a child of the entry point, has PID 23.
+the ZooKeeper process, a child of the entry point, has PID 27.
 
 ```shell
 UID        PID  PPID  C STIME TTY          TIME CMD
