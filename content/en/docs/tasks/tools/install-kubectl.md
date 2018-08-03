@@ -272,7 +272,7 @@ fi
 Or when using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
 
 ```shell
-source <(kubectl completion zsh)
+plugins=(kubectl)
 ```
 {{% /capture %}}
 
