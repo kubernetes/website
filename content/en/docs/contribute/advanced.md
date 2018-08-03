@@ -1,6 +1,5 @@
 ---
 title: Advanced contributing
-linktitle: Advanced
 slug: advanced
 content_template: templates/concept
 weight: 30

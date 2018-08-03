@@ -1,6 +1,5 @@
 ---
 title: Intermediate contributing
-linktitle: Intermediate
 slug: intermediate
 content_template: templates/concept
 weight: 20
@@ -92,7 +91,9 @@ the number of lines the PR changes.
 #### Reviewers and approvers
 
 The Kubernetes website repo operates differently than some of the Kubernetes
-code repositories when it comes to the roles of reviewers and approvers.
+code repositories when it comes to the roles of reviewers and approvers. For
+more information about the responsibilities of reviewers and approvers, see
+[Participating](/docs/contribute/participating/). Here's an overview.
 
 - A reviewer reviews pull request content for technical accuracy. A reviewer 
   indicates that a PR is technically accurate by leaving a `/lgtm` comment on
@@ -504,7 +505,6 @@ changes look like, you can use the `hugo` command to stage the changes locally.
     or just close the terminal window.
 
 
-
 ## Triage and categorize issues
 
 In any given week, a specific docs approver volunteers to do initial
@@ -620,7 +620,7 @@ for bugs with features (kubernetes/kubernetes is a great place to start).
 
 Sample response to a request for support:
 
-```
+```none
 This issue sounds more like a request for support and less
 like an issue specifically for docs. I encourage you to bring
 your question to the `#kubernetes-users` channel in
@@ -637,7 +637,7 @@ If this is a documentation issue, please re-open this issue.
 
 Sample code bug report response:
 
-```
+```none
 This sounds more like an issue with the code than an issue with
 the documentation. Please open an issue at
 https://github.com/kubernetes/kubernetes/issues.

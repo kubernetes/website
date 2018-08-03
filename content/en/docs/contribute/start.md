@@ -1,6 +1,5 @@
 ---
 title: Start contributing
-linktitle: Start
 slug: start
 content_template: templates/concept
 weight: 10
