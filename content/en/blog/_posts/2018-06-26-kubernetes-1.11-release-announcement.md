@@ -60,7 +60,7 @@ If you’re interested in exploring these features more in depth, check back in 
 * Day 1: [IPVS-Based In-Cluster Service Load Balancing Graduates to General Availability](/blog/2018/07/09/ipvs-based-in-cluster-load-balancing-deep-dive/)
 * Day 2: [CoreDNS Promoted to General Availability](/blog/2018/07/10/coredns-ga-for-kubernetes-cluster-dns/)
 * Day 3: [Dynamic Kubelet Configuration Moves to Beta](/blog/2018/07/11/dynamic-kubelet-configuration/)
-* Day 4: [Resizing Persistent Volumes using Kubernetes](/blog/2018/07/11/resizing-persistent-volumes-using-kubernetes/)
+* Day 4: [Resizing Persistent Volumes using Kubernetes](/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/)
 
 ## Release team
 
