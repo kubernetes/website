@@ -61,11 +61,15 @@ or the custom metrics API (for all other metrics).
   in question), and compared to the target value, to produce a ratio as above.
 
 The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
-`custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  The `metrics.k8s.io` API is generally provided by metrics-server,
-so please note that metrics-server needs to be launched in general. See [metrics-server](https://kubernetes.io/docs/tasks/debug-application-cluster/core-metrics-pipeline/#metrics-server)
-for further details about how to launch the metrics-server.
-The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.  Fetching metrics from
-Heapster is deprecated as of Kubernetes 1.11.
+`custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  The `metrics.k8s.io` API is usually provided by
+metrics-server, which needs to be launched separately. See
+[metrics-server](https://kubernetes.io/docs/tasks/debug-application-cluster/core-metrics-pipeline/#metrics-server)
+for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
+
+{{< note >}}
+{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
+{{< /note >}}
 
 See [Support for metrics APIs](#support-for-metrics-apis) for more details.
 
