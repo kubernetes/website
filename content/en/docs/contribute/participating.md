@@ -123,12 +123,11 @@ time commitment involved, see
 #### PR Wrangler
 
 SIG Docs approvers are added to the
-[PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers).
-The PR wrangler's duties include:
-
-- TBD
-- TBD
-- TBD
+[PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
+for weekly rotations. All SIG Docs approvers are expected to take part in this
+rotation. See
+[Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
+for more details.
 
 ## SIG Docs teams and automation
 

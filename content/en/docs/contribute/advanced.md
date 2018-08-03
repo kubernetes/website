@@ -17,6 +17,24 @@ client and other tools for some of these tasks.
 
 {{% capture body %}}
 
+## Be the PR Wrangler for a week
+
+SIG Docs approvers are added to the
+[PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
+for weekly rotations. The PR wrangler's duties include:
+
+- Review incoming pull requests daily.
+  - Help new contributors sign the CLA, and close any PR where the CLA hasn't
+    been signed for two weeks. PR authors can reopen the PR after signing the
+    CLA, so this is a low-risk way to make sure nothing gets merged without a
+    signed CLA.
+  - Provide feedback on proposed changes, including helping facilitate technical
+    review from members of other SIGs.
+  - Merge PRs when they are ready, or close PRs that shouldn't be accepted.
+- Triage and tag incoming issues daily. See
+  [Intermediate contributing](/docs/contribute/intermediate/) for guidelines
+  about how SIG Docs uses metadata.
+
 ## Propose improvements
 
 After you've been contributing to the Kubernetes documentation for a while, you
