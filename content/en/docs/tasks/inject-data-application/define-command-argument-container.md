@@ -34,6 +34,11 @@ override the default command and arguments provided by the container image.
 If you define args, but do not define a command, the default command is used
 with your new arguments.
 
+{{< note >}}
+**Note:** the `command` field corresponds to `entrypoint` in some container
+runtimes. Refer to the [Notes](#notes) below.
+{{< /note >}}
+
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
 
