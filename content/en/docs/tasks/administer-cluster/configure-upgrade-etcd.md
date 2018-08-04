@@ -48,7 +48,9 @@ Use a single-node etcd cluster only for testing purpose.
 
 1. Run the following:
 
-        ./etcd --listen-client-urls=http://$PRIVATE_IP:2379 --advertise-client-urls=http://$PRIVATE_IP:2379
+    ```sh
+    ./etcd --listen-client-urls=http://$PRIVATE_IP:2379 --advertise-client-urls=http://$PRIVATE_IP:2379
+    ```
 
 2. Start Kubernetes API server with the flag `--etcd-servers=$PRIVATE_IP:2379`.
 
@@ -64,8 +66,9 @@ For an example, consider a five-member etcd cluster running with the following c
 
 1. Run the following:
 
-       ./etcd --listen-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379 --advertise-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379
-
+    ```sh
+    ./etcd --listen-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379 --advertise-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379
+    ```
 
 2. Start Kubernetes API servers with the flag `--etcd-servers=$IP1:2379, $IP2:2379, $IP3:2379, $IP4:2379, $IP5:2379`.
 
@@ -209,7 +212,7 @@ The upgrade procedure described in this document assumes that either:
 
 {{< warning >}}
 **Warning**: Deviations from the assumptions are untested by continuous
-integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation). 
+integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation).
 {{< /warning >}}
 
 ### Background
