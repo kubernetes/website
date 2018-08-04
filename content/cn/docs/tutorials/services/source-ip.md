@@ -116,7 +116,7 @@ command=GET
 ## Type=NodePort 类型 Services 的 Source IP
 
 
-对于 Kubernetes 1.5，发送给类型为 [Type=NodePort](/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT。你可以创建一个 `NodePort` Service 来进行测试：
+对于 Kubernetes 1.5，发送给类型为 [Type=NodePort](/docs/user-guide/services/#nodeport) Services 的数据包默认进行源地址 NAT。你可以创建一个 `NodePort` Service 来进行测试：
 
 ```console
 $ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
@@ -210,7 +210,7 @@ client_address=104.132.1.79
 ## Type=LoadBalancer 类型 Services 的 Source IP
 
 
-对于 Kubernetes 1.5，发送给类型为 [Type=LoadBalancer](/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT，这是由于所有处于 `Ready` 状态的 Kubernetes 节点对于负载均衡的流量都是符合条件的。所以如果数据包到达一个没有 endpoint 的节点，系统将把这个包代理到*有* endpoint 的节点，并替换数据包的源 IP 为节点的 IP（如前面章节所述）。
+对于 Kubernetes 1.5，发送给类型为 [Type=LoadBalancer](/docs/user-guide/services/#nodeport) Services 的数据包默认进行源地址 NAT，这是由于所有处于 `Ready` 状态的 Kubernetes 节点对于负载均衡的流量都是符合条件的。所以如果数据包到达一个没有 endpoint 的节点，系统将把这个包代理到*有* endpoint 的节点，并替换数据包的源 IP 为节点的 IP（如前面章节所述）。
 
 
 你可以通过在一个 loadbalancer 上暴露这个 source-ip-app 来进行测试。
