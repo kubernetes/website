@@ -105,7 +105,7 @@ command to create the Deployment:
 
 The output of a successful command is:
 
-    deployment "kube-dns-autoscaler" created
+    deployment.apps/kube-dns-autoscaler created
 
 DNS horizontal autoscaling is now enabled.
 
@@ -159,7 +159,7 @@ This option works for all situations. Enter this command:
 
 The output is:
 
-    deployment "kube-dns-autoscaler" scaled
+    deployment.extensions/kube-dns-autoscaler scaled
 
 Verify that the replica count is zero:
 
@@ -181,7 +181,7 @@ no one will re-create it:
 
 The output is:
 
-    deployment "kube-dns-autoscaler" deleted
+    deployment.extensions "kube-dns-autoscaler" deleted
 
 ### Option 3: Delete the kube-dns-autoscaler manifest file from the master node
 
