@@ -1,8 +1,6 @@
 {{- $cssFilesFromConfig := .Site.Params.pushAssets.css -}}
 {{- $jsFilesFromConfig := .Site.Params.pushAssets.js -}}
 {{- $pages := .Site.RegularPages -}}
-/*
-  X-Robots-Tag: noindex
   Link: </images/favicon.png>; rel=preload; as=image
   {{- range $cssFilesFromConfig -}}
   {{- $cssUrl := printf "/css/%s.css" . }}
