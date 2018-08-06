@@ -447,6 +447,12 @@ ul.global-nav {
       color: white;
       position: relative; }
 
+#pre-footer .issue-button-container {
+  width: 75%;
+  margin-left: 15%;
+  padding-left: 1.5%;
+  padding-bottom: 2%; }
+
 footer {
   width: 100%;
   background-image: url(/images/texture.png);
