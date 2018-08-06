@@ -72,7 +72,7 @@ the Pod:
 
     ```shell
     root@redis:/data/redis# apt-get update
-    root@redis:/data/redis# apt-get install -y procps
+    root@redis:/data/redis# apt-get install procps
     root@redis:/data/redis# ps aux
     ```
 
@@ -119,12 +119,6 @@ of `Always`.
     root@redis:/data/redis# cd /data/redis/
     root@redis:/data/redis# ls
     test-file
-    ```
-
-1. Get a shell into the restarted Container:
-
-    ```shell
-    kubectl exec -it redis -- /bin/bash
     ```
 
 1. Delete the Pod that you created for this exercise:
