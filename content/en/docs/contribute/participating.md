@@ -43,7 +43,9 @@ SIG Docs approvers. Here's how it works.
   or withholding a `/lgtm` comment).
 - Any Kubernetes member can add the `lgtm` label, by adding a `/lgtm` comment.
 - Only an approver who is a member of SIG Docs can cause a pull request to merge
-  by adding an `/approve` comment.
+  by adding an `/approve` comment. Some approvers also perform additional
+  specific roles, such as [PR Wrangler](#pr-wrangler) or
+  [SIG Docs chairperson](#sig-docs-chairperson).
 
 For more information about expectations and differences between the roles of
 Kubernetes organization member and SIG Docs approvers, see
@@ -128,6 +130,17 @@ for weekly rotations. All SIG Docs approvers are expected to take part in this
 rotation. See
 [Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 for more details.
+
+#### SIG Docs chairperson
+
+Each SIG, including SIG Docs, selects one or more SIG members to act as
+chairpersons. These are points of contact between SIG Docs and other parts of
+the Kubernetes organization. They require extensive knowledge of the structure
+of the Kubernetes project as a whole and how SIG Docs works within it. See
+[Leadership](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)
+for the current list of chairpersons.
+
+
 
 ## SIG Docs teams and automation
 
