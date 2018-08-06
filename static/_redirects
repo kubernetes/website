@@ -192,6 +192,23 @@
 /docs/home/contribute/stage-documentation-changes/     /docs/home/contribute/create-pull-request/ 301
 /docs/home/coreos/     /docs/getting-started-guides/coreos/ 301
 /docs/home/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
+
+/docs/home/contribute/  /docs/contribute/ 301
+/docs/home/contribute/content-organization/ /docs/contribute/style/content-organization/ 301
+/docs/home/contribute/create-pull-request/ /docs/contribute/foundational/ 301
+/docs/home/contribute/includes/ /docs/contribute/style/hugo_shortcodes/ 301
+/docs/home/contribute/style-guide/ /docs/contribute/style/style-guide/ 301
+/docs/home/contribute/generated-reference/federation-api/ /docs/contribute/generate-ref-docs/federation-api/ 301
+/docs/home/contribute/generated-reference/kubectl/ /docs/contribute/generate-ref-docs/kubectl/ 301
+/docs/home/contribute/generated-reference/kubernetes-api/ /docs/contribute/generate-ref-docs/kubernetes-api/ 301
+/docs/home/contribute/generated-reference/kubernetes-components/ /docs/contribute/generate-ref-docs/kubernetes-components/ 301
+/docs/home/contribute/localization/ /docs/contribute/localization/ 301
+/docs/home/contribute/page-templates/ /docs/contribute/style/page-templates/ 301
+/docs/home/contribute/participating/ /docs/contribute/participating/ 301
+/docs/home/contribute/review-issues/ /docs/contribute/intermediate/ 301
+/docs/home/contribute/blog-post/ /docs/contribute/foundational/ 301
+/docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
+
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
@@ -213,6 +230,9 @@
 /docs/reference/generated/kubefed_options/     /docs/reference/setup-tools/kubefed/kubefed-options/ 301
 /docs/reference/generated/kubefed_unjoin/     /docs/reference/setup-tools/kubefed/kubefed-unjoin/ 301
 /docs/reference/generated/kubefed_version/     /docs/reference/setup-tools/kubefed/kubefed-version/ 301
+
+/docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
+
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 /docs/reference/workloads-18-19/     https://v1-9.docs.kubernetes.io/docs/reference/workloads-18-19/ 301
 
@@ -503,7 +523,8 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
 
-/editdocs/     /docs/home/contribute/     301
+/editdocs/     /docs/contribute/     301
+/docs/home/editdocs/  /docs/contribute/ 301
 
 /docs/admin/accessing-the-api/     /docs/reference/access-authn-authz/controlling-access/ 301
 /docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301

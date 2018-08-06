@@ -47,5 +47,5 @@ Placeholder text is included.
 
 1.  Develop the snippet locally and verify that it works as expected.
 2.  Copy the template's code into the `atom-snippets.cson` file on Github. Raise a
-    pull request, and ask for review from another Atom user in #sig-docs on
+    pull request, and ask for review from another Atom user in `#sig-docs` on
     Kubernetes Slack.
