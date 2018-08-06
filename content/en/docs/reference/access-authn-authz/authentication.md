@@ -596,7 +596,7 @@ The following HTTP headers can be used to performing an impersonation request:
 * `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case and characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
 
 {{< note >}}
-**Note:** Prior to 1.11.2, `extra name` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+**Note:** Prior to 1.11.2, `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
 {{< /note >}}
 
 An example set of headers:
@@ -606,7 +606,7 @@ Impersonate-User: jane.doe@example.com
 Impersonate-Group: developers
 Impersonate-Group: admins
 Impersonate-Extra-dn: cn=jane,ou=engineers,dc=example,dc=com
-Impersonate-Extra-resource%2Fpath: foo/bar/baz
+Impersonate-Extra-acme.com%2Fproject: some-project
 Impersonate-Extra-scopes: view
 Impersonate-Extra-scopes: development
 ```
