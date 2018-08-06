@@ -30,7 +30,7 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
 
 ## Upgrade the control plane
 
-1.  On your master node, run the following (as root:
+1.  On your master node, run the following (as root):
 
         export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
         export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
@@ -180,7 +180,7 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
 
     Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
-    find your CNI provider and see whther additional upgrade steps are required.
+    find your CNI provider and see whether additional upgrade steps are required.
 
 ## Upgrade master and node packages
 
