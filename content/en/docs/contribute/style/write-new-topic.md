@@ -133,11 +133,15 @@ where `<RELPATH>` is the path to the file to include, relative to the
 `examples` directory. The following Hugo shortcode references a YAML
 file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 
+```none
+{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
 ```
-{% raw %}
-{{< codenew file="pods/storage/gce-volume.yaml" >}}
-{% endraw $}
-```
+
+{{< note >}}
+**Note**: To show raw Hugo shortcodes as in the above example and prevent Hugo
+from interpreting them, use C-style comments directly after the `<` and before
+the `>` characters. View the code for this page for an example.
+{{< /note >}}
 
 ## Showing how to create an API object from a configuration file
 
