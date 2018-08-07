@@ -50,9 +50,10 @@ or the custom metrics API (for all other metrics).
   the number of desired replicas.
 
   Please note that if some of the pod's containers do not have the relevant resource request set,
-  CPU utilization for the pod will not be defined and the autoscaler will not take any action
-  for that metric. See the [autoscaling algorithm design document](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm) for further
-  details about how the autoscaling algorithm works.
+  CPU utilization for the pod will not be defined and the autoscaler will
+  not take any action for that metric. See the [algorithm
+  details](#algorithm-details) section below for more information about
+  how the autoscaling algorithm works.
 
 * For per-pod custom metrics, the controller functions similarly to per-pod resource metrics,
   except that it works with raw values, not utilization values.
@@ -80,6 +81,62 @@ The autoscaler accesses corresponding scalable controllers (such as replication 
 by using the scale sub-resource. Scale is an interface that allows you to dynamically set the number of replicas and examine
 each of their current states. More details on scale sub-resource can be found
 [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
+
+### Algorithm Details
+
+From the most basic perspective, the Horizontal Pod Autoscaler controller
+operates on the ratio between desired metric value and current metric
+value:
+
+```
+desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
+```
+
+For example, if the current metric value is `200m`, and the desired value
+is `100m`, the number of replicas will be doubled, since `float(200 / 100)
+== 2.0` If the the current value is instead `50m`, we'll halve the number
+of replicas, since `float(50 / 100) == 0.5`.  We'll skip scaling if the
+ratio is sufficiently close to 1.0 (within a globally-configurable
+tolerance, from the `--horizontal-pod-autoscaler-tolerance` flag, which
+defaults to 0.1).
+
+When a `targetAverageValue` or `targetAverageUtilization` is specified,
+the `currentMetricValue` is computed by taking the average of the given
+metric across all pods in the HorizontalPodAutoscaler's scale target.
+Before checking the tolerance and deciding on the final values, we take
+pod readiness and missing metrics into consideration, however.
+
+If any of those pods have yet to become ready once (i.e. they're still
+starting up), or any of them are missing metrics, we set the names of
+those pods aside for later, and calculate our `currentMetricValue
+/ desiredMetricValue` base on the average of the available metrics for
+ready pods.
+
+If there were any missing metrics, we recompute the average more
+conservatively, assuming those pods were consuming 100% of the desired
+value in case of a scale down, and 0% in case of a scale up.  This dampens
+the magnitude of any potential scale.
+
+Futhermore, if any not-yet-ready pods were present, and we would have
+scaled up without factoring in missing metrics or not-yet-ready pods, we
+conservatively assume the non-yet-ready pods are consuming 0% of the
+desired metric, further dampening the magnitude of a scale up.
+
+After factoring in the not-yet-ready pods and missing metrics, we
+recalculate the usage ratio.  If the new ratio reverses the scale
+direction, or is within the tolerance, we skip scaling.  Otherwise, we use
+the new ratio to scale.
+
+Note that the *original* value for the average utilization is reported
+back via the HorizontalPodAutoscaler status, without factoring in the
+not-yet-ready pods or missing metrics, even when the new usage ratio is
+used.
+
+If multiple metrics are specified in a HorizontalPodAutoscaler, this
+calculation is done for each metric, and then the largest of the desired
+replica counts is chosen.  If any of those metrics cannot be converted
+into a desired replica count (e.g. due to an error fetching the metrics
+from the metrics APIs), scaling is skipped.
 
 ## API Object
 
@@ -129,15 +186,13 @@ dynamic nature of the metrics evaluated. This is sometimes referred to as *thras
 Starting from v1.6, a cluster operator can mitigate this problem by tuning
 the global HPA settings exposed as flags for the `kube-controller-manager` component:
 
+Starting from v1.12, a new algorithmic update removes the need for the
+upscale delay.
+
 - `--horizontal-pod-autoscaler-downscale-delay`: The value for this option is a
   duration that specifies how long the autoscaler has to wait before another
   downscale operation can be performed after the current one has completed.
   The default value is 5 minutes (`5m0s`).
-
-- `--horizontal-pod-autoscaler-upscale-delay`: The value for this option is a
-  duration that specifies how long the autoscaler has to wait before another
-  upscale operation can be performed after the current one has completed.
-  The default value is 3 minutes (`3m0s`).
 
 {{< note >}}
 **Note**: When tuning these parameter values, a cluster operator should be aware of
