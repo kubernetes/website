@@ -432,6 +432,16 @@ was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an
 you may wish to raise or lower the minimum or maximum replica count constraints on your
 HorizontalPodAutoscaler.
 
+## Appendix: Quantities
+
+All metrics in the HorizontalPodAutoscaler and metrics APIs are specified using
+a special whole-number notation known in Kubernetes as a *quantity*.  For example,
+the quantity `10500m` would be written as `10.5` in decimal notation.  The metrics APIs
+will return whole numbers without a suffix when possible, and will generally return
+quantities in milli-units otherwise.  This means you might see your metric value fluctuate
+between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.  See the
+[glossary entry on quantities](/docs/reference/glossary/quantity.md) for more information.
+
 ## Appendix: Other possible scenarios
 
 ### Creating the autoscaler declaratively
