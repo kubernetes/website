@@ -504,6 +504,18 @@ changes look like, you can use the `hugo` command to stage the changes locally.
 4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
     or just close the terminal window.
 
+Alternatively, you can build the Kubernetes docs using Docker. 
+
+1.  Build the image locally:
+
+        make docker-image
+
+2.  Once the `kubernetes-hugo` image has been built locally, you can build and serve the site:
+
+        make docker-serve
+
+3.  In your browser's address bar, enter `localhost:1313`. Hugo will watch the 
+filesystem for changes and rebuild the site as needed.
 
 ## Triage and categorize issues
 
