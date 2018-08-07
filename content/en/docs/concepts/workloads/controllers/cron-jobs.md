@@ -13,7 +13,7 @@ weight: 80
 A _Cron Job_ creates [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) on a time-based schedule.
 
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
-on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
+on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.  Note that all times are specified in UTC (unlike traditional cron, which supports timezones).
 
 For instructions on creating and working with cron jobs, and for an example of a spec file for a cron job, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
 
