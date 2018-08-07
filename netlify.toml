@@ -22,3 +22,5 @@ command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
 # This context is triggered by the master branch and allows search indexing 
 publish = "public"
 command = "hugo"
+
+# hello world
