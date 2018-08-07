@@ -28,7 +28,7 @@ Then create a pod using this file and verify its status:
 
 ```shell
 kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
-pod "busybox" created
+pod/busybox created
 
 kubectl get pods busybox
 NAME      READY     STATUS    RESTARTS   AGE
@@ -129,9 +129,9 @@ Verify that the DNS service is up by using the `kubectl get service` command.
 
 ```shell
 kubectl get svc --namespace=kube-system
-NAME          CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
 ...
-kube-dns      10.0.0.10      <none>        53/UDP,53/TCP        1h
+kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 ...
 ```
 
