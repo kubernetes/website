@@ -20,18 +20,18 @@ css: /css/style_case_studies.css
 <hr>
 <section class="section1">
 <div class="cols">
-  <div class="col1" style="width:95% !important;">
+  <div class="col1" style="width:95% !important;padding-left:5%">
     <h2>Challenge</h2>
     Launched by DISH Network in 2015, Sling TV experienced great customer growth from the beginning. After just a year, “we were going through some growing pains of some of the legacy systems and trying to find the right architecture to enable our future,” says Brad Linder, Sling TV’s Cloud Native & Big Data Evangelist. The company has particular challenges: “We take live TV and distribute it over the internet out to a user’s device that we do not control,” says Linder. “In a lot of ways, we are working in the Wild West: The internet is what it is going to be, and if a customer’s service does not work for whatever reason, they do not care why. They just want things to work. Those are the variables of the equation that we have to try to solve. We really have to try to enable optionality and good customer experience at web scale.”
 
-<br>
+<br><br>
 
  <h2>Solution</h2>
    Led by the belief that “the cloud native architectures and patterns really give us a lot of flexibility in meeting the needs of that sort of customer base,” Linder partnered with <a href="http://rancher.com">Rancher Labs</a> to build Sling TV’s next-generation platform around Kubernetes. “We are going to need to enable a hybrid cloud strategy including multiple public clouds and an on-premise VMWare multi data center environment to meet the needs of the business at some point, so getting that sort of abstraction was a real goal,” he says. “That is one of the biggest reasons why we picked Kubernetes.” The team launched its first applications on Kubernetes in Sling TV’s two internal data centers. The push to enable AWS as a data center option is underway and should be available by the end of 2018. The team has added <a href="https://prometheus.io/">Prometheus</a> for monitoring and <a href="https://github.com/jaegertracing/jaeger">Jaeger</a> for tracing, to work alongside the company’s existing tool sets: Zenoss, New Relic and ELK.
    
 </div>
-
-<div class="col2" style="width:95% !important;">
+<br>
+<div class="col2" style="width:95% !important;padding-left:5%">
 
 <h2>Impact</h2>
  “We are getting to the place where we can one-click deploy an entire data center – the compute, network, Kubernetes, logging, monitoring and all the apps,” says Linder. “We have really enabled a platform thinking based approach to allowing applications to consume common tools.  A new application can be onboarded in about an hour using common tooling and CI/CD processes. The gains on that side have been huge. Before, it took at least a few days to get things sorted for a new application to deploy.  That does not consider the training of our operations staff to manage this new application.  It is two or three orders of magnitude of savings in time and cost, and operationally it has given us the opportunity to let a core team of talented operations engineers manage common infrastructure and tooling to make our applications available at web scale.”
