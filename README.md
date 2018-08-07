@@ -30,7 +30,7 @@ You can create an image for a different version of Hugo by changing the value of
 Once the `kubernetes-hugo` image has been built locally, you can build the site:
 
 ```bash
-make stage
+make docker-serve
 
 # The underlying command:
 docker run \
