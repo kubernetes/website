@@ -81,10 +81,17 @@ After you have successfully submitted at least 5 substantive pull requests, you
 can request [membership](https://github.com/kubernetes/community/blob/master/community-membership.md#member)
 in the Kubernetes organization. Follow these steps:
 
-1.  Find two [sponsors](/docs/contribute/advanced#sponsor-a-new-contributor)
-    who are SIG Docs reviewers or approvers, by asking in the #sig-docs channel
-    on the [Kubernetes Slack instance](https://kubernetes.slack.com) or on the
-    [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+1.  Find two reviewers or approvers to [sponsor](/docs/contribute/advanced#sponsor-a-new-contributor)
+    your membership.
+    
+      Ask for sponsorship in the #sig-docs channel on the 
+      Kubernetes Slack instance](https://kubernetes.slack.com) or on the
+      [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+      
+      {{< note >}}
+      Don't send a direct email or Slack direct message to an individual
+      SIG Docs member.
+      {{< /note >}}
 
 2.  Send an email to the [Kubernetes membership request list](mailto:kubernetes-membership@googlegroups.com)
     and add your two sponsors and any other relevant people to the CC of the
@@ -114,8 +121,9 @@ in the Kubernetes organization. Follow these steps:
     that your sponsors or other Kubernetes leadership has, and for the final
     result of your application.
 
-If for some reason your membership request is not accepted right away, you will
-be given information or steps to take before applying again.
+If for some reason your membership request is not accepted right away, the
+membership committee provides information or steps to take before applying
+again.
 
 ### Reviewers
 
@@ -148,25 +156,23 @@ time commitment involved, see
 #### Becoming a reviewer
 
 When you meet the
-[requirements for becoming a reviewer](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer),
-you can apply to become a SIG Docs reviewer. Even if you are already a reviewer
-in a different SIG, you still need to apply separately for SIG Docs.
+[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer),
+you can become a SIG Docs reviewer. Reviewers in other SIGs must apply
+separately for reviewer status in SIG Docs.
 
 To apply, open a pull request to add yourself to the `reviewers` section of the
 [top-level OWNERS file](https://github.com/kubernetes/website/blob/master/OWNERS)
 in the `kubernetes/website` repository. Assign the PR to one or more current SIG
 Docs approvers.
 
-If your pull request is approved, you are now a SIG Docs reviewer, and
-automated systems will begin suggesting you as a reviewer on new pull requests.
-You can add `/lgtm` to pull requests. You can add `/approve` as well, but an
-approval from someone who is not a SIG Docs approver is not sufficient for a
-pull request to automatically merge.
+If your pull request is approved, you are now a SIG Docs reviewer.
+[K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)
+will assign and suggest you as a reviewer on new pull requests.
 
-Separately, request that a current SIG Docs approver add you to the
+If you are approved, request that a current SIG Docs approver add you to the
 [@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews)
-Github group. Only people who are members of the `kubernetes-website-admins`
-Github group can add new members to a Github group.
+Github group. Only members of the `kubernetes-website-admins` Github group can
+add new members to a Github group.
 
 ### Approvers
 
@@ -190,24 +196,23 @@ time commitment involved, see
 #### Becoming an approver
 
 When you meet the
-[requirements for becoming an approver](https://github.com/kubernetes/community/blob/master/community-membership.md#approver),
-you can apply to become a SIG Docs approver. Even if you are already an approver
-in a different SIG, you still need to apply separately for SIG Docs.
+[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#approver),
+you can become a SIG Docs approver. Approvers in other SIGs must apply
+separately for approver status in SIG Docs.
 
 To apply, open a pull request to add yourself to the `approvers` section of the
 [top-level OWNERS file](https://github.com/kubernetes/website/blob/master/OWNERS)
 in the `kubernetes/website` repository. Assign the PR to one or more current SIG
 Docs approvers.
 
-If your pull request is approved, you are now a SIG Docs approver, and
-automated systems will begin suggesting you as an approver on new pull requests.
-You can add `/approve` to pull requests, and if a pull request already has a
-`/lgtm` and is not on hold, it will merge automatically.
+If your pull request is approved, you are now a SIG Docs approver.
+[K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)
+will assign and suggest you as a reviewer on new pull requests.
 
-Separately, request that a current SIG Docs approver add you to the
+If you are approved, request that a current SIG Docs approver add you to the
 [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
-Github group. Only people who are members of the `kubernetes-website-admins`
-Github group can add new members to a Github group.
+Github group. Only members of the `kubernetes-website-admins` Github group can
+add new members to a Github group.
 
 #### Becoming a website admin
 

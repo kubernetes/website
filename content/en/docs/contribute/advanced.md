@@ -19,8 +19,8 @@ client and other tools for some of these tasks.
 
 ## Be the PR Wrangler for a week
 
-This task can be performed by SIG Docs
-[approvers](/docs/contribute/participating/#approvers).
+SIG Docs [approvers](/docs/contribute/participating/#approvers) can be PR
+wranglers.
 
 SIG Docs approvers are added to the
 [PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
@@ -40,8 +40,8 @@ for weekly rotations. The PR wrangler's duties include:
 
 ## Propose improvements
 
-This task can be performed by SIG Docs
-[members](/docs/contribute/participating/#members).
+SIG Docs
+[members](/docs/contribute/participating/#members) can propose improvements.
 
 After you've been contributing to the Kubernetes documentation for a while, you
 may have ideas for improvement to the style guide, the toolchain used to build
@@ -63,8 +63,8 @@ documentation testing might involve working with sig-testing.
 
 ## Coordinate docs for a Kubernetes release
 
-This task can be performed by SIG Docs
-[approvers](/docs/contribute/participating/#approvers).
+SIG Docs [approvers](/docs/contribute/participating/#approvers) can coordinate
+docs for a Kubernetes release.
 
 Each Kubernetes release is coordinated by a team of people participating in the
 sig-release special interest group (SIG). Others on the release team for a given
@@ -94,8 +94,8 @@ rotated among SIG Docs approvers.
 
 ## Sponsor a new contributor
 
-This task can be performed by SIG Docs
-[reviewers](/docs/contribute/participating/#reviewers).
+SIG Docs [reviewers](/docs/contribute/participating/#reviewers) can sponsor
+new contributors.
 
 After a new contributor has successfully submitted 5 substantive pull requests
 to one or more Kubernetes repositiries, they are eligible to apply for
