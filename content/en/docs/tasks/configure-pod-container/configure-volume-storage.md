@@ -115,6 +115,17 @@ of `Always`.
     ```
 
 1. In your shell, goto `/data/redis`, and verify that `test-file` is still there.
+    ```shell
+    root@redis:/data/redis# cd /data/redis/
+    root@redis:/data/redis# ls
+    test-file
+    ```
+
+1. Delete the Pod that you created for this exercise:
+
+    ```shell
+    kubectl delete pod redis
+    ```
 
 {{% /capture %}}
 
