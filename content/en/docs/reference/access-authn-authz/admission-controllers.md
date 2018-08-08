@@ -81,6 +81,20 @@ The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimit
 kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
 ```
 
+## What plugins are enabled by default?
+
+You can get the enabled admission plugins in result of:
+
+```shell
+kube-apiserver -h | grep enable-admission-plugins
+```
+
+In 1.11, they are:
+ 
+```shell
+NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
+```
+
 ## What does each admission controller do?
 
 ### AlwaysAdmit (DEPRECATED) {#alwaysadmit}
