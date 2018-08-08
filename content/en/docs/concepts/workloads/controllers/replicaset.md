@@ -155,10 +155,9 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 
 ### Deleting a ReplicaSet and its Pods
 
-To delete a ReplicaSet and all its pods, use [`kubectl
-delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). [Garbage collector](/docs/concepts/workloads/controllers/garbage-collection/) will automatically delete the dependent pods by default.
+To delete a ReplicaSet and all of its Pods, use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). The [Garbage collector](/docs/concepts/workloads/controllers/garbage-collection/) will automatically delete all of the dependent Pods by default.
 
-When using the REST API or go client library, you need to set `propagationPolicy` to `Background` or `Foreground` in delete option. e.g. :
+When using the REST API or the `client-go` library, you need to set `propagationPolicy` to `Background` or `Foreground` in delete option. e.g. :
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
@@ -168,8 +167,8 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 
 ### Deleting just a ReplicaSet
 
-You can delete a ReplicaSet without affecting any of its pods, using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=false` option.
-When using the REST API or go client library, you need to set `propagationPolicy` to `Orphan`, e.g. :
+You can delete a ReplicaSet without affecting any of its pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=false` option.
+When using the REST API or the `client-go` library, you need to set `propagationPolicy` to `Orphan`, e.g. :
 ```shell
 kubectl proxy --port=8080
 curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
