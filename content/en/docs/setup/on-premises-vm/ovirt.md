@@ -23,10 +23,10 @@ It is mandatory to [install the ovirt-guest-agent] in the guests for the VM ip a
 
 Once the Kubernetes template is available it is possible to start instantiating VMs that can be discovered by the cloud provider.
 
-[import]: http://ovedou.blogspot.it/2014/03/importing-glance-images-as-ovirt.html
+[import]: https://ovedou.blogspot.it/2014/03/importing-glance-images-as-ovirt.html
 [install]: https://www.ovirt.org/documentation/quickstart/quickstart-guide/#create-virtual-machines
 [generate a template]: https://www.ovirt.org/documentation/quickstart/quickstart-guide/#using-templates
-[install the ovirt-guest-agent]: http://www.ovirt.org/documentation/how-to/guest-agent/install-the-guest-agent-in-fedora/
+[install the ovirt-guest-agent]: https://www.ovirt.org/documentation/how-to/guest-agent/install-the-guest-agent-in-fedora/
 
 ## Using the oVirt Cloud Provider
 
