@@ -19,6 +19,9 @@ client and other tools for some of these tasks.
 
 ## Be the PR Wrangler for a week
 
+SIG Docs [approvers](/docs/contribute/participating/#approvers) can be PR
+wranglers.
+
 SIG Docs approvers are added to the
 [PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
 for weekly rotations. The PR wrangler's duties include:
@@ -36,6 +39,9 @@ for weekly rotations. The PR wrangler's duties include:
   about how SIG Docs uses metadata.
 
 ## Propose improvements
+
+SIG Docs
+[members](/docs/contribute/participating/#members) can propose improvements.
 
 After you've been contributing to the Kubernetes documentation for a while, you
 may have ideas for improvement to the style guide, the toolchain used to build
@@ -56,6 +62,9 @@ functionality might involve opening a pull request, while a change related to
 documentation testing might involve working with sig-testing.
 
 ## Coordinate docs for a Kubernetes release
+
+SIG Docs [approvers](/docs/contribute/participating/#approvers) can coordinate
+docs for a Kubernetes release.
 
 Each Kubernetes release is coordinated by a team of people participating in the
 sig-release special interest group (SIG). Others on the release team for a given
@@ -82,6 +91,25 @@ The SIG Docs representative for a given release coordinates the following tasks:
 
 Coordinating a release is typically a 3-4 month commitment, and the duty is
 rotated among SIG Docs approvers.
+
+## Sponsor a new contributor
+
+SIG Docs [reviewers](/docs/contribute/participating/#reviewers) can sponsor
+new contributors.
+
+After a new contributor has successfully submitted 5 substantive pull requests
+to one or more Kubernetes repositiries, they are eligible to apply for
+[membership](/docs/contribute/participating#members) in the Kubernetes
+organization. The contributor's membership needs to be backed by two sponsors
+who are already reviewers.
+
+New docs contributors can request sponsors by asking in the #sig-docs channel
+on the [Kubernetes Slack instance](https://kubernetes.slack.com) or on the
+[SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+If you feel confident about the applicant's work, you volunteer to sponsor them.
+When they submit their membership application, reply to the application with a
+"+1" and include details about why you think the applicant is a good fit for
+membership in the Kubernetes organization.
 
 {{% /capture %}}
 
