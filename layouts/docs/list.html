@@ -1,6 +1,6 @@
 {{ define "content" }}
 	 {{ with .Content }}
-	 {{ partial "docs/content_page" (dict "ctx" $ "page" $) }}
+	 {{ partial "docs/content_page" (dict "ctx" $ "page" $ ) }}
 	 {{ else }}
     {{ if ge (len .Pages) 1 }}
     {{ $page := index .Pages 0 }}

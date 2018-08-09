@@ -50,7 +50,7 @@ wget -q -O - https://get.k8s.io | bash
 
 Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
 
-By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/concepts/cluster-administration/logging/), while `heapster` provides [monitoring](http://releases.k8s.io/master/cluster/addons/cluster-monitoring/README.md) services.
+By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/concepts/cluster-administration/logging/), while `heapster` provides [monitoring](https://releases.k8s.io/master/cluster/addons/cluster-monitoring/README.md) services.
 
 The script run by the commands above creates a cluster with the name/prefix "kubernetes". It defines one specific cluster config, so you can't run it more than once.
 
@@ -103,10 +103,10 @@ $ kubectl get --all-namespaces services
 should show a set of [services](/docs/user-guide/services) that look something like this:
 
 ```shell
-NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
-default       kubernetes            10.0.0.1         <none>            443/TCP        1d
-kube-system   kube-dns              10.0.0.2         <none>            53/TCP,53/UDP  1d
-kube-system   kube-ui               10.0.0.3         <none>            80/TCP         1d
+NAMESPACE     NAME          TYPE             CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
+default       kubernetes    ClusterIP        10.0.0.1         <none>            443/TCP        1d
+kube-system   kube-dns      ClusterIP        10.0.0.2         <none>            53/TCP,53/UDP  1d
+kube-system   kube-ui       ClusterIP        10.0.0.3         <none>            80/TCP         1d
 ...
 ```
 

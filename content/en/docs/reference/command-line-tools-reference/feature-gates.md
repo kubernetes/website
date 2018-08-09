@@ -1,14 +1,16 @@
 ---
 title: Feature Gates
 weight: 10
-notitle: true
+title: Feature Gates
+content_template: templates/concept
 ---
 
-## Feature Gates
-
+{{% capture overview %}}
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
+{{% /capture %}}
 
+{{% capture body %}}
 ## Overview
 
 Feature gates are a set of key=value pairs that describe alpha or experimental
@@ -58,6 +60,7 @@ different Kubernetes components.
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
+| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | |
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
@@ -182,6 +185,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of volume topology and handle PV provisioning.
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
+- `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
 - `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ExperimentalCriticalPodAnnotation`: Enable annotating specific pods as *critical* so that their [scheduling is guaranteed](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 - `ExperimentalHostUserNamespaceDefaultingGate`: Enabling the defaulting user
@@ -246,3 +250,4 @@ Each feature gate is designed for enabling/disabling a specific feature:
   PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
   type when used together with the `PersistentLocalVolumes` feature gate.
+{{% /capture %}}

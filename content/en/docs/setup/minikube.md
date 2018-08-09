@@ -1,7 +1,7 @@
 ---
 reviewers:
 - dlorenc
-- r2d4
+- balopat
 - aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
@@ -48,9 +48,9 @@ Creating machine...
 Starting local Kubernetes cluster...
 
 $ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-deployment "hello-minikube" created
+deployment.apps/hello-minikube created
 $ kubectl expose deployment hello-minikube --type=NodePort
-service "hello-minikube" exposed
+service/hello-minikube exposed
 
 # We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
 # via the exposed service.
@@ -72,7 +72,7 @@ real path=/
 $ kubectl delete services hello-minikube
 service "hello-minikube" deleted
 $ kubectl delete deployment hello-minikube
-deployment "hello-minikube" deleted
+deployment.extensions "hello-minikube" deleted
 $ minikube stop
 Stopping local Kubernetes cluster...
 Stopping "minikube"...

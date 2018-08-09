@@ -214,6 +214,16 @@ Common languages used in Kubernetes documentation code blocks include:
 - `xml`
 - `none` (disables syntax highlighting for the block)
 
+### Code blocks containing Hugo shortcodes
+
+To show raw Hugo shortcodes as in the above example and prevent Hugo
+from interpreting them, use C-style comments directly after the `<` and before
+the `>` characters. The following example illustrates this (view the Markdown
+source for this page).
+
+```none
+{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+```
 
 ## Links
 

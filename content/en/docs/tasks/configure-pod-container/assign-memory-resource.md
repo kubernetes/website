@@ -111,7 +111,7 @@ resources:
 Use `kubectl top` to fetch the metrics for the pod:
 
 ```shell
-kubectl top pod memory-demo
+kubectl top pod memory-demo --namespace=mem-example
 ```
 
 The output shows that the Pod is using about 162,900,000 bytes of memory, which

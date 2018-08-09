@@ -8,13 +8,10 @@ Once your pull request is created, a Kubernetes reviewer will take responsibilit
 
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Contributing to the Kubernetes Documentation](http://kubernetes.io/editdocs/)
-* [Creating a Documentation Pull Request](http://kubernetes.io/docs/home/contribute/create-pull-request/)
-* [Writing a New Topic](http://kubernetes.io/docs/home/contribute/write-new-topic/)
-* [Review Issues](http://kubernetes.io/docs/home/contribute/review-issues/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/home/contribute/stage-documentation-changes/)
-* [Using Page Templates](http://kubernetes.io/docs/home/contribute/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/home/contribute/style-guide/)
+* [Start contributing](http://kubernetes.io/contribute/start/)
+* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
 
 ## Building the site using Docker
 
@@ -33,7 +30,7 @@ You can create an image for a different version of Hugo by changing the value of
 Once the `kubernetes-hugo` image has been built locally, you can build the site:
 
 ```bash
-make stage
+make docker-serve
 
 # The underlying command:
 docker run \

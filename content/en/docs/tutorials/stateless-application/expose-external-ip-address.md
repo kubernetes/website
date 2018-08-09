@@ -108,7 +108,7 @@ external IP address.
    addresses of the pods that are running the Hello World application. To
    verify these are pod addresses, enter this command:
 
-       kubectl get pods --output=wide
+        kubectl get pods --output=wide
 
     The output is similar to this:
 

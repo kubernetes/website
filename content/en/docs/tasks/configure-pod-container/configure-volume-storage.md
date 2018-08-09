@@ -38,7 +38,7 @@ restarts. Here is the configuration file for the Pod:
 1. Create the Pod:
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/pod-redis.yaml
+    kubectl create -f https://k8s.io/examples/pods/storage/redis.yaml
     ```
 
 1. Verify that the Pod's Container is running, and then watch for changes to
@@ -115,6 +115,17 @@ of `Always`.
     ```
 
 1. In your shell, goto `/data/redis`, and verify that `test-file` is still there.
+    ```shell
+    root@redis:/data/redis# cd /data/redis/
+    root@redis:/data/redis# ls
+    test-file
+    ```
+
+1. Delete the Pod that you created for this exercise:
+
+    ```shell
+    kubectl delete pod redis
+    ```
 
 {{% /capture %}}
 
