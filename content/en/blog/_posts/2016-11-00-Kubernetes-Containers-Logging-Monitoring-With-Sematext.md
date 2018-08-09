@@ -19,7 +19,7 @@ There are a number of [open source docker monitoring and logging projects](https
 
 **Deploying Agent to all Kubernetes Nodes **  
 
-Kubernetes provides [DeamonSets](http://kubernetes.io/v1.1/docs/admin/daemons.html), which ensure pods are added to nodes as nodes are added to the cluster. We can use this to easily deploy Sematext Agent to each cluster node!  
+Kubernetes provides [DaemonSets](http://kubernetes.io/v1.1/docs/admin/daemons.html), which ensure pods are added to nodes as nodes are added to the cluster. We can use this to easily deploy Sematext Agent to each cluster node!  
 Configure Sematext Docker Agent for Kubernetes  
 Let’s assume you’ve created an SPM app for your Kubernetes metrics and events, and a Logsene app for your Kubernetes logs, each of which comes with its own token. The Sematext Docker Agent [README](https://github.com/sematext/sematext-agent-docker) lists all configurations (e.g. filter for specific pods/images/containers), but we’ll keep it simple here.  
 

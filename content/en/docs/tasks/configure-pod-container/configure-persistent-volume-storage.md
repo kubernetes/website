@@ -1,6 +1,7 @@
 ---
 title: Configure a Pod to Use a PersistentVolume for Storage
 content_template: templates/task
+weight: 60
 ---
 
 {{% capture overview %}}
@@ -57,11 +58,11 @@ would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
 use [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
 to set up
-[dynamic provisioning](http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html).
+[dynamic provisioning](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
 
 Here is the configuration file for the hostPath PersistentVolume:
 
-{{< code file="task-pv-volume.yaml" >}}
+{{< codenew file="pods/storage/pv-volume.yaml" >}}
 
 The configuration file specifies that the volume is at `/mnt/data` on the
 cluster's Node. The configuration also specifies a size of 10 gibibytes and
@@ -72,7 +73,7 @@ PersistentVolumeClaim requests to this PersistentVolume.
 
 Create the PersistentVolume:
 
-    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-volume.yaml
+    kubectl create -f https://k8s.io/examples/pods/storage/pv-volume.yaml
 
 View information about the PersistentVolume:
 
@@ -93,11 +94,11 @@ access for at least one Node.
 
 Here is the configuration file for the PersistentVolumeClaim:
 
-{{< code file="task-pv-claim.yaml" >}}
+{{< codenew file="pods/storage/pv-claim.yaml" >}}
 
 Create the PersistentVolumeClaim:
 
-    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-claim.yaml
+    kubectl create -f https://k8s.io/examples/pods/storage/pv-claim.yaml
 
 After you create the PersistentVolumeClaim, the Kubernetes control plane looks
 for a PersistentVolume that satisfies the claim's requirements. If the control
@@ -129,7 +130,7 @@ The next step is to create a Pod that uses your PersistentVolumeClaim as a volum
 
 Here is the configuration file for the Pod:
 
-{{< code file="task-pv-pod.yaml" >}}
+{{< codenew file="pods/storage/pv-pod.yaml" >}}
 
 Notice that the Pod's configuration file specifies a PersistentVolumeClaim, but
 it does not specify a PersistentVolume. From the Pod's point of view, the claim
@@ -137,7 +138,7 @@ is a volume.
 
 Create the Pod:
 
-    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-pod.yaml
+    kubectl create -f https://k8s.io/examples/pods/storage/pv-pod.yaml
 
 Verify that the Container in the Pod is running;
 

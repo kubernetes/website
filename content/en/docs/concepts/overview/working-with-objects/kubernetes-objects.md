@@ -1,6 +1,7 @@
 ---
 title: Understanding Kubernetes Objects
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -18,7 +19,7 @@ This page explains how Kubernetes objects are represented in the Kubernetes API,
 
 A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system will constantly work to ensure that object exists. By creating an object, you're effectively telling the Kubernetes system what you want your cluster's workload to look like; this is your cluster's **desired state**.
 
-To work with Kubernetes objects--whether to create, modify, or delete them--you'll need to use the [Kubernetes API](/docs/concepts/overview/kubernetes-api/). When you use the `kubectl` command-line interface, for example, the CLI makes the necessary Kubernetes API calls for you. You can also use the Kubernetes API directly in your own programs using one of the [Client Libraries](/docs/reference/client-libraries/).
+To work with Kubernetes objects--whether to create, modify, or delete them--you'll need to use the [Kubernetes API](/docs/concepts/overview/kubernetes-api/). When you use the `kubectl` command-line interface, for example, the CLI makes the necessary Kubernetes API calls for you. You can also use the Kubernetes API directly in your own programs using one of the [Client Libraries](/docs/reference/using-api/client-libraries/).
 
 ### Object Spec and Status
 
@@ -35,12 +36,14 @@ When you create an object in Kubernetes, you must provide the object spec that d
 
 Here's an example `.yaml` file that shows the required fields and object spec for a Kubernetes Deployment:
 
-{{< code file="nginx-deployment.yaml" >}}
+{{< codenew file="application/deployment.yaml" >}}
 
-One way to create a Deployment using a `.yaml` file like the one above is to use the [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create) command in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
+One way to create a Deployment using a `.yaml` file like the one above is to use the
+[`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create) command
+in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/concepts/overview/working-with-objects/nginx-deployment.yaml --record
+$ kubectl create -f https://k8s.io/examples/application/deployment.yaml --record
 ```
 
 The output is similar to this:

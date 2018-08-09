@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - luxas
 - jbeda
@@ -14,9 +14,11 @@ Instead, we expect higher-level and more tailored tooling to be built on top of 
 
 ## What's next
 
-* [kubeadm init](../kubeadm-init/) to bootstrap a Kubernetes master node
-* [kubeadm join](../kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
-* [kubeadm upgrade](../kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
-* [kubeadm config](../kubeadm-config/) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
-* [kubeadm token](../kubeadm-token/) to manage tokens for `kubeadm join`
-* [kubeadm reset](../kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) to bootstrap a Kubernetes master node
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) to bootstrap a Kubernetes worker node and join it to the cluster
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) to upgrade a Kubernetes cluster to a newer version
+* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
+* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) to manage tokens for `kubeadm join`
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) to print the kubeadm version
+* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) to preview a set of features made available for gathering feedback from the community

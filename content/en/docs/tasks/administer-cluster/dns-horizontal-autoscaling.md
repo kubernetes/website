@@ -18,6 +18,12 @@ Kubernetes cluster.
 
 {{% /capture %}}
 
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
 {{% capture steps %}}
 
 ## Determining whether DNS horizontal autoscaling is already enabled
@@ -88,7 +94,7 @@ container based on the `cluster-proportional-autoscaler-amd64` image.
 
 Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 
-{{< code file="dns-horizontal-autoscaler.yaml" >}}
+{{< codenew file="admin/dns/dns-horizontal-autoscaler.yaml" >}}
 
 In the file, replace `<SCALE_TARGET>` with your scale target.
 
@@ -99,7 +105,7 @@ command to create the Deployment:
 
 The output of a successful command is:
 
-    deployment "kube-dns-autoscaler" created
+    deployment.apps/kube-dns-autoscaler created
 
 DNS horizontal autoscaling is now enabled.
 
@@ -153,7 +159,7 @@ This option works for all situations. Enter this command:
 
 The output is:
 
-    deployment "kube-dns-autoscaler" scaled
+    deployment.extensions/kube-dns-autoscaler scaled
 
 Verify that the replica count is zero:
 
@@ -175,7 +181,7 @@ no one will re-create it:
 
 The output is:
 
-    deployment "kube-dns-autoscaler" deleted
+    deployment.extensions "kube-dns-autoscaler" deleted
 
 ### Option 3: Delete the kube-dns-autoscaler manifest file from the master node
 

@@ -1,5 +1,5 @@
 ---
 title: "Install Tools"
-weight: 20
+weight: 10
 ---
 

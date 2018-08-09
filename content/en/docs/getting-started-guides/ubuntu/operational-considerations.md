@@ -25,7 +25,7 @@ The Juju Controller:
 To bootstrap a controller with constraints run the following command: 
 
 ```
-juju bootstrap --contraints "mem=8GB cpu-cores=4 root-disk=128G"
+juju bootstrap --constraints "mem=8GB cpu-cores=4 root-disk=128G"
 ```
 
 Juju will select the cheapest instance type matching your constraints on your target cloud. You can also use the ```instance-type``` constraint in conjunction with ```root-disk``` for strict control. For more information about the constraints available, refer to the [official documentation](https://jujucharms.com/docs/stable/reference-constraints)
@@ -147,8 +147,7 @@ htpasswd -c -b -B htpasswd userA passwordA
 
 Assuming that your registry will be reachable at ```myregistry.company.com```,
 you already have your TLS key in the ```registry.key``` file, and your TLS
-certificate (with ```myregistry.company.com``` as Common Name) in the
-```registry.crt``` file, you would then run:
+certificate (with ```myregistry.company.com``` as Common Name) in the ```registry.crt``` file, you would then run:
 
 ```
 juju run-action kubernetes-worker/0 registry domain=myregistry.company.com htpasswd="$(base64 -w0 htpasswd)" htpasswd-plain="$(base64 -w0 htpasswd-plain)" tlscert="$(base64 -w0 registry.crt)" tlskey="$(base64 -w0 registry.key)" ingress=true

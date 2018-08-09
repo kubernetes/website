@@ -2,15 +2,21 @@
 reviewers:
 - thockin
 - bowei
+content_template: templates/concept
 title: Debug Services
 ---
 
+{{% capture overview %}}
 An issue that comes up rather frequently for new installations of Kubernetes is
 that a `Service` is not working properly.  You've run your `Deployment` and
 created a `Service`, but you get no response when you try to access it.
 This document will hopefully help you to figure out what's going wrong.
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Conventions
 
@@ -45,7 +51,7 @@ OUTPUT
 For many steps here you will want to see what a `Pod` running in the cluster
 sees.  The simplest way to do this is to run an interactive busybox `Pod`:
 
-```shell
+```none
 $ kubectl run -it --rm --restart=Never busybox --image=busybox sh
 If you don't see a command prompt, try pressing enter.
 / #
@@ -291,6 +297,8 @@ and verify it:
 
 ```shell
 $ kubectl get service hostnames -o json
+```
+```json
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -430,7 +438,7 @@ depends on your `Node` OS.  On some OSes it is a file, such as
 /var/log/kube-proxy.log, while other OSes use `journalctl` to access logs.  You
 should see something like:
 
-```shell
+```none
 I1027 22:14:53.995134    5063 server.go:200] Running in resource-only container "/kube-proxy"
 I1027 22:14:53.998163    5063 server.go:247] Using iptables Proxier.
 I1027 22:14:53.999055    5063 server.go:255] Tearing down userspace rules. Errors here are acceptable.
@@ -459,8 +467,8 @@ One of the main responsibilities of `kube-proxy` is to write the `iptables`
 rules which implement `Services`.  Let's check that those rules are getting
 written.
 
-The kube-proxy can run in either "userspace" mode or "iptables" mode.
-Hopefully you are using the newer, faster, more stable "iptables" mode.  You
+The kube-proxy can run in "userspace" mode, "iptables" mode or "ipvs" mode.
+Hopefully you are using the "iptables" mode or "ipvs" mode.  You
 should see one of the following cases.
 
 #### Userspace
@@ -499,6 +507,22 @@ There should be 1 rule in `KUBE-SERVICES`, 1 or 2 rules per endpoint in
 `KUBE-SVC-(hash)` (depending on `SessionAffinity`), one `KUBE-SEP-(hash)` chain
 per endpoint, and a few rules in each `KUBE-SEP-(hash)` chain.  The exact rules
 will vary based on your exact config (including node-ports and load-balancers).
+
+#### IPVS
+
+```shell
+u@node$ ipvsadm -ln
+Prot LocalAddress:Port Scheduler Flags
+  -> RemoteAddress:Port           Forward Weight ActiveConn InActConn
+...
+TCP  10.0.1.175:80 rr
+  -> 10.244.0.5:9376               Masq    1      0          0
+  -> 10.244.0.6:9376               Masq    1      0          0
+  -> 10.244.0.7:9376               Masq    1      0          0
+...
+```
+
+IPVS proxy will create a virtual server for each service address(e.g. Cluster IP, External IP, NodePort IP, Load Balancer IP etc.) and some corresponding real servers for endpoints of the service, if any. In this example, service hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`, `10.244.0.6:9376`, `10.244.0.7:9376`) and you'll get results similar to above.
 
 ### Is kube-proxy proxying?
 
@@ -568,7 +592,7 @@ the permission to operate in `/sys` on node. If everything works properly,
 you should see something like:
 
 ```shell
-u@node$ for intf in /sys/devices/virtual/net/cbr0/brif/*; do cat $intf/hairpin_mode; done
+for intf in /sys/devices/virtual/net/cbr0/brif/*; do cat $intf/hairpin_mode; done
 1
 1
 1
@@ -587,7 +611,6 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 
 * Seek help if none of above works out.
 
-
 ## Seek help
 
 If you get this far, something very strange is happening.  Your `Service` is
@@ -601,7 +624,10 @@ Contact us on
 [email](https://groups.google.com/forum/#!forum/kubernetes-users) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 
-## More information
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Visit [troubleshooting document](/docs/troubleshooting/) for more information.
 
+{{% /capture %}}

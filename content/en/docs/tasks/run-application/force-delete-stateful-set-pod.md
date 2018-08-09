@@ -6,6 +6,7 @@ reviewers:
 - smarterclayton
 title: Force Delete StatefulSet Pods
 content_template: templates/task
+weight: 70
 ---
 
 {{% capture overview %}}
@@ -64,6 +65,12 @@ If you're using any version of kubectl <= 1.4, you should omit the `--force` opt
 
 ```shell
 kubectl delete pods <pod> --grace-period=0
+```
+
+If even after these commands the pod is stuck on `Unknown` state, use the following command to remove the pod from the cluster:
+
+```shell
+kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
 ```
 
 Always perform force deletion of StatefulSet Pods carefully and with complete knowledge of the risks involved.

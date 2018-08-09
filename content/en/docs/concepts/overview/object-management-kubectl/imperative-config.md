@@ -1,6 +1,7 @@
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
 content_template: templates/concept
+weight: 30
 ---
 
 {{% capture overview %}}
@@ -32,6 +33,7 @@ for details.
 
 ## How to update objects
 
+{{< warning >}}
 **Warning:** Updating objects with the `replace` command drops all
 parts of the spec not specified in the configuration file.  This
 should not be used with objects whose specs are partially managed
@@ -39,6 +41,7 @@ by the cluster, such as Services of type `LoadBalancer`, where
 the `externalIPs` field is managed independently from the configuration
 file.  Independently managed fields must be copied to the configuration
 file to prevent `replace` from dropping them.
+{{< /warning >}}
 
 You can use `kubectl replace -f` to update a live object according to a
 configuration file.
@@ -97,19 +100,23 @@ Migrating from imperative commands to imperative object configuration involves
 several manual steps.
 
 1. Export the live object to a local object configuration file:
-
-       kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+```sh
+kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+```
 
 1. Manually remove the status field from the object configuration file.
 
 1. For subsequent object management, use `replace` exclusively.
-
-       kubectl replace -f <kind>_<name>.yaml
+```sh
+kubectl replace -f <kind>_<name>.yaml
+```
 
 
 ## Defining controller selectors and PodTemplate labels
 
-**Warning**: Updating selectors on controllers is strongly discouraged.
+{{< warning >}}
+**Warning:** Updating selectors on controllers is strongly discouraged.
+{{< /warning >}}
 
 The recommended approach is to define a single, immutable PodTemplate label
 used only by the controller selector with no other semantic meaning.

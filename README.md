@@ -8,13 +8,44 @@ Once your pull request is created, a Kubernetes reviewer will take responsibilit
 
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Contributing to the Kubernetes Documentation](http://kubernetes.io/editdocs/)
-* [Creating a Documentation Pull Request](http://kubernetes.io/docs/home/contribute/create-pull-request/)
-* [Writing a New Topic](http://kubernetes.io/docs/home/contribute/write-new-topic/)
-* [Review Issues](http://kubernetes.io/docs/home/contribute/review-issues/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/home/contribute/stage-documentation-changes/)
-* [Using Page Templates](http://kubernetes.io/docs/home/contribute/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/home/contribute/style-guide/)
+* [Start contributing](http://kubernetes.io/contribute/start/)
+* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
+
+## Building the site using Docker
+
+If you'd like, you can build the Kubernetes docs using Docker. To get started, build the image locally:
+
+```bash
+make docker-image
+
+# The underlying command:
+docker build . \
+  --tag kubernetes-hugo \
+  --build-arg HUGO_VERSION=0.40.3
+```
+
+You can create an image for a different version of Hugo by changing the value of the `HUGO_VERSION` argument for the build. You *must* specify a version or the image will not build.
+Once the `kubernetes-hugo` image has been built locally, you can build the site:
+
+```bash
+make docker-serve
+
+# The underlying command:
+docker run \
+  --rm \
+  --interactive \
+  --tty \
+  --volume $(PWD):/src \
+  -p 1313:1313 \
+  kubernetes-hugo \
+  hugo server \
+  --watch \
+  --bind 0.0.0.0
+```
+
+As when building without using a Docker container, the results of the build will be published to the `public` directory (the default output directory for [Hugo](https://gohugo.io), the static site generator used to build this site).
 
 ## Thank you!
 

@@ -4,6 +4,7 @@ reviewers:
 - thockin
 title: Container Environment Variables
 content_template: templates/concept
+weight: 20
 ---
 
 {{% capture overview %}}

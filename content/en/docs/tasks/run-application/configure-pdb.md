@@ -1,6 +1,7 @@
 ---
 title: Specifying a Disruption Budget for your Application
 content_template: templates/task
+weight: 110
 ---
 
 {{% capture overview %}}
@@ -162,13 +163,13 @@ For example, if the above `zk-pdb` object selects the pods of a StatefulSet of s
 specifications have the exact same meaning. The use of `maxUnavailable` is recommended as it
 automatically responds to changes in the number of replicas of the corresponding controller.
 
-# Create the PDB object
+## Create the PDB object
 
 You can create the PDB object with a command like `kubectl create -f mypdb.yaml`.
 
 You cannot update PDB objects.  They must be deleted and re-created.
 
-# Check the status of the PDB
+## Check the status of the PDB
 
 Use kubectl to check that your PDB is created.
 
@@ -212,7 +213,7 @@ status:
   observedGeneration: 1
 ```
 
-# Arbitrary Controllers and Selectors
+## Arbitrary Controllers and Selectors
 
 You can skip this section if you only use PDBs with the built-in
 application controllers (Deployment, ReplicationController, ReplicaSet, and StatefulSet),

@@ -191,10 +191,10 @@ done
 
 Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 
-{{< code file="hello-apparmor-pod.yaml" >}}
+{{< codenew file="pods/security/hello-apparmor.yaml" >}}
 
 ```shell
-$ kubectl create -f ./hello-apparmor-pod.yaml
+$ kubectl create -f ./hello-apparmor.yaml
 ```
 
 If we look at the pod events, we can see that the Pod container was created with the AppArmor
@@ -375,7 +375,7 @@ tools to help with that:
 
 * `aa-genprof` and `aa-logprof` generate profile rules by monitoring an application's activity and
   logs, and admitting the actions it takes. Further instructions are provided by the
-  [AppArmor documentation](http://wiki.apparmor.net/index.php/Profiling_with_tools).
+  [AppArmor documentation](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools).
 * [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
   simplified profile language.
 

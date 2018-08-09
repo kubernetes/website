@@ -1,6 +1,7 @@
 ---
 title: Configure Pod Initialization
 content_template: templates/task
+weight: 130
 ---
 
 {{% capture overview %}}
@@ -25,7 +26,7 @@ container starts.
 
 Here is the configuration file for the Pod:
 
-{{< code file="init-containers.yaml" >}}
+{{< codenew file="pods/init-containers.yaml" >}}
 
 In the configuration file, you can see that the Pod has a Volume that the init
 container and the application container share.
@@ -42,7 +43,7 @@ of the nginx server.
 
 Create the Pod:
 
-    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/init-containers.yaml
+    kubectl create -f https://k8s.io/examples/pods/init-containers.yaml
 
 Verify that the nginx container is running:
 

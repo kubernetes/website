@@ -4,9 +4,9 @@ date: 2015-11-03
 slug: kubernetes-as-foundation-for-cloud-native-paas
 url: /blog/2015/11/Kubernetes-As-Foundation-For-Cloud-Native-Paas
 ---
-With Kubernetes continuing to gain momentum as a critical tool for building and scaling container based applications, we’ve been thrilled to see a growing number of platform as a service (PaaS) offerings adopt it as a foundation. PaaS developers have been drawn to Kubernetes by its rapid rate of maturation, the soundness of its core architectural concepts, and the strength of its contributor community. The [Kubernetes ecosystem](http://blog.kubernetes.io/2015/07/the-growing-kubernetes-ecosystem.html) continues to grow, and these PaaS projects are great additions to it.
+With Kubernetes continuing to gain momentum as a critical tool for building and scaling container based applications, we’ve been thrilled to see a growing number of platform as a service (PaaS) offerings adopt it as a foundation. PaaS developers have been drawn to Kubernetes by its rapid rate of maturation, the soundness of its core architectural concepts, and the strength of its contributor community. The [Kubernetes ecosystem](https://kubernetes.io/blog/2015/07/the-growing-kubernetes-ecosystem) continues to grow, and these PaaS projects are great additions to it.
 
-[![](http://1.bp.blogspot.com/-xX93tnoIlGo/Vjj2fSc_CDI/AAAAAAAAAi0/lvTkT9jyFog/s400/k8%2Bipaas%2B1.png)](http://1.bp.blogspot.com/-xX93tnoIlGo/Vjj2fSc_CDI/AAAAAAAAAi0/lvTkT9jyFog/s1600/k8%2Bipaas%2B1.png)
+[![](https://1.bp.blogspot.com/-xX93tnoIlGo/Vjj2fSc_CDI/AAAAAAAAAi0/lvTkT9jyFog/s400/k8%2Bipaas%2B1.png)](https://1.bp.blogspot.com/-xX93tnoIlGo/Vjj2fSc_CDI/AAAAAAAAAi0/lvTkT9jyFog/s1600/k8%2Bipaas%2B1.png)
 
 
 
@@ -23,7 +23,7 @@ With Kubernetes continuing to gain momentum as a critical tool for building and 
 
 
 
-[![](http://1.bp.blogspot.com/-1XZFGRHGb34/Vjj2wUtA6pI/AAAAAAAAAi8/SD-qRhVIiIs/s400/k8%2Bipaas%2B2.png)](http://1.bp.blogspot.com/-1XZFGRHGb34/Vjj2wUtA6pI/AAAAAAAAAi8/SD-qRhVIiIs/s1600/k8%2Bipaas%2B2.png)
+[![](https://1.bp.blogspot.com/-1XZFGRHGb34/Vjj2wUtA6pI/AAAAAAAAAi8/SD-qRhVIiIs/s400/k8%2Bipaas%2B2.png)](https://1.bp.blogspot.com/-1XZFGRHGb34/Vjj2wUtA6pI/AAAAAAAAAi8/SD-qRhVIiIs/s1600/k8%2Bipaas%2B2.png)
 
 
 
@@ -38,7 +38,7 @@ With Kubernetes continuing to gain momentum as a critical tool for building and 
 
 
 
-[![](http://2.bp.blogspot.com/-t3L1CANyhUs/Vjj28Zpf9WI/AAAAAAAAAjE/Ef-PLLmHGvU/s400/k8%2Bipaas%2B3.png)](http://2.bp.blogspot.com/-t3L1CANyhUs/Vjj28Zpf9WI/AAAAAAAAAjE/Ef-PLLmHGvU/s1600/k8%2Bipaas%2B3.png)
+[![](https://2.bp.blogspot.com/-t3L1CANyhUs/Vjj28Zpf9WI/AAAAAAAAAjE/Ef-PLLmHGvU/s400/k8%2Bipaas%2B3.png)](https://2.bp.blogspot.com/-t3L1CANyhUs/Vjj28Zpf9WI/AAAAAAAAAjE/Ef-PLLmHGvU/s1600/k8%2Bipaas%2B3.png)
 
 
 
@@ -64,7 +64,7 @@ Huawei has made Kubernetes the core runtime engine for container based applicati
 
 
 
-[![](http://2.bp.blogspot.com/-Ys0Zn4IQzn0/Vjj3JIE0BVI/AAAAAAAAAjM/ktwltzVa1GE/s400/k8%2Bipaas%2B4.png)](http://2.bp.blogspot.com/-Ys0Zn4IQzn0/Vjj3JIE0BVI/AAAAAAAAAjM/ktwltzVa1GE/s1600/k8%2Bipaas%2B4.png)
+[![](https://2.bp.blogspot.com/-Ys0Zn4IQzn0/Vjj3JIE0BVI/AAAAAAAAAjM/ktwltzVa1GE/s400/k8%2Bipaas%2B4.png)](https://2.bp.blogspot.com/-Ys0Zn4IQzn0/Vjj3JIE0BVI/AAAAAAAAAjM/ktwltzVa1GE/s1600/k8%2Bipaas%2B4.png)
 
 
 

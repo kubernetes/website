@@ -27,7 +27,7 @@ The easiest way to take advantage of sysdig’s Kubernetes support is by launchi
 Now that csysdig is running, hit F2 to bring up the views panel, and you'll notice the presence of a bunch of new views. The **k8s Namespaces** view can be used to see the list of namespaces and observe the amount of CPU, memory, network and disk resources each of them is using on this machine:  
 
 
-[![](http://2.bp.blogspot.com/-9kXfpo76r0k/Vkz8AkpctEI/AAAAAAAAAss/yvf9oc759Wg/s640/sisdig%2B6.png)](http://2.bp.blogspot.com/-9kXfpo76r0k/Vkz8AkpctEI/AAAAAAAAAss/yvf9oc759Wg/s1600/sisdig%2B6.png)
+[![](https://2.bp.blogspot.com/-9kXfpo76r0k/Vkz8AkpctEI/AAAAAAAAAss/yvf9oc759Wg/s640/sisdig%2B6.png)](https://2.bp.blogspot.com/-9kXfpo76r0k/Vkz8AkpctEI/AAAAAAAAAss/yvf9oc759Wg/s1600/sisdig%2B6.png)
 
 
 
@@ -40,7 +40,7 @@ Now that csysdig is running, hit F2 to bring up the views panel, and you'll noti
 Similarly, you can select **k8s Services** to see the same information broken up by service:  
 
 
-[![](http://2.bp.blogspot.com/-Ya1W3Z_ETcs/Vkz8AN3XtfI/AAAAAAAAAs8/HNv_TvHpfHU/s640/sisdig%2B2.png)](http://2.bp.blogspot.com/-Ya1W3Z_ETcs/Vkz8AN3XtfI/AAAAAAAAAs8/HNv_TvHpfHU/s1600/sisdig%2B2.png)
+[![](https://2.bp.blogspot.com/-Ya1W3Z_ETcs/Vkz8AN3XtfI/AAAAAAAAAs8/HNv_TvHpfHU/s640/sisdig%2B2.png)](https://2.bp.blogspot.com/-Ya1W3Z_ETcs/Vkz8AN3XtfI/AAAAAAAAAs8/HNv_TvHpfHU/s1600/sisdig%2B2.png)
 
 
 
@@ -53,7 +53,7 @@ Similarly, you can select **k8s Services** to see the same information broken up
 or **k8s Controllers** to see the replication controllers:  
 
 
-[![](http://3.bp.blogspot.com/-gGkgXRC5P6g/Vkz8A1RVyAI/AAAAAAAAAtQ/SFlHQeNrDjQ/s640/sysdig%2B1.png)](http://3.bp.blogspot.com/-gGkgXRC5P6g/Vkz8A1RVyAI/AAAAAAAAAtQ/SFlHQeNrDjQ/s1600/sysdig%2B1.png)
+[![](https://3.bp.blogspot.com/-gGkgXRC5P6g/Vkz8A1RVyAI/AAAAAAAAAtQ/SFlHQeNrDjQ/s640/sysdig%2B1.png)](https://3.bp.blogspot.com/-gGkgXRC5P6g/Vkz8A1RVyAI/AAAAAAAAAtQ/SFlHQeNrDjQ/s1600/sysdig%2B1.png)
 
 
 
@@ -66,7 +66,7 @@ or **k8s Controllers** to see the replication controllers:
 or **k8s Pods** to see the list of pods running on this machine and the resources they use:  
 
 
-[![](http://3.bp.blogspot.com/-PrDfWzi9F3c/Vkz8H6rPlII/AAAAAAAAAtc/f46tE6EKvoo/s640/sisdig%2B7.png)](http://3.bp.blogspot.com/-PrDfWzi9F3c/Vkz8H6rPlII/AAAAAAAAAtc/f46tE6EKvoo/s1600/sisdig%2B7.png)
+[![](https://3.bp.blogspot.com/-PrDfWzi9F3c/Vkz8H6rPlII/AAAAAAAAAtc/f46tE6EKvoo/s640/sisdig%2B7.png)](https://3.bp.blogspot.com/-PrDfWzi9F3c/Vkz8H6rPlII/AAAAAAAAAtc/f46tE6EKvoo/s1600/sisdig%2B7.png)
 
 
 
@@ -74,7 +74,7 @@ or **k8s Pods** to see the list of pods running on this machine and the resource
 A cool feature in csysdig is the ability to drill down: just select an element, click on enter and&nbsp;–&nbsp;boom&nbsp;–&nbsp;now you're looking inside it. Drill down is also aware of the Kubernetes hierarchy, which means I&nbsp;can start from a service, get the list of its pods, see which containers run inside one of the pods, and go inside one of the containers to explore files, network connections, processes or even threads. Check out the video below.  
 
 
-[![](http://1.bp.blogspot.com/-lQ-P2gLywlY/Vkz9MOoTgGI/AAAAAAAAAtk/UB6pW7sUbQA/s640/image09.gif)](http://1.bp.blogspot.com/-lQ-P2gLywlY/Vkz9MOoTgGI/AAAAAAAAAtk/UB6pW7sUbQA/s1600/image09.gif)
+[![](https://1.bp.blogspot.com/-lQ-P2gLywlY/Vkz9MOoTgGI/AAAAAAAAAtk/UB6pW7sUbQA/s640/image09.gif)](https://1.bp.blogspot.com/-lQ-P2gLywlY/Vkz9MOoTgGI/AAAAAAAAAtk/UB6pW7sUbQA/s1600/image09.gif)
 
 
 ### Actions!&nbsp;
@@ -90,7 +90,7 @@ Let’s start with a quick review of Kubernetes’ architecture. From the physic
 
 On the other hand, from the logical/application point of view, Kubernetes clusters are arranged in the hierarchical fashion shown in this picture:  
 
-[![](http://1.bp.blogspot.com/-p_x0bLRdFJo/Vkz8IPR5q4I/AAAAAAAAAtg/D9UU2MfPmcI/s640/sisdig%2B4.png)](http://1.bp.blogspot.com/-p_x0bLRdFJo/Vkz8IPR5q4I/AAAAAAAAAtg/D9UU2MfPmcI/s1600/sisdig%2B4.png)
+[![](https://1.bp.blogspot.com/-p_x0bLRdFJo/Vkz8IPR5q4I/AAAAAAAAAtg/D9UU2MfPmcI/s640/sisdig%2B4.png)](https://1.bp.blogspot.com/-p_x0bLRdFJo/Vkz8IPR5q4I/AAAAAAAAAtg/D9UU2MfPmcI/s1600/sisdig%2B4.png)
 
 
 
@@ -123,7 +123,7 @@ One of the core features of Sysdig Cloud is groups, which allow you to define th
 
 If you’re interested in the utilization of your underlying physical resource&nbsp;– e.g., identifying noisy neighbors&nbsp;– then the physical hierarchy is great. But if you’re looking to explore the performance of your applications and microservices, then the logical hierarchy is often the best place to start.&nbsp;
 
-[![](http://4.bp.blogspot.com/-80u3oSEi_Fw/Vkz8AZgE6eI/AAAAAAAAAtE/3iRDMJKBNmc/s640/sisdig%2B5.png)](http://4.bp.blogspot.com/-80u3oSEi_Fw/Vkz8AZgE6eI/AAAAAAAAAtE/3iRDMJKBNmc/s1600/sisdig%2B5.png)
+[![](https://4.bp.blogspot.com/-80u3oSEi_Fw/Vkz8AZgE6eI/AAAAAAAAAtE/3iRDMJKBNmc/s640/sisdig%2B5.png)](https://4.bp.blogspot.com/-80u3oSEi_Fw/Vkz8AZgE6eI/AAAAAAAAAtE/3iRDMJKBNmc/s1600/sisdig%2B5.png)
 
 
 
@@ -148,7 +148,7 @@ If you’re interested in the utilization of your underlying physical resource&n
 
 For example: here you can see the overall performance of our WordPress service:&nbsp;
 
-[![](http://4.bp.blogspot.com/-QAsedrM2UxI/Vkz8Aas-26I/AAAAAAAAAtM/9B7Z33vUQrg/s640/sisdig%2B3.png)](http://4.bp.blogspot.com/-QAsedrM2UxI/Vkz8Aas-26I/AAAAAAAAAtM/9B7Z33vUQrg/s1600/sisdig%2B3.png)
+[![](https://4.bp.blogspot.com/-QAsedrM2UxI/Vkz8Aas-26I/AAAAAAAAAtM/9B7Z33vUQrg/s640/sisdig%2B3.png)](https://4.bp.blogspot.com/-QAsedrM2UxI/Vkz8Aas-26I/AAAAAAAAAtM/9B7Z33vUQrg/s1600/sisdig%2B3.png)
 
 Keep in mind that the pods implementing this service are scattered across multiple machines, but we can still total request counts, response times and URL statistics aggregated together for this service. And don’t forget: this doesn’t require any configuration or instrumentation of wordpress, apache, or the underlying containers!&nbsp;
 
@@ -162,7 +162,7 @@ And from this view, I can now easily create alerts for these service-level metri
 
 We’ve also included Kubernetes awareness in Sysdig Cloud’s famous topology view, at both the physical and logical level.&nbsp;
 
-[![](http://2.bp.blogspot.com/-2is-UJatmPk/Vk0AtdfvYvI/AAAAAAAAAt0/9SEsl2LCpYI/s640/image02.gif)](http://2.bp.blogspot.com/-2is-UJatmPk/Vk0AtdfvYvI/AAAAAAAAAt0/9SEsl2LCpYI/s1600/image02.gif)
+[![](https://2.bp.blogspot.com/-2is-UJatmPk/Vk0AtdfvYvI/AAAAAAAAAt0/9SEsl2LCpYI/s640/image02.gif)](https://2.bp.blogspot.com/-2is-UJatmPk/Vk0AtdfvYvI/AAAAAAAAAt0/9SEsl2LCpYI/s1600/image02.gif)
 
 
 
@@ -188,7 +188,7 @@ We’ve also included Kubernetes awareness in Sysdig Cloud’s famous topology v
 
 
 
-[![](http://2.bp.blogspot.com/-hGQtaIV9XTA/Vk0RnwtlcGI/AAAAAAAAAuM/7ndiyAWpSvU/s640/image08.gif)](http://2.bp.blogspot.com/-hGQtaIV9XTA/Vk0RnwtlcGI/AAAAAAAAAuM/7ndiyAWpSvU/s1600/image08.gif)
+[![](https://2.bp.blogspot.com/-hGQtaIV9XTA/Vk0RnwtlcGI/AAAAAAAAAuM/7ndiyAWpSvU/s640/image08.gif)](https://2.bp.blogspot.com/-hGQtaIV9XTA/Vk0RnwtlcGI/AAAAAAAAAuM/7ndiyAWpSvU/s1600/image08.gif)
 
 
 
@@ -213,7 +213,7 @@ The two pictures below show the exact same infrastructure and services. But the 
 
 
 
-Hopefuly it’s self-evident how much more natural and intuitive the second (services-oriented) view is. The structure of the application and the various dependencies are immediately clear. The interactions between various microservices become obvious, despite the fact that these microservices are intermingled across our machine cluster!&nbsp;
+Hopefully it’s self-evident how much more natural and intuitive the second (services-oriented) view is. The structure of the application and the various dependencies are immediately clear. The interactions between various microservices become obvious, despite the fact that these microservices are intermingled across our machine cluster!&nbsp;
 
 
 

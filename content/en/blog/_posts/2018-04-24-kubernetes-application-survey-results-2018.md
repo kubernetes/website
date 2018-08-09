@@ -1,7 +1,9 @@
 ---
 title: 'Kubernetes Application Survey 2018 Results'
 author: mattfarina
+date: 2018-04-24
 slug: kubernetes-application-survey-results-2018
+date: 2018-04-24
 ---
 
 Understanding how people use or want to use Kubernetes can help us shape everything from what we build to how we do it. To help us understand how application developers, application operators, and ecosystem tool developers are using and want to use Kubernetes, the Application Definition Working Group recently performed a survey. The survey focused in on these types of user roles and the features and sub-projects owned by the Kubernetes organization. That included kubectl, Dashboard, Minikube, Helm, the Workloads API, etc.
@@ -24,7 +26,7 @@ The number of respondents in the past year and 10 months increased at a rate of 
 
 ![Minikube operating system usage](/images/blog/survey-results/2018-application-survey/minikube-os-usage.png)
 
-Minikube is used primarily be people on MacOS and Linux. Yet, according to the 2018 Stack Overflow survey, [almost half of developers use Windows as their primary operating system](https://insights.stackoverflow.com/survey/2018/#technology-developers-primary-operating-systems). This is where Minikube would run.
+Minikube is used primarily by people on macOS and Linux. Yet, according to the 2018 Stack Overflow survey, [almost half of developers use Windows as their primary operating system](https://insights.stackoverflow.com/survey/2018/#technology-developers-primary-operating-systems). This is where Minikube would run.
 
 Seeing differences from other data sets is worth looking more deeply at to better understand our audience, where Kubernetes is at, and where it is on the journey it's headed.
 

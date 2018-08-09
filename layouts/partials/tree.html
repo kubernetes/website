@@ -1,25 +1,27 @@
-{{ $section := . }}
 <a class="item" data-title="{{ .LinkTitle }}" href="{{ .RelPermalink }}"></a>
-{{ template "section-tree-nav-pages" . }}
-{{ template "section-tree-nav" $section }}
+{{ template "section-tree-nav" . }}
 {{ define "section-tree-nav" }}
-	{{ $sections := where .Sections ".Params.toc_hide" "!=" true }}
+	{{ $sections := where (union .Pages .Sections).ByWeight ".Params.toc_hide" "!=" true }}
 	{{ range $sections }}
+		{{ if .IsPage }}
+		{{ template "section-tree-nav-page" . }}
+		{{ else }}
+		{{ template "section-tree-nav-section" . }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+{{ define "section-tree-nav-section" }}
 	<div class="item" data-title="{{ .LinkTitle }}">
 		<div class="container">
 		{{ if ge (len .Content) 10 }}
 		{{/* The section page has content, so link to it. */}}
 		<a class="item" data-title="{{ .LinkTitle }}" href="{{ .RelPermalink }}"></a>
 		{{ end }}
-		{{ template "section-tree-nav-pages" . }}
 		{{ template "section-tree-nav" . }}
 		</div>
 	</div>
-	{{ end }}
 {{ end }}
-{{ define "section-tree-nav-pages" }}
-{{ range  where .Pages ".Params.toc_hide" "!=" true  }}
+{{ define "section-tree-nav-page" }}
 <a class="item" data-title="{{ .LinkTitle }}" href="{{ .RelPermalink }}"></a>
-{{ end }}
 {{ end }}
 

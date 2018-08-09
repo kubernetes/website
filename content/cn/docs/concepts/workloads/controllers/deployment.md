@@ -810,7 +810,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overv
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
 labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector)).
 
-Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/) equal to `Always` is
+Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is
 allowed, which is the default if not specified.
 
 ### Replicas

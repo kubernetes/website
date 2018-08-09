@@ -1,6 +1,7 @@
 ---
 title: Configure a Pod to Use a Volume for Storage
 content_template: templates/task
+weight: 50
 ---
 
 {{% capture overview %}}
@@ -32,55 +33,75 @@ Volume of type
 that lasts for the life of the Pod, even if the Container terminates and
 restarts. Here is the configuration file for the Pod:
 
-{{< code file="pod-redis.yaml" >}}
+{{< codenew file="pods/storage/redis.yaml" >}}
 
 1. Create the Pod:
 
-       kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/pod-redis.yaml
+    ```shell
+    kubectl create -f https://k8s.io/examples/pods/storage/redis.yaml
+    ```
 
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
 
-       kubectl get pod redis --watch
-
+    ```shell
+    kubectl get pod redis --watch
+    ```
+    
     The output looks like this:
 
-       NAME      READY     STATUS    RESTARTS   AGE
-       redis     1/1       Running   0          13s
+    ```shell
+    NAME      READY     STATUS    RESTARTS   AGE
+    redis     1/1       Running   0          13s
+    ```
 
 1. In another terminal, get a shell to the running Container:
 
-       kubectl exec -it redis -- /bin/bash
+    ```shell
+    kubectl exec -it redis -- /bin/bash
+    ```
 
 1. In your shell, go to `/data/redis`, and create a file:
 
-       root@redis:/data# cd /data/redis/
-       root@redis:/data/redis# echo Hello > test-file
+    ```shell
+    root@redis:/data# cd /data/redis/
+    root@redis:/data/redis# echo Hello > test-file
+    ```
 
 1. In your shell, list the running processes:
 
-       root@redis:/data/redis# ps aux
+    ```shell
+    root@redis:/data/redis# apt-get update
+    root@redis:/data/redis# apt-get install procps
+    root@redis:/data/redis# ps aux
+    ```
 
     The output is similar to this:
 
-       USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-       redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
-       root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
-       root        15  0.0  0.0  17500  2072 ?        R+   00:48   0:00 ps aux
+    ```shell
+    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+    redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
+    root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
+    root        15  0.0  0.0  17500  2072 ?        R+   00:48   0:00 ps aux
+    ```
 
 1. In your shell, kill the redis process:
 
-       root@redis:/data/redis# kill <pid>
+    ```shell
+    root@redis:/data/redis# kill <pid>
+    ```
 
     where `<pid>` is the redis process ID (PID).
 
 1. In your original terminal, watch for changes to the redis Pod. Eventually,
 you will see something like this:
 
-       NAME      READY     STATUS     RESTARTS   AGE
-       redis     1/1       Running    0          13s
-       redis     0/1       Completed  0         6m
-       redis     1/1       Running    1         6m
+    ```shell
+    NAME      READY     STATUS     RESTARTS   AGE
+    redis     1/1       Running    0          13s
+    redis     0/1       Completed  0         6m
+    redis     1/1       Running    1         6m
+    ```
 
 At this point, the Container has terminated and restarted. This is because the
 redis Pod has a
@@ -89,9 +110,22 @@ of `Always`.
 
 1. Get a shell into the restarted Container:
 
-       kubectl exec -it redis -- /bin/bash
+    ```shell
+    kubectl exec -it redis -- /bin/bash
+    ```
 
 1. In your shell, goto `/data/redis`, and verify that `test-file` is still there.
+    ```shell
+    root@redis:/data/redis# cd /data/redis/
+    root@redis:/data/redis# ls
+    test-file
+    ```
+
+1. Delete the Pod that you created for this exercise:
+
+    ```shell
+    kubectl delete pod redis
+    ```
 
 {{% /capture %}}
 

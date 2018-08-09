@@ -4,22 +4,30 @@ reviewers:
 - janetkuo
 - mikedanese
 title: Managing Resources
+content_template: templates/concept
+weight: 40
 ---
+
+{{% capture overview %}}
 
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
 
+{{% /capture %}}
+
 {{< toc >}}
+
+{{% capture body %}}
 
 ## Organizing resource configurations
 
 Many applications require multiple resources to be created, such as a Deployment and a Service. Management of multiple resources can be simplified by grouping them together in the same file (separated by `---` in YAML). For example:
 
-{{< code file="nginx-app.yaml" >}}
+{{< codenew file="application/nginx-app.yaml" >}}
 
 Multiple resources can be created the same way as a single resource:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/concepts/cluster-administration/nginx-app.yaml
+$ kubectl create -f https://k8s.io/examples/application/nginx-app.yaml
 service "my-nginx-svc" created
 deployment "my-nginx" created
 ```
@@ -29,13 +37,13 @@ The resources will be created in the order they appear in the file. Therefore, i
 `kubectl create` also accepts multiple `-f` arguments:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/concepts/cluster-administration/nginx/nginx-svc.yaml -f https://k8s.io/docs/concepts/cluster-administration/nginx/nginx-deployment.yaml
+$ kubectl create -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
 
 And a directory can be specified rather than or in addition to individual files:
 
 ```shell
-$ kubectl create -f https://k8s.io/docs/concepts/cluster-administration/nginx/
+$ kubectl create -f https://k8s.io/examples/application/nginx/
 ```
 
 `kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
@@ -45,8 +53,8 @@ It is a recommended practice to put resources related to the same microservice o
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/docs/concepts/cluster-administration/nginx-deployment.yaml
-deployment "nginx-deployment" created
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+deployment "my-nginx" created
 ```
 
 ## Bulk operations in kubectl
@@ -54,7 +62,7 @@ deployment "nginx-deployment" created
 Resource creation isn't the only operation that `kubectl` can perform in bulk. It can also extract resource names from configuration files in order to perform other operations, in particular to delete the same resources you created:
 
 ```shell
-$ kubectl delete -f https://k8s.io/docs/concepts/cluster-administration/nginx-app.yaml
+$ kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
 deployment "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
@@ -81,7 +89,7 @@ NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-With the above commands, we first create resources under `docs/concepts/cluster-administration/nginx/` and print the resources created with `-o name` output format
+With the above commands, we first create resources under `examples/application/nginx/` and print the resources created with `-o name` output format
 (print each resource as resource/name). Then we `grep` only the "service", and then print it with `kubectl get`.
 
 If you happen to organize your resources across several subdirectories within a particular directory, you can recursively perform the operations on the subdirectories also, by specifying `--recursive` or `-R` alongside the `--filename,-f` flag.
@@ -313,7 +321,7 @@ Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-co
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
 ```shell
-$ kubectl apply -f docs/concepts/cluster-administration/nginx/nginx-deployment.yaml
+$ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 deployment "my-nginx" configured
 ```
 
@@ -363,7 +371,7 @@ and
 In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can simply modify your original configuration file:
 
 ```shell
-$ kubectl replace -f docs/concepts/cluster-administration/nginx/nginx-deployment.yaml --force
+$ kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
 deployment "my-nginx" deleted
 deployment "my-nginx" replaced
 ```
@@ -390,7 +398,11 @@ $ kubectl edit deployment/my-nginx
 
 That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
 
-## What's next?
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 - [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
 - [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
+
+{{% /capture %}}

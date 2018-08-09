@@ -1,9 +1,13 @@
 ---
 title: Federation
 content_template: templates/concept
+weight: 80
 ---
 
 {{% capture overview %}}
+
+{{< include "federation-current-state.md" >}}
+
 This page explains why and how to manage multiple Kubernetes clusters using
 federation.
 {{% /capture %}}
@@ -96,7 +100,7 @@ The following guides explain some of the resources in detail:
 * [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
 
 
-The [API reference docs](/docs/reference/generated/federation/) list all the
+The [API reference docs](/docs/reference/federation/) list all the
 resources supported by federation apiserver.
 
 ## Cascading deletion
@@ -164,7 +168,7 @@ users in the event of a cluster failure), then you need to have `R * (U + 1)` cl
 
 Finally, if any of your clusters would need more than the maximum recommended number of nodes for a Kubernetes cluster, then
 you may need even more clusters.  Kubernetes v1.3 supports clusters up to 1000 nodes in size. Kubernetes v1.8 supports
-clusters up to 5000 nodes. See [Building Large Clusters](/docs/admin/cluster-large/) for more guidance.
+clusters up to 5000 nodes. See [Building Large Clusters](/docs/setup/cluster-large/) for more guidance.
 
 {{% /capture %}}
 
@@ -174,6 +178,10 @@ clusters up to 5000 nodes. See [Building Large Clusters](/docs/admin/cluster-lar
 * See this [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) for cluster federation.
 * See this [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
 * See this [Kubecon2017 Europe update on federation](https://www.youtube.com/watch?v=kwOvOLnFYck)
+* See this [Kubecon2018 Europe update on sig-multicluster](https://www.youtube.com/watch?v=vGZo5DaThQU)
+* See this [Kubecon2018 Europe Federation-v2 prototype presentation](https://youtu.be/q27rbaX5Jis?t=7m20s)
+* See this [Federation-v2 Userguide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
 {{% /capture %}}
+
 
 

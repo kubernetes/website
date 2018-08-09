@@ -1,14 +1,22 @@
 ---
 title: Installing Addons
+content_template: templates/concept
 ---
 
-## Overview
+{{% capture overview %}}
+
 
 Add-ons extend the functionality of Kubernetes.
 
 This page lists some of the available add-ons and links to their respective installation instructions.
 
 Add-ons in each section are sorted alphabetically - the ordering does not imply any preferential status.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Networking and Network Policy
 
@@ -20,6 +28,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) enables Kubernetes to seamlessly connect to a choice of CNI plugins, such as Calico, Canal, Flannel, Romana, or Weave.
 * [Contiv](http://contiv.github.io) provides configurable networking (native L3 using BGP, overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich policy framework. Contiv project is fully [open sourced](http://github.com/contiv). The [installer](http://github.com/contiv/install) provides both kubeadm and non-kubeadm based installation options.
 * [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md) is an overlay network provider that can be used with Kubernetes.
+* [Knitter](https://github.com/ZTE/Knitter/) is a network solution supporting multiple networking in Kubernetes.
 * [Multus](https://github.com/Intel-Corp/multus-cni) is a Multi plugin for multiple network support in Kubernetes to support all CNI plugins (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and VPP based workloads in Kubernetes.
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and Openshift. 
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.
@@ -40,3 +49,5 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 There are several other add-ons documented in the deprecated [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons) directory.
 
 Well-maintained ones should be linked to here. PRs welcome!
+
+{{% /capture %}}

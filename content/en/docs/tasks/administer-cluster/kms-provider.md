@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - smarterclayton
 title: Using a KMS provider for data encryption
 content_template: templates/task

@@ -15,9 +15,10 @@ Deployment](/docs/concepts/workloads/controllers/deployment/) and provide the sa
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
 
-**As of Kubernetes version 1.5, Federated Deployment is an Alpha feature. The core
-functionality of Deployment is present, but some features
-(such as full rollout compatibility) are still in development.**
+{{< feature-state for_k8s_version="1.5" state="alpha" >}}
+
+Some features
+(such as full rollout compatibility) are still in development.
 {{% /capture %}}
 
 {{% capture prerequisites %}}

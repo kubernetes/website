@@ -108,10 +108,6 @@ kube-apiserver
 
       --experimental-encryption-provider-config string          包含加密提供程序的配置的文件，该加密提供程序被用于在etcd中保存密钥。
 
-      --experimental-keystone-ca-file string                    如果设置该值，将会使用experimental-keystone-ca-file中的一个authority对Keystone服务的证书进行验证，否则将会使用主机的根CA进行验证。
-
-      --experimental-keystone-url string                        如果设置了该值，将启用keystone认证插件。
-
       --external-hostname string                                为此master生成外部URL时使用的主机名(例如Swagger API文档)。
 
       --feature-gates mapStringBool                             一个描述alpha/experimental特性开关的键值对列表。 选项包括:

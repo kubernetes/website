@@ -106,7 +106,7 @@ If you do not have a {{< glossary_tooltip text="cluster operator" term_id="clust
 The following topics are also useful for building more complex applications:
 
 * {{< link text="Other points of extensibility within Kubernetes" url="/docs/concepts/overview/extending/" >}} -  A conceptual overview of where you can hook into the Kubernetes architecture.
-* {{< link text="Kubernetes Client Libraries" url="/docs/reference/client-libraries/" >}} - Useful for building apps that need to interact heavily with the Kubernetes API.
+* {{< link text="Kubernetes Client Libraries" url="/docs/reference/using-api/client-libraries/" >}} - Useful for building apps that need to interact heavily with the Kubernetes API.
 
 #### What's next
 Congrats on completing the Application Developer user journey! You've covered the majority of features that Kubernetes has to offer. What now?

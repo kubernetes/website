@@ -3,16 +3,24 @@ reviewers:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
+content_template: templates/task
 ---
+
+{{% capture overview %}}
 
 {{< glossary_definition term_id="etcd" length="all" prepend="etcd is a ">}}
 
-<!-- TODO(mml): Write this doc.
+{{% /capture %}}
 
-For the mechanics behind how kubernetes builds, distributes and deploys etcd,
-see _some doc_.
+{{< toc >}}
 
--->
+{{% capture prerequisites %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Prerequisites
 
@@ -90,7 +98,7 @@ After configuring secure communication, restrict the access of etcd cluster to o
 
 For example, consider key pairs `k8sclient.key` and `k8sclient.cert` that are trusted by the CA `etcd.ca`. When etcd is configured with `--client-cert-auth` along with TLS, it verifies the certificates from clients by using system CAs or the CA passed in by `--trusted-ca-file` flag. Specifying flags `--client-cert-auth=true` and `--trusted-ca-file=etcd.ca` will restrict the access to clients with the certificate `k8sclient.cert`.
 
-Once etcd is configured correctly, only clients with valid certificates can access it. To give Kubernetes API server the access, configure it with the flags `--etcd-certfile=k8sclient.cert` and `--etcd-keyfile=k8sclient.key`.
+Once etcd is configured correctly, only clients with valid certificates can access it. To give Kubernetes API server the access, configure it with the flags `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` and `--etcd-cafile=ca.cert`.
 
 {{< note >}}
 **Note**: etcd authentication is not currently supported by Kubernetes. For more information, see the related issue [Support Basic Auth for Etcd v2](https://github.com/kubernetes/kubernetes/issues/23398).
@@ -276,6 +284,10 @@ be back with new resource version. That would mean that restarting node
 components is not needed. But the assumptions here may not hold forever.
 {{< /note >}}
 
+{{% /capture %}}
+
+{{% capture discussion %}}
+
 ### Design
 
 This section describes how we are going to do the migration, given the
@@ -399,3 +411,5 @@ you can talk to your cluster's etcd), try:
 ```shell
 curl -X PUT "http://${host}:${port}/v2/keys/_test"
 ```
+
+{{% /capture %}}

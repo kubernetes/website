@@ -2,6 +2,7 @@
 title: Run a Stateless Application Using a Deployment
 min-kubernetes-server-version: v1.9
 content_template: templates/tutorial
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -35,16 +36,16 @@ You can run an application by creating a Kubernetes Deployment object, and you
 can describe a Deployment in a YAML file. For example, this YAML file describes
 a Deployment that runs the nginx:1.7.9 Docker image:
 
-{{< code file="deployment.yaml" >}}
+{{< codenew file="application/deployment.yaml" >}}
 
 
 1. Create a Deployment based on the YAML file:
 
-       kubectl apply -f https://k8s.io/docs/tasks/run-application/deployment.yaml
+        kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 
 1. Display information about the Deployment:
 
-       kubectl describe deployment nginx-deployment
+        kubectl describe deployment nginx-deployment
 
     The output is similar to this:
 
@@ -79,7 +80,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. List the pods created by the deployment:
 
-       kubectl get pods -l app=nginx
+        kubectl get pods -l app=nginx
 
     The output is similar to this:
 
@@ -89,7 +90,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. Display information about a pod:
 
-       kubectl describe pod <pod-name>
+        kubectl describe pod <pod-name>
 
     where `<pod-name>` is the name of one of your pods.
 
@@ -98,15 +99,15 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 You can update the deployment by applying a new YAML file. This YAML file
 specifies that the deployment should be updated to use nginx 1.8.
 
-{{< code file="deployment-update.yaml" >}}
+{{< codenew file="application/deployment-update.yaml" >}}
 
 1. Apply the new YAML file:
 
-       kubectl apply -f https://k8s.io/docs/tasks/run-application/deployment-update.yaml
+         kubectl apply -f https://k8s.io/examples/application/deployment-update.yaml
 
 1. Watch the deployment create pods with new names and delete the old pods:
 
-       kubectl get pods -l app=nginx
+         kubectl get pods -l app=nginx
 
 ## Scaling the application by increasing the replica count
 
@@ -114,15 +115,15 @@ You can increase the number of pods in your Deployment by applying a new YAML
 file. This YAML file sets `replicas` to 4, which specifies that the Deployment
 should have four pods:
 
-{{< code file="deployment-scale.yaml" >}}
+{{< codenew file="application/deployment-scale.yaml" >}}
 
 1. Apply the new YAML file:
 
-       kubectl apply -f https://k8s.io/docs/tasks/run-application/deployment-scale.yaml
+        kubectl apply -f https://k8s.io/examples/application/deployment-scale.yaml
 
 1. Verify that the Deployment has four pods:
 
-       kubectl get pods -l app=nginx
+        kubectl get pods -l app=nginx
 
     The output is similar to this:
 

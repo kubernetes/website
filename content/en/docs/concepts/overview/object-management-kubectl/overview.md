@@ -1,6 +1,7 @@
 ---
 title: Kubernetes Object Management
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}

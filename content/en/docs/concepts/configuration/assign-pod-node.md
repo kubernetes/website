@@ -4,7 +4,13 @@ reviewers:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
+content_template: templates/concept
+weight: 30
 ---
+
+{{< toc >}}
+
+{{% capture overview %}}
 
 You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/architecture/nodes/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
@@ -16,9 +22,11 @@ that a pod ends up on a machine with an SSD attached to it, or to co-locate pods
 services that communicate a lot into the same availability zone.
 
 You can find all the files for these examples [in our docs
-repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/docs/user-guide/node-selection).
+repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/).
 
-{{< toc >}}
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## nodeSelector
 
@@ -60,9 +68,12 @@ spec:
 
 Then add a nodeSelector like so:
 
-{{< code file="pod.yaml" >}}
+{{< codenew file="pods/pod-nginx.yaml" >}}
 
-When you then run `kubectl create -f pod.yaml`, the pod will get scheduled on the node that you attached the label to! You can verify that it worked by running `kubectl get pods -o wide` and looking at the "NODE" that the pod was assigned to.
+When you then run `kubectl create -f https://k8s.io/examples/pods/pod-nginx.yaml`,
+the Pod will get scheduled on the node that you attached the label to. You can
+verify that it worked by running `kubectl get pods -o wide` and looking at the
+"NODE" that the Pod was assigned to.
 
 ## Interlude: built-in node labels
 
@@ -125,7 +136,7 @@ Node affinity is specified as field `nodeAffinity` of field `affinity` in the Po
 
 Here's an example of a pod that uses node affinity:
 
-{{< code file="pod-with-node-affinity.yaml" >}}
+{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
 This node affinity rule says the pod can only be placed on a node with a label whose key is
 `kubernetes.io/e2e-az-name` and whose value is either `e2e-az1` or `e2e-az2`. In addition,
@@ -134,7 +145,7 @@ value is `another-node-label-value` should be preferred.
 
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, or use 
-[node taints](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/) to repel pods from specific nodes.
+[node taints](/docs/concepts/configuration/taint-and-toleration/) to repel pods from specific nodes.
 
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
@@ -167,6 +178,8 @@ in the section [Interlude: built-in node labels](#interlude-built-in-node-labels
 processing which can slow down scheduling in large clusters significantly. We do
 not recommend using them in clusters larger than several hundred nodes.
 
+**Note:** Pod anti-affinity requires nodes to be consistently labelled, i.e. every node in the cluster must have an appropriate label matching `topologyKey`. If some or all nodes are missing the speficied `topologyKey` label, it can lead to unintended behavior.
+
 As with node affinity, there are currently two types of pod affinity and anti-affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
 `preferredDuringSchedulingIgnoredDuringExecution` which denote "hard" vs. "soft" requirements.
 See the description in the node affinity section earlier.
@@ -180,7 +193,7 @@ And inter-pod anti-affinity is specified as field `podAntiAffinity` of field `af
 
 #### An example of a pod that uses pod affinity:
 
-{{< code file="pod-with-pod-affinity.yaml" >}}
+{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
 
 The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. In this example, the
 `podAffinity` is `requiredDuringSchedulingIgnoredDuringExecution`
@@ -323,7 +336,7 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 
 The above example uses `PodAntiAffinity` rule with `topologyKey: "kubernetes.io/hostname"` to deploy the redis cluster so that 
 no two instances are located on the same host. 
-See [ZooKeeper tutorial](https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) 
+See [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure) 
 for an example of a StatefulSet configured with anti-affinity for high availability, using the same technique.
 
 For more information on inter-pod affinity/anti-affinity, see the 
@@ -331,3 +344,9 @@ For more information on inter-pod affinity/anti-affinity, see the
 
 You may want to check [Taints](/docs/concepts/configuration/taint-and-toleration/)
 as well, which allow a *node* to *repel* a set of pods.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+{{% /capture %}}

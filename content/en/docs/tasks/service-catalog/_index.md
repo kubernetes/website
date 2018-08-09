@@ -1,5 +1,5 @@
 ---
-title: "Extend Kubernetes"
+title: "Install Service Catalog"
 weight: 150
 ---
 

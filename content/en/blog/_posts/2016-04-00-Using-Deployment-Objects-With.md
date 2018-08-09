@@ -4,7 +4,7 @@ date: 2016-04-01
 slug: using-deployment-objects-with
 url: /blog/2016/04/Using-Deployment-Objects-With
 ---
-_Editor's note: this is the seventh post in a [series of in-depth posts](http://blog.kubernetes.io/2016/03/five-days-of-kubernetes-12.html) on what's new in Kubernetes 1.2_  
+_Editor's note: this is the seventh post in a [series of in-depth posts](https://kubernetes.io/blog/2016/03/five-days-of-kubernetes-12) on what's new in Kubernetes 1.2_  
 
 Kubernetes has made deploying and managing applications very straightforward, with most actions a single API or command line away, including rolling out new applications, canary testing and upgrading. So why would we need Deployments?  
 

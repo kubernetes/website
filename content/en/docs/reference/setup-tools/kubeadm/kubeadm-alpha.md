@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - luxas
 - jbeda
@@ -13,19 +13,8 @@ weight: 90
 
 In v1.8.0, kubeadm introduced the `kubeadm alpha phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the bootstrap process; you can let kubeadm do some parts and fill in yourself where you need customizations.
 
-`kubeadm alpha phase` is consistent with [kubeadm init workflow](kubeadm-init.md#init-workflow),
+`kubeadm alpha phase` is consistent with [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
 and behind the scene both use the same code.
-
-* [kubeadm alpha phase preflight](#cmd-phase-preflight)
-* [kubeadm alpha phase certs](#cmd-phase-certs)
-* [kubeadm alpha phase kubeconfig](#cmd-phase-kubeconfig)
-* [kubeadm alpha phase controlplane](#cmd-phase-controlplane)
-* [kubeadm alpha phase etcd](#cmd-phase-etcd)
-* [kubeadm alpha phase mark-master](#cmd-phase-mark-master)
-* [kubeadm alpha phase bootstrap-token](#cmd-phase-bootstrap-token)
-* [kubeadm alpha phase upload-config](#cmd-phase-upload-config)
-* [kubeadm alpha phase addon](#cmd-phase-addon)
-* [kubeadm alpha phase selfhosting](#cmd-phase-self-hosting)
 
 ## kubeadm alpha phase preflight {#cmd-phase-preflight}
 
@@ -117,7 +106,7 @@ or selectively configure single elements.
 ## kubeadm alpha phase upload-config {#cmd-phase-upload-config}
 
 You can use this command to upload the kubeadm configuration to your cluster.
-Alternatively, you can use [kubeadm config](kubeadm-config.md).
+Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 
 {{< tabs name="upload-config" >}}
 {{< tab name="mark-master" include="generated/kubeadm_alpha_phase_upload-config.md" />}}
@@ -129,19 +118,21 @@ Alternatively, you can use [kubeadm config](kubeadm-config.md).
 You can install all the available addons with the `all` subcommand, or
 install them selectively.
 
-Please note that if kubeadm is invoked with `--feature-gates=CoreDNS=true`,  [CoreDNS](https://coredns.io/) is installed instead of `kube-dns`.
+{{< note >}}
+**Note:** If `kubeadm` is invoked with `--feature-gates=CoreDNS=false`, kube-dns is installed.
+{{< /note >}}
 
 {{< tabs name="tab-addon" >}}
 {{< tab name="all" include="generated/kubeadm_alpha_phase_addon_all.md" />}}
 {{< tab name="kube-proxy" include="generated/kubeadm_alpha_phase_addon_kube-proxy.md" />}}
-{{< tab name="kube-dns" include="generated/kubeadm_alpha_phase_addon_kube-dns.md" />}}
+{{< tab name="coredns" include="generated/kubeadm_alpha_phase_addon_coredns.md" />}}
 {{< /tabs >}}
 
 
 ## kubeadm alpha phase self-hosting {#cmd-phase-self-hosting}
 
 {{< caution >}}
-**Caution:** Self-hosting is an alpha feature. See [kubeadm init](kubeadm-init.md) documentation for self-hosting limitations.
+**Caution:** Self-hosting is an alpha feature. See [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) documentation for self-hosting limitations.
 {{< /caution >}}
 
 {{< tabs name="tab-self-hosting" >}}
@@ -150,6 +141,6 @@ Please note that if kubeadm is invoked with `--feature-gates=CoreDNS=true`,  [Co
 
 
 ## What's next
-* [kubeadm init](kubeadm-init.md) to bootstrap a Kubernetes master node
-* [kubeadm join](kubeadm-join.md) to connect a node to the cluster
-* [kubeadm reset](kubeadm-reset.md) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes master node
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`

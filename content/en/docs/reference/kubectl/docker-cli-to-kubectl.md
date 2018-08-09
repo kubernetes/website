@@ -1,9 +1,9 @@
 ---
-approvers:
+title: kubectl for Docker Users
+reviewers:
 - bgrant0607
 - brendandburns
 - thockin
-title: kubectl for Docker Users
 ---
 
 You can use the Kubernetes command line tool kubectl to interact with the api. You can use kubectl if you are familiar with docker-cli. However, there are a few differences in the docker-cli commands and the kubectl commands. Each of the following section details a docker subcommand and explains the kubectl equivalent.
@@ -220,7 +220,7 @@ $ kubectl get po -l run=nginx-app
 ```
 
 {{< note >}}
-**Note:** When you use kubectl, you don't delete the pod directly.You have to fiirst delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
+**Note:** When you use kubectl, you don't delete the pod directly.You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
 {{< /note >}}
 
 #### docker login

@@ -3,6 +3,7 @@ reviewers:
 - mikedanese
 title: Configuration Best Practices
 content_template: templates/concept
+weight: 10
 ---
 
 {{% capture overview %}}

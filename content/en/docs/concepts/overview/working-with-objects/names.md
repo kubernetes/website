@@ -3,13 +3,23 @@ reviewers:
 - mikedanese
 - thockin
 title: Names
+content_template: templates/concept
+weight: 20
 ---
+
+{{% capture overview %}}
 
 All objects in the Kubernetes REST API are unambiguously identified by a Name and a UID.
 
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user-guide/labels) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
 See the [identifiers design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) for the precise syntax rules for Names and UIDs.
+
+{{% /capture %}}
+
+{{< toc >}}
+
+{{% capture body %}}
 
 ## Names
 
@@ -20,3 +30,5 @@ By convention, the names of Kubernetes resources should be up to maximum length 
 ## UIDs
 
 {{< glossary_definition term_id="uid" length="all" >}}
+
+{{% /capture %}}
