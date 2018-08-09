@@ -95,7 +95,7 @@ different Kubernetes components.
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
-| `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
+| `TaintNodesByCondition` | `true` | Beta | 1.12 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | |
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |

@@ -110,7 +110,7 @@ StreamingProxyRedirects=true|false (BETA - default=true)
 SupportIPVSProxyMode=true|false (BETA - default=false)
 SupportPodPidsLimit=true|false (ALPHA - default=false)
 TaintBasedEvictions=true|false (ALPHA - default=false)
-TaintNodesByCondition=true|false (ALPHA - default=false)
+TaintNodesByCondition=true|false (BETA - default=true)
 VolumeScheduling=true|false (ALPHA - default=false)
   -h, --help                                                    help for federation-apiserver
       --log-flush-frequency duration                            Maximum number of seconds between log flushes (default 5s)
