@@ -68,8 +68,8 @@ First, we will start a deployment running the image and expose it as a service:
 
 ```shell
 $ kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
-service "php-apache" created
-deployment "php-apache" created
+service/php-apache created
+deployment.apps/php-apache created
 ```
 
 ## Create Horizontal Pod Autoscaler
@@ -85,7 +85,7 @@ See [here](https://git.k8s.io/community/contributors/design-proposals/autoscalin
 
 ```shell
 $ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
-deployment "php-apache" autoscaled
+horizontalpodautoscaler.autoscaling/php-apache autoscaled
 ```
 
 We may check the current status of autoscaler by running:
@@ -391,7 +391,7 @@ We will create the autoscaler by executing the following command:
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
-horizontalpodautoscaler "php-apache" created
+horizontalpodautoscaler.autoscaling/php-apache created
 ```
 
 {{% /capture %}}
