@@ -24,7 +24,7 @@
 {{ with findRE "<img.*?>" .Content 1 }}
 <meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}" />
 <!-- Alt text for the site image -->
-<meta name="twitter:image:alt"   content="{{ .Params.Site.Title }}">
+<meta name="twitter:image:alt"   content="{{ .Params }}">
 {{ end }}
 {{ end }}
 <script
