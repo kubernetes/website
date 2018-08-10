@@ -350,7 +350,7 @@ ip link delete docker0
 The way you configure docker will depend in whether you have chosen the routable-vip or overlay-network approaches for your network.
 Some suggested docker options:
 
-  - create your own bridge for the per-node CIDR ranges, call it cbr0, and set `--bridge=cbr0` option on docker.
+  - create your own bridge for the per-node CIDR ranges, call it cbr0, and set `--bridge=cbr0` option on docker，you **DON'T** need to do this if you are using kubernetes CNI with Flannel, since kubelet will create `cni0` for you automatically.
   - set `--iptables=false` so docker will not manipulate iptables for host-ports (too coarse on older docker versions, may be fixed in newer versions)
 so that kube-proxy can manage iptables instead of docker.
   - `--ip-masq=false`
