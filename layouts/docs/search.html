@@ -1,22 +1,32 @@
 {{ define "content" }}
 <h1>{{ .Title }}</h1>
 <script type="text/javascript">
-  document.write('<gcse:searchresults-only linktarget="_parent"></gcse:searchresults-only>');
+    // console.log("is this a thing?");
+    var search = "site:kubernetes.io " + window.location.search.split("=")[1];
+    if(true){
+        $.ajax({
+            url: 'https://api.cognitive.microsoft.com/bing/v7.0/search',
+            data: { q: search },
+            type: "GET",
+            beforeSend: function(xhr){xhr.setRequestHeader('Ocp-Apim-Subscription-Key', '301d5777c602443b8856c4aaf6a535af');},
+        });
+    }else{
+      document.write('<gcse:searchresults-only linktarget="_parent"></gcse:searchresults-only>');
+    }
 </script>
 
 <script>
-  (function() {
-    var cx = '013288817511911618469:elfqqbqldzg';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
+    (function() {
+        var cx = '013288817511911618469:elfqqbqldzg';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = true;
+        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
 
-    document.querySelector('html').classList.add('search');
-  })();
+        document.querySelector('html').classList.add('search');
+    })();
 </script>
 {{ end }}
 
