@@ -6,7 +6,7 @@ publish = "public"
 command = "hugo --enableGitInfo && cp netlify_noindex_headers.txt public/_headers"
 
 [build.environment]
-HUGO_VERSION = "0.46"
+HUGO_VERSION = "0.47.1"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
