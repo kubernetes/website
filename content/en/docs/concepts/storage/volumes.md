@@ -1236,15 +1236,12 @@ More details can be found [here](https://github.com/kubernetes/community/blob/ma
 
 ## Mount propagation
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
 
-If the "`MountPropagation`" feature is disabled or a Pod does not explicitly
-specify specific mount propagation, volume mounts in the Pod's Containers are
-not propagated. That is, Containers run with `private` mount propagation as
-described in the [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
+If a Pod does not explicitly specify any mount propagation, volume mounts in the Pod's
+Containers are not propagated.  That is, Containers run with `private` mount propagation
+as described in the [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
 Mount propagation of a volume is controlled by `mountPropagation` field in Container.volumeMounts.
 Its values are:
