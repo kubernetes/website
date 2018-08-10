@@ -1,5 +1,5 @@
 DOCKER       = docker
-HUGO_VERSION = 0.44
+HUGO_VERSION = 0.47.1
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(PWD):/src
 
