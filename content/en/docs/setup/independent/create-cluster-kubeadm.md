@@ -277,6 +277,11 @@ For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/canal.yaml
 ```
+{{% /tab %}}
+
+{{% tab name="Cilium" %}}
+
+Cilium provides networking, L3/L4 network security and L7 (API-aware) security. Cilium is deployed as a CNI plugin and supports the Kubernetes Network Policy specifications. Please consult the [Cilium Kubernetes Install Guide](https://cilium.readthedocs.io/en/stable/kubernetes/install/) for complete steps including RBAC settings, etcd access configuration and Kubernetes version specific DaemonSet configuration files.
 
 {{% /tab %}}
 {{% tab name="Flannel" %}}
