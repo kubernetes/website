@@ -1,51 +1,11 @@
 {{ define "content" }}
-
 <h1>{{ .Title }}</h1>
 
-<div id="bing-results-container"></div>
+<gcse:searchresults-only linktarget="_parent">
+    <div id="bing-results-container">Fetching results..</div>
+</gcse:searchresults-only>
 
-<script type="text/javascript">
-    // $.get("https://ipinfo.io", function(response) {
-    //     if(response.country != 'CN')
-    //         $(window).trigger('google-search');
-    // }, "jsonp");
-
-    var search = "site:kubernetes.io " + window.location.search.split("=")[1];
-    var results = '';
-
-    $.ajax({
-        url: 'https://api.cognitive.microsoft.com/bing/v7.0/search',
-        data: { q: search },
-        type: "GET",
-        beforeSend: function(xhr){xhr.setRequestHeader('Ocp-Apim-Subscription-Key', '301d5777c602443b8856c4aaf6a535af');},
-    }).done(function(res) {
-        res.webPages.value.map(ob => {
-            results += '<div class="bing-result">'
-                    + '<div class="bing-result-name"><a href="'+ob.url+'">'+ob.name+'</a></div>'
-                    + '<div class="bing-result-url">'+ob.displayUrl+'</div>'
-                    + '<div class="bing-result-snippet">'+ob.snippet+'</div>'
-                    +'</div>';
-        })
-        document.querySelector('#bing-results-container').innerHTML = results;
-    });
-
-      // document.write('<gcse:searchresults-only linktarget="_parent"></gcse:searchresults-only>');
-
-</script>
-
-<script>
-    // (function() {
-    //     var cx = '013288817511911618469:elfqqbqldzg';
-    //     var gcse = document.createElement('script');
-    //     gcse.type = 'text/javascript';
-    //     gcse.async = true;
-    //     gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=' + cx;
-    //     var s = document.getElementsByTagName('script')[0];
-    //     s.parentNode.insertBefore(gcse, s);
-
-    //     document.querySelector('html').classList.add('search');
-    // })();
-</script>
+<script src="{{ "js/search.js" | relURL }}"></script>
 {{ end }}
 
 
