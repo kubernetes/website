@@ -75,8 +75,8 @@ load-balanced access to an application running in a cluster.
    external IP address remains in the pending state.
    {{< /note >}}
 
-       NAME              CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-       example-service   10.0.0.160   <pending>     8080/TCP   40s
+       NAME             TYPE       CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+       example-service  ClusterIP  10.0.0.160   <pending>     8080/TCP   40s
 
 1. Use your Service object to access the Hello World application:
 
