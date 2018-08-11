@@ -75,7 +75,7 @@ $ kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
                         --labels=app=hostnames \
                         --port=9376 \
                         --replicas=3
-deployment "hostnames" created
+deployment.apps/hostnames created
 ```
 
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
@@ -134,6 +134,7 @@ So the first thing to check is whether that `Service` actually exists:
 
 ```shell
 $ kubectl get svc hostnames
+No resources found.
 Error from server (NotFound): services "hostnames" not found
 ```
 
@@ -142,15 +143,15 @@ walk-through - you can use your own `Service`'s details here.
 
 ```shell
 $ kubectl expose deployment hostnames --port=80 --target-port=9376
-service "hostnames" exposed
+service/hostnames exposed
 ```
 
 And read it back, just to be sure:
 
 ```shell
 $ kubectl get svc hostnames
-NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
-hostnames   10.0.1.175   <none>        80/TCP    5s
+NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 ```
 
 As before, this is the same as if you had started the `Service` with YAML:
