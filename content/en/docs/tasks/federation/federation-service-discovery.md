@@ -99,8 +99,8 @@ You can verify this by checking in each of the underlying clusters, for example:
 
 ``` shell
 kubectl --context=gce-asia-east1a get services nginx
-NAME      CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
-nginx     10.63.250.98   104.199.136.89   80/TCP    9m
+NAME     TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
+nginx    ClusterIP   10.63.250.98   104.199.136.89   80/TCP    9m
 ```
 
 The above assumes that you have a context named 'gce-asia-east1a'
