@@ -86,7 +86,7 @@ this example.
     apiVersion: "kubeadm.k8s.io/v1alpha2"
     kind: MasterConfiguration
     etcd:
-        localEtcd:
+        local:
             serverCertSANs:
             - "${HOST}"
             peerCertSANs:

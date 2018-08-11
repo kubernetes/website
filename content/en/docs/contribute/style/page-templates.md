@@ -10,7 +10,7 @@ When contributing new topics, apply one of the following templates to them.
 This standardizes the user experience of a given page.
 
 The page templates are in the
-[`_includes/templates`](https://git.k8s.io/website/_includes/templates)
+[`layouts/partials/templates`](https://git.k8s.io/website/layouts/partials/templates)
 directory of the [`kubernetes/website`](https://github.com/kubernetes/website)
 repository.
 
@@ -19,6 +19,7 @@ repository.
 template to use for a new topic, start with the
 [concept template](#concept-template).
 {{< /note >}}
+
 
 {{% /capture %}}
 
@@ -43,7 +44,7 @@ To write a new concept page, create a Markdown file in a subdirectory of the
   ones you want to include:
 
     | Variable      | Required? |
-    |===============|===========|
+    |---------------|-----------|
     | overview      | yes       |
     | body          | yes       |
     | whatsnext     | no        |
@@ -52,20 +53,22 @@ To write a new concept page, create a Markdown file in a subdirectory of the
     need):
     
     ```
-    {% raw %}
-    {{% capture overview %}}
+    {% raw  %}
+
+    {{%/* capture overview */%}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
     
-    {{< toc >}}
+    {{</* toc */>}}
     
-    {{% capture body %}}
+    {{%/* capture body */%}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
     
-    {{% capture whatsnext %}}
+    {{%/* capture whatsnext */%}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
+
     {% endraw %}
     ```
 
@@ -96,7 +99,7 @@ To write a new task page, create a Markdown file in a subdirectory of the
   ones you want to include:
 
     | Variable      | Required? |
-    |===============|===========|
+    |---------------|-----------|
     | overview      | yes       |
     | prerequisites | yes       |
     | steps         | no        |
@@ -108,29 +111,31 @@ To write a new task page, create a Markdown file in a subdirectory of the
     
     ```
     {% raw %}
-    {{% capture overview %}}
+
+    {{%/* capture overview */%}}
+  
+    {{%/* /capture */%}}
     
-    {{% /capture %}}
+    {{</* toc */>}}
     
-    {{< toc >}}
+    {{%/* capture prerequisites */%}}
     
-    {{% capture prerequisites %}}
+    {{</* include "task-tutorial-prereqs.md" */>}} {{</* version-check */>}}
     
-    {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+    {{%/* /capture */%}}
     
-    {{% /capture %}}
+    {{%/* capture steps */%}}
     
-    {{% capture steps %}}
+    {{%/* /capture */%}}
     
-    {{% /capture %}}
+    {{%/* capture discussion */%}}
     
-    {{% capture discussion %}}
+    {{%/* /capture */%}}
     
-    {{% /capture %}}
+    {{%/* capture whatsnext */%}}
     
-    {{% capture whatsnext %}}
-    
-    {{% /capture %}}
+    {{%/* /capture */%}}
+
     {% endraw %}
     ```
 
@@ -167,7 +172,7 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
   ones you want to include:
 
     | Variable      | Required? |
-    |===============|===========|
+    |---------------|-----------|
     | overview      | yes       |
     | prerequisites | yes       |
     | objectives    | yes       |
@@ -180,33 +185,34 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
     
     ```
     {% raw %}
-    {{% capture overview %}}
+
+    {{%/* capture overview */%}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
     
-    {{< toc >}}
+    {{</* toc */>}}
     
-    {{% capture prerequisites %}}
+    {{%/* capture prerequisites */%}}
     
-    {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+    {{</* include "task-tutorial-prereqs.md" */>}} {{</* version-check */>}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
     
-    {{% capture objectives %}}
+    {{%/* capture objectives */%}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
     
-    {{% capture lessoncontent %}}
+    {{%/* capture lessoncontent */%}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
     
-    {{% capture cleanup %}}
+    {{%/* capture cleanup */%}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
     
-    {{% capture whatsnext %}}
+    {{%/* capture whatsnext */%}}
     
-    {{% /capture %}}
+    {{%/* /capture */%}}
     {% endraw %}
     ```
 
