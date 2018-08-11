@@ -297,6 +297,11 @@ parameters:
 * `availability`: Availability Zone. If not specified, volumes are generally
   round-robin-ed across all active zones where Kubernetes cluster has a node.
 
+{{< note >}}
+{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+This internal provisioner of OpenStack is deprecated. Please use [the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
+{{< /note >}}
+
 ### vSphere
 
 1. Create a StorageClass with a user specified disk format.
