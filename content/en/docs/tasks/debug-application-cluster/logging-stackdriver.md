@@ -176,7 +176,7 @@ and then recreating it:
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
-pod "counter" created
+pod/counter created
 ```
 
 After some time, you can access logs from the counter pod again:
