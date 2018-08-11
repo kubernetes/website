@@ -32,7 +32,7 @@ for database debugging.
 
     The output of a successful command verifies that the deployment was created:
 
-        deployment "redis-master" created
+        deployment.apps/redis-master created
  
     View the pod status to check that it is ready:
 
@@ -68,7 +68,7 @@ for database debugging.
 
     The output of a successful command verifies that the service was created:
 
-        service "redis-master" created
+        service/redis-master created
 
     Check the service created:
 
