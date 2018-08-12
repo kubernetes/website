@@ -8,7 +8,7 @@ Once your pull request is created, a Kubernetes reviewer will take responsibilit
 
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Start contributing](http://kubernetes.io/contribute/start/)
+* [Start contributing](https://kubernetes.io/docs/contribute/start/)
 * [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
