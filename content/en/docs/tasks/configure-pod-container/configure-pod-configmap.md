@@ -295,7 +295,7 @@ metadata:
 
 ## Define Pod environment variables using ConfigMap data
 
-### Define a Pod environment variable with data from a single ConfigMap
+### Define a Container environment variable with data from a single ConfigMap
 
 1. Define an environment variable as a key-value pair in a ConfigMap:
 
