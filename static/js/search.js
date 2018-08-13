@@ -6,7 +6,7 @@
         gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=' + cx;
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(gcse, s);
-        document.querySelector('html').classList.add('search');
+        // document.querySelector('html').classList.add('search');
     }
 
     window.getPaginationAnchors = (pages) => {
@@ -51,12 +51,21 @@
             if($('#bing-results-container').length > 0) $('#bing-results-container').html(results);
             if($('#bing-pagination-container').length > 0) $('#bing-pagination-container').html(paginationAnchors);
         });
+        document.querySelector('html').classList.add('search');
     }
 
     window.renderBingSearchResults();
 
-    $.ajax({ url: "https://ipinfo.io" }).done(function(response) {
-        if(response.country != 'CN') window.renderGoogleSearchResults();
+    $.ajax({
+        url: "https://ipinfo.io",
+        dataType: "jsonp",
+        success: function (response) {
+            if (response.country != 'CN') window.renderGoogleSearchResults();
+        },
+        error: function () {
+            console.log('sorry...')
+        },
+        timeout: 5000
     });
 
 
