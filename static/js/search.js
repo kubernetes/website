@@ -3,7 +3,7 @@
         var gcse = document.createElement('script');
         gcse.type = 'text/javascript';
         gcse.async = true;
-        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=' + cx;
+        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.gooogle.com/cse.js?cx=' + cx;
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(gcse, s);
         // document.querySelector('html').classList.add('search');
@@ -15,6 +15,7 @@
         currentPage = (!currentPage) ?  1 : currentPage.split("&")[0];
 
         for(var i = 1; i <= 10; i++){
+            if(i > pages) break;
             pageAnchors += '<a class="bing-page-anchor" href="/docs/search/?q='+searchTerm+'&page='+i+'">';
             pageAnchors += (currentPage == i) ? '<b>'+i+'</b>' : i;
             pageAnchors += '</a>';
