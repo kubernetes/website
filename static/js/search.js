@@ -9,31 +9,55 @@
         document.querySelector('html').classList.add('search');
     }
 
+    window.getPaginationAnchors = (pages) => {
+        var pageAnchors = '', searchTerm  = window.location.search.split("=")[1].split("&")[0];
+        var currentPage = window.location.search.split("=")[2];
+        currentPage = (!currentPage) ?  1 : currentPage.split("&")[0];
+
+        for(var i = 1; i <= pages; i++){
+            pageAnchors += '<a class="bing-page-anchor" href="/docs/search/?q='+searchTerm+'&page='+i+'">';
+            pageAnchors += (currentPage == i) ? '<b>'+i+'</b>' : i;
+            pageAnchors += '</a>';
+        }
+        return pageAnchors;
+    }
+
+    window.getResultMarkupString = (ob) => {
+        return '<div class="bing-result">'
+            + '<div class="bing-result-name"><a href="'+ob.url+'">'+ob.name+'</a></div>'
+            + '<div class="bing-result-url">'+ob.displayUrl+'</div>'
+            + '<div class="bing-result-snippet">'+ob.snippet+'</div>'
+            +'</div>';
+    }
+
     window.renderBingSearchResults = () => {
-        var search = "site:kubernetes.io " + window.location.search.split("=")[1], results = '', ajaxConf = {};
+        var searchTerm  = window.location.search.split("=")[1].split("&")[0],
+            page        = window.location.search.split("=")[2],
+            q           = "site:kubernetes.io " + searchTerm;
+
+        page = (!page) ?  1 : page.split("&")[0];
+
+        var results = '', pagination = '', offset = (page - 1) * 10, ajaxConf = {};
 
         ajaxConf.url = 'https://api.cognitive.microsoft.com/bing/v7.0/search';
-        ajaxConf.data =  { q: search };
+        ajaxConf.data =  { q: q, offset: offset };
         ajaxConf.type = "GET";
         ajaxConf.beforeSend = function(xhr){ xhr.setRequestHeader('Ocp-Apim-Subscription-Key', '301d5777c602443b8856c4aaf6a535af'); };
 
         $.ajax(ajaxConf).done(function(res) {
-            res.webPages.value.map(ob => {
-                results += '<div class="bing-result">'
-                        + '<div class="bing-result-name"><a href="'+ob.url+'">'+ob.name+'</a></div>'
-                        + '<div class="bing-result-url">'+ob.displayUrl+'</div>'
-                        + '<div class="bing-result-snippet">'+ob.snippet+'</div>'
-                        +'</div>';
-            })
+            var paginationAnchors = window.getPaginationAnchors(Math.ceil(res.webPages.totalEstimatedMatches / 10));
+            res.webPages.value.map(ob => { results += window.getResultMarkupString(ob); })
+
             if($('#bing-results-container').length > 0) $('#bing-results-container').html(results);
+            if($('#bing-pagination-container').length > 0) $('#bing-pagination-container').html(paginationAnchors);
         });
     }
 
     window.renderBingSearchResults();
 
-    $.get("https://ipinfo.io", function(response) {
+    $.ajax({ url: "https://ipinfo.io" }).done(function(response) {
         if(response.country != 'CN') window.renderGoogleSearchResults();
-    }, "jsonp");
+    });
 
 
 
