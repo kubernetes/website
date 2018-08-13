@@ -14,7 +14,7 @@
         var currentPage = window.location.search.split("=")[2];
         currentPage = (!currentPage) ?  1 : currentPage.split("&")[0];
 
-        for(var i = 1; i <= pages; i++){
+        for(var i = 1; i <= 10; i++){
             pageAnchors += '<a class="bing-page-anchor" href="/docs/search/?q='+searchTerm+'&page='+i+'">';
             pageAnchors += (currentPage == i) ? '<b>'+i+'</b>' : i;
             pageAnchors += '</a>';
@@ -38,6 +38,8 @@
         page = (!page) ?  1 : page.split("&")[0];
 
         var results = '', pagination = '', offset = (page - 1) * 10, ajaxConf = {};
+
+        console.log(pagination)
 
         ajaxConf.url = 'https://api.cognitive.microsoft.com/bing/v7.0/search';
         ajaxConf.data =  { q: q, offset: offset };
