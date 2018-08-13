@@ -333,7 +333,7 @@ metadata:
 
 1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
  
-### Define Pod environment variables with data from multiple ConfigMaps
+### Define Container environment variables with data from multiple ConfigMaps
  
 1. As with the previous example, create the ConfigMaps first.
 
