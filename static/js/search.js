@@ -3,7 +3,7 @@
         var gcse = document.createElement('script');
         gcse.type = 'text/javascript';
         gcse.async = true;
-        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.gooogle.com/cse.js?cx=' + cx;
+        gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=' + cx;
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(gcse, s);
         // document.querySelector('html').classList.add('search');
@@ -42,10 +42,10 @@
 
         console.log(pagination)
 
-        ajaxConf.url = 'https://api.cognitive.microsoft.com/bing/v7.0/search';
-        ajaxConf.data =  { q: q, offset: offset };
+        ajaxConf.url = 'https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search';
+        ajaxConf.data =  { q: q, offset: offset, customConfig: '320659264' };
         ajaxConf.type = "GET";
-        ajaxConf.beforeSend = function(xhr){ xhr.setRequestHeader('Ocp-Apim-Subscription-Key', '301d5777c602443b8856c4aaf6a535af'); };
+        ajaxConf.beforeSend = function(xhr){ xhr.setRequestHeader('Ocp-Apim-Subscription-Key', '51efd23677624e04b4abe921225ea7ec'); };
 
         $.ajax(ajaxConf).done(function(res) {
             var paginationAnchors = window.getPaginationAnchors(Math.ceil(res.webPages.totalEstimatedMatches / 10));
