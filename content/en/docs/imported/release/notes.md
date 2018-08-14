@@ -83,8 +83,9 @@ Work this cycle focused on graduating existing functions, and on making security
 RBAC [cluster role aggregation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles), introduced in 1.9, graduated to stable status with no changes in 1.11, and [client-go credential plugins](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)  graduated to beta status, while also adding support for obtaining TLS credentials from an external plugin.
 
 Kubernetes 1.11 also makes it easier to see what's happening, as audit events can now be annotated with information about how an API request was handled:
-  * Authorization sets `authorization.k8s.io/decision` and `authorization.k8s.io/reason` annotations with the authorization decision ("allow" or "forbid") and a human-readable description of why the decision was made (for example, RBAC includes the name of the role/binding/subject which allowed a request).
-  * PodSecurityPolicy admission sets `podsecuritypolicy.admission.k8s.io/admit-policy` and `podsecuritypolicy.admission.k8s.io/validate-policy` annotations containing the name of the policy that allowed a pod to be admitted. (PodSecurityPolicy also gained the ability to [limit hostPath volume mounts to be read-only](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems).)
+
+* Authorization sets `authorization.k8s.io/decision` and `authorization.k8s.io/reason` annotations with the authorization decision ("allow" or "forbid") and a human-readable description of why the decision was made (for example, RBAC includes the name of the role/binding/subject which allowed a request).
+* PodSecurityPolicy admission sets `podsecuritypolicy.admission.k8s.io/admit-policy` and `podsecuritypolicy.admission.k8s.io/validate-policy` annotations containing the name of the policy that allowed a pod to be admitted. (PodSecurityPolicy also gained the ability to [limit hostPath volume mounts to be read-only](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems).)
 
 In addition, the NodeRestriction admission plugin now prevents kubelets from modifying taints on their Node API objects, making it easier to keep track of which nodes should be in use.
 
@@ -97,6 +98,7 @@ SIG CLI's main focus this release was on refactoring `kubectl` internals to impr
 SIG Cluster Lifecycle focused on improving kubeadm’s user experience by including a set of new commands related to maintaining the kubeadm configuration file, the API version of which has now has been incremented to `v1alpha2`. These commands can handle the migration of the configuration to a newer version, printing the default configuration, and listing and pulling the required container images for bootstrapping a cluster.
 
 Other notable changes include:
+
 * CoreDNS replaces kube-dns as the default DNS provider
 * Improved user experience for environments without a public internet connection and users using other CRI runtimes than Docker
 * Support for structured configuration for the kubelet, which avoids the need to modify the systemd drop-in file
@@ -138,6 +140,7 @@ Sig Storage graduated two features that had been introduced in previous versions
 The StorageProtection feature, which prevents deletion of PVCs while Pods are still using them and of PVs while still bound to a PVC, is now generally available, and volume resizing, which lets you increase size of a volume after a Pod restarts is now beta, which means it is on by default.
 
 New alpha features include:
+
 * Online volume resizing will increase the filesystem size of a resized volume without requiring a Pod restart.
 * AWS EBS and GCE PD volumes support increased limits on the maximum number of attached volumes per node.
 * Subpath volume directories can be created using DownwardAPI environment variables.
