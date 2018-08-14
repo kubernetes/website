@@ -215,7 +215,7 @@ works as follows:
 
 Before starting this example, please save the following YAML to a file `example-quota.yaml`.
 
-{{< codenew file="policy/example-quota.yaml" >}}
+{{< codenew file="admin/resource/quota-objects-priority.yaml" >}}
 
 1.  Apply it using `kubectl create`.
 
@@ -495,7 +495,21 @@ With this mechanism, operators will be able to restrict usage of certain high pr
 
 To enforce this, kube-apiserver flag `--admission-control-config-file` should be used to pass path to the following configuration file:
 
-{{< codenew file="policy/admission-config-file.yaml" >}}
+```yaml
+apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
+plugins:
+- name: "ResourceQuota"
+  configuration:
+    apiVersion: resourcequota.admission.k8s.io/v1alpha1
+    kind: Configuration
+    limitedResources:
+    - resource: pods
+    matchScopes:
+    - operator : In
+      scopeName: PriorityClass
+      values: ["cluster-services"]
+```
 
 Now, "cluster-services" pods will be allowed in only those namespaces where a quota object with a matching `scopeSelector` is present.
 For example:

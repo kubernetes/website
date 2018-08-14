@@ -336,6 +336,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"quota-objects":            {&api.ResourceQuota{}},
 			"quota-objects-pvc":        {&api.PersistentVolumeClaim{}},
 			"quota-objects-pvc-2":      {&api.PersistentVolumeClaim{}},
+			"quota-objects-priority":   {&api.ResourceQuota{}},
 			"quota-pod":                {&api.ResourceQuota{}},
 			"quota-pod-deployment":     {&extensions.Deployment{}},
 		},
