@@ -40,8 +40,6 @@
 
         var results = '', pagination = '', offset = (page - 1) * 10, ajaxConf = {};
 
-        console.log(pagination)
-
         ajaxConf.url = 'https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search';
         ajaxConf.data =  { q: q, offset: offset, customConfig: '320659264' };
         ajaxConf.type = "GET";
