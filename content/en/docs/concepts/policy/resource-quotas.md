@@ -213,107 +213,65 @@ works as follows:
 - Pods in the cluster have one of the three priority classes, "low", "medium", "high".
 - One quota object is created for each priority.
 
-1.  Save the following YAML to a file `quota.yml`.
+Before starting this example, please save the following YAML to a file `example-quota.yaml`.
 
-      ```yaml
-      apiVersion: v1
-      kind: List
-      items:
-      - apiVersion: v1
-        kind: ResourceQuota
-        metadata:
-          name: pods-high
-        spec:
-          hard:
-            cpu: "1000"
-            memory: 200Gi
-            pods: "10"
-          scopeSelector:
-            matchExpressions:
-            - operator : In
-              scopeName: PriorityClass
-              values: ["high"]
-      - apiVersion: v1
-        kind: ResourceQuota
-        metadata:
-          name: pods-medium
-        spec:
-          hard:
-            cpu: "10"
-            memory: 20Gi
-            pods: "10"
-          scopeSelector:
-            matchExpressions:
-            - operator : In
-              scopeName: PriorityClass
-              values: ["medium"]
-      - apiVersion: v1
-        kind: ResourceQuota
-        metadata:
-          name: pods-low
-        spec:
-          hard:
-            cpu: "5"
-            memory: 10Gi
-            pods: "10"
-          scopeSelector:
-            matchExpressions:
-            - operator : In
-              scopeName: PriorityClass
-              values: ["low"]
-      ```
+{{< codenew file="policy/example-quota.yaml" >}}
 
-2.  Apply it using `kubectl create`.
+1.  Apply it using `kubectl create`.
 
-      ```shell
-      kubectl create -f ./quota.yml
+    ```shell
+    kubectl create -f ./example-quota.yaml
+    ```
 
-      resourcequota/pods-high created
-      resourcequota/pods-medium created
-      resourcequota/pods-low created
-      ```
+    ```shell
+    resourcequota/pods-high created
+    resourcequota/pods-medium created
+    resourcequota/pods-low created
+    ```
 
-3.  Verify that `Used` quota is `0` using `kubectl describe quota`.
+2.  Verify that `Used` quota is `0` using `kubectl describe quota`.
 
-      ```shell
-      kubectl describe quota
+    ```shell
+    kubectl describe quota
+    ```
 
-      Name:       pods-high
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     1k
-      memory      0     200Gi
-      pods        0     10
+    ```shell
+    Name:       pods-high
+    Namespace:  default
+    Resource    Used  Hard
+    --------    ----  ----
+    cpu         0     1k
+    memory      0     200Gi
+    pods        0     10
 
 
-      Name:       pods-low
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     5
-      memory      0     10Gi
-      pods        0     10
+    Name:       pods-low
+    Namespace:  default
+    Resource    Used  Hard
+    --------    ----  ----
+    cpu         0     5
+    memory      0     10Gi
+    pods        0     10
 
 
-      Name:       pods-medium
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     10
-      memory      0     20Gi
-      pods        0     10
-      ```
-4.  Create a pod with priority "high". Save the following YAML to a
-    file `high-priority-pod.yml`.
+    Name:       pods-medium
+    Namespace:  default
+    Resource    Used  Hard
+    --------    ----  ----
+    cpu         0     10
+    memory      0     20Gi
+    pods        0     10
+    ```
 
-      ```yaml
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: high-priority
-      spec:
-        containers:
+3.  Create a pod with priority "high". Save the following YAML to a file `high-priority-pod.yml`.
+
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: high-priority
+    spec:
+      containers:
         - name: high-priority
           image: ubuntu
           command: ["/bin/sh"]
@@ -325,47 +283,49 @@ works as follows:
             limits:
               memory: "10Gi"
               cpu: "500m"
-        priorityClassName: high
-      ```
+      priorityClassName: high
+    ```
 
-      Apply it with `kubectl create`.
+    Apply it with `kubectl create`.
 
-      ```shell
-      kubectl create -f ./high-priority-pod.yml
-      ```
+    ```shell
+    kubectl create -f ./high-priority-pod.yml
+    ```
 
-5.  Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
+    Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
     the other two quotas are unchanged.
 
-      ```shell
-      kubectl describe quota
+    ```shell
+    kubectl describe quota
+    ```
 
-      Name:       pods-high
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         500m  1k
-      memory      10Gi  200Gi
-      pods        1     10
-
-
-      Name:       pods-low
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     5
-      memory      0     10Gi
-      pods        0     10
+    ```shell
+    Name:       pods-high
+    Namespace:  default
+    Resource    Used  Hard
+    --------    ----  ----
+    cpu         500m  1k
+    memory      10Gi  200Gi
+    pods        1     10
 
 
-      Name:       pods-medium
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     10
-      memory      0     20Gi
-      pods        0     10
-      ```
+    Name:       pods-low
+    Namespace:  default
+    Resource    Used  Hard
+    --------    ----  ----
+    cpu         0     5
+    memory      0     10Gi
+    pods        0     10
+
+
+    Name:       pods-medium
+    Namespace:  default
+    Resource    Used  Hard
+    --------    ----  ----
+    cpu         0     10
+    memory      0     20Gi
+    pods        0     10
+    ```
 
 `scopeSelector` supports the following values in the `operator` field:
 
@@ -389,7 +349,9 @@ Kubectl supports creating, updating, and viewing quotas:
 
 ```shell
 kubectl create namespace myspace
+```
 
+```shell
 cat <<EOF > compute-resources.yaml
 apiVersion: v1
 kind: ResourceQuota
@@ -404,8 +366,13 @@ spec:
     limits.memory: 2Gi
     requests.nvidia.com/gpu: 4
 EOF
-kubectl create -f ./compute-resources.yaml --namespace=myspace
+```
 
+```shell
+kubectl create -f ./compute-resources.yaml --namespace=myspace
+```
+
+```shell
 cat <<EOF > object-counts.yaml
 apiVersion: v1
 kind: ResourceQuota
@@ -420,14 +387,27 @@ spec:
     services: "10"
     services.loadbalancers: "2"
 EOF
-kubectl create -f ./object-counts.yaml --namespace=myspace
+```
 
+```shell
+kubectl create -f ./object-counts.yaml --namespace=myspace
+```
+
+```shell
 kubectl get quota --namespace=myspace
+```
+
+```shell
 NAME                    AGE
 compute-resources       30s
 object-counts           32s
+```
 
+```shell
 kubectl describe quota compute-resources --namespace=myspace
+```
+
+```shell
 Name:                    compute-resources
 Namespace:               myspace
 Resource                 Used  Hard
@@ -438,9 +418,13 @@ pods                     0     4
 requests.cpu             0     1
 requests.memory          0     1Gi
 requests.nvidia.com/gpu  0     4
+```
 
-
+```shell
 kubectl describe quota object-counts --namespace=myspace
+```
+
+```shell
 Name:                   object-counts
 Namespace:              myspace
 Resource                Used    Hard
@@ -458,12 +442,21 @@ using the syntax `count/<resource>.<group>`:
 
 ```shell
 kubectl create namespace myspace
+```
 
+```shell
 kubectl create quota test --hard=count/deployments.extensions=2,count/replicasets.extensions=4,count/pods=3,count/secrets=4 --namespace=myspace
+```
 
+```shell
 kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+```
 
+```shell
 kubectl describe quota --namespace=myspace
+```
+
+```shell
 Name:                         test
 Namespace:                    myspace
 Resource                      Used  Hard
@@ -502,26 +495,11 @@ With this mechanism, operators will be able to restrict usage of certain high pr
 
 To enforce this, kube-apiserver flag `--admission-control-config-file` should be used to pass path to the following configuration file:
 
-```shell
-$ cat admission_config_file.yml
-apiVersion: apiserver.k8s.io/v1alpha1
-kind: AdmissionConfiguration
-plugins:
-- name: "ResourceQuota"
-  configuration:
-    apiVersion: resourcequota.admission.k8s.io/v1alpha1
-    kind: Configuration
-    limitedResources:
-    - resource: pods
-    matchScopes:
-    - operator : In
-      scopeName: PriorityClass
-      values: ["cluster-services"]
-```
+{{< codenew file="policy/admission-config-file.yaml" >}}
 
 Now, "cluster-services" pods will be allowed in only those namespaces where a quota object with a matching `scopeSelector` is present.
 For example:
-```shell
+```yaml
     scopeSelector:
       matchExpressions:
       - operator : In
@@ -529,7 +507,9 @@ For example:
         values: ["cluster-services"]
 ```
 
-**NOTE:** `scopeSelector` is an alpha field and feature gate `ResourceQuotaScopeSelectors` must be enabled before using it.
+{{< note >}}
+**Note:** `scopeSelector` is an alpha field and feature gate `ResourceQuotaScopeSelectors` must be enabled before using it.
+{{< /note >}}
 
 See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota supoport for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
 
