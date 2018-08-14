@@ -105,7 +105,7 @@ default VM driver is VirtualBox.
 
 Now set the Minikube context. The context is what determines which cluster
 `kubectl` is interacting with. You can see all your available contexts in the
-`~/.kube/config` file.
+`~/.minikube/config` file.
 
 ```shell
 kubectl config use-context minikube
