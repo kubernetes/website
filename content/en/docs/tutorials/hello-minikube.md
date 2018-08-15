@@ -262,9 +262,9 @@ kubectl get services
 Output:
 
 ```shell
-NAME         CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-hello-node   10.0.0.71    <pending>     8080/TCP   6m
-kubernetes   10.0.0.1     <none>        443/TCP    14d
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+hello-node   ClusterIP   10.0.0.71    <pending>     8080/TCP   6m
+kubernetes   ClusterIP   10.0.0.1     <none>        443/TCP    14d
 ```
 
 The `--type=LoadBalancer` flag indicates that you want to expose your Service
@@ -362,13 +362,13 @@ Output:
 
 ```shell
 NAME                             READY     STATUS    RESTARTS   AGE
-po/heapster-zbwzv                1/1       Running   0          2m
-po/influxdb-grafana-gtht9        2/2       Running   0          2m
+pod/heapster-zbwzv                1/1       Running   0          2m
+pod/influxdb-grafana-gtht9        2/2       Running   0          2m
 
-NAME                       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
-svc/heapster               NodePort    10.0.0.52    <none>        80:31655/TCP        2m
-svc/monitoring-grafana     NodePort    10.0.0.33    <none>        80:30002/TCP        2m
-svc/monitoring-influxdb    ClusterIP   10.0.0.43    <none>        8083/TCP,8086/TCP   2m
+NAME                           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
+service/heapster               NodePort    10.0.0.52    <none>        80:31655/TCP        2m
+service/monitoring-grafana     NodePort    10.0.0.33    <none>        80:30002/TCP        2m
+service/monitoring-influxdb    ClusterIP   10.0.0.43    <none>        8083/TCP,8086/TCP   2m
 ```
 
 Open the endpoint to interacting with heapster in a browser:
