@@ -213,14 +213,59 @@ works as follows:
 - Pods in the cluster have one of the three priority classes, "low", "medium", "high".
 - One quota object is created for each priority.
 
-Before starting this example, please save the following YAML to a file `example-quota.yaml`.
+1.  Save the following YAML to a file `quota.yaml`.
 
-{{< codenew file="admin/resource/quota-objects-priority.yaml" >}}
+    ```yaml
+    apiVersion: v1
+    kind: ResourceQuota
+    metadata:
+      name: pods-high
+    spec:
+      hard:
+        cpu: "1000"
+        memory: 200Gi
+        pods: "10"
+      scopeSelector:
+        matchExpressions:
+        - operator : In
+          scopeName: PriorityClass
+          values: ["high"]
+    ---
+    apiVersion: v1
+    kind: ResourceQuota
+    metadata:
+      name: pods-medium
+    spec:
+      hard:
+        cpu: "10"
+        memory: 20Gi
+        pods: "10"
+      scopeSelector:
+        matchExpressions:
+        - operator : In
+          scopeName: PriorityClass
+          values: ["medium"]
+    ---
+    apiVersion: v1
+    kind: ResourceQuota
+    metadata:
+      name: pods-low
+    spec:
+      hard:
+        cpu: "5"
+        memory: 10Gi
+        pods: "10"
+      scopeSelector:
+        matchExpressions:
+        - operator : In
+          scopeName: PriorityClass
+          values: ["low"]
+    ```
 
-1.  Apply it using `kubectl create`.
+2.  Apply it using `kubectl create`.
 
     ```shell
-    kubectl create -f ./example-quota.yaml
+    kubectl create -f ./quota.yaml
     ```
 
     ```shell
@@ -229,7 +274,7 @@ Before starting this example, please save the following YAML to a file `example-
     resourcequota/pods-low created
     ```
 
-2.  Verify that `Used` quota is `0` using `kubectl describe quota`.
+3.  Verify that `Used` quota is `0` using `kubectl describe quota`.
 
     ```shell
     kubectl describe quota
@@ -263,7 +308,7 @@ Before starting this example, please save the following YAML to a file `example-
     pods        0     10
     ```
 
-3.  Create a pod with priority "high". Save the following YAML to a file `high-priority-pod.yml`.
+4.  Create a pod with priority "high". Save the following YAML to a file `high-priority-pod.yml`.
 
     ```yaml
     apiVersion: v1
