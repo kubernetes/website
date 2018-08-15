@@ -1177,7 +1177,7 @@ persistent volume:
 - `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
   to specify the filesystem that should be used to mount the volume. If the
   volume has not been formatted and formatting is supported, this value will be
-  used to format the volume. If a value is not specified, `ext4` is assumed.
+  used to format the volume.
   This value is passed to the CSI driver via the `VolumeCapability` field of
   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
   `NodePublishVolumeRequest`.
