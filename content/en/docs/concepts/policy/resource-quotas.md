@@ -308,7 +308,7 @@ works as follows:
     pods        0     10
     ```
 
-4.  Create a pod with priority "high". Save the following YAML to a file `high-priority-pod.yml`.
+4.  Create a pod with priority "high". Save the following YAML to a file `high-priority-pod.yaml`.
 
     ```yaml
     apiVersion: v1
@@ -334,7 +334,7 @@ works as follows:
     Apply it with `kubectl create`.
 
     ```shell
-    kubectl create -f ./high-priority-pod.yml
+    kubectl create -f ./high-priority-pod.yaml
     ```
 
 5.  Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
