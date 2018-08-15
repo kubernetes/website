@@ -337,7 +337,7 @@ works as follows:
     kubectl create -f ./high-priority-pod.yml
     ```
 
-    Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
+5.  Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
     the other two quotas are unchanged.
 
     ```shell
