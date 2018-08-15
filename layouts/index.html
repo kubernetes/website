@@ -4,7 +4,7 @@
 
 
 {{ define "hero-more" }}
-{{ with .Site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
+{{ with .Site.GetPage "section" "docs/tutorials/kubernetes-basics/index.html" }}
 <a href="{{ .RelPermalink }}" id="quickstartButton" class="button">{{ .LinkTitle }}</a>
 {{ end }}
 {{ end }}
