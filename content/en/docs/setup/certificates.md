@@ -29,15 +29,19 @@ Kubernetes requires PKI for the following operations:
 * Client certificate/kubeconfig for the scheduler to talk to the API server.
 * Client and server certificates for the [front-proxy][proxy]
 
+{{< note >}}
+**Note:**  `front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/).
+{{< /note >}}
+
 etcd also implements mutual TLS to authenticate clients and peers.
 
 ## Where certificates are stored
 
-Kubernetes stores certificates by default in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
+If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
 
 ## Configure certificates manually
 
-If you don't want [kubeadm][kubeadm] to generate the required certificates, you can create them in either of the following ways.
+If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways.
 
 ### Single root CA
 
@@ -60,7 +64,7 @@ Required certificates:
 | Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
 | kube-etcd                     | etcd-ca                   |                | server, client [<sup>1</sup>][etcdbug] | `localhost`, `127.0.0.1`                        |
-| kube-etcd-peer                | etcd-ca                   |                | peer                                   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
+| kube-etcd-peer                | etcd-ca                   |                | server, client                                   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
 | kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]` |
@@ -100,7 +104,7 @@ Certificates should be placed in a recommended path (as used by [kubeadm][kubead
 
 ## Configure certificates for user accounts
 
-You must manually configure thesee administrator account and service accounts: 
+You must manually configure these administrator account and service accounts: 
 
 | filename                | credential name            | Default CN                     | O (in Subject) |
 |-------------------------|----------------------------|--------------------------------|----------------|
@@ -131,6 +135,6 @@ These files are used as follows:
 
 [usage]: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
-[proxy]: /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
+[proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
 
 {{% /capture %}}
