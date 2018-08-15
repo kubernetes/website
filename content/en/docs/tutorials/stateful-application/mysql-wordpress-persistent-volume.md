@@ -169,8 +169,8 @@ The following manifest describes a single-instance WordPress Deployment and Serv
       The response should be like this:
 
       ```
-      NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      wordpress   10.0.0.89    <pending>     80:32406/TCP   4m
+      NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+      wordpress   ClusterIP   10.0.0.89    <pending>     80:32406/TCP   4m
       ```
 
       {{< note >}}**Note:** Minikube can only expose Services through `NodePort`. The EXTERNAL-IP is always pending.{{< /note >}}
