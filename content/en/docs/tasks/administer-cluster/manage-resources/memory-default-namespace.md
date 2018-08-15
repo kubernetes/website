@@ -150,6 +150,10 @@ resources:
     memory: 128Mi
 ```
 
+{{< note >}}
+**Note**: Kubernetes only sets Container's memory limit  if the specified memory request is less than the memory limit value specified by the LimitRange. If the specified memory request is more  than the memory limit value specified by the LimitRange , Kubernetes does not set the Container's memory limit.
+{{< /note >}}
+
 ## Motivation for default memory limits and requests
 
 If your namespace has a resource quota,
