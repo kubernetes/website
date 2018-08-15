@@ -151,10 +151,13 @@ kubectl delete replicaset my-repset --cascade=false
 
 ### Additional note on Deployments
 
-When using cascading deletes with Deployments you *must* use `propagationPolicy: Foreground`
+Prior to 1.7, When using cascading deletes with Deployments you *must* use `propagationPolicy: Foreground`
 to delete not only the ReplicaSets created, but also their Pods. If this type of _propagationPolicy_
 is not used, only the ReplicaSets will be deleted, and the Pods will be orphaned.
 See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613) for more information.
+This bug was fixed in 1.7 as part of [kubernetes/#44046](https://github.com/kubernetes/kubernetes/issues/44046).
+Since 1.7 onwards, both `propagationPolicy: Foreground` and `propagationPolicy: Background` will delete both
+the ReplicaSets and the dependent Pods.
 
 ## Known issues
 
