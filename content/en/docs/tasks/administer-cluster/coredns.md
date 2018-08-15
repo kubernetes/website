@@ -7,7 +7,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page describes the CoreDNS upgrade process and how to install kube-dns instead of CoreDNS.
+This page describes the CoreDNS upgrade process and how to install CoreDNS instead of kube-dns.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
