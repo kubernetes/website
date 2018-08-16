@@ -21,9 +21,8 @@ check-headers-file:
 
 production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
-non-production-build: ## Build the non-production site and add noindex headers to prevent indexing
+non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
-	cp netlify_noindex_headers.txt public/_headers
 
 serve: ## Boot the development server.
 	hugo server --ignoreCache --disableFastRender
