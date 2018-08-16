@@ -4,6 +4,7 @@
 # DO NOT REMOVE THIS (contact @chenopis or @sig-docs-maintainers)
 publish = "public"
 command = "hugo --enableGitInfo && cp netlify_noindex_headers.txt public/_headers"
+functions = "functions"
 
 [build.environment]
 HUGO_VERSION = "0.46"
