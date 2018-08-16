@@ -73,13 +73,12 @@ Required certificates:
 
 [1]: `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`, `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`
 
-where `kind` is one or more of the [x509 key usage][usage] types:
+where `kind` maps to one or more of the [x509 key usage][usage] types:
 
-| kind   | TLS role                                                                                          |
-|--------|---------------------------------------------------------------------------------------------------|
-| server | Digital Signature, Key Encipherment, TLS Web Server Authentication                                |
-| peer   | Digital Signature, Key Encipherment, TLS Web Server Authentication, TLS Web Client Authentication |
-| client | Digital Signature, Key Encipherment, TLS Web Client Authentication                                |
+| kind   | Key usage                                                                       |
+|--------|---------------------------------------------------------------------------------|
+| server | digital signature, key encipherment, server auth                                |
+| client | digital signature, key encipherment, client auth                                |
 
 ### Certificate paths
 
@@ -133,7 +132,7 @@ These files are used as follows:
 | controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
 | scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
 
-[usage]: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+[usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
 [proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
 
