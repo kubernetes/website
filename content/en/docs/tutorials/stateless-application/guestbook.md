@@ -94,9 +94,9 @@ The guestbook applications needs to communicate to the Redis master to write its
       The response should be similar to this:
 
       ```shell
-      NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-      kubernetes     10.0.0.1     <none>        443/TCP    1m
-      redis-master   10.0.0.151   <none>        6379/TCP   8s
+      NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+      kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
+      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   8s
       ```
 
 {{< note >}}
@@ -158,10 +158,10 @@ The guestbook application needs to communicate to Redis slaves to read data. To 
       The response should be similar to this:
 
       ```
-      NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-      kubernetes     10.0.0.1     <none>        443/TCP    2m
-      redis-master   10.0.0.151   <none>        6379/TCP   1m
-      redis-slave    10.0.0.223   <none>        6379/TCP   6s
+      NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+      kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    2m
+      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   1m
+      redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP   6s
       ```
 
 ## Set up and Expose the Guestbook Frontend
@@ -220,11 +220,11 @@ If you want guests to be able to access your guestbook, you must configure the f
       The response should be similar to this:
 
       ```
-      NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       10.0.0.112   <none>       80:31323/TCP   6s
-      kubernetes     10.0.0.1     <none>        443/TCP        4m
-      redis-master   10.0.0.151   <none>        6379/TCP       2m
-      redis-slave    10.0.0.223   <none>        6379/TCP       1m
+      NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+      frontend       ClusterIP   10.0.0.112   <none>       80:31323/TCP   6s
+      kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
+      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP       2m
+      redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP       1m
       ```
 
 ### Viewing the Frontend Service via `NodePort`
@@ -258,8 +258,8 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
       The response should be similar to this:
 
       ```
-      NAME       CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
-      frontend   10.51.242.136   109.197.92.229     80:32372/TCP   1m
+      NAME       TYPE        CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
+      frontend   ClusterIP   10.51.242.136   109.197.92.229     80:32372/TCP   1m
       ```
 
 1. Copy the external IP address, and load the page in your browser to view your guestbook.
@@ -334,11 +334,11 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       The responses should be:
 
       ```
-      deployment "redis-master" deleted
-      deployment "redis-slave" deleted
+      deployment.apps "redis-master" deleted
+      deployment.apps "redis-slave" deleted
       service "redis-master" deleted
       service "redis-slave" deleted
-      deployment "frontend" deleted    
+      deployment.apps "frontend" deleted    
       service "frontend" deleted
       ```
        
