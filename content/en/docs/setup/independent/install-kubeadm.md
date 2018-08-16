@@ -217,7 +217,8 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 
 ```bash
 CRICTL_VERSION="v1.11.1"
-curl -L "https://github.com/kubernetes-incubator/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt -xz
+mkdir -p /opt/bin
+curl -L "https://github.com/kubernetes-incubator/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
 ```
 
 Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
