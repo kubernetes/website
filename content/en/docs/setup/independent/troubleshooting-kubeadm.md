@@ -46,24 +46,23 @@ If you notice that `kubeadm init` hangs after printing out the following line:
 
 This may be caused by a number of problems. The most common are:
 
-- network connection problems. Check that your machine has full network connectivity before continuing.
-- the default cgroup driver configuration for the kubelet differs from that used by Docker.
+- Network connection problems.  
+  Check that your machine has full network connectivity before continuing.
+- The default cgroup driver configuration for the kubelet differs from that used by Docker.  
   Check the system log file (e.g. `/var/log/message`) or examine the output from `journalctl -u kubelet`. If you see something like the following:
-
-  ```shell
+  ```sh
   error: failed to run Kubelet: failed to create kubelet:
   misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
   ```
-
   There are two common ways to fix the cgroup driver problem:
-  
- 1. Install docker again following instructions
-  [here](/docs/setup/independent/install-kubeadm/#installing-docker).
- 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-    [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
-    for detailed instructions.
 
-- control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
+ 1. Install Docker again following instructions
+  [here](/docs/setup/independent/install-kubeadm/#installing-docker).
+ 1. Change the kubelet config to match the Docker cgroup driver manually.  
+    You can refer to [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node) for detailed instructions.
+
+- Control plane Docker containers are crashlooping or hanging.  
+  You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
 ## kubeadm blocks when removing managed containers
 
