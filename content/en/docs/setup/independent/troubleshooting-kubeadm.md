@@ -201,41 +201,65 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
 ## Services with externalTrafficPolicy=Local are not reachable
 
-On nodes where the hostname for the kubelet is overridden using the `--hostname-override` option, kube-proxy will default to treating 127.0.0.1 as the node IP, which results in rejecting connections for Services configured for `externalTrafficPolicy=Local`. This situation can be verified by checking the output of `kubectl -n kube-system logs <kube-proxy pod name>`:
+On machines where the node name for the kubelet is overridden using the `--hostname-override` option, such that the node name no longer matches the machine's hostname, kube-proxy will default to treating 127.0.0.1 as the node's IP address, which results in rejecting connections for Services configured for `externalTrafficPolicy=Local`. This situation can be verified by checking the output of `kubectl -n kube-system logs <kube-proxy pod name>`:
 
 ```sh
 W0507 22:33:10.372369       1 server.go:586] Failed to retrieve node info: nodes "ip-10-0-23-78" not found
 W0507 22:33:10.372474       1 proxier.go:463] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 ```
 
-A workaround for this is to modify the kube-proxy DaemonSet in the following way:
+Just as the kubelet accepts a `--hostname-override` flag to use a different name for the node, so too does kube-proxy. Unfortunately, though, due to an unresolved defect, kube-proxy does not honor that flag's value when used in combination with the `--config` flag specifying a configuration file. Hence we can't use kube-proxy's `--hostname-override` flag to tell it the proper name of our node.
+
+To work around this problem, modify the kube-proxy DaemonSet as follows. The idea is to customize the common _config.conf_ file kube-proxy mounts from the "kube-proxy" ConfigMap, so that each machine uses its own copy of that file with the "hostnameOverride" set to the desired node name. We store our customized copy in an `emptyDir` volume; the kube-proxy container then reads from there, instead of reading the original file mounted from the ConfigMap.
+
+We use an idempotent strategic merge patch here, so that applying the same patch more than once is harmless. Still, though, we have to deal with `kubectl patch` returning a failing exit code when it determines that no change is necessary.
 
 ```sh
-kubectl -n kube-system patch --type json daemonset kube-proxy -p "$(cat <<'EOF'
-[
-    {
-        "op": "add",
-        "path": "/spec/template/spec/containers/0/env",
-        "value": [
-            {
-                "name": "NODE_NAME",
-                "valueFrom": {
-                    "fieldRef": {
-                        "apiVersion": "v1",
-                        "fieldPath": "spec.nodeName"
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "op": "add",
-        "path": "/spec/template/spec/containers/0/command/-",
-        "value": "--hostname-override=${NODE_NAME}"
-    }
-]
-EOF
-)"
-
+suspected='^daemonset\.(extensions|apps)/kube-proxy not patched$'
+patch_output=$( \
+  kubectl --namespace=kube-system \
+          patch daemonset kube-proxy \
+          --patch='
+spec:
+  template:
+    spec:
+      volumes:
+      - name: shared-data
+        emptyDir: {}
+      initContainers:
+      - name: update-config-file
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        - -c
+        - "/bin/sed \"s/hostnameOverride: \\\"\\\"/hostnameOverride: $(NODE_NAME)/\" /var/lib/kube-proxy/config.conf > /shared-data/config.conf"
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        volumeMounts:
+        - name: kube-proxy
+          mountPath: /var/lib/kube-proxy
+          readOnly: true
+        - name: shared-data
+          mountPath: /shared-data
+      containers:
+      - name: kube-proxy
+        command:
+        - /usr/local/bin/kube-proxy
+        - --config=/shared-data/config.conf
+        volumeMounts:
+        - name: shared-data
+          mountPath: /shared-data
+          readOnly: true')
+if [ $? != 0 ] && [[ ! "${patch_output}" =~ ${suspected} ]]; then
+  code=$?
+  echo "Failed to patch kube-proxy DaemonSet: ${patch_output}" 1>&2
+  exit ${code}
+fi
 ```
+Note the use of the _busybox_ container image in the init container. If you wish to avoid Docker needing to pull that image on each machine that runs the kube-proxy pod, consider pulling the _busybox_ image ahead of time, such as when building the machine image. That way, these machines are born with _busybox_ already available.
 {{% /capture %}}
