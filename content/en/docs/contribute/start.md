@@ -54,7 +54,7 @@ make your first contribution, and use it when you have questions.
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
 or addition, [add it to the agenda](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
-discussion. See the [advanced contribution](advanced.md) topic for more
+discussion. See the [advanced contribution](/docs/contribute/advanced/) topic for more
 information.
 
 ### Page templates

@@ -94,7 +94,7 @@ The site links in the top-right menu -- and also in the footer -- are built by p
 
 In addition to standalone content pages (Markdown files), Hugo supports [Page Bundles](https://gohugo.io/content-management/page-bundles/).
 
-One example is [Custom Hugo Shortcodes](/docs/home/contribute/includes/). It is a socalled `leaf bundle`. Everything below the directory with the `index.md` will be part of the bundle, with page-relative links, images can be processed etc.:
+One example is [Custom Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/). It is a socalled `leaf bundle`. Everything below the directory with the `index.md` will be part of the bundle, with page-relative links, images can be processed etc.:
 
 ```bash
 en/docs/home/contribute/includes
@@ -134,7 +134,7 @@ The `SASS` source of the stylesheets for this site is stored below `src/sass` an
 
 {{% capture whatsnext %}}
 
-* [Custom Hugo shortcodes](/docs/contribute/style/hugo_shortcodes)
+* [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
 * [Style guide](/docs/contribute/style/style-guide)
 
 {{% /capture %}}
