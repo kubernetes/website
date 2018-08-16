@@ -1,6 +1,18 @@
 "use strict";
 
 const https = require('https');
+const { WebClient } = require('@slack/client');
+const SLACK_TOKEN = process.env.SLACK_TOKEN || '';
+
+if (!SLACK_TOKEN) {
+  console.log("You need to specify a Slack token via the SLACK_TOKEN environment variable");
+  process.exitCode = 1;
+  return;
+}
+
+const slack = new WebClient(SLACK_TOKEN);
+
+const slackChannel = "#sig-docs-maintainers";
 
 // A handful of randomly selected pages to check
 const endpointsToCheck = [
@@ -20,9 +32,15 @@ exports.handler = (event, context, callback) => {
 
         if (xRobotsTagHeaderValue == "noindex") {
           callback(`PANIC: noindex headers present on ${url}`, { statusCode: 500 });
-        } else {
-          const headerValue = headers[]
 
+          const slackMsg = `noindex headers found in the production build at: ${url}`;
+
+          slack.chat.postMessage({ channel: slackChannel, text: slackMsg })
+            .then((slackResponse) => {
+              console.log(`Message sent: ${slackResponse}`);
+            })
+            .catch(console.error);
+        } else {
           callback(`WARNING: X-Robots-Tag header with the value ${xRobotsTagHeaderValue} present.`, { statusCode: 200 });
         }
       } else {
