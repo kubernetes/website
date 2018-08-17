@@ -421,6 +421,9 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
+- *MayRunAs* - Requires at least one `range` to be specified. Allows
+`FSGroups` to be left unset without providing a default. Validates against
+all ranges if `FSGroups` is set.
 - *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
 **AllowedHostPaths** - This specifies a whitelist of host paths that are allowed
@@ -491,6 +494,9 @@ recommended with this strategy.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
+- *MayRunAs* - Requires at least one `range` to be specified. Allows
+`supplementalGroups` to be left unset without providing a default.
+Validates against all ranges if `supplementalGroups` is set.
 - *RunAsAny* - No default provided. Allows any `supplementalGroups` to be
 specified.
 
