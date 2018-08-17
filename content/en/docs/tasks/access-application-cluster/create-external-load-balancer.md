@@ -33,7 +33,7 @@ documentation.
 ## Configuration file
 
 To create an external load balancer, add the following line to your
-[service configuration file](/docs/concepts/services-networking/service/#type-loadbalancer):
+[service configuration file](/docs/concepts/services-networking/service/#loadbalancer):
 
 ```json
     "type": "LoadBalancer"

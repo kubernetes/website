@@ -111,7 +111,7 @@ If the client pod and server pod are in the same node, the client_address is the
 
 ## Source IP for Services with Type=NodePort
 
-As of Kubernetes 1.5, packets sent to Services with [Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
+As of Kubernetes 1.5, packets sent to Services with [Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 are source NAT'd by default. You can test this by creating a `NodePort` Service:
 
 ```console
@@ -209,7 +209,7 @@ Visually:
 
 ## Source IP for Services with Type=LoadBalancer
 
-As of Kubernetes 1.5, packets sent to Services with [Type=LoadBalancer](/docs/concepts/services-networking/service/#type-loadbalancer) are
+As of Kubernetes 1.5, packets sent to Services with [Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer) are
 source NAT'd by default, because all schedulable Kubernetes nodes in the
 `Ready` state are eligible for loadbalanced traffic. So if packets arrive
 at a node without an endpoint, the system proxies it to a node *with* an

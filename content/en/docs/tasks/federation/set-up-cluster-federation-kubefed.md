@@ -279,11 +279,11 @@ kubefed init fellowship \
 `kubefed init` exposes the federation API server as a Kubernetes
 [service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
-[load balanced service](/docs/concepts/services-networking/service/#type-loadbalancer).
+[load balanced service](/docs/concepts/services-networking/service/#loadbalancer).
 Most on-premises and bare-metal environments, and some cloud
 environments lack support for load balanced services. `kubefed init`
 allows exposing the federation API server as a
-[`NodePort` service](/docs/concepts/services-networking/service/#type-nodeport) on
+[`NodePort` service](/docs/concepts/services-networking/service/#nodeport) on
 such environments. This can be accomplished by passing
 the `--api-server-service-type=NodePort` flag. You can also specify
 the preferred address to advertise the federation API server by

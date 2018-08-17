@@ -34,7 +34,7 @@ content_template: templates/tutorial
 
 * 本任务使用 [外部负载均衡服务](/docs/tasks/access-application-cluster/create-external-load-balancer/)，
   所以需要对应的可支持此功能的环境。如果你的环境不能支持，你可以使用
-  [NodePort](/docs/user-guide/services/#type-nodeport) 类型的服务代替。
+  [NodePort](/docs/user-guide/services/#nodeport) 类型的服务代替。
 
 {{% /capture %}}
 
