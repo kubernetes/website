@@ -147,7 +147,7 @@ need more background in Git terminology.
 {{< note >}}
 **Kubnetes code developers**: If you are documenting a new feature for an
 upcoming Kubernetes release, your process is a bit different. See
-[Document a feature](/docs/contribute/intermediate.md#sig-members-documenting-new-features) for
+[Document a feature](/docs/contribute/intermediate/#sig-members-documenting-new-features) for
 process guidelines and information about deadlines.
 {{< /note >}}
 
@@ -197,30 +197,30 @@ documentation.
     A new page appears, with some help text.
 2.  Click the first blue button, which has the text **Edit <page name>**.
     
-      If you have never created a fork of the Kubernetes documentation
-      repository, you are prompted to do so. Create the fork under your Github
-      username, rather than another organization you may be a member of. The
-      fork usually has a URL such as `https://github.com/<username>/website`,
-      unless you already have a repository with a conflicting name.
-      
-      The reason you are prompted to create a fork is that you do not have
-      access to push a branch directly to the definitive Kubernetes repository.
+    If you have never created a fork of the Kubernetes documentation
+    repository, you are prompted to do so. Create the fork under your Github
+    username, rather than another organization you may be a member of. The
+    fork usually has a URL such as `https://github.com/<username>/website`,
+    unless you already have a repository with a conflicting name.
+
+    The reason you are prompted to create a fork is that you do not have
+    access to push a branch directly to the definitive Kubernetes repository.
 
 3.  The Github Markdown editor appears with the source Markdown file loaded.
     Make your changes. Below the editor, fill in the **Propose file change**
     form. The first field is the summary of your commit message and should be
     no more than 50 characters long. The second field is optional, but can
     include more detail if appropriate.
-    
-      {{< note >}}
-      **Note**: Do not include references to other Github issues or pull
-      requests in your commit message. You can add those to the pull request
-      description later.
-      {{< /note >}}
+
+    {{< note >}}
+**Note**: Do not include references to other Github issues or pull
+requests in your commit message. You can add those to the pull request
+description later.
+{{< /note >}}
       
-      Click **Propose file change**. The change is saved as a commit in a
-      new branch in your fork, which is automatically named something like
-      `patch-1`.
+    Click **Propose file change**. The change is saved as a commit in a
+    new branch in your fork, which is automatically named something like
+    `patch-1`.
 
 4.  The next screen summarizes the changes you made, by comparing your new
     branch (the **head fork** and **compare** selection boxes) to the current
@@ -230,12 +230,12 @@ documentation.
     viewer on the bottom of the screen, and if everything looks right, click
     **Create pull request**.
     
-      {{< note >}}
-      **Note**: If you don't want to create the pull request now, you can do it
-      later, by browsing to the main URL of the Kubernetes website repository or
-      your fork's repository. The Github website will prompt you to create the
-      pull request if it detects that you pushed a new branch to your fork.
-      {{< /note >}}
+    {{< note >}}
+**Note**: If you don't want to create the pull request now, you can do it
+later, by browsing to the main URL of the Kubernetes website repository or
+your fork's repository. The Github website will prompt you to create the
+pull request if it detects that you pushed a new branch to your fork.
+{{< /note >}}
     
 5.  The **Open a pull request** screen appears. The subject of the pull request
     is the same as the commit summary, but you can change it if needed. The
@@ -245,13 +245,13 @@ documentation.
     **Allow edits from maintainers** checkbox selected. Click
     **Create pull request**.
     
-      Congratulations! Your pull request is available in 
-      Pull requests](https://github.com/kubernetes/website/pulls).
-      
-      After a few minutes, you can preview the website with your PR's changes
-      applied. Go to the **Conversation** tab of your PR and click the **Details**
-      link for the `deploy/netlify` test, near the bottom of the page. It opens in
-      the same browser window by default.
+    Congratulations! Your pull request is available in
+    [Pull requests](https://github.com/kubernetes/website/pulls).
+
+    After a few minutes, you can preview the website with your PR's changes
+    applied. Go to the **Conversation** tab of your PR and click the **Details**
+    link for the `deploy/netlify` test, near the bottom of the page. It opens in
+    the same browser window by default.
 
 6.  Wait for review. Generally, reviewers are suggested by the `k8s-ci-robot`.
     If a reviewer asks you to make changes, you can go to the **Files changed**
