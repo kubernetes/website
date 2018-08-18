@@ -192,7 +192,7 @@ status:
 The new Pod conditions must comply with Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 Since the `kubectl patch` command still doesn't support patching object status,
 the new Pod conditions have to be injected through the `PATCH` action using
-one of the [KubeClient libraries](/docs/reference/using-api/client-librarie/).
+one of the [KubeClient libraries](/docs/reference/using-api/client-libraries/).
 
 With the introduction of new Pod conditions, a Pod is evaluated to be ready **only**
 when both the following statements are true:
