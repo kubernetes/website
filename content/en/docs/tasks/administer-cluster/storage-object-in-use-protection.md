@@ -15,8 +15,11 @@ Persistent volume claims (PVCs) that are in active use by a pod and persistent v
 {{% capture prerequisites %}}
 
 The Storage Object in Use Protection feature is enabled in one of the below Kubernetes versions:
-- {% assign for_k8s_version =  "1.10" %} {% include feature-state-beta.md %}
-- {% assign for_k8s_version =  "1.11" %} {% include feature-state-stable.md %}
+
+{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+
+
+{{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
 {{% /capture %}}
 
@@ -186,7 +189,7 @@ Events:
 
 - Create a second pod that uses the same PVC:
 
-```
+```yaml
 kind: Pod
 apiVersion: v1
 metadata:
@@ -212,11 +215,11 @@ spec:
 
 - Verify that the scheduling of the second pod fails with the below warning:
 
-```
+```shell
 Warning  FailedScheduling  18s (x4 over 21s)  default-scheduler  persistentvolumeclaim "slzc" is being deleted
 ```
 
--  Wait until the pod status of both pods is `Terminated` or `Completed` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
+- Wait until the pod status of both pods is `Terminated` or `Completed` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
 
 ## Storage Object in Use Protection feature used for PV Protection
 
