@@ -6,12 +6,12 @@ author: Rob Hirschfeld (zehicle)
 
 ## Overview
 
-This guide helps to install a Kubernetes cluster hosted on bare metal with [Digital Rebar Provision](https://github.com/digitalrebar/provision) using only its Content packages and *kubeadm*. 
+This guide helps to install a Kubernetes cluster hosted on bare metal with [Digital Rebar Provision](https://github.com/digitalrebar/provision).
 
-Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform. While [DRP can be used to invoke](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
+Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform.  While [DRP can be used to run](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [Kubespray](../kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
 
 {{< note >}}
-**Note:** KRIB is not a _stand-alone_ installer: Digital Rebar templates drive a standard *[kubeadm](/docs/admin/kubeadm/)* configuration that manages the Kubernetes installation with the [Digital Rebar cluster pattern](https://provision.readthedocs.io/en/tip/doc/arch/cluster.html#rs-cluster-pattern) to elect leaders _without external supervision_.
+**Note:** KRIB is not a _stand-alone_ installer: Digital Rebar templates drive a standard [kubeadm](/docs/admin/kubeadm/) configuration that manages the Kubernetes installation with the [Digital Rebar cluster pattern](https://provision.readthedocs.io/en/tip/doc/arch/cluster.html#rs-cluster-pattern) to elect leaders _without supervision_.
 {{< /note >}}
 
 
@@ -30,15 +30,15 @@ KRIB features:
 
 Review [Digital Rebar documentation](https://https://provision.readthedocs.io/en/tip/README.html) for details about installing the platform.
 
-The Digital Rebar Provision Golang binary should be installed on a Linux-like system with 16 GB of RAM or larger (Packet.net Tiny and Rasberry Pi are also acceptable).
+The Digital Rebar Provision Golang binary is installed on a Linux-like system with 16 Gb of RAM or larger (Packet.net Tiny and Rasberry Pi are also acceptable).
 
 ### (1/5) Discover servers
 
-Following the [Digital Rebar installation](https://provision.readthedocs.io/en/tip/doc/quickstart.html), allow one or more servers to boot through the _Sledgehammer_ discovery process to register with the API. This will automatically install the Digital Rebar runner and to allow for next steps.
+Following the [Digital Rebar installation](https://provision.readthedocs.io/en/tip/doc/quickstart.html), allow one or more servers to boot through the _Sledgehammer_ discovery process to register with the API.  This will automatically install the Digital Rebar runner and to allow for next steps.
 
 ### (2/5) Install KRIB Content and Certificate Plugin
 
-Upload the KRIB Content bundle (or build from [source](https://github.com/digitalrebar/provision-content/tree/master/krib)) and the Cert Plugin for your DRP platform (e.g.: [amd64 Linux v2.4.0](https://s3-us-west-2.amazonaws.com/rebar-catalog/certs/v2.4.0-0-02301d35f9f664d6c81d904c92a9c81d3fd41d2c/amd64/linux/certs)). Both are freely available via the [RackN UX](https://portal.rackn.io).
+Upload the KRIB Content bundle (or build from [source](https://github.com/digitalrebar/provision-content/tree/master/krib)) and the Cert Plugin for your DRP platform (e.g.: [amd64 Linux v2.4.0](https://s3-us-west-2.amazonaws.com/rebar-catalog/certs/v2.4.0-0-02301d35f9f664d6c81d904c92a9c81d3fd41d2c/amd64/linux/certs)).  Both are freely available via the [RackN UX](https://portal.rackn.io).
 
 ### (3/5) Start your cluster deployment
 
@@ -46,15 +46,15 @@ Upload the KRIB Content bundle (or build from [source](https://github.com/digita
 **Note:** KRIB documentation is dynamically generated from the source and will be more up to date than this guide.
 {{< /note >}}
 
-Following the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html), create a Profile for your cluster and assign your target servers into the cluster Profile. The Profile must set `krib\cluster-name` and `etcd\cluster-name` Params to be the name of the Profile. Cluster configuration choices can be made by adding additional Params to the Profile; however, safe defaults are provided for all Params.
+Following the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html), create a Profile for your cluster and assign your target servers into the cluster Profile.  The Profile must set `krib\cluster-name` and `etcd\cluster-name` Params to be the name of the Profile.  Cluster configuration choices can be made by adding additional Params to the Profile; however, safe defaults are provided for all Params.
 
-Once all target servers are assigned to the cluster Profile, start a KRIB installation Workflow by assigning one of the included Workflows to all cluster servers. For example, selecting `krib-live-cluster` will perform an immutable deployment into the Sledgehammer discovery operating system. You may use one of the pre-created read-only Workflows or choose to build your own custom variation.
+Once all target servers are assigned, start a KRIB installation Workflow by assigning one of the included Workflows to all cluster servers.  For example, selecting `krib-live-cluster` will perform an immutable deployment into the Sledgehammer discovery operating system.  You may use one of the pre-created read-only Workflows or choose to build your own custom variation.
 
-For basic installs, no further action is required. Advanced users may choose to assign the controllers, etcd servers or other configuration values in the relevant Params.
+For basic installs, no further action is required.  You may choose to assign the controllers, etcd servers or other configuration values.
 
 ### (4/5) Monitor your cluster deployment
 
-Digital Rebar Provision provides detailed logging and live updates during the installation process. Workflow events are available via a websocket connection or monitoring the Jobs list.
+Digital Rebar Provision provides detailed logging and live updates during the installation process.  Workflow events are available via a websocket connection or monitoring the Jobs list.
 
 During the installation, KRIB writes cluster configuration data back into the cluster Profile.
 
