@@ -62,7 +62,7 @@ a Kubernetes cluster from scratch.
 
 * [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
-* [IBM Cloud Container Service](https://console.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
+* [IBM Cloud Kubernetes Service](https://console.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
