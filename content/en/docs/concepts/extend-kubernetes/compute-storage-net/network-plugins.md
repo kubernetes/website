@@ -45,7 +45,92 @@ If there are multiple CNI configuration files in the directory, the first one in
 
 In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
 
-Limitation: Due to [#31307](https://github.com/kubernetes/kubernetes/issues/31307), `HostPort` won't work with CNI networking plugin at the moment. That means all `hostPort` attribute in pod would be simply ignored.
+#### Support hostPort
+
+The CNI networking plugin supports `hostPort`. You can use the official [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
+plugin offered by the CNI plugin team or use your own plugin with portMapping functionality.
+
+If you want to enable `hostPort` support, you must specify `portMappings capability` in your `cni-conf-dir`.
+For example:
+
+```json
+{
+  "name": "k8s-pod-network",
+  "cniVersion": "0.3.0",
+  "plugins": [
+    {
+      "type": "calico",
+      "log_level": "info",
+      "datastore_type": "kubernetes",
+      "nodename": "127.0.0.1",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "usePodCidr"
+      },
+      "policy": {
+        "type": "k8s"
+      },
+      "kubernetes": {
+        "kubeconfig": "/etc/cni/net.d/calico-kubeconfig"
+      }
+    },
+    {
+      "type": "portmap",
+      "capabilities": {"portMappings": true}
+    }
+  ]
+}
+```
+
+#### Support traffic shaping
+
+The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the officical [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
+plugin offered by the CNI plugin team or use your own plugin with bandwidth contol functionality.
+
+If you want to enable traffic shaping support, you must add a `bandwidth` plugin to your CNI configuration file
+(default `/etc/cni/net.d`).
+
+```json
+{
+  "name": "k8s-pod-network",
+  "cniVersion": "0.3.0",
+  "plugins": [
+    {
+      "type": "calico",
+      "log_level": "info",
+      "datastore_type": "kubernetes",
+      "nodename": "127.0.0.1",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "usePodCidr"
+      },
+      "policy": {
+        "type": "k8s"
+      },
+      "kubernetes": {
+        "kubeconfig": "/etc/cni/net.d/calico-kubeconfig"
+      }
+    },
+    {
+      "type": "bandwidth",
+      "capabilities": {"bandwidth": true}
+    }
+  ]
+}
+```
+
+Now you can add the `kubernetes.io/ingress-bandwidth` and `kubernetes.io/egress-bandwidth` annotations to your pod.
+For example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/ingress-bandwidth: 1M
+    kubernetes.io/egress-bandwidth: 1M
+...
+```
 
 ### kubenet
 
