@@ -40,8 +40,8 @@ Not all tasks can be done in the Github UI, but these are discussed in the
 
 ### Participating in SIG Docs
 
-The Kubernetes documentation is maintained by a special interest group (SIG)
-called Sig Docs. We communicate using a Slack channel, a mailing list, and
+The Kubernetes documentation is maintained by a Special Interest Group (SIG)
+called SIG Docs. We communicate using a Slack channel, a mailing list, and
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
 
@@ -195,7 +195,7 @@ documentation.
 
 1.  On the page where you see the issue, click the pencil icon at the top left.
     A new page appears, with some help text.
-2.  Click the first blue button, which has the text **Edit <page name>**.
+2.  Click the first blue button, which has the text **Edit &lt;page name&gt;**.
     
     If you have never created a fork of the Kubernetes documentation
     repository, you are prompted to do so. Create the fork under your Github
