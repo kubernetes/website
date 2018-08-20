@@ -79,7 +79,8 @@ deployment.apps/hostnames created
 ```
 
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
-{{< note >}}**Note:** This is the same as if you started the `Deployment` with the following YAML:
+{{< note >}}
+**Note:** This is the same as if you started the `Deployment` with the following YAML:
 
 ```yaml
 apiVersion: apps/v1
@@ -102,7 +103,8 @@ spec:
         ports:
         - containerPort: 9376
           protocol: TCP
-```{{< /note >}}
+```
+{{< /note >}}
 
 Confirm your `Pods` are running:
 
