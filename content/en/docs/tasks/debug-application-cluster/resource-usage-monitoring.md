@@ -21,7 +21,6 @@ where bottlenecks can be removed to improve overall performance.
 {{< toc >}}
 
 {{% capture body %}}
-## Application monitoring pipelines
 
 In Kubernetes, application monitoring does not depend on a single monitoring
 solution. On new clusters, you can use two separate pipelines to collect
@@ -49,13 +48,13 @@ monitoring statistics by default:
   some popular pipelines that implement these APIs and enable these
   capabilities.
 
-### Resource metrics pipeline
+## Resource metrics pipeline
 
-#### Kubelet
+### Kubelet
 
 The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
 
-#### cAdvisor
+### cAdvisor
 
 cAdvisor is an open source container resource usage and performance analysis agent. It is purpose-built for containers and supports Docker containers natively. In Kubernetes, cAdvisor is integrated into the Kubelet binary. cAdvisor auto-discovers all containers in the machine and collects CPU, memory, filesystem, and network usage statistics. cAdvisor also provides the overall machine usage by analyzing the 'root' container on the machine.
 
@@ -63,11 +62,11 @@ On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine contain
 
 ![cAdvisor](/images/docs/cadvisor.png)
 
-### Full metrics pipelines
+## Full metrics pipelines
 
 Many full metrics solutions exist for Kubernetes.
 
-#### Prometheus
+### Prometheus
 
 [Prometheus](https://prometheus.io) can natively monitor kubernetes, nodes, and prometheus itself.
 The [Prometheus Operator](https://coreos.com/operators/prometheus/docs/latest/)
@@ -78,7 +77,7 @@ Prometheus provides a robust query language and a built-in dashboard for
 querying and visualizing your data. Prometheus is also a supported
 data source for [Grafana](https://prometheus.io/docs/visualization/grafana/).
 
-#### Google Cloud Monitoring
+### Google Cloud Monitoring
 
 Google Cloud Monitoring is a hosted monitoring service you can use to
 visualize and alert on important metrics in your application. can collect
@@ -94,7 +93,7 @@ This video shows how to configure and run a Google Cloud Monitoring backed Heaps
 
 {{< figure src="/images/docs/gcm.png" alt="Google Cloud Monitoring dashboard example" title="Google Cloud Monitoring dashboard example" caption="This dashboard shows cluster-wide resource usage." >}}
 
-#### Dynatrace Kubernetes monitoring
+### Dynatrace Kubernetes monitoring
 
 With [Dynatrace Kubernetes monitoring](https://www.dynatrace.com/technologies/cloud-and-microservices/kubernetes-monitoring/), you can monitor application and cluster health in highly-dynamic Kubernetes environments. 
 
