@@ -168,6 +168,11 @@ If it is set to `true`, all subsequent executions are suspended.
 This setting does not apply to already started executions.
 Defaults to false.
 
+{{< caution >}}
+**Caution:** Executions that are suspended during their scheduled time count as missed jobs.
+When `.spec.suspend` changes from `true` to `false` on an existing cron job without a [starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
+{{< /caution >}}
+
 ### Jobs History Limits
 
 The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
