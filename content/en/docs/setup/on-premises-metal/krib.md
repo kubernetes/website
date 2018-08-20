@@ -6,12 +6,12 @@ author: Rob Hirschfeld (zehicle)
 
 ## Overview
 
-This guide helps to install a Kubernetes cluster hosted on bare metal with [Digital Rebar Provision](https://github.com/digitalrebar/provision).
+This guide helps to install a Kubernetes cluster hosted on bare metal with [Digital Rebar Provision](https://github.com/digitalrebar/provision) using only its Content packages and *kubeadm*. 
 
-Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform.  While [DRP can be used to run](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [Kubespray](../kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
+Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform.  While [DRP can be used to invoke](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [Kubespray](../kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
 
 {{< note >}}
-**Note:** KRIB is not a _stand-alone_ installer: Digital Rebar templates drive a standard [kubeadm](/docs/admin/kubeadm/) configuration that manages the Kubernetes installation with the [Digital Rebar cluster pattern](https://provision.readthedocs.io/en/tip/doc/arch/cluster.html#rs-cluster-pattern) to elect leaders _without supervision_.
+**Note:** KRIB is not a _stand-alone_ installer: Digital Rebar templates drive a standard *[kubeadm](/docs/admin/kubeadm/)* configuration that manages the Kubernetes installation with the [Digital Rebar cluster pattern](https://provision.readthedocs.io/en/tip/doc/arch/cluster.html#rs-cluster-pattern) to elect leaders _without external supervision_.
 {{< /note >}}
 
 
@@ -24,7 +24,7 @@ KRIB features:
 * dynamic generation of a TLS infrastructure
 * composable attributes and automatic detection of hardware by profile
 * options for persistent, immutable and image-based deployments
-* support for Ubuntu 18.04 and CentOS/RHEL 7
+* support for Ubuntu 18.04, CentOS/RHEL 7 and others
 
 ## Creating a cluster
 
@@ -48,9 +48,9 @@ Upload the KRIB Content bundle (or build from [source](https://github.com/digita
 
 Following the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html), create a Profile for your cluster and assign your target servers into the cluster Profile.  The Profile must set `krib\cluster-name` and `etcd\cluster-name` Params to be the name of the Profile.  Cluster configuration choices can be made by adding additional Params to the Profile; however, safe defaults are provided for all Params.
 
-Once all target servers are assigned, start a KRIB installation Workflow by assigning one of the included Workflows to all cluster servers.  For example, selecting `krib-live-cluster` will perform an immutable deployment into the Sledgehammer discovery operating system.  You may use one of the pre-created read-only Workflows or choose to build your own custom variation.
+Once all target servers are assigned to the cluster Profile, start a KRIB installation Workflow by assigning one of the included Workflows to all cluster servers.  For example, selecting `krib-live-cluster` will perform an immutable deployment into the Sledgehammer discovery operating system.  You may use one of the pre-created read-only Workflows or choose to build your own custom variation.
 
-For basic installs, no further action is required.  You may choose to assign the controllers, etcd servers or other configuration values.
+For basic installs, no further action is required.  Advanced users may choose to assign the controllers, etcd servers or other configuration values in the relevant Params.
 
 ### (4/5) Monitor your cluster deployment
 
@@ -83,7 +83,7 @@ You can add servers into your cluster by adding the cluster Profile to the serve
 
 ### Cleanup your cluster (for developers)
 
-You can reset your cluster and wipe out all configuration using the the `krib-reset-cluster` Workflow on any of the servers in the cluster.
+You can reset your cluster and wipe out all configuration and TLS certificates using the the `krib-reset-cluster` Workflow on any of the servers in the cluster.
 
 {{< caution >}}
 **Caution:** When running the reset Workflow, be sure not to accidentally target your production cluster!
