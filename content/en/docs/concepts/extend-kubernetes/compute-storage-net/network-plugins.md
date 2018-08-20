@@ -48,9 +48,9 @@ In addition to the CNI plugin specified by the configuration file, Kubernetes re
 #### Support hostPort
 
 The CNI networking plugin supports `hostPort`. You can use the officical [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
-plugin offered by CNI plugin team or use your own plugin with portMapping function.
+plugin offered by the CNI plugin team or use your own plugin with portMapping functionality.
 
-If you want enable `hostPort` support, you must specify `portMappings capability` in your `cni-conf-dir`.
+If you want to enable `hostPort` support, you must specify `portMappings capability` in your `cni-conf-dir`.
 For example:
 
 ```json
@@ -85,7 +85,7 @@ For example:
 #### Support traffic shaping
 
 The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the officical [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
-plugin offered by CNI plugin team or use your own plugin with bandwidth contol functionality.
+plugin offered by the CNI plugin team or use your own plugin with bandwidth contol functionality.
 
 If you want to enable traffic shaping support, you must add a `bandwidth` plugin to your CNI configuration file
 (default `/etc/cni/net.d`).
@@ -120,6 +120,7 @@ If you want to enable traffic shaping support, you must add a `bandwidth` plugin
 ```
 
 Now you can add the `kubernetes.io/ingress-bandwidth` and `kubernetes.io/egress-bandwidth` annotations to your pod.
+For example:
 
 ```yaml
 apiVersion: v1
