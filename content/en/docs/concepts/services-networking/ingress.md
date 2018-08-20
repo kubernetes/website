@@ -94,6 +94,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 * [Kong](https://konghq.com/) offers [community](https://discuss.konghq.com/c/kubernetes) or [commercial](https://konghq.com/api-customer-success/) support and maintenance for the [Kong Ingress Controller for Kubernetes](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/)
 * [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
 ([Let's Encrypt](https://letsencrypt.org), secrets, http2, websocket...), and it also comes with commercial support by [Containous](https://containo.us/services)
+* [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)
 
 {{< note >}}
 Review the documentation for your controller to find its specific support policy.
@@ -274,7 +275,7 @@ that it applies to all Ingress, such as the load balancing algorithm, backend
 weight scheme, and others. More advanced load balancing concepts
 (e.g. persistent sessions, dynamic weights) are not yet exposed through the
 Ingress. You can still get these features through the
-[service loadbalancer](https://github.com/kubernetes/ingress-nginx/blob/master/docs/ingress-controller-catalog.md).
+[service loadbalancer](https://github.com/kubernetes/ingress-nginx).
  With time, we plan to distill load balancing patterns that are applicable
 cross platform into the Ingress resource.
 
@@ -352,8 +353,8 @@ Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kuberne
 
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
-* Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
-* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport)
+* Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+* Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 * Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 {{% /capture %}}
 

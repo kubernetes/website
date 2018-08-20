@@ -4,7 +4,7 @@ metadata:
   name: default-mem-demo-2
 spec:
   containers:
-  - name: defalt-mem-demo-2-ctr
+  - name: default-mem-demo-2-ctr
     image: nginx
     resources:
       limits:

@@ -42,7 +42,7 @@ Customization approaches can be broadly divided into *configuration*, which only
 
 Flags and configuration files may not always be changeable in a hosted Kubernetes service or a distribution with managed installation. When they are changeable, they are usually only changeable by the cluster administrator. Also, they are subject to change in future Kubernetes versions, and setting them may require restarting processes. For those reasons, they should be used only when there are no other options.
 
-*Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/admin/authorization/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
+*Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
 
 ## Extensions
 
@@ -152,11 +152,11 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Dynamic Admission Control
 
-After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/admin/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
+After a request is authorized, if it is a write operation, it also goes through [Admission Control](/docs/reference/access-authn-authz/admission-controllers/) steps. In addition to the built-in steps, there are several extensions:
 
-*   The [Image Policy webhook](/docs/admin/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
-*   To make arbitrary admission control decisions, a general [Admission webhook](/docs/admin/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
-*   [Initializers](/docs/admin/extensible-admission-controllers/#initializers) are controllers that can modify objects before they are created. Initializers can modify initial object creations but cannot affect updates to objects. Initializers can also reject objects.
+*   The [Image Policy webhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook) restricts what images can be run in containers.
+*   To make arbitrary admission control decisions, a general [Admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks) can be used. Admission Webhooks can reject creations or updates.
+*   [Initializers](/docs/reference/access-authn-authz/extensible-admission-controllers/#initializers) are controllers that can modify objects before they are created. Initializers can modify initial object creations but cannot affect updates to objects. Initializers can also reject objects.
 
 ## Infrastructure Extensions
 
@@ -201,7 +201,7 @@ the nodes chosen for a pod.
 {{% capture whatsnext %}}
 
 * Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
-* Learn about [Dynamic admission control](/docs/admin/extensible-admission-controllers/)
+* Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * Learn more about Infrastructure extensions
   * [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
   * [Device Plugins](/docs/concepts/cluster-administration/device-plugins/)

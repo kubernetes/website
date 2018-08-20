@@ -122,7 +122,7 @@ kind: SelfSubjectAccessReview
 spec:
   resourceAttributes:
     group: apps
-    name: deployments
+    resource: deployments
     verb: create
     namespace: dev
 EOF
@@ -134,7 +134,7 @@ metadata:
 spec:
   resourceAttributes:
     group: apps
-    name: deployments
+    resource: deployments
     namespace: dev
     verb: create
 status:

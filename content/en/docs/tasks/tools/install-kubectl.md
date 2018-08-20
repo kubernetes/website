@@ -12,7 +12,7 @@ Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to d
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-You must use a kubectl version that is the same, or later, as the version of your cluster. Using the latest version of kubectl helps avoid unforeseen issues.
+You must use a kubectl version that is within one minor version difference with your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
 {{% /capture %}}
 
 
@@ -62,6 +62,14 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 
         brew install kubernetes-cli
+
+2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
+
+## Install with Macports on macOS
+
+1. If you are on macOS and using [Macports](https://macports.org/) package manager, you can install with:
+
+        port install kubectl
 
 2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
 
@@ -117,7 +125,7 @@ kubectl can be installed as part of the Google Cloud SDK.
 
     To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
 
-    For example, to download version {{< param "fullversion" >}} on MacOS, type:
+    For example, to download version {{< param "fullversion" >}} on macOS, type:
 		  
     ```
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
@@ -264,7 +272,7 @@ fi
 Or when using [Oh-My-Zsh](http://ohmyz.sh/), edit the ~/.zshrc file and update the `plugins=` line to include the kubectl plugin.
 
 ```shell
-source <(kubectl completion zsh)
+plugins=(kubectl)
 ```
 {{% /capture %}}
 

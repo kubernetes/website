@@ -28,50 +28,60 @@ for database debugging.
 
 1. Create a Redis deployment:
 
-       kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-deployment.yaml
+        kubectl create -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
 
     The output of a successful command verifies that the deployment was created:
 
-        deployment "redis-master" created
+        deployment.apps/redis-master created
  
-    When the pod is ready, you can get:
-       
-       kubectl get pods
+    View the pod status to check that it is ready:
+
+        kubectl get pods
+
+    The output displays the pod created:
 
         NAME                            READY     STATUS    RESTARTS   AGE
         redis-master-765d459796-258hz   1/1       Running   0          50s
 
-       kubectl get deployment
-       
+    View the deployment status:
+
+        kubectl get deployment
+
+    The output displays that the deployment was created:
+
         NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
         redis-master 1         1         1            1           55s
 
-       kubectl get rs
-       
+    View the replicaset status using:
+
+        kubectl get rs
+
+    The output displays that the replicaset was created:
+
         NAME                      DESIRED   CURRENT   READY     AGE
         redis-master-765d459796   1         1         1         1m
 
 
 2. Create a Redis service:
 
-       kubectl create -f https://k8s.io/docs/tutorials/stateless-application/guestbook/redis-master-service.yaml
+        kubectl create -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
 
     The output of a successful command verifies that the service was created:
 
-        service "redis-master" created
+        service/redis-master created
 
     Check the service created:
 
-       kubectl get svc | grep redis
+        kubectl get svc | grep redis
+
+    The output displays the service created:
 
         NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
         redis-master   ClusterIP   10.0.0.213   <none>        6379/TCP   27s
 
 3. Verify that the Redis server is running in the pod and listening on port 6379:
 
-        
-       kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
-        
+        kubectl get pods redis-master-765d459796-258hz --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
 
     The output displays the port:
 

@@ -23,7 +23,7 @@ by Kubernetes, and normal users.
 Normal users are assumed to be managed by an outside, independent service. An
 admin distributing private keys, a user store like Keystone or Google Accounts,
 even a file with a list of usernames and passwords. In this regard, _Kubernetes
-does not have objects which represent normal user accounts._ Regular users
+does not have objects which represent normal user accounts._ Normal users
 cannot be added to a cluster through an API call.
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
@@ -51,7 +51,7 @@ with the request:
 * Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
 
 All values are opaque to the authentication system and only hold significance
-when interpreted by an [authorizer](/docs/admin/authorization/).
+when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
 
@@ -140,7 +140,7 @@ You must enable the Bootstrap Token Authenticator with the
 `--experimental-bootstrap-token-auth` flag on the API Server.  You must enable
 the TokenCleaner controller via the `--controllers` flag on the Controller
 Manager.  This is done with something like `--controllers=*,tokencleaner`.
-`kubeadm` will do this for you if you are using it to bootstrapping a cluster.
+`kubeadm` will do this for you if you are using it to bootstrap a cluster.
 
 The authenticator authenticates as `system:bootstrap:<Token ID>`.  It is
 included in the `system:bootstrappers` group.  The naming and groups are
@@ -149,7 +149,7 @@ bootstrapping.  The user names and group can be used (and are used by `kubeadm`)
 to craft the appropriate authorization policies to support bootstrapping a
 cluster.
 
-Please see [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for in depth
+Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
 
@@ -184,7 +184,7 @@ If unspecified, the API server's TLS private key will be used.
 
 Service accounts are usually created automatically by the API server and
 associated with pods running in the cluster through the `ServiceAccount`
-[Admission Controller](/docs/admin/admission-controllers/). Bearer tokens are
+[Admission Controller](/docs/reference/access-authn-authz/admission-controllers/). Bearer tokens are
 mounted into pods at well-known locations, and allow in-cluster processes to
 talk to the API server. Accounts may be explicitly associated with pods using the
 `serviceAccountName` field of a `PodSpec`.
@@ -400,12 +400,12 @@ kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo
 
 Webhook authentication is a hook for verifying bearer tokens.
 
-* `--authentication-token-webhook-config-file` a kubeconfig file describing how to access the remote webhook service.
+* `--authentication-token-webhook-config-file` a configuration file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
 
 The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-file format. Within the file `users` refers to the API server webhook and
-`clusters` refers to the remote service. An example would be:
+file format. Within the file, `clusters` refers to the remote service and
+`users` refers to the API server webhook. An example would be:
 
 ```yaml
 # clusters refers to the remote service.
@@ -505,7 +505,10 @@ It is designed for use in combination with an authenticating proxy, which sets t
 
 * `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
 * `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
-* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed, the remainder of the header name becomes the extra key, and the header value is the extra value.
+* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed. The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) and becomes the extra key, and the header value is the extra value.
+{{< note >}}
+**Note:** Prior to 1.11.2, the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+{{< /note >}}
 
 For example, with this configuration:
 
@@ -522,6 +525,7 @@ GET / HTTP/1.1
 X-Remote-User: fido
 X-Remote-Group: dogs
 X-Remote-Group: dachshunds
+X-Remote-Extra-Acme.com%2Fproject: some-project
 X-Remote-Extra-Scopes: openid
 X-Remote-Extra-Scopes: profile
 ```
@@ -534,6 +538,8 @@ groups:
 - dogs
 - dachshunds
 extra:
+  acme.com/project:
+  - some-project
   scopes:
   - openid
   - profile
@@ -587,7 +593,11 @@ The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
 * `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User"
-* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User"
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+
+{{< note >}}
+**Note:** Prior to 1.11.2, `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+{{< /note >}}
 
 An example set of headers:
 
@@ -596,6 +606,7 @@ Impersonate-User: jane.doe@example.com
 Impersonate-Group: developers
 Impersonate-Group: admins
 Impersonate-Extra-dn: cn=jane,ou=engineers,dc=example,dc=com
+Impersonate-Extra-acme.com%2Fproject: some-project
 Impersonate-Extra-scopes: view
 Impersonate-Extra-scopes: development
 ```
@@ -781,7 +792,7 @@ To use bearer token credentials, the plugin returns a token in the status of the
 ```
 
 Alternatively, a PEM-encoded client certificate and key can be returned to use TLS client auth.
-If the plugin returns a different certificate and key on a subsequent call, `k8s.io/client-go` 
+If the plugin returns a different certificate and key on a subsequent call, `k8s.io/client-go`
 will close existing connections with the server to force a new TLS handshake.
 
 If specified, `clientKeyData` and `clientCertificateData` must both must be present.

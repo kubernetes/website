@@ -7,8 +7,8 @@ title: Tools for Monitoring Resources
 
 {{% capture overview %}}
 
-To scale and application and provide a reliable service, you need to
-understand how an application behaves when it is deployed. You can examine
+To scale an application and provide a reliable service, you need to
+understand how the application behaves when it is deployed. You can examine
 application performance in a Kubernetes cluster by examining the containers,
 [pods](/docs/user-guide/pods), [services](/docs/user-guide/services), and
 the characteristics of the overall cluster. Kubernetes provides detailed
@@ -84,7 +84,7 @@ from your Kubernetes cluster.
 
 This video shows how to configure and run a Google Cloud Monitoring backed Heapster:
 
-[![how to setup and run a Google Cloud Monitoring backed Heapster](https://img.youtube.com/vi/xSMNR2fcoLs/0.jpg)](http://www.youtube.com/watch?v=xSMNR2fcoLs)
+[![how to setup and run a Google Cloud Monitoring backed Heapster](https://img.youtube.com/vi/xSMNR2fcoLs/0.jpg)](https://www.youtube.com/watch?v=xSMNR2fcoLs)
 
 
 {{< figure src="/images/docs/gcm.png" alt="Google Cloud Monitoring dashboard example" title="Google Cloud Monitoring dashboard example" caption="This dashboard shows cluster-wide resource usage." >}}

@@ -27,10 +27,10 @@ Create a file named busybox.yaml with the following contents:
 Then create a pod using this file and verify its status:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
-pod "busybox" created
+kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
+pod/busybox created
 
-$ kubectl get pods busybox
+kubectl get pods busybox
 NAME      READY     STATUS    RESTARTS   AGE
 busybox   1/1       Running   0          <some-time>
 ```
@@ -39,7 +39,7 @@ Once that pod is running, you can exec `nslookup` in that environment.
 If you see something like the following, DNS is working correctly.
 
 ```shell
-$ kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti busybox -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
@@ -56,7 +56,7 @@ Take a look inside the resolv.conf file.
 [Known issues](#known-issues) below for more information)
 
 ```shell
-$ kubectl exec busybox cat /etc/resolv.conf
+kubectl exec busybox cat /etc/resolv.conf
 ```
 
 Verify that the search path and name server are set up like the following
@@ -72,7 +72,7 @@ Errors such as the following indicate a problem with the kube-dns add-on or
 associated Services:
 
 ```
-$ kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti busybox -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
@@ -82,7 +82,7 @@ nslookup: can't resolve 'kubernetes.default'
 or
 
 ```
-$ kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti busybox -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
@@ -94,7 +94,7 @@ nslookup: can't resolve 'kubernetes.default'
 Use the `kubectl get pods` command to verify that the DNS pod is running.
 
 ```shell
-$ kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
+kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 NAME                    READY     STATUS    RESTARTS   AGE
 ...
 kube-dns-v19-ezo1y      3/3       Running   0           1h
@@ -110,9 +110,11 @@ have to deploy it manually.
 Use `kubectl logs` command to see logs for the DNS daemons.
 
 ```shell
-$ kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
-$ kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
-$ kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c sidecar
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name | head -1) -c kubedns
+
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name | head -1) -c dnsmasq
+
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name | head -1) -c sidecar
 ```
 
 See if there is any suspicious log. Letter '`W`', '`E`', '`F`' at the beginning
@@ -126,10 +128,10 @@ to report unexpected errors.
 Verify that the DNS service is up by using the `kubectl get service` command.
 
 ```shell
-$ kubectl get svc --namespace=kube-system
-NAME          CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
+kubectl get svc --namespace=kube-system
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
 ...
-kube-dns      10.0.0.10      <none>        53/UDP,53/TCP        1h
+kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 ...
 ```
 
@@ -144,7 +146,7 @@ You can verify that DNS endpoints are exposed by using the `kubectl get endpoint
 command.
 
 ```shell
-$ kubectl get ep kube-dns --namespace=kube-system
+kubectl get ep kube-dns --namespace=kube-system
 NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```

@@ -53,14 +53,14 @@ kubelet [flags]
       <td colspan="2">--allow-privileged</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">log to standard error as well as files</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, allow containers to request privileged mode.</td>
     </tr>
 
     <tr>
       <td colspan="2">--alsologtostderr</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, allow containers to request privileged mode.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">log to standard error as well as files</td>
     </tr>
 
     <tr>
@@ -882,7 +882,7 @@ kubelet [flags]
        <td colspan="2">--pod-infra-container-image string</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The image whose network/ipc namespaces containers in each pod will use. (default "gcr.io/google_containers/pause-amd64:3.0")</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The image whose network/ipc namespaces containers in each pod will use. (default "k8s.gcr.io/pause:3.1")</td>
     </tr>
 
      <tr>
@@ -967,20 +967,6 @@ kubelet [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Resolver configuration file used as the basis for the container DNS resolution configuration. (default "/etc/resolv.conf")</td>
-    </tr>
-
-     <tr>
-       <td colspan="2">--rkt-api-endpoint string</td> 
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The endpoint of the rkt API service to communicate with. Only used if --container-runtime='rkt'. (default "localhost:15441")</td>
-    </tr>
-
-     <tr>
-       <td colspan="2">--rkt-path string</td> 
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path of rkt binary. Leave empty to use the first rkt in $PATH.</td>
     </tr>
 
      <tr>
@@ -1130,6 +1116,13 @@ kubelet [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">File containing x509 Certificate used for serving HTTPS (with intermediate certs, if any, concatenated after server cert). If --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory passed to --cert-dir.</td>
     </tr>
 
+    <tr>
+      <td colspan="2">--tls-cipher-suites stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be use.  Possible values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA</td>
+    </tr>
+    
      <tr>
        <td colspan="2">--tls-private-key-file string</td> 
     </tr>
