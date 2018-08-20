@@ -37,7 +37,7 @@ By providing an opinionated and structured solution for creating Controllers and
 This will scaffold the API and Controller for users to modify, as well as scaffold integration tests, RBAC rules, Dockerfiles, Makefiles, etc.
 After adding their implementation to the project, users create the artifacts to publish their API through:
 
- 1. Build and push the container image from the provided Dockerfile using `make docker-build`` and `make docker-push` commands
+ 1. Build and push the container image from the provided Dockerfile using `make docker-build` and `make docker-push` commands
  2. Deploy the API using `make deploy` command
 
 Whether you are already a Controller aficionado or just want to learn what the buzz is about, check out the [kubebuilder repo][kubebuilder-repo] or take a look at an example in the [kubebuilder book][kubebuilder-book] to learn about how simple and easy it is to build Controllers.
