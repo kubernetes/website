@@ -87,9 +87,11 @@ Now users can choose between the old scheduling model and a new, more flexible s
 A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that 
 tolerates the taints of a particular Node can be scheduled on that Node.
 
-Note that because of small delay, usually less than one second, between time when condition is observed and a taint
-is created, it's possible that enabling this feature will slightly increase number of Pods that are successfully
-scheduled but rejected by the kubelet.
+{{< caution >}}
+**Caution** Enabling this feature creates a small delay, usually less than one second, between the 
+time when a condition is observed and a taint is created. This delay can increase the number of Pods that 
+are successfully scheduled but rejected by the kubelet. 
+{{< /caution >}}
 
 ### Capacity
 
@@ -109,7 +111,7 @@ a node is not inherently created by Kubernetes: it is created externally by clou
 providers like Google Compute Engine, or exists in your pool of physical or virtual
 machines. What this means is that when Kubernetes creates a node, it is really
 just creating an object that represents the node. After creation, Kubernetes
-will check whether the node is valid or not. For example, if you try to create
+checks whether the node is valid or not. For example, if you try to create
 a node from the following content:
 
 ```json
@@ -125,13 +127,16 @@ a node from the following content:
 }
 ```
 
-Kubernetes will create a node object internally (the representation), and
+Kubernetes creates a node object internally (the representation), and
 validate the node by health checking based on the `metadata.name` field (we
 assume `metadata.name` can be resolved). If the node is valid, i.e. all necessary
 services are running, it is eligible to run a pod; otherwise, it will be
-ignored for any cluster activity until it becomes valid. Note that Kubernetes
-will keep the object for the invalid node unless it is explicitly deleted by
-the client, and it will keep checking to see if it becomes valid.
+ignored for any cluster activity until it becomes valid. 
+
+{{< note >}}
+**Note** Kubernetes keeps the object for the invalid node unless it is explicitly deleted by
+the client and keeps checking to see if it becomes valid.
+{{< /note >}}
 
 Currently, there are three components that interact with the Kubernetes node
 interface: node controller, kubelet, and kubectl.
@@ -162,7 +167,7 @@ checks the state of each node every `--node-monitor-period` seconds.
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
 (e.g. because the master has networking problem). Starting with 1.4, the node
-controller will look at the state of all nodes in the cluster when making a
+controller looks at the state of all nodes in the cluster when making a
 decision about pod eviction.
 
 In most cases, node controller limits the eviction rate to
@@ -232,8 +237,8 @@ Modifications include setting labels on the node and marking it unschedulable.
 Labels on nodes can be used in conjunction with node selectors on pods to control scheduling,
 e.g. to constrain a pod to only be eligible to run on a subset of the nodes.
 
-Marking a node as unschedulable will prevent new pods from being scheduled to that
-node, but will not affect any existing pods on the node. This is useful as a
+Marking a node as unschedulable prevents new pods from being scheduled to that
+node, but does not affect any existing pods on the node. This is useful as a
 preparatory step before a node reboot, etc. For example, to mark a node
 unschedulable, run this command:
 
@@ -241,9 +246,11 @@ unschedulable, run this command:
 kubectl cordon $NODENAME
 ```
 
-Note that pods which are created by a DaemonSet controller bypass the Kubernetes scheduler,
-and do not respect the unschedulable attribute on a node.  The assumption is that daemons belong on
-the machine even if it is being drained of applications in preparation for a reboot.
+{{< note >}}
+**Note** Pods created by a DaemonSet controller bypass the Kubernetes scheduler
+and do not respect the unschedulable attribute on a node. This assumes that daemons belong on
+the machine even if it is being drained of applications while it prepares for a reboot.
+{{< /note >}}
 
 ### Node capacity
 
