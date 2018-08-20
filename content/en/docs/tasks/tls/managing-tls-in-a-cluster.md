@@ -64,8 +64,8 @@ The cfssl tools used in this example can be downloaded at
 Generate a private key and certificate signing request (or CSR) by running
 the following command:
 
-```console
-$ cat <<EOF | cfssl genkey - | cfssljson -bare server
+```shell
+cat <<EOF | cfssl genkey - | cfssljson -bare server
 {
   "hosts": [
     "my-svc.my-namespace.svc.cluster.local",
@@ -104,8 +104,8 @@ is still to be created.
 Generate a CSR yaml blob and send it to the apiserver by running the following
 command:
 
-```console
-$ cat <<EOF | kubectl create -f -
+```shell
+cat <<EOF | kubectl create -f -
 apiVersion: certificates.k8s.io/v1beta1
 kind: CertificateSigningRequest
 metadata:
@@ -132,8 +132,11 @@ same API.
 The CSR should now be visible from the API in a Pending state. You can see
 it by running:
 
-```console
-$ kubectl describe csr my-svc.my-namespace
+```shell
+kubectl describe csr my-svc.my-namespace
+```
+
+```none
 Name:                   my-svc.my-namespace
 Labels:                 <none>
 Annotations:            <none>
@@ -160,8 +163,11 @@ information on what this involves is covered below.
 
 Once the CSR is signed and approved you should see the following:
 
-```console
-$ kubectl get csr
+```shell
+kubectl get csr
+```
+
+```none
 NAME                  AGE       REQUESTOR               CONDITION
 my-svc.my-namespace   10m       yourname@example.com    Approved,Issued
 ```
@@ -169,8 +175,8 @@ my-svc.my-namespace   10m       yourname@example.com    Approved,Issued
 You can download the issued certificate and save it to a `server.crt` file
 by running the following:
 
-```console
-$ kubectl get csr my-svc.my-namespace -o jsonpath='{.status.certificate}' \
+```shell
+kubectl get csr my-svc.my-namespace -o jsonpath='{.status.certificate}' \
     | base64 --decode > server.crt
 ```
 
@@ -200,7 +206,7 @@ to verify that the CSR satisfies two requirements:
 If and only if these two requirements are met, the approver should approve
 the CSR and otherwise should deny the CSR.
 
-## A Word of **Warning** on the Approval Permission
+## A Word of Warning on the Approval Permission
 
 The ability to approve CSRs decides who trusts who within the cluster. This
 includes who the Kubernetes API trusts. The ability to approve CSRs should
