@@ -10,5 +10,5 @@ js: /js/user-journeys/home.js, https://use.fontawesome.com/4bcc658a89.js
 display_browse_numbers: true
 linkTitle: "Documentation"
 main_menu: true
-weight: 5
+weight: 80
 ---

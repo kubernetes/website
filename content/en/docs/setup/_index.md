@@ -4,9 +4,9 @@ reviewers:
 - erictune
 - mikedanese
 no_issue: true
+weight: 30
 title: Setup
 main_menu: true
-weight: 30
 ---
 
 This section provides instructions for installing Kubernetes and setting
