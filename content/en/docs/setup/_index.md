@@ -4,8 +4,8 @@ reviewers:
 - erictune
 - mikedanese
 no_issue: true
-title: Setup
 weight: 30
+title: Setup
 main_menu: true
 ---
 
