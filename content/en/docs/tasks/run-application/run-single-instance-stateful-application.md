@@ -44,24 +44,30 @@ PersistentVolumeClaim that looks for a 20G volume. This claim is
 satisfied by any existing volume that meets the requirements,
 or by a dynamic provisioner.
 
-Note: The password is defined in the config yaml, and this is insecure. See
+{{< note >}}
+**Note:** The password is defined in the YAML file, and this is insecure. See
 [Kubernetes Secrets](/docs/concepts/configuration/secret/)
 for a secure solution.
+{{< /note >}}
 
 {{< codenew file="application/mysql/mysql-deployment.yaml" >}}
+
+This file create a PersistentVolume and PersistentVolumeClaim of 20G volume.
 {{< codenew file="application/mysql/mysql-pv.yaml" >}}
 
-1. Deploy the PV and PVC of the YAML file:
+1. Deploy the PV and PVC using the `mysql-pv` YAML file:
 
         kubectl create -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
 
-1. Deploy the contents of the YAML file:
+1. Deploy MySQL using the `mysql-deployment` YAML file:
 
         kubectl create -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
 
 1. Display information about the Deployment:
 
         kubectl describe deployment mysql
+        
+   The output is similar to this:
 
         Name:                 mysql
         Namespace:            default
@@ -102,6 +108,8 @@ for a secure solution.
 1. List the pods created by the Deployment:
 
         kubectl get pods -l app=mysql
+        
+   The output is simillar to this:
 
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
@@ -109,6 +117,8 @@ for a secure solution.
 1. Inspect the PersistentVolumeClaim:
 
         kubectl describe pvc mysql-pv-claim
+        
+   The output is simillar to this:
 
         Name:         mysql-pv-claim
         Namespace:    default
@@ -146,11 +156,14 @@ If you don't see a command prompt, try pressing enter.
 
 mysql>
 ```
+Use `Exit` to stop the MySQL client.
 
 ## Updating
 
 The image or any other part of the Deployment can be updated as usual
-with the `kubectl apply` command. Here are some precautions that are
+with the `kubectl apply` command. For more information, see [Updating the deployment](/docs/tasks/run-application/run-stateless-application-deployment/#updating-the-deployment)
+
+Here are some precautions that are
 specific to stateful apps:
 
 * Don't scale the app. This setup is for single-instance apps
