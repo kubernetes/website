@@ -26,7 +26,7 @@ In Kubernetes, application monitoring does not depend on a single monitoring
 solution. On new clusters, you can use two separate pipelines to collect
 monitoring statistics by default:
 
-- The **resource metrics pipeline** provides a limited set of metrics related
+- The[**resource metrics pipeline**](#resource-metrics-pipeline) provides a limited set of metrics related
   to cluster components such as the HorizontalPodAutoscaler controller, as well
   as the `kubectl top` utility. These metrics are collected by
   [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
@@ -34,19 +34,15 @@ monitoring statistics by default:
   all nodes on the cluster and queries each node's [Kubelet](/docs/admin/kubelet)
   for CPU and memory usage. The Kubelet fetches the data from
   [cAdvisor](https://github.com/google/cadvisor). `metrics-server` is a
-  lightweight short-term in-memory store. For more information, see
-  [Resource metrics pipeline](#resource-metrics-pipeline) below.
+  lightweight short-term in-memory store.
   
-- A **full metrics pipeline**, such as Prometheus, gives you access to richer
+- A [**full metrics pipeline**](#full-metrics-pipelines), such as Prometheus, gives you access to richer
   metrics. In addition, Kubernetes can respond to these metrics by automatically
   scaling or adapting the cluster based on its current state, using mechanisms
   such as the Horizontal Pod Autoscaler. The monitoring pipeline fetches
   metrics from the Kubelet, and then exposes them to Kubernetes via an adapter
   by implementing either the `custom.metrics.k8s.io` or
-  `external.metrics.k8s.io` API. See
-  [Full metrics pipelines](#full-metrics-pipelines) for more information about
-  some popular pipelines that implement these APIs and enable these
-  capabilities.
+  `external.metrics.k8s.io` API.
 
 ## Resource metrics pipeline
 
