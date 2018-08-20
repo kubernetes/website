@@ -42,6 +42,7 @@ administrator to control the following:
 | Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
+| The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedProcMountTypes) |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
 | The sysctl profile used by containers               | [annotations](#sysctl)                      |
@@ -547,6 +548,21 @@ for the default list of capabilities when using the Docker runtime.
 `seLinuxOptions` as the default. Validates against `seLinuxOptions`.
 - *RunAsAny* - No default provided. Allows any `seLinuxOptions` to be
 specified.
+
+### AllowedProcMountTypes
+
+`allowedProcMountTypes` is a whitelist of allowed ProcMountTypes.
+Empty or nil indicates that only the `DefaultProcMountType` may be used. 
+
+`DefaultProcMount` uses the container runtime defaults for readonly and masked
+paths for /proc.  Most container runtimes mask certain paths in /proc to avoid
+accidental security exposure of special devices or information. This is denoted
+as the string `Default`.
+
+The only other ProcMountType is `UnmaskedProcMount`, which bypasses the 
+default masking behavior of the container runtime and ensures the newly 
+created /proc the container stays in tact with no modifications. This is
+denoted as the string `Unmasked`.
 
 ### AppArmor
 
