@@ -42,12 +42,14 @@ for installation instructions for your platform.
 Download the client tarball corresponding to the particular release and 
 extract the binaries in the tarball:
 
-> Note that until kubernetes versions `1.8.x` the federation project was 
-maintained as part of [core kubernetes repo](https://github.com/kubernetes/kubernetes).
-At some point between kubernetes releases `1.8.0` and `1.9.0`, it moved into 
-a separate [federation repo](https://github.com/kubernetes/federation) and is 
-now maintained there. After this move, the federation release information is 
-available at the release page [here](https://github.com/kubernetes/federation/releases).
+{{< note >}}
+**Note:** Until Kubernetes version `1.8.x` the federation project was 
+maintained as part of the [core kubernetes repo](https://github.com/kubernetes/kubernetes).
+Between Kubernetes releases `1.8` and `1.9`, the federation project moved into 
+a separate [federation repo](https://github.com/kubernetes/federation), where it is 
+now maintained. Consequently, the federation release information is available on the
+[release page](https://github.com/kubernetes/federation/releases).
+{{< /note >}}
 
 ### For k8s versions 1.8.x and earlier:
 
@@ -55,8 +57,9 @@ available at the release page [here](https://github.com/kubernetes/federation/re
 curl -LO https://storage.googleapis.com/kubernetes-release/release/${RELEASE-VERSION}/kubernetes-client-linux-amd64.tar.gz
 tar -xzvf kubernetes-client-linux-amd64.tar.gz
 ```
-> Note that the variable `RELEASE-VERSION` should be either appropriately 
-set to or replaced with the actual version needed. 
+{{< note >}}
+**Note:** The `RELEASE-VERSION` variable should either be set to or replaced with the actual version needed. 
+{{< /note >}}
 
 Copy the extracted binary to one of the directories in your `$PATH`
 and set the executable permission on the binary.
@@ -73,8 +76,9 @@ curl -LO https://storage.cloud.google.com/kubernetes-federation-release/release/
 tar -xzvf federation-client-linux-amd64.tar.gz
 ```
 
-> Note that the variable `RELEASE-VERSION` should be replaced with one of the 
-release versions available at [federation release page](https://github.com/kubernetes/federation/releases). 
+{{< note >}}
+**Note:** The `RELEASE-VERSION` variable should be replaced with one of the release versions available at [federation release page](https://github.com/kubernetes/federation/releases). 
+{{< /note >}}
 
 Copy the extracted binary to one of the directories in your `$PATH`
 and set the executable permission on the binary.
@@ -171,8 +175,11 @@ without the Google Cloud DNS API scope by default. If you want to use a
 Google Kubernetes Engine cluster as a Federation host, you must create it using the `gcloud`
 command with the appropriate value in the `--scopes` field. You cannot
 modify a Google Kubernetes Engine cluster directly to add this scope, but you can create a
-new node pool for your cluster and delete the old one. *Note that this
-will cause pods in the cluster to be rescheduled.*
+new node pool for your cluster and delete the old one. 
+
+{{< note >}}
+**Note:** This will cause pods in the cluster to be rescheduled.
+{{< /note >}}
 
 To add the new node pool, run:
 
@@ -191,14 +198,15 @@ gcloud container node-pools delete default-pool --cluster gke-cluster
 
 `kubefed init` sets up the federation control plane in the host
 cluster and also adds an entry for the federation API server in your
-local kubeconfig. Note that in the beta release in Kubernetes 1.6,
-`kubefed init` does not automatically set the current context to the
-newly deployed federation. You can set the current context manually by
-running:
+local kubeconfig. 
+{{< note >}}
+**Note:** In the beta release of Kubernetes 1.6, `kubefed init` does not automatically set the current context to the
+newly deployed federation. You can set the current context manually by running:
 
 ```shell
 kubectl config use-context fellowship
 ```
+{{< /note >}}
 
 where `fellowship` is the name of your federation.
 
@@ -456,9 +464,10 @@ To join clusters into the federation:
 A new context has now been added to your kubeconfig named `fellowship` (after the name of your federation). 
 
 
-> Note: The name that you provide to the `join` command is used as the joining cluster's identity in federation. If this name adheres to the rules described in the [identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
-corresponding to your joining cluster conforms to these rules then you can use the same name in the join command. Otherwise, you will have to choose a different name for your cluster's identity.
-
+{{< note >}}
+**Note:** The name that you provide to the `join` command is used as the joining cluster's identity in federation. This name should adhere to the rules described in the [identifiers doc](/docs/concepts/overview/working-with-objects/names/). If the context
+corresponding to your joining cluster conforms to these rules, you can use the same name in the join command. Otherwise, you must choose a different name for your cluster's identity.
+{{< /note >}}
 
 ### Naming rules and customization
 
@@ -504,10 +513,9 @@ running:
 kubefed join noldor --host-cluster-context=rivendell --secret-name=11kingdom
 ```
 
-Note: If your cluster name does not conform to the DNS subdomain name
-specification, all you need to do is supply the secret name via the
-`--secret-name` flag. `kubefed join` automatically creates the secret
-for you.
+{{< note >}}
+**Note:** If your cluster name does not conform to the DNS subdomain name specification, all you need to do is supply the secret name using the `--secret-name` flag. `kubefed join` automatically creates the secret for you.
+{{< /note >}}
 
 ### `kube-dns` configuration
 
@@ -545,7 +553,8 @@ namespace by running the following command:
 kubectl delete ns federation-system --context=rivendell
 ```
 
-Note that `rivendell` is the host cluster name, replace that with the
-appropriate name in your configuration.
+{{< note >}}
+**Note:** `rivendell` is the host cluster name. Replace that name with the appropriate name in your configuration.
+{{< /note >}}
 
 {{% /capture %}}
