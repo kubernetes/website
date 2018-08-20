@@ -4,8 +4,8 @@ reviewers:
 - erictune
 - mikedanese
 title: Picking the Right Solution
-content_template: templates/concept
 weight: 10
+content_template: templates/concept
 ---
 
 {{% capture overview %}}
