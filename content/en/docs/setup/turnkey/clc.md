@@ -302,6 +302,7 @@ List existing nodes, pods, services and more, in all namespaces, or in just one:
 
 ```shell
 kubectl get nodes
+kubectl get --all-namespaces pods
 kubectl get --all-namespaces services
 kubectl get --namespace=kube-system replicationcontrollers
 ```
