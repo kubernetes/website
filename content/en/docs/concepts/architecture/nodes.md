@@ -88,7 +88,7 @@ A Pod that does not have any tolerations gets scheduled according to the old mod
 tolerates the taints of a particular Node can be scheduled on that Node.
 
 {{< caution >}}
-**Caution** Enabling this feature creates a small delay, usually less than one second, between the 
+**Caution:** Enabling this feature creates a small delay, usually less than one second, between the 
 time when a condition is observed and a taint is created. This delay can increase the number of Pods that 
 are successfully scheduled but rejected by the kubelet. 
 {{< /caution >}}
@@ -134,7 +134,7 @@ services are running, it is eligible to run a pod; otherwise, it will be
 ignored for any cluster activity until it becomes valid. 
 
 {{< note >}}
-**Note** Kubernetes keeps the object for the invalid node unless it is explicitly deleted by
+**Note:** Kubernetes keeps the object for the invalid node unless it is explicitly deleted by
 the client and keeps checking to see if it becomes valid.
 {{< /note >}}
 
@@ -247,7 +247,7 @@ kubectl cordon $NODENAME
 ```
 
 {{< note >}}
-**Note** Pods created by a DaemonSet controller bypass the Kubernetes scheduler
+**Note:** Pods created by a DaemonSet controller bypass the Kubernetes scheduler
 and do not respect the unschedulable attribute on a node. This assumes that daemons belong on
 the machine even if it is being drained of applications while it prepares for a reboot.
 {{< /note >}}
