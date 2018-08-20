@@ -47,7 +47,7 @@ In addition to the CNI plugin specified by the configuration file, Kubernetes re
 
 #### Support hostPort
 
-The CNI networking plugin supports `hostPort`. You can use the officical [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
+The CNI networking plugin supports `hostPort`. You can use the official [portmap](https://github.com/containernetworking/plugins/tree/master/plugins/meta/portmap)
 plugin offered by the CNI plugin team or use your own plugin with portMapping functionality.
 
 If you want to enable `hostPort` support, you must specify `portMappings capability` in your `cni-conf-dir`.
