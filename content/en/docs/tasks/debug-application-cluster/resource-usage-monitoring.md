@@ -26,7 +26,7 @@ In Kubernetes, application monitoring does not depend on a single monitoring
 solution. On new clusters, you can use two separate pipelines to collect
 monitoring statistics by default:
 
-- The[**resource metrics pipeline**](#resource-metrics-pipeline) provides a limited set of metrics related
+- The [**resource metrics pipeline**](#resource-metrics-pipeline) provides a limited set of metrics related
   to cluster components such as the HorizontalPodAutoscaler controller, as well
   as the `kubectl top` utility. These metrics are collected by
   [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
