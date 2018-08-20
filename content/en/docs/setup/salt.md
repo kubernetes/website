@@ -2,6 +2,7 @@
 reviewers:
 - davidopp
 title: Configuring Kubernetes with Salt
+weight: 70
 ---
 
 The Kubernetes cluster can be configured using Salt.

@@ -1,5 +1,5 @@
 ---
 title: "Downloading Kubernetes"
-weight: 30
+weight: 20
 ---
 
