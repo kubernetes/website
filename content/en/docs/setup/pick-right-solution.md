@@ -4,11 +4,8 @@ reviewers:
 - erictune
 - mikedanese
 title: Picking the Right Solution
-<<<<<<< HEAD
 content_template: templates/concept
-=======
 weight: 10
->>>>>>> dc1814d... change weights in Setup
 ---
 
 {{% capture overview %}}
