@@ -44,11 +44,11 @@ extract the binaries in the tarball:
 
 {{< note >}}
 **Note:** Until Kubernetes version `1.8.x` the federation project was 
-maintained as part of [core kubernetes repo](https://github.com/kubernetes/kubernetes).
-At some point between Kubernetes releases `1.8.0` and `1.9.0`, the federation project moved into 
-a separate [federation repo](https://github.com/kubernetes/federation) where it is 
-now maintained. After this move, the federation release information became 
-available from the release page [here](https://github.com/kubernetes/federation/releases).
+maintained as part of the [core kubernetes repo](https://github.com/kubernetes/kubernetes).
+Between Kubernetes releases `1.8` and `1.9`, the federation project moved into 
+a separate [federation repo](https://github.com/kubernetes/federation), where it is 
+now maintained. Consequently, the federation release information is available on the
+[release page](https://github.com/kubernetes/federation/releases).
 {{< /note >}}
 
 ### For k8s versions 1.8.x and earlier:
@@ -178,7 +178,7 @@ modify a Google Kubernetes Engine cluster directly to add this scope, but you ca
 new node pool for your cluster and delete the old one. 
 
 {{< note >}}
-**Note:** This will cause pods in the cluster to be rescheduled.*
+**Note:** This will cause pods in the cluster to be rescheduled.
 {{< /note >}}
 
 To add the new node pool, run:
@@ -200,7 +200,7 @@ gcloud container node-pools delete default-pool --cluster gke-cluster
 cluster and also adds an entry for the federation API server in your
 local kubeconfig. 
 {{< note >}}
-**Note:** In the beta release in Kubernetes 1.6, `kubefed init` does not automatically set the current context to the
+**Note:** In the beta release of Kubernetes 1.6, `kubefed init` does not automatically set the current context to the
 newly deployed federation. You can set the current context manually by running:
 
 ```shell
@@ -554,7 +554,7 @@ kubectl delete ns federation-system --context=rivendell
 ```
 
 {{< note >}}
-**Note:**`rivendell` is the host cluster name. Replace that name with the appropriate name in your configuration.
+**Note:** `rivendell` is the host cluster name. Replace that name with the appropriate name in your configuration.
 {{< /note >}}
 
 {{% /capture %}}
