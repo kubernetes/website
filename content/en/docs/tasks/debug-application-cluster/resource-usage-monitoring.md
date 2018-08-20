@@ -21,6 +21,7 @@ where bottlenecks can be removed to improve overall performance.
 {{< toc >}}
 
 {{% capture body %}}
+## Application monitoring pipelines
 
 In Kubernetes, application monitoring does not depend on a single monitoring
 solution. On new clusters, you can use two separate pipelines to collect
@@ -34,19 +35,25 @@ monitoring statistics by default:
   all nodes on the cluster and queries each node's [Kubelet](/docs/admin/kubelet)
   for CPU and memory usage. The Kubelet fetches the data from
   [cAdvisor](https://github.com/google/cadvisor). `metrics-server` is a
-  lightweight short-term in-memory store.
+  lightweight short-term in-memory store. For more information, see
+  [Resource metrics pipeline](#resource-metrics-pipeline) below.
   
-- A **full monitoring pipeline**, such as Prometheus, gives you access to richer
+- A **full metrics pipeline**, such as Prometheus, gives you access to richer
   metrics. In addition, Kubernetes can respond to these metrics by automatically
   scaling or adapting the cluster based on its current state, using mechanisms
   such as the Horizontal Pod Autoscaler. The monitoring pipeline fetches
   metrics from the Kubelet, and then exposes them to Kubernetes via an adapter
   by implementing either the `custom.metrics.k8s.io` or
   `external.metrics.k8s.io` API. See
-  [Full metrics pipeline](#full-metrics-pipelines) for more information about
+  [Full metrics pipelines](#full-metrics-pipelines) for more information about
   some popular pipelines that implement these APIs and enable these
   capabilities.
 
+## Resource metrics pipeline
+
+### Kubelet
+
+The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
 
 ### cAdvisor
 
@@ -56,14 +63,9 @@ On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine contain
 
 ![cAdvisor](/images/docs/cadvisor.png)
 
-### Kubelet
+## Full metrics pipelines
 
-The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
-
-## Full Metrics Pipelines
-
-Many full metrics solutions exist for Kubernetes. Prometheus and Google Cloud
-Monitoring are two of the most popular.
+Many full metrics solutions exist for Kubernetes.
 
 ### Prometheus
 
