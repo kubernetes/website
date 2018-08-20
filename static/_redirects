@@ -195,7 +195,8 @@
 
 /docs/home/contribute/  /docs/contribute/ 301
 /docs/home/contribute/content-organization/ /docs/contribute/style/content-organization/ 301
-/docs/home/contribute/create-pull-request/ /docs/contribute/foundational/ 301
+/docs/home/contribute/create-pull-request/ /docs/contribute/start/ 301
+/docs/contribute/foundational/ /docs/contribute/start/ 301
 /docs/home/contribute/includes/ /docs/contribute/style/hugo-shortcodes/ 301
 /docs/home/contribute/style-guide/ /docs/contribute/style/style-guide/ 301
 /docs/home/contribute/generated-reference/federation-api/ /docs/contribute/generate-ref-docs/federation-api/ 301
@@ -206,7 +207,7 @@
 /docs/home/contribute/page-templates/ /docs/contribute/style/page-templates/ 301
 /docs/home/contribute/participating/ /docs/contribute/participating/ 301
 /docs/home/contribute/review-issues/ /docs/contribute/intermediate/ 301
-/docs/home/contribute/blog-post/ /docs/contribute/foundational/ 301
+/docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
 
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
