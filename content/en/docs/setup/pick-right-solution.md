@@ -104,6 +104,7 @@ few commands. These solutions are actively developed and have active community s
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
 few commands.
 
+* [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 * [Kubermatic](https://www.loodse.com)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
