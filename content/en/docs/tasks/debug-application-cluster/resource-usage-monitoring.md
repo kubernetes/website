@@ -2,7 +2,7 @@
 reviewers:
 - mikedanese
 content_template: templates/concept
-title: Tools for Monitoring Compute, Storage, and Network Resources
+title: Tools for Monitoring Resources
 ---
 
 {{% capture overview %}}
