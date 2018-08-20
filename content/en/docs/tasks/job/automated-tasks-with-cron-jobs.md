@@ -1,5 +1,5 @@
 ---
-title: Running automated tasks with cron jobs
+title: Running Automated Tasks with a CronJob
 reviewers:
 - chenopis
 content_template: templates/task
