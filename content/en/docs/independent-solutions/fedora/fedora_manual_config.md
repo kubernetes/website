@@ -175,7 +175,7 @@ kubectl delete -f ./node.json
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |          | Project
+Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/independent-solutions/fedora/fedora_manual_config)            |          | Project
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+For support level information on all solutions, see the [Table of solutions](/docs/setup/pick-right-solution/#table-of-solutions) chart.
 
