@@ -22,7 +22,7 @@ following steps:
 1. Runs a series of pre-flight checks to validate the system state
    before making changes. Some checks only trigger warnings, others are
    considered errors and will exit kubeadm until the problem is corrected or the
-   user specifies `--skip-preflight-checks`.
+   user specifies `--ignore-preflight-errors=<list-of-errors>`.
 
 1. Generates a self-signed CA (or using an existing one if provided) to set up
    identities for each component in the cluster. If the user has provided their
