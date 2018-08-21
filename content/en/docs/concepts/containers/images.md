@@ -187,7 +187,7 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
-pod "private-image-test-1" created
+pod/private-image-test-1 created
 ```
 
 If everything is working, then, after a few moments, you should see:
@@ -250,7 +250,7 @@ Run the following command, substituting the appropriate uppercase values:
 
 ```shell
 kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
-secret "myregistrykey" created.
+secret/myregistrykey created.
 ```
 
 If you need access to multiple registries, you can create one secret for each registry.

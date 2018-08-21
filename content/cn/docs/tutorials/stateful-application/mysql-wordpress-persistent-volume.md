@@ -15,7 +15,7 @@ approvers:
 
 * [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) 定义持久化磁盘（磁盘生命周期不和 Pods 绑定）。
 * [Services](https://kubernetes.io/docs/concepts/services-networking/service/) 使得 Pods 能够找到其它 Pods。
-* [External Load Balancers](https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer) 对外暴露 Services。
+* [External Load Balancers](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer) 对外暴露 Services。
 * [Deployments](http://kubernetes.io/docs/user-guide/deployments/) 确保 Pods 持续运行。
 * [Secrets](http://kubernetes.io/docs/user-guide/secrets/) 保存敏感密码信息。
 
@@ -66,7 +66,7 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/examples/master/m
 Kubernetes本质是模块化的，可以在各种环境中运行。但并不是所有集群都相同。此处是本示例的一些要求：
 * 需要 1.2 版本以上的 Kubernetes，以使用更新的特性，例如 PV Claims 和 Deployments。运行 `kubectl version` 来查看你的集群版本。
 * [Cluster DNS](https://github.com/kubernetes/dns) 将被用于服务发现。
-* 一个 [external load balancer](https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer) 将被用于接入 WordPress。
+* 一个 [external load balancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer) 将被用于接入 WordPress。
 * 使用了 [Persistent Volume Claims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。你必须创建集群中需要的 Persistent Volumes。本示例将展示两种类型的 volume 的创建方法，但是任何类型的 volume 都是足够使用的。
 
 

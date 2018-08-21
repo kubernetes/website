@@ -33,7 +33,7 @@ documentation.
 ## Configuration file
 
 To create an external load balancer, add the following line to your
-[service configuration file](/docs/concepts/services-networking/service/#type-loadbalancer):
+[service configuration file](/docs/concepts/services-networking/service/#loadbalancer):
 
 ```json
     "type": "LoadBalancer"
@@ -180,7 +180,9 @@ compared to the `service.spec.externalTrafficPolicy` field. The values match as 
 * "OnlyLocal" for annotation <-> "Local" for field
 * "Global" for annotation <-> "Cluster" for field
 
-**Note that this feature is not currently implemented for all cloudproviders/environments.**
+{{< note >}}
+**Note:** This feature is not currently implemented for all cloudproviders/environments.
+{{< /note >}}
 
 Known issues:
 

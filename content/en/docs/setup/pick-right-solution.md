@@ -4,6 +4,7 @@ reviewers:
 - erictune
 - mikedanese
 title: Picking the Right Solution
+weight: 10
 content_template: templates/concept
 ---
 
@@ -61,7 +62,7 @@ a Kubernetes cluster from scratch.
 
 * [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
-* [IBM Cloud Container Service](https://console.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
+* [IBM Cloud Kubernetes Service](https://console.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
@@ -95,6 +96,7 @@ few commands. These solutions are actively developed and have active community s
 * [Gardener](https://gardener.cloud/)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kublr](https://kublr.com/)
+* [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [Alibaba Cloud](/docs/setup/turnkey/alibaba-cloud/)
 * [APPUiO](https://appuio.ch)
 
@@ -109,6 +111,7 @@ few commands.
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kublr](https://kublr.com/)
+* [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
 
 ## Custom Solutions
@@ -212,6 +215,8 @@ any                  | any          | any    | any         | [docs](http://docs.
 any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
 any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
 Alibaba Cloud Container Service For Kubernetes | ROS        | CentOS | flannel/Terway       | [docs](https://www.aliyun.com/product/containerservice)                    |  Commercial
+Agile Stacks       | Terraform   | CoreOS | multi-support | [docs](https://www.agilestacks.com/products/kubernetes) | Commercial
+
 
 {{< note >}}
 **Note:** The above table is ordered by version test/used in nodes, followed by support level.

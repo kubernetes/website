@@ -28,7 +28,7 @@ Create deployment by running following command:
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/application/nginx-with-request.yaml
-deployment "nginx-deployment" created
+deployment.apps/nginx-deployment created
 ```
 
 ```shell
@@ -257,11 +257,11 @@ Sometimes when debugging it can be useful to look at the status of a node -- for
 
 ```shell
 $ kubectl get nodes
-NAME                     STATUS        AGE     VERSION
-kubernetes-node-861h     NotReady      1h      v1.6.0+fff5156
-kubernetes-node-bols     Ready         1h      v1.6.0+fff5156
-kubernetes-node-st6x     Ready         1h      v1.6.0+fff5156
-kubernetes-node-unaj     Ready         1h      v1.6.0+fff5156
+NAME                     STATUS       ROLES     AGE     VERSION
+kubernetes-node-861h     NotReady     <none>    1h      v1.11.1
+kubernetes-node-bols     Ready        <none>    1h      v1.11.1
+kubernetes-node-st6x     Ready        <none>    1h      v1.11.1
+kubernetes-node-unaj     Ready        <none>    1h      v1.11.1
 ```
 
 ```shell

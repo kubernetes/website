@@ -12,15 +12,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
 {{ partial "css.html" . }}
-{{ if .Params.description }}
-<meta name="description" content="{{ .Params.description }}" />
-<meta property="og:description" content="{{ .Params.description }}" />
-{{ else }}
-<meta name="description" content="{{ .Params.title }}" />
-<meta property="og:description" content="{{ .Params.title }}" />
-{{ end }}
-<meta property="og:url" content="{{ .Permalink }}" />
-<meta property="og:title" content="{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}" />
+<!-- Content for social media sharing previews -->
+<!-- Facebook uses the og: stuff, while Twitter and others use twitter: -->
+<meta name="description"         content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}" />
+<meta property="og:description"  content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}" />
+<meta property="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Summary }}{{ end }}" />
+<meta property="og:url"          content="{{ .Permalink }}" />
+<meta name="og:title"            content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}" />
+<meta name="twitter:title"       content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}" />
+<!-- Alt text for the site image -->
+<meta name="twitter:image:alt"   content="{{ .Site.Title }}">
 {{ if eq .Section "blog" }}
 {{ with findRE "<img.*?>" .Content 1 }}
 <meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}" />

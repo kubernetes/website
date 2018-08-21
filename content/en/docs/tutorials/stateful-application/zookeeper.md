@@ -90,10 +90,10 @@ This creates the `zk-hs` Headless Service, the `zk-cs` Service,
 the `zk-pdb` PodDisruptionBudget, and the `zk` StatefulSet.
 
 ```shell
-service "zk-hs" created
-service "zk-cs" created
-poddisruptionbudget "zk-pdb" created
-statefulset "zk" created
+service/zk-hs created
+service/zk-cs created
+poddisruptionbudget.policy/zk-pdb created
+statefulset.apps/zk created
 ```
 
 Use [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the
@@ -314,7 +314,7 @@ Use the [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#d
 
 ```shell
 kubectl delete statefulset zk
-statefulset "zk" deleted
+statefulset.apps "zk" deleted
 ```
 
 Watch the termination of the Pods in the StatefulSet.
@@ -620,7 +620,7 @@ You can use `kubectl patch` to update the number of `cpus` allocated to the serv
 ```shell
 kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'
 
-statefulset "zk" patched
+statefulset.apps/zk patched
 ```
 
 Use `kubectl rollout status` to watch the status of the update.
@@ -658,7 +658,7 @@ Use the `kubectl rollout undo` command to roll back the modification.
 ```shell
 kubectl rollout undo sts/zk
 
-statefulset "zk" rolled back
+statefulset.apps/zk rolled back
 ```
 
 ### Handling Process Failure

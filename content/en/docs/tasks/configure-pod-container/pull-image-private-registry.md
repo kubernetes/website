@@ -26,7 +26,9 @@ private Docker registry or repository.
 
 On your laptop, you must authenticate with a registry in order to pull a private image:
 
-    docker login
+```shell
+docker login
+```
 
 When prompted, enter your Docker username and password.
 
@@ -34,17 +36,21 @@ The login process creates or updates a `config.json` file that holds an authoriz
 
 View the `config.json` file:
 
-    cat ~/.docker/config.json
+```shell
+cat ~/.docker/config.json
+```
 
 The output contains a section similar to this:
 
-    {
-        "auths": {
-            "https://index.docker.io/v1/": {
-                "auth": "c3R...zE2"
-            }
+```json
+{
+    "auths": {
+        "https://index.docker.io/v1/": {
+            "auth": "c3R...zE2"
         }
     }
+}
+```
 
 {{< note >}}
 **Note:** If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
@@ -56,7 +62,9 @@ A Kubernetes cluster uses the Secret of `docker-registry` type to authenticate w
 
 Create this Secret, naming it `regcred`:
 
-    kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+```shell
+kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+```
 
 where:
 
@@ -71,38 +79,50 @@ You have successfully set your Docker credentials in the cluster as a Secret cal
 
 To understand the contents of the `regcred` Secret you just created, start by viewing the Secret in YAML format:
 
-    kubectl get secret regcred --output=yaml
+```shell
+kubectl get secret regcred --output=yaml
+```
 
 The output is similar to this:
 
-    apiVersion: v1
-    data:
-      .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
-    kind: Secret
-    metadata:
-      ...
-      name: regcred
-      ...
-    type: kubernetes.io/dockerconfigjson
+```yaml
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
+kind: Secret
+metadata:
+  ...
+  name: regcred
+  ...
+type: kubernetes.io/dockerconfigjson
+```
 
 The value of the `.dockerconfigjson` field is a base64 representation of your Docker credentials.
 
 To understand what is in the `.dockerconfigjson` field, convert the secret data to a
 readable format:
 
-    kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+```shell
+kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+```
 
 The output is similar to this:
 
-    {"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
+```json
+{"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
+```
 
 To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
 
-    echo "c3R...zE2" | base64 --decode
+```shell
+echo "c3R...zE2" | base64 --decode
+```
 
 The output, username and password concatenated with a `:`, is similar to this:
 
-    janedoe:xxxxxxxxxxx
+```none
+janedoe:xxxxxxxxxxx
+```
 
 Notice that the Secret data contains the authorization token similar to your local `~/.docker/config.json` file.
 
@@ -116,19 +136,25 @@ Here is a configuration file for a Pod that needs access to your Docker credenti
 
 Download the above file:
 
-    wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+```shell
+wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yaml
+```
 
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:
 
-    janedoe/jdoe-private:v1
+```none
+janedoe/jdoe-private:v1
+```
 
 To pull the image from the private registry, Kubernetes needs credentials.
 The `imagePullSecrets` field in the configuration file specifies that Kubernetes should get the credentials from a Secret named `regcred`.
 
 Create a Pod that uses your Secret, and verify that the Pod is running:
 
-    kubectl create -f my-private-reg-pod.yaml
-    kubectl get pod private-reg
+```shell
+kubectl create -f my-private-reg-pod.yaml
+kubectl get pod private-reg
+```
 
 {{% /capture %}}
 
