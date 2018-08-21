@@ -121,10 +121,9 @@ For example, you can do that using kubectl by running:
 kubectl --context=federation-cluster delete rs myrs
 ```
 
-Note that at this point, deleting a federated ReplicaSet will not delete the
-corresponding ReplicaSets from underlying clusters.
-You must delete the underlying ReplicaSets manually.
-We intend to fix this in the future.
+{{< note >}}
+**Note:** At this point, deleting a federated ReplicaSet will not delete the corresponding ReplicaSets from underlying clusters. You must delete the underlying ReplicaSets manually. We intend to fix this in the future.
+{{< /note >}}
 
 {{% /capture %}}
 
