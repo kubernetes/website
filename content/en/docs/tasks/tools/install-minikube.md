@@ -20,33 +20,29 @@ VT-x or AMD-v virtualization must be enabled in your computer's BIOS.
 
 ## Install a Hypervisor
 
-If you do not already have a hypervisor installed, install one now.
+If you do not already have a hypervisor installed, install the appropriate one for your OS now:
 
-* For macOS, install
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
+* macOS: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
 [VMware Fusion](https://www.vmware.com/products/fusion), or
 [HyperKit](https://github.com/moby/hyperkit).
 
-* For Linux, install
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
+* Linux: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
 [KVM](http://www.linux-kvm.org/).
 
   {{< note >}}
-   **Note:** Minikube also supports a `-\-vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Docker is required to use this driver but a hypervisor is not required.
+   **Note:** Minikube also supports a `-\-vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Using this driver requires Docker, but not a hypervisor.
   {{< /note >}}
 
-* For Windows, install
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
+* Windows: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
 [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install).
 
 ## Install kubectl
 
-* [Install kubectl](/docs/tasks/tools/install-kubectl/).
+* Install kubectl according to the instructions in [Install and Set Up kubectl](/docs/tasks/tools/install-kubectl/).
 
 ## Install Minikube
 
-* Install Minikube according to the instructions for the
-[latest release](https://github.com/kubernetes/minikube/releases).
+* Install Minikube according to the instructions for the [latest release](https://github.com/kubernetes/minikube/releases).
 
 {{% /capture %}}
 
