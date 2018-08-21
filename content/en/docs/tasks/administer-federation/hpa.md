@@ -122,10 +122,10 @@ in the previous section.
 
 You can delete a federated HPA as you would delete a Kubernetes
 HPA; however, for a federated HPA, you must send the request to
-the federation API server instead of sending it to a specific Kubernetes cluster.
-It should also be noted that for the federated resource to be deleted from
-all underlying clusters, [cascading deletion](/docs/concepts/cluster-administration/federation/#cascading-deletion)
-should be used.
+the federation API server instead of to a specific Kubernetes cluster.
+{{< note >}}
+**Note:** For the federated resource to be deleted from all underlying clusters, [cascading deletion](/docs/concepts/cluster-administration/federation/#cascading-deletion) should be used.
+{{< /note >}}
 
 For example, you can do that using `kubectl` by running:
 
