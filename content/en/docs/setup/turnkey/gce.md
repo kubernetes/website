@@ -5,13 +5,16 @@ reviewers:
 - mikedanese
 - thockin
 title: Running Kubernetes on Google Compute Engine
+content_template: templates/task
 ---
+
+{{% capture overview %}}
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
-{{< toc >}}
+{{% /capture %}}
 
-### Before you start
+{{% capture prerequisites %}}
 
 If you want a simplified getting started experience and GUI for managing clusters, please consider trying [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) for hosted cluster installation and management.
 
@@ -33,7 +36,11 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 1. Make sure you can start up a GCE VM from the command line.  At least make sure you can do the [Create an instance](https://cloud.google.com/compute/docs/instances/#startinstancegcloud) part of the GCE Quickstart.
 1. Make sure you can SSH into the VM without interactive prompts.  See the [Log in to the instance](https://cloud.google.com/compute/docs/instances/#sshing) part of the GCE Quickstart.
 
-### Starting a cluster
+{{% /capture %}}
+
+{{% capture steps %}}
+
+## Starting a cluster
 
 You can install a client and start a cluster with either one of these commands (we list both in case only one is installed on your machine):
 
@@ -73,7 +80,7 @@ The next few steps will show you:
 1. How to delete the cluster
 1. How to start clusters with non-default options (like larger clusters)
 
-### Installing the Kubernetes command line tools on your workstation
+## Installing the Kubernetes command line tools on your workstation
 
 The cluster startup script will leave you with a running cluster and a `kubernetes` directory on your workstation.
 
@@ -84,20 +91,24 @@ up example apps.
 
 You can use `gcloud` to install the `kubectl` command-line tool on your workstation:
 
-    gcloud components install kubectl
+```shell
+gcloud components install kubectl
+```
 
+{{< note >}}
 **Note:** The kubectl version bundled with `gcloud` may be older than the one
 downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/kubectl/install/)
 document to see how you can set up the latest `kubectl` on your workstation.
+{{< /note >}}
 
-### Getting started with your cluster
+## Getting started with your cluster
 
-#### Inspect your cluster
+### Inspect your cluster
 
 Once `kubectl` is in your path, you can use it to look at your cluster. E.g., running:
 
 ```shell
-$ kubectl get --all-namespaces services
+kubectl get --all-namespaces services
 ```
 
 should show a set of [services](/docs/user-guide/services) that look something like this:
@@ -114,7 +125,7 @@ Similarly, you can take a look at the set of [pods](/docs/user-guide/pods) that 
 You can do this via the
 
 ```shell
-$ kubectl get --all-namespaces pods
+kubectl get --all-namespaces pods
 ```
 
 command.
@@ -135,13 +146,13 @@ kube-system   monitoring-influx-grafana-v1-piled             2/2       Running  
 
 Some of the pods may take a few seconds to start up (during this time they'll show `Pending`), but check that they all show as `Running` after a short period.
 
-#### Run some examples
+### Run some examples
 
 Then, see [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new cluster.
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/).  The [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) is a good "getting started" walkthrough.
 
-### Tearing down the cluster
+## Tearing down the cluster
 
 To remove/delete/teardown the cluster, use the `kube-down.sh` script.
 
@@ -152,7 +163,7 @@ cluster/kube-down.sh
 
 Likewise, the `kube-up.sh` in the same directory will bring it back up. You do not need to rerun the `curl` or `wget` command: everything needed to setup the Kubernetes cluster is now on your workstation.
 
-### Customizing
+## Customizing
 
 The script above relies on Google Storage to stage the Kubernetes release. It
 then will start (by default) a single master VM along with 4 worker VMs.  You
@@ -160,9 +171,9 @@ can tweak some of these parameters by editing `kubernetes/cluster/gce/config-def
 You can view a transcript of a successful cluster creation
 [here](https://gist.github.com/satnam6502/fc689d1b46db9772adea).
 
-### Troubleshooting
+## Troubleshooting
 
-#### Project settings
+### Project settings
 
 You need to have the Google Cloud Storage API, and the Google Cloud Storage
 JSON API enabled. It is activated by default for new projects. Otherwise, it
@@ -172,13 +183,13 @@ details.
 
 Also ensure that-- as listed in the [Prerequisites section](#prerequisites)-- you've enabled the `Compute Engine Instance Group Manager API`, and can start up a GCE VM from the command line as in the [GCE Quickstart](https://cloud.google.com/compute/docs/quickstart) instructions.
 
-#### Cluster initialization hang
+### Cluster initialization hang
 
 If the Kubernetes startup script hangs waiting for the API to be reachable, you can troubleshoot by SSHing into the master and node VMs and looking at logs such as `/var/log/startupscript.log`.
 
 **Once you fix the issue, you should run `kube-down.sh` to cleanup** after the partial cluster creation, before running `kube-up.sh` to try again.
 
-#### SSH
+### SSH
 
 If you're having trouble SSHing into your instances, ensure the GCE firewall
 isn't blocking port 22 to your VMs.  By default, this should work but if you
@@ -189,7 +200,7 @@ expose it: `gcloud compute firewall-rules create default-ssh --network=<network-
 Additionally, your GCE SSH key must either have no passcode or you need to be
 using `ssh-agent`.
 
-#### Networking
+### Networking
 
 The instances must be able to connect to each other using their private IP. The
 script uses the "default" network which should have a firewall rule called
@@ -214,3 +225,5 @@ For support level information on all solutions, see the [Table of solutions](/do
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
+
+{{% /capture %}}
