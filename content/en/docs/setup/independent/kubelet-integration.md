@@ -35,7 +35,7 @@ kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 The following sections describe patterns to kubelet configuration that are simplified by
 using kubeadm, rather than managing the kubelet configuration for each Node manually.
 
-### Propogating cluster-level configuration to each kubelet
+### Propagating cluster-level configuration to each kubelet
 
 You can provide the kubelet with default values to be used by `kubelet init` and `kubelet join`
 commands. Interesting examples include using a different CRI runtime or setting the default subnet
