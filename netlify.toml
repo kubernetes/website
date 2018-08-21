@@ -3,7 +3,7 @@
 # It is turned off for only for the production site by using [context.master] below
 # DO NOT REMOVE THIS (contact @chenopis or @sig-docs-maintainers)
 publish = "public"
-command = "hugo --enableGitInfo && cp netlify_noindex_headers.txt public/_headers"
+command = "make non-production-build"
 
 [build.environment]
 HUGO_VERSION = "0.47.1"
@@ -23,4 +23,4 @@ command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
 # This context is triggered by the `master` branch and allows search indexing
 # DO NOT REMOVE THIS (contact @chenopis or @sig-docs-maintainers)
 publish = "public"
-command = "hugo"
+command = "make production-build"
