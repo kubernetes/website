@@ -32,7 +32,7 @@ Once created, the Federated Service automatically:
 of your federated service can seamlessly locate an appropriate healthy service endpoint at all times, even in the event of cluster,
 availability zone or regional outages.
 
-Clients inside your federated Kubernetes clusters (i.e. Pods) will
+Clients inside your federated Kubernetes clusters (that is Pods) will
 automatically find the local shard of the Federated Service in their
 cluster if it exists and is healthy, or the closest healthy shard in a
 different cluster if it does not.
@@ -66,8 +66,8 @@ general, and [Services](/docs/concepts/services-networking/service/) in particul
 ## Hybrid cloud capabilities
 
 Federations of Kubernetes Clusters can include clusters running in
-different cloud providers (e.g. Google Cloud, AWS), and on-premises
-(e.g. on OpenStack). Simply create all of the clusters that you
+different cloud providers (such as Google Cloud or AWS), and on-premises
+(such as on OpenStack). Simply create all of the clusters that you
 require, in the appropriate cloud providers and/or locations, and
 register each cluster's API endpoint and credentials with your
 Federation API Server (See the
@@ -132,7 +132,8 @@ Session Affinity:       None
 Events:                 <none>
 ```
 
-Note the 'LoadBalancer Ingress' addresses of your Federated Service
+{{< note >}}
+**Note:** The 'LoadBalancer Ingress' addresses of your Federated Service
 correspond with the 'LoadBalancer Ingress' addresses of all of the
 underlying Kubernetes services (once these have been allocated - this
 may take a few seconds). For inter-cluster and inter-cloud-provider
@@ -140,10 +141,11 @@ networking between service shards to work correctly, your services
 need to have an externally visible IP address. [Service Type:
 Loadbalancer](/docs/concepts/services-networking/service/#loadbalancer)
 is typically used for this, although other options
-(e.g. [External IP's](/docs/concepts/services-networking/service/#external-ips)) exist.
+(for example [External IPs](/docs/concepts/services-networking/service/#external-ips)) exist.
+{{< /note >}}
 
 Note also that we have not yet provisioned any backend Pods to receive
-the network traffic directed to these addresses (i.e. 'Service
+the network traffic directed to these addresses (that is 'Service
 Endpoints'), so the Federated Service does not yet consider these to
 be healthy service shards, and has accordingly not yet added their
 addresses to the DNS records for this Federated Service (more on this
@@ -174,7 +176,7 @@ Note that `kubectl run` automatically adds the `run=nginx` labels required to as
 
 Once the above Pods have successfully started and have begun listening
 for connections, Kubernetes will report them as healthy endpoints of
-the service in that cluster (via automatic health checks). The Cluster
+the service in that cluster (through automatic health checks). The Cluster
 Federation will in turn consider each of these
 service 'shards' to be healthy, and place them in serving by
 automatically configuring corresponding public DNS records. You can
@@ -217,7 +219,8 @@ nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME     180   
 ... etc.
 ```
 
-Note: If your Federation is configured to use AWS Route53, you can use one of the equivalent AWS tools, for example:
+{{< note >}}
+**Note:** If your Federation is configured to use AWS Route53, you can use one of the equivalent AWS tools, for example:
 
 ``` shell
 $ aws route53 list-hosted-zones
@@ -227,11 +230,12 @@ and
 ``` shell
 $ aws route53 list-resource-record-sets --hosted-zone-id Z3ECL0L9QLOVBX
 ```
+{{< /note >}}
 
 Whatever DNS provider you use, any DNS query tool (for example 'dig'
 or 'nslookup') will of course also allow you to see the records
 created by the Federation for you. Note that you should either point
-these tools directly at your DNS provider (e.g. `dig
+these tools directly at your DNS provider (such as `dig
 @ns-cloud-e1.googledomains.com...`) or expect delays in the order of
 your configured TTL (180 seconds, by default) before seeing updates,
 due to caching by intermediate DNS servers.
@@ -240,7 +244,7 @@ due to caching by intermediate DNS servers.
 
 1. Notice that there is a normal ('A') record for each service shard that has at least one healthy backend endpoint. For example, in us-central1-a, 104.197.247.191 is the external IP address of the service shard in that zone, and in asia-east1-a the address is 130.211.56.221.
 2. Similarly, there are regional 'A' records which include all healthy shards in that region. For example, 'us-central1'.  These regional records are useful for clients which do not have a particular zone preference, and as a building block for the automated locality and failover mechanism described below.
-3. For zones where there are currently no healthy backend endpoints, a CNAME ('Canonical Name') record is used to alias (automatically redirect) those queries to the next closest healthy zone.  In the example, the service shard in us-central1-f currently has no healthy backend endpoints (i.e. Pods), so a CNAME record has been created to automatically redirect queries to other shards in that region (us-central1 in this case).
+3. For zones where there are currently no healthy backend endpoints, a CNAME ('Canonical Name') record is used to alias (automatically redirect) those queries to the next closest healthy zone.  In the example, the service shard in us-central1-f currently has no healthy backend endpoints (that is Pods), so a CNAME record has been created to automatically redirect queries to other shards in that region (us-central1 in this case).
 4. Similarly, if no healthy shards exist in the enclosing region, the search progresses further afield. In the europe-west1-d availability zone, there are no healthy backends, so queries are redirected to the broader europe-west1 region (which also has no healthy backends), and onward to the global set of healthy addresses (' nginx.mynamespace.myfederation.svc.example.com.').
 
 The above set of DNS records is automatically kept in sync with the
@@ -296,12 +300,12 @@ to this minor technical difference).
 But if the service does not exist in the local cluster (or it exists
 but has no healthy backend pods), the DNS query is automatically
 expanded to ```"nginx.mynamespace.myfederation.svc.us-central1-f.example.com"```
-(i.e. logically "find the external IP of one of the shards closest to
+(that is, logically "find the external IP of one of the shards closest to
 my availability zone"). This expansion is performed automatically by
 KubeDNS, which returns the associated CNAME record. This results in
 automatic traversal of the hierarchy of DNS records in the above
-example, and ends up at one of the external IP's of the Federated
-Service in the local us-central1 region (i.e. 104.197.247.191,
+example, and ends up at one of the external IPs of the Federated
+Service in the local us-central1 region (that is 104.197.247.191,
 104.197.244.180 or 104.197.245.170).
 
 It is of course possible to explicitly target service shards in
@@ -343,7 +347,7 @@ service with low latency (a few seconds). In addition, as alluded
 above, the Kubernetes Cluster Federation system automatically monitors
 the health of clusters and the endpoints behind all of the shards of
 your Federated Service, taking shards in and out of service as
-required (e.g. when all of the endpoints behind a service, or perhaps
+required (for example, when all of the endpoints behind a service, or perhaps
 the entire cluster or availability zone go down, or conversely recover
 from an outage). Due to the latency inherent in DNS caching (the cache
 timeout, or TTL for Federated Service DNS records is configured to 3
@@ -351,7 +355,7 @@ minutes, by default, but can be adjusted), it may take up to that long
 for all clients to completely fail over to an alternative cluster in
 the case of catastrophic failure. However, given the number of
 discrete IP addresses which can be returned for each regional service
-endpoint (see e.g. us-central1 above, which has three alternatives)
+endpoint (such as us-central1 above, which has three alternatives)
 many clients will fail over automatically to one of the alternative
 IP's in less time than that given appropriate configuration.
 
