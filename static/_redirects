@@ -210,6 +210,8 @@
 /docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
 
+/docs/imported/release/notes/ /docs/setup/release/notes/ 301
+
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
