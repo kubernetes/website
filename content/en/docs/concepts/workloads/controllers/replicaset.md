@@ -58,7 +58,7 @@ create the defined ReplicaSet and the pods that it manages.
 
 ```shell
 $ kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
-replicaset "frontend" created
+replicaset.apps/frontend created
 $ kubectl describe rs/frontend
 Name:		frontend
 Namespace:	default
