@@ -47,6 +47,7 @@ Credentials can be provided in several ways:
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
   - Using Azure Container Registry (ACR)
+  - Using IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
@@ -127,6 +128,8 @@ Once you have created your container registry, you will use the following creden
 Once you have those variables filled in you can
 [configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
+### Using IBM Cloud Container Registry
+You can use [IBM Cloud Container Registry](https://console.bluemix.net/docs/services/Registry/index.html) to deploy containers from an image into the `default` namespace of your IBM Cloud Kubernetes Service cluster. To deploy a container into other namespaces, or to use an image from a different region or account, use Kubernetes `imagePullSecret`. For more information, see [Building containers from images](https://console.bluemix.net/docs/containers/cs_images.html#images).
 
 ### Configuring Nodes to Authenticate to a Private Repository
 
@@ -347,5 +350,3 @@ common use cases and suggested solutions.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 
 {{% /capture %}}
-
-
