@@ -95,7 +95,7 @@ systemctl start docker
 ```
 
 
-## **Test the cluster and flannel configuration**
+## Test the cluster and flannel configuration
 
 Now check the interfaces on the nodes. Notice there is now a flannel.1 interface, and the ip addresses of docker0 and flannel.1 interfaces are in the same network. You will notice that docker0 is assigned a subnet (18.16.29.0/24 as shown below) on each Kubernetes node out of the IP range configured above. A working output should look like this:
 
