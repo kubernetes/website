@@ -1120,17 +1120,17 @@ specification, and to select the type of media to use, for clusters that have
 several media types.
 
 ## Out-of-Tree Volume Plugins
-The Out-of-tree volume plugins include the Container Storage Interface (`CSI`)
-and `Flexvolume`. They enable storage vendors to create custom storage plugins
+The Out-of-tree volume plugins include the Container Storage Interface (CSI)
+and Flexvolume. They enable storage vendors to create custom storage plugins
 without adding them to the Kubernetes repository. 
 
-Before the introduction of `CSI` and `Flexvolume`, all volume plugins (like
+Before the introduction of CSI and Flexvolume, all volume plugins (like
 volume types listed above) were "in-tree" meaning they were built, linked,
 compiled, and shipped with the core Kubernetes binaries and extend the core
 Kubernetes API. This meant that adding a new storage system to Kubernetes (a
 volume plugin) required checking code into the core Kubernetes code repository.
 
-Both `CSI` and `Flexvolume` allow volume plugins to be developed independent of
+Both CSI and Flexvolume allow volume plugins to be developed independent of
 the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
 extensions.
 
@@ -1226,7 +1226,7 @@ Learn how to
 
 ### Flexvolume
 
-`Flexvolume` is an out-of-tree plugin interface that has existed in Kubernetes
+Flexvolume is an out-of-tree plugin interface that has existed in Kubernetes
 since version 1.2 (before CSI). It uses an exec-based model to interface with
 drivers. Flexvolume driver binaries must be installed in a pre-defined volume
 plugin path on each node (and in some cases master).
@@ -1274,7 +1274,7 @@ Its values are:
    In addition, all volume mounts created by the Container will be propagated
    back to the host and to all Containers of all Pods that use the same volume.
 
-   A typical use case for this mode is a Pod with a `Flexvolume` or `CSI` driver or
+   A typical use case for this mode is a Pod with a Flexvolume or CSI driver or
    a Pod that needs to mount something on the host using a `hostPath` volume.
 
    This mode is equal to `rshared` mount propagation as described in the
