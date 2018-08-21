@@ -98,8 +98,8 @@ in the Kubernetes organization. Follow these steps:
     [Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md).
 
 3.  Let your sponsors know about the Github issue, either by at-mentioning them
-    in the Github issue (adding a comment with `@<Github-username>`) so that
-    they can add a `+1` vote.
+    in the Github issue (adding a comment with `@<Github-username>`) or by sending them the link directly,
+    so that they can add a `+1` vote.
 
 4.  When your membership is approved, the membership committee updates the
     Github issue to show approval and then closes the Github issue.
