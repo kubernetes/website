@@ -45,19 +45,17 @@ Once created, the Federated Ingress automatically:
 *  Monitors the health and capacity of the service shards (that is, your pods) behind this ingress in each cluster
 *  Ensures that all client connections are routed to an appropriate healthy backend service endpoint at all times, even in the event of pod, cluster, availability zone or regional outages
 
-Note that in the case of Google Cloud, the logical L7 load balancer is
-not a single physical device (which would present both a single point
-of failure, and a single global network routing choke point), but
-rather a
-[truly global, highly available load balancing managed service](https://cloud.google.com/load-balancing/),
-globally reachable via a single, static IP address.
+{{< note >}}
+**Note:** For Google Cloud, the logical L7 load balancer is not a single physical device (which would present both a single point of failure, and a single global network routing choke point), but rather a [truly global, highly available load balancing managed service](https://cloud.google.com/load-balancing/), globally reachable through a single, static IP address.
+{{< /note >}}
 
 Clients inside your federated Kubernetes clusters (Pods) will be
 automatically  routed to the cluster-local shard of the Federated Service
 backing the Ingress in their cluster if it exists and is healthy, or the closest healthy shard in a
-different cluster if it does not.  Note that this involves a network
-trip to the HTTP(s) load balancer, which resides outside your local
-Kubernetes cluster but inside the same GCP region.
+different cluster if it does not.  
+{{< note >}}
+**Note:** This involves a network trip to the HTTP(s) load balancer, which resides outside your local Kubernetes cluster but inside the same GCP region.
+{{< /note >}}
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -143,26 +141,12 @@ Events:
   2m        2m      1   {loadbalancer-controller }          Normal      CREATE  ip: 130.211.5.194
 ```
 
-Note that:
-
-*  The address of your Federated Ingress
-corresponds with the address of all of the
-underlying Kubernetes ingresses (once these have been allocated - this
-may take up to a few minutes).
-*  You have not yet provisioned any backend Pods to receive
-the network traffic directed to this ingress (that is, 'Service
-Endpoints' behind the service backing the Ingress), so the Federated Ingress does not yet consider these to
-be healthy shards and will not direct traffic to any of these clusters.
-*  The federation control system
-automatically reconfigures the load balancer controllers in all of the
-clusters in your federation to make them consistent, and allows
-them to share global load balancers.  But this reconfiguration can
-only complete successfully if there are no pre-existing Ingresses in
-those clusters (this is a safety feature to prevent accidental
-breakage of existing ingresses).  So, to ensure that your federated
-ingresses function correctly, either start with new, empty clusters, or make
-sure that you delete (and recreate if necessary) all pre-existing
-Ingresses in the clusters comprising your federation.
+{{< note >}}
+**Note:** 
+*  The address of your Federated Ingress corresponds with the address of all of the underlying Kubernetes ingresses (once these are allocated - this may take up to a few minutes).
+*  Because you have not yet provisioned any backend Pods to receive the network traffic directed to this ingress (that is, 'Service Endpoints' behind the service backing the Ingress), the Federated Ingress does not yet consider these to be healthy shards and will not direct traffic to any of these clusters.
+*  The federation control system automatically reconfigures the load balancer controllers in all of the clusters in your federation to make them consistent, and allows them to share global load balancers. However, this reconfiguration can only complete successfully when there are no pre-existing Ingresses in those clusters (this is a safety feature to prevent accidental breakage of existing ingresses).  To ensure your federated ingresses function correctly, either start with new, empty clusters, or make sure you delete (and recreate if necessary) all pre-existing Ingresses in the clusters comprising your federation.
+{{< /note >}}
 
 ## Adding backend services and pods
 
@@ -181,15 +165,9 @@ kubectl --context=federation-cluster create -f services/nginx.yaml
 kubectl --context=federation-cluster create -f myreplicaset.yaml
 ```
 
-Note that in order for your federated ingress to work correctly on
-Google Cloud, the node ports of all of the underlying cluster-local
-services need to be identical.  If you're using a federated service
-this is easy to do.  Simply pick a node port that is not already
-being used in any of your clusters, and add that to the spec of your
-federated service.  If you do not specify a node port for your
-federated service, each cluster will choose its own node port for
-its cluster-local shard of the service, and these will probably end
-up being different, which is not what you want.
+{{< note >}}
+**Note:** For your federated ingress to work correctly on Google Cloud, the node ports of all of the underlying cluster-local services must be identical. If you are using a federated service, this is easy to do. Simply pick a node port that is not already being used in any of your clusters, and then add that to the spec for your federated service. If you do not specify a node port for your federated service, each cluster will choose its own node port for its cluster-local shard of the service. These node ports will probably end up being different, which is not what you want.
+{{< /note >}}
 
 You can verify this by checking in each of the underlying clusters. For example:
 
