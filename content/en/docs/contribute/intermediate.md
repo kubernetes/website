@@ -149,7 +149,7 @@ has signed the CLA.
         the main purpose of the PR, such as a typo or whitespace error, you can
         call it out, prefixing your comment with `nit:` so that the author knows
         you consider it trivial. They should still address it.
-      - When you're reviewed everything, or if you didn't have any comments, go
+      - When you've reviewed everything, or if you didn't have any comments, go
         back to the top of the page and click **Review changes**. Choose either
         **Comment** or **Request Changes**. Add a summary of your review, and
         add appropriate
@@ -236,7 +236,7 @@ need to use the command line. You can always use this method, if you prefer it
 to the Github UI.
 
 1.  Get the URL for the author's fork. You can find it near the bottom of the
-    **Conversation** tab. Look for the text "Add more commits by pushing to".
+    **Conversation** tab. Look for the text **Add more commits by pushing to**.
     The first link after this phrase is to the branch, and the second link is
     to the fork. Copy the second link. Note the name of the branch for later.
 
@@ -387,7 +387,7 @@ most up-to-date version of that branch.
       ```
 
       {{< note >}}
-Do not reference a Github issue or pull request by ID or URL in the
+**Note:** Do not reference a Github issue or pull request by ID or URL in the
 commit message. If you do, it will cause that issue or pull request to get
 a notification every time the commit shows up in a new Git branch. You can
 link issues and pull requests together later, in the Github UI.
@@ -427,7 +427,7 @@ link issues and pull requests together later, in the Github UI.
       Click **Create pull request**.
 
 8.  Several automated tests will run against the state of the website with your
-    changes applied. If any of the tests fails, click the **Details** link for
+    changes applied. If any of the tests fail, click the **Details** link for
     more information. If the Netlify test completes successfully, its
     **Details** link goes to a staged version of the Kubernetes website with
     your changes applied. This is how reviewers will check your changes.
@@ -544,7 +544,7 @@ These guidelines are not set in stone and are subject to change.
   information in the issue text.
 - Some labels are manually added by the person triaging the issue (or the person
   reporting the issue, if they are a SIG Docs approvers).
-  - `Actionable`: there seems to be enough information for the issue to be fixed
+  - `Actionable`: There seems to be enough information for the issue to be fixed
     or acted upon.
   - `good first issue`: Someone with limited Kubernetes or SIG Docs experience
     might be able to tackle this issue.
