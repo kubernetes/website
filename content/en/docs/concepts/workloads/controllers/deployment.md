@@ -108,7 +108,7 @@ To see the Deployment rollout status, run `kubectl rollout status deployment/ngi
 
 ```shell
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-deployment "nginx-deployment" successfully rolled out
+deployment.apps/nginx-deployment successfully rolled out
 ```
 
 Run the `kubectl get deployments` again a few seconds later:
@@ -169,14 +169,14 @@ instead of the `nginx:1.7.9` image.
 
 ```shell
 $ kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
-deployment "nginx-deployment" image updated
+deployment.extensions/nginx-deployment image updated
 ```
 
 Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
 
 ```shell
 $ kubectl edit deployment/nginx-deployment
-deployment "nginx-deployment" edited
+deployment.extensions/nginx-deployment edited
 ```
 
 To see the rollout status, run:
@@ -184,7 +184,7 @@ To see the rollout status, run:
 ```shell
 $ kubectl rollout status deployment/nginx-deployment
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-deployment "nginx-deployment" successfully rolled out
+deployment.extensions/nginx-deployment successfully rolled out
 ```
 
 After the rollout succeeds, you may want to `get` the Deployment:
@@ -335,7 +335,7 @@ Suppose that you made a typo while updating the Deployment, by putting the image
 
 ```shell
 $ kubectl set image deployment/nginx-deployment nginx=nginx:1.91
-deployment "nginx-deployment" image updated
+deployment.extensions/nginx-deployment image updated
 ```
 
 The rollout will be stuck.
@@ -448,14 +448,14 @@ Now you've decided to undo the current rollout and rollback to the previous revi
 
 ```shell
 $ kubectl rollout undo deployment/nginx-deployment
-deployment "nginx-deployment" rolled back
+deployment.extensions/nginx-deployment
 ```
 
 Alternatively, you can rollback to a specific revision by specify that in `--to-revision`:
 
 ```shell
 $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
-deployment "nginx-deployment" rolled back
+deployment.extensions/nginx-deployment
 ```
 
 For more details about rollout related commands, read [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
@@ -502,7 +502,7 @@ You can scale a Deployment by using the following command:
 
 ```shell
 $ kubectl scale deployment nginx-deployment --replicas=10
-deployment "nginx-deployment" scaled
+deployment.apps/nginx-deployment scaled
 ```
 
 Assuming [horizontal pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) is enabled
@@ -511,7 +511,7 @@ Pods you want to run based on the CPU utilization of your existing Pods.
 
 ```shell
 $ kubectl autoscale deployment nginx-deployment --min=10 --max=15 --cpu-percent=80
-deployment "nginx-deployment" autoscaled
+deployment.extensions/nginx-deployment scaled
 ```
 
 ### Proportional scaling
@@ -533,7 +533,7 @@ You update to a new image which happens to be unresolvable from inside the clust
 
 ```shell
 $ kubectl set image deploy/nginx-deployment nginx=nginx:sometag
-deployment "nginx-deployment" image updated
+deployment.extensions/nginx-deployment image updated
 ```
 
 The image update starts a new rollout with ReplicaSet nginx-deployment-1989198191, but it's blocked due to the
@@ -587,14 +587,14 @@ Pause by running the following command:
 
 ```shell
 $ kubectl rollout pause deployment/nginx-deployment
-deployment "nginx-deployment" paused
+deployment.extensions/nginx-deployment paused
 ```
 
 Then update the image of the Deployment:
 
 ```shell
 $ kubectl set image deploy/nginx-deployment nginx=nginx:1.9.1
-deployment "nginx-deployment" image updated
+deployment.extensions/nginx-deployment image updated
 ```
 
 Notice that no new rollout started:
@@ -614,7 +614,7 @@ You can make as many updates as you wish, for example, update the resources that
 
 ```shell
 $ kubectl set resources deployment nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
-deployment "nginx-deployment" resource requirements updated
+deployment.extensions/nginx-deployment resource requirements updated
 ```
 
 The initial state of the Deployment prior to pausing it will continue its function, but new updates to
@@ -624,7 +624,7 @@ Eventually, resume the Deployment and observe a new ReplicaSet coming up with al
 
 ```shell
 $ kubectl rollout resume deploy/nginx-deployment
-deployment "nginx" resumed
+deployment.extensions/nginx-deployment resumed
 $ kubectl get rs -w
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   2         2         2         2m
@@ -683,7 +683,7 @@ successfully, `kubectl rollout status` returns a zero exit code.
 ```shell
 $ kubectl rollout status deploy/nginx-deployment
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
-deployment "nginx" successfully rolled out
+deployment.extensions/nginx-deployment successfully rolled out
 $ echo $?
 0
 ```
@@ -710,7 +710,7 @@ lack of progress for a Deployment after 10 minutes:
 
 ```shell
 $ kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
-deployment "nginx-deployment" patched
+deployment.extensions/nginx-deployment patched
 ```
 Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
 attributes to the Deployment's `.status.conditions`:
