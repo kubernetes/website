@@ -182,7 +182,7 @@ This Pod can be started and debugged with the following commands:
 
 ```shell
 $ kubectl create -f myapp.yaml
-pod "myapp-pod" created
+pod/myapp-pod created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -228,8 +228,8 @@ complete and the `myapp-pod` is created:
 
 ```shell
 $ kubectl create -f services.yaml
-service "myservice" created
-service "mydb" created
+service/myservice created
+service/mydb created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
