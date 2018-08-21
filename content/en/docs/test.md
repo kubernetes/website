@@ -341,8 +341,12 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 
 ## Includes
 
+{{% capture steps %}}
+
 To add shortcodes to includes.
 
 {{< note >}}
 {{< include "federation-current-state.md" >}}
 {{< /note >}}
+
+{{% /capture %}}
