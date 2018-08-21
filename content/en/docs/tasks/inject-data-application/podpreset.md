@@ -8,15 +8,11 @@ weight: 60
 
 {{% capture overview %}}
 
-You can use a `podpreset` object to inject information like secrets, volume
+You can use a `PodPreset` object to inject information like secrets, volume
 mounts, and environment variables etc into pods at creation time.
 This task shows some examples on using the `PodPreset` resource.
 
 {{% /capture %}}
-
-{{< toc >}}
-
-# Create a Pod Preset
 
 {{% capture prerequisites %}}
 
@@ -79,7 +75,7 @@ To see above output, run the following command:
 $ kubectl get pod website -o yaml
 ```
 
-## Pod Spec with `ConfigMap` Example
+## Pod Spec with ConfigMap Example
 
 This is an example to show how a Pod spec is modified by the Pod Preset
 that defines a `ConfigMap` for Environment Variables.
@@ -168,7 +164,7 @@ Events:
   Tue, 07 Feb 2017 16:56:12 -0700   Tue, 07 Feb 2017 16:56:12 -0700 1   {podpreset.admission.kubernetes.io/podpreset-allow-database }    conflict  Conflict on pod preset. Duplicate mountPath /cache.
 ```
 
-# Deleting a Pod Preset
+## Deleting a Pod Preset
 
 Once you don't need a pod preset anymore, you can delete it with `kubectl`:
 
