@@ -17,14 +17,13 @@ Create a fork of the Kubernetes documentation repository as described in
 
 ## Choosing a page type
 
-As you prepare to write a new topic, think about which of these page types
-is the best fit for your content:
+As you prepare to write a new topic, think about the page type that would fit your content the best:
 
 <table>
 
   <tr>
     <td>Concept</td>
-    <td>A concept page explains some aspect of Kubernetes. For example, a concept page might describe the Kubernetes Deployment object and explain the role it plays as an application is deployed, scaled, and updated. Typically, concept pages don't include sequences of steps, but instead provide links to tasks or tutorials. For an example of a concept topic, see <a href="/docs/concepts/architecture/nodes/">Nodes</a>.</td>
+    <td>A concept page explains some aspect of Kubernetes. For example, a concept page might describe the Kubernetes Deployment object and explain the role it plays as an application while it is deployed, scaled, and updated. Typically, concept pages don't include sequences of steps, but instead provide links to tasks or tutorials. For an example of a concept topic, see <a href="/docs/concepts/architecture/nodes/">Nodes</a>.</td>
   </tr>
 
   <tr>
