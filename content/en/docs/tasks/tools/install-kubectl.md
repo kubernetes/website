@@ -80,11 +80,13 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
         Install-Script -Name install-kubectl -Scope CurrentUser -Force
         install-kubectl.ps1 [-DownloadLocation <path>]
 
-If no Downloadlocation is specified, kubectl will be installed in users temp Directory
-2. The installer creates $HOME/.kube and instructs it to create a config file
-3. Updating
-re-run Install-Script to update the installer
-re-run install-kubectl.ps1 to install latest binaries
+If no `DownloadLocation` is specified, kubectl will be installed in the users temp's directory
+
+2. The installer creates the directory `%HOME%/.kube` and instructs it to create a config file
+
+3. Updating:
+  * Re-run the command `Install-Script` to update the installer
+  * Re-run the script `install-kubectl.ps1` to install latest binaries
 
 ## Install with Chocolatey on Windows
 
