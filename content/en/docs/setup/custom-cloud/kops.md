@@ -12,9 +12,9 @@ kops is an opinionated provisioning system:
 * Fully automated installation
 * Uses DNS to identify clusters
 * Self-healing: everything runs in Auto-Scaling Groups
-* Limited OS support (Debian preferred, Ubuntu 16.04 supported, early support for CentOS & RHEL)
-* High-Availability support
-* Can directly provision, or generate terraform manifests
+* Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/images.md)
+* High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/high_availability.md)
+* Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
 If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/docs/admin/kubeadm/) as
 a building block.  kops builds on the kubeadm work.
@@ -34,7 +34,7 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 On macOS:
 
 ```
-curl -OL https://github.com/kubernetes/kops/releases/download/1.8.0/kops-darwin-amd64
+curl -OL https://github.com/kubernetes/kops/releases/download/1.10.0/kops-darwin-amd64
 chmod +x kops-darwin-amd64
 mv kops-darwin-amd64 /usr/local/bin/kops
 # you can also install using Homebrew
@@ -44,7 +44,7 @@ brew update && brew install kops
 On Linux:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/1.8.0/kops-linux-amd64
+wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
 chmod +x kops-linux-amd64
 mv kops-linux-amd64 /usr/local/bin/kops
 ```
@@ -153,6 +153,7 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
+* See the `kops` [docs](https://github.com/kubernetes/kops) section for tutorials, best practices and advanced configuration options.
 
 ## Cleanup
 
@@ -160,6 +161,6 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 ## Feedback
 
-* Slack Channel: [#sig-aws](https://kubernetes.slack.com/messages/sig-aws/) has a lot of kops users
+* Slack Channel: [#kops-users](https://kubernetes.slack.com/messages/kops-users/)
 * [GitHub Issues](https://github.com/kubernetes/kops/issues)
 

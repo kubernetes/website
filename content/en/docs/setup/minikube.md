@@ -225,7 +225,7 @@ Starting the cluster again will restore it to it's previous state.
 The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the minikube virtual machine. No data or state is preserved.
 
-## Interacting With your Cluster
+## Interacting with Your Cluster
 
 ### Kubectl
 

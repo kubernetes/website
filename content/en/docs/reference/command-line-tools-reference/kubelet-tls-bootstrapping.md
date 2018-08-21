@@ -4,15 +4,18 @@ reviewers:
 - mikedanese
 - jcbsmpsn
 title: TLS bootstrapping
+content_template: templates/concept
 ---
 
-{{< toc >}}
-
-## Overview
+{{% capture overview %}}
 
 This document describes how to set up TLS client certificate bootstrapping for kubelets.
 Kubernetes 1.4 introduced an API for requesting certificates from a cluster-level Certificate Authority (CA). The original intent of this API is to enable provisioning of TLS client certificates for kubelets. The proposal can be found [here](https://github.com/kubernetes/kubernetes/pull/20439)
 and progress on the feature is being tracked as [feature #43](https://github.com/kubernetes/features/issues/43).
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## kube-apiserver configuration
 
@@ -24,16 +27,18 @@ controller. As this feature matures, you should ensure tokens are bound to a Rol
 
 While any authentication strategy can be used for the kubelet's initial bootstrap credentials, the following two authenticators are recommended for ease of provisioning.
 
-1. [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) - __alpha__
+1. [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) - __beta__
 2. [Token authentication file](#token-authentication-file)
 
-Using bootstrap tokens is currently __alpha__ and will simplify the management of bootstrap token management especially in a HA scenario. 
+Using bootstrap tokens is currently __beta__ and will simplify the management of bootstrap token management especially in a HA scenario.
 
 ### Token authentication file
 Tokens are arbitrary but should represent at least 128 bits of entropy derived from a secure random number
 generator (such as /dev/urandom on most modern systems). There are multiple ways you can generate a token. For example:
 
-`head -c 16 /dev/urandom | od -An -t x | tr -d ' '`
+```
+head -c 16 /dev/urandom | od -An -t x | tr -d ' '
+```
 
 will generate tokens that look like `02b50b05283e98dd0fd71db496ef01e8`
 
@@ -194,11 +199,13 @@ kubectl config set-credentials kubelet-bootstrap --token=${BOOTSTRAP_TOKEN} --ku
 
 When starting the kubelet, if the file specified by `--kubeconfig` does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On approval of the certificate request and receipt back by the kubelet, a kubeconfig file referencing the generated key and obtained certificate is written to the path specified by `--kubeconfig`. The certificate and key file will be placed in the directory specified by `--cert-dir`.
 
+{{< note >}}
 **Note:** The following flags are required to enable this bootstrapping when starting the kubelet:
 
 ```
 --bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
 ```
+{{< /note >}}
 
 Additionally, in 1.7 the kubelet implements __alpha__ features for enabling rotation of both its client and/or serving certs.
 These can be enabled through the respective `RotateKubeletClientCertificate` and `RotateKubeletServerCertificate` feature
@@ -220,3 +227,5 @@ approval controller, but for the alpha version of the API it can be done manuall
 An administrator can list CSRs with `kubectl get csr` and describe one in detail with `kubectl describe csr <name>`. Before the 1.6 release there were
 [no direct approve/deny commands](https://github.com/kubernetes/kubernetes/issues/30163) so an approver had to update
 the Status field directly ([rough how-to](https://github.com/gtank/csrctl)). Later versions of Kubernetes offer `kubectl certificate approve <name>` and `kubectl certificate deny <name>` commands.
+
+{{% /capture %}}

@@ -31,7 +31,7 @@ frontend and backend are connected using a Kubernetes Service object.
   [Services with external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/), which
   require a supported environment. If your environment does not
   support this, you can use a Service of type
-  [NodePort](/docs/concepts/services-networking/service/#type-nodeport) instead.
+  [NodePort](/docs/concepts/services-networking/service/#nodeport) instead.
 
 {{% /capture %}}
 
@@ -148,11 +148,11 @@ deployment.apps/frontend created
 service/frontend created
 ```
 
-**Note**: The nginx configuration is baked into the
+{{< note >}}**Note:** The nginx configuration is baked into the
 [container image](/examples/service/access/Dockerfile).
 A better way to do this would be to use a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/), so
-that you can change the configuration more easily.
+you can change the configuration more easily.{{< /note >}}
 
 ### Interact with the frontend Service
 
