@@ -289,7 +289,7 @@ The output is:
 
 ### Include Statements
 
-Shortcodes inside of include statements will break the build. You must insert them in the document (before and after you call the include). For example:
+Shortcodes inside include statements will break the build. You must insert them in the parent document, before and after you call the include. For example:
 
 ```
 {{< note >}}
