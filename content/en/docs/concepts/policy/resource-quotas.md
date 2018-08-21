@@ -390,7 +390,9 @@ Kubectl supports creating, updating, and viewing quotas:
 
 ```shell
 kubectl create namespace myspace
+```
 
+```shell
 cat <<EOF > compute-resources.yaml
 apiVersion: v1
 kind: ResourceQuota
@@ -405,8 +407,13 @@ spec:
     limits.memory: 2Gi
     requests.nvidia.com/gpu: 4
 EOF
-kubectl create -f ./compute-resources.yaml --namespace=myspace
+```
 
+```shell
+kubectl create -f ./compute-resources.yaml --namespace=myspace
+```
+
+```shell
 cat <<EOF > object-counts.yaml
 apiVersion: v1
 kind: ResourceQuota
@@ -421,14 +428,27 @@ spec:
     services: "10"
     services.loadbalancers: "2"
 EOF
-kubectl create -f ./object-counts.yaml --namespace=myspace
+```
 
+```shell
+kubectl create -f ./object-counts.yaml --namespace=myspace
+```
+
+```shell
 kubectl get quota --namespace=myspace
+```
+
+```shell
 NAME                    AGE
 compute-resources       30s
 object-counts           32s
+```
 
+```shell
 kubectl describe quota compute-resources --namespace=myspace
+```
+
+```shell
 Name:                    compute-resources
 Namespace:               myspace
 Resource                 Used  Hard
@@ -439,9 +459,13 @@ pods                     0     4
 requests.cpu             0     1
 requests.memory          0     1Gi
 requests.nvidia.com/gpu  0     4
+```
 
-
+```shell
 kubectl describe quota object-counts --namespace=myspace
+```
+
+```shell
 Name:                   object-counts
 Namespace:              myspace
 Resource                Used    Hard
@@ -459,12 +483,21 @@ using the syntax `count/<resource>.<group>`:
 
 ```shell
 kubectl create namespace myspace
+```
 
+```shell
 kubectl create quota test --hard=count/deployments.extensions=2,count/replicasets.extensions=4,count/pods=3,count/secrets=4 --namespace=myspace
+```
 
+```shell
 kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+```
 
+```shell
 kubectl describe quota --namespace=myspace
+```
+
+```shell
 Name:                         test
 Namespace:                    myspace
 Resource                      Used  Hard
@@ -503,8 +536,7 @@ With this mechanism, operators will be able to restrict usage of certain high pr
 
 To enforce this, kube-apiserver flag `--admission-control-config-file` should be used to pass path to the following configuration file:
 
-```shell
-$ cat admission_config_file.yml
+```yaml
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
@@ -522,7 +554,7 @@ plugins:
 
 Now, "cluster-services" pods will be allowed in only those namespaces where a quota object with a matching `scopeSelector` is present.
 For example:
-```shell
+```yaml
     scopeSelector:
       matchExpressions:
       - operator : In
@@ -530,7 +562,9 @@ For example:
         values: ["cluster-services"]
 ```
 
-**NOTE:** `scopeSelector` is an alpha field and feature gate `ResourceQuotaScopeSelectors` must be enabled before using it.
+{{< note >}}
+**Note:** `scopeSelector` is an alpha field and feature gate `ResourceQuotaScopeSelectors` must be enabled before using it.
+{{< /note >}}
 
 See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota supoport for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
 
