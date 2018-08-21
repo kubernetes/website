@@ -52,7 +52,7 @@ This is a living document. If you think of something that is not on this list bu
 
   If you only need access to the port for debugging purposes, you can use the [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) or [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
 
-  If you explicitly need to expose a Pod's port on the node, consider using a [NodePort](/docs/concepts/services-networking/service/#type-nodeport) Service before resorting to `hostPort`.
+  If you explicitly need to expose a Pod's port on the node, consider using a [NodePort](/docs/concepts/services-networking/service/#nodeport) Service before resorting to `hostPort`.
 
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
 

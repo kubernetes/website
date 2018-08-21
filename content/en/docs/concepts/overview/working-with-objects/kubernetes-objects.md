@@ -49,7 +49,7 @@ $ kubectl create -f https://k8s.io/examples/application/deployment.yaml --record
 The output is similar to this:
 
 ```shell
-deployment "nginx-deployment" created
+deployment.apps/nginx-deployment created
 ```
 
 ### Required Fields

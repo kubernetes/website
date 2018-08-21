@@ -75,12 +75,12 @@ $ kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
                         --labels=app=hostnames \
                         --port=9376 \
                         --replicas=3
-deployment "hostnames" created
+deployment.apps/hostnames created
 ```
 
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
-Note that this is the same as if you had started the `Deployment` with
-the following YAML:
+{{< note >}}
+**Note:** This is the same as if you started the `Deployment` with the following YAML:
 
 ```yaml
 apiVersion: apps/v1
@@ -104,6 +104,7 @@ spec:
         - containerPort: 9376
           protocol: TCP
 ```
+{{< /note >}}
 
 Confirm your `Pods` are running:
 
@@ -134,6 +135,7 @@ So the first thing to check is whether that `Service` actually exists:
 
 ```shell
 $ kubectl get svc hostnames
+No resources found.
 Error from server (NotFound): services "hostnames" not found
 ```
 
@@ -142,15 +144,15 @@ walk-through - you can use your own `Service`'s details here.
 
 ```shell
 $ kubectl expose deployment hostnames --port=80 --target-port=9376
-service "hostnames" exposed
+service/hostnames exposed
 ```
 
 And read it back, just to be sure:
 
 ```shell
 $ kubectl get svc hostnames
-NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
-hostnames   10.0.1.175   <none>        80/TCP    5s
+NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 ```
 
 As before, this is the same as if you had started the `Service` with YAML:
@@ -212,8 +214,8 @@ Note the suffix here: "default.svc.cluster.local".  The "default" is the
 The "cluster.local" is your cluster domain, which COULD be different in your
 own cluster.
 
-You can also try this from a `Node` in the cluster (note: 10.0.0.10 is my DNS
-`Service`, yours might be different):
+You can also try this from a `Node` in the cluster:
+{{< note >}}**Note:** 10.0.0.10 is my DNS `Service`, yours might be different){{< /note >}}
 
 ```shell
 u@node$ nslookup hostnames.default.svc.cluster.local 10.0.0.10
@@ -382,8 +384,8 @@ as the `Service` selecting for `run=hostnames`, but the `Deployment` specifying
 
 At this point, we know that your `Service` exists and has selected your `Pods`.
 Let's check that the `Pods` are actually working - we can bypass the `Service`
-mechanism and go straight to the `Pods`.  Note that these commands use the `Pod`
-port (9376), rather than the `Service` port (80).
+mechanism and go straight to the `Pods`.  
+{{< note >}}**Note:** These commands use the `Pod` port (9376), rather than the `Service` port (80).{{< /note >}}
 
 ```shell
 u@pod$ wget -qO- 10.244.0.5:9376
