@@ -155,19 +155,26 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 
 ### Deleting a ReplicaSet and its Pods
 
-To delete a ReplicaSet and all its pods, use [`kubectl
-delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). Kubectl will scale the ReplicaSet to zero and wait
-for it to delete each pod before deleting the ReplicaSet itself. If this kubectl command is interrupted, it can
-be restarted.
+To delete a ReplicaSet and all of its Pods, use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). The [Garbage collector](/docs/concepts/workloads/controllers/garbage-collection/) automatically deletes all of the dependent Pods by default.
 
-When using the REST API or go client library, you need to do the steps explicitly (scale replicas to
-0, wait for pod deletions, then delete the ReplicaSet).
+When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Background` or `Foreground` in delete option. e.g. :
+```shell
+kubectl proxy --port=8080
+curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+> -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
+> -H "Content-Type: application/json"
+```
 
 ### Deleting just a ReplicaSet
 
-You can delete a ReplicaSet without affecting any of its pods, using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=false` option.
-
-When using the REST API or go client library, simply delete the ReplicaSet object.
+You can delete a ReplicaSet without affecting any of its pods using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=false` option.
+When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Orphan`, e.g. :
+```shell
+kubectl proxy --port=8080
+curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+> -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
+> -H "Content-Type: application/json"
+```
 
 Once the original is deleted, you can create a new ReplicaSet to replace it.  As long
 as the old and new `.spec.selector` are the same, then the new one will adopt the old pods.
