@@ -9,7 +9,7 @@ title: Auditing
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
+{{< feature-state state="stable" >}}
 
 Kubernetes auditing provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators
@@ -83,7 +83,7 @@ You can use a minimal audit policy file to log all requests at the `Metadata` le
 
 ```yaml
 # Log all requests at the Metadata level.
-apiVersion: audit.k8s.io/v1beta1
+apiVersion: audit.k8s.io/v1
 kind: Policy
 rules:
 - level: Metadata
@@ -102,7 +102,7 @@ Audit backends persist audit events to an external storage.
 
 In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
-[`v1beta1`][auditing-api].
+[`v1`][auditing-api].
 
 {{< note >}}
 **Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
@@ -397,7 +397,7 @@ and `audit-log-maxage` options.
 
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
-[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
+[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
 [kubeconfig]: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
