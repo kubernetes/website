@@ -484,7 +484,7 @@ $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/
 
 {{< caution >}}
 **Caution:** Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
-{{< caution >}}
+{{< /caution >}}
 
 
 Now we can create a pod which references the secret with the ssh key and
