@@ -1,21 +1,22 @@
 <div id="cellophane" onclick="kub.toggleMenu()"></div>
 
 <header>
-    <a href="/" class="logo"></a>
+    <a href="{{ .Site.Home.RelPermalink }}" class="logo"></a>
 
     <div class="nav-buttons" data-auto-burger="primary">
         <ul class="global-nav">
-            {{ $sections := slice "docs" "blog" "partners" "community" "case-studies" }}
+            {{ $sections := slice "docs/home" "blog" "partners" "community" "case-studies" }}
             {{ range $sections }}
-            {{ with $.Site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+            {{ with $.Site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}"{{ if eq .Section $.Section }} class="active"{{ end}}>{{ .LinkTitle }}</a></li>{{ end }}
             {{ end }}
-            {{ $home := .Site.Home }}
+            {{/* Link directly to documentation etc., if possible. */}}
+            {{ $langPage := cond (gt (len .Translations) 0) . .Site.Home }}
              <li>
                 <a href="#">
-                    {{ $home.Language.LanguageName }} <span class="ui-icon ui-icon-carat-1-s"></span>
+                    {{ $langPage.Language.LanguageName }} <span class="ui-icon ui-icon-carat-1-s"></span>
                 </a>
                 <ul>
-                {{ range $home.Translations }}
+                {{ range $langPage.Translations }}
                     <li><a href="{{  .RelPermalink }}">{{ .Language.LanguageName }}</a></li>
                 {{ end }}
                 </ul>
@@ -32,45 +33,37 @@
                 </ul>
             </li>
         </ul>
-        <!-- <a href="/docs/home" class="button" id="viewDocs" data-auto-burger-exclude>View Documentation</a> -->
-        <a href="/docs/tutorials/kubernetes-basics/" class="button" id="tryKubernetes" data-auto-burger-exclude>Try Kubernetes</a>
+        {{ with .Site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
+        <a href="{{ .RelPermalink }}" class="button" id="tryKubernetes" data-auto-burger-exclude>{{ .LinkTitle }}</a>
+        {{ end }}
+
         <button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
     </div>
 
     <nav id="mainNav">
         <main data-auto-burger="primary">
-        <div class="nav-box">
-            <h3><a href="/docs/tutorials/stateless-application/hello-minikube/">Get Started</a></h3>
-            <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
+         {{ range .Site.Menus.main }}
+           <div class="nav-box">
+            <h3><a href="{{ .URL }}">{{ .Title }}</a></h3>
+           {{ .Post }}
         </div>
-        <div class="nav-box">
-            <h3><a href="/docs/home/">Documentation</a></h3>
-            <p>Learn how to use Kubernetes with the use of walkthroughs, samples, and reference documentation. You can even <a href="/editdocs/" data-auto-burger-exclude>help contribute to the docs</a>!</p>
-        </div>
-        <div class="nav-box">
-            <h3><a href="/community/">Community</a></h3>
-            <p>If you need help, you can connect with other Kubernetes users and the Kubernetes authors, attend community events, and watch video presentations from around the web.</p>
-        </div>
-        <div class="nav-box">
-            <h3><a href="/blog/">Blog</a></h3>
-            <p>Read the latest news for Kubernetes and the containers space in general, and get technical how-tos hot off the presses.</p>
-        </div>
+         {{ end }}
         </main>
         <main data-auto-burger="primary">
         <div class="left">
-            <h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
-            <a href="https://github.com/kubernetes/kubernetes" class="button" data-auto-burger-exclude>View On Github</a>
+            <h5 class="github-invite">{{ T "main_github_invite" }}</h5>
+            <a href="https://github.com/kubernetes/kubernetes" class="button" data-auto-burger-exclude>{{ T "main_github_view_on" }}</a>
         </div>
 
         <div class="right">
-            <h5 class="github-invite">Explore the community</h5>
+            <h5 class="github-invite">{{ T "main_community_explore" }}</h5>
             <div class="social">
-                <a href="https://twitter.com/kubernetesio" class="twitter"><span>Twitter</span></a>
-                <a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
-                <a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
-                <a href="https://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>Stack Overflow</span></a>
-                <a href="https://discuss.kubernetes.io" class="mailing-list"><span>Forum</span></a>
-                <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>Events Calendar</span></a>
+                <a href="https://twitter.com/kubernetesio" class="twitter"><span>{{ T "community_twitter_name" }}</span></a>
+                <a href="https://github.com/kubernetes/kubernetes" class="github"><span>{{ T "community_github_name" }}</span></a>
+                <a href="http://slack.k8s.io/" class="slack"><span>{{ T "community_slack_name" }} Slack</span></a>
+                <a href="https://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>{{ T "community_stack_overflow_name" }}</span></a>
+                <a href="https://discuss.kubernetes.io" class="mailing-list"><span>{{ T "community_forum_name" }}</span></a>
+                <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
             </div>
         </div>
         <div class="clear" style="clear: both"></div>
