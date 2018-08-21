@@ -35,7 +35,7 @@ IP of requests it receives through an HTTP header. You can create it as follows:
 
 ```console
 $ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
-deployment "source-ip-app" created
+deployment.apps/source-ip-app created
 ```
 
 {{% /capture %}}
@@ -60,10 +60,10 @@ a `proxyMode` endpoint:
 
 ```console
 $ kubectl get nodes
-NAME                           STATUS     AGE     VERSION
-kubernetes-minion-group-6jst   Ready      2h      v1.6.0+fff5156
-kubernetes-minion-group-cx31   Ready      2h      v1.6.0+fff5156
-kubernetes-minion-group-jj1t   Ready      2h      v1.6.0+fff5156
+NAME                           STATUS     ROLES    AGE     VERSION
+kubernetes-minion-group-6jst   Ready      <none>   2h      v1.11.1
+kubernetes-minion-group-cx31   Ready      <none>   2h      v1.11.1
+kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.11.1
 
 kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
 iptables
@@ -73,11 +73,11 @@ You can test source IP preservation by creating a Service over the source IP app
 
 ```console
 $ kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
-service "clusterip" exposed
+service/clusterip exposed
 
 $ kubectl get svc clusterip
-NAME         CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
-clusterip    10.0.170.92   <none>        80/TCP    51s
+NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 ```
 
 And hitting the `ClusterIP` from a pod in the same cluster:
@@ -116,7 +116,7 @@ are source NAT'd by default. You can test this by creating a `NodePort` Service:
 
 ```console
 $ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
-service "nodeport" exposed
+service/nodeport exposed
 
 $ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
 $ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
@@ -171,7 +171,7 @@ Set the `service.spec.externalTrafficPolicy` field as follows:
 
 ```console
 $ kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
-service "nodeport" patched
+service/nodeport patched
 ```
 
 Now, re-run the test:
@@ -220,11 +220,11 @@ You can test this by exposing the source-ip-app through a loadbalancer
 
 ```console
 $ kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
-service "loadbalancer" exposed
+service/loadbalancer exposed
 
 $ kubectl get svc loadbalancer
-NAME           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
-loadbalancer   10.0.65.118   104.198.149.140   80/TCP    5m
+NAME           TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
+loadbalancer   LoadBalancer   10.0.65.118   104.198.149.140   80/TCP    5m
 
 $ curl 104.198.149.140
 CLIENT VALUES:
