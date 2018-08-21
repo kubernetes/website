@@ -1,7 +1,7 @@
 ---
 reviewers:
 - janetkuo
-title: Performing a Rollback on a DaemonSet
+title: Perform a Rollback on a DaemonSet
 content_template: templates/task
 ---
 
