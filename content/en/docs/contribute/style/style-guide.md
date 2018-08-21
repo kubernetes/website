@@ -292,9 +292,9 @@ The output is:
 Shortcodes inside include statements will break the build. You must insert them in the parent document, before and after you call the include. For example:
 
 ```
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{</* note */>}}
+{{</* include "federation-current-state.md" */>}}
+{{</* /note */>}}
 ```
 
 ## Content best practices
