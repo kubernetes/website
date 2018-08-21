@@ -16,7 +16,10 @@ This guide shows you how to install and write extensions for [kubectl](/docs/use
 
 {{% capture prerequisites %}}
 
-You need to have a working `kubectl` binary installed. Note that plugins were officially introduced as an alpha feature in the v1.8.0 release. So, while some parts of the plugins feature were already available in previous versions, a `kubectl` version of 1.8.0 or later is recommended.
+You need to have a working `kubectl` binary installed. 
+{{< note >}}
+**Note:** Plugins were officially introduced as an alpha feature in the v1.8.0 release. So, while some parts of the plugins feature were already available in previous versions, a `kubectl` version of 1.8.0 or later is recommended.
+{{< /note >}}
 
 Until a GA version is released, plugins will only be available under the `kubectl plugin` subcommand.
 
@@ -28,7 +31,9 @@ Until a GA version is released, plugins will only be available under the `kubect
 
 A plugin is nothing more than a set of files: at least a **plugin.yaml** descriptor, and likely one or more binary, script, or assets files. To install a plugin, copy those files to one of the locations in the filesystem where `kubectl` searches for plugins.
 
-Note that Kubernetes does not provide a package manager or something similar to install or update plugins, so it's your responsibility to place the plugin files in the correct location. We recommend that each plugin is located on its own directory, so installing a plugin that is distributed as a compressed file is as simple as extracting it to one of the locations specified in the [Plugin loader](#plugin-loader) section.
+{{< note >}}
+**Note:** Kubernetes does not provide a package manager or anything similar to install or update plugins. It is your responsibility to place the plugin files in the correct location. We recommend that each plugin be stored in its own directory so that installing a plugin distributed as a compressed file is as simple as extracting it to one of the locations specified in the [Plugin loader](#plugin-loader) section.
+{{< /note >}}
 
 ### Plugin loader
 
