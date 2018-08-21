@@ -619,8 +619,8 @@ $ kubectl drain mynode
 Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
 
 $ kubectl drain mynode --as=superman --as-group=system:masters
-node "mynode" cordoned
-node "mynode" drained
+node/mynode cordoned
+node/mynode drained
 ```
 
 To impersonate a user, group, or set extra fields, the impersonating user must
