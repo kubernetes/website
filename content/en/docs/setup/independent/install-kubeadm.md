@@ -21,7 +21,7 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
   - RHEL 7
   - Fedora 25/26 (best-effort)
   - HypriotOS v1.0.1+
-  - Container Linux (tested with 1576.4.0)
+  - Container Linux (tested with 1800.6.0)
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more 
 * Full network connectivity between all machines in the cluster (public or private network is fine)
@@ -211,6 +211,14 @@ Install CNI plugins (required for most pod network):
 CNI_VERSION="v0.6.0"
 mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
+```
+
+Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
+
+```bash
+CRICTL_VERSION="v1.11.1"
+mkdir -p /opt/bin
+curl -L "https://github.com/kubernetes-incubator/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
 ```
 
 Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
