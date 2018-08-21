@@ -59,8 +59,6 @@ To write a new concept page, create a Markdown file in a subdirectory of the
     
     {{%/* /capture */%}}
     
-    {{</* toc */>}}
-    
     {{%/* capture body */%}}
     
     {{%/* /capture */%}}
@@ -76,7 +74,6 @@ To write a new concept page, create a Markdown file in a subdirectory of the
   - Use a minimum of H2 headings (with two leading `#` characters). The sections
     themselves are titled automatically by the template.
   - For `overview`, use a paragraph to set context for the entire topic.
-  - Add the `&lcub;&lcub;&lt; toc &gt;&rcub;&rcub;` shortcode to show an in-page table of contents.
   - For `body`, explain the concept using free-form Markdown.
   - For `whatsnext`, give a bullet list of up to 5 topics the reader might be
     interested in reading next.
@@ -116,8 +113,6 @@ To write a new task page, create a Markdown file in a subdirectory of the
   
     {{%/* /capture */%}}
     
-    {{</* toc */>}}
-    
     {{%/* capture prerequisites */%}}
     
     {{</* include "task-tutorial-prereqs.md" */>}} {{</* version-check */>}}
@@ -143,7 +138,6 @@ To write a new task page, create a Markdown file in a subdirectory of the
   - Use a minimum of H2 headings (with two leading `#` characters). The sections
     themselves are titled automatically by the template.
   - For `overview`, use a paragraph to set context for the entire topic.
-  - Add the `&lcub;&lcub;&lt; toc &gt;&rcub;&rcub;` shortcode to show an in-page table of contents.
   - For `prerequisites`, use bullet lists when possible. Start adding additional
     prerequisites below the `include`. The default prerequisites include a running Kubernetes cluster.
   - For `steps`, use numbered lists.
@@ -189,8 +183,6 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
     
     {{%/* /capture */%}}
     
-    {{</* toc */>}}
-    
     {{%/* capture prerequisites */%}}
     
     {{</* include "task-tutorial-prereqs.md" */>}} {{</* version-check */>}}
@@ -219,7 +211,6 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
   - Use a minimum of H2 headings (with two leading `#` characters). The sections
     themselves are titled automatically by the template.
   - For `overview`, use a paragraph to set context for the entire topic.
-  - Add the `&lcub;&lcub;&lt; toc &gt;&rcub;&rcub;` shortcode to show an in-page table of contents.
   - For `prerequisites`, use bullet lists when possible. Add additional
     prerequisites below the ones included by default.
   - For `objectives`, use bullet lists.
