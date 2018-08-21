@@ -1,4 +1,4 @@
-## The Kubernetes documentation
+# The Kubernetes documentation
 
 Welcome! This repository houses all of the assets required to build the Kubernetes website and documentation. We're very pleased that you want to contribute!
 
