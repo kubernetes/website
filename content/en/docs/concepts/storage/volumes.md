@@ -756,7 +756,7 @@ spec:
     image: busybox
     volumeMounts:
     - name: token-vol
-      mountPath: "/sevice-account"
+      mountPath: "/service-account"
       readOnly: true
   volumes:
   - name: token-vol

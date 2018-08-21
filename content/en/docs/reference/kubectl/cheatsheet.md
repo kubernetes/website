@@ -233,7 +233,9 @@ kubectl -n my-ns delete po,svc --all                                      # Dele
 
 ```bash
 kubectl logs my-pod                                 # dump pod logs (stdout)
+kubectl logs my-pod --previous                      # dump pod logs (stdout) for a previous instantiation of a container
 kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
+kubectl logs my-pod -c my-container --previous      # dump pod container logs (stdout, multi-container case) for a previous instantiation of a container
 kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell

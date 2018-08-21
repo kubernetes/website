@@ -35,10 +35,22 @@ This page provides a real world example of how to configure Redis using a Config
 
 You can follow the steps below to configure a Redis cache using data stored in a ConfigMap.
 
-First create a ConfigMap from the `examples/pods/config/redis-config` file:
+First create a ConfigMap from the `redis-config` file:
+
+{{< codenew file="pods/config/redis-config" >}}
 
 ```shell
-kubectl create configmap example-redis-config --from-file=https://k8s.io/examples/pods/config/redis-config
+curl -OL https://k8s.io/examples/pods/config/redis-config
+kubectl create configmap example-redis-config --from-file=redis-config
+```
+
+```shell
+configmap/example-redis-config created
+```
+
+Examine the created ConfigMap:
+
+```shell
 kubectl get configmap example-redis-config -o yaml
 ```
 

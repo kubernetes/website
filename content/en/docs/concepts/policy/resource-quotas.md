@@ -213,159 +213,160 @@ works as follows:
 - Pods in the cluster have one of the three priority classes, "low", "medium", "high".
 - One quota object is created for each priority.
 
-1.  Save the following YAML to a file `quota.yml`.
+Save the following YAML to a file `quota.yml`.
 
-      ```yaml
-      apiVersion: v1
-      kind: List
-      items:
-      - apiVersion: v1
-        kind: ResourceQuota
-        metadata:
-          name: pods-high
-        spec:
-          hard:
-            cpu: "1000"
-            memory: 200Gi
-            pods: "10"
-          scopeSelector:
-            matchExpressions:
-            - operator : In
-              scopeName: PriorityClass
-              values: ["high"]
-      - apiVersion: v1
-        kind: ResourceQuota
-        metadata:
-          name: pods-medium
-        spec:
-          hard:
-            cpu: "10"
-            memory: 20Gi
-            pods: "10"
-          scopeSelector:
-            matchExpressions:
-            - operator : In
-              scopeName: PriorityClass
-              values: ["medium"]
-      - apiVersion: v1
-        kind: ResourceQuota
-        metadata:
-          name: pods-low
-        spec:
-          hard:
-            cpu: "5"
-            memory: 10Gi
-            pods: "10"
-          scopeSelector:
-            matchExpressions:
-            - operator : In
-              scopeName: PriorityClass
-              values: ["low"]
-      ```
+```yaml
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pods-high
+  spec:
+    hard:
+      cpu: "1000"
+      memory: 200Gi
+      pods: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator : In
+	scopeName: PriorityClass
+	values: ["high"]
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pods-medium
+  spec:
+    hard:
+      cpu: "10"
+      memory: 20Gi
+      pods: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator : In
+	scopeName: PriorityClass
+	values: ["medium"]
+- apiVersion: v1
+  kind: ResourceQuota
+  metadata:
+    name: pods-low
+  spec:
+    hard:
+      cpu: "5"
+      memory: 10Gi
+      pods: "10"
+    scopeSelector:
+      matchExpressions:
+      - operator : In
+	scopeName: PriorityClass
+	values: ["low"]
+```
 
-2.  Apply it using `kubectl create`.
+Apply the YAML using `kubectl create`.
 
-      ```shell
-      kubectl create -f ./quota.yml
+```shell
+kubectl create -f ./quota.yml
 
-      resourcequota/pods-high created
-      resourcequota/pods-medium created
-      resourcequota/pods-low created
-      ```
+resourcequota/pods-high created
+resourcequota/pods-medium created
+resourcequota/pods-low created
+```
 
-3.  Verify that `Used` quota is `0` using `kubectl describe quota`.
+Verify that `Used` quota is `0` using `kubectl describe quota`.
 
-      ```shell
-      kubectl describe quota
+```shell
+kubectl describe quota
 
-      Name:       pods-high
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     1k
-      memory      0     200Gi
-      pods        0     10
-
-
-      Name:       pods-low
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     5
-      memory      0     10Gi
-      pods        0     10
+Name:       pods-high
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     1k
+memory      0     200Gi
+pods        0     10
 
 
-      Name:       pods-medium
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     10
-      memory      0     20Gi
-      pods        0     10
-      ```
-4.  Create a pod with priority "high". Save the following YAML to a
-    file `high-priority-pod.yml`.
-
-      ```yaml
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: high-priority
-      spec:
-        containers:
-        - name: high-priority
-          image: ubuntu
-          command: ["/bin/sh"]
-          args: ["-c", "while true; do echo hello; sleep 10;done"]
-          resources:
-            requests:
-              memory: "10Gi"
-              cpu: "500m"
-            limits:
-              memory: "10Gi"
-              cpu: "500m"
-        priorityClassName: high
-      ```
-
-      Apply it with `kubectl create`.
-
-      ```shell
-      kubectl create -f ./high-priority-pod.yml
-      ```
-
-5.  Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
-    the other two quotas are unchanged.
-
-      ```shell
-      kubectl describe quota
-
-      Name:       pods-high
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         500m  1k
-      memory      10Gi  200Gi
-      pods        1     10
+Name:       pods-low
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     5
+memory      0     10Gi
+pods        0     10
 
 
-      Name:       pods-low
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     5
-      memory      0     10Gi
-      pods        0     10
+Name:       pods-medium
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     10
+memory      0     20Gi
+pods        0     10
+```
+
+Create a pod with priority "high". Save the following YAML to a
+file `high-priority-pod.yml`.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: high-priority
+spec:
+  containers:
+  - name: high-priority
+    image: ubuntu
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do echo hello; sleep 10;done"]
+    resources:
+      requests:
+	memory: "10Gi"
+	cpu: "500m"
+      limits:
+	memory: "10Gi"
+	cpu: "500m"
+  priorityClassName: high
+```
+
+Apply it with `kubectl create`.
+
+```shell
+kubectl create -f ./high-priority-pod.yml
+```
+
+Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
+the other two quotas are unchanged.
+
+```shell
+kubectl describe quota
+
+Name:       pods-high
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         500m  1k
+memory      10Gi  200Gi
+pods        1     10
 
 
-      Name:       pods-medium
-      Namespace:  default
-      Resource    Used  Hard
-      --------    ----  ----
-      cpu         0     10
-      memory      0     20Gi
-      pods        0     10
-      ```
+Name:       pods-low
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     5
+memory      0     10Gi
+pods        0     10
+
+
+Name:       pods-medium
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     10
+memory      0     20Gi
+pods        0     10
+```
 
 `scopeSelector` supports the following values in the `operator` field:
 
