@@ -83,6 +83,7 @@ different Kubernetes components.
 | `PodReadinessGates` | `false` | Alpha | 1.11 | |
 | `PodReadinessGates` | `true` | Beta | 1.12 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
+| `PodShareProcessNamespace` | `true` | Beta | 1.12 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `ReadOnlyAPIDataVolumes` | `true` | Deprecated | 1.10 | |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
