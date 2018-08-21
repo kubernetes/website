@@ -55,7 +55,7 @@ changes. The quickest way to get answers to questions about how the documentatio
 currently works is to ask in the `#sig-docs` Slack channel on
 [kubernetes.slack.com](https://kubernetes.slack.com)
 
-After discussion has taken place and the sig is in agreement about the desired
+After the discussion has taken place and the SIG is in agreement about the desired
 outcome, you can work on the proposed changes in the way that is the most
 appropriate. For instance, an update to the style guide or the website's
 functionality might involve opening a pull request, while a change related to
@@ -67,7 +67,7 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) can coordinate
 docs for a Kubernetes release.
 
 Each Kubernetes release is coordinated by a team of people participating in the
-sig-release special interest group (SIG). Others on the release team for a given
+sig-release Special Interest Group (SIG). Others on the release team for a given
 release include an overall release lead, as well as representatives from sig-pm,
 sig-testing, and others. To find out more about Kubernetes release processes,
 refer to
@@ -80,7 +80,7 @@ The SIG Docs representative for a given release coordinates the following tasks:
   for the release, the feature may not be allowed to go into the release.
 - Attend sig-release meetings regularly and give updates on the status of the
   docs for the release.
-- Review and copyedit feature documentation drafted by the sig responsible for
+- Review and copyedit feature documentation drafted by the SIG responsible for
   implementing the feature.
 - Merge release-related pull requests and maintain the Git feature branch for
   the release.
