@@ -90,8 +90,8 @@ kubectl get svc cassandra
 The response is
 
 ```
-NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-cassandra   None         <none>        9042/TCP   45s
+NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
 Service creation failed if anything else is returned. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
