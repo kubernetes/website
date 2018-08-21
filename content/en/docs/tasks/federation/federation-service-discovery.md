@@ -99,8 +99,8 @@ You can verify this by checking in each of the underlying clusters, for example:
 
 ``` shell
 kubectl --context=gce-asia-east1a get services nginx
-NAME      CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
-nginx     10.63.250.98   104.199.136.89   80/TCP    9m
+NAME     TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
+nginx    ClusterIP   10.63.250.98   104.199.136.89   80/TCP    9m
 ```
 
 The above assumes that you have a context named 'gce-asia-east1a'
@@ -138,7 +138,7 @@ underlying Kubernetes services (once these have been allocated - this
 may take a few seconds). For inter-cluster and inter-cloud-provider
 networking between service shards to work correctly, your services
 need to have an externally visible IP address. [Service Type:
-Loadbalancer](/docs/concepts/services-networking/service/#type-loadbalancer)
+Loadbalancer](/docs/concepts/services-networking/service/#loadbalancer)
 is typically used for this, although other options
 (e.g. [External IP's](/docs/concepts/services-networking/service/#external-ips)) exist.
 

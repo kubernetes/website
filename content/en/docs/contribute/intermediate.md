@@ -61,7 +61,7 @@ active participants.
 
 Before you start reviewing PRs, make sure you are familiar with the
 [Documentation Style Guide](/docs/contribute/style/style-guide/)
-and the [code of conduct]() <!-- TODO when #9355 is merged -->
+and the [code of conduct](/community/code-of-conduct/)
 
 ### Find a PR to review
 
@@ -340,7 +340,7 @@ but the following guidelines apply:
   use the pre-release feature branch created for that Kubernetes version.
 
 For more guidance, see
-[Choose which branch to use](docs/contribute/start#choose-which-git-branch-to-use).
+[Choose which branch to use](/docs/contribute/start/#choose-which-git-branch-to-use).
 
 After you decide which branch to start your work (or _base it on_, in Git
 terminology), use the following workflow to be sure your work is based on the
@@ -387,11 +387,11 @@ most up-to-date version of that branch.
       ```
 
       {{< note >}}
-      Do not reference a Github issue or pull request by ID or URL in the
-      commit message. If you do, it will cause that issue or pull request to get
-      a notification every time the commit shows up in a new Git branch. You can
-      link issues and pull requests together later, in the Github UI.
-      {{< /note >}}
+Do not reference a Github issue or pull request by ID or URL in the
+commit message. If you do, it will cause that issue or pull request to get
+a notification every time the commit shows up in a new Git branch. You can
+link issues and pull requests together later, in the Github UI.
+{{< /note >}}
 
 5.  Optionally, you can test your change by staging the site locally using the
     `hugo` command. See [View your changes locally](#view-your-changes-locally).

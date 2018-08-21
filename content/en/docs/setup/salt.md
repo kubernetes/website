@@ -2,11 +2,19 @@
 reviewers:
 - davidopp
 title: Configuring Kubernetes with Salt
+weight: 70
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
 
 The Kubernetes cluster can be configured using Salt.
 
 The Salt scripts are shared across multiple hosting providers and depending on where you host your Kubernetes cluster, you may be using different operating systems and different networking configurations. As a result, it's important to understand some background information before making Salt changes in order to minimize introducing failures for other hosting providers.
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Salt cluster setup
 
@@ -17,7 +25,10 @@ The **salt-minion** service runs on the kubernetes-master and each kubernetes-no
 Each salt-minion service is configured to interact with the **salt-master** service hosted on the kubernetes-master via the **master.conf** file [(except on GCE and OpenStack-Heat)](#standalone-salt-configuration-on-gce-and-others).
 
 ```shell
-[root@kubernetes-master] $ cat /etc/salt/minion.d/master.conf
+cat /etc/salt/minion.d/master.conf
+```
+
+```none
 master: kubernetes-master
 ```
 
@@ -38,7 +49,10 @@ All remaining sections that refer to master/minion setups should be ignored for 
 Security is not enabled on the salt-master, and the salt-master is configured to auto-accept incoming requests from minions.  It is not recommended to use this security configuration in production environments without deeper study.  (In some environments this isn't as bad as it might sound if the salt master port isn't externally accessible and you trust everyone on your network.)
 
 ```shell
-[root@kubernetes-master] $ cat /etc/salt/master.d/auto-accept.conf
+cat /etc/salt/master.d/auto-accept.conf
+```
+
+```shell
 open_mode: True
 auto_accept: True
 ```
@@ -50,7 +64,10 @@ Each minion in the salt cluster has an associated configuration that instructs t
 An example file is presented below using the Vagrant based environment.
 
 ```shell
-[root@kubernetes-master] $ cat /etc/salt/minion.d/grains.conf
+cat /etc/salt/minion.d/grains.conf
+```
+
+```yaml
 grains:
   etcd_servers: $MASTER_IP
   cloud: vagrant
@@ -99,3 +116,5 @@ When configuring default arguments for processes, it's best to avoid the use of 
 Per pod IP configuration is provider-specific, so when making networking changes, it's important to sandbox these as all providers may not use the same mechanisms (iptables, openvswitch, etc.)
 
 We should define a grains.conf key that captures more specifically what network configuration environment is being used to avoid future confusion across providers.
+
+{{% /capture %}}

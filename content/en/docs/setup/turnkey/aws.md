@@ -3,12 +3,20 @@ reviewers:
 - justinsb
 - clove
 title: Running Kubernetes on AWS EC2
+content_template: templates/task
 ---
 
-{{< toc >}}
+{{% capture overview %}}
 
+This page describes how to install a Kubernetes cluster on AWS.
 
-## Supported Production Grade Tools
+{{% /capture %}}
+
+{{% capture prerequisites %}}
+
+To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
+
+### Supported Production Grade Tools
 
 * [conjure-up](/docs/getting-started-guides/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
 
@@ -16,13 +24,15 @@ title: Running Kubernetes on AWS EC2
 
 * [CoreOS Tectonic](https://coreos.com/tectonic/) includes the open-source [Tectonic Installer](https://github.com/coreos/tectonic-installer) that creates Kubernetes clusters with Container Linux nodes on AWS.
 
-* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, `kube-aws`](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
+* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, kube-aws](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
 
----
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Getting started with your cluster
 
-### Command line administration tool: `kubectl`
+### Command line administration tool: kubectl
 
 The cluster startup script will leave you with a `kubernetes` directory on your workstation.
 Alternately, you can download the latest Kubernetes release from [this page](https://github.com/kubernetes/kubernetes/releases).
@@ -78,3 +88,5 @@ For support level information on all solutions, see the [Table of solutions](/do
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
+
+{{% /capture %}}
