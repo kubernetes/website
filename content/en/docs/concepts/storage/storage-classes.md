@@ -11,13 +11,11 @@ weight: 30
 
 {{% capture overview %}}
 
-This document describes the concept of `StorageClass` in Kubernetes. Familiarity
+This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 
 {{% /capture %}}
-
-{{< toc >}}
 
 {{% capture body %}}
 
