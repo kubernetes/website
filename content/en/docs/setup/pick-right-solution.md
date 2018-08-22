@@ -88,6 +88,7 @@ few commands. These solutions are actively developed and have active community s
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 * [CenturyLink Cloud](/docs/setup/turnkey/clc/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
+* [IBM Cloud Private Running on Multiple Clouds](https://github.com/ibm-cloud-architecture/terraform-icp-ibmcloud)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Madcore.Ai](https://madcore.ai/)
 * [Kubermatic](https://cloud.kubermatic.io)
