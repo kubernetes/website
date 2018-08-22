@@ -21,8 +21,8 @@ Each node in your cluster must have at least 300 MiB of memory.
 
 A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service in your cluster. If you don't have metrics-server
-+running, you can skip those steps.
+service in your cluster. If you do not have metrics-server
+running, you can skip those steps.
 
 If you are running minikube, run the following command to enable
 metrics-server:
@@ -31,14 +31,14 @@ metrics-server:
 minikube addons enable metrics-server
 ```
 
-To see whether metrics-server (or another provider of the resource metrics
-API, `metrics.k8s.io`) is running, enter this command:
+To see whether metrics-server, or another provider of the resource metrics
+API (`metrics.k8s.io`) is running, run the following command:
 
 ```shell
 kubectl get apiservices
 ```
 
-If the resource metrics API is available, the output will include a
+If the resource metrics API is available, the output includes a
 reference to `metrics.k8s.io`.
 
 
@@ -73,7 +73,7 @@ for the Pod:
 
 {{< codenew file="pods/resource/memory-request-limit.yaml" >}}
 
-In the configuration file, the `args` section provides arguments for the Container when it starts.
+The `args` section in the configuration file provides arguments for the Container when it starts.
 The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 150 MiB of memory.
 
 Create the Pod:
@@ -82,7 +82,7 @@ Create the Pod:
 kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
 ```
 
-Verify that the Pod's Container is running:
+Verify that the Pod Container is running:
 
 ```shell
 kubectl get pod memory-demo --namespace=mem-example
@@ -139,12 +139,12 @@ consume memory beyond its limit, the Container is terminated. If a terminated Co
 restartable, the kubelet will restart it, as with any other type of runtime failure.
 
 In this exercise, you create a Pod that attempts to allocate more memory than its limit.
-Here is the configuration file for a Pod that has one Container. The Container has a
-memory request of 50 MiB and a memory limit of 100 MiB.
+Here is the configuration file for a Pod that has one Container with a
+memory request of 50 MiB and a memory limit of 100 MiB:
 
 {{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
-In the configuration file, in the `args` section, you can see that the Container
+In the `args` section of the configuration file, you can see that the Container
 will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limit.
 
 Create the Pod:
@@ -159,22 +159,20 @@ View detailed information about the Pod:
 kubectl get pod memory-demo-2 --namespace=mem-example
 ```
 
-At this point, the Container might be running, or it might have been killed. If the
-Container has not yet been killed, repeat the preceding command until you see that
-the Container has been killed:
+At this point, the Container might be running or killed. Repeat the preceding command until the Container is killed:
 
 ```shell
 NAME            READY     STATUS      RESTARTS   AGE
 memory-demo-2   0/1       OOMKilled   1          24s
 ```
 
-Get a more detailed view of the Container's status:
+Get a more detailed view of the Container status:
 
 ```shell
 kubectl get pod memory-demo-2 --output=yaml --namespace=mem-example
 ```
 
-The output shows that the Container has been killed because it is out of memory (OOM).
+The output shows that the Container was killed because it is out of memory (OOM):
 
 ```shell
 lastState:
@@ -186,7 +184,7 @@ lastState:
      startedAt: null
 ```
 
-The Container in this exercise is restartable, so the kubelet will restart it. Enter
+The Container in this exercise is restartable, so the kubelet will restart it. Repeat
 this command several times to see that the Container gets repeatedly killed and restarted:
 
 ```shell
@@ -204,7 +202,7 @@ NAME            READY     STATUS    RESTARTS   AGE
 memory-demo-2   1/1       Running   2          40s
 ```
 
-View detailed information about the Pod's history:
+View detailed information about the Pod history:
 
 
 ```
@@ -245,12 +243,12 @@ of a Pod as having a memory request and limit. The memory request for the Pod is
 sum of the memory requests for all the Containers in the Pod. Likewise, the memory
 limit for the Pod is the sum of the limits of all the Containers in the Pod.
 
-Pod scheduling is based on requests. A Pod is scheduled to run on a Node only if the Node
+Pod scheduling is based on requests. A Pod is only scheduled to run on a Node when the Node
 has enough available memory to satisfy the Pod's memory request.
 
 In this exercise, you create a Pod that has a memory request so big that it exceeds the
 capacity of any Node in your cluster. Here is the configuration file for a Pod that has one
-Container. The Container requests 1000 GiB of memory, which is likely to exceed the capacity
+Container with a request for 1000 GiB of memory, which likely exceeds the capacity
 of any Node in your cluster.
 
 {{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
@@ -261,14 +259,13 @@ Create the Pod:
 kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
 ```
 
-View the Pod's status:
+View the Pod status:
 
 ```shell
 kubectl get pod memory-demo-3 --namespace=mem-example
 ```
 
-The output shows that the Pod's status is PENDING. That is, the Pod has not been
-scheduled to run on any Node, and it will remain in the PENDING state indefinitely:
+The output shows that the Pod status is PENDING. That is, the Pod is not scheduled to run on any Node, and it will remain in the PENDING state indefinitely:
 
 
 ```
@@ -310,9 +307,9 @@ Delete your Pod:
 kubectl delete pod memory-demo-3 --namespace=mem-example
 ```
 
-## If you don’t specify a memory limit
+## If you do not specify a memory limit
 
-If you don’t specify a memory limit for a Container, then one of these situations applies:
+If you do not specify a memory limit for a Container, one of the following situations applies:
 
 * The Container has no upper bound on the amount of memory it uses. The Container
 could use all of the memory available on the Node where it is running.
