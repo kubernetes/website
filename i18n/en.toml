@@ -3,6 +3,9 @@
 [main_read_about]
 other = "Read about"
 
+[main_read_more]
+other = "Read more"
+
 [main_github_invite]
 other = "Interested in hacking on the core Kubernetes code base?"
 
@@ -14,6 +17,12 @@ other = "Create an Issue"
 
 [main_community_explore]
 other = "Explore the community"
+
+[main_kubernetes_features]
+other = "Kubernetes Features"
+
+[main_cncf_project]
+other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
 
 [main_contribute]
 other = "Contribute"

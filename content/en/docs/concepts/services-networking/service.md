@@ -2,6 +2,11 @@
 reviewers:
 - bprashanth
 title: Services
+feature:
+  title: Service discovery and load balancing
+  description: >
+    No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
+
 content_template: templates/concept
 weight: 10
 ---

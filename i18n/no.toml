@@ -3,6 +3,9 @@
 [main_read_about]
 other = "Les om"
 
+[main_read_more]
+other = "Les mer"
+
 [main_github_invite]
 other = "Interessert kode i Kubernetes?"
 
@@ -14,6 +17,12 @@ other = "Opprett en issue"
 
 [main_community_explore]
 other = "Utforsk folkene bak Kubernetes"
+
+[main_kubernetes_features]
+other = "Egenskaper i Kubernetes"
+
+[main_cncf_project]
+other = """Vi er et <a href="https://cncf.io/">CNCF</a>-prosjekt</p>"""
 
 [main_contribute]
 other = "Bidra"
