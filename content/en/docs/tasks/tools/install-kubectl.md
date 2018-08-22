@@ -8,11 +8,11 @@ weight: 10
 ---
 
 {{% capture overview %}}
-Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
+Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-You must use a kubectl version that is within one minor version difference with your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
+You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
 {{% /capture %}}
 
 
@@ -22,7 +22,7 @@ You must use a kubectl version that is within one minor version difference with 
 
 Here are a few methods to install kubectl.
 
-## Install kubectl binary via native package management
+## Install kubectl binary using native package management
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
@@ -49,75 +49,135 @@ yum install -y kubectl
 
 ## Install with snap on Ubuntu
 
-kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
 
-1. If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, you can install with:
+1. Switch to the snap user and run the installation command:
 
-        sudo snap install kubectl --classic
+    ```
+    sudo snap install kubectl --classic
+    ```
 
-2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
+2. Test to ensure the version you installed is sufficiently up-to-date:
+
+    ```
+    kubectl version
+    ```
 
 ## Install with Homebrew on macOS
 
-1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
+If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install kubectl with Homebrew.
 
-        brew install kubernetes-cli
+1. Run the installation command:
 
-2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
+    ```
+    brew install kubernetes-cli
+    ```
+
+2. Test to ensure the version you installed is sufficiently up-to-date:
+
+    ```
+    kubectl version
+    ```
 
 ## Install with Macports on macOS
 
-1. If you are on macOS and using [Macports](https://macports.org/) package manager, you can install with:
+If you are on macOS and using [Macports](https://macports.org/) package manager, you can install kubectl with Macports.
 
-        port install kubectl
+1. Run the installation command:
 
-2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
+    ```
+    port install kubectl
+    ```
+    
+2. Test to ensure the version you installed is sufficiently up-to-date:
+
+    ```
+    kubectl version
+    ```
 
 ## Install with Powershell from PSGallery
 
-1. If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update with:
+If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update kubectl with Powershell.
 
-        Install-Script -Name install-kubectl -Scope CurrentUser -Force
-        install-kubectl.ps1 [-DownloadLocation <path>]
+To install:
+* Run the installation commands (making sure to specify a DownloadLocation):
 
-If no Downloadlocation is specified, kubectl will be installed in users temp Directory
-2. The installer creates $HOME/.kube and instructs it to create a config file
-3. Updating
-re-run Install-Script to update the installer
-re-run install-kubectl.ps1 to install latest binaries
+    ```
+    Install-Script -Name install-kubectl -Scope CurrentUser -Force
+    install-kubectl.ps1 [-DownloadLocation <path>]
+    ```
+    
+    {{< note >}}
+    **Note:** If you do not specify a DownloadLocation, kubectl will be installed in the user's temp Directory.
+    {{< /note >}}
+    The installer creates $HOME/.kube and instructs it to create a config file
+To update:
+* Run the update commands:
+
+    ```
+    re-run Install-Script to update the installer
+    re-run install-kubectl.ps1 to install latest binaries
+    ```
 
 ## Install with Chocolatey on Windows
 
-1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:
+If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install kubectl with Chocolatey.
 
-        choco install kubernetes-cli
+1. Run the installation command:
 
-2. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
-3. Configure kubectl to use a remote Kubernetes cluster:
+    ```
+    choco install kubernetes-cli
+    ```
+    
+2. Test to ensure the version you installed is sufficiently up-to-date:
 
-        cd C:\users\yourusername (Or wherever your %HOME% directory is)
-        mkdir .kube
-        cd .kube
+    ```
+    kubectl version
+    ```
+3. Change to your %HOME% directory:
+
+    For example: `cd C:\users\yourusername`
+
+4. Create the .kube directory:
+
+    ```
+    mkdir .kube
+    ```
+
+5. Change to the .kube directory you just created:
+
+    ```
+    cd .kube
+    ```
+
+6. Configure kubectl to use a remote Kubernetes cluster:
         New-Item config -type file
-
-Edit the config file with a text editor of your choice, such as Notepad for example.
+    {{< note >}}
+    **Note:** Edit the config file with a text editor of your choice, such as Notepad.
+    {{< /note >}}
 
 ## Download as part of the Google Cloud SDK
 
-kubectl can be installed as part of the Google Cloud SDK.
+You can install kubectl as part of the Google Cloud SDK.
 
 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
-2. Run the following command to install `kubectl`:
+2. Run the `kubectl` installation command:
 
-        gcloud components install kubectl
+    ```
+    gcloud components install kubectl
+    ```
+    
+3. Test to ensure the version you installed is sufficiently up-to-date:
 
-3. Run `kubectl version` to verify that the version you've installed is sufficiently up-to-date.
+    ```
+    kubectl version
+    ```
 
-## Install kubectl binary via curl
+## Install kubectl binary using curl
 
 {{< tabs name="kubectl_install_curl" >}}
 {{% tab name="macOS" %}}
-1. Download the latest release with the command:
+1. Download the latest release:
 
     ```		 
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
@@ -250,7 +310,7 @@ brew install bash-completion@2
 
 Follow the "caveats" section of brew's output to add the appropriate bash completion path to your local .bashrc.
 
-If you've installed kubectl using the [Homebrew instructions](#install-with-homebrew-on-macos) then kubectl completion should start working immediately.
+If you installed kubectl using the [Homebrew instructions](#install-with-homebrew-on-macos) then kubectl completion should start working immediately.
 
 If you have installed kubectl manually, you need to add kubectl autocompletion to the bash-completion:
 
