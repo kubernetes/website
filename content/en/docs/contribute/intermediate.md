@@ -95,10 +95,10 @@ code repositories when it comes to the roles of reviewers and approvers. For
 more information about the responsibilities of reviewers and approvers, see
 [Participating](/docs/contribute/participating/). Here's an overview.
 
-- A reviewer reviews pull request content for technical accuracy. A reviewer 
+- A reviewer reviews pull request content for technical accuracy. A reviewer
   indicates that a PR is technically accurate by leaving a `/lgtm` comment on
-  the PR. 
-  
+  the PR.
+
     {{< note >}}Don't add an `/lgtm` unless you are confident in the technical
     accuracy of the documentation modified or introduced in the PR.{{< /note >}}
 
@@ -504,6 +504,22 @@ changes look like, you can use the `hugo` command to stage the changes locally.
 4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
     or just close the terminal window.
 
+Alternatively, you can build the Kubernetes docs using Docker.
+
+1.  Build the image locally:
+
+      ```bash
+      make docker-image
+      ```
+
+2.  Once the `kubernetes-hugo` image has been built locally, you can build and serve the site:
+
+      ```bash
+      make docker-serve
+      ```
+
+3.  In your browser's address bar, enter `localhost:1313`. Hugo will watch the
+filesystem for changes and rebuild the site as needed.
 
 ## Triage and categorize issues
 
