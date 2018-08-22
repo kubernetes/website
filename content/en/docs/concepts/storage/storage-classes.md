@@ -70,7 +70,7 @@ for provisioning PVs. This field must be specified.
 | CephFS               | -                   | -                                    |
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
 | FC                   | -                   | -                                    |
-| FlexVolume           | -                   | -                                    |
+| Flexvolume           | -                   | -                                    |
 | Flocker              | &#x2713;            | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE](#gce)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |

@@ -247,7 +247,7 @@ uses the PVC before the expansion can complete.
 * AzureFile
 * AzureDisk
 * FC (Fibre Channel)
-* FlexVolume
+* Flexvolume
 * Flocker
 * NFS
 * iSCSI
@@ -331,7 +331,7 @@ In the CLI, the access modes are abbreviated to:
 | CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
 | Cinder               | &#x2713;     | -           | -            |
 | FC                   | &#x2713;     | &#x2713;    | -            |
-| FlexVolume           | &#x2713;     | &#x2713;    | -            |
+| Flexvolume           | &#x2713;     | &#x2713;    | -            |
 | Flocker              | &#x2713;     | -           | -            |
 | GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
 | Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
