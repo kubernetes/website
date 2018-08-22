@@ -62,16 +62,14 @@ array has six possible fields:
 
 * The `type` field is a string with the following possible values:
 
-  * `PodScheduled`: the Pod has been scheduled to a node;
+  * `PodScheduled`: the Pod has been scheduled to a node
   * `Ready`: the Pod is able to serve requests and should be added to the load
-    balancing pools of all matching Services;
+    balancing pools of all matching Services
   * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
-    have started successfully;
+    have started successfully
   * `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
-    due to lacking of resources or other constraints;
-  * `ContainersReady`: all containers in the Pod are ready.
-
-
+    due to lacking of resources or other constraints
+  * `ContainersReady`: all containers in the Pod are ready
 
 ## Container probes
 
