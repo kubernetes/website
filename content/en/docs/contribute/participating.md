@@ -101,7 +101,7 @@ in the Kubernetes organization. Follow these steps:
     in the Github issue (adding a comment with `@<Github-username>`) or by sending them the link directly,
     so that they can add a `+1` vote.
 
-4.  When your membership is approved, the membership committee updates the
+4.  When your membership is approved, the github admin team member assigned to your request updates the
     Github issue to show approval and then closes the Github issue.
     Congratulations, you are now a member!
 
