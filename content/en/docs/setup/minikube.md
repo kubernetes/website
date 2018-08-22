@@ -17,7 +17,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
   * NodePorts
   * ConfigMaps and Secrets
   * Dashboards
-  * Container Runtime: Docker, [rkt](https://github.com/rkt/rkt) and [CRI-O](https://github.com/kubernetes-incubator/cri-o)
+  * Container Runtime: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) and [containerd](https://github.com/containerd/containerd)
   * Enabling CNI (Container Network Interface)
   * Ingress
 
@@ -79,6 +79,28 @@ Stopping "minikube"...
 ```
 
 ### Alternative Container Runtimes
+
+#### containerd
+
+To use [containerd](https://github.com/containerd/containerd) as the container runtime, run:
+
+```bash
+$ minikube start \
+    --network-plugin=cni \
+    --container-runtime=containerd \
+    --bootstrapper=kubeadm
+```
+
+Or you can use the extended version:
+
+```bash
+$ minikube start \
+    --network-plugin=cni \
+    --extra-config=kubelet.container-runtime=remote \
+    --extra-config=kubelet.container-runtime-endpoint=unix:///run/containerd/containerd.sock \
+    --extra-config=kubelet.image-service-endpoint=unix:///run/containerd/containerd.sock \
+    --bootstrapper=kubeadm
+```
 
 #### CRI-O
 
