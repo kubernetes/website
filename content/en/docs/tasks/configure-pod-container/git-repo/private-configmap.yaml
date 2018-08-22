@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-clone-private
+data:
+  git-clone.sh: |
+    #!/bin/sh -e
+
+    REPO=$1
+    REF=$2
+    DIR=$3
+
+    # Init Containers will re-run on Pod restart. Remove the directory's contents
+    # and reprovision when this happens.
+    if [ -d "$DIR" ]; then
+        rm -rf $( find $DIR -mindepth 1 )
+    fi
+
+    if [ -n "$GITHUB_ACCESS_TOKEN" ]; then
+        git config --global credential.https://github.com.username $GITHUB_ACCESS_TOKEN
+
+        # Git Hub access tokens don't use a password but git will still prompt for one
+        export GIT_ASKPASS='true' 
+    fi
+
+    git clone $REPO $DIR
+
+    if [ -n "$GITHUB_ACCESS_TOKEN" ]; then
+        git config --global --unset credential.https://github.com.username
+    fi
+
+    cd $DIR
+    git reset --hard $REF

@@ -1,0 +1,51 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-deployment-private
+  labels:
+    app: nginx-private
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-private
+  template:
+    metadata:
+      labels:
+        app: nginx-private
+    spec:
+      initContainers:
+      # Use an Init Container to clone a private git repo to an empty directory
+      - name: clone
+        image: alpine/git # Any image with git will do
+        env:
+        - name: GITHUB_ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-access-token
+              key: token
+        command:
+        - /usr/local/git/git-clone.sh
+        args:
+        - "https://github.com/my/private-repo.git"
+        - "tags/v1.0.2"
+        - "/mypath"
+        volumeMounts:
+        - name: git-clone-private
+          mountPath: /usr/local/git
+        - name: git-volume
+          mountPath: /mypath
+      containers:
+      # Pod's container now has access to the cloned repo
+      - image: nginx
+        name: nginx
+        volumeMounts:
+        - mountPath: /mypath
+          name: git-volume
+      volumes:
+      - name: git-volume
+        emptyDir: {}
+      - name: git-clone-private
+        configMap:
+          name: git-clone-private
+          defaultMode: 0755
