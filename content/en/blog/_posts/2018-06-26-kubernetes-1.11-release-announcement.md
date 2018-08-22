@@ -92,7 +92,7 @@ Is Kubernetes helping your team? Share your story with the community.
 
 ## KubeCon
 
-The world’s largest Kubernetes gathering, KubeCon + CloudNativeCon is coming to [Shanghai](https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2018/) from November 14-15, 2018 and [Seattle](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/) from December 11-13, 2018. This conference will feature technical sessions, case studies, developer deep dives, salons and more! The CFP for both event is currently open. [Submit your talk](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/program/call-for-proposals-cfp/) and [register](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2018/attend/register/) today!
+The world’s largest Kubernetes gathering, KubeCon + CloudNativeCon is coming to [Shanghai](https://events.linuxfoundation.cn/events/kubecon-cloudnativecon-china-2018/ from November 14-15, 2018 and [Seattle](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/) from December 11-13, 2018. This conference will feature technical sessions, case studies, developer deep dives, salons and more! The CFP for both event is currently open. [Submit your talk](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/program/call-for-proposals-cfp/) and [register](https://www.regonline.com/registration/Checkin.aspx?EventID=2246960) today!
 
 ## Webinar
 
