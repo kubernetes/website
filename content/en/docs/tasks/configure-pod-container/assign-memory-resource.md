@@ -21,18 +21,18 @@ Each node in your cluster must have at least 300 MiB of memory.
 
 A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service in your cluster. If you do not have metrics-server
+service in your cluster. If you do not have the metrics-server
 running, you can skip those steps.
 
-If you are running minikube, run the following command to enable
+If you are running Minikube, run the following command to enable the
 metrics-server:
 
 ```shell
 minikube addons enable metrics-server
 ```
 
-To see whether metrics-server, or another provider of the resource metrics
-API (`metrics.k8s.io`) is running, run the following command:
+To see whether the metrics-server is running, or another provider of the resource metrics
+API (`metrics.k8s.io`), run the following command:
 
 ```shell
 kubectl get apiservices
@@ -41,15 +41,12 @@ kubectl get apiservices
 If the resource metrics API is available, the output includes a
 reference to `metrics.k8s.io`.
 
-
-
 ```shell
 NAME      
 v1beta1.metrics.k8s.io
 ```
 
 {{% /capture %}}
-
 
 {{% capture steps %}}
 
@@ -108,7 +105,7 @@ resources:
 ...
 ```
 
-Use `kubectl top` to fetch the metrics for the pod:
+Run `kubectl top` to fetch the metrics for the pod:
 
 ```shell
 kubectl top pod memory-demo --namespace=mem-example
@@ -129,14 +126,13 @@ Delete your Pod:
 kubectl delete pod memory-demo --namespace=mem-example
 ```
 
-
 ## Exceed a Container's memory limit
 
 A Container can exceed its memory request if the Node has memory available. But a Container
 is not allowed to use more than its memory limit. If a Container allocates more memory than
 its limit, the Container becomes a candidate for termination. If the Container continues to
-consume memory beyond its limit, the Container is terminated. If a terminated Container is
-restartable, the kubelet will restart it, as with any other type of runtime failure.
+consume memory beyond its limit, the Container is terminated. If a terminated Container can be
+restarted, the kubelet restarts it, as with any other type of runtime failure.
 
 In this exercise, you create a Pod that attempts to allocate more memory than its limit.
 Here is the configuration file for a Pod that has one Container with a
@@ -184,14 +180,14 @@ lastState:
      startedAt: null
 ```
 
-The Container in this exercise is restartable, so the kubelet will restart it. Repeat
-this command several times to see that the Container gets repeatedly killed and restarted:
+The Container in this exercise can be restarted, so the kubelet restarts it. Repeat
+this command several times to see that the Container is repeatedly killed and restarted:
 
 ```shell
 kubectl get pod memory-demo-2 --namespace=mem-example
 ```
 
-The output shows that the Container gets killed, restarted, killed again, restarted again, and so on:
+The output shows that the Container is killed, restarted, killed again, restarted again, and so on:
 
 ```
 stevepe@sperry-1:~/steveperry-53.github.io$ kubectl get pod memory-demo-2 --namespace=mem-example
@@ -204,13 +200,11 @@ memory-demo-2   1/1       Running   2          40s
 
 View detailed information about the Pod history:
 
-
 ```
 kubectl describe pod memory-demo-2 --namespace=mem-example
 ```
 
 The output shows that the Container starts and fails repeatedly:
-
 
 ```
 ... Normal  Created   Created container with id 66a3a20aa7980e61be4922780bf9d24d1a1d8b7395c09861225b0eba1b1f8511
@@ -218,7 +212,6 @@ The output shows that the Container starts and fails repeatedly:
 ```
 
 View detailed information about your cluster's Nodes:
-
 
 ```
 kubectl describe nodes
@@ -243,7 +236,7 @@ of a Pod as having a memory request and limit. The memory request for the Pod is
 sum of the memory requests for all the Containers in the Pod. Likewise, the memory
 limit for the Pod is the sum of the limits of all the Containers in the Pod.
 
-Pod scheduling is based on requests. A Pod is only scheduled to run on a Node when the Node
+Pod scheduling is based on requests. A Pod is scheduled to run on a Node only if the Node
 has enough available memory to satisfy the Pod's memory request.
 
 In this exercise, you create a Pod that has a memory request so big that it exceeds the
@@ -267,7 +260,6 @@ kubectl get pod memory-demo-3 --namespace=mem-example
 
 The output shows that the Pod status is PENDING. That is, the Pod is not scheduled to run on any Node, and it will remain in the PENDING state indefinitely:
 
-
 ```
 kubectl get pod memory-demo-3 --namespace=mem-example
 NAME            READY     STATUS    RESTARTS   AGE
@@ -276,13 +268,11 @@ memory-demo-3   0/1       Pending   0          25s
 
 View detailed information about the Pod, including events:
 
-
 ```shell
 kubectl describe pod memory-demo-3 --namespace=mem-example
 ```
 
 The output shows that the Container cannot be scheduled because of insufficient memory on the Nodes:
-
 
 ```shell
 Events:
