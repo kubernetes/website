@@ -8,13 +8,21 @@ DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(PWD):/src
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-all: build ## Build site with production settings and put deliverables in _site.
+all: build ## Build site with production settings and put deliverables in ./public
 
-build: ## Build site with production settings and put deliverables in _site.
+build: ## Build site with production settings and put deliverables in ./public
 	hugo
 
-build-preview: ## Build site with drafts and future posts enabled.
+build-preview: ## Build site with drafts and future posts enabled
 	hugo -D -F
+
+check-headers-file:
+	scripts/check-headers-file.sh
+
+production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+
+non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
+	hugo --enableGitInfo
 
 serve: ## Boot the development server.
 	hugo server --ignoreCache --disableFastRender

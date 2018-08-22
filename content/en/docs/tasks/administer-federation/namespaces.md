@@ -5,7 +5,9 @@ content_template: templates/task
 
 {{% capture overview %}}
 
+{{< note >}}
 {{< include "federation-current-state.md" >}}
+{{< /note >}}
 
 This guide explains how to use Namespaces in Federation control plane.
 
@@ -81,10 +83,9 @@ kubectl --context=federation-cluster delete ns myns
 As in Kubernetes, deleting a federated Namespace will delete all resources in that
 Namespace from the federation control plane.
 
-Note that at this point, deleting a federated Namespace will not delete the
-corresponding Namespace and resources in those Namespaces from underlying clusters.
-Users are expected to delete them manually.
-We intend to fix this in the future.
+{{< note >}}
+**Note:** At this point, deleting a federated Namespace will not delete the corresponding Namespace, or resources in those Namespaces, from underlying clusters. Users must delete them manually. We intend to fix this in the future.
+{{< /note >}}
 
 {{% /capture %}}
 

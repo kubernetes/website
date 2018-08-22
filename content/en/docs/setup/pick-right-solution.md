@@ -48,7 +48,7 @@ a Kubernetes cluster from scratch.
 
 * [Amazon Elastic Container Service for Kubernetes](https://aws.amazon.com/eks/) offers managed Kubernetes service.
 
-* [Azure Container Service](https://azure.microsoft.com/services/container-service/) offers managed Kubernetes clusters.
+* [Azure Kubernetes Service](https://azure.microsoft.com/services/container-service/) offers managed Kubernetes clusters.
 
 * [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
@@ -185,7 +185,7 @@ Kublr       | custom       | multi-support | multi-support | [docs](http://docs.
 Kubermatic       |              | multi-support | multi-support | [docs](http://docs.kubermatic.io/) | Commercial
 Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/turnkey/gce/)                                    | Project
-Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
+Azure Kubernetes Service |              | Ubuntu | Azure       | [docs](https://docs.microsoft.com/en-us/azure/aks/)                    |  Commercial
 Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/setup/turnkey/azure/)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
 Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config/)            |  Project
 Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
