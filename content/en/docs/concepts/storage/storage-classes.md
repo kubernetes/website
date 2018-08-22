@@ -11,13 +11,11 @@ weight: 30
 
 {{% capture overview %}}
 
-This document describes the concept of `StorageClass` in Kubernetes. Familiarity
+This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 
 {{% /capture %}}
-
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -140,6 +138,7 @@ parameters:
   type: io1
   zones: us-east-1d, us-east-1c
   iopsPerGB: "10"
+  fsType: ext4
 ```
 
 * `type`: `io1`, `gp2`, `sc1`, `st1`. See
@@ -157,6 +156,7 @@ parameters:
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
   [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
   A string is expected here, i.e. `"10"`, not `10`.
+* `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.
   Valid values are `"true"` or `"false"`. A string is expected here,
   i.e. `"true"`, not `true`.
@@ -240,13 +240,16 @@ parameters:
   parameters are optional, empty password will be used when both
   `secretNamespace` and `secretName` are omitted. The provided secret must have
   type `"kubernetes.io/glusterfs"`, e.g. created in this way:
-  ```
-  kubectl create secret generic heketi-secret \
-    --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-    --namespace=default
-  ```
-  Example of a secret can be found in
-  [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
+
+    ```
+    kubectl create secret generic heketi-secret \
+      --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
+      --namespace=default
+    ```
+
+    Example of a secret can be found in
+    [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
+
 * `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
   which will be used by Heketi when provisioning the volume. It can also be a
   list of clusterids, for example:
@@ -260,24 +263,22 @@ parameters:
 * `volumetype` : The volume type and its parameters can be configured with this
   optional value. If the volume type is not mentioned, it's up to the provisioner
   to decide the volume type.
-  For example:
-    'Replica volume':
-      `volumetype: replicate:3` where '3' is replica count.
-    'Disperse/EC volume':
-      `volumetype: disperse:4:2` where '4' is data and '2' is the redundancy count.
-    'Distribute volume':
-      `volumetype: none`
 
-  For available volume types and administration options, refer to the
-[Administration Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+    For example:
+    * Replica volume: `volumetype: replicate:3` where '3' is replica count.
+    * Disperse/EC volume: `volumetype: disperse:4:2` where '4' is data and '2' is the redundancy count.
+    * Distribute volume: `volumetype: none`
 
-  For further reference information, see
-[How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
+    For available volume types and administration options, refer to the
+    [Administration Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
 
-  When persistent volumes are dynamically provisioned, the Gluster plugin
-automatically creates an endpoint and a headless service in the name
-`gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
-deleted when the persistent volume claim is deleted.
+    For further reference information, see
+    [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
+
+    When persistent volumes are dynamically provisioned, the Gluster plugin
+    automatically creates an endpoint and a headless service in the name
+    `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically
+    deleted when the persistent volume claim is deleted.
 
 ### OpenStack Cinder
 
@@ -306,26 +307,30 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
 
 1. Create a StorageClass with a user specified disk format.
 
-        kind: StorageClass
-        apiVersion: storage.k8s.io/v1
-        metadata:
-          name: fast
-        provisioner: kubernetes.io/vsphere-volume
-        parameters:
-          diskformat: zeroedthick
+    ```yaml
+    kind: StorageClass
+    apiVersion: storage.k8s.io/v1
+    metadata:
+      name: fast
+    provisioner: kubernetes.io/vsphere-volume
+    parameters:
+      diskformat: zeroedthick
+    ```
 
     `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
 
 2. Create a StorageClass with a disk format on a user specified datastore.
 
-        kind: StorageClass
-        apiVersion: storage.k8s.io/v1
-        metadata:
-          name: fast
-        provisioner: kubernetes.io/vsphere-volume
-        parameters:
-            diskformat: zeroedthick
-            datastore: VSANDatastore
+    ```yaml
+    kind: StorageClass
+    apiVersion: storage.k8s.io/v1
+    metadata:
+      name: fast
+    provisioner: kubernetes.io/vsphere-volume
+    parameters:
+        diskformat: zeroedthick
+        datastore: VSANDatastore
+    ```
 
     `datastore`: The user can also specify the datastore in the StorageClass.
     The volume will be created on the datastore specified in the storage class,
@@ -338,31 +343,31 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
 
     * Using existing vCenter SPBM policy
 
-      One of the most important features of vSphere for Storage Management is
-      policy based Management. Storage Policy Based Management (SPBM) is a
-      storage policy framework that provides a single unified control plane
-      across a broad range of data services and storage solutions. SPBM enables
-      vSphere administrators to overcome upfront storage provisioning challenges,
-      such as capacity planning, differentiated service levels and managing
-      capacity headroom.
+        One of the most important features of vSphere for Storage Management is
+        policy based Management. Storage Policy Based Management (SPBM) is a
+        storage policy framework that provides a single unified control plane
+        across a broad range of data services and storage solutions. SPBM enables
+        vSphere administrators to overcome upfront storage provisioning challenges,
+        such as capacity planning, differentiated service levels and managing
+        capacity headroom.
 
-      The SPBM policies can be specified in the StorageClass using the
-      `storagePolicyName` parameter.
+        The SPBM policies can be specified in the StorageClass using the
+        `storagePolicyName` parameter.
 
     * Virtual SAN policy support inside Kubernetes
 
-      Vsphere Infrastructure (VI) Admins will have the ability to specify custom
-      Virtual SAN Storage Capabilities during dynamic volume provisioning. You
-      can now define storage requirements, such as performance and availability,
-      in the form of storage capabilities during dynamic volume provisioning.
-      The storage capability requirements are converted into a Virtual SAN
-      policy which are then pushed down to the Virtual SAN layer when a
-      persistent volume (virtual disk) is being created. The virtual disk is
-      distributed across the Virtual SAN datastore to meet the requirements.
+        Vsphere Infrastructure (VI) Admins will have the ability to specify custom
+        Virtual SAN Storage Capabilities during dynamic volume provisioning. You
+        can now define storage requirements, such as performance and availability,
+        in the form of storage capabilities during dynamic volume provisioning.
+        The storage capability requirements are converted into a Virtual SAN
+        policy which are then pushed down to the Virtual SAN layer when a
+        persistent volume (virtual disk) is being created. The virtual disk is
+        distributed across the Virtual SAN datastore to meet the requirements.
 
-      You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)
-      for more details on how to use storage policies for persistent volumes
-      management.
+        You can see [Storage Policy Based Management for dynamic provisioning of volumes](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)
+        for more details on how to use storage policies for persistent volumes
+        management.
 
 There are few
 [vSphere examples](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere)
@@ -402,11 +407,12 @@ parameters:
   must exist in the same namespace as PVCs. This parameter is required.
   The provided secret must have type "kubernetes.io/rbd", e.g. created in this
   way:
-  ```
-  kubectl create secret generic ceph-secret --type="kubernetes.io/rbd" \
-    --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' \
-    --namespace=kube-system
-  ```
+
+    ```shell
+    kubectl create secret generic ceph-secret --type="kubernetes.io/rbd" \
+      --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' \
+      --namespace=kube-system
+    ```
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `imageFormat`: Ceph RBD image format, "1" or "2". Default is "1".
 * `imageFeatures`: This parameter is optional and should only be used if you
@@ -445,11 +451,13 @@ parameters:
 * `adminSecretName`: secret that holds information about the Quobyte user and
   the password to authenticate against the API server. The provided secret
   must have type "kubernetes.io/quobyte", e.g. created in this way:
-  ```
-  kubectl create secret generic quobyte-admin-secret \
-    --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
-    --namespace=kube-system
-  ```
+
+    ```shell
+    kubectl create secret generic quobyte-admin-secret \
+      --type="kubernetes.io/quobyte" --from-literal=key='opensesame' \
+      --namespace=kube-system
+    ```
+
 * `user`: maps all access to this user. Default is "root".
 * `group`: maps all access to this group. Default is "nfsnobody".
 * `quobyteConfig`: use the specified configuration to create the volume. You
