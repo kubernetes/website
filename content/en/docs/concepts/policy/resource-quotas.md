@@ -231,8 +231,8 @@ items:
     scopeSelector:
       matchExpressions:
       - operator : In
-	scopeName: PriorityClass
-	values: ["high"]
+        scopeName: PriorityClass
+        values: ["high"]
 - apiVersion: v1
   kind: ResourceQuota
   metadata:
@@ -245,8 +245,8 @@ items:
     scopeSelector:
       matchExpressions:
       - operator : In
-	scopeName: PriorityClass
-	values: ["medium"]
+        scopeName: PriorityClass
+        values: ["medium"]
 - apiVersion: v1
   kind: ResourceQuota
   metadata:
@@ -259,15 +259,17 @@ items:
     scopeSelector:
       matchExpressions:
       - operator : In
-	scopeName: PriorityClass
-	values: ["low"]
+        scopeName: PriorityClass
+        values: ["low"]
 ```
 
 Apply the YAML using `kubectl create`.
 
 ```shell
 kubectl create -f ./quota.yml
+```
 
+```shell
 resourcequota/pods-high created
 resourcequota/pods-medium created
 resourcequota/pods-low created
@@ -277,7 +279,9 @@ Verify that `Used` quota is `0` using `kubectl describe quota`.
 
 ```shell
 kubectl describe quota
+```
 
+```shell
 Name:       pods-high
 Namespace:  default
 Resource    Used  Hard
@@ -321,11 +325,11 @@ spec:
     args: ["-c", "while true; do echo hello; sleep 10;done"]
     resources:
       requests:
-	memory: "10Gi"
-	cpu: "500m"
+        memory: "10Gi"
+        cpu: "500m"
       limits:
-	memory: "10Gi"
-	cpu: "500m"
+        memory: "10Gi"
+        cpu: "500m"
   priorityClassName: high
 ```
 
@@ -340,7 +344,9 @@ the other two quotas are unchanged.
 
 ```shell
 kubectl describe quota
+```
 
+```shell
 Name:       pods-high
 Namespace:  default
 Resource    Used  Hard
