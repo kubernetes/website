@@ -337,3 +337,12 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 **Warning:** Warnings point out something that could cause harm if ignored.
 {{< /warning >}}
 
+
+
+## Includes
+
+To add shortcodes to includes.
+
+{{< note >}}
+{{< include "federation-current-state.md" >}}
+{{< /note >}}
