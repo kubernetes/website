@@ -99,8 +99,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update kubectl with Powershell.
 
-To install:
-* Run the installation commands (making sure to specify a `DownloadLocation`):
+1. Run the installation commands (making sure to specify a `DownloadLocation`):
 
     ```
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
@@ -112,10 +111,15 @@ To install:
     {{< /note >}}
     The installer creates `$HOME/.kube` and instructs it to create a config file
 
-To update:
-* Run the update commands:
-  - re-run the `Install-Script` command to update the installer
-  - re-run the `install-kubectl.ps1` script to install latest binaries
+2. Test to ensure the version you installed is sufficiently up-to-date:
+
+    ```
+    kubectl version
+    ```
+
+{{< note >}}
+**Note:** Updating the installation consists in running again the two commands of the step 1.
+{{< /note >}}
 
 ## Install with Chocolatey on Windows
 
