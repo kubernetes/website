@@ -37,13 +37,13 @@ You can build the Kubernetes docs using [Docker](https://docker.com). To get sta
 make docker-image
 ```
 
-Once the `kubernetes-hugo` image has been built locally, you can build the site:
+Once the `kubernetes-hugo` image has been built locally, you can run the site locally:
 
 ```bash
 make docker-serve
 ```
 
-As when building without using a Docker container, the results of the build will be published to the `public` directory (the default output directory for Hugo).
+Open up your browser to http://localhost:1313 to view the site.
 
 ## Thank you!
 
