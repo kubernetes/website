@@ -318,7 +318,7 @@ Rules:
 ```
 
 ```shell
-kubectl edit ing test
+kubectl edit ingress test
 ```
 
 This should pop up an editor with the existing yaml, modify it to include the new Host:
