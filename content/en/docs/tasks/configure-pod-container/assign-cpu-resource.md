@@ -18,11 +18,11 @@ but is not allowed to use more CPU than its limit.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Each node in your cluster must have at least 1 cpu.
+Each node in your cluster must have at least 1 CPU.
 
 A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service in your cluster. If you don't have metrics-server
+service in your cluster. If you do not have the metrics-server
 running, you can skip those steps.
 
 If you are running minikube, run the following command to enable
@@ -33,7 +33,7 @@ minikube addons enable metrics-server
 ```
 
 To see whether metrics-server (or another provider of the resource metrics
-API, `metrics.k8s.io`) is running, enter this command:
+API, `metrics.k8s.io`) is running, type the following command:
 
 ```shell
 kubectl get apiservices
@@ -65,16 +65,14 @@ kubectl create namespace cpu-example
 ## Specify a CPU request and a CPU limit
 
 To specify a CPU request for a Container, include the `resources:requests` field
-in the Container's resource manifest. To specify a CPU limit, include `resources:limits`.
+in the Container resource manifest. To specify a CPU limit, include `resources:limits`.
 
-In this exercise, you create a Pod that has one Container. The Container has a CPU
-request of 0.5 cpu and a CPU limit of 1 cpu. Here's the configuration file
-for the Pod:
+In this exercise, you create a Pod that has one Container. The Container has a request of 0.5 CPU and a limit of 1 CPU. Here is the configuration file for the Pod:
 
 {{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
 
-In the configuration file, the `args` section provides arguments for the Container when it starts.
-The `-cpus "2"` argument tells the Container to attempt to use 2 cpus.
+The `args` section of the configuration file provides arguments for the Container when it starts.
+The `-cpus "2"` argument tells the Container to attempt to use 2 CPUs.
 
 Create the Pod:
 
@@ -82,7 +80,7 @@ Create the Pod:
 kubectl create -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --namespace=cpu-example
 ```
 
-Verify that the Pod's Container is running:
+Verify that the Pod Container is running:
 
 ```shell
 kubectl get pod cpu-demo --namespace=cpu-example
@@ -94,8 +92,8 @@ View detailed information about the Pod:
 kubectl get pod cpu-demo --output=yaml --namespace=cpu-example
 ```
 
-The output shows that the one Container in the Pod has a CPU request of 500 millicpu
-and a CPU limit of 1 cpu.
+The output shows that the one Container in the Pod has a CPU request of 500 milliCPU
+and a CPU limit of 1 CPU.
 
 ```yaml
 resources:
@@ -111,37 +109,35 @@ Use `kubectl top` to fetch the metrics for the pod:
 kubectl top pod cpu-demo --namespace=cpu-example
 ```
 
-The output shows that the Pod is using 974 millicpu, which is just a bit less than
-the limit of 1 cpu specified in the Pod's configuration file.
+The output shows that the Pod is using 974 milliCPU, which is just a bit less than
+the limit of 1 CPU specified in the Pod configuration file.
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
 cpu-demo                    974m         <something>
 ```
 
-Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 cpus.
-But the Container is only being allowed to use about 1 cpu. The Container's CPU use is being
-throttled, because the Container is attempting to use more CPU resources than its limit.
+Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 CPUs, but the Container is only being allowed to use about 1 CPU. The Container CPU use is being throttled, because the Container is attempting to use more CPU resources than its limit.
 
 {{< note >}}
-**Note:** There's another possible explanation for the CPU throttling. The Node might not have
-enough CPU resources available. Recall that the prerequisites for this exercise require that each of
-your Nodes has at least 1 cpu. If your Container is running on a Node that has only 1 cpu, the Container
-cannot use more than 1 cpu regardless of the CPU limit specified for the Container.
+**Note:** Another possible explanation for the CPU throttling is that the Node might not have
+enough CPU resources available. Recall that the prerequisites for this exercise require each of
+your Nodes ot have at least 1 CPU. If your Container runs on a Node that has only 1 CPU, the Container
+cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
 {{< /note >}}
 
 ## CPU units
 
-The CPU resource is measured in *cpu* units. One cpu, in Kubernetes, is equivalent to:
+The CPU resource is measured in *CPU* units. One CPU, in Kubernetes, is equivalent to:
 
 * 1 AWS vCPU
 * 1 GCP Core
 * 1 Azure vCore
 * 1 Hyperthread on a bare-metal Intel processor with Hyperthreading
 
-Fractional values are allowed. A Container that requests 0.5 cpu is guaranteed half as much
-CPU as a Container that requests 1 cpu. You can use the suffix m to mean milli. For example
-100m cpu, 100 millicpu, and 0.1 cpu are all the same. Precision finer than 1m is not allowed.
+Fractional values are allowed. A Container that requests 0.5 CPU is guaranteed half as much
+CPU as a Container that requests 1 CPU. You can use the suffix m to mean milli. For example
+100m CPU, 100 milliCPU, and 0.1 CPU are all the same. Precision finer than 1m is not allowed.
 
 CPU is always requested as an absolute quantity, never as a relative quantity; 0.1 is the same
 amount of CPU on a single-core, dual-core, or 48-core machine.
@@ -160,11 +156,11 @@ of the CPU requests for all the Containers in the Pod. Likewise, the CPU limit f
 a Pod is the sum of the CPU limits for all the Containers in the Pod.
 
 Pod scheduling is based on requests. A Pod is scheduled to run on a Node only if
-the Node has enough CPU resources available to satisfy the Pod’s CPU request.
+the Node has enough CPU resources available to satisfy the Pod CPU request.
 
 In this exercise, you create a Pod that has a CPU request so big that it exceeds
 the capacity of any Node in your cluster. Here is the configuration file for a Pod
-that has one Container. The Container requests 100 cpu, which is likely to exceed the
+that has one Container. The Container requests 100 CPU, which is likely to exceed the
 capacity of any Node in your cluster.
 
 {{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
@@ -175,13 +171,13 @@ Create the Pod:
 kubectl create -f https://k8s.io/examples/pods/resource/cpu-request-limit-2.yaml --namespace=cpu-example
 ```
 
-View the Pod's status:
+View the Pod status:
 
 ```shell
 kubectl get pod cpu-demo-2 --namespace=cpu-example
 ```
 
-The output shows that the Pod's status is Pending. That is, the Pod has not been
+The output shows that the Pod status is Pending. That is, the Pod has not been
 scheduled to run on any Node, and it will remain in the Pending state indefinitely:
 
 
@@ -215,9 +211,9 @@ Delete your Pod:
 kubectl delete pod cpu-demo-2 --namespace=cpu-example
 ```
 
-## If you don’t specify a CPU limit
+## If you do not specify a CPU limit
 
-If you don’t specify a CPU limit for a Container, then one of these situations applies:
+If you do not specify a CPU limit for a Container, then one of these situations applies:
 
 * The Container has no upper bound on the CPU resources it can use. The Container
 could use all of the CPU resources available on the Node where it is running.
@@ -230,8 +226,8 @@ to specify a default value for the CPU limit.
 ## Motivation for CPU requests and limits
 
 By configuring the CPU requests and limits of the Containers that run in your
-cluster, you can make efficient use of the CPU resources available on your cluster's
-Nodes. By keeping a Pod's CPU request low, you give the Pod a good chance of being
+cluster, you can make efficient use of the CPU resources available on your cluster
+Nodes. By keeping a Pod CPU request low, you give the Pod a good chance of being
 scheduled. By having a CPU limit that is greater than the CPU request, you accomplish two things:
 
 * The Pod can have bursts of activity where it makes use of CPU resources that happen to be available.

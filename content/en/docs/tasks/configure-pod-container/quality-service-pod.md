@@ -45,10 +45,10 @@ kubectl create namespace qos-example
 For a Pod to be given a QoS class of Guaranteed:
 
 * Every Container in the Pod must have a memory limit and a memory request, and they must be the same.
-* Every Container in the Pod must have a cpu limit and a cpu request, and they must be the same.
+* Every Container in the Pod must have a CPU limit and a CPU request, and they must be the same.
 
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit and a
-memory request, both equal to 200 MiB. The Container has a cpu limit and a cpu request, both equal to 700 millicpu:
+memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU request, both equal to 700 milliCPU:
 
 {{< codenew file="pods/qos/qos-pod.yaml" >}}
 
@@ -65,8 +65,8 @@ kubectl get pod qos-demo --namespace=qos-example --output=yaml
 ```
 
 The output shows that Kubernetes gave the Pod a QoS class of Guaranteed. The output also
-verifies that the Pod's Container has a memory request that matches its memory limit, and it has
-a cpu request that matches its cpu limit.
+verifies that the Pod Container has a memory request that matches its memory limit, and it has
+a CPU request that matches its CPU limit.
 
 ```yaml
 spec:
@@ -86,7 +86,7 @@ spec:
 {{< note >}}
 **Note:** If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
 automatically assigns a memory request that matches the limit. Similarly, if a Container specifies its own
-cpu limit, but does not specify a cpu request, Kubernetes automatically assigns a cpu request that matches
+CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
 the limit.
 {{< /note >}}
 
@@ -101,7 +101,7 @@ kubectl delete pod qos-demo --namespace=qos-example
 A Pod is given a QoS class of Burstable if:
 
 * The Pod does not meet the criteria for QoS class Guaranteed.
-* At least one Container in the Pod has a memory or cpu request.
+* At least one Container in the Pod has a memory or CPU request.
 
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit of 200 MiB
 and a memory request of 100 MiB.
@@ -146,9 +146,9 @@ kubectl delete pod qos-demo-2 --namespace=qos-example
 ## Create a Pod that gets assigned a QoS class of BestEffort
 
 For a Pod to be given a QoS class of BestEffort, the Containers in the Pod must not
-have any memory or cpu limits or requests.
+have any memory or CPU limits or requests.
 
-Here is the configuration file for a Pod that has one Container. The Container has no memory or cpu
+Here is the configuration file for a Pod that has one Container. The Container has no memory or CPU
 limits or requests:
 
 {{< codenew file="pods/qos/qos-pod-3.yaml" >}}

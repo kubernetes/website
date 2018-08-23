@@ -149,7 +149,9 @@ The output is similar to this:
 
 ### Versioning Kubernetes examples
 
-Code examples and configuration examples that include version information should be consistent with the accompanying text. Identify the Kubernetes version in the **Before you begin** section.
+Code examples and configuration examples that include version information should be consistent with the accompanying text. 
+
+If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-templates/#task-template) or the [Tutorial template] (/docs/contribute/style/page-templates/#tutorial-template). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
 To specify the Kubernetes version for a task or tutorial page, include `min-kubernetes-server-version` in the front matter of the page.
 
@@ -284,6 +286,16 @@ The output is:
     {{< note >}}**Note:** Grease the pan for best results.{{< /note >}}
 
 1. Bake for 20-25 minutes or until set.
+
+### Include Statements
+
+Shortcodes inside include statements will break the build. You must insert them in the parent document, before and after you call the include. For example:
+
+```
+{{</* note */>}}
+{{</* include "federation-current-state.md" */>}}
+{{</* /note */>}}
+```
 
 ## Content best practices
 

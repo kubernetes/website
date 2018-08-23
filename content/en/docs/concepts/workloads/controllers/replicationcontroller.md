@@ -50,7 +50,7 @@ Run the example job by downloading the example file and then running this comman
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/controllers/replication.yaml
-replicationcontroller "nginx" created
+replicationcontroller/nginx created
 ```
 
 Check on the status of the ReplicationController using this command:

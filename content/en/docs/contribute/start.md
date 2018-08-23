@@ -29,7 +29,7 @@ using Hugo. The source is in Github at
 [https://github.com/kubernetes/website](https://github.com/kubernetes/website).
 Most of the documentation source is stored in `/content/en/docs/`. Some of the
 reference documentation is automatically generated from scripts, mostly in the
-`/content/en/docs/imported/` subdirectory.
+`update-imported-docs/` directory.
 
 You can file issues, edit content, and review changes from others, all from the
 Github website. You can also use Github's embedded history and search tools.
@@ -40,8 +40,8 @@ Not all tasks can be done in the Github UI, but these are discussed in the
 
 ### Participating in SIG Docs
 
-The Kubernetes documentation is maintained by a special interest group (SIG)
-called Sig Docs. We communicate using a Slack channel, a mailing list, and
+The Kubernetes documentation is maintained by a Special Interest Group (SIG)
+called SIG Docs. We communicate using a Slack channel, a mailing list, and
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
 
@@ -154,8 +154,8 @@ process guidelines and information about deadlines.
 ### Sign the CLA
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
-the [Contributor guide](/docs/imported/community/guide/) and
-[sign the Contributor License Agreement (CLA)](/docs/imported/community/guide/#sign-the-cla).
+the [Contributor guide](/docs/community/guide/) and
+[sign the Contributor License Agreement (CLA)](/docs/community/guide/#sign-the-cla).
 Don't worry -- this doesn't take long!
 
 ### Find something to work on
@@ -195,7 +195,7 @@ documentation.
 
 1.  On the page where you see the issue, click the pencil icon at the top left.
     A new page appears, with some help text.
-2.  Click the first blue button, which has the text **Edit <page name>**.
+2.  Click the first blue button, which has the text **Edit &lt;page name&gt;**.
     
     If you have never created a fork of the Kubernetes documentation
     repository, you are prompted to do so. Create the fork under your Github
