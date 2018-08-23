@@ -107,8 +107,9 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     ```
     
     {{< note >}}
-    **Note:** If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.
+**Note:** If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.
     {{< /note >}}
+    
     The installer creates `$HOME/.kube` and instructs it to create a config file
 
 2. Test to ensure the version you installed is sufficiently up-to-date:
@@ -117,9 +118,9 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     kubectl version
     ```
 
-{{< note >}}
-**Note:** Updating the installation consists in running again the two commands of the step 1.
-{{< /note >}}
+    {{< note >}}
+**Note:** Updating the installation is performed by rerunning the two commands listed in step 1.
+    {{< /note >}}
 
 ## Install with Chocolatey on Windows
 
