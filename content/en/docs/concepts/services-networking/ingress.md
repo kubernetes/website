@@ -97,7 +97,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 * [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)
 
 {{< note >}}
-Review the documentation for your controller to find its specific support policy.
+**Note:** Review the documentation for your controller to find its specific support policy.
 {{< /note >}}
 
 ## Before you begin
@@ -105,7 +105,7 @@ Review the documentation for your controller to find its specific support policy
 The following document describes a set of cross-platform features exposed through the Ingress resource. Ideally, all Ingress controllers should fulfill this specification, but we're not there yet. We currently support and maintain [GCE](https://git.k8s.io/ingress-gce/README.md) and [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers. If you use the F5 BIG-IP Controller, see [Use the BIG-IP Controller as a Kubernetes Ingress Controller](http://clouddocs.f5.com/containers/latest/kubernetes/kctlr-k8s-ingress-ctlr.html). 
 
 {{< note >}}
-Make sure you review your controller's specific docs so you understand the caveats.
+**Note:** Make sure you review your controller's specific docs so you understand the caveats.
 {{< /note >}}
 
 ## Types of Ingress
@@ -121,9 +121,12 @@ as well, by specifying a *default backend* with no rules.
 If you create it using `kubectl create -f` you should see:
 
 ```shell
-$ kubectl get ing
-NAME                RULE          BACKEND        ADDRESS
-test-ingress        -             testsvc:80     107.178.254.228
+kubectl get ingress test-ingress
+```
+
+```shell
+NAME           HOSTS     ADDRESS           PORTS     AGE
+test-ingress   *         107.178.254.228   80        59s
 ```
 
 Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
@@ -170,13 +173,22 @@ spec:
 When you create the Ingress with `kubectl create -f`:
 
 ```shell
-$ kubectl get ing
-NAME      RULE          BACKEND   ADDRESS
-test      -
-          foo.bar.com
-          /foo          s1:80
-          /bar          s2:80
+kubectl describe ingress test
 ```
+
+```shell
+...
+Rules:
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   s1:80 (10.56.2.193:80)
+               /bar   s2:80 (10.56.2.194:80)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+...
+```
+
 The Ingress controller will provision an implementation specific loadbalancer
 that satisfies the Ingress, as long as the services (`s1`, `s2`) exist.
 When it has done so, you will see the address of the loadbalancer under the
@@ -292,12 +304,21 @@ specific docs to see how they handle health checks (
 Say you'd like to add a new Host to an existing Ingress, you can update it by editing the resource:
 
 ```shell
-$ kubectl get ing
-NAME      RULE          BACKEND   ADDRESS
-test      -                       178.91.123.132
-          foo.bar.com
-          /foo          s1:80
-$ kubectl edit ing test
+kubectl describe ingress test
+```
+
+```shell
+...
+Rules:
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   s1:80 (10.56.2.193:80)
+...
+```
+
+```shell
+kubectl edit ing test
 ```
 
 This should pop up an editor with the existing yaml, modify it to include the new Host:
@@ -325,13 +346,18 @@ spec:
 Saving the yaml will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
 
 ```shell
-$ kubectl get ing
-NAME      RULE          BACKEND   ADDRESS
-test      -                       178.91.123.132
-          foo.bar.com
-          /foo          s1:80
-          bar.baz.com
-          /foo          s2:80
+kubectl describe ingress test
+```
+
+```shell
+...
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   s1:80 (10.56.2.193:80)
+  bar.baz.com
+               /foo   s2:80 (10.56.2.194:80)
+...
 ```
 
 You can achieve the same by invoking `kubectl replace -f` on a modified Ingress yaml file.
