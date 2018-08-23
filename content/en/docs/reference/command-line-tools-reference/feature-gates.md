@@ -107,6 +107,7 @@ different Kubernetes components.
 | `TokenRequest` | `True` | Beta | 1.12 | |
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `True` | Beta | 1.12 | |
+| `TTLAfterFinished` | `false` | Alpha | 1.12 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
@@ -252,6 +253,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TokenRequest`: Enable the `TokenRequest` endpoint on service account resources.
 - `TokenRequestProjection`: Enable the injection of service account tokens into
   a Pod through the [`projected` volume](/docs/concepts/storage/volumes/#projected).
+- `TTLAfterFinished`: Allow a [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) to clean up resources after they finish execution.
 - `VolumeScheduling`: Enable volume topology aware scheduling and make the
   PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
