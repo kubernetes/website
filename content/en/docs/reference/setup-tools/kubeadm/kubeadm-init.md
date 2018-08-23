@@ -494,30 +494,34 @@ This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting c
 
 For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
 
-| Image Name                                               | v1.8 release branch version | v1.9 release branch version |
-|----------------------------------------------------------|-----------------------------|-----------------------------|
-| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
-| k8s.gcr.io/pause-${ARCH}                   | 3.0                         | 3.0                         |
-| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
-| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
-| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
+| Image Name                                 | v1.9 release branch version | v1.10 release branch version |
+|--------------------------------------------|-----------------------------|------------------------------|
+| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.9.x                      | v1.10.x                      |
+| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.9.x                      | v1.10.x                      |
+| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.9.x                      | v1.10.x                      |
+| k8s.gcr.io/kube-proxy-${ARCH}              | v1.9.x                      | v1.10.x                      |
+| k8s.gcr.io/etcd-${ARCH}                    | 3.1.10                      | 3.1.12                       |
+| k8s.gcr.io/pause-${ARCH}                   | 3.0                         | 3.1                          |
+| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.7                      | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.7                      | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.7                      | 1.14.8                       |
+| coredns/coredns                            | 1.0.2                       | 1.0.6                        |
 
-Here `v1.8.x` means the "latest patch release of the v1.8 branch".
+Here `v1.9.x` means the "latest patch release of the v1.9 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
 If you run Kubernetes version 1.10 or earlier, and if you set `--feature-gates=CoreDNS=true`,
-you must also use the image `coredns/coredns:1.0.2`, instead of the three `k8s-dns-*` images.
+you must also use the `coredns/coredns` image, instead of the three `k8s-dns-*` images.
 
 In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
 ```
 kubeadm config images list
 kubeadm config images pull
 ```
+
+Starting with Kubernetes 1.12, the `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` images
+don't require a `-${ARCH}` suffix.
 
 ### Automating kubeadm
 
