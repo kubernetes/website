@@ -95,14 +95,14 @@ With [Dynatrace Kubernetes monitoring](https://www.dynatrace.com/technologies/cl
 
 Dynatrace automatically discovers all containers running on Kubernetes and presents you with a real-time view of all the connections between your containerized processes, hosts, and cloud instances. Dynatrace includes root cause analysis and the ability to replay problems to see how they evolved over time.
 
-{{% /capture %}}
-
 ### New Relic Kubernetes monitoring integration
 
 [New Relic Kubernetes](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration) integration provides increased visibility into the performance of your Kubernetes environment in. New Relic's Kubernetes integration instruments the container orchestration layer by reporting metrics from Kubernetes objects. The integration gives you insight into your Kubernetes nodes, namespaces, deployments, replica sets, pods, and containers.
 
-Key capabilities as below:
+Marquee capabilities:
 View your data in pre-built dashboards for immediate insight into your Kubernetes environment.
 Create your own custom queries and charts in Insights from automatically reported data.
 Create alert conditions on Kubernetes data.
 Learn more on this [page](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration)
+
+{{% /capture %}}
