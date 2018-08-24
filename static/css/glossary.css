@@ -1,0 +1,57 @@
+.preview-text p {
+  display: inline;
+}
+
+.permalink {
+  background-image: url(../images/link.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  color: transparent;
+  width: 20px;
+  margin-left: 10px;
+}
+
+.term-anchor {
+  display: block;
+  position: relative;
+  top: -90px;
+  visibility: hidden;
+}
+
+.tag-option {
+  padding: 5px;
+  margin: 10px;
+  float:left;
+}
+
+.canonical-tag {
+  color: white;
+  background-color: #b7c8e8;
+}
+
+.canonical-tag a {
+  color: inherit;
+  text-decoration: none !important;
+}
+
+.active-tag {
+  background-color: #3371e3;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+#tag-container {
+  float: left;
+  width: 100%;
+  border-top: 1px solid #8c8c8c;
+  border-bottom: 1px solid #8c8c8c;
+  padding: 7px 0px;
+  margin: 25px 0px;
+}
+
+.tag-description {
+  text-align: center;
+  margin: 5px 0px;
+}

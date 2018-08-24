@@ -1,0 +1,14 @@
+{{ define "content" }}
+<h1>{{ .Title }}</h1>
+
+<gcse:searchresults-only linktarget="_parent">
+    <div id="bing-results-container">Fetching results..</div>
+    <div id="bing-pagination-container"></div>
+</gcse:searchresults-only>
+
+<script src="{{ "js/search.js" | relURL }}"></script>
+{{ end }}
+
+
+
+

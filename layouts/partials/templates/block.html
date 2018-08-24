@@ -1,0 +1,14 @@
+{{/* We need to initialize the shortcode's page's content. This is a very special construct. We are building page blocks by setting state on the Page,
+but we are not accessing its content. The .Content is lazily loaded in Hugo, so we must invoke that method before we do anything else. */}}
+{{ if .page.Content }}{{ end }}
+{{- $capture := printf "__cid_%s" .block -}}
+{{- $block := .page.Scratch.Get $capture -}}
+{{- if and (not $block) (not $.optional) -}}
+{{ partial "templates/errorthrower.html" (dict "block" .block "heading" .heading "purpose" .purpose) . }}
+{{- end -}} 
+{{- with $block -}}
+{{- with $.heading }}
+<h2 id="{{ . | anchorize }}">{{ . }}</h2>
+{{ end -}}
+{{ . }}
+{{ end -}}

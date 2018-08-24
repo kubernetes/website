@@ -41,9 +41,11 @@ aliases:
     - chrislovecnm
     - mfburnett
   sig-azure: #Microsoft Azure
-    - slack
-    - colemickens
-    - jdumars
+    - andyzhangx
+    - feiskyer
+    - justaugustus
+    - karataliu
+    - khenidak
   sig-big-data: #GH: sig-big-data-pr-reviews
     - foxish
   sig-cli: #Team: CLI; GH: sig-cli-pr-reviews; e.g. kubectl
@@ -61,16 +63,25 @@ aliases:
     - smarterclayton
     - soltysh
     - sttts
-  sig-cluster-lifecycle: #GH: sig-cluster-lifecycle-pr-reviews
-    - jbeda
+  sig-cluster-lifecycle-kubeadm-approvers: # Approving changes to kubeadm documentation
     - timothysc
     - lukemarsden
-    - pipejakob
-    - dmmcquay
-    - mattmoyer
     - luxas
     - roberthbailey
-    - medinatiger
+    - fabriziopandini
+  sig-cluster-lifecycle-kubeadm-reviewers: # Reviewing kubeadm documentation
+    - timothysc
+    - lukemarsden
+    - luxas
+    - roberthbailey
+    - fabriziopandini
+    - kad
+    - xiangpengzhao
+    - stealthybox
+    - liztio
+    - chuckha
+    - detiber
+    - dixudx
   sig-cluster-ops:
     - zehicle
     - jdumars
@@ -88,10 +99,19 @@ aliases:
     - spxtr
   sig-docs: #Team: documentation; GH: sig-docs-pr-reviews
     - bradamant3
-    - steveperry-53
-    - zacharysarah
     - bradtopol
-    - heckj
+    - chenopis
+    - kbarnard10
+    - mistyhacks
+    - rajakavitha1
+    - ryanmcginnis
+    - steveperry-53
+    - stewart-yu
+    - tengqm
+    - xiangpengzhao
+    - zacharysarah
+    - zhangxiaoyu-zidif
+    - zparnold
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews

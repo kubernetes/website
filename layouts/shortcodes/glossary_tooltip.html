@@ -1,0 +1,22 @@
+{{- $id := .Get "term_id" -}}
+{{- $text := .Get "text" -}}
+{{- $glossaryBundle := .Site.GetPage "page" "docs/reference/glossary" -}}
+{{- $glossaryItems :=  $glossaryBundle.Resources.ByType "page" -}}
+{{- $term_info := $glossaryItems.GetMatch (printf "%s*" $id ) -}}
+{{- if not $term_info -}}
+{{- errorf "[%s] %q: %q is not a valid glossary term_id, see ./docs/reference/glossary/* for a full list" .Page.Site.Language.Lang .Page.Path $id -}}
+{{- end }}
+{{- with $term_info -}}
+{{- $text := $text | default $term_info.Title -}}
+{{- $glossary_home := "docs/reference/glossary/?all=true" | relLangURL -}}
+{{- $external_link := $term_info.Params.full_link | default (printf "%s#term-%s" $glossary_home $id | safeURL  ) -}}
+{{- $tooltip :=  $term_info.Params.short_description | markdownify -}}
+{{- $tooltip := $tooltip | replaceRE "(?s)<a class='glossary-tooltip'.*?>(.*?)<span class='tooltip-text'>.*</a>" "$1" | plainify -}}
+{{- $tooltip := trim $tooltip " \n" -}}
+<a class='glossary-tooltip' href='{{ $external_link }}' target='_blank'>
+	{{- $text -}}
+	<span class='tooltip-text'>
+  {{- $tooltip | safeHTML -}}
+	</span>
+</a>
+{{- end -}}

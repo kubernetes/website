@@ -1,0 +1,128 @@
+bigheader: "Concepts"
+abstract: "Detailed explanations of Kubernetes system concepts and abstractions."
+landing_page: /docs/concepts/index/
+toc:
+- docs/concepts/index.md
+
+- title: Overview
+  landing_page: /docs/concepts/overview/what-is-kubernetes/
+  section:
+  - docs/concepts/overview/what-is-kubernetes.md
+  - docs/concepts/overview/components.md
+  - docs/concepts/overview/kubernetes-api.md
+  - title: Working with Kubernetes Objects
+    section:
+    - docs/concepts/overview/working-with-objects/kubernetes-objects.md
+    - docs/concepts/overview/working-with-objects/names.md
+    - docs/concepts/overview/working-with-objects/namespaces.md
+    - docs/concepts/overview/working-with-objects/labels.md
+    - docs/concepts/overview/working-with-objects/annotations.md
+    - docs/concepts/overview/working-with-objects/common-labels.md
+  - title: Object Management Using kubectl
+    section:
+    - docs/concepts/overview/object-management-kubectl/overview.md
+    - docs/concepts/overview/object-management-kubectl/imperative-command.md
+    - docs/concepts/overview/object-management-kubectl/imperative-config.md
+    - docs/concepts/overview/object-management-kubectl/declarative-config.md
+
+- title: Kubernetes Architecture
+  landing_page: /docs/concepts/architecture/nodes/
+  section:
+  - docs/concepts/architecture/nodes.md
+  - docs/concepts/architecture/master-node-communication.md
+  - docs/concepts/architecture/cloud-controller.md
+
+- title: Extending Kubernetes
+  landing_page: /docs/concepts/api-extension/custom-resources/
+  section:
+  - docs/concepts/overview/extending.md
+  - title: Extending the Kubernetes API
+    section:
+    - docs/concepts/api-extension/apiserver-aggregation.md
+    - docs/concepts/api-extension/custom-resources.md
+  - title: Compute, Storage, and Networking Extensions
+    section:
+    - docs/concepts/cluster-administration/network-plugins.md
+    - docs/concepts/cluster-administration/device-plugins.md
+  - docs/concepts/service-catalog/index.md
+
+- title: Containers
+  landing_page: /docs/concepts/containers/images/
+  section:
+  - docs/concepts/containers/images.md
+  - docs/concepts/containers/container-environment-variables.md
+  - docs/concepts/containers/container-lifecycle-hooks.md
+
+- title: Workloads
+  landing_page: /docs/concepts/workloads/pods/pod-overview/
+  section:
+  - title: Pods
+    section:
+    - docs/concepts/workloads/pods/pod-overview.md
+    - docs/concepts/workloads/pods/pod.md
+    - docs/concepts/workloads/pods/pod-lifecycle.md
+    - docs/concepts/workloads/pods/init-containers.md
+    - docs/concepts/workloads/pods/podpreset.md
+    - docs/concepts/workloads/pods/disruptions.md
+  - title: Controllers
+    section:
+    - docs/concepts/workloads/controllers/replicaset.md
+    - docs/concepts/workloads/controllers/replicationcontroller.md
+    - docs/concepts/workloads/controllers/deployment.md
+    - docs/concepts/workloads/controllers/statefulset.md
+    - docs/concepts/workloads/controllers/daemonset.md
+    - docs/concepts/workloads/controllers/garbage-collection.md
+    - docs/concepts/workloads/controllers/jobs-run-to-completion.md
+    - docs/concepts/workloads/controllers/cron-jobs.md
+
+- title: Configuration
+  landing_page: /docs/concepts/configuration/overview/
+  section:
+  - docs/concepts/configuration/overview.md
+  - docs/concepts/configuration/manage-compute-resources-container.md
+  - docs/concepts/configuration/assign-pod-node.md
+  - docs/concepts/configuration/taint-and-toleration.md
+  - docs/concepts/configuration/secret.md
+  - docs/concepts/configuration/organize-cluster-access-kubeconfig.md
+  - docs/concepts/configuration/pod-priority-preemption.md
+
+- title: Services, Load Balancing, and Networking
+  landing_page: /docs/concepts/services-networking/service/
+  section:
+  - docs/concepts/services-networking/service.md
+  - docs/concepts/services-networking/dns-pod-service.md
+  - docs/concepts/services-networking/connect-applications-service.md
+  - docs/concepts/services-networking/ingress.md
+  - docs/concepts/services-networking/network-policies.md
+  - docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases.md
+
+- title: Storage
+  landing_page: /docs/concepts/storage/volumes/
+  section:
+  - docs/concepts/storage/volumes.md
+  - docs/concepts/storage/persistent-volumes.md
+  - docs/concepts/storage/storage-classes.md
+  - docs/concepts/storage/dynamic-provisioning.md
+
+- title: Cluster Administration
+  landing_page: /docs/concepts/cluster-administration/cluster-administration-overview/
+  section:
+  - docs/concepts/cluster-administration/cluster-administration-overview.md
+  - docs/concepts/cluster-administration/certificates.md
+  - docs/concepts/cluster-administration/cloud-providers.md
+  - docs/concepts/cluster-administration/manage-deployment.md
+  - docs/concepts/cluster-administration/networking.md
+  - docs/concepts/cluster-administration/network-plugins.md
+  - docs/concepts/cluster-administration/logging.md
+  - docs/concepts/cluster-administration/kubelet-garbage-collection.md
+  - docs/concepts/cluster-administration/federation.md
+  - docs/concepts/cluster-administration/sysctl-cluster.md
+  - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
+  - docs/concepts/cluster-administration/master-node-communication.md
+  - docs/concepts/cluster-administration/proxies.md
+  - docs/concepts/cluster-administration/controller-metrics.md
+  - docs/concepts/cluster-administration/device-plugins.md
+  - title: Policies
+    section:
+    - docs/concepts/policy/resource-quotas.md
+    - docs/concepts/policy/pod-security-policy.md

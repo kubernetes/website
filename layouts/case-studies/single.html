@@ -1,0 +1,7 @@
+{{ define "main" }}
+{{ with .Params.content_url }}
+<meta http-equiv="refresh" content="0; URL='{{ . }}'" />
+{{ else }}
+	{{ .Content }}
+{{ end }}
+{{ end }}

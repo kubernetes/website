@@ -1,11 +1,11 @@
 **/.DS_Store
 **/desktop.ini
-.jekyll-metadata
 _site/**
 .sass-cache/**
 CNAME
 .travis.yml
 .idea/
+.vscode/
 
 # Vim ignore
 # source: https://github.com/github/gitignore/blob/master/Global/Vim.gitignore
@@ -24,3 +24,11 @@ Session.vim
 tags
 
 kubernetes.github.io.iml
+
+nohup.out
+
+# Hugo output
+public/
+
+# User-specific editorconfig files
+.editorconfig

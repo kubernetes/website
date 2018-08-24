@@ -1,0 +1,29 @@
+bigheader: "About"
+abstract: "Documentation for using and learning about Kubernetes."
+toc:
+- docs/home/index.md
+
+- title: Supported Doc Versions
+  path: /docs/home/supported-doc-versions/
+
+- title: Contributing to the Kubernetes Docs
+  landing_page: /editdocs/
+  section:
+  - editdocs.md
+  - docs/home/contribute/participating.md
+  - docs/home/contribute/create-pull-request.md
+  - docs/home/contribute/write-new-topic.md
+  - docs/home/contribute/stage-documentation-changes.md
+  - docs/home/contribute/page-templates.md
+  - docs/home/contribute/review-issues.md
+  - docs/home/contribute/style-guide.md
+  - docs/home/contribute/includes.md
+  - docs/home/contribute/localization.md
+  - docs/home/contribute/blog-post.md
+
+  - title: Updating Automatically Generated Reference Pages
+    section:
+    - docs/home/contribute/generated-reference/kubernetes-components.md
+    - docs/home/contribute/generated-reference/kubectl.md
+    - docs/home/contribute/generated-reference/kubernetes-api.md
+    - docs/home/contribute/generated-reference/federation-api.md

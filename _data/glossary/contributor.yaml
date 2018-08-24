@@ -1,8 +1,0 @@
-id: contributor
-name: Contributor
-tags:
-- community
-short-description: >
-  Someone who donates code, documentation, or their time to help the Kubernetes project or community.
-long-description: >
-  Contributions include pull requests (PRs), issues, feedback, {% glossary_tooltip text="special interest groups (SIG)" term_id="sig" %} participation, or organizing community events.

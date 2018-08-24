@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html id="docs" lang="en" class="{{ .Params.class }}">
+	<head>
+	{{ partial "head.html" . }}
+	</head>
+	<body>
+		{{ partialCached "header.html" . "docs" }}
+		{{ block "hero" . }}
+		<!--  HERO  -->
+		<section id="hero" class="light-text no-sub">
+			{{ partial "docs/top-menu.html" . }}
+		</section>
+		{{ end }}
+		{{ block "deprecation" . }}{{ partial "deprecation-warning.html" . }}{{ end }}
+		<section id="encyclopedia">
+			{{ block "side-menu" . }}<div id="docsToc" style="display:none;"></div>{{ end }}
+			<div id="{{ block "content-id" . }}docsContent{{ end }}">
+				{{ block "content" . }}{{ end }}
+			</div>
+		</section>
+    <div id="pre-footer"> <!-- This is at the bottom of every topic underneath the TOC and content -->
+      <div class="issue-button-container">
+        <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ .Path }}?pixel" alt="Analytics" /></a></p>
+        {{ if and (ne .Kind "404") (not (strings.Contains .Path "search")) }}
+        {{ if not .Params.no_issue }}
+        <script type="text/javascript">
+        PDRTJS_settings_8345992 = {
+        "id" : "8345992",
+        "unique_id" : "{{ .RelPermalink }}",
+        "title" : "{{ .Title }}",
+        "permalink" : "{{ .Permalink }}"
+        };
+        </script>
+        <a href="https://github.com/kubernetes/website/issues/new?title=Issue%20with%20k8s.io/{{ .URL }}%20%5BFile:%20/content/en/{{ .File.Path }}%5D" class="button issue" target="_blank">Report a problem</a>
+        {{ end }}
+        {{ end }}
+        {{ if not .Params.noedit }}
+        <a href="https://github.com/kubernetes/website/edit/master/content/en/{{ .File.Path }}" class="button issue" target="_blank">Edit on Github</a>
+        {{ end }}
+      </div>
+      {{ if not .Params.showcommit }}
+        {{ if $.GitInfo }}
+      <div id="lastedit" class="lastedit issue-button-container">
+        {{ .GitInfo.AuthorDate.Format "Page last modified on January 02, 2006 at 3:04 PM PST" }} by <a href="https://github.com/kubernetes/website/commit/{{ .GitInfo.Hash }}/">{{ .GitInfo.Subject }}</a> (<a href="https://github.com/kubernetes/website/commits/master/content/en/{{ .File.Path }}">Page history</a>)
+      </div>
+        {{ end }}
+      {{ end }}
+    </div>
+		{{ partialCached "footer.html" . }}
+		{{ partialCached "footer-scripts.html" . }}
+    <script>
+      // This script turns in-page headers into clickable and shareable
+      (function addHeadingLinks(){
+        var article = document.getElementById('docsContent');
+        var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        headings.forEach(function(heading){
+          if(heading.id){
+            var a = document.createElement('a');
+            a.text = heading.innerHTML;
+            a.href = '#'+heading.id;
+            a.classList.add('inpage_heading');
+            heading.innerHTML = '';
+            heading.appendChild(a);
+          }
+        });
+      })();
+    </script>
+	</body>
+</html>
