@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@slack/client": "^4.4.0",
+    "netlify-lambda": "^0.4.0",
+    "node-fetch": "^2.2.0"
+  }
+}
