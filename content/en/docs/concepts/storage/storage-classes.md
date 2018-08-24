@@ -289,12 +289,9 @@ metadata:
   name: gold
 provisioner: kubernetes.io/cinder
 parameters:
-  type: fast
   availability: nova
 ```
 
-* `type`: [VolumeType](https://docs.openstack.org/user-guide/dashboard-manage-volumes.html)
-  created in Cinder. Default is empty.
 * `availability`: Availability Zone. If not specified, volumes are generally
   round-robin-ed across all active zones where Kubernetes cluster has a node.
 
