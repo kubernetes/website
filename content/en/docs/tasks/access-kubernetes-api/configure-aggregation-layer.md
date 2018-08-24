@@ -1,5 +1,5 @@
 ---
-title: Configure the aggregation layer
+title: Configure the Aggregation Layer
 reviewers:
 - lavalamp
 - cheftako

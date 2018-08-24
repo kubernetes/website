@@ -26,12 +26,14 @@ $ kubectl get namespaces
 NAME          STATUS    AGE
 default       Active    11d
 kube-system   Active    11d
+kube-public   Active    11d
 ```
 
-Kubernetes starts with two initial namespaces:
+Kubernetes starts with three initial namespaces:
 
    * `default` The default namespace for objects with no other namespace
    * `kube-system` The namespace for objects created by the Kubernetes system
+   * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
 
 You can also get the summary of a specific namespace using:
 

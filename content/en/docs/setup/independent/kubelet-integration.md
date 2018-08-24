@@ -20,15 +20,13 @@ system or service manager. When the kubelet is installed using DEBs or RPMs,
 systemd is configured to manage the kubelet. You can use a different service
 manager instead, but you need to configure it manually.
 
-Some kublet configuration details need to be the same across all kubelets involved in the cluster, while
+Some kubelet configuration details need to be the same across all kubelets involved in the cluster, while
 other configuration aspects need to be set on a per-kubelet basis, to accommodate the different
 characteristics of a given machine, such as OS, storage, and networking. You can manage the configuration
 of your kubelets manually, but [kubeadm now provides a `MasterConfig` API type for managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 
 {{% /capture %}}
-
-{{ toc }}
 
 {{% capture body %}}
 
@@ -37,9 +35,9 @@ kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 The following sections describe patterns to kubelet configuration that are simplified by
 using kubeadm, rather than managing the kubelet configuration for each Node manually.
 
-### Propogating cluster-level configuration to each kubelet
+### Propagating cluster-level configuration to each kubelet
 
-You can provide the kubelet with default values to be used by `kubelet init` and `kubelet join`
+You can provide the kubelet with default values to be used by `kubeadm init` and `kubeadm join`
 commands. Interesting examples include using a different CRI runtime or setting the default subnet
 used by services.
 
@@ -97,8 +95,6 @@ You can specify these flags by configuring an individual kubelet's configuration
 such as systemd.
 
 ## Configure kubelets using kubeadm
-
-{{ feature-state for_k8s_version="1.11" state="stable" }}
 
 The kubeadm config API type `MasterConfiguration` embeds the kubelet's ComponentConfig under
 the `.kubeletConfiguration.baseConfig` key. Any user writing a `MasterConfiguration`
