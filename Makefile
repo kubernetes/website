@@ -11,7 +11,7 @@ help: ## Show this help.
 all: build ## Build site with production settings and put deliverables in ./public
 
 build: ## Build site with production settings and put deliverables in ./public
-	hugo
+	hugo --minify
 
 build-preview: ## Build site with drafts and future posts enabled
 	hugo -D -F
@@ -22,7 +22,7 @@ check-headers-file:
 production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
 non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
-	hugo --enableGitInfo
+	hugo --minify --enableGitInfo
 
 serve: ## Boot the development server.
 	hugo server --ignoreCache --disableFastRender
