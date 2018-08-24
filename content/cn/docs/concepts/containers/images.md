@@ -87,7 +87,7 @@ Kubelet会获取并且定期刷新ECR的凭证。它需要以下权限
 
 - 验证是否满足以上要求
 - 获取工作站的$REGION (例如 `us-west-2`)凭证，使用凭证SSH到主机手动运行docker，检查是否运行
-- 验证kublet是否使用参数`--cloud-provider=aws`运行
+- 验证kubelet是否使用参数`--cloud-provider=aws`运行
 - 检查kubelet日志(例如 `journalctl -u kubelet`)，是否有类似的行
   - `plugins.go:56] Registering credential provider: aws-ecr-key`
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
