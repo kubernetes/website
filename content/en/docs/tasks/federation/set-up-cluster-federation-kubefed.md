@@ -6,7 +6,9 @@ title: Set up Cluster Federation with Kubefed
 ---
 
 {{% capture overview %}}
+{{< note >}}
 {{< include "federation-current-state.md" >}}
+{{< /note >}}
 
 Kubernetes version 1.5 and above includes a new command line tool called
 [`kubefed`](/docs/admin/kubefed/) to help you administrate your federated
@@ -206,9 +208,9 @@ newly deployed federation. You can set the current context manually by running:
 ```shell
 kubectl config use-context fellowship
 ```
-{{< /note >}}
 
 where `fellowship` is the name of your federation.
+{{< /note >}}
 
 ### Basic and token authentication support
 

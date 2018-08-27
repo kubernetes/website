@@ -1,8 +1,9 @@
 ---
 title: Installing Kubernetes on AWS with kops
+content_template: templates/concept
 ---
 
-## Overview
+{{% capture overview %}}
 
 This quickstart shows you how to easily install a Kubernetes cluster on AWS.
 It uses a tool called [`kops`](https://github.com/kubernetes/kops).
@@ -19,6 +20,10 @@ kops is an opinionated provisioning system:
 If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/docs/admin/kubeadm/) as
 a building block.  kops builds on the kubeadm work.
 
+{{% /capture %}}
+
+{{% capture body %}}
+
 ## Creating a cluster
 
 ### (1/5) Install kops
@@ -33,7 +38,7 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 
 On macOS:
 
-```
+```shell
 curl -OL https://github.com/kubernetes/kops/releases/download/1.10.0/kops-darwin-amd64
 chmod +x kops-darwin-amd64
 mv kops-darwin-amd64 /usr/local/bin/kops
@@ -43,7 +48,7 @@ brew update && brew install kops
 
 On Linux:
 
-```
+```shell
 wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
 chmod +x kops-linux-amd64
 mv kops-linux-amd64 /usr/local/bin/kops
@@ -149,12 +154,6 @@ for production clusters!
 
 See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
 
-## What's next
-
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
-* Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
-* See the `kops` [docs](https://github.com/kubernetes/kops) section for tutorials, best practices and advanced configuration options.
-
 ## Cleanup
 
 * To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
@@ -164,3 +163,12 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 * Slack Channel: [#kops-users](https://kubernetes.slack.com/messages/kops-users/)
 * [GitHub Issues](https://github.com/kubernetes/kops/issues)
 
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
+* Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
+* See the `kops` [docs](https://github.com/kubernetes/kops) section for tutorials, best practices and advanced configuration options.
+
+{{% /capture %}}
