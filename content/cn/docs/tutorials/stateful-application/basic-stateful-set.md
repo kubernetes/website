@@ -107,9 +107,7 @@ web-1     1/1       Running   0         18s
 
 请注意在 `web-0` Pod 处于 [Running和Ready](/docs/user-guide/pod-states) 状态后 `web-1` Pod 才会被启动。
 
-<!-
-## Pods in a StatefulSet
--->
+
 ## StatefulSet 中的 Pod
 
 
