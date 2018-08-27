@@ -22,7 +22,7 @@ Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting
 
 ## Installing Romana with kubeadm
 
-Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadmin.
+Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadm.
 
 ## Applying network policies
 
