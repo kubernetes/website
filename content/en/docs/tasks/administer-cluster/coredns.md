@@ -68,12 +68,11 @@ your existing Corefile will be retained.
 ## Rollback to kube-dns
 
 From Kubernetes v1.11, Kubeadm will install CoreDNS by default.
-If you want to rollback your cluster to use kube-dns, use the following command:
+Although not recommended, you can rollback your cluster to use kube-dns.
 
 ```
 kubeadm upgrade apply <current-installed-version> --feature-gates CoreDNS=false --force
 ```
-This will replace CoreDNS with kube-dns.
 
 Alternately, you can install kube-dns manually with the help of these [instructions](https://github.com/coredns/deployment/tree/master/kubernetes#rollback-to-kube-dns).
 
