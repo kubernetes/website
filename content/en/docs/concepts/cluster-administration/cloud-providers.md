@@ -329,7 +329,7 @@ By using the IBM Cloud Kubernetes Service provider, you can create clusters with
 The name of the Kubernetes Node object is the private IP address of the IBM Cloud Kubernetes Service worker node instance. 
 
 ### Networking
-The IBM Cloud Kubernetes Service provider provides VLANs for quality network performance and network isolation for nodes. You can set up custom firewalls and network policies to add an extra layer of security for your cluster, or connect your cluster to your on-prem data center via VPN. For more information, see [Planning in-cluster and private networking](https://console.bluemix.net/docs/containers/cs_network_cluster.html#planning).
+The IBM Cloud Kubernetes Service provider provides VLANs for quality network performance and network isolation for nodes. You can set up custom firewalls and Calico network policies to add an extra layer of security for your cluster, or connect your cluster to your on-prem data center via VPN. For more information, see [Planning in-cluster and private networking](https://console.bluemix.net/docs/containers/cs_network_cluster.html#planning).
 
 To expose apps to the public or within the cluster, you can leverage NodePort, LoadBalancer, or Ingress services. You can also customize the Ingress application load balancer with annotations. For more information, see [Planning to expose your apps with external networking](https://console.bluemix.net/docs/containers/cs_network_planning.html#planning).
 
