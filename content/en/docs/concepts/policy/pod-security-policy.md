@@ -487,6 +487,17 @@ image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
 recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
+**RunAsGroup** - Controls the what primary group ID containers run as.
+
+- *MustRunAs* - Requires at least one `range` to be specified. Uses the
+minimum value of the first range as the default. Validates against all ranges.
+- *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
+`runAsUser` or have the `USER` directive defined (using a numeric GID) in the
+image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
+recommended with this strategy.
+- *RunAsAny* - No default provided. Allows any `runAsGroup` to be specified.
+
+
 **SupplementalGroups** - Controls which group IDs containers add.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
