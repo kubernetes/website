@@ -41,7 +41,7 @@ The basic workflow for configuring a Kubelet in a live cluster is as follows:
 
 1. Write a YAML or JSON configuration file containing the
 Kubelet's configuration.
-2. Wrap this file in a ConfigMap and save it to the Kubernetes control plane.
+2. Create the ConfigMap with the configuration file.
 3. Update the Kubelet's corresponding Node object to use this ConfigMap.
 
 Each Kubelet watches a configuration reference on its respective Node object.
