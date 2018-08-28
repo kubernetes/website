@@ -195,7 +195,7 @@ spec:
 
 注意到这个 Pod 显式地指定了资源 *limits* 和 *requests*，所以它不会使用该 Namespace 的默认值。
 
-注意：在物理节点上默认安装的 Kubernetes 集群中，CPU 资源的 *limits* 是被强制使用的，该 Kubernetes 集群运行容器，除非管理员在部署 kublet 时使用了如下标志：
+注意：在物理节点上默认安装的 Kubernetes 集群中，CPU 资源的 *limits* 是被强制使用的，该 Kubernetes 集群运行容器，除非管理员在部署 kubelet 时使用了如下标志：
 
 ```shell
 $ kubelet --help
