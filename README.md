@@ -19,7 +19,7 @@ For more information about contributing to the Kubernetes documentation, see:
 
 The Kubernetes documentation is built using the [Hugo](https://gohugo.io) static site generator. See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions.
 
-> Building and running the site requires the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](/blob/master/netlify.toml#L9) file.
+> Building and running the site requires the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
 
 To run the site locally when you have Hugo installed:
 
