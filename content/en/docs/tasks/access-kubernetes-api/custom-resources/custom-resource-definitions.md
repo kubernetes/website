@@ -447,8 +447,9 @@ The column's `format` controls the style used when `kubectl` prints the value.
 
 ### Subresources
 
+{{< feature-state state="beta" for_kubernetes_version="1.11" >}}
+
 Custom resources support `/status` and `/scale` subresources.
-This feature is __beta__ in v1.11 and enabled by default.
 
 You can disable this feature using the `CustomResourceSubresources` feature gate on
 the [kube-apiserver](/docs/admin/kube-apiserver):
@@ -469,7 +470,28 @@ When the status subresource is enabled, the `/status` subresource for the custom
 - `PUT` requests to the `/status` subresource only validate the status stanza of the custom resource.
 - `PUT`/`POST`/`PATCH` requests to the custom resource ignore changes to the status stanza.
 - Any changes to the spec stanza increments the value at `.metadata.generation`.
-- `properties`, `required` and `description` are the only constructs allowed in the root of the CRD OpenAPI validation schema.
+- Only the following constructs are allowed at the root of the CRD OpenAPI validation schema:
+
+  - Description
+  - Example
+  - ExclusiveMaximum
+  - ExclusiveMinimum
+  - ExternalDocs
+  - Format
+  - Items
+  - Maximum
+  - MaxItems
+  - MaxLength
+  - Minimum
+  - MinItems
+  - MinLength
+  - MultipleOf
+  - Pattern
+  - Properties
+  - Required
+  - Title
+  - Type
+  - UniqueItems
 
 #### Scale subresource
 
