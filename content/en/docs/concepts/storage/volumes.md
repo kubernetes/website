@@ -1075,7 +1075,7 @@ spec:
 
 
 `subPath` directory names can also be constructed from Downward API environment variables.
-Before you use this feature, you must enable the `VolumeSubpathEnvExpansion`feature gate.
+Before you use this feature, you must enable the `VolumeSubpathEnvExpansion` feature gate.
 
 In this example, a Pod uses `subPath` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 
