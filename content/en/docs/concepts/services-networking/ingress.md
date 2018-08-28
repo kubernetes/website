@@ -177,16 +177,19 @@ kubectl describe ingress test
 ```
 
 ```shell
-...
+Name:             app-health
+Namespace:        kube-system
+Address:          169.X.X.X
+Default backend:  default-http-backend:80 (<none>)
+TLS:
+  cmltest terminates alb.example.cloud
 Rules:
-  Host         Path  Backends
-  ----         ----  --------
-  foo.bar.com
-               /foo   s1:80 (10.56.2.193:80)
-               /bar   s2:80 (10.56.2.194:80)
+  Host  Path  Backends
+  ----  ----  --------
+  *     *     default-http-backend:80 (<none>)
 Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
-...
+  ingress.example.net/server-snippets:  location = / { return 200 'healthy'; add_header Content-Type text/plain; }
+Events:                                 <none>
 ```
 
 The Ingress controller will provision an implementation specific loadbalancer
