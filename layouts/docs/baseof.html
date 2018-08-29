@@ -55,12 +55,14 @@
         var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
         headings.forEach(function(heading){
           if(heading.id){
-            var a = document.createElement('a');
-            a.text = heading.innerHTML;
-            a.href = '#'+heading.id;
-            a.classList.add('inpage_heading');
-            heading.innerHTML = '';
-            heading.appendChild(a);
+            var headingContents = heading; // Save the existing title
+            var wrapper = document.createElement('a'); // Start building a link
+            headingContents.parentNode.insertBefore(wrapper, headingContents); // Insert the new node befoe the existing heading
+            wrapper.appendChild(headingContents); // Put the heading text (and enclosed HTML) inside the <a> tags
+            wrapper.href = '#'+heading.id; // Set an ID on the link
+            wrapper.classList.add('inpage_heading'); // Add a class to the link
+            heading.innerHTML = ''; // Zero out the existing title
+            heading.appendChild(a); // Put the new link in its place
           }
         });
       })();
