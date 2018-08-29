@@ -32,6 +32,7 @@ Further experience revealed other areas where machines could do the work for us:
   * What should we be paying attention to?
 
 As we developed automation to improve our situation, we followed a few guiding principles:
+
 * Follow the push/poll control loop patterns that worked well for Kubernetes
 * Prefer stateless loosely coupled services that do one thing well
 * Prefer empowering the entire community over empowering a few core contributors
@@ -42,6 +43,7 @@ As we developed automation to improve our situation, we followed a few guiding p
 This led us to create [Prow](https://git.k8s.io/test-infra/prow) as the central component for our automation. Prow is sort of like an [If This, Then That](https://ifttt.com/) for GitHub events, with a built-in library of [commands](https://prow.k8s.io/command-help), [plugins](https://prow.k8s.io/plugins), and utilities. We built Prow on top of Kubernetes to free ourselves from worrying about resource management and scheduling, and ensure a more pleasant operational experience.
 
 Prow lets us do things like:
+
 * Allow our community to triage issues/PRs by commenting commands such as “/priority critical-urgent”, “/assign mary” or “/close”
 * Auto-label PRs based on how much code they change, or which files they touch
 * Age out issues/PRs that have remained inactive for too long
@@ -70,6 +72,7 @@ With workflow automation addressed, we turned our attention to project health. W
 * [Testgrid](https://k8s-testgrid.appspot.com/): display test results for a given job across all runs, summarize test results across groups of jobs
 
 We approached the Cloud Native Computing Foundation (CNCF) to develop DevStats to glean insights from our GitHub events such as:
+
 * [Which prow commands are people most actively using](https://k8s.devstats.cncf.io/d/5/bot-commands-repository-groups?orgId=1)
 * [PR reviews by contributor over time](https://k8s.devstats.cncf.io/d/46/pr-reviews-by-contributor?orgId=1&var-period=d7&var-repo_name=All&var-reviewers=All)
 * [Time spent in each phase of our PR workflow](https://k8s.devstats.cncf.io/d/44/pr-time-to-approve-and-merge?orgId=1)
