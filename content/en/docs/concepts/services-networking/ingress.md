@@ -177,25 +177,32 @@ kubectl describe ingress test
 ```
 
 ```shell
-Name:             app-health
-Namespace:        kube-system
-Address:          169.X.X.X
-Default backend:  default-http-backend:80 (<none>)
-TLS:
-  cmltest terminates alb.example.cloud
+Name:             test
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
 Rules:
-  Host  Path  Backends
-  ----  ----  --------
-  *     *     default-http-backend:80 (<none>)
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   s1:80 (10.8.0.90:80)
+               /bar   s2:80 (10.8.0.91:80)
 Annotations:
-  ingress.example.net/server-snippets:  location = / { return 200 'healthy'; add_header Content-Type text/plain; }
-Events:                                 <none>
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     22s                loadbalancer-controller  default/test
 ```
 
 The Ingress controller will provision an implementation specific loadbalancer
 that satisfies the Ingress, as long as the services (`s1`, `s2`) exist.
 When it has done so, you will see the address of the loadbalancer under the
 last column of the Ingress.
+
+{{< note >}}
+**Note:** You need to create a default-http-backend [Service](/docs/concepts/services-networking/service/) if necessary.
+{{< /note >}}
 
 ### Name based virtual hosting
 
@@ -311,13 +318,21 @@ kubectl describe ingress test
 ```
 
 ```shell
-...
+Name:             test
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
 Rules:
   Host         Path  Backends
   ----         ----  --------
   foo.bar.com
-               /foo   s1:80 (10.56.2.193:80)
-...
+               /foo   s1:80 (10.8.0.90:80)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     35s                loadbalancer-controller  default/test
 ```
 
 ```shell
@@ -353,14 +368,23 @@ kubectl describe ingress test
 ```
 
 ```shell
-...
+Name:             test
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
+Rules:
   Host         Path  Backends
   ----         ----  --------
   foo.bar.com
-               /foo   s1:80 (10.56.2.193:80)
+               /foo   s1:80 (10.8.0.90:80)
   bar.baz.com
-               /foo   s2:80 (10.56.2.194:80)
-...
+               /foo   s2:80 (10.8.0.91:80)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     45s                loadbalancer-controller  default/test
 ```
 
 You can achieve the same by invoking `kubectl replace -f` on a modified Ingress yaml file.
