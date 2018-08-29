@@ -22,7 +22,7 @@ cloud provider).
 
 {{% capture body %}}
 
-## Cluster -> Master
+## Cluster to Master
 
 All communication paths from the cluster to the master terminate at the
 apiserver (none of the other master components are designed to expose remote
@@ -54,14 +54,14 @@ As a result, the default operating mode for connections from the cluster
 (nodes and pods running on the nodes) to the master is secured by default
 and can run over untrusted and/or public networks.
 
-## Master -> Cluster
+## Master to Cluster
 
 There are two primary communication paths from the master (apiserver) to the
 cluster. The first is from the apiserver to the kubelet process which runs on
 each node in the cluster. The second is from the apiserver to any node, pod,
 or service through the apiserver's proxy functionality.
 
-### apiserver -> kubelet
+### apiserver to kubelet
 
 The connections from the apiserver to the kubelet are used for:
 
@@ -85,7 +85,7 @@ untrusted or public network.
 Finally, [Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/)
 should be enabled to secure the kubelet API.
 
-### apiserver -> nodes, pods, and services
+### apiserver to nodes, pods, and services
 
 The connections from the apiserver to a node, pod, or service default to plain
 HTTP connections and are therefore neither authenticated nor encrypted. They
