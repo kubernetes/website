@@ -130,8 +130,7 @@ test-ingress   *         107.178.254.228   80        59s
 ```
 
 Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
-this Ingress. The `RULE` column shows that all traffic sent to the IP are
-directed to the Kubernetes Service listed under `BACKEND`.
+this Ingress.
 
 ### Simple fanout
 
@@ -197,8 +196,8 @@ Events:
 
 The Ingress controller will provision an implementation specific loadbalancer
 that satisfies the Ingress, as long as the services (`s1`, `s2`) exist.
-When it has done so, you will see the address of the loadbalancer under the
-last column of the Ingress.
+When it has done so, you will see the address of the loadbalancer at the
+Address field.
 
 {{< note >}}
 **Note:** You need to create a default-http-backend [Service](/docs/concepts/services-networking/service/) if necessary.
