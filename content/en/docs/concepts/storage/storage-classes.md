@@ -386,6 +386,7 @@ parameters:
   pool: kube
   userId: kube
   userSecretName: ceph-secret-user
+  userSecretNamespace: default
   fsType: ext4
   imageFormat: "2"
   imageFeatures: "layering"
@@ -394,9 +395,9 @@ parameters:
 * `monitors`: Ceph monitors, comma delimited. This parameter is required.
 * `adminId`: Ceph client ID that is capable of creating images in the pool.
   Default is "admin".
-* `adminSecretNamespace`: The namespace for `adminSecret`. Default is "default".
-* `adminSecret`: Secret Name for `adminId`. This parameter is required.
+* `adminSecretName`: Secret Name for `adminId`. This parameter is required.
   The provided secret must have type "kubernetes.io/rbd".
+* `adminSecretNamespace`: The namespace for `adminSecretName`. Default is "default".
 * `pool`: Ceph RBD pool. Default is "rbd".
 * `userId`: Ceph client ID that is used to map the RBD image. Default is the
   same as `adminId`.
@@ -410,8 +411,9 @@ parameters:
       --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' \
       --namespace=kube-system
     ```
+* `userSecretNamespace`: The namespace for `userSecretName`.
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
-* `imageFormat`: Ceph RBD image format, "1" or "2". Default is "1".
+* `imageFormat`: Ceph RBD image format, "1" or "2". Default is "2".
 * `imageFeatures`: This parameter is optional and should only be used if you
   set `imageFormat` to "2". Currently supported features are `layering` only.
   Default is "", and no features are turned on.
