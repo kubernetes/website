@@ -110,7 +110,7 @@ initializing. A kubelet configuration file is also written to `/etc/kubernetes/k
 baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
 points to the client certificates that allow the kubelet to communicate with the API server. This
 addresses the need to
-[propogate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
+[propagate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
 
 To address the second pattern of
 [providing instance-specific configuration details](#providing-instance-specific-configuration-details),

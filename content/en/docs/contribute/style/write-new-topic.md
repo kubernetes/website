@@ -79,7 +79,7 @@ subdirectory.
 
 ## Placing your topic in the table of contents
 
-The table of contents is built dynamicaly using the directory structure of the
+The table of contents is built dynamically using the directory structure of the
 documentation source. The top-level directories under `/content/en/docs/` create
 top-level navigation, and subdirectories each have entries in the table of
 contents.
