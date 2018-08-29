@@ -128,7 +128,7 @@ Once you have those variables filled in you can
 [configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 
-### Configuring Nodes to Authenticate to a Private Repository
+### Configuring Nodes to Authenticate to a Private Registry
 
 {{< note >}}
 **Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
