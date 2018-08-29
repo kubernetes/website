@@ -145,7 +145,7 @@ because you can do everything using your web browser. When you continue to the
 need more background in Git terminology.
 
 {{< note >}}
-**Kubnetes code developers**: If you are documenting a new feature for an
+**Kubernetes code developers**: If you are documenting a new feature for an
 upcoming Kubernetes release, your process is a bit different. See
 [Document a feature](/docs/contribute/intermediate/#sig-members-documenting-new-features) for
 process guidelines and information about deadlines.
