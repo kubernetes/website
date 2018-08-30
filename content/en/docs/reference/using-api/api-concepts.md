@@ -155,7 +155,7 @@ Note that the `resourceVersion` of the list remains constant across each request
 ## Receiving resources as Tables
 
 `kubectl get` is a simple tabular representation of one or more instances of a particular resource type. In the past, clients were required to reproduce the tabular and describe output implemented in `kubectl` to perform simple lists of objects.
-A few limitations of that approach include non-trivial logic when dealing with certain objects. Additionally, types provided by API aggregation or third party rersources are not known at compile time. This means that generic implementations had to be in place for types unrecognized by a client.
+A few limitations of that approach include non-trivial logic when dealing with certain objects. Additionally, types provided by API aggregation or third party resources are not known at compile time. This means that generic implementations had to be in place for types unrecognized by a client.
 
 In order to avoid potential limitations as described above, clients may request the Table representation of objects, delegating specific details of printing to the server. The Kubernetes API implements standard HTTP content type negotiation: passing an `Accept` header containing a value of `application/json;as=Table;g=meta.k8s.io;v=v1beta1` with a `GET` call will request that the server return objects in the Table content type.
 
