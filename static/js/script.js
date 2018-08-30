@@ -1,4 +1,18 @@
- //modal close button
+function addAnchorTags() {
+  var h2anchors = new AnchorJS({
+    icon: '¶'
+  });
+
+  h2anchors.add('#docsContent h2');
+
+  var h3anchors = new AnchorJS({
+    icon: '#'
+  });
+
+  h3anchors.add('#docsContent h3');
+}
+
+//modal close button
 (function(){
     //π.modalCloseButton = function(closingFunction){
     //	return π.button('pi-modal-close-button', null, null, closingFunction);
@@ -506,6 +520,8 @@ var pushmenu = (function(){
 })();
 
 $(function() {
+  addAnchorTags();
+
 
     // Make global nav be active based on pathname
     if ((location.pathname.split("/")[1]) !== ""){
