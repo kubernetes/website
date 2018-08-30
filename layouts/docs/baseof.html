@@ -49,21 +49,14 @@
 		{{ partialCached "footer.html" . }}
 		{{ partialCached "footer-scripts.html" . }}
     <script>
-      // This script turns in-page headers into clickable and shareable
-      (function addHeadingLinks(){
-        var article = document.getElementById('docsContent');
-        var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        headings.forEach(function(heading){
-          if(heading.id){
-            var a = document.createElement('a');
-            a.text = heading.innerHTML;
-            a.href = '#'+heading.id;
-            a.classList.add('inpage_heading');
-            heading.innerHTML = '';
-            heading.appendChild(a);
-          }
-        });
-      })();
+      // Linkify all H1-H6 headings. Make the link symbol visible on-hover
+      // on most devices and always visible on touch-enabled devices
+      // See https://www.bryanbraun.com/anchorjs/ for options
+      anchors.options = {
+        visible: 'touch',
+        class: 'inpage_heading'
+      };
+      anchors.add();
     </script>
 	</body>
 </html>
