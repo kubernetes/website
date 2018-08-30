@@ -31,7 +31,7 @@ This will start the local Hugo server on port 1313. Open up your browser to http
 
 ## Building the site using Docker
 
-You can build the Kubernetes docs using [Docker](https://docker.com). To get started, make sure that you have Docker running and build the image locally:
+You can build the Kubernetes docs using [Docker](https://docker.com). To get started, make sure that you have Docker running and built the image locally:
 
 ```bash
 make docker-image
