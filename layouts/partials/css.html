@@ -1,6 +1,6 @@
 {{- $mainSass := "sass/styles.sass" }}
 {{- $caseStudySass := "sass/case_study_styles.sass" }}
-<link rel="stylesheet" type="text/css" href="/css/base_fonts.css">
+<link rel="stylesheet" href="/css/base_fonts.css">
 {{- if .Site.IsServer }}
 {{- $mainCssOpts := (dict "targetPath" "css/styles.css") }}
 {{- $mainCss := resources.Get $mainSass | toCSS $mainCssOpts }}
@@ -15,19 +15,19 @@
 {{- $caseStudyCss := resources.Get $caseStudySass | toCSS $caseStudyCssOpts | minify | fingerprint }}
 <link rel="stylesheet" media="screen" href="{{ $caseStudyCss.Permalink }}" integrity="{{ $caseStudyCss.Data.Integrity }}"><!-- custom case_study_styles on -->
 {{- end }}
-<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-<link rel="stylesheet" type="text/css" href="{{ "css/callouts.css" | relURL }}">
-<link rel="stylesheet" type="text/css" href="{{ "css/custom-jekyll/tags.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/jquery-ui.min.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/sweetalert.min.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/callouts.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/custom-jekyll/tags.css" | relURL }}">
 {{- if .Params.deprecated }}
-<link rel="stylesheet" type="text/css" href="{{ "css/deprecation-warning.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/deprecation-warning.css" | relURL }}">
 {{- end }}
 {{- if eq .Params.class "gridPage" }}
-<link rel="stylesheet" type="text/css" href="{{ "css/gridpage.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
 {{- end }}
 {{- with .Params.css }}
 {{- range (split . ",") }}
 {{- $url := trim . " " | relURL }}
-<link rel="stylesheet" type="text/css" href="{{ $url }}"><!-- custom css added -->
+<link rel="stylesheet" href="{{ $url }}"><!-- custom css added -->
 {{- end }}
 {{- end }}
