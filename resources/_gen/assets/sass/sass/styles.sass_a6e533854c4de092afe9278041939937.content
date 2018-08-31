@@ -985,7 +985,7 @@ html.search #docsContent {
     color: #3371e3; }
   #oceanNodes main {
     margin-bottom: 60px;
-    min-height: 160px; }
+    height: 160px; }
   #oceanNodes .image-wrapper {
     max-width: 75%;
     margin: 0 auto 20px;

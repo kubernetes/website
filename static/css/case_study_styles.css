@@ -494,7 +494,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #oceanNodes a { color: #3371e3; }
 
-#oceanNodes main { margin-bottom: 60px; min-height: 160px; }
+#oceanNodes main { margin-bottom: 60px; height: 160px; }
 
 #oceanNodes .image-wrapper { max-width: 75%; margin: 0 auto 20px; text-align: center; }
 
