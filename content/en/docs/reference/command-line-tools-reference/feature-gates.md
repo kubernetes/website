@@ -100,8 +100,10 @@ different Kubernetes components.
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
-| `TokenRequest` | `false` | Alpha | 1.10 | |
-| `TokenRequestProjection` | `false` | Alpha | 1.11 | |
+| `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
+| `TokenRequest` | `True` | Beta | 1.12 | |
+| `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
+| `TokenRequestProjection` | `True` | Beta | 1.12 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
