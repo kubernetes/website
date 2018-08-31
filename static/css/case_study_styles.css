@@ -494,7 +494,7 @@ html.search #docsContent h1 { margin-bottom: 0; border-bottom: 0; padding-bottom
 
 #oceanNodes a { color: #3371e3; }
 
-#oceanNodes main { margin-bottom: 60px; height: 160px; }
+#oceanNodes main { margin-bottom: 60px; min-height: 160px; }
 
 #oceanNodes .image-wrapper { max-width: 75%; margin: 0 auto 20px; text-align: center; }
 
@@ -841,7 +841,7 @@ footer { padding: 0% 7%; }
   #docs #vendorStrip li a { font-size: 1em; font-weight: normal; }
   #docs #vendorStrip li li + li { margin-left: 60px; }
   #oceanNodes h3 { text-align: left; margin-bottom: 18px; }
-  #oceanNodes main { position: relative; clear: both; display: table; }
+  #oceanNodes main { position: relative; clear: both; display: table; height: 160px; }
   #oceanNodes main .content { display: table-cell; position: relative; vertical-align: middle; }
   #oceanNodes main .image-wrapper { position: absolute; top: 50%; max-width: 25%; max-height: 100%; transform: translateY(-50%); }
   #oceanNodes main:nth-child(odd) { padding-right: 210px; }
