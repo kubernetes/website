@@ -1531,6 +1531,36 @@ html.search #docsContent {
 .gsc-above-wrapper-area {
   border-bottom: 0; }
 
+/* Bing Search */
+#bing-results-container {
+  margin-top: 30px;
+  margin-left: 20px; }
+
+.bing-result {
+  margin-bottom: 20px; }
+
+.bing-result-name a {
+  font-size: 16px;
+  color: #0000CC; }
+
+.bing-result-url {
+  color: #008000;
+  font-size: 13px; }
+
+.bing-result-snippet {
+  color: #000;
+  font-size: 11px; }
+
+#bing-pagination-container {
+  margin: 10px;
+  margin-left: 20px; }
+
+.bing-page-anchor {
+  text-decoration: none !important;
+  cursor: pointer;
+  color: #0000CC;
+  margin-right: 8px; }
+
 @media screen and (min-width: 750px) {
   h1 {
     font-size: 32px;
