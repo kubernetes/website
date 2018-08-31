@@ -1,15 +1,10 @@
 function addAnchorTags() {
-  var h2anchors = new AnchorJS({
-    icon: '¶'
-  });
-
-  h2anchors.add('#docsContent h2');
-
-  var h3anchors = new AnchorJS({
+  anchors.options = {
+    visible: 'touch',
     icon: '#'
-  });
+  }
 
-  h3anchors.add('#docsContent h3');
+  anchors.add('#docsContent h2, #docsContent h3');
 }
 
 //modal close button
