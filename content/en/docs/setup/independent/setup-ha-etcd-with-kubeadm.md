@@ -1,7 +1,7 @@
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Set up a Highly Availabile etcd Cluster With kubeadm
+title: Set up a Highly Available etcd Cluster With kubeadm
 content_template: templates/task
 weight: 60
 ---
