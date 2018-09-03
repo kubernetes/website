@@ -417,7 +417,11 @@ REVISION    CHANGE-CAUSE
 2           kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record=true
 3           kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record=true
 ```
-`CHANGE-CAUSE` is copied from Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation/edition. You may specify `--record=true` in kubectl to record the command executed in the change cause annotation or you may update the annotation in the manifest of your Deployment.
+`CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You may specify `--record=true`. You could specify the`CHANGE-CAUSE` message by:
+
+* Annotating the Deployment with `kubectl annotate deploy nginx-deployment kubernetes.io/change-cause=image updated to 1.9.1`
+* Append the `--record` flag to save the `kubectl` command that is making changes to the resource.
+* Manually editing the manifest of the resource.
 
 To further see the details of each revision, run:
 
