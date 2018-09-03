@@ -9,25 +9,26 @@
         </nav>
         <div class="social">
             <div>
-                <a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
-                <a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+                <a href="https://twitter.com/kubernetesio" class="twitter"><span>{{ T "community_twitter_name" }}</span></a>
+                <a href="https://github.com/kubernetes/kubernetes" class="github"><span>{{ T "community_github_name" }}</span></a>
                 <a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
             </div>
             <div>
-                <a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>Stack Overflow</span></a>
-                <a href="https://discuss.kubernetes.io" class="mailing-list"><span>Forum</span></a>
-                <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>Events Calendar</span></a>
+                <a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>
+                <a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>{{ T "community_stack_overflow_name" }}</span></a>
+                <a href="https://discuss.kubernetes.io" class="mailing-list"><span>{{ T "community_forum_name" }}</span></a>
+                <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
             </div>
             <div>
-                <a href="/docs/setup/pick-right-solution/" class="button">Get Kubernetes</a>
-                <a href="https://git.k8s.io/community/contributors/guide" class="button">Contribute</a>
+                {{ with .Site.GetPage "page" "/docs/setup/pick-right-solution/" }}<a href="{{  .RelPermalink }}" class="button">{{ .LinkTitle }}</a>{{ end }}
+                <a href="https://git.k8s.io/community/contributors/guide" class="button">{{ T "main_contribute" }}</a>
             </div>
         </div>
         <div id="miceType" class="center">
-            &copy; {{ now.Year }} The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>
+            &copy; {{ now.Year }} {{ T "main_documentation_license" | safeHTML }}</a>
         </div>
         <div id="miceType" class="center">
-            Copyright &copy; {{ now.Year }} The Linux Foundation&reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>
+            Copyright &copy; {{ now.Year }} {{ T "main_copyright_notice" | safeHTML }}
         </div>
         <div id="miceType" class="center">
             ICP license: 京ICP备17074266号-3
