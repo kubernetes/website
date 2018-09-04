@@ -128,7 +128,7 @@ Once you have those variables filled in you can
 [configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 
-### Configuring Nodes to Authenticate to a Private Repository
+### Configuring Nodes to Authenticate to a Private Registry
 
 {{< note >}}
 **Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
@@ -187,7 +187,7 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
-pod "private-image-test-1" created
+pod/private-image-test-1 created
 ```
 
 If everything is working, then, after a few moments, you should see:
@@ -250,7 +250,7 @@ Run the following command, substituting the appropriate uppercase values:
 
 ```shell
 kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
-secret "myregistrykey" created.
+secret/myregistrykey created.
 ```
 
 If you need access to multiple registries, you can create one secret for each registry.

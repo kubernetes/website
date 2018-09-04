@@ -8,12 +8,11 @@ weight: 50
 
 This page shows how to configure a Pod to use a Volume for storage.
 
-A Container's file system lives only as long as the Container does, so when a
-Container terminates and restarts, changes to the filesystem are lost. For more
+A Container's file system lives only as long as the Container does. So when a
+Container terminates and restarts, filesystem changes are lost. For more
 consistent storage that is independent of the Container, you can use a
 [Volume](/docs/concepts/storage/volumes/). This is especially important for stateful
-applications, such as key-value stores and databases. For example, Redis is a
-key-value cache and store.
+applications, such as key-value stores (such as Redis) and databases. 
 
 {{% /capture %}}
 
@@ -61,7 +60,7 @@ the Pod:
     kubectl exec -it redis -- /bin/bash
     ```
 
-1. In your shell, go to `/data/redis`, and create a file:
+1. In your shell, go to `/data/redis`, and then create a file:
 
     ```shell
     root@redis:/data# cd /data/redis/
@@ -85,15 +84,15 @@ the Pod:
     root        15  0.0  0.0  17500  2072 ?        R+   00:48   0:00 ps aux
     ```
 
-1. In your shell, kill the redis process:
+1. In your shell, kill the Redis process:
 
     ```shell
     root@redis:/data/redis# kill <pid>
     ```
 
-    where `<pid>` is the redis process ID (PID).
+    where `<pid>` is the Redis process ID (PID).
 
-1. In your original terminal, watch for changes to the redis Pod. Eventually,
+1. In your original terminal, watch for changes to the Redis Pod. Eventually,
 you will see something like this:
 
     ```shell
@@ -104,7 +103,7 @@ you will see something like this:
     ```
 
 At this point, the Container has terminated and restarted. This is because the
-redis Pod has a
+Redis Pod has a
 [restartPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 of `Always`.
 
@@ -137,7 +136,7 @@ of `Always`.
 
 * In addition to the local disk storage provided by `emptyDir`, Kubernetes
 supports many different network-attached storage solutions, including PD on
-GCE and EBS on EC2, which are preferred for critical data, and will handle
+GCE and EBS on EC2, which are preferred for critical data and will handle
 details such as mounting and unmounting the devices on the nodes. See
 [Volumes](/docs/concepts/storage/volumes/) for more details.
 

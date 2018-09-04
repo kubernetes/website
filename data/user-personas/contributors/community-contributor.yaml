@@ -5,10 +5,10 @@ index: 1
 foundational:
   - label: "Contribute to the Kubernetes OSS project"
     icon: fa-users
-    url: "/docs/imported/community/guide/"
+    url: "/docs/community/guide/"
   - label: "Find out about mentoring initiatives"
     icon: fa-graduation-cap
-    url: "/docs/imported/community/mentoring/"
+    url: "/docs/community/mentoring/"
 intermediate:
   - label: "Apply for community membership as a member, reviewer, approver, owner, or maintainer"
     icon: fa-user-plus

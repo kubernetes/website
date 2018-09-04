@@ -1,3 +1,4 @@
+{{- if eq (getenv "HUGO_ENV") "production" }}
 {{- $cssFilesFromConfig := .Site.Params.pushAssets.css -}}
 {{- $jsFilesFromConfig := .Site.Params.pushAssets.js -}}
 {{- $pages := .Site.RegularPages -}}
@@ -34,3 +35,7 @@
   {{- end -}}
 {{- end }}
 {{- end -}}
+{{- else }}
+/*
+  X-Robots-Tag: noindex
+{{- end }}

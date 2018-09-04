@@ -150,12 +150,12 @@ you need is an existing `docker-compose.yml` file.
 
       ```bash
       $ kubectl create -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
-      service "frontend" created
-      service "redis-master" created
-      service "redis-slave" created
-      deployment "frontend" created
-      deployment "redis-master" created
-      deployment "redis-slave" created
+      service/frontend created
+      service/redis-master created
+      service/redis-slave created
+      deployment.apps/frontend created
+      deployment.apps/redis-master created
+      deployment.apps/redis-slave created
       ```
       
       Your deployments are running in Kubernetes.
@@ -320,21 +320,21 @@ INFO Successfully created deployment: frontend
 Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods' for details.
 
 $ kubectl get deployment,svc,pods
-NAME                               DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
-deploy/frontend                    1             1             1            1           4m
-deploy/redis-master                1             1             1            1           4m
-deploy/redis-slave                 1             1             1            1           4m
+NAME                                              DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
+deployment.extensions/frontend                    1             1             1            1           4m
+deployment.extensions/redis-master                1             1             1            1           4m
+deployment.extensions/redis-slave                 1             1             1            1           4m
 
-NAME                               CLUSTER-IP    EXTERNAL-IP   PORT(S)      AGE
-svc/frontend                       10.0.174.12   <none>        80/TCP       4m
-svc/kubernetes                     10.0.0.1      <none>        443/TCP      13d
-svc/redis-master                   10.0.202.43   <none>        6379/TCP     4m
-svc/redis-slave                    10.0.1.85     <none>        6379/TCP     4m
+NAME                         TYPE               CLUSTER-IP    EXTERNAL-IP   PORT(S)      AGE
+service/frontend             ClusterIP          10.0.174.12   <none>        80/TCP       4m
+service/kubernetes           ClusterIP          10.0.0.1      <none>        443/TCP      13d
+service/redis-master         ClusterIP          10.0.202.43   <none>        6379/TCP     4m
+service/redis-slave          ClusterIP          10.0.1.85     <none>        6379/TCP     4m
 
-NAME                               READY         STATUS        RESTARTS     AGE
-po/frontend-2768218532-cs5t5       1/1           Running       0            4m
-po/redis-master-1432129712-63jn8   1/1           Running       0            4m
-po/redis-slave-2504961300-nve7b    1/1           Running       0            4m
+NAME                                READY         STATUS        RESTARTS     AGE
+pod/frontend-2768218532-cs5t5       1/1           Running       0            4m
+pod/redis-master-1432129712-63jn8   1/1           Running       0            4m
+pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
 ```
 **Note**:
 
