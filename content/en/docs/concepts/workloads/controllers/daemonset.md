@@ -151,14 +151,11 @@ nodeAffinity:
 ```
 
 In addition, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added
-automatically to DaemonSet Pods. The DaemonSet controller ignores
-`unschedulable` Nodes when scheduling DaemonSet Pods. You must enable
-`TaintNodesByCondition` to ensure that the default scheduler behaves the same
-way and schedules DaemonSet pods on `unschedulable` nodes.
+automatically to DaemonSet Pods. The default scheduler ignores
+`unschedulable` Nodes when scheduling DaemonSet Pods.
 
-When this feature and `TaintNodesByCondition` are enabled together, if DaemonSet
-uses the host network, you must also add the
-`node.kubernetes.io/network-unavailable:NoSchedule toleration`.
+When this feature is enabled, if DaemonSet uses the host network, you must also add the
+`node.kubernetes.io/network-unavailable:NoSchedule` toleration.
 
 
 ### Taints and Tolerations
@@ -170,13 +167,13 @@ the related features.
 
 | Toleration Key                           | Effect     | Alpha Features                                               | Version | Description                                                  |
 | ---------------------------------------- | ---------- | ------------------------------------------------------------ | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | when `TaintBasedEvictions`  is enabled,they will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | when `TaintBasedEvictions`  is enabled,they will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule | `TaintNodesByCondition`                                      | 1.8+    |                                                              |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule | `TaintNodesByCondition`                                      | 1.8+    |                                                              |
-| `node.kubernetes.io/unschedulable`       | NoSchedule | `ScheduleDaemonSetPods`, `TaintNodesByCondition`             | 1.11+   | When ` ScheduleDaemonSetPods` is enabled, ` TaintNodesByCondition` is necessary to make sure DaemonSet pods tolerate unschedulable attributes by default scheduler. |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | `ScheduleDaemonSetPods`, `TaintNodesByCondition`, hostnework | 1.11+   | When ` ScheduleDaemonSetPods` is enabled, ` TaintNodesByCondition` is necessary to make sure DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler. |
-| `node.kubernetes.io/out-of-disk`         | NoSchedule | `ExperimentalCriticalPodAnnotation` (critical pod only), `TaintNodesByCondition` | 1.8+    |                                                              |
+| `node.kubernetes.io/not-ready`           | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | When `TaintBasedEvictions` is enabled, they will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/unreachable`         | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | When `TaintBasedEvictions` is enabled, they will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/disk-pressure`       | NoSchedule |                                                              | 1.8+    |                                                              |
+| `node.kubernetes.io/memory-pressure`     | NoSchedule |                                                              | 1.8+    |                                                              |
+| `node.kubernetes.io/unschedulable`       | NoSchedule | `ScheduleDaemonSetPods`                                      | 1.11+   | When `ScheduleDaemonSetPods` is enabled, DaemonSet pods tolerate unschedulable attributes by default scheduler. |
+| `node.kubernetes.io/network-unavailable` | NoSchedule | `ScheduleDaemonSetPods` (pods using hostNetwork)             | 1.11+   | When `ScheduleDaemonSetPods` is enabled, DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler. |
+| `node.kubernetes.io/out-of-disk`         | NoSchedule | `ExperimentalCriticalPodAnnotation` (critical pod only)      | 1.8+    |                                                              |
 
 
 
