@@ -213,7 +213,7 @@ new `PersistentVolume` is never created to satisfy the claim. Instead, an existi
 
 You can only resize volumes containing a file system if the file system is XFS, Ext3, or Ext4.
 
-When a volume contains a file system, the file system is only resized when a new Pod is started using
+When a volume contains a file system, the file system is only resized when a new Pod has started using
 the `PersistentVolumeClaim` in ReadWrite mode. Therefore, if a pod or deployment is using a volume and
 you want to expand it, you need to delete or recreate the pod after the volume has been expanded by the cloud provider in the controller-manager. You can check the status of resize operation by running the `kubectl describe pvc` command:
 
