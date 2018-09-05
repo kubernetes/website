@@ -55,6 +55,7 @@ Credentials can be provided in several ways:
     - requires root access to all nodes to setup
   - Specifying ImagePullSecrets on a Pod
     - only pods which provide own keys can access the private registry
+
 Each option is described in more detail below.
 
 
