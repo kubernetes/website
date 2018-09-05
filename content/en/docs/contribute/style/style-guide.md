@@ -56,11 +56,11 @@ leads to an awkward construction.
 Use angle brackets for placeholders. Tell the reader what a placeholder
 represents.
 
-1. Display information about a pod:
+1. Display information about a Pod:
 
        kubectl describe pod <pod-name>
 
-    where `<pod-name>` is the name of one of your pods.
+    where `<pod-name>` is the name of one of your Pods.
 
 ### Use bold for user interface elements
 
@@ -138,7 +138,7 @@ For field values of type string or integer, use normal style without quotation m
 
 ### Separate commands from output
 
-Verify that the pod is running on your chosen node:
+Verify that the Pod is running on your chosen node:
 
     kubectl get pods --output=wide
 
