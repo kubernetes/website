@@ -13,7 +13,7 @@ This page provides hints on diagnosing DNS problems.
 {{% capture prerequisites %}}
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Kubernetes version 1.6 and above.
-* The cluster must be configured to use the `kube-dns` addon.
+* The cluster must be configured to use the `coredns` (or `kube-dns`) addons.
 {{% /capture %}}
 
 {{% capture steps %}}
@@ -68,7 +68,7 @@ nameserver 10.0.0.10
 options ndots:5
 ```
 
-Errors such as the following indicate a problem with the kube-dns add-on or
+Errors such as the following indicate a problem with the coredns/kube-dns add-on or
 associated Services:
 
 ```
@@ -93,6 +93,17 @@ nslookup: can't resolve 'kubernetes.default'
 
 Use the `kubectl get pods` command to verify that the DNS pod is running.
 
+For CoreDNS:
+```shell
+kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
+NAME                       READY     STATUS    RESTARTS   AGE
+...
+coredns-7b96bf9f76-5hsxb   1/1       Running   0           1h
+coredns-7b96bf9f76-mvmmt   1/1       Running   0           1h
+...
+```
+
+Or for kube-dns:
 ```shell
 kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 NAME                    READY     STATUS    RESTARTS   AGE
@@ -107,8 +118,26 @@ have to deploy it manually.
 
 ### Check for Errors in the DNS pod
 
-Use `kubectl logs` command to see logs for the DNS daemons.
+Use `kubectl logs` command to see logs for the DNS containers.
 
+For CoreDNS:
+```shell
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name | head -1)
+```
+
+Here is an example of a healthy CoreDNS log:
+
+```
+.:53
+2018/08/15 14:37:17 [INFO] CoreDNS-1.2.2
+2018/08/15 14:37:17 [INFO] linux/amd64, go1.10.3, 2e322f6
+CoreDNS-1.2.2
+linux/amd64, go1.10.3, 2e322f6
+2018/08/15 14:37:17 [INFO] plugin/reload: Running configuration MD5 = 24e6c59e83ce706f07bcc82c31b1ea1c
+```
+
+
+For kube-dns, there are 3 sets of logs:
 ```shell
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name | head -1) -c kubedns
 
@@ -117,8 +146,8 @@ kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system 
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name | head -1) -c sidecar
 ```
 
-See if there is any suspicious log. Letter '`W`', '`E`', '`F`' at the beginning
-represent Warning, Error and Failure. Please search for entries that have these
+See if there are any suspicious error messages in the logs. In kube-dns, a '`W`', '`E`' or '`F`' at the beginning
+of a line represents a Warning, Error or Failure. Please search for entries that have these
 as the logging level and use
 [kubernetes issues](https://github.com/kubernetes/kubernetes/issues)
 to report unexpected errors.
@@ -135,6 +164,8 @@ kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 ...
 ```
 
+
+Note that the service name will be "kube-dns" for both CoreDNS and kube-dns deployments.
 If you have created the service or in the case it should be created by default
 but it does not appear, see 
 [debugging services](/docs/tasks/debug-application-cluster/debug-service/) for
@@ -159,6 +190,12 @@ For additional Kubernetes DNS examples, see the
 in the Kubernetes GitHub repository.
 
 ## Known issues
+
+Some Linux distros (e.g. Ubuntu), use a local DNS resolver by default (systemd-resolved).
+Systemd-resolved moves and replaces /etc/resolv.conf with a stub file that can cause a fatal forwarding
+loop when resolving names in upstream servers.  This can be fixed manually by using kubelet's `--resolv-conf` flag
+to point to the correct resolv.conf (With systemd-resolved, this is `/run/systemd/resolve/resolv.conf`).
+kubeadm 1.11 automatically detects systemd-resolved, and adjusts kubelet accordingly.
 
 Kubernetes installs do not configure the nodes' resolv.conf files to use the
 cluster DNS by default, because that process is inherently distro-specific.
