@@ -98,6 +98,7 @@ few commands. These solutions are actively developed and have active community s
 * [Alibaba Cloud](/docs/setup/turnkey/alibaba-cloud/)
 * [APPUiO](https://appuio.ch)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
+* [Giant Swarm](https://giantswarm.io)
 
 ## On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -113,6 +114,7 @@ few commands.
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
+* [Giant Swarm](https://giantswarm.io)
 
 ## Custom Solutions
 
