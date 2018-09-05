@@ -122,7 +122,7 @@ Recall that by setting `-cpu "2"`, you configured the Container to attempt to us
 {{< note >}}
 **Note:** Another possible explanation for the CPU throttling is that the Node might not have
 enough CPU resources available. Recall that the prerequisites for this exercise require each of
-your Nodes ot have at least 1 CPU. If your Container runs on a Node that has only 1 CPU, the Container
+your Nodes to have at least 1 CPU. If your Container runs on a Node that has only 1 CPU, the Container
 cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
 {{< /note >}}
 
