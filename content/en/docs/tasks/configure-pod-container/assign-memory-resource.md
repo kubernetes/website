@@ -190,10 +190,13 @@ kubectl get pod memory-demo-2 --namespace=mem-example
 The output shows that the Container is killed, restarted, killed again, restarted again, and so on:
 
 ```
-stevepe@sperry-1:~/steveperry-53.github.io$ kubectl get pod memory-demo-2 --namespace=mem-example
+kubectl get pod memory-demo-2 --namespace=mem-example
 NAME            READY     STATUS      RESTARTS   AGE
 memory-demo-2   0/1       OOMKilled   1          37s
-stevepe@sperry-1:~/steveperry-53.github.io$ kubectl get pod memory-demo-2 --namespace=mem-example
+```
+```
+
+kubectl get pod memory-demo-2 --namespace=mem-example
 NAME            READY     STATUS    RESTARTS   AGE
 memory-demo-2   1/1       Running   2          40s
 ```
