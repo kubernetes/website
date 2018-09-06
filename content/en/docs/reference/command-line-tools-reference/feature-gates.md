@@ -71,7 +71,8 @@ different Kubernetes components.
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `Initializers` | `false` | Alpha | 1.7 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
-| `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | |
+| `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
+| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
