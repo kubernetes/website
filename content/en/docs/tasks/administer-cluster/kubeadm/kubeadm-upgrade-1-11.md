@@ -194,7 +194,7 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
 
     ```shell
     kubectl drain ip-172-31-85-18
-    node "ip-172-31-85-18" cordoned
+    node/ip-172-31-85-18 cordoned
     error: unable to drain node "ip-172-31-85-18", aborting command...
 
     There are pending nodes to be drained:
@@ -204,9 +204,9 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
 
     ```
     kubectl drain ip-172-31-85-18 --ignore-daemonsets
-    node "ip-172-31-85-18" already cordoned
+    node/ip-172-31-85-18 already cordoned
     WARNING: Ignoring DaemonSet-managed pods: calico-node-5798d, kube-proxy-thjp9
-    node "ip-172-31-85-18" drained
+    node/ip-172-31-85-18 drained
     ```
 
 1.  Upgrade the Kubernetes package version on each `$HOST` node by running the Linux package manager for your distribution:

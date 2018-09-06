@@ -213,7 +213,7 @@ kubectl drain $HOST --ignore-daemonsets
 When running this command against the master host, this error is expected and can be safely ignored (since there are static pods running on the master):
 
 ```shell
-node "master" already cordoned
+node/master already cordoned
 error: pods not managed by ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet (use --force to override): etcd-kubeadm, kube-apiserver-kubeadm, kube-controller-manager-kubeadm, kube-scheduler-kubeadm
 ```
 
