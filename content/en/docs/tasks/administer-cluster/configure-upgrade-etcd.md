@@ -34,6 +34,8 @@ content_template: templates/task
 
 * Keeping stable etcd clusters is critical to the stability of Kubernetes clusters. Therefore, run etcd clusters on dedicated machines or isolated environments for [guaranteed resource requirements](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations).
 
+* The minimum recommended version of etcd to run in production is `3.2.10+`.
+
 ## Resource requirements
 
 Operating etcd with limited resources is suitable only for testing purposes. For deploying in production, advanced hardware configuration is required. Before deploying etcd in production, see [resource requirement reference documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#example-hardware-configurations).
@@ -387,6 +389,8 @@ ETCD_IMAGE=3.0.17
 TARGET_VERSION=2.2.1
 STORAGE_MEDIA_TYPE=application/json
 ```
+
+** Note: this upgrade procedure is for getting from 2.x to 3.x.  Version `3.0.17` is not recommended for running in production (see [prerequisites](#prereqisites) for minimum recommended etcd versions.
 
 ## Notes for etcd Version 2.2.1
 
