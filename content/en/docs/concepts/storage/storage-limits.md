@@ -47,9 +47,11 @@ The limit applies to the entire cluster, so it affects all nodes.
 
 ## Dynamic volume limits
 
+<-- updates for 1.12 go here -->
+
 {{< feature-state state="alpha" for_k8s_version="v1.11" >}}
 
-Kubernetes 1.11 introduces dynamic volume limits based on node type. This
+Kubernetes 1.12 introduces dynamic volume limits based on node type. This
 is an alpha feature that supports these services:
 
 - Amazon EBS
