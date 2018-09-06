@@ -149,7 +149,7 @@ The output is similar to this:
 
 ### Versioning Kubernetes examples
 
-Code examples and configuration examples that include version information should be consistent with the accompanying text. 
+Code examples and configuration examples that include version information should be consistent with the accompanying text.
 
 If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-templates/#task-template) or the [Tutorial template] (/docs/contribute/style/page-templates/#tutorial-template). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
@@ -194,7 +194,7 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 1. Surround the text with an opening and closing shortcode.
 
 2. Use the following syntax to apply a style:
-    
+
     ```
     {{</* note */>}}
     **Note:** The prefix you use is the same text you use in the tag.
@@ -213,7 +213,7 @@ The output is:
 Use {{</* note */>}} to highlight a tip or a piece of information that may be helpful to know.
 
 For example:
-    
+
 ```
 {{</* note */>}}
 **Note:** You can _still_ use Markdown inside these callouts.
@@ -364,7 +364,7 @@ whether they're part of the "we" you're describing.
   <tr><th>Do</th><th>Don't</th></tr>
   <tr><td>Version 1.4 includes ...</td><td>In version 1.4, we have added ...</td></tr>
   <tr><td>Kubernetes provides a new feature for ...</td><td>We provide a new feature ...</td></tr>
-  <tr><td>This page teaches you how to use pods.</td><td>In this page, we are going to learn about pods.</td></tr>
+  <tr><td>This page teaches you how to use Pods.</td><td>In this page, we are going to learn about Pods.</td></tr>
 </table>
 
 ### Avoid jargon and idioms
