@@ -759,7 +759,7 @@ kube-apiserver [flags]
       <td colspan="2">--requestheader-client-ca-file string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Root certificate bundle to use to verify client certificates on incoming requests before trusting usernames in headers specified by --requestheader-username-headers. WARNING: generally do not depend on authorization being already done for incoming requests.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Root certificate bundle to use to verify client certificates on incoming requests before trusting usernames in headers specified by --requestheader-username-headers. WARNING: do **not** reuse a CA that is used in a different context (for example with --client-ca-file) unless you understand the risks and the mechanisms to protect the CA's usage. Generally it is recommended to not depend on authorization being already done for incoming requests.</td>
     </tr>
 
     <tr>
