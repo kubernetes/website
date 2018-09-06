@@ -179,7 +179,7 @@ Name:     standard
 
 IsDefaultClass: Yes
 
-Annotations: storageclass.beta.kubernetes.io/is-default-class=true
+Annotations: storageclass.kubernetes.io/is-default-class=true
 
 Provisioner: kubernetes.io/gce-pd
 
@@ -193,7 +193,7 @@ Events:         \<none\>
 **Can I delete/turn off the default StorageClasses?**  
 You cannot delete the default storage class objects provided. Since they are installed as cluster addons, they will be recreated if they are deleted.  
 
-You can, however, disable the defaulting behavior by removing (or setting to false) the following annotation: storageclass.beta.kubernetes.io/is-default-class.  
+You can, however, disable the defaulting behavior by removing (or setting to false) the following annotation: storageclass.kubernetes.io/is-default-class.
 
 If there are no StorageClass objects marked with the default annotation, then PersistentVolumeClaim objects (without a StorageClass specified) will not trigger dynamic provisioning. They will, instead, fall back to the legacy behavior of binding to an available PersistentVolume object.  
 

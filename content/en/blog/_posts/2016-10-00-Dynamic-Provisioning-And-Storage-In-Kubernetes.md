@@ -130,7 +130,7 @@ This claim will result in an SSD-like Persistent Disk being automatically provis
 
 
 
-Dynamic Provisioning can be enabled for a cluster such that all claims are dynamically provisioned without a storage class annotation. This behavior is enabled by the cluster administrator by marking one StorageClass object as “default”. A StorageClass can be marked as default by adding the storageclass.beta.kubernetes.io/is-default-class annotation to it.
+Dynamic Provisioning can be enabled for a cluster such that all claims are dynamically provisioned without a storage class annotation. This behavior is enabled by the cluster administrator by marking one StorageClass object as “default”. A StorageClass can be marked as default by adding the storageclass.kubernetes.io/is-default-class annotation to it.
 
 
 
