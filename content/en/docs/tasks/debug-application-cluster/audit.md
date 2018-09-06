@@ -157,6 +157,7 @@ throttling is enabled in `webhook` and disabled in `log`.
 - `--audit-webhook-mode` defines the buffering strategy. One of the following:
   - `batch` - buffer events and asynchronously process them in batches. This is the default.
   - `blocking` - block API server responses on processing each individual event.
+  - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at RequestReceived stage, the whole request to apiserver will fail.
 
 The following flags are used only in the `batch` mode.
 
