@@ -124,6 +124,13 @@ Note that there can be at most one *default* storage class on a cluster, or
 a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot
 be created.
 
+## Topology Awareness
+
+In [multi-zone](/docs/setup/multiple-zones) clusters, pods can be spread across
+zones and single-zone storage backends should be provisioned in the zones where
+pods are scheduled. This can be accomplished by setting the [volume binding
+mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
+
 {{% /capture %}}
 
 
