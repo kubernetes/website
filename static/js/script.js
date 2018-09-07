@@ -1,7 +1,6 @@
 function addAnchorTags() {
   anchors.options = {
-    visible: 'touch',
-    icon: '#'
+    visible: 'touch'
   }
 
   anchors.add('#docsContent h2, #docsContent h3');
