@@ -34,6 +34,8 @@ a Kubernetes cluster from scratch.
 
 * [Minikube](/docs/setup/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) is the native install for Docker on Mac and Windows. This package now includes a one-click setup of Kubernetes, providing an easy way to get up and running with Kubernetes for Docker Desktop users. 
+
 * [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
