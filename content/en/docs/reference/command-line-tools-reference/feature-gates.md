@@ -105,7 +105,7 @@ different Kubernetes components.
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
-| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | |
+| `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 
 ## Using a Feature
 
