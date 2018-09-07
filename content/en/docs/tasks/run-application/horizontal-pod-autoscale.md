@@ -93,12 +93,11 @@ desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricVal
 ```
 
 For example, if the current metric value is `200m`, and the desired value
-is `100m`, the number of replicas will be doubled, since `float(200 / 100)
-== 2.0` If the the current value is instead `50m`, we'll halve the number
-of replicas, since `float(50 / 100) == 0.5`.  We'll skip scaling if the
-ratio is sufficiently close to 1.0 (within a globally-configurable
-tolerance, from the `--horizontal-pod-autoscaler-tolerance` flag, which
-defaults to 0.1).
+is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
+2.0` If the the current value is instead `50m`, we'll halve the number of
+replicas, since `50.0 / 100.0 == 0.5`.  We'll skip scaling if the ratio is
+sufficiently close to 1.0 (within a globally-configurable tolerance, from
+the `--horizontal-pod-autoscaler-tolerance` flag, which defaults to 0.1).
 
 When a `targetAverageValue` or `targetAverageUtilization` is specified,
 the `currentMetricValue` is computed by taking the average of the given
@@ -106,11 +105,29 @@ metric across all pods in the HorizontalPodAutoscaler's scale target.
 Before checking the tolerance and deciding on the final values, we take
 pod readiness and missing metrics into consideration, however.
 
-If any of those pods have yet to become ready once (i.e. they're still
-starting up), or any of them are missing metrics, we set the names of
-those pods aside for later, and calculate our `currentMetricValue
-/ desiredMetricValue` base on the average of the available metrics for
-ready pods.
+All pods with a deletion timestamp set (i.e. pods in the process of being
+shut down) and all failed pods are discarded.
+
+If a particular pod is missing metrics, it is set aside for later; pods
+with missing metrics will be used to adjust the final scaling amount.
+
+When scaling on CPU, if any pod has yet to become ready (i.e. it's still
+initializing) *or* the most recent metric point for the pod was before it
+became ready, that pod is set aside as well.
+
+Due to technical constraints, the HorizontalPodAutoscaler controller
+cannot exactly determine the first time a pod becomes ready when
+determinining whether to set aside certain CPU metrics. Intead, it
+considers a pod "not yet ready" if it's unready and transitioned to
+unready within a short, configurable window of time since it started
+(`--horizontal-pod-autoscaler-initial-readiness-delay`, default 30
+seconds).  Once a pod has become ready, it considers any transition to
+ready to be the first if it occurred within a longer, configurable time
+since it started (`--horizontal-pod-autoscaler-cpu-initialization-period`,
+defaults to 5 minutes).
+
+The `currentMetricValue / desiredMetricValue` base scale ratio is then
+calculated using the remaining pods not set aside or discarded above.
 
 If there were any missing metrics, we recompute the average more
 conservatively, assuming those pods were consuming 100% of the desired
@@ -137,6 +154,13 @@ calculation is done for each metric, and then the largest of the desired
 replica counts is chosen.  If any of those metrics cannot be converted
 into a desired replica count (e.g. due to an error fetching the metrics
 from the metrics APIs), scaling is skipped.
+
+Finally, just before scaling, this scale reccomendation is recorded.  The
+controller then considers all reccomendations within a configurable window
+(`--horizontal-pod-autoscaler-downscale-stabilization-window`, default
+5 minutes) choosing the highest from within that window.  This means that
+scaledowns will occur gradually, smothing out the impact of rapidly
+fluctuating metric values.
 
 ## API Object
 
