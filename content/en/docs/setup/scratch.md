@@ -508,6 +508,10 @@ To run an etcd instance:
 1. Make any modifications needed
 1. Start the pod by putting it into the kubelet manifest directory
 
+The minimum recommended versions of etcd to run in production are:
+  - `3.2.10+`
+  - `3.3.0+`
+
 ### Apiserver, Controller Manager, and Scheduler
 
 The apiserver, controller manager, and scheduler will each run as a pod on the master node.
