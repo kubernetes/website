@@ -245,7 +245,7 @@ border:1px solid blue;
 
 .docscoltitle {
 float:left;
-padding-top:%;
+padding-top:0%;
 margin-right:2%;
 padding-bottom:3%;
 font-size:16pt;
@@ -298,21 +298,17 @@ color:#3371e3;
 
 .docsButton {
 
-    background-color:#3371e3;
-    color:white;
-    border: 2px solid #ffffff;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px; /* future proofing */
-    -khtml-border-radius: 5px; /* for old Konqueror browsers */
-    border: 2px solid #ffffff;
-    padding:1%;
-    text-decoration:none;
-    margin:%;
-  }
-
-
-
+  background-color:#3371e3;
+  color:white;
+  border: 2px solid #ffffff;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; /* future proofing */
+  -khtml-border-radius: 5px; /* for old Konqueror browsers */
+  border: 2px solid #ffffff;
+  padding:1%;
+  text-decoration:none;
+  margin:0%;
 }
 
 .material-icons {
@@ -413,7 +409,7 @@ button {
 
 .navButton:focus {
 
-  background-color:#3371e3 !important</div>;
+  background-color:#3371e3 !important;
   color:white;
   border: 2px solid #ffffff;
 }
@@ -633,7 +629,7 @@ i {
 }
 
 .whitebararrow{
-  float:right
+  float:right;
   padding:3%;
   font-size:15px;
   z-index:99;
@@ -668,7 +664,7 @@ padding-bottom:5%;
 float:left;
 padding-bottom:2%;
 padding-right:2%;
-margin-bottom:10%:
+margin-bottom:10%;
 color:#3371e3 !important;
 }
 
@@ -897,7 +893,7 @@ table {
 }
 
 thead, tr:nth-child(even) {
-  background-color: $light-grey;
+  background-color: light-grey;
 }
 
 thead {
@@ -947,5 +943,5 @@ padding:5%;
 }
 
 
-}  
+}
 
