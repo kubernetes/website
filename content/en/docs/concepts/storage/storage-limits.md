@@ -65,11 +65,12 @@ volumes for the node. For example:
 
 * On
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
-up to 128 volumes could be attached to a node, depending on the node type. 
+up to 128 volumes can be attached to a node, [depending on the node
+type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 
-* For Amazon EBS disks on M5/C5 instance types, Kubernetes would permit only 25
+* For Amazon EBS disks on M5/C5 instance types, Kubernetes allows only 25
 volumes to be attached to a node. For other instance types on
 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
-Kubernetes would permit 39 volumes to be attached.
+Kubernetes allows 39 volumes to be attached to a node.
 
 {{% /capture %}}
