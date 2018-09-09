@@ -126,10 +126,10 @@ be created.
 
 ## Topology Awareness
 
-In [multi-zone](/docs/setup/multiple-zones) clusters, pods can be spread across
-zones and single-zone storage backends should be provisioned in the zones where
-pods are scheduled. This can be accomplished by setting the [volume binding
-mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
+In [Multi-Zone](/docs/setup/multiple-zones) clusters, Pods can be spread across
+Zones in a Region. Single-Zone storage backends should be provisioned in the Zones where
+Pods are scheduled. This can be accomplished by setting the [Volume Binding
+Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
 {{% /capture %}}
 
