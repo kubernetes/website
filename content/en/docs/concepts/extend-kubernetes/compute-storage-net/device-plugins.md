@@ -148,7 +148,7 @@ For examples of device plugin implementations, see:
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for GPU and FPGA devices
+* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for GPU, FPGA and QuickAssist devices
 
 {{% /capture %}}
 
