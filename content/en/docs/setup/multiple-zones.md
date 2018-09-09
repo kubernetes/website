@@ -82,7 +82,7 @@ The following limitations are addressed with [topology-aware volume binding](/do
   may not provide a uniform distribution of storage across zones.
 
 * When specifying multiple PVCs in a Deployment or Pod spec, the StorageClass
-  needs to be configured for a specific, single zone, or the PVs need to be
+  needs to be configured for a specific single zone, or the PVs need to be
   statically provisioned in a specific zone. Another workaround is to use a
   StatefulSet, which will ensure that all the volumes for a replica are
   provisioned in the same zone.
