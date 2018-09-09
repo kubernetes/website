@@ -133,15 +133,14 @@ provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should oc
 
 By default, the `Immediate` mode indicates that volume binding and dynamic
 provisioning occurs once the PVC is created. For storage
-backends that are topology-constrained and not globally accessible from all nodes
-in the cluster (for example, a zonal disk, or a local volume), this causes
-volumes to be bound or provisioned without knowledge of the pod's scheduling
-requirements, and can result in unschedulable pods.
+backends that are topology-constrained and not globally accessible from all Nodes
+in the cluster, Volumes will be bound or provisioned without knowledge of the Pod's scheduling
+requirements. This may result in unschedulable Pods.
 
-To address this issue, the `WaitForFirstConsumer` mode can be specified which
-will delay binding and provisioning until a pod using the PVC is created.
-Volumes will be selected or provisioned with the appropriate topology that is
-compatible with the pod's scheduling constraints, including but not limited to, [resource
+A cluster administrator can address this issue by specifying the `WaitForFirstConsumer` mode which
+will delay the binding and provisioning of a Volume until a Pod using the PVC is created.
+Volumes will be selected or provisioned conforming to the topology that is
+specified by the Pod's scheduling constraints. These include, but are not limited to, [resource
 requirements](/docs/concepts/configuration/manage-compute-resources-container),
 [node selectors](/docs/concepts/configuration/assign-pod-node/#nodeselector),
 [pod affinity and
@@ -165,11 +164,11 @@ The following plugins support `WaitForFirstConsumer` with pre-created PV binding
 **Note:** This feature requires the `VolumeScheduling` feature gate to be
 enabled.
 
-When `WaitForFirstConsumer` volume binding mode is specified, it is no longer necessary
+When a cluster operactor specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
 to restrict provisioning to specific topologies in most situations. However,
 if still required, `allowedTopologies` can be specified.
 
-This example demonstrates how to restrict topology of provisioned volumes to specific
+This example demonstrates how to restrict the topology of provisioned volumes to specific
 zones and should be used as a replacement for the `zone` and `zones` parameters for the
 supported plugins.
 
