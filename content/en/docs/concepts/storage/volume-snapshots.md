@@ -23,7 +23,7 @@ This document describes the current state of `VolumeSnapshots` in Kubernetes. Fa
 
 Similar to how API resources `PersistentVolume` and `PersistentVolumeClaim` are used to provision volumes for users and administrators, `VolumeSnapshotContent` and `VolumeSnapshot` API resources are provided to create volume snapshots for users and administrators.
 
-A `VolumeSnapshotContent` is snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a PersistentVolume is a cluster resource. 
+A `VolumeSnapshotContent` is a snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a PersistentVolume is a cluster resource. 
 
 A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is similar to a PersistentVolumeClaim.
 
@@ -35,19 +35,19 @@ there is the `VolumeSnapshotClass` resource.
 
 ## Lifecycle of a volume snapshot and volume snapshot content
 
-VolumeSnapshotContents are resources in the cluster. VolumeSnapshots are requests for those resources. The interaction between VolumeSnapshotContents and VolumeSnapshots follows this lifecycle:
+`VolumeSnapshotContents` are resources in the cluster. `VolumeSnapshots` are requests for those resources. The interaction between `VolumeSnapshotContents` and `VolumeSnapshots` follow this lifecycle:
 
 ### Provisioning Volume Snapshot
 
 There are two ways snapshots may be provisioned: statically or dynamically.
 
 #### Static
-A cluster administrator creates a number of VolumeSnapshotContents. They carry the details of the real storage which is available for use by cluster users. They exist in the Kubernetes API and are available for consumption.
+A cluster administrator creates a number of `VolumeSnapshotContents`. They carry the details of the real storage which is available for use by cluster users. They exist in the Kubernetes API and are available for consumption.
 
 #### Dynamic
-When none of the static VolumeSnapshotContents the administrator created matches a user's `VolumeSnapshot`,
-the cluster may try to dynamically provision a volume snapshot specially for the VolumeSnapshot object.
-This provisioning is based on `VolumeSnapshotClasses`: the VolumeSnapshot must request a
+When none of the static `VolumeSnapshotContents` the administrator created matches a user's `VolumeSnapshot`,
+the cluster may try to dynamically provision a volume snapshot specially for the `VolumeSnapshot` object.
+This provisioning is based on `VolumeSnapshotClasses`: the `VolumeSnapshot` must request a
 [volume snapshot class](/docs/concepts/storage/volume-snapshot-classes/) and
 the administrator must have created and configured that class in order for dynamic
 provisioning to occur.
@@ -60,7 +60,7 @@ VolumeSnapshots will remain unbound indefinitely if a matching VolumeSnapshotCon
 
 ### Delete
 
-Deletion removes both the `VolumeSnapshotContent` object from Kubernetes, as well as the associated storage asset in the external infrastructure,
+Deletion removes both the `VolumeSnapshotContent` object from the Kubernetes API, as well as the associated storage asset in the external infrastructure.
 
 ## Volume Snapshot Contents
 
@@ -95,7 +95,7 @@ to VolumeSnapshots that request no particular class.
 
 ## VolumeSnapshots
 
-Each VolumeSnapshot contains a spec and status, which is the specification and status of the volume snapshot.
+Each VolumeSnapshot contains a spec and a status, which is the specification and status of the volume snapshot.
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1alpha1
