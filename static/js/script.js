@@ -3,7 +3,7 @@ function addAnchorTags() {
     visible: 'touch'
   }
 
-  anchors.add('#docsContent h2, #docsContent h3');
+  anchors.add('#docsContent h2, #docsContent h3, #docsContent h4, #docsContent h5, #docsContent h6');
 }
 
 //modal close button
