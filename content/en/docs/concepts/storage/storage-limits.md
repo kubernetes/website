@@ -54,6 +54,7 @@ is an alpha feature that supports these services:
 
 - Amazon EBS
 - Google Persistent Disk
+- Azure Disk
 
 To enable dynamic volume limits, set the `AttachVolumeLimit`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
@@ -72,5 +73,7 @@ type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 volumes to be attached to a node. For other instance types on
 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
 Kubernetes allows 39 volumes to be attached to a node.
+
+* On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 
 {{% /capture %}}
