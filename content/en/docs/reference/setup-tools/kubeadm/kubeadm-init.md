@@ -326,7 +326,7 @@ Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manife
 Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
 Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
 Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
-Environment="KUBELET_CADVISOR_ARGS=--cadvisor-port=0"
+Environment="KUBELET_CADVISOR_ARGS="
 Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
 ```
@@ -354,16 +354,6 @@ Here's a breakdown of what/why:
    API using this CA certificate.
 * `--authorization-mode=Webhook` authorizes requests to the Kubelet API by `POST`-ing
    a `SubjectAccessReview` to the API server.
-* `--cadvisor-port=0` disables cAdvisor from listening to `0.0.0.0:4194` by default.
-   cAdvisor will still be run inside of the kubelet and its API can be accessed at
-   `https://{node-ip}:10250/stats/`. If you want to enable cAdvisor to listen on a
-   wide-open port, run:
-
-   ```bash
-   sed -e "/cadvisor-port=0/d" -i /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-   systemctl daemon-reload
-   systemctl restart kubelet
-   ```
 * `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
    certificates from the `kube-apiserver` when the certificate expiration approaches.
 * `--cert-dir`the directory where the TLS certs are located.
