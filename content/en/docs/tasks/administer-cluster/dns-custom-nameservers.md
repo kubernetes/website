@@ -28,8 +28,9 @@ DNS is a built-in Kubernetes service launched automatically
 using the addon manager
 [cluster add-on](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md).
 
-Following Kubernetes v1.12, CoreDNS is declared the default DNS Server instead of kube-dns in kubeadm. You may want to refer
-to the documentation of other installers to verify which is the default DNS server.
+Following Kubernetes v1.12, CoreDNS is declared the default DNS Server instead of kube-dns. In kubeadm, this change was made
+in Kubernetes 1.11, but other installers have waited until 1.12. You should refer to the documentation of other installers to
+verify which is the default DNS server.
 
 
 The DNS Pod is exposed as a Kubernetes Service with a static IP.
@@ -42,12 +43,12 @@ DNS names also need domains. You configure the local domain in the kubelet
 with the flag `--cluster-domain=<default-local-domain>`.
 
 The DNS server supports forward lookups (A records), service lookups (SRV records), and reverse IP address lookups (PTR
-records) as per the [DNS specifications] (https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
+records) as per the [DNS specifications] (/docs/concepts/services-networking/dns-pod-service/)
 
 When running a Pod, kubelet prepends the cluster DNS server and searches
 paths to the node's DNS settings.  If the node is able to resolve DNS names
 specific to the larger environment, Pods should also be able to resolve.
-But see [Known issues](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues).
+But see [Known issues](/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues).
 
 If you don't want this, or if you want a different DNS config for pods, you can
 use the kubelet's `--resolv-conf` flag.  Set this flag to "" to prevent Pods from
@@ -56,8 +57,7 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 
 ## CoreDNS
 
-CoreDNS is a flexible, extensible, authoritative DNS server which directly integrates with the Kubernetes API. 
-It can serve as cluster DNS, complying with the [dns specifications]
+CoreDNS is a general-purpose authoritative DNS-server that can serve as cluster DNS, complying with the [dns specifications]
 (https://github.com/kubernetes/dns/blob/master/docs/specification.md). 
 
 ### CoreDNS ConfigMap options
@@ -66,7 +66,7 @@ CoreDNS is a DNS server that chains plugins, where each plugin adds a new functi
 This can be configured by maintaining a [Corefile](https://coredns.io/2017/07/23/corefile-explained/), which is the CoreDNS
 configuration file. You can modify the ConfigMap for the CoreDNS Corefile to change how service discovery works. 
 
-Currently, CoreDNS carries the following default Corefile configuration.
+In Kubernetes, CoreDNS is installed with the following default Corefile configuration.
 
 ```yaml
 apiVersion: v1
@@ -97,7 +97,7 @@ The Corefile configuration is based on the following [plugins](https://coredns.i
 * [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to http://localhost:8080/health.
 * [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries based on IP of the services and pods of Kubernetes. You can find more details [here](https://coredns.io/plugins/kubernetes/). 
 
-> The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pod verified` option, which returns an A record only if there exists a pod in same namespace with matching IP.
+> The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pod verified` option, which returns an A record only if there exists a pod in same namespace with matching IP. The `pods disabled` option can be used if you don't use pod records.
 
 > `Upstream` is used for resolving services that point to external hosts (External Services).
 
