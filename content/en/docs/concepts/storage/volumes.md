@@ -656,7 +656,8 @@ All sources are required to be in the same namespace as the Pod. For more detail
 see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
 
 The projection of service account tokens is a feature introduced in Kubernetes
-1.11. To enable this feature, you need to explicitly set the `TokenRequestProjection`
+1.11 and promoted to Beta in 1.12.
+To enable this feature on 1.11, you need to explicitly set the `TokenRequestProjection`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
 True.
 
