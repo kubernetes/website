@@ -56,7 +56,7 @@ different Kubernetes components.
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
-| `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | |
+| `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
@@ -184,6 +184,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   based resource provisioning on nodes.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of volume topology and handle PV provisioning.
+  This feature is superceded by the `VolumeScheduling` feature completely in v1.12.
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
