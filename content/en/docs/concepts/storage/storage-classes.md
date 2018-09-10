@@ -132,14 +132,14 @@ The `volumeBindingMode` field controls when [volume binding and dynamic
 provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
 
 By default, the `Immediate` mode indicates that volume binding and dynamic
-provisioning occurs once the PVC is created. For storage
+provisioning occurs once the PersistentVolumeClaim is created. For storage
 backends that are topology-constrained and not globally accessible from all Nodes
-in the cluster, Volumes will be bound or provisioned without knowledge of the Pod's scheduling
+in the cluster, PersistentVolumes will be bound or provisioned without knowledge of the Pod's scheduling
 requirements. This may result in unschedulable Pods.
 
 A cluster administrator can address this issue by specifying the `WaitForFirstConsumer` mode which
-will delay the binding and provisioning of a Volume until a Pod using the PVC is created.
-Volumes will be selected or provisioned conforming to the topology that is
+will delay the binding and provisioning of a PersistentVolume until a Pod using the PersistentVolumeClaim is created.
+PersistentVolumes will be selected or provisioned conforming to the topology that is
 specified by the Pod's scheduling constraints. These include, but are not limited to, [resource
 requirements](/docs/concepts/configuration/manage-compute-resources-container),
 [node selectors](/docs/concepts/configuration/assign-pod-node/#nodeselector),
@@ -153,7 +153,7 @@ The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
 * [GCEPersistentDisk](#gce-pd)
 * [AzureDisk](#azure-disk)
 
-The following plugins support `WaitForFirstConsumer` with pre-created PV binding:
+The following plugins support `WaitForFirstConsumer` with pre-created PersistentVolume binding:
 
 * All of the above
 * [Local](#local)
@@ -186,7 +186,7 @@ allowedTopologies:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
     - us-central1-a
-    - us-cetnral1-b
+    - us-central1-b
 ```
 
 ## Parameters
