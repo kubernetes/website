@@ -148,11 +148,11 @@ deployment.apps/frontend created
 service/frontend created
 ```
 
-**Note**: The nginx configuration is baked into the
+{{< note >}}**Note:** The nginx configuration is baked into the
 [container image](/examples/service/access/Dockerfile).
 A better way to do this would be to use a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/), so
-that you can change the configuration more easily.
+you can change the configuration more easily.{{< /note >}}
 
 ### Interact with the frontend Service
 

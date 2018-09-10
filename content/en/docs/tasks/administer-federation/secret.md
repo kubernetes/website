@@ -5,7 +5,9 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
+{{< note >}}
 {{< include "federation-current-state.md" >}}
+{{< /note >}}
 
 This guide explains how to use secrets in Federation control plane.
 
@@ -85,9 +87,8 @@ For example, you can do that using kubectl by running:
 kubectl --context=federation-cluster delete secret mysecret
 ```
 
-Note that at this point, deleting a federated secret will not delete the
-corresponding secrets from underlying clusters.
-You must delete the underlying secrets manually.
-We intend to fix this in the future.
+{{< note >}}
+**Note:** At this point, deleting a federated secret will not delete the corresponding secrets from underlying clusters. You must delete the underlying secrets manually. We intend to fix this in the future.
+{{< /note >}}
 
 {{% /capture %}}

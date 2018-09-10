@@ -35,9 +35,9 @@ kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 The following sections describe patterns to kubelet configuration that are simplified by
 using kubeadm, rather than managing the kubelet configuration for each Node manually.
 
-### Propogating cluster-level configuration to each kubelet
+### Propagating cluster-level configuration to each kubelet
 
-You can provide the kubelet with default values to be used by `kubelet init` and `kubelet join`
+You can provide the kubelet with default values to be used by `kubeadm init` and `kubeadm join`
 commands. Interesting examples include using a different CRI runtime or setting the default subnet
 used by services.
 
@@ -110,7 +110,7 @@ initializing. A kubelet configuration file is also written to `/etc/kubernetes/k
 baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
 points to the client certificates that allow the kubelet to communicate with the API server. This
 addresses the need to
-[propogate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
+[propagate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
 
 To address the second pattern of
 [providing instance-specific configuration details](#providing-instance-specific-configuration-details),

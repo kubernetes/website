@@ -79,8 +79,8 @@ deployment.apps/hostnames created
 ```
 
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
-Note that this is the same as if you had started the `Deployment` with
-the following YAML:
+{{< note >}}
+**Note:** This is the same as if you started the `Deployment` with the following YAML:
 
 ```yaml
 apiVersion: apps/v1
@@ -104,6 +104,7 @@ spec:
         - containerPort: 9376
           protocol: TCP
 ```
+{{< /note >}}
 
 Confirm your `Pods` are running:
 
@@ -213,8 +214,8 @@ Note the suffix here: "default.svc.cluster.local".  The "default" is the
 The "cluster.local" is your cluster domain, which COULD be different in your
 own cluster.
 
-You can also try this from a `Node` in the cluster (note: 10.0.0.10 is my DNS
-`Service`, yours might be different):
+You can also try this from a `Node` in the cluster:
+{{< note >}}**Note:** 10.0.0.10 is my DNS `Service`, yours might be different){{< /note >}}
 
 ```shell
 u@node$ nslookup hostnames.default.svc.cluster.local 10.0.0.10
@@ -383,8 +384,8 @@ as the `Service` selecting for `run=hostnames`, but the `Deployment` specifying
 
 At this point, we know that your `Service` exists and has selected your `Pods`.
 Let's check that the `Pods` are actually working - we can bypass the `Service`
-mechanism and go straight to the `Pods`.  Note that these commands use the `Pod`
-port (9376), rather than the `Service` port (80).
+mechanism and go straight to the `Pods`.  
+{{< note >}}**Note:** These commands use the `Pod` port (9376), rather than the `Service` port (80).{{< /note >}}
 
 ```shell
 u@pod$ wget -qO- 10.244.0.5:9376

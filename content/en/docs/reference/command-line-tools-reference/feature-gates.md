@@ -56,7 +56,7 @@ different Kubernetes components.
 | `DevicePlugins` | `true` | Beta | 1.10 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
-| `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | |
+| `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
@@ -81,6 +81,7 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
 | `PodPriority` | `false` | Alpha | 1.8 | |
 | `PodReadinessGates` | `false` | Alpha | 1.11 | |
+| `PodReadinessGates` | `true` | Beta | 1.12 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `ReadOnlyAPIDataVolumes` | `true` | Deprecated | 1.10 | |
@@ -100,6 +101,7 @@ different Kubernetes components.
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
 | `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
+| `TaintNodesByCondition` | `true` | Beta | 1.12 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
 | `TokenRequest` | `True` | Beta | 1.12 | |
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
@@ -185,6 +187,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   based resource provisioning on nodes.
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of volume topology and handle PV provisioning.
+  This feature is superceded by the `VolumeScheduling` feature completely in v1.12.
 - `DynamicVolumeProvisioning`(*deprecated*): Enable the [dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods.
 - `EnableEquivalenceClassCache`: Enable the scheduler to cache equivalence of nodes when scheduling Pods.
 - `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).

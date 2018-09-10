@@ -452,6 +452,16 @@ Auto-reconciliation is enabled in Kubernetes version 1.6+ when the RBAC authoriz
 
 ### Discovery Roles
 
+Default role bindings authorize unauthenticated and authenticated users to read API information that is deemed safe to be publicly accessible. To disable anonymous unauthenticated access add `--anonymous-auth=false` to the API server configuration.
+
+To view the configuration of these roles via `kubectl` run:
+
+```
+kubectl get clusterroles system:discovery -o yaml
+```
+
+NOTE: editing the role is not recommended as changes will be overwritten on API server restart via auto-reconciliation (see above).
+
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
 <tr>

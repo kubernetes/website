@@ -57,8 +57,11 @@ or the custom metrics API (for all other metrics).
 * For per-pod custom metrics, the controller functions similarly to per-pod resource metrics,
   except that it works with raw values, not utilization values.
 
-* For object metrics, a single metric is fetched (which describes the object
-  in question), and compared to the target value, to produce a ratio as above.
+* For object metrics and external metrics, a single metric is fetched, which describes
+  the object in question. This metric is compared compared to the target
+  value, to produce a ratio as above. In the `autoscaling/v2beta2` API
+  version, this value can optionally be divided by the number of pods before the
+  comparison is made.
 
 The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
 `custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  The `metrics.k8s.io` API is usually provided by
@@ -85,7 +88,7 @@ The current stable version, which only includes support for CPU autoscaling,
 can be found in the `autoscaling/v1` API version.
 
 The beta version, which includes support for scaling on memory and custom metrics,
-can be found in `autoscaling/v2beta1`. The new fields introduced in `autoscaling/v2beta1`
+can be found in `autoscaling/v2beta2`. The new fields introduced in `autoscaling/v2beta2`
 are preserved as annotations when working with `autoscaling/v1`.
 
 More details about the API object can be found at
@@ -146,7 +149,7 @@ may keep thrashing as usual.
 
 ## Support for multiple metrics
 
-Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2beta1` API
+Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2beta2` API
 version to specify multiple metrics for the Horizontal Pod Autoscaler to scale on. Then, the Horizontal Pod
 Autoscaler controller will evaluate each metric, and propose a new scale based on that metric. The largest of the
 proposed scales will be used as the new scale.
@@ -159,7 +162,7 @@ custom metrics is still available, these metrics will not be available for use b
 annotations for specifying which custom metrics to scale on are no longer honored by the Horizontal Pod Autoscaler controller.
 
 Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal Pod Autoscaler.
-You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta1` API.
+You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta2` API.
 Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
 
 See [Support for metrics APIs](#support-for-metrics-APIs) for the requirements.
