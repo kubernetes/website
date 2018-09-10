@@ -1,7 +1,7 @@
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Set up a Highly Availabile etcd Cluster With kubeadm
+title: Set up a High Availability etcd cluster with kubeadm
 content_template: templates/task
 weight: 60
 ---
@@ -9,10 +9,10 @@ weight: 60
 {{% capture overview %}}
 
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
-by the kubelet on the control plane node. This is not a highly available setup
+by the kubelet on the control plane node. This is not a high availability setup 
 as the etcd cluster contains only one member and cannot sustain any members
-becoming unavailable. This task walks through the process of creating a highly
-available etcd cluster of three members that can be used as an external etcd
+becoming unavailable. This task walks through the process of creating a high
+availability etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster.
 
 {{% /capture %}}
@@ -108,7 +108,7 @@ this example.
     If you already have a CA then the only action that is copying the CA's `crt` and
     `key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
     `/etc/kubernetes/pki/etcd/ca.key`. After those files have been copied, please
-    skip this step.
+    proceed to "Create certificates for each member".
 
     If you do not already have a CA then run this command on `$HOST0` (where you
     generated the configuration files for kubeadm).
