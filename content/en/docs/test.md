@@ -346,3 +346,11 @@ To add shortcodes to includes.
 {{< note >}}
 {{< include "federation-current-state.md" >}}
 {{< /note >}}
+
+## Katacoda Button
+
+<div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
+
+<script src="https://katacoda.com/embed.js"></script>
+
+<button class="button" onclick="window.katacoda.init(); ">Launch Terminal</button>
