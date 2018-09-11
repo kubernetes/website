@@ -62,7 +62,7 @@ kind: Ingress
 metadata:
   name: test-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
@@ -153,7 +153,7 @@ kind: Ingress
 metadata:
   name: test
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - host: foo.bar.com
@@ -187,7 +187,7 @@ Rules:
                /foo   s1:80 (10.8.0.90:80)
                /bar   s2:80 (10.8.0.91:80)
 Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
+  ingress.kubernetes.io/rewrite-target:  /
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
@@ -327,7 +327,7 @@ Rules:
   foo.bar.com
                /foo   s1:80 (10.8.0.90:80)
 Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
+  ingress.kubernetes.io/rewrite-target:  /
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
@@ -379,7 +379,7 @@ Rules:
   bar.baz.com
                /foo   s2:80 (10.8.0.91:80)
 Annotations:
-  nginx.ingress.kubernetes.io/rewrite-target:  /
+  ingress.kubernetes.io/rewrite-target:  /
 Events:
   Type     Reason  Age                From                     Message
   ----     ------  ----               ----                     -------
