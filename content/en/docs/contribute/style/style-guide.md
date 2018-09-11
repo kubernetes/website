@@ -268,7 +268,7 @@ The output is:
 This button lets users run Minikube in their browser.
 
 ```
-{{< kat-button >}}
+{{</* kat-button */>}}
 ```
 
 {{< kat-button >}}
