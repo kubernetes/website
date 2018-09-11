@@ -263,6 +263,20 @@ The output is:
 **Warning:** Beware.
 {{< /warning >}}
 
+### Katacoda Embedded Live Environment
+
+This button lets users run Minikube in their browser.
+
+```
+{{< kat-button >}}
+```
+
+{{< kat-button >}}
+
+{{< caution >}}
+**Caution:** The session is limited to 15 minutes.
+{{< /caution >}}
+
 ## Common Shortcode Issues
 
 ### Ordered Lists
