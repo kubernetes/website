@@ -349,4 +349,4 @@ To add shortcodes to includes.
 
 ## Katacoda Button
 
-{{% kat-button /%}}
+{{% kat-button %}}
