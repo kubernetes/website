@@ -346,3 +346,7 @@ To add shortcodes to includes.
 {{< note >}}
 {{< include "federation-current-state.md" >}}
 {{< /note >}}
+
+## Katacoda Embeded Live Environment
+
+{{% kat-button %}}
