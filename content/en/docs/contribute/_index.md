@@ -20,7 +20,7 @@ Looking for the [style guide](/docs/contribute/style/style-guide/)?
 
 ## Types of contributor
 
-- A _member_ of the Kubernetes organization has [signed the CLA](/contribute/start#sign-the-cla)
+- A _member_ of the Kubernetes organization has [signed the CLA](/docs/contribute/start#sign-the-cla)
   and contributed some time and effort to the project. See
   [Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md)
   for specific criteria for membership.
