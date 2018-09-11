@@ -3,13 +3,15 @@ reviewers:
 - janetkuo
 title: TTL Controller for Finished Resources
 content_template: templates/concept
-weight: ??
+weight: 65
 ---
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+
 The TTL controller provides a TTL mechanism to limit the lifetime of resource
-objects that have finished execution. Currently, TTL controller only handles
+objects that have finished execution. TTL controller only handles
 [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) for
 now, and may be expanded to handle other resources that will finish execution,
 such as Pods and custom resources.
@@ -31,21 +33,29 @@ Alpha Disclaimer: this feature is currently alpha, and can be enabled with
 
 The TTL controller only supports Jobs for now. You can use this feature to clean
 up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
-`.spec.ttlSecondsAfterFinished` field of a Job, 
-see [example](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically). 
+`.spec.ttlSecondsAfterFinished` field of a Job, as in this
+[example](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically). 
 The TTL controller will assume that a resource is eligible to be cleaned up
 TTL seconds after the resource has finished, i.e. TTL has expired. When the
-resource is deleted, its lifecycle guarantees, such as finalizers, will be
-honored.
+TTL controller cleans up a resource, it will delete it cascadingly, i.e. delete
+its dependent objects together with it. Note that when the resource is deleted,
+its lifecycle guarantees, such as finalizers, will be honored.
 
-The TTL seconds can be set at any time -- for example, you can specify it in the
-resource manifest, set it at resource creation time, or set it after the
-resource has finished. You can also use
-[mutating admission webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-to set this field dynamically.
+The TTL seconds can be set at any time. Here are some examples for setting the
+`.spec.ttlSecondsAfterFinished` field of a Job:
 
-In the future, we plan to expand TTL controller to other resources that will
-finish execution, such as Pods and custom resources.
+* Specify this field in the resource manifest, so that a Job can be cleaned up
+  automatically some time after it finishes.
+* Set this field of existing, already finished resources, to adopt this new
+  feature.
+* Use a
+  [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+  to set this field dynamically at resource creation time. Cluster admins can
+  use this to enforce a TTL policy for finished resources.
+* Use a
+  [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+  to set this field dynamically after the resource has finished, and choose
+  different TTL values based on resource status, labels, etc.
 
 ## Caveat
 
