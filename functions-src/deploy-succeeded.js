@@ -4,42 +4,42 @@ const
   { IncomingWebhook } = require('@slack/client'),
   kubernetesSiteRoot = 'https://kubernetes.io',
   fetch = require('node-fetch').default,
-  slackWebhookUrl = process.env.SLACK_WEBHOOK_URL;
+  { SLACK_WEBHOOK_URL } = process.env;
 
-const webhook = new IncomingWebhook(slackWebhookUrl);
+const webhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
 // A random smattering of Kubernetes documentation pages
+// We can add as many pages here as we'd like
 const kubernetesEndpoints = [
   'docs/home',
   'docs/tutorials/configuration/configure-redis-using-configmap',
-  ''
+
 ]
 
-const success = (callback, msg) => {
-  callback(null, { statusCode: 200, body: msg });
-}
-
-const failure = (callback, msg) => {
-  callback(null, { statusCode: 404, body: msg });
-}
-
-const sendSlackMessage = (callback, msg) => {
+// This function posts a warning message to Slack
+const sendSlackMessage = (msg) => {
   const slackMessageObject = {
-    username: "nondex checker",
+    username: "noindex checker",
     text: msg
   }
 
+  // Send the message to the webhook
   webhook.send(slackMessageObject, (err, res) => {
-    if (err) {
-      console.error(`[ERROR] Slack webhook error: ${err}`);
-    } else {
-      const msg = JSON.stringify(res);
-      console.log(`[SUCCESS] Response received from Slack: ${msg}`);
-    }
+    return (err) ? { statusCode: 422, body: `[ERROR] Slack webhook error: ${err}` } :
+      { statusCode: 200, body: `[SUCCESS] Response received from Slack: ${JSON.stringify(res)}` };
   });
 }
 
-exports.handler = (event, context, callback) => {
+// The handler function
+exports.handler = async (event, context) => {
+  if (!SLACK_WEBHOOK_URL) {
+    return {
+      statusCode: 422,
+      body: "[FAILURE] The Slack webhook URL must be set via the SLACK_WEBHOOK_URL environment variable"
+    }
+  }
+
+  // Iterate through each Kubernetes endpoint to check for noindex headers
   kubernetesEndpoints.forEach((endpoint) => {
     const url = `${kubernetesSiteRoot}/${endpoint}`;
 
@@ -48,14 +48,20 @@ exports.handler = (event, context, callback) => {
         const headers = res.headers;
 
         if ('x-robots-tag' in headers.raw() && (headers.get('x-robots-tag') == 'noindex')) {
-          const msg = `[WARNING] X-Robots-Tag: noindex found on the following page: ${url}`;
-          sendSlackMessage(callback, msg);
+          const msg = `[WARNING] "X-Robots-Tag: noindex" header found on the following page: ${url}`;
 
-          failure(callback, `Improper noindex header found at ${url}`);
+          // Send Slack notification
+          sendSlackMessage(msg);
+
+          return { statusCode: 404, body: msg };
         } else {
           const msg = `[SUCCESS] No improper X-Robots-Tag: noindex headers found on ${url}`;
-          success(callback. msg);
+          
+          return { statusCode: 200, body: msg };
         }
+      })
+      .catch(err => {
+        return { statusCode: 422, body: err };
       });
   });
 }
