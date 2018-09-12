@@ -320,3 +320,18 @@ Note that the Kubernetes Node name must match the Photon VM name (or if `overrid
 ### Node Name
 
 The VSphere cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+
+## IBM Cloud Kubernetes Service 
+
+### Compute nodes
+By using the IBM Cloud Kubernetes Service provider, you can create clusters with a mixture of virtual and physical (bare metal) nodes in a single zone or across multiple zones in a region. For more information, see [Planning your cluster and worker node setup](https://console.bluemix.net/docs/containers/cs_clusters_planning.html#plan_clusters).
+
+The name of the Kubernetes Node object is the private IP address of the IBM Cloud Kubernetes Service worker node instance. 
+
+### Networking
+The IBM Cloud Kubernetes Service provider provides VLANs for quality network performance and network isolation for nodes. You can set up custom firewalls and Calico network policies to add an extra layer of security for your cluster, or connect your cluster to your on-prem data center via VPN. For more information, see [Planning in-cluster and private networking](https://console.bluemix.net/docs/containers/cs_network_cluster.html#planning).
+
+To expose apps to the public or within the cluster, you can leverage NodePort, LoadBalancer, or Ingress services. You can also customize the Ingress application load balancer with annotations. For more information, see [Planning to expose your apps with external networking](https://console.bluemix.net/docs/containers/cs_network_planning.html#planning).
+
+### Storage
+The IBM Cloud Kubernetes Service provider leverages Kubernetes-native persistent volumes to enable users to mount file, block, and cloud object storage to their apps. You can also use database-as-a-service and third-party add-ons for persistent storage of your data. For more information, see [Planning highly available persistent storage](https://console.bluemix.net/docs/containers/cs_storage_planning.html#storage_planning).

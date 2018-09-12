@@ -215,7 +215,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   For more details, please see [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate).
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
-  More details can be found [here](/docs/tasks/administer-cluster/pvc-protection/).
+  More details can be found [here](/docs/tasks/administer-cluster/storage-object-in-use-protection/).
 - `ReadOnlyAPIDataVolumes`: Set Secret, ConfigMap, DownwardAPI and projected volumes to be mounted in read-only mode.
   This gate exists only for backward compatibility. It will be removed in 1.11 release.
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
