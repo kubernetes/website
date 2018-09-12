@@ -11,11 +11,11 @@ weight: 70
 {{< feature-state for_k8s_version="1.12" >}}
 
 Kube-scheduler is the Kubernetes default scheduler. It is responsible for
-placement of Pods on proper Nodes of a cluster. Nodes of a cluster that meet the
-scheduling requirements of a Pod are called feasible Nodes for the Pod. The
+placement of Pods on Nodes in a cluster. Nodes in a cluster that meet the
+scheduling requirements of a Pod are called "feasible" Nodes for the Pod. The
 scheduler finds feasible Nodes for a Pod and then runs a set of functions to
 score the feasible Nodes and picks a Node with the highest score among the
-feasible ones to run the Pod. It then notifies the API server about this
+feasible ones to run the Pod. The scheduler then notifies the API server about this
 decision in a process called "Binding".
 
 {{% /capture %}}
@@ -31,9 +31,8 @@ it finds a certain number of them. This improves the scheduler's performance in
 large clusters. The number is specified as a percentage of the cluster size and
 is controlled by a configuration option called `percentageOfNodesToScore`. The
 range should be between 1 and 100. Other values are considered as 100%. The
-default value of this option is 50%. You can change this value by providing a
-different value in the scheduler configuration, but read further to find whether
-you should change the value.
+default value of this option is 50%. A cluster administrator can change this value by providing a
+different value in the scheduler configuration. However, it may not be necessary to change this value.
 
 ```yaml
 apiVersion: componentconfig/v1alpha1
@@ -46,7 +45,7 @@ algorithmSource:
 percentageOfNodesToScore: 50
 ```
 
-{{< note >}} **Note**: In clusters with zero or few feasible nodes, the
+{{< note >}} **Note**: In clusters with zero or less than 50 feasible nodes, the
 scheduler still checks all the nodes, simply because there are not enough
 feasible nodes to stop the scheduler's search early. {{< /note >}}
 
@@ -54,9 +53,9 @@ feasible nodes to stop the scheduler's search early. {{< /note >}}
 
 ### Tuning percentageOfNodesToScore
 
-As stated above, `percentageOfNodesToScore` must be a value between 1 and 100
+`percentageOfNodesToScore` must be a value between 1 and 100
 with the default value of 50. There is also a hardcoded minimum value of 50
-nodes which is applied internally. It means that the scheduler tries to find at
+nodes which is applied internally. The scheduler tries to find at
 least 50 nodes regardless of the value of `percentageOfNodesToScore`. This means
 that changing this option to lower values in clusters with several hundred nodes
 will not have much impact on the number of feasible nodes that the scheduler
@@ -76,11 +75,11 @@ should be used only when the scheduler's throughput is critical for your
 application and the score of nodes is not important. In other words, you prefer
 to run the Pod on any Node as long as it is feasible.
 
-We do not recommend lowering this value from its default if your cluster has
+It is not recommended to lower this value from its default if your cluster has
 only several hundred Nodes. It is unlikely to improve the scheduler's
 performance significantly.
 
-### How scheduler iterates over Nodes
+### How the scheduler iterates over Nodes
 
 This section is intended for those who want to understand the internal details
 of this feature.
@@ -90,8 +89,8 @@ for running Pods, the scheduler iterates over the nodes in a round robin
 fashion. You can imagine that Nodes are in an array. The scheduler starts from
 the start of the array and checks feasibility of the nodes until it finds enough
 Nodes as specified by `percentageOfNodesToScore`. For the next Pod, the
-scheduler continues from the point in the array that it stopped when checking
-feasibility of the previous Pod.
+scheduler continues from the point in the Node array that it stopped at when checking
+feasibility of Nodes for the previous Pod.
 
 If Nodes are in multiple zones, the scheduler iterates over Nodes in various
 zones to ensure that Nodes from different zones are considered in the
@@ -102,7 +101,7 @@ Zone 1: Node 1, Node 2, Node 3, Node 4
 Zone 2: Node 5, Node 6
 ```
 
-Scheduler evaluates feasibility of the nodes in this oder:
+The Scheduler evaluates feasibility of the nodes in this order:
 
 ```
 Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
