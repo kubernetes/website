@@ -52,15 +52,15 @@ you **on a best-effort basis**.
 
     For example, if your ThirdPartyResource looks like this:
 
-    ```yaml
-    apiVersion: extensions/v1beta1
-    kind: ThirdPartyResource
-    metadata:
-      name: cron-tab.stable.example.com
-    description: "A specification of a Pod to run on a cron style schedule"
-    versions:
-    - name: v1
-    ```
+    
+        apiVersion: extensions/v1beta1
+        kind: ThirdPartyResource
+        metadata:
+          name: cron-tab.stable.example.com
+        description: "A specification of a Pod to run on a cron style schedule"
+        versions:
+        - name: v1
+    
 
     A matching CustomResourceDefinition could look like this:
 

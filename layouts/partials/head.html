@@ -1,4 +1,5 @@
 {{- $isBlogPost := eq .Section "blog" }}
+{{- $ogType := cond (.IsHome) "website" "article" }}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-36037335-10"></script>
 <script>
@@ -30,8 +31,8 @@
 {{ else }}
 <meta property="og:image" content="{{ "images/kubernetes-horizontal-color.png" | relURL }}">
 {{ end }}
-{{- $ogType := cond (.IsHome) "website" "article" }}
 <meta property="og:type" content="{{ $ogType }}">
+<script src="{{ "js/anchor-4.1.1.min.js" | relURL }}"></script>
 <script src="{{ "js/jquery-3.2.1.min.js" | relURL }}"></script>
 <script src="{{ "js/jquery-ui-1.12.1.min.js" | relURL }}"></script>
 <script src="{{ "js/bootstrap-3.3.7.min.js" | relURL }}"></script>

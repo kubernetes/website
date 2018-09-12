@@ -179,7 +179,7 @@ Summary of container benefits:
     Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.
 * **Application-centric management**:
     Raises the level of abstraction from running an OS on virtual
-    hardware to run an application on an OS using logical resources.
+    hardware to running an application on an OS using logical resources.
 * **Loosely coupled, distributed, elastic, liberated [micro-services](https://martinfowler.com/articles/microservices.html)**:
     Applications are broken into smaller, independent pieces and can
     be deployed and managed dynamically -- not a fat monolithic stack
