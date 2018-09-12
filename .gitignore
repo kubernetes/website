@@ -34,5 +34,6 @@ public/
 .editorconfig
 
 # Netlify Functions build output
+package-lock.json
 functions/
 node_modules/
