@@ -548,7 +548,7 @@ kind: AdmissionConfiguration
 plugins:
 - name: "ResourceQuota"
   configuration:
-    apiVersion: resourcequota.admission.k8s.io/v1alpha1
+    apiVersion: resourcequota.admission.k8s.io/v1beta1
     kind: Configuration
     limitedResources:
     - resource: pods
@@ -567,10 +567,6 @@ For example:
         scopeName: PriorityClass
         values: ["cluster-services"]
 ```
-
-{{< note >}}
-**Note:** `scopeSelector` is an alpha field and feature gate `ResourceQuotaScopeSelectors` must be enabled before using it.
-{{< /note >}}
 
 See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota supoport for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
 
