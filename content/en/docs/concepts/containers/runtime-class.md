@@ -59,7 +59,7 @@ feature, not all CRIs support multiple RuntimeClasses yet.
 
 {{< note >}}
 **Note:** RuntimeClass currently assumes a homogeneous node configuration across the cluster
-(i.e. all nodes are configured the same way). Any heterogeneity (varying configurations) must be
+(which means that all nodes are configured the same way with respect to container runtimes). Any heterogeneity (varying configurations) must be
 managed independently of RuntimeClass through scheduling features (see [Assigning Pods to
 Nodes](/docs/concepts/configuration/assign-pod-node/)).
 {{< /note >}}
@@ -97,8 +97,8 @@ Overview](https://kubernetes.io/docs/reference/access-authn-authz/authorization/
 
 ### Usage
 
-Once RuntimeClasses are configured for the cluster, using them is very simple. Simply specify a
-`runtimeClassName` in the pod spec. For example:
+Once RuntimeClasses are configured for the cluster, using them is very simple. Specify a
+`runtimeClassName` in the Pod spec. For example:
 
 ```yaml
 apiVersion: v1
