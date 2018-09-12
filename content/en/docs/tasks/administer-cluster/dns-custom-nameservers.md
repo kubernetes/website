@@ -28,9 +28,9 @@ DNS is a built-in Kubernetes service launched automatically
 using the addon manager
 [cluster add-on](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md).
 
-Following Kubernetes v1.12, CoreDNS is declared the default DNS Server instead of kube-dns. In kubeadm, this change was made
-in Kubernetes 1.11, but other installers have waited until 1.12. You should refer to the documentation of other installers to
-verify which is the default DNS server.
+As of Kubernetes v1.12, CoreDNS is the recommended DNS Server, replacing kube-dns. However, kube-dns may still be installed by
+default with certain Kubernetes installer tools. You can refer to the documentation your installer to know which DNS server is
+installed by default.
 
 
 The DNS Pod is exposed as a Kubernetes Service with a static IP.
@@ -91,7 +91,7 @@ Corefile: |
         loadbalance
     }
 ``` 
-The Corefile configuration is based on the following [plugins](https://coredns.io/plugins/) of CoreDNS:
+The Corefile configuration includes the following [plugins](https://coredns.io/plugins/) of CoreDNS:
 
 * [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
 * [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to http://localhost:8080/health.
