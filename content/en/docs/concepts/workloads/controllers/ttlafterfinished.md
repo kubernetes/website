@@ -31,12 +31,12 @@ Alpha Disclaimer: this feature is currently alpha, and can be enabled with
 
 ## TTL Controller
 
-The TTL controller only supports Jobs for now. You can use this feature to clean
+The TTL controller only supports Jobs for now. A cluster operator can use this feature to clean
 up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 `.spec.ttlSecondsAfterFinished` field of a Job, as in this
 [example](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically). 
 The TTL controller will assume that a resource is eligible to be cleaned up
-TTL seconds after the resource has finished, i.e. TTL has expired. When the
+TTL seconds after the resource has finished, in other words, when the TTL has expired. When the
 TTL controller cleans up a resource, it will delete it cascadingly, i.e. delete
 its dependent objects together with it. Note that when the resource is deleted,
 its lifecycle guarantees, such as finalizers, will be honored.
@@ -50,7 +50,7 @@ The TTL seconds can be set at any time. Here are some examples for setting the
   feature.
 * Use a
   [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-  to set this field dynamically at resource creation time. Cluster admins can
+  to set this field dynamically at resource creation time. Cluster administrators can
   use this to enforce a TTL policy for finished resources.
 * Use a
   [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
@@ -63,7 +63,7 @@ The TTL seconds can be set at any time. Here are some examples for setting the
 
 Note that the TTL period, e.g. `.spec.ttlSecondsAfterFinished` field of Jobs,
 can be modified after the resource is created or has finished. However, once the
-Job becomes eligible to be deleted (i.e. the TTL has expired), the system won't
+Job becomes eligible to be deleted (when the TTL has expired), the system won't
 guarantee that the Jobs will be kept, even if an update to extend the TTL
 returns a successful API response.
 
