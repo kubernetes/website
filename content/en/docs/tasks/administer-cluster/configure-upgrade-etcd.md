@@ -390,7 +390,9 @@ TARGET_VERSION=2.2.1
 STORAGE_MEDIA_TYPE=application/json
 ```
 
-** Note: this upgrade procedure is for getting from 2.x to 3.x.  Version `3.0.17` is not recommended for running in production (see [prerequisites](#prereqisites) for minimum recommended etcd versions.
+{{< note >}}
+**Note:** This procedure upgrades from 2.x to 3.x.  Version `3.0.17` is not recommended for running in production (see [prerequisites](#prerequisites) for minimum recommended etcd versions).
+{{< /note >}}
 
 ## Notes for etcd Version 2.2.1
 

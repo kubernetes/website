@@ -1,7 +1,7 @@
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Set up a High Availability etcd cluster with kubeadm
+title: Set up a high availability etcd cluster with kubeadm
 content_template: templates/task
 weight: 60
 ---
@@ -107,8 +107,8 @@ this example.
 
     If you already have a CA then the only action that is copying the CA's `crt` and
     `key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
-    `/etc/kubernetes/pki/etcd/ca.key`. After those files have been copied, please
-    proceed to "Create certificates for each member".
+    `/etc/kubernetes/pki/etcd/ca.key`. After those files have been copied, 
+    proceed to the next step, "Create certificates for each member".
 
     If you do not already have a CA then run this command on `$HOST0` (where you
     generated the configuration files for kubeadm).
