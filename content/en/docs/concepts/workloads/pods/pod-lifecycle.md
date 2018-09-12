@@ -181,7 +181,7 @@ status:
       lastTransitionTime: 2018-01-01T00:00:00Z
     - type: "www.example.com/feature-1"   # an extra PodCondition
       status: "False"
-      lastProbeTIme: null
+      lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
   containerStatuses:
     - containerID: docker://abcd...
