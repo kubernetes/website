@@ -92,6 +92,7 @@ different Kubernetes components.
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | |
 | `RunAsGroup` | `false` | Alpha | 1.10 | |
+| `RuntimeClass` | `false` | Alpha | 1.12 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
@@ -235,6 +236,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
   See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
 - `RunAsGroup`: Enable control over the primary group ID set on the init processes of containers.
+- `RuntimeClass`: Enable the [RuntimeClass](/docs/concepts/containers/runtime-class/) feature for selecting container runtime configurations.
 - `ScheduleDaemonSetPods`: Enable DaemonSet Pods to be scheduled by the default scheduler instead of the DaemonSet controller.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if annotated with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key.
