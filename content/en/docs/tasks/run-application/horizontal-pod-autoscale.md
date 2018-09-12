@@ -101,14 +101,14 @@ the `--horizontal-pod-autoscaler-tolerance` flag, which defaults to 0.1).
 
 When a `targetAverageValue` or `targetAverageUtilization` is specified,
 the `currentMetricValue` is computed by taking the average of the given
-metric across all pods in the HorizontalPodAutoscaler's scale target.
+metric across all Pods in the HorizontalPodAutoscaler's scale target.
 Before checking the tolerance and deciding on the final values, we take
 pod readiness and missing metrics into consideration, however.
 
-All pods with a deletion timestamp set (i.e. pods in the process of being
-shut down) and all failed pods are discarded.
+All Pods with a deletion timestamp set (i.e. Pods in the process of being
+shut down) and all failed Pods are discarded.
 
-If a particular pod is missing metrics, it is set aside for later; pods
+If a particular Pod is missing metrics, it is set aside for later; Pods
 with missing metrics will be used to adjust the final scaling amount.
 
 When scaling on CPU, if any pod has yet to become ready (i.e. it's still
@@ -117,17 +117,17 @@ became ready, that pod is set aside as well.
 
 Due to technical constraints, the HorizontalPodAutoscaler controller
 cannot exactly determine the first time a pod becomes ready when
-determinining whether to set aside certain CPU metrics. Intead, it
-considers a pod "not yet ready" if it's unready and transitioned to
-unready within a short, configurable window of time since it started
-(`--horizontal-pod-autoscaler-initial-readiness-delay`, default 30
-seconds).  Once a pod has become ready, it considers any transition to
+determinining whether to set aside certain CPU metrics. Instead, it
+considers a Pod "not yet ready" if it's unready and transitioned to
+unready within a short, configurable window of time since it started.
+This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay` flag, and its default is 30
+seconds.  Once a pod has become ready, it considers any transition to
 ready to be the first if it occurred within a longer, configurable time
-since it started (`--horizontal-pod-autoscaler-cpu-initialization-period`,
-defaults to 5 minutes).
+since it started. This value is configured with the `--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
+default is 5 minutes.
 
 The `currentMetricValue / desiredMetricValue` base scale ratio is then
-calculated using the remaining pods not set aside or discarded above.
+calculated using the remaining pods not set aside or discarded from above.
 
 If there were any missing metrics, we recompute the average more
 conservatively, assuming those pods were consuming 100% of the desired
@@ -155,11 +155,10 @@ replica counts is chosen.  If any of those metrics cannot be converted
 into a desired replica count (e.g. due to an error fetching the metrics
 from the metrics APIs), scaling is skipped.
 
-Finally, just before scaling, this scale reccomendation is recorded.  The
-controller then considers all reccomendations within a configurable window
-(`--horizontal-pod-autoscaler-downscale-stabilization-window`, default
-5 minutes) choosing the highest from within that window.  This means that
-scaledowns will occur gradually, smothing out the impact of rapidly
+Finally, just before HPA scales the target, the scale reccomendation is recorded.  The
+controller considers all reccomendations within a configurable window choosing the 
+highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization-window` flag, which defaults to 5 minutes.  
+This means that scaledowns will occur gradually, smothing out the impact of rapidly
 fluctuating metric values.
 
 ## API Object
