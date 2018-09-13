@@ -383,7 +383,7 @@ In Kubernetes version 1.10 and later, kubeadm supports automatic translation of 
 ## Migration to CoreDNS
 
 To migrate from kube-dns to CoreDNS, [a detailed blog](https://coredns.io/2018/05/21/migration-from-kube-dns-to-coredns/) is available to help users adapt CoreDNS in place of kube-dns.
-You can also migrate using [the deploy script](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh), which  will also help you translate the kube-dns configmap to the equivalent CoreDNS one.
+A cluster administrator can also migrate using [the deploy script](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh), which  will also help you translate the kube-dns configmap to the equivalent CoreDNS one.
 
 ## What's next
 - [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/).
