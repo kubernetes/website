@@ -267,9 +267,13 @@ The output is:
 
 This button lets users run Minikube in their browser.
 
+For example:
+
 ```
 {{</* kat-button */>}}
 ```
+
+Creates the following button: 
 
 {{< kat-button >}}
 
