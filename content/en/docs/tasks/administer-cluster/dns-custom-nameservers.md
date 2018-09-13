@@ -42,8 +42,8 @@ flag.
 DNS names also need domains. You configure the local domain in the kubelet
 with the flag `--cluster-domain=<default-local-domain>`.
 
-The DNS server supports forward lookups (A records), service lookups (SRV records), and reverse IP address lookups (PTR
-records) as per the [DNS specifications] (/docs/concepts/services-networking/dns-pod-service/)
+The DNS server supports forward lookups (A records), port lookups (SRV records), and reverse IP address lookups (PTR records),
+and more. For more information see [DNS for Services and Pods] (/docs/concepts/services-networking/dns-pod-service/).
 
 When running a Pod, kubelet prepends the cluster DNS server and searches
 paths to the node's DNS settings.  If the node is able to resolve DNS names
