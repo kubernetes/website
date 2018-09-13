@@ -14,7 +14,7 @@ project or you've been around a long time, and whether you self-identify as a
 developer, an end user, or someone who just can't stand seeing typos.
 
 For more ways to get involved in the Kubernetes community or to learn about us,
-also visit the [Kubernetes community site](https://kubernetes.io/community/).
+also visit the [Kubernetes community site](/community/).
 
 Looking for the [style guide](/docs/contribute/style/style-guide/) or the
 [Kubernetes Community site]()?
