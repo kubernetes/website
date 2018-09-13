@@ -30,16 +30,8 @@ const sendSlackMessage = (msg) => {
   });
 }
 
-// The handler function
-exports.handler = async (event, context) => {
-  if (!SLACK_WEBHOOK_URL) {
-    return {
-      statusCode: 422,
-      body: "[FAILURE] The Slack webhook URL must be set via the SLACK_WEBHOOK_URL environment variable"
-    }
-  }
-
-  // Iterate through each Kubernetes endpoint to check for noindex headers
+// Iterate through each Kubernetes endpoint to check for noindex headers
+const checkEndpoints = () => {
   kubernetesEndpoints.forEach((endpoint) => {
     const url = `${kubernetesSiteRoot}/${endpoint}`;
 
@@ -64,4 +56,17 @@ exports.handler = async (event, context) => {
         return { statusCode: 422, body: err };
       });
   });
+}
+
+// The handler function
+exports.handler = async (event, context) => {
+  if (!SLACK_WEBHOOK_URL) {
+    return {
+      statusCode: 422,
+      body: "[FAILURE] The Slack webhook URL must be set via the SLACK_WEBHOOK_URL environment variable"
+    }
+  }
+
+  // Below are the various deploy succeeded checks
+  checkEndpoints();
 }
