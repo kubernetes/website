@@ -1,8 +1,9 @@
 ---
 reviewers:
-- ericchiang
 - mikedanese
-- jcbsmpsn
+- liggitt
+- smarterclayton
+- awly
 title: TLS bootstrapping
 content_template: templates/concept
 ---
@@ -10,11 +11,10 @@ content_template: templates/concept
 {{% capture overview %}}
 
 This document describes how to set up TLS client certificate bootstrapping for
-kubelets.  Kubernetes 1.4 introduced an API for requesting certificates from a
+kubelets. Kubernetes 1.4 introduced an API for requesting certificates from a
 cluster-level Certificate Authority (CA). The original intent of this API is to
 enable provisioning of TLS client certificates for kubelets. The proposal can be
-found [here](https://github.com/kubernetes/kubernetes/pull/20439) and progress
-on the feature is being tracked as [feature#43](https://github.com/kubernetes/features/issues/43).
+found [here](https://github.com/kubernetes/kubernetes/pull/20439).
 
 {{% /capture %}}
 
@@ -29,10 +29,11 @@ authenticate tokens as a user in the `system:bootstrappers` group.
 This group will later be used in the controller-manager configuration to scope
 approvals in the default approval controller. As this feature matures, you
 should ensure tokens are bound to a Role-Based Access Control (RBAC) policy
-which limits requests (using the bootstrap token) strictly to client requests
-related to certificate provisioning. With RBAC in place, scoping the tokens to a
-group allows for great flexibility (e.g. you could disable a particular
-bootstrap group's access when you are done provisioning the nodes).
+which limits requests (using the [bootstrap
+token](/docs/reference/access-authn-authz/bootstrap-tokens/)) strictly to client
+requests related to certificate provisioning. With RBAC in place, scoping the
+tokens to a group allows for great flexibility (e.g. you could disable a
+particular bootstrap group's access when you are done provisioning the nodes).
 
 While any authentication strategy can be used for the kubelet's initial
 bootstrap credentials, the following two authenticators are recommended for ease
@@ -47,7 +48,7 @@ bootstrap token management especially in a HA scenario.
 ### Token authentication file
 
 Tokens are arbitrary but should represent at least 128 bits of entropy derived
-from a secure random number generator (such as /dev/urandom on most modern
+from a secure random number generator (such as /dev/urandom on most modern Linux
 systems). There are multiple ways you can generate a token. For example:
 
 ```
@@ -98,38 +99,31 @@ The kube-controller-manager flags are:
 --cluster-signing-cert-file="/etc/path/to/kubernetes/ca/ca.crt" --cluster-signing-key-file="/etc/path/to/kubernetes/ca/ca.key"
 ```
 
-### Approval controller
+The validity duration of signed certificates can be configured with flag:
 
-In 1.7 the experimental "group auto approver" controller is dropped in favor of
-the new `csrapproving` controller that ships as part of
+```
+--experimental-cluster-signing-duration
+```
+
+### SubjectAccessReview Approval Controller
+
+The `csrapproving` controller that ships as part of
 [kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled
-by default.  The controller uses the [`SubjectAccessReview`
+by default. The controller uses the [`SubjectAccessReview`
 API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to
 determine if a given user is authorized to request a CSR, then approves based on
 the authorization outcome. To prevent conflicts with other approvers, the
-builtin approver doesn't explicitly deny CSRs, only ignoring unauthorized
-requests.
+builtin approver doesn't explicitly deny CSRs. It only ignores unauthorized
+requests. The controller also prunes expired certificates as part of garbage
+collection.
 
 The controller categorizes CSRs into three subresources:
 
 1. `nodeclient` - a request by a user for a client certificate with `O=system:nodes` and `CN=system:node:(node name)`.
-2. `selfnodeclient` - a node renewing a client certificate with the same `O` and `CN`.
-3. `selfnodeserver` - a node renewing a serving certificate. (ALPHA, requires feature gate)
+2. `selfnodeclient` - a node renewing a client certificate with the same `O` and `CN`. A node can use its existing client certificate to authenticate this request.
 
-The checks to determine if a CSR is a `selfnodeserver` request is currently tied
-to the kubelet's credential rotation implementation, an __alpha__ feature. As
-such, the definition of `selfnodeserver` will likely change in a future and
-requires the `RotateKubeletServerCertificate` feature gate on the controller
-manager. The feature progress can be tracked at
-[kubernetes/features#267](https://github.com/kubernetes/features/issues/267).
-
-```
---feature-gates=RotateKubeletServerCertificate=true
-```
-
-The following RBAC `ClusterRoles` represent the `nodeclient`, `selfnodeclient`,
-and `selfnodeserver` capabilities. Similar roles may be automatically created in
-future releases.
+The following RBAC `ClusterRoles` represent the `nodeclient` and
+`selfnodeclient`, capabilities.
 
 ```yml
 # A ClusterRole which instructs the CSR approver to approve a user requesting
@@ -153,38 +147,21 @@ rules:
 - apiGroups: ["certificates.k8s.io"]
   resources: ["certificatesigningrequests/selfnodeclient"]
   verbs: ["create"]
----
-# A ClusterRole which instructs the CSR approver to approve a node requesting a
-# serving cert matching its client cert.
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: approve-node-server-renewal-csr
-rules:
-- apiGroups: ["certificates.k8s.io"]
-  resources: ["certificatesigningrequests/selfnodeserver"]
-  verbs: ["create"]
 ```
 
 As of 1.8, equivalent roles to the ones listed above are automatically created
-as part of the default RBAC roles.  For 1.8 clusters admins are recommended to
-bind tokens to the following roles instead of creating their own:
+as part of the default RBAC roles. For 1.8 clusters admins are recommended to
+bind node bootstrap identities to the following roles instead of creating their
+own:
 
 * `system:certificates.k8s.io:certificatesigningrequests:nodeclient`
     - Automatically approve CSRs for client certs bound to this role.
 * `system:certificates.k8s.io:certificatesigningrequests:selfnodeclient`
     - Automatically approve CSRs when a client bound to its role renews its own certificate.
 
-These powers can be granted to credentials, such as bootstrapping tokens. For
-example, to replicate the behavior provided by the removed auto-approval flag,
-of approving all CSRs by a single group:
-
-```
-# REMOVED: This flag no longer works as of 1.7.
---insecure-experimental-approve-all-kubelet-csrs-for-group="system:bootstrappers"
-```
-
-An admin would create a `ClusterRoleBinding` targeting that group.
+For example, to grant these permissions to identities attached to bootstrap
+tokens, an admin would create a `ClusterRoleBinding` targeting the
+`system:bootstrappers` group:
 
 ```yml
 # Approve all CSRs for the group "system:bootstrappers"
@@ -202,8 +179,8 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-To let a node renew its own credentials, an admin can construct a
-`ClusterRoleBinding` targeting that node's credentials:
+To let all nodes renew their own credentials, an admin can create a
+`ClusterRoleBinding` targeting node identities:
 
 ```yml
 kind: ClusterRoleBinding
@@ -211,8 +188,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: node1-client-cert-renewal
 subjects:
-- kind: User
-  name: system:node:node-1 # Let "node-1" renew its client certificate.
+- kind: Group
+  name: system:nodes
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -220,27 +197,28 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-Deleting the binding will prevent the node from renewing its client credentials,
-effectively removing it from the cluster once its certificate expires.
-
 ## kubelet configuration
 
 To request a client certificate from kube-apiserver, the kubelet first needs a
-path to a kubeconfig file that contains the bootstrap authentication token. You
-can use `kubectl config set-cluster`, `set-credentials`, and `set-context` to
-build this kubeconfig. Provide the name `kubelet-bootstrap` to `kubectl config
-set-credentials` and include `--token=<token-value>` as follows:
+path to a kubeconfig file that contains the credentials for the identity that it
+will use to bootstrap its individual node identity.
+
+If you are using a bootstrap token, you can use `kubectl config set-cluster`,
+`set-credentials`, and `set-context` to build this kubeconfig.  Provide the name
+`kubelet-bootstrap` to `kubectl config set-credentials` and include
+`--token=<token-value>` as follows:
 
 ```
 kubectl config set-credentials kubelet-bootstrap --token=${BOOTSTRAP_TOKEN} --kubeconfig=bootstrap.kubeconfig
 ```
 
-When starting the kubelet, if the file specified by `--kubeconfig` does not
-exist, the bootstrap kubeconfig is used to request a client certificate from the
-API server. On approval of the certificate request and receipt back by the
-kubelet, a kubeconfig file referencing the generated key and obtained
-certificate is written to the path specified by `--kubeconfig`. The certificate
-and key file will be placed in the directory specified by `--cert-dir`.
+When starting the kubelet, if the file specified via `--kubeconfig` does not
+exist, the bootstrap kubeconfig specified via `--bootstrap-kubeconfig` is used
+to request a client certificate from the API server. On approval of the
+certificate request and receipt back by the kubelet, a kubeconfig file
+referencing the generated key and obtained certificate is written to the path
+specified by `--kubeconfig`. The certificate and key file will be placed in the
+directory specified by `--cert-dir`.
 
 {{< note >}}
 **Note:** The following flags are required to enable this bootstrapping when starting the kubelet:
@@ -250,35 +228,49 @@ and key file will be placed in the directory specified by `--cert-dir`.
 ```
 {{< /note >}}
 
-Additionally, in 1.7 the kubelet implements __alpha__ features for enabling
+Additionally, in 1.7 the kubelet implements __beta__ features for enabling
 rotation of both its client and/or serving certs.  These can be enabled through
 the respective `RotateKubeletClientCertificate` and
-`RotateKubeletServerCertificate` feature flags on the kubelet, but may change in
-backward incompatible ways in future releases.
-
-```
---feature-gates=RotateKubeletClientCertificate=true,RotateKubeletServerCertificate=true
-```
+`RotateKubeletServerCertificate` feature flags on the kubelet and are enabled by
+default.
 
 `RotateKubeletClientCertificate` causes the kubelet to rotate its client
-certificates by creating new CSRs as its existing credentials expire.
+certificates by creating new CSRs as its existing credentials expire. To enable
+this feature pass the following flag to the kubelet:
+
+```
+--rotate-certificates
+```
+
 `RotateKubeletServerCertificate` causes the kubelet to both request a serving
-certificate after bootstrapping its client credentials and rotate the
-certificate. The serving cert currently does not request DNS or IP SANs.
+certificate after bootstrapping its client credentials and to rotate that
+certificate. To enable this feature pass the following flag to the kubelet:
+
+```
+--rotate-server-certificates
+```
+
+{{< note >}}
+**Note:** The CSR approving controllers implemented in core Kubernetes do not
+approve node serving certificates for [security
+reasons](https://github.com/kubernetes/community/pull/1982). To use
+`RotateKubeletServerCertificate` operators need to run a custom approving
+controller, or manually approve the serving certificate requests.
+{{< /note >}}
 
 ## kubectl approval
 
+CSRs can be approved outside of the approval flows builtin to the controller
+manager.
+
 The signing controller does not immediately sign all certificate requests.
 Instead, it waits until they have been flagged with an "Approved" status by an
-appropriately-privileged user. This is intended to eventually be an automated
-process handled by an external approval controller, but for the alpha version of
-the API it can be done manually by a cluster administrator using kubectl.  An
-administrator can list CSRs with `kubectl get csr` and describe one in detail
-with `kubectl describe csr <name>`. Before the 1.6 release there were [no direct
-approve/deny commands](https://github.com/kubernetes/kubernetes/issues/30163) so
-an approver had to update the Status field directly ([rough
-how-to](https://github.com/gtank/csrctl)). Later versions of Kubernetes offer
-`kubectl certificate approve <name>` and `kubectl certificate deny <name>`
-commands.
+appropriately-privileged user. This flow is intended to allow for automated
+approval handled by an external approval controller or the approval controller
+implemented in the core controller-manager. However cluster administrators can
+also manually approve certificate requests using kubectl. An administrator can
+list CSRs with `kubectl get csr` and describe one in detail with `kubectl
+describe csr <name>`. An administrator can approve or deny a CSR with `kubectl
+certificate approve <name>` and `kubectl certificate deny <name>`.
 
 {{% /capture %}}
