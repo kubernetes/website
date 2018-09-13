@@ -265,7 +265,16 @@ The output is:
 
 ### Katacoda Embedded Live Environment
 
-This button lets users run Minikube in their browser.
+This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel). 
+It lowers the barier of entry by allowing users to use Minikube with one click instead of going through the complete 
+Minikube and Kubectl installation process locally.
+
+The Embedded Live Environment is configured to run `minikube` start, and lets users complete tutorials in the same window 
+as the documentation.
+
+{{< caution >}}
+**Caution:** The session is limited to 15 minutes.
+{{< /caution >}}
 
 For example:
 
@@ -273,13 +282,9 @@ For example:
 {{</* kat-button */>}}
 ```
 
-Creates the following button: 
+The output is: 
 
 {{< kat-button >}}
-
-{{< caution >}}
-**Caution:** The session is limited to 15 minutes.
-{{< /caution >}}
 
 ## Common Shortcode Issues
 
