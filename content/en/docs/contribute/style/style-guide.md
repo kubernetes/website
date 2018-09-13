@@ -269,7 +269,7 @@ This button lets users run Minikube in their browser using the [Katacoda Termina
 It lowers the barier of entry by allowing users to use Minikube with one click instead of going through the complete 
 Minikube and Kubectl installation process locally.
 
-The Embedded Live Environment is configured to run `minikube` start and lets users complete tutorials in the same window 
+The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window 
 as the documentation.
 
 {{< caution >}}
