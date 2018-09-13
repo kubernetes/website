@@ -357,6 +357,42 @@ This applies only to significant, user-visible behaviors which impact the
 correctness of applications running on Kubernetes or that impact the
 administration of Kubernetes clusters, and which are being removed entirely.
 
+The exception to the above rule are **feature-gates**. Feature gates are a set of
+key=value pairs that enable users to enable/disable experimental features.
+Features can be in Alpha, Beta or GA stage.
+Due to the particular nature of feature gates we recommend that when features
+hit GA, the correspondent feature gate be dropped.
+
+As a user of feature gates please consider that upon feedback on the experimental
+feature, the feature gate will be removed when one of the following scenarios apply:
+
+  * The feature is enabled by default (it can go GA), the deprecation of the
+     feature gate will be announced simultaneously.
+  * The feature is dropped, then the deprecation of the feature and the corresponding
+     feature gate are announced and both will be eventually removed at the same time.
+  * The feature is a candidate to become a configurable option, this happens when the
+     old behavior is needed by users. The new option is introduced as soon as we
+     identify the need and it follows the feature lifecycle as well as feature
+     deprecation rules.
+
+This ensures that users do not end up using a feature gate to turn on/off a feature
+that is GA. However there is an exception to the above scenarios. At times the
+old behavior requires a considerable amount of time before it can be deprecated and
+removed. In this case the new feature might graduate to GA and be enabled by default
+but the correspondent feature gate can only be removed once the old behavior is removed.
+
+Feature gates are not versioned in the same way as the previously discussed components,
+therefore the rules for deprecation are as follows:
+
+**Rule #8a: Feature gates must function after their announced deprecation for no less than:**
+
+   * **GA: 6 months or 2 releases (whichever is longer)**
+   * **Beta: 3 months or 1 release (whichever is longer)**
+   * **Alpha: 0 releases**
+
+**Rule #8b: Feature gates must function as long as the old feature is not deprecated
+and they cannot be present after the old feature has been removed.**
+
 ## Exceptions
 
 No policy can cover every possible situation.  This policy is a living
