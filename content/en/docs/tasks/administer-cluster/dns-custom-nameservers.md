@@ -29,20 +29,17 @@ using the addon manager
 [cluster add-on](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md).
 
 As of Kubernetes v1.12, CoreDNS is the recommended DNS Server, replacing kube-dns. However, kube-dns may still be installed by
-default with certain Kubernetes installer tools. You can refer to the documentation your installer to know which DNS server is
-installed by default.
+default with certain Kubernetes installer tools. Refer to the documentation provided by your installer to know which DNS server is installed by default.
 
 
-The DNS Pod is exposed as a Kubernetes Service with a static IP.
-Both the CoreDNS and kube-dns service is named as `kube-dns`. This is done so that there is seamless service when one chooses
-to switch between DNS servers. 
-The kubelet passes DNS to each container with the `--cluster-dns=<dns-service-ip>`
-flag.
+The CoreDNS Deployment is exposed as a Kubernetes Service with a static IP.
+Both the CoreDNS and kube-dns Service are named `kube-dns` in the `metadata.name` field. This is done so that there is greater interoperability with workloads that relied on the legacy `kube-dns` Service name to resolve addresses internal to the cluster. It abstracts away the implementation detail of which DNS provider is running behind that common endpoint. 
+The kubelet passes DNS to each container with the `--cluster-dns=<dns-service-ip>` flag.
 
 DNS names also need domains. You configure the local domain in the kubelet
 with the flag `--cluster-domain=<default-local-domain>`.
 
-The DNS server supports forward lookups (A records), port lookups (SRV records), and reverse IP address lookups (PTR records),
+The DNS server supports forward lookups (A records), port lookups (SRV records), reverse IP address lookups (PTR records),
 and more. For more information see [DNS for Services and Pods] (/docs/concepts/services-networking/dns-pod-service/).
 
 When running a Pod, kubelet prepends the cluster DNS server and searches
@@ -57,14 +54,14 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 
 ## CoreDNS
 
-CoreDNS is a general-purpose authoritative DNS-server that can serve as cluster DNS, complying with the [dns specifications]
+CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS, complying with the [dns specifications]
 (https://github.com/kubernetes/dns/blob/master/docs/specification.md). 
 
 ### CoreDNS ConfigMap options
 
-CoreDNS is a DNS server that chains plugins, where each plugin adds a new functionality to CoreDNS. 
+CoreDNS is a DNS server that is modular and pluggable, and each plugin adds new functionality to CoreDNS. 
 This can be configured by maintaining a [Corefile](https://coredns.io/2017/07/23/corefile-explained/), which is the CoreDNS
-configuration file. You can modify the ConfigMap for the CoreDNS Corefile to change how service discovery works. 
+configuration file. A cluster administrator can modify the ConfigMap for the CoreDNS Corefile to change how service discovery works. 
 
 In Kubernetes, CoreDNS is installed with the following default Corefile configuration.
 
@@ -115,7 +112,7 @@ We can modify the default behavior by modifying this configmap.
 CoreDNS has the ability to configure stubdomains and upstream nameservers using the [proxy plugin](https://coredns.io/plugins/proxy/). 
 
 #### Example
-If the user has a consul domain server located at 10.150.0.1, and all consul names have the suffix .consul.local. To configure it in CoreDNS, the cluster administrator creates the following stanza in the CoreDNS configmap.
+If a cluster operator has a [Consul](https://www.consul.io/) domain server located at 10.150.0.1, and all Consul names have the suffix .consul.local. To configure it in CoreDNS, the cluster administrator creates the following stanza in the CoreDNS ConfigMap.
 
 ```
 consul.local:53 {
@@ -125,8 +122,7 @@ consul.local:53 {
     }
 ```
 
-And if you want to explicitly force all non-cluster DNS lookups to go through their own nameserver at 172.16.0.1, you can
-point the `proxy` and `upstream` to the nameserver instead of `/etc/resolv.conf`
+To explicitly force all non-cluster DNS lookups to go through a specific nameserver at 172.16.0.1, point the `proxy` and `upstream` to the nameserver instead of `/etc/resolv.conf`
 
 ```
 proxy .  172.16.0.1
@@ -135,7 +131,7 @@ proxy .  172.16.0.1
 upstream 172.16.0.1
 ```
 
-So, the final ConfigMap along with the default Corefile configuration will look like:
+So, the final ConfigMap along with the default `Corefile` configuration will look like:
 
 ```yaml
 apiVersion: v1
