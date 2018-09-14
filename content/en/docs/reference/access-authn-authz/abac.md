@@ -142,7 +142,7 @@ Creating a new namespace leads to the creation of a new service account in the f
 system:serviceaccount:<namespace>:default
 ```
 
-For example, if you wanted to grant the default service account in the kube-system full 
+For example, if you wanted to grant the default service account (in the `kube-system` namespace) full 
 privilege to the API, you would add this line to your policy file:
 
 ```json
