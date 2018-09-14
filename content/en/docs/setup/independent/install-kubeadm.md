@@ -79,57 +79,20 @@ The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
-## Installing Docker
+## Installing runtime
 
-On each of your machines, install Docker.
-Version 17.03 is recommended, but 1.11, 1.12 and 1.13 are known to work as well.
-Versions 17.06+ _might work_, but have not yet been tested and verified by the Kubernetes node team.
-Keep track of the latest verified Docker version in the Kubernetes release notes.
+Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
+The container runtime used by default is Docker, which is enabled through the built-in
+`dockershim` CRI implementation inside of the `kubelet`.
 
-Please proceed with executing the following commands based on your OS as root. You may become the root user by executing `sudo -i` after SSH-ing to each host.
+Other CRI-based runtimes include:
 
-If you already have the required versions of the Docker installed, you can move on to next section.
-If not, you can use the following commands to install Docker on your system:
+- [cri-containerd](https://github.com/containerd/cri-containerd)
+- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [frakti](https://github.com/kubernetes/frakti)
+- [rkt](https://github.com/kubernetes-incubator/rktlet)
 
-{{< tabs name="docker_install" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
-Install Docker from Ubuntu's repositories:
-
-```bash
-apt-get update
-apt-get install -y docker.io
-```
-
-or install Docker CE 17.03 from Docker's repositories for Ubuntu or Debian:
-
-```bash
-apt-get update
-apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-add-apt-repository "deb https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable"
-apt-get update && apt-get install -y docker-ce=$(apt-cache madison docker-ce | grep 17.03 | head -1 | awk '{print $3}')
-```
-{{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
-Install Docker using your operating system's bundled package:
-
-```bash
-yum install -y docker
-systemctl enable docker && systemctl start docker
-```
-{{% /tab %}}
-{{% tab name="Container Linux" %}}
-Enable and start Docker:
-
-```bash
-systemctl enable docker && systemctl start docker
-```
-{{% /tab %}}
-{{< /tabs >}}
-
-
-Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
-for more information.
+Refer to the [CRI installation instructions](/docs/setup/cri.md) for more information.
 
 ## Installing kubeadm, kubelet and kubectl
 

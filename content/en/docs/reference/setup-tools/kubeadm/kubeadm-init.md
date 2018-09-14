@@ -358,7 +358,7 @@ Here's a breakdown of what/why:
    certificates from the `kube-apiserver` when the certificate expiration approaches.
 * `--cert-dir`the directory where the TLS certs are located.
 
-### Use kubeadm with other CRI runtimes
+### Use kubeadm with CRI runtimes
 
 Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
 The container runtime used by default is Docker, which is enabled through the built-in
@@ -370,6 +370,8 @@ Other CRI-based runtimes include:
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
+
+Refer to the [CRI installation instructions](/docs/setup/cri.md) for more information.
 
 After you have successfully installed `kubeadm` and `kubelet`, execute
 these two additional steps:
