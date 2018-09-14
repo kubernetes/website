@@ -130,9 +130,7 @@ up the verbosity:
 
 ## A quick note on service accounts
 
-Creating a service account leads to generation of a new user.
-
-The user's name is generated according to the naming convention:
+Every service account has a username, and that service account's user name is generated according to the naming convention:
 
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
