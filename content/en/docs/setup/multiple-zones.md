@@ -208,8 +208,8 @@ Now lets validate that Kubernetes automatically labeled the zone & region the PV
 
 ```shell
 > kubectl get pv --show-labels
-NAME           CAPACITY   ACCESSMODES   STATUS    CLAIM            REASON    AGE       LABELS
-pv-gce-mj4gm   5Gi        RWO           Bound     default/claim1             46s       failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a
+NAME           CAPACITY   ACCESSMODES   RECLAIM POLICY   STATUS    CLAIM            STORAGECLASS    REASON    AGE       LABELS
+pv-gce-mj4gm   5Gi        RWO           Retain           Bound     default/claim1   manual                    46s       failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a
 ```
 
 So now we will create a pod that uses the persistent volume claim.
