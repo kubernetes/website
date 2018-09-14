@@ -104,12 +104,12 @@ up the verbosity:
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}
     ```
- 2. Kubelet can read any pods:
+ 2. The Kubelet can read any pods:
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}
     ```
- 3. Kubelet can read and write events:
+ 3. The Kubelet can read and write events:
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
@@ -130,7 +130,7 @@ up the verbosity:
 
 ## A quick note on service accounts
 
-Every service account has a username, and that service account's user name is generated according to the naming convention:
+Every service account has a corresponding ABAC username, and that service account's user name is generated according to the naming convention:
 
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
@@ -143,7 +143,7 @@ system:serviceaccount:<namespace>:default
 ```
 
 For example, if you wanted to grant the default service account (in the `kube-system` namespace) full 
-privilege to the API, you would add this line to your policy file:
+privilege to the API using ABAC, you would add this line to your policy file:
 
 ```json
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
