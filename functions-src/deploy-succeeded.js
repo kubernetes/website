@@ -16,6 +16,16 @@ const kubernetesEndpoints = [
 
 ]
 
+// Ensure that the SLACK_WEBHOOK_URL environment variable is set
+const checkEnv = () => {
+  if (!SLACK_WEBHOOK_URL) {
+    return {
+      statusCode: 422,
+      body: "[FAILURE] The Slack webhook URL must be set via the SLACK_WEBHOOK_URL environment variable"
+    }
+  }
+}
+
 // This function posts a warning message to Slack
 const sendSlackMessage = (msg) => {
   const slackMessageObject = {
@@ -60,12 +70,7 @@ const checkEndpoints = () => {
 
 // The handler function
 exports.handler = async (event, context) => {
-  if (!SLACK_WEBHOOK_URL) {
-    return {
-      statusCode: 422,
-      body: "[FAILURE] The Slack webhook URL must be set via the SLACK_WEBHOOK_URL environment variable"
-    }
-  }
+  checkEnv();
 
   // Below are the various deploy succeeded checks
   checkEndpoints();
