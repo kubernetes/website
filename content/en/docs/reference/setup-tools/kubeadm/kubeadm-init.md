@@ -249,7 +249,7 @@ networking:
   podSubnet: ""
   serviceSubnet: 10.96.0.0/12
 nodeRegistration:
-  criSocket: /var/run/dockershim.sock
+  criSocket: /var/run/containerd/containerd.sock
   name: your-host-name
   taints:
   - effect: NoSchedule
@@ -368,41 +368,22 @@ Here's a breakdown of what/why:
    certificates from the `kube-apiserver` when the certificate expiration approaches.
 * `--cert-dir`the directory where the TLS certs are located.
 
-### Use kubeadm with other CRI runtimes
+### Use kubeadm with containerd
 
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
-The container runtime used by default is Docker, which is enabled through the built-in
-`dockershim` CRI implementation inside of the `kubelet`.
+From v1.12.0 the suggested kubeadm CRI is containerd. For further information refer to [CRI Installation](/docs/setup/cri/cri-installation/) instructions.
 
-Other CRI-based runtimes include:
-
-- [cri-containerd](https://github.com/containerd/cri-containerd)
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
-- [frakti](https://github.com/kubernetes/frakti)
-- [rkt](https://github.com/kubernetes-incubator/rktlet)
-
-After you have successfully installed `kubeadm` and `kubelet`, execute
-these two additional steps:
-
-1. Install the runtime shim on every node, following the installation
-   document in the runtime shim project listing above.
-
-1. Configure kubelet to use the remote CRI runtime. Please remember to change
-   `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
-
-```shell
-cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
-[Service]
-Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT"
-EOF
-systemctl daemon-reload
+After installing containerd, you should set `--cri-socket` in kubeadm init and kubeadm reset. Or, in alternative to command line flags, supply the containerd socket in your kubeadm configuration as shown in the example below:
+```yaml
+nodeRegistration:
+  criSocket: /var/run/containerd/containerd.sock
 ```
 
-Now `kubelet` is ready to use the specified CRI runtime, and you can continue
-with the `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
-
-You may also want to set `--cri-socket` to `kubeadm init` and `kubeadm reset` when
-using an external CRI implementation.
+In addition, you should set kubectl flag `--container-runtime-endpoint` to containerd socket address. This can be done through kubeadm configuration as shown in the example below:
+```yaml
+nodeRegistration:
+  kubeletExtraArgs:
+    container-runtime-endpoint: unix:///var/run/containerd/containerd.sock
+```
 
 ### Using internal IPs in your cluster
 
