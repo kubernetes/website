@@ -134,7 +134,7 @@ For example, `KUBECTL_PLUGINS_GLOBAL_FLAG_NAMESPACE`, `KUBECTL_PLUGINS_GLOBAL_FL
 
 {{% capture whatsnext %}}
 
-* Check the repository for [some more examples](https://github.com/kubernetes/kubernetes/tree/master/pkg/kubectl/plugins/examples) of plugins.
+* Check the repository for [some more examples](https://github.com/kubernetes/kubernetes/tree/release-1.11/pkg/kubectl/plugins/examples) of plugins.
 * In case of any questions, feel free to reach out to the [CLI SIG team](https://github.com/kubernetes/community/tree/master/sig-cli).
 * Binary plugins is still an alpha feature, so this is the time to contribute ideas and improvements to the codebase. We're also excited to hear about what you're planning to implement with plugins, so [let us know](https://github.com/kubernetes/community/tree/master/sig-cli)!
 
