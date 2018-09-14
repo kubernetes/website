@@ -16,7 +16,7 @@ Attribute-based access control (ABAC) defines an access control paradigm whereby
 {{% capture body %}}
 ## Policy File Format
 
-To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` on startup.
+To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC` on startup.
 
 The file format is [one JSON object per line](http://jsonlines.org/).  There
 should be no enclosing list or map, just one map per line.
