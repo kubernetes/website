@@ -178,6 +178,9 @@ var kub = (function () {
     }
 
     function setHomeHeaderStyles() {
+        if (!quickstartButton[0]) {
+            return;
+        }
         var Y = window.pageYOffset;
         var quickstartBottom = quickstartButton[0].getBoundingClientRect().bottom;
 
@@ -516,11 +519,6 @@ var pushmenu = (function(){
 $(function() {
   addAnchorTags();
 
-
-    // Make global nav be active based on pathname
-    if ((location.pathname.split("/")[1]) !== ""){
-        $('.global-nav li a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
-    }
 
     // If vendor strip doesn't exist add className
     if ( !$('#vendorStrip').length > 0 ) {
