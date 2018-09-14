@@ -102,165 +102,17 @@ configuration file options. This file is passed in the `--config` option.
 
 In Kubernetes 1.11 and later, the default configuration can be printed out using the
 [kubeadm config print-default](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
-It is **recommended** that you migrate your old `v1alpha1` configuration to `v1alpha2` using
+It is **recommended** that you migrate your old `v1alpha2` configuration to `v1alpha3` using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
-because `v1alpha1` will be removed in Kubernetes 1.12.
+because `v1alpha2` will be removed in Kubernetes 1.13.
 
 For more details on each field in the configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#MasterConfiguration)
-
-Example of the kubeadm MasterConfiguration version `v1alpha2`:
-
-```yaml
-apiVersion: kubeadm.k8s.io/v1alpha2
-kind: MasterConfiguration
-kubernetesVersion: v1.11.0
-api:
-  advertiseAddress: 192.168.0.102
-  bindPort: 6443
-  controlPlaneEndpoint: ""
-auditPolicy:
-  logDir: /var/log/kubernetes/audit
-  logMaxAge: 2
-  path: ""
-bootstrapTokens:
-- groups:
-  - system:bootstrappers:kubeadm:default-node-token
-  token: abcdef.0123456789abcdef
-  ttl: 24h0m0s
-  usages:
-  - signing
-  - authentication
-certificatesDir: /etc/kubernetes/pki
-clusterName: kubernetes
-etcd:
-  local:
-    dataDir: /var/lib/etcd
-    image: ""
-imageRepository: k8s.gcr.io
-kubeProxy:
-  config:
-    bindAddress: 0.0.0.0
-    clientConnection:
-      acceptContentTypes: ""
-      burst: 10
-      contentType: application/vnd.kubernetes.protobuf
-      kubeconfig: /var/lib/kube-proxy/kubeconfig.conf
-      qps: 5
-    clusterCIDR: ""
-    configSyncPeriod: 15m0s
-    conntrack:
-      max: null
-      maxPerCore: 32768
-      min: 131072
-      tcpCloseWaitTimeout: 1h0m0s
-      tcpEstablishedTimeout: 24h0m0s
-    enableProfiling: false
-    healthzBindAddress: 0.0.0.0:10256
-    hostnameOverride: ""
-    iptables:
-      masqueradeAll: false
-      masqueradeBit: 14
-      minSyncPeriod: 0s
-      syncPeriod: 30s
-    ipvs:
-      ExcludeCIDRs: null
-      minSyncPeriod: 0s
-      scheduler: ""
-      syncPeriod: 30s
-    metricsBindAddress: 127.0.0.1:10249
-    mode: ""
-    nodePortAddresses: null
-    oomScoreAdj: -999
-    portRange: ""
-    resourceContainer: /kube-proxy
-    udpIdleTimeout: 250ms
-kubeletConfiguration:
-  baseConfig:
-    address: 0.0.0.0
-    authentication:
-      anonymous:
-        enabled: false
-      webhook:
-        cacheTTL: 2m0s
-        enabled: true
-      x509:
-        clientCAFile: /etc/kubernetes/pki/ca.crt
-    authorization:
-      mode: Webhook
-      webhook:
-        cacheAuthorizedTTL: 5m0s
-        cacheUnauthorizedTTL: 30s
-    cgroupDriver: cgroupfs
-    cgroupsPerQOS: true
-    clusterDNS:
-    - 10.96.0.10
-    clusterDomain: cluster.local
-    containerLogMaxFiles: 5
-    containerLogMaxSize: 10Mi
-    contentType: application/vnd.kubernetes.protobuf
-    cpuCFSQuota: true
-    cpuManagerPolicy: none
-    cpuManagerReconcilePeriod: 10s
-    enableControllerAttachDetach: true
-    enableDebuggingHandlers: true
-    enforceNodeAllocatable:
-    - pods
-    eventBurst: 10
-    eventRecordQPS: 5
-    evictionHard:
-      imagefs.available: 15%
-      memory.available: 100Mi
-      nodefs.available: 10%
-      nodefs.inodesFree: 5%
-    evictionPressureTransitionPeriod: 5m0s
-    failSwapOn: true
-    fileCheckFrequency: 20s
-    hairpinMode: promiscuous-bridge
-    healthzBindAddress: 127.0.0.1
-    healthzPort: 10248
-    httpCheckFrequency: 20s
-    imageGCHighThresholdPercent: 85
-    imageGCLowThresholdPercent: 80
-    imageMinimumGCAge: 2m0s
-    iptablesDropBit: 15
-    iptablesMasqueradeBit: 14
-    kubeAPIBurst: 10
-    kubeAPIQPS: 5
-    makeIPTablesUtilChains: true
-    maxOpenFiles: 1000000
-    maxPods: 110
-    nodeStatusUpdateFrequency: 10s
-    oomScoreAdj: -999
-    podPidsLimit: -1
-    port: 10250
-    registryBurst: 10
-    registryPullQPS: 5
-    resolvConf: /etc/resolv.conf
-    rotateCertificates: true
-    runtimeRequestTimeout: 2m0s
-    serializeImagePulls: true
-    staticPodPath: /etc/kubernetes/manifests
-    streamingConnectionIdleTimeout: 4h0m0s
-    syncFrequency: 1m0s
-    volumeStatsAggPeriod: 1m0s
-networking:
-  dnsDomain: cluster.local
-  podSubnet: ""
-  serviceSubnet: 10.96.0.0/12
-nodeRegistration:
-  criSocket: /var/run/dockershim.sock
-  name: your-host-name
-  taints:
-  - effect: NoSchedule
-    key: node-role.kubernetes.io/master
-unifiedControlPlaneImage: ""
-```
+[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm)
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
-For information about kube-proxy parameters in the MasterConfiguration see:
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig/v1alpha1#KubeProxyConfiguration)
+For information about kube-proxy parameters in the kubeadm configuration see:
+- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
 
 ### Passing custom flags to control plane components {#control-plane-flags}
 

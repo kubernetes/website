@@ -190,7 +190,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
-  The workaround is to tell `kubelet` which IP to use using `--node-ip`. When using Digital Ocean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [KubeletExtraArgs section of the MasterConfiguration file](https://github.com/kubernetes/kubernetes/blob/master/cmd/kubeadm/app/apis/kubeadm/v1alpha2/types.go#L147) can be used for this.
+  The workaround is to tell `kubelet` which IP to use using `--node-ip`. When using Digital Ocean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [`KubeletExtraArgs` section of the kubeadm `NodeRegistrationOptions` structure](https://github.com/kubernetes/kubernetes/blob/release-1.12/cmd/kubeadm/app/apis/kubeadm/v1alpha3/types.go#L163-L166) can be used for this.
 
   Then restart `kubelet`:
 

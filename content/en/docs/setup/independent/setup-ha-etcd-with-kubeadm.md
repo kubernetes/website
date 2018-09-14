@@ -83,8 +83,8 @@ this example.
     HOST=${ETCDHOSTS[$i]}
     NAME=${NAMES[$i]}
     cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
-    apiVersion: "kubeadm.k8s.io/v1alpha2"
-    kind: MasterConfiguration
+    apiVersion: "kubeadm.k8s.io/v1alpha3"
+    kind: ClusterConfiguration
     etcd:
         local:
             serverCertSANs:
