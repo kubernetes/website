@@ -135,7 +135,8 @@ Every service account has a username, and that service account's user name is ge
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
 ```
-Creating a new namespace leads to creation of a new service account, which is of this form:
+
+Creating a new namespace leads to the creation of a new service account in the following format:
 
 ```shell
 system:serviceaccount:<namespace>:default
