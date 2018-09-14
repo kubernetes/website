@@ -4,6 +4,11 @@ reviewers:
 - jszczepkowski
 - directxman12
 title: Horizontal Pod Autoscaler
+feature:
+  title: Horizontal scaling
+  description: >
+    Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
+
 content_template: templates/concept
 weight: 90
 ---

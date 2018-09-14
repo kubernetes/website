@@ -3,6 +3,11 @@ reviewers:
 - bgrant0607
 - janetkuo
 title: Deployments
+feature:
+  title: Automated rollouts and rollbacks
+  description: >
+    Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.
+
 content_template: templates/concept
 weight: 30
 ---
