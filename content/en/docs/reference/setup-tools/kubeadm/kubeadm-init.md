@@ -22,7 +22,7 @@ following steps:
 1. Runs a series of pre-flight checks to validate the system state
    before making changes. Some checks only trigger warnings, others are
    considered errors and will exit kubeadm until the problem is corrected or the
-   user specifies `--skip-preflight-checks`.
+   user specifies `--ignore-preflight-errors=<list-of-errors>`.
 
 1. Generates a self-signed CA (or using an existing one if provided) to set up
    identities for each component in the cluster. If the user has provided their
@@ -326,7 +326,7 @@ Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manife
 Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
 Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
 Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
-Environment="KUBELET_CADVISOR_ARGS=--cadvisor-port=0"
+Environment="KUBELET_CADVISOR_ARGS="
 Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
 ```
@@ -354,16 +354,6 @@ Here's a breakdown of what/why:
    API using this CA certificate.
 * `--authorization-mode=Webhook` authorizes requests to the Kubelet API by `POST`-ing
    a `SubjectAccessReview` to the API server.
-* `--cadvisor-port=0` disables cAdvisor from listening to `0.0.0.0:4194` by default.
-   cAdvisor will still be run inside of the kubelet and its API can be accessed at
-   `https://{node-ip}:10250/stats/`. If you want to enable cAdvisor to listen on a
-   wide-open port, run:
-
-   ```bash
-   sed -e "/cadvisor-port=0/d" -i /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-   systemctl daemon-reload
-   systemctl restart kubelet
-   ```
 * `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
    certificates from the `kube-apiserver` when the certificate expiration approaches.
 * `--cert-dir`the directory where the TLS certs are located.
@@ -494,30 +484,34 @@ This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting c
 
 For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
 
-| Image Name                                               | v1.8 release branch version | v1.9 release branch version |
-|----------------------------------------------------------|-----------------------------|-----------------------------|
-| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
-| k8s.gcr.io/pause-${ARCH}                   | 3.0                         | 3.0                         |
-| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
-| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
-| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
+| Image Name                                 | v1.10 release branch version |
+|--------------------------------------------|------------------------------|
+| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.10.x                      |
+| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.10.x                      |
+| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.10.x                      |
+| k8s.gcr.io/kube-proxy-${ARCH}              | v1.10.x                      |
+| k8s.gcr.io/etcd-${ARCH}                    | 3.1.12                       |
+| k8s.gcr.io/pause-${ARCH}                   | 3.1                          |
+| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.8                       |
+| coredns/coredns                            | 1.0.6                        |
 
-Here `v1.8.x` means the "latest patch release of the v1.8 branch".
+Here `v1.10.x` means the "latest patch release of the v1.10 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
 If you run Kubernetes version 1.10 or earlier, and if you set `--feature-gates=CoreDNS=true`,
-you must also use the image `coredns/coredns:1.0.2`, instead of the three `k8s-dns-*` images.
+you must also use the `coredns/coredns` image, instead of the three `k8s-dns-*` images.
 
 In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
 ```
 kubeadm config images list
 kubeadm config images pull
 ```
+
+Starting with Kubernetes 1.12, the `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` images
+don't require an `-${ARCH}` suffix.
 
 ### Automating kubeadm
 

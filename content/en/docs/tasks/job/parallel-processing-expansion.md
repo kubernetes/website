@@ -8,7 +8,7 @@ weight: 20
 
 In this example, we will run multiple Kubernetes Jobs created from
 a common template.  You may want to be familiar with the basic,
-non-parallel, use of [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/) first.
+non-parallel, use of [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) first.
 
 {{% /capture %}}
 

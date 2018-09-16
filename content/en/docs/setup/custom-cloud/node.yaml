@@ -83,7 +83,6 @@ coreos:
         --api-servers=<master-private-ip>:8080 \
         --allow-privileged=true \
         --logtostderr=true \
-        --cadvisor-port=4194 \
         --healthz-bind-address=0.0.0.0 \
         --healthz-port=10248
         Restart=always

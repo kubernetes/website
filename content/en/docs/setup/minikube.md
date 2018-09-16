@@ -17,7 +17,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
   * NodePorts
   * ConfigMaps and Secrets
   * Dashboards
-  * Container Runtime: Docker, [rkt](https://github.com/rkt/rkt) and [CRI-O](https://github.com/kubernetes-incubator/cri-o)
+  * Container Runtime: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) and [containerd](https://github.com/containerd/containerd)
   * Enabling CNI (Container Network Interface)
   * Ingress
 
@@ -79,6 +79,28 @@ Stopping "minikube"...
 ```
 
 ### Alternative Container Runtimes
+
+#### containerd
+
+To use [containerd](https://github.com/containerd/containerd) as the container runtime, run:
+
+```bash
+$ minikube start \
+    --network-plugin=cni \
+    --container-runtime=containerd \
+    --bootstrapper=kubeadm
+```
+
+Or you can use the extended version:
+
+```bash
+$ minikube start \
+    --network-plugin=cni \
+    --extra-config=kubelet.container-runtime=remote \
+    --extra-config=kubelet.container-runtime-endpoint=unix:///run/containerd/containerd.sock \
+    --extra-config=kubelet.image-service-endpoint=unix:///run/containerd/containerd.sock \
+    --bootstrapper=kubeadm
+```
 
 #### CRI-O
 
@@ -225,7 +247,7 @@ Starting the cluster again will restore it to it's previous state.
 The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the minikube virtual machine. No data or state is preserved.
 
-## Interacting With your Cluster
+## Interacting with Your Cluster
 
 ### Kubectl
 
@@ -347,7 +369,7 @@ $ export no_proxy=$no_proxy,$(minikube ip)
 
 ## Design
 
-Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs, and [localkube](https://git.k8s.io/minikube/pkg/localkube) (originally written and donated to this project by [RedSpread](https://redspread.com/)) for running the cluster.
+Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs, and [localkube](https://git.k8s.io/minikube/pkg/localkube) (originally written and donated to this project by [RedSpread](https://github.com/redspread)) for running the cluster.
 
 For more information about minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md).
 

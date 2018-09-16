@@ -831,7 +831,7 @@
 			name: 'IBM',
 			logo: 'ibm',
 			link: 'https://www.ibm.com/cloud/container-service',
-			blurb: 'IBM - IBM Cloud Container Service'
+			blurb: 'IBM - IBM Cloud Kubernetes Service'
 				},
 		{
 			type: 2,

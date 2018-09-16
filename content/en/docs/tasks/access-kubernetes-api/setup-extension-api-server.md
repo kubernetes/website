@@ -1,5 +1,5 @@
 ---
-title: Setup an extension API server
+title: Setup an Extension API Server
 reviewers:
 - lavalamp
 - cheftako

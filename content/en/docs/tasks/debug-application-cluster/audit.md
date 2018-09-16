@@ -81,7 +81,7 @@ You can use a minimal audit policy file to log all requests at the `Metadata` le
 
 ```yaml
 # Log all requests at the Metadata level.
-apiVersion: audit.k8s.io/v1beta1
+apiVersion: audit.k8s.io/v1
 kind: Policy
 rules:
 - level: Metadata
@@ -100,7 +100,7 @@ Audit backends persist audit events to an external storage.
 
 In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
-[`v1beta1`][auditing-api].
+[`v1`][auditing-api].
 
 {{< note >}}
 **Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
@@ -188,6 +188,17 @@ and in the logs to monitor the state of the auditing subsystem.
 - `apiserver_audit_event_total` metric contains the total number of audit events exported.
 - `apiserver_audit_error_total` metric contains the total number of events dropped due to an error
   during exporting.
+
+### Truncate
+
+Both log and webhook backends support batching. As an example, the following is the list of flags
+available for the log backend:
+
+ - `audit-log-truncate-enabled` whether event and batch truncating is enabled.
+ - `audit-log-truncate-max-batch-size` maximum size in bytes of the batch sent to the underlying backend.
+ - `audit-log-truncate-max-event-size` maximum size in bytes of the audit event sent to the underlying backend.
+
+By default truncate is disabled in both `webhook` and `log`, a cluster administrator should set `audit-log-truncate-enabled` or `audit-webhook-truncate-enabled` to enable the feature.
 
 ## Multi-cluster setup
 
@@ -352,7 +363,7 @@ plugin which supports full-text search and analytics.
 
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
-[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
+[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
 [kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/

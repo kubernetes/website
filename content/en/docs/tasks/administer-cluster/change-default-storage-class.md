@@ -46,9 +46,9 @@ for details about addon manager and how to disable individual addons.
     The output is similar to this:
 
     ```bash
-    NAME                 TYPE
-    standard (default)   kubernetes.io/gce-pd
-    gold                 kubernetes.io/gce-pd
+    NAME                 PROVISIONER               AGE
+    standard (default)   kubernetes.io/gce-pd      1d
+    gold                 kubernetes.io/gce-pd      1d
     ```
 
     The default StorageClass is marked by `(default)`.
@@ -77,8 +77,7 @@ for details about addon manager and how to disable individual addons.
       ```
 
       Please note that at most one StorageClass can be marked as default. If two
-      or more of them are marked as default, Kubernetes ignores the annotation,
-      i.e. it behaves as if there is no default StorageClass.
+      or more of them are marked as default, a `PersistentVolumeClaim` without `storageClassName` explicitly specified cannot be created.
 
 1. Verify that your chosen StorageClass is default:
 
@@ -89,9 +88,9 @@ for details about addon manager and how to disable individual addons.
       The output is similar to this:
 
       ```bash
-      NAME             TYPE
-      standard         kubernetes.io/gce-pd
-      gold (default)   kubernetes.io/gce-pd
+      NAME             PROVISIONER               AGE
+      standard         kubernetes.io/gce-pd      1d
+      gold (default)   kubernetes.io/gce-pd      1d
       ```
 
 {{% /capture %}}

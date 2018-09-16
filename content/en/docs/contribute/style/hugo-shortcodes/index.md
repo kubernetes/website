@@ -6,7 +6,7 @@ content_template: templates/concept
 ---
 
 {{% capture overview %}}
-This page explains the custom Hugo shortcodes that can be used in Kubernetes documentation markdown.
+This page explains the custom Hugo shortcodes that can be used in Kubernetes markdown documentation.
 
 Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes).
 {{% /capture %}}
@@ -18,7 +18,7 @@ In a markdown page (.md file) on this site, you can add a shortcode to display v
 
 ### Feature state demo
 
-Below is a demo of the feature state snippet. Here it is used to display the feature as stable in Kubernetes version 1.10.
+Below is a demo of the feature state snippet, which displays the feature as stable in Kubernetes version 1.10.
 
 ```
 {{</* feature-state for_k8s_version="v1.10" state="stable" */>}}

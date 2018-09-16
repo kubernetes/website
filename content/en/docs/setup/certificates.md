@@ -45,7 +45,7 @@ If you don't want kubeadm to generate the required certificates, you can create 
 
 ### Single root CA
 
-You can create a single root CA, controlled by an adminstrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself. 
+You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself. 
 
 Required CAs:
 

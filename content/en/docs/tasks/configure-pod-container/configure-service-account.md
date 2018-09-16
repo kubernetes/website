@@ -99,7 +99,7 @@ kind: ServiceAccount
 metadata:
   name: build-robot
 EOF
-serviceaccount "build-robot" created
+serviceaccount/build-robot created
 ```
 
 If you get a complete dump of the service account object, like this:
@@ -151,7 +151,7 @@ metadata:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 EOF
-secret "build-robot-secret" created
+secret/build-robot-secret created
 ```
 
 Now you can confirm that the newly built secret is populated with an API token for the "build-robot" service account.

@@ -194,17 +194,12 @@ You have several choices for Kubernetes images:
   - You can verify if the image is loaded successfully with the right repository and tag using
     command like `docker images`
 
-For etcd, you can:
-
-- Use images hosted on Google Container Registry (GCR), such as `k8s.gcr.io/etcd:2.2.1`
-- Use images hosted on [Docker Hub](https://hub.docker.com/search/?q=etcd) or [Quay.io](https://quay.io/repository/coreos/etcd), such as `quay.io/coreos/etcd:v2.2.1`
-- Use etcd binary included in your OS distro.
-- Build your own image
-  - You can do: `cd kubernetes/cluster/images/etcd; make`
-
 We recommend that you use the etcd version which is provided in the Kubernetes binary distribution.   The Kubernetes binaries in the release
 were tested extensively with this version of etcd and not with any other version.
 The recommended version number can also be found as the value of `TAG` in `kubernetes/cluster/images/etcd/Makefile`.
+
+For the miniumum recommended version of etcd, please refer to
+[Configuring and Updating etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
 

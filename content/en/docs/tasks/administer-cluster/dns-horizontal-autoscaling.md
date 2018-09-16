@@ -36,10 +36,10 @@ The output is similar to this:
 
     NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     ...
-    kube-dns-autoscaler   1         1         1            1           ...
+    dns-autoscaler        1         1         1            1           ...
     ...
 
-If you see "kube-dns-autoscaler" in the output, DNS horizontal autoscaling is
+If you see "dns-autoscaler" in the output, DNS horizontal autoscaling is
 already enabled, and you can skip to
 [Tuning autoscaling parameters](#tuning-autoscaling-parameters).
 
@@ -53,10 +53,13 @@ The output is similar to this:
 
     NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     ...
-    kube-dns     1         1         1            1           ...
+    coredns      2         2         2            2           ...
     ...
 
-In Kubernetes versions earlier than 1.5 DNS is implemented using a
+
+In Kubernetes versions earlier than 1.12, the DNS Deployment was called "kube-dns".
+
+In Kubernetes versions earlier than 1.5 DNS was implemented using a
 ReplicationController instead of a Deployment. So if you don't see kube-dns,
 or a similar name, in the preceding output, list the ReplicationControllers in
 your cluster in the kube-system namespace:
@@ -77,7 +80,7 @@ If you have a DNS Deployment, your scale target is:
     Deployment/<your-deployment-name>
 
 where <dns-deployment-name> is the name of your DNS Deployment. For example, if
-your DNS Deployment name is kube-dns, your scale target is Deployment/kube-dns.
+your DNS Deployment name is coredns, your scale target is Deployment/coredns.
 
 If you have a DNS ReplicationController, your scale target is:
 
@@ -111,7 +114,7 @@ DNS horizontal autoscaling is now enabled.
 
 ## Tuning autoscaling parameters
 
-Verify that the kube-dns-autoscaler ConfigMap exists:
+Verify that the dns-autoscaler ConfigMap exists:
 
     kubectl get configmap --namespace=kube-system
 
@@ -119,12 +122,12 @@ The output is similar to this:
 
     NAME                  DATA      AGE
     ...
-    kube-dns-autoscaler   1         ...
+    dns-autoscaler        1         ...
     ...
 
 Modify the data in the ConfigMap:
 
-    kubectl edit configmap kube-dns-autoscaler --namespace=kube-system
+    kubectl edit configmap dns-autoscaler --namespace=kube-system
 
 Look for this line:
 
@@ -151,15 +154,15 @@ There are other supported scaling patterns. For details, see
 There are a few options for turning DNS horizontal autoscaling. Which option to
 use depends on different conditions.
 
-### Option 1: Scale down the kube-dns-autoscaler deployment to 0 replicas
+### Option 1: Scale down the dns-autoscaler deployment to 0 replicas
 
 This option works for all situations. Enter this command:
 
-    kubectl scale deployment --replicas=0 kube-dns-autoscaler --namespace=kube-system
+    kubectl scale deployment --replicas=0 dns-autoscaler --namespace=kube-system
 
 The output is:
 
-    deployment.extensions/kube-dns-autoscaler scaled
+    deployment.extensions/dns-autoscaler scaled
 
 Verify that the replica count is zero:
 
@@ -169,33 +172,33 @@ The output displays 0 in the DESIRED and CURRENT columns:
 
     NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     ...
-    kube-dns-autoscaler   0         0         0            0           ...
+    dns-autoscaler        0         0         0            0           ...
     ...
 
-### Option 2: Delete the kube-dns-autoscaler deployment
+### Option 2: Delete the dns-autoscaler deployment
 
-This option works if kube-dns-autoscaler is under your own control, which means
+This option works if dns-autoscaler is under your own control, which means
 no one will re-create it:
 
-    kubectl delete deployment kube-dns-autoscaler --namespace=kube-system
+    kubectl delete deployment dns-autoscaler --namespace=kube-system
 
 The output is:
 
-    deployment.extensions "kube-dns-autoscaler" deleted
+    deployment.extensions "dns-autoscaler" deleted
 
-### Option 3: Delete the kube-dns-autoscaler manifest file from the master node
+### Option 3: Delete the dns-autoscaler manifest file from the master node
 
-This option works if kube-dns-autoscaler is under control of the
+This option works if dns-autoscaler is under control of the
 [Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md)'s
 control, and you have write access to the master node.
 
 Sign in to the master node and delete the corresponding manifest file.
-The common path for this kube-dns-autoscaler is:
+The common path for this dns-autoscaler is:
 
     /etc/kubernetes/addons/dns-horizontal-autoscaler/dns-horizontal-autoscaler.yaml
 
 After the manifest file is deleted, the Addon Manager will delete the
-kube-dns-autoscaler Deployment.
+dns-autoscaler Deployment.
 
 {{% /capture %}}
 

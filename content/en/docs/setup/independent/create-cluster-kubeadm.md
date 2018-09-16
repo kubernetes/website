@@ -281,8 +281,7 @@ kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/
 {{% /tab %}}
 {{% tab name="Flannel" %}}
 
-For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`. For it to work on a platform other than
-`amd64`, you must manually download the manifest and replace `amd64` occurrences with your chosen platform.
+For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
 
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
@@ -290,6 +289,12 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+```
+Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but until `flannel v0.11.0` is released
+you need to use the following manifest that supports all the architectures:
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/c5d10c8/Documentation/kube-flannel.yml
 ```
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
