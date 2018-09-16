@@ -31,7 +31,7 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 Enable the aggregation layer via the following kube-apiserver flags. They may have already been taken care of by your provider.
 
     --requestheader-client-ca-file=<path to aggregator CA cert>
-    --requestheader-allowed-names=aggregator
+    --requestheader-allowed-names=front-proxy-client
     --requestheader-extra-headers-prefix=X-Remote-Extra-
     --requestheader-group-headers=X-Remote-Group
     --requestheader-username-headers=X-Remote-User
