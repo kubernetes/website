@@ -933,9 +933,9 @@ API object can be found at:
 
 ## SCTP support
 
-{{< feature-state feature-state state="alpha" >}}
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-Kubernetes introduces the support of SCTP as a `protocol` value in `Service`, `Endpoint`, `NetworkPolicy` and `Pod` definitions as alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a `Service`, `Endpoint`, `NetworkPolicy` and `Pod` to `“SCTP”`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for e.g. TCP connections.
+Kubernetes introduces the support of SCTP as a `protocol` value in `Service`, `Endpoint`, `NetworkPolicy` and `Pod` definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a `Service`, `Endpoint`, `NetworkPolicy` and `Pod` to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
 The kube-proxy sets up iptables rules for some `Service` types: `Service` with `clusterIP`, `Service` with `nodePort`, and `Service` with `externalIP`. In order to support proper iptables based redirection the following kernel modules shall be loaded on the host: `nf_conntrack_proto_sctp` and `nf_nat_proto_sctp`.   
 
