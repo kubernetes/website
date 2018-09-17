@@ -443,9 +443,13 @@ done
 
 1.  Create a `kubeadm-config.yaml`:
 
+{{< note >}}
+**Note**: Optionally replace `stable` with a different version of kubernetes such as `v1.12.0-beta.2` or `v1.9.3`.
+{{< /note >}}
+
         apiVersion: kubeadm.k8s.io/v1alpha2
         kind: MasterConfiguration
-        kubernetesVersion: v1.12.x
+        kubernetesVersion: stable
         apiServerCertSANs:
         - "LOAD_BALANCER_DNS"
         api:
@@ -462,9 +466,6 @@ done
         networking:
             # This CIDR is a calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
-
-1.  Replace `x` in `kubernetesVersion: v1.12.x` with the latest available version.
-    For example: `kubernetesVersion: v1.12.0`
 
 1.  Replace the following variables in the template with the appropriate values for your cluster:
 
