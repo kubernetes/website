@@ -92,7 +92,7 @@ Kubernetes supports several types of Volumes:
    * [scaleIO](#scaleio)
    * [secret](#secret)
    * [storageos](#storageos)
-   * [vsphereVolume](#vsphereVolume)
+   * [vsphereVolume](#vspherevolume)
 
 We welcome additional contributions.
 
@@ -971,7 +971,7 @@ spec:
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
 [StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
 
-### vsphereVolume {#vsphereVolume}
+### vsphereVolume {#vspherevolume}
 
 {{< note >}}
 **Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider
