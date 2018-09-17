@@ -84,9 +84,9 @@ these channels for localized support and info:
 - Spain: `#es-users`
 - Turkey: `#tr-users`, `#tr-events`
 
-### Mailing List
+### Forum
 
-The Kubernetes / Google Kubernetes Engine mailing list is [kubernetes-users@googlegroups.com](https://groups.google.com/forum/#!forum/kubernetes-users)
+The Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io)
 
 ### Bugs and Feature requests
 
