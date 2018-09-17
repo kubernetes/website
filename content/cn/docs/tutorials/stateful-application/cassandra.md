@@ -143,7 +143,7 @@ spec:
 ```
 
 
-[下载示例](https://raw.githubusercontent.com/kubernetes/examples/master/cassandra-service.yaml)
+[下载示例](https://github.com/kubernetes/examples/blob/owners-update/cassandra/cassandra-service.yaml)
 
 
 
