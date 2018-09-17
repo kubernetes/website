@@ -4,6 +4,10 @@ reviewers:
 - soltysh
 title: Jobs - Run to Completion
 content_template: templates/concept
+feature:
+  title: Batch execution
+  description: >
+    In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
 weight: 70
 ---
 

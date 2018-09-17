@@ -198,7 +198,7 @@ We recommend that you use the etcd version which is provided in the Kubernetes b
 were tested extensively with this version of etcd and not with any other version.
 The recommended version number can also be found as the value of `TAG` in `kubernetes/cluster/images/etcd/Makefile`.
 
-For the miniumum recommended version of etcd, please refer to
+For the miniumum recommended version of etcd, refer to
 [Configuring and Updating etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
@@ -419,7 +419,7 @@ Note that on some Linux platforms, you may need to manually install the
 `conntrack` package which is a dependency of kube-proxy, or else kube-proxy
 cannot be started successfully.
 
-For more details on debugging kube-proxy problems, please refer to
+For more details about debugging kube-proxy problems, refer to
 [Debug Services](/docs/tasks/debug-application-cluster/debug-service/)
 
 ### Networking
@@ -864,7 +864,7 @@ pinging or SSH-ing from one node to another.
 
 ### Getting Help
 
-If you run into trouble, please see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
+If you run into trouble, see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
 [kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level
