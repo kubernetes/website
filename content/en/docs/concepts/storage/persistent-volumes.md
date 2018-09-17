@@ -514,7 +514,7 @@ metadata:
 spec:
   containers:
     - name: myfrontend
-      image: dockerfile/nginx
+      image: nginx
       volumeMounts:
       - mountPath: "/var/www/html"
         name: mypd
