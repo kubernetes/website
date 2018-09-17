@@ -92,7 +92,7 @@ Kubernetes supports several types of Volumes:
    * [scaleIO](#scaleio)
    * [secret](#secret)
    * [storageos](#storageos)
-   * [vsphereVolume](#vspherevolume)
+   * [vsphereVolume](#vsphereVolume)
 
 We welcome additional contributions.
 
