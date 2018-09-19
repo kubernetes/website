@@ -395,6 +395,7 @@ The following volume types support mount options:
 * Glusterfs
 * VsphereVolume
 * Quobyte Volumes
+* StorageOS
 
 Mount options are not validated, so mount will simply fail if one is invalid.
 
