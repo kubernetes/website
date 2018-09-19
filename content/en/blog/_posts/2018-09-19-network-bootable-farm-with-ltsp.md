@@ -270,7 +270,7 @@ In this stage we will install what we builded on the previus step:
 FROM basesystem as ltsp-image
 
 # Retrieve kernel modules
-COPY --from=builder /opt/ltsp/amd64/modules.tar.gz /opt/ltsp/amd64/libvirt.tar.gz
+COPY --from=builder /opt/ltsp/amd64/modules.tar.gz /opt/ltsp/amd64/modules.tar.gz
 
 # Install kernel modules
 RUN ltsp-chroot sh -c \
