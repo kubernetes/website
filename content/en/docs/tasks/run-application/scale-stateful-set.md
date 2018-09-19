@@ -27,13 +27,13 @@ This page shows how to scale a StatefulSet.
 
 {{% capture steps %}}
 
-## Use `kubectl` to scale StatefulSets
+## Use kubectl to scale StatefulSets
 
 Make sure you have `kubectl` upgraded to Kubernetes version 1.5 or later before
 continuing. If you're unsure, run `kubectl version` and check `Client Version`
 for which kubectl you're using.
 
-### `kubectl scale`
+### kubectl scale
 
 First, find the StatefulSet you want to scale. Remember, you need to first understand if you can scale it or not.
 
@@ -47,7 +47,7 @@ Change the number of replicas of your StatefulSet:
 kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 ```
 
-### Alternative: `kubectl apply` / `kubectl edit` / `kubectl patch`
+### Alternative: kubectl apply / kubectl edit / kubectl patch
 
 Alternatively, you can do [in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) on your StatefulSets.
 
