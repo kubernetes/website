@@ -42,7 +42,7 @@ kubelets.
 
 #### 2. Install the RuntimeClass CRD
 
-The RuntimeClass [CustiomResourceDefinition][] (CRD) can be found in the addons directory of the
+The RuntimeClass [CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/] (CRD) can be found in the addons directory of the
 Kubernetes git repo:
 
 https://github.com/kubernetes/kubernetes/tree/release-1.12/cluster/addons/runtimeclass/runtimeclass_crd.yaml
