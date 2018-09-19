@@ -95,4 +95,10 @@ With [Dynatrace Kubernetes monitoring](https://www.dynatrace.com/technologies/cl
 
 Dynatrace automatically discovers all containers running on Kubernetes and presents you with a real-time view of all the connections between your containerized processes, hosts, and cloud instances. Dynatrace includes root cause analysis and the ability to replay problems to see how they evolved over time.
 
+## Cron job monitoring
+
+### Kubernetes job monitor
+
+With the [Kubernetes job monitor](https://github.com/pietervogelaar/kubernetes-job-monitor) dashboard it's easy to see which jobs are running and if their latest status was "succeeded" or "failed".
+
 {{% /capture %}}
