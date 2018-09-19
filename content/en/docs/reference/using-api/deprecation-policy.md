@@ -368,8 +368,6 @@ administration of Kubernetes clusters, and which are being removed entirely.
 The exception to the above rule is **feature-gates**. Feature gates are key=value 
 pairs that enable users to enable/disable experimental features.
 Features can be in Alpha, Beta or GA stage.
-Due to the particular nature of feature gates we recommend that when features
-hit GA, the correspondent feature gate be dropped.
 
 Feature gates are intended to cover the development of a feature - they are not 
 intended to be long-term APIs. As such, they are expected to be deprecated and 
