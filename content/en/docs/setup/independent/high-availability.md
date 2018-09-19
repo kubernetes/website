@@ -140,7 +140,7 @@ different configuration.
 ### Bootstrap the first stacked control plane node
 
 {{< note >}}
-**Note**: Optionally replace `stable` with a different version of kubernetes such as `v1.12.0-beta.2` or `v1.12.0`.
+**Note**: Optionally replace `stable` with a different version of kubernetes such as `v1.12.0`.
 {{< /note >}}
 
 1.  Create a `kubeadm-config.yaml` template file:
@@ -439,16 +439,15 @@ done
 1.  Create a `kubeadm-config.yaml`:
 
 {{< note >}}
-**Note**: Optionally replace `stable` with a different version of kubernetes such as `v1.12.0-beta.2` or `v1.9.3`.
+**Note**: Optionally replace `stable` with a different version of kubernetes such as `v1.11.3`.
 {{< /note >}}
 
-        apiVersion: kubeadm.k8s.io/v1alpha2
-        kind: MasterConfiguration
+        apiVersion: kubeadm.k8s.io/v1alpha3
+        kind: ClusterConfiguration
         kubernetesVersion: stable
         apiServerCertSANs:
         - "LOAD_BALANCER_DNS"
-        api:
-            controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
+        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
             external:
                 endpoints:
@@ -508,10 +507,6 @@ for host in ${CONTROL_PLANE_IPS}; do
     scp control-plane-certificates.tar.gz "${USER}"@$host:
 done
 ```
-
-{{< note >}}
-**Note**: Remember that your config may differ from this example.
-{{< /note >}}
 
 ### Set up the other control plane nodes
 
