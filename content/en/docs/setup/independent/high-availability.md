@@ -145,13 +145,12 @@ different configuration.
 
 1.  Create a `kubeadm-config.yaml` template file:
 
-        apiVersion: kubeadm.k8s.io/v1alpha2
-        kind: MasterConfiguration
+        apiVersion: kubeadm.k8s.io/v1alpha3
+        kind: ClusterConfiguration
         kubernetesVersion: stable
         apiServerCertSANs:
         - "LOAD_BALANCER_DNS"
-        api:
-            controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
+        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
           local:
             extraArgs:
@@ -225,13 +224,12 @@ done
 
 1.  Create a second, different `kubeadm-config.yaml` template file:
 
-        apiVersion: kubeadm.k8s.io/v1alpha2
-        kind: MasterConfiguration
+        apiVersion: kubeadm.k8s.io/v1alpha3
+        kind: ClusterConfiguration
         kubernetesVersion: stable
         apiServerCertSANs:
         - "LOAD_BALANCER_DNS"
-        api:
-            controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
+        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
           local:
             extraArgs:
@@ -315,13 +313,12 @@ done
 
 1.  Create a third, different `kubeadm-config.yaml` template file:
 
-        apiVersion: kubeadm.k8s.io/v1alpha2
-        kind: MasterConfiguration
+        apiVersion: kubeadm.k8s.io/v1alpha3
+        kind: ClusterConfiguration
         kubernetesVersion: stable
         apiServerCertSANs:
         - "LOAD_BALANCER_DNS"
-        api:
-            controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
+        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
           local:
             extraArgs:
