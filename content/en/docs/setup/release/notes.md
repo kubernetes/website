@@ -200,24 +200,26 @@ or `/etc/sysconfig/kubelet`, depending on the system you're running on.
 The following PRs changed the API spec:
   * In the new v1alpha2 kubeadm Configuration API, the `.CloudProvider` and `.PrivilegedPods` fields don't exist anymore. Instead, you should use the out-of-tree cloud provider implementations, which are beta in v1.11.
   * If you have to use the legacy in-tree cloud providers, you can rearrange your config like the example below. If you need the `cloud-config` file (located in `{cloud-config-path}`), you can mount it into the API Server and controller-manager containers using ExtraVolumes, as in:
-      ```yaml
-      kind: MasterConfiguration
-      apiVersion: kubeadm.k8s.io/v1alpha2
-      apiServerExtraArgs:
-        cloud-provider: "{cloud}"
-        cloud-config: "{cloud-config-path}"
-      apiServerExtraVolumes:
-      - name: cloud
-        hostPath: "{cloud-config-path}"
-        mountPath: "{cloud-config-path}"
-      controllerManagerExtraArgs:
-        cloud-provider: "{cloud}"
-        cloud-config: "{cloud-config-path}"
-      controllerManagerExtraVolumes:
-      - name: cloud
-        hostPath: "{cloud-config-path}"
-        mountPath: "{cloud-config-path}"
-      ```
+
+
+            kind: MasterConfiguration
+            apiVersion: kubeadm.k8s.io/v1alpha2
+            apiServerExtraArgs:
+              cloud-provider: "{cloud}"
+              cloud-config: "{cloud-config-path}"
+            apiServerExtraVolumes:
+            - name: cloud
+              hostPath: "{cloud-config-path}"
+              mountPath: "{cloud-config-path}"
+            controllerManagerExtraArgs:
+              cloud-provider: "{cloud}"
+              cloud-config: "{cloud-config-path}"
+            controllerManagerExtraVolumes:
+            - name: cloud
+              hostPath: "{cloud-config-path}"
+              mountPath: "{cloud-config-path}"
+
+
 * If you need to use the `.PrivilegedPods` functionality, you can still edit the manifests in `/etc/kubernetes/manifests/`, and set `.SecurityContext.Privileged=true` for the apiserver and controller manager.
  ([#63866](https://github.com/kubernetes/kubernetes/pull/63866), [@luxas](https://github.com/luxas))
  * kubeadm: The Token-related fields in the `MasterConfiguration` object have now been refactored. Instead of the top-level `.Token`, `.TokenTTL`, `.TokenUsages`, `.TokenGroups` fields, there is now a `BootstrapTokens` slice of `BootstrapToken` objects that support the same features under the `.Token`, `.TTL`, `.Usages`, `.Groups` fields. ([#64408](https://github.com/kubernetes/kubernetes/pull/64408), [@luxas](https://github.com/luxas))
