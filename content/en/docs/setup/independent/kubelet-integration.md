@@ -65,7 +65,7 @@ clusterDNS:
 
 See the
 [API reference for the
-kubelet ComponentConfig](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/kubeletconfig#KubeletConfiguration)
+kubelet ComponentConfig](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
 for more information.
 
 ### Providing instance-specific configuration details
