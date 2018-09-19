@@ -33,7 +33,7 @@ different Kubernetes components.
 | `AdvancedAuditing` | `true` | GA | 1.12 | - |
 | `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
-| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | |
+| `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | - |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
