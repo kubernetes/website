@@ -308,3 +308,34 @@ kube-proxy [flags]
 
 
 
+
+### Running from a Container
+
+Previous to version 1.13, you needed the `privileged` setting to run `kube-proxy` in a container, so that it could call out to `sysctl`.
+
+The following `sysctl`'s are set by `kube-proxy`, if not already set:
+
+- `/proc/sys/net/ipv4/conf/all/route_localnet`: set to `1`
+- `/proc/sys/net/bridge/bridge-nf-call-iptables`: set to `1`
+
+**If setting a max for conntrack**:
+
+- `/proc/sys/net/netfilter/nf_conntrack_max`: set to the user's `max` setting
+- `/sys/module/nf_conntrack/parameters/hashsize`: set to `max/4`
+
+**For the IPVS backend:**
+
+- `/proc/sys/net/ipv4/vs/conntrack`: set to `1`
+- `/proc/sys/net/ipv4/ip_forward`: set to `1`
+
+Using 1.13 or greater if you set the above `sysctl`'s manually prior to starting the pod,
+you only need the following security context options:
+
+```yaml
+securityContext:
+  capabilities:
+    add: ["NET_ADMIN"]
+```
+
+`NET_ADMIN` is required for the network controls that `kube-proxy` consumes
+like `iptables` and IPVS.
