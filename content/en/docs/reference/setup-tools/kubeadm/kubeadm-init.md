@@ -278,10 +278,11 @@ manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controll
 configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
 configured in the kubelet via static files.
 
+To create a self-hosted cluster, pass the flag `--feature-gates=SelfHosting=true` to `kubeadm init`.
+
 {{< caution >}}
-**Caution:** Self-hosting is alpha, but is expected to become the default in
-a future version. To create a self-hosted cluster, pass the `--feature-gates=SelfHosting=true`
-flag to `kubeadm init`.
+**Caution:** `SelfHosting` is an alpha feature. It is deprecated in 1.12
+and will be removed in 1.13.
 {{< /caution >}}
 
 {{< warning >}}
@@ -303,6 +304,11 @@ experimental mode where control plane credentials are loaded from Secrets
 instead. This requires very careful control over the authentication and
 authorization configuration for your cluster, and may not be appropriate for
 your environment.
+
+{{< caution >}}
+**Caution:** `StoreCertsInSecrets` is an alpha feature. It is deprecated in 1.12
+and will be removed in 1.13.
+{{< /caution >}}
 
 In kubeadm 1.8, the self-hosted portion of the control plane does not include etcd,
 which still runs as a static Pod.
