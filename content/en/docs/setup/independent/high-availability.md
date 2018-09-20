@@ -140,7 +140,7 @@ different configuration.
 ### Bootstrap the first stacked control plane node
 
 {{< note >}}
-**Note**: Optionally replace `stable` with a different version of kubernetes such as `v1.12.0`.
+**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.12.0`.
 {{< /note >}}
 
 1.  Create a `kubeadm-config.yaml` template file:
@@ -436,7 +436,7 @@ done
 1.  Create a `kubeadm-config.yaml`:
 
 {{< note >}}
-**Note**: Optionally replace `stable` with a different version of kubernetes such as `v1.11.3`.
+**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
 {{< /note >}}
 
         apiVersion: kubeadm.k8s.io/v1alpha3
