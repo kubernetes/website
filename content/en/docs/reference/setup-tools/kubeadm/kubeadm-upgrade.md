@@ -43,6 +43,9 @@ applied to static pod manifests.
 ## kubeadm upgrade node config {#cmd-upgrade-node-config}
 {{< include "generated/kubeadm_upgrade_node_config.md" >}}
 
+## kubeadm upgrade node experimental-control-plane {#cmd-experimental-control-plane}
+{{< include "generated/kubeadm_upgrade_node_experimental-control-plane.md" >}}
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
