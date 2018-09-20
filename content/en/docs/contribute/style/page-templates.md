@@ -53,8 +53,6 @@ To write a new concept page, create a Markdown file in a subdirectory of the
     need):
     
     ```
-    {% raw  %}
-
     {{%/* capture overview */%}}
     
     {{%/* /capture */%}}
@@ -66,8 +64,6 @@ To write a new concept page, create a Markdown file in a subdirectory of the
     {{%/* capture whatsnext */%}}
     
     {{%/* /capture */%}}
-
-    {% endraw %}
     ```
 
 - Within each section, write your content. Use the following guidelines:
@@ -107,8 +103,6 @@ To write a new task page, create a Markdown file in a subdirectory of the
     need):
     
     ```
-    {% raw %}
-
     {{%/* capture overview */%}}
   
     {{%/* /capture */%}}
@@ -130,8 +124,6 @@ To write a new task page, create a Markdown file in a subdirectory of the
     {{%/* capture whatsnext */%}}
     
     {{%/* /capture */%}}
-
-    {% endraw %}
     ```
 
 - Within each section, write your content. Use the following guidelines:
@@ -177,8 +169,6 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
     need):
     
     ```
-    {% raw %}
-
     {{%/* capture overview */%}}
     
     {{%/* /capture */%}}
@@ -204,7 +194,6 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
     {{%/* capture whatsnext */%}}
     
     {{%/* /capture */%}}
-    {% endraw %}
     ```
 
 - Within each section, write your content. Use the following guidelines:
