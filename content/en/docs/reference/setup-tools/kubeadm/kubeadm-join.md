@@ -212,7 +212,7 @@ It's possible to configure `kubeadm join` with a configuration file instead of c
 line flags, and some more advanced features may only be available as
 configuration file options.  This file is passed in the `--config` option.
 
-```yaml
+```json
 apiVersion: kubeadm.k8s.io/v1alpha1
 kind: NodeConfiguration
 caCertPath: <path|string>
@@ -229,6 +229,7 @@ discoveryTokenCACertHashes:
 - <SHA-256 hash|string>
 discoveryTokenUnsafeSkipCAVerification: <bool>
 ```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}

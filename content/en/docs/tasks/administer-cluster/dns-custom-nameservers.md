@@ -51,9 +51,9 @@ lookups (PTR records).
 
 ## Inheriting DNS from the node
 
-When running a Pod, kubelet prepends the cluster DNS server and searches
-paths to the node's DNS settings.  If the node is able to resolve DNS names
-specific to the larger environment, Pods should also be able to resolve.
+If a Pod's `dnsPolicy` is set to "`default`", it inherits the name resolution
+configuration from the node that the Pod runs on. The Pod's DNS resolution
+should behave the same as the node.
 But see [Known issues](/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues).
 
 If you don't want this, or if you want a different DNS config for pods, you can
