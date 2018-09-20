@@ -28,7 +28,7 @@ authenticate tokens as a user in the `system:bootstrappers` group.
 
 This group will later be used in the controller-manager configuration to scope
 approvals in the default approval controller. As this feature matures, you
-should ensure tokens are bound to a Role-Based Access Control (RBAC) policy
+should ensure tokens are bound to a Role Based Access Control (RBAC) policy
 which limits requests (using the [bootstrap
 token](/docs/reference/access-authn-authz/bootstrap-tokens/)) strictly to client
 requests related to certificate provisioning. With RBAC in place, scoping the
