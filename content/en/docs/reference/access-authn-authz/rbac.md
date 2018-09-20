@@ -663,6 +663,7 @@ The RBAC API prevents users from escalating privileges by editing roles or role 
 Because this is enforced at the API level, it applies even when the RBAC authorizer is not in use.
 
 A user can only create/update a role if at least one of the following things is true:
+
 1. they already have all the permissions contained in the role, at the same scope as the object being modified
 (cluster-wide for a `ClusterRole`, within the same namespace or cluster-wide for a `Role`)
 2. they are given explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
