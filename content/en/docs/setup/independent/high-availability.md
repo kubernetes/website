@@ -74,30 +74,30 @@ run as root.
 1.  Enable ssh-agent on your main device that has access to all other nodes in
     the system:
 
-     ```
-     eval $(ssh-agent)
-     ```
+    ```
+    eval $(ssh-agent)
+    ```
 
 1.  Add your SSH identity to the session:
 
-     ```
-     ssh-add ~/.ssh/path_to_private_key
-     ```
+    ```
+    ssh-add ~/.ssh/path_to_private_key
+    ```
 
 1.  SSH between nodes to check that the connection is working correctly.
 
     - When you SSH to any node, make sure to add the `-A` flag:
 
-      ```
-      ssh -A 10.0.0.7
-      ```
+        ```
+        ssh -A 10.0.0.7
+        ```
 
     - When using sudo on any node, make sure to preserve the environment so SSH
       forwarding works:
 
-      ```
-      sudo -E -s
-      ```
+        ```
+        sudo -E -s
+        ```
 
 ### Create load balancer for kube-apiserver
 
@@ -264,54 +264,54 @@ done
 
 1.  Move the copied files to the correct locations:
 
-      ```sh
-      USER=ubuntu # customizable
-      mkdir -p /etc/kubernetes/pki/etcd
-      mv /home/${USER}/ca.crt /etc/kubernetes/pki/
-      mv /home/${USER}/ca.key /etc/kubernetes/pki/
-      mv /home/${USER}/sa.pub /etc/kubernetes/pki/
-      mv /home/${USER}/sa.key /etc/kubernetes/pki/
-      mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
-      mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
-      mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-      mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
-      mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
-      ```
+    ```sh
+    USER=ubuntu # customizable
+    mkdir -p /etc/kubernetes/pki/etcd
+    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
+    mv /home/${USER}/ca.key /etc/kubernetes/pki/
+    mv /home/${USER}/sa.pub /etc/kubernetes/pki/
+    mv /home/${USER}/sa.key /etc/kubernetes/pki/
+    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
+    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
+    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+    mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
+    ```
 
 1.  Run the kubeadm phase commands to bootstrap the kubelet:
 
-      ```sh
-      kubeadm alpha phase certs all --config kubeadm-config.yaml
-      kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
-      kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
-      kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
-      systemctl start kubelet
-      ```
+    ```sh
+    kubeadm alpha phase certs all --config kubeadm-config.yaml
+    kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
+    kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
+    kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
+    systemctl start kubelet
+    ```
 
 1.  Run the commands to add the node to the etcd cluster:
 
-      ```sh
-      export CP0_IP=10.0.0.7
-      export CP0_HOSTNAME=cp0
-      export CP1_IP=10.0.0.8
-      export CP1_HOSTNAME=cp1
+    ```sh
+    export CP0_IP=10.0.0.7
+    export CP0_HOSTNAME=cp0
+    export CP1_IP=10.0.0.8
+    export CP1_HOSTNAME=cp1
 
-      export KUBECONFIG=/etc/kubernetes/admin.conf 
-      kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
-      kubeadm alpha phase etcd local --config kubeadm-config.yaml
-      ```
+    export KUBECONFIG=/etc/kubernetes/admin.conf 
+    kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
+    kubeadm alpha phase etcd local --config kubeadm-config.yaml
+    ```
 
-      - This command causes the etcd cluster to become unavailable for a
+    - This command causes the etcd cluster to become unavailable for a
       brief period, after the node is added to the running cluster, and before the
       new node is joined to the etcd cluster.
 
 1.  Deploy the control plane components and mark the node as a master:
 
-      ```sh
-      kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
-      kubeadm alpha phase controlplane all --config kubeadm-config.yaml
-      kubeadm alpha phase mark-master --config kubeadm-config.yaml
-      ```
+    ```sh
+    kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
+    kubeadm alpha phase controlplane all --config kubeadm-config.yaml
+    kubeadm alpha phase mark-master --config kubeadm-config.yaml
+    ```
 
 ### Add the third stacked control plane node
 
@@ -359,50 +359,50 @@ done
 
 1.  Move the copied files to the correct locations:
 
-      ```sh
-      USER=ubuntu # customizable
-      mkdir -p /etc/kubernetes/pki/etcd
-      mv /home/${USER}/ca.crt /etc/kubernetes/pki/
-      mv /home/${USER}/ca.key /etc/kubernetes/pki/
-      mv /home/${USER}/sa.pub /etc/kubernetes/pki/
-      mv /home/${USER}/sa.key /etc/kubernetes/pki/
-      mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
-      mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
-      mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-      mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
-      mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
-      ```
+    ```sh
+    USER=ubuntu # customizable
+    mkdir -p /etc/kubernetes/pki/etcd
+    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
+    mv /home/${USER}/ca.key /etc/kubernetes/pki/
+    mv /home/${USER}/sa.pub /etc/kubernetes/pki/
+    mv /home/${USER}/sa.key /etc/kubernetes/pki/
+    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
+    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
+    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+    mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
+    ```
 
 1.  Run the kubeadm phase commands to bootstrap the kubelet:
 
-      ```sh
-      kubeadm alpha phase certs all --config kubeadm-config.yaml
-      kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
-      kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
-      kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
-      systemctl start kubelet
-      ```
+    ```sh
+    kubeadm alpha phase certs all --config kubeadm-config.yaml
+    kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
+    kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
+    kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
+    systemctl start kubelet
+    ```
 
 1.  Run the commands to add the node to the etcd cluster:
 
-      ```sh
-      export CP0_IP=10.0.0.7
-      export CP0_HOSTNAME=cp0
-      export CP2_IP=10.0.0.9
-      export CP2_HOSTNAME=cp2
+    ```sh
+    export CP0_IP=10.0.0.7
+    export CP0_HOSTNAME=cp0
+    export CP2_IP=10.0.0.9
+    export CP2_HOSTNAME=cp2
 
-      export KUBECONFIG=/etc/kubernetes/admin.conf 
-      kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP2_HOSTNAME} https://${CP2_IP}:2380
-      kubeadm alpha phase etcd local --config kubeadm-config.yaml
-      ```
+    export KUBECONFIG=/etc/kubernetes/admin.conf 
+    kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP2_HOSTNAME} https://${CP2_IP}:2380
+    kubeadm alpha phase etcd local --config kubeadm-config.yaml
+    ```
 
 1.  Deploy the control plane components and mark the node as a master:
 
-      ```sh
-      kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
-      kubeadm alpha phase controlplane all --config kubeadm-config.yaml
-      kubeadm alpha phase mark-master --config kubeadm-config.yaml
-      ```
+    ```sh
+    kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
+    kubeadm alpha phase controlplane all --config kubeadm-config.yaml
+    kubeadm alpha phase mark-master --config kubeadm-config.yaml
+    ```
 
 ## External etcd
 
