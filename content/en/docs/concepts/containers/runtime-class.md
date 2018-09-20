@@ -49,7 +49,7 @@ https://github.com/kubernetes/kubernetes/tree/release-1.12/cluster/addons/runtim
 
 Install the CRD with `kubectl apply -f runtimeclass_crd.yaml`.
 
-[CustiomResourceDefinition]: /docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions
+[CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/]
 
 #### 3. Configure the CRI implementation on nodes
 
