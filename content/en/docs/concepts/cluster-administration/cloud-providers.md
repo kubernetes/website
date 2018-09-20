@@ -9,7 +9,47 @@ This page explains how to manage Kubernetes running on a specific
 cloud provider.
 {{% /capture %}}
 
+{{< toc >}}
+
 {{% capture body %}}
+### kubeadm
+[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) is a popular option for creating kubernetes clusters. 
+kubeadm has configuration options to specify configuration information for cloud providers. For example a typical 
+in-tree cloud provider can be configured using kubeadm as shown below:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha3
+kind: InitConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    cloud-provider: "openstack"
+    cloud-config: "/etc/kubernetes/cloud.conf"
+---
+kind: ClusterConfiguration
+apiVersion: kubeadm.k8s.io/v1alpha3
+kubernetesVersion: v1.12.0
+apiServerExtraArgs:
+  cloud-provider: "openstack"
+  cloud-config: "/etc/kubernetes/cloud.conf"
+apiServerExtraVolumes:
+- name: cloud
+  hostPath: "/etc/kubernetes/cloud.conf"
+  mountPath: "/etc/kubernetes/cloud.conf"
+controllerManagerExtraArgs:
+  cloud-provider: "openstack"
+  cloud-config: "/etc/kubernetes/cloud.conf"
+controllerManagerExtraVolumes:
+- name: cloud
+  hostPath: "/etc/kubernetes/cloud.conf"
+  mountPath: "/etc/kubernetes/cloud.conf"
+```
+
+The in-tree cloud providers typically need both `--cloud-provider` and `--cloud-config` specified in the command lines
+for the [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and the
+[kubelet](/docs/admin/kubelet/). The contents of the file specified in `--cloud-config` for each provider is documented below as well.
+
+For all external cloud providers, please follow the instructions on the individual repositories.
+
 ## AWS
 This section describes all the possible configurations which can
 be used when running Kubernetes on Amazon Web Services.
