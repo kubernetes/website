@@ -9,17 +9,16 @@ main_menu: true
 weight: 30
 content_template: templates/concept
 ---
-{% raw  %}
 
 {{% capture overview %}}
 
-You can run Kubernetes almost anywhere, from your laptop to VMs on a cloud
-provider to a rack of bare metal servers. Deciding where to run Kubernetes
-depends on what resources you have available and how much flexibility you need.
+Use this page to find the type of solution that best fits your needs.
 
-Set up a fully-managed cluster by running a single command or craft your own
-customized cluster on your bare metal servers. Use this page to find the type
-of solution that best fits your needs.
+Deciding where to run Kubernetes depends on what resources you have available 
+and how much flexibility you need. You can run Kubernetes almost anywhere, 
+from your laptop to VMs on a cloud provider to a rack of bare metal servers. 
+You can also set up a fully-managed cluster by running a single command or craft 
+your own customized cluster on your bare metal servers.
 
 {{% /capture %}}
 
@@ -27,7 +26,7 @@ of solution that best fits your needs.
 
 ## Local-machine Solutions
 
-A local-machine solution is a perfect way to get started with Kubernetes. You
+A local-machine solution is an easy way to get started with Kubernetes. You
 can create and test Kubernetes clusters without worrying about consuming cloud
 resources and quotas.
 
@@ -40,7 +39,7 @@ Pick a [local-machine solution](/docs/setup/pick-right-solution/#local-machine-s
 
 ## Hosted Solutions
 
-Hosted solutions are the easiest way to create and maintain Kubernetes clusters. They completely 
+Hosted solutions are a convenient way to create and maintain Kubernetes clusters. They 
 manage and operate your clusters so you don’t have to.  
 
 You should pick a hosted solution if you:
@@ -52,15 +51,13 @@ You should pick a hosted solution if you:
 
 Pick a [hosted solution](/docs/setup/pick-right-solution/#hosted-solutions).
 
-## Turnkey Solutions
+## Cloud Solutions
+
 
 These solutions allow you to create Kubernetes clusters with only a few commands and 
-are actively developed and have active community support. 
-
-### Cloud Solutions
-
-Turnkey Cloud Solutions can also be hosted on a range of Cloud IaaS
-providers, but they offer more freedom and flexibility in exchange for effort. 
+are actively developed and have active community support. They can also be hosted on 
+a range of Cloud IaaS providers, but they offer more freedom and flexibility in 
+exchange for effort. 
 
 You should pick a turnkey cloud solution if you:
 
@@ -69,7 +66,7 @@ You should pick a turnkey cloud solution if you:
 
 Pick a [turnkey cloud solution](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
 
-### On-Premises Solutions
+## On-Premises Solutions
 
 These solutions allow you to create Kubernetes clusters on your internal, secure,
 cloud network with only a few commands.
@@ -96,5 +93,3 @@ Pick a [custom solution](/docs/setup/pick-right-solution/#custom-solutions).
 Go to [Picking the Right Solution](/docs/setup/pick-right-solution/) for a complete
 list of solutions.
 {{% /capture %}}
-
-{% endraw %}
