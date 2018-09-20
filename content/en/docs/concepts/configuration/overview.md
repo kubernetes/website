@@ -71,20 +71,20 @@ A desired state of an object is described by a Deployment, and if changes to tha
 
 ## Container Images
 
-The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image impact when the [kubelet](/docs/admin/kubelet/) will attempt to pull a given image.
+The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/admin/kubelet/) attempts to pull the specified image.
 
-- `imagePullPolicy: IfNotPresent`: the image will only be pulled if the tag does not already exist locally.
+- `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
 
-- `imagePullPolicy: Always`: every time the pod is launched an attempt will be made to pull the image.
+- `imagePullPolicy: Always`: the image is pulled every time the pod is started.
 
-- `imagePullPolicy` is omitted and the image tag is either omitted or `:latest`: the `imagePullPolicy` will be defaulted to `Always` and every time the pod is launched an attempt will be made to pull the image.
+- `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `Always` is applied.
 
-- `imagePullPolicy` is omitted and there is an image tag other than `:latest`: the `imagePullPolicy` will be defaulted to `IfNotPresent` and the image will only be pulled if the tag does not already exist locally.
+- `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `IfNotPresent` is applied.
 
-- `imagePullPolicy: Never`: the assumption is that the image is already present locally and no attempt will be made to pull it.
+- `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
 
 {{< note >}}
-  **Note:** To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier) (for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`). This uniquely identifies a specific version of the image, so it will never be updated by Kubernetes unless you change the digest value.
+  **Note:** To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier), for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`. The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
 {{ </ note >}}
 
 {{< note >}}
@@ -92,7 +92,7 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 {{< /note >}}
 
 {{< note >}}
-  **Note:** While `imagePullPolicy: Always` may seem inefficient with the caching semantics of the underlying image provider still apply.  For Docker as an example, this means that if the image already exist the "pull" will be extremely quick since all the layers are cache hits and no actual image download will need to occur.
+  **Note:** The caching semantics of the underlying image provider make even `imagePullPolicy: Always` efficient. With Docker, for example, if the image already exists, the pull attempt is fast because all image layers are cached and no image download is needed.
 {{< /note >}}
 
 ## Using kubectl
