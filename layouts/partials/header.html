@@ -25,10 +25,11 @@
             <li>
                 <a href="#">
                     {{ .Site.Params.version }} <span class="ui-icon ui-icon-carat-1-s"></span>
+                    {{ $site_version := .Site.Params.version }}
                 </a>
                 <ul>
                 {{ range .Site.Params.versions }}
-                    <li><a href="{{  .url }}">{{ .version }}</a></li>
+                    {{ if ne .version $site_version }} <li><a href="{{  .url }}">{{ .version }}</a></li> {{ end }}
                 {{ end }}
                 </ul>
             </li>
