@@ -251,11 +251,11 @@ rules:
 
 The following cloud providers have implemented CCMs: 
 
-* Digital Ocean
+* [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* Azure
-* GCE
-* AWS
+* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
+* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
+* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
 
 ## Cluster Administration
 
