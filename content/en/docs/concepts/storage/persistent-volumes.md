@@ -383,18 +383,19 @@ A Kubernetes administrator can specify additional mount options for when a Persi
 
 The following volume types support mount options:
 
-* GCEPersistentDisk
 * AWSElasticBlockStore
-* AzureFile
 * AzureDisk
-* NFS
-* iSCSI
-* RBD (Ceph Block Device)
+* AzureFile
 * CephFS
 * Cinder (OpenStack block storage)
+* GCEPersistentDisk
 * Glusterfs
-* VsphereVolume
+* NFS
 * Quobyte Volumes
+* RBD (Ceph Block Device)
+* StorageOS
+* VsphereVolume
+* iSCSI
 
 Mount options are not validated, so mount will simply fail if one is invalid.
 
