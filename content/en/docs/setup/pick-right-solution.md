@@ -74,7 +74,7 @@ a Kubernetes cluster from scratch.
 
 * [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
-# Turnkey Cloud Solutions
+## Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
