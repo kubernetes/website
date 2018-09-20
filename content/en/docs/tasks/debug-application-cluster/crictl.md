@@ -181,7 +181,7 @@ crictl exec -i -t 1f73f2d81bf98 ls
 bin   dev   etc   home  proc  root  sys   tmp   usr   var
 ```
 
-### Get a coontainer's logs
+### Get a container's logs
 
 Get all container logs:
 
