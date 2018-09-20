@@ -32,6 +32,13 @@ need to be able to offer a variety of `VolumeSnapshotContents` without exposing
 users to the details of how those volume snapshots should be provisioned. For these needs
 there is the `VolumeSnapshotClass` resource.
 
+Users need to be aware of the following when using this feature:
+
+* API Objects `VolumeSnapshot`, `VolumeSnapshotContent`, and `VolumeSnapshotClass` are CRDs, not part of the core API.
+* `VolumeSnapshot` support is only available for CSI drivers.
+* As part of the deployment process, the Kubernetes team provides a sidecar helper container for the snapshot controller called `external-snapshotter`. It watches `VolumeSnapshot` objects and triggers `CreateSnapshot` and `DeleteSnapshot` operations against a CSI endpoint.
+* CSI drivers may or may not have implemented the volume snapshot functionality. The CSI drivers that have provided support for volume snapshot will likely use `external-snapshotter`.
+* The CSI drivers that support volume snapshot will automatically install CRDs defined for the volume snapshots.
 
 ## Lifecycle of a volume snapshot and volume snapshot content
 
