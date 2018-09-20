@@ -65,7 +65,7 @@ Kubernetes cluster but inside the same GCP region.
 {{% capture prerequisites %}}
 This document assumes that you have a running Kubernetes Cluster
 Federation installation. If not, then see the
-[federation admin guide](/docs/admin/federation/) to learn how to
+[federation admin guide](/docs/tasks/federation/set-up-cluster-federation-kubefed/) to learn how to
 bring up a cluster federation (or have your cluster administrator do
 this for you). Other tutorials, for example
 [this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
