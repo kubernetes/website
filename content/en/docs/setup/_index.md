@@ -51,7 +51,7 @@ You should pick a hosted solution if you:
 
 Pick a [hosted solution](/docs/setup/pick-right-solution/#hosted-solutions).
 
-## Cloud Solutions
+## Turnkey – Cloud Solutions
 
 
 These solutions allow you to create Kubernetes clusters with only a few commands and 
@@ -66,7 +66,7 @@ You should pick a turnkey cloud solution if you:
 
 Pick a [turnkey cloud solution](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
 
-## On-Premises Solutions
+## Turnkey – On-Premises Solutions
 
 These solutions allow you to create Kubernetes clusters on your internal, secure,
 cloud network with only a few commands.
