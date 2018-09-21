@@ -1,8 +1,8 @@
 ---
 reviewers:
-- jamiehannaford 
+- jamiehannaford
 - luxas
-- timothysc 
+- timothysc
 - jbeda
 title: Upgrading kubeadm HA clusters from v1.11 to v1.12
 content_template: templates/task
@@ -144,7 +144,34 @@ If the operation was successful you’ll get a message like this:
 
 ## External etcd
 
-TODO
+### Upgrade each control plane
+
+Get a copy of the kubeadm config used to create this cluster. The config should be the same for every node. The config must exist on every control plane node before the upgrade begins!
+
+```
+# on each control plane node
+kubectl get configmap -n kube-system kubeadm-config -o jsonpath={.data.MasterConfiguration} > /tmp/kubeadm-config.yaml
+```
+
+Now run the upgrade on each control plane node one at a time.
+
+```
+kubeadm upgrade apply v1.12.0 --config /tmp/kubeadm-config.yaml
+```
+
+### Upgrade etcd
+
+Kubernetes v1.11 to v1.12 only changed the patch version of etcd from v3.2.18 to v3.2.24. The upgrade will be a rolling upgrade with no downtime since it is ok to run both of these versions in the same cluster.
+
+On the first host, as root, modify the etcd manifest with this command:
+
+```shell
+sed -i 's/3.2.18/3.2.24/' /etc/kubernetes/manifests/etcd.yaml
+```
+
+Wait for the etcd process to reconnect. There will be error warnings in the other member's logs. This is expected.
+
+Repeat the process on the other etcd hosts, replacing the version and waiting for the process to come back.
 
 ## Post control plane upgrade steps
 
