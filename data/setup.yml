@@ -127,9 +127,6 @@ toc:
 - title: Installing Addons
   path: /docs/concepts/cluster-administration/addons/
 
-- title: Configuring Kubernetes with Salt
-  path: /docs/admin/salt/
-
 - title: Building Large Clusters
   path: /docs/admin/cluster-large/
 
