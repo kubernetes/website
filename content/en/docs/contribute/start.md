@@ -28,7 +28,7 @@ The Kubernetes documentation is written in Markdown and processed and deployed
 using Hugo. The source is in Github at
 [https://github.com/kubernetes/website](https://github.com/kubernetes/website).
 Most of the documentation source is stored in `/content/en/docs/`. Some of the
-reference documentation is automatically generated from scripts, mostly in the
+reference documentation is automatically generated from scripts in the
 `update-imported-docs/` directory.
 
 You can file issues, edit content, and review changes from others, all from the

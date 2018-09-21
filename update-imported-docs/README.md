@@ -1,12 +1,15 @@
 # Update imported docs
 
-This script updates the target files generated from other repos listed in the <config.yml> file, which is specified as the command line argument.
+This script updates the docs files that are generated from other repos.
+It accepts a YAML file name as its input which can be customized on a per-repo
+basis.
 
 ## Requirements
 
 Imported docs must follow these guidelines:
 
-1. Be listed somewhere in the `/_data/imported.yml` table of contents file.
+1. Adhere to the [Documentation Style Guide](/docs/home/contribute/style-guide/).
+
 1. Have `title` defined in the front matter. For example:
 
     ```
@@ -16,49 +19,36 @@ Imported docs must follow these guidelines:
 
     Rest of the .md file...
     ```
+1. Be listed somewhere in a file under the `data` subdirectory, for example,
+   the `data/imported.yml` file.
 
-1. Adhere to the [Documentation Style Guide](/docs/home/contribute/style-guide/).
+1. Make sure the `PyYAML` package is installed:
+
+```
+sudo apt-get install python-pip
+pip install PyYAML
+```
 
 ## Usage
 
 From within this directory, run the following command:
 
 ```
-+./update-imported-docs-[linux|macos] <config.yaml>
++./update-imported-docs <CONFIG-FILE>
 ```
 
-The output should look similar to the following:
+where `<CONFIG-FILE>` can be any YAML configuration file in this directory.
 
-```
-Website root directory: /Users/someuser/git/kubernetes-website
+## Configuration file format
 
-            *   *   *
-
-Cloning repo "community"...
-
-            *   *   *
-
-Docs imported! Run 'git add .' 'git commit -m <comment>' and 'git push' to upload them.
-```
-
-## Config file format
-
-Each config file may contain multiple repos, which will be imported together. You should modify the corresponding `update-imported-docs/<config.yml>` file to reflect the desired `src` and `dst` paths.
-
-You may also create new config files for different groups of documents to import. The following is an example of the YAML file format:
+Each config file may contain multiple repos that will be imported together.
+When necessary, you can customize the configuration file by manually editing
+it. You may create new config files for importing other groups of documents.
+The following is an example of the YAML configuration file:
 
 ```
 repos:
-- name: kubernetes                          #tmp directory name
-  remote: https://github.com/kubernetes/kubernetes.git
-  branch: release-1.9
-  generate-command: hack/generate-docs.sh   #optional command to run
-  files:
-  - src: docs/admin/cloud-controller-manager.md
-    dst: docs/reference/generated/cloud-controller-manager.md
-  - src: docs/admin/kube-apiserver.md
-    dst: docs/reference/generated/kube-apiserver.md
-- name: community                           #tmp directory name
+- name: community
   remote: https://github.com/kubernetes/community.git
   branch: master
   files:
@@ -68,8 +58,11 @@ repos:
     dst: docs/imported/community/guide.md
 ```
 
-Note: `generate-command` is an optional entry, which can be used to run a given command to auto-generate the docs from within that repo.
+Note: `generate-command` is an optional entry, which can be used to run a
+given command or a short script to generate the docs from within a repo.
 
 ## Fixing Links
 
-To fix relative links within your imported files, set the repo config's `gen-absolute-links` value to `true`. You can see an example of this in [`community.yml`](community.yml).
+To fix relative links within your imported files, set the repo config's
+`gen-absolute-links` property to `true`. You can find an example of this in
+[`community.yml`](community.yml).
