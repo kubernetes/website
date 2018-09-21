@@ -1,10 +1,10 @@
 
-Generates a client certificate for liveness probes to healthcheck etcd
+Generates the client certificate for liveness probes to healtcheck etcd
 
 ### Synopsis
 
 
-Generates the client certificate for liveness probes to healthcheck etcd and the respective key, and saves them into etcd/healthcheck-client.crt and etcd/healthcheck-client.key files. 
+Generates the client certificate for liveness probes to healtcheck etcd, and saves them into etcd/healthcheck-client.cert and etcd/healthcheck-client.key files. 
 
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
 
@@ -34,7 +34,7 @@ kubeadm alpha phase certs etcd-healthcheck-client [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
     </tr>
 
     <tr>
@@ -42,6 +42,27 @@ kubeadm alpha phase certs etcd-healthcheck-client [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for etcd-healthcheck-client</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
     </tr>
 
   </tbody>
