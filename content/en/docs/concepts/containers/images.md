@@ -25,12 +25,10 @@ The default pull policy is `IfNotPresent` which causes the Kubelet to skip
 pulling an image if it already exists. If you would like to always force a pull,
 you can do one of the following:
 
-- set the `imagePullPolicy` of the container to `Always`;
-- use `:latest` as the tag for the image to use;
+- set the `imagePullPolicy` of the container to `Always`.
+- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
+- omit the `imagePullPolicy` and the tag for the image to use.
 - enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
-
-If you did not specify tag of your image, it will be assumed as `:latest`, with
-pull image policy of `Always` correspondingly.
 
 Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information.
 
