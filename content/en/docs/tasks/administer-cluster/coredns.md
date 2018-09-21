@@ -31,8 +31,15 @@ For manual deployment or replacement of kube-dns, see the documentation at the
 
 ## Installing CoreDNS with kubeadm
 
-In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
-and is installed by default. To install kube-dns instead, set the `CoreDNS` feature gate
+From Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
+and is installed by default.
+
+```
+kubeadm init
+```
+The command above will install CoreDNS by default.
+
+To install kube-dns instead, set the `CoreDNS` feature gate
 value to `false`:
 ```
 kubeadm init --feature-gates=CoreDNS=false
@@ -57,6 +64,20 @@ customizations after the new ConfigMap is up and running.
 
 If you are running CoreDNS in Kubernetes version 1.11 and later, during upgrade,
 your existing Corefile will be retained.
+
+## Rollback to kube-dns
+
+From Kubernetes v1.11, Kubeadm will install CoreDNS by default.
+Although not recommended, you can rollback your cluster to use kube-dns.
+
+```
+kubeadm upgrade apply <current-installed-version> --feature-gates CoreDNS=false --force
+```
+
+Alternately, you can install kube-dns manually with the help of these [instructions](https://github.com/coredns/deployment/tree/master/kubernetes#rollback-to-kube-dns).
+
+**Be advised that there is no translation from the CoreDNS configmap to the kube-dns configmap provided.
+If there is an old kube-dns configmap that had been applied, it will remain and not be deleted.**
 
 {{% /capture %}}
 
