@@ -260,7 +260,10 @@ unifiedControlPlaneImage: ""
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the MasterConfiguration see:
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig/v1alpha1#KubeProxyConfiguration)
+- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+
+For information about enabling IPVS mode with kubeadm see:
+- [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
 
 ### Passing custom flags to control plane components {#control-plane-flags}
 

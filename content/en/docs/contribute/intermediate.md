@@ -730,6 +730,7 @@ the techniques described in
 [Commit into another person's PR](#commit-into-another-persons-pr).
 
 If you need to write a new topic, the following links are useful:
+
 - [Writing a New Topic](/docs/contribute/style/write-new-topic/)
 - [Using Page Templates](/docs/contribute/style/page-templates/)
 - [Documentation Style Guide](/docs/contribute/style/style-guide/)
@@ -763,6 +764,11 @@ deadlines. Some deadlines related to documentation are:
   docs person managing the release to get it in. If your feature needs
   documentation and the docs are not ready, the feature may be removed from the
   milestone.
+
+If your feature is an Alpha feature and is behind a feature gate, make sure you
+add it to [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+as part of your pull request. If your feature is moving out of Alpha, make sure to
+remove it from that file.
 
 ## Contribute to other repos
 
