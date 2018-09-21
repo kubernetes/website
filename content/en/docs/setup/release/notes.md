@@ -5,7 +5,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-[Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.11/examples)
+[Documentation](https://docs.k8s.io) & [Examples](https://github.com/kubernetes/examples)
 
 ## Downloads for v1.11.0
 
