@@ -85,7 +85,7 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 
 {{< note >}}
   **Note:** To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier), for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`. The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
-{{ </ note >}}
+{{< /note >}}
 
 {{< note >}}
   **Note:** You should avoid using the `:latest` tag when deploying containers in production as it is harder to track which version of the image is running and more difficult to roll back properly.
