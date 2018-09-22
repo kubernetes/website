@@ -365,39 +365,42 @@ This applies only to significant, user-visible behaviors which impact the
 correctness of applications running on Kubernetes or that impact the
 administration of Kubernetes clusters, and which are being removed entirely.
 
-The exception to the above rule is **feature-gates**. Feature gates are key=value 
-pairs that enable users to enable/disable experimental features.
-Features can be in Alpha, Beta or GA stage.
+An exception to the above rule is **feature-gates**. Feature gates are key=value 
+pairs that allow for users to enable/disable experimental features.
 
-Feature gates are intended to cover the development of a feature - they are not 
-intended to be long-term APIs. As such, they are expected to be deprecated and 
-removed after a feature becomes GA or is dropped. 
-As a user of feature gates pay atention to deprecation announcements for feature-gates 
-when one of the following scenarios apply:
+Feature gates are intended to cover the development life cycle of a feature - they 
+are not intended to be long-term APIs. As such, they are expected to be deprecated 
+and removed after a feature becomes GA or is dropped. 
 
-  * The feature become GA - is enabled by default.
-  * The feature is a candidate to be dropped.
-  * The feature is a candidate to become a configurable option, this happens when the
-     old behavior is needed by users. The new option is introduced as soon as we
-     identify the need and it follows the feature lifecycle as well as feature
-     deprecation rules.
+As a feature moves through the stages, the associated feature-gate will evolve 
+at the same time as announcing its deprecation. In general the life cycle is:
+
+  * The feature is Alpha - its feature gate is disabled by default and can be 
+  enabled by the user.
+  * The feature becomes Beta - its gate becomes enabled by default and can be 
+  disabled by the user.
+  * The feature becomes GA - its gate becomes a no-op and is deprecated.
+  * The feature becomes GA and a deprecation window is announced (see rule below) - its 
+  gate is removed and is no longer accepted.
+
+A feature might be EOL'ed at any point in the life cyle prior to GA.  In that case, 
+the associated feature-gate is deprecated. 
 
 In some cases, the old behavior requires a considerable amount of time before it can 
 be removed. In these cases the feature gate's behavior can be retained until the old 
-behavior is removed, at which point the feature gate can be deprecated as above.  
+behavior is removed, at which point the feature gate can be deprecated as stated above. 
+The gate can still be accepted but should not have any effect and should not cause any 
+errors.
 
 Feature gates are not versioned in the same way as the previously discussed components,
 therefore the rules for deprecation are as follows:
 
-**Rule #8a: Feature gates must announce deprecation when the corresponding feature 
-they control transitions a lifecycle stage as below.**
-
-**Rule #8b: Feature gates must function as long as the old feature is not deprecated 
-for no less than:**
+**Rule #8: Feature gates must be deprecated when the corresponding feature they control 
+transitions a lifecycle stage as follows. They must function for no less than:**
 
    * **Beta feature that becomes GA: 6 months or 2 releases (whichever is longer)**
    * **Beta feature that becomes EOL'ed: 3 months or 1 release (whichever is longer)**
-   * **Alpha feature that is removed: 0 releases**
+   * **Alpha feature that becomes EOL'ed: 0 releases**
 
 ## Exceptions
 
