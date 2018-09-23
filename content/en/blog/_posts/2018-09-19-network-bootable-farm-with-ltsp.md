@@ -20,8 +20,6 @@ This fact that you can buy and put into production environment new 100 servers a
 
 Intrigued? Let me show you everything by order.
 
-<!--more-->
-
 # Summary
 
 First, we need to understand how exactly is it working.
@@ -77,7 +75,7 @@ You should also have:
 
 # Preparing server
 
-As I said before I'm preparing LTSP-server with the squashed image automaically using Dockerfile, this method is quite good, because you have all steps described in your git repositroy.
+As I said before I'm preparing LTSP-server with the squashed image automaically using Dockerfile, this method is quite good, because you have all steps described in your git repository.
 You have versioning, you can have a banches, use CI and everything that you used to use for preparing your usual docker projects.
 
 Otherwise you can deploy ltsp server manually executing all steps by your hands, it is good practic for learning and for understand basic principles.
@@ -226,7 +224,7 @@ RUN echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' \
 RUN ltsp-chroot apt-get -y install linux-generic-hwe-16.04
 ```
 
-Be careful since kernel installed some packages like `lvm2` may have problems with installing in unprivileged chroot, becausetheir postinstall scripts try to handle some privileged commands.
+Be careful since kernel installed some packages like `lvm2` may have problems with installing in unprivileged chroot, because their postinstall scripts try to handle some privileged commands.
 Solution: install them before kernel or use [this workaround](https://askubuntu.com/a/482936/327437) for install them without postinstall script.
 
 ### Stage 3: builder
@@ -348,7 +346,7 @@ RUN ltsp-update-image
 ```
 
 ### Stage 5: Final stage
-In the final stage we will copy only our squashed image and kernels with initramfs.
+In the final stage we will save only our squashed image and kernels with initramfs.
 
 ```Dockerfile
 FROM ltsp-base
@@ -369,7 +367,7 @@ Ok, now we have docker image which includes:
 OK, now when our docker-image with ltsp-server, kernel, initramfs and squashed rootfs fully prepared we can run deployment with it.
 
 We can do that as usual, but one more thing is networking.
-Unfortunately we can't run kubernetes service as usual for our deployment, because during the boot our nodes are not part of kubernetes cluster and they requires ExternalIP, but Kubernetes is always enable NAT for ExternalIPs, and there is no way for disable this behavior.
+Unfortunately we can't use standard kubernetes service for our deployment, because during the boot our nodes are not part of kubernetes cluster and they requires ExternalIP, but Kubernetes is always enable NAT for ExternalIPs, and there is no way for disable this behavior.
 
 For now I have two ways for avoid this: use `hostNetwork: true` or use [pipework](https://github.com/dreamcat4/docker-images/blob/master/pipework/3.%20Examples.md#kubernetes), the second option will also provide you redundancy because, in case of failure, IP will be moved with the pod to another node, unfortunately pipework is not native and less secure method.
 If you have some better option for that please let me know.
