@@ -149,6 +149,9 @@ resources:
   requests:
     memory: 128Mi
 ```
+{{< note >}}
+**Note**: Kubernetes rejects the  Container's memory request if it exceeds the default memory request specified by the LimitRange.
+{{< /note >}}
 
 ## Motivation for default memory limits and requests
 
