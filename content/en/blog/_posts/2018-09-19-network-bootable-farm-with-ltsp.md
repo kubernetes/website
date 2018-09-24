@@ -160,10 +160,7 @@ FROM ltsp-base as basesystem
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Prepare base system
-RUN mkdir -p /opt/ltsp/amd64/proc/self/fd \
- && touch /opt/ltsp/amd64/proc/self/fd/3 \
- && debootstrap --arch amd64 xenial /opt/ltsp/amd64 \
- && rm -rf /opt/ltsp/amd64/proc/*
+RUN debootstrap --arch amd64 xenial /opt/ltsp/amd64
 
 # Install updates
 RUN echo "\
