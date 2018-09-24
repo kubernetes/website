@@ -81,9 +81,9 @@ The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimit
 kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
 ```
 
-## What plugins are enabled by default?
+## Which plugins are enabled by default?
 
-You can get the enabled admission plugins in result of:
+To see which admission plugins are enabled:
 
 ```shell
 kube-apiserver -h | grep enable-admission-plugins
