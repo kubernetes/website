@@ -345,7 +345,7 @@ ip link delete docker0
 The way you configure docker will depend in whether you have chosen the routable-vip or overlay-network approaches for your network.
 Some suggested docker options:
 
-  - create your own bridge for the per-node CIDR ranges, call it cbr0, and set `--bridge=cbr0` option on docker.
+  - create your own bridge for the per-node CIDR ranges, call it cbr0, and set `--bridge=cbr0` option on docker，you **DON'T** need to do this if you are using kubernetes CNI with Flannel, since kubelet will create `cni0` for you automatically.
   - set `--iptables=false` so docker will not manipulate iptables for host-ports (too coarse on older docker versions, may be fixed in newer versions)
 so that kube-proxy can manage iptables instead of docker.
   - `--ip-masq=false`
@@ -414,6 +414,7 @@ Arguments to consider:
     - `--kubeconfig=/var/lib/kube-proxy/kubeconfig`
   - Otherwise, if taking the firewall-based security approach
     - `--master=http://$MASTER_IP`
+  - `--cluster-cidr=10.8.0.0/16`, make pod communcation to service work properly.
 
 Note that on some Linux platforms, you may need to manually install the
 `conntrack` package which is a dependency of kube-proxy, or else kube-proxy
@@ -761,10 +762,13 @@ Template for controller manager pod:
 Flags to consider using with controller manager:
 
  - `--cluster-cidr=`, the CIDR range for pods in cluster.
+ - `--allocate-node-cidrs=true`, allow CIDRs allocated for Node to make CNI plugins work properly.
  - `--allocate-node-cidrs=`, if you are using `--cloud-provider=`, allocate and set the CIDRs for pods on the cloud provider.
  - `--cloud-provider=` and `--cloud-config` as described in apiserver section.
  - `--service-account-private-key-file=/srv/kubernetes/server.key`, used by the [service account](/docs/user-guide/service-accounts) feature.
- - `--master=127.0.0.1:8080`
+ - `--root-ca-file=/srv/kubernetes/ca.pem`, used by the [service account](/docs/user-guide/service-accounts) feature.
+ - `--master=127.0.0.1:8080`.
+
 
 #### Starting and Verifying Apiserver, Scheduler, and Controller Manager
 
