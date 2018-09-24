@@ -28,6 +28,13 @@ kube-apiserver [flags]
   <tbody>
 
     <tr>
+      <td colspan="2">--admission-control stringSlice&nbsp;&nbsp;(DEPRECATED: Use --enable-admission-plugins or --disable-admission-plugins instead. Will be removed in a future version.)</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Admission is divided into two phases. In the first phase, only mutating admission plugins run. In the second phase, only validating admission plugins run. The names in the below list may represent a validating plugin, a mutating plugin, or both. The order of plugins in which they are passed to this flag does not matter. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, Initializers, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, ValidatingAdmissionWebhook.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--admission-control-config-file string</td>
     </tr>
     <tr>
@@ -557,6 +564,20 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The limit that the server gives to clients for the maximum number of streams in an HTTP/2 connection. Zero means to use golang's default.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--insecure-bind-address ip&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 127.0.0.1&nbsp;&nbsp;(DEPRECATED: This flag will be removed in a future version.)</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address on which to serve the --insecure-port (set to 0.0.0.0 for all IPv4 interfaces and :: for all IPv6 interfaces).</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--insecure-port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 8080&nbsp;&nbsp;(DEPRECATED: This flag will be removed in a future version.)</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The port on which to serve unsecured, unauthenticated access. It is assumed that firewall rules are set up such that this port is not reachable from outside of the cluster and that port 443 on the cluster's public address is proxied to this port. This is performed by nginx in the default setup. Set to zero to disable.</td>
     </tr>
 
     <tr>
