@@ -27,6 +27,9 @@ non-production-build: ## Build the non-production site, which adds noindex heade
 sass-build:
 	scripts/sass.sh build
 
+sass-develop:
+	scripts/sass.sh develop
+
 serve: ## Boot the development server.
 	hugo server --ignoreCache --disableFastRender
 

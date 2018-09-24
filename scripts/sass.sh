@@ -5,15 +5,34 @@ if [[ $# -eq 0 ]] ; then
     exit 0
 fi
 
-case $1 in
-    build)
+__build() {
+    echo "Building Kubernetes website CSS from Sass sources..."
 
     for filename in case-study-styles styles; do
         echo $filename
-        node-sass \
-            --output-style compressed \
+        sass \
+            --style=compressed \
             sass/$filename.sass static/css/$filename.css
     done
 
+    echo "Done building CSS!"
+}
+
+__develop() {
+    echo "Watching Sass sources for changes..."
+
+    sass \
+        --watch \
+        sass/styles.sass:static/css/styles.css \
+        sass/case-study-styles.sass:static/css/case-study-styles.css
+}
+
+case $1 in
+    build)
+        __build
+    ;;
+
+    develop)
+        __develop
     ;;
 esac
