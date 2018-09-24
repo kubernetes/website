@@ -67,7 +67,7 @@ You should see something like the following:
 Modify `configmap/kubeadm-config` for this control plane node:
 
 ```shell
-kubectl get configmap -n kube-system kubeadm-config -o yaml >/tmp/kubeadm-config-cm.yaml
+kubectl get configmap -n kube-system kubeadm-config -o yaml > kubeadm-config-cm.yaml
 ```
 
 Open the file in an editor and replace the following values:
@@ -101,7 +101,7 @@ Open the file in an editor and replace the following values:
 You must also pass an additional argument (`initial-cluster-state: existing`) to etcd.local.extraArgs.
 
 ```shell
-kubectl apply -f /tmp/kubeadm-config-cm.yaml --force
+kubectl apply -f kubeadm-config-cm.yaml --force
 ```
 
 Start the upgrade:
@@ -121,7 +121,7 @@ The `kubeadm-config` ConfigMap is now updated from `v1alpha2` version to `v1alph
 Each additional control plane node requires modifications that are different from the first control plane node. Run:
 
 ```shell
-kubectl get configmap -n kube-system kubeadm-config -o yaml >/tmp/kubeadm-config-cm.yaml
+kubectl get configmap -n kube-system kubeadm-config -o yaml > kubeadm-config-cm.yaml
 ```
 
 Open the file in an editor and replace the following values for `ClusterConfiguration`:
@@ -168,13 +168,13 @@ Get a copy of the kubeadm config used to create this cluster. The config should 
 
 ```
 # on each control plane node
-kubectl get configmap -n kube-system kubeadm-config -o jsonpath={.data.MasterConfiguration} > /tmp/kubeadm-config.yaml
+kubectl get configmap -n kube-system kubeadm-config -o jsonpath={.data.MasterConfiguration} > kubeadm-config.yaml
 ```
 
 Now run the upgrade on each control plane node one at a time.
 
 ```
-kubeadm upgrade apply v1.12.0 --config /tmp/kubeadm-config.yaml
+kubeadm upgrade apply v1.12.0 --config kubeadm-config.yaml
 ```
 
 ### Upgrade etcd
@@ -195,7 +195,7 @@ Repeat this step on the other etcd hosts.
 
 ### Manually upgrade your CNI provider
 
-Your Container Network Interface (CNI) provider might have its own upgrade instructions to follow. Check the [addons](/docs/concepts/cluster-administration/addons/) page to find your CNI provider and see whether you need to tak additional upgrade steps.
+Your Container Network Interface (CNI) provider might have its own upgrade instructions to follow. Check the [addons](/docs/concepts/cluster-administration/addons/) page to find your CNI provider and see whether you need to take additional upgrade steps.
 
 ### Update kubelet and kubectl packages
 
@@ -231,10 +231,10 @@ If the `STATUS` column shows `Ready` for the upgraded host, you can continue. Yo
 
 If the upgrade fails, see whether one of the following scenarios applies:
 
-- If `/tmp/kubeadm upgrade apply` failed to upgrade the cluster, it will try to perform a rollback. If this is the case on the first master, the cluster is probably still intact.
+- If `kubeadm upgrade apply` failed to upgrade the cluster, it will try to perform a rollback. If this is the case on the first master, the cluster is probably still intact.
 
-   You can run `/tmp/kubeadm upgrade apply` again, because it is idempotent and should eventually make sure the actual state is the desired state you are declaring. You can run `/tmp/kubeadm upgrade apply` to change a running cluster with `x.x.x --> x.x.x` with `--force` to recover from a bad state.
+   You can run `kubeadm upgrade apply` again, because it is idempotent and should eventually make sure the actual state is the desired state you are declaring. You can run `kubeadm upgrade apply` to change a running cluster with `x.x.x --> x.x.x` with `--force` to recover from a bad state.
 
-- If `/tmp/kubeadm upgrade apply` on one of the secondary masters failed, the cluster is upgraded and working, but the secondary masters are in an undefined state. You need to investigate further and join the secondaries manually.
+- If `kubeadm upgrade apply` on one of the secondary masters failed, the cluster is upgraded and working, but the secondary masters are in an undefined state. You need to investigate further and join the secondaries manually.
 
 {{% /capture %}}
