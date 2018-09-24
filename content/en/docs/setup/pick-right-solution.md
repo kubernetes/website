@@ -74,6 +74,8 @@ a Kubernetes cluster from scratch.
 
 * [APPUiO](https://appuio.ch) runs an OpenShift public cloud platform, supporting any Kubernetes workload. Additionally APPUiO offers Private Managed OpenShift Clusters, running on any public or private cloud.
 
+* [VMware Kubernetes Engine](https://cloud.vmware.com/vmware-kubernetes-engine) is a Kubernetes-as-a-Service offering that provides easy to use, secure by default, cost effective and fully managed Kubernetes clusters for application developers and IT operators.
+
 # Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -217,6 +219,7 @@ any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/20
 Alibaba Cloud Container Service For Kubernetes | ROS        | CentOS | flannel/Terway       | [docs](https://www.aliyun.com/product/containerservice)                    |  Commercial
 Agile Stacks       | Terraform   | CoreOS | multi-support | [docs](https://www.agilestacks.com/products/kubernetes) | Commercial
 IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://console.bluemix.net/docs/containers/container_index.html) | Commercial 
+VMware Kubernetes Engine |             | Photon OS | Canal | [docs](https://docs.vmware.com/en/VMware-Kubernetes-Engine/) | Commercial
 
 
 {{< note >}}
