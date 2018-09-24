@@ -35,7 +35,6 @@ Enter the following command:
 ```shell
 kubectl get pods -n kube-system -o wide
 ```
-> Note that `kubectl get po` is an abbreviation of `kubectl get pods`.
 
 The output is similar to this:
 
