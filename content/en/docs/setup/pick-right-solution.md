@@ -34,86 +34,85 @@ a Kubernetes cluster from scratch.
 
 * [Minikube](/docs/setup/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
-* [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
-
-* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
-
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) is a Terraform/Packer/BASH based Infrastructure as Code (IaC) scripts to create a seven node (1 Boot, 1 Master, 1 Management, 1 Proxy and 3 Workers) LXD cluster on  Linux Host.
 
+* [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
+
+* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
+
 ## Hosted Solutions
 
-* [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
+* [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
+
+* [APPUiO](https://appuio.ch) runs an OpenShift public cloud platform, supporting any Kubernetes workload. Additionally APPUiO offers Private Managed OpenShift Clusters, running on any public or private cloud.
 
 * [Amazon Elastic Container Service for Kubernetes](https://aws.amazon.com/eks/) offers managed Kubernetes service.
 
 * [Azure Kubernetes Service](https://azure.microsoft.com/services/container-service/) offers managed Kubernetes clusters.
 
-* [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
+* [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
-* [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
+* [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
+
+* [IBM Cloud Kubernetes Service](https://console.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
+
+* [Kubermatic](https://www.loodse.com) provides managed Kubernetes clusters for various public clouds, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
+
+* [Kublr](https://kublr.com) offers enterprise-grade secure, scalable, highly reliable Kubernetes clusters on AWS, Azure, GCP, and on-premise. It includes out-of-the-box backup and disaster recovery, multi-cluster centralized logging and monitoring, and built-in alerting.
 
 * [Madcore.Ai](https://madcore.ai) is devops-focused CLI tool for deploying Kubernetes infrastructure in AWS. Master, auto-scaling group nodes with spot-instances, ingress-ssl-lego, Heapster, and Grafana.
-
-* [Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or on any public cloud, and provides 24/7 health monitoring and alerting. (Kube2go, a web-UI driven Kubernetes cluster deployment service Platform9 released, has been integrated to Platform9 Sandbox.)
 
 * [OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift.
 
 * [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
-* [IBM Cloud Kubernetes Service](https://console.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
-
-* [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
-
-* [Kubermatic](https://www.loodse.com) provides managed Kubernetes clusters for various public clouds, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
-
 * [Oracle Container Engine for Kubernetes](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm) is a fully-managed, scalable, and highly available service that you can use to deploy your containerized applications to the cloud.
 
-* [Kublr](https://kublr.com) offers enterprise-grade secure, scalable, highly reliable Kubernetes clusters on AWS, Azure, GCP, and on-premise. It includes out-of-the-box backup and disaster recovery, multi-cluster centralized logging and monitoring, and built-in alerting.
+* [Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or on any public cloud, and provides 24/7 health monitoring and alerting. (Kube2go, a web-UI driven Kubernetes cluster deployment service Platform9 released, has been integrated to Platform9 Sandbox.)
 
-* [APPUiO](https://appuio.ch) runs an OpenShift public cloud platform, supporting any Kubernetes workload. Additionally APPUiO offers Private Managed OpenShift Clusters, running on any public or private cloud.
+* [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
-# Turnkey Cloud Solutions
+## Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
 
-* [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
-* [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
-* [AWS](/docs/setup/turnkey/aws/)
-* [Azure](/docs/setup/turnkey/azure/)
-* [Tectonic by CoreOS](https://coreos.com/tectonic)
-* [CenturyLink Cloud](/docs/setup/turnkey/clc/)
-* [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
-* [IBM Cloud Private Running on Multiple Clouds](https://www.ibm.com/developerworks/community/wikis/home?lang=en-us#!/wiki/W1559b1be149d_43b0_881e_9783f38faaff/page/IBM%20Cloud%20Private%20running%20on%20multiple%20clouds)
-* [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
-* [Madcore.Ai](https://madcore.ai/)
-* [Kubermatic](https://cloud.kubermatic.io)
-* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
-* [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
-* [Gardener](https://gardener.cloud/)
-* [Kontena Pharos](https://kontena.io/pharos/)
-* [Kublr](https://kublr.com/)
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [Alibaba Cloud](/docs/setup/turnkey/alibaba-cloud/)
 * [APPUiO](https://appuio.ch)
+* [AWS](/docs/setup/turnkey/aws/)
+* [Azure](/docs/setup/turnkey/azure/)
+* [CenturyLink Cloud](/docs/setup/turnkey/clc/)
+* [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
+* [Gardener](https://gardener.cloud/)
+* [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
+* [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
+* [Kontena Pharos](https://kontena.io/pharos/)
+* [Kubermatic](https://cloud.kubermatic.io)
+* [Kublr](https://kublr.com/)
+* [Madcore.Ai](https://madcore.ai/)
+* [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
+* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
+* [Tectonic by CoreOS](https://coreos.com/tectonic)
 
 ## On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
 few commands.
 
-* [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
-* [Kubermatic](https://www.loodse.com)
-* [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
-* [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
-* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
-* [Kontena Pharos](https://kontena.io/pharos/)
-* [Kublr](https://kublr.com/)
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
+* [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
+* [Kontena Pharos](https://kontena.io/pharos/)
+* [Kubermatic](https://www.loodse.com)
+* [Kublr](https://kublr.com/)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
+* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
+* [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
 
 ## Custom Solutions
 
@@ -139,28 +138,28 @@ with a single command per machine.
 These solutions are combinations of cloud providers and operating systems not covered by the above solutions.
 
 * [CoreOS on AWS or GCE](/docs/setup/custom-cloud/coreos/)
+* [Gardener](https://gardener.cloud/)
+* [Kublr](https://kublr.com/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubespray](/docs/setup/custom-cloud/kubespray/)
 * [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
-* [Gardener](https://gardener.cloud/)
-* [Kublr](https://kublr.com/)
 
 ### On-Premises VMs
 
-* [Vagrant](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
 * [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible, CoreOS and flannel)
+* [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
+* [oVirt](/docs/setup/on-premises-vm/ovirt/)
+* [Vagrant](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
+* [VMware](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
 * [VMware vSphere](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)
 * [VMware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
-* [VMware](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
-* [oVirt](/docs/setup/on-premises-vm/ovirt/)
-* [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
 
 ### Bare Metal
 
+* [CoreOS](/docs/setup/custom-cloud/coreos/)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
-* [CoreOS](/docs/setup/custom-cloud/coreos/)
 
 ### Integrations
 
@@ -218,7 +217,7 @@ any                  | RKE          | multi-support    | flannel or canal       
 any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
 Alibaba Cloud Container Service For Kubernetes | ROS        | CentOS | flannel/Terway       | [docs](https://www.aliyun.com/product/containerservice)                    |  Commercial
 Agile Stacks       | Terraform   | CoreOS | multi-support | [docs](https://www.agilestacks.com/products/kubernetes) | Commercial
-IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://console.bluemix.net/docs/containers/container_index.html) | Commercial 
+IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://console.bluemix.net/docs/containers/container_index.html) | Commercial
 
 
 {{< note >}}
