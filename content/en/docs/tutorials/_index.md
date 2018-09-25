@@ -3,6 +3,8 @@ title: Tutorials
 main_menu: true
 weight: 60
 content_template: templates/concept
+aliases:
+- /docs/samples/
 ---
 
 {{% capture overview %}}

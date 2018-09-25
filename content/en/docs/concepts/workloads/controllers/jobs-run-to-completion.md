@@ -9,6 +9,11 @@ feature:
   description: >
     In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
 weight: 70
+aliases:
+- /docs/concepts/jobs/run-to-completion-finite-workloads/
+- /docs/concepts/workloads/controllers/job/
+- /docs/tasks/job/work-queue-1/
+- /docs/user-guide/jobs/
 ---
 
 {{% capture overview %}}

@@ -5,6 +5,10 @@ reviewers:
 title: What is Kubernetes?
 content_template: templates/concept
 weight: 10
+aliases:
+- /docs/concepts/overview/
+- /docs/user-guide/overview/
+- /docs/whatisk8s/
 ---
 
 {{% capture overview %}}

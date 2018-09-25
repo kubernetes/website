@@ -21,4 +21,5 @@ aliases:
 - /docs/user-guide/
 - /gettingstarted/
 - /latest/docs/
+- /kubernetes/
 ---

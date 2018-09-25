@@ -2,6 +2,9 @@
 title: Annotations
 content_template: templates/concept
 weight: 50
+aliases:
+- /docs/concepts/object-metadata/annotations/
+- /docs/user-guide/annotations/
 ---
 
 {{% capture overview %}}

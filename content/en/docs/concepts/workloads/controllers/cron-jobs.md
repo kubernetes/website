@@ -6,6 +6,11 @@ reviewers:
 title: CronJob
 content_template: templates/concept
 weight: 80
+aliases:
+- /docs/concepts/jobs/cron-jobs/
+- /docs/concepts/workloads/controllers/cron-jobs/deployment/
+- /docs/user-guide/cron-jobs/
+- /docs/user-guide/scheduled-jobs/
 ---
 
 {{% capture overview %}}

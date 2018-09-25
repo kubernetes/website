@@ -17,6 +17,9 @@
 /docs/user-guide/kubectl/v1.6/node_modules/*     https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6/ 301
 /kubernetes/swagger-spec/     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
 
+# Community doc redirects
+/code-of-conduct/     /community/code-of-conduct/   301
+
 # Version-based redirects
 /docs/api-reference/v1.6/*     https://v1-6.docs.kubernetes.io/docs/reference/ 301
 /docs/api-reference/v1.7/*     https://v1-7.docs.kubernetes.io/docs/reference/ 301
@@ -25,6 +28,8 @@
 
 # Other splat redirects
 /docs/admin/resourcequota/*     /docs/concepts/policy/resource-quotas/ 301
+/kubernetes-bootcamp/*     /docs/tutorials/kubernetes-basics/ 301
+/docs/templatedemos/*     /docs/home/contribute/page-templates/ 301
 
 # Other redirects
 /docs/reference/issues-security/security/    /security/ 301
@@ -41,14 +46,9 @@
 /docs/api-reference/v1/definitions.html /docs/reference/generated/kubernetes-api/v1.10/ 301
 /docs/api-reference/v1/operations/     /docs/reference/generated/kubernetes-api/v1.10/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
+/docs/concepts/ecosystem/thirdpartyresource/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
 
 # Thus far unchecked
-/docs/concepts/ecosystem/thirdpartyresource/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
-/docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
-/docs/concepts/jobs/run-to-completion-finite-workloads/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
-/docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
-/docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
-/docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
 /docs/concepts/overview/extending/     /docs/concepts/extend-kubernetes/extend-cluster/ 301
 /docs/concepts/policy/container-capabilities/     /docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container/ 301
 /docs/concepts/policy/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
@@ -60,10 +60,8 @@
 /docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
-/docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
-/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
@@ -191,7 +189,6 @@
 /docs/resources-reference/1_7/*     /docs/resources-reference/v1.7/ 301
 /docs/resources-reference/v1.8/*     /docs/api-reference/v1.8/:splat 301
 
-/docs/samples/     /docs/tutorials/ 301
 /docs/stable/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 
 /docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301
@@ -247,7 +244,6 @@
 /docs/tasks/configure-pod-container/romana-network-policy/     /docs/tasks/administer-cluster/romana-network-policy/ 301
 /docs/tasks/configure-pod-container/weave-network-policy/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/tasks/federation/set-up-cluster-federation-kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
-/docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
 /docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
 /docs/tasks/kubectl/install/     /docs/tasks/tools/install-kubectl/ 301
 /docs/tasks/kubectl/list-all-running-container-images/     /docs/tasks/access-application-cluster/list-all-running-container-images/ 301
@@ -261,7 +257,6 @@
 /docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug-application-cluster/debug-init-containers/ 301
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 
-/docs/templatedemos/*     /docs/home/contribute/page-templates/ 301
 /docs/tools/     /docs/reference/tools/ 301
 /docs/tools/kompose/user-guide/     /docs/tasks/configure-pod-container/translate-compose-kubernetes/ 301
 /docs/tools/kompose/     /docs/tools/kompose/user-guide/ 301
@@ -307,7 +302,6 @@
 
 /docs/user-guide/accessing-the-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/user-guide/add-entries-to-pod-etc-hosts-with-host-aliases/     /docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/ 301
-/docs/user-guide/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/user-guide/application-troubleshooting/     /docs/tasks/debug-application-cluster/debug-application/ 301
 /docs/user-guide/compute-resources/     /docs/concepts/configuration/manage-compute-resources-container/ 301
 /docs/user-guide/config-best-practices/     /docs/concepts/configuration/overview/ 301
@@ -318,7 +312,6 @@
 /docs/user-guide/connecting-to-applications-port-forward/     /docs/tasks/access-application-cluster/port-forward-access-application-cluster/ 301
 /docs/user-guide/connecting-to-applications-proxy/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
 /docs/user-guide/container-environment/     /docs/concepts/containers/container-lifecycle-hooks/ 301
-/docs/user-guide/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/user-guide/debugging-pods-and-replication-controllers/     /docs/tasks/debug-application-cluster/debug-pod-replication-controller/ 301
 /docs/user-guide/debugging-services/     /docs/tasks/debug-application-cluster/debug-service/ 301
 /docs/user-guide/deploying-applications/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
@@ -357,7 +350,6 @@
 /docs/user-guide/ingress.md     /docs/concepts/services-networking/ingress/ 301
 /docs/user-guide/introspection-and-debugging/     /docs/tasks/debug-application-cluster/debug-application-introspection/ 301
 /docs/user-guide/jsonpath/     /docs/reference/kubectl/jsonpath/
-/docs/user-guide/jobs/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
 /docs/user-guide/jobs/expansions/     /docs/tasks/job/parallel-processing-expansion/ 301
 /docs/user-guide/jobs/work-queue-1/     /docs/tasks/job/coarse-parallel-processing-work-queue/ 301
 /docs/user-guide/jobs/work-queue-2/     /docs/tasks/job/fine-parallel-processing-work-queue/ 301
@@ -379,7 +371,6 @@
 /docs/user-guide/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/user-guide/node-selection/     /docs/concepts/configuration/assign-pod-node/ 301
 /docs/user-guide/node-selection/README     /docs/concepts/configuration/assign-pod-node/ 301
-/docs/user-guide/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
 /docs/user-guide/persistent-volumes/     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index.md     /docs/concepts/storage/persistent-volumes/ 301
@@ -401,7 +392,6 @@
 /docs/user-guide/replication-controller/operations/     /docs/concepts/workloads/controllers/replicationcontroller/ 301
 /docs/user-guide/resizing-a-replication-controller/     /docs/concepts/workloads/controllers/replicationcontroller/ 301
 /docs/user-guide/rolling-updates/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
-/docs/user-guide/scheduled-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/user-guide/secrets/     /docs/concepts/configuration/secret/ 301
 /docs/user-guide/secrets/walkthrough/     /docs/tasks/inject-data-application/distribute-credentials-secure/ 301
 /docs/user-guide/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
@@ -423,11 +413,7 @@
 /docs/user-guide/walkthrough/k8s201/     /docs/tutorials/k8s201/ 301
 /docs/user-guide/working-with-resources/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 
-/docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
-/events/     /docs/community     301
 /horizontal-pod-autoscaler/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
-/kubernetes/     /docs/ 301
-/kubernetes-bootcamp/*     /docs/tutorials/kubernetes-basics/ 301
 /kubernetes/third_party/swagger-ui/     /docs/reference/ 301
 /media/     /docs/community     301
 /news/     /docs/community     301
@@ -454,9 +440,7 @@
 /docs/admin/kubefed_options/    /docs/reference/generated/kubefed_options/ 301
 /docs/admin/kubefed_unjoin/     /docs/reference/generated/kubefed_unjoin/ 301
 /docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301
-
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
-
 /docs/admin/accessing-the-api/     /docs/reference/access-authn-authz/controlling-access/ 301
 /docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
 /docs/admin/authentication/     /docs/reference/access-authn-authz/authentication/ 301
@@ -468,6 +452,4 @@
 /docs/admin/authorization/rbac/     /docs/reference/access-authn-authz/rbac/ 301
 /docs/admin/authorization/webhook/     /docs/reference/access-authn-authz/webhook/ 301
 /docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301
-
 /docs/admin/high-availability/building/     /docs/setup/independent/high-availability/ 301
-/code-of-conduct/     /community/code-of-conduct/   301

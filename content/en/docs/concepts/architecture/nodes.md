@@ -7,6 +7,7 @@ content_template: templates/concept
 weight: 10
 aliases:
 - /docs/admin/node/
+- /docs/concepts/nodes/node/
 ---
 
 {{% capture overview %}}
