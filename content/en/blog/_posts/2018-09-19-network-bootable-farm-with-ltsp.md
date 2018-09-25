@@ -396,7 +396,7 @@ spec:
       hostNetwork: true
       containers:
       - name: tftpd
-        image: gitlab.opennebula.wedos.cloud:4567/moonshot/docker-ltsp
+        image: registry.example.org/example/ltsp:latest
         command: [ "/usr/sbin/in.tftpd", "-L", "-u", "tftp", "-a", ":69", "-s", "/var/lib/tftpboot" ]
         lifecycle:
           postStart:
@@ -407,7 +407,7 @@ spec:
           mountPath: "/var/lib/tftpboot/ltsp/amd64/config"
 
       - name: nbd-server
-        image: gitlab.opennebula.wedos.cloud:4567/moonshot/docker-ltsp
+        image: registry.example.org/example/ltsp:latest
         command: [ "/bin/nbd-server-wrapper.sh" ]
 
       volumes:
