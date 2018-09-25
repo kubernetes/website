@@ -3,6 +3,8 @@ reviewers:
 - davidopp
 title: Troubleshoot Clusters
 content_template: templates/concept
+aliases:
+- /docs/admin/cluster-troubleshooting/
 ---
 
 {{% capture overview %}}

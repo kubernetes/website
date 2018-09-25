@@ -5,6 +5,8 @@ reviewers:
 title: Cluster Administration Overview
 content_template: templates/concept
 weight: 10
+aliases:
+- /docs/admin
 ---
 
 {{% capture overview %}}

@@ -8,6 +8,8 @@ reviewers:
 title: DaemonSet
 content_template: templates/concept
 weight: 50
+aliases:
+- /docs/admin/daemons/
 ---
 
 {{% capture overview %}}

@@ -4,6 +4,8 @@ reviewers:
 title: Kubernetes Components
 content_template: templates/concept
 weight: 20
+aliases:
+- /docs/admin/cluster-components/
 ---
 
 {{% capture overview %}}

@@ -5,6 +5,8 @@ reviewers:
 title: Container Lifecycle Hooks
 content_template: templates/concept
 weight: 30
+aliases:
+- /concepts/containers/container-lifecycle-hooks/
 ---
 
 {{% capture overview %}}

@@ -4,6 +4,8 @@ reviewers:
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
 content_template: templates/task
+aliases:
+- /docs/admin/etcd/
 ---
 
 {{% capture overview %}}

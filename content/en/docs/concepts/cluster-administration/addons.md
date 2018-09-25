@@ -1,6 +1,9 @@
 ---
 title: Installing Addons
 content_template: templates/concept
+aliases:
+- /docs/admin/add-ons/
+- /docs/admin/addons/
 ---
 
 {{% capture overview %}}

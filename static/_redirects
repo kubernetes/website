@@ -5,24 +5,7 @@
 ###############################################
 
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
-/concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
-/docs/     /docs/home/ 301
 
-/blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/27/kubernetes-1.10-stabilizing-storage-security-networking/     301
-
-/docs/admin/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
-/docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
-/docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
-/docs/admin/apparmor/     /docs/tutorials/clusters/apparmor/ 301
-/docs/admin/audit/     /docs/tasks/debug-application-cluster/audit/ 301
-/docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
-/docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
-/docs/admin/cluster-management/     /docs/tasks/administer-cluster/cluster-management/ 301
-/docs/admin/cluster-troubleshooting/     /docs/tasks/debug-application-cluster/debug-cluster/ 301
-/docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
-/docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
-/docs/admin/dns/     /docs/concepts/services-networking/dns-pod-service/ 301
-/docs/admin/etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/admin/etcd_upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/admin/extensible-admission-controllers.md     /docs/admin/extensible-admission-controllers/ 301
 /docs/admin/federation/kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301

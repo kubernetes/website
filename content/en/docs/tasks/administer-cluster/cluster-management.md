@@ -4,6 +4,8 @@ reviewers:
 - thockin
 title: Cluster Management
 content_template: templates/concept
+aliases:
+- /docs/admin/cluster-management/
 ---
 
 {{% capture overview %}}

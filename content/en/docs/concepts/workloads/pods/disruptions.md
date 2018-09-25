@@ -6,6 +6,8 @@ reviewers:
 title: Disruptions
 content_template: templates/concept
 weight: 60
+aliases:
+- /docs/admin/disruptions/
 ---
 
 {{% capture overview %}}

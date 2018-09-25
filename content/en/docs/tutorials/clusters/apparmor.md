@@ -3,6 +3,8 @@ reviewers:
 - stclair
 title: AppArmor
 content_template: templates/tutorial
+aliases:
+- /docs/admin/apparmor/
 ---
 
 {{% capture overview %}}

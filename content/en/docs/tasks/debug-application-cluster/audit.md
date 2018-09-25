@@ -5,6 +5,8 @@ reviewers:
 - ericchiang
 content_template: templates/concept
 title: Auditing
+aliases:
+- /docs/admin/audit/
 ---
 
 {{% capture overview %}}

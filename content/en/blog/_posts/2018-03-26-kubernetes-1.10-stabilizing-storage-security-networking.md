@@ -8,6 +8,9 @@ blogger_id: tag:blogger.com,1999:blog-112706738355446097.post-651970579535845758
 blogger_orig_url: https://kubernetes.io/blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking
 slug: kubernetes-1.10-stabilizing-storage-security-networking
 date: 2018-03-26
+aliases:
+- /blog/2018/03/27/kubernetes-1.10-stabilizing-storage-security-networking/
+- /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/
 ---
 
 ***Editor's note: today's post is by the [1.10 Release

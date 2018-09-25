@@ -5,6 +5,8 @@ reviewers:
 title: DNS for Services and Pods
 content_template: templates/concept
 weight: 20
+aliases:
+- /docs/admin/dns/
 ---
 {{% capture overview %}}
 This page provides an overview of DNS support by Kubernetes.
