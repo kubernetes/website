@@ -1,6 +1,8 @@
 ---
 title: Configure Quotas for API Objects
 content_template: templates/task
+aliases:
+- /docs/admin/resourcequota/walkthrough/
 ---
 
 

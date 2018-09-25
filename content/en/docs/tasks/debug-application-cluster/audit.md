@@ -7,6 +7,7 @@ content_template: templates/concept
 title: Auditing
 aliases:
 - /docs/admin/audit/
+- /docs/concepts/cluster-administration/audit/
 ---
 
 {{% capture overview %}}

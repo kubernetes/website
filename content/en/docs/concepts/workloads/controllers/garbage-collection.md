@@ -2,6 +2,8 @@
 title: Garbage Collection
 content_template: templates/concept
 weight: 60
+aliases:
+- /docs/concepts/abstractions/controllers/garbage-collection/
 ---
 
 {{% capture overview %}}

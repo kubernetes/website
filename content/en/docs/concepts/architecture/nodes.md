@@ -5,6 +5,8 @@ reviewers:
 title: Nodes
 content_template: templates/concept
 weight: 10
+aliases:
+- /docs/admin/node/
 ---
 
 {{% capture overview %}}

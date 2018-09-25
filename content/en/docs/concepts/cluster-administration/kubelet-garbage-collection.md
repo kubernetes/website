@@ -4,6 +4,8 @@ reviewers:
 title: Configuring kubelet Garbage Collection
 content_template: templates/concept
 weight: 70
+aliases:
+- /docs/admin/garbage-collection/
 ---
 
 {{% capture overview %}}

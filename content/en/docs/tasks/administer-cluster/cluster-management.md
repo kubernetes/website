@@ -6,6 +6,7 @@ title: Cluster Management
 content_template: templates/concept
 aliases:
 - /docs/admin/cluster-management/
+- /docs/concepts/cluster-administration/cluster-management/
 ---
 
 {{% capture overview %}}

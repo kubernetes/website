@@ -3,6 +3,8 @@ reviewers:
 - jsafrane
 title: Static Pods
 content_template: templates/concept
+aliases:
+- /docs/admin/static-pods/
 ---
 
 {{% capture overview %}}

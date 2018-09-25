@@ -4,6 +4,8 @@ reviewers:
 - janetkuo
 title: Namespaces Walkthrough
 content_template: templates/task
+aliases:
+- /docs/admin/namespaces/walkthrough/
 ---
 
 {{% capture overview %}}

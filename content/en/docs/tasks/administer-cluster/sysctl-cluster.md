@@ -3,6 +3,8 @@ title: Using sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
 content_template: templates/task
+aliases:
+- /docs/admin/sysctls/
 ---
 
 {{% capture overview %}}

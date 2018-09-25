@@ -2,6 +2,8 @@
 title: Accessing Clusters
 weight: 20
 content_template: templates/concept
+aliases:
+- /docs/concepts/cluster-administration/access-cluster/
 ---
 
 {{% capture overview %}}

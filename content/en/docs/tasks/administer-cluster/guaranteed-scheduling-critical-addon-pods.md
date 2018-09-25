@@ -5,6 +5,8 @@ reviewers:
 - piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
 content_template: templates/concept
+aliases:
+- /docs/admin/rescheduler/
 ---
 
 {{% capture overview %}}

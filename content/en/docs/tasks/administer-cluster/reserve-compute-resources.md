@@ -5,6 +5,9 @@ reviewers:
 - dashpole
 title: Reserve Compute Resources for System Daemons
 content_template: templates/task
+aliases:
+- /docs/admin/node-allocatable/
+- /docs/admin/node-allocatable.md
 ---
 
 {{% capture overview %}}

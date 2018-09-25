@@ -4,6 +4,8 @@ reviewers:
 title: Cluster Networking
 content_template: templates/concept
 weight: 50
+aliases:
+- /docs/admin/networking/
 ---
 
 {{% capture overview %}}

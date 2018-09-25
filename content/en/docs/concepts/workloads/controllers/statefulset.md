@@ -9,6 +9,8 @@ reviewers:
 title: StatefulSets
 content_template: templates/concept
 weight: 40
+aliases:
+- /docs/concepts/abstractions/controllers/statefulsets/
 ---
 
 {{% capture overview %}}

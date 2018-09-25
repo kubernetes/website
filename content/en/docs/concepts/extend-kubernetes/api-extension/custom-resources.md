@@ -5,6 +5,8 @@ reviewers:
 - deads2k
 content_template: templates/concept
 weight: 20
+aliases:
+- /docs/concepts/api-extension/custom-resources/
 ---
 
 {{% capture overview %}}

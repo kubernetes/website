@@ -7,6 +7,7 @@ content_template: templates/task
 aliases:
 - /docs/admin/etcd/
 - /docs/admin/etcd_upgrade/
+- /docs/concepts/cluster-administration/configure-etcd/
 ---
 
 {{% capture overview %}}

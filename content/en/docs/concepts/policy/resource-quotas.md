@@ -4,6 +4,8 @@ reviewers:
 title: Resource Quotas
 content_template: templates/concept
 weight: 10
+aliases:
+- /docs/admin/resource-quota/
 ---
 
 {{% capture overview %}}

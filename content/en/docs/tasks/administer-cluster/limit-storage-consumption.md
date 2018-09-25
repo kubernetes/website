@@ -1,6 +1,8 @@
 ---
 title: Limit Storage Consumption
 content_template: templates/task
+aliases:
+- /docs/admin/resourcequota/limitstorageconsumption/
 ---
 
 {{% capture overview %}}

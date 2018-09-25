@@ -4,6 +4,8 @@ reviewers:
 title: Pod Overview
 content_template: templates/concept
 weight: 10
+aliases:
+- /docs/concepts/abstractions/pod/
 ---
 
 {{% capture overview %}}

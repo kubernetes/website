@@ -6,6 +6,8 @@ reviewers:
 - chenopis
 content_template: templates/concept
 weight: 10
+aliases:
+- /docs/concepts/api-extension/apiserver-aggregation/
 ---
 
 {{% capture overview %}}

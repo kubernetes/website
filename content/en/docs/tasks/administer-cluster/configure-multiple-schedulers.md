@@ -4,6 +4,8 @@ reviewers:
 - madhusudancs
 title: Configure Multiple Schedulers
 content_template: templates/task
+aliases:
+- /docs/admin/multiple-schedulers/
 ---
 
 {{% capture overview %}}

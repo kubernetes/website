@@ -4,6 +4,8 @@ reviewers:
 - dchen1107
 content_template: templates/task
 title: Monitor Node Health
+aliases:
+- /docs/admin/node-problem/
 ---
 
 {{% capture overview %}}

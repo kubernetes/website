@@ -6,6 +6,8 @@ reviewers:
 title: Master-Node communication
 content_template: templates/concept
 weight: 20
+aliases:
+- /docs/admin/master-node-communication/
 ---
 
 {{% capture overview %}}

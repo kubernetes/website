@@ -3,6 +3,9 @@ reviewers:
 - jszczepkowski
 title: Set up High-Availability Kubernetes Masters
 content_template: templates/task
+aliases:
+- /docs/admin/ha-master-gce/
+- /docs/admin/ha-master-gce.md/
 ---
 
 {{% capture overview %}}

@@ -3,6 +3,9 @@ reviewers:
 - madhusudancs
 content_template: templates/task
 title: Set up Cluster Federation with Kubefed
+aliases:
+- /docs/admin/federation/kubefed/
+- /docs/admin/federation/kubefed.md
 ---
 
 {{% capture overview %}}
