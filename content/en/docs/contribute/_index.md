@@ -4,6 +4,9 @@ title: Contribute to Kubernetes docs
 linktitle: Contribute
 main_menu: true
 weight: 80
+aliases:
+- /editdocs/
+- /docs/home/editdocs/
 ---
 
 {{% capture overview %}}

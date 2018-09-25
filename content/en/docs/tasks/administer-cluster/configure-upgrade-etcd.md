@@ -6,6 +6,7 @@ title: Operating etcd clusters for Kubernetes
 content_template: templates/task
 aliases:
 - /docs/admin/etcd/
+- /docs/admin/etcd_upgrade/
 ---
 
 {{% capture overview %}}

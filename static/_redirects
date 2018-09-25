@@ -4,9 +4,28 @@
 # test at https://play.netlify.com/redirects  #
 ###############################################
 
+# Redirects to pages outside of kubernetes.io
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
+/swagger-spec/*     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
+/docs/getting-started-guides/meanstack/     https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d/ 301
+/docs/getting-started-guides/vsphere/     https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/ 301
+/docs/reference/workloads-18-19/     https://v1-9.docs.kubernetes.io/docs/reference/workloads-18-19/ 301
+/docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
+/docs/tasks/debug-application-cluster/sematext-logging-monitoring/     https://sematext.com/kubernetes/ 301
+/docs/user-guide/kubectl/v1.8/*     https://v1-8.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301
+/docs/user-guide/kubectl/v1.9/*     https://v1-9.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301
+/docs/user-guide/kubectl/v1.6/node_modules/*     https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6/ 301
+/kubernetes/swagger-spec/     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
 
-/docs/admin/etcd_upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
+# Version-based redirects
+/docs/api-reference/v1.6/*     https://v1-6.docs.kubernetes.io/docs/reference/ 301
+/docs/api-reference/v1.7/*     https://v1-7.docs.kubernetes.io/docs/reference/ 301
+/docs/api-reference/v1.8/*     https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/:splat 301
+/docs/api-reference/v1.9/      https://v1-9.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.9/ 301
+
+# Other redirects
+/docs/reference/issues-security/security/    /security/ 301
+
 /docs/admin/extensible-admission-controllers.md     /docs/admin/extensible-admission-controllers/ 301
 /docs/admin/federation/kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 /docs/admin/federation/kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
@@ -40,13 +59,7 @@
 /docs/admin/resource-quota/     /docs/concepts/policy/resource-quotas/     301
 /docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
 
-/docs/api/     /docs/concepts/overview/kubernetes-api/ 301
-
 /docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
-/docs/api-reference/v1.6/*     https://v1-6.docs.kubernetes.io/docs/reference/ 301
-/docs/api-reference/v1.7/*     https://v1-7.docs.kubernetes.io/docs/reference/ 301
-/docs/api-reference/v1.8/*     https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/:splat 301
-/docs/api-reference/v1.9/      https://v1-9.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.9/ 301
 /docs/api-reference/v1/definitions/    /docs/reference/generated/kubernetes-api/v1.10/ 301
 /docs/api-reference/v1/definitions.html /docs/reference/generated/kubernetes-api/v1.10/ 301
 /docs/api-reference/v1/operations/     /docs/reference/generated/kubernetes-api/v1.10/ 301
@@ -148,7 +161,6 @@
 /docs/getting-started-guides/kubectl/     /docs/reference/kubectl/overview/ 301
 /docs/getting-started-guides/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/getting-started-guides/logging-elasticsearch/     /docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/ 301
-/docs/getting-started-guides/meanstack/     https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d/ 301
 /docs/getting-started-guides/minikube/     /docs/setup/minikube/ 301
 /docs/getting-started-guides/network-policy/calico/     /docs/tasks/administer-cluster/calico-network-policy/ 301
 /docs/getting-started-guides/network-policy/romana/     /docs/tasks/administer-cluster/romana-network-policy/ 301
@@ -161,7 +173,6 @@
 /docs/getting-started-guides/ubuntu/automated/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/ubuntu/calico/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/vagrant/     /docs/getting-started-guides/alternatives/ 301
-/docs/getting-started-guides/vsphere/     https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/ 301
 /docs/getting-started-guides/windows/While/     /docs/getting-started-guides/windows/ 301
 /docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
 /docs/getting-started-guides/alibaba-cloud/ /docs/setup/turnkey/alibaba-cloud/ 301
@@ -225,15 +236,11 @@
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
-/docs/reference/workloads-18-19/     https://v1-9.docs.kubernetes.io/docs/reference/workloads-18-19/ 301
-
-/docs/reporting-security-issues/     /security/ 301
 
 /docs/resources-reference/1_6/*     /docs/resources-reference/v1.6/ 301
 /docs/resources-reference/1_7/*     /docs/resources-reference/v1.7/ 301
 /docs/resources-reference/v1.8/*     /docs/api-reference/v1.8/:splat 301
 
-/docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /docs/samples/     /docs/tutorials/ 301
 /docs/stable/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 
@@ -290,7 +297,6 @@
 /docs/tasks/configure-pod-container/projected-volume/     /docs/tasks/configure-pod-container/configure-projected-volume-storage/ 301
 /docs/tasks/configure-pod-container/romana-network-policy/     /docs/tasks/administer-cluster/romana-network-policy/ 301
 /docs/tasks/configure-pod-container/weave-network-policy/     /docs/tasks/administer-cluster/weave-network-policy/ 301
-/docs/tasks/debug-application-cluster/sematext-logging-monitoring/     https://sematext.com/kubernetes/ 301
 /docs/tasks/federation/set-up-cluster-federation-kubefed.md     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 /docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
 /docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
@@ -411,13 +417,10 @@
 /docs/user-guide/kubeconfig-file/     /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
 /docs/user-guide/kubectl-overview/     /docs/reference/kubectl/overview/
 /docs/user-guide/kubectl/     /docs/reference/generated/kubectl/kubectl-options/
-/docs/user-guide/kubectl/v1.8/*     https://v1-8.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301
-/docs/user-guide/kubectl/v1.9/*     https://v1-9.docs.kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/:splat 301
 /docs/user-guide/kubectl/v1.10/*     /docs/reference/generated/kubectl/kubectl-commands/:splat 301
 /docs/user-guide/kubectl-conventions/     /docs/reference/kubectl/conventions/
 /docs/user-guide/kubectl-cheatsheet/     /docs/reference/kubectl/cheatsheet/
 /docs/user-guide/kubectl/kubectl_*/     /docs/reference/generated/kubectl/kubectl-commands#:splat 301
-/docs/user-guide/kubectl/v1.6/node_modules/*     https://v1-6.docs.kubernetes.io/docs/user-guide/kubectl/v1.6/ 301
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 /docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-probes/ 301
 /docs/user-guide/load-balancer/     /docs/tasks/access-application-cluster/create-external-load-balancer/ 301
@@ -481,19 +484,16 @@
 /horizontal-pod-autoscaler/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
 /kubernetes/     /docs/ 301
 /kubernetes-bootcamp/*     /docs/tutorials/kubernetes-basics/ 301
-/kubernetes/swagger-spec/     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
 /kubernetes/third_party/swagger-ui/     /docs/reference/ 301
 /latest/docs/     /docs/home/ 301
 /media/     /docs/community     301
 /news/     /docs/community     301
 /resource-quota/     /docs/concepts/policy/resource-quotas/ 301
 /serviceaccount/token/     /docs/tasks/configure-pod-container/configure-service-account/ 301
-/swagger-spec/*     https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/ 301
+
 /third_party/swagger-ui/*     /docs/reference/ 301
 /v1.1/docs/admin/networking.html     /docs/concepts/cluster-administration/networking/     301
 /v1.1/docs/getting-started-guides/     /docs/tutorials/kubernetes-basics/ 301
-
-https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:splat 301
 
 /docs/admin/cloud-controller-manager/     /docs/reference/generated/cloud-controller-manager/ 301
 /docs/admin/kube-apiserver/     /docs/reference/generated/kube-apiserver/ 301
@@ -513,9 +513,6 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301
 
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
-
-/editdocs/     /docs/contribute/     301
-/docs/home/editdocs/  /docs/contribute/ 301
 
 /docs/admin/accessing-the-api/     /docs/reference/access-authn-authz/controlling-access/ 301
 /docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
