@@ -34,7 +34,6 @@
 /docs/admin/kubelet-authentication-authorization/     /docs/reference/command-line-tools-reference/kubelet-authentication-authorization/ 301
 /docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
 /docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
-/docs/admin/network-plugins/     /docs/concepts/cluster-administration/network-plugins/ 301
 /docs/admin/node-conformance.md     /docs/admin/node-conformance/ 301
 /docs/admin/upgrade-1-6/     /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
 /docs/api-reference/labels-annotations-taints/     /docs/reference/labels-annotations-taints/ 301
@@ -43,21 +42,7 @@
 /docs/api-reference/v1/operations/     /docs/reference/generated/kubernetes-api/v1.10/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
 
-
-
-/docs/concepts/cluster-administration/etcd-upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
-/docs/concepts/cluster-administration/federation-service-discovery/     /docs/tasks/federation/federation-service-discovery/ 301
-/docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
-/docs/concepts/cluster-administration/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
-/docs/concepts/cluster-administration/multiple-clusters/     /docs/concepts/cluster-administration/federation/ 301
-/docs/concepts/cluster-administration/network-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/ 301
-/docs/concepts/cluster-administration/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301
-/docs/concepts/cluster-administration/resource-usage-monitoring /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
-/docs/concepts/cluster-administration/sysctl-cluster/ /docs/tasks/administer-cluster/sysctl-cluster/ 301
-/docs/concepts/cluster-administration/static-pod/     /docs/tasks/administer-cluster/static-pod/ 301
-/docs/concepts/clusters/logging/     /docs/concepts/cluster-administration/logging/ 301
-/docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
-/docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
+# Thus far unchecked
 /docs/concepts/ecosystem/thirdpartyresource/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
@@ -69,7 +54,6 @@
 /docs/concepts/policy/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
 /docs/concepts/service-catalog/     /docs/concepts/extend-kubernetes/service-catalog/ 301
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
-/docs/concepts/storage/etcd-store-api-object/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/storage/volumes/emptyDirapiVersion/     /docs/concepts/storage/volumes/#emptydir/ 301
 /docs/concepts/tools/kubectl/object-management-overview/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 /docs/concepts/tools/kubectl/object-management-using-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
@@ -126,7 +110,6 @@
 /docs/getting-started-guides/kargo/     /docs/getting-started-guides/kubespray/ 301
 /docs/getting-started-guides/kubeadm/     /docs/setup/independent/create-cluster-kubeadm/ 301
 /docs/getting-started-guides/kubectl/     /docs/reference/kubectl/overview/ 301
-/docs/getting-started-guides/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/getting-started-guides/logging-elasticsearch/     /docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/ 301
 /docs/getting-started-guides/minikube/     /docs/setup/minikube/ 301
 /docs/getting-started-guides/network-policy/calico/     /docs/tasks/administer-cluster/calico-network-policy/ 301
@@ -254,7 +237,6 @@
 /docs/tasks/configure-pod-container/communicate-containers-same-pod/     /docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/ 301
 /docs/tasks/configure-pod-container/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
 /docs/tasks/configure-pod-container/declare-network-policy/     /docs/tasks/administer-cluster/declare-network-policy/ 301
-/docs/tasks/configure-pod-container/define-command-argument-container/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/tasks/configure-pod-container/define-environment-variable-container/     /docs/tasks/inject-data-application/define-environment-variable-container/ 301
 /docs/tasks/configure-pod-container/distribute-credentials-secure/     /docs/tasks/inject-data-application/distribute-credentials-secure/ 301
 /docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/     /docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/ 301
@@ -323,7 +305,6 @@
 /docs/tutorials/stateless-application/run-stateless-application-deployment/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/tutorials/tasks/set-up-cluster-federation-kubefed/     /docs/tasks/federation/set-up-cluster-federation-kubefed/ 301
 
-/docs/user-guide/     /docs/home/ 301
 /docs/user-guide/accessing-the-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/user-guide/add-entries-to-pod-etc-hosts-with-host-aliases/     /docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/ 301
 /docs/user-guide/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
@@ -337,7 +318,6 @@
 /docs/user-guide/connecting-to-applications-port-forward/     /docs/tasks/access-application-cluster/port-forward-access-application-cluster/ 301
 /docs/user-guide/connecting-to-applications-proxy/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
 /docs/user-guide/container-environment/     /docs/concepts/containers/container-lifecycle-hooks/ 301
-/docs/user-guide/containers/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/user-guide/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/user-guide/debugging-pods-and-replication-controllers/     /docs/tasks/debug-application-cluster/debug-pod-replication-controller/ 301
 /docs/user-guide/debugging-services/     /docs/tasks/debug-application-cluster/debug-service/ 301
@@ -391,9 +371,7 @@
 /docs/user-guide/labels/     /docs/concepts/overview/working-with-objects/labels/ 301
 /docs/user-guide/liveness/     /docs/tasks/configure-pod-container/configure-liveness-readiness-probes/ 301
 /docs/user-guide/load-balancer/     /docs/tasks/access-application-cluster/create-external-load-balancer/ 301
-/docs/user-guide/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/user-guide/logging/elasticsearch/     /docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/ 301
-/docs/user-guide/logging/overview/     /docs/concepts/cluster-administration/logging/ 301
 /docs/user-guide/logging/stackdriver/     /docs/tasks/debug-application-cluster/logging-stackdriver/ 301
 /docs/user-guide/managing-deployments/     /docs/concepts/cluster-administration/manage-deployment/ 301
 /docs/user-guide/monitoring/     /docs/tasks/debug-application-cluster/resource-usage-monitoring/ 301
@@ -447,12 +425,10 @@
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301
 /events/     /docs/community     301
-/gettingstarted/     /docs/home/ 301
 /horizontal-pod-autoscaler/     /docs/tasks/run-application/horizontal-pod-autoscale/ 301
 /kubernetes/     /docs/ 301
 /kubernetes-bootcamp/*     /docs/tutorials/kubernetes-basics/ 301
 /kubernetes/third_party/swagger-ui/     /docs/reference/ 301
-/latest/docs/     /docs/home/ 301
 /media/     /docs/community     301
 /news/     /docs/community     301
 /resource-quota/     /docs/concepts/policy/resource-quotas/ 301

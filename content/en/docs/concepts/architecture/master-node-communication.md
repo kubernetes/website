@@ -8,6 +8,7 @@ content_template: templates/concept
 weight: 20
 aliases:
 - /docs/admin/master-node-communication/
+- /docs/concepts/cluster-administration/master-node-communication/
 ---
 
 {{% capture overview %}}

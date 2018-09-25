@@ -7,6 +7,7 @@ title: Configure Out Of Resource Handling
 content_template: templates/concept
 aliases:
 - /docs/admin/out-of-resource/
+- /docs/concepts/cluster-administration/out-of-resource/
 ---
 
 {{% capture overview %}}

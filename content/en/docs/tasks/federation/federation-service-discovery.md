@@ -4,6 +4,8 @@ reviewers:
 - quinton-hoole
 content_template: templates/task
 title: Cross-cluster Service Discovery using Federated Services
+aliases:
+- /docs/concepts/cluster-administration/federation-service-discovery/
 ---
 
 {{% capture overview %}}

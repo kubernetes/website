@@ -5,6 +5,7 @@ reviewers:
 content_template: templates/task
 aliases:
 - /docs/admin/sysctls/
+- /docs/concepts/cluster-administration/sysctl-cluster/
 ---
 
 {{% capture overview %}}

@@ -6,6 +6,9 @@ reviewers:
 title: Network Plugins
 content_template: templates/concept
 weight: 10
+aliases:
+- /docs/admin/network-plugins/
+- /docs/concepts/cluster-administration/network-plugins/
 ---
 
 {{< toc >}}

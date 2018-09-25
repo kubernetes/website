@@ -17,4 +17,8 @@ menu:
     weight: 20
     post: >
       <p>Learn how to use Kubernetes with the use of walkthroughs, samples, and reference documentation. You can even <a href="/editdocs/" data-auto-burger-exclude>help contribute to the docs</a>!</p>
+aliases:
+- /docs/user-guide/
+- /gettingstarted/
+- /latest/docs/
 ---

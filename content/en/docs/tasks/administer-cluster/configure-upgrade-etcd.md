@@ -8,6 +8,8 @@ aliases:
 - /docs/admin/etcd/
 - /docs/admin/etcd_upgrade/
 - /docs/concepts/cluster-administration/configure-etcd/
+- /docs/concepts/cluster-administration/etcd-upgrade/
+- /docs/concepts/storage/etcd-store-api-object/
 ---
 
 {{% capture overview %}}

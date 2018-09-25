@@ -5,6 +5,7 @@ title: Static Pods
 content_template: templates/concept
 aliases:
 - /docs/admin/static-pods/
+- /docs/concepts/cluster-administration/static-pod/
 ---
 
 {{% capture overview %}}

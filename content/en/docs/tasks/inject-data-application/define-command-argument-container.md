@@ -2,6 +2,10 @@
 title: Define a Command and Arguments for a Container
 content_template: templates/task
 weight: 10
+aliases:
+- /docs/user-guide/containers/
+- /docs/concepts/configuration/container-command-arg/
+- /docs/tasks/configure-pod-container/define-command-argument-container/
 ---
 
 {{% capture overview %}}

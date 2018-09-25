@@ -3,6 +3,8 @@ reviewers:
 - mikedanese
 content_template: templates/concept
 title: Tools for Monitoring Resources
+aliases:
+- /docs/concepts/cluster-administration/resource-usage-monitoring/
 ---
 
 {{% capture overview %}}

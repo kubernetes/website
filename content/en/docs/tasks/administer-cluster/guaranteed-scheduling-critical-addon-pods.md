@@ -7,6 +7,7 @@ title: Guaranteed Scheduling For Critical Add-On Pods
 content_template: templates/concept
 aliases:
 - /docs/admin/rescheduler/
+- /docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods/
 ---
 
 {{% capture overview %}}

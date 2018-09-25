@@ -5,6 +5,11 @@ reviewers:
 title: Logging Architecture
 content_template: templates/concept
 weight: 60
+aliases:
+- /docs/concepts/clusters/logging/
+- /docs/getting-started-guides/logging/
+- /docs/user-guide/logging/
+- /docs/user-guide/logging/overview/
 ---
 
 {{% capture overview %}}

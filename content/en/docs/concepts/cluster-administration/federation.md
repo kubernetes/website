@@ -4,6 +4,7 @@ content_template: templates/concept
 weight: 80
 aliases:
 - /docs/admin/multi-cluster/
+- /docs/concepts/cluster-administration/multiple-clusters/
 ---
 
 {{% capture overview %}}
