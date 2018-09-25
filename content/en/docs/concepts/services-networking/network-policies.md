@@ -104,11 +104,11 @@ See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-
 
 There are four kinds of selectors that can be specified in an `ingress` `from` section or `egress` `to` section:
 
-__podSelector__: This selects particular pods in the same namespace as the `NetworkPolicy` which should be allowed as ingress sources or egress destinations.
+__podSelector__: This selects particular Pods in the same namespace as the `NetworkPolicy` which should be allowed as ingress sources or egress destinations.
 
-__namespaceSelector__: This selects particular namespaces for which all pods should be allowed as ingress sources or egress destinations.
+__namespaceSelector__: This selects particular namespaces for which all Pods should be allowed as ingress sources or egress destinations.
 
-__namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that specifies both `namespaceSelector` and `podSelector` selects particular pods within particular namespaces. Be careful to use correct YAML syntax; this policy:
+__namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that specifies both `namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be careful to use correct YAML syntax; this policy:
 
 ```yaml
   ...
@@ -123,7 +123,7 @@ __namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that spe
   ...
 ```
 
-contains a single `from` element allowing connections from pods with the label `role=client` in namespaces with the label `user=alice`. But *this* policy:
+contains a single `from` element allowing connections from Pods with the label `role=client` in namespaces with the label `user=alice`. But *this* policy:
 
 ```yaml
   ...
@@ -138,11 +138,11 @@ contains a single `from` element allowing connections from pods with the label `
   ...
 ```
 
-contains two elements in the `from` array, and allows connections from pods in the local namespace with the label `role=client`, *or* from any pod in any namespace with the label `user=alice`.
+contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `role=client`, *or* from any Pod in any namespace with the label `user=alice`.
 
 When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
 
-__ipBlock__: This selects particular IP CIDR ranges to allow as ingress sources or egress destinations. Normally these would be cluster-external IPs, since pod IPs are ephemeral and unpredictable.
+__ipBlock__: This selects particular IP CIDR ranges to allow as ingress sources or egress destinations. These should be cluster-external IPs, since Pod IPs are ephemeral and unpredictable.
 
 Cluster ingress and egress mechanisms often require rewriting the source or destination IP
 of packets. In cases where this happens, it is not defined whether this happens before or
@@ -151,7 +151,7 @@ combinations of network plugin, cloud provider, `Service` implementation, etc.
 
 In the case of ingress, this means that in some cases you may be able to filter incoming
 packets based on the actual original source IP, while in other cases, the "source IP" that
-the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the pod's node, etc.
+the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the Pod's node, etc.
 
 For egress, this means that connections from pods to `Service` IPs that get rewritten to
 cluster-external IPs may or may not be subject to `ipBlock`-based policies.
