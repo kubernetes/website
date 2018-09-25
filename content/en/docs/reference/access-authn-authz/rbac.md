@@ -452,6 +452,16 @@ Auto-reconciliation is enabled in Kubernetes version 1.6+ when the RBAC authoriz
 
 ### Discovery Roles
 
+Default role bindings authorize unauthenticated and authenticated users to read API information that is deemed safe to be publicly accessible (including CustomResourceDefinitions). To disable anonymous unauthenticated access add `--anonymous-auth=false` to the API server configuration.
+
+To view the configuration of these roles via `kubectl` run:
+
+```
+kubectl get clusterroles system:discovery -o yaml
+```
+
+NOTE: editing the role is not recommended as changes will be overwritten on API server restart via auto-reconciliation (see above).
+
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
 <tr>
@@ -556,7 +566,8 @@ The permissions required by individual control loops are contained in the <a hre
 <td><b>system:node</b></td>
 <td>None in 1.8+</td>
 <td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pod status objects</b>.
-As of 1.7, use of the <a href="/docs/admin/authorization/node/">Node authorizer</a> and <a href="/docs/admin/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
+
+As of 1.7, use of the <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> and <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
 Prior to 1.7, this role was automatically bound to the `system:nodes` group.
 In 1.7, this role was automatically bound to the `system:nodes` group if the `Node` authorization mode is not enabled.
 In 1.8+, no binding is automatically created.

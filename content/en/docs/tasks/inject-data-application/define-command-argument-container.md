@@ -34,6 +34,11 @@ override the default command and arguments provided by the container image.
 If you define args, but do not define a command, the default command is used
 with your new arguments.
 
+{{< note >}}
+**Note:** the `command` field corresponds to `entrypoint` in some container
+runtimes. Refer to the [Notes](#notes) below.
+{{< /note >}}
+
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
 
@@ -132,7 +137,6 @@ Here are some examples:
 
 {{% capture whatsnext %}}
 
-* Learn more about [containers and commands](/docs/user-guide/containers/).
 * Learn more about [configuring pods and containers](/docs/tasks/).
 * Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 * See [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).

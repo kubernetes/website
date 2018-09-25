@@ -72,8 +72,8 @@ external IP address.
 
     The output is similar to this:
 
-        NAME         CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
-        my-service   10.3.245.137   104.198.205.71   8080/TCP   54s
+        NAME         TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
+        my-service   ClusterIP   10.3.245.137   104.198.205.71   8080/TCP   54s
 
     Note: If the external IP address is shown as \<pending\>, wait for a minute
     and enter the same command again.
@@ -108,7 +108,7 @@ external IP address.
    addresses of the pods that are running the Hello World application. To
    verify these are pod addresses, enter this command:
 
-       kubectl get pods --output=wide
+        kubectl get pods --output=wide
 
     The output is similar to this:
 

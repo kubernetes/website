@@ -69,7 +69,8 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 
 `Operator` defaults to `Equal` if not specified.
 
-**NOTE:** There are two special cases:
+{{< note >}}
+**Note:** There are two special cases:
 
 * An empty `key` with operator `Exists` matches all keys, values and effects which means this
 will tolerate everything.
@@ -86,6 +87,7 @@ tolerations:
 - key: "key"
   operator: "Exists"
 ```
+{{< /note >}}
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
 This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
@@ -160,7 +162,7 @@ pods that shouldn't be running. A few of the use cases are
 a particular set of users, you can add a taint to those nodes (say,
 `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) and then add a corresponding
 toleration to their pods (this would be done most easily by writing a custom
-[admission controller](/docs/admin/admission-controllers/)).
+[admission controller](/docs/reference/access-authn-authz/admission-controllers/)).
 The pods with the tolerations will then be allowed to use the tainted (dedicated) nodes as
 well as any other nodes in the cluster. If you want to dedicate the nodes to them *and*
 ensure they *only* use the dedicated nodes, then you should additionally add a label similar
@@ -176,12 +178,12 @@ hardware (e.g. `kubectl taint nodes nodename special=true:NoSchedule` or
 `kubectl taint nodes nodename special=true:PreferNoSchedule`) and adding a corresponding
 toleration to pods that use the special hardware. As in the dedicated nodes use case,
 it is probably easiest to apply the tolerations using a custom
-[admission controller](/docs/admin/admission-controllers/)).
+[admission controller](/docs/reference/access-authn-authz/admission-controllers/).
 For example, it is recommended to use [Extended
 Resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
 to represent the special hardware, taint your special hardware nodes with the
 extended resource name and run the
-[ExtendedResourceToleration](/docs/admin/admission-controllers/#extendedresourcetoleration)
+[ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
 admission controller. Now, because the nodes are tainted, no pods without the
 toleration will schedule on them. But when you submit a pod that requests the
 extended resource, the `ExtendedResourceToleration` admission controller will
@@ -227,10 +229,14 @@ including `TaintBasedEvictions=true` in `--feature-gates` for Kubernetes control
 such as `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController (or kubelet) and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
-(Note: To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
+
+{{< note >}}
+**Note:** To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
-as the master becoming partitioned from the nodes.)
+as the master becoming partitioned from the nodes.
+{{< /note >}}
+
 This alpha feature, in combination with `tolerationSeconds`, allows a pod
 to specify how long it should stay bound to a node that has one or both of these problems.
 

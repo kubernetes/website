@@ -21,7 +21,7 @@ Some typical uses of a DaemonSet are:
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), `collectd`, Datadog agent, New Relic agent, or Ganglia `gmond`.
+  https://github.com/prometheus/node_exporter), `collectd`, Dynatrace OneAgent, Datadog agent, New Relic agent, Ganglia `gmond` or Instana agent.
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -165,7 +165,7 @@ uses the host network, you must also add the
 
 Although Daemon Pods respect
 [taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
-the following tolerations are added to DamonSet Pods automatically according to
+the following tolerations are added to DaemonSet Pods automatically according to
 the related features.
 
 | Toleration Key                           | Effect     | Alpha Features                                               | Version | Description                                                  |

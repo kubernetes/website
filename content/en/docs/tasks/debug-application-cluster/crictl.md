@@ -56,7 +56,7 @@ To view or edit the current configuration, view or edit the contents of
 `/etc/crictl.yaml`.
 
 ```sh
-$ cat /etc/crictl.yaml
+cat /etc/crictl.yaml
 runtime-endpoint: unix:///var/run/dockershim.sock
 image-endpoint: unix:///var/run/dockershim.sock
 timeout: 10
@@ -68,7 +68,7 @@ debug: true
 The following examples show some `crictl` commands and and example output.
 
 {{< warning >}}
-If you use `crictl` to create pod sandboxes or containers on a running
+**Warning:** If you use `crictl` to create pod sandboxes or containers on a running
 Kubernetes cluster, the Kubelet will eventually delete them. `crictl` is not a
 general purpose workflow tool, but a tool that is useful for debugging.
 {{< /warning >}}
@@ -181,7 +181,7 @@ crictl exec -i -t 1f73f2d81bf98 ls
 bin   dev   etc   home  proc  root  sys   tmp   usr   var
 ```
 
-### Get a coontainer's logs
+### Get a container's logs
 
 Get all container logs:
 
@@ -309,8 +309,14 @@ crictl start 3e025dd50a72d956c4f14881fbb5b1080c9275674e95fb67f965f6478a957d60
 ```
 ```none
 3e025dd50a72d956c4f14881fbb5b1080c9275674e95fb67f965f6478a957d60
+```
 
-$ crictl ps
+Check the container has its state set to `Running`.
+
+```bash
+crictl ps
+```
+```none
 CONTAINER ID        IMAGE               CREATED              STATE               NAME                ATTEMPT
 3e025dd50a72d       busybox             About a minute ago   Running             busybox             0
 ```

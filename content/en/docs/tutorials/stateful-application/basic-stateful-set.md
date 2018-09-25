@@ -78,8 +78,8 @@ Headless Service and StatefulSet defined in `web.yaml`.
 
 ```shell
 kubectl create -f web.yaml 
-service "nginx" created
-statefulset "web" created
+service/nginx created
+statefulset.apps/web created
 ```
 
 The command above creates two Pods, each running an 
@@ -88,8 +88,8 @@ The command above creates two Pods, each running an
 
 ```shell
 kubectl get service nginx
-NAME      CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
-nginx     None         <none>        80/TCP    12s
+NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+nginx     ClusterIP    None         <none>        80/TCP    12s
 
 kubectl get statefulset web
 NAME      DESIRED   CURRENT   AGE
@@ -356,7 +356,7 @@ to 5.
 
 ```shell
 kubectl scale sts web --replicas=5
-statefulset "web" scaled
+statefulset.apps/web scaled
 ```
 
 Examine the output of the `kubectl get` command in the first terminal, and wait 
@@ -401,7 +401,7 @@ three replicas.
 
 ```shell
 kubectl patch sts web -p '{"spec":{"replicas":3}}'
-statefulset "web" patched
+statefulset.apps/web patched
 ```
 
 Wait for `web-4` and `web-3` to transition to Terminating.
@@ -464,7 +464,7 @@ Patch the `web` StatefulSet to apply the `RollingUpdate` update strategy.
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
-statefulset "web" patched
+statefulset.apps/web patched
 ```
 
 In one terminal window, patch the `web` StatefulSet to change the container 
@@ -472,7 +472,7 @@ image again.
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
-statefulset "web" patched
+statefulset.apps/web patched
 ```
 
 In another terminal, watch the Pods in the StatefulSet.
@@ -549,14 +549,14 @@ Patch the `web` StatefulSet to add a partition to the `updateStrategy` field.
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
-statefulset "web" patched
+statefulset.apps/web patched
 ```
 
 Patch the StatefulSet again to change the container's image.
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
-statefulset "web" patched
+statefulset.apps/web patched
 ```
 
 Delete a Pod in the StatefulSet.
@@ -598,7 +598,7 @@ Patch the StatefulSet to decrement the partition.
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
-statefulset "web" patched
+statefulset.apps/web patched
 ```
 
 Wait for `web-2` to be Running and Ready.
@@ -673,7 +673,7 @@ The partition is currently set to `2`. Set the partition to `0`.
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
-statefulset "web" patched
+statefulset.apps/web patched
 ```
 
 Wait for all of the Pods in the StatefulSet to become Running and Ready.
@@ -740,7 +740,7 @@ not delete any of its Pods.
 
 ```shell
 kubectl delete statefulset web --cascade=false
-statefulset "web" deleted
+statefulset.apps "web" deleted
 ```
 
 Get the Pods to examine their status.
@@ -784,7 +784,7 @@ an error indicating that the Service already exists.
 
 ```shell
 kubectl create -f web.yaml 
-statefulset "web" created
+statefulset.apps/web created
 Error from server (AlreadyExists): error when creating "web.yaml": services "nginx" already exists
 ```
 
@@ -844,7 +844,7 @@ In another terminal, delete the StatefulSet again. This time, omit the
 
 ```shell
 kubectl delete statefulset web
-statefulset "web" deleted
+statefulset.apps "web" deleted
 ```
 Examine the output of the `kubectl get` command running in the first terminal, 
 and wait for all of the Pods to transition to Terminating.
@@ -884,8 +884,8 @@ Recreate the StatefulSet and Headless Service one more time.
 
 ```shell
 kubectl create -f web.yaml 
-service "nginx" created
-statefulset "web" created
+service/nginx created
+statefulset.apps/web created
 ```
 
 When all of the StatefulSet's Pods transition to Running and Ready, retrieve 
@@ -948,8 +948,8 @@ In another terminal, create the StatefulSet and Service in the manifest.
 
 ```shell
 kubectl create -f web-parallel.yaml 
-service "nginx" created
-statefulset "web" created
+service/nginx created
+statefulset.apps/web created
 ```
 
 Examine the output of the `kubectl get` command that you executed in the first terminal.
@@ -974,7 +974,7 @@ StatefulSet.
 
 ```shell
 kubectl scale statefulset/web --replicas=4
-statefulset "web" scaled
+statefulset.apps/web scaled
 ```
 
 Examine the output of the terminal where the `kubectl get` command is running.

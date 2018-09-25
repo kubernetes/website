@@ -593,7 +593,7 @@ retained in the live configuration.
 
 ```yaml
 # last-applied-configuration value
-    args: ["a, b"]
+    args: ["a", "b"]
 
 # configuration file value
     args: ["a", "c"]

@@ -1,5 +1,5 @@
 ---
-title: Running automated tasks with cron jobs
+title: Running Automated Tasks with a CronJob
 reviewers:
 - chenopis
 content_template: templates/task
@@ -93,7 +93,7 @@ Note that the job name and pod name are different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-$ pods=$(kubectl get pods --show-all --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
 
 $ echo $pods
 hello-4111706356-o9qcm
@@ -146,6 +146,8 @@ After the deadline, the cron job does not start the job.
 Jobs that do not meet their deadline in this way count as failed jobs.
 If this field is not specified, the jobs have no deadline.
 
+It is important to note that if the `.spec.startingDeadlineSeconds` field is set (not nil), the CronJob controller counts how many missed jobs occurred from the value of `.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed schedules occurred in the last 200 seconds. If there were more than 100 missed schedules, the cronjob would not be scheduled. 
+
 ### Concurrency Policy
 
 The `.spec.concurrencyPolicy` field is also optional.
@@ -165,6 +167,11 @@ The `.spec.suspend` field is also optional.
 If it is set to `true`, all subsequent executions are suspended.
 This setting does not apply to already started executions.
 Defaults to false.
+
+{{< caution >}}
+**Caution:** Executions that are suspended during their scheduled time count as missed jobs.
+When `.spec.suspend` changes from `true` to `false` on an existing cron job without a [starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
+{{< /caution >}}
 
 ### Jobs History Limits
 

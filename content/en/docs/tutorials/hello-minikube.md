@@ -2,6 +2,12 @@
 title: Hello Minikube
 content_template: templates/tutorial
 weight: 5
+menu:
+  main:
+    title: "Get Started"
+    weight: 10
+    post: >
+      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
 ---
 
 {{% capture overview %}}
@@ -26,10 +32,10 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 {{% capture prerequisites %}}
 
-* For OS X, you can use [Homebrew](https://brew.sh) to install Minikube.
+* For macOS, you can use [Homebrew](https://brew.sh) to install Minikube.
 
   {{< note >}}
-  **Note:** If you see the following Homebrew error when you run `brew update` after you update your computer to MacOS 10.13:
+  **Note:** If you see the following Homebrew error when you run `brew update` after you update your computer to macOS 10.13:
   
   ```
   Error: /usr/local is not writable. You should change the ownership
@@ -44,7 +50,7 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 * [NodeJS](https://nodejs.org/en/) is required to run the sample application.
 
-* Install Docker. On OS X, we recommend
+* Install Docker. On macOS, we recommend
 [Docker for Mac](https://docs.docker.com/engine/installation/mac/).
 
 
@@ -57,7 +63,7 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 This tutorial uses [Minikube](https://github.com/kubernetes/minikube) to
 create a local cluster. This tutorial also assumes you are using
 [Docker for Mac](https://docs.docker.com/engine/installation/mac/)
-on OS X. If you are on a different platform like Linux, or using VirtualBox
+on macOS. If you are on a different platform like Linux, or using VirtualBox
 instead of Docker for Mac, the instructions to install Minikube may be
 slightly different. For general Minikube installation instructions, see
 the [Minikube installation guide](/docs/getting-started-guides/minikube/).
@@ -262,9 +268,9 @@ kubectl get services
 Output:
 
 ```shell
-NAME         CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-hello-node   10.0.0.71    <pending>     8080/TCP   6m
-kubernetes   10.0.0.1     <none>        443/TCP    14d
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+hello-node   ClusterIP   10.0.0.71    <pending>     8080/TCP   6m
+kubernetes   ClusterIP   10.0.0.1     <none>        443/TCP    14d
 ```
 
 The `--type=LoadBalancer` flag indicates that you want to expose your Service
@@ -362,13 +368,13 @@ Output:
 
 ```shell
 NAME                             READY     STATUS    RESTARTS   AGE
-po/heapster-zbwzv                1/1       Running   0          2m
-po/influxdb-grafana-gtht9        2/2       Running   0          2m
+pod/heapster-zbwzv                1/1       Running   0          2m
+pod/influxdb-grafana-gtht9        2/2       Running   0          2m
 
-NAME                       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
-svc/heapster               NodePort    10.0.0.52    <none>        80:31655/TCP        2m
-svc/monitoring-grafana     NodePort    10.0.0.33    <none>        80:30002/TCP        2m
-svc/monitoring-influxdb    ClusterIP   10.0.0.43    <none>        8083/TCP,8086/TCP   2m
+NAME                           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
+service/heapster               NodePort    10.0.0.52    <none>        80:31655/TCP        2m
+service/monitoring-grafana     NodePort    10.0.0.33    <none>        80:30002/TCP        2m
+service/monitoring-influxdb    ClusterIP   10.0.0.43    <none>        8083/TCP,8086/TCP   2m
 ```
 
 Open the endpoint to interacting with heapster in a browser:

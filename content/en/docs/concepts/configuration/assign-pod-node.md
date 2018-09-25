@@ -167,7 +167,7 @@ Inter-pod affinity and anti-affinity were introduced in Kubernetes 1.4.
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled *based on
 labels on pods that are already running on the node* rather than based on labels on nodes. The rules are of the form "this pod should (or, in the case of
 anti-affinity, should not) run in an X if that X is already running one or more pods that meet rule Y". Y is expressed
-as a LabelSelector with an associated list of namespaces (or "all" namespaces); unlike nodes, because pods are namespaced
+as a LabelSelector with an associated list of namespaces; unlike nodes, because pods are namespaced
 (and therefore the labels on pods are implicitly namespaced),
 a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
 like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
@@ -177,6 +177,8 @@ in the section [Interlude: built-in node labels](#interlude-built-in-node-labels
 **Note:** Inter-pod affinity and anti-affinity require substantial amount of 
 processing which can slow down scheduling in large clusters significantly. We do
 not recommend using them in clusters larger than several hundred nodes.
+
+**Note:** Pod anti-affinity requires nodes to be consistently labelled, i.e. every node in the cluster must have an appropriate label matching `topologyKey`. If some or all nodes are missing the speficied `topologyKey` label, it can lead to unintended behavior.
 
 As with node affinity, there are currently two types of pod affinity and anti-affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
 `preferredDuringSchedulingIgnoredDuringExecution` which denote "hard" vs. "soft" requirements.
@@ -222,8 +224,7 @@ empty `topologyKey` is not allowed.
 
 In addition to `labelSelector` and `topologyKey`, you can optionally specify a list `namespaces`
 of namespaces which the `labelSelector` should match against (this goes at the same level of the definition as `labelSelector` and `topologyKey`).
-If omitted, it defaults to the namespace of the pod where the affinity/anti-affinity definition appears.
-If defined but empty, it means "all namespaces".
+If omitted or empty, it defaults to the namespace of the pod where the affinity/anti-affinity definition appears.
 
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
 must be satisfied for the pod to be scheduled onto a node.

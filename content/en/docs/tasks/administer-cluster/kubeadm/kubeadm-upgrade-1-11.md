@@ -20,9 +20,9 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 ### Additional information
 
 - All containers are restarted after upgrade, because the container spec hash value is changed.
-- You can upgrade only froom one minor version to the next minor version. That is, you cannot skip versions when you upgrade. For example, you can upgrade only from 1.10 to 1.11, not from 1.9 to 1.11.
+- You can upgrade only from one minor version to the next minor version. That is, you cannot skip versions when you upgrade. For example, you can upgrade only from 1.10 to 1.11, not from 1.9 to 1.11.
 - The default DNS provider in version 1.11 is [CoreDNS](https://coredns.io/) rather than [kube-dns](https://github.com/kubernetes/dns).
-To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade apply`.
+To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade apply`.
 
 {{% /capture %}}
 
@@ -30,7 +30,7 @@ To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade app
 
 ## Upgrade the control plane
 
-1.  On your master node, run the following (as root:
+1.  On your master node, run the following (as root):
 
         export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
         export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
@@ -98,7 +98,7 @@ To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade app
     kubeadm upgrade apply v1.11.0
     ```
 
-    If you currently use `kube-dns` and wish to continue doing so, add `--feature-flags=CoreDNS=false`.
+    If you currently use `kube-dns` and wish to continue doing so, add `--feature-gates=CoreDNS=false`.
 
     You should see output similar to this:
 
@@ -180,7 +180,7 @@ To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade app
 
     Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
-    find your CNI provider and see whther additional upgrade steps are required.
+    find your CNI provider and see whether additional upgrade steps are required.
 
 ## Upgrade master and node packages
 
@@ -217,7 +217,7 @@ To keep `kube-dns`, pass `--feature-flags=CoreDNS=false` to `kubeadm upgrade app
     apt-get upgrade -y kubelet kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum upgrade -y kubelet kubeadm
+    yum upgrade -y kubelet kubeadm --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 

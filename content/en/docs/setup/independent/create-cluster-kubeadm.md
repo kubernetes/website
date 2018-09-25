@@ -3,12 +3,13 @@ reviewers:
 - sig-cluster-lifecycle
 title: Creating a single master cluster with kubeadm
 content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
-lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/admin/bootstrap-tokens/). 
+lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
 
 Because you can install kubeadm on various types of machine (e.g. laptop, server, 
 Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
@@ -259,7 +260,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 {{% tab name="Calico" %}}
 For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
 
-In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`. Note that Calico works on `amd64` only.
+For Calico to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init` or update the `calico.yml` file to match your Pod network. Note that Calico works on `amd64` only.
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
@@ -278,10 +279,38 @@ kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/
 ```
 
 {{% /tab %}}
+
+{{% tab name="Cilium" %}}
+For more information about using Cilium with Kubernetes, see [Quickstart for Cilium on Kubernetes](http://docs.cilium.io/en/v1.2/kubernetes/quickinstall/) and [Kubernetes Install guide for Cilium](http://docs.cilium.io/en/v1.2/kubernetes/install/).
+
+Passing `--pod-network-cidr` option to `kubeadm init` is not required, but highly recommended.
+
+These commands will deploy Cilium with its own etcd managed by etcd operator.
+
+```shell
+# Download required manifests from Cilium repository
+wget https://github.com/cilium/cilium/archive/v1.2.0.zip
+unzip v1.2.0.zip
+cd cilium-1.2.0/examples/kubernetes/addons/etcd-operator
+
+# Generate and deploy etcd certificates
+export CLUSTER_DOMAIN=$(kubectl get ConfigMap --namespace kube-system coredns -o yaml | awk '/kubernetes/ {print $2}')
+tls/certs/gen-cert.sh $CLUSTER_DOMAIN
+tls/deploy-certs.sh
+
+# Label kube-dns with fixed identity label
+kubectl label -n kube-system pod $(kubectl -n kube-system get pods -l k8s-app=kube-dns -o jsonpath='{range .items[]}{.metadata.name}{" "}{end}') io.cilium.fixed-identity=kube-dns
+
+kubectl create -f ./
+
+# Wait several minutes for Cilium, coredns and etcd pods to converge to a working state
+```
+
+
+{{% /tab %}}
 {{% tab name="Flannel" %}}
 
-For `flannel` to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`. For it to work on a platform other than
-`amd64`, you must manually download the manifest and replace `amd64` occurrences with your chosen platform.
+For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
 
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
@@ -289,6 +318,12 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+```
+Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but until `flannel v0.11.0` is released
+you need to use the following manifest that supports all the architectures:
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/c5d10c8/Documentation/kube-flannel.yml
 ```
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
@@ -370,8 +405,8 @@ With output looking something like:
 
 ```
 node "test-01" untainted
-taint key="dedicated" and effect="" not found.
-taint key="dedicated" and effect="" not found.
+taint "node-role.kubernetes.io/master:" not found
+taint "node-role.kubernetes.io/master:" not found
 ```
 
 This will remove the `node-role.kubernetes.io/master` taint from any nodes that
@@ -388,6 +423,48 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 
 ``` bash
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+```
+
+If you do not have the token, you can get it by running the following command on the master node:
+
+``` bash
+kubeadm token list
+```
+
+The output is similar to this:
+
+``` console
+TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION            EXTRA GROUPS
+8ewj1p.9r9hcjoqgajrj4gi  23h  2018-06-12T02:51:28Z authentication,  The default bootstrap  system:
+                                                   signing          token generated by     bootstrappers:
+                                                                    'kubeadm init'.        kubeadm:
+                                                                                           default-node-token
+```
+
+By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
+you can create a new token by running the following command on the master node:
+
+``` bash
+kubeadm token create
+```
+
+The output is similar to this:
+
+``` console
+5didvk.d09sbcov8ph2amjw
+```
+
+If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the master node:
+
+``` bash
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
+   openssl dgst -sha256 -hex | sed 's/^.* //'
+```
+
+The output is similar to this:
+
+``` console
+8cb2de97839780a412b93877f8507ad6c94f73add17d5d7058e91741c9d5ec78
 ```
 
 {{< note >}}

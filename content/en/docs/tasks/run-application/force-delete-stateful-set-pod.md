@@ -22,7 +22,6 @@ This page shows how to delete Pods which are part of a stateful set, and explain
 
 {{% capture steps %}}
 
-
 ## StatefulSet considerations
 
 In normal operation of a StatefulSet, there is **never** a need to force delete a StatefulSet Pod. The StatefulSet controller is responsible for creating, scaling and deleting members of the StatefulSet. It tries to ensure that the specified number of Pods from ordinal 0 through N-1 are alive and ready. StatefulSet ensures that, at any time, there is at most one Pod with a given identity running in a cluster. This is referred to as *at most one* semantics provided by a StatefulSet.
@@ -67,14 +66,18 @@ If you're using any version of kubectl <= 1.4, you should omit the `--force` opt
 kubectl delete pods <pod> --grace-period=0
 ```
 
+If even after these commands the pod is stuck on `Unknown` state, use the following command to remove the pod from the cluster:
+
+```shell
+kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
+```
+
 Always perform force deletion of StatefulSet Pods carefully and with complete knowledge of the risks involved.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-Learn more about [debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/).
+Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
 
 {{% /capture %}}
-
-

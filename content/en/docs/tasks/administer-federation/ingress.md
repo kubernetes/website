@@ -5,7 +5,9 @@ content_template: templates/task
 
 {{% capture overview %}}
 
+{{< note >}}
 {{< include "federation-current-state.md" >}}
+{{< /note >}}
 
 This page explains how to use Kubernetes Federated Ingress to deploy
 a common HTTP(S) virtual IP load balancer across a federated service running in
@@ -63,7 +65,7 @@ Kubernetes cluster but inside the same GCP region.
 {{% capture prerequisites %}}
 This document assumes that you have a running Kubernetes Cluster
 Federation installation. If not, then see the
-[federation admin guide](/docs/admin/federation/) to learn how to
+[federation admin guide](/docs/tasks/federation/set-up-cluster-federation-kubefed/) to learn how to
 bring up a cluster federation (or have your cluster administrator do
 this for you). Other tutorials, for example
 [this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
@@ -195,8 +197,8 @@ You can verify this by checking in each of the underlying clusters. For example:
 
 ``` shell
 kubectl --context=gce-asia-east1a get services nginx
-NAME      CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
-nginx     10.63.250.98   104.199.136.89   80/TCP    9m
+NAME      TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
+nginx     ClusterIP   10.63.250.98   104.199.136.89   80/TCP    9m
 ```
 
 ## Hybrid cloud capabilities

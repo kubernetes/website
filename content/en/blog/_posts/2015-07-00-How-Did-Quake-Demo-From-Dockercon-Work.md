@@ -121,7 +121,7 @@ CONTAINER ID  IMAGE           COMMAND           CREATED        STATUS
 docker\_cr.sh
   ```
 
-Since the command line arguments to CRIU were long, a helper script called docker\_cr.sh was provided in the CRIU source tree to simplify the proces.  So, for the above container, one would simply C/R the container as follows (for details see [http://criu.org/Docker](http://criu.org/Docker)):
+Since the command line arguments to CRIU were long, a helper script called docker\_cr.sh was provided in the CRIU source tree to simplify the process.  So, for the above container, one would simply C/R the container as follows (for details see [http://criu.org/Docker](http://criu.org/Docker)):
 
 ```  
 $ sudo docker\_cr.sh -c 4397   

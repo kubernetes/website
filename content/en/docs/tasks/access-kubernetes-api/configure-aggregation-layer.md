@@ -1,5 +1,5 @@
 ---
-title: Configure the aggregation layer
+title: Configure the Aggregation Layer
 reviewers:
 - lavalamp
 - cheftako
@@ -18,7 +18,9 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+{{< note >}}
 **Note:** There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA.
+{{< /note >}}
 
 {{% /capture %}}
 
@@ -29,12 +31,14 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 Enable the aggregation layer via the following kube-apiserver flags. They may have already been taken care of by your provider.
 
     --requestheader-client-ca-file=<path to aggregator CA cert>
-    --requestheader-allowed-names=aggregator
+    --requestheader-allowed-names=front-proxy-client
     --requestheader-extra-headers-prefix=X-Remote-Extra-
     --requestheader-group-headers=X-Remote-Group
     --requestheader-username-headers=X-Remote-User
     --proxy-client-cert-file=<path to aggregator proxy cert>
     --proxy-client-key-file=<path to aggregator proxy key>
+
+WARNING: do **not** reuse a CA that is used in a different context unless you understand the risks and the mechanisms to protect the CA's usage.
 
 If you are not running kube-proxy on a host running the API server, then you must make sure that the system is enabled with the following apiserver flag:
 

@@ -5,6 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Persistent Volumes
+feature:
+  title: Storage orchestration
+  description: >
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider  such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
+
 content_template: templates/concept
 weight: 20
 ---
@@ -59,7 +64,7 @@ provisioning to occur. Claims that request the class `""` effectively disable
 dynamic provisioning for themselves.
 
 To enable dynamic storage provisioning based on storage class, the cluster administrator
-needs to enable the `DefaultStorageClass` [admission controller](/docs/admin/admission-controllers/#defaultstorageclass)
+needs to enable the `DefaultStorageClass` [admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
 among the comma-delimited, ordered list of values for the `--enable-admission-plugins` flag of
 the API server component. For more information on API server command line flags,
@@ -215,7 +220,7 @@ You can only resize volumes containing a file system if the file system is XFS, 
 
 When a volume contains a file system, the file system is only resized when a new Pod is started using
 the `PersistentVolumeClaim` in ReadWrite mode. Therefore, if a pod or deployment is using a volume and
-you want to expand it, you need to delete or recreate the pod after the volume has been exxpanded by the cloud provider in the controller-manager. You can check the status of resize operation by running the `kubectl describe pvc` command:
+you want to expand it, you need to delete or recreate the pod after the volume has been expanded by the cloud provider in the controller-manager. You can check the status of resize operation by running the `kubectl describe pvc` command:
 
 ```
 kubectl describe pvc <pvc_name>
@@ -247,7 +252,7 @@ uses the PVC before the expansion can complete.
 * AzureFile
 * AzureDisk
 * FC (Fibre Channel)
-* FlexVolume
+* Flexvolume
 * Flocker
 * NFS
 * iSCSI
@@ -331,7 +336,7 @@ In the CLI, the access modes are abbreviated to:
 | CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
 | Cinder               | &#x2713;     | -           | -            |
 | FC                   | &#x2713;     | &#x2713;    | -            |
-| FlexVolume           | &#x2713;     | &#x2713;    | -            |
+| Flexvolume           | &#x2713;     | &#x2713;    | -            |
 | Flocker              | &#x2713;     | -           | -            |
 | GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
 | Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
@@ -378,18 +383,19 @@ A Kubernetes administrator can specify additional mount options for when a Persi
 
 The following volume types support mount options:
 
-* GCEPersistentDisk
 * AWSElasticBlockStore
-* AzureFile
 * AzureDisk
-* NFS
-* iSCSI
-* RBD (Ceph Block Device)
+* AzureFile
 * CephFS
 * Cinder (OpenStack block storage)
+* GCEPersistentDisk
 * Glusterfs
-* VsphereVolume
+* NFS
 * Quobyte Volumes
+* RBD (Ceph Block Device)
+* StorageOS
+* VsphereVolume
+* iSCSI
 
 Mount options are not validated, so mount will simply fail if one is invalid.
 
@@ -466,7 +472,7 @@ equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
 `""`). A PVC with no `storageClassName` is not quite the same and is treated differently
 by the cluster depending on whether the
-[`DefaultStorageClass` admission plugin](/docs/admin/admission-controllers/#defaultstorageclass)
+[`DefaultStorageClass` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
 is turned on.
 
 * If the admission plugin is turned on, the administrator may specify a
@@ -509,7 +515,7 @@ metadata:
 spec:
   containers:
     - name: myfrontend
-      image: dockerfile/nginx
+      image: nginx
       volumeMounts:
       - mountPath: "/var/www/html"
         name: mypd

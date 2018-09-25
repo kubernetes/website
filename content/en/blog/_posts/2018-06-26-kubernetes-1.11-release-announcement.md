@@ -53,15 +53,14 @@ Kubernetes 1.11 is available for [download on GitHub](https://github.com/kuberne
 
 You can also install 1.11 using Kubeadm. Version 1.11.0 will be available as Deb and RPM packages, installable using the [Kubeadm cluster installer](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) sometime on June 28th.
 
-## 5 Day Features Blog Series
+## 4 Day Features Blog Series
 
-If you’re interested in exploring these features more in depth, check back in two weeks for our 5 Days of Kubernetes series where we’ll highlight detailed walkthroughs of the following features:
+If you’re interested in exploring these features more in depth, check back in two weeks for our 4 Days of Kubernetes series where we’ll highlight detailed walkthroughs of the following features:
 
 * Day 1: [IPVS-Based In-Cluster Service Load Balancing Graduates to General Availability](/blog/2018/07/09/ipvs-based-in-cluster-load-balancing-deep-dive/)
-* Day 2: CoreDNS Promoted to General Availability
-* Day 3: Dynamic Kubelet Configuration Moves to Beta
-* Day 4: Custom Resource Definitions Can Now Define Multiple Versions
-* Day 5: Overview of CSI Enhancements
+* Day 2: [CoreDNS Promoted to General Availability](/blog/2018/07/10/coredns-ga-for-kubernetes-cluster-dns/)
+* Day 3: [Dynamic Kubelet Configuration Moves to Beta](/blog/2018/07/11/dynamic-kubelet-configuration/)
+* Day 4: [Resizing Persistent Volumes using Kubernetes](/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/)
 
 ## Release team
 
@@ -93,7 +92,7 @@ Is Kubernetes helping your team? Share your story with the community.
 
 ## KubeCon
 
-The world’s largest Kubernetes gathering, KubeCon + CloudNativeCon is coming to [Shanghai](https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2018/) from November 14-15, 2018 and [Seattle](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/) from December 11-13, 2018. This conference will feature technical sessions, case studies, developer deep dives, salons and more! The CFP for both event is currently open. [Submit your talk](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/program/call-for-proposals-cfp/) and [register](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2018/attend/register/) today!
+The world’s largest Kubernetes gathering, KubeCon + CloudNativeCon is coming to [Shanghai](https://events.linuxfoundation.cn/events/kubecon-cloudnativecon-china-2018/ from November 14-15, 2018 and [Seattle](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/) from December 11-13, 2018. This conference will feature technical sessions, case studies, developer deep dives, salons and more! The CFP for both event is currently open. [Submit your talk](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/program/call-for-proposals-cfp/) and [register](https://www.regonline.com/registration/Checkin.aspx?EventID=2246960) today!
 
 ## Webinar
 

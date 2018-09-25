@@ -8,12 +8,11 @@ weight: 50
 
 This page shows how to configure a Pod to use a Volume for storage.
 
-A Container's file system lives only as long as the Container does, so when a
-Container terminates and restarts, changes to the filesystem are lost. For more
+A Container's file system lives only as long as the Container does. So when a
+Container terminates and restarts, filesystem changes are lost. For more
 consistent storage that is independent of the Container, you can use a
 [Volume](/docs/concepts/storage/volumes/). This is especially important for stateful
-applications, such as key-value stores and databases. For example, Redis is a
-key-value cache and store.
+applications, such as key-value stores (such as Redis) and databases. 
 
 {{% /capture %}}
 
@@ -37,62 +36,95 @@ restarts. Here is the configuration file for the Pod:
 
 1. Create the Pod:
 
-       kubectl create -f https://k8s.io/examples/pods/storage/redis.yaml
+    ```shell
+    kubectl create -f https://k8s.io/examples/pods/storage/redis.yaml
+    ```
 
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
 
-       kubectl get pod redis --watch
-
+    ```shell
+    kubectl get pod redis --watch
+    ```
+    
     The output looks like this:
 
-       NAME      READY     STATUS    RESTARTS   AGE
-       redis     1/1       Running   0          13s
+    ```shell
+    NAME      READY     STATUS    RESTARTS   AGE
+    redis     1/1       Running   0          13s
+    ```
 
 1. In another terminal, get a shell to the running Container:
 
-       kubectl exec -it redis -- /bin/bash
+    ```shell
+    kubectl exec -it redis -- /bin/bash
+    ```
 
-1. In your shell, go to `/data/redis`, and create a file:
+1. In your shell, go to `/data/redis`, and then create a file:
 
-       root@redis:/data# cd /data/redis/
-       root@redis:/data/redis# echo Hello > test-file
+    ```shell
+    root@redis:/data# cd /data/redis/
+    root@redis:/data/redis# echo Hello > test-file
+    ```
 
 1. In your shell, list the running processes:
 
-       root@redis:/data/redis# ps aux
+    ```shell
+    root@redis:/data/redis# apt-get update
+    root@redis:/data/redis# apt-get install procps
+    root@redis:/data/redis# ps aux
+    ```
 
     The output is similar to this:
 
-       USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-       redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
-       root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
-       root        15  0.0  0.0  17500  2072 ?        R+   00:48   0:00 ps aux
+    ```shell
+    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+    redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
+    root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
+    root        15  0.0  0.0  17500  2072 ?        R+   00:48   0:00 ps aux
+    ```
 
-1. In your shell, kill the redis process:
+1. In your shell, kill the Redis process:
 
-       root@redis:/data/redis# kill <pid>
+    ```shell
+    root@redis:/data/redis# kill <pid>
+    ```
 
-    where `<pid>` is the redis process ID (PID).
+    where `<pid>` is the Redis process ID (PID).
 
-1. In your original terminal, watch for changes to the redis Pod. Eventually,
+1. In your original terminal, watch for changes to the Redis Pod. Eventually,
 you will see something like this:
 
-       NAME      READY     STATUS     RESTARTS   AGE
-       redis     1/1       Running    0          13s
-       redis     0/1       Completed  0         6m
-       redis     1/1       Running    1         6m
+    ```shell
+    NAME      READY     STATUS     RESTARTS   AGE
+    redis     1/1       Running    0          13s
+    redis     0/1       Completed  0         6m
+    redis     1/1       Running    1         6m
+    ```
 
 At this point, the Container has terminated and restarted. This is because the
-redis Pod has a
+Redis Pod has a
 [restartPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 of `Always`.
 
 1. Get a shell into the restarted Container:
 
-       kubectl exec -it redis -- /bin/bash
+    ```shell
+    kubectl exec -it redis -- /bin/bash
+    ```
 
 1. In your shell, goto `/data/redis`, and verify that `test-file` is still there.
+    ```shell
+    root@redis:/data/redis# cd /data/redis/
+    root@redis:/data/redis# ls
+    test-file
+    ```
+
+1. Delete the Pod that you created for this exercise:
+
+    ```shell
+    kubectl delete pod redis
+    ```
 
 {{% /capture %}}
 
@@ -104,7 +136,7 @@ of `Always`.
 
 * In addition to the local disk storage provided by `emptyDir`, Kubernetes
 supports many different network-attached storage solutions, including PD on
-GCE and EBS on EC2, which are preferred for critical data, and will handle
+GCE and EBS on EC2, which are preferred for critical data and will handle
 details such as mounting and unmounting the devices on the nodes. See
 [Volumes](/docs/concepts/storage/volumes/) for more details.
 

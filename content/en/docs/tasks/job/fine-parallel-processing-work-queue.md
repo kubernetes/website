@@ -55,9 +55,9 @@ directory and start a temporary Pod running Redis and a service so we can find i
 ```shell
 $ cd content/en/examples/application/job/redis
 $ kubectl create -f ./redis-pod.yaml
-pod "redis-master" created
+pod/redis-master created
 $ kubectl create -f ./redis-service.yaml
-service "redis" created
+service/redis created
 ```
 
 If you're not working from the source tree, you could also download the following

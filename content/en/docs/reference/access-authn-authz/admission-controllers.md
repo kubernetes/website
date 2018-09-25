@@ -26,7 +26,7 @@ is authenticated and authorized.  The controllers consist of the
 administrator. In that list, there are two special controllers:
 MutatingAdmissionWebhook and ValidatingAdmissionWebhook.  These execute the
 mutating and validating (respectively) [admission control
-webhooks](/docs/admin/extensible-admission-controllers.md#external-admission-webhooks)
+webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
 which are configured in the API.
 
 Admission controllers may be "validating", "mutating", or both. Mutating
@@ -79,6 +79,20 @@ The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimit
 
 ```shell
 kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
+```
+
+## Which plugins are enabled by default?
+
+To see which admission plugins are enabled:
+
+```shell
+kube-apiserver -h | grep enable-admission-plugins
+```
+
+In 1.11, they are:
+ 
+```shell
+NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
 ```
 
 ## What does each admission controller do?
@@ -325,7 +339,7 @@ In any case, the annotations are provided by the user and are not validated by K
 The admission controller determines the initializers of a resource based on the existing
 `InitializerConfiguration`s. It sets the pending initializers by modifying the
 metadata of the resource to be created.
-For more information, please check [Dynamic Admission Control](/docs/admin/extensible-admission-controllers.md).
+For more information, please check [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 

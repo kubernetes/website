@@ -32,8 +32,6 @@ Before choosing a guide, here are some considerations:
 
 Note: Not all distros are actively maintained. Choose distros which have been tested with a recent version of Kubernetes.
 
--If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/setup/salt/). 
-
 ## Managing a cluster
 
 * [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
@@ -52,9 +50,9 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [Authenticating](/docs/reference/access-authn-authz/authentication/) explains authentication in Kubernetes, including the various authentication options.
 
-* [Authorization](/docs/admin/authorization/) is separate from authentication, and controls how HTTP calls are handled.
+* [Authorization](/docs/reference/access-authn-authz/authorization/) is separate from authentication, and controls how HTTP calls are handled.
 
-* [Using Admission Controllers](/docs/admin/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
+* [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
 
 * [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 

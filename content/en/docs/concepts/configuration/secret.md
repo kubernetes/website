@@ -3,6 +3,10 @@ reviewers:
 - mikedanese
 title: Secrets
 content_template: templates/concept
+feature:
+  title: Secret and configuration management
+  description: >
+    Deploy and update secrets and application configuration without rebuilding your image and without exposing secrets in your stack configuration.
 weight: 50
 ---
 
@@ -135,7 +139,7 @@ secret "mysecret" created
 
 **Encoding Note:** The serialized JSON and YAML values of secret data are
 encoded as base64 strings.  Newlines are not valid within these strings and must
-be omitted.  When using the `base64` utility on Darwin/OS X users should avoid
+be omitted.  When using the `base64` utility on Darwin/macOS users should avoid
 using the `-b` option to split long lines.  Conversely Linux users *should* add
 the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 `-w` option is not available.
@@ -482,7 +486,9 @@ Create a secret containing some ssh keys:
 $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-**Security Note:** Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+{{< caution >}}
+**Caution:** Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+{{< /caution >}}
 
 
 Now we can create a pod which references the secret with the ssh key and

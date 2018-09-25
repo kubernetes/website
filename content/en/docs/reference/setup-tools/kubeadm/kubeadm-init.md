@@ -22,7 +22,7 @@ following steps:
 1. Runs a series of pre-flight checks to validate the system state
    before making changes. Some checks only trigger warnings, others are
    considered errors and will exit kubeadm until the problem is corrected or the
-   user specifies `--skip-preflight-checks`.
+   user specifies `--ignore-preflight-errors=<list-of-errors>`.
 
 1. Generates a self-signed CA (or using an existing one if provided) to set up
    identities for each component in the cluster. If the user has provided their
@@ -67,7 +67,7 @@ following steps:
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 
 1. Makes all the necessary configurations for allowing node joining with the
-   [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) and
+   [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
    [TLS Bootstrap](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
    mechanism:
 
@@ -101,6 +101,9 @@ configuration file options. This file is passed in the `--config` option.
 
 In Kubernetes 1.11 and later, the default configuration can be printed out using the
 [kubeadm config print-default](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+It is **recommended** that you migrate your old `v1alpha1` configuration to `v1alpha2` using
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
+because `v1alpha1` will be removed in Kubernetes 1.12.
 
 For more details on each field in the configuration you can navigate to our
 [API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#MasterConfiguration)
@@ -256,28 +259,15 @@ unifiedControlPlaneImage: ""
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the MasterConfiguration see:
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig/v1alpha1#KubeProxyConfiguration)
+- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
 
-### Passing custom arguments to control plane components {#custom-args}
+For information about enabling IPVS mode with kubeadm see:
+- [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
 
-If you would like to override or extend the behaviour of a control plane component, you can provide
-extra arguments to kubeadm. When the component is deployed, these additional arguments are added to
-the Pod command itself.
+### Passing custom flags to control plane components {#control-plane-flags}
 
-For example, to add additional feature-gate arguments to the API server, your [configuration file](#config-file)
-will need to look like this:
-
-```
-apiVersion: kubeadm.k8s.io/v1alpha2
-kind: MasterConfiguration
-apiServerExtraArgs:
-  feature-gates: APIResponseCompression=true
-```
-
-To customize the scheduler or controller-manager, use `schedulerExtraArgs` and `controllerManagerExtraArgs` respectively.
-
-For more information on parameters for the controller-manager and scheduler, see:
-- [high-availability](/docs/setup/independent/high-availability)
+For information about passing flags to control plane components see:
+- [control-plane-flags](/docs/setup/independent/control-plane-flags/)
 
 ### Using custom images {#custom-images}
 
@@ -293,6 +283,8 @@ Allowed customization are:
 * To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
 * To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
 
+Please note that the configuration field `kubernetesVersion` or the command line flag
+`--kubernetes-version` affect the version of the images.
 
 ### Using custom certificates {#custom-certificates}
 

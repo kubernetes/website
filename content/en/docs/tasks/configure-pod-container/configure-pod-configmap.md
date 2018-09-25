@@ -293,9 +293,9 @@ metadata:
 ```
 
 
-## Define Pod environment variables using ConfigMap data
+## Define container environment variables using ConfigMap data
 
-### Define a Pod environment variable with data from a single ConfigMap
+### Define a container environment variable with data from a single ConfigMap
 
 1. Define an environment variable as a key-value pair in a ConfigMap:
 
@@ -333,7 +333,7 @@ metadata:
 
 1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
  
-### Define Pod environment variables with data from multiple ConfigMaps
+### Define container environment variables with data from multiple ConfigMaps
  
 1. As with the previous example, create the ConfigMaps first.
 
@@ -385,7 +385,7 @@ metadata:
  
 1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=info`. 
 
-## Configure all key-value pairs in a ConfigMap as Pod environment variables 
+## Configure all key-value pairs in a ConfigMap as container environment variables 
 
    {{< note >}}
    **Note:** This functionality is available to users running Kubernetes v1.6 and later.
@@ -404,7 +404,7 @@ metadata:
      SPECIAL_TYPE: charm
    ```
 
-1. Use `envFrom` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
+1. Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
    
    ```yaml
    apiVersion: v1

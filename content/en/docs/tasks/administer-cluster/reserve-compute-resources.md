@@ -119,7 +119,7 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 
 ### System Reserved
 
-- **Kubelet Flag**: `--system-reserved=[cpu=100mi][,][memory=100Mi][,][ephemeral-storage=1Gi]`
+- **Kubelet Flag**: `--system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi]`
 - **Kubelet Flag**: `--system-reserved-cgroup=`
 
 
@@ -247,5 +247,8 @@ the proper part of the cgroup hierarchy.
 
 As of Kubernetes version 1.7, `kubelet` supports specifying `storage` as a resource
 for `kube-reserved` and `system-reserved`.
+
+As of Kubernetes version 1.8, the `storage` key name was changed to `ephemeral-storage`
+for the alpha release.
 
 {{% /capture %}}

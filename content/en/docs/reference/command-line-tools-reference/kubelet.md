@@ -53,14 +53,14 @@ kubelet [flags]
       <td colspan="2">--allow-privileged</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">log to standard error as well as files</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, allow containers to request privileged mode.</td>
     </tr>
 
     <tr>
       <td colspan="2">--alsologtostderr</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, allow containers to request privileged mode.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">log to standard error as well as files</td>
     </tr>
 
     <tr>
@@ -412,7 +412,7 @@ kubelet [flags]
        <td colspan="2">--enforce-node-allocatable stringSlice</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptible options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (default [pods])</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (default [pods])</td>
     </tr>
 
      <tr>
@@ -517,7 +517,7 @@ kubelet [flags]
        <td colspan="2">--experimental-check-node-capabilities-before-mount</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] if set true, the kubelet will check the underlying node for required componenets (binaries, etc.) before performing the mount</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] if set true, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount</td>
     </tr>
 
      <tr>
@@ -552,7 +552,7 @@ kubelet [flags]
        <td colspan="2">--feature-gates mapStringBool</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false<br/>APIResponseCompression=true|false<br/>Accelerators=true|false<br/>AdvancedAuditing=true|false<br/>AllAlpha=true|false<br/>AllowExtTrafficLocalEndpoints=true|false<br/>AppArmor=true|false<br/>BlockVolume=true|false<br/>CPUManager=true|false<br/>CSIPersistentVolume=true|false<br/>CustomPodDNS=true|false<br/>CustomResourceValidation=true|false<br/>DebugContainers=true|false<br/>DevicePlugins=true|false<br/>DynamicKubeletConfig=true|false<br/>EnableEquivalenceClassCache=true|false<br/>ExpandPersistentVolumes=true|false<br/>ExperimentalCriticalPodAnnotation=true|false<br/>ExperimentalHostUserNamespaceDefaulting=true|false<br/>HugePages=true|false<br/>Initializers=true|false<br/>KubeletConfigFile=true|false<br/>LocalStorageCapacityIsolation=true|false<br/>MountContainers=true|false<br/>MountPropagation=true|false<br/>PVCProtection=true|false<br/>PersistentLocalVolumes=true|false<br/>PodPriority=true|false<br/>ReadOnlyAPIDataVolumes=true|false<br/>ResourceLimitsPriorityFunction=true|false<br/>RotateKubeletClientCertificate=true|false<br/>RotateKubeletServerCertificate=true|false<br/>ServiceNodeExclusion=true|false<br/>ServiceProxyAllowExternalIPs=true|false<br/>StreamingProxyRedirects=true|false<br/>SupportIPVSProxyMode=true|false<br/>TaintBasedEvictions=true|false<br/>TaintNodesByCondition=true|false<br/>VolumeScheduling=true|false<br/>VolumeSubpath=true|false<br/>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false (BETA - default=true)<br/>APIResponseCompression=true|false (ALPHA - default=false)<br/>Accelerators=true|false<br/>AdvancedAuditing=true|false (BETA - default=true)<br/>AllAlpha=true|false (ALPHA - default=false)<br/>AllowExtTrafficLocalEndpoints=true|false<br/>AppArmor=true|false (BETA - default=true)<br/>BlockVolume=true|false (ALPHA - default=false)<br/>CPUManager=true|false (BETA - default=true)<br/>CSIPersistentVolume=true|false (ALPHA - default=false)<br/>CustomPodDNS=true|false (ALPHA - default=false)<br/>CustomResourceValidation=true|false (BETA - default=true)<br/>DebugContainers=true|false <br/>DevicePlugins=true|false (ALPHA - default=false)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>EnableEquivalenceClassCache=true|false (ALPHA - default=false)<br/>ExpandPersistentVolumes=true|false (ALPHA - default=false)<br/>ExperimentalCriticalPodAnnotation=true|false (ALPHA - default=false)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>HugePages=true|false (ALPHA - default=false)<br/>Initializers=true|false (ALPHA - default=false)<br/>KubeletConfigFile=true|false (ALPHA - default=false)<br/>LocalStorageCapacityIsolation=true|false (ALPHA - default=false)<br/>MountContainers=true|false (ALPHA - default=false)<br/>MountPropagation=true|false (ALPHA - default=false)<br/>PVCProtection=true|false (ALPHA - default=false)<br/>PersistentLocalVolumes=true|false (ALPHA - default=false)<br/>PodPriority=true|false (ALPHA - default=false)<br/>ReadOnlyAPIDataVolumes=true|false<br/>ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)<br/>RotateKubeletClientCertificate=true|false (BETA - default=true)<br/>RotateKubeletServerCertificate=true|false (ALPHA - default=false)<br/>ServiceNodeExclusion=true|false (ALPHA - default=false)<br/>ServiceProxyAllowExternalIPs=true|false<br/>StreamingProxyRedirects=true|false (BETA - default=true)<br/>SupportIPVSProxyMode=true|false (ALPHA - default=false)<br/>TaintBasedEvictions=true|false (ALPHA - default=false)<br/>TaintNodesByCondition=true|false (ALPHA - default=false)<br/>VolumeScheduling=true|false (ALPHA - default=false)<br/>VolumeSubpath=true|false<br/>
       </td>
     </tr>
 
@@ -882,7 +882,7 @@ kubelet [flags]
        <td colspan="2">--pod-infra-container-image string</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The image whose network/ipc namespaces containers in each pod will use. (default "gcr.io/google_containers/pause-amd64:3.0")</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The image whose network/ipc namespaces containers in each pod will use. (default "k8s.gcr.io/pause:3.1")</td>
     </tr>
 
      <tr>
@@ -967,20 +967,6 @@ kubelet [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Resolver configuration file used as the basis for the container DNS resolution configuration. (default "/etc/resolv.conf")</td>
-    </tr>
-
-     <tr>
-       <td colspan="2">--rkt-api-endpoint string</td> 
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The endpoint of the rkt API service to communicate with. Only used if --container-runtime='rkt'. (default "localhost:15441")</td>
-    </tr>
-
-     <tr>
-       <td colspan="2">--rkt-path string</td> 
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path of rkt binary. Leave empty to use the first rkt in $PATH.</td>
     </tr>
 
      <tr>
@@ -1130,6 +1116,13 @@ kubelet [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">File containing x509 Certificate used for serving HTTPS (with intermediate certs, if any, concatenated after server cert). If --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory passed to --cert-dir.</td>
     </tr>
 
+    <tr>
+      <td colspan="2">--tls-cipher-suites stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be use.  Possible values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA</td>
+    </tr>
+    
      <tr>
        <td colspan="2">--tls-private-key-file string</td> 
     </tr>
