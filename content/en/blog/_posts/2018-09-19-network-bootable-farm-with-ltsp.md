@@ -451,6 +451,7 @@ data:
 * **PREINIT_*** - commands listed here will be executed before systemd running (this functional was added by [feature_preinit.diff](#used-patches-list) patch)
 * **FSTAB_*** - entries writed here will be added to `/etc/fstab` file.
 As you can see, I use `nofail` option, that means that if partition not existing, it will continue boot without error.
+If you have fully diskless nodes you can remove FSTAB settings or configure remote filesystem there.
 * **RCFILE_*** - those commands will be writed to `rc.local` file, which will be called by systemd during the boot.
 Here I load kernel modules and add  some sysctl tunes, then call `kubeadm join` command, which adds my node to the Kubernetes cluster.
 
