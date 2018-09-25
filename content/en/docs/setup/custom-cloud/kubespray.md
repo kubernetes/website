@@ -5,13 +5,19 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, or Baremetal with [Kubespray](https://github.com/kubernetes-incubator/kubespray).
+This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-incubator/kubespray).
   
 Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 
 * a highly available cluster
 * composable attributes
-* support for most popular Linux distributions (CoreOS, Debian Jessie, Ubuntu 16.04, CentOS/RHEL 7, Fedora/CentOS Atomic)
+* support for most popular Linux distributions
+  * Container Linux by CoreOS
+  * Debian Jessie, Stretch, Wheezy
+  * Ubuntu 16.04, 18.04
+  * CentOS/RHEL 7
+  * Fedora/CentOS Atomic
+  * openSUSE Leap 42.3/Tumbleweed
 * continuous integration tests
 
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](../kops).
@@ -48,12 +54,16 @@ After you provision your servers, create an [inventory file for Ansible](http://
 
 Kubespray provides the ability to customize many aspects of the deployment:
 
+* Choice deployment mode: kubeadm or non-kubeadm
 * CNI (networking) plugins
 * DNS configuration
-* Choice of control plane: native/binary or containerized with docker or rkt)
+* Choice of control plane: native/binary or containerized with docker or rkt
 * Component versions
 * Calico route reflectors
 * Component runtime options
+  * docker
+  * rkt
+  * cri-o
 * Certificate generation methods
 
 Kubespray customizations can be made to a [variable file](http://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.

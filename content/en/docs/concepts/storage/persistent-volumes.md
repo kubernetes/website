@@ -5,6 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Persistent Volumes
+feature:
+  title: Storage orchestration
+  description: >
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider  such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
+
 content_template: templates/concept
 weight: 20
 ---
@@ -378,18 +383,19 @@ A Kubernetes administrator can specify additional mount options for when a Persi
 
 The following volume types support mount options:
 
-* GCEPersistentDisk
 * AWSElasticBlockStore
-* AzureFile
 * AzureDisk
-* NFS
-* iSCSI
-* RBD (Ceph Block Device)
+* AzureFile
 * CephFS
 * Cinder (OpenStack block storage)
+* GCEPersistentDisk
 * Glusterfs
-* VsphereVolume
+* NFS
 * Quobyte Volumes
+* RBD (Ceph Block Device)
+* StorageOS
+* VsphereVolume
+* iSCSI
 
 Mount options are not validated, so mount will simply fail if one is invalid.
 
@@ -509,7 +515,7 @@ metadata:
 spec:
   containers:
     - name: myfrontend
-      image: dockerfile/nginx
+      image: nginx
       volumeMounts:
       - mountPath: "/var/www/html"
         name: mypd

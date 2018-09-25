@@ -183,6 +183,7 @@ Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madc
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
 Kublr       | custom       | multi-support | multi-support | [docs](http://docs.kublr.com/) | Commercial
 Kubermatic       |              | multi-support | multi-support | [docs](http://docs.kubermatic.io/) | Commercial
+IBM Cloud Kubernetes Service |               | Ubuntu | IBM Cloud Networking + Calico | [docs](https://console.bluemix.net/docs/containers/) | Commercial
 Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/turnkey/gce/)                                    | Project
 Azure Kubernetes Service |              | Ubuntu | Azure       | [docs](https://docs.microsoft.com/en-us/azure/aks/)                    |  Commercial
