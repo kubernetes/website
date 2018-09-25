@@ -17,7 +17,7 @@ For more ways to get involved in the Kubernetes community or to learn about us,
 also visit the [Kubernetes community site](/community/).
 
 Looking for the [style guide](/docs/contribute/style/style-guide/) or the
-[Kubernetes Community site]()?
+[Kubernetes Community site](/community/)?
 {{% /capture %}}
 
 {{% capture body %}}
