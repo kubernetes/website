@@ -431,6 +431,7 @@ done
 
 1.  Extract the etcd certificates
 
+        mkdir -p /etc/kubernetes/pki
         tar -xzf etcd-pki.tar.gz -C /etc/kubernetes/pki --strip-components=3
 
 1.  Create a `kubeadm-config.yaml`:
