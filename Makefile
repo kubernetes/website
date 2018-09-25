@@ -19,7 +19,7 @@ build-preview: ## Build site with drafts and future posts enabled
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: update-imported-docs build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
 non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
@@ -35,3 +35,7 @@ docker-build:
 
 docker-serve:
 	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --watch --bind 0.0.0.0
+
+.PHONY: update-imported-docs
+update-imported-docs:
+	(cd update-imported-docs && ./build-all.sh)
