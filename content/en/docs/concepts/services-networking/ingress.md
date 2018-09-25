@@ -95,6 +95,8 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 * [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
 ([Let's Encrypt](https://letsencrypt.org), secrets, http2, websocket...), and it also comes with commercial support by [Containous](https://containo.us/services)
 * [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)
+* [HAProxy](http://www.haproxy.org/) based ingress controller [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) which is mentioned on this blog post [HAProxy Ingress Controller for Kubernetes](https://www.haproxy.com/blog/haproxy_ingress_controller_for_kubernetes/)
+* [Istio](https://istio.io/) based ingress controller [Control Ingress Traffic](https://istio.io/docs/tasks/traffic-management/ingress/)
 
 {{< note >}}
 **Note:** Review the documentation for your controller to find its specific support policy.

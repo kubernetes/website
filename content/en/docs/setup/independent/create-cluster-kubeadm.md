@@ -261,7 +261,7 @@ Please select one of the tabs to see installation instructions for the respectiv
 {{% tab name="Calico" %}}
 For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
 
-In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`. Note that Calico works on `amd64` only.
+For Calico to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init` or update the `calico.yml` file to match your Pod network. Note that Calico works on `amd64` only.
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
@@ -278,6 +278,35 @@ For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/canal.yaml
 ```
+
+{{% /tab %}}
+
+{{% tab name="Cilium" %}}
+For more information about using Cilium with Kubernetes, see [Quickstart for Cilium on Kubernetes](http://docs.cilium.io/en/v1.2/kubernetes/quickinstall/) and [Kubernetes Install guide for Cilium](http://docs.cilium.io/en/v1.2/kubernetes/install/).
+
+Passing `--pod-network-cidr` option to `kubeadm init` is not required, but highly recommended.
+
+These commands will deploy Cilium with its own etcd managed by etcd operator.
+
+```shell
+# Download required manifests from Cilium repository
+wget https://github.com/cilium/cilium/archive/v1.2.0.zip
+unzip v1.2.0.zip
+cd cilium-1.2.0/examples/kubernetes/addons/etcd-operator
+
+# Generate and deploy etcd certificates
+export CLUSTER_DOMAIN=$(kubectl get ConfigMap --namespace kube-system coredns -o yaml | awk '/kubernetes/ {print $2}')
+tls/certs/gen-cert.sh $CLUSTER_DOMAIN
+tls/deploy-certs.sh
+
+# Label kube-dns with fixed identity label
+kubectl label -n kube-system pod $(kubectl -n kube-system get pods -l k8s-app=kube-dns -o jsonpath='{range .items[]}{.metadata.name}{" "}{end}') io.cilium.fixed-identity=kube-dns
+
+kubectl create -f ./
+
+# Wait several minutes for Cilium, coredns and etcd pods to converge to a working state
+```
+
 
 {{% /tab %}}
 {{% tab name="Flannel" %}}

@@ -193,7 +193,7 @@ myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
 Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
 
 ```shell
-kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"myregistrykey\"}]}'
+kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 ```
 
 Interactive version requiring manual edit:

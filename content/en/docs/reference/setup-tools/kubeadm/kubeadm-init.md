@@ -114,6 +114,9 @@ For more details on each field in the configuration you can navigate to our
 For information about kube-proxy parameters in the kubeadm configuration see:
 - [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
 
+For information about enabling IPVS mode with kubeadm see:
+- [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
+
 ### Passing custom flags to control plane components {#control-plane-flags}
 
 For information about passing flags to control plane components see:

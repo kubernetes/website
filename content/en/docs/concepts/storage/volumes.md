@@ -972,7 +972,7 @@ spec:
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
 [StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
 
-### vsphereVolume {#vsphereVolume}
+### vsphereVolume {#vspherevolume}
 
 {{< note >}}
 **Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider

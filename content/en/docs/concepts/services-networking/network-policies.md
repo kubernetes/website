@@ -92,12 +92,69 @@ __egress__: Each `NetworkPolicy` may include a list of whitelist `egress` rules.
 So, the example NetworkPolicy:
 
 1. isolates "role=db" pods in the "default" namespace for both ingress and egress traffic (if they weren't already isolated)
-2. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
-3. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
-4. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from IP addresses that are in CIDR 172.17.0.0/16 and not in 172.17.1.0/24
-5. allows connections from any pod in the "default" namespace with the label "role=db" to CIDR 10.0.0.0/24 on TCP port 5978
+2. allows connections to TCP port 6379 of "role=db" pods in the "default" namespace from:
+   * any pod in the "default" namespace with the label "role=frontend"
+   * any pod in a namespace with the label "project=myproject"
+   * IP addresses in the ranges 172.17.0.0–172.17.0.255 and 172.17.2.0–172.17.255.255 (ie, all of 172.17.0.0/16 except 172.17.1.0/24)
+3. allows connections from any pod in the "default" namespace with the label "role=db" to CIDR 10.0.0.0/24 on TCP port 5978
 
 See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) walkthrough for further examples.
+
+## Behavior of `to` and `from` selectors
+
+There are four kinds of selectors that can be specified in an `ingress` `from` section or `egress` `to` section:
+
+__podSelector__: This selects particular Pods in the same namespace as the `NetworkPolicy` which should be allowed as ingress sources or egress destinations.
+
+__namespaceSelector__: This selects particular namespaces for which all Pods should be allowed as ingress sources or egress destinations.
+
+__namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that specifies both `namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be careful to use correct YAML syntax; this policy:
+
+```yaml
+  ...
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          user: alice
+      podSelector:
+        matchLabels:
+          role: client
+  ...
+```
+
+contains a single `from` element allowing connections from Pods with the label `role=client` in namespaces with the label `user=alice`. But *this* policy:
+
+```yaml
+  ...
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          user: alice
+    - podSelector:
+        matchLabels:
+          role: client
+  ...
+```
+
+contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `role=client`, *or* from any Pod in any namespace with the label `user=alice`.
+
+When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
+
+__ipBlock__: This selects particular IP CIDR ranges to allow as ingress sources or egress destinations. These should be cluster-external IPs, since Pod IPs are ephemeral and unpredictable.
+
+Cluster ingress and egress mechanisms often require rewriting the source or destination IP
+of packets. In cases where this happens, it is not defined whether this happens before or
+after NetworkPolicy processing, and the behavior may be different for different
+combinations of network plugin, cloud provider, `Service` implementation, etc.
+
+In the case of ingress, this means that in some cases you may be able to filter incoming
+packets based on the actual original source IP, while in other cases, the "source IP" that
+the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the Pod's node, etc.
+
+For egress, this means that connections from pods to `Service` IPs that get rewritten to
+cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 
 ## Default policies
 

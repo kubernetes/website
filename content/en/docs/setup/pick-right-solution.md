@@ -86,6 +86,7 @@ few commands. These solutions are actively developed and have active community s
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 * [CenturyLink Cloud](/docs/setup/turnkey/clc/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
+* [IBM Cloud Private Running on Multiple Clouds](https://www.ibm.com/developerworks/community/wikis/home?lang=en-us#!/wiki/W1559b1be149d_43b0_881e_9783f38faaff/page/IBM%20Cloud%20Private%20running%20on%20multiple%20clouds)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Madcore.Ai](https://madcore.ai/)
 * [Kubermatic](https://cloud.kubermatic.io)
@@ -183,6 +184,7 @@ Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madc
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
 Kublr       | custom       | multi-support | multi-support | [docs](http://docs.kublr.com/) | Commercial
 Kubermatic       |              | multi-support | multi-support | [docs](http://docs.kubermatic.io/) | Commercial
+IBM Cloud Kubernetes Service |               | Ubuntu | IBM Cloud Networking + Calico | [docs](https://console.bluemix.net/docs/containers/) | Commercial
 Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/turnkey/gce/)                                    | Project
 Azure Kubernetes Service |              | Ubuntu | Azure       | [docs](https://docs.microsoft.com/en-us/azure/aks/)                    |  Commercial
