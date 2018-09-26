@@ -1,3 +1,5 @@
-<div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="editor-panel-split"></div>
+<div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
 <script src="https://katacoda.com/embed.js"></script>
 <button class="button" onclick="window.katacoda.init(); ">Launch Terminal</button>
+
+Render port 8080: https://[[HOST_SUBDOMAIN]]-8080-[[KATACODA_HOST]].environments.katacoda.com/
