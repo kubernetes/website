@@ -1,6 +1,3 @@
-<div id="my-element-1" data-katacoda-env="node" data-katacoda-layout="editor" style="border: 2px solid #ccc;">
-  console.log("Hello World!!");
-</div>
-<div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="panel"></div>
+<div id="my-panel" data-katacoda-ondemand="true" data-katacoda-env="minikube" data-katacoda-command="minikube version; minikube start" data-katacoda-ui="editor-panel-split"></div>
 <script src="https://katacoda.com/embed.js"></script>
 <button class="button" onclick="window.katacoda.init(); ">Launch Terminal</button>
