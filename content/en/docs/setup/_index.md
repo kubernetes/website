@@ -71,13 +71,13 @@ Pick a [turnkey cloud solution](/docs/setup/pick-right-solution/#turnkey-cloud-s
 These solutions allow you to create Kubernetes clusters on your internal, secure,
 cloud network with only a few commands.
 
-You should pick a on-prem turnkey cloud solution if you:
+You should pick a on-premises turnkey cloud solution if you:
 
 * Want to deploy clusters on your private cloud network
 * Have a dedicated SRE team
 * Have the the resources to host and monitor your clusters
 
-Pick an [on-prem turnkey cloud solution](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions).
+Pick an [on-premises turnkey cloud solution](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions).
 
 ## Custom Solutions
 
