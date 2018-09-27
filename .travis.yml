@@ -19,4 +19,3 @@ install:
 
 script:
 - go test -v k8s.io/website/content/en/examples
-#- ./verify-docs-format.sh

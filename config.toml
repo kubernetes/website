@@ -71,7 +71,7 @@ githubbranch = "master"
 docsbranch = "master"
 deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
-nextUrl = "http://kubernetes-io-vnext-staging.netlify.com/"
+nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
