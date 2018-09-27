@@ -303,7 +303,7 @@ metadata:
    kubectl create configmap special-config --from-literal=special.how=very 
    ```
 
-1. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
 
    ```shell
    kubectl edit pod dapi-test-pod
@@ -331,7 +331,7 @@ metadata:
      restartPolicy: Never
    ```
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
+3. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
  
 ### Define container environment variables with data from multiple ConfigMaps
  
@@ -357,7 +357,7 @@ metadata:
      log_level: INFO
    ``` 
 
-1. Define the environment variables in the Pod specification.
+2. Define the environment variables in the Pod specification.
 
    ```yaml
    apiVersion: v1
@@ -383,7 +383,7 @@ metadata:
      restartPolicy: Never
    ```
  
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=info`. 
+3. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`. 
 
 ## Configure all key-value pairs in a ConfigMap as container environment variables 
 
@@ -404,7 +404,7 @@ metadata:
      SPECIAL_TYPE: charm
    ```
 
-1. Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
+2. Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
    
    ```yaml
    apiVersion: v1
@@ -422,7 +422,7 @@ metadata:
      restartPolicy: Never
    ```
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
+3. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
 
 
 ## Use ConfigMap-defined environment variables in Pod commands  
@@ -604,7 +604,7 @@ data:
 
 1. You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMap that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
 
-1. If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
+2. If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
 
    ```shell
    kubectl get events
@@ -612,9 +612,9 @@ data:
    0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
    ```
 
-1. ConfigMaps reside in a specific [namespace](/docs/concepts/overview/working-with-objects/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
+3. ConfigMaps reside in a specific [namespace](/docs/concepts/overview/working-with-objects/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
 
-1. Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
+4. Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
    This includes pods created via the Kubelet's --manifest-url flag, --config flag, or the Kubelet REST API.
    
    {{< note >}}
