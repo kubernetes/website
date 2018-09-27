@@ -246,6 +246,15 @@ spec:
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed ingress or egress traffic.
 
+## SCTP support
+
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+
+Kubernetes supports SCTP as a `protocol` value in `NetworkPolicy` definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a `NetworkPolicy` to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
+
+The CNI plugin has to support SCTP as `protocol` value in `NetworkPolicy`.
+
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}

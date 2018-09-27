@@ -9,8 +9,6 @@ title: Auditing
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
-
 Kubernetes auditing provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators
 or other components of the system. It allows cluster administrator to
@@ -83,7 +81,7 @@ You can use a minimal audit policy file to log all requests at the `Metadata` le
 
 ```yaml
 # Log all requests at the Metadata level.
-apiVersion: audit.k8s.io/v1beta1
+apiVersion: audit.k8s.io/v1
 kind: Policy
 rules:
 - level: Metadata
@@ -102,7 +100,7 @@ Audit backends persist audit events to an external storage.
 
 In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
-[`v1beta1`][auditing-api].
+[`v1`][auditing-api].
 
 {{< note >}}
 **Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
@@ -363,54 +361,11 @@ Note that in addition to file output plugin, logstash has a variety of outputs t
 let users route data where they want. For example, users can emit audit events to elasticsearch
 plugin which supports full-text search and analytics.
 
-## Legacy Audit
-
-__Note:__ Legacy Audit is deprecated and is disabled by default since 1.8 and 
-will be removed in 1.12. To fallback to this legacy audit, disable the advanced
-auditing feature using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
-
-```
---feature-gates=AdvancedAuditing=false
-```
-
-In legacy format, each audit log entry contains two lines:
-
-1. The request line containing a unique ID to match the response and request
-   metadata, such as the source IP, requesting user, impersonation information,
-   resource being requested, etc.
-2. The response line containing a unique ID matching the request line and the response code.
-
-Example output for `admin` user listing pods in the `default` namespace:
-
-```
-2017-03-21T03:57:09.106841886-04:00 AUDIT: id="c939d2a7-1c37-4ef1-b2f7-4ba9b1e43b53" ip="127.0.0.1" method="GET" user="admin" groups="\"system:masters\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="default" uri="/api/v1/namespaces/default/pods"
-2017-03-21T03:57:09.108403639-04:00 AUDIT: id="c939d2a7-1c37-4ef1-b2f7-4ba9b1e43b53" response="200"
-```
-
-### Configuration
-
-[Kube-apiserver][kube-apiserver] provides the following options which are responsible
-for configuring where and how audit logs are handled:
-
-- `audit-log-path` - enables the audit log pointing to a file where the requests are being logged to, '-' means standard out.
-- `audit-log-maxage` - specifies maximum number of days to retain old audit log files based on the timestamp encoded in their filename.
-- `audit-log-maxbackup` - specifies maximum number of old audit log files to retain.
-- `audit-log-maxsize` - specifies maximum size in megabytes of the audit log file before it gets rotated. Defaults to 100MB.
-
-If an audit log file already exists, Kubernetes appends new audit logs to that file.
-Otherwise, Kubernetes creates an audit log file at the location you specified in
-`audit-log-path`. If the audit log file exceeds the size you specify in `audit-log-maxsize`,
-Kubernetes will rename the current log file by appending the current timestamp on
-the file name (before the file extension) and create a new audit log file.
-Kubernetes may delete old log files when creating a new log file; you can configure
-how many files are retained and how old they can be by specifying the `audit-log-maxbackup`
-and `audit-log-maxage` options.
-
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
-[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
+[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
-[kubeconfig]: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
+[kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
 [fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
 [fluentd_plugin_management_doc]: https://docs.fluentd.org/v0.12/articles/plugin-management

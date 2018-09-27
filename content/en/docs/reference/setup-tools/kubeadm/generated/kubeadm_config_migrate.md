@@ -9,9 +9,9 @@ This command lets you convert configuration objects of older versions to the lat
 locally in the CLI tool without ever touching anything in the cluster.
 In this version of kubeadm, the following API versions are supported:
 - kubeadm.k8s.io/v1alpha2
-- kubeadm.k8s.io/v1alpha1
+- kubeadm.k8s.io/v1alpha3
 
-Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1alpha2", but read both types.
+Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1alpha3", but read both types.
 So regardless of what version you pass to the --old-config parameter here, the API object will be
 read, deserialized, defaulted, converted, validated, and re-serialized when written to stdout or
 --new-config if specified.
@@ -72,7 +72,14 @@ kubeadm config migrate [flags]
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
     </tr>
 
   </tbody>
