@@ -53,6 +53,13 @@ Example usage:
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for kubeadm</td>
     </tr>
 
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+    </tr>
+
   </tbody>
 </table>
 

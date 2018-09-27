@@ -42,6 +42,7 @@ administrator to control the following:
 | Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
+| The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedProcMountTypes) |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
 | The sysctl profile used by containers               | [annotations](#sysctl)                      |
@@ -421,6 +422,9 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
+- *MayRunAs* - Requires at least one `range` to be specified. Allows
+`FSGroups` to be left unset without providing a default. Validates against
+all ranges if `FSGroups` is set.
 - *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
 **AllowedHostPaths** - This specifies a whitelist of host paths that are allowed
@@ -487,10 +491,24 @@ image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
 recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
+**RunAsGroup** - Controls the what primary group ID containers run as.
+
+- *MustRunAs* - Requires at least one `range` to be specified. Uses the
+minimum value of the first range as the default. Validates against all ranges.
+- *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
+`runAsUser` or have the `USER` directive defined (using a numeric GID) in the
+image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
+recommended with this strategy.
+- *RunAsAny* - No default provided. Allows any `runAsGroup` to be specified.
+
+
 **SupplementalGroups** - Controls which group IDs containers add.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
+- *MayRunAs* - Requires at least one `range` to be specified. Allows
+`supplementalGroups` to be left unset without providing a default.
+Validates against all ranges if `supplementalGroups` is set.
 - *RunAsAny* - No default provided. Allows any `supplementalGroups` to be
 specified.
 
@@ -547,6 +565,21 @@ for the default list of capabilities when using the Docker runtime.
 `seLinuxOptions` as the default. Validates against `seLinuxOptions`.
 - *RunAsAny* - No default provided. Allows any `seLinuxOptions` to be
 specified.
+
+### AllowedProcMountTypes
+
+`allowedProcMountTypes` is a whitelist of allowed ProcMountTypes.
+Empty or nil indicates that only the `DefaultProcMountType` may be used. 
+
+`DefaultProcMount` uses the container runtime defaults for readonly and masked
+paths for /proc.  Most container runtimes mask certain paths in /proc to avoid
+accidental security exposure of special devices or information. This is denoted
+as the string `Default`.
+
+The only other ProcMountType is `UnmaskedProcMount`, which bypasses the 
+default masking behavior of the container runtime and ensures the newly 
+created /proc the container stays in tact with no modifications. This is
+denoted as the string `Unmasked`.
 
 ### AppArmor
 

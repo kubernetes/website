@@ -69,6 +69,7 @@ timeframe; which also applies to `kubeadm`.
 | v1.9.x             | December 2017  | September 2018    |
 | v1.10.x            | March 2018     | December 2018     |
 | v1.11.x            | June 2018      | March 2019        |
+| v1.12.x            | September 2018 | June 2019         |
 
 {{% /capture %}}
 
