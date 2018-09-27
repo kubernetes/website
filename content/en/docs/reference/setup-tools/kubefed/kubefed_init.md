@@ -1,19 +1,59 @@
-## kubefed
+## kubefed init
 
-kubefed controls a Kubernetes Cluster Federation
+Initialize a federation control plane
 
 ### Synopsis
 
 
-kubefed controls a Kubernetes Cluster Federation. 
+Init initializes a federation control plane. 
 
-Find more information at https://github.com/kubernetes/federation.
+    Federation control plane is hosted inside a Kubernetes
+    cluster. The host cluster must be specified using the
+    --host-cluster-context flag.
 
 ```
-kubefed [flags]
+kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT [flags]
+```
+
+### Examples
+
+```
+  # Initialize federation control plane for a federation
+  # named foo in the host cluster whose local kubeconfig
+  # context is bar.
+  kubefed init foo --host-cluster-context=bar
 ```
 
 ### Options
+
+```
+      --api-server-advertise-address string      Preferred address to advertise api server nodeport service. Valid only if 'api-server-service-type=NodePort'.
+      --api-server-port int32                    Preferred port to use for api server nodeport service (0 for random port assignment). Valid only if 'api-server-service-type=NodePort'.
+      --api-server-service-type string           The type of service to create for federation API server. Options: 'LoadBalancer' (default), 'NodePort'. (default "LoadBalancer")
+      --apiserver-arg-overrides string           comma separated list of federation-apiserver arguments to override: Example "--arg1=value1,--arg2=value2..."
+      --apiserver-enable-basic-auth              Enables HTTP Basic authentication for the federation-apiserver. Defaults to false.
+      --apiserver-enable-token-auth              Enables token authentication for the federation-apiserver. Defaults to false.
+      --controllermanager-arg-overrides string   comma separated list of federation-controller-manager arguments to override: Example "--arg1=value1,--arg2=value2..."
+      --credentials-kubeconfig string            Kubeconfig file path on local file system, which should be used to authenticate with host cluster or the joining cluster (instead of the default kubeconfig).This can be used to override the RBAC based authentication while initialising the federation control plane or joining a cluster to one, even when the cluster exposes the RBAC API.
+      --dns-provider string                      Dns provider to be used for this deployment.
+      --dns-provider-config string               Config file path on local file system for configuring DNS provider.
+      --dns-zone-name string                     DNS suffix for this federation. Federated Service DNS names are published with this suffix.
+      --dry-run                                  dry run without sending commands to server.
+      --etcd-image string                        Image to use for etcd server. (default "gcr.io/google_containers/etcd:3.1.10")
+      --etcd-persistent-storage                  Use persistent volume for etcd. Defaults to 'true'. (default true)
+      --etcd-pv-capacity string                  Size of persistent volume claim to be used for etcd. (default "10Gi")
+      --etcd-pv-storage-class string             The storage class of the persistent volume claim used for etcd.   Must be provided if a default storage class is not enabled for the host cluster.
+      --etcd-servers string                      External pre-deployed etcd server to be used to store federation state.
+      --federation-system-namespace string       Namespace in the host cluster where the federation system components are installed (default "federation-system")
+  -h, --help                                     help for init
+      --host-cluster-context string              Host cluster context
+      --image string                             Image to use for federation API server and controller manager binaries. (default "gcr.io/k8s-jkns-e2e-gce-federation/fcp-amd64:v0.0.0-master_$Format:%h$")
+      --image-pull-policy string                 PullPolicy describes a policy for if/when to pull a container image. The default pull policy is IfNotPresent which will not pull an image if it already exists. (default "IfNotPresent")
+      --image-pull-secrets string                Provide secrets that can access the private registry.
+      --node-selector string                     comma separated list of nodeSelector arguments: Example "arg1=value1,arg2=value2..."
+```
+
+### Options inherited from parent commands
 
 ```
       --alsologtostderr                              log to standard error as well as files
@@ -28,7 +68,6 @@ kubefed [flags]
       --context string                               The name of the kubeconfig context to use
       --default-not-ready-toleration-seconds int     Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration. (default 300)
       --default-unreachable-toleration-seconds int   Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration. (default 300)
-  -h, --help                                         help for kubefed
       --insecure-skip-tls-verify                     If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
       --ir-data-source string                        Data source used by InitialResources. Supported options: influxdb, gcm. (default "influxdb")
       --ir-dbname string                             InfluxDB database name which contains metrics required by InitialResources (default "k8s")
@@ -57,10 +96,6 @@ kubefed [flags]
 ```
 
 ### SEE ALSO
-* [kubefed init](kubefed_init.md)	 - Initialize a federation control plane
-* [kubefed join](kubefed_join.md)	 - Join a cluster to a federation
-* [kubefed options](kubefed_options.md)	 - Print the list of flags inherited by all commands
-* [kubefed unjoin](kubefed_unjoin.md)	 - Unjoin a cluster from a federation
-* [kubefed version](kubefed_version.md)	 - Print the client and server version information
+* [kubefed](kubefed.md)	 - kubefed controls a Kubernetes Cluster Federation
 
 ###### Auto generated by spf13/cobra on 24-Sep-2018

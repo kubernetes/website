@@ -1,19 +1,53 @@
-## kubefed
+## kubefed join
 
-kubefed controls a Kubernetes Cluster Federation
+Join a cluster to a federation
 
 ### Synopsis
 
 
-kubefed controls a Kubernetes Cluster Federation. 
+Join adds a cluster to a federation. 
 
-Find more information at https://github.com/kubernetes/federation.
+    Current context is assumed to be a federation API
+    server. Please use the --context flag otherwise.
 
 ```
-kubefed [flags]
+kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
+```
+
+### Examples
+
+```
+  # Join a cluster to a federation by specifying the
+  # cluster name and the context name of the federation
+  # control plane's host cluster. Cluster name must be
+  # a valid RFC 1123 subdomain name. Cluster context
+  # must be specified if the cluster name is different
+  # than the cluster's context in the local kubeconfig.
+  kubefed join foo --host-cluster-context=bar
 ```
 
 ### Options
+
+```
+      --allow-missing-template-keys          If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. (default true)
+      --cluster-context string               Name of the cluster's context in the local kubeconfig. Defaults to cluster name if unspecified.
+      --credentials-kubeconfig string        Kubeconfig file path on local file system, which should be used to authenticate with host cluster or the joining cluster (instead of the default kubeconfig).This can be used to override the RBAC based authentication while initialising the federation control plane or joining a cluster to one, even when the cluster exposes the RBAC API.
+      --dry-run                              If true, only print the object that would be sent, without sending it.
+      --federation-system-namespace string   Namespace in the host cluster where the federation system components are installed (default "federation-system")
+      --generator string                     The name of the API generator to use. (default "cluster/v1beta1")
+  -h, --help                                 help for join
+      --host-cluster-context string          Host cluster context
+      --no-headers                           When using the default or custom-column output format, don't print headers (default print headers).
+  -o, --output string                        Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath].
+      --save-config                          If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
+  -a, --show-all                             When printing, show all resources (default hide terminated pods.)
+      --show-labels                          When printing, show all labels as the last column (default hide labels column)
+      --sort-by string                       If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --template string                      Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
+      --validate                             If true, use a schema to validate the input before sending it (default true)
+```
+
+### Options inherited from parent commands
 
 ```
       --alsologtostderr                              log to standard error as well as files
@@ -28,7 +62,6 @@ kubefed [flags]
       --context string                               The name of the kubeconfig context to use
       --default-not-ready-toleration-seconds int     Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration. (default 300)
       --default-unreachable-toleration-seconds int   Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration. (default 300)
-  -h, --help                                         help for kubefed
       --insecure-skip-tls-verify                     If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
       --ir-data-source string                        Data source used by InitialResources. Supported options: influxdb, gcm. (default "influxdb")
       --ir-dbname string                             InfluxDB database name which contains metrics required by InitialResources (default "k8s")
@@ -57,10 +90,6 @@ kubefed [flags]
 ```
 
 ### SEE ALSO
-* [kubefed init](kubefed_init.md)	 - Initialize a federation control plane
-* [kubefed join](kubefed_join.md)	 - Join a cluster to a federation
-* [kubefed options](kubefed_options.md)	 - Print the list of flags inherited by all commands
-* [kubefed unjoin](kubefed_unjoin.md)	 - Unjoin a cluster from a federation
-* [kubefed version](kubefed_version.md)	 - Print the client and server version information
+* [kubefed](kubefed.md)	 - kubefed controls a Kubernetes Cluster Federation
 
 ###### Auto generated by spf13/cobra on 24-Sep-2018
