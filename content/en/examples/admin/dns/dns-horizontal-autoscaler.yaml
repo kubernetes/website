@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kube-dns-autoscaler
+  name: dns-autoscaler
   namespace: kube-system
   labels:
-    k8s-app: kube-dns-autoscaler
+    k8s-app: dns-autoscaler
 spec:
   selector:
     matchLabels:
-       k8s-app: kube-dns-autoscaler
+       k8s-app: dns-autoscaler
   template:
     metadata:
       labels:
-        k8s-app: kube-dns-autoscaler
+        k8s-app: dns-autoscaler
     spec:
       containers:
       - name: autoscaler
@@ -24,7 +24,7 @@ spec:
         command:
           - /cluster-proportional-autoscaler
           - --namespace=kube-system
-          - --configmap=kube-dns-autoscaler
+          - --configmap=dns-autoscaler
           - --target=<SCALE_TARGET>
           # When cluster is using large nodes(with more cores), "coresPerReplica" should dominate.
           # If using small nodes, "nodesPerReplica" should dominate.

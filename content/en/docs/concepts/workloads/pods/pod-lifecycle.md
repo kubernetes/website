@@ -157,7 +157,7 @@ Note that the information reported as Pod status depends on the current
 
 ## Pod readiness gate
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 In order to add extensibility to Pod readiness by enabling the injection of
 extra feedbacks or signals into `PodStatus`, Kubernetes 1.11 introduced a
@@ -203,9 +203,11 @@ when both the following statements are true:
 To facilitate this change to Pod readiness evaluation, a new Pod condition
 `ContainersReady` is introduced to capture the old Pod `Ready` condition.
 
-As an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
+In K8s 1.11, as an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
 setting the `PodReadinessGates` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to True.
+to true.
+
+In K8s 1.12, the feature is enabled by default.
 
 ## Restart policy
 

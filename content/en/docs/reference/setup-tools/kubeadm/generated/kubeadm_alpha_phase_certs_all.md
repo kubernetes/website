@@ -6,8 +6,7 @@ Generates all PKI assets necessary to establish the control plane
 
 Generates a self-signed CA to provision identities for each component in the cluster (including nodes) and client certificates to be used by various components. 
 
-If a given certificate and private key pair both exist, kubeadm skips the generation step and
-existing files will be used. 
+If a given certificate and private key pair both exist, kubeadm skips the generation step and existing files will be used. 
 
 Alpha Disclaimer: this command is currently alpha.
 
@@ -60,7 +59,7 @@ kubeadm alpha phase certs all [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
     </tr>
 
     <tr>
@@ -82,6 +81,27 @@ kubeadm alpha phase certs all [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Alternative domain for services, to use for the API server serving cert</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
     </tr>
 
   </tbody>

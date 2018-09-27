@@ -102,164 +102,16 @@ configuration file options. This file is passed in the `--config` option.
 
 In Kubernetes 1.11 and later, the default configuration can be printed out using the
 [kubeadm config print-default](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
-It is **recommended** that you migrate your old `v1alpha1` configuration to `v1alpha2` using
+It is **recommended** that you migrate your old `v1alpha2` configuration to `v1alpha3` using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
-because `v1alpha1` will be removed in Kubernetes 1.12.
+because `v1alpha2` will be removed in Kubernetes 1.13.
 
 For more details on each field in the configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#MasterConfiguration)
-
-Example of the kubeadm MasterConfiguration version `v1alpha2`:
-
-```yaml
-apiVersion: kubeadm.k8s.io/v1alpha2
-kind: MasterConfiguration
-kubernetesVersion: v1.11.0
-api:
-  advertiseAddress: 192.168.0.102
-  bindPort: 6443
-  controlPlaneEndpoint: ""
-auditPolicy:
-  logDir: /var/log/kubernetes/audit
-  logMaxAge: 2
-  path: ""
-bootstrapTokens:
-- groups:
-  - system:bootstrappers:kubeadm:default-node-token
-  token: abcdef.0123456789abcdef
-  ttl: 24h0m0s
-  usages:
-  - signing
-  - authentication
-certificatesDir: /etc/kubernetes/pki
-clusterName: kubernetes
-etcd:
-  local:
-    dataDir: /var/lib/etcd
-    image: ""
-imageRepository: k8s.gcr.io
-kubeProxy:
-  config:
-    bindAddress: 0.0.0.0
-    clientConnection:
-      acceptContentTypes: ""
-      burst: 10
-      contentType: application/vnd.kubernetes.protobuf
-      kubeconfig: /var/lib/kube-proxy/kubeconfig.conf
-      qps: 5
-    clusterCIDR: ""
-    configSyncPeriod: 15m0s
-    conntrack:
-      max: null
-      maxPerCore: 32768
-      min: 131072
-      tcpCloseWaitTimeout: 1h0m0s
-      tcpEstablishedTimeout: 24h0m0s
-    enableProfiling: false
-    healthzBindAddress: 0.0.0.0:10256
-    hostnameOverride: ""
-    iptables:
-      masqueradeAll: false
-      masqueradeBit: 14
-      minSyncPeriod: 0s
-      syncPeriod: 30s
-    ipvs:
-      ExcludeCIDRs: null
-      minSyncPeriod: 0s
-      scheduler: ""
-      syncPeriod: 30s
-    metricsBindAddress: 127.0.0.1:10249
-    mode: ""
-    nodePortAddresses: null
-    oomScoreAdj: -999
-    portRange: ""
-    resourceContainer: /kube-proxy
-    udpIdleTimeout: 250ms
-kubeletConfiguration:
-  baseConfig:
-    address: 0.0.0.0
-    authentication:
-      anonymous:
-        enabled: false
-      webhook:
-        cacheTTL: 2m0s
-        enabled: true
-      x509:
-        clientCAFile: /etc/kubernetes/pki/ca.crt
-    authorization:
-      mode: Webhook
-      webhook:
-        cacheAuthorizedTTL: 5m0s
-        cacheUnauthorizedTTL: 30s
-    cgroupDriver: cgroupfs
-    cgroupsPerQOS: true
-    clusterDNS:
-    - 10.96.0.10
-    clusterDomain: cluster.local
-    containerLogMaxFiles: 5
-    containerLogMaxSize: 10Mi
-    contentType: application/vnd.kubernetes.protobuf
-    cpuCFSQuota: true
-    cpuManagerPolicy: none
-    cpuManagerReconcilePeriod: 10s
-    enableControllerAttachDetach: true
-    enableDebuggingHandlers: true
-    enforceNodeAllocatable:
-    - pods
-    eventBurst: 10
-    eventRecordQPS: 5
-    evictionHard:
-      imagefs.available: 15%
-      memory.available: 100Mi
-      nodefs.available: 10%
-      nodefs.inodesFree: 5%
-    evictionPressureTransitionPeriod: 5m0s
-    failSwapOn: true
-    fileCheckFrequency: 20s
-    hairpinMode: promiscuous-bridge
-    healthzBindAddress: 127.0.0.1
-    healthzPort: 10248
-    httpCheckFrequency: 20s
-    imageGCHighThresholdPercent: 85
-    imageGCLowThresholdPercent: 80
-    imageMinimumGCAge: 2m0s
-    iptablesDropBit: 15
-    iptablesMasqueradeBit: 14
-    kubeAPIBurst: 10
-    kubeAPIQPS: 5
-    makeIPTablesUtilChains: true
-    maxOpenFiles: 1000000
-    maxPods: 110
-    nodeStatusUpdateFrequency: 10s
-    oomScoreAdj: -999
-    podPidsLimit: -1
-    port: 10250
-    registryBurst: 10
-    registryPullQPS: 5
-    resolvConf: /etc/resolv.conf
-    rotateCertificates: true
-    runtimeRequestTimeout: 2m0s
-    serializeImagePulls: true
-    staticPodPath: /etc/kubernetes/manifests
-    streamingConnectionIdleTimeout: 4h0m0s
-    syncFrequency: 1m0s
-    volumeStatsAggPeriod: 1m0s
-networking:
-  dnsDomain: cluster.local
-  podSubnet: ""
-  serviceSubnet: 10.96.0.0/12
-nodeRegistration:
-  criSocket: /var/run/dockershim.sock
-  name: your-host-name
-  taints:
-  - effect: NoSchedule
-    key: node-role.kubernetes.io/master
-unifiedControlPlaneImage: ""
-```
+[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm)
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
-For information about kube-proxy parameters in the MasterConfiguration see:
+For information about kube-proxy parameters in the kubeadm configuration see:
 - [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
 
 For information about enabling IPVS mode with kubeadm see:
@@ -329,7 +181,7 @@ Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manife
 Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
 Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
 Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
-Environment="KUBELET_CADVISOR_ARGS=--cadvisor-port=0"
+Environment="KUBELET_CADVISOR_ARGS="
 Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
 ```
@@ -357,21 +209,11 @@ Here's a breakdown of what/why:
    API using this CA certificate.
 * `--authorization-mode=Webhook` authorizes requests to the Kubelet API by `POST`-ing
    a `SubjectAccessReview` to the API server.
-* `--cadvisor-port=0` disables cAdvisor from listening to `0.0.0.0:4194` by default.
-   cAdvisor will still be run inside of the kubelet and its API can be accessed at
-   `https://{node-ip}:10250/stats/`. If you want to enable cAdvisor to listen on a
-   wide-open port, run:
-
-   ```bash
-   sed -e "/cadvisor-port=0/d" -i /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-   systemctl daemon-reload
-   systemctl restart kubelet
-   ```
 * `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
    certificates from the `kube-apiserver` when the certificate expiration approaches.
 * `--cert-dir`the directory where the TLS certs are located.
 
-### Use kubeadm with other CRI runtimes
+### Use kubeadm with CRI runtimes
 
 Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
 The container runtime used by default is Docker, which is enabled through the built-in
@@ -383,6 +225,8 @@ Other CRI-based runtimes include:
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
+
+Refer to the [CRI installation instructions](/docs/setup/cri.md) for more information.
 
 After you have successfully installed `kubeadm` and `kubelet`, execute
 these two additional steps:
@@ -437,10 +281,11 @@ manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controll
 configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
 configured in the kubelet via static files.
 
+To create a self-hosted cluster, pass the flag `--feature-gates=SelfHosting=true` to `kubeadm init`.
+
 {{< caution >}}
-**Caution:** Self-hosting is alpha, but is expected to become the default in
-a future version. To create a self-hosted cluster, pass the `--feature-gates=SelfHosting=true`
-flag to `kubeadm init`.
+**Caution:** `SelfHosting` is an alpha feature. It is deprecated in 1.12
+and will be removed in 1.13.
 {{< /caution >}}
 
 {{< warning >}}
@@ -462,6 +307,11 @@ experimental mode where control plane credentials are loaded from Secrets
 instead. This requires very careful control over the authentication and
 authorization configuration for your cluster, and may not be appropriate for
 your environment.
+
+{{< caution >}}
+**Caution:** `StoreCertsInSecrets` is an alpha feature. It is deprecated in 1.12
+and will be removed in 1.13.
+{{< /caution >}}
 
 In kubeadm 1.8, the self-hosted portion of the control plane does not include etcd,
 which still runs as a static Pod.
@@ -497,30 +347,34 @@ This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting c
 
 For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
 
-| Image Name                                               | v1.8 release branch version | v1.9 release branch version |
-|----------------------------------------------------------|-----------------------------|-----------------------------|
-| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
-| k8s.gcr.io/pause-${ARCH}                   | 3.0                         | 3.0                         |
-| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
-| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
-| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
+| Image Name                                 | v1.10 release branch version |
+|--------------------------------------------|------------------------------|
+| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.10.x                      |
+| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.10.x                      |
+| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.10.x                      |
+| k8s.gcr.io/kube-proxy-${ARCH}              | v1.10.x                      |
+| k8s.gcr.io/etcd-${ARCH}                    | 3.1.12                       |
+| k8s.gcr.io/pause-${ARCH}                   | 3.1                          |
+| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.8                       |
+| coredns/coredns                            | 1.0.6                        |
 
-Here `v1.8.x` means the "latest patch release of the v1.8 branch".
+Here `v1.10.x` means the "latest patch release of the v1.10 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
 If you run Kubernetes version 1.10 or earlier, and if you set `--feature-gates=CoreDNS=true`,
-you must also use the image `coredns/coredns:1.0.2`, instead of the three `k8s-dns-*` images.
+you must also use the `coredns/coredns` image, instead of the three `k8s-dns-*` images.
 
 In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
 ```
 kubeadm config images list
 kubeadm config images pull
 ```
+
+Starting with Kubernetes 1.12, the `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` images
+don't require an `-${ARCH}` suffix.
 
 ### Automating kubeadm
 

@@ -28,28 +28,19 @@ DNS is a built-in Kubernetes service launched automatically
 using the addon manager
 [cluster add-on](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md).
 
-The running DNS Pod holds 3 containers:
+As of Kubernetes v1.12, CoreDNS is the recommended DNS Server, replacing kube-dns. However, kube-dns may still be installed by
+default with certain Kubernetes installer tools. Refer to the documentation provided by your installer to know which DNS server is installed by default.
 
-- "`kubedns`": watches the Kubernetes master for changes
-  in Services and Endpoints, and maintains in-memory lookup structures to serve
-  DNS requests.
-- "`dnsmasq`": adds DNS caching to improve performance.
-- "`sidecar`": provides a single health check endpoint
-  to perform healthchecks for `dnsmasq` and `kubedns`.
 
-The DNS Pod is exposed as a Kubernetes Service with a static IP.
-The kubelet passes DNS to each container with the `--cluster-dns=<dns-service-ip>`
-flag.
+The CoreDNS Deployment is exposed as a Kubernetes Service with a static IP.
+Both the CoreDNS and kube-dns Service are named `kube-dns` in the `metadata.name` field. This is done so that there is greater interoperability with workloads that relied on the legacy `kube-dns` Service name to resolve addresses internal to the cluster. It abstracts away the implementation detail of which DNS provider is running behind that common endpoint. 
+The kubelet passes DNS to each container with the `--cluster-dns=<dns-service-ip>` flag.
 
 DNS names also need domains. You configure the local domain in the kubelet
 with the flag `--cluster-domain=<default-local-domain>`.
 
-The Kubernetes cluster DNS server is based on the
-[SkyDNS](https://github.com/skynetservices/skydns) library. It supports forward
-lookups (A records), service lookups (SRV records), and reverse IP address
-lookups (PTR records).
-
-## Inheriting DNS from the node
+The DNS server supports forward lookups (A records), port lookups (SRV records), reverse IP address lookups (PTR records),
+and more. For more information see [DNS for Services and Pods] (/docs/concepts/services-networking/dns-pod-service/).
 
 If a Pod's `dnsPolicy` is set to "`default`", it inherits the name resolution
 configuration from the node that the Pod runs on. The Pod's DNS resolution
@@ -61,7 +52,130 @@ use the kubelet's `--resolv-conf` flag.  Set this flag to "" to prevent Pods fro
 inheriting DNS. Set it to a valid file path to specify a file other than
 `/etc/resolv.conf` for DNS inheritance.
 
-## Configure stub-domain and upstream DNS servers
+## CoreDNS
+
+CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS, complying with the [dns specifications]
+(https://github.com/kubernetes/dns/blob/master/docs/specification.md). 
+
+### CoreDNS ConfigMap options
+
+CoreDNS is a DNS server that is modular and pluggable, and each plugin adds new functionality to CoreDNS. 
+This can be configured by maintaining a [Corefile](https://coredns.io/2017/07/23/corefile-explained/), which is the CoreDNS
+configuration file. A cluster administrator can modify the ConfigMap for the CoreDNS Corefile to change how service discovery works. 
+
+In Kubernetes, CoreDNS is installed with the following default Corefile configuration.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns
+  namespace: kube-system
+Corefile: |
+    .:53 {
+        errors
+        health
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           upstream
+           fallthrough in-addr.arpa ip6.arpa
+        }
+        prometheus :9153
+        proxy . /etc/resolv.conf
+        cache 30
+        loop
+        reload
+        loadbalance
+    }
+``` 
+The Corefile configuration includes the following [plugins](https://coredns.io/plugins/) of CoreDNS:
+
+* [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
+* [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to http://localhost:8080/health.
+* [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries based on IP of the services and pods of Kubernetes. You can find more details [here](https://coredns.io/plugins/kubernetes/). 
+
+> The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pod verified` option, which returns an A record only if there exists a pod in same namespace with matching IP. The `pods disabled` option can be used if you don't use pod records.
+
+> `Upstream` is used for resolving services that point to external hosts (External Services).
+
+* [prometheus](https://coredns.io/plugins/prometheus/): Metrics of CoreDNS are available at http://localhost:9153/metrics in [Prometheus](https://prometheus.io/) format.
+* [proxy](https://coredns.io/plugins/proxy/): Any queries that are not within the cluster domain of Kubernetes will be forwarded to predefined resolvers (/etc/resolv.conf).
+* [cache](https://coredns.io/plugins/cache/): This enables a frontend cache.
+* [loop](https://coredns.io/plugins/loop/): Detects simple forwarding loops and halts the CoreDNS process if a loop is found.
+* [reload](https://coredns.io/plugins/reload): Allows automatic reload of a changed Corefile.
+* [loadbalance](https://coredns.io/plugins/loadbalance): This is a round-robin DNS loadbalancer by randomizing the order of A, AAAA, and MX records in the answer.
+
+We can modify the default behavior by modifying this configmap.
+
+### Configuration of Stub-domain and upstream nameserver using CoreDNS
+
+CoreDNS has the ability to configure stubdomains and upstream nameservers using the [proxy plugin](https://coredns.io/plugins/proxy/). 
+
+#### Example
+If a cluster operator has a [Consul](https://www.consul.io/) domain server located at 10.150.0.1, and all Consul names have the suffix .consul.local. To configure it in CoreDNS, the cluster administrator creates the following stanza in the CoreDNS ConfigMap.
+
+```
+consul.local:53 {
+        errors
+        cache 30
+        proxy . 10.150.0.1
+    }
+```
+
+To explicitly force all non-cluster DNS lookups to go through a specific nameserver at 172.16.0.1, point the `proxy` and `upstream` to the nameserver instead of `/etc/resolv.conf`
+
+```
+proxy .  172.16.0.1
+``` 
+```
+upstream 172.16.0.1
+```
+
+So, the final ConfigMap along with the default `Corefile` configuration will look like:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns
+  namespace: kube-system
+Corefile: |
+    .:53 {
+        errors
+        health
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           upstream 172.16.0.1
+           fallthrough in-addr.arpa ip6.arpa
+        }
+        prometheus :9153
+        proxy . 172.16.0.1
+        cache 30
+        loop
+        reload
+        loadbalance
+    }
+    consul.local:53 {
+        errors
+        cache 30
+        proxy . 10.150.0.1
+    }
+```
+In Kubernetes version 1.10 and later, kubeadm supports automatic translation of the CoreDNS ConfigMap from the kube-dns ConfigMap.
+
+## Kube-dns
+
+Kube-dns is now available as a optional DNS server since CoreDNS is now the default.
+The running DNS Pod holds 3 containers:
+
+- "`kubedns`": watches the Kubernetes master for changes
+  in Services and Endpoints, and maintains in-memory lookup structures to serve
+  DNS requests.
+- "`dnsmasq`": adds DNS caching to improve performance.
+- "`sidecar`": provides a single health check endpoint
+  to perform healthchecks for `dnsmasq` and `kubedns`.
+
+### Configure stub-domain and upstream DNS servers
 
 Cluster administrators can specify custom stub domains and upstream nameservers
 by providing a ConfigMap for kube-dns (`kube-system:kube-dns`).
@@ -102,7 +216,7 @@ details about the configuration option format.
 
 {{% capture discussion %}}
 
-### Effects on Pods
+#### Effects on Pods
 
 Custom upstream nameservers and stub domains do not affect Pods with a
 `dnsPolicy` set to "`Default`" or "`None`".
@@ -136,7 +250,7 @@ DNS queries are routed according to the following flow:
 
 ![DNS lookup flow](/docs/tasks/administer-cluster/dns-custom-nameservers/dns.png)
 
-## ConfigMap options
+### ConfigMap options
 
 Options for the kube-dns `kube-system:kube-dns` ConfigMap:
 
@@ -145,9 +259,9 @@ Options for the kube-dns `kube-system:kube-dns` ConfigMap:
 | `stubDomains` (optional) | A JSON map using a DNS suffix key such as “acme.local”, and a value consisting of a JSON array of DNS IPs. | The target nameserver can itself be a Kubernetes Service. For instance, you can run your own copy of dnsmasq to export custom DNS names into the ClusterDNS namespace. |
 | `upstreamNameservers` (optional) | A JSON array of DNS IPs. | If specified, the values replace the nameservers taken by default from the node’s `/etc/resolv.conf`. Limits: a maximum of three upstream nameservers can be specified. |
 
-### Examples
+#### Examples
 
-#### Example: Stub domain
+##### Example: Stub domain
 
 In this example, the user has a Consul DNS service discovery system they want to
 integrate with kube-dns. The consul domain server is located at 10.150.0.1, and
@@ -169,7 +283,7 @@ Note that the cluster administrator does not want to override the node’s
 upstream nameservers, so they did not specify the optional
 `upstreamNameservers` field.
 
-#### Example: Upstream nameserver
+##### Example: Upstream nameserver
 
 In this example the cluster administrator wants to explicitly force all
 non-cluster DNS lookups to go through their own nameserver at 172.16.0.1.
@@ -189,17 +303,9 @@ data:
 
 {{% /capture %}}
 
-## Configuring CoreDNS {#config-coredns}
+## CoreDNS configuration equivalent to kube-dns
 
-You can configure [CoreDNS](https://coredns.io/) as a service discovery.
-
-CoreDNS is available as an option in Kubernetes starting with version 1.9.
-It is currently a [GA feature](https://github.com/kubernetes/community/blob/master/keps/sig-network/0010-20180314-coredns-GA-proposal.md) and is on course to be [the default](https://github.com/kubernetes/community/blob/master/keps/sig-network/0012-20180518-coredns-default-proposal.md), replacing kube-dns.
-
-
-## CoreDNS ConfigMap options
-
-CoreDNS chains plugins and can be configured by maintaining a Corefile with the ConfigMap. CoreDNS supports all the functionalities and more that is provided by kube-dns.
+CoreDNS supports all the functionalities and more that is provided by kube-dns.
 A ConfigMap created for kube-dns to support `StubDomains`and `upstreamNameservers` translates to the `proxy` plugin in CoreDNS.
 Similarly, the `Federation` plugin translates to the `federation` plugin in CoreDNS.
 
@@ -276,8 +382,8 @@ In Kubernetes version 1.10 and later, kubeadm supports automatic translation of 
 
 ## Migration to CoreDNS
 
-A number of tools support the installation of CoreDNS instead of kube-dns.
 To migrate from kube-dns to CoreDNS, [a detailed blog](https://coredns.io/2018/05/21/migration-from-kube-dns-to-coredns/) is available to help users adapt CoreDNS in place of kube-dns.
+A cluster administrator can also migrate using [the deploy script](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh), which  will also help you translate the kube-dns configmap to the equivalent CoreDNS one.
 
 ## What's next
 - [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/).

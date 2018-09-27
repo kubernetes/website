@@ -1,10 +1,10 @@
 
-Generates a self-signed kubernetes CA to provision identities for components of the cluster
+Generates the self-signed kubernetes CA to provision identities for other kuberenets components
 
 ### Synopsis
 
 
-Generates the self-signed kubernetes certificate authority and related key, and saves them into ca.crt and ca.key files. 
+Generates the self-signed kubernetes CA to provision identities for other kuberenets components, and saves them into ca.cert and ca.key files. 
 
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
 
@@ -34,7 +34,7 @@ kubeadm alpha phase certs ca [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
     </tr>
 
     <tr>
@@ -42,6 +42,27 @@ kubeadm alpha phase certs ca [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for ca</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
     </tr>
 
   </tbody>
