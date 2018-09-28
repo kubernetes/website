@@ -99,7 +99,7 @@ desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricVal
 
 For example, if the current metric value is `200m`, and the desired value
 is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
-2.0` If the the current value is instead `50m`, we'll halve the number of
+2.0` If the current value is instead `50m`, we'll halve the number of
 replicas, since `50.0 / 100.0 == 0.5`.  We'll skip scaling if the ratio is
 sufficiently close to 1.0 (within a globally-configurable tolerance, from
 the `--horizontal-pod-autoscaler-tolerance` flag, which defaults to 0.1).
