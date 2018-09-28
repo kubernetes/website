@@ -195,13 +195,6 @@ To switch back to this context later, run this command: `kubectl config use-cont
 
 #### Specifying the Kubernetes version
 
-Minikube supports running multiple different versions of Kubernetes. You can
-access a list of all available versions via
-
-```
-minikube get-k8s-versions
-```
-
 You can specify the specific version of Kubernetes for Minikube to use by
 adding the `--kubernetes-version` string to the `minikube start` command. For
 example, to run version `v1.7.3`, you would run the following:
