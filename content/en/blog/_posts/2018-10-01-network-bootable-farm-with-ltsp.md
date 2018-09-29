@@ -1,12 +1,12 @@
 ---
 layout: blog
 title: "Building network bootable servers farm for Kubernetes with LTSP"
-date:  2018-09-19
+date:  2018-10-01
 ---
 
 **Author**: Andrei Kvapil (WEDOS)
 
-![k8s+ltsp](/images/blog/2018-09-19-network-bootable-farm-with-ltsp/k8s+ltsp.svg)
+![k8s+ltsp](/images/blog/2018-10-01-network-bootable-farm-with-ltsp/k8s+ltsp.svg)
 
 
 
