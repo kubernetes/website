@@ -1,3 +1,11 @@
+When you run the generator for the kubectl command ref docs,
+you get a set of markdown files in
+kubernetes-incubator/reference-docs/gen-kubectldocs/generators/build/documents.
+
+This file is a diff of the build/documents directory for 1.11
+and the build/documents directory for 1.12.
+
+
 diff -r v1_11/_generated_apply.md v1_12/_generated_apply.md
 56c56
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
@@ -17,6 +25,8 @@ diff -r v1_11/_generated_apply.md v1_12/_generated_apply.md
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath-file&#124;jsonpath. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_auth.md v1_12/_generated_auth.md
 105c105
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
@@ -25,26 +35,36 @@ diff -r v1_11/_generated_auth.md v1_12/_generated_auth.md
 106a107,108
 > remove-extra-permissions |  | false | If true, removes extra permissions added to roles 
 > remove-extra-subjects |  | false | If true, removes extra subjects added to rolebindings 
+
+
 diff -r v1_11/_generated_autoscale.md v1_12/_generated_autoscale.md
 41c41
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_certificate.md v1_12/_generated_certificate.md
 70c70
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_cluster-info.md v1_12/_generated_cluster-info.md
 67c67
 < output | o | json | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o | json | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath-file&#124;jsonpath. 
+
+
 diff -r v1_11/_generated_completion.md v1_12/_generated_completion.md
 24c24
 < >bdocs-tab:example Installing bash completion on Linux ## Load the kubectl completion code for bash into the current shell
 ---
 > >bdocs-tab:example Installing bash completion on Linux ## If bash-completion is not installed on Linux, please install the 'bash-completion' package ## via your distribution's package manager. ## Load the kubectl completion code for bash into the current shell
+
+
 diff -r v1_11/_generated_config.md v1_12/_generated_config.md
 12,13c12,13
 <   1. If the --kubeconfig flag is set, then only that file is loaded.  The flag may only be set once and no merging takes place.  
@@ -68,6 +88,8 @@ diff -r v1_11/_generated_config.md v1_12/_generated_config.md
 < output | o | yaml | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o | yaml | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_convert.md v1_12/_generated_convert.md
 44,45c44,45
 < output | o | yaml | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
@@ -75,6 +97,8 @@ diff -r v1_11/_generated_convert.md v1_12/_generated_convert.md
 ---
 > output | o | yaml | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
 > output-version |  |  | Output the formatted object with the given group version (for ex: 'extensions/v1beta1'). 
+
+
 diff -r v1_11/_generated_create.md v1_12/_generated_create.md
 111c111
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
@@ -147,11 +171,15 @@ diff -r v1_11/_generated_create.md v1_12/_generated_create.md
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_edit.md v1_12/_generated_edit.md
 56c56
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath-file&#124;jsonpath. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_expose.md v1_12/_generated_expose.md
 59c59
 < `$ expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]`
@@ -161,19 +189,27 @@ diff -r v1_11/_generated_expose.md v1_12/_generated_expose.md
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_label.md v1_12/_generated_label.md
 68c68
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_logs.md v1_12/_generated_logs.md
 76d75
 < interactive |  | false | If true, prompt the user for input when required. 
+
+
 diff -r v1_11/_generated_patch.md v1_12/_generated_patch.md
 57c57
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath-file&#124;jsonpath. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_plugin.md v1_12/_generated_plugin.md
 8c8
 < Runs a command-line plugin. 
@@ -211,6 +247,8 @@ diff -r v1_11/_generated_plugin.md v1_12/_generated_plugin.md
 > Name | Shorthand | Default | Usage
 > ---- | --------- | ------- | ----- 
 > name-only |  | false | If true, display only the binary name of each plugin, rather than its full path 
+
+
 diff -r v1_11/_generated_port-forward.md v1_12/_generated_port-forward.md
 17a18,23
 > >bdocs-tab:example Listen on ports 5000 and 6000 locally, forwarding data to/from ports 5000 and 6000 in a pod selected by the service
@@ -219,19 +257,27 @@ diff -r v1_11/_generated_port-forward.md v1_12/_generated_port-forward.md
 > kubectl port-forward service/myservice 5000 6000
 > ```
 > 
+
+
 diff -r v1_11/_generated_proxy.md v1_12/_generated_proxy.md
 59a60
 > keepalive |  | 0s | keepalive specifies the keep-alive period for an active network connection. Set to 0 to disable keepalive. 
+
+
 diff -r v1_11/_generated_replace.md v1_12/_generated_replace.md
 54c54
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template-file&#124;templatefile&#124;template&#124;go-template&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_rolling-update.md v1_12/_generated_rolling-update.md
 60c60
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_rollout.md v1_12/_generated_rollout.md
 61a62
 > allow-missing-template-keys |  | true | If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. 
@@ -259,21 +305,29 @@ diff -r v1_11/_generated_rollout.md v1_12/_generated_rollout.md
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
 197a210
 > template |  |  | Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview]. 
+
+
 diff -r v1_11/_generated_run-container.md v1_12/_generated_run-container.md
 27c27
 < kubectl run hazelcast --image=nginx --labels="app=hazelcast,env=prod"
 ---
 > kubectl run hazelcast --image=hazelcast --labels="app=hazelcast,env=prod"
+
+
 diff -r v1_11/_generated_run.md v1_12/_generated_run.md
 27c27
 < kubectl run hazelcast --image=nginx --labels="app=hazelcast,env=prod"
 ---
 > kubectl run hazelcast --image=hazelcast --labels="app=hazelcast,env=prod"
+
+
 diff -r v1_11/_generated_scale.md v1_12/_generated_scale.md
 57c57
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;templatefile&#124;template&#124;jsonpath&#124;jsonpath-file. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_set.md v1_12/_generated_set.md
 180c180
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
@@ -291,11 +345,15 @@ diff -r v1_11/_generated_set.md v1_12/_generated_set.md
 < output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;templatefile&#124;template&#124;go-template&#124;go-template-file&#124;jsonpath-file&#124;jsonpath. 
 ---
 > output | o |  | Output format. One of: json&#124;yaml&#124;name&#124;template&#124;go-template&#124;go-template-file&#124;templatefile&#124;jsonpath&#124;jsonpath-file. 
+
+
 diff -r v1_11/_generated_version.md v1_12/_generated_version.md
 25c25
 < client | c | false | Client version only (no server required). 
 ---
 > client |  | false | Client version only (no server required). 
+
+
 diff -r v1_11/_generated_wait.md v1_12/_generated_wait.md
 5a6
 > >bdocs-tab:example Wait for the pod "busybox1" to contain the status condition of type "Ready".
