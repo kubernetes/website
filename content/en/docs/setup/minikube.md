@@ -64,11 +64,34 @@ NAME                              READY     STATUS    RESTARTS   AGE
 hello-minikube-3383150820-vctvh   1/1       Running   0          13s
 # We can see that the pod is now Running and we will now be able to curl it:
 $ curl $(minikube service hello-minikube --url)
-CLIENT VALUES:
-client_address=192.168.99.1
-command=GET
-real path=/
-...
+
+
+Hostname: hello-minikube-7c77b68cff-8wdzq
+
+Pod Information:
+	-no pod information available-
+
+Server values:
+	server_version=nginx: 1.13.3 - lua: 10008
+
+Request Information:
+	client_address=172.17.0.1
+	method=GET
+	real path=/
+	query=
+	request_version=1.1
+	request_scheme=http
+	request_uri=http://192.168.99.100:8080/
+
+Request Headers:
+	accept=*/*
+	host=192.168.99.100:30674
+	user-agent=curl/7.47.0
+
+Request Body:
+	-no body in request-
+
+
 $ kubectl delete services hello-minikube
 service "hello-minikube" deleted
 $ kubectl delete deployment hello-minikube
