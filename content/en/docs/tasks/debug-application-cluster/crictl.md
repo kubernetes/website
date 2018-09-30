@@ -65,7 +65,7 @@ debug: true
 
 ## Example crictl commands
 
-The following examples show some `crictl` commands and and example output.
+The following examples show some `crictl` commands and example output.
 
 {{< warning >}}
 **Warning:** If you use `crictl` to create pod sandboxes or containers on a running
