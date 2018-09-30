@@ -295,7 +295,7 @@ spec:
 ```
 
 The kubelet will request and store the token on behalf of the pod, make the
-token avaialble to the pod at a configurable file path, and refresh the token as
+token available to the pod at a configurable file path, and refresh the token as
 it approaches expiration. Kubelet proactively rotates the token if it is older
 than 80% of its total TTL, or if the token is older than 24 hours.
 
