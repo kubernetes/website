@@ -45,6 +45,10 @@ other = """Kubernetes-forfatterene | Dokumentasjonen er utgitt med <a href="http
 [main_copyright_notice]
 other = """The Linux Foundation &reg;. Alle retter er reservert. The Linux Foundation har registrerte varemerker. For en oversikt, se <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Bruk av varemerker</a>"""
 
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "All dokumentasjon"
+
 # Community links
 [community_twitter_name]
 other = "Twitter"
