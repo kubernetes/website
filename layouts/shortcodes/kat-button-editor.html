@@ -1,17 +1,17 @@
 <script src="//katacoda.com/embed.js"></script>
 <div id="my-element-1"
-    data-katacoda-env="node"
+    data-katacoda-env="minikube"
+    data-katacoda-command="minikube version; minikube start" 
     data-katacoda-layout="editor-terminal"
-    data-katacoda-port="3000"
-    data-katacoda-filename="app.js" style="border: 2px solid #ccc;" >
+    data-katacoda-port="8080"
+    data-katacoda-filename="server.js" style="border: 2px solid #ccc;" >
 var http = require('http');
-var requestListener = function (req, res) {
-res.writeHead(200);
-res.end('Hello, World!');
-}
 
-var server = http.createServer(requestListener);
-server.listen(3000, function() { console.log("Listening on port 3000")});
+var handleRequest = function(request, response) {
+  console.log('Received request for URL: ' + request.url);
+  response.writeHead(200);
+  response.end('Hello World!');
+};
+var www = http.createServer(handleRequest);
+www.listen(8080);
 </div>
-
-<button class="button" onclick="window.katacoda.init(); ">Launch Terminal</button>
