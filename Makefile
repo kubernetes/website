@@ -24,6 +24,12 @@ production-build: build check-headers-file ## Build the production site and ensu
 non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
 
+sass-build:
+	scripts/sass.sh build
+
+sass-develop:
+	scripts/sass.sh develop
+
 serve: ## Boot the development server.
 	hugo server --ignoreCache --disableFastRender
 

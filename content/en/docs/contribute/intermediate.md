@@ -490,7 +490,7 @@ Slack channel or the
 If you aren't ready to create a pull request but you want to see what your
 changes look like, you can use the `hugo` command to stage the changes locally.
 
-1.  Install Hugo version `0.40.3` or later.
+1.  Install Hugo version {{< hugoVersion >}} or later.
 
 2.  In a terminal, go to the root directory of your clone of the Kubernetes
     docs, and enter this command:
