@@ -408,6 +408,10 @@ file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 
 ```yaml
+# Kubernetes API version
+apiVersion: v1
+# kind of the API object
+kind: Config
 # clusters refers to the remote service.
 clusters:
   - name: name-of-remote-authn-service
