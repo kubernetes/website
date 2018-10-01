@@ -31,6 +31,8 @@ A configuration example which uses HTTPS client auth:
 ```yaml
 # Kubernetes API version
 apiVersion: v1
+# kind of the API object
+kind: Config
 # clusters refers to the remote service.
 clusters:
   - name: name-of-remote-authz-service
