@@ -1,7 +1,7 @@
 ---
 layout: blog
 title:  'Health checking gRPC servers on Kubernetes'
-date: 2018-09-30
+date: 2018-10-01
 ---
 
 **Author**: [Ahmet Alp Balkan](https://twitter.com/ahmetb) (Google)
