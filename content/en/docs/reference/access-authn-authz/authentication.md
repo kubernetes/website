@@ -410,6 +410,8 @@ file format. Within the file, `clusters` refers to the remote service and
 ```yaml
 # Kubernetes API version
 apiVersion: v1
+# kind of the API object
+kind: Config
 # clusters refers to the remote service.
 clusters:
   - name: name-of-remote-authn-service
