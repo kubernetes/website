@@ -349,6 +349,4 @@ To add shortcodes to includes.
 
 ## Katacoda Embedded Live Environment
 
-{{< kat-button >}}
-
 {{< kat-button-editor >}}
