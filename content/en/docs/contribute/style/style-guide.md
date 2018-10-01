@@ -286,24 +286,6 @@ The output is:
 
 {{< kat-button >}}
 
-### Katacoda Live Embedded Environment with Editor
-
-<script src="//katacoda.com/embed.js"></script>
-<div id="my-element-1"
-    data-katacoda-env="node"
-    data-katacoda-layout="editor-terminal"
-    data-katacoda-port="3000"
-    data-katacoda-filename="app.js" style="border: 2px solid #ccc;" >
-var http = require('http');
-var requestListener = function (req, res) {
-res.writeHead(200);
-res.end('Hello, World!');
-}
-
-var server = http.createServer(requestListener);
-server.listen(3000, function() { console.log("Listening on port 3000")});
-</div>
-
 ## Common Shortcode Issues
 
 ### Ordered Lists
