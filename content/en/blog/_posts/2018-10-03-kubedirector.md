@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'KubeDirector: The easy way to run complex stateful applications on Kubernetes'
-date: 2018-10-03
+date: 2018-10-02
 ---
 
 **Author**: Thomas Phelan (BlueData)
