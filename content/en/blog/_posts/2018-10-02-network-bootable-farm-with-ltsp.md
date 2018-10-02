@@ -29,7 +29,7 @@ Nodes are using overlays as the root filesystem and after reboot any changes wil
 
 We will use LTSP project because it's gives us everything we need to organize the network booting environment. Basically, LTSP is a pack of shell-scripts which makes our life much easier.
 
-LTSP provides a initramfs module, a few helper-scripts, and some configuration system which prepare the system during the early state of boot, before the main init process call.
+LTSP provides a initramfs module, a few helper-scripts, and the configuration system which prepare the system during the early state of boot, before the main init process call.
 
 **This is what the image preparation procedure looks like:**
 
@@ -61,7 +61,7 @@ You should also have:
 - During the boot, initramfs modules will handle options from cmdline and do some actions like connect NBD-device, prepare overlay rootfs, etc.
 - Afterwards it will call the ltsp-init system instead of the normal init.
 - ltsp-init scripts will prepare the system on the earlier stage, before the main init will be called. Basically it applies the setting from lts.conf (main config): write fstab and rc.local entries etc.
-- Call the main init (systemd) which is booting configured system as usual, mounts shares from fstab, start targets and services, executes commands from rc.local file.
+- Call the main init (systemd) which is booting the configured system as usual, mounts shares from fstab, start targets and services, executes commands from rc.local file.
 - In the end you have a fully configured and booted system ready for further operations.
 
 # Preparing the Server
