@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'KubeDirector: The easy way to run complex stateful applications on Kubernetes'
-date: 2018-10-02
+date: 2018-10-03
 ---
 
 **Author**: Thomas Phelan (BlueData)
@@ -20,7 +20,7 @@ KubeDirector provides the following capabilities:
 
 KubeDirector enables data scientists familiar with data-intensive distributed applications such as Hadoop, Spark, Cassandra, TensorFlow, Caffe2, etc. to run these applications on Kubernetes -- with a minimal learning curve and no need to write GO code. The applications controlled by KubeDirector are defined by some basic metadata and an associated package of configuration artifacts.  The application metadata is referred to as a KubeDirectorApp resource.
 
-To understand the components of KubeDirector, clone the repository on [github](https://github.com/bluek8s/kubedirector/) using a command similar to:
+To understand the components of KubeDirector, clone the repository on [GitHub](https://github.com/bluek8s/kubedirector/) using a command similar to:
 
 ```
 git clone http://<userid>@github.com/bluek8s/kubedirector.
