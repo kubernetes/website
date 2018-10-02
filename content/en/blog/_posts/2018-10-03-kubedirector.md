@@ -140,7 +140,7 @@ svc-spark221e2-worker-d9892-1       NodePort     10.110.88.221     <none>       
 
 Pointing the browser at port 31533 connects to the Spark Master UI:
 
-![kubebuilder](/images/blog/2018-10-03-kubedirector/kubebuilder.png)
+![kubedirector](/images/blog/2018-10-03-kubedirector/kubedirector.png)
 
 That’s all there is to it!
 In fact, in the example above we also deployed a Jupyter notebook along with the Spark cluster.
