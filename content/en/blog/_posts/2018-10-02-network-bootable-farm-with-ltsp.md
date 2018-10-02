@@ -220,6 +220,7 @@ They have not fully optimized for installing in an unprivileged chroot.
 Their postinstall scripts try to call some privileged commands which can fail with errors and block the package installation.
 
 Solution:
+
 * Some of them can be installed before the kernel without any problems (like `lvm2`)
 * But for some of them you will need to use this workaround to install without the postinstall script.
 
@@ -352,6 +353,7 @@ COPY --from=ltsp-image /var/lib/tftpboot /var/lib/tftpboot
 ```
 
 Ok, now we have docker image which includes:
+
   - TFTP-server
   - NBD-server
   - configured bootloader
