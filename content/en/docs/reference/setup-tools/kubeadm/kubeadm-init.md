@@ -106,8 +106,8 @@ It is **recommended** that you migrate your old `v1alpha2` configuration to `v1a
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
 because `v1alpha2` will be removed in Kubernetes 1.13.
 
-For more details on each field in the configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm)
+For more details on each field in the `v1alpha3` configuration you can navigate to our
+[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1alpha3)
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
