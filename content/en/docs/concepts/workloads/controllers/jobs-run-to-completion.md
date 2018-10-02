@@ -207,7 +207,7 @@ back-off count is reset if no new failed Pods appear before the Job's next
 status check.
 
 {{< note >}}
-**Note:** Known issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) exists for [previous versions](https://v1-11.docs.kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#handling-pod-and-container-failures)
+**Note:** Issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) still exists for versions of Kubernetes prior to version 1.12
 {{< /note >}}
 
 ## Job Termination and Cleanup
