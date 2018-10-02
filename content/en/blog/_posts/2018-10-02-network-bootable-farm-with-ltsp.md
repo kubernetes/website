@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Building network bootable servers farm for Kubernetes with LTSP"
-date:  2018-10-01
+title: 'Building a Network Bootable Server Farm for Kubernetes with LTSP'
+date:  2018-10-02
 ---
 
 **Author**: Andrei Kvapil (WEDOS)
@@ -9,95 +9,88 @@ date:  2018-10-01
 ![k8s+ltsp](/images/blog/2018-10-01-network-bootable-farm-with-ltsp/k8s+ltsp.svg)
 
 
+In this post, I'm going to introduce you to a cool technology for Kubernetes, LTSP. It is useful for large baremetal Kubernetes deployments.
 
-Hi all, I want to show you one cool technology. I use it for Kubernetes and it is working very well.
-It may be really useful for large baremetal kubernetes deployments.
+You don't need to think about installing an OS and binaries on each node anymore. Why? You can do that automatically through Dockerfile!
 
-Since this moment you don't need to think about installing OS and binaries on each node anymore.
-Why? You can do that automatically through Dockerfile!
+You can buy and put 100 new servers into a production environment and get them working immediately - it's really amazing!
 
-This fact that you can buy and put into production environment new 100 servers and get them working immideatly - it's really amazing!
-
-Intrigued? Let me show you everything by order.
+Intrigued? Let me walk you through how it works. 
 
 # Summary
 
-First, we need to understand how exactly is it working.
+First, we need to understand how exactly it works. 
 
-In short, for all nodes we have prepared image with the OS, Docker, Kubelet and everything else what you exactly need there.
-This image with the kernel is building automatically by CI using Dockerfile.
-End nodes is booting kernel and OS from this image via network.
+In short, for all nodes we have prepared the image with the OS, Docker, Kubelet and everything else that you need there. This image with the kernel is building automatically by CI using Dockerfile. End nodes are booting the kernel and OS from this image via the network.
 
-Nodes are using overlayfs as root filesystem and after reboot any changes will be lost (like in docker containers).
-You have some config-file where you can describe mounts and some initial commands which should be executed during node boot (example set root user ssh-key and kubeadm join commands)
+Nodes are using overlays as the root filesystem and after reboot any changes will be lost (like in Docker containers). You have a config-file where you can describe mounts and some initial commands which should be executed during node boot (Example: set root user ssh-key and kubeadm join commands)
 
-## Image preparing process
+## Image Preparation Process
 
-We will use LTSP project because it's gives us everthing what we exactly need for organize network booting environment.
-Basically LTSP it is pack of shell-scripts which makes our life much easer.
+We will use LTSP project because it's gives us everything we need to organize the network booting environment. Basically, LTSP is a pack of shell-scripts which makes our life much easier.
 
-It is provides initramfs module, few helper-scripts, and some configuration system which prepares system on early sate of boot, before main init process call.
+LTSP provides a initramfs module, a few helper-scripts, and some configuration systems which prepare the system during the early state of boot, before the main init process call.
 
-**This is how image preparation procedure is looking like:**
+**This is what the image preparation procedure looks like:**
 
-- You're deploying basesystem in the chroot envinronment.
-- Do any needed changes there, install software.
-- Run `ltsp-build-image` command
+- You're deploying the basesystem in the chroot environment.
+- Make any needed changes there, install software.
+- Run the `ltsp-build-image` command
 
-And after that you will got squashed image from this chroot with all software inside.
-Each node will download this image during the boot and use it as rootfs.
-For update node you can just reboot it, the new squashed image will be downloaded and mounted into rootfs.
+After that, you will get the squashed image from the chroot with all the software inside. Each node will download this image during the boot and use it as the rootfs. For the update node, you can just reboot it. The new squashed image will be downloaded and mounted into the rootfs.
 
-## Server components
+## Server Components
 
-**Server part of LTSP includes two componets in our case:**
+**The server part of LTSP includes two components in our case:**
 
-- **TFTP-server** - TFTP is initial protocol, it is used for download kernel, initramfs and main config.
-- **NBD-server** - NBD protocol used for distribute squashed rootfs image to the clients. It is fastest way, but if you want it can be replaced by NFS or AoE protocol.
+- **TFTP-server** - TFTP is the initial protocol, it is used the download the kernel, initramfs and main config.
+- **NBD-server** - NBD protocol is used to distribute the squashed rootfs image to the clients. It is the fastest way, but if you want, it can be replaced by the NFS or AoE protocol.
 
 You should also have:
 
-- **DHCP-server** - it will distribute IP-settings and few specific options to the clients for make them possible to boot from our LTSP-server.
+- **DHCP-server** - it will distribute the IP-settings and a few specific options to the clients to make it possible for them to boot from our LTSP-server.
 
-## Node booting process
+## Node Booting Process
 
-**This is how node is booting up**
+**This is how the node is booting up**
 
-- First time node will ask DHCP for IP-settings and `next-server`, `filename` options.
-- Then node will apply settings and will download bootloader (pxelinux or grub)
+- The first time, the node will ask DHCP for IP-settings and `next-server`, `filename` options.
+- Next, the node will apply settings and download bootloader (pxelinux or grub)
 - Bootloader will download and read config with the kernel and initramfs image.
-- Then bootloader will download kernel and initramfs and execute it with specific cmdline options.
-- During the boot initramfs modlules will handle options from cmdline and do some actions like connect NBD-device, prepare overlay rootfs, etc.
-- Afterwards it will call ltsp-init system instead normal init.
-- ltsp-init scripts will prepare system on the earler stage, before main init will be called. Basically apply setting from lts.conf (main config): write fstab and rc.local entries etc.
-- Call main init (systemd) which is booting configured system as usual, mounts shares from fstab, start targets and services, executes commands from rc.local file.
-- In the end you have fully configured and booted system ready for further operations.
+- Then bootloader will download the kernel and initramfs and execute it with specific cmdline options.
+- During the boot, initramfs modules will handle options from cmdline and do some actions like connect NBD-device, prepare overlay rootfs, etc.
+- Afterwards it will call the ltsp-init system instead of the normal init.
+- ltsp-init scripts will prepare the system on the earlier stage, before the main init will be called. Basically it applies the setting from lts.conf (main config): write fstab and rc.local entries etc.
+- Call the main init (systemd) which is booting configured system as usual, mounts shares from fstab, start targets and services, executes commands from rc.local file.
+- In the end you have a fully configured and booted system ready for further operations.
 
-# Preparing server
+# Preparing the Server
 
-As I said before I'm preparing LTSP-server with the squashed image automaically using Dockerfile, this method is quite good, because you have all steps described in your git repository.
-You have versioning, you can have a banches, use CI and everything that you used to use for preparing your usual docker projects.
+As I said before, I'm preparing the LTSP-server with the squashed image automatically using Dockerfile. This method is quite good because you have all steps described in your git repository.
+You have versioning, branches, CI and everything that you used to use for preparing your usual Docker projects.
 
-Otherwise you can deploy LTSP server manually executing all steps by your hands, it is good practic for learning and for understand basic principles.
-Just repeat all the steps listed here by hand, if you want just to try to install LTSP without Dockerfile.
+Otherwise, you can deploy the LTSP server manually by executing all steps by hand. This is a good practice for learning and understanding the basic principles.
 
-## Used patches list
+Just repeat all the steps listed here by hand, just to try to install LTSP without Dockerfile.
 
-LTSP still have some issues whcih authors don’t want to apply, yet. However LTSP is easy customizable so I prepared few patches for myself, I bring them here.
-Maybe I’ll ripen to create a fork if the community will warmly accept my solution.
+## Used Patches List
+
+LTSP still has some issues which authors don’t want to apply, yet. However LTSP is easy customizable so I prepared a few patches for myself and will share them here.
+
+I’ll create a fork if the community will warmly accept my solution.
 
   * [feature-grub.diff](https://github.com/kvaps/ltsp/compare/feature-grub.diff)
-      LTSP not supported EFI by default, so I've prepared patch which adds GRUB2 with EFI support.
+      LTSP does not support EFI by default, so I've prepared a patch which adds GRUB2 with EFI support.
   * [feature_preinit.diff](https://github.com/kvaps/ltsp/compare/feature_preinit.diff)
-      This patch adds PREINIT option to lts.conf which allows to run custom commands before main init call. It may be useful for modify systemd units and configure network. Remarkable that all environment variables from boot environment are saved and you can use them in your scripts.
+      This patch adds a PREINIT option to lts.conf, which allows you to run custom commands before the main init call. It may be useful to modify the systemd units and configure the network. It's remarkable that all environment variables from the boot environment are saved and you can use them in your scripts.
   * [feature_initramfs_params_from_lts_conf.diff](https://github.com/kvaps/ltsp/compare/feature_initramfs_params_from_lts_conf.diff)
-      Solves problem with NBD_TO_RAM option, after this patch you can specify it on lts.conf inside chroot. (not in tftp directory)
+      Solves s problem with NBD_TO_RAM option, after this patch you can specify it on lts.conf inside chroot. (not in tftp directory)
   * [nbd-server-wrapper.sh](https://gist.githubusercontent.com/kvaps/1a6a7d8b73bf7444f0f99b22379c9e4e/raw/eb0d60c638ef72b7e28438b7f4d2beda89c41f75/nbd-server-wrapper.sh)
-      This is not patch but special wrapper script which allows you to run NBD-server in foregroud, it is useful if you want to run it inside docker container.
+      This is not a patch but a special wrapper script which allows you to run NBD-server in the foreground. It is useful if you want to run it inside a Docker container.
 
-## Dockerfile stages
+## Dockerfile Stages
 
-We will use [stage building](https://docs.docker.com/develop/develop-images/multistage-build/) in our Dockerfile for leave only needed parts in our docker image, the rest unused parts will be removed from the final image.
+We will use [stage building](https://docs.docker.com/develop/develop-images/multistage-build/) in our Dockerfile to leave only the needed parts in our Docker image. The unused parts will be removed from the final image.
 
 ```
 ltsp-base
@@ -143,7 +136,7 @@ RUN apt-get -y update \
  && apt-get clean
 ```
 
-At this stage our docker image already have installed:
+At this stage our Docker image has already been installed:
 
 * NBD-server
 * TFTP-server
@@ -151,8 +144,9 @@ At this stage our docker image already have installed:
 
 ### Stage 2: basesystem
 
-In this stage we will prepare a chroot environment with basesystem, and install basic software with the kernel there.
-We will use classic **debootstrap** instead **ltsp-build-client** for prepare base image, because **ltsp-build-client** will install GUI and few other things which we don't need for the server deployment.
+In this stage we will prepare a chroot environment with basesystem, and install basic software with the kernel.
+
+We will use the classic **debootstrap** instead of **ltsp-build-client** to prepare the base image, because **ltsp-build-client** will install GUI and few other things which we don't need for the server deployment.
 
 ```Dockerfile
 FROM ltsp-base as basesystem
@@ -222,16 +216,16 @@ RUN ltsp-chroot apt-get -y install linux-generic-hwe-16.04
 ```
 
 Note that you may encounter problems with some packages, such as `lvm2`.
-They have not fully optimized for installing in unprivileged chroot.
-Their postinstall scripts try to call some privileged commands which can fail with errors and block whole package installation.
+They have not fully optimized for installing in an unprivileged chroot.
+Their postinstall scripts try to call some privileged commands which can fail with errors and block the package installation.
 
 Solution:
-* Some of them can be simple installed before the kernel without any problems (like `lvm2`)
-* But for some of them you will need to use this workaround for install without postinstall script.
+* Some of them can be installed before the kernel without any problems (like `lvm2`)
+* But for some of them you will need to use this workaround to install without the postinstall script.
 
 ### Stage 3: builder
 
-Now we can build all necessary software and kernel modules. It's really cool that you can do that automatically in this stage.
+Now we can build all the necessary software and kernel modules. It's really cool that you can do that automatically in this stage.
 You can skip this stage if you have nothing to do here.
 
 Here is example for install latest MLNX_EN driver:
@@ -264,7 +258,7 @@ RUN ltsp-chroot sh -c \
 
 ### Stage 4: ltsp-image
 
-In this stage we will install what we builded on the previus step:
+In this stage we will install what we built in the previous step:
 
 ```Dockerfile
 FROM basesystem as ltsp-image
@@ -280,7 +274,7 @@ RUN ltsp-chroot sh -c \
    && rm -f /modules.tar.gz'
 ```
 
-Then do additional changes for finalize our ltsp-image:
+Then do some additional changes to finalize our ltsp-image:
 
 ```Dockerfile
 # Install docker
@@ -336,7 +330,7 @@ RUN KERNEL_OPTIONS="$(echo \
       "/opt/ltsp/amd64/etc/ltsp/update-kernels.conf"
 ```
 
-Then we will make squased image from our chroot:
+Then we will make the squashed image from our chroot:
 
 ```Dockerfile
 # Cleanup caches
@@ -347,7 +341,7 @@ RUN rm -rf /opt/ltsp/amd64/var/lib/apt/lists \
 RUN ltsp-update-image
 ```
 
-### Stage 5: Final stage
+### Stage 5: Final Stage
 In the final stage we will save only our squashed image and kernels with initramfs.
 
 ```Dockerfile
@@ -366,12 +360,12 @@ Ok, now we have docker image which includes:
 
 # Usage
 
-OK, now when our docker-image with LTSP-server, kernel, initramfs and squashed rootfs fully prepared we can run deployment with it.
+OK, now when our docker-image with LTSP-server, kernel, initramfs and squashed rootfs fully prepared we can run the deployment with it.
 
 We can do that as usual, but one more thing is networking.
-Unfortunately we can't use standard Kubernetes service for our deployment, because during the boot our nodes are not part of Kubernetes cluster and they requires ExternalIP, but Kubernetes is always enable NAT for ExternalIPs, and there is no way for disable this behavior.
+Unfortunately, we can't use the standard Kubernetes service for our deployment, because during the boot, our nodes are not part of Kubernetes cluster and they requires ExternalIP, but Kubernetes always enables NAT for ExternalIPs, and there is no way to disable this behavior.
 
-For now I have two ways for avoid this: use `hostNetwork: true` or use [pipework](https://github.com/dreamcat4/docker-images/blob/master/pipework/3.%20Examples.md#kubernetes), the second option will also provide you redundancy because, in case of failure, the IP will be moved with the Pod to another node. Unfortunately pipework is not native and a less secure method.
+For now I have two ways for avoid this: use `hostNetwork: true` or use [pipework](https://github.com/dreamcat4/docker-images/blob/master/pipework/3.%20Examples.md#kubernetes). The second option will also provide you redundancy because, in case of failure, the IP will be moved with the Pod to another node. Unfortunately, pipework is not native and a less secure method.
 If you have some better option for that please let me know.
 
 Here is example for deployment with hostNetwork:
@@ -447,19 +441,19 @@ data:
     RCFILE_07_JOIN_K8S             = "kubeadm join --token 2a4576.504356e45fa3d365 10.9.0.20:6443 --discovery-token-ca-cert-hash sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 ```
 
-* **KEEP_SYSTEM_SERVICES** - during the boot LTSP automatically removes some services, this variable is needed for prevent this behavior.
-* **PREINIT_*** - commands listed here will be executed before systemd running (this functional was added by [feature_preinit.diff](#used-patches-list) patch)
-* **FSTAB_*** - entries writed here will be added to `/etc/fstab` file.
-As you can see, I use `nofail` option, that means that if partition not existing, it will continue boot without error.
-If you have fully diskless nodes you can remove FSTAB settings or configure remote filesystem there.
-* **RCFILE_*** - those commands will be writed to `rc.local` file, which will be called by systemd during the boot.
-Here I load kernel modules and add  some sysctl tunes, then call `kubeadm join` command, which adds my node to the Kubernetes cluster.
+* **KEEP_SYSTEM_SERVICES** - during the boot, LTSP automatically removes some services, this variable is needed to prevent this behavior.
+* **PREINIT_*** - commands listed here will be executed before systemd runs (this function was added by the [feature_preinit.diff](#used-patches-list) patch)
+* **FSTAB_*** - entries written here will be added to the `/etc/fstab` file.
+As you can see, I use the `nofail` option, that means that if a partition doesn't exist, it will continue to boot without error.
+If you have fully diskless nodes you can remove the FSTAB settings or configure the remote filesystem there.
+* **RCFILE_*** - those commands will be written to `rc.local` file, which will be called by systemd during the boot.
+Here I load the kernel modules and add some sysctl tunes, then call the `kubeadm join` command, which adds my node to the Kubernetes cluster.
 
-More details about all variables used here you can get from [lts.conf manpage](http://manpages.ubuntu.com/manpages/xenial/man5/lts.conf.5.html).
+You can get more details on all the variables used from [lts.conf manpage](http://manpages.ubuntu.com/manpages/xenial/man5/lts.conf.5.html).
 
-Now you can configure your DHCP, basically you should set `next-server` and `filename` options.
+Now you can configure your DHCP. Basically you should set the `next-server` and `filename` options.
 
-I use ISC-DHCP server, and here is example `dhcpd.conf`:
+I use ISC-DHCP server, and here is an example `dhcpd.conf`:
 
 ```
 shared-network ltsp-netowrk {
@@ -483,12 +477,12 @@ shared-network ltsp-netowrk {
     }
 ```
 
-You can start from this, but what about me, I have multiple LTSP-servers and I configure leases statically for each node via Ansible playbook.
+You can start from this, but what about me, I have multiple LTSP-servers and I configure leases statically for each node via the Ansible playbook.
 
-Try to run your first node if everything was right, you will have running system there.
-Node also will be added to your Kubernetes cluster.
+Try to run your first node. If everything was right, you will have a running system there.
+The node also will be added to your Kubernetes cluster.
 
-Now you can try to do your own changes.
+Now you can try to make your own changes.
 
-If you need something more, note that LTSP can be easily changed to your needs.
-Feel free to look into source code you can find many answers there.
+If you need something more, note that LTSP can be easily changed to meet your needs.
+Feel free to look into the source code and you can find many answers there.
