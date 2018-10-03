@@ -240,7 +240,7 @@ spec:
     image: busybox
     command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
 EOF
-pod "hello-apparmor-2" created
+pod/hello-apparmor-2 created
 
 $ kubectl describe pod hello-apparmor-2
 Name:          hello-apparmor-2

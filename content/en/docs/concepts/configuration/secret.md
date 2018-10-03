@@ -3,6 +3,10 @@ reviewers:
 - mikedanese
 title: Secrets
 content_template: templates/concept
+feature:
+  title: Secret and configuration management
+  description: >
+    Deploy and update secrets and application configuration without rebuilding your image and without exposing secrets in your stack configuration.
 weight: 50
 ---
 
@@ -339,9 +343,15 @@ files.
 
 When a secret being already consumed in a volume is updated, projected keys are eventually updated as well.
 Kubelet is checking whether the mounted secret is fresh on every periodic sync.
-However, it is using its local ttl-based cache for getting the current value of the secret.
-As a result, the total delay from the moment when the secret is updated to the moment when new keys are
-projected to the pod can be as long as kubelet sync period + ttl of secrets cache in kubelet.
+However, it is using its local cache for getting the current value of the Secret.
+The type of the cache is configurable using the  (`ConfigMapAndSecretChangeDetectionStrategy` field in
+[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go)).
+It can be either propagated via watch (default), ttl-based, or simply redirecting
+all requests to directly kube-apiserver.
+As a result, the total delay from the moment when the Secret is updated to the moment
+when new keys are projected to the Pod can be as long as kubelet sync period + cache
+propagation delay, where cache propagation delay depends on the chosen cache type
+(it equals to watch propagation delay, ttl of cache, or zero corespondingly).
 
 {{< note >}}
 **Note:** A container using a Secret as a
@@ -482,7 +492,9 @@ Create a secret containing some ssh keys:
 $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-**Security Note:** Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+{{< caution >}}
+**Caution:** Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+{{< /caution >}}
 
 
 Now we can create a pod which references the secret with the ssh key and

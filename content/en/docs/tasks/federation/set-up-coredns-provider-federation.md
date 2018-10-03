@@ -5,7 +5,9 @@ content_template: templates/tutorial
 
 {{% capture overview %}}
 
+{{< note >}}
 {{< include "federation-current-state.md" >}}
+{{< /note >}}
 
 This page shows how to configure and deploy CoreDNS to be used as the
 DNS provider for Cluster Federation.

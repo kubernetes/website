@@ -54,7 +54,7 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 ### Additional Minikube Setup Instructions
 
 {{< caution >}}
-**Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU. Running Minikube with the default resource configuration results in insufficient resource errors during this tutorial. To avoid these errors, start Minikube with the folllowing settings:
+**Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU. Running Minikube with the default resource configuration results in insufficient resource errors during this tutorial. To avoid these errors, start Minikube with the following settings:
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -90,8 +90,8 @@ kubectl get svc cassandra
 The response is
 
 ```
-NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-cassandra   None         <none>        9042/TCP   45s
+NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
 Service creation failed if anything else is returned. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.

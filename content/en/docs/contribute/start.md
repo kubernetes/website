@@ -28,8 +28,8 @@ The Kubernetes documentation is written in Markdown and processed and deployed
 using Hugo. The source is in Github at
 [https://github.com/kubernetes/website](https://github.com/kubernetes/website).
 Most of the documentation source is stored in `/content/en/docs/`. Some of the
-reference documentation is automatically generated from scripts, mostly in the
-`/content/en/docs/imported/` subdirectory.
+reference documentation is automatically generated from scripts in the
+`update-imported-docs/` directory.
 
 You can file issues, edit content, and review changes from others, all from the
 Github website. You can also use Github's embedded history and search tools.
@@ -145,7 +145,7 @@ because you can do everything using your web browser. When you continue to the
 need more background in Git terminology.
 
 {{< note >}}
-**Kubnetes code developers**: If you are documenting a new feature for an
+**Kubernetes code developers**: If you are documenting a new feature for an
 upcoming Kubernetes release, your process is a bit different. See
 [Document a feature](/docs/contribute/intermediate/#sig-members-documenting-new-features) for
 process guidelines and information about deadlines.
@@ -154,8 +154,8 @@ process guidelines and information about deadlines.
 ### Sign the CLA
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
-the [Contributor guide](/docs/imported/community/guide/) and
-[sign the Contributor License Agreement (CLA)](/docs/imported/community/guide/#sign-the-cla).
+the [Contributor guide](/docs/community/guide/) and
+[sign the Contributor License Agreement (CLA)](/docs/community/guide/#sign-the-cla).
 Don't worry -- this doesn't take long!
 
 ### Find something to work on

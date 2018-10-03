@@ -7,9 +7,9 @@
 		<link rel="stylesheet" type="text/css" href="{{ "css/blog.css" | relURL }}">
 	</head>
 	<body>
-		{{ partialCached "header.html" . "blog" }}
+		{{ partial "header.html" . }}
 		<section id="hero" class="light-text no-sub">
-			<h1>Kubernetes Blog</h1>
+			<h1>{{ .Title }}</h1>
 		</section>
 		<div class="container-fluid" style="padding-top: 2em">
 			<div class="row">

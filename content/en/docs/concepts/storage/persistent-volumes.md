@@ -5,6 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Persistent Volumes
+feature:
+  title: Storage orchestration
+  description: >
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider  such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
+
 content_template: templates/concept
 weight: 20
 ---
@@ -247,7 +252,7 @@ uses the PVC before the expansion can complete.
 * AzureFile
 * AzureDisk
 * FC (Fibre Channel)
-* FlexVolume
+* Flexvolume
 * Flocker
 * NFS
 * iSCSI
@@ -331,7 +336,7 @@ In the CLI, the access modes are abbreviated to:
 | CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
 | Cinder               | &#x2713;     | -           | -            |
 | FC                   | &#x2713;     | &#x2713;    | -            |
-| FlexVolume           | &#x2713;     | &#x2713;    | -            |
+| Flexvolume           | &#x2713;     | &#x2713;    | -            |
 | Flocker              | &#x2713;     | -           | -            |
 | GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
 | Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
@@ -378,18 +383,19 @@ A Kubernetes administrator can specify additional mount options for when a Persi
 
 The following volume types support mount options:
 
-* GCEPersistentDisk
 * AWSElasticBlockStore
-* AzureFile
 * AzureDisk
-* NFS
-* iSCSI
-* RBD (Ceph Block Device)
+* AzureFile
 * CephFS
 * Cinder (OpenStack block storage)
+* GCEPersistentDisk
 * Glusterfs
-* VsphereVolume
+* NFS
 * Quobyte Volumes
+* RBD (Ceph Block Device)
+* StorageOS
+* VsphereVolume
+* iSCSI
 
 Mount options are not validated, so mount will simply fail if one is invalid.
 
@@ -509,7 +515,7 @@ metadata:
 spec:
   containers:
     - name: myfrontend
-      image: dockerfile/nginx
+      image: nginx
       volumeMounts:
       - mountPath: "/var/www/html"
         name: mypd
@@ -624,6 +630,34 @@ Volume binding matrix for statically provisioned volumes:
 {{< note >}}
 **Note:** Only statically provisioned volumes are supported for alpha release. Administrators should take care to consider these values when working with raw block devices.
 {{< /note >}}
+
+## Volume Snapshot and Restore Volume from Snapshot Support
+
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+
+Volume snapshot feature was added to support CSI Volume Plugins only. For details, see [volume snapshots](/docs/concepts/storage/volume-snapshots/).
+
+To enable support for restoring a volume from a volume snapshot data source, enable the
+`VolumeSnapshotDataSource` feature gate on the apiserver and controller-manager.
+
+### Create Persistent Volume Claim from Volume Snapshot
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: restore-pvc
+spec:
+  storageClassName: csi-hostpath-sc
+  dataSource:
+    name: new-snapshot-test
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
 
 ## Writing Portable Configuration
 

@@ -2,8 +2,10 @@
     {{ if not .Params.notitle }}
 	 <h1>{{ .Title }}</h1>
     {{ end }}
+    {{ if eq .Lang "en" }}
     {{ template "docs-portal-user-journey" . }}
-    {{ partial "docs/browse.html" (where .Parent.Sections ".Params.toc_hide" "!=" true) }}
+    {{ end }}
+    {{ partial "docs/browse.html" .Parent }}
 {{ end }}
 
 {{ define "content-id" }}content{{ end }}
@@ -41,11 +43,11 @@
 <div id='aboutWrapper'>
   <div class="aboutsection" markdown="1">
     <p>
-      Kubernetes is an open source system for managing <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">containerized applications</a> across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
+      Kubernetes is an open source system for managing containerized applications across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
       The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
     </p>
     <div class="aboutcolumn" markdown="1">
-      <a href="{{ "docs/imported/release/notes/" | relURL }}">Download Current Release</a>
+      <a href="{{ "docs/setup/release/notes/" | relURL }}">Download Current Release</a>
     </div>
     <div class="aboutcolumn" markdown="1">
       <a href="{{ "docs/home/supported-doc-versions/" | relURL }}">Supported Doc Versions</a>
@@ -54,13 +56,13 @@
 </div>
 
 <div class="paths">
-    <div class="navButton users">Users</div>
-    <div class="navButton contributors">Contributors</div>
-    <a> <div class="navButton browse">Browse Docs</div></a>
+    <div class="navButton users">{{ T "docs_label_users" }}</div>
+    <div class="navButton contributors">{{ T "docs_label_contributors" }}</div>
+    <a> <div class="navButton browse">{{ T "docs_label_browse" }}</div></a>
 </div>
 
 <div id="cardWrapper">
-  <div class="display-bar">I AM...</div>
+  <div class="display-bar">{{ T "docs_label_i_am" }}</div>
   <div class='cards' markdown="1">
   <div class='docsection1' id='persona-definition'>.</div>
   </div>

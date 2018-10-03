@@ -1,7 +1,7 @@
 ---
 reviewers:
 - janetkuo
-title: Performing a Rollback on a DaemonSet
+title: Perform a Rollback on a DaemonSet
 content_template: templates/task
 ---
 
@@ -139,11 +139,13 @@ DaemonSet template with the template stored in the `ControllerRevision`.
 previous revision through other commands, such as `kubectl edit` or `kubectl
 apply`.
 
-Note that DaemonSet revisions only roll forward. That is to say, after a
-rollback is complete, the revision number (`.revision` field) of the
+{{< note >}}
+**Note:** DaemonSet revisions only roll forward. That is to say, after a
+rollback completes, the revision number (`.revision` field) of the
 `ControllerRevision` being rolled back to will advance. For example, if you
 have revision 1 and 2 in the system, and roll back from revision 2 to revision
 1, the `ControllerRevision` with `.revision: 1` will become `.revision: 3`.
+{{< /note >}}
 
 ## Troubleshooting
 

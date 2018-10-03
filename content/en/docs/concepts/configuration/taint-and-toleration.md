@@ -69,7 +69,8 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 
 `Operator` defaults to `Equal` if not specified.
 
-**NOTE:** There are two special cases:
+{{< note >}}
+**Note:** There are two special cases:
 
 * An empty `key` with operator `Exists` matches all keys, values and effects which means this
 will tolerate everything.
@@ -86,6 +87,7 @@ tolerations:
 - key: "key"
   operator: "Exists"
 ```
+{{< /note >}}
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
 This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
@@ -227,10 +229,14 @@ including `TaintBasedEvictions=true` in `--feature-gates` for Kubernetes control
 such as `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController (or kubelet) and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
-(Note: To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
+
+{{< note >}}
+**Note:** To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
-as the master becoming partitioned from the nodes.)
+as the master becoming partitioned from the nodes.
+{{< /note >}}
+
 This alpha feature, in combination with `tolerationSeconds`, allows a pod
 to specify how long it should stay bound to a node that has one or both of these problems.
 
@@ -273,9 +279,10 @@ which matches the behavior when this feature is disabled.
 
 ## Taint Nodes by Condition
 
-Version 1.8 introduces an alpha feature that causes the node controller to create taints corresponding to
-Node conditions. When this feature is enabled (you can do this by including `TaintNodesByCondition=true` in the `--feature-gates` command line flag to the scheduler, such as
-`--feature-gates=FooBar=true,TaintNodesByCondition=true`), the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
+In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates taints corresponding to
+Node conditions.
+Similarly the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
+Note that `TaintNodesByCondition` only taints nodes with `NoSchedule` effect. `NoExecute` effect is controlled by `TaintBasedEviction` which is an alpha feature and disabled by default.
 
 Starting in Kubernetes 1.8, the DaemonSet controller automatically adds the
 following `NoSchedule` tolerations to all daemons, to prevent DaemonSets from

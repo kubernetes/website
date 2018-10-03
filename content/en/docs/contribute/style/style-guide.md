@@ -263,6 +263,29 @@ The output is:
 **Warning:** Beware.
 {{< /warning >}}
 
+### Katacoda Embedded Live Environment
+
+This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel). 
+It lowers the barier of entry by allowing users to use Minikube with one click instead of going through the complete 
+Minikube and Kubectl installation process locally.
+
+The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window 
+as the documentation.
+
+{{< caution >}}
+**Caution:** The session is limited to 15 minutes.
+{{< /caution >}}
+
+For example:
+
+```
+{{</* kat-button */>}}
+```
+
+The output is: 
+
+{{< kat-button >}}
+
 ## Common Shortcode Issues
 
 ### Ordered Lists
@@ -286,6 +309,16 @@ The output is:
     {{< note >}}**Note:** Grease the pan for best results.{{< /note >}}
 
 1. Bake for 20-25 minutes or until set.
+
+### Include Statements
+
+Shortcodes inside include statements will break the build. You must insert them in the parent document, before and after you call the include. For example:
+
+```
+{{</* note */>}}
+{{</* include "federation-current-state.md" */>}}
+{{</* /note */>}}
+```
 
 ## Content best practices
 

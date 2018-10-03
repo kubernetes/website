@@ -37,7 +37,7 @@ To run this pod, use the following command:
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
-pod "counter" created
+pod/counter created
 ```
 
 To fetch the logs, use the `kubectl logs` command, as follows:

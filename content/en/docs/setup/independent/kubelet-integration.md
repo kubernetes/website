@@ -23,7 +23,7 @@ manager instead, but you need to configure it manually.
 Some kubelet configuration details need to be the same across all kubelets involved in the cluster, while
 other configuration aspects need to be set on a per-kubelet basis, to accommodate the different
 characteristics of a given machine, such as OS, storage, and networking. You can manage the configuration
-of your kubelets manually, but [kubeadm now provides a `MasterConfig` API type for managing your
+of your kubelets manually, but [kubeadm now provides a `KubeletConfiguration` API type for managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 
 {{% /capture %}}
@@ -35,9 +35,9 @@ kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 The following sections describe patterns to kubelet configuration that are simplified by
 using kubeadm, rather than managing the kubelet configuration for each Node manually.
 
-### Propogating cluster-level configuration to each kubelet
+### Propagating cluster-level configuration to each kubelet
 
-You can provide the kubelet with default values to be used by `kubelet init` and `kubelet join`
+You can provide the kubelet with default values to be used by `kubeadm init` and `kubeadm join`
 commands. Interesting examples include using a different CRI runtime or setting the default subnet
 used by services.
 
@@ -63,10 +63,7 @@ clusterDNS:
 - 10.96.0.10
 ```
 
-See the
-[API reference for the
-kubelet ComponentConfig](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/kubeletconfig#KubeletConfiguration)
-for more information.
+For more details on the ComponentConfig have a look at [this section](#configure-kubelets-using-kubeadm).
 
 ### Providing instance-specific configuration details
 
@@ -96,21 +93,26 @@ such as systemd.
 
 ## Configure kubelets using kubeadm
 
-The kubeadm config API type `MasterConfiguration` embeds the kubelet's ComponentConfig under
-the `.kubeletConfiguration.baseConfig` key. Any user writing a `MasterConfiguration`
-file can use this configuration key to also set the base-level configuration for all kubelets
-in the cluster.
+It is possible to configure the kubelet that kubeadm will start if a custom `KubeletConfiguration`
+API object is passed with a configuration file like so `kubeadm ... --config some-config-file.yaml`.
+
+By calling `kubeadm config print-default --api-objects KubeletConfiguration` you can
+see all the default values for this structure.
+
+Also have a look at the [API reference for the
+kubelet ComponentConfig](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
+for more information on the individual fields.
 
 ### Workflow when using `kubeadm init`
 
-When you call `kubeadm init`, the `.kubeletConfiguration.baseConfig` structure is marshalled to disk
+When you call `kubeadm init`, the kubelet configuration is marshalled to disk
 at `/var/lib/kubelet/config.yaml`, and also uploaded to a ConfigMap in the cluster. The ConfigMap
 is named `kubelet-config-1.X`, where `.X` is the minor version of the Kubernetes version you are
 initializing. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf` with the
 baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
 points to the client certificates that allow the kubelet to communicate with the API server. This
 addresses the need to
-[propogate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
+[propagate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
 
 To address the second pattern of
 [providing instance-specific configuration details](#providing-instance-specific-configuration-details),

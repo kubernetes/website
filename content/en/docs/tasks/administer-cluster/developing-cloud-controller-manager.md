@@ -40,6 +40,6 @@ Using existing out-of-tree cloud providers as an example may be helpful. You can
 
 ### In Tree
 
-For in-tree cloud providers, you can run the in-tree cloud controller manager as a [Daemonset](/docs/tasks/administer-cluster/cloud-controller-manager-daemonset-example.yaml) in your cluster. See the [running cloud controller manager docs](/docs/tasks/administer-cluster/running-cloud-controller.md) for more details.
+For in-tree cloud providers, you can run the in-tree cloud controller manager as a [Daemonset](/examples/admin/cloud/ccm-example.yaml) in your cluster. See the [running cloud controller manager docs](/docs/tasks/administer-cluster/running-cloud-controller.md) for more details.
 
 {{% /capture %}}

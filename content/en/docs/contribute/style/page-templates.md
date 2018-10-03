@@ -31,7 +31,7 @@ template to use for a new topic, start with the
 
 A concept page explains some aspect of Kubernetes. For example, a concept
 page might describe the Kubernetes Deployment object and explain the role it
-plays as an application is deployed, scaled, and updated. Typically, concept
+plays as an application once it is deployed, scaled, and updated. Typically, concept
 pages don't include sequences of steps, but instead provide links to tasks or
 tutorials.
 
@@ -53,13 +53,9 @@ To write a new concept page, create a Markdown file in a subdirectory of the
     need):
     
     ```
-    {% raw  %}
-
     {{%/* capture overview */%}}
     
     {{%/* /capture */%}}
-    
-    {{</* toc */>}}
     
     {{%/* capture body */%}}
     
@@ -68,15 +64,12 @@ To write a new concept page, create a Markdown file in a subdirectory of the
     {{%/* capture whatsnext */%}}
     
     {{%/* /capture */%}}
-
-    {% endraw %}
     ```
 
 - Within each section, write your content. Use the following guidelines:
   - Use a minimum of H2 headings (with two leading `#` characters). The sections
     themselves are titled automatically by the template.
   - For `overview`, use a paragraph to set context for the entire topic.
-  - Add the `{{< toc >}}` shortcode to show an in-page table of contents.
   - For `body`, explain the concept using free-form Markdown.
   - For `whatsnext`, give a bullet list of up to 5 topics the reader might be
     interested in reading next.
@@ -110,13 +103,9 @@ To write a new task page, create a Markdown file in a subdirectory of the
     need):
     
     ```
-    {% raw %}
-
     {{%/* capture overview */%}}
   
     {{%/* /capture */%}}
-    
-    {{</* toc */>}}
     
     {{%/* capture prerequisites */%}}
     
@@ -135,18 +124,14 @@ To write a new task page, create a Markdown file in a subdirectory of the
     {{%/* capture whatsnext */%}}
     
     {{%/* /capture */%}}
-
-    {% endraw %}
     ```
 
 - Within each section, write your content. Use the following guidelines:
   - Use a minimum of H2 headings (with two leading `#` characters). The sections
     themselves are titled automatically by the template.
   - For `overview`, use a paragraph to set context for the entire topic.
-  - Add the `{{< toc >}}` shortcode to show an in-page table of contents.
-  - For `prerequisites`, use bullet lists when possible. Add additional
-    prerequisites below the ones included by the `include` in the example
-    above. The default prerequisites include a running Kubernetes cluster.
+  - For `prerequisites`, use bullet lists when possible. Start adding additional
+    prerequisites below the `include`. The default prerequisites include a running Kubernetes cluster.
   - For `steps`, use numbered lists.
   - For discussion, use normal content to expand upon the information covered
     in `steps`.
@@ -184,13 +169,9 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
     need):
     
     ```
-    {% raw %}
-
     {{%/* capture overview */%}}
     
     {{%/* /capture */%}}
-    
-    {{</* toc */>}}
     
     {{%/* capture prerequisites */%}}
     
@@ -213,14 +194,12 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
     {{%/* capture whatsnext */%}}
     
     {{%/* /capture */%}}
-    {% endraw %}
     ```
 
 - Within each section, write your content. Use the following guidelines:
   - Use a minimum of H2 headings (with two leading `#` characters). The sections
     themselves are titled automatically by the template.
   - For `overview`, use a paragraph to set context for the entire topic.
-  - Add the `{{< toc >}}` shortcode to show an in-page table of contents.
   - For `prerequisites`, use bullet lists when possible. Add additional
     prerequisites below the ones included by default.
   - For `objectives`, use bullet lists.

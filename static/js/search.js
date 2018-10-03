@@ -1,3 +1,5 @@
+    document.querySelector('html').classList.add('search');
+
     window.renderGoogleSearchResults = () => {
         var cx = '013288817511911618469:elfqqbqldzg';
         var gcse = document.createElement('script');
@@ -6,7 +8,6 @@
         gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=' + cx;
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(gcse, s);
-        // document.querySelector('html').classList.add('search');
     }
 
     window.getPaginationAnchors = (pages) => {
@@ -52,22 +53,44 @@
             if($('#bing-results-container').length > 0) $('#bing-results-container').html(results);
             if($('#bing-pagination-container').length > 0) $('#bing-pagination-container').html(paginationAnchors);
         });
-        document.querySelector('html').classList.add('search');
     }
 
-    window.renderBingSearchResults();
+    //China Verification
+    var path = "path=/;"
+    d = new Date()
+    d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000))
+    expires = "expires=" + d.toUTCString()
 
-    $.ajax({
-        url: "https://ipinfo.io",
-        dataType: "jsonp",
-        success: function (response) {
-            if (response.country != 'CN') window.renderGoogleSearchResults();
-        },
-        error: function () {
-            console.log('sorry...')
-        },
-        timeout: 5000
-    });
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+        else return "";
+    }
 
+    if (getCookie("is_china") === "") {
+        $.ajax({
+            url: "https://ipinfo.io?token=796e43f4f146b1",
+            dataType: "jsonp",
+            success: function (response) {
+                if (response.country == 'CN') {
+                    window.renderBingSearchResults()
+                    document.cookie = "is_china=true;" + path + expires
+                } else {
+                    window.renderGoogleSearchResults()
+                    document.cookie = "is_china=false;" + path + expires;
+                }
+            },
+            error: function () {
+                window.renderBingSearchResults()
+                document.cookie = "is_china=true;" + path + expires;
+            },
+            timeout: 3000
+        });
+    } else if (getCookie("is_china") === "true") {
+        window.renderBingSearchResults()
+    } else {
+        window.renderGoogleSearchResults()
+    }
 
 

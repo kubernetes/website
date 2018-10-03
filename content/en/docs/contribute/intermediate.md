@@ -95,10 +95,10 @@ code repositories when it comes to the roles of reviewers and approvers. For
 more information about the responsibilities of reviewers and approvers, see
 [Participating](/docs/contribute/participating/). Here's an overview.
 
-- A reviewer reviews pull request content for technical accuracy. A reviewer 
+- A reviewer reviews pull request content for technical accuracy. A reviewer
   indicates that a PR is technically accurate by leaving a `/lgtm` comment on
-  the PR. 
-  
+  the PR.
+
     {{< note >}}Don't add an `/lgtm` unless you are confident in the technical
     accuracy of the documentation modified or introduced in the PR.{{< /note >}}
 
@@ -149,7 +149,7 @@ has signed the CLA.
         the main purpose of the PR, such as a typo or whitespace error, you can
         call it out, prefixing your comment with `nit:` so that the author knows
         you consider it trivial. They should still address it.
-      - When you're reviewed everything, or if you didn't have any comments, go
+      - When you've reviewed everything, or if you didn't have any comments, go
         back to the top of the page and click **Review changes**. Choose either
         **Comment** or **Request Changes**. Add a summary of your review, and
         add appropriate
@@ -236,7 +236,7 @@ need to use the command line. You can always use this method, if you prefer it
 to the Github UI.
 
 1.  Get the URL for the author's fork. You can find it near the bottom of the
-    **Conversation** tab. Look for the text "Add more commits by pushing to".
+    **Conversation** tab. Look for the text **Add more commits by pushing to**.
     The first link after this phrase is to the branch, and the second link is
     to the fork. Copy the second link. Note the name of the branch for later.
 
@@ -387,7 +387,7 @@ most up-to-date version of that branch.
       ```
 
       {{< note >}}
-Do not reference a Github issue or pull request by ID or URL in the
+**Note:** Do not reference a Github issue or pull request by ID or URL in the
 commit message. If you do, it will cause that issue or pull request to get
 a notification every time the commit shows up in a new Git branch. You can
 link issues and pull requests together later, in the Github UI.
@@ -427,7 +427,7 @@ link issues and pull requests together later, in the Github UI.
       Click **Create pull request**.
 
 8.  Several automated tests will run against the state of the website with your
-    changes applied. If any of the tests fails, click the **Details** link for
+    changes applied. If any of the tests fail, click the **Details** link for
     more information. If the Netlify test completes successfully, its
     **Details** link goes to a staged version of the Kubernetes website with
     your changes applied. This is how reviewers will check your changes.
@@ -490,7 +490,7 @@ Slack channel or the
 If you aren't ready to create a pull request but you want to see what your
 changes look like, you can use the `hugo` command to stage the changes locally.
 
-1.  Install Hugo version `0.40.3` or later.
+1.  Install Hugo version {{< hugoVersion >}} or later.
 
 2.  In a terminal, go to the root directory of your clone of the Kubernetes
     docs, and enter this command:
@@ -504,6 +504,22 @@ changes look like, you can use the `hugo` command to stage the changes locally.
 4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
     or just close the terminal window.
 
+Alternatively, you can build the Kubernetes docs using Docker.
+
+1.  Build the image locally:
+
+      ```bash
+      make docker-image
+      ```
+
+2.  Once the `kubernetes-hugo` image has been built locally, you can build and serve the site:
+
+      ```bash
+      make docker-serve
+      ```
+
+3.  In your browser's address bar, enter `localhost:1313`. Hugo will watch the
+filesystem for changes and rebuild the site as needed.
 
 ## Triage and categorize issues
 
@@ -544,7 +560,7 @@ These guidelines are not set in stone and are subject to change.
   information in the issue text.
 - Some labels are manually added by the person triaging the issue (or the person
   reporting the issue, if they are a SIG Docs approvers).
-  - `Actionable`: there seems to be enough information for the issue to be fixed
+  - `Actionable`: There seems to be enough information for the issue to be fixed
     or acted upon.
   - `good first issue`: Someone with limited Kubernetes or SIG Docs experience
     might be able to tackle this issue.
@@ -714,6 +730,7 @@ the techniques described in
 [Commit into another person's PR](#commit-into-another-persons-pr).
 
 If you need to write a new topic, the following links are useful:
+
 - [Writing a New Topic](/docs/contribute/style/write-new-topic/)
 - [Using Page Templates](/docs/contribute/style/page-templates/)
 - [Documentation Style Guide](/docs/contribute/style/style-guide/)
@@ -747,6 +764,11 @@ deadlines. Some deadlines related to documentation are:
   docs person managing the release to get it in. If your feature needs
   documentation and the docs are not ready, the feature may be removed from the
   milestone.
+
+If your feature is an Alpha feature and is behind a feature gate, make sure you
+add it to [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+as part of your pull request. If your feature is moving out of Alpha, make sure to
+remove it from that file.
 
 ## Contribute to other repos
 
