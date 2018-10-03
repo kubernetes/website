@@ -1,19 +1,7 @@
-{{- $mainSass := "sass/styles.sass" }}
-{{- $caseStudySass := "sass/case_study_styles.sass" }}
 <link rel="stylesheet" href="/css/base_fonts.css">
-{{- if .Site.IsServer }}
-{{- $mainCssOpts := (dict "targetPath" "css/styles.css") }}
-{{- $mainCss := resources.Get $mainSass | toCSS $mainCssOpts }}
-<link rel="stylesheet" media="screen" href="{{ $mainCss.RelPermalink }}"><!-- default styles.css on -->
-{{- else }}
-{{- $mainCssOpts := (dict "targetPath" "css/styles.css") }}
-{{- $mainCss := resources.Get $mainSass | toCSS $mainCssOpts | minify | fingerprint }}
-<link rel="stylesheet" media="screen" href="{{ $mainCss.RelPermalink }}" integrity="{{ $mainCss.Data.Integrity }}"><!-- default styles.css on -->
-{{- end }}
+<link rel="stylesheet" href="/css/styles.css">
 {{- if .Params.case_study_styles }}
-{{- $caseStudyCssOpts := (dict "targetPath" "css/styles.css") }}
-{{- $caseStudyCss := resources.Get $caseStudySass | toCSS $caseStudyCssOpts | minify | fingerprint }}
-<link rel="stylesheet" media="screen" href="{{ $caseStudyCss.Permalink }}" integrity="{{ $caseStudyCss.Data.Integrity }}"><!-- custom case_study_styles on -->
+<link rel="stylsheet" href="/css/case-study-styles.css">
 {{- end }}
 <link rel="stylesheet" href="{{ "css/jquery-ui.min.css" | relURL }}">
 <link rel="stylesheet" href="{{ "css/sweetalert.min.css" | relURL }}">
@@ -26,7 +14,8 @@
 <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
 {{- end }}
 {{- with .Params.css }}
-{{- range (split . ",") }}
+{{- $extraCss := split . "," }}
+{{- range $extraCss }}
 {{- $url := trim . " " | relURL }}
 <link rel="stylesheet" href="{{ $url }}"><!-- custom css added -->
 {{- end }}

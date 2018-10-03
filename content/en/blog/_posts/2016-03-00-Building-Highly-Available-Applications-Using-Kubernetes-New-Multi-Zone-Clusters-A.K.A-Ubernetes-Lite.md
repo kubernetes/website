@@ -148,7 +148,7 @@ Highly available apps, here we come.
 
 
 ### Deploying a multi-zone application&nbsp;
-Create the guestbook-go example, which includes a ReplicationController of size 3, running a simple web app. Download all the files from [here](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook-go), and execute the following command (the command assumes you downloaded them to a directory named “guestbook-go”:  
+Create the guestbook-go example, which includes a ReplicationController of size 3, running a simple web app. Download all the files from [here](https://github.com/kubernetes/examples/tree/master/guestbook-go), and execute the following command (the command assumes you downloaded them to a directory named “guestbook-go”:  
 
 ```
 kubectl create -f guestbook-go/

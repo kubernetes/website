@@ -1,11 +1,20 @@
 {{ define "main" }}
-{{ $featured := where .Pages "Params.featured" true }}
+{{ $pages := .Pages }}
+{{ with $.Site.Params.language_alternatives }}
+{{ range . }}
+       {{ with (where $.Translations ".Lang" . ) }}
+       {{ $p := index . 0 }}      
+       {{ $pages = $pages | lang.Merge $p.Pages }}
+       {{ end }}
+{{ end }}
+{{ end }}  
+{{ $featured := (where $pages "Params.featured" true).ByWeight | first 4 }}
 <section id="mainContent">
 	<main>
 		<div class="content">
 			<div class="case-studies">
 				{{ range $featured }}
-				{{ template "case-study-featured-block" . }}
+				{{ template "case-study-featured-block" (dict "ctx" $ "page" .) }}
 				{{ end }}
 			</div>
 		</div>
@@ -33,9 +42,9 @@
 {{ end }}
 <section id="users">
 	<main>
-		<h3>Kubernetes Users</h3>
+		<h3>{{ .Title }}</h3>
 		<div id="usersGrid">
-			{{ range .Pages.ByTitle }}
+			{{ range $pages.ByTitle }}
 			{{ $logo := .Resources.GetMatch "**logo*.png" }}
 			{{ $p := . }}
 			<a target="_blank" href="{{ with $p.Params.content_url }}{{ . | safeURL }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ $p.LinkTitle }}">{{ else }}
@@ -49,10 +58,11 @@
 {{ .Content }}
 {{ end }}
 {{ define "case-study-featured-block" }}
-{{ $logo := .Resources.GetMatch "**{feature,logo}*.png" }}
+{{ $isForeignLanguage := (ne .page.Lang .ctx.Lang)}}
+{{ $logo := .page.Resources.GetMatch "**{feature,logo}*.png" }}
 <div class="case-study">
 	{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
-	<p class="quote">"{{ .Params.quote | html }}"</p>
-	<a href="{{ .RelPermalink }}">Read about {{ .LinkTitle }}</a>
+	<p class="quote">"{{ .page.Params.quote | html }}"</p>
+	<a href="{{ .RelPermalink }}"{{ if $isForeignLanguage }} target="_blank"{{ end }}>{{ T "main_read_about"}} {{ .page.LinkTitle }}</a>
 </div>
 {{ end }}

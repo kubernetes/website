@@ -45,6 +45,21 @@ other = """The Kubernetes Authors | Documentation Distributed under <a href="htt
 [main_copyright_notice]
 other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
 
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "Browse Docs"
+
+[docs_label_contributors]
+other = "Contributors"
+
+[docs_label_users]
+other = "Users"
+
+[docs_label_i_am]
+other = "I AM..."
+
+
+
 # Community links
 [community_twitter_name]
 other = "Twitter"
