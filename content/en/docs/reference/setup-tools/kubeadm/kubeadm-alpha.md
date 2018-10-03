@@ -41,6 +41,20 @@ You can create all required certificates with the `all` subcommand or selectivel
 {{< tab name="front-proxy-client" include="generated/kubeadm_alpha_phase_certs_front-proxy-client.md" />}}
 {{< /tabs >}}
 
+## kubeadm alpha phase certs renew {#cmd-phase-certs-renew}
+
+You can renew all Kubernetes certificates using the `all` subcommand or renew them selectively.
+
+{{< tabs name="tab-certs-renew" >}}
+{{< tab name="all" include="generated/kubeadm_alpha_phase_certs_renew_all.md" />}}
+{{< tab name="apiserver-etcd-client" include="generated/kubeadm_alpha_phase_certs_renew_apiserver-etcd-client.md" />}}
+{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_alpha_phase_certs_renew_apiserver-kubelet-client.md" />}}
+{{< tab name="apiserver" include="generated/kubeadm_alpha_phase_certs_renew_apiserver.md" />}}
+{{< tab name="etcd-healthcheck-client" include="generated/kubeadm_alpha_phase_certs_renew_etcd-healthcheck-client.md" />}}
+{{< tab name="etcd-peer" include="generated/kubeadm_alpha_phase_certs_renew_etcd-peer.md" />}}
+{{< tab name="etcd-server" include="generated/kubeadm_alpha_phase_certs_renew_etcd-server.md" />}}
+{{< tab name="front-proxy-client" include="generated/kubeadm_alpha_phase_certs_renew_front-proxy-client.md" />}}
+{{< /tabs >}}
 
 ## kubeadm alpha phase kubeconfig {#cmd-phase-kubeconfig}
 
@@ -56,6 +70,18 @@ Additionally, the `user` subcommand supports the creation of kubeconfig files fo
 {{< tab name="user" include="generated/kubeadm_alpha_phase_kubeconfig_user.md" />}}
 {{< /tabs >}}
 
+## kubeadm alpha phase kubelet {#cmd-phase-kubelet}
+
+Use the following commands to manage the kubelet phase.
+
+{{< tabs name="tab-kubelet" >}}
+{{< tab name="config annotate-cri" include="generated/kubeadm_alpha_phase_kubelet_config_annotate-cri.md" />}}
+{{< tab name="config download" include="generated/kubeadm_alpha_phase_kubelet_config_download.md" />}}
+{{< tab name="config enable-dynamic" include="generated/kubeadm_alpha_phase_kubelet_config_enable-dynamic.md" />}}
+{{< tab name="config upload" include="generated/kubeadm_alpha_phase_kubelet_config_upload.md" />}}
+{{< tab name="config write-to-disk" include="generated/kubeadm_alpha_phase_kubelet_config_write-to-disk.md" />}}
+{{< tab name="write-env-file" include="generated/kubeadm_alpha_phase_kubelet_write-env-file.md" />}}
+{{< /tabs >}}
 
 ## kubeadm alpha phase controlplane {#cmd-phase-controlplane}
 

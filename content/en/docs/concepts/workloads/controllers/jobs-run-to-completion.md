@@ -251,6 +251,59 @@ spec:
 
 Note that both the Job Spec and the [Pod Template Spec](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
 
+## Clean Up Finished Jobs Automatically
+
+Finished Jobs are usually no longer needed in the system. Keeping them around in
+the system will put pressure on the API server. If the Jobs are managed directly
+by a higher level controller, such as 
+[CronJobs](/docs/concepts/workloads/controllers/cron-jobs/), the Jobs can be
+cleaned up by CronJobs based on the specified capacity-based cleanup policy.
+
+### TTL Mechanism for Finished Jobs
+
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+
+Another way to clean up finished Jobs (either `Complete` or `Failed`)
+automatically is to use a TTL mechanism provided by a 
+[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
+finished resources, by specifying the `.spec.ttlSecondsAfterFinished` field of
+the Job.
+
+When the TTL controller cleans up the Job, it will delete the Job cascadingly,
+i.e. delete its dependent objects, such as Pods, together with the Job. Note
+that when the Job is deleted, its lifecycle guarantees, such as finalizers, will
+be honored.
+
+For example:
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi-with-ttl
+spec:
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+```
+
+The Job `pi-with-ttl` will be eligible to be automatically deleted, `100`
+seconds after it finishes. 
+
+If the field is set to `0`, the Job will be eligible to be automatically deleted
+immediately after it finishes. If the field is unset, this Job won't be cleaned
+up by the TTL controller after it finishes.
+
+Note that this TTL mechanism is alpha, with feature gate `TTLAfterFinished`. For
+more information, see the documentation for 
+[TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
+finished resources. 
 
 ## Job Patterns
 

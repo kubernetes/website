@@ -32,6 +32,26 @@ you can do one of the following:
 
 Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information.
 
+## Building Multi-architecture Images with Manifests
+
+Docker CLI now supports the following command `docker manifest` with sub commands like `create`, `annotate` and `push`. These commands can be used to build and push the manifests. You can use `docker manifest inspect` to view the manifest.
+
+Please see docker documentation here:
+https://docs.docker.com/edge/engine/reference/commandline/manifest/
+
+See examples on how we use this in our build harness:
+https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files=&repos=
+
+These commands rely on and are implemented purely on the Docker CLI. You will need to either edit the `$HOME/.docker/config.json` and set `experimental` key to `enabled` or you can just set `DOCKER_CLI_EXPERIMENTAL` environment variable to `enabled` when you call the CLI commands.
+
+{{< note >}}
+**Note:** Please use Docker *18.06 or above*, versions below that either have bugs or do not support the experimental command line option. Example https://github.com/docker/cli/issues/1135 causes problems under containerd.
+{{< /note >}}
+
+If you run into trouble with uploading stale manifests, just clean up the older manifests in `$HOME/.docker/manifests` to start fresh.
+
+For Kubernetes, we have typically used images with suffix `-$(ARCH)`. For backward compatability, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
+
 ## Using a Private Registry
 
 Private registries may require keys to read images from them.

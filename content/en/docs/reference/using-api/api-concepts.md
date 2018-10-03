@@ -284,6 +284,51 @@ An encoded Protobuf message with the following IDL:
 
 Clients that receive a response in `application/vnd.kubernetes.protobuf` that does not match the expected prefix should reject the response, as future versions may need to alter the serialization format in an incompatible way and will do so by changing the prefix.
 
+
+## Dry run
+
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}} In version 1.12, if the dry run alpha feature is enabled, the modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry run mode. Dry run mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non dry run response. The system guarantees that dry run requests will not be persisted in storage or have any other side effects.
+
+
+### Enable the dry run alpha feature
+
+Dry run is an alpha feature, so it is disabled by default. To turn it on,
+you need to:
+
+* Include "DryRun=true" in the `--feature-gates` flag when starting
+  `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all should
+  have the same flag setting.
+
+If this feature is not enabled, all requests with a modifying verb (`POST`, `PUT`, `PATCH`, and `DELETE`) which set the `dryRun` query parameter will be rejected with a 400 Bad Request error. Kubernetes 1.11 always rejects dry run requests like this, so it is safe for clients to make dry run requests even if the feature is not enabled on the server, as long as the server version is >= 1.11.
+
+
+### Make a dry run request
+
+Dry run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and in 1.12 the only accepted values are:
+
+* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. Admission webhooks can now declare (in their configuration object) that they do not have side effects to prevent this. All built in admission control plugins support dry run.
+* Leave the value empty, which is also the default: Keep the default modifying behavior.
+
+For example:
+
+        POST /api/v1/namespaces/test/pods?dryRun=All
+        Content-Type: application/json
+        Accept: application/json
+
+The response would look the same as for non dry run request, but the values of some generated fields may differ.
+
+
+### Generated values
+
+Some values of an object are typically generated before the object is persisted. It is important not to rely upon the values of these fields set by a dry run request, since these values will likely be different in dry run mode from when the real request is made. Some of these fields are:
+
+* `name`: if `generateName` is set, `name` will have a unique random name
+* `creationTimestamp`/`deletionTimestamp`: records the time of creation/deletion
+* `UID`: uniquely identifies the object and is randomly generated (non-deterministic)
+* `resourceVersion`: tracks the persisted version of the object
+* Any field set by a mutating admission controller
+* For the `Service` resource: Ports or IPs that kube-apiserver assigns to v1.Service objects
+
 {{% /capture %}}
 
 
