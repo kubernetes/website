@@ -6,17 +6,15 @@ date: 2018-10-03
 
 **Author**: Thomas Phelan (BlueData)
 
-KubeDirector is an open source project designed to make it easy to run complex stateful scale-out application clusters on Kubernetes.
-
-KubeDirector is built using the custom resource definition (CRD) framework and leverages the native Kubernetes API extensions and design philosophy. This enables transparent integration with Kubernetes user/resource management as well as existing clients and tools.
+KubeDirector is an open source project designed to make it easy to run complex stateful scale-out application clusters on Kubernetes. KubeDirector is built using the custom resource definition (CRD) framework and leverages the native Kubernetes API extensions and design philosophy. This enables transparent integration with Kubernetes user/resource management as well as existing clients and tools.
 
 We recently [introduced the KubeDirector project](https://medium.com/@thomas_phelan/operation-stateful-introducing-bluek8s-and-kubernetes-director-aa204952f619/), as part of a broader open source Kubernetes initiative we call BlueK8s. I’m happy to announce that the pre-alpha
 code for [KubeDirector](https://github.com/bluek8s/kubedirector/) is now available. And in this blog post, I’ll show how it works.
 
 KubeDirector provides the following capabilities:
-*	The ability to run non-cloud native stateful applications on Kubernetes without modifying the code. In other words, it’s not necessary to decompose these existing applications to fit a microservices design pattern.
-*	Native support for preserving application-specific configuration and state.
-*	An application-agnostic deployment pattern, minimizing the time to onboard new stateful applications to Kubernetes.
+ *	The ability to run non-cloud native stateful applications on Kubernetes without modifying the code. In other words, it’s not necessary to decompose these existing applications to fit a microservices design pattern.
+ *	Native support for preserving application-specific configuration and state.
+ *	An application-agnostic deployment pattern, minimizing the time to onboard new stateful applications to Kubernetes.
 
 KubeDirector enables data scientists familiar with data-intensive distributed applications such as Hadoop, Spark, Cassandra, TensorFlow, Caffe2, etc. to run these applications on Kubernetes -- with a minimal learning curve and no need to write GO code. The applications controlled by KubeDirector are defined by some basic metadata and an associated package of configuration artifacts.  The application metadata is referred to as a KubeDirectorApp resource.
 
