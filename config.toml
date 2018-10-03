@@ -145,4 +145,9 @@ weight = 3
 contentDir = "content/no"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
-
+[languages.ko]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "Korean"
+weight = 4
+contentDir = "content/ko"
