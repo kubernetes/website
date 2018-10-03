@@ -18,7 +18,8 @@ sudo snap install conjure-up --classic
 sudo usermod -a -G lxd $(whoami)
 ```
 
-Note: If conjure-up asks you to "Setup an ipv6 subnet" with LXD, answer NO. ipv6 with Juju/LXD is currently unsupported.
+Note: If conjure-up asks you to "Setup an IPv6 subnet" with LXD, answer NO. IPv6 with Juju/LXD is currently unsupported.
+If you already have a bridge configured, e.g. `lxdbr0`, [disable IPv6 on the bridge](https://docs.conjure-up.io/stable/en/troubleshoot#common-problems), otherwise you won't be able to choose it.
 {{% /capture %}}
 
 {{% capture steps %}}
