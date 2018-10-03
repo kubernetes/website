@@ -3,6 +3,7 @@
 # It is turned off for only for the production site by using [context.master] below
 # DO NOT REMOVE THIS (contact @chenopis or @sig-docs-maintainers)
 publish = "public"
+functions = "functions"
 command = "make non-production-build"
 
 [build.environment]

@@ -2,6 +2,8 @@ DOCKER       = docker
 HUGO_VERSION = 0.49
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(PWD):/src
+NODE_BIN     = node_modules/.bin
+NETLIFY_FUNC = $(NODE_BIN)/netlify-lambda
 
 .PHONY: all build sass build-preview help serve
 
@@ -15,6 +17,9 @@ build: ## Build site with production settings and put deliverables in ./public
 
 build-preview: ## Build site with drafts and future posts enabled
 	hugo -D -F
+
+functions-build:
+	$(NETLIFY_FUNC) build functions-src
 
 check-headers-file:
 	scripts/check-headers-file.sh
