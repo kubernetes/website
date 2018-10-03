@@ -111,6 +111,31 @@ scheduled onto the right node), without any authorization check against the imag
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
 
+The cluster admin can specify if users are allowed to exclude pods (opt-out) from this policy by:
+
+ * Ensuring that `alwayspullimages.admission.k8s.io/v1alpha1=true` is included in the
+   `--runtime-config` flag for the API server;
+ * Enabling the `AlwaysPullImages` admission controller;
+ * Referencing an `AlwaysPullImages` configuration file from the file provided to the API
+   server's command line flag `--admission-control-config-file`:
+
+```yaml
+kind: AdmissionConfiguration
+apiVersion: apiserver.k8s.io/v1alpha1
+plugins:
+- name: AlwaysPullImages
+  path: alwayspullimages.yaml
+...
+```
+
+Below is a sample `alwayspullimages.yaml` to enable the exclude annotation:
+
+```yaml
+kind: Configuration
+apiVersion: alwayspullimages.admission.k8s.io/v1alpha1
+enableExcludeAnnotation: true
+```
+
 ### AlwaysDeny (DEPRECATED) {#alwaysdeny}
 
 Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
