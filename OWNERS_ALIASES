@@ -97,21 +97,68 @@ aliases:
     - apelisse
     - grodrigues3
     - spxtr
-  sig-docs: #Team: documentation; GH: sig-docs-pr-reviews
+  sig-docs: #Team: documentation; GH: sig-docs-maintainers
     - bradamant3
     - bradtopol
     - chenopis
+    - jaredbhatti
     - kbarnard10
     - mistyhacks
-    - rajakavitha1
     - ryanmcginnis
     - steveperry-53
-    - stewart-yu
     - tengqm
+    - tfogo
     - xiangpengzhao
     - zacharysarah
     - zhangxiaoyu-zidif
     - zparnold
+  sig-docs-en-owners: #Team: Documentation; GH: sig-docs-en-owners
+    - bradamant3
+    - bradtopol
+    - chenopis
+    - jaredbhatti
+    - kbarnard10
+    - mistyhacks
+    - ryanmcginnis
+    - steveperry-53
+    - tengqm
+    - tfogo
+    - zacharysarah
+    - zparnold
+  sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews 
+    - rajakavitha1
+    - stewart-yu
+    - xiangpengzhao
+    - zhangxiaoyu
+  sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
+    - cstoku
+    - nasa9084
+    - tnir
+  sig-docs-ja-reviews: #Team: Japanese docs PR reviews; GH:sig-docs-ja-reviews 
+    - cstoku
+    - makocchi-git
+    - MasayaAoyama
+    - nasa9084
+    - tnir
+  sig-docs-ko-owners: #Team Korean docs localization; GH: sig-docs-ko-owners
+    - ClaudiaJKang
+    - gochist
+  sig-docs-ko-reviews: #Team Korean docs reviews; GH: sig-docs-ko-reviews
+    - ClaudiaJKang
+    - gochist
+    - ianychoi
+  sig-docs-zh-owners: #Team Chinese docs localization; GH: sig-docs-zh-owners
+    - dchen1107
+    - haibinxie
+    - hanjiayao
+    - lichuqiang
+    - tengqm
+    - xiangpengzhao
+    - zhangxiaoyu-zidif
+  sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
+    - tengqm
+    - xiangpengzhao
+    - zhangxiaoyu-zidif
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
