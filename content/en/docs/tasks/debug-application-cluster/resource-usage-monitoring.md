@@ -89,4 +89,10 @@ This video shows how to configure and run a Google Cloud Monitoring backed Heaps
 
 {{< figure src="/images/docs/gcm.png" alt="Google Cloud Monitoring dashboard example" title="Google Cloud Monitoring dashboard example" caption="This dashboard shows cluster-wide resource usage." >}}
 
+## CronJob monitoring
+
+### Kubernetes Job Monitor
+
+With the [Kubernetes Job Monitor](https://github.com/pietervogelaar/kubernetes-job-monitor) dashboard a Cluster Administrator can see which jobs are running and view the status of completed jobs.
+
 {{% /capture %}}
