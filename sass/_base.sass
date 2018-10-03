@@ -285,22 +285,18 @@ ul.global-nav
 			display: block
 
 
-.flip-nav ul.global-nav li a,
-.open-nav ul.global-nav li a,
-	color: $dark-grey
+.flip-nav, .open-nav
+	ul.global-nav li a
+		color: $dark-grey
 
-.flip-nav ul.global-nav li a .ui-icon
-	filter: brightness(0)
+		.ui-icon
+			filter: brightness(0)
 
-
-.flip-nav ul.global-nav li ul li a,
+.flip-nav ul.global-nav li ul li a
 	background: #fff
 	color: $dark-grey
 
-.flip-nav ul.global-nav li a.active:after,
-.flip-nav ul.global-nav li ul li a.active:after,
-.open-nav ul.global-nav li a.active:after,
-
+.flip-nav ul.global-nav li a.active:after, .flip-nav ul.global-nav li ul li a.active:after, .open-nav ul.global-nav li a.active:after
 	background: $blue
 
 // FLIP NAV
