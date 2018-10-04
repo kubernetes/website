@@ -223,12 +223,12 @@ configuration struct and `value` is the value to set.
 Valid keys can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
 Here is the documentation for each supported configuration:
 
-* [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/kubeletconfig#KubeletConfiguration)
+* [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
 * [apiserver](https://godoc.org/k8s.io/kubernetes/cmd/kube-apiserver/app/options#ServerRunOptions)
-* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig#KubeProxyConfiguration)
-* [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeControllerManagerConfiguration)
+* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+* [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/controller/apis/config#KubeControllerManagerConfiguration)
 * [etcd](https://godoc.org/github.com/coreos/etcd/etcdserver#ServerConfig)
-* [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeSchedulerConfiguration)
+* [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
 
 #### Examples
 
