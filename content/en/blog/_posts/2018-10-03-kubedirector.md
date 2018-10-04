@@ -6,14 +6,13 @@ date: 2018-10-03
 
 **Author**: Thomas Phelan (BlueData)
 
-KubeDirector is an open source project designed to make it easy to run complex stateful scale-out application clusters on Kubernetes.
-
-KubeDirector is built using the custom resource definition (CRD) framework and leverages the native Kubernetes API extensions and design philosophy. This enables transparent integration with Kubernetes user/resource management as well as existing clients and tools.
+KubeDirector is an open source project designed to make it easy to run complex stateful scale-out application clusters on Kubernetes. KubeDirector is built using the custom resource definition (CRD) framework and leverages the native Kubernetes API extensions and design philosophy. This enables transparent integration with Kubernetes user/resource management as well as existing clients and tools.
 
 We recently [introduced the KubeDirector project](https://medium.com/@thomas_phelan/operation-stateful-introducing-bluek8s-and-kubernetes-director-aa204952f619/), as part of a broader open source Kubernetes initiative we call BlueK8s. I’m happy to announce that the pre-alpha
 code for [KubeDirector](https://github.com/bluek8s/kubedirector/) is now available. And in this blog post, I’ll show how it works.
 
 KubeDirector provides the following capabilities:
+
 *	The ability to run non-cloud native stateful applications on Kubernetes without modifying the code. In other words, it’s not necessary to decompose these existing applications to fit a microservices design pattern.
 *	Native support for preserving application-specific configuration and state.
 *	An application-agnostic deployment pattern, minimizing the time to onboard new stateful applications to Kubernetes.
@@ -98,13 +97,13 @@ Deploy the KubeDirector service and the example KubeDirectorApp resource definit
 cd kubedirector
 make deploy
 ```
-These will start the kubedirector pod:
+These will start the KubeDirector pod:
 ```
 ~> kubectl get pods
 NAME                           READY     STATUS     RESTARTS     AGE
 kubedirector-58cf59869-qd9hb   1/1       Running    0            1m     
 ```
-List the installed kubedirector applications with `kubectl get KubeDirectorApp`
+List the installed KubeDirector applications with `kubectl get KubeDirectorApp`
 ```
 ~> kubectl get KubeDirectorApp
 NAME           AGE
@@ -115,7 +114,7 @@ spark221e2     30m
 
 Now you can launch a Spark 2.2.1 cluster using the example KubeDirectorCluster file and the
 `kubectl create -f deploy/example_clusters/cr-cluster-spark211up.yaml` command.
-Verify that the spark cluster has been started:
+Verify that the Spark cluster has been started:
 ```
 ~> kubectl get pods
 NAME                             READY     STATUS    RESTARTS   AGE
@@ -125,7 +124,7 @@ spark221e2-jupyter-2km7q-0       1/1       Running   0          23m
 spark221e2-worker-4gzbz-0        1/1       Running   0          23m
 spark221e2-worker-4gzbz-1        1/1       Running   0          23m
 ```
-The running services now include the spark services:
+The running services now include the Spark services:
 ```
 ~> kubectl get service
 NAME                                TYPE         CLUSTER-IP        EXTERNAL-IP    PORT(S)                                                    AGE
@@ -149,7 +148,7 @@ To start another application (e.g. Cassandra), just specify another KubeDirector
 ```
 kubectl create -f deploy/example_clusters/cr-cluster-cassandra311.yaml
 ```
-See the running cassandra cluster:
+See the running Cassandra cluster:
 ```
 ~> kubectl get pods
 NAME                              READY     STATUS    RESTARTS   AGE
