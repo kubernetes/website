@@ -160,14 +160,21 @@ This recipe for the Docker image starts from the official Node.js LTS image
 found in the Docker registry, exposes port 8080, copies your `server.js` file
 to the image and starts the Node.js server.
 
-Because this tutorial uses Minikube, instead of pushing your Docker image to a
-registry, you can simply build the image using the same Docker host as
-the Minikube VM, so that the images are automatically present. To do so, make
-sure you are using the Minikube Docker daemon:
+By default, Docker will create images and store them in your local machine's Docker registry.  
+In this tutorial, we will not use your local machine's Docker registry; we will use the 
+Docker registry of the Docker daemon running _inside_ Minikube's vm instance. To point the
+'docker' command to your Minikube's Docker daemon, type (unix shells):
 
 ```shell
 eval $(minikube docker-env)
 ```
+
+or in powershell: 
+```shell
+minikube docker-env | Invoke-Expression
+```
+
+
 
 {{< note >}}
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
@@ -179,6 +186,22 @@ Build your Docker image, using the Minikube Docker daemon (mind the trailing dot
 ```shell
 docker build -t hello-node:v1 .
 ```
+
+check that the image is in Minikube's Docker registry:
+
+```shell
+minikube ssh docker images 
+```
+
+Output:
+
+```shell
+REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
+hello-node                                 v1                  f82485ca953c        3 minutes ago       655MB
+...
+node                                       6.9.2               faaadb4aaf9b        20 months ago       655MB
+```
+
 
 Now the Minikube VM can run the image you built.
 
