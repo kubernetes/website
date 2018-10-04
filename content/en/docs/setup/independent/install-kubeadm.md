@@ -147,14 +147,20 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kube*
 EOF
+
+# Set SELinux in permissive mode (effectively disabling it)
 setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+
 systemctl enable kubelet && systemctl start kubelet
 ```
 
   **Note:**
 
-  - Disabling SELinux by running `setenforce 0` is required to allow containers to access the host filesystem, which is required by pod networks for example.
+  - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
+    This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
     You have to do this until SELinux support is improved in the kubelet.
   - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
     `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
