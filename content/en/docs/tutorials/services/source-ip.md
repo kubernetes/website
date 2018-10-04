@@ -61,9 +61,9 @@ a `proxyMode` endpoint:
 ```console
 $ kubectl get nodes
 NAME                           STATUS     ROLES    AGE     VERSION
-kubernetes-minion-group-6jst   Ready      <none>   2h      v1.11.1
-kubernetes-minion-group-cx31   Ready      <none>   2h      v1.11.1
-kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.11.1
+kubernetes-minion-group-6jst   Ready      <none>   2h      v1.12.0
+kubernetes-minion-group-cx31   Ready      <none>   2h      v1.12.0
+kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.12.0
 
 kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
 iptables

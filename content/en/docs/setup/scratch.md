@@ -198,7 +198,7 @@ We recommend that you use the etcd version which is provided in the Kubernetes b
 were tested extensively with this version of etcd and not with any other version.
 The recommended version number can also be found as the value of `TAG` in `kubernetes/cluster/images/etcd/Makefile`.
 
-For the miniumum recommended version of etcd, refer to
+For the minimum recommended version of etcd, refer to
 [Configuring and Updating etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
@@ -465,7 +465,7 @@ traffic to the internet, but have no problem with them inside your GCE Project.
 
 The previous steps all involved "conventional" system administration techniques for setting up
 machines.  You may want to use a Configuration Management system to automate the node configuration
-process.  There are examples of [Saltstack](/docs/setup/salt/), Ansible, Juju, and CoreOS Cloud Config in the
+process.  There are examples of Ansible, Juju, and CoreOS Cloud Config in the
 various Getting Started Guides.
 
 ## Bootstrapping the Cluster
@@ -865,7 +865,7 @@ pinging or SSH-ing from one node to another.
 ### Getting Help
 
 If you run into trouble, see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
-[kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
+[Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level
 

@@ -32,3 +32,8 @@ public/
 
 # User-specific editorconfig files
 .editorconfig
+
+# Netlify Functions build output
+package-lock.json
+functions/
+node_modules/

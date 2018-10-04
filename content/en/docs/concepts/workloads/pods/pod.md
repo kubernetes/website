@@ -24,7 +24,8 @@ for how to run the containers.  A pod's contents are always co-located and
 co-scheduled, and run in a shared context.  A pod models an
 application-specific "logical host" - it contains one or more application
 containers which are relatively tightly coupled &mdash; in a pre-container
-world, they would have executed on the same physical or virtual machine.
+world, being executed on the same physical or virtual machine would mean being
+executed on the same logical host.
 
 While Kubernetes supports more container runtimes than just Docker, Docker is
 the most commonly known runtime, and it helps to describe pods in Docker terms.

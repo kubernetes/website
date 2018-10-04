@@ -63,7 +63,7 @@ Resource creation isn't the only operation that `kubectl` can perform in bulk. I
 
 ```shell
 $ kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
-deployment "my-nginx" deleted
+deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
@@ -117,9 +117,9 @@ Instead, specify the `--recursive` or `-R` flag with the `--filename,-f` flag as
 
 ```shell
 $ kubectl create -f project/k8s/development --recursive
-configmap "my-config" created
-deployment "my-deployment" created
-persistentvolumeclaim "my-pvc" created
+configmap/my-config created
+deployment.apps/my-deployment created
+persistentvolumeclaim/my-pvc created
 ```
 
 The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as: `kubectl {create,get,delete,describe,rollout} etc.`
@@ -128,11 +128,11 @@ The `--recursive` flag also works when multiple `-f` arguments are provided:
 
 ```shell
 $ kubectl create -f project/k8s/namespaces -f project/k8s/development --recursive
-namespace "development" created
-namespace "staging" created
-configmap "my-config" created
-deployment "my-deployment" created
-persistentvolumeclaim "my-pvc" created
+namespace/development created
+namespace/staging created
+configmap/my-config created
+deployment.apps/my-deployment created
+persistentvolumeclaim/my-pvc created
 ```
 
 If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview](/docs/reference/kubectl/overview/).
