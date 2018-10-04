@@ -83,7 +83,7 @@ metadata:
   name: myclass  # The name the RuntimeClass will be referenced by
   # RuntimeClass is a non-namespaced resource
 spec:
-  runtimeHandler: myconfiguration  # The name of the correpsonding CRI configuration
+  runtimeHandler: myconfiguration  # The name of the corresponding CRI configuration
 ```
 
 
