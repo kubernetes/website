@@ -37,13 +37,13 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
   {{< note >}}
   **Note:** If you see the following Homebrew error when you run `brew update` after you update your computer to macOS 10.13:
   
-  ```
+  ```shell
   Error: /usr/local is not writable. You should change the ownership
   and permissions of /usr/local back to your user account:
   sudo chown -R $(whoami) /usr/local
   ```
   You can resolve the issue by reinstalling Homebrew:
-  ```
+  ```shell
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   ```
   {{< /note >}}
