@@ -75,7 +75,7 @@ You should pick a on-prem turnkey cloud solution if you:
 
 * Want to deploy clusters on your private cloud network
 * Have a dedicated SRE team
-* Have the the resources to host and monitor your clusters
+* Have the resources to host and monitor your clusters
 
 Pick an [on-prem turnkey cloud solution](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions).
 
