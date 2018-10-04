@@ -24,6 +24,9 @@ other = "Kubernetes Features"
 [main_cncf_project]
 other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
 
+[main_kubeweekly_signup]
+other = "Subscribe"
+
 [main_contribute]
 other = "Contribute"
 
