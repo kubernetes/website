@@ -18,8 +18,6 @@ where bottlenecks can be removed to improve overall performance.
 
 {{% /capture %}}
 
-{{< toc >}}
-
 {{% capture body %}}
 
 In Kubernetes, application monitoring does not depend on a single monitoring
@@ -94,5 +92,15 @@ This video shows how to configure and run a Google Cloud Monitoring backed Heaps
 ### Kubernetes Job Monitor
 
 With the [Kubernetes Job Monitor](https://github.com/pietervogelaar/kubernetes-job-monitor) dashboard a Cluster Administrator can see which jobs are running and view the status of completed jobs.
+
+### New Relic Kubernetes monitoring integration
+
+[New Relic Kubernetes](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration) integration provides increased visibility into the performance of your Kubernetes environment in. New Relic's Kubernetes integration instruments the container orchestration layer by reporting metrics from Kubernetes objects. The integration gives you insight into your Kubernetes nodes, namespaces, deployments, replica sets, pods, and containers.
+
+Marquee capabilities:
+View your data in pre-built dashboards for immediate insight into your Kubernetes environment.
+Create your own custom queries and charts in Insights from automatically reported data.
+Create alert conditions on Kubernetes data.
+Learn more on this [page](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration).
 
 {{% /capture %}}
