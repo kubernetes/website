@@ -25,14 +25,32 @@ The default pull policy is `IfNotPresent` which causes the Kubelet to skip
 pulling an image if it already exists. If you would like to always force a pull,
 you can do one of the following:
 
-- set the `imagePullPolicy` of the container to `Always`;
-- use `:latest` as the tag for the image to use;
+- set the `imagePullPolicy` of the container to `Always`.
+- omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
+- omit the `imagePullPolicy` and the tag for the image to use.
 - enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
 
-If you did not specify tag of your image, it will be assumed as `:latest`, with
-pull image policy of `Always` correspondingly.
-
 Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information.
+
+## Building Multi-architecture Images with Manifests
+
+Docker CLI now supports the following command `docker manifest` with sub commands like `create`, `annotate` and `push`. These commands can be used to build and push the manifests. You can use `docker manifest inspect` to view the manifest.
+
+Please see docker documentation here:
+https://docs.docker.com/edge/engine/reference/commandline/manifest/
+
+See examples on how we use this in our build harness:
+https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files=&repos=
+
+These commands rely on and are implemented purely on the Docker CLI. You will need to either edit the `$HOME/.docker/config.json` and set `experimental` key to `enabled` or you can just set `DOCKER_CLI_EXPERIMENTAL` environment variable to `enabled` when you call the CLI commands.
+
+{{< note >}}
+**Note:** Please use Docker *18.06 or above*, versions below that either have bugs or do not support the experimental command line option. Example https://github.com/docker/cli/issues/1135 causes problems under containerd.
+{{< /note >}}
+
+If you run into trouble with uploading stale manifests, just clean up the older manifests in `$HOME/.docker/manifests` to start fresh.
+
+For Kubernetes, we have typically used images with suffix `-$(ARCH)`. For backward compatability, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
 
 ## Using a Private Registry
 
@@ -47,6 +65,7 @@ Credentials can be provided in several ways:
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
   - Using Azure Container Registry (ACR)
+  - Using IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
@@ -128,6 +147,12 @@ Once you have created your container registry, you will use the following creden
 Once you have those variables filled in you can
 [configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
+### Using IBM Cloud Container Registry
+IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to safely store and share your Docker images. By default, images in your private registry are scanned by the integrated Vulnerability Advisor to detect security issues and potential vulnerabilities. Users in your IBM Cloud account can access your images, or you can create a token to grant access to registry namespaces.
+
+To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://console.bluemix.net/docs/services/Registry/index.html#index).
+
+You can use the IBM Cloud Container Registry to deploy containers from [IBM Cloud public images](https://console.bluemix.net/docs/services/RegistryImages/index.html#ibm_images) and your private images into the `default` namespace of your IBM Cloud Kubernetes Service cluster. To deploy a container into other namespaces, or to use an image from a different IBM Cloud Container Registry region or IBM Cloud account, create a Kubernetes `imagePullSecret`. For more information, see [Building containers from images](https://console.bluemix.net/docs/containers/cs_images.html#images).
 
 ### Configuring Nodes to Authenticate to a Private Registry
 
@@ -348,5 +373,3 @@ common use cases and suggested solutions.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 
 {{% /capture %}}
-
-

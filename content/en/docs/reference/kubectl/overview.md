@@ -349,6 +349,87 @@ $ kubectl logs <pod-name>
 $ kubectl logs -f <pod-name>
 ```
 
+## Examples: Creating and using plugins
+
+Use the following set of examples to help you familiarize yourself with writing and using `kubectl` plugins:
+
+```shell
+// create a simple plugin in any language and name the resulting executable file
+// so that it begins with the prefix "kubectl-"
+$ cat ./kubectl-hello
+#!/bin/bash
+
+# this plugin prints the words "hello world"
+echo "hello world"
+
+// with our plugin written, let's make it executable
+$ sudo chmod +x ./kubectl-hello
+
+// and move it to a location in our PATH
+$ sudo mv ./kubectl-hello /usr/local/bin
+
+// we have now created and "installed" a kubectl plugin.
+// we can begin using our plugin by invoking it from kubectl as if it were a regular command
+$ kubectl hello
+hello world
+
+// we can "uninstall" a plugin, by simply removing it from our PATH
+$ sudo rm /usr/local/bin/kubectl-hello
+```
+
+In order to view all of the plugins that are available to `kubectl`, we can use
+the `kubectl plugin list` subcommand:
+
+```shell
+$ kubectl plugin list
+The following kubectl-compatible plugins are available:
+
+/usr/local/bin/kubectl-hello
+/usr/local/bin/kubectl-foo
+/usr/local/bin/kubectl-bar
+
+// this command can also warn us about plugins that are
+// not executable, or that are overshadowed by other
+// plugins, for example
+$ sudo chmod -x /usr/local/bin/kubectl-foo
+$ kubectl plugin list
+The following kubectl-compatible plugins are available:
+
+/usr/local/bin/kubectl-hello
+/usr/local/bin/kubectl-foo
+  - warning: /usr/local/bin/kubectl-foo identified as a plugin, but it is not executable
+/usr/local/bin/kubectl-bar
+
+error: one plugin warning was found
+```
+
+We can think of plugins as a means to build more complex functionality on top
+of the existing kubectl commands:
+
+```shell
+$ cat ./kubectl-whoami
+#!/bin/bash
+
+# this plugin makes use of the `kubectl config` command in order to output
+# information about the current user, based on the currently selected context
+kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
+```
+
+Running the above plugin gives us an output containing the user for the currently selected
+context in our KUBECONFIG file:
+
+```shell
+// make the file executable
+$ sudo chmod +x ./kubectl-whoami
+
+// and move it into our PATH
+$ sudo mv ./kubectl-whoami /usr/local/bin
+
+$ kubectl whoami
+Current user: plugins-user
+```
+
+To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
 
 ## Next steps
 
