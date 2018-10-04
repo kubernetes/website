@@ -64,7 +64,7 @@ or the custom metrics API (for all other metrics).
   except that it works with raw values, not utilization values.
 
 * For object metrics and external metrics, a single metric is fetched, which describes
-  the object in question. This metric is compared compared to the target
+  the object in question. This metric is compared to the target
   value, to produce a ratio as above. In the `autoscaling/v2beta2` API
   version, this value can optionally be divided by the number of pods before the
   comparison is made.
