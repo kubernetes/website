@@ -13,7 +13,11 @@ we're happy to have your help! Anyone can contribute, whether you're new to the
 project or you've been around a long time, and whether you self-identify as a
 developer, an end user, or someone who just can't stand seeing typos.
 
-Looking for the [style guide](/docs/contribute/style/style-guide/)?
+For more ways to get involved in the Kubernetes community or to learn about us,
+also visit the [Kubernetes community site](/community/).
+
+Looking for the [style guide](/docs/contribute/style/style-guide/) or the
+[Kubernetes Community site](/community/)?
 {{% /capture %}}
 
 {{% capture body %}}
