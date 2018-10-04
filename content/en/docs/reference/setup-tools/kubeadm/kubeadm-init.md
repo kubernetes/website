@@ -304,7 +304,7 @@ authorization configuration for your cluster, and may not be appropriate for
 your environment.
 
 {{< caution >}}
-**Caution:** `StoreCertsInSecrets` is an alpha feature. It is deprecated in 1.12
+`StoreCertsInSecrets` is an alpha feature. It is deprecated in 1.12
 and will be removed in 1.13.
 {{< /caution >}}
 
