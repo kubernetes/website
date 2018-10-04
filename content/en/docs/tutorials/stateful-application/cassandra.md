@@ -54,7 +54,7 @@ Please read the [getting started guides](/docs/setup/pick-right-solution/) if yo
 ### Additional Minikube Setup Instructions
 
 {{< caution >}}
-[Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU. Running Minikube with the default resource configuration results in insufficient resource errors during this tutorial. To avoid these errors, start Minikube with the folllowing settings:
+[Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU. Running Minikube with the default resource configuration results in insufficient resource errors during this tutorial. To avoid these errors, start Minikube with the following settings:
 
 ```shell
 minikube start --memory 5120 --cpus=4

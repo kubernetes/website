@@ -114,7 +114,7 @@ in mind:
     For instance, "Fix the security docs" is not an actionable issue, but "Add
     details to the 'Restricting network access' topic" might be.
 - If the issue relates to another issue or pull request, you can refer to it
-  either by its full URL or by the the issue or pull request number prefixed
+  either by its full URL or by the issue or pull request number prefixed
   with a `#` character. For instance, `Introduced by #987654`.
 - Be respectful and avoid venting. For instance, "The docs about X suck" is not
   helpful or actionable feedback. The
@@ -213,7 +213,7 @@ documentation.
     include more detail if appropriate.
 
     {{< note >}}
-**Note**: Do not include references to other Github issues or pull
+Do not include references to other Github issues or pull
 requests in your commit message. You can add those to the pull request
 description later.
 {{< /note >}}
@@ -231,7 +231,7 @@ description later.
     **Create pull request**.
     
     {{< note >}}
-**Note**: If you don't want to create the pull request now, you can do it
+If you don't want to create the pull request now, you can do it
 later, by browsing to the main URL of the Kubernetes website repository or
 your fork's repository. The Github website will prompt you to create the
 pull request if it detects that you pushed a new branch to your fork.

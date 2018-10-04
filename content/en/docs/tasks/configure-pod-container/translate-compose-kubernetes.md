@@ -338,6 +338,7 @@ pod/frontend-2768218532-cs5t5       1/1           Running       0            4m
 pod/redis-master-1432129712-63jn8   1/1           Running       0            4m
 pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
 ```
+
 **Note**:
 
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.

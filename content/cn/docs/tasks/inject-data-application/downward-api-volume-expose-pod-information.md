@@ -22,7 +22,7 @@ content_template: templates/task
 
 有两种方式可以将Pod和Container字段呈现给运行中的容器：
 
-* [环境变量](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/)
+* [环境变量](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * DownwardAPIVolumeFile
 
 这两种呈现Pod和Container字段的方式都称为*Downward API*。

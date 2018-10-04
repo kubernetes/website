@@ -631,6 +631,34 @@ Volume binding matrix for statically provisioned volumes:
 **Note:** Only statically provisioned volumes are supported for alpha release. Administrators should take care to consider these values when working with raw block devices.
 {{< /note >}}
 
+## Volume Snapshot and Restore Volume from Snapshot Support
+
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+
+Volume snapshot feature was added to support CSI Volume Plugins only. For details, see [volume snapshots](/docs/concepts/storage/volume-snapshots/).
+
+To enable support for restoring a volume from a volume snapshot data source, enable the
+`VolumeSnapshotDataSource` feature gate on the apiserver and controller-manager.
+
+### Create Persistent Volume Claim from Volume Snapshot
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: restore-pvc
+spec:
+  storageClassName: csi-hostpath-sc
+  dataSource:
+    name: new-snapshot-test
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
 ## Writing Portable Configuration
 
 If you're writing configuration templates or examples that run on a wide range of clusters

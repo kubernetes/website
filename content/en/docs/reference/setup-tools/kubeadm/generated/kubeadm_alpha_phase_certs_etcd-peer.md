@@ -1,12 +1,12 @@
 
-Generates an etcd peer certificate and key
+Generates the credentials for etcd nodes to communicate with each other
 
 ### Synopsis
 
 
-Generates the etcd peer certificate and key and saves them into etcd/peer.crt and etcd/peer.key files. 
+Generates the credentials for etcd nodes to communicate with each other, and saves them into etcd/peer.cert and etcd/peer.key files.
 
-The certificate includes default subject alternative names and additional SANs provided by the user; default SANs are: <node-name>, <apiserver-advertise-address>. 
+Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1 
 
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
 
@@ -36,7 +36,7 @@ kubeadm alpha phase certs etcd-peer [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
     </tr>
 
     <tr>
@@ -44,6 +44,27 @@ kubeadm alpha phase certs etcd-peer [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for etcd-peer</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
     </tr>
 
   </tbody>

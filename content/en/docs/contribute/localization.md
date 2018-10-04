@@ -29,7 +29,7 @@ The Kubernetes documentation for all languages is built from the [kubernetes/web
 Work on the Chinese translation, for example, happens in the [kubernetes/kubernetes-docs-zh](https://github.com/kubernetes/kubernetes-docs-zh) repository.
 
 {{< note >}}
-**Note**: For an example localization-related [pull request](../create-pull-request), see [this pull request](https://github.com/kubernetes/website/pull/8636) to the [Kubernetes website repo](https://github.com/kubernetes/website) adding Korean localization to the Kubernetes docs.
+For an example localization-related [pull request](../create-pull-request), see [this pull request](https://github.com/kubernetes/website/pull/8636) to the [Kubernetes website repo](https://github.com/kubernetes/website) adding Korean localization to the Kubernetes docs.
 {{< /note >}}
 
 ## Source Files
@@ -124,7 +124,7 @@ Projects must include at least these columns:
 - Done
 
 {{< note >}}
-**Note**: For an example GitHub project, see the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-zh/projects/1).
+For an example GitHub project, see the [Chinese localization project](https://github.com/kubernetes/kubernetes-docs-zh/projects/1).
 {{< /note >}}
 
 ### Repository structure

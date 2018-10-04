@@ -14,7 +14,7 @@ A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts
 You describe a _desired state_ in a Deployment object, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
 {{< note >}}
-**Note:** You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
+You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 {{< /note >}}
 
 {{% /capture %}}
@@ -103,7 +103,7 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 The created ReplicaSet ensures that there are three nginx Pods at all times.
 
 {{< note >}}
-**Note:** You must specify an appropriate selector and pod template labels in a Deployment (in this case,
+You must specify an appropriate selector and pod template labels in a Deployment (in this case,
 `app = nginx`). That is, don't overlap with other controllers (including other Deployments, ReplicaSets,
 StatefulSets, etc.). Kubernetes doesn't stop you from overlapping, and if multiple
 controllers have overlapping selectors, those controllers may fight with each other and won't behave
@@ -113,7 +113,7 @@ correctly.
 ### Pod-template-hash label
 
 {{< note >}}
-**Note:** Do not change this label.
+Do not change this label.
 {{< /note >}}
 
 Note the pod-template-hash label in the example output in the pod labels above. This label is added by the
@@ -125,7 +125,7 @@ and in any existing Pods that the ReplicaSet may have.
 ## Updating a Deployment
 
 {{< note >}}
-**Note:** A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
+A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
 is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 {{< /note >}}
 
@@ -270,7 +270,7 @@ By default, all of the Deployment's rollout history is kept in the system so tha
 (you can change that by modifying revision history limit).
 
 {{< note >}}
-**Note:** A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
+A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
 new revision is created if and only if the Deployment's pod template (`.spec.template`) is changed,
 for example if you update the labels or container images of the template. Other updates, such as scaling the Deployment,
 do not create a Deployment revision, so that we can facilitate simultaneous manual- or auto-scaling.

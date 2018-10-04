@@ -24,7 +24,7 @@ subjects:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-exporter-v0.1.0
+  name: event-exporter-v0.2.3
   namespace: default
   labels:
     app: event-exporter
@@ -41,7 +41,7 @@ spec:
       serviceAccountName: event-exporter-sa
       containers:
       - name: event-exporter
-        image: k8s.gcr.io/event-exporter:v0.1.0
+        image: k8s.gcr.io/event-exporter:v0.2.3
         command:
         - '/event-exporter'
       terminationGracePeriodSeconds: 30

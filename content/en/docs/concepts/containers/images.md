@@ -32,6 +32,26 @@ you can do one of the following:
 
 Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information.
 
+## Building Multi-architecture Images with Manifests
+
+Docker CLI now supports the following command `docker manifest` with sub commands like `create`, `annotate` and `push`. These commands can be used to build and push the manifests. You can use `docker manifest inspect` to view the manifest.
+
+Please see docker documentation here:
+https://docs.docker.com/edge/engine/reference/commandline/manifest/
+
+See examples on how we use this in our build harness:
+https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files=&repos=
+
+These commands rely on and are implemented purely on the Docker CLI. You will need to either edit the `$HOME/.docker/config.json` and set `experimental` key to `enabled` or you can just set `DOCKER_CLI_EXPERIMENTAL` environment variable to `enabled` when you call the CLI commands.
+
+{{< note >}}
+**Note:** Please use Docker *18.06 or above*, versions below that either have bugs or do not support the experimental command line option. Example https://github.com/docker/cli/issues/1135 causes problems under containerd.
+{{< /note >}}
+
+If you run into trouble with uploading stale manifests, just clean up the older manifests in `$HOME/.docker/manifests` to start fresh.
+
+For Kubernetes, we have typically used images with suffix `-$(ARCH)`. For backward compatability, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
+
 ## Using a Private Registry
 
 Private registries may require keys to read images from them.
@@ -137,16 +157,16 @@ You can use the IBM Cloud Container Registry to deploy containers from [IBM Clou
 ### Configuring Nodes to Authenticate to a Private Registry
 
 {{< note >}}
-**Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
+If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
 {{< /note >}}
 
 {{< note >}}
-**Note:** If you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
+If you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
 manage and update the ECR login credentials. You cannot use this approach.
 {{< /note >}}
 
 {{< note >}}
-**Note:** This approach is suitable if you can control node configuration.  It
+This approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 {{< /note >}}
@@ -164,7 +184,7 @@ in the search paths list below, kubelet uses it as the credential provider when 
 *   `/.dockercfg`
 
 {{< note >}}
-**Note**: You may have to set `HOME=/root` explicitly in your environment file for kubelet.
+You may have to set `HOME=/root` explicitly in your environment file for kubelet.
 {{< /note >}}
 
 Here are the recommended steps to configuring your nodes to use a private registry.  In this
