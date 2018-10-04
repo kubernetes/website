@@ -32,7 +32,6 @@ following.
 * Stable, unique network identifiers.
 * Stable, persistent storage.
 * Ordered, graceful deployment and scaling.
-* Ordered, graceful deletion and termination.
 * Ordered, automated rolling updates.
 
 In the above, stable is synonymous with persistence across Pod (re)scheduling.
@@ -48,6 +47,7 @@ provides a set of stateless replicas. Controllers such as
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
+* StatefulSets do not provide any guarantees on the termination of pods when a StatfulSet is deleted. To achieve ordered and graceful termination of the pods in the StatefulSet, it is possible to scale the StatefulSet down to 0 prior to deletion.
 
 ## Components
 The example below demonstrates the components of a StatefulSet.
