@@ -25,7 +25,7 @@ Pod fields and Container fields.
 
 There are two ways to expose Pod and Container fields to a running Container:
 
-* [Environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/)
+* [Environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * DownwardAPIVolumeFiles
 
 Together, these two ways of exposing Pod and Container fields are called the
