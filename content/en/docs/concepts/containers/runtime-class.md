@@ -42,14 +42,14 @@ kubelets.
 
 #### 2. Install the RuntimeClass CRD
 
-The RuntimeClass [CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/] (CRD) can be found in the addons directory of the
-Kubernetes git repo:
-
-https://github.com/kubernetes/kubernetes/tree/release-1.12/cluster/addons/runtimeclass/runtimeclass_crd.yaml
+The RuntimeClass [CustomResourceDefinition][] (CRD) can be found in the addons directory of the
+Kubernetes git repo: [kubernetes/cluster/addons/runtimeclass/runtimeclass_crd.yaml][runtimeclass_crd]
 
 Install the CRD with `kubectl apply -f runtimeclass_crd.yaml`.
 
-[CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/]
+[CustomResourceDefinition]: /docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/
+[runtimeclass_crd]: https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/runtimeclass/runtimeclass_crd.yaml
+
 
 #### 3. Configure the CRI implementation on nodes
 
