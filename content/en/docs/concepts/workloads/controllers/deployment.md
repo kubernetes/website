@@ -78,9 +78,7 @@ kubectl create -f  https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
-**Note:** You can append `--record` to this command to record the current command in the annotations of
-the created or updated resource. This is useful for future review, such as investigating which
-commands were executed in each Deployment revision.
+**Note:** You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future instrospection, for example to see the commands executed in each Deployment revision.
 {{< /note >}}
 
 Next, run `kubectl get deployments`. The output is similar to the following:
@@ -173,7 +171,7 @@ Suppose that you now want to update the nginx Pods to use the `nginx:1.9.1` imag
 instead of the `nginx:1.7.9` image.
 
 ```shell
-$ kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
+$ kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record
 deployment.extensions/nginx-deployment image updated
 ```
 
@@ -420,13 +418,15 @@ First, check the revisions of this deployment:
 $ kubectl rollout history deployment/nginx-deployment
 deployments "nginx-deployment"
 REVISION    CHANGE-CAUSE
-1           kubectl create -f https://k8s.io/examples/controllers/nginx-deployment.yaml --record
-2           kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
-3           kubectl set image deployment/nginx-deployment nginx=nginx:1.91
+1           kubectl create --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
+2           kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record=true
+3           kubectl set image deployment/nginx-deployment nginx=nginx:1.91 --record=true
 ```
+`CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You could specify the`CHANGE-CAUSE` message by:
 
-Because you recorded the command while creating this Deployment using `--record`, you can easily see
-the changes you made in each revision.
+* Annotating the Deployment with `kubectl annotate deploy nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`
+* Append the `--record` flag to save the `kubectl` command that is making changes to the resource.
+* Manually editing the manifest of the resource.
 
 To further see the details of each revision, run:
 
@@ -435,7 +435,7 @@ $ kubectl rollout history deployment/nginx-deployment --revision=2
 deployments "nginx-deployment" revision 2
   Labels:       app=nginx
           pod-template-hash=1159050644
-  Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
+  Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record=true
   Containers:
    nginx:
     Image:      nginx:1.9.1
@@ -469,36 +469,52 @@ The Deployment is now rolled back to a previous stable revision. As you can see,
 for rolling back to revision 2 is generated from Deployment controller.
 
 ```shell
-$ kubectl get deployment
+$ kubectl get deployment nginx-deployment
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           30m
 
-$ kubectl describe deployment
-Name:           nginx-deployment
-Namespace:      default
-CreationTimestamp:  Tue, 15 Mar 2016 14:48:04 -0700
-Labels:         app=nginx
-Selector:       app=nginx
-Replicas:       3 updated | 3 total | 3 available | 0 unavailable
-StrategyType:       RollingUpdate
-MinReadySeconds:    0
-RollingUpdateStrategy:  1 max unavailable, 1 max surge
-OldReplicaSets:     <none>
-NewReplicaSet:      nginx-deployment-1564180365 (3/3 replicas created)
+$ kubectl describe deployment nginx-deployment
+Name:                   nginx-deployment
+Namespace:              default
+CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
+Labels:                 app=nginx
+Annotations:            deployment.kubernetes.io/revision=4
+                        kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record=true
+Selector:               app=nginx
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=nginx
+  Containers:
+   nginx:
+    Image:        nginx:1.9.1
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   nginx-deployment-c4747d96c (3/3 replicas created)
 Events:
-  FirstSeen LastSeen    Count   From                    SubobjectPath   Type        Reason              Message
-  --------- --------    -----   ----                    -------------   --------    ------              -------
-  30m       30m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-2035384211 to 3
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 1
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 2
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 2
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 0
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 2
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 1
-  29m       29m         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-1564180365 to 2
-  2m        2m          1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-3066724191 to 0
-  2m        2m          1       {deployment-controller }                Normal      DeploymentRollback  Rolled back deployment "nginx-deployment" to revision 2
-  29m       2m          2       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 3
+  Type    Reason              Age   From                   Message
+  ----    ------              ----  ----                   -------
+  Normal  ScalingReplicaSet   12m   deployment-controller  Scaled up replica set nginx-deployment-75675f5897 to 3
+  Normal  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 1
+  Normal  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 2
+  Normal  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 2
+  Normal  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 1
+  Normal  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 3
+  Normal  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 0
+  Normal  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-595696685f to 1
+  Normal  DeploymentRollback  15s   deployment-controller  Rolled back deployment "nginx-deployment" to revision 2
+  Normal  ScalingReplicaSet   15s   deployment-controller  Scaled down replica set nginx-deployment-595696685f to 0
 ```
 
 ## Scaling a Deployment
