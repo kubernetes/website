@@ -13,29 +13,28 @@ weight: 50
 ---
 
 {{% capture overview %}}
-This page shows how to scale a StatefulSet.
+This task shows how to scale a StatefulSet. Scaling a StatefulSet refers to increasing or decreasing the number of replicas.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
 * StatefulSets are only available in Kubernetes version 1.5 or later.
-* **Not all stateful applications scale nicely.** You need to understand your StatefulSets well before continuing. If you're unsure, remember that it might not be safe to scale your StatefulSets.
-* You should perform scaling only when you're sure that your stateful application
+  To check your version of Kubernetes, run `kubectl version`.
+
+* Not all stateful applications scale nicely. If you are unsure about whether to scale your StatefulSets, see [StatefulSet concepts](/docs/concepts/workloads/controllers/statefulset/) or [StatefulSet tutorial](/docs/tutorials/stateful-application/basic-stateful-set/) for futher information.
+
+* You should perform scaling only when you are confident that your stateful application
   cluster is completely healthy.
 
 {{% /capture %}}
 
 {{% capture steps %}}
 
-## Use `kubectl` to scale StatefulSets
+## Scaling StatefulSets
 
-Make sure you have `kubectl` upgraded to Kubernetes version 1.5 or later before
-continuing. If you're unsure, run `kubectl version` and check `Client Version`
-for which kubectl you're using.
+### Use kubectl to scale StatefulSets
 
-### `kubectl scale`
-
-First, find the StatefulSet you want to scale. Remember, you need to first understand if you can scale it or not.
+First, find the StatefulSet you want to scale.
 
 ```shell
 kubectl get statefulsets <stateful-set-name>
@@ -47,7 +46,7 @@ Change the number of replicas of your StatefulSet:
 kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 ```
 
-### Alternative: `kubectl apply` / `kubectl edit` / `kubectl patch`
+### Make in-place updates on your StatefulSets
 
 Alternatively, you can do [in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) on your StatefulSets.
 
@@ -72,32 +71,29 @@ kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-repl
 
 ## Troubleshooting
 
-### Scaling down doesn't work right
+### Scaling down does not work right
 
 You cannot scale down a StatefulSet when any of the stateful Pods it manages is unhealthy. Scaling down only takes place
 after those stateful Pods become running and ready.
 
-With a StatefulSet of size > 1, if there is an unhealthy Pod, there is no way
-for Kubernetes to know (yet) if it is due to a permanent fault or a transient
-one (upgrade/maintenance/node reboot). If the Pod is unhealthy due to a permanent fault, scaling
+If spec.replicas > 1, Kubernetes cannot determine the reason for an unhealthy Pod. It might be the result of a permanent fault or of a transient fault. A transient fault can be caused by a restart required by upgrading or maintenance.
+
+If the Pod is unhealthy due to a permanent fault, scaling
 without correcting the fault may lead to a state where the StatefulSet membership
-drops below a certain minimum number of "replicas" that are needed to function
+drops below a certain minimum number of replicas that are needed to function
 correctly. This may cause your StatefulSet to become unavailable.
 
 If the Pod is unhealthy due to a transient fault and the Pod might become available again,
-the transient error may interfere with your scale-up/scale-down operation. Some distributed
+the transient error may interfere with your scale-up or scale-down operation. Some distributed
 databases have issues when nodes join and leave at the same time. It is better
 to reason about scaling operations at the application level in these cases, and
-perform scaling only when you're sure that your stateful application cluster is
+perform scaling only when you are sure that your stateful application cluster is
 completely healthy.
-
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-Learn more about [deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/).
+* Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 
 {{% /capture %}}
-
-

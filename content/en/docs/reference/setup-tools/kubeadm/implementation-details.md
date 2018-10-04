@@ -324,8 +324,9 @@ Please note that:
 
 1. To make dynamic kubelet configuration work, flag `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` should be specified
    in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-1. Kubelet init configuration can be changed by using kubeadm MasterConfiguration file by setting `.kubeletConfiguration.baseConfig`.
-   See [using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file) for more detail
+1. The kubelet configuration can be changed by passing a `KubeletConfiguration` object to `kubeadm init` or `kubeadm join` by using
+   a configuration file `--config some-file.yaml`. The `KubeletConfiguration` object can be separated from other objects such
+   as `InitConfiguration` using the `---` separator. For more details have a look at the `kubeadm config print-default` command.
 
 ### Wait for the control plane to come up
 
@@ -346,7 +347,7 @@ If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
    (that is `system:bootstrappers:kubeadm:default-node-token` and `system:nodes` groups)
 3. Enable the dynamic kubelet configuration feature for the initial master node by pointing `Node.spec.configSource` to the newly-created ConfigMap
 
-### Save kubeadm MasterConfiguration in a ConfigMap for later reference
+### Save the kubeadm ClusterConfiguration in a ConfigMap for later reference
 
 kubeadm saves the configuration passed to `kubeadm init`, either via flags or the config file, in a ConfigMap
 named `kubeadm-config` under `kube-system` namespace.

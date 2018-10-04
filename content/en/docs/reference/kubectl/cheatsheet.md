@@ -321,4 +321,6 @@ Verbosity | Description
 
 * Also [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use it in reusable scripts.
 
+* See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
+
 {{% /capture %}}
