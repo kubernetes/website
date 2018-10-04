@@ -94,7 +94,7 @@ The Corefile configuration includes the following [plugins](https://coredns.io/p
 * [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to http://localhost:8080/health.
 * [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries based on IP of the services and pods of Kubernetes. You can find more details [here](https://coredns.io/plugins/kubernetes/). 
 
-> The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pod verified` option, which returns an A record only if there exists a pod in same namespace with matching IP. The `pods disabled` option can be used if you don't use pod records.
+> The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pods verified` option, which returns an A record only if there exists a pod in same namespace with matching IP. The `pods disabled` option can be used if you don't use pod records.
 
 > `Upstream` is used for resolving services that point to external hosts (External Services).
 
