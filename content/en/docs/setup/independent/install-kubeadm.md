@@ -92,7 +92,7 @@ Other CRI-based runtimes include:
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
 
-Refer to the [CRI installation instructions](/docs/setup/cri.md) for more information.
+Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
 
 ## Installing kubeadm, kubelet and kubectl
 
