@@ -488,3 +488,9 @@ Now you can try to make your own changes.
 
 If you need something more, note that LTSP can be easily changed to meet your needs.
 Feel free to look into the source code and you can find many answers there.
+
+UPD: Many people asking me: Why not simple use CoreOS and Ignition?
+
+I can answer. The main feature here is image preparation process not configuration.
+In case with LTSP you have classic Ubuntu system, and everything that can be installed on Ubuntu it can also be written here in the Dockerfile.
+In case CoreOS you have no so many freedom and you can’t easily add custom kernel modules and packages at the build stage of the boot image.
