@@ -1,10 +1,10 @@
 
-Generates a self-signed CA to provision identities for etcd
+Generates the self-signed CA to provision identities for etcd
 
 ### Synopsis
 
 
-Generates the self-signed etcd certificate authority and related key and saves them into etcd/ca.crt and etcd/ca.key files. 
+Generates the self-signed CA to provision identities for etcd, and saves them into etcd/ca.cert and etcd/ca.key files. 
 
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
 
@@ -34,7 +34,7 @@ kubeadm alpha phase certs etcd-ca [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
     </tr>
 
     <tr>
@@ -42,6 +42,27 @@ kubeadm alpha phase certs etcd-ca [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for etcd-ca</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
     </tr>
 
   </tbody>

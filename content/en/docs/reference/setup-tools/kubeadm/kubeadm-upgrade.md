@@ -26,6 +26,7 @@ For more version-specific upgrade guidance, see the following resources:
  * [1.9.x to 1.9.y upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-9/)
  * [1.9.x to 1.9.y HA cluster upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha/)
  * [1.10 to 1.11 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/)
+ * [1.11 to 1.12 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/)
 
 In Kubernetes v1.11.0 and later, you can use `kubeadm upgrade diff` to see the changes that would be
 applied to static pod manifests.
@@ -41,6 +42,9 @@ applied to static pod manifests.
 
 ## kubeadm upgrade node config {#cmd-upgrade-node-config}
 {{< include "generated/kubeadm_upgrade_node_config.md" >}}
+
+## kubeadm upgrade node experimental-control-plane {#cmd-experimental-control-plane}
+{{< include "generated/kubeadm_upgrade_node_experimental-control-plane.md" >}}
 
 {{% /capture %}}
 

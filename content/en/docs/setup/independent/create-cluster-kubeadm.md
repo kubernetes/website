@@ -30,7 +30,7 @@ scope.
 You can install _kubeadm_ very easily on operating systems that support
 installing deb or rpm packages. The responsible SIG for kubeadm,
 [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
-but you may also on other OSes.
+but you may also build them from source for other OSes.
 
 
 ### kubeadm Maturity
@@ -69,6 +69,7 @@ timeframe; which also applies to `kubeadm`.
 | v1.9.x             | December 2017  | September 2018    |
 | v1.10.x            | March 2018     | December 2018     |
 | v1.11.x            | June 2018      | March 2019        |
+| v1.12.x            | September 2018 | June 2019         |
 
 {{% /capture %}}
 

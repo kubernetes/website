@@ -143,13 +143,6 @@ kubelet [flags]
     </tr>
 
      <tr>
-       <td colspan="2">--cadvisor-port int32</td> 
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The port of the localhost cAdvisor endpoint (set to 0 to disable) (default 4194)</td>
-    </tr>
-
-     <tr>
        <td colspan="2">--cert-dir string</td> 
     </tr>
     <tr>

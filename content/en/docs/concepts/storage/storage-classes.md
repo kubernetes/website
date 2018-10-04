@@ -55,6 +55,7 @@ parameters:
 reclaimPolicy: Retain
 mountOptions:
   - debug
+volumeBindingMode: Immediate
 ```
 
 ### Provisioner
@@ -64,7 +65,7 @@ for provisioning PVs. This field must be specified.
 
 | Volume Plugin        | Internal Provisioner| Config Example                       |
 | :---                 |     :---:           |    :---:                             |
-| AWSElasticBlockStore | &#x2713;            | [AWS](#aws)                          |
+| AWSElasticBlockStore | &#x2713;            | [AWS EBS](#aws-ebs)                          |
 | AzureFile            | &#x2713;            | [Azure File](#azure-file)            |
 | AzureDisk            | &#x2713;            | [Azure Disk](#azure-disk)            |
 | CephFS               | -                   | -                                    |
@@ -72,7 +73,7 @@ for provisioning PVs. This field must be specified.
 | FC                   | -                   | -                                    |
 | Flexvolume           | -                   | -                                    |
 | Flocker              | &#x2713;            | -                                    |
-| GCEPersistentDisk    | &#x2713;            | [GCE](#gce)                          |
+| GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
@@ -118,6 +119,74 @@ If the volume plugin does not support mount options but mount options are
 specified, provisioning will fail. Mount options are not validated on either
 the class or PV, so mount of the PV will simply fail if one is invalid.
 
+### Volume Binding Mode
+
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+
+**Note:** This feature requires the `VolumeScheduling` feature gate to be
+enabled.
+
+The `volumeBindingMode` field controls when [volume binding and dynamic
+provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
+
+By default, the `Immediate` mode indicates that volume binding and dynamic
+provisioning occurs once the PersistentVolumeClaim is created. For storage
+backends that are topology-constrained and not globally accessible from all Nodes
+in the cluster, PersistentVolumes will be bound or provisioned without knowledge of the Pod's scheduling
+requirements. This may result in unschedulable Pods.
+
+A cluster administrator can address this issue by specifying the `WaitForFirstConsumer` mode which
+will delay the binding and provisioning of a PersistentVolume until a Pod using the PersistentVolumeClaim is created.
+PersistentVolumes will be selected or provisioned conforming to the topology that is
+specified by the Pod's scheduling constraints. These include, but are not limited to, [resource
+requirements](/docs/concepts/configuration/manage-compute-resources-container),
+[node selectors](/docs/concepts/configuration/assign-pod-node/#nodeselector),
+[pod affinity and
+anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
+and [taints and tolerations](/docs/concepts/configuration/taint-and-toleration).
+
+The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
+
+* [AWSElasticBlockStore](#aws-ebs)
+* [GCEPersistentDisk](#gce-pd)
+* [AzureDisk](#azure-disk)
+
+The following plugins support `WaitForFirstConsumer` with pre-created PersistentVolume binding:
+
+* All of the above
+* [Local](#local)
+
+### Allowed Topologies
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+
+**Note:** This feature requires the `VolumeScheduling` feature gate to be
+enabled.
+
+When a cluster operactor specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
+to restrict provisioning to specific topologies in most situations. However,
+if still required, `allowedTopologies` can be specified.
+
+This example demonstrates how to restrict the topology of provisioned volumes to specific
+zones and should be used as a replacement for the `zone` and `zones` parameters for the
+supported plugins.
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: standard
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-standard
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+- matchLabelExpressions:
+  - key: failure-domain.beta.kubernetes.io/zone
+    values:
+    - us-central1-a
+    - us-central1-b
+```
+
 ## Parameters
 
 Storage classes have parameters that describe volumes belonging to the storage
@@ -126,7 +195,7 @@ class. Different parameters may be accepted depending on the `provisioner`. For
 `iopsPerGB` are specific to EBS. When a parameter is omitted, some default is
 used.
 
-### AWS
+### AWS EBS
 
 ```yaml
 kind: StorageClass
@@ -136,7 +205,6 @@ metadata:
 provisioner: kubernetes.io/aws-ebs
 parameters:
   type: io1
-  zones: us-east-1d, us-east-1c
   iopsPerGB: "10"
   fsType: ext4
 ```
@@ -144,10 +212,10 @@ parameters:
 * `type`: `io1`, `gp2`, `sc1`, `st1`. See
   [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
   for details. Default: `gp2`.
-* `zone`: AWS zone. If neither `zone` nor `zones` is specified, volumes are
+* `zone` (Deprecated): AWS zone. If neither `zone` nor `zones` is specified, volumes are
   generally round-robin-ed across all active zones where Kubernetes cluster
   has a node. `zone` and `zones` parameters must not be used at the same time.
-* `zones`: A comma separated list of AWS zone(s). If neither `zone` nor `zones`
+* `zones` (Deprecated): A comma separated list of AWS zone(s). If neither `zone` nor `zones`
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
@@ -164,7 +232,10 @@ parameters:
   encrypting the volume. If none is supplied but `encrypted` is true, a key is
   generated by AWS. See AWS docs for valid ARN value.
 
-### GCE
+**Note:** `zone` and `zones` parameters are deprecated and replaced with
+[allowedTopologies](#allowed-topologies)
+
+### GCE PD
 
 ```yaml
 kind: StorageClass
@@ -174,15 +245,14 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
-  zones: us-central1-a, us-central1-b
   replication-type: none
 ```
 
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
-* `zone`: GCE zone. If neither `zone` nor `zones` is specified, volumes are
+* `zone` (Deprecated): GCE zone. If neither `zone` nor `zones` is specified, volumes are
   generally round-robin-ed across all active zones where Kubernetes cluster has
   a node. `zone` and `zones` parameters must not be used at the same time.
-* `zones`: A comma separated list of GCE zone(s). If neither `zone` nor `zones`
+* `zones` (Deprecated): A comma separated list of GCE zone(s). If neither `zone` nor `zones`
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
@@ -198,6 +268,9 @@ Regional PD will be provisioned in those zones. If more than two zones are
 specified, Kubernetes will arbitrarily choose among the specified zones. If the
 `zones` parameter is omitted, Kubernetes will arbitrarily choose among zones
 managed by the cluster.
+
+**Note:** `zone` and `zones` parameters are deprecated and replaced with
+[allowedTopologies](#allowed-topologies)
 
 ### Glusterfs
 
