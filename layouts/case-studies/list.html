@@ -63,6 +63,6 @@
 <div class="case-study">
 	{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
 	<p class="quote">"{{ .page.Params.quote | html }}"</p>
-	<a href="{{ .RelPermalink }}"{{ if $isForeignLanguage }} target="_blank"{{ end }}>{{ T "main_read_about"}} {{ .page.LinkTitle }}</a>
+	<a href="{{ .page.RelPermalink }}"{{ if $isForeignLanguage }} target="_blank"{{ end }}>{{ T "main_read_about"}} {{ .page.LinkTitle }}</a>
 </div>
 {{ end }}
