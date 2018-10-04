@@ -65,7 +65,7 @@ You can create a Service for your 2 nginx replicas with `kubectl expose`:
 
 ```shell
 $ kubectl expose deployment/my-nginx
-service "my-nginx" exposed
+service/my-nginx exposed
 ```
 
 This is equivalent to `kubectl create -f` the following yaml:
@@ -213,7 +213,7 @@ You can acquire all these from the [nginx https example](https://github.com/kube
 ```shell
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
 $ kubectl create -f /tmp/secret.json
-secret "nginxsecret" created
+secret/nginxsecret created
 $ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
