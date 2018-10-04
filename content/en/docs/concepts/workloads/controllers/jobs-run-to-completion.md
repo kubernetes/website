@@ -207,10 +207,7 @@ back-off count is reset if no new failed Pods appear before the Job's next
 status check.
 
 {{< note >}}
-**Note:** Due to a known issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870),
-when the `.spec.template.spec.restartPolicy` field is set to "`OnFailure`", the
-back-off limit may be ineffective. As a short-term workaround, set the restart
-policy for the embedded template to "`Never`".
+**Note:** Issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) still exists for versions of Kubernetes prior to version 1.12
 {{< /note >}}
 
 ## Job Termination and Cleanup
