@@ -18,8 +18,6 @@ where bottlenecks can be removed to improve overall performance.
 
 {{% /capture %}}
 
-{{< toc >}}
-
 {{% capture body %}}
 
 In Kubernetes, application monitoring does not depend on a single monitoring
@@ -103,6 +101,6 @@ Marquee capabilities:
 View your data in pre-built dashboards for immediate insight into your Kubernetes environment.
 Create your own custom queries and charts in Insights from automatically reported data.
 Create alert conditions on Kubernetes data.
-Learn more on this [page](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration)
+Learn more on this [page](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration).
 
 {{% /capture %}}
