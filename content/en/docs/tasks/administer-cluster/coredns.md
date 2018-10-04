@@ -7,7 +7,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page describes the CoreDNS upgrade process and how to install kube-dns instead of CoreDNS.
+This page describes the CoreDNS upgrade process and how to install CoreDNS instead of kube-dns.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -29,15 +29,6 @@ deployment, or by using tools like kubeadm that will deploy and upgrade the clus
 For manual deployment or replacement of kube-dns, see the documentation at the
 [CoreDNS GitHub project.](https://github.com/coredns/deployment/tree/master/kubernetes)
 
-## Installing CoreDNS with kubeadm
-
-In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
-and is installed by default. To install kube-dns instead, set the `CoreDNS` feature gate
-value to `false`:
-```
-kubeadm init --feature-gates=CoreDNS=false
-```
-
 ## Upgrading an existing cluster with kubeadm
 
 In Kubernetes version 1.10 and later, you can also move to CoreDNS when you use `kubeadm` to upgrade
@@ -57,6 +48,20 @@ customizations after the new ConfigMap is up and running.
 
 If you are running CoreDNS in Kubernetes version 1.11 and later, during upgrade,
 your existing Corefile will be retained.
+
+## Installing kube-dns instead of CoreDNS with kubeadm
+
+{{< note >}}
+**Note:** In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
+and is installed by default.
+{{< /note >}}
+
+To install kube-dns instead, set the `CoreDNS` feature gate
+value to `false`:
+
+```
+kubeadm init --feature-gates=CoreDNS=false
+```
 
 {{% /capture %}}
 
