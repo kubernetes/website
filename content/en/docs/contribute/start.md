@@ -114,7 +114,7 @@ in mind:
     For instance, "Fix the security docs" is not an actionable issue, but "Add
     details to the 'Restricting network access' topic" might be.
 - If the issue relates to another issue or pull request, you can refer to it
-  either by its full URL or by the the issue or pull request number prefixed
+  either by its full URL or by the issue or pull request number prefixed
   with a `#` character. For instance, `Introduced by #987654`.
 - Be respectful and avoid venting. For instance, "The docs about X suck" is not
   helpful or actionable feedback. The
