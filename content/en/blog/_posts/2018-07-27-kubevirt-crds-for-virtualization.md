@@ -99,7 +99,7 @@ A [CRD finalizer](https://kubernetes.io/docs/tasks/access-kubernetes-API/extend-
 
 The Kubernetes core APIs have the ability to support multiple versions for a single object type and perform conversions between those versions. This gives the Kubernetes core APIs a path for advancing the `v1alpha1` version of an object to a `v1beta1` version and so forth.
 
-Prior to Kubernetes 1.11, CRDs did not not have support for multiple versions. This meant when we wanted to progress a CRD from `kubevirt.io/v1alpha1` to `kubevirt.io/v1beta1`, the only path available to was to backup our CRD objects, delete the registered CRD from Kubernetes, register a new CRD with the updated version, convert the backed up CRD objects to the new version, and finally post the migrated CRD objects back to the cluster.
+Prior to Kubernetes 1.11, CRDs did not have support for multiple versions. This meant when we wanted to progress a CRD from `kubevirt.io/v1alpha1` to `kubevirt.io/v1beta1`, the only path available to was to backup our CRD objects, delete the registered CRD from Kubernetes, register a new CRD with the updated version, convert the backed up CRD objects to the new version, and finally post the migrated CRD objects back to the cluster.
 
 That strategy was not exactly a viable option for us.
 
