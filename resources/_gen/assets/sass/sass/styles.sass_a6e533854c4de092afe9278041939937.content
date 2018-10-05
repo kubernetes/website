@@ -850,7 +850,6 @@ dd {
     position: relative;
     overflow-x: auto; }
   #docsContent h1 code, #docsContent h2 code, #docsContent h3 code, #docsContent h4 code, #docsContent h5 code, #docsContent h6 code {
-    font-family: inherit;
     font-size: inherit;
     background-color: transparent; }
   #docsContent .includecode {
@@ -930,8 +929,6 @@ dd {
       font-weight: 700; }
   #docsContent img {
     max-width: 100%; }
-  #docsContent a {
-    text-decoration: underline; }
   #docsContent #TableOfContents > ul > li {
     list-style: none; }
   #docsContent #TableOfContents ul, #docsContent #TableOfContents li {
@@ -1006,7 +1003,6 @@ html.search #docsContent {
 #video {
   width: 100%;
   position: relative;
-  background-image: url(/images/kub_video_banner_homepage.jpg);
   background-position: center center;
   background-size: cover; }
   #video > .light-text {
@@ -1118,11 +1114,29 @@ html.search #docsContent {
 #cncf {
   padding-top: 60px;
   padding-bottom: 140px;
-  background-color: #f7f7f7;
   background-image: url(/images/cncf-color.png);
   background-position: center 100px;
   background-repeat: no-repeat;
   background-size: 300px; }
+
+#kubeweekly {
+  background-color: #f7f7f7;
+  padding: 60px;
+  background-size: auto;
+  font-family: "Roboto Mono", monospace !important;
+  font-size: 24px;
+  font-weight: bold; }
+  #kubeweekly h5 {
+    font-size: 20px; }
+
+.subscribe-button {
+  border-radius: 6px;
+  padding: 0 20px;
+  line-height: 31px;
+  color: white;
+  background-color: #3371e3;
+  text-decoration: none;
+  font-size: 14px; }
 
 #features {
   padding-top: 140px;
@@ -1493,29 +1507,22 @@ html.search #docsContent {
   position: relative;
   text-align: center;
   margin-bottom: 30px; }
+  #home #caseStudiesWrapper img {
+    padding-bottom: 1rem; }
   #home #caseStudiesWrapper div {
     position: relative;
     display: inline-block;
     vertical-align: top;
     width: 100%;
     min-height: 230px;
-    padding: 125px 10px 15px;
-    margin-bottom: 30px;
-    background-position: top center;
-    background-repeat: no-repeat; }
-  #home #caseStudiesWrapper div:nth-child(1) {
-    background-image: url(/images/community_logos/pearson_logo.png); }
-  #home #caseStudiesWrapper div:nth-child(2) {
-    background-image: url(/images/community_logos/box_logo.png); }
-  #home #caseStudiesWrapper div:nth-child(3) {
-    background-image: url(/images/community_logos/ebay_logo.png); }
-  #home #caseStudiesWrapper div:nth-child(4) {
-    background-image: url(/images/community_logos/wikimedia_foundation_logo.png); }
+    margin-bottom: 60px;
+    padding-right: 1rem;
+    background-position: top center; }
   #home #caseStudiesWrapper p {
     font-size: 20px; }
   #home #caseStudiesWrapper a {
     position: absolute;
-    bottom: 0;
+    bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
     color: #3371e3;
@@ -1833,7 +1840,6 @@ html.search #docsContent {
   #video {
     height: 550px;
     position: relative;
-    background-image: url(../images/kub_video_banner_homepage.jpg);
     background-position: center center;
     background-size: cover; }
   #talkToUs h4 br {

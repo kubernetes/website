@@ -194,17 +194,12 @@ You have several choices for Kubernetes images:
   - You can verify if the image is loaded successfully with the right repository and tag using
     command like `docker images`
 
-For etcd, you can:
-
-- Use images hosted on Google Container Registry (GCR), such as `k8s.gcr.io/etcd:2.2.1`
-- Use images hosted on [Docker Hub](https://hub.docker.com/search/?q=etcd) or [Quay.io](https://quay.io/repository/coreos/etcd), such as `quay.io/coreos/etcd:v2.2.1`
-- Use etcd binary included in your OS distro.
-- Build your own image
-  - You can do: `cd kubernetes/cluster/images/etcd; make`
-
 We recommend that you use the etcd version which is provided in the Kubernetes binary distribution.   The Kubernetes binaries in the release
 were tested extensively with this version of etcd and not with any other version.
 The recommended version number can also be found as the value of `TAG` in `kubernetes/cluster/images/etcd/Makefile`.
+
+For the minimum recommended version of etcd, refer to
+[Configuring and Updating etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
 
@@ -424,7 +419,7 @@ Note that on some Linux platforms, you may need to manually install the
 `conntrack` package which is a dependency of kube-proxy, or else kube-proxy
 cannot be started successfully.
 
-For more details on debugging kube-proxy problems, please refer to
+For more details about debugging kube-proxy problems, refer to
 [Debug Services](/docs/tasks/debug-application-cluster/debug-service/)
 
 ### Networking
@@ -470,7 +465,7 @@ traffic to the internet, but have no problem with them inside your GCE Project.
 
 The previous steps all involved "conventional" system administration techniques for setting up
 machines.  You may want to use a Configuration Management system to automate the node configuration
-process.  There are examples of [Saltstack](/docs/setup/salt/), Ansible, Juju, and CoreOS Cloud Config in the
+process.  There are examples of Ansible, Juju, and CoreOS Cloud Config in the
 various Getting Started Guides.
 
 ## Bootstrapping the Cluster
@@ -869,8 +864,8 @@ pinging or SSH-ing from one node to another.
 
 ### Getting Help
 
-If you run into trouble, please see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
-[kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
+If you run into trouble, see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
+[Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level
 

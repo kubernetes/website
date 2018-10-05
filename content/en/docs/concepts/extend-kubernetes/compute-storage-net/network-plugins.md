@@ -84,8 +84,8 @@ For example:
 
 #### Support traffic shaping
 
-The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the officical [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
-plugin offered by the CNI plugin team or use your own plugin with bandwidth contol functionality.
+The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the official [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
+plugin offered by the CNI plugin team or use your own plugin with bandwidth control functionality.
 
 If you want to enable traffic shaping support, you must add a `bandwidth` plugin to your CNI configuration file
 (default `/etc/cni/net.d`).

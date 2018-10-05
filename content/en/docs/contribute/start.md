@@ -28,7 +28,7 @@ The Kubernetes documentation is written in Markdown and processed and deployed
 using Hugo. The source is in Github at
 [https://github.com/kubernetes/website](https://github.com/kubernetes/website).
 Most of the documentation source is stored in `/content/en/docs/`. Some of the
-reference documentation is automatically generated from scripts, mostly in the
+reference documentation is automatically generated from scripts in the
 `update-imported-docs/` directory.
 
 You can file issues, edit content, and review changes from others, all from the
@@ -114,7 +114,7 @@ in mind:
     For instance, "Fix the security docs" is not an actionable issue, but "Add
     details to the 'Restricting network access' topic" might be.
 - If the issue relates to another issue or pull request, you can refer to it
-  either by its full URL or by the the issue or pull request number prefixed
+  either by its full URL or by the issue or pull request number prefixed
   with a `#` character. For instance, `Introduced by #987654`.
 - Be respectful and avoid venting. For instance, "The docs about X suck" is not
   helpful or actionable feedback. The

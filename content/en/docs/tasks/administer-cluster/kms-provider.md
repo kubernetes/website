@@ -16,7 +16,7 @@ This page shows how to configure a Key Management Service (KMS) provider and plu
 
 * etcd v3 or later is required
 
-{{< feature-state for_k8s_version="v1.10" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 {{% /capture %}}
 
