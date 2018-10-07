@@ -372,15 +372,15 @@ Feature gates are intended to cover the development life cycle of a feature - th
 are not intended to be long-term APIs. As such, they are expected to be deprecated 
 and removed after a feature becomes GA or is dropped. 
 
-As a feature moves through the stages, the associated feature-gate will evolve 
-at the same time as announcing its deprecation. In general the life cycle is:
+As a feature moves through the stages, the associated feature-gate will evolve. In 
+general the life cycle is:
 
   * The feature is Alpha - its feature gate is disabled by default and can be 
   enabled by the user.
-  * The feature becomes Beta - its gate becomes enabled by default and can be 
+  * The feature is Beta - its gate becomes enabled by default and can be 
   disabled by the user.
-  * The feature becomes GA - its gate becomes a no-op and is deprecated.
-  * The feature becomes GA and a deprecation window is announced (see rule below) - its 
+  * The feature is GA - its gate becomes a no-op and is deprecated.
+  * The feature is GA and a deprecation window is announced (see rule below) - its 
   gate is removed and is no longer accepted.
 
 A feature might be EOL'ed at any point in the life cyle prior to GA.  In that case, 
@@ -389,8 +389,10 @@ the associated feature-gate is deprecated.
 In some cases, the old behavior requires a considerable amount of time before it can 
 be removed. In these cases the feature gate's behavior can be retained until the old 
 behavior is removed, at which point the feature gate can be deprecated as stated above. 
-The gate can still be accepted but should not have any effect and should not cause any 
-errors.
+This is also true for deprecated feature-gates of GA features, hence the gate can still 
+be accepted but should not have any effect and should not cause any errors. Features that 
+are intended to be user-disabled should include mechanisms for that, which are themselves 
+covered by the feature-gate.
 
 Feature gates are not versioned in the same way as the previously discussed components,
 therefore the rules for deprecation are as follows:
