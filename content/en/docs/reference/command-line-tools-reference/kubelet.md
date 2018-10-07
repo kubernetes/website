@@ -132,7 +132,7 @@ kubelet [flags]
        <td colspan="2">--bootstrap-checkpoint-path string</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Alpha feature> Path to to the directory where the checkpoints are stored</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Alpha feature> Path to the directory where the checkpoints are stored</td>
     </tr>
 
      <tr>

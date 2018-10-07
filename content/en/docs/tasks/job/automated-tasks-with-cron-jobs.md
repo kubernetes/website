@@ -146,7 +146,15 @@ After the deadline, the cron job does not start the job.
 Jobs that do not meet their deadline in this way count as failed jobs.
 If this field is not specified, the jobs have no deadline.
 
-It is important to note that if the `.spec.startingDeadlineSeconds` field is set (not nil), the CronJob controller counts how many missed jobs occurred from the value of `.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed schedules occurred in the last 200 seconds. If there were more than 100 missed schedules, the cronjob would not be scheduled. 
+The CronJob controller counts how many missed schedules happen for a cron job. If there are more than 100 missed
+schedules, the cron job is no longer scheduled. When `.spec.startingDeadlineSeconds` is not set, the CronJob
+controller counts missed schedules from `status.lastScheduleTime` until now. For example, one cron job is
+supposed to run every minute, the `status.lastScheduleTime` of the cronjob is 5:00am, but now it's 7:00am.
+That means 120 schedules were missed, so the cron job is no longer scheduled. If the `.spec.startingDeadlineSeconds`
+field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of
+`.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed
+schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the
+last 200 seconds, the cron job is no longer scheduled. 
 
 ### Concurrency Policy
 
