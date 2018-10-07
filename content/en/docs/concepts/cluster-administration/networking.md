@@ -201,6 +201,10 @@ sysctl net.ipv4.ip_forward=1
 The result of all this is that all `Pods` can reach each other and can egress
 traffic to the internet.
 
+### Jaguar
+
+[Jaguar](https://gitlab.com/sdnlab/jaguar) is an open source solution for Kubernetes's network based on OpenDaylight. Jaguar provides overlay network using vxlan and Jaguar CNIPlugin provides one IP address per pod. 
+
 ### Knitter
 
 [Knitter](https://github.com/ZTE/Knitter/) is a network solution which supports multiple networking in Kubernetes. It provides the ability of tenant management and network management. Knitter includes a set of end-to-end NFV container networking solutions besides multiple network planes, such as keeping IP address for applications, IP address migration, etc.
