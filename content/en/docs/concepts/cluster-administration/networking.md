@@ -203,8 +203,7 @@ traffic to the internet.
 
 ### Jaguar
 
-[Jaguar](https://gitlab.com/sdnlab/jaguar) is an open source solution for Kubernetes's network based on OpenDaylight.
-Jaguar provides overlay network using vxlan and Jaguar CNIPlugin provides one IP address per pod.
+[Jaguar](https://gitlab.com/sdnlab/jaguar) is an open source solution for Kubernetes's network based on OpenDaylight. Jaguar provides overlay network using vxlan and Jaguar CNIPlugin provides one IP address per pod. 
 
 ### Knitter
 
