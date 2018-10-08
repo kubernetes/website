@@ -53,6 +53,25 @@ Minikube can be installed locally, and runs a simple, single-node Kubernetes clu
 
 You can get basic information about your cluster with the commands `kubectl cluster-info` and `kubectl get nodes`. However, to get a good idea of what's really going on, you need to deploy an application to your cluster. This is covered in the next section.
 
+#### microk8s
+
+On Linux, *microk8s* might be a good alternative for a local install of upstream Kubernetes. Microk8s keeps up with the current Kubernetes, and auto-updates to the latest point release for your convenience. Microk8s does not require you to install a hypervisor or launch a virtual machine, and installs within ~30 seconds.
+
+* {{< link text="Install microk8s" url="https://microk8s.io/" >}}.
+
+Once you have installed microk8s, using the prefix "microk8s." you can tab-complete a variety of commands, including accessing the included registry, container runtime and more (for example, `microk8s.kubectl`). Using the prefix ensures clean separation of the local environment vs other Kubernetes API endpoints.
+
+It also includes commands to `microk8s.enable`
+
+* the Kubernetes Dashboard
+* the DNS service
+* GPU passthrough (for NVIDIA)
+* Ingress
+* Istio
+* Metrics server
+* Registry
+* Storage
+
 ## Deploy an application
 
 #### Basic workloads
