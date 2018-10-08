@@ -33,7 +33,9 @@ Huge pages can be consumed via container level resource requirements using the
 resource name `hugepages-<size>`, where size is the most compact binary notation
 using integer values supported on a particular node. For example, if a node
 supports 2048KiB page sizes, it will expose a schedulable resource
-`hugepages-2Mi`. Unlike CPU or memory, huge pages do not support overcommit.
+`hugepages-2Mi`. Unlike CPU or memory, huge pages do not support overcommit. Note
+that when requesting hugepage resources, either memory or CPU resources must
+be requested as well.
 
 ```yaml
 apiVersion: v1
@@ -53,6 +55,9 @@ spec:
     resources:
       limits:
         hugepages-2Mi: 100Mi
+        memory: 100Mi
+      requests:
+        memory: 100Mi      
   volumes:
   - name: hugepage
     emptyDir:
