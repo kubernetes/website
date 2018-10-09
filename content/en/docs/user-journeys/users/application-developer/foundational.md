@@ -55,12 +55,13 @@ You can get basic information about your cluster with the commands `kubectl clus
 
 #### microk8s
 
-On Linux, *microk8s* might be a good alternative to Minikube for a
-local install of Kubernetes. Microk8s keeps up with the current
-Kubernetes, and automatically updates to the latest point release for
-your convenience. With microk8s you don't to install a hypervisor or
-launch a virtual machine, and installation completes within ~30
-seconds.
+On Linux, *microk8s* is a good alternative to Minikube for a local
+install of Kubernetes:
+
+* there is no overhead from running a virtual machine as it runs on
+  the native OS
+* microk8s always provides the latest stable version of Kubernetes
+* installation of microk8s takes less than a minute
 
 * {{< link text="Install microk8s" url="https://microk8s.io/" >}}.
 
