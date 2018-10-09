@@ -179,7 +179,7 @@ div.header-try a {
 div.widget > h2,
 div.widget h2.title {
   margin: 0 0 1em 0;
-  font: normal bold 11px 'Roboto',,sans-serif;
+  font: normal bold 11px 'Roboto',sans-serif;
   color: #000000;
 }
 
