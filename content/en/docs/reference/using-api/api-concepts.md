@@ -164,7 +164,7 @@ For example:
 1. List all of the pods on a cluster in the Table format.
 
         GET /api/v1/pods
-        Accept: application/json;as=Table;v=meta.k8s.io;g=v1beta1
+        Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1
         ---
         200 OK
         Content-Type: application/json
@@ -205,7 +205,7 @@ For API resource types that do not have a custom Table definition on the server,
 Table responses are available beginning in version 1.10 of the kube-apiserver. As such, not all API resource types will support a Table response, specifically when using a client against older clusters. Clients that must work against all resource types, or can potentially deal with older clusters, should specify multiple content types in their `Accept` header to support fallback to non-Tabular JSON:
 
 ```
-Accept: application/json;as=Table;v=meta.k8s.io;g=v1beta1, application/json
+Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1, application/json
 ```
 
 
