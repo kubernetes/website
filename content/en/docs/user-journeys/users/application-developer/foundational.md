@@ -55,13 +55,21 @@ You can get basic information about your cluster with the commands `kubectl clus
 
 #### microk8s
 
-On Linux, *microk8s* might be a good alternative for a local install of upstream Kubernetes. Microk8s keeps up with the current Kubernetes, and auto-updates to the latest point release for your convenience. Microk8s does not require you to install a hypervisor or launch a virtual machine, and installs within ~30 seconds.
+On Linux, *microk8s* might be a good alternative to Minikube for a
+local install of Kubernetes. Microk8s keeps up with the current
+Kubernetes, and automatically updates to the latest point release for
+your convenience. With microk8s you don't to install a hypervisor or
+launch a virtual machine, and installation completes within ~30
+seconds.
 
 * {{< link text="Install microk8s" url="https://microk8s.io/" >}}.
 
-Once you have installed microk8s, using the prefix "microk8s." you can tab-complete a variety of commands, including accessing the included registry, container runtime and more (for example, `microk8s.kubectl`). Using the prefix ensures clean separation of the local environment vs other Kubernetes API endpoints.
+After you install microk8s, you can use its tab-completion
+functionality. All microk8s commands start with `microk8s.`. Type
+`microk8s.` (with the period) and then use the tab key to see a list
+of available commands.
 
-It also includes commands to `microk8s.enable`
+It also includes commands to enable Kubernetes subsystems. For example:
 
 * the Kubernetes Dashboard
 * the DNS service
