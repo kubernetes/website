@@ -187,5 +187,5 @@ KubeDirector is a fully open source, Apache v2 licensed, project – the first o
 The pre-alpha code for KubeDirector has just been released and we would love for you to join the growing community of developers, contributors, and adopters.
 Follow [@BlueK8s](https://twitter.com/BlueK8s/) on Twitter and get involved through these channels:
 
-* KubeDirector [chat room on Slack](https://bluek8s.slack.com/messages/DBRGSB59T//)
+* KubeDirector [chat room on Slack](https://join.slack.com/t/bluek8s/shared_invite/enQtNDUwMzkwODY5OTM4LTRhYmRmZmE4YzY3OGUzMjA1NDg0MDVhNDQ2MGNkYjRhM2RlMDNjMTI1NDQyMjAzZGVlMDFkNThkNGFjZGZjMGY/)
 *	KubeDirector [GitHub repo](https://github.com/bluek8s/kubedirector/)
