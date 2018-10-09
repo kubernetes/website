@@ -384,10 +384,10 @@ Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.
 {{% /tab %}}
 {{< /tabs >}}
 
+It is necessary to join a node to the master otherwise the CoreDNS pods will be unable to start.
 
 Once a pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS pod is Running in the output of `kubectl get pods --all-namespaces`.
-And once the CoreDNS pod is up and running, you can continue by joining your nodes.
 
 If your network is not working or CoreDNS is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
