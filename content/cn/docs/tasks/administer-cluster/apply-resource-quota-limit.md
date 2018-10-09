@@ -208,7 +208,7 @@ Kubernetes API server 拒绝了  replica set 创建一个 pod 的请求，因为
 ```shell
 $ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/rq-limits.yaml --namespace=quota-example
 limitrange "limits" created
-$ kubectl describe limits --namespace=quota-example
+$ kubectl describe limits limits --namespace=quota-example
 Name:           limits
 Namespace:      quota-example
 Type      Resource  Min  Max  Default Request   Default Limit   Max Limit/Request Ratio
