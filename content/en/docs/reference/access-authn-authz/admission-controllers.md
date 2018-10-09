@@ -62,7 +62,7 @@ For example, the following command line enables the `NamespaceLifecycle` and the
 admission control plugins:
 
 ```shell
-kube-apiserver --enable-admission-plugins=NamespaceLifecyle,LimitRanger ...
+kube-apiserver --enable-admission-plugins=NamespaceLifecycle,LimitRanger ...
 ```
 
 {{< note >}}
