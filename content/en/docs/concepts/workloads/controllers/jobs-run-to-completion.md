@@ -279,7 +279,6 @@ kind: Job
 metadata:
   name: pi-with-ttl
 spec:
-spec:
   ttlSecondsAfterFinished: 100
   template:
     spec:
