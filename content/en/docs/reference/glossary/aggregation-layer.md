@@ -4,7 +4,7 @@ id: aggregation-layer
 date: 2018-10-08
 full_link: /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
 short_description: >
-  A mechanism to extend Kubernetes by aggregating the existing API Server with additional Kubernetes-style APIs servers
+  A mechanism to extend Kubernetes by aggregating the existing API Server with additional Kubernetes-style API servers
 
 aka: 
 tags:
@@ -12,7 +12,7 @@ tags:
 - extension
 - operation
 ---
- A mechanism used to extend Kubernetes by aggregating the existing core APIs with additional Kubernetes-style APIs.
+ A mechanism used to extend Kubernetes by aggregating the existing core API with additional Kubernetes-style APIs.
 
 <!--more--> 
 
