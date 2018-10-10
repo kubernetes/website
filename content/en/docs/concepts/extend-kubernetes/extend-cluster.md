@@ -207,7 +207,7 @@ the nodes chosen for a pod.
   * [Device Plugins](/docs/concepts/cluster-administration/device-plugins/)
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * See examples of Automation
-  * [List of Operators](https://github.com/coreos/awesome-kubernetes-extensions)
+  * [List of Operators](https://github.com/operator-framework/awesome-operators)
 
 {{% /capture %}}
 
