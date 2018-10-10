@@ -34,7 +34,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1alpha3
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.12.1
 metadata:
   name: 1.12-sample
 apiServerExtraArgs:
@@ -52,7 +52,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1alpha3
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.12.1
 metadata:
   name: 1.12-sample
 controllerManagerExtraArgs:
@@ -69,7 +69,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1alpha3
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.12.1
 metadata:
   name: 1.12-sample
 schedulerExtraArgs:
