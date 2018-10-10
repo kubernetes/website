@@ -146,7 +146,7 @@ pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container i
 ## Attempt to create a Pod that does not meet the minimum memory request
 
 Here's the configuration file for a Pod that has one Container. The Container specifies a
-memory request of 200 MiB and a memory limit of 800 MiB.
+memory request of 100 MiB and a memory limit of 800 MiB.
 
 {{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
 

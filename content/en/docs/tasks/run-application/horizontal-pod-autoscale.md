@@ -122,7 +122,7 @@ became ready, that pod is set aside as well.
 
 Due to technical constraints, the HorizontalPodAutoscaler controller
 cannot exactly determine the first time a pod becomes ready when
-determinining whether to set aside certain CPU metrics. Instead, it
+determining whether to set aside certain CPU metrics. Instead, it
 considers a Pod "not yet ready" if it's unready and transitioned to
 unready within a short, configurable window of time since it started.
 This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay` flag, and its default is 30
@@ -139,7 +139,7 @@ conservatively, assuming those pods were consuming 100% of the desired
 value in case of a scale down, and 0% in case of a scale up.  This dampens
 the magnitude of any potential scale.
 
-Futhermore, if any not-yet-ready pods were present, and we would have
+Furthermore, if any not-yet-ready pods were present, and we would have
 scaled up without factoring in missing metrics or not-yet-ready pods, we
 conservatively assume the non-yet-ready pods are consuming 0% of the
 desired metric, further dampening the magnitude of a scale up.
@@ -161,7 +161,7 @@ into a desired replica count (e.g. due to an error fetching the metrics
 from the metrics APIs), scaling is skipped.
 
 Finally, just before HPA scales the target, the scale reccomendation is recorded.  The
-controller considers all reccomendations within a configurable window choosing the 
+controller considers all recommendations within a configurable window choosing the 
 highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization-window` flag, which defaults to 5 minutes.  
 This means that scaledowns will occur gradually, smothing out the impact of rapidly
 fluctuating metric values.

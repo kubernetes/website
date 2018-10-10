@@ -158,8 +158,8 @@ As you can see, our plugin was found based on the `kubectl` command specified by
 
 #### Names with dashes and underscores
 
-Although the `kubectl` plugin mechanism uses the dashes (`-`) in plugin filenames to determine the sequence of sub-commands that should invoke them, it is still possible to create a plugin
-command containing dashes in its commandline invocation by using underscores `_` in its filename.
+Although the `kubectl` plugin mechanism uses the dash (`-`) in plugin filenames to separate the sequence of sub-commands processed by the plugin, it is still possible to create a plugin
+command containing dashes in its commandline invocation by using underscores (`_`) in its filename.
 
 Example:
 
@@ -191,7 +191,7 @@ I am a plugin with a dash in my name
 
 #### Name conflicts and overshadowing
 
-It can be possible to have multiple pluins with the same filename in different locations throughout your PATH.
+It is possible to have multiple plugins with the same filename in different locations throughout your PATH.
 For example, given a PATH with the following value: `PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins`, a copy of plugin `kubectl-foo` could exist in `/usr/local/bin/plugins` and `/usr/local/bin/moreplugins`,
 such that the output of the `kubectl plugin list` command is:
 
@@ -206,7 +206,7 @@ The following kubectl-compatible plugins are available:
 error: one plugin warning was found
 ```
 
-In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells us that this plugin will never be executed. Instead, the executable that appears first in our PATH, `/usr/local/bin/plugins/kubectl-foo`, willalways be found and executed first by the `kubectl` plugin mechanism.
+In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells us that this plugin will never be executed. Instead, the executable that appears first in our PATH, `/usr/local/bin/plugins/kubectl-foo`, will always be found and executed first by the `kubectl` plugin mechanism.
 
 A way to resolve this issue is to ensure that the location of the plugin that you wish to use with `kubectl` always comes first in your PATH. For example, if we wanted to always use `/usr/local/bin/moreplugins/kubectl-foo` anytime that the `kubectl` command `kubectl foo` was invoked, we would simply change the value of our PATH to be `PATH=/usr/local/bin/moreplugins:/usr/local/bin/plugins`.
 

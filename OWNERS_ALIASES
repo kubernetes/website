@@ -97,21 +97,39 @@ aliases:
     - apelisse
     - grodrigues3
     - spxtr
-  sig-docs: #Team: documentation; GH: sig-docs-pr-reviews
+  sig-docs: #Team: documentation; GH: sig-docs-maintainers
     - bradamant3
     - bradtopol
     - chenopis
+    - jaredbhatti
     - kbarnard10
     - mistyhacks
-    - rajakavitha1
     - ryanmcginnis
     - steveperry-53
-    - stewart-yu
     - tengqm
+    - tfogo
     - xiangpengzhao
     - zacharysarah
     - zhangxiaoyu-zidif
     - zparnold
+  sig-docs-en-owners: #Team: Documentation; GH: sig-docs-en-owners
+    - bradamant3
+    - bradtopol
+    - chenopis
+    - jaredbhatti
+    - kbarnard10
+    - mistyhacks
+    - ryanmcginnis
+    - steveperry-53
+    - tengqm
+    - tfogo
+    - zacharysarah
+    - zparnold
+  sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews 
+    - rajakavitha1
+    - stewart-yu
+    - xiangpengzhao
+    - zhangxiaoyu
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
