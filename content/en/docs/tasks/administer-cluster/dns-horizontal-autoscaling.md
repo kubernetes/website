@@ -18,12 +18,6 @@ Kubernetes cluster.
 
 {{% /capture %}}
 
-{{% capture prerequisites %}}
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-{{% /capture %}}
-
 {{% capture steps %}}
 
 ## Determining whether DNS horizontal autoscaling is already enabled
