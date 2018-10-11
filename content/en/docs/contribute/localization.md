@@ -122,7 +122,7 @@ mkdir -p content/de/docs/tutorials
 cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kubernetes-basics.md
 ```
 
-For an example of a localization-related [pull request](../create-pull-request), [this pull request](https://github.com/kubernetes/website/pull/8636) to the [Kubernetes website repo](https://github.com/kubernetes/website) added Korean localization to the Kubernetes docs.
+For an example of a localization-related [pull request](../create-pull-request), [this pull request](https://github.com/kubernetes/website/pull/10471) to the [Kubernetes website repo](https://github.com/kubernetes/website) added Korean localization to the Kubernetes docs.
 
 ### Source Files
 
