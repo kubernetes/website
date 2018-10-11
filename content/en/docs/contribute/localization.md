@@ -34,7 +34,7 @@ Let Kubernetes SIG Docs know you're interested in creating a localization! Join 
 
 All localization teams must be self-sustaining with their own resources. We're happy to host your work, but we can't translate it for you.
 
-### Fork and clone the repo 
+### Fork and clone the repo
 
 First, [create your own fork](https://help.github.com/articles/fork-a-repo/) of the [kubernetes/website](https://github.com/kubernetes/website).
 
@@ -54,9 +54,9 @@ Contributors to `k/website` must [create a fork](https://kubernetes.io/docs/cont
 This is because localization projects are collaborative efforts on long-running branches, similar to the development branches for the Kubernetes release cycle. For information about localization pull requests, see ["branching strategy"](#branching-strategy).
 {{< /note >}}
 
-### Find your two-letter language code 
+### Find your two-letter language code
 
-Consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) for your localization's two-letter country code. For example, the two-letter code for German is `de`. 
+Consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) for your localization's two-letter country code. For example, the two-letter code for German is `de`.
 
 {{< note >}}
 These instructions use the [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) language code for German (`de`) as an example.
@@ -66,7 +66,7 @@ There's currently no Kubernetes localization for German, but you're welcome to c
 
 ### Modify the site configuration
 
-The Kubernetes website uses Hugo as its web framework. The website's Hugo configuration resides in the  [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml) file. To support a new localization, you'll need to modify `config.toml`. 
+The Kubernetes website uses Hugo as its web framework. The website's Hugo configuration resides in the  [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml) file. To support a new localization, you'll need to modify `config.toml`.
 
 Add a configuration block for the new language to `config.toml`, under the existing `[languages]` block. The German block, for example, looks like:
 
@@ -91,13 +91,13 @@ Add a language-specific subdirectory to the [`content`](https://github.com/kuber
 mkdir content/de
 ```
 
-### Add a localized README 
+### Add a localized README
 
-To guide other localization contributors, add a new [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of k/website, where `**` is the two-letter language code. For example, a German README file would be `README-de.md`. 
+To guide other localization contributors, add a new [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of k/website, where `**` is the two-letter language code. For example, a German README file would be `README-de.md`.
 
 Provide guidance to localization contributors in the localized `README-**.md` file. Include the same information contained in `README.md` as well as:
 
-- A point of contact for the localization project 
+- A point of contact for the localization project
 - Any information specific to the localization
 
 After you create the localized README, add a link to the file from the main English file, [`README.md`] and include contact information in English. You can provide a GitHub ID, email address, [Slack channel](https://slack.com/), or other method of contact.
@@ -137,12 +137,12 @@ The latest version is **{{< latest-version >}}**, so the most recent release bra
 
 ### Site strings in i18n/
 
-Localizations must include the contents of [`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) in a new language-specific file. Using German as an example: `i18n/de.toml`. 
+Localizations must include the contents of [`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) in a new language-specific file. Using German as an example: `i18n/de.toml`.
 
 Add a new localization file to `i18n/`. For example, with German (`de`):
 
 ```shell
-cp i18n/en.toml i18n/de.toml 
+cp i18n/en.toml i18n/de.toml
 ```
 
 Then translate the value of each string:
@@ -152,13 +152,13 @@ Then translate the value of each string:
 other = "ICH BIN..."
 ```
 
-Localizing site strings lets you customize site-wide text and features: for example, the legal copyright text in the footer on each page. 
+Localizing site strings lets you customize site-wide text and features: for example, the legal copyright text in the footer on each page.
 
 ## Project logistics
 
 ### Contact the SIG Docs chairs
 
-Contact one of the chairs of the Kubernetes [SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs#chairs) chairs when you start a new localization. 
+Contact one of the chairs of the Kubernetes [SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs#chairs) chairs when you start a new localization.
 
 ### Maintainers
 
@@ -174,17 +174,21 @@ To collaborate on a development branch:
 
 1. A team member opens a development branch, usually by opening a new pull request against a source branch on https://github.com/kubernetes/website.
 
-    For example, an approver on a German localization team opens the development branch `dev-release-1.12-de-1.0` directly against the k/website repository, based on the source branch for Kubernetes v1.12, `release-1.12`. 
+    We recommend the following branch naming scheme:
+
+    `dev-<source version>-<language code>.<team milestone>`
+
+    For example, an approver on a German localization team opens the development branch `dev-1.12-de.1` directly against the k/website repository, based on the source branch for Kubernetes v1.12.
 
 2. Individual contributors open feature branches based on the development branch.
 
-    For example, a German contributor opens a pull request with changes to `kubernetes:dev-release-1.12-de-1.0` from `username:local-branch-name`. 
+    For example, a German contributor opens a pull request with changes to `kubernetes:dev-1.12-de.1` from `username:local-branch-name`.
 
 3. Approvers review and merge feature branches into the development branch.
 
 4. Periodically, an approver merges the development branch to its source branch.
 
-Repeat steps 1-4 as needed until the localization is complete.
+Repeat steps 1-4 as needed until the localization is complete. For example, subsequent German development branches would be: `dev-1.12-de.2`, `dev-1.12-de.3`, etc.
 
 Teams must merge localized content into the same release branch from which the content was sourced. For example, a development branch sourced from {{< release-branch >}} must be based on {{< release-branch >}}.
 
