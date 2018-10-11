@@ -164,10 +164,13 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 ## Updating Resources
 
 ```bash
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # Rolling update pods of frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # Change the name of the resource and update the image
-kubectl rolling-update frontend --image=image:v2                 # Update the pods image of frontend
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # Abort existing rollout in progress
+kubectl rolling-update frontend-v1 -f frontend-v2.json           # (deprecated) Rolling update pods of frontend-v1
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (deprecated) Change the name of the resource and update the image
+kubectl rolling-update frontend --image=image:v2                 # (deprecated) Update the pods image of frontend
+kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (deprecated) Abort existing rollout in progress
+kubectl set image deployment/frontend www=image:v2               # Rolling update "www" pods of "frontend" deployment, updating the image
+kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
+kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
 cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
