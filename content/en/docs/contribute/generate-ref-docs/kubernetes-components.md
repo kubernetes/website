@@ -32,7 +32,7 @@ reference documentation for tools and components in the
 * You need to know how to create a pull request to a GitHub repository.
 Typically, this involves creating a fork of the repository. For more
 information, see
-[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
+[Creating a Documentation Pull Request](https://github.com/kubernetes/website/blob/release-1.11/content/en/docs/home/contribute/create-pull-request.md).
 
 {{% /capture %}}
 
