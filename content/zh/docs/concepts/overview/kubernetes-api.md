@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 title: Kubernetes API
 weight: 30
@@ -6,6 +7,11 @@ weight: 30
 # Kubernetes API 概述
 
 [API协议文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)描述了主系统和API概念。
+=======
+# Kubernetes API 概述
+
+[API协议文档](https://git.k8s.io/community/contributors/devel/api-conventions.md)描述了主系统和API概念。
+>>>>>>> Update localization guidelines (#10485)
 
 [API参考文档](https://kubernetes.io/docs/reference)描述了API整体规范。
 
@@ -40,7 +46,11 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 请注意，API版本控制和软件版本控制只有间接相关性。 [API和发行版本建议](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)描述了API版本与软件版本之间的关系。
 
+<<<<<<< HEAD
 不同的API版本名称意味着不同级别的软件稳定性和支持程度。 每个级别的标准在[API变更文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)中有更详细的描述。 内容主要概括如下：
+=======
+不同的API版本名称意味着不同级别的软件稳定性和支持程度。 每个级别的标准在[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)中有更详细的描述。 内容主要概括如下：
+>>>>>>> Update localization guidelines (#10485)
 
 * Alpha 测试版本：
 
@@ -64,7 +74,11 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
   * 对象的模式和/或语义可能会在后续的beta测试版或稳定版中以不兼容的方式进行更改。 发生这种情况时，我们将提供迁移到下一个版本的说明。 这可能需要删除、编辑和重新创建API对象。执行编辑操作时需要谨慎行事，这可能需要停用依赖该功能的应用程序。
 
+<<<<<<< HEAD
   * 建议仅用于非业务关键型用途，因为后续版本中可能存在不兼容的更改。 如果您有多个可以独立升级的集群，则可以放宽此限制。
+=======
+  * 建议仅用于非业务关键型用途，因为后续版本中可能存在不兼容的更改。 如果您有多个可以独立升级的群集，则可以放宽此限制。
+>>>>>>> Update localization guidelines (#10485)
 
   * **请尝试我们的 beta 版本功能并且给出反馈！一旦他们退出 beta 测试版，我们可能不会做出更多的改变。**
 
@@ -100,4 +114,8 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
 DaemonSets，Deployments，HorizontalPodAutoscalers，Ingress，Jobs和ReplicaSets是默认启用的。 其他扩展资源可以通过在apiserver上设置 **`--runtime-config`** 来启用。**`--runtime-config`** 接受逗号分隔的值。
 
+<<<<<<< HEAD
 例如：要禁用 Deployment 和 Ingress，请设置 **`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`**
+=======
+例如：要禁用 Deployment 和 Ingress，请设置 **`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`**
+>>>>>>> Update localization guidelines (#10485)

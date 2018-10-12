@@ -6,9 +6,15 @@ approvers:
 ---
 
 
+<<<<<<< HEAD
 本示例描述了如何在 Kubernetes 上持久化安装 [WordPress](https://wordpress.org/) 和
 [MySQL](https://www.mysql.com/) 。在这个安装里我们将使用官方的 [MySQL](https://registry.hub.docker.com/_/mysql/) 和
 [WordPress](https://registry.hub.docker.com/_/wordpress/) 镜像（WordPress 镜像包含一个 Apache 服务）。
+=======
+本示例描述了如何在 Kubeernetes 上持久化安装 [WordPress](https://wordpress.org/) 和
+[MySQL](https://www.mysql.com/) 。在这个安装里我们将使用官方的 [mysql](https://registry.hub.docker.com/_/mysql/) 和
+[wordpress](https://registry.hub.docker.com/_/wordpress/) 镜像（WordPress 镜像包含一个 Apache 服务）。
+>>>>>>> Update localization guidelines (#10485)
 
 
 展示的 Kubernetes 概念：
@@ -147,7 +153,11 @@ MySQL 和 WordPress pod 配置引用了这个 secret，所以这些 pods 就可�
 
 ## 部署 MySQL
 
+<<<<<<< HEAD
 <!--
+=======
+<--
+>>>>>>> Update localization guidelines (#10485)
 Now that the persistent disks and secrets are defined, the Kubernetes
 pods can be launched. Start MySQL using
 [mysql-deployment.yaml](https://git.k8s.io/examples/mysql-wordpress-pd/mysql-deployment.yaml).

@@ -48,7 +48,11 @@ redirect_from:
 ### 阶段
 
 
+<<<<<<< HEAD
 已废弃：node 阶段已经不再使用。
+=======
+一废弃：node 阶段已经不再使用。
+>>>>>>> Update localization guidelines (#10485)
 
 
 ### 条件

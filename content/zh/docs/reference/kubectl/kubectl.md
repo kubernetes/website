@@ -7,7 +7,11 @@ notitle: true
 <!--
 kubectl controls the Kubernetes cluster manager
 -->
+<<<<<<< HEAD
 kubectl å¯ä»¥æ“æŽ§ Kubernetes é›†ç¾¤ã€‚
+=======
+kubectl ¿ÉÒÔ²Ù¿Ø Kubernetes ¼¯Èº¡£
+>>>>>>> Update localization guidelines (#10485)
 
 <!--
 ### Synopsis
@@ -16,11 +20,19 @@ kubectl controls the Kubernetes cluster manager.
 
 Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
 -->
+<<<<<<< HEAD
 ### ç®€ä»‹
 
 kubectl å¯ä»¥æ“æŽ§ Kubernetes é›†ç¾¤ã€‚
 
 èŽ·å–æ›´å¤šä¿¡æ¯ï¼Œè¯·è®¿é—®ï¼šhttps://kubernetes.io/docs/reference/kubectl/overview/
+=======
+### ¼ò½é
+
+kubectl ¿ÉÒÔ²Ù¿Ø Kubernetes ¼¯Èº¡£
+
+»ñÈ¡¸ü¶àÐÅÏ¢£¬Çë·ÃÎÊ£ºhttps://kubernetes.io/docs/reference/kubectl/overview/
+>>>>>>> Update localization guidelines (#10485)
 
 ```
 kubectl [flags]
@@ -55,6 +67,7 @@ kubectl [flags]
       --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging
 ```
 -->
+<<<<<<< HEAD
 ### é€‰é¡¹
 ```
       --alsologtostderr                  åŒæ—¶è¾“å‡ºæ—¥å¿—åˆ°æ ‡å‡†é”™è¯¯æŽ§åˆ¶å°å’Œæ–‡ä»¶
@@ -81,6 +94,34 @@ kubectl [flags]
       --user string                      æŒ‡å®šä½¿ç”¨çš„ kubeconfig é…ç½®æ–‡ä»¶ä¸­çš„ç”¨æˆ·å
   -v, --v Level                          æŒ‡å®šè¾“å‡ºæ—¥å¿—çš„æ—¥å¿—çº§åˆ«
       --vmodule moduleSpec               æŒ‡å®šè¾“å‡ºæ—¥å¿—çš„æ¨¡å—ï¼Œæ ¼å¼å¦‚ä¸‹ï¼špattern=Nï¼Œä½¿ç”¨é€—å·åˆ†éš”
+=======
+### Ñ¡Ïî
+```
+      --alsologtostderr                  Í¬Ê±Êä³öÈÕÖ¾µ½±ê×¼´íÎó¿ØÖÆÌ¨ºÍÎÄ¼þ
+      --as string                        ÒÔÖ¸¶¨ÓÃ»§Ö´ÐÐ²Ù×÷
+	  --as-group stringArray             Ä£Äâ²Ù×÷µÄ×é£¬¿ÉÒÔÊ¹ÓÃÕâ¸ö±êÊ¶À´Ö¸¶¨¶à¸ö×é¡£
+      --cache-dir string                 Ä¬ÈÏ HTTP »º´æÄ¿Â¼£¨Ä¬ÈÏÖµ "/home/username/.kube/http-cache" £©
+      --certificate-authority string     ÓÃÓÚ½øÐÐÈÏÖ¤ÊÚÈ¨µÄ .cert ÎÄ¼þÂ·¾¶
+      --client-certificate string        TLS Ê¹ÓÃµÄ¿Í»§¶ËÖ¤ÊéÂ·¾¶
+      --client-key string                TLS Ê¹ÓÃµÄ¿Í»§¶ËÃÜÔ¿ÎÄ¼þÂ·¾¶
+      --cluster string                   Ö¸¶¨ÒªÊ¹ÓÃµÄ kubeconfig ÎÄ¼þÖÐ¼¯ÈºÃû
+      --context string                   Ö¸¶¨ÒªÊ¹ÓÃµÄ kubeconfig ÎÄ¼þÖÐÉÏÏÂÎÄ
+  -h, --help                             kubectl °ïÖú
+      --insecure-skip-tls-verify         ÖµÎª true£¬Ôò²»»á¼ì²é·þÎñÆ÷µÄÖ¤ÊéµÄÓÐÐ§ÐÔ¡£ Õâ½«Ê¹ÄúµÄHTTPSÁ¬½Ó²»°²È«
+      --kubeconfig string                CLI ÇëÇóÊ¹ÓÃµÄ kubeconfig ÅäÖÃÎÄ¼þÂ·¾¶¡£
+      --log-backtrace-at traceLocation   µ±ÈÕÖ¾³¤¶È³¬³ö¹æ¶¨µÄÐÐÊýÊ±£¬ºöÂÔ¶ÑÕ»ÐÅÏ¢£¨Ä¬ÈÏÖµ£º0£©
+      --log-dir string                   Èç¹û²»Îª¿Õ£¬Ôò½«ÈÕÖ¾ÎÄ¼þÐ´Èë´ËÄ¿Â¼
+      --logtostderr                      ÈÕÖ¾Êä³öµ½±ê×¼´íÎó¿ØÖÆÌ¨¶ø²»Êä³öµ½ÎÄ¼þ
+      --match-server-version             ÒªÇó¿Í»§¶Ë°æ±¾ºÍ·þÎñ¶Ë°æ±¾ÏàÆ¥Åä
+  -n, --namespace string                 Èç¹û´æÔÚ£¬CLI ÇëÇó½«Ê¹ÓÃ´ËÃüÃû¿Õ¼ä
+      --request-timeout string           ·ÅÆúÒ»¸ö¼òµ¥·þÎñÇëÇóÇ°µÄµÈ´ýÊ±¼ä£¬·ÇÁãÖµÐèÒª°üº¬ÏàÓ¦Ê±¼äµ¥Î»(ÀýÈç£º1s, 2m, 3h)¡£ÁãÖµÔòÈÏÎª²»×ö³¬Ê±ÇëÇó¡£ (Ä¬ÈÏÖµ "0")
+  -s, --server string                    Kubernetes API server µÄµØÖ·ºÍ¶Ë¿Ú
+      --stderrthreshold severity         µÈÓÚ»ò¸ßÓÚ´ËãÐÖµµÄÈÕÖ¾½«Êä³ö±ê×¼´íÎó¿ØÖÆÌ¨£¨Ä¬ÈÏÖµ2£©
+      --token string                     ÓÃÓÚ API server ½øÐÐÉí·ÝÈÏÖ¤µÄ³ÐÔØÁîÅÆ
+      --user string                      Ö¸¶¨Ê¹ÓÃµÄ kubeconfig ÅäÖÃÎÄ¼þÖÐµÄÓÃ»§Ãû
+  -v, --v Level                          Ö¸¶¨Êä³öÈÕÖ¾µÄÈÕÖ¾¼¶±ð
+      --vmodule moduleSpec               Ö¸¶¨Êä³öÈÕÖ¾µÄÄ£¿é£¬¸ñÊ½ÈçÏÂ£ºpattern=N£¬Ê¹ÓÃ¶ººÅ·Ö¸ô
+>>>>>>> Update localization guidelines (#10485)
 ```
 <!--
 ### SEE ALSO
@@ -127,6 +168,7 @@ kubectl [flags]
 * [kubectl version](kubectl_version.md)	 - Print the client and server version information
 * [kubectl wait](kubectl_wait.md)	 - Experimental: Wait for one condition on one or many resources
 -->
+<<<<<<< HEAD
 ### æŽ¥ä¸‹æ¥çœ‹
 
 * [kubectl alpha](kubectl_alpha.md)	 - alphaçŽ¯å¢ƒä¸Šå‘½ä»¤å±žæ€§
@@ -170,10 +212,59 @@ kubectl [flags]
 * [kubectl uncordon](kubectl_uncordon.md)	 - æ ‡è®° node èŠ‚ç‚¹ä¸ºå¯è°ƒåº¦
 * [kubectl version](kubectl_version.md)	 - æ‰“å°å®¢æˆ·ç«¯å’ŒæœåŠ¡ç«¯ç‰ˆæœ¬ä¿¡æ¯
 * [kubectl wait](kubectl_wait.md)	 - è¯•éªŒ: åœ¨ä¸€ä¸ªæˆ–å¤šä¸ªèµ„æºä¸Šç­‰å¾…æ¡ä»¶å®Œæˆ
+=======
+### ½ÓÏÂÀ´¿´
+
+* [kubectl alpha](kubectl_alpha.md)	 - alpha»·¾³ÉÏÃüÁîÊôÐÔ
+* [kubectl annotate](kubectl_annotate.md)	 - ¸üÐÂ×ÊÔ´ÉÏ×¢ÊÍ
+* [kubectl api-resources](kubectl_api-resources.md)	 - ÔÚ·þÎñÆ÷ÉÏ´òÓ¡Ö§³ÖµÄ API ×ÊÔ´
+* [kubectl api-versions](kubectl_api-versions.md)	 - ÒÔ "group/version" µÄÐÎÊ½ÔÚ·þÎñÆ÷ÉÏ´òÓ¡Ö§³ÖµÄ API °æ±¾
+* [kubectl apply](kubectl_apply.md)	 - Í¨¹ýÎÄ¼þÃû»ò±ê×¼ÊäÈë½«ÅäÖÃÌí¼Ó¸ø×ÊÔ´
+* [kubectl attach](kubectl_attach.md)	 - ¸½¼Óµ½ÕýÔÚÔËÐÐµÄÈÝÆ÷
+* [kubectl auth](kubectl_auth.md)	 - ¼ì²éÊÚÈ¨
+* [kubectl autoscale](kubectl_autoscale.md)	 - ×Ô¶¯À©Õ¹ Deployment, ReplicaSet »ò ReplicationController
+* [kubectl certificate](kubectl_certificate.md)	 - ÐÞ¸ÄÖ¤Êé×ÊÔ´¡£
+* [kubectl cluster-info](kubectl_cluster-info.md)	 - Õ¹Ê¾¼¯ÈºÐÅÏ¢
+* [kubectl completion](kubectl_completion.md)	 - Îª¸ø¶¨µÄ shell Êä³öÍê³É´úÂë£¨ bash »ò zsh£©
+* [kubectl config](kubectl_config.md)	 - ÐÞ¸Ä kubeconfig ÅäÖÃÎÄ¼þ
+* [kubectl convert](kubectl_convert.md)	 - ÔÚ²»Í¬µÄ API °æ±¾Ö®¼ä×ª»»ÅäÖÃÎÄ¼þ
+* [kubectl cordon](kubectl_cordon.md)	 - ½« node ½Úµã±ê¼ÇÎª²»¿Éµ÷¶È
+* [kubectl cp](kubectl_cp.md)	 - ´ÓÈÝÆ÷¸´ÖÆÎÄ¼þºÍÄ¿Â¼£¬Ò²¿É½«ÎÄ¼þºÍÄ¿Â¼¸´ÖÆµ½ÈÝÆ÷¡£
+* [kubectl create](kubectl_create.md)	 - Í¨¹ýÎÄ¼þÃû»ò±ê×¼ÊäÈë´´½¨×ÊÔ´¡£
+* [kubectl delete](kubectl_delete.md)	 - Í¨¹ýÎÄ¼þÃû£¬±ê×¼ÊäÈë£¬×ÊÔ´ºÍÃû³Æ»ò×ÊÔ´ºÍ±êÇ©Ñ¡ÔñÆ÷É¾³ý×ÊÔ´
+* [kubectl describe](kubectl_describe.md)	 - ÏÔÊ¾ÌØ¶¨×ÊÔ´»ò×ÊÔ´×éµÄÏêÏ¸ÐÅÏ¢
+* [kubectl drain](kubectl_drain.md)	 - Îª±ãÓÚÎ¬»¤£¬ÐèÒªÌáÇ°ÇýÖðnode½Úµã
+* [kubectl edit](kubectl_edit.md)	 - ÔÚ·þÎñÆ÷±à¼­×ÊÔ´
+* [kubectl exec](kubectl_exec.md)	 - ÈÝÆ÷ÄÚÍË³öÃüÁî
+* [kubectl explain](kubectl_explain.md)	 - ×ÊÔ´ÎÄµµ
+* [kubectl expose](kubectl_expose.md)	 - »ñÈ¡ replication controller, service, deployment »ò pod ×ÊÔ´£¬²¢×÷ÎªÐÂµÄ Kubernetes ·þÎñ±©Â¶
+* [kubectl get](kubectl_get.md)	 - Õ¹Ê¾Ò»¸ö»ò¶à¸ö×ÊÔ´
+* [kubectl label](kubectl_label.md)	 - Éý¼¶×ÊÔ´±êÇ©
+* [kubectl logs](kubectl_logs.md)	 - Îª pod ÖÐµÄÈÝÆ÷´òÓ¡ÈÕÖ¾
+* [kubectl options](kubectl_options.md)	 - ´òÓ¡ËùÓÐÃüÁî¼Ì³ÐµÄ±êÊ¶ÁÐ±í
+* [kubectl patch](kubectl_patch.md)	 - Ê¹ÓÃÕ½ÂÔÐÔºÏ²¢²¹¶¡¸üÐÂ×ÊÔ´×Ö¶Î
+* [kubectl plugin](kubectl_plugin.md)	 - ÔËÐÐÃüÁîÐÐ²å¼þ
+* [kubectl port-forward](kubectl_port-forward.md)	 - ¸ø pod ¿ª·ÅÒ»¸ö»ò¶à¸ö±¾µØ¶Ë¿Ú
+* [kubectl proxy](kubectl_proxy.md)	 - Îª Kubernetes API server ÔËÐÐ´úÀí
+* [kubectl replace](kubectl_replace.md)	 - Í¨¹ýÎÄ¼þ»ò±ê×¼ÊäÈëÌæ»»×ÊÔ´
+* [kubectl rollout](kubectl_rollout.md)	 - ¹ÜÀí×ÊÔ´Õ¹Ê¾
+* [kubectl run](kubectl_run.md)	 - ÔÚ¼¯ÈºÉÏÔËÐÐÖ¸¶¨¾µÏñ
+* [kubectl scale](kubectl_scale.md)	 - ¸ø Deployment, ReplicaSet, Replication Controller »ò Job ÉèÖÃÐÂ¸±±¾¹æÄ£
+* [kubectl set](kubectl_set.md)	 - ¸ø¶ÔÏóÉèÖÃÌØ¶¨¹¦ÄÜ
+* [kubectl taint](kubectl_taint.md)	 - ¸üÐÂÒ»¸ö»ò¶à¸ö node ½ÚµãµÄÎÛµãÐÅÏ¢
+* [kubectl top](kubectl_top.md)	 - Õ¹Ê¾×ÊÔ´ (CPU/Memory/Storage) Ê¹ÓÃÐÅÏ¢¡£
+* [kubectl uncordon](kubectl_uncordon.md)	 - ±ê¼Ç node ½ÚµãÎª¿Éµ÷¶È
+* [kubectl version](kubectl_version.md)	 - ´òÓ¡¿Í»§¶ËºÍ·þÎñ¶Ë°æ±¾ÐÅÏ¢
+* [kubectl wait](kubectl_wait.md)	 - ÊÔÑé: ÔÚÒ»¸ö»ò¶à¸ö×ÊÔ´ÉÏµÈ´ýÌõ¼þÍê³É
+>>>>>>> Update localization guidelines (#10485)
 
 <!--
 ###### Auto generated by spf13/cobra on 16-Jun-2018
 -->
+<<<<<<< HEAD
 ######2018å¹´6æœˆ16æ—¥ï¼Œé€šè¿‡spf13/cobraè‡ªåŠ¨ç”Ÿæˆ
 
+=======
+######2018Äê6ÔÂ16ÈÕ£¬Í¨¹ýspf13/cobra×Ô¶¯Éú³É
+>>>>>>> Update localization guidelines (#10485)
 

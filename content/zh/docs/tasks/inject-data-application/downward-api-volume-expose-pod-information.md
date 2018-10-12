@@ -43,7 +43,11 @@ content_template: templates/task
 **注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。 
 {{< /note >}}
 
+<<<<<<< HEAD
 创建 Pod：
+=======
+创建Pod：
+>>>>>>> Update localization guidelines (#10485)
 
 ```shell
 kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-volume.yaml
@@ -61,10 +65,14 @@ kubectl get pods
 kubectl logs kubernetes-downwardapi-volume-example
 ```
 
+<<<<<<< HEAD
 <!--
 The output shows the contents of the labels file and the annotations file:
 -->
 输出显示 `labels` 和 `annotations` 文件的内容：
+=======
+输出显示`labels`和`annotations`文件的内容：
+>>>>>>> Update localization guidelines (#10485)
 
 ```shell
 cluster="test-cluster1"
@@ -169,6 +177,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 
 下面这些信息可以通过环境变量和DownwardAPIVolumeFiles提供给容器：
 
+<<<<<<< HEAD
 能通过`fieldRef`获得的：
   * `metadata.name` - Pod名称
   * `metadata.namespace` - Pod名字空间
@@ -200,6 +209,27 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 
 {{< note >}}
 如果容器未指定CPU和memory limits，则Downward API默认为节点可分配值。
+=======
+* 节点名称
+* 节点IP
+* Pod名称
+* Pod名字空间
+* Pod IP地址
+* Pod服务帐号名称
+* Pod的UID
+* 容器的CPU约束
+* 容器的CPU请求值
+* 容器的内存约束
+* 容器的内存请求值
+
+此外，以下信息可通过DownwardAPIVolumeFiles获得：
+
+* Pod的标签
+* Pod的注释
+
+{{< note >}}
+**Note:** 如果容器未指定CPU和memory limits，则Downward API默认为节点可分配值。
+>>>>>>> Update localization guidelines (#10485)
 {{< /note >}}
 
 ## 投射密钥到指定路径并且指定文件权限

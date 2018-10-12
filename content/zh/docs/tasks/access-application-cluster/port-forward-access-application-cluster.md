@@ -200,7 +200,11 @@ local workstation to debug the database that is running in the pod.
 
 {{< warning >}}
 <!--
+<<<<<<< HEAD
 Due to known limitations, port forward today only works for TCP protocol.
+=======
+**Warning**: Due to known limitations, port forward today only works for TCP protocol.
+>>>>>>> Update localization guidelines (#10485)
 The support to UDP protocol is being tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 -->

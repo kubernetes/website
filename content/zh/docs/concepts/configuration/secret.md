@@ -67,7 +67,11 @@ username.txt:    5 bytes
 
 请注意，默认情况下，`get` 和 `describe` 命令都不会显示文件的内容。这是为了防止将 secret 中的内容被意外暴露给从终端日志记录中刻意寻找它们的人。
 
+<<<<<<< HEAD
 请参阅 [解码 secret](#解码-secret) 了解如何查看它们的内容。
+=======
+请参阅 [解码 secret](#decoding-a-secret) 了解如何查看它们的内容。
+>>>>>>> Update localization guidelines (#10485)
 
 #### 手动创建 Secret
 
@@ -122,6 +126,10 @@ metadata:
   name: mysecret
   namespace: default
   resourceVersion: "164619"
+<<<<<<< HEAD
+=======
+  selfLink: /api/v1/namespaces/default/secrets/mysecret
+>>>>>>> Update localization guidelines (#10485)
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
 ```
@@ -582,4 +590,8 @@ Pod 中有多个容器。但是，pod 中的每个容器必须请求其挂载卷
 - 应用程序在从卷中读取 secret 后仍然需要保护 secret 的值，例如不会意外记录或发送给不信任方。
 - 可以创建和使用 secret 的 pod 的用户也可以看到该 secret 的值。即使 API server 策略不允许用户读取 secret 对象，用户也可以运行暴露 secret 的 pod。
 - 如果运行了多个副本，那么这些 secret 将在它们之间共享。默认情况下，etcd 不能保证与 SSL/TLS 的对等通信，尽管可以进行配置。
+<<<<<<< HEAD
 - 目前，任何节点的 root 用户都可以通过模拟 kubelet 来读取 API server 中的任何 secret。只有向实际需要它们的节点发送 secret 才能限制单个节点的根漏洞的影响，该功能还在计划中。
+=======
+- 目前，任何节点的 root 用户都可以通过模拟 kubelet 来读取 API server 中的任何 secret。只有向实际需要它们的节点发送 secret 才能限制单个节点的根漏洞的影响，该功能还在计划中。
+>>>>>>> Update localization guidelines (#10485)

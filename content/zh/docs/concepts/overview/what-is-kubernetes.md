@@ -3,7 +3,10 @@ approvers:
 - k8s-merge-robot
 
 title: 认识 Kubernetes?
+<<<<<<< HEAD
 weight: 10
+=======
+>>>>>>> Update localization guidelines (#10485)
 ---
 
 Kubernetes 是一个跨主机集群的 [开源的容器调度平台，它可以自动化应用容器的部署、扩展和操作](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) , 提供以容器为中心的基础架构。
@@ -108,7 +111,11 @@ Kubernetes 不是一个传统意义上，包罗万象的 PaaS (平台即服务) 
 * Kubernetes 不提供或授权一个全面的应用程序配置语言/系统 (例如 [jsonnet](https://github.com/google/jsonnet)).
 * Kubernetes 不提供也不采用任何全面机器配置、保养、管理或自我修复系统
 
+<<<<<<< HEAD
 另一方面，许多 PaaS 系统*运行* 在 Kubernetes 上面，例如  [Openshift](https://github.com/openshift/origin), [Deis](http://deis.io/), and [Eldarion](http://eldarion.cloud/)。 您也可以自定义您自己的 PaaS, 与您选择的 CI 系统集成，或与 Kubernetes 一起使用: 将您的容器镜像部署到 Kubernetes。
+=======
+另一方面，许多 PaaS 系统*运行*在 Kubernetes 上面，例如  [Openshift](https://github.com/openshift/origin), [Deis](http://deis.io/), and [Eldarion](http://eldarion.cloud/)。 您也可以自定义您自己的 PaaS, 与您选择的 CI 系统集成，或与 Kubernetes 一起使用: 将您的容器镜像部署到 Kubernetes。
+>>>>>>> Update localization guidelines (#10485)
 
 由于 Kubernetes 在应用级别而不仅仅在硬件级别上运行，因此它提供 PaaS 产品通用的一些功能，例如部署、扩展、负载均衡、日志记录、监控等。但是，Kubernetes 不是单一的，默认解决方案是可选和可插拔的。
 

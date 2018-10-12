@@ -35,6 +35,7 @@ content_template: templates/task
 
 1. 基于YAML文件创建一个Pod：
 
+<<<<<<< HEAD
     ```shell
     kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
     ```
@@ -62,11 +63,31 @@ content_template: templates/task
     tcp://10.3.240.1:443
     ```
 	
+=======
+       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
+
+1. 获取一下当前正在运行的Pods信息：
+
+       kubectl get pods
+
+    查询结果显示在command-demo这个Pod下运行的容器已经启动完成
+
+1. 如果要获取容器启动时执行命令的输出结果，可以通过Pod的日志进行查看
+
+       kubectl logs command-demo
+
+    日志中显示了HOSTNAME 与KUBERNETES_PORT 这两个环境变量的值：
+
+        command-demo
+        tcp://10.3.240.1:443
+
+>>>>>>> Update localization guidelines (#10485)
 ## 使用环境变量来设置入参
 
 在上面的示例中，我们直接将一串字符作为命令的入参。除此之外，我们还可以
 将环境变量作为命令的入参。
 
+<<<<<<< HEAD
 ```yaml
 env:
 - name: MESSAGE
@@ -74,6 +95,13 @@ env:
 command: ["/bin/echo"]
 args: ["$(MESSAGE)"]
 ```
+=======
+    env:
+    - name: MESSAGE
+      value: "hello world"
+    command: ["/bin/echo"]
+    args: ["$(MESSAGE)"]
+>>>>>>> Update localization guidelines (#10485)
 
 这样一来，我们就可以将那些用来设置环境变量的方法应用于设置命令的入参，其
 中包括了[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
@@ -90,10 +118,15 @@ args: ["$(MESSAGE)"]
 有时候，需要通过shell来执行命令。 例如，命令可能由多个命令组合而成，抑或包含
 在一个shell脚本中。这时，就可以通过如下方式在shell中执行命令：
 
+<<<<<<< HEAD
 ```shell
 command: ["/bin/sh"]
 args: ["-c", "while true; do echo hello; sleep 10;done"]
 ```
+=======
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do echo hello; sleep 10;done"]
+>>>>>>> Update localization guidelines (#10485)
 
 ## 注意
 

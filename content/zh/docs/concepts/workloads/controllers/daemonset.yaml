@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 apiVersion: apps/v1
+=======
+apiVersion: extensions/v1beta1
+>>>>>>> Update localization guidelines (#10485)
 kind: DaemonSet
 metadata:
   name: fluentd-elasticsearch
@@ -13,7 +17,11 @@ spec:
     spec:
       containers:
       - name: fluentd-elasticsearch
+<<<<<<< HEAD
         image: gcr.io/fluentd-elasticsearch/fluentd:v2.5.1
+=======
+        image: k8s.gcr.io/fluentd-elasticsearch:1.20
+>>>>>>> Update localization guidelines (#10485)
         resources:
           limits:
             memory: 200Mi

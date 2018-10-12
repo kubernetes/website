@@ -109,7 +109,11 @@ load-balanced access to an application running in a cluster.
 
    {{< note >}}
 <!--
+<<<<<<< HEAD
     If you are using Minikube, you don't get an external IP address. The
+=======
+   **Note:** If you are using Minikube, you don't get an external IP address. The
+>>>>>>> Update localization guidelines (#10485)
    external IP address remains in the pending state.
 -->
    **注意：** 如果您使用 Minikube，那么您将不会获得外部 IP 地址。外部 IP 地址将保持 pending 状态。
@@ -139,7 +143,11 @@ load-balanced access to an application running in a cluster.
 
    {{< note >}}
 <!--
+<<<<<<< HEAD
    If you are using Minikube, enter these commands:
+=======
+   **Note:** If you are using Minikube, enter these commands:
+>>>>>>> Update localization guidelines (#10485)
 -->
    **注意：** 如果您使用 Minikube，输入以下命令：
    {{< /note >}}

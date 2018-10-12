@@ -12,6 +12,7 @@ title: 资源配额
 
 资源配额的工作方式如下：
 
+<<<<<<< HEAD
 - 不同的团队在不同的namespace下工作。 目前这是自愿的， 但计划通过ACL (Access Control List 访问控制列表) 
   使其变为强制性的。
 - 管理员为每个namespace创建一个或多个资源配额对象。
@@ -20,6 +21,16 @@ title: 资源配额
 - 如果资源的创建或更新违反了配额约束，则请求会失败，并返回 HTTP状态码 `403 FORBIDDEN` ，以及说明违反配额
   约束的信息。
 - 如果namespace下的计算资源 （如 `cpu` 和 `memory`）的配额被启用，则用户必须为这些资源设定请求值（request）
+=======
+- 不同的团队在不同的namespace下工作。 目前这是自愿的， 但计划通过ACL (Access Control List 访问控制列表) 
+  使其变为强制性的。
+- 管理员为每个namespace创建一个或多个资源配额对象。
+- 用户在namespace下创建资源 (pods、 services等)，同时配额系统会跟踪使用情况，来确保其不超过
+  资源配额中定义的硬性资源限额。
+- 如果资源的创建或更新违反了配额约束，则请求会失败，并返回 HTTP状态码 `403 FORBIDDEN` ，以及说明违反配额
+  约束的信息。
+- 如果namespace下的计算资源 （如 `cpu` 和 `memory`）的配额被启用，则用户必须为这些资源设定请求值（request）
+>>>>>>> Update localization guidelines (#10485)
   和约束值（limit），否则配额系统将拒绝Pod的创建。  
   提示: 可使用 LimitRange 准入控制器来为没有设置计算资源需求的Pod设置默认值。
   作为示例，请参考 [演练](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) 来避免这个问题。

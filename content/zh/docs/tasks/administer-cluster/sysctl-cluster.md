@@ -103,7 +103,11 @@ The following sysctls are supported in the _safe_ set:
 
 {{< note >}}
 <!--
+<<<<<<< HEAD
 The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
+=======
+**Note**: The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
+>>>>>>> Update localization guidelines (#10485)
 --->
 **注意**: 示例中的 `net.ipv4.tcp_syncookies` 在Linux 内核 4.4 或更低的版本中是无命名空间的。
 {{< /note >}}
@@ -136,7 +140,11 @@ flag of the kubelet, e.g.:
 
 ```shell
 $ kubelet --allowed-unsafe-sysctls \
+<<<<<<< HEAD
   'kernel.msg*,net.core.somaxconn' ...
+=======
+  'kernel.msg*,net.ipv4.route.min_pmtu' ...
+>>>>>>> Update localization guidelines (#10485)
 ```
 <!--
 For minikube, this can be done via the `extra-config` flag:
@@ -144,7 +152,11 @@ For minikube, this can be done via the `extra-config` flag:
 如果您使用 minikube，可以通过 `extra-config` 参数来配置：
 
 ```shell
+<<<<<<< HEAD
 $ minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.core.somaxconn"...
+=======
+$ minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
+>>>>>>> Update localization guidelines (#10485)
 ```
 <!--
 Only _namespaced_ sysctls can be enabled this way.
@@ -173,10 +185,14 @@ in future versions of the Linux kernel.
 - `kernel.msg*`,
 - `kernel.sem`,
 - `fs.mqueue.*`,
+<<<<<<< HEAD
 - `net.*`（内核中网络配置项相关参数），如果它可以在容器命名空间里被更改。然而，也有一些特例
   (例如，`net.netfilter.nf_conntrack_max` 和
   `net.netfilter.nf_conntrack_expect_max`
   可以在容器命名空间里被更改，但它们是非命名空间的)。
+=======
+- `net.*`.
+>>>>>>> Update localization guidelines (#10485)
 
 <!--
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set
@@ -193,11 +209,19 @@ applies to all containers in the same pod.
 
 <!--
 This example uses the pod securityContext to set a safe sysctl
+<<<<<<< HEAD
 `kernel.shm_rmid_forced` and two unsafe sysctls `net.core.somaxconn` and
 `kernel.msgmax` There is no distinction between _safe_ and _unsafe_ sysctls in
 the specification.
 --->
 此示例中，使用 Pod SecurityContext 来对一个安全的 sysctl 参数 `kernel.shm_rmid_forced` 以及两个非安全的 sysctl 参数 `net.core.somaxconn`和 `kernel.msgmax` 进行设置。在 Pod 规格中对 _安全的_ 和 _非安全的_ sysctl 参数不做区分。
+=======
+`kernel.shm_rmid_forced` and two unsafe sysctls `net.ipv4.route.min_pmtu` and
+`kernel.msgmax` There is no distinction between _safe_ and _unsafe_ sysctls in
+the specification.
+--->
+此示例中，使用 Pod SecurityContext 来对一个安全的 sysctl 参数 `kernel.shm_rmid_forced` 以及两个非安全的 sysctl 参数 `net.ipv4.route.min_pmtu`和 `kernel.msgmax` 进行设置。在 Pod 规格中对 _安全的_ 和 _非安全的_ sysctl 参数不做区分。
+>>>>>>> Update localization guidelines (#10485)
 
 {{< warning >}}
 <!--
@@ -217,8 +241,13 @@ spec:
     sysctls:
     - name: kernel.shm_rmid_forced
       value: "0"
+<<<<<<< HEAD
     - name: net.core.somaxconn
       value: "1024"
+=======
+    - name: net.ipv4.route.min_pmtu
+      value: "552"
+>>>>>>> Update localization guidelines (#10485)
     - name: kernel.msgmax
       value: "65536"
   ...
@@ -229,7 +258,11 @@ spec:
 
 {{< warning >}}
 <!--
+<<<<<<< HEAD
 Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
+=======
+**Warning**: Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
+>>>>>>> Update localization guidelines (#10485)
 is at-your-own-risk and can lead to severe problems like wrong behavior of
 containers, resource shortage or complete breakage of a node.
 --->
@@ -302,7 +335,11 @@ given sysctl is both allowed and forbidden.
 
 {{< warning >}}
 <!--
+<<<<<<< HEAD
 If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
+=======
+**Warning**: If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
+>>>>>>> Update localization guidelines (#10485)
 in a PodSecurityPolicy, any pod using such a sysctl will fail to start
 if the sysctl is not whitelisted via the `--allowed-unsafe-sysctls` kubelet
 flag as well on that node.

@@ -137,7 +137,11 @@ which should produce output like this:
     Selector:               app=example
     Type:                   LoadBalancer
     IP:                     10.67.252.103
+<<<<<<< HEAD
     LoadBalancer Ingress:   192.0.2.89
+=======
+    LoadBalancer Ingress:   123.45.678.9
+>>>>>>> Update localization guidelines (#10485)
     Port:                   <unnamed> 80/TCP
     NodePort:               <unnamed> 32445/TCP
     Endpoints:              10.64.0.4:80,10.64.1.5:80,10.64.2.4:80
@@ -152,7 +156,11 @@ IP 地址列在 `LoadBalancer Ingress` 旁边。
 
 {{< note >}}
 <!--
+<<<<<<< HEAD
 If you are running your service on Minikube, you can find the assigned IP address and port with:
+=======
+**Note**: If you are running your service on Minikube, you can find the assigned IP address and port with:
+>>>>>>> Update localization guidelines (#10485)
 -->
 **注意：** 如果您在 Minikube 上运行服务，您可以通过以下命令找到分配的 IP 地址和端口：
 {{< /note >}}

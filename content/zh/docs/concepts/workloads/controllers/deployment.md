@@ -1,5 +1,9 @@
 ---
 approvers:
+<<<<<<< HEAD
+=======
+- bgrant0607
+>>>>>>> Update localization guidelines (#10485)
 - janetkuo
 title: Deployments
 content_template: templates/concept
@@ -13,7 +17,11 @@ A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts
 You describe a _desired state_ in a Deployment object, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
 {{< note >}}
+<<<<<<< HEAD
 You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
+=======
+**Note:** You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
+>>>>>>> Update localization guidelines (#10485)
 {{< /note >}}
 
 {{% /capture %}}
@@ -102,7 +110,11 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 The created ReplicaSet ensures that there are three nginx Pods at all times.
 
 {{< note >}}
+<<<<<<< HEAD
 You must specify an appropriate selector and pod template labels in a Deployment (in this case,
+=======
+**Note:** You must specify an appropriate selector and pod template labels in a Deployment (in this case,
+>>>>>>> Update localization guidelines (#10485)
 `app = nginx`). That is, don't overlap with other controllers (including other Deployments, ReplicaSets,
 StatefulSets, etc.). Kubernetes doesn't stop you from overlapping, and if multiple
 controllers have overlapping selectors, those controllers may fight with each other and won't behave
@@ -112,7 +124,11 @@ correctly.
 ### Pod-template-hash label
 
 {{< note >}}
+<<<<<<< HEAD
 Do not change this label.
+=======
+**Note:** Do not change this label.
+>>>>>>> Update localization guidelines (#10485)
 {{< /note >}}
 
 Note the pod-template-hash label in the example output in the pod labels above. This label is added by the
@@ -124,7 +140,11 @@ and in any existing Pods that the ReplicaSet may have.
 ## Updating a Deployment
 
 {{< note >}}
+<<<<<<< HEAD
 A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
+=======
+**Note:** A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
+>>>>>>> Update localization guidelines (#10485)
 is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 {{< /note >}}
 
@@ -196,7 +216,11 @@ In a future version of Kubernetes, the defaults will change from 1-1 to 25%-25%.
 For example, if you look at the above Deployment closely, you will see that it first created a new Pod,
 then deleted some old Pods and created new ones. It does not kill old Pods until a sufficient number of
 new Pods have come up, and does not create new Pods until a sufficient number of old Pods have been killed.
+<<<<<<< HEAD
 It makes sure that the number of available Pods is at least 2 and the number of total Pods is at most 4.
+=======
+It makes sure that number of available Pods is at least 2 and the number of total Pods is at most 4.
+>>>>>>> Update localization guidelines (#10485)
 
 ```shell
 $ kubectl describe deployments
@@ -269,7 +293,11 @@ By default, all of the Deployment's rollout history is kept in the system so tha
 (you can change that by modifying revision history limit).
 
 {{< note >}}
+<<<<<<< HEAD
 A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
+=======
+**Note:** A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
+>>>>>>> Update localization guidelines (#10485)
 new revision is created if and only if the Deployment's pod template (`.spec.template`) is changed,
 for example if you update the labels or container images of the template. Other updates, such as scaling the Deployment,
 do not create a Deployment revision, so that we can facilitate simultaneous manual- or auto-scaling.
@@ -317,7 +345,11 @@ nginx-deployment-3066724191-eocby   0/1       ImagePullBackOff   0          6s
 ```
 
 {{< note >}}
+<<<<<<< HEAD
 The Deployment controller will stop the bad rollout automatically, and will stop scaling up the new
+=======
+**Note:** The Deployment controller will stop the bad rollout automatically, and will stop scaling up the new
+>>>>>>> Update localization guidelines (#10485)
 ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
 Kubernetes by default sets the value to 1 and spec.replicas to 1 so if you haven't cared about setting those
 parameters, your Deployment can have 100% unavailability by default! This will be fixed in Kubernetes in a future
@@ -397,7 +429,11 @@ $ kubectl rollout undo deployment/nginx-deployment
 deployment "nginx-deployment" rolled back
 ```
 
+<<<<<<< HEAD
 Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
+=======
+Alternatively, you can rollback to a specific revision by specify that in `--to-revision`:
+>>>>>>> Update localization guidelines (#10485)
 
 ```shell
 $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
@@ -595,7 +631,11 @@ nginx-3926361531   3         3         3         28s
 ```
 
 {{< note >}}
+<<<<<<< HEAD
 You cannot rollback a paused Deployment until you resume it.
+=======
+**Note:** You cannot rollback a paused Deployment until you resume it.
+>>>>>>> Update localization guidelines (#10485)
 {{< /note >}}
 
 ## Deployment status
@@ -665,16 +705,27 @@ attributes to the Deployment's `status.conditions`:
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
+<<<<<<< HEAD
 See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 {{< note >}}
 Kubernetes will take no action on a stalled Deployment other than to report a status condition with
+=======
+See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
+
+{{< note >}}
+**Note:** Kubernetes will take no action on a stalled Deployment other than to report a status condition with
+>>>>>>> Update localization guidelines (#10485)
 `Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
 example, rollback the Deployment to its previous version.
 {{< /note >}}
 
 {{< note >}}
+<<<<<<< HEAD
 If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can
+=======
+**Note:** If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can
+>>>>>>> Update localization guidelines (#10485)
 safely pause a Deployment in the middle of a rollout and resume without triggering the condition for exceeding the
 deadline.
 {{< /note >}}
@@ -779,7 +830,11 @@ this Deployment you want to retain. The rest will be garbage-collected in the ba
 all revision history will be kept. In a future version, it will default to switch to 2.
 
 {{< note >}}
+<<<<<<< HEAD
 Explicitly setting this field to 0, will result in cleaning up all the history of your Deployment
+=======
+**Note:** Explicitly setting this field to 0, will result in cleaning up all the history of your Deployment
+>>>>>>> Update localization guidelines (#10485)
 thus that Deployment will not be able to roll back.
 {{< /note >}}
 
@@ -797,7 +852,11 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/tutorials/object-management-kubectl/object-management/) documents.
 
+<<<<<<< HEAD
 A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
+=======
+A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+>>>>>>> Update localization guidelines (#10485)
 
 ### Pod Template
 
@@ -830,7 +889,11 @@ from `.spec.template` or if the total number of such Pods exceeds `.spec.replica
 Pods with `.spec.template` if the number of Pods is less than the desired number.
 
 {{< note >}}
+<<<<<<< HEAD
 You should not create other pods whose labels match this selector, either directly, by creating
+=======
+**Note:** You should not create other pods whose labels match this selector, either directly, by creating
+>>>>>>> Update localization guidelines (#10485)
 another Deployment, or by creating another controller such as a ReplicaSet or a ReplicationController. If you
 do so, the first Deployment thinks that it created these other pods. Kubernetes does not stop you from doing this.
 {{< /note >}}
