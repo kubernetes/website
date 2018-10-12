@@ -126,6 +126,7 @@ aliases:
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews 
+    - jimangel
     - rajakavitha1
     - stewart-yu
     - xiangpengzhao
@@ -158,6 +159,7 @@ aliases:
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
     - tengqm
     - xiangpengzhao
+
     - zhangxiaoyu-zidif
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
