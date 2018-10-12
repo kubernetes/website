@@ -1,0 +1,83 @@
+---
+title: Kubernetes Developer Guide
+---
+
+The developer guide is for anyone wanting to either write code which directly accesses the
+Kubernetes API, or to contribute directly to the Kubernetes project.
+It assumes some familiarity with concepts in the [User Guide](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/http://kubernetes.io/docs/user-guide/) and the [Cluster Admin
+Guide](http://kubernetes.io/docs/admin/).
+
+
+## The process of developing and contributing code to the Kubernetes project
+
+* **Contributor Guide**
+  ([Please start here](src/github.com/kubernetes/community/tree/master/contributors/guide/README.md)) to learn about how to contribute to Kubernetes
+
+* **GitHub Issues** ([/contributors/guide/issue-triage.md](src/github.com/kubernetes/community/tree/master/contributors/guide/issue-triage.md)): How incoming issues are triaged.
+
+* **Pull Request Process** ([/contributors/guide/pull-requests.md](src/github.com/kubernetes/community/tree/master/contributors/guide/pull-requests.md)): When and why pull requests are closed.
+
+* **Getting Recent Builds** ([getting-builds.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/getting-builds.md)): How to get recent builds including the latest builds that pass CI.
+
+* **Automated Tools** ([automation.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/automation.md)): Descriptions of the automation that is running on our github repository.
+
+
+## Setting up your dev environment, coding, and debugging
+
+* **Development Guide** ([development.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/development.md)): Setting up your development environment.
+
+* **Testing** ([testing.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/testing.md)): How to run unit, integration, and end-to-end tests in your development sandbox.
+
+* **Conformance Testing** ([conformance-tests.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/conformance-tests.md))
+  What is conformance testing and how to create/manage them.
+
+* **Hunting flaky tests** ([flaky-tests.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/flaky-tests.md)): We have a goal of 99.9% flake free tests.
+  Here's how to run your tests many times.
+
+* **Logging Conventions** ([logging.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/logging.md)): Glog levels.
+
+* **Profiling Kubernetes** ([profiling.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/profiling.md)): How to plug in go pprof profiler to Kubernetes.
+
+* **Instrumenting Kubernetes with a new metric**
+  ([instrumentation.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/instrumentation.md)): How to add a new metrics to the
+  Kubernetes code base.
+
+* **Coding Conventions** ([coding-conventions.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/../guide/coding-conventions.md)):
+  Coding style advice for contributors.
+
+* **Document Conventions** ([how-to-doc.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/how-to-doc.md))
+  Document style advice for contributors.
+
+* **Running a cluster locally** ([running-locally.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/running-locally.md)):
+  A fast and lightweight local cluster deployment for development.
+
+## Developing against the Kubernetes API
+
+* The [REST API documentation](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/http://kubernetes.io/docs/reference/) explains the REST
+  API exposed by apiserver.
+
+* **Annotations** ([Annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/)): are for attaching arbitrary non-identifying metadata to objects.
+  Programs that automate Kubernetes objects may use annotations to store small amounts of their state.
+
+* **API Conventions** ([api-conventions.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/api-conventions.md)):
+  Defining the verbs and resources used in the Kubernetes API.
+
+* **API Client Libraries** ([client-libraries.md](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/client-libraries.md)):
+  A list of existing client libraries, both supported and user-contributed.
+
+
+## Writing plugins
+
+* **Authentication** ([Authentication](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/http://kubernetes.io/docs/admin/authentication/)):
+  The current and planned states of authentication tokens.
+
+* **Authorization Plugins** ([Authorization](src/github.com/kubernetes/community/tree/master//tmp/update_docs/src/github.com/kubernetes/community/contributors/devel/http://kubernetes.io/docs/admin/authorization/)):
+  Authorization applies to all HTTP requests on the main apiserver port.
+  This doc explains the available authorization implementations.
+
+* **Admission Control Plugins** ([admission_control](src/github.com/kubernetes/community/tree/master/contributors/design-proposals/api-machinery/admission_control.md))
+
+
+## Building releases
+
+See the [kubernetes/release](https://github.com/kubernetes/release) repository for details on creating releases and related tools and helper scripts.
