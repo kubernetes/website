@@ -351,18 +351,17 @@ Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 Press Ctrl-C to stop the above rollout status watch. For more information on stuck rollouts,
 [read more here](#deployment-status).
 
-You will also see that both the number of old replicas (nginx-deployment-1564180365 and
-nginx-deployment-2035384211) and new replicas (nginx-deployment-3066724191) are 2.
+You will see that the number of old replicas (nginx-deployment-1564180365 and nginx-deployment-2035384211) is 2, and new replicas (nginx-deployment-3066724191) is 1.
 
 ```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-1564180365   2         2         2       25s
 nginx-deployment-2035384211   0         0         0       36s
-nginx-deployment-3066724191   2         2         0       6s
+nginx-deployment-3066724191   1         1         0       6s
 ```
 
-Looking at the Pods created, you will see that the 2 Pods created by new ReplicaSet are stuck in an image pull loop.
+Looking at the Pods created, you will see that 1 Pod created by new ReplicaSet is stuck in an image pull loop.
 
 ```shell
 $ kubectl get pods
@@ -370,15 +369,12 @@ NAME                                READY     STATUS             RESTARTS   AGE
 nginx-deployment-1564180365-70iae   1/1       Running            0          25s
 nginx-deployment-1564180365-jbqqo   1/1       Running            0          25s
 nginx-deployment-3066724191-08mng   0/1       ImagePullBackOff   0          6s
-nginx-deployment-3066724191-eocby   0/1       ImagePullBackOff   0          6s
 ```
 
 {{< note >}}
 **Note:** The Deployment controller will stop the bad rollout automatically, and will stop scaling up the new
 ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
-Kubernetes by default sets the value to 1 and `.spec.replicas` to 1 so if you haven't cared about setting those
-parameters, your Deployment can have 100% unavailability by default! This will be fixed in Kubernetes in a future
-version.
+Kubernetes by default sets the value to 25%.
 {{< /note >}}
 
 ```shell
@@ -388,12 +384,12 @@ Namespace:      default
 CreationTimestamp:  Tue, 15 Mar 2016 14:48:04 -0700
 Labels:         app=nginx
 Selector:       app=nginx
-Replicas:       2 updated | 3 total | 2 available | 2 unavailable
+Replicas:       1 updated | 3 total | 2 available | 1 unavailable
 StrategyType:       RollingUpdate
 MinReadySeconds:    0
-RollingUpdateStrategy:  1 max unavailable, 1 max surge
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
 OldReplicaSets:     nginx-deployment-1564180365 (2/2 replicas created)
-NewReplicaSet:      nginx-deployment-3066724191 (2/2 replicas created)
+NewReplicaSet:      nginx-deployment-3066724191 (1/1 replicas created)
 Events:
   FirstSeen LastSeen    Count   From                    SubobjectPath   Type        Reason              Message
   --------- --------    -----   ----                    -------------   --------    ------              -------
@@ -404,8 +400,6 @@ Events:
   21s       21s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-2035384211 to 0
   21s       21s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 3
   13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 1
-  13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled down replica set nginx-deployment-1564180365 to 2
-  13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 2
 ```
 
 To fix this, you need to rollback to a previous revision of Deployment that is stable.
