@@ -36,9 +36,6 @@ For both methods you need this infrastructure:
 - Three machines that meet [kubeadm's minimum
   requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for
   the masters
-- Three machines that meet [kubeadm's minimum
-  requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for
-  the workers
 - Full network connectivity between all machines in the cluster (public or
   private network is fine)
 - SSH access from one device to all nodes in the system
