@@ -141,7 +141,7 @@ the magnitude of any potential scale.
 
 Furthermore, if any not-yet-ready pods were present, and we would have
 scaled up without factoring in missing metrics or not-yet-ready pods, we
-conservatively assume the non-yet-ready pods are consuming 0% of the
+conservatively assume the not-yet-ready pods are consuming 0% of the
 desired metric, further dampening the magnitude of a scale up.
 
 After factoring in the not-yet-ready pods and missing metrics, we
