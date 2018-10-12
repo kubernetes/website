@@ -130,6 +130,36 @@ aliases:
     - rajakavitha1
     - stewart-yu
     - xiangpengzhao
+    - zhangxiaoyu
+  sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
+    - cstoku
+    - nasa9084
+    - tnir
+  sig-docs-ja-reviews: #Team: Japanese docs PR reviews; GH:sig-docs-ja-reviews 
+    - cstoku
+    - makocchi-git
+    - MasayaAoyama
+    - nasa9084
+    - tnir
+  sig-docs-ko-owners: #Team Korean docs localization; GH: sig-docs-ko-owners
+    - ClaudiaJKang
+    - gochist
+  sig-docs-ko-reviews: #Team Korean docs reviews; GH: sig-docs-ko-reviews
+    - ClaudiaJKang
+    - gochist
+    - ianychoi
+  sig-docs-zh-owners: #Team Chinese docs localization; GH: sig-docs-zh-owners
+    - dchen1107
+    - haibinxie
+    - hanjiayao
+    - lichuqiang
+    - tengqm
+    - xiangpengzhao
+    - zhangxiaoyu-zidif
+  sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
+    - tengqm
+    - xiangpengzhao
+
     - zhangxiaoyu-zidif
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
