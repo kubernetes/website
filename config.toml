@@ -7,7 +7,7 @@ enableRobotsTXT = true
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
-ignoreFiles = [ "^OWNERS$", "README.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
+ignoreFiles = [ "^OWNERS$", "README[-]+[a-z]*\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
 contentDir = "content/en"
 
@@ -131,25 +131,29 @@ description = "Production-Grade Container Orchestration"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
-[languages.cn]
+
+[languages.zh]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName = "Chinese"
+languageName = "中文 Chinese"
 weight = 2
-contentDir = "content/cn"
+contentDir = "content/zh"
+
+[languages.ko]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "한국어 Korean"
+weight = 3
+contentDir = "content/ko"
+
 [languages.no]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
 languageName ="Norsk"
-weight = 3
+weight = 4
 contentDir = "content/no"
+
 [languages.no.params]
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
-[languages.ko]
-title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
-languageName = "Korean"
-weight = 4
-contentDir = "content/ko"
