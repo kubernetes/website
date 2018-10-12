@@ -130,7 +130,7 @@ aliases:
     - rajakavitha1
     - stewart-yu
     - xiangpengzhao
-    - zhangxiaoyu
+    - zhangxiaoyu-zidif
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
