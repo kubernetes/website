@@ -25,9 +25,9 @@ def processLinks(content, remotePrefix, subPath):
                 target.startswith("mailto:") or
                 target.startswith("#")):
             if target.startswith("/"):
-                target = "/".join(remotePrefix, target[1:])
+                target = "/".join((remotePrefix, target[1:]))
             else:
-                target = "/".join(remotePrefix, subPath, target)
+                target = "/".join((remotePrefix, subPath, target))
 
         return "[%s](%s)" % (ankor, target)
 
