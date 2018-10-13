@@ -14,9 +14,7 @@ content_template: templates/concept
 ---
 
 <!--
-{{% capture overview %}}
 Kubernetes contains several built-in tools to help you work with the Kubernetes system.
-{{% /capture %}}
 -->
 {{% capture overview %}}
 Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernetes 系统。
@@ -102,7 +100,6 @@ Use Kompose to:
 * Translate a Docker Compose file into Kubernetes objects
 * Go from local Docker development to managing your application via Kubernetes
 * Convert v1 or v2 Docker Compose `yaml` files or [Distributed Application Bundles](https://docs.docker.com/compose/bundles/)
-{{% /capture %}}
 -->
 使用 Kompose:
 
