@@ -179,7 +179,7 @@ to base your work on. Use these guidelines to make the decision:
 
 - Use `master` for fixing problems in content that is already published, or
   making improvements to content that already exists.
-- Use a release branch (such as `release-1.12`) to document upcoming features
+  - Use a release branch (such as `dev-{{< release-branch >}}` for the {{< release-branch >}} release) to document upcoming features
   or changes for an upcoming release that is not yet published.
 - Use a feature branch that has been agreed upon by SIG Docs to collaborate on
   big improvements or changes to the existing documentation, including content
