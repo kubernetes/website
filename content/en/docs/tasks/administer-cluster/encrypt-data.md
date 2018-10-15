@@ -17,16 +17,6 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * etcd v3 or later is required
 
-* Encryption at rest is alpha in 1.7.0 which means it may change without notice. Users may be required to decrypt their data prior to upgrading to 1.8.0.
-
-{{% /capture %}}
-
-{{< toc >}}
-
-{{% capture prerequisites %}}
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 {{% /capture %}}
 
 {{% capture steps %}}
