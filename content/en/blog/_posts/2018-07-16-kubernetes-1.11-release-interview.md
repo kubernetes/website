@@ -122,7 +122,7 @@ TIM PEPPER: A test escape, another way to think of it as you shipped a bug becau
 
 TIM PEPPER: It's common for us to focus on "I've created this feature and I'm testing the positive cases". And this also comes to thinking about things like secure by default and having a really robust system. A harder piece of engineering often is to think about the failure cases and really actively manage those well. 
 
-JOSH BERKUS: I had a conversation with a contributor recently where it became apparent that that contributor had never worked on a support team, because their conception of a badly behaved user was, like, a hacker, right? An attacker who comes from outside. 
+JOSH BERKUS: I had a conversation with a contributor recently where it became apparent that contributor had never worked on a support team, because their conception of a badly behaved user was, like, a hacker, right? An attacker who comes from outside. 
 
 And I'm like, no, no, no. You're stable of badly behaved users is your own staff. You know, they will do bad things, not necessarily intending to do bad things, but because they're trying to take a shortcut. And that is actually your primary concern in terms of preventing breaking the system. 
 
@@ -158,7 +158,7 @@ But then you start also getting interactions. Maybe a bug was introduced, and ot
 
 And maybe because I'm following Josh into this role from a bug triage position and in his mentions earlier of just the communications and tracking involved with that versus triage, I do have a bit of a concern that at times, email and Slack are relatively quiet. Some of the SIG meeting notes are a bit sparse or YouTube videos slow to upload. So the general artifacts around choice making I think is an area where we need a little more rigor. So I'm hoping to see some of that. 
 
-And that can be just as subtle as commenting on issues like, hey, this commit doesn't say what it's doing. And for that reason on the release team, we can't assess its risk versus value. So could you give a little more information here? Things like that that give more information both to the release team and the development community as well, because this is open source. And to collaborate, you really do need to communicate in depth. 
+And that can be just as subtle as commenting on issues like, hey, this commit doesn't say what it's doing. And for that reason on the release team, we can't assess its risk versus value. So could you give a little more information here? Things like that give more information both to the release team and the development community as well, because this is open source. And to collaborate, you really do need to communicate in depth. 
 
 <b>CRAIG BOX: Speaking of cultural changes, professional baker to Kubernetes' release lead sounds like quite a journey.</b>
 
@@ -234,7 +234,7 @@ JOSH BERKUS: And so that made a big difference. And the second thing that was pr
 
 JOSH BERKUS: We had a lot of problems with flaky tests. We have a lot of old tests that are not all that well maintained, and they're testing very complicated things like upgrading a cluster that has 40 nodes. And as a result, these tests have high failure rates that have very little to do with any change in the code. 
 
-And so one of the things that happened, and the reason we had a one-day delay in the release is, you know, we're a week out from release, and just by random luck of the draw, a bunch of these tests all at once got a run of failures. And it turned out that that run of failures didn't actually mean anything, having anything to do with Kubernetes. But there was no way for us to tell that without a lot of research, and we were not going to have enough time for that research without delaying the release. 
+And so one of the things that happened, and the reason we had a one-day delay in the release is, you know, we're a week out from release, and just by random luck of the draw, a bunch of these tests all at once got a run of failures. And it turned out that run of failures didn't actually mean anything, having anything to do with Kubernetes. But there was no way for us to tell that without a lot of research, and we were not going to have enough time for that research without delaying the release. 
 
 So one of the things we're looking to address in the 1.12 cycle is to actually move some of those flaky tests out. Either fix them or move them out of the release blocking category. 
 
@@ -258,7 +258,7 @@ And then the second thing, like I said, is that we didn't have sort of major, un
 
 You know, number one was having the scalability tests start failing for unrelated reasons for a long period, which then masked the fact that they were actually failing for real reasons when we actually got them working again. And as a result, ending up debugging a major and super complicated scalability issue within days of what was supposed to be the original release date. So that was monkey wrench number one for the 1.10 cycle. 
 
-Monkey wrench number two for the 1.10 cycle was we got a security hole that needed to be patched. And so again, a week out from what was supposed to be the original release date, we were releasing a security update, and that security update required patching the release branch. And it turns out that that patch against the release branch broke a bunch of incoming features. And we didn't get anything of that magnitude in the 1.11 release, and I'm thankful for that. 
+Monkey wrench number two for the 1.10 cycle was we got a security hole that needed to be patched. And so again, a week out from what was supposed to be the original release date, we were releasing a security update, and that security update required patching the release branch. And it turns out that patch against the release branch broke a bunch of incoming features. And we didn't get anything of that magnitude in the 1.11 release, and I'm thankful for that. 
 
 TIM PEPPER: Also, I would maybe argue in a way that a portion of that wasn't just luck. The extent to which this community has a good team, not just the release team but beyond, some of this goes to active work that folks all across the project, but especially in the contributor experience SIG are doing to cultivate a positive and inclusive culture here. And you really see that. When problems crop up, you're seeing people jump on and really try to constructively tackle them. And it's really fun to be a part of that. 
 
