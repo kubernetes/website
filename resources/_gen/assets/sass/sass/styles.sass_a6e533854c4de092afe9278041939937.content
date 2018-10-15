@@ -1663,7 +1663,8 @@ html.search #docsContent {
   #oceanNodes main {
     position: relative;
     clear: both;
-    display: table; }
+    display: table;
+    height: 160px; }
     #oceanNodes main .content {
       display: table-cell;
       position: relative;
