@@ -150,6 +150,12 @@ Add an annotation for the cri-socket to the current node, for example to use doc
 kubectl annotate node <nodename> kubeadm.alpha.kubernetes.io/cri-socket=/var/run/dockershim.sock
 ```
 
+Apply the modified kubeadm-config on the node:
+
+```shell
+kubectl apply -f kubeadm-config-cm.yaml --force
+```
+
 Start the upgrade:
 
 ```shell
