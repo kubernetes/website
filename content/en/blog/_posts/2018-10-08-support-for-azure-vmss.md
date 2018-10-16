@@ -14,7 +14,7 @@ _Azure VMSS allow you to create and manage identical, load balanced VMs that aut
 
 Cluster autoscaler allows you to adjust the size of the Kubernetes clusters based on the load conditions automatically.
 
-Another exciting feature which v1.12 brings to the table is the the ability to use User Assigned Identities with Kubernetes clusters [[12]](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
+Another exciting feature which v1.12 brings to the table is the ability to use User Assigned Identities with Kubernetes clusters [[12]](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
 
 In this article, we will do a brief overview of VMSS, cluster autoscaler and user assigned identity features on Azure.
 
