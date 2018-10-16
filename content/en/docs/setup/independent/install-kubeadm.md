@@ -23,11 +23,11 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
   - HypriotOS v1.0.1+
   - Container Linux (tested with 1800.6.0)
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
-* 2 CPUs or more 
+* 2 CPUs or more
 * Full network connectivity between all machines in the cluster (public or private network is fine)
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
-* Swap disabled. You **MUST** disable swap in order for the kubelet to work properly. 
+* Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
 
 {{% /capture %}}
 
@@ -105,10 +105,10 @@ You will install these packages on all of your machines:
 
 * `kubectl`: the command line util to talk to your cluster.
 
-kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will 
-need to ensure they match the version of the Kubernetes control panel you want 
+kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
+need to ensure they match the version of the Kubernetes control panel you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
-can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the 
+can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa.
@@ -119,7 +119,7 @@ This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
 {{</ warning >}}
 
-For more information on version skews, please read our 
+For more information on version skews, please read our
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
 
 {{< tabs name="k8s_install" >}}
@@ -128,7 +128,7 @@ For more information on version skews, please read our
 apt-get update && apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
+deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 apt-get update
 apt-get install -y kubelet kubeadm kubectl
@@ -164,7 +164,7 @@ systemctl enable kubelet && systemctl start kubelet
     You have to do this until SELinux support is improved in the kubelet.
   - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
     `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
-  
+
     ```bash
     cat <<EOF >  /etc/sysctl.d/k8s.conf
     net.bridge.bridge-nf-call-ip6tables = 1
@@ -251,7 +251,3 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 * [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/)
 
 {{% /capture %}}
-
-
-
-

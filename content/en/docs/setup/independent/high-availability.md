@@ -306,6 +306,7 @@ done
     ```sh
     kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
     kubeadm alpha phase controlplane all --config kubeadm-config.yaml
+    kubeadm alpha phase kubelet config annotate-cri --config kubeadm-config.yaml
     kubeadm alpha phase mark-master --config kubeadm-config.yaml
     ```
 
@@ -393,6 +394,7 @@ done
     ```sh
     kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
     kubeadm alpha phase controlplane all --config kubeadm-config.yaml
+    kubeadm alpha phase kubelet config annotate-cri --config kubeadm-config.yaml
     kubeadm alpha phase mark-master --config kubeadm-config.yaml
     ```
 
