@@ -11,7 +11,7 @@ date: 2018-10-16
 
 
 The 2018 North American Kubernetes Contributor Summit to be hosted right before
-[CloudNativeCon/KubeCon][kubecon] Seattle is shaping up to be the largest yet.
+[KubeCon + CloudNativeCon][kubecon] Seattle is shaping up to be the largest yet.
 It is an event that brings together new and current contributors alike to
 connect and share face-to-face; and serves as an opportunity for existing
 contributors to help shape the future of community development. For new
