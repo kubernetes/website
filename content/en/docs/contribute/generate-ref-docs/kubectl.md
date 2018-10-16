@@ -41,7 +41,7 @@ and your `$GOPATH` environment variable must be set.
 * You need to know how to create a pull request to a GitHub repository.
 Typically, this involves creating a fork of the repository. For more
 information, see
-[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/) and
+[Creating a Documentation Pull Request](https://github.com/kubernetes/website/blob/release-1.11/content/en/docs/home/contribute/create-pull-request.md) and
 [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 
 {{% /capture %}}
