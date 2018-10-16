@@ -158,6 +158,46 @@ header
 	&.flip-nav .flyout-button
 		background-image: url(/images/toc_icon_grey.png)
 
+	#vendorStrip
+		line-height: 44px
+		max-width: 100%
+		overflow-x: scroll
+
+		ul
+			float: none
+
+		#searchBox
+			float: none
+			display: block
+			width: 80%
+			margin: 0 auto
+			height: 44px
+			line-height: 44px
+			position: relative
+
+			&:before
+				position: absolute
+				width: 15px
+				height: 15px
+				content: ''
+				right: 8px
+				top: 7px
+				background-image: url(/images/search-icon.svg)
+				background-repeat: no-repeat
+				background-size: 100% 100%
+				z-index: 1
+
+		#search
+			width: 100%
+			padding: 0 10px
+			height: 30px
+			line-height: 30px
+			font-size: 16px
+			vertical-align: top
+			background: #fff
+			border: none
+			border-radius: 4px
+			position: relative
 
 .nav-buttons
 	float: right
@@ -292,6 +332,23 @@ ul.global-nav
 		.ui-icon
 			filter: brightness(0)
 
+	header
+		box-shadow: 0 1px 2px $medium-grey
+
+	#viewDocs
+		border-color: $dark-grey
+		color: $dark-grey
+
+		&:hover
+			border-color: $blue
+			background-color: $blue
+			color: white
+
+	#hamburger:hover
+		div, &:before, &:after
+			background-color: $dark-grey
+
+
 .flip-nav ul.global-nav li ul li a
 	background: #fff
 	color: $dark-grey
@@ -340,25 +397,6 @@ ul.global-nav
 		border-color: $blue
 
 
-.flip-nav, .open-nav
-	header
-		box-shadow: 0 1px 2px $medium-grey
-
-	#viewDocs
-		border-color: $dark-grey
-		color: $dark-grey
-
-		&:hover
-			border-color: $blue
-			background-color: $blue
-			color: white
-
-	#hamburger:hover
-		div, &:before, &:after
-			background-color: $dark-grey
-
-
-
 // HERO
 #hero
 	background-image: url(/images/texture.png)
@@ -368,6 +406,10 @@ ul.global-nav
 	padding-right: 0
 	margin-bottom: 0
 	position: relative
+
+	h5
+		margin: 20px 0
+		line-height: 28px
 
 	&.bot-bar:after
 		display: block
@@ -395,6 +437,23 @@ ul.global-nav
 	font-weight: 100
 	white-space: nowrap
 	text-align: center
+
+	ul
+		float: left
+
+	li
+		display: inline-block
+		height: 100%
+
+	a
+		display: block
+		height: 100%
+		color: white
+		font-size: 0.75em
+		font-weight: bold
+
+	li + li
+		margin-left: 0
 
 	li a
 		color: transparentize(white, 0.5)
@@ -519,83 +578,6 @@ a.calendar
 
 	&:hover
 		background-position: -250px 100%
-
-#viewDocs
-	display: none
-
-section
-	background-color: white
-
-#hero
-	background-color: $dark-grey
-
-	h5
-		margin: 20px 0
-		line-height: 28px
-
-#vendorStrip
-	position: relative
-
-	ul
-		float: left
-
-	li
-		display: inline-block
-		height: 100%
-
-	a
-		display: block
-		height: 100%
-		color: white
-		font-size: 0.75em
-		font-weight: bold
-
-	li + li
-		margin-left: 0
-
-
-#docs
-	#vendorStrip
-		line-height: 44px
-		max-width: 100%
-		overflow-x: scroll
-
-		ul
-			float: none
-
-		#searchBox
-			float: none
-			display: block
-			width: 80%
-			margin: 0 auto
-			height: 44px
-			line-height: 44px
-			position: relative
-
-			&:before
-				position: absolute
-				width: 15px
-				height: 15px
-				content: ''
-				right: 8px
-				top: 7px
-				background-image: url(/images/search-icon.svg)
-				background-repeat: no-repeat
-				background-size: 100% 100%
-				z-index: 1
-
-		#search
-			width: 100%
-			padding: 0 10px
-			height: 30px
-			line-height: 30px
-			font-size: 16px
-			vertical-align: top
-			background: #fff
-			border: none
-			border-radius: 4px
-			position: relative
-
 
 #encyclopedia
 	position: relative
@@ -1002,9 +984,6 @@ dd
 		ul, li
 			list-style: disk
 
-//	a:visited
-//		color: blueviolet
-
 	a.button
 		border-radius: 2px
 		text-decoration: none
@@ -1087,6 +1066,42 @@ $feature-box-div-margin-bottom: 40px
 		#vendorStrip
 			display: none
 
+	#talkToUs
+		main
+			padding: 30px 0
+
+		h5
+			font-size: 20px
+
+	#caseStudiesWrapper
+		position: relative
+		text-align: center
+		margin-bottom: 30px
+
+		img
+			padding-bottom: 1rem
+
+		div
+			position: relative
+			display: inline-block
+			vertical-align: top
+			width: 100%
+			min-height: 230px
+			margin-bottom: 60px
+			padding-right: 1rem
+			background-position: top center
+
+		p
+			font-size: 20px
+
+		a
+			position: absolute
+			bottom: -30px
+			left: 50%
+			transform: translateX(-50%)
+			color: $blue
+			font-weight: 400
+
 
 // OCEAN NODES
 #oceanNodes
@@ -1123,8 +1138,6 @@ $feature-box-div-margin-bottom: 40px
 // Video thingy
 #video
 	height: $video-section-height
-
-#video
 	width: 100%
 	position: relative
 	background-position: center center
@@ -1271,6 +1284,16 @@ $feature-box-div-margin-bottom: 40px
 	background-repeat: no-repeat
 	background-size: auto
 
+	h3
+		margin-bottom: $features-h3-margin-bottom
+
+	.feature-box
+		margin-bottom: $feature-box-margin-bottom
+
+		& > div
+			width: $feature-box-div-width
+			margin-bottom: $feature-box-div-margin-bottom
+
 .feature-box
 	//padding: 50px 0
 	width: 100%
@@ -1286,19 +1309,6 @@ $feature-box-div-margin-bottom: 40px
 
 	& > div:last-child
 		float: right
-
-#features
-	h3
-		margin-bottom: $features-h3-margin-bottom
-
-	.feature-box
-		margin-bottom: $feature-box-margin-bottom
-
-		& > div
-			width: $feature-box-div-width
-			margin-bottom: $feature-box-div-margin-bottom
-
-
 
 
 // Community
@@ -1624,9 +1634,6 @@ $feature-box-div-margin-bottom: 40px
 		//font-weight: 700
 		text-decoration: underline
 
-//	a:visited
-//		color: blueviolet
-
 	a.button
 		border-radius: 2px
 		text-decoration: none
@@ -1726,46 +1733,6 @@ $feature-box-div-margin-bottom: 40px
 		a, p
 			text-align: center
 			width: 100%
-
-
-#home
-	#talkToUs
-		main
-			padding: 30px 0
-
-		h5
-			font-size: 20px
-
-
-	#caseStudiesWrapper
-		position: relative
-		text-align: center
-		margin-bottom: 30px
-
-		img
-			padding-bottom: 1rem
-
-		div
-			position: relative
-			display: inline-block
-			vertical-align: top
-			width: 100%
-			min-height: 230px
-			margin-bottom: 60px
-			padding-right: 1rem
-			background-position: top center
-
-		p
-			font-size: 20px
-
-		a
-			position: absolute
-			bottom: -30px
-			left: 50%
-			transform: translateX(-50%)
-			color: $blue
-			font-weight: 400
-
 
 
 /* Google Search */
