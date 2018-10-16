@@ -18,6 +18,10 @@
 {{ errorf "[%s] %q not found in %q" $p.Site.Language.Lang $fileDir.File $bundlePath }}
 {{ end }}
 {{ with $.Scratch.Get "content" }}
+{{/* Chroma has limited highlighting for yaml. Using json. */}}
+{{ if (or (eq $codelang "yaml") (eq $codelang "yml")) }} {{ $codelang = "json"}}
+{{ end }}
+
 <table class="includecode" id="{{ $file | anchorize }}">
     <thead>
         <tr>
