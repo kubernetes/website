@@ -86,7 +86,7 @@ In any case the user can skip specific preflight checks (or eventually all prefl
     - [error] if not Kernel 3.10+ or 4+ with specific KernelSpec
     - [error] if required cgroups subsystem aren't in set up
   - if using docker:
-    - [warning/error] if Docker service does not  exists, if it is disabled, if it is not active.
+    - [warning/error] if Docker service does not  exist, if it is disabled, if it is not active.
     - [error] if Docker endpoint does not exist or does not work
     - [warning] if docker version >17.03
   - If using other cri engine:
