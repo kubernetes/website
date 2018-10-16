@@ -20,25 +20,25 @@ contributor workflow to practice.
 
 Unlike previous Contributor Summits, the event now spans two-days with a more
 relaxed ‘hallway’ track and general Contributor get-together to be hosted from
-5-8pm Sunday December 9th at the [Garage Lounge and Gaming Hall][garage], just
+5-8pm on Sunday December 9th at the [Garage Lounge and Gaming Hall][garage], just
 a short walk away from the Convention Center. There, contributors can enjoy
 billiards, bowling, trivia and more; accompanied by a variety of food and drink. 
 
 Things pick up the following day, Monday the 10th with three separate tracks: 
 
-## New Contributor Workshop:
-A half day workshop aimed at getting new and first time contributors on boarded
+### New Contributor Workshop:
+A half day workshop aimed at getting new and first time contributors onboarded
 and comfortable with working within the Kubernetes Community. Staying for the
 duration is required; this is not a workshop you can drop into. 
 
-## Current Contributor Track:
+### Current Contributor Track:
 Reserved for those that are actively engaged with the development of the
 project; the Current Contributor Track includes Talks, Workshops, Birds of a
 Feather, Unconferences, Steering Committee Sessions, and more! Keep an eye on
 the [schedule in GitHub][schedule] as content is frequently being updated.
 
-## Docs Sprint:
-SIG Docs will have a curated list of issues and challenges to be tackled closer
+### Docs Sprint:
+SIG-Docs will have a curated list of issues and challenges to be tackled closer
 to the event date.
 
 ## To Register:
