@@ -7,18 +7,19 @@ short_description: >
   A whole-number representation of small or large numbers using SI suffixes.
 
 aka: 
-tags:
+tags: 
+- core-object
 ---
  A whole-number representation of small or large numbers using SI suffixes.
 
-<!--more--> 
+<!--more-->
 
 Quantities are representations of small or large numbers using a compact,
-whole-number notation with SI suffixes.  Fractional numbers are represented
+whole-number notation with SI suffixes (International System of units; See: http://physics.nist.gov/cuu/Units/binary.html).  Fractional numbers are represented
 using milli-units, while large numbers can be represented using kilo-units,
 mega-units, giga-units, etc.
 
-For instance, the number `1.5` is represented `1500m`, while the number `1000`
+For instance, the number `1.5` is represented as `1500m`, while the number `1000`
 can be represented as `1k`, and `1000000` as `1M`. You can also specify
 binary-notation suffixes; the number 2048 can be written as `2Ki`.
 
@@ -28,3 +29,8 @@ intentionally lowercase), `M` (mega), `G` (giga), `T` (terra), `P` (peta),
 
 The accepted binary (power-of-2) units are `Ki` (kibi), `Mi` (mebi), `Gi` (gibi),
 `Ti` (tebi), `Pi` (pebi), `Ei` (exbi).
+
+See [Horizontal Pod Autoscale Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) for an explanation about quantities and metrics.
+
+See [Quantity resource core](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#quantity-resource-core)
+for more details about serializing and deserializing quantities.
