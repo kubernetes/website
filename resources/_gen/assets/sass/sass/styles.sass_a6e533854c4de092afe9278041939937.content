@@ -572,7 +572,9 @@ section {
     margin-left: 0; }
 
 #docs #vendorStrip {
-  line-height: 44px; }
+  line-height: 44px;
+  max-width: 100%;
+  overflow-x: scroll; }
   #docs #vendorStrip ul {
     float: none; }
   #docs #vendorStrip #searchBox {
