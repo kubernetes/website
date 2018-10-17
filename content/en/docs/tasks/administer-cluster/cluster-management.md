@@ -73,6 +73,7 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 * [kops](https://github.com/kubernetes/kops)
 * [kubespray](https://github.com/kubernetes-incubator/kubespray)
 * [CoreOS Tectonic](https://coreos.com/tectonic/docs/latest/admin/upgrade.html)
+* [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
 
 ## Resizing a cluster
