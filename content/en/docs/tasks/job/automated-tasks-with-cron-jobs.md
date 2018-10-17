@@ -130,6 +130,16 @@ A cron job config also needs a [`.spec` section](https://git.k8s.io/community/co
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 
+The format also includes extended `vixie cron` step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+
+> Step values can be	used in	conjunction with ranges.  Following a range
+> with ``/<number>''	specifies skips	of the number's	value through the
+> range.  For example, ``0-23/2'' can be used in the	hours field to specify
+> command execution every other hour	(the alternative in the	V7 standard is
+> ``0,2,4,6,8,10,12,14,16,18,20,22'').  Steps are also permitted after an
+> asterisk, so if you want to say ``every two hours'', just use ``*/2''.
+
+
 **Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
 
 ### Job Template
