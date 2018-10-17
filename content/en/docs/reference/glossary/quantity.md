@@ -7,7 +7,7 @@ short_description: >
   A whole-number representation of small or large numbers using SI suffixes.
 
 aka: 
-tags: 
+tags:
 - core-object
 ---
  A whole-number representation of small or large numbers using SI suffixes.
@@ -29,8 +29,3 @@ intentionally lowercase), `M` (mega), `G` (giga), `T` (terra), `P` (peta),
 
 The accepted binary (power-of-2) units are `Ki` (kibi), `Mi` (mebi), `Gi` (gibi),
 `Ti` (tebi), `Pi` (pebi), `Ei` (exbi).
-
-- See [Horizontal Pod Autoscale Walkthrough](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) for an explanation about quantities and metrics.
-
-- See [Quantity resource core](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#quantity-resource-core)
-for more details about serializing and deserializing quantities.
