@@ -1,7 +1,6 @@
 ---
 title: v1.12 Release Notes
 title: Release Notes
-content_template: templates/concept
 ---
 <!-- BEGIN MUNGE: GENERATED_TOC -->
 - [v1.12.0-rc.2](#v1120-rc2)
