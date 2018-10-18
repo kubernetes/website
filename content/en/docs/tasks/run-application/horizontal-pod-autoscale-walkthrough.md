@@ -440,7 +440,7 @@ the quantity `10500m` would be written as `10.5` in decimal notation.  The metri
 will return whole numbers without a suffix when possible, and will generally return
 quantities in milli-units otherwise.  This means you might see your metric value fluctuate
 between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.  See the
-[glossary entry on quantities](/docs/reference/glossary/quantity.md) for more information.
+[glossary entry on quantities](/docs/reference/glossary?core-object=true#term-quantity) for more information.
 
 ## Appendix: Other possible scenarios
 

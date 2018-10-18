@@ -568,7 +568,7 @@ For example:
         values: ["cluster-services"]
 ```
 
-See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota supoport for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
+See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota support for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
 
 ## Example
 

@@ -1,3 +1,8 @@
+---
+title: federation-controller-manager
+notitle: true
+---
+
 ## federation-controller-manager
 
 

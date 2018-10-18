@@ -64,11 +64,34 @@ NAME                              READY     STATUS    RESTARTS   AGE
 hello-minikube-3383150820-vctvh   1/1       Running   0          13s
 # We can see that the pod is now Running and we will now be able to curl it:
 $ curl $(minikube service hello-minikube --url)
-CLIENT VALUES:
-client_address=192.168.99.1
-command=GET
-real path=/
-...
+
+
+Hostname: hello-minikube-7c77b68cff-8wdzq
+
+Pod Information:
+	-no pod information available-
+
+Server values:
+	server_version=nginx: 1.13.3 - lua: 10008
+
+Request Information:
+	client_address=172.17.0.1
+	method=GET
+	real path=/
+	query=
+	request_version=1.1
+	request_scheme=http
+	request_uri=http://192.168.99.100:8080/
+
+Request Headers:
+	accept=*/*
+	host=192.168.99.100:30674
+	user-agent=curl/7.47.0
+
+Request Body:
+	-no body in request-
+
+
 $ kubectl delete services hello-minikube
 service "hello-minikube" deleted
 $ kubectl delete deployment hello-minikube
@@ -195,13 +218,6 @@ To switch back to this context later, run this command: `kubectl config use-cont
 
 #### Specifying the Kubernetes version
 
-Minikube supports running multiple different versions of Kubernetes. You can
-access a list of all available versions via
-
-```
-minikube get-k8s-versions
-```
-
 You can specify the specific version of Kubernetes for Minikube to use by
 adding the `--kubernetes-version` string to the `minikube start` command. For
 example, to run version `v1.7.3`, you would run the following:
@@ -223,12 +239,12 @@ configuration struct and `value` is the value to set.
 Valid keys can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
 Here is the documentation for each supported configuration:
 
-* [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/kubeletconfig#KubeletConfiguration)
+* [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
 * [apiserver](https://godoc.org/k8s.io/kubernetes/cmd/kube-apiserver/app/options#ServerRunOptions)
-* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig#KubeProxyConfiguration)
-* [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeControllerManagerConfiguration)
+* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+* [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/controller/apis/config#KubeControllerManagerConfiguration)
 * [etcd](https://godoc.org/github.com/coreos/etcd/etcdserver#ServerConfig)
-* [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeSchedulerConfiguration)
+* [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
 
 #### Examples
 

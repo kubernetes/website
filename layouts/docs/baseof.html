@@ -37,7 +37,7 @@
         {{ end }}
         {{ end }}
         {{ if not .Params.noedit }}
-        <a href="{{ printf "%s#%s" ("docs/editdocs" | relURL) .Path | safeURL }}" class="button issue">{{ T "main_edit_this_page" }}</a>
+        <a href="https://github.com/kubernetes/website/edit/master/content/{{ .Site.Language.Lang }}/{{ .File.Path }}" class="button issue">{{ T "main_edit_this_page" }}</a>
         {{ end }}
       </div>
       {{ if not .Params.showcommit }}

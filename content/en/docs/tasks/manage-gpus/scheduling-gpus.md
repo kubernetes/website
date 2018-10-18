@@ -7,10 +7,13 @@ title: Schedule GPUs
 
 {{% capture overview %}}
 
-Kubernetes includes **experimental** support for managing NVIDIA GPUs spread
+Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs spread
 across nodes. The support for NVIDIA GPUs was added in v1.6 and has gone through
-multiple backwards incompatible iterations. This page describes how users can
-consume GPUs across different Kubernetes versions and the current limitations.
+multiple backwards incompatible iterations.  The support for AMD GPUs was added in
+v1.9 via [device plugin](#deploying-amd-gpu-device-plugin).
+
+This page describes how users can consume GPUs across different Kubernetes versions
+and the current limitations.
 
 {{% /capture %}}
 
@@ -28,14 +31,15 @@ feature gate has to be explicitly set to true across the system:
 `--feature-gates="DevicePlugins=true"`. This is no longer required starting
 from 1.10.
 
-Then you have to install NVIDIA drivers on the nodes and run an NVIDIA GPU device
-plugin ([see below](#deploying-nvidia-gpu-device-plugin)).
+Then you have to install GPU drivers from the corresponding vendor on the nodes
+and run the corresponding device plugin from the GPU vendor
+([AMD](#deploying-amd-gpu-device-plugin), [NVIDIA](#deploying-nvidia-gpu-device-plugin)). 
 
-When the above conditions are true, Kubernetes will expose `nvidia.com/gpu` as
-a schedulable resource.
+When the above conditions are true, Kubernetes will expose `nvidia.com/gpu` or
+`amd.com/gpu` as a schedulable resource.
 
 You can consume these GPUs from your containers by requesting
-`nvidia.com/gpu` just like you request `cpu` or `memory`.
+`<vendor>.com/gpu` just like you request `cpu` or `memory`.
 However, there are some limitations in how you specify the resource requirements
 when using GPUs:
 
@@ -66,6 +70,24 @@ spec:
         limits:
           nvidia.com/gpu: 1 # requesting 1 GPU
 ```
+
+### Deploying AMD GPU device plugin
+
+The [official AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+has the following requirements:
+
+- Kubernetes nodes have to be pre-installed with AMD GPU Linux driver.
+
+To deploy the AMD device plugin once your cluster is running and the above
+requirements are satisfied:
+```
+# For Kubernetes v1.9
+kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/r1.9/k8s-ds-amdgpu-dp.yaml
+
+# For Kubernetes v1.10
+kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/r1.10/k8s-ds-amdgpu-dp.yaml
+```
+Report issues with this device plugin to [RadeonOpenCompute/k8s-device-plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin).
 
 ### Deploying NVIDIA GPU device plugin
 

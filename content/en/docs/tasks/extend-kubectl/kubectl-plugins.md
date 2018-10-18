@@ -191,7 +191,7 @@ I am a plugin with a dash in my name
 
 #### Name conflicts and overshadowing
 
-It can be possible to have multiple plugins with the same filename in different locations throughout your PATH.
+It is possible to have multiple plugins with the same filename in different locations throughout your PATH.
 For example, given a PATH with the following value: `PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins`, a copy of plugin `kubectl-foo` could exist in `/usr/local/bin/plugins` and `/usr/local/bin/moreplugins`,
 such that the output of the `kubectl plugin list` command is:
 
@@ -275,5 +275,4 @@ See the [Sample CLI Plugin](https://github.com/kubernetes/sample-cli-plugin) for
 * Binary plugins is still an alpha feature, so this is the time to contribute ideas and improvements to the codebase. We're also excited to hear about what you're planning to implement with plugins, so [let us know](https://github.com/kubernetes/community/tree/master/sig-cli)!
 
 {{% /capture %}}
-
 

@@ -30,7 +30,7 @@ scope.
 You can install _kubeadm_ very easily on operating systems that support
 installing deb or rpm packages. The responsible SIG for kubeadm,
 [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
-but you may also on other OSes.
+but you may also build them from source for other OSes.
 
 
 ### kubeadm Maturity
@@ -317,14 +317,10 @@ Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
-```
-Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but until `flannel v0.11.0` is released
-you need to use the following manifest that supports all the architectures:
+Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/c5d10c8/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
 ```
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub

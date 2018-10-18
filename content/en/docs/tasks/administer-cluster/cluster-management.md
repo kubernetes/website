@@ -73,6 +73,7 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 * [kops](https://github.com/kubernetes/kops)
 * [kubespray](https://github.com/kubernetes-incubator/kubespray)
 * [CoreOS Tectonic](https://coreos.com/tectonic/docs/latest/admin/upgrade.html)
+* [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
 
 ## Resizing a cluster
@@ -214,4 +215,4 @@ You can use `kubectl convert` command to convert config files between different 
 kubectl convert -f pod.yaml --output-version v1
 ```
 
-For more options, please refer to the usage of [kubectl convert](/docs/user-guide/kubectl/{{page.version}}/#convert) command.
+For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) command.

@@ -134,8 +134,8 @@ There are three main types of jobs:
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
   - **not implemented yet:** Each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
-  - do not specify `.spec.completions`, default to `.spec.parallelism`.
-  - the pods must coordinate with themselves or an external service to determine what each should work on.
+  - do not specify `.spec.completions`, default to `.spec.parallelism`.
+  - the pods must coordinate with themselves or an external service to determine what each should work on.
   - each pod is independently capable of determining whether or not all its peers are done, thus the entire Job is done.
   - when _any_ pod terminates with success, no new pods are created.
   - once at least one pod has terminated with success and all pods are terminated, then the job is completed with success.
@@ -207,10 +207,7 @@ back-off count is reset if no new failed Pods appear before the Job's next
 status check.
 
 {{< note >}}
-**Note:** Due to a known issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870),
-when the `.spec.template.spec.restartPolicy` field is set to "`OnFailure`", the
-back-off limit may be ineffective. As a short-term workaround, set the restart
-policy for the embedded template to "`Never`".
+**Note:** Issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) still exists for versions of Kubernetes prior to version 1.12
 {{< /note >}}
 
 ## Job Termination and Cleanup
@@ -281,7 +278,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: pi-with-ttl
-spec:
 spec:
   ttlSecondsAfterFinished: 100
   template:
