@@ -117,7 +117,7 @@
 		c33.5,0,61.4-13.4,66.8-31.1c17-5.3,28.6-15.7,28.6-27.7c0-17.3-24.4-31.4-54.4-31.4c-8.5,0-16.5,1.1-23.6,3.1
 		c-2-10.5-14.8-18.6-30.3-18.6c-5.8,0-11.2,1.2-15.9,3.1C357.7,209.5,345.9,202,332.5,202L332.5,202z"/>
 	<g id="g3861-6-28" transform="matrix(0.89067003,0,0,1,34.810052,629.61733)">
-		<text transform="matrix(1 0 0 1 259.8564 -379.173)" class="st8 st9">ServiceIP</text>
+		<text transform="matrix(1 0 0 1 259.8564 -379.173)" class="st8 st9">clusterIP</text>
 		<text transform="matrix(1 0 0 1 259.8564 -339.173)" class="st8 st9">(iptables) </text>
 	</g>
 	<text transform="matrix(1 0 0 1 537.5965 317.8163)" class="st17 st18">Node</text>
