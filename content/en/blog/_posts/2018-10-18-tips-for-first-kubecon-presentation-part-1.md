@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Tips for Your First Kubecon Presentation - Part 1'
-date: 2018-10-05
+date: 2018-10-18
 ---
 
 **Author**: Michael Gasch (VMware)
