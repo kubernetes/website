@@ -1,19 +1,10 @@
 # Reviewers can /lgtm /approve but not sufficient for auto-merge without an
 # approver
 reviewers:
-- zhangxiaoyu-zidif
-- xiangpengzhao
-- stewart-yu
-- Rajakavitha1 
+- sig-docs-en-reviews 
+
 # Approvers have all the ability of reviewers but their /approve makes
 # auto-merge happen if a /lgtm exists, or vice versa, or they can do both
 # No need for approvers to also be listed as reviewers
 approvers:
-- heckj
-- bradamant3
-- bradtopol
-- steveperry-53
-- zacharysarah
-- chenopis
-- mistyhacks
-- tengqm
+- sig-docs-en-owners
