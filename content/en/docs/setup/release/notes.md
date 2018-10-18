@@ -1,5 +1,7 @@
 ---
 title: v1.12 Release Notes
+title: Release Notes
+content_template: templates/concept
 ---
 <!-- BEGIN MUNGE: GENERATED_TOC -->
 - [v1.12.0-rc.2](#v1120-rc2)
@@ -853,4 +855,3 @@ filename | sha256 hash
 * Fix kubectl drain --timeout option when eviction is used. ([#64378](https://github.com/kubernetes/kubernetes/pull/64378), [@wrdls](https://github.com/wrdls))
 * This PR will leverage subtests on the existing table tests for the scheduler units. ([#63659](https://github.com/kubernetes/kubernetes/pull/63659), [@xchapter7x](https://github.com/xchapter7x))
     * Some refactoring of error/status messages and functions to align with new approach.
-
