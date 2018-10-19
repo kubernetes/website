@@ -25,10 +25,11 @@ functions-build:
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: accessibility-check build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: build check-headers-file accessibility-check ## Build the production site and ensure that noindex headers aren't added
 
-non-production-build: accessibility-check ## Build the non-production site, which adds noindex headers to prevent indexing
+non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
+	make accessibility-check
 
 sass-build:
 	scripts/sass.sh build
