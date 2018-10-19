@@ -71,7 +71,8 @@ kind: ConfigMap
 metadata:
   name: coredns
   namespace: kube-system
-Corefile: |
+data:
+  Corefile: |
     .:53 {
         errors
         health
@@ -139,7 +140,8 @@ kind: ConfigMap
 metadata:
   name: coredns
   namespace: kube-system
-Corefile: |
+data:
+  Corefile: |
     .:53 {
         errors
         health

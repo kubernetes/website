@@ -8,17 +8,18 @@ short_description: >
 
 aka: 
 tags:
+- core-object
 ---
  A whole-number representation of small or large numbers using SI suffixes.
 
-<!--more--> 
+<!--more-->
 
 Quantities are representations of small or large numbers using a compact,
 whole-number notation with SI suffixes.  Fractional numbers are represented
-using milli-units, while large numbers can be represented using kilo-units,
-mega-units, giga-units, etc.
+using milli units, while large numbers can be represented using kilo,
+mega, or giga units.
 
-For instance, the number `1.5` is represented `1500m`, while the number `1000`
+For instance, the number `1.5` is represented as `1500m`, while the number `1000`
 can be represented as `1k`, and `1000000` as `1M`. You can also specify
 binary-notation suffixes; the number 2048 can be written as `2Ki`.
 
