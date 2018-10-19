@@ -859,5 +859,5 @@ filename | sha256 hash
 * The --remove-extra-subjects and --remove-extra-permissions flags have been enabled for kubectl auth reconcile ([#64541](https://github.com/kubernetes/kubernetes/pull/64541), [@mrogers950](https://github.com/mrogers950))
 * Fix kubectl drain --timeout option when eviction is used. ([#64378](https://github.com/kubernetes/kubernetes/pull/64378), [@wrdls](https://github.com/wrdls))
 * This PR will leverage subtests on the existing table tests for the scheduler units. ([#63659](https://github.com/kubernetes/kubernetes/pull/63659), [@xchapter7x](https://github.com/xchapter7x))
-    * Some refactoring of error/status messages and functions to align with new approach.
+* Some refactoring of error/status messages and functions to align with new approach.
 {{% /capture %}}
