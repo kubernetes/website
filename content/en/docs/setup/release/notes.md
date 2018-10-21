@@ -9,50 +9,7 @@ content_template: templates/concept
 
 {{% /capture %}}
 {{% capture body %}}
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-## v1.12.0-rc.2
-- [v1.12.0-rc.2](#v1120-rc2)
-  - [Downloads for v1.12.0-rc.2](#downloads-for-v1120-rc2)
-    - [Client Binaries](#client-binaries)
-    - [Server Binaries](#server-binaries)
-    - [Node Binaries](#node-binaries)
-  - [Changelog since v1.12.0-rc.1](#changelog-since-v1120-rc1)
-    - [Other notable changes](#other-notable-changes)
-- [v1.12.0-rc.1](#v1120-rc1)
-  - [Downloads for v1.12.0-rc.1](#downloads-for-v1120-rc1)
-    - [Client Binaries](#client-binaries-1)
-    - [Server Binaries](#server-binaries-1)
-    - [Node Binaries](#node-binaries-1)
-  - [Changelog since v1.12.0-beta.2](#changelog-since-v1120-beta2)
-    - [Action Required](#action-required)
-    - [Other notable changes](#other-notable-changes-1)
-- [v1.12.0-beta.2](#v1120-beta2)
-  - [Downloads for v1.12.0-beta.2](#downloads-for-v1120-beta2)
-    - [Client Binaries](#client-binaries-2)
-    - [Server Binaries](#server-binaries-2)
-    - [Node Binaries](#node-binaries-2)
-  - [Changelog since v1.12.0-beta.1](#changelog-since-v1120-beta1)
-    - [Action Required](#action-required-1)
-    - [Other notable changes](#other-notable-changes-2)
-- [v1.12.0-beta.1](#v1120-beta1)
-  - [Downloads for v1.12.0-beta.1](#downloads-for-v1120-beta1)
-    - [Client Binaries](#client-binaries-3)
-    - [Server Binaries](#server-binaries-3)
-    - [Node Binaries](#node-binaries-3)
-  - [Changelog since v1.12.0-alpha.1](#changelog-since-v1120-alpha1)
-    - [Action Required](#action-required-2)
-    - [Other notable changes](#other-notable-changes-3)
-- [v1.12.0-alpha.1](#v1120-alpha1)
-  - [Downloads for v1.12.0-alpha.1](#downloads-for-v1120-alpha1)
-    - [Client Binaries](#client-binaries-4)
-    - [Server Binaries](#server-binaries-4)
-    - [Node Binaries](#node-binaries-4)
-  - [Changelog since v1.11.0](#changelog-since-v1110)
-    - [Action Required](#action-required-3)
-    - [Other notable changes](#other-notable-changes-4)
-<!-- END MUNGE: GENERATED_TOC -->
 
-<!-- NEW RELEASE NOTES ENTRY -->
 
 
 
@@ -123,7 +80,7 @@ filename | sha256 hash
 
 # v1.12.0-rc.1
 
-[Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+
 
 ## Downloads for v1.12.0-rc.1
 
@@ -276,7 +233,7 @@ filename | sha256 hash
 
 # v1.12.0-beta.2
 
-[Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+
 
 ## Downloads for v1.12.0-beta.2
 
@@ -366,7 +323,7 @@ filename | sha256 hash
 
 # v1.12.0-beta.1
 
-[Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+
 
 ## Downloads for v1.12.0-beta.1
 
@@ -619,7 +576,7 @@ filename | sha256 hash
 
 # v1.12.0-alpha.1
 
-[Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/master/examples)
+
 
 ## Downloads for v1.12.0-alpha.1
 
