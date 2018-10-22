@@ -68,7 +68,7 @@ kubectl get pod default-cpu-demo --output=yaml --namespace=default-cpu-example
 The output shows that the Pod's Container has a CPU request of 500 millicpus and
 a CPU limit of 1 cpu. These are the default values specified by the LimitRange.
 
-```shel
+```shell
 containers:
 - image: nginx
   imagePullPolicy: Always
