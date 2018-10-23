@@ -431,16 +431,16 @@ done
 
 ### Set up the first control plane node
 
+{{< note >}}
+**Note**: Optionally replace the string `stable` in `kubeadm-config.yaml` with a different version of Kubernetes, for example `v1.11.3`.
+{{< /note >}}
+
 1.  Extract the etcd certificates
 
         mkdir -p /etc/kubernetes/pki
         tar -xzf etcd-pki.tar.gz -C /etc/kubernetes/pki --strip-components=3
 
 1.  Create a `kubeadm-config.yaml`:
-
-{{< note >}}
-**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
-{{< /note >}}
 
         apiVersion: kubeadm.k8s.io/v1alpha3
         kind: ClusterConfiguration
@@ -470,7 +470,7 @@ done
     - `ETCD_2_IP`
 
 1.  Run `kubeadm init --config kubeadm-config.yaml`
-1.  Copy the output join commamnd.
+1.  Copy the output from the join command
 
 ### Copy required files to the correct locations
 
