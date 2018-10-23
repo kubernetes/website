@@ -191,7 +191,7 @@ and in the logs to monitor the state of the auditing subsystem.
 
 ### Truncate
 
-Both log and webhook backends support batching. As an example, the following is the list of flags
+Both log and webhook backends support truncating. As an example, the following is the list of flags
 available for the log backend:
 
  - `audit-log-truncate-enabled` whether event and batch truncating is enabled.
