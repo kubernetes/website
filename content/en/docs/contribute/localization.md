@@ -100,7 +100,7 @@ Provide guidance to localization contributors in the localized `README-**.md` fi
 - A point of contact for the localization project
 - Any information specific to the localization
 
-After you create the localized README, add a link to the file from the main English file, [`README.md`] and include contact information in English. You can provide a GitHub ID, email address, [Slack channel](https://slack.com/), or other method of contact.
+After you create the localized README, add a link to the file from the main English file, [`README.md`'s Localizing Kubernetes Documentation] and include contact information in English. You can provide a GitHub ID, email address, [Slack channel](https://slack.com/), or other method of contact.
 
 ## Translating documents
 
