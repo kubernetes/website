@@ -643,7 +643,7 @@ your question to the `#kubernetes-users` channel in
 [Kubernetes slack](http://slack.k8s.io/). You can also search
 resources like
 [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
-for answers  to similar questions.
+for answers to similar questions.
 
 You can also open issues for Kubernetes functionality in
  https://github.com/kubernetes/kubernetes.
