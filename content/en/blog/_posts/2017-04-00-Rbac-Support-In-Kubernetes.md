@@ -23,7 +23,7 @@ Based on where the Kubernetes community is focusing their development efforts, g
 
 **Basic Concepts**  
 
-The are a few basic ideas behind RBAC that are foundational in understanding it. At its core, RBAC is a way of granting users granular access to [Kubernetes API resources](https://kubernetes.io/docs/api-reference/v1.6/).  
+There are a few basic ideas behind RBAC that are foundational in understanding it. At its core, RBAC is a way of granting users granular access to [Kubernetes API resources](https://kubernetes.io/docs/api-reference/v1.6/).  
 
 
 [![](https://1.bp.blogspot.com/-v6KLs1tT_xI/WOa0anGP4sI/AAAAAAAABBo/KIgYfp8PjusuykUVTfgu9-2uKj_wXo4lwCLcB/s400/rbac1.png)](https://1.bp.blogspot.com/-v6KLs1tT_xI/WOa0anGP4sI/AAAAAAAABBo/KIgYfp8PjusuykUVTfgu9-2uKj_wXo4lwCLcB/s1600/rbac1.png)

@@ -83,7 +83,7 @@ You can add servers into your cluster by adding the cluster Profile to the serve
 
 ### Cleanup your cluster (for developers)
 
-You can reset your cluster and wipe out all configuration and TLS certificates using the the `krib-reset-cluster` Workflow on any of the servers in the cluster.
+You can reset your cluster and wipe out all configuration and TLS certificates using the `krib-reset-cluster` Workflow on any of the servers in the cluster.
 
 {{< caution >}}
 **Caution:** When running the reset Workflow, be sure not to accidentally target your production cluster!
