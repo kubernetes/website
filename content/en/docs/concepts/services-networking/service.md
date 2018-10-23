@@ -940,7 +940,7 @@ Kubernetes supports SCTP as a `protocol` value in `Service`, `Endpoint`, `Networ
 
 The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a `Pod`. 
 
-NAT for multihomed SCTP assoications requires special logic in the corresponding kernel modules.
+NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
 
 #### Service with type=LoadBalancer
 
