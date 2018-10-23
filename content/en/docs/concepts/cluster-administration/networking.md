@@ -277,11 +277,6 @@ Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-pl
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
-### Jaguar
-
-[Jaguar](https://gitlab.com/sdnlab/jaguar) is an open source solution for Kubernetes's network based on OpenDaylight.
-Jaguar provides overlay network using vxlan and Jaguar CNIPlugin provides one IP address per pod.
-
 {{% /capture %}}
 
 {{% capture whatsnext %}}
