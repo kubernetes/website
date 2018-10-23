@@ -305,8 +305,11 @@ metadata:
 
 1.  Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
 
+    ```shell
     kubectl edit pod dapi-test-pod
+    ```
 
+    ```yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -326,6 +329,7 @@ metadata:
                   # Specify the key associated with the value
                   key: special.how
       restartPolicy: Never
+    ```
 
 1.  Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
  
@@ -333,6 +337,7 @@ metadata:
  
 1.  As with the previous example, create the ConfigMaps first.
 
+    ```yaml
     apiVersion: v1
     kind: ConfigMap
     metadata:
@@ -340,17 +345,21 @@ metadata:
       namespace: default
     data:
       special.how: very
+    ```
 
+    ```yaml
     apiVersion: v1
     kind: ConfigMap
     metadata:
       name: env-config
       namespace: default
     data:
-      log_level: INFO 
+      log_level: INFO
+    ```
 
 1.  Define the environment variables in the Pod specification.
 
+    ```yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -372,6 +381,7 @@ metadata:
                   name: env-config
                   key: log_level
       restartPolicy: Never
+    ```
  
 1.  Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`. 
 
@@ -383,6 +393,7 @@ metadata:
 
 1.  Create a ConfigMap containing multiple key-value pairs. 
 
+    ```yaml
     apiVersion: v1
     kind: ConfigMap
     metadata:
@@ -391,9 +402,11 @@ metadata:
     data:
       SPECIAL_LEVEL: very
       SPECIAL_TYPE: charm
+    ```
 
 1.  Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
    
+    ```yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -407,6 +420,7 @@ metadata:
           - configMapRef:
               name: special-config
       restartPolicy: Never
+    ```
 
 1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
 
