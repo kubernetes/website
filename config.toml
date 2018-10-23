@@ -7,9 +7,7 @@ enableRobotsTXT = true
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
-# ignoreFiles = [ "^OWNERS$", "README.md", "^node_modules$"
-# Ignore extra things in archives
-ignoreFiles = [ "^OWNERS$", "README.md", "^node_modules$", "content/en/blog", "content/en/case-studies", "content/en/community", "content/en/partners" ]
+ignoreFiles = [ "^OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
 contentDir = "content/en"
 
@@ -21,6 +19,12 @@ pygmentsUseClasses = false
 # See https://help.farbox.com/pygments.html
 pygmentsStyle = "emacs"
 
+# Enable Git variables like commit, lastmod
+enableGitInfo = true
+
+# Norwegian ("no") is sometimes but not currently used for testing.
+disableLanguages = ["no"]
+
 [blackfriday]
 hrefTargetBlank = true
 fractions = false
@@ -29,17 +33,29 @@ fractions = false
 date = ["date", ":filename", "publishDate", "lastmod"]
 
 [permalinks]
-  blog = "/:section/:year/:month/:day/:slug/"
+blog = "/:section/:year/:month/:day/:slug/"
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
-home = [ "HTML", "RSS"]
+home = [ "HTML", "RSS", "HEADERS" ]
 page = [ "HTML"]
 section = [ "HTML"]
+
+# Add a "text/netlify" media type for auto-generating the _headers file
+[mediaTypes]
+[mediaTypes."text/netlify"]
+delimiter = ""
 
 [outputFormats]
 [outputFormats.RSS]
 baseName = "feed"
+
+# _headers file output (uses the template at layouts/index.headers)
+[outputFormats.HEADERS]
+mediatype = "text/netlify"
+baseName = "_headers"
+isPlainText = true
+notAlternative = true
 
 [params]
 
@@ -47,29 +63,47 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.11"
+latest = "v1.12"
 
-fullversion = "v1.10.5"
+fullversion = "v1.10.3"
 version = "v1.10"
-githubbranch = "v1.10.5"
+githubbranch = "v1.10.3"
 docsbranch = "release-1.10"
 deprecated = true
 currentUrl = "https://kubernetes.io/docs/home/"
-nextUrl = "http://kubernetes-io-vnext-staging.netlify.com/"
+nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
-[[params.versions]]
-fullversion = "v1.11.0"
-version = "v1.11"
-githubbranch = "master"
-docsbranch = "release-1.11"
-url = "https://kubernetes.io/docs/"
+[params.pushAssets]
+css = [
+  "callouts",
+  "styles",
+  "custom-jekyll/tags"
+]
+js = [
+  "custom-jekyll/tags",
+  "script"
+]
 
 [[params.versions]]
-fullversion = "v1.10.5"
+fullversion = "v1.12.0"
+version = "v1.12"
+githubbranch = "v1.12.0"
+docsbranch = "release-1.12"
+url = "https://kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.11.3"
+version = "v1.11"
+githubbranch = "v1.11.3"
+docsbranch = "release-1.11"
+url = "https://v1-11.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.10.3"
 version = "v1.10"
-githubbranch = "v1.10.5"
+githubbranch = "v1.10.3"
 docsbranch = "release-1.10"
 url = "https://v1-10.docs.kubernetes.io"
 
@@ -87,13 +121,6 @@ githubbranch = "v1.8.14"
 docsbranch = "release-1.8"
 url = "https://v1-8.docs.kubernetes.io"
 
-[[params.versions]]
-fullversion = "v1.7.16"
-version = "v1.7"
-githubbranch = "v1.7.16"
-docsbranch = "release-1.7"
-url = "https://v1-7.docs.kubernetes.io"
-
 # Language definitions.
 
 [languages]
@@ -103,11 +130,29 @@ description = "Production-Grade Container Orchestration"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
-[languages.cn]
+
+[languages.zh]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Chinese"
+languageName = "中文 Chinese"
 weight = 2
-contentDir = "content/cn"
+contentDir = "content/zh"
 
+[languages.ko]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "한국어 Korean"
+weight = 3
+contentDir = "content/ko"
 
+[languages.no]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Norsk"
+weight = 4
+contentDir = "content/no"
+
+[languages.no.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
