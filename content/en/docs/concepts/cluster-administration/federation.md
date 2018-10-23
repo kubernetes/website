@@ -37,7 +37,7 @@ why you might want multiple clusters are:
 * Low latency: Having clusters in multiple regions minimises latency by serving
   users from the cluster that is closest to them.
 * Fault isolation: It might be better to have multiple small clusters rather
-  than a single large  cluster for fault isolation (for example: multiple
+  than a single large cluster for fault isolation (for example: multiple
   clusters in different availability zones of a cloud provider).
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
