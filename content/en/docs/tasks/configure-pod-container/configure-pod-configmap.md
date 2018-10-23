@@ -299,7 +299,9 @@ metadata:
 
 1.  Define an environment variable as a key-value pair in a ConfigMap:
 
-    kubectl create configmap special-config --from-literal=special.how=very 
+    ```shell
+    kubectl create configmap special-config --from-literal=special.how=very
+    ```
 
 1.  Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
 
