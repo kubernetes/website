@@ -28,7 +28,9 @@ check-headers-file:
 production-build: build check-headers-file accessibility-page ## Build the production site and ensure that noindex headers aren't added
 
 non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
-	hugo --enableGitInfo
+	hugo \
+		--enableGitInfo \
+		--baseURL $(DEPLOY_PRIME_URL)
 	make accessibility-page
 
 sass-build:
