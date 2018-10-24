@@ -70,7 +70,7 @@ For more details on the ComponentConfig have a look at [this section](#configure
 Some hosts require specific kubelet configurations, due to differences in hardware, operating system,
 networking, or other host-specific parameters. The following list provides a few examples.
 
-- The path to the DNS resolution file, as specified by the `--resolve-conf` kubelet
+- The path to the DNS resolution file, as specified by the `--resolv-conf` kubelet
   configuration flag, may differ among operating systems, or depending on whether you are using
   `systemd-resolved`. If this path is wrong, DNS resolution will fail on the Node whose kubelet
   is configured incorrectly.
