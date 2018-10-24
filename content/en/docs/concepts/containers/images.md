@@ -15,7 +15,6 @@ The `image` property of a container supports the same syntax as the `docker` com
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

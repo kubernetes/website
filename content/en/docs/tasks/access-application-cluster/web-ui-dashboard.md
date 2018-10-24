@@ -18,7 +18,6 @@ Dashboard also provides information on the state of Kubernetes resources in your
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

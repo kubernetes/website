@@ -15,7 +15,6 @@ These virtual clusters are called namespaces.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

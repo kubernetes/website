@@ -14,7 +14,6 @@ This document describes how to use kube-up/down scripts to manage highly availab
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 

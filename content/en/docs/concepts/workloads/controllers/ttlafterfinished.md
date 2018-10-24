@@ -24,7 +24,6 @@ Alpha Disclaimer: this feature is currently alpha, and can be enabled with
 {{% /capture %}}
 
 
-{{< toc >}}
 
 
 {{% capture body %}}
@@ -34,7 +33,7 @@ Alpha Disclaimer: this feature is currently alpha, and can be enabled with
 The TTL controller only supports Jobs for now. A cluster operator can use this feature to clean
 up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 `.spec.ttlSecondsAfterFinished` field of a Job, as in this
-[example](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically). 
+[example](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically).
 The TTL controller will assume that a resource is eligible to be cleaned up
 TTL seconds after the resource has finished, in other words, when the TTL has expired. When the
 TTL controller cleans up a resource, it will delete it cascadingly, i.e. delete

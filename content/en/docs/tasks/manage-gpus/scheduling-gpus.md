@@ -17,7 +17,6 @@ and the current limitations.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -33,7 +32,7 @@ from 1.10.
 
 Then you have to install GPU drivers from the corresponding vendor on the nodes
 and run the corresponding device plugin from the GPU vendor
-([AMD](#deploying-amd-gpu-device-plugin), [NVIDIA](#deploying-nvidia-gpu-device-plugin)). 
+([AMD](#deploying-amd-gpu-device-plugin), [NVIDIA](#deploying-nvidia-gpu-device-plugin)).
 
 When the above conditions are true, Kubernetes will expose `nvidia.com/gpu` or
 `amd.com/gpu` as a schedulable resource.
