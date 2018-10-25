@@ -94,7 +94,7 @@ However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configure-p
 following the steps:
 
 * **Step 1:** Change the config files in `config/`.
-* **Step 2:** Create the ConfigMap `node-problem-detector-config` with `kubectl  create configmap
+* **Step 2:** Create the ConfigMap `node-problem-detector-config` with `kubectl create configmap
 node-problem-detector-config --from-file=config/`.
 * **Step 3:** Change the `node-problem-detector.yaml` to use the ConfigMap:
 

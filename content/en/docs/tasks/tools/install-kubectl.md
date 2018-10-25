@@ -233,7 +233,7 @@ You can install kubectl as part of the Google Cloud SDK.
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
 {{% /tab %}}
-{{% tab  name="Windows" %}}
+{{% tab name="Windows" %}}
 1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
     Or if you have `curl` installed, use this command:
