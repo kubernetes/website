@@ -19,7 +19,6 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 
 {{% /capture %}}
 
-{{< toc >}}
 
 
 {{% capture prerequisites %}}

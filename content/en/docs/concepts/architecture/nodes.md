@@ -18,7 +18,6 @@ architecture design doc for more details.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -76,18 +75,18 @@ the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce fr
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta，so node lifecycle controller automatically creates 
+In version 1.12, `TaintNodesByCondition` feature is promoted to beta，so node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
 Similarly the scheduler ignores conditions when considering a Node; instead
 it looks at the Node's taints and a Pod's tolerations.
 
 Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that 
+A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
 tolerates the taints of a particular Node can be scheduled on that Node.
 
 {{< caution >}}
-**Caution:** Enabling this feature creates a small delay between the 
-time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet. 
+**Caution:** Enabling this feature creates a small delay between the
+time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
 {{< /caution >}}
 
 ### Capacity
@@ -127,7 +126,7 @@ a node from the following content:
 Kubernetes creates a node object internally (the representation), and
 validates the node by health checking based on the `metadata.name` field. If the node is valid -- that is, if all necessary
 services are running -- it is eligible to run a pod. Otherwise, it is
-ignored for any cluster activity until it becomes valid. 
+ignored for any cluster activity until it becomes valid.
 
 {{< note >}}
 **Note:** Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.

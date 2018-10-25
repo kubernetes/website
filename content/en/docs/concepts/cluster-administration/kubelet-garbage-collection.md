@@ -14,7 +14,6 @@ External garbage collection tools are not recommended as these tools can potenti
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

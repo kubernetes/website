@@ -30,7 +30,6 @@ When they do, they are authenticated as a particular Service Account (for exampl
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -181,7 +180,7 @@ token:          ...
 
 ## Add ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod). 
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 Next, verify it has been created.  For example:
 
 ```shell
@@ -304,5 +303,3 @@ The application is responsible for reloading the token when it rotates. Periodic
 reloading (e.g. once every 5 minutes) is sufficient for most usecases.
 
 {{% /capture %}}
-
-

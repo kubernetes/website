@@ -12,7 +12,6 @@ content_template: templates/task
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 

@@ -8,7 +8,6 @@ content_template: templates/concept
 weight: 40
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),

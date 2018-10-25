@@ -20,7 +20,6 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 

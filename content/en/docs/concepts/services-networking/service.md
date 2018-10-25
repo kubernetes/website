@@ -11,7 +11,6 @@ content_template: templates/concept
 weight: 10
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
@@ -88,7 +87,7 @@ Kubernetes `Services` support `TCP`, `UDP` and `SCTP` for protocols.  The defaul
 is `TCP`.
 
 {{< note >}}
-**Note:** SCTP support is an alpha feature since Kubernetes 1.12 
+**Note:** SCTP support is an alpha feature since Kubernetes 1.12
 {{< /note >}}
 
 ### Services without selectors
@@ -461,7 +460,7 @@ group of the other automatically created resources of the cluster. For example, 
 
 {{< note >}}
 **Note:** The support of SCTP in the cloud provider's load balancer is up to the cloud provider's
-load balancer implementation. If SCTP is not supported by the cloud provider's load balancer the 
+load balancer implementation. If SCTP is not supported by the cloud provider's load balancer the
 Service creation request is accepted but the creation of the load balancer fails.
 {{< /note >}}
 
@@ -938,7 +937,7 @@ Kubernetes supports SCTP as a `protocol` value in `Service`, `Endpoint`, `Networ
 
 #### The support of multihomed SCTP associations
 
-The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a `Pod`. 
+The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a `Pod`.
 
 NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
 
@@ -961,4 +960,3 @@ The kube-proxy does not support the management of SCTP associations when it is i
 Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).
 
 {{% /capture %}}
-

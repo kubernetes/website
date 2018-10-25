@@ -23,7 +23,6 @@ template to use for a new topic, start with the
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -51,18 +50,18 @@ To write a new concept page, create a Markdown file in a subdirectory of the
 
     The page's body will look like this (remove any optional captures you don't
     need):
-    
+
     ```
     {{%/* capture overview */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture body */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture whatsnext */%}}
-    
+
     {{%/* /capture */%}}
     ```
 
@@ -101,28 +100,28 @@ To write a new task page, create a Markdown file in a subdirectory of the
 
     The page's body will look like this (remove any optional captures you don't
     need):
-    
+
     ```
     {{%/* capture overview */%}}
-  
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture prerequisites */%}}
-    
+
     {{</* include "task-tutorial-prereqs.md" */>}} {{</* version-check */>}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture steps */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture discussion */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture whatsnext */%}}
-    
+
     {{%/* /capture */%}}
     ```
 
@@ -167,32 +166,32 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 
     The page's body will look like this (remove any optional captures you don't
     need):
-    
+
     ```
     {{%/* capture overview */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture prerequisites */%}}
-    
+
     {{</* include "task-tutorial-prereqs.md" */>}} {{</* version-check */>}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture objectives */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture lessoncontent */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture cleanup */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture whatsnext */%}}
-    
+
     {{%/* /capture */%}}
     ```
 
@@ -221,4 +220,3 @@ An example of a published topic that uses the tutorial template is
 - Learn about [content organization](/docs/contribute/style/content-organization/)
 
 {{% /capture %}}
-
