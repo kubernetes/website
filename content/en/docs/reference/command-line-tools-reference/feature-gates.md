@@ -38,7 +38,7 @@ different Kubernetes components.
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `AttachVolumeLimit` | `false` | Alpha | 1.11 | |
+| `AttachVolumeLimit` | `true` | Alpha | 1.11 | |
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
