@@ -299,6 +299,12 @@ To add kubectl autocompletion to your profile, so it is automatically loaded in 
 ```shell
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 ```
+On Windows Subsystem for Linux you need to specify full file name `kubectl.exe` in profile for completion to be loaded properly:
+
+```shell
+echo "source <(kubectl.exe completion bash)" >> ~/.bashrc
+```
+
 
 ### On macOS, using bash
 On macOS, you will need to install bash-completion support via [Homebrew](https://brew.sh/) first:
