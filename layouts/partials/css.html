@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/css/base_fonts.css">
+<link rel="stylesheet" href="/css/styles.css">
+{{- if .Params.case_study_styles }}
+<link rel="stylsheet" href="/css/case-study-styles.css">
+{{- end }}
+<link rel="stylesheet" href="{{ "css/jquery-ui.min.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/sweetalert.min.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/callouts.css" | relURL }}">
+<link rel="stylesheet" href="{{ "css/custom-jekyll/tags.css" | relURL }}">
+{{- if .Params.deprecated }}
+<link rel="stylesheet" href="{{ "css/deprecation-warning.css" | relURL }}">
+{{- end }}
+{{- if eq .Params.class "gridPage" }}
+<link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
+{{- end }}
+{{- with .Params.css }}
+{{- $extraCss := split . "," }}
+{{- range $extraCss }}
+{{- $url := trim . " " | relURL }}
+<link rel="stylesheet" href="{{ $url }}"><!-- custom css added -->
+{{- end }}
+{{- end }}

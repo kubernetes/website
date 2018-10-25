@@ -1,8 +1,13 @@
 >^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> For 1.11 Features: set Milestone to 1.11 and Base Branch to release-1.11
->^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> NOTE: After opening the PR, please *un-check and re-check* the ["Allow edits from maintainers"](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/) box so that maintainers can work on your patch and speed up the review process. This is a temporary workaround to address a known issue with GitHub.> 
->
 > Please delete this note before submitting the pull request.
+>
+> For 1.13 Features: set Milestone to 1.13 and Base Branch to dev-1.13
+>
+> Help editing and submitting pull requests:
+> https://kubernetes.io/docs/contribute/start/#improve-existing-content.
+>
+> Help choosing which branch to use:
+> https://kubernetes.io/docs/contribute/start#choose-which-git-branch-to-use.
+>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>
 
-![Allow edits from maintainers checkbox](https://help.github.com/assets/images/help/pull_requests/allow-maintainers-to-make-edits-sidebar-checkbox.png)

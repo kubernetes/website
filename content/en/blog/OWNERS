@@ -1,0 +1,11 @@
+# Owned by Kubernetes Blog reviewers.
+options:
+  no_parent_owners: true
+reviewers:
+  - kbarnard10
+approvers:
+  - bobsky
+  - kbarnard10
+  - natekartchner
+  - sarahkconway
+  - zacharysarah
