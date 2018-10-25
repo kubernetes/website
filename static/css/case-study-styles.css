@@ -571,7 +571,8 @@ section {
 #docs #vendorStrip {
   line-height: 44px;
   max-width: 100%;
-  overflow-x: scroll; }
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; }
   #docs #vendorStrip ul {
     float: none; }
   #docs #vendorStrip #searchBox {
