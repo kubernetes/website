@@ -191,7 +191,7 @@ zk-pdb    2               1                     7s
 ```
 
 The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
-counted the matching pods, and update the status of the PDB.
+counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
 
