@@ -383,6 +383,9 @@ general the life cycle is:
   * The feature is GA and a deprecation window is announced (see rule below) - its 
   gate is removed and is no longer accepted.
 
+When an invocation tries to disable a no-op GA gate, the call will fail in order to 
+avoid unsupported scenarios that might run silently.
+
 A feature might be EOL'ed at any point in the life cyle prior to GA.  In that case, 
 the associated feature-gate is deprecated. 
 
@@ -403,6 +406,10 @@ transitions a lifecycle stage as follows. They must function for no less than:**
    * **Beta feature that becomes GA: 6 months or 2 releases (whichever is longer)**
    * **Beta feature that becomes EOL'ed: 3 months or 1 release (whichever is longer)**
    * **Alpha feature that becomes EOL'ed: 0 releases**
+
+**Rule #9: Deprecated feature gates must emit a warning when used. In addition, they have 
+to be documented both in the release notes and the corresponding CLI help. The warnings as 
+well as the documentation will mention if using the gate is a no-op when it corresponds.**
 
 ## Exceptions
 
