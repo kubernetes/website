@@ -257,7 +257,7 @@ to the Github UI.
       ```
 
 4.  Check out the remote branch. This command will fail if you already have a
-    local branch with the sane name.
+    local branch with the same name.
 
       ```bash
       git checkout <branch-from-PR>
