@@ -297,130 +297,130 @@ metadata:
 
 ### Define a container environment variable with data from a single ConfigMap
 
-1. Define an environment variable as a key-value pair in a ConfigMap:
+1.  Define an environment variable as a key-value pair in a ConfigMap:
 
-   ```shell
-   kubectl create configmap special-config --from-literal=special.how=very 
-   ```
+    ```shell
+    kubectl create configmap special-config --from-literal=special.how=very
+    ```
 
-1. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+1.  Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
 
-   ```shell
-   kubectl edit pod dapi-test-pod
-   ```
+    ```shell
+    kubectl edit pod dapi-test-pod
+    ```
 
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: k8s.gcr.io/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         env:
-           # Define the environment variable
-           - name: SPECIAL_LEVEL_KEY
-             valueFrom:
-               configMapKeyRef:
-                 # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
-                 name: special-config
-                 # Specify the key associated with the value
-                 key: special.how
-     restartPolicy: Never
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: dapi-test-pod
+    spec:
+      containers:
+        - name: test-container
+          image: k8s.gcr.io/busybox
+          command: [ "/bin/sh", "-c", "env" ]
+          env:
+            # Define the environment variable
+            - name: SPECIAL_LEVEL_KEY
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: special-config
+                  # Specify the key associated with the value
+                  key: special.how
+      restartPolicy: Never
+    ```
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
+1.  Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
  
 ### Define container environment variables with data from multiple ConfigMaps
  
-1. As with the previous example, create the ConfigMaps first.
+1.  As with the previous example, create the ConfigMaps first.
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: special-config
-     namespace: default
-   data:
-     special.how: very
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: special-config
+      namespace: default
+    data:
+      special.how: very
+    ```
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: env-config
-     namespace: default
-   data:
-     log_level: INFO
-   ``` 
+    ```yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: env-config
+      namespace: default
+    data:
+      log_level: INFO
+    ```
 
-1. Define the environment variables in the Pod specification.
+1.  Define the environment variables in the Pod specification.
 
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: k8s.gcr.io/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         env:
-           - name: SPECIAL_LEVEL_KEY
-             valueFrom:
-               configMapKeyRef:
-                 name: special-config
-                 key: special.how
-           - name: LOG_LEVEL
-             valueFrom:
-               configMapKeyRef:
-                 name: env-config
-                 key: log_level
-     restartPolicy: Never
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: dapi-test-pod
+    spec:
+      containers:
+        - name: test-container
+          image: k8s.gcr.io/busybox
+          command: [ "/bin/sh", "-c", "env" ]
+          env:
+            - name: SPECIAL_LEVEL_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: special-config
+                  key: special.how
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: env-config
+                  key: log_level
+      restartPolicy: Never
+    ```
  
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=info`. 
+1.  Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`. 
 
 ## Configure all key-value pairs in a ConfigMap as container environment variables 
 
    {{< note >}}
-   **Note:** This functionality is available to users running Kubernetes v1.6 and later.
+   **Note:** This functionality is available in Kubernetes v1.6 and later.
    {{< /note >}}
 
-1. Create a ConfigMap containing multiple key-value pairs. 
+1.  Create a ConfigMap containing multiple key-value pairs. 
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: special-config
-     namespace: default
-   data:
-     SPECIAL_LEVEL: very
-     SPECIAL_TYPE: charm
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: special-config
+      namespace: default
+    data:
+      SPECIAL_LEVEL: very
+      SPECIAL_TYPE: charm
+    ```
 
-1. Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
+1.  Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
    
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: k8s.gcr.io/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         envFrom:
-         - configMapRef:
-             name: special-config
-     restartPolicy: Never
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: dapi-test-pod
+    spec:
+      containers:
+        - name: test-container
+          image: k8s.gcr.io/busybox
+          command: [ "/bin/sh", "-c", "env" ]
+          envFrom:
+          - configMapRef:
+              name: special-config
+      restartPolicy: Never
+    ```
 
 1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
 
@@ -602,9 +602,9 @@ data:
 
 ### Restrictions
 
-1. You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMap that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
+- You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMap that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
 
-1. If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
+- If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
 
    ```shell
    kubectl get events
@@ -612,9 +612,9 @@ data:
    0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
    ```
 
-1. ConfigMaps reside in a specific [namespace](/docs/concepts/overview/working-with-objects/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
+- ConfigMaps reside in a specific [namespace](/docs/concepts/overview/working-with-objects/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
 
-1. Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
+- Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
    This includes pods created via the Kubelet's --manifest-url flag, --config flag, or the Kubelet REST API.
    
    {{< note >}}
