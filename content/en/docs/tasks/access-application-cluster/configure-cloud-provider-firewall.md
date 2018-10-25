@@ -16,7 +16,6 @@ well as any provider specific details that may be necessary.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 

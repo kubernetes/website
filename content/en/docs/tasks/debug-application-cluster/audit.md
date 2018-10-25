@@ -24,7 +24,6 @@ answer the following questions:
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

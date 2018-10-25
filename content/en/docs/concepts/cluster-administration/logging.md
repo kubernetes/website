@@ -15,7 +15,6 @@ However, the native functionality provided by a container engine or runtime is u
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

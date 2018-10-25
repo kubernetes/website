@@ -8,7 +8,6 @@ content_template: templates/concept
 weight: 30
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
@@ -375,4 +374,3 @@ the [Federated Services User Guide](/docs/concepts/cluster-administration/federa
 for further information.
 
 {{% /capture %}}
-
