@@ -16,7 +16,7 @@ PersistentVolume.
 
 {{% capture steps %}}
 
-## Why change reclaim policy of a PersistentVolume
+## Why change the reclaim policy of a PersistentVolume
 
 `PersistentVolumes` can have various reclaim policies, including "Retain",
 "Recycle", and "Delete". For dynamically provisioned `PersistentVolumes`,
@@ -25,7 +25,7 @@ volume is automatically deleted when a user deletes the corresponding
 `PersistentVolumeClaim`. This automatic behavior might be inappropriate if the volume
 contains precious data. In that case, it is more appropriate to use the "Retain"
 policy. With the "Retain" policy, if a user deletes a `PersistentVolumeClaim`,
-the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to the
+the corresponding `PersistentVolume` is not deleted. Instead, it is moved to the
 `Released` phase, where all of its data can be manually recovered.
 
 ## Changing the reclaim policy of a PersistentVolume
@@ -35,14 +35,14 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
     ```shell
     kubectl get pv
     ```
-
     The output is similar to this:
 
-        NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM             STORAGECLASS     REASON    AGE
-        pvc-b6efd8da-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim1    manual                     10s
-        pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2    manual                     6s
-        pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim3    manual                     3s
-
+    ```shell
+    NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                 STORAGECLASS     REASON    AGE
+    pvc-b6efd8da-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim1        manual                     10s
+    pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2        manual                     6s
+    pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim3        manual                     3s
+    ```
    This list also includes the name of the claims that are bound to each volume
    for easier identification of dynamically provisioned volumes.
 
@@ -51,7 +51,6 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
     ```shell
     kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
     ```
-
     where `<your-pv-name>` is the name of your chosen PersistentVolume.
 
 1. Verify that your chosen PersistentVolume has the right policy:
@@ -59,13 +58,14 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
     ```shell
     kubectl get pv
     ```
-
     The output is similar to this:
 
-        NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM             STORAGECLASS     REASON    AGE
-        pvc-b6efd8da-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim1    manual                     40s
-        pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2    manual                     36s
-        pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Retain          Bound     default/claim3    manual                     33s
+    ```shell
+    NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                 STORAGECLASS     REASON    AGE
+    pvc-b6efd8da-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim1        manual                     40s
+    pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2        manual                     36s
+    pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Retain          Bound     default/claim3        manual                     33s
+    ```
 
     In the preceding output, you can see that the volume bound to claim
     `default/claim3` has reclaim policy `Retain`. It will not be automatically
@@ -81,7 +81,5 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 * [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
 * [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
-* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core).
+* See the `persistentVolumeReclaimPolicy` field of the [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core).
 {{% /capture %}}
-
-
