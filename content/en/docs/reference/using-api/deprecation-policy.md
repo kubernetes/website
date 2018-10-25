@@ -380,7 +380,7 @@ general the life cycle is:
   * The feature is Beta - its gate becomes enabled by default and can be 
   disabled by the user.
   * The feature is GA - its gate becomes a no-op and is deprecated.
-  * The feature is GA and a deprecation window is announced (see rule below) - its 
+  * The feature is GA and a deprecation window is completed (see rule below) - its 
   gate is removed and is no longer accepted.
 
 When an invocation tries to disable a no-op GA gate, the call will fail in order to 
