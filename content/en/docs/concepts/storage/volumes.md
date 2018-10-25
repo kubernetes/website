@@ -22,7 +22,6 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -925,7 +924,7 @@ A `storageos` volume allows an existing [StorageOS](https://www.storageos.com)
 volume to be mounted into your Pod.
 
 StorageOS runs as a Container within your Kubernetes environment, making local
-or attached storage accessible from any node within the Kubernetes cluster. 
+or attached storage accessible from any node within the Kubernetes cluster.
 Data can be replicated to protect against node failure. Thin provisioning and
 compression can improve utilization and reduce cost.
 
@@ -1053,7 +1052,7 @@ spec:
       image: mysql
       env:
       - name: MYSQL_ROOT_PASSWORD
-        value: "rootpasswd" 
+        value: "rootpasswd"
       volumeMounts:
       - mountPath: /var/lib/mysql
         name: site-data
@@ -1103,7 +1102,7 @@ spec:
   restartPolicy: Never
   volumes:
   - name: workdir1
-    hostPath: 
+    hostPath:
       path: /var/log/pods
 ```
 
@@ -1123,7 +1122,7 @@ several media types.
 ## Out-of-Tree Volume Plugins
 The Out-of-tree volume plugins include the Container Storage Interface (CSI)
 and Flexvolume. They enable storage vendors to create custom storage plugins
-without adding them to the Kubernetes repository. 
+without adding them to the Kubernetes repository.
 
 Before the introduction of CSI and Flexvolume, all volume plugins (like
 volume types listed above) were "in-tree" meaning they were built, linked,
@@ -1210,8 +1209,8 @@ persistent volume:
 {{< feature-state for_k8s_version="v1.11" state="alpha" >}}
 
 Starting with version 1.11, CSI introduced support for raw block volumes, which
-relies on the raw block volume feature that was introduced in a previous version of 
-Kubernetes.  This feature will make it possible for vendors with external CSI drivers to 
+relies on the raw block volume feature that was introduced in a previous version of
+Kubernetes.  This feature will make it possible for vendors with external CSI drivers to
 implement raw block volumes support in Kubernetes workloads.
 
 CSI block volume support is feature-gated and turned off by default.  To run CSI with
@@ -1222,7 +1221,7 @@ Kubernetes component using the following feature gate flags:
 --feature-gates=BlockVolume=true,CSIBlockVolume=true
 ```
 
-Learn how to 
+Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
 ### Flexvolume
@@ -1283,7 +1282,7 @@ In addition, any volume mounts created by Containers in Pods must be destroyed
 {{< /caution >}}
 
 ### Configuration
-Before mount propagation can work properly on some deployments (CoreOS, 
+Before mount propagation can work properly on some deployments (CoreOS,
 RedHat/Centos, Ubuntu) mount share must be configured correctly in
 Docker as shown below.
 
@@ -1302,5 +1301,3 @@ $ sudo systemctl restart docker
 {{% capture whatsnext %}}
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 {{% /capture %}}
-
-

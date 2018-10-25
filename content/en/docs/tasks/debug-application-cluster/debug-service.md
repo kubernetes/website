@@ -14,7 +14,6 @@ This document will hopefully help you to figure out what's going wrong.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

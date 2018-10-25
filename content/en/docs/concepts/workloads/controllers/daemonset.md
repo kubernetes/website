@@ -29,7 +29,6 @@ different flags and/or different memory and cpu requests for different hardware 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -130,7 +129,7 @@ That introduces the following issues:
  * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
    is handled by default scheduler. When preemption is enabled, the DaemonSet controller
    will make scheduling decisions without considering pod priority and preemption.
- 
+
 `ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
 scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
 to the DaemonSet pods, instead of the `.spec.nodeName` term. The default

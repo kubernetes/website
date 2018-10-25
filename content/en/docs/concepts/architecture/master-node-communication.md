@@ -18,7 +18,6 @@ cloud provider).
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -67,9 +66,9 @@ The connections from the apiserver to the kubelet are used for:
 
   * Fetching logs for pods.
   * Attaching (through kubectl) to running pods.
-  * Providing the kubelet's port-forwarding functionality. 
+  * Providing the kubelet's port-forwarding functionality.
 
-These connections terminate at the kubelet's HTTPS endpoint. By default, 
+These connections terminate at the kubelet's HTTPS endpoint. By default,
 the apiserver does not verify the kubelet's serving certificate,
 which makes the connection subject to man-in-the-middle attacks, and
 **unsafe** to run over untrusted and/or public networks.

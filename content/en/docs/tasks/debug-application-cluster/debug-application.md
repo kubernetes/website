@@ -14,7 +14,6 @@ This is *not* a guide for people who want to debug their cluster.  For that you 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

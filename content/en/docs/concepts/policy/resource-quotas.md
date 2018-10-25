@@ -15,7 +15,6 @@ Resource quotas are a tool for administrators to address this concern.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

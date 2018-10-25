@@ -20,7 +20,6 @@ We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

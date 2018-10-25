@@ -23,7 +23,6 @@ using `kubefed`.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -41,14 +40,14 @@ for installation instructions for your platform.
 
 ## Getting `kubefed`
 
-Download the client tarball corresponding to the particular release and 
+Download the client tarball corresponding to the particular release and
 extract the binaries in the tarball:
 
 {{< note >}}
-**Note:** Until Kubernetes version `1.8.x` the federation project was 
+**Note:** Until Kubernetes version `1.8.x` the federation project was
 maintained as part of the [core kubernetes repo](https://github.com/kubernetes/kubernetes).
-Between Kubernetes releases `1.8` and `1.9`, the federation project moved into 
-a separate [federation repo](https://github.com/kubernetes/federation), where it is 
+Between Kubernetes releases `1.8` and `1.9`, the federation project moved into
+a separate [federation repo](https://github.com/kubernetes/federation), where it is
 now maintained. Consequently, the federation release information is available on the
 [release page](https://github.com/kubernetes/federation/releases).
 {{< /note >}}
@@ -60,7 +59,7 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/${RELEASE-VER
 tar -xzvf kubernetes-client-linux-amd64.tar.gz
 ```
 {{< note >}}
-**Note:** The `RELEASE-VERSION` variable should either be set to or replaced with the actual version needed. 
+**Note:** The `RELEASE-VERSION` variable should either be set to or replaced with the actual version needed.
 {{< /note >}}
 
 Copy the extracted binary to one of the directories in your `$PATH`
@@ -79,7 +78,7 @@ tar -xzvf federation-client-linux-amd64.tar.gz
 ```
 
 {{< note >}}
-**Note:** The `RELEASE-VERSION` variable should be replaced with one of the release versions available at [federation release page](https://github.com/kubernetes/federation/releases). 
+**Note:** The `RELEASE-VERSION` variable should be replaced with one of the release versions available at [federation release page](https://github.com/kubernetes/federation/releases).
 {{< /note >}}
 
 Copy the extracted binary to one of the directories in your `$PATH`
@@ -92,7 +91,7 @@ sudo chmod +x /usr/local/bin/kubefed
 
 ### Install kubectl
 
-You can install a matching version of kubectl using the instructions on 
+You can install a matching version of kubectl using the instructions on
 the  [kubectl install page](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 
 ## Choosing a host cluster.
@@ -177,7 +176,7 @@ without the Google Cloud DNS API scope by default. If you want to use a
 Google Kubernetes Engine cluster as a Federation host, you must create it using the `gcloud`
 command with the appropriate value in the `--scopes` field. You cannot
 modify a Google Kubernetes Engine cluster directly to add this scope, but you can create a
-new node pool for your cluster and delete the old one. 
+new node pool for your cluster and delete the old one.
 
 {{< note >}}
 **Note:** This will cause pods in the cluster to be rescheduled.
@@ -200,7 +199,7 @@ gcloud container node-pools delete default-pool --cluster gke-cluster
 
 `kubefed init` sets up the federation control plane in the host
 cluster and also adds an entry for the federation API server in your
-local kubeconfig. 
+local kubeconfig.
 {{< note >}}
 **Note:** In the beta release of Kubernetes 1.6, `kubefed init` does not automatically set the current context to the
 newly deployed federation. You can set the current context manually by running:
@@ -436,7 +435,7 @@ Where `<patch-file-name>` is the name of the file you created above.
 
 ## Adding a cluster to a federation
 
-After you've deployed a federation control plane, you'll need to make that control plane aware of the clusters it should manage. 
+After you've deployed a federation control plane, you'll need to make that control plane aware of the clusters it should manage.
 
 To join clusters into the federation:
 
@@ -463,7 +462,7 @@ To join clusters into the federation:
     kubefed join gondor --host-cluster-context=rivendell
     ```
 
-A new context has now been added to your kubeconfig named `fellowship` (after the name of your federation). 
+A new context has now been added to your kubeconfig named `fellowship` (after the name of your federation).
 
 
 {{< note >}}

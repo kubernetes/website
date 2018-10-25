@@ -21,7 +21,6 @@ protocol that is similar to the
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 

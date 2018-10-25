@@ -20,7 +20,6 @@ in the Kubernetes logging overview.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -263,7 +262,7 @@ In this case you need to be able to change the parameters of `DaemonSet` and `Co
 
 If you're using GKE and Stackdriver Logging is enabled in your cluster, you
 cannot change its configuration, because it's managed and supported by GKE.
-However, you can disable the default integration and deploy your own. 
+However, you can disable the default integration and deploy your own.
 {{< note >}}**Note:** You will have to support and maintain a newly deployed configuration
 yourself: update the image and configuration, adjust the resources and so on.{{< /note >}}
 To disable the default logging integration, use the following command:
@@ -325,7 +324,7 @@ kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-
 ```
 
 Then in the value for the key `containers.input.conf` insert a new filter right after
-the `source` section. 
+the `source` section.
 {{< note >}}**Note:** Order is important.{{< /note >}}
 
 Updating `ConfigMap` in the apiserver is more complicated than updating `DaemonSet`. It's better

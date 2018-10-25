@@ -20,7 +20,6 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -674,7 +673,7 @@ and need persistent storage, we recommend that you use the following pattern:
     `persistentVolumeClaim.storageClassName` field.
     This will cause the PVC to match the right storage
     class if the cluster has StorageClasses enabled by the admin.
-  - If the user does not provide a storage class name, leave the 
+  - If the user does not provide a storage class name, leave the
     `persistentVolumeClaim.storageClassName` field as nil.
     - This will cause a PV to be automatically provisioned for the user with
       the default StorageClass in the cluster.  Many cluster environments have
