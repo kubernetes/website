@@ -114,7 +114,8 @@ different Kubernetes components.
 | `TokenRequestProjection` | `True` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
-| `VolumeScheduling` | `true` | Beta | 1.10 | |
+| `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
+| `VolumeScheduling` | `true` | GA | 1.13 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 
