@@ -367,7 +367,7 @@ Ok, now we have docker image which includes:
 OK, now when our docker-image with LTSP-server, kernel, initramfs and squashed rootfs fully prepared we can run the deployment with it.
 
 We can do that as usual, but one more thing is networking.
-Unfortunately, we can't use the standard Kubernetes service abstraction for our deployment, because during the boot, our nodes are not part of Kubernetes cluster and they requires ExternalIP, but Kubernetes always enables NAT for ExternalIPs, and there is no way to disable this behavior.
+Unfortunately, we can't use the standard Kubernetes service abstraction for our deployment, because TFTP can't work behind the NAT. During the boot, our nodes are not part of Kubernetes cluster and they requires ExternalIP, but Kubernetes always enables NAT for ExternalIPs, and there is no way to override this behavior.
 
 For now I have two ways for avoid this: use `hostNetwork: true` or use [pipework](https://github.com/dreamcat4/docker-images/blob/master/pipework/3.%20Examples.md#kubernetes). The second option will also provide you redundancy because, in case of failure, the IP will be moved with the Pod to another node. Unfortunately, pipework is not native and a less secure method.
 If you have some better option for that please let me know.
