@@ -19,6 +19,8 @@ Intrigued? Let me walk you through how it works.
 
 # Summary
 
+_**Please note:** this is a cool hack, but is not officially supported in Kubernetes._
+
 First, we need to understand how exactly it works. 
 
 In short, for all nodes we have prepared the image with the OS, Docker, Kubelet and everything else that you need there. This image with the kernel is building automatically by CI using Dockerfile. End nodes are booting the kernel and OS from this image via the network.
@@ -489,8 +491,6 @@ Now you can try to make your own changes.
 If you need something more, note that LTSP can be easily changed to meet your needs.
 Feel free to look into the source code and you can find many answers there.
 
-**UPD:** Many people asking me: Why not simple use CoreOS and Ignition?
+_**UPD:** Many people asking me: Why not simple use CoreOS and Ignition?_
 
-I can answer. The main feature here is image preparation process not configuration.
-In case with LTSP you have classic Ubuntu system, and everything that can be installed on Ubuntu it can also be written here in the Dockerfile.
-In case CoreOS you have no so many freedom and you can’t easily add custom kernel modules and packages at the build stage of the boot image.
+_I can answer. The main feature here is image preparation process, not configuration. In case with LTSP you have classic Ubuntu system, and everything that can be installed on Ubuntu it can also be written here in the Dockerfile. In case CoreOS you have no so many freedom and you can’t easily add custom kernel modules and packages at the build stage of the boot image._
