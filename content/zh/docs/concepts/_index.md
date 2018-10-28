@@ -39,7 +39,7 @@ weight: 40
   * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node. -->
 
-* **Kubernetes Master** 是运行在单个节点或者集群中的三个进程的集合, 通常这个节点被称为 master 节点. 这几个进程是：[kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
+* **Kubernetes Master** 是运行在集群中的单个节上的三个进程的集合, 通常这个节点被称为 master 节点. 这几个进程是：[kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
 * 集群中的每个非 master 节点都运行两个进程：
   * **[kubelet](/docs/admin/kubelet/)**，和 master 节点进行通信。
   * **[kube-proxy](/docs/admin/kube-proxy/)**，一种网络代理，将 Kubernetes 的网络服务代理到每个节点上。
@@ -50,7 +50,7 @@ weight: 40
 
 <!-- Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API; see the [Kubernetes Objects overview](/docs/concepts/abstractions/overview/) for more details.  -->
 
-Kubernetes 包含大量的抽象描述来表示系统状态：部署容器化的应用和负载，它们相关的网络和磁盘资源，以及集群运行的其他信息。这些抽象描述用 Kubernetes API 来进行表示。查阅 [Kubernetes Objects overview] 了解更多。
+Kubernetes 包含大量的抽象描述来表示系统状态：部署容器化的应用和负载，与它们相关的网络和磁盘资源，以及集群运行的其他信息。这些抽象描述用 Kubernetes API 来进行表示。查阅 [Kubernetes Objects overview] 了解更多。
 
 <!-- The basic Kubernetes objects include: -->
 
@@ -118,6 +118,6 @@ Kubernetes master 节点负责维护集群的目标状态。当你要与 Kuberne
 [Using Page Templates](/docs/home/contribute/page-templates/)
 for information about the concept page type and the concept template. -->
 
-如果你想编写一篇概念页面，请参阅[使用页面模板](/docs/home/contribute/page-templates/)获取更多有关概念页面类型和概念模板的信息。
+如果你想编写一个概念页面，请参阅[使用页面模板](/docs/home/contribute/page-templates/)获取更多有关概念页面类型和概念模板的信息。
 
 {{% /capture %}}
