@@ -8,7 +8,7 @@ reviewers:
 ---
 
 {{% capture overview %}}
-You can use the Kubernetes command line tool kubectl to interact with the api. You can use kubectl if you are familiar with docker-cli. However, there are a few differences in the docker-cli commands and the kubectl commands. Each of the following section details a docker subcommand and explains the kubectl equivalent.
+You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command.
 {{% /capture %}}
 
 {{% capture body %}}
