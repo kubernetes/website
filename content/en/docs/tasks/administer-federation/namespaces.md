@@ -41,7 +41,7 @@ You can do that using kubectl by running:
 kubectl --context=federation-cluster create -f myns.yaml
 ```
 
-The '--context=federation-cluster' flag tells kubectl to submit the
+The `--context=federation-cluster` flag tells kubectl to submit the
 request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
