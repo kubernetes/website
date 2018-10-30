@@ -108,7 +108,7 @@ will not use the command line you intended it to use.
 
 The first thing to do is to delete your pod and try creating it again with the `--validate` option.
 For example, run `kubectl create --validate -f mypod.yaml`.
-If you misspelled `command` as `commnd` then  will give an error like this:
+If you misspelled `command` as `commnd` then will give an error like this:
 
 ```shell
 I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd

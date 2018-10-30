@@ -216,7 +216,7 @@ spec:
 - Verify that the scheduling of the second pod fails with the below warning:
 
 ```shell
-Warning  FailedScheduling  18s (x4 over 21s)  default-scheduler  persistentvolumeclaim "slzc" is being deleted
+Warning  FailedScheduling  18s (x4 over 21s)  default-scheduler persistentvolumeclaim "slzc" is being deleted
 ```
 
 - Wait until the pod status of both pods is `Terminated` or `Completed` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
