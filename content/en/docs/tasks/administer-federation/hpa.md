@@ -106,7 +106,7 @@ Currently the default distribution is only available on the federated HPA, but i
 future, users preferences could also be specified to control and/or restrict this
 distribution.
 
-## Updating a federated ReplicaSet
+## Updating a federated HPA
 
 You can update a federated HPA as you would update a Kubernetes
 HPA; however, for a federated HPA, you must send the request to
