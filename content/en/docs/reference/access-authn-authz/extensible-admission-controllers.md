@@ -62,13 +62,13 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ### Write an admission webhook server
 
 Please refer to the implementation of the [admission webhook
-server](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/images/webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/blob/v1.13.2/test/images/webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `admissionReview` requests sent by the apiservers, and sends back its decision
 wrapped in `admissionResponse`.
 
 The example admission webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/images/webhook/config.go#L48-L49),
+[empty](https://github.com/kubernetes/kubernetes/blob/v1.13.2/test/images/webhook/config.go#L48-L49),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly apiservers. If you need
 mutual TLS or other ways to authenticate the clients, see
@@ -80,18 +80,18 @@ The webhook server in the e2e test is deployed in the Kubernetes cluster, via
 the [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1beta1-apps).
 The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 as the front-end of the webhook server. See
-[code](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/e2e/apimachinery/webhook.go#L196).
+[code](https://github.com/kubernetes/kubernetes/blob/v1.13.2/test/e2e/apimachinery/webhook.go#L196).
 
 You may also deploy your webhooks outside of the cluster. You will need to update
-your [webhook client configurations](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L218) accordingly.
+your [webhook client configurations](https://github.com/kubernetes/kubernetes/blob/v1.13.2/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L218) accordingly.
 
 ### Configure admission webhooks on the fly
 
 You can dynamically configure what resources are subject to what admission
 webhooks via
-[ValidatingWebhookConfiguration](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L68)
+[ValidatingWebhookConfiguration](https://github.com/kubernetes/kubernetes/blob/v1.13.2/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L68)
 or
-[MutatingWebhookConfiguration](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L98).
+[MutatingWebhookConfiguration](https://github.com/kubernetes/kubernetes/blob/v1.13.2/staging/src/k8s.io/api/admissionregistration/v1beta1/types.go#L98).
 
 The following is an example `validatingWebhookConfiguration`, a mutating webhook
 configuration is similar.
@@ -170,7 +170,7 @@ plugins:
 ```
 
 The schema of `admissionConfiguration` is defined
-[here](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.0/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1alpha1/types.go#L27).
+[here](https://github.com/kubernetes/kubernetes/blob/v1.13.2/staging/src/k8s.io/apiserver/pkg/apis/apiserver/v1alpha1/types.go#L27).
 
 * In the kubeConfig file, provide the credentials:
 
