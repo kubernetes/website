@@ -154,8 +154,8 @@ process guidelines and information about deadlines.
 ### Sign the CLA
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
-the [Contributor guide](/docs/community/guide/) and
-[sign the Contributor License Agreement (CLA)](/docs/community/guide/#sign-the-cla).
+the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and
+[sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 Don't worry -- this doesn't take long!
 
 ### Find something to work on
