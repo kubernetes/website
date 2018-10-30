@@ -22,7 +22,7 @@ default.  There are 4 distinct networking problems to solve:
 {{% capture body %}}
 
 Kubernetes assumes that pods can communicate with other pods, regardless of
-which host they land on.  Every pod gets its own IP address so you do not
+which host they land on. Every pod gets its own IP address so you do not
 need to explicitly create links between pods and you almost never need to deal
 with mapping container ports to host ports.  This creates a clean,
 backwards-compatible model where pods can be treated much like VMs or physical
@@ -150,6 +150,18 @@ CNI-Genie also supports [assigning multiple IP addresses to a pod](https://githu
 ### Contrail
 
 [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [OpenContrail](http://www.opencontrail.org), is a truly open, multi-cloud network virtualization and policy management platform. Contrail / OpenContrail is integrated with various orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provides different isolation modes for virtual machines, containers/pods and bare metal workloads.
+
+### DANM
+
+[DANM](https://github.com/nokia/danm) is a networking solution for telco workloads running in a Kubernetes cluster. It's built up from the following components:
+
+   * A CNI plugin capable of provisioning IPVLAN interfaces with advanced features
+   * An in-built IPAM module with the capability of managing multiple, cluster-wide, discontinuous L3 networks and provide a dynamic, static, or no IP allocation scheme on-demand
+   * A CNI metaplugin capable of attaching multiple network interfaces to a container, either through its own CNI, or through delegating the job to any of the popular CNI solution like SRI-OV, or Flannel in parallel
+   * A Kubernetes controller capable of centrally managing both VxLAN and VLAN interfaces of all Kubernetes hosts
+   * Another Kubernetes controller extending Kubernetes' Service-based service discovery concept to work over all network interfaces of a Pod
+
+With this toolset DANM is able to provide multiple separated network interfaces, the possibility to use different networking back ends and advanced IPAM features for the pods.
 
 ### Flannel
 
