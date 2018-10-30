@@ -55,7 +55,7 @@ rather a
 globally reachable via a single, static IP address.
 
 Clients inside your federated Kubernetes clusters (Pods) will be
-automatically  routed to the cluster-local shard of the Federated Service
+automatically routed to the cluster-local shard of the Federated Service
 backing the Ingress in their cluster if it exists and is healthy, or the closest healthy shard in a
 different cluster if it does not.  Note that this involves a network
 trip to the HTTP(s) load balancer, which resides outside your local
