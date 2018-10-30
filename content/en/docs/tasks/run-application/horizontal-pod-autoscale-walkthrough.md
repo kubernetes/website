@@ -385,7 +385,7 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
       averageValue: 30
 ```
 
-When possible, it's preferrable to use the custom metric target types instead of external metrics, since it's
+When possible, it's preferable to use the custom metric target types instead of external metrics, since it's
 easier for cluster administrators to secure the custom metrics API.  The external metrics API potentially allows
 access to any metric, so cluster administrators should take care when exposing it.
 
