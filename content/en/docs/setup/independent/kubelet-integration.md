@@ -12,7 +12,7 @@ weight: 40
 
 The lifecycle of the kubeadm CLI tool is decoupled from the
 [kubelet](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
-on each Kubernetes master and Node. The kubeadm CLI tool is executed by the user when Kubernetes is
+on each node within the Kubernetes cluster. The kubeadm CLI tool is executed by the user when Kubernetes is
 initialized or upgraded, whereas the kubelet is always running in the background.
 
 Since the kubelet is a daemon, it needs to be maintained by some kind of a init
