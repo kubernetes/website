@@ -55,7 +55,7 @@ rather a
 globally reachable via a single, static IP address.
 
 Clients inside your federated Kubernetes clusters (Pods) will be
-automatically  routed to the cluster-local shard of the Federated Service
+automatically routed to the cluster-local shard of the Federated Service
 backing the Ingress in their cluster if it exists and is healthy, or the closest healthy shard in a
 different cluster if it does not.  Note that this involves a network
 trip to the HTTP(s) load balancer, which resides outside your local
@@ -85,7 +85,7 @@ You can create a federated ingress in any of the usual ways, for example, using 
 kubectl --context=federation-cluster create -f myingress.yaml
 ```
 For example ingress YAML configurations, see the [Ingress User Guide](/docs/concepts/services-networking/ingress/).
-The '--context=federation-cluster' flag tells kubectl to submit the
+The `--context=federation-cluster` flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, see the
 [federation admin guide](/docs/admin/federation/) or one of the

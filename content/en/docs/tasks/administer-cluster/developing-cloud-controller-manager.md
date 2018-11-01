@@ -22,7 +22,6 @@ To dive a little deeper into implementation details, all cloud controller manage
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

@@ -42,7 +42,6 @@ Rolling updates are initiated with the `kubectl rolling-update` command:
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

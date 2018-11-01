@@ -17,7 +17,6 @@ The `cloud-controller-manager` can be linked to any cloud provider that satisfie
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

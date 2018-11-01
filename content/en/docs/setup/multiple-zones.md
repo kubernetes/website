@@ -58,7 +58,7 @@ There are some important limitations of the multizone support:
 
 * We assume that the different zones are located close to each other in the
 network, so we don't perform any zone-aware routing.  In particular, traffic
-that goes via services might cross zones (even if pods in some pods backing that service
+that goes via services might cross zones (even if some pods backing that service
 exist in the same zone as the client), and this may incur additional latency and cost.
 
 * Volume zone-affinity will only work with a `PersistentVolume`, and will not

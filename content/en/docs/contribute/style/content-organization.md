@@ -4,7 +4,6 @@ content_template: templates/concept
 weight: 40
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
@@ -62,7 +61,7 @@ linkTitle: Title used in links
 
 ### Documentation Side Menu
 
-The documentation side-bar menu is built from the _current section tree_ starting below `docs/`. 
+The documentation side-bar menu is built from the _current section tree_ starting below `docs/`.
 
 It will show all sections and their pages.
 
@@ -86,7 +85,7 @@ toc_hide: true
 
 ### The Main Menu
 
-The site links in the top-right menu -- and also in the footer -- are built by page-lookups. This is to make sure that the page actually exists. So, if the `case-studies` section does not exist in a site (language), it will not be linked to. 
+The site links in the top-right menu -- and also in the footer -- are built by page-lookups. This is to make sure that the page actually exists. So, if the `case-studies` section does not exist in a site (language), it will not be linked to.
 
 
 ## Page Bundles
@@ -137,4 +136,3 @@ The `SASS` source of the stylesheets for this site is stored below `src/sass` an
 * [Style guide](/docs/contribute/style/style-guide)
 
 {{% /capture %}}
-

@@ -4,12 +4,11 @@ content_template: templates/task
 weight: 30
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
 In this example, we will run a Kubernetes Job with multiple parallel
-worker processes. 
+worker processes.
 
 In this example, as each pod is created, it picks up one unit of work
 from a task queue, completes it, deletes it from the queue, and exits.
@@ -25,7 +24,6 @@ Here is an overview of the steps in this example:
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 

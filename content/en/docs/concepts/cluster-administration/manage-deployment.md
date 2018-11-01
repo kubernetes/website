@@ -14,7 +14,6 @@ You've deployed your application and exposed it via a service. Now what? Kuberne
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

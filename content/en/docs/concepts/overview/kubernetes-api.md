@@ -22,7 +22,6 @@ Kubernetes itself is decomposed into multiple components, which interact through
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

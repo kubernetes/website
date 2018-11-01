@@ -8,7 +8,7 @@ title: Persistent Volumes
 feature:
   title: Storage orchestration
   description: >
-    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider  such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
 
 content_template: templates/concept
 weight: 20
@@ -20,7 +20,6 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -674,7 +673,7 @@ and need persistent storage, we recommend that you use the following pattern:
     `persistentVolumeClaim.storageClassName` field.
     This will cause the PVC to match the right storage
     class if the cluster has StorageClasses enabled by the admin.
-  - If the user does not provide a storage class name, leave the 
+  - If the user does not provide a storage class name, leave the
     `persistentVolumeClaim.storageClassName` field as nil.
     - This will cause a PV to be automatically provisioned for the user with
       the default StorageClass in the cluster.  Many cluster environments have

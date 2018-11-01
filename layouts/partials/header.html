@@ -5,7 +5,7 @@
 
     <div class="nav-buttons" data-auto-burger="primary">
         <ul class="global-nav">
-            {{ $sections := slice "docs/home" "blog" "partners" "community" "case-studies" }}
+            {{ $sections := slice "docs" "blog" "partners" "community" "case-studies" }}
             {{ range $sections }}
             {{ with $.Site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}"{{ if eq .Section $.Section }} class="active"{{ end}}>{{ .LinkTitle }}</a></li>{{ end }}
             {{ end }}

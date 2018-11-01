@@ -20,7 +20,7 @@ Kubernetes [`Pod`](/docs/user-guide/pods) 是有生命周期的，它们可以�
 
 
 
-Kubernetes `Service` 定义了这样一种抽象：一个 `Pod` 的逻辑分组，一种可以访问它们的策略 —— 通常称为微服务。
+Kubernetes `Service` 定义了这样一种抽象：逻辑上的一组 `Pod`，一种可以访问它们的策略 —— 通常称为微服务。
 这一组 `Pod` 能够被 `Service` 访问到，通常是通过 [`Label Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors)（查看下面了解，为什么可能需要没有 selector 的 `Service`）实现的。
 
 

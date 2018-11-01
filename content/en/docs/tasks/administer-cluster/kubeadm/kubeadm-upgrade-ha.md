@@ -21,7 +21,7 @@ Before proceeding:
 - You need to have a `kubeadm` HA cluster running version 1.11 or higher.
 - Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md) carefully.
 - Make sure to back up any important components, such as app-level state stored in a database. `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
-- Check the prerequisites for [Upgrading/downgrading kubeadm clusters between v1.11 to v1.12](/docs/tasks/administer-cluster/kubeadm-upgrade-1-12/).
+- Check the prerequisites for [Upgrading/downgrading kubeadm clusters between v1.11 to v1.12](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/).
 
 {{< note >}}
 **Note**: All commands on any control plane or etcd node should be

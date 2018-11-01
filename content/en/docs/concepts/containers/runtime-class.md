@@ -140,7 +140,6 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
