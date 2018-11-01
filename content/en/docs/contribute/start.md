@@ -288,7 +288,7 @@ conventions and etiquette and get used to the workflow.
     based on how many lines of code the PR modifies. You can apply filters using
     the selection boxes at the top of the page, or use
     [this shortcut](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+yes%22+label%3Asize%2FS) for only small PRs. All filters are `AND`ed together, so
-    you can't search for both `size/XS` and `size/S` in the same query.
+    you can search for both `size/XS` and `size/S` in the same query.
 
 3.  Go to the **Files changed** tab. Look through the changes introduced in the
     PR, and if applicable, also look at any linked issues. If you see a problem
