@@ -2,6 +2,39 @@
 title: Using Windows Server Containers in Kubernetes
 toc_hide: true
 ---
+<!-- TOC -->
+
+- [Get Windows Binaries](#get-windows-binaries)
+- [Prerequisites](#prerequisites)
+- [Networking](#networking)
+    - [Future CNI Plugins](#future-cni-plugins)
+    - [Linux](#linux)
+    - [Windows](#windows)
+        - [Upstream L3 Routing Topology](#upstream-l3-routing-topology)
+        - [Host-Gateway Topology](#host-gateway-topology)
+        - [Using OVN with OVS](#using-ovn-with-ovs)
+- [Setting up Windows Server Containers on Kubernetes](#setting-up-windows-server-containers-on-kubernetes)
+    - [Host Setup](#host-setup)
+        - [For 1. Upstream L3 Routing Topology and 2. Host-Gateway Topology](#for-1-upstream-l3-routing-topology-and-2-host-gateway-topology)
+        - [For 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#for-3-open-vswitch-ovs--open-virtual-network-ovn-with-overlay)
+- [Starting the Cluster](#starting-the-cluster)
+- [Starting the Linux-based Control Plane](#starting-the-linux-based-control-plane)
+- [Support for kubeadm join](#support-for-kubeadm-join)
+- [Supported Features](#supported-features)
+    - [Scheduling Pods on Windows](#scheduling-pods-on-windows)
+    - [Secrets and ConfigMaps](#secrets-and-configmaps)
+    - [Volumes](#volumes)
+    - [DaemonSets](#daemonsets)
+    - [Metrics](#metrics)
+    - [Container Resources](#container-resources)
+    - [Hyper-V Containers](#hyper-v-containers)
+    - [Kubelet and kube-proxy can now run as Windows services](#kubelet-and-kube-proxy-can-now-run-as-windows-services)
+- [Known Limitations for Windows Server Containers with v1.9](#known-limitations-for-windows-server-containers-with-v19)
+- [Next steps and resources](#next-steps-and-resources)
+
+<!-- /TOC -->
+<!-- TODO: don't merge this TOC, remove it at the very end and set toc_hide at the top -->
+
 {{< note >}}
 These instructions were recently updated based on Windows Server platform enhancements and the Kubernetes v1.9 release
 {{< /note >}}
