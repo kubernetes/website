@@ -53,7 +53,6 @@ The `conditions` field describes the status of all `Running` nodes.
 | `PIDPressure`    | `True` if pressure exists on the processes -- that is, if there are too many processes on the node; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
-| `ConfigOK`    | `True` if the kubelet is correctly configured, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
