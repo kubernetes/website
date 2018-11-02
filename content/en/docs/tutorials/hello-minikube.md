@@ -46,7 +46,7 @@ For more information, read the Docker documentation for [docker build](https://d
 
 ## Create a Minikube cluster
 
-1. Click *Launch Terminal* 
+1. Click **Launch Terminal** 
 
    {{< kat-button >}}
 
@@ -63,9 +63,9 @@ For more information, read the Docker documentation for [docker build](https://d
 minikube dashboard
 ```
 
-3. Katacoda environment only: At the top of the terminal pane, click the plus sign, then click *Select port to view on Host 1*.
+3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
 
-4. Katacoda environment only: Type 30000, then click *Display Port*. 
+4. Katacoda environment only: Type 30000, and then click **Display Port**. 
 
 ## Create a Deployment
 
@@ -164,9 +164,9 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
   minikube service hello-node
   ```
 
-4. Katacoda environment only: Click the plus sign, then click *Select port to view on Host 1*.
+4. Katacoda environment only: Click the plus sign, then click **Select port to view on Host 1**.
 
-5. Katacoda environment only: Type in the Port number following `8080:`, then click Display port. 
+5. Katacoda environment only: Type in the Port number following `8080:`, and then click **Display Port**. 
 
   This opens up a browser window that serves your app and shows the "Hello World" message.
 
@@ -174,7 +174,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 Minikube has a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment.
 
-1. list the currently supported addons:
+1. List the currently supported addons:
 
   ```shell
   minikube addons list
@@ -199,10 +199,12 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
   - registry-creds: disabled
   - storage-provisioner: enabled
   ```
-
+  {{< note >}}
+  **Note:** 
   Minikube must be running for these commands to take effect. 
+  {{< /note >}}
 
-2. To enable `heapster` addon, for example:
+2. Enable an addon, for example, `heapster`:
 
   ```shell
   minikube addons enable heapster
@@ -239,7 +241,7 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
   service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
   ```
 
-4. To disable `heapster` addon, for example:
+4. Disable `heapster`:
 
   ```shell
   minikube addons disable heapster
