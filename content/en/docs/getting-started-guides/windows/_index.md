@@ -9,7 +9,8 @@ toc_hide: true
     - [Deploying a stateless web application](#deploying-a-stateless-web-application)
         - [Manual scaling with replica sets](#manual-scaling-with-replica-sets)
         - [Handling secrets](#handling-secrets)
-        - [Deploying a stateful application](#deploying-a-stateful-application)
+    - [Deploying a stateful application](#deploying-a-stateful-application)
+        - [Creating a volume claim](#creating-a-volume-claim)
 - [Cluster Operators](#cluster-operators)
     - [Building a cluster](#building-a-cluster)
         - [Overview](#overview)
@@ -51,13 +52,13 @@ Sample: stop web service to trigger restart
 
 Sample: database connection string
 
-#### Deploying a stateful application
+### Deploying a stateful application
 
-##### Creating a volume claim
+#### Creating a volume claim
 
-###### Using Azure Files - store a sqllite database for the web app
+##### Using Azure Files - store a sqllite database for the web app
 
-###### (later - part of on premises doc set) Using SMB/CIFS
+<!-- TODO: future PR - Using SMB/CIFS -->
 
 ## Cluster Operators
 
