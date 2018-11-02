@@ -106,9 +106,9 @@ Stopping local Kubernetes cluster...
 Stopping "minikube"...
 ```
 
-## Alternative Container Runtimes
+### Alternative Container Runtimes
 
-### containerd
+#### containerd
 
 To use [containerd](https://github.com/containerd/containerd) as the container runtime, run:
 
@@ -130,7 +130,7 @@ $ minikube start \
     --bootstrapper=kubeadm
 ```
 
-### CRI-O
+#### CRI-O
 
 To use [CRI-O](https://github.com/kubernetes-incubator/cri-o) as the container runtime, run:
 
@@ -152,7 +152,7 @@ $ minikube start \
     --bootstrapper=kubeadm
 ```
 
-### rkt container engine
+#### rkt container engine
 
 To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
 
@@ -164,12 +164,12 @@ $ minikube start \
 
 This will use an alternative minikube ISO image containing both rkt, and Docker, and enable CNI networking.
 
-## Driver plugins
+### Driver plugins
 
 See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
 plugins, if required.
 
-## Reusing the Docker daemon
+### Reusing the Docker daemon
 
 When using a single VM of Kubernetes, it's really handy to reuse the Minikube's built-in Docker daemon; as this means you don't have to build a docker registry on your host machine and push the image into it - you can just build inside the same docker daemon as minikube which speeds up local experiments. Just make sure you tag your Docker image with something other than 'latest' and use that tag while you pull the image. Otherwise, if you do not specify version of your image, it will be assumed as `:latest`, with pull image policy of `Always` correspondingly, which may eventually result in `ErrImagePull` as you may not have any versions of your Docker image out there in the default docker registry (usually DockerHub) yet.
 
@@ -222,7 +222,7 @@ Unfortunately just setting the environment variables will not work.
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
 
-### Specifying the Kubernetes version
+#### Specifying the Kubernetes version
 
 You can specify the specific version of Kubernetes for Minikube to use by
 adding the `--kubernetes-version` string to the `minikube start` command. For
@@ -252,7 +252,7 @@ Here is the documentation for each supported configuration:
 * [etcd](https://godoc.org/github.com/coreos/etcd/etcdserver#ServerConfig)
 * [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
 
-### Examples
+#### Examples
 
 To change the `MaxPods` setting to 5 on the Kubelet, pass this flag: `--extra-config=kubelet.MaxPods=5`.
 
