@@ -161,14 +161,14 @@ Although Daemon Pods respect
 the following tolerations are added to DaemonSet Pods automatically according to
 the related features.
 
-| Toleration Key                           | Effect     | Alpha Features                                               | Version | Description                                                  |
-| ---------------------------------------- | ---------- | ------------------------------------------------------------ | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | When `TaintBasedEvictions` is enabled, they will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | When `TaintBasedEvictions` is enabled, they will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule |                                                              | 1.8+    |                                                              |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule |                                                              | 1.8+    |                                                              |
-| `node.kubernetes.io/unschedulable`       | NoSchedule |                                                              | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler.                                                    |
-| `node.kubernetes.io/network-unavailable` | NoSchedule |                                                              | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler.                      |
+| Toleration Key                           | Effect     | Version | Description                                                  |
+| ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
+| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    |                                                              |
+| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    |                                                              |
+| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler.                                                    |
+| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler.                      |
 
 
 
