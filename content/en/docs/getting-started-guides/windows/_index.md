@@ -78,6 +78,8 @@ Diagram of hybrid cluster
 
 #### Deploying on GCE
 
+See https://github.com/pjh/kubernetes/blob/windows-up/README-GCE-Windows-kube-up.md
+
 #### Deploying on OpenStack
 
 See [OpenStack](building-cluster.md#for-3-open-vswitch-ovs--open-virtual-network-ovn-with-overlay)
