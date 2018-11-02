@@ -1,7 +1,13 @@
-# WIP: Windows Doc Updates
+---
+title: Using Windows Server Containers in Kubernetes
+toc_hide: false
+---
+
+## WIP: Integrating these docs into the website
 
 This is the "user journey" layout from the [Kubernetes Docs](https://kubernetes.io/docs/home/). Only areas that we propose changing/adding are linked. The rest are there just to provide a complete overview.
 
+**Home**
 - Users
   - Application Developer
     - Foundational
@@ -34,16 +40,32 @@ This is the "user journey" layout from the [Kubernetes Docs](https://kubernetes.
       - Extend a Kubernetes cluster
       - Create a Pod Security Policy
       - Define a Resource Quota
-- Contributors
+  - Contributors
+  - Browse Docs
 
-- Browse Docs
-
-
-
-
-
-
-
+**Setup**
+  - Picking the Right Solution
+  - Downloading Kubernetes
+  - Bootstrapping Clusters with kubeadm
+  - Turnkey Cloud Solutions
+  - Custom Cloud Solutions
+    - CoreOS on AWS or GCE
+    - Installing Kubernetes On-premises / Cloud providers with Kubespray
+    - Installing Kubernetes on AWS with kops
+    - [Installing Kubernetes on Azure with ACS-Engine](../../setup/turnkey/azure.md)
+  - On-Premises VMs
+    - Cloudstack
+    - Kubernetes on DC/OS
+    - oVirt
+  - Building Large Clusters
+  - Running in Multiple Zones
+  - CRI installation
+  - Building from Source
+  - Creating a Custom Cluster from Scratch
+  - Installing Kubernetes with Digital Rebar Provision (DRP) via KRIB
+  - PKI Certificates and Requirements
+  - Running Kubernetes Locally via Minikube
+  - Validate Node Setup
 
 - [Get Windows Binaries](#get-windows-binaries)
 - [Prerequisites](#prerequisites)
