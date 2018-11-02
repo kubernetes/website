@@ -1,0 +1,13 @@
+# This is the directory for internationalized site strings.
+
+reviewers:
+- sig-docs-pr-reviews
+- sig-docs-ja-reviews
+- sig-docs-ko-reviews
+- sig-docs-zh-reviews
+
+approvers:
+- sig-docs-en-owners
+- sig-docs-ja-owners
+- sig-docs-ko-owners
+- sig-docs-zh-owners
