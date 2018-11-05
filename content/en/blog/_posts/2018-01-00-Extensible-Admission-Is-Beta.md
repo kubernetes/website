@@ -111,7 +111,7 @@ For the self-hosted category, a cleverly built webhook admission server and topo
 ### Simple, secure, portable, zero-config topology
 If you build your webhook admission server to also be an extension API server, it becomes possible to aggregate it as a normal API server. This has a number of advantages:  
 
-- Your webhook becomes available like any other API under default kube-apiserver service `kubernetes.default.svc` (e.g. [https://kubernetes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews](https://kuberentes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews)). Among other benefits, you can test using `kubectl`.
+- Your webhook becomes available like any other API under default kube-apiserver service `kubernetes.default.svc` (e.g. [https://kubernetes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews](https://kubernetes.default.svc/apis/admission.example.com/v1/mymutatingadmissionreviews)). Among other benefits, you can test using `kubectl`.
 - Your webhook automatically (without any config) makes use of the in-cluster authentication and authorization provided by kube-apiserver. You can restrict access to your webhook with normal RBAC rules.
 - Your extension API servers and kube-apiserver automatically (without any config) make use of their in-cluster credentials to communicate with the webhook.
 - Extension API servers do not leak their service account token to your webhook because they go through kube-apiserver, which is a secure front proxy.
