@@ -126,6 +126,12 @@ For example, a plugin that wishes to be invoked whenever the command `kubectl fo
 
 #### Flags and argument handling
 
+{{< note >}}
+**Note:** Unlike previous versions of `kubectl`, the plugin mechanism will _not_ create any custom, plugin-specific values or environment variables to a plugin process.
+This means that environment variables such as `KUBECTL_PLUGINS_CURRENT_NAMESPACE` are no longer provided to a plugin. Plugins must parse all of the arguments passed to them by a user,
+and handle flag validation as part of their own implementation. For plugins written in Go, a set of utilities has been provided under [k8s.io/cli-runtime](https://github.com/kubernetes/cli-runtime) to assist with this.
+{{< /note >}}
+
 Taking our `kubectl-foo-bar-baz` plugin from the above scenario, we further explore additional cases where users invoke our plugin while providing additional flags and arguments.
 For example, in a situation where a user invokes the command `kubectl foo bar baz arg1 --flag=value arg2`, the plugin mechanism will first try to find the plugin with the longest possible name, which in this case
 would be `kubectk-foo-bar-baz-arg1`. Upon not finding that plugin, it then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.
