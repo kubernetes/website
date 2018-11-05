@@ -273,7 +273,7 @@ This command shuts down and deletes the Minikube Virtual Machine. No data or sta
 
 ### Kubectl
 
-The `minikube start` command creates a "[kubectl context](/docs/reference/generated/kubectl/kubectl-commands/#-em-set-context-em-)" called "minikube".
+The `minikube start` command creates a [kubectl context](/docs/reference/generated/kubectl/kubectl-commands#-em-set-context-em-) called "minikube".
 This context contains the configuration to communicate with your Minikube cluster.
 
 Minikube sets this context to default automatically, but if you need to switch back to it in the future, run:
@@ -375,7 +375,7 @@ $ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
                  --docker-env https_proxy=https://$YOURPROXY:PORT
 ```
 
-If your Virtual Machine address is 192.168.99.100, then chances are your proxy settings will prevent kubectl from directly reaching it.
+If your Virtual Machine address is 192.168.99.100, then chances are your proxy settings will prevent `kubectl` from directly reaching it.
 To by-pass proxy configuration for this IP address, you should modify your no_proxy settings. You can do so with:
 
 ```shell
@@ -390,18 +390,18 @@ $ export no_proxy=$no_proxy,$(minikube ip)
 
 ## Design
 
-Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs.
+Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs, and [kubeadm](https://github.com/kubernetes/kubeadm) to provision a Kubernetes cluster.
 
-For more information about minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md).
+For more information about Minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md).
 
 ## Additional Links
 
-* **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
+* **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
-* **Building Minikube**: For instructions on how to build/test minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Adding a New Dependency**: For instructions on how to add a new dependency to minikube see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
-* **Adding a New Addon**: For instruction on how to add a new addon for minikube see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
-* **Updating Kubernetes**: For instructions on how to update kubernetes see the [updating Kubernetes guide](https://git.k8s.io/minikube/docs/contributors/updating_kubernetes.md).
+* **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
+* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
+* **Adding a New Addon**: For instruction on how to add a new addon for Minikube see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
+* **Updating Kubernetes**: For instructions on how to update Kubernetes see the [updating Kubernetes guide](https://git.k8s.io/minikube/docs/contributors/updating_kubernetes.md).
 
 ## Community
 
