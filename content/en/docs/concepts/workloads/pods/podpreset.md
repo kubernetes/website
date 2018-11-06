@@ -12,7 +12,6 @@ certain information into pods at creation time. The information can include
 secrets, volumes, volume mounts, and environment variables.
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 ## Understanding Pod Presets
@@ -22,7 +21,7 @@ into a Pod at creation time.
 You use [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 to specify the Pods to which a given Pod Preset applies.
 
-Using a Pod Preset allows pod template authors to not have to explicitly provide 
+Using a Pod Preset allows pod template authors to not have to explicitly provide
 all information for every pod. This way, authors of pod templates consuming a
 specific service do not need to know all the details about that service.
 
@@ -52,8 +51,8 @@ Pods, Kubernetes modifies the Pod Spec. For changes to `Env`, `EnvFrom`, and
 the Pod; for changes to `Volume`, Kubernetes modifies the Pod Spec.
 
 {{< note >}}
-**Note:** A Pod Preset is capable of modifying the `.spec.containers` field in a
-Pod spec when appropriate. *No* resource definition from the Pod Preset will be 
+A Pod Preset is capable of modifying the `.spec.containers` field in a
+Pod spec when appropriate. *No* resource definition from the Pod Preset will be
 applied to the `initContainers` field.
 {{< /note >}}
 
@@ -69,7 +68,7 @@ In order to use Pod Presets in your cluster you must ensure the following:
 
 1.  You have enabled the API type `settings.k8s.io/v1alpha1/podpreset`. For
     example, this can be done by including `settings.k8s.io/v1alpha1=true` in
-    the `--runtime-config` option for the API server. 
+    the `--runtime-config` option for the API server.
 1.  You have enabled the admission controller `PodPreset`. One way to doing this
     is to include `PodPreset` in the `--enable-admission-plugins` option value specified
     for the API server.
@@ -83,5 +82,3 @@ In order to use Pod Presets in your cluster you must ensure the following:
 * [Injecting data into a Pod using PodPreset](/docs/tasks/inject-data-application/podpreset/)
 
 {{% /capture %}}
-
-

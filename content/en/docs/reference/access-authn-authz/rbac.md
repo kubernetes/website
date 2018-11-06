@@ -807,7 +807,7 @@ In order from most secure to least secure, the approaches are:
 
     If an application does not specify a `serviceAccountName`, it uses the "default" service account.
 
-    {{< note >}}**Note:** Permissions given to the "default" service
+    {{< note >}}Permissions given to the "default" service
     account are available to any pod in the namespace that does not
     specify a `serviceAccountName`.{{< /note >}}
 
@@ -823,7 +823,7 @@ In order from most secure to least secure, the approaches are:
     Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the `kube-system` namespace.
     To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the `kube-system` namespace.
 
-    {{< note >}}**Note:** Enabling this means the `kube-system`
+    {{< note >}}Enabling this means the `kube-system`
     namespace contains secrets that grant super-user access to the
     API.{{< /note >}}
 
@@ -863,9 +863,11 @@ In order from most secure to least secure, the approaches are:
 
     If you don't care about partitioning permissions at all, you can grant super-user access to all service accounts.
 
-    {{< warning >}}**Warning:** This allows any user with read access
+    {{< warning >}}
+    This allows any user with read access
     to secrets or the ability to create a pod to access super-user
-    credentials.{{< /warning >}}
+    credentials.
+    {{< /warning >}}
 
     ```shell
     kubectl create clusterrolebinding serviceaccounts-cluster-admin \
@@ -898,7 +900,8 @@ The RBAC authorizer will attempt to authorize requests first. If it denies an AP
 the ABAC authorizer is then run. This means that any request allowed by *either* the RBAC
 or ABAC policies is allowed.
 
-When run with a log level of 2 or higher (`--v=2`), you can see RBAC denials in the apiserver log (prefixed with `RBAC DENY:`).
+When the apiserver is run with a log level of 5 or higher for the RBAC component (`--vmodule=rbac*=5` or `--v=5`),
+you can see RBAC denials in the apiserver log (prefixed with `RBAC DENY:`).
 You can use that information to determine which roles need to be granted to which users, groups, or service accounts.
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
 in the server logs, you can remove the ABAC authorizer.
@@ -908,7 +911,7 @@ in the server logs, you can remove the ABAC authorizer.
 You can replicate a permissive policy using RBAC role bindings.
 
 {{< warning >}}
-**Warning:** The following policy allows **ALL** service accounts to act as cluster administrators.
+The following policy allows **ALL** service accounts to act as cluster administrators.
 Any application running in a container receives service account credentials automatically,
 and could perform any action against the API, including viewing secrets and modifying permissions.
 This is not a recommended policy.

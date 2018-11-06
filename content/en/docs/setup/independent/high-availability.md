@@ -303,6 +303,7 @@ Remember that your config may differ from this example.
     ```sh
     kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
     kubeadm alpha phase controlplane all --config kubeadm-config.yaml
+    kubeadm alpha phase kubelet config annotate-cri --config kubeadm-config.yaml
     kubeadm alpha phase mark-master --config kubeadm-config.yaml
     ```
 
@@ -390,6 +391,7 @@ Remember that your config may differ from this example.
     ```sh
     kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
     kubeadm alpha phase controlplane all --config kubeadm-config.yaml
+    kubeadm alpha phase kubelet config annotate-cri --config kubeadm-config.yaml
     kubeadm alpha phase mark-master --config kubeadm-config.yaml
     ```
 

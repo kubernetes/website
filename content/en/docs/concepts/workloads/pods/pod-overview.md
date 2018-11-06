@@ -10,7 +10,6 @@ weight: 10
 This page provides an overview of `Pod`, the smallest deployable object in the Kubernetes object model.
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 ## Understanding Pods
@@ -56,7 +55,7 @@ A Pod can specify a set of shared storage *volumes*. All containers in the Pod c
 You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a Node in your cluster. The Pod remains on that Node until the process is terminated, the pod object is deleted, the pod is *evicted* for lack of resources, or the Node fails.
 
 {{< note >}}
-**Note:** Restarting a container in a Pod should not be confused with restarting the Pod. The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
+Restarting a container in a Pod should not be confused with restarting the Pod. The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
 {{< /note >}}
 
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fails, or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a higher-level abstraction, called a *Controller*, that handles the work of managing the relatively disposable Pod instances. Thus, while it is possible to use Pod directly, it's far more common in Kubernetes to manage your pods using a Controller. See [Pods and Controllers](#pods-and-controllers) for more information on how Kubernetes uses Controllers to implement Pod scaling and healing.
@@ -104,5 +103,3 @@ Rather than specifying the current desired state of all replicas, pod templates 
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * Other Pod Topics
 {{% /capture %}}
-
-

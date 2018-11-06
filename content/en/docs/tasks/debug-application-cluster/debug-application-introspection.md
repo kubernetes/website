@@ -14,7 +14,6 @@ your pods. But there are a number of ways to get even more information about you
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

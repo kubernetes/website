@@ -41,7 +41,7 @@ juju deploy etcd new-etcd
 The above code snippet will deploy a single unit of etcd, as 'new-etcd'
 
 ```
-juju run-action etcd/0 restore target=/mnt/etcd-backups
+juju run-action new-etcd/0 restore target=/mnt/etcd-backups
 ```
 
 Once the restore action has completed, evaluate the cluster health. If the unit

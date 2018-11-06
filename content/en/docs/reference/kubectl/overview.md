@@ -45,7 +45,10 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
      Example: `$ kubectl get pod -f ./pod.yaml`
 
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
-**Important**: Flags that you specify from the command line override default values and any corresponding environment variables.
+
+{{< caution >}}
+Flags that you specify from the command line override default values and any corresponding environment variables.
+{{< /caution >}}
 
 If you need help, just run `kubectl help` from the terminal window.
 
@@ -68,7 +71,7 @@ Operation       | Syntax    |       Description
 `edit`        | `kubectl edit (-f FILENAME \| TYPE NAME \| TYPE/NAME) [flags]` | Edit and update the definition of one or more resources on the server by using the default editor.
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod,
 `explain`    | `kubectl explain [--include-extended-apis=true] [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
-`expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [----external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
+`expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
 `get`        | `kubectl get (-f FILENAME \| TYPE [NAME \| /NAME \| -l label]) [--watch] [--sort-by=FIELD] [[-o \| --output]=OUTPUT_FORMAT] [flags]` | List one or more resources.
 `label`        | `kubectl label (-f FILENAME \| TYPE NAME \| TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the labels of one or more resources.
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | Print the logs for a container in a pod.
@@ -135,7 +138,7 @@ Use the following sections for information about how you can format or sort the 
 
 ### Formatting output
 
-The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `-output` flags to a supported `kubectl` command.
+The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 
 #### Syntax
 
@@ -299,7 +302,7 @@ $ kubectl describe pods --include-uninitialized=false
 ```
 
 {{< note >}}
-**Note:** The `kubectl get` command is usually used for retrieving one or more
+The `kubectl get` command is usually used for retrieving one or more
 resources of the same resource type. It features a rich set of flags that allows
 you to customize the output format using the `-o` or `--output` flag, for example.
 You can specify the `-w` or `--watch` flag to start watching updates to a particular

@@ -57,7 +57,7 @@ can not be removed from that version or have its behavior significantly
 changed, regardless of track.
 
 {{< note >}}
-**Note:** For historical reasons, there are 2 "monolithic" API groups - "core" (no
+For historical reasons, there are 2 "monolithic" API groups - "core" (no
 group name) and "extensions".  Resources will incrementally be moved from these
 legacy API groups into more domain-specific API groups.
 {{< /note >}}
@@ -90,7 +90,7 @@ no less than:**
 This covers the maximum supported version skew of 2 releases.
 
 {{< note >}}
-**Note:** Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
+Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is
 resolved, no API versions that have been persisted to storage may be removed. 
 Serving REST endpoints for those versions may be disabled (subject to the 
 deprecation timelines in this document), but the API server must remain capable 

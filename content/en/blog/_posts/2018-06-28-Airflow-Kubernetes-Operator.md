@@ -135,7 +135,7 @@ production_task = KubernetesPodOperator(namespace='default',
 
 # Launching a test deployment
 
-Since the Kubernetes Operator is not yet released, we haven't released an official [helm](https://helm.sh/) chart or operator (however both are currently in progress). However, we are including instructions for a basic deployment below  and are actively looking for foolhardy beta testers to try this new feature. To try this system out please follow these steps:
+Since the Kubernetes Operator is not yet released, we haven't released an official [helm](https://helm.sh/) chart or operator (however both are currently in progress). However, we are including instructions for a basic deployment below and are actively looking for foolhardy beta testers to try this new feature. To try this system out please follow these steps:
 
 ## Step 1: Set your kubeconfig to point to a kubernetes cluster
 
@@ -157,7 +157,7 @@ Before we move on, let's discuss what these commands are doing:
 
 ### sed -ie "s/KubernetesExecutor/LocalExecutor/g" scripts/ci/kubernetes/kube/configmaps.yaml
 
-The Kubernetes Executor is another Airflow feature that allows for dynamic allocation  of tasks as idempotent pods. The reason we are switching this to the LocalExecutor is simply to introduce one feature at a time. You are more then welcome to skip this step if you would like to try the Kubernetes Executor, however we will go into more detail in a future article.
+The Kubernetes Executor is another Airflow feature that allows for dynamic allocation of tasks as idempotent pods. The reason we are switching this to the LocalExecutor is simply to introduce one feature at a time. You are more then welcome to skip this step if you would like to try the Kubernetes Executor, however we will go into more detail in a future article.
 
 ### ./scripts/ci/kubernetes/Docker/build.sh
 

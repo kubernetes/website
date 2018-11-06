@@ -10,7 +10,6 @@ feature:
 weight: 50
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
@@ -354,7 +353,7 @@ propagation delay, where cache propagation delay depends on the chosen cache typ
 (it equals to watch propagation delay, ttl of cache, or zero corespondingly).
 
 {{< note >}}
-**Note:** A container using a Secret as a
+A container using a Secret as a
 [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive
 Secret updates.
 {{< /note >}}
@@ -493,7 +492,7 @@ $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/
 ```
 
 {{< caution >}}
-**Caution:** Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
 {{< /caution >}}
 
 
@@ -545,11 +544,11 @@ $ kubectl create secret generic test-db-secret --from-literal=username=testuser 
 secret "test-db-secret" created
 ```
 {{< note >}}
-**Note:** Special characters such as `$`, `\*`, and `!` require escaping.
-If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way: 
+Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
 
     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
-    
+
 You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
@@ -773,9 +772,9 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
    single node.
-  
+
 {{< note >}}
-**Note:** As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
+As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
 {{< /note >}}
 
 {{% capture whatsnext %}}

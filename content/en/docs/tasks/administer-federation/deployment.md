@@ -45,7 +45,7 @@ You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
 kubectl --context=federation-cluster create -f mydeployment.yaml
 ```
 
-The '--context=federation-cluster' flag tells kubectl to submit the
+The `--context=federation-cluster` flag tells kubectl to submit the
 request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 

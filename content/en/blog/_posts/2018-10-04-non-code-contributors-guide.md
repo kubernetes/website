@@ -10,7 +10,7 @@ It was May 2018 in Copenhagen, and the Kubernetes community was enjoying the con
 
 **This all led to an effort called the [Non-Code Contributor’s Guide](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md).**
 
-Now, it’s important to note that Kubernetes is rare, if not unique, in the open source world, in that it was defined very early on as both a project and a community. While the project itself is focused on the codebase, it is the community of people driving it forward that makes the project successful. The community works together with an explicit set of [community values](https://github.com/kubernetes/steering/blob/master/values.md), guiding the the day-to-day behavior of contributors whether on GitHub, Slack, Discourse, or sitting together over tea or coffee.
+Now, it’s important to note that Kubernetes is rare, if not unique, in the open source world, in that it was defined very early on as both a project and a community. While the project itself is focused on the codebase, it is the community of people driving it forward that makes the project successful. The community works together with an explicit set of [community values](https://github.com/kubernetes/steering/blob/master/values.md), guiding the day-to-day behavior of contributors whether on GitHub, Slack, Discourse, or sitting together over tea or coffee.
 
 By having a community that values people first, and explicitly values a diversity of people, the Kubernetes project is building a product to serve people with diverse needs. The different backgrounds of the contributors bring different approaches to the problem solving, with different methods of collaboration, and all those different viewpoints ultimately create a better project.
 

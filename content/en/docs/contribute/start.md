@@ -154,8 +154,8 @@ process guidelines and information about deadlines.
 ### Sign the CLA
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
-the [Contributor guide](/docs/community/guide/) and
-[sign the Contributor License Agreement (CLA)](/docs/community/guide/#sign-the-cla).
+the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and
+[sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 Don't worry -- this doesn't take long!
 
 ### Find something to work on
@@ -179,7 +179,7 @@ to base your work on. Use these guidelines to make the decision:
 
 - Use `master` for fixing problems in content that is already published, or
   making improvements to content that already exists.
-- Use a release branch (such as `release-1.12`) to document upcoming features
+  - Use a release branch (such as `dev-{{< release-branch >}}` for the {{< release-branch >}} release) to document upcoming features
   or changes for an upcoming release that is not yet published.
 - Use a feature branch that has been agreed upon by SIG Docs to collaborate on
   big improvements or changes to the existing documentation, including content

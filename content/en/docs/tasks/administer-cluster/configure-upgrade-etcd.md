@@ -12,7 +12,6 @@ content_template: templates/task
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -213,7 +212,7 @@ The upgrade procedure described in this document assumes that either:
    etcd cluster. During the time the etcd cluster is shut down, the Kubernetes API Server will be read only.
 
 {{< warning >}}
-**Warning**: Deviations from the assumptions are untested by continuous
+Deviations from the assumptions are untested by continuous
 integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation).
 {{< /warning >}}
 
@@ -391,7 +390,7 @@ STORAGE_MEDIA_TYPE=application/json
 ```
 
 {{< note >}}
-**Note:** This procedure upgrades from 2.x to 3.x.  Version `3.0.17` is not recommended for running in production (see [prerequisites](#prerequisites) for minimum recommended etcd versions).
+This procedure upgrades from 2.x to 3.x.  Version `3.0.17` is not recommended for running in production (see [prerequisites](#prerequisites) for minimum recommended etcd versions).
 {{< /note >}}
 
 ## Notes for etcd Version 2.2.1

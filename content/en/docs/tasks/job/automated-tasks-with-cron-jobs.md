@@ -14,9 +14,11 @@ These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks o
 Cron jobs are useful for creating periodic and recurring tasks, like running backups or sending emails.
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 
-**Note:** CronJob resource in `batch/v2alpha1` API group has been deprecated starting from cluster version 1.8.
+{{< note >}}
+CronJob resource in `batch/v2alpha1` API group has been deprecated starting from cluster version 1.8.
 You should switch to using `batch/v1beta1`, instead, which is enabled by default in the API server.
 Examples in this document use `batch/v1beta1` in all examples.
+{{< /note >}}
 
 Cron jobs have limitations and idiosyncrasies.
 For example, in certain circumstances, a single cron job can create multiple jobs.
@@ -123,14 +125,27 @@ and [using kubectl to manage resources](/docs/user-guide/working-with-resources)
 
 A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
-**Note:** All modifications to a cron job, especially its `.spec`, are applied only to the following runs.
+{{< note >}}
+All modifications to a cron job, especially its `.spec`, are applied only to the following runs.
+{{< /note >}}
 
 ### Schedule
 
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 
-**Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
+The format also includes extended `vixie cron` step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+
+> Step values can be	used in	conjunction with ranges.  Following a range
+> with ``/<number>''	specifies skips	of the number's	value through the
+> range.  For example, ``0-23/2'' can be used in the	hours field to specify
+> command execution every other hour	(the alternative in the	V7 standard is
+> ``0,2,4,6,8,10,12,14,16,18,20,22'').  Steps are also permitted after an
+> asterisk, so if you want to say ``every two hours'', just use ``*/2''.
+
+{{< note >}}
+The question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
+{{< /note >}}
 
 ### Job Template
 
@@ -146,7 +161,15 @@ After the deadline, the cron job does not start the job.
 Jobs that do not meet their deadline in this way count as failed jobs.
 If this field is not specified, the jobs have no deadline.
 
-It is important to note that if the `.spec.startingDeadlineSeconds` field is set (not nil), the CronJob controller counts how many missed jobs occurred from the value of `.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed schedules occurred in the last 200 seconds. If there were more than 100 missed schedules, the cronjob would not be scheduled. 
+The CronJob controller counts how many missed schedules happen for a cron job. If there are more than 100 missed
+schedules, the cron job is no longer scheduled. When `.spec.startingDeadlineSeconds` is not set, the CronJob
+controller counts missed schedules from `status.lastScheduleTime` until now. For example, one cron job is
+supposed to run every minute, the `status.lastScheduleTime` of the cronjob is 5:00am, but now it's 7:00am.
+That means 120 schedules were missed, so the cron job is no longer scheduled. If the `.spec.startingDeadlineSeconds`
+field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of
+`.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed
+schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the
+last 200 seconds, the cron job is no longer scheduled. 
 
 ### Concurrency Policy
 
@@ -169,7 +192,7 @@ This setting does not apply to already started executions.
 Defaults to false.
 
 {{< caution >}}
-**Caution:** Executions that are suspended during their scheduled time count as missed jobs.
+Executions that are suspended during their scheduled time count as missed jobs.
 When `.spec.suspend` changes from `true` to `false` on an existing cron job without a [starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
 {{< /caution >}}
 

@@ -208,9 +208,11 @@ commit into the release-1.9 branch. The idea is to cherry pick the commit that e
 the commit that has the results of running the scripts. For instructions, see
 [Propose a Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/cherry-picks.md). 
 
-**Note:** Proposing a cherry pick requires that you have permission to set a label and a milestone in your
+{{< note >}}
+Proposing a cherry pick requires that you have permission to set a label and a milestone in your
 pull request. If you don't have those permissions, you will need to work with someone who can set the label
 and milestone for you.
+{{< /note >}}
 
 When you have a pull request in place for cherry picking your one commit into the release-1.9 branch,
 the next step is to run these scripts in the release-1.9 branch of your local environment.

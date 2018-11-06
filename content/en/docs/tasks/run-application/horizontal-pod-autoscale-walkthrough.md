@@ -19,7 +19,6 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 
 {{% /capture %}}
 
-{{< toc >}}
 
 
 {{% capture prerequisites %}}
@@ -388,7 +387,7 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
       averageValue: 30
 ```
 
-When possible, it's preferrable to use the custom metric target types instead of external metrics, since it's
+When possible, it's preferable to use the custom metric target types instead of external metrics, since it's
 easier for cluster administrators to secure the custom metrics API.  The external metrics API potentially allows
 access to any metric, so cluster administrators should take care when exposing it.
 
@@ -442,7 +441,7 @@ the quantity `10500m` would be written as `10.5` in decimal notation.  The metri
 will return whole numbers without a suffix when possible, and will generally return
 quantities in milli-units otherwise.  This means you might see your metric value fluctuate
 between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.  See the
-[glossary entry on quantities](/docs/reference/glossary/quantity.md) for more information.
+[glossary entry on quantities](/docs/reference/glossary?core-object=true#term-quantity) for more information.
 
 ## Appendix: Other possible scenarios
 

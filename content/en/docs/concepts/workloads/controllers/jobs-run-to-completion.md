@@ -26,7 +26,6 @@ A Job can also be used to run multiple pods in parallel.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -207,7 +206,7 @@ back-off count is reset if no new failed Pods appear before the Job's next
 status check.
 
 {{< note >}}
-**Note:** Issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) still exists for versions of Kubernetes prior to version 1.12
+Issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) still exists for versions of Kubernetes prior to version 1.12
 {{< /note >}}
 
 ## Job Termination and Cleanup
@@ -223,7 +222,7 @@ Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a numbe
 
 The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
 Once a Job reaches `activeDeadlineSeconds`, the Job and all of its Pods are terminated.
-The result is that the job has a status with `reason: DeadlineExceeded`. 
+The result is that the job has a status with `reason: DeadlineExceeded`.
 
 Note that a Job's `.spec.activeDeadlineSeconds` takes precedence over its `.spec.backoffLimit`. Therefore, a Job that is retrying one or more failed Pods will not deploy additional Pods once it reaches the time limit specified by `activeDeadlineSeconds`, even if the `backoffLimit` is not yet reached.
 
@@ -252,7 +251,7 @@ Note that both the Job Spec and the [Pod Template Spec](https://kubernetes.io/do
 
 Finished Jobs are usually no longer needed in the system. Keeping them around in
 the system will put pressure on the API server. If the Jobs are managed directly
-by a higher level controller, such as 
+by a higher level controller, such as
 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/), the Jobs can be
 cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
@@ -261,7 +260,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
 Another way to clean up finished Jobs (either `Complete` or `Failed`)
-automatically is to use a TTL mechanism provided by a 
+automatically is to use a TTL mechanism provided by a
 [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
 finished resources, by specifying the `.spec.ttlSecondsAfterFinished` field of
 the Job.
@@ -279,7 +278,6 @@ kind: Job
 metadata:
   name: pi-with-ttl
 spec:
-spec:
   ttlSecondsAfterFinished: 100
   template:
     spec:
@@ -291,16 +289,16 @@ spec:
 ```
 
 The Job `pi-with-ttl` will be eligible to be automatically deleted, `100`
-seconds after it finishes. 
+seconds after it finishes.
 
 If the field is set to `0`, the Job will be eligible to be automatically deleted
 immediately after it finishes. If the field is unset, this Job won't be cleaned
 up by the TTL controller after it finishes.
 
 Note that this TTL mechanism is alpha, with feature gate `TTLAfterFinished`. For
-more information, see the documentation for 
+more information, see the documentation for
 [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
-finished resources. 
+finished resources.
 
 ## Job Patterns
 

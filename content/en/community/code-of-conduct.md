@@ -16,9 +16,9 @@ If you notice that this is out of date, please
 <a href="https://github.com/kubernetes/website/issues/new">file an issue</a>.
 
 If you notice a violation of the Code of Conduct at an event or meeting, in
-Slack, or in another communication mechanism, reach out to the
-<a href="mailto:steering-private@kubernetes.io">steering committee</a>. Your
-anonymity will be protected.
+Slack, or in another communication mechanism, reach out to
+the [Kubernetes Code of Conduct Committee](https://github.com/kubernetes/community/tree/master/committee-code-of-conduct) <conduct@kubernetes.io>.
+Your anonymity will be protected.
 
 <div class="cncf_coc_container">
 {{< include "/static/cncf-code-of-conduct.md" >}}

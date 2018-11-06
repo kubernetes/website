@@ -18,9 +18,10 @@ of plugins as a means of utilizing these building blocks to create more complex 
 
 {{% capture prerequisites %}}
 
-You need to have a working `kubectl` binary installed. 
+You need to have a working `kubectl` binary installed.
+
 {{< note >}}
-**Note:** Plugins were officially introduced as an alpha feature in the v1.8.0 release. They have been re-worked in the v1.12.0 release to support a wider range of use-cases. So, while some parts of the plugins feature were already available in previous versions, a `kubectl` version of 1.12.0 or later is recommended if you are following these docs.
+Plugins were officially introduced as an alpha feature in the v1.8.0 release. They have been re-worked in the v1.12.0 release to support a wider range of use-cases. So, while some parts of the plugins feature were already available in previous versions, a `kubectl` version of 1.12.0 or later is recommended if you are following these docs.
 {{< /note >}}
 
 Until a GA version is released, plugins should be considered unstable, and their underlying mechanism is prone to change.
@@ -34,7 +35,7 @@ Until a GA version is released, plugins should be considered unstable, and their
 A plugin is nothing more than a standalone executable file, whose name begins with `kubectl-`. To install a plugin, simply move this executable file to anywhere on your PATH.
 
 {{< note >}}
-**Note:** Kubernetes does not provide a package manager or anything similar to install or update plugins. It is your responsibility to ensure that plugin executables have a filename that begins with `kubectl-`, and that they are placed somewhere on your PATH.
+Kubernetes does not provide a package manager or anything similar to install or update plugins. It is your responsibility to ensure that plugin executables have a filename that begins with `kubectl-`, and that they are placed somewhere on your PATH.
 {{< /note >}}
 
 ### Discovering plugins
@@ -126,6 +127,12 @@ For example, a plugin that wishes to be invoked whenever the command `kubectl fo
 
 #### Flags and argument handling
 
+{{< note >}}
+Unlike previous versions of `kubectl`, the plugin mechanism will _not_ create any custom, plugin-specific values or environment variables to a plugin process.
+This means that environment variables such as `KUBECTL_PLUGINS_CURRENT_NAMESPACE` are no longer provided to a plugin. Plugins must parse all of the arguments passed to them by a user,
+and handle flag validation as part of their own implementation. For plugins written in Go, a set of utilities has been provided under [k8s.io/cli-runtime](https://github.com/kubernetes/cli-runtime) to assist with this.
+{{< /note >}}
+
 Taking our `kubectl-foo-bar-baz` plugin from the above scenario, we further explore additional cases where users invoke our plugin while providing additional flags and arguments.
 For example, in a situation where a user invokes the command `kubectl foo bar baz arg1 --flag=value arg2`, the plugin mechanism will first try to find the plugin with the longest possible name, which in this case
 would be `kubectk-foo-bar-baz-arg1`. Upon not finding that plugin, it then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.
@@ -158,8 +165,8 @@ As you can see, our plugin was found based on the `kubectl` command specified by
 
 #### Names with dashes and underscores
 
-Although the `kubectl` plugin mechanism uses the dashes (`-`) in plugin filenames to determine the sequence of sub-commands that should invoke them, it is still possible to create a plugin
-command containing dashes in its commandline invocation by using underscores `_` in its filename.
+Although the `kubectl` plugin mechanism uses the dash (`-`) in plugin filenames to separate the sequence of sub-commands processed by the plugin, it is still possible to create a plugin
+command containing dashes in its commandline invocation by using underscores (`_`) in its filename.
 
 Example:
 
@@ -191,7 +198,7 @@ I am a plugin with a dash in my name
 
 #### Name conflicts and overshadowing
 
-It can be possible to have multiple pluins with the same filename in different locations throughout your PATH.
+It is possible to have multiple plugins with the same filename in different locations throughout your PATH.
 For example, given a PATH with the following value: `PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins`, a copy of plugin `kubectl-foo` could exist in `/usr/local/bin/plugins` and `/usr/local/bin/moreplugins`,
 such that the output of the `kubectl plugin list` command is:
 
@@ -206,7 +213,7 @@ The following kubectl-compatible plugins are available:
 error: one plugin warning was found
 ```
 
-In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells us that this plugin will never be executed. Instead, the executable that appears first in our PATH, `/usr/local/bin/plugins/kubectl-foo`, willalways be found and executed first by the `kubectl` plugin mechanism.
+In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells us that this plugin will never be executed. Instead, the executable that appears first in our PATH, `/usr/local/bin/plugins/kubectl-foo`, will always be found and executed first by the `kubectl` plugin mechanism.
 
 A way to resolve this issue is to ensure that the location of the plugin that you wish to use with `kubectl` always comes first in your PATH. For example, if we wanted to always use `/usr/local/bin/moreplugins/kubectl-foo` anytime that the `kubectl` command `kubectl foo` was invoked, we would simply change the value of our PATH to be `PATH=/usr/local/bin/moreplugins:/usr/local/bin/plugins`.
 

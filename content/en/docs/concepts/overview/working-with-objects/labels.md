@@ -26,7 +26,6 @@ We'll eventually index and reverse-index labels for efficient queries and watche
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

@@ -48,7 +48,7 @@ variable gets its value from the Pod's `spec.nodeName` field. Similarly, the
 other environment variables get their names from Pod fields.
 
 {{< note >}}
-**Note:** The fields in this example are Pod fields. They are not fields of the
+The fields in this example are Pod fields. They are not fields of the
 Container in the Pod.
 {{< /note >}}
 

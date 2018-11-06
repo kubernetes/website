@@ -334,7 +334,8 @@ ul.global-nav
 
 .open-nav, .y-enough
 	#tryKubernetes
-		width: 150px
+		width: auto
+		padding: 0 20px
 		background-color: $blue
 		border-color: $blue
 
@@ -556,6 +557,9 @@ section
 #docs
 	#vendorStrip
 		line-height: 44px
+		max-width: 100%
+		overflow-x: auto
+		-webkit-overflow-scrolling: touch
 
 		ul
 			float: none
@@ -912,6 +916,9 @@ dd
 	ul li
 		list-style: disc
 
+	ol ul li
+		list-style: none
+
 	ol li
 		list-style: decimal
 
@@ -1240,7 +1247,8 @@ $feature-box-div-margin-bottom: 40px
 // KubeWeekly
 #kubeweekly
 	background-color: $light-grey
-	padding: 60px
+	padding-top: 60px
+	padding-bottom: 140px
 	background-size: auto
 	font-family: "Roboto Mono", monospace !important
 	font-size: 24px
@@ -1254,7 +1262,7 @@ $feature-box-div-margin-bottom: 40px
 	padding: 0 20px
 	line-height: 31px
 	color: white
-	background-color: $blue
+	background-color: blue
 	text-decoration: none
 	font-size: 14px
 

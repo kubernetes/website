@@ -19,6 +19,8 @@ Intrigued? Let me walk you through how it works.
 
 # Summary
 
+_**Please note:** this is a cool hack, but is not officially supported in Kubernetes._
+
 First, we need to understand how exactly it works. 
 
 In short, for all nodes we have prepared the image with the OS, Docker, Kubelet and everything else that you need there. This image with the kernel is building automatically by CI using Dockerfile. End nodes are booting the kernel and OS from this image via the network.
@@ -29,7 +31,7 @@ Nodes are using overlays as the root filesystem and after reboot any changes wil
 
 We will use LTSP project because it's gives us everything we need to organize the network booting environment. Basically, LTSP is a pack of shell-scripts which makes our life much easier.
 
-LTSP provides a initramfs module, a few helper-scripts, and some configuration systems which prepare the system during the early state of boot, before the main init process call.
+LTSP provides a initramfs module, a few helper-scripts, and the configuration system which prepare the system during the early state of boot, before the main init process call.
 
 **This is what the image preparation procedure looks like:**
 
@@ -43,7 +45,7 @@ After that, you will get the squashed image from the chroot with all the softwar
 
 **The server part of LTSP includes two components in our case:**
 
-- **TFTP-server** - TFTP is the initial protocol, it is used the download the kernel, initramfs and main config.
+- **TFTP-server** - TFTP is the initial protocol, it is used the download the kernel, initramfs and main config - lts.conf.
 - **NBD-server** - NBD protocol is used to distribute the squashed rootfs image to the clients. It is the fastest way, but if you want, it can be replaced by the NFS or AoE protocol.
 
 You should also have:
@@ -61,7 +63,7 @@ You should also have:
 - During the boot, initramfs modules will handle options from cmdline and do some actions like connect NBD-device, prepare overlay rootfs, etc.
 - Afterwards it will call the ltsp-init system instead of the normal init.
 - ltsp-init scripts will prepare the system on the earlier stage, before the main init will be called. Basically it applies the setting from lts.conf (main config): write fstab and rc.local entries etc.
-- Call the main init (systemd) which is booting configured system as usual, mounts shares from fstab, start targets and services, executes commands from rc.local file.
+- Call the main init (systemd) which is booting the configured system as usual, mounts shares from fstab, start targets and services, executes commands from rc.local file.
 - In the end you have a fully configured and booted system ready for further operations.
 
 # Preparing the Server
@@ -84,7 +86,7 @@ I’ll create a fork if the community will warmly accept my solution.
   * [feature_preinit.diff](https://github.com/kvaps/ltsp/compare/feature_preinit.diff)
       This patch adds a PREINIT option to lts.conf, which allows you to run custom commands before the main init call. It may be useful to modify the systemd units and configure the network. It's remarkable that all environment variables from the boot environment are saved and you can use them in your scripts.
   * [feature_initramfs_params_from_lts_conf.diff](https://github.com/kvaps/ltsp/compare/feature_initramfs_params_from_lts_conf.diff)
-      Solves s problem with NBD_TO_RAM option, after this patch you can specify it on lts.conf inside chroot. (not in tftp directory)
+      Solves a problem with NBD_TO_RAM option, after this patch you can specify it on lts.conf inside chroot. (not in tftp directory)
   * [nbd-server-wrapper.sh](https://gist.githubusercontent.com/kvaps/1a6a7d8b73bf7444f0f99b22379c9e4e/raw/eb0d60c638ef72b7e28438b7f4d2beda89c41f75/nbd-server-wrapper.sh)
       This is not a patch but a special wrapper script which allows you to run NBD-server in the foreground. It is useful if you want to run it inside a Docker container.
 
@@ -222,7 +224,7 @@ Their postinstall scripts try to call some privileged commands which can fail wi
 Solution:
 
 * Some of them can be installed before the kernel without any problems (like `lvm2`)
-* But for some of them you will need to use this workaround to install without the postinstall script.
+* But for some of them you will need to use [this workaround](https://askubuntu.com/a/482936/327437) to install without the postinstall script.
 
 ### Stage 3: builder
 
@@ -285,7 +287,7 @@ RUN ltsp-chroot sh -c \
         > /etc/apt/sources.list.d/docker.list \
    && apt-get -y update \
    && apt-get -y install \
-        docker-ce=$(apt-cache madison docker-ce | grep 17.03 | head -1 | awk "{print $ 3}")'
+        docker-ce=$(apt-cache madison docker-ce | grep 18.06 | head -1 | awk "{print $ 3}")'
 
 # Configure docker options
 RUN DOCKER_OPTS="$(echo \
@@ -365,7 +367,7 @@ Ok, now we have docker image which includes:
 OK, now when our docker-image with LTSP-server, kernel, initramfs and squashed rootfs fully prepared we can run the deployment with it.
 
 We can do that as usual, but one more thing is networking.
-Unfortunately, we can't use the standard Kubernetes service for our deployment, because during the boot, our nodes are not part of Kubernetes cluster and they requires ExternalIP, but Kubernetes always enables NAT for ExternalIPs, and there is no way to disable this behavior.
+Unfortunately, we can't use the standard Kubernetes service abstraction for our deployment, because TFTP can't work behind the NAT. During the boot, our nodes are not part of Kubernetes cluster and they requires ExternalIP, but Kubernetes always enables NAT for ExternalIPs, and there is no way to override this behavior.
 
 For now I have two ways for avoid this: use `hostNetwork: true` or use [pipework](https://github.com/dreamcat4/docker-images/blob/master/pipework/3.%20Examples.md#kubernetes). The second option will also provide you redundancy because, in case of failure, the IP will be moved with the Pod to another node. Unfortunately, pipework is not native and a less secure method.
 If you have some better option for that please let me know.
@@ -488,3 +490,7 @@ Now you can try to make your own changes.
 
 If you need something more, note that LTSP can be easily changed to meet your needs.
 Feel free to look into the source code and you can find many answers there.
+
+_**UPD:** Many people asking me: Why not simple use CoreOS and Ignition?_
+
+_I can answer. The main feature here is image preparation process, not configuration. In case with LTSP you have classic Ubuntu system, and everything that can be installed on Ubuntu it can also be written here in the Dockerfile. In case CoreOS you have no so many freedom and you can’t easily add custom kernel modules and packages at the build stage of the boot image._

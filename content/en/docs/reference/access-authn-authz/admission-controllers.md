@@ -62,7 +62,7 @@ For example, the following command line enables the `NamespaceLifecycle` and the
 admission control plugins:
 
 ```shell
-kube-apiserver --enable-admission-plugins=NamespaceLifecyle,LimitRanger ...
+kube-apiserver --enable-admission-plugins=NamespaceLifecycle,LimitRanger ...
 ```
 
 {{< note >}}
@@ -489,7 +489,7 @@ plugin configuration file as the node selector.
 Conflicts result in rejection.
 
 {{< note >}}
-**Note:** PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 
+PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 
 admission plugin, which allows preventing pods from running on specifically tainted nodes.
 {{< /note >}}
 
@@ -498,7 +498,7 @@ admission plugin, which allows preventing pods from running on specifically tain
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
 
 {{< note >}}
-**Note:** Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
 to `true` to enable resizing.
 {{< /note >}}
 
@@ -610,7 +610,7 @@ Yes.
 For Kubernetes version 1.10 and later, we recommend running the following set of admission controllers using the `--enable-admission-plugins` flag (**order doesn't matter**).
 
 {{< note >}}
-**Note:** `--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
+`--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
 {{< /note >}}
 
 ```shell

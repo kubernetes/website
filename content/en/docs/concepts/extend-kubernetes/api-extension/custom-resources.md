@@ -91,7 +91,7 @@ Use a ConfigMap if any of the following apply:
 * You want to perform rolling updates via Deployment, etc, when the file is updated.
 
 {{< note >}}
-**Note:** Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
+Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
 {{< /note >}}
 
 Use a custom resource (CRD or Aggregated API) if most of the following apply:
@@ -131,7 +131,7 @@ for a demonstration of how to register a new custom resource, work with instance
 and setup a controller to handle events.
 
 {{< note >}}
-**Note:** CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of Kubernetes 1.7.
+CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of Kubernetes 1.7.
 {{< /note >}}
 
 ## API server aggregation

@@ -48,7 +48,7 @@ It can be configured to give services externally-reachable URLs, load balance tr
 
 Before you start using the Ingress resource, there are a few things you should understand. The Ingress is a beta resource, not available in any Kubernetes release prior to 1.1. You need an Ingress controller to satisfy an Ingress, simply creating the resource will have no effect.
 
-GCE/Google Kubernetes Engine deploys an ingress controller on the master. You can deploy any number of custom ingress controllers in a pod. You must annotate each ingress with the appropriate class, as indicated [here](https://git.k8s.io/ingress#running-multiple-ingress-controllers) and [here](https://git.k8s.io/ingress-gce/BETA_LIMITATIONS.md#disabling-glbc).
+GCE/Google Kubernetes Engine deploys an ingress controller on the master. You can deploy any number of custom ingress controllers in a pod. You must annotate each ingress with the appropriate class, as indicated [here](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) and [here](https://git.k8s.io/ingress-gce/examples/PREREQUISITES.md#ingress-class).
 
 Make sure you review the [beta limitations](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations) of this controller. In environments other than GCE/Google Kubernetes Engine, you need to [deploy a controller](https://git.k8s.io/ingress-nginx/README.md) as a pod.
 
@@ -95,11 +95,11 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 * [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
 ([Let's Encrypt](https://letsencrypt.org), secrets, http2, websocket...), and it also comes with commercial support by [Containous](https://containo.us/services)
 * [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller)
-* [HAProxy](http://www.haproxy.org/) based ingress controller [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) which is mentioned on this blog post [HAProxy Ingress Controller for Kubernetes](https://www.haproxy.com/blog/haproxy_ingress_controller_for_kubernetes/)
+* [HAProxy](http://www.haproxy.org/) based ingress controller [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) which is mentioned on this blog post [HAProxy Ingress Controller for Kubernetes](https://www.haproxy.com/blog/haproxy_ingress_controller_for_kubernetes/). [HAProxy Technologies](https://www.haproxy.com/) offers support and maintenance for HAProxy Enterprise and the ingress controller [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress).
 * [Istio](https://istio.io/) based ingress controller [Control Ingress Traffic](https://istio.io/docs/tasks/traffic-management/ingress/)
 
 {{< note >}}
-**Note:** Review the documentation for your controller to find its specific support policy.
+Review the documentation for your controller to find its specific support policy.
 {{< /note >}}
 
 ## Before you begin
@@ -107,7 +107,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 The following document describes a set of cross-platform features exposed through the Ingress resource. Ideally, all Ingress controllers should fulfill this specification, but we're not there yet. We currently support and maintain [GCE](https://git.k8s.io/ingress-gce/README.md) and [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers. If you use the F5 BIG-IP Controller, see [Use the BIG-IP Controller as a Kubernetes Ingress Controller](http://clouddocs.f5.com/containers/latest/kubernetes/kctlr-k8s-ingress-ctlr.html). 
 
 {{< note >}}
-**Note:** Make sure you review your controller's specific docs so you understand the caveats.
+Make sure you review your controller's specific docs so you understand the caveats.
 {{< /note >}}
 
 ## Types of Ingress
@@ -202,7 +202,7 @@ When it has done so, you will see the address of the loadbalancer at the
 Address field.
 
 {{< note >}}
-**Note:** You need to create a default-http-backend [Service](/docs/concepts/services-networking/service/) if necessary.
+You need to create a default-http-backend [Service](/docs/concepts/services-networking/service/) if necessary.
 {{< /note >}}
 
 ### Name based virtual hosting

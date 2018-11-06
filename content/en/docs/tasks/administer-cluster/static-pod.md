@@ -16,7 +16,6 @@ This means that the pods are visible on the API server but cannot be controlled 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -102,8 +101,7 @@ Labels from the static pod are propagated into the mirror-pod and can be used as
 Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/user-guide/kubectl/) command), kubelet simply won't remove it.
 
 {{< note >}}
-Make sure the kubelet has permission to create the mirror pod in the API server.
-If not, the creation request is rejected by the API server. See 
+Make sure the kubelet has permission to create the mirror pod in the API server. If not, the creation request is rejected by the API server. See
 [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
 {{< /note >}}
 

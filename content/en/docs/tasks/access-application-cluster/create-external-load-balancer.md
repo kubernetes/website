@@ -182,7 +182,7 @@ compared to the `service.spec.externalTrafficPolicy` field. The values match as 
 * "Global" for annotation <-> "Cluster" for field
 
 {{< note >}}
-**Note:** This feature is not currently implemented for all cloudproviders/environments.
+This feature is not currently implemented for all cloudproviders/environments.
 {{< /note >}}
 
 Known issues:

@@ -572,7 +572,9 @@ section {
     margin-left: 0; }
 
 #docs #vendorStrip {
-  line-height: 44px; }
+  line-height: 44px;
+  max-width: 100%;
+  overflow-x: scroll; }
   #docs #vendorStrip ul {
     float: none; }
   #docs #vendorStrip #searchBox {
@@ -1663,7 +1665,8 @@ html.search #docsContent {
   #oceanNodes main {
     position: relative;
     clear: both;
-    display: table; }
+    display: table;
+    height: 160px; }
     #oceanNodes main .content {
       display: table-cell;
       position: relative;

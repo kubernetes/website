@@ -478,7 +478,7 @@ Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m`.
 
 {{< note >}}
-**Note:** Extended resources replace Opaque Integer Resources.
+Extended resources replace Opaque Integer Resources.
 Users can use any domain name prefix other than `kubernetes.io` which is reserved.
 {{< /note >}}
 
@@ -486,7 +486,7 @@ To consume an extended resource in a Pod, include the resource name as a key
 in the `spec.containers[].resources.limits` map in the container spec.
 
 {{< note >}}
-**Note:** Extended resources cannot be overcommitted, so request and limit
+Extended resources cannot be overcommitted, so request and limit
 must be equal if both are present in a container spec.
 {{< /note >}}
 

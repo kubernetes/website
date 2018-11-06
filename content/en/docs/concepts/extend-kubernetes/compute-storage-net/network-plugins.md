@@ -8,7 +8,6 @@ content_template: templates/concept
 weight: 10
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 

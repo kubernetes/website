@@ -36,7 +36,7 @@ Kubernetes Version | Priority and Preemption State | Enabled by default
 1.10               | alpha                         | no
 1.11               | beta                          | yes
 
-{{< warning >}} **Warning**: In a cluster where not all users are trusted, a
+{{< warning >}}In a cluster where not all users are trusted, a
 malicious user could create pods at the highest possible priorities, causing
 other pods to be evicted/not get scheduled. To resolve this issue,
 [ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is
@@ -191,7 +191,7 @@ spec:
 In Kubernetes 1.9 and later, when Pod priority is enabled, scheduler orders
 pending Pods by their priority and a pending Pod is placed ahead of other
 pending Pods with lower priority in the scheduling queue. As a result, the
-higher priority Pod may by scheduled sooner that Pods with lower priority if its
+higher priority Pod may be scheduled sooner than Pods with lower priority if its
 scheduling requirements are met. If such Pod cannot be scheduled, scheduler will
 continue and tries to schedule other lower priority Pods.
 
@@ -255,11 +255,13 @@ A Node is considered for preemption only when the answer to this question is
 yes: "If all the Pods with lower priority than the pending Pod are removed from
 the Node, can the pending Pod be scheduled on the Node?"
 
-{{< note >}} **Note:** Preemption does not necessarily remove all lower-priority
+{{< note >}}
+Preemption does not necessarily remove all lower-priority
 Pods. If the pending Pod can be scheduled by removing fewer than all
 lower-priority Pods, then only a portion of the lower-priority Pods are removed.
 Even so, the answer to the preceding question must be yes. If the answer is no,
-the Node is not considered for preemption. {{< /note >}}
+the Node is not considered for preemption.
+{{< /note >}}
 
 If a pending Pod has inter-pod affinity to one or more of the lower-priority
 Pods on the Node, the inter-Pod affinity rule cannot be satisfied in the absence

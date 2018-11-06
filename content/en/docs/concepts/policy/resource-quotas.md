@@ -15,7 +15,6 @@ Resource quotas are a tool for administrators to address this concern.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -203,7 +202,7 @@ field in the quota spec.
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 
 {{< note >}}
-**Note:** You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
+You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
 per PriorityClass.
 {{< /note >}}
 
@@ -568,7 +567,7 @@ For example:
         values: ["cluster-services"]
 ```
 
-See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota supoport for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
+See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota support for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
 
 ## Example
 

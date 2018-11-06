@@ -30,7 +30,7 @@ If you do not already have a hypervisor installed, install the appropriate one f
 [KVM](http://www.linux-kvm.org/).
 
   {{< note >}}
-   **Note:** Minikube also supports a `-\-vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Using this driver requires Docker, but not a hypervisor.
+  Minikube also supports a `-\-vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Using this driver requires Docker and a linux environment, but not a hypervisor.
   {{< /note >}}
 
 * Windows: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or

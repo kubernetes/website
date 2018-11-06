@@ -15,7 +15,6 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -58,7 +57,7 @@ corresponding documentation for your CRI implementation for how to configure. As
 feature, not all CRIs support multiple RuntimeClasses yet.
 
 {{< note >}}
-**Note:** RuntimeClass currently assumes a homogeneous node configuration across the cluster
+RuntimeClass currently assumes a homogeneous node configuration across the cluster
 (which means that all nodes are configured the same way with respect to container runtimes). Any heterogeneity (varying configurations) must be
 managed independently of RuntimeClass through scheduling features (see [Assigning Pods to
 Nodes](/docs/concepts/configuration/assign-pod-node/)).
@@ -88,11 +87,9 @@ spec:
 
 
 {{< note >}}
-
-**Note:** It is recommended that RuntimeClass write operations (create/update/patch/delete) be
+It is recommended that RuntimeClass write operations (create/update/patch/delete) be
 restricted to the cluster administrator. This is typically the default. See [Authorization
 Overview](https://kubernetes.io/docs/reference/access-authn-authz/authorization/) for more details.
-
 {{< /note >}}
 
 ### Usage
