@@ -106,9 +106,9 @@ In any case the user can skip specific preflight checks (or eventually all prefl
 - [Error] if `ip`, `iptables`,  `mount`, `nsenter` commands are not present in the command path
 - [warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
 - [warning] if extra arg flags for API server, controller manager,  scheduler contains some invalid options
-- [warning] if connection to https://API.AdvertiseAddress:API.BindPort goes thought proxy
-- [warning] if connection to services subnet goes thought proxy (only first address checked)
-- [warning] if connection to Pods subnet goes thought proxy (only first address checked)  
+- [warning] if connection to https://API.AdvertiseAddress:API.BindPort goes through proxy
+- [warning] if connection to services subnet goes through proxy (only first address checked)
+- [warning] if connection to Pods subnet goes through proxy (only first address checked)  
 - If external etcd is provided:
   - [Error] if etcd version less than 3.0.14
   - [Error] if etcd certificates or keys are specified, but not provided
