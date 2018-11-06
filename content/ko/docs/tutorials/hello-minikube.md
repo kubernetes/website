@@ -37,13 +37,13 @@ menu:
   {{< note >}}
   **참고:** macOS 10.13 버전으로 업데이트 후 `brew update`를 실행 시 Homebrew에서 다음과 같은 오류가 발생할 경우에는,
 
-  ```
+  ```shell
   Error: /usr/local is not writable. You should change the ownership
   and permissions of /usr/local back to your user account:
   sudo chown -R $(whoami) /usr/local
   ```
   Homebrew를 다시 설치하여 문제를 해결할 수 있다.
-  ```
+  ```shell
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   ```
   {{< /note >}}
@@ -159,14 +159,21 @@ node server.js
 8080 포트를 열고, `server.js` 파일을 이미지에 복사하고
 Node.js 서버를 시작한다.
 
-이 튜토리얼은 Minikube를 사용하기 때문에, Docker 이미지를 레지스트리로 Push하는 대신,
-Minikube VM과 동일한 Docker 호스트를 사용하면 이미지를 단순히 빌드하기만 해도
-이미지가 자동으로 (역주: Minikube에서 사용할 수 있는 위치에) 생긴다. 이를 위해서,
-다음의 커맨드를 사용해서 Minikube Docker 데몬을 사용할 수 있도록 한다.
+기본적으로, Docker는 로컬 머신의 Docker 레지스트리에 이미지를 생성하고 저장한다.
+이 튜토리얼에서는, 로컬 머신의 Docker 레지스트리를 사용하지 않고 Minikube의 
+VM 인스턴스 _속에서_ 구동 중인 Docker 데몬의 레지스트리를 사용한다. 'docker' 명령이
+Minikube의 Docker 데몬을 가르키도록 하려면 다음과 같이 입력한다. (unix 셀)
 
 ```shell
 eval $(minikube docker-env)
 ```
+
+powershell에서는 다음과 같이 입력한다. 
+```shell
+minikube docker-env | Invoke-Expression
+```
+
+
 
 {{< note >}}
 **참고:** 나중에 Minikube 호스트를 더 이상 사용하고 싶지 않은 경우,
@@ -178,6 +185,22 @@ Minikube Docker 데몬을 사용하여 Docker 이미지를 빌드한다. (마지
 ```shell
 docker build -t hello-node:v1 .
 ```
+
+Minikube의 Docker 레지스트리에 이미지가 있는 것을 확인한다.
+
+```shell
+minikube ssh docker images 
+```
+
+Output:
+
+```shell
+REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
+hello-node                                 v1                  f82485ca953c        3 minutes ago       655MB
+...
+node                                       6.9.2               faaadb4aaf9b        20 months ago       655MB
+```
+
 
 이제 Minikube VM에서 빌드한 이미지를 실행할 수 있다.
 
