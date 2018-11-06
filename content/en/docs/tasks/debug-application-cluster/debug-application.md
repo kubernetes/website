@@ -84,7 +84,7 @@ $ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${
 ```
 
 {{< note >}}
-**Note:** `-c ${CONTAINER_NAME}` is optional. You can omit it for Pods that only contain a single container.
+`-c ${CONTAINER_NAME}` is optional. You can omit it for Pods that only contain a single container.
 {{< /note >}}
 
 As an example, to look at the logs from a running Cassandra pod, you might run

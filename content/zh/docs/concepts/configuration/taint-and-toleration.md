@@ -357,7 +357,7 @@ based on the Ready NodeCondition is disabled.
 
 {{< note >}}
 <!--
-**Note:** To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
+To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.

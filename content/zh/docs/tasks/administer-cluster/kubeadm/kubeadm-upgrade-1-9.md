@@ -54,7 +54,7 @@ Before proceeding:
 {{< caution >}}
 <!--
 
-**Caution:** All the containers will get restarted after the upgrade, due to container spec hash value gets changed.
+All the containers will get restarted after the upgrade, due to container spec hash value gets changed.
 
 --->
 **注意:** 由于容器的具体哈希值改变了，所有的容器在升级之后会重新启动。
@@ -98,7 +98,7 @@ chmod a+rx /usr/bin/kubeadm
 {{< caution >}}
 <!--
 
-**Caution:** Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade. 
+Upgrading the `kubeadm` package on your system prior to upgrading the control plane causes a failed upgrade. 
 Even though `kubeadm` ships in the Kubernetes repositories, it's important to install `kubeadm` manually. The kubeadm 
 team is working on fixing this limitation. 
 

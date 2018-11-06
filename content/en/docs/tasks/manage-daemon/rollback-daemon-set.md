@@ -140,7 +140,7 @@ previous revision through other commands, such as `kubectl edit` or `kubectl
 apply`.
 
 {{< note >}}
-**Note:** DaemonSet revisions only roll forward. That is to say, after a
+DaemonSet revisions only roll forward. That is to say, after a
 rollback completes, the revision number (`.revision` field) of the
 `ControllerRevision` being rolled back to will advance. For example, if you
 have revision 1 and 2 in the system, and roll back from revision 2 to revision

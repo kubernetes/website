@@ -106,7 +106,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     ```
     
     {{< note >}}
-**Note:** If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.
+    If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.
     {{< /note >}}
     
     The installer creates `$HOME/.kube` and instructs it to create a config file
@@ -118,7 +118,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     ```
 
     {{< note >}}
-**Note:** Updating the installation is performed by rerunning the two commands listed in step 1.
+    Updating the installation is performed by rerunning the two commands listed in step 1.
     {{< /note >}}
 
 ## Install with Chocolatey on Windows
@@ -153,9 +153,13 @@ If you are on Windows and using [Chocolatey](https://chocolatey.org) package man
     ```
 
 6. Configure kubectl to use a remote Kubernetes cluster:
-        New-Item config -type file
+
+    ```
+    New-Item config -type file
+    ```
+    
     {{< note >}}
-    **Note:** Edit the config file with a text editor of your choice, such as Notepad.
+    Edit the config file with a text editor of your choice, such as Notepad.
     {{< /note >}}
 
 ## Download as part of the Google Cloud SDK

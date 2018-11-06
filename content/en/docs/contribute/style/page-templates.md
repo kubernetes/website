@@ -15,7 +15,7 @@ directory of the [`kubernetes/website`](https://github.com/kubernetes/website)
 repository.
 
 {{< note >}}
-**Note**: Every new topic needs to use a template. If you are unsure which
+Every new topic needs to use a template. If you are unsure which
 template to use for a new topic, start with the
 [concept template](#concept-template).
 {{< /note >}}

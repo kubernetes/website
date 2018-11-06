@@ -99,7 +99,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 * [Istio](https://istio.io/) based ingress controller [Control Ingress Traffic](https://istio.io/docs/tasks/traffic-management/ingress/)
 
 {{< note >}}
-**Note:** Review the documentation for your controller to find its specific support policy.
+Review the documentation for your controller to find its specific support policy.
 {{< /note >}}
 
 ## Before you begin
@@ -107,7 +107,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 The following document describes a set of cross-platform features exposed through the Ingress resource. Ideally, all Ingress controllers should fulfill this specification, but we're not there yet. We currently support and maintain [GCE](https://git.k8s.io/ingress-gce/README.md) and [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers. If you use the F5 BIG-IP Controller, see [Use the BIG-IP Controller as a Kubernetes Ingress Controller](http://clouddocs.f5.com/containers/latest/kubernetes/kctlr-k8s-ingress-ctlr.html). 
 
 {{< note >}}
-**Note:** Make sure you review your controller's specific docs so you understand the caveats.
+Make sure you review your controller's specific docs so you understand the caveats.
 {{< /note >}}
 
 ## Types of Ingress
@@ -202,7 +202,7 @@ When it has done so, you will see the address of the loadbalancer at the
 Address field.
 
 {{< note >}}
-**Note:** You need to create a default-http-backend [Service](/docs/concepts/services-networking/service/) if necessary.
+You need to create a default-http-backend [Service](/docs/concepts/services-networking/service/) if necessary.
 {{< /note >}}
 
 ### Name based virtual hosting

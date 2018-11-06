@@ -299,7 +299,7 @@ See [capability.h](https://github.com/torvalds/linux/blob/master/include/uapi/li
 for definitions of the capability constants.
 
 {{< note >}}
-**Note:** Linux capability constants have the form `CAP_XXX`. But when you list capabilities in your Container manifest, you must omit the `CAP_` portion of the constant. For example, to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilities.
+Linux capability constants have the form `CAP_XXX`. But when you list capabilities in your Container manifest, you must omit the `CAP_` portion of the constant. For example, to add `CAP_SYS_TIME`, include `SYS_TIME` in your list of capabilities.
 {{< /note >}}
 
 ## Assign SELinux labels to a Container
@@ -318,7 +318,7 @@ securityContext:
 ```
 
 {{< note >}}
-**Note:** To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
+To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
 {{< /note >}}
 
 ## Discussion
@@ -339,7 +339,7 @@ need to set the `level` section. This sets the
 label given to all Containers in the Pod as well as the Volumes.
 
 {{< warning >}}
-**Warning:** After you specify an MCS label for a Pod, all Pods with the same label can access the Volume. If you need inter-Pod protection, you must assign a unique MCS label to each Pod.
+After you specify an MCS label for a Pod, all Pods with the same label can access the Volume. If you need inter-Pod protection, you must assign a unique MCS label to each Pod.
 {{< /warning >}}
 
 {{% /capture %}}

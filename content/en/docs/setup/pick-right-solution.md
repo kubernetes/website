@@ -226,9 +226,8 @@ Agile Stacks       | Terraform   | CoreOS | multi-support | [docs](https://www.a
 IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://console.bluemix.net/docs/containers/container_index.html) | Commercial
 Digital Rebar        | kubeadm      | any    | metal       | [docs](/docs/setup/on-premises-metal/krib/)                                  | Community ([@digitalrebar](https://github.com/digitalrebar))
 
-
 {{< note >}}
-**Note:** The above table is ordered by version test/used in nodes, followed by support level.
+The above table is ordered by version test/used in nodes, followed by support level.
 {{< /note >}}
 
 ### Definition of columns
