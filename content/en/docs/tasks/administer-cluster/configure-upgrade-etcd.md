@@ -12,7 +12,6 @@ content_template: templates/task
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -34,6 +33,8 @@ content_template: templates/task
 
 * Keeping stable etcd clusters is critical to the stability of Kubernetes clusters. Therefore, run etcd clusters on dedicated machines or isolated environments for [guaranteed resource requirements](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations).
 
+* The minimum recommended version of etcd to run in production is `3.2.10+`.
+
 ## Resource requirements
 
 Operating etcd with limited resources is suitable only for testing purposes. For deploying in production, advanced hardware configuration is required. Before deploying etcd in production, see [resource requirement reference documentation](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#example-hardware-configurations).
@@ -48,7 +49,9 @@ Use a single-node etcd cluster only for testing purpose.
 
 1. Run the following:
 
-        ./etcd --listen-client-urls=http://$PRIVATE_IP:2379 --advertise-client-urls=http://$PRIVATE_IP:2379
+    ```sh
+    ./etcd --listen-client-urls=http://$PRIVATE_IP:2379 --advertise-client-urls=http://$PRIVATE_IP:2379
+    ```
 
 2. Start Kubernetes API server with the flag `--etcd-servers=$PRIVATE_IP:2379`.
 
@@ -64,8 +67,9 @@ For an example, consider a five-member etcd cluster running with the following c
 
 1. Run the following:
 
-       ./etcd --listen-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379 --advertise-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379
-
+    ```sh
+    ./etcd --listen-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379 --advertise-client-urls=http://$IP1:2379, http://$IP2:2379, http://$IP3:2379, http://$IP4:2379, http://$IP5:2379
+    ```
 
 2. Start Kubernetes API servers with the flag `--etcd-servers=$IP1:2379, $IP2:2379, $IP3:2379, $IP4:2379, $IP5:2379`.
 
@@ -209,7 +213,7 @@ The upgrade procedure described in this document assumes that either:
 
 {{< warning >}}
 **Warning**: Deviations from the assumptions are untested by continuous
-integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation). 
+integration, and deviations might create undesirable consequences. Additional information about operating an etcd cluster is available [from the etcd maintainers](https://github.com/coreos/etcd/tree/master/Documentation).
 {{< /warning >}}
 
 ### Background
@@ -384,6 +388,10 @@ ETCD_IMAGE=3.0.17
 TARGET_VERSION=2.2.1
 STORAGE_MEDIA_TYPE=application/json
 ```
+
+{{< note >}}
+**Note:** This procedure upgrades from 2.x to 3.x.  Version `3.0.17` is not recommended for running in production (see [prerequisites](#prerequisites) for minimum recommended etcd versions).
+{{< /note >}}
 
 ## Notes for etcd Version 2.2.1
 

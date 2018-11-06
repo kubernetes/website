@@ -3,6 +3,12 @@ reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController
+feature: 
+  title: Self-healing
+  anchor: How a ReplicationController Works
+  description: >
+    Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
+
 content_template: templates/concept
 weight: 20
 ---
@@ -50,7 +56,7 @@ Run the example job by downloading the example file and then running this comman
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/controllers/replication.yaml
-replicationcontroller "nginx" created
+replicationcontroller/nginx created
 ```
 
 Check on the status of the ReplicationController using this command:

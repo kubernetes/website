@@ -33,6 +33,7 @@
 /docs/admin/high-availability/      /docs/admin/high-availability/building/ 301
 /docs/admin/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
 /docs/admin/kubelet-authentication-authorization/     /docs/reference/command-line-tools-reference/kubelet-authentication-authorization/ 301
+/docs/admin/kubelet-tls-bootstrapping/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
 /docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
 /docs/admin/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
@@ -195,7 +196,8 @@
 
 /docs/home/contribute/  /docs/contribute/ 301
 /docs/home/contribute/content-organization/ /docs/contribute/style/content-organization/ 301
-/docs/home/contribute/create-pull-request/ /docs/contribute/foundational/ 301
+/docs/home/contribute/create-pull-request/ /docs/contribute/start/ 301
+/docs/contribute/foundational/ /docs/contribute/start/ 301
 /docs/home/contribute/includes/ /docs/contribute/style/hugo-shortcodes/ 301
 /docs/home/contribute/style-guide/ /docs/contribute/style/style-guide/ 301
 /docs/home/contribute/generated-reference/federation-api/ /docs/contribute/generate-ref-docs/federation-api/ 301
@@ -206,8 +208,15 @@
 /docs/home/contribute/page-templates/ /docs/contribute/style/page-templates/ 301
 /docs/home/contribute/participating/ /docs/contribute/participating/ 301
 /docs/home/contribute/review-issues/ /docs/contribute/intermediate/ 301
-/docs/home/contribute/blog-post/ /docs/contribute/foundational/ 301
+/docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
+
+/docs/imported/release/notes/ /docs/setup/release/notes/ 301
+
+/docs/imported/community/devel/ /docs/community/devel/ 301
+/docs/imported/community/keps/ /docs/commuinty/keps/ 301
+/docs/imported/community/guide/ /docs/community/guide/ 301
+/docs/imported/community/mentoring/ /docs/commuinty/mentoring/ 301
 
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
@@ -255,7 +264,7 @@
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
 /docs/tasks/administer-cluster/calico-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/ 301
-/docs/tasks/administer-cluster/certificate-rotation/     /docs/admin/kubelet-tls-bootstrapping/ 301
+/docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301

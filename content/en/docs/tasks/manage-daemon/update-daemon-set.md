@@ -25,12 +25,12 @@ This page shows how to perform a rolling update on a DaemonSet.
 
 DaemonSet has two update strategy types:
 
-* OnDelete: This is the default update strategy for backward-compatibility. With
-  `OnDelete` update strategy, after you update a DaemonSet template, new
+* OnDelete:  With `OnDelete` update strategy, after you update a DaemonSet template, new
   DaemonSet pods will *only* be created when you manually delete old DaemonSet
   pods. This is the same behavior of DaemonSet in Kubernetes version 1.5 or
   before.
-* RollingUpdate: With `RollingUpdate` update strategy, after you update a
+* RollingUpdate: This is the default update strategy.  
+  With `RollingUpdate` update strategy, after you update a
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
   will be created automatically, in a controlled fashion.
 
@@ -159,11 +159,12 @@ kubectl get pods -l <daemonset-selector-key>=<daemonset-selector-value> -o wide
 ```
 
 Once you've found those nodes, delete some non-DaemonSet pods from the node to
-make room for new DaemonSet pods. Note that this will cause service disruption
-if the deleted pods are not controlled by any controllers, or if the pods aren't
-replicated. This doesn't respect
-[PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
+make room for new DaemonSet pods. 
+{{< note >}}
+**Note:** This will cause service disruption when deleted pods are not controlled by any controllers or pods are not
+replicated. This does not respect [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
 either.
+{{< /note >}}
 
 #### Broken rollout
 

@@ -28,8 +28,8 @@ The Kubernetes documentation is written in Markdown and processed and deployed
 using Hugo. The source is in Github at
 [https://github.com/kubernetes/website](https://github.com/kubernetes/website).
 Most of the documentation source is stored in `/content/en/docs/`. Some of the
-reference documentation is automatically generated from scripts, mostly in the
-`/content/en/docs/imported/` subdirectory.
+reference documentation is automatically generated from scripts in the
+`update-imported-docs/` directory.
 
 You can file issues, edit content, and review changes from others, all from the
 Github website. You can also use Github's embedded history and search tools.
@@ -40,8 +40,8 @@ Not all tasks can be done in the Github UI, but these are discussed in the
 
 ### Participating in SIG Docs
 
-The Kubernetes documentation is maintained by a special interest group (SIG)
-called Sig Docs. We communicate using a Slack channel, a mailing list, and
+The Kubernetes documentation is maintained by a Special Interest Group (SIG)
+called SIG Docs. We communicate using a Slack channel, a mailing list, and
 weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
 
@@ -114,7 +114,7 @@ in mind:
     For instance, "Fix the security docs" is not an actionable issue, but "Add
     details to the 'Restricting network access' topic" might be.
 - If the issue relates to another issue or pull request, you can refer to it
-  either by its full URL or by the the issue or pull request number prefixed
+  either by its full URL or by the issue or pull request number prefixed
   with a `#` character. For instance, `Introduced by #987654`.
 - Be respectful and avoid venting. For instance, "The docs about X suck" is not
   helpful or actionable feedback. The
@@ -145,7 +145,7 @@ because you can do everything using your web browser. When you continue to the
 need more background in Git terminology.
 
 {{< note >}}
-**Kubnetes code developers**: If you are documenting a new feature for an
+**Kubernetes code developers**: If you are documenting a new feature for an
 upcoming Kubernetes release, your process is a bit different. See
 [Document a feature](/docs/contribute/intermediate/#sig-members-documenting-new-features) for
 process guidelines and information about deadlines.
@@ -154,8 +154,8 @@ process guidelines and information about deadlines.
 ### Sign the CLA
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
-the [Contributor guide](/docs/imported/community/guide/) and
-[sign the Contributor License Agreement (CLA)](/docs/imported/community/guide/#sign-the-cla).
+the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and
+[sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 Don't worry -- this doesn't take long!
 
 ### Find something to work on
@@ -179,7 +179,7 @@ to base your work on. Use these guidelines to make the decision:
 
 - Use `master` for fixing problems in content that is already published, or
   making improvements to content that already exists.
-- Use a release branch (such as `release-1.12`) to document upcoming features
+  - Use a release branch (such as `dev-{{< release-branch >}}` for the {{< release-branch >}} release) to document upcoming features
   or changes for an upcoming release that is not yet published.
 - Use a feature branch that has been agreed upon by SIG Docs to collaborate on
   big improvements or changes to the existing documentation, including content
@@ -195,7 +195,7 @@ documentation.
 
 1.  On the page where you see the issue, click the pencil icon at the top left.
     A new page appears, with some help text.
-2.  Click the first blue button, which has the text **Edit <page name>**.
+2.  Click the first blue button, which has the text **Edit &lt;page name&gt;**.
     
     If you have never created a fork of the Kubernetes documentation
     repository, you are prompted to do so. Create the fork under your Github

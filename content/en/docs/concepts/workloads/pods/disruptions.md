@@ -18,7 +18,6 @@ cluster actions, like upgrading and autoscaling clusters.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -266,6 +265,3 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 * Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
 
 {{% /capture %}}
-
-
-

@@ -18,7 +18,7 @@ CoreDNS is a general-purpose, authoritative DNS server that provides a backwards
 
 In this article, you will learn about the differences in the implementations of kube-dns and CoreDNS, and some of the helpful extensions offered by CoreDNS.
 
-## Implemenation differences
+## Implementation differences
 
 In kube-dns, several containers are used within a single pod: `kubedns`, `dnsmasq`, and `sidecar`. The `kubedns`
 container watches the Kubernetes API and serves DNS records based on the [Kubernetes DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md), `dnsmasq` provides caching and stub domain support, and `sidecar` provides metrics and health checks.

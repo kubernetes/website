@@ -30,7 +30,6 @@ When they do, they are authenticated as a particular Service Account (for exampl
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -99,7 +98,7 @@ kind: ServiceAccount
 metadata:
   name: build-robot
 EOF
-serviceaccount "build-robot" created
+serviceaccount/build-robot created
 ```
 
 If you get a complete dump of the service account object, like this:
@@ -151,7 +150,7 @@ metadata:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 EOF
-secret "build-robot-secret" created
+secret/build-robot-secret created
 ```
 
 Now you can confirm that the newly built secret is populated with an API token for the "build-robot" service account.
@@ -181,7 +180,7 @@ token:          ...
 
 ## Add ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod). 
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 Next, verify it has been created.  For example:
 
 ```shell
@@ -193,7 +192,7 @@ myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
 Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
 
 ```shell
-kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"myregistrykey\"}]}'
+kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 ```
 
 Interactive version requiring manual edit:
@@ -250,13 +249,57 @@ spec:
 TODO: Test and explain how to use additional non-K8s secrets with an existing service account.
 -->
 
-## Service Account Volume Projection
+## Service Account Token Volume Projection
 
-Kubernetes 1.11 and higher supports a new way to project a service account token into a Pod.
-You can specify a token request with audiences, expirationSeconds. The service account token
-becomes invalid when the Pod is deleted. A Projected Volume named
-[ServiceAccountToken](/docs/concepts/storage/volumes/#projected) requests and stores the token.
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+
+{{< note >}}
+**Note:** This ServiceAccountTokenVolumeProjection is __beta__ in 1.12 and
+enabled by passing all of the following flags to the API server:
+
+* `--service-account-issuer`
+* `--service-account-signing-key-file`
+* `--service-account-api-audiences`
+
+{{< /note >}}
+
+The kubelet can also project a service account token into a Pod. You can
+specify desired properties of the token, such as the audience and the validity
+duration. These properties are not configurable on the default service account
+token. The service account token will also become invalid against the API when
+the Pod or the ServiceAccount is deleted.
+
+This behavior is configured on a PodSpec using a ProjectedVolume type called
+[ServiceAccountToken](/docs/concepts/storage/volumes/#projected). To provide a
+pod with a token with an audience of "vault" and a validity duration of two
+hours, you would configure the following in your PodSpec:
+
+```yaml
+kind: Pod
+apiVersion: v1
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    volumeMounts:
+    - mountPath: /var/run/secrets/tokens
+      name: vault-token
+  volumes:
+  - name: vault-token
+    projected:
+      sources:
+      - serviceAccountToken:
+          path: vault-token
+          expirationSeconds: 7200
+          audience: vault
+```
+
+The kubelet will request and store the token on behalf of the pod, make the
+token available to the pod at a configurable file path, and refresh the token as
+it approaches expiration. Kubelet proactively rotates the token if it is older
+than 80% of its total TTL, or if the token is older than 24 hours.
+
+The application is responsible for reloading the token when it rotates. Periodic
+reloading (e.g. once every 5 minutes) is sufficient for most usecases.
 
 {{% /capture %}}
-
-

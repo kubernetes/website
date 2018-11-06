@@ -15,7 +15,7 @@ If your problem is not listed below, please follow the following steps:
   - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
   - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) and follow the issue template.
 
-- If you are unsure about how kubeadm works, you can ask on Slack in #kubeadm, or open a question on StackOverflow. Please include
+- If you are unsure about how kubeadm works, you can ask on [Slack](http://slack.k8s.io/) in #kubeadm, or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
 
 {{% /capture %}}
@@ -57,7 +57,7 @@ This may be caused by a number of problems. The most common are:
 
   There are two common ways to fix the cgroup driver problem:
   
- 1. Install docker again following instructions
+ 1. Install Docker again following instructions
   [here](/docs/setup/independent/install-kubeadm/#installing-docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
     [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
@@ -104,6 +104,10 @@ Right after `kubeadm init` there should not be any pods in these states.
   likely that the Pod Network solution that you installed is somehow broken. You
   might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
+- If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
+  when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
+  MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
+  The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
 ## `coredns` (or `kube-dns`) is stuck in the `Pending` state
 
@@ -190,7 +194,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
-  The workaround is to tell `kubelet` which IP to use using `--node-ip`. When using Digital Ocean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [KubeletExtraArgs section of the MasterConfiguration file](https://github.com/kubernetes/kubernetes/blob/master/cmd/kubeadm/app/apis/kubeadm/v1alpha2/types.go#L147) can be used for this.
+  The workaround is to tell `kubelet` which IP to use using `--node-ip`. When using Digital Ocean, it can be the public one (assigned to `eth0`) or the private one (assigned to `eth1`) should you want to use the optional private network. The [`KubeletExtraArgs` section of the kubeadm `NodeRegistrationOptions` structure](https://github.com/kubernetes/kubernetes/blob/release-1.12/cmd/kubeadm/app/apis/kubeadm/v1alpha3/types.go#L163-L166) can be used for this.
 
   Then restart `kubelet`:
 
@@ -238,4 +242,25 @@ EOF
 )"
 
 ```
+
+## `coredns` pods have `CrashLoopBackOff` or `Error` state
+
+If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
+where the `coredns` pods are not starting. To solve that you can try one of the following options:
+
+- Upgrade to a [newer version of Docker](/docs/setup/independent/install-kubeadm/#installing-docker).
+- [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
+- Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
+
+```bash
+kubectl -n kube-system get deployment coredns -o yaml | \
+  sed 's/allowPrivilegeEscalation: false/allowPrivilegeEscalation: true/g' | \
+  kubectl apply -f -
+```
+
+{{< warning >}}
+**Warning**: Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
+the security of your cluster.
+{{< /warning >}}
+
 {{% /capture %}}

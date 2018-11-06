@@ -18,7 +18,6 @@ nodes become unstable.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -205,7 +204,7 @@ If `nodefs` filesystem has met eviction thresholds, `kubelet` frees up disk spac
 
 If the `kubelet` is unable to reclaim sufficient resource on the node, `kubelet` begins evicting Pods.
 
-The `kubelet` ranks Pods for eviction first by whether or not their usage  of the starved resource exceeds requests, 
+The `kubelet` ranks Pods for eviction first by whether or not their usage of the starved resource exceeds requests,
 then by [Priority](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/), and then by the consumption of the starved compute resource relative to the Pods' scheduling requests.
 
 As a result, `kubelet` ranks and evicts Pods in the following order:
@@ -213,15 +212,15 @@ As a result, `kubelet` ranks and evicts Pods in the following order:
 * `BestEffort` or `Burstable` Pods whose usage of a starved resource exceeds its request.
 Such pods are ranked by Priority, and then usage above request.
 * `Guaranteed` pods and `Burstable` pods whose usage is beneath requests are evicted last.
-`Guaranteed` Pods are guaranteed only when requests and limits are specified for all 
-the containers and they are equal. Such pods are guaranteed to never be evicted because 
+`Guaranteed` Pods are guaranteed only when requests and limits are specified for all
+the containers and they are equal. Such pods are guaranteed to never be evicted because
 of another Pod's resource consumption. If a system daemon (such as `kubelet`, `docker`,
 and `journald`) is consuming more resources than were reserved via `system-reserved` or
-`kube-reserved` allocations, and the node only has `Guaranteed` or `Burstable` Pods using 
-less than requests remaining, then the node must choose to evict such a Pod in order to 
+`kube-reserved` allocations, and the node only has `Guaranteed` or `Burstable` Pods using
+less than requests remaining, then the node must choose to evict such a Pod in order to
 preserve node stability and to limit the impact of the unexpected consumption to other Pods.
 In this case, it will choose to evict pods of Lowest Priority first.
- 
+
 If necessary, `kubelet` evicts Pods one at a time to reclaim disk when `DiskPressure`
 is encountered. If the `kubelet` is responding to `inode` starvation, it reclaims
 `inodes` by evicting Pods with the lowest quality of service first. If the `kubelet`

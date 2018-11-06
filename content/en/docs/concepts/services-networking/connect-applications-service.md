@@ -8,7 +8,6 @@ content_template: templates/concept
 weight: 30
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
@@ -65,7 +64,7 @@ You can create a Service for your 2 nginx replicas with `kubectl expose`:
 
 ```shell
 $ kubectl expose deployment/my-nginx
-service "my-nginx" exposed
+service/my-nginx exposed
 ```
 
 This is equivalent to `kubectl create -f` the following yaml:
@@ -208,12 +207,12 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 * An nginx server configured to use the certificates
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the  manual steps later. In short:
+You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 
 ```shell
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
 $ kubectl create -f /tmp/secret.json
-secret "nginxsecret" created
+secret/nginxsecret created
 $ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
@@ -375,4 +374,3 @@ the [Federated Services User Guide](/docs/concepts/cluster-administration/federa
 for further information.
 
 {{% /capture %}}
-

@@ -16,7 +16,6 @@ updates.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -35,13 +34,14 @@ administrator to control the following:
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
-| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
+| White list of Flexvolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
 | Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
+| The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedProcMountTypes) |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
 | The sysctl profile used by containers               | [annotations](#sysctl)                      |
@@ -144,7 +144,7 @@ For a complete example of authorizing a PodSecurityPolicy, see
 ### Troubleshooting
 
 - The [Controller Manager](/docs/admin/kube-controller-manager/) must be run
-against [the secured API port](/docs/reference/access-authn-authz/controlling-access/), 
+against [the secured API port](/docs/reference/access-authn-authz/controlling-access/),
 and must not have superuser permissions. Otherwise requests would bypass
 authentication and authorization modules, all PodSecurityPolicy objects would be
 allowed, and users would be able to create privileged containers. For more details
@@ -374,7 +374,7 @@ several security mechanisms.
 ### Privileged
 
 **Privileged** - determines if any container in a pod can enable privileged mode.
-By default a container is not allowed to access any devices on the host, but a 
+By default a container is not allowed to access any devices on the host, but a
 "privileged" container is given access to all devices on the host. This allows
 the container nearly all the same access as processes running on the host.
 This is useful for containers that want to use linux capabilities like
@@ -421,6 +421,9 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
+- *MayRunAs* - Requires at least one `range` to be specified. Allows
+`FSGroups` to be left unset without providing a default. Validates against
+all ranges if `FSGroups` is set.
 - *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
 **AllowedHostPaths** - This specifies a whitelist of host paths that are allowed
@@ -439,11 +442,11 @@ allowedHostPaths:
     readOnly: true # only allow read-only mounts
 ```
 
-{{< warning >}}**Warning:** There are many ways a container with unrestricted access to the host 
+{{< warning >}}**Warning:** There are many ways a container with unrestricted access to the host
 filesystem can escalate privileges, including reading data from other
 containers, and abusing the credentials of system services, such as Kubelet.
 
-Writeable hostPath directory volumes allow containers to write 
+Writeable hostPath directory volumes allow containers to write
 to the filesystem in ways that let them traverse the host filesystem outside the `pathPrefix`.
 `readOnly: true`, available in Kubernetes 1.11+, must be used on **all** `allowedHostPaths`
 to effectively limit access to the specified `pathPrefix`.
@@ -452,12 +455,12 @@ to effectively limit access to the specified `pathPrefix`.
 **ReadOnlyRootFilesystem** - Requires that containers must run with a read-only
 root filesystem (i.e. no writable layer).
 
-### FlexVolume drivers
+### Flexvolume drivers
 
-This specifies a whiltelist of flex volume drivers that are allowed to be used
-by flexVolume. An empty list or nil means there is no restriction on the drivers.
-Please make sure [`volumes`](#volumes-and-file-systems) field  contains the
-`flexVolume` volume type, no FlexVolume driver is allowed otherwise.
+This specifies a whiltelist of Flexvolume drivers that are allowed to be used
+by flexvolume. An empty list or nil means there is no restriction on the drivers.
+Please make sure [`volumes`](#volumes-and-file-systems) field contains the
+`flexVolume` volume type; no Flexvolume driver is allowed otherwise.
 
 For example:
 
@@ -470,14 +473,14 @@ spec:
   # ... other spec fields
   volumes:
     - flexVolume
-  allowedFlexVolumes: 
+  allowedFlexVolumes:
     - driver: example/lvm
     - driver: example/cifs
 ```
 
 ### Users and groups
 
-**RunAsUser** - Controls the what user ID containers run as.
+**RunAsUser** - Controls which user ID the containers are run with.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
@@ -487,10 +490,24 @@ image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
 recommended with this strategy.
 - *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
+**RunAsGroup** - Controls which primary group ID the containers are run with.
+
+- *MustRunAs* - Requires at least one `range` to be specified. Uses the
+minimum value of the first range as the default. Validates against all ranges.
+- *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
+`runAsUser` or have the `USER` directive defined (using a numeric GID) in the
+image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
+recommended with this strategy.
+- *RunAsAny* - No default provided. Allows any `runAsGroup` to be specified.
+
+
 **SupplementalGroups** - Controls which group IDs containers add.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
+- *MayRunAs* - Requires at least one `range` to be specified. Allows
+`supplementalGroups` to be left unset without providing a default.
+Validates against all ranges if `supplementalGroups` is set.
 - *RunAsAny* - No default provided. Allows any `supplementalGroups` to be
 specified.
 
@@ -547,6 +564,21 @@ for the default list of capabilities when using the Docker runtime.
 `seLinuxOptions` as the default. Validates against `seLinuxOptions`.
 - *RunAsAny* - No default provided. Allows any `seLinuxOptions` to be
 specified.
+
+### AllowedProcMountTypes
+
+`allowedProcMountTypes` is a whitelist of allowed ProcMountTypes.
+Empty or nil indicates that only the `DefaultProcMountType` may be used.
+
+`DefaultProcMount` uses the container runtime defaults for readonly and masked
+paths for /proc.  Most container runtimes mask certain paths in /proc to avoid
+accidental security exposure of special devices or information. This is denoted
+as the string `Default`.
+
+The only other ProcMountType is `UnmaskedProcMount`, which bypasses the
+default masking behavior of the container runtime and ensures the newly
+created /proc the container stays in tact with no modifications. This is
+denoted as the string `Unmasked`.
 
 ### AppArmor
 

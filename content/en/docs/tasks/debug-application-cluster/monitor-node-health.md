@@ -44,7 +44,7 @@ it to [support other log format](/docs/tasks/debug-application-cluster/monitor-n
 
 ## Enable/Disable in GCE cluster
 
-Node problem detector is [running as a cluster addon](/docs/admin/cluster-large/#addon-resources) enabled by default in the
+Node problem detector is [running as a cluster addon](/docs/setup/cluster-large/#addon-resources) enabled by default in the
 gce cluster.
 
 You can enable/disable it by setting the environment variable
@@ -94,7 +94,7 @@ However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configure-p
 following the steps:
 
 * **Step 1:** Change the config files in `config/`.
-* **Step 2:** Create the ConfigMap `node-problem-detector-config` with `kubectl  create configmap
+* **Step 2:** Create the ConfigMap `node-problem-detector-config` with `kubectl create configmap
 node-problem-detector-config --from-file=config/`.
 * **Step 3:** Change the `node-problem-detector.yaml` to use the ConfigMap:
 

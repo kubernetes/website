@@ -22,7 +22,6 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -656,7 +655,8 @@ All sources are required to be in the same namespace as the Pod. For more detail
 see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md).
 
 The projection of service account tokens is a feature introduced in Kubernetes
-1.11. To enable this feature, you need to explicitly set the `TokenRequestProjection`
+1.11 and promoted to Beta in 1.12.
+To enable this feature on 1.11, you need to explicitly set the `TokenRequestProjection`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
 True.
 
@@ -756,7 +756,7 @@ spec:
     image: busybox
     volumeMounts:
     - name: token-vol
-      mountPath: "/sevice-account"
+      mountPath: "/service-account"
       readOnly: true
   volumes:
   - name: token-vol
@@ -924,7 +924,7 @@ A `storageos` volume allows an existing [StorageOS](https://www.storageos.com)
 volume to be mounted into your Pod.
 
 StorageOS runs as a Container within your Kubernetes environment, making local
-or attached storage accessible from any node within the Kubernetes cluster. 
+or attached storage accessible from any node within the Kubernetes cluster.
 Data can be replicated to protect against node failure. Thin provisioning and
 compression can improve utilization and reduce cost.
 
@@ -971,7 +971,7 @@ spec:
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the
 [StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
 
-### vsphereVolume {#vsphereVolume}
+### vsphereVolume {#vspherevolume}
 
 {{< note >}}
 **Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider
@@ -1052,7 +1052,7 @@ spec:
       image: mysql
       env:
       - name: MYSQL_ROOT_PASSWORD
-        value: "rootpasswd" 
+        value: "rootpasswd"
       volumeMounts:
       - mountPath: /var/lib/mysql
         name: site-data
@@ -1075,7 +1075,7 @@ spec:
 
 
 `subPath` directory names can also be constructed from Downward API environment variables.
-Before you use this feature, you must enable the `VolumeSubpathEnvExpansion`feature gate.
+Before you use this feature, you must enable the `VolumeSubpathEnvExpansion` feature gate.
 
 In this example, a Pod uses `subPath` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 
@@ -1102,7 +1102,7 @@ spec:
   restartPolicy: Never
   volumes:
   - name: workdir1
-    hostPath: 
+    hostPath:
       path: /var/log/pods
 ```
 
@@ -1120,17 +1120,17 @@ specification, and to select the type of media to use, for clusters that have
 several media types.
 
 ## Out-of-Tree Volume Plugins
-The Out-of-tree volume plugins include the Container Storage Interface (`CSI`)
-and `FlexVolume`. They enable storage vendors to create custom storage plugins
-without adding them to the Kubernetes repository. 
+The Out-of-tree volume plugins include the Container Storage Interface (CSI)
+and Flexvolume. They enable storage vendors to create custom storage plugins
+without adding them to the Kubernetes repository.
 
-Before the introduction of `CSI` and `FlexVolume`, all volume plugins (like
+Before the introduction of CSI and Flexvolume, all volume plugins (like
 volume types listed above) were "in-tree" meaning they were built, linked,
 compiled, and shipped with the core Kubernetes binaries and extend the core
 Kubernetes API. This meant that adding a new storage system to Kubernetes (a
 volume plugin) required checking code into the core Kubernetes code repository.
 
-Both `CSI` and `FlexVolume` allow volume plugins to be developed independent of
+Both CSI and Flexvolume allow volume plugins to be developed independent of
 the Kubernetes code base, and deployed (installed) on Kubernetes clusters as
 extensions.
 
@@ -1177,7 +1177,7 @@ persistent volume:
 - `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
   to specify the filesystem that should be used to mount the volume. If the
   volume has not been formatted and formatting is supported, this value will be
-  used to format the volume. If a value is not specified, `ext4` is assumed.
+  used to format the volume.
   This value is passed to the CSI driver via the `VolumeCapability` field of
   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
   `NodePublishVolumeRequest`.
@@ -1209,8 +1209,8 @@ persistent volume:
 {{< feature-state for_k8s_version="v1.11" state="alpha" >}}
 
 Starting with version 1.11, CSI introduced support for raw block volumes, which
-relies on the raw block volume feature that was introduced in a previous version of 
-Kubernetes.  This feature will make it possible for vendors with external CSI drivers to 
+relies on the raw block volume feature that was introduced in a previous version of
+Kubernetes.  This feature will make it possible for vendors with external CSI drivers to
 implement raw block volumes support in Kubernetes workloads.
 
 CSI block volume support is feature-gated and turned off by default.  To run CSI with
@@ -1221,30 +1221,23 @@ Kubernetes component using the following feature gate flags:
 --feature-gates=BlockVolume=true,CSIBlockVolume=true
 ```
 
-Learn how to 
+Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
-### FlexVolume
+### Flexvolume
 
-`FlexVolume` is an out-of-tree plugin interface that has existed in Kubernetes
+Flexvolume is an out-of-tree plugin interface that has existed in Kubernetes
 since version 1.2 (before CSI). It uses an exec-based model to interface with
-drivers. FlexVolume driver binaries must be installed in a pre-defined volume
+drivers. Flexvolume driver binaries must be installed in a pre-defined volume
 plugin path on each node (and in some cases master).
 
-Pods interact with FlexVolume drivers through the `flexVolume` in-tree plugin.
+Pods interact with Flexvolume drivers through the `flexvolume` in-tree plugin.
 More details can be found [here](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md).
 
 ## Mount propagation
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 Mount propagation allows for sharing volumes mounted by a Container to
 other Containers in the same Pod, or even to other Pods on the same node.
-
-If the "`MountPropagation`" feature is disabled or a Pod does not explicitly
-specify specific mount propagation, volume mounts in the Pod's Containers are
-not propagated. That is, Containers run with `private` mount propagation as
-described in the [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt).
 
 Mount propagation of a volume is controlled by `mountPropagation` field in Container.volumeMounts.
 Its values are:
@@ -1274,7 +1267,7 @@ Its values are:
    In addition, all volume mounts created by the Container will be propagated
    back to the host and to all Containers of all Pods that use the same volume.
 
-   A typical use case for this mode is a Pod with a `FlexVolume` or `CSI` driver or
+   A typical use case for this mode is a Pod with a Flexvolume or CSI driver or
    a Pod that needs to mount something on the host using a `hostPath` volume.
 
    This mode is equal to `rshared` mount propagation as described in the
@@ -1289,7 +1282,7 @@ In addition, any volume mounts created by Containers in Pods must be destroyed
 {{< /caution >}}
 
 ### Configuration
-Before mount propagation can work properly on some deployments (CoreOS, 
+Before mount propagation can work properly on some deployments (CoreOS,
 RedHat/Centos, Ubuntu) mount share must be configured correctly in
 Docker as shown below.
 
@@ -1308,5 +1301,3 @@ $ sudo systemctl restart docker
 {{% capture whatsnext %}}
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 {{% /capture %}}
-
-

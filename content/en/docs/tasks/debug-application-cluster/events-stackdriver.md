@@ -38,7 +38,6 @@ of the potential inaccuracy.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

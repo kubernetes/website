@@ -2,11 +2,15 @@
 reviewers:
 - bprashanth
 title: Services
+feature:
+  title: Service discovery and load balancing
+  description: >
+    No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
+
 content_template: templates/concept
 weight: 10
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
@@ -79,8 +83,12 @@ deploying and evolving your `Services`.  For example, you can change the port
 number that pods expose in the next version of your backend software, without
 breaking clients.
 
-Kubernetes `Services` support `TCP` and `UDP` for protocols.  The default
+Kubernetes `Services` support `TCP`, `UDP` and `SCTP` for protocols.  The default
 is `TCP`.
+
+{{< note >}}
+**Note:** SCTP support is an alpha feature since Kubernetes 1.12
+{{< /note >}}
 
 ### Services without selectors
 
@@ -124,7 +132,7 @@ subsets:
 ```
 
 {{< note >}}
-**NOTE** The endpoint IPs may not be loopback (127.0.0.0/8), link-local
+**Note:** The endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast (224.0.0.0/24). They cannot be the
 cluster IPs of other Kubernetes services either because the `kube-proxy`
 component doesn't support virtual IPs as destination yet.
@@ -164,8 +172,6 @@ By default, the choice of backend is round robin.
 
 ![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
 
-Note that in the above diagram, `clusterIP` is shown as `ServiceIP`.
-
 ### Proxy-mode: iptables
 
 In this mode, kube-proxy watches the Kubernetes master for the addition and
@@ -183,15 +189,13 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
-Note that in the above diagram, `clusterIP` is shown as `ServiceIP`.
-
 ### Proxy-mode: ipvs
 
 {{< feature-state for_k8s_version="v1.9" state="beta" >}}
 
 In this mode, kube-proxy watches Kubernetes Services and Endpoints,
 calls `netlink` interface to create ipvs rules accordingly and syncs ipvs rules with Kubernetes
-Services and Endpoints  periodically, to make sure ipvs status is
+Services and Endpoints periodically, to make sure ipvs status is
 consistent with the expectation. When Service is accessed, traffic will
 be redirected to one of the backend Pods.
 
@@ -453,6 +457,12 @@ cloud provider does not support the feature, the field will be ignored.
 **Special notes for Azure**: To use user-specified public type `loadBalancerIP`, a static type
 public IP address resource needs to be created first, and it should be in the same resource
 group of the other automatically created resources of the cluster. For example, `MC_myResourceGroup_myAKSCluster_eastus`. Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the securityGroupName in the cloud provider configuration file. For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see, [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
+
+{{< note >}}
+**Note:** The support of SCTP in the cloud provider's load balancer is up to the cloud provider's
+load balancer implementation. If SCTP is not supported by the cloud provider's load balancer the
+Service creation request is accepted but the creation of the load balancer fails.
+{{< /note >}}
 
 #### Internal load balancer
 In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
@@ -917,6 +927,32 @@ Service is a top-level resource in the Kubernetes REST API. More details about t
 API object can be found at:
 [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
 
+## SCTP support
+
+{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+
+Kubernetes supports SCTP as a `protocol` value in `Service`, `Endpoint`, `NetworkPolicy` and `Pod` definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a `Service`, `Endpoint`, `NetworkPolicy` and `Pod` to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
+
+### Warnings
+
+#### The support of multihomed SCTP associations
+
+The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a `Pod`.
+
+NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
+
+#### Service with type=LoadBalancer
+
+A `Service` with `type` LoadBalancer and `protocol` SCTP can be created only if the cloud provider's load balancer implementation supports SCTP as a protocol. Otherwise the `Service` creation request is rejected. The current set of cloud load balancer providers (`Azure`, `AWS`, `CloudStack`, `GCE`, `OpenStack`) do not support SCTP.
+
+#### Windows
+
+SCTP is not supported on Windows based nodes.
+
+#### Userspace kube-proxy
+
+The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
@@ -924,4 +960,3 @@ API object can be found at:
 Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).
 
 {{% /capture %}}
-

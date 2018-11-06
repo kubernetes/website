@@ -1,5 +1,5 @@
 ---
-title: Running automated tasks with cron jobs
+title: Running Automated Tasks with a CronJob
 reviewers:
 - chenopis
 content_template: templates/task
@@ -93,7 +93,7 @@ Note that the job name and pod name are different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-$ pods=$(kubectl get pods --show-all --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
 
 $ echo $pods
 hello-4111706356-o9qcm
@@ -130,6 +130,16 @@ A cron job config also needs a [`.spec` section](https://git.k8s.io/community/co
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 
+The format also includes extended `vixie cron` step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+
+> Step values can be	used in	conjunction with ranges.  Following a range
+> with ``/<number>''	specifies skips	of the number's	value through the
+> range.  For example, ``0-23/2'' can be used in the	hours field to specify
+> command execution every other hour	(the alternative in the	V7 standard is
+> ``0,2,4,6,8,10,12,14,16,18,20,22'').  Steps are also permitted after an
+> asterisk, so if you want to say ``every two hours'', just use ``*/2''.
+
+
 **Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
 
 ### Job Template
@@ -146,7 +156,15 @@ After the deadline, the cron job does not start the job.
 Jobs that do not meet their deadline in this way count as failed jobs.
 If this field is not specified, the jobs have no deadline.
 
-It is important to note that if the `.spec.startingDeadlineSeconds` field is set (not nil), the CronJob controller counts how many missed jobs occurred from the value of `.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed schedules occurred in the last 200 seconds. If there were more than 100 missed schedules, the cronjob would not be scheduled. 
+The CronJob controller counts how many missed schedules happen for a cron job. If there are more than 100 missed
+schedules, the cron job is no longer scheduled. When `.spec.startingDeadlineSeconds` is not set, the CronJob
+controller counts missed schedules from `status.lastScheduleTime` until now. For example, one cron job is
+supposed to run every minute, the `status.lastScheduleTime` of the cronjob is 5:00am, but now it's 7:00am.
+That means 120 schedules were missed, so the cron job is no longer scheduled. If the `.spec.startingDeadlineSeconds`
+field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of
+`.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed
+schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the
+last 200 seconds, the cron job is no longer scheduled. 
 
 ### Concurrency Policy
 
@@ -167,6 +185,11 @@ The `.spec.suspend` field is also optional.
 If it is set to `true`, all subsequent executions are suspended.
 This setting does not apply to already started executions.
 Defaults to false.
+
+{{< caution >}}
+**Caution:** Executions that are suspended during their scheduled time count as missed jobs.
+When `.spec.suspend` changes from `true` to `false` on an existing cron job without a [starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
+{{< /caution >}}
 
 ### Jobs History Limits
 

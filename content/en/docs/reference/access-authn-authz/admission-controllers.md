@@ -62,7 +62,7 @@ For example, the following command line enables the `NamespaceLifecycle` and the
 admission control plugins:
 
 ```shell
-kube-apiserver --enable-admission-plugins=NamespaceLifecyle,LimitRanger ...
+kube-apiserver --enable-admission-plugins=NamespaceLifecycle,LimitRanger ...
 ```
 
 {{< note >}}
@@ -79,6 +79,20 @@ The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimit
 
 ```shell
 kube-apiserver --disable-admission-plugins=PodNodeSelector,AlwaysDeny ...
+```
+
+## Which plugins are enabled by default?
+
+To see which admission plugins are enabled:
+
+```shell
+kube-apiserver -h | grep enable-admission-plugins
+```
+
+In 1.11, they are:
+ 
+```shell
+NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
 ```
 
 ## What does each admission controller do?

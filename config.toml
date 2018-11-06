@@ -7,7 +7,7 @@ enableRobotsTXT = true
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
-ignoreFiles = [ "^OWNERS$", "README.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
+ignoreFiles = [ "^OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
 contentDir = "content/en"
 
@@ -21,6 +21,9 @@ pygmentsStyle = "emacs"
 
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
+
+# Norwegian ("no") is sometimes but not currently used for testing.
+disableLanguages = ["no"]
 
 [blackfriday]
 hrefTargetBlank = true
@@ -60,23 +63,23 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.11"
+latest = "v1.12"
 
-fullversion = "v1.11.0"
-version = "v1.11"
+fullversion = "v1.12.0"
+version = "v1.12"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
-nextUrl = "http://kubernetes-io-vnext-staging.netlify.com/"
+nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 [[params.versions]]
-fullversion = "v1.11.0"
-version = "v1.11"
-githubbranch = "v1.11.0"
-docsbranch = "release-1.11"
+fullversion = "v1.12.0"
+version = "v1.12"
+githubbranch = "v1.12.0"
+docsbranch = "release-1.12"
 url = "https://kubernetes.io"
 
 [params.pushAssets]
@@ -89,6 +92,13 @@ js = [
   "custom-jekyll/tags",
   "script"
 ]
+
+[[params.versions]]
+fullversion = "v1.11.3"
+version = "v1.11"
+githubbranch = "v1.11.3"
+docsbranch = "release-1.11"
+url = "https://v1-11.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.10.3"
@@ -111,12 +121,6 @@ githubbranch = "v1.8.4"
 docsbranch = "release-1.8"
 url = "https://v1-8.docs.kubernetes.io"
 
-[[params.versions]]
-fullversion = "v1.7.6"
-version = "v1.7"
-githubbranch = "v1.7.6"
-docsbranch = "release-1.7"
-url = "https://v1-7.docs.kubernetes.io"
 
 # Language definitions.
 
@@ -127,10 +131,29 @@ description = "Production-Grade Container Orchestration"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
-[languages.cn]
+
+[languages.zh]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName = "Chinese"
+languageName = "中文 Chinese"
 weight = 2
-contentDir = "content/cn"
+contentDir = "content/zh"
 
+[languages.ko]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "한국어 Korean"
+weight = 3
+contentDir = "content/ko"
+
+[languages.no]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Norsk"
+weight = 4
+contentDir = "content/no"
+
+[languages.no.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]

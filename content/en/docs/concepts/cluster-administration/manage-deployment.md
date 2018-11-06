@@ -14,7 +14,6 @@ You've deployed your application and exposed it via a service. Now what? Kuberne
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -28,8 +27,8 @@ Multiple resources can be created the same way as a single resource:
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/application/nginx-app.yaml
-service "my-nginx-svc" created
-deployment "my-nginx" created
+service/my-nginx-svc created
+deployment.apps/my-nginx created
 ```
 
 The resources will be created in the order they appear in the file. Therefore, it's best to specify the service first, since that will ensure the scheduler can spread the pods associated with the service as they are created by the controller(s), such as Deployment.
@@ -54,7 +53,7 @@ A URL can also be specified as a configuration source, which is handy for deploy
 
 ```shell
 $ kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
-deployment "my-nginx" created
+deployment.apps/my-nginx created
 ```
 
 ## Bulk operations in kubectl
@@ -63,7 +62,7 @@ Resource creation isn't the only operation that `kubectl` can perform in bulk. I
 
 ```shell
 $ kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
-deployment "my-nginx" deleted
+deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
@@ -77,7 +76,7 @@ For larger numbers of resources, you'll find it easier to specify the selector (
 
 ```shell
 $ kubectl delete deployment,services -l app=nginx
-deployment "my-nginx" deleted
+deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
@@ -85,8 +84,8 @@ Because `kubectl` outputs resource names in the same syntax it accepts, it's eas
 
 ```shell
 $ kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
-NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
-my-nginx-svc   10.0.0.208   <pending>     80/TCP       0s
+NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
+my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
 With the above commands, we first create resources under `examples/application/nginx/` and print the resources created with `-o name` output format
@@ -117,9 +116,9 @@ Instead, specify the `--recursive` or `-R` flag with the `--filename,-f` flag as
 
 ```shell
 $ kubectl create -f project/k8s/development --recursive
-configmap "my-config" created
-deployment "my-deployment" created
-persistentvolumeclaim "my-pvc" created
+configmap/my-config created
+deployment.apps/my-deployment created
+persistentvolumeclaim/my-pvc created
 ```
 
 The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as: `kubectl {create,get,delete,describe,rollout} etc.`
@@ -128,11 +127,11 @@ The `--recursive` flag also works when multiple `-f` arguments are provided:
 
 ```shell
 $ kubectl create -f project/k8s/namespaces -f project/k8s/development --recursive
-namespace "development" created
-namespace "staging" created
-configmap "my-config" created
-deployment "my-deployment" created
-persistentvolumeclaim "my-pvc" created
+namespace/development created
+namespace/staging created
+configmap/my-config created
+deployment.apps/my-deployment created
+persistentvolumeclaim/my-pvc created
 ```
 
 If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview](/docs/reference/kubectl/overview/).
@@ -242,9 +241,9 @@ For example, if you want to label all your nginx pods as frontend tier, simply r
 
 ```shell
 $ kubectl label pods -l app=nginx tier=fe
-pod "my-nginx-2035384211-j5fhi" labeled
-pod "my-nginx-2035384211-u2c7e" labeled
-pod "my-nginx-2035384211-u3t6x" labeled
+pod/my-nginx-2035384211-j5fhi labeled
+pod/my-nginx-2035384211-u2c7e labeled
+pod/my-nginx-2035384211-u3t6x labeled
 ```
 
 This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
@@ -285,7 +284,7 @@ When load on your application grows or shrinks, it's easy to scale with `kubectl
 
 ```shell
 $ kubectl scale deployment/my-nginx --replicas=1
-deployment "my-nginx" scaled
+deployment.extensions/my-nginx scaled
 ```
 
 Now you only have one pod managed by the deployment.
@@ -300,7 +299,7 @@ To have the system automatically choose the number of nginx replicas as needed, 
 
 ```shell
 $ kubectl autoscale deployment/my-nginx --min=1 --max=3
-deployment "my-nginx" autoscaled
+horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 ```
 
 Now your nginx replicas will be scaled up and down as needed, automatically.
@@ -322,7 +321,7 @@ This command will compare the version of the configuration that you're pushing w
 
 ```shell
 $ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-deployment "my-nginx" configured
+deployment.apps/my-nginx configured
 ```
 
 Note that `kubectl apply` attaches an annotation to the resource in order to determine the changes to the configuration since the previous invocation. When it's invoked, `kubectl apply` does a three-way diff between the previous configuration, the provided input and the current configuration of the resource, in order to determine how to modify the resource.
@@ -350,7 +349,7 @@ $ kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
 $ vi /tmp/nginx.yaml
 # do some edit, and then save the file
 $ kubectl apply -f /tmp/nginx.yaml
-deployment "my-nginx" configured
+deployment.apps/my-nginx configured
 $ rm /tmp/nginx.yaml
 ```
 
@@ -372,8 +371,8 @@ In some cases, you may need to update resource fields that cannot be updated onc
 
 ```shell
 $ kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
-deployment "my-nginx" deleted
-deployment "my-nginx" replaced
+deployment.apps/my-nginx deleted
+deployment.apps/my-nginx replaced
 ```
 
 ## Updating your application without a service outage
@@ -387,7 +386,7 @@ Let's say you were running version 1.7.9 of nginx:
 
 ```shell
 $ kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
-deployment "my-nginx" created
+deployment.apps/my-nginx created
 ```
 
 To update to version 1.9.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`, with the kubectl commands we learned above.

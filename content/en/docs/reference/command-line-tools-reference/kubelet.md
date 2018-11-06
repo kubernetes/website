@@ -132,7 +132,7 @@ kubelet [flags]
        <td colspan="2">--bootstrap-checkpoint-path string</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Alpha feature> Path to to the directory where the checkpoints are stored</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Alpha feature> Path to the directory where the checkpoints are stored</td>
     </tr>
 
      <tr>
@@ -140,13 +140,6 @@ kubelet [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeconfig file that will be used to get client certificate for kubelet. If the file specified by --kubeconfig does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On success, a kubeconfig file referencing the generated client certificate and key is written to the path specified by --kubeconfig. The client certificate and key file will be stored in the directory pointed by --cert-dir.</td>
-    </tr>
-
-     <tr>
-       <td colspan="2">--cadvisor-port int32</td> 
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The port of the localhost cAdvisor endpoint (set to 0 to disable) (default 4194)</td>
     </tr>
 
      <tr>
@@ -412,7 +405,7 @@ kubelet [flags]
        <td colspan="2">--enforce-node-allocatable stringSlice</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptible options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (default [pods])</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (default [pods])</td>
     </tr>
 
      <tr>
@@ -517,7 +510,7 @@ kubelet [flags]
        <td colspan="2">--experimental-check-node-capabilities-before-mount</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] if set true, the kubelet will check the underlying node for required componenets (binaries, etc.) before performing the mount</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] if set true, the kubelet will check the underlying node for required components (binaries, etc.) before performing the mount</td>
     </tr>
 
      <tr>
@@ -552,7 +545,7 @@ kubelet [flags]
        <td colspan="2">--feature-gates mapStringBool</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false<br/>APIResponseCompression=true|false<br/>Accelerators=true|false<br/>AdvancedAuditing=true|false<br/>AllAlpha=true|false<br/>AllowExtTrafficLocalEndpoints=true|false<br/>AppArmor=true|false<br/>BlockVolume=true|false<br/>CPUManager=true|false<br/>CSIPersistentVolume=true|false<br/>CustomPodDNS=true|false<br/>CustomResourceValidation=true|false<br/>DebugContainers=true|false<br/>DevicePlugins=true|false<br/>DynamicKubeletConfig=true|false<br/>EnableEquivalenceClassCache=true|false<br/>ExpandPersistentVolumes=true|false<br/>ExperimentalCriticalPodAnnotation=true|false<br/>ExperimentalHostUserNamespaceDefaulting=true|false<br/>HugePages=true|false<br/>Initializers=true|false<br/>KubeletConfigFile=true|false<br/>LocalStorageCapacityIsolation=true|false<br/>MountContainers=true|false<br/>MountPropagation=true|false<br/>PVCProtection=true|false<br/>PersistentLocalVolumes=true|false<br/>PodPriority=true|false<br/>ReadOnlyAPIDataVolumes=true|false<br/>ResourceLimitsPriorityFunction=true|false<br/>RotateKubeletClientCertificate=true|false<br/>RotateKubeletServerCertificate=true|false<br/>ServiceNodeExclusion=true|false<br/>ServiceProxyAllowExternalIPs=true|false<br/>StreamingProxyRedirects=true|false<br/>SupportIPVSProxyMode=true|false<br/>TaintBasedEvictions=true|false<br/>TaintNodesByCondition=true|false<br/>VolumeScheduling=true|false<br/>VolumeSubpath=true|false<br/>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>APIListChunking=true|false (BETA - default=true)<br/>APIResponseCompression=true|false (ALPHA - default=false)<br/>Accelerators=true|false<br/>AdvancedAuditing=true|false (BETA - default=true)<br/>AllAlpha=true|false (ALPHA - default=false)<br/>AllowExtTrafficLocalEndpoints=true|false<br/>AppArmor=true|false (BETA - default=true)<br/>BlockVolume=true|false (ALPHA - default=false)<br/>CPUManager=true|false (BETA - default=true)<br/>CSIPersistentVolume=true|false (ALPHA - default=false)<br/>CustomPodDNS=true|false (ALPHA - default=false)<br/>CustomResourceValidation=true|false (BETA - default=true)<br/>DebugContainers=true|false <br/>DevicePlugins=true|false (ALPHA - default=false)<br/>DynamicKubeletConfig=true|false (ALPHA - default=false)<br/>EnableEquivalenceClassCache=true|false (ALPHA - default=false)<br/>ExpandPersistentVolumes=true|false (ALPHA - default=false)<br/>ExperimentalCriticalPodAnnotation=true|false (ALPHA - default=false)<br/>ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>HugePages=true|false (ALPHA - default=false)<br/>Initializers=true|false (ALPHA - default=false)<br/>KubeletConfigFile=true|false (ALPHA - default=false)<br/>LocalStorageCapacityIsolation=true|false (ALPHA - default=false)<br/>MountContainers=true|false (ALPHA - default=false)<br/>MountPropagation=true|false (ALPHA - default=false)<br/>PVCProtection=true|false (ALPHA - default=false)<br/>PersistentLocalVolumes=true|false (ALPHA - default=false)<br/>PodPriority=true|false (ALPHA - default=false)<br/>ReadOnlyAPIDataVolumes=true|false<br/>ResourceLimitsPriorityFunction=true|false (ALPHA - default=false)<br/>RotateKubeletClientCertificate=true|false (BETA - default=true)<br/>RotateKubeletServerCertificate=true|false (ALPHA - default=false)<br/>ServiceNodeExclusion=true|false (ALPHA - default=false)<br/>ServiceProxyAllowExternalIPs=true|false<br/>StreamingProxyRedirects=true|false (BETA - default=true)<br/>SupportIPVSProxyMode=true|false (ALPHA - default=false)<br/>TaintBasedEvictions=true|false (BETA - default=true)<br/>TaintNodesByCondition=true|false (BETA - default=true)<br/>VolumeScheduling=true|false (ALPHA - default=false)<br/>VolumeSubpath=true|false<br/>
       </td>
     </tr>
 

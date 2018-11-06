@@ -42,7 +42,7 @@ other pods to be evicted/not get scheduled. To resolve this issue,
 [ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is
 augmented to support Pod priority. An admin can create ResourceQuota for users
 at specific priority levels, preventing them from creating pods at high
-priorities. However, this feature is in alpha as of Kubernetes 1.11.
+priorities. This feature is in beta since Kubernetes 1.12.
 {{< /warning >}}
 
 {{% /capture %}}
@@ -161,7 +161,7 @@ cluster when they should use this PriorityClass.
 ### Example PriorityClass
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha1
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PriorityClass
 metadata:
   name: high-priority
@@ -202,7 +202,7 @@ spec:
 In Kubernetes 1.9 and later, when Pod priority is enabled, scheduler orders
 pending Pods by their priority and a pending Pod is placed ahead of other
 pending Pods with lower priority in the scheduling queue. As a result, the
-higher priority Pod may by scheduled sooner that Pods with lower priority if its
+higher priority Pod may be scheduled sooner than Pods with lower priority if its
 scheduling requirements are met. If such Pod cannot be scheduled, scheduler will
 continue and tries to schedule other lower priority Pods.
 

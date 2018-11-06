@@ -2,7 +2,7 @@
 reviewers:
 - mikedanese
 content_template: templates/concept
-title: Tools for Monitoring Compute, Storage, and Network Resources
+title: Tools for Monitoring Resources
 ---
 
 {{% capture overview %}}
@@ -18,15 +18,13 @@ where bottlenecks can be removed to improve overall performance.
 
 {{% /capture %}}
 
-{{< toc >}}
-
 {{% capture body %}}
 
 In Kubernetes, application monitoring does not depend on a single monitoring
 solution. On new clusters, you can use two separate pipelines to collect
 monitoring statistics by default:
 
-- The **resource metrics pipeline** provides a limited set of metrics related
+- The [**resource metrics pipeline**](#resource-metrics-pipeline) provides a limited set of metrics related
   to cluster components such as the HorizontalPodAutoscaler controller, as well
   as the `kubectl top` utility. These metrics are collected by
   [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
@@ -36,17 +34,19 @@ monitoring statistics by default:
   [cAdvisor](https://github.com/google/cadvisor). `metrics-server` is a
   lightweight short-term in-memory store.
   
-- A **full monitoring pipeline**, such as Prometheus, gives you access to richer
+- A [**full metrics pipeline**](#full-metrics-pipelines), such as Prometheus, gives you access to richer
   metrics. In addition, Kubernetes can respond to these metrics by automatically
   scaling or adapting the cluster based on its current state, using mechanisms
   such as the Horizontal Pod Autoscaler. The monitoring pipeline fetches
   metrics from the Kubelet, and then exposes them to Kubernetes via an adapter
   by implementing either the `custom.metrics.k8s.io` or
-  `external.metrics.k8s.io` API. See
-  [Full metrics pipeline](#full-metrics-pipelines) for more information about
-  some popular pipelines that implement these APIs and enable these
-  capabilities.
+  `external.metrics.k8s.io` API.
 
+## Resource metrics pipeline
+
+### Kubelet
+
+The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
 
 ### cAdvisor
 
@@ -56,14 +56,9 @@ On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine contain
 
 ![cAdvisor](/images/docs/cadvisor.png)
 
-### Kubelet
+## Full metrics pipelines
 
-The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
-
-## Full Metrics Pipelines
-
-Many full metrics solutions exist for Kubernetes. Prometheus and Google Cloud
-Monitoring are two of the most popular.
+Many full metrics solutions exist for Kubernetes.
 
 ### Prometheus
 
@@ -91,5 +86,21 @@ This video shows how to configure and run a Google Cloud Monitoring backed Heaps
 
 
 {{< figure src="/images/docs/gcm.png" alt="Google Cloud Monitoring dashboard example" title="Google Cloud Monitoring dashboard example" caption="This dashboard shows cluster-wide resource usage." >}}
+
+## CronJob monitoring
+
+### Kubernetes Job Monitor
+
+With the [Kubernetes Job Monitor](https://github.com/pietervogelaar/kubernetes-job-monitor) dashboard a Cluster Administrator can see which jobs are running and view the status of completed jobs.
+
+### New Relic Kubernetes monitoring integration
+
+[New Relic Kubernetes](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration) integration provides increased visibility into the performance of your Kubernetes environment. New Relic's Kubernetes integration instruments the container orchestration layer by reporting metrics from Kubernetes objects. The integration gives you insight into your Kubernetes nodes, namespaces, deployments, replica sets, pods, and containers.
+
+Marquee capabilities:
+View your data in pre-built dashboards for immediate insight into your Kubernetes environment.
+Create your own custom queries and charts in Insights from automatically reported data.
+Create alert conditions on Kubernetes data.
+Learn more on this [page](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration).
 
 {{% /capture %}}

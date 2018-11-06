@@ -1,5 +1,14 @@
 {{ define "main" }}
-	{{ range (.Paginator 1).Pages }}
+	{{ $pages := ($.Paginator 1).Pages }}
+	{{ with $.Site.Params.language_alternatives }}
+	{{ range . }}
+          {{ with (where $.Translations ".Lang" . ) }}
+          {{ $p := index . 0 }}
+          {{ $pages = $pages | lang.Merge ($p.Paginator 1).Pages }}
+          {{ end }}
+          {{ end }}
+	{{ end }}
+	{{ range $pages }}
 	{{ .Render "post" }}
 	{{ end }}
 	<div class="PageNavigation">

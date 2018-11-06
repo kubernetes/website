@@ -12,7 +12,6 @@ Containers that run before app Containers and can contain utilities or setup
 scripts not present in an app image.
 {{% /capture %}}
 
-{{< toc >}}
 
 This feature has exited beta in 1.6. Init Containers can be specified in the PodSpec
 alongside the app `containers` array. The beta annotation value will still be respected
@@ -182,7 +181,7 @@ This Pod can be started and debugged with the following commands:
 
 ```shell
 $ kubectl create -f myapp.yaml
-pod "myapp-pod" created
+pod/myapp-pod created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
@@ -228,8 +227,8 @@ complete and the `myapp-pod` is created:
 
 ```shell
 $ kubectl create -f services.yaml
-service "myservice" created
-service "mydb" created
+service/myservice created
+service/mydb created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
@@ -329,6 +328,3 @@ is removed, requiring a conversion from the deprecated annotations to the
 * [Creating a Pod that has an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
 
 {{% /capture %}}
-
-
-
