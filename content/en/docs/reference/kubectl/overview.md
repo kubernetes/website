@@ -135,7 +135,7 @@ Use the following sections for information about how you can format or sort the 
 
 ### Formatting output
 
-The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `-output` flags to a supported `kubectl` command.
+The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 
 #### Syntax
 
