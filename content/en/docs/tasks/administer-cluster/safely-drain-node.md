@@ -37,10 +37,12 @@ hardware maintenance, etc.). Safe evictions allow the pod's containers
 to [gracefully terminate](/docs/concepts/workloads/pods/pod/#termination-of-pods)
 and will respect the `PodDisruptionBudgets` you have specified.
 
-**Note:** By default `kubectl drain` will ignore certain system pods on the node
+{{< note >}}
+By default `kubectl drain` will ignore certain system pods on the node
 that cannot be killed; see
 the [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 documentation for more details.
+{{< /note >}}
 
 When `kubectl drain` returns successfully, that indicates that all of
 the pods (except the ones excluded as described in the previous paragraph)

@@ -69,7 +69,7 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 `Operator` defaults to `Equal` if not specified.
 
 {{< note >}}
-**Note:** There are two special cases:
+There are two special cases:
 
 * An empty `key` with operator `Exists` matches all keys, values and effects which means this
 will tolerate everything.
@@ -230,7 +230,7 @@ added by the NodeController (or kubelet) and the normal logic for evicting pods 
 based on the Ready NodeCondition is disabled.
 
 {{< note >}}
-**Note:** To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
+To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.

@@ -19,7 +19,7 @@ docs, follow the instructions on
 {{% capture body %}}
 
 {{< note >}}
-**Note:** Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
+Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
 and representing feature state.
 {{< /note >}}
 
@@ -189,7 +189,8 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 </table>
 
 ## Shortcodes
-Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create different rhetorical appeal levels. Our documentation supports three different shortcodes in this category: **Note:** {{</* note */>}}, **Caution:** {{</* caution */>}}, and **Warning:** {{</* warning */>}}.
+
+Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create different rhetorical appeal levels. Our documentation supports three different shortcodes in this category: **Note** {{</* note */>}}, **Caution** {{</* caution */>}}, and **Warning** {{</* warning */>}}.
 
 1. Surround the text with an opening and closing shortcode.
 
@@ -197,7 +198,7 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 
     ```
     {{</* note */>}}
-    **Note:** The prefix you use is the same text you use in the tag.
+    No need to include a prefix; the shortcode automatically provides on (Note:, Caution:, etc.).
     {{</* /note */>}}
     ```
 
@@ -205,7 +206,7 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 The output is:
 
 {{< note >}}
-**Note:** The prefix you choose is the same text for the tag.
+The prefix you choose is the same text for the tag.
 {{< /note >}}
 
 ### Note
@@ -216,14 +217,14 @@ For example:
 
 ```
 {{</* note */>}}
-**Note:** You can _still_ use Markdown inside these callouts.
+You can _still_ use Markdown inside these callouts.
 {{</* /note */>}}
 ```
 
 The output is:
 
 {{< note >}}
-**Note:** You can _still_ use Markdown inside these callouts.
+You can _still_ use Markdown inside these callouts.
 {{< /note >}}
 
 ### Caution
@@ -234,14 +235,14 @@ For example:
 
 ```
 {{</* caution */>}}
-**Caution:** The callout style only applies to the line directly above the tag.
+The callout style only applies to the line directly above the tag.
 {{</* /caution */>}}
 ```
 
 The output is:
 
 {{< caution >}}
-**Caution:** The callout style only applies to the line directly above the tag.
+The callout style only applies to the line directly above the tag.
 {{< /caution >}}
 
 ### Warning
@@ -252,7 +253,7 @@ For example:
 
 ```
 {{</* warning */>}}
-**Warning:** Beware.
+Beware.
 {{</* /warning */>}}
 ```
 
@@ -260,7 +261,7 @@ For example:
 The output is:
 
 {{< warning >}}
-**Warning:** Beware.
+Beware.
 {{< /warning >}}
 
 ### Katacoda Embedded Live Environment
@@ -273,7 +274,7 @@ The Embedded Live Environment is configured to run `minikube start` and lets use
 as the documentation.
 
 {{< caution >}}
-**Caution:** The session is limited to 15 minutes.
+The session is limited to 15 minutes.
 {{< /caution >}}
 
 For example:
@@ -306,7 +307,8 @@ The output is:
 1. Preheat oven to 350˚F
 
 1. Prepare the batter, and pour into springform pan.
-    {{< note >}}**Note:** Grease the pan for best results.{{< /note >}}
+
+    {{< note >}}Grease the pan for best results.{{< /note >}}
 
 1. Bake for 20-25 minutes or until set.
 

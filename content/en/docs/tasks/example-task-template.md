@@ -8,7 +8,9 @@ toc_hide: true
 
 {{% capture overview %}}
 
-**NOTE:** Be sure to also [create an entry in the table of contents](/docs/home/contribute/write-new-topic/#creating-an-entry-in-the-table-of-contents) for your new document.
+{{< note >}}
+Be sure to also [create an entry in the table of contents](/docs/home/contribute/write-new-topic/#creating-an-entry-in-the-table-of-contents) for your new document.
+{{< /note >}}
 
 This page shows how to ...
 

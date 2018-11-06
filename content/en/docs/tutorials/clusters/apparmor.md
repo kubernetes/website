@@ -65,9 +65,11 @@ Make sure:
    If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor
    options if the kernel module is not enabled.
 
-   **Note:** Ubuntu carries many AppArmor patches that have not been merged into the upstream Linux
-    kernel, including patches that add additional hooks and features. Kubernetes has only been
-    tested with the upstream version, and does not promise support for other features.
+  {{< note >}}
+  Ubuntu carries many AppArmor patches that have not been merged into the upstream Linux
+  kernel, including patches that add additional hooks and features. Kubernetes has only been
+  tested with the upstream version, and does not promise support for other features.
+  {{< /note >}}
 
 3. Container runtime is Docker -- Currently the only Kubernetes-supported container runtime that
    also supports AppArmor is Docker. As more runtimes add AppArmor support, the options will be
@@ -117,9 +119,11 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 
 ## Securing a Pod
 
-**Note:** AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
+{{< note >}}
+AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
 general availability, the annotations will be replaced with first-class fields (more details in
 [Upgrade path to GA](#upgrade-path-to-general-availability)).
+{{< /note >}}
 
 AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
 container with, add an annotation to the Pod's metadata:

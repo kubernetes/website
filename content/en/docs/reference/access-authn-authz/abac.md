@@ -49,12 +49,14 @@ properties:
           - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
 
-**NOTES:** An unset property is the same as a property set to the zero value for its type
+{{< note >}}
+An unset property is the same as a property set to the zero value for its type
 (e.g. empty string, 0, false). However, unset should be preferred for
 readability.
 
 In the future, policies may be expressed in a JSON format, and managed via a
 REST interface.
+{{< /note >}}
 
 ## Authorization Algorithm
 

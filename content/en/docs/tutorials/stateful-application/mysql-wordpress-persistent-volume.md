@@ -12,11 +12,11 @@ This tutorial shows you how to deploy a WordPress site and a MySQL database usin
 A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC) is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods.
 
 {{< warning >}}
-**Warning:**  This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production.
+This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production.
 {{< /warning >}}
 
 {{< note >}}
-**Note:** The files provided in this tutorial are using GA Deployment APIs and are specific to kubernetes version 1.9 and later. If you wish to use this tutorial with an earlier version of Kubernetes, please update the API version appropriately, or reference earlier versions of this tutorial.
+The files provided in this tutorial are using GA Deployment APIs and are specific to kubernetes version 1.9 and later. If you wish to use this tutorial with an earlier version of Kubernetes, please update the API version appropriately, or reference earlier versions of this tutorial.
 {{< /note >}}
 
 {{% /capture %}}
@@ -53,15 +53,15 @@ Many cluster environments have a default StorageClass installed.  When a Storage
 When a PersistentVolumeClaim is created, a PersistentVolume is dynamically provisioned based on the StorageClass configuration.
 
 {{< warning >}}
-**Warning:** In local clusters, the default StorageClass uses the `hostPath` provisioner.  `hostPath` volumes are only suitable for development and testing. With `hostPath` volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, or the node is rebooted, the data is lost.
+In local clusters, the default StorageClass uses the `hostPath` provisioner.  `hostPath` volumes are only suitable for development and testing. With `hostPath` volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, or the node is rebooted, the data is lost.
 {{< /warning >}}
 
 {{< note >}}
-**Note:** If you are bringing up a cluster that needs to use the `hostPath` provisioner, the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component.
+If you are bringing up a cluster that needs to use the `hostPath` provisioner, the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component.
 {{< /note >}}
 
 {{< note >}}
-**Note:** If you have a Kubernetes cluster running on Google Kubernetes Engine, please follow [this guide](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
+If you have a Kubernetes cluster running on Google Kubernetes Engine, please follow [this guide](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
 {{< /note >}}
 
 ## Create a Secret for MySQL Password
@@ -89,7 +89,7 @@ A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piec
       ```
 
 {{< note >}}
-**Note:** To protect the Secret from exposure, neither `get` nor `describe` show its contents. 
+To protect the Secret from exposure, neither `get` nor `describe` show its contents. 
 {{< /note >}}
 
 ## Deploy MySQL
@@ -124,7 +124,9 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
       kubectl get pods
       ```
 
-      {{< note >}}**Note:** It can take up to a few minutes for the Pod's Status to be `RUNNING`.{{< /note >}}
+      {{< note >}}
+      It can take up to a few minutes for the Pod's Status to be `RUNNING`.
+      {{< /note >}}
 
       The response should be like this:
 
@@ -151,7 +153,9 @@ The following manifest describes a single-instance WordPress Deployment and Serv
       kubectl get pvc
       ```
 
-      {{< note >}}**Note:** It can take up to a few minutes for the PVs to be provisioned and bound.{{< /note >}}
+      {{< note >}}
+      It can take up to a few minutes for the PVs to be provisioned and bound.
+      {{< /note >}}
 
       The response should be like this:
 
@@ -173,7 +177,9 @@ The following manifest describes a single-instance WordPress Deployment and Serv
       wordpress   ClusterIP   10.0.0.89    <pending>     80:32406/TCP   4m
       ```
 
-      {{< note >}}**Note:** Minikube can only expose Services through `NodePort`. The EXTERNAL-IP is always pending.{{< /note >}}
+      {{< note >}}
+      Minikube can only expose Services through `NodePort`. The EXTERNAL-IP is always pending.
+      {{< /note >}}
 
 4. Run the following command to get the IP Address for the WordPress Service:
 
@@ -194,7 +200,7 @@ The following manifest describes a single-instance WordPress Deployment and Serv
    ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
 {{< warning >}}
-**Warning:** Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve malicious content. <br/><br/>Either install WordPress by creating a username and password or delete your instance.
+Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve malicious content. <br/><br/>Either install WordPress by creating a username and password or delete your instance.
 {{< /warning >}}
 
 {{% /capture %}}

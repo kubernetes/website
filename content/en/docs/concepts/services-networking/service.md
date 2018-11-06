@@ -87,7 +87,7 @@ Kubernetes `Services` support `TCP`, `UDP` and `SCTP` for protocols.  The defaul
 is `TCP`.
 
 {{< note >}}
-**Note:** SCTP support is an alpha feature since Kubernetes 1.12
+SCTP support is an alpha feature since Kubernetes 1.12
 {{< /note >}}
 
 ### Services without selectors
@@ -132,7 +132,7 @@ subsets:
 ```
 
 {{< note >}}
-**Note:** The endpoint IPs may not be loopback (127.0.0.0/8), link-local
+The endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast (224.0.0.0/24). They cannot be the
 cluster IPs of other Kubernetes services either because the `kube-proxy`
 component doesn't support virtual IPs as destination yet.
@@ -212,10 +212,12 @@ options for load balancing algorithm, such as:
 - `sed`: shortest expected delay
 - `nq`: never queue
 
-**Note:** ipvs mode assumes IPVS kernel modules are installed on the node
+{{< note >}}
+ipvs mode assumes IPVS kernel modules are installed on the node
 before running kube-proxy. When kube-proxy starts with ipvs proxy mode,
 kube-proxy would validate if IPVS modules are installed on the node, if
 it's not installed kube-proxy will fall back to iptables proxy mode.
+{{< /note >}}
 
 ![Services overview diagram for ipvs proxy](/images/docs/services-ipvs-overview.svg)
 
@@ -459,7 +461,7 @@ public IP address resource needs to be created first, and it should be in the sa
 group of the other automatically created resources of the cluster. For example, `MC_myResourceGroup_myAKSCluster_eastus`. Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the securityGroupName in the cloud provider configuration file. For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see, [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
 
 {{< note >}}
-**Note:** The support of SCTP in the cloud provider's load balancer is up to the cloud provider's
+he support of SCTP in the cloud provider's load balancer is up to the cloud provider's
 load balancer implementation. If SCTP is not supported by the cloud provider's load balancer the
 Service creation request is accepted but the creation of the load balancer fails.
 {{< /note >}}
@@ -693,7 +695,9 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
 
 #### Network Load Balancer support on AWS [alpha]
 
-**Warning:** This is an alpha feature and not recommended for production clusters yet.
+{{< warning >}}
+This is an alpha feature and not recommended for production clusters yet.
+{{< /warning >}}
 
 Starting in version 1.9.0, Kubernetes supports Network Load Balancer (NLB). To
 use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type`
@@ -747,13 +751,15 @@ spec:
   - "143.231.0.0/16"
 ```
 
-**Note:** NLB only works with certain instance classes, see the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
+{{< note >}}
+NLB only works with certain instance classes, see the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
 for supported instance types.
+{{< /note >}}
 
 ### Type ExternalName {#externalname}
 
 {{< note >}}
-**NOTE:** ExternalName Services are available only with `kube-dns` version 1.7 and later.
+ExternalName Services are available only with `kube-dns` version 1.7 and later.
 {{< /note >}}
 
 Services of type ExternalName map a service to a DNS name (specified using

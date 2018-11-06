@@ -52,7 +52,7 @@ your existing Corefile will be retained.
 ## Installing kube-dns instead of CoreDNS with kubeadm
 
 {{< note >}}
-**Note:** In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
+In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
 and is installed by default.
 {{< /note >}}
 
