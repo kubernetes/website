@@ -20,7 +20,7 @@ with upgrading your clusters, for example. We encourage you to try either approa
 and provide feedback.
 
 {{< caution >}}
-**Caution**: This page does not address running your cluster on a cloud provider.
+This page does not address running your cluster on a cloud provider.
 In a cloud environment, neither approach documented here works with Service objects
 of type LoadBalancer, or with dynamic PersistentVolumes.
 {{< /caution >}}
@@ -47,7 +47,7 @@ For the external etcd cluster only, you also need:
 - Three additional machines for etcd members
 
 {{< note >}}
-**Note**: The following examples run Calico as the Pod networking provider. If
+The following examples run Calico as the Pod networking provider. If
 you run another networking provider, make sure to replace any default values as
 needed.
 {{< /note >}}
@@ -59,7 +59,7 @@ needed.
 ## First steps for both methods
 
 {{< note >}}
-**Note**: All commands in this guide on any control plane or etcd node should be
+All commands in this guide on any control plane or etcd node should be
 run as root.
 {{< /note >}}
 
@@ -100,7 +100,7 @@ run as root.
 ### Create load balancer for kube-apiserver
 
 {{< note >}}
-**Note**: There are many configurations for load balancers. The following
+There are many configurations for load balancers. The following
 example is only one option. Your cluster requirements may need a
 different configuration.
 {{< /note >}}
@@ -138,7 +138,7 @@ different configuration.
 ### Bootstrap the first stacked control plane node
 
 {{< note >}}
-**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.12.0`.
+Optionally replace `stable` with a different version of Kubernetes, for example `v1.12.0`.
 {{< /note >}}
 
 1.  Create a `kubeadm-config.yaml` template file:
@@ -215,7 +215,7 @@ done
 ```
 
 {{< note >}}
-**Note**: Remember that your config may differ from this example.
+Remember that your config may differ from this example.
 {{< /note >}}
 
 ### Add the second stacked control plane node
@@ -435,7 +435,7 @@ done
 1.  Create a `kubeadm-config.yaml`:
 
 {{< note >}}
-**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
+Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
 {{< /note >}}
 
         apiVersion: kubeadm.k8s.io/v1alpha3

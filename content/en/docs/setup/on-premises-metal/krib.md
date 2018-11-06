@@ -11,7 +11,7 @@ This guide helps to install a Kubernetes cluster hosted on bare metal with [Digi
 Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform. While [DRP can be used to invoke](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
 
 {{< note >}}
-**Note:** KRIB is not a _stand-alone_ installer: Digital Rebar templates drive a standard *[kubeadm](/docs/admin/kubeadm/)* configuration that manages the Kubernetes installation with the [Digital Rebar cluster pattern](https://provision.readthedocs.io/en/tip/doc/arch/cluster.html#rs-cluster-pattern) to elect leaders _without external supervision_.
+KRIB is not a _stand-alone_ installer: Digital Rebar templates drive a standard *[kubeadm](/docs/admin/kubeadm/)* configuration that manages the Kubernetes installation with the [Digital Rebar cluster pattern](https://provision.readthedocs.io/en/tip/doc/arch/cluster.html#rs-cluster-pattern) to elect leaders _without external supervision_.
 {{< /note >}}
 
 
@@ -43,7 +43,7 @@ Upload the KRIB Content bundle (or build from [source](https://github.com/digita
 ### (3/5) Start your cluster deployment
 
 {{< note >}}
-**Note:** KRIB documentation is dynamically generated from the source and will be more up to date than this guide.
+KRIB documentation is dynamically generated from the source and will be more up to date than this guide.
 {{< /note >}}
 
 Following the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html), create a Profile for your cluster and assign your target servers into the cluster Profile. The Profile must set `krib\cluster-name` and `etcd\cluster-name` Params to be the name of the Profile. Cluster configuration choices can be made by adding additional Params to the Profile; however, safe defaults are provided for all Params.
@@ -86,7 +86,7 @@ You can add servers into your cluster by adding the cluster Profile to the serve
 You can reset your cluster and wipe out all configuration and TLS certificates using the `krib-reset-cluster` Workflow on any of the servers in the cluster.
 
 {{< caution >}}
-**Caution:** When running the reset Workflow, be sure not to accidentally target your production cluster!
+When running the reset Workflow, be sure not to accidentally target your production cluster!
 {{< /caution >}}
 
 ## Feedback

@@ -35,7 +35,7 @@ If you define args, but do not define a command, the default command is used
 with your new arguments.
 
 {{< note >}}
-**Note:** the `command` field corresponds to `entrypoint` in some container
+The `command` field corresponds to `entrypoint` in some container
 runtimes. Refer to the [Notes](#notes) below.
 {{< /note >}}
 
@@ -85,7 +85,7 @@ and
 [Secrets](/docs/concepts/configuration/secret/).
 
 {{< note >}}
-**Note:** The environment variable appears in parentheses, `"$(VAR)"`. This is
+The environment variable appears in parentheses, `"$(VAR)"`. This is
 required for the variable to be expanded in the `command` or `args` field.
 {{< /note >}}
 

@@ -221,7 +221,7 @@ specified by `--kubeconfig`. The certificate and key file will be placed in the
 directory specified by `--cert-dir`.
 
 {{< note >}}
-**Note:** The following flags are required to enable this bootstrapping when starting the kubelet:
+The following flags are required to enable this bootstrapping when starting the kubelet:
 
 ```
 --bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
@@ -251,7 +251,7 @@ certificate. To enable this feature pass the following flag to the kubelet:
 ```
 
 {{< note >}}
-**Note:** The CSR approving controllers implemented in core Kubernetes do not
+The CSR approving controllers implemented in core Kubernetes do not
 approve node serving certificates for [security
 reasons](https://github.com/kubernetes/community/pull/1982). To use
 `RotateKubeletServerCertificate` operators need to run a custom approving

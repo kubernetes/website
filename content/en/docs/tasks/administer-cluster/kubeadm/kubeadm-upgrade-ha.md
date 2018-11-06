@@ -24,8 +24,7 @@ Before proceeding:
 - Check the prerequisites for [Upgrading/downgrading kubeadm clusters between v1.11 to v1.12](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/).
 
 {{< note >}}
-**Note**: All commands on any control plane or etcd node should be
-run as root.
+All commands on any control plane or etcd node should be run as root.
 {{< /note >}}
 
 {{% /capture %}}

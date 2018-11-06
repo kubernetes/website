@@ -31,7 +31,9 @@ You need 2 or more machines with Fedora installed.
 }
 ```
 
-**NOTE:** Choose an IP range that is *NOT* part of the public IP address range.
+{{< note >}}
+Choose an IP range that is *NOT* part of the public IP address range.
+{{< /note >}}
 
 Add the configuration to the etcd server on fed-master.
 
@@ -71,7 +73,9 @@ FLANNEL_ETCD_KEY="/coreos.com/network"
 FLANNEL_OPTIONS=""
 ```
 
-**Note:** By default, flannel uses the interface for the default route. If you have multiple interfaces and would like to use an interface other than the default route one, you could add "-iface=" to FLANNEL_OPTIONS. For additional options, run `flanneld --help` on command line.
+{{< note >}}
+By default, flannel uses the interface for the default route. If you have multiple interfaces and would like to use an interface other than the default route one, you could add "-iface=" to FLANNEL_OPTIONS. For additional options, run `flanneld --help` on command line.
+{{< /note >}}
 
 Enable the flannel service.
 

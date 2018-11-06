@@ -16,7 +16,7 @@ weight: 20
 {{% capture overview %}}
 
 {{< note >}}
-**NOTE:** A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
 {{< /note >}}
 
 A _ReplicationController_ ensures that a specified number of pod replicas are running at any one

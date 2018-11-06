@@ -137,7 +137,7 @@ is running the Redis server. With this connection in place you can use your
 local workstation to debug the database that is running in the pod.
 
 {{< warning >}}
-**Warning**: Due to known limitations, port forward today only works for TCP protocol.
+Due to known limitations, port forward today only works for TCP protocol.
 The support to UDP protocol is being tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 {{< /warning >}}

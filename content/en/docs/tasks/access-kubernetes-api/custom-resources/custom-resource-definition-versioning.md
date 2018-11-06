@@ -15,8 +15,8 @@ level of your CustomResourceDefinitions. It also describes how to upgrade an
 object from one version to another.
 
 {{< note >}}
-**Note**: All specified versions must use the same schema. The is no schema
-conversion between versions.
+All specified versions must use the same schema. There is no schema conversion
+between versions.
 {{< /note >}}
 
 {{% /capture %}}

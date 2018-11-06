@@ -17,7 +17,7 @@ on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Kataco
 Katacoda provides a free, in-browser Kubernetes environment. 
 
 {{< note >}}
-**Note:** You can also follow this tutorial if you've installed Minikube locally.
+You can also follow this tutorial if you've installed Minikube locally.
 {{< /note >}}
 
 {{% /capture %}}
@@ -51,7 +51,8 @@ For more information, read the Docker documentation for [docker build](https://d
    {{< kat-button >}}
 
    {{< note >}}
-   **Note:** If you installed Minikube locally, run
+   If you installed Minikube locally, run
+   
    ```shell
    minikube start
    ``` 
@@ -121,7 +122,7 @@ Pod runs a Container based on the provided Docker image.
   ```
   
   {{< note >}}
-  **Note:** For more information about `kubectl`commands, see the
+  For more information about `kubectl`commands, see the
   [kubectl overview](/docs/user-guide/kubectl-overview/).
   {{< /note >}}
 
@@ -200,7 +201,6 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
   - storage-provisioner: enabled
   ```
   {{< note >}}
-  **Note:** 
   Minikube must be running for these commands to take effect. 
   {{< /note >}}
 
