@@ -244,7 +244,7 @@ kubelet [flags]
        <td colspan="2">--container-runtime string</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The container runtime to use. Possible values: 'docker', 'rkt'. (default "docker")</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The container runtime to use. Possible values: 'docker', 'remote', 'rkt(deprecated)'. (default "docker")</td>
     </tr>
 
      <tr>
@@ -286,7 +286,7 @@ kubelet [flags]
        <td colspan="2">--cpu-manager-policy string</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Alpha feature> CPU Manager policy to use. Possible values: 'none', 'static'. Default: 'none' (default "none")</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Alpha feature> CPU Manager policy to use. Possible values: 'none', 'static'. (default "none")</td>
     </tr>
 
      <tr>
