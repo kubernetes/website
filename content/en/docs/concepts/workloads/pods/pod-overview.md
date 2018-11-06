@@ -10,7 +10,6 @@ weight: 10
 This page provides an overview of `Pod`, the smallest deployable object in the Kubernetes object model.
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 ## Understanding Pods
@@ -104,5 +103,3 @@ Rather than specifying the current desired state of all replicas, pod templates 
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * Other Pod Topics
 {{% /capture %}}
-
-

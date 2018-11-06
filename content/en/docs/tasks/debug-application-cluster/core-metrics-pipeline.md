@@ -15,7 +15,6 @@ Horizontal Pod Autoscaler, to make decisions.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

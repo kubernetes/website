@@ -21,7 +21,7 @@ Some typical uses of a DaemonSet are:
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), `collectd`, Dynatrace OneAgent, Datadog agent, New Relic agent, Ganglia `gmond` or Instana agent.
+  https://github.com/prometheus/node_exporter), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), Datadog agent, New Relic agent, Ganglia `gmond` or Instana agent.
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -29,7 +29,6 @@ different flags and/or different memory and cpu requests for different hardware 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -130,7 +129,7 @@ That introduces the following issues:
  * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
    is handled by default scheduler. When preemption is enabled, the DaemonSet controller
    will make scheduling decisions without considering pod priority and preemption.
- 
+
 `ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
 scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
 to the DaemonSet pods, instead of the `.spec.nodeName` term. The default

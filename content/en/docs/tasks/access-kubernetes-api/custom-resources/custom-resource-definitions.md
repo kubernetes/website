@@ -3,6 +3,7 @@ title: Extend the Kubernetes API with CustomResourceDefinitions
 reviewers:
 - deads2k
 - enisoc
+- sttts
 content_template: templates/task
 weight: 20
 ---

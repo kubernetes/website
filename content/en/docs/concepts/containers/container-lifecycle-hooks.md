@@ -14,7 +14,6 @@ to run code triggered by events during their management lifecycle.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -122,5 +121,3 @@ Events:
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 {{% /capture %}}
-
-

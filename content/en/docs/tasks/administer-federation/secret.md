@@ -18,7 +18,6 @@ Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

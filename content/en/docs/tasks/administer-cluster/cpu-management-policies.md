@@ -20,7 +20,6 @@ directives.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -178,7 +177,7 @@ spec:
 ```
 
 This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
-And the container's resource limit for the CPU resource is an integer greater than 
+And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 
@@ -213,8 +212,8 @@ spec:
 ```
 
 This pod runs in the `Guaranteed` QoS class because only `limits` are specified
-and `requests` are set equal to `limits` when not explicitly specified. And the 
-container's resource limit for the CPU resource is an integer greater than or 
+and `requests` are set equal to `limits` when not explicitly specified. And the
+container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 {{% /capture %}}

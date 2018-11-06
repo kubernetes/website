@@ -21,7 +21,6 @@ automatically provisions storage when it is requested by users.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -132,5 +131,3 @@ Pods are scheduled. This can be accomplished by setting the [Volume Binding
 Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
 {{% /capture %}}
-
-

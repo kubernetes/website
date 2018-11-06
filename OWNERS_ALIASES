@@ -101,6 +101,7 @@ aliases:
     - bradamant3
     - bradtopol
     - chenopis
+    - cody-clark
     - jaredbhatti
     - kbarnard10
     - mistyhacks
@@ -116,6 +117,7 @@ aliases:
     - bradamant3
     - bradtopol
     - chenopis
+    - cody-clark
     - jaredbhatti
     - kbarnard10
     - mistyhacks
@@ -154,11 +156,13 @@ aliases:
     - haibinxie
     - hanjiayao
     - lichuqiang
+    - markthink
     - tengqm
     - xiangpengzhao
     - zhangxiaoyu-zidif
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
     - idealhack
+    - markthink
     - tengqm
     - xiangpengzhao
     - zhangxiaoyu-zidif

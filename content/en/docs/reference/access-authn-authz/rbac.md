@@ -898,7 +898,8 @@ The RBAC authorizer will attempt to authorize requests first. If it denies an AP
 the ABAC authorizer is then run. This means that any request allowed by *either* the RBAC
 or ABAC policies is allowed.
 
-When run with a log level of 2 or higher (`--v=2`), you can see RBAC denials in the apiserver log (prefixed with `RBAC DENY:`).
+When the apiserver is run with a log level of 5 or higher for the RBAC component (`--vmodule=rbac*=5` or `--v=5`),
+you can see RBAC denials in the apiserver log (prefixed with `RBAC DENY:`).
 You can use that information to determine which roles need to be granted to which users, groups, or service accounts.
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
 in the server logs, you can remove the ABAC authorizer.

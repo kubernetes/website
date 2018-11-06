@@ -23,7 +23,6 @@ on each node.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
