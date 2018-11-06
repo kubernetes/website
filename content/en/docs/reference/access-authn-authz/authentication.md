@@ -137,7 +137,7 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 ```
 
 You must enable the Bootstrap Token Authenticator with the
-`--experimental-bootstrap-token-auth` flag on the API Server.  You must enable
+`--enable-bootstrap-token-auth` flag on the API Server.  You must enable
 the TokenCleaner controller via the `--controllers` flag on the Controller
 Manager.  This is done with something like `--controllers=*,tokencleaner`.
 `kubeadm` will do this for you if you are using it to bootstrap a cluster.
