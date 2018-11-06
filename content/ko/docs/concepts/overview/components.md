@@ -1,6 +1,4 @@
 ---
-reviewers:
-- lavalamp
 title: 쿠버네티스 컴포넌트
 content_template: templates/concept
 weight: 20
@@ -30,11 +28,11 @@ weight: 20
 
 {{< glossary_definition term_id="etcd" length="all" >}}
 
-### 큐브-스케줄러
+### kube-scheduler
 
 {{< glossary_definition term_id="kube-scheduler" length="all" >}}
 
-### 큐브-컨트롤러-매니저
+### kube-controller-manager
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
@@ -43,16 +41,16 @@ weight: 20
   * 노드 컨트롤러: 노드가 다운되었을 때 통지와 대응에 관한 책임을 가진다.
   * 레플리케이션 컨트롤러: 시스템의 모든 레플리케이션 컨트롤러 오브젝트에 대해 알맞는 수의 파드들을
   유지시켜 주는 책임을 가진다.
-  * 엔드포인트 컨트롤러: 엔드포인트 오브젝트를 채운다(즉, 서비스 & 파드를 가입시킨다.)
+  * 엔드포인트 컨트롤러: 엔드포인트 오브젝트를 채운다(즉, 서비스 & 파드를 연결시킨다.)
   * 서비스 계정 & 토큰 컨트롤러: 새로운 네임스페이스에 대한 기본 계정과 API 접근 토큰을 생성한다.
 
-### 클라우드-컨트롤러-매니저
+### cloud-controller-manager
 
-[클라우드-컨트롤러-매니저](/docs/tasks/administer-cluster/running-cloud-controller/)는 바탕을 이루는 클라우드 제공사업자와 상호작용하는 컨트롤러를 작동시킨다. 클라우드-컨트롤러-매니저 바이너리는 쿠버네티스 릴리스 1.6에서 도입된 알파 기능이다.
+[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/)는 바탕을 이루는 클라우드 제공사업자와 상호작용하는 컨트롤러를 작동시킨다. cloud-controller-manager 바이너리는 쿠버네티스 릴리스 1.6에서 도입된 알파 기능이다.
 
-클라우드-컨트롤러-매니저는 클라우드-제공사업자-특유 컨트롤러 루프만을 동작시킨다. 이 컨트롤러 루프는 큐브-컨트롤러-매니저에서 비활성 시켜야만 한다. 큐브-컨트롤러-매니저를 구동시킬 때 `--cloud-provider` 플래그를 `external`로 설정함으로써 이 컨트롤러 루프를 비활성 시킬 수 있다.
+cloud-controller-manager는 클라우드-제공사업자-특유 컨트롤러 루프만을 동작시킨다. 이 컨트롤러 루프는 kube-controller-manager에서 비활성 시켜야만 한다. kube-controller-manager를 구동시킬 때 `--cloud-provider` 플래그를 `external`로 설정함으로써 이 컨트롤러 루프를 비활성 시킬 수 있다.
 
-클라우드-컨트롤러-매니저는 클라우드 밴더 코드와 쿠버네티스 코어가 서로 독립적으로 발전시켜 나갈 수 있도록 해준다. 이전 릴리스에서는, 코어 쿠버네티스 코드가 기능상으로 클라우드-제공사업자-특유 코드에 대해 의존적이었다. 향후 릴리스에서, 클라우드 밴더에 따른 코드는 클라우드 밴더 자체에 의해 유지되도록 하여야만 하며, 쿠버네티스가 동작하는 동안 클라우드-컨트롤러-매니저에 연계되도록 하여야만 한다.
+cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코어가 서로 독립적으로 발전시켜 나갈 수 있도록 해준다. 이전 릴리스에서는, 코어 쿠버네티스 코드가 기능상으로 클라우드-제공사업자-특유 코드에 대해 의존적이었다. 향후 릴리스에서, 클라우드 밴더에 따른 코드는 클라우드 밴더 자체에 의해 유지되도록 하여야만 하며, 쿠버네티스가 동작하는 동안 cloud-controller-manager에 연계되도록 하여야만 한다.
 
 다음 컨트롤러들은 클라우드 제공사업자의 의존성을 갖는다.
 
@@ -92,9 +90,9 @@ weight: 20
 
 쿠버네티스에 의해 구동되는 컨테이너는 DNS 검색에서 이 DNS 서버를 자동으로 포함시킨다.
 
-### 웹 UI (대쉬보드)
+### 웹 UI (대시보드)
 
-[대쉬보드](/docs/tasks/access-application-cluster/web-ui-dashboard/)는 쿠버네티스 클러스터를 위한 범용의 웹 기반 UI다. 사용자로 하여금 클러스터 자체 뿐만 아니라, 클러스터에서 동작하는 애플리케이션에 대한 관리와 고창처리를 할 수 있도록 허용해준다.
+[대쉬보드](/docs/tasks/access-application-cluster/web-ui-dashboard/)는 쿠버네티스 클러스터를 위한 범용의 웹 기반 UI다. 사용자로 하여금 클러스터 자체 뿐만 아니라, 클러스터에서 동작하는 애플리케이션에 대한 관리와 고장처리를 할 수 있도록 허용해준다.
 
 ### 컨테이너 리소스 모니터링
 
@@ -102,6 +100,6 @@ weight: 20
 
 ### 클러스터-레벨 로깅
 
-A [클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 가진다.
+[클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 가진다.
 
 {{% /capture %}}

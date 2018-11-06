@@ -1,18 +1,19 @@
 ---
-title: 큐브-컨트롤러-매니저
+title: kube-controller-manager
 id: kube-controller-manager
 date: 2018-04-12
 full_link: /docs/reference/generated/kube-controller-manager/
 short_description: >
-  컨트롤러를 동작시키는 마스터 상의 컴포넌트다.
+  Component on the master that runs controllers.
 
-aka:
+aka: 
 tags:
 - architecture
 - fundamental
 ---
- {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}를 동작시키는 마스터 상의 컴포넌트다.
+ Component on the master that runs {{< glossary_tooltip text="controllers" term_id="controller" >}}.
 
-<!--more-->
+<!--more--> 
 
-논리적으로, 각 {{< glossary_tooltip text="controller" term_id="controller" >}}는 분리된 프로세스이긴 하지만, 복잡도를 줄이기 위해, 하나의 바이너리에 컴파일 되어 하나의 프로세스 내에서 동작한다.
+Logically, each {{< glossary_tooltip text="controller" term_id="controller" >}} is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.
+
