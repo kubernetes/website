@@ -35,6 +35,8 @@ client libraries:
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
 - [Kubernetes Python client library](https://github.com/kubernetes-client/python)
+- [Kubernetes Java client library](https://github.com/kubernetes-client/java)
+- [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
 
 ## CLI Reference
 
