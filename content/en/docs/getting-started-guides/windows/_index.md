@@ -50,7 +50,29 @@ Sample: stop web service to trigger restart
 
 #### Handling secrets
 
-Sample: database connection string
+1. Create a secret by following the [standard directions](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-secret)
+
+2. Configure your pod to receive the secret via an environment variable.
+ {{< codenew file="windows/secret-pod.yaml" >}}
+ 
+3. Deploy the pod and verify that it is running:
+  ```bash
+  kubectl create -f https://k8s.io/docs/getting-started-guides/windows/secret-pod.yaml
+  kubectl get pod secret-envars-test-pod
+  ```
+4. Open a shell into the container running the pod:
+  ```bash
+  kubectl exec -it secret-envars-test-pod -- powershell
+  ```
+5. See that the secret is in the environment variable:
+  ```powershell
+  echo $env:SECRET_USERNAME $env:SECRET_PASSWORD
+  ```
+    You should see the output:
+    ```
+    my-app
+    39528$vdg7Jb
+    ```
 
 ### Deploying a stateful application
 
