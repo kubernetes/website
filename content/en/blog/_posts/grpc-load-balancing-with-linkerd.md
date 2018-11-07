@@ -1,6 +1,7 @@
 ---
 layout: blog
 title: 'gRPC Load Balancing on Kubernetes without Tears'
+date: 2018-11-07
 ---
 
 **Author**: William Morgan (Buoyant)
