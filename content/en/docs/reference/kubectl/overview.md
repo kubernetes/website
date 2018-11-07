@@ -3,9 +3,17 @@ reviewers:
 - bgrant0607
 - hw-qiaolei
 title: Overview of kubectl
+content_template: templates/concept
+weight: 20
 ---
 
-`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+{{% capture overview %}}
+Kubectl is a command line interface for running commands against Kubernetes clusters.
+This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Syntax
 
@@ -434,6 +442,10 @@ Current user: plugins-user
 
 To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
 
-## Next steps
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
+
+{{% /capture %}}
