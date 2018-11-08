@@ -114,7 +114,7 @@ kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/containe
 kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.9/cluster/addons/device-plugins/nvidia-gpu/daemonset.yaml
 ```
 
-在这一页面来提交相关 device plugin 的 issues 以及相应的安装方法 [GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators)。
+请到 [GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators) 报告有关此 device plugin 以及安装方法的问题
 
 ## 集群内存在不同类型的 NVIDIA GPU
 
