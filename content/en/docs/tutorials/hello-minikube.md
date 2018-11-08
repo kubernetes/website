@@ -175,21 +175,21 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     Output:
 
     ```shell
-    - addon-manager: enabled
-    - coredns: disabled
-    - dashboard: enabled
-    - default-storageclass: enabled
-    - efk: disabled
-    - freshpod: disabled
-    - heapster: disabled
-    - ingress: disabled
-    - kube-dns: enabled
-    - metrics-server: disabled
-    - nvidia-driver-installer: disabled
-    - nvidia-gpu-device-plugin: disabled
-    - registry: disabled
-    - registry-creds: disabled
-    - storage-provisioner: enabled
+    addon-manager: enabled
+    coredns: disabled
+    dashboard: enabled
+    default-storageclass: enabled
+    efk: disabled
+    freshpod: disabled
+    heapster: disabled
+    ingress: disabled
+    kube-dns: enabled
+    metrics-server: disabled
+    nvidia-driver-installer: disabled
+    nvidia-gpu-device-plugin: disabled
+    registry: disabled
+    registry-creds: disabled
+    storage-provisioner: enabled
     ```
    
 2. Enable an addon, for example, `heapster`:
