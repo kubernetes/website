@@ -50,10 +50,7 @@ For more information, read the Docker documentation for [docker build](https://d
 
     {{< kat-button >}}
 
-     {{< note >}}
-      **Note:** If you installed Minikube locally, run
-      `minikube start`. 
-     {{< /note >}}
+    {{< note >}}**Note:** If you installed Minikube locally, run `minikube start`.{{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
 
@@ -118,10 +115,7 @@ Pod runs a Container based on the provided Docker image.
     kubectl config view
     ```
   
-     {{< note >}}
-     **Note:** For more information about `kubectl`commands, see the
-     [kubectl overview](/docs/user-guide/kubectl-overview/).
-     {{< /note >}}
+    {{< note >}}**Note:** For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Create a Service
 
@@ -198,10 +192,7 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
    storage-provisioner: enabled
    ```
     
-     {{< note >}}
-     **Note:** 
-     Minikube must be running for these commands to take effect. 
-     {{< /note >}}
+    {{< note >}}**Note:** Minikube must be running for these commands to take effect.{{< /note >}}
 
 2. Enable an addon, for example, `heapster`:
 
