@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes docs updates, international edition'
+title: 'Kubernetes Docs Updates, International Edition'
 date: 2018-11-08
 ---
 
