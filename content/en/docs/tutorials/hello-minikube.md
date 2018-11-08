@@ -52,9 +52,7 @@ For more information, read the Docker documentation for [docker build](https://d
 
     {{< note >}}
     **Note:** If you installed Minikube locally, run
-    ```shell
-    minikube start
-    ``` 
+    `minikube start`. 
     {{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
@@ -120,10 +118,10 @@ Pod runs a Container based on the provided Docker image.
     kubectl config view
     ```
   
-    {{< note >}}
-    **Note:** For more information about `kubectl`commands, see the
-    [kubectl overview](/docs/user-guide/kubectl-overview/).
-    {{< /note >}}
+   {{< note >}}
+   **Note:** For more information about `kubectl`commands, see the
+   [kubectl overview](/docs/user-guide/kubectl-overview/).
+   {{< /note >}}
 
 ## Create a Service
 
@@ -164,7 +162,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     minikube service hello-node
     ```
 
-4. Katacoda environment only: Click the plus sign, then click **Select port to view on Host 1**.
+4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
 5. Katacoda environment only: Type in the Port number following `8080:`, and then click **Display Port**. 
 
@@ -199,6 +197,7 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     - registry-creds: disabled
     - storage-provisioner: enabled
     ```
+    
     {{< note >}}
     **Note:** 
     Minikube must be running for these commands to take effect. 
