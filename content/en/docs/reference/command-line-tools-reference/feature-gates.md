@@ -147,7 +147,7 @@ A *Beta* feature means:
   that can be upgraded independently, you may be able to relax this restriction.
 
 {{< note >}}
-**Note:** Please do try *Beta* features and give feedback on them!
+Please do try *Beta* features and give feedback on them!
 After they exit beta, it may not be practical for us to make more changes.
 {{< /note >}}
 

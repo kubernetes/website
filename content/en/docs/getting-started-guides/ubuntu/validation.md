@@ -90,7 +90,7 @@ a deployed cluster. The following example will skip the `Flaky`, `Slow`, and
     juju run-action kubernetes-e2e/0 test skip='\[(Flaky|Slow|Feature:.*)\]'
 
 {{< note >}}
-**Note:** The escaping of the regex due to how bash handles brackets.
+The escaping of the regex due to how bash handles brackets.
 {{< /note >}}
 
 To see the different types of tests the Kubernetes end-to-end charm has access
@@ -112,7 +112,7 @@ command, as well as a flat file on disk on the `kubernetes-e2e` unit that
 executed the test.
 
 {{< note >}}
-**Note:** The results will only be available once the action has
+The results will only be available once the action has
 completed the test run. End-to-end testing can be quite time consuming, often
 taking more than 1 hour, depending on configuration.
 {{< /note >}}

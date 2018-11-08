@@ -73,14 +73,16 @@ kubectl label nodes my-node beta.kubernetes.io/masq-agent-ds-ready=true
 More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-incubator/ip-masq-agent)
 
 In most cases, the default set of rules should be sufficient; however, if this is not the case for your cluster, you can create and apply a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to customize the IP ranges that are affected.  For example, to allow only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called "config".
-**Note:** It is important that the file is called config since, by default, that will be used as the key for lookup by the ip-masq-agent:
+
+{{< note >}}
+It is important that the file is called config since, by default, that will be used as the key for lookup by the ip-masq-agent:
 
 ```
 nonMasqueradeCIDRs:
   - 10.0.0.0/8
 resyncInterval: 60s
-
 ```
+{{< /note >}}
 
 Run the following command to add the config map to your cluster:
 

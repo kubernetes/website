@@ -147,5 +147,5 @@ spec:
   nodeSelector:
     accelerator: nvidia-tesla-p100 # or nvidia-tesla-k80 etc.
 ```
-
 这能够保证 pod 能够被调度到拥有你所指定类型的 GPU 的节点上去。
+

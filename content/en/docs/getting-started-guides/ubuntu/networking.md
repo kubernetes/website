@@ -14,7 +14,7 @@ This page shows how the various network portions of a cluster work and how to co
 This page assumes you have a working Juju deployed cluster.
 
 {{< note >}}
-**Note:** Note that if you deploy a cluster via conjure-up or the CDK bundles, manually deploying CNI plugins is unnecessary.
+Note that if you deploy a cluster via conjure-up or the CDK bundles, manually deploying CNI plugins is unnecessary.
 {{< /note >}}
 {{% /capture %}}
 

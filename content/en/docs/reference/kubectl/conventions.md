@@ -50,12 +50,14 @@ If you do not specify a generator flag, other flags prompt you to use a specific
 | Job                    | `--restart=OnFailure`  | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
 | Cron Job               | `--schedule=<cron>`    | N/A                   | N/A                                        | N/A                                        |
 
-**Note:** These flags use a default generator only when you have not specified
-any flag.  This means that when you combine `--generator` with other flags the generator that you specified later does not change. For example, in a cluster v1.4, if you initially specify
+{{< note >}}
+These flags use a default generator only when you have not specified any flag.
+This means that when you combine `--generator` with other flags the generator that you specified later does not change. For example, in a cluster v1.4, if you initially specify
 `--restart=Always`, a Deployment is created; if you later specify `--restart=Always`
 and `--generator=run/v1`, a Replication Controller is created.
 This enables you to pin to a specific behavior with the generator,
 even when the default generator is changed later.
+{{< /note >}}
 
 The flags set the generator in the following order: first the schedule flag then restart policy and finally the generator.
 

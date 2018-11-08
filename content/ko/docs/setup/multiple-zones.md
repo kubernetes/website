@@ -195,14 +195,16 @@ kubectl create -f - <<EOF
 EOF
 ```
 
-**NOTE:** For version 1.3+ Kubernetes will distribute dynamic PV claims across
+{{< note >}}
+For version 1.3+ Kubernetes will distribute dynamic PV claims across
 the configured zones. For version 1.2, dynamic persistent volumes were
 always created in the zone of the cluster master
 (here us-central1-a / us-west-2a); that issue
 ([#23330](https://github.com/kubernetes/kubernetes/issues/23330))
 was addressed in 1.3+.
+{{< /note >}}
 
-Now lets validate that Kubernetes automatically labeled the zone & region the PV was created in.
+Now let's validate that Kubernetes automatically labeled the zone & region the PV was created in.
 
 ```shell
 > kubectl get pv --show-labels

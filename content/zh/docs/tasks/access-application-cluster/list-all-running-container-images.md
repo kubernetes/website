@@ -102,7 +102,7 @@ jsonpath 解释如下：
 
 {{< note >}}
 <!--
-**Note:** When fetching a single Pod by name, e.g. `kubectl get pod nginx`,
+When fetching a single Pod by name, e.g. `kubectl get pod nginx`,
 the `.items[*]` portion of the path should be omitted because a single
 Pod is returned instead of a list of items.
 -->

@@ -217,7 +217,7 @@ IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://console.bluemi
 
 
 {{< note >}}
-**Note:** The above table is ordered by version test/used in nodes, followed by support level.
+The above table is ordered by version test/used in nodes, followed by support level.
 {{< /note >}}
 
 ### 열 정의
