@@ -17,7 +17,7 @@ on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Kataco
 Katacoda provides a free, in-browser Kubernetes environment. 
 
 {{< note >}}
-**Note:** You can also follow this tutorial if you've installed Minikube locally.
+You can also follow this tutorial if you've installed Minikube locally.
 {{< /note >}}
 
 {{% /capture %}}
@@ -50,7 +50,7 @@ For more information, read the Docker documentation for [docker build](https://d
 
     {{< kat-button >}}
 
-    {{< note >}}**Note:** If you installed Minikube locally, run `minikube start`.{{< /note >}}
+    {{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
 
@@ -115,7 +115,7 @@ Pod runs a Container based on the provided Docker image.
     kubectl config view
     ```
   
-    {{< note >}}**Note:** For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
+    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Create a Service
 
