@@ -42,13 +42,13 @@ username and password:
     ```shell
     kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
     ```
+
     {{< note >}}
-    If you want to skip the Base64 encoding step, you can create a Secret by using the `kubectl create secret` command:
+ If you want to skip the Base64 encoding step, you can create a Secret by using the `kubectl create secret` command:
+ ```shell
+ kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
+ ```
     {{< /note >}}
-    
-    ```shell
-    kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
-    ```
 
 1. View information about the Secret:
 
