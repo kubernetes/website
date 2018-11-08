@@ -103,7 +103,7 @@ The Corefile configuration includes the following [plugins](https://coredns.io/p
 * [proxy](https://coredns.io/plugins/proxy/): Any queries that are not within the cluster domain of Kubernetes will be forwarded to predefined resolvers (/etc/resolv.conf).
 * [cache](https://coredns.io/plugins/cache/): This enables a frontend cache.
 * [loop](https://coredns.io/plugins/loop/): Detects simple forwarding loops and halts the CoreDNS process if a loop is found.
-* [reload](https://coredns.io/plugins/reload): Allows automatic reload of a changed Corefile.
+* [reload](https://coredns.io/plugins/reload): Allows automatic reload of a changed Corefile. After editing the configuration in the ConfigMap, allow 2 mins for these changes to take effect in CoreDNS.
 * [loadbalance](https://coredns.io/plugins/loadbalance): This is a round-robin DNS loadbalancer by randomizing the order of A, AAAA, and MX records in the answer.
 
 We can modify the default behavior by modifying this configmap.
@@ -309,7 +309,7 @@ data:
 
 CoreDNS supports all the functionalities and more that is provided by kube-dns.
 A ConfigMap created for kube-dns to support `StubDomains`and `upstreamNameservers` translates to the `proxy` plugin in CoreDNS.
-Similarly, the `Federation` plugin translates to the `federation` plugin in CoreDNS.
+Similarly, the `Federations` plugin in kube-dns translates to the `federation` plugin in CoreDNS.
 
 ### Example
 
