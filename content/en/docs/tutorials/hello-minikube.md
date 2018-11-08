@@ -191,9 +191,7 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
    registry-creds: disabled
    storage-provisioner: enabled
    ```
-    
-    {{< note >}}**Note:** Minikube must be running for these commands to take effect.{{< /note >}}
-
+   
 2. Enable an addon, for example, `heapster`:
 
     ```shell
