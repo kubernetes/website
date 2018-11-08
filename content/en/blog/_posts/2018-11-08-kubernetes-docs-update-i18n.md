@@ -26,7 +26,7 @@ Consolidating workflows, language labels, and team-level ownership may seem like
 
 ## Consolidated workflow
 
-Localization is now consolidated in the [kubernetes/website](https://github.com/kubernetes/website) repository. We've configured the Kubernetes CI/CD system, [Prow](https://github.com/kubernetes/test-infra/tree/master/prow) to handle automatic language label assignment as well as team-level PR review and approval.
+Localization is now consolidated in the [kubernetes/website](https://github.com/kubernetes/website) repository. We've configured the Kubernetes CI/CD system, [Prow](https://github.com/kubernetes/test-infra/tree/master/prow), to handle automatic language label assignment as well as team-level PR review and approval.
 
 ### Language labels 
 
