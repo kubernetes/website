@@ -32,7 +32,7 @@ Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 系统进行工作。
 
 所有与启动引导令牌相关的特性在 Kubernetes v1.6 版本中默认都是禁用的。
 
-你可以在 API 服务器上通过 `--experimental-bootstrap-token-auth` 参数启用启动引导令牌。
+你可以在 API 服务器上通过 `--enable-bootstrap-token-auth` 参数启用启动引导令牌。
 你可以设置控制管理器的 `--controllers` 参数来启用启动引导令牌相关的控制器，例如 `--controllers=*,tokencleaner,bootstrapsigner` 。
 在使用 `kubeadm` 时，这是自动完成的。
 
