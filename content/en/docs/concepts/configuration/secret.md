@@ -102,19 +102,23 @@ See [decoding a secret](#decoding-a-secret) for how to see the contents.
 
 #### Creating a Secret Manually
 
-You can also create a secret object in a file first,
-in json or yaml format, and then create that object.
+You can also create a secret in a file first, in json or yaml format,
+and then create that object. The secret contains two maps: data and
+stringData. The data map is used to store arbitrary data, encoded using base64.
+The stringData field is provided for convenience, and allows you to provide
+secret data as unencoded strings.
 
-Each item must be base64 encoded:
+For example, to store two strings in a secret using the data field, convert
+them to base64 as follows:
 
 ```shell
-$ echo -n 'admin' | base64
+echo -n 'admin' | base64
 YWRtaW4=
-$ echo -n '1f2d1e2e67df' | base64
+echo -n '1f2d1e2e67df' | base64
 MWYyZDFlMmU2N2Rm
 ```
 
-Now write a secret object that looks like this:
+Write a secret that looks like this:
 
 ```yaml
 apiVersion: v1
@@ -127,14 +131,36 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-The data field is a map.  Its keys must consist of alphanumeric characters, '-', '_' or '.'.  The values are arbitrary data, encoded using base64.
-
-Create the secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
+Now create the secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml
 secret "mysecret" created
 ```
+
+For certain scenarios, you may wish to use the stringData field instead. An
+example of this is where the secret contains a configuration file with values
+populated via templating:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+stringData:
+  config.yaml: |-
+    apiUrl: "https://my.api.com/api/v1"
+    username: {{username}}
+    password: {{password}}
+```
+
+stringData is a write-only convenience field. It is never output when
+retrieving secrets. If a field is specified in both data and stringData, the
+value from the stringData map is used.
+
+The keys of data and stringData must consist of alphanumeric characters,
+'-', '_' or '.'.
 
 **Encoding Note:** The serialized JSON and YAML values of secret data are
 encoded as base64 strings.  Newlines are not valid within these strings and must
