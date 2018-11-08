@@ -80,7 +80,7 @@ their `PersistentVolumeClaim`. Before Kubernetes v1.6, this was done via the
 is deprecated since v1.6. Users now can and should instead use the
 `storageClassName` field of the `PersistentVolumeClaim` object. The value of
 this field must match the name of a `StorageClass` configured by the
-administrator (see [below](#enabling-dynamic-provisioning)).
+administrator (see [above](#enabling-dynamic-provisioning)).
 
 To select the “fast” storage class, for example, a user would create the
 following `PersistentVolumeClaim`:
