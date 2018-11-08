@@ -36,7 +36,7 @@ Kubernetes [v1.3 release](https://kubernetes.io/blog/2016/07/kubernetes-1.3-brid
 September 2016
 
 -
-Kubernetes [v1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere)
+Kubernetes [v1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kubernetes-anywhere)
 -
 Launch of [kubeadm](https://kubernetes.io/blog/2016/09/how-we-made-kubernetes-easy-to-install), a tool that makes Kubernetes dramatically easier to install
 -
