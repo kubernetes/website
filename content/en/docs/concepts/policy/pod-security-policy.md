@@ -230,8 +230,8 @@ Create the rolebinding to grant `fake-user` the `use` verb on the example
 policy:
 
 {{< note >}}
-**Note:** _This is not the recommended way! See the [next section](#run-another-pod)
-for the preferred approach._
+This is not the recommended way! See the [next section](#run-another-pod)
+for the preferred approach.
 {{< /note >}}
 
 ```shell
@@ -442,7 +442,7 @@ allowedHostPaths:
     readOnly: true # only allow read-only mounts
 ```
 
-{{< warning >}}**Warning:** There are many ways a container with unrestricted access to the host
+{{< warning >}}There are many ways a container with unrestricted access to the host
 filesystem can escalate privileges, including reading data from other
 containers, and abusing the credentials of system services, such as Kubelet.
 

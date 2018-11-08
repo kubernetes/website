@@ -71,7 +71,6 @@ your base directory is `$GOPATH/src/github.com/kubernetes/kubernetes.`
 The remaining steps refer to your base directory as `<k8s-base>`.
 
 {{< note >}}
-**Note:**
 If you only need to generate, but not change, the reference docs, you don't need to
 manually get the `kubernetes/kubernetes` repository. When you run the `update-imported-docs`
 tool, it automatically clones the `kubernetes/kubernetes` repository.
@@ -109,7 +108,7 @@ to do this, see
 Monitor your cherry-pick pull request until it is merged into the release branch.
 
 {{< note >}}
-**Note:** Proposing a cherry pick requires that you have permission to set a label
+Proposing a cherry pick requires that you have permission to set a label
 and a milestone in your pull request. If you don’t have those permissions, you will
 need to work with someone who can set the label and milestone for you.
 {{< /note >}}

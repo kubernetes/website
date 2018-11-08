@@ -154,7 +154,9 @@ println "This is tab 2."
 {{</* tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
 This is **some markdown.**
-{{< note >}}**Note:** It can even contain shortcodes.{{< /note >}}
+{{< note >}}
+It can even contain shortcodes.
+{{< /note >}}
 {{% /tab %}}
 {{< tab name="HTML" >}}
 <div>
@@ -170,7 +172,11 @@ Will be rendered as:
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
 This is **some markdown.**
-{{< note >}}**Note:** It can even contain shortcodes.{{< /note >}}
+
+{{< note >}}
+It can even contain shortcodes.
+{{< /note >}}
+
 {{% /tab %}}
 {{< tab name="HTML" >}}
 <div>

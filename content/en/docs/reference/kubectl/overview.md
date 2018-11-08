@@ -45,7 +45,10 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
      Example: `$ kubectl get pod -f ./pod.yaml`
 
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
-**Important**: Flags that you specify from the command line override default values and any corresponding environment variables.
+
+{{< caution >}}
+Flags that you specify from the command line override default values and any corresponding environment variables.
+{{< /caution >}}
 
 If you need help, just run `kubectl help` from the terminal window.
 
@@ -135,7 +138,7 @@ Use the following sections for information about how you can format or sort the 
 
 ### Formatting output
 
-The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `-output` flags to a supported `kubectl` command.
+The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 
 #### Syntax
 
@@ -299,7 +302,7 @@ $ kubectl describe pods --include-uninitialized=false
 ```
 
 {{< note >}}
-**Note:** The `kubectl get` command is usually used for retrieving one or more
+The `kubectl get` command is usually used for retrieving one or more
 resources of the same resource type. It features a rich set of flags that allows
 you to customize the output format using the `-o` or `--output` flag, for example.
 You can specify the `-w` or `--watch` flag to start watching updates to a particular

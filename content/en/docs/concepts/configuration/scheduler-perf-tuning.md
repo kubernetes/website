@@ -45,9 +45,11 @@ algorithmSource:
 percentageOfNodesToScore: 50
 ```
 
-{{< note >}} **Note**: In clusters with zero or less than 50 feasible nodes, the
+{{< note >}}
+In clusters with zero or less than 50 feasible nodes, the
 scheduler still checks all the nodes, simply because there are not enough
-feasible nodes to stop the scheduler's search early. {{< /note >}}
+feasible nodes to stop the scheduler's search early.
+{{< /note >}}
 
 **To disable this feature**, you can set `percentageOfNodesToScore` to 100.
 

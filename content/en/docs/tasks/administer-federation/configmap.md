@@ -81,7 +81,7 @@ kubectl --context=federation-cluster delete configmap
 ```
 
 {{< note >}}
-**Note:** Deleting a Federated ConfigMap does not delete the corresponding ConfigMaps from underlying clusters. You must delete the underlying ConfigMaps manually.
+Deleting a Federated ConfigMap does not delete the corresponding ConfigMaps from underlying clusters. You must delete the underlying ConfigMaps manually.
 {{< /note >}}
 
 {{% /capture %}}

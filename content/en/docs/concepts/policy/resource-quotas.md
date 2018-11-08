@@ -202,7 +202,7 @@ field in the quota spec.
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 
 {{< note >}}
-**Note:** You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
+You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
 per PriorityClass.
 {{< /note >}}
 

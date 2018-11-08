@@ -29,6 +29,10 @@ Localizations must meet some requirements for workflow (*how* to localize) and o
 
 To add a new localization of the Kubernetes documentation, you'll need to update the website by modifying the  [site configuration](#modify-the-site-configuration) and [directory structure](#add-a-new-localization-directory). Then you can start [translating documents](#translating-documents)!
 
+{{< note >}}
+For an example localization-related [pull request](../create-pull-request), see [this pull request](https://github.com/kubernetes/website/pull/8636) to the [Kubernetes website repo](https://github.com/kubernetes/website) adding Korean localization to the Kubernetes docs.
+{{< /note >}}
+
 Let Kubernetes SIG Docs know you're interested in creating a localization! Join the [SIG Docs Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/). We're happy to help you get started and answer any questions you have.
 
 All localization teams must be self-sustaining with their own resources. We're happy to host your work, but we can't translate it for you.
