@@ -48,21 +48,15 @@ For more information, read the Docker documentation for [docker build](https://d
 
 1. Click **Launch Terminal** 
 
-   {{< kat-button >}}
+    {{< kat-button >}}
 
-   {{< note >}}
-   If you installed Minikube locally, run
-   
-   ```shell
-   minikube start
-   ``` 
-   {{< /note >}}
+    {{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
 
-```shell
-minikube dashboard
-```
+    ```shell
+    minikube dashboard
+    ```
 
 3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
 
@@ -80,51 +74,48 @@ recommended way to manage the creation and scaling of Pods.
 1. Use the `kubectl run` command to create a Deployment that manages a Pod. The
 Pod runs a Container based on the provided Docker image. 
 
-  ```shell
-  kubectl run hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
-  ```
+    ```shell
+    kubectl run hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
+    ```
 
 2. View the Deployment:
 
-  ```shell
-  kubectl get deployments
-  ```
+    ```shell
+    kubectl get deployments
+    ```
 
-  Output:
+    Output:
 
-  ```shell
-  NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-  hello-node   1         1         1            1           1m
-  ```
+    ```shell
+    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    hello-node   1         1         1            1           1m
+    ```
 
 3. View the Pod:
 
-  ```shell
-  kubectl get pods
-  ```
-  Output:
+    ```shell
+    kubectl get pods
+    ```
+    Output:
 
-  ```shell
-  NAME                          READY     STATUS    RESTARTS   AGE
-  hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
-  ```
+    ```shell
+    NAME                          READY     STATUS    RESTARTS   AGE
+    hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
+    ```
 
 4. View cluster events:
 
-  ```shell
-  kubectl get events
-  ```
+    ```shell
+    kubectl get events
+    ```
 
 5. View the `kubectl` configuration:
 
-  ```shell
-  kubectl config view
-  ```
+    ```shell
+    kubectl config view
+    ```
   
-  {{< note >}}
-  For more information about `kubectl`commands, see the
-  [kubectl overview](/docs/user-guide/kubectl-overview/).
-  {{< /note >}}
+    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Create a Service
 
@@ -135,41 +126,41 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 1. Expose the Pod to the public internet using the `kubectl expose` command:
 
-  ```shell
-  kubectl expose deployment hello-node --type=LoadBalancer
-  ```
+    ```shell
+    kubectl expose deployment hello-node --type=LoadBalancer
+    ```
 
 2. View the Service you just created:
 
-  ```shell
-  kubectl get services
-  ```
+    ```shell
+    kubectl get services
+    ```
 
-  Output:
+    Output:
 
-  ```shell
-  NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-  hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
-  kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
-  ```
+    ```shell
+    NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
+    kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
+    ```
 
-  The `--type=LoadBalancer` flag indicates that you want to expose your Service
-  outside of the cluster. On cloud providers that support load balancers,
-  an external IP address would be provisioned to access the Service. On Minikube,
-  the `LoadBalancer` type makes the Service accessible through the `minikube service`
-  command.
+    The `--type=LoadBalancer` flag indicates that you want to expose your Service
+    outside of the cluster. On cloud providers that support load balancers,
+    an external IP address would be provisioned to access the Service. On Minikube,
+    the `LoadBalancer` type makes the Service accessible through the `minikube service`
+    command.
 
 3. Run the following command:
 
-  ```shell
-  minikube service hello-node
-  ```
+    ```shell
+    minikube service hello-node
+    ```
 
-4. Katacoda environment only: Click the plus sign, then click **Select port to view on Host 1**.
+4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
 5. Katacoda environment only: Type in the Port number following `8080:`, and then click **Display Port**. 
 
-  This opens up a browser window that serves your app and shows the "Hello World" message.
+    This opens up a browser window that serves your app and shows the "Hello World" message.
 
 ## Enable addons
 
@@ -177,81 +168,78 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
 
 1. List the currently supported addons:
 
-  ```shell
-  minikube addons list
-  ```
+    ```shell
+    minikube addons list
+    ```
 
-  Output:
+    Output:
 
-  ```shell
-  - addon-manager: enabled
-  - coredns: disabled
-  - dashboard: enabled
-  - default-storageclass: enabled
-  - efk: disabled
-  - freshpod: disabled
-  - heapster: disabled
-  - ingress: disabled
-  - kube-dns: enabled
-  - metrics-server: disabled
-  - nvidia-driver-installer: disabled
-  - nvidia-gpu-device-plugin: disabled
-  - registry: disabled
-  - registry-creds: disabled
-  - storage-provisioner: enabled
-  ```
-  {{< note >}}
-  Minikube must be running for these commands to take effect. 
-  {{< /note >}}
-
+    ```shell
+    addon-manager: enabled
+    coredns: disabled
+    dashboard: enabled
+    default-storageclass: enabled
+    efk: disabled
+    freshpod: disabled
+    heapster: disabled
+    ingress: disabled
+    kube-dns: enabled
+    metrics-server: disabled
+    nvidia-driver-installer: disabled
+    nvidia-gpu-device-plugin: disabled
+    registry: disabled
+    registry-creds: disabled
+    storage-provisioner: enabled
+    ```
+   
 2. Enable an addon, for example, `heapster`:
 
-  ```shell
-  minikube addons enable heapster
-  ```
+    ```shell
+    minikube addons enable heapster
+    ```
   
-  Output:
+    Output:
 
-  ```shell
-  heapster was successfully enabled
-  ```
+    ```shell
+    heapster was successfully enabled
+    ```
 
 3. View the Pod and Service you just created:
 
-  ```shell
-  kubectl get po,svc -n kube-system
-  ```
+    ```shell
+    kubectl get pod,svc -n kube-system
+    ```
 
-  Output:
+    Output:
 
-  ```shell
-  NAME                                        READY     STATUS    RESTARTS   AGE
-  pod/heapster-9jttx                          1/1       Running   0          26s
-  pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
-  pod/kube-addon-manager-minikube             1/1       Running   0          34m
-  pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
-  pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
-  pod/storage-provisioner                     1/1       Running   0          34m
+    ```shell
+    NAME                                        READY     STATUS    RESTARTS   AGE
+    pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
+    pod/kube-addon-manager-minikube             1/1       Running   0          34m
+    pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
+    pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
+    pod/storage-provisioner                     1/1       Running   0          34m
 
-  NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-  service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
-  service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
-  service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
-  service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
-  service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
-  ```
+    NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
+    service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
+    service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
+    service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
+    ```
 
 4. Disable `heapster`:
 
-  ```shell
-  minikube addons disable heapster
-  ```
+    ```shell
+    minikube addons disable heapster
+    ```
   
-  Output:
+    Output:
 
-  ```shell
-  heapster was successfully disabled
-  ```
+    ```shell
+    heapster was successfully disabled
+    ```
 
 ## Clean up
 
