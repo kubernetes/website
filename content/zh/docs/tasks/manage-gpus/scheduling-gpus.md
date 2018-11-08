@@ -61,7 +61,7 @@ spec:
 
 - Kubernetes 节点必须预先安装 AMD GPU 的 Linux 驱动。
 
-如果你的集群已经启动并且上述要求满足的话，可以这样部署 NVIDIA device plugin：
+如果你的集群已经启动并且上述要求满足的话，可以这样部署 AMD device plugin：
 ```
 # 针对 Kubernetes v1.9
 kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/r1.9/k8s-ds-amdgpu-dp.yaml
@@ -84,7 +84,7 @@ kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device
 - Docker 的[默认运行时](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)必须设置为 nvidia-container-runtime，而不是 runc
 - NVIDIA 驱动版本 ~= 361.93
 
-要在你的集群已经启动的情况下部署 NVIDIA device plugin，可以运行下面的命令来实现:
+如果你的集群已经启动并且上述要求满足的话，可以这样部署 NVIDIA device plugin：
 
 ```
 # 针对 Kubernetes v1.8
