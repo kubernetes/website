@@ -102,13 +102,14 @@ See [decoding a secret](#decoding-a-secret) for how to see the contents.
 
 #### Creating a Secret Manually
 
-You can also create a secret in a file first, in json or yaml format,
-and then create that object. The secret contains two maps: data and
-stringData. The data map is used to store arbitrary data, encoded using base64.
-The stringData field is provided for convenience, and allows you to provide
+You can also create a Secret in a file first, in json or yaml format,
+and then create that object. The
+[Secret](/docs/reference/generated/kubernetes-api/v1.12/#secret-v1-core) contains two maps:
+data and stringData. The data field is used to store arbitrary data, encoded using
+base64. The stringData field is provided for convenience, and allows you to provide
 secret data as unencoded strings.
 
-For example, to store two strings in a secret using the data field, convert
+For example, to store two strings in a Secret using the data field, convert
 them to base64 as follows:
 
 ```shell
@@ -118,7 +119,7 @@ echo -n '1f2d1e2e67df' | base64
 MWYyZDFlMmU2N2Rm
 ```
 
-Write a secret that looks like this:
+Write a Secret that looks like this:
 
 ```yaml
 apiVersion: v1
@@ -131,7 +132,7 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-Now create the secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
+Now create the Secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml
@@ -139,7 +140,7 @@ secret "mysecret" created
 ```
 
 For certain scenarios, you may wish to use the stringData field instead. An
-example of this is where the secret contains a configuration file with values
+example of this is where the Secret contains a configuration file with values
 populated via templating:
 
 ```yaml
@@ -156,7 +157,7 @@ stringData:
 ```
 
 stringData is a write-only convenience field. It is never output when
-retrieving secrets. If a field is specified in both data and stringData, the
+retrieving Secrets. If a field is specified in both data and stringData, the
 value from the stringData map is used.
 
 The keys of data and stringData must consist of alphanumeric characters,
