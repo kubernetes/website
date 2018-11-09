@@ -9,7 +9,6 @@ weight: 70
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.8" state="alpha" >}}
 {{< feature-state for_k8s_version="1.11" state="beta" >}}
 
 [Pods](/docs/user-guide/pods) can have _priority_. Priority indicates the
