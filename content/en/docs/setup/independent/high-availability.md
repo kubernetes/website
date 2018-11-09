@@ -137,7 +137,7 @@ option. Your cluster requirements may need a different configuration.
 ### Bootstrap the first stacked control plane node
 
 {{< note >}}
-Optionally replace `stable` with a different version of Kubernetes, for example `v1.12.0`.
+Optionally replace the string `stable` with a different version of Kubernetes, for example `v1.12.0`.
 {{< /note >}}
 
 1.  Create a `kubeadm-config.yaml` template file:
@@ -429,7 +429,7 @@ done
 ### Set up the first control plane node
 
 {{< note >}}
-Optionally replace the string `stable` in `kubeadm-config-yaml` with a different version of Kubernetes, for example `v1.11.3`.
+Optionally replace the string `stable` with a different version of Kubernetes, for example `v1.11.3`.
 {{< /note >}}
 
 1.  Extract the etcd certificates
