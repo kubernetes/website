@@ -154,6 +154,7 @@ different configuration.
         etcd:
           local:
             extraArgs:
+              name: "CP0_HOSTNAME"
               listen-client-urls: "https://127.0.0.1:2379,https://CP0_IP:2379"
               advertise-client-urls: "https://CP0_IP:2379"
               listen-peer-urls: "https://CP0_IP:2380"
@@ -233,6 +234,7 @@ done
         etcd:
           local:
             extraArgs:
+              name: "CP1_HOSTNAME"
               listen-client-urls: "https://127.0.0.1:2379,https://CP1_IP:2379"
               advertise-client-urls: "https://CP1_IP:2379"
               listen-peer-urls: "https://CP1_IP:2380"
@@ -323,6 +325,7 @@ done
         etcd:
           local:
             extraArgs:
+              name: "CP2_HOSTNAME"
               listen-client-urls: "https://127.0.0.1:2379,https://CP2_IP:2379"
               advertise-client-urls: "https://CP2_IP:2379"
               listen-peer-urls: "https://CP2_IP:2380"
