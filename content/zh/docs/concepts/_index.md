@@ -16,7 +16,7 @@ weight: 40
 
 <!-- The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your cluster, and helps you obtain a deeper understanding of how Kubernetes works. -->
 
-概念部分可以帮助你了解 Kubernetes 的各个组成部分以及 Kubernetes 来表示集群的一些抽象概念，并帮助你更加深入的理解 Kubernetes 是如何工作的。
+概念部分可以帮助你了解 Kubernetes 的各个组成部分以及 Kubernetes 用来表示集群的一些抽象概念，并帮助你更加深入的理解 Kubernetes 是如何工作的。
 
 <!-- ## Overview -->
 
@@ -24,20 +24,20 @@ weight: 40
 
 <!-- To work with Kubernetes, you use *Kubernetes API objects* to describe your cluster's *desired state*: what applications or other workloads you want to run, what container images they use, the number of replicas, what network and disk resources you want to make available, and more. You set your desired state by creating objects using the Kubernetes API, typically via the command-line interface, `kubectl`. You can also use the Kubernetes API directly to interact with the cluster and set or modify your desired state. -->
 
-要使用 Kubernetes，你需要用 Kubernetes API 来描述集群的目标状态：你需要运行的应用或者负载，它们使用的镜像，副本数，以及所需网络环境和磁盘资源等等。你通过 Kubernetes API 创建对象来配置它的目标状态，通常通过命令行工具，`kubectl`。你也可以直接使用 Kubernetes API 和集群进行通信，设置或者修改你所需的目标状态。
+要使用 Kubernetes，你需要用 *Kubernetes API 对象*来描述集群的*预期状态（desired state）*：包括你需要运行的应用或者负载，它们使用的镜像、副本数，以及所需网络和磁盘资源等等。你可以使用命令行工具 `kubectl`  来调用 Kubernetes API 创建对象，通过所创建的这些对象来配置预期状态。你也可以直接调用 Kubernetes API 和集群进行交互，设置或者修改预期状态。
 
 <!-- Once you've set your desired state, the *Kubernetes Control Plane* works to make the cluster's current state match the desired state. To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster:  -->
 
-一旦你设置了你所需的目标状态，*Kubernetes Control Plane* 会对集群的当前状态与目前状态做匹配。为此，Kubernetes 会执行各种自动化的任务，比如运行或者重启一个容器，对给定的应用进行副本数的扩展等等。Kubernetes 控制平面由一组运行在集群上的进程组成：
+一旦你设置了你所需的目标状态，*Kubernetes 控制面（control plane）* 会促成集群的当前状态符合其预期状态。为此，Kubernetes 会自动执行各类任务，比如运行或者重启容器、调整给定应用的副本数等等。Kubernetes 控制面由一组运行在集群上的进程组成：
 
 <!-- * The **Kubernetes Master** is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
 * Each individual non-master node in your cluster runs two processes:
   * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node. -->
 
-* **Kubernetes Master** 是运行在集群中的单个节上的三个进程的集合, 通常这个节点被称为 master 节点. 这几个进程是：[kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
+*  **Kubernetes 主控组件（Master）** 包含三个进程，都运行在集群中的某个节上，通常这个节点被称为 master 节点。这些进程包括：[kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/)和[kube-scheduler](/docs/admin/kube-scheduler/)。
 * 集群中的每个非 master 节点都运行两个进程：
-  * **[kubelet](/docs/admin/kubelet/)**，和 master 节点进行通信。
+  * **[kubelet](/docs/admin/kubelet/)**，和 Kubernetes 主控组件通信。
   * **[kube-proxy](/docs/admin/kube-proxy/)**，一种网络代理，将 Kubernetes 的网络服务代理到每个节点上。
 
 <!-- ## Kubernetes Objects -->
@@ -46,7 +46,7 @@ weight: 40
 
 <!-- Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API; see the [Kubernetes Objects overview](/docs/concepts/abstractions/overview/) for more details.  -->
 
-Kubernetes 包含大量的抽象描述来表示系统状态：部署容器化的应用和负载，与它们相关的网络和磁盘资源，以及集群运行的其他信息。这些抽象描述用 Kubernetes API 来进行表示。查阅 [Kubernetes Objects overview] 了解更多。
+Kubernetes 包含若干抽象用来表示系统状态，包括：已部署的容器化应用和负载、与它们相关的网络和磁盘资源以及有关集群正在运行的其他操作的信息。这些抽象使用 Kubernetes API 对象来表示。参阅 [Kubernetes对象概述](/docs/concepts/abstractions/overview/)以了解详细信息。
 
 <!-- The basic Kubernetes objects include: -->
 
@@ -59,7 +59,7 @@ Kubernetes 包含大量的抽象描述来表示系统状态：部署容器化的
 
 <!-- In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include: -->
 
-另外，Kubernetes 包含大量的高级抽象描述，这些抽象描述被称为控制器。控制器基于基本对象构建，并且提供额外的功能和方便的使用的特性。它们包括：
+另外，Kubernetes 包含大量的被称作*控制器（controllers）*的高级抽象。控制器基于基本对象构建并提供额外的功能和方便使用的特性。具体包括：
 
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
@@ -69,11 +69,11 @@ Kubernetes 包含大量的抽象描述来表示系统状态：部署容器化的
 
 <!-- ## Kubernetes Control Plane -->
 
-## Kubernetes 控制平面
+## Kubernetes 控制面
 
 <!-- The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided. -->
 
-关于 Kubernetes 控制平面的各个部分，比如 Kubernetes Master 和 kubelet processes，管理着 Kubernetes 如何与你的集群进行通信。控制平面维护着系统中所有的 Kubernetes 对象，并且通过控制循环来管理这些对象的状态。在任何的给定时间，控制平面的控制循环能响应集群中的变化，并且让系统中的所有对象的实际状态与你提供的目标状态保持一致。
+关于 Kubernetes 控制平面的各个部分，（如 Kubernetes 主控组件和 kubelet 进程，管理着 Kubernetes 如何与你的集群进行通信。控制平面维护着系统中所有的 Kubernetes 对象的状态记录，并且通过连续的控制循环来管理这些对象的状态。在任一的给定时间点，控制面的控制环都能响应集群中的变化，并且让系统中所有对象的实际状态与你提供的预期状态相匹配。
 
 <!-- For example, when you use the Kubernetes API to create a Deployment object, you provide a new desired state for the system. The Kubernetes Control Plane records that object creation, and carries out your instructions by starting the required applications and scheduling them to cluster nodes--thus making the cluster's actual state match the desired state. -->
 
