@@ -76,6 +76,8 @@ a Kubernetes cluster from scratch.
 
 * [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
+* [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks) is an enterprise Kubernetes-as-a-Service offering in the VMware Cloud Services portfolio that provides easy to use, secure by default, cost effective, SaaS-based Kubernetes clusters.
+
 ## Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -225,6 +227,7 @@ Alibaba Cloud Container Service For Kubernetes | ROS        | CentOS | flannel/T
 Agile Stacks       | Terraform   | CoreOS | multi-support | [docs](https://www.agilestacks.com/products/kubernetes) | Commercial
 IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://console.bluemix.net/docs/containers/container_index.html) | Commercial
 Digital Rebar        | kubeadm      | any    | metal       | [docs](/docs/setup/on-premises-metal/krib/)                                  | Community ([@digitalrebar](https://github.com/digitalrebar))
+VMware Cloud PKS     |              | Photon OS | Canal | [docs](https://docs.vmware.com/en/VMware-Kubernetes-Engine/index.html) | Commercial
 
 {{< note >}}
 The above table is ordered by version test/used in nodes, followed by support level.
