@@ -92,6 +92,21 @@ For example, the value of `kubernetes.io/hostname` may be the same as the Node n
 and a different value in other environments.
 {{< /note >}}
 
+## Node isolation/restriction
+
+Adding labels to Node objects allows targeting pods to specific nodes or groups of nodes.
+This can be used to ensure specific pods only run on nodes with certain isolation, security, or regulatory properties.
+When using labels for this purpose, choosing label keys that cannot be modified by the kubelet process on the node is strongly recommended.
+This prevents a compromised node from using its kubelet credential to set those labels on its own Node object,
+and influencing the scheduler to schedule workloads to the compromised node.
+
+The `NodeRestriction` admission plugin prevents kubelets from setting or modifying labels with a `node-restriction.kubernetes.io/` prefix.
+To make use of that label prefix for node isolation:
+
+1. Ensure you are using the [Node authorizer](/docs/reference/access-authn-authz/node/) and have enabled the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction).
+2. Add labels under the `node-restriction.kubernetes.io/` prefix to your Node objects, and use those labels in your node selectors.
+For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.com.node-restriction.kubernetes.io/pci-dss=true`.
+
 ## Affinity and anti-affinity
 
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
