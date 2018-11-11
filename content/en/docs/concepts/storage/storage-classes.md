@@ -166,7 +166,7 @@ This feature requires the `VolumeScheduling` feature gate to be
 enabled.
 {{< /note >}}
 
-When a cluster operactor specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
+When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
 to restrict provisioning to specific topologies in most situations. However,
 if still required, `allowedTopologies` can be specified.
 

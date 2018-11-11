@@ -74,7 +74,7 @@ kubeadm alpha phase kubeconfig user [flags]
       <td colspan="2">--org stringSlice</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The orgnizations of the client certificate. It will be used as the O if client certificates are created</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The organizations of the client certificate. It will be used as the O if client certificates are created</td>
     </tr>
 
     <tr>

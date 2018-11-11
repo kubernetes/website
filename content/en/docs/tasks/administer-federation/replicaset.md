@@ -68,7 +68,7 @@ if you have 3 registered clusters and you create a federated ReplicaSet with
 `spec.replicas=3`.
 To modify the number of replicas in each cluster, you can add an annotation with
 key `federation.kubernetes.io/replica-set-preferences` to the federated ReplicaSet.
-The value of the annoation is a serialized JSON that contains fields shown in
+The value of the annotation is a serialized JSON that contains fields shown in
 the following example:
 
 ```
