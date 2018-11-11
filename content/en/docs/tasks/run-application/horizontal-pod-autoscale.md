@@ -159,7 +159,7 @@ replica counts is chosen.  If any of those metrics cannot be converted
 into a desired replica count (e.g. due to an error fetching the metrics
 from the metrics APIs), scaling is skipped.
 
-Finally, just before HPA scales the target, the scale reccomendation is recorded.  The
+Finally, just before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
 highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization-window` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly

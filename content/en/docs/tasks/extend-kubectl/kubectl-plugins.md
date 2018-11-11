@@ -191,7 +191,7 @@ The command from the above example, can be invoked using either a dash (`-`) or 
 $ kubectl foo-bar
 I am a plugin with a dash in my name
 
-# it can also be inovked using an underscore
+# it can also be invoked using an underscore
 $ kubectl foo_bar
 I am a plugin with a dash in my name
 ```

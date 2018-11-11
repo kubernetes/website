@@ -457,7 +457,7 @@ root filesystem (i.e. no writable layer).
 
 ### Flexvolume drivers
 
-This specifies a whiltelist of Flexvolume drivers that are allowed to be used
+This specifies a whitelist of Flexvolume drivers that are allowed to be used
 by flexvolume. An empty list or nil means there is no restriction on the drivers.
 Please make sure [`volumes`](#volumes-and-file-systems) field contains the
 `flexVolume` volume type; no Flexvolume driver is allowed otherwise.
