@@ -38,7 +38,7 @@ function mainLogic()
 }
 function populateDropdowns()
 {
-  // Keeping mainLogic() brief by functionizing the initialization of the
+  // Keeping mainLogic() brief by functionalizing the initialization of the
   // drop-down filter boxes
 
   for(i=0;i<metadata.pages.length;i++)

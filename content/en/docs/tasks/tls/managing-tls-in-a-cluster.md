@@ -21,7 +21,6 @@ protocol that is similar to the
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -51,7 +50,7 @@ The following section demonstrates how to create a TLS certificate for a
 Kubernetes service accessed through DNS.
 
 {{< note >}}
-**Note:** This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://blog.cloudflare.com/introducing-cfssl/) to know more.
+This tutorial uses CFSSL: Cloudflare's PKI and TLS toolkit [click here](https://blog.cloudflare.com/introducing-cfssl/) to know more.
 {{< /note >}}
 
 ## Download and install CFSSL

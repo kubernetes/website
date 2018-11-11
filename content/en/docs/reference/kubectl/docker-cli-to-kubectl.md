@@ -1,16 +1,18 @@
 ---
 title: kubectl for Docker Users
+content_template: templates/concept
 reviewers:
 - bgrant0607
 - brendandburns
 - thockin
 ---
 
-You can use the Kubernetes command line tool kubectl to interact with the api. You can use kubectl if you are familiar with docker-cli. However, there are a few differences in the docker-cli commands and the kubectl commands. Each of the following section details a docker subcommand and explains the kubectl equivalent.
+{{% capture overview %}}
+You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command.
+{{% /capture %}}
 
-{{< toc >}}
-
-#### docker run
+{{% capture body %}}
+## docker run
 
 To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/#run).
 
@@ -34,7 +36,7 @@ deployment "nginx-app" created
 ```
 
 {{< note >}}
-**Note:** `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
+`kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
 {{< /note >}}
 
 ```shell
@@ -57,7 +59,7 @@ To detach from the container, you can type the escape sequence Ctrl+P followed b
 Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
 To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
 
-#### docker ps
+## docker ps
 
 To list what is currently running, see [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get).
 
@@ -79,7 +81,7 @@ nginx-app-8df569cb7-4gd89   1/1       Running     0          3m
 ubuntu                      0/1       Completed   0          20s
 ```
 
-#### docker attach
+## docker attach
 
 To attach a process that is already running in a container, see [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands/#attach).
 
@@ -107,7 +109,7 @@ $ kubectl attach -it nginx-app-5jyvm
 
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 
-#### docker exec
+## docker exec
 
 To execute a command in a container, see [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
 
@@ -152,7 +154,7 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 
 For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
 
-#### docker logs
+## docker logs
 
 To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs).
 
@@ -183,7 +185,7 @@ $ kubectl logs --previous nginx-app-zibvs
 
 For more information, see [Logging Architecture](/docs/concepts/cluster-administration/logging/).
 
-#### docker stop and docker rm
+## docker stop and docker rm
 
 To stop and delete a running process, see [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete).
 
@@ -220,14 +222,14 @@ $ kubectl get po -l run=nginx-app
 ```
 
 {{< note >}}
-**Note:** When you use kubectl, you don't delete the pod directly.You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
+When you use kubectl, you don't delete the pod directly.You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
 {{< /note >}}
 
-#### docker login
+## docker login
 
 There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 
-#### docker version
+## docker version
 
 To get the version of client and server, see [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version).
 
@@ -255,7 +257,7 @@ Client Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
-#### docker info
+## docker info
 
 To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info).
 
@@ -292,3 +294,4 @@ Grafana is running at https://108.59.85.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
+{{% /capture %}}

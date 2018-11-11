@@ -117,6 +117,7 @@ juju run-action new-etcd/0 restore
 {{% /capture %}}
 
 {{% capture discussion %}}
+
 ## Known Limitations
 
 #### Loss of PKI warning
@@ -126,10 +127,9 @@ all TLS pki will be lost. No PKI migration occurs outside
 of the units requesting and registering the certificates.
 
 {{< caution >}}
-**Caution:**  Mismanaging this configuration will result in locking yourself
-out of the cluster, and can potentially break existing deployments in very
-strange ways relating to x509 validation of certificates, which affects both
-servers and clients.
+Mismanaging this configuration will result in locking yourself out of the cluster,
+and can potentially break existing deployments in very strange ways relating to x509
+validation of certificates, which affects both servers and clients.
 {{< /caution >}}
 
 #### Restoring from snapshot on a scaled cluster

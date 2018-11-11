@@ -16,7 +16,6 @@ well as any provider specific details that may be necessary.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -85,12 +84,11 @@ gcloud compute firewall-rules create my-rule --allow=tcp:<port>
 ```
 
 {{< note >}}
-**Note**: GCE firewalls are defined per-vm, rather than per-ip
-address. This means that when you open a firewall for a service's ports,
-anything that serves on that port on that VM's host IP address may potentially
-serve traffic.  Note that this is not a problem for other Kubernetes services,
-as they listen on IP addresses that are different than the host node's external
-IP address.
+GCE firewalls are defined per-vm, rather than per-ip address. This means that
+when you open a firewall for a service's ports, anything that serves on that
+port on that VM's host IP address may potentially serve traffic. Note that this
+is not a problem for other Kubernetes services, as they listen on IP addresses
+that are different than the host node's external IP address.
 
 Consider:
 

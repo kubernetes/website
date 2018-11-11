@@ -19,6 +19,8 @@ Intrigued? Let me walk you through how it works.
 
 # Summary
 
+_**Please note:** this is a cool hack, but is not officially supported in Kubernetes._
+
 First, we need to understand how exactly it works. 
 
 In short, for all nodes we have prepared the image with the OS, Docker, Kubelet and everything else that you need there. This image with the kernel is building automatically by CI using Dockerfile. End nodes are booting the kernel and OS from this image via the network.
@@ -365,7 +367,7 @@ Ok, now we have docker image which includes:
 OK, now when our docker-image with LTSP-server, kernel, initramfs and squashed rootfs fully prepared we can run the deployment with it.
 
 We can do that as usual, but one more thing is networking.
-Unfortunately, we can't use the standard Kubernetes service abstraction for our deployment, because during the boot, our nodes are not part of Kubernetes cluster and they requires ExternalIP, but Kubernetes always enables NAT for ExternalIPs, and there is no way to disable this behavior.
+Unfortunately, we can't use the standard Kubernetes service abstraction for our deployment, because TFTP can't work behind the NAT. During the boot, our nodes are not part of Kubernetes cluster and they requires ExternalIP, but Kubernetes always enables NAT for ExternalIPs, and there is no way to override this behavior.
 
 For now I have two ways for avoid this: use `hostNetwork: true` or use [pipework](https://github.com/dreamcat4/docker-images/blob/master/pipework/3.%20Examples.md#kubernetes). The second option will also provide you redundancy because, in case of failure, the IP will be moved with the Pod to another node. Unfortunately, pipework is not native and a less secure method.
 If you have some better option for that please let me know.
@@ -489,8 +491,6 @@ Now you can try to make your own changes.
 If you need something more, note that LTSP can be easily changed to meet your needs.
 Feel free to look into the source code and you can find many answers there.
 
-**UPD:** Many people asking me: Why not simple use CoreOS and Ignition?
+_**UPD:** Many people asking me: Why not simple use CoreOS and Ignition?_
 
-I can answer. The main feature here is image preparation process not configuration.
-In case with LTSP you have classic Ubuntu system, and everything that can be installed on Ubuntu it can also be written here in the Dockerfile.
-In case CoreOS you have no so many freedom and you can’t easily add custom kernel modules and packages at the build stage of the boot image.
+_I can answer. The main feature here is image preparation process, not configuration. In case with LTSP you have classic Ubuntu system, and everything that can be installed on Ubuntu it can also be written here in the Dockerfile. In case CoreOS you have no so many freedom and you can’t easily add custom kernel modules and packages at the build stage of the boot image._

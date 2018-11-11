@@ -91,7 +91,7 @@ of the number of pods from that set that can be unavailable after the eviction.
 It can be either an absolute number or a percentage.
 
 {{< note >}}
-**Note:** For versions 1.8 and earlier: When creating a `PodDisruptionBudget`
+For versions 1.8 and earlier: When creating a `PodDisruptionBudget`
 object using the `kubectl` command line tool, the `minAvailable` field has a
 default value of 1 if neither `minAvailable` nor `maxUnavailable` is specified.
 {{< /note >}}
@@ -117,12 +117,14 @@ of the desired replicas are unhealthy.
 In typical usage, a single budget would be used for a collection of pods managed by
 a controller—for example, the pods in a single ReplicaSet or StatefulSet. 
 
-**Note:** A disruption budget does not truly guarantee that the specified
+{{< note >}}
+A disruption budget does not truly guarantee that the specified
 number/percentage of pods will always be up.  For example, a node that hosts a
 pod from the collection may fail when the collection is at the minimum size
 specified in the budget, thus bringing the number of available pods from the
 collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
+{{< /note >}}
 
 A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
 number of replicas) may block node drains entirely. This is permitted as per the 
@@ -191,7 +193,7 @@ zk-pdb    2               1                     7s
 ```
 
 The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
-counted the matching pods, and update the status of the PDB.
+counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
 

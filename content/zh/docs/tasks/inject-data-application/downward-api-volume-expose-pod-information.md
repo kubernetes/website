@@ -184,7 +184,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 * Pod的注释
 
 {{< note >}}
-**Note:** 如果容器未指定CPU和memory limits，则Downward API默认为节点可分配值。
+如果容器未指定CPU和memory limits，则Downward API默认为节点可分配值。
 {{< /note >}}
 
 ## 投射密钥到指定路径并且指定文件权限

@@ -14,7 +14,6 @@ External garbage collection tools are not recommended as these tools can potenti
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -42,7 +41,7 @@ Containers that are not managed by kubelet are not subject to container garbage 
 Users can adjust the following thresholds to tune image garbage collection with the following kubelet flags :
 
 1. `image-gc-high-threshold`, the percent of disk usage which triggers image garbage collection.
-Default is 90%.
+Default is 85%.
 2. `image-gc-low-threshold`, the percent of disk usage to which image garbage collection attempts
 to free. Default is 80%.
 

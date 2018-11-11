@@ -14,7 +14,7 @@ allows you to change the configuration of each Kubelet in a live Kubernetes
 cluster by deploying a ConfigMap and configuring each Node to use it.
 
 {{< warning >}}
-**Warning:** All Kubelet configuration parameters can be changed dynamically,
+All Kubelet configuration parameters can be changed dynamically,
 but this is unsafe for some parameters. Before deciding to change a parameter
 dynamically, you need a strong understanding of how that change will affect your
 cluster's behavior. Always carefully test configuration changes on a small set
@@ -69,7 +69,7 @@ This document only describes a single Node consuming each ConfigMap. Keep in
 mind that it is also valid for multiple Nodes to consume the same ConfigMap.
 
 {{< warning >}}
-**Warning:** While it is *possible* to change the configuration by
+While it is *possible* to change the configuration by
 updating the ConfigMap in-place, this causes all Kubelets configured with
 that ConfigMap to update simultaneously. It is much safer to treat ConfigMaps
 as immutable by convention, aided by `kubectl`'s `--append-hash` option,

@@ -74,10 +74,12 @@ curl --header "Content-Type: application/json-patch+json" \
 http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
-**Note**: In the preceding request, `~1` is the encoding for the character / in
+{{< note >}}
+In the preceding request, `~1` is the encoding for the character / in
 the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 [IETF RFC 6901](https://tools.ietf.org/html/rfc6901), section 3.
+{{< /note >}}
 
 The output shows that the Node has a capacity of 4 dongles:
 

@@ -20,7 +20,6 @@ We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -29,6 +28,10 @@ We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/
 Localizations must meet some requirements for workflow (*how* to localize) and output (*what* to localize).
 
 To add a new localization of the Kubernetes documentation, you'll need to update the website by modifying the  [site configuration](#modify-the-site-configuration) and [directory structure](#add-a-new-localization-directory). Then you can start [translating documents](#translating-documents)!
+
+{{< note >}}
+For an example localization-related [pull request](../create-pull-request), see [this pull request](https://github.com/kubernetes/website/pull/8636) to the [Kubernetes website repo](https://github.com/kubernetes/website) adding Korean localization to the Kubernetes docs.
+{{< /note >}}
 
 Let Kubernetes SIG Docs know you're interested in creating a localization! Join the [SIG Docs Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/). We're happy to help you get started and answer any questions you have.
 
@@ -100,7 +103,7 @@ Provide guidance to localization contributors in the localized `README-**.md` fi
 - A point of contact for the localization project
 - Any information specific to the localization
 
-After you create the localized README, add a link to the file from the main English file, [`README.md`] and include contact information in English. You can provide a GitHub ID, email address, [Slack channel](https://slack.com/), or other method of contact.
+After you create the localized README, add a link to the file from the main English file, [`README.md`'s Localizing Kubernetes Documentation] and include contact information in English. You can provide a GitHub ID, email address, [Slack channel](https://slack.com/), or other method of contact.
 
 ## Translating documents
 

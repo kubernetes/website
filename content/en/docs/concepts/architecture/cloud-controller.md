@@ -18,7 +18,6 @@ Here's the architecture of a Kubernetes cluster without the cloud controller man
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -46,16 +45,16 @@ The CCM breaks away some of the functionality of Kubernetes controller manager (
 In version 1.9, the CCM runs the following controllers from the preceding list:
 
 * Node controller
-* Route controller 
+* Route controller
 * Service controller
 
-Additionally, it runs another controller called the PersistentVolumeLabels controller. This controller is responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds. 
+Additionally, it runs another controller called the PersistentVolumeLabels controller. This controller is responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
 
 {{< note >}}
-**Note:** Volume controller was deliberately chosen to not be a part of CCM. Due to the complexity involved and due to the existing efforts to abstract away vendor specific volume logic, it was decided that volume controller will not be moved to CCM. 
+Volume controller was deliberately chosen to not be a part of CCM. Due to the complexity involved and due to the existing efforts to abstract away vendor specific volume logic, it was decided that volume controller will not be moved to CCM.
 {{< /note >}}
 
-The original plan to support volumes using CCM was to use Flex volumes to support pluggable volumes. However, a competing effort known as CSI is being planned to replace Flex. 
+The original plan to support volumes using CCM was to use Flex volumes to support pluggable volumes. However, a competing effort known as CSI is being planned to replace Flex.
 
 Considering these dynamics, we decided to have an intermediate stop gap measure until CSI becomes ready.
 
@@ -68,7 +67,7 @@ The CCM inherits its functions from components of Kubernetes that are dependent 
 The majority of the CCM's functions are derived from the KCM. As mentioned in the previous section, the CCM runs the following control loops:
 
 * Node controller
-* Route controller 
+* Route controller
 * Service controller
 * PersistentVolumeLabels controller
 
@@ -92,7 +91,7 @@ The Service controller is responsible for listening to service create, update, a
 
 #### PersistentVolumeLabels controller
 
-The PersistentVolumeLabels controller applies labels on AWS EBS/GCE PD volumes when they are created. This removes the need for users to manually set the labels on these volumes. 
+The PersistentVolumeLabels controller applies labels on AWS EBS/GCE PD volumes when they are created. This removes the need for users to manually set the labels on these volumes.
 
 These labels are essential for the scheduling of pods as these volumes are constrained to work only within the region/zone that they are in. Any Pod using these volumes needs to be scheduled in the same region/zone.
 
@@ -100,7 +99,7 @@ The PersistentVolumeLabels controller was created specifically for the CCM; that
 
 ### 2. Kubelet
 
-The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM. 
+The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM.
 
 In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information. It then removes this taint.
 
@@ -118,13 +117,13 @@ For more information about developing plugins, see [Developing Cloud Controller 
 
 ## Authorization
 
-This section breaks down the access required on various API objects by the CCM to perform its operations. 
+This section breaks down the access required on various API objects by the CCM to perform its operations.
 
 ### Node Controller
 
 The Node controller only works with Node objects. It requires full access to get, list, create, update, patch, watch, and delete Node objects.
 
-v1/Node: 
+v1/Node:
 
 - Get
 - List
@@ -136,17 +135,17 @@ v1/Node:
 
 ### Route controller
 
-The route controller listens to Node object creation and configures routes appropriately. It requires get access to Node objects. 
+The route controller listens to Node object creation and configures routes appropriately. It requires get access to Node objects.
 
-v1/Node: 
+v1/Node:
 
 - Get
 
 ### Service controller
 
-The service controller listens to Service object create, update and delete events and then configures endpoints for those Services appropriately. 
+The service controller listens to Service object create, update and delete events and then configures endpoints for those Services appropriately.
 
-To access Services, it requires list, and watch access. To update Services, it requires patch and update access. 
+To access Services, it requires list, and watch access. To update Services, it requires patch and update access.
 
 To set up endpoints for the Services, it requires access to create, list, get, watch, and update.
 
@@ -249,7 +248,7 @@ rules:
 
 ## Vendor Implementations
 
-The following cloud providers have implemented CCMs: 
+The following cloud providers have implemented CCMs:
 
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)

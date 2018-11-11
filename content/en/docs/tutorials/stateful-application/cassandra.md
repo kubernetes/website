@@ -48,13 +48,13 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 * Have a supported Kubernetes cluster running
 
 {{< note >}}
-**Note:** Please read the [getting started guides](/docs/setup/pick-right-solution/) if you do not already have a cluster.
+Please read the [getting started guides](/docs/setup/pick-right-solution/) if you do not already have a cluster.
 {{< /note >}}
 
 ### Additional Minikube Setup Instructions
 
 {{< caution >}}
-**Caution:** [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU. Running Minikube with the default resource configuration results in insufficient resource errors during this tutorial. To avoid these errors, start Minikube with the following settings:
+[Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU. Running Minikube with the default resource configuration results in insufficient resource errors during this tutorial. To avoid these errors, start Minikube with the following settings:
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -101,7 +101,7 @@ Service creation failed if anything else is returned. Read [Debug Services](/doc
 The StatefulSet manifest, included below, creates a Cassandra ring that consists of three Pods.
 
 {{< note >}}
-**Note:** This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with.
+This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with.
 {{< /note >}}
 
 {{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
@@ -228,7 +228,7 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet. This setting is for your safety because your data is more valuable than automatically purging all related StatefulSet resources. 
 
 {{< warning >}}
-**Warning:** Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
+Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
 {{< /warning >}}
 
 1. Run the following commands (chained together into a single command) to delete everything in the Cassandra `StatefulSet`:

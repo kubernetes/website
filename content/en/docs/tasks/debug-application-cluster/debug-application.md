@@ -14,7 +14,6 @@ This is *not* a guide for people who want to debug their cluster.  For that you 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -85,7 +84,7 @@ $ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${
 ```
 
 {{< note >}}
-**Note:** `-c ${CONTAINER_NAME}` is optional. You can omit it for Pods that only contain a single container.
+`-c ${CONTAINER_NAME}` is optional. You can omit it for Pods that only contain a single container.
 {{< /note >}}
 
 As an example, to look at the logs from a running Cassandra pod, you might run
@@ -109,7 +108,7 @@ will not use the command line you intended it to use.
 
 The first thing to do is to delete your pod and try creating it again with the `--validate` option.
 For example, run `kubectl create --validate -f mypod.yaml`.
-If you misspelled `command` as `commnd` then  will give an error like this:
+If you misspelled `command` as `commnd` then will give an error like this:
 
 ```shell
 I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd

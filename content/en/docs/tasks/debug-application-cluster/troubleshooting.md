@@ -19,7 +19,6 @@ you're using.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

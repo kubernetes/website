@@ -19,7 +19,6 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 
 {{% /capture %}}
 
-{{< toc >}}
 
 
 {{% capture prerequisites %}}
@@ -131,9 +130,11 @@ NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7         7         7            7           19m
 ```
 
-**Note** Sometimes it may take a few minutes to stabilize the number of replicas.
-Since the amount of load is not controlled in any way it may happen that the final number of replicas will
-differ from this example.
+{{< note >}}
+It may take a few minutes to stabilize the number of replicas. Since the amount
+of load is not controlled in any way it may happen that the final number of replicas
+will differ from this example.
+{{< /note >}}
 
 ## Stop load
 
@@ -157,7 +158,7 @@ php-apache   1         1         1            1           27m
 Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.
 
 {{< note >}}
-**Note** autoscaling the replicas may take a few minutes.
+Autoscaling the replicas may take a few minutes.
 {{< /note >}}
 
 {{% /capture %}}
@@ -386,7 +387,7 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
       averageValue: 30
 ```
 
-When possible, it's preferrable to use the custom metric target types instead of external metrics, since it's
+When possible, it's preferable to use the custom metric target types instead of external metrics, since it's
 easier for cluster administrators to secure the custom metrics API.  The external metrics API potentially allows
 access to any metric, so cluster administrators should take care when exposing it.
 

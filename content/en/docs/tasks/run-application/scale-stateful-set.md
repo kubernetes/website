@@ -21,7 +21,7 @@ This task shows how to scale a StatefulSet. Scaling a StatefulSet refers to incr
 * StatefulSets are only available in Kubernetes version 1.5 or later.
   To check your version of Kubernetes, run `kubectl version`.
 
-* Not all stateful applications scale nicely. If you are unsure about whether to scale your StatefulSets, see [StatefulSet concepts](/docs/concepts/workloads/controllers/statefulset/) or [StatefulSet tutorial](/docs/tutorials/stateful-application/basic-stateful-set/) for futher information.
+* Not all stateful applications scale nicely. If you are unsure about whether to scale your StatefulSets, see [StatefulSet concepts](/docs/concepts/workloads/controllers/statefulset/) or [StatefulSet tutorial](/docs/tutorials/stateful-application/basic-stateful-set/) for further information.
 
 * You should perform scaling only when you are confident that your stateful application
   cluster is completely healthy.

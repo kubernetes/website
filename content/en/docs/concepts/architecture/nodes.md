@@ -18,7 +18,6 @@ architecture design doc for more details.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -54,7 +53,6 @@ The `conditions` field describes the status of all `Running` nodes.
 | `PIDPressure`    | `True` if pressure exists on the processes -- that is, if there are too many processes on the node; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
-| `ConfigOK`    | `True` if the kubelet is correctly configured, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
@@ -76,18 +74,18 @@ the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce fr
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta，so node lifecycle controller automatically creates 
+In version 1.12, `TaintNodesByCondition` feature is promoted to beta，so node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
 Similarly the scheduler ignores conditions when considering a Node; instead
 it looks at the Node's taints and a Pod's tolerations.
 
 Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that 
+A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
 tolerates the taints of a particular Node can be scheduled on that Node.
 
 {{< caution >}}
-**Caution:** Enabling this feature creates a small delay between the 
-time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet. 
+Enabling this feature creates a small delay between the
+time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
 {{< /caution >}}
 
 ### Capacity
@@ -127,10 +125,10 @@ a node from the following content:
 Kubernetes creates a node object internally (the representation), and
 validates the node by health checking based on the `metadata.name` field. If the node is valid -- that is, if all necessary
 services are running -- it is eligible to run a pod. Otherwise, it is
-ignored for any cluster activity until it becomes valid. 
+ignored for any cluster activity until it becomes valid.
 
 {{< note >}}
-**Note:** Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
+Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
 You must explicitly delete the Node object to stop this process.
 {{< /note >}}
 
@@ -243,7 +241,7 @@ kubectl cordon $NODENAME
 ```
 
 {{< note >}}
-**Note:** Pods created by a DaemonSet controller bypass the Kubernetes scheduler
+Pods created by a DaemonSet controller bypass the Kubernetes scheduler
 and do not respect the unschedulable attribute on a node. This assumes that daemons belong on
 the machine even if it is being drained of applications while it prepares for a reboot.
 {{< /note >}}

@@ -103,7 +103,7 @@ The following sysctls are supported in the _safe_ set:
 
 {{< note >}}
 <!--
-**Note**: The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
+The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
 --->
 **注意**: 示例中的 `net.ipv4.tcp_syncookies` 在Linux 内核 4.4 或更低的版本中是无命名空间的。
 {{< /note >}}
@@ -226,7 +226,7 @@ spec:
 
 {{< warning >}}
 <!--
-**Warning**: Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
+Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
 is at-your-own-risk and can lead to severe problems like wrong behavior of
 containers, resource shortage or complete breakage of a node.
 --->
@@ -299,7 +299,7 @@ given sysctl is both allowed and forbidden.
 
 {{< warning >}}
 <!--
-**Warning**: If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
+If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
 in a PodSecurityPolicy, any pod using such a sysctl will fail to start
 if the sysctl is not whitelisted via the `--allowed-unsafe-sysctls` kubelet
 flag as well on that node.

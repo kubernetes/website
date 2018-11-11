@@ -21,7 +21,6 @@ in the Kubernetes source directory for a canonical example.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
