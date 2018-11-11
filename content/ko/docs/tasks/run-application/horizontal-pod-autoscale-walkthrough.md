@@ -59,8 +59,8 @@ deployment.apps/php-apache created
 
 ## Horizontal Pod Autoscaler 생성
 
-이제 서비스가 동작중이므로, [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_autoscale.md) 를 사용하여 오토스케일러를 생성한다. 다음 명령어는 첫번째 스탭에서 만든 php-apache 디플로이먼트를 Horizontal Pod Autoscaler의 생성을 통해 파드 개수를 1부터 10사이로 유지한다.
-간략히 얘기하면, HPA는 (디플로이먼트를 통한) 평균 CPU 사용량을 50%로 유지하기 위하여 리플리카의 개수를 늘리고 줄인다. ([kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md) 으로 각 파드의 CPU요청은 200밀리코어까지 할 수 있고, 따라서 여기서 말하는 평균 CPU 사용은 100밀리코어를 말한다.) 이에 대한 자세한 알고리즘은 [여기](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm) 를 참고하기 바란다.
+이제 서비스가 동작중이므로, [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_autoscale.md)를 사용하여 오토스케일러를 생성한다. 다음 명령어는 첫번째 스탭에서 만든 php-apache 디플로이먼트를 Horizontal Pod Autoscaler의 생성을 통해 파드 개수를 1부터 10사이로 유지한다.
+간략히 얘기하면, HPA는 (디플로이먼트를 통한) 평균 CPU 사용량을 50%로 유지하기 위하여 리플리카의 개수를 늘리고 줄인다. ([kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md)으로 각 파드의 CPU요청은 200밀리코어까지 할 수 있고, 따라서 여기서 말하는 평균 CPU 사용은 100밀리코어를 말한다.) 이에 대한 자세한 알고리즘은 [여기](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm)를 참고하기 바란다.
 
 ```shell
 $ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
@@ -90,7 +90,7 @@ Hit enter for command prompt
 $ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
 ```
 
-실행후, 약 1분내에 CPU 부하가 올라가는 것을 볼 수 있다:
+실행후, 약 1분정도 후에 CPU 부하가 올라가는 것을 볼 수 있다:
 
 ```shell
 $ kubectl get hpa
@@ -182,21 +182,16 @@ status:
 
 `targetCPUUtilizationPercentage` 필드가 `metrics` 배열로 대체되었다. CPU 사용량 메트릭은 *resource metric* 으로 파드 컨테이너 자원의 백분율로 표현된다. CPU외에 다른 메트릭을 지정할 수 있는데, 기본적으로 지원되는 다른 메트릭은 메모리뿐이다. 이 자원들은 한 클러스터에서 다른 클러스터로 이름을 변경할 수 없으며, `metrics.k8s.io` API가 가용한 경우 언제든지 사용할 수 있어야 한다.
 
+또한, `AverageUtilization` 대신 `AverageValue`의 `target` 타입을, 그리고 `target.averageUtilization` 대신 `target.averageValue`로 설정하여 자원 메트릭스를 퍼센트 대신 값으로 명시할 수 있다.
 
+두가지 다른 유형의 메트릭스가 있으며, 둘다 *사용자 정의 메트릭스* 이다: 파드 메트릭스와 오브젝트 메트릭스. 이 메트릭스는 클러스터에 특화된 이름을 가지고 있으며, 더 고급화된 클러스터 모니터링 설정이 필요하다.
 
-You can also specify resource metrics in terms of direct values, instead of as percentages of the
-requested value, by using a `target` type of `AverageValue` instead of `AverageUtilization`, and
-setting the corresponding `target.averageValue` field instead of the `target.averageUtilization`.
+이러한 대체 메트릭 타입중 첫번째는 *파드 메트릭스* 이다. 이 메트릭스는 파드들을 설명하고, 파드들간의 평균을 내며, 타겟 값과 비교하여 레플리카 개수를 결정한다.
 
-There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
-object metrics.  These metrics may have names which are cluster specific, and require a more
-advanced cluster monitoring setup.
+이것들은 `AverageValue` 의 `target`만을 지원한다는 것을 제외하면, 자원 메트릭스와 매우 유사하게 동작한다.
 
-The first of these alternative metric types is *pod metrics*.  These metrics describe pods, and
-are averaged together across pods and compared with a target value to determine the replica count.
-They work much like resource metrics, except that they *only* support a `target` type of `AverageValue`.
+파드 메트릭스는 이처럼 메트릭 블록을 사용하여 정의된다:
 
-Pod metrics are specified using a metric block like this:
 
 ```yaml
 type: Pods
@@ -208,13 +203,9 @@ pods:
     averageValue: 1k
 ```
 
-The second alternative metric type is *object metrics*. These metrics describe a different
-object in the same namespace, instead of describing pods. The metrics are not necessarily
-fetched from the object; they only describe it. Object metrics support `target` types of
-both `Value` and `AverageValue`.  With `Value`, the target is compared directly to the returned
-metric from the API. With `AverageValue`, the value returned from the custom metrics API is divided
-by the number of pods before being compared to the target. The following example is the YAML
-representation of the `requests-per-second` metric.
+두번째 대체 메트릭 타입은 *오브젝트 메트릭스* 이다. 이 메트릭스는 파드를 기술하는 대신에 동일한 네임스페이스 내에 다른 오브젝트를 표현한다. 이 메트릭스는 반드시 오브젝트로부터 가져올 필요는 없다; 단지 오브젝트를 기술할 뿐이다. 오브젝트 메트릭스는 `Value`과 `AverageValue`의 `target`을 지원한다.
+
+The second alternative metric type is *object metrics*. These metrics describe a different object in the same namespace, instead of describing pods. The metrics are not necessarily fetched from the object; they only describe it. Object metrics support `target` types of both `Value` and `AverageValue`.  With `Value`, the target is compared directly to the returned metric from the API. With `AverageValue`, the value returned from the custom metrics API is divided by the number of pods before being compared to the target. The following example is the YAML representation of the `requests-per-second` metric.
 
 ```yaml
 type: Object
