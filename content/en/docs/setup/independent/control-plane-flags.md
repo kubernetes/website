@@ -32,16 +32,17 @@ For details, see the [reference documentation for kube-apiserver](https://kubern
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.13.0
 metadata:
-  name: 1.12-sample
-apiServerExtraArgs:
-  advertise-address: 192.168.0.103
-  anonymous-auth: false
-  enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
-  audit-log-path: /home/johndoe/audit.log
+  name: 1.13-sample
+apiServer:
+  extraArgs:
+    advertise-address: 192.168.0.103
+    anonymous-auth: false
+    enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
+    audit-log-path: /home/johndoe/audit.log
 ```
 
 ## ControllerManager flags
@@ -50,15 +51,16 @@ For details, see the [reference documentation for kube-controller-manager](https
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.13.0
 metadata:
-  name: 1.12-sample
-controllerManagerExtraArgs:
-  cluster-signing-key-file: /home/johndoe/keys/ca.key
-  bind-address: 0.0.0.0
-  deployment-controller-sync-period: 50
+  name: 1.13-sample
+controllerManager:
+  extraArgs:
+    cluster-signing-key-file: /home/johndoe/keys/ca.key
+    bind-address: 0.0.0.0
+    deployment-controller-sync-period: 50
 ```
 
 ## Scheduler flags
@@ -67,15 +69,16 @@ For details, see the [reference documentation for kube-scheduler](https://kubern
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.13.0
 metadata:
-  name: 1.12-sample
-schedulerExtraArgs:
-  address: 0.0.0.0
-  config: /home/johndoe/schedconfig.yaml
-  kubeconfig: /home/johndoe/kubeconfig.yaml
+  name: 1.13-sample
+scheduler:
+  extraArgs:
+    address: 0.0.0.0
+    config: /home/johndoe/schedconfig.yaml
+    kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
 {{% /capture %}}

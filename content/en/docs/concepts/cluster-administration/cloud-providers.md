@@ -17,30 +17,32 @@ kubeadm has configuration options to specify configuration information for cloud
 in-tree cloud provider can be configured using kubeadm as shown below:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: InitConfiguration
 nodeRegistration:
   kubeletExtraArgs:
     cloud-provider: "openstack"
     cloud-config: "/etc/kubernetes/cloud.conf"
 ---
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
-apiVersion: kubeadm.k8s.io/v1alpha3
-kubernetesVersion: v1.12.0
-apiServerExtraArgs:
-  cloud-provider: "openstack"
-  cloud-config: "/etc/kubernetes/cloud.conf"
-apiServerExtraVolumes:
-- name: cloud
-  hostPath: "/etc/kubernetes/cloud.conf"
-  mountPath: "/etc/kubernetes/cloud.conf"
-controllerManagerExtraArgs:
-  cloud-provider: "openstack"
-  cloud-config: "/etc/kubernetes/cloud.conf"
-controllerManagerExtraVolumes:
-- name: cloud
-  hostPath: "/etc/kubernetes/cloud.conf"
-  mountPath: "/etc/kubernetes/cloud.conf"
+kubernetesVersion: v1.13.0
+apiServer:
+  extraArgs:
+    cloud-provider: "openstack"
+    cloud-config: "/etc/kubernetes/cloud.conf"
+  extraVolumes:
+  - name: cloud
+    hostPath: "/etc/kubernetes/cloud.conf"
+    mountPath: "/etc/kubernetes/cloud.conf"
+controllerManager:
+  extraArgs:
+    cloud-provider: "openstack"
+    cloud-config: "/etc/kubernetes/cloud.conf"
+  extraVolumes:
+  - name: cloud
+    hostPath: "/etc/kubernetes/cloud.conf"
+    mountPath: "/etc/kubernetes/cloud.conf"
 ```
 
 The in-tree cloud providers typically need both `--cloud-provider` and `--cloud-config` specified in the command lines
