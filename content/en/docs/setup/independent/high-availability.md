@@ -142,7 +142,7 @@ Optionally replace the string `stable` with a different version of Kubernetes, f
 
 1.  Create a `kubeadm-config.yaml` template file:
 
-        apiVersion: kubeadm.k8s.io/v1alpha3
+        apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
         apiServerCertSANs:
@@ -222,7 +222,7 @@ Remember that your config may differ from this example.
 
 1.  Create a second, different `kubeadm-config.yaml` template file:
 
-        apiVersion: kubeadm.k8s.io/v1alpha3
+        apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
         apiServerCertSANs:
@@ -313,7 +313,7 @@ Remember that your config may differ from this example.
 
 1.  Create a third, different `kubeadm-config.yaml` template file:
 
-        apiVersion: kubeadm.k8s.io/v1alpha3
+        apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
         apiServerCertSANs:
@@ -442,7 +442,11 @@ Optionally replace the string `stable` with a different version of Kubernetes, f
 
 1.  Create a `kubeadm-config.yaml`:
 
-        apiVersion: kubeadm.k8s.io/v1alpha3
+{{< note >}}
+**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
+{{< /note >}}
+
+        apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
         apiServerCertSANs:
