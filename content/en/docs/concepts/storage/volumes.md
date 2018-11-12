@@ -1191,16 +1191,16 @@ persistent volume:
 - `controllerPublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
   `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
-  optional, and  may be empty if no secret is required. If the secret object
+  optional, and may be empty if no secret is required. If the secret object
   contains more than one secret, all secrets are passed.
 - `nodeStageSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
-  `NodeStageVolume` call. This field is optional, and  may be empty if no secret
+  `NodeStageVolume` call. This field is optional, and may be empty if no secret
   is required. If the secret object contains more than one secret, all secrets
   are passed.
 - `nodePublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
-  `NodePublishVolume` call. This field is optional, and  may be empty if no
+  `NodePublishVolume` call. This field is optional, and may be empty if no
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
 

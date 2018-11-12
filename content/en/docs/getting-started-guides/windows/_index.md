@@ -365,7 +365,7 @@ Some of these limitations will be addressed by the community in future releases 
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
 - Flannel and Weavenet are not yet supported
-- Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
+- Some .Net Core applications expect environment variables with a colon (`:`) in the name. Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
 - As cgroups are not supported on windows, kubelet.exe should be started with the following additional arguments `--cgroups-per-qos=false --enforce-node-allocatable=""` [issue 61716](https://github.com/kubernetes/kubernetes/issues/61716)
 
 ## Next steps and resources
