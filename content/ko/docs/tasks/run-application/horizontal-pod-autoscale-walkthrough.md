@@ -203,9 +203,7 @@ pods:
     averageValue: 1k
 ```
 
-두번째 대체 메트릭 타입은 *오브젝트 메트릭스* 이다. 이 메트릭스는 파드를 기술하는 대신에 동일한 네임스페이스 내에 다른 오브젝트를 표현한다. 이 메트릭스는 반드시 오브젝트로부터 가져올 필요는 없다; 단지 오브젝트를 기술할 뿐이다. 오브젝트 메트릭스는 `Value`과 `AverageValue`의 `target`을 지원한다.
-
-The second alternative metric type is *object metrics*. These metrics describe a different object in the same namespace, instead of describing pods. The metrics are not necessarily fetched from the object; they only describe it. Object metrics support `target` types of both `Value` and `AverageValue`.  With `Value`, the target is compared directly to the returned metric from the API. With `AverageValue`, the value returned from the custom metrics API is divided by the number of pods before being compared to the target. The following example is the YAML representation of the `requests-per-second` metric.
+두번째 대체 메트릭 타입은 *오브젝트 메트릭스* 이다. 이 메트릭스는 파드를 기술하는 대신에 동일한 네임스페이스 내에 다른 오브젝트를 표현한다. 이 메트릭스는 반드시 오브젝트로부터 가져올 필요는 없다; 단지 오브젝트를 기술할 뿐이다. 오브젝트 메트릭스는 `Value`과 `AverageValue`의 `target` 타입을 지원한다. `Value`를 사용할 경우 타겟은 API로부터 반환되는 메트릭과 직접 비교된다. `AverageValue`를 사용할 경우 사용자정의 메트릭스 API로부터 반환된 값은 팟의 갯수로 나뉜 값이 타겟과 비교된다. 다음은 `requests-per-second` 메트릭을 YAML로 기술한 예제이다.
 
 ```yaml
 type: Object
@@ -221,12 +219,9 @@ object:
     value: 2k
 ```
 
-If you provide multiple such metric blocks, the HorizontalPodAutoscaler will consider each metric in turn.
-The HorizontalPodAutoscaler will calculate proposed replica counts for each metric, and then choose the
-one with the highest replica count.
+이러한 메트릭 블록을 여러개 제공하면, HorizontalPodAutoscaler는 각 메트릭을 차례로 고려한다. HorizontalPodAutoscaler는 각 메트릭에 대해 제안된 레플리카 개수를 계산하고, 그중 가능 높은 레플리카 개수를 선정한다.
 
-For example, if you had your monitoring system collecting metrics about network traffic,
-you could update the definition above using `kubectl edit` to look like this:
+예를 들어, 네트워크 트래픽 메트릭스를 수집하는 모니터링 시스템이 있는 경우, `kubectl edit` 명령어를 이용하여 다음과 같이 정의를 업데이트 할 수 있다:
 
 ```yaml
 apiVersion: autoscaling/v2beta1
@@ -288,17 +283,11 @@ status:
         value: 10k
 ```
 
-Then, your HorizontalPodAutoscaler would attempt to ensure that each pod was consuming roughly
-50% of its requested CPU, serving 1000 packets per second, and that all pods behind the main-route
-Ingress were serving a total of 10000 requests per second.
+이후, 당신의 HorizontalPodAutoscaler는 각 파드들로 인하여 약 50%의 CPU 사용률을 보이는지, 초당 1000 패킷을 처리하는지, 메인-루트 인그레스 뒤의 모든 파드들이 초당 10000 요청을 처리하는지 확인한다.
 
-### Autoscaling on more specific metrics
+### 보다 구체적인 메트릭스에 기반한 오토스케일링
 
-Many metrics pipelines allow you to describe metrics either by name or by a set of additional
-descriptors called _labels_. For all non-resource metric types (pod, object, and external,
-described below), you can specify an additional label selector which is passed to your metric
-pipeline. For instance, if you collect a metric `http_requests` with the `verb`
-label, you can specify the following metric block to scale only on GET requests:
+많은 메트릭스 파이프라인들을 사용하면 이름 또는 _labels_ 이라 불리는 추가적인 디스크립터로 메트릭스를 설명할 수 있다. 그리고, 모든 비 자원 메트릭 타입(파드, 오브젝트 그리고 아래 기술된 외부 타입)에 대해, 메트릭 파이프라인으로 전달되는 추가 라벨 셀렉터를 지정할 수 있다. 예를 들면, `verb` 라벨로 `http_requests` 메트릭을 수집하는 경우, 다음과 같이 메트릭 블록을 지정하여 GET 요청에 대해 크게를 조정할 수 있다:
 
 ```yaml
 type: Object
@@ -308,18 +297,13 @@ object:
     selector: `verb=GET`
 ```
 
-This selector uses the same syntax as the full Kubernetes label selectors. The monitoring pipeline
-determines how to collapse multiple series into a single value, if the name and selector
-match multiple series. The selector is additive, and cannot select metrics
-that describe objects that are **not** the target object (the target pods in the case of the `Pods`
-type, and the described object in the case of the `Object` type).
+이 셀렉터는 쿠버네티스의 라벨 셀렉터와 동일한 문법이다. 모니터링 파이프라인은 네임과 셀렉터가 여러 시리즈와 일치하는 경우, 해당 여러 시리즈를 단일 값으로 축소하는 방법을 결정한다. 셀렉터는 부가적인 속성이며, 대상 (`Pods` 타입의 대상 파드, `Object` 타입으로 기술된 오브젝트) 이 아닌 오브젝트를 기술하는 메트릭스를 선택할 수 없다.
 
-### Autoscaling on metrics not related to Kubernetes objects
+### 쿠버네티스 오브젝트와 관련이 없는 메트릭스에 기반한 오토스케일링
 
-Applications running on Kubernetes may need to autoscale based on metrics that don't have an obvious
-relationship to any object in the Kubernetes cluster, such as metrics describing a hosted service with
-no direct correlation to Kubernetes namespaces. In Kubernetes 1.10 and later, you can address this use case
-with *external metrics*.
+쿠버네티스 위에서 동작하는 어플리케이션은 쿠버네티스 클러스터의 어떤 오브젝트와도 관련이 없는 메트릭스에 기반하여 오토스케일링을 할 수도 있다. 예로, 쿠버네티스 네임스페이스와 관련이 없는 서비스에 기반한 메트릭스를 들 수 있다. 쿠버네티스 버전 1.10 포함 이후 버전에서, *외부 메트릭스* 를 사용하여 이러한 유스케이스를 해결할 수 있다.
+
+외부 메트릭스 사용시, 먼저 모니터링 시스템에 대한 이해가 있어야 한다; 이 셋업은 사용자 정의 메트릭스와 유사하다.
 
 Using external metrics requires knowledge of your monitoring system; the setup is
 similar to that required when using custom metrics. External metrics allow you to autoscale your cluster
