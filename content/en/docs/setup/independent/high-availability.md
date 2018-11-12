@@ -176,6 +176,10 @@ Optionally replace `stable` with a different version of Kubernetes, for example 
 
 1.  Run `kubeadm init --config kubeadm-config.yaml`
 
+{{< note >}}
+You should save or copy the output from this command in order to join worker nodes.
+{{< /note >}}
+
 ### Copy required files to other control plane nodes
 
 The following certificates and other required files were created when you ran `kubeadm init`.
@@ -539,9 +543,15 @@ done
 the pod network. Make sure this corresponds to whichever pod CIDR you provided
 in the master configuration file.
 
+### Label nodes as master
+
+You can label each node as master using `kubectl label node CP1_HOSTNAME node-role.kubernetes.io/master=""`
+
 ### Install workers
 
 Each worker node can now be joined to the cluster with the command returned from any of the
 `kubeadm init` commands.
+
+
 
 {{% /capture %}}
