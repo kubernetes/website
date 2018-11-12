@@ -74,7 +74,7 @@ In this example:
 To create this Deployment, run the following command:
 
 ```shell
-kubectl create -f  https://k8s.io/examples/controllers/nginx-deployment.yaml
+kubectl create -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
