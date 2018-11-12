@@ -130,7 +130,76 @@ SSH is required if you want to control all nodes from a single machine.
     eval $(ssh-agent)
     ```
 
-1.  Add your SSH identity to the session:
+        apiVersion: kubeadm.k8s.io/v1beta1
+        kind: ClusterConfiguration
+        kubernetesVersion: stable
+        apiServerCertSANs:
+        - "LOAD_BALANCER_DNS"
+        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
+        etcd:
+          local:
+            extraArgs:
+              listen-client-urls: "https://127.0.0.1:2379,https://CP0_IP:2379"
+              advertise-client-urls: "https://CP0_IP:2379"
+              listen-peer-urls: "https://CP0_IP:2380"
+              initial-advertise-peer-urls: "https://CP0_IP:2380"
+              initial-cluster: "CP0_HOSTNAME=https://CP0_IP:2380"
+            serverCertSANs:
+              - CP0_HOSTNAME
+              - CP0_IP
+            peerCertSANs:
+              - CP0_HOSTNAME
+              - CP0_IP
+        networking:
+            # This CIDR is a Calico default. Substitute or remove for your CNI provider.
+            podSubnet: "192.168.0.0/16"
+
+1.  Replace the following variables in the template with the appropriate
+    values for your cluster:
+
+    * `LOAD_BALANCER_DNS`
+    * `LOAD_BALANCER_PORT`
+    * `CP0_HOSTNAME`
+    * `CP0_IP`
+
+1.  Run `kubeadm init --config kubeadm-config.yaml`
+
+### Copy required files to other control plane nodes
+
+The following certificates and other required files were created when you ran `kubeadm init`.
+Copy these files to your other control plane nodes:
+
+- `/etc/kubernetes/pki/ca.crt`
+- `/etc/kubernetes/pki/ca.key`
+- `/etc/kubernetes/pki/sa.key`
+- `/etc/kubernetes/pki/sa.pub`
+- `/etc/kubernetes/pki/front-proxy-ca.crt`
+- `/etc/kubernetes/pki/front-proxy-ca.key`
+- `/etc/kubernetes/pki/etcd/ca.crt`
+- `/etc/kubernetes/pki/etcd/ca.key`
+
+Copy the admin kubeconfig to the other control plane nodes:
+
+- `/etc/kubernetes/admin.conf`
+
+In the following example, replace
+`CONTROL_PLANE_IPS` with the IP addresses of the other control plane nodes.
+
+```sh
+USER=ubuntu # customizable
+CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
+for host in ${CONTROL_PLANE_IPS}; do
+    scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
+    scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
+    scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
+    scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
+    scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
+    scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
+    scp /etc/kubernetes/admin.conf "${USER}"@$host:
+done
+```
 
     ```
     ssh-add ~/.ssh/path_to_private_key
@@ -143,19 +212,6 @@ SSH is required if you want to control all nodes from a single machine.
         ```
         ssh -A 10.0.0.7
         ```
-
-    - When using sudo on any node, make sure to preserve the environment so SSH
-      forwarding works:
-
-        ```
-        sudo -E -s
-        ```
-
-## Stacked control plane and etcd nodes
-
-### Steps for the first control plane node
-
-1.  On the first control plane node, create a configuration file called `kubeadm-config.yaml`:
 
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
@@ -225,7 +281,43 @@ SSH is required if you want to control all nodes from a single machine.
 
 ### Steps for the rest of the control plane nodes
 
-1.  Move the files created by the previous step where `scp` was used:
+        apiVersion: kubeadm.k8s.io/v1beta1
+        kind: ClusterConfiguration
+        kubernetesVersion: stable
+        apiServerCertSANs:
+        - "LOAD_BALANCER_DNS"
+        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
+        etcd:
+          local:
+            extraArgs:
+              listen-client-urls: "https://127.0.0.1:2379,https://CP2_IP:2379"
+              advertise-client-urls: "https://CP2_IP:2379"
+              listen-peer-urls: "https://CP2_IP:2380"
+              initial-advertise-peer-urls: "https://CP2_IP:2380"
+              initial-cluster: "CP0_HOSTNAME=https://CP0_IP:2380,CP1_HOSTNAME=https://CP1_IP:2380,CP2_HOSTNAME=https://CP2_IP:2380"
+              initial-cluster-state: existing
+            serverCertSANs:
+              - CP2_HOSTNAME
+              - CP2_IP
+            peerCertSANs:
+              - CP2_HOSTNAME
+              - CP2_IP
+        networking:
+            # This CIDR is a calico default. Substitute or remove for your CNI provider.
+            podSubnet: "192.168.0.0/16"
+
+1.  Replace the following variables in the template with the appropriate values for your cluster:
+
+    - `LOAD_BALANCER_DNS`
+    - `LOAD_BALANCER_PORT`
+    - `CP0_HOSTNAME`
+    - `CP0_IP`
+    - `CP1_HOSTNAME`
+    - `CP1_IP`
+    - `CP2_HOSTNAME`
+    - `CP2_IP`
+
+1.  Move the copied files to the correct locations:
 
     ```sh
     USER=ubuntu # customizable
