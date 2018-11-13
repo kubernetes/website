@@ -36,13 +36,14 @@ If you do not already have a hypervisor installed, install the appropriate one f
 * Windows: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
 [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install).
 
-## Install kubectl
-
-* Install kubectl according to the instructions in [Install and Set Up kubectl](/docs/tasks/tools/install-kubectl/).
 
 ## Install Minikube
 
 * Install Minikube according to the instructions for the [latest release](https://github.com/kubernetes/minikube/releases).
+
+## Install kubectl
+
+* Install kubectl according to the instructions in [Install and Set Up kubectl](/docs/tasks/tools/install-kubectl/).
 
 {{% /capture %}}
 
