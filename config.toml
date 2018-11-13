@@ -159,5 +159,5 @@ time_format_blog = "02.01.2006"
 language_alternatives = ["en"]
 
 [languages.zh.params]
-time_format_blog = "2006.01.02" # YYYY.MM.DD
-language_alternatives = ["en"] # fallback to `en` if no Chinese content
+time_format_blog = "2006.01.02"
+language_alternatives = ["en"]
