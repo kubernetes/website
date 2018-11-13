@@ -148,8 +148,9 @@ different configuration.
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
-        apiServerCertSANs:
-        - "LOAD_BALANCER_DNS"
+        apiServer:
+          certSANs:
+          - "LOAD_BALANCER_DNS"
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
           local:
@@ -227,8 +228,9 @@ done
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
-        apiServerCertSANs:
-        - "LOAD_BALANCER_DNS"
+        apiServer:
+          certSANs:
+          - "LOAD_BALANCER_DNS"
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
           local:
@@ -317,8 +319,9 @@ done
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
-        apiServerCertSANs:
-        - "LOAD_BALANCER_DNS"
+        apiServer:
+          certSANs:
+          - "LOAD_BALANCER_DNS"
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
           local:
@@ -445,8 +448,9 @@ done
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
-        apiServerCertSANs:
-        - "LOAD_BALANCER_DNS"
+        apiServer:
+          certSANs:
+          - "LOAD_BALANCER_DNS"
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
             external:
