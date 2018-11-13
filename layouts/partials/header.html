@@ -27,8 +27,9 @@
                     {{ .Site.Params.version }} <span class="ui-icon ui-icon-carat-1-s"></span>
                 </a>
                 <ul>
+                {{ $path := .Page.URL }}
                 {{ range .Site.Params.versions }}
-                    <li><a href="{{  .url }}">{{ .version }}</a></li>
+                    <li><a href="{{  .url }}{{ $path }}">{{ .version }}</a></li>
                 {{ end }}
                 </ul>
             </li>
