@@ -152,6 +152,10 @@ aliases:
     - gochist
     - ianychoi
   sig-docs-zh-owners: #Team Chinese docs localization; GH: sig-docs-zh-owners
+    - bradtopol
+    - chenopis
+    - lucperkins
+    - zacharysarah
     - dchen1107
     - haibinxie
     - hanjiayao
