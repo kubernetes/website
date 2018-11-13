@@ -16,10 +16,10 @@ Horizontal Pod Autoscaler는 CPU 사용량(또는 베타 지원의 다른 어플
 
 {{% capture prerequisites %}}
 
-이 예제는 버전 1.2 또는 이상의 쿠버네티스 클러스터와 kubectl을 필요로 한다. 또한 자원 메트릭스 API인
-[메트릭스-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링 서비스가 필요한데, 이는 Horizontal Pod Autoscaler가 메트릭스를 수집할때 해당 API를 사용한다. ([GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭스-서버 모니터링은 디폴트로 활성화된다.)
+이 예제는 버전 1.2 또는 이상의 쿠버네티스 클러스터와 kubectl을 필요로 한다. 또한 자원 메트릭 API인
+[메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링 서비스가 필요한데, 이는 Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다. ([GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.)
 
-Horizontal Pod Autoscaler에 다양한 자원 메트릭스를 적용하고자 하는 경우, 버전 1.6 또는 이상의 쿠버네티스 클러스터와 kubectl를 사용해야한다. 또한, 사용자 정의 메트릭스를 사용하기 위해서는, 당신의 클러스터가 사용자 정의 메트릭스 API를 제공하는 API서버와 통신할 수 있어야 한다. 마지막으로, 쿠버네티스 오브젝트와 관련이 없는 메트릭스를 사용하는 경우 버전 1.10 또는 이상의 쿠버네티스 클러스터와 kubectl을 사용해야하며, 외부 메트릭스 API와 통신이 가능해야한다. 자세한 사항은 [Horizontal Pod Autoscaler 사용자 가이드](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)를 참고하길 바란다.
+Horizontal Pod Autoscaler에 다양한 자원 메트릭을 적용하고자 하는 경우, 버전 1.6 또는 이상의 쿠버네티스 클러스터와 kubectl를 사용해야한다. 또한, 사용자 정의 메트릭을 사용하기 위해서는, 당신의 클러스터가 사용자 정의 메트릭 API를 제공하는 API서버와 통신할 수 있어야 한다. 마지막으로, 쿠버네티스 오브젝트와 관련이 없는 메트릭을 사용하는 경우 버전 1.10 또는 이상의 쿠버네티스 클러스터와 kubectl을 사용해야하며, 외부 메트릭 API와 통신이 가능해야한다. 자세한 사항은 [Horizontal Pod Autoscaler 사용자 가이드](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)를 참고하길 바란다.
 
 {{% /capture %}}
 
@@ -134,9 +134,9 @@ CPU 사용량은 0으로 떨어졌고, HPA는 리플리카의 개수를 1로 낮
 
 {{% capture discussion %}}
 
-## 다양한 메트릭스를 기초로한 오토스케일링과 사용자 정의 메트릭스
+## 다양한 메트릭을 기초로한 오토스케일링과 사용자 정의 메트릭
 
-`php-apache` 디플로이먼트를 오토스케일링할 때 `autoscaling/v2beta2` API 버전을 사용하여 추가적인 메트릭스를 제공할 수 있다.
+`php-apache` 디플로이먼트를 오토스케일링할 때 `autoscaling/v2beta2` API 버전을 사용하여 추가적인 메트릭을 제공할 수 있다.
 
 첫번째로, `autoscaling/v2beta2` 폼으로 당신의 현재 HorizontalPodAutoscaler YAML 파일을 생성한다:
 
@@ -182,15 +182,15 @@ status:
 
 `targetCPUUtilizationPercentage` 필드가 `metrics` 배열로 대체되었다. CPU 사용량 메트릭은 *resource metric* 으로 파드 컨테이너 자원의 백분율로 표현된다. CPU외에 다른 메트릭을 지정할 수 있는데, 기본적으로 지원되는 다른 메트릭은 메모리뿐이다. 이 자원들은 한 클러스터에서 다른 클러스터로 이름을 변경할 수 없으며, `metrics.k8s.io` API가 가용한 경우 언제든지 사용할 수 있어야 한다.
 
-또한, `AverageUtilization` 대신 `AverageValue`의 `target` 타입을, 그리고 `target.averageUtilization` 대신 `target.averageValue`로 설정하여 자원 메트릭스를 퍼센트 대신 값으로 명시할 수 있다.
+또한, `AverageUtilization` 대신 `AverageValue`의 `target` 타입을, 그리고 `target.averageUtilization` 대신 `target.averageValue`로 설정하여 자원 메트릭을 퍼센트 대신 값으로 명시할 수 있다.
 
-두가지 다른 유형의 메트릭스가 있으며, 둘다 *사용자 정의 메트릭스* 이다: 파드 메트릭스와 오브젝트 메트릭스. 이 메트릭스는 클러스터에 특화된 이름을 가지고 있으며, 더 고급화된 클러스터 모니터링 설정이 필요하다.
+두가지 다른 유형의 메트릭이 있으며, 둘다 *사용자 정의 메트릭* 이다: 파드 메트릭과 오브젝트 메트릭. 이 메트릭은 클러스터에 특화된 이름을 가지고 있으며, 더 고급화된 클러스터 모니터링 설정이 필요하다.
 
-이러한 대체 메트릭 타입중 첫번째는 *파드 메트릭스* 이다. 이 메트릭스는 파드들을 설명하고, 파드들간의 평균을 내며, 타겟 값과 비교하여 레플리카 개수를 결정한다.
+이러한 대체 메트릭 타입중 첫번째는 *파드 메트릭* 이다. 이 메트릭는 파드들을 설명하고, 파드들간의 평균을 내며, 타겟 값과 비교하여 레플리카 개수를 결정한다.
 
-이것들은 `AverageValue` 의 `target`만을 지원한다는 것을 제외하면, 자원 메트릭스와 매우 유사하게 동작한다.
+이것들은 `AverageValue` 의 `target`만을 지원한다는 것을 제외하면, 자원 메트릭과 매우 유사하게 동작한다.
 
-파드 메트릭스는 이처럼 메트릭 블록을 사용하여 정의된다:
+파드 메트릭은 이처럼 메트릭 블록을 사용하여 정의된다:
 
 
 ```yaml
@@ -203,7 +203,7 @@ pods:
     averageValue: 1k
 ```
 
-두번째 대체 메트릭 타입은 *오브젝트 메트릭스* 이다. 이 메트릭스는 파드를 기술하는 대신에 동일한 네임스페이스 내에 다른 오브젝트를 표현한다. 이 메트릭스는 반드시 오브젝트로부터 가져올 필요는 없다; 단지 오브젝트를 기술할 뿐이다. 오브젝트 메트릭스는 `Value`과 `AverageValue`의 `target` 타입을 지원한다. `Value`를 사용할 경우 타겟은 API로부터 반환되는 메트릭과 직접 비교된다. `AverageValue`를 사용할 경우 사용자정의 메트릭스 API로부터 반환된 값은 팟의 갯수로 나뉜 값이 타겟과 비교된다. 다음은 `requests-per-second` 메트릭을 YAML로 기술한 예제이다.
+두번째 대체 메트릭 타입은 *오브젝트 메트릭* 이다. 이 메트릭은 파드를 기술하는 대신에 동일한 네임스페이스 내에 다른 오브젝트를 표현한다. 이 메트릭은 반드시 오브젝트로부터 가져올 필요는 없다; 단지 오브젝트를 기술할 뿐이다. 오브젝트 메트릭은 `Value`과 `AverageValue`의 `target` 타입을 지원한다. `Value`를 사용할 경우 타겟은 API로부터 반환되는 메트릭과 직접 비교된다. `AverageValue`를 사용할 경우 사용자정의 메트릭 API로부터 반환된 값은 팟의 갯수로 나뉜 값이 타겟과 비교된다. 다음은 `requests-per-second` 메트릭을 YAML로 기술한 예제이다.
 
 ```yaml
 type: Object
@@ -221,7 +221,7 @@ object:
 
 이러한 메트릭 블록을 여러개 제공하면, HorizontalPodAutoscaler는 각 메트릭을 차례로 고려한다. HorizontalPodAutoscaler는 각 메트릭에 대해 제안된 레플리카 개수를 계산하고, 그중 가능 높은 레플리카 개수를 선정한다.
 
-예를 들어, 네트워크 트래픽 메트릭스를 수집하는 모니터링 시스템이 있는 경우, `kubectl edit` 명령어를 이용하여 다음과 같이 정의를 업데이트 할 수 있다:
+예를 들어, 네트워크 트래픽 메트릭을 수집하는 모니터링 시스템이 있는 경우, `kubectl edit` 명령어를 이용하여 다음과 같이 정의를 업데이트 할 수 있다:
 
 ```yaml
 apiVersion: autoscaling/v2beta1
@@ -285,9 +285,9 @@ status:
 
 이후, 당신의 HorizontalPodAutoscaler는 각 파드들로 인하여 약 50%의 CPU 사용률을 보이는지, 초당 1000 패킷을 처리하는지, 메인-루트 인그레스 뒤의 모든 파드들이 초당 10000 요청을 처리하는지 확인한다.
 
-### 보다 구체적인 메트릭스에 기반한 오토스케일링
+### 보다 구체적인 메트릭에 기반한 오토스케일링
 
-많은 메트릭스 파이프라인들을 사용하면 이름 또는 _labels_ 이라 불리는 추가적인 디스크립터로 메트릭스를 설명할 수 있다. 그리고, 모든 비 자원 메트릭 타입(파드, 오브젝트 그리고 아래 기술된 외부 타입)에 대해, 메트릭 파이프라인으로 전달되는 추가 라벨 셀렉터를 지정할 수 있다. 예를 들면, `verb` 라벨로 `http_requests` 메트릭을 수집하는 경우, 다음과 같이 메트릭 블록을 지정하여 GET 요청에 대해 크게를 조정할 수 있다:
+많은 메트릭 파이프라인들을 사용하면 이름 또는 _labels_ 이라 불리는 추가적인 디스크립터로 메트릭을 설명할 수 있다. 그리고, 모든 비 자원 메트릭 타입(파드, 오브젝트 그리고 아래 기술된 외부 타입)에 대해, 메트릭 파이프라인으로 전달되는 추가 라벨 셀렉터를 지정할 수 있다. 예를 들면, `verb` 라벨로 `http_requests` 메트릭을 수집하는 경우, 다음과 같이 메트릭 블록을 지정하여 GET 요청에 대해 크게를 조정할 수 있다:
 
 ```yaml
 type: Object
@@ -297,25 +297,18 @@ object:
     selector: `verb=GET`
 ```
 
-이 셀렉터는 쿠버네티스의 라벨 셀렉터와 동일한 문법이다. 모니터링 파이프라인은 네임과 셀렉터가 여러 시리즈와 일치하는 경우, 해당 여러 시리즈를 단일 값으로 축소하는 방법을 결정한다. 셀렉터는 부가적인 속성이며, 대상 (`Pods` 타입의 대상 파드, `Object` 타입으로 기술된 오브젝트) 이 아닌 오브젝트를 기술하는 메트릭스를 선택할 수 없다.
+이 셀렉터는 쿠버네티스의 라벨 셀렉터와 동일한 문법이다. 모니터링 파이프라인은 네임과 셀렉터가 여러 시리즈와 일치하는 경우, 해당 여러 시리즈를 단일 값으로 축소하는 방법을 결정한다. 셀렉터는 부가적인 속성이며, 대상 (`Pods` 타입의 대상 파드, `Object` 타입으로 기술된 오브젝트) 이 아닌 오브젝트를 기술하는 메트릭을 선택할 수 없다.
 
-### 쿠버네티스 오브젝트와 관련이 없는 메트릭스에 기반한 오토스케일링
+### 쿠버네티스 오브젝트와 관련이 없는 메트릭에 기반한 오토스케일링
 
-쿠버네티스 위에서 동작하는 어플리케이션은 쿠버네티스 클러스터의 어떤 오브젝트와도 관련이 없는 메트릭스에 기반하여 오토스케일링을 할 수도 있다. 예로, 쿠버네티스 네임스페이스와 관련이 없는 서비스에 기반한 메트릭스를 들 수 있다. 쿠버네티스 버전 1.10 포함 이후 버전에서, *외부 메트릭스* 를 사용하여 이러한 유스케이스를 해결할 수 있다.
+쿠버네티스 위에서 동작하는 어플리케이션은 쿠버네티스 클러스터의 어떤 오브젝트와도 관련이 없는 메트릭에 기반하여 오토스케일링을 할 수도 있다. 예로, 쿠버네티스 네임스페이스와 관련이 없는 서비스에 기반한 메트릭을 들 수 있다. 쿠버네티스 버전 1.10 포함 이후 버전에서, *외부 메트릭* 을 사용하여 이러한 유스케이스를 해결할 수 있다.
 
-외부 메트릭스 사용시, 먼저 모니터링 시스템에 대한 이해가 있어야 한다; 이 셋업은 사용자 정의 메트릭스와 유사하다.
-
-Using external metrics requires knowledge of your monitoring system; the setup is
-similar to that required when using custom metrics. External metrics allow you to autoscale your cluster
-based on any metric available in your monitoring system. Just provide a `metric` block with a
-`name` and `selector`, as above, and use the `External` metric type instead of `Object`.
-If multiple time series are matched by the `metricSelector`,
-the sum of their values is used by the HorizontalPodAutoscaler.
-External metrics support both the `Value` and `AverageValue` target types, which function exactly the same
-as when you use the `Object` type.
-
-For example if your application processes tasks from a hosted queue service, you could add the following
-section to your HorizontalPodAutoscaler manifest to specify that you need one worker per 30 outstanding tasks.
+외부 메트릭 사용시, 먼저 모니터링 시스템에 대한 이해가 있어야 한다; 이 셋업은 사용자 정의 메트릭과 유사하다.
+외부 메트릭을 사용하면 모니터링 시스템의 사용 가능한 메트릭에 기반하여 클러스터를 오토스케일링 할 수 있다.
+위의 예제처럼 `name`과 `selector`를 갖는 `메트릭` 블록을 제공하고, `Object` 대신에 `External` 메트릭 타입을 사용한다.
+만일 여러개의 시계열이 `metricSelector`와 일치하면, HorizontalPodAutoscaler가 값의 합을 사용한다.
+외부 메트릭들은 `값`과 `평균값` 대상 타입을 모두 지원하고, `Object` 타입을 사용할 때와 똑같이 동작한다.
+예를 들면 당신의 어플리케이션이 호스팅된 대기열 서비스에서 작업을 처리하는 경우, 다음과 같이 HorizontalPodAutoscaler 매니퍼스트에 30개의 미해결 테스트 당 한 개의 워커를 지정하도록 추가할 수 있다.
 
 ```yaml
 - type: External
@@ -328,19 +321,13 @@ section to your HorizontalPodAutoscaler manifest to specify that you need one wo
       averageValue: 30
 ```
 
-When possible, it's preferable to use the custom metric target types instead of external metrics, since it's
-easier for cluster administrators to secure the custom metrics API.  The external metrics API potentially allows
-access to any metric, so cluster administrators should take care when exposing it.
+가능하다면, 외부 메트릭 대신 사용자 정의 메트릭 대상 타입을 사용하길 권장한다. 왜냐하면, 클러스터 관리자가 사용자 정의 메트릭 API를 보안관점에서 더 쉽게 보호할 수 있기 때문이다. 외부 메트릭 API는 잠재적으로 어떠한 메트릭에도 접근할 수 있기에, 클러스터 관리자는 API를 노출시킬때 신중해야한다.
 
-## Appendix: Horizontal Pod Autoscaler Status Conditions
+## 부록: Horizontal Pod Autoscaler 상태 조건
 
-When using the `autoscaling/v2beta2` form of the HorizontalPodAutoscaler, you will be able to see
-*status conditions* set by Kubernetes on the HorizontalPodAutoscaler.  These status conditions indicate
-whether or not the HorizontalPodAutoscaler is able to scale, and whether or not it is currently restricted
-in any way.
+HorizontalPodAutoscaler의 `autoscaling/v2beta2` 형식을 사용하면, HorizontalPodAutoscaler에서 쿠버네티스가 설정한 *상태 조건* 을 확인할 수 있다. 이 상태 조건들은 HorizontalPodAutoscaler가 스케일을 할 수 있는지, 어떤 방식으로든 제한되어 있는지 여부를 나타낸다.
 
-The conditions appear in the `status.conditions` field.  To see the conditions affecting a HorizontalPodAutoscaler,
-we can use `kubectl describe hpa`:
+이 조건은 `status.conditions`에 나타난다. HorizontalPodAutoscaler에 영향을 주는 조건을 보기 위해 `kubectl describe hpa`를 사용할 수 있다:
 
 ```shell
 $ kubectl describe hpa cm-test
@@ -364,36 +351,21 @@ Conditions:
 Events:
 ```
 
-For this HorizontalPodAutoscaler, we can see several conditions in a healthy state.  The first,
-`AbleToScale`, indicates whether or not the HPA is able to fetch and update scales, as well as
-whether or not any backoff-related conditions would prevent scaling.  The second, `ScalingActive`,
-indicates whether or not the HPA is enabled (i.e. the replica count of the target is not zero) and
-is able to calculate desired scales. When it is `False`, it generally indicates problems with
-fetching metrics.  Finally, the last condition, `ScalingLimited`, indicates that the desired scale
-was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an indication that
-you may wish to raise or lower the minimum or maximum replica count constraints on your
-HorizontalPodAutoscaler.
+이 HorizontalPodAutoscaler 경우, 건강 상태의 여러 조건들을 볼 수 있다. 첫번째 `AbleToScale`는 HPA가 스케일을 가져오고 업데이트할 수 있는지, 백 오프 관련 조건으로 스케일링이 방지되는지 여부를 나타낸다. 두번째 `ScalingActive`는 HPA가 활성화되어있는지(즉 대상 레플리카 개수가 0이 아닌지), 원하는 스케일을 계산할 수 있는지 여부를 나타낸다. 만약 `False` 인 경우, 일반적으로 메트릭을 가져오는데 문제가 있다. 마지막으로, 마지막 조건인 `ScalingLimited`는 원하는 스케일 한도가 HorizontalPodAutoscaler의 최대/최소값로 제한돼있음을 나타낸다. 이는 HorizontalPodAutoscaler에서 레플리카의 최대/최소 개수 제한을 올리거나 낮추려는 것이다.
 
-## Appendix: Quantities
+## 부록: 수량
 
-All metrics in the HorizontalPodAutoscaler and metrics APIs are specified using
-a special whole-number notation known in Kubernetes as a *quantity*.  For example,
-the quantity `10500m` would be written as `10.5` in decimal notation.  The metrics APIs
-will return whole numbers without a suffix when possible, and will generally return
-quantities in milli-units otherwise.  This means you might see your metric value fluctuate
-between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.  See the
-[glossary entry on quantities](/docs/reference/glossary?core-object=true#term-quantity) for more information.
+HorizontalPodAutoscaler와 메트릭 API에서 모든 메트릭은 쿠버네티스에서 사용하는 *수량* 숫자 표기법을 사용한다. 예를 들면, `10500m` 수량은 10진법 `10.5`으로 쓰인다. 메트릭 API들은 가능한 경우 접미사 없이 정수를 반환하며, 일반적으로 수량을 밀리단위로 반환한다. 10진수로 표현했을때, `1`과 `1500m` 또는 `1`과 `1.5` 로 메트릭 값을 나타낼 수 있다. 더 많은 정보를 위해서는 [수량에 관한 용어사전](/docs/reference/glossary?core-object=true#term-quantity) 을 참고하기 바란다.
 
-## Appendix: Other possible scenarios
+## 부록: 다른 가능한 시나리오
 
-### Creating the autoscaler declaratively
+### 명시적으로 오토스케일러 만들기
 
-Instead of using `kubectl autoscale` command to create a HorizontalPodAutoscaler imperatively we
-can use the following file to create it declaratively:
+HorizontalPodAutoscaler를 생성하기 위해 `kubectl autoscale` 명령어를 사용하는 대신 명시적으로 다음파일을 사용하여 만들 수 있다:
 
 {{< codenew file="application/hpa/php-apache.yaml" >}}
 
-We will create the autoscaler by executing the following command:
+다음 명령어를 실행하여 오토스케일러를 생성할 것이다.
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
