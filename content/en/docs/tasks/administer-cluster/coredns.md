@@ -42,6 +42,10 @@ during an upgrade. For example, here is what a `v1.11.0` upgrade would look like
 kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
 ```
 
+In Kubernetes version 1.13 and later the `CoreDNS` feature gate is removed and CoreDNS
+is used by default. Follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon) if you want
+your upgraded cluster to use kube-dns.
+
 In versions prior to 1.11 the Corefile will be **overwritten** by the one created during upgrade.
 **You should save your existing ConfigMap if you have customized it.** You may re-apply your
 customizations after the new ConfigMap is up and running.
@@ -56,12 +60,14 @@ In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
 and is installed by default.
 {{< /note >}}
 
-To install kube-dns instead, set the `CoreDNS` feature gate
+To install kube-dns on versions prior to 1.13, set the `CoreDNS` feature gate
 value to `false`:
 
 ```
 kubeadm init --feature-gates=CoreDNS=false
 ```
+
+For versions 1.13 and later, follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon).
 
 ## Tuning CoreDNS
 

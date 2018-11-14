@@ -243,13 +243,15 @@ SSH is required if you want to control all nodes from a single machine.
 
     This process writes all the requested files in the `/etc/kubernetes` folder.
 
-1.  Start `kubeadm` on this node:
+1.  Start `kubeadm join` on this node using the join command that was previously given to you by `kubeadm init` on
+    the first node. It should look something like this:
 
     ```sh
     sudo kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f --experimental-control-plane
     ```
 
-    - Notice that this is the command that was returned from running `kubeadm init` on the first node, with the addition of the `--experimental-control-plane` flag. This flag automates joining this control plane node to the cluster.
+    - Notice the addition of the `--experimental-control-plane` flag. This flag automates joining this
+    control plane node to the cluster.
 
 1.  Type the following and watch the pods of the components get started:
 
@@ -328,7 +330,7 @@ To summarize:
 
 - Make sure the first control plane node is fully initialized.
 - Copy certificates between the first control plane node and the other control plane nodes.
-- Join each control plane node with the join command you saved to a text file, plus the `--experimental-control-plane` flag.
+- Join each control plane node with the join command you saved to a text file, plus add the `--experimental-control-plane` flag.
 
 ## Common tasks after bootstrapping control plane
 
