@@ -1,7 +1,7 @@
 DOCKER       = docker
 HUGO_VERSION = 0.49
 DOCKER_IMAGE = kubernetes-hugo
-DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(PWD):/src
+DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(CURDIR):/src
 NODE_BIN     = node_modules/.bin
 NETLIFY_FUNC = $(NODE_BIN)/netlify-lambda
 
