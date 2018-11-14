@@ -1,5 +1,5 @@
 ---
-reviewers:
+pelanggan: fhykardm
 - dlorenc
 - balopat
 - aaron-prindle
@@ -7,11 +7,11 @@ title: Running Kubernetes Locally via Minikube
 content_template: templates/concept
 ---
 
-{{% capture overview %}}
+{{% capture overview %}
 
-Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
-
-{{% /capture %}}
+Minikube adalah alat yang memudahkan menjalankan Kubernetes secara lokal. Minikube menjalankan kluster Kubernetes node tunggal di dalam VM di laptop Anda untuk pengguna yang ingin mencoba Kubernetes atau mengembangkannya sehari-hari.
+y
+{{% / captureyty6y67%}}
 
 {{% capture body %}}
 
@@ -215,9 +215,9 @@ If you are behind a web proxy, you will need to pass this information to the `mi
 
 ```shell
 https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
-```
+`` `
 
-Unfortunately just setting the environment variables will not work.
+Sayangnya hanya pengaturan variabel lingkungan tidak akan berfung.
 
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
