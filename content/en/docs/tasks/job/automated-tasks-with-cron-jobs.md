@@ -144,7 +144,7 @@ The format also includes extended `vixie cron` step values. As explained in the 
 > asterisk, so if you want to say ``every two hours'', just use ``*/2''.
 
 {{< note >}}
-The question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
+A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is, it stands for any of available value for a given field.
 {{< /note >}}
 
 ### Job Template
