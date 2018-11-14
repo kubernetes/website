@@ -78,7 +78,7 @@ kubectl create -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
-You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future instrospection, for example to see the commands executed in each Deployment revision.
+You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future introspection, for example to see the commands executed in each Deployment revision.
 {{< /note >}}
 
 Next, run `kubectl get deployments`. The output is similar to the following:
