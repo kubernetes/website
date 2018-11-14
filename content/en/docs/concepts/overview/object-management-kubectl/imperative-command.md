@@ -136,7 +136,7 @@ kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run | k
 ```
 
 1. The `kubectl create service -o yaml --dry-run` command creates the configuration for the Service, but prints it to stdout as YAML instead of sending it to the Kubernetes API server.
-1. The `kubectl set --local -f - -o yaml` command reads the configuration from stdin, and writes the updated configuration to stdout as YAML.
+1. The `kubectl set selector --local -f - -o yaml` command reads the configuration from stdin, and writes the updated configuration to stdout as YAML.
 1. The `kubectl create -f -` command creates the object using the configuration provided via stdin.
 
 ## Using `--edit` to modify objects before creation

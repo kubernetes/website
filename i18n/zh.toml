@@ -1,0 +1,82 @@
+# i18n strings for the Chinese version of the site (https://kubernetes.io/zh/)
+
+[main_read_about]
+other = "Read about"
+
+[main_read_more]
+other = "了解更多"
+
+[main_github_invite]
+other = "想要修改 Kubernetes 的核心源代码"
+
+[main_github_view_on]
+other = "在 GitHub 上查看"
+
+[main_github_create_an_issue]
+other = "创建 GitHub issue"
+
+[main_community_explore]
+other = "了解社区"
+
+[main_kubernetes_features]
+other = "Kubernetes 特性"
+
+[main_cncf_project]
+other = """我们是 <a href="https://cncf.io/">CNCF</a> 毕业项目</p>"""
+
+[main_kubeweekly_signup]
+other = "订阅"
+
+[main_contribute]
+other = "贡献"
+
+[main_edit_this_page]
+other = "修改本页面"
+
+[main_page_history]
+other ="页面历史"
+
+[main_page_last_modified_on]
+other = "页面最后一次修改于"
+
+[main_by]
+other = "by"
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "查阅文档"
+
+[docs_label_contributors]
+other = "贡献者"
+
+[docs_label_users]
+other = "用户"
+
+[docs_label_i_am]
+other = "我是..."
+
+
+
+# Community links
+[community_twitter_name]
+other = "Twitter"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "Forum"
+[community_events_calendar]
+other = "Events Calendar"
+
+# UI elements
+[ui_search_placeholder]
+other = "搜索"

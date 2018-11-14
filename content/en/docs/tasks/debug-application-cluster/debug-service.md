@@ -126,8 +126,9 @@ have another `Pod` that consumes this `Service` by name you would get something
 like:
 
 ```shell
-u@pod$ wget -qO- hostnames
-wget: bad address 'hostname'
+u@pod$ wget -O- hostnames
+Resolving hostnames (hostnames)... failed: Name or service not known.
+wget: unable to resolve host address 'hostnames'
 ```
 
 So the first thing to check is whether that `Service` actually exists:
