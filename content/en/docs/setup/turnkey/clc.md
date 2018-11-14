@@ -260,7 +260,7 @@ To demonstrate how to use these locally stored certificates, we provide the foll
 curl \
    --cacert ${CLC_CLUSTER_HOME}/pki/ca.crt  \
    --key ${CLC_CLUSTER_HOME}/pki/kubecfg.key \
-   --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt  https://${MASTER_IP}:6443
+   --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt https://${MASTER_IP}:6443
 ```
 
 But please note, this *does not* work out of the box with the ```curl``` binary
@@ -274,7 +274,7 @@ create a cluster, the script should output URLs for these interfaces like this:
 kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```.
 
 Note on Authentication to the UIs: The cluster is set up to use basic
-authentication for the user _admin_.   Hitting the url at
+authentication for the user _admin_. Hitting the url at
 ```https://${MASTER_IP}:6443``` will require accepting the self-signed certificate
 from the apiserver, and then presenting the admin password written to file at:
 
@@ -308,7 +308,7 @@ kubectl get --namespace=kube-system replicationcontrollers
 ```
 
 The Kubernetes API server exposes services on web URLs, which are protected by requiring
-client certificates.  If you run a kubectl proxy locally, ```kubectl``` will provide
+client certificates. If you run a kubectl proxy locally, ```kubectl``` will provide
 the necessary certificates and serve locally over http.
 
 ```shell

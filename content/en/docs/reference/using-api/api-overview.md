@@ -53,13 +53,13 @@ Here's a summary of each level:
   - The software may contain bugs. Enabling a feature may expose bugs. A feature may be disabled by default.
   - The support for a feature may be dropped at any time without notice.
   - The API may change in incompatible ways in a later software release without notice.
-  - The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of  long-term support.
+  - The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of long-term support.
   
 - Beta:
   - The version names contain `beta` (for example, `v2beta3`).
   - The software is well tested. Enabling a feature is considered safe. Features are enabled by default.
   - The support for a feature will not be dropped, though the details may change.
-  - The schema and/or semantics of objects may change in incompatible ways in a subsequent beta or stable release. When this happens, migration instructions are provided.  This may require deleting, editing, and re-creating
+  - The schema and/or semantics of objects may change in incompatible ways in a subsequent beta or stable release. When this happens, migration instructions are provided. This may require deleting, editing, and re-creating
     API objects. The editing process may require some thought. This may require downtime for applications that rely on the feature.
   - The software is recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases. If you have multiple clusters which can be upgraded independently, you may be able to relax this restriction.
   
