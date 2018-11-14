@@ -53,7 +53,7 @@ Here's a summary of each level:
   - The software may contain bugs. Enabling a feature may expose bugs. A feature may be disabled by default.
   - The support for a feature may be dropped at any time without notice.
   - The API may change in incompatible ways in a later software release without notice.
-  - The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of  long-term support.
+  - The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of long-term support.
   
 - Beta:
   - The version names contain `beta` (for example, `v2beta3`).

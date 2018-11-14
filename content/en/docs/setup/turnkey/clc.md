@@ -260,7 +260,7 @@ To demonstrate how to use these locally stored certificates, we provide the foll
 curl \
    --cacert ${CLC_CLUSTER_HOME}/pki/ca.crt  \
    --key ${CLC_CLUSTER_HOME}/pki/kubecfg.key \
-   --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt  https://${MASTER_IP}:6443
+   --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt https://${MASTER_IP}:6443
 ```
 
 But please note, this *does not* work out of the box with the ```curl``` binary

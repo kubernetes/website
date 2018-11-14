@@ -118,7 +118,7 @@ View the files in the `/etc/podinfo` directory:
 In the output, you can see that the `labels` and `annotations` files
 are in a temporary subdirectory: in this example,
 `..2982_06_02_21_47_53.299460680`. In the `/etc/podinfo` directory, `..data` is
-a symbolic link to the temporary subdirectory. Also in  the `/etc/podinfo` directory,
+a symbolic link to the temporary subdirectory. Also in the `/etc/podinfo` directory,
 `labels` and `annotations` are symbolic links.
 
 ```

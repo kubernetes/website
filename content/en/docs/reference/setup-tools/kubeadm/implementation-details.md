@@ -577,7 +577,7 @@ Please note that:
 
 If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
 
-1. Read the kubelet base configuration from the `kubelet-base-config-v1.9` ConfigMap in the `kube-system` namespace  using the
+1. Read the kubelet base configuration from the `kubelet-base-config-v1.9` ConfigMap in the `kube-system` namespace using the
    Bootstrap Token credentials, and write it to disk as kubelet init configuration file  `/var/lib/kubelet/config/init/kubelet`
 2. As soon as kubelet starts with the Node's own credential (`/etc/kubernetes/kubelet.conf`), update current node configuration
    specifying that the source for the node/kubelet configuration is the above ConfigMap.
