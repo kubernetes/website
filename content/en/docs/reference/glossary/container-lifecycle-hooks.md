@@ -14,5 +14,5 @@ tags:
 
 <!--more--> 
 
-There are two hooks that are exposed to Containers: PostStart which executes immediately after a container is created and PreStop which is blocking and is called immediately before a container is terminated.
+Two hooks are exposed to Containers: PostStart which executes immediately after a container is created and PreStop which is blocking and is called immediately before a container is terminated.
 
