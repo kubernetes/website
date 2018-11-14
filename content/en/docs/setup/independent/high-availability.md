@@ -289,9 +289,9 @@ Remember that your config may differ from this example.
     export CP1_IP=10.0.0.8
     export CP1_HOSTNAME=cp1
 
+    kubeadm alpha phase etcd local --config kubeadm-config.yaml
     export KUBECONFIG=/etc/kubernetes/admin.conf
     kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
-    kubeadm alpha phase etcd local --config kubeadm-config.yaml
     ```
 
     - This command causes the etcd cluster to become unavailable for a
