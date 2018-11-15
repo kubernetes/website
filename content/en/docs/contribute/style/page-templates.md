@@ -75,7 +75,7 @@ To write a new concept page, create a Markdown file in a subdirectory of the
 
 An example of a published topic that uses the concept template is
 [Annotations](/docs/concepts/overview/working-with-objects/annotations/). The
-page you are currently reading also uses the content template.
+page you are currently reading also uses the concept template.
 
 ## Task template
 
