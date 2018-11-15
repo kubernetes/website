@@ -87,8 +87,6 @@ Some additional resources for getting information about your cluster and how it 
 ### Tutorials
 
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/)
-* [Kubernetes 101](/docs/user-guide/walkthrough/) - kubectl command line interface and Pods
-* [Kubernetes 201](/docs/user-guide/walkthrough/k8s201/) - labels, deployments, services, and health checking
 * [Configuring Redis with a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 * Stateless Applications
   * [Deploying PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook/)
