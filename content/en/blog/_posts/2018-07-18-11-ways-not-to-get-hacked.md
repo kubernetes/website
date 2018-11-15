@@ -50,7 +50,7 @@ Autoscaling Kubernetes nodes was historically difficult, as each node requires a
 
 <img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/rbac2.png" width="800" />
 
-Kubernetes' ABAC (Attribute Based Access Control) has been [superseded by RBAC](http://blog.kubernetes.io/2017/04/rbac-support-in-kubernetes.html) since release 1.6, and should not be enabled on the API server. Use RBAC instead:
+Kubernetes' ABAC (Attribute Based Access Control) has been [superseded by RBAC](http://kubernetes.io/blog/2017/04/rbac-support-in-kubernetes.html) since release 1.6, and should not be enabled on the API server. Use RBAC instead:
 
 ```
 --authorization-mode=RBAC
