@@ -6,7 +6,7 @@ content_template: templates/concept
 {{% capture overview %}}
 
 This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-incubator/kubespray).
-  
+
 Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 
 * a highly available cluster
@@ -64,7 +64,7 @@ Kubespray provides the ability to customize many aspects of the deployment:
   * docker
   * rkt
   * cri-o
-* Certificate generation methods (**Vault being discountinued**)
+* Certificate generation methods (**Vault being discontinued**)
 
 Kubespray customizations can be made to a [variable file](http://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 
