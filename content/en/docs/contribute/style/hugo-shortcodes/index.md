@@ -24,7 +24,7 @@ Below is a demo of the feature state snippet, which displays the feature as stab
 {{</* feature-state for_k8s_version="v1.10" state="stable" */>}}
 ```
 
-It renders to: 
+Renders to: 
 
 {{< feature-state for_k8s_version="v1.10" state="stable" >}}
 
@@ -36,8 +36,6 @@ The valid values for `state` are:
 * stable
 
 ### Feature state code
-
-Given below is the template code for each feature state.
 
 The displayed Kubernetes version defaults to that of the page or the site. This can be changed by passing the <code>for_k8s_version</code> shortcode parameter.
 
@@ -113,8 +111,8 @@ The `tabs` shortcode takes these parameters:
 
 * `name`: The name as shown on the tab.
 * `codelang`: If you provide inner content to the `tab` shortcode, you can tell Hugo what code language to use for highlighting.
-* `include`: The file to include in the tab. If the tab lives in a Hugo [leaf bundle](https://gohugo.io/content-management/page-bundles/#leaf-bundles), the file -- which can be any MIME type supported by Hugo -- will be looked up in the bundle itself. If not, the content page that needs to be included is looked up relative to the current page. Note that with the `include`, you do not have any shortcode inner content and must use the self-closing syntax. For example, <code>{{</* tab name="Content File #1" include="example1" /*/>}}</code>. The language needs to be specified under `codelang` or the language is taken based on the file name. Non-content files are code-highlighted by default. 
-* If your inner content is markdown, you must use the `%`-delimiter to surorund the tab. For example, `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
+* `include`: The file to include in the tab. If the tab lives in a Hugo [leaf bundle](https://gohugo.io/content-management/page-bundles/#leaf-bundles), the file -- which can be any MIME type supported by Hugo -- is looked up in the bundle itself. If not, the content page that needs to be included is looked up relative to the current page. Note that with the `include`, you do not have any shortcode inner content and must use the self-closing syntax. For example, <code>{{</* tab name="Content File #1" include="example1" /*/>}}</code>. The language needs to be specified under `codelang` or the language is taken based on the file name. Non-content files are code-highlighted by default. 
+* If your inner content is markdown, you must use the `%`-delimiter to surround the tab. For example, `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
 * You can combine the variations mentioned above inside a tab set.
 
 Below is a demo of the tabs shortcode.
