@@ -139,9 +139,23 @@ $ kubectl create -f ./secret.yaml
 secret "mysecret" created
 ```
 
-For certain scenarios, you may wish to use the stringData field instead. An
-example of this is where the Secret contains a configuration file with values
-populated via templating:
+For certain scenarios, you may wish to use the stringData field instead. This
+field allows you to put a non-base64 encoded string directly into the Secret,
+and the string will be encoded for you when the Secret is created or updated.
+
+A practical example of this might be where you are deploying an application
+that uses a Secret to store a configuration file, and you want to populate
+parts of that configuration file during your deployment process.
+
+If your application uses the following configuration file:
+
+```yaml
+apiUrl: "https://my.api.com/api/v1"
+username: "user"
+password: "password"
+```
+
+You could store this in a Secret using the following:
 
 ```yaml
 apiVersion: v1
@@ -156,9 +170,66 @@ stringData:
     password: {{password}}
 ```
 
+Your deployment tool could then replace the `{{username}}` and `{{password}}`
+template variables before running `kubectl create`.
+
 stringData is a write-only convenience field. It is never output when
-retrieving Secrets. If a field is specified in both data and stringData, the
-value from the stringData map is used.
+retrieving Secrets. For example, if you run the following command:
+
+```shell
+kubectl get secret mysecret -o yaml
+```
+
+The output will be similar to:
+
+```yaml
+apiVersion: v1
+data:
+  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
+kind: Secret
+metadata:
+  creationTimestamp: 2018-11-15T20:40:59Z
+  name: mysecret
+  namespace: default
+  resourceVersion: "7225"
+  selfLink: /api/v1/namespaces/default/secrets/mysecret
+  uid: c280ad2e-e916-11e8-98f2-025000000001
+type: Opaque
+```
+
+If a field is specified in both data and stringData, the value from stringData
+is used. For example, the following Secret definition:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  username: YWRtaW4=
+stringData:
+  username: administrator
+```
+
+Results in the following secret:
+
+```yaml
+apiVersion: v1
+data:
+  username: YWRtaW5pc3RyYXRvcg==
+kind: Secret
+metadata:
+  creationTimestamp: 2018-11-15T20:46:46Z
+  name: mysecret
+  namespace: default
+  resourceVersion: "7579"
+  selfLink: /api/v1/namespaces/default/secrets/mysecret
+  uid: 91460ecb-e917-11e8-98f2-025000000001
+type: Opaque
+```
+
+Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
 
 The keys of data and stringData must consist of alphanumeric characters,
 '-', '_' or '.'.
