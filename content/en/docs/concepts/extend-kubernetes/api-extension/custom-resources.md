@@ -236,6 +236,7 @@ When you add a custom resource, you can access it using:
 - The kubernetes dynamic client.
 - A REST client that you write.
 - A client generated using [Kubernetes client generation tools](https://github.com/kubernetes/code-generator) (generating one is an advanced undertaking, but some projects may provide a client along with the CRD or AA).
+- The [Kubebuilder](https://github.com/kubernetes-sigs/kubebuilder) SDK, which builds on top of the canonical techniques used to build the core Kubernetes APIs to provide simple abstractions and reduce boilerplate and toil.
 
 {{% /capture %}}
 
