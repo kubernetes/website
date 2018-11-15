@@ -6,9 +6,9 @@ toc:
 - docs/setup/pick-right-solution.md
 
 - title: Downloading Kubernetes
-  landing_page: /docs/imported/release/notes/
+  landing_page: /docs/setup/release/notes/
   section:
-  - docs/imported/release/notes.md
+  - docs/setup/release/notes.md
   - docs/setup/building-from-source.md
 
 - title: Version 1.10 Troubleshooting

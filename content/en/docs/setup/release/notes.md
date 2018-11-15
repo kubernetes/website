@@ -1,3 +1,6 @@
+---
+title: v1.12 Release Notes
+---
 <!-- BEGIN MUNGE: GENERATED_TOC -->
 - [v1.12.0-rc.2](#v1120-rc2)
   - [Downloads for v1.12.0-rc.2](#downloads-for-v1120-rc2)
