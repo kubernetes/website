@@ -27,7 +27,7 @@ Resource quotas work like this:
 
 - Different teams work in different namespaces.  Currently this is voluntary, but
   support for making this mandatory via ACLs is planned.
-- The administrator creates one or more `ResourceQuotas` for each namespace.
+- The administrator creates one `ResourceQuota` for each namespace.
 - Users create resources (pods, services, etc.) in the namespace, and the quota system
   tracks usage to ensure it does not exceed hard resource limits defined in a `ResourceQuota`.
 - If creating or updating a resource violates a quota constraint, the request will fail with HTTP
