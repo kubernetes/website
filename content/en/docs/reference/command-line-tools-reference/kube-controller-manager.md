@@ -298,7 +298,7 @@ kube-controller-manager [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--enable-hostpath-provisioner</td>
+      <td colspan="2">--enable-hostpath-provisioner&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: false</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Enable HostPath PV provisioning when running without a cloud provider. This allows testing and development of provisioning features.  HostPath provisioning is not supported in any way, won't work in a multi-node cluster, and should not be used for anything other than testing or development.</td>
