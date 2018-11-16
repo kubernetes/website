@@ -356,7 +356,7 @@ The complete Corefile with the default plugins:
 .:53 {
         errors
         health
-        kubernetes cluster.local  in-addr.arpa ip6.arpa {
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
            upstream  8.8.8.8 8.8.4.4
            pods insecure
            fallthrough in-addr.arpa ip6.arpa
