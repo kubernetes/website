@@ -358,7 +358,9 @@ Note that the Kubernetes Node name must match the Photon VM name (or if `overrid
 
 ### Node Name
 
-The VSphere cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+The VSphere cloud provider uses the detected hostname of the node (as determined by the kubelet) as the name of the Kubernetes Node object.
+
+The `--hostname-override` parameter is ignored by the VSphere cloud provider.
 
 ## IBM Cloud Kubernetes Service
 
