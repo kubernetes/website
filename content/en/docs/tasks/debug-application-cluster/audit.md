@@ -329,24 +329,22 @@ different users into different files.
 
 1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
 
-    ```none
-    $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
-    apiVersion: v1
-    clusters:
-    - cluster:
-        server: http://<ip_of_logstash>:8888
-      name: logstash
-    contexts:
-    - context:
-        cluster: logstash
-        user: ""
-      name: default-context
-    current-context: default-context
-    kind: Config
-    preferences: {}
-    users: []
-    EOF
-    ```
+        $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
+        apiVersion: v1
+        clusters:
+        - cluster:
+            server: http://<ip_of_logstash>:8888
+          name: logstash
+        contexts:
+        - context:
+            cluster: logstash
+            user: ""
+          name: default-context
+        current-context: default-context
+        kind: Config
+        preferences: {}
+        users: []
+        EOF
 
 1. start kube-apiserver with the following options:
 
