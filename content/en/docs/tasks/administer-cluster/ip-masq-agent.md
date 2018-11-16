@@ -4,7 +4,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows how to configure and enable the ip-masq-agent. 
+This page shows how to configure and enable the ip-masq-agent.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -23,7 +23,7 @@ The ip-masq-agent configures iptables rules to hide a pod's IP address behind th
 *   **NAT (Network Address Translation)**
     Is a method of remapping one IP address to another by modifying either the source and/or destination address information in the IP header.  Typically performed by a device doing IP routing.
 *   **Masquerading**
-    A form of NAT that is typically used to perform a many to one address translation, where multiple source IP addresses are masked behind a single address, which is typically the device doing the IP routing. In Kubernetes this is the Node's IP address. 
+    A form of NAT that is typically used to perform a many to one address translation, where multiple source IP addresses are masked behind a single address, which is typically the device doing the IP routing. In Kubernetes this is the Node's IP address.
 *   **CIDR (Classless Inter-Domain Routing)**
     Based on the variable-length subnet masking, allows specifying arbitrary-length prefixes. CIDR introduced a new method of representation for IP addresses, now commonly known as **CIDR notation**, in which an address or routing prefix is written with a suffix indicating the number of bits of the prefix, such as 192.168.2.0/24.
 *   **Link Local**
@@ -90,13 +90,13 @@ Run the following command to add the config map to your cluster:
 kubectl create configmap ip-masq-agent --from-file=config --namespace=kube-system
 ```
 
-This will update a file located at */etc/config/ip-masq-agent* which is periodically checked every *resyscInterval* and applied to the cluster node.
+This will update a file located at */etc/config/ip-masq-agent* which is periodically checked every *resyncInterval* and applied to the cluster node.
 After the resync interval has expired, you should see the iptables rules reflect your changes:
 
 ```
 iptables -t nat -L IP-MASQ-AGENT
 Chain IP-MASQ-AGENT (1 references)
-target     prot opt source               destination         
+target     prot opt source               destination
 RETURN     all  --  anywhere             169.254.0.0/16       /* ip-masq-agent: cluster-local traffic should not be subject to MASQUERADE */ ADDRTYPE match dst-type !LOCAL
 RETURN     all  --  anywhere             10.0.0.0/8           /* ip-masq-agent: cluster-local
 MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent: outbound traffic should be subject to MASQUERADE (this match must come after cluster-local CIDR matches) */ ADDRTYPE match dst-type !LOCAL
