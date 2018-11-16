@@ -110,7 +110,7 @@ Kubernetes provides two ways to add custom resources to your cluster:
 - CRDs are simple and can be created without any programming.
 - [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) requires programming, but allows more control over API behaviors like how data is stored and conversion between API versions.
 
-Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility are compromised.
+Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
 
 Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
 
