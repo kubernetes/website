@@ -137,7 +137,7 @@ option. Your cluster requirements may need a different configuration.
 ### Bootstrap the first stacked control plane node
 
 {{< note >}}
-Optionally replace `stable` with a different version of Kubernetes, for example `v1.12.0`.
+Optionally replace the string `stable` with a different version of Kubernetes, for example `v1.12.0`.
 {{< /note >}}
 
 1.  Create a `kubeadm-config.yaml` template file:
@@ -431,16 +431,16 @@ done
 
 ### Set up the first control plane node
 
+{{< note >}}
+Optionally replace the string `stable` with a different version of Kubernetes, for example `v1.11.3`.
+{{< /note >}}
+
 1.  Extract the etcd certificates
 
         mkdir -p /etc/kubernetes/pki
         tar -xzf etcd-pki.tar.gz -C /etc/kubernetes/pki --strip-components=3
 
 1.  Create a `kubeadm-config.yaml`:
-
-{{< note >}}
-Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
-{{< /note >}}
 
         apiVersion: kubeadm.k8s.io/v1alpha3
         kind: ClusterConfiguration
@@ -470,7 +470,7 @@ Optionally replace `stable` with a different version of Kubernetes, for example 
     - `ETCD_2_IP`
 
 1.  Run `kubeadm init --config kubeadm-config.yaml`
-1.  Copy the output join commamnd.
+1.  Copy the output from the join command
 
 ### Copy required files to the correct locations
 
