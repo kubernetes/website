@@ -17,7 +17,7 @@ on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Kataco
 Katacoda provides a free, in-browser Kubernetes environment. 
 
 {{< note >}}
-You can also follow this tutorial if you've installed Minikube locally.
+You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
 {{% /capture %}}
@@ -38,7 +38,7 @@ This tutorial provides a container image built from the following files:
 
 {{< codenew language="conf" file="minikube/Dockerfile" >}}
 
-For more information, read the Docker documentation for [docker build](https://docs.docker.com/engine/reference/commandline/build/)
+For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
 
 {{% /capture %}}
 
@@ -129,6 +129,9 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer
     ```
+    
+    The `--type=LoadBalancer` flag indicates that you want to expose your Service
+    outside of the cluster.
 
 2. View the Service you just created:
 
@@ -144,8 +147,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    The `--type=LoadBalancer` flag indicates that you want to expose your Service
-    outside of the cluster. On cloud providers that support load balancers,
+    On cloud providers that support load balancers,
     an external IP address would be provisioned to access the Service. On Minikube,
     the `LoadBalancer` type makes the Service accessible through the `minikube service`
     command.
@@ -250,7 +252,7 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Optionally, stop the Minikube VM:
+Optionally, stop the Minikube virtual machine (VM):
 
 ```shell
 minikube stop
