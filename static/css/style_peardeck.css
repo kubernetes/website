@@ -61,7 +61,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
@@ -79,7 +78,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background: url('/images/CaseStudy_peardeck_banner1.jpg');
   background-size:100% auto;
 }
@@ -93,7 +91,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background: url('/images/CaseStudy_peardeck_banner2.jpg');
   background-size:100% auto;
 }
@@ -107,7 +104,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
@@ -118,9 +114,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:60%;
-  padding-left:19%;
-  float:left;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner3text {
@@ -128,8 +123,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:70%;
-  padding-left:15%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner4text {
@@ -137,8 +132,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:55%;
-  padding-left:21%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner5text {
@@ -146,9 +141,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:60%;
-  padding-left:19%;
-  float:left;
   text-align:center;
+  margin:0 auto;
 }
 
 
@@ -185,16 +179,11 @@ hr {
   border-bottom:0px solid;
   width:100%;
   opacity:0.5;
-  color:#aaaaaa;
+  background-color:#999999;
   height:1px;
 }
 
 .col1 {
-
-width: 38%;
-padding-left:5%;
-padding-right:8%;
-float:left;
 font-family:"Roboto", sans-serif;
 font-weight:100;
 color:#606060;
@@ -205,11 +194,8 @@ font-size:14px;
 }
 
 .col2 {
-
-width: 44%;
 font-family:"Roboto", sans-serif;
 font-weight:300;
-float:left;
 line-height:20px;
 color:#606060;
   letter-spacing:0.03em;
@@ -227,7 +213,6 @@ font-size:14px;
   margin-bottom:6%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
   line-height:22px;
   color:#606060;
   letter-spacing:0.03em;
@@ -241,7 +226,6 @@ font-size:14px;
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
 
 }
 
@@ -289,10 +273,6 @@ h1 {
 }
 
 .col1 {
-  width: 100%;
-  padding-left:5%;
-  padding-right:8%;
-  float:left;
   font-family:"Roboto", sans-serif;
   font-weight:300;
   color:#606060;
@@ -302,13 +282,10 @@ h1 {
 }
 
 .col2 {
-  width: 100%;
-  padding-left:5%;
   padding-top:5%;
   padding-bottom:5%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
   line-height:20px;
   color:#606060;
   letter-spacing:0.03em;
@@ -338,7 +315,6 @@ h1 {
   letter-spacing:0.03em;
   line-height:24px;
   width:100%;
-  float:left;
   background:none;
   background-color:#666666;
 }
@@ -352,10 +328,7 @@ h1 {
   font-size:18px;
   letter-spacing:0.03em;
   line-height:24px;
-  width:80%;
-  padding-left:15%;
-  padding-right:10%;
-  float:left;
+  width:100%;
   background: url('/images/CaseStudy_peardeck_banner3.jpg');
 }
 
@@ -369,7 +342,6 @@ h1 {
   letter-spacing:0.03em;
   line-height:24px;
   width:100%;
-  float:left;
   background: url('/images/CaseStudy_peardeck_banner2.jpg');
 }
 
@@ -384,7 +356,6 @@ h1 {
   letter-spacing:0.03em;
   line-height:24px;
   width:100%;
-  float:left;
   background:none;
   background-color:#666666;
 }
@@ -394,9 +365,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:80%;
-  padding-left:10%;
-  float:left;
   text-align:center;
+  margin:0 auto;
   color:#ffffff;
 }
 
@@ -405,11 +375,10 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:80%;
-  padding-left:2%;
-  padding-right:10%;
   padding-top:5%;
   padding-bottom:5%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner4text {
@@ -417,8 +386,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:80%;
-  padding-left:10%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner5text {
@@ -426,9 +395,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:80%;
-  padding-left:10%;
-  float:left;
   text-align:center;
+  margin:0 auto;
   color:#ffffff;
 }
 
