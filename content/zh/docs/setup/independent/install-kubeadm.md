@@ -93,7 +93,6 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 ### Master node(s)
 -->
 ### Master 节点
-<!--
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
 |----------|-----------|------------|-------------------------|---------------------------|
 | TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
@@ -101,30 +100,15 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 | TCP      | Inbound   | 10250      | Kubelet API             | Self, Control plane       |
 | TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
 | TCP      | Inbound   | 10252      | kube-controller-manager | Self                      |
--->
-
-| 协议     | 方向       | 端口范围    | 目的                    | 使用者                   |
-|----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | 入        | 6443*      | Kubernetes API server   | 所有                       |
-| TCP      | 入        | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
-| TCP      | 入        | 10250      | Kubelet API             | 自身, Control plane       |
-| TCP      | 入        | 10251      | kube-scheduler          | 自身                      |
-| TCP      | 入        | 10252      | kube-controller-manager | 自身                      |
 <!--
 ### Worker node(s)
 -->
 ### Worker 节点
 
-<!--
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
 |----------|-----------|-------------|-----------------------|-------------------------|
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
 | TCP      | Inbound   | 30000-32767 | NodePort Services**   | All                     |
--->
-| 协议     | 方向       |端口范围     | 目的                   | 使用者                 |
-|----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | 入        | 10250       | Kubelet API           | Self, Control plane     |
-| TCP      | 入        | 30000-32767 | NodePort Services**   | All                     |
 <!--
 ** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
 -->
