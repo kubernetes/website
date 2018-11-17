@@ -131,7 +131,7 @@ Cluster Federation is a control plane of cluster federation in Kubernetes. It of
 
  ![Screen Shot 2016-07-07 at 1.46.55 PM.png](https://lh6.googleusercontent.com/jJjQ6wbYYG1y7rS7SXFNj1dsLrTEBbiOB9TfrkJAqayHVzBZwLguxMB6HLObCgpVGLKF7xdPd3wfdvQzB2a7Cq6cuqqXRRl3L5OfVPwKB34BxdpRUc1g7EgOdEkILH9E4sAfzHyb)
 
-Each Kubernetes cluster exposes an API endpoint and gets registered to Cluster Federation as a part of Federation object. Then using Cluster Federation API, you can create federated services.  Those objects are comprised of multiple equivalent underlying Kubernetes resources. Assuming that the 3 clusters on the picture above belong to the same Federation object, each Service created via Cluster Federation, will get equivalent service created in each of the clusters. Besides that, a Cluster Federation service will get publicly resolvable DNS name resolvable to Kuberentes service’s public ip addresses (DNS record gets programmed to a one of the public DNS providers below):
+Each Kubernetes cluster exposes an API endpoint and gets registered to Cluster Federation as a part of Federation object. Then using Cluster Federation API, you can create federated services.  Those objects are comprised of multiple equivalent underlying Kubernetes resources. Assuming that the 3 clusters on the picture above belong to the same Federation object, each Service created via Cluster Federation, will get equivalent service created in each of the clusters. Besides that, a Cluster Federation service will get publicly resolvable DNS name resolvable to Kubernetes service’s public ip addresses (DNS record gets programmed to a one of the public DNS providers below):
 
 
 
