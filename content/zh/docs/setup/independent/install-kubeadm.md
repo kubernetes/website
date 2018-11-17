@@ -45,15 +45,15 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
   - Debian 9
   - CentOS 7
   - RHEL 7
-  - Fedora 25/26 (最佳实践)
+  - Fedora 25/26 (性能最佳)
   - HypriotOS v1.0.1+
-  - Container Linux (1800.6.0 版本可用)
+  - Container Linux (针对1800.6.0 版本测试)
 * 每台机器 2 GB 或更多的 RAM (如果少于这个数字将会影响您应用的运行内存)
 * 2 CPU 核心或更多 
-* 集群中的所有机器的网络可以连通(公网和内网都可以)
-* 节点之中不可以有重复的主机名，MAC 地址，产品序列号。更多详细信息请参见[这里](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) 。
+* 集群中的所有机器的网络彼此均能相互连接(公网和内网都可以)
+* 节点之中不可以有重复的主机名，MAC 地址，product_uuid。更多详细信息请参见[这里](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) 。
 * 开启主机上的一些特定端口. 更多详细信息请参见[这里](#check-required-ports)。
-* 关闭 Swap。为了保证 kubelet 正确运行，您 **必须** 关闭 swap。
+* 禁用 Swap 交换分区。为了保证 kubelet 正确运行，您 **必须** 禁用交换分区。
 {{% /capture %}}
 
 {{% capture steps %}}
@@ -84,16 +84,17 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 -->
-如果您有一个以上的网络适配器，同时您的Kubernetes组件在默认情况下不可达，我们建议您预先配置好 IP 路径，这样 Kubernetes 集群就可以通过对应的适配器完成连接。
+如果您有一个以上的网络适配器，同时您的 Kubernetes 组件通过默认路由不可达，我们建议您预先配置好 IP 路径，这样 Kubernetes 集群就可以通过对应的适配器完成连接。
 <!--
 ## Check required ports
 -->
 ## 检查所需端口
 <!--
 ### Master node(s)
+| Protocol | Direction | Port Range | Purpose                 | Used By                   |
 -->
 ### Master 节点
-| Protocol | Direction | Port Range | Purpose                 | Used By                   |
+| 规则     | 方向       | 端口范围   | 作用                     | 使用者                    |
 |----------|-----------|------------|-------------------------|---------------------------|
 | TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
 | TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
@@ -102,10 +103,11 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 | TCP      | Inbound   | 10252      | kube-controller-manager | Self                      |
 <!--
 ### Worker node(s)
+| Protocol | Direction | Port Range  | Purpose               | Used By                 |
 -->
 ### Worker 节点
 
-| Protocol | Direction | Port Range  | Purpose               | Used By                 |
+| 规则     | 方向       | 端口范围    | 作用                   | 使用者                  |
 |----------|-----------|-------------|-----------------------|-------------------------|
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
 | TCP      | Inbound   | 30000-32767 | NodePort Services**   | All                     |
@@ -118,19 +120,19 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open. 
 -->
-任意使用 * 标记的端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开启的。
+任意使用 * 标记的端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开放的。
 
 <!-- 
 Although etcd ports are included in master nodes, you can also host your own
 etcd cluster externally or on custom ports. 
 -->
-虽然 master 节点已经包含了 etcd 的端口，您也可以使用自定义的外部 etcd 集群，并且指定自定义端口。
+虽然 master 节点已经包含了 etcd 的端口，您也可以使用自定义的外部 etcd 集群，或是指定自定义端口。
 <!--
 The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 -->
-您使用的 pod network plugin (见下) 也可能需要某些特定端口开启。由于各个 pod network plugin 都有所不同，请参阅他们各自文档中对端口的要求。
+您使用的 pod 网络插件 (见下) 也可能需要某些特定端口开启。由于各个 pod 网络插件都有所不同，请参阅他们各自文档中对端口的要求。
 
 <!-- ## Installing runtime -->
 ## 安装 runtime
@@ -140,7 +142,7 @@ Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface
 The container runtime used by default is Docker, which is enabled through the built-in
 `dockershim` CRI implementation inside of the `kubelet`. 
 -->
-从 v1.6.0 起，Kubernetes 开始默认使用 CRI，容器运行时接口。默认的容器运行时是 Docker，这是由 `kubelet` 内置的 CRI 实现： `dockershim`  开启的。
+从 v1.6.0 起，Kubernetes 开始允许使用 CRI，容器运行时接口。默认的容器运行时是 Docker，这是由 `kubelet` 内置的 CRI 实现： `dockershim`  开启的。
 
 <!-- 
 Other CRI-based runtimes include:
@@ -180,9 +182,9 @@ You will install these packages on all of your machines:
 您需要在每台机器上都安装以下的软件包：
 
  * `kubeadm`: 用来初始化集群的指令。
- * 
+  
  * `kubelet`: 在集群中的每个节点上用来启动 pod 和 container 等。
- * 
+  
  * `kubectl`: 用来与集群通信的命令行工具。
 
 <!-- 
@@ -194,7 +196,7 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa. 
 -->
-kubeadm **不能** 帮您安装或管理 `kubelet` 或 `kubectl` ，所以您得保证他们满足通过 kubeadm 安装的 Kubernetes 控制层对版本的要求。如果版本没有满足要求，就有可能导致一些难以想到的错误或问题。然而 _一个_ 轻微的 控制层与 kubelet间的版本不一致无伤大雅，不过请记住 kubelet 的版本不可以超过 API server 的版本。例如 1.8.0 的 API server 可以适配 1.7.0 的 kubelet，反之就不行了。
+kubeadm **不能** 帮您安装或管理 `kubelet` 或 `kubectl` ，所以您得保证他们满足通过 kubeadm 安装的 Kubernetes 控制层对版本的要求。如果版本没有满足要求，就有可能导致一些难以想到的错误或问题。然而控制层与 kubelet 间的 _小版本号_ 不一致无伤大雅，不过请记住 kubelet 的版本不可以超过 API server 的版本。例如 1.8.0 的 API server 可以适配 1.7.0 的 kubelet，反之就不行了。
 
 <!-- 
 {{< warning >}}
@@ -214,12 +216,8 @@ For more information on version skews, please read our
 
 更多关于版本冲突的信息，请参阅 [版本冲突政策](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)。
 
-<!-- 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}} 
--->
-{{< tabs name="k8s_安装" >}}
-{{% tab name="Ubuntu, Debian 或 HypriotOS" %}}
 ```bash
 apt-get update && apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -244,7 +242,10 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 exclude=kube*
 EOF
 
+<!--
 # Set SELinux in permissive mode (effectively disabling it)
+-->
+# 在宽容模式下操作 SELinux (有效关闭)
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
@@ -263,9 +264,9 @@ systemctl enable kubelet && systemctl start kubelet
   - Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure
     `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g. 
   -->
-  - 在宽容模式中使用 `setenforce 0` 和 `sed ...` 来禁用SELinux。
-    这是诸如 pod network 的要求，为了使 container 可以访问宿主机的文件系统。您必须这么做，直到 kubelet 做出升级支持 SELinux 为止。
-  - 一些 RHEL/CentOS 7 的用户曾经遇到过受到 iptable 被绕过的影响，网络请求被错误的路由。您得保证
+  - 通过命令 `setenforce 0` 和 `sed ...` 可以将 SELinux 设置为 permissive 模式(将其禁用)。
+    只有执行这一操作之后，容器才能访问宿主的文件系统，进而能够正常使用 Pod 网络。您必须这么做，直到 kubelet 做出升级支持 SELinux 为止。
+  - 一些 RHEL/CentOS 7 的用户曾经遇到过：由于 iptable 被绕过导致网络请求被错误的路由。您得保证
     在您的 `sysctl` 配置中 `net.bridge.bridge-nf-call-iptables` 被设为1。
 
     ```bash
@@ -337,18 +338,19 @@ kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 
 <!--
 ## Configure cgroup driver used by kubelet on Master Node
 -->
-## 在 Master 节点上配置 kubelet 所需的 cgroup driver
+## 在 Master 节点上配置 kubelet 所需的 cgroup 驱动
 
 <!--
 When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
 and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
 -->
-使用 Docker 时，kubeadm 会自动为其检测 cgroup driver 并实时对 `/var/lib/kubelet/kubeadm-flags.env` 文件进行配置。
+使用 Docker 时，kubeadm 会自动为其检测 cgroup 驱动在运行时对 `/var/lib/kubelet/kubeadm-flags.env` 文件进行配置。
 <!--
 If you are using a different CRI, you have to modify the file
 `/etc/default/kubelet` with your `cgroup-driver` value, like so:
 -->
 如果您使用了不同的 CRI， 您得把 `/etc/default/kubelet` 文件中的 `cgroup-driver` 位置改为对应的值，像这样：
+
 ```bash
 KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 ```
@@ -363,7 +365,7 @@ user defined arguments for the kubelet.
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not , because that is the default value in the kubelet already.
 -->
-请注意，您**只**需要在您的 cgroup driver 不是 `cgroupfs` 时这么做，因为那已经是 kubelet 的默认值了。
+请注意，您**只**需要在您的 cgroup driver 不是 `cgroupfs` 时这么做，因为 `cgroupfs` 已经是 kubelet 的默认值了。
 
 <!--
 Restarting the kubelet is required:
@@ -387,7 +389,8 @@ systemctl restart kubelet
 {{% capture whatsnext %}}
 
 <!-- 
-* [使用 kubeadm 来创建集群](/docs/setup/independent/create-cluster-kubeadm/) 
+* [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/)
 -->
+* [使用 kubeadm 来创建集群](/docs/setup/independent/create-cluster-kubeadm/) 
 
 {{% /capture %}}
