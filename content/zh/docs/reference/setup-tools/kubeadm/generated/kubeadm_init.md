@@ -1,6 +1,6 @@
 
 <!-- Run this command in order to set up the Kubernetes master. -->
-运行这个命令来搭建Kubernetes主节点
+运行这个命令来搭建Kubernetes master节点
 
 <!-- ### Synopsis -->
 ### 简介
