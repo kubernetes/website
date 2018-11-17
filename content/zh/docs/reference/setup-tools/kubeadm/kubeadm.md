@@ -8,7 +8,7 @@ weight: 10
 Kubeadm是一个工具，它提供了 `kubeadm init` 以及 `kubeadm join` 这两个命令作为快速创建kubernetes集群的最佳实践。
 
 <!-- kubeadm performs the actions necessary to get a minimum viable cluster up and running. By design, it cares only about bootstrapping, not about provisioning machines. Likewise, installing various nice-to-have addons, like the Kubernetes Dashboard, monitoring solutions, and cloud-specific addons, is not in scope. -->
-kubeadm通过执行必要的操作来启动和运行一个最小可用的集群。它被故意设计为只关心启动集群，而不是之后的准备的工作。同样的：诸如安装各种各样的可有可无的插件，例如Kubernetes看板、监控解决方案以及特定云提供商的插件，这些都不在它负责的范围。
+kubeadm通过执行必要的操作来启动和运行一个最小可用的集群。它被故意设计为只关心启动集群，而不是之前的节点准备工作。同样的，诸如安装各种各样的可有可无的插件，例如Kubernetes 控制面板、监控解决方案以及特定云提供商的插件，这些都不在它负责的范围。
 
 <!-- Instead, we expect higher-level and more tailored tooling to be built on top of kubeadm, and ideally, using kubeadm as the basis of all deployments will make it easier to create conformant clusters. -->
 相反，我们期望由一个基于kubeadm从更高层设计的更加合适的工具来做这些事情；并且，理想情况下，使用kubeadm作为所有部署的基础将会使得创建一个符合期望的集群变得容易。
