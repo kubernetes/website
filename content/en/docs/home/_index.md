@@ -11,6 +11,7 @@ display_browse_numbers: true
 linkTitle: "Home"
 main_menu: true
 weight: 10
+hide_feedback: true
 menu:
   main:
     title: "Documentation"
