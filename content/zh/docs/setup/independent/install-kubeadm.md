@@ -45,7 +45,7 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
   - Debian 9
   - CentOS 7
   - RHEL 7
-  - Fedora 25/26 (性能最佳)
+  - Fedora 25/26 (尽力服务)
   - HypriotOS v1.0.1+
   - Container Linux (针对1800.6.0 版本测试)
 * 每台机器 2 GB 或更多的 RAM (如果少于这个数字将会影响您应用的运行内存)
@@ -84,7 +84,7 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 -->
-如果您有一个以上的网络适配器，同时您的 Kubernetes 组件通过默认路由不可达，我们建议您预先配置好 IP 路径，这样 Kubernetes 集群就可以通过对应的适配器完成连接。
+如果您有一个以上的网络适配器，同时您的 Kubernetes 组件通过默认路由不可达，我们建议您预先添加 IP 路由规则，这样 Kubernetes 集群就可以通过对应的适配器完成连接。
 <!--
 ## Check required ports
 -->
@@ -245,7 +245,7 @@ EOF
 <!--
 # Set SELinux in permissive mode (effectively disabling it)
 -->
-# 在宽容模式下操作 SELinux (有效关闭)
+# 将 SELinux 设置为 permissive 模式(将其禁用)
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
@@ -383,8 +383,9 @@ systemctl restart kubelet
 ## 查错
 
 <!-- 
-如果您在使用 kubeadm 时候遇到问题，请查看我们的[疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/). 
+If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 -->
+如果您在使用 kubeadm 时候遇到问题，请查看我们的[疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/). 
 
 {{% capture whatsnext %}}
 
