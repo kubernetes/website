@@ -1,5 +1,5 @@
 ---
 title: "Workloads"
-weight: 60
+weight: 50
 ---
 

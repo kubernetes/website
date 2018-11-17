@@ -1,4 +1,4 @@
 ---
 title: Extending Kubernetes
-weight: 40
+weight: 110
 ---
