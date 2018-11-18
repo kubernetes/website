@@ -371,7 +371,7 @@ As a cluster administrator, you might want to impose restrictions on the CPU res
 For example:
 -->
 
-最为集群管理员，你可能想设定 Pod 可以使用的 CPU 资源限制。例如：
+做为集群管理员，你可能想设定 Pod 可以使用的 CPU 资源限制。例如：
 
 <!--
 * Each Node in a cluster has 2 CPU. You do not want to accept any Pod that requests
