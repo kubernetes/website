@@ -6,7 +6,7 @@ weight: 30
 -->
 
 ---
-title: "给应用中引入数据"
+title: "给应用注入数据"
 weight: 30
 ---
 
