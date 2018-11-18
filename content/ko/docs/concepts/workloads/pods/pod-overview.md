@@ -12,20 +12,22 @@ weight: 10
 {{% capture body %}}
 ## 파드에 대해 이해하기
 
-*파드*는 쿠버네티스의 기본적인 블럭이다--쿠버네티스 객체모델 중 당신이 만들고 배포할 수 있는 가장 작고 심플한 단위이다. 파드는 당신의 클러스터의 동작중인 프로세스를를 나타낸다. 
+*파드*는 쿠버네티스의 기본적인 블럭이다--쿠버네티스 객체모델 중 당신이 만들고 배포할 수 있는 가장 작고 심플한 단위이다. 파드는 당신의 클러스터에서의 Running 프로세스를 나타낸다. 
 
 A Pod encapsulates an application container (or, in some cases, multiple containers), storage resources, a unique network IP, and options that govern how the container(s) should run. A Pod represents a unit of deployment: *a single instance of an application in Kubernetes*, which might consist of either a single container or a small number of containers that are tightly coupled and that share resources.
 
 
 
-> [Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other container runtimes as well.
+> [Docker](https://www.docker.com)는 쿠버네티스 파드에서 가장 대표적인 컨테이너 런타임이지만, 파드는 다른 컨테이너 런타임 역시 지원한다.
+
 
 쿠버네티스 클러스터 안의 파드들은 주로 두가지 방법으로 사용된다:
 
-* **Pods that run a single container**. The "one-container-per-Pod" model is the most common Kubernetes use case; in this case, you can think of a Pod as a wrapper around a single container, and Kubernetes manages the Pods rather than the containers directly.
+* **한 개의 컨테이너만 동작하는 파드**. "한 개의 컨테이너 당 한 개의 파드" 모델은 쿠버네티스 사용 사례중 가장 흔하다; 이 경우, 한 개의 파드가 한 개의 컨테이너를 감싸고 있다고 생각할 수 있으며, 쿠버네티스가 컨테이너를 직접 관리하는 대신 파드를 관리한다고도 볼 수 있다.
+ 
 * **Pods that run multiple containers that need to work together**. A Pod might encapsulate an application composed of multiple co-located containers that are tightly coupled and need to share resources. These co-located containers might form a single cohesive unit of service--one container serving files from a shared volume to the public, while a separate "sidecar" container refreshes or updates those files. The Pod wraps these containers and storage resources together as a single manageable entity.
 
-The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information on Pod use cases. For more information, see:
+The [쿠버네티스 블로그](http://blog.kubernetes.io)에는 파드 사용 사례의 몇가지 추가적인 정보가 있다. 더 많은 정보를 위해서 아래 내용을 참조한다:
 
 * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
 * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
@@ -40,7 +42,7 @@ Note that grouping multiple co-located and co-managed containers in a single Pod
 
 {{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
 
-Pods provide two kinds of shared resources for their constituent containers: *networking* and *storage*.
+파드는 같은 파드 안에 속한 컨테이너들에게 두가지 공유 리소스를 제공한다: *네트워킹* 과 *저장소*.
 
 #### 네트워킹
 
@@ -62,15 +64,15 @@ Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fail
 
 ### 파드와 컨트롤러
 
-A Controller can create and manage multiple Pods for you, handling replication and rollout and providing self-healing capabilities at cluster scope. For example, if a Node fails, the Controller might automatically replace the Pod by scheduling an identical replacement on a different Node.
+컨트롤러는 당신을 위해 다중 파드를 생성하고 관리해 주는데, 클러스터 범위 내에서의 레플리케이션 핸들링, 롤아웃 그리고 자가치료 기능 제공을 한다. 예를들어, 만약 노드가 고장났을 때, 컨트롤러는 아마 자동으로 다른 노드에 고장난 노드에 스케줄링되고 있는 것과 같은 파드로 교체할 것이다.  
 
-Some examples of Controllers that contain one or more pods include:
+한가지 또는 그 이상의 파드를 보유한 컨트롤러의 몇가지 예시:
 
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
 * [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
 
-In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.
+일반적으로, 컨트롤러는 당신이 책임을 지고 제공한 파드 템플릿을 사용한다.
 
 ## 파드 
 
@@ -99,7 +101,7 @@ Rather than specifying the current desired state of all replicas, pod templates 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn more about Pod behavior:
-  * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
+* 파드의 다른 동작들을 더 배워보자:
+  * [파드 종료](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * 다른 파드 주제
 {{% /capture %}}
