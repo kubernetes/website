@@ -176,6 +176,8 @@ Get a copy of the kubeadm config used to create this cluster. The config should 
 kubectl get configmap -n kube-system kubeadm-config -o jsonpath={.data.MasterConfiguration} > kubeadm-config.yaml
 ```
 
+Open the file in an editor and set `api.advertiseAddress` to the local node's IP address.
+
 Now run the upgrade on each control plane node one at a time.
 
 ```
