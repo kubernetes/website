@@ -209,7 +209,7 @@ audit policies.
 
 ## Dynamic Auditing
 
-{{</* feature-state feature-state state="alpha" */>}}
+{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
 In Kubeernetes version 1.13, you can configure dynamic audit webhook backends  AuditSink API objects. 
 
