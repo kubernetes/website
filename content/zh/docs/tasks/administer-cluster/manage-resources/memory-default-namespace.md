@@ -249,7 +249,7 @@ resources:
 ## Motivation for default memory limits and requests
 -->
 
-## 设置内存限制和请求的动机
+## 设置默认内存限制和请求的动机
 
 <!--
 If your namespace has a resource quota,
@@ -257,7 +257,7 @@ it is helpful to have a default value in place for memory limit.
 Here are two of the restrictions that a resource quota imposes on a namespace:
 -->
 
-如果你的命名空间有资源配额，那么默认内存限制是很有帮助的。这里给出了为命名空间限定资源配额的两个限制规定：
+如果你的命名空间有资源配额，那么默认内存限制是很有帮助的。下面是一个例子，通过资源配额为命名空间设置两项约束：
 
 <!--
 * Every Container that runs in the namespace must have its own memory limit.
