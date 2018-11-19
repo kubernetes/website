@@ -23,10 +23,8 @@ weight: 10
 쿠버네티스 클러스터 안의 파드들은 주로 두가지 방법으로 사용된다:
 
 * **한 개의 컨테이너만 동작하는 파드**. "한 개의 컨테이너 당 한 개의 파드" 모델은 쿠버네티스 사용 사례중 가장 흔하다; 이 경우, 한 개의 파드가 한 개의 컨테이너를 감싸고 있다고 생각할 수 있으며, 쿠버네티스가 컨테이너를 직접 관리하는 대신 파드를 관리한다고도 볼 수 있다.
- 
-* **Pods that run multiple containers that need to work together**. A Pod might encapsulate an application composed of multiple co-located containers that are tightly coupled and need to share resources. These co-located containers might form a single cohesive unit of service--one container serving files from a shared volume to the public, while a separate "sidecar" container refreshes or updates those files. The Pod wraps these containers and storage resources together as a single manageable entity.
 
-* **함께 동작하는 작업이 필요하여 다중 컨테이너가 동작하는 파드**. 아마 파드는 강하게 결합되어 있고 리소스 공유가 필요한 다중으로 병합 설치된 컨테이너로 구성되어 있을 것이다. 
+* **함께 동작하는 작업이 필요하여 다중 컨테이너가 동작하는 파드**. 아마 파드는 강하게 결합되어 있고 리소스 공유가 필요한 다중으로 병합 설치된 컨테이너로 구성되어 있을 것이다. 이 병합 설치된 컨테이너들은 단일 결합 서비스 형태일 것이다.--한 컨테이너는 공유 볼륨에서 퍼블릭으로 파일들을 옮기고, 동시에 분리되어 있는 "사이드카" 컨테이너는 그 파일들을 업데이트 하거나 리프레쉬 한다. 파드는 이 컨테이너들과 저장소 리소스들을 한 개의 관리 가능한 요소로 묶는다.
 
 
 The [쿠버네티스 블로그](http://blog.kubernetes.io)에는 파드 사용 사례의 몇가지 추가적인 정보가 있다. 더 많은 정보를 위해서 아래 내용을 참조한다:
