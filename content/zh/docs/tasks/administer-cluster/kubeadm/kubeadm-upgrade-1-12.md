@@ -415,7 +415,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     kubectl uncordon $NODE
     ```
 
-1.  在所有节点上升级kubelet之后，通过以下命令再次验证所有来自任何地方的的节点的可用性，同时 kubectl 可以访问整个集群： 
+1.  在所有节点上升级 kubelet 之后，通过以下命令再次验证所有来自任何地方的的节点的可用性，同时 kubectl 可以访问整个集群： 
 
     ```shell
     kubectl get nodes
