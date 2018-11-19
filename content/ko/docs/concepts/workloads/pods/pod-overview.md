@@ -27,7 +27,7 @@ weight: 10
 * **함께 동작하는 작업이 필요하여 다중 컨테이너가 동작하는 파드**. 아마 파드는 강하게 결합되어 있고 리소스 공유가 필요한 다중으로 병합 설치된 컨테이너로 구성되어 있을 것이다. 이 병합 설치된 컨테이너들은 단일 결합 서비스 형태일 것이다.--한 컨테이너는 공유 볼륨에서 퍼블릭으로 파일들을 옮기고, 동시에 분리되어 있는 "사이드카" 컨테이너는 그 파일들을 업데이트 하거나 리프레쉬 한다. 파드는 이 컨테이너들과 저장소 리소스들을 한 개의 관리 가능한 요소로 묶는다.
 
 
-The [쿠버네티스 블로그](http://blog.kubernetes.io)에는 파드 사용 사례의 몇가지 추가적인 정보가 있다. 더 많은 정보를 위해서 아래 내용을 참조한다:
+[쿠버네티스 블로그](http://blog.kubernetes.io)에는 파드 사용 사례의 몇가지 추가적인 정보가 있다. 더 많은 정보를 위해서 아래 내용을 참조한다:
 
 * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
 * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
