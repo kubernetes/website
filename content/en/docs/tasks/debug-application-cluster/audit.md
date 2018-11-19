@@ -211,9 +211,9 @@ audit policies.
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
-In Kubeernetes version 1.13, you can configure dynamic audit webhook backends  AuditSink API objects. 
+In Kubernetes version 1.13, you can configure dynamic audit webhook backends AuditSink API objects. 
 
-To enable dynamic auditingm you must set the following apiserver flags:
+To enable dynamic auditing you must set the following apiserver flags:
 
 - `--audit-dynamic-configuration`: the primary switch. When the feature is at GA, the only required flag.
 - `--feature-gates=DynamicAuditing=true`: feature gate at alpha and beta.
@@ -224,25 +224,21 @@ When enabled, an AuditSink object can be provisioned:
 apiVersion: auditregistration.k8s.io/v1alpha1
 kind: AuditSink
 metadata:
-  name: <name>
+  name: mysink
 spec:
   policy:
-    level: <level>
+    level: Metadata
     stages:
-    - <stage>
+    - RequestResponse
   webhook:
     throttle:
-      qps: <10>
-      burst: <15>
+      qps: 10
+      burst: 15
     clientConfig:
-      url: <backend url>
-      service:
-        name: <service name>
-        namespace: <service namespace>
-      caBundle: <ca bundle>
+      url: "https://audit.app"
 ```
 
-For the complete API definition, see [the godoc](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go). Multiple objects will exist as independent solutions.
+For the complete API definition, see [the godoc](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/api/auditregistration/v1alpha1/types.go). Multiple objects will exist as independent solutions.
 
 Existing static backends that you configure with runtime flags are not affected by this feature. However, the dynamic backends share the truncate options of the static webhook. If webhook truncate options are set with runtime flags, they are applied to all dynamic backends.
 
@@ -258,7 +254,7 @@ Administrators should be aware that allowing write access to this feature grants
 
 ### Performance
 
-Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal, and performance impact testing will be done to understand its scope before the API progresses to beta.
+Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal for a small number of sinks, and performance impact testing will be done to understand its scope before the API progresses to beta.
 
 ## Log Collector Examples
 
