@@ -1,12 +1,3 @@
-<!--
----
-reviewers:
-- sig-cluster-lifecycle
-title: Upgrading kubeadm clusters from v1.11 to v1.12
-content_template: templates/task
----
--->
-
 ---
 reviewers:
 - sig-cluster-lifecycle
@@ -32,10 +23,10 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 -->
 
-- 你需要有一个由 `kubeadm` 创建的并运行着 1.11.0 或更高版本的 Kubernetes 集群。
+- 您需要有一个由 `kubeadm` 创建的并运行着 1.11.0 或更高版本的 Kubernetes 集群。
   [Swap 必须被禁用][swap]. 
   集群应使用静态的控制平面和 etcd pod。
-- 请务必认真阅读[发型说明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md)。
+- 请务必认真阅读[发行说明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md)。
 - 请务必备份所有重要组件，例如存储在数据库中的 app-level 状态。
   `kubeadm upgrade` 不会触及您的工作负载，只会触及 Kubernetes 内部的组件，但备份终究是好的。
 
@@ -86,7 +77,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
 ## 升级控制平面
 
-1.  在主节点上，升级kubeadm：
+1.  在主节点上，升级 kubeadm：
 
     {{< tabs name="k8s_install" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -112,6 +103,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 <!--
     You should see output similar to this:
 -->
+
     您应该可以看到与下面类似的输出：
 
     ```shell
@@ -150,20 +142,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
     ```
 
-<!--
-    This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
--->
     此命令检查您的集群是否可以升级，并可以获取到升级的版本。
-
-<!--
-1.  Choose a version to upgrade to, and run the appropriate command. For example:
-
-    ```shell
-    kubeadm upgrade apply v1.12.0
-    ```
-
-    You should see output similar to this:
--->
 
 1.  选择要升级到的版本，然后运行相应的命令。 例如：
 
@@ -173,8 +152,6 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
     您应该可以看见与下面类似的输出：
     <!-- TODO: output from stable -->
-
-
 
     ```shell
     [preflight] Running pre-flight checks.
@@ -259,6 +236,12 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
 
+1.  手动升级软件定义网络（SDN）。
+
+    您的容器网络接口（CNI）应该提供了程序自身的升级说明。
+    检查 [addons](/docs/concepts/cluster-administration/addons/) 页面以
+    查找您 CNI 所提供的程序，并查看是否需要其他升级步骤。
+
 <!--
 1.  Manually upgrade your Software Defined Network (SDN).
 
@@ -266,11 +249,6 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
     find your CNI provider and see whether additional upgrade steps are required.
 -->
-1.  手动升级软件定义网络（SDN）。
-
-    您的容器网络接口（CNI）应该提供了程序自身的升级说明。
-    检查 [addons](/docs/concepts/cluster-administration/addons/) 页面以
-    查找您 CNI 所提供的程序，并查看是否需要其他升级步骤。
 
 <!--
 ## Upgrade master and node packages
@@ -312,7 +290,6 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     {{% /tab %}}
     {{< /tabs >}}
 -->
-
 ## 升级 master 和节点的软件包
 
 1.  准备为每个节点进行维护，将其标记为不可调度并移出工作负载：
@@ -321,7 +298,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     kubectl drain $NODE --ignore-daemonsets
     ```
 
-    在 master 节点上，你必须增加 `--ignore-daemonsets`：
+    在 master 节点上，您必须增加 `--ignore-daemonsets`：
 
     ```shell
     kubectl drain ip-172-31-85-18
@@ -415,7 +392,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     kubectl uncordon $NODE
     ```
 
-1.  在所有节点上升级 kubelet 之后，通过以下命令再次验证所有来自任何地方的的节点的可用性，同时 kubectl 可以访问整个集群： 
+1.  在所有节点上升级 kubelet 之后，通过以下命令再次验证所有来自任何地方的节点的可用性，同时 kubectl 可以访问整个集群： 
 
     ```shell
     kubectl get nodes
@@ -435,7 +412,7 @@ To recover from a bad state, you can also run `kubeadm upgrade --force` without 
 ## 从故障状态恢复
 
 如果 `kubeadm upgrade` 失败并且没有回滚，例如由于执行期间意外关闭，您可以再次运行 `kubeadm upgrade`。
-此命令是等价的，并最终确保实际状态是您声明的所需状态。
+此命令是幂等的，并最终确保实际状态是您声明的所需状态。
 要从故障状态恢复，您还可以运行 `kubeadm upgrade --force` 而不去更改集群正在运行的版本。
 
 <!--
