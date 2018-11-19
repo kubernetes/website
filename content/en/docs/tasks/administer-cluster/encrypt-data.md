@@ -146,7 +146,8 @@ program to retrieve the contents of your secret.
     kubectl describe secret secret1 -n default
     ```
 
-    should match `mykey: mydata`
+    should match `mykey: bXlkYXRh`, mydata is encoded, check [decoding a secret](/docs/concepts/configuration/secret#decoding-a-secret) to
+    completely decode the secret.
 
 
 ## Ensure all secrets are encrypted
