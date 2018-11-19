@@ -152,6 +152,7 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * [Local](#local)
 
 ### Allowed Topologies
+
 When a cluster operactor specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
 to restrict provisioning to specific topologies in most situations. However,
 if still required, `allowedTopologies` can be specified.
