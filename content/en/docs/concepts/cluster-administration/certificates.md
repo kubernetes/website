@@ -34,7 +34,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
     that is specified as the `--service-cluster-ip-range` argument for both the API server and
     the controller manager component. The argument `--days` is used to set the number of days
     after which the certificate expires.
-    The sample below also assume that you are using `cluster.local` as the default
+    The sample below also assumes that you are using `cluster.local` as the default
     DNS domain name.
 
         ./easyrsa --subject-alt-name="IP:${MASTER_IP},"\
@@ -71,7 +71,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
     with real values before saving this to a file (e.g. `csr.conf`).
     Note that the value for `MASTER_CLUSTER_IP` is the service cluster IP for the
     API server as described in previous subsection.
-    The sample below also assume that you are using `cluster.local` as the default
+    The sample below also assumes that you are using `cluster.local` as the default
     DNS domain name.
 
         [ req ]
@@ -186,7 +186,7 @@ Finally, add the same parameters into the API server start parameters.
     server as shown below. Be sure to replace the values in angle brackets with
     real values you want to use. The `MASTER_CLUSTER_IP` is the service cluster
     IP for the API server as described in previous subsection.
-    The sample below also assume that you are using `cluster.local` as the default
+    The sample below also assumes that you are using `cluster.local` as the default
     DNS domain name.
 
         {
