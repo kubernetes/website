@@ -14,9 +14,8 @@ weight: 10
 
 *파드*는 쿠버네티스의 기본적인 블럭이다--쿠버네티스 객체모델 중 당신이 만들고 배포할 수 있는 가장 작고 심플한 단위이다. 파드는 당신의 클러스터에서의 Running 프로세스를 나타낸다. 
 
-A Pod encapsulates an application container (or, in some cases, multiple containers), storage resources, a unique network IP, and options that govern how the container(s) should run. A Pod represents a unit of deployment: *a single instance of an application in Kubernetes*, which might consist of either a single container or a small number of containers that are tightly coupled and that share resources.
-
-
+파드는 애플리케이션 컨테이너(또는, 몇몇의 경우, 다중 컨테이너), 저장소 리소스, 특정 네트워크 IP 그리고, 컨테이너가 동작하기 위해 만들어진 옵션들을 캡슐화 한다.
+파드는 배포의 단위를 말한다: 아마 단일 컨테이너로 구성되어 있거나, 공유 리소스들이 강하게 결합되어 있는 적은 개수의 *쿠버네티스에서의 애플리케이션 단일 인스턴스*를 의미함.
 
 > [Docker](https://www.docker.com)는 쿠버네티스 파드에서 가장 대표적인 컨테이너 런타임이지만, 파드는 다른 컨테이너 런타임 역시 지원한다.
 
