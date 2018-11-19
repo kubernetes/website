@@ -244,7 +244,7 @@ spec:
 
 For the complete API definition, see [the godoc](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go). Multiple objects will exist as independent solutions.
 
-Existing static backends configured through runtime flags are unaffected by enabling this feature. However, the dynamic backends share the trucate options of the static webhook. If webhook trucate options are set through runtime flags they will be applied to all dynamic backends.
+Existing static backends that you configure with runtime flags are not affected by this feature. However, the dynamic backends share the truncate options of the static webhook. If webhook truncate options are set with runtime flags, they are applied to all dynamic backends.
 
 ### Policy
 
