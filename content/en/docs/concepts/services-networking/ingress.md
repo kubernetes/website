@@ -327,7 +327,8 @@ metadata:
   name: tls-example-ingress
 spec:
   tls:
-  - hosts: sslexample.foo.com
+  - hosts:
+    - sslexample.foo.com
     secretName: testsecret-tls
   rules:
     - host: sslexample.foo.com
