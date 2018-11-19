@@ -87,7 +87,7 @@ The Route controller is responsible for configuring routes in the cloud appropri
 
 #### Service Controller
 
-The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB or Google LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
+The Service controller is responsible for listening to service creation, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB or Google LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
 
 #### PersistentVolumeLabels controller
 
@@ -143,7 +143,7 @@ v1/Node:
 
 ### Service controller
 
-The service controller listens to Service object create, update and delete events and then configures endpoints for those Services appropriately.
+The service controller listens to Service object creation, update and delete events and then configures endpoints for those Services appropriately.
 
 To access Services, it requires list, and watch access. To update Services, it requires patch and update access.
 
