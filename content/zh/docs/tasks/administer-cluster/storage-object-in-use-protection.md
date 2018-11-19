@@ -54,7 +54,7 @@ Create a `StorageClass` for convenient storage provisioning:
 
 ## 在用存储对象的保护功能用于 PVC 的保护
 
-下面的例子中使用了 GCE PD 'StorageClass', 但是类似的步骤可以在任意的卷类型上执行。
+下面的例子中使用了 GCE PD `StorageClass`, 但是类似的步骤可以在任意的卷类型上执行。
 
 创建 `StorageClass` 以便提供存储：
 
