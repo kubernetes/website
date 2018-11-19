@@ -5,7 +5,7 @@ content_template: templates/concept
 ---
 {{% capture overview %}}
 
-[Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+[Documentation](https://docs.k8s.io) & [Examples](https://github.com/kubernetes/website/tree/release-1.12/content/en/examples)
 
 {{% /capture %}}
 {{% capture body %}}
@@ -131,8 +131,9 @@ filename | sha256 hash
 ### Action Required
 
 * Service events are now added in azure-cloud-provider for easily identify the underground errors of Azure API. ([#68212](https://github.com/kubernetes/kubernetes/pull/68212), [@feiskyer](https://github.com/feiskyer))
+
    * Action required: The following clusterrole and clusterrolebinding should be applied:
-   
+
    ```yaml
    kind: List
    apiVersion: v1
@@ -208,7 +209,6 @@ filename | sha256 hash
        name: persistent-volume-binder
        namespace: kube-system
    ```
-
 ### Other notable changes
 
 * Update metrics-server to v0.3.1 ([#68746](https://github.com/kubernetes/kubernetes/pull/68746), [@DirectXMan12](https://github.com/DirectXMan12))
