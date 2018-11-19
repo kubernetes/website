@@ -38,9 +38,10 @@ weight: 10
 
 ## 어떻게 파드들이 다중 컨테이너들을 관리하는가
 
-Pods are designed to support multiple cooperating processes (as containers) that form a cohesive unit of service. The containers in a Pod are automatically co-located and co-scheduled on the same physical or virtual machine in the cluster. The containers can share resources and dependencies, communicate with one another, and coordinate when and how they are terminated.
+파드는 결합도가 있는 단위의 서비스를 형성하는 다중 협력 프로세스(컨테이너)를 지원하게 디자인 되었다. 파드 안의 컨테이너들은 클러스터의 같은 물리적 또는 가상의 기기에 함께 배치되고 스케쥴된다. 컨테이너들은 리소스와 의존성 공유, 다른 컨테이너와의 통신 그리고 언제,어떻게 조절하는지를 공유할 수 있다.
 
-Note that grouping multiple co-located and co-managed containers in a single Pod is a relatively advanced use case. You should use this pattern only in specific instances in which your containers are tightly coupled. For example, you might have a container that acts as a web server for files in a shared volume, and a separate "sidecar" container that updates those files from a remote source, as in the following diagram:
+한 개의 파드 안에서 함께 배치되고 관리되는 다중 컨테이너 그룹은 상대적으로 심화된 사용 예시임에 유의하자. 당신은 컨테이너들이 강하게 결합된 특별한 인스턴스의 경우에만 이 패턴을 사용하는게 좋다. 예를 들어, 공유 볼륨안의 파일을 위한 웹 서버와 같이 동작하는 컨테이너와 원격 소스로 부터 그 파일들을 업데이트 하는 분리된 "사이드카" 컨테이너가 있는 경우 아래 다이어그램의 모습일 것이다.
+
 
 {{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
 
@@ -52,7 +53,7 @@ Note that grouping multiple co-located and co-managed containers in a single Pod
 
 #### 저장소
 
-파드는 공유 저장소 세트인 *볼륨*을 명시할 수 있다. 파드 안의 모든 컨테이너들은 공유 볼륨에 접근할 수 있고, 그 컨테이너들끼리 데이터를 공유하는 것을 허용한다. 또한 볼륨은 컨테이너가 재시작되어야 하는 상황에도 파드 안의 데이터가 영구적으로 유지될 수 있게한다. 쿠버네티스가 어떻게 파드 안의 공유 저장소를 사용하는지 보려면 [Volumes](/docs/concepts/storage/volumes/)를 참고한다.
+파드는 공유 저장소 세트인 *볼륨*을 명시할 수 있다. 파드 안의 모든 컨테이너들은 공유 볼륨에 접근할 수 있고, 그 컨테이너들끼리 데이터를 공유하는 것을 허용한다. 또한 볼륨은 컨테이너가 재시작되어야 하는 상황에도 파드 안의 데이터가 영구적으로 유지될 수 있게한다. 쿠버네티스가 어떻게 파드 안의 공유 저장소를 사용하는지 보려면 [볼륨](/docs/concepts/storage/volumes/)를 참고한다.
 
 ## Working with Pods
 
@@ -66,23 +67,19 @@ Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fail
 
 ### 파드와 컨트롤러
 
-컨트롤러는 당신을 위해 다중 파드를 생성하고 관리해 주는데, 클러스터 범위 내에서의 레플리케이션 핸들링, 롤아웃 그리고 자가치료 기능 제공을 한다. 예를들어, 만약 노드가 고장났을 때, 컨트롤러는 아마 자동으로 다른 노드에 고장난 노드에 스케줄링되고 있는 것과 같은 파드로 교체할 것이다.  
+컨트롤러는 당신을 위해 다중 파드를 생성하고 관리해 주는데, 클러스터 범위 내에서의 레플리케이션 핸들링, 롤아웃 그리고 자가치료 기능 제공을 한다. 예를 들어, 만약 노드가 고장났을 때, 컨트롤러는 아마 자동으로 다른 노드에 고장난 노드에 스케줄링되고 있는 것과 같은 파드로 교체할 것이다.  
 
 한가지 또는 그 이상의 파드를 보유한 컨트롤러의 몇가지 예시:
 
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)
+* [스테이트풀 셋](/docs/concepts/workloads/controllers/statefulset/)
+* [데몬 셋](/docs/concepts/workloads/controllers/daemonset/)
 
 일반적으로, 컨트롤러는 당신이 책임을 지고 제공한 파드 템플릿을 사용한다.
 
 ## 파드 
-
-Pod templates are pod specifications which are included in other objects, such as
-[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
-[DaemonSets](/docs/concepts/workloads/controllers/daemonset/).  Controllers use Pod Templates to make actual pods.
-The sample below is a simple manifest for a Pod which contains a container that prints
-a message.
+파드 템플릿은 [레플리케이션 컨트롤러](/docs/concepts/workloads/controllers/replicationcontroller/), [잡](/docs/concepts/jobs/run-to-completion-finite-workloads/), [데몬 셋](/docs/concepts/workloads/controllers/daemonset/)과 같은 다른 객체를 포함하는 파드 명세서이다. 컨트롤러는 파드 템플릿을 실제 파드를 만드는데 사용한다.
+아래 샘플은 메시지를 출력하는 컨테이너를 포함하는 파드에 대한 간단한 매니페스트이다.
 
 ```yaml
 apiVersion: v1
@@ -98,7 +95,7 @@ spec:
     command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 3600']
 ```
 
-Rather than specifying the current desired state of all replicas, pod templates are like cookie cutters. Once a cookie has been cut, the cookie has no relationship to the cutter. There is no "quantum entanglement". Subsequent changes to the template or even switching to a new template has no direct effect on the pods already created. Similarly, pods created by a replication controller may subsequently be updated directly. This is in deliberate contrast to pods, which do specify the current desired state of all containers belonging to the pod. This approach radically simplifies system semantics and increases the flexibility of the primitive.
+파드는 모든 레플리카의 현재 원하는 상태를 지정한다라고 하기 보다는, 쿠키 틀과 같다고 보는게 더 좋다. 쿠키가 한 번 잘리면, 그 쿠키는 쿠키 틀과 더이상 관련이 없다. 양자 얽힘이 없는 것이다. 그 이후 템플릿을 변경하거나 새로운 템플릿으로 바꿔도 이미 만들어진 파드들에는 직접적인 영향이 없다. 마찬가지로, 레플리케이션 컨트롤러에 의해 만들어진 파드들은 아마 그 이후 직접 업데이트 될 수 있다. 이것은 모든 컨테이너가 속해있는 파드에서 현재 원하는 상태를 명시하는 것과 의도적으로 대비가 된다. 이러한 접근은 시스템의 의미를 철저히 단순화 시키고 유연성을 증가시킨다.
 
 {{% /capture %}}
 
