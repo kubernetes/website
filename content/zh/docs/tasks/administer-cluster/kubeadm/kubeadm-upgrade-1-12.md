@@ -32,7 +32,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 -->
 
-- 你需要有一个由 `kubeadm` 创建的并运行这 1.11.0 或更高版本的 Kubernetes 集群。
+- 你需要有一个由 `kubeadm` 创建的并运行着 1.11.0 或更高版本的 Kubernetes 集群。
   [Swap 必须被禁用][swap]. 
   集群应使用静态的控制平面和 etcd pod。
 - 请务必认真阅读[发型说明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md)。
