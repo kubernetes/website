@@ -55,15 +55,16 @@ weight: 10
 
 파드는 공유 저장소 세트인 *볼륨*을 명시할 수 있다. 파드 안의 모든 컨테이너들은 공유 볼륨에 접근할 수 있고, 그 컨테이너들끼리 데이터를 공유하는 것을 허용한다. 또한 볼륨은 컨테이너가 재시작되어야 하는 상황에도 파드 안의 데이터가 영구적으로 유지될 수 있게한다. 쿠버네티스가 어떻게 파드 안의 공유 저장소를 사용하는지 보려면 [볼륨](/docs/concepts/storage/volumes/)를 참고한다.
 
-## Working with Pods
+## 파드와 작업
 
-You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a Node in your cluster. The Pod remains on that Node until the process is terminated, the pod object is deleted, the pod is *evicted* for lack of resources, or the Node fails.
+당신은 직접 쿠버네티스에서 싱글톤 파드이더라도 개별 파드를 만들일이 거의 없을 것이다. 그 이유는 파드가 상대적으로 수명이 짧고 일시적이기 때문이다. 파드가 만들어지면(당신이 직접 만들거나, 컨트롤러에 의해서 간접적으로 만들어지거나), 그것은 당신의 클러스터의 노드에서 동작할 것이다. 파드는 프로세스가 끝나거나, 파드 객체가 삭제되거나, 파드가 리소스의 부족으로 인해 *철거되거나*, 노드가 없어지지 않는 한 노드에 남아있는다. 
 
 {{< note >}}
-Restarting a container in a Pod should not be confused with restarting the Pod. The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
+파드 안에서 재시작되는 컨테이너와 재시작되는 파드와 혼동해서는 안된다. 파드는 자기 스스로 동작하지 않는다. 하지만 컨테이너 환경은 그것이 삭제될 때 까지 계속 동작한다.
 {{< /note >}}
 
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fails, or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a higher-level abstraction, called a *Controller*, that handles the work of managing the relatively disposable Pod instances. Thus, while it is possible to use Pod directly, it's far more common in Kubernetes to manage your pods using a Controller. See [Pods and Controllers](#pods-and-controllers) for more information on how Kubernetes uses Controllers to implement Pod scaling and healing.
+파드는 
 
 ### 파드와 컨트롤러
 
