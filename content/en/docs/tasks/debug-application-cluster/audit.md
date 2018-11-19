@@ -242,9 +242,9 @@ spec:
       caBundle: <ca bundle>
 ```
 
-For the complete API definition, see [the godoc](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go).
+For the complete API definition, see [the godoc](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go). Multiple objects will exist as independent solutions.
 
-Multiple objects will exist as independent solutions. Dynamic policy will have no effect on backends configured from runtime flags. If webhook truncate options are set as runtime flags they will be applied to the dynamic backend.
+Existing static backends configured through runtime flags are unaffected by enabling this feature. However, the dynamic backends share the trucate options of the static webhook. If webhook trucate options are set through runtime flags they will be applied to all dynamic backends.
 
 ### Policy
 
