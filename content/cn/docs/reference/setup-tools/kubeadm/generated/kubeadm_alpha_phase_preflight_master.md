@@ -38,7 +38,7 @@ kubeadm alpha phase preflight master [flags]
 ### 例子
 
 ```
-  ＃运行前检查。
+  ＃执行主节点运行前检查
  kubeadm alpha phase preflight master
 ```
 
