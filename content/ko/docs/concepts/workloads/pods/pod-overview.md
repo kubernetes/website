@@ -33,6 +33,7 @@ weight: 10
 * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
 Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
+각각의 파드는 애플리케이션에서 단일 인스턴스로 동작을 하는 것이다. 만약 당신의 애플리케이션을 수평적으로 스케일 하기를 원하면(예를들어, 다중 인스턴스 동작하는 것)
 
 ## 어떻게 파드들이 다중 컨테이너들을 관리하는가
 
