@@ -39,7 +39,7 @@ kubeadm alpha phase kubeconfig用户[flags]
 
 ```
   ＃为名为foo的其他用户输出kubeconfig文件
-  kubeadm alpha phase kubeconfig user --client-name = foo
+  kubeadm alpha phase kubeconfig user --client-name=foo
 ```
 
 ### 选项
@@ -151,7 +151,7 @@ kubeadm alpha phase kubeconfig用户[flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">帮助用户</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">帮助</td>
     </tr>
 
     <tr>
