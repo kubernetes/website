@@ -13,7 +13,7 @@ reviewers:
 - msau42
 - jsafrane
 
-title: 在用存储对象的保护
+title: 保护使用的存储对象
 content_template: templates/task
 ---
 
@@ -23,7 +23,7 @@ content_template: templates/task
 Persistent volume claims (PVCs) that are in active use by a pod and persistent volumes (PVs) that are bound to PVCs can be protected from premature removal.
 -->
 
-可以对被 Pod 激活使用状态的永久卷声明（PVCs）和绑定到 PVC 的永久卷（PVs）进行保护，以避免它们被用户不小心删除掉。
+Kubernetes可以对被 Pod 持续使用的永久卷声明（PVCs）和绑定到 PVC 的永久卷（PVs）进行保护，以避免它们被用户不小心删除掉。
 
 {{% /capture %}}
 
@@ -56,7 +56,7 @@ Create a `StorageClass` for convenient storage provisioning:
 
 下面的例子中使用了 GCE PD 'StorageClass', 但是类似的步骤可以在任意的卷类型上执行。
 
-创建 'StorageClass' 以便提供存储：
+创建 `StorageClass` 以便提供存储：
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -104,7 +104,7 @@ spec:
 - Check that the PVC has the finalizer `kubernetes.io/pvc-protection` set:
 -->
 
-- 检查 PVC 设置了 `kubernetes.io/pvc-protection`：
+- 检查 PVC 设置了终结器 `kubernetes.io/pvc-protection`：
 
 ```shell
 kubectl describe pvc slzc
@@ -130,7 +130,7 @@ Events:
 - Delete the PVC and check that the PVC (not in active use by a pod) was removed successfully.
 -->
 
-- 删除 PVC 并检查 PVC （没有激活被 Pod 使用）被成功删除。
+- 删除 PVC 并检查 PVC （当前未被某 Pod 使用）被成功删除。
 
 <!--
 ### Scenario 2: The PVC is in active use by a pod
@@ -172,7 +172,7 @@ spec:
 - Delete the PVC that is now in active use by a pod and verify that the PVC is not removed but its status is `Terminating`:
 -->
 
-- 等到 Pod 的状态为 `Running`,即 PVC 变为在用状态。
+- 等到 Pod 的状态为 `Running`，即 PVC 变为在用状态。
 - 删除被 Pod 使用的 PVC 并确认其没有被删除成功，但它的状态为 `Terminating`:
 
 ```shell
@@ -321,7 +321,7 @@ Verification scenarios follow below.
 - Create a PV:
 -->
 
-## 在用存储对象的保护功能用于 PV 保护
+## 使用在用存储对象保护的功能来保护 PV
 
 下面的示例使用了 `HostPath` PV。
 
@@ -353,7 +353,7 @@ spec:
 - Check that the PV has the finalizer `kubernetes.io/pv-protection` set:
 -->
 
-- 检查 PV 设置了 `kubernetes.io/pv-protection`：
+- 检查 PV 设置了终结器 `kubernetes.io/pv-protection`：
 
 ```shell
 Name:            task-pv-volume
