@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: constraints-mem-demo-4
-spec:
-  containers:
-  - name: constraints-mem-demo-4-ctr
-    image: nginx
-
