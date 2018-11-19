@@ -29,7 +29,7 @@ Cron jobs can also schedule individual tasks for a specific time, such as if you
 
 你可以利用 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
 
-CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
+CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
 
 {{< note >}}
 <!--
@@ -38,7 +38,7 @@ You should switch to using `batch/v1beta1`, instead, which is enabled by default
 Examples in this document use `batch/v1beta1` in all examples.
 -->
 从集群版本1.8开始，`batch/v2alpha1` API 组中的 CronJob 资源已经被废弃。
-你应该切换到API 服务器默认启用的 `batch/v1beta1` API 组。本文中的所有示例使用了`batch/v1beta1`。
+你应该切换到 API 服务器默认启用的 `batch/v1beta1` API 组。本文中的所有示例使用了`batch/v1beta1`。
 {{< /note >}}
 
 <!--
@@ -51,7 +51,7 @@ For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-j
 CronJobs 有一些限制和特点。
 例如，在特定状况下，同一个 CronJob 可以创建多个任务。
 因此，任务应该是幂等的。
-查看更多限制，请参考[CronJobs](/docs/concepts/workloads/controllers/cron-jobs)。
+查看更多限制，请参考 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs)。
 
 {{% /capture %}}
 
@@ -66,7 +66,7 @@ for more), and then restart both the API server and the controller manager
 component.
 -->
 
-* 你需要一个版本 >=1.8 且工作正常的 Kubernetes 集群。对于更早的版本（ <1.8 ），你需要对API 服务器设置 `--runtime-config=batch/v2alpha1=true` 来开启 `batch/v2alpha1` API，(更多信息请查看 [为你的集群开启或关闭 API 版本](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
+* 你需要一个版本 >=1.8 且工作正常的 Kubernetes 集群。对于更早的版本（ <1.8 ），你需要对 API 服务器设置 `--runtime-config=batch/v2alpha1=true` 来开启 `batch/v2alpha1` API，(更多信息请查看 [为你的集群开启或关闭 API 版本](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
 ), 然后重启 API 服务器和控制管理器。
 
 {{% /capture %}}
@@ -82,7 +82,7 @@ This example cron job config `.spec` file prints the current time and a hello me
 
 ## 创建 CronJob
 
-CronJob需要一个配置文件。
+CronJob 需要一个配置文件。
 本例中 CronJob 的`.spec` 配置文件每分钟打印出当前时间和一个问好信息：
 
 {{< codenew file="application/job/cronjob.yaml" >}}
@@ -113,7 +113,7 @@ cronjob "hello" created
 After creating the cron job, get its status using this command:
 -->
 
-创建好CronJob后，使用下面的命令来获取其状态：
+创建好 CronJob 后，使用下面的命令来获取其状态：
 
 ```shell
 $ kubectl get cronjob hello
@@ -126,7 +126,7 @@ As you can see from the results of the command, the cron job has not scheduled o
 Watch for the job to be created in around one minute:
 -->
 
-就像你从命令返回结果看到的那样，CronJob还没有调度或执行任何任务。大约需要一分钟任务才能创建好。
+就像你从命令返回结果看到的那样，CronJob 还没有调度或执行任何任务。大约需要一分钟任务才能创建好。
 
 ```shell
 $ kubectl get jobs --watch
@@ -139,7 +139,7 @@ Now you've seen one running job scheduled by the "hello" cron job.
 You can stop watching the job and view the cron job again to see that it scheduled the job:
 -->
 
-现在你已经看到了一个运行中的任务被 “hello” CronJob调度。你可以停止监视这个任务，然后再次查看CronJob就能看到它调度任务：
+现在你已经看到了一个运行中的任务被 “hello” CronJob 调度。你可以停止监视这个任务，然后再次查看 CronJob 就能看到它调度任务：
 
 ```shell
 $ kubectl get cronjob hello
@@ -180,7 +180,7 @@ When you don't need a cron job any more, delete it with `kubectl delete cronjob`
 
 ## 删除 CronJob
 
-当你不再需要CronJob时，可以用 `kubectl delete cronjob` 删掉它：
+当你不再需要 CronJob 时，可以用 `kubectl delete cronjob` 删掉它：
 
 ```shell
 $ kubectl delete cronjob hello
@@ -203,9 +203,9 @@ and [using kubectl to manage resources](/docs/user-guide/working-with-resources)
 A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 -->
 
-## 编写CronJob声明信息
+## 编写 CronJob 声明信息
 
-像 Kubernetes 的其他配置一样，CronJob需要 `apiVersion`、 `kind`、 和 `metadata` 域。配置文件的一般信息，请参考 [部署应用](/docs/user-guide/deploying-applications) 和 [使用 kubectl 管理资源](/docs/user-guide/working-with-resources).
+像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、 `kind`、 和 `metadata` 域。配置文件的一般信息，请参考 [部署应用](/docs/user-guide/deploying-applications) 和 [使用 kubectl 管理资源](/docs/user-guide/working-with-resources).
 
 CronJob 配置也需要包括[`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -213,7 +213,7 @@ CronJob 配置也需要包括[`.spec`](https://git.k8s.io/community/contributors
 <!--
 All modifications to a cron job, especially its `.spec`, are applied only to the following runs. 
 -->
-对CronJob的所有改动，特别是它的 `.spec`，只会影响将来的运行实例。
+对 CronJob 的所有改动，特别是它的 `.spec`，只会影响将来的运行实例。
 {{< /note >}}
 
 <!--
@@ -279,7 +279,7 @@ If this field is not specified, the jobs have no deadline.
 ### 开始的最后期限
 
 `.spec.startingDeadlineSeconds` 域是可选的。
-它表示任务如果由于某种原因错过了调度时间，开始该任务的截止时间的秒数。过了截止时间，CronJob就不会开始任务。
+它表示任务如果由于某种原因错过了调度时间，开始该任务的截止时间的秒数。过了截止时间，CronJob 就不会开始任务。
 不满足这种最后期限的任务会被统计为失败任务。如果该域没有声明，那任务就没有最后期限。
 
 <!--
@@ -294,10 +294,10 @@ schedules occurred in the last 200 seconds. In that case, if there were more tha
 last 200 seconds, the cron job is no longer scheduled. 
 -->
 
-CronJob 控制器会统计错过了多少次调度。如果错过了100次以上的调度，CronJob就不再调度了。当没有设置 `.spec.startingDeadlineSeconds` 时，CronJob控制器统计从`status.lastScheduleTime`到当前的调度错过次数。
-例如一个CronJob期望每分钟执行一次，`status.lastScheduleTime`是 5:00am，但现在是 7:00am。那意味着120次调度被错过了，所以 CronJob将不再被调度。
+CronJob 控制器会统计错过了多少次调度。如果错过了100次以上的调度，CronJob 就不再调度了。当没有设置 `.spec.startingDeadlineSeconds` 时，CronJob 控制器统计从`status.lastScheduleTime`到当前的调度错过次数。
+例如一个 CronJob 期望每分钟执行一次，`status.lastScheduleTime`是 5:00am，但现在是 7:00am。那意味着120次调度被错过了，所以 CronJob 将不再被调度。
 如果设置了 `.spec.startingDeadlineSeconds` 域(非空)，CronJob 控制器统计从 `.spec.startingDeadlineSeconds` 到当前时间错过了多少次任务。
-例如设置了 `200`，它会统计过去200秒内错过了多少次调度。在那种情况下，如果过去200秒内错过了超过100次的调度，CronJob就不再调度。
+例如设置了 `200`，它会统计过去200秒内错过了多少次调度。在那种情况下，如果过去200秒内错过了超过100次的调度，CronJob 就不再调度。
 
 <!--
 ### Concurrency Policy
@@ -316,13 +316,13 @@ If there are multiple cron jobs, their respective jobs are always allowed to run
 
 ### 并发性规则
 
-`.spec.concurrencyPolicy` 也是可选的。它声明了CronJob创建的任务执行时发生重叠如何处理。spec 仅能声明下列规则中的一种：
+`.spec.concurrencyPolicy` 也是可选的。它声明了 CronJob 创建的任务执行时发生重叠如何处理。spec 仅能声明下列规则中的一种：
 
-* `Allow` (默认)：CronJob允许并发任务执行。
-* `Forbid`： CronJob不允许并发任务执行；如果新任务的执行时间到了而老任务没有执行完，CronJob会忽略新任务的执行。
-* `Replace`：如果新任务的执行时间到了而老任务没有执行完，CronJob会用新任务替换当前正在运行的任务。
+* `Allow` (默认)：CronJob 允许并发任务执行。
+* `Forbid`： CronJob 不允许并发任务执行；如果新任务的执行时间到了而老任务没有执行完，CronJob 会忽略新任务的执行。
+* `Replace`：如果新任务的执行时间到了而老任务没有执行完，CronJob 会用新任务替换当前正在运行的任务。
 
-请注意，并发性规则仅适用于相同CronJob创建的任务。如果有多个CronJob，它们相应的任务总是允许并发执行的。
+请注意，并发性规则仅适用于相同 CronJob 创建的任务。如果有多个 CronJob，它们相应的任务总是允许并发执行的。
 
 <!--
 ### Suspend
