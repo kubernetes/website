@@ -7,7 +7,7 @@ weight: 30
 -->
 
 ---
-title: 为命名空间配置内存的最小和最大限制
+title: 配置命名空间的最小和最大内存约束
 content_template: templates/task
 weight: 30
 ---
@@ -22,7 +22,7 @@ object. If a Pod does not meet the constraints imposed by the LimitRange,
 it cannot be created in the namespace.
 -->
 
-本章介绍怎样为命名空间中运行的容器设置可用的最小和最大内存值。你可以通过 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)对象进行设置。如果 Pod 不能满足 LimitRange 设定的内存限制范围，它就不能在命名空间中创建成功。
+此页面介绍如何设置在命名空间中运行的容器使用的内存的最小值和最大值。 您可以在 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)对象中指定最小和最大内存值。 如果 Pod 不满足 LimitRange 施加的约束，则无法在命名空间中创建它。
 
 {{% /capture %}}
 
@@ -35,7 +35,7 @@ it cannot be created in the namespace.
 Each node in your cluster must have at least 1 GiB of memory.
 -->
 
-你的集群中每个节点至少要有1 GiB的内存。
+集群中每个节点必须至少要有1 GiB 的内存。
 
 {{% /capture %}}
 
@@ -51,7 +51,7 @@ isolated from the rest of your cluster.
 
 ## 创建命名空间
 
-创建一个命名空间，以便本练习中创建的资源和集群的其余资源相隔离。
+创建一个命名空间，以便在此练习中创建的资源与群集的其余资源隔离。
 
 ```shell
 kubectl create namespace constraints-mem-example
@@ -96,7 +96,7 @@ notice that even though you didn't specify default values in the configuration
 file for the LimitRange, they were created automatically.
 -->
 
-输出结果显示内存的最小和最大限制符合预期。请注意，尽管你没有在配置文件中声明 LimitRange 的默认值，但它们还是被自动创建了。
+输出显示预期的最小和最大内存约束。 但请注意，即使您没有在 LimitRange 的配置文件中指定默认值，也会自动创建它们。
 
 ```
   limits:
@@ -127,15 +127,15 @@ specifies a memory request of 600 MiB and a memory limit of 800 MiB. These satis
 minimum and maximum memory constraints imposed by the LimitRange.
 -->
 
-现在不管什么时候在 constraints-mem-example 命名空间中创建容器，Kubernetes 都会执行下面的步骤：
+现在，只要在 constraints-mem-example 命名空间中创建容器，Kubernetes 就会执行下面的步骤：
 
-* 如果容器没有声明自己的内存请求和限制，将为它指定默认的内存请求和限制。
+* 如果 Container 未指定自己的内存请求和限制，将为它指定默认的内存请求和限制。
 
-* 核对容器的内存请求大于或等于500 MiB。
+* 验证 Container 的内存请求是否大于或等于500 MiB。
 
-* 核对容器的内存限制小于或等于1 GiB。
+* 验证 Container 的内存限制是否小于或等于1 GiB。
 
-这里给出了包含一个容器的 Pod 的配置文件。容器声明了600 MiB的内存请求和800 MiB的内存限制。这些满足了 LimitRange 设定的内存最小和最大限制范围。
+这里给出了包含一个 Container 的 Pod 配置文件。Container 声明了600 MiB 的内存请求和800 MiB 的内存限制， 这些满足了 LimitRange 施加的最小和最大内存约束。
 
 {{< codenew file="admin/resource/memory-constraints-pod.yaml" >}}
 
@@ -203,7 +203,7 @@ memory request of 800 MiB and a memory limit of 1.5 GiB.
 
 ## 尝试创建一个超过最大内存限制的 Pod
 
-这里给出了包含一个容器的 Pod 的配置文件。容器声明了800 MiB的内存请求和1.5 GiB的内存限制。
+这里给出了包含一个容器的 Pod 的配置文件。容器声明了800 MiB 的内存请求和1.5 GiB 的内存限制。
 
 {{< codenew file="admin/resource/memory-constraints-pod-2.yaml" >}}
 
@@ -238,7 +238,7 @@ memory request of 100 MiB and a memory limit of 800 MiB.
 
 ## 尝试创建一个不满足最小内存请求的 Pod
 
-这里给出了包含一个容器的 Pod 的配置文件。容器声明了100 MiB的内存请求和800 MiB的内存限制。
+这里给出了包含一个容器的 Pod 的配置文件。容器声明了100 MiB 的内存请求和800 MiB 的内存限制。
 
 {{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
 
@@ -272,6 +272,8 @@ specify a memory request, and it does not specify a memory limit.
 -->
 
 ## 创建一个没有声明内存请求和限制的 Pod
+
+这里给出了包含一个容器的 Pod 的配置文件。容器没有声明内存请求，也没有声明内存限制。
 
 {{< codenew file="admin/resource/memory-constraints-pod-4.yaml" >}}
 
@@ -328,7 +330,7 @@ enough space to accommodate the 1 GiB request.
 Delete your Pod:
 -->
 
-此时，你的容器可能运行起来也可能没有运行起来。回想一下我们本次任务的先决条件是你的每个节点都至少有1 GiB的内存。如果你的每个节点都只有1 GiB的内存，那将没有一个节点拥有足够的可分配内存来满足1 GiB的内存请求。
+此时，你的容器可能运行起来也可能没有运行起来。回想一下我们本次任务的先决条件是你的每个节点都至少有1 GiB 的内存。如果你的每个节点都只有1 GiB 的内存，那将没有一个节点拥有足够的可分配内存来满足1 GiB 的内存请求。
 
 删除你的 Pod：
 
@@ -369,7 +371,7 @@ for production and development, and you apply memory constraints to each namespa
 
 做为集群管理员，你可能想规定 Pod 可以使用的内存总量限制。例如：
 
-* 集群的每个节点有2 GB内存。你不想接受任何请求超过2 GB的 Pod，因为集群中没有节点可以满足。
+* 集群的每个节点有2 GB 内存。你不想接受任何请求超过2 GB 的 Pod，因为集群中没有节点可以满足。
 
 <!--
 ## Clean up
