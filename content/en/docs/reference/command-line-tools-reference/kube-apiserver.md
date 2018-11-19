@@ -525,7 +525,7 @@ kube-apiserver [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--experimental-encryption-provider-config string</td>
+      <td colspan="2">--encryption-provider-config string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The file containing configuration for encryption providers to be used for storing secrets in etcd</td>
