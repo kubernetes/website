@@ -209,14 +209,17 @@ audit policies.
 
 ## Dynamic Auditing
 
-As of version 1.13 audit webhook backends can be configured dynamically as AuditSink API objects. 
+{{< feature-state feature-state state="alpha" >}}
 
-To enable the feature a number of api server flags must be set:
-- `--audit-dynamic-configuration` the primary switch, once the feature progresses to GA this will be 
-  the only flag needed
-- `--feature-gates=DynamicAuditing=true` Feature gate
+In Kubeernetes version 1.13, you can configure dynamic audit webhook backends  AuditSink API objects. 
 
-Once enabled, an AuditSink can be provisioned:
+To enable dynamic auditingm you must set the following apiserver flags:
+
+- `--audit-dynamic-configuration`: the primary switch. When the feature is at GA, the only required flag.
+- `--feature-gates=DynamicAuditing=true`: feature gate at alpha and beta.
+
+When enabled, an AuditSink object can be provisioned:
+
 ```yaml
 apiVersion: auditregistration.k8s.io/v1alpha1
 kind: AuditSink
@@ -239,17 +242,22 @@ spec:
       caBundle: <ca bundle>
 ```
 
-The full api defintion can be found in the [types file](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go). Multiple objects will exist as independent solutions. Dynamic policy will have no effect on backends configured from runtime flags. If webhook truncate options are set as runtime flags they will be applied to the dynamic backend.
+For the complete API definition, see [the godoc](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go).
+
+Multiple objects will exist as independent solutions. Dynamic policy will have no effect on backends configured from runtime flags. If webhook truncate options are set as runtime flags they will be applied to the dynamic backend.
 
 ### Policy
-The AuditSink policy differs slightly from the runtime policy. This is because the API object serves different use cases. The policy will continue to evolve as the API matures to serve more use cases.
 
-The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record. See the [types file](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go) for a more detailed overview.
+The AuditSink policy differs from the runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
+
+The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
 
 ### Security
-Administrators should be cognizant that allowing write access to this feature grants read access to all cluster data. Access should be regarded as a `cluster-admin` level privilege.
+
+Administrators should be aware that allowing write access to this feature grants read access to all cluster data. Access should be treated as a `cluster-admin` level privilege.
 
 ### Performance
+
 Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal, and performance impact testing will be done to understand its scope before the API progresses to beta.
 
 ## Log Collector Examples
