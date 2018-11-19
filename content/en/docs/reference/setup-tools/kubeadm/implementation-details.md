@@ -86,7 +86,7 @@ In any case the user can skip specific preflight checks (or eventually all prefl
     - [error] if not Kernel 3.10+ or 4+ with specific KernelSpec
     - [error] if required cgroups subsystem aren't in set up
   - if using docker:
-    - [warning/error] if Docker service does not  exist, if it is disabled, if it is not active.
+    - [warning/error] if Docker service does not exist, if it is disabled, if it is not active.
     - [error] if Docker endpoint does not exist or does not work
     - [warning] if docker version >17.03
   - If using other cri engine:
@@ -106,9 +106,9 @@ In any case the user can skip specific preflight checks (or eventually all prefl
 - [Error] if `ip`, `iptables`,  `mount`, `nsenter` commands are not present in the command path
 - [warning] if `ebtables`, `ethtool`, `socat`, `tc`, `touch`, `crictl` commands are not present in the command path
 - [warning] if extra arg flags for API server, controller manager,  scheduler contains some invalid options
-- [warning] if connection to https://API.AdvertiseAddress:API.BindPort goes thought proxy
-- [warning] if connection to services subnet goes thought proxy (only first address checked)
-- [warning] if connection to Pods subnet goes thought proxy (only first address checked)  
+- [warning] if connection to https://API.AdvertiseAddress:API.BindPort goes through proxy
+- [warning] if connection to services subnet goes through proxy (only first address checked)
+- [warning] if connection to Pods subnet goes through proxy (only first address checked)  
 - If external etcd is provided:
   - [Error] if etcd version less than 3.0.14
   - [Error] if etcd certificates or keys are specified, but not provided
@@ -200,7 +200,7 @@ Static Pod manifest share a set of common properties:
   of using Pod Priority and Preemption when ready)
 - `hostNetwork: true` is set on all static Pods to allow control plane startup before a network is configured; as a consequence:
   * The `address` that the controller-manager and the scheduler use to refer the API server is `127.0.0.1`
-  * If using a local etcd server, `etcd-servers` address  will be set to `127.0.0.1:2379`
+  * If using a local etcd server, `etcd-servers` address will be set to `127.0.0.1:2379`
 - Leader election is enabled for both the controller-manager and the scheduler
 - Controller-manager and the scheduler will reference kubeconfig files with their respective, unique identities
 - All static Pods gets any extra flags specified by the user as described in [passing custom arguments to control plane components](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-args)
@@ -224,7 +224,7 @@ The static Pod manifest for the API server is affected by following parameters p
  - The `service-cluster-ip-range` to use for services
  - If an external etcd server is specified, the `etcd-servers` address and related TLS settings (`etcd-cafile`, `etcd-certfile`, `etcd-keyfile`);
    if an external etcd server is not be provided, a local etcd will be used (via host network)
- - If a cloud provider is specified, the corresponding `--cloud-provider` is configured, together with  the  `--cloud-config` path
+ - If a cloud provider is specified, the corresponding `--cloud-provider` is configured, together with the  `--cloud-config` path
    if such file exists (this is experimental, alpha and will be removed in a future version)
  - If kubeadm is invoked with `--feature-gates=HighAvailability`, the flag `--endpoint-reconciler-type=lease` is set, thus enabling
    automatic reconciliation of endpoints for the internal API server VIP
@@ -277,7 +277,7 @@ The static Pod manifest for the API server is affected by following parameters p
    setting:
    - `--allocate-node-cidrs=true`
    - `--cluster-cidr` and `--node-cidr-mask-size` flags according to the given CIDR
- - If a cloud provider is specified, the corresponding `--cloud-provider` is specified, together with  the  `--cloud-config` path
+ - If a cloud provider is specified, the corresponding `--cloud-provider` is specified, together with the  `--cloud-config` path
    if such configuration file exists (this is experimental, alpha and will be removed in a future version)
 
 Other flags that are set unconditionally are:

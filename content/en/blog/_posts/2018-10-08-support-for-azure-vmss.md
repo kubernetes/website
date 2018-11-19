@@ -89,7 +89,7 @@ acs-engine deploy --subscription-id <subscription id> \
 
 API model file provides various configurations which acs-engine uses to create a cluster. The API model here [[5]](https://github.com/Azure/acs-engine/blob/master/examples/kubernetes-vmss/kubernetes.json) gives a good starting configuration to setup the VMSS cluster.
 
-Once a VMSS cluster is created, here are some of the steps you can run to understand more about the cluster setup. Here is the output of  kubectl get nodes from a cluster created using the above command:
+Once a VMSS cluster is created, here are some of the steps you can run to understand more about the cluster setup. Here is the output of kubectl get nodes from a cluster created using the above command:
 
 ```
 $ kubectl get nodes
@@ -170,7 +170,7 @@ The decision to make a scale up is based on pods which remain unscheduled and a 
 
 Cluster Autoscaler is available as an add-on with acs-engine. The following link [[15]](https://github.com/Azure/acs-engine/tree/master/examples/addons/cluster-autoscaler) has an example configuration file used to deploy autoscaler with acs-engine.  The following link [[8]](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/azure/README.md) provides details on manual step by step way to do the same.
 
-In acs-engine case we use the the regular command line to deploy:
+In acs-engine case we use the regular command line to deploy:
 
 ```
 acs-engine deploy --subscription-id <subscription id> \

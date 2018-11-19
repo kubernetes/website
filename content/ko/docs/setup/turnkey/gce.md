@@ -91,7 +91,7 @@ gcloud components install kubectl
 ```
 
 {{< note >}}
-**Note:** The kubectl version bundled with `gcloud` may be older than the one
+The kubectl version bundled with `gcloud` may be older than the one
 downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/kubectl/install/)
 document to see how you can set up the latest `kubectl` on your workstation.
 {{< /note >}}

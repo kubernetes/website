@@ -12,7 +12,6 @@ non-parallel, use of [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-com
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

@@ -3,6 +3,7 @@ title: Extend the Kubernetes API with CustomResourceDefinitions
 reviewers:
 - deads2k
 - enisoc
+- sttts
 content_template: templates/task
 weight: 20
 ---
@@ -685,8 +686,10 @@ crontabs/my-new-cron-object   3s
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
+
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions-k8s-io).
+
 * Serve [multiple versions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/) of a
-  CustomResourceDefinition
+  CustomResourceDefinition.
+
 {{% /capture %}}

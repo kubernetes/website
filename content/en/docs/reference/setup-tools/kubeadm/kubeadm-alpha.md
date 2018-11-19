@@ -145,7 +145,7 @@ You can install all the available addons with the `all` subcommand, or
 install them selectively.
 
 {{< note >}}
-**Note:** If `kubeadm` is invoked with `--feature-gates=CoreDNS=false`, kube-dns is installed.
+If `kubeadm` is invoked with `--feature-gates=CoreDNS=false`, kube-dns is installed.
 {{< /note >}}
 
 {{< tabs name="tab-addon" >}}
@@ -158,7 +158,7 @@ install them selectively.
 ## kubeadm alpha phase self-hosting {#cmd-phase-self-hosting}
 
 {{< caution >}}
-**Caution:** Self-hosting is an alpha feature. See [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) documentation for self-hosting limitations.
+Self-hosting is an alpha feature. See [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) documentation for self-hosting limitations.
 {{< /caution >}}
 
 {{< tabs name="tab-self-hosting" >}}

@@ -57,7 +57,7 @@ This may be caused by a number of problems. The most common are:
 
   There are two common ways to fix the cgroup driver problem:
   
- 1. Install docker again following instructions
+ 1. Install Docker again following instructions
   [here](/docs/setup/independent/install-kubeadm/#installing-docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
     [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
@@ -104,6 +104,10 @@ Right after `kubeadm init` there should not be any pods in these states.
   likely that the Pod Network solution that you installed is somehow broken. You
   might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
+- If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
+  when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
+  MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
+  The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
 ## `coredns` (or `kube-dns`) is stuck in the `Pending` state
 
@@ -254,8 +258,11 @@ kubectl -n kube-system get deployment coredns -o yaml | \
   kubectl apply -f -
 ```
 
+Another cause for CoreDNS to have `CrashLoopBackOff` is when a CoreDNS Pod deployed in Kubernetes detects a loop. [A number of workarounds](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
+are available to avoid Kubernetes trying to restart the CoreDNS Pod every time CoreDNS detects the loop and exits.
+
 {{< warning >}}
-**Warning**: Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
+Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
 the security of your cluster.
 {{< /warning >}}
 

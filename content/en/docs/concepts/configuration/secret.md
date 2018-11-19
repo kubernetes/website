@@ -10,7 +10,6 @@ feature:
 weight: 50
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
@@ -103,19 +102,24 @@ See [decoding a secret](#decoding-a-secret) for how to see the contents.
 
 #### Creating a Secret Manually
 
-You can also create a secret object in a file first,
-in json or yaml format, and then create that object.
+You can also create a Secret in a file first, in json or yaml format,
+and then create that object. The
+[Secret](/docs/reference/generated/kubernetes-api/v1.12/#secret-v1-core) contains two maps:
+data and stringData. The data field is used to store arbitrary data, encoded using
+base64. The stringData field is provided for convenience, and allows you to provide
+secret data as unencoded strings.
 
-Each item must be base64 encoded:
+For example, to store two strings in a Secret using the data field, convert
+them to base64 as follows:
 
 ```shell
-$ echo -n 'admin' | base64
+echo -n 'admin' | base64
 YWRtaW4=
-$ echo -n '1f2d1e2e67df' | base64
+echo -n '1f2d1e2e67df' | base64
 MWYyZDFlMmU2N2Rm
 ```
 
-Now write a secret object that looks like this:
+Write a Secret that looks like this:
 
 ```yaml
 apiVersion: v1
@@ -128,14 +132,107 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-The data field is a map.  Its keys must consist of alphanumeric characters, '-', '_' or '.'.  The values are arbitrary data, encoded using base64.
-
-Create the secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
+Now create the Secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml
 secret "mysecret" created
 ```
+
+For certain scenarios, you may wish to use the stringData field instead. This
+field allows you to put a non-base64 encoded string directly into the Secret,
+and the string will be encoded for you when the Secret is created or updated.
+
+A practical example of this might be where you are deploying an application
+that uses a Secret to store a configuration file, and you want to populate
+parts of that configuration file during your deployment process.
+
+If your application uses the following configuration file:
+
+```yaml
+apiUrl: "https://my.api.com/api/v1"
+username: "user"
+password: "password"
+```
+
+You could store this in a Secret using the following:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+stringData:
+  config.yaml: |-
+    apiUrl: "https://my.api.com/api/v1"
+    username: {{username}}
+    password: {{password}}
+```
+
+Your deployment tool could then replace the `{{username}}` and `{{password}}`
+template variables before running `kubectl create`.
+
+stringData is a write-only convenience field. It is never output when
+retrieving Secrets. For example, if you run the following command:
+
+```shell
+kubectl get secret mysecret -o yaml
+```
+
+The output will be similar to:
+
+```yaml
+apiVersion: v1
+data:
+  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
+kind: Secret
+metadata:
+  creationTimestamp: 2018-11-15T20:40:59Z
+  name: mysecret
+  namespace: default
+  resourceVersion: "7225"
+  selfLink: /api/v1/namespaces/default/secrets/mysecret
+  uid: c280ad2e-e916-11e8-98f2-025000000001
+type: Opaque
+```
+
+If a field is specified in both data and stringData, the value from stringData
+is used. For example, the following Secret definition:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  username: YWRtaW4=
+stringData:
+  username: administrator
+```
+
+Results in the following secret:
+
+```yaml
+apiVersion: v1
+data:
+  username: YWRtaW5pc3RyYXRvcg==
+kind: Secret
+metadata:
+  creationTimestamp: 2018-11-15T20:46:46Z
+  name: mysecret
+  namespace: default
+  resourceVersion: "7579"
+  selfLink: /api/v1/namespaces/default/secrets/mysecret
+  uid: 91460ecb-e917-11e8-98f2-025000000001
+type: Opaque
+```
+
+Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
+
+The keys of data and stringData must consist of alphanumeric characters,
+'-', '_' or '.'.
 
 **Encoding Note:** The serialized JSON and YAML values of secret data are
 encoded as base64 strings.  Newlines are not valid within these strings and must
@@ -354,7 +451,7 @@ propagation delay, where cache propagation delay depends on the chosen cache typ
 (it equals to watch propagation delay, ttl of cache, or zero corespondingly).
 
 {{< note >}}
-**Note:** A container using a Secret as a
+A container using a Secret as a
 [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive
 Secret updates.
 {{< /note >}}
@@ -493,7 +590,7 @@ $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/
 ```
 
 {{< caution >}}
-**Caution:** Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
+Think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to be accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
 {{< /caution >}}
 
 
@@ -545,11 +642,11 @@ $ kubectl create secret generic test-db-secret --from-literal=username=testuser 
 secret "test-db-secret" created
 ```
 {{< note >}}
-**Note:** Special characters such as `$`, `\*`, and `!` require escaping.
-If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way: 
+Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
 
     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
-    
+
 You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
 
@@ -666,7 +763,7 @@ the `dotfile-test-container` will have this file present at the path
 `/etc/secret-volume/.secret-file`.
 
 {{< note >}}
-**Note**: Files beginning with dot characters are hidden from the output of  `ls -l`;
+Files beginning with dot characters are hidden from the output of  `ls -l`;
 you must use `ls -la` to see them when listing directory contents.
 {{< /note >}}
 
@@ -773,9 +870,9 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
    single node.
-  
+
 {{< note >}}
-**Note:** As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
+As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
 {{< /note >}}
 
 {{% capture whatsnext %}}

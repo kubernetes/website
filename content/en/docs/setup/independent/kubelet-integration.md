@@ -11,8 +11,8 @@ weight: 40
 {{< feature-state for_k8s_version="1.11" state="stable" >}}
 
 The lifecycle of the kubeadm CLI tool is decoupled from the
-[Kubernetes Node Agent](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
-on each Kubernetes master or Node. The kubeadm CLI tool is executed by the user when Kubernetes is
+[kubelet](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
+on each node within the Kubernetes cluster. The kubeadm CLI tool is executed by the user when Kubernetes is
 initialized or upgraded, whereas the kubelet is always running in the background.
 
 Since the kubelet is a daemon, it needs to be maintained by some kind of a init
@@ -52,7 +52,7 @@ Virtual IPs for services are now allocated from this subnet. You also need to se
 by the kubelet, using the `--cluster-dns` flag. This setting needs to be the same for every kubelet
 on every manager and Node in the cluster. The kubelet provides a versioned, structured API object
 that can configure most parameters in the kubelet and push out this configuration to each running
-kubelet in the cluster. This object is called **the kubelet's ComponentConfig**. 
+kubelet in the cluster. This object is called **the kubelet's ComponentConfig**.
 The ComponentConfig allows the user to specify flags such as the cluster DNS IP addresses expressed as
 a list of values to a camelCased key, illustrated by the following example:
 
@@ -70,7 +70,7 @@ For more details on the ComponentConfig have a look at [this section](#configure
 Some hosts require specific kubelet configurations, due to differences in hardware, operating system,
 networking, or other host-specific parameters. The following list provides a few examples.
 
-- The path to the DNS resolution file, as specified by the `--resolve-conf` kubelet
+- The path to the DNS resolution file, as specified by the `--resolv-conf` kubelet
   configuration flag, may differ among operating systems, or depending on whether you are using
   `systemd-resolved`. If this path is wrong, DNS resolution will fail on the Node whose kubelet
   is configured incorrectly.
@@ -82,7 +82,7 @@ networking, or other host-specific parameters. The following list provides a few
 - Currently, the kubelet cannot automatically detects the cgroup driver used by the CRI runtime,
   but the value of `--cgroup-driver` must match the cgroup driver used by the CRI runtime to ensure
   the health of the kubelet.
- 
+
 - Depending on the CRI runtime your cluster uses, you may need to specify different flags to the kubelet.
   For instance, when using Docker, you need to specify flags such as `--network-plugin=cni`, but if you
   are using an external runtime, you need to specify `--container-runtime=remote` and specify the CRI

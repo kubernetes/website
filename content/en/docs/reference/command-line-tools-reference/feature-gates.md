@@ -38,7 +38,7 @@ different Kubernetes components.
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `AttachVolumeLimit` | `false` | Alpha | 1.11 | |
+| `AttachVolumeLimit` | `true` | Alpha | 1.11 | |
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
@@ -147,7 +147,7 @@ A *Beta* feature means:
   that can be upgraded independently, you may be able to relax this restriction.
 
 {{< note >}}
-**Note:** Please do try *Beta* features and give feedback on them!
+Please do try *Beta* features and give feedback on them!
 After they exit beta, it may not be practical for us to make more changes.
 {{< /note >}}
 
@@ -213,7 +213,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   When the `Initializers` admission controller is enabled, this feature is automatically enabled.
 - `KubeletConfigFile`: Enable loading kubelet configuration from a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/) for more details.
-- `KubletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet
+- `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
 - `LocalStorageCapacityIsolation`: Enable the consumption of [local ephemeral storage](/docs/concepts/configuration/manage-compute-resources-container/) and also the `sizeLimit` property of an [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
 - `MountContainers`: Enable using utility containers on host as the volume mounter.

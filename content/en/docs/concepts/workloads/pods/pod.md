@@ -12,7 +12,6 @@ managed in Kubernetes.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

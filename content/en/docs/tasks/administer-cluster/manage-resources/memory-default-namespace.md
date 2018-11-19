@@ -70,7 +70,7 @@ kubectl get pod default-mem-demo --output=yaml --namespace=default-mem-example
 The output shows that the Pod's Container has a memory request of 256 MiB and
 a memory limit of 512 MiB. These are the default values specified by the LimitRange.
 
-```shel
+```shell
 containers:
 - image: nginx
   imagePullPolicy: Always

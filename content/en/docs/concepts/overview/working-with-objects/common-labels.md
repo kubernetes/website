@@ -19,7 +19,7 @@ Instead, applications are informal and described with metadata. The definition o
 what an application contains is loose.
 
 {{< note >}}
-**Note:** These are recommended labels. They make it easier to manage applications
+These are recommended labels. They make it easier to manage applications
 but aren't required for any core tooling.
 {{< /note >}}
 

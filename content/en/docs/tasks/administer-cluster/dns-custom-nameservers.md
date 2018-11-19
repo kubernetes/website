@@ -103,10 +103,10 @@ The Corefile configuration includes the following [plugins](https://coredns.io/p
 * [proxy](https://coredns.io/plugins/proxy/): Any queries that are not within the cluster domain of Kubernetes will be forwarded to predefined resolvers (/etc/resolv.conf).
 * [cache](https://coredns.io/plugins/cache/): This enables a frontend cache.
 * [loop](https://coredns.io/plugins/loop/): Detects simple forwarding loops and halts the CoreDNS process if a loop is found.
-* [reload](https://coredns.io/plugins/reload): Allows automatic reload of a changed Corefile.
-* [loadbalance](https://coredns.io/plugins/loadbalance): This is a round-robin DNS loadbalancer by randomizing the order of A, AAAA, and MX records in the answer.
+* [reload](https://coredns.io/plugins/reload): Allows automatic reload of a changed Corefile. After you edit the ConfigMap configuration, allow two minutes for your changes to take effect.
+* [loadbalance](https://coredns.io/plugins/loadbalance): This is a round-robin DNS loadbalancer that randomizes the order of A, AAAA, and MX records in the answer.
 
-We can modify the default behavior by modifying this configmap.
+You can modify the default CoreDNS behavior by modifying the ConfigMap.
 
 ### Configuration of Stub-domain and upstream nameserver using CoreDNS
 
@@ -132,7 +132,7 @@ proxy .  172.16.0.1
 upstream 172.16.0.1
 ```
 
-So, the final ConfigMap along with the default `Corefile` configuration will look like:
+The final ConfigMap along with the default `Corefile` configuration looks like:
 
 ```yaml
 apiVersion: v1
@@ -307,9 +307,9 @@ data:
 
 ## CoreDNS configuration equivalent to kube-dns
 
-CoreDNS supports all the functionalities and more that is provided by kube-dns.
+CoreDNS supports the features of kube-dns and more.
 A ConfigMap created for kube-dns to support `StubDomains`and `upstreamNameservers` translates to the `proxy` plugin in CoreDNS.
-Similarly, the `Federation` plugin translates to the `federation` plugin in CoreDNS.
+Similarly, the `Federations` plugin in kube-dns translates to the `federation` plugin in CoreDNS.
 
 ### Example
 
@@ -380,12 +380,10 @@ The complete Corefile with the default plugins:
     }
 ```
 
-In Kubernetes version 1.10 and later, kubeadm supports automatic translation of the CoreDNS ConfigMap from the kube-dns ConfigMap.
-
 ## Migration to CoreDNS
 
 To migrate from kube-dns to CoreDNS, [a detailed blog](https://coredns.io/2018/05/21/migration-from-kube-dns-to-coredns/) is available to help users adapt CoreDNS in place of kube-dns.
-A cluster administrator can also migrate using [the deploy script](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh), which  will also help you translate the kube-dns configmap to the equivalent CoreDNS one.
+A cluster administrator can also migrate using [the deploy script](https://github.com/coredns/deployment/blob/master/kubernetes/deploy.sh).
 
 ## What's next
 - [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/).

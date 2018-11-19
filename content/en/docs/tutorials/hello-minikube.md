@@ -12,47 +12,33 @@ menu:
 
 {{% capture overview %}}
 
-The goal of this tutorial is for you to turn a simple Hello World Node.js app
-into an application running on Kubernetes. The tutorial shows you how to
-take code that you have developed on your machine, turn it into a Docker
-container image and then run that image on [Minikube](/docs/getting-started-guides/minikube).
-Minikube provides a simple way of running Kubernetes on your local machine for free.
+This tutorial shows you how to run a simple Hello World Node.js app
+on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Katacoda.
+Katacoda provides a free, in-browser Kubernetes environment. 
+
+{{< note >}}
+You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
+{{< /note >}}
 
 {{% /capture %}}
 
 {{% capture objectives %}}
 
-* Run a hello world Node.js application.
-* Deploy the application to Minikube.
+* Deploy a hello world application to Minikube.
+* Run the app.
 * View application logs.
-* Update the application image.
-
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-* For macOS, you can use [Homebrew](https://brew.sh) to install Minikube.
+This tutorial provides a container image built from the following files:
 
-  {{< note >}}
-  **Note:** If you see the following Homebrew error when you run `brew update` after you update your computer to macOS 10.13:
-  
-  ```shell
-  Error: /usr/local is not writable. You should change the ownership
-  and permissions of /usr/local back to your user account:
-  sudo chown -R $(whoami) /usr/local
-  ```
-  You can resolve the issue by reinstalling Homebrew:
-  ```shell
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  ```
-  {{< /note >}}
+{{< codenew language="js" file="minikube/server.js" >}}
 
-* [NodeJS](https://nodejs.org/en/) is required to run the sample application.
+{{< codenew language="conf" file="minikube/Dockerfile" >}}
 
-* Install Docker. On macOS, we recommend
-[Docker for Mac](https://docs.docker.com/engine/installation/mac/).
-
+For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
 
 {{% /capture %}}
 
@@ -60,150 +46,21 @@ Minikube provides a simple way of running Kubernetes on your local machine for f
 
 ## Create a Minikube cluster
 
-This tutorial uses [Minikube](https://github.com/kubernetes/minikube) to
-create a local cluster. This tutorial also assumes you are using
-[Docker for Mac](https://docs.docker.com/engine/installation/mac/)
-on macOS. If you are on a different platform like Linux, or using VirtualBox
-instead of Docker for Mac, the instructions to install Minikube may be
-slightly different. For general Minikube installation instructions, see
-the [Minikube installation guide](/docs/getting-started-guides/minikube/).
+1. Click **Launch Terminal** 
 
-Use Homebrew to install the latest Minikube release:
-```shell
-brew cask install minikube
-```
+    {{< kat-button >}}
 
-Install the HyperKit driver, as described by the
-[Minikube driver installation guide](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperkit-driver).
+    {{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
 
-Use Homebrew to download the `kubectl` command-line tool, which you can
-use to interact with Kubernetes clusters:
+2. Open the Kubernetes dashboard in a browser:
 
-```shell
-brew install kubernetes-cli
-```
+    ```shell
+    minikube dashboard
+    ```
 
-Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
+3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
 
-```shell
-curl --proxy "" https://cloud.google.com/container-registry/
-```
-
-Make sure that the Docker daemon is started. You can determine if docker is running by using a command such as:
-
-```shell
-docker images
-```
-
-If NO proxy is required, start the Minikube cluster:
-
-```shell
-minikube start --vm-driver=hyperkit
-```
-If a proxy server is required, use the following method to start Minikube cluster with proxy setting:
-
-```shell
-minikube start --vm-driver=hyperkit --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
-```
-
-The `--vm-driver=hyperkit` flag specifies that you are using Docker for Mac. The
-default VM driver is VirtualBox.
-
-Now set the Minikube context. The context is what determines which cluster
-`kubectl` is interacting with. You can see all your available contexts in the
-`~/.kube/config` file.
-
-```shell
-kubectl config use-context minikube
-```
-
-Verify that `kubectl` is configured to communicate with your cluster:
-
-```shell
-kubectl cluster-info
-```
-
-Open the Kubernetes dashboard in a browser:
-
-```shell
-minikube dashboard
-```
-
-## Create your Node.js application
-
-The next step is to write the application. Save this code in a folder named `hellonode`
-with the filename `server.js`:
-
-{{< codenew language="js" file="minikube/server.js" >}}
-
-Run your application:
-
-```shell
-node server.js
-```
-
-You should be able to see your "Hello World!" message at http://localhost:8080/.
-
-Stop the running Node.js server by pressing **Ctrl-C**.
-
-The next step is to package your application in a Docker container.
-
-## Create a Docker container image
-
-Create a file, also in the `hellonode` folder, named `Dockerfile`. A Dockerfile describes
-the image that you want to build. You can build a Docker container image by extending an
-existing image. The image in this tutorial extends an existing Node.js image.
-
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
-
-This recipe for the Docker image starts from the official Node.js LTS image
-found in the Docker registry, exposes port 8080, copies your `server.js` file
-to the image and starts the Node.js server.
-
-By default, Docker will create images and store them in your local machine's Docker registry.  
-In this tutorial, we will not use your local machine's Docker registry; we will use the 
-Docker registry of the Docker daemon running _inside_ Minikube's vm instance. To point the
-'docker' command to your Minikube's Docker daemon, type (unix shells):
-
-```shell
-eval $(minikube docker-env)
-```
-
-or in powershell: 
-```shell
-minikube docker-env | Invoke-Expression
-```
-
-
-
-{{< note >}}
-**Note:** Later, when you no longer wish to use the Minikube host, you can undo
-this change by running `eval $(minikube docker-env -u)`.
-{{< /note >}}
-
-Build your Docker image, using the Minikube Docker daemon (mind the trailing dot):
-
-```shell
-docker build -t hello-node:v1 .
-```
-
-check that the image is in Minikube's Docker registry:
-
-```shell
-minikube ssh docker images 
-```
-
-Output:
-
-```shell
-REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
-hello-node                                 v1                  f82485ca953c        3 minutes ago       655MB
-...
-node                                       6.9.2               faaadb4aaf9b        20 months ago       655MB
-```
-
-
-Now the Minikube VM can run the image you built.
+4. Katacoda environment only: Type 30000, and then click **Display Port**. 
 
 ## Create a Deployment
 
@@ -214,59 +71,51 @@ tutorial has only one Container. A Kubernetes
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
-Use the `kubectl run` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on your `hello-node:v1` Docker image. Set the 
-`--image-pull-policy` flag to `Never` to always use the local image, rather than
-pulling it from your Docker registry (since you haven't pushed it there):
+1. Use the `kubectl run` command to create a Deployment that manages a Pod. The
+Pod runs a Container based on the provided Docker image. 
 
-```shell
-kubectl run hello-node --image=hello-node:v1 --port=8080 --image-pull-policy=Never
-```
+    ```shell
+    kubectl run hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
+    ```
 
-View the Deployment:
+2. View the Deployment:
 
+    ```shell
+    kubectl get deployments
+    ```
 
-```shell
-kubectl get deployments
-```
+    Output:
 
-Output:
+    ```shell
+    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+    hello-node   1         1         1            1           1m
+    ```
 
+3. View the Pod:
 
-```shell
-NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-hello-node   1         1         1            1           3m
-```
+    ```shell
+    kubectl get pods
+    ```
+    Output:
 
-View the Pod:
+    ```shell
+    NAME                          READY     STATUS    RESTARTS   AGE
+    hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
+    ```
 
+4. View cluster events:
 
-```shell
-kubectl get pods
-```
+    ```shell
+    kubectl get events
+    ```
 
-Output:
+5. View the `kubectl` configuration:
 
-
-```shell
-NAME                         READY     STATUS    RESTARTS   AGE
-hello-node-714049816-ztzrb   1/1       Running   0          6m
-```
-
-View cluster events:
-
-```shell
-kubectl get events
-```
-
-View the `kubectl` configuration:
-
-```shell
-kubectl config view
-```
-
-For more information about `kubectl`commands, see the
-[kubectl overview](/docs/user-guide/kubectl-overview/).
+    ```shell
+    kubectl config view
+    ```
+  
+    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Create a Service
 
@@ -275,142 +124,124 @@ Kubernetes cluster. To make the `hello-node` Container accessible from outside t
 Kubernetes virtual network, you have to expose the Pod as a
 Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
-From your development machine, you can expose the Pod to the public internet
-using the `kubectl expose` command:
+1. Expose the Pod to the public internet using the `kubectl expose` command:
 
-```shell
-kubectl expose deployment hello-node --type=LoadBalancer
-```
+    ```shell
+    kubectl expose deployment hello-node --type=LoadBalancer
+    ```
+    
+    The `--type=LoadBalancer` flag indicates that you want to expose your Service
+    outside of the cluster.
 
-View the Service you just created:
+2. View the Service you just created:
 
-```shell
-kubectl get services
-```
+    ```shell
+    kubectl get services
+    ```
 
-Output:
+    Output:
 
-```shell
-NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-hello-node   ClusterIP   10.0.0.71    <pending>     8080/TCP   6m
-kubernetes   ClusterIP   10.0.0.1     <none>        443/TCP    14d
-```
+    ```shell
+    NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
+    kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
+    ```
 
-The `--type=LoadBalancer` flag indicates that you want to expose your Service
-outside of the cluster. On cloud providers that support load balancers,
-an external IP address would be provisioned to access the Service. On Minikube,
-the `LoadBalancer` type makes the Service accessible through the `minikube service`
-command.
+    On cloud providers that support load balancers,
+    an external IP address would be provisioned to access the Service. On Minikube,
+    the `LoadBalancer` type makes the Service accessible through the `minikube service`
+    command.
 
-```shell
-minikube service hello-node
-```
+3. Run the following command:
 
-This automatically opens up a browser window using a local IP address that
-serves your app and shows the "Hello World" message.
+    ```shell
+    minikube service hello-node
+    ```
 
-Assuming you've sent requests to your new web service using the browser or curl,
-you should now be able to see some logs:
+4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
-```shell
-kubectl logs <POD-NAME>
-```
+5. Katacoda environment only: Type in the Port number following `8080:`, and then click **Display Port**. 
 
-## Update your app
-
-Edit your `server.js` file to return a new message:
-
-```javascript
-response.end('Hello World Again!');
-
-```
-
-Build a new version of your image (mind the trailing dot):
-
-```shell
-docker build -t hello-node:v2 .
-```
-
-Update the image of your Deployment:
-
-```shell
-kubectl set image deployment/hello-node hello-node=hello-node:v2
-```
-
-Run your app again to view the new message:
-
-```shell
-minikube service hello-node
-```
+    This opens up a browser window that serves your app and shows the "Hello World" message.
 
 ## Enable addons
 
 Minikube has a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment.
 
-First list the currently supported addons:
+1. List the currently supported addons:
 
-```shell
-minikube addons list
-```
+    ```shell
+    minikube addons list
+    ```
 
-Output:
+    Output:
 
-```shell
-- storage-provisioner: enabled
-- kube-dns: enabled
-- registry: disabled
-- registry-creds: disabled
-- addon-manager: enabled
-- dashboard: disabled
-- default-storageclass: enabled
-- coredns: disabled
-- heapster: disabled
-- efk: disabled
-- ingress: disabled
-```
+    ```shell
+    addon-manager: enabled
+    coredns: disabled
+    dashboard: enabled
+    default-storageclass: enabled
+    efk: disabled
+    freshpod: disabled
+    heapster: disabled
+    ingress: disabled
+    kube-dns: enabled
+    metrics-server: disabled
+    nvidia-driver-installer: disabled
+    nvidia-gpu-device-plugin: disabled
+    registry: disabled
+    registry-creds: disabled
+    storage-provisioner: enabled
+    ```
+   
+2. Enable an addon, for example, `heapster`:
 
-Minikube must be running for these commands to take effect. To enable `heapster` addon, for example:
+    ```shell
+    minikube addons enable heapster
+    ```
+  
+    Output:
 
-```shell
-minikube addons enable heapster
-```
+    ```shell
+    heapster was successfully enabled
+    ```
 
-Output:
+3. View the Pod and Service you just created:
 
-```shell
-heapster was successfully enabled
-```
+    ```shell
+    kubectl get pod,svc -n kube-system
+    ```
 
-View the Pod and Service you just created:
+    Output:
 
-```shell
-kubectl get po,svc -n kube-system
-```
+    ```shell
+    NAME                                        READY     STATUS    RESTARTS   AGE
+    pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
+    pod/kube-addon-manager-minikube             1/1       Running   0          34m
+    pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
+    pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
+    pod/storage-provisioner                     1/1       Running   0          34m
 
-Output:
+    NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
+    service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
+    service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
+    service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
+    ```
 
-```shell
-NAME                             READY     STATUS    RESTARTS   AGE
-pod/heapster-zbwzv                1/1       Running   0          2m
-pod/influxdb-grafana-gtht9        2/2       Running   0          2m
+4. Disable `heapster`:
 
-NAME                           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
-service/heapster               NodePort    10.0.0.52    <none>        80:31655/TCP        2m
-service/monitoring-grafana     NodePort    10.0.0.33    <none>        80:30002/TCP        2m
-service/monitoring-influxdb    ClusterIP   10.0.0.43    <none>        8083/TCP,8086/TCP   2m
-```
+    ```shell
+    minikube addons disable heapster
+    ```
+  
+    Output:
 
-Open the endpoint to interacting with heapster in a browser:
-
-```shell
-minikube addons open heapster
-```
-
-Output:
-
-```shell
-Opening kubernetes service kube-system/monitoring-grafana in default browser...
-```
+    ```shell
+    heapster was successfully disabled
+    ```
 
 ## Clean up
 
@@ -421,17 +252,10 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Optionally, force removal of the Docker images created:
-
-```shell
-docker rmi hello-node:v1 hello-node:v2 -f
-```
-
-Optionally, stop the Minikube VM:
+Optionally, stop the Minikube virtual machine (VM):
 
 ```shell
 minikube stop
-eval $(minikube docker-env -u)
 ```
 
 Optionally, delete the Minikube VM:
@@ -442,7 +266,6 @@ minikube delete
 
 {{% /capture %}}
 
-
 {{% capture whatsnext %}}
 
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
@@ -450,5 +273,3 @@ minikube delete
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 
 {{% /capture %}}
-
-

@@ -15,7 +15,7 @@ A service account provides an identity for processes that run in a Pod.
 [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).*
 
 {{< note >}}
-**Note:** This document describes how service accounts behave in a cluster set up
+This document describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project.  Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
 not apply.
@@ -30,7 +30,6 @@ When they do, they are authenticated as a particular Service Account (for exampl
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -176,12 +175,12 @@ token:          ...
 ```
 
 {{< note >}}
-**Note:** The content of `token` is elided here.
+The content of `token` is elided here.
 {{< /note >}}
 
 ## Add ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod). 
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 Next, verify it has been created.  For example:
 
 ```shell
@@ -255,7 +254,7 @@ TODO: Test and explain how to use additional non-K8s secrets with an existing se
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 {{< note >}}
-**Note:** This ServiceAccountTokenVolumeProjection is __beta__ in 1.12 and
+This ServiceAccountTokenVolumeProjection is __beta__ in 1.12 and
 enabled by passing all of the following flags to the API server:
 
 * `--service-account-issuer`
@@ -296,7 +295,7 @@ spec:
 ```
 
 The kubelet will request and store the token on behalf of the pod, make the
-token avaialble to the pod at a configurable file path, and refresh the token as
+token available to the pod at a configurable file path, and refresh the token as
 it approaches expiration. Kubelet proactively rotates the token if it is older
 than 80% of its total TTL, or if the token is older than 24 hours.
 
@@ -304,5 +303,3 @@ The application is responsible for reloading the token when it rotates. Periodic
 reloading (e.g. once every 5 minutes) is sufficient for most usecases.
 
 {{% /capture %}}
-
-

@@ -22,7 +22,6 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -106,7 +105,7 @@ EBS volume can be pre-populated with data, and that data can be "handed off"
 between Pods.
 
 {{< caution >}}
-**Important:** You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.
+You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.
 {{< /caution >}}
 
 There are some restrictions when using an `awsElasticBlockStore` volume:
@@ -171,7 +170,7 @@ that data can be "handed off" between Pods.  CephFS can be mounted by multiple
 writers simultaneously.
 
 {{< caution >}}
-**Important:** You must have your own Ceph server running with the share exported before you can use it.
+You must have your own Ceph server running with the share exported before you can use it.
 {{< /caution >}}
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
@@ -216,11 +215,11 @@ Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
 {{< caution >}}
-**Important:** You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) before you can use it.
+You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) before you can use it.
 {{< /caution >}}
 
 {{< note >}}
-**Note:** A Container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
+A Container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
 receive ConfigMap updates.
 {{< /note >}}
 
@@ -230,7 +229,7 @@ A `downwardAPI` volume is used to make downward API data available to applicatio
 It mounts a directory and writes the requested data in plain text files.
 
 {{< note >}}
-**Note:** A Container using Downward API as a [subPath](#using-subpath) volume mount will not
+A Container using Downward API as a [subPath](#using-subpath) volume mount will not
 receive Downward API updates.
 {{< /note >}}
 
@@ -246,7 +245,7 @@ or different paths in each Container.  When a Pod is removed from a node for
 any reason, the data in the `emptyDir` is deleted forever.
 
 {{< note >}}
-**Note:** A Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.
+A Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.
 {{< /note >}}
 
 Some uses for an `emptyDir` are:
@@ -291,7 +290,7 @@ You can specify single or multiple target World Wide Names using the parameter
 targetWWNs expect that those WWNs are from multi-path connections.
 
 {{< caution >}}
-**Important:** You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts can access them.
+You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs beforehand so that Kubernetes hosts can access them.
 {{< /caution >}}
 
 See the [FC example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/fibre_channel) for more details.
@@ -308,7 +307,7 @@ reattached by Flocker to the node that the Pod is scheduled. This means data
 can be "handed off" between Pods as required.
 
 {{< caution >}}
-**Important:** You must have your own Flocker installation running before you can use it.
+You must have your own Flocker installation running before you can use it.
 {{< /caution >}}
 
 See the [Flocker example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/flocker) for more details.
@@ -322,7 +321,7 @@ preserved and the volume is merely unmounted.  This means that a PD can be
 pre-populated with data, and that data can be "handed off" between Pods.
 
 {{< caution >}}
-**Important:** You must create a PD using `gcloud` or the GCE API or UI before you can use it.
+You must create a PD using `gcloud` or the GCE API or UI before you can use it.
 {{< /caution >}}
 
 There are some restrictions when using a `gcePersistentDisk`:
@@ -404,7 +403,7 @@ spec:
 ### gitRepo (deprecated) {#gitrepo}
 
 {{< warning >}}
-**Warning:** The gitRepo volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
+The gitRepo volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
 {{< /warning >}}
 
 A `gitRepo` volume is an example of what can be done as a volume plugin.  It
@@ -444,7 +443,7 @@ be "handed off" between Pods.  GlusterFS can be mounted by multiple writers
 simultaneously.
 
 {{< caution >}}
-**Important:** You must have your own GlusterFS installation running before you can use it.
+You must have your own GlusterFS installation running before you can use it.
 {{< /caution >}}
 
 See the [GlusterFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/glusterfs) for more details.
@@ -522,7 +521,7 @@ unmounted.  This means that an iscsi volume can be pre-populated with data, and
 that data can be "handed off" between Pods.
 
 {{< caution >}}
-**Important:** You must have your own iSCSI server running with the volume created before you can use it.
+You must have your own iSCSI server running with the volume created before you can use it.
 {{< /caution >}}
 
 A feature of iSCSI is that it can be mounted as read-only by multiple consumers
@@ -538,7 +537,7 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "g
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 {{< note >}}
-**Note:** The alpha PersistentVolume NodeAffinity annotation has been deprecated
+The alpha PersistentVolume NodeAffinity annotation has been deprecated
 and will be removed in a future release. Existing PersistentVolumes using this
 annotation must be updated by the user to use the new PersistentVolume
 `NodeAffinity` field.
@@ -611,7 +610,7 @@ provisioning yet. For an example on how to run an external local provisioner,
 see the [local volume provisioner user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
 
 {{< note >}}
-**Note:** The local PersistentVolume requires manual cleanup and deletion by the
+The local PersistentVolume requires manual cleanup and deletion by the
 user if the external static provisioner is not used to manage the volume
 lifecycle.
 {{< /note >}}
@@ -626,7 +625,7 @@ that data can be "handed off" between Pods.  NFS can be mounted by multiple
 writers simultaneously.
 
 {{< caution >}}
-**Important:** You must have your own NFS server running with the share exported before you can use it.
+You must have your own NFS server running with the share exported before you can use it.
 {{< /caution >}}
 
 See the [NFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/nfs) for more details.
@@ -783,7 +782,7 @@ option for the API server. The `path` field specifies a relative path to the mou
 of the projected volume.
 
 {{< note >}}
-**Note:** A Container using a projected volume source as a [subPath](#using-subpath) volume mount will not
+A Container using a projected volume source as a [subPath](#using-subpath) volume mount will not
 receive updates for those volume sources.
 {{< /note >}}
 
@@ -819,7 +818,7 @@ spec:
 ```
 
 {{< caution >}}
-**Important:** Make sure you have an existing PortworxVolume with name `pxvol`
+Make sure you have an existing PortworxVolume with name `pxvol`
 before using it in the Pod.
 {{< /caution >}}
 
@@ -831,7 +830,7 @@ A `quobyte` volume allows an existing [Quobyte](http://www.quobyte.com) volume t
 be mounted into your Pod.
 
 {{< caution >}}
-**Important:** You must have your own Quobyte setup running with the volumes
+You must have your own Quobyte setup running with the volumes
 created before you can use it.
 {{< /caution >}}
 
@@ -847,7 +846,7 @@ means that a RBD volume can be pre-populated with data, and that data can
 be "handed off" between Pods.
 
 {{< caution >}}
-**Important:** You must have your own Ceph installation running before you can use RBD.
+You must have your own Ceph installation running before you can use RBD.
 {{< /caution >}}
 
 A feature of RBD is that it can be mounted as read-only by multiple consumers
@@ -867,7 +866,7 @@ volumes (or it can dynamically provision new volumes for persistent volume claim
 [ScaleIO Persistent Volumes](/docs/concepts/storage/persistent-volumes/#scaleio)).
 
 {{< caution >}}
-**Important:** You must have an existing ScaleIO cluster already setup and
+You must have an existing ScaleIO cluster already setup and
 running with the volumes created before you can use them.
 {{< /caution >}}
 
@@ -909,11 +908,11 @@ backed by tmpfs (a RAM-backed filesystem) so they are never written to
 non-volatile storage.
 
 {{< caution >}}
-**Important:** You must create a secret in the Kubernetes API before you can use it.
+You must create a secret in the Kubernetes API before you can use it.
 {{< /caution >}}
 
 {{< note >}}
-**Note:** A Container using a Secret as a [subPath](#using-subpath) volume mount will not
+A Container using a Secret as a [subPath](#using-subpath) volume mount will not
 receive Secret updates.
 {{< /note >}}
 
@@ -925,7 +924,7 @@ A `storageos` volume allows an existing [StorageOS](https://www.storageos.com)
 volume to be mounted into your Pod.
 
 StorageOS runs as a Container within your Kubernetes environment, making local
-or attached storage accessible from any node within the Kubernetes cluster. 
+or attached storage accessible from any node within the Kubernetes cluster.
 Data can be replicated to protect against node failure. Thin provisioning and
 compression can improve utilization and reduce cost.
 
@@ -935,7 +934,7 @@ The StorageOS Container requires 64-bit Linux and has no additional dependencies
 A free developer license is available.
 
 {{< caution >}}
-**Important:** You must run the StorageOS Container on each node that wants to
+You must run the StorageOS Container on each node that wants to
 access StorageOS volumes or that will contribute storage capacity to the pool.
 For installation instructions, consult the
 [StorageOS documentation](https://docs.storageos.com).
@@ -975,7 +974,7 @@ For more information including Dynamic Provisioning and Persistent Volume Claims
 ### vsphereVolume {#vspherevolume}
 
 {{< note >}}
-**Prerequisite:** Kubernetes with vSphere Cloud Provider configured. For cloudprovider
+Prerequisite: Kubernetes with vSphere Cloud Provider configured. For cloudprovider
 configuration please refer [vSphere getting started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
 {{< /note >}}
 
@@ -983,7 +982,7 @@ A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The con
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
 
 {{< caution >}}
-**Important:** You must create VMDK using one of the following method before using with Pod.
+You must create VMDK using one of the following method before using with Pod.
 {{< /caution >}}
 
 #### Creating a VMDK volume
@@ -1053,7 +1052,7 @@ spec:
       image: mysql
       env:
       - name: MYSQL_ROOT_PASSWORD
-        value: "rootpasswd" 
+        value: "rootpasswd"
       volumeMounts:
       - mountPath: /var/lib/mysql
         name: site-data
@@ -1103,7 +1102,7 @@ spec:
   restartPolicy: Never
   volumes:
   - name: workdir1
-    hostPath: 
+    hostPath:
       path: /var/log/pods
 ```
 
@@ -1123,7 +1122,7 @@ several media types.
 ## Out-of-Tree Volume Plugins
 The Out-of-tree volume plugins include the Container Storage Interface (CSI)
 and Flexvolume. They enable storage vendors to create custom storage plugins
-without adding them to the Kubernetes repository. 
+without adding them to the Kubernetes repository.
 
 Before the introduction of CSI and Flexvolume, all volume plugins (like
 volume types listed above) were "in-tree" meaning they were built, linked,
@@ -1192,16 +1191,16 @@ persistent volume:
 - `controllerPublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
   `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
-  optional, and  may be empty if no secret is required. If the secret object
+  optional, and may be empty if no secret is required. If the secret object
   contains more than one secret, all secrets are passed.
 - `nodeStageSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
-  `NodeStageVolume` call. This field is optional, and  may be empty if no secret
+  `NodeStageVolume` call. This field is optional, and may be empty if no secret
   is required. If the secret object contains more than one secret, all secrets
   are passed.
 - `nodePublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
-  `NodePublishVolume` call. This field is optional, and  may be empty if no
+  `NodePublishVolume` call. This field is optional, and may be empty if no
   secret is required. If the secret object contains more than one secret, all
   secrets are passed.
 
@@ -1210,8 +1209,8 @@ persistent volume:
 {{< feature-state for_k8s_version="v1.11" state="alpha" >}}
 
 Starting with version 1.11, CSI introduced support for raw block volumes, which
-relies on the raw block volume feature that was introduced in a previous version of 
-Kubernetes.  This feature will make it possible for vendors with external CSI drivers to 
+relies on the raw block volume feature that was introduced in a previous version of
+Kubernetes.  This feature will make it possible for vendors with external CSI drivers to
 implement raw block volumes support in Kubernetes workloads.
 
 CSI block volume support is feature-gated and turned off by default.  To run CSI with
@@ -1222,7 +1221,7 @@ Kubernetes component using the following feature gate flags:
 --feature-gates=BlockVolume=true,CSIBlockVolume=true
 ```
 
-Learn how to 
+Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
 ### Flexvolume
@@ -1275,7 +1274,7 @@ Its values are:
    [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
 
 {{< caution >}}
-**Caution:** `Bidirectional` mount propagation can be dangerous. It can damage
+`Bidirectional` mount propagation can be dangerous. It can damage
 the host operating system and therefore it is allowed only in privileged
 Containers. Familiarity with Linux kernel behavior is strongly recommended.
 In addition, any volume mounts created by Containers in Pods must be destroyed
@@ -1283,7 +1282,7 @@ In addition, any volume mounts created by Containers in Pods must be destroyed
 {{< /caution >}}
 
 ### Configuration
-Before mount propagation can work properly on some deployments (CoreOS, 
+Before mount propagation can work properly on some deployments (CoreOS,
 RedHat/Centos, Ubuntu) mount share must be configured correctly in
 Docker as shown below.
 
@@ -1302,5 +1301,3 @@ $ sudo systemctl restart docker
 {{% capture whatsnext %}}
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 {{% /capture %}}
-
-

@@ -17,7 +17,7 @@ date: 2018-05-29
 
 If you run a Kubernetes environment, chances are you’ve
 customized a Kubernetes configuration — you've copied
-some API object YAML files and editted them to suit
+some API object YAML files and edited them to suit
 your needs.
 
 But there are drawbacks to this approach — it can be

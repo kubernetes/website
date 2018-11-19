@@ -4,7 +4,7 @@ reviewers:
 - saad-ali
 - thockin
 - msau42
-title: Volume Snapshot Classes 
+title: Volume Snapshot Classes
 content_template: templates/concept
 weight: 30
 ---
@@ -17,7 +17,6 @@ with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

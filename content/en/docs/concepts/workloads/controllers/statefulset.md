@@ -16,7 +16,7 @@ weight: 40
 StatefulSet is the workload API object used to manage stateful applications.
 
 {{< note >}}
-**Note:** StatefulSets are stable (GA) in 1.9.
+StatefulSets are stable (GA) in 1.9.
 {{< /note >}}
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
@@ -144,7 +144,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
-**Note:** Cluster Domain will be set to `cluster.local` unless
+Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 {{< /note >}}
 

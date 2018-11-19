@@ -12,8 +12,7 @@ This page assumes that you've read and mastered the tasks in the
 learn about more ways to contribute.
 
 {{< note >}}
-**Note:** Some tasks require you to use the Git command line client and other
-tools.
+Some tasks require you to use the Git command line client and other tools.
 {{< /note >}}
 
 {{% /capture %}}
@@ -257,7 +256,7 @@ to the Github UI.
       ```
 
 4.  Check out the remote branch. This command will fail if you already have a
-    local branch with the sane name.
+    local branch with the same name.
 
       ```bash
       git checkout <branch-from-PR>
@@ -387,11 +386,11 @@ most up-to-date version of that branch.
       ```
 
       {{< note >}}
-**Note:** Do not reference a Github issue or pull request by ID or URL in the
-commit message. If you do, it will cause that issue or pull request to get
-a notification every time the commit shows up in a new Git branch. You can
-link issues and pull requests together later, in the Github UI.
-{{< /note >}}
+      Do not reference a Github issue or pull request by ID or URL in the
+      commit message. If you do, it will cause that issue or pull request to get
+      a notification every time the commit shows up in a new Git branch. You can
+      link issues and pull requests together later, in the Github UI.
+      {{< /note >}}
 
 5.  Optionally, you can test your change by staging the site locally using the
     `hugo` command. See [View your changes locally](#view-your-changes-locally).
@@ -643,7 +642,7 @@ your question to the `#kubernetes-users` channel in
 [Kubernetes slack](http://slack.k8s.io/). You can also search
 resources like
 [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
-for answers  to similar questions.
+for answers to similar questions.
 
 You can also open issues for Kubernetes functionality in
  https://github.com/kubernetes/kubernetes.

@@ -12,7 +12,6 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -35,7 +34,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
     that is specified as the `--service-cluster-ip-range` argument for both the API server and
     the controller manager component. The argument `--days` is used to set the number of days
     after which the certificate expires.
-    The sample below also assume that you are using `cluster.local` as the default
+    The sample below also assumes that you are using `cluster.local` as the default
     DNS domain name.
 
         ./easyrsa --subject-alt-name="IP:${MASTER_IP},"\
@@ -72,7 +71,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
     with real values before saving this to a file (e.g. `csr.conf`).
     Note that the value for `MASTER_CLUSTER_IP` is the service cluster IP for the
     API server as described in previous subsection.
-    The sample below also assume that you are using `cluster.local` as the default
+    The sample below also assumes that you are using `cluster.local` as the default
     DNS domain name.
 
         [ req ]
@@ -81,7 +80,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
         default_md = sha256
         req_extensions = req_ext
         distinguished_name = dn
-        
+
         [ dn ]
         C = <country>
         ST = <state>
@@ -89,10 +88,10 @@ manually through `easyrsa`, `openssl` or `cfssl`.
         O = <organization>
         OU = <organization unit>
         CN = <MASTER_IP>
-        
+
         [ req_ext ]
         subjectAltName = @alt_names
-        
+
         [ alt_names ]
         DNS.1 = kubernetes
         DNS.2 = kubernetes.default
@@ -101,7 +100,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
         DNS.5 = kubernetes.default.svc.cluster.local
         IP.1 = <MASTER_IP>
         IP.2 = <MASTER_CLUSTER_IP>
-        
+
         [ v3_ext ]
         authorityKeyIdentifier=keyid,issuer:always
         basicConstraints=CA:FALSE
@@ -187,7 +186,7 @@ Finally, add the same parameters into the API server start parameters.
     server as shown below. Be sure to replace the values in angle brackets with
     real values you want to use. The `MASTER_CLUSTER_IP` is the service cluster
     IP for the API server as described in previous subsection.
-    The sample below also assume that you are using `cluster.local` as the default
+    The sample below also assumes that you are using `cluster.local` as the default
     DNS domain name.
 
         {
@@ -213,7 +212,7 @@ Finally, add the same parameters into the API server start parameters.
             "O": "<organization>",
             "OU": "<organization unit>"
           }]
-        } 
+        }
 1.  Generate the key and certificate for the API server, which are by default
     saved into file `server-key.pem` and `server.pem` respectively:
 

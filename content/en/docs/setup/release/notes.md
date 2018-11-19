@@ -1,3 +1,6 @@
+---
+title: v1.12 Release Notes
+---
 <!-- BEGIN MUNGE: GENERATED_TOC -->
 - [v1.12.0-rc.2](#v1120-rc2)
   - [Downloads for v1.12.0-rc.2](#downloads-for-v1120-rc2)
@@ -556,7 +559,7 @@ filename | sha256 hash
 * The PodShareProcessNamespace feature to configure PID namespace sharing within a pod has been promoted to beta. ([#66507](https://github.com/kubernetes/kubernetes/pull/66507), [@verb](https://github.com/verb))
 * `kubectl create {clusterrole,role}`'s `--resources` flag supports asterisk to specify all resources. ([#62945](https://github.com/kubernetes/kubernetes/pull/62945), [@nak3](https://github.com/nak3))
 * Bump up version number of debian-base, debian-hyperkube-base and debian-iptables.  ([#67026](https://github.com/kubernetes/kubernetes/pull/67026), [@satyasm](https://github.com/satyasm))
-    * Also updates dependencies of users of debian-base. 
+    * Also updates dependencies of users of debian-base.
     * debian-base version 0.3.1 is already available.
 * DynamicProvisioningScheduling and VolumeScheduling is now supported for Azure managed disks. Feature gates DynamicProvisioningScheduling and VolumeScheduling should be enabled before using this feature. ([#67121](https://github.com/kubernetes/kubernetes/pull/67121), [@feiskyer](https://github.com/feiskyer))
 * kube-apiserver now includes all registered API groups in discovery, including registered extension API group/versions for unavailable extension API servers. ([#66932](https://github.com/kubernetes/kubernetes/pull/66932), [@nilebox](https://github.com/nilebox))

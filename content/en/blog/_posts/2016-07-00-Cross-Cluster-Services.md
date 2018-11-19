@@ -328,7 +328,7 @@ Standard Kubernetes service cluster-IP's already ensure that non-responsive indi
 
 We'd love to hear feedback on Kubernetes Cross Cluster Services. To join the community:
 
-- Post issues or feature requests on [GitHub](https://github.com/kubernetes/kubernetes/tree/master/federation)
+- Post issues or feature requests on [GitHub](https://github.com/kubernetes/kubernetes/tree/release-1.8/federation)
 - Join us in the #federation channel on [Slack](https://kubernetes.slack.com/messages/sig-federation)
 - Participate in the [Cluster Federation SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-federation)
 

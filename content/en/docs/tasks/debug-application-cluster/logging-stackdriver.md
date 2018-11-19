@@ -12,7 +12,7 @@ Before reading this page, it's highly recommended to familiarize yourself
 with the [overview of logging in Kubernetes](/docs/concepts/cluster-administration/logging).
 
 {{< note >}}
-**Note:** By default, Stackdriver logging collects only your container's standard output and
+By default, Stackdriver logging collects only your container's standard output and
 standard error streams. To collect any logs your application writes to a file (for example),
 see the [sidecar approach](/docs/concepts/cluster-administration/logging#sidecar-container-with-a-logging-agent)
 in the Kubernetes logging overview.
@@ -20,7 +20,6 @@ in the Kubernetes logging overview.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -53,7 +52,7 @@ consider starting a cluster without a pre-configured logging solution and then d
 Stackdriver Logging agents to the running cluster.
 
 {{< warning >}}
-**Warning:** The Stackdriver logging daemon has known issues on platforms other
+The Stackdriver logging daemon has known issues on platforms other
 than Google Kubernetes Engine. Proceed at your own risk.
 {{< /warning >}}
 
@@ -89,9 +88,11 @@ than Google Kubernetes Engine. Proceed at your own risk.
     kubectl label node $NODE_NAME beta.kubernetes.io/fluentd-ds-ready=true
     ```
 
-    {{< note >}}**Note:** If a node fails and has to be recreated, you must re-apply the label to
+    {{< note >}}
+    If a node fails and has to be recreated, you must re-apply the label to
     the recreated node. To make this easier, you can use Kubelet's command-line parameter
-    for applying node labels in your node startup script.{{< /note >}}
+    for applying node labels in your node startup script.
+    {{< /note >}}
 
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
@@ -263,9 +264,13 @@ In this case you need to be able to change the parameters of `DaemonSet` and `Co
 
 If you're using GKE and Stackdriver Logging is enabled in your cluster, you
 cannot change its configuration, because it's managed and supported by GKE.
-However, you can disable the default integration and deploy your own. 
-{{< note >}}**Note:** You will have to support and maintain a newly deployed configuration
-yourself: update the image and configuration, adjust the resources and so on.{{< /note >}}
+However, you can disable the default integration and deploy your own.
+
+{{< note >}}
+You will have to support and maintain a newly deployed configuration
+yourself: update the image and configuration, adjust the resources and so on.
+{{< /note >}}
+
 To disable the default logging integration, use the following command:
 
 ```
@@ -325,8 +330,11 @@ kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-
 ```
 
 Then in the value for the key `containers.input.conf` insert a new filter right after
-the `source` section. 
-{{< note >}}**Note:** Order is important.{{< /note >}}
+the `source` section.
+
+{{< note >}}
+Order is important.
+{{< /note >}}
 
 Updating `ConfigMap` in the apiserver is more complicated than updating `DaemonSet`. It's better
 to consider `ConfigMap` to be immutable. Then, in order to update the configuration, you should

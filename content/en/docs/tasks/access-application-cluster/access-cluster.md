@@ -10,7 +10,6 @@ This topic discusses multiple ways to interact with clusters.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -285,16 +284,16 @@ The redirect capabilities have been deprecated and removed.  Please use a proxy 
 There are several different proxies you may encounter when using Kubernetes:
 
 1.  The [kubectl proxy](#directly-accessing-the-rest-api):
-  
+
     - runs on a user's desktop or in a pod
     - proxies from a localhost address to the Kubernetes apiserver
     - client to proxy uses HTTP
     - proxy to apiserver uses HTTPS
     - locates apiserver
     - adds authentication headers
-    
+
 1.  The [apiserver proxy](#discovering-builtin-services):
-  
+
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
     - runs in the apiserver processes
@@ -302,23 +301,23 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
-    
+
 1.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
-  
+
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP
     - provides load balancing
     - is just used to reach services
-    
+
 1.  A Proxy/Load-balancer in front of apiserver(s):
-  
+
     - existence and implementation varies from cluster to cluster (e.g. nginx)
     - sits between all clients and one or more apiservers
     - acts as load balancer if there are several apiservers.
-    
+
 1.  Cloud Load Balancers on external services:
-  
+
     - are provided by some cloud providers (e.g. AWS ELB, Google Cloud Load Balancer)
     - are created automatically when the Kubernetes service has type `LoadBalancer`
     - use UDP/TCP only

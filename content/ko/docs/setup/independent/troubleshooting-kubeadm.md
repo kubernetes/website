@@ -255,7 +255,7 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 ```
 
 {{< warning >}}
-**Warning**: Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
+Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
 the security of your cluster.
 {{< /warning >}}
 

@@ -17,7 +17,6 @@ and the current limitations.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -33,7 +32,7 @@ from 1.10.
 
 Then you have to install GPU drivers from the corresponding vendor on the nodes
 and run the corresponding device plugin from the GPU vendor
-([AMD](#deploying-amd-gpu-device-plugin), [NVIDIA](#deploying-nvidia-gpu-device-plugin)). 
+([AMD](#deploying-amd-gpu-device-plugin), [NVIDIA](#deploying-nvidia-gpu-device-plugin)).
 
 When the above conditions are true, Kubernetes will expose `nvidia.com/gpu` or
 `amd.com/gpu` as a schedulable resource.
@@ -117,28 +116,31 @@ kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.
 
 Report issues with this device plugin to [NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin).
 
-#### NVIDIA GPU device plugin used by GKE/GCE
+#### NVIDIA GPU device plugin used by GCE
 
-The [NVIDIA GPU device plugin used by GKE/GCE](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
+The [NVIDIA GPU device plugin used by GCE](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 doesn't require using nvidia-docker and should work with any container runtime
 that is compatible with the Kubernetes Container Runtime Interface (CRI). It's tested
 on [Container-Optimized OS](https://cloud.google.com/container-optimized-os/)
 and has experimental code for Ubuntu from 1.9 onwards.
 
-On your 1.9 cluster, you can use the following commands to install the NVIDIA drivers and device plugin:
+On your 1.12 cluster, you can use the following commands to install the NVIDIA drivers and device plugin:
 
 ```
 # Install NVIDIA drivers on Container-Optimized OS:
-kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/k8s-1.9/daemonset.yaml
+kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/daemonset.yaml
 
 # Install NVIDIA drivers on Ubuntu (experimental):
-kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/k8s-1.9/nvidia-driver-installer/ubuntu/daemonset.yaml
+kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/nvidia-driver-installer/ubuntu/daemonset.yaml
 
 # Install the device plugin:
-kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.9/cluster/addons/device-plugins/nvidia-gpu/daemonset.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.12/cluster/addons/device-plugins/nvidia-gpu/daemonset.yaml
 ```
 
 Report issues with this device plugin and installation method to [GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators).
+
+Instructions for using NVIDIA GPUs on GKE are
+[here](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus)
 
 ## Clusters containing different types of NVIDIA GPUs
 

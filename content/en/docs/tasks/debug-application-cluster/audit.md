@@ -24,7 +24,6 @@ answer the following questions:
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -47,8 +46,8 @@ Each request can be recorded with an associated "stage". The known stages are:
 - `Panic` - Events generated when a panic occurred.
 
 {{< note >}}
-**Note** The audit logging feature increases the memory consumption of the API
-server because some context required for auditing is stored for each request.
+The audit logging feature increases the memory consumption of the API server
+because some context required for auditing is stored for each request.
 Additionally, memory consumption depends on the audit logging configuration.
 {{< /note >}}
 
@@ -103,7 +102,7 @@ In both cases, audit events structure is defined by the API in the
 [`v1`][auditing-api].
 
 {{< note >}}
-**Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
+In case of patches, request body is a JSON array with patch operations, not a JSON object
 with an appropriate Kubernetes API object. For example, the following request body is a valid patch
 request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
 
@@ -191,7 +190,7 @@ and in the logs to monitor the state of the auditing subsystem.
 
 ### Truncate
 
-Both log and webhook backends support batching. As an example, the following is the list of flags
+Both log and webhook backends support truncating. As an example, the following is the list of flags
 available for the log backend:
 
  - `audit-log-truncate-enabled` whether event and batch truncating is enabled.
@@ -217,7 +216,7 @@ In this example, we will use fluentd to split audit events by different namespac
 
 1. install [fluentd][fluentd_install_doc],  fluent-plugin-forest and fluent-plugin-rewrite-tag-filter in the kube-apiserver node
 {{< note >}}
-**Note:** Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc].
+Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc].
 {{< /note >}}
 
 1. create a config file for fluentd
@@ -330,24 +329,22 @@ different users into different files.
 
 1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
 
-    ```none
-    $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
-    apiVersion: v1
-    clusters:
-    - cluster:
-        server: http://<ip_of_logstash>:8888
-      name: logstash
-    contexts:
-    - context:
-        cluster: logstash
-        user: ""
-      name: default-context
-    current-context: default-context
-    kind: Config
-    preferences: {}
-    users: []
-    EOF
-    ```
+        $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
+        apiVersion: v1
+        clusters:
+        - cluster:
+            server: http://<ip_of_logstash>:8888
+          name: logstash
+        contexts:
+        - context:
+            cluster: logstash
+            user: ""
+          name: default-context
+        current-context: default-context
+        kind: Config
+        preferences: {}
+        users: []
+        EOF
 
 1. start kube-apiserver with the following options:
 
