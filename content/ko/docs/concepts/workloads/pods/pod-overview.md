@@ -29,11 +29,12 @@ weight: 10
 
 [쿠버네티스 블로그](http://blog.kubernetes.io)에는 파드 사용 사례의 몇가지 추가적인 정보가 있다. 더 많은 정보를 위해서 아래 내용을 참조한다:
 
-* [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
-* [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
+* [분산 시스템 툴킷:복합 컨테이너를 위한 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
+* [컨테이너 디자인 패턴](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
-Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
-각각의 파드는 애플리케이션에서 단일 인스턴스로 동작을 하는 것이다. 만약 당신의 애플리케이션을 수평적으로 스케일 하기를 원하면(예를들어, 다중 인스턴스 동작하는 것)
+각각의 파드는 주어진 애플리케이션에서 단일 인스턴스로 동작을 하는 것을 말한다. 만약 당신의 애플리케이션을 수평적으로 스케일 하기를 원하면(예를 들면, 다중 인스턴스 동작하는 것), 각 인스턴스 당 한 개씩 다중 파드를 사용해야 한다. 쿠버네티스에서는, 일반적으로 이것을 _복제_ 라고 한다. 복제된 파드는 주로 컨트롤러라고 하는 추상화 개념의 그룹에 의해 만들어지고 관리된다. 더 많은 정보는 [파드와 컨트롤러](#pods-and-controllers)를 참고한다.
+
+
 
 ## 어떻게 파드들이 다중 컨테이너들을 관리하는가
 
