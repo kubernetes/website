@@ -21,7 +21,7 @@ does not specify its own memory limit, then the Container is assigned the defaul
 Kubernetes assigns a default memory request under certain conditions that are explained later in this topic.
 -->
 
-本章节介绍怎样给命名空间配置默认的内存请求和限制。如果在一个有默认内存限制的命名空间创建容器，该容器没有声明自己的内存限制时，将会被指定默认内存限制。Kubernetes 还为某些情况指定了默认的内存请求，本章后面会进行介绍。
+本文介绍怎样给命名空间配置默认的内存请求和限制。如果在一个有默认内存限制的命名空间创建容器，该容器没有声明自己的内存限制时，将会被指定默认内存限制。Kubernetes 还为某些情况指定了默认的内存请求，本章后面会进行介绍。
 
 {{% /capture %}}
 
