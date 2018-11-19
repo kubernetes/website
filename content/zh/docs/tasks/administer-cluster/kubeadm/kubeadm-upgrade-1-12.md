@@ -463,7 +463,7 @@ To recover from a bad state, you can also run `kubeadm upgrade --force` without 
   - 所有节点处于 `Ready` 状态
   - 控制平面是健康的
 - 强制执行版本 skew 策略。
-- 确保控制平面的镜像是可用的或可拉去到服务器上。
+- 确保控制平面的镜像是可用的或可拉取到服务器上。
 - 升级控制平面组件或回滚（如果其中任何一个组件无法启动）。
 - 应用新的 `kube-dns` 和 `kube-proxy` 清单，并强制创建所有必需的 RBAC 规则。
 - 创建 API 服务器的新证书和密钥文件，如果旧文件即将在 180 天后过期，则备份旧文件。
