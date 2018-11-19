@@ -46,11 +46,11 @@ Note that grouping multiple co-located and co-managed containers in a single Pod
 
 #### 네트워킹
 
-Each Pod is assigned a unique IP address. Every container in a Pod shares the network namespace, including the IP address and network ports. Containers *inside a Pod* can communicate with one another using `localhost`. When containers in a Pod communicate with entities *outside the Pod*, they must coordinate how they use the shared network resources (such as ports).
+각각의 파드는 유일한 IP주소를 할당 받는다. 한 파드 안의 모든 컨테이너는 네트워크 네임스페이스와 IP주소 및 네트워크 포트를 공유한다. *파드 안에 있는* 컨테이너들은  다른 컨테이너들과 `localhost`를 통해서 통신할 수 있다. 특정 파드 안에 있는 컨테이너들이 *파드 밖의* 요소들과 통신하기 위해서는, 네트워크 리소스를 어떻게 쓰고 있는지 공유 받아야 한다(예를 들어 포트 등).
 
 #### 저장소
 
-A Pod can specify a set of shared storage *volumes*. All containers in the Pod can access the shared volumes, allowing those containers to share data. Volumes also allow persistent data in a Pod to survive in case one of the containers within needs to be restarted. See [Volumes](/docs/concepts/storage/volumes/) for more information on how Kubernetes implements shared storage in a Pod.
+파드는 공유 저장소 세트인 *볼륨*을 명시할 수 있다. 파드 안의 모든 컨테이너들은 공유 볼륨에 접근할 수 있고, 그 컨테이너들끼리 데이터를 공유하는 것을 허용한다. 또한 볼륨은 컨테이너가 재시작되어야 하는 상황에도 파드 안의 데이터가 영구적으로 유지될 수 있게한다. 쿠버네티스가 어떻게 파드 안의 공유 저장소를 사용하는지 보려면 [Volumes](/docs/concepts/storage/volumes/)를 참고한다.
 
 ## Working with Pods
 
