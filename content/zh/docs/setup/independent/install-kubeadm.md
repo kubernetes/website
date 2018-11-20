@@ -386,9 +386,7 @@ systemctl restart kubelet
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 -->
 如果您在使用 kubeadm 时候遇到问题，请查看我们的[疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/). 
-
 {{% capture whatsnext %}}
-
 <!-- 
 * [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/)
 -->
