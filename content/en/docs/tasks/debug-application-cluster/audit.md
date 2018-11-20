@@ -225,7 +225,7 @@ spec:
   policy:
     level: Metadata
     stages:
-    - RequestResponse
+    - ResponseComplete
   webhook:
     throttle:
       qps: 10
