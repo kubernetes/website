@@ -23,7 +23,7 @@ content_template: templates/task
 Persistent volume claims (PVCs) that are in active use by a pod and persistent volumes (PVs) that are bound to PVCs can be protected from premature removal.
 -->
 
-Kubernetes可以对被 Pod 持续使用的永久卷声明（PVCs）和绑定到 PVC 的永久卷（PVs）进行保护，以避免它们被用户不小心删除掉。
+Kubernetes 可以对被 Pod 持续使用的永久卷声明（PVCs）和绑定到 PVC 的永久卷（PVs）进行保护，以避免它们被用户不小心删除掉。
 
 {{% /capture %}}
 
@@ -198,7 +198,7 @@ Events:
 -  Wait until the pod status is `Terminated` (either delete the pod or wait until it finishes). Afterwards, check that the PVC is removed.
 -->
 
-- 等到 Pod 的状态变为 `Terminated` （删除 Pod 或者等到它结束）。紧接着确认 PVC 被删除掉了。
+- 等到 Pod 的状态变为 `Terminated` （删除 Pod 或者等到它结束），紧接着确认 PVC 被删除掉了。
 
 <!--
 ### Scenario 3: A pod starts using a PVC that is in Terminating state
@@ -307,7 +307,7 @@ Warning  FailedScheduling  18s (x4 over 21s)  default-scheduler persistentvolume
 - Wait until the pod status of both pods is `Terminated` or `Completed` (either delete the pods or wait until they finish). Afterwards, check that the PVC is removed.
 -->
 
-- 等到两个 Pod 的状态为 `Terminated` 或者 `Completed`（删除 Pod 或者等待它们结束）。紧接着检查 PVC 被删除掉了。
+- 等到两个 Pod 的状态为 `Terminated` 或者 `Completed`（删除 Pod 或者等待它们结束），紧接着检查 PVC 被删除掉了。
 
 <!--
 ## Storage Object in Use Protection feature used for PV Protection
