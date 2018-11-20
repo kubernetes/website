@@ -22,8 +22,8 @@ can be used by all Containers running in a namespace. You specify quotas in a
 object.
 -->
 
-本章介绍怎样为命名空间设置容器可用的内存和 CPU 总量。你可以通过 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
-对象进行声明.
+本文介绍怎样为命名空间设置容器可用的内存和 CPU 总量。你可以通过 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
+对象设置配额.
 
 
 {{% /capture %}}
@@ -228,7 +228,7 @@ If you want to restrict individual Containers, instead of totals for all Contain
 
 ## 讨论
 
-如你在本练习中所见，你可以用 ResourceQuota 限制命名空间中所有容器的内存请求总量。同样你也可以限制内存限制总量，CPU 请求总量，CPU 限制总量。
+如你在本练习中所见，你可以用 ResourceQuota 限制命名空间中所有容器的内存请求总量。同样你也可以限制内存限制总量、CPU 请求总量、CPU 限制总量。
 
 如果你想对单个容器而不是所有容器进行限制，就请使用 [LimitRange](/docs/tasks/administer-cluster/memory-constraint-namespace/)。
 
