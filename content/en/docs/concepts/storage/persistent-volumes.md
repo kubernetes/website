@@ -300,11 +300,12 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 ### Volume Mode
 
 {{< feature-state for_k8s_version="v1.9" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
-To enable this feature, enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
+The `BlockVolume` feature gate is enabled by default as of v1.13 on the apiserver, controller-manager and kubelet.
 
 Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
-Now, you can set the value of `volumeMode` to `raw` to use a raw block device, or `filesystem`
+Now, you can set the value of `volumeMode` to `block` to use a raw block device, or `filesystem`
 to use a filesystem. `filesystem` is the default if the value is omitted. This is an optional API
 parameter.
 
@@ -531,9 +532,9 @@ spec:
 ## Raw Block Volume Support
 
 {{< feature-state for_k8s_version="v1.9" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
-To enable support for raw block volumes, enable the `BlockVolume` feature gate on the
-apiserver, controller-manager and the kubelet.
+The `BlockVolume` feature gate is enabled by default as of v1.13 on the apiserver, controller-manager and kubelet.
 
 The following volume plugins support raw block volumes, including dynamic provisioning where
 applicable.
@@ -550,6 +551,8 @@ applicable.
 **Note**: Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
 Support for the additional plugins was added in 1.10.
 {{< /note >}}
+
+`PersistentVolumeClaims` can only be bound to `PersistentVolumes` with the same `volumeMode.`
 
 ### Persistent Volumes using a Raw Block Volume
 ```yaml
@@ -606,28 +609,6 @@ spec:
 
 {{< note >}}
 **Note:** When adding a raw block device for a Pod, we specify the device path in the container instead of a mount path.
-{{< /note >}}
-
-### Binding Block Volumes
-
-If a user requests a raw block volume by indicating this using the `volumeMode` field in the `PersistentVolumeClaim` spec, the binding rules differ slightly from previous releases that didn't consider this mode as part of the spec.
-Listed is a table of possible combinations the user and admin might specify for requesting a raw block device. The table indicates if the volume will be bound or not given the combinations:
-Volume binding matrix for statically provisioned volumes:
-
-| PV volumeMode | PVC volumeMode  | Result           |
-| --------------|:---------------:| ----------------:|
-|   unspecified | unspecified     | BIND             |
-|   unspecified | Block           | NO BIND          |
-|   unspecified | Filesystem      | BIND             |
-|   Block       | unspecified     | NO BIND          |
-|   Block       | Block           | BIND             |
-|   Block       | Filesystem      | NO BIND          |
-|   Filesystem  | Filesystem      | BIND             |
-|   Filesystem  | Block           | NO BIND          |
-|   Filesystem  | unspecified     | BIND             |
-
-{{< note >}}
-**Note:** Only statically provisioned volumes are supported for alpha release. Administrators should take care to consider these values when working with raw block devices.
 {{< /note >}}
 
 ## Volume Snapshot and Restore Volume from Snapshot Support

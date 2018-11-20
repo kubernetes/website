@@ -39,7 +39,8 @@ different Kubernetes components.
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `AttachVolumeLimit` | `true` | Alpha | 1.11 | |
-| `BlockVolume` | `false` | Alpha | 1.9 | |
+| `BlockVolume` | `false` | Alpha | 1.9 | 1.12 |
+| `BlockVolume` | `true` | Beta | 1.13 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
