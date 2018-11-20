@@ -52,7 +52,26 @@ Running pre-create checks...
 Creating machine...
 Starting local Kubernetes cluster...
 
-$ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+$ cat << EOF | kubectl create -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-minikube
+spec:
+  selector:
+    matchLabels:
+      app: hello-minikube
+  template:
+    metadata:
+      labels:
+        app: hello-minikube
+    spec:
+      containers:
+      - name: hello-minikube
+        image: k8s.gcr.io/echoserver:1.10
+        ports:
+        - containerPort: 8080
+EOF
 deployment.apps/hello-minikube created
 $ kubectl expose deployment hello-minikube --type=NodePort
 service/hello-minikube exposed
