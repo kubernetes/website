@@ -63,7 +63,6 @@ weight: 10
 파드 안에서 재시작되는 컨테이너와 재시작되는 파드와 혼동해서는 안된다. 파드는 자기 스스로 동작하지 않는다. 하지만 컨테이너 환경은 그것이 삭제될 때 까지 계속 동작한다.
 {{< /note >}}
 
-Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fails, or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a higher-level abstraction, called a *Controller*, that handles the work of managing the relatively disposable Pod instances. Thus, while it is possible to use Pod directly, it's far more common in Kubernetes to manage your pods using a Controller. See [Pods and Controllers](#pods-and-controllers) for more information on how Kubernetes uses Controllers to implement Pod scaling and healing.
 파드는 스스로 자신을 치료하지 않는다. 만약 파드가 스케쥴링된 노드에 장애가 생기거나, 스케쥴링 동작이 스스로 실패하거나, 파드가 삭제된다; 비슷하게, 파드는 리소스나 노드의 유지 부족으로 인해 살아 남지 못할 것이다.
 쿠버네티스는 *컨트롤러* 라고 하는 고수준의 추상적 개념을 사용하는데, 컨트롤러는 상대적으로 일시적인 파드 인스턴스를 관리하는 작업을 처리한다. 즉, 이것이 파드를 직접적으로 사용할 수 있게 하고 쿠버네티스에서 컨트롤러로 파드를 관리하는 것은 상당히 보편적이다. 쿠버네티스가 어떻게 파드 스케일링과 치료하는지 보려면 [파드와 컨트롤러](#pods-and-controllers) 를 참고한다.
 
