@@ -9,7 +9,7 @@ This command is not meant to be run on its own. See list of available subcommand
 ### Options
 -->
 
-生成建立control plane所需的所有静态Pod清单文件
+生成建立控制面所需的所有静态Pod清单文件
 
 ### 简介
 
