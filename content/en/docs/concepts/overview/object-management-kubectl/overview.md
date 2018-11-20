@@ -144,16 +144,19 @@ API operation to replace the entire object configuration.
 
 ### Examples
 
-Process all object configuration files in the `configs` directory, and
-create or patch the live objects:
+Process all object configuration files in the `configs` directory, and create or
+patch the live objects. You can first `diff` to see what changes are going to be
+made, and then apply:
 
 ```sh
+kubectl diff -f configs/
 kubectl apply -f configs/
 ```
 
 Recursively process directories:
 
 ```sh
+kubectl diff -R -f configs/
 kubectl apply -R -f configs/
 ```
 
@@ -181,5 +184,3 @@ Disadvantages compared to imperative object configuration:
 {{< comment >}}
 {{< /comment >}}
 {{% /capture %}}
-
-
