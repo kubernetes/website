@@ -6,7 +6,7 @@ weight: 10
 -->
 
 ---
-title: "kubeadm 的管理"
+title: "使用 kubeadm 执行管理操作"
 weight: 10
 ---
 

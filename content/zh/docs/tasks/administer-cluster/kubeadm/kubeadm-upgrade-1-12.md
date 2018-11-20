@@ -27,7 +27,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
   [Swap 必须被禁用][swap]. 
   集群应使用静态的控制平面和 etcd pod。
 - 请务必认真阅读[发行说明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md)。
-- 请务必备份所有重要组件，例如存储在数据库中的 app-level 状态。
+- 请务必备份所有重要组件，例如存储在数据库中应用层面的状态。
   `kubeadm upgrade` 不会触及您的工作负载，只会触及 Kubernetes 内部的组件，但备份终究是好的。
 
 [swap]: https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux
@@ -43,7 +43,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
 ### 附加信息
 
-- 升级后重新启动所有容器，因为容器规范的 hash 值已更改。
+- 升级后重新启动所有容器，因为容器 spec 的哈希值已更改。
 - 您只能从一个次版本升级到下一个次版本。
   也就是说，升级时无法跳过版本。
   例如，您只能从 1.10 升级到 1.11，而不能从 1.9 升级到 1.11。
@@ -290,7 +290,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     {{% /tab %}}
     {{< /tabs >}}
 -->
-## 升级 master 和节点的软件包
+## 升级主节点和其他节点的软件包
 
 1.  准备为每个节点进行维护，将其标记为不可调度并移出工作负载：
 
@@ -392,7 +392,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     kubectl uncordon $NODE
     ```
 
-1.  在所有节点上升级 kubelet 之后，通过以下命令再次验证所有来自任何地方的节点的可用性，同时 kubectl 可以访问整个集群： 
+1.  在所有节点上升级 kubelet 之后，通过以下命令验证所有的节点是否依旧可用，使得 kubectl 可以访问整个集群： 
 
     ```shell
     kubectl get nodes
@@ -443,4 +443,4 @@ To recover from a bad state, you can also run `kubeadm upgrade --force` without 
 - 确保控制平面的镜像是可用的或可拉取到服务器上。
 - 升级控制平面组件或回滚（如果其中任何一个组件无法启动）。
 - 应用新的 `kube-dns` 和 `kube-proxy` 清单，并强制创建所有必需的 RBAC 规则。
-- 创建 API 服务器的新证书和密钥文件，如果旧文件即将在 180 天后过期，则备份旧文件。
+- 如果旧文件在 180 天后过期，将创建 API 服务器的新证书和密钥文件并备份旧文件。
