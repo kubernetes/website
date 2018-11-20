@@ -96,6 +96,7 @@ Audit backends persist audit events to an external storage.
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
+- Dynamic backend, which configures webhook backends dynamically
 
 In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
@@ -145,6 +146,8 @@ audit backend using the following kube-apiserver flags:
 
 The webhook config file uses the kubeconfig format to specify the remote address of
 the service and credentials used to connect to it.
+
+In v1.13 webhook backends can be configured [dynamically](#dynamic-backend).
 
 ### Batching
 
@@ -199,7 +202,7 @@ available for the log backend:
 
 By default truncate is disabled in both `webhook` and `log`, a cluster administrator should set `audit-log-truncate-enabled` or `audit-webhook-truncate-enabled` to enable the feature.
 
-## Dynamic Auditing
+### Dynamic backend
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
@@ -235,17 +238,17 @@ For the complete API definition, see [the godoc](https://github.com/kubernetes/k
 
 Existing static backends that you configure with runtime flags are not affected by this feature. However, the dynamic backends share the truncate options of the static webhook. If webhook truncate options are set with runtime flags, they are applied to all dynamic backends.
 
-### Policy
+#### Policy
 
 The AuditSink policy differs from the runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
 
 The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
 
-### Security
+#### Security
 
 Administrators should be aware that allowing write access to this feature grants read access to all cluster data. Access should be treated as a `cluster-admin` level privilege.
 
-### Performance
+#### Performance
 
 Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal for a small number of sinks, and performance impact testing will be done to understand its scope before the API progresses to beta.
 
