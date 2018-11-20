@@ -131,15 +131,16 @@ CPU request and limit to the Container.
 
 * 核查容器声明的 CPU 限制确保其小于或者等于800 millicpu。
 
+
+{{< note >}} 当创建 LimitRange 对象时，你也可以声明 huge-page 和 GPU 的限制。当这些资源同时声明了 'default' 和 ‘defaultRequest’ 参数时，两个参数值必须相同。 {{< /note >}}
 <!--
-{{< note >}}
 When creating a `LimitRange` object, you can specify limits on huge-pages
 or GPUs as well. However, when both `default` and `defaultRequest` are specified
 on these resources, the two values must be the same.
-{{< /note >}}
 -->
 
-{{< note >}}当创建 LimitRange 对象时，你也可以声明 huge-page 和 GPU 的限制。当这些资源同时声明了 'default' 和 ‘defaultRequest’ 参数时，两个参数值必须相同。{{< /note >}}
+
+
 
 <!--
 Here's the configuration file for a Pod that has one Container. The Container manifest
