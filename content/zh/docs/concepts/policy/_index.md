@@ -6,7 +6,7 @@ weight: 160
 -->
 
 ---
-title: "规则"
+title: "策略"
 weight: 160
 ---
 
