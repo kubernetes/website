@@ -6,7 +6,7 @@ weight: 40
 -->
 
 ---
-title: "Kubernetes 对象的运用"
+title: "使用 Kubernetes 对象"
 weight: 40
 ---
 
