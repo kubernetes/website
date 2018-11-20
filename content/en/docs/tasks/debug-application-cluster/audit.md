@@ -199,14 +199,6 @@ available for the log backend:
 
 By default truncate is disabled in both `webhook` and `log`, a cluster administrator should set `audit-log-truncate-enabled` or `audit-webhook-truncate-enabled` to enable the feature.
 
-## Multi-cluster setup
-
-If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
-set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
-same format as described above to the aggregated apiserver and set up the log ingesting pipeline
-to pick up audit logs. Different apiservers can have different audit configurations and different
-audit policies.
-
 ## Dynamic Auditing
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
@@ -256,6 +248,14 @@ Administrators should be aware that allowing write access to this feature grants
 ### Performance
 
 Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal for a small number of sinks, and performance impact testing will be done to understand its scope before the API progresses to beta.
+
+## Multi-cluster setup
+
+If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
+set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
+same format as described above to the aggregated apiserver and set up the log ingesting pipeline
+to pick up audit logs. Different apiservers can have different audit configurations and different
+audit policies.
 
 ## Log Collector Examples
 
