@@ -96,7 +96,7 @@ Audit backends persist audit events to an external storage.
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
-- Dynamic backend, which configures webhook backends dynamically
+- Dynamic backend, which configures webhook backends through an AuditSink API object.
 
 In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
