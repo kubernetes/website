@@ -112,7 +112,7 @@ number of dongles. See
 ## Discussion
 
 Extended resources are similar to memory and CPU resources. For example,
-just as  a Node has a certain amount of memory and CPU to be shared by all components
+just as a Node has a certain amount of memory and CPU to be shared by all components
 running on the Node, it can have a certain number of dongles to be shared
 by all components running on the Node. And just as application developers
 can create Pods that request a certain amount of memory and CPU, they can
