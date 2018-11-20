@@ -545,6 +545,7 @@ applicable.
 * iSCSI
 * Local volume
 * RBD (Ceph Block Device)
+* VsphereVolume (alpha)
 
 {{< note >}}
 **Note**: Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.
