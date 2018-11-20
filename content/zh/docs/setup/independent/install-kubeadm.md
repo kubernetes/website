@@ -363,7 +363,7 @@ user defined arguments for the kubelet.
 
 <!--
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
-is not , because that is the default value in the kubelet already.
+is not `cgroupfs`, because that is the default value in the kubelet already.
 -->
 请注意，您**只**需要在您的 cgroup driver 不是 `cgroupfs` 时这么做，因为 `cgroupfs` 已经是 kubelet 的默认值了。
 
