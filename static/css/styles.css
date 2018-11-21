@@ -1948,6 +1948,10 @@ html.search #docsContent h1 {
   margin-right: 8px;
 }
 
+.feedback--prompt {
+  font-size: 1.25rem;
+}
+
 @media screen and (min-width: 750px) {
   h1 {
     font-size: 32px;

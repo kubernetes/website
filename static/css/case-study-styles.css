@@ -1948,6 +1948,10 @@ html.search #docsContent h1 {
   margin-right: 8px;
 }
 
+.feedback--prompt {
+  font-size: 1.25rem;
+}
+
 hr {
   background-color: #999999;
 }
