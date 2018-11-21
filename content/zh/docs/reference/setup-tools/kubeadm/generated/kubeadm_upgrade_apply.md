@@ -141,14 +141,14 @@ kubeadm upgrade apply [version]
       <td colspan="2">--allow-experimental-upgrades</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">显示 Kubernetes 的不稳定版本作为升级替代方案，并允许升级到 Kubernetes 的 alpha/beta 候选版本。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">显示 Kubernetes 的不稳定版本作为升级替代方案，并允许升级到 Kubernetes 的 alpha/beta 或 RC 版本。</td>
     </tr>
 
   <tr>
       <td colspan="2">--allow-release-candidate-upgrades</td>
     </tr>
     <tr>  
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">显示 Kubernetes 的候选版本作为升级替代方案，并允许升级到 Kubernetes 的候选版本。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">显示 Kubernetes 的候选版本作为升级替代方案，并允许升级到 Kubernetes 的 RC 版本。</td>
     </tr>
 
   <tr>
