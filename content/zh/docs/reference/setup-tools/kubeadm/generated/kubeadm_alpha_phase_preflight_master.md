@@ -22,7 +22,7 @@ kubeadm alpha phase preflight master [flags]
 ### Options
 -->
 
-运行前检查
+执行主节点运行前检查
 
 ### 简介
 
@@ -138,7 +138,7 @@ kubeadm alpha phase preflight master [flags]
       <td colspan="2">--ignore-preflight-errors stringSlice</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一系列检查，其错误将显示为警告。示例：'IsPrivilegedUser，Swap'。值'all'忽略所有检查的错误。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一系列检查，其错误将显示为警告。示例：'IsPrivilegedUser,Swap'。值'all'忽略所有检查的错误。</td>
     </tr>
 
     <tr>
