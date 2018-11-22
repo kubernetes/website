@@ -116,7 +116,7 @@ kubeadm alpha phase bootstrap-token all
   </tbody>
 </table> -->
 
-### 选择项
+### 选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -164,21 +164,21 @@ kubeadm alpha phase bootstrap-token all
       <td colspan="2">--token string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">token 用来建立节点和 master 间的双向互信。格式为 [a-z0-9]{6}\.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">token 用来建立节点和 master 间的双向互信。格式为 [a-z0-9]{6}\.[a-z0-9]{16} - 例如 abcdef.0123456789abcdef</td>
     </tr>
 
     <tr>
       <td colspan="2">--token-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 24h0m0s</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">token 在被自动删除前的持续时间（如 1s, 2m, 3h）。如果设为'0'，token将永不失效</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">token 在被自动删除前的持续时间（如 1s, 2m, 3h）。如果设为'0'，token 将永不失效</td>
     </tr>
 
     <tr>
       <td colspan="2">--usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: [signing,authentication]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">描述 token 可以使用的方式。您可以多次传递--usages 或用逗号分隔开多个选择项。有效的选择项: [signing,authentication]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">描述 token 可以使用的方式。您可以多次传递 --usages 或用逗号分隔开多个选择项。有效的选择项: [signing,authentication]</td>
     </tr>
 
   </tbody>
@@ -210,7 +210,7 @@ kubeadm alpha phase bootstrap-token all
   </tbody>
 </table> -->
 
-### 继承于父命令的选择项
+### 继承于父命令的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -223,7 +223,7 @@ kubeadm alpha phase bootstrap-token all
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群对话时用到的 KubeConfig 文件。如果未设置此标志，则搜索一组标准位置以查找现有KubeConfig文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群对话时用到的 KubeConfig 文件。如果未设置此标志，则搜索一组标准位置以查找现有 KubeConfig 文件。</td>
     </tr>
 
     <tr>
