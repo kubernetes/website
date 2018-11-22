@@ -16,8 +16,7 @@ with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
 [storage classes](/docs/concepts/storage/storage-classes) is suggested. -->
 
 
-本文档描述了 Kubernetes 中 `VolumeSnapshotClass` 的概念。 建议熟悉 [volume snapshots](/docs/concepts/storage/volume-snapshots/) 和
-[storage classes](/docs/concepts/storage/storage-classes)。
+本文档描述了 Kubernetes 中 `VolumeSnapshotClass` 的概念。 建议熟悉 [volume snapshots](/docs/concepts/storage/volume-snapshots/) 和 [storage classes](/docs/concepts/storage/storage-classes)。
 {{% /capture %}}
 
 
