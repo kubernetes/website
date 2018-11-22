@@ -27,9 +27,9 @@ kubeadm alpha phase preflight master [flags]
 ### 简介
 
 
-运行前检查，功能上与kubeadm init实现的功能相同。
+运行前检查，功能上与 kubeadm init 实现的功能相同。
 
-Alpha免责声明：此命令目前是试运行版本。
+Alpha 免责声明：此命令目前是试运行版本。
 
 ```
 kubeadm alpha phase preflight master [flags]
@@ -145,7 +145,7 @@ kubeadm alpha phase preflight master [flags]
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL]宿主机根文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"> [EXPERIMENTAL] 宿主机根文件系统的路径。</td>
     </tr>
 
   </tbody>
