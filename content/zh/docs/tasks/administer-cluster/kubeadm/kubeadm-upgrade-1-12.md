@@ -10,7 +10,7 @@ content_template: templates/task
 This page explains how to upgrade a Kubernetes cluster created with `kubeadm` from version 1.11.x to version 1.12.x, and from version 1.12.x to 1.12.y, where `y > x`.
 -->
 
-本页介绍了如何将 `kubeadm` 创建的的 Kubernetes 集群从 1.11.x 版本升级到 1.12.x 版本，以及从版本 1.12.x 升级到 1.12.y ，其中 `y > x`。
+本页介绍了如何将 `kubeadm` 创建的 Kubernetes 集群从 1.11.x 版本升级到 1.12.x 版本，以及从版本 1.12.x 升级到 1.12.y ，其中 `y > x`。
 {{% /capture %}}
 
 {{% capture prerequisites %}}
