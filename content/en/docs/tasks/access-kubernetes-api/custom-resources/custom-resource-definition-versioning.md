@@ -32,8 +32,8 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 The CustomResourceDefinition API supports a `versions` field that you can use to
 support multiple versions of custom resources that you have developed. Versions
 can have different schemas with a conversion webhook to convert custom resources between versions.
-These conversion should follow [API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md) wherever applicable. Specifically
-a set of useful gotchas and suggestions (such as roundtrip-ability) can be found in the [api change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md).
+These conversions should follow [API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md) wherever applicable. 
+Specifically See the [api change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) for a set of useful gotchas and suggestions.
 
 {{< note >}}
 Earlier iterations included a `version` field instead of `versions`. The
@@ -69,7 +69,7 @@ spec:
   # The conversion section is introduced in kubernetes 1.13+ with a default value of
   # None conversion (strategy sub-field set to None).
   conversion:
-    # None conversion assumes the same schema for all versions and only set apiVersion
+    # None conversion assumes the same schema for all versions and only sets the apiVersion
     # field of custom resources to the proper value
     strategy: None
   # either Namespaced or Cluster
@@ -93,7 +93,7 @@ You can save the CustomResourceDefinition in a YAML file, then use
 kubectl create -f my-versioned-crontab.yaml
 ```
 
-After creation, the apiserver starts to serve each enabled version at an HTTP
+After creation, the API server starts to serve each enabled version at an HTTP
 REST endpoint. In the above example, the API versions are available at
 `/apis/example.com/v1beta1` and `/apis/example.com/v1`.
 
@@ -148,27 +148,27 @@ the version.
 ## Webhook conversion
 
 {{< note >}}
-Webhook conversion is intorduced in kubernetes 1.13 as an alpha feature. To use this feature, the
-`CustomResourceWebhookConversion` feature get should be set. Please refer to [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+Webhook conversion is introduced in kubernetes 1.13 as an alpha feature. To use it, the
+`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
 The above example has a None conversion between versions which only sets the `apiVersion` field
-on conversion and does not change the rest of the object. apiserver also supports webhook conversion that
-calls an external service in case of a conversion is required, e.g. when:
+on conversion and does not change the rest of the object. API server also supports webhook conversions that
+calls an external service in case of a conversion is required, For example when:
 
 * custom resource is requested in a different version than stored version.
 * Watch is created in one version but the changed object is stored in another version.
 * custom resource PUT request is in a different version than storage version.
 
-To cover all of these cases and to optimize conversion on apiserver side, the conversion requests carry as many object as possible in order to minimize the calls to the webhook. These conversions should happened independently. The grouping of custom resources does not represent any relation between them.
+To cover all of these cases and to optimize conversion by the API server, the conversion requests contain as many objects as possible in order to minimize the calls to the webhook. These conversions should happened independently. The grouping of custom resources does not represent any relation between them.
 
 ### Write a conversion webhook server
 
 Please refer to the implementation of the [custom resource conversion webhook
 server](https://github.com/kubernetes/kubernetes/blob/v1.13.0-beta.1/test/images/crd-conversion-webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
-`ConversionReview` requests sent by the apiservers, and sends back conversion
-result wrapped in `ConversionResponse`. Note that the request
+`ConversionReview` requests sent by the API servers, and sends back conversion
+results wrapped in `ConversionResponse`. Note that the request
 contains a list of custom resources that need to be converted independently without
 changing the order of objects.
 The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file]((https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/images/crd-conversion-webhook/converter/framework.go)) that leaves only [one function]((https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/images/crd-conversion-webhook/converter/example-converter.go#L29-L80)) to be implemented for different conversions.
@@ -177,9 +177,9 @@ The example server is organized in a way to be reused for other conversions. Mos
 The example conversion webhook server leaves the `ClientAuth` field
 [empty](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/images/crd-conversion-webhook/config.go#L48-L49),
 which defaults to `NoClientCert`. This means that the webhook server does not
-authenticate the identity of the clients, supposedly apiservers. If you need
+authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
-how to [authenticate apiservers](/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers).
+how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers).
 {{< /note >}}
 
 ### Deploy the conversion webhook service
@@ -191,7 +191,7 @@ The assumption for next sections is that the conversion webhook server is deploy
 When the webhook server is deployed into the Kubernetes cluster as a
 service, it has to be exposed via a service on port 443 (The server
 itself can have an arbitrary port but the service object should map it to port 443).
-The communication between the apiserver and the webhook service may fail
+The communication between the API server and the webhook service may fail
 if a different port is used for the service.
 {{< /note >}}
 
@@ -234,10 +234,10 @@ spec:
           port:
             type: string
   conversion:
-    # a Webhook strategy instruct apiserver to call an external webhook for any conversion between custom resources.
+    # a Webhook strategy instruct API server to call an external webhook for any conversion between custom resources.
     strategy: Webhook
     # webhookClientConfig is required when strategy is `Webhook` and it configure the webhook endpoint to be
-    # called by APIServer.
+    # called by API server.
     webhookClientConfig:
       service:
         namespace: default
@@ -307,7 +307,7 @@ To illustrate this, consider the following hypothetical series of events:
 
 ### Previous storage versions
 
-The apiserver records each version which has ever been marked as the storage
+The API server records each version which has ever been marked as the storage
 version in the status field `storedVersions`. Objects may have been persisted
 at any version that has ever been designated as a storage version. No objects
 can exist in storage at a version that has never been a storage version.
