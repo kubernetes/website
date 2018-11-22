@@ -48,9 +48,9 @@ the RuntimeClass feature: -->
 3. Configure the CRI implementation on nodes (runtime dependent)
 4. Create the corresponding RuntimeClass resources -->
 
-1. 开启 RuntimeClass 功能门（feature gate） (在 apiservers 和 kubelets 上，版本号需要是 1.12+)
+1. 开启 RuntimeClass 功能门（feature gate） (在 apiservers 和 kubelets 上，需要版本号 1.12 以上)
 2. 安装 RuntimeClass CRD
-3. 在节点上配置CRI实现（运行时依赖）
+3. 在节点上配置 CRI 实现（运行时依赖）
 4. 创建相应的 RuntimeClass 资源
 
 
@@ -152,7 +152,7 @@ Overview](https://kubernetes.io/docs/reference/access-authn-authz/authorization/
 <!-- Once RuntimeClasses are configured for the cluster, using them is very simple. Specify a
 `runtimeClassName` in the Pod spec. For example: -->
 
-一旦完成集群中 RuntimeClasses 的配置，使用起来倒是非常的方便。
+一旦完成集群中 RuntimeClasses 的配置，使用起来非常简便。
 在 Pod spec 中声明所需的 `runtimeClassName` 即可。例如:
 
 ```yaml
