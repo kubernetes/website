@@ -24,7 +24,7 @@ for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the [Kubelet TLS
 Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system. 
 -->
-Bootstrap token 是一种简单的 bearer token，用于创建新集群或将新节点连接到现有集群。它被用来支持 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)，但也可以作为基础条件被那些希望在没有 `kubeadm` 的情况下创建集群的用户。它也可以通过 RBAC 策略用于 [Kubelet TLS
+Bootstrap token 是一种简单的 bearer token，用于创建新集群或将新节点连接到现有集群。它被用来支持 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)，但是对于那些希望在没有 `kubeadm` 的情况下创建集群的用户，也可以在其他环境中使用。它也可以通过 RBAC 策略用于 [Kubelet TLS
 Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) 系统。
 {{% /capture %}}
 
@@ -43,9 +43,9 @@ Controller Manager.  The tokens are also used to create a signature for a
 specific ConfigMap used in a "discovery" process through a BootstrapSigner
 controller. 
 -->
-Bootstrap Token 在 `kube-system` 命名空间中使用 (`bootstrap.kubernetes.io/token`) 使用特定类型的 secret 来定义。
+Bootstrap Token 在 kube-system 命名空间中使用特定类型 (bootstrap.kubernetes.io/token) 的 secret 来定义。
 然后，这些 Secret 被 API Server 中的 Bootstrap Authenticator 读取。过期的 token 被 Controller Manager 中的 TokenCleaner 控制器移除。
-这些 Token 也被 BootstrapSigner controller 在一个 "发现" 的过程中用来为特定的 ConfigMap 创建签名。 
+这些 Token 也被 BootstrapSigner 控制器在一个 "发现" 的过程中用来为特定的 ConfigMap 创建签名。 
 
 {{< feature-state state="beta" >}}
 
