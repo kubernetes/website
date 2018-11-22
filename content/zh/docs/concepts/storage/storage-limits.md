@@ -19,7 +19,7 @@ how many volumes can be attached to a Node. It is important for Kubernetes to
 respect those limits. Otherwise, Pods scheduled on a Node could get stuck
 waiting for volumes to attach. -->
 
-谷歌，亚马逊和微软等云供应商通常对可以附加到节点的卷数量进行限制。 Kubernetes需要尊重这些限制。 否则，在节点上调度的Pod可能会卡住去等待卷的附加。
+谷歌，亚马逊和微软等云供应商通常对可以附加到节点的卷数量进行限制。 Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的附加。
 
 
 
@@ -120,7 +120,7 @@ Kubernetes allows 39 volumes to be attached to a Node.
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
 最多可以将128个卷附加到节点，[根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
 
-* 对于M5，C5，R5，T3和Z1D实例类型的 Amazon EBS 磁盘，Kubernetes仅允许25个卷附加到节点。 对于ec2上的其他实例类型
+* 对于M5，C5，R5，T3和Z1D实例类型的 Amazon EBS 磁盘，Kubernetes 仅允许25个卷附加到节点。 对于ec2上的其他实例类型
 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
 Kubernetes 允许39个卷附加至节点。
 
