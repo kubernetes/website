@@ -21,7 +21,7 @@ weight: 10
 
 {{% capture overview %}}
 
-配置[聚合层](/docs/concepts/api-extension/apiserver-aggregation/)允许让 Kubernetes apiserver 使用其它 API 进行扩展，这些 API 不是核心 Kubernetes API 的一部分。
+配置[聚合层](/docs/concepts/api-extension/apiserver-aggregation/)允许 Kubernetes apiserver 使用其它 API 进行扩展，这些 API 不是核心 Kubernetes API 的一部分。
 <!--
 Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 -->
@@ -33,7 +33,7 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{< note >}}
-**Note:** 在您的环境中使用聚合层工作以支持代理和扩展后的 apiserver 之间的双向 TLS 身份验证有一些设置要求。Kubernetes 和 kube-apiserver 有多个 CA ,因此确保代理由聚合层 CA 签署，而不是由其它来签署，正如主 CA 。
+**Note:** 在您的环境中使用聚合层工作以支持代理和扩展后的 apiserver 之间的双向 TLS 身份验证有一些设置要求。Kubernetes 和 kube-apiserver 有多个 CA,因此确保代理由聚合层 CA 签署，而不是由其它来签署，正如主 CA。
 {{< /note >}}
 <!--
 {{< note >}}
@@ -57,7 +57,7 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
     --proxy-client-cert-file=<path to aggregator proxy cert>
     --proxy-client-key-file=<path to aggregator proxy key>
 
-WARNING: 除非您了解保护 CA 使用的风险和机制，否则在不同的上下文中不要重复使用 CA 。
+WARNING: 除非您了解保护 CA 使用的风险和机制，否则在不同的上下文中不要重复使用 CA。
 
 如果您未在运行 API 的服务器的主机上运行 kube-proxy ，则必须确保使用 apiserver 的标志：
 
