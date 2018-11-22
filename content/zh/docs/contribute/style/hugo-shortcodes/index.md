@@ -264,9 +264,9 @@ This is **some markdown.**
 * Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
 * Learn about [creating a pull request](/docs/home/contribute/create-pull-request/). -->
 
-* 更多了解 [Hugo](https://gohugo.io/).
-* 更多了解 [撰写新的话题](/docs/home/contribute/write-new-topic/).
-* 更多了解 [使用页面模板](/docs/home/contribute/page-templates/).
-* 更多了解 [暂存修改](/docs/home/contribute/stage-documentation-changes/)
-* 更多了解 [创建 pull request](/docs/home/contribute/create-pull-request/).
+* 了解 [Hugo](https://gohugo.io/)。
+* 了解 [撰写新的话题](/docs/home/contribute/write-new-topic/)。
+* 了解 [使用页面模板](/docs/home/contribute/page-templates/)。
+* 了解 [暂存修改](/docs/home/contribute/stage-documentation-changes/)。
+* 了解 [创建 pull request](/docs/home/contribute/create-pull-request/)。
 {{% /capture %}}
