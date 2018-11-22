@@ -43,9 +43,9 @@ Controller Manager.  The tokens are also used to create a signature for a
 specific ConfigMap used in a "discovery" process through a BootstrapSigner
 controller. 
 -->
-Bootstrap Token 在 kube-system 命名空间中使用特定类型 (bootstrap.kubernetes.io/token) 的 secret 来定义。
+Bootstrap Token 在 kube-system 命名空间中使用特定类型 (`bootstrap.kubernetes.io/token`) 的 secret 来定义。
 然后，这些 Secret 被 API Server 中的 Bootstrap Authenticator 读取。过期的 token 被 Controller Manager 中的 TokenCleaner 控制器移除。
-这些 Token 也被 BootstrapSigner 控制器在一个 "发现" 的过程中用来为特定的 ConfigMap 创建签名。 
+这些 Token 也被 BootstrapSigner 控制器在一个"发现"的过程中用来为特定的 ConfigMap 创建签名。 
 
 {{< feature-state state="beta" >}}
 
