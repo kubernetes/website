@@ -402,6 +402,14 @@ In the past, the annotation `volume.beta.kubernetes.io/mount-options` was used i
 of the `mountOptions` attribute. This annotation is still working, however
 it will become fully deprecated in a future Kubernetes release.
 
+### Node Affinity
+
+{{< note >}}
+For most volume types, you do not need to set this field. It is automatically populated for [AWS EBS](/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) and [Azure Disk](/docs/concepts/storage/volumes/#azuredisk) volume block types. You need to explicitly set this for [local](/docs/concepts/storage/volumes/#local) volumes.
+{{< /note >}}
+
+A PV can specify [node affinity](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core) to define constraints that limit what nodes this volume can be accessed from. Pods that use a PV will only be scheduled to nodes that are selected by the node affinity.
+
 ### Phase
 
 A volume will be in one of the following phases:
