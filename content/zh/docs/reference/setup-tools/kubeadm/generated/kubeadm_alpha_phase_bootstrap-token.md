@@ -5,7 +5,7 @@ Manage kubeadm-specific bootstrap token functions
  -->
 
 
-管理 kubeadm-specific bootstrap token 功能
+管理特定于 kubeadm 的启动引导令牌（bootstrap token）功能
 
 ### 概要
 
@@ -14,7 +14,7 @@ Manage kubeadm-specific bootstrap token functions
 
 ### Options -->
 
-此命令不用于自己运行。请看可用的子命令列表。
+此命令不用于自己运行。请参阅可用的子命令列表。
 
 
 ### 可选项
@@ -96,7 +96,7 @@ Manage kubeadm-specific bootstrap token functions
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验性] “真正的” 主机根目录文件系统路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验性] 主机根目录文件系统“真实”路径。</td>
     </tr>
 
   </tbody>
