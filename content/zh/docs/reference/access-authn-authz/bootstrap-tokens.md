@@ -66,7 +66,7 @@ information.  It is used when referring to a token without leaking the secret
 part used for authentication. The second part is the "Token Secret" and should
 only be shared with trusted parties.
 -->
-token 的第一部分是 "Token ID" 并且被认为是公共信息。这部分会在引用一个 token 但是不想泄露那些用于鉴权的私密部分时被用到。第二部分则是 "Token Secret"，应该仅与受信任方共享。
+Token 的第一部分是 "Token ID" 并且被认为是公共信息。这部分会在引用一个 token 但是不想泄露那些用于鉴权的私密部分时被用到。第二部分则是 "Token Secret"，应该仅与受信任方共享。
 
 <!-- 
 ## Enabling Bootstrap Token Authentication
@@ -108,7 +108,9 @@ controller on the controller manager. -->
 --controllers=*,tokencleaner
 ```
 
-<!-- ## Bootstrap Token Secret Format -->
+<!-- 
+## Bootstrap Token Secret Format 
+-->
 ## Bootstrap Token Secret 格式
 
 <!-- 
@@ -118,8 +120,10 @@ find the full design doc
 -->
 每个有效的 token 都对应着 `kube-system` 命名空间中的一个 secret。您可以从 [这里](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/cluster-lifecycle/bootstrap-discovery.md) 获得整个的设计文档。
 
-<!-- Here is what the secret looks like. -->
-Secret 就是这个样子。
+<!-- 
+Here is what the secret looks like. 
+-->
+Secret 样例如下所示。
 
 ```yaml
 apiVersion: v1
@@ -201,7 +205,7 @@ is used early in a cluster bootstrap process before the client trusts the API
 server.  The signed ConfigMap can be authenticated by the shared token. 
 -->
 除了身份验证之外，token 还可用于对 ConfigMap 进行签名。
-这个用于在客户端和 API Server 互信之前，在集群引导过程的早期使用。
+这个用于在客户端和 API Server 互信之前，在集群引导过程的前期使用。
 签名的 ConfigMap 可以通过共享 token 进行身份鉴权。
 
 <!-- 
@@ -227,7 +231,7 @@ at a signature embedded in the ConfigMap.
 <!-- 
 The ConfigMap may look like this: 
 -->
-ConfigMap 是这个样子的:
+ConfigMap 样例如下所示:
 
 ```yaml
 apiVersion: v1
@@ -256,7 +260,7 @@ The `kubeconfig` member of the ConfigMap is a config file with just the cluster
 information filled out.  The key thing being communicated here is the
 `certificate-authority-data`.  This may be expanded in the future. 
 -->
-ConfigMap 的 `kubeconfig` 成员是一个配置文件，只填写了集群信息。
+ConfigMap 的 `kubeconfig` 成员是一个配置文件，里面只填写了集群信息。
 在通信过程中的关键是 `certificate-authority-data`。这部分可能在将来会扩展。
 
 <!-- 
@@ -268,10 +272,10 @@ verify the JWS using the `HS256` scheme (HMAC-SHA256) with the full token (e.g.
 `07401b.f395accd246ae52d`) as the shared secret.  Users _must_ verify that HS256
 is used. 
 -->
-签名是使用 “分离” 模式的 JWS 签名。
+签名是使用“分离”模式的 JWS 签名。
 为了验证签名，用户应该根据 JWS 规则加密 `kubeconfig`的信息（base64 编码，同时丢弃任何的 `=`）。
 然后将使用该编码的信息插入 2 个点之间来形成整个 JWS。
-您可以使用 `HS256` 方案（HMAC-SHA256）验证JWS，并使用完整令牌（例如 `07401b.f395accd246ae52d`）作为共享密钥。 用户_必须_验证 HS256 是否被使用。
+您可以使用 `HS256` 方案（HMAC-SHA256）验证 JWS，并使用完整令牌（例如 `07401b.f395accd246ae52d`）作为共享密钥。 用户_必须_验证 HS256 是否被使用。
 
 {{< warning >}}
 <!-- 
@@ -281,7 +285,7 @@ many clients, since a compromised client can potentially man-in-the middle anoth
 client relying on the signature to bootstrap TLS trust. 
 -->
 **注意:** 拥有 bootstrapping token 任何一方都可以为该 token 创建有效签名。
-当使用ConfigMap签名时，不建议许多客户端共享相同的 token，因为受入侵的客户端可能会作为中间人为其它客户端来引导 TLS 信任。
+当使用 ConfigMap 签名时，不建议许多客户端共享相同的 token，因为受入侵的客户端可能会作为中间人为其它客户端来引导 TLS 信任。
 {{< /warning >}}
 
 <!-- 
