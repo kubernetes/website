@@ -10,8 +10,8 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-In a kubernetes cluster, the components on the worker nodes - kubelet and kube-proxy - need to communicate with Kubernetes master components, i.e. kube-apiserver.
-In order to ensure that communication is kept private, not interfered with, and ensure that each is talking to a trusted element, we strongly
+In a Kubernetes cluster, the components on the worker nodes - kubelet and kube-proxy - need to communicate with Kubernetes master components, specifically kube-apiserver.
+In order to ensure that communication is kept private, not interfered with, and ensure that each component of the cluster is talking to another trusted component, we strongly
 recommend using client TLS certificates on nodes.
 
 The normal process of bootstrappinng these components, and especially worker nodes which need certificates so they can communicate safely with kube-apiserver,
@@ -84,16 +84,16 @@ To configure for TLS bootstrapping and optional automatic approval, you must con
 * kubelet
 * in-cluster resources: `ClusterRoleBinding` and potentially `ClusterRole`
 
-In addition, you need your kubernetes Certificate Authority (CA).
+In addition, you need your Kubernetes Certificate Authority (CA).
 
 ## Certificate Authority
 As without bootstrapping, you will need a Certificate Authority (CA) key and certificate. As without bootstrapping, these will be used
 to sign the kubelet certificate. As before, it is your responsibility to distribute them to master nodes.
 
 For the purposes of this document, we will assume these have been distributed to master nodes at `/var/lib/kubernetes/ca.pem` (certificate) and `/var/lib/kubernetes/ca-key.pem` (key). 
-We will refer to these as "kubernetes CA certificate and key".
+We will refer to these as "Kubernetes CA certificate and key".
 
-All kubernetes components that use these certificates - kubelet, kube-apiserver, kube-controller-manager - assume the key and certificate to be PEM-encoded.
+All Kubernetes components that use these certificates - kubelet, kube-apiserver, kube-controller-manager - assume the key and certificate to be PEM-encoded.
 
 ## kube-apiserver configuration
 The kube-apiserver has several requirements to enable TLS bootstrapping:
@@ -106,8 +106,8 @@ The kube-apiserver has several requirements to enable TLS bootstrapping:
 This is normal for all client certificate authentication.
 If not already set, add the `--client-ca-file=FILENAME` flag to the kube-apiserver command to enable
 client certificate authentication, referencing a certificate authority bundle
-containing the signing certificate (e.g.
-`--client-ca-file=/var/lib/kubernetes/ca.pem`).
+containing the signing certificate, for example
+`--client-ca-file=/var/lib/kubernetes/ca.pem`.
 
 ### Initial bootstrap authentication
 In order for the bootstrapping kubelet to connect to kube-apiserver and request a certificate, it must first authenticate to the server.
@@ -135,11 +135,11 @@ should ensure tokens are bound to a Role Based Access Control (RBAC) policy
 which limits requests (using the [bootstrap
 token](/docs/reference/access-authn-authz/bootstrap-tokens/)) strictly to client
 requests related to certificate provisioning. With RBAC in place, scoping the
-tokens to a group allows for great flexibility (e.g. you could disable a
-particular bootstrap group's access when you are done provisioning the nodes).
+tokens to a group allows for great flexibility. For example, you could disable a
+particular bootstrap group's access when you are done provisioning the nodes.
 
 #### Bootstrap tokens
-Bootstrap tokens are described in detail [here](/docs/reference/access-authn-authz/bootstrap-tokens/). These are tokens that are stored as secrets in the kubernetes cluster,
+Bootstrap tokens are described in detail [here](/docs/reference/access-authn-authz/bootstrap-tokens/). These are tokens that are stored as secrets in the Kubernetes cluster,
 and then issued to the individual kubelet. You can use a single token for an entire cluster, or issue one per worker node.
 
 The process is two-fold:
@@ -221,14 +221,14 @@ In order for the controller-manager to sign certificates, it needs the following
 * enabling CSR signing
 
 #### Access to key and certificate
-As described earlier, you need to create a kubernetes CA key and certificate, and distribute it to the master nodes.
+As described earlier, you need to create a Kubernetes CA key and certificate, and distribute it to the master nodes.
 These will be used by the controller-manager to sign the kubelet certificates.
 
 Since these signed certificates will, in turn, be used by the kubelet to authenticate as a regular kubelet to kube-apiserver, it is important that the CA
 provided to the controller-manager at this stage also be trusted by kube-apiserver for authentication. This is provided to kube-apiserver
-with the flag `--client-ca-file=FILENAME` (e.g. `--client-ca-file=/var/lib/kubernetes/ca.pem`), as described in the kube-apiserver configuration section.
+with the flag `--client-ca-file=FILENAME` (for example, `--client-ca-file=/var/lib/kubernetes/ca.pem`), as described in the kube-apiserver configuration section.
 
-To provide the kubernetes CA key and certificate to kube-controller-manager, use the following flags:
+To provide the Kubernetes CA key and certificate to kube-controller-manager, use the following flags:
 
 ```
 --cluster-signing-cert-file="/etc/path/to/kubernetes/ca/ca.crt" --cluster-signing-key-file="/etc/path/to/kubernetes/ca/ca.key"
@@ -392,7 +392,7 @@ The kubelet requires the following configuration to bootstrap:
 * A path to a bootstrap `kubeconfig` file to provide the bootstrap token and URL for the server
 * Optional: instructions to rotate certificates
 
-The bootstrap `kubeconfig` should be in a path available to the kubelet, e.g. `/var/lib/kubelet/bootstrap-kubeconfig`.
+The bootstrap `kubeconfig` should be in a path available to the kubelet, for example `/var/lib/kubelet/bootstrap-kubeconfig`.
 
 Its format is identical to a normal `kubeconfig` file. A sample file might look as follows:
 
