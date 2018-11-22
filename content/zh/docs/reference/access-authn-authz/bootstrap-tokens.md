@@ -226,7 +226,7 @@ at a signature embedded in the ConfigMap.
 -->
 被签名的 ConfigMap 作为 `kube-public` 命名空间中的 `cluster-info` 存在。
 典型的流程是客户端在未经身份验证和忽略 TLS 错误时读取此 ConfigMap。
-然后通过嵌入 ConfigMap 中的签名来校验 ConfigMap 。
+然后通过嵌入 ConfigMap 中的签名来校验 ConfigMap。
 
 <!-- 
 The ConfigMap may look like this: 
