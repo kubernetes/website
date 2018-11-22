@@ -1,4 +1,4 @@
----
+<!-- ---
 reviewers:
 - jsafrane
 - saad-ali
@@ -7,19 +7,30 @@ reviewers:
 title: Node-specific Volume Limits
 content_template: templates/concept
 ---
+ -->
+
+---
+reviewers:
+- jsafrane
+- saad-ali
+- thockin
+- msau42
+title: 节点特定的卷限制
+content_template: templates/concept
+---
 
 {{% capture overview %}}
 
 <!-- This page describes the maximum number of volumes that can be attached
 to a Node for various cloud providers. -->
-此页面描述了各个云供应商可附加至一个节点的最大卷数。
+此页面描述了各个云供应商可关联至一个节点的最大卷数。
 
 <!-- Cloud providers like Google, Amazon, and Microsoft typically have a limit on
 how many volumes can be attached to a Node. It is important for Kubernetes to
 respect those limits. Otherwise, Pods scheduled on a Node could get stuck
 waiting for volumes to attach. -->
 
-谷歌，亚马逊和微软等云供应商通常对可以附加到节点的卷数量进行限制。 Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的附加。
+谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。 Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的关联。
 
 
 
@@ -34,7 +45,7 @@ that can be attached to a Node: -->
 
 ## Kubernetes 的默认限制
 
-The Kubernetes scheduler 对附加在一个节点的卷数有默认限制：
+The Kubernetes 调度器对关联于一个节点的卷数有默认限制：
 <!-- 
 <table>
   <tr><th>Cloud service</th><th>Maximum volumes per Node</th></tr>
@@ -63,7 +74,7 @@ The limit applies to the entire cluster, so it affects all Nodes. -->
 
 ## 自定义限制
 
-您可以通过设置`KUBE_MAX_PD_VOLS`环境变量的值来设置这些限制，然后再启动 scheduler。
+您可以通过设置`KUBE_MAX_PD_VOLS`环境变量的值来设置这些限制，然后再启动调度器。
 
 如果设置的限制高于默认限制，请谨慎使用。 请参阅云提供商的文档以确保节点可支持您设置的限制。
 
@@ -99,7 +110,7 @@ Kubernetes 1.11引入了基于节点类型的动态卷限制的支持作为 Alph
 determines the Node type and enforces the appropriate number of attachable
 volumes for the node. For example: -->
 
-启用动态卷限制功能后，Kubernetes 会自动确定节点类型并对该节点强制执行适当数量的可附加卷。 例如：
+启用动态卷限制功能后，Kubernetes 会自动确定节点类型并确保节点上可挂接的卷数目合规。 例如：
 
 <!-- * On
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
@@ -117,15 +128,15 @@ Kubernetes allows 39 volumes to be attached to a Node.
   and the Scheduler will not schedule Pods with volumes on any Node that is already at its capacity. Refer to the [CSI specs](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for more details. -->
 
 * 在
-<a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
-最多可以将128个卷附加到节点，[根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
+<a href="https://cloud.google.com/compute/">Google Compute Engine</a>环境中,
+[根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将128个卷关联到节点。
 
-* 对于M5，C5，R5，T3和Z1D实例类型的 Amazon EBS 磁盘，Kubernetes 仅允许25个卷附加到节点。 对于ec2上的其他实例类型
+* 对于M5，C5，R5，T3和Z1D实例类型的 Amazon EBS 磁盘，Kubernetes 仅允许25个卷关联到节点。 对于ec2上的其他实例类型
 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
-Kubernetes 允许39个卷附加至节点。
+Kubernetes 允许39个卷关联至节点。
 
-* 在 Azure, 根据节点类型，最多64个磁盘可以附加至一个节点。更多详细信息，请参阅 [Azure 虚拟机的数量大小](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
+* 在 Azure 环境中, 根据节点类型，最多64个磁盘可以关联至一个节点。更多详细信息，请参阅 [Azure 虚拟机的数量大小](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 
-* 对于CSI，任何通过CSI规范公布卷附加限制的驱动程序都将具有这些限制作为Node的可分配属性，Scheduler 不会在已经达到其容量限制的任何节点上调度具有卷的Pod。 参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
+* 对于 CSI，任何符合 CSI 规范中卷关联限制的驱动都将这些限制作为Node的可分配属性，调度器不会往已经达到其容量限制的任何节点上调度具有卷的Pod。 参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
 
 {{% /capture %}}
