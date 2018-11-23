@@ -16,7 +16,7 @@ weight: 10
 
 Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) in
-particular create and destroy `Pods` dynamically (e.g. when scaling up or down).  While each `Pod` gets its own IP address, even
+particular create and destroy `Pods` dynamically (e.g. when scaling out or in).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -324,8 +324,8 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of
 DNS records for each.  If DNS has been enabled throughout the cluster then all
 `Pods` should be able to do name resolution of `Services` automatically.
 
-For example, if you have a `Service` called `"my-service"` in Kubernetes
-`Namespace` `"my-ns"` a DNS record for `"my-service.my-ns"` is created.  `Pods`
+For example, if you have a `Service` called `"my-service"` in a Kubernetes
+`Namespace` called `"my-ns"`, a DNS record for `"my-service.my-ns"` is created.  `Pods`
 which exist in the `"my-ns"` `Namespace` should be able to find it by simply doing
 a name lookup for `"my-service"`.  `Pods` which exist in other `Namespaces` must
 qualify the name as `"my-service.my-ns"`.  The result of these name lookups is the

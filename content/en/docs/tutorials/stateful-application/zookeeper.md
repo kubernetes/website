@@ -103,7 +103,7 @@ StatefulSet controller create the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to  terminate kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
