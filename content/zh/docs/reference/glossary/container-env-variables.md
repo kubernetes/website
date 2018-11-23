@@ -4,7 +4,7 @@ id: container-env-variables
 date: 2018-04-12
 full_link: /docs/concepts/containers/container-environment-variables.md
 short_description: >
-  容器的环境变量是为 Pod 中运行的容器提供有用信息的键值对。
+  Container environment variables 提供了运行容器化应用所必须的一些重要信息。
 
 aka: 
 tags:
@@ -30,11 +30,11 @@ tags:
  Container environment variables are name=value pairs that provide useful information into containers running in a Pod.
 -->
 
-  容器的环境变量是一些键值对，它们为 Pod 中运行的容器提供有用的信息。
+  Container environment variables 提供了运行容器化应用所必须的一些重要信息。
   
 <!--more-->
 <!--
 Container environment variables provide information that is required by the running containerized applications along with information about important resources to the {{< glossary_tooltip text="Containers" term_id="container" >}}. For example, file system details, information about the container itself, and other cluster resources such as service endpoints.
 -->
 
-  容器的环境变量提供了容器化应用运行中 {{< glossary_tooltip text="容器" term_id="container" >}} 所需的重要资源相关的信息。例如，文件系统信息、容器自身的信息以及其他像服务端点（Service endpoints）这样的集群资源信息。
+  Container environment variables 为运行中的容器化应用提供必要的信息，同时还提供与 {{< glossary_tooltip text="容器" term_id="container" >}} 重要资源相关的其他信息，例如：文件系统信息、容器自身的信息以及其他像服务端点（Service endpoints）这样的集群资源信息。
