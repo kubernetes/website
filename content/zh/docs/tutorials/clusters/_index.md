@@ -1,11 +1,11 @@
 ---
-title: "工作负载"
+title: "集群"
 weight: 60
 ---
 
 <!--
 ---
-title: "Workloads"
+title: "Clusters"
 weight: 60
 ---
 -->
