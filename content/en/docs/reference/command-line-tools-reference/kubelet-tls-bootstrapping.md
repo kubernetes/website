@@ -14,9 +14,9 @@ In a Kubernetes cluster, the components on the worker nodes - kubelet and kube-p
 In order to ensure that communication is kept private, not interfered with, and ensure that each component of the cluster is talking to another trusted component, we strongly
 recommend using client TLS certificates on nodes.
 
-The normal process of bootstrappinng these components, and especially worker nodes which need certificates so they can communicate safely with kube-apiserver,
-can be a challenging process, often outside of the scope of Kubernetes, and requiring significant additional work. This, in turn, can make it challenging to
-initialize or scale a cluster.
+The normal process of bootstrapping these components, especially worker nodes that need certificates so they can communicate safely with kube-apiserver, 
+can be a challenging process as it is often outside of the scope of Kubernetes and requires significant additional work. 
+This in turn, can make it challenging to initialize or scale a cluster.
 
 In order to simplify the process, beginning in version 1.4, Kubernetes introduced a certificate request and signing API to simplify the process. The proposal can be
 found [here](https://github.com/kubernetes/kubernetes/pull/20439).
