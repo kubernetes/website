@@ -3,7 +3,7 @@ Generates all PKI assets necessary to establish the control plane
 
 ### Synopsis
  -->
-生成所有建立控制平面所需的PKI资产
+生成所有建立控制平面所需的 PKI 资产
 
 ### 概要
 <!-- 
@@ -38,11 +38,11 @@ kubeadm alpha phase certs all [flags]
 ### 例子
 
 ```
-  # 生成所有建立控制平面所需的PKI资产，
+  # 生成所有建立控制平面所需的 PKI 资产，
   # 功能等同于 kubeadm init 所生成的。
   kubeadm alpha phase certs all
   
-  # 使用配置文件的选项创建所有PKI资产。
+  # 使用配置文件的选项创建所有 PKI 资产。
   kubeadm alpha phase certs all --config masterconfiguration.yaml
 ```
 
