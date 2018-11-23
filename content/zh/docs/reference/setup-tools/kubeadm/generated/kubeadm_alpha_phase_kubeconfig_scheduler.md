@@ -87,18 +87,18 @@ kubeadm alpha phase kubeconfig scheduler [flags]
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">可访问 API 服务器的IP地址</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">可访问的 API 服务器 IP 地址</td>
     </tr>
 
     <tr>
-      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
+      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： 6443</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">可访问 API 服务器的端口</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">可访问的 API 服务器的端口</td>
     </tr>
 
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">证书存储路径</td>
@@ -115,11 +115,11 @@ kubeadm alpha phase kubeconfig scheduler [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for scheduler</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">scheduler 帮助</td>
     </tr>
 
     <tr>
-      <td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes"</td>
+      <td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeconfig 文件存储路径</td>
