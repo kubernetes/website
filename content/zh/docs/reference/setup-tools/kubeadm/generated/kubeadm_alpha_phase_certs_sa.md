@@ -55,7 +55,7 @@ kubeadm alpha phase certs sa [flags]
   </tbody>
 </table>
  -->
-### 选择项
+### 选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -65,7 +65,7 @@ kubeadm alpha phase certs sa [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">证书存储路径</td>
@@ -109,7 +109,7 @@ kubeadm alpha phase certs sa [flags]
 </table>
  -->
 
-### 继承于父命令的选择项
+### 继承于父命令的选项
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
