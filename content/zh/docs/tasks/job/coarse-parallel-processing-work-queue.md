@@ -7,7 +7,7 @@ weight: 30
 -->
 
 ---
-title: 使用工作队列进行粗粒度并行处理
+title: 使用工作队列进行粗略并行处理
 content_template: templates/task
 weight: 30
 ---
@@ -35,6 +35,8 @@ Here is an overview of the steps in this example:
 本例中，我们会运行包含多个并行工作进程的 Kubernetes Job。
 
 本例中，每个 Pod 一旦被创建，会立即从任务队列中取走一个工作单元并完成它，然后将工作单元从队列中删除后再退出。
+
+下面是本次示例的主要步骤：
 
 1. **启动一个消息队列服务**  本例中，我们使用 RabbitMQ，你也可以用其他的消息队列服务。在实际工作环境中，你可以创建一次消息队列服务然后在多个任务中重复使用。
 
