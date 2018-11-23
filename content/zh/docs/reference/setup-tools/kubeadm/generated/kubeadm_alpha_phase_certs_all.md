@@ -120,7 +120,7 @@ kubeadm alpha phase certs all [flags]
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">API 服务器的可访问 IP 地址，用于 API 服务器的服务证书</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">可访问的 API 服务器 IP 地址，用于 API 服务器的服务证书</td>
     </tr>
 
     <tr>
