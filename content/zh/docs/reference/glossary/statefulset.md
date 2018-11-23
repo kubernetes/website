@@ -1,3 +1,18 @@
+---
+title: StatefulSet
+id: statefulset
+date: 2018-04-12
+full_link: /docs/concepts/workloads/controllers/statefulset/
+short_description: >
+ StatefulSet 用来管理 Deployment 和伸缩一组 Pod，并且能为这些 Pod 提供*序号和唯一性保证*。
+aka: 
+tags:
+- fundamental
+- core-object
+- workload
+- storage
+---
+
 <!--
 ---
 title: StatefulSet
@@ -15,22 +30,6 @@ tags:
 - storage
 ---
 -->
-
----
-title: StatefulSet
-id: statefulset
-date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/statefulset/
-short_description: >
- StatefulSet 用来管理 Deployment 和伸缩一组 Pod，并且能为这些 Pod 提供*序号和唯一性保证*。
-aka: 
-tags:
-- fundamental
-- core-object
-- workload
-- storage
----
-
 
  StatefulSet 用来管理 Deployment 和扩展一组 Pod，并且能为这些 Pod 提供*序号和唯一性保证*。
  
