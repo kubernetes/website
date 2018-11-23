@@ -41,6 +41,5 @@ tags:
 * For information on Kubernetes and CNI, see ["Network plugins"](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni).
 -->
 
-* 想了解 Kubernetes 和 CNI 请参考 [这里](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni)。
 * 想了解 Kubernetes 和 CNI 请参考 ["网络插件"](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni)。
 
