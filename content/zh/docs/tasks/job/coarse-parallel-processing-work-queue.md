@@ -1,5 +1,5 @@
 ---
-title: 使用工作队列进行粗略并行处理
+title: 使用工作队列进行粗粒度并行处理
 content_template: templates/task
 weight: 30
 ---
@@ -107,10 +107,10 @@ First create a temporary interactive Pod.
 
 现在，我们可以试着访问消息队列。我们将会创建一个临时的可交互的 Pod，在它上面安装一些工具，然后用队列做实验。
 
-首先创建一个临时的非激活状态的 Pod：
+首先创建一个临时的可交互的 Pod：
 
 ```shell
-# Create a temporary interactive container
+# 创建一个临时的可交互的 Pod
 $ kubectl run -i --tty temp --image ubuntu:14.04
 Waiting for pod default/temp-loe07 to be running, status is Pending, pod ready: false
 ... [ previous line repeats several times .. hit return when it stops ] ...
@@ -127,7 +127,7 @@ Next install the `amqp-tools` so we can work with message queues.
 接下来安装 `amqp-tools` ，这样我们就能用消息队列了。
 
 ```shell
-# Install some tools
+# 安装一些工具
 root@temp-loe07:/# apt-get update
 .... [ lots of output ] ....
 root@temp-loe07:/# apt-get install -y curl ca-certificates amqp-tools python dnsutils
@@ -174,7 +174,10 @@ You can also find the service IP in an env var:
 ```
 # env | grep RABBIT | grep HOST
 RABBITMQ_SERVICE_SERVICE_HOST=10.0.147.152
+<!--
 # Your address will vary.
+-->
+# 你的 IP 地址将会发生变化。
 ```
 
 <!--
@@ -184,24 +187,39 @@ Next we will verify we can create a queue, and publish and consume messages.
 接着我们将要确认可以创建队列，并能发布消息和消费消息。
 
 ```shell
+<!--
 # In the next line, rabbitmq-service is the hostname where the rabbitmq-service
 # can be reached.  5672 is the standard port for rabbitmq.
+-->
+# 下一行，rabbitmq-service 是访问 rabbitmq-service 的主机名。5672是 rabbitmq 的标准端口。
 
 root@temp-loe07:/# export BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
+<!--
 # If you could not resolve "rabbitmq-service" in the previous step,
 # then use this command instead:
 # root@temp-loe07:/# BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
 
 # Now create a queue:
+-->
+# 如果上一步中你不能解析 "rabbitmq-service"，可以用下面的命令替换：
+# root@temp-loe07:/# BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
+
+# 现在创建队列：
 
 root@temp-loe07:/# /usr/bin/amqp-declare-queue --url=$BROKER_URL -q foo -d
 foo
+<!-- 
+# and publish a message to it:
+-->
 
-# Publish one message to it:
+# 向它推送一条消息:
 
 root@temp-loe07:/# /usr/bin/amqp-publish --url=$BROKER_URL -r foo -p -b Hello
 
-# And get it back.
+<!--
+# and get it back.
+-->
+# 然后取回它.
 
 root@temp-loe07:/# /usr/bin/amqp-consume --url=$BROKER_URL -q foo -c 1 cat && echo
 Hello
