@@ -1,3 +1,9 @@
+---
+title: 使用工作队列进行粗略并行处理
+content_template: templates/task
+weight: 30
+---
+
 <!--
 ---
 title: Coarse Parallel Processing Using a Work Queue
@@ -5,13 +11,6 @@ content_template: templates/task
 weight: 30
 ---
 -->
-
----
-title: 使用工作队列进行粗略并行处理
-content_template: templates/task
-weight: 30
----
-
 
 {{% capture overview %}}
 
