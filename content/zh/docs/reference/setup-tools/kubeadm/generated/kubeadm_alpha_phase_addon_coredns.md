@@ -41,14 +41,14 @@ kubeadm alpha phase addon coredns [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径。 WARNING: 配置文件的用法目前处于实验阶段。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径。 警告: 配置文件的使用是实验性的。</td>
     </tr>
 
     <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=描述各个功能开关的键值对。 可选项有：<br/>Auditing=true|false (ALPHA - 默认=false)<br/>CoreDNS=true|false (默认=true)<br/>DynamicKubeletConfig=true|false (BETA - 默认=false)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组键=描述各个功能开关的键值对。 可选项有：<br/>Auditing=true|false (ALPHA - 默认=false)<br/>CoreDNS=true|false (默认=true)<br/>DynamicKubeletConfig=true|false (BETA - 默认=false)</td>
     </tr>
 
     <tr>
@@ -59,28 +59,28 @@ kubeadm alpha phase addon coredns [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"</td>
+      <td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "k8s.gcr.io"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">选择一个用于拉取控制平面镜像的容器镜像源。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">KubeConfig 文件用于和集群通信。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "stable-1"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">为控制平面选择特定的 Kubernetes 版本。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"</td>
+      <td colspan="2">--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "10.96.0.0/12"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">服务 VIP 的 IP 范围。</td>
@@ -179,7 +179,7 @@ kubeadm alpha phase addon coredns [flags]
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] '真正'的到主机根文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
     </tr>
 
   </tbody>
