@@ -738,7 +738,79 @@ To bootstrap initial roles and role bindings:
 
 ## Command-line Utilities
 
-Two `kubectl` commands exist to grant roles within a namespace or across the entire cluster.
+### `kubectl create role`
+
+Creates a `Role` object defining permissions within a single namespace. Examples:
+
+* Create a `Role` named "pod-reader" that allows user to perform "get", "watch" and "list" on pods:
+
+    ```
+    kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=pods
+    ```
+
+* Create a `Role` named "pod-reader" with resourceNames specified:
+
+    ```
+    kubectl create role pod-reader --verb=get --resource=pods --resource-name=readablepod --resource-name=anotherpod
+    ```
+
+* Create a `Role` named "foo" with apiGroups specified:
+
+    ```
+    kubectl create role foo --verb=get,list,watch --resource=replicasets.apps
+    ```
+
+* Create a `Role` named "foo" with subresource permissions:
+
+    ```
+    kubectl create role foo --verb=get,list,watch --resource=pods,pods/status
+    ```
+
+* Create a `Role` named "my-component-lease-holder" with permissions to get/update a resource with a specific name:
+
+    ```
+    kubectl create role my-component-lease-holder --verb=get,list,watch,update --resource=lease --resource-name=my-component
+    ```
+
+### `kubectl create clusterrole`
+
+Creates a `ClusterRole` object. Examples:
+
+* Create a `ClusterRole` named "pod-reader" that allows user to perform "get", "watch" and "list" on pods:
+
+    ```
+    kubectl create clusterrole pod-reader --verb=get,list,watch --resource=pods
+    ```
+
+* Create a `ClusterRole` named "pod-reader" with resourceNames specified:
+
+    ```
+    kubectl create clusterrole pod-reader --verb=get --resource=pods --resource-name=readablepod --resource-name=anotherpod
+    ```
+
+* Create a `ClusterRole` named "foo" with apiGroups specified:
+
+    ```
+    kubectl create clusterrole foo --verb=get,list,watch --resource=replicasets.apps
+    ```
+
+* Create a `ClusterRole` named "foo" with subresource permissions:
+
+    ```
+    kubectl create clusterrole foo --verb=get,list,watch --resource=pods,pods/status
+    ```
+
+* Create a `ClusterRole` name "foo" with nonResourceURL specified:
+
+    ```
+    kubectl create clusterrole "foo" --verb=get --non-resource-url=/logs/*
+    ```
+
+* Create a `ClusterRole` name "monitoring" with aggregationRule specified:
+
+    ```
+    kubectl create clusterrole monitoring --aggregation-rule="rbac.example.com/aggregate-to-monitoring=true"
+    ```
 
 ### `kubectl create rolebinding`
 
