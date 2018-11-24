@@ -148,6 +148,24 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
+You cannot modify which `Role` or `ClusterRole` a binding object refers to.
+Attempts to change the `roleRef` field of a binding object will result in a validation error.
+To change the `roleRef` field on an existing binding object, the binding object must be deleted and recreated.
+There are two primary reasons for this restriction:
+
+1. A binding to a different role is a fundamentally different binding.
+Requiring a binding to be deleted/recreated in order to change the `roleRef`
+ensures the full list of subjects in the binding is intended to be granted
+the new role (as opposed to enabling accidentally modifying just the roleRef 
+without verifying all of the existing subjects should be given the new role's permissions).
+2. Making `roleRef` immutable allows giving `update` permission on an existing binding object
+to a user, which lets them manage the list of subjects, without being able to change the 
+role that is granted to those subjects.
+
+The `kubectl auth reconcile` command-line utility creates or updates a manifest file containing RBAC objects,
+and handles deleting and recreating binding objects if required to change the role they refer to.
+See [command usage and examples](#kubectl-auth-reconcile) for more information.
+
 ### Referring to Resources
 
 Most resources are represented by a string representation of their name, such as "pods", just as it
