@@ -33,7 +33,7 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{< note >}}
-**Note:** 在您的环境中使用聚合层工作以支持代理和扩展后的 apiserver 之间的双向 TLS 身份验证有一些设置要求。Kubernetes 和 kube-apiserver 有多个 CA,因此确保代理由聚合层 CA 签署，而不是由其它来签署，正如主 CA。
+**注意:** 为了在您的环境中启用聚合层时，如需要支持代理和扩展 apiserver 之间的双向 TLS 身份验证，需要满足一些设置要求。Kubernetes 和 kube-apiserver 都有多个 CA，因此确保代理的证书由聚合层 CA 签署，而不是由其它 CA （如主 CA）来签署。
 {{< /note >}}
 <!--
 {{< note >}}
@@ -45,9 +45,9 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 
 {{% capture steps %}}
 
-## 启用 apiserver 标志
+## 启用 apiserver 参数
 
-通过以下 kube-apiserver 标志启用聚合层。它们可能已由您的供应商处理了。
+通过以下 kube-apiserver 参数启用聚合层。这一操作可能已由您的供应商完成。
 
     --requestheader-client-ca-file=<path to aggregator CA cert>
     --requestheader-allowed-names=front-proxy-client
@@ -57,9 +57,9 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
     --proxy-client-cert-file=<path to aggregator proxy cert>
     --proxy-client-key-file=<path to aggregator proxy key>
 
-WARNING: 除非您了解保护 CA 使用的风险和机制，否则在不同的上下文中不要重复使用 CA。
+**警告**：除非您了解 CA 的风险和保护 CA 使用的机制，否则**不要**在不同的场合重复使用同一 CA。
 
-如果您未在运行 API 的服务器的主机上运行 kube-proxy ，则必须确保使用 apiserver 的标志：
+如果您未在运行 API 服务器的主机上运行 kube-proxy ，则必须确保配置了以下 apiserver 参数：
 
     --enable-aggregator-routing=true
 <!--
