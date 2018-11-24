@@ -4,7 +4,7 @@ id: etcd
 date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  etcd 是持久稳定且高可用的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。
+  etcd 是兼具一致性和高可用性的键值数据库，用作保存 Kubernetes 所有集群数据的后台数据库。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ tags:
  Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
 -->
 
-etcd 是持久稳定且高可用的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。
+etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。
 
 <!--more--> 
 
