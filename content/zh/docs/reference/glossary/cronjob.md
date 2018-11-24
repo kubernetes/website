@@ -4,7 +4,7 @@ id: cronjob
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/cron-jobs/
 short_description: >
-  管理 [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 执行周期性的调度任务。
+  管理定期运行的 [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ tags:
  Manages a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) that runs on a periodic schedule.
 -->
 
- 管理 [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 执行周期性的调度任务。
+ 管理定期运行的 [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)。
 
 <!--more--> 
 
