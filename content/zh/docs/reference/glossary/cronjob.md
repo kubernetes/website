@@ -40,4 +40,4 @@ tags:
 Similar to a line in a *crontab* file, a Cronjob object specifies a schedule using the [Cron](https://en.wikipedia.org/wiki/Cron) format.
 -->
 
-Cronjob 对象类似 *crontab* 文件中的一行命令， 它声明了一个遵循[Cron](https://en.wikipedia.org/wiki/Cron) 格式的调度任务。
+Cronjob 对象类似 *crontab* 文件中的一行命令，它声明了一个遵循 [Cron](https://en.wikipedia.org/wiki/Cron) 格式的调度任务。
