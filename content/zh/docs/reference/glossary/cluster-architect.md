@@ -4,7 +4,7 @@ id: cluster-architect
 date: 2018-04-12
 full_link: 
 short_description: >
-  设计集群基础设施的人，包含一个或多个 Kubernetes 集群。
+  集群架构师负责设计集群的基础设施，可能包含一个或多个 Kubernetes 集群。
 
 aka: 
 tags:
@@ -26,7 +26,7 @@ tags:
 ---
 -->
 
- 设计集群基础设施的人，包含一个或多个 Kubernetes 集群。
+ 集群架构师负责设计集群的基础设施，可能包含一个或多个 Kubernetes 集群。
 
 <!--more--> 
 
