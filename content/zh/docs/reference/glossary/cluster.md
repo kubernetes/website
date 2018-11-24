@@ -4,7 +4,7 @@ id: cluster
 date: 2018-04-12
 full_link: 
 short_description: >
-  集群由一组机器组成，这些机器被称为集群的节点，集群通常用来运行可被 Kubernetes 管理的容器化应用。
+  集群由一组被称作节点的机器组成。这些节点上运行 Kubernetes 所管理的容器化应用。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ tags:
  A set of machines, called nodes, that run containerized applications managed by Kubernetes.
 -->
 
- 集群由一组机器组成，这些机器被称为集群的节点，集群通常用来运行可被 Kubernetes 管理的容器化应用。
+  集群由一组被称作节点的机器组成。这些节点上运行 Kubernetes 所管理的容器化应用。
 
 <!--more--> 
 
