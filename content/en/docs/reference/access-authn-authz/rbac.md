@@ -744,35 +744,41 @@ Two `kubectl` commands exist to grant roles within a namespace or across the ent
 
 Grants a `Role` or `ClusterRole` within a specific namespace. Examples:
 
-* Grant the `admin` `ClusterRole` to a user named "bob" in the namespace "acme":
+* Within the namespace "acme", grant the permissions in the `admin` `ClusterRole` to a user named "bob":
 
     ```
     kubectl create rolebinding bob-admin-binding --clusterrole=admin --user=bob --namespace=acme
     ```
 
-* Grant the `view` `ClusterRole` to a service account named "myapp" in the namespace "acme":
+* Within the namespace "acme", grant the permissions in the `view` `ClusterRole` to the service account in the namespace "acme" named "myapp" :
 
     ```
     kubectl create rolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp --namespace=acme
+    ```
+
+* Within the namespace "acme", grant the permissions in the `view` `ClusterRole` to a service account in the namespace "myappnamespace" named "myapp":
+
+    ```
+    kubectl create rolebinding myappnamespace-myapp-view-binding --clusterrole=view --serviceaccount=myappnamespace:myapp --namespace=acme
     ```
 
 ### `kubectl create clusterrolebinding`
 
 Grants a `ClusterRole` across the entire cluster, including all namespaces. Examples:
 
-* Grant the `cluster-admin` `ClusterRole` to a user named "root" across the entire cluster:
+* Across the entire cluster, grant the permissions in the `cluster-admin` `ClusterRole` to a user named "root":
 
     ```
     kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole=cluster-admin --user=root
     ```
 
-* Grant the `system:node` `ClusterRole` to a user named "kubelet" across the entire cluster:
+* Across the entire cluster, grant the permissions in the `system:node-proxier	` `ClusterRole` to a user named "system:kube-proxy":
 
     ```
-    kubectl create clusterrolebinding kubelet-node-binding --clusterrole=system:node --user=kubelet
+    kubectl create clusterrolebinding kube-proxy-binding --clusterrole=system:node-proxier --user=system:kube-proxy
     ```
 
-* Grant the `view` `ClusterRole` to a service account named "myapp" in the namespace "acme" across the entire cluster:
+* Across the entire cluster, grant the permissions in the `view` `ClusterRole` to a service account named "myapp" in the namespace "acme":
 
     ```
     kubectl create clusterrolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp
