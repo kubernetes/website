@@ -856,6 +856,38 @@ Grants a `ClusterRole` across the entire cluster, including all namespaces. Exam
     kubectl create clusterrolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp
     ```
 
+### `kubectl auth reconcile` {#kubectl-auth-reconcile}
+
+Creates or updates `rbac.authorization.k8s.io/v1` API objects from a manifest file.
+
+Missing objects are created, and the containing namespace is created for namespaced objects, if required.
+
+Existing roles are updated to include the permissions in the input objects,
+and remove extra permissions if `--remove-extra-permissions` is specified.
+
+Existing bindings are updated to include the subjects in the input objects,
+and remove extra subjects if `--remove-extra-subjects` is specified.
+
+Examples:
+
+* Test applying a manifest file of RBAC objects, displaying changes that would be made:
+
+    ```
+    kubectl auth reconcile -f my-rbac-rules.yaml --dry-run
+    ```
+
+* Apply a manifest file of RBAC objects, preserving any extra permissions (in roles) and any extra subjects (in bindings):
+
+    ```
+    kubectl auth reconcile -f my-rbac-rules.yaml
+    ```
+
+* Apply a manifest file of RBAC objects, removing any extra permissions (in roles) and any extra subjects (in bindings):
+
+    ```
+    kubectl auth reconcile -f my-rbac-rules.yaml --remove-extra-subjects --remove-extra-permissions
+    ```
+
 See the CLI help for detailed usage.
 
 ## Service Account Permissions
