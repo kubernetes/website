@@ -245,6 +245,9 @@ support [Network Policy](/docs/concepts/services-networking/networkpolicies/). S
 Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/docs/reference/access-authn-authz/rbac/).
 Make sure that your network manifest supports RBAC.
 
+Also, beware, that your Pod network must not overlap with any of the host networks as this can cause issues.
+If you find a collision between your network plugin’s preferred Pod network and some of your host networks, you should think of a suitable CIDR replacement and use that during `kubeadm init` with `--pod-network-cidr` and as a replacement in your network plugin’s YAML.
+
 You can install a pod network add-on with the following command:
 
 ```bash
