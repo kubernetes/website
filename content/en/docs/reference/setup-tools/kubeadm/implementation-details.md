@@ -318,7 +318,7 @@ into `/var/lib/kubelet/config/init/kubelet` file.
 
 The init configuration is used for starting the kubelet on this specific node, providing an alternative for the kubelet drop-in file;
 such configuration will be replaced by the kubelet base configuration as described in following steps.
-See [set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file.md) for additional info.
+See [set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file) for additional info.
 
 Please note that:
 
