@@ -1,3 +1,8 @@
+---
+title: 特定于节点的卷数限制
+content_template: templates/concept
+---
+
 <!-- ---
 reviewers:
 - jsafrane
@@ -8,16 +13,6 @@ title: Node-specific Volume Limits
 content_template: templates/concept
 ---
  -->
-
----
-reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
-title: 节点特定的卷限制
-content_template: templates/concept
----
 
 {{% capture overview %}}
 
@@ -30,7 +25,8 @@ how many volumes can be attached to a Node. It is important for Kubernetes to
 respect those limits. Otherwise, Pods scheduled on a Node could get stuck
 waiting for volumes to attach. -->
 
-谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。 Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的关联。
+谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。 
+Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的关联。
 
 
 
@@ -74,9 +70,9 @@ The limit applies to the entire cluster, so it affects all Nodes. -->
 
 ## 自定义限制
 
-您可以通过设置`KUBE_MAX_PD_VOLS`环境变量的值来设置这些限制，然后再启动调度器。
+您可以通过设置 `KUBE_MAX_PD_VOLS` 环境变量的值来设置这些限制，然后再启动调度器。
 
-如果设置的限制高于默认限制，请谨慎使用。 请参阅云提供商的文档以确保节点可支持您设置的限制。
+如果设置的限制高于默认限制，请谨慎使用。请参阅云提供商的文档以确保节点可支持您设置的限制。
 
 此限制应用于整个集群，所以它会影响所有节点。
 
@@ -96,7 +92,8 @@ Dynamic volume limits is supported for following volume types.
 - Azure Disk
 - CSI -->
 
-Kubernetes 1.11引入了基于节点类型的动态卷限制的支持作为 Alpha 功能。 在 Kubernetes 1.12中，此功能升级到 Beta 版，将默认开启。
+Kubernetes 1.11 引入了基于节点类型的动态卷限制的支持作为 Alpha 功能。
+在 Kubernetes 1.12 中，此功能升级到 Beta 版，将默认开启。
 
 以下卷类型支持动态卷限制。
 
@@ -105,12 +102,11 @@ Kubernetes 1.11引入了基于节点类型的动态卷限制的支持作为 Alph
 - Azure Disk
 - CSI
 
-
 <!-- When the dynamic volume limits feature is enabled, Kubernetes automatically
 determines the Node type and enforces the appropriate number of attachable
 volumes for the node. For example: -->
 
-启用动态卷限制功能后，Kubernetes 会自动确定节点类型并确保节点上可挂接的卷数目合规。 例如：
+启用动态卷限制功能后，Kubernetes 会自动确定节点类型并确保节点上可关联的卷数目合规。 例如：
 
 <!-- * On
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
@@ -131,12 +127,14 @@ Kubernetes allows 39 volumes to be attached to a Node.
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>环境中,
 [根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将128个卷关联到节点。
 
-* 对于M5，C5，R5，T3和Z1D实例类型的 Amazon EBS 磁盘，Kubernetes 仅允许25个卷关联到节点。 对于ec2上的其他实例类型
+* 对于 M5、C5、R5、T3 和 Z1D 类型实例的 Amazon EBS 磁盘，Kubernetes 仅允许 25 个卷关联到节点。
+对于 ec2 上的其他实例类型
 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
-Kubernetes 允许39个卷关联至节点。
+Kubernetes 允许 39 个卷关联至节点。
 
-* 在 Azure 环境中, 根据节点类型，最多64个磁盘可以关联至一个节点。更多详细信息，请参阅 [Azure 虚拟机的数量大小](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
+* 在 Azure 环境中, 根据节点类型，最多 64 个磁盘可以关联至一个节点。
+更多详细信息，请参阅[Azure 虚拟机的数量大小](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes)。
 
-* 对于 CSI，任何符合 CSI 规范中卷关联限制的驱动都将这些限制作为Node的可分配属性，调度器不会往已经达到其容量限制的任何节点上调度具有卷的Pod。 参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
+* 对于 CSI，任何符合 CSI 规范中卷关联限制的驱动都将这些限制作为 Node 的 allocatable 属性。调度器不会往已经达到其容量限制的任何节点上调度具有卷的Pod。 参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
 
 {{% /capture %}}
