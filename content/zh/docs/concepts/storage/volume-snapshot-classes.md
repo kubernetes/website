@@ -1,10 +1,5 @@
 ---
-reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
-title: Volume Snapshot Classes
+title: 卷快照类
 content_template: templates/concept
 weight: 30
 ---
@@ -16,7 +11,7 @@ with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
 [storage classes](/docs/concepts/storage/storage-classes) is suggested. -->
 
 
-本文档描述了 Kubernetes 中 `VolumeSnapshotClass` 的概念。 建议熟悉 [volume snapshots](/docs/concepts/storage/volume-snapshots/) 和 [storage classes](/docs/concepts/storage/storage-classes)。
+本文档描述了 Kubernetes 中 `VolumeSnapshotClass` 的概念。 建议熟悉[卷快照（Volume Snapshots）](/docs/concepts/storage/volume-snapshots/)和[存储类（Storage Class）](/docs/concepts/storage/storage-classes)。
 {{% /capture %}}
 
 
@@ -51,7 +46,8 @@ that don't request any particular class to bind to.
 
 每个 `VolumeSnapshotClass` 都包含 `snapshotter` 和 `parameters` 字段，当需要动态配置属于该类的 `VolumeSnapshot` 时使用。
 
-`VolumeSnapshotClass` 对象的名称很重要，是用户可以请求特定类的方式。 管理员在首次创建 `VolumeSnapshotClass` 对象时设置类的名称和其他参数，对象一旦创建就无法更新。
+`VolumeSnapshotClass` 对象的名称很重要，是用户可以请求特定类的方式。
+管理员在首次创建 `VolumeSnapshotClass` 对象时设置类的名称和其他参数，对象一旦创建就无法更新。
 
 管理员可以为不请求任何特定类绑定的 VolumeSnapshots 指定默认的 `VolumeSnapshotClass`。
 
@@ -70,9 +66,10 @@ parameters:
 Volume snapshot classes have a snapshotter that determines what CSI volume plugin is
 used for provisioning VolumeSnapshots. This field must be specified.
  -->
-### Snapshotter
+ 
+### 快照生成器（Snapshotter）
 
-卷快照类具有一个 Snapshotter，用于确定配置 VolumeSnapshot 的CSI卷插件。 必须指定此字段。
+卷快照类具有一个快照生成器，用于确定配置 VolumeSnapshot 的 CSI 卷插件。 必须指定此字段。
 
 <!-- ## Parameters
 
@@ -80,8 +77,8 @@ Volume snapshot classes have parameters that describe volume snapshots belonging
 the volume snapshot class. Different parameters may be accepted depending on the
 `snapshotter`. -->
 
-## Parameters
+## 参数
 
-卷快照类具有描述属于卷快照类的卷快照参数。 可根据`snapshotter`接受不同的参数。
+卷快照类具有描述属于卷快照类的卷快照参数。 可根据 `snapshotter` 接受不同的参数。
 
 {{% /capture %}}
