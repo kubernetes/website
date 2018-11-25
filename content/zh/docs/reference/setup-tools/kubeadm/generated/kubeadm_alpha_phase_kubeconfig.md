@@ -8,7 +8,7 @@ This command is not meant to be run on its own. See list of available subcommand
 ### Options
 -->
 
-生成建立控制面所需的所有kubeconfig文件和admin kubeconfig文件
+生成建立控制面所需的所有 kubeconfig 文件和 admin kubeconfig 文件
 
 ### 简介
 
