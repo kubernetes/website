@@ -38,5 +38,5 @@ tags:
 Members can have issues and PRs assigned to them and participate in {{< glossary_tooltip text="special interest groups (SIGs)" term_id="sig" >}} through GitHub teams. Pre-submit tests are automatically run for members' PRs. A member is expected to remain an active contributor to the community.
 -->
 
-可以将问题单（issue）和 PR 指派给成员，成员也可以通过 GitHub 小组加入 {{< glossary_tooltip text="特别兴趣小组 (SIGs)" term_id="sig" >}}。成员所提交的 PR 的预提交测试会被系统自动执行。成员应该是持续活跃的社区贡献者。
+可以将问题单（issue）和 PR 指派给成员，成员也可以通过 GitHub 小组加入 {{< glossary_tooltip text="特别兴趣小组 (SIGs)" term_id="sig" >}}。针对成员所提交的 PR，系统自动运行提交前测试。成员应该是持续活跃的社区贡献者。
 
