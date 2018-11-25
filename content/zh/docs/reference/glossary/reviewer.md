@@ -38,4 +38,4 @@ tags:
 Reviewers are knowledgeable about both the codebase and software engineering principles. Reviewer status is scoped to a part of the codebase.
 -->
 
-评审者既要了解基础代码又要了解软件工程规范。评审者状态是基础代码考量的一部分。
+评审者既要了解代码库又要了解软件工程规范。评审者状态是基于代码库的组成部分来设定的。
