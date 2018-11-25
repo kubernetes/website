@@ -40,4 +40,4 @@ tags:
 You can use kubeadm to install both the control plane and the worker node components.
 -->
 
-您可以使用 kubeadm 安装控制平面，也可以用它安装集群的工作节点组件。
+您可以使用 kubeadm 安装控制面和工作节点组件。
