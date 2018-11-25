@@ -1,10 +1,10 @@
 ---
-title: 选择器
+title: 选择算符
 id: selector
 date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/labels/
 short_description: >
-  选择器允许用户通过标签对一组资源对象进行筛选过滤。
+  选择算符允许用户通过标签对一组资源对象进行筛选过滤。
 
 aka: 
 tags:
@@ -30,7 +30,7 @@ tags:
  Allows users to filter a list of resources based on labels.
 -->
 
-选择器允许用户通过标签对一组资源对象进行筛选过滤。
+选择算符允许用户通过标签对一组资源对象进行筛选过滤。
 
 <!--more--> 
 
@@ -38,5 +38,5 @@ tags:
 Selectors are applied when querying lists of resources to filter them by {{< glossary_tooltip text="Labels" term_id="label" >}}.
 -->
 
-在查询资源列表时，选择器可以通过 {{< glossary_tooltip text="标签" term_id="label" >}} 对资源进行过滤筛选。
+在查询资源列表时，选择算符可以通过 {{< glossary_tooltip text="标签" term_id="label" >}} 对资源进行过滤筛选。
 
