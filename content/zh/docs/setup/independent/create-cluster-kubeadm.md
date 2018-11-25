@@ -1,3 +1,9 @@
+---
+title: 使用 kubeadm 创建一个单主集群
+content_template: templates/task
+weight: 30
+---
+
 <!-- ---
 reviewers:
 - sig-cluster-lifecycle
@@ -5,39 +11,32 @@ title: Creating a single master cluster with kubeadm
 content_template: templates/task
 weight: 30
 --- -->
----
-translator: NickSu
-reviewers:
-- sig-cluster-lifecycle
-title: 使用kubeadm创建一个单主集群
-content_template: templates/task
-weight: 30
----
+
 
 {{% capture overview %}}
 <!--
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
 lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).  -->
 
-
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** 能帮助您建立一个小型的符合最佳实践的 Kubernetes 集群。通过使用 kubeadm, 您的集群会符合 [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification) 的要求. Kubeadm 也支持其他的集群生命周期的操作，比如升级，降级，和管理 [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** 能帮助您建立一个小型的符合最佳实践的 Kubernetes 集群。通过使用 kubeadm, 您的集群会符合 [Kubernetes 合规性测试](https://kubernetes.io/blog/2017/10/software-conformance-certification)的要求. Kubeadm 也支持其他的集群生命周期操作，比如升级、降级和管理[启动引导令牌](/docs/reference/access-authn-authz/bootstrap-tokens/)。
 
 <!-- Because you can install kubeadm on various types of machine (e.g. laptop, server, 
 Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
 such as Terraform or Ansible. -->
 
-因为您可以在不同类型的机器（比如笔记本，服务器，树梅派等等）上安装 kubeadm ，因此它非常适合与自动化管理系统集成管理，比如 Terraform 或 Ansible。
+因为您可以在不同类型的机器（比如笔记本、服务器和树莓派等）上安装 kubeadm，因此它非常适合与 Terraform 或 Ansible 这类自动化管理系统集成。
 
 <!-- kubeadm's simplicity means it can serve a wide range of use cases:
 
 - New users can start with kubeadm to try Kubernetes out for the first time.
 - Users familiar with Kubernetes can spin up clusters with kubeadm and test their applications.
 - Larger projects can include kubeadm as a building block in a more complex system that can also include other installer tools. -->
+
 kubeadm 的简单便捷为大家带来了广泛的用户案例：
 
-- 新用户可以从 kubeadm 开始来尝试 Kubernetes。
+- 新用户可以从 kubeadm 开始来试用 Kubernetes。
 - 熟悉 Kubernetes 的用户可以使用 kubeadm 快速搭建集群并测试他们的应用。
-- 大型的项目可以将 kubeadm 和其他的安装工具一起形成一个比较复杂的编译系统。
+- 大型的项目可以将 kubeadm 和其他的安装工具一起形成一个比较复杂的系统。
 
 <!-- kubeadm is designed to be a simple way for new users to start trying
 Kubernetes out, possibly for the first time, a way for existing users to
@@ -45,17 +44,18 @@ test their application on and stitch together a cluster easily, and also to be
 a building block in other ecosystem and/or installer tool with a larger
 scope. -->
 
-kubeadm 的设计初衷就是为初次使用的新用户提供一种便捷的测试使用 Kubernetes 的方案，
-或者方便老用户搭建集群测试他们的应用，也可以跟其他的安装工具一起提供更强大的功能。
+kubeadm 的设计初衷是为新用户提供一种便捷的方式来首次试用 Kubernetes，
+同时也方便老用户搭建集群测试他们的应用。
+此外 kubeadm 也可以跟其它生态系统与/或安装工具集成到一起，提供更强大的功能。
 
 <!-- You can install _kubeadm_ very easily on operating systems that support
 installing deb or rpm packages. The responsible SIG for kubeadm,
 [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
 but you may also build them from source for other OSes. -->
 
-用户可以很方便的在支持 rpm 或者 deb 的操作系统上安装_kubeadm_。对应 kubeadm 的SIG,
-[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle),
-提供了这些已编译的安装包，当然您也可以选择自己从源码编译。
+您可以很方便地在支持 rpm 或 deb 软件包的操作系统上安装 _kubeadm_。对应 kubeadm 的 SIG，
+[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle)，
+提供了预编译的这类安装包，当然您也可以自己基于源码为其它操作系统来构造安装包。
 
 <!-- ### kubeadm Maturity
 
@@ -88,11 +88,10 @@ implementation of creating the cluster may change slightly as the tool evolves,
 but the overall implementation should be pretty stable. Any commands under
 `kubeadm alpha` are by definition, supported on an alpha level. -->
 
-
-kubeadm 的整体功能目前还是 **Beta** 状态，然而很快在2018年就会转换成
-**General Availability (GA)** 状态。 一些子功能，比如自托管，或者配置文件的 API 还在开发过程当中，
-因此随着工具的发展，创建集群的方法可能会有所变化，但是整体部署方案还是比较稳定的。
-在`kubeadm alpha`下面的任何命令都只是 alpha 状态，目前只提供初期阶段的服务。
+kubeadm 的整体功能目前还是 **Beta** 状态，然而很快在 2018 年就会转换成**正式发布 (GA)** 状态。
+一些子功能，比如自托管或者配置文件 API 还在开发过程当中。
+随着工具的发展，创建集群的方法可能会有所变化，但是整体部署方案还是比较稳定的。
+在 `kubeadm alpha` 下面的任何命令都只是 alpha 状态，目前只提供初期阶段的服务。
 
 <!-- ### Support timeframes
 
@@ -117,15 +116,15 @@ timeframe; which also applies to `kubeadm`.
 Kubernetes 发现版本的通常只维护支持九个月，在维护周期内，如果发现有比较重大的 bug 或者安全问题的话，
 可能会发布一个补丁版本。下面是 Kubernetes 的发布和维护周期，同时也适用于 `kubeadm`。
 
-| Kubernetes 版本     | 发行月份        | 中止维护月份         |
+| Kubernetes 版本     | 发行月份        | 终止维护月份        |
 |--------------------|----------------|-------------------|
-| v1.6.x             | 2017年三月      | 2017年十二月        |
-| v1.7.x             | 2017年六月      | 2018年三月          |
-| v1.8.x             | 2017年九月      | 2018年六月          |
-| v1.9.x             | 2017年十二月    |  2018九月           |
-| v1.10.x            | 2018年三月      | 2018年十二月        |
-| v1.11.x            | 2018年六月      | 2019年三月          |
-| v1.12.x            | 2018年九月      | 2019年六月          |
+| v1.6.x             | 2017 年 3 月    | 2017 年 12 月     |
+| v1.7.x             | 2017 年 6 月    | 2018 年 3 月      |
+| v1.8.x             | 2017 年 9 月    | 2018 年 6 月      |
+| v1.9.x             | 2017 年 12 月   |  2018 年 9 月     |
+| v1.10.x            | 2018 年 3 月    | 2018 年 12 月     |
+| v1.11.x            | 2018 年 6 月    | 2019 年 3 月      |
+| v1.12.x            | 2018 年 9 月    | 2019 年 6 月      |
 
 {{% /capture %}}
 
@@ -140,9 +139,9 @@ Kubernetes 发现版本的通常只维护支持九个月，在维护周期内，
    private network is fine.
  -->
 
-- 一个或者多个支持 deb 或者 rpm 的操作系统，比如 Ubuntu 或者 CentOS
-- 每台机器 2 GB 或者更多的内存，内存不足的话可能应用会受限制
-- 主节点上 2 CPU 或者更多
+- 一个或者多个兼容 deb 或者 rpm 软件包的操作系统，比如 Ubuntu 或者 CentOS
+- 每台机器 2 GB 以上的内存，内存不足时应用会受限制
+- 主节点上 2 CPU 以上
 - 集群里所有的机器有完全的网络连接，公有网络或者私有网络都可以
  
 {{% /capture %}}
@@ -157,7 +156,7 @@ Kubernetes 发现版本的通常只维护支持九个月，在维护周期内，
 
 ## 目标
 
-* 搭建一个单主 Kubernetes 集群或者 [高可用集群](https://kubernetes.io/docs/setup/independent/high-availability/)
+* 搭建一个单主 Kubernetes 集群或者[高可用集群](https://kubernetes.io/docs/setup/independent/high-availability/)
 * 在集群上安装 Pod 网络组件以便 Pod 之间可以互相通信
 
 <!-- ## Instructions
@@ -174,17 +173,18 @@ When you upgrade, the kubelet restarts every few seconds as it waits in a crashl
 kubeadm to tell it what to do. This crashloop is expected and normal. 
 After you initialize your master, the kubelet runs normally.
 {{< /note >}}-->
+
 ## 步骤
 
 ### 在您的机器上安装 kubeadm 
 
-请查阅 ["安装 kubeadm"](/docs/setup/independent/install-kubeadm/).
+请查阅[安装 kubeadm](/docs/setup/independent/install-kubeadm/)。
 
 {{< note >}}
 **注意:** 如果您的机器已经安装了 kubeadm, 请运行 `apt-get update &&
 apt-get upgrade` 或者 `yum update` 来升级至最新版本的 kubeadm.
 
-升级过程中，  kubelet 会每隔几秒钟重启并陷入了不断循环等待 kubeadm 发布指令的状态。
+升级过程中，kubelet 会每隔几秒钟重启并陷入了不断循环等待 kubeadm 发布指令的状态。
 这个死循环的过程是正常的，当升级并初始化完成您的主节点之后，kubelet 才会正常运行。
 {{< /note >}}
 
@@ -196,8 +196,7 @@ communicates with). -->
 
 ### 初始化您的主节点
 
-主节点是集群里运行控制面的机器，包括 etcd (集群的数据库)和 API 服务（kubectl CLI与之交互）。
-
+主节点是集群里运行控制面的机器，包括 etcd (集群的数据库)和 API 服务（kubectl CLI 与之交互）。
 
 <!-- 1. Choose a Pod network add-on, and verify whether it requires any arguments to 
 be passed to kubeadm initialization. Depending on which
@@ -219,11 +218,11 @@ kubeadm init <args>
 
 
 1. 选择一个 Pod 网络插件，并检查是否在 kubeadm 初始化过程中需要传入什么参数。这个取决于
-您选择的网络插件，您可能需要设置  `--Pod-network-cidr` 为指定网络驱动的cidr。请查阅 [安装网络插件](#Pod-network)。
-1. (可选) 除非特别指定，否则 kubeadm 会使用默认网关所在的网络接口广播其主节点的IP 。若需使用其他的网络接口，请
-给 `kubeadm init` 指定 `--apiserver-advertise-address=<ip-address>` 的参数。如果需要部署
-IPv6的集群，则需要指定一个 IPv6 的地址，比如 `--apiserver-advertise-address=fd00::101` 。
-1. (可选) 在运行 `kubeadm init` 之前请先执行 `kubeadm config images pull` 来测试 gcr.io 的连接。
+您选择的网络插件，您可能需要设置 `--Pod-network-cidr` 来指定网络驱动的 CIDR。请参阅[安装网络插件](#Pod-network)。
+1. (可选) 除非特别指定，kubeadm 会使用默认网关所在的网络接口广播其主节点的 IP 地址。若需使用其他网络接口，请
+给 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。如果需要部署
+IPv6 的集群，则需要指定一个 IPv6 地址，比如 `--apiserver-advertise-address=fd00::101`。
+1. (可选) 在运行 `kubeadm init` 之前请先执行 `kubeadm config images pull` 来测试与 gcr.io 的连接。
 
 现在运行:
 
@@ -238,13 +237,14 @@ For more information about `kubeadm init` arguments, see the [kubeadm reference 
 For a complete list of configuration options, see the [configuration file documentation](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
 
 To customize control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, provide extra arguments to each component as documented in [custom arguments](/docs/admin/kubeadm#custom-args). -->
-### 更多信息
 
-想了解更多关于 `kubeadm init` 的参数, 请查看 [kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm/).
+### 补充信息
 
-想了解完整的配置选项，请查阅 [配置文件](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
+想了解更多关于 `kubeadm init` 的参数, 请参阅[kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm/)。
 
-如果想个性化控制面的部件，包括为 liveness 探测 和 etcd 服务提供IPv6的支持，给每个部件提供额外的参数，请查阅 [个性化参数](/docs/admin/kubeadm#custom-args).
+想了解完整的配置选项，请参阅[配置文件](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)。
+
+如果想定制控制面组件，包括为活跃性探测和 etcd 服务提供 IPv6 支持以及为各组件提供额外参数，请参阅[定制参数](/docs/admin/kubeadm#custom-args)。
 
 <!-- To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
 
@@ -257,13 +257,14 @@ is ready to run Kubernetes. These prechecks expose warnings and exit on errors. 
 then downloads and installs the cluster control plane components. This may take several minutes. 
 The output should look like: -->
 
-如果需要再次运行 `kubeadm init` ， 您必须先 [卸载集群](#tear-down).
+如果需要再次运行 `kubeadm init`，您必须先[卸载集群](#tear-down)。
 
-如果您需要将不同架构的节点加入您的集群，请单独在这个节点上为`kube-proxy` 和 `kube-dns` 创建Deployment 或者 DaemonSet。
+如果您需要将不同架构的节点加入您的集群，请单独在这类节点上为 `kube-proxy` 和 `kube-dns` 创建 Deployment 或 DaemonSet。
 这是因为这些组件的 Docker 镜像并不支持多架构。
 
-`kubeadm init` 首先会运行一系列的预先检查来确保机器满足运行 Kubernetes 的条件。这些检查会抛出警告并在发现错误的时候终止整个初始化进程，
-然后 `kubeadm init` 会下载并安装集群的控制面组件，这可能会花费几分钟时间，输出类似下面这样：
+`kubeadm init` 首先会执行一系列的运行前检查来确保机器满足运行 Kubernetes 的条件。
+这些检查会抛出警告并在发现错误的时候终止整个初始化进程。
+然后 `kubeadm init` 会下载并安装集群的控制面组件，这可能会花费几分钟时间，其输出如下所示：
 
 ```none
 [init] Using Kubernetes version: vX.Y.Z
@@ -326,8 +327,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ``` -->
 
-
-如果需要让普通用户可以运行 kubectl，请运行这些命令，其实这也是 `kubeadm init` 输出的一部分：
+如果需要让普通用户可以运行 kubectl，请运行如下命令，其实这也是 `kubeadm init` 输出的一部分：
 
 ```bash
 mkdir -p $HOME/.kube
@@ -356,11 +356,11 @@ token can add authenticated nodes to your cluster. These tokens can be listed,
 created, and deleted with the `kubeadm token` command. See the
 [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/). -->
 
-请备份好 `kubeadm init` 输出里的 `kubeadm join` 命令，因为您会需要这个命令来[给集群添加节点](#join-nodes).
+请备份好 `kubeadm init` 输出中的 `kubeadm join` 命令，因为您会需要这个命令来[给集群添加节点](#join-nodes)。
 
-令牌是用于主节点和添加的子节点之间相互通信，因此，请确保其安全，因为只要有任何人知道了这些令牌，就可以随便给您的集群添加
-节点了。可以使用`kubeadm token`命令来列出，创建和删除这些令牌。请查阅
-[kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
+令牌是主节点和新添加的节点之间进行相互身份验证的，因此请确保其安全。任何人只要知道了这些令牌，就可以随便给您的集群添加节点。
+可以使用 `kubeadm token` 命令来列出、创建和删除这类令牌。
+请参阅[kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm-token/)。
 
 <!-- ### Installing a Pod network add-on {#Pod-network}
 
@@ -371,13 +371,13 @@ created, and deleted with the `kubeadm token` command. See the
 You must install a Pod network add-on so that your Pods can communicate with
 each other. -->
 
-### 安装网络插件 {#Pod-network}
+### 安装 Pod 网络插件 {#Pod-network}
 
 {{< caution >}}
-**注意:** 这一节包含了安装和部署顺序的重要信息，请执行之前仔细阅读。
+**注意:** 这一节包含了安装和部署顺序的重要信息，执行之前请仔细阅读。
 {{< /caution >}}
 
-您必须先安装 Pod 网络插件，以便您的 Pod 可以互相通讯。
+您必须先安装 Pod 网络插件，以便您的 Pod 可以互相通信。
 
 <!-- **The network must be deployed before any applications. Also, CoreDNS will not start up before a network is installed.
 kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
@@ -387,13 +387,13 @@ support [Network Policy](/docs/concepts/services-networking/networkpolicies/). S
 - IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
 - [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9. -->
 
-**网络必须在部署任何应用之前部署好，而且 CoreDNS 在网络安装之前是不会启用的。
-kubeadm 只支持基于容器网络接口 (CNI)的网络而且不支持 kubenet 。**
+**网络必须在部署任何应用之前部署好。此外，在网络安装之前是 CoreDNS 不会启用的。
+kubeadm 只支持基于容器网络接口（CNI）的网络而且不支持 kubenet 。**
 
-有一些项目为Kubernetes提供使用 CNI 的 Pod 网络，其中一些也支持[网络策略](/docs/concepts/services-networking/networkpolicies/).
-请查阅 [插件页面](/docs/concepts/cluster-administration/addons/)，提供了一个完整的可用网络插件列表。
-- [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0) 这个也提供了 IPv6 的支持。
-- [CNI 网桥](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) 和 [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) 是 Kubernetes 1.9版本里提供的唯一支持 IPv6 的网络插件。
+有一些项目为 Kubernetes 提供使用 CNI 的 Pod 网络，其中一些也支持[网络策略](/docs/concepts/services-networking/networkpolicies/).
+请参阅[插件页面](/docs/concepts/cluster-administration/addons/)了解可用网络插件的完整列表。
+- [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0) 也提供了 IPv6 的支持。
+- [CNI 网桥](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) 和 [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) 是 Kubernetes 1.9 版本里提供的唯一支持 IPv6 的网络插件。
 
 <!-- Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/docs/reference/access-authn-authz/rbac/).
 Make sure that your network manifest supports RBAC.
@@ -404,8 +404,8 @@ You can install a Pod network add-on with the following command:
 kubectl apply -f <add-on.yaml>
 ``` -->
 
-注意 kubeadm 默认会创建一个比较安全的集群并使用 [RBAC](/docs/reference/access-authn-authz/rbac/)。
-因此请确保您的网络方案支持 RBAC。
+注意 kubeadm 默认会创建一个比较安全的集群并强制启用[RBAC](/docs/reference/access-authn-authz/rbac/)。
+请确保您的网络方案支持 RBAC。
 
 您可以使用下列命令安装网络插件：
 
@@ -419,7 +419,7 @@ kubectl apply -f <add-on.yaml>
 Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
 {{% /tab %}} -->
 
-您仅可以给任何一个集群安装一个网络插件
+您仅可以给任何一个集群安装一个网络插件。
 
 {{< tabs name="tabs-Pod-install" >}}
 {{% tab name="Choose one..." %}}
@@ -438,9 +438,10 @@ kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/
 -->
 
 {{% tab name="Calico" %}}
-想了解更多关于 Calico 的使用, 请查看 [Kubernetes上的Calico快速实践](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [安装 Calico 实现网络策略](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), 和其他相关资源。
+想了解关于 Calico 的使用的更多信息, 请参阅[Kubernetes上的Calico快速实践](https://docs.projectcalico.org/latest/getting-started/kubernetes/)、[安装 Calico 实现网络策略](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico)和其他相关资源。
 
-为了 Calico 可以正确工作，您需要给`kubeadm init`传递 `--Pod-network-cidr=192.168.0.0/16` 这样的选项，或者根据您的网络方案更新`calico.yml` 。注意 Calico 只适用于 `amd64` 架构。
+为了 Calico 可以正确工作，您需要给 `kubeadm init` 传递 `--Pod-network-cidr=192.168.0.0/16` 这样的选项，
+或者根据您的网络方案更新 `calico.yml` 。注意 Calico 只适用于 `amd64` 架构。
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
@@ -461,9 +462,10 @@ kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/
 -->
 
 {{% tab name="Canal" %}}
-Canal 使用 Calico 提供的网络策略和 Flannel 提供的网络功能。 请查阅 Calico 的官方文档 [入门指引](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel).
+Canal 使用 Calico 提供的网络策略和 Flannel 提供的网络功能。请查阅 Calico 的官方文档
+[入门指引](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel)。
 
-为了 Canal 可以正确运行 ，  `kubeadm init`运行时需要提供`--Pod-network-cidr=10.244.0.0/16` 并注意它只适用于 `amd64`架构。
+为了 Canal 可以正确运行，`kubeadm init` 运行时需要设置`--Pod-network-cidr=10.244.0.0/16`，同时注意它只适用于 `amd64` 架构。
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
@@ -498,31 +500,30 @@ kubectl create -f ./
 ```
 -->
 {{% tab name="Cilium" %}}
-想了解更多关于 Kubernetes 上使用 Cilium 的信息，请查阅 [Kubernetes 上 Cilium 的快速指南](http://docs.cilium.io/en/v1.2/kubernetes/quickinstall/) 和 [Kubernetes 上 Cilium 的安装向导](http://docs.cilium.io/en/v1.2/kubernetes/install/).
+想了解 Kubernetes 上使用 Cilium 的更多相关信息，请查参阅[Kubernetes 上 Cilium 的快速指南](http://docs.cilium.io/en/v1.2/kubernetes/quickinstall/) 和 [Kubernetes 上 Cilium 的安装向导](http://docs.cilium.io/en/v1.2/kubernetes/install/)。
 
-这里并不要求给`kubeadm init` 传递 `--Pod-network-cidr` 选项，但是这是一个高度推荐操作的步骤。
+尽管这里并不要求给 `kubeadm init` 设置 `--Pod-network-cidr` 参数，但是这是一个高度推荐操作的步骤。
 
-这些命令会部署 Cilium 和它自己受 etcd operator 管理的 etcd。
+这些命令会部署 Cilium 和它自己受 etcd 操作者管理的 etcd。
 
 ```shell
-# Download required manifests from Cilium repository
+# 从 Cilium 库下载所需清单文件
 wget https://github.com/cilium/cilium/archive/v1.2.0.zip
 unzip v1.2.0.zip
 cd cilium-1.2.0/examples/kubernetes/addons/etcd-operator
 
-# Generate and deploy etcd certificates
+# 生成并部署 etcd 证书
 export CLUSTER_DOMAIN=$(kubectl get ConfigMap --namespace kube-system coredns -o yaml | awk '/kubernetes/ {print $2}')
 tls/certs/gen-cert.sh $CLUSTER_DOMAIN
 tls/deploy-certs.sh
 
-# Label kube-dns with fixed identity label
+# 为 kube-dns 设置固定的标识标签
 kubectl label -n kube-system Pod $(kubectl -n kube-system get Pods -l k8s-app=kube-dns -o jsonpath='{range .items[]}{.metadata.name}{" "}{end}') io.cilium.fixed-identity=kube-dns
 
 kubectl create -f ./
 
-# Wait several minutes for Cilium, coredns and etcd Pods to converge to a working state
+# 等待几分钟，Cilium、coredns 和 etcd 的 Pods 会收敛到工作状态
 ```
-
 
 {{% /tab %}}
 
@@ -545,18 +546,19 @@ For more information about `flannel`, see [the CoreOS flannel repository on GitH
 
 {{% tab name="Flannel" %}}
 
-为了让 `flannel` 能正确工作，您必须在运行  `kubeadm init` 传递 `--Pod-network-cidr=10.244.0.0/16` 。
+为了让 `flannel` 能正确工作，您必须在运行 `kubeadm init` 时设置 `--Pod-network-cidr=10.244.0.0/16`。
 
-通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1` 
-将桥接的 IPv4 流量传递给 iptables 。这是一部分 CNI 插件运行的要求条件，请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)获取更详细信息。
+通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1`，
+进而确保桥接的 IPv4 流量会传递给 iptables。
+这是一部分 CNI 插件运行的要求条件，请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)获取更详细信息。
 
-注意 `flannel` 使用与 `amd64`, `arm`, `arm64` 和 `ppc64le` 架构平台。
+注意 `flannel` 适用于 `amd64`、`arm`、`arm64` 和 `ppc64le` 架构平台。
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
 ```
 
-想了解更多关于 `flannel` 的信息,请查阅 [ GitHub 上的 CoreOS flannel repo](https://github.com/coreos/flannel)。
+想了解更多关于 `flannel` 的信息,请查阅[ GitHub 上的 CoreOS flannel 仓库](https://github.com/coreos/flannel)。
 {{% /tab %}}
 
 <!-- 
@@ -572,14 +574,15 @@ For information on setting up Kubernetes cluster with Kube-router using kubeadm,
 -->
 
 {{% tab name="Kube-router" %}}
-通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1` 
-将桥接的 IPv4 流量传递给 iptables 。这是一部分 CNI 插件运行的要求条件，请查看这篇文档获取更详细信息 [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1`，
+确保桥接的 IPv4 流量会传递给 iptables。
+这是一部分 CNI 插件的运行条件。请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)了解更详细的信息。
 
-Kube-router 依赖于 kube-controller-manager 来给节点分配 CIDR ， 因此需要使用 `kubeadm init` 的 `--Pod-network-cidr` 标签。
+Kube-router 依赖于 kube-controller-manager 来给节点分配 CIDR， 因此需要设置 `kubeadm init` 的 `--Pod-network-cidr` 参数。
 
-Kube-router 提供 Pod 网络，网络策略和和高效的基于IPVS/LVS的服务代理功能。
+Kube-router 提供 Pod 间联网、网络策略和和高效的基于 IPVS/LVS 的服务代理功能。
 
-想了解关于使用 kubeadm 搭建 Kubernetes 和 Kube-router。请查看官方的 [安装指引](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
+想了解关于使用 kubeadm 搭建 Kubernetes 和 Kube-router 的更多信息。请查看官方的[安装指引](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md)。
 {{% /tab %}}
 
 <!-- 
@@ -597,10 +600,12 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 -->
 
 {{% tab name="Romana" %}}
-通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1` 
-将桥接的 IPv4 流量传递给 iptables 。这是一部分 CNI 插件运行的要求条件，请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)获取更详细信息。
+通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1`，
+确保桥接的 IPv4 流量会传递给 iptables。这是一部分 CNI 插件的运行条件。
+请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)
+获取更详细的信息。
 
-官方的 Romana 安装指引在[这里](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
+官方的 Romana 安装指引在[这里](https://github.com/romana/romana/tree/master/containerize#using-kubeadm)。
 
 注意，Romana 只适用于 `amd64` 架构。
 
@@ -626,13 +631,16 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 -->
 
 {{% tab name="Weave Net" %}}
-通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1` 
-将桥接的 IPv4 流量传递给 iptables 。这是一部分 CNI 插件运行的要求条件，请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)获取更详细信息。
 
-官方的 Weave Net 配置向导在[这里](https://www.weave.works/docs/net/latest/kube-addon/).
+通过运行 `sysctl net.bridge.bridge-nf-call-iptables=1` 将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置成 `1`，
+将桥接的 IPv4 流量传递给 iptables。这是一部分 CNI 插件的运行条件。
+请查看[这篇文档](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)
+获取更详细的信息。
 
-Weave Net 适用于`amd64`, `arm`, `arm64` 和 `ppc64le` 而不需要其它额外的配置。
-Weave Net 默认启用 hairpin模式,这个可以让 Pod 在不知道他们自己的 PodIP 的时候可以使用服务的 IP 地址来访问他们自己。
+官方的 Weave Net 配置向导在[这里](https://www.weave.works/docs/net/latest/kube-addon/)。
+
+Weave Net 适用于`amd64`、`arm`、`arm64` 和 `ppc64le` 而不需要其它额外的配置。
+Weave Net 默认启用 hairpin 模式，可以让 Pod 在不知道他们自己的 PodIP 的时候仍可以使用服务的 IP 地址来访问他们自己。
 
 ```shell
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
@@ -650,15 +658,14 @@ Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.
 -->
 
 {{% tab name="JuniperContrail/TungstenFabric" %}}
-提供了支持 overlay 的 SDN 解决方案，支持多云环境和混合云环境的网络方案，同步支持 overlay 和 underlay， 网络策略，
-网络隔离，服务链和灵活的负载均衡。
+提供了支持 overlay 的 SDN 解决方案，支持多云环境和混合云环境的网络方案，同时支持 overlay 和 underlay、网络策略、
+网络隔离、服务链和灵活的负载均衡。
 
 安装 JuniperContrail/TungstenFabric CNI 有很多灵活的方式。
 
-请查阅这个安装指引: [TungstenFabric](https://tungstenfabric.github.io/website/)
+请查阅这个[安装指引](https://tungstenfabric.github.io/website/)。
 {{% /tab %}}
 {{< /tabs >}}
-
 
 <!-- Once a Pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS Pod is Running in the output of `kubectl get Pods --all-namespaces`.
@@ -667,10 +674,10 @@ And once the CoreDNS Pod is up and running, you can continue by joining your nod
 If your network is not working or CoreDNS is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/). -->
 
-一旦 Pod 网络安装完成，您就可以通过 `kubectl get Pods --all-namespaces`的输出来验证 CoreDNS 的 Pod 是否正常运行。
-只要确认了 CoreDNS 正常运行，您就可以往集群里添加节点了。
+一旦 Pod 网络安装完成，您就可以通过 `kubectl get Pods --all-namespaces` 的输出来验证 CoreDNS Pod 是否正常运行。
+只要确认了 CoreDNS 正常运行，您就可以向集群中添加节点了。
 
-如果您的网络不能工作或者 CoreDNS 不在运行状态，请查阅 [查错方案](/docs/setup/independent/troubleshooting-kubeadm/).
+如果您的网络不能工作或者 CoreDNS 不在运行状态，请查阅[查错方案](/docs/setup/independent/troubleshooting-kubeadm/)。
 
 <!-- ### Master Isolation
 
@@ -693,10 +700,11 @@ taint "node-role.kubernetes.io/master:" not found
 This will remove the `node-role.kubernetes.io/master` taint from any nodes that
 have it, including the master node, meaning that the scheduler will then be able
 to schedule Pods everywhere. -->
+
 ### 主节点隔离
 
-出于安全原因，默认您的主节点不会被调度运行任何 Pod ， 如果您需要在主节点上运行 Pod ，比如说
-一个单机器集群，运行：
+出于安全原因，默认您的主节点不会被调度运行任何 Pod。
+如果您需要在主节点上运行 Pod，比如说部署环境是一个单机器集群，运行：
 
 ```bash
 kubectl taint nodes --all node-role.kubernetes.io/master-
@@ -710,8 +718,8 @@ taint "node-role.kubernetes.io/master:" not found
 taint "node-role.kubernetes.io/master:" not found
 ```
 
-这个会从任何有 `node-role.kubernetes.io/master` 这种标签的节点移除这个标签，包括主节点，
-这表示集群调度器可以将 Pod 调度到任何节点。
+这个操作会从任何有 `node-role.kubernetes.io/master` 这种标签的节点移除该标签，包括主节点，
+标签的移除意味着集群调度器可以将 Pod 调度到任何节点。
 
 <!-- ### Joining your nodes {#join-nodes}
 
@@ -724,13 +732,14 @@ The nodes are where your workloads (containers and Pods, etc) run. To add new no
 ``` bash
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ``` -->
+
 ### 添加节点 {#join-nodes}
 
-节点就是工作负载(容器和Pod等等)运行的地方，要给集群添加新节点可以在每台机器上面执行如下操作：
+节点就是工作负载（容器和 Pod 等）运行的地方。如需向集群添加新节点，可以在每台机器上面执行如下操作：
 
 * SSH 连接到机器上
-* 成为 root 用户(比如 `sudo su -`)
-* 运行 `kubeadm init` 输出里的命令，比如
+* 成为 root 用户（比如 `sudo su -`）
+* 运行 `kubeadm init` 输出里的命令，即：
 
 ``` bash
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
@@ -794,7 +803,8 @@ The output is similar to this:
 ``` console
 8cb2de97839780a412b93877f8507ad6c94f73add17d5d7058e91741c9d5ec78
 ``` -->
-默认情况下，令牌会在24小时内过期，如果在令牌过期之后添加节点，您可以在主节点上执行下面的命令创建一个新令牌：
+
+默认情况下，令牌会在 24 小时内过期。如果在令牌过期之后添加节点，您可以在主节点上执行下面的命令创建一个新令牌：
 
 ``` bash
 kubeadm token create
@@ -840,8 +850,9 @@ Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the master. -->
+
 {{< note >}}
-**注意:** 若需给 `<master-ip>:<master-port>`,指定一个 IPv6 的元组，地址必须写在一对方括号里面，比如: `[fd00::101]:2073`。
+**注意:** 若需为 `<master-ip>:<master-port>` 参数设定一个 IPv6 的元组，地址必须写在一对方括号里面，比如: `[fd00::101]:2073`。
 {{< /note >}}
 
 输出类似这样:
@@ -859,7 +870,7 @@ Node join complete:
 Run 'kubectl get nodes' on the master to see this machine join.
 ```
 
-几秒钟之后，您将能在主节点上的 `kubectl get nodes`的输出里发现新添加的节点。
+几秒钟之后，您将能在主节点上的 `kubectl get nodes` 的输出里发现新添加的节点。
 
 <!-- ### (Optional) Controlling your cluster from machines other than the master
 
@@ -885,10 +896,11 @@ command. That command will print out a KubeConfig file to STDOUT which you
 should save to a file and distribute to your user. After that, whitelist
 privileges by using `kubectl create (cluster)rolebinding`.
 {{< /note >}} -->
+
 ### (可选) 在非主节点上控制集群
 
 为了能在其他机器（比如，笔记本）上使用 kubectl 来控制您的集群，您可以从主节点上复制管理员的 
-kubeconfig 到您的机器上，像下面这样子操作：
+kubeconfig 到您的机器上，像下面这样操作：
 
 ``` bash
 scp root@<master ip>:/etc/kubernetes/admin.conf .
@@ -896,9 +908,10 @@ kubectl --kubeconfig ./admin.conf get nodes
 ```
 
 {{< note >}}
-**注意:** 上面的例子生效的前提是 SSH 允许 root 用户连接登录，如果root 用户不能连接的话，您可以将 `admin.conf` 复制到允许其他用户访问的其他地方并将 `scp` 命令里的用户改成相对应的用户再复制。
+**注意:** 上面的例子生效的前提是 SSH 允许 root 用户连接登录。
+如果root 用户不能连接的话，您可以将 `admin.conf` 复制到允许其他用户访问的其他地方并将 `scp` 命令里的用户改成相对应的用户再复制。
 
-这个 `admin.conf` 文件给予了用户整个集群的超级用户权限，因此这个必须小心谨慎的管理文件。对于普通用户来说，
+这个 `admin.conf` 文件给予了用户整个集群的超级用户权限，因此这个操作必须小心谨慎。对于普通用户来说，
 更建议创建一个适用于白名单某些权限的验证文件。您可以通过这个命令来生成 `kubeadm alpha phase kubeconfig user --client-name <CN>`。
 这个命令会打印 KubeConfig 的内容到标准输出，然后您需要将它保存到一个文件里并分发给您的用户。然后再创建权限的白名单列表，
 命令如下： `kubectl create (cluster)rolebinding` 。
@@ -915,16 +928,17 @@ kubectl --kubeconfig ./admin.conf proxy
 ```
 
 You can now access the API Server locally at `http://localhost:8001/api/v1` -->
+
 ### (可选) 将 API 服务代理到本地
 
-如果您需要从集群外部连接到您的 API 服务，请运行`kubectl proxy`:
+如果您需要从集群外部连接到您的 API 服务器，请运行`kubectl proxy`:
 
 ```bash
 scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf proxy
 ```
 
-现在您就可以在本地访问这个地址 `http://localhost:8001/api/v1`来连接 API 服务了。
+现在您就可以在本地访问 `http://localhost:8001/api/v1` 来连接 API 服务器了。
 
 <!-- ## Tear down {#tear-down}
 
@@ -950,12 +964,13 @@ appropriate arguments.
 
 More options and information about the
 [`kubeadm reset command`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).-->
+
 ## 卸载集群 {#tear-down}
 
 想要回退 kubeadm 做出的修改，您需要首先[腾空节点](/docs/reference/generated/kubectl/kubectl-commands#drain)
 而且必须确保在关闭节点之前没有任何工作负载在运行。
 
-使用正确的登陆凭证来连接到主节点：
+使用正确的登录凭据来连接到主节点：
 
 ```bash
 kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
@@ -968,7 +983,7 @@ kubectl delete node <node name>
 kubeadm reset
 ```
 
-如果您只是想重新运行 `kubeadm init` 或者 `kubeadm join` ，[`kubeadm 重置`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)有更多的信息可供参考.
+如果您只是想重新运行 `kubeadm init` 或者 `kubeadm join`，[`kubeadm reset`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)页面有更多的信息可供参考.
 
 <!-- ## Maintaining a cluster {#lifecycle}
 
@@ -979,13 +994,14 @@ Instructions for maintaining kubeadm clusters (e.g. upgrades,downgrades, etc.) c
 See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
 including tools for logging, monitoring, network policy, visualization &amp;
 control of your Kubernetes cluster. -->
+
 ## 集群维护 {#lifecycle}
 
-维护集群生命周期（比如升级，降级）的详细步骤，可参考[这里](/docs/tasks/administer-cluster/kubeadm)
+维护集群（比如升级，降级）的详细指令，可参考[这里](/docs/tasks/administer-cluster/kubeadm)。
 
 ## 探索其他插件 {#other-addons}
 
-查看 [插件列表](/docs/concepts/cluster-administration/addons/) 来发现其他插件，包括日志，监控，网络策略，
+查看[插件列表](/docs/concepts/cluster-administration/addons/)来发现其他插件，包括日志、监控、网络策略、
 可视化和集群管理工具等等。
 
 <!-- ## What's next {#whats-next}
@@ -1005,23 +1021,23 @@ control of your Kubernetes cluster. -->
 * SIG Cluster Lifecycle [SIG information](#TODO)
 * SIG Cluster Lifecycle Mailing List:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle) -->
+
 ## 后续 {#whats-next}
 
-* 使用 [Sonobuoy](https://github.com/heptio/sonobuoy)验证集群是否正确运行
-* 学习 kubeadm 的高级应用[kubeadm 参考文档](/docs/reference/setup-tools/kubeadm/kubeadm)
-* 学习更多关于 Kubernetes 的[概念](/docs/concepts/) 和 [`kubectl`](/docs/user-guide/kubectl-overview/).
-* 配置日志轮转，您可以使用 **logrotate** 。使用 Docker的时候，您可以给 Docker 守护进程指定日志轮转的选项，
-比如 `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`. 请查阅 [Docker 守护进程的配置和纠错](https://docs.docker.com/engine/admin/) 
+* 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正确运行
+* 阅读[kubeadm 参考文档](/docs/reference/setup-tools/kubeadm/kubeadm)，学习 kubeadm 的高级应用
+* 进一步了解 Kubernetes 的[概念](/docs/concepts/)和 [`kubectl`](/docs/user-guide/kubectl-overview/)
+* 您可以使用 **logrotate** 配置日志轮转。使用 Docker 的时候，您可以给 Docker 守护进程设置日志轮转的选项，
+比如 `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`。请查阅 [Docker 守护进程的配置和纠错](https://docs.docker.com/engine/admin/)。
 
 ## 反馈 {#feedback}
 
-* 如果有 bugs, 请访问 [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
-* 如果需要支持，请访问 kubeadm 的 Slack 频道:
-  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
-* 通用 SIG 集群生命周期开发的 Slack 频道：
+* 如果发现故障，请访问 [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* 如果需要支持，请访问 kubeadm 的 Slack 频道：[#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
+* 访问 SIG cluster-lifecycle 开发者所使用的 Slack 频道：
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG 集群生命周期 [SIG information](#TODO)
-* SIG 集群生命周期邮件列表:
+* SIG cluster-lifecycle 的 [SIG 信息](#TODO)
+* SIG cluster-lifecycle 的邮件列表:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
 <!-- ## Version skew policy {#version-skew-policy}
@@ -1036,12 +1052,13 @@ v1.8.
 
 Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 for more information on the version skew between kubelets and the control plane. -->
-## 版本偏差 {#version-skew-policy}
 
-vX.Y 版本的kubeadm 命令行工具可能会部署一个控制面版本为vX.Y或者vX.(Y-1)的集群，也可以用于升级一个vX.(Y-1)的由 kubeadm 创建的集群。
-因为我们无法预见未来，因此版本为vX.Y的kubeadm 版本为vX.Y 可能可以也可能不行用于部署 vX.(Y+1) 版本的集群。
-例子: kubeadm v1.8 可以用于部署 v1.7 和 v1.8 的集群，也可以升级v1.7 的由 kubeadm 创建的集群到1.8版本。
-请查看我们的 [安装向导](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)提供了更多关于版本差别的信息。
+## 版本偏差策略 {#version-skew-policy}
+
+vX.Y 版本的 kubeadm 命令行工具可能会部署一个控制面版本为 vX.Y 或者 vX.(Y-1) 的集群，也可以用于升级一个 vX.(Y-1) 的由 kubeadm 创建的集群。
+因为我们无法预见未来，版本为 vX.Y 的 kubeadm 可能可以也可能无法用于部署 vX.(Y+1) 版本的集群。
+例子: kubeadm v1.8 可以用于部署 v1.7 和 v1.8 的集群，也可以升级 v1.7 的由 kubeadm 创建的集群到 1.8 版本。
+请查看我们的[安装向导](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)，其中提供了关于 kubelet 和控制面版本偏差的更多信息。
 
 <!-- ## kubeadm works on multiple platforms {#multi-platform}
 
@@ -1052,12 +1069,13 @@ proposal](https://github.com/kubernetes/community/blob/master/contributors/desig
 Only some of the network providers offer solutions for all platforms. Please consult the list of
 network providers above or the documentation from each provider to figure out whether the provider
 supports your chosen platform. -->
-## 多平台上的 kubeadm {#multi-platform}
 
-kubeadm 的 deb/rpm 包和可执行文件都是适用于 amd64, arm (32-bit), arm64, ppc64le 和 s390x等架构平台的，
-请查阅[多平台方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
+## 跨多平台上使用 kubeadm {#multi-platform}
 
-只有一部分的网络驱动提供了全平台的网络解决方案，请查询上面的网络驱动列表或者对应的官方文档来确定是否支持您的平台。
+kubeadm 的 deb/rpm 包和可执行文件都是适用于 amd64、arm (32位)、arm64、ppc64le 和 s390x等架构平台的，
+请查阅[多平台方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md)。
+
+只有一部分的网络驱动提供了所有平台的网络解决方案，请查询上面的网络驱动列表或者对应的官方文档来确定是否支持您的平台。
 
 <!-- ## Limitations {#limitations}
 
@@ -1077,18 +1095,19 @@ addressed in due course.
 ## Troubleshooting {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/). -->
-## 限制 {#limitations}
 
-请注意，kubeadm 还处于正在开发的状态中，这些限制将会在适当的时间修正。
+## 局限 {#limitations}
 
-1. 这篇文档介绍的创建的集群只能有单一的主节点和单一的 etcd 数据库，这表示如果主节点挂掉了，您的集群将会丢失数据
+请注意，kubeadm 还处于正在开发的状态中，这些局限将会在适当的时间修正。
+
+1. 这篇文档介绍的创建的集群只能有单一的主节点和单一的 etcd 数据库，这表示如果主节点宕机，您的集群将会丢失数据
    而且可能无法重新创建。目前给 kubeadm 添加高可用支持（比如多 etcd 多 API服务等等）的功能还在开发当中，因此可先参照下面的
-   临时解决方案: 经常性的[备份 etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). 
-   由 kubeadm 配置的 etcd 数据位于主节点上的 `/var/lib/etcd` 目录里面。
+   临时解决方案: 经常性地[备份 etcd](https://coreos.com/etcd/docs/latest/admin_guide.html)。
+   由 kubeadm 配置的 etcd 数据位于主节点上的 `/var/lib/etcd` 目录。
 
 ## 查错 {#troubleshooting}
 
-如果您在使用 kubeadm 发现任何问题，请查阅我们的[纠错文档](/docs/setup/independent/troubleshooting-kubeadm/).
+如果您在使用 kubeadm 发现任何问题，请查阅我们的[纠错文档](/docs/setup/independent/troubleshooting-kubeadm/)。
 
 
 
