@@ -4,7 +4,7 @@ id: pod-security-policy
 date: 2018-04-12
 full_link: /docs/concepts/policy/pod-security-policy/
 short_description: >
-  为 Pod 的创建和更新制定严格的授权。
+  为 Pod 的创建和更新操作启用细粒度的授权。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ tags:
  Enables fine-grained authorization of {{< glossary_tooltip term_id="pod" >}} creation and updates.
 -->
 
-为 Pod 的创建和更新制定严格的授权。
+为 Pod 的创建和更新操作启用细粒度的授权。
 
 <!--more--> 
 
@@ -40,6 +40,7 @@ tags:
 A cluster-level resource that controls security sensitive aspects of the Pod specification. The `PodSecurityPolicy` objects define a set of conditions that a Pod must run with in order to be accepted into the system, as well as defaults for the related fields. Pod Security Policy control is implemented as an optional admission controller.
 -->
 
-Pod 安全策略是集群级别的资源，它控制着 Pod 声明中的安全相关内容。`PodSecurityPolicy`对象定义了一组条件，Pod 运行中必须满足这些条件才能被系统接受，比如相关域的默认值。Pod 安全策略控制是一项可选的准入控制策略。
+Pod 安全策略是集群级别的资源，它控制着 Pod 规约中的安全性敏感的内容。
+`PodSecurityPolicy`对象定义了一组条件以及相关字段的默认值，Pod 运行时必须满足这些条件。Pod 安全策略控制实现上体现为一个可选的准入控制器。
 
 
