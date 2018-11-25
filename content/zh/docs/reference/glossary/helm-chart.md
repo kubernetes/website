@@ -4,7 +4,7 @@ id: helm-chart
 date: 2018-04-12
 full_link: https://github.com/kubernetes/helm/blob/master/docs/charts.md
 short_description: >
-  Helm Chart 是预先配置并打包的 Kubernetes 资源，可以使用 Helm 工具对这种资源包进行管理。
+  Helm Chart 是一组预先配置并打包的 Kubernetes 资源所构成的包，可以使用 Helm 工具对其进行管理。
 
 aka: 
 tags:
@@ -30,7 +30,7 @@ tags:
  A package of pre-configured Kubernetes resources that can be managed with the Helm tool.
 -->
 
-Helm Chart 是预先配置并打包的 Kubernetes 资源，可以使用 Helm 工具对这种资源包进行管理。
+Helm Chart 是一组预先配置并打包的 Kubernetes 资源所构成的包，可以使用 Helm 工具对其进行管理。
 
 <!--more--> 
 
@@ -39,5 +39,5 @@ Charts provide a reproducible way of creating and sharing Kubernetes application
 A single chart can be used to deploy something simple, like a memcached Pod, or something complex, like a full web app stack with HTTP servers, databases, caches, and so on.
 -->
 
-Chart 提供了可重复利用的应用创建和共享的方法。
-单个 Chart 可用来部署简单的东西，例如一个缓存 Pod，也可以用来部署复杂的东西，例如完整的基于 HTTP 服务器的 web 应用、数据库、缓存等等。
+Chart 提供了一种可重现的用来创建和共享应用的方法。
+同一个 Chart 可用来部署简单的系统（例如一个 memcached Pod），也可以用来部署复杂的系统（例如包含 HTTP 服务器、数据库、缓存等组件的完整 Web 应用堆栈）。
