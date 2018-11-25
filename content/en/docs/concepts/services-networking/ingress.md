@@ -84,19 +84,24 @@ Additional controllers include:
   ([Let's Encrypt](https://letsencrypt.org), secrets, http2, websocket), and it also comes with commercial
   support by [Containous](https://containo.us/services).
 
-{{< note >}}
-Review the documentation for your controller to find its specific support policy.
-{{< /note >}}
-
 You may deploy [any number of ingress controllers](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) within a cluster.
 When you create an ingress, you should annotate each ingress with the appropriate
 [`ingress-class`](https://git.k8s.io/ingress-gce/examples/PREREQUISITES.md#ingress-class) to indicate which ingress
 controller should be used if more than one exists within your cluster.
 If you do not define a class, your cloud provider may use a default ingress provider.
 
+### Before you begin
+
+Ideally, all ingress controllers should fulfill this specification, but the various ingress
+controllers operate slightly differently.
+
+{{< note >}}
+Make sure you review your ingress controller's documentation to understand the caveats of choosing it.
+{{< /note >}}
+
 ## The Ingress Resource
 
-A minimal ingress example:
+A minimal ingress resource example:
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -115,42 +120,43 @@ spec:
           servicePort: 80
 ```
 
- __Lines 1-6__: As with all other Kubernetes resources, an ingress needs `apiVersion`, `kind`, and `metadata` fields.  
+ As with all other Kubernetes resources, an ingress needs `apiVersion`, `kind`, and `metadata` fields.  
  For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the ingress controller, an example of which
  is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
  Different [ingress controller](#ingress-controllers) support different annotations. Review the documentation for
- the ingress controller you are using to learn which annotations are supported and valid options.
+ your choice of ingress controller to learn which annotations are supported.
 
-__Lines 7-9__: Ingress [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)
+The ingress [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)
 has all the information needed to configure a loadbalancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
-for directing http traffic.
+for directing HTTP traffic.
 
-__Lines 10-11__: Each http rule contains the following information:
+### Ingress rules
+
+Each http rule contains the following information:
 
 * An optional host. In this example, no host is specified, so the rule will apply to all inbound
   HTTP traffic through the IP address that will be connected. If a host is provided, for example:
-  foo.bar.com, the rules will apply on to that host)
+  foo.bar.com, the rules will apply on to that host.
 * a list of paths (e.g.: /testpath) each of which has an associated backend defined with a `serivceName`
   and `servicePort`. Both the host and path must match the content of an incoming request before the
-  loadbalancer directs traffic to the referenced service.
+  loadbalancer will direct traffic to the referenced service.
+* A backend is a combination of service and port names as described in the
+  [services doc](/docs/concepts/services-networking/service/). HTTP (and HTTPS) requests to the
+  ingress matching the host and path of the rule will be sent to the listed backend.
 
-__Lines 12-14__: A backend is a service:port combination as described in the [services doc](/docs/concepts/services-networking/service/).
-Ingress traffic is typically sent directly to the endpoints matching a backend.
+A default backend is often configured in an ingress controller that will service any requests that do not
+match a path in the spec.
 
-A default backend is often configured in an ingress controller that will service any requests that don't match a path in the spec.
+### Default Backend
 
-## Before you begin
+An ingress with no rules sends all traffic to a single default backend. The default
+backend is typically a configuration option of the [ingress controller](#ingress-controllers)
+and is not specified in your ingress resources.
 
-Ideally, all ingress controllers should fulfill this specification, but the various ingress
-controllers operate slightly differently. The Kubernetes project supports and maintain
-[GCE](https://git.k8s.io/ingress-gce/README.md) and [nginx](https://git.k8s.io/ingress-nginx/README.md)
-ingress controllers.
-
-{{< note >}}
-Make sure you review your [ingress controller](#ingress-controllers)'s specific docs to understand the caveats.
-{{< /note >}}
+If none of the hosts or paths match the HTTP request in the ingress objects, the traffic is
+routed to your default backend.
 
 ## Types of Ingress
 
@@ -177,15 +183,15 @@ Where `107.178.254.228` is the IP allocated by the ingress controller to satisfy
 this ingress.
 
 {{< note >}}
-Ingress controllers and load balancers may take a minute or two to allocate an IP address. Until that time you 
-will often see the address listed as `<pending>`.
+Ingress controllers and load balancers may take a minute or two to allocate an IP address.
+Until that time you will often see the address listed as `<pending>`.
 {{< /note >}}
 
 ### Simple fanout
 
-A fanout configuration routes traffic from a single IP address to more than one service, based on the HTTP URI being requested.
- An ingress allows you to keep the number of loadbalancers down
-to a minimum. For example, a setup like:
+A fanout configuration routes traffic from a single IP address to more than one service,
+based on the HTTP URI being requested. An ingress allows you to keep the number of loadbalancers
+down to a minimum. For example, a setup like:
 
 ```shell
 foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
@@ -285,12 +291,38 @@ spec:
           servicePort: 80
 ```
 
-__Default Backends__: An ingress with no rules, like the one shown in the previous
-section, sends all traffic to a single default backend. You can use the same
-technique to tell a loadbalancer where to find your website's 404 page, by
-specifying a set of rules *and* a default backend. Traffic is routed to your
-default backend if none of the Hosts in your ingress match the Host in the
-request header, and/or none of the paths match the URL of the request.
+If you create an ingress resource without any hosts defined in the rules, then any
+web traffic to the IP address of your ingress controller can be matched without a name based
+virtual host being required. For example, the following ingress resource will route traffic 
+requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic
+to the IP address without a hostname defined in request (that is, without a request header being
+presented) to `service3`.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress
+spec:
+  rules:
+  - host: first.bar.com
+    http:
+      paths:
+      - backend:
+          serviceName: service1
+          servicePort: 80
+  - host: second.foo.com
+    http:
+      paths:
+      - backend:
+          serviceName: service2
+          servicePort: 80
+  - http:
+      paths:
+      - backend:
+          serviceName: service3
+          servicePort: 80
+```
 
 ### TLS
 
