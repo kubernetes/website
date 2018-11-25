@@ -35,7 +35,7 @@ Slack, or in another communication mechanism, reach out to
 the [Kubernetes Code of Conduct Committee](https://github.com/kubernetes/community/tree/master/committee-code-of-conduct) <conduct@kubernetes.io>.
 Your anonymity will be protected. -->
 
-如果你在活动，会议，slack 或是其它场合，发现有任何违反行为规范的行为，请联系[Kubernetes 行为规范委员会](https://github.com/kubernetes/community/tree/master/committee-code-of-conduct)<conduct@kubernetes.io>。
+如果你在活动、会议、Slack 或是其它场合发现有任何违反行为规范的行为，请联系[Kubernetes 行为规范委员会](https://github.com/kubernetes/community/tree/master/committee-code-of-conduct)<conduct@kubernetes.io>。
 我们会确保您的匿名性。
 
 <div class="cncf_coc_container">
