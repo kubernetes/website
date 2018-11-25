@@ -9,13 +9,13 @@ toc_hide: false
 
 {{% capture overview %}}
 
-This is third article of how to use and extend the Kubernetes scheduler series, the whole series of artices are,
+This is the third article on how to use and extend the Kubernetes scheduler series. The series of articles are listed below:
 
-* [How does the Kubernetes scheduler work?](TODO)
-* [How to customize and extend the kubernetes scheduler?](/docs/concepts/scheduling/customization-and-extension/)
-* How to configure your kubernetes scheduler?
-* [Choose scheduling algorithms and strategies for your cluster](TODO)
-* [Learning kube-scheduler's design and implementation from source code.](TODO)
+* [How does the Kubernetes scheduler work?](docs/concepts/scheduling/how-scheduler-works/)
+* [How to customize and extend the Kubernetes scheduler?](/docs/concepts/scheduling/customization-and-extension/)
+* How to configure your Kubernetes scheduler?
+* [Choose scheduling algorithms and strategies for your cluster.](TODO)
+* [Learn the kube-scheduler's design and implementation from source code.](TODO)
 
 This page explains how to configure Kubernetes scheduler.
 
@@ -25,16 +25,21 @@ This page explains how to configure Kubernetes scheduler.
 
 ## Scheduler
 
-The Kubernetes scheduler is one of main components of Kubernetes and responsible for selecting the best node for the pod running against based on a series of predefined scheduler policies. The Kubenetes provides the default scheduler and policies to place the pod one by one to approprorite node in a Kubernetes cluster.
+The [Kubernetes scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) is a main component of Kubernetes. It is responsible for selecting the best node for the pod based on a series of predefined scheduler policies. Kubenetes provides the default scheduler and policies to place the pod on the appropriate node in a Kubernetes cluster.
 
 ## Configure the Policies
 
-The Kubernetes scheduler plugin frameworks provides the user to 1) Customize the default scheduler policies and 
-2) extend the scheduler or write the new scheduler(s) to either run alongside the default scheduler or replace the default scheduler, please refer to the article [Customization and Extension ](/docs/concepts/scheduling/customization-and-extension/).
+The Kubernetes scheduler plugin frameworks provides the user with the ability to:
 
-The default scheduler policies fit for the most use cases, furthermore the user can fine-tune the scheduler behaviors without modifying the default scheduler, the user can specify the customized policies file when the kube-scheduler starting with the `--policy-config-file` option. 
+1. Customize the default scheduler policies. 
+2. Extend the scheduler.
+3. Write the new scheduler(s) to either run alongside the default scheduler or replace the default scheduler.
 
-A example of typical policy file is as follows,
+For more information, see the article [Customization and Extension ](/docs/concepts/scheduling/customization-and-extension/).
+
+The default scheduler policies fit most use cases. Users can fine-tune the scheduler behavior without modifying the default scheduler by specifying the customized-policy file when the kube-scheduler starts with the `--policy-config-file` option.
+
+Given below is an example of a typical policy file:
 
 ```json
 {
@@ -111,7 +116,7 @@ A example of typical policy file is as follows,
 
 ## Predicates
 
-The scheduler policy are mainly composed of predicates and priorities rules, the predicates rules are used for filtering the nodes and the priorities rules are used for electing the best fit nodd. Each priority rule has the "weight" which specifies the factor of each priority rule during the scheduler calculating the score of each candidate node, the node with highest rank will be elected to host the pod. 
+The scheduler policy is mainly composed of predicates and priorities rules. The predicates rules are used to filter the nodes and the priorities rules are used to elect the best fit node. Each priority rule has a `weight`, which specifies the factor of each rule. The scheduler calculates the score of each candidate node and the node with the highest rank is elected to host the pod.
 
 The default scheduler doesn't facilitate all the predicates, the available predicates are listed in the following table, 
 
@@ -144,28 +149,30 @@ The default scheduler doesn't facilitate all the predicates, the available predi
 
 Based on the restrictiveness and computation complexity of predicates, the default order of the predicates is as follows,
 
-- CheckNodeCondition 
-- CheckNodeUnschedulable
-- GeneralPredicates 
-- HostName
-- PodFitsHostPorts
-- MatchNodeSelector 
-- PodFitsResources 
-- NoDiskConflict
-- PodToleratesNodeTaints 
-- PodToleratesNodeNoExecuteTaints 
-- CheckNodeLabelPresence
-- CheckServiceAffinity 
-- MaxEBSVolumeCount 
-- MaxGCEPDVolumeCount 
-- MaxCSIVolumeCount
-- MaxAzureDiskVolumeCount 
-- CheckVolumeBinding 
-- NoVolumeZoneConflict
-- CheckNodeMemoryPressure 
-- CheckNodePIDPressure 
-- CheckNodeDiskPressure 
-- MatchInterPodAffinity
+|Position |Predicates                       |
+|---------|---------------------------------|
+|    1    | CheckNodeCondition              |  
+|    2    | CheckNodeUnschedulable          |
+|    3    | GeneralPredicates               |
+|    4    | HostName                        |
+|    5    | PodFitsHostPorts                |
+|    6    | MatchNodeSelector               | 
+|    7    | PodFitsResources                | 
+|    8    | NoDiskConflict                  |
+|    9    | PodToleratesNodeTaints          | 
+|    10   | PodToleratesNodeNoExecuteTaints |
+|    11   | CheckNodeLabelPresence          |
+|    12   | CheckServiceAffinity            | 
+|    13   | MaxEBSVolumeCount               | 
+|    14   | MaxGCEPDVolumeCount             |
+|    15   | MaxCSIVolumeCount               |
+|    16   | MaxAzureDiskVolumeCount         |
+|    17   | CheckVolumeBinding              |
+|    18   | NoVolumeZoneConflict            |
+|    19   | CheckNodeMemoryPressure         |
+|    20   | CheckNodePIDPressure            |
+|    21   | CheckNodeDiskPressure           |
+|    22   | MatchInterPodAffinity           |
 
 
 ## Priorites
@@ -203,7 +210,6 @@ For example:
 If the first pod of a service was scheduled to a node with label "region=foo",
 all the other subsequent pods belong to the same service will be schedule on
 nodes with the same "region=foo" label.
-
 
 {{% /capture %}}
 
