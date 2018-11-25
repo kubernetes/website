@@ -46,12 +46,17 @@ For both methods you need this infrastructure:
   the workers
 - Full network connectivity between all machines in the cluster (public or
   private network is fine)
-- SSH access from one device to all nodes in the system
 - sudo privileges on all machines
+- SSH access from one device to all nodes in the system
 
 For the external etcd cluster only, you also need:
 
 - Three additional machines for etcd members
+
+Prerequisites for all nodes (control plane and worker):
+
+- Install `kubeadm` and `kubelet` using your preferred method, like a package manager.
+  `kubectl` is optional. `scp` is required if you want to use it for copying files between machines.
 
 {{< note >}}
 **Note**: The following examples run Calico as the Pod networking provider. If
@@ -72,9 +77,54 @@ run as root.
 
 - Find your pod CIDR. For details, see [the CNI network
    documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
-   The example uses Calico, so the pod CIDR is `192.168.0.0/16`.
+   The example uses Calico, so the pod CIDR is `192.168.0.0/16`. Some CNI plugins like
+   WeaveNet do not require setting a CIDR.
+
+### Create load balancer for kube-apiserver
+
+{{< note >}}
+**Note**: There are many configurations for load balancers. The following
+example is only one option. Your cluster requirements may need a
+different configuration.
+{{< /note >}}
+
+1.  Create a kube-apiserver load balancer with a name that resolves to DNS.
+
+    - In a cloud environment you should place your control plane nodes behind a TCP
+      forwarding load balancer. This load balancer distributes traffic to all
+      healthy control plane nodes in its target list. The health check for
+      an apiserver is a TCP check on the port the kube-apiserver listens on
+      (default value `:6443`).
+
+    - It is not recommended to use an IP address directly in a cloud environment.
+
+    - The load balancer must be able to communicate with all control plane nodes
+      on the apiserver port. It must also allow incoming traffic on its
+      listening port.
+
+    - [keepalived](http://www.keepalived.org/) or something like [docker-ucar](https://github.com/craigtracey/docker-ucarp)
+      can be used as a load balancer.
+
+    - Make sure that the address of the load balancer will later match
+      the address of kubeadm's `ControlPlaneEndpoint` address.
+
+1.  Add the first control plane nodes to the load balancer and test the
+    connection:
+
+    ```sh
+    nc -v LOAD_BALANCER_IP PORT
+    ```
+
+    - A connection refused error is expected because the apiserver is not yet
+      running. A timeout, however, means the load balancer cannot communicate
+      with the control plane node. If a timeout occurs, reconfigure the load
+      balancer to communicate with the control plane node.
+
+1.  Add the remaining control plane nodes to the load balancer target group.
 
 ### Configure SSH
+
+SSH will be required if you want to control all node from a single machine.
 
 1.  Enable ssh-agent on your main device that has access to all other nodes in
     the system:
@@ -104,43 +154,7 @@ run as root.
         sudo -E -s
         ```
 
-### Create load balancer for kube-apiserver
-
-{{< note >}}
-**Note**: There are many configurations for load balancers. The following
-example is only one option. Your cluster requirements may need a
-different configuration.
-{{< /note >}}
-
-1.  Create a kube-apiserver load balancer with a name that resolves to DNS.
-
-    - In a cloud environment you should place your control plane nodes behind a TCP
-      forwarding load balancer. This load balancer distributes traffic to all
-      healthy control plane nodes in its target list. The health check for
-      an apiserver is a TCP check on the port the kube-apiserver listens on
-      (default value `:6443`).
-
-    - It is not recommended to use an IP address directly in a cloud environment.
-
-    - The load balancer must be able to communicate with all control plane nodes
-      on the apiserver port. It must also allow incoming traffic on its
-      listening port.
-
-1.  Add the first control plane nodes to the load balancer and test the
-    connection:
-
-    ```sh
-    nc -v LOAD_BALANCER_IP PORT
-    ```
-
-    - A connection refused error is expected because the apiserver is not yet
-      running. A timeout, however, means the load balancer cannot communicate
-      with the control plane node. If a timeout occurs, reconfigure the load
-      balancer to communicate with the control plane node.
-
-1.  Add the remaining control plane nodes to the load balancer target group.
-
-## Stacked control plane nodes
+## Stacked etcd topology
 
 A "stacked" HA cluster is a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed
 data storage cluster provided by etcd is stacked on top of the cluster formed by the nodes that run control
@@ -164,69 +178,45 @@ A minimum of 3 stacked control plane nodes can be considered HA.
 
 ![Stacked etcd topology](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
 
-### Bootstrap the first stacked control plane node
+### Steps for the first control plane node
 
-{{< note >}}
-**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.12.0`.
-{{< /note >}}
+Go on the first control plane node and create a configuration file called `kubeadm-config.yaml`:
 
-1.  Create a `kubeadm-config.yaml` template file:
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta1
+kind: ClusterConfiguration
+kubernetesVersion: stable
+apiServer:
+  certSANs:
+  - "LOAD_BALANCER_DNS"
+controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
+  networking:
+    # This CIDR is a calico default. Substitute or remove for your CNI provider.
+    podSubnet: "192.168.0.0/16"
+```
 
-        apiVersion: kubeadm.k8s.io/v1beta1
-        kind: ClusterConfiguration
-        kubernetesVersion: stable
-        apiServer:
-          certSANs:
-          - "LOAD_BALANCER_DNS"
-        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
-        etcd:
-          local:
-            extraArgs:
-              listen-client-urls: "https://127.0.0.1:2379,https://CP0_IP:2379"
-              advertise-client-urls: "https://CP0_IP:2379"
-              listen-peer-urls: "https://CP0_IP:2380"
-              initial-advertise-peer-urls: "https://CP0_IP:2380"
-              initial-cluster: "CP0_HOSTNAME=https://CP0_IP:2380"
-            serverCertSANs:
-              - CP0_HOSTNAME
-              - CP0_IP
-            peerCertSANs:
-              - CP0_HOSTNAME
-              - CP0_IP
-        networking:
-            # This CIDR is a Calico default. Substitute or remove for your CNI provider.
-            podSubnet: "192.168.0.0/16"
+- `kubernetesVersion` should be set to the Kubernetes version you wish to use. This
+  example uses `stable`.
+- `controlPlaneEndpoint` should match the address (or DNS) and port of the load balancer.
+- It is highly recommended that your kubeadm, kubelet, kubectl and `kubernetesVersion` match
+  for this tutorial.
 
-1.  Replace the following variables in the template with the appropriate
-    values for your cluster:
+Make sure that the node is in a clean state using `reset` and then call `init`:
 
-    * `LOAD_BALANCER_DNS`
-    * `LOAD_BALANCER_PORT`
-    * `CP0_HOSTNAME`
-    * `CP0_IP`
+```sh
+sudo kubeadm reset -f
+sudo kubeadm init --config=kubeadm-config.yaml
+```
 
-1.  Run `kubeadm init --config kubeadm-config.yaml`
+If the process is successful you should see something like:
 
-### Copy required files to other control plane nodes
+```sh
+kubeadm join LOAD_BALANCER_DNS:LOAD_BALANCER_PORT --token <token> --discovery-token-ca-cert-hash <hash>
+```
 
-The following certificates and other required files were created when you ran `kubeadm init`.
-Copy these files to your other control plane nodes:
+Write this down to a text file as this will be later used to join other control plane nodes to the cluster.
 
-- `/etc/kubernetes/pki/ca.crt`
-- `/etc/kubernetes/pki/ca.key`
-- `/etc/kubernetes/pki/sa.key`
-- `/etc/kubernetes/pki/sa.pub`
-- `/etc/kubernetes/pki/front-proxy-ca.crt`
-- `/etc/kubernetes/pki/front-proxy-ca.key`
-- `/etc/kubernetes/pki/etcd/ca.crt`
-- `/etc/kubernetes/pki/etcd/ca.key`
-
-Copy the admin kubeconfig to the other control plane nodes:
-
-- `/etc/kubernetes/admin.conf`
-
-In the following example, replace
-`CONTROL_PLANE_IPS` with the IP addresses of the other control plane nodes.
+Now copy the required files from this node to the other control plane nodes using a smilar script:
 
 ```sh
 USER=ubuntu # customizable
@@ -244,191 +234,34 @@ for host in ${CONTROL_PLANE_IPS}; do
 done
 ```
 
-{{< note >}}
-**Note**: Remember that your config may differ from this example.
-{{< /note >}}
+- `CONTROL_PLANE_IPS` contains the list of IPs for the control plane node.
+- `USER` can be changed to the user for each machine.
+- Note that the files actually need to be in the `/etc/kubernetes/` folder for each of the machines.
 
-### Add the second stacked control plane node
+It's recommended that you join new control plane nodes only after the first node has finished initializing.
+Type the following command and watch the pods of the components getting started:
 
-1.  Create a second, different `kubeadm-config.yaml` template file:
+```sh
+watch kubectl get pods --all-namespaces
+```
 
-        apiVersion: kubeadm.k8s.io/v1beta1
-        kind: ClusterConfiguration
-        kubernetesVersion: stable
-        apiServer:
-          certSANs:
-          - "LOAD_BALANCER_DNS"
-        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
-        etcd:
-          local:
-            extraArgs:
-              listen-client-urls: "https://127.0.0.1:2379,https://CP1_IP:2379"
-              advertise-client-urls: "https://CP1_IP:2379"
-              listen-peer-urls: "https://CP1_IP:2380"
-              initial-advertise-peer-urls: "https://CP1_IP:2380"
-              initial-cluster: "CP0_HOSTNAME=https://CP0_IP:2380,CP1_HOSTNAME=https://CP1_IP:2380"
-              initial-cluster-state: existing
-            serverCertSANs:
-              - CP1_HOSTNAME
-              - CP1_IP
-            peerCertSANs:
-              - CP1_HOSTNAME
-              - CP1_IP
-        networking:
-            # This CIDR is a calico default. Substitute or remove for your CNI provider.
-            podSubnet: "192.168.0.0/16"
+### Steps for the rest of the control plane nodes
 
-1.  Replace the following variables in the template with the appropriate values for your cluster:
+Make sure that you have copied the required files as outlined in the previous step.
+Note that every time you call `kubeadm reset` such files will be deleted and you need to copy them again.
 
-    - `LOAD_BALANCER_DNS`
-    - `LOAD_BALANCER_PORT`
-    - `CP0_HOSTNAME`
-    - `CP0_IP`
-    - `CP1_HOSTNAME`
-    - `CP1_IP`
+At this point you can start `kubeadm` on this node using the join command from earlier:
 
-1.  Move the copied files to the correct locations:
+```sh
+kubeadm join LOAD_BALANCER_DNS:LOAD_BALANCER_PORT --token <token> --discovery-token-ca-cert-hash <hash> \
+--experimental-control-plane
+```
 
-    ```sh
-    USER=ubuntu # customizable
-    mkdir -p /etc/kubernetes/pki/etcd
-    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
-    mv /home/${USER}/ca.key /etc/kubernetes/pki/
-    mv /home/${USER}/sa.pub /etc/kubernetes/pki/
-    mv /home/${USER}/sa.key /etc/kubernetes/pki/
-    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
-    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
-    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
-    mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
-    ```
+Notice that the command is the same as what the first control plane node gave us, except
+that we added `--experimental-control-plane`. This extra flag will automate the join process
+of this control plane to the cluster.
 
-1.  Run the kubeadm phase commands to bootstrap the kubelet:
-
-    ```sh
-    kubeadm alpha phase certs all --config kubeadm-config.yaml
-    kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
-    kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
-    kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
-    systemctl start kubelet
-    ```
-
-1.  Run the commands to add the node to the etcd cluster:
-
-    ```sh
-    export CP0_IP=10.0.0.7
-    export CP0_HOSTNAME=cp0
-    export CP1_IP=10.0.0.8
-    export CP1_HOSTNAME=cp1
-
-    export KUBECONFIG=/etc/kubernetes/admin.conf
-    kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
-    kubeadm alpha phase etcd local --config kubeadm-config.yaml
-    ```
-
-    - This command causes the etcd cluster to become unavailable for a
-      brief period, after the node is added to the running cluster, and before the
-      new node is joined to the etcd cluster.
-
-1.  Deploy the control plane components and mark the node as a master:
-
-    ```sh
-    kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
-    kubeadm alpha phase controlplane all --config kubeadm-config.yaml
-    kubeadm alpha phase kubelet config annotate-cri --config kubeadm-config.yaml
-    kubeadm alpha phase mark-master --config kubeadm-config.yaml
-    ```
-
-### Add the third stacked control plane node
-
-1.  Create a third, different `kubeadm-config.yaml` template file:
-
-        apiVersion: kubeadm.k8s.io/v1beta1
-        kind: ClusterConfiguration
-        kubernetesVersion: stable
-        apiServer:
-          certSANs:
-          - "LOAD_BALANCER_DNS"
-        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
-        etcd:
-          local:
-            extraArgs:
-              listen-client-urls: "https://127.0.0.1:2379,https://CP2_IP:2379"
-              advertise-client-urls: "https://CP2_IP:2379"
-              listen-peer-urls: "https://CP2_IP:2380"
-              initial-advertise-peer-urls: "https://CP2_IP:2380"
-              initial-cluster: "CP0_HOSTNAME=https://CP0_IP:2380,CP1_HOSTNAME=https://CP1_IP:2380,CP2_HOSTNAME=https://CP2_IP:2380"
-              initial-cluster-state: existing
-            serverCertSANs:
-              - CP2_HOSTNAME
-              - CP2_IP
-            peerCertSANs:
-              - CP2_HOSTNAME
-              - CP2_IP
-        networking:
-            # This CIDR is a calico default. Substitute or remove for your CNI provider.
-            podSubnet: "192.168.0.0/16"
-
-1.  Replace the following variables in the template with the appropriate values for your cluster:
-
-    - `LOAD_BALANCER_DNS`
-    - `LOAD_BALANCER_PORT`
-    - `CP0_HOSTNAME`
-    - `CP0_IP`
-    - `CP1_HOSTNAME`
-    - `CP1_IP`
-    - `CP2_HOSTNAME`
-    - `CP2_IP`
-
-1.  Move the copied files to the correct locations:
-
-    ```sh
-    USER=ubuntu # customizable
-    mkdir -p /etc/kubernetes/pki/etcd
-    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
-    mv /home/${USER}/ca.key /etc/kubernetes/pki/
-    mv /home/${USER}/sa.pub /etc/kubernetes/pki/
-    mv /home/${USER}/sa.key /etc/kubernetes/pki/
-    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
-    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
-    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
-    mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
-    ```
-
-1.  Run the kubeadm phase commands to bootstrap the kubelet:
-
-    ```sh
-    kubeadm alpha phase certs all --config kubeadm-config.yaml
-    kubeadm alpha phase kubelet config write-to-disk --config kubeadm-config.yaml
-    kubeadm alpha phase kubelet write-env-file --config kubeadm-config.yaml
-    kubeadm alpha phase kubeconfig kubelet --config kubeadm-config.yaml
-    systemctl start kubelet
-    ```
-
-1.  Run the commands to add the node to the etcd cluster:
-
-    ```sh
-    export CP0_IP=10.0.0.7
-    export CP0_HOSTNAME=cp0
-    export CP2_IP=10.0.0.9
-    export CP2_HOSTNAME=cp2
-
-    export KUBECONFIG=/etc/kubernetes/admin.conf
-    kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP2_HOSTNAME} https://${CP2_IP}:2380
-    kubeadm alpha phase etcd local --config kubeadm-config.yaml
-    ```
-
-1.  Deploy the control plane components and mark the node as a master:
-
-    ```sh
-    kubeadm alpha phase kubeconfig all --config kubeadm-config.yaml
-    kubeadm alpha phase controlplane all --config kubeadm-config.yaml
-    kubeadm alpha phase kubelet config annotate-cri --config kubeadm-config.yaml
-    kubeadm alpha phase mark-master --config kubeadm-config.yaml
-    ```
-
-## External etcd
+## External etcd topology
 
 While being fairly similar to the "stacked" HA cluster, an "external etcd" HA cluster is
 a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed data storage
@@ -447,43 +280,32 @@ A minimum of 3 (control planes) by 3 (etcd hosts) setup for this topology can be
 
 ![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-### Set up the cluster
+### Set up the etcd cluster
 
-- Follow [these instructions](/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
-   to set up the etcd cluster.
-
-#### Copy required files from an etcd node to all control plane nodes
-
-In the following example, replace `USER` and `CONTROL_PLANE_HOSTS` values with values
-for your environment.
-
-```sh
-# Make a list of required etcd certificate files
-cat << EOF > etcd-pki-files.txt
-/etc/kubernetes/pki/etcd/ca.crt
-/etc/kubernetes/pki/apiserver-etcd-client.crt
-/etc/kubernetes/pki/apiserver-etcd-client.key
-EOF
-
-# create the archive
-tar -czf etcd-pki.tar.gz -T etcd-pki-files.txt
-
-# copy the archive to the control plane nodes
-USER=ubuntu
-CONTROL_PLANE_HOSTS="10.0.0.7 10.0.0.8 10.0.0.9"
-for host in $CONTROL_PLANE_HOSTS; do
-    scp etcd-pki.tar.gz "${USER}"@$host:
-done
-```
+Follow [these instructions](/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
+to set up the etcd cluster.
 
 ### Set up the first control plane node
 
-1.  Extract the etcd certificates
+Once you have setup your etcd cluster you have to copy the etcd certificates from
+one of the etcd nodes to the first control plane node. This can be done by executing
+a similar script on the etcd node:
 
-        mkdir -p /etc/kubernetes/pki
-        tar -xzf etcd-pki.tar.gz -C /etc/kubernetes/pki --strip-components=3
+```sh
+CONTROL_PLANE="ubuntu@10.0.0.7"
+scp /etc/kubernetes/pki/etcd/ca.crt "${CONTROL_PLANE}":
+scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${CONTROL_PLANE}":
+scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
+```
 
-1.  Create a `kubeadm-config.yaml`:
+- Replace `CONTROL_PLANE` with the `user@host` of your first control plane node.
+- Note that the files actually need to be in the `/etc/kubernetes/` folder of the target machine.
+
+kubeadm will recognize that the above certificates are already existing and not overwrite them.
+After the first control plane node has initialized we are going to copy its certificates
+to the rest of the control plane nodes.
+
+Create a file called `kubeadm-config.yaml` with the following contents:
 
 {{< note >}}
 **Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
@@ -518,69 +340,19 @@ done
     - `ETCD_2_IP`
 
 1.  Run `kubeadm init --config kubeadm-config.yaml`
-1.  Copy the output join commamnd.
+1.  Write the join command to a text file for later use.
 
-### Copy required files to the correct locations
+The difference between stacked etcd and external etcd here is that we are using the `external`
+field for `etcd` in the kubeadm config. In the case of the stacked etcd topology this `etcd` is local
+and this is managed automatically.
 
-The following pki files were created during the `kubeadm init` step and must be shared with
-all other control plane nodes.
+At this point the external etcd procedure is exactly the same as the one for the stacked etcd topology
+outlined [here](#steps-for-the-rest-of-the-control-plane-nodes).
 
-- `/etc/kubernetes/pki/ca.crt`
-- `/etc/kubernetes/pki/ca.key`
-- `/etc/kubernetes/pki/sa.key`
-- `/etc/kubernetes/pki/sa.pub`
-- `/etc/kubernetes/pki/front-proxy-ca.crt`
-- `/etc/kubernetes/pki/front-proxy-ca.key`
-
-In the following example, replace the list of
-`CONTROL_PLANE_IPS` values with the IP addresses of the other control plane nodes.
-
-```sh
-# make a list of required kubernetes certificate files
-cat << EOF > certificate_files.txt
-/etc/kubernetes/pki/ca.crt
-/etc/kubernetes/pki/ca.key
-/etc/kubernetes/pki/sa.key
-/etc/kubernetes/pki/sa.pub
-/etc/kubernetes/pki/front-proxy-ca.crt
-/etc/kubernetes/pki/front-proxy-ca.key
-EOF
-
-# create the archive
-tar -czf control-plane-certificates.tar.gz -T certificate_files.txt
-
-USER=ubuntu # customizable
-CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
-for host in ${CONTROL_PLANE_IPS}; do
-    scp control-plane-certificates.tar.gz "${USER}"@$host:
-done
-```
-
-### Set up the other control plane nodes
-
-1.  Extract the required certificates
-
-        mkdir -p /etc/kubernetes/pki
-        tar -xzf etcd-pki.tar.gz -C /etc/kubernetes/pki --strip-components 3
-        tar -xzf control-plane-certificates.tar.gz -C /etc/kubernetes/pki --strip-components 3
-
-1.  Verify the location of the copied files.
-    Your `/etc/kubernetes` directory should look like this:
-
-    - `/etc/kubernetes/pki/apiserver-etcd-client.crt`
-    - `/etc/kubernetes/pki/apiserver-etcd-client.key`
-    - `/etc/kubernetes/pki/ca.crt`
-    - `/etc/kubernetes/pki/ca.key`
-    - `/etc/kubernetes/pki/front-proxy-ca.crt`
-    - `/etc/kubernetes/pki/front-proxy-ca.key`
-    - `/etc/kubernetes/pki/sa.key`
-    - `/etc/kubernetes/pki/sa.pub`
-    - `/etc/kubernetes/pki/etcd/ca.crt`
-
-1.  Run the copied `kubeadm join` command from above. Add the flag "--experimental-control-plane".
-    The final command will look something like this:
-
-        kubeadm join ha.k8s.example.com:6443 --token 5ynki1.3erp9i3yo7gqg1nv --discovery-token-ca-cert-hash sha256:a00055bd8c710a9906a3d91b87ea02976334e1247936ac061d867a0f014ecd81 --experimental-control-plane
+- Make sure that the first control plane node is fully initialized.
+- Copy certificates between the first control plane node and the rest.
+- Join each control plane node using the join command you got from the first control plane node,
+  while also adding the flag `--experimental-control-plane`.
 
 ## Common tasks after bootstrapping control plane
 
@@ -593,6 +365,6 @@ in the master configuration file.
 ### Install workers
 
 Each worker node can now be joined to the cluster with the command returned from any of the
-`kubeadm init` commands.
+`kubeadm init` commands. The flag `--experimental-control-plane` should not be added to worker nodes.
 
 {{% /capture %}}
