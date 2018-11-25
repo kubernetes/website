@@ -122,7 +122,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open. 
 -->
-任意使用 * 标记的端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开放的。
+使用 * 标记的任意端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开放的。
 
 <!-- 
 Although etcd ports are included in master nodes, you can also host your own
@@ -164,7 +164,7 @@ Other CRI-based runtimes include:
 <!-- 
 Refer to the [CRI installation instructions](/docs/setup/cri) for more information. 
 -->
-参考 [CRI 安装指南](/docs/setup/cri) 获取更多信息.
+参考 [CRI 安装指南](/docs/setup/cri) 获取更多信息。
 
 <!--
 ## Installing kubeadm, kubelet and kubectl
@@ -198,7 +198,7 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa. 
 -->
-kubeadm **不能** 帮您安装或管理 `kubelet` 或 `kubectl` ，所以您得保证他们满足通过 kubeadm 安装的 Kubernetes 控制层对版本的要求。如果版本没有满足要求，就有可能导致一些难以想到的错误或问题。然而控制层与 kubelet 间的 _小版本号_ 不一致无伤大雅，不过请记住 kubelet 的版本不可以超过 API server 的版本。例如 1.8.0 的 API server 可以适配 1.7.0 的 kubelet，反之就不行了。
+kubeadm **不能** 帮您安装或管理 `kubelet` 或 `kubectl` ，所以您得保证它们满足通过 kubeadm 安装的 Kubernetes 控制层对版本的要求。如果版本没有满足要求，就有可能导致一些难以想到的错误或问题。然而控制层与 kubelet 间的 _小版本号_ 不一致无伤大雅，不过请记住 kubelet 的版本不可以超过 API server 的版本。例如 1.8.0 的 API server 可以适配 1.7.0 的 kubelet，反之则不可以。
 
 <!-- 
 {{< warning >}}
@@ -267,8 +267,8 @@ systemctl enable kubelet && systemctl start kubelet
     `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g. 
   -->
   - 通过命令 `setenforce 0` 和 `sed ...` 可以将 SELinux 设置为 permissive 模式(将其禁用)。
-    只有执行这一操作之后，容器才能访问宿主的文件系统，进而能够正常使用 Pod 网络。您必须这么做，直到 kubelet 做出升级支持 SELinux 为止。
-  - 一些 RHEL/CentOS 7 的用户曾经遇到过：由于 iptable 被绕过导致网络请求被错误的路由。您得保证
+    只有执行这一操作之后，容器才能访问宿主的文件系统，进而能够正常使用 pod 网络。您必须这么做，直到 kubelet 做出升级支持 SELinux 为止。
+  - 一些 RHEL/CentOS 7 的用户曾经遇到过：由于 iptables 被绕过导致网络请求被错误的路由。您得保证
     在您的 `sysctl` 配置中 `net.bridge.bridge-nf-call-iptables` 被设为1。
 
     ```bash
@@ -361,7 +361,7 @@ KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 This file will be used by `kubeadm init` and `kubeadm join` to source extra
 user defined arguments for the kubelet.
 -->
-这个文件将会被 `kubeadm init` 和 `kubeadm join` 用于为 kubelet 获取 额外的用户参数。
+这个文件将会被 `kubeadm init` 和 `kubeadm join` 用于为 kubelet 获取额外的用户参数。
 
 <!--
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
@@ -387,7 +387,7 @@ systemctl restart kubelet
 <!-- 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 -->
-如果您在使用 kubeadm 时候遇到问题，请查看我们的[疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/). 
+如果您在使用 kubeadm 时候遇到问题，请查看我们的 [疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/)。
 {{% capture whatsnext %}}
 <!-- 
 * [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/)
