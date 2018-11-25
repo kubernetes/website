@@ -130,7 +130,7 @@ spec:
 The ingress [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)
 has all the information needed to configure a loadbalancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
-for directing http traffic.
+for directing HTTP traffic.
 
 ### Ingress rules
 
@@ -138,7 +138,7 @@ Each http rule contains the following information:
 
 * An optional host. In this example, no host is specified, so the rule will apply to all inbound
   HTTP traffic through the IP address that will be connected. If a host is provided, for example:
-  foo.bar.com, the rules will apply on to that host)
+  foo.bar.com, the rules will apply on to that host.
 * a list of paths (e.g.: /testpath) each of which has an associated backend defined with a `serivceName`
   and `servicePort`. Both the host and path must match the content of an incoming request before the
   loadbalancer will direct traffic to the referenced service.
