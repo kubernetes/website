@@ -139,7 +139,7 @@ Each http rule contains the following information:
 * An optional host. In this example, no host is specified, so the rule will apply to all inbound
   HTTP traffic through the IP address that will be connected. If a host is provided, for example:
   foo.bar.com, the rules will apply on to that host.
-* a list of paths (e.g.: /testpath) each of which has an associated backend defined with a `serivceName`
+* a list of paths (e.g.: /testpath) each of which has an associated backend defined with a `serviceName`
   and `servicePort`. Both the host and path must match the content of an incoming request before the
   loadbalancer will direct traffic to the referenced service.
 * A backend is a combination of service and port names as described in the
