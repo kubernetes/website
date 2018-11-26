@@ -773,6 +773,12 @@ spec:
   type: ExternalName
   externalName: my.database.example.com
 ```
+{{< note >}}
+ExternalName _can_ be an IP, but it won't be resolved either by CoreDNS or ingress-nginx as the canonical use for ExternalName is to be a canonical DNS name. If you want to hardcode IPs, have a look at headless services.
+{{< /note >}}
+
+
+
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
 will return a `CNAME` record with the value `my.database.example.com`. Accessing
