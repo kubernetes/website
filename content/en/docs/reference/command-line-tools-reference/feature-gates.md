@@ -39,7 +39,8 @@ different Kubernetes components.
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
 | `AttachVolumeLimit` | `true` | Alpha | 1.11 | |
-| `BlockVolume` | `false` | Alpha | 1.9 | |
+| `BlockVolume` | `false` | Alpha | 1.9 | 1.12 |
+| `BlockVolume` | `true` | Beta | 1.13 | - |
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
@@ -47,7 +48,8 @@ different Kubernetes components.
 | `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
 | `CSIBlockVolume` | `false` | Alpha | 1.11 | 1.11 |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
-| `CSIPersistentVolume` | `true` | Beta | 1.10 | |
+| `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
+| `CSIPersistentVolume` | `true` | GA | 1.13 | - |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | |
 | `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
@@ -67,14 +69,16 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | |
+| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
+| `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `Initializers` | `false` | Alpha | 1.7 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
-| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | |
+| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
+| `KubeletPluginsWatcher` | `true` | GA | 1.13 | - |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
@@ -107,17 +111,20 @@ different Kubernetes components.
 | `SupportIPVSProxyMode` | `true` | GA | 1.11 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
-| `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
-| `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
+| `TaintBasedEvictions` | `false` | Alpha | 1.6 | 1.12 |
+| `TaintBasedEvictions` | `true` | Beta | 1.13 | |
+| `TaintNodesByCondition` | `false` | Alpha | 1.8 | 1.11 |
 | `TaintNodesByCondition` | `true` | Beta | 1.12 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
-| `TokenRequest` | `True` | Beta | 1.12 | |
+| `TokenRequest` | `true` | Beta | 1.12 | |
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
-| `TokenRequestProjection` | `True` | Beta | 1.12 | |
+| `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
-| `VolumeScheduling` | `true` | Beta | 1.10 | |
+| `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
+| `VolumeScheduling` | `true` | GA | 1.13 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 
 ## Using a Feature

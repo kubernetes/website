@@ -146,10 +146,8 @@ items:
 - apiVersion: stable.example.com/v1
   kind: CronTab
   metadata:
-    clusterName: ""
     creationTimestamp: 2017-05-31T12:56:35Z
-    deletionGracePeriodSeconds: null
-    deletionTimestamp: null
+    generation: 1
     name: my-new-cron-object
     namespace: default
     resourceVersion: "285"
@@ -175,7 +173,7 @@ kubectl get crontabs
 ```
 
 ```console
-Error from server (NotFound): Unable to list "crontabs": the server could not find the requested resource (get crontabs.stable.example.com)
+Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontabs"}: the server could not find the requested resource (get crontabs.stable.example.com)
 ```
 
 If you later recreate the same CustomResourceDefinition, it will start out empty.
@@ -470,7 +468,7 @@ When the status subresource is enabled, the `/status` subresource for the custom
 - `PUT` requests to the `/status` subresource take a custom resource object and ignore changes to anything except the status stanza.
 - `PUT` requests to the `/status` subresource only validate the status stanza of the custom resource.
 - `PUT`/`POST`/`PATCH` requests to the custom resource ignore changes to the status stanza.
-- Any changes to the spec stanza increments the value at `.metadata.generation`.
+- The `.metadata.generation` value is incremented for all changes, except for changes to `.metadata` or `.status`.
 - Only the following constructs are allowed at the root of the CRD OpenAPI validation schema:
 
   - Description
