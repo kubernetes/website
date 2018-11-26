@@ -38,4 +38,5 @@ tags:
 A way of packaging software that allows it to be stored in a container registry, pulled to a local system, and run as an application. Meta data is included in the image that can indicate what executable to run, who built it, and other information.
 -->
 
-镜像是软件打包的一种方式，可以将镜像存储在容器镜像仓库、拉取到本地系统、并作为应用来运行。镜像中包含的元数据指明了运行什么可执行程序、是由谁编译的、以及其他信息。
+镜像是软件打包的一种方式，可以将镜像存储在容器镜像仓库、拉取到本地系统并作为应用来运行。
+镜像中包含的元数据指明了运行什么可执行程序、是由谁编译的以及其他信息。
