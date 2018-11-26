@@ -39,4 +39,4 @@ A way of packaging software that allows it to be stored in a container registry,
 -->
 
 镜像是软件打包的一种方式，可以将镜像存储在容器镜像仓库、拉取到本地系统并作为应用来运行。
-镜像中包含的元数据指明了运行什么可执行程序、是由谁编译的以及其他信息。
+镜像中包含的元数据指明了运行什么可执行程序、是由谁构建的以及其他信息。
