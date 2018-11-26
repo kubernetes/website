@@ -1,7 +1,14 @@
+<!--
 ---
 title: Glossary and Terminology
 content_template: templates/concept
 ---
+-->
+
+---
+题目: 词汇与术语
+---
+
 <!--
 {{% capture overview %}}
 This page explains some of the terminology used in deploying Kubernetes with Juju.
@@ -29,13 +36,13 @@ This page explains some of the terminology used in deploying Kubernetes with Juj
 {{% /capture %}}
 -->
 
-** controller ** - 云环境的管理节点。通常，每个域都有一个控制器，在 HA 环境中有更多控制器。控制器负责管理给定环境中的所有后续模型。它包含 Juju API 服务器及其底层数据库。
+**controller** - 云环境的管理节点。通常，每个域都有一个控制器，在高可用环境中有更多控制器。控制器负责管理给定环境中的所有后续模型。它包含 Juju API 服务器及其底层数据库。
 
-** model ** - 定义deploymets 的一系列 charms 及其关系的集合。这包括机器和更小的单元。控制器可以托管多个模型。出于管理和隔离原因，建议将 Kubernetes 集群分成单独的模型。
+**model** - 定义deploymets 的一系列 charms 及其关系的集合。这包括机器和更小的单元。控制器可以托管多个模型。出于管理和隔离原因，建议将 Kubernetes 集群分成单独的模型。
 
-** charm ** - 服务的定义，包括其元数据，与其他服务的依赖关系，所需的包和应用程序管理逻辑。它包含部署Kubernetes集群的所有操作知识。包含的 charms 例子是`kubernetes-core`，`easyrsa`，`flannel`和`etcd`。
+**charm** - 服务的定义，包括其元数据，与其他服务的依赖关系，所需的包和应用程序管理逻辑。它包含部署 Kubernetes 集群的所有操作知识。包含的 charms 例子是`kubernetes-core`，`easyrsa`，`flannel`和`etcd`。
 
-** unit ** - 服务的给定实例。这些可能会或可能不会耗尽整个机器，并且可能位于同一台机器上。因此，例如，您可能在一台机器上运行 `kubernetes-worker` 和 `etcd`，以及`easyrsa`单元，但它们是不同服务的三个不同单元。
+**unit** - 服务的给定实例。这些可能会或可能不会耗尽整个机器，并且可能位于同一台机器上。因此，例如，您可能在一台机器上运行 `kubernetes-worker` 和 `etcd`，以及`easyrsa`单元，但它们是不同服务的三个不同单元。
 
-** machine ** - 物理节点，可以是裸机节点，也可以是云提供商提供的虚拟机。
+**machine** - 物理节点，可以是裸机节点，也可以是云提供商提供的虚拟机。
 {{％/ capture％}}
