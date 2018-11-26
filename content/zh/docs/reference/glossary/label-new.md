@@ -38,4 +38,3 @@ Labels are key/value pairs that are attached to objects such as {{< glossary_too
 
 标签是一些关联到 {{< glossary_tooltip text="Pods" term_id="pod" >}} 这类对象上的键值对。
 它们通常用来组织和选择对象子集。
-
