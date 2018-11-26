@@ -39,7 +39,7 @@ This page explains some of the terminology used in deploying Kubernetes with Juj
 
 **controller** - 云环境的管理节点。通常，每个域(Region)都有一个 controller，在高可用环境中有更多 controller。每个 controller 负责管理给定环境中的所有后续 model。Controller 中包含 Juju API 服务器及其底层数据库。
 
-**model** - 定义 Deploymets 的一系列 charms 及其关系的集合。model 之中包括 machine 和更小的unit。每个 controller 可以托管多个 model。出于管理和隔离的原因，建议将 Kubernetes 集群分成独立的 model。
+**model** - 定义 Deploymets 的一系列 charms 及其关系的集合。model 之中包括 machine 和更小的 unit。每个 controller 可以托管多个 model。出于管理和隔离的原因，建议将 Kubernetes 集群分成独立的 model。
 
 **charm** - 每个 charm 对应一个 Service 的定义，包括其元数据、与其他服务间的依赖关系、所需的包和应用管理逻辑。
 其中包含部署 Kubernetes 集群的所有操作知识。内置的 charms 例子有 `kubernetes-core`、`easyrsa`、`flannel` 和 `etcd` 等。
