@@ -1,14 +1,14 @@
+---
+title: 词汇与术语
+content_template: templates/concept
+---
+
 <!--
 ---
 title: Glossary and Terminology
 content_template: templates/concept
 ---
 -->
-
----
-title: 词汇与术语
-content_template: templates/concept
----
 
 <!--
 {{% capture overview %}}
