@@ -1,4 +1,3 @@
-
 ---
 title: 词汇与术语
 content_template: templates/concept
