@@ -134,8 +134,9 @@ In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the
 在 Kubernetes 1.3 或更高版本中，`kubectl config view` 不再显示 token。使用 `kubectl describe secret ...` 来获取默认服务帐户的 token，如下所示：
 
 ```shell
-$ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
+$ APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+$ SECRET_NAME=$(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}')
+$ TOKEN=$(kubectl get secret $SECRET_NAME -o jsonpath='{.data.token}' | base64 --decode )
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
