@@ -18,7 +18,7 @@ weight: 95
 -->
 
 {{% capture overview %}}
-WebHook 是一种 HTTP 回调：是一种当有事情发生时的 HTTP POST 请求；一种通过 HTTP POST 方式的事件通知。一种实现 WebHooks 的 web 应用 当特定事件发生时通过 POST 方式向对应 URL 发送消息。
+WebHook 是一种 HTTP 回调：一种当有事情发生时的 HTTP POST 请求；一种通过 HTTP POST 方式的事件通知。一种实现 WebHooks 的 web 应用 当特定事件发生时通过 POST 方式向对应 URL 发送消息。
 <!-- 
 A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. 
 -->
