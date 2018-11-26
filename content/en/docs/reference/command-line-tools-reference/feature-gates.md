@@ -43,7 +43,10 @@ different Kubernetes components.
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `BlockVolume` | `true` | Beta | 1.13 | - |
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
+<<<<<<< HEAD
 | `CPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
+=======
+>>>>>>> update new feature gates to document (#11295)
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
@@ -198,7 +201,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
    ServiceAccountTokenVolumeProjection.
    Check [Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)
    for more details.
+<<<<<<< HEAD
 - `CPUCFSQuotaPeriod`: Enable nodes to change CPUCFSQuotaPeriod.
+=======
+>>>>>>> update new feature gates to document (#11295)
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
 - `CSIBlockVolume`: Enable external CSI volume drivers to support block storage. See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support) documentation for more details.
