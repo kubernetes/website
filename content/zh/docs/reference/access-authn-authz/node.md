@@ -43,7 +43,7 @@ Read operations:
 * endpoints
 * nodes
 * pods
-* secrets、configmaps、以及绑定到 kubelet 的节点的 pod 的 persistent volume claims 和 persistent volumes 
+* secrets、configmaps、以及绑定到 kubelet 的节点的 pod 的持久卷申领和持久卷 
 <!-- 
 * services
 * endpoints
@@ -126,7 +126,7 @@ The node admission plugin would not restrict requests from these kubelets.
 ### Kubelets with undifferentiated usernames 
 -->
 
-在一些部署中，kubelet 具有 `system:nodes` 组的凭证，但是无法给出它们所关联的节点的标识，因为它们没有`system:node:...`格式的用户名。
+在一些部署中，kubelet 具有 `system:nodes` 组的凭证，但是无法给出它们所关联的节点的标识，因为它们没有 `system:node:...` 格式的用户名。
 这些 kubelet 不会被 `Node` 授权模式授权，并且需要继续通过当前授权它们的任何机制来授权。
 <!-- 
 In some deployments, kubelets have credentials that place them in the `system:nodes` group,
@@ -136,7 +136,7 @@ These kubelets would not be authorized by the `Node` authorization mode,
 and would need to continue to be authorized via whatever mechanism currently authorizes them. 
 -->
 
-因为默认节点标识符的实现不会把它当作节点身份，`NodeRestriction` 准入插件会忽略来自这些 kubelet 的请求。
+因为默认的节点标识符实现不会把它当作节点身份标识，`NodeRestriction` 准入插件会忽略来自这些 kubelet 的请求。
 <!-- 
 The `NodeRestriction` admission plugin would ignore requests from these kubelets,
 since the default node identifier implementation would not consider that a node identity. 
@@ -152,7 +152,7 @@ since the default node identifier implementation would not consider that a node 
 Upgraded pre-1.7 clusters using [RBAC](/docs/reference/access-authn-authz/rbac/) will continue functioning as-is because the `system:nodes` group binding will already exist.
 -->
 
-如果集群管理员希望开始使用 `Node` 鉴权器和 `NodeRestriction` 准入插件来限制节点对 API 的访问，那么可以无中断地完成：
+如果集群管理员希望开始使用 `Node` 鉴权器和 `NodeRestriction` 准入插件来限制节点对 API 的访问，这一需求可以通过下列操作来完成且不会影响已部署的应用：
 <!-- 
 If a cluster admin wishes to start using the `Node` authorizer and `NodeRestriction` admission plugin
 to limit node access to the API, that can be done non-disruptively:
@@ -160,7 +160,7 @@ to limit node access to the API, that can be done non-disruptively:
 
 1. 启用 `Node` 鉴权模式 (`--authorization-mode=Node,RBAC`) 和 `NodeRestriction` 准入插件
 2. 确保所有 kubelet 的凭据符合组/用户名要求
-3. 审核 apiserver 日志以确保 `Node` 鉴权器不会拒绝来自 kubelet 的请求（日志中没有持续的`NODE DENY`消息）
+3. 审核 apiserver 日志以确保 `Node` 鉴权器不会拒绝来自 kubelet 的请求（日志中没有持续的 `NODE DENY` 消息）
 4. 删除 `system:node` 集群角色绑定
 <!-- 
 1. Enable the `Node` authorization mode (`--authorization-mode=Node,RBAC`) and the `NodeRestriction` admission plugin
@@ -193,7 +193,7 @@ the automatic binding of the `system:nodes` group to the `system:node` role is n
 In 1.8, the binding will not be created at all. 
 -->
 
-使用 RBAC 时，将继续创建 `system:node` 的集群角色，以便与将其他用户或组绑定到该角色的部署方法兼容。
+使用 RBAC 时，将继续创建 `system:node` 集群角色，以便与将其他用户或组绑定到该角色的部署方法兼容。
 <!-- 
 When using RBAC, the `system:node` cluster role will continue to be created,
 for compatibility with deployment methods that bind other users or groups to that role. 
