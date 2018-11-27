@@ -234,13 +234,13 @@ spec:
       url: "https://audit.app"
 ```
 
-For the complete API definition, see [the godoc](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/api/auditregistration/v1alpha1/types.go). Multiple objects will exist as independent solutions.
+For the complete API definition, see [AuditSink](/docs/reference/generated/kubernetes-api/v1.13/#auditsink-v1alpha1-auditregistration-k8s-io). Multiple objects will exist as independent solutions.
 
 Existing static backends that you configure with runtime flags are not affected by this feature. However, the dynamic backends share the truncate options of the static webhook. If webhook truncate options are set with runtime flags, they are applied to all dynamic backends.
 
 #### Policy
 
-The AuditSink policy differs from the runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
+The AuditSink policy differs from the legacy audit runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
 
 The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
 
