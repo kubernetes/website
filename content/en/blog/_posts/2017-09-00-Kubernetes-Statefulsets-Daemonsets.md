@@ -252,7 +252,7 @@ Now you can use kubectl run to execute the kafka-console-consumer.sh command to 
 
 
 ```  
-$ kubectl run -ti --image=gcr.io/google\_containers/kubnetes-kafka:1.0-10.2.1 consume --restart=Never --rm -- kafka-console-consumer.sh --topic test --bootstrap-server kafka-0.kafka-hs.default.svc.cluster.local:9093
+$ kubectl run -ti --image=gcr.io/google\_containers/kubernetes-kafka:1.0-10.2.1 consume --restart=Never --rm -- kafka-console-consumer.sh --topic test --bootstrap-server kafka-0.kafka-hs.default.svc.cluster.local:9093
  ```
 
 
