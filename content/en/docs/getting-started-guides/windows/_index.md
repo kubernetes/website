@@ -156,6 +156,33 @@ Note: this file assumes that a user previous created 'l2bridge' host networks on
 }
 ```
 
+#### DNS configurations
+
+DNS configurations for Windows containers are set by CNI plugins which support `dns` capabilities. To enable `dns` capabilities, the following options should be included in the CNI configuration file:
+
+```json
+{
+    ...
+    "capabilities": {"dns": true},
+}
+```
+
+The following DNS options from kubelet will be passed to CNI plugins:
+
+- servers: List of DNS servers.
+- searches: List of DNS search domains.
+- options: List of DNS options.
+
+e.g.
+
+```json
+"dns" {
+  "servers": ["10.0.0.10"],
+  "searches": ["default.svc.cluster.local","svc.cluster.local","cluster.local"],
+  "options": []
+}
+```
+
 #### For 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay
 
 {{< note >}}
@@ -360,7 +387,7 @@ Some of these limitations will be addressed by the community in future releases 
 - Mount propagation is not supported on Windows
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
-- Hyper-V isolated containers are not supported. 
+- Hyper-V isolated containers are not supported.
 - Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
@@ -372,4 +399,3 @@ Some of these limitations will be addressed by the community in future releases 
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
 - Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
-
