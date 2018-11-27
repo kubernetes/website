@@ -57,13 +57,6 @@ For the external etcd cluster only, you also need:
 
 - Three additional machines for etcd members
 
-Optional for all control plane nodes:
-
-- Install [kubeadm-getter](https://github.com/neolit123/kubeadm-getter/releases).
-This small tool is used to secure transfer of the `admin.conf` and certificate files
-between control plane nodes. The alternative is to use `scp` with SSH keys. The examples
-on this page assume that you are running kubeadm-getter.
-
 {{< note >}}
 **Note**: The following examples run Calico as the Pod networking provider. If
 you run another networking provider, make sure to replace any default values as
@@ -81,10 +74,11 @@ needed.
 run as root.
 {{< /note >}}
 
-- Find your pod CIDR. For details, see [the CNI network
-   documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
-   The example uses Calico, so the pod CIDR is `192.168.0.0/16`. Some CNI plugins like
-   WeaveNet do not require setting a CIDR.
+- Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
+  some like Weave do not. See the see [the CNI network
+  documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
+  To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
+  the `networking` object of `ClusterConfiguration`.
 
 ### Create load balancer for kube-apiserver
 
@@ -108,8 +102,7 @@ different configuration.
       on the apiserver port. It must also allow incoming traffic on its
       listening port.
 
-    - [keepalived](http://www.keepalived.org/) or something like [docker-ucar](https://github.com/craigtracey/docker-ucarp)
-      can be used as a load balancer.
+    - [HAProxy](http://www.haproxy.org/) can be used as a load balancer.
 
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
@@ -173,9 +166,6 @@ SSH is required if you want to control all nodes from a single machine.
           certSANs:
           - "LOAD_BALANCER_DNS"
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
-          networking:
-            # This CIDR is a calico default. Substitute or remove for your CNI provider.
-            podSubnet: "192.168.0.0/16"
 
     - `kubernetesVersion` should be set to the Kubernetes version to use. This
   example uses `stable`.
@@ -185,7 +175,6 @@ SSH is required if you want to control all nodes from a single machine.
 1.  Make sure that the node is in a clean state:
 
     ```sh
-    sudo kubeadm reset -f
     sudo kubeadm init --config=kubeadm-config.yaml
     ```
     
@@ -199,80 +188,53 @@ SSH is required if you want to control all nodes from a single machine.
     kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash    sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
     ```
 
-1.  Copy this output to a text file. You will need it later to join other control plane nodes to the cluster.
+1.  Copy this output to a text file. You will need it later to join other control plane nodes to the
+    cluster.
 
 1.  Type the following and watch the pods of the components get started:
 
     ```sh
-    watch kubectl get pods --all-namespaces
+    kubectl get pod -n kube-system -w
     ```
 
     - It's recommended that you join new control plane nodes only after the first node has finished initializing.
 
-1.  Start `kubeadm-getter`:
+1.  Copy the certificate files from the first control plane node to the rest:
 
+    In the following example, replace `CONTROL_PLANE_IPS` with the IP addresses of the
+    other control plane nodes.
     ```sh
-    sudo kubeadm-getter --token=j04n3m.octy8zely83cy2ts --input-path=/etc/kubernetes --listen
+    USER=ubuntu # customizable
+    CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
+    for host in ${CONTROL_PLANE_IPS}; do
+        scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
+        scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
+        scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
+        scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
+        scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
+        scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
+        scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
+        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
+        scp /etc/kubernetes/admin.conf "${USER}"@$host:
+    done
     ```
-
-    You should see something like:
-
-    ```sh
-    /* kubeadm-getter
-    /* server listenting on 192.168.0.103:11764
-    /* this process will remain open for 10m0s (TTL)
-    ```
-
-    - Notice that the `--token` value is the same as the value was returned from `kubeadm init`.
-    - `11764` is the default port.
-    - `192.168.0.103` in this example is the default outbound address of this machine.
-
-    This causes the node to act as a server that can transfer files to the other control plane nodes. Make sure that your firewall and NAT settings do not block this process.
 
 ### Steps for the rest of the control plane nodes
 
-1.  Make sure you reset any previous kubeadm state:
+1.  Move the files created by the previous step where `scp` was used:
 
     ```sh
-    sudo kubeadm reset -f
-    ```
-
-1.  Copy the following files from the first control plane node to every other node:
-
-    ```sh
-    /etc/kubernetes/pki/ca.crt
-    /etc/kubernetes/pki/ca.key
-    /etc/kubernetes/pki/front-proxy-ca.crt
-    /etc/kubernetes/pki/front-proxy-ca.key
-    /etc/kubernetes/pki/sa.key
-    /etc/kubernetes/pki/sa.pub
-    /etc/kubernetes/pki/etcd/ca.crt
-    /etc/kubernetes/pki/etcd/ca.key
-    /etc/kubernetes/admin.conf
-    ```
-
-    - `admin.conf` is optional.
-
-1.  Call `kubeadm-getter` on each node:
-
-    ```sh
-    sudo kubeadm-getter --token=j04n3m.octy8zely83cy2ts --address=192.168.0.103 --output-path=/etc/kubernetes \
-    --files=pki/ca.crt,pki/ca.key,pki/front-proxy-ca.crt,pki/front-proxy-ca.key,pki/sa.key,pki/sa.pub,pki/etcd/ca.crt,pki/etcd/ca.key,admin.conf
-    ```
-
-    - `--token`: the token that was received when you called `kubeadm-getter` on the first control plane node.
-    - `--address`: the address of the `kubeadm-getter` server on the first control plane node.
-    - `--output-path`: where to write the downloaded files.
-    - `--files`: comma-separated list of files to download from the `--input-path` on the server. This example specifies the required certs and `admin.conf` for the cluster.
-
-    When the command finishes you should see something like:
-
-    ```sh
-    ...
-    * receiving file: admin.conf
-    * receiving block 6; size: 0
-    * writing file: /etc/kubernetes/admin.conf
-    * done transfering files
+    USER=ubuntu # customizable
+    mkdir -p /etc/kubernetes/pki/etcd
+    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
+    mv /home/${USER}/ca.key /etc/kubernetes/pki/
+    mv /home/${USER}/sa.pub /etc/kubernetes/pki/
+    mv /home/${USER}/sa.key /etc/kubernetes/pki/
+    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
+    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
+    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+    mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
     ```
 
     This process writes all the requested files in the `/etc/kubernetes` folder.
@@ -285,9 +247,13 @@ SSH is required if you want to control all nodes from a single machine.
 
     - Notice that this is the command that was returned from running `kubeadm init` on the first node, with the addition of the `--experimental-control-plane` flag. This flag automates joining this control plane node to the cluster.
 
-1.  Repeat these steps for the rest of the control plane nodes. 
+1.  Type the following and watch the pods of the components get started:
 
-1.  After you copy files from the first control plane node to every other node, stop the `kubeadm-getter` server.
+    ```sh
+    kubectl get pod -n kube-system -w
+    ```
+
+1.  Repeat these steps for the rest of the control plane nodes.
 
 ## External etcd nodes
 
@@ -298,31 +264,16 @@ SSH is required if you want to control all nodes from a single machine.
 
 ### Set up the first control plane node
 
-1.  On the first etcd node, call:
+1.  Copy the following files from any node from the etcd cluster to this node:
 
     ```sh
-    export TEMP_TOKEN=`kubeadm-getter --create-token`
-    echo $TEMP_TOKEN
-    sudo kubeadm-getter --token=$TEMP_TOKEN --listen --input-path=/etc/kubernetes/pki
+    export CONTROL_PLANE="ubuntu@10.0.0.7"
+    +scp /etc/kubernetes/pki/etcd/ca.crt "${CONTROL_PLANE}":
+    +scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${CONTROL_PLANE}":
+    +scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
     ```
 
-1. On the first control plane node, call::
-
-    ```sh
-    sudo kubeadm-getter --token=$TEMP_TOKEN --address=$ETCD_SERVER --output-path=/etc/kubernetes/pki \
-    --files=etcd/ca.crt,apiserver-etcd-client.crt,apiserver-etcd-client.key
-    ```
-
-    where:
-
-    - `$TEMP_TOKEN` is the token returned from the call to `kubeadm-getter` that you ran on the first etcd node.
-    - `$ETCD_SERVER` is the address of the `kubeadm-getter` server listening on the etcd node.
-
-1.  Stop the `kubeadm-getter` server. Make sure the following files are copied to the control plane node:
-
-    - `/etc/kubernetes/pki/etcd/ca.crt`
-    - `/etc/kubernetes/pki/apiserver-etcd-client.crt`
-    - `/etc/kubernetes/pki/apiserver-etcd-client.key`
+    - Replace the value of `CONTROL_PLANE` with the `user@host` of this machine.
 
 1.  Create a file called `kubeadm-config.yaml` with the following contents:
 
@@ -342,9 +293,6 @@ SSH is required if you want to control all nodes from a single machine.
                 caFile: /etc/kubernetes/pki/etcd/ca.crt
                 certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
-        networking:
-            # This CIDR is a calico default. Substitute or remove for your CNI provider.
-            podSubnet: "192.168.0.0/16"
 
     - The difference between stacked etcd and external etcd here is that we are using the `external` field for `etcd` in the kubeadm config. In the case of the stacked etcd topology this is managed automatically.
 
@@ -356,19 +304,11 @@ SSH is required if you want to control all nodes from a single machine.
         - `ETCD_1_IP`
         - `ETCD_2_IP`
 
-1.  On the first control plane node, Run `kubeadm init --config kubeadm-config.yaml`
+1.  Run `kubeadm init --config kubeadm-config.yaml` on this node.
 
 1.  Write the join command that is returned to a text file for later use.
 
-1.  Start `kubeadm-getter`:
-
-    ```sh
-    sudo kubeadm-getter --token=$TOKEN --input-path=/etc/kubernetes --listen
-    ```
-
-    where `$TOKEN` is the value returned from `kubeadm init`.
-
-### Add the other control plane nodes
+### Steps for the rest of the control plane nodes
 
 To add the rest of the control plane nodes, follow [these instructions](#steps-for-the-rest-of-the-control-plane-nodes).
 The steps are the same as for the stacked etcd setup. To summarize:
