@@ -33,7 +33,7 @@ weight: 30
 
 ![有云控制器管理器的 Kubernetes 集群架构](/images/docs/post-ccm-arch.png)
 
-## CCM的组件
+## CCM 的组件
 
 CCM 突破了 Kubernetes 控制器管理器（KCM）的一些功能，并将其作为一个独立的进程运行。具体而言，它打破了 KCM 中与云相关的控制器。KCM 具有以下依赖于云的控制器引擎：
 
@@ -58,7 +58,7 @@ CCM 突破了 Kubernetes 控制器管理器（KCM）的一些功能，并将其�
 
 云服务供应商工作组（wg-cloud-provider）正在开展相关工作，以实现通过 CCM 支持 PersistentVolume 的功能。详细信息请参见[kubernetes/kubernetes＃52371](https://github.com/kubernetes/kubernetes/pull/52371)。
 
-## CCM功能
+## CCM 的功能
 
 CCM 从 Kubernetes 组件中继承了与云服务供应商相关的功能。本节基于被 CCM 继承其功能的组件展开描述。
 
@@ -105,7 +105,7 @@ Node控制器包含kubelet中依赖于云的功能。在系统引入 CCM 组件�
 
 在引入CCM后的新的模型中，kubelet 采用不包含云特定信息的方式初始化一个节点。但是，它会为新创建的节点添加一个污点，使得该节点不可被立即调度，直到 CCM 使用包含云的特定信息初始化节点后，才会删除该污点，使得该节点可被调度。
 
-### 3. Kubernetes API服务器
+### 3. Kubernetes API 服务器
 
 PersistentVolumeLabels 控制器将 Kubernetes API 服务器的依赖于云的功能移至 CCM，如前面部分所述。
 
