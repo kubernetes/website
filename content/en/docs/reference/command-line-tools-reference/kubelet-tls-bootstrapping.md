@@ -126,9 +126,9 @@ Using bootstrap tokens is currently __beta__ as of Kubernetes version 1.12.
 Whichever method you choose, the requirement is that the kubelet be able to authenticate as a user with the rights to:
 
 1. create and retrieve CSRs
-2. Be recognized by the controller-manager configuration to scope approvals in the default approval controller, if automatic approval is enabled. 
+2. be automatically approved to request node client certificates, if automatic approval is enabled. 
 
-A kubelet authenticating usinng bootstrap tokens is recognized as a group `system:bootstrappers`, which is the standard method to use.
+A kubelet authenticating using bootstrap tokens is authenticated as a user in the group `system:bootstrappers`, which is the standard method to use.
 
 As this feature matures, you
 should ensure tokens are bound to a Role Based Access Control (RBAC) policy
@@ -446,15 +446,16 @@ reasons](https://github.com/kubernetes/community/pull/1982). To use
 controller, or manually approve the serving certificate requests.
 {{< /note >}}
 
-## kube-proxy
+## Other authenticating components
 All of TLS bootstrapping described in this document relates to the kubelet. However,
-kube-proxy needs to run on every node, and requires the ability to authenticate to kube-apiserver.
+other components may need to communicate directly with kube-apiserver. Notable is kube-proxy, which
+is part of the Kubernetes control plane and runs on every node, but may also include other components such as monitoring or networking.
 
-You have several options for generating kube-proxy certificates:
+Like the kubelet, these other components also require a method of authenticating to kube-apiserver.
+You have several options for generating these credentials:
 
-* The old way: Create annd distribute certificates the same way you did for kubelet before TLS bootstrapping
-* Share: Ideally, we do not share certificates. However, since both the kubelet and kube-proxy run on the same node and function together, you may consider sharing the bootstrapped kubelet certificates with kube-proxy. Be aware, however, that when the certificates expire and rotate, kubelet alone may be aware of and reload the updated certificates. kube-proxy may have the old certificates loaded in memory and may have failures in authentication.
-* DaemonSet: Since the kubelet itself is loaded on each node, and is sufficient to start base services, you can run kube-proxy not as a standalone process, but rather as a daemonset in the `kube-system` namespace. Since it will be in-cluster, you can give it a proper service account with appropriate permissions to perform its activities. This may be the simplest way to configure kube-proxy.
+* The old way: Create and distribute certificates the same way you did for kubelet before TLS bootstrapping
+* DaemonSet: Since the kubelet itself is loaded on each node, and is sufficient to start base services, you can run kube-proxy and other node-specific services not as a standalone process, but rather as a daemonset in the `kube-system` namespace. Since it will be in-cluster, you can give it a proper service account with appropriate permissions to perform its activities. This may be the simplest way to configure such services.
 
 
 ## kubectl approval
