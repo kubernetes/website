@@ -183,7 +183,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
 ## Upgrade master and node packages
 
-1.  Prepare each node for maintenance, marking it unschedulable and evicting the workloads:
+1.  Prepare each node for maintenance by marking it unschedulable and evicting the workloads. Run:
 
     ```shell
     kubectl drain $NODE --ignore-daemonsets
@@ -274,5 +274,5 @@ To recover from a bad state, you can also run `kubeadm upgrade --force` without 
 - Enforces the version skew policies.
 - Makes sure the control plane images are available or available to pull to the machine.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
-- Applies the new `kube-dns` and `kube-proxy` manifests and enforces that all necessary RBAC rules are created.
+- Applies the new `kube-dns` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
 - Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
