@@ -218,11 +218,12 @@ SSH is required if you want to control all nodes from a single machine.
     You should see something like:
 
     ```sh
-    ...
-    * kubeadm-getter
-    * server listenting on 192.168.0.103:11764
-    * this process will remain open for 10m0s (TTL)
-    ```
+...
+* kubeadm-getter
+* server listenting on 192.168.0.103:11764
+* this process will remain open for 10m0s
+hello world
+```
 
     - Notice that the `--token` value is the same as the value was returned from `kubeadm init`.
     - `11764` is the default port.
