@@ -122,13 +122,13 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open. 
 -->
-任意使用 * 标记的端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开放的。
+任何使用 * 标记的端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开放的。
 
 <!-- 
 Although etcd ports are included in master nodes, you can also host your own
 etcd cluster externally or on custom ports. 
 -->
-虽然 master 节点已经包含了 etcd 的端口，您也可以使用自定义的外部 etcd 集群，或是指定自定义端口。
+虽然主节点已经包含了 etcd 的端口，您也可以使用自定义的外部 etcd 集群，或是指定自定义端口。
 <!--
 The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
@@ -144,7 +144,7 @@ Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface
 The container runtime used by default is Docker, which is enabled through the built-in
 `dockershim` CRI implementation inside of the `kubelet`. 
 -->
-从 v1.6.0 起，Kubernetes 开始允许使用 CRI，容器运行时接口。默认的容器运行时是 Docker，这是由 `kubelet` 内置的 CRI 实现： `dockershim`  开启的。
+从 v1.6.0 起，Kubernetes 开始允许使用 CRI，容器运行时接口。默认的容器运行时是 Docker，这是由 `kubelet` 内置的 CRI 实现 `dockershim` 开启的。
 
 <!-- 
 Other CRI-based runtimes include:
@@ -208,7 +208,7 @@ This is because kubeadm and Kubernetes require
 {{</ warning >}} 
 -->
 {{< warning >}}
-这些指南不包括所有系统升级时使用的 Kubernetes 程序包。这是因为 kubeadm 和 Kubernetes 需要 [升级时的特别注意事项](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
+这些指南不包括所有系统升级时使用的 Kubernetes 程序包。这是因为 kubeadm 和 Kubernetes 需要 [升级时的特别注意事项](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/)。
 {{</ warning >}} 
 
 <!-- 
@@ -216,7 +216,7 @@ For more information on version skews, please read our
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy). 
 -->
 
-更多关于版本冲突的信息，请参阅 [版本冲突政策](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)。
+更多关于版本偏差的信息，请参阅 [版本偏差政策](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)。
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}} 
@@ -268,7 +268,7 @@ systemctl enable kubelet && systemctl start kubelet
   -->
   - 通过命令 `setenforce 0` 和 `sed ...` 可以将 SELinux 设置为 permissive 模式(将其禁用)。
     只有执行这一操作之后，容器才能访问宿主的文件系统，进而能够正常使用 Pod 网络。您必须这么做，直到 kubelet 做出升级支持 SELinux 为止。
-  - 一些 RHEL/CentOS 7 的用户曾经遇到过：由于 iptable 被绕过导致网络请求被错误的路由。您得保证
+  - 一些 RHEL/CentOS 7 的用户曾经遇到过：由于 iptables 被绕过导致网络请求被错误的路由。您得保证
     在您的 `sysctl` 配置中 `net.bridge.bridge-nf-call-iptables` 被设为1。
 
     ```bash
@@ -283,7 +283,7 @@ systemctl enable kubelet && systemctl start kubelet
 <!--
 Install CNI plugins (required for most pod network):
 -->
-安装 CNI 插件（大多数 pod network 都需要）：
+安装 CNI 插件（大多数 Pod 网络都需要）：
 
 ```bash
 CNI_VERSION="v0.6.0"
