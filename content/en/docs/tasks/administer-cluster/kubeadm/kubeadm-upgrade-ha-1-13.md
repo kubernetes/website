@@ -66,42 +66,20 @@ CoreDNS              1.2.2     1.2.6
 Modify `configmap/kubeadm-config` for this control plane node:
 
 ```shell
-kubectl get configmap -n kube-system kubeadm-config -o yaml > kubeadm-config-cm.yaml
+kubectl edit configmap -n kube-system kubeadm-config
 ```
 
-Open the file in an editor and replace the following values:
+Make the following modifications to the ClusterConfiguration key:
 
-- `api.advertiseAddress`
+- `etcd`
 
-    This should be set to the local node's IP address.
+    Remove the etcd section completely
 
-- `etcd.local.extraArgs.advertise-client-urls`
+Make the following modifications to the ClusterStatus key:
 
-    This should be updated to the local node's IP address.
+- `apiEndpoints`
 
-- `etcd.local.extraArgs.initial-advertise-peer-urls`
-
-    This should be updated to the local node's IP address.
-
-- `etcd.local.extraArgs.listen-client-urls`
-
-    This should be updated to the local node's IP address.
-
-- `etcd.local.extraArgs.listen-peer-urls`
-
-    This should be updated to the local node's IP address.
-
-- `etcd.local.extraArgs.initial-cluster`
-
-    This should be updated to include the hostname and IP address pairs for each control plane node in the cluster. For example:
-
-        "ip-172-31-92-42=https://172.31.92.42:2380,ip-172-31-89-186=https://172.31.89.186:2380,ip-172-31-90-42=https://172.31.90.42:2380"
-
-You must also pass an additional argument (`initial-cluster-state: existing`) to etcd.local.extraArgs.
-
-```shell
-kubectl apply -f kubeadm-config-cm.yaml --force
-```
+    Add an entry for each of the additional control plane hosts
 
 Start the upgrade:
 
@@ -111,59 +89,17 @@ kubeadm upgrade apply v<YOUR-CHOSEN-VERSION-HERE>
 
 You should see something like the following:
 
-    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.12.0". Enjoy!
+    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.13.0". Enjoy!
 
-The `kubeadm-config` ConfigMap is now updated from `v1alpha2` version to `v1alpha3`.
+The `kubeadm-config` ConfigMap is now updated from `v1alpha3` version to `v1beta1`.
 
 ### Upgrading additional control plane nodes
 
-Each additional control plane node requires modifications that are different from the first control plane node. Run:
-
-```shell
-kubectl get configmap -n kube-system kubeadm-config -o yaml > kubeadm-config-cm.yaml
-```
-
-Open the file in an editor and replace the following values for `ClusterConfiguration`:
-
-- `etcd.local.extraArgs.advertise-client-urls`
-
-    This should be updated to the local node's IP address.
-
-- `etcd.local.extraArgs.initial-advertise-peer-urls`
-
-    This should be updated to the local node's IP address.
-
-- `etcd.local.extraArgs.listen-client-urls`
-
-    This should be updated to the local node's IP address.
-
-- `etcd.local.extraArgs.listen-peer-urls`
-
-    This should be updated to the local node's IP address.
-
-You must also modify the `ClusterStatus` to add a mapping for the current host under apiEndpoints.
-
-Add an annotation for the cri-socket to the current node, for example to use docker:
-
-```shell
-kubectl annotate node <nodename> kubeadm.alpha.kubernetes.io/cri-socket=/var/run/dockershim.sock
-```
-
-Apply the modified kubeadm-config on the node:
-
-```shell
-kubectl apply -f kubeadm-config-cm.yaml --force
-```
-
 Start the upgrade:
 
 ```shell
-kubeadm upgrade apply v<YOUR-CHOSEN-VERSION-HERE>
+kubeadm upgrade node experimental-control-plane
 ```
-
-You should see something like the following:
-
-    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.12.0". Enjoy!
 
 ## External etcd
 
