@@ -17,7 +17,7 @@ and control plane nodes are co-located.
 control plane nodes and etcd members are separated.
 
 Before proceeding, you should carefully consideer which approach best meets the needs of your applications
-and environment. [This comparison topic](ha-topology.md) outlines the advantages and disadvantages of each.
+and environment. [This comparison topic](/docs/setup/independent/ha-topology/) outlines the advantages and disadvantages of each.
 
 Your clusters must run Kubernetes version 1.12 or later. You should also be aware that
 setting up HA clusters with kubeadm is still experimental and will be further simplified
@@ -218,9 +218,10 @@ SSH is required if you want to control all nodes from a single machine.
     You should see something like:
 
     ```sh
-    /* kubeadm-getter
-    /* server listenting on 192.168.0.103:11764
-    /* this process will remain open for 10m0s (TTL)
+    ...
+    * kubeadm-getter
+    * server listenting on 192.168.0.103:11764
+    * this process will remain open for 10m0s (TTL)
     ```
 
     - Notice that the `--token` value is the same as the value was returned from `kubeadm init`.
@@ -346,9 +347,9 @@ SSH is required if you want to control all nodes from a single machine.
             # This CIDR is a calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
 
-        - The difference between stacked etcd and external etcd here is that we are using the `external` field for `etcd` in the kubeadm config. In the case of the stacked etcd topology this is managed automatically.
+    - The difference between stacked etcd and external etcd here is that we are using the `external` field for `etcd` in the kubeadm config. In the case of the stacked etcd topology this is managed automatically.
 
-1.  Replace the following variables in the template with the appropriate values for your cluster:
+    -  Replace the following variables in the template with the appropriate values for your cluster:
 
         - `LOAD_BALANCER_DNS`
         - `LOAD_BALANCER_PORT`
@@ -371,7 +372,7 @@ SSH is required if you want to control all nodes from a single machine.
 ### Add the other control plane nodes
 
 To add the rest of the control plane nodes, follow [these instructions](#steps-for-the-rest-of-the-control-plane-nodes).
-The steps are the same as for the stacked etcd setup. To summarize::
+The steps are the same as for the stacked etcd setup. To summarize:
 
 - Make sure the first control plane node is fully initialized.
 - Run `kubeadm-getter` to copy certificates between the first control plane node and the other control plane nodes.
