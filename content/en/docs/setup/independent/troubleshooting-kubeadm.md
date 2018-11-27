@@ -203,46 +203,6 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   systemctl restart kubelet
   ```
 
-## Services with externalTrafficPolicy=Local are not reachable
-
-On nodes where the hostname for the kubelet is overridden using the `--hostname-override` option, kube-proxy will default to treating 127.0.0.1 as the node IP, which results in rejecting connections for Services configured for `externalTrafficPolicy=Local`. This situation can be verified by checking the output of `kubectl -n kube-system logs <kube-proxy pod name>`:
-
-```sh
-W0507 22:33:10.372369       1 server.go:586] Failed to retrieve node info: nodes "ip-10-0-23-78" not found
-W0507 22:33:10.372474       1 proxier.go:463] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
-```
-
-A workaround for this is to modify the kube-proxy DaemonSet in the following way:
-
-```sh
-kubectl -n kube-system patch --type json daemonset kube-proxy -p "$(cat <<'EOF'
-[
-    {
-        "op": "add",
-        "path": "/spec/template/spec/containers/0/env",
-        "value": [
-            {
-                "name": "NODE_NAME",
-                "valueFrom": {
-                    "fieldRef": {
-                        "apiVersion": "v1",
-                        "fieldPath": "spec.nodeName"
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "op": "add",
-        "path": "/spec/template/spec/containers/0/command/-",
-        "value": "--hostname-override=${NODE_NAME}"
-    }
-]
-EOF
-)"
-
-```
-
 ## `coredns` pods have `CrashLoopBackOff` or `Error` state
 
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
