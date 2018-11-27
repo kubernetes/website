@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Creating Highly Available Clusters with kubeadm
 content_template: templates/task
-weight: 50
+weight: 60
 ---
 
 {{% capture overview %}}
@@ -11,10 +11,13 @@ weight: 50
 This page explains two different approaches to setting up a highly available Kubernetes
 cluster using kubeadm:
 
-- With stacked control planes. This approach requires less infrastructure. etcd members
+- With stacked control plane nodes. This approach requires less infrastructure. The etcd members
 and control plane nodes are co-located.
 - With an external etcd cluster. This approach requires more infrastructure. The
 control plane nodes and etcd members are separated.
+
+Before proceeding, you should carefully consideer which approach best meets the needs of your applications
+and environment. [This comparison topic](ha-topology.md) outlines the advantages and disadvantages of each.
 
 Your clusters must run Kubernetes version 1.12 or later. You should also be aware that
 setting up HA clusters with kubeadm is still experimental and will be further simplified
@@ -22,9 +25,9 @@ in future versions. You might encounter issues with upgrading your clusters, for
 We encourage you to try either approach, and provide us with feedback in the kubeadm
 [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
 
-Note that the alpha feature gate `HighAvailability` was marked as deprecated in v1.12 and was removed in v1.13.
+Note that the alpha feature gate `HighAvailability` is deprecated in v1.12 and removed in v1.13.
 
-The HA upgrade documentation can be found [here](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha).
+See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha).
 
 {{< caution >}}
 **Caution**: This page does not address running your cluster on a cloud provider.
@@ -45,24 +48,21 @@ For both methods you need this infrastructure:
   requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for
   the workers
 - Full network connectivity between all machines in the cluster (public or
-  private network is fine)
+  private network)
 - sudo privileges on all machines
 - SSH access from one device to all nodes in the system
+- `kubeadm` and `kubelet` installed on all machines. `kubectl` is optional.
 
 For the external etcd cluster only, you also need:
 
 - Three additional machines for etcd members
 
-Prerequisites for all nodes (control plane and worker):
-
-- Install `kubeadm` and `kubelet` using your preferred method, like a package manager.
-  `kubectl` is optional.
-
-Optional prerequisites for all control plane nodes:
+Optional for all control plane nodes:
 
 - Install [kubeadm-getter](https://github.com/neolit123/kubeadm-getter/releases).
-This small tool will be used to secure transfer of the `admin.conf` and certificate files
-between control plane nodes. The alternative is to use `scp` with SSH keys.
+This small tool is used to secure transfer of the `admin.conf` and certificate files
+between control plane nodes. The alternative is to use `scp` with SSH keys. The examples
+on this page assume that you are running kubeadm-getter.
 
 {{< note >}}
 **Note**: The following examples run Calico as the Pod networking provider. If
@@ -77,7 +77,7 @@ needed.
 ## First steps for both methods
 
 {{< note >}}
-**Note**: All commands in this guide on any control plane or etcd node should be
+**Note**: All commands on any control plane or etcd node should be
 run as root.
 {{< /note >}}
 
@@ -111,8 +111,8 @@ different configuration.
     - [keepalived](http://www.keepalived.org/) or something like [docker-ucar](https://github.com/craigtracey/docker-ucarp)
       can be used as a load balancer.
 
-    - Make sure that the address of the load balancer will later match
-      the address of kubeadm's `ControlPlaneEndpoint` address.
+    - Make sure that the address of the load balancer always matches
+      the address of kubeadm's `ControlPlaneEndpoint`.
 
 1.  Add the first control plane nodes to the load balancer and test the
     connection:
@@ -130,7 +130,7 @@ different configuration.
 
 ### Configure SSH
 
-SSH will be required if you want to control all node from a single machine.
+SSH is required if you want to control all nodes from a single machine.
 
 1.  Enable ssh-agent on your main device that has access to all other nodes in
     the system:
@@ -160,179 +160,136 @@ SSH will be required if you want to control all node from a single machine.
         sudo -E -s
         ```
 
-## Stacked etcd topology
-
-A "stacked" HA cluster is a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed
-data storage cluster provided by etcd is stacked on top of the cluster formed by the nodes that run control
-plane components.
-
-Each control plane node runs an instance of the `kube-apiserver`, `kube-scheduler`, `kube-controller-manager`
-and the `kube-apiserver` is exposed to worker nodes using a load balancer.
-
-Each control plane node creates a local etcd member and this etcd member communicate *only* with
-the `kube-apiserver` of this particular node. The same applies to the local `kube-controller-manager`
-and `kube-scheduler` instances.
-
-This topology couples the control planes and etcd members under the same nodes and arguably forms
-the most basic and replication friendly Kubernetes HA setup.
-
-On the other hand, this topology does suffer from the limitation of "failed coupling",
-where if one node goes down, both an etcd member and a control plane instance will be lost from
-the redundancy factor of this cluster. This can be compensated by introducing more stacked control plane nodes.
-
-A minimum of 3 stacked control plane nodes can be considered HA.
-
-![Stacked etcd topology](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
+## Stacked control plane and etcd nodes
 
 ### Steps for the first control plane node
 
-Go on the first control plane node and create a configuration file called `kubeadm-config.yaml`:
+1.  On the first control plane node, create a configuration file called `kubeadm-config.yaml`:
 
-```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
-kind: ClusterConfiguration
-kubernetesVersion: stable
-apiServer:
-  certSANs:
-  - "LOAD_BALANCER_DNS"
-controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
-  networking:
-    # This CIDR is a calico default. Substitute or remove for your CNI provider.
-    podSubnet: "192.168.0.0/16"
-```
+        apiVersion: kubeadm.k8s.io/v1beta1
+        kind: ClusterConfiguration
+        kubernetesVersion: stable
+        apiServer:
+          certSANs:
+          - "LOAD_BALANCER_DNS"
+        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
+          networking:
+            # This CIDR is a calico default. Substitute or remove for your CNI provider.
+            podSubnet: "192.168.0.0/16"
 
-- `kubernetesVersion` should be set to the Kubernetes version you wish to use. This
+    - `kubernetesVersion` should be set to the Kubernetes version to use. This
   example uses `stable`.
-- `controlPlaneEndpoint` should match the address (or DNS) and port of the load balancer.
-- It is highly recommended that your kubeadm, kubelet, kubectl and `kubernetesVersion` match
-  for this tutorial.
+    - `controlPlaneEndpoint` should match the address or DNS and port of the load balancer.
+    - It's recommended that the versions of kubeadm, kubelet, kubectl and Kubernetes match.
 
-Make sure that the node is in a clean state using `reset` and then call `init`:
+1.  Make sure that the node is in a clean state:
 
-```sh
-sudo kubeadm reset -f
-sudo kubeadm init --config=kubeadm-config.yaml
-```
+    ```sh
+    sudo kubeadm reset -f
+    sudo kubeadm init --config=kubeadm-config.yaml
+    ```
+    
+    You should see something like:
+    
+    ```sh
+    ...
+    You can now join any number of machines by running the following on each node
+    as root:
+    
+    kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash    sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
+    ```
 
-If the process is successful you should see something like:
+1.  Copy this output to a text file. You will need it later to join other control plane nodes to the cluster.
 
-```sh
-...
-You can now join any number of machines by running the following on each node
-as root:
+1.  Type the following and watch the pods of the components get started:
 
-kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
-```
+    ```sh
+    watch kubectl get pods --all-namespaces
+    ```
 
-Write this down to a text file as this command will later be used to join other control plane nodes to the cluster.
+    - It's recommended that you join new control plane nodes only after the first node has finished initializing.
 
-Type the following and watch the pods of the components getting started:
+1.  Start `kubeadm-getter`:
 
-```sh
-watch kubectl get pods --all-namespaces
-```
+    ```sh
+    sudo kubeadm-getter --token=j04n3m.octy8zely83cy2ts --input-path=/etc/kubernetes --listen
+    ```
 
-It's recommended that you join new control plane nodes only after the first node has finished initializing.
+    You should see something like:
 
-Start `kubeadm-getter` using the following command line:
+    ```sh
+    * kubeadm-getter
+    * server listenting on 192.168.0.103:11764
+    * this process will remain open for 10m0s (TTL)
+    ```
 
-```sh
-sudo kubeadm-getter --token=j04n3m.octy8zely83cy2ts --input-path=/etc/kubernetes --listen
-```
+    - Notice that the `--token` value is the same as the value was returned from `kubeadm init`.
+    - `11764` is the default port.
+    - `192.168.0.103` in this example is the default outbound address of this machine.
 
-You should see something like:
-
-```sh
-* kubeadm-getter
-* server listenting on 192.168.0.103:11764
-* this process will remain open for 10m0s (TTL)
-```
-
-- Notice that the `--token` value is the same as the value you received earlier at the end of `kubeadm init`.
-- `11764` is the default port.
-- `192.168.0.103` in this example is the default outbound address of this machine.
-
-This will cause this node to act like a server that can transfer files to the other control plane nodes. Make sure that your firewall and NAT settings are not blocking this process.
+    This causes the node to act as a server that can transfer files to the other control plane nodes. Make sure that your firewall and NAT settings do not block this process.
 
 ### Steps for the rest of the control plane nodes
 
-Make sure you reset any previous kubeadm state:
+1.  Make sure you reset any previous kubeadm state:
 
-```sh
-sudo kubeadm reset -f
-```
+    ```sh
+    sudo kubeadm reset -f
+    ```
 
-You need to copy the following files from the first control plane node to the rest:
+1.  Copy the following files from the first control plane node to every other node:
 
-```sh
-/etc/kubernetes/pki/ca.crt
-/etc/kubernetes/pki/ca.key
-/etc/kubernetes/pki/front-proxy-ca.crt
-/etc/kubernetes/pki/front-proxy-ca.key
-/etc/kubernetes/pki/sa.key
-/etc/kubernetes/pki/sa.pub
-/etc/kubernetes/pki/etcd/ca.crt
-/etc/kubernetes/pki/etcd/ca.key
-/etc/kubernetes/admin.conf
-```
+    ```sh
+    /etc/kubernetes/pki/ca.crt
+    /etc/kubernetes/pki/ca.key
+    /etc/kubernetes/pki/front-proxy-ca.crt
+    /etc/kubernetes/pki/front-proxy-ca.key
+    /etc/kubernetes/pki/sa.key
+    /etc/kubernetes/pki/sa.pub
+    /etc/kubernetes/pki/etcd/ca.crt
+    /etc/kubernetes/pki/etcd/ca.key
+    /etc/kubernetes/admin.conf
+    ```
 
-`admin.conf` is optional.
+    - `admin.conf` is optional.
 
-Call the following `kubeadm-getter` command line:
+1.  Call `kubeadm-getter` on each node:
 
-```sh
-sudo kubeadm-getter --token=j04n3m.octy8zely83cy2ts --address=192.168.0.103 --output-path=/etc/kubernetes \
---files=pki/ca.crt,pki/ca.key,pki/front-proxy-ca.crt,pki/front-proxy-ca.key,pki/sa.key,pki/sa.pub,pki/etcd/ca.crt,pki/etcd/ca.key,admin.conf
-```
+    ```sh
+    sudo kubeadm-getter --token=j04n3m.octy8zely83cy2ts --address=192.168.0.103 --output-path=/etc/kubernetes \
+    --files=pki/ca.crt,pki/ca.key,pki/front-proxy-ca.crt,pki/front-proxy-ca.key,pki/sa.key,pki/sa.pub,pki/etcd/ca.crt,pki/etcd/ca.key,admin.conf
+    ```
 
-- `--token` is the same as the `kubeadm-getter` call on the first control plane node.
-- `--address` should be set to the value of `kubeadm-getter` server on first control plane node.
-- `--output-path` is where all the downloaded files will be written.
-- `--files` is a comma `,` separated list of files to download from the `--input-path` on the server.
-  The above example contains required certs and `admin.conf` for this HA setup.
+    - `--token`: the token that was received when you called `kubeadm-getter` on the first control plane node.
+    - `--address`: the address of the `kubeadm-getter` server on the first control plane node.
+    - `--output-path`: where to write the downloaded files.
+    - `--files`: comma-separated list of files to download from the `--input-path` on the server. This example specifies the required certs and `admin.conf` for the cluster.
 
-After the command finishes you should see something like:
+    When the command finishes you should see something like:
 
-```sh
-...
-* receiving file: admin.conf
-* receiving block 6; size: 0
-* writing file: /etc/kubernetes/admin.conf
-* done transfering files
-```
+    ```sh
+    ...
+    * receiving file: admin.conf
+    * receiving block 6; size: 0
+    * writing file: /etc/kubernetes/admin.conf
+    * done transfering files
+    ```
 
-This process will write all the requested files in the `/etc/kubernetes` folder.
+    This process writes all the requested files in the `/etc/kubernetes` folder.
 
-At this point you can start `kubeadm` on this node:
+1.  Start `kubeadm` on this node:
 
-```sh
-sudo kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f --experimental-control-plane
-```
+    ```sh
+    sudo kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f --experimental-control-plane
+    ```
 
-Notice that the command is the same as what the first control plane node gave us, except that we added `--experimental-control-plane`.
-This extra flag will automate the join process of this control plane to the cluster.
+    - Notice that this is the command that was returned from running `kubeadm init` on the first node, with the addition of the `--experimental-control-plane` flag. This flag automates joining this control plane node to the cluster.
 
-Repeat the same step for the rest of the control plane nodes. Once done with copying files from the first control plane node
-you can stop the running `kubeadm-getter` server there.
+1.  Repeat these steps for the rest of the control plane nodes. 
 
-## External etcd topology
+1.  After you copy files from the first control plane node to every other node, stop the `kubeadm-getter` server.
 
-While being fairly similar to the "stacked" HA cluster, an "external etcd" HA cluster is
-a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed data storage
-cluster provided by etcd is external to the cluster formed by the nodes that run control
-plane components.
-
-An external etcd cluster is formed by creating a number of separate etcd hosts, that talk to the
-`kube-apiserver` of each control plane node.
-
-This topology decouples the control plane and etcd member and provides an HA setup where
-losing a control plane instance or an etcd member has less of an impact and does not affect
-the cluster redundancy as much as the stacked HA topology.
-
-One obvious downside comparing the two is that this topology requires a larger number of machines.
-A minimum of 3 (control planes) by 3 (etcd hosts) setup for this topology can be considered HA.
-
-![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
+## External etcd nodes
 
 ### Set up the etcd cluster
 
@@ -341,45 +298,33 @@ A minimum of 3 (control planes) by 3 (etcd hosts) setup for this topology can be
 
 ### Set up the first control plane node
 
-Once you have setup your etcd cluster you have to copy the following files from
-one of the etcd nodes to the first control plane node:
+1.  On the first etcd node, call:
 
-```sh
-/etc/kubernetes/pki/etcd/ca.crt
-/etc/kubernetes/pki/apiserver-etcd-client.crt
-/etc/kubernetes/pki/apiserver-etcd-client.key
-```
+    ```sh
+    export TEMP_TOKEN=`kubeadm-getter --create-token`
+    echo $TEMP_TOKEN
+    sudo kubeadm-getter --token=$TEMP_TOKEN --listen --input-path=/etc/kubernetes/pki
+    ```
 
-After the first control plane node has initialized we are going to copy its certificates
-to the rest of the control plane nodes.
+1. On the first control plane node, call::
 
-Make sure that `kubeadm-getter` is installed on both the control plane node and the etcd node.
+    ```sh
+    sudo kubeadm-getter --token=$TEMP_TOKEN --address=$ETCD_SERVER --output-path=/etc/kubernetes/pki \
+    --files=etcd/ca.crt,apiserver-etcd-client.crt,apiserver-etcd-client.key
+    ```
 
-On the etcd node call:
+    where:
 
-```sh
-export TEMP_TOKEN=`kubeadm-getter --create-token`
-echo $TEMP_TOKEN
-sudo kubeadm-getter --token=$TEMP_TOKEN --listen --input-path=/etc/kubernetes/pki
-```
+    - `$TEMP_TOKEN` is the token returned from the call to `kubeadm-getter` that you ran on the first etcd node.
+    - `$ETCD_SERVER` is the address of the `kubeadm-getter` server listening on the etcd node.
 
-On the control plane node call:
+1.  Stop the `kubeadm-getter` server. Make sure the following files are copied to the control plane node:
 
-```sh
-sudo kubeadm-getter --token=$TEMP_TOKEN --address=$ETCD_SERVER --output-path=/etc/kubernetes/pki \
---files=etcd/ca.crt,apiserver-etcd-client.crt,apiserver-etcd-client.key
-```
+    - `/etc/kubernetes/pki/etcd/ca.crt`
+    - `/etc/kubernetes/pki/apiserver-etcd-client.crt`
+    - `/etc/kubernetes/pki/apiserver-etcd-client.key`
 
-- Replace `$TEMP_TOKEN` with the token you got from the etcd node.
-- Replace `$ETCD_SERVER` with address of the `kubeadm-getter` server listening on the etcd node.
-
-Once the files are copied stop the `kubeadm-getter` server.
-
-Create a file called `kubeadm-config.yaml` with the following contents:
-
-{{< note >}}
-**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
-{{< /note >}}
+1.  Create a file called `kubeadm-config.yaml` with the following contents:
 
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
@@ -401,36 +346,36 @@ Create a file called `kubeadm-config.yaml` with the following contents:
             # This CIDR is a calico default. Substitute or remove for your CNI provider.
             podSubnet: "192.168.0.0/16"
 
+        - The difference between stacked etcd and external etcd here is that we are using the `external` field for `etcd` in the kubeadm config. In the case of the stacked etcd topology this is managed automatically.
+
 1.  Replace the following variables in the template with the appropriate values for your cluster:
 
-    - `LOAD_BALANCER_DNS`
-    - `LOAD_BALANCER_PORT`
-    - `ETCD_0_IP`
-    - `ETCD_1_IP`
-    - `ETCD_2_IP`
+        - `LOAD_BALANCER_DNS`
+        - `LOAD_BALANCER_PORT`
+        - `ETCD_0_IP`
+        - `ETCD_1_IP`
+        - `ETCD_2_IP`
 
-1.  Run `kubeadm init --config kubeadm-config.yaml`
-1.  Write the join command to a text file for later use.
+1.  On the first control plane node, Run `kubeadm init --config kubeadm-config.yaml`
 
-The difference between stacked etcd and external etcd here is that we are using the `external`
-field for `etcd` in the kubeadm config. In the case of the stacked etcd topology this is managed
-automatically.
+1.  Write the join command that is returned to a text file for later use.
 
-Start `kubeadm-getter` using the following command line:
+1.  Start `kubeadm-getter`:
 
-```sh
-sudo kubeadm-getter --token=$TOKEN --input-path=/etc/kubernetes --listen
-```
+    ```sh
+    sudo kubeadm-getter --token=$TOKEN --input-path=/etc/kubernetes --listen
+    ```
 
-- Replace `$TOKEN` with the value you got from the above `kubeadm init` command.
+    where `$TOKEN` is the value returned from `kubeadm init`.
 
-At this point the external etcd procedure is exactly the same as the one for the stacked etcd topology
-outlined [here](#steps-for-the-rest-of-the-control-plane-nodes).
+### Add the other control plane nodes
 
-- Make sure that the first control plane node is fully initialized.
-- Using `kubeadm-getter` copy certificates between the first control plane node and the rest.
-- Join each control plane node using the join command you saved to a text file
-  while also adding the flag `--experimental-control-plane`.
+To add the rest of the control plane nodes, follow [these instructions](#steps-for-the-rest-of-the-control-plane-nodes).
+The steps are the same as for the stacked etcd setup. To summarize::
+
+- Make sure the first control plane node is fully initialized.
+- Run `kubeadm-getter` to copy certificates between the first control plane node and the other control plane nodes.
+- Join each control plane node with the join command you saved to a text file, plus the `--experimental-control-plane` flag.
 
 ## Common tasks after bootstrapping control plane
 
