@@ -111,7 +111,7 @@ different configuration.
     - [keepalived](http://www.keepalived.org/) or something like [docker-ucar](https://github.com/craigtracey/docker-ucarp)
       can be used as a load balancer.
 
-    - Make sure that the address of the load balancer always matches
+    - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
 
 1.  Add the first control plane nodes to the load balancer and test the
