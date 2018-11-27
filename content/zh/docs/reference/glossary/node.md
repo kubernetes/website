@@ -24,6 +24,10 @@ tags:
 - fundamental
 -->
 
+<!--
+  A node is a worker machine in Kubernetes.
+-->
+
 Kubernetes 中的工作机器称作节点。
 
 <!--more--> 
