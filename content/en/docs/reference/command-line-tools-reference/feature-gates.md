@@ -38,13 +38,17 @@ different Kubernetes components.
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
-| `AttachVolumeLimit` | `true` | Alpha | 1.11 | |
+| `AttachVolumeLimit` | `true` | Alpha | 1.11 | 1.11 |
+| `AttachVolumeLimit` | `true` | Beta | 1.12 | |
 | `BlockVolume` | `false` | Alpha | 1.9 | |
+| `CPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
-| `CSIBlockVolume` | `false` | Alpha | 1.11 | 1.11 |
+| `CSIBlockVolume` | `false` | Alpha | 1.11 | |
+| `CSIDriverRegistry` | `false` | Alpha | 1.12 | |
+| `CSINodeInfo` | `false` | Alpha | 1.12 | |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
@@ -81,6 +85,7 @@ different Kubernetes components.
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | |
+| `NodeLease` | `false` | Alpha | 1.12 | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
 | `PodPriority` | `false` | Alpha | 1.8 | |
@@ -88,11 +93,14 @@ different Kubernetes components.
 | `PodReadinessGates` | `true` | Beta | 1.12 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | |
+| `ProcMountType` | `false` | Alpha | 1.12 | |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
-| `ReadOnlyAPIDataVolumes` | `true` | Deprecated | 1.10 | |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
+| `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
+| `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
-| `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | |
+| `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
+| `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `false` | Alpha | 1.10 | |
 | `RuntimeClass` | `false` | Alpha | 1.12 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
@@ -117,6 +125,7 @@ different Kubernetes components.
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | |
 | `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
+| `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
 
 ## Using a Feature
@@ -175,9 +184,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `BlockVolume`: Enable the definition and consumption of raw block devices in Pods.
    See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
    for more details.
+- `CPUCFSQuotaPeriod`: Enable nodes to change CPUCFSQuotaPeriod.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
 - `CSIBlockVolume`: Enable external CSI volume drivers to support block storage. See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support) documentation for more details.
+- `CSIDriverRegistry`: Enable all logic related to the CSIDriver API object in csi.storage.k8s.io.
+- `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
@@ -221,21 +233,22 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MountContainers`: Enable using utility containers on host as the volume mounter.
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
   For more details, please see [mount propagation](/docs/concepts/storage/volumes/#mount-propagation).
+- `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
   Pod readiness evaluation.
   For more details, please see [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate).
+- `ProcMountType`: Enables control over ProcMountType for containers.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
   More details can be found [here](/docs/tasks/administer-cluster/storage-object-in-use-protection/).
-- `ReadOnlyAPIDataVolumes`: Set Secret, ConfigMap, DownwardAPI and projected volumes to be mounted in read-only mode.
-  This gate exists only for backward compatibility. It will be removed in 1.11 release.
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
   assigns a lowest possible score of 1 to a node that satisfies at least one of
   the input Pod's cpu and memory limits. The intent is to break ties between
   nodes with same scores.
+- `ResourceQuotaScopeSelectors`: Enable resource quota scope selectors.
 - `RotateKubeletClientCertificate`: Enable the rotation of the client TLS certificate on the kubelet.
   See [kubelet configuration](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#kubelet-configuration) for more details.
 - `RotateKubeletServerCertificate`: Enable the rotation of the server TLS certificate on the kubelet.
@@ -267,4 +280,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
   type when used together with the `PersistentLocalVolumes` feature gate.
+- `VolumeSnapshotDataSource`: Enable volume snapshot data source support.
+
 {{% /capture %}}
