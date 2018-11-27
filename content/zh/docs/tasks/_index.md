@@ -17,7 +17,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Kubernetes 文档这一部分包含的一些页面展示如何去做单个任务。一个任务页面展示了如何执行操作单一的项目，通常是通过给出一小段步骤。
+Kubernetes 文档这一部分包含的一些页面展示如何去做单个任务。一个任务页面展示了如何执行操作单一的项目，通常是通过给出若干步骤。
 <!--
 This section of the Kubernetes documentation contains pages that
 show how to do individual tasks. A task page shows how to do a
@@ -28,7 +28,7 @@ single thing, typically by giving a short sequence of steps.
 
 {{% capture body %}}
 
-## Web UI (Dashboard)
+## Web 用户界面 (Dashboard)
 
 部署和访问 Dashboard Web 用户界面，以帮助您管理和监控 Kubernetes 集群中的容器化应用程序。
 
@@ -60,7 +60,7 @@ Perform common configuration tasks for Pods and Containers.
 
 ## 运行应用程序
 
-执行常见的应用程序管理任务，例如滚动更新，将信息注入 Pod，以及 Pod 横向自动伸缩。
+执行常见的应用程序管理任务，例如滚动更新、将信息注入 Pod、以及 Pod 水平自动伸缩。
 
 <!--
 ## Running Applications
@@ -68,9 +68,9 @@ Perform common configuration tasks for Pods and Containers.
 Perform common application management tasks, such as rolling updates, injecting information into pods, and horizontal Pod autoscaling.
 -->
 
-## 运行工作
+## 运行 Job
 
-使用并行处理方式运行工作。
+使用并行处理方式运行 Job。
 
 <!--
 ## Running Jobs
@@ -80,7 +80,7 @@ Run Jobs using parallel processing.
 
 ## 访问集群中的应用程序
 
-配置负载均衡和端口转发，或者设置防火墙，或者配置 DNS 以访问集群中的应用程序。
+配置负载均衡和端口转发、或者设置防火墙、或者配置 DNS 以访问集群中的应用程序。
 
 <!--
 ## Accessing Applications in a Cluster
@@ -88,7 +88,7 @@ Run Jobs using parallel processing.
 Configure load balancing, port forwarding, or setup firewall or DNS configurations to access applications in a cluster.
 -->
 
-## 监控，日志记录和调试
+## 监控、日志记录和调试
 
 设置监控和日志记录以对集群进行故障排除或者调试容器化应用程序。
 
@@ -110,7 +110,7 @@ Learn various methods to directly access the Kubernetes API.
 
 ## 使用 TLS
 
-配置您的应用程序去信任和使用集群根的认证授权（ CA ）。
+配置您的应用程序去信任和使用集群的根证书机构（ CA ）。
 
 <!--
 ## Using TLS
@@ -140,7 +140,7 @@ Configure components in a cluster federation.
 
 ## 管理状态应用程序
 
-执行管理有状态应用程序的常见任务，包括扩展，删除和调试 StatefulSets。
+执行管理有状态应用程序的常见任务，包括扩展、删除和调试 StatefulSets。
 
 <!--
 ## Managing Stateful Applications
