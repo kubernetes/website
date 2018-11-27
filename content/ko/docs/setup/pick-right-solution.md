@@ -6,20 +6,20 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-쿠버네티스는 랩탑부터 클라우드 공급자의 VM들, 베어메탈 서버의 렉까지 다양한 플랫폼에서 작동 가능하다.
-하나의 단일 명령어로 작동하는 클러스터부터 자신만의 맞춤형 클러스터까지 다양한 클러스터를 구성하기 위해서 노력이 필요하다.
-알맞은 솔루션을 선택하기 위해서 이 가이드를 사용하라.
+쿠버네티스는 랩탑부터 클라우드 공급자의 VM들, 베어메탈 서버 랙까지 다양한 플랫폼에서 작동 가능하다.
+클러스터 구성을 위해 필요한 노력은 하나의 단일 명령어를 실행시키는 수준에서 직접 자신만의 맞춤형 클러스터를 세밀하게 만드는 수준에 이르기까지 다양하다.
+알맞은 솔루션을 선택하기 위해서 이 가이드를 사용하자.
 
-쿠버네티스를 시도해보기를 원한다면, [로컬 Docker 기반의 솔루션](#local-machine-solutions)을 사용하라. 
+쿠버네티스를 시도해보기를 원한다면, [로컬 Docker 기반의 솔루션](#로컬-머신-솔루션)을 사용하자. 
 
-더 많은 머신과 높은 가용성으로 확장할 준비가 되었다면, [호스트 된 솔루션](#hosted-solutions)이 생성하고 유지하기에 가장 쉽다. 
+더 많은 머신과 높은 가용성으로 확장할 준비가 되었다면, [호스트 된 솔루션](#호스트-된-솔루션)이 생성하고 유지하기에 가장 쉽다. 
 
-[턴키 클라우드 솔루션](#turnkey-cloud-solutions)은 클라우드 공급자들의 넓은 범위를 다루고 생성하기 위해서 약간의 명령어가 필요하다.
-[온-프레미스 턴키 클라우드 솔루션](#on-premises-turnkey-cloud-solutions)은 프라이빗 네트워크의 보안과 결합된 턴키 클라우드 솔루션의 단순함을 가진다.
+[턴키 클라우드 솔루션](#턴키-클라우드-솔루션)은 클라우드 공급자들의 넓은 범위를 다루고 생성하기 위해서 약간의 명령어가 필요하다.
+[온-프레미스 턴키 클라우드 솔루션](#온-프레미스-턴키-클라우드-솔루션)은 프라이빗 네트워크의 보안과 결합된 턴키 클라우드 솔루션의 단순함을 가진다.
 
-호스팅한 자원을 구성하는 방법을 이미 가지고 있다면, 머신 당 단일 명령어로 클러스터를 쉽게 가져오기 위해서 [kubeadm](/docs/setup/independent/create-cluster-kubeadm/)을 사용하라.
+호스팅한 자원을 구성하는 방법을 이미 가지고 있다면, 머신 당 단일 명령어로 클러스터를 만들어내기 위해서 [kubeadm](/docs/setup/independent/create-cluster-kubeadm/)을 사용하자.
 
-[사용자 맞춤형 솔루션](#custom-solutions)은 쿠버네티스 클러스터를 처음부터 설정하기 위한 단계별 지침부터 일반적인 조언까지 다양하다. 
+[사용자 지정 솔루션](#사용자-지정-솔루션)은 단계별 지침부터 쿠버네티스 클러스터를 처음부터 설정하기 위한 일반적인 조언까지 다양하다. 
 
 {{% /capture %}}
 
@@ -27,11 +27,11 @@ content_template: templates/concept
 
 ## 로컬 머신 솔루션
 
-* [Minikube](/docs/setup/minikube/)는 개발과 검증을 위한 단일 노드 쿠버네티스 클러스터를 로컬에 생성하기 위한 하나의 방법이다. 설치는 완전히 자동화 되어져있고, 클라우드 공급자 계정 정보가 필요하지 않다. 
+* [Minikube](/docs/setup/minikube/)는 개발과 테스트를 위한 단일 노드 쿠버네티스 클러스터를 로컬에 생성하기 위한 하나의 방법이다. 설치는 완전히 자동화 되어 있고, 클라우드 공급자 계정 정보가 필요하지 않다. 
 
-* [microk8s](https://microk8s.io/)는 개발과 검증을 위한 쿠버네티스 최신 버전을 단일 명령어로 로컬 머신 상의 설치를 제공한다. 설치는 신속하고 빠르며(~30초) 단일 명령어로 Istio를 포함한 많은 플러그인을 지원한다. 
+* [microk8s](https://microk8s.io/)는 개발과 테스트를 위한 쿠버네티스 최신 버전을 단일 명령어로 로컬 머신 상의 설치를 제공한다. 설치는 신속하고 빠르며(~30초) 단일 명령어로 Istio를 포함한 많은 플러그인을 지원한다. 
 
-* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private)는 개발과 검증 시나리오를 위해 1개 또는 더 많은 VM에 쿠버네티스를 배포하기 위해서 머신의 VirtualBox를 사용할 수 있다. 이는 전체 멀티 노드 클러스터로 확장할 수 있다. 
+* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private)는 개발과 테스트 시나리오를 위해 1개 또는 더 많은 VM에 쿠버네티스를 배포하기 위해서 머신의 VirtualBox를 사용할 수 있다. 이는 전체 멀티 노드 클러스터로 확장할 수 있다. 
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)는 Terraform/Packer/BASH 기반의 리눅스 호스트 상의 LXD 클러스터에 7개의 노드(부트 1개, 마스터 1개, 관리 1개, 프록시 1개 그리고 워커 3개)를 생성하기 위한 Infrastructure as Code (IaC) 스크립트이다.
 
@@ -67,13 +67,13 @@ content_template: templates/concept
 
 * [Oracle Container Engine for Kubernetes](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm)는 컨테이너 애플리케이션을 클라우드에 배포하는 데 사용할 수 있는 완벽하게 관리되고, 확장 가능하며, 가용성이 높은 서비스이다.
 
-* [Platform9](https://platform9.com/products/kubernetes/)는 온-프레미스 또는 모든 퍼블릭 클라우드에서 관리형 쿠베니트스를 제공한다. 또한, 24/7 상태 모니터링 및 알람 및 경고 서비스를 제공한다.(Kube2go는 웹 UI 기반의 쿠버네티스 클러스터 배포 서비스인 Platform9가 Platform9 Sandbox에 통합된 형태로 출시되었다.)
+* [Platform9](https://platform9.com/products/kubernetes/)는 온-프레미스 또는 모든 퍼블릭 클라우드에서 관리형 쿠버네티스를 제공한다. 또한, 24/7 상태 모니터링 및 알람 및 경고 서비스를 제공한다.(Kube2go는 웹 UI 기반의 쿠버네티스 클러스터 배포 서비스인 Platform9가 Platform9 Sandbox에 통합된 형태로 출시되었다.)
 
 * [Stackpoint.io](https://stackpoint.io)는 다중 퍼블릭 클라우드에서 쿠버네티스 인프라 자동화 및 관리 기능을 제공한다.
 
 ## 턴키 클라우드 솔루션
 
-다음 솔루션들은 클라우드 IaaS 공급자의 범위에서 명령어로 쿠버네티스 클러스터를 생성을 허용한다. 이러한 솔루션은 활발히 개발되었고 활발한 커뮤니티 지원을 한다. 
+다음 솔루션들은 클라우드 IaaS 공급자의 범위에서 몇 안 되는 명령어로 쿠버네티스 클러스터를 생성을 허용한다. 이러한 솔루션은 활발히 개발되었고 활발한 커뮤니티 지원을 한다. 
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [Alibaba Cloud](/docs/setup/turnkey/alibaba-cloud/)
@@ -98,7 +98,7 @@ content_template: templates/concept
 
 ## 온-프레미스 턴키 클라우드 솔루션
 
-다음 솔루션들은 명령어를 사용하여 내부의 안전한 클라우드 네트워크에서 쿠버네티스 클러스터를 생성할 수 있다.
+다음 솔루션들은 몇 안 되는 명령어를 사용하여 내부의 안전한 클라우드 네트워크에서 쿠버네티스 클러스터를 생성할 수 있다.
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
@@ -115,11 +115,11 @@ content_template: templates/concept
 
 ## 사용자 지정 솔루션
 
-쿠버네티스는 클라우드 공급자와 다양한 운영체제의 베어 메탈 환경의 넓은 범위에서 구동할 수 있다. 
+쿠버네티스는 넓은 범위의 클라우드 공급자와 베어메탈 환경에서, 그리고 많은 기반 운영 체제에서 동작할 수 있다.
 
-필요에 맞는 아래의 가이드를 찾았다면, 그것을 사용하라. 약간 구식일 수도 있지만, 처음부터 시작하는 것보다 더 쉬울 것이다. 
-처음부터 시작하기를 원한다면, 특별한 요구사항을 가지고 있거나, 단지 쿠버네티스 클러스터 
-아래에 무엇이 있는지를 이해하기 원하기 때문이라면, [맨 처음부터 시작하기](/docs/setup/scratch/) 가이드를 시도하라. 
+필요에 맞는 가이드를 아래에서 찾았다면, 그것을 사용하자. 약간 구식일 수도 있지만, 처음부터 시작하는 것보다 더 쉬울 것이다. 
+특별한 요구사항이 있기 때문에, 또는 단지 쿠버네티스 클러스터의 아래에 무엇이 있는지를 이해하기 원하기 때문에 
+처음부터 시작하기를 원한다면, [맨 처음부터 시작하기](/docs/setup/scratch/) 가이드를 시도하라. 
 
 새로운 플랫폼에서 쿠버네티스 지원하는 것에 관심이 있다면, [Writing a Getting Started Guide](https://git.k8s.io/community/contributors/devel/writing-a-getting-started-guide.md) 가이드를 참고하라. 
 
@@ -168,7 +168,7 @@ content_template: templates/concept
 
 아래는 위에 리스트 된 모든 솔루션의 표이다.
 
-IaaS 공급자        | 구성 및 관리 | OS     | 네트워킹  | 문서                                              | 지원 레벨
+IaaS 공급자        | 구성 관리 | OS     | 네트워킹  | 문서                                              | 지원 레벨
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
@@ -217,14 +217,14 @@ Digital Rebar        | kubeadm      | any    | metal       | [docs](/docs/setup/
 
 
 {{< note >}}
-**주의:** 위의 표는 버전 테스트/사용된 노드의 지원 레벨을 기준으로 정렬된다.
+**참고:** 위의 표는 버전 테스트/사용된 노드의 지원 레벨을 기준으로 정렬된다.
 {{< /note >}}
 
 ### 열 정의
 
 * **IaaS 공급자**는 쿠버네티스가 구동되는 가상 또는 물리적 머신(노드)를 제공하는 제품 또는 조직이다.
-* **OS**는 노드의 기본 운영 제제이다.
-* **구성 및 관리**는 노드에서 쿠버네티스를 설치하고 유지 관리하는 데 도움이 되는 구성 관리 시스템이다.
+* **OS**는 노드의 기본 운영 체제이다.
+* **구성 관리**는 노드에서 쿠버네티스를 설치하고 유지 관리하는 데 도움이 되는 구성 관리 시스템이다.
   nodes.
 * **네트워킹**은 [네트워킹 모델](/docs/concepts/cluster-administration/networking/)을 구현하는 것이다. 네트워크 유형이
   _none_인 노드는 단일 노드 이상을 지원하지 않거나, 단일 물리 노드에서 여러 VM 노드를 지원할 수 있다. 
@@ -234,7 +234,7 @@ Digital Rebar        | kubeadm      | any    | metal       | [docs](/docs/setup/
   * **상업용**: 자체 지원 계약을 가진 상업용 제품.
   * **커뮤니티**: 커뮤니티 기여를 바탕으로 활발하게 지원. 쿠버네티스 최신 릴리즈에는 작동하지 않을 수도 있다.
   * **비활성**: 현재 유지되지 않는다. 쿠버네티스 최초 사용자에게 권장하지 않으며, 삭제될 수도 있다.
-* **주의**는 사용된 쿠버네티스 버전 같은 기타 관련 정보가 있다.
+* **참고**는 사용된 쿠버네티스 버전 같은 기타 관련 정보가 있다.
 
 
 <!-- reference style links below here -->
