@@ -52,48 +52,57 @@ A configuration example which uses HTTPS client auth:
 -->
 使用 HTTPS 客户端鉴权的配置文件示例：
 
-```yaml
-<!-- 
-# Kubernetes API version
--->
-# Kubernetes API 版本
-apiVersion: v1
-<!-- 
-# kind of the API object
--->
-# API 对象类型
-kind: Config
 <!--
+```yaml
+# Kubernetes API version
+apiVersion: v1
+# kind of the API object
+kind: Config
 # clusters refers to the remote service.
--->
-# 远程服务对应的集群。
 clusters:
   - name: name-of-remote-authz-service
     cluster:
-      <!--
       # CA for verifying the remote service.
-      -->
-      # 远程服务验证所需 CA
       certificate-authority: /path/to/ca.pem
-      <!--
       # URL of remote service to query. Must use 'https'. May not include parameters.
-      -->
-      # 远程服务访问的 URL。必须使用 'https'。可能不需要参数。
       server: https://authz.example.com/authorize
-
-<!--
 # users refers to the API Server's webhook configuration.
--->
-# API 服务器的 webhook 配置对应的用户
 users:
   - name: name-of-api-server
     user:
       client-certificate: /path/to/cert.pem # cert for the webhook plugin to use
       client-key: /path/to/key.pem          # key matching the cert
-
-<!--
 # kubeconfig files require a context. Provide one for the API Server.
+current-context: webhook
+contexts:
+- context:
+    cluster: name-of-remote-authz-service
+    user: name-of-api-server
+  name: webhook
+```
 -->
+
+```yaml
+# Kubernetes API 版本
+apiVersion: v1
+# API 对象类型
+kind: Config
+# 远程服务对应的集群。
+clusters:
+  - name: name-of-remote-authz-service
+    cluster:
+      # 远程服务验证所需 CA
+      certificate-authority: /path/to/ca.pem
+      # 用来访问远程服务的 URL。必须使用 'https'。不可以包含参数。
+      server: https://authz.example.com/authorize
+
+# API 服务器的 webhook 配置对应的用户
+users:
+  - name: name-of-api-server
+    user:
+      client-certificate: /path/to/cert.pem # webhook 插件所使用的证书
+      client-key: /path/to/key.pem          # 与证书对应的密钥
+
 # kubeconfig 文件所需上下文。提供给 API 服务器使用。
 current-context: webhook
 contexts:
@@ -124,7 +133,8 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`). 
 -->
-请注意，webhook API 对象和其它 Kubernetes API 对象一样遵循 [版本兼容性规则](/docs/concepts/overview/kubernetes-api/)。实现者应当注意 beta 版本对象的兼容性承诺是相当宽松的，并且检查请求的 "apiVersion" 字段来保证正确的反序列化。此外，API服务器必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
+请注意，webhook API 对象和其它 Kubernetes API 对象一样遵循[版本兼容性规则](/docs/concepts/overview/kubernetes-api/)。
+实现者应当注意 beta 版本对象的兼容性承诺是相当宽松的，并检查请求的 "apiVersion" 字段来保证正确的反序列化。此外，API服务器必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
 <!-- 
 An example request body: 
@@ -215,14 +225,15 @@ and `/version` to discover what resources and versions are present on the server
 Access to other non-resource paths can be disallowed without restricting access
 to the REST api. 
 -->
-非资源路径包括： `/api`，`/apis`，`/metrics`，`/resetMetrics`，`/logs`，`/debug`, `/healthz`，`/swagger-ui/`，`/swaggerapi/`，`/ui` 和
-`/version`。客户端需要访问 `/api`，`/api/*`，`/apis`，`/apis/*`,
-和 `/version` 来获取服务器上存在资源和版本列表。对其它非资源路径的访问可以被禁止；这样做并不会影响对 REST API 的访问。
+非资源路径包括： `/api`、`/apis`、`/metrics`、`/resetMetrics`、`/logs`、`/debug`、
+`/healthz`、`/swagger-ui/`、`/swaggerapi/`、`/ui` 和 `/version`。
+客户端需要访问 `/api`、`/api/*`、`/apis`、`/apis/*` 和 `/version` 来获取服务器上存在资源和版本列表。
+对其它非资源路径的访问可以被禁止；这样做并不会影响对 REST API 的访问。
 
 <!-- 
 For further documentation refer to the authorization.v1beta1 API objects and
 [webhook.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go). 
 -->
-点击以获取更多有关 authorization.v1beta1 API 对象和 [webhook.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go) 的信息。
+关于 Webhook 模式的更多信息可参阅 authorization.v1beta1 API 对象的参考指南和 [webhook.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go) 文件。
 
 {{% /capture %}}
