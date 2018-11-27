@@ -32,8 +32,8 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 The CustomResourceDefinition API supports a `versions` field that you can use to
 support multiple versions of custom resources that you have developed. Versions
 can have different schemas with a conversion webhook to convert custom resources between versions.
-These conversions should follow [API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md) wherever applicable. 
-Specifically See the [api change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) for a set of useful gotchas and suggestions.
+Webhook conversions should follow the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md) wherever applicable.
+Specifically, See the [API change documentation](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) for a set of useful gotchas and suggestions.
 
 {{< note >}}
 Earlier iterations included a `version` field instead of `versions`. The
@@ -153,29 +153,29 @@ Webhook conversion is introduced in kubernetes 1.13 as an alpha feature. To use 
 {{< /note >}}
 
 The above example has a None conversion between versions which only sets the `apiVersion` field
-on conversion and does not change the rest of the object. API server also supports webhook conversions that
-calls an external service in case of a conversion is required, For example when:
+on conversion and does not change the rest of the object. The API server also supports webhook
+conversions that call an external service in case a conversion is required. For example when:
 
 * custom resource is requested in a different version than stored version.
 * Watch is created in one version but the changed object is stored in another version.
 * custom resource PUT request is in a different version than storage version.
 
-To cover all of these cases and to optimize conversion by the API server, the conversion requests contain as many objects as possible in order to minimize the calls to the webhook. These conversions should happened independently. The grouping of custom resources does not represent any relation between them.
+To cover all of these cases and to optimize conversion by the API server, the conversion requests may contain multiple objects in order to minimize the external calls. The webhook should perform these conversions independently.
 
 ### Write a conversion webhook server
 
 Please refer to the implementation of the [custom resource conversion webhook
-server](https://github.com/kubernetes/kubernetes/blob/v1.13.0-beta.1/test/images/crd-conversion-webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `ConversionReview` requests sent by the API servers, and sends back conversion
 results wrapped in `ConversionResponse`. Note that the request
 contains a list of custom resources that need to be converted independently without
 changing the order of objects.
-The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file]((https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/images/crd-conversion-webhook/converter/framework.go)) that leaves only [one function]((https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/images/crd-conversion-webhook/converter/example-converter.go#L29-L80)) to be implemented for different conversions.
+The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file]((https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/converter/framework.go)) that leaves only [one function]((https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/converter/example-converter.go#L29-L80)) to be implemented for different conversions.
 
 {{< note >}}
 The example conversion webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/blob/v1.10.0-beta.1/test/images/crd-conversion-webhook/config.go#L48-L49),
+[empty](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/config.go#L47-L48),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
@@ -218,7 +218,7 @@ spec:
     storage: true
     # Each version can define it's own schema when there is no top-level
     # schema is defined.
-    Schema:
+    schema:
       openAPIV3Schema:
         properties:
           hostPort:
@@ -226,7 +226,7 @@ spec:
   - name: v1
     served: true
     storage: false
-    Schema:
+    schema:
       openAPIV3Schema:
         properties:
           host:
