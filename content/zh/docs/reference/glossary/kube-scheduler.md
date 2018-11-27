@@ -1,5 +1,5 @@
 ---
-title: 调度器（kube-scheduler）
+title: kube-scheduler
 id: kube-scheduler
 date: 2018-04-12
 full_link: /docs/reference/generated/kube-scheduler/
