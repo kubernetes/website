@@ -33,7 +33,7 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{< note >}}
-**注意:** 为了在您的环境中启用聚合层时，如需要支持代理和扩展 apiserver 之间的双向 TLS 身份验证，需要满足一些设置要求。Kubernetes 和 kube-apiserver 都有多个 CA，因此确保代理的证书由聚合层 CA 签署，而不是由其它 CA （如主 CA）来签署。
+**注意:** 在您的环境中启用聚合层时，如需要支持代理和扩展 apiserver 之间的双向 TLS 身份验证，需要满足一些设置要求。Kubernetes 和 kube-apiserver 都有多个 CA，因此确保代理的证书由聚合层 CA 签署，而不是由其它 CA （如主 CA）来签署。
 {{< /note >}}
 <!--
 {{< note >}}
