@@ -1139,16 +1139,25 @@ to [this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/vo
 
 ### CSI
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
 defines a standard interface for container orchestration systems (like
 Kubernetes) to expose arbitrary storage systems to their container workloads.
 
 Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
 
-CSI support was introduced as alpha in Kubernetes v1.9 and moved to beta in
-Kubernetes v1.10.
+CSI support was introduced as alpha in Kubernetes v1.9, moved to beta in
+Kubernetes v1.10, and is GA in Kubernetes v1.13.
+
+{{< note >}}
+**Note:** Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
+v1.13 and will be removed in a future release.
+{{< /note >}}
+
+{{< note >}}
+**Note:** CSI drivers may not be compatible across all Kubernetes releases.
+Please check the specific CSI driver's documentation for supported
+deployments steps for each Kubernetes release and a compatibility matrix.
+{{< /note >}}
 
 Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
 may use the `csi` volume type to attach, mount, etc. the volumes exposed by the
@@ -1223,6 +1232,10 @@ Kubernetes component using the following feature gate flags:
 
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
+
+#### Developer resources
+For more information on how to develop a CSI driver, refer to the [kubernetes-csi
+documentation](https://kubernetes-csi.github.io/docs/)
 
 ### Flexvolume
 
