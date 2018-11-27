@@ -323,10 +323,13 @@ SSH is required if you want to control all nodes from a single machine.
 ### Steps for the rest of the control plane nodes
 
 To add the rest of the control plane nodes, follow [these instructions](#steps-for-the-rest-of-the-control-plane-nodes).
-The steps are the same as for the stacked etcd setup. To summarize:
+The steps are the same as for the stacked etcd setup, with the exception that a local
+etcd member is not created.
+
+To summarize:
 
 - Make sure the first control plane node is fully initialized.
-- Run `kubeadm-getter` to copy certificates between the first control plane node and the other control plane nodes.
+- Copy certificates between the first control plane node and the other control plane nodes.
 - Join each control plane node with the join command you saved to a text file, plus the `--experimental-control-plane` flag.
 
 ## Common tasks after bootstrapping control plane

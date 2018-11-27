@@ -24,8 +24,8 @@ You should carefully consider the advantages and disadvantages of each topology 
 ## Stacked etcd topology
 
 A stacked HA cluster is a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed
-data storage cluster provided by etcd is stacked on top of the cluster formed by the nodes that run control
-plane components.
+data storage cluster provided by etcd is stacked on top of the cluster formed by the nodes managed by
+kubeadm that run control plane components.
 
 Each control plane node runs an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`.
 The `kube-apiserver` is exposed to worker nodes using a load balancer.
