@@ -191,6 +191,12 @@ SSH is required if you want to control all nodes from a single machine.
 1.  Copy this output to a text file. You will need it later to join other control plane nodes to the
     cluster.
 
+1.  Apply the Weave CNI plugin:
+
+    ```sh
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    ```
+
 1.  Type the following and watch the pods of the components get started:
 
     ```sh
@@ -307,6 +313,12 @@ SSH is required if you want to control all nodes from a single machine.
 1.  Run `kubeadm init --config kubeadm-config.yaml` on this node.
 
 1.  Write the join command that is returned to a text file for later use.
+
+1.  Apply the Weave CNI plugin:
+
+    ```sh
+    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    ```
 
 ### Steps for the rest of the control plane nodes
 
