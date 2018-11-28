@@ -30,7 +30,7 @@ tags:
  An endpoint for a set of {{< glossary_tooltip text="Managed Services" term_id="managed-service" >}} offered and maintained by a third-party.
 -->
 
-由第三方提供和维护的一组托管服务的端点。
+由第三方提供和维护的一组 {{< glossary_tooltip text="托管服务" term_id="managed-service" >}} 的端点。
 
 <!--more--> 
 
