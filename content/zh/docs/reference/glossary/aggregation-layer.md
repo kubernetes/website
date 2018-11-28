@@ -42,5 +42,5 @@ tags:
 When you've configured the {{< glossary_tooltip text="Kubernetes API Server" term_id="kube-apiserver" >}} to [support additional APIs](https://kubernetes.io/docs/tasks/access-kubernetes-api/configure-aggregation-layer/), you can add `APIService` objects to "claim" a URL path in the Kubernetes API.
 -->
 
-当您配置了 {{< glossary_tooltip text="Kubernetes API Server" term_id="kube-apiserver" >}} 来 [支持额外的 APIs](https://kubernetes.io/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)，您就可以在 Kubernetes API 中增 `APIService` 对象来  "声明" 一个 URL 路径。 
+当您配置了 {{< glossary_tooltip text="Kubernetes API Server" term_id="kube-apiserver" >}} 来 [支持额外的 APIs](https://kubernetes.io/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)，您就可以在 Kubernetes API 中增加 `APIService` 对象来  "声明" 一个 URL 路径。 
 
