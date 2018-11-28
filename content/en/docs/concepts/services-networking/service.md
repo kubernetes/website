@@ -758,9 +758,10 @@ for supported instance types.
 
 ### Type ExternalName {#externalname}
 
-Services of type ExternalName map a service to a DNS name (specified using
-the `spec.externalName` parameter) rather than to a typical selector like
-`my-service` or `cassandra`. This Service definition, for example, would map
+Services of type ExternalName map a service to a DNS name, not to a typical selector such as
+`my-service` or `cassandra`. You specify these services with the `spec.externalName` parameter.
+
+This Service definition, for example, maps
 the `my-service` Service in the `prod` namespace to `my.database.example.com`:
 
 ```yaml
@@ -774,11 +775,9 @@ spec:
   externalName: my.database.example.com
 ```
 {{< note >}}
-ExternalName _can_ be an IP, but it won't be resolved either by CoreDNS or ingress-nginx as the canonical use for ExternalName is to be a canonical DNS name. If you want to hardcode IPs, have a look at headless services.
+ExternalName can be an IP address, but IP addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
+is intended to specify a canonical DNS name. To hardcode an IP address, consider headless services.
 {{< /note >}}
-
-
-
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
 will return a `CNAME` record with the value `my.database.example.com`. Accessing
