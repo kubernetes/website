@@ -37,7 +37,7 @@ that one person does all of them all of the time.
 In any given week, a specific docs approver volunteers to do initial triage
 and review of [pull requests and issues](#triage-and-categorize-issues). This
 person is the "PR Wrangler" for the week. The schedule is maintained using the
-[PR Wrangler scheduler(https://github.com/kubernetes/website/wiki/PR-Wranglers).
+[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers).
 To be added to this list, attend the weekly SIG Docs meeting and volunteer. Even
 if you are not on the schedule for the current week, you can still review pull
 requests (PRs) that are not already under active review.
@@ -527,7 +527,7 @@ In any given week, a specific docs approver volunteers to do initial
 on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
 not on the schedule for the current week, you can still review PRs.
 
-People in SIG Docs are only responsible for triaging and categorizing
+People in SIG Docs are responsible only for triaging and categorizing
 documentation issues. General website issues are also filed in the
 `kubernetes/website` repository.
 
@@ -627,9 +627,9 @@ dead links are issues that need to be manually fixed and can be assigned a P3.
 
 #### Blog issues
 
-[Kubernetes Blog](https://kubernetes.io/blog/) entires are expected to become
-outdated over time, so we only maintain blog entries that are less than one year old. 
-If an issue is related to a blog entry that is over 1 year old, it should be closed
+[Kubernetes Blog](https://kubernetes.io/blog/) entries are expected to become
+outdated over time, so we maintain only blog entries that are less than one year old. 
+If an issue is related to a blog entry that is more than one year old, it should be closed
 without fixing. 
 
 #### Support requests or code bug reports
