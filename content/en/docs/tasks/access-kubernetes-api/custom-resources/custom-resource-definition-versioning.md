@@ -66,7 +66,7 @@ spec:
   - name: v1
     served: true
     storage: false
-  # The conversion section is introduced in kubernetes 1.13+ with a default value of
+  # The conversion section is introduced in Kubernetes 1.13+ with a default value of
   # None conversion (strategy sub-field set to None).
   conversion:
     # None conversion assumes the same schema for all versions and only sets the apiVersion
@@ -148,7 +148,7 @@ the version.
 ## Webhook conversion
 
 {{< note >}}
-Webhook conversion is introduced in kubernetes 1.13 as an alpha feature. To use it, the
+Webhook conversion is introduced in Kubernetes 1.13 as an alpha feature. To use it, the
 `CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
