@@ -461,7 +461,7 @@ public IP address resource needs to be created first, and it should be in the sa
 group of the other automatically created resources of the cluster. For example, `MC_myResourceGroup_myAKSCluster_eastus`. Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the securityGroupName in the cloud provider configuration file. For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see, [Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip) or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
 
 {{< note >}}
-he support of SCTP in the cloud provider's load balancer is up to the cloud provider's
+The support of SCTP in the cloud provider's load balancer is up to the cloud provider's
 load balancer implementation. If SCTP is not supported by the cloud provider's load balancer the
 Service creation request is accepted but the creation of the load balancer fails.
 {{< /note >}}
@@ -778,7 +778,7 @@ spec:
   externalName: my.database.example.com
 ```
 
-When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
+When looking up the host `my-service.prod.svc.cluster.local`, the cluster DNS service
 will return a `CNAME` record with the value `my.database.example.com`. Accessing
 `my-service` works in the same way as other Services but with the crucial
 difference that redirection happens at the DNS level rather than via proxying or

@@ -28,7 +28,7 @@ For more details on each field in the configuration you can navigate to our
 
 ## APIServer flags
 
-For details, see the [reference documentation for kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/).
+For details, see the [reference documentation for kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
 
 Example usage:
 ```yaml
@@ -46,7 +46,7 @@ apiServerExtraArgs:
 
 ## ControllerManager flags
 
-For details, see the [reference documentation for kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/).
+For details, see the [reference documentation for kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 
 Example usage:
 ```yaml
@@ -63,7 +63,7 @@ controllerManagerExtraArgs:
 
 ## Scheduler flags
 
-For details, see the [reference documentation for kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/).
+For details, see the [reference documentation for kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 Example usage:
 ```yaml
