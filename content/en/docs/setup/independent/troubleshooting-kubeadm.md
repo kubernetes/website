@@ -1,7 +1,7 @@
 ---
 title: Troubleshooting kubeadm
 content_template: templates/concept
-weight: 70
+weight: 90
 ---
 
 {{% capture overview %}}
