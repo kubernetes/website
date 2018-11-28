@@ -625,6 +625,13 @@ resolve the issue. Dead links in the API and Kubectl docs are automation issues
 and should be assigned a P1 until the problem can be fully understood. All other
 dead links are issues that need to be manually fixed and can be assigned a P3.
 
+#### Blog issues
+
+[Kubernetes Blog](https://kubernetes.io/blog/) entires are expected to become
+outdated over time, so we only maintain blog entries that are less than one year old. 
+If an issue is related to a blog entry that is over 1 year old, it should be closed
+without fixing. 
+
 #### Support requests or code bug reports
 
 Some issues opened for docs are instead issues with the underlying code, or
