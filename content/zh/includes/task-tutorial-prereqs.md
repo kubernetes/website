@@ -3,7 +3,6 @@
 * [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
 * [Play with Kubernetes](http://labs.play-with-k8s.com/)
 
-
 <!--
 You need to have a Kubernetes cluster, and the kubectl command-line tool must
 be configured to communicate with your cluster. If you do not already have a
