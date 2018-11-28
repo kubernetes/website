@@ -4,7 +4,7 @@ id: quantity
 date: 2018-08-07
 full_link:
 short_description: >
-  一个使用 SI 后缀的小数字或大数字的整数表示。
+  使用 SI 后缀的小数或大数的整数表示。
 
 aka: 
 tags:
