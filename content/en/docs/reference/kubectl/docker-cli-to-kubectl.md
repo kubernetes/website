@@ -75,7 +75,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 kubectl:
 
 ```shell
-$ kubectl get po -a
+$ kubectl get po
 NAME                        READY     STATUS      RESTARTS   AGE
 nginx-app-8df569cb7-4gd89   1/1       Running     0          3m
 ubuntu                      0/1       Completed   0          20s
