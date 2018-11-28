@@ -41,5 +41,5 @@ Allows for more control over how sensitive information is used and reduces the r
 -->
 
 Secret 允许用户对如何使用敏感信息进行更多的控制，并减少信息意外暴露的风险，包括静态[加密](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)。
-{{< glossary_tooltip text="Pod" term_id="pod" >}} 通过挂载卷中的文件的方式引用 Secret，或者通过 kubelet 为 pod 拉取镜像。
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 通过挂载卷中的文件的方式引用 Secret，或者通过 kubelet 为 pod 拉取镜像时引用。
 Secret 非常适合机密数据使用，而 [ConfigMaps](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) 适用于非机密数据。
