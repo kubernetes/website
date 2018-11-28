@@ -34,7 +34,7 @@ tags:
  Provides constraints that limit aggregate resource consumption per {{< glossary_tooltip term_id="namespace" >}}.
 -->
 
-资源配额提供了限制每个命名空间的资源消耗总和的约束。
+资源配额提供了限制每个 {{< glossary_tooltip term_id="命名空间" >}} 的资源消耗总和的约束。
 
 <!--more--> 
 
