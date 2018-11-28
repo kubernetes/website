@@ -440,7 +440,7 @@ kubectl create -f ./object-counts.yaml --namespace=myspace
 ```
 
 ```shell
-kubectl get quota --namespace=myspace
+kubectl get resourcequota --namespace=myspace
 ```
 
 ```shell
