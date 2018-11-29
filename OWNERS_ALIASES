@@ -152,6 +152,7 @@ aliases:
     - gochist
     - ianychoi
   sig-docs-zh-owners: #Team Chinese docs localization; GH: sig-docs-zh-owners
+    - chenrui333
     - dchen1107
     - haibinxie
     - hanjiayao
@@ -159,13 +160,12 @@ aliases:
     - tengqm
     - xiangpengzhao
     - zhangxiaoyu-zidif
-    - chenrui333
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
+    - chenrui333
     - idealhack
     - tengqm
     - xiangpengzhao
     - zhangxiaoyu-zidif
-    - chenrui333
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
