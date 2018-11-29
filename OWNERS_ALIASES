@@ -128,7 +128,7 @@ aliases:
     - tfogo
     - zacharysarah
     - zparnold
-  sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews 
+  sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews
     - jimangel
     - rajakavitha1
     - stewart-yu
@@ -138,7 +138,7 @@ aliases:
     - cstoku
     - nasa9084
     - tnir
-  sig-docs-ja-reviews: #Team: Japanese docs PR reviews; GH:sig-docs-ja-reviews 
+  sig-docs-ja-reviews: #Team: Japanese docs PR reviews; GH:sig-docs-ja-reviews
     - cstoku
     - makocchi-git
     - MasayaAoyama
@@ -154,6 +154,7 @@ aliases:
   sig-docs-zh-owners: #Team Chinese docs localization; GH: sig-docs-zh-owners
     - bradtopol
     - chenopis
+    - chenrui333
     - lucperkins
     - zacharysarah
     - dchen1107
@@ -165,6 +166,7 @@ aliases:
     - xiangpengzhao
     - zhangxiaoyu-zidif
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
+    - chenrui333
     - idealhack
     - markthink
     - tengqm
