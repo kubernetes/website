@@ -190,13 +190,13 @@ docker build -t hello-node:v1 .
 헬스를 검사해서 파드의 컨테이너가 종료되면 다시 시작해준다.
 파드의 생성 및 확장을 관리하는 방법으로 디플로이먼트를 권장한다.
 
-`kubectl run` 커맨드를 사용하여 파드를 관리하는 디플로이먼트를 만든다.
+`kubectl create` 커맨드를 사용하여 파드를 관리하는 디플로이먼트를 만든다.
 파드는 `hello-node:v1` Docker 이미지를 기반으로 한 컨테이너를 실행한다.
 (이미지를 레지스트리에 Push하지 않았기 때문에) Docker 레지스트리에서 이미지를 가져오기 보다는, 
 항상 로컬 이미지를 사용하기 위해 `--image-pull-policy` 플래그를 `Never`로 설정한다.
 
 ```shell
-kubectl run hello-node --image=hello-node:v1 --port=8080 --image-pull-policy=Never
+kubectl create deployment hello-node --image=hello-node:v1 --port=8080 --image-pull-policy=Never
 ```
 
 디플로이먼트를 확인한다.
