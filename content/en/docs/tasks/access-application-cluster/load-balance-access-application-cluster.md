@@ -55,7 +55,7 @@ load-balanced access to an application running in a cluster.
 1. Create a Service object that exposes the deployment:
 
        ```
-       kubectl expose deployment <your-deployment-name> --type=NodePort --name=example-service
+       kubectl expose deployment <your-deployment-name> --type=LoadBalancer --name=example-service
        ```
 
     where `<your-deployment-name>` is the name of your deployment.
