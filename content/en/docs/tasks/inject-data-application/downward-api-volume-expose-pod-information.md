@@ -49,7 +49,7 @@ The second element specifies that the value of the Pod's `annotations`
 field should be stored in a file named `annotations`.
 
 {{< note >}}
-**Note:** The fields in this example are Pod fields. They are not
+The fields in this example are Pod fields. They are not
 fields of the Container in the Pod.
 {{< /note >}}
 
@@ -118,7 +118,7 @@ View the files in the `/etc/podinfo` directory:
 In the output, you can see that the `labels` and `annotations` files
 are in a temporary subdirectory: in this example,
 `..2982_06_02_21_47_53.299460680`. In the `/etc/podinfo` directory, `..data` is
-a symbolic link to the temporary subdirectory. Also in  the `/etc/podinfo` directory,
+a symbolic link to the temporary subdirectory. Also in the `/etc/podinfo` directory,
 `labels` and `annotations` are symbolic links.
 
 ```
@@ -139,7 +139,7 @@ atomically using
 [rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html).
 
 {{< note >}}
-**Note:** A container using Downward API as a
+A container using Downward API as a
 [subPath](/docs/concepts/storage/volumes/#using-subpath) volume mount will not
 receive Downward API updates.
 {{< /note >}}
@@ -221,7 +221,7 @@ In addition, the following information is available through
 * `metadata.annotations` - all of the pod’s annotations, formatted as `annotation-key="escaped-annotation-value"` with one annotation per line
 
 {{< note >}}
-**Note:** If CPU and memory limits are not specified for a Container, the
+If CPU and memory limits are not specified for a Container, the
 Downward API defaults to the node allocatable value for CPU and memory.
 {{< /note >}}
 

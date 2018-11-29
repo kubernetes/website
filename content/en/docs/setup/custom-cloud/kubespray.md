@@ -6,7 +6,7 @@ content_template: templates/concept
 {{% capture overview %}}
 
 This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-incubator/kubespray).
-  
+
 Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 
 * a highly available cluster
@@ -32,7 +32,7 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 
 Provision servers with the following [requirements](https://github.com/kubernetes-incubator/kubespray#requirements):
 
-* **Ansible v2.4 (or newer) and python-netaddr is installed on the machine that will run Ansible commands**
+* **Ansible v2.5 (or newer) and python-netaddr is installed on the machine that will run Ansible commands**
 * **Jinja 2.9 (or newer) is required to run the Ansible Playbooks**
 * The target servers must have **access to the Internet** in order to pull docker images
 * The target servers are configured to allow **IPv4 forwarding**
@@ -64,7 +64,7 @@ Kubespray provides the ability to customize many aspects of the deployment:
   * docker
   * rkt
   * cri-o
-* Certificate generation methods
+* Certificate generation methods (**Vault being discontinued**)
 
 Kubespray customizations can be made to a [variable file](http://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 
@@ -103,7 +103,7 @@ You can upgrade your cluster by running the upgrade-cluster playbook. For more i
 You can reset your nodes and wipe out all components installed with Kubespray via the [reset playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/reset.yml).
 
 {{< caution >}}
-**Caution:** When running the reset playbook, be sure not to accidentally target your production cluster!
+When running the reset playbook, be sure not to accidentally target your production cluster!
 {{< /caution >}}
 
 ## Feedback

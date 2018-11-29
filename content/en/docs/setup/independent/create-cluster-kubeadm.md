@@ -99,7 +99,7 @@ timeframe; which also applies to `kubeadm`.
 See ["Installing kubeadm"](/docs/setup/independent/install-kubeadm/).
 
 {{< note >}}
-**Note:** If you have already installed kubeadm, run `apt-get update &&
+If you have already installed kubeadm, run `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
@@ -228,7 +228,7 @@ created, and deleted with the `kubeadm token` command. See the
 ### Installing a pod network add-on {#pod-network}
 
 {{< caution >}}
-**Caution:** This section contains important information about installation and deployment order. Read it carefully before proceeding.
+This section contains important information about installation and deployment order. Read it carefully before proceeding.
 {{< /caution >}}
 
 You must install a pod network add-on so that your pods can communicate with
@@ -244,6 +244,9 @@ support [Network Policy](/docs/concepts/services-networking/networkpolicies/). S
 
 Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/docs/reference/access-authn-authz/rbac/).
 Make sure that your network manifest supports RBAC.
+
+Also, beware, that your Pod network must not overlap with any of the host networks as this can cause issues.
+If you find a collision between your network plugin’s preferred Pod network and some of your host networks, you should think of a suitable CIDR replacement and use that during `kubeadm init` with `--pod-network-cidr` and as a replacement in your network plugin’s YAML.
 
 You can install a pod network add-on with the following command:
 
@@ -465,7 +468,7 @@ The output is similar to this:
 ```
 
 {{< note >}}
-**Note:** To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
 {{< /note >}}
 
 The output should look something like:
@@ -498,7 +501,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 ```
 
 {{< note >}}
-**Note:** The example above assumes SSH access is enabled for root. If that is not the
+The example above assumes SSH access is enabled for root. If that is not the
 case, you can copy the `admin.conf` file to be accessible by some other user
 and `scp` using that other user instead.
 

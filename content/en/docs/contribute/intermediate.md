@@ -12,8 +12,7 @@ This page assumes that you've read and mastered the tasks in the
 learn about more ways to contribute.
 
 {{< note >}}
-**Note:** Some tasks require you to use the Git command line client and other
-tools.
+Some tasks require you to use the Git command line client and other tools.
 {{< /note >}}
 
 {{% /capture %}}
@@ -38,7 +37,7 @@ that one person does all of them all of the time.
 In any given week, a specific docs approver volunteers to do initial triage
 and review of [pull requests and issues](#triage-and-categorize-issues). This
 person is the "PR Wrangler" for the week. The schedule is maintained using the
-[PR Wrangler scheduler(https://github.com/kubernetes/website/wiki/PR-Wranglers).
+[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers).
 To be added to this list, attend the weekly SIG Docs meeting and volunteer. Even
 if you are not on the schedule for the current week, you can still review pull
 requests (PRs) that are not already under active review.
@@ -387,11 +386,11 @@ most up-to-date version of that branch.
       ```
 
       {{< note >}}
-**Note:** Do not reference a Github issue or pull request by ID or URL in the
-commit message. If you do, it will cause that issue or pull request to get
-a notification every time the commit shows up in a new Git branch. You can
-link issues and pull requests together later, in the Github UI.
-{{< /note >}}
+      Do not reference a Github issue or pull request by ID or URL in the
+      commit message. If you do, it will cause that issue or pull request to get
+      a notification every time the commit shows up in a new Git branch. You can
+      link issues and pull requests together later, in the Github UI.
+      {{< /note >}}
 
 5.  Optionally, you can test your change by staging the site locally using the
     `hugo` command. See [View your changes locally](#view-your-changes-locally).
@@ -528,7 +527,7 @@ In any given week, a specific docs approver volunteers to do initial
 on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
 not on the schedule for the current week, you can still review PRs.
 
-People in SIG Docs are only responsible for triaging and categorizing
+People in SIG Docs are responsible only for triaging and categorizing
 documentation issues. General website issues are also filed in the
 `kubernetes/website` repository.
 
@@ -625,6 +624,13 @@ Depending on where the dead link is reported, different actions are required to
 resolve the issue. Dead links in the API and Kubectl docs are automation issues
 and should be assigned a P1 until the problem can be fully understood. All other
 dead links are issues that need to be manually fixed and can be assigned a P3.
+
+#### Blog issues
+
+[Kubernetes Blog](https://kubernetes.io/blog/) entries are expected to become
+outdated over time, so we maintain only blog entries that are less than one year old. 
+If an issue is related to a blog entry that is more than one year old, it should be closed
+without fixing. 
 
 #### Support requests or code bug reports
 

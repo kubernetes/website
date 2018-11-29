@@ -25,9 +25,8 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server/) monitoring needs to be deployed in the cluster
-to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics
-(if you followed [getting started on GCE guide](/docs/setup/turnkey/gce/),
-metrics-server monitoring will be turned-on by default).
+to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-incubator/metrics-server/), if you followed [getting started on GCE guide](/docs/setup/turnkey/gce/),
+metrics-server monitoring will be turned-on by default. 
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
@@ -130,9 +129,11 @@ NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7         7         7            7           19m
 ```
 
-**Note** Sometimes it may take a few minutes to stabilize the number of replicas.
-Since the amount of load is not controlled in any way it may happen that the final number of replicas will
-differ from this example.
+{{< note >}}
+It may take a few minutes to stabilize the number of replicas. Since the amount
+of load is not controlled in any way it may happen that the final number of replicas
+will differ from this example.
+{{< /note >}}
 
 ## Stop load
 
@@ -156,7 +157,7 @@ php-apache   1         1         1            1           27m
 Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.
 
 {{< note >}}
-**Note** autoscaling the replicas may take a few minutes.
+Autoscaling the replicas may take a few minutes.
 {{< /note >}}
 
 {{% /capture %}}

@@ -109,7 +109,7 @@ load-balanced access to an application running in a cluster.
 
    {{< note >}}
 <!--
-   **Note:** If you are using Minikube, you don't get an external IP address. The
+    If you are using Minikube, you don't get an external IP address. The
    external IP address remains in the pending state.
 -->
    **注意：** 如果您使用 Minikube，那么您将不会获得外部 IP 地址。外部 IP 地址将保持 pending 状态。
@@ -139,7 +139,7 @@ load-balanced access to an application running in a cluster.
 
    {{< note >}}
 <!--
-   **Note:** If you are using Minikube, enter these commands:
+   If you are using Minikube, enter these commands:
 -->
    **注意：** 如果您使用 Minikube，输入以下命令：
    {{< /note >}}

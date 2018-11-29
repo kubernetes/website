@@ -7,7 +7,7 @@ title: Running Kubernetes on Azure
 
 ## Azure Kubernetes Service (AKS)
 
-The [Azure Kubernetes Service)](https://azure.microsoft.com/en-us/services/kubernetes-service/) offers simple
+The [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/) offers simple
 deployments for Kubernetes clusters.
 
 For an example of deploying a Kubernetes cluster onto Azure via the Azure Kubernetes Service:

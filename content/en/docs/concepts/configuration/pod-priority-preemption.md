@@ -9,7 +9,6 @@ weight: 70
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.8" state="alpha" >}}
 {{< feature-state for_k8s_version="1.11" state="beta" >}}
 
 [Pods](/docs/user-guide/pods) can have _priority_. Priority indicates the
@@ -36,7 +35,7 @@ Kubernetes Version | Priority and Preemption State | Enabled by default
 1.10               | alpha                         | no
 1.11               | beta                          | yes
 
-{{< warning >}} **Warning**: In a cluster where not all users are trusted, a
+{{< warning >}}In a cluster where not all users are trusted, a
 malicious user could create pods at the highest possible priorities, causing
 other pods to be evicted/not get scheduled. To resolve this issue,
 [ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is
@@ -71,24 +70,13 @@ Pods.
 
 ## How to disable preemption
 
-{{< note >}} **Note**: In Kubernetes 1.11, critical pods (except DaemonSet pods,
-which are still scheduled by the DaemonSet controller) rely on scheduler
-preemption to be scheduled when a cluster is under resource pressure. For this
-reason, you will need to run an older version of Rescheduler if you decide to
-disable preemption. More on this is provided below. {{< /note >}}
-
-#### Option 1: Disable both Pod priority and preemption
-
-Disabling Pod priority disables preemption as well. In order to disable Pod
-Priority, set the feature to false for API server, Scheduler, and Kubelet.
-Disabling the feature on Kubelets is not vital. You can leave the feature on for
-Kubelets if rolling out is hard.
-
-```
---feature-gates=PodPriority=false
-```
-
-#### Option 2: Disable Preemption only
+{{< note >}}
+In Kubernetes 1.11, critical pods (except DaemonSet pods, which are
+still scheduled by the DaemonSet controller) rely on scheduler preemption to be
+scheduled when a cluster is under resource pressure. For this reason, you will
+need to run an older version of Rescheduler if you decide to disable preemption.
+More on this is provided below.
+{{< /note >}}
 
 In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag
 `disablePreemption`, which is set to `false` by default.
@@ -266,11 +254,13 @@ A Node is considered for preemption only when the answer to this question is
 yes: "If all the Pods with lower priority than the pending Pod are removed from
 the Node, can the pending Pod be scheduled on the Node?"
 
-{{< note >}} **Note:** Preemption does not necessarily remove all lower-priority
+{{< note >}}
+Preemption does not necessarily remove all lower-priority
 Pods. If the pending Pod can be scheduled by removing fewer than all
 lower-priority Pods, then only a portion of the lower-priority Pods are removed.
 Even so, the answer to the preceding question must be yes. If the answer is no,
-the Node is not considered for preemption. {{< /note >}}
+the Node is not considered for preemption.
+{{< /note >}}
 
 If a pending Pod has inter-pod affinity to one or more of the lower-priority
 Pods on the Node, the inter-Pod affinity rule cannot be satisfied in the absence

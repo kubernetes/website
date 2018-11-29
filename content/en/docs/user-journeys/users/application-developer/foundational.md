@@ -248,10 +248,6 @@ The Kubernetes documentation is rich in detail. Here's a curated list of resourc
 
 * {{< link text="Hello Minikube" url="/docs/tutorials/stateless-application/hello-minikube/" >}} *(Runs on Mac only)*
 
-* {{< link text="Kubernetes 101" url="/docs/user-guide/walkthrough/" >}}
-
-* {{< link text="Kubernetes 201" url="/docs/user-guide/walkthrough/k8s201/" >}}
-
 * {{< link text="Kubernetes object management" url="/docs/tutorials/object-management-kubectl/object-management/" >}}
 
 ### What's next

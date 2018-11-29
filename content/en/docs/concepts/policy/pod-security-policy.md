@@ -37,7 +37,7 @@ administrator to control the following:
 | White list of Flexvolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
-| The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
+| The user and group IDs of the container             | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
 | Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
@@ -230,8 +230,8 @@ Create the rolebinding to grant `fake-user` the `use` verb on the example
 policy:
 
 {{< note >}}
-**Note:** _This is not the recommended way! See the [next section](#run-another-pod)
-for the preferred approach._
+This is not the recommended way! See the [next section](#run-another-pod)
+for the preferred approach.
 {{< /note >}}
 
 ```shell
@@ -442,7 +442,7 @@ allowedHostPaths:
     readOnly: true # only allow read-only mounts
 ```
 
-{{< warning >}}**Warning:** There are many ways a container with unrestricted access to the host
+{{< warning >}}There are many ways a container with unrestricted access to the host
 filesystem can escalate privileges, including reading data from other
 containers, and abusing the credentials of system services, such as Kubelet.
 
@@ -457,7 +457,7 @@ root filesystem (i.e. no writable layer).
 
 ### Flexvolume drivers
 
-This specifies a whiltelist of Flexvolume drivers that are allowed to be used
+This specifies a whitelist of Flexvolume drivers that are allowed to be used
 by flexvolume. An empty list or nil means there is no restriction on the drivers.
 Please make sure [`volumes`](#volumes-and-file-systems) field contains the
 `flexVolume` volume type; no Flexvolume driver is allowed otherwise.

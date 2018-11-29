@@ -108,8 +108,9 @@ which should produce output like this:
 The IP address is listed next to `LoadBalancer Ingress`.
 
 {{< note >}}
-**Note**: If you are running your service on Minikube, you can find the assigned IP address and port with:
+If you are running your service on Minikube, you can find the assigned IP address and port with:
 {{< /note >}}
+
 ```bash
 minikube service example-service --url
 ```
@@ -181,7 +182,7 @@ compared to the `service.spec.externalTrafficPolicy` field. The values match as 
 * "Global" for annotation <-> "Cluster" for field
 
 {{< note >}}
-**Note:** This feature is not currently implemented for all cloudproviders/environments.
+This feature is not currently implemented for all cloudproviders/environments.
 {{< /note >}}
 
 Known issues:

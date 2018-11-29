@@ -157,7 +157,7 @@ $ echo 'Tab lists may contain code blocks!'
 Nested header tags may also be included.
 
 {{< warning >}}
-**Note**: Headers within tab lists will not appear in the Table of Contents.
+Headers within tab lists will not appear in the Table of Contents.
 {{< /warning >}}
 
 {{% /tab %}}
@@ -321,7 +321,7 @@ A sidebar offsets text visually, but without the visual prominence of
 Admonitions (notes, warnings, etc) use Hugo shortcodes.
 
 {{< note >}}
-**Note:** Notes catch the reader's attention without a sense of urgency.
+Notes catch the reader's attention without a sense of urgency.
 
 You can have multiple paragraphs and block-level elements inside an admonition.
 
@@ -329,12 +329,12 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 {{< /note >}}
 
 {{< caution >}}
-**Caution:** The reader should proceed with caution.
+The reader should proceed with caution.
 {{< /caution >}}
 
 
 {{< warning >}}
-**Warning:** Warnings point out something that could cause harm if ignored.
+Warnings point out something that could cause harm if ignored.
 {{< /warning >}}
 
 

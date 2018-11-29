@@ -15,7 +15,7 @@ directory of the [`kubernetes/website`](https://github.com/kubernetes/website)
 repository.
 
 {{< note >}}
-**Note**: Every new topic needs to use a template. If you are unsure which
+Every new topic needs to use a template. If you are unsure which
 template to use for a new topic, start with the
 [concept template](#concept-template).
 {{< /note >}}
@@ -75,7 +75,7 @@ To write a new concept page, create a Markdown file in a subdirectory of the
 
 An example of a published topic that uses the concept template is
 [Annotations](/docs/concepts/overview/working-with-objects/annotations/). The
-page you are currently reading also uses the content template.
+page you are currently reading also uses the concept template.
 
 ## Task template
 
