@@ -170,6 +170,7 @@ aliases:
     - tengqm
     - xiangpengzhao
     - zhangxiaoyu-zidif
+    - pigletfly
   sig-federation: #Team: Federation; e.g. Federated Clusters
     - csbell
   sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
