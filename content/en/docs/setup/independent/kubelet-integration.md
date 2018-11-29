@@ -79,7 +79,7 @@ networking, or other host-specific parameters. The following list provides a few
   unless you are using a cloud provider. You can use the `--hostname-override` flag to override the
   default behavior if you need to specify a Node name different from the machine's hostname.
 
-- Currently, the kubelet cannot automatically detects the cgroup driver used by the CRI runtime,
+- Currently, the kubelet automatically detects the cgroup driver used by the CRI runtime,
   but the value of `--cgroup-driver` must match the cgroup driver used by the CRI runtime to ensure
   the health of the kubelet.
 
