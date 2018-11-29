@@ -68,7 +68,7 @@ federation-apiserver [flags]
       --etcd-servers strings                                    List of etcd servers to connect with (scheme://ip:port), comma separated.
       --etcd-servers-overrides strings                          Per-resource etcd servers overrides, comma separated. The individual override format: group/resource#servers, where servers are http://ip:port, semicolon separated.
       --event-ttl duration                                      Amount of time to retain events. (default 1h0m0s)
-      --experimental-encryption-provider-config string          The file containing configuration for encryption providers to be used for storing secrets in etcd
+      --encryption-provider-config string                       The file containing configuration for encryption providers to be used for storing secrets in etcd
       --experimental-keystone-ca-file string                    If set, the Keystone server's certificate will be verified by one of the authorities in the experimental-keystone-ca-file, otherwise the host's root CA set will be used.
       --experimental-keystone-url string                        If passed, activates the keystone authentication plugin.
       --external-hostname string                                The hostname to use when generating externalized URLs for this master (e.g. Swagger API Docs).
