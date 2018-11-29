@@ -857,7 +857,7 @@ kube-apiserver [flags]
       <td colspan="2">--storage-backend string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The storage backend for persistence. Options: 'etcd3' (default), 'etcd2'.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The storage backend for persistence. Options: 'etcd3' (default)</td>
     </tr>
 
     <tr>
