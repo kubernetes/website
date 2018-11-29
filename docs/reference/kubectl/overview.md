@@ -19,7 +19,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
 
-* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
+* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
       $ kubectl get pod pod1
       $ kubectl get pods pod1
@@ -182,8 +182,8 @@ $ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
 where the `template.txt` file contains:
 
 ```
-NAME                    RSRC
-      metadata.name           metadata.resourceVersion
+NAME          RSRC
+metadata.name metadata.resourceVersion
 ```
 The result of running either command is:
 
@@ -191,6 +191,26 @@ The result of running either command is:
 NAME           RSRC
 submit-queue   610995
 ```
+
+#### Server-side columns
+
+`kubectl` supports receiving specific column information from the server about objects.
+This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
+This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
+
+To output object information using this feature, you can add the `--experimental-server-print` flag to a supported `kubectl` command.
+
+##### Examples
+
+```shell
+$ kubectl get pods <pod-name> --experimental-server-print
+```
+
+The result of running this command is:
+
+```shell
+NAME       READY     STATUS              RESTARTS   AGE
+pod-name   1/1       Running             0          1m
 
 ### Sorting list objects
 
@@ -245,6 +265,9 @@ $ kubectl get ds --include-uninitialized
 
 // List all pods running on node server01
 $ kubectl get pods --field-selector=spec.nodeName=server01
+
+// List all pods in plain-text output format, delegating the details of printing to the server
+$ kubectl get pods --experimental-server-print
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.

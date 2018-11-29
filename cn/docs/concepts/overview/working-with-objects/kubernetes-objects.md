@@ -52,12 +52,12 @@ Kubernetes 系统读取 Deployment 规约，并启动我们所期望的该应用
 
 ### 描述 Kubernetes 对象
 
-当创建 KUbernetes 对象时，必须提供对象的规约，用来描述该对象的期望状态，以及关于对象的一些基本信息（例如名称）。
-当使用 KUbernetes API 创建对象时（或者直接创建，或者基于`kubectl`），API 请求必须在请求体中包含 JSON 格式的信息。
+当创建 Kubernetes 对象时，必须提供对象的规约，用来描述该对象的期望状态，以及关于对象的一些基本信息（例如名称）。
+当使用 Kubernetes API 创建对象时（或者直接创建，或者基于`kubectl`），API 请求必须在请求体中包含 JSON 格式的信息。
 **大多数情况下，需要在 .yaml 文件中为 `kubectl` 提供这些信息**。 
 `kubectl` 在发起 API 请求时，将这些信息转换成 JSON 格式。
 
-这里有一个 `.yaml` 示例文件，展示了 KUbernetes Deployment 的必需字段和对象规约：
+这里有一个 `.yaml` 示例文件，展示了 Kubernetes Deployment 的必需字段和对象规约：
 
 {% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/concepts/overview/working-with-objects/nginx-deployment.yaml" %}
 
@@ -78,7 +78,7 @@ deployment "nginx-deployment" created
 
 ### 必需字段
 
-在想要创建的 KUbernetes 对象对应的 `.yaml` 文件中，需要配置如下的字段：
+在想要创建的 Kubernetes 对象对应的 `.yaml` 文件中，需要配置如下的字段：
 
 * `apiVersion` - 创建该对象所使用的 Kubernetes API 的版本
 * `kind` - 想要创建的对象的类型

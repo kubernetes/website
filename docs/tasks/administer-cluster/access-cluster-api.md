@@ -32,7 +32,7 @@ $ kubectl config view
 ```
 
 Many of the [examples](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/) provide an introduction to using
-kubectl. Complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
+kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/).
 
 ### Directly accessing the REST API
 
@@ -145,10 +145,10 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 
 #### Python client
 
-To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
+To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py):
 
 ```python
 from kubernetes import client, config

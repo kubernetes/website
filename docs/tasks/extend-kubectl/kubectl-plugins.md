@@ -1,6 +1,6 @@
 ---
 title: Extend kubectl with plugins
-approvers:
+reviewers:
 - fabianofranz
 description: With kubectl plugins, you can extend the functionality of the kubectl command by adding new subcommands.
 ---

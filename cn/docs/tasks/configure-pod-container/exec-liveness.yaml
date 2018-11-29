@@ -15,7 +15,7 @@ spec:
     - -c
     - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
 
-    image: gcr.io/google_containers/busybox
+    image: k8s.gcr.io/busybox
 
     livenessProbe:
       exec:

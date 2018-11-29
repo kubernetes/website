@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - madhusudancs
 title: Set up Cluster Federation with Kubefed
 ---
@@ -24,52 +24,57 @@ This guide assumes that you have a running Kubernetes cluster. Please
 see one of the [getting started](/docs/setup/) guides
 for installation instructions for your platform.
 
-
 ## Getting `kubefed`
 
-Download the client tarball corresponding to the latest release and
-extract the binaries in the tarball with the commands:
+Download the client tarball corresponding to the particular release and 
+extract the binaries in the tarball:
+
+> Note that until kubernetes versions `1.8.x` the federation project was 
+maintained as part of [core kubernetes repo](https://github.com/kubernetes/kubernetes).
+At some point between kubernetes releases `1.8.0` and `1.9.0`, it moved into 
+a separate [federation repo](https://github.com/kubernetes/federation) and is 
+now maintained there. After this move, the federation release information is 
+available at the release page [here](https://github.com/kubernetes/federation/releases).
+
+### For k8s versions 1.8.x and earlier:
 
 ```shell
-# Linux
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-linux-amd64.tar.gz
+curl -LO https://storage.googleapis.com/kubernetes-release/release/${RELEASE-VERSION}/kubernetes-client-linux-amd64.tar.gz
 tar -xzvf kubernetes-client-linux-amd64.tar.gz
-
-# OS X
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-darwin-amd64.tar.gz
-tar -xzvf kubernetes-client-darwin-amd64.tar.gz
-
-# Windows
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-windows-amd64.tar.gz
-tar -xzvf kubernetes-client-windows-amd64.tar.gz
 ```
+> Note that the variable `RELEASE-VERSION` should be either appropriately 
+set to or replaced with the actual version needed. 
 
-> Note: The URLs in the curl commands above download the binaries for
-`amd64`. If you are on a different architecture, please use a URL
-appropriate for your architecture. You can find the list of available
-binaries on the
-[release page](https://git.k8s.io/kubernetes/CHANGELOG.md#client-binaries-1).
-
-Copy the extracted binaries to one of the directories in your `$PATH`
-and set the executable permission on those binaries.
-
+Copy the extracted binary to one of the directories in your `$PATH`
+and set the executable permission on the binary.
 
 ```shell
 sudo cp kubernetes/client/bin/kubefed /usr/local/bin
 sudo chmod +x /usr/local/bin/kubefed
-sudo cp kubernetes/client/bin/kubectl /usr/local/bin
-sudo chmod +x /usr/local/bin/kubectl
 ```
 
-### Install with snap on Ubuntu
+### For k8s versions 1.9.x and above:
 
-kubefed is available as a [snap](https://snapcraft.io/) application.
+```shell
+curl -LO https://storage.cloud.google.com/kubernetes-federation-release/release/${RELEASE-VERSION}/federation-client-linux-amd64.tar.gz
+tar -xzvf federation-client-linux-amd64.tar.gz
+```
 
-1. If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, you can install with:
+> Note that the variable `RELEASE-VERSION` should be replaced with one of the 
+release versions available at [federation release page](https://github.com/kubernetes/federation/releases). 
 
-       sudo snap install kubefed --classic
+Copy the extracted binary to one of the directories in your `$PATH`
+and set the executable permission on the binary.
 
-2. Run [`kubefed version`](/docs/admin/kubefed_version/) to verify that the version you've installed is sufficiently up-to-date.
+```shell
+sudo cp federation/client/bin/kubefed /usr/local/bin
+sudo chmod +x /usr/local/bin/kubefed
+```
+
+### Install kubectl
+
+You can install a matching version of kubectl using the instructions on 
+the  [kubectl install page](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 
 ## Choosing a host cluster.
 
@@ -381,7 +386,7 @@ To join clusters into the federation:
 
 1. If you are using a managed cluster service, allow the service to access the cluster. To do this, create a `clusterrolebinding` for the account associated with your cluster service:
 
-       kubectl create clusterrolebinding <your_user>-cluster-admin-binding --clusterrole=cluster-admin --user=<your_user>@example.org --context=<joining_cluster_context
+       kubectl create clusterrolebinding <your_user>-cluster-admin-binding --clusterrole=cluster-admin --user=<your_user>@example.org --context=<joining_cluster_context>
 
 1. Join the cluster to the federation, using `kubefed join`, and make sure you provide the following:
 
@@ -473,7 +478,6 @@ command with the cluster name and the federation's
 kubefed unjoin gondor --host-cluster-context=rivendell
 ```
 
-
 ## Turning down the federation control plane
 
 Proper cleanup of federation control plane is not fully implemented in
@@ -487,5 +491,5 @@ namespace by running the following command:
 kubectl delete ns federation-system --context=rivendell
 ```
 
-Note that `rivendell` is the host cluster name, replace that with the appropriate name in your configuration.
-
+Note that `rivendell` is the host cluster name, replace that with the
+appropriate name in your configuration.

@@ -1,7 +1,7 @@
 ---
-approvers:
+reviewers:
 - smarterclayton
-title: Encrypting data at rest
+title: Encrypting Secret Data at Rest
 ---
 
 {% capture overview %}
@@ -78,7 +78,8 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 `identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
 `aescbc` | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than `secretbox`.
 `secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review. 
-`aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented. 
+`aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
+`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
@@ -167,7 +168,7 @@ the presence of a highly available deployment where multiple `kube-apiserver` pr
 2. Restart all `kube-apiserver` processes to ensure each server can decrypt using the new key
 3. Make the new key the first entry in the `keys` array so that it is used for encryption in the config
 4. Restart all `kube-apiserver` processes to ensure each server now encrypts using the new key
-5. Run `kubectl get secrets -o json | kubectl replace -f -` to encrypt all existing secrets with the new key
+5. Run `kubectl get secrets --all-namespaces -o json | kubectl replace -f -` to encrypt all existing secrets with the new key
 6. Remove the old decryption key from the config after you back up etcd with the new key in use and update all secrets
 
 With a single `kube-apiserver`, step 2 may be skipped.
@@ -191,7 +192,7 @@ resources:
           secret: <BASE 64 ENCODED SECRET>
 ```
 
-and restart all `kube-apiserver` processes. Then run the command `kubectl get secrets -o json | kubectl replace -f -`
+and restart all `kube-apiserver` processes. Then run the command `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
 to force all secrets to be decrypted.
 
 {% endcapture %}

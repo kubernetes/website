@@ -13,10 +13,10 @@ the controller manager.
 
 Controller manager metrics provide important insight into the performance and health of the controller manager.
 These metrics include common Go language runtime metrics such as go_routine count and controller specific metrics such as
-etcd request latencies or Cloudprovider (AWS, GCE, Openstack) API latencies that can be used
+etcd request latencies or Cloudprovider (AWS, GCE, OpenStack) API latencies that can be used
 to gauge the health of a cluster.
 
-Starting from Kubernetes 1.7, detailed Cloudprovider metrics are available for storage operations for GCE, AWS, Vsphere and Openstack.
+Starting from Kubernetes 1.7, detailed Cloudprovider metrics are available for storage operations for GCE, AWS, Vsphere and OpenStack.
 These metrics can be used to monitor health of persistent volume operations.
 
 For example, for GCE these metrics are called:

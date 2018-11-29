@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - Random-Liu
 - dchen1107
 title: Monitor Node Health
@@ -13,7 +13,7 @@ title: Monitor Node Health
 *Node problem detector* is a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) monitoring the
 node health. It collects node problems from various daemons and reports them
 to the apiserver as [NodeCondition](/docs/concepts/architecture/nodes/#condition)
-and [Event](/docs/api-reference/{{page.version}}/#event-v1-core).
+and [Event](/docs/reference/generated/kubernetes-api/{{page.version}}/#event-v1-core).
 
 It supports some known kernel issue detection now, and will detect more and
 more node problems over time.
@@ -54,48 +54,10 @@ provides more flexible management, such as overwriting the default
 configuration to fit it into your environment or detect
 customized node problems.
 
-* **Step 1:** Create `node-problem-detector.yaml`:
+* **Step 1:** `node-problem-detector.yaml`:
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: DaemonSet
-metadata:
-  name: node-problem-detector-v0.1
-  namespace: kube-system
-  labels:
-    k8s-app: node-problem-detector
-    version: v0.1
-    kubernetes.io/cluster-service: "true"
-spec:
-  template:
-    metadata:
-      labels:
-        k8s-app: node-problem-detector
-        version: v0.1
-        kubernetes.io/cluster-service: "true"
-    spec:
-      hostNetwork: true
-      containers:
-      - name: node-problem-detector
-        image: gcr.io/google_containers/node-problem-detector:v0.1
-        securityContext:
-          privileged: true
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "100Mi"
-          requests:
-            cpu: "20m"
-            memory: "20Mi"
-        volumeMounts:
-        - name: log
-          mountPath: /log
-          readOnly: true
-      volumes:
-      - name: log
-        hostPath:
-          path: /var/log/
-```
+{% include code.html language="yaml" file="node-problem-detector.yaml" ghlink="/docs/tasks/debug-application-cluster/node-problem-detector.yaml" %}
+
 
 ***Notice that you should make sure the system log directory is right for your
 OS distro.***
@@ -103,7 +65,7 @@ OS distro.***
 * **Step 2:** Start node problem detector with `kubectl`:
 
 ```shell
-kubectl create -f node-problem-detector.yaml
+ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/node-problem-detector.yaml
 ```
 
 ### Addon Pod
@@ -120,7 +82,7 @@ Just create `node-problem-detector.yaml`, and put it under the addon pods direct
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)
 is embedded when building the docker image of node problem detector.
 
-However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configmap/) to overwrite it
+However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to overwrite it
 following the steps:
 
 * **Step 1:** Change the config files in `config/`.
@@ -128,58 +90,14 @@ following the steps:
 node-problem-detector-config --from-file=config/`.
 * **Step 3:** Change the `node-problem-detector.yaml` to use the ConfigMap:
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: DaemonSet
-metadata:
-  name: node-problem-detector-v0.1
-  namespace: kube-system
-  labels:
-    k8s-app: node-problem-detector
-    version: v0.1
-    kubernetes.io/cluster-service: "true"
-spec:
-  template:
-    metadata:
-      labels:
-        k8s-app: node-problem-detector
-        version: v0.1
-        kubernetes.io/cluster-service: "true"
-    spec:
-      hostNetwork: true
-      containers:
-      - name: node-problem-detector
-        image: gcr.io/google_containers/node-problem-detector:v0.1
-        securityContext:
-          privileged: true
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "100Mi"
-          requests:
-            cpu: "20m"
-            memory: "20Mi"
-        volumeMounts:
-        - name: log
-          mountPath: /log
-          readOnly: true
-        - name: config # Overwrite the config/ directory with ConfigMap volume
-          mountPath: /config
-          readOnly: true
-      volumes:
-      - name: log
-        hostPath:
-          path: /var/log/
-      - name: config # Define ConfigMap volume
-        configMap:
-          name: node-problem-detector-config
-```
+{% include code.html language="yaml" file="node-problem-detector-configmap.yaml" ghlink="/docs/tasks/debug-application-cluster/node-problem-detector-configmap.yaml" %}
+
 
 * **Step 4:** Re-create the node problem detector with the new yaml file:
 
 ```shell
-kubectl delete -f node-problem-detector.yaml # If you have a node-problem-detector running
-kubectl create -f node-problem-detector.yaml
+ kubectl delete -f https://k8s.io/docs/tasks/debug-application-cluster/node-problem-detector.yaml # If you have a node-problem-detector running
+ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/node-problem-detector-configmap.yaml
 ```
 
 ***Notice that this approach only applies to node problem detector started with `kubectl`.***

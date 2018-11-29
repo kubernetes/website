@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: frontend
@@ -6,14 +6,14 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      tier: frontend
+      role: frontend
     matchExpressions:
-      - {key: tier, operator: In, values: [frontend]}
+      - {key: role, operator: In, values: [frontend]}
   template:
     metadata:
       labels:
         app: guestbook
-        tier: frontend
+        role: frontend
     spec:
       containers:
       - name: php-redis

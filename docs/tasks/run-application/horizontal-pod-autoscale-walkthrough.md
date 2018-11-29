@@ -1,41 +1,63 @@
 ---
-approvers:
+reviewers:
 - fgrzadkowski
 - jszczepkowski
 - justinsb
 - directxman12
-title: Horizontal Pod Autoscaling Walkthrough
+title: Horizontal Pod Autoscaler Walkthrough
 ---
 
-Horizontal Pod Autoscaling automatically scales the number of pods
+* TOC
+{:toc}
+
+Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
-This document walks you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.  For more information on how Horizontal Pod Autoscaling behaves, see the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
+This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 ## Prerequisites
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [Heapster](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
 as Horizontal Pod Autoscaler uses it to collect metrics
-(if you followed [getting started on GCE guide](/docs/getting-started-guides/gce/),
+(if you followed [getting started on GCE guide](/docs/getting-started-guides/gce.md),
 heapster monitoring will be turned-on by default).
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
-must be able to communicate with the API server providing the custom metrics API.
-See the [Horizontal Pod Autoscaling user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
+must be able to communicate with the API server providing the custom metrics API. Finally, to use metrics
+not related to any Kubernetes object you must have a Kubernetes cluster at version 1.10 or later, and
+you must be able to communicate with the API server that provides the external metrics API.
+See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
 ## Step One: Run & expose php-apache server
 
 To demonstrate Horizontal Pod Autoscaler we will use a custom docker image based on the php-apache image.
-The Dockerfile can be found [here](/docs/user-guide/horizontal-pod-autoscaling/image/Dockerfile).
-It defines an [index.php](/docs/user-guide/horizontal-pod-autoscaling/image/index.php) page which performs some CPU intensive computations.
+The Dockerfile has the following content:
+
+```
+FROM php:5-apache
+ADD index.php /var/www/html/index.php
+RUN chmod a+rx index.php
+```
+
+It defines an index.php page which performs some CPU intensive computations:
+
+```
+<?php
+  $x = 0.0001;
+  for ($i = 0; $i <= 1000000; $i++) {
+    $x += sqrt($x);
+  }
+  echo "OK!";
+?>
+```
 
 First, we will start a deployment running the image and expose it as a service:
 
 ```shell
-$ kubectl run php-apache --image=gcr.io/google_containers/hpa-example --requests=cpu=200m --expose --port=80
+$ kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
 service "php-apache" created
 deployment "php-apache" created
 ```
@@ -147,7 +169,7 @@ metadata:
   namespace: default
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     name: php-apache
   minReplicas: 1
@@ -228,7 +250,7 @@ metadata:
   namespace: default
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     name: php-apache
   minReplicas: 1
@@ -267,6 +289,37 @@ Then, your HorizontalPodAutoscaler would attempt to ensure that each pod was con
 50% of its requested CPU, serving 1000 packets per second, and that all pods behind the main-route
 Ingress were serving a total of 10000 requests per second.
 
+### Autoscaling on metrics not related to Kubernetes objects
+
+Applications running on Kubernetes may need to autoscale based on metrics that don't have an obvious
+relationship to any object in the Kubernetes cluster, such as metrics describing a hosted service with
+no direct correlation to Kubernetes namespaces. In Kubernetes 1.10 and later, you can address this use case
+with *external metrics*.
+
+Using external metrics requires a certain level of knowledge of your monitoring system, and it requires a cluster
+monitoring setup similar to one required for using custom metrics. With external metrics, you can autoscale
+based on any metric available in your monitoring system by providing a `metricName` field in your
+HorizontalPodAutoscaler manifest. Additionally you can use a `metricSelector` field to limit which
+metrics' time series you want to use for autoscaling. If multiple time series are matched by `metricSelector`,
+the sum of their values is used by the HorizontalPodAutoscaler.
+
+For example if your application processes tasks from a hosted queue service, you could add the following
+section to your HorizontalPodAutoscaler manifest to specify that you need one worker per 30 outstanding tasks.
+
+```yaml
+- type: External
+  external:
+    metricName: queue_messages_ready
+    metricSelector:
+      matchLabels:
+        queue: worker_tasks
+    targetAverageValue: 30
+```
+
+If your metric describes work or resources that can be divided between autoscaled pods the `targetAverageValue`
+field describes how much of that work each pod can handle. Instead of using the `targetAverageValue` field, you could use the
+`targetValue` to define a desired value of your external metric.
+
 ## Appendix: Horizontal Pod Autoscaler Status Conditions
 
 When using the `autoscaling/v2beta1` form of the HorizontalPodAutoscaler, you will be able to see
@@ -304,36 +357,23 @@ For this HorizontalPodAutoscaler, we can see several conditions in a healthy sta
 whether or not any backoff-related conditions would prevent scaling.  The second, `ScalingActive`,
 indicates whether or not the HPA is enabled (i.e. the replica count of the target is not zero) and
 is able to calculate desired scales. When it is `False`, it generally indicates problems with
-fetching metrics.  Finally, the last condition, `ScalingLimitted`, indicates that the desired scale
+fetching metrics.  Finally, the last condition, `ScalingLimited`, indicates that the desired scale
 was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an indication that
 you may wish to raise or lower the minimum or maximum replica count constraints on your
 HorizontalPodAutoscaler.
 
 ## Appendix: Other possible scenarios
 
-### Creating the autoscaler from a .yaml file
+### Creating the autoscaler declaratively
 
-Instead of using `kubectl autoscale` command we can use the [hpa-php-apache.yaml](/docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.yaml) file, which looks like this:
+Instead of using `kubectl autoscale` command to create a HorizontalPodAutoscaler imperatively we
+can use the following file to create it declaratively:
 
-```yaml
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: php-apache
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1beta1
-    kind: Deployment
-    name: php-apache
-  minReplicas: 1
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
-```
+{% include code.html language="yaml" file="hpa-php-apache.yaml" ghlink="/docs/tasks/run-application/hpa-php-apache.yaml" %}
 
 We will create the autoscaler by executing the following command:
 
 ```shell
-$ kubectl create -f docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.yaml
+$ kubectl create -f https://k8s.io/docs/tasks/run-application/hpa-php-apache.yaml
 horizontalpodautoscaler "php-apache" created
 ```

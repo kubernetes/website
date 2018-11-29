@@ -25,7 +25,7 @@ title: 运行 ZooKeeper， 一个 CP 分布式系统
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
-* [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
+* [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
 * [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
@@ -67,7 +67,7 @@ ZooKeeper 在内存中保存它们的整个状态机，但是每个改变都被�
 ## 创建一个 ZooKeeper Ensemble
 
 
-下面的清单包含一个 [Headless Service](/docs/user-guide/services/#headless-services)，一个 [ConfigMap](/docs/tasks/configure-pod-container/configmap/)，一个 [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget) 和 一个 [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)。
+下面的清单包含一个 [Headless Service](/docs/user-guide/services/#headless-services)，一个 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)，一个 [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget) 和 一个 [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)。
 
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 

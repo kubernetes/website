@@ -42,7 +42,7 @@ Next, expand the template into multiple files, one for each item to be processed
 $ mkdir ./jobs
 $ for i in apple banana cherry
 do
-  cat job.yaml.txt | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
+  cat job.yaml | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
 done
 ```
 
@@ -72,10 +72,10 @@ Now, check on the jobs:
 
 ```shell
 $ kubectl get jobs -l jobgroup=jobexample
-JOB                   CONTAINER(S)   IMAGE(S)   SELECTOR                               SUCCESSFUL
-process-item-apple    c              busybox    app in (jobexample),item in (apple)    1
-process-item-banana   c              busybox    app in (jobexample),item in (banana)   1
-process-item-cherry   c              busybox    app in (jobexample),item in (cherry)   1
+NAME                  DESIRED   SUCCESSFUL   AGE
+process-item-apple    1         1            31s
+process-item-banana   1         1            31s
+process-item-cherry   1         1            31s
 ```
 
 Here we use the `-l` option to select all jobs that are part of this
@@ -85,7 +85,7 @@ do not care to see.)
 We can check on the pods as well using the same label selector:
 
 ```shell
-$ kubectl get pods -l jobgroup=jobexample --show-all
+$ kubectl get pods -l jobgroup=jobexample
 NAME                        READY     STATUS      RESTARTS   AGE
 process-item-apple-kixwv    0/1       Completed   0          4m
 process-item-banana-wrsf7   0/1       Completed   0          4m
@@ -96,7 +96,7 @@ There is not a single command to check on the output of all jobs at once,
 but looping over all the pods is pretty easy:
 
 ```shell
-$ for p in $(kubectl get pods -l jobgroup=jobexample --show-all -o name)
+$ for p in $(kubectl get pods -l jobgroup=jobexample -o name)
 do
   kubectl logs $p
 done
@@ -184,11 +184,6 @@ If you have a large number of job objects, you may find that:
 - Even using labels, managing so many Job objects is cumbersome.
 - You exceed resource quota when creating all the Jobs at once,
   and do not want to wait to create them incrementally.
-- You need a way to easily scale the number of pods running
-  concurrently.  One reason would be to avoid using too many
-  compute resources.  Another would be to limit the number of
-  concurrent requests to a shared resource, such as a database,
-  used by all the pods in the job.
 - Very large numbers of jobs created at once overload the
   Kubernetes apiserver, controller, or scheduler.
 

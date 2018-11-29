@@ -115,8 +115,8 @@ juju switch default
 
 ### Running privileged containers
 
-By default, juju-deployed clusters do not support running privileged containers.
-If you need them, you have to enable the ```allow-privileged``` config on both
+By default, juju-deployed clusters only allow running privileged containers on nodes with GPUs.
+If you need privileged containers on other nodes, you have to enable the ```allow-privileged``` config on both
 kubernetes-master and kubernetes-worker:
 
 ```

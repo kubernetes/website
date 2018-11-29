@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jlowdermilk
 - justinsb
 - quinton-hoole
@@ -36,14 +36,14 @@ zone information.
 
 Kubernetes will automatically spread the pods in a replication controller
 or service across nodes in a single-zone cluster (to reduce the impact of
-failures.)  With multiple-zone clusters, this spreading behaviour is
+failures.)  With multiple-zone clusters, this spreading behavior is
 extended across zones (to reduce the impact of zone failures.)  (This is
 achieved via `SelectorSpreadPriority`).  This is a best-effort
 placement, and so if the zones in your cluster are heterogeneous
 (e.g. different numbers of nodes, different types of nodes, or
 different pod resource requirements), this might prevent perfectly
 even spreading of your pods across zones. If desired, you can use
-homogenous zones (same number and types of nodes) to reduce the
+homogeneous zones (same number and types of nodes) to reduce the
 probability of unequal spreading.
 
 When persistent volumes are created, the `PersistentVolumeLabel`

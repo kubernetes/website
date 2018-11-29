@@ -26,10 +26,10 @@ Log verbosity in Juju is set at the model level. You can adjust it at any time:
 juju add-model k8s-development --config logging-config='<root>=DEBUG;unit=DEBUG'
 ```
 
-and later
+and later on your k8s-production model
 
 ```
-juju config-model k8s-production --config logging-config='<root>=ERROR;unit=ERROR'
+juju model-config -m k8s-production logging-config='<root>=ERROR;unit=ERROR'
 ```
 
 In addition, the jujud daemon is started in debug mode by default on all controllers. To remove that behavior edit ```/var/lib/juju/init/jujud-machine-0/exec-start.sh``` on the controller node and comment the ```--debug``` section. 

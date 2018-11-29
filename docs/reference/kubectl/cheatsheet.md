@@ -7,7 +7,7 @@ approvers:
 title: kubectl Cheat Sheet
 ---
 
-See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath Guide](/docs/user-guide/jsonpath).
+See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath).
 
 ## Kubectl Autocomplete
 
@@ -136,6 +136,9 @@ $ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.
 
 # List all Secrets currently in use by a pod
 $ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
+
+# List Events sorted by timestamp
+$ kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
 ## Updating Resources
@@ -215,7 +218,7 @@ $ kubectl logs -f my-pod                              # stream pod logs (stdout)
 $ kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 $ kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
 $ kubectl attach my-pod -i                            # Attach to Running Container
-$ kubectl port-forward my-pod 5000:6000               # Forward port 6000 of Pod to your to 5000 on your local machine
+$ kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 $ kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 $ kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 $ kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
@@ -242,35 +245,43 @@ The following table includes a list of all the supported resource types and thei
 
 Resource type   | Abbreviated alias
 -------------------- | --------------------
-`clusters` |
+`all` |
+`certificatesigningrequests` |`csr`
+`clusterrolebindings` |
+`clusterroles` |
 `componentstatuses` |`cs`
 `configmaps` |`cm`
+`controllerrevisions` |
+`cronjobs` |
+`customresourcedefinition` |`crd`, `crds`
 `daemonsets` |`ds`
 `deployments` |`deploy`
 `endpoints` |`ep`
-`event` |`ev`
+`events` |`ev`
 `horizontalpodautoscalers` |`hpa`
 `ingresses` |`ing`
 `jobs` |
 `limitranges` |`limits`
 `namespaces` |`ns`
-`networkpolicies` |
+`networkpolicies` |`netpol`
 `nodes` |`no`
-`statefulsets` |
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
+`poddisruptionbudgets` |`pdb`
+`podpreset` |
 `pods` |`po`
 `podsecuritypolicies` |`psp`
 `podtemplates` |
 `replicasets` |`rs`
 `replicationcontrollers` |`rc`
 `resourcequotas` |`quota`
-`cronjob` |
+`rolebindings` |
+`roles` |
 `secrets` |
 `serviceaccount` |`sa`
 `services` |`svc`
-`storageclasses` |
-`thirdpartyresources` |
+`statefulsets` |`sts`
+`storageclasses` |`sc`
 
 ### Formatting output
 
@@ -281,8 +292,8 @@ Output format | Description
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of custom columns
 `-o=custom-columns-file=<filename>` | Print a table using the custom columns template in the `<filename>` file
 `-o=json`     | Output a JSON formatted API object
-`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/user-guide/jsonpath) expression
-`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/user-guide/jsonpath) expression in the `<filename>` file
+`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath) expression
+`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath) expression in the `<filename>` file
 `-o=name`     | Print only the resource name and nothing else
 `-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
 `-o=yaml`     | Output a YAML formatted API object
@@ -301,4 +312,5 @@ Verbosity | Description
 `--v=6` | Display requested resources.
 `--v=7` | Display HTTP request headers.
 `--v=8` | Display HTTP request contents.
+`--v=9` | Display HTTP request contents without truncation of contents.
 

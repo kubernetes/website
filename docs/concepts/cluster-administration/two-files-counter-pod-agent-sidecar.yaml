@@ -22,7 +22,7 @@ spec:
     - name: varlog
       mountPath: /var/log
   - name: count-agent
-    image: gcr.io/google_containers/fluentd-gcp:1.30
+    image: k8s.gcr.io/fluentd-gcp:1.30
     env:
     - name: FLUENTD_ARGS
       value: -c /etc/fluentd-config/fluentd.conf

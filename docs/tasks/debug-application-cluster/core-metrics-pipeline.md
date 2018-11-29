@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - fgrzadkowski
 - piosz
 title: Core metrics pipeline
@@ -17,7 +17,7 @@ by a given node or a given pod. This API doesn't store the metric values,
 so it's not possible for example to get the amount of resources used by a
 given node 10 minutes ago.
 
-The API no different from any other API:
+The API is no different from any other API:
 
 - it is discoverable through the same endpoint as the other Kubernetes APIs under `/apis/metrics.k8s.io/` path
 - it offers the same security, scalability and reliability guarantees

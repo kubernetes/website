@@ -1,13 +1,14 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - janetkuo
-title: Replication Controller
+title: ReplicationController
 ---
 
 {% capture overview %}
 
-NOTE: A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+**NOTE:** A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+{: .note}
 
 A _ReplicationController_ ensures that a specified number of pod replicas are running at any one
 time. In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is
@@ -100,7 +101,7 @@ specifies an expression that just gets the name from each pod in the returned li
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
-For general information about working with config files, see [Object Management](/docs/concepts/tools/kubectl/object-management-overview/).
+For general information about working with config files, see [object management ](/docs/concepts/overview/object-management-kubectl/overview/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -159,7 +160,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 ### Deleting a ReplicationController and its Pods
 
 To delete a ReplicationController and all its pods, use [`kubectl
-delete`](/docs/user-guide/kubectl/{{page.version}}/#delete).  Kubectl will scale the ReplicationController to zero and wait
+delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).  Kubectl will scale the ReplicationController to zero and wait
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
@@ -170,7 +171,7 @@ When using the REST API or go client library, you need to do the steps explicitl
 
 You can delete a ReplicationController without affecting any of its pods.
 
-Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete).
+Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete).
 
 When using the REST API or go client library, simply delete the ReplicationController object.
 
@@ -204,7 +205,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[`kubectl rolling-update`](/docs/user-guide/kubectl/{{page.version}}/#rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples.
+[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples.
 
 ### Multiple release tracks
 
@@ -221,7 +222,7 @@ A ReplicationController will never terminate on its own, but it isn't expected t
 
 ## Writing programs for Replication
 
-Pods created by a ReplicationController are intended to be fungible and semantically identical, though their configurations may become heterogeneous over time. This is an obvious fit for replicated stateless servers, but ReplicationControllers can also be used to maintain availability of master-elected, sharded, and worker-pool applications. Such applications should use dynamic work assignment mechanisms, such as the [etcd lock module](https://coreos.com/docs/distributed-configuration/etcd-modules/) or [RabbitMQ work queues](https://www.rabbitmq.com/tutorials/tutorial-two-python.html), as opposed to static/one-time customization of the configuration of each pod, which is considered an anti-pattern. Any pod customization performed, such as vertical auto-sizing of resources (for example, cpu or memory), should be performed by another online controller process, not unlike the ReplicationController itself.
+Pods created by a ReplicationController are intended to be fungible and semantically identical, though their configurations may become heterogeneous over time. This is an obvious fit for replicated stateless servers, but ReplicationControllers can also be used to maintain availability of master-elected, sharded, and worker-pool applications. Such applications should use dynamic work assignment mechanisms, such as the [RabbitMQ work queues](https://www.rabbitmq.com/tutorials/tutorial-two-python.html), as opposed to static/one-time customization of the configuration of each pod, which is considered an anti-pattern. Any pod customization performed, such as vertical auto-sizing of resources (for example, cpu or memory), should be performed by another online controller process, not unlike the ReplicationController itself.
 
 ## Responsibilities of the ReplicationController
 
@@ -235,8 +236,8 @@ The ReplicationController is intended to be a composable building-block primitiv
 ## API Object
 
 Replication controller is a top-level resource in the Kubernetes REST API. More details about the
-API object can be found at: [ReplicationController API
-object](/docs/api-reference/{{page.version}}/#replicationcontroller-v1-core).
+API object can be found at:
+[ReplicationController API object](/docs/reference/generated/kubernetes-api/{{page.version}}/#replicationcontroller-v1-core).
 
 ## Alternatives to ReplicationController
 

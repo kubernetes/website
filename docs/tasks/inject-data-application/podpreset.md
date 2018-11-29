@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jessfraz
 title: Inject Information into Pods Using a PodPreset
 ---

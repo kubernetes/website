@@ -1,7 +1,7 @@
 ---
-approvers:
-- crassirostris
+reviewers:
 - piosz
+- x13n
 title: Logging Using Elasticsearch and Kibana
 ---
 

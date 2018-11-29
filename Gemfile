@@ -27,7 +27,7 @@ group :jekyll_plugins do
    gem "jekyll-github-metadata", "~> 2.2"
    gem "jekyll-optional-front-matter", "~> 0.1"
    gem "jekyll-readme-index", "0.0.3"
-   gem "jekyll-redirect-from", "~> 0.11"
+   gem "jekyll-redirect-from", "~> 0.13"
    gem "jekyll-relative-links", "~> 0.2"
    gem "jekyll-swiss", "~> 0.4"
    gem "jekyll-theme-architect", "0.0.3"
@@ -44,9 +44,9 @@ group :jekyll_plugins do
    gem "jekyll-theme-tactile", "0.0.3"
    gem "jekyll-theme-time-machine", "0.0.3"
    gem "jekyll-titles-from-headings", "~> 0.1"
+   gem "jekyll-include-cache", "~> 0.1"
+   gem 'jekyll-youtube', '~> 1.0'
 end
-
-gem "jekyll-include-cache", "~> 0.1"
 
 gem "kramdown", "~> 1.11"
 gem "rouge", "~> 2.0"

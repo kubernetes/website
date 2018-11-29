@@ -195,7 +195,7 @@ $ kubectl describe pods/private-image-test-1 | grep "Failed"
 
 **注意:** Google Kubernetes Engine,GCE及其他自动创建node的云平台上，推荐使用本方法。
 
-Kuberentes支持在pod中指定仓库密钥。
+Kubernetes支持在pod中指定仓库密钥。
 
 #### 使用Docker Config创建Secret
 

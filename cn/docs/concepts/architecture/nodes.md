@@ -39,7 +39,7 @@ redirect_from:
 ### 地址
 
 
-这些字段组合的用法取决于你的云服务商或者裸金属配置。
+这些字段组合的用法取决于你的云服务商或者裸机配置。
 
 * HostName：HostName 和 node 内核报告的相同。可以通过 kubelet 的 `--hostname-override` 参数覆盖。
 * ExternalIP：通常是可以外部路由的 node IP 地址（从集群外可访问）。
@@ -115,7 +115,7 @@ Node 条件使用一个 JSON 对象表示。例如，下面的响应描述了一
 ```
 
 
-Kubernetes 会在内部创一个 node 对象（象征 node），并基于  `metadata.name` 字段（我们假设 `metadata.name` 能够被解析）通过健康检查来验证 node。如果 node 可用，意即所有必要服务都已运行，它就符合了运行一个 pod 的条件；否则它将被所有的集群动作忽略指导变为可用。请注意，Kubernetes 将保存不可用 node 的对象，除非它被客户端显式的删除。Kubernetes 将持续检查 node 是否变的可用。
+Kubernetes 会在内部创一个 node 对象（象征 node），并基于  `metadata.name` 字段（我们假设 `metadata.name` 能够被解析）通过健康检查来验证 node。如果 node 可用，意即所有必要服务都已运行，它就符合了运行一个 pod 的条件；否则它将被所有的集群动作忽略直到变为可用。请注意，Kubernetes 将保存不可用 node 的对象，除非它被客户端显式的删除。Kubernetes 将持续检查 node 是否变的可用。
 
 
 当前，有3个组件同 Kubernetes node 接口交互：node 控制器、kubelet 和 kubectl。
@@ -216,7 +216,7 @@ metadata:
 spec:
   containers:
   - name: sleep-forever
-    image: gcr.io/google_containers/pause:0.8.0
+    image: k8s.gcr.io/pause:0.8.0
     resources:
       requests:
         cpu: 100m

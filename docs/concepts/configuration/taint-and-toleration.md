@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - davidopp
 - kevin-wangzefeng
 - bsalamat
@@ -22,7 +22,7 @@ onto nodes with matching taints.
 
 ## Concepts
 
-You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/{{page.version}}/#taint).
+You add a taint to a node using [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint).
 For example,
 
 ```shell
@@ -31,6 +31,12 @@ kubectl taint nodes node1 key=value:NoSchedule
 
 places a taint on node `node1`. The taint has key `key`, value `value`, and taint effect `NoSchedule`.
 This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
+
+To remove the taint added by the command above, you can run:
+```shell
+kubectl taint nodes node1 key:NoSchedule-
+```
+
 You specify a toleration for a pod in the PodSpec. Both of the following tolerations "match" the
 taint created by the `kubectl taint` line above, and thus a pod with either toleration would be able
 to schedule onto `node1`:
@@ -165,15 +171,18 @@ hardware (e.g. `kubectl taint nodes nodename special=true:NoSchedule` or
 toleration to pods that use the special hardware. As in the dedicated nodes use case,
 it is probably easiest to apply the tolerations using a custom
 [admission controller](/docs/admin/admission-controllers/)).
-For example, the admission controller could use
-some characteristic(s) of the pod to determine that the pod should be allowed to use
-the special nodes and hence the admission controller should add the toleration.
-To ensure that the pods that need
-the special hardware *only* schedule onto the nodes that have the special hardware, you will need some
-additional mechanism, e.g. you could represent the special resource using
-[opaque integer resources](/docs/concepts/configuration/manage-compute-resources-container/#opaque-integer-resources-alpha-feature)
-and request it as a resource in the PodSpec, or you could label the nodes that have
-the special hardware and use node affinity on the pods that need the hardware.
+For example, it is recommended to use [Extended
+Resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+to represent the special hardware, taint your special hardware nodes with the
+extended resource name and run the
+[ExtendedResourceToleration](/docs/admin/admission-controllers/#extendedresourcetoleration)
+admission controller. Now, because the nodes are tainted, no pods without the
+toleration will schedule on them. But when you submit a pod that requests the
+extended resource, the `ExtendedResourceToleration` admission controller will
+automatically add the correct toleration to the pod and that pod will schedule
+on the special hardware nodes. This will make sure that these special hardware
+nodes are dedicated for pods requesting such hardware and you don't have to
+manually add tolerations to your pods.
 
 * **Taint based Evictions (alpha feature)**: A per-pod-configurable eviction behavior
 when there are node problems, which is described in the next section.
@@ -189,7 +198,7 @@ running on the node as follows
  * pods that tolerate the taint with a specified `tolerationSeconds` remain
    bound for the specified amount of time
 
-The above behavior is a beta feature. In addition, Kubernetes 1.6 has alpha
+In addition, Kubernetes 1.6 has alpha
 support for representing node problems. In other words, the node controller
 automatically taints a node when certain condition is true. The built-in taints
 currently include:

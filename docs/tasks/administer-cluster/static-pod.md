@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jsafrane
 title: Static Pods
 ---

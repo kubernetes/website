@@ -1,12 +1,11 @@
 id: statefulset
 name: StatefulSet
 full-link: /docs/concepts/workloads/controllers/statefulset/
-aka:
-- PetSet
 related:
 - deployment
 - pod
 tags:
+- fundamental
 - core-object
 - workload
 - storage

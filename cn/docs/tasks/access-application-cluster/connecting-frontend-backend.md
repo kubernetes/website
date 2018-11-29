@@ -160,7 +160,7 @@ service "frontend" created
 
 
 **注意**：这个 nginx 配置文件是被打包在 [容器镜像](/docs/tasks/access-application-cluster/frontend/Dockerfile) 里的。
-更好的方法是使用 [ConfigMap](/docs/tasks/configure-pod-container/configmap/)，这样的话你可以更轻易地更改配置。
+更好的方法是使用 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)，这样的话你可以更轻易地更改配置。
 
 
 ### 与前端 Service 交互
@@ -216,7 +216,7 @@ curl http://<EXTERNAL-IP>
 
 
 * 了解更多 [Services](/docs/concepts/services-networking/service/)
-* 了解更多 [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
+* 了解更多 [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 
 {% endcapture %}
 

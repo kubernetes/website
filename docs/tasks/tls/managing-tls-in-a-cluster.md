@@ -1,6 +1,6 @@
 ---
 title: Manage TLS Certificates in a Cluster
-approvers:
+reviewers:
 - mikedanese
 - beacham
 - liggit

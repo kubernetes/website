@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - vishh
 - derekwaynecarr
 - dashpole
@@ -52,8 +52,8 @@ Resources can be reserved for two categories of system daemons in the `kubelet`.
 ### Enabling QoS and Pod level cgroups
 
 To properly enforce node allocatable constraints on the node, you must
-enable the new cgroup hierarchy via the `--cgroups-per-qos` flag.  This flag is
-enabled by default.  When enabled, the `kubelet` will parent all end-user pods
+enable the new cgroup hierarchy via the `--cgroups-per-qos` flag. This flag is
+enabled by default. When enabled, the `kubelet` will parent all end-user pods
 under a cgroup hierarchy managed by the `kubelet`.
 
 ### Configuring a cgroup driver
@@ -71,7 +71,7 @@ transient slices for resources that are supported by that init system.
 
 Depending on the configuration of the associated container runtime,
 operators may have to choose a particular cgroup driver to ensure
-proper system behavior.  For example, if operators use the `systemd`
+proper system behavior. For example, if operators use the `systemd`
 cgroup driver provided by the `docker` runtime, the `kubelet` must
 be configured to use the `systemd` cgroup driver.
 
@@ -199,7 +199,7 @@ Under this scenario, `Allocatable` will be `14.5 CPUs`, `28.5Gi` of memory and
 `98Gi` of local storage.
 Scheduler ensures that the total memory `requests` across all pods on this node does
 not exceed `28.5Gi` and storage doesn't exceed `88Gi`.
-Kubelet evicts pods whenever the overall memory usage exceeds across pods exceed `28.5Gi`,
+Kubelet evicts pods whenever the overall memory usage across pods exceeds `28.5Gi`,
 or if overall disk usage exceeds `88Gi` If all processes on the node consume as
 much CPU as they can, pods together cannot consume more than `14.5 CPUs`.
 
@@ -224,7 +224,7 @@ kubelet flag. Note that unless `--kube-reserved`, or `--system-reserved` or
 not affect existing deployments.
 
 As of Kubernetes version 1.6, `kubelet` launches pods in their own cgroup
-sandbox in a dedicated part of the cgroup hierarchy it manages.  Operators are
+sandbox in a dedicated part of the cgroup hierarchy it manages. Operators are
 required to drain their nodes prior to upgrade of the `kubelet` from prior
 versions in order to ensure pods and their associated containers are launched in
 the proper part of the cgroup hierarchy.

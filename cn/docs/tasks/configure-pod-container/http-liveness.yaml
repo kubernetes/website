@@ -9,7 +9,7 @@ spec:
   - name: liveness
     args:
     - /server
-    image: gcr.io/google_containers/liveness
+    image: k8s.gcr.io/liveness
     livenessProbe:
       httpGet:
         path: /healthz

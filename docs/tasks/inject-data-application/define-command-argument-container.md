@@ -73,7 +73,7 @@ you can define arguments by using environment variables:
 
 This means you can define an argument for a Pod using any of
 the techniques available for defining environment variables, including
-[ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
+[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 and
 [Secrets](/docs/concepts/configuration/secret/).
 
@@ -132,7 +132,7 @@ Here are some examples:
 * Learn more about [containers and commands](/docs/user-guide/containers/).
 * Learn more about [configuring pods and containers](/docs/tasks/).
 * Learn more about [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
-* See [Container](/docs/api-reference/{{page.version}}/#container-v1-core).
+* See [Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core).
 
 {% endcapture %}
 

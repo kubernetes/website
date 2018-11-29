@@ -9,7 +9,7 @@ This page shows how to configure quotas for API objects, including
 PersistentVolumeClaims and Services. A quota restricts the number of
 objects, of a particular type, that can be created in a namespace.
 You specify quotas in a
-[ResourceQuota](/docs/api-reference/{{page.version}}/#resourcequota-v1-core)
+[ResourceQuota](/docs/reference/generated/kubernetes-api/{{page.version}}/#resourcequota-v1-core)
 object.
 
 {% endcapture %}

@@ -34,7 +34,7 @@ broken states, and cannot recover except by being restarted. Kubernetes provides
 liveness probes to detect and remedy such situations.
 
 In this exercise, you create a Pod that runs a Container based on the
-`gcr.io/google_containers/busybox` image. Here is the configuration file for the Pod:
+`k8s.gcr.io/busybox` image. Here is the configuration file for the Pod:
 
 {% include code.html language="yaml" file="exec-liveness.yaml" ghlink="/docs/tasks/configure-pod-container/exec-liveness.yaml" %}
 
@@ -75,8 +75,8 @@ The output indicates that no liveness probes have failed yet:
 FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 24s       24s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "gcr.io/google_containers/busybox"
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "gcr.io/google_containers/busybox"
+23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
+23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 ```
@@ -94,8 +94,8 @@ probes have failed, and the containers have been killed and recreated.
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 37s       37s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "gcr.io/google_containers/busybox"
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "gcr.io/google_containers/busybox"
+36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
+36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
 36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
 36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 2s        2s      1   {kubelet worker0}   spec.containers{liveness}   Warning     Unhealthy   Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
@@ -117,7 +117,7 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `gcr.io/google_containers/liveness`
+file for a Pod that runs a container based on the `k8s.gcr.io/liveness`
 image.
 
 {% include code.html language="yaml" file="http-liveness.yaml" ghlink="/docs/tasks/configure-pod-container/http-liveness.yaml" %}
@@ -196,7 +196,7 @@ will be restarted.
 ## Use a named port
 
 You can use a named
-[ContainerPort](/docs/api-reference/{{page.version}}/#containerport-v1-core)
+[ContainerPort](/docs/reference/generated/kubernetes-api/{{page.version}}/#containerport-v1-core)
 for HTTP or TCP liveness checks:
 
 ```yaml
@@ -247,7 +247,7 @@ for it, and that containers are restarted when they fail.
 Eventually, some of this section could be moved to a concept topic.
 {% endcomment %}
 
-[Probes](/docs/api-reference/{{page.version}}/#probe-v1-core) have a number of fields that
+[Probes](/docs/reference/generated/kubernetes-api/{{page.version}}/#probe-v1-core) have a number of fields that
 you can use to more precisely control the behavior of liveness and readiness
 checks:
 
@@ -264,7 +264,7 @@ liveness. Minimum value is 1.
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 
-[HTTP probes](/docs/api-reference/{{page.version}}/#httpgetaction-v1-core)
+[HTTP probes](/docs/reference/generated/kubernetes-api/{{page.version}}/#httpgetaction-v1-core)
 have additional fields that can be set on `httpGet`:
 
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
@@ -294,9 +294,9 @@ case, you should not use `host`, but rather set the `Host` header in `httpHeader
 
 ### Reference
 
-* [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core)
-* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
-* [Probe](/docs/api-reference/{{page.version}}/#probe-v1-core)
+* [Pod](/docs/reference/generated/kubernetes-api/{{page.version}}/#pod-v1-core)
+* [Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core)
+* [Probe](/docs/reference/generated/kubernetes-api/{{page.version}}/#probe-v1-core)
 
 {% endcapture %}
 

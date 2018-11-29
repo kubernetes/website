@@ -107,7 +107,7 @@ Currently, only integers are supported with `Gt` or `Lt`.
 ## Clusters API reference
 
 The full clusters API reference is currently in `federation/v1beta1` and more details can be found in the
-[Federation API reference page](/docs/reference/federation/).
+[Federation API reference page](/docs/reference/generated/federation/).
 
 {% endcapture %}
 

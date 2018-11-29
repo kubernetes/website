@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 title: Debug Pods and Replication Controllers
 ---

@@ -67,7 +67,7 @@ for the Pod:
 {% include code.html language="yaml" file="memory-request-limit.yaml" ghlink="/docs/tasks/configure-pod-container/memory-request-limit.yaml" %}
 
 In the configuration file, the `args` section provides arguments for the Container when it starts.
-The `-mem-total 150Mi` argument tells the Container to attempt to allocate 150 MiB of memory.
+The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 150 MiB of memory.
 
 Create the Pod:
 
@@ -110,7 +110,7 @@ kubectl proxy
 In another command window, get the memory usage from the Heapster service:
 
 ```
-curl http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/heapster/api/v1/model/namespaces/mem-example/pods/memory-demo/metrics/memory/usage
+curl http://localhost:8001/api/v1/namespaces/kube-system/services/heapster/proxy/api/v1/model/namespaces/mem-example/pods/memory-demo/metrics/memory/usage
 ```
 
 The output shows that the Pod is using about 162,900,000 bytes of memory, which
@@ -321,7 +321,7 @@ could use all of the memory available on the Node where it is running.
 
 * The Container is running in a namespace that has a default memory limit, and the
 Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](https://kubernetes.io/docs/api-reference/{{page.version}}/#limitrange-v1-core)
+[LimitRange](/docs/reference/generated/kubernetes-api/{{page.version}}/#limitrange-v1-core)
 to specify a default value for the memory limit.
 
 ## Motivation for memory requests and limits

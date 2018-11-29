@@ -44,6 +44,7 @@
 
 #tag-container {
   float: left;
+  width: 100%;
   border-top: 1px solid #8c8c8c;
   border-bottom: 1px solid #8c8c8c;
   padding: 7px 0px;

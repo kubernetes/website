@@ -1,7 +1,7 @@
 ---
-approvers:
-- crassirostris
+reviewers:
 - piosz
+- x13n
 title: Events in Stackdriver
 ---
 

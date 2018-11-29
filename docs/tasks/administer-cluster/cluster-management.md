@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - lavalamp
 - thockin
 title: Cluster Management
@@ -22,6 +22,11 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
 * [Upgrading to 1.6](/docs/admin/upgrade-1-6)
+
+### Upgrading an Azure Kubernetes Service (AKS) cluster
+
+Azure Kubernetes Service enables easy self-service upgrades of the control plane and nodes in your cluster. The process is
+currently user-initiated and is described in the [Azure AKS documentation](https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster).
 
 ### Upgrading Google Compute Engine clusters
 
@@ -77,6 +82,11 @@ Instance Group will take care of putting appropriate image on new machines and s
 
 In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.
 
+### Resizing an Azure Kubernetes Service (AKS) cluster
+
+Azure Kubernetes Service enables user-initiated resizing of the cluster from either the CLI or the Azure Portal and is described in the [Azure AKS documentation](https://docs.microsoft.com/en-us/azure/aks/scale-cluster).
+
+
 ### Cluster autoscaling
 
 If you are using GCE or Google Kubernetes Engine, you can configure your cluster so that it is automatically rescaled based on
@@ -123,6 +133,10 @@ gcloud container clusters update mytestcluster --enable-autoscaling --min-nodes=
 ```
 
 **Cluster autoscaler expects that nodes have not been manually modified (e.g. by adding labels via kubectl) as those properties would not be propagated to the new nodes within the same instance group.**
+
+For more details about how the cluster autoscaler decides whether, when and how
+to scale a cluster, please refer to the [FAQ](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
+documentation from the autoscaler project.
 
 ## Maintenance on a Node
 

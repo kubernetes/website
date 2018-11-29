@@ -46,7 +46,7 @@ During normal operation the Workload should read `active`, the Agent column (whi
 
 Status can become unwieldy for large clusters, it is then recommended to check status on individual services, for example to check the status on the workers only:
 
-    juju status kubernetes-workers
+    juju status kubernetes-worker
 
 or just on the etcd cluster:
 
@@ -68,41 +68,11 @@ This will automatically ssh you to the easyrsa unit.
 
 ## Collecting debug information
 
-Sometimes it is useful to collect all the information from a node to share with a developer so problems can be identifying. This section will deal on how to use the debug action to collect this information. The debug action is only supported on `kubernetes-worker` nodes.
+Sometimes it is useful to collect all the information from a cluster to share with a developer to identify problems. This is best accomplished with [CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent).
 
-    juju run-action kubernetes-worker/0 debug
+Download and execute the collect.py script from [CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent) on a box that has a Juju client configured with the current controller and model pointing at the CDK deployment of interest.
 
-Which returns:
-    
-
-```
-Action queued with id: 4b26e339-7366-4dc7-80ed-255ac0377020`
-```
-
-This produces a .tar.gz file which you can retrieve:
-
-    juju show-action-output 4b26e339-7366-4dc7-80ed-255ac0377020
-
-This will give you the path for the debug results:
-
-```
-results:
-  command: juju scp debug-test/0:/home/ubuntu/debug-20161110151539.tar.gz .
-  path: /home/ubuntu/debug-20161110151539.tar.gz
-status: completed
-timing:
-  completed: 2016-11-10 15:15:41 +0000 UTC
-  enqueued: 2016-11-10 15:15:38 +0000 UTC
-  started: 2016-11-10 15:15:40 +0000 UTC
-```
-
-You can now copy the results to your local machine: 
-
-    juju scp kubernetes-worker/0:/home/ubuntu/debug-20161110151539.tar.gz .
-
-The archive includes basic information such as systemctl status, Juju logs,
-charm unit data, etc. Additional application-specific information may be
-included as well.
+Running the script will generate a tarball of system information and includes basic information such as systemctl status, Juju logs, charm unit data, etc. Additional application-specific information may be included as well.
 
 ## Common Problems
 
@@ -190,7 +160,7 @@ This is caused by the API load balancer not forwarding ports in the context of t
 
    Note that the default port used by CDK for the Kubernetes Master API is 6443 while the port exposed by the load balancer is 443.
 
-1. Start helming again!
+1. Start helm again!
 
    ```
    helm install <chart> --debug
@@ -204,7 +174,7 @@ This is caused by the API load balancer not forwarding ports in the context of t
 
 ## Logging and monitoring
 
-By default there is no log aggregation of the Kubernetes nodes, each node logs locally. It is recommended to deploy the Elastic Stack for log aggregation if you desire centralized logging. 
+By default there is no log aggregation of the Kubernetes nodes, each node logs locally. Please read over the [logging](https://kubernetes.io/docs/getting-started-guides/ubuntu/logging/) page for more information.
 {% endcapture %}
 
 {% include templates/task.md %}

@@ -85,7 +85,7 @@ AWS使用的规格为：
 ```yaml
   containers:
   - name: fluentd-cloud-logging
-    image: gcr.io/google_containers/fluentd-gcp:1.16
+    image: k8s.gcr.io/fluentd-gcp:1.16
     resources:
       limits:
         cpu: 100m

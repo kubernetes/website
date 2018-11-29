@@ -269,11 +269,8 @@ distributed with OSX.
 
 ### Accessing the cluster with a browser
 
-We install two UIs on Kubernetes. The original KubeUI and [the newer kube
-dashboard](/docs/tasks/web-ui-dashboard/). When you create a cluster, the script should output URLs for these
-interfaces like this:
-
-KubeUI is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kube-ui/proxy```.
+We install [the kubernetes dashboard](/docs/tasks/web-ui-dashboard/). When you
+create a cluster, the script should output URLs for these interfaces like this:
 
 kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```.
 
@@ -318,7 +315,7 @@ the necessary certificates and serve locally over http.
 kubectl proxy -p 8001
 ```
 
-Then, you can access urls like ```http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kube-ui/proxy/``` without the need for client certificates in your browser.
+Then, you can access urls like ```http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/``` without the need for client certificates in your browser.
 
 
 ## What Kubernetes features do not work on CenturyLink Cloud

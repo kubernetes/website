@@ -6,7 +6,7 @@ toc:
 - title: Native Tools
   section:
   - title: Kubectl
-    path: /docs/user-guide/kubectl/
+    path: /docs/reference/kubectl/overview/
   - title: Kubeadm
     path: /docs/getting-started-guides/kubeadm
   - title: Kubefed

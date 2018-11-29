@@ -40,7 +40,7 @@ title: 节点设置校验
 # $LOG_DIR 是测试结果输出的路径。
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  gcr.io/google_containers/node-test:0.2
+  k8s.gcr.io/node-test:0.2
 ```
 
 ## 针对其他硬件体系结构运行节点合规性测试
@@ -61,7 +61,7 @@ Kubernetes 也为其他硬件体系结构的系统提供了节点合规性测试
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e FOCUS=MirrorPod \ # 只运行MirrorPod测试
-  gcr.io/google_containers/node-test:0.2
+  k8s.gcr.io/node-test:0.2
 ```
 
 为跳过指定的测试，用正则表达式来描述将要跳过的测试，并重载 `SKIP` 环境变量。
@@ -70,7 +70,7 @@ sudo docker run -it --rm --privileged --net=host \
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e SKIP=MirrorPod \ # 运行除MirrorPod外的所有测试
-  gcr.io/google_containers/node-test:0.2
+  k8s.gcr.io/node-test:0.2
 ```
 
 节点合规性测试是[节点端到端测试](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/devel/e2e-node-tests.md)的一个容器化的版本。

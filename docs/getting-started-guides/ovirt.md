@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - caesarxuchao
 - erictune
 title: oVirt

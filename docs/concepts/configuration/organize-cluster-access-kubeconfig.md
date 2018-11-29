@@ -17,7 +17,7 @@ It does not mean that there is a file named `kubeconfig`.
 By default, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
 You can specify other kubeconfig files by setting the `KUBECONFIG` environment
 variable or by setting the
-[`--kubeconfig`](/docs/user-guide/kubectl/{{page.version}}/) flag.
+[`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/) flag.
 
 For step-by-step instructions on creating and specifying kubeconfig files, see
 [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
@@ -62,7 +62,7 @@ required. If the `KUBECONFIG` environment variable doesn't exist,
 
 If the `KUBECONFIG` environment variable does exist, `kubectl` uses
 an effective configuration that is the result of merging the files
-listed in the `KUBECONFIG` evironment variable.
+listed in the `KUBECONFIG` environment variable.
 
 ## Merging kubeconfig files
 
@@ -82,7 +82,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 
    Otherwise, if the `KUBECONFIG` environment variable is set, use it as a
    list of files that should be merged.
-   Merge the files listed in the `KUBECONFIG` envrionment variable
+   Merge the files listed in the `KUBECONFIG` environment variable
    according to these rules:
 
    * Ignore empty filenames.
@@ -146,9 +146,8 @@ are stored absolutely.
 {% capture whatsnext %}
 
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-* [kubectl config](/docs/user-guide/kubectl/{{page.version}}/)
+* [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {% endcapture %}
 
 {% include templates/concept.md %}
-

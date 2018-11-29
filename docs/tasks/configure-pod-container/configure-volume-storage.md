@@ -83,7 +83,7 @@ you will see something like this:
 
 At this point, the Container has terminated and restarted. This is because the
 redis Pod has a
-[restartPolicy](/docs/api-reference/{{page.version}}/#podspec-v1-core)
+[restartPolicy](/docs/reference/generated/kubernetes-api/{{page.version}}/#podspec-v1-core)
 of `Always`.
 
 1. Get a shell into the restarted Container:
@@ -96,9 +96,9 @@ of `Always`.
 
 {% capture whatsnext %}
 
-* See [Volume](/docs/api-reference/{{page.version}}/#volume-v1-core).
+* See [Volume](/docs/reference/generated/kubernetes-api/{{page.version}}/#volume-v1-core).
 
-* See [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core).
+* See [Pod](/docs/reference/generated/kubernetes-api/{{page.version}}/#pod-v1-core).
 
 * In addition to the local disk storage provided by `emptyDir`, Kubernetes
 supports many different network-attached storage solutions, including PD on

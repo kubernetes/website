@@ -1,6 +1,6 @@
 ---
 title: Extend the Kubernetes API with CustomResourceDefinitions
-approvers:
+reviewers:
 - deads2k
 - enisoc
 ---
@@ -9,7 +9,7 @@ approvers:
 This page shows how to install a
 [custom resource](/docs/concepts/api-extension/custom-resources/)
 into the Kubernetes API by creating a
-[CustomResourceDefinition](/docs/api-reference/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
+[CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -74,6 +74,10 @@ This endpoint URL can then be used to create and manage custom objects.
 The `kind` of these objects will be `CronTab` from the spec of the
 CustomResourceDefinition object you created above.
 
+Please note that it might take a few seconds for the endpoint to be created.
+You can watch the `Established` condition of your CustomResourceDefinition
+to be true or watch the discovery information of the API server for your
+resource to show up.
 
 ## Create custom objects
 
@@ -188,12 +192,22 @@ metadata:
   - finalizer.stable.example.com
 ```
 
-The first delete request on an object with finalizers merely sets a value for the
-`metadata.deletionTimestamp` field instead of deleting it.
-This triggers controllers watching the object to execute any finalizers they handle.
+Finalizers are arbitrary string values, that when present ensure that a hard delete
+of a resource is not possible while they exist.
 
-Each controller then removes its finalizer from the list and issues the delete request again.
-This request only deletes the object if the list of finalizers is now empty,
+The first delete request on an object with finalizers merely sets a value for the
+`metadata.deletionTimestamp` field instead of deleting it. Once this value is set,
+entries in the `finalizer` list can only be removed.
+
+This triggers controllers watching the object to execute any finalizers they handle.
+This will be represented via polling update requests for that 
+object, until all finalizers have been removed and the resource is deleted.
+
+The time period of polling update can be controlled by `metadata.deletionGracePeriodSeconds`.
+
+It is the responsibility of each controller to removes its finalizer from the list.
+
+Kubernetes will only finally delete the object if the list of finalizers is empty,
 meaning all finalizers are done.
 
 ### Validation
@@ -202,17 +216,17 @@ Validation of custom objects is possible via
 [OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject).
 Additionally, the following restrictions are applied to the schema:
 
-- The fields `default`, `nullable`, `discriminator`, `readOnly`, `writeOnly`, `xml` and
-`deprecated` cannot be set.
+- The fields `default`, `nullable`, `discriminator`, `readOnly`, `writeOnly`, `xml`,
+`deprecated` and `$ref` cannot be set.
 - The field `uniqueItems` cannot be set to true.
 - The field `additionalProperties` cannot be set to false.
 
-This feature is __alpha__ in v1.8 and may change in backward incompatible ways.
-Enable this feature using the `CustomResourceValidation` feature gate on
+This feature is __beta__ in v1.9.
+You can disable this feature using the `CustomResourceValidation` feature gate on
 the [kube-apiserver](/docs/admin/kube-apiserver):
 
-```
---feature-gates=CustomResourceValidation=true
+``` 		  
+--feature-gates=CustomResourceValidation=false
 ```
 
 The schema is defined in the CustomResourceDefinition. In the following example, the
@@ -314,11 +328,223 @@ And create it:
 kubectl create -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+
+### Subresources
+
+Custom resources support `/status` and `/scale` subresources.
+This feature is __alpha__ in v1.10 and may change in backward incompatible ways.
+
+Enable this feature using the `CustomResourceSubresources` feature gate on
+the [kube-apiserver](/docs/admin/kube-apiserver):
+
+```
+--feature-gates=CustomResourceSubresources=true
+```
+
+When the `CustomResourceSubresources` feature gate is enabled, only the `properties` construct
+is allowed in the root schema for custom resource validation.
+
+The status and scale subresources can be optionally enabled by
+defining them in the CustomResourceDefinition.
+
+#### Status subresource
+
+When the status subresource is enabled, the `/status` subresource for the custom resource is exposed.
+
+- The status and the spec stanzas are represented by the `.status` and `.spec` JSONPaths respectively inside of a custom resource.
+- `PUT` requests to the `/status` subresource take a custom resource object and ignore changes to anything except the status stanza.
+- `PUT` requests to the `/status` subresource only validate the status stanza of the custom resource.
+- `PUT`/`POST`/`PATCH` requests to the custom resource ignore changes to the status stanza.
+- Any changes to the spec stanza increments the value at `.metadata.generation`.
+
+#### Scale subresource
+
+When the scale subresource is enabled, the `/scale` subresource for the custom resource is exposed.
+The `autoscaling/v1.Scale` object is sent as the payload for `/scale`.
+
+To enable the scale subresource, the following values are defined in the CustomResourceDefinition.
+
+- `SpecReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Spec.Replicas`.
+
+  - It is a required value.
+  - Only JSONPaths under `.spec` and with the dot notation are allowed.
+  - If there is no value under the `SpecReplicasPath` in the custom resource,
+the `/scale` subresource will return an error on GET.
+
+- `StatusReplicasPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Replicas`.
+
+  - It is a required value.
+  - Only JSONPaths under `.status` and with the dotation are allowed.
+  - If there is no value under the `StatusReplicasPath` in the custom resource,
+the status replica value in the `/scale` subresource will default to 0.
+
+- `LabelSelectorPath` defines the JSONPath inside of a custom resource that corresponds to `Scale.Status.Selector`.
+
+  - It is an optional value.
+  - It must be set to work with HPA.
+  - Only JSONPaths under `.status` and with the dotation are allowed.
+  - If there is no value under the `LabelSelectorPath` in the custom resource,
+the status selector value in the `/scale` subresource will default to the empty string.
+
+In the following example, both status and scale subresources are enabled.
+
+Save the CustomResourceDefinition to `resourcedefinition.yaml`:
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: crontabs.stable.example.com
+spec:
+  group: stable.example.com
+  version: v1
+  scope: Namespaced
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+    shortNames:
+    - ct
+  # subresources describes the subresources for custom resources.
+  subresources:
+    # status enables the status subresource.
+    status: {}
+    # scale enables the scale subresource.
+    scale:
+      # specReplicasPath defines the JSONPath inside of a custom resource that corresponds to Scale.Spec.Replicas.
+      specReplicasPath: .spec.replicas
+      # statusReplicasPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Replicas.
+      statusReplicasPath: .status.replicas
+      # labelSelectorPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Selector.
+      labelSelectorPath: .status.labelSelector
+```
+
+And create it:
+
+```shell
+kubectl create -f resourcedefinition.yaml
+```
+
+After the CustomResourceDefinition object has been created, you can create custom objects.
+
+If you save the following YAML to `my-crontab.yaml`:
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  cronSpec: "* * * * */5"
+  image: my-awesome-cron-image
+  replicas: 3
+```
+
+and create it:
+
+```shell
+kubectl create -f my-crontab.yaml
+```
+
+Then new namespaced RESTful API endpoints are created at:
+
+```
+/apis/stable.example.com/v1/namespaces/*/crontabs/status
+```
+
+and
+
+```
+/apis/stable.example.com/v1/namespaces/*/crontabs/scale
+```
+
+A custom resource can be scaled using the `kubectl scale` command.
+For example, the following command sets `.spec.replicas` of the
+custom resource created above to 5:
+
+```shell
+kubectl scale --replicas=5 crontabs/my-new-cron-object
+crontabs "my-new-cron-object" scaled
+
+kubectl get crontabs my-new-cron-object -o jsonpath='{.spec.replicas}'
+5
+```
+
+### Categories
+
+Categories is a list of grouped resources the custom resource belongs to (eg. `all`).
+You can use `kubectl get <category-name>` to list the resources belonging to the category.
+This feature is __beta__ and available for custom resources from v1.10.
+
+The following example adds `all` in the list of categories in the CustomResourceDefinition
+and illustrates how to output the custom resource using `kubectl get all`.
+
+Save the following CustomResourceDefinition to `resourcedefinition.yaml`:
+
+```yaml
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: crontabs.stable.example.com
+spec:
+  group: stable.example.com
+  version: v1
+  scope: Namespaced
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+    shortNames:
+    - ct
+    # categories is a list of grouped resources the custom resource belongs to.
+    categories:
+    - all
+```
+
+And create it:
+
+```shell
+kubectl create -f resourcedefinition.yaml
+```
+
+After the CustomResourceDefinition object has been created, you can create custom objects.
+
+Save the following YAML to `my-crontab.yaml`:
+
+```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
+metadata:
+  name: my-new-cron-object
+spec:
+  cronSpec: "* * * * */5"
+  image: my-awesome-cron-image
+```
+
+and create it:
+
+```shell
+kubectl create -f my-crontab.yaml
+```
+
+You can specify the category using `kubectl get`:
+
+```
+kubectl get all
+```
+
+and it will include the custom resources of kind `CronTab`:
+
+```console
+NAME                          AGE
+crontabs/my-new-cron-object   3s
+```
+
 {% endcapture %}
 
 {% capture whatsnext %}
 * Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
-* See [CustomResourceDefinition](/docs/api-reference/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
+* See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{page.version}}/#customresourcedefinition-v1beta1-apiextensions).
 {% endcapture %}
 
 {% include templates/task.md %}

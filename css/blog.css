@@ -1,0 +1,493 @@
+/* Overall I tried to maintain as much of the look of the old site as */
+/* possible.  When I made changes they were generally to accomodate jekyll */
+/* or to conform with the styling on the rest of k8s.io */
+
+
+/* Content
+----------------------------------------------- */
+.container-fluid {
+  padding: 0px;
+  margin: 0px;
+  padding-left: .01 em;
+}
+body {
+  font: normal normal 16px 'Trebuchet MS', Trebuchet, Verdana, sans-serif;
+  color: #666666;
+  background: #ffffff none repeat scroll top left;
+  padding: 0 0 0 0;
+}
+html body .region-inner {
+  min-width: 0;
+  max-width: 100%;
+  width: auto;
+}
+
+a:link {
+  text-decoration:none;
+  color: #2288bb;
+}
+a:visited {
+  text-decoration:none;
+  color: #888888;
+}
+a:hover {
+  text-decoration:underline;
+  color: #33aaff;
+}
+
+/* Header
+----------------------------------------------- */
+
+.header-outer {
+  background: transparent none repeat-x scroll 0 -400px;
+  _background-image: none;
+}
+.Header h1 {
+  font: normal normal 40px 'Trebuchet MS',Trebuchet,Verdana,sans-serif;
+  color: #000000;
+  text-shadow: 0 0 0 rgba(0, 0, 0, .2);
+}
+
+.Header h1 a {
+  color: #000000;
+}
+.Header .description {
+  font-size: 18px;
+  color: #000000;
+}
+.header-inner .Header .titlewrapper {
+  padding: 22px 0;
+}
+.header-inner .Header .descriptionwrapper {
+  padding: 0 0;
+}
+
+#blog-hero {
+  background-image: url('../images/texture.png');
+  background-color: #303030;
+  padding-left: 50px;
+}
+
+
+header#topHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  background-color: #333;
+  background-image: url(http://kub.unitedcreations.xyz/images/texture.png);
+  background-position: center center;
+}
+#headerWrapper {
+  position: relative;
+  width: 1408px;
+  margin: 0px auto;
+  overflow: hidden;
+}
+div.header-title {
+  position: relative;
+  float: left;
+  width: 980px;
+  margin: 0 auto;
+  padding: 40px 0 0 20px;
+  border: true;
+}
+div.header-title h6 {
+  margin: 0;
+  padding-left: 108px;
+  font-weight: normal;
+  font-size: 18px;
+  color: white;
+}
+div.header-try {
+  width: 384px;
+  float: right;
+  color: white;
+  padding-top: 70px;
+}
+div.header-try h6 {
+  font-size: 16px;
+  margin: 0 0 20px;
+  color: transparent;
+}
+div.header-try a {
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 40px;
+  background: none;
+  border: 0;
+  background-color:  #326DE6;
+  border-radius: 6px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Tabs
+----------------------------------------------- */
+.blog-title {
+  clear: left
+}
+
+.tabs-inner .section:first-child {
+  border-top: 0 solid #dddddd;
+}
+.tabs-inner .section:first-child ul {
+  margin-top: -1px;
+  border-top: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+}
+
+
+/* Pagination Links */
+@media (max-width: 449px) {
+  div.pagination {
+  position: relative;
+  left: 30%;
+  }
+  .pagination a {
+    margin-right: 30%;
+  }
+}
+
+@media (min-width: 450px) {
+  h4.pagination {
+  position: relative;
+  left: 30%;
+  }
+}
+
+/* Columns
+----------------------------------------------- */
+.main-outer {
+  border-top: 0 solid transparent;
+}
+@media (min-width: 500px) {
+  .blog-content {
+    padding-left: 100px;
+  }
+}
+
+@media (max-width: 499px) {
+  .blog-content {
+    padding-left: 20px;
+  }
+}
+.fauxcolumn-left-outer .fauxcolumn-inner {
+  border-right: 1px solid transparent;
+}
+.fauxcolumn-right-outer .fauxcolumn-inner {
+  border-left: 1px solid transparent;
+}
+
+/* Headings
+----------------------------------------------- */
+div.widget > h2,
+div.widget h2.title {
+  margin: 0 0 1em 0;
+  font: normal bold 11px 'Roboto',,sans-serif;
+  color: #000000;
+}
+
+/* Posts
+----------------------------------------------- */
+h2.date-header {
+  font: normal bold 11px 'Roboto', Tahoma, Helvetica, FreeSans, sans-serif;
+}
+.date-header span {
+  background-color: #bbbbbb;
+  color: #ffffff;
+  padding: 0.4em;
+  letter-spacing: 3px;
+  margin: inherit;
+}
+.main-inner {
+  padding-top: 35px;
+  padding-bottom: 65px;
+}
+.main-inner .column-center-inner {
+  padding: 0 0;
+}
+.main-inner .column-center-inner .section {
+  margin: 0 1em;
+}
+.post {
+  margin: 0 0 15px 0;
+}
+h3.post-title{
+  font: normal normal 22px 'Trebuchet MS',Trebuchet,Verdana,sans-serif;
+  margin: .75em 0 0;
+}
+.post-body {
+  font-size: 110%;
+  line-height: 1.4;
+  position: relative;
+}
+.post-body img, .post-body .tr-caption-container, .Profile img, .Image img,
+.BlogList .item-thumbnail img {
+  padding: 2px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+  width: inherit;
+}
+.post-body img, .post-body .tr-caption-container {
+  padding: 5px;
+  width: inherit;
+}
+.post-body .tr-caption-container {
+  color: #666666;
+}
+.post-body .tr-caption-container img {
+  padding: 0;
+  background: transparent;
+  border: none;
+  -moz-box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+}
+.post-header {
+  margin: 0 0 1.5em;
+  line-height: 1.6;
+  font-size: 90%;
+}
+.post-footer {
+  margin: 20px -2px 0;
+  padding: 5px 10px;
+  color: #666666;
+  background-color: #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+  line-height: 1.6;
+  font-size: 90%;
+}
+
+/* Mobile
+----------------------------------------------- */
+.main-inner .column-right-outer {
+  width: 320px;
+  margin-right: -320px;
+}
+.sidebar .widget a.widget-link:link,
+.sidebar .widget a.widget-link:visited,
+.sidebar .widget a.widget-link:hover,
+.sidebar .widget a.widget-link:active {
+  color: #326DE6;
+  font-size: 22px;
+}
+.widget-link {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  padding: 0 0 0 55px;
+  margin: 10px 0;
+  line-height: 40px;
+  white-space: nowrap;
+  font-family: Roboto, sans-serif;
+}
+.widget-link .fa {
+  position: absolute;
+  left: 0; top: 0;
+  width: 40px; height: 40px;
+  color: white;
+  background-color: #326DE6;
+  border-radius: 6px;
+  font-size: 30px;
+  text-align: center;
+  line-height: 40px;
+}
+h2.date-header {
+  font-family: Roboto-Bold;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 16px;
+}
+h2.date-header span {
+  background: none;
+  color: #222;
+}
+h3.post-title {
+  font-size: 30px;
+  color: #326DE6;
+}
+* a:link,
+* a:visited,
+* a:hover,
+* a:active {
+  color: #326DE6;
+}
+
+
+div.post-footer {
+  display: none;
+}
+.post-body {
+  font-family: Roboto-Light;
+  font-size: 16px;
+  line-height: 1.5;
+}
+--></style>
+<style id='template-skin-1' type='text/css'><!--
+body {
+  min-width: 1200px;
+}
+.content-outer, .content-fauxcolumn-outer, .region-inner {
+  min-width: 1200px;
+  max-width: 1200px;
+  _width: 1200px;
+  padding-left: 15px;
+}
+.main-inner .columns {
+  padding-left: 0px;
+  padding-right: 310px;
+}
+.main-inner .fauxcolumn-center-outer {
+  left: 0px;
+  right: 310px;
+  /* IE6 does not respect left and right together */
+  _width: expression(this.parentNode.offsetWidth -
+    parseInt("0px") -
+    parseInt("310px") + 'px');
+  }
+  .main-inner .fauxcolumn-left-outer {
+    width: 0px;
+  }
+  .main-inner .fauxcolumn-right-outer {
+    width: 310px;
+  }
+  .main-inner .column-left-outer {
+    width: 0px;
+    right: 100%;
+    margin-left: -0px;
+  }
+  .main-inner .column-right-outer {
+    width: 310px;
+    margin-right: -310px;
+  }
+  #layout {
+    min-width: 0;
+  }
+  #layout .content-outer {
+    min-width: 0;
+    width: 800px;
+  }
+  #layout .region-inner {
+    min-width: 0;
+    width: auto;
+  }
+  /* overwrite blog styles with specific rules to conform with site */
+  .blog-content ul , .blog-content li {
+    list-style:initial;
+    margin-left: 1em;
+  }
+
+  /* .blog-content .pagination {
+    width: inherit;
+  } */
+
+  .button {
+    border-radius: 6px;
+    padding: 0 20px;
+    line-height: 40px;
+    background-color: #3371e3;
+    text-decoration: none;
+  }
+
+ a:link.button {
+    color: #ffffff;
+  }
+
+ a:visited.button{
+    color: #ffffff;
+  }
+
+/* Nested List Indentations for Release Notes & Community Meeting Notes -- in HTML */
+
+ul {
+  padding: 1em;
+}
+/* Sidebar Icon Styles */
+.widget-link svg {
+  font-size: 48px;
+  color:#326DE6;
+}
+
+/* SideNavigation Styles */
+.heading-year-toggle-checkbox,
+.heading-month-toggle-checkbox{
+  display: none;
+}
+
+.collapsible-year-header,
+.collapsible-month-header {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.collapsible-year-heading-label,
+.collapsible-month-heading-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.collapsible-year-body-caret,
+.collapsible-posts-list-caret {
+  display: inline-block;
+  font-size: 11px;
+  margin-right: 8px;
+  -webkit-box-flex: none;
+  -ms-flex: none;
+  flex: none;
+}
+
+.collapsible-year-body,
+.collapsible-posts-list{
+  display: none;
+}
+
+.heading-year-toggle-checkbox:checked + .collapsible-year-heading-label > .collapsible-year-body-caret,
+.heading-month-toggle-checkbox:checked + .collapsible-month-heading-label > .collapsible-posts-list-caret {
+  -webkit-transform: rotate(90deg);
+   -moz-transform: rotate(90deg);
+   -o-transform: rotate(90deg);
+   -ms-transform: rotate(90deg);
+   transform: rotate(90deg);
+}
+
+.heading-year-toggle-checkbox:checked + .collapsible-year-heading-label + .collapsible-year-body,
+.heading-month-toggle-checkbox:checked + .collapsible-month-heading-label + .collapsible-posts-list{
+  display: block;
+}
+
+/* blog post specific styling */
+table.post-table ,.post-table tr, .post-table td, .post-table th {
+  font-size: 20px;
+  border: solid;
+  border-color: black;
+  border-width: .5px;
+  padding: 5px;
+}
+
+.yaml-scale code {
+  font-size: small;
+}
+
+.inline-link a{
+  text-decoration: none;
+}
+
+img.big-img {
+  width: 100%;
+}
+
+/* .content img {
+max-width: 100%;
+} */

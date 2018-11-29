@@ -8,10 +8,6 @@ title: 应用故障排查
 * TOC
 {:toc}
 
-## FAQ
-
-强烈建议用户参考我们的[FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ).
-
 ## 诊断问题
 
 故障排查的第一步是先给问题分下类。这个问题是什么？Pods，Replication Controller或者Service？

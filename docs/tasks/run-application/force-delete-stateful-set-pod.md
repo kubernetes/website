@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - bprashanth
 - erictune
 - foxish

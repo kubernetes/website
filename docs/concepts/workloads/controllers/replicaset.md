@@ -1,9 +1,9 @@
 ---
-approvers:
+reviewers:
 - Kashomon
 - bprashanth
 - madhusudancs
-title: Replica Sets
+title: ReplicaSet
 ---
 
 {% capture overview %}
@@ -23,12 +23,12 @@ whereas a Replication Controller only supports equality-based selector requireme
 
 Most [`kubectl`](/docs/user-guide/kubectl/) commands that support
 Replication Controllers also support ReplicaSets. One exception is the
-[`rolling-update`](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) command. If
+[`rolling-update`](docs/reference/generated/kubectl/kubectl-commands#rolling-update) command. If
 you want the rolling update functionality please consider using Deployments
 instead. Also, the
-[`rolling-update`](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) command is
+[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) command is
 imperative whereas Deployments are declarative, so we recommend using Deployments
-through the [`rollout`](/docs/user-guide/kubectl/{{page.version}}/#rollout) command.
+through the [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout) command.
 
 While ReplicaSets can be used independently, today it's mainly used by
 [Deployments](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod
@@ -96,7 +96,7 @@ frontend-qhloh   1/1       Running   0          1m
 ## Writing a ReplicaSet Spec
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with manifests, see [Object Management](/docs/concepts/tools/kubectl/object-management-overview/).
+general information about working with manifests, see [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -126,7 +126,7 @@ deleted. This allows the ReplicaSet to be replaced without affecting the running
 The `.spec.template.metadata.labels` must match the `.spec.selector`, or it will
 be rejected by the API.
 
-In Kubernetes 1.8 the API version `apps/v1beta2` on the ReplicaSet kind is the current version and is enabled by default. The API version `extensions/v1beta1` is deprecated. In API version `apps/v1beta2`, `.spec.selector` and `.metadata.labels` no longer default to `.spec.template.metadata.labels` if not set. So they must be set explicitly. Also note that `.spec.selector` is immutable after creation starting in API version `apps/v1beta2`.
+In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
 
 Also you should not normally create any pods whose labels match this selector, either directly, with 
 another ReplicaSet, or with another controller such as a Deployment. If you do so, the ReplicaSet thinks that it 
@@ -154,7 +154,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 ### Deleting a ReplicaSet and its Pods
 
 To delete a ReplicaSet and all its pods, use [`kubectl
-delete`](/docs/user-guide/kubectl/{{page.version}}/#delete). Kubectl will scale the ReplicaSet to zero and wait
+delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). Kubectl will scale the ReplicaSet to zero and wait
 for it to delete each pod before deleting the ReplicaSet itself. If this kubectl command is interrupted, it can
 be restarted.
 
@@ -163,7 +163,7 @@ When using the REST API or go client library, you need to do the steps explicitl
 
 ### Deleting just a ReplicaSet
 
-You can delete a ReplicaSet without affecting any of its pods, using [`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) with the `--cascade=false` option.
+You can delete a ReplicaSet without affecting any of its pods, using [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) with the `--cascade=false` option.
 
 When using the REST API or go client library, simply delete the ReplicaSet object.
 
@@ -181,7 +181,7 @@ from service for debugging, data recovery, etc. Pods that are removed in this wa
 ### Scaling a ReplicaSet
 
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
-ensures that that a desired number of pods with a matching label selector are available and operational.
+ensures that a desired number of pods with a matching label selector are available and operational.
 
 ### ReplicaSet as an Horizontal Pod Autoscaler Target
 

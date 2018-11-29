@@ -76,6 +76,12 @@ Determine whether you can access sites like [https://cloud.google.com/container-
 curl --proxy "" https://cloud.google.com/container-registry/
 ```
 
+Make sure that the Docker daemon is started. You can determine if docker is running by using a command such as:
+
+```shell
+docker images
+```
+
 If NO proxy is required, start the Minikube cluster:
 
 ```shell
@@ -114,6 +120,12 @@ Verify that `kubectl` is configured to communicate with your cluster:
 
 ```shell
 kubectl cluster-info
+```
+
+Open the Kubernetes dashboard in a browser:
+
+```shell
+minikube dashboard
 ```
 
 ## Create your Node.js application
@@ -159,7 +171,7 @@ eval $(minikube docker-env)
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
 this change by running `eval $(minikube docker-env -u)`.
 
-Build your Docker image, using the Minikube Docker daemon:
+Build your Docker image, using the Minikube Docker daemon (mind the trailing dot):
 
 ```shell
 docker build -t hello-node:v1 .
@@ -285,7 +297,7 @@ response.end('Hello World Again!');
 
 ```
 
-Build a new version of your image:
+Build a new version of your image (mind the trailing dot):
 
 ```shell
 docker build -t hello-node:v2 .
@@ -329,7 +341,7 @@ Output:
 - ingress: disabled
 ```
 
-Minikube must be running for these command to take effect. To enable `heapster` addon, for example:
+Minikube must be running for these commands to take effect. To enable `heapster` addon, for example:
 
 ```shell
 minikube addons enable heapster
@@ -379,6 +391,12 @@ Now you can clean up the resources you created in your cluster:
 ```shell
 kubectl delete service hello-node
 kubectl delete deployment hello-node
+```
+
+Optionally, force removal of the Docker images created:
+
+```shell
+docker rmi hello-node:v1 hello-node:v2 -f
 ```
 
 Optionally, stop the Minikube VM:

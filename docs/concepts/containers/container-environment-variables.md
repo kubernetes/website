@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - mikedanese
 - thockin
 title: Container Environment Variables
@@ -41,7 +41,7 @@ as are any environment variables specified statically in the Docker image.
 A list of all services that were running when a Container was created is available to that Container as environment variables.
 Those environment variables match the syntax of Docker links.
 
-For a service named *foo* that maps to a container port named *bar*,
+For a service named *foo* that maps to a Container named *bar*,
 the following variables are defined:
 
 ```shell

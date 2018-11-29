@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - jessfraz
 title: Pod Preset
 ---
@@ -41,7 +41,7 @@ When a pod creation request occurs, the system does the following:
    the pod _without_ any injected resources from the `PodPreset`.
 1. Annotate the resulting modified Pod spec to indicate that it has been
    modified by a `PodPreset`. The annotation is of the form
-   `podpreset.admission.kubernetes.io/podpreset-<pod-preset name>": "<resource version>"`.
+   `podpreset.admission.kubernetes.io/podpreset-<pod-preset name>: "<resource version>"`.
 
 Each Pod can be matched zero or more Pod Presets; and each `PodPreset` can be
 applied to zero or more pods. When a `PodPreset` is applied to one or more
@@ -68,7 +68,7 @@ In order to use Pod Presets in your cluster you must ensure the following:
     example, this can be done by including `settings.k8s.io/v1alpha1=true` in
     the `--runtime-config` option for the API server. 
 1.  You have enabled the admission controller `PodPreset`. One way to doing this
-    is to include `PodPreset` in the `--admission-control` option value specified
+    is to include `PodPreset` in the `--enable-admission-plugins` option value specified
     for the API server.
 1.  You have defined your Pod Presets by creating `PodPreset` objects in the
     namespace you will use.

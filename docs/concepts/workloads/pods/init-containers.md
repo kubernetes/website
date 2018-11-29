@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 title: Init Containers
 ---
@@ -32,7 +32,10 @@ Init Containers are exactly like regular Containers, except:
 If an Init Container fails for a Pod, Kubernetes restarts the Pod repeatedly until the Init
 Container succeeds. However, if the Pod has a `restartPolicy` of Never, it is not restarted.
 
-To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](/docs/api-reference/{{page.version}}/#container-v1-core) alongside the app `containers` array.
+To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as
+a JSON array of objects of type
+[Container](/docs/reference/generated/kubernetes-api/{{page.version}}/#container-v1-core)
+alongside the app `containers` array.
 The status of the init containers is returned in `status.initContainerStatuses`
 field as an array of the container statuses (similar to the `status.containerStatuses`
 field).
@@ -124,7 +127,7 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-There is a new syntax in Kubernetes 1.6, although the old annotation syntax still works for 1.6 and 1.7.  The new syntax must be used for 1.8 or greater. We have moved the declaration of init containers to `spec`:
+There is a new syntax in Kubernetes 1.6, although the old annotation syntax still works for 1.6 and 1.7.  The new syntax must be used for 1.8 or greater. We have moved the declaration of Init Containers to `spec`:
 
 ```yaml
 apiVersion: v1

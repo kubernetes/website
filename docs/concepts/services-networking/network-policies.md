@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - thockin
 - caseydavenport
 - danwinship
@@ -25,7 +25,7 @@ Pods become isolated by having a NetworkPolicy that selects them. Once there is 
 
 ## The `NetworkPolicy` Resource
 
-See the [api-reference](/docs/api-reference/{{page.version}}/#networkpolicy-v1-networking) for a full definition of the resource.
+See the [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{page.version}}/#networkpolicy-v1-networking) for a full definition of the resource.
 
 An example `NetworkPolicy` might look like this:
 
@@ -68,7 +68,11 @@ spec:
 
 *POSTing this to the API server will have no effect unless your chosen networking solution supports network policy.*
 
-__Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy` needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/), and [Object Management](https://kubernetes.io/docs/tutorials/object-management-kubectl/object-management/).
+__Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy`
+needs `apiVersion`, `kind`, and `metadata` fields.  For general information
+about working with config files, see
+[Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+and [Object Management](/docs/concepts/overview/object-management-kubectl/overview/).
 
 __spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
 
@@ -158,6 +162,8 @@ spec:
   podSelector: {}
   egress:
   - {}
+  policyTypes:
+  - Egress
 ```
 
 ### Default deny all ingress and all egress traffic
@@ -182,3 +188,4 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 
 - See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
   walkthrough for further examples.
+- See more [Recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.

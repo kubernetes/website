@@ -108,7 +108,7 @@ kubectl proxy
 In another command window, get the CPU usage rate from the heapster service:
 
 ```
-curl http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/heapster/api/v1/model/namespaces/cpu-example/pods/cpu-demo/metrics/cpu/usage_rate
+curl http://localhost:8001/api/v1/namespaces/kube-system/services/heapster/proxy/api/v1/model/namespaces/cpu-example/pods/cpu-demo/metrics/cpu/usage_rate
 ```
 
 The output shows that the Pod is using 974 millicpu, which is just a bit less than
@@ -225,7 +225,7 @@ could use all of the CPU resources available on the Node where it is running.
 
 * The Container is running in a namespace that has a default CPU limit, and the
 Container is automatically assigned the default limit. Cluster administrators can use a
-[LimitRange](https://kubernetes.io/docs/api-reference/{{page.version}}/#limitrange-v1-core/)
+[LimitRange](/docs/reference/generated/kubernetes-api/{{page.version}}/#limitrange-v1-core/)
 to specify a default value for the CPU limit.
 
 ## Motivation for CPU requests and limits

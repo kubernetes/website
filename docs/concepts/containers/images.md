@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - thockin
 title: Images
@@ -193,9 +193,6 @@ template needs to include the `.docker/config.json` or mount a drive that contai
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
 
-**This was tested with a private docker repository as of 26 June with Kubernetes version v0.19.3.
-It should also work for a private registry such as quay.io, but that has not been tested.**
-
 ### Pre-pulling Images
 
 **Note:** if you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
@@ -291,6 +288,7 @@ This needs to be done for each pod that is using a private registry.
 
 However, setting of this field can be automated by setting the imagePullSecrets
 in a [serviceAccount](/docs/user-guide/service-accounts) resource.
+Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
 
 You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
 will be merged.  This approach will work on Google Kubernetes Engine.

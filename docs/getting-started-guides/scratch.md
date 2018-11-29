@@ -1,5 +1,5 @@
 ---
-approvers:
+reviewers:
 - erictune
 - lavalamp
 - thockin
@@ -91,12 +91,12 @@ to implement one of the above options:
   - You can also write your own.
 - **Compile support directly into Kubernetes**
   - This can be done by implementing the "Routes" interface of a Cloud Provider module.
-  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce/)/) and [AWS](/docs/getting-started-guides/aws/) guides use this approach.
+  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce/)) and [AWS](/docs/getting-started-guides/aws/) guides use this approach.
 - **Configure the network external to Kubernetes**
   - This can be done by manually running commands, or through a set of externally maintained scripts.
   - You have to implement this yourself, but it can give you an extra degree of flexibility.
 
-You will need to select an address range for the Pod IPs. Note that IPv6 is not yet supported for Pod IPs.
+You will need to select an address range for the Pod IPs.
 
 - Various approaches:
   - GCE: each project has its own `10.0.0.0/8`.  Carve off a `/16` for each
@@ -116,7 +116,7 @@ You will need to select an address range for the Pod IPs. Note that IPv6 is not 
 Kubernetes also allocates an IP to each [service](/docs/concepts/services-networking/service/).  However,
 service IPs do not necessarily need to be routable.  The kube-proxy takes care
 of translating Service IPs to Pod IPs before traffic leaves the node.  You do
-need to Allocate a block of IPs for services.  Call this
+need to allocate a block of IPs for services.  Call this
 `SERVICE_CLUSTER_IP_RANGE`.  For example, you could set
 `SERVICE_CLUSTER_IP_RANGE="10.0.0.0/16"`, allowing 65534 distinct services to
 be active at once.  Note that you can grow the end of this range, but you
@@ -182,7 +182,7 @@ we recommend that you run these as containers, so you need an image to be built.
 You have several choices for Kubernetes images:
 
 - Use images hosted on Google Container Registry (GCR):
-  - For example `gcr.io/google-containers/hyperkube:$TAG`, where `TAG` is the latest
+  - For example `k8s.gcr.io/hyperkube:$TAG`, where `TAG` is the latest
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
   - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary
@@ -197,7 +197,7 @@ You have several choices for Kubernetes images:
 
 For etcd, you can:
 
-- Use images hosted on Google Container Registry (GCR), such as `gcr.io/google-containers/etcd:2.2.1`
+- Use images hosted on Google Container Registry (GCR), such as `k8s.gcr.io/etcd:2.2.1`
 - Use images hosted on [Docker Hub](https://hub.docker.com/search/?q=etcd) or [Quay.io](https://quay.io/repository/coreos/etcd), such as `quay.io/coreos/etcd:v2.2.1`
 - Use etcd binary included in your OS distro.
 - Build your own image
@@ -209,8 +209,8 @@ The recommended version number can also be found as the value of `TAG` in `kuber
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
 
-  - `HYPERKUBE_IMAGE=gcr.io/google-containers/hyperkube:$TAG`
-  - `ETCD_IMAGE=gcr.io/google-containers/etcd:$ETCD_VERSION`
+  - `HYPERKUBE_IMAGE=k8s.gcr.io/hyperkube:$TAG`
+  - `ETCD_IMAGE=k8s.gcr.io/etcd:$ETCD_VERSION`
 
 ### Security Models
 
@@ -292,8 +292,7 @@ many distinct files to make:
   1. Different credentials for every kubelet, etc.
     - We are working on this but all the pieces are not ready yet.
 
-You can make the files by copying the `$HOME/.kube/config`, by following the code
-in `cluster/gce/configure-vm.sh` or by using the following template:
+You can make the files by copying the `$HOME/.kube/config` or by using the following template:
 
 ```yaml
 apiVersion: v1
@@ -398,17 +397,14 @@ All nodes should run kubelet.  See [Software Binaries](#software-binaries).
 Arguments to consider:
 
   - If following the HTTPS security approach:
-    - `--api-servers=https://$MASTER_IP`
     - `--kubeconfig=/var/lib/kubelet/kubeconfig`
   - Otherwise, if taking the firewall-based security approach
-    - `--api-servers=http://$MASTER_IP`
   - `--config=/etc/kubernetes/manifests`
   - `--cluster-dns=` to the address of the DNS server you will setup (see [Starting Cluster Services](#starting-cluster-services).)
   - `--cluster-domain=` to the dns domain prefix to use for cluster DNS addresses.
   - `--docker-root=`
   - `--root-dir=`
   - `--pod-cidr=` The CIDR to use for pod IP addresses, only used in standalone mode.  In cluster mode, this is obtained from the master.
-  - `--configure-cbr0=` (described below)
   - `--register-node` (described in [Node](/docs/admin/node/) documentation.)
 
 ### kube-proxy
@@ -443,38 +439,6 @@ needs an address from `$NODE_X_POD_CIDR` - by convention the first IP.  Call
 this `NODE_X_BRIDGE_ADDR`.  For example, if `NODE_X_POD_CIDR` is `10.0.0.0/16`,
 then `NODE_X_BRIDGE_ADDR` is `10.0.0.1/16`.  NOTE: this retains the `/16` suffix
 because of how this is used later.
-
-- Recommended, automatic approach:
-
-  1. Set `--configure-cbr0=true` option in kubelet init script and restart kubelet service.  Kubelet will configure cbr0 automatically.
-     It will wait to do this until the node controller has set Node.Spec.PodCIDR.  Since you have not setup apiserver and node controller
-     yet, the bridge will not be setup immediately.
-- Alternate, manual approach:
-
-  1. Set `--configure-cbr0=false` on kubelet and restart.
-  1. Create a bridge.
-
-        ```
-        ip link add name cbr0 type bridge
-        ```
-
-  1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
-
-        ```
-        ip link set dev cbr0 mtu 1460
-        ```
-
-  1. Add the node's network to the bridge (docker will go on other side of bridge).
-
-        ```
-        ip addr add $NODE_X_BRIDGE_ADDR dev cbr0
-        ```
-
-  1. Turn it on
-
-        ```
-        ip link set dev cbr0 up
-        ```
 
 If you have turned off Docker's IP masquerading to allow pods to talk to each
 other, then you may need to do masquerading just for destination IPs outside
@@ -540,7 +504,7 @@ availability.
 
 To run an etcd instance:
 
-1. Copy `cluster/saltbase/salt/etcd/etcd.manifest`
+1. Copy [`cluster/gce/manifests/etcd.manifest`](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/manifests/etcd.manifest)
 1. Make any modifications needed
 1. Start the pod by putting it into the kubelet manifest directory
 
@@ -643,7 +607,7 @@ Here are some apiserver flags you may need to set:
 - `--etcd-servers=http://127.0.0.1:4001`
 - `--tls-cert-file=/srv/kubernetes/server.cert`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
-- `--admission-control=$RECOMMENDED_LIST`
+- `--enable-admission-plugins=$RECOMMENDED_LIST`
   - See [admission controllers](/docs/admin/admission-controllers/) for recommended arguments.
 - `--allow-privileged=true`, only if you trust your cluster user to run pods as root.
 
@@ -687,7 +651,6 @@ Some cloud providers require a config file. If so, you need to put config file i
 - Cloud config file syntax is [Gcfg](https://code.google.com/p/gcfg/).
 - AWS format defined by type [AWSCloudConfig](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers/aws/aws.go)
 - There is a similar type in the corresponding file for other cloud providers.
-- GCE example: search for `gce.conf` in [this file](https://releases.k8s.io/{{page.githubbranch}}/cluster/gce/configure-vm.sh)
 
 #### Scheduler pod template
 
@@ -819,7 +782,7 @@ Use `ps` or `docker ps` to verify that each process has started.  For example, v
 
 ```shell
 $ sudo docker ps | grep apiserver
-5783290746d5        gcr.io/google-containers/kube-apiserver:e36bf367342b5a80d7467fd7611ad873            "/bin/sh -c '/usr/lo'"    10 seconds ago      Up 9 seconds                              k8s_kube-apiserver.feb145e7_kube-apiserver-kubernetes-master_default_eaebc600cf80dae59902b44225f2fc0a_225a4695
+5783290746d5        k8s.gcr.io/kube-apiserver:e36bf367342b5a80d7467fd7611ad873            "/bin/sh -c '/usr/lo'"    10 seconds ago      Up 9 seconds                              k8s_kube-apiserver.feb145e7_kube-apiserver-kubernetes-master_default_eaebc600cf80dae59902b44225f2fc0a_225a4695
 ```
 
 Then try to connect to the apiserver:
@@ -858,8 +821,7 @@ Notes for setting up each cluster service are given below:
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI
-  * [Setup instructions](https://github.com/kubernetes/kube-ui)
-  cluster.
+  * [Setup instructions](https://github.com/kubernetes/dashboard)
 
 ## Troubleshooting
 

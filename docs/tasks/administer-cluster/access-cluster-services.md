@@ -69,7 +69,7 @@ This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
 at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
-(See [above](#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.)
+(See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.)
 
 #### Manually constructing apiserver proxy URLs
 

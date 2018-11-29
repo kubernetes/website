@@ -1,20 +1,23 @@
 ---
-approvers:
+reviewers:
 - fgrzadkowski
 - jszczepkowski
 - directxman12
-title: Horizontal Pod Autoscaling
+title: Horizontal Pod Autoscaler
 ---
 
-This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.
+* TOC
+{:toc}
 
-## What is Horizontal Pod Autoscaling?
+This document describes the current state of the Horizontal Pod Autoscaler in Kubernetes.
 
-With Horizontal Pod Autoscaling, Kubernetes automatically scales the number of pods
+## What is the Horizontal Pod Autoscaler?
+
+The Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization (or, with
 [custom metrics](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
 support, on some other application-provided metrics). Note that Horizontal
-Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSet.
+Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSets.
 
 The Horizontal Pod Autoscaler is implemented as a Kubernetes API resource and a controller.
 The resource determines the behavior of the controller.
@@ -98,9 +101,9 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/user
 ## Autoscaling during rolling update
 
 Currently in Kubernetes, it is possible to perform a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) by managing replication controllers directly,
-or by using the deployment object, which manages the underlying replication controllers for you.
+or by using the deployment object, which manages the underlying replica sets for you.
 Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
-it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replication controllers.
+it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replica sets.
 
 Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
 i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update (e.g. using `kubectl rolling-update`).
@@ -157,12 +160,14 @@ To use custom metrics with your Horizontal Pod Autoscaler, you must set the nece
 
 * [Enable the API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) if you have not already done so.
 
-* Register your resource metrics API and your
-custom metrics API with the API aggregation layer. Both of these API servers must be running *on* your cluster.
+* Register your resource metrics API, your
+custom metrics API and, optionally, external metrics API with the API aggregation layer. All of these API servers must be running *on* your cluster.
 
   * *Resource Metrics API*: You can use Heapster's implementation of the resource metrics API, by running Heapster with its `--api-server` flag set to true.
 
   * *Custom Metrics API*: This must be provided by a separate component. To get started with boilerplate code, see the [kubernetes-incubator/custom-metrics-apiserver](https://github.com/kubernetes-incubator/custom-metrics-apiserver) and the [k8s.io/metrics](https://github.com/kubernetes/metrics) repositories.
+
+  * *External Metrics API*: Starting from Kubernetes 1.10 you can use this API if you need to autoscale on metrics not related to any Kubernetes object. Similarly to *Custom Metrics API* this must be provided by a separate component.
 
 * Set the appropriate flags for kube-controller-manager:
 

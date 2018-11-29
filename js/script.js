@@ -135,7 +135,8 @@ var kub = (function () {
             // case 'caseStudies':
                 bodyHeight = windowHeight;
                 break;
-
+            case 'blog':
+                bodyHeight = windowHeight;
             case 'caseStudies':
             case 'partners':
                 bodyHeight = windowHeight * 2;

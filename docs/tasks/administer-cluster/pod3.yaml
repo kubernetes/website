@@ -8,4 +8,4 @@ spec:
   schedulerName: my-scheduler
   containers:
   - name: pod-with-second-annotation-container
-    image: gcr.io/google_containers/pause:2.0
+    image: k8s.gcr.io/pause:2.0
