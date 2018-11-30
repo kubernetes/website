@@ -4,7 +4,7 @@ id: managed-service
 date: 2018-04-12
 full_link: 
 short_description: >
-  由第三方供应商负责维护的一种软件交付件。
+  由第三方供应商负责维护的一种软件产品。
 
 aka: 
 tags:
@@ -28,7 +28,7 @@ tags:
  A software offering maintained by a third-party provider.
 -->
 
-由第三方供应商负责维护的一种软件交付件。
+由第三方供应商负责维护的一种软件产品。
 
 <!--more--> 
 
