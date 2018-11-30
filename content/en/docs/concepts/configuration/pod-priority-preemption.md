@@ -241,7 +241,7 @@ priority Pods to zero or a small number.
 #### PodDisruptionBudget is supported, but not guaranteed!
 
 A [Pod Disruption Budget (PDB)](/docs/concepts/workloads/pods/disruptions/)
-allows application owners to limit the number Pods of a replicated application
+allows application owners to limit the number of Pods of a replicated application
 that are down simultaneously from voluntary disruptions. Kubernetes 1.9 supports
 PDB when preempting Pods, but respecting PDB is best effort. The Scheduler tries
 to find victims whose PDB are not violated by preemption, but if no such victims
@@ -329,7 +329,7 @@ than the victims. If preemption happens in such scenarios, please file an issue.
 
 When pods are preempted, they receive their requested graceful termination
 period, which is by default 30 seconds, but it can be any different value as
-specified in the PodSpec. If the victim Pods do not terminate within this period
+specified in the PodSpec. If the victim Pods do not terminate within this period,
 they are force-terminated. Once all the victims go away, the preemptor Pod can
 be scheduled.
 
