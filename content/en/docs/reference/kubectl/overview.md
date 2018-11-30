@@ -273,7 +273,7 @@ $ kubectl create -f <directory>
 // List all pods in plain-text output format.
 $ kubectl get pods
 
-// List all pods in plain-text output format and includes additional information (such as node name).
+// List all pods in plain-text output format and include additional information (such as node name).
 $ kubectl get pods -o wide
 
 // List the replication controller with the specified name in plain-text output format. Tip: You can shorten and replace the 'replicationcontroller' resource type with the alias 'rc'.
