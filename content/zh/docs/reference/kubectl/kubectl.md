@@ -50,7 +50,7 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">log to standard error as well as files</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">log 到标准输出以及文件上</td>
+      <td style="line-height: 130%; word-wrap: break-word;">同时将日志写到标准输出和文件中</td>
     </tr>
 
     <tr>
@@ -59,7 +59,7 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Username to impersonate for the operation</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">以某人名义进行操作</td>
+      <td style="line-height: 130%; word-wrap: break-word;">执行操作时假冒的用户名</td>
     </tr>
 
     <tr>
@@ -68,7 +68,7 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Group to impersonate for the operation, this flag can be repeated to specify multiple groups.</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">以某个群组的名义进行操作，可以重复使用这个参数来声明多个群组。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">执行操作时假冒的组名。此参数可以多次使用，以设置多个组名。</td>
     </tr>
 
     <tr>
@@ -77,11 +77,12 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Path to the file containing Azure container registry configuration information.</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">包含容器仓库配置信息的文件路径。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">Azure 容器仓库配置信息文件的路径。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/Users/zarnold/.kube/http-cache"</td>
+      <!-- <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/http-cache"</td> -->
+      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "$HOME/.kube/http-cache"</td>
     </tr>
     <tr>
       <td></td>
@@ -95,7 +96,7 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Path to a cert file for the certificate authority</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">CA 验证的数字证书的文件路径</td>
+      <td style="line-height: 130%; word-wrap: break-word;">CA 证书机构的证书文件路径</td>
     </tr>
 
     <tr>
@@ -113,16 +114,17 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Path to a client key file for TLS</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">TLS 客户端秘钥文件的路径</td>
+      <td style="line-height: 130%; word-wrap: break-word;">TLS 客户端密钥文件的路径</td>
     </tr>
 
     <tr>
-      <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
+      <!-- <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td> -->
+      <td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
     </tr>
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">CIDRs opened in GCE firewall for LB traffic proxy & health checks</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">在 GCE 防火墙中声明 CIDRs 用于负载均衡和健康检查。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">在 GCE 防火墙中开放的 CIDRs，用于负载均衡器流量代理和健康检查。</td>
     </tr>
 
     <tr>
@@ -144,21 +146,23 @@ kubectl [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td>
+      <!-- <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td> -->
+      <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：300</td>
     </tr>
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">指明 `notReady:NoExecute` 的容忍时间（`tolerationSeconds`），将默认添加到各个没有这个容忍设置的 pod 上。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">针对 `notReady:NoExecute` 污点的容忍时间（`tolerationSeconds`）；对于没有设置该容忍度的 Pods，Kubernetes 会添加此容忍度设置。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td>
+      <!-- <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td> -->
+      <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容忍度：300</td>
     </tr>
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">指明 `unreachable:NoExecute` 的容忍时间（`tolerationSeconds`），将默认添加到各个没有这个容忍设置的 pod 上。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">针对 `unreachable:NoExecute` 污点的容忍时间（`tolerationSeconds`）；对于没有设置该容忍度的 Pods，Kubernetes 会添加此容忍度设置。</td>
     </tr>
 
     <tr>
@@ -176,7 +180,7 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">如果选中，将不会验证服务器的电子证书。这也意味着，HTTPS 链接将不安全。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">如果设置为 true，kubectl 将不会验证服务器的证书。这样设置时，HTTPS 链接将不安全。</td>
     </tr>
 
     <tr>
@@ -188,11 +192,12 @@ kubectl [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: :0</td>
+      <!-- <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: :0</td> -->
+      <td colspan="2">--log-backtrace-at traceLocation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：:0</td>
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">when logging hits line file:N, emit a stack trace</td> -->
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">当日志达到文件 N 行，打印栈跟踪。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">格式为“file:N”；在为文件 file 的第 N 行打印日志时，打印调用堆栈的跟踪信息。</td>
     </tr>
 
     <tr>
@@ -201,25 +206,27 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">If non-empty, write log files in this directory</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">如果路径存在，日志将保存在该路径下。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">如果此参数不为空，将在所指定的路径下保存日志文件。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5s</td>
+      <!-- <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5s</td> -->
+      <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：5s</td>      
     </tr>
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Maximum number of seconds between log flushes</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">日志导出的最大时间间隔。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">清刷日志数据的最大间隔秒数。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+      <!-- <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td> -->
+      <td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：true</td>
     </tr>
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">log to standard error instead of files</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">log 到标准错误输出，而非文件上。</td>
+      <td style="line-height: 130%; word-wrap: break-word;">将日志输出到标准错误输出而非文件中。</td>
     </tr>
 
     <tr>
@@ -237,11 +244,12 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">If present, the namespace scope for this CLI request</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">如果指明命名空间，将供 CLI 请求之用</td>
+      <td style="line-height: 130%; word-wrap: break-word;">此参数如果设置，用来控制 CLI 请求的名字空间范畴</td>
     </tr>
 
     <tr>
-      <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "0"</td>
+      <!-- <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "0"</td> -->
+      <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："0"</td>
     </tr>
     <tr>
       <td></td>
@@ -259,12 +267,13 @@ kubectl [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2</td>
+      <!-- <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2</td> -->
+      <td colspan="2">--stderrthreshold severity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：2</td>
     </tr>
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">logs at or above this threshold go to stderr</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">日志等级，等于或高于这个等级的日志都将会打印到标准错误输出上</td>
+      <td style="line-height: 130%; word-wrap: break-word;">严重级别整数值；严重级别高于或等于此值的日志都将会输出到标准错误输出</td>
     </tr>
 
     <tr>
@@ -273,7 +282,7 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">Bearer token for authentication to the API server</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">Bearer 令牌，供 API 服务器验证之用</td>
+      <td style="line-height: 130%; word-wrap: break-word;">持有者令牌（Bearer Token），用于向 API 服务器认证身份</td>
     </tr>
 
     <tr>
@@ -311,7 +320,7 @@ kubectl [flags]
     <tr>
       <td></td>
       <!-- <td style="line-height: 130%; word-wrap: break-word;">comma-separated list of pattern=N settings for file-filtered logging</td> -->
-      <td style="line-height: 130%; word-wrap: break-word;">指定输出日志的模块，格式如下：pattern=N，使用逗号分隔</td>
+      <td style="line-height: 130%; word-wrap: break-word;">逗号分隔的字符串表，每个元素都是 pattern=N 格式，用于基于文件名进行过滤的日志设置</td>
     </tr>
 
   </tbody>
@@ -324,25 +333,25 @@ kubectl [flags]
 <!-- * [kubectl alpha](kubectl_alpha.md)	 - Commands for features in alpha -->
 * [kubectl alpha](kubectl_alpha.md)	 - kubectl alpha 功能
 <!-- * [kubectl annotate](kubectl_annotate.md)	 - Update the annotations on a resource -->
-* [kubectl annotate](kubectl_annotate.md)	 - 更新资源上注释
+* [kubectl annotate](kubectl_annotate.md)	 - 更新资源所关联的注解
 <!-- * [kubectl api-resources](kubectl_api-resources.md)	 - Print the supported API resources on the server -->
 * [kubectl api-resources](kubectl_api-resources.md)	 - 打印服务器上所支持的 API 资源
 <!-- * [kubectl api-versions](kubectl_api-versions.md)	 - Print the supported API versions on the server, in the form of "group/version" -->
-* [kubectl api-versions](kubectl_api-versions.md)	 - 以“组/版本”的格式输出服务端支持的API版本
+* [kubectl api-versions](kubectl_api-versions.md)	 - 以“组/版本”的格式输出服务端支持的 API 版本
 <!-- * [kubectl apply](kubectl_apply.md)	 - Apply a configuration to a resource by filename or stdin -->
-* [kubectl apply](kubectl_apply.md)	 - 通过文件名或标准输入，对资源进行配置
+* [kubectl apply](kubectl_apply.md)	 - 基于文件名或标准输入，将新的配置应用到资源上
 <!-- * [kubectl attach](kubectl_attach.md)	 - Attach to a running container -->
 * [kubectl attach](kubectl_attach.md)	 - 连接到一个正在运行的容器
 <!-- * [kubectl auth](kubectl_auth.md)	 - Inspect authorization -->
-* [kubectl auth](kubectl_auth.md)	 - Inspect authorization
+* [kubectl auth](kubectl_auth.md)	 - 检视授权信息
 <!-- * [kubectl autoscale](kubectl_autoscale.md)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController -->
-* [kubectl autoscale](kubectl_autoscale.md)	 -  对一个资源对象（ Deployment, ReplicaSet, 或者 ReplicationController ）进行扩缩
+* [kubectl autoscale](kubectl_autoscale.md)	 -  对一个资源对象（ Deployment、ReplicaSet 或 ReplicationController ）进行扩缩
 <!-- * [kubectl certificate](kubectl_certificate.md)	 - Modify certificate resources. -->
 * [kubectl certificate](kubectl_certificate.md)	 - 修改证书资源
 <!-- * [kubectl cluster-info](kubectl_cluster-info.md)	 - Display cluster info -->
 * [kubectl cluster-info](kubectl_cluster-info.md)	 - 显示集群信息
 <!-- * [kubectl completion](kubectl_completion.md)	 - Output shell completion code for the specified shell (bash or zsh) -->
-* [kubectl completion](kubectl_completion.md)	 - 根据已经给出的 shell 代码输出补全后的 shell 代码 (bash 或者 zsh)
+* [kubectl completion](kubectl_completion.md)	 - 根据已经给出的 Shell（bash 或 zsh），输出 Shell 补全后的代码
 <!-- * [kubectl config](kubectl_config.md)	 - Modify kubeconfig files -->
 * [kubectl config](kubectl_config.md)	 - 修改 kubeconfig 配置文件
 <!-- * [kubectl convert](kubectl_convert.md)	 - Convert config files between different API versions -->
@@ -358,39 +367,39 @@ kubectl [flags]
 <!-- * [kubectl describe](kubectl_describe.md)	 - Show details of a specific resource or group of resources -->
 * [kubectl describe](kubectl_describe.md)	 - 显示某个资源或某组资源的详细信息
 <!-- * [kubectl drain](kubectl_drain.md)	 - Drain node in preparation for maintenance -->
-* [kubectl drain](kubectl_drain.md)	 - 耗尽节点资源，为维护做准备
+* [kubectl drain](kubectl_drain.md)	 - 腾空节点，准备维护
 <!-- * [kubectl edit](kubectl_edit.md)	 - Edit a resource on the server -->
-* [kubectl edit](kubectl_edit.md)	 - 在服务器上修改一个资源
+* [kubectl edit](kubectl_edit.md)	 - 修改服务器上的某资源
 <!-- * [kubectl exec](kubectl_exec.md)	 - Execute a command in a container -->
 * [kubectl exec](kubectl_exec.md)	 - 在容器中执行命令
 <!-- * [kubectl explain](kubectl_explain.md)	 - Documentation of resources -->
-* [kubectl explain](kubectl_explain.md)	 - 资源文献
+* [kubectl explain](kubectl_explain.md)	 - 显示资源说明
 <!-- * [kubectl expose](kubectl_expose.md)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service -->
-* [kubectl expose](kubectl_expose.md)	 - 输入 replication controller，service，deployment 或者 pod，并将其暴露为新的 kubernetes 服务。
+* [kubectl expose](kubectl_expose.md)	 - 给定副本控制器、服务、Deployment 或 Pod，将其暴露为新的 kubernetes Service
 <!-- * [kubectl get](kubectl_get.md)	 - Display one or many resources -->
 * [kubectl get](kubectl_get.md)	 - 显示一个或者多个资源信息
 <!-- * [kubectl label](kubectl_label.md)	 - Update the labels on a resource -->
 * [kubectl label](kubectl_label.md)	 - 更新资源的标签
 <!-- * [kubectl logs](kubectl_logs.md)	 - Print the logs for a container in a pod -->
-* [kubectl logs](kubectl_logs.md)	 - 输出 pod 中一个容器的所有日志
+* [kubectl logs](kubectl_logs.md)	 - 输出 pod 中某容器的日志
 <!-- * [kubectl options](kubectl_options.md)	 - Print the list of flags inherited by all commands -->
-* [kubectl options](kubectl_options.md)	 - 打印所有命令行共有的参数
+* [kubectl options](kubectl_options.md)	 - 打印所有命令都支持的共有参数列表
 <!-- * [kubectl patch](kubectl_patch.md)	 - Update field(s) of a resource using strategic merge patch -->
-* [kubectl patch](kubectl_patch.md)	 - 使用重要兼容的补丁来更新一个资源中的字段信息
+* [kubectl patch](kubectl_patch.md)	 - 基于策略性合并修补（Stategic Merge Patch）规则更新某资源中的字段
 <!-- * [kubectl plugin](kubectl_plugin.md)	 - Runs a command-line plugin -->
 * [kubectl plugin](kubectl_plugin.md)	 - 运行命令行插件
 <!-- * [kubectl port-forward](kubectl_port-forward.md)	 - Forward one or more local ports to a pod -->
 * [kubectl port-forward](kubectl_port-forward.md)	 - 将一个或者多个本地端口转发到 pod
 <!-- * [kubectl proxy](kubectl_proxy.md)	 - Run a proxy to the Kubernetes API server -->
-* [kubectl proxy](kubectl_proxy.md)	 - 运行一个 kubernetes API server 代理
+* [kubectl proxy](kubectl_proxy.md)	 - 运行一个 kubernetes API 服务器代理
 <!-- * [kubectl replace](kubectl_replace.md)	 - Replace a resource by filename or stdin -->
-* [kubectl replace](kubectl_replace.md)	 - 通过文件名或控制台标准输入替换资源
+* [kubectl replace](kubectl_replace.md)	 - 基于文件名或标准输入替换资源
 <!-- * [kubectl rollout](kubectl_rollout.md)	 - Manage the rollout of a resource -->
-* [kubectl rollout](kubectl_rollout.md)	 - 完成一个 deployment 的部署
+* [kubectl rollout](kubectl_rollout.md)	 - 管理资源的上线
 <!-- * [kubectl run](kubectl_run.md)	 - Run a particular image on the cluster -->
 * [kubectl run](kubectl_run.md)	 - 在集群中使用指定镜像启动容器
 <!-- * [kubectl scale](kubectl_scale.md)	 - Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job -->
-* [kubectl scale](kubectl_scale.md)	 - 为一个 Deployment, ReplicaSet, ReplicationController, 或者 Job 设置一个新的规格
+* [kubectl scale](kubectl_scale.md)	 - 为一个 Deployment、ReplicaSet、ReplicationController 或 Job 设置一个新的规模尺寸值
 <!-- * [kubectl set](kubectl_set.md)	 - Set specific features on objects -->
 * [kubectl set](kubectl_set.md)	 - 在资源对象设置特定的功能
 <!-- * [kubectl taint](kubectl_taint.md)	 - Update the taints on one or more nodes -->
