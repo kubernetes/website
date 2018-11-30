@@ -1,5 +1,5 @@
 ---
-title: 服务代理商
+title: 服务代理（Service Broker）
 id: service-broker
 date: 2018-04-12
 full_link: 
@@ -36,7 +36,7 @@ tags:
 {{< glossary_tooltip text="Service Brokers" term_id="service-broker" >}} implement the [Open Service Broker API spec](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md) and provide a standard interface for applications to use their Managed Services. [Service Catalog](/docs/concepts/service-catalog/) provides a way to list, provision, and bind with Managed Services offered by Service Brokers.
 -->
 
-{{< glossary_tooltip text="服务代理商" term_id="service-broker">}}会实现
+{{< glossary_tooltip text="服务代理" term_id="service-broker">}}会实现
 [开放服务代理 API 规范](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md)
 并为应用提供使用其托管服务的标准接口。
-[服务目录](/docs/concepts/service-catalog/)则提供一种方法，用来列举、供应和绑定服务代理商所提供的托管服务。
+[服务目录（Service Catalog）](/docs/concepts/service-catalog/)则提供一种方法，用来列举、供应和绑定服务代理商所提供的托管服务。

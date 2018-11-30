@@ -33,7 +33,8 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{< note >}}
-**注意:** 为了在您的环境中启用聚合层时，如需要支持代理和扩展 apiserver 之间的双向 TLS 身份验证，需要满足一些设置要求。Kubernetes 和 kube-apiserver 都有多个 CA，因此确保代理的证书由聚合层 CA 签署，而不是由其它 CA （如主 CA）来签署。
+**注意:** 在您的环境中启用聚合层时，如需要支持代理和扩展 apiserver 之间的双向 TLS 身份验证，需要满足一些设置要求。
+Kubernetes 和 kube-apiserver 都有多个 CA，因此要确保代理的证书由聚合层 CA 签署，而不是由其它 CA （如主 CA）来签署。
 {{< /note >}}
 <!--
 {{< note >}}
@@ -86,7 +87,7 @@ If you are not running kube-proxy on a host running the API server, then you mus
 
 {{% capture whatsnext %}}
 
-* [设置一个扩展的 api-server ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 以使用聚合层。
+* [安装一个扩展的 api-server ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 以使用聚合层。
 * 有关高级概述，请参阅[使用聚合层扩展 Kubernetes API ](/docs/concepts/api-extension/apiserver-aggregation/)。
 * 了解如何[使用自定义资源扩展 Kubernetes API ](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
 
