@@ -40,9 +40,9 @@ For more information, see the [kubernetes/community](https://github.com/kubernet
 -->
 
 SIG 中的成员对推进某个领域（如体系结构、API 机制构件或者文档）具有相同的兴趣。
-SIGs 必须遵从[SIG Governance](https://github.com/kubernetes/community/blob/master/sig-governance.md) 的规定，
+SIGs 必须遵从 [SIG Governance](https://github.com/kubernetes/community/blob/master/sig-governance.md) 的规定，
 不过可以有自己的贡献策略以及通信渠道（方式）。
 
-更多的详细信息可参阅[kubernetes/community](https://github.com/kubernetes/community) 仓库以及
+更多的详细信息可参阅 [kubernetes/community](https://github.com/kubernetes/community) 仓库以及
 [SIGs 和工作组（Working Groups）](https://github.com/kubernetes/community/blob/master/sig-list.md)的最新列表。
 
