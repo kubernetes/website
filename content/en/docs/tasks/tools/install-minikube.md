@@ -8,6 +8,10 @@ weight: 20
 
 This page shows how to install Minikube.
 
+{{< note >}}
+The latest version of Minikube is [{{< minikube/latest >}}](https://github.com/kubernetes/minikube/releases/tag/v{{< minikube/latest >}}).
+{{< /note >}}
+
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -42,7 +46,56 @@ If you do not already have a hypervisor installed, install the appropriate one f
 
 ## Install Minikube
 
-* Install Minikube according to the instructions for the [latest release](https://github.com/kubernetes/minikube/releases).
+{{< caution >}}
+For more detailed instructions, see the [Minikube releases page](https://github.com/kubernetes/minikube/releases) on GitHub. The instructions on this page are intended for convenience.
+{{< /caution >}}
+
+### macOS
+
+The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
+
+```shell
+brew cask install minikube
+```
+
+You can also install it by downloading a static binary:
+
+```shell
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v{{< minikube/latest >}}/minikube-darwin-amd64 \
+  && chmod +x minikube \
+  && sudo cp minikube /usr/local/bin/ \
+  && rm minikube
+```
+
+You can leave off the `sudo cp minikube /usr/local/bin/ && rm minikube` if you'd like to add Minikube to your path manually.
+
+### Linux
+
+You can install Minikube on Linux by downloading a static binary:
+
+```shell
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v{{< minikube/latest >}}/minikube-linux-amd64 \
+  && chmod +x minikube \
+  && sudo cp minikube /usr/local/bin/ \
+  && rm minikube
+```
+
+#### Debian .deb package (experimental)
+
+To install Minikube as a Debian package:
+
+```shell
+wget https://github.com/kubernetes/minikube/releases/download/v{{< minikube/latest >}}/minikube_{{< minikube/latest >}}.deb
+sudo dpkg -i minikube_{{< minikube/latest >}}.deb
+```
+
+### Windows (experimental)
+
+Download the [`minikube-windows-amd64.exe`](https://github.com/kubernetes/minikube/releases/download/v{{< minikube/latest >}}/minikube-windows-amd64) file, rename it to `minikube.exe`, and add it to your path.
+
+### Windows installer (experimental)
+
+Download the [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/download/v0.30.0/minikube-installer.exe) file and execute the installer. This will automatically add `minikube.exe` to your path along with an uninstaller.
 
 {{% /capture %}}
 
