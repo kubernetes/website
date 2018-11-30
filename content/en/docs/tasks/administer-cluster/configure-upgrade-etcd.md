@@ -207,21 +207,21 @@ etcd2 and etcd3 is as follows:
 
 - Kubernetes v1.0: etcd2 only
 - Kubernetes v1.5.1: etcd3 support added, new clusters still default to etcd2
-- Kubernetes v1.6.0: new clusters created with `kube-up.sh` default to etcd3
+- Kubernetes v1.6.0: new clusters created with `kube-up.sh` default to etcd3,
+                     and `kube-apiserver` defaults to etcd3
 - Kubernetes v1.9.0: deprecation of etcd2 storage backend announced
-- Kubernetes v1.13.0: etcd2 storage backend removed
+- Kubernetes v1.13.0: etcd2 storage backend removed, `kube-apiserver` will
+                      refuse to start with `--storage-backend=etcd2`, with the
+                      message `etcd2 is no longer a supported storage backend`
 
-In the unlikely scenario that your Kubernetes cluster is older than v1.13.0 and
-is still using etcd2 as its  storage backed, you MUST migrate to etcd3 before 
-upgrading the cluster to Kubernetes v1.13.0.  Note that both the etcd version
-must be migrated, as well as the version of the etcd API that Kubernetes talks
-to.
+Before upgrading a v1.12.x kube-apiserver using `--storage-backend=etcd2` to
+v1.13.x, etcd v2 data MUST by migrated to the v3 storage backend, and
+kube-apiserver invocations changed to use `--storage-backend=etcd3`.
 
-There is no pre-existing process for updating etcd, as this is highly dependent
-on how the etcd cluster was deployed and configured, as well as how the
-Kubernetes cluster was deployed and configured. We recommend that you consult
-your cluster provider's documentation to see if there is a predefined
-solution.
+The process for migrating from etcd2 to etcd3 is highly dependent on how the
+etcd cluster was deployed and configured, as well as how the Kubernetes 
+cluster was deployed and configured. We recommend that you consult your cluster
+provider's documentation to see if there is a predefined solution.
 
 If your cluster was created via `kube-up.sh` and is still using etcd2 as its
 storage backend, please consult the [Kubernetes v1.12 etcd cluster upgrade docs](https://v1-12.docs.kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#upgrading-and-rolling-back-etcd-clusters)
