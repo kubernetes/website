@@ -203,7 +203,7 @@ For more information about working from forks or directly from the repository, s
 
 ### Upstream contributions
 
-SIG Docs welcomes upstream contributions and corrections to the English source! Open a [pull request](https://kubernetes.io/docs/contribute/start/#improve-existing-content) (from a fork) with any updates.
+SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/intermediate#localize-content) to the English source. 
 
 {{% /capture %}}
 
