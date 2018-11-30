@@ -71,11 +71,11 @@ tutorial has only one Container. A Kubernetes
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
-1. Use the `kubectl run` command to create a Deployment that manages a Pod. The
+1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
 Pod runs a Container based on the provided Docker image. 
 
     ```shell
-    kubectl run hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
+    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
     ```
 
 2. View the Deployment:
