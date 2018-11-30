@@ -806,6 +806,18 @@ content. See [Localization](/docs/contribute/localization/) and ask on the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 or in `#sig-docs` on Slack if you are interested in helping out.
 
+### Working with localized content
+
+Follow these guidelines for working with localized content:
+
+- Limit PRs to a single language. 
+
+   Each language has its own reviewers and approvers.
+
+- Reviewers, verify that PRs contain changes to only one language.
+
+   If a PR contains changes to source in more than one language, ask the PR contributor to open separate PRs for each language.
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}

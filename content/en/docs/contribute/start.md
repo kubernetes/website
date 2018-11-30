@@ -24,12 +24,7 @@ code repositories, refer to
 
 ## The basics about our docs
 
-The Kubernetes documentation is written in Markdown and processed and deployed
-using Hugo. The source is in Github at
-[https://github.com/kubernetes/website](https://github.com/kubernetes/website).
-Most of the documentation source is stored in `/content/en/docs/`. Some of the
-reference documentation is automatically generated from scripts in the
-`update-imported-docs/` directory.
+The Kubernetes documentation is written in Markdown and processed and deployed using Hugo. The source is in Github at [https://github.com/kubernetes/website](https://github.com/kubernetes/website). Most of the documentation source is stored in `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
 
 You can file issues, edit content, and review changes from others, all from the
 Github website. You can also use Github's embedded history and search tools.
@@ -69,6 +64,14 @@ The Kubernetes documentation is transformed from Markdown to HTML using Hugo.
 We make use of the standard Hugo shortcodes, as well as a few that are custom to
 the Kubernetes documentation. See [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) for
 information about how to use them.
+
+### Multiple languages 
+
+Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`. 
+
+For more information about contributing to documentation in multiple languages, see ["Localize content"](/docs/contribute/intermediate#localize-content) in the intermediate contributing guide.
+
+If you're interested in starting a new localization, see ["Localization"](/docs/contribute/localization/).
 
 ## File actionable issues
 
