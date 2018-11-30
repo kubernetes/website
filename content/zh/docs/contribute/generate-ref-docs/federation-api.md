@@ -1,14 +1,14 @@
+---
+title: 为 Kubernetes 联邦 API 生成参考文档
+content_template: templates/task
+---
+
 <!--
 ---
 title: Generating Reference Documentation for Kubernetes Federation API
 content_template: templates/task
 ---
 -->
-
----
-title: 为 Kubernetes 联邦 API 生成参考文档
-content_template: templates/task
----
 
 {{% capture overview %}}
 
@@ -17,7 +17,7 @@ This page shows how to automatically generate reference pages for the
 Kubernetes Federation API.
 -->
 
-本节介绍如何自动地为 Kubernetes 联邦 API 生成参考文档。
+本节介绍如何为 Kubernetes 联邦 API 自动生成参考文档。
 
 {{% /capture %}}
 
@@ -54,7 +54,7 @@ information, see
 [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 -->
 
-* 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的一个分支。想了解更多信息，请参见 [创建一个文档 PR](/docs/home/contribute/create-pull-request/)。
+* 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的一个分支。想了解更多信息，请参见[创建一个文档 PR](/docs/home/contribute/create-pull-request/)。
 
 {{% /capture %}}
 
@@ -71,15 +71,7 @@ information, see
 If you don't already have the Kubernetes federation source code, get it now:
 -->
 
-如果你还没有 Kubernetes 联邦的源码，现在就可以得到：
-
-<!--
-```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes/federation
-```
--->
+如果你还没有 Kubernetes 联邦的源码，现在下载：
 
 ```shell
 mkdir $GOPATH/src
@@ -95,20 +87,15 @@ code, your base directory is `$GOPATH/src/github.com/kubernetes/federation.`
 The remaining steps refer to your base directory as `<fed-base>`.
 -->
 
-确定本地 [kubernetes/federation](https://github.com/kubernetes/federation) 仓库的基本目录。例如，如果按照前面的步骤获取联邦的源码，则基本目录是 `$GOPATH/src/github.com/kubernetes/federation`。下文将该目录称为 `<fed-base>`。
+确定本地 [kubernetes/federation](https://github.com/kubernetes/federation) 仓库的主目录。
+例如，如果按照前面的步骤获取联邦的源码，则主目录是 `$GOPATH/src/github.com/kubernetes/federation`。
+下文将该目录称为 `<fed-base>`。
 
 <!--
 Run the doc generation script:
 -->
 
 运行文档生成脚本：
-
-<!--
-```shell
-cd <fed-base>
-hack/update-federation-api-reference-docs.sh
-```
--->
 
 ```shell
 cd <fed-base>
@@ -123,13 +110,6 @@ image to generate this set of reference docs:
 
 脚本运行 [k8s.gcr.io/gen-swagger-docs](https://console.cloud.google.com/gcr/images/google-containers/GLOBAL/gen-swagger-docs?gcrImageListquery=%255B%255D&gcrImageListpage=%257B%2522t%2522%253A%2522%2522%252C%2522i%2522%253A0%257D&gcrImageListsize=50&gcrImageListsort=%255B%257B%2522p%2522%253A%2522uploaded%2522%252C%2522s%2522%253Afalse%257D%255D) 镜像来生成以下参考文档：
 
-<!--
-* /docs/api-reference/extensions/v1beta1/operations.html
-* /docs/api-reference/extensions/v1beta1/definitions.html
-* /docs/api-reference/v1/operations.html
-* /docs/api-reference/v1/definitions.html
--->
-
 * /docs/api-reference/extensions/v1beta1/operations.html
 * /docs/api-reference/extensions/v1beta1/definitions.html
 * /docs/api-reference/v1/operations.html
@@ -141,7 +121,7 @@ The generated files do not get published automatically. They have to be manually
 repository.
 -->
 
-生成的文件不会自动发布。必须手工将它们复制到 [kubernetes/website](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/generated) 仓库。
+生成的文件不会被自动发布。你必须手工将它们复制到 [kubernetes/website](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/generated) 仓库。
 
 <!--
 These files are published at
@@ -149,13 +129,6 @@ These files are published at
 -->
 
 以下文件发布在 [kubernetes.io/docs/reference](/docs/reference/)：
-
-<!--
-* [Federation API v1 Operations](https://kubernetes.io/docs/reference/federation/v1/operations/)
-* [Federation API v1 Definitions](https://kubernetes.io/docs/reference/federation/v1/definitions/)
-* [Federation API extensions/v1beta1 Operations](https://kubernetes.io/docs/reference/federation/extensions/v1beta1/operations/)
-* [Federation API extensions/v1beta1 Definitions](https://kubernetes.io/docs/reference/federation/extensions/v1beta1/definitions/)
--->
 
 * [Federation API v1 Operations](https://kubernetes.io/docs/reference/federation/v1/operations/)
 * [Federation API v1 Definitions](https://kubernetes.io/docs/reference/federation/v1/definitions/)
@@ -177,6 +150,3 @@ These files are published at
 * [为 Kubernetes 组件和工具生成参考页](/docs/home/contribute/generated-reference/kubernetes-components/)
 
 {{% /capture %}}
-
-
-
