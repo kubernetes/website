@@ -1,3 +1,9 @@
+---
+title: 参考文档概述
+main_menu: true
+weight: 80
+---
+
 <!--
 ---
 title: Reference docs overview
@@ -5,12 +11,6 @@ main_menu: true
 weight: 80
 ---
 -->
-
----
-title: 参考文档概述
-main_menu: true
-weight: 80
----
 
 <!--
 Much of the Kubernetes reference documentation is generated from Kubernetes
