@@ -36,7 +36,7 @@ sass-develop:
 	scripts/sass.sh develop
 
 serve: ## Boot the development server.
-	hugo server --disableFastRender
+	hugo server --ignoreCache --disableFastRender
 
 docker-image:
 	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)
