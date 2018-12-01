@@ -73,6 +73,7 @@ Note:
 The alpha version of the encryption feature prior to 1.13 required to be configured with
 `kind: EncryptionConfig` and `apiVersion: v1`.
 
+{{< caution >}}
 **IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed), 
 the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to 
 read that resource will fail until it is deleted or a valid decryption key is provided.
