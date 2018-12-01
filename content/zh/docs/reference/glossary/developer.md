@@ -4,7 +4,7 @@ id: developer
 date: 2018-04-12
 full_link: 
 short_description: >
-  请参考：应用开发者、代码贡献者、或平台开发者。
+  指的是：应用开发者、代码贡献者、或平台开发者。
 
 aka: 
 tags:
@@ -28,7 +28,7 @@ tags:
 ---
 -->
 
- 请参考： {{< glossary_tooltip text="应用开发者" term_id="application-developer" >}}、 {{< glossary_tooltip text="代码贡献者" term_id="code-contributor" >}}、或 {{< glossary_tooltip text="平台开发者" term_id="platform-developer" >}}。
+ 指的是： {{< glossary_tooltip text="应用开发者" term_id="application-developer" >}}、 {{< glossary_tooltip text="代码贡献者" term_id="code-contributor" >}}、或 {{< glossary_tooltip text="平台开发者" term_id="platform-developer" >}}。
 
 <!--more--> 
 
