@@ -569,6 +569,15 @@ For example:
 
 See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota support for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
 
+## ResourceQuota vs LimitRange
+
+There is also a object called `LimitRange` that restricts the resource usage similar to `ResourceQuota`.
+The difference between the two objects is, `ResourceQuota` is used for restricting the total resource usage (such as cpu, memory) in a namespace,
+while `LimitRange` aims to restrict the resource of *individual* Pods or Containers.
+Moreover `LimitRange` can only restrict cpu or memory usage, while `ResourceQuota` can impose various restriction such as limiting the total number of Pods in a namespace.
+
+Also, See [Configure Memory and CPU Quotas for a Namespace](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/#discussion) for more details.
+
 ## Example
 
 See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
