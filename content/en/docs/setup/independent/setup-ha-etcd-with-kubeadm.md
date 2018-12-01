@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Set up a High Availability etcd cluster with kubeadm
 content_template: templates/task
-weight: 60
+weight: 70
 ---
 
 {{% capture overview %}}

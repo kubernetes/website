@@ -21,7 +21,6 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
