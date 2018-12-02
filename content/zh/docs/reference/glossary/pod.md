@@ -4,7 +4,7 @@ id: pod
 date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/pod-overview/
 short_description: >
-  最小最简单的 Kubernetes 对象。一个 Pod 表示您的集群中运行的一组容器。
+  Pod 是 Kubernetes 的原子对象。Pod 表示您的集群上一组正在运行的容器。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ tags:
  The smallest and simplest Kubernetes object. A Pod represents a set of running {{< glossary_tooltip text="containers" term_id="container" >}} on your cluster.
 -->
 
- 最小最简单的 Kubernetes 对象。一个 Pod 表示您的集群中运行的一组 {{< glossary_tooltip text="容器" term_id="container" >}}。
+ Pod 是 Kubernetes 的原子对象。Pod 表示您的集群上一组正在运行的 {{< glossary_tooltip text="容器" term_id="container" >}}。
 
 <!--more--> 
 
