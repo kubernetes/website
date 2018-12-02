@@ -38,4 +38,4 @@ tags:
 Only one object of a given kind can have a given name at a time. However, if you delete the object, you can make a new object with the same name.
 -->
 
-只有给定资源类型 (kind) 的一个对象一次可以有一个给定的名称（即同类型的多个对象的名称不重复）。但如果删除了对象，则可以用相同的名称创建新对象。
+只有给定资源类型 (kind) 的一个对象一次可以有一个给定的名称（即同类型的多个对象的名称不重复）。但如果删除了对象，则可以创建具有相同名称的新对象。
