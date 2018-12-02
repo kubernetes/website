@@ -4,7 +4,7 @@
 Installs required addons for passing Conformance tests
 -->
 
-### Synopsis
+### 摘要
 
 此命令不能单独运行。 请参阅可用的子命令列表。
 <!--
