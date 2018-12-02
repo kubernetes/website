@@ -1,25 +1,29 @@
-# Production-Ready Kubernetes Cluster Creation with kubeadm
+---
+layout: blog
+title: Production-Ready Kubernetes Cluster Creation with kubeadm
+date: 2018-12-05
+---
 
-## By Lucas Käldström (CNCF Ambassador) and Luc Perkins (CNCF)
+**Authors**: By Lucas Käldström (CNCF Ambassador) and Luc Perkins (CNCF)
 
 [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) is a tool that enables Kubernetes administrators to quickly and easily bootstrap minimum viable clusters that are fully compliant with [Certified Kubernetes](https://github.com/cncf/k8s-conformance/blob/master/terms-conditions/Certified_Kubernetes_Terms.md) guidelines. It's been under active development by [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle) since 2016 and we're excited to announce that it has now graduated from beta to stable and generally available (GA)!
 
 This GA release is an important event in the progression of the Kubernetes ecosystem, bringing stability to an area where stability is paramount.
 
-The goal of kubeadm is to provide a foundational implementation for bootstrapping common cluster setup tasks and for cluster administration. kubeadm ships with best-practice defaults but can be customized to support other ecosystem requirements or vendor-specific approaches. kubeadm is designed to integrate well as part of a larger system.
+The goal of kubeadm is to provide a foundational implementation for bootstrapping common cluster setup tasks and for cluster administration. kubeadm ships with best-practice defaults but can be customized to support other ecosystem requirements or vendor-specific approaches. kubeadm is designed to be easy to integrate into larger systems.
 
 ### The scope of kubeadm
 
-kubeadm is focused on bootstrapping Kubernetes clusters on existing infrastructure and performing an essential set of maintenance tasks. To keep kubeadm lean, focused, and vendor/infrastructure agnostic, the following tasks are out of scope:
+kubeadm is focused on bootstrapping Kubernetes clusters on existing infrastructure and performing an essential set of maintenance tasks. To keep kubeadm lean, focused, and vendor/infrastructure agnostic, the following tasks are out of its scope:
 
 - Infrastructure provisioning
 - Third-party networking
-- Non-critical add-ons for e.g. monitoring, logging, and visualization
+- Non-critical add-ons, e.g. for monitoring, logging, and visualization
 - Specific cloud provider integrations
 
-Infrastructure provisioning, for example, is left to other SIG Cluster Lifecycle projects, such as the [Cluster API](https://github.com/kubernetes-sigs/cluster-api). Instead, kubeadm covers only the common denominator in every Kubernetes cluster: the [control plane](https://kubernetes.io/docs/concepts/#kubernetes-control-plane). The user may install their preferred networking solution, and other such add-ons on top of Kubernetes right after cluster creation.
+Infrastructure provisioning, for example, is left to other SIG Cluster Lifecycle projects, such as the [Cluster API](https://github.com/kubernetes-sigs/cluster-api). Instead, kubeadm covers only the common denominator in every Kubernetes cluster: the [control plane](https://kubernetes.io/docs/concepts/#kubernetes-control-plane). The user may install their preferred networking solution and other add-ons on top of Kubernetes *after* cluster creation.
 
-The core of the kubeadm interface is quite simple: new control plane nodes are created by running **kubeadm init** and worker nodes are joined to the control plane by running **kubeadm join**. Also included are utilities for managing already bootstrapped clusters, such as control plane upgrades and token and certificate renewal.
+The core of the kubeadm interface is quite simple: new control plane nodes are created by running `kubeadm init` and worker nodes are joined to the control plane by running `kubeadm join`. Also included are utilities for managing already bootstrapped clusters, such as control plane upgrades and token and certificate renewal.
 
 ### What kubeadm's GA release means
 
