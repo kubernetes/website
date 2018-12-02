@@ -8,15 +8,16 @@ weight: 40
 
 {{% capture overview %}}
 
-The kubeadm configuration exposes the following fields that can override the default flags passed to control plane components such as the APIServer, ControllerManager and Scheduler:
+The kubeadm `ClusterConfiguration` object exposes the field `extraArgs` that can override the default flags passed to control plane
+components such as the APIServer, ControllerManager and Scheduler. The components are defined using the following fields:
 
-- `APIServerExtraArgs`
-- `ControllerManagerExtraArgs`
-- `SchedulerExtraArgs`
+- `apiServer`
+- `controllerManager`
+- `scheduler`
 
-These fields consist of `key: value` pairs. To override a flag for a control plane component:
+The `extraArgs` field consist of `key: value` pairs. To override a flag for a control plane component:
 
-1.  Add the appropriate field to your configuration.
+1.  Add the appropriate fields to your configuration.
 2.  Add the flags to override to the field.
 
 For more details on each field in the configuration you can navigate to our
