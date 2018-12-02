@@ -19,7 +19,7 @@ as described in the [labels user guide](/docs/concepts/overview/working-with-obj
 whereas a Replication Controller only supports equality-based selector requirements.
 -->
 
-ReplicaSet 是下一代的 Replication Controller。 _ReplicaSet_ 和 [_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) 的唯一区别是选择器的支持。ReplicaSet 支持新的基于集合的选择器需求，这在[标签用户指南](/docs/concepts/overview/working-with-objects/labels/#label-selectors)中有描述。而 Replication Controller 只支持基于数量相等的选择器需求。
+ReplicaSet 是下一代的 Replication Controller。 _ReplicaSet_ 和 [_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) 的唯一区别是选择器的支持。ReplicaSet 支持新的基于集合的选择器需求，这在[标签用户指南](/docs/concepts/overview/working-with-objects/labels/#label-selectors)中有描述。而 Replication Controller 仅支持基于相等选择器的需求。
 
 {{% /capture %}}
 
@@ -46,9 +46,9 @@ their ReplicaSets.
 
 ## 怎样使用 ReplicaSet
 
-大多数 支持 Replication Controllers 的[`kubectl`](/docs/user-guide/kubectl/)命令也支持 ReplicaSets。[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是个特例。如果您想要滚动更新功能请考虑使用 Deployment。[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是必需的，而 Deployment 是声明性的，因此我们建议通过 [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)命令使用 Deployment。
+大多数支持 Replication Controllers 的[`kubectl`](/docs/user-guide/kubectl/)命令也支持 ReplicaSets。但[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是个例外。如果您想要滚动更新功能请考虑使用 Deployment。[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是必需的，而 Deployment 是声明性的，因此我们建议通过 [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)命令使用 Deployment。
 
-虽然 ReplicaSets 可以独立使用，但今天主要用[Deployments](/docs/concepts/workloads/controllers/deployment/) 作为编排 Pod 创建、删除和更新的机制。
+虽然 ReplicaSets 可以独立使用，但今天它主要被[Deployments](/docs/concepts/workloads/controllers/deployment/) 用作协调 Pod 创建、删除和更新的机制。
 当您使用 Deployment 时，您不必担心还要管理它们创建的 ReplicaSet。Deployment 会拥有并管理它们的 ReplicaSet。
 
 <!--
@@ -66,9 +66,9 @@ use a Deployment instead, and define your application in the spec section.
 
 ## 什么时候使用 ReplicaSet
 
-副本集确保任何时间都有指定数量的 Pod 副本在运行。
-然而，Deployment 是一个更高级的概念，它管理 ReplicaSet，并向 Pod 提供声明式的更新以及许多其他有用的特性。
-因此，我们建议使用 Deployment 而不是直接使用 ReplicaSet，除非您需要自定义更新编排或根本不需要更新。
+ReplicaSet 确保任何时间都有指定数量的 Pod 副本在运行。
+然而，Deployment 是一个更高级的概念，它管理 ReplicaSet，并向 Pod 提供声明式的更新以及许多其他有用的功能。
+因此，我们建议使用 Deployment 而不是直接使用 ReplicaSet，除非您需要自定义更新业务流程或根本不需要更新。
 
 这实际上意味着，您可能永远不需要操作 ReplicaSet 对象：而是使用 Deployment，并在 spec 部分定义您的应用。
 
