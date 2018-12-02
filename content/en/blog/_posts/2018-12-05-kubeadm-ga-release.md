@@ -4,17 +4,19 @@ title: Production-Ready Kubernetes Cluster Creation with kubeadm
 date: 2018-12-05
 ---
 
-**Authors**: By Lucas Käldström (CNCF Ambassador) and Luc Perkins (CNCF)
+**Authors**: By Lucas Käldström (CNCF Ambassador) and Luc Perkins (CNCF Developer Advocate)
 
 [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) is a tool that enables Kubernetes administrators to quickly and easily bootstrap minimum viable clusters that are fully compliant with [Certified Kubernetes](https://github.com/cncf/k8s-conformance/blob/master/terms-conditions/Certified_Kubernetes_Terms.md) guidelines. It's been under active development by [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle) since 2016 and we're excited to announce that it has now graduated from beta to stable and generally available (GA)!
 
-This GA release is an important event in the progression of the Kubernetes ecosystem, bringing stability to an area where stability is paramount.
+This GA release of kubeadm is an important event in the progression of the Kubernetes ecosystem, bringing stability to an area where stability is paramount.
 
-The goal of kubeadm is to provide a foundational implementation for bootstrapping common cluster setup tasks and for cluster administration. kubeadm ships with best-practice defaults but can be customized to support other ecosystem requirements or vendor-specific approaches. kubeadm is designed to be easy to integrate into larger systems.
+The goal of kubeadm is to provide a foundational implementation for bootstrapping common cluster setup tasks and for cluster administration. kubeadm ships with best-practice defaults but can also be customized to support other ecosystem requirements or vendor-specific approaches. kubeadm is designed to be easy to integrate into larger deployment systems and tools.
 
 ### The scope of kubeadm
 
-kubeadm is focused on bootstrapping Kubernetes clusters on existing infrastructure and performing an essential set of maintenance tasks. To keep kubeadm lean, focused, and vendor/infrastructure agnostic, the following tasks are out of its scope:
+kubeadm is focused on bootstrapping Kubernetes clusters on existing infrastructure and performing an essential set of maintenance tasks. The core of the kubeadm interface is quite simple: new control plane nodes are created by running `kubeadm init` and worker nodes are joined to the control plane by running `kubeadm join`. Also included are utilities for managing already bootstrapped clusters, such as control plane upgrades and token and certificate renewal.
+
+To keep kubeadm lean, focused, and vendor/infrastructure agnostic, the following tasks are out of its scope:
 
 - Infrastructure provisioning
 - Third-party networking
@@ -22,8 +24,6 @@ kubeadm is focused on bootstrapping Kubernetes clusters on existing infrastructu
 - Specific cloud provider integrations
 
 Infrastructure provisioning, for example, is left to other SIG Cluster Lifecycle projects, such as the [Cluster API](https://github.com/kubernetes-sigs/cluster-api). Instead, kubeadm covers only the common denominator in every Kubernetes cluster: the [control plane](https://kubernetes.io/docs/concepts/#kubernetes-control-plane). The user may install their preferred networking solution and other add-ons on top of Kubernetes *after* cluster creation.
-
-The core of the kubeadm interface is quite simple: new control plane nodes are created by running `kubeadm init` and worker nodes are joined to the control plane by running `kubeadm join`. Also included are utilities for managing already bootstrapped clusters, such as control plane upgrades and token and certificate renewal.
 
 ### What kubeadm's GA release means
 
@@ -52,13 +52,15 @@ Here's our list:
 
 All these users can benefit from kubeadm graduating to a stable GA state.
 
-#### Please fill out our **survey** for kubeadm: [https://bit.ly/2FPfRiZ](https://bit.ly/2FPfRiZ)
+### kubeadmn survey
 
-Your participation will be highly valued!
+SIG Cluster Lifecycle has put together a survey for kubeadm. It's available at [https://bit.ly/2FPfRiZ](https://bit.ly/2FPfRiZ). The purpose of the survey is to collect community feedback about kubeadm for the sake of future improvement.
+
+Your participation would be highly valued!
 
 ### Thanks to the community!
 
-This release wouldn't have been possible without the help of the great people that have been contributing to the SIG. I would like to thank a few key kubeadm contributors:
+This release wouldn't have been possible without the help of the great people that have been contributing to the SIG. SIG Cluster Lifecycle would like to thank a few key kubeadm contributors:
 
 | **Name** | **Organization** | **Role** |
 | --- | --- | --- |
@@ -79,13 +81,17 @@ This release wouldn't have been possible without the help of the great people th
 
 We also want to thank all the companies making it possible for their developers to work on Kubernetes, and all the other people that have contributed in various ways towards making kubeadm as stable as it is today!
 
-#### Written by:
+### About the authors
 
-Lucas Käldström, [@luxas](https://github.com/luxas)
-kubeadm subproject owner and SIG Cluster Lifecycle co-chair
-CNCF Ambassador
-Kubernetes upstream contractor, last two years contracting for Weaveworks
+#### Lucas Käldström
 
-Luc Perkins, [@lucperkins](https://github.com/lucperkins)
-CNCF Developer Advocate
-Kubernetes SIG Docs contributor and SIG Docs tooling WG chair
+* kubeadm subproject owner and SIG Cluster Lifecycle co-chair
+* Kubernetes upstream contractor, last two years contracting for [Weaveworks](https://weave.works)
+* CNCF Ambassador
+* GitHub: [luxas](https://github.com/luxas)
+
+#### Luc Perkins
+
+* [CNCF](https://cncf.io) Developer Advocate
+* Kubernetes SIG Docs contributor and SIG Docs tooling WG chair
+* GitHub: [lucperkins](https://github.com/lucperkins)
