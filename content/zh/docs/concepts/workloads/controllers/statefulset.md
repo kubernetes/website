@@ -32,7 +32,7 @@ weight: 40
 StatefulSet is the workload API object used to manage stateful applications.
 -->
 
-StatefulSet 是用来管理有状态应用的工作负荷 API 对象。
+StatefulSet 是用来管理有状态应用的工作负载的 API 对象。
 
 {{< note >}}
 <!--**Note:** StatefulSets are stable (GA) in 1.9.-->
