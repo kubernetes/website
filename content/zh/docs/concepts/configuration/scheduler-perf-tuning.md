@@ -1,7 +1,7 @@
 ---
 reviewers:
 - bsalamat
-title: 调度器性能调试
+title: 调度器性能调优
 content_template: templates/concept
 weight: 70
 ---
@@ -50,7 +50,7 @@ default value of this option is 50%. A cluster administrator can change this val
 different value in the scheduler configuration. However, it may not be necessary to change this value. -->
 
 在 Kubernetes 1.12 之前， Kube-scheduler 曾经是检查集群中所有节点的可行性，并为它们依次打分。
-而在 Kubernetes 1.12中加入了一项新的功能，允许调度器在找到足够合适的可行性节点之后，停止搜索。
+而在 Kubernetes 1.12 中加入了一项新的功能，允许调度器在找到足够合适的可行性节点之后，停止搜索。
 这项功能将提高调度器在大型集群应用中的性能。这是一个比例参数，通过一个名为 `percentageOfNodesToScore` 的配置选项，
 指明了集群大小中的比例。参数值范围在 1 到 100 之间。其它的数值将被认为是 100%。
 选项的默认值为 50%。集群管理员也可以在调度器的配置文件中，提供不同数值来做修改。
@@ -84,7 +84,7 @@ feasible nodes to stop the scheduler's search early. -->
 **禁止这项功能**, 可以将 `percentageOfNodesToScore` 设置为 100。
 
 <!-- ### Tuning percentageOfNodesToScore -->
-### 调参 `percentageOfNodesToScore`
+### 调优 `percentageOfNodesToScore`
 
 <!-- `percentageOfNodesToScore` must be a value between 1 and 100
 with the default value of 50. There is also a hardcoded minimum value of 50
