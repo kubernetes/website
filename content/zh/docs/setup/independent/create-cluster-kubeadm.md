@@ -147,9 +147,9 @@ timeframe; which also applies to `kubeadm`.
    private network is fine.
 -->
 
-- 一台或多台运行 deb / rpm 操作系统的机器，例如 Ubuntu 或 CentOS。
-- 每台机器 2 GB 或更多内存。任何资源的减少都会让您的应用运行在更小的空间中。
-- 主节点上有 2个 CPU 或更多。
+- 一台或多台支持 deb / rpm 软件包的操作系统的机器，例如 Ubuntu 或 CentOS。
+- 每台机器 2 GB 或更多内存。少一点点内存都会让您的应用运行空间非常局促。
+- 主节点上有至少 2 个 CPU。
 - 集群中所有计算机之间的网络互联互通，公网或内网都可以。
 
 {{% /capture %}}
@@ -362,7 +362,7 @@ created, and deleted with the `kubeadm token` command. See the
 您需要执行此命令[将节点连接到您的集群](#join-nodes)。
 
 令牌（token）用于主节点和加入节点之间的相互认证。
-这里包含的令牌被设置为 secret 以保证安全，任何人都可以通过令牌将经过身份验证的节点添加到集群中。
+这里包含的令牌被设置为机密数据以保证安全，任何人都可以通过令牌将经过身份验证的节点添加到集群中。
 可以使用 `kubeadm token` 命令列出，创建和删除这些令牌。 参见 [kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 
 <!--
@@ -636,7 +636,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-如果您没有 token，可以通过在主节点上运行以下命令来获取它：
+如果您没有令牌，可以通过在主节点上运行以下命令来获取它：
 
 ``` bash
 kubeadm token list
@@ -655,7 +655,7 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
 By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
 you can create a new token by running the following command on the master node:
 -->
-默认情况下，token 在24小时后过期。 如果在当前 token 过期后将节点加入集群，则可以通过在主节点上运行以下命令来创建新 token：
+默认情况下，令牌在24小时后过期。 如果在当前 token 过期后将节点加入集群，则可以通过在主节点上运行以下命令来创建新 token：
 
 ``` bash
 kubeadm token create
@@ -670,7 +670,7 @@ kubeadm token create
 If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the master node:
 -->
 
-如果您没有 `--discovery-token-ca-cert-hash` 的值，则可以通过在主节点上运行以下命令链来获取它：
+如果您没有 `--discovery-token-ca-cert-hash` 的值，则可以通过在主节点上运行以下命令来获取它：
 
 ``` bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
@@ -711,7 +711,7 @@ In order to get a kubectl on some other computer (e.g. laptop) to talk to your
 cluster, you need to copy the administrator kubeconfig file from your master
 to your workstation like this:
 -->
-几秒钟之后，在主节点上运行时，您应该注意到 `kubectl get nodes` 输出中的这个节点。
+几秒钟之后，在主节点上运行时，您应该注意到 `kubectl get nodes` 输出中的包含此节点。
 
 ### (可选) 从主节点以外的计算机控制您的集群
 
@@ -745,7 +745,7 @@ privileges by using `kubectl create (cluster)rolebinding`.
 `admin.conf`文件为用户提供了集群上的 _superuser_ 权限。
 应谨慎使用此文件。 对于普通用户，建议您生成一个唯一的凭据，其中包含白名单特权。 您可以使用 `kubeadm alpha phase kubeconfig user --client-name <CN>` 
 命令执行此操作。 
-该命令将打印出一个 KubeConfig 文件到 STDOUT，您应将其保存为文件并分发给您的用户。
+该命令将打印出一个 KubeConfig 文件到标准输出，您应将其保存为文件并分发给您的用户。
 之后，使用 `kubectl create（cluster）rolebinding` 将白名单特权列入白名单。
 {{< /note >}}
 
@@ -798,7 +798,7 @@ kubectl --kubeconfig ./admin.conf proxy
 
 您现在可以在本地访问 API 服务器： `http://localhost:8001/api/v1`
 
-## 移除 {#tear-down}
+## 腾空节点 {#tear-down}
 
 要取消 kubeadm 所做的事情，你应该首先[移除节点](/docs/reference/generated/kubectl/kubectl-commands#drain) 并确保节点在关闭之前是空的（没有运行任何 pod）。
 
@@ -841,10 +841,10 @@ kubeadm reset
 * 有关 bug，请访问[kubeadm Github问题跟踪器](https://github.com/kubernetes/kubeadm/issues)
 * 如需支持，请访问 kubeadm Slack Channel：
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
-* 常规 SIG 集群生命周期开发 Slack Channel：
+* 常规 SIG 集群 Lifecycle 开发 Slack Channel：
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG 集群生命周期 [SIG information](#TODO)
-* SIG 集群生命周期 邮件列表：
+* SIG 集群 Lifecycle [SIG information](#TODO)
+* SIG 集群 Lifecycle 邮件列表：
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
 <!--
@@ -920,7 +920,7 @@ addressed in due course.
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 -->
-## 版本倾斜策略 {#version-skew-policy}
+## 版本偏差策略 {#version-skew-policy}
 
 版本 vX.Y 的 kubeadm CLI 工具可以部署具有版本 vX.Y 或 vX.(Y-1)的控制平面的集群。
 kubeadm CLI vX.Y还可以升级现有的kubeadm创建的vX版本集群（Y-1）。
@@ -930,11 +930,11 @@ kubeadm CLI vX.Y还可以升级现有的kubeadm创建的vX版本集群（Y-1）�
 示例：kubeadm v1.8 可以部署 v1.7 和 v1.8 集群，并将v1.7 kubeadm 创建的集群升级到 v1.8。
 
 另请查看我们的[安装指南](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
-以获取有关 kubelet 和控制平面之间的版本偏斜的更多信息。
+以获取有关 kubelet 和控制平面之间的版本偏差的更多信息。
 
 ## kubeadm 适用于多个平台 {#multi-platform}
 
-kubeadm 的 deb / rpm 包和二进制文件是为 amd64、arm（32位）、arm64、ppc64le和s390x构建的并
+kubeadm 的 deb / rpm 包和二进制文件是为 amd64、arm（32位）、arm64、ppc64le 和 s390x 构建的并
 遵循[多平台方案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
 
 只有部分网络提供商为所有平台提供解决方案。 
@@ -945,7 +945,7 @@ kubeadm 的 deb / rpm 包和二进制文件是为 amd64、arm（32位）、arm64
 请注意：kubeadm 在运行时，这些限制将在适当的时候得到解决。
 
 1. 此处创建的集群有一个主节点，主节点运行一个 etcd 数据库。
-这意味着如果主节点出现故障，您的集群可能会丢失数据，可能需要从头开始重新创建,因此向 kubeadm 添加 HA 支持（多个etcd服务器，多个API服务器等）仍然是一项工作。
+这意味着如果主节点出现故障，您的集群可能会丢失数据，可能需要从头开始重新创建,因此向 kubeadm 添加 HA 支持（多个 etcd 服务器，多个 API 服务器等）仍然是一项工作。
 
    解决方法：定期
    [备份 etcd](https://coreos.com/etcd/docs/latest/admin_guide.html)。由 kubeadm 配置的 etcd 数据目录位于主节点的 `/var/lib/etcd`。
