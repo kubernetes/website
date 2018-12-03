@@ -51,7 +51,7 @@ In the configuration file, you can see that the postStart command writes a `mess
 file to the Container's `/usr/share` directory. The preStop command shuts down
 nginx gracefully. This is helpful if the Container is being terminated because of a failure.
 -->
-在配置文件中，您可以看到 postStart 命令写入 `message` 文件到容器的的 `/usr/share` 目录。preStop 命令优雅的关闭了 nginx 。如果容器因故障而终止，这就会非常有用。
+在配置文件中，您可以看到 postStart 命令写入 `message` 文件到容器的的 `/usr/share` 目录。preStop 命令优雅地关闭了 nginx 。如果容器因故障而终止，这就会非常有用。
 
 <!--
 Create the Pod:
@@ -77,7 +77,7 @@ Get a shell into the Container running in your Pod:
     kubectl exec -it lifecycle-demo -- /bin/bash
 -->
 
-获取一个 shell 到 Pod 中运行的容器:
+获取一个访问 Pod 中运行容器的 shell:
 
     kubectl exec -it lifecycle-demo -- /bin/bash
 
@@ -135,8 +135,8 @@ Kubernetes only sends the preStop event when a Pod is *terminated*.
 This means that the preStop hook is not invoked when the Pod is *completed*. 
 This limitation is tracked in [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807).
 -->
-Kubernetes 仅在 Pod 是 *terminated* 时发送 preStop 事件。这意味着当 Pod 是 *completed* 状态时，preStop 钩子不会被触发。
-这个限制在 [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807) 中被追踪。
+Kubernetes 仅在 Pod 是 *terminated* 时发送 preStop 事件。这意味着当 Pod 是 *completed* 状态时，preStop 钩子程序不会被触发。
+这个限制被记录在 [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807) 中。
 {{< /note >}}
 
 {{% /capture %}}
