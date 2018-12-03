@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Production-Ready Kubernetes Cluster Creation with kubeadm
-date: 2018-12-05
+date: 2018-12-04
 ---
 
 **Authors**: Lucas Käldström (CNCF Ambassador) and Luc Perkins (CNCF Developer Advocate)
@@ -10,7 +10,7 @@ date: 2018-12-05
 
 This GA release of kubeadm is an important event in the progression of the Kubernetes ecosystem, bringing stability to an area where stability is paramount.
 
-The goal of kubeadm is to provide a foundational implementation for bootstrapping common cluster setup tasks and for cluster administration. kubeadm ships with best-practice defaults but can also be customized to support other ecosystem requirements or vendor-specific approaches. kubeadm is designed to be easy to integrate into larger deployment systems and tools.
+The goal of kubeadm is to provide a foundational implementation for Kubernetes cluster setup and administration. kubeadm ships with best-practice defaults but can also be customized to support other ecosystem requirements or vendor-specific approaches. kubeadm is designed to be easy to integrate into larger deployment systems and tools.
 
 ### The scope of kubeadm
 
@@ -32,7 +32,7 @@ General Availability means different things for different projects. For kubeadm,
 We now consider kubeadm to have achieved GA-level maturity in each of these important domains:
 
  * **Stable command-line UX** --- The kubeadm CLI conforms to [#5a GA rule of the Kubernetes Deprecation Policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-flag-or-cli), which states that a command or flag that exists in a GA version must be kept for at least 12 months after deprecation.
- * **Stable underlying implementation** --- kubeadm now creates a new Kubernetes cluster using methods that shouldn't change any time soon. The control plane, for example, is run as a set of static Pods, bootstrap tokens are used for the [`kubeadm join`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/) flow, and [ComponentConfig](https://github.com/kubernetes/community/blob/master/keps/sig-cluster-lifecycle/0014-20180707-componentconfig-api-types-to-staging.md) is used for configuring the [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/).
+ * **Stable underlying implementation** --- kubeadm now creates a new Kubernetes cluster using methods that shouldn't change any time soon. The control plane, for example, is run as a set of static Pods, bootstrap tokens are used for the [`kubeadm join`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/) flow, and [ComponentConfig](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cluster-lifecycle/0014-20180707-componentconfig-api-types-to-staging.md) is used for configuring the [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/).
  * **Configuration file schema** --- With the new **v1beta1** API version, you can now tune almost every part of the cluster declaratively and thus build a "GitOps" flow around kubeadm-built clusters. In future versions, we plan to graduate the API to version **v1** with minimal changes (and perhaps none).
  * **The "toolbox" interface of kubeadm** --- Also known as **phases**. If you don't want to consume the all of the [`kubeadm init`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/) tasks performed, you can perform fine-grained, generic actions with the `kubeadm init phase` command (for example generating certificates or control plane [Static Pod](https://kubernetes.io/docs/tasks/administer-cluster/static-pod/) manifests).
  * **Upgrades between minor versions** --- The [`kubeadm upgrade`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) command is now fully GA. It handles control plane upgrades for you, which includes upgrades to [etcd](https://etcd.io), the [API Server](https://kubernetes.io/docs/reference/using-api/api-overview/), the [Controller Manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/), and the [Scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/). You can seamlessly upgrade your cluster between minor or patch versions (e.g. v1.12.2 -> v1.13.1 or v1.13.1 -> v1.13.3).
@@ -47,12 +47,12 @@ Here's our list:
 - You're a **new user** who wants to take Kubernetes for a spin. kubeadm is the fastest way to get up and running on [Linux machines](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/). If you're using [Minikube](https://github.com/kubernetes/minikube) on a Mac or Windows workstation, you're actually already running kubeadm inside the Minikube VM!
 - You're a **system administrator** responsible for setting up Kubernetes on bare metal machines and you want to quickly create Kubernetes clusters that are secure and in conformance with best practices but also highly configurable.
 - You're a **cloud provider** who wants to add a Kubernetes offering to your suite of cloud services. kubeadm is the go-to tool for creating clusters at a low level.
-- You're an **organization with special needs**. Existing public cloud offerings like [Amazon EKS](https://aws.amazon.com/eks/) and [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) won't cut it for you; you need customized Kubernetes clusters tailored to your hardware, security, policy, and other needs.
+- You're an **organization that requires highly customized Kubernetes clusters**. Existing public cloud offerings like [Amazon EKS](https://aws.amazon.com/eks/) and [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) won't cut it for you; you need customized Kubernetes clusters tailored to your hardware, security, policy, and other needs.
 - You're creating a **higher-level cluster creation tool** than kubeadm, building the cluster experience from the ground up, but you don't want to reinvent the wheel. You can "rebase" on top of kubeadm and utilize the common bootstrapping tools kubeadm provides for you. Several community tools have adopted kubeadm, and it's a perfect match for [Cluster API](https://github.com/kubernetes-sigs/cluster-api) implementations.
 
 All these users can benefit from kubeadm graduating to a stable GA state.
 
-### kubeadmn survey
+### kubeadm survey
 
 SIG Cluster Lifecycle has put together a survey for kubeadm. It's available at [https://bit.ly/2FPfRiZ](https://bit.ly/2FPfRiZ). The purpose of the survey is to collect community feedback about kubeadm for the sake of future improvement.
 
