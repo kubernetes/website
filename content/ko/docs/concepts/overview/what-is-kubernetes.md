@@ -16,10 +16,6 @@ weight: 10
 오픈소스 플랫폼이며, 선언적인 설정과 자동화 모두를 편리하게 할 수 있다. 거대하고,
 빠르게 성장하는 생태계를 가지고 있어 다양한 쿠버네티스 서비스, 지원, 도구들을
 활용할 수 있다.
-Kubernetes is a portable, extensible open-source platform for managing
-containerized workloads and services, that facilitates both
-declarative configuration and automation. It has a large, rapidly
-growing ecosystem. Kubernetes services, support, and tools are widely available.
 
 Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon
 a [decade and a half of experience that Google has with running
