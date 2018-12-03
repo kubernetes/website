@@ -1,3 +1,9 @@
+---
+title: kubefed join
+notitle: true
+weight: 40
+---
+
 ## kubefed join
 
 Join a cluster to a federation
