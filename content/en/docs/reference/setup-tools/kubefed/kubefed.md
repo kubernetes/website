@@ -1,5 +1,5 @@
 ---
-title: kubefed version
+title: kubefed
 notitle: true
 weight: 10
 ---
