@@ -262,7 +262,7 @@ You can delete a ReplicaSet without affecting any of its pods using [`kubectl de
 When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Orphan`, e.g. :
 -->
 
-### 指删除 ReplicaSet
+### 只删除 ReplicaSet
 
 您可以只删除 ReplicaSet 而不影响它的 Pod，方法是使用[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 命令并设置 `--cascade=false` 选项。
 
@@ -345,7 +345,7 @@ Alternatively, you can use the `kubectl autoscale` command to accomplish the sam
 (and it's easier!)
 -->
 
-或者，可以使用 `kubectl autoscale` 命令完成相同的操作.
+或者，可以使用 `kubectl autoscale` 命令完成相同的操作。
 (而且它更简单！)
 
 ```shell
