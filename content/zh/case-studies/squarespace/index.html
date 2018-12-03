@@ -43,17 +43,16 @@ css: /css/style_case_studies.css
     <h2>挑战</h2>
     自从 2014 年，我们从 monolith 架构移植到微服务架构，
     “虽然解决了开发端的问题，但却带来了架构组的问题”，Squarespace 网站可靠性组的主任工程师 Kevin Lynch 说道。
-    “5000个VM主机上的部署过程，让每个人都举步维艰。”
-<br>
-<!-- <h2>Solution</h2>
-The team experimented with container orchestration platforms, and found that Kubernetes "answered all the questions that we had," says Lynch. The company began running Kubernetes in its data centers in&nbsp;2016. -->
-<h2>解决方案</h2>
-网站可靠性组开始尝试使用不同的容器编排平台，然后发现 Kubernetes “解决了我们所有的既有问题”，Lynch 说道。于是整个公司在 2016 年开始在自己的数据中心中运行 Kubernetes 集群。
-The team experimented with container orchestration platforms, and found that Kubernetes "answered all the questions that we had," says Lynch. The company began running Kubernetes in its data centers in&nbsp;2016.
+    “5000 个 VM 主机上的部署过程，让每个人都举步维艰。”
 
-      </div>
+    <br>
+    <!-- <h2>Solution</h2>
+    The team experimented with container orchestration platforms, and found that Kubernetes "answered all the questions that we had," says Lynch. The company began running Kubernetes in its data centers in&nbsp;2016. -->
+    <h2>解决方案</h2>
+      网站可靠性组开始尝试使用不同的容器编排平台，然后发现 Kubernetes “解决了我们所有的既有问题”，Lynch 说道。于是整个公司在 2016 年开始在自己的数据中心中运行 Kubernetes 集群。
+  </div>
 
-<div class="col2">
+  <div class="col2">
 
 <!-- <h2>Impact</h2>
 Since Squarespace moved to Kubernetes, in conjunction with modernizing its networking stack, deployment time has been reduced by almost 85%.
@@ -204,7 +203,7 @@ Kubernetes 也同样提升了可靠性：“如果一个节点宕掉，马上会
   "When you ship an application, usually it comes along with a whole bunch of dependent applications that need to be shipped with that,
   for example, fluentd for logging," he explains. With this tool, the developer doesn’t need to worry about the configurations. -->
 
-  Lynch 和他的小组正准备开源他们开发，用来延展 Kubernetes，将其作为 API 使用的工具。
+  Lynch 和他的小组正准备开源一些他们的工具，这些工具用来延展 Kubernetes，将其作为 API 使用。
   第一个工具在 pod 将依赖应用作为容器注入。
   “当你在发布应用时，常常需要一系列的依赖应用，例如，日志用的 fluentd，” 他解释道。
   有了这个工具，开发人员就不需要担心配置了。
@@ -218,7 +217,7 @@ Kubernetes 也同样提升了可靠性：“如果一个节点宕掉，马上会
   自此之后，Squarespace 所有新的微服务都将直接部署到 Kubernetes 上，而最终的目标是要扩大到所有的服务上。
   现在已经有四分之一的服务已经移植完。“我的单体应用将是最后一个被移植的，仅仅是以为它太大、太复杂，”Lynch 说道。
   “但现在我已经看到其它的服务已经被移植到 Kubernetes 上，例如文件存储服务。有人解决了，而且并不复杂。
-  所以我坚信如果我们着手解决它，很可能回避我们所担心的要轻松许多。我可能需要自己听听自己的建议，快速失败！”
+  所以我坚信如果我们着手解决它，很可能回避我们所担心的要轻松许多。也许我应该接受自己的建议，“快速失败”！”
 
 </div>
 
