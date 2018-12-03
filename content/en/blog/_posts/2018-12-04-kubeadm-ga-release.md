@@ -34,7 +34,7 @@ We now consider kubeadm to have achieved GA-level maturity in each of these impo
  * **Stable command-line UX** --- The kubeadm CLI conforms to [#5a GA rule of the Kubernetes Deprecation Policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-flag-or-cli), which states that a command or flag that exists in a GA version must be kept for at least 12 months after deprecation.
  * **Stable underlying implementation** --- kubeadm now creates a new Kubernetes cluster using methods that shouldn't change any time soon. The control plane, for example, is run as a set of static Pods, bootstrap tokens are used for the [`kubeadm join`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/) flow, and [ComponentConfig](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cluster-lifecycle/0014-20180707-componentconfig-api-types-to-staging.md) is used for configuring the [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/).
  * **Configuration file schema** --- With the new **v1beta1** API version, you can now tune almost every part of the cluster declaratively and thus build a "GitOps" flow around kubeadm-built clusters. In future versions, we plan to graduate the API to version **v1** with minimal changes (and perhaps none).
- * **The "toolbox" interface of kubeadm** --- Also known as **phases**. If you don't want to consume the all of the [`kubeadm init`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/) tasks performed, you can perform fine-grained, generic actions with the `kubeadm init phase` command (for example generating certificates or control plane [Static Pod](https://kubernetes.io/docs/tasks/administer-cluster/static-pod/) manifests).
+ * **The "toolbox" interface of kubeadm** --- Also known as **phases**. If you don't want to perform all [`kubeadm init`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/) tasks, you can instead apply more fine-grained actions using the `kubeadm init phase` command (for example generating certificates or control plane [Static Pod](https://kubernetes.io/docs/tasks/administer-cluster/static-pod/) manifests).
  * **Upgrades between minor versions** --- The [`kubeadm upgrade`](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) command is now fully GA. It handles control plane upgrades for you, which includes upgrades to [etcd](https://etcd.io), the [API Server](https://kubernetes.io/docs/reference/using-api/api-overview/), the [Controller Manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/), and the [Scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/). You can seamlessly upgrade your cluster between minor or patch versions (e.g. v1.12.2 -> v1.13.1 or v1.13.1 -> v1.13.3).
  * **etcd setup** --- [etcd](https://etcd.io) is now set up in a way that is secure by default, with TLS communication everywhere, and allows for expanding to a highly available cluster when needed.
 
@@ -54,9 +54,9 @@ All these users can benefit from kubeadm graduating to a stable GA state.
 
 ### kubeadm survey
 
-SIG Cluster Lifecycle has put together a survey for kubeadm. It's available at [https://bit.ly/2FPfRiZ](https://bit.ly/2FPfRiZ). The purpose of the survey is to collect community feedback about kubeadm for the sake of future improvement.
+Although kubeadm is GA, the SIG Cluster Lifecycle will continue to be committed to improving the user experience in managing Kubernetes clusters. We're launching a survey to collect community feedback about kubeadm for the sake of future improvement.
 
-Your participation would be highly valued!
+The survey is available at [https://bit.ly/2FPfRiZ](https://bit.ly/2FPfRiZ). Your participation would be highly valued!
 
 ### Thanks to the community!
 
