@@ -71,14 +71,14 @@ Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
 
  - The client says "do this", and then gets a synchronous response back when it is done.
- - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
+ - The client says "do this", and then gets an operation ID back, and has to check a separate Operation object to determine completion of the request.
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
  - High bandwidth access (10s of requests per second sustained) needed.
  - Store end-user data (such as images, PII, etc) or other large-scale data processed by applications.
  - The natural operations on the objects are not CRUD-y.
  - The API is not easily modeled as objects.
- - You chose to represent pending operations with an operation ID or operation object.
+ - You chose to represent pending operations with an operation ID or an operation object.
 
 ### Should I use a configMap or a custom resource?
 
