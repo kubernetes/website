@@ -21,7 +21,7 @@ _Pods_ are the smallest deployable units of computing that can be created and
 managed in Kubernetes.
 -->
 
-_Pods_ 是可以在 Kubernetes 中创建和管理的最小的可部署的计算单元。
+_Pods_ 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。
 
 {{% /capture %}}
 
