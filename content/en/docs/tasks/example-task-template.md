@@ -29,7 +29,7 @@ This page shows how to ...
 ## Doing ...
 
 1. Do this.
-1. Do this next. Possibly read this [related explanation](...).
+2. Do this next. Possibly [add a link to the related explanation](https://git.k8s.io/community/sig-contributor-experience/markdown-link-style-guide.md).
 
 {{% /capture %}}
 
