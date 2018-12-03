@@ -75,13 +75,6 @@ nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
-[[params.versions]]
-fullversion = "v1.13.0"
-version = "v1.13"
-githubbranch = "v1.13.0"
-docsbranch = "release-1.13"
-url = "https://kubernetes.io"
-
 [params.pushAssets]
 css = [
   "callouts",
@@ -92,6 +85,13 @@ js = [
   "custom-jekyll/tags",
   "script"
 ]
+
+[[params.versions]]
+fullversion = "v1.13.0"
+version = "v1.13"
+githubbranch = "v1.13.0"
+docsbranch = "release-1.13"
+url = "https://kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.12.3"
