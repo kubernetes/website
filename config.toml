@@ -63,10 +63,10 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.12"
+latest = "v1.13"
 
-fullversion = "v1.12.0"
-version = "v1.12"
+fullversion = "v1.13.0"
+version = "v1.13"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
@@ -76,10 +76,10 @@ githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 [[params.versions]]
-fullversion = "v1.12.0"
-version = "v1.12"
-githubbranch = "v1.12.0"
-docsbranch = "release-1.12"
+fullversion = "v1.13.0"
+version = "v1.13"
+githubbranch = "v1.13.0"
+docsbranch = "dev-1.13"
 url = "https://kubernetes.io"
 
 [params.pushAssets]
@@ -92,6 +92,13 @@ js = [
   "custom-jekyll/tags",
   "script"
 ]
+
+[[params.versions]]
+fullversion = "v1.12.3"
+version = "v1.12"
+githubbranch = "v1.12.3"
+docsbranch = "release-1.12"
+url = "https://v1-12.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.11.3"
@@ -113,14 +120,6 @@ version = "v1.9"
 githubbranch = "v1.9.7"
 docsbranch = "release-1.9"
 url = "https://v1-9.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.8.4"
-version = "v1.8"
-githubbranch = "v1.8.4"
-docsbranch = "release-1.8"
-url = "https://v1-8.docs.kubernetes.io"
-
 
 # Language definitions.
 
