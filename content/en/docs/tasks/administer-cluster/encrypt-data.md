@@ -66,9 +66,11 @@ resources from storage each provider that matches the stored data attempts to de
 order. If no provider can read the stored data due to a mismatch in format or secret key, an error 
 is returned which prevents clients from accessing that resource. 
 
-**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed), 
+{{< caution >}}
+If any resource is not readable via the encryption config (because keys were changed), 
 the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to 
 read that resource will fail until it is deleted or a valid decryption key is provided.
+{{< /caution >}}
 
 ### Providers:
 
@@ -113,7 +115,9 @@ To create a new secret perform the following steps:
 3. Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file.
 4. Restart your API server.
 
-**IMPORTANT:** Your config file contains keys that can decrypt content in etcd, so you must properly restrict permissions on your masters so only the user who runs the kube-apiserver can read it.
+{{< caution >}}
+Your config file contains keys that can decrypt content in etcd, so you must properly restrict permissions on your masters so only the user who runs the kube-apiserver can read it.
+{{< /caution >}}
 
 
 ## Verifying that data is encrypted 
@@ -142,7 +146,8 @@ program to retrieve the contents of your secret.
     kubectl describe secret secret1 -n default
     ```
 
-    should match `mykey: mydata`
+    should match `mykey: bXlkYXRh`, mydata is encoded, check [decoding a secret](/docs/concepts/configuration/secret#decoding-a-secret) to
+    completely decode the secret.
 
 
 ## Ensure all secrets are encrypted

@@ -32,7 +32,7 @@ weight: 10
 
 
 {{% note %}}
-**Note:** For page weights, it can be smart not to use 1, 2, 3 ..., but some other interval, say 10, 20, 30... This allows you to insert pages where you want later.
+For page weights, it can be smart not to use 1, 2, 3 ..., but some other interval, say 10, 20, 30... This allows you to insert pages where you want later.
 {{% /note %}}
 
 
@@ -56,7 +56,7 @@ linkTitle: Title used in links
 
 
 {{% note %}}
-**Note:** The above needs to be done per language. If you don't see your section in the menu, it is probably because it is not identified as a section by Hugo. Create a `_index.md` content file in the section folder.
+The above needs to be done per language. If you don't see your section in the menu, it is probably because it is not identified as a section by Hugo. Create a `_index.md` content file in the section folder.
 {{% /note %}}
 
 ### Documentation Side Menu

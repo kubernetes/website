@@ -204,8 +204,7 @@ These commands should be run after `kubeadm init` but before `kubeadm join`.
 ### Using kubeadm join with a configuration file {#config-file}
 
 {{< caution >}}
-**Caution:** The config file is
-still considered alpha and may change in future versions.
+The config file is still considered alpha and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm join` with a configuration file instead of command

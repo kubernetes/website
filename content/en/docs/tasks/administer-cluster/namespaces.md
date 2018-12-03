@@ -106,7 +106,9 @@ More information on `finalizers` can be found in the namespace [design doc](http
 $ kubectl delete namespaces <insert-some-namespace-name>
 ```
 
-**WARNING, this deletes _everything_ under the namespace!**
+{{< warning >}}
+This deletes _everything_ under the namespace!
+{{< /warning >}}
 
 This delete is asynchronous, so for a time you will see the namespace in the `Terminating` state.
 

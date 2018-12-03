@@ -226,7 +226,7 @@ If you are using a different CRI, you have to modify the file
 `/etc/default/kubelet` with your `cgroup-driver` value, like so:
 
 ```bash
-KUBELET_KUBEADM_EXTRA_ARGS=--cgroup-driver=<value>
+KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 ```
 
 This file will be used by `kubeadm init` and `kubeadm join` to source extra

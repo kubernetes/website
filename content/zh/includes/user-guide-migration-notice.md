@@ -15,11 +15,10 @@
 <tr>
   <td>
   <p><b>请注意</b></p>
-  <p>从2017年3月14日起, Kubernetes SIG-Docs-Maintainers 小组开始通过 <a href="https://groups.google.com/forum/#!forum/kubernetes-sig-docs">kubernetes-sig-docs</a> 小组和 <a href="https://kubernetes.slack.com/messages/sig-docs/">kubernetes.slack.com#sig-docs</a>频道向 <a href="https://git.k8s.io/community/sig-docs">SIG Docs 社区</a>迁移用户指南内容。</p>
+  <p>截至2017年3月14日, Kubernetes SIG-Docs-Maintainers 小组已经开始通过 <a href="https://groups.google.com/forum/#!forum/kubernetes-sig-docs">kubernetes-sig-docs</a> 小组和 <a href="https://kubernetes.slack.com/messages/sig-docs/">kubernetes.slack.com#sig-docs</a>频道向 <a href="https://git.k8s.io/community/sig-docs">SIG Docs 社区</a>迁移用户指南内容。</p>
   <p>本节中的用户指南将被重构为教程、任务和概念中的主题。所有被移动的内容都会在它之前的位置上放置一个通知，以及指向其新位置的链接。
     重组实现了一个新的目录，并且应该更为广泛的受众群体提高文档的可查找性和可读性。</p>
   <p>如有任何疑问，请联系 <a href="mailto:kubernetes-sig-docs@googlegroups.com">kubernetes-sig-docs@googlegroups.com</a></p>
   </td>
 </tr>
 </table>
-

@@ -9,7 +9,6 @@ This page shows how to automatically generate reference pages for the
 commands provided by the `kubectl` tool.
 
 {{< note >}}
-**Note:**
 This topic shows how to generate reference documentation for
 [kubectl commands](/docs/reference/generated/kubectl/kubectl-commands)
 like
@@ -132,7 +131,6 @@ on how to do this, see
 Monitor your cherry-pick pull request until it is merged into the release branch.
 
 {{< note >}}
-**Note:**
 Proposing a cherry pick requires that you have permission to set a label and a
 milestone in your pull request. If you don’t have those permissions, you will
 need to work with someone who can set the label and milestone for you.

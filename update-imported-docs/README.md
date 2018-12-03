@@ -65,4 +65,4 @@ given command or a short script to generate the docs from within a repo.
 
 To fix relative links within your imported files, set the repo config's
 `gen-absolute-links` property to `true`. You can find an example of this in
-[`community.yml`](community.yml).
+[`release.yml`](release.yml).

@@ -24,8 +24,7 @@ Before proceeding:
 - Check the prerequisites for [Upgrading/downgrading kubeadm clusters between v1.11 to v1.12](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/).
 
 {{< note >}}
-**Note**: All commands on any control plane or etcd node should be
-run as root.
+All commands on any control plane or etcd node should be run as root.
 {{< /note >}}
 
 {{% /capture %}}
@@ -176,6 +175,8 @@ Get a copy of the kubeadm config used to create this cluster. The config should 
 # on each control plane node
 kubectl get configmap -n kube-system kubeadm-config -o jsonpath={.data.MasterConfiguration} > kubeadm-config.yaml
 ```
+
+Open the file in an editor and set `api.advertiseAddress` to the local node's IP address.
 
 Now run the upgrade on each control plane node one at a time.
 
