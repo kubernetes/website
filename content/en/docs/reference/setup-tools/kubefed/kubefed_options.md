@@ -1,3 +1,9 @@
+---
+title: kubefed options
+notitle: true
+weight: 20
+---
+
 ## kubefed options
 
 Print the list of flags inherited by all commands

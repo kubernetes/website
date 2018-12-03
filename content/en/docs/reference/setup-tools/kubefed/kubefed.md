@@ -1,3 +1,9 @@
+---
+title: kubefed version
+notitle: true
+weight: 10
+---
+
 ## kubefed
 
 kubefed controls a Kubernetes Cluster Federation

@@ -1,3 +1,9 @@
+---
+title: kubefed init
+notitle: true
+weight: 30
+---
+
 ## kubefed init
 
 Initialize a federation control plane
