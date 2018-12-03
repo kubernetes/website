@@ -40,4 +40,4 @@ tags:
 `kube-proxy` is responsible for request forwarding. `kube-proxy` allows TCP and UDP stream forwarding or round robin TCP and UDP forwarding across a set of backend functions.
 -->
 
-`kube-proxy` 负责转发请求。`kube-proxy`允许 TCP 和 UDP 流转发，或在等价的后端功能点之间进行轮转。
+`kube-proxy` 负责转发请求。`kube-proxy` 能够提供 TCP 和 UDP 的流转发，也可为一组后端功能点提供轮转式 TCP 和 UDP 转发。
