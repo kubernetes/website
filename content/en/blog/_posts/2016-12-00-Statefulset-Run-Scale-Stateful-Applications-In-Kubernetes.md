@@ -34,7 +34,7 @@ If you run your storage application on high-end hardware or extra-large instance
 
 **A Practical Example - ZooKeeper**  
 
-[ZooKeeper](https://zookeeper.apache.org/doc/current/) is an interesting use case for StatefulSet for two reasons. First, it demonstrates that StatefulSet can be used to run a distributed, strongly consistent storage application on Kubernetes. Second, it's a prerequisite for running workloads like [Apache Hadoop](http://hadoop.apache.org/) and [Apache Kakfa](https://kafka.apache.org/) on Kubernetes. An [in-depth tutorial](http://kubernetes.io/docs/tutorials/stateful-application/zookeeper/) on deploying a ZooKeeper ensemble on Kubernetes is available in the Kubernetes documentation, and we’ll outline a few of the key features below.  
+[ZooKeeper](https://zookeeper.apache.org/doc/current/) is an interesting use case for StatefulSet for two reasons. First, it demonstrates that StatefulSet can be used to run a distributed, strongly consistent storage application on Kubernetes. Second, it's a prerequisite for running workloads like [Apache Hadoop](http://hadoop.apache.org/) and [Apache Kafka](https://kafka.apache.org/) on Kubernetes. An [in-depth tutorial](http://kubernetes.io/docs/tutorials/stateful-application/zookeeper/) on deploying a ZooKeeper ensemble on Kubernetes is available in the Kubernetes documentation, and we’ll outline a few of the key features below.  
 
 **Creating a ZooKeeper Ensemble**  
 Creating an ensemble is as simple as using [kubectl create](http://kubernetes.io/docs/user-guide/kubectl/kubectl_create/) to generate the objects stored in the manifest.  
