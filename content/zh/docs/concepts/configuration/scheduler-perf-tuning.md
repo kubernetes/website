@@ -37,7 +37,7 @@ Kube-scheduler 是 Kubernetes 的默认调度器。负责将 Pods 安排到集�
 {{% capture body %}}
 
 <!-- ## Percentage of Nodes to Score -->
-##
+## 可行性打分的节点比例
 
 <!-- Before Kubernetes 1.12, Kube-scheduler used to check the feasibility of all the
 nodes in a cluster and then scored the feasible ones. Kubernetes 1.12 has a new
@@ -81,7 +81,7 @@ feasible nodes to stop the scheduler's search early. -->
 
 
 <!-- **To disable this feature**, you can set `percentageOfNodesToScore` to 100. -->
-**禁止这项功能**, 可以将 `percentageOfNodesToScore` 设置为 100。
+可以将 `percentageOfNodesToScore` 设置为 100 来**禁止这项功能**。
 
 <!-- ### Tuning percentageOfNodesToScore -->
 ### 调优 `percentageOfNodesToScore`
@@ -98,7 +98,7 @@ nodes setting this value to lower numbers may show a noticeable performance
 improvement. -->
 
 `percentageOfNodesToScore` 的数值必须在 1 到 100 之间，默认值为 50。
-在内部设计里面，同样有硬编码的至少 50 个节点的要求。无论 `percentageOfNodesToScore` 设置如何，
+在内部设计里面，还存在有硬编码的至少 50 个节点的要求。无论 `percentageOfNodesToScore` 设置如何，
 调度器都至少会搜索 50 个节点。换言之，在只有数百个节点的集群中调低这个参数，并不会对调度器搜索可行性节点有影响。
 这样设计是经过考虑的，因为在较小的集群中，这个参数并不会显著提升性能。
 而在超过 1000 个节点的大型集群中调低这个参数，将会有显著的性能提升。
@@ -117,7 +117,7 @@ to run the Pod on any Node as long as it is feasible. -->
 在设置这个数值时，需要注意一点，如果集群中只有较少的一部分节点进行了可行性检查，
 有些节点将不会被作可行性打分。
 因而，有运行 Pod 可行性分数更高的节点甚至可能不会到达打分阶段。这会造成一个并不十分理想的安排结果。
-这因为如此，这个数值不应该设置得更低。
+正因为如此，这个数值不应该设置得非常低。
 一个重要原则就是这个数值不应该小于 30。
 更小的数值只应该在应用对调度器的吞吐量十分敏感，而节点的可行性打分相对不重要的前提下使用。
 换言之，只要节点适合运行 Pod 就可以安排到该节点上运行。
@@ -144,8 +144,8 @@ Nodes as specified by `percentageOfNodesToScore`. For the next Pod, the
 scheduler continues from the point in the Node array that it stopped at when checking
 feasibility of Nodes for the previous Pod. -->
 
-为了让集群中所有的节点都有平等的机会被考虑运行 Pods，调度器需要以 round robin 的方式遍历所有的节点。
-你可以想象为，节点都在数组之中，调度器从数组的一端开始，检查节点的可行性直到找到 `percentageOfNodesToScore`
+为了让集群中所有的节点都有平等的机会被考虑运行 Pods，调度器需要以轮转的方式遍历所有的节点。
+你可以这样理解：所有节点都在记录在某数组之中，调度器从数组的一端开始检查节点的可行性，直到找到 `percentageOfNodesToScore`
 指明的、足够多的节点。对于下一个 pod，调度器将从前一个 Pod 的结束节点开始，继续开始搜索。
 
 <!-- If Nodes are in multiple zones, the scheduler iterates over Nodes in various
