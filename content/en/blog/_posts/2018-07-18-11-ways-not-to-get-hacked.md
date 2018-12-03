@@ -301,7 +301,7 @@ There are more defensive tools available than ever, but caution must be taken to
 
 However if security slows down an organisation&#39;s pace of feature delivery it will never be a first-class citizen. Applying Continuous Delivery principles to the software supply chain allows an organisation to achieve compliance, continuous audit, and enforced governance without impacting the business&#39;s bottom line.
 
-Iteratating quickly on security is easiest when supported by a comprehensive test suite. This is achieved with Continuous Security - an alternative to point-in-time penetration tests, with constant pipeline validation ensuring an organisation&#39;s attack surface is known, and the risk constantly understood and managed.
+Iterating quickly on security is easiest when supported by a comprehensive test suite. This is achieved with Continuous Security - an alternative to point-in-time penetration tests, with constant pipeline validation ensuring an organisation&#39;s attack surface is known, and the risk constantly understood and managed.
 
 This is ControlPlane&#39;s modus operandi: if we can help kickstart a Continuous Security discipline, deliver Kubernetes security and operations training, or co-implement a secure cloud native evolution for you, please [get in touch](https://control-plane.io).
 
