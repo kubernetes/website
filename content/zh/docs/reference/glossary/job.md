@@ -4,7 +4,7 @@ id: job
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/jobs-run-to-completion
 short_description: >
-  Job 是需要运行完成的有限的或批量的任务。
+  Job 是需要运行完成的确定性的或批量的任务。
 
 aka: 
 tags:
@@ -34,7 +34,7 @@ tags:
  A finite or batch task that runs to completion.
 -->
 
- Job 是需要运行完成的有限的或批量的任务。
+ Job 是需要运行完成的确定性的或批量的任务。
 
 <!--more--> 
 
