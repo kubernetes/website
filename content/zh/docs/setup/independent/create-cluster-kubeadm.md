@@ -22,7 +22,7 @@ weight: 30
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
 lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
 -->
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** 可以帮助您引导符合最佳实践的最小可行 Kubernetes 集群。使用 kubeadm, 您的集群应通过  [Kubernetes 一致性测试](https://kubernetes.io/blog/2017/10/software-conformance-certification)。Kubeadm 还支持其他集群声明周期的功能，
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** 可以帮助您引导符合最佳实践的最小可行 Kubernetes 集群。使用 kubeadm, 您的集群应通过  [Kubernetes 合规性认证](https://kubernetes.io/blog/2017/10/software-conformance-certification)。Kubeadm 还支持其他集群生命周期的功能，
 如升级、降级和管理 [bootstrap token](/docs/reference/access-authn-authz/bootstrap-tokens/)。
 
 <!--
@@ -66,7 +66,7 @@ installing deb or rpm packages. The responsible SIG for kubeadm,
 but you may also build them from source for other OSes.
 -->
 
-您可以在支持安装 deb 或 rpm 软件包的操作系统上轻松安装 _kubeadm_ 。 负责 kubeadm 的 SIG——[SIG 集群生命周期](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle)提供了为您预先构建的这些软件包，
+您可以在支持安装 deb 或 rpm 软件包的操作系统上轻松安装 _kubeadm_ 。 负责 kubeadm 的 SIG——[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle)提供了为您预先构建的这些软件包，
 但您也可以从其他操作系统的源代码构建它们。
 
 <!--
@@ -85,7 +85,7 @@ but you may also build them from source for other OSes.
 
 ### kubeadm 成熟度
 
-| 区域                       | 成熟度          |
+| 领域                       | 成熟度          |
 |---------------------------|--------------- |
 | 命令行 UX                  | beta           |
 | 执行（Implementation）     | beta           |
@@ -105,7 +105,7 @@ but the overall implementation should be pretty stable. Any commands under
 `kubeadm alpha` are by definition, supported on an alpha level.
 -->
 
-kubeadm 的整体功能状态是 **Beta**，很快将在 2018年升级为 **常规可用 (GA)**。一些子功能，如自托管（sub-features）或配置文件
+kubeadm 的整体功能状态是 **Beta**，很快将在 2018年升级为 **正式发布 (GA)**。一些子功能，如自托管（sub-features）或配置文件
 API 仍在积极开发中。随着工具的发展，创建集群的实现可能会略有变化，但整体实现应该依旧稳定。根据定义，`kubeadm alpha` 下的任何命令
 都支持 alpha 级别。
 
@@ -238,7 +238,7 @@ kubeadm init <args>
 1. （可选）除非另有说明，否则 kubeadm 使用与默认网关关联的网络接口来通告主节点 IP。 要使用不同的网络接口，请为
 `kubeadm init` 指定 `--apiserver-advertise-address=<ip-address>` 参数。
 要使用 IPv6 部署 Kubernetes 集群，必须指定 IPv6 地址，例如 `--apiserver-advertise-address=fd00::101`。
-1. （可选）在运行 `kubeadm init` 之前运行 `kubeadm config images pull` 以验证与 gcr.io 注册表的连接。
+1. （可选）在运行 `kubeadm init` 之前运行 `kubeadm config images pull` 以验证与 gcr.io 镜像仓库的连接。
 
 现在运行:
 
@@ -334,7 +334,7 @@ as root:
   kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-要使 kubectl 为非 root 用户工作，请运行以下命令，这些命令也是 `kubeadm init` 输出的一部分：
+如果您是非 root 用户运行 kubectl，请运行以下命令，这些命令也是 `kubeadm init` 输出的一部分：
 
 ```bash
 mkdir -p $HOME/.kube
@@ -362,8 +362,8 @@ created, and deleted with the `kubeadm token` command. See the
 您需要执行此命令[将节点连接到您的集群](#join-nodes)。
 
 令牌（token）用于主节点和加入节点之间的相互认证。
-这里包含的 token 被设置为 secret 以保证安全，任何人都可以通过 token 将经过身份验证的节点添加到集群中。
-可以使用 `kubeadm token` 命令列出，创建和删除这些 token。 参见 [kubeadm参考指南](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
+这里包含的令牌被设置为 secret 以保证安全，任何人都可以通过令牌将经过身份验证的节点添加到集群中。
+可以使用 `kubeadm token` 命令列出，创建和删除这些令牌。 参见 [kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 
 <!--
 ### Installing a pod network add-on {#pod-network}
@@ -379,10 +379,10 @@ each other.
 ### 安装 pod 网络附加组件 {#pod-network}
 
 {{< caution >}}
-**注意:** 本节包含有关安装和部署顺序的重要信息。 再次之前请仔细阅读。
+**注意:** 本节包含有关安装和部署顺序的重要信息。 继续操作之前请仔细阅读。
 {{< /caution >}}
 
-您必须安装 pod 网络插件，以便您的pod可以相互通信。
+您必须安装 pod 网络插件，以便您的 pod 之间可以相互通信。
 
 <!--
 **The network must be deployed before any applications. Also, CoreDNS will not start up before a network is installed.
@@ -406,16 +406,16 @@ kubectl apply -f <add-on.yaml>
 **您必须在开启任何应用程序之前部署网络。 此外，CoreDNS 将不会在安装网络之前启动。kubeadm 仅支持基于容器网络接口（CNI）的网络(并且不支持 kubenet )**
 
 有几个项目使用 CNI 提供 Kubernetes pod 网络，其中一些还支持[网络策略](/docs/concepts/services-networking/networkpolicies/)。
-有关可用网络加载项的完整列表，请参阅[加载项页面](/docs/concepts/cluster-administration/addons/)。
+有关可用网络加载项的完整列表，请参阅[插件项页面](/docs/concepts/cluster-administration/addons/)。
 
 - IPv6 的支持被加入到了 [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
-- [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) 和 [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) 是 Kubernetes 1.9 版本中唯一受支持的 IPv6 
+- [CNI 网桥](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) 和 [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) 是 Kubernetes 1.9 版本中唯一受支持的 IPv6 
 网络插件。
 
 请注意，kubeadm 默认设置更安全的集群并强制使用 [RBAC](/docs/reference/access-authn-authz/rbac/)。
-确保您的网络清单支持 RBAC。
+确保您的网络配置支持 RBAC。
 
-您可以使用以下命令安装pod网络加载项：
+您可以使用以下命令安装 pod 网络加载项：
 
 ```bash
 kubectl apply -f <add-on.yaml>
@@ -427,7 +427,7 @@ kubectl apply -f <add-on.yaml>
 {{< tabs name="tabs-pod-install" >}}
 {{% tab name="Choose one..." %}}
 
-请选择其中一个选项卡以查看相应第三方 Pod 网络提供商的安装说明。
+请选择其中一个选项卡以查看相应第三方 Pod 网络驱动的安装说明。
 
 {{% /tab %}}
 
@@ -517,7 +517,7 @@ Kube-router 依靠 kube-controller-manager 为节点分配 pod CIDR。 因此，
 
 Kube-router 提供 pod 网络、网络策略和基于高性能 IP Virtual Server（IPVS）/ Linux Virtual Server（LVS）的服务代理。
 
-有关使用kubeadm使用Kube-router设置Kubernetes集群的信息，请参阅官方[设置指南](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
+有关使用 kubeadm 使用 Kube-router 设置 Kubernetes 集群的信息，请参阅官方[设置指南](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
 {{% /tab %}}
 
 
@@ -602,7 +602,7 @@ to schedule pods everywhere.
 
 ### 主节点隔离
 
-默认情况下，出于安全原因，您的集群不会在主节点上安排容器。
+默认情况下，出于安全原因，您的集群不会在主节点上调度容器。
 如果您希望能够在主节点上安排 pod，例如对于用于开发的单机 Kubernetes 集群，运行：
 
 ```bash
@@ -617,7 +617,12 @@ taint "node-role.kubernetes.io/master:" not found
 taint "node-role.kubernetes.io/master:" not found
 ```
 
-这将从拥有它的任何节点（包括主节点）中删除 `node-role.kubernetes.io/master` 污点，这意味着调度程序将能够在任何地方安排 pod。
+这将从拥有 `node-role.kubernetes.io/master` 污点的任何节点（包括主节点）上删除该污点，这意味着调度程序能够将 Pod 调度到任意节点执行。
+
+<!--
+### Joining your nodes {#join-nodes}
+The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
+-->
 
 ### 加入您的节点 {#join-nodes}
 
