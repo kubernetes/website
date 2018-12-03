@@ -1,5 +1,5 @@
 
-安装所需插件（addons）以通过一致性测试
+安装所需插件（addons）以通过合规性测试
 <!--
 Installs required addons for passing Conformance tests
 -->
