@@ -1,6 +1,6 @@
 ---
 title: Kubernetes 博客
-linkTitle: 博客
+linkTitle: Blog
 menu:
   main:
     title: "博客"
