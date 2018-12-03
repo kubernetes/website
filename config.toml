@@ -79,7 +79,7 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 fullversion = "v1.13.0"
 version = "v1.13"
 githubbranch = "v1.13.0"
-docsbranch = "dev-1.13"
+docsbranch = "release-1.13"
 url = "https://kubernetes.io"
 
 [params.pushAssets]
@@ -101,23 +101,23 @@ docsbranch = "release-1.12"
 url = "https://v1-12.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.11.3"
+fullversion = "v1.11.5"
 version = "v1.11"
-githubbranch = "v1.11.3"
+githubbranch = "v1.11.5"
 docsbranch = "release-1.11"
 url = "https://v1-11.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.10.3"
+fullversion = "v1.10.11"
 version = "v1.10"
-githubbranch = "v1.10.3"
+githubbranch = "v1.10.11"
 docsbranch = "release-1.10"
 url = "https://v1-10.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.9.7"
+fullversion = "v1.9.11"
 version = "v1.9"
-githubbranch = "v1.9.7"
+githubbranch = "v1.9.11"
 docsbranch = "release-1.9"
 url = "https://v1-9.docs.kubernetes.io"
 
