@@ -2,16 +2,20 @@
 reviewers:
 - bgrant0607
 - mikedanese
-title: What is Kubernetes?
+title: 쿠버네티스란 무엇인가?
 content_template: templates/concept
 weight: 10
 ---
 
 {{% capture overview %}}
-This page is an overview of Kubernetes.
+이 페이지는 쿠버네티스의 개요를 설명한다.
 {{% /capture %}}
 
 {{% capture body %}}
+쿠버네티스는 컨테이너화된 워크로드 및 서비스를 관리하기 위한 포터블, 확장가능
+오픈소스 플랫폼이며, 선언적인 설정과 자동화 모두를 편리하게 할 수 있다. 거대하고,
+빠르게 성장하는 생태계를 가지고 있어 다양한 쿠버네티스 서비스, 지원, 도구들을
+활용할 수 있다.
 Kubernetes is a portable, extensible open-source platform for managing
 containerized workloads and services, that facilitates both
 declarative configuration and automation. It has a large, rapidly
