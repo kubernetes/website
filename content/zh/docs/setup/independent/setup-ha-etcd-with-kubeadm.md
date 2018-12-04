@@ -29,17 +29,18 @@ Kubeadm 默认在控制层使用 kubelet 管理静态 Pod 中运行的单成员 
 
 {{% capture prerequisites %}}
 
-<!-- * Three hosts that can talk to each other over ports 2379 and 2380. This
-  document assumes these default ports. However, they are configurable through
-  the kubeadm config file. 
+<!-- 
+* Three hosts that can talk to each other over ports 2379 and 2380. This document assumes these default ports. However, they are configurable through the kubeadm config file. 
 -->
 * 三个可以通过端口 2379 和 2380 相互通信的主机。本文档使用这些作为默认端口。不过，它们可以通过 kubeadm 的配置文件进行自定义。
 <!-- 
-* Each host must [have docker, kubelet, and kubeadm installed][toolbox]. -->
+* Each host must [have docker, kubelet, and kubeadm installed][toolbox]. 
+-->
 * 每个主机必须 [安装有 docker, kubelet, 和 kubeadm][工具箱]
 
-<!-- * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
-  can satisfy this requirement. -->
+<!-- 
+* Some infrastructure to copy files between hosts. For example `ssh` and `scp` can satisfy this requirement. 
+-->
 * 一些可以用来在主机间复制文件的基础设施。例如 `ssh` 和 `scp` 就可以满足需求。
 
 <!-- 
@@ -57,17 +58,14 @@ Kubeadm 默认在控制层使用 kubelet 管理静态 Pod 中运行的单成员 
 ## 建立集群
 
 <!-- 
-The general approach is to generate all certs on one node and only distribute
-the *necessary* files to the other nodes. 
+The general approach is to generate all certs on one node and only distribute the *necessary* files to the other nodes. 
 -->
 一般来说，是在一个节点上生成所有证书并且只分发这些*必要*的文件到其它节点上。
 
 
 {{< note >}}
 <!-- 
-kubeadm contains all the necessary crytographic machinery to generate
-the certificates described below; no other cryptographic tooling is required for
-this example. 
+kubeadm contains all the necessary crytographic machinery to generate the certificates described below; no other cryptographic tooling is required for this example. 
 -->
 kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这个例子中，不需要其他加密工具。
 {{< /note >}}
@@ -105,7 +103,8 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
 
     使用以下脚本为每个将要运行 etcd 成员的主机生成一个 kubeadm 配置文件。
 
-    <!-- ```sh
+<!-- 
+    ```sh
     # Update HOST0, HOST1, and HOST2 with the IPs or resolvable names of your hosts
     export HOST0=10.0.0.6
     export HOST1=10.0.0.7
@@ -139,7 +138,8 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
                 initial-advertise-peer-urls: https://${HOST}:2380
     EOF
     done
-    ``` -->
+    ``` 
+-->
     ```sh
     # 使用 IP 或是可解析的主机名替换 HOST0, HOST1, 和 HOST2
     export HOST0=10.0.0.6
@@ -188,8 +188,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     如果您已经拥有 CA，那么唯一的操作是复制 CA 的 `crt` 和 `key` 文件到 `etc/kubernetes/pki/etcd/ca.crt` 和 /etc/kubernetes/pki/etcd/ca.key`。复制完这些文件后继续下一步，“为每个成员创建证书”。
 
     <!-- 
-    If you do not already have a CA then run this command on `$HOST0` (where you
-    generated the configuration files for kubeadm). 
+    If you do not already have a CA then run this command on `$HOST0` (where you generated the configuration files for kubeadm). 
     -->
     如果您还没有 CA，则在 `$HOST0`（您为 kubeadm 生成配置文件的位置）上运行此命令。
 
@@ -210,16 +209,14 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     -->
     1. 为每个成员创建证书
 
-    <!-- ```sh
+    <!-- 
+    ```sh
     kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
     kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
     kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
     kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST2}/
-    <!--
     # cleanup non-reusable certificates
-    -->
-    # 清理不可重复使用的证书
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
     kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
@@ -233,17 +230,13 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
     kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
     kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    <!--
     # No need to move the certs because they are for HOST0
 
     # clean up certs that should not be copied off this host
-    -->
-    # 不需要移动 certs 因为它们是给 HOST0 使用的
-
-    # 清理不应从此主机复制的证书
     find /tmp/${HOST2} -name ca.key -type f -delete
     find /tmp/${HOST1} -name ca.key -type f -delete
-    ``` -->
+    ``` 
+    -->
     ```sh
     kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
     kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
@@ -269,15 +262,15 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     # 清理不应从此主机复制的证书
     find /tmp/${HOST2} -name ca.key -type f -delete
     find /tmp/${HOST1} -name ca.key -type f -delete
-    ```
+    ``` 
 
-    <!-- 
-    1. Copy certificates and kubeadm configs
+<!-- 
+1. Copy certificates and kubeadm configs
 
     The certificates have been generated and now they must be moved to their
     respective hosts. 
-    -->
-    1. 复制证书和 kubeadm 配置
+-->
+1. 复制证书和 kubeadm 配置
 
     证书已生成，现在必须将它们移动到对应的主机。
 
@@ -318,7 +311,9 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
         └── server.key
     ```
 
-    <!-- On `$HOST1`: -->
+<!-- 
+    On `$HOST1`: 
+-->
     在 `$HOST1`:
 
     ```
@@ -338,7 +333,9 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
         └── server.key
     ```
 
-    <!-- On `$HOST2` -->
+<!-- 
+    On `$HOST2` 
+-->
     在 `$HOST2`
 
     ```
@@ -362,7 +359,8 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
 
     Now that the certificates and configs are in place it's time to create the
     manifests. On each host run the `kubeadm` command to generate a static manifest
-    for etcd.-->
+    for etcd.
+-->
 1. 创建 Static Pod 清单
 
     既然证书和配置已经做好，是时候去创建清单了。在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
