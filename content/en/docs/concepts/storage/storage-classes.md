@@ -121,13 +121,6 @@ the class or PV, so mount of the PV will simply fail if one is invalid.
 
 ### Volume Binding Mode
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
-
-{{< note >}}
-This feature requires the `VolumeScheduling` feature gate to be
-enabled.
-{{< /note >}}
-
 The `volumeBindingMode` field controls when [volume binding and dynamic
 provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
 
@@ -159,12 +152,6 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * [Local](#local)
 
 ### Allowed Topologies
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
-
-{{< note >}}
-This feature requires the `VolumeScheduling` feature gate to be
-enabled.
-{{< /note >}}
 
 When a cluster operactor specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
 to restrict provisioning to specific topologies in most situations. However,

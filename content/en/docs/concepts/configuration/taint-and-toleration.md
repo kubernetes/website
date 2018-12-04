@@ -223,9 +223,7 @@ certain condition is true. The following taints are built in:
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
 
-When the `TaintBasedEvictions` alpha feature is enabled (you can do this by
-including `TaintBasedEvictions=true` in `--feature-gates` for Kubernetes controller manager,
-such as `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
+In version 1.13, the `TaintBasedEvictions` feature is promoted to beta and enabled by default, hence the taints are automatically
 added by the NodeController (or kubelet) and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
 
@@ -236,7 +234,7 @@ in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.
 {{< /note >}}
 
-This alpha feature, in combination with `tolerationSeconds`, allows a pod
+This beta feature, in combination with `tolerationSeconds`, allows a pod
 to specify how long it should stay bound to a node that has one or both of these problems.
 
 For example, an application with a lot of local state might want to stay
@@ -246,7 +244,7 @@ The toleration the pod would use in that case would look like
 
 ```yaml
 tolerations:
-- key: "node.alpha.kubernetes.io/unreachable"
+- key: "node.kubernetes.io/unreachable"
   operator: "Exists"
   effect: "NoExecute"
   tolerationSeconds: 6000
@@ -257,9 +255,9 @@ Note that Kubernetes automatically adds a toleration for
 unless the pod configuration provided
 by the user already has a toleration for `node.kubernetes.io/not-ready`.
 Likewise it adds a toleration for
-`node.alpha.kubernetes.io/unreachable` with `tolerationSeconds=300`
+`node.kubernetes.io/unreachable` with `tolerationSeconds=300`
 unless the pod configuration provided
-by the user already has a toleration for `node.alpha.kubernetes.io/unreachable`.
+by the user already has a toleration for `node.kubernetes.io/unreachable`.
 
 These automatically-added tolerations ensure that
 the default pod behavior of remaining bound for 5 minutes after one of these
@@ -270,7 +268,7 @@ admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/default
 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
-  * `node.alpha.kubernetes.io/unreachable`
+  * `node.kubernetes.io/unreachable`
   * `node.kubernetes.io/not-ready`
 
 This ensures that DaemonSet pods are never evicted due to these problems,

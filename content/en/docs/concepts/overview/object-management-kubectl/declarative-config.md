@@ -9,7 +9,8 @@ Kubernetes objects can be created, updated, and deleted by storing multiple
 object configuration files in a directory and using `kubectl apply` to
 recursively create and update those objects as needed. This method
 retains writes made to live objects without merging the changes
-back into the object configuration files.
+back into the object configuration files. `kubectl diff` also gives you a
+preview of what changes `apply` will make.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -66,6 +67,14 @@ Add the `-R` flag to recursively process directories.
 Here's an example of an object configuration file:
 
 {{< codenew file="application/simple_deployment.yaml" >}}
+
+Run `kubectl diff` to print the object that will be created:
+```shell
+kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
+```
+{{< note >}}
+**Note:** `diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
+{{< /note >}}
 
 Create the object using `kubectl apply`:
 
@@ -130,6 +139,7 @@ if those objects already exist. This approach accomplishes the following:
 2. Clears fields removed from the configuration file in the live configuration.
 
 ```shell
+kubectl diff -f <directory>/
 kubectl apply -f <directory>/
 ```
 
@@ -262,6 +272,7 @@ Update the `simple_deployment.yaml` configuration file to change the image from
 Apply the changes made to the configuration file:
 
 ```shell
+kubectl diff -f https://k8s.io/examples/application/update_deployment.yaml
 kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 ```
 
@@ -977,5 +988,3 @@ template:
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}
-
-

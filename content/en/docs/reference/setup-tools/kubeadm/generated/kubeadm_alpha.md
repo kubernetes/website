@@ -1,10 +1,10 @@
 
-Experimental sub-commands not yet fully functional.
+Kubeadm experimental sub-commands
 
 ### Synopsis
 
 
-Experimental sub-commands not yet fully functional.
+Kubeadm experimental sub-commands
 
 ### Options
 

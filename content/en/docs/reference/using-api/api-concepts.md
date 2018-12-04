@@ -86,7 +86,7 @@ For example:
         }
         ...
 
-A given Kubernetes server will only preserve a historical list of changes for a limited time. Older clusters using etcd2 preserve a maximum of 1000 changes. Newer clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
+A given Kubernetes server will only preserve a historical list of changes for a limited time. Clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
 
 ## Retrieving large results sets in chunks
 
@@ -287,26 +287,14 @@ Clients that receive a response in `application/vnd.kubernetes.protobuf` that do
 
 ## Dry run
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}} In version 1.12, if the dry run alpha feature is enabled, the modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry run mode. Dry run mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non dry run response. The system guarantees that dry run requests will not be persisted in storage or have any other side effects.
-
-
-### Enable the dry run alpha feature
-
-Dry run is an alpha feature, so it is disabled by default. To turn it on,
-you need to:
-
-* Include "DryRun=true" in the `--feature-gates` flag when starting
-  `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all should
-  have the same flag setting.
-
-If this feature is not enabled, all requests with a modifying verb (`POST`, `PUT`, `PATCH`, and `DELETE`) which set the `dryRun` query parameter will be rejected with a 400 Bad Request error. Kubernetes 1.11 always rejects dry run requests like this, so it is safe for clients to make dry run requests even if the feature is not enabled on the server, as long as the server version is >= 1.11.
+{{< feature-state for_k8s_version="v1.13" state="beta" >}} In version 1.13, the dry run beta feature is enabled by default. The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry run mode. Dry run mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non dry run response. The system guarantees that dry run requests will not be persisted in storage or have any other side effects.
 
 
 ### Make a dry run request
 
-Dry run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and in 1.12 the only accepted values are:
+Dry run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and in 1.13 the only accepted values are:
 
-* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. Admission webhooks can now declare (in their configuration object) that they do not have side effects to prevent this. All built in admission control plugins support dry run.
+* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. All built in admission control plugins support dry run. Additionally, admission webhooks can declare in their [configuration object](/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration-k8s-io) that they do not have side effects by setting the sideEffects field to "None". If a webhook actually does have side effects, then the sideEffects field should be set to "NoneOnDryRun", and the webhook should also be modified to understand the `DryRun` field in AdmissionReview, and prevent side effects on dry run requests.
 * Leave the value empty, which is also the default: Keep the default modifying behavior.
 
 For example:
