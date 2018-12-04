@@ -36,7 +36,7 @@ External garbage collection tools are not recommended as these tools can potenti
 Kubernetes 通过 imageManager 协同 cadvisor 来管理所有镜像的生命周期。
 
 镜像垃圾回收策略考虑两个因素：`HighThresholdPercent` 和 `LowThresholdPercent`。
-磁盘使用率超过高阈值百分比（HighThresholdPercent）将触发垃圾回收。垃圾回收将删除最近最少使用的镜像，直到达到低阈值百分比（LowThresholdPercent）。
+磁盘使用率超过上限阈值（HighThresholdPercent）将触发垃圾回收。垃圾回收将删除最近最少使用的镜像，直到达到下限阈值（LowThresholdPercent）。
 
 <!--
 ## Image Collection
@@ -56,6 +56,8 @@ threshold has been met.
 `MaxContainers` 是全部死亡容器的最大数量。可以分别独立地通过将 `MinAge` 设置为0，以及将 `MaxPerPodContainer` 和 `MaxContainers` 设置为小于0来禁用这些变量。
 
 Kubelet 将处理未定义的、已删除的以及超出前面提到的参数所设置范围的容器。最老的容器通常会先被移除。`MaxPerPodContainer` 和 `MaxContainer` 在某些场景下可能会存在冲突，例如在保证每个 pod 内死亡容器的最大数量（`MaxPerPodContainer`）的条件下可能会超过允许存在的全部死亡容器的最大数量（`MaxContainer`）。`MaxPerPodContainer` 在这种情况下会被进行调整：最坏的情况是将 `MaxPerPodContainer` 降级为1，并驱逐最老的容器。此外，pod 内已经被删除的容器一旦年龄超过 `MinAge` 就会被清理。
+
+不被 kubelet 管理的容器不受容器垃圾回收的约束。
 
 <!--
 ## Container Collection
