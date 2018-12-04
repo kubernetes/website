@@ -11,162 +11,64 @@ weight: 90
  from the community. Please try it out and give us feedback!
 {{< /caution >}}
 
-In v1.8.0, kubeadm introduced the `kubeadm alpha phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the bootstrap process; you can let kubeadm do some parts and fill in yourself where you need customizations.
-
-`kubeadm alpha phase` is consistent with [kubeadm init workflow](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-workflow),
-and behind the scene both use the same code.
-
-## kubeadm alpha phase preflight {#cmd-phase-preflight}
-
-You can execute preflight checks both for the master node, like in `kubeadm init`, or for the worker node
-like in `kubeadm join`.
-
-{{< tabs name="tab-preflight" >}}
-{{< tab name="master" include="generated/kubeadm_alpha_phase_preflight_master.md" />}}
-{{< tab name="node" include="generated/kubeadm_alpha_phase_preflight_node.md" />}}
-{{< /tabs >}}
-
-
-## kubeadm alpha phase certs {#cmd-phase-certs}
-
-You can create all required certificates with the `all` subcommand or selectively create certificates.
-
-{{< tabs name="tab-certs" >}}
-{{< tab name="all" include="generated/kubeadm_alpha_phase_certs_all.md" />}}
-{{< tab name="ca" include="generated/kubeadm_alpha_phase_certs_ca.md" />}}
-{{< tab name="apiserver" include="generated/kubeadm_alpha_phase_certs_apiserver.md" />}}
-{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_alpha_phase_certs_apiserver-kubelet-client.md" />}}
-{{< tab name="sa" include="generated/kubeadm_alpha_phase_certs_sa.md" />}}
-{{< tab name="front-proxy-ca" include="generated/kubeadm_alpha_phase_certs_front-proxy-ca.md" />}}
-{{< tab name="front-proxy-client" include="generated/kubeadm_alpha_phase_certs_front-proxy-client.md" />}}
-{{< /tabs >}}
-
-## kubeadm alpha phase certs renew {#cmd-phase-certs-renew}
+## kubeadm alpha certs renew {#cmd-certs-renew}
 
 You can renew all Kubernetes certificates using the `all` subcommand or renew them selectively.
 
 {{< tabs name="tab-certs-renew" >}}
-{{< tab name="all" include="generated/kubeadm_alpha_phase_certs_renew_all.md" />}}
-{{< tab name="apiserver-etcd-client" include="generated/kubeadm_alpha_phase_certs_renew_apiserver-etcd-client.md" />}}
-{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_alpha_phase_certs_renew_apiserver-kubelet-client.md" />}}
-{{< tab name="apiserver" include="generated/kubeadm_alpha_phase_certs_renew_apiserver.md" />}}
-{{< tab name="etcd-healthcheck-client" include="generated/kubeadm_alpha_phase_certs_renew_etcd-healthcheck-client.md" />}}
-{{< tab name="etcd-peer" include="generated/kubeadm_alpha_phase_certs_renew_etcd-peer.md" />}}
-{{< tab name="etcd-server" include="generated/kubeadm_alpha_phase_certs_renew_etcd-server.md" />}}
-{{< tab name="front-proxy-client" include="generated/kubeadm_alpha_phase_certs_renew_front-proxy-client.md" />}}
+{{< tab name="renew" include="generated/kubeadm_alpha_certs_renew.md" />}}
+{{< tab name="all" include="generated/kubeadm_alpha_certs_renew_all.md" />}}
+{{< tab name="apiserver-etcd-client" include="generated/kubeadm_alpha_certs_renew_apiserver-etcd-client.md" />}}
+{{< tab name="apiserver-kubelet-client" include="generated/kubeadm_alpha_certs_renew_apiserver-kubelet-client.md" />}}
+{{< tab name="apiserver" include="generated/kubeadm_alpha_certs_renew_apiserver.md" />}}
+{{< tab name="etcd-healthcheck-client" include="generated/kubeadm_alpha_certs_renew_etcd-healthcheck-client.md" />}}
+{{< tab name="etcd-peer" include="generated/kubeadm_alpha_certs_renew_etcd-peer.md" />}}
+{{< tab name="etcd-server" include="generated/kubeadm_alpha_certs_renew_etcd-server.md" />}}
+{{< tab name="front-proxy-client" include="generated/kubeadm_alpha_certs_renew_front-proxy-client.md" />}}
 {{< /tabs >}}
 
-## kubeadm alpha phase kubeconfig {#cmd-phase-kubeconfig}
 
-You can create all required kubeconfig files with the `all` subcommand, or selectively create the files.
-Additionally, the `user` subcommand supports the creation of kubeconfig files for additional users.
+## kubeadm alpha kubeconfig user {#cmd-phase-kubeconfig}
+
+The `user` subcommand can be used for the creation of kubeconfig files for additional users.
 
 {{< tabs name="tab-kubeconfig" >}}
-{{< tab name="all" include="generated/kubeadm_alpha_phase_kubeconfig_all.md" />}}
-{{< tab name="admin" include="generated/kubeadm_alpha_phase_kubeconfig_admin.md" />}}
-{{< tab name="kubelet" include="generated/kubeadm_alpha_phase_kubeconfig_kubelet.md" />}}
-{{< tab name="controller-manager" include="generated/kubeadm_alpha_phase_kubeconfig_controller-manager.md" />}}
-{{< tab name="scheduler" include="generated/kubeadm_alpha_phase_kubeconfig_scheduler.md" />}}
-{{< tab name="user" include="generated/kubeadm_alpha_phase_kubeconfig_user.md" />}}
+{{< tab name="kubeconfig" include="generated/kubeadm_alpha_kubeconfig.md" />}}
+{{< tab name="user" include="generated/kubeadm_alpha_kubeconfig_user.md" />}}
 {{< /tabs >}}
 
-## kubeadm alpha phase kubelet {#cmd-phase-kubelet}
+## kubeadm alpha kubelet config {#cmd-phase-kubelet}
 
-Use the following commands to manage the kubelet phase.
+Use the following commands to either download the kubelet configuration from the cluster or
+to enable the DynamicKubeletConfiguration feature.
 
 {{< tabs name="tab-kubelet" >}}
-{{< tab name="config annotate-cri" include="generated/kubeadm_alpha_phase_kubelet_config_annotate-cri.md" />}}
-{{< tab name="config download" include="generated/kubeadm_alpha_phase_kubelet_config_download.md" />}}
-{{< tab name="config enable-dynamic" include="generated/kubeadm_alpha_phase_kubelet_config_enable-dynamic.md" />}}
-{{< tab name="config upload" include="generated/kubeadm_alpha_phase_kubelet_config_upload.md" />}}
-{{< tab name="config write-to-disk" include="generated/kubeadm_alpha_phase_kubelet_config_write-to-disk.md" />}}
-{{< tab name="write-env-file" include="generated/kubeadm_alpha_phase_kubelet_write-env-file.md" />}}
+{{< tab name="kubelet" include="generated/kubeadm_alpha_kubelet.md" />}}
+{{< tab name="download" include="generated/kubeadm_alpha_kubelet_config_download.md" />}}
+{{< tab name="enable-dynamic" include="generated/kubeadm_alpha_kubelet_config_download.md" />}}
 {{< /tabs >}}
 
-## kubeadm alpha phase controlplane {#cmd-phase-controlplane}
+## kubeadm alpha preflight node {#cmd-phase-preflight}
 
-You can create all required static Pod files for the control plane components with the `all` subcommand,
-or selectively create the files.
+You can use the `node` sub command to run preflight checks on a worker node.
 
-{{< tabs name="tab-controlplane" >}}
-{{< tab name="all" include="generated/kubeadm_alpha_phase_controlplane_all.md" />}}
-{{< tab name="apiserver" include="generated/kubeadm_alpha_phase_controlplane_apiserver.md" />}}
-{{< tab name="controller-manager" include="generated/kubeadm_alpha_phase_controlplane_controller-manager.md" />}}
-{{< tab name="scheduler" include="generated/kubeadm_alpha_phase_controlplane_scheduler.md" />}}
+{{< tabs name="tab-preflight" >}}
+{{< tab name="preflight" include="generated/kubeadm_alpha_preflight.md" />}}
+{{< tab name="node" include="generated/kubeadm_alpha_preflight_node.md" />}}
 {{< /tabs >}}
 
 
-## kubeadm alpha phase etcd {#cmd-phase-etcd}
+## kubeadm alpha selfhosting pivot {#cmd-selfhosting}
 
-Use the following command to create a self-hosted, local etcd instance based on a static Pod file.
+The subcommand `pivot` can be used to conver a static Pod-hosted control plane into a self-hosted one.
 
-{{< tabs name="tab-etcd" >}}
-{{< tab name="etcd local" include="generated/kubeadm_alpha_phase_etcd_local.md" />}}
-{{< /tabs >}}
-
-
-## kubeadm alpha phase mark-master {#cmd-phase-mark-master}
-
-Use the following command to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
-
-{{< tabs name="tab-mark-master" >}}
-{{< tab name="mark-master" include="generated/kubeadm_alpha_phase_mark-master.md" />}}
-{{< /tabs >}}
-
-
-## kubeadm alpha phase bootstrap-token {#cmd-phase-bootstrap-token}
-
-Use the following actions to fully configure bootstrap tokens.
-You can fully configure bootstrap tokens with the `all` subcommand,
-or selectively configure single elements.
-
-{{< tabs name="tab-bootstrap-token" >}}
-{{< tab name="all" include="generated/kubeadm_alpha_phase_bootstrap-token_all.md" />}}
-{{< tab name="create" include="generated/kubeadm_alpha_phase_bootstrap-token_create.md" />}}
-{{< tab name="cluster-info" include="generated/kubeadm_alpha_phase_bootstrap-token_cluster-info.md " />}}
-{{< tab name="node allow-auto-approve" include="generated/kubeadm_alpha_phase_bootstrap-token_node_allow-auto-approve.md" />}}
-{{< tab name="node allow-post-csrs" include="generated/kubeadm_alpha_phase_bootstrap-token_node_allow-post-csrs.md" />}}
-{{< /tabs >}}
-
-
-## kubeadm alpha phase upload-config {#cmd-phase-upload-config}
-
-You can use this command to upload the kubeadm configuration to your cluster.
-Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
-
-{{< tabs name="upload-config" >}}
-{{< tab name="mark-master" include="generated/kubeadm_alpha_phase_upload-config.md" />}}
-{{< /tabs >}}
-
-
-## kubeadm alpha phase addon {#cmd-phase-addon}
-
-You can install all the available addons with the `all` subcommand, or
-install them selectively.
-
-{{< note >}}
-If `kubeadm` is invoked with `--feature-gates=CoreDNS=false`, kube-dns is installed.
-{{< /note >}}
-
-{{< tabs name="tab-addon" >}}
-{{< tab name="all" include="generated/kubeadm_alpha_phase_addon_all.md" />}}
-{{< tab name="kube-proxy" include="generated/kubeadm_alpha_phase_addon_kube-proxy.md" />}}
-{{< tab name="coredns" include="generated/kubeadm_alpha_phase_addon_coredns.md" />}}
-{{< /tabs >}}
-
-
-## kubeadm alpha phase self-hosting {#cmd-phase-self-hosting}
-
-{{< caution >}}
-Self-hosting is an alpha feature. See [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) documentation for self-hosting limitations.
-{{< /caution >}}
-
-{{< tabs name="tab-self-hosting" >}}
-{{< tab name="self-hosting" include="generated/kubeadm_alpha_phase_selfhosting_convert-from-staticpods.md" />}}
+{{< tabs name="selfhosting" >}}
+{{< tab name="selfhosting" include="generated/kubeadm_alpha_selfhosting.md" />}}
+{{< tab name="pivot" include="generated/kubeadm_alpha_selfhosting_pivot.md" />}}
 {{< /tabs >}}
 
 
 ## What's next
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes master node
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
