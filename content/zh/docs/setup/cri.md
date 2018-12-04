@@ -67,58 +67,99 @@ Keep track of the latest verified Docker version in the Kubernetes release notes
 Use the following commands to install Docker on your system:
 -->
 
-{{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
 
-# 从 Ubuntu 的存储库安装 Docker：
 
 <!--
 # Install Docker from Ubuntu's repositories:
 -->
+
+<!--
+# or install Docker CE 18.06 from Docker's repositories for Ubuntu or Debian:
+-->
+
+<!--
+## Install prerequisites.
+-->
+
+<!--
+## Download GPG key.
+-->
+
+<!--
+## Add docker apt repository.
+-->
+
+<!--
+## Install docker.
+-->
+
+<!--
+# Setup daemon.
+-->
+
+<!--
+# Restart docker.
+-->
+
+<!--
+# Install Docker from CentOS/RHEL repository:
+-->
+
+<!--
+# or install Docker CE 18.06 from Docker's CentOS repositories:
+-->
+
+<!--
+## Install prerequisites.
+-->
+
+<!--
+## Add docker repository.
+-->
+
+<!--
+## Install docker.
+-->
+
+<!--
+## Create /etc/docker directory.
+-->
+
+<!--
+# Setup daemon.
+-->
+
+<!--
+# Restart docker.
+-->
+
+
+
+{{< tabs name="tab-cri-docker-installation" >}}
+{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+
+# 从 Ubuntu 的存储库安装 Docker：
 apt-get update
 apt-get install -y docker.io
 
 # 或者从 Docker 的 Ubuntu 或 Debian 镜像仓库中安装 Docker CE 18.06：
 
-<!--
-# or install Docker CE 18.06 from Docker's repositories for Ubuntu or Debian:
--->
 ## 安装环境准备。
-
-<!--
-## Install prerequisites.
--->
 apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
 ## 下载 GPG 密钥。
-
-<!--
-## Download GPG key.
--->
 url -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
 ## 添加 docker apt 镜像仓库。
-
-<!--
-## Add docker apt repository.
--->
 add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 
 ## 安装 docker。
-
-<!--
-## Install docker.
--->
 apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
 
 # 设置守护进程。
-
-<!--
-# Setup daemon.
--->
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -133,10 +174,6 @@ EOF
 mkdir -p /etc/systemd/system/docker.service.d
 
 # 重启 docker。
-
-<!--
-# Restart docker.
--->
 ystemctl daemon-reload
 systemctl restart docker
 
@@ -144,52 +181,26 @@ systemctl restart docker
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
 # 从 CentOs 镜像仓库安装 Docker：
-
-<!--
-# Install Docker from CentOS/RHEL repository:
--->
 yum install -y docker
 
 # 或从 Docker 的 Centos 存储库安装 Docker CE 18.06：
 
-<!--
-# or install Docker CE 18.06 from Docker's CentOS repositories:
--->
 ## 安装环境准备。
-
-<!--
-## Install prerequisites.
--->
 yum install yum-utils device-mapper-persistent-data lvm2
 
 ## 添加 docker 镜像仓库。
-
-<!--
-## Add docker repository.
--->
 m-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ## 安装 docker。
-
-<!--
-## Install docker.
--->
 yum update && yum install docker-ce-18.06.1.ce
 
 ## 创建 /etc/docker 目录。
-
-<!--
-## Create /etc/docker directory.
--->
 mkdir /etc/docker
 
 # 设置守护进程。
 
-<!--
-# Setup daemon.
--->
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -207,10 +218,6 @@ EOF
 mkdir -p /etc/systemd/system/docker.service.d
 
 # 重启 docker。
-
-<!--
-# Restart docker.
--->
 systemctl daemon-reload
 systemctl restart docker
 
@@ -246,15 +253,36 @@ Use the following commands to install CRI-O on your system:
 <!--
 ### Prerequisites
 -->
+
+
+
+<!--
+# Setup required sysctl params, these persist across reboots.
+-->
+
+<!--
+# Install prerequisites
+-->
+
+<!--
+# Install CRI-O
+-->
+
+<!--
+# Install prerequisites
+-->
+
+<!--
+# Install CRI-O
+-->
+
+
+
 ```shell
 modprobe overlay
 modprobe br_netfilter
 
 # 设置需要 sysctl 参数，这些参数在重新引导时仍然存在。
-
-<!--
-# Setup required sysctl params, these persist across reboots.
--->
 cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
@@ -268,10 +296,6 @@ sysctl --system
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
 
 # 安装环境准备。
-
-<!--
-# Install prerequisites
--->
 apt-get update
 apt-get install software-properties-common
 
@@ -279,27 +303,15 @@ add-apt-repository ppa:projectatomic/ppa
 apt-get update
 
 # 安装 CRI-O
-
-<!--
-# Install CRI-O
--->
 apt-get install cri-o-1.11
 
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# 安装软件依赖
-
-<!--
-# Install prerequisites
--->
+# 安装环境准备
 yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-311-candidate/x86_64/os/
 
 # 安装 CRI-O
-
-<!--
-# Install CRI-O
--->
 apt-get install cri-o-1.11
 
 {{< /tab >}}
@@ -355,7 +367,6 @@ modprobe overlay
 modprobe br_netfilter
 
 # 设置需要 sysctl 参数，这些参数在重新引导时仍然存在。
-
 cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
@@ -379,14 +390,10 @@ sysctl --system
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{< tab name="Ubuntu 16.04+" codelang="bash" >}}
-
 apt-get install -y libseccomp2
-
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
-
 yum install -y libseccomp
-
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -407,41 +414,47 @@ yum install -y libseccomp
 [Containerd releases](https://github.com/containerd/containerd/releases) are published regularly, the values below are hardcoded to the latest version available at the time of writing. Please check for newer versions and hashes [here](https://storage.googleapis.com/cri-containerd-release).
 -->
 
-```shell
-# 导出所需的环境变量。
+
+
 <!--
 # Export required environment variables.
 -->
+
+<!--
+# Download containerd tar.
+-->
+
+<!--
+# Check hash.
+-->
+
+<!--
+# Unpack.
+-->
+
+<!--
+# Start containerd.
+-->
+
+
+
+```shell
+# 导出所需的环境变量。
 export CONTAINERD_VERSION="1.1.2"
 export CONTAINERD_SHA256="d4ed54891e90a5d1a45e3e96464e2e8a4770cd380c21285ef5c9895c40549218"
 
 # 下载容器 tar 包。
-<!--
-# Download containerd tar.
--->
 wget https://storage.googleapis.com/cri-containerd-release/cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
 
 # 哈希校验和检查。
-<!--
-# Check hash.
--->
 echo "${CONTAINERD_SHA256} cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz" | sha256sum --check -
 
 # 解压缩。
-<!--
-# Unpack.
--->
 tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
 
 # 启动容器。
 systemctl start containerd
 ```
-
-<!--
-# Start containerd.
-systemctl start containerd
-```
--->
 
 ## 其他 CRI 运行时：rktlet 和 frakti
 
