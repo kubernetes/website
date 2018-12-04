@@ -1,5 +1,5 @@
 ---
-title: 使用 kubeadm 设置一个高可用 etcd 集群
+title: 使用 kubeadm 创建一个高可用 etcd 集群
 content_template: templates/task
 weight: 60
 --- 
@@ -29,20 +29,18 @@ Kubeadm 默认在控制层使用 kubelet 管理静态 Pod 中运行的单成员 
 
 {{% capture prerequisites %}}
 
-<!-- 
-* Three hosts that can talk to each other over ports 2379 and 2380. This
+<!-- * Three hosts that can talk to each other over ports 2379 and 2380. This
   document assumes these default ports. However, they are configurable through
   the kubeadm config file. 
 -->
-* 三个可以通过端口 2379 和 2380 相互通信的主机。本文档使用这些作为默认端口。然而，它们可以通过 kubeadm 的配置文件进行设定。
+* 三个可以通过端口 2379 和 2380 相互通信的主机。本文档使用这些作为默认端口。不过，它们可以通过 kubeadm 的配置文件进行自定义。
 <!-- 
 * Each host must [have docker, kubelet, and kubeadm installed][toolbox]. -->
 * 每个主机必须 [安装有 docker, kubelet, 和 kubeadm][工具箱]
-<!-- 
-* Some infrastructure to copy files between hosts. For example `ssh` and `scp`
-  can satisfy this requirement. 
--->
-* 一些可以用来在主机间复制文件。例如 `ssh` 和 `scp` 可以满足需求。
+
+<!-- * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
+  can satisfy this requirement. -->
+* 一些可以用来在主机间复制文件的基础设施。例如 `ssh` 和 `scp` 就可以满足需求。
 
 <!-- 
 [toolbox]: /docs/setup/independent/install-kubeadm/ 
@@ -107,18 +105,47 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
 
     使用以下脚本为每个将要运行 etcd 成员的主机生成一个 kubeadm 配置文件。
 
-    ```sh
-    <!--
+    <!-- ```sh
     # Update HOST0, HOST1, and HOST2 with the IPs or resolvable names of your hosts
-    -->
+    export HOST0=10.0.0.6
+    export HOST1=10.0.0.7
+    export HOST2=10.0.0.8
+
+    # Create temp directories to store files that will end up on other hosts.
+    mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
+
+    ETCDHOSTS=(${HOST0} ${HOST1} ${HOST2})
+    NAMES=("infra0" "infra1" "infra2")
+
+    for i in "${!ETCDHOSTS[@]}"; do
+    HOST=${ETCDHOSTS[$i]}
+    NAME=${NAMES[$i]}
+    cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
+    apiVersion: "kubeadm.k8s.io/v1alpha3"
+    kind: ClusterConfiguration
+    etcd:
+        local:
+            serverCertSANs:
+            - "${HOST}"
+            peerCertSANs:
+            - "${HOST}"
+            extraArgs:
+                initial-cluster: infra0=https://${ETCDHOSTS[0]}:2380,infra1=https://${ETCDHOSTS[1]}:2380,infra2=https://${ETCDHOSTS[2]}:2380
+                initial-cluster-state: new
+                name: ${NAME}
+                listen-peer-urls: https://${HOST}:2380
+                listen-client-urls: https://${HOST}:2379
+                advertise-client-urls: https://${HOST}:2379
+                initial-advertise-peer-urls: https://${HOST}:2380
+    EOF
+    done
+    ``` -->
+    ```sh
     # 使用 IP 或是可解析的主机名替换 HOST0, HOST1, 和 HOST2
     export HOST0=10.0.0.6
     export HOST1=10.0.0.7
     export HOST2=10.0.0.8
 
-    <!--
-    # Create temp directories to store files that will end up on other hosts.
-    -->
     # 创建临时目录来存储将被分发到其它主机上的文件
     mkdir -p /tmp/${HOST0}/ /tmp/${HOST1}/ /tmp/${HOST2}/
 
@@ -148,7 +175,6 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     EOF
     done
     ```
-
 <!-- 
 1. Generate the certificate authority
 
@@ -159,7 +185,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
 -->
 1. 生成证书颁发机构
 
-    如果您已经拥有 CA，那么唯一的操作是复制 CA 的 `crt` 和 `key` 文件到 etc/kubernetes/pki/etcd/ca.crt` 和 /etc/kubernetes/pki/etcd/ca.key`。复制完这些文件后继续下一步，“为每个成员创建证书”。
+    如果您已经拥有 CA，那么唯一的操作是复制 CA 的 `crt` 和 `key` 文件到 `etc/kubernetes/pki/etcd/ca.crt` 和 /etc/kubernetes/pki/etcd/ca.key`。复制完这些文件后继续下一步，“为每个成员创建证书”。
 
     <!-- 
     If you do not already have a CA then run this command on `$HOST0` (where you
@@ -184,7 +210,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     -->
     1. 为每个成员创建证书
 
-    ```sh
+    <!-- ```sh
     kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
     kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
     kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
@@ -212,6 +238,32 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
 
     # clean up certs that should not be copied off this host
     -->
+    # 不需要移动 certs 因为它们是给 HOST0 使用的
+
+    # 清理不应从此主机复制的证书
+    find /tmp/${HOST2} -name ca.key -type f -delete
+    find /tmp/${HOST1} -name ca.key -type f -delete
+    ``` -->
+    ```sh
+    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    cp -R /etc/kubernetes/pki /tmp/${HOST2}/
+    # 清理不可重复使用的证书
+    find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+
+    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    cp -R /etc/kubernetes/pki /tmp/${HOST1}/
+    find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+
+    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
     # 不需要移动 certs 因为它们是给 HOST0 使用的
 
     # 清理不应从此主机复制的证书
@@ -266,9 +318,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
         └── server.key
     ```
 
-    <!-- 
-    On `$HOST1`: 
-    -->
+    <!-- On `$HOST1`: -->
     在 `$HOST1`:
 
     ```
@@ -288,9 +338,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
         └── server.key
     ```
 
-    <!-- 
-    On `$HOST2`
-    -->
+    <!-- On `$HOST2` -->
     在 `$HOST2`
 
     ```
@@ -310,11 +358,14 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
         └── server.key
     ```
 
-1. Create the static pod manifests
+<!-- 1. Create the static pod manifests
 
     Now that the certificates and configs are in place it's time to create the
     manifests. On each host run the `kubeadm` command to generate a static manifest
-    for etcd.
+    for etcd.-->
+1. 创建 Static Pod 清单
+
+    既然证书和配置已经做好，是时候去创建清单了。在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
 
     ```sh
     root@HOST0 $ kubeadm alpha phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
