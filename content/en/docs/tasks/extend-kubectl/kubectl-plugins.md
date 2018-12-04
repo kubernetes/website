@@ -9,7 +9,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="beta" >}}
 
 This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/). By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster, a cluster administrator can think
 of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
@@ -279,7 +279,7 @@ See the [Sample CLI Plugin](https://github.com/kubernetes/sample-cli-plugin) for
 
 * Check the Sample CLI Plugin repository for [a detailed example](https://github.com/kubernetes/sample-cli-plugin) of a plugin written in Go.
 * In case of any questions, feel free to reach out to the [CLI SIG team](https://github.com/kubernetes/community/tree/master/sig-cli).
-* Binary plugins is still an alpha feature, so this is the time to contribute ideas and improvements to the codebase. We're also excited to hear about what you're planning to implement with plugins, so [let us know](https://github.com/kubernetes/community/tree/master/sig-cli)!
+* Binary plugins are a beta feature, so this is the time to contribute ideas and improvements to the codebase. We're also excited to hear about what you're planning to implement with plugins, so [let us know](https://github.com/kubernetes/community/tree/master/sig-cli)!
 
 {{% /capture %}}
 
