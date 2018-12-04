@@ -46,11 +46,13 @@ It is important to note that if the `startingDeadlineSeconds` field is set (not 
 
 A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
 
-For example, suppose a cron job is set to start at exactly `08:30:00` and its
-`startingDeadlineSeconds` is set to 10, if the CronJob controller happens to
-be down from `08:29:00` to `08:42:00`, the job will not start.
-Set a longer `startingDeadlineSeconds` if starting later is better than not
-starting at all.
+For example, suppose a cron job is run to schedule every one minute, say it is set to start at exactly `08:30:00` and its
+`startingDeadlineSeconds` is not set, if the CronJob controller happens to
+be down from `08:29:00` to `10:21:00`, the job will not start as the number of missed jobs which missed it's schedule is greater than 100.
+
+For example, suppose a cron job is run to schedule every one minute, say it is set to start at exactly `08:30:00` and its
+`startingDeadlineSeconds` is set to 200 seconds, if the CronJob controller happens to
+be down from `08:29:00` to `10:21:00`, the job will still start at 10:22:00 as it checks how many missed schedules happen in last 200 seconds (that will come to 3 missed schedules), rather than from last scheduled time until now which happens when we do not set the `startingDeadlineSeconds`.
 
 The Cronjob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
