@@ -20,16 +20,16 @@ weight: 50
 -->
 {{% capture overview %}}
 
-从v1.8.0开始，kubeadm将集群的配置上传到一个名为ConfigMap的配置文件中
- `kubead -config` 在 `kube-system` 命名空间中，然后在升级时读取 ConfigMap。
-这样可以正确配置系统组件，并提供无缝的用户体验。
+从 v1.8.0 开始，kubeadm 将集群的配置上传到一个名为 `kubeadm-config` 的 ConfigMap 对象中，
+对象位于 `kube-system` 命名空间内。并在以后的升级中读取这个 ConfigMap 配置对象。
+这样可以保证系统组件的正确配置，提供无缝的用户体验。
 
 <!--
 Beginning with v1.8.0, kubeadm uploads the configuration of your cluster to a ConfigMap called
 `kubeadm-config` in the `kube-system` namespace, and later reads the ConfigMap when upgrading.
 This enables correct configuration of system components, and provides a seamless user experience.
 -->
-您可以执行 `kubeadm config view` 以查看 ConfigMap。如果使用 kubeadm v1.7.x
+您可以执行 `kubeadm config view` 命令来查看 ConfigMap。如果使用 kubeadm v1.7.x
 或更低版本初始化集群，则必须先使用 `kubeadm config upload` 创建 ConfigMap，
 然后才能使用 `kubeadm upgrade`。
 <!--
@@ -51,30 +51,62 @@ to list and pull the images that kubeadm requires.
 {{% /capture %}}
 
 {{% capture body %}}
-## kubeadm config upload from-file {#cmd-config-from-file}
+## kubeadm 从文件上传配置 {#cmd-config-from-file}
 {{< include "generated/kubeadm_config_upload_from-file.md" >}}
 
-## kubeadm config upload from-flags {#cmd-config-from-flags}
+<!--
+## kubeadm config upload from-file {#cmd-config-from-file}
+-->
+
+## kubeadm 从标记上传配置 {#cmd-config-from-flags}
 {{< include "generated/kubeadm_config_upload_from-flags.md" >}}
 
-## kubeadm config view {#cmd-config-view}
+<!--
+## kubeadm config upload from-flags {#cmd-config-from-flags}
+-->
+
+## kubeadm 视图配置 {#cmd-config-view}
 {{< include "generated/kubeadm_config_view.md" >}}
 
-## kubeadm config print-default {#cmd-config-print-default}
+<!--
+## kubeadm config view {#cmd-config-view}
+-->
+
+## kubeadm 打印默认配置 {#cmd-config-print-default}
 {{< include "generated/kubeadm_config_print-default.md" >}}
 
-## kubeadm config migrate {#cmd-config-migrate}
+<!--
+## kubeadm config print-default {#cmd-config-print-default}
+-->
+
+## kubeadm 迁移配置 {#cmd-config-migrate}
 {{< include "generated/kubeadm_config_migrate.md" >}}
 
-## kubeadm config images list {#cmd-config-images-list}
+<!--
+## kubeadm config migrate {#cmd-config-migrate}
+-->
+
+## kubeadm 镜像列表配置 {#cmd-config-images-list}
 {{< include "generated/kubeadm_config_images_list.md" >}}
 
-## kubeadm config images pull {#cmd-config-images-pull}
+<!--
+## kubeadm config images list {#cmd-config-images-list}
+-->
+
+## kubeadm 拉镜像 {#cmd-config-images-pull}
 {{< include "generated/kubeadm_config_images_pull.md" >}}
+
+<!--
+## kubeadm config images pull {#cmd-config-images-pull}
+-->
 
 {{% /capture %}}
 
+<!--
 {{% capture whatsnext %}}
+-->
+
+{{% 下一步做什么 %}}
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 将 Kubernetes 集群升级到更新版本
 {{% /capture %}}
 
