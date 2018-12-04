@@ -65,22 +65,15 @@ showedit = true
 
 latest = "v1.13"
 
-fullversion = "v1.12.0"
+fullversion = "v1.12.3"
 version = "v1.12"
-githubbranch = "master"
-docsbranch = "master"
-deprecated = false
+githubbranch = "v1.12.3"
+docsbranch = "release-1.12"
+deprecated = true
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
-
-[[params.versions]]
-fullversion = "v1.13.0"
-version = "v1.13"
-githubbranch = "v1.13.0"
-docsbranch = "release-1.13"
-url = "https://kubernetes.io"
 
 [params.pushAssets]
 css = [
@@ -92,6 +85,13 @@ js = [
   "custom-jekyll/tags",
   "script"
 ]
+
+[[params.versions]]
+fullversion = "v1.13.0"
+version = "v1.13"
+githubbranch = "v1.13.0"
+docsbranch = "release-1.13"
+url = "https://kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.12.3"
