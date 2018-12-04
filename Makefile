@@ -36,7 +36,7 @@ sass-develop:
 	scripts/sass.sh develop
 
 serve: ## Boot the development server.
-	hugo server --ignoreCache --disableFastRender
+	hugo server --ignoreCache --disableFastRender --buildFuture
 
 docker-image:
 	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)
@@ -45,4 +45,4 @@ docker-build:
 	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
 
 docker-serve:
-	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --watch --bind 0.0.0.0
+	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
