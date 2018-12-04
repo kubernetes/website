@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'New Contributor Workshop Shanghai'
-date: 2018-12-05
+date: 2018-12-03
 ---
 
 **Author**: Josh Berkus (Red Hat), Yang Li (The Plant), Puja Abbassi (Giant Swarm), Xiang Peng Zhao (ZTE)
