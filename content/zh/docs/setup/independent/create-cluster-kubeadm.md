@@ -105,7 +105,7 @@ but the overall implementation should be pretty stable. Any commands under
 `kubeadm alpha` are by definition, supported on an alpha level.
 -->
 
-kubeadm 的整体功能状态是 **Beta**，很快将在 2018年升级为 **正式发布 (GA)**。一些子功能，如自托管（sub-features）或配置文件
+kubeadm 的整体功能状态是 **Beta**，很快将在 2018年升级为 **正式发布 (GA)**。一些子功能，如自托管（self-hosting）或配置文件
 API 仍在积极开发中。随着工具的发展，创建集群的实现可能会略有变化，但整体实现应该依旧稳定。根据定义，`kubeadm alpha` 下的任何命令
 都支持 alpha 级别。
 
