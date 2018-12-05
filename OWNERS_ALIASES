@@ -148,9 +148,6 @@ aliases:
   sig-docs-ko-owners: #Team Korean docs localization; GH: sig-docs-ko-owners
     - ClaudiaJKang
     - gochist
-    - bradamant3    # Temporary for 1.13 release
-    - jimangel      # Temporary for 1.13 release
-    - tfogo         # Temporary for 1.13 release
     - zacharysarah
   sig-docs-ko-reviews: #Team Korean docs reviews; GH: sig-docs-ko-reviews
     - ClaudiaJKang
@@ -170,9 +167,6 @@ aliases:
     - xiangpengzhao
     - zacharysarah
     - zhangxiaoyu-zidif
-    - bradamant3    # Temporary for 1.13 release
-    - jimangel      # Temporary for 1.13 release
-    - tfogo         # Temporary for 1.13 release
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
     - chenrui333
     - idealhack
