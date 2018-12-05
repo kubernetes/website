@@ -16,7 +16,7 @@ Container is terminated.
 
 {{% capture overview %}}
 
-本页面展示了如何将处理程序添加到容器生命周期事件。Kubernetes 支持 postStart 和 preStop 事件。Kubernetes 在启动容器之后会立即发送 postStart 事件
+本页面展示了如何将容器生命周期事件绑定到处理程序上。Kubernetes 支持 postStart 和 preStop 事件。Kubernetes 在启动容器之后会立即发送 postStart 事件
 ，在容器终止之前会立即发送 preStop 事件。
 
 {{% /capture %}}
