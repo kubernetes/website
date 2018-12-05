@@ -197,7 +197,7 @@ After you initialize your master, the kubelet runs normally.
 或 `yum update` 以获取最新版本的 kubeadm。
 
 当您升级时，kubelet 会每隔几秒钟重新启动一次，
-因为它在一个崩溃循环中等待 kubeadm 告诉它该怎么做。
+因为它陷入崩溃循环（crashloop）中，等待 kubeadm 告诉它该怎么做。
 这个 crashloop 是预期的并且正常的。初始化主节点后，kubelet 会正常运行。
 
 {{< /note >}}
