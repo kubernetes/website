@@ -39,3 +39,5 @@ Links:
 * English versions of the slides: [PDF format](https://gist.github.com/jberkus/889be25c234b01761ce44eccff816380#file-kubernetes-shanghai-english-pdf) or [GoogleDocs with speaker notes](https://docs.google.com/presentation/d/1l5f_iAFsKg50LFq3N80KbZKUIEL_tyCaUoWPzSxColo/edit?usp=sharing)
 * [Chinese version of the slides](https://gist.github.com/jberkus/889be25c234b01761ce44eccff816380#file-kubernetes-shanghai-cihinese-pdf)(PDF)
 * [Contributor playground](https://github.com/kubernetes-sigs/contributor-playground)
+
+*Image credit: the photos in this post were taken by Peter Zhang, and are used with permission.*
