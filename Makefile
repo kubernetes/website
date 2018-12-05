@@ -16,7 +16,7 @@ build: ## Build site with production settings and put deliverables in ./public
 	hugo --minify
 
 build-preview: ## Build site with drafts and future posts enabled
-	hugo -D -F
+	hugo --buildDrafts --buildFuture
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
