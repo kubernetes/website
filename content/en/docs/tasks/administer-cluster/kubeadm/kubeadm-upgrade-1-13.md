@@ -39,8 +39,9 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
     {{< tabs name="k8s_install" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    apt-get update
-    apt-get upgrade -y kubelet kubeadm
+    apt-mark unhold kubelet kubeadm && \
+    apt-get update && apt-get upgrade -y kubelet kubeadm && \
+    apt-mark hold kubelet kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     yum upgrade -y kubeadm --disableexcludes=kubernetes

@@ -36,7 +36,7 @@ Upgrade `kubeadm` to the version that matches the version of Kubernetes that you
 
 ```shell
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm && \
+apt-get update && apt-get upgrade -y kubeadm && \
 apt-mark hold kubeadm
 ```
 
