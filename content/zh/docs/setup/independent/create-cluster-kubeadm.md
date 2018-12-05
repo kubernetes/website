@@ -923,7 +923,7 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 ## 版本偏差策略 {#version-skew-policy}
 
 版本 vX.Y 的 kubeadm CLI 工具可以部署具有版本 vX.Y 或 vX.(Y-1)的控制平面的集群。
-kubeadm CLI vX.Y还可以升级现有的kubeadm创建的vX版本集群（Y-1）。
+kubeadm CLI vX.Y 还可以升级现有的 kubeadm 创建的 vX 版本集群（Y-1）。
 
 由于我们无法预知未来，kubeadm CLI vX.Y 可能会也可能无法部署 vX.(Y+1) 的集群。
 
