@@ -67,7 +67,7 @@ but you may also build them from source for other OSes.
 -->
 
 您可以在支持安装 deb 或 rpm 软件包的操作系统上轻松安装 _kubeadm_ 。 负责 kubeadm 的 SIG——[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle)提供了为您预先构建的这些软件包，
-但您也可以从其他操作系统的源代码构建它们。
+但您也可以基于源代码为其它操作系统生成这些软件包。
 
 <!--
 ### kubeadm Maturity
