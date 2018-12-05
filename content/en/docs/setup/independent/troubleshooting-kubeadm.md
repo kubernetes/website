@@ -226,4 +226,21 @@ Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
 the security of your cluster.
 {{< /warning >}}
 
+## etcd pods are constantly restarting
+
+This problem can be observed on CentOS 7 with Docker 1.13.1.87.
+This specific version of Docker has a regression that can prevent the kubelet
+from executing into the etcd container with the following error:
+
+```
+rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:247: starting container process caused "process_linux.go:110: decoding init error from pipe caused \"read parent: connection reset by peer\""
+```
+
+The workaround is to either roll back to an older version of Docker like 1.13.1-75 or
+install one of the more recent recommended versions like 18.06:
+
+```bash
+yum install docker-ce-18.06.1.ce-3.el7.x86_64
+```
+
 {{% /capture %}}
