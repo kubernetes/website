@@ -198,7 +198,7 @@ After you initialize your master, the kubelet runs normally.
 
 当您升级时，kubelet 会每隔几秒钟重新启动一次，
 因为它陷入崩溃循环（crashloop）中，等待 kubeadm 告诉它该怎么做。
-这个 crashloop 是预期的并且正常的。初始化主节点后，kubelet 会正常运行。
+这个崩溃循环是意料之中的并且是正常的。主节点被初始化后，kubelet 会正常运行。
 
 {{< /note >}}
 
