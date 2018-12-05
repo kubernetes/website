@@ -1,5 +1,5 @@
 
-将配置文件上载到集群内的 ConfigMap 以进行 kubeadm 配置。
+将配置文件上传到集群内的 ConfigMap 以进行 kubeadm 配置。
 
 <!--
 Upload a configuration file to the in-cluster ConfigMap for kubeadm configuration.
@@ -14,7 +14,7 @@ Upload a configuration file to the in-cluster ConfigMap for kubeadm configuratio
 
 
 使用此命令，您可以使用与 ‘kubeadm init’ 相同的配置文件将配置上传到集群中的 ConfigMap。
-如果使用 v1.7.x 或更低版本的 kubeadm 客户端初始化集群并且使用 --config 选项，则需要在使用 ‘kubeadm upgrade’ 升级到 v1.8 之前使用相同的配置文件运行此命令。
+如果您使用的是 v1.7.x 或更低版本的 kubeadm 客户端初始化集群并且使用了 --config 选项，那么在使用 'kubeadm upgrade' 升级到 v1.8 之前，您需要使用相同的配置文件运行此命令。
 <!--
 Using this command, you can upload configuration to the ConfigMap in the cluster using the same config file you gave to 'kubeadm init'.
 If you initialized your cluster using a v1.7.x or lower kubeadm client and used the --config option, you need to run this command with the
@@ -48,7 +48,7 @@ kubeadm config upload from-file [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">指向kubeadm配置文件的路径。警告：配置文件的使用是实验性的。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">指向 kubeadm 配置文件的路径。警告：配置文件的使用是实验性的。</td>
 
     </tr>
 
@@ -56,7 +56,7 @@ kubeadm config upload from-file [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for from-file</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">帮助文件</td>
     </tr>
 
   </tbody>
@@ -65,12 +65,17 @@ kubeadm config upload from-file [flags]
 <!--
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm config file. WARNING: Usage of a configuration file is experimental.</td>
 -->
-
+<!--
+<td></td><td style="line-height: 130%; word-wrap: break-word;">help for from-file</td>
+-->
 
 ### 继承于父命令的选项 
 
 <!--
 ### Options inherited from parent commands
+-->
+<!--
+<td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
 -->
 
 <table style="width: 100%; table-layout: fixed;">
@@ -81,17 +86,17 @@ kubeadm config upload from-file [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群对话时使用的 kubeconfig 文件。如果没有设置标记，将搜索一组标准位置来搜索现有的 KubeConfig 文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
     </tr>
 
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验性] 主机 root 目录文件系统'真实'路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
     </tr>
 
   </tbody>

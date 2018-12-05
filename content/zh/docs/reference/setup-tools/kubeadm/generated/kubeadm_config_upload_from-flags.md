@@ -1,5 +1,5 @@
 
-首次使用标记创建群集内配置文件。
+首次使用 flags 参数创建群集内配置文件。
 <!--
 Create the in-cluster configuration file for the first time from using flags.
 -->
@@ -11,15 +11,15 @@ Create the in-cluster configuration file for the first time from using flags.
 -->
 
 
-使用此命令，您可以使用与 ‘kubeadm init’ 相同的配置文件将配置上传到集群中的 ConfigMap。
-如果使用 v1.7.x 或更低版本的 kubeadm 客户端初始化集群并且使用 --config 选项，则需要在使用 ‘kubeadm upgrade’ 升级到 v1.8 之前使用相同的配置文件运行此命令。
+使用此命令，您可以使用与 'kubeadm init' 相同的配置文件将配置上传到集群中的 ConfigMap。
+如果使用 v1.7.x 或更低版本的 kubeadm 客户端初始化集群并且使用 --config 选项，则需要在使用 'kubeadm upgrade' 升级到 v1.8 之前使用相同的配置文件运行此命令。
 <!--
 Using this command, you can upload configuration to the ConfigMap in the cluster using the same config file you gave to 'kubeadm init'.
 If you initialized your cluster using a v1.7.x or lower kubeadm client and used the --config option, you need to run this command with the
 same config file before upgrading to v1.8 using 'kubeadm upgrade'.
 -->
 
-该配置位于 "kubead -config" ConfigMap 中的 "kube-system" 名称空间中。
+该配置位于 "kubead -config" ConfigMap 中的 "kube-system" 命名空间中。
 <!--
 The configuration is located in the "kube-system" namespace in the "kubeadm-config" ConfigMap.
 -->
@@ -56,6 +56,9 @@ kubeadm config upload from-file [flags]
 <!--
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
 -->
+<!--
+<td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default： 6443</td>
+-->
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -68,14 +71,14 @@ kubeadm config upload from-file [flags]
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">API 服务器将通知它正在监听的 IP 地址。指定 '0.0.0.0' 来使用默认网络接口的地址。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一个 IP 地址，API 服务器将宣告该 IP 地址正在监听。默认指定 '0.0.0.0' 用于网络接口的地址。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--apiserver-绑定-端口 int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
+      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： 6443</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于绑定API服务器的端口。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于绑定 API 服务器的端口。</td>
     </tr>
 
     <tr>
@@ -87,14 +90,14 @@ kubeadm config upload from-file [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">保存和存储证书的路径。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--cri-socket string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/run/dockershim.sock"</td>
+      <td colspan="2">--cri-socket string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/var/run/dockershim.sock"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">指定要连接的 CRI 套接字。</td>
@@ -111,11 +114,15 @@ kubeadm config upload from-file [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for from-flags</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">from-flags 帮助</td>
     </tr>
 
+<!--
+<td></td><td style="line-height: 130%; word-wrap: break-word;">help for from-flags</td>
+-->
+
     <tr>
-      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "stable-1"</td>
+      <td colspan="2">--kubernetes-version string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "stable-1"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">为控制平面选择一个特定的 Kubernetes 版本。</td>
@@ -136,17 +143,17 @@ kubeadm config upload from-file [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "10.96.0.0/12"</td>
+      <td colspan="2">--service-cidr string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "10.96.0.0/12"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用 IP 地址的替代范围服务 VIPs。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用可替代的 IP 地址范围进行服务。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "cluster.local"</td>
+      <td colspan="2">--service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "cluster.local"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">为服务使用可选域，例如： "myorg.internal".</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">为服务使用替代域名，例如： "myorg.internal"。</td>
     </tr>
 
   </tbody>
@@ -163,6 +170,9 @@ kubeadm config upload from-file [flags]
 -->
 <!--
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Use alternative range of IP address for service VIPs.</td>
+-->
+<!--
+<td colspan="2">--service-dns-domain string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default： "cluster.local"</td>
 -->
 <!--
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Use alternative domain for services, e.g. "myorg.internal".</td>
@@ -186,14 +196,14 @@ kubeadm config upload from-file [flags]
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群对话时使用的 kubeconfig 文件。如果没有设置标记，将搜索一组标准位置来搜索现有的 KubeConfig 文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
     </tr>
 
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验性] 主机 root 目录文件系统'真实'路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
     </tr>
 
   </tbody>

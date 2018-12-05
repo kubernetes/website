@@ -1,5 +1,5 @@
 
-查看存储在集群中的kubeadm配置
+查看存储在集群中的 kubeadm 配置
 <!--
 View the kubeadm configuration stored inside the cluster.
 -->
@@ -10,9 +10,9 @@ View the kubeadm configuration stored inside the cluster.
 ### Synopsis
 -->
 
-使用此命令，可以查看 kubeadm 配置所在的集群中的 ConfigMap。
+使用此命令，可以查看 kubeadm 配置的集群中的 ConfigMap。
 
-该配置位于 "kubead -config" ConfigMap 中的 "kube-system" 名称空间中。
+该配置位于 "kubead -config" ConfigMap 中的 "kube-system" 命名空间中。
 
 <!--
 Using this command, you can view the ConfigMap in the cluster where the configuration for kubeadm is located.
@@ -42,8 +42,12 @@ kubeadm config view [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for view</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"视图帮助</td>
     </tr>
+
+<!--
+<td></td><td style="line-height: 130%; word-wrap: break-word;">help for view</td>
+-->
 
   </tbody>
 </table>
@@ -62,17 +66,17 @@ kubeadm config view [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群对话时使用的 kubeconfig 文件。如果没有设置标记，将搜索一组标准位置来搜索现有的 KubeConfig 文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
     </tr>
 
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验性] 主机 root 目录文件系统'真实'路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
     </tr>
 
   </tbody>
