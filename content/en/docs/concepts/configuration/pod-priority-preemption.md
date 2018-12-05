@@ -364,11 +364,11 @@ Pod priority and
 [QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md)
 are two orthogonal features with few interactions and no default restrictions on
 setting the priority of a Pod based on its QoS classes. The scheduler's
-preemption logic does consider QoS when choosing preemption targets. Preemption
-considers Pod priority and attempts to choose a set of targets with the lowest
-priority. Higher-priority Pods are considered for preemption only if the removal
-of the lowest priority Pods is not sufficient to allow the scheduler to schedule
-the preemptor Pod, or if the lowest priority Pods are protected by
+preemption logic does not consider QoS when choosing preemption targets.
+Preemption considers Pod priority and attempts to choose a set of targets with
+the lowest priority. Higher-priority Pods are considered for preemption only if
+the removal of the lowest priority Pods is not sufficient to allow the scheduler
+to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 `PodDisruptionBudget`.
 
 The only component that considers both QoS and Pod priority is

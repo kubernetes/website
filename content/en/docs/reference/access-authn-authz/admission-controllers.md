@@ -89,10 +89,10 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.11, they are:
+In 1.13, they are:
  
 ```shell
-NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
+NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeClaimResize,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
 ```
 
 ## What does each admission controller do?
@@ -415,6 +415,25 @@ This admission controller limits the `Node` and `Pod` objects a kubelet can modi
 kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`.
 Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
 In Kubernetes 1.11+, kubelets are not allowed to update or remove taints from their `Node` API object.
+
+In Kubernetes 1.13+, the `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
+and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.io/` prefixes as follows:
+
+* **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
+This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
+and kubelets will not be allowed to modify labels with that prefix.
+* **Allows** kubelets to add/remove/update these labels and label prefixes:
+  * `kubernetes.io/hostname`
+  * `beta.kubernetes.io/arch`
+  * `beta.kubernetes.io/instance-type`
+  * `beta.kubernetes.io/os`
+  * `failure-domain.beta.kubernetes.io/region`
+  * `failure-domain.beta.kubernetes.io/zone`
+  * `kubelet.kubernetes.io/`-prefixed labels
+  * `node.kubernetes.io/`-prefixed labels
+
+Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved, and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
+
 Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
 
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}

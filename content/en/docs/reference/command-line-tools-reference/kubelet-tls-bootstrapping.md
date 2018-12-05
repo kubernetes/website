@@ -217,7 +217,7 @@ default set of key usages.
 
 In order for the controller-manager to sign certificates, it needs the following:
 
-* access to the "kuberetes CA key and certificate" that you created and distributed
+* access to the "Kubernetes CA key and certificate" that you created and distributed
 * enabling CSR signing
 
 ### Access to key and certificate
@@ -379,10 +379,10 @@ As stated earlier, _any_ valid authentication method can be used, not just token
 Because the bootstrap `kubeconfig` _is_ a standard `kubeconfig`, you can use `kubectl` to generate it. To create the above example file:
 
 ```
-kubectl config -kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig set-cluster bootstrap --server='https://my.server.example.com:6443' --certificate-authority=/var/lib/kubernetes/ca.pem
-kubectl config -kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig set-credentials kubelet-bootstrap --token=07401b.f395accd246ae52d
-kubectl config -kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig set-context bootstrap --user=kubelet-bootstrap --cluster=bootstrap
-kubectl config -kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig use-context bootstrap
+kubectl config --kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig set-cluster bootstrap --server='https://my.server.example.com:6443' --certificate-authority=/var/lib/kubernetes/ca.pem
+kubectl config --kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig set-credentials kubelet-bootstrap --token=07401b.f395accd246ae52d
+kubectl config --kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig set-context bootstrap --user=kubelet-bootstrap --cluster=bootstrap
+kubectl config --kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig use-context bootstrap
 ```
 
 To indicate to the kubelet to use the bootstrap `kubeconfig`, use the following kubelet flag:
