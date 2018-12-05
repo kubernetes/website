@@ -91,7 +91,7 @@ but you may also build them from source for other OSes.
 | 执行（Implementation）     | beta           |
 | 配置文件 API               | alpha          |
 | 自托管 （Self-hosting）    | alpha          |
-| kubeadm alpha 子命令       | alpha          |
+| kubeadm alpha 功能子命令       | alpha          |
 | CoreDNS                   | GA             |
 | DynamicKubeletConfig      | alpha          |
 
@@ -105,7 +105,7 @@ but the overall implementation should be pretty stable. Any commands under
 `kubeadm alpha` are by definition, supported on an alpha level.
 -->
 
-kubeadm 的整体功能状态是 **Beta**，很快将在 2018年升级为 **正式发布 (GA)**。一些子功能，如自托管（self-hosting）或配置文件
+kubeadm 的整体功能状态是 **Beta**，很快将在 2018年升级为 **正式发布 (GA)**。一些子功能，如自托管或配置文件
 API 仍在积极开发中。随着工具的发展，创建集群的实现可能会略有变化，但整体实现应该相当稳定。正如其名字所表达的，`kubeadm alpha` 下的任何命令
 都仅按 alpha 特性来支持。
 
