@@ -798,9 +798,9 @@ kubectl --kubeconfig ./admin.conf proxy
 
 您现在可以在本地访问 API 服务器： `http://localhost:8001/api/v1`
 
-## 腾空节点 {#tear-down}
+## 移除 {#tear-down}
 
-要取消 kubeadm 所做的事情，你应该首先[移除节点](/docs/reference/generated/kubectl/kubectl-commands#drain) 并确保节点在关闭之前是空的（没有运行任何 pod）。
+要取消 kubeadm 所做的事情，你应该首先[腾空节点](/docs/reference/generated/kubectl/kubectl-commands#drain) 并确保节点在关闭之前是空的（没有运行任何 pod）。
 
 使用合适的凭据与主节点通信，运行：
 
