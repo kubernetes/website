@@ -743,7 +743,7 @@ privileges by using `kubectl create (cluster)rolebinding`.
 如果不是这种情况，您可以复制 `admin.conf` 文件以供其他用户访问，而 `scp` 则可以使用其他用户访问。
 
 `admin.conf`文件为用户提供了集群上的 _superuser_ 权限。
-应谨慎使用此文件。 对于普通用户，建议您生成一个唯一的凭据，其中包含白名单特权。 您可以使用 `kubeadm alpha phase kubeconfig user --client-name <CN>` 
+应谨慎使用此文件。 对于普通用户，建议您生成一个唯一的凭据，并给予白名单特权。 您可以使用 `kubeadm alpha phase kubeconfig user --client-name <CN>` 
 命令执行此操作。 
 该命令将打印出一个 KubeConfig 文件到标准输出，您应将其保存为文件并分发给您的用户。
 之后，使用 `kubectl create（cluster）rolebinding` 命令进行白名单特权绑定。
