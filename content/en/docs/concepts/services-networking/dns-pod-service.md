@@ -149,7 +149,7 @@ The Endpoints object can specify the `hostname` for any endpoint addresses,
 along with its IP.
 
 {{< note >}}
-**Note:** Because A records are not created for Pod names, `hostname` is required for the Pod's A record to be created. A Pod with no `hostname` but with `subdomain` only will only create the A record for the headless service (`default-subdomain.my-namespace.svc.cluster.local`), pointing to the Pod's IP address.
+Because A records are not created for Pod names, `hostname` is required for the Pod's A record to be created. A Pod with no `hostname` but with `subdomain` only will only create the A record for the headless service (`default-subdomain.my-namespace.svc.cluster.local`), pointing to the Pod's IP address.
 {{< /note >}}
 
 ### Pod's DNS Policy
@@ -176,7 +176,7 @@ following pod-specific DNS policies. These policies are specified in the
   See [DNS config](#dns-config) subsection below.
 
 {{< note >}}
-**NOTE:** "Default" is not the default DNS policy. If `dnsPolicy` is not
+"Default" is not the default DNS policy. If `dnsPolicy` is not
 explicitly specified, then “ClusterFirst” is used.
 {{< /note >}}
 

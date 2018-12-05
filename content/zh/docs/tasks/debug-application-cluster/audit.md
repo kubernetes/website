@@ -79,7 +79,7 @@ Each request can be recorded with an associated "stage". The known stages are:
 
 {{< note >}}
 <!--
-**Note** The audit logging feature increases the memory consumption of the API
+The audit logging feature increases the memory consumption of the API
 server because some context required for auditing is stored for each request.
 Additionally, memory consumption depends on the audit logging configuration.
 -->
@@ -174,7 +174,7 @@ In both cases, audit events structure is defined by the API in the
 
 {{< note >}}
 <!--
-**Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
+In case of patches, request body is a JSON array with patch operations, not a JSON object
 with an appropriate Kubernetes API object. For example, the following request body is a valid patch
 request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
 -->

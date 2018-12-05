@@ -26,7 +26,7 @@ Kubernetes 假设 Pod 可与其它 Pod 通信，不管它们在哪个主机上�
 这表明了在 Pod 内的容器都能够连接到本地的每个端口，集群中的所有 Pod 不需要通过 NAT 转换就能够互相看到。
 文档的剩余部分将详述如何在一个网络模型之上运行可靠的服务。
 
-该指南使用一个简单的 Nginx server 来演示并证明谈到的概念。同样的原则也体现在一个更加完整的 [Jenkins CI 应用](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes.html) 中。
+该指南使用一个简单的 Nginx server 来演示并证明谈到的概念。同样的原则也体现在一个更加完整的 [Jenkins CI 应用](http://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes.html) 中。
 
 
 

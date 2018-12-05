@@ -21,7 +21,7 @@ Some typical uses of a DaemonSet are:
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), `collectd`, Dynatrace OneAgent, Datadog agent, New Relic agent, Ganglia `gmond` or Instana agent.
+  https://github.com/prometheus/node_exporter), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), Datadog agent, New Relic agent, Ganglia `gmond` or Instana agent.
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -29,7 +29,6 @@ different flags and/or different memory and cpu requests for different hardware 
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -130,7 +129,7 @@ That introduces the following issues:
  * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
    is handled by default scheduler. When preemption is enabled, the DaemonSet controller
    will make scheduling decisions without considering pod priority and preemption.
- 
+
 `ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
 scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
 to the DaemonSet pods, instead of the `.spec.nodeName` term. The default
@@ -162,14 +161,14 @@ Although Daemon Pods respect
 the following tolerations are added to DaemonSet Pods automatically according to
 the related features.
 
-| Toleration Key                           | Effect     | Alpha Features                                               | Version | Description                                                  |
-| ---------------------------------------- | ---------- | ------------------------------------------------------------ | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | When `TaintBasedEvictions` is enabled, they will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | `TaintBasedEvictions`                                        | 1.8+    | When `TaintBasedEvictions` is enabled, they will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule |                                                              | 1.8+    |                                                              |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule |                                                              | 1.8+    |                                                              |
-| `node.kubernetes.io/unschedulable`       | NoSchedule |                                                              | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler.                                                    |
-| `node.kubernetes.io/network-unavailable` | NoSchedule |                                                              | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler.                      |
+| Toleration Key                           | Effect     | Version | Description                                                  |
+| ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
+| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    |                                                              |
+| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    |                                                              |
+| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler.                                                    |
+| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler.                      |
 
 
 

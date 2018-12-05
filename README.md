@@ -14,10 +14,13 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
 
 ## Running the site locally using Docker
 
 The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com) image that includes the [Hugo](https://gohugo.io) static site generator.
+
+> If you are running on Windows, you'll need a few more tools which you can install with [Chocolatey](https://chocolatey.org). `choco install make`
 
 > If you'd prefer to run the website locally without Docker, see [Running the site locally using Hugo](#running-the-site-locally-using-hugo) below.
 

@@ -15,7 +15,6 @@ This document describes the current state of `VolumeSnapshots` in Kubernetes. Fa
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -23,7 +22,7 @@ This document describes the current state of `VolumeSnapshots` in Kubernetes. Fa
 
 Similar to how API resources `PersistentVolume` and `PersistentVolumeClaim` are used to provision volumes for users and administrators, `VolumeSnapshotContent` and `VolumeSnapshot` API resources are provided to create volume snapshots for users and administrators.
 
-A `VolumeSnapshotContent` is a snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a PersistentVolume is a cluster resource. 
+A `VolumeSnapshotContent` is a snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a PersistentVolume is a cluster resource.
 
 A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is similar to a PersistentVolumeClaim.
 
@@ -81,7 +80,7 @@ metadata:
 spec:
   snapshotClassName: csi-hostpath-snapclass
   source:
-    name: pvc-test 
+    name: pvc-test
     kind: PersistentVolumeClaim
   volumeSnapshotSource:
     csiVolumeSnapshotSource:

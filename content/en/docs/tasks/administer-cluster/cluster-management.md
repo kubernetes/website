@@ -15,7 +15,6 @@ running cluster.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

@@ -1,7 +1,7 @@
 DOCKER       = docker
 HUGO_VERSION = 0.49
 DOCKER_IMAGE = kubernetes-hugo
-DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(PWD):/src
+DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(CURDIR):/src
 NODE_BIN     = node_modules/.bin
 A11Y         = $(NODE_BIN)/a11ym
 NETLIFY_FUNC = $(NODE_BIN)/netlify-lambda
@@ -40,7 +40,7 @@ sass-develop:
 	scripts/sass.sh develop
 
 serve: ## Boot the development server.
-	hugo server --ignoreCache --disableFastRender
+	hugo server --ignoreCache --disableFastRender --buildFuture
 
 docker-image:
 	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)
@@ -49,7 +49,7 @@ docker-build:
 	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
 
 docker-serve:
-	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --watch --bind 0.0.0.0
+	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
 
 accessibility-page:
 	$(A11Y) \

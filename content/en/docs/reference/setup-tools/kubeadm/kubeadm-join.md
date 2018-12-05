@@ -204,8 +204,7 @@ These commands should be run after `kubeadm init` but before `kubeadm join`.
 ### Using kubeadm join with a configuration file {#config-file}
 
 {{< caution >}}
-**Caution:** The config file is
-still considered alpha and may change in future versions.
+The config file is still considered alpha and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm join` with a configuration file instead of command
@@ -224,7 +223,7 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes master node
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}

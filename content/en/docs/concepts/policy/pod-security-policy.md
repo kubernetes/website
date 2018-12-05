@@ -16,7 +16,6 @@ updates.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -38,7 +37,7 @@ administrator to control the following:
 | White list of Flexvolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
-| The user and group IDs of the container             | [`runAsUser`, `supplementalGroups`](#users-and-groups) |
+| The user and group IDs of the container             | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
 | Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
@@ -145,7 +144,7 @@ For a complete example of authorizing a PodSecurityPolicy, see
 ### Troubleshooting
 
 - The [Controller Manager](/docs/admin/kube-controller-manager/) must be run
-against [the secured API port](/docs/reference/access-authn-authz/controlling-access/), 
+against [the secured API port](/docs/reference/access-authn-authz/controlling-access/),
 and must not have superuser permissions. Otherwise requests would bypass
 authentication and authorization modules, all PodSecurityPolicy objects would be
 allowed, and users would be able to create privileged containers. For more details
@@ -231,8 +230,8 @@ Create the rolebinding to grant `fake-user` the `use` verb on the example
 policy:
 
 {{< note >}}
-**Note:** _This is not the recommended way! See the [next section](#run-another-pod)
-for the preferred approach._
+This is not the recommended way! See the [next section](#run-another-pod)
+for the preferred approach.
 {{< /note >}}
 
 ```shell
@@ -375,7 +374,7 @@ several security mechanisms.
 ### Privileged
 
 **Privileged** - determines if any container in a pod can enable privileged mode.
-By default a container is not allowed to access any devices on the host, but a 
+By default a container is not allowed to access any devices on the host, but a
 "privileged" container is given access to all devices on the host. This allows
 the container nearly all the same access as processes running on the host.
 This is useful for containers that want to use linux capabilities like
@@ -443,11 +442,11 @@ allowedHostPaths:
     readOnly: true # only allow read-only mounts
 ```
 
-{{< warning >}}**Warning:** There are many ways a container with unrestricted access to the host 
+{{< warning >}}There are many ways a container with unrestricted access to the host
 filesystem can escalate privileges, including reading data from other
 containers, and abusing the credentials of system services, such as Kubelet.
 
-Writeable hostPath directory volumes allow containers to write 
+Writeable hostPath directory volumes allow containers to write
 to the filesystem in ways that let them traverse the host filesystem outside the `pathPrefix`.
 `readOnly: true`, available in Kubernetes 1.11+, must be used on **all** `allowedHostPaths`
 to effectively limit access to the specified `pathPrefix`.
@@ -458,9 +457,9 @@ root filesystem (i.e. no writable layer).
 
 ### Flexvolume drivers
 
-This specifies a whiltelist of Flexvolume drivers that are allowed to be used
+This specifies a whitelist of Flexvolume drivers that are allowed to be used
 by flexvolume. An empty list or nil means there is no restriction on the drivers.
-Please make sure [`volumes`](#volumes-and-file-systems) field  contains the
+Please make sure [`volumes`](#volumes-and-file-systems) field contains the
 `flexVolume` volume type; no Flexvolume driver is allowed otherwise.
 
 For example:
@@ -474,7 +473,7 @@ spec:
   # ... other spec fields
   volumes:
     - flexVolume
-  allowedFlexVolumes: 
+  allowedFlexVolumes:
     - driver: example/lvm
     - driver: example/cifs
 ```
@@ -569,15 +568,15 @@ specified.
 ### AllowedProcMountTypes
 
 `allowedProcMountTypes` is a whitelist of allowed ProcMountTypes.
-Empty or nil indicates that only the `DefaultProcMountType` may be used. 
+Empty or nil indicates that only the `DefaultProcMountType` may be used.
 
 `DefaultProcMount` uses the container runtime defaults for readonly and masked
 paths for /proc.  Most container runtimes mask certain paths in /proc to avoid
 accidental security exposure of special devices or information. This is denoted
 as the string `Default`.
 
-The only other ProcMountType is `UnmaskedProcMount`, which bypasses the 
-default masking behavior of the container runtime and ensures the newly 
+The only other ProcMountType is `UnmaskedProcMount`, which bypasses the
+default masking behavior of the container runtime and ensures the newly
 created /proc the container stays in tact with no modifications. This is
 denoted as the string `Unmasked`.
 

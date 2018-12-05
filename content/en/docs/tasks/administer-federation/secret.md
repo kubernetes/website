@@ -18,7 +18,6 @@ Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -88,7 +87,7 @@ kubectl --context=federation-cluster delete secret mysecret
 ```
 
 {{< note >}}
-**Note:** At this point, deleting a federated secret will not delete the corresponding secrets from underlying clusters. You must delete the underlying secrets manually. We intend to fix this in the future.
+At this point, deleting a federated secret will not delete the corresponding secrets from underlying clusters. You must delete the underlying secrets manually. We intend to fix this in the future.
 {{< /note >}}
 
 {{% /capture %}}

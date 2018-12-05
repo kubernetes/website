@@ -17,7 +17,6 @@ See the [identifiers design doc](https://git.k8s.io/community/contributors/desig
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

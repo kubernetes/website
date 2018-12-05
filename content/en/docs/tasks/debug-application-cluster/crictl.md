@@ -7,7 +7,6 @@ title: Debugging Kubernetes nodes with crictl
 content_template: templates/task
 ---
 
-{{< toc >}}
 
 {{% capture overview %}}
 
@@ -68,7 +67,7 @@ debug: true
 The following examples show some `crictl` commands and example output.
 
 {{< warning >}}
-**Warning:** If you use `crictl` to create pod sandboxes or containers on a running
+If you use `crictl` to create pod sandboxes or containers on a running
 Kubernetes cluster, the Kubelet will eventually delete them. `crictl` is not a
 general purpose workflow tool, but a tool that is useful for debugging.
 {{< /warning >}}
@@ -230,7 +229,7 @@ deleted by the Kubelet.
       ```bash
       crictl runp pod-config.json
       ```
-      
+
       The ID of the sandbox is returned.
 
 ### Create a container

@@ -19,7 +19,7 @@ Kubernetes 提供对分布在节点上的 NVIDIA GPU 进行管理的**实验**�
 
 2. 在整个 Kubernetes 系统中，feature-gates 里面特定的 **alpha** 特性参数 `Accelerators` 必须设置为 true：`--feature-gates="Accelerators=true"`
 
-3. Kuberntes 节点必须使用 `docker` 引擎作为容器的运行引擎
+3. Kubernetes 节点必须使用 `docker` 引擎作为容器的运行引擎
 
 
 上述预备工作完成后，节点会自动发现它上面的 NVIDIA GPU，并将其作为可调度资源暴露
@@ -170,7 +170,7 @@ spec:
 
 - 将引入更好的 API 以可扩展的方式提供和使用加速器
 
-- Kubernets 将会自动确保应用在使用 GPU 时得到最佳性能
+- Kubernetes 将会自动确保应用在使用 GPU 时得到最佳性能
 
 - 类似访问 CUDA 库这种关键的可用性问题将得到解决
 

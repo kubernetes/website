@@ -58,7 +58,7 @@ There are some important limitations of the multizone support:
 
 * We assume that the different zones are located close to each other in the
 network, so we don't perform any zone-aware routing.  In particular, traffic
-that goes via services might cross zones (even if pods in some pods backing that service
+that goes via services might cross zones (even if some pods backing that service
 exist in the same zone as the client), and this may incur additional latency and cost.
 
 * Volume zone-affinity will only work with a `PersistentVolume`, and will not
@@ -199,12 +199,14 @@ kubectl create -f - <<EOF
 EOF
 ```
 
-**NOTE:** For version 1.3+ Kubernetes will distribute dynamic PV claims across
+{{< note >}}
+For version 1.3+ Kubernetes will distribute dynamic PV claims across
 the configured zones. For version 1.2, dynamic persistent volumes were
 always created in the zone of the cluster master
 (here us-central1-a / us-west-2a); that issue
 ([#23330](https://github.com/kubernetes/kubernetes/issues/23330))
 was addressed in 1.3+.
+{{< /note >}}
 
 Now lets validate that Kubernetes automatically labeled the zone & region the PV was created in.
 

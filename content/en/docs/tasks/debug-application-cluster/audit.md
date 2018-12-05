@@ -24,7 +24,6 @@ answer the following questions:
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -47,8 +46,8 @@ Each request can be recorded with an associated "stage". The known stages are:
 - `Panic` - Events generated when a panic occurred.
 
 {{< note >}}
-**Note** The audit logging feature increases the memory consumption of the API
-server because some context required for auditing is stored for each request.
+The audit logging feature increases the memory consumption of the API server
+because some context required for auditing is stored for each request.
 Additionally, memory consumption depends on the audit logging configuration.
 {{< /note >}}
 
@@ -97,13 +96,14 @@ Audit backends persist audit events to an external storage.
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
+- Dynamic backend, which configures webhook backends through an AuditSink API object.
 
 In both cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
 [`v1`][auditing-api].
 
 {{< note >}}
-**Note:** In case of patches, request body is a JSON array with patch operations, not a JSON object
+In case of patches, request body is a JSON array with patch operations, not a JSON object
 with an appropriate Kubernetes API object. For example, the following request body is a valid patch
 request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
 
@@ -147,6 +147,8 @@ audit backend using the following kube-apiserver flags:
 The webhook config file uses the kubeconfig format to specify the remote address of
 the service and credentials used to connect to it.
 
+In v1.13 webhook backends can be configured [dynamically](#dynamic-backend).
+
 ### Batching
 
 Both log and webhook backends support batching. Using webhook as an example, here's the list of
@@ -157,6 +159,7 @@ throttling is enabled in `webhook` and disabled in `log`.
 - `--audit-webhook-mode` defines the buffering strategy. One of the following:
   - `batch` - buffer events and asynchronously process them in batches. This is the default.
   - `blocking` - block API server responses on processing each individual event.
+  - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at RequestReceived stage, the whole request to apiserver will fail.
 
 The following flags are used only in the `batch` mode.
 
@@ -191,7 +194,7 @@ and in the logs to monitor the state of the auditing subsystem.
 
 ### Truncate
 
-Both log and webhook backends support batching. As an example, the following is the list of flags
+Both log and webhook backends support truncating. As an example, the following is the list of flags
 available for the log backend:
 
  - `audit-log-truncate-enabled` whether event and batch truncating is enabled.
@@ -199,6 +202,56 @@ available for the log backend:
  - `audit-log-truncate-max-event-size` maximum size in bytes of the audit event sent to the underlying backend.
 
 By default truncate is disabled in both `webhook` and `log`, a cluster administrator should set `audit-log-truncate-enabled` or `audit-webhook-truncate-enabled` to enable the feature.
+
+### Dynamic backend
+
+{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+
+In Kubernetes version 1.13, you can configure dynamic audit webhook backends AuditSink API objects. 
+
+To enable dynamic auditing you must set the following apiserver flags:
+
+- `--audit-dynamic-configuration`: the primary switch. When the feature is at GA, the only required flag.   
+- `--feature-gates=DynamicAuditing=true`: feature gate at alpha and beta.   
+- `--runtime-config=auditregistration.k8s.io/v1alpha1=true`: enable API.   
+
+When enabled, an AuditSink object can be provisioned:
+
+```yaml
+apiVersion: auditregistration.k8s.io/v1alpha1
+kind: AuditSink
+metadata:
+  name: mysink
+spec:
+  policy:
+    level: Metadata
+    stages:
+    - ResponseComplete
+  webhook:
+    throttle:
+      qps: 10
+      burst: 15
+    clientConfig:
+      url: "https://audit.app"
+```
+
+For the complete API definition, see [AuditSink](/docs/reference/generated/kubernetes-api/v1.13/#auditsink-v1alpha1-auditregistration-k8s-io). Multiple objects will exist as independent solutions.
+
+Existing static backends that you configure with runtime flags are not affected by this feature. However, the dynamic backends share the truncate options of the static webhook. If webhook truncate options are set with runtime flags, they are applied to all dynamic backends.
+
+#### Policy
+
+The AuditSink policy differs from the legacy audit runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
+
+The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
+
+#### Security
+
+Administrators should be aware that allowing write access to this feature grants read access to all cluster data. Access should be treated as a `cluster-admin` level privilege.
+
+#### Performance
+
+Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal for a small number of sinks, and performance impact testing will be done to understand its scope before the API progresses to beta.
 
 ## Multi-cluster setup
 
@@ -217,7 +270,7 @@ In this example, we will use fluentd to split audit events by different namespac
 
 1. install [fluentd][fluentd_install_doc],  fluent-plugin-forest and fluent-plugin-rewrite-tag-filter in the kube-apiserver node
 {{< note >}}
-**Note:** Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc].
+Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc].
 {{< /note >}}
 
 1. create a config file for fluentd
@@ -330,24 +383,22 @@ different users into different files.
 
 1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
 
-    ```none
-    $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
-    apiVersion: v1
-    clusters:
-    - cluster:
-        server: http://<ip_of_logstash>:8888
-      name: logstash
-    contexts:
-    - context:
-        cluster: logstash
-        user: ""
-      name: default-context
-    current-context: default-context
-    kind: Config
-    preferences: {}
-    users: []
-    EOF
-    ```
+        $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
+        apiVersion: v1
+        clusters:
+        - cluster:
+            server: http://<ip_of_logstash>:8888
+          name: logstash
+        contexts:
+        - context:
+            cluster: logstash
+            user: ""
+          name: default-context
+        current-context: default-context
+        kind: Config
+        preferences: {}
+        users: []
+        EOF
 
 1. start kube-apiserver with the following options:
 

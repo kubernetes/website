@@ -15,7 +15,6 @@ However, the native functionality provided by a container engine or runtime is u
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -58,7 +57,9 @@ You can use `kubectl logs` to retrieve logs from a previous instantiation of a c
 
 Everything a containerized application writes to `stdout` and `stderr` is handled and redirected somewhere by a container engine. For example, the Docker container engine redirects those two streams to [a logging driver](https://docs.docker.com/engine/admin/logging/overview), which is configured in Kubernetes to write to a file in json format.
 
-**Note:** The Docker json logging driver treats each line as a separate message. When using the Docker logging driver, there is no direct support for multi-line messages. You need to handle multi-line messages at the logging agent level or higher.
+{{< note >}}
+The Docker json logging driver treats each line as a separate message. When using the Docker logging driver, there is no direct support for multi-line messages. You need to handle multi-line messages at the logging agent level or higher.
+{{< /note >}}
 
 By default, if a container restarts, the kubelet keeps one terminated container with its logs. If a pod is evicted from the node, all corresponding containers are also evicted, along with their logs.
 
@@ -82,13 +83,15 @@ When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
 
-**Note:** Currently, if some external system has performed the rotation,
+{{< note >}}
+Currently, if some external system has performed the rotation,
 only the contents of the latest log file will be available through
 `kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
 the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
+{{< /note >}}
 
 ### System component logs
 
@@ -216,10 +219,12 @@ If the node-level logging agent is not flexible enough for your situation, you
 can create a sidecar container with a separate logging agent that you have
 configured specifically to run with your application.
 
-**Note**: Using a logging agent in a sidecar container can lead
+{{< note >}}
+Using a logging agent in a sidecar container can lead
 to significant resource consumption. Moreover, you won't be able to access
 those logs using `kubectl logs` command, because they are not controlled
 by the kubelet.
+{{< /note >}}
 
 As an example, you could use [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
 which uses fluentd as a logging agent. Here are two configuration files that
@@ -228,9 +233,11 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 
-**Note**: The configuration of fluentd is beyond the scope of this article. For
+{{< note >}}
+The configuration of fluentd is beyond the scope of this article. For
 information about configuring fluentd, see the
 [official fluentd documentation](http://docs.fluentd.org/).
+{{< /note >}}
 
 The second file describes a pod that has a sidecar container running fluentd.
 The pod mounts a volume where fluentd can pick up its configuration data.

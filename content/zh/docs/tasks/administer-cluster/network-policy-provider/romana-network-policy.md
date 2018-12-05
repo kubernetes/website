@@ -24,7 +24,7 @@ weight: 40
 <!-- 
 ## Installing Romana with kubeadm
 
-Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadmin.
+Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadm.
 
 ## Applying network policies
 
@@ -36,7 +36,7 @@ To apply network policies use one of the following:
  -->
 ## 使用 kubeadm 安装 Romana
 
-按照[容器化安装指南](https://github.com/romana/romana/tree/master/containerize)获取 kubeadmin。
+按照[容器化安装指南](https://github.com/romana/romana/tree/master/containerize)获取 kubeadm。
 
 ## 运用网络策略
 

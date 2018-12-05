@@ -47,6 +47,11 @@ Get a shell to the running Container:
 ```shell
 kubectl exec -it shell-demo -- /bin/bash
 ```
+{{< note >}}
+
+The double dash symbol "--" is used to separate the arguments you want to pass to the command from the kubectl arguments.
+
+{{< /note >}}
 
 In your shell, list the root directory:
 
