@@ -4,7 +4,7 @@ id: podpreset
 date: 2018-04-12
 full_link: 
 short_description: >
-  PodPreset 是一种 API 对象，在创建 Pod 时将诸如密钥、卷挂载和环境变量之类的信息注入到该 Pod 中。
+  PodPreset 是一种 API 对象，在创建 Pod 时将诸如 Secret、卷挂载和环境变量之类的信息注入到该 Pod 中。
 
 aka: 
 tags:
@@ -29,7 +29,7 @@ tags:
 <!--
  An API object that injects information such as secrets, volume mounts, and environment variables into pods at creation time.
 -->
-PodPreset 是一种 API 对象，在创建 Pod 时将诸如密钥（Secret）、卷挂载和环境变量之类的信息注入到该 Pod 中。
+PodPreset 是一种 API 对象，在创建 Pod 时将诸如 Secret、卷挂载和环境变量之类的信息注入到该 Pod 中。
 
 <!--more--> 
 
