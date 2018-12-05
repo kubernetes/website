@@ -655,7 +655,7 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
 By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
 you can create a new token by running the following command on the master node:
 -->
-默认情况下，令牌在24小时后过期。 如果在当前 token 过期后将节点加入集群，则可以通过在主节点上运行以下命令来创建新 token：
+默认情况下，令牌在24小时后过期。 如果需要在当前令牌过期后将节点加入集群，可以通过在主节点上运行以下命令来创建新令牌：
 
 ``` bash
 kubeadm token create
