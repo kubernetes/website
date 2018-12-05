@@ -1,5 +1,5 @@
 
-拉出 kubeadm 使用的图像。
+拉取 kubeadm 使用的图像。
 <!--
 Pull images used by kubeadm.
 -->
@@ -10,7 +10,7 @@ Pull images used by kubeadm.
 ### Synopsis
 -->
 
-拉出 kubeadm 使用的图像。
+拉取 kubeadm 使用的图像。
 <!--
 Pull images used by kubeadm.
 -->
@@ -26,15 +26,11 @@ kubeadm config images pull [flags]
 -->
 
 <!--
-<td colspan="2">--config string</td>
-
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file.</td>
 
 <td colspan="2">--cri-socket string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/run/dockershim.sock"</td>
 
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify the CRI socket to connect to.</td>
-
-<td colspan="2">--feature-gates string</td>
 
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (BETA - default=false)</td>
 
@@ -54,7 +50,7 @@ kubeadm config images pull [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--config 字符串</td>
+      <td colspan="2">--config string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径。</td>
@@ -68,7 +64,7 @@ kubeadm config images pull [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--feature-gates 字符串</td>
+      <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">一组键=值对，用于描述各种特性的特性门。选项：<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (BETA - default=false)</td>
@@ -78,7 +74,7 @@ kubeadm config images pull [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">拉取镜像帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">pull 操作的帮助信息</td>
     </tr>
 
     <tr>
@@ -113,7 +109,7 @@ kubeadm config images pull [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--rootfs 字符串</td>
+      <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
@@ -126,8 +122,6 @@ kubeadm config images pull [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
 
 <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
-
-<td colspan="2">--rootfs string</td>
 
 <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
 -->

@@ -1,5 +1,5 @@
 
-从文件中读取旧版本的 kubeadm 配置 API的类型，并为新版本输出类似的配置对象。
+从旧版本的文件中读取 kubeadm 配置 API的类型，并为新版本输出类似的配置对象。
 <!--
 Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version.
 -->
@@ -22,9 +22,10 @@ In this version of kubeadm, the following API versions are supported:
 - kubeadm.k8s.io/v1alpha2
 - kubeadm.k8s.io/v1alpha3
 
-此外，kubeadm 只能写出版本"kubeadm.k8s.io/v1alpha3"的配置，但读取这两种类型，不管你传递给
-——old-config 的参数是什么版本，在写入 stdout 或 --new-config 如果指定时，API 对象都是
-读取、反序列化、默认设置、转换、验证并在写入stdout或时重新序列化。
+此外，kubeadm 只能写出版本"kubeadm.k8s.io/v1alpha3"的配置，但能够读取这两种类型，不管你传递给
+--old-config 的参数是什么版本，在写入 stdout 或 --new-config(如果指定时)，API 对象都是
+读取、反序列化、应用默认设置、执行版本转换与合法性验证，并在输出时重新序列化。
+
 <!--
 Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1alpha3", but read both types.
 So regardless of what version you pass to the --old-config parameter here, the API object will be
@@ -32,7 +33,7 @@ read, deserialized, defaulted, converted, validated, and re-serialized when writ
 --new-config if specified.
 -->
 
-换句话说，这个命令的输出就是 kubeadm 在内部读取的内容
+换句话说这个命令的输出就是 kubeadm 在内部读取的内容
 提交这个文件到 "kubeadm init"
 <!--
 In other words, the output of this command is what kubeadm actually would read internally if you
@@ -60,21 +61,21 @@ kubeadm config migrate [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">迁移帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">migrate 操作的帮助信息</td>
     </tr>
 
     <tr>
-      <td colspan="2">--new-config 字符串</td>
+      <td colspan="2">--new-config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用新的 API 版本生成的 kubeadm 配置文件的路径，是可选的。如果没有指定输出路径将被输出到标准路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用新的 API 版本生成的 kubeadm 配置文件的路径。这个路径是可选的。如果没有指定，输出将被写到 stdout。</td>
     </tr>
 
     <tr>
       <td colspan="2">--old-config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用旧 API 版本的 kubeadm 配置文件的路径应该进行转换。flag 参数是强制性的。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用旧 API 版本的、需要进行转换的 kubeadm 配置文件路径。此参数是必需的。</td>
     </tr>
 
   </tbody>
@@ -82,8 +83,6 @@ kubeadm config migrate [flags]
 
 <!--
 <td></td><td style="line-height: 130%; word-wrap: break-word;">help for migrate</td>
-
-<td colspan="2">--new-config String</td>
 
  <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to the resulting equivalent kubeadm config file using the new API version. Optional, if not specified output will be sent to STDOUT.</td>
 
@@ -111,7 +110,7 @@ kubeadm config migrate [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--rootfs 字符串</td>
+      <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
@@ -122,8 +121,6 @@ kubeadm config migrate [flags]
 
 <!--
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
-
-<td colspan="2">--rootfs string</td>
 
 <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
 
