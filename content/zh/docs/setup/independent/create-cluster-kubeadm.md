@@ -838,7 +838,7 @@ kubeadm reset
 
 ## Feedback {#feedback}
 
-* 有关 bug，请访问[kubeadm Github问题跟踪器](https://github.com/kubernetes/kubeadm/issues)
+* 有关 bug，请访问[kubeadm Github 问题跟踪器](https://github.com/kubernetes/kubeadm/issues)
 * 如需支持，请访问 kubeadm Slack Channel：
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * 常规 SIG 集群 Lifecycle 开发 Slack Channel：
