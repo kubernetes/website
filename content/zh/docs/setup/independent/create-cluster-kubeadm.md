@@ -31,7 +31,7 @@ Raspberry Pi, etc.), it's well suited for integration with provisioning systems
 such as Terraform or Ansible.
 -->
 
-因为您可以在各种类型的机器上安装 kubeadm（例如笔记本电脑、服务器、树莓派等），
+因为您可以在各种类型的机器（例如笔记本电脑、服务器、树莓派等）上安装 kubeadm，
 所以它非常适合与 Terraform 或 Ansible 等配置系统集成。
 
 <!--
