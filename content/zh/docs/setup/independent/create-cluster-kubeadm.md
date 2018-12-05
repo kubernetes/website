@@ -147,7 +147,7 @@ timeframe; which also applies to `kubeadm`.
    private network is fine.
 -->
 
-- 一台或多台支持 deb / rpm 软件包的操作系统的机器，例如 Ubuntu 或 CentOS。
+- 一台或多台机器，其上运行支持 deb / rpm 软件包的操作系统，例如 Ubuntu 或 CentOS。
 - 每台机器 2 GB 或更多内存。少一点点内存都会让您的应用运行空间非常局促。
 - 主节点上有至少 2 个 CPU。
 - 集群中所有计算机之间的网络互联互通，公网或内网都可以。
