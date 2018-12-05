@@ -9,7 +9,7 @@ kubectl controls the Kubernetes cluster manager
 ### Synopsis
 
 
-kubectl controls the Kubernetes cluster manager.
+kubectl controls the Kubernetes cluster manager. 
 
 Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
 
@@ -25,13 +25,6 @@ kubectl [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
-    <tr>
-      <td colspan="2">--allow-verification-with-non-compliant-keys</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Allow a SignatureVerifier to use keys which are technically non-compliant with RFC6962.</td>
-    </tr>
 
     <tr>
       <td colspan="2">--alsologtostderr</td>
@@ -62,7 +55,7 @@ kubectl [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/Users/zarnold/.kube/http-cache"</td>
+      <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/Users/tim/.kube/http-cache"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Default HTTP cache directory</td>
@@ -160,6 +153,13 @@ kubectl [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--log-file string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If non-empty, use this log file</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--log-flush-frequency duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5s</td>
     </tr>
     <tr>
@@ -188,6 +188,20 @@ kubectl [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "none"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "profile.pprof"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Name of the file to write the profile to</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "0"</td>
     </tr>
     <tr>
@@ -199,6 +213,13 @@ kubectl [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The address and port of the Kubernetes API server</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--skip-headers</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">If true, avoid header prefixes in the log messages</td>
     </tr>
 
     <tr>
@@ -249,7 +270,6 @@ kubectl [flags]
 
 
 ### SEE ALSO
-* [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)	 - Commands for features in alpha
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Update the annotations on a resource
 * [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Print the supported API resources on the server
 * [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - Print the supported API versions on the server, in the form of "group/version"
@@ -267,6 +287,7 @@ kubectl [flags]
 * [kubectl create](/docs/reference/generated/kubectl/kubectl-commands#create)	 - Create a resource from a file or from stdin.
 * [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands#delete)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
 * [kubectl describe](/docs/reference/generated/kubectl/kubectl-commands#describe)	 - Show details of a specific resource or group of resources
+* [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diff live version against would-be applied version
 * [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - Drain node in preparation for maintenance
 * [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - Edit a resource on the server
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - Execute a command in a container

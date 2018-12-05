@@ -192,6 +192,7 @@ the following types of volumes:
 * Azure File
 * Azure Disk
 * Portworx
+* FlexVolumes
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
@@ -227,15 +228,24 @@ kubectl describe pvc <pvc_name>
 
 If the `PersistentVolumeClaim` has the status `FileSystemResizePending`, it is safe to recreate the pod using the PersistentVolumeClaim.
 
-#### Resizing an in-use PersistentVolumeClaim
+FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to true. 
+The FlexVolume can be resized on pod restart. 
 
 {{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+#### Resizing an in-use PersistentVolumeClaim
 
 Expanding in-use PVCs is an alpha feature. To use it, enable the `ExpandInUsePersistentVolumes` feature gate.
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
 Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
 This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod which
 uses the PVC before the expansion can complete.
+
+Expanding in-use PVCs for FlexVolumes is added in release 1.13. To enable this feature use  `ExpandInUsePersistentVolumes` and `ExpandPersistentVolumes` feature gates. The `ExpandPersistentVolumes` feature gate is already enabled by default. If the `ExpandInUsePersistentVolumes` is set, FlexVolume can be resized online without pod restart. 
+ 
+{{< note >}}
+**Note:** FlexVolume resize is possible only when the underlying driver supports resize.
+{{< /note >}}
 
 {{< note >}}
 Expanding EBS volumes is a time consuming operation. Also, there is a per-volume quota of one modification every 6 hours.
@@ -553,6 +563,7 @@ applicable.
 * iSCSI
 * Local volume
 * RBD (Ceph Block Device)
+* VsphereVolume (alpha)
 
 {{< note >}}
 Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.

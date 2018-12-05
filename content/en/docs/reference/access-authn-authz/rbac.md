@@ -644,11 +644,13 @@ These roles include:
 
 * system:controller:attachdetach-controller
 * system:controller:certificate-controller
+* system:controller:clusterrole-aggregation-controller
 * system:controller:cronjob-controller
 * system:controller:daemon-set-controller
 * system:controller:deployment-controller
 * system:controller:disruption-controller
 * system:controller:endpoint-controller
+* system:controller:expand-controller
 * system:controller:generic-garbage-collector
 * system:controller:horizontal-pod-autoscaler
 * system:controller:job-controller
@@ -661,6 +663,7 @@ These roles include:
 * system:controller:replicaset-controller
 * system:controller:replication-controller
 * system:controller:resourcequota-controller
+* system:controller:root-ca-cert-publisher
 * system:controller:route-controller
 * system:controller:service-account-controller
 * system:controller:service-controller
