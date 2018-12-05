@@ -361,7 +361,7 @@ created, and deleted with the `kubeadm token` command. See the
 记录 `kubeadm init` 输出的 `kubeadm join` 命令。
 您需要执行此命令[将节点添加到您的集群](#join-nodes)。
 
-令牌（token）用于主节点和加入节点之间的相互认证。
+令牌（token）用于主节点和待加入节点之间的相互认证。
 请将这里包含的令牌视为机密数据，保证其安全，因为任何人都可以通过令牌将经过身份验证的节点添加到集群中。
 可以使用 `kubeadm token` 命令列出，创建和删除这些令牌。 参见 [kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 
