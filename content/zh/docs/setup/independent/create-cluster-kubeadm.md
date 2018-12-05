@@ -23,7 +23,7 @@ weight: 30
 lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
 -->
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** 可以帮助您引导符合最佳实践的最小可行 Kubernetes 集群。使用 kubeadm, 您的集群应通过  [Kubernetes 合规性认证](https://kubernetes.io/blog/2017/10/software-conformance-certification)。Kubeadm 还支持其他集群生命周期的功能，
-如升级、降级和管理 [bootstrap token](/docs/reference/access-authn-authz/bootstrap-tokens/)。
+如升级、降级和管理[引导令牌](/docs/reference/access-authn-authz/bootstrap-tokens/)。
 
 <!--
 Because you can install kubeadm on various types of machine (e.g. laptop, server, 
