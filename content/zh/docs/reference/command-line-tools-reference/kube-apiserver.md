@@ -44,7 +44,7 @@ kube-apiserver [flags]
     <!--
 	  <td></td><td style="line-height: 130%; word-wrap: break-word;">File with admission control configuration.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定权限控制配置文件。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定准入控制配置文件。</td>
     </tr>
 
     <tr>
@@ -54,7 +54,7 @@ kube-apiserver [flags]
     <!--
 	  <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address on which to advertise the apiserver to members of the cluster. This address must be reachable by the rest of the cluster. If blank, the --bind-address will be used. If --bind-address is unspecified, the host's default interface will be used.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定服务器为集群中成员发布的 IP 地址。该地址必须能被其他机器访问。如果该参数留空，服务器会使用 --bind-address 指定地址。如果 --bind-address 也没有设定，则会使用该主机的默认网络接口。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定服务器为集群中成员发布的 IP 地址。该地址必须能被其他机器访问。如果该参数留空，服务器会使用 --bind-address 所指定的地址。如果 --bind-address 也没有设定，则会使用该主机的默认网络接口。</td>
     </tr>
 
     <tr>
