@@ -22,7 +22,7 @@ The latest version of Kubernetes with upstream binaries. Supports AWS, GCE, Azur
  -->
  ## 官方 Ubuntu 指南
 
-- [Kubernetes 权威发行版](https://www.ubuntu.com/cloud/kubernetes)
+- [Kubernetes 的 Canonical 发行版](https://www.ubuntu.com/cloud/kubernetes)
 
 最新版 Kubernetes 上游二进制文件。 支持 AWS，GCE，Azure，Joyent，OpenStack，VMware，裸机和 localhost 部署。
 
@@ -35,7 +35,7 @@ Available for Ubuntu 16.04 and newer: -->
 
 [conjure-up](http://conjure-up.io/) 提供了在多种云和裸机的 Ubuntu 部署 Kubernetes 的最快方法。它提供了用户友好的 UI，提示您提供云凭据和配置选项
 
-适用于 Ubuntu 16.04及更高版本:
+适用于 Ubuntu 16.04 及更高版本:
 
 ```
 sudo snap install conjure-up --classic
@@ -121,7 +121,7 @@ and we monitor the Kubernetes mailing lists. -->
 
 ## 如何找到我们
 
-我们通常加入以下 Slack 频道：
+我们通常关注以下 Slack 频道：
 
 - [kubernetes-users](https://kubernetes.slack.com/messages/kubernetes-users/)
 - [kubernetes-novice](https://kubernetes.slack.com/messages/kubernetes-novice/)
