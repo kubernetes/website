@@ -23,7 +23,7 @@ becoming unavailable. This task walks through the process of creating a high
 availability etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster. 
 -->
-Kubeadm 默认在控制层使用 kubelet 管理静态 Pod 中运行的单成员 etcd 集群。由于 etcd 集群只包含一个成员且不能在任一成员不可用时保持运行，所以这不是一种高可用设置。本任务，将告诉您如何在使用 kubeadm 创建一个 kubernetes 集群时创建一个外部 etcd：有三个成员的高可用 etcd 集群。
+Kubeadm 默认使用在控制平面所在节点上的 kubelet 管理的静态 Pod 里运行了一个单成员 etcd 集群。由于 etcd 集群只包含一个成员且不能在任一成员不可用时保持运行，所以这不是一种高可用设置。本任务，将告诉您如何在使用 kubeadm 创建一个 kubernetes 集群时创建一个外部 etcd：有三个成员的高可用 etcd 集群。
 
 {{% /capture %}}
 
@@ -32,7 +32,7 @@ Kubeadm 默认在控制层使用 kubelet 管理静态 Pod 中运行的单成员 
 <!-- 
 * Three hosts that can talk to each other over ports 2379 and 2380. This document assumes these default ports. However, they are configurable through the kubeadm config file. 
 -->
-* 三个可以通过端口 2379 和 2380 相互通信的主机。本文档使用这些作为默认端口。不过，它们可以通过 kubeadm 的配置文件进行自定义。
+* 三个可以通过 2379 和 2380 端口相互通信的主机。本文档使用这些作为默认端口。不过，它们可以通过 kubeadm 的配置文件进行自定义。
 <!-- 
 * Each host must [have docker, kubelet, and kubeadm installed][toolbox]. 
 -->
