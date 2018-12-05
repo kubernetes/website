@@ -415,7 +415,7 @@ kubectl apply -f <add-on.yaml>
 请注意，kubeadm 默认设置更安全的集群并强制使用 [RBAC](/docs/reference/access-authn-authz/rbac/)。
 确保您的网络配置支持 RBAC。
 
-您可以使用以下命令安装 pod 网络加载项：
+您可以使用以下命令安装 pod 网络插件：
 
 ```bash
 kubectl apply -f <add-on.yaml>
