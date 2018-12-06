@@ -1,4 +1,4 @@
 ---
-title: Deploy an App
+title: アプリケーションのデプロイ
 weight: 20
 ---
