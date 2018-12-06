@@ -91,7 +91,7 @@ but you may also build them from source for other OSes.
 | 执行（Implementation）     | beta           |
 | 配置文件 API               | alpha          |
 | 自托管 （Self-hosting）    | alpha          |
-| kubeadm alpha 功能子命令       | alpha          |
+| kubeadm alpha 子命令       | alpha          |
 | CoreDNS                   | GA             |
 | DynamicKubeletConfig      | alpha          |
 
@@ -358,7 +358,7 @@ created, and deleted with the `kubeadm token` command. See the
 [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 -->
 
-记录 `kubeadm init` 输出的 `kubeadm join` 命令。
+记录 `kubeadm init` 输出结果中的 `kubeadm join` 命令。
 您需要执行此命令[将节点添加到您的集群](#join-nodes)。
 
 令牌（token）用于主节点和待加入节点之间的相互认证。
