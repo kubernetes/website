@@ -32,11 +32,11 @@ weight: 40
 StatefulSet is the workload API object used to manage stateful applications.
 -->
 
-StatefulSet 是用来管理有状态应用的工作负载的 API 对象。
+StatefulSet 是用来管理有状态应用的工作负载 API 对象。
 
 {{< note >}}
 <!--**Note:** StatefulSets are stable (GA) in 1.9.-->
-**注意：** StatefulSets 是在 1.9 版本中发布的.
+**注意：** StatefulSets 是在 1.9 版本中成为稳定版(GA)的。
 {{< /note >}}
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
@@ -90,7 +90,7 @@ StatefulSets 对于需要满足以下一个或多个需求的应用程序很有�
 * 给定 Pod 的存储必须由 [PersistentVolume 提供器](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) 基于所请求的 `storage class` 来提供，或者由管理员预先提供。
 * 删除和／或收缩 StatefulSet 并*不会*删除它关联的存储卷。这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
 * StatefulSet 当前需要 [无头服务](/docs/concepts/services-networking/service/#headless-services) 来负责Pod 的网络标识。您需要负责创建此服务。
-* 当 删除 StatefulSets 时，StatefulSet 不提供任何终止 Pod 的保证。为了实现 StatefulSet 中的 Pod 可以有序和优雅的终止，可以在删除之前将 StatefulSet 缩放为0。
+* 当删除 StatefulSets 时，StatefulSet 不提供任何终止 Pod 的保证。为了实现 StatefulSet 中的 Pod 可以有序和优雅的终止，可以在删除之前将 StatefulSet 缩放为0。
 
 <!--
 ## Components
@@ -105,7 +105,7 @@ The example below demonstrates the components of a StatefulSet.
 下面的示例演示了 StatefulSet 的组件。
 
 * 名为 nginx 的无头服务用来控制网络域。
-* 名为 web 的 StatefulSet 有一个Spec，它指示将在单个 Pod 中启动 nginx 容器的3个副本。
+* 名为 web 的 StatefulSet 有一个Spec，它表明将在单个 Pod 中启动 nginx 容器的3个副本。
 * volumeClaimTemplates 将通过 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) 提供者提供的 PersistentVolume 来提供稳定的存储。
 
 
@@ -166,7 +166,7 @@ You must set the `.spec.selector` field of a StatefulSet to match the labels of 
 -->
 
 ## Pod 选择器
-您必须设置 StatefulSet 的 `.spec.selector` 域来匹配它的`.spec.template.metadata.labels`标签。在 Kubernetes 1.8 版本之前，忽略`.spec.selector` 域会提供默认设置。在 1.8 和以后的版本中，指定的 Pod Selector 匹配失败将在创建 StatefulSet 期间导致验证错误。
+您必须设置 StatefulSet 的 `.spec.selector` 字段来匹配它的`.spec.template.metadata.labels`标签。在 Kubernetes 1.8 版本之前，忽略`.spec.selector` 字段会提供默认设置。在 1.8 和以后的版本中，指定的 Pod 选择器匹配失败将在创建 StatefulSet 期间导致验证错误。
 
 <!--
 ## Pod Identity
@@ -177,7 +177,7 @@ regardless of which node it's (re)scheduled on.
 
 ## Pod 的身份
 
-StatefulSet Pod 具有唯一的标识，该标识包括顺序标识、稳定的网络标识和稳定的存储。身份贴在 Pod 上，不管它被安排在哪个节点上。
+StatefulSet Pod 具有唯一的标识，该标识包括顺序标识、稳定的网络标识和稳定的存储。该标识和 Pod 是绑定的，不管它被调度在哪个节点上。
 
 <!--
 ### Ordinal Index
@@ -274,7 +274,7 @@ the StatefulSet.
 * Before a Pod is terminated, all of its successors must be completely shutdown.
 -->
 
-## 部署和缩放保证
+## 部署和伸缩保证
 
 * 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 {0..N-1}。
 * 当删除 Pod 时，它们是逆序终止的，顺序为 {N-1..0}。
@@ -333,6 +333,10 @@ Pod.
 
 `有序的` Pod 管理是 StatefulSet 的默认功能。它实现了 [上面](#deployment-and-scaling-guarantees)描述的行为。
 
+#### 并行的 Pod 管理
+
+`并行` Pod 管理让 StatefulSet 控制器并行的启动或终止所有的 Pod，启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 ready 或者完全停止状态。
+
 <!--
 ## Update Strategies
 
@@ -343,7 +347,7 @@ annotations for the Pods in a StatefulSet.
 
 ## 更新策略
 
-在 Kubernetes 1.7 及以后的版本中，StatefulSet 的 `.spec.updateStrategy` 域让您可以禁用掉自动滚动更新 Pod 的容器、标签、资源请求／限制、以及注解。
+在 Kubernetes 1.7 及以后的版本中，StatefulSet 的 `.spec.updateStrategy` 字段让您可以配置和禁用掉自动滚动更新 Pod 的容器、标签、资源请求／限制、以及注解。
 
 
 <!--
@@ -357,7 +361,7 @@ create new Pods that reflect modifications made to a StatefulSet's `.spec.templa
 
 ### On Delete
 
-`OnDelete` 更新策略执行遗留（1.6 及以前版本）行为。当 StatefulSet 的 `.spec.updateStrategy.type` 设置为 `OnDelete` 时，它的控制器将不会自动更新 StatefulSet 中的 Pod。用户必须手动删除 Pod 以便让控制器创建新的 Pod，以此来对 StatefulSet 的 `.spec.template` 的变动作出反应。
+`OnDelete` 更新策略实现了 1.6 及以前版本的历史遗留行为。当 StatefulSet 的 `.spec.updateStrategy.type` 设置为 `OnDelete` 时，它的控制器将不会自动更新 StatefulSet 中的 Pod。用户必须手动删除 Pod 以便让控制器创建新的 Pod，以此来对 StatefulSet 的 `.spec.template` 的变动作出反应。
 
 
 <!--
