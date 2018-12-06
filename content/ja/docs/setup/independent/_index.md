@@ -1,5 +1,5 @@
 ---
-title: "Bootstrapping Clusters with kubeadm"
+title: "kubeadmによるClusterのブートストラッピング"
 weight: 30
 ---
 
