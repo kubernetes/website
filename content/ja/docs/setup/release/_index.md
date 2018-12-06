@@ -1,5 +1,5 @@
 ---
-title: "Downloading Kubernetes"
+title: "Kubernetesのダウンロード"
 weight: 20
 ---
 
