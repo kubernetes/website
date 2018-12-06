@@ -1,4 +1,4 @@
 ---
-title: Scale Your App
+title: アプリケーションのスケーリング
 weight: 50
 ---
