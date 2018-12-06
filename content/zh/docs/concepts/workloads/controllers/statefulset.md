@@ -36,7 +36,7 @@ StatefulSet 是用来管理有状态应用的工作负载 API 对象。
 
 {{< note >}}
 <!--**Note:** StatefulSets are stable (GA) in 1.9.-->
-**注意：** StatefulSets 是在 1.9 版本中成为稳定版(GA)的。
+**注意：** StatefulSets 是在 1.9 版本中正式发布的。
 {{< /note >}}
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
