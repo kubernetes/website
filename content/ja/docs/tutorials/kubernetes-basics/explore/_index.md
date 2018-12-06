@@ -1,4 +1,4 @@
 ---
-title: Explore Your App
+title: アプリケーションの探索
 weight: 30
 ---
