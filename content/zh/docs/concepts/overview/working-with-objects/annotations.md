@@ -113,7 +113,7 @@ and the like.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-了解更多关于 [标签和选择器](/docs/concepts/overview/working-with-objects/labels/).
+进一步了解[标签和选择器](/docs/concepts/overview/working-with-objects/labels/)。
 <!--
 Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
 -->
