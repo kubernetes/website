@@ -16,7 +16,14 @@ can specify on different Kubernetes components.
 Feature gates are a set of key=value pairs that describe alpha or experimental
 features.
 An administrator can use the `--feature-gates` command line flag on each component
-to turn a feature on or off.
+to turn a feature on or off. Each component supports a set of feature gates unique to that component.
+Use `-h` flag to see a full set of feature gates for all components.  
+To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
+
+```shell
+--feature-gates="...,DynamicKubeletConfig=true"
+```
+
 The following table is a summary of the feature gates that you can set on
 different Kubernetes components.
 
