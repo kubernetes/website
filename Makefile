@@ -46,3 +46,10 @@ docker-build:
 
 docker-serve:
 	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
+
+# This command is used only by Travis CI; do not run this locally
+travis-hugo-build:
+	curl -L https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-64bit.tar.gz | tar -xz
+	mkdir -p ${TRAVIS_HOME}/bin
+	mv hugo ${TRAVIS_HOME}/bin
+	export PATH=${TRAVIS_HOME}/bin:$PATH
