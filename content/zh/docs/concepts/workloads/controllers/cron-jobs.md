@@ -50,7 +50,7 @@ but do not completely prevent them. Therefore, jobs should be _idempotent_.
 
 CronJob 创建 Job 对象，每个 Job 的执行次数大约为一次。
 我们之所以说 "大约"，是因为在某些情况下，可能会创建两个 Job，或者不会创建任何 Job。
-我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是无所不能的。
+我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是 _幂等的_。
 
 <!--
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
@@ -81,7 +81,7 @@ It is important to note that if the `startingDeadlineSeconds` field is set (not 
 A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
 -->
 
-如果未能在调度时间内创建 CronJob，则统计为错过。例如，如果 `concurrencyPolicy` 被设置为 `Forbid`，并且当前有一个调度仍在运行的情况下，试图调度的 CronJob 将被计算为错过。
+如果未能在调度时间内创建 CronJob，则计为错过。例如，如果 `concurrencyPolicy` 被设置为 `Forbid`，并且当前有一个调度仍在运行的情况下，试图调度的 CronJob 将被计算为错过。
 
 <!--
 For example, suppose a cron job is set to start at exactly `08:30:00` and its
