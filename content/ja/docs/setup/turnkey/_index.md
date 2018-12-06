@@ -1,4 +1,4 @@
 ---
-title: Turnkey Cloud Solutions
+title: すぐに利用できるクラウドソリューション
 weight: 40
 ---
