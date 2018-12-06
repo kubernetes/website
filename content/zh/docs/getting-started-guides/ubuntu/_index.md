@@ -20,7 +20,7 @@ content_template: templates/concept
 
 The latest version of Kubernetes with upstream binaries. Supports AWS, GCE, Azure, Joyent, OpenStack, VMware, Bare Metal and localhost deployments.
  -->
- ## 官方 Ubuntu 指南
+## 官方 Ubuntu 指南
 
 - [Kubernetes 的 Canonical 发行版](https://www.ubuntu.com/cloud/kubernetes)
 
