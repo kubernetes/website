@@ -775,7 +775,7 @@ spec:
   externalName: my.database.example.com
 ```
 {{< note >}}
-ExternalName can be an IP address, but IP addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
+ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
 is intended to specify a canonical DNS name. To hardcode an IP address, consider headless services.
 {{< /note >}}
 
