@@ -23,7 +23,7 @@ _Cron Job_ 创建基于时间调度的 [Jobs](/docs/concepts/workloads/controlle
 
 {{< note >}}
 <!--All **CronJob** `schedule:` times are denoted in UTC.-->
-**CronJob** 的所有 `调度:` 时间都是用 UTC 表示。
+所有 **CronJob** 的 `schedule:` 时间都是用 UTC 表示。
 {{< /note >}}
 
 <!--
@@ -46,6 +46,8 @@ are certain circumstances where two jobs might be created, or no job might be cr
 but do not completely prevent them. Therefore, jobs should be _idempotent_.
 -->
 
+## CronJob 限制
+
 CronJob 创建 Job 对象，每个 Job 的执行次数大约为一次。
 我们之所以说 "大约"，是因为在某些情况下，可能会创建两个 Job，或者不会创建任何 Job。
 我们试图使这些情况尽量少发生，但不能完全杜绝。因此，Job 应该是无所不能的。
@@ -62,7 +64,7 @@ at least once.
 For every CronJob, the CronJob controller checks how many schedules it missed in the duration from its last scheduled time until now. If there are more than 100 missed schedules, then it does not start the job and logs the error
 -->
 
-对于每个 CronJob，CronJob 控制器检查从上一个调度时间到现在，它错过了多少个调度。如果错过了超过 100 次调度，那么它就不会启动 Job 并且记录这个错误:
+对于每个 CronJob，CronJob 控制器检查从上一次调度的时间点到现在所错过了调度次数。如果错过的调度次数超过 100 次，那么它就不会启动这个任务，并记录这个错误:
 
 ````
 Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
@@ -73,7 +75,7 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 It is important to note that if the `startingDeadlineSeconds` field is set (not `nil`), the controller counts how many missed jobs occurred from the value of `startingDeadlineSeconds` until now rather than from the last scheduled time until now. For example, if `startingDeadlineSeconds` is `200`, the controller counts how many missed jobs occurred in the last 200 seconds.
 -->
 
-需要注意的是，如果设置了 `startingDeadlineSeconds` 字段(非 `nil`)，则控制器会统计从 `startingDeadlineSeconds` 的值到现在而不是从上一个计划时间到现在错过了多少次 Job。例如，如果 `startingDeadlineSeconds` 是 `200`，则控制器会统计在过去 200 秒中错过了多少次 Job。
+需要注意的是，如果设置 `startingDeadlineSeconds` 字段非空，则控制器会统计从 `startingDeadlineSeconds` 的值到现在而不是从上一个计划时间到现在错过了多少次 Job。例如，如果 `startingDeadlineSeconds` 是 `200`，则控制器会统计在过去 200 秒中错过了多少次 Job。
 
 <!--
 A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
@@ -89,7 +91,7 @@ Set a longer `startingDeadlineSeconds` if starting later is better than not
 starting at all.
 -->
 
-例如，假设一个 CronJob 被设置为`08:30:00` 准时开始，它的 `startingDeadlineSeconds` 被设置为10，如果在`08:29:00` 时将 CronJob 控制器的时间改为 `08:42:00`，Job 将不会启动。
+例如，假设一个 CronJob 被设置为`08:30:00` 准时开始，它的 `startingDeadlineSeconds` 属性被设置为10，如果在`08:29:00` 时将 CronJob 控制器的时间改为 `08:42:00`，Job 将不会启动。
 如果觉得晚些开始比没有启动好，那请设置一个较长的 `startingDeadlineSeconds`。
 
 <!--
@@ -97,6 +99,6 @@ The Cronjob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 -->
 
-CronJob 只负责创建与其计划相匹配的 Job，相应的 Job 又会负责管理它所代表的Pod。
+CronJob 只负责创建与其调度相匹配的 Job，相应的 Job 又会负责管理它所代表的Pod。
 
 {{% /capture %}}
