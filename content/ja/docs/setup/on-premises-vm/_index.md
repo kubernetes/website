@@ -1,4 +1,4 @@
 ---
-title: On-Premises VMs
+title: オンプレミスVM
 weight: 60
 ---
