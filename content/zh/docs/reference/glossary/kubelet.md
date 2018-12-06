@@ -29,7 +29,7 @@ tags:
 <!--
  An agent that runs on each node in the cluster. It makes sure that containers are running in a pod.
 -->
-一个在集群中每个节点上运行的代理。它保证容器都运行在一个 Pod 中。
+一个在集群中每个节点上运行的代理。它保证容器都运行在 Pod 中。
 
 <!--more--> 
 
