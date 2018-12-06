@@ -7,7 +7,7 @@ no_issue: true
 title: Setup
 main_menu: true
 weight: 30
-content_template: templates/concept
+content_template: templates/conceptt
 ---
 
 {{% capture overview %}}
