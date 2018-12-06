@@ -64,11 +64,11 @@ Kubelet 自动为每一个静态 pod 在 Kubernetes 的 API 服务器上创建�
 
 ## 通过 HTTP 创建静态 Pods
 
-Kubelet 周期地从--manifest-url=<URL>参数指定的地址下载文件，并且把它翻译成 JSON/YAML 格式的 pod 定义。此后的操作方式与--pod-manifest-path=<directory>相同，kubelet 会不时地重新下载该文件，当文件变化时对应地终止或启动静态 pod(如下)。
+Kubelet 周期地从 --manifest-url=<URL> 参数指定的地址下载文件，并且把它翻译成 JSON/YAML 格式的 pod 定义。此后的操作方式与 --pod-manifest-path=<directory> 相同，kubelet 会不时地重新下载该文件，当文件变化时对应地终止或启动静态 pod(如下)。
 
 ## 静态 pods 的动作行为
 
-kubelet 启动时，由`--pod-manifest-path=` 或者 `--manifest-url=`参数指定的目录下定义的所有 pod 都会自动创建，例如，我们示例中的 static-web。 (可能要花些时间拉取nginx镜像，耐心等待...)
+kubelet 启动时，由 `--pod-manifest-path=` 或者 `--manifest-url=` 参数指定的目录下定义的所有 pod 都会自动创建，例如，我们示例中的 static-web。 (可能要花些时间拉取 nginx 镜像，耐心等待...)
 
 ```shell
 [joe@my-node1 ~] $ docker ps
