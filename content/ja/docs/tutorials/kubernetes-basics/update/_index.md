@@ -1,4 +1,4 @@
 ---
-title: Update Your App
+title: アプリケーションをアップデートする
 weight: 60
 ---
