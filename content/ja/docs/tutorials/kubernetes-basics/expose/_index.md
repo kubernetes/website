@@ -1,4 +1,4 @@
 ---
-title: Expose Your App Publicly
+title: アプリケーションの公開
 weight: 40
 ---
