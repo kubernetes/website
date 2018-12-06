@@ -87,7 +87,7 @@ StatefulSets 对于需要满足以下一个或多个需求的应用程序很有�
 ## 限制
 
 * StatefulSet 在 1.9 版本之前属于 beta 资源，在 1.5 版本之前的任何 Kubernetes 版本中都不可用。
-* 给定 Pod 的存储必须由 [PersistentVolume 提供器](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) 基于所请求的 `storage class` 来提供，或者由管理员预先提供。
+* 给定 Pod 的存储必须由 [PersistentVolume 驱动](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) 基于所请求的 `storage class` 来提供，或者由管理员预先提供。
 * 删除和／或收缩 StatefulSet 并*不会*删除它关联的存储卷。这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
 * StatefulSet 当前需要 [无头服务](/docs/concepts/services-networking/service/#headless-services) 来负责Pod 的网络标识。您需要负责创建此服务。
 * 当删除 StatefulSets 时，StatefulSet 不提供任何终止 Pod 的保证。为了实现 StatefulSet 中的 Pod 可以有序和优雅的终止，可以在删除之前将 StatefulSet 缩放为0。
@@ -106,7 +106,7 @@ The example below demonstrates the components of a StatefulSet.
 
 * 名为 nginx 的无头服务用来控制网络域。
 * 名为 web 的 StatefulSet 有一个Spec，它表明将在单个 Pod 中启动 nginx 容器的3个副本。
-* volumeClaimTemplates 将通过 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) 提供者提供的 PersistentVolume 来提供稳定的存储。
+* volumeClaimTemplates 将通过 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) 驱动提供的 PersistentVolume 来提供稳定的存储。
 
 
 ```yaml
