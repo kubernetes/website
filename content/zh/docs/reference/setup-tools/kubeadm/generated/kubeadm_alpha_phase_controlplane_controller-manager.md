@@ -10,17 +10,17 @@ Generates the controller-manager static Pod manifest
 ### Synopsis
 -->
 
-为控制器管理器生成静态 Pod 清单文件，并将其保存到 /etc/kubernetes/manifests/kube-controller-manager.yaml 文件中。
+为控制器管理器生成静态 Pod 清单文件，并将其保存为 /etc/kubernetes/manifests/kube-controller-manager.yaml 。
 <!--
 Generates the static Pod manifest file for the controller-manager and saves it into /etc/kubernetes/manifests/kube-controller-manager.yaml file. 
 -->
 
-Alpha 免责声明：此命令目前属于 alpha。
+免责声明：此命令目前属于 alpha。
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
 
-### 选项
+### 命令行选项
 
 <!--
 ### Options
@@ -53,11 +53,11 @@ Alpha Disclaimer: this command is currently alpha.
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/pki"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">存储证书的路径</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">证书的保存路径</td>
     </tr>
 
     <tr>
-      <td colspan="2">--config 字符串</td>
+      <td colspan="2">--config string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径。警告：配置文件的使用是实验性的</td>
@@ -67,14 +67,14 @@ Alpha Disclaimer: this command is currently alpha.
       <td colspan="2">--controller-manager-extra-args mapStringString</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组额外的 flags 参数，传递给控制管理器或以 <flagname>=<value> 的形式覆盖默认的 flags 参数。&gt;</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组额外参数，传递给控制管理器或以 &lt;flagname&gt;=&lt;value&gt; 的格式覆写默认参数。&gt;</td>
     </tr>
 
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">控制管理器帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">控制器管理器帮助</td>
     </tr>
 
     <tr>
@@ -85,17 +85,16 @@ Alpha Disclaimer: this command is currently alpha.
     </tr>
 
     <tr>
-      <td colspan="2">--pod-network-cidr 字符串</td>
+      <td colspan="2">--pod-network-cidr string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用 Pod 网络的 IP 地址范围</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Pod 网络的 IP 地址范围</td>
     </tr>
 
   </tbody>
 </table>
 
 <!--
-<td colspan="2">--pod-network-cidr string</td>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">The range of IP addresses used for the Pod network</td>
 -->
 
@@ -114,19 +113,17 @@ Alpha Disclaimer: this command is currently alpha.
   <tbody>
 
     <tr>
-      <td colspan="2">--rootfs 字符串</td>
+      <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+    <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机 root 文件系统的路径。</td>
     </tr>
 
   </tbody>
 </table>
 
 <!--
-<td colspan="2">--rootfs String</td>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
 -->
-
 
 
