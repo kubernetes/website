@@ -361,9 +361,9 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     manifests. On each host run the `kubeadm` command to generate a static manifest
     for etcd.
 -->
-1. 创建 Static Pod 清单
+1. 创建静态 Pod 清单
 
-    既然证书和配置已经做好，是时候去创建清单了。在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
+    既然证书和配置已经就绪，是时候去创建清单了。在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
 
     ```sh
     root@HOST0 $ kubeadm alpha phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
@@ -397,7 +397,7 @@ Once your have a working 3 member etcd cluster, you can continue setting up a
 highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/independent/high-availability/). 
 -->
-一旦你拥有一个正常工作的 3 成员的 etcd 集群，你可以使用继续设置一个高可用的控制平面 [使用 kubeadm 的外部 etcd 方法](/docs/setup/independent/high-availability/)。
+一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于[使用 kubeadm 的外部 etcd 方法](/docs/setup/independent/high-availability/)，继续部署一个高可用的控制平面。
 
 {{% /capture %}}
 
