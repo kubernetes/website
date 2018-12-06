@@ -1,5 +1,5 @@
 ---
-title: 卷（Volue）插件
+title: 卷（Volume）插件
 id: volumeplugin
 date: 2018-04-12
 full_link: 
