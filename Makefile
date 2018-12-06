@@ -24,9 +24,9 @@ functions-build:
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: check-hugo-versions build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
-non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
+non-production-build: check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
 
 sass-build:
@@ -53,3 +53,6 @@ travis-hugo-build:
 	mkdir -p ${TRAVIS_HOME}/bin
 	mv hugo ${TRAVIS_HOME}/bin
 	export PATH=${TRAVIS_HOME}/bin:$PATH
+
+check-hugo-versions:
+	scripts/hugo-version-check.sh $(HUGO_VERSION)
