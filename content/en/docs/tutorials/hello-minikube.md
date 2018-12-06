@@ -75,7 +75,7 @@ recommended way to manage the creation and scaling of Pods.
 Pod runs a Container based on the provided Docker image. 
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
+    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
     ```
 
 2. View the Deployment:
@@ -127,7 +127,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 1. Expose the Pod to the public internet using the `kubectl expose` command:
 
     ```shell
-    kubectl expose deployment hello-node --type=LoadBalancer
+    kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
     
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
