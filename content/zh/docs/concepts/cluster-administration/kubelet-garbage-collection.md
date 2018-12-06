@@ -107,7 +107,7 @@ pod (UID, container name) pair is allowed to have.
 These variables can be individually disabled by setting `MinAge` to zero and setting `MaxPerPodContainer` and `MaxContainers` respectively to less than zero.
 -->
 
-Kubelet 将处理未定义的、已删除的以及超出前面提到的参数所设置范围的容器。最老的容器通常会先被移除。
+Kubelet 将处理无法辨识的、已删除的以及超出前面提到的参数所设置范围的容器。最老的容器通常会先被移除。
 
 <!--
 Kubelet will act on containers that are unidentified, deleted, or outside of the boundaries set by the previously mentioned flags. The oldest containers will generally be removed first.
@@ -190,7 +190,7 @@ per container. Default is 1.
 Default is -1, which means there is no global limit.
 -->
 
-容器可能会在其效用过期之前被垃圾回收。这些容器可以包含日志和其他对故障诊断有用的数据。
+容器可能会在其效用过期之前被垃圾回收。这些容器可能包含日志和其他对故障诊断有用的数据。
 
 <!--
 Containers can potentially be garbage collected before their usefulness has expired. These containers
