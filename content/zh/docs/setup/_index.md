@@ -1,3 +1,15 @@
+---
+reviewers:
+- brendandburns
+- erictune
+- mikedanese
+no_issue: true
+title: 设置
+main_menu: true
+weight: 30
+content_template: templates/concept
+---
+
 <!--
 ---
 reviewers:
@@ -11,18 +23,6 @@ weight: 30
 content_template: templates/concept
 ---
 -->
-
----
-reviewers:
-- brendandburns
-- erictune
-- mikedanese
-no_issue: true
-title: 设置
-main_menu: true
-weight: 30
-content_template: templates/concept
----
 
 {{% capture overview %}}
 
@@ -108,7 +108,7 @@ You should pick a hosted solution if you:
 <!--
 Pick a [hosted solution](/docs/setup/pick-right-solution/#hosted-solutions).
 -->
-选择[托管解决方案](/docs/setup/pick-right-solution/#hosted-solutions).
+选择[托管解决方案](/docs/setup/pick-right-solution/#hosted-solutions)。
 
 <!--
 ## Turnkey – Cloud Solutions
@@ -128,7 +128,7 @@ exchange for effort.
 <!--
 You should pick a turnkey cloud solution if you
 -->
-您应该选择一个 一站式云服务解决方案，如果您需要：
+您应该选择一个一站式云服务解决方案，如果您需要：
 
 <!--
 * Want more control over your clusters than the hosted solutions allow
@@ -141,7 +141,7 @@ You should pick a turnkey cloud solution if you
 <!--
 Pick a [turnkey cloud solution](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
 -->
-选择 [一站式云服务解决方案](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
+选择[一站式云服务解决方案](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)。
 
 <!--
 ## Turnkey – On-Premises Solutions
@@ -155,9 +155,10 @@ cloud network with only a few commands.
 -->
 这些解决方案允许您在您的内部、安全的云网络上创建 Kubernetes 集群，只需要几个命令。
 
-<!-
+<!--
 You should pick a on-prem turnkey cloud solution-
 -->
+
 您应该选择一个一站式本地解决方案，如果您需要：
 
 <!--
@@ -195,15 +196,16 @@ Pick a [custom solution](/docs/setup/pick-right-solution/#custom-solutions).
 
 {{% /capture %}}
 
-{{% capture 下一步是什么? %}}
-转到完整的解决方案列表选择[正确的解决方案](/docs/setup/pick-right-solution/)。
-{{% /capture %}}
+{{% capture whatsnext %}}
 
 <!--
-{{% capture whatsnext %}}
 Go to [Picking the Right Solution](/docs/setup/pick-right-solution/) for a complete
 list of solutions.
 -->
+
+转到完整的解决方案列表选择[正确的解决方案](/docs/setup/pick-right-solution/)。
+{{% /capture %}}
+
 
 
 
