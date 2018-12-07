@@ -27,7 +27,7 @@ answer the following questions:
 
 {{% capture body %}}
 
-[Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
+[Kube-apiserver](#https://github.com/kubernetes/website/blob/release-1.12/content/zh/docs/admin/kube-apiserver.md) performs auditing. Each request on each stage
 of its execution generates an event, which is then pre-processed according to
 a certain policy and written to a backend. The policy determines what's recorded
 and the backends persist the records. The current backend implementations
