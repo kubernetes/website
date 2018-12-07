@@ -86,7 +86,7 @@ If you install Kubernetes with kubeadm, certificates are stored in `/etc/kuberne
 <!-- 
 If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways. 
 -->
-如果您不希望kubeadm生成所需的证书，可以使用以下任一方法创建它们。
+如果您不希望 kubeadm 生成所需的证书，可以使用以下任一方法创建它们。
 
 <!-- 
 ### Single root CA 
