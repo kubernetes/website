@@ -24,22 +24,20 @@ Kubernetes versions are expressed as **x.y.z**,
 where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](http://semver.org/) terminology.
 For more information, see [Kubernetes Release Versioning](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning).
 
-The Kubernetes project maintains release branches for the most recent three minor releases,
-and expects users to be running those versions in production.
+The Kubernetes project maintains release branches for the most recent three minor releases.
 
-Applicable bug and security fixes may be backported to those three release branches, depending on severity and feasibility.
-Patch releases are cut from those branches at a regular cadence,
-or on an as-needed basis as determined by the [patch release manager](https://github.com/kubernetes/sig-release/blob/master/release-team/role-handbooks/patch-release-manager/README.md#release-timing).
-The patch release manager is listed in the [release team for each release](https://github.com/kubernetes/sig-release/tree/master/releases/).
+Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
+Patch releases are cut from those branches at a regular cadence, or as needed.
+This decision is owned by the [patch release manager](https://github.com/kubernetes/sig-release/blob/master/release-team/role-handbooks/patch-release-manager/README.md#release-timing).
+The patch release manager is a member of the [release team for each release](https://github.com/kubernetes/sig-release/tree/master/releases/).
 
-With minor releases happening approximately every three months,
-that means each minor release is maintained for approximately nine months.
+Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
 
 ## Supported version skew
 
 ### `kube-apiserver`
 
-In multi-server clusters, the newest and oldest `kube-apiserver` instances must be within one minor version.
+In [highly-availabile (HA) clusters](https://kubernetes.io/docs/setup/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
 
 Example:
 
@@ -55,7 +53,9 @@ Example:
 * `kube-apiserver` is at **1.13**
 * `kubelet` is supported at **1.13**, **1.12**, and **1.11**
 
-Note that if version skew exists between `kube-apiserver` instances in a multi-server cluster, this narrows the allowed `kubelet` versions.
+{{< note >}}
+If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kubelet` versions.
+{{</ note >}}
 
 Example:
 
@@ -71,7 +71,9 @@ Example:
 * `kube-apiserver` is at **1.13**
 * `kube-controller-manager` and `kube-scheduler` are supported at **1.13** and **1.12**
 
-Note that if version skew exists between `kube-apiserver` instances in a multi-server cluster, and `kube-controller-manager` or `kube-scheduler` can communicate with any `kube-apiserver` instance in the cluster (for example, via a load balancer), this narrows the allowed `kube-controller-manager` or `kube-scheduler` versions.
+{{< note >}}
+If version skew exists between `kube-apiserver` instances in an HA cluster, and `kube-controller-manager` or `kube-scheduler` can communicate with any `kube-apiserver` instance in the cluster (for example, via a load balancer), this narrows the allowed `kube-controller-manager` or `kube-scheduler` versions.
+{{< /note >}}
 
 Example:
 
@@ -88,7 +90,9 @@ Example:
 * `kube-apiserver` is at **1.13**
 * `kubectl` is supported at **1.14**, **1.13**, and **1.12**
 
-Note that if version skew exists between `kube-apiserver` instances in a multi-server cluster, this narrows the supported `kubectl` versions.
+{{< note >}}
+If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the supported `kubectl` versions.
+{{< /note >}}
 
 Example:
 
@@ -104,18 +108,27 @@ This section describes the order in which components must be upgraded to transit
 
 Pre-requisites:
 
-* In a multi-server cluster, other `kube-apiserver` instances are at **1.n** or **1.(n+1)** (this ensures maximum skew of 1 minor version between the oldest and newest `kube-apiserver` instance)
+* In a single-instance cluster, the existing `kube-apiserver` instance is **1.n**
+* In an HA cluster, all `kube-apiserver` instances are at **1.n** or **1.(n+1)** (this ensures maximum skew of 1 minor version between the oldest and newest `kube-apiserver` instance)
 * The `kube-controller-manager` and `kube-scheduler` instances that communicate with this server are at version **1.n** (this ensures they are not newer than the existing API server version, and are within 1 minor version of the new API server version)
 * `kubelet` instances on all nodes are at version **1.n** or **1.(n-1)** (this ensures they are not newer than the existing API server version, and are within 2 minor versions of the new API server version)
-* Registered admission webhooks are capable of understanding all the versions of REST resources they are registered for (including any new versions available in **1.(n+1)**)
+* Registered admission webhooks are able to handle the data the new `kube-apiserver` instance will send them:
+  * `ValidatingWebhookConfiguration` and `MutatingWebhookConfiguration` objects are updated to include any new versions of REST resources added in **1.(n+1)**
+  * The webhooks are able to handle any new versions of REST resources that will be sent to them, and any new fields added to existing versions in **1.(n+1)**
 
 Upgrade `kube-apiserver` to **1.(n+1)**
+
+{{< note >}}
+Project policies for [API deprecation](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) and 
+[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) 
+require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
+{{< /note >}}
 
 ### `kube-controller-manager` and `kube-scheduler`
 
 Pre-requisites:
 
-* The `kube-apiserver` instances these components communicate with are at **1.(n+1)** (in multi-server clusters in which these control plane components communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
+* The `kube-apiserver` instances these components communicate with are at **1.(n+1)** (in HA clusters in which these control plane components communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
 
 Upgrade `kube-controller-manager` and `kube-scheduler` to **1.(n+1)**
 
@@ -126,3 +139,10 @@ Pre-requisites:
 * The `kube-apiserver` instances the `kubelet` communicates with are at **1.(n+1)**
 
 Optionally upgrade `kubelet` instances to **1.(n+1)** (or they can be left at **1.n** or **1.(n-1)**)
+
+{{< warning >}}
+Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` is not recommended:
+
+* they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
+* it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
+{{</ warning >}}
