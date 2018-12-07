@@ -17,7 +17,7 @@ Horizontal Pod Autoscaler는 CPU 사용량(또는 베타 지원의 다른 애플
 {{% capture prerequisites %}}
 
 이 예제는 버전 1.2 또는 이상의 쿠버네티스 클러스터와 kubectl을 필요로 한다.
-[메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다. 이는 Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다. ([GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.)
+[메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다. 이는 Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다. 메트릭-서버를 배포하는 지침은 [메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/)의 GitHub 저장소에 있고, [GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.
 
 Horizontal Pod Autoscaler에 다양한 자원 메트릭을 적용하고자 하는 경우, 버전 1.6 또는 이상의 쿠버네티스 클러스터와 kubectl를 사용해야 한다. 또한, 사용자 정의 메트릭을 사용하기 위해서는, 클러스터가 사용자 정의 메트릭 API를 제공하는 API 서버와 통신할 수 있어야 한다. 마지막으로, 쿠버네티스 오브젝트와 관련이 없는 메트릭을 사용하는 경우 버전 1.10 또는 이상의 쿠버네티스 클러스터와 kubectl을 사용해야 하며, 외부 메트릭 API와 통신이 가능해야 한다. 자세한 사항은 [Horizontal Pod Autoscaler 사용자 가이드](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)를 참고하길 바란다.
 
@@ -107,7 +107,9 @@ NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7         7         7            7           19m
 ```
 
-**참고** 때로는 레플리카의 개수를 안정화시키는데 몇 분이 걸릴 수 있다. 부하의 양은 환경에 따라 다르기 때문에, 최종 레플리카의 개수는 본 예제와 다를 수 있다.
+{{< note >}}
+레플리카의 개수를 안정화시키는데 몇 분이 걸릴 수 있다. 부하의 양은 환경에 따라 다르기 때문에, 최종 레플리카의 개수는 본 예제와 다를 수 있다.
+{{< /note >}}
 
 ## 부하 중지
 
@@ -127,7 +129,7 @@ php-apache   1         1         1            1           27m
 CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮췄다.
 
 {{< note >}}
-**참고** 레플리카 오토스케일링은 몇 분 정도 소요된다.
+레플리카 오토스케일링은 몇 분 정도 소요된다.
 {{< /note >}}
 
 {{% /capture %}}
