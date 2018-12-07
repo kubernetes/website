@@ -30,7 +30,7 @@ You can submit a blog post for consideration one of two ways:
 If you have a post that you want to remain confidential until your publish date, please submit your post via the Google form. Otherwise, you can choose your submission process based on your comfort level and preferred workflow.
 
 {{< note >}}
-**Note:** Our workflow hasn't changed for confidential advance drafts. Additionally, we'll coordinate publishing for time sensitive posts to ensure that information isn't released prematurely through an open pull request.
+Our workflow hasn't changed for confidential advance drafts. Additionally, we'll coordinate publishing for time sensitive posts to ensure that information isn't released prematurely through an open pull request.
 {{< /note >}}
 
 ### Call for reviewers

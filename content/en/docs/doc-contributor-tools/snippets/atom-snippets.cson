@@ -90,7 +90,7 @@
     'prefix': 'anote'
     'body': """
       {{< note >}}
-      **Note**: $1
+      $1
       {{< /note >}}
     """
   
@@ -99,14 +99,14 @@
     'prefix': 'acaution'
     'body': """
       {{< caution >}}
-      **Caution**: $1
+      $1
       {{< /caution >}}
     """
   'Insert warning':
     'prefix': 'awarning'
     'body': """
       {{< warning >}}
-      **Warning**: $1
+      $1
       {{< /warning >}}
     """
   

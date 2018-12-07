@@ -10,7 +10,7 @@ weight: 10
 
 {{% capture overview %}}
 
-Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
+Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
 
 {{% /capture %}}
 
@@ -19,7 +19,7 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{< note >}}
-**Note:** There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA.
+There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA.
 {{< /note >}}
 
 {{% /capture %}}

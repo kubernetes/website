@@ -152,7 +152,7 @@ IP 地址列在 `LoadBalancer Ingress` 旁边。
 
 {{< note >}}
 <!--
-**Note**: If you are running your service on Minikube, you can find the assigned IP address and port with:
+If you are running your service on Minikube, you can find the assigned IP address and port with:
 -->
 **注意：** 如果您在 Minikube 上运行服务，您可以通过以下命令找到分配的 IP 地址和端口：
 {{< /note >}}

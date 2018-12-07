@@ -20,7 +20,7 @@ A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts
 You describe a _desired state_ in a Deployment object, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
 {{< note >}}
-**Note:** You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
+You should not manage ReplicaSets owned by a Deployment. All the use cases should be covered by manipulating the Deployment object. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 {{< /note >}}
 
 {{% /capture %}}
@@ -57,7 +57,7 @@ In this example:
   as long as the Pod template itself satisfies the rule.
   
   {{< note >}}
-  **Note:** `matchLabels` is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map 
+  `matchLabels` is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map 
   is equivalent to an element of `matchExpressions`, whose key field is "key", the operator is "In",
   and the values array contains only "value". The requirements are ANDed.
   {{< /note >}}
@@ -74,11 +74,11 @@ In this example:
 To create this Deployment, run the following command:
 
 ```shell
-kubectl create -f  https://k8s.io/examples/controllers/nginx-deployment.yaml
+kubectl create -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
-**Note:** You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future instrospection, for example to see the commands executed in each Deployment revision.
+You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future introspection, for example to see the commands executed in each Deployment revision.
 {{< /note >}}
 
 Next, run `kubectl get deployments`. The output is similar to the following:
@@ -145,14 +145,14 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 The created ReplicaSet ensures that there are three `nginx` Pods running at all times.
 
 {{< note >}}
-**Note:** You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
+You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
 `app: nginx`). Do not overlap labels or selectors with other controllers (including other Deployments and StatefulSets). Kubernetes doesn't stop you from overlapping, and if multiple controllers have overlapping selectors those controllers might conflict and behave unexpectedly.
 {{< /note >}}
 
 ### Pod-template-hash label
 
 {{< note >}}
-**Note:** Do not change this label.
+Do not change this label.
 {{< /note >}}
 
 The `pod-template-hash` label is added by the Deployment controller to every ReplicaSet that a Deployment creates or adopts.
@@ -163,7 +163,7 @@ and in any existing Pods that the ReplicaSet might have.
 ## Updating a Deployment
 
 {{< note >}}
-**Note:** A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
+A Deployment's rollout is triggered if and only if the Deployment's pod template (that is, `.spec.template`)
 is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 {{< /note >}}
 
@@ -307,7 +307,7 @@ In any case, if you need to perform a label selector update, exercise great caut
 all of the implications.
 
 {{< note >}}
-**Note:** In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
+In API version `apps/v1`, a Deployment's label selector is immutable after it gets created.
 {{< /note >}}
 
 * Selector additions require the pod template labels in the Deployment spec to be updated with the new label too,
@@ -326,7 +326,7 @@ By default, all of the Deployment's rollout history is kept in the system so tha
 (you can change that by modifying revision history limit).
 
 {{< note >}}
-**Note:** A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
+A Deployment's revision is created when a Deployment's rollout is triggered. This means that the
 new revision is created if and only if the Deployment's pod template (`.spec.template`) is changed,
 for example if you update the labels or container images of the template. Other updates, such as scaling the Deployment,
 do not create a Deployment revision, so that you can facilitate simultaneous manual- or auto-scaling.
@@ -373,7 +373,7 @@ nginx-deployment-3066724191-08mng   0/1       ImagePullBackOff   0          6s
 ```
 
 {{< note >}}
-**Note:** The Deployment controller will stop the bad rollout automatically, and will stop scaling up the new
+The Deployment controller will stop the bad rollout automatically, and will stop scaling up the new
 ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
 Kubernetes by default sets the value to 25%.
 {{< /note >}}
@@ -681,7 +681,7 @@ nginx-3926361531   3         3         3         28s
 ```
 
 {{< note >}}
-**Note:** You cannot rollback a paused Deployment until you resume it.
+You cannot rollback a paused Deployment until you resume it.
 {{< /note >}}
 
 ## Deployment status
@@ -754,13 +754,13 @@ attributes to the Deployment's `.status.conditions`:
 See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 {{< note >}}
-**Note:** Kubernetes will take no action on a stalled Deployment other than to report a status condition with
+Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
 example, rollback the Deployment to its previous version.
 {{< /note >}}
 
 {{< note >}}
-**Note:** If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can
+If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can
 safely pause a Deployment in the middle of a rollout and resume without triggering the condition for exceeding the
 deadline.
 {{< /note >}}
@@ -865,7 +865,7 @@ this Deployment you want to retain. The rest will be garbage-collected in the ba
 it is 10.
 
 {{< note >}}
-**Note:** Explicitly setting this field to 0, will result in cleaning up all the history of your Deployment
+Explicitly setting this field to 0, will result in cleaning up all the history of your Deployment
 thus that Deployment will not be able to roll back.
 {{< /note >}}
 
@@ -916,7 +916,7 @@ from `.spec.template` or if the total number of such Pods exceeds `.spec.replica
 Pods with `.spec.template` if the number of Pods is less than the desired number.
 
 {{< note >}}
-**Note:** You should not create other pods whose labels match this selector, either directly, by creating
+You should not create other pods whose labels match this selector, either directly, by creating
 another Deployment, or by creating another controller such as a ReplicaSet or a ReplicationController. If you
 do so, the first Deployment thinks that it created these other pods. Kubernetes does not stop you from doing this.
 {{< /note >}}

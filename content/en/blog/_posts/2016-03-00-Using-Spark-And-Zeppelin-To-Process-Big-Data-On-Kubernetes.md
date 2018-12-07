@@ -105,7 +105,9 @@ $ gsutil mb gs://my-spark-models
 ```
 You’ll need to change this URI to something that is unique for you. This will create a bucket that you can use in the example above.  
 
-**Note** : Computing the model and saving it is much slower than computing the model and throwing it away. This is expected. However, if you plan to reuse a model, it’s faster to compute the model and save it and then restore it each time you want to use it, rather than throw away and recompute the model each time.  
+{{< note >}}
+Computing the model and saving it is much slower than computing the model and throwing it away. This is expected. However, if you plan to reuse a model, it’s faster to compute the model and save it and then restore it each time you want to use it, rather than throw away and recompute the model each time.
+{{< /note >}}
 
 ### Using Horizontal Pod Autoscaling with Spark (Optional)&nbsp;
 Spark is somewhat elastic to workers coming and going, which means we have an opportunity: we can use use [Kubernetes Horizontal Pod Autoscaling](http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/) to scale-out the Spark worker pool automatically, setting a target CPU threshold for the workers and a minimum/maximum pool size. This obviates the need for having to configure the number of worker replicas manually.  

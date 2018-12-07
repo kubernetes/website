@@ -92,8 +92,7 @@ following steps:
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
-**Caution:** The config file is
-still considered alpha and may change in future versions.
+The config file is still considered alpha and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
@@ -284,13 +283,9 @@ configured in the kubelet via static files.
 To create a self-hosted cluster, pass the flag `--feature-gates=SelfHosting=true` to `kubeadm init`.
 
 {{< caution >}}
-**Caution:** `SelfHosting` is an alpha feature. It is deprecated in 1.12
+`SelfHosting` is an alpha feature. It is deprecated in 1.12
 and will be removed in 1.13.
 {{< /caution >}}
-
-{{< warning >}}
-**Warning:** See self-hosted caveats and limitations.
-{{< /warning >}}
 
 #### Caveats
 
@@ -309,7 +304,7 @@ authorization configuration for your cluster, and may not be appropriate for
 your environment.
 
 {{< caution >}}
-**Caution:** `StoreCertsInSecrets` is an alpha feature. It is deprecated in 1.12
+`StoreCertsInSecrets` is an alpha feature. It is deprecated in 1.12
 and will be removed in 1.13.
 {{< /caution >}}
 

@@ -68,7 +68,7 @@ AUTHORIZATION_MODE=Node,RBAC hack/local-up-cluster.sh -O
 By default, `helm init` installs the Tiller Pod into the `kube-system` namespace, with Tiller configured to use the `default` service account.
 
 {{< note >}}
-**NOTE:** If you used the `--tiller-namespace` or `--service-account` flags when running `helm init`, the `--serviceaccount` flag in the following command needs to be adjusted to reference the appropriate namespace and ServiceAccount name.
+If you used the `--tiller-namespace` or `--service-account` flags when running `helm init`, the `--serviceaccount` flag in the following command needs to be adjusted to reference the appropriate namespace and ServiceAccount name.
 {{< /note >}}
 
 Configure Tiller to have `cluster-admin` access:
