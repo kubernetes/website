@@ -26,13 +26,13 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 
 ## 专用术语
 
-在本文档中，您将看到一些术语有时在其他地方可互换使用，这可能会导致混乱。本节对它们进行澄清。
+在本文档中，您将看到一些有时在其他地方可互换使用的术语，这些术语可能会引起混淆。 本节试图澄清它们
 
-* 节点：在 Kubernetes 集群中的单个虚拟或物理机器。
+* 节点：Kubernetes 集群中的单个虚拟或物理机器。
 * 集群：互联网防火墙保护下的一组节点，它们是 Kubernetes 管理的主要计算资源。
 * 边缘路由器：为集群强制执行防火墙策略的路由器。这可以是由云提供商管理的网关或物理硬件。
 * 集群网络：一组逻辑或物理的链接，根据 [Kubernetes 网络模型](/docs/concepts/cluster-administration/networking/) 在集群内促进通信。集群网络的例子包括 Overlay，例如 [flannel](https://github.com/coreos/flannel#flannel)；或者SDN，例如 [OVS](https://www.openvswitch.org/)。
-* Service：Kubernetes [Service](/docs/concepts/services-networking/service/) 指向标签选择器选定的一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
+* Service：Kubernetes [Service](/docs/concepts/services-networking/service/) 使用标签选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
 
 <!--
 ## What is Ingress?
