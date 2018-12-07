@@ -109,7 +109,8 @@ requirements are satisfied:
 ```
 # For Kubernetes v1.8 ~ v1.11
 K8S_VERSION=v1.11
-kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/$K8S_VERSION/nvidia-device-plugin.yml
+wget https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/$K8S_VERSION/nvidia-device-plugin.yml
+kubectl create -f nvidia-device-plugin.yml
 
 ```
 
