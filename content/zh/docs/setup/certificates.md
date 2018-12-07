@@ -1,5 +1,5 @@
 ---
-title: PKI 证书和条件
+title: PKI 证书和需求
 content_template: templates/concept
 --- 
 <!-- 
@@ -20,7 +20,7 @@ You can also generate your own certificates -- for example, to keep your private
 This page explains the certificates that your cluster requires. 
 -->
 Kubernetes 需要 PKI 证书才能通过 TLS 进行身份验证。如果使用 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) 安装 Kubernetes，集群所需的证书会被自动生成。
-例如，通过不将它们存储在 API 服务器上来保护您的私钥更安全。
+您还可以生成自己的证书——例如，通过不将私钥保存在 API 服务器上，来更安全地保护它们。。
 此页面说明了集群所需的证书。
 
 {{% /capture %}}
@@ -30,12 +30,12 @@ Kubernetes 需要 PKI 证书才能通过 TLS 进行身份验证。如果使用 [
 <!-- 
 ## How certificates are used by your cluster 
 -->
-## 您的集群如何使用证书
+## 集群如何使用证书
 
 <!-- 
 Kubernetes requires PKI for the following operations: 
 -->
-Kubernetes 在执行以下操作时需要 PKI：
+Kubernetes 在执行以下操作时需要相应的证书：
 
 <!-- 
 * Client certificates for the kubelet to authenticate to the API server
@@ -47,13 +47,13 @@ Kubernetes 在执行以下操作时需要 PKI：
 * Client certificate/kubeconfig for the scheduler to talk to the API server.
 * Client and server certificates for the [front-proxy][proxy] 
 -->
-* kubelet 的客户端证书，以便向 API 服务器进行身份验证
-* API 服务器节点的服务器证书
+* 客户端证书，供 kubelet 访问 API 服务器时的身份验证使用
+* API 服务器端点的服务器证书
 * 集群管理员的客户端证书，以便向API服务器进行身份验证
 * API 服务器与 kubelet 通信所需的客户端证书
 * API 服务器与 etcd 通信所需的客户端证书
-* 客户端证书/ kubeconfig，供控制器管理器与 API 服务器通信
-* 客户端证书/ kubeconfig，供调度器与 API 服务器通信。
+* 客户端证书/kubeconfig，供控制器管理器与 API 服务器通信
+* 客户端证书/kubeconfig，供调度器与 API 服务器通信。
 * [front-proxy][proxy] 的客户端和服务器证书
 
 {{< note >}}
@@ -71,7 +71,7 @@ etcd 还实现了相互 TLS 来验证客户端和对等端。
 <!-- 
 ## Where certificates are stored 
 -->
-## 证书存储在何处
+## 证书在何处存储
 
 <!-- 
 If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory. 
@@ -81,7 +81,7 @@ If you install Kubernetes with kubeadm, certificates are stored in `/etc/kuberne
 <!-- 
 ## Configure certificates manually 
 -->
-手动配置证书
+## 手动配置证书
 
 <!-- 
 If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways. 
@@ -91,12 +91,12 @@ If you don't want kubeadm to generate the required certificates, you can create 
 <!-- 
 ### Single root CA 
 -->
-单个根 CA
+单个 root CA
 
 <!-- 
 You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself.  
 -->
-您可以创建一个由管理员控制的单个根 CA。然后，此根 CA 可以创建多个中间 CA，并委托 Kubernetes 本身完成后续创建操作。
+您可以创建一个由管理员控制的单个 root CA。然后，此 root CA 可以创建多个中间 CA，并委托 Kubernetes 本身完成后续创建操作。
 
 <!-- 
 Required CAs:
@@ -166,7 +166,7 @@ where `kind` maps to one or more of the [x509 key usage][usage] types:
 | 种类   | 密钥用途                                                                         |
 |--------|---------------------------------------------------------------------------------|
 | server | 数字签名，密钥加密，服务器鉴权                                                     |
-| client | 数字签名，密钥加密，服务器鉴权                                                     | 
+| client | 数字签名，密钥加密，客户端鉴权                                                     | 
 
 <!-- 
 ### Certificate paths 
