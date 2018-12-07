@@ -235,7 +235,7 @@ readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
 
-{{< note >}}Readiness probes are run on the container during all its life cycle{{< /note >}}
+{{< note >}}Readiness probes are run on the container during all its lifecycle{{< /note >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
