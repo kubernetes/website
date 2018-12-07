@@ -278,7 +278,7 @@ the StatefulSet.
 
 * 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 {0..N-1}。
 * 当删除 Pod 时，它们是逆序终止的，顺序为 {N-1..0}。
-* 在将缩放操作应用到 Pod 之前，它的所有前身必须是 Running 和 Ready 状态。
+* 在将缩放操作应用到 Pod 之前，它前面的所有 Pod 必须是 Running 和 Ready 状态。
 * 在 Pod 终止之前，所有的继任者必须完全关闭。
 
 <!--
