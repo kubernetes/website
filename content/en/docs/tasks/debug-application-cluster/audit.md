@@ -67,7 +67,7 @@ compared against the list of rules in order. The first matching rule sets the
 - `RequestResponse` - log event metadata, request and response bodies.
   This does not apply for non-resource requests.
 
-You can pass a file with the policy to [kube-apiserver][kube-apiserver]
+You can pass a file with the policy to [Kube-apiserver](#https://github.com/kubernetes/website/blob/release-1.12/content/zh/docs/admin/kube-apiserver.md) 
 using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
 Note that the `rules` field __must__ be provided in the audit policy file.
 A policy with no (0) rules is treated as illegal.
@@ -92,7 +92,7 @@ admins constructing their own audit profiles.
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides two backends:
+[Kube-apiserver](#https://github.com/kubernetes/website/blob/release-1.12/content/zh/docs/admin/kube-apiserver.md)  out of the box provides two backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
@@ -124,7 +124,7 @@ request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
 ### Log backend
 
 Log backend writes audit events to a file in JSON format. You can configure
-log audit backend using the following [kube-apiserver][kube-apiserver] flags:
+log audit backend using the following [Kube-apiserver](#https://github.com/kubernetes/website/blob/release-1.12/content/zh/docs/admin/kube-apiserver.md)  flags:
 
 - `--audit-log-path` specifies the log file path that log backend uses to write
   audit events. Not specifying this flag disables log backend. `-` means standard out
@@ -135,7 +135,7 @@ log audit backend using the following [kube-apiserver][kube-apiserver] flags:
 ### Webhook backend
 
 Webhook backend sends audit events to a remote API, which is assumed to be the
-same API as [kube-apiserver][kube-apiserver] exposes. You can configure webhook
+same API as [Kube-apiserver](#https://github.com/kubernetes/website/blob/release-1.12/content/zh/docs/admin/kube-apiserver.md)  exposes. You can configure webhook
 audit backend using the following kube-apiserver flags:
 
 - `--audit-webhook-config-file` specifies the path to a file with a webhook
@@ -327,7 +327,7 @@ different users into different files.
     $ bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
     ```
 
-1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
+1. create a [kubeconfig file](#https://github.com/kubernetes/website/blob/release-1.12/content/en/docs/tasks/access-application-cluster/access-cluster.md) for kube-apiserver webhook audit backend
 
     ```none
     $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
@@ -362,8 +362,8 @@ plugin which supports full-text search and analytics.
 
 [kube-apiserver]: /docs/admin/kube-apiserver
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
-[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
-[gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
+[auditing-api](#https://github.com/kubernetes/kubernetes/tree/11706d3803150bcedc51bf5b00ed443d90384571/pkg/apis/auditregistration) {{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
+[gce-audit-profile](#https://github.com/kubernetes/kubernetes/tree/11706d3803150bcedc51bf5b00ed443d90384571/pkg/apis/auditregistration){{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
 [kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
 [fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
