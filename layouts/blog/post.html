@@ -1,3 +1,15 @@
-<h4 class="date-header">{{ .Date.Format .Site.Params.time_format_blog }}</h4>
-<h3 class="post-title entry-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-{{ .Content }}
+<div class="blog-header">
+  <h2 class="post-title entry-title">
+    <a href="{{ .Permalink }}">
+      {{ .Title }}
+    </a>
+  </h2>
+
+  <h4 class="date-header">
+    {{ .Date.Format .Site.Params.time_format_blog }}
+  </h4>
+</div>
+
+<div class="blog-main-content">
+  {{ .Content }}
+</div>

@@ -1,0 +1,96 @@
+$root-font-size: 1.8rem
+
+.blog-container
+  margin: 0 auto
+  width: 70%
+
+  @media screen and (max-width: 910px)
+    width: 90%
+  
+.blog-main
+  margin: 5rem 0
+
+// Blog post tables
+.blog-content
+  padding: 0 0 8rem 0
+
+  .blog-header
+    .post-title
+      font-size: 3.25rem
+
+      & + .date-header
+        margin-top: 2rem
+
+    .date-header
+      font-size: 2.25rem
+
+  .PageNavigation
+    margin-top: 10rem
+
+  .blog-main-content
+    margin-top: 2rem
+    display: block
+    border-top: 1px solid black
+    padding-top: 2rem
+
+    code
+      background-color: $light-grey
+      color: $blue
+      padding: .5rem .75rem
+
+    p
+      font-size: $root-font-size
+      line-height: 130%
+
+      & + p
+        margin-top: 2rem
+
+    ul
+      padding: 0
+
+      li
+        font-size: $root-font-size
+        list-style-type: square
+        line-height: 130%
+
+        & + li
+          margin-top: .5rem
+
+    figure
+      text-align: center
+      margin: 3rem 0
+
+      img
+        margin: 0 auto !important
+
+      figcaption
+        margin-top: 1rem
+
+        p
+          font-size: 2.5rem
+
+
+    table
+      max-width: 100%
+      border: 1px solid #ccc
+      border-spacing: 0
+      margin-top: 30px
+      margin-bottom: 30px
+
+      td, th
+        padding: 1rem
+        font-size: 2rem
+
+      thead
+        border-bottom: 2px solid #ccc
+
+        tr
+          th
+            font-size: 1.5rem
+
+      tbody
+        tr
+          td
+            border-bottom: 1px solid #ccc
+            border-left: 1px solid #ccc
+            padding-right: 5rem
