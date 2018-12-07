@@ -91,7 +91,7 @@ Here are some examples of information that could be recorded in annotations:
   from other ecosystem components.
 -->
 
-* 轻量化推出的工具的元数据信息：例如，配置或检查点。
+* 推出的轻量级工具的元数据信息：例如，配置或检查点。
 <!--
 * Lightweight rollout tool metadata: for example, config or checkpoints.
 -->
@@ -102,7 +102,7 @@ Here are some examples of information that could be recorded in annotations:
   specify where that information can be found, such as a team web site.
 -->
 
-您可以将这类信息存储在外部数据库或目录中，而不使用注解，但这会使那些用于部署、管理、自检等功能的客户端共享库和工具的生成变得更加困难。
+您可以将这类信息存储在外部数据库或目录中而不使用注解，但这样做就使得开发人员很难生成用于部署、管理、自检的客户端共享库和工具。
 <!--
 Instead of using annotations, you could store this type of information in an
 external database or directory, but that would make it much harder to produce
