@@ -16,7 +16,7 @@ weight: 50
 
 此页面展示了如何配置 Pod 以使用卷进行存储。
 
-只要容器有效，一个容器的文件系统就会存在。所以当一个容器终止并重新启动，该容器文件系统的更改将丢失。对于独立于容器的更长久的存储，您可以使用[卷](/docs/concepts/storage/volumes/)。这对于有状态应用程序尤为重要，例如关键值存储（如 Redis）和数据库。
+只要容器存在，容器的文件系统就会存在，因此当一个容器终止并重新启动，对该容器的文件系统改动将丢失。对于独立于容器的持久化存储，您可以使用[卷](/docs/concepts/storage/volumes/)。这对于有状态应用程序尤为重要，例如键值存储（如 Redis）和数据库。
 
 <!--
 This page shows how to configure a Pod to use a Volume for storage.
@@ -40,7 +40,8 @@ applications, such as key-value stores (such as Redis) and databases.
 
 ## 为 Pod 配置卷
 
-在本练习中，您将创建一个运行一个容器的 Pod。这个 Pod 有一个类型为 [emptyDir](/docs/concepts/storage/volumes/#emptydir) 的卷，这个卷延续了 Pod 的生命周期，即使这个容器终止并重新启动。这是 Pod 的配置：
+在本练习中，您将创建一个运行 Pod，该 Pod 仅运行一个容器并拥有一个类型为 [emptyDir](/docs/concepts/storage/volumes/#emptydir) 的卷，在整个 Pod 生命周期中一直存在，即使 Pod 中的容器被终止和重启。以下是 Pod 的配置：
+
 
 <!--
 ## Configure a volume for a Pod
@@ -62,7 +63,7 @@ restarts. Here is the configuration file for the Pod:
     kubectl create -f https://k8s.io/examples/pods/storage/redis.yaml
     ```
 
-1. 验证 Pod 中的容器是否正在运行，然后监视 Pod 的更改：
+1. 验证 Pod 中的容器是否正在运行，然后留意 Pod 的更改：
 
 <!--
 1. Verify that the Pod's Container is running, and then watch for changes to
@@ -72,7 +73,7 @@ the Pod:
     kubectl get pod redis --watch
     ```
 
-    The output looks like this:
+    输出如下：
 
     ```shell
     NAME      READY     STATUS    RESTARTS   AGE
@@ -88,7 +89,7 @@ the Pod:
     kubectl exec -it redis -- /bin/bash
     ```
 
-1. 在您的 shell 终端中，转到 `/data/redis` 目录下，然后创建一个文件：
+1. 在您的 shell 终端中，切换到 `/data/redis` 目录下，然后创建一个文件：
 
 <!--
 1. In your shell, go to `/data/redis`, and then create a file:
@@ -109,7 +110,7 @@ the Pod:
     root@redis:/data/redis# ps aux
     ```
 
-    The output is similar to this:
+    输出类似于：
 
     ```shell
     USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
@@ -127,9 +128,9 @@ the Pod:
     root@redis:/data/redis# kill <pid>
     ```
 
-    where `<pid>` is the Redis process ID (PID).
+    其中 `<pid>` 是 Redis 进程的 ID (PID)。
 
-1. 在您原先终端中，监视到 Redis Pod 的更改。最终您将会看到这样的事情：
+1. 在您原先终端中，留意 Redis Pod 的更改。最终您将会看到和下面类似的输出：
 
 <!--
 1. In your original terminal, watch for changes to the Redis Pod. Eventually,
@@ -159,7 +160,7 @@ of `Always`.
     kubectl exec -it redis -- /bin/bash
     ```
 
-1. 在您的 shell 终端中，进入到 `/data/redis` 目录下，并确认 `test-file` 文件是否任然存在。
+1. 在您的 shell 终端中，进入到 `/data/redis` 目录下，并确认 `test-file` 文件是否仍然存在。
 
 <!--
 1. In your shell, goto `/data/redis`, and verify that `test-file` is still there.
