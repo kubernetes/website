@@ -2,7 +2,7 @@
 <!--
 Downloads the kubelet configuration from the cluster ConfigMap kubelet-config-1.X, where X is the minor version of the kubelet.
 -->
-从集群 ConfigMap kubelet-config-1.X 下载 kubelet 配置。其中 X 是次要版本的 kubelet。
+从集群 ConfigMap kubelet-config-1.X 下载 kubelet 配置。其中 X 是 kubelet 的次要版本。
 
 <!--
 ### Synopsis

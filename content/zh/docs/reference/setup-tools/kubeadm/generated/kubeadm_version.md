@@ -2,17 +2,18 @@
 <!--
 Print the version of kubeadm
 -->
-打印 kubeadm 的版本
+打印 kubeadm 的版本号
 
 <!--
 ### Synopsis
 -->
+
 ### 概要
 
 <!--
 Print the version of kubeadm
 -->
-打印 kubeadm 的版本
+打印 kubeadm 的版本号
 
 ```
 kubeadm version [flags]

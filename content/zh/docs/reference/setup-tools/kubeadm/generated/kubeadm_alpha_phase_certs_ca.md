@@ -2,7 +2,7 @@
 <!--
 Generates the self-signed kubernetes CA to provision identities for other kuberenets components
 -->
-生成自签名 kubernetes CA 以为其他 kuberenets 组件提供标识
+生成自签名 kubernetes 证书供其他 kuberenets 组件创建标识用
 
 <!--
 ### Synopsis
@@ -13,7 +13,7 @@ Generates the self-signed kubernetes CA to provision identities for other kubere
 <!--
 Generates the self-signed kubernetes CA to provision identities for other kuberenets components, and saves them into ca.cert and ca.key files. 
 -->
-生成自签名 kubernetes CA 以为其他 kuberenets 组件提供标识，并将它们保存到 ca.cert 和 ca.key 中。
+生成自签名 kubernetes 证书供其他 kuberenets 组件创建标识用，并将它们保存到 ca.cert 和 ca.key 中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
@@ -72,8 +72,10 @@ kubeadm alpha phase certs ca [flags]
 </table>
 
 
-
+### 从父命令继承的选项
+<!--
 ### Options inherited from parent commands
+-->
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
