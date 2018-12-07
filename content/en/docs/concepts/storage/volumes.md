@@ -74,7 +74,7 @@ Kubernetes supports several types of Volumes:
    * [csi](#csi)
    * [downwardAPI](#downwardapi)
    * [emptyDir](#emptydir)
-   * [fc (fibre channel)](#fc)flexVolume
+   * [fc (fibre channel)](#fc)
    * [flexVolume](#flexVolume)
    * [flocker](#flocker)
    * [gcePersistentDisk](#gcepersistentdisk)
