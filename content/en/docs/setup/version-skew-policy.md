@@ -62,24 +62,24 @@ Example:
 * `kube-apiserver` instances are at **1.13** and **1.12**
 * `kubelet` is supported at **1.12**, and **1.11** (**1.13** is not supported because that would be newer than the `kube-apiserver` instance at version **1.12**)
 
-### `kube-controller-manager` and `kube-scheduler`
+### `kube-controller-manager`, `kube-scheduler`, `cloud-controller-manager`
 
-`kube-controller-manager` and `kube-scheduler` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
+`kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
 
 Example:
 
 * `kube-apiserver` is at **1.13**
-* `kube-controller-manager` and `kube-scheduler` are supported at **1.13** and **1.12**
+* `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` are supported at **1.13** and **1.12**
 
 {{< note >}}
-If version skew exists between `kube-apiserver` instances in an HA cluster, and `kube-controller-manager` or `kube-scheduler` can communicate with any `kube-apiserver` instance in the cluster (for example, via a load balancer), this narrows the allowed `kube-controller-manager` or `kube-scheduler` versions.
+If version skew exists between `kube-apiserver` instances in an HA cluster, and these components can communicate with any `kube-apiserver` instance in the cluster (for example, via a load balancer), this narrows the allowed versions of these components.
 {{< /note >}}
 
 Example:
 
 * `kube-apiserver` instances are at **1.13** and **1.12**
-* `kube-controller-manager` and `kube-scheduler` communicate with a load balancer that can route to any `kube-apiserver` instance
-* `kube-controller-manager` and `kube-scheduler` are supported at **1.12** (**1.13** is not supported because that would be newer than the `kube-apiserver` instance at version **1.12**)
+* `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` communicate with a load balancer that can route to any `kube-apiserver` instance
+* `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` are supported at **1.12** (**1.13** is not supported because that would be newer than the `kube-apiserver` instance at version **1.12**)
 
 ### `kubectl`
 
@@ -110,7 +110,7 @@ Pre-requisites:
 
 * In a single-instance cluster, the existing `kube-apiserver` instance is **1.n**
 * In an HA cluster, all `kube-apiserver` instances are at **1.n** or **1.(n+1)** (this ensures maximum skew of 1 minor version between the oldest and newest `kube-apiserver` instance)
-* The `kube-controller-manager` and `kube-scheduler` instances that communicate with this server are at version **1.n** (this ensures they are not newer than the existing API server version, and are within 1 minor version of the new API server version)
+* The `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` instances that communicate with this server are at version **1.n** (this ensures they are not newer than the existing API server version, and are within 1 minor version of the new API server version)
 * `kubelet` instances on all nodes are at version **1.n** or **1.(n-1)** (this ensures they are not newer than the existing API server version, and are within 2 minor versions of the new API server version)
 * Registered admission webhooks are able to handle the data the new `kube-apiserver` instance will send them:
   * `ValidatingWebhookConfiguration` and `MutatingWebhookConfiguration` objects are updated to include any new versions of REST resources added in **1.(n+1)**
@@ -124,13 +124,13 @@ Project policies for [API deprecation](https://kubernetes.io/docs/reference/usin
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}
 
-### `kube-controller-manager` and `kube-scheduler`
+### `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager`
 
 Pre-requisites:
 
-* The `kube-apiserver` instances these components communicate with are at **1.(n+1)** (in HA clusters in which these control plane components communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
+* The `kube-apiserver` instances these components communicate with are at **1.(n+1)** (in HA clusters in which these control plane components can communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
 
-Upgrade `kube-controller-manager` and `kube-scheduler` to **1.(n+1)**
+Upgrade `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` to **1.(n+1)**
 
 ### `kubelet`
 
