@@ -1,11 +1,3 @@
-<!-- ---
-reviewers:
-- caesarxuchao
-- erictune
-title: Setting up Kubernetes with Juju
-content_template: templates/task
---- -->
-
 ---
 reviewers:
 - caesarxuchao
@@ -14,6 +6,13 @@ title: 用 Juju 搭建 Kubernetes
 content_template: templates/task
 ---
 
+<!-- ---
+reviewers:
+- caesarxuchao
+- erictune
+title: Setting up Kubernetes with Juju
+content_template: templates/task
+--- -->
 
 <!-- {{% capture overview %}}
 Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://www.ubuntu.com/cloud/kubernetes), a pure upstream distribution of Kubernetes designed for production usage. This page shows you how to deploy a cluster.
