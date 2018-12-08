@@ -135,3 +135,5 @@ toc:
 
 - title: Building High-Availability Clusters
   path: /docs/admin/high-availability/building/
+
+- docs/setup/version-skew-policy.md

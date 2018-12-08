@@ -589,8 +589,10 @@ Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be abl
 Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
 v1.8.
 
-Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
-for more information on the version skew between kubelets and the control plane.
+These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
+
+* Kubernetes [version and version-skew policy](/docs/setup/version-skew-policy/)
+* Kubeadm-specific [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
 ## kubeadm works on multiple platforms {#multi-platform}
 
