@@ -287,12 +287,15 @@ To update pods to a new spec in a controlled way, use a [rolling update](#rollin
 但是，它不会努力使现有的 Pod 与新的、不同的 Pod 模板匹配。
 若想要以可控的方式将 Pod 更新到新的 spec，就要使用 [滚动更新](#rolling-updates)的方式。
 
- <!--
+
+<!--
+
 ### Isolating pods from a ReplicaSet
 
 Pods may be removed from a ReplicaSet's target set by changing their labels. This technique may be used to remove pods 
 from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (
   assuming that the number of replicas is not also changed).
+
 -->
 
 ### 将 Pod 从 ReplicaSet 中隔离
