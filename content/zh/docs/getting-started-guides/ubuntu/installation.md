@@ -38,7 +38,7 @@ Ubuntu 16.04 已公开 [Kubernetes 的 Canonical 发行版 ](https://www.ubuntu.
 
 {{% capture prerequisites %}}
 - 一个可用的 [Juju 客户端](https://jujucharms.com/docs/2.3/reference-install)；不一定要是 Linux 机器，也可以是 Windows 或 OSX。
-- 一个 [受支持的云](#cloud-compatibility)。
+- 一个[受支持的云](#cloud-compatibility)。
   - 裸机部署可以通过 [MAAS](http://maas.io) 实现。 配置指南参见 [MAAS 文档](http://maas.io/docs/)。
   - OpenStack 部署目前只在 Icehouse 及更新版本上测试通过。
 - 下面任一一种选项：
@@ -47,7 +47,7 @@ Ubuntu 16.04 已公开 [Kubernetes 的 Canonical 发行版 ](https://www.ubuntu.
 		- gcr.io
 		- github.com
 		- 访问 Ubuntu 镜像源（公共的或私有的）
-	- 离线部署通过[这些](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Running-CDK-in-a-restricted-environment)步骤准备好。
+	- 通过[这些](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Running-CDK-in-a-restricted-environment)步骤准备好离线部署。
 {{% /capture %}}
 
 <!-- {{% capture steps %}}
@@ -69,17 +69,18 @@ Out of the box the deployment comes with the following components on 9 machines:
 
 {{% capture steps %}}
 ## 部署概述
+
 开箱即用的部署由以下组件构成，部署在 9 台机器上：
 
 - Kubernetes （自动化部署，运营及伸缩）
      - 具有一个主节点和三个工作节点的四节点 Kubernetes 集群。
-     - 使用 TLS 用于单元之间的安全通信。
+     - 使用 TLS 实现组件间的安全通信。
      - Flannel 软件定义网络 (SDN) 插件
      - 一个负载均衡器以实现 kubernetes-master 的高可用 (实验阶段)
-     - 可选的 Ingress Controller （在工作节点上）
-     - 可选的 Dashboard 插件 （在主节点上）， 包含实现集群监控的 Heapster 插件
+     - 可选的 Ingress 控制器（在工作节点上）
+     - 可选的 Dashboard 插件（在主节点上），包含实现集群监控的 Heapster 插件
 - EasyRSA
-     - 作为一个证书授权中心，向集群中的单元提供自签名证书
+     - 扮演证书授权机构的角色，向集群中的组件提供自签名证书
 - ETCD （分布式键值存储）
      - 三节点的集群达到高可靠性。
 
@@ -89,7 +90,7 @@ let us know how we are doing. If you find any problems please open an
 so we can find them. -->
 
 Juju Kubernetes 工作由 Canonical Ltd（https://www.canonical.com/） 的 Big Software 团队整理，欢迎对我们的工作给出反馈意见。
-如果发现任何问题，请提交相应的 [Issue 到我们的管理软件上](https://github.com/juju-solutions/bundle-canonical-kubernetes)，以便我们解决。
+如果发现任何问题，请提交相应的 [Issue 到跟踪系统](https://github.com/juju-solutions/bundle-canonical-kubernetes)，以便我们解决。
 
 <!-- ## Support Level
 
@@ -106,7 +107,7 @@ Bare Metal (MAAS)           | Juju         | Ubuntu | flannel, calico     | [doc
 
 ##  支持级别
 
-IaaS 提供商        		| 配置管理 | 系统     | 网络  | 文档                                              | 符合 | 支持级别
+IaaS 提供商        | 配置管理 | 系统     | 网络  | 文档                                              | 符合 | 支持级别
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 Amazon Web Services (AWS)   | Juju         | Ubuntu | flannel, calico*     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
 OpenStack                   | Juju         | Ubuntu | flannel, calico     | [docs](/docs/getting-started-guides/ubuntu)                                   |          | [Commercial](https://ubuntu.com/cloud/kubernetes), [Community](https://github.com/juju-solutions/bundle-kubernetes-core)
@@ -142,7 +143,7 @@ After deciding which cloud to deploy to, follow the [cloud setup page](https://j
 Load your [cloud credentials](https://jujucharms.com/docs/2.3/credentials) for each
 cloud provider you would like to use. -->
 
-有关所有解决方案的支持级别信息，请参见 [解决方案表](/docs/getting-started-guides/#table-of-solutions)。
+有关所有解决方案的支持级别信息，请参见[解决方案表](/docs/getting-started-guides/#table-of-solutions)。
 
 ## 安装选项
 
@@ -151,7 +152,8 @@ cloud provider you would like to use. -->
 可以在 [众多不同的公有云](#cloud-compatibility)，私有 OpenStack 云，或者是原始的裸机集群上部署集群软件。通过 [MAAS](http://maas.io)  实现裸机部署。
 
 ## Conjure-up
-通过 conjure-up 来安装 Kubernetes, 只需要运行下面的命令，然后根据选项做选择：
+
+通过 conjure-up 来安装 Kubernetes, 只需要运行下面的命令，然后根据提示做选择：
 
 ```
 sudo snap install conjure-up --classic
@@ -162,9 +164,9 @@ conjure-up kubernetes
 
 ### 配置 Juju 使用您的云提供商
 
-确定所要部署的云之后，按照 [云安装界面](https://jujucharms.com/docs/devel/getting-started) 来配置、部署到该云。
+确定所要部署的云之后，按照[云安装界面](https://jujucharms.com/docs/devel/getting-started)来配置、部署到该云。
 
-加载 [云凭证](https://jujucharms.com/docs/2.3/credentials) 来选择、使用相应的云。
+加载[云凭证](https://jujucharms.com/docs/2.3/credentials)来选择、使用相应的云。
 
 <!-- In this example
 
@@ -216,7 +218,7 @@ juju bootstrap azure/westus2
 
 <!-- If you receive this error, it is likely that the default Azure VM size (Standard D1 v2 [1 vcpu, 3.5 GB memory]) is not available in the Azure location: -->
 
-如果您看到下面的报错信息，很可能默认的 Azure VM (Standard D1 v2 [1 vcpu, 3.5 GB memory]) 并不在当前的 Azure 地区。
+如果您看到下面的错误信息，很可能默认的 Azure VM (Standard D1 v2 [1 vcpu, 3.5 GB memory]) 并不在当前的 Azure 地区。
 ```
 ERROR failed to bootstrap model: instance provisioning failed (Failed)
 ```
@@ -228,7 +230,7 @@ Note that each controller can host multiple Kubernetes clusters in a given cloud
 
 您需要为部署到的每个云或区域分配一个控制器节点。更多信息参见[控制器文档](https://jujucharms.com/docs/2.3/controllers)。
 
-请注意，每个控制器可以在给定的云或区域中托管多个 Kubernetes 集群。
+请注意，每个控制器可以在给定的云或区域中管理多个 Kubernetes 集群。
 
 <!-- ### Launch a Kubernetes cluster
 
@@ -260,7 +262,8 @@ Output: -->
 
 ## 监控部署
 
-`juju status` 命令提供集群中每个单元的信息。`watch -c juju status --color`命令可以获取集群部署的实时状态。当所有的状态是绿色并且“空闲”时，表示集群处于待用状态：
+`juju status` 命令提供集群中每个单元的信息。`watch -c juju status --color` 命令可以获取集群部署的实时状态。
+当所有的状态是绿色并且“空闲”时，表示集群处于待用状态：
 
 		juju status
 
@@ -341,13 +344,14 @@ juju scp kubernetes-master/0:/home/ubuntu/config ~/.kube/config
 
 部署完集群后，您可以在任意一个 kubernetes-master 或 kubernetes-worker 节点取得集群的控制权。
 
-如果您没有使用 conjure-up，那么，您先需要将凭据和客户端程序下载到本地工作站上：
+如果您没有使用 conjure-up，那么您需要先将凭据和客户端程序下载到本地工作站上：
 
-创建 kubectl config 目录。
+创建 kubectl 配置信息目录。
 
 ```
 mkdir -p ~/.kube
 ```
+
 将 kubeconfig 文件复制到默认位置。
 
 ```
@@ -364,7 +368,7 @@ sudo snap install kubectl --classic
 
 This will install and deploy the kubectl binary. You may need to restart your terminal as your $PATH may have been updated. -->
 
-下一步是在本地机器上安装 kubectl 客户端。在 Ubuntu 上推荐的安装方式是使用 kubectl snap ([https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu)).
+下一步是在本地机器上安装 kubectl 客户端。在 Ubuntu 上推荐的安装方式是使用 kubectl snap ([https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu))。
 
 可以运行下面的命令便可以控制 kubernetes 集群了：
 
@@ -372,7 +376,7 @@ This will install and deploy the kubectl binary. You may need to restart your te
 sudo snap install kubectl --classic
 ```
 
-它会安装和部署 kubectl 程序。然后重启命令窗口即可（因为 $PATH 已经被更新）。
+这条命令会安装和部署 kubectl 程序。安装完成后，您可能需要重启命令窗口（因为 $PATH 已经被更新）。
 
 <!-- Query the cluster:
 
@@ -413,11 +417,12 @@ bootstrap command or as a separate `juju constraints` command. Look to the
 [Juju documentation for machine](https://jujucharms.com/docs/2.3/charms-constraints)
 details. -->
 
-## 扩容集群
+## 为集群垂直扩容
 
-需要更大的 Kubernetes 节点？通过使用 Juju 的 **约束** ，您可以轻松地请求到不同大小的云资源。通过 Juju 请求创建的任意系统，您都可以为它们增加 CPU 和内存（RAM）。
-这使您可以微调 Kubernetes 集群以适应工作负载。在 bootstrap 命令上使用该标志或使用独立的 `juju constraints` 命令。详情参见 [和机器相关的 Juju 文档](https://jujucharms.com/docs/2.3/charms-constraints)
-
+需要更大的 Kubernetes 节点？通过使用 Juju 的**约束**，您可以轻松地请求到不同大小的云资源。
+通过 Juju 请求创建的任意系统，您都可以为它们增加 CPU 和内存（RAM）。
+这使您可以对 Kubernetes 集群进行调优以适应工作负载。
+藉由 bootstrap 命令的参数或使用独立的 `juju constraints` 命令都可以做到这点。详情参见[和机器相关的 Juju 文档](https://jujucharms.com/docs/2.3/charms-constraints)
 
 <!-- ## Scale out cluster
 
@@ -446,9 +451,9 @@ juju add-unit -n3 etcd
 ```
 It is strongly recommended to run an odd number of units for quorum. -->
 
-## 扩展集群
+## 为集群集群水平扩容
 
-需要更多的节点？只需添加一些单元：
+需要更多的工作节点？只需添加一些 unit：
 
 ```shell
 juju add-unit kubernetes-worker
@@ -459,20 +464,22 @@ juju add-unit kubernetes-worker
 ```shell
 juju add-unit -n3 kubernetes-worker
 ```
-您也可以为特定实例类型或者特定机器的设置约束。参见 [约束文档](https://jujucharms.com/docs/stable/reference-constraints)。
-接下来举一些例子，请注意，诸如 `cores` 和 `mem` 这样的通用约束在各个云之间是可移植的。在本例中，我们从 AWS 申请一个特定的实例类型：
+您也可以为特定实例类型或者特定机器的设置约束。更多信息请参见[约束文档](https://jujucharms.com/docs/stable/reference-constraints)。
+接下来举一些例子。请注意，诸如 `cores` 和 `mem` 这样的通用约束在各云之间的可移植性是比较高的。
+在本例中，我们从 AWS 申请一个特定的实例类型：
 
 ```shell
 juju set-constraints kubernetes-worker instance-type=c4.large
 juju add-unit kubernetes-worker
 ```
 
-为提升 key/value 存储的高容错性，您也可以扩展 etcd：
+为提升键值存储的容错能力，您也可以扩展 etcd charm：
 
 ```shell
 juju add-unit -n3 etcd
 ```
-强烈建议使用奇数个 quorum 单元。
+
+强烈建议运行奇数个 unit 以支持法定人数票选。
 
 <!-- ## Tear down cluster
 
@@ -489,8 +496,8 @@ This will shutdown and terminate all running instances on that cloud.
 
 ## 销毁集群
 
-如果您是使用 conjure-up 创建的集群，通过`conjure-down`便可以完成销毁过程。
-如果是直接使用的 juju，你可以通过销毁 Juju 模型或控制器，来销毁集群。
+如果您是使用 conjure-up 创建的集群，通过 `conjure-down` 便可以完成销毁过程。
+如果是直接使用的 juju，你可以通过销毁 juju 模型或控制器来销毁集群。
 使用 `juju switch` 命令获取当前控制器的名字：
 
 ```shell
@@ -521,7 +528,8 @@ Feature requests, bug reports, pull requests and feedback are appreciated.
 {{% capture discussion %}}
 ## 更多信息
 
-Ubuntu Kubernetes 的部署通过开源软件或代码操作管理，这被称作 charms。这些 charms 以层的方式组装，从而使代码更小，更专注于 Kubernetes 及其组件的操作。
+Ubuntu Kubernetes 的部署通过名为 charms 的开源运维工具实现，这类工具也称作运维即代码（Operations as Code）。
+这些 charms 以层的方式组装，从而使代码更小，更专注于 Kubernetes 及其组件的操作。
 
 Kubernetes 的层和 Bundle 可以在 github.com 的 `kubernetes` 项目中找到：
 
