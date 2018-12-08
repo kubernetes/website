@@ -34,7 +34,7 @@ For more information on the object spec, status, and metadata, see the [Kubernet
 
 When you create an object in Kubernetes, you must provide the object spec that describes its desired state, as well as some basic information about the object (such as a name). When you use the Kubernetes API to create the object (either directly or via `kubectl`), that API request must include that information as JSON in the request body. **Most often, you provide the information to `kubectl` in a .yaml file.** `kubectl` converts the information to JSON when making the API request.
 
-Here's an example `.yaml` file that shows the required fields and object spec for a Kubernetes Deployment:
+Here's an example `.yaml` file that shows the required fields and objects spec for a Kubernetes Deployment:
 
 {{< codenew file="application/deployment.yaml" >}}
 
