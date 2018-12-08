@@ -1,5 +1,5 @@
 ---
-title: 联合命名空间
+title: 联邦命名空间
 content_template: templates/task
 ---
 
@@ -9,9 +9,9 @@ content_template: templates/task
 {{< include "federation-current-state.md" >}}
 {{< /note >}}
 
-本指南介绍如何在联合控制平面中使用命名空间。
+本指南介绍如何在联邦控制平面中使用命名空间。
 
-联合控制平面中的命名空间（在本指南中称为“联合命名空间”）与提供相同功能的传统 [Kubernetes 命名空间](/docs/concepts/overview/working-with-objects/namespaces/)非常相似。在联合控制平面中创建它们可确保它们在联邦中的所有集群之间同步。
+联邦控制平面中的命名空间（在本指南中称为“联邦命名空间”）与提供相同功能的传统 [Kubernetes 命名空间](/docs/concepts/overview/working-with-objects/namespaces/)非常相似。在联邦控制平面中创建它们可确保它们在联邦中的所有集群之间同步。
 
 <!--
 This guide explains how to use Namespaces in Federation control plane.
@@ -39,9 +39,9 @@ general and [Namespaces](/docs/concepts/overview/working-with-objects/namespaces
 
 {{% capture steps %}}
 
-## 创建联合命名空间
+## 创建联邦命名空间
 
-联合命名空间的 API 与传统 Kubernetes 命名空间的 API 100％兼容。您可以通过给联邦 API 服务器发送请求来创建一个命名空间。
+联邦命名空间的 API 与传统 Kubernetes 命名空间的 API 100％兼容。您可以通过给联邦 API 服务器发送请求来创建一个命名空间。
 
 您可以通过运行以下 kubectl 命令来执行此操作：
 
@@ -59,9 +59,9 @@ You can do that using kubectl by running:
 kubectl --context=federation-cluster create -f myns.yaml
 ```
 
-`--context=federation-cluster` 参数告诉 kubectl 向联邦 API 服务器提交请求而不是发送给 Kubernetes 集群。
+`--context=federation-cluster` 参数告诉 kubectl 要向联邦 API 服务器提交请求而不是 Kubernetes 集群。
 
-一旦联合命名空间被创建，联合控制平面将在所有基础的 Kubernetes 集群中创建与之相匹配的命名空间。
+一旦联邦命名空间被创建，联邦控制平面将在所有基础的 Kubernetes 集群中创建与之相匹配的命名空间。
 您可以通过检查每个基础集群来验证这一点，例如：
 
 <!--
@@ -78,7 +78,8 @@ You can verify this by checking each of the underlying clusters, for example:
 kubectl --context=gce-asia-east1a get namespaces myns
 ```
 
-以上假设您在客户机中为该区域的集群配置了一个名为 'gce-asia-east1a' 的 context。基础命名空间的名称和规范将与您在上面创建的联合命名空间的名称和规范相匹配。
+以上假设您在客户机中为该区域的集群配置了一个名为 'gce-asia-east1a' 的 的上下文。基础命名空间的名称和 spec 将与您在上面创建的联合命名空间的名称和 spec 相匹配。
+
 
 <!--
 The above assumes that you have a context named 'gce-asia-east1a'
@@ -87,10 +88,10 @@ spec of the underlying Namespace will match those of
 the Federated Namespace that you created above.
 -->
 
-## 更新联合命名空间
+## 更新联邦命名空间
 
-您可以像更新 Kubernetes 命名空间一样更新联合命名空间，只需要将请求发送给联邦的 API 服务器，而不是发送给特定的 Kubernetes 集群。
-联合控制平面将确保每当更新联合命名空间时，它都会更新所有基础集群中的相应命名空间以与其匹配。
+您可以像更新 Kubernetes 命名空间一样更新联邦命名空间，只需要将请求发送给联邦的 API 服务器，而不是发送给特定的 Kubernetes 集群。
+联邦控制平面将确保每当更新联邦命名空间时，它都会更新所有基础集群中的相应命名空间以与其匹配。
 
 <!--
 ## Updating a Federated Namespace
@@ -103,9 +104,9 @@ updated, it updates the corresponding Namespaces in all underlying clusters to
 match it.
 -->
 
-## 删除联合命名空间
+## 删除联邦命名空间
 
-您可以删除联合命名空间就像删除 Kubernetes 命名空间一样，只需要将请求发送给联邦的 API 服务器，而不是发送给特定的 Kubernetes 集群。
+您可以删除联邦命名空间就像删除 Kubernetes 命名空间一样，只需要将请求发送给联邦的 API 服务器，而不是发送给特定的 Kubernetes 集群。
 
 例如，您可以通过运行以下 kubectl 命令来执行此操作：
 
@@ -122,7 +123,7 @@ For example, you can do that using kubectl by running:
 kubectl --context=federation-cluster delete ns myns
 ```
 
-与在 Kubernetes 中一样，删除联合命名空间将从联合控制平面中删除该命名空间中的所有资源。
+与在 Kubernetes 中一样，删除联邦命名空间将从联邦控制平面中删除该命名空间中的所有资源。
 
 <!--
 As in Kubernetes, deleting a federated Namespace will delete all resources in that
@@ -130,7 +131,7 @@ Namespace from the federation control plane.
 -->
 
 {{< note >}}
-就此，删除联合命名空间不会从基础集群中删除相应的命名空间或这些命名空间中的资源。用户必须手动删除它们。我们打算在将来解决这个问题。
+就此，删除联邦命名空间不会从基础集群中删除相应的命名空间或这些命名空间中的资源。用户必须手动删除它们。我们打算在将来解决这个问题。
 <!--
 At this point, deleting a federated Namespace will not delete the corresponding Namespace, or resources in those Namespaces, from underlying clusters. Users must delete them manually. We intend to fix this in the future.
 -->
