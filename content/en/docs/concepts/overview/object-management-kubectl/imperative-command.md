@@ -76,8 +76,7 @@ Setting this aspect may set different fields for different object types:
 - `set` <field>: Set an aspect of an object.
 
 {{< note >}}
-**Note**: In Kubernetes version 1.5, not every verb-driven command has an
-associated aspect-driven command.
+In Kubernetes version 1.5, not every verb-driven command has an associated aspect-driven command.
 {{< /note >}}
 
 The `kubectl` tool supports these additional ways to update a live object directly,
@@ -95,7 +94,7 @@ You can use the `delete` command to delete an object from a cluster:
 - `delete <type>/<name>`
 
 {{< note >}}
-**Note**: You can use `kubectl delete` for both imperative commands and imperative object
+You can use `kubectl delete` for both imperative commands and imperative object
 configuration. The difference is in the arguments passed to the command. To use
 `kubectl delete` as an imperative command, pass the object to be deleted as
 an argument. Here's an example that passes a Deployment object named nginx:
@@ -137,7 +136,7 @@ kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run | k
 ```
 
 1. The `kubectl create service -o yaml --dry-run` command creates the configuration for the Service, but prints it to stdout as YAML instead of sending it to the Kubernetes API server.
-1. The `kubectl set --local -f - -o yaml` command reads the configuration from stdin, and writes the updated configuration to stdout as YAML.
+1. The `kubectl set selector --local -f - -o yaml` command reads the configuration from stdin, and writes the updated configuration to stdout as YAML.
 1. The `kubectl create -f -` command creates the object using the configuration provided via stdin.
 
 ## Using `--edit` to modify objects before creation

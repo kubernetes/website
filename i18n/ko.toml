@@ -1,0 +1,82 @@
+# i18n strings for the Korean translation.
+
+[main_read_about]
+other = "Read about"
+
+[main_read_more]
+other = "더 읽기"
+
+[main_github_invite]
+other = "코어 쿠버네티스 코드 베이스를 살펴보는데 관심이 있으십니까?"
+
+[main_github_view_on]
+other = "GitHub에서 보기"
+
+[main_github_create_an_issue]
+other = "이슈 생성하기"
+
+[main_community_explore]
+other = "커뮤니티 둘러보기"
+
+[main_kubernetes_features]
+other = "쿠버네티스 기능"
+
+[main_cncf_project]
+other = """쿠버네티스는 <a href="https://cncf.io/">CNCF</a> graduated 프로젝트입니다.</p>"""
+
+[main_kubeweekly_signup]
+other = "구독하기"
+
+[main_contribute]
+other = "기여하기"
+
+[main_edit_this_page]
+other = "페이지 편집하기"
+
+[main_page_history]
+other ="페이지 변경 이력"
+
+[main_page_last_modified_on]
+other = "최종 수정일시"
+
+[main_by]
+other = "by"
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "문서 둘러보기"
+
+[docs_label_contributors]
+other = "컨트리뷰터"
+
+[docs_label_users]
+other = "사용자"
+
+[docs_label_i_am]
+other = "나는..."
+
+
+
+# Community links
+[community_twitter_name]
+other = "Twitter"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "Forum"
+[community_events_calendar]
+other = "Events Calendar"
+
+# UI elements
+[ui_search_placeholder]
+other = "검색하기"

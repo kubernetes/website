@@ -23,14 +23,14 @@ incomplete features are referred to in order to better describe service accounts
 Kubernetes distinguishes between the concept of a user account and a service account
 for a number of reasons:
 
-  - User accounts are for humans.  Service accounts are for processes, which
+  - User accounts are for humans. Service accounts are for processes, which
     run in pods.
   - User accounts are intended to be global. Names must be unique across all
     namespaces of a cluster, future user resource will not be namespaced.
     Service accounts are namespaced.
   - Typically, a cluster's User accounts might be synced from a corporate
     database, where new user account creation requires special privileges and
-    is tied to complex business  processes.  Service account creation is intended
+    is tied to complex business processes. Service account creation is intended
     to be more lightweight, allowing cluster users to create service accounts for
     specific tasks (i.e. principle of least privilege).
   - Auditing considerations for humans and service accounts may differ.

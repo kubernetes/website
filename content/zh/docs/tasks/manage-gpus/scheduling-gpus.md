@@ -5,7 +5,7 @@ title: 调度 GPU
 content_template: templates/task
 ---
 
-<!-- 
+<!--
 ---
 reviewers:
 - vishh
@@ -314,7 +314,7 @@ spec:
     accelerator: nvidia-tesla-p100 # or nvidia-tesla-k80 etc.
 ```
 
-<!-- 
+<!--
 This will ensure that the pod will be scheduled to a node that has the GPU type
 you specified.
 -->
