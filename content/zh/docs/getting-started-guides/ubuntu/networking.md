@@ -16,7 +16,7 @@ Kubernetes-friendly SDN you want. Currently this means support for Flannel and C
 
 Kubernetes 支持[容器网络接口](https://github.com/containernetworking/cni)。
 这个网络插件架构允许你使用任何你喜欢的、对 Kubernetes 友好的 SDN。
-现在的插件支持是 Flannel 和 Canal。
+目前支持的插件是 Flannel 和 Canal。
 
 <!-- This page shows how the various network portions of a cluster work and how to configure them. -->
 本页将展示集群中各个网络部分是如何工作，并且对它们进行相应的配置。
