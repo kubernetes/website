@@ -59,7 +59,7 @@ You can do that using kubectl by running:
 kubectl --context=federation-cluster create -f myns.yaml
 ```
 
-`--context=federation-cluster` 参数告诉 kubectl 要向联邦 API 服务器提交请求而不是 Kubernetes 集群。
+参数 `--context=federation-cluster` 用于告知 kubectl 要向联邦 API 服务器提交请求而不是 Kubernetes 集群。
 
 一旦联邦命名空间被创建，联邦控制平面将在所有基础的 Kubernetes 集群中创建与之相匹配的命名空间。
 您可以通过检查每个基础集群来验证这一点，例如：
@@ -78,7 +78,7 @@ You can verify this by checking each of the underlying clusters, for example:
 kubectl --context=gce-asia-east1a get namespaces myns
 ```
 
-以上假设您在客户机中为该区域的集群配置了一个名为 'gce-asia-east1a' 的 的上下文。基础命名空间的名称和 spec 将与您在上面创建的联合命名空间的名称和 spec 相匹配。
+以上假设您在客户机中为该区域的集群配置了一个名为 'gce-asia-east1a' 的上下文。基础命名空间的名称和 spec 将与您在上面创建的联合命名空间的名称和 spec 相匹配。
 
 
 <!--
