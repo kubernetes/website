@@ -83,7 +83,7 @@ Instructions on how to upgrade from 2.x to 3.x can be found
 in the juju-solutions wiki. -->
 
 命令将会负责 etcd 的次版本升级。
-在[juju 解决方案的 wiki](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Etcd-2.3-to-3.x-upgrade)里
+在 [juju 解决方案的 wiki](https://github.com/juju-solutions/bundle-canonical-kubernetes/wiki/Etcd-2.3-to-3.x-upgrade) 里
 可以了解如何将 etcd 从 2.x 升级到 3.x。
 
 <!-- ### Upgrade kubeapi-load-balancer -->
