@@ -66,7 +66,7 @@ Kubernetes 在执行以下操作时需要相应的证书：
 <!-- 
 etcd also implements mutual TLS to authenticate clients and peers. 
 -->
-etcd 还实现了相互 TLS 来验证客户端和对等端。
+etcd 还实现了双向 TLS 来验证客户端和对等端。
 
 <!-- 
 ## Where certificates are stored 
