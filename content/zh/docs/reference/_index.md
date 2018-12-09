@@ -2,7 +2,7 @@
 title: 参考
 approvers:
 - chenopis
-linkTitle: "Reference"
+linkTitle: "参考"
 main_menu: true
 weight: 70
 content_template: templates/concept
@@ -94,7 +94,7 @@ client libraries:
 
 ## 配置参考
 
-* [kubelet](/docs/admin/kubelet/) - 在每个节点上运行的主 *节点 代理*。kubelet 采用一组 PodSpecs 并确保所描述的容器健康地运行。
+* [kubelet](/docs/admin/kubelet/) - 在每个节点上运行的主 *节点代理* 。kubelet 采用一组 PodSpecs 并确保所描述的容器健康地运行。
 * [kube-apiserver](/docs/admin/kube-apiserver/) - REST API，用于验证和配置 API 对象（如 pod，服务，副本控制器）的数据。
 * [kube-controller-manager](/docs/admin/kube-controller-manager/) - 一个守护进程，它嵌入到了 Kubernetes 的附带的核心控制循环。
 * [kube-proxy](/docs/admin/kube-proxy/) - 可以跨一组后端进行简单的 TCP/UDP 流转发或循环 TCP/UDP 转发。
