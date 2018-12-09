@@ -68,7 +68,7 @@ juju add-relation canal etcd
 empty string or undefined the code will attempt to find the default network
 adapter similar to the following command: -->
 
-**iface** 借口是用来配置 flannel 或 canal 的 SDN 绑定。
+**iface** 接口是用来配置 flannel 或 canal 的 SDN 绑定。
 如果属性为空字符串或未定义，程序将通过下面的命令行试图找出默认的网络适配器：
 
 ```bash
