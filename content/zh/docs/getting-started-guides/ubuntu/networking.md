@@ -84,7 +84,7 @@ how large your cluster will potentially scale.  Class A IP ranges with /24 are
 a good option. -->
 
 **cidr** 在用 etcd 进行网络设置时，需要声明、所要用于配置 flannel 或 canal SDN 的网络地址范围。
-确保这个网络地址范围在所要部署的 L2/L3 上不是有效状态，
+请确保这个网络地址范围在所要部署的 L2/L3 上不是有效状态，
 否则如果选择的分配给 flannel 的 CIDR 不好的话，就会出现冲突和奇怪的行为。
 同时也要保证 IP 地址范围足够大，可以支持以后可能会发生的集群扩容。
 A 类 IP 地址 `/24` 是一个不错的选择。
