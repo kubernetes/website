@@ -41,7 +41,7 @@ Kubernetes 支持[容器网络接口](https://github.com/containernetworking/cni
 These charms will require a principal charm that implements the `kubernetes-cni` interface in order to properly deploy. -->
 
 CNI charms 在[子路径](https://jujucharms.com/docs/stable/authors-subordinate-applications)下。
-这些 charms 需要主 charm 实现 `kubernetes-cni` 借口，才能正常部署。
+这些 charms 需要主 charm 实现 `kubernetes-cni` 接口，才能正常部署。
 
 ## Flannel
 
