@@ -15,7 +15,7 @@ This is a network plugin architecture that allows you to use whatever
 Kubernetes-friendly SDN you want. Currently this means support for Flannel and Canal. -->
 
 Kubernetes 支持[容器网络接口](https://github.com/containernetworking/cni)。
-这个网络插件架构允许你使用任何你喜欢的、Kubernetes 友好的 SDN。
+这个网络插件架构允许你使用任何你喜欢的、对 Kubernetes 友好的 SDN。
 现在的插件支持是 Flannel 和 Canal。
 
 <!-- This page shows how the various network portions of a cluster work and how to configure them. -->
