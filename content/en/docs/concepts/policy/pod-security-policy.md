@@ -544,7 +544,7 @@ The following fields take a list of capabilities, specified as the capability
 name in ALL_CAPS without the `CAP_` prefix.
 
 **AllowedCapabilities** - Provides a whitelist of capabilities that may be added
-to a container. The default set of capabilities are implicitly allowed. The
+to a container. The default set of capabilities is implicitly allowed. The
 empty set means that no additional capabilities may be added beyond the default
 set. `*` can be used to allow all capabilities.
 
