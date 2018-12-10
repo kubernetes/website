@@ -49,7 +49,7 @@ Pod 表示部署单元：*Kubernetes 中应用程序的单个实例*，它可能
 
 Pods in a Kubernetes cluster can be used in two main ways:
 -->
-> [Docker](https://www.docker.com) 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时。
+[Docker](https://www.docker.com) 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时。
 
 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
 
@@ -83,7 +83,7 @@ Each Pod is meant to run a single instance of a given application. If you want t
 每个 Pod 表示运行给定应用程序的单个实例。如果希望横向扩展应用程序（例如，运行多个实例），则应该使用多个 Pod，每个实例使用一个。
 在 Kubernetes 中，这通常被称为 _副本_。
 通常使用一个称为控制器的抽象来创建和管理一组被复制的 Pod。
-更多信息请参见[ POD和控制器]。
+更多信息请参见 [POD 和控制器](#pods-and-controllers)。
 
 <!--
 ### How Pods manage multiple Containers
@@ -101,7 +101,7 @@ Pod 中的容器被自动的安排到集群中的同一物理或虚拟机上，�
 Note that grouping multiple co-located and co-managed containers in a single Pod is a relatively advanced use case. You should use this pattern only in specific instances in which your containers are tightly coupled. For example, you might have a container that acts as a web server for files in a shared volume, and a separate "sidecar" container that updates those files from a remote source, as in the following diagram:
 -->
 
-注意，在单个 Pod 中将多个共同定位和共同管理的容器分组是一个相对高级的使用方式。
+注意，在单个 Pod 中将多个并置和共同管理的容器分组是一个相对高级的使用方式。
 只在容器紧密耦合的特定实例中使用此模式。
 例如，您可能有个充当共享卷中文件的 Web 服务器的容器，以及从远程源更新这些文件的单独的"挂斗"容器，如下图所示：
 
@@ -124,7 +124,7 @@ Each Pod is assigned a unique IP address. Every container in a Pod shares the ne
 
 每个 Pod 分配一个唯一的 IP 地址。
 Pod 中的每个容器共享网络命名空间，包括 IP 地址和网络端口。
-*Pod 内的* 可以使用 `localhost` 互相通信。
+*Pod 内的容器* 可以使用 `localhost` 互相通信。
 当 Pod 中的容器与 *Pod 之外* 的实体通信时，它们必须协调如何使用共享的网络资源（例如端口）。
 
 <!--
@@ -137,7 +137,7 @@ A Pod can specify a set of shared storage *volumes*. All containers in the Pod c
 
 一个 Pod 可以指定一组共享存储 *卷*。
 Pod 中的所有容器都可以访问共享卷，允许这些容器共享数据。
-卷还允许 Pod 中的持久数据存活，以防需要重新启动其中的一个容器。
+卷还允许 Pod 中的持久数据在重启 Pod 中的某个容器时存活。
 有关 Kubernetes 如何在 Pod 中实现共享存储的更多信息，请参考 [卷](/docs/concepts/storage/volumes/)。
 
 <!--
@@ -146,7 +146,7 @@ Pod 中的所有容器都可以访问共享卷，允许这些容器共享数据�
 You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a Node in your cluster. The Pod remains on that Node until the process is terminated, the pod object is deleted, the pod is *evicted* for lack of resources, or the Node fails.
 -->
 
-## 与 Pod 协同工作
+## 使用 Pod 协同工作
 
 你很少在 Kubernetes 中直接创建单独的 Pod，甚至是单个存在的 Pod。
 这是因为 Pod 被设计成了相对短暂的一次性的实体。
@@ -168,7 +168,7 @@ Pod 本身并不能自愈。
 如果 Pod 被调度到失败的节点，或者如果调度操作本身失败，则删除该 Pod；同样，由于缺乏资源或进行节点维护，Pod 在被驱逐后将不再生存。
 Kubernetes 使用了一个更高级的称为 *控制器* 的抽象，由它处理相对可丢弃的 Pod 实例的管理工作。
 因此，虽然可以直接使用 Pod，但在 Kubernetes 中，更为常见的是使用控制器管理 Pod。
-有关 Kubernetes 如何使用控制器实现 Pod 伸缩和愈合的更多信息，请参考[Pods and Controllers](#pods-and-controllers)。
+有关 Kubernetes 如何使用控制器实现 Pod 伸缩和愈合的更多信息，请参考 [Pod 和控制器](#pods-and-controllers)。
 
 <!--
 ### Pods and Controllers
@@ -178,7 +178,7 @@ A Controller can create and manage multiple Pods for you, handling replication a
 
 ### Pod 和控制器
 
-控制器可以为您创建和管理多个 Pod，管理副本和滚动，并在集群范围内提供自修复能力。
+控制器可以为您创建和管理多个 Pod，管理副本和上线，并在集群范围内提供自修复能力。
 例如，如果一个节点失败，控制器可以在不同的节点上调度一样的替身来自动替换 Pod。
 
 <!--
@@ -209,7 +209,7 @@ The sample below is a simple manifest for a Pod which contains a container that 
 a message.
 -->
 
-## Pod 模版
+## Pod 模板
 
 Pod 模板是包含在其他对象中的 Pod 规范，例如
 [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/)、 [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/)、和
@@ -239,7 +239,7 @@ Pod 模板就像 饼干切割器，而不是指定所有副本的当前期望状
 一旦饼干被切掉，饼干就与切割器没有关系。
 没有“量子纠缠”。
 随后对模板的更改或甚至切换到新的模板对已经创建的 Pod 没有直接影响。
-类似地，由复本控制器创建的 Pod 随后可以被直接更新。
+类似地，由副本控制器创建的 Pod 随后可以被直接更新。
 这与 Pod 形成有意的对比，Pod 指定了属于 Pod 的所有容器的当前期望状态。
 这种方法从根本上简化了系统语义，增加了原语的灵活性。
 
