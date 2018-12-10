@@ -31,8 +31,8 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 * 节点：Kubernetes 集群中的单个虚拟或物理机器。
 * 集群：互联网防火墙保护下的一组节点，它们是 Kubernetes 管理的主要计算资源。
 * 边缘路由器：为集群强制执行防火墙策略的路由器。这可以是由云提供商管理的网关或物理硬件。
-* 集群网络：一组逻辑或物理的链接，根据 [Kubernetes 网络模型](/docs/concepts/cluster-administration/networking/) 在集群内促进通信。集群网络的例子包括 Overlay，例如 [flannel](https://github.com/coreos/flannel#flannel)；或者SDN，例如 [OVS](https://www.openvswitch.org/)。
-* Service：Kubernetes [Service](/docs/concepts/services-networking/service/) 使用标签选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
+* 集群网络：一组逻辑或物理的链接，根据 [Kubernetes 网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。集群网络的例子包括 覆盖网络，例如 [flannel](https://github.com/coreos/flannel#flannel)；或者SDN，例如 [OVS](https://www.openvswitch.org/)。
+* 服务：Kubernetes [服务](/docs/concepts/services-networking/service/) 使用标签选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
 
 <!--
 ## What is Ingress?
@@ -42,7 +42,7 @@ Typically, services and pods have IPs only routable by the cluster network. All 
 
 ## Ingress 是什么？
 
-通常，Service 和 Pod 具有仅能在集群网络内路由的 IP 地址。在边缘路由器结束的所有流量都被丢弃或转发到别处。从概念上讲，这可能看起来像：
+通常，服务 和 Pod 具有仅能在集群网络内路由的 IP 地址。在边缘路由器结束的所有流量都被丢弃或转发到别处。从概念上讲，这可能看起来像：
 
 ```none
     internet
@@ -58,7 +58,7 @@ An Ingress is a collection of rules that allow inbound connections to reach the 
 Ingress 是允许连接到集群 Service 的规则集合。
 
 ```
-    internet
+    互联网
         |
    [ Ingress ]
    --|-----|--
@@ -69,7 +69,7 @@ Ingress 是允许连接到集群 Service 的规则集合。
 It can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name based virtual hosting, and more. Users request ingress by POSTing the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
 -->
 
-它可以被配置为提供外部可访问的URL、负载均衡流量、终止SSL、提供基于名称的虚拟主机等等。
+它可以被配置为提供外部可访问的URL、负载均衡流量、终止SSL、提供基于名称的虚拟托管等等。
 用户通过向 API 服务器 POST Ingress 资源来请求 Ingress。
 [Ingress 控制器](#ingress-controllers) 负责实现 Ingress，它通常使用负载均衡器，不过它也可以配置边缘路由器或其他前端，从而帮助用户以 HA 方式处理流量。
 
@@ -83,18 +83,18 @@ GCE/Google Kubernetes Engine deploys an ingress controller on the master. You ca
 Make sure you review the [beta limitations](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations) of this controller. In environments other than GCE/Google Kubernetes Engine, you need to [deploy a controller](https://git.k8s.io/ingress-nginx/README.md) as a pod.
 -->
 
-## 软件依赖
+## 环境准备
 
 在开始使用 Ingress 资源之前，有一些事情您应该了解。
 Ingress 是 beta 资源，在 1.1 之前的任何 Kubernetes 版本中都不可用。
 您需要一个 Ingress 控制器来满足 Ingress，否则简单地创建资源将不起作用。
 
-GCE／谷歌 Kubernetes 引擎是在主节点上部署 Ingress 控制器。
+GCE／Google Kubernetes Engine 是在主节点上部署 Ingress 控制器。
 您可以在 Pod 中部署任意数量的自定义 Ingress 控制器。
 您必须使用适当的类来注释每个 Ingress，如[这里](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) 和 [这里](https://git.k8s.io/ingress-gce/examples/PREREQUISITES.md#ingress-class) 所示。
 
 一定要检查一下这个控制器的 [beta 限制](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations)。
-在 GCE／谷歌 Kubernetes 引擎之外的环境中，需要将[控制器部署](https://git.k8s.io/ingress-nginx/README.md) 为 Pod。
+在 GCE／Google Kubernetes Engine 之外的环境中，需要将[控制器部署](https://git.k8s.io/ingress-nginx/README.md) 为 Pod。
 
 <!--
 ## The Ingress Resource
@@ -131,7 +131,7 @@ __Lines 1-6__: As with all other Kubernetes config, an Ingress needs `apiVersion
 __Lines 7-9__: Ingress [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Currently the Ingress resource only supports http rules.
 -->
 
-*如果尚未配置 [Ingress 控制器](#ingress-controllers)，则向 API 服务器 POST 此命令将没有任何效果。*
+*如果尚未配置 [Ingress 控制器](#ingress-controllers)，则向 API 服务器 POST 操作将没有任何效果。*
 
 
 __1-6 行__: 与其他 Kubernetes 对象配置一样，Ingress 需要 `apiVersion`、`kind`、和 `metadata` 字段。
@@ -237,7 +237,7 @@ as well, by specifying a *default backend* with no rules.
 
 ## Ingress 的类型
 
-### 单 Service Ingress
+### 单服务 Ingress
 
 现有的 Kubernetes 概念允许您暴露单个 Service (查看 [替代方案](#alternatives))，同样您也可以使用 Ingress 来实现，具体方法是指定一个没有规则的 *默认后端（default backend）*。
 
@@ -366,7 +366,7 @@ Ingress 控制器将提供实现特定的负载均衡器来满足 Ingress，只�
 Name-based virtual hosts use multiple host names for the same IP address.
 -->
 
-### 基于名称的虚拟主机
+### 基于名称的虚拟托管
 
 基于名称的虚拟主机为同一个 IP 地址使用多个主机名。
 
