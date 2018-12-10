@@ -2,6 +2,7 @@
 > Please delete this note before submitting the pull request.
 >
 > For 1.14 Features: set Milestone to 1.14 and Base Branch to dev-1.14
+> 
 > For Chinese localization, base branch to release-1.12
 >
 > Help editing and submitting pull requests:
