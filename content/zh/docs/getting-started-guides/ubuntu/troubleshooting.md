@@ -190,7 +190,7 @@ To deploy using helm, you will need to follow these steps: -->
    ```
 
 <!-- 1. Identify the public IP address of one of your masters -->
-1. 确定其中一个主单元的公共 IP 地址
+1. 确定其中一个主节点的公共 IP 地址
 
    ```
    juju status kubernetes-master
