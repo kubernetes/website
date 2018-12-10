@@ -93,7 +93,7 @@ check status on individual services, for example to check the status on the work
 Errors will have an obvious message, and will return a red result when used with
 `juju status --color`. Nodes that come up in this manner should be investigated.
 
-错误都会有相应的错误信息，使用 `juju status --color` 的返回结果也将是红色的。
+错误都会有明显的错误信息，使用 `juju status --color` 的返回结果也将是红色的。
 如果节点状态出现这种情况，需要相应地检查了解。
 
 <!-- ## SSHing to units -->
