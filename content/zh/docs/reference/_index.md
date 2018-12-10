@@ -22,6 +22,9 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
+<!--
+This section of the Kubernetes documentation contains references.
+-->
 这是 Kubernetes 文档的参考部分。
 
 {{% /capture %}}
@@ -80,8 +83,8 @@ client libraries:
 
 * [kubectl](/docs/user-guide/kubectl-overview) - 主要的 CLI 工具，用于运行命令和管理 Kubernetes 集群。
     * [JSONPath](/docs/user-guide/jsonpath/) - 通过 kubectl 使用 [JSONPath 表达式](http://goessner.net/articles/JsonPath/) 的语法指南。
-* [kubeadm](/docs/admin/kubeadm/) - 可以轻松配置安全 Kubernetes 的 CLI 工具。
-* [kubefed](/docs/admin/kubefed/) - 可以帮助你管理联邦集群的 CLI 工具。
+* [kubeadm](/docs/admin/kubeadm/) - 此 CLI 工具可轻松配置安全的 Kubernetes 集群。
+* [kubefed](/docs/admin/kubefed/) - 此 CLI 工具可帮助您管理集群联邦。
 
 <!--
 ## CLI Reference
