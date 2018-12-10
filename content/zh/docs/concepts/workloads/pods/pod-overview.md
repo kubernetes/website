@@ -34,7 +34,7 @@ A *Pod* is the basic building block of Kubernetes--the smallest and simplest uni
 
 ## 理解 Pod
 
-*Pod* 是 Kubernetes 的基本构建块，它是Kubernetes对象模型中创建或部署的最小和最简单的单元。
+*Pod* 是 Kubernetes 的基本构建块，它是 Kubernetes 对象模型中创建或部署的最小和最简单的单元。
 Pod 表示集群上正在运行的进程。
 
 <!--
@@ -71,7 +71,7 @@ The [Kubernetes Blog](http://kubernetes.io/blog) has some additional information
 * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
 -->
 
-[Kubernetes 博客](http://kubernetes.io/blog) 上有一些其他的 Pod 用例信息。更多信息亲参考：
+[Kubernetes 博客](http://kubernetes.io/blog) 上有一些其他的 Pod 用例信息。更多信息请参考：
 
 * [分布式系统工具包：复合容器的模式](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
 * [容器设计模式](https://kubernetes.io/blog/2016/06/container-design-patterns)
@@ -112,7 +112,7 @@ Note that grouping multiple co-located and co-managed containers in a single Pod
 Pods provide two kinds of shared resources for their constituent containers: *networking* and *storage*.
 -->
 
-Pod 为其组成容器提供了两种共享资源：*联网* 和 *存储*。
+Pod 为其组成容器提供了两种共享资源：*网络* 和 *存储*。
 
 <!--
 #### Networking
@@ -235,7 +235,7 @@ spec:
 Rather than specifying the current desired state of all replicas, pod templates are like cookie cutters. Once a cookie has been cut, the cookie has no relationship to the cutter. There is no "quantum entanglement". Subsequent changes to the template or even switching to a new template has no direct effect on the pods already created. Similarly, pods created by a replication controller may subsequently be updated directly. This is in deliberate contrast to pods, which do specify the current desired state of all containers belonging to the pod. This approach radically simplifies system semantics and increases the flexibility of the primitive.
 -->
 
-Pod 模板就像 饼干切割器，而不是指定所有副本的当前期望状态。
+Pod 模板就像饼干切割器，而不是指定所有副本的当前期望状态。
 一旦饼干被切掉，饼干就与切割器没有关系。
 没有“量子纠缠”。
 随后对模板的更改或甚至切换到新的模板对已经创建的 Pod 没有直接影响。
@@ -252,6 +252,6 @@ Pod 模板就像 饼干切割器，而不是指定所有副本的当前期望状
   * Other Pod Topics
 -->
 * 了解 Pod 的更多行为：
-  * [Pod 终止](/docs/concepts/workloads/pods/pod/#termination-of-pods)
+  * [Pod 的终止](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * 其他 Pod 话题
 {{% /capture %}}
