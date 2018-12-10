@@ -139,7 +139,7 @@ Running the script will generate a tarball of system information and includes ba
 
 <!-- ### Load Balancer interfering with Helm -->
 
-### 负载均衡器干扰 Helm
+### Helm 对负载均衡器的影响
 
 <!-- This section assumes you have a working deployment of Kubernetes via Juju
 using a Load Balancer for the API, and that you are using Helm to deploy charts. -->
