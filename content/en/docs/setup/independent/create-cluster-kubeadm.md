@@ -37,21 +37,20 @@ but you may also build them from source for other OSes.
 
 | Area                      | Maturity Level |
 |---------------------------|--------------- |
-| Command line UX           | beta           |
-| Implementation            | beta           |
-| Config file API           | alpha          |
-| Self-hosting              | alpha          |
-| kubeadm alpha subcommands | alpha          |
+| Command line UX           | GA             |
+| Implementation            | GA             |
+| Config file API           | beta           |
 | CoreDNS                   | GA             |
+| kubeadm alpha subcommands | alpha          |
+| High availability         | alpha          |
 | DynamicKubeletConfig      | alpha          |
+| Self-hosting              | alpha          |
 
 
-kubeadm's overall feature state is **Beta** and will soon be graduated to
-**General Availability (GA)** during 2018. Some sub-features, like self-hosting
-or the configuration file API are still under active development. The
-implementation of creating the cluster may change slightly as the tool evolves,
-but the overall implementation should be pretty stable. Any commands under
-`kubeadm alpha` are by definition, supported on an alpha level.
+kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
+file API are still under active development. The implementation of creating the cluster
+may change slightly as the tool evolves, but the overall implementation should be pretty stable.
+Any commands under `kubeadm alpha` are by definition, supported on an alpha level.
 
 
 ### Support timeframes
@@ -70,6 +69,7 @@ timeframe; which also applies to `kubeadm`.
 | v1.10.x            | March 2018     | December 2018     |
 | v1.11.x            | June 2018      | March 2019        |
 | v1.12.x            | September 2018 | June 2019         |
+| v1.13.x            | December 2018  | September 2019    |
 
 {{% /capture %}}
 
@@ -391,7 +391,7 @@ And once the CoreDNS pod is up and running, you can continue by joining your nod
 If your network is not working or CoreDNS is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
-### Master Isolation
+### Control plane node isolation
 
 By default, your cluster will not schedule pods on the master for security
 reasons. If you want to be able to schedule pods on the master, e.g. for a
@@ -508,7 +508,7 @@ and `scp` using that other user instead.
 The `admin.conf` file gives the user _superuser_ privileges over the cluster.
 This file should be used sparingly. For normal users, it's recommended to
 generate an unique credential to which you whitelist privileges. You can do
-this with the `kubeadm alpha phase kubeconfig user --client-name <CN>`
+this with the `kubeadm alpha kubeconfig user --client-name <CN>`
 command. That command will print out a KubeConfig file to STDOUT which you
 should save to a file and distribute to your user. After that, whitelist
 privileges by using `kubectl create (cluster)rolebinding`.
@@ -589,14 +589,18 @@ Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be abl
 Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
 v1.8.
 
-Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
-for more information on the version skew between kubelets and the control plane.
+These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
+
+* Kubernetes [version and version-skew policy](/docs/setup/version-skew-policy/)
+* Kubeadm-specific [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
 ## kubeadm works on multiple platforms {#multi-platform}
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
 proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
+
+Multiplatform container images for the control plane and addons are also supported since v1.12.
 
 Only some of the network providers offer solutions for all platforms. Please consult the list of
 network providers above or the documentation from each provider to figure out whether the provider

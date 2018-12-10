@@ -37,7 +37,7 @@ Upgrade `kubeadm` to the version that matches the version of Kubernetes that you
 
 ```shell
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm && \
+apt-get update && apt-get upgrade -y kubeadm && \
 apt-mark hold kubeadm
 ```
 
@@ -113,7 +113,7 @@ You should see something like the following:
 
     [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.12.0". Enjoy!
 
-The `kubeadm-config` ConfigMap is now updated from `v1alpha2` version to `v1alpha3`.
+The `kubeadm-config` ConfigMap is now updated from `v1alpha3` version to `v1beta1`.
 
 ### Upgrading additional control plane nodes
 
