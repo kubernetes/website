@@ -137,11 +137,11 @@ There are several supported network configurations with Kubernetes v1.9 on Windo
 <!--
 2. [Host-Gateway](#host-gateway-topology) - IP routes configured on each host
 -->
-3. [使用覆盖式打开 vSwitch(OVS) 和开放虚拟网络(OVN)](#using-ovn-with-ovs) - 覆盖网络(支持STT和Geneve隧道类型)
+3. [使用覆盖式 Open vSwitch(OVS) 和开放虚拟网络(OVN)](#using-ovn-with-ovs) - 覆盖网络(支持STT和Geneve隧道类型)
 <!--
 3. [Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay](#using-ovn-with-ovs) - overlay networks (supports STT and Geneve tunneling types)
 -->
-4. [未来 - 检查] 覆盖 - 使用 Flannel 的 VXLAN 或者 IP-in-IP 封装
+4. [未来 - 评审中] 覆盖 - 使用 Flannel 的 VXLAN 或者 IP-in-IP 封装
 <!--
 4. [Future - In Review] Overlay - VXLAN or IP-in-IP encapsulation using Flannel
 -->
