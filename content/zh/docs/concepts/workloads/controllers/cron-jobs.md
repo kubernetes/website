@@ -99,6 +99,6 @@ The Cronjob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 -->
 
-CronJob 只负责创建与其调度相匹配的 Job，相应的 Job 又会负责管理它所代表的Pod。
+CronJob 只负责创建与其时间表相匹配的 Job，相应的 Job 又会负责管理它所代表的Pod。
 
 {{% /capture %}}
