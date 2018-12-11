@@ -282,7 +282,9 @@ either.
 {{< /note >}}
 --->
 {{< note >}}
-当删除的 pods 不受任何控制器管理或者不是多副本的 pods，这将导致服务中断。这不符合 [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)。
+当所删除的 pods 不受任何控制器管理，也不是多副本的 pods，上述操作将导致服务中断。
+同时，上述操作也不会考虑 [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/) 所施加的约束。
+
 {{< /note >}}
 
 <!--
@@ -313,7 +315,7 @@ If `.spec.minReadySeconds` is specified in the DaemonSet, clock skew between
 master and nodes will make DaemonSet unable to detect the right rollout
 progress.
 --->
-如果在 DaemonSet 中指定了 `.spec.minReadySeconds`，master 和 nodes 之间的时钟偏差会使 DaemonSet 无法检测到正确的滚动更新进度。
+如果在 DaemonSet 中指定了 `.spec.minReadySeconds`，主节点和工作节点之间的时钟偏差会使 DaemonSet 无法检测到正确的滚动更新进度。
 
 {{% /capture %}}
 
@@ -325,7 +327,7 @@ progress.
   DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
 * See [Concepts: Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 --->
-* 查看 [任务: 在 DaemonSet 上执行回滚](/docs/tasks/manage-daemon/rollback-daemon-set/)
-* 查看 [概念: 创建 DaemonSet 以适应现有的 DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
+* 查看[任务: 在 DaemonSet 上执行回滚](/docs/tasks/manage-daemon/rollback-daemon-set/)
+* 查看[概念: 创建 DaemonSet 以适应现有的 DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 
 {{% /capture %}}
