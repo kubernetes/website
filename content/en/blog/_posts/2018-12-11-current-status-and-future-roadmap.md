@@ -48,6 +48,10 @@ To further improve etcd client load balancer, the v3.4 balancer was rewritten to
 
 Additionally, etcd maintainers will continue to make improvements to Kubernetes test frameworks: kubemark integration for scalability tests, Kubernetes API server conformance tests with etcd to provide release recommends and version skew policy, specifying conformance testing requirements for each cloud provider, etc.
 
-TODO(gyuho)
+## etcd Joins CNCF
+
+etcd now has a new home at [etcd-io](https://github.com/etcd-io) and [joined CNCF as an incubating project](https://www.cncf.io/blog/2018/12/11/cncf-to-host-etcd/).
+
+The synergistic efforts with Kubernetes have driven the evolution of etcd. Without community feedback and contribution, etcd could not have achieved its maturity and reliability. We’re looking forward to continuing the growth of etcd as an open source project and are excited to work with the Kubernetes and the wider CNCF community.
 
 Finally, we’d like to thank all contributors with special thanks to [Xiang Li](https://github.com/xiang90) for his leadership in etcd and Kubernetes.
