@@ -42,7 +42,7 @@ kubeadm config view [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"视图帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">视图帮助</td>
     </tr>
 
 <!--
