@@ -487,23 +487,8 @@ Slack channel or the
 ### View your changes locally
 
 If you aren't ready to create a pull request but you want to see what your
-changes look like, you can use the `hugo` command to stage the changes locally.
-
-1.  Install Hugo version {{< hugoVersion >}} or later.
-
-2.  In a terminal, go to the root directory of your clone of the Kubernetes
-    docs, and enter this command:
-
-      ```bash
-      hugo server
-      ```
-
-3.  In your browser’s address bar, enter `localhost:1313`.
-
-4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
-    or just close the terminal window.
-
-Alternatively, you can build the Kubernetes docs using Docker.
+changes look like, you can build and run a docker image to generate all the documentation and 
+serve it locally.
 
 1.  Build the image locally:
 
@@ -518,7 +503,26 @@ Alternatively, you can build the Kubernetes docs using Docker.
       ```
 
 3.  In your browser's address bar, enter `localhost:1313`. Hugo will watch the
-filesystem for changes and rebuild the site as needed.
+    filesystem for changes and rebuild the site as needed.
+
+4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
+    or just close the terminal window.
+
+Alternatively, you can install and use the `hugo` command on your development machine:
+
+1.  [Install Hugo](https://gohugo.io/getting-started/installing/) version {{< hugoVersion >}} or later.
+
+2.  In a terminal, go to the root directory of your clone of the Kubernetes
+    docs, and enter this command:
+
+      ```bash
+      hugo server
+      ```
+
+3.  In your browser’s address bar, enter `localhost:1313`.
+
+4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
+    or just close the terminal window.
 
 ## Triage and categorize issues
 
