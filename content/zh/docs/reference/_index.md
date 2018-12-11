@@ -119,7 +119,7 @@ client libraries:
 
 ## 设计文档
 
-Kubernetes 功能的设计文档归档。 您可以将 [Kubernetes 架构](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) 和 [Kubernetes 设计概述](https://git.k8s.io/community/contributors/design-proposals)作为好的出发点以便更好的了解 Kubernetes。
+Kubernetes 功能的设计文档归档，不妨考虑从 [Kubernetes 架构](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) 和 [Kubernetes 设计概述](https://git.k8s.io/community/contributors/design-proposals)开始阅读。
 
 <!--
 ## Design Docs
