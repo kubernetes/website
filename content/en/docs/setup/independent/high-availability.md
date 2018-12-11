@@ -74,7 +74,7 @@ run as root.
 {{< /note >}}
 
 - Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-  some like Weave do not. See the see [the CNI network
+  some like Weave do not. See the [CNI network
   documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
   To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
   the `networking` object of `ClusterConfiguration`.
