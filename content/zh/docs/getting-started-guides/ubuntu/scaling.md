@@ -10,7 +10,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page shows how to horizontally scale master and worker nodes on a cluster.
+<!-- This page shows how to horizontally scale master and worker nodes on a cluster. -->
 本文将讨论如何在集群中扩缩主节点和工作节点。
 
 {{% /capture %}}
@@ -24,8 +24,8 @@ This page shows how to horizontally scale master and worker nodes on a cluster.
 <!-- Any of the applications can be scaled out post-deployment.
 The charms update the status messages with progress, so it is recommended to run. -->
 
-任何应用都可以在部署之后进行纵向扩容。
-charms 将会不停地更新状态信息，建议运行如下命令。
+任何应用都可以在部署之后进行横向扩容。
+charms 将会不停地更新进度状态信息，建议运行如下命令。
 
 ```
 watch -c juju status --color
@@ -90,8 +90,8 @@ juju add-unit kubernetes-worker
 [machine constraints documentation](https://jujucharms.com/docs/stable/charms-constraints)
 for other machine constraints that might be useful for the kubernetes-worker units. -->
 
-参见[机器限制文档](https://jujucharms.com/docs/stable/charms-constraints)，获取相关信息，
-对于扩缩 kubernetes-worker 节点有帮助。
+参见[机器限制文档](https://jujucharms.com/docs/stable/charms-constraints)，
+了解其它机器约束，这些约束可能对 kubernetes-worker unit 有帮助。
 
 ## etcd
 
