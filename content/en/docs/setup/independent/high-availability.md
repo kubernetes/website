@@ -16,7 +16,7 @@ and control plane nodes are co-located.
 - With an external etcd cluster. This approach requires more infrastructure. The
 control plane nodes and etcd members are separated.
 
-Before proceeding, you should carefully consideer which approach best meets the needs of your applications
+Before proceeding, you should carefully consider which approach best meets the needs of your applications
 and environment. [This comparison topic](/docs/setup/independent/ha-topology/) outlines the advantages and disadvantages of each.
 
 Your clusters must run Kubernetes version 1.12 or later. You should also be aware that
