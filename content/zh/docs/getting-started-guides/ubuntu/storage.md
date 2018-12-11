@@ -38,7 +38,7 @@ Canonical 的 Kubernetes 发行版允许添加持久化存储设备，例如 [Ce
 
 <!-- Deploy a minimum of three ceph-mon and three ceph-osd units. -->
 
-部署一个至少有三个 ceph-mon 和 三个 ceph-osd 单元的存储池。
+部署一个至少有三个 ceph-mon 和三个 ceph-osd 单元的存储池。
 
 ```
 juju deploy cs:ceph-mon -n 3
@@ -74,7 +74,7 @@ tmpfs    tmpfs
 <!-- This listing is for the Amazon Web Services public cloud.
 Different clouds may have different pool names. -->
 
-注意列表使用的是 AWS，不同的云有不同的存储池。
+注意列表使用的是 AWS，不同的云有不同的存储池名称。
 
 {{< /note >}}
 
@@ -100,8 +100,8 @@ juju add-relation kubernetes-master ceph-mon
 in Kubernetes which our workloads can consume via Persistent Volume (PV) claims. -->
 
 
-我们现在可以在 Kubernetes 中加入[持久卷](/docs/concepts/storage/persistent-volumes/)，这样，
-工作负载便可以通过持久卷 (PV) 申领使用它们。
+现在我们可以在 Kubernetes 中列举可用的[持久卷](/docs/concepts/storage/persistent-volumes/)，
+集群中的负载可以通过 PVC 申领来使用这些持久卷。
 
 ```
 juju run-action kubernetes-master/0 create-rbd-pv name=test size=50
@@ -112,7 +112,7 @@ juju run-action kubernetes-master/0 create-rbd-pv name=test size=50
 Use watch on your Kubernetes cluster like the following, you should see the PV
 become enlisted and be marked as available: -->
 
-本例中创建了 50 MB 大小的 “test" Rados 块设备 (rbd)。
+本例中创建了 50 MB 大小的 “test” Rados 块设备 (rbd)。
 
 在 Kubernetes 集群上使用如下所示的 watch 命令，可以看到 PV 加入列表，并被标记可用的过程：
 
