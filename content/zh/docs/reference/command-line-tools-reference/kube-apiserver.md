@@ -97,7 +97,7 @@ kube-apiserver [flags]
     <!--
 	  <td></td><td style="line-height: 130%; word-wrap: break-word;">The size of the buffer to store events before batching and writing. Only used in batch mode.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定存储批处理和写入事件的缓冲区大小（默认值：10000）。只在批处理模式下使用。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定存储批处理和写入事件的缓冲区字节数（默认值：10000）。只在批处理模式下使用。</td>
     </tr>
 
     <tr>
@@ -117,7 +117,7 @@ kube-apiserver [flags]
     <!--
 	  <td></td><td style="line-height: 130%; word-wrap: break-word;">The amount of time to wait before force writing the batch that hadn't reached the max size. Only used in batch mode.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定强制写入未达到最大值的批处理的等待时间。只在批处理模式下使用。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定尚未达到最大值的批处理的强制写入等待时间。只在批处理模式下使用。</td>
     </tr>
 
     <tr>
@@ -147,7 +147,7 @@ kube-apiserver [flags]
     <!--
 	  <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum average number of batches per second. Only used in batch mode.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定每秒最大平均批处理的个数。只在批处理模式下使用。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定每秒内可执行的批处理的最大平均数。只在批处理模式下使用。</td>
     </tr>
 
     <tr>
@@ -167,7 +167,7 @@ kube-apiserver [flags]
     <!--
 	  <td></td><td style="line-height: 130%; word-wrap: break-word;">The maximum number of days to retain old audit log files based on the timestamp encoded in their filename.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定旧审计日志的最大保存时间（单位：天），以日志文件名中的时间戳为准。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定历史审计日志的最大保存天数，以日志文件名中的时间戳为准。</td>
     </tr>
 
     <tr>
@@ -177,7 +177,7 @@ kube-apiserver [flags]
     <!--
 	  <td></td><td style="line-height: 130%; word-wrap: break-word;">The maximum number of old audit log files to retain.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定旧审计日志的最大保存数量。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定历史审计日志的最大保存数量。</td>
     </tr>
 
     <tr>
@@ -217,7 +217,7 @@ kube-apiserver [flags]
     <!--
 	  <td></td><td style="line-height: 130%; word-wrap: break-word;">Whether event and batch truncating is enabled.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定是否允许截断批处理。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定是否允许截断事件和批处理。</td>
     </tr>
 
     <tr>
@@ -227,7 +227,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum size of the batch sent to the underlying backend. Actual serialized size can be several hundreds of bytes greater. If a batch exceeds this limit, it is split into several batches of smaller size.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定发送到底层后端的批处理的最大大小（单位：Byte，默认值：10485760）。实际序列化时的大小会大几百字节。如果一个批处理超出该大小，它会被分为几个小的批处理。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定发送到底层后端的批处理的最大字节数（默认值：10485760）。实际序列化时的大小会比设定值大几百字节。如果一个批处理超出该大小，它会被分为几个小的批处理。</td>
     </tr>
 
     <tr>
@@ -237,7 +237,7 @@ kube-apiserver [flags]
 	  <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum size of the audit event sent to the underlying backend. If the size of an event is greater than this number, first request and response are removed, and if this doesn't reduce the size enough, event is discarded.</td>
 	  -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定发送到底层后端的审计事件的最大大小（默认值：102400）。如果一个事件超出该大小，则第一个请求和回复会被删除，如果还没有减少到足够的大小，该事件将被丢弃。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定发送到底层后端的审计事件的最大字节数（默认值：102400）。如果一个事件超出该大小，则第一个请求和回复会被删除，如果还没有减少到合适的大小，该事件将被丢弃。</td>
     </tr>
 
     <tr>
@@ -247,7 +247,7 @@ kube-apiserver [flags]
 	  <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">API group and version used for serializing audit events written to log.</td>
 	  -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定序列化审计日志的 API 组名和版本号（默认值：audit.k8s.io/v1beta1）</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定序列化审计日志的 API 组名和版本号（默认值：audit.k8s.io/v1beta1）。</td>
     </tr>
 
     <tr>
@@ -257,7 +257,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to the file that defines the audit policy configuration.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定审计策略配置文件的路径</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定审计策略配置文件的路径。</td>
     </tr>
 
     <tr>
@@ -267,7 +267,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The size of the buffer to store events before batching and writing. Only used in batch mode.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定存储批处理和写入事件的缓冲区大小。只在批处理模式下使用（默认值：10000）</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定存储批处理和写入事件的缓冲区字节数（默认值：10000）。只在批处理模式下使用。</td>
     </tr>
 
     <tr>
@@ -277,7 +277,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The maximum size of a batch. Only used in batch mode.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定一个批处理的最大长度（默认值：400）。只在批处理模式下使用</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定一个批处理的最大长度（默认值：400）。只在批处理模式下使用。</td>
     </tr>
 
     <tr>
@@ -287,7 +287,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The amount of time to wait before force writing the batch that hadn't reached the max size. Only used in batch mode.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定强制写入未达到最大值的批处理的等待时间（默认值：30s）。只在批处理模式下使用。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定尚未达到最大值的批处理的强制写入等待时间（默认值：30s）。只在批处理模式下使用。</td>
     </tr>
 
     <tr>
@@ -317,7 +317,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum average number of batches per second. Only used in batch mode.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定每秒最大平均批处理次个数（默认值：10）。只在批处理模式下使用。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定每秒内可执行的批处理的最大平均数（默认值：10）。只在批处理模式下使用。</td>
     </tr>
 
     <tr>
@@ -357,7 +357,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Whether event and batch truncating is enabled.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定是否允许截断批处理。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定是否允许截断事件和批处理。</td>
     </tr>
 
     <tr>
@@ -367,7 +367,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum size of the batch sent to the underlying backend. Actual serialized size can be several hundreds of bytes greater. If a batch exceeds this limit, it is split into several batches of smaller size.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定发送到底层后端的批处理的最大大小（单位：Byte，默认值：10485760）。实际序列化时的大小会大几百字节。如果一个批处理超出该大小，它会被分为几个小的批处理。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定发送到底层后端的批处理的最大字节数（默认值：10485760）。实际序列化时的大小会比设定值大几百字节。如果一个批处理超出该大小，它会被分为几个小的批处理。</td>
     </tr>
 
     <tr>
@@ -377,7 +377,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum size of the audit event sent to the underlying backend. If the size of an event is greater than this number, first request and response are removed, and if this doesn't reduce the size enough, event is discarded.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定发送到底层后端的审计事件的最大大小（默认值：102400）。如果一个事件超出该大小，则第一个请求和回复会被删除，如果还没有减少到足够的大小，该事件将被丢弃。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定发送到底层后端的审计事件的最大字节数（默认值：102400）。如果一个事件超出该大小，则第一个请求和回复会被删除，如果还没有减少到合适的大小，该事件将被丢弃。</td>
     </tr>
 
     <tr>
@@ -437,7 +437,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The duration to cache 'authorized' responses from the webhook authorizer.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定从 webhook 授权方缓存的“已授权”响应的持续时间（默认值：5m0s）。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定从 webhook 授权方缓存的 '已授权' 响应的持续时间（默认值：5m0s）。</td>
     </tr>
 
     <tr>
@@ -447,7 +447,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The duration to cache 'unauthorized' responses from the webhook authorizer.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定从 webhook 授权方缓存的“未授权”响应的持续时间（默认值：30s）。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">指定从 webhook 授权方缓存的 '未授权' 响应的持续时间（默认值：30s）。</td>
     </tr>
 
     <tr>
@@ -577,7 +577,7 @@ kube-apiserver [flags]
 	<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, Priority, DefaultTolerationSeconds, DefaultStorageClass, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, Initializers, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.</td>
 	-->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定禁用的权限相关的插件的列表，默认启用的插件列表中的插件也可禁用，以逗号分隔。该列表中的顺序不影响结果。所有列表项包括 AlwaysAdmit, AlwaysDeny, AlwaysPullImages, DefaultStorageClass, DefaultTolerationSeconds, DenyEscalatingExec, DenyExecOnPrivileged, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, Initializers, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodPreset, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, ValidatingAdmissionWebhook。其中默认启用的插件包括 NamespaceLifecycle, LimitRanger, ServiceAccount, Priority, DefaultTolerationSeconds, DefaultStorageClass, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定禁用的权限相关的插件的列表，默认启用的插件列表中的插件也可禁用，以逗号分隔。该列表中的顺序不影响结果。所有列表项包括 AlwaysAdmit、AlwaysDeny、AlwaysPullImages、DefaultStorageClass、DefaultTolerationSeconds、DenyEscalatingExec、DenyExecOnPrivileged、EventRateLimit、ExtendedResourceToleration、ImagePolicyWebhook、Initializers、LimitPodHardAntiAffinityTopology、LimitRanger、MutatingAdmissionWebhook、NamespaceAutoProvision、NamespaceExists、NamespaceLifecycle、NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PersistentVolumeLabel、PodNodeSelector、PodPreset、PodSecurityPolicy、PodTolerationRestriction、Priority、ResourceQuota、SecurityContextDeny、ServiceAccount、StorageObjectInUseProtection、ValidatingAdmissionWebhook。其中默认启用的插件包括 NamespaceLifecycle、LimitRanger、ServiceAccount、Priority、DefaultTolerationSeconds、DefaultStorageClass、PersistentVolumeClaimResize、MutatingAdmissionWebhook、ValidatingAdmissionWebhook、ResourceQuota。</td>
     </tr>
 
     <tr>
@@ -637,7 +637,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Use an endpoint reconciler (master-count, lease, none)</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置启用的终端协调器（可选：master-count、lease、none，默认：lease）</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置启用的终端协调器（可选：master-count、lease、none，默认：lease）。</td>
     </tr>
 
     <tr>
@@ -661,7 +661,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">The interval of compaction requests. If 0, the compaction request from apiserver is disabled.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定压缩请求的间隔（默认值：5m0s）。若设为0，则 API 服务器将禁用压缩请求。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定压缩请求的间隔（默认值：5m0s）。若设为 0，则 API 服务器将禁用压缩请求。</td>
     </tr>
 
     <tr>
@@ -669,7 +669,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Frequency of polling etcd for number of resources per type. 0 disables the metric collection.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置向 etcd 轮询获取每种资源剩余情况的时间。设定为0表示禁用收集资源信息。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置向 etcd 轮询获取每种资源剩余情况的时间。设定为 0 表示禁用收集资源信息。</td>
     </tr>
 
     <tr>
@@ -783,7 +783,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Use https for kubelet connections.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定是否在 kubelet 连接中使用 https。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定是否在 kubelet 连接中使用 HTTPS。</td>
     </tr>
 
     <tr>
@@ -815,7 +815,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">If non-zero, the Kubernetes master service (which apiserver creates/maintains) will be of type NodePort, using this as the value of the port. If zero, the Kubernetes master service will be of type ClusterIP.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">如果该参数设为非 0 值，则 Kubernetes master 服务（由 API 服务器创建和维护）将是 NodePort 类型，以该值作为端口。该值为0时，则 Kubernetes master 服务将是 ClusterIP 类型。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">如果该参数设为非 0 值，则 Kubernetes master 服务（由 API 服务器创建和维护）将是 NodePort 类型，以该值作为端口。该值为 0 时，则 Kubernetes master 服务将是 ClusterIP 类型。</td>
     </tr>
 
     <tr>
@@ -823,7 +823,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum number of seconds between log flushes</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定日志刷新的最大间隔（默认值：5s）</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定日志刷新的最大间隔（默认值：5s）。</td>
     </tr>
 
     <tr>
@@ -847,7 +847,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">The maximum number of mutating requests in flight at a given time. When the server exceeds this, it rejects requests. Zero for no limit.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定给定时间内未响应的“修改类”请求的最大数量（默认值：200）。当请求数量超过该值时，服务器将拒绝新的请求。设定为0则代表无限制。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定给定时间内未响应的“修改类”请求的最大数量（默认值：200）。当请求数量超过该值时，服务器将拒绝新的请求。设定为 0 则代表无限制。</td>
     </tr>
 
     <tr>
@@ -855,7 +855,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">The maximum number of non-mutating requests in flight at a given time. When the server exceeds this, it rejects requests. Zero for no limit.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定给定时间内未响应的“非修改类”请求的最大数量（默认值：400）。当请求数量超过该值时，服务器将拒绝新的请求。设定为0则代表无限制。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定给定时间内未响应的“非修改类”请求的最大数量（默认值：400）。当请求数量超过该值时，服务器将拒绝新的请求。设定为 0 则代表无限制。</td>
     </tr>
 
     <tr>
@@ -879,7 +879,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">The client ID for the OpenID Connect client, must be set if oidc-issuer-url is set.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置 OpenID Connect 的 client ID。如果设定了 --oidc-issuer-url 参数，则该参数必须指定。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置 OpenID Connect 的客户端 ID。如果设定了 --oidc-issuer-url 参数，则该参数必须指定。</td>
     </tr>
 
     <tr>
@@ -969,7 +969,7 @@ kube-apiserver [flags]
 	  <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">An optional field indicating the duration a handler must keep a request open before timing it out. This is the default request timeout for requests but may be overridden by flags such as --min-request-timeout for specific types of requests.</td>
 	  -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">该可选参数表示控制器在请求超时前，保持它的连接状态的最小秒数（默认值：1m0s）。该参数是请求的默认超时时间，但处理特定类型的请求时可使用 --min-request-timeout 等参数覆盖</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">该可选参数表示控制器在请求超时前，保持它的连接状态的最小秒数（默认值：1m0s）。该参数是请求的默认超时时间，但处理特定类型的请求时可使用 --min-request-timeout 等参数覆盖。</td>
     </tr>
 
     <tr>
@@ -1025,7 +1025,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">The port on which to serve HTTPS with authentication and authorization.It cannot be switched off with 0.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定用于提供 HTTPS 认证和授权服务的端口（默认值：6443）。该端口不能设成0来关闭。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定用于提供 HTTPS 认证和授权服务的端口（默认值：6443）。该端口不能设成 0 来关闭。</td>
     </tr>
 
     <tr>
@@ -1081,7 +1081,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">A CIDR notation IP range from which to assign service cluster IPs. This must not overlap with any IP ranges assigned to nodes for pods.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定一个无类别域间路由记号 IP 网段，用来分配服务集群的 IP。该网段不能与已分配到 pod 节点的网段重叠。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定一个无类别域间路由记号 IP 网段，用来分配服务集群的 IP（默认值：10.0.0.0/24）。该网段不能与已分配到 pod 节点的网段重叠。</td>
     </tr>
 
     <tr>
@@ -1089,7 +1089,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">A port range to reserve for services with NodePort visibility. Example: '30000-32767'. Inclusive at both ends of the range.</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定一个端口的范围（默认值：30000-32767），用来保留 NodePort 可见的服务。两端均包含在内。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定一个端口的范围，用来保留 NodePort 可见的服务（默认值：30000-32767）。两端均包含在内。</td>
     </tr>
 
     <tr>
@@ -1113,7 +1113,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Memory limit for apiserver in MB (used to configure sizes of caches, etc.)</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定 API 服务器的内存限制（单位：MB），用于配置缓存大小等。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设定 API 服务器的内存大小限制（单位：MB），用于配置缓存大小等。</td>
     </tr>
 
     <tr>
@@ -1129,7 +1129,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be use.  Possible values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置服务器的加密套件列表，用逗号分隔。如果忽略该参数，服务器将使用 Go 默认的加密套件。可选的值为： TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_RC4_128_SHA,TLS_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_RC4_128_SHA</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置服务器的加密套件列表，用逗号分隔。如果忽略该参数，服务器将使用 Go 默认的加密套件。可选的值为： TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256、TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_ECDSA_WITH_RC4_128_SHA、TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256、TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_RSA_WITH_RC4_128_SHA、TLS_RSA_WITH_3DES_EDE_CBC_SHA、TLS_RSA_WITH_AES_128_CBC_SHA、TLS_RSA_WITH_AES_128_CBC_SHA256、TLS_RSA_WITH_AES_128_GCM_SHA256、TLS_RSA_WITH_AES_256_CBC_SHA、TLS_RSA_WITH_AES_256_GCM_SHA384、TLS_RSA_WITH_RC4_128_SHA。</td>
     </tr>
 
     <tr>
@@ -1137,7 +1137,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Minimum TLS version supported. Possible values: VersionTLS10, VersionTLS11, VersionTLS12</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置最小支持的 TLS 版本。可选的值为：VersionTLS10, VersionTLS11, VersionTLS12</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">设置最小支持的 TLS 版本。可选的值为：VersionTLS10、VersionTLS11、VersionTLS12。</td>
     </tr>
 
     <tr>
@@ -1169,7 +1169,7 @@ kube-apiserver [flags]
     </tr>
     <tr>
       <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Print version information and quit</td> -->
-	  <td></td><td style="line-height: 130%; word-wrap: break-word;">打印版本信息然后推退出。</td>
+	  <td></td><td style="line-height: 130%; word-wrap: break-word;">打印版本信息然后退出。</td>
     </tr>
 
     <tr>
