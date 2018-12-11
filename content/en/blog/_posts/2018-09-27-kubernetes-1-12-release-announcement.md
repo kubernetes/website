@@ -96,7 +96,7 @@ Is Kubernetes helping your team? [Share your story](https://docs.google.com/a/go
 
 ## KubeCon
 
-The world’s largest Kubernetes gathering, KubeCon + CloudNativeCon is coming to [Seattle](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/) from December 10-13, 2018. This conference will feature technical sessions, case studies, developer deep dives, salons and more! [Register today](https://www.cncf.io/community/kubecon-cloudnativecon-events/)!
+The world’s largest Kubernetes gathering, KubeCon + CloudNativeCon is coming to [Shanghai](https://events.linuxfoundation.cn/events/kubecon-cloudnativecon-china-2018/ from November 14-15, 2018 and [Seattle](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/) from December 11-13, 2018. This conference will feature technical sessions, case studies, developer deep dives, salons and more! [Register today](https://www.cncf.io/community/kubecon-cloudnativecon-events/)!
 
 ## Webinar
 
