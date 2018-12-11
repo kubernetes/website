@@ -1,4 +1,4 @@
-您需要有一个带有默认[StorageClass](/docs/concepts/storage/storage-classes/)的动态持续卷供应程序，或者自己[静态的提供持久卷](/docs/user-guide/persistent-volumes/#provisioning)来满足这里使用的[持久卷请求](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)。
+您需要基于默认[StorageClass](/docs/concepts/storage/storage-classes/)来使用动态供应持久卷的某驱动程序，或者自行[静态供应持久卷](/docs/user-guide/persistent-volumes/#provisioning)来满足这里使用的[持久卷申领](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)需要。
 
 <!--
 You need to either have a dynamic PersistentVolume provisioner with a default
