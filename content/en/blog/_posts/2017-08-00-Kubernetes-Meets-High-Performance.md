@@ -16,12 +16,10 @@ In Kubernetes, the base unit of scheduling is a Pod: one or more Docker containe
 
 Traditional HPC applications often exhibit different characteristics:
 
--
-In financial or engineering simulations, a job may be comprised of tens of thousands of short-running tasks, demanding low-latency and high-throughput scheduling to complete a simulation in an acceptable amount of time.
--
-A computational fluid dynamics (CFD) problem may execute in parallel across many hundred or even thousands of nodes using a message passing library to synchronize state. This requires specialized scheduling and job management features to allocate and launch such jobs and then to checkpoint, suspend/resume or backfill them.
--
-Other HPC workloads may require specialized resources like GPUs or require access to limited software licenses. Organizations may enforce policies around what types of resources can be used by whom to ensure projects are adequately resourced and deadlines are met.
+- In financial or engineering simulations, a job may be comprised of tens of thousands of short-running tasks, demanding low-latency and high-throughput scheduling to complete a simulation in an acceptable amount of time.
+- A computational fluid dynamics (CFD) problem may execute in parallel across many hundred or even thousands of nodes using a message passing library to synchronize state. This requires specialized scheduling and job management features to allocate and launch such jobs and then to checkpoint, suspend/resume or backfill them.
+- Other HPC workloads may require specialized resources like GPUs or require access to limited software licenses. Organizations may enforce policies around what types of resources can be used by whom to ensure projects are adequately resourced and deadlines are met.
+
 HPC workload schedulers have evolved to support exactly these kinds of workloads. Examples include [Univa Grid Engine](http://www.univa.com/products/), [IBM Spectrum LSF](https://www-03.ibm.com/systems/spectrum-computing/products/lsf/) and Altair’s [PBS Professional](http://www.pbsworks.com/PBSProduct.aspx?n=PBS-Professional&c=Overview-and-Capabilities). Sites managing HPC workloads have come to rely on capabilities like array jobs, configurable pre-emption, user, group or project based quotas and a variety of other features.  
 
 ## Blurring the lines between containers and HPC
@@ -36,18 +34,15 @@ While the notion of packaging a workload into a Docker container, publishing it 
 
 To deal with the challenges of migrating to containers, organizations running container and HPC workloads have several options:
 
--
-Maintain separate infrastructures
+- Maintain separate infrastructures
 
 For sites with sunk investments in HPC, this may be a preferred approach. Rather than disrupt existing environments, it may be easier to deploy new containerized applications on a separate cluster and leave the HPC environment alone. The challenge is that this comes at the cost of siloed clusters, increasing infrastructure and management cost.
 
--
-Run containerized workloads under an existing HPC workload manager
+- Run containerized workloads under an existing HPC workload manager
 
 For sites running traditional HPC workloads, another approach is to use existing job submission mechanisms to launch jobs that in turn instantiate Docker containers on one or more target hosts. Sites using this approach can introduce containerized workloads with minimal disruption to their environment. Leading HPC workload managers such as [Univa Grid Engine Container Edition](http://blogs.univa.com/2016/05/new-version-of-univa-grid-engine-now-supports-docker-containers/) and [IBM Spectrum LSF](http://blogs.univa.com/2016/05/new-version-of-univa-grid-engine-now-supports-docker-containers/) are adding native support for Docker containers. [Shifter](https://github.com/NERSC/shifter) and [Singularity](http://singularity.lbl.gov/) are important open source tools supporting this type of deployment also. While this is a good solution for sites with simple requirements that want to stick with their HPC scheduler, they will not have access to native Kubernetes features, and this may constrain flexibility in managing long-running services where Kubernetes excels.
 
--
-Use native job scheduling features in Kubernetes
+- Use native job scheduling features in Kubernetes
 
 Sites less invested in existing HPC applications can use existing scheduling facilities in Kubernetes for [jobs that run to completion](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/). While this is an option, it may be impractical for many HPC users. HPC applications are often either optimized towards massive throughput or large scale parallelism. In both cases startup and teardown latencies have a discriminating impact. Latencies that appear to be acceptable for containerized microservices today would render such applications unable to scale to the required levels.
 
@@ -74,8 +69,5 @@ From a client perspective, the HPC scheduler runs as a service deployed in Kuber
 One client having success with mixed workloads is the Institute for Health Metrics & Evaluation (IHME), an independent health research center at the University of Washington. In support of their globally recognized Global Health Data Exchange (GHDx), IHME operates a significantly sized environment comprised of 500 nodes and 20,000 cores running a mix of analytic, HPC, and container-based applications on Kubernetes. [This case study](http://navops.io/ihme-case-study.html) describes IHME’s success hosting existing HPC workloads on a shared Kubernetes cluster using Navops Command.
 
  ![](https://lh5.googleusercontent.com/GJeP6e89r6drl72yzZM_OsZ81MYDp7Zm5xEFpItpmioian3lOp535H4jy1_eELKrzGMYr_wnjGwpK3Uku9dwg2-vqmMC1A1GrMtJc-PZR6GR6Z-fAZNJMEr_Uw3HqvWvi86mF_63XTozysaLpg)
-
-
-
 
 For sites deploying new clusters that want access to the rich capabilities in Kubernetes but need the flexibility to run non-containerized workloads, this approach is worth a look. It offers the opportunity for sites to share infrastructure between Kubernetes and HPC workloads without disrupting existing applications and businesses processes. It also allows them to migrate their HPC workloads to use Docker containers at their own pace.

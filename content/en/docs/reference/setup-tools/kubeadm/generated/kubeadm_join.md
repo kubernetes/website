@@ -16,7 +16,7 @@ provide a file - a subset of the standard kubeconfig file. This file
 can be a local file or downloaded via an HTTPS URL. The forms are
 kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443,
 kubeadm join --discovery-file path/to/file.conf, or kubeadm join
---discovery-file `https://url/file.conf`. Only one form can be used. If
+--discovery-file https://url/file.conf. Only one form can be used. If
 the discovery information is loaded from a URL, HTTPS must be used.
 Also, in that case the host installed CA bundle is used to verify
 the connection.
@@ -92,14 +92,14 @@ kubeadm join [flags]
       <td colspan="2">--discovery-file string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A file or url from which to load cluster information.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A file or URL from which to load cluster information.</td>
     </tr>
 
     <tr>
       <td colspan="2">--discovery-token string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A token used to validate cluster information fetched from the api server.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A token used to validate cluster information fetched from the API server.</td>
     </tr>
 
     <tr>
@@ -124,13 +124,6 @@ kubeadm join [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--feature-gates string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (BETA - default=false)</td>
-    </tr>
-
-    <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
@@ -152,17 +145,10 @@ kubeadm join [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--tls-bootstrap-token string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A token used for TLS bootstrapping.</td>
-    </tr>
-
-    <tr>
       <td colspan="2">--token string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Use this token for both discovery-token and tls-bootstrap-token.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.</td>
     </tr>
 
   </tbody>

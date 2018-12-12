@@ -279,7 +279,7 @@ with different/greater permissions.
 
 {{< caution >}}
 <!--
-**Caution:** System administrators, use care when granting access to pod
+System administrators, use care when granting access to pod
 creation.  A user granted permission to create pods (or controllers that create
 pods) in the namespace can: read all secrets in the namespace; read all config
 maps in the namespace; and impersonate any service account in the namespace and

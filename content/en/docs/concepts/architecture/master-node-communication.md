@@ -77,7 +77,7 @@ To verify this connection, use the `--kubelet-certificate-authority` flag to
 provide the apiserver with a root certificate bundle to use to verify the
 kubelet's serving certificate.
 
-If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
+If that is not possible, use [SSH tunneling](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 

@@ -137,7 +137,7 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 ```
 
 {{< note >}}
-**Note**: To show raw Hugo shortcodes as in the above example and prevent Hugo
+To show raw Hugo shortcodes as in the above example and prevent Hugo
 from interpreting them, use C-style comments directly after the `<` and before
 the `>` characters. View the code for this page for an example.
 {{< /note >}}
@@ -155,7 +155,7 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 ```
 
 {{< note >}}
-**Note**: When adding new YAML files to the `<LANG>/examples` directory, make
+When adding new YAML files to the `<LANG>/examples` directory, make
 sure the file is also included into the `<LANG>/examples_test.go` file. The
 Travis CI for the Website automatically runs this test case when PRs are
 submitted to ensure all examples pass the tests.

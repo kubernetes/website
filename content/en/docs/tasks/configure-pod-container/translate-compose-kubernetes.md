@@ -33,13 +33,13 @@ Kompose is released via GitHub on a three-week cycle, you can see all current re
 
 ```sh
 # Linux
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.1.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -296,7 +296,9 @@ INFO OpenShift file "foo-imagestream.yaml" created
 INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
-**Note**: If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+{{< note >}}
+If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+{{< /note >}}
 
 ## `kompose up`
 
@@ -335,6 +337,7 @@ pod/frontend-2768218532-cs5t5       1/1           Running       0            4m
 pod/redis-master-1432129712-63jn8   1/1           Running       0            4m
 pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
 ```
+
 **Note**:
 
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
@@ -550,7 +553,9 @@ The currently supported options are:
 | kompose.service.type | nodeport / clusterip / loadbalancer |
 | kompose.service.expose| true / hostname |
 
-**Note**: `kompose.service.type` label should be defined with `ports` only, otherwise `kompose` will fail.
+{{< note >}}
+The `kompose.service.type` label should be defined with `ports` only, otherwise `kompose` will fail.
+{{< /note >}}
 
 ## Restart
 
@@ -563,7 +568,9 @@ If you want to create normal pods without controllers you can use `restart` cons
 | `on-failure`               | Pod               | `OnFailure`         |
 | `no`                       | Pod               | `Never`             |
 
-**Note**: controller object could be `deployment` or `replicationcontroller`, etc.
+{{< note >}}
+The controller object could be `deployment` or `replicationcontroller`, etc.
+{{< /note >}}
 
 For e.g. `pival` service will become pod down here. This container calculated value of `pi`.
 

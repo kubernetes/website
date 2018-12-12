@@ -12,7 +12,6 @@ reference documentation for tools and components in the
 
 {{% /capture %}}
 
-
 {{% capture prerequisites %}}
 
 * You need a machine that is running Linux or macOS.
@@ -35,7 +34,6 @@ information, see
 [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 
 {{% /capture %}}
-
 
 {{% capture steps %}}
 
@@ -71,7 +69,6 @@ your base directory is `$GOPATH/src/github.com/kubernetes/kubernetes.`
 The remaining steps refer to your base directory as `<k8s-base>`.
 
 {{< note >}}
-**Note:**
 If you only need to generate, but not change, the reference docs, you don't need to
 manually get the `kubernetes/kubernetes` repository. When you run the `update-imported-docs`
 tool, it automatically clones the `kubernetes/kubernetes` repository.
@@ -109,16 +106,15 @@ to do this, see
 Monitor your cherry-pick pull request until it is merged into the release branch.
 
 {{< note >}}
-**Note:** Proposing a cherry pick requires that you have permission to set a label
+Proposing a cherry pick requires that you have permission to set a label
 and a milestone in your pull request. If you don’t have those permissions, you will
 need to work with someone who can set the label and milestone for you.
 {{< /note >}}
 
 ## Overview of update-imported-docs
 
-The website repository contains a `update-imported-docs` tool under the
-`kubernetes/website/update-imported-docs/` directory that performs the
-following steps:
+The `update-imported-docs` tool is located in the `kubernetes/website/update-imported-docs/`
+directory. The tool performs the following steps:
 
 1. Clones the related repositories specified in a configuration file. For the
    purpose of generating reference docs, the repositories that are cloned by
@@ -135,8 +131,8 @@ to `kubernetes/website`.
 
 ## Customizing the config file
 
-Open `<web-base>/update-imported-docs/reference.yaml` for editing.
-Do not change the content for the `generate-command` entry unless you undertand
+Open `<web-base>/update-imported-docs/reference.yml` for editing.
+Do not change the content for the `generate-command` entry unless you understand
 what it is doing and need to change the specified release branch.
 
 ```shell
@@ -160,8 +156,9 @@ repos:
     make comp
 ```
 
-The `update-imported-docs` tool uses `src` and `dst` fields in a configuration
-to decide the source and target location for doc files to be copied.
+In reference.yml, the `files` field is a list of `src` and `dst` fields. The `src` field
+specifies the location of a generated Markdown file, and the `dst` field specifies
+where to copy this file in the cloned `kubernetes/website` repository.
 For example:
 
 ```yaml
@@ -242,5 +239,3 @@ topics will be visible in the
 * [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
 
 {{% /capture %}}
-
-

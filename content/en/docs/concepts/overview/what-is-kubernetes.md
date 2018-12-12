@@ -182,7 +182,7 @@ Summary of container benefits:
     hardware to running an application on an OS using logical resources.
 * **Loosely coupled, distributed, elastic, liberated [micro-services](https://martinfowler.com/articles/microservices.html)**:
     Applications are broken into smaller, independent pieces and can
-    be deployed and managed dynamically -- not a fat monolithic stack
+    be deployed and managed dynamically -- not a monolithic stack
     running on one big single-purpose machine.
 * **Resource isolation**:
     Predictable application performance.

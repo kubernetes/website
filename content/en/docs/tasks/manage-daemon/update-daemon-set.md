@@ -159,9 +159,10 @@ kubectl get pods -l <daemonset-selector-key>=<daemonset-selector-value> -o wide
 ```
 
 Once you've found those nodes, delete some non-DaemonSet pods from the node to
-make room for new DaemonSet pods. 
+make room for new DaemonSet pods.
+
 {{< note >}}
-**Note:** This will cause service disruption when deleted pods are not controlled by any controllers or pods are not
+This will cause service disruption when deleted pods are not controlled by any controllers or pods are not
 replicated. This does not respect [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
 either.
 {{< /note >}}

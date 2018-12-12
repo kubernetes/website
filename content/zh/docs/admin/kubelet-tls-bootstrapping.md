@@ -186,11 +186,13 @@ kubectl config set-credentials kubelet-bootstrap --token=${BOOTSTRAP_TOKEN} --ku
 
 When starting the kubelet, if the file specified by `--kubeconfig` does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On approval of the certificate request and receipt back by the kubelet, a kubeconfig file referencing the generated key and obtained certificate is written to the path specified by `--kubeconfig`. The certificate and key file will be placed in the directory specified by `--cert-dir`.
 
-**Note:** The following flags are required to enable this bootstrapping when starting the kubelet:
+{{< note >}}
+The following flags are required to enable this bootstrapping when starting the kubelet:
 
 ```
 --bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
 ```
+{{< /note >}}
 
 Additionally, in 1.7 the kubelet implements __alpha__ features for enabling rotation of both its client and/or serving certs.
 These can be enabled through the respective `RotateKubeletClientCertificate` and `RotateKubeletServerCertificate` feature

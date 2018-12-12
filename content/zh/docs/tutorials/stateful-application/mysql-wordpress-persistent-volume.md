@@ -6,9 +6,9 @@ approvers:
 ---
 
 
-本示例描述了如何在 Kubeernetes 上持久化安装 [WordPress](https://wordpress.org/) 和
-[MySQL](https://www.mysql.com/) 。在这个安装里我们将使用官方的 [mysql](https://registry.hub.docker.com/_/mysql/) 和
-[wordpress](https://registry.hub.docker.com/_/wordpress/) 镜像（WordPress 镜像包含一个 Apache 服务）。
+本示例描述了如何在 Kubernetes 上持久化安装 [WordPress](https://wordpress.org/) 和
+[MySQL](https://www.mysql.com/) 。在这个安装里我们将使用官方的 [MySQL](https://registry.hub.docker.com/_/mysql/) 和
+[WordPress](https://registry.hub.docker.com/_/wordpress/) 镜像（WordPress 镜像包含一个 Apache 服务）。
 
 
 展示的 Kubernetes 概念：

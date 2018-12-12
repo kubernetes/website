@@ -19,7 +19,7 @@ Modification not using HostAliases is not suggested because the file is managed 
 
 ## Default Hosts File Content
 
-Lets start an Nginx Pod which is assigned a Pod IP:
+Let's start an Nginx Pod which is assigned a Pod IP:
 
 ```shell
 kubectl run nginx --image nginx --generator=run-pod/v1

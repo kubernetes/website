@@ -10,7 +10,7 @@ redirect_from:
 
 
 Kubernetes [`Pod`](/docs/user-guide/pods) 是有生命周期的，它们可以被创建，也可以被销毁，然而一旦被销毁生命就永远结束。 
-通过 [`ReplicationController`](/docs/user-guide/replication-controller) 能够动态地创建和销毁 `Pod`（例如，需要进行扩缩容，或者执行 [滚动升级](/docs/user-guide/kubectl/v1.7/#rolling-update)）。 
+通过 [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) 能够动态地创建和销毁 `Pod`（例如，需要进行扩缩容，或者执行 [滚动升级](/docs/user-guide/kubectl/v1.7/#rolling-update)）。 
 每个 `Pod` 都会获取它自己的 IP 地址，即使这些 IP 地址不总是稳定可依赖的。
 这会导致一个问题：在 Kubernetes 集群中，如果一组 `Pod`（称为 backend）为其它 `Pod` （称为 frontend）提供服务，那么那些 frontend 该如何发现，并连接到这组 `Pod` 中的哪些 backend 呢？
 

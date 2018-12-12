@@ -167,10 +167,8 @@ You can use a Kubernetes binary release (recommended) or build your Kubernetes b
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
 Server binary tarballs are no longer included in the Kubernetes final tarball, so you will need to locate and run
-`./kubernetes/cluster/get-kube-binaries.sh` to download the client and server binaries.
-Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.
-Then, within the second set of unzipped files, locate `./kubernetes/server/bin`, which contains
-all the necessary binaries.
+`./kubernetes/cluster/get-kube-binaries.sh` to download and extract the client and server binaries.
+Then locate `./kubernetes/server/bin`, which contains all the necessary binaries.
 
 #### Selecting Images
 
@@ -487,11 +485,11 @@ You will need to run one or more instances of etcd.
   - Not highly available, but easy to restore - Run one etcd instance, with its log written to a directory backed
     by durable storage (RAID, GCE PD).
     
-    {{< note >}}**Note:** May result in operations outages in case of
+    {{< note >}}May result in operations outages in case of
     instance outage. {{< /note >}}
   - Highly available - Run 3 or 5 etcd instances with non durable storage.
   
-    {{< note >}}**Note:** Log can be written to non-durable storage
+    {{< note >}}Log can be written to non-durable storage
     because storage is replicated.{{< /note >}}
 
 See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting/) for more discussion on factors affecting cluster
