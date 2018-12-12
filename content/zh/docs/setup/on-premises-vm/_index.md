@@ -1,5 +1,5 @@
 ---
-title: 自有虚拟机（On-Premises VMs）
+title: 本地部署的虚拟机（On-Premises VMs）
 weight: 60
 ---
 
