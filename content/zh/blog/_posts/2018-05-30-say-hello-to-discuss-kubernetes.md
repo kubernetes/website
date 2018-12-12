@@ -6,6 +6,16 @@ layout: blog
 date: 2018-05-30
 ---
 
+<!--
+---
+title: ' Kubernetes 1 11：say-hello-to-discuss-kubernetes '
+cn-approvers:
+- congfairy
+layout: blog
+date: 2018-05-30
+---
+-->
+
 <!--   
 
 Author: Jorge Castro (Heptio)
