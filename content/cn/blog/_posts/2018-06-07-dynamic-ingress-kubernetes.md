@@ -126,3 +126,4 @@ Kubeflow 还可以使用 Envoy Proxy 来进行实际的 L7 路由。
 
 如果您有兴趣将 Ambassador 用作 API 网关或 Kubernetes 的 Ingress 解决方案，
 请参阅 [Ambassador 入门指南](https://www.getambassador.io/user-guide/getting-started)。
+
