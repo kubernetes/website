@@ -92,7 +92,7 @@ this example.
             peerCertSANs:
             - "${HOST}"
             extraArgs:
-                initial-cluster: infra0=https://${ETCDHOSTS[0]}:2380,infra1=https://${ETCDHOSTS[1]}:2380,infra2=https://${ETCDHOSTS[2]}:2380
+                initial-cluster: ${NAMES[0]}=https://${ETCDHOSTS[0]}:2380,${NAMES[1]}=https://${ETCDHOSTS[1]}:2380,${NAMES[2]}=https://${ETCDHOSTS[2]}:2380
                 initial-cluster-state: new
                 name: ${NAME}
                 listen-peer-urls: https://${HOST}:2380
