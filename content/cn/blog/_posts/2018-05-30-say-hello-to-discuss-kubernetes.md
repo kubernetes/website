@@ -31,7 +31,7 @@ While our current assortment of communication channels are valuable in their own
 
 -->
 
-Slack 非常适合随意和及时的对话，并与其他社区成员保持联系，但未来很难轻易引用通信。此外，在35,000名参与者中提问并得到回答很难。邮件列表在有问题尝试联系特定人群并且想要跟踪大家的回应时非常有用，但是对于大量人员来说可能是麻烦的。 Stack Overflow 和 GitHub 非常适合在涉及代码的项目或问题上进行协作，并且如果在将来要进行搜索也很有用，但某些主题如“你最喜欢的 CI/CD 工具是什么”或“[Kubectl提示和技巧](http://discuss.kubernetes.io/t/kubectl-tips-and-tricks/192）“在那里是没有意义的。
+Slack 非常适合随意和及时的对话，并与其他社区成员保持联系，但未来很难轻易引用通信。此外，在35,000名参与者中提问并得到回答很难。邮件列表在有问题尝试联系特定人群并且想要跟踪大家的回应时非常有用，但是对于大量人员来说可能是麻烦的。 Stack Overflow 和 GitHub 非常适合在涉及代码的项目或问题上进行协作，并且如果在将来要进行搜索也很有用，但某些主题如“你最喜欢的 CI/CD 工具是什么”或“[Kubectl提示和技巧](http://discuss.kubernetes.io/t/kubectl-tips-and-tricks/192)“在那里是没有意义的。
 
 虽然我们目前的各种沟通渠道对他们自己来说都很有价值，但我们发现电子邮件和实时聊天之间仍然存在差距。在网络的其他部分，许多其他开源项目，如 Docker，Mozilla，Swift，Ghost 和 Chef，已经成功地在[Discourse](http://www.discourse.org/features)之上构建社区，一个开放的讨论平台。那么，如果我们可以使用这个工具将我们的讨论结合在一个平台下，使用开放的API，或许也不会让我们的大部分信息消失在网络中呢？只有一种方法可以找到：欢迎来到[discuss.kubernetes.io](http://discuss.kubernetes.io)
 
