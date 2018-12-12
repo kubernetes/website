@@ -95,7 +95,7 @@ Use the `kubectl get pods` command to verify that the DNS pod is running.
 
 For CoreDNS:
 ```shell
-kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
+kubectl get pods --namespace=kube-system -l k8s-app=coredns
 NAME                       READY     STATUS    RESTARTS   AGE
 ...
 coredns-7b96bf9f76-5hsxb   1/1       Running   0           1h
