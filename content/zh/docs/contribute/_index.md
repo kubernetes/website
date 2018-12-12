@@ -1,3 +1,11 @@
+---
+content_template: templates/concept
+title: 为 Kubernetes 文档做贡献
+linktitle: 贡献
+main_menu: true
+weight: 80
+---
+
 <!--
 ---
 content_template: templates/concept
@@ -7,14 +15,6 @@ main_menu: true
 weight: 80
 ---
 -->
-
----
-content_template: templates/concept
-title: 为 Kubernetes 文档做贡献
-linktitle: Contribute
-main_menu: true
-weight: 80
----
 
 {{% capture overview %}}
 
