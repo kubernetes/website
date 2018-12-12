@@ -84,7 +84,7 @@ spec:
 ```
 
 {{< note >}}
-**Note:** If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
+If a Container specifies its own memory limit, but does not specify a memory request, Kubernetes
 automatically assigns a memory request that matches the limit. Similarly, if a Container specifies its own
 CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
 the limit.

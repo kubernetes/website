@@ -15,7 +15,7 @@ A service account provides an identity for processes that run in a Pod.
 [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).*
 
 {{< note >}}
-**Note:** This document describes how service accounts behave in a cluster set up
+This document describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project.  Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
 not apply.
@@ -175,7 +175,7 @@ token:          ...
 ```
 
 {{< note >}}
-**Note:** The content of `token` is elided here.
+The content of `token` is elided here.
 {{< /note >}}
 
 ## Add ImagePullSecrets to a service account
@@ -254,7 +254,7 @@ TODO: Test and explain how to use additional non-K8s secrets with an existing se
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 {{< note >}}
-**Note:** This ServiceAccountTokenVolumeProjection is __beta__ in 1.12 and
+This ServiceAccountTokenVolumeProjection is __beta__ in 1.12 and
 enabled by passing all of the following flags to the API server:
 
 * `--service-account-issuer`

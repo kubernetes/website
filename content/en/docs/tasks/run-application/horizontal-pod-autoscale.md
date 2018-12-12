@@ -159,7 +159,7 @@ replica counts is chosen.  If any of those metrics cannot be converted
 into a desired replica count (e.g. due to an error fetching the metrics
 from the metrics APIs), scaling is skipped.
 
-Finally, just before HPA scales the target, the scale reccomendation is recorded.  The
+Finally, just before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
 highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization-window` flag, which defaults to 5 minutes.
 This means that scaledowns will occur gradually, smoothing out the impact of rapidly
@@ -222,11 +222,11 @@ upscale delay.
   The default value is 5 minutes (`5m0s`).
 
 {{< note >}}
-**Note**: When tuning these parameter values, a cluster operator should be aware of
-the possible consequences. If the delay (cooldown) value is set too long, there
-could be complaints that the Horizontal Pod Autoscaler is not responsive to workload
-changes. However, if the delay value is set too short, the scale of the replicas set
-may keep thrashing as usual.
+When tuning these parameter values, a cluster operator should be aware of the possible
+consequences. If the delay (cooldown) value is set too long, there could be complaints
+that the Horizontal Pod Autoscaler is not responsive to workload changes. However, if
+the delay value is set too short, the scale of the replicas set may keep thrashing as
+usual.
 {{< /note >}}
 
 ## Support for multiple metrics
@@ -238,10 +238,12 @@ proposed scales will be used as the new scale.
 
 ## Support for custom metrics
 
-**Note**: Kubernetes 1.2 added alpha support for scaling based on application-specific metrics using special annotations.
+{{< note >}}
+Kubernetes 1.2 added alpha support for scaling based on application-specific metrics using special annotations.
 Support for these annotations was removed in Kubernetes 1.6 in favor of the new autoscaling API.  While the old method for collecting
 custom metrics is still available, these metrics will not be available for use by the Horizontal Pod Autoscaler, and the former
 annotations for specifying which custom metrics to scale on are no longer honored by the Horizontal Pod Autoscaler controller.
+{{< /note >}}
 
 Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal Pod Autoscaler.
 You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta2` API.

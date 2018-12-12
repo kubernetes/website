@@ -17,30 +17,32 @@ kubeadm has configuration options to specify configuration information for cloud
 in-tree cloud provider can be configured using kubeadm as shown below:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: InitConfiguration
 nodeRegistration:
   kubeletExtraArgs:
     cloud-provider: "openstack"
     cloud-config: "/etc/kubernetes/cloud.conf"
 ---
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
-apiVersion: kubeadm.k8s.io/v1alpha3
-kubernetesVersion: v1.12.0
-apiServerExtraArgs:
-  cloud-provider: "openstack"
-  cloud-config: "/etc/kubernetes/cloud.conf"
-apiServerExtraVolumes:
-- name: cloud
-  hostPath: "/etc/kubernetes/cloud.conf"
-  mountPath: "/etc/kubernetes/cloud.conf"
-controllerManagerExtraArgs:
-  cloud-provider: "openstack"
-  cloud-config: "/etc/kubernetes/cloud.conf"
-controllerManagerExtraVolumes:
-- name: cloud
-  hostPath: "/etc/kubernetes/cloud.conf"
-  mountPath: "/etc/kubernetes/cloud.conf"
+kubernetesVersion: v1.13.0
+apiServer:
+  extraArgs:
+    cloud-provider: "openstack"
+    cloud-config: "/etc/kubernetes/cloud.conf"
+  extraVolumes:
+  - name: cloud
+    hostPath: "/etc/kubernetes/cloud.conf"
+    mountPath: "/etc/kubernetes/cloud.conf"
+controllerManager:
+  extraArgs:
+    cloud-provider: "openstack"
+    cloud-config: "/etc/kubernetes/cloud.conf"
+  extraVolumes:
+  - name: cloud
+    hostPath: "/etc/kubernetes/cloud.conf"
+    mountPath: "/etc/kubernetes/cloud.conf"
 ```
 
 The in-tree cloud providers typically need both `--cloud-provider` and `--cloud-config` specified in the command lines
@@ -96,7 +98,7 @@ Different settings can be applied to a load balancer service in AWS using _annot
 * `service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled`: Used on the service to enable or disable cross-zone load balancing.
 * `service.beta.kubernetes.io/aws-load-balancer-extra-security-groups`: Used on the service to specify additional security groups to be added to ELB created
 * `service.beta.kubernetes.io/aws-load-balancer-internal`: Used on the service to indicate that we want an internal ELB.
-* `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: Used on the service to enable the proxy protocol on an ELB. Right now we only accept the value `*` which means enable the proxy protocol on all ELB backends. In the future we could adjust this to allow setting the proxy protocol only on certain backends.
+* `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: Used on the service to enable the proxy protocol on an ELB. Right now we only accept the value `*` which means enabling the proxy protocol on all ELB backends. In the future we could adjust this to allow setting the proxy protocol only on certain backends.
 * `service.beta.kubernetes.io/aws-load-balancer-ssl-ports`: Used on the service to specify a comma-separated list of ports that will use SSL/HTTPS listeners. Defaults to `*` (all)
 
 The information for the annotations for AWS is taken from the comments on [aws.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/aws/aws.go)
@@ -358,7 +360,9 @@ Note that the Kubernetes Node name must match the Photon VM name (or if `overrid
 
 ### Node Name
 
-The VSphere cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+The VSphere cloud provider uses the detected hostname of the node (as determined by the kubelet) as the name of the Kubernetes Node object.
+
+The `--hostname-override` parameter is ignored by the VSphere cloud provider.
 
 ## IBM Cloud Kubernetes Service
 

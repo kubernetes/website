@@ -34,7 +34,7 @@ for details.
 ## How to update objects
 
 {{< warning >}}
-**Warning:** Updating objects with the `replace` command drops all
+Updating objects with the `replace` command drops all
 parts of the spec not specified in the configuration file.  This
 should not be used with objects whose specs are partially managed
 by the cluster, such as Services of type `LoadBalancer`, where
@@ -115,7 +115,7 @@ kubectl replace -f <kind>_<name>.yaml
 ## Defining controller selectors and PodTemplate labels
 
 {{< warning >}}
-**Warning:** Updating selectors on controllers is strongly discouraged.
+Updating selectors on controllers is strongly discouraged.
 {{< /warning >}}
 
 The recommended approach is to define a single, immutable PodTemplate label

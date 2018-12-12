@@ -119,8 +119,10 @@ This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
 {{</ warning >}}
 
-For more information on version skews, please read our
-[version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
+For more information on version skews, see:
+
+* Kubernetes [version and version-skew policy](/docs/setup/version-skew-policy/)
+* Kubeadm-specific [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -226,7 +228,7 @@ If you are using a different CRI, you have to modify the file
 `/etc/default/kubelet` with your `cgroup-driver` value, like so:
 
 ```bash
-KUBELET_KUBEADM_EXTRA_ARGS=--cgroup-driver=<value>
+KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 ```
 
 This file will be used by `kubeadm init` and `kubeadm join` to source extra

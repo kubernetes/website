@@ -29,9 +29,9 @@ Kubernetes cluster.
 
     ```shell
     NAME      STATUS    ROLES     AGE     VERSION
-    worker0   Ready     <none>    1d      v1.12.0
-    worker1   Ready     <none>    1d      v1.12.0
-    worker2   Ready     <none>    1d      v1.12.0
+    worker0   Ready     <none>    1d      v1.13.0
+    worker1   Ready     <none>    1d      v1.13.0
+    worker2   Ready     <none>    1d      v1.13.0
     ```
 1. Chose one of your nodes, and add a label to it:
 
@@ -51,9 +51,9 @@ Kubernetes cluster.
 
     ```shell
     NAME      STATUS    ROLES    AGE     VERSION        LABELS
-    worker0   Ready     <none>   1d      v1.12.0        ...,disktype=ssd,kubernetes.io/hostname=worker0
-    worker1   Ready     <none>   1d      v1.12.0        ...,kubernetes.io/hostname=worker1
-    worker2   Ready     <none>   1d      v1.12.0        ...,kubernetes.io/hostname=worker2
+    worker0   Ready     <none>   1d      v1.13.0        ...,disktype=ssd,kubernetes.io/hostname=worker0
+    worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
+    worker2   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker2
     ```
 
     In the preceding output, you can see that the `worker0` node has a

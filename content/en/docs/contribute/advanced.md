@@ -98,7 +98,7 @@ SIG Docs [reviewers](/docs/contribute/participating/#reviewers) can sponsor
 new contributors.
 
 After a new contributor has successfully submitted 5 substantive pull requests
-to one or more Kubernetes repositiries, they are eligible to apply for
+to one or more Kubernetes repositories, they are eligible to apply for
 [membership](/docs/contribute/participating#members) in the Kubernetes
 organization. The contributor's membership needs to be backed by two sponsors
 who are already reviewers.

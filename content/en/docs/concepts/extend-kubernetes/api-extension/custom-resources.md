@@ -71,14 +71,14 @@ Imperative APIs are not declarative.
 Signs that your API might not be declarative include:
 
  - The client says "do this", and then gets a synchronous response back when it is done.
- - The client says "do this", and then gets an operation ID back, and has to check a separate Operation objects to determine completion of the request.
+ - The client says "do this", and then gets an operation ID back, and has to check a separate Operation object to determine completion of the request.
  - You talk about Remote Procedure Calls (RPCs).
  - Directly storing large amounts of data (e.g. > a few kB per object, or >1000s of objects).
  - High bandwidth access (10s of requests per second sustained) needed.
  - Store end-user data (such as images, PII, etc) or other large-scale data processed by applications.
  - The natural operations on the objects are not CRUD-y.
  - The API is not easily modeled as objects.
- - You chose to represent pending operations with an operation ID or operation object.
+ - You chose to represent pending operations with an operation ID or an operation object.
 
 ### Should I use a configMap or a custom resource?
 
@@ -91,7 +91,7 @@ Use a ConfigMap if any of the following apply:
 * You want to perform rolling updates via Deployment, etc, when the file is updated.
 
 {{< note >}}
-**Note:** Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
+Use a [secret](/docs/concepts/configuration/secret/) for sensitive data, which is similar to a configMap but more secure.
 {{< /note >}}
 
 Use a custom resource (CRD or Aggregated API) if most of the following apply:
@@ -108,11 +108,11 @@ Use a custom resource (CRD or Aggregated API) if most of the following apply:
 Kubernetes provides two ways to add custom resources to your cluster:
 
 - CRDs are simple and can be created without any programming.
-- [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) requires programming, but allows more control over API behaviors like how data is stored and conversion between API versions.
+- [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) requires programming, but allows more control over API behaviors like how data is stored and conversion between API versions.
 
-Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility are compromised.
+Kubernetes provides these two options to meet the needs of different users, so that neither ease of use nor flexibility is compromised.
 
-Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
+Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
 
 CRDs allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
 
@@ -131,14 +131,14 @@ for a demonstration of how to register a new custom resource, work with instance
 and setup a controller to handle events.
 
 {{< note >}}
-**Note:** CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of Kubernetes 1.7.
+CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of Kubernetes 1.7.
 {{< /note >}}
 
 ## API server aggregation
 
 Usually, each resource in the Kubernetes API requires code that handles REST requests and manages persistent storage of objects. The main Kubernetes API server handles built-in resources like *pods* and *services*, and can also handle custom resources in a generic way through [CRDs](#customresourcedefinitions).
 
-The [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) allows you to provide specialized
+The [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows you to provide specialized
 implementations for your custom resources by writing and deploying your own standalone API server.
 The main API server delegates requests to you for the custom resources that you handle,
 making them available to all of its clients.
@@ -171,13 +171,13 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | ------- | ----------- | ---- | -------------- |
 | Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Yes.  Most validation can be specified in the CRD using [OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation).  Any other validations supported by addition of a [Validating Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9). | Yes, arbitrary validation checks |
 | Defaulting | See above | Yes, via a [Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook-beta-in-1-9); Planned, via CRD OpenAPI schema. | Yes |
-| Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | No, but planned | Yes |
+| Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | [Yes](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning) | Yes |
 | Custom Storage | If you need storage with a different performance mode (for example, time-series database instead of key-value store) or isolation for security (for example, encryption secrets or different | No | Yes |
 | Custom Business Logic | Perform arbitrary checks or actions when creating, reading, updating or deleting an object | Yes, using [Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks). | Yes |
 | Scale Subresource | Allows systems like HorizontalPodAutoscaler and PodDisruptionBudget interact with your new resource | [Yes](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource)  | Yes |
 | Status Subresource | <ul><li>Finer-grained access control: user writes spec section, controller writes status section.</li><li>Allows incrementing object Generation on custom resource data mutation (requires separate spec and status sections in the resource)</li></ul> | [Yes](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | Yes |
 | Other Subresources | Add operations other than CRUD, such as "logs" or "exec". | No | Yes |
-| strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No, but similar functionality planned | Yes |
+| strategic-merge-patch | The new endpoints support PATCH with `Content-Type: application/strategic-merge-patch+json`. Useful for updating objects that may be modified both locally, and by the server. For more information, see ["Update API Objects in Place Using kubectl patch"](/docs/tasks/run-application/update-api-object-kubectl-patch/) | No | Yes |
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | No, but planned | Yes |
 
@@ -240,9 +240,9 @@ When you add a custom resource, you can access it using:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn how to [Extend the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
-* Learn how to [Extend the Kubernetes API with CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
-* Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
+
+* Learn how to [Extend the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+
+* Learn how to [Extend the Kubernetes API with CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/).
+
 {{% /capture %}}
-
-

@@ -87,7 +87,7 @@ max replicas on the federated HPA object, and the sum of minimum replicas will b
 than or equal to the minimum specified on the federated HPA object. 
 
 {{< note >}}
-**Note:** A particular cluster cannot have a minimum replica sum of 0.
+A particular cluster cannot have a minimum replica sum of 0.
 {{< /note >}}
 
 ### Spreading HPA min and max replicas in underlying clusters
@@ -106,7 +106,7 @@ Currently the default distribution is only available on the federated HPA, but i
 future, users preferences could also be specified to control and/or restrict this
 distribution.
 
-## Updating a federated ReplicaSet
+## Updating a federated HPA
 
 You can update a federated HPA as you would update a Kubernetes
 HPA; however, for a federated HPA, you must send the request to
@@ -125,8 +125,9 @@ in the previous section.
 You can delete a federated HPA as you would delete a Kubernetes
 HPA; however, for a federated HPA, you must send the request to
 the federation API server instead of to a specific Kubernetes cluster.
+
 {{< note >}}
-**Note:** For the federated resource to be deleted from all underlying clusters, [cascading deletion](/docs/concepts/cluster-administration/federation/#cascading-deletion) should be used.
+For the federated resource to be deleted from all underlying clusters, [cascading deletion](/docs/concepts/cluster-administration/federation/#cascading-deletion) should be used.
 {{< /note >}}
 
 For example, you can do that using `kubectl` by running:

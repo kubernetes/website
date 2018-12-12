@@ -135,7 +135,7 @@ Events:                 <none>
 ```
 
 {{< note >}}
-**Note:** The 'LoadBalancer Ingress' addresses of your Federated Service
+The 'LoadBalancer Ingress' addresses of your Federated Service
 correspond with the 'LoadBalancer Ingress' addresses of all of the
 underlying Kubernetes services (once these have been allocated - this
 may take a few seconds). For inter-cluster and inter-cloud-provider
@@ -222,7 +222,7 @@ nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME     180   
 ```
 
 {{< note >}}
-**Note:** If your Federation is configured to use AWS Route53, you can use one of the equivalent AWS tools, for example:
+If your Federation is configured to use AWS Route53, you can use one of the equivalent AWS tools, for example:
 
 ``` shell
 $ aws route53 list-hosted-zones

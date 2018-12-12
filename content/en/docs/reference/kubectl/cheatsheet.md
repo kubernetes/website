@@ -110,8 +110,8 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: $(echo -n "s33msi4" | base64)
-  username: $(echo -n "jane" | base64)
+  password: $(echo -n "s33msi4" | base64 -w0)
+  username: $(echo -n "jane" | base64 -w0)
 EOF
 
 ```
@@ -163,12 +163,20 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## Updating Resources
 
+As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), use `rollout` instead.
+
 ```bash
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # Rolling update pods of frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # Change the name of the resource and update the image
-kubectl rolling-update frontend --image=image:v2                 # Update the pods image of frontend
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # Abort existing rollout in progress
-cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
+kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
+kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
+kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
+
+# deprecated starting version 1.11
+kubectl rolling-update frontend-v1 -f frontend-v2.json           # (deprecated) Rolling update pods of frontend-v1
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (deprecated) Change the name of the resource and update the image
+kubectl rolling-update frontend --image=image:v2                 # (deprecated) Update the pods image of frontend
+kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (deprecated) Abort existing rollout in progress
+
+cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
 kubectl replace --force -f ./pod.json
@@ -282,7 +290,7 @@ kubectl api-resources --api-group=extensions # All resources in the "extensions"
 
 ### Formatting output
 
-To output details to your terminal window in a specific format, you can add either the `-o` or `-output` flags to a supported `kubectl` command.
+To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 
 Output format | Description
 --------------| -----------
