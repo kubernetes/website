@@ -14,10 +14,10 @@ RUN apk add --no-cache \
     openssh-client \
     rsync \
     build-base \
-    libc6-compat
+    libc6-compat \
+    texlive
 
 ARG HUGO_VERSION
-
 RUN mkdir -p /usr/local/src && \
     cd /usr/local/src && \
     #curl -L https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-64bit.tar.gz | tar -xz && \
