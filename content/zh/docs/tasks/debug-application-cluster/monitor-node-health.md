@@ -78,7 +78,7 @@ it to [support other log format](/docs/tasks/debug-application-cluster/monitor-n
 Node problem detector is [running as a cluster addon](/docs/setup/cluster-large/#addon-resources) enabled by default in the
 gce cluster. 
 -->
-节点问题检测器在 gce 集群中以[集群插件的形式](/docs/setup/cluster-large/#addon-resources)默认启用。
+节点问题检测器在 gce 集群中以 [集群插件的形式](/docs/setup/cluster-large/#addon-resources) 默认启用。
 
 <!-- 
 You can enable/disable it by setting the environment variable
@@ -136,20 +136,20 @@ OS distro.***
 <!-- 
 ### Addon Pod 
 -->
-### Addon Pod
+### 插件 Pod
 
 <!-- 
 This is for those who have their own cluster bootstrap solution, and don't need
 to overwrite the default configuration. They could leverage the addon pod to
 further automate the deployment. 
 -->
-这适用于拥有自己的集群引导程序解决方案的用户，并且不需要覆盖默认配置。 他们可以利用 Addon Pod 进一步自动化部署。
+这适用于拥有自己的集群引导程序解决方案的用户，并且不需要覆盖默认配置。 他们可以利用插件 Pod 进一步自动化部署。
 
 <!-- 
 Just create `node-problem-detector.yaml`, and put it under the addon pods directory
 `/etc/kubernetes/addons/node-problem-detector` on master node. 
 -->
-只需创建`node-problem-detector.yaml`，并将其放在主节点上的 addon pod 目录 `/etc/kubernetes/addons/node-problem-detector` 下。
+只需创建 `node-problem-detector.yaml`，并将其放在主节点上的插件 pod 目录 `/etc/kubernetes/addons/node-problem-detector` 下。
 
 
 <!-- 
@@ -161,7 +161,7 @@ Just create `node-problem-detector.yaml`, and put it under the addon pods direct
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)
 is embedded when building the docker image of node problem detector. 
 -->
-构建节点问题检测器的docker镜像时，会嵌入 [默认配置](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)。
+构建节点问题检测器的 docker 镜像时，会嵌入 [默认配置](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)。
 
 <!-- 
 However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to overwrite it
@@ -272,7 +272,7 @@ Kernel log in different OS distros may locate in different path. The `log`
 field in `config/kernel-monitor.json` is the log path inside the container.
 You can always configure it to match your OS distro. 
 -->
-不同操作系统发行版的内核日志的可能不同。 `config/kernel-monitor.json` 中的 `log` 字段是容器内的日志路径。您始终可以修改配置使其与您的OS发行版匹配。
+不同操作系统发行版的内核日志的可能不同。 `config/kernel-monitor.json` 中的 `log` 字段是容器内的日志路径。您始终可以修改配置使其与您的 OS 发行版匹配。
 
 <!-- 
 ### Support Other Log Format 
@@ -284,7 +284,7 @@ Kernel monitor uses [`Translator`](https://github.com/kubernetes/node-problem-de
 plugin to translate kernel log the internal data structure. It is easy to
 implement a new translator for a new log format. 
 -->
-内核监视器使用[`Translator`]插件将内核日志转换为内部数据结构。我们可以很容易为新的日志格式实现新的翻译器。
+内核监视器使用 [`Translator`] 插件将内核日志转换为内部数据结构。我们可以很容易为新的日志格式实现新的翻译器。
 {{% /capture %}}
 
 {{% capture discussion %}}
