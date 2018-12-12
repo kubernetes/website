@@ -15,8 +15,8 @@ This enables correct configuration of system components, and provides a seamless
 -->
 
 {{％capture overview％}}
-从v1.8.0开始，kubeadm 将集群的配置上传到名为 `kube-system`的 ConfigMap 中，其在`kubeadm-config` 命名空间，稍后在升级时读取ConfigMap。
-这样可以正确配置系统组件，并提供无缝的用户体验。
+从 v1.8.0 开始，kubeadm 将集群的配置上传到名为 kube-system 的 ConfigMap 对象中，对象位于 kube-system 命名空间内。并在以后的升级中读取这个 ConfigMap 配置对象。
+这样可以保证系统组件的正确配置，提供无缝的用户体验。
 
 <!--
 You can execute `kubeadm config view` to view the ConfigMap. If you initialized your cluster using
@@ -24,8 +24,7 @@ kubeadm v1.7.x or lower, you must use `kubeadm config upload` to create the Conf
 may use `kubeadm upgrade`.
 -->
 
-您可以执行`kubeadm config view`来查看ConfigMap。如果使用kubeadm v1.7.x或更低版本来初始化群集
-，您必须在使用`kubeadm upgrade`前先使用`kubeadm config upload`创建ConfigMap。
+您可以执行 kubeadm config view 来查看 ConfigMap。如果使用 kubeadm v1.7.x 或更低版本来初始化群集，必须先使用 kubeadm config upload 创建 ConfigMap，然后才能使用 kubeadm upgrade。
 
 <!--
 In Kubernetes v1.11.0, some new commands were added. You can use `kubeadm config print-default`
@@ -34,10 +33,9 @@ files to a newer version. `kubeadm config images list` and `kubeadm config image
 to list and pull the images that kubeadm requires.
 -->
 
-在Kubernetes v1.11.0中，添加了一些新命令。你可以使用`kubeadm config print-default`
-打印默认配置,也可以用 `kubeadm config migrate` 来将就配置文件转换到较新的版本。可以使用`kubeadm config images list`和`kubeadm config images pull`
+在 Kubernetes v1.11.0 中，添加了一些新命令。你可以使用 kubeadm config print-default
+打印默认配置,也可以用 kubeadm config migrate 来将就配置文件转换到较新的版本。可以使用 kubeadm config images list 和 kubeadm config images pull
 列出并拉取 kubeadm 所需的镜像。
-
 
 {{% /capture %}}
 
@@ -65,5 +63,12 @@ to list and pull the images that kubeadm requires.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+
+<!--
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 {{% /capture %}}
+-->
+
+*  [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)将Kubernetes集群升级到更新版本[kubeadm upgrade]
+{{% /capture %}}
+
