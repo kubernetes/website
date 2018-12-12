@@ -257,10 +257,10 @@ Sometimes when debugging it can be useful to look at the status of a node -- for
 ```shell
 $ kubectl get nodes
 NAME                     STATUS       ROLES     AGE     VERSION
-kubernetes-node-861h     NotReady     <none>    1h      v1.12.0
-kubernetes-node-bols     Ready        <none>    1h      v1.12.0
-kubernetes-node-st6x     Ready        <none>    1h      v1.12.0
-kubernetes-node-unaj     Ready        <none>    1h      v1.12.0
+kubernetes-node-861h     NotReady     <none>    1h      v1.13.0
+kubernetes-node-bols     Ready        <none>    1h      v1.13.0
+kubernetes-node-st6x     Ready        <none>    1h      v1.13.0
+kubernetes-node-unaj     Ready        <none>    1h      v1.13.0
 ```
 
 ```shell
