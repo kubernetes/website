@@ -14,7 +14,7 @@ title: Monitor Node Health
 
 {{% capture overview %}}
 
-*节点问题探测器* 是一个 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 用来监控节点健康。它从各种守护进程收集节点问题并将其报告给 apiserver [节点状态](/docs/concepts/architecture/nodes/#condition) 和 [事件](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core). 
+*节点问题探测器* 是一个 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 用来监控节点健康。它从各种守护进程收集节点问题，并以[NodeCondition](/docs/concepts/architecture/nodes/#condition) 和 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core) 的形式报告给 apiserver 。 
 <!-- 
 *Node problem detector* is a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) monitoring the
 node health. It collects node problems from various daemons and reports them
@@ -84,7 +84,7 @@ gce cluster.
 You can enable/disable it by setting the environment variable
 `KUBE_ENABLE_NODE_PROBLEM_DETECTOR` before `kube-up.sh`. 
 -->
-您可以通过在 `kube-up.sh` 前面设置环境变量 `KUBE_ENABLE_NODE_PROBLEM_DETECTOR` 的形式启用/禁用它。
+您可以在运行 `kube-up.sh` 之前，以设置环境变量 `KUBE_ENABLE_NODE_PROBLEM_DETECTOR` 的形式启用/禁用它。
 
 <!-- 
 ## Use in Other Environment 
@@ -95,7 +95,7 @@ You can enable/disable it by setting the environment variable
 To enable node problem detector in other environment outside of GCE, you can use
 either `kubectl` or addon pod. 
 -->
-要在 GCE 之外的其他环境中启用节点问题检测器，您可以使用 `kubectl` 或 addon pod。
+要在 GCE 之外的其他环境中启用节点问题检测器，您可以使用 `kubectl` 或插件 pod。
 
 <!-- 
 ### Kubectl 
@@ -161,13 +161,13 @@ Just create `node-problem-detector.yaml`, and put it under the addon pods direct
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)
 is embedded when building the docker image of node problem detector. 
 -->
-构建节点问题检测器的docker镜像时，会嵌入 [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)。
+构建节点问题检测器的docker镜像时，会嵌入 [默认配置](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)。
 
 <!-- 
 However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to overwrite it
 following the steps: 
 -->
-不过，您可以像下面这样使用 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 将其覆盖。
+不过，您可以像下面这样使用 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 将其覆盖：
 
 <!-- 
 * **Step 1:** Change the config files in `config/`.
@@ -206,13 +206,13 @@ ConfigMap, configuration overwriting is not supported now.
 <!-- 
 ## Kernel Monitor 
 -->
-内核监测器
+## 内核监视器
 
 <!-- 
 *Kernel Monitor* is a problem daemon in node problem detector. It monitors kernel log
 and detects known kernel issues following predefined rules. 
 -->
-*Kernel Monitor* 是节点问题检测器中的问题守护进程。它监视内核日志并按照预定义规则检测已知内核问题。
+*内核监视器* 是节点问题检测器中的问题守护进程。它监视内核日志并按照预定义规则检测已知内核问题。
 
 <!-- 
 The Kernel Monitor matches kernel issues according to a set of predefined rule list in
@@ -226,7 +226,7 @@ configuration.
 <!-- 
 ### Add New NodeConditions 
 -->
-### 添加新的节点状态
+### 添加新的 NodeCondition
 
 <!-- 
 To support new node conditions, you can extend the `conditions` field in
