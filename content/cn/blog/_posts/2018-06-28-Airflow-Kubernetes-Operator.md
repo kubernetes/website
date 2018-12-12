@@ -25,7 +25,7 @@ As part of Bloomberg's [continued commitment to developing the Kubernetes ecosys
 
 ## 介绍
 
-作为Bloomberg [继续致力于开发Kubernetes生态系统](https://www.techatbloomberg.com/blog/bloomberg-awarded-first-cncf-end-user-award-contributions-kubernetes/)的一部分,我们很高兴能够宣布Kubernetes Airflow Operator的发布; [Apache Airflow](https://airflow.apache.org/),的机制，一种流行的工作流程编排框架，使用Kubernetes API可以在本机启动任意的Kubernetes Pod。
+作为Bloomberg [继续致力于开发 Kubernetes 生态系统](https://www.techatbloomberg.com/blog/bloomberg-awarded-first-cncf-end-user-award-contributions-kubernetes/)的一部分,我们很高兴能够宣布 Kubernetes Airflow Operator 的发布; [Apache Airflow](https://airflow.apache.org/),的机制，一种流行的工作流程编排框架，使用 Kubernetes API 可以在本机启动任意的 Kubernetes Pod。
 
 <!--
 ## What Is Airflow?
@@ -38,7 +38,7 @@ Apache Airflow is one realization of the DevOps philosophy of "Configuration As 
 
 ## 什么是 Airflow?
 
-Apache Airflow 是 DevOps "Configuration As Code" 理念的一种实现。 Airflow 允许用户使用简单的 Python 对象DAG（定向非循环图）启动多步骤流水线。您可以在易于阅读的 UI 中定义依赖项，以编程方式构建复杂的工作流，并监视调度的作业。
+Apache Airflow 是 DevOps "Configuration As Code" 理念的一种实现。 Airflow 允许用户使用简单的 Python 对象 DAG（定向非循环图）启动多步骤流水线。您可以在易于阅读的 UI 中定义依赖项，以编程方式构建复杂的工作流，并监视调度的作业。
 
 <img src="/images/blog/2018-05-25-Airflow-Kubernetes-Operator/2018-05-25-airflow_dags.png" width="85%" alt="Airflow DAGs" />
 <img src="/images/blog/2018-05-25-Airflow-Kubernetes-Operator/2018-05-25-airflow.png" width="85%" alt="Airflow UI" />
@@ -55,7 +55,7 @@ To address this issue, we've utilized Kubernetes to allow users to launch arbitr
 
 自成立以来，Airflow 的最大优势在于其灵活性。 Airflow 提供广泛的服务集成，包括 Spark 和 HBase，以及各种云提供商的服务。 Airflow 还通过其插件框架提供轻松的可扩展性。但是，该项目的一个限制是 Airflow 用户仅限于执行时 Airflow 站点上存在的框架和客户端。单个组织可以拥有各种 Airflow 工作流程，范围从数据科学流到应用程序部署。用例中的这种差异会在依赖关系管理中产生问题，因为两个团队可能会在其工作流程使用截然不同的库。
 
-为了解决这个问题，我们使 Kubernetes 允许用户启动任意 Kubernetes pod 和配置。 Airflow 用户现在可以在其运行时环境，资源和机密上拥有全部权限，基本上将 Airflow 转变为“您想要的任何工作”工作流程协调器。
+为了解决这个问题，我们使 Kubernetes 允许用户启动任意 Kubernetes pod 和配置。 Airflow 用户现在可以在其运行时环境，资源和机密上拥有全部权限，基本上将 Airflow 转变为"您想要的任何工作"工作流程协调器。
 
 <!--
 ## The Kubernetes Operator
@@ -111,7 +111,7 @@ The Kubernetes Operator uses the [Kubernetes Python Client](https://github.com/k
 
 <img src="/images/blog/2018-05-25-Airflow-Kubernetes-Operator/2018-05-25-airflow-architecture.png" width="85%" alt="Airflow Architecture" />
 
-Kubernetes Operator 使用[Kubernetes Python客户端](https://github.com/kubernetes-client/Python) 生成由APIServer处理的请求（1）。 然后，Kubernetes 将使用您定义的需求启动您的pod（2）。 图像将所有必要的环境变量，秘密和依赖项进行加载，制定单个命令。 一旦启动作业，operator 只需要监视跟踪日志的状况（3）。 用户可以选择将日志本地收集到调度程序或当前位于其 Kubernetes 集群中的任何分布式日志记录服务。
+Kubernetes Operator 使用[Kubernetes Python客户端](https://github.com/kubernetes-client/Python) 生成由 APIServer 处理的请求（1）。 然后，Kubernetes 将使用您定义的需求启动您的 pod（2）。 图像将所有必要的环境变量，秘密和依赖项进行加载，制定单个命令。 一旦启动作业，operator 只需要监视跟踪日志的状况（3）。 用户可以选择将日志本地收集到调度程序或当前位于其 Kubernetes 集群中的任何分布式日志记录服务。
 
 <!--
 # Using the Kubernetes Operator
@@ -121,11 +121,11 @@ Kubernetes Operator 使用[Kubernetes Python客户端](https://github.com/kubern
 The following DAG is probably the simplest example we could write to show how the Kubernetes Operator works. This DAG creates two pods on Kubernetes: a Linux distro with Python and a base Ubuntu distro without it. The Python pod will run the Python request correctly, while the one without Python will report a failure to the user. If the Operator is working correctly, the `passing-task` pod should complete, while the `failing-task` pod returns a failure to the Airflow webserver.
 -->
 
-# 使用Kubernetes Operator
+# 使用 Kubernetes Operator
 
 ## 一个基本的例子
 
-以下 DAG 可能是我们可以编写的最简单的示例，以显示 Kubernetes Operator 的工作原理。 这个 DAG 在 Kubernetes 上创建了两个 pod：一个带有 Python 的Linux 发行版和一个没有它的基本 Ubuntu 发行版。 Python pod 将正确运行 Python 请求，而没有 Python 的那个将向用户报告失败。 如果 Operator 正常工作，则应该完成 “passing-task”pod，而 “falling-task”pod 则向 Airflow 网络服务器返回失败。
+以下 DAG 可能是我们可以编写的最简单的示例，以显示 Kubernetes Operator 的工作原理。 这个 DAG 在 Kubernetes 上创建了两个 pod：一个带有 Python 的Linux 发行版和一个没有它的基本 Ubuntu 发行版。 Python pod 将正确运行 Python 请求，而没有 Python 的那个将向用户报告失败。 则应该完成 `passing-task` pod，而 `failing-task` pod 则向 Airflow 网络服务器返回失败。
 
 
 ```Python
@@ -194,18 +194,18 @@ Use Travis or Jenkins to run unit and integration tests, bribe your favorite tea
 
 Finally, update your DAGs to reflect the new release version and you should be ready to go!
 -->
-## 但这与我的工作流程有什么关系？
+## 与我的工作流程的关系？
 
-虽然这个例子只使用基本图像，但 Docker 的神奇之处在于，这个相同的 DAG 可以用于您想要的任何图像/命令配对。 以下是推荐的 CI / CD 管道，用于在 Airflow DAG 上运行生产就绪代码。
+虽然这个例子只使用基本镜像，但 Docker 的神奇之处在于，这个相同的 DAG 可以用于您想要的任何图像/命令配对。 以下是推荐的 CI/CD 管道，用于在 Airflow DAG 上运行生产就绪代码。
 
-### 1：github中的PR
-使用 Travis 或 Jenkins 运行单元和集成测试，请您的朋友 PR 您的代码，并合并到主分支以触发自动 CI 构建。
+### 1：github 中的 PR
+使用 Travis 或 Jenkins 运行单元和集成测试，请您最喜欢的朋友对您的代码进行审阅，并合并到主分支触发自动 CI 构建。
 
-### 2：CI / CD构建Jenkins - > Docker Image
+### 2：通过 Jenkins 构建 CI/CD -> Docker 镜像 
 
-[在 Jenkins 构建中生成 Docker 镜像和缓冲版本](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers)。
+[通过 Jenkins 构建生成 Docker 镜像和缓冲版本](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers)。
 
-### 3：Airflow启动任务
+### 3：Airflow 启动任务
 
 最后，更新您的 DAG 以反映新版本，您应该准备好了！
 
@@ -243,13 +243,13 @@ To run this basic deployment, we are co-opting the integration testing script th
 
 ## 步骤1：将 kubeconfig 设置为指向 kubernetes 集群
 
-## 步骤2：clone Airflow 仓库：
+## 步骤2：克隆 Airflow 仓库：
 
-运行`git clone https：// github.com / apache / incubator-airflow.git`来clone官方Airflow仓库。
+运行 `git clone https://github.com/apache/incubator-airflow.git` 来克隆官方 Airflow 仓库。
 
 ## 步骤3：运行
 
-为了运行这个基本部署，我们正在选择我们目前用于Kubernetes Executor的集成测试脚本（将在本系列的下一篇文章中对此进行解释）。 要启动此部署，请运行以下三个命令：
+为了运行这个基本部署，我们正在选择我们目前用于 Kubernetes Executor 的集成测试脚本（将在本系列的下一篇文章中对此进行解释）。 要启动此部署，请运行以下三个命令：
 
 ```
 sed -ie "s/KubernetesExecutor/LocalExecutor/g" scripts/ci/kubernetes/kube/configmaps.yaml
@@ -288,7 +288,7 @@ Kubernetes Executor 是另一种 Airflow 功能，允许动态分配任务已解
 
 ### ./scripts/ci/kubernetes/kube/deploy.sh
 
-最后，我们在您的群集上创建完整的 Airflow 部署。这包括 Airflow 配置，postgres 后端，webserver +调度程序以及之间的所有必要服务。需要注意的一点是，提供的角色绑定是集群管理员，因此如果您没有该集群的权限级别，可以在scripts / ci / kubernetes / kube / airflow.yaml中进行修改。
+最后，我们在您的群集上创建完整的 Airflow 部署。这包括 Airflow 配置，postgres 后端，webserver +调度程序以及之间的所有必要服务。需要注意的一点是，提供的角色绑定是集群管理员，因此如果您没有该集群的权限级别，可以在 scripts/ci/kubernetes/kube/airflow.yaml 中进行修改。
 
 ## 步骤4：登录您的网络服务器
 
@@ -306,7 +306,8 @@ kubectl port-forward $WEB 8080:8080
 To modify/add your own DAGs, you can use `kubectl cp` to upload local files into the DAG folder of the Airflow scheduler. Airflow will then read the new DAG and automatically upload it to its system. The following command will upload any local file into the correct directory:
 -->
 
-现在，Airflow UI将存在于https：// localhost：8080上。 要登录，只需输入`airflow` /`airflow`，您就可以完全访问Airflow Web UI。
+现在，Airflow UI 将存在于 https://localhost:8080上。 要登录只需输入 `airflow`/`airflow` ，您就可以完全访问 Airflow Web UI。
+
 
 ## 步骤5：上传测试文档
 
@@ -343,13 +344,14 @@ Special thanks to the Apache Airflow and Kubernetes communities, particularly Gr
 
 # 参与其中
 
-此功能只是将 Apache Airflow 集成到 Kubernetes 中的多项主要工作的开始。 Kubernetes Operator 已合并到[Airflow的1.10发布分支](https://github.com/apache/incubator-airflow/tree/v1-10-test)（实验模式中的执行模块），以及完整的 k8s 本地调度程序称为 Kubernetes Executor（即将发布文章）。这些功能仍处于早期采用者/贡献者可能对这些功能的未来产生巨大影响的阶段。
+此功能只是将 Apache Airflow 集成到 Kubernetes 中的多项主要工作的开始。 Kubernetes Operator 已合并到[ Airflow 的1.10发布分支](https://github.com/apache/incubator-airflow/tree/v1-10-test)（实验模式中的执行模块），以及完整的 k8s 本地调度程序称为 Kubernetes Executor（即将发布文章）。这些功能仍处于早期采用者/贡献者可能对这些功能的未来产生巨大影响的阶段。
 
 对于有兴趣加入这些工作的人，我建议按照以下步骤：
 
- *加入 airflow-dev 邮件列表 dev@airflow.apache.org。
- *在[Apache Airflow JIRA](https://issues.apache.org/jira/projects/AIRFLOW/issues/)中提出问题
- *周三上午10点太平洋标准时间加入我们的 SIG-BigData 会议。
- *在 kubernetes.slack.com 上的＃sig-big-data找到我们。
+ * 加入 airflow-dev 邮件列表 dev@airflow.apache.org。
+ * 在 [ Apache Airflow JIRA ](https://issues.apache.org/jira/projects/AIRFLOW/issues/)中提出问题。
+ * 周三上午太平洋标准时间10点加入我们的 SIG-BigData 会议。
+ * 在 kubernetes.slack.com 上的 #sig-big-data 找到我们。
+
 
 特别感谢 Apache Airflow 和 Kubernetes 社区，特别是 Grant Nicholas，Ben Goldberg，Anirudh Ramanathan，Fokko Dreisprong 和 Bolke de Bruin，感谢您对这些功能的巨大帮助以及我们未来的努力。
