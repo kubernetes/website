@@ -92,13 +92,13 @@ admins constructing their own audit profiles.
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides two backends:
+[Kube-apiserver][kube-apiserver] out of the box provides three backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
 - Dynamic backend, which configures webhook backends through an AuditSink API object.
 
-In both cases, audit events structure is defined by the API in the
+In all cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
 [`v1`][auditing-api].
 
