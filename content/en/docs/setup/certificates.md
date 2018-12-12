@@ -87,14 +87,15 @@ Certificates should be placed in a recommended path (as used by [kubeadm][kubead
 | Default CN                   | recommend key path           | recommended cert path       | command        | key argument                 | cert argument                             |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
 | etcd-ca                      |                              | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
-| etcd-client                  | apiserver-etcd-client.crt    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-certfile              | --etcd-keyfile                            |
-| kubernetes-ca                |                              | ca.crt                      | kube-apiserver | --client-ca-file             |                                           |
-| kube-apiserver               | apiserver.crt                | apiserver.key               | kube-apiserver | --tls-cert-file              | --tls-private-key                         |
-| apiserver-kubelet-client     | apiserver-kubelet-client.crt |                             | kube-apiserver | --kubelet-client-certificate |                                           |
-| front-proxy-client           | front-proxy-client.key       | front-proxy-client.crt      | kube-apiserver | --proxy-client-cert-file     | --proxy-client-key-file                   |
+| etcd-client                  | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-keyfile               | --etcd-certfile                           |
+| kubernetes-ca                |                              | ca.crt                      | kube-apiserver |                              | --client-ca-file                          |
+| kube-apiserver               | apiserver.key                | apiserver.crt               | kube-apiserver | --tls-private-key-file       | --tls-cert-file                           |
+| apiserver-kubelet-client     |                              | apiserver-kubelet-client.crt| kube-apiserver |                              | --kubelet-client-certificate              |
+| front-proxy-ca               |                              | front-proxy-ca.crt          | kube-apiserver |                              | --requestheader-client-ca-file            |
+| front-proxy-client           | front-proxy-client.key       | front-proxy-client.crt      | kube-apiserver | --proxy-client-key-file      | --proxy-client-cert-file                  |
 |                              |                              |                             |                |                              |                                           |
 | etcd-ca                      |                              | etcd/ca.crt                 | etcd           |                              | --trusted-ca-file, --peer-trusted-ca-file |
-| kube-etcd                    |                              | etcd/server.crt             | etcd           |                              | --cert-file                               |
+| kube-etcd                    | etcd/server.key              | etcd/server.crt             | etcd           | --key-file                   | --cert-file                               |
 | kube-etcd-peer               | etcd/peer.key                | etcd/peer.crt               | etcd           | --peer-key-file              | --peer-cert-file                          |
 | etcd-ca                      |                              | etcd/ca.crt                 | etcdctl[2]     |                              | --cacert                                  |
 | kube-etcd-healthcheck-client | etcd/healthcheck-client.key  | etcd/healthcheck-client.crt | etcdctl[2]     | --key                        | --cert                                    |
