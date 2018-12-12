@@ -37,7 +37,7 @@ VT-x or AMD-v virtualization must be enabled in your computer's BIOS.
 ## Install a Hypervisor
 -->
 
-如果您还没有安装一种 hypervisor，那么现在就请为您的操作系统安装合适的 hypervisor 程序:
+如果还没有装过 hypervisor，以下是一些不错的选择：
 <!--
 If you do not already have a hypervisor installed, install the appropriate one for your OS now:
 -->
@@ -60,7 +60,7 @@ If you do not already have a hypervisor installed, install the appropriate one f
 
   {{< note >}}
 
-  Minikube 也支持一个 `-\-vm-driver=none` 选项，该选项在主机而不是 VM 上运行 Kubernetes 组件。
+  Minikube 也支持 `-\-vm-driver=none` 选项，该选项在主机而非 VM 上运行 Kubernetes 组件。
   使用这个驱动程序需要 Docker 和 linux 环境，而不需要 hypervisor。
   <!--
   Minikube also supports a `-\-vm-driver=none` option that runs the Kubernetes components on the host and not in a VM.  Using this driver requires Docker and a linux environment, but not a hypervisor.
@@ -96,7 +96,7 @@ If you do not already have a hypervisor installed, install the appropriate one f
 
 {{% capture whatsnext %}}
 
-* [通过 Minikube 在本地运行 Kubernetes](/docs/getting-started-guides/minikube/)
+* [使用 Minikube 在本地运行 Kubernetes](/docs/getting-started-guides/minikube/)
 <!--
 * [Running Kubernetes Locally via Minikube](/docs/getting-started-guides/minikube/)
 -->
