@@ -1,5 +1,5 @@
 ---
-title: 'Kubernete s内的动态 Ingress'
+title: 'Kubernetes 内的动态 Ingress'
 layout: blog
 ---
 
