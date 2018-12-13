@@ -60,43 +60,52 @@ Annotations, like labels, are key/value maps:
 <!--
 Here are some examples of information that could be recorded in annotations:
 -->
+
 * 由声明性配置所管理的字段。
   将这些字段附加为注解，能够将它们与客户端或服务端设置的默认值、自动生成的字段以及通过自动调整大小或自动伸缩系统设置的字段区分开来。
+
 <!--
 * Fields managed by a declarative configuration layer. Attaching these fields
   as annotations distinguishes them from default values set by clients or
   servers, and from auto-generated fields and fields set by
   auto-sizing or auto-scaling systems.
 -->
+
 * 构建、发布或镜像信息（如时间戳、发布 ID、Git 分支、PR 数量、镜像哈希、仓库地址）。
+
 <!--
 * Build, release, or image information like timestamps, release IDs, git branch,
   PR numbers, image hashes, and registry address.
 -->
 
 * 指向日志记录、监控、分析或审计仓库的指针。
+
 <!--
 * Pointers to logging, monitoring, analytics, or audit repositories.
 -->
 
 * 可用于调试目的的客户端库或工具信息：例如，名称、版本和构建信息。
+
 <!--
 * Client library or tool information that can be used for debugging purposes:
   for example, name, version, and build information.
 -->
 
 * 用户或者工具/系统的来源信息，例如来自其他生态系统组件的相关对象的 URL。
+
 <!--
 * User or tool/system provenance information, such as URLs of related objects
   from other ecosystem components.
 -->
 
 * 推出的轻量级工具的元数据信息：例如，配置或检查点。
+
 <!--
 * Lightweight rollout tool metadata: for example, config or checkpoints.
 -->
 
 * 负责人员的电话或呼机号码，或指定在何处可以找到该信息的目录条目，如团队网站。
+
 <!--
 * Phone or pager numbers of persons responsible, or directory entries that
   specify where that information can be found, such as a team web site.
