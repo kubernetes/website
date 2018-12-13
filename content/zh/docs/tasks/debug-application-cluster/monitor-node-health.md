@@ -78,7 +78,7 @@ it to [support other log format](/docs/tasks/debug-application-cluster/monitor-n
 Node problem detector is [running as a cluster addon](/docs/setup/cluster-large/#addon-resources) enabled by default in the
 gce cluster. 
 -->
-节点问题检测器在 gce 集群中以 [集群插件的形式](/docs/setup/cluster-large/#addon-resources) 默认启用。
+节点问题检测器在 gce 集群中以[集群插件的形式](/docs/setup/cluster-large/#addon-resources)默认启用。
 
 <!-- 
 You can enable/disable it by setting the environment variable
@@ -161,7 +161,7 @@ Just create `node-problem-detector.yaml`, and put it under the addon pods direct
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)
 is embedded when building the docker image of node problem detector. 
 -->
-构建节点问题检测器的 docker 镜像时，会嵌入 [默认配置](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)。
+构建节点问题检测器的 docker 镜像时，会嵌入[默认配置](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)。
 
 <!-- 
 However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to overwrite it
