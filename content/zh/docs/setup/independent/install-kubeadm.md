@@ -78,23 +78,31 @@ If these values are not unique to each node, the installation process
 may [fail](https://github.com/kubernetes/kubeadm/issues/31). 
 -->
 一般来讲，硬件设备会拥有独一无二的地址，但是有些虚拟机可能会雷同。Kubernetes 使用这些值来唯一确定集群中的节点。如果这些值在集群中不唯一，可能会导致安装[失败](https://github.com/kubernetes/kubeadm/issues/31)。
+
 <!--
 ## Check network adapters
 -->
+
 ## 检查网络适配器
+
 <!--
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 -->
+
 如果您有一个以上的网络适配器，同时您的 Kubernetes 组件通过默认路由不可达，我们建议您预先添加 IP 路由规则，这样 Kubernetes 集群就可以通过对应的适配器完成连接。
+
 <!--
 ## Check required ports
 -->
+
 ## 检查所需端口
+
 <!--
 ### Master node(s)
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
 -->
+
 ### Master 节点
 | 规则     | 方向       | 端口范围   | 作用                     | 使用者                    |
 |----------|-----------|------------|-------------------------|---------------------------|
@@ -107,6 +115,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 ### Worker node(s)
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
 -->
+
 ### Worker 节点
 
 | 规则     | 方向       | 端口范围    | 作用                   | 使用者                  |
@@ -116,6 +125,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 <!--
 ** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
 -->
+
 ** [NodePort 服务](/docs/concepts/services-networking/service/) 的默认端口范围。
 
 <!-- 
@@ -230,6 +240,11 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl
 apt-mark hold kubelet kubeadm kubectl
 ```
+
+<!--
+# Set SELinux in permissive mode (effectively disabling it)
+-->
+
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```bash
@@ -244,9 +259,6 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 exclude=kube*
 EOF
 
-<!--
-# Set SELinux in permissive mode (effectively disabling it)
--->
 # 将 SELinux 设置为 permissive 模式(将其禁用)
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
