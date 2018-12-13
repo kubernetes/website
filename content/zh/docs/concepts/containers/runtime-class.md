@@ -33,7 +33,7 @@ RuntimeClass 是一个 alpha 功能，用来选择容器运行时，运行 pod �
 <!-- 
 ### Set Up
 -->
-### 设置
+###设置
 
 <!-- 
 As an early alpha feature, there are some additional setup steps that must be taken in order to use
