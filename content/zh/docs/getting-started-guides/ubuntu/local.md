@@ -12,7 +12,9 @@ content_template: templates/task
 
 <!-- Running Kubernetes locally has obvious development advantages, such as lower cost and faster iteration than constantly deploying and tearing down clusters on a public cloud. Ideally, a Kubernetes developer can spawn all necessary nodes inside local containers and test new configurations as they are committed. This page will show you how to deploy a cluster to LXD containers on a local machine. -->
 
-在本地运行 Kubernetes 比在公有云上部署和移除集群具有明显的开发优势，如更低的成本和更快的迭代。 理想情况下，Kubernetes 开发人员可以在本地容器内产生所有必需的节点，测试新的测试，并提交。本文将展示如何将集群部署到本地机器的 LXD 容器上。
+在本地运行 Kubernetes 比在公有云上部署和移除集群具有明显的开发优势，如更低的成本和更快的迭代。
+理想情况下，Kubernetes 开发人员可以在本地容器内产生所有必需的节点，并在提交新配置时测试它们。
+本文将展示如何将集群部署到本地机器的 LXD 容器上。
 
 {{% /capture %}}
 
