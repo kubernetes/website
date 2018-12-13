@@ -67,7 +67,7 @@ of enabling feature gates. The RuntimeClass feature gate must be enabled on apis
 <!--
 #### 2. Install the RuntimeClass CRD
 -->
-#### 2.安装RuntimeClass CRD
+#### 2.安装 RuntimeClass CRD
 
 <!--
 The RuntimeClass [CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/] (CRD) can be found in the addons directory of the
