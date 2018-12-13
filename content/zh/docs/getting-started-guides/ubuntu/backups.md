@@ -12,7 +12,7 @@ normally stored in a persistent volume, is outside the scope of this
 document. -->
 Kubernetes 集群的状态信息保存在 etcd 数据库中。
 本文将要展示如何对 Canonical 发行版的 Kubernetes 中所带有的 etcd 进行备份和恢复。
-至于如何对通常保存在持久卷上的应用数据，进行数据备份在本文的讨论范围之外。
+至于如何对通常保存在持久卷上的应用数据进行备份，超出了本文的讨论范围。
 
 {{% /capture %}}
 
