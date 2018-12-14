@@ -1,10 +1,14 @@
 ---
-approvers:
+reviewers:
 - bprashanth
-title: Service
-redirect_from:
-- "/docs/user-guide/services/"
-- "/docs/user-guide/services/index.html"
+title: Services
+feature:
+  title: 服务发现与负载均衡
+  description: >
+    无需修改您的应用程序即可使用陌生的服务发现机制。Kubernetes 为容器提供了自己的 IP 地址和一个 DNS 名称，并且可以在它们之间实现负载平衡。
+
+content_template: templates/concept
+weight: 10
 ---
 
 
