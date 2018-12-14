@@ -1,5 +1,5 @@
 
-This feature is *stable*, meaning:
+この機能は、現在 *安定版* です。
 
-* The version name is vX where X is an integer.
-* Stable versions of features will appear in released software for many subsequent versions.
+* バージョン名は、 `vX` (`X`はバージョン番号を示す整数) という規則でつけられています。
+* 安定版となっている機能は、これ以降のバージョンにおいても長期にわたって利用可能です。
