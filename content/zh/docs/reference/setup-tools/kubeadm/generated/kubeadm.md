@@ -93,14 +93,20 @@ You can then repeat the second step on as many other machines as you like.
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
+<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">help for kubeadm</td>
+-->
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 操作的帮助信息</td>
     </tr>
 
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
+<!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+-->
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[试验阶段] 指向 '真实' 宿主机的根目录。</td>
     </tr>
 
   </tbody>
