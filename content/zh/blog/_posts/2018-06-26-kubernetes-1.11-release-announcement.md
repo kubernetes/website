@@ -1,6 +1,6 @@
 ---
 
-title: Kubernetes 1.11：集群内负载均衡和CoreDNS插件的普遍可用性
+title: Kubernetes 1.11：集群内负载均衡和 CoreDNS 插件的普遍可用性
 
 cn-approvers:
 
@@ -47,7 +47,7 @@ Notable additions in this release include two highly-anticipated features gradua
 我们很高兴地宣布推出2018年第二个发型版本，Kubernetes 1.11！
  
 
-今天的发布继续推进Kubernetes的成熟度，可扩展性和灵活性，标志着团队在过去一年中努力研发的功能取得了重大进展。 这个最新版本涵盖网络的关键功能，开启了SIG-API Machinery和SIG-Node的两个主要功能，用于beta测试，并继续增强存储功能，这些功能一直是过去两个版本的焦点。 此版本中的功能使得将任何基础架构，云或预置部署加入Kubernetes系统的可能性越来越大。
+今天的发布继续推进 Kubernetes 的成熟度，可扩展性和灵活性，标志着团队在过去一年中努力研发的功能取得了重大进展。 这个最新版本涵盖网络的关键功能，开启了SIG-API Machinery 和 SIG-Node 的两个主要功能，用于 beta 测试，并继续增强存储功能，这些功能一直是过去两个版本的焦点。 此版本中的功能使得将任何基础架构，云或预置部署加入 Kubernetes 系统的可能性越来越大。
 
  
 
