@@ -26,38 +26,78 @@ weight: 10
 ---
 -->
 
+
+{{% capture overview %}}
+
+<!--
+Kubernetes [`Pods`](/docs/concepts/workloads/pods/pod/) are mortal. They are born and when they die, they
+are not resurrected.  [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) in
+particular create and destroy `Pods` dynamically (e.g. when scaling out or in).  While each `Pod` gets its own IP address, even
+those IP addresses cannot be relied upon to be stable over time. This leads to
+a problem: if some set of `Pods` (let's call them backends) provides
+functionality to other `Pods` (let's call them frontends) inside the Kubernetes
+cluster, how do those frontends find out and keep track of which backends are
+in that set?
+-->
+
 Kubernetes [`Pod`](/docs/user-guide/pods) 是有生命周期的，它们可以被创建，也可以被销毁，然而一旦被销毁生命就永远结束。 
 通过 [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) 能够动态地创建和销毁 `Pod`（例如，需要进行扩缩容，或者执行 [滚动升级](/docs/user-guide/kubectl/v1.7/#rolling-update)）。 
 每个 `Pod` 都会获取它自己的 IP 地址，即使这些 IP 地址不总是稳定可依赖的。
 这会导致一个问题：在 Kubernetes 集群中，如果一组 `Pod`（称为 backend）为其它 `Pod` （称为 frontend）提供服务，那么那些 frontend 该如何发现，并连接到这组 `Pod` 中的哪些 backend 呢？
 
+<!--
+Enter `Services`.
+-->
 
+关于 `Services`
 
-关于 `Service`
-
-
+<!--
+A Kubernetes `Service` is an abstraction which defines a logical set of `Pods`
+and a policy by which to access them - sometimes called a micro-service.  The
+set of `Pods` targeted by a `Service` is (usually) determined by a [`Label
+Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors) (see below for why you might want a
+`Service` without a selector).
+-->
 
 Kubernetes `Service` 定义了这样一种抽象：逻辑上的一组 `Pod`，一种可以访问它们的策略 —— 通常称为微服务。
 这一组 `Pod` 能够被 `Service` 访问到，通常是通过 [`Label Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors)（查看下面了解，为什么可能需要没有 selector 的 `Service`）实现的。
 
-
+<!--
+As an example, consider an image-processing backend which is running with 3
+replicas.  Those replicas are fungible - frontends do not care which backend
+they use.  While the actual `Pods` that compose the backend set may change, the
+frontend clients should not need to be aware of that or keep track of the list
+of backends themselves.  The `Service` abstraction enables this decoupling.
+-->
 
 举个例子，考虑一个图片处理 backend，它运行了3个副本。这些副本是可互换的 —— frontend 不需要关心它们调用了哪个 backend 副本。
 然而组成这一组 backend 程序的 `Pod` 实际上可能会发生变化，frontend 客户端不应该也没必要知道，而且也不需要跟踪这一组 backend 的状态。
 `Service` 定义的抽象能够解耦这种关联。
 
-
+<!--
+For Kubernetes-native applications, Kubernetes offers a simple `Endpoints` API
+that is updated whenever the set of `Pods` in a `Service` changes.  For
+non-native applications, Kubernetes offers a virtual-IP-based bridge to Services
+which redirects to the backend `Pods`.
+-->
 
 对 Kubernetes 集群中的应用，Kubernetes 提供了简单的 `Endpoints` API，只要 `Service` 中的一组 `Pod` 发生变更，应用程序就会被更新。
 对非 Kubernetes 集群中的应用，Kubernetes 提供了基于 VIP 的网桥的方式访问 `Service`，再由 `Service` 重定向到 backend `Pod`。
 
-{{< toc >}}
 
+{{% /capture %}}
 
+{{% capture body %}}
+
+<!--
+## Defining a service
+A `Service` in Kubernetes is a REST object, similar to a `Pod`.  Like all of the
+REST objects, a `Service` definition can be POSTed to the apiserver to create a
+new instance.  For example, suppose you have a set of `Pods` that each expose
+port 9376 and carry a label `"app=MyApp"`.
+-->
 
 ## 定义 Service
-
-
 
 一个 `Service` 在 Kubernetes 中是一个 REST 对象，和 `Pod` 类似。
 像所有的 REST 对象一样， `Service` 定义可以基于 POST 方式，请求 apiserver 创建新的实例。
@@ -77,13 +117,29 @@ spec:
       targetPort: 9376
 ```
 
-
+<!--
+This specification will create a new `Service` object named "my-service" which
+targets TCP port 9376 on any `Pod` with the `"app=MyApp"` label.  This `Service`
+will also be assigned an IP address (sometimes called the "cluster IP"), which
+is used by the service proxies (see below).  The `Service`'s selector will be
+evaluated continuously and the results will be POSTed to an `Endpoints` object
+also named "my-service".
+-->
 
 上述配置将创建一个名称为 “my-service” 的 `Service` 对象，它会将请求代理到使用 TCP 端口 9376，并且具有标签 `"app=MyApp"` 的 `Pod` 上。
 这个 `Service` 将被指派一个 IP 地址（通常称为 “Cluster IP”），它会被服务的代理使用（见下面）。
 该 `Service` 的 selector 将会持续评估，处理结果将被 POST 到一个名称为 “my-service” 的 `Endpoints` 对象上。
 
-
+<!--
+Note that a `Service` can map an incoming port to any `targetPort`.  By default
+the `targetPort` will be set to the same value as the `port` field.  Perhaps
+more interesting is that `targetPort` can be a string, referring to the name of
+a port in the backend `Pods`.  The actual port number assigned to that name can
+be different in each backend `Pod`. This offers a lot of flexibility for
+deploying and evolving your `Services`.  For example, you can change the port
+number that pods expose in the next version of your backend software, without
+breaking clients.
+-->
 
 需要注意的是， `Service` 能够将一个接收端口映射到任意的 `targetPort`。
 默认情况下，`targetPort` 将被设置为与 `port` 字段相同的值。
@@ -92,15 +148,31 @@ spec:
 对于部署和设计 `Service` ，这种方式会提供更大的灵活性。
 例如，可以在 backend 软件下一个版本中，修改 Pod 暴露的端口，并不会中断客户端的调用。
 
-
+<!--
+Kubernetes `Services` support `TCP`, `UDP` and `SCTP` for protocols.  The default
+is `TCP`.
+-->
 
 Kubernetes `Service` 能够支持 `TCP` 和 `UDP` 协议，默认 `TCP` 协议。 
 
+{{< note >}}
+自 Kubernetes 1.12 以来，SCTP 的支持是 alpha 功能。
+{{< /note >}}
 
+<!--
+### Services without selectors
+Services generally abstract access to Kubernetes `Pods`, but they can also
+abstract other kinds of backends.  For example:
+  * You want to have an external database cluster in production, but in test
+    you use your own databases.
+  * You want to point your service to a service in another
+    [`Namespace`](/docs/concepts/overview/working-with-objects/namespaces/) or on another cluster.
+  * You are migrating your workload to Kubernetes and some of your backends run
+    outside of Kubernetes.
+In any of these scenarios you can define a service without a selector:
+-->
 
 ### 没有 selector 的 Service
-
-
 
 Servcie 抽象了该如何访问 Kubernetes `Pod`，但也能够抽象其它类型的 backend，例如：
 
@@ -122,6 +194,10 @@ spec:
       targetPort: 9376
 ```
 
+<!--
+Because this service has no selector, the corresponding `Endpoints` object will not be
+created. You can manually map the service to your own specific endpoints:
+-->
 
 由于这个 `Service` 没有 selector，就不会创建相关的 `Endpoints` 对象。可以手动将 `Service` 映射到指定的 `Endpoints`：
 
@@ -137,15 +213,32 @@ subsets:
       - port: 9376
 ```
 
+<!--
+{{< note >}}
+The endpoint IPs may not be loopback (127.0.0.0/8), link-local
+(169.254.0.0/16), or link-local multicast (224.0.0.0/24). They cannot be the
+cluster IPs of other Kubernetes services either because the `kube-proxy`
+component doesn't support virtual IPs as destination yet.
+{{< /note >}}
+-->
 
-
+{{< note >}}
 注意：Endpoint IP 地址不能是 loopback（127.0.0.0/8）、 link-local（169.254.0.0/16）、或者 link-local 多播（224.0.0.0/24）。
+{{< /note >}}
 
-
+<!--
+Accessing a `Service` without a selector works the same as if it had a selector.
+The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
+this example).
+-->
 
 访问没有 selector 的 `Service`，与有 selector 的 `Service` 的原理相同。请求将被路由到用户定义的 Endpoint（该示例中为 `1.2.3.4:9376`）。
 
-
+<!--
+An ExternalName service is a special case of service that does not have
+selectors and uses DNS names instead. For more information, see the
+[ExternalName](#externalname) section later in this document.
+-->
 
 ExternalName `Service` 是 `Service` 的特例，它没有 selector，也没有定义任何的端口和 Endpoint。
 相反地，对于运行在集群外部的服务，它通过返回该外部服务的别名这种方式来提供服务。
