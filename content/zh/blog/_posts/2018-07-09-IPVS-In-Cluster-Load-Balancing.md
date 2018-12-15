@@ -6,15 +6,6 @@ layout: blog
 title:  'IPVS-Based In-Cluster Load Balancing Deep Dive'
 date:   2018-07-09
 ---
-<!--
----
-cn-approvers:
-- congfairy
-layout: blog
-title:  'IPVS-In-Cluster-Load-Balancing'
-date:   2018-07-09
----
--->
 
 <!--
 
@@ -38,7 +29,7 @@ Per the Kubernetes 1.11 release blog post , we announced that IPVS-Based In-Clus
 
 介绍
 
-根据 Kubernetes 1.11 发布的博客文章, 我们宣布基于 IPVS 的集群内部服务负载均衡已达到一般可用性。 在这篇博客中，我们将带您深入了解该功能
+根据 Kubernetes 1.11 发布的博客文章, 我们宣布基于 IPVS 的集群内部服务负载均衡已达到一般可用性。 在这篇博客中，我们将带您深入了解该功能。
 
 <!--
 
@@ -249,10 +240,9 @@ There are three proxy modes in IPVS: NAT (masq), IPIP and DR. Only NAT mode supp
 
 IPVS 中有三种代理模式：NAT（masq），IPIP 和 DR。 只有 NAT 模式支持端口映射。 Kube-proxy 利用 NAT 模式进行端口映射。 以下示例显示 IPVS 服务端口3080到Pod端口8080的映射。
 
-
     TCP  10.102.128.4:3080 rr
       -> 10.244.0.235:8080            Masq    1      0          0         
-      -> 10.244.1.237:8080            Masq    1      0       
+      -> 10.244.1.237:8080            Masq    1      0        
 
 <!--
 
@@ -296,8 +286,6 @@ However, we don't want to create too many iptables rules. So we adopt ipset for 
 
 -->
 
-
-
 IPVS 代理中的 Iptables 和 Ipset
 
 IPVS 用于负载均衡，它无法处理 kube-proxy 中的其他问题，例如 包过滤，数据包欺骗，SNAT 等
@@ -334,7 +322,7 @@ IPVS proxier 在上述场景中利用 iptables。 具体来说，ipvs proxier �
   KUBE-EXTERNAL-IP              	服务外部 IP +端口                              	将数据包伪装成外部 IP                             
   KUBE-LOAD-BALANCER            	负载均衡器入口 IP +端口                           	将数据包伪装成 Load Balancer 类型的服务               
   KUBE-LOAD-BALANCER-LOCAL      	负载均衡器入口 IP +端口 以及 externalTrafficPolicy=local	接受数据包到 Load Balancer externalTrafficPolicy=local
- KUBE-LOAD-BALANCER-FW         	负载均衡器入口 IP +端口 以及 loadBalancerSourceRanges	使用指定的 loadBalancerSourceRanges 丢弃 Load Balancer类型Service的数据包
+  KUBE-LOAD-BALANCER-FW         	负载均衡器入口 IP +端口 以及 loadBalancerSourceRanges	使用指定的 loadBalancerSourceRanges 丢弃 Load Balancer类型Service的数据包
   KUBE-LOAD-BALANCER-SOURCE-CIDR	负载均衡器入口 IP +端口 + 源 CIDR                  	接受 Load Balancer 类型 Service 的数据包，并指定loadBalancerSourceRanges
   KUBE-NODE-PORT-TCP            	NodePort 类型服务 TCP                         	将数据包伪装成 NodePort（TCP）                    
   KUBE-NODE-PORT-LOCAL-TCP      	NodePort 类型服务 TCP 端口，带有 externalTrafficPolicy=local	接受数据包到 NodePort 服务 使用 externalTrafficPolicy=local
@@ -377,7 +365,6 @@ Finally, for Kubernetes v1.10, feature gate SupportIPVSProxyMode is set to true 
 
 最后，对于 Kubernetes v1.10，“SupportIPVSProxyMode” 默认设置为 “true”。 对于 Kubernetes v1.11 ，该选项已完全删除。 但是，您需要在v1.10之前为Kubernetes 明确启用--feature-gates=SupportIPVSProxyMode=true。
 
- 
 <!--
 
 Get Involved
