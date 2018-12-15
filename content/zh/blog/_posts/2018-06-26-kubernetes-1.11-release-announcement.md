@@ -47,11 +47,12 @@ Notable additions in this release include two highly-anticipated features gradua
 我们很高兴地宣布推出2018年第二个发型版本，Kubernetes 1.11！
  
 
-今天的发布继续推进 Kubernetes 的成熟度，可扩展性和灵活性，标志着团队在过去一年中努力研发的功能取得了重大进展。 这个最新版本涵盖网络的关键功能，开启了SIG-API Machinery 和 SIG-Node 的两个主要功能，用于 beta 测试，并继续增强存储功能，这些功能一直是过去两个版本的焦点。 此版本中的功能使得将任何基础架构，云或预置部署加入 Kubernetes 系统的可能性越来越大。
+今天的发布继续推进 Kubernetes 的成熟度，可扩展性和灵活性，标志着团队在过去一年中努力研发的功能取得了重大进展。 这个最新版本涵盖网络的关键功能，开启了 SIG-API Machinery 和 SIG-Node 的两个主要功能，用于 beta 测试，并继续增强存储功能，这些功能一直是过去两个版本的焦点。 此版本中的功能使得将任何基础架构，云或预置部署加入 Kubernetes 系统的可能性越来越大。
 
  
 
-此版本中值得注意的新增功能包括两个备受期待的功能,并将逐渐被广泛使用：基于IPVS的集群内负载平衡和CoreDNS作为集群DNS附加选项，这意味着可以提高生产应用程序的可扩展性和灵活性。
+此版本中值得注意的新增功能包括两个备受期待的功能,并将逐渐被广泛使用：基于 IPVS 的集群内负载平衡和 CoreDNS 作为集群 DNS 附加选项，这意味着可以提高生产应用程序的可扩展性和灵活性。
+
 
  
 
@@ -75,11 +76,12 @@ In this release, IPVS-based in-cluster service load balancing has moved to stabl
 
  
 
-## 基于IPVS的集群内服务负载均衡逐渐可以广泛使用
+## 基于 IPVS 的集群内服务负载均衡逐渐可以广泛使用
 
  
 
-在此版本中，[基于IPVS的集群内服务负载均衡](https://github.com/kubernetes/features/issues/265)已稳定运行。 IPVS（IP虚拟服务器）提供高性能的内核负载均衡，具有比 iptables 更简单的编程接口。 此更改为包含Kubernetes服务模型的集群范围的分布式负载均衡器提供了更好的网络吞吐量，更好的编程延迟和更高的可伸缩性限制。 IPVS 尚未成为默认值，但集群可以开始将其用于大量流量。
+在此版本中，[基于 IPVS 的集群内服务负载均衡](https://github.com/kubernetes/features/issues/265)已稳定运行。 IPVS（IP 虚拟服务器）提供高性能的内核负载均衡，具有比 iptables 更简单的编程接口。 此更改为包含 Kubernetes 服务模型的集群范围的分布式负载均衡器提供了更好的网络吞吐量，更好的编程延迟和更高的可伸缩性限制。IPVS 尚未成为默认值，但集群可以开始将其用于大量流量。
+
 
  
 
@@ -95,11 +97,10 @@ CoreDNS is now available as a cluster DNS add-on option, and is the default when
 
  
 
-## CoreDNS升级为一般可用性
+## CoreDNS 升级为一般可用性
 
  
-
-[CoreDNS](https://coredns.io) 现在可用作[集群DNS附加选项](https://github.com/kubernetes/features/issues/427)，并且是使用 kubeadm 时的默认选项。 CoreDNS 是一个灵活，可扩展的权威 DNS 服务器，可直接与 Kubernetes API 集成。 CoreDNS 比以前的 DNS 服务器具有更少的移去的部件，因为它是单个可执行文件和单个进程，并通过创建自定义DNS条目来支持灵活的用例。 它也用Go编写，使其具有内存安全性。 您可以在[这里](https://youtu.be/dz9S7R8r5gw) 了解更多有关 CoreDNS 的信息。
+[CoreDNS](https://coredns.io) 现在可用作[集群 DNS 附加选项](https://github.com/kubernetes/features/issues/427)，并且是使用 kubeadm 时的默认选项。 CoreDNS 是一个灵活，可扩展的权威 DNS 服务器，可直接与 Kubernetes API 集成。 CoreDNS 比以前的 DNS 服务器具有更少的移去的部件，因为它是单个可执行文件和单个进程，并通过创建自定义 DNS 条目来支持灵活的用例。 它也用 Go 编写，使其具有内存安全性。 您可以在[这里](https://youtu.be/dz9S7R8r5gw) 了解更多有关 CoreDNS 的信息。
 
  
 
@@ -119,7 +120,7 @@ This feature makes it possible for new Kubelet configurations to be rolled out i
 
  
 
-此功能可以在实时集群中推出新的 Kubelet 配置。 目前，Kubelet 是通过命令行标志配置的，这使得在正在运行的集群中更新 Kubelet 配置变得很困难。 有了这个测试版功能，[用户可以通过API服务器在实时集群中配置Kubelet](https://kubernetes.io/docs/tasks/administer-cluster/reconfigure-kubelet/)。
+此功能可以在实时集群中推出新的 Kubelet 配置。 目前，Kubelet 是通过命令行标志配置的，这使得在正在运行的集群中更新 Kubelet 配置变得很困难。 有了这个测试版功能，[用户可以通过 API 服务器在使用集群中配置 Kubelet ](https://kubernetes.io/docs/tasks/administer-cluster/reconfigure-kubelet/)。
 
  
 
@@ -147,7 +148,8 @@ Custom Resource Definitions now also support "status" and "scale" subresources, 
 
  
 
-自定义资源定义现在也支持[“status” 和 “scale” 子资源](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/customresources-subresources.md)，它与监控和高可用性框架集成。这两项更改提高了使用自定义资源定义在生产中运行云原生应用程序的能力。
+自定义资源定义现在也支持["status" 和 "scale" 子资源](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/customresources-subresources.md)，它与监控和高可用性框架集成。这两项更改提高了使用自定义资源定义在生产中运行云原生应用程序的能力。
+
 
  
 
@@ -201,7 +203,7 @@ Each Special Interest Group (SIG) within the community continues to deliver the 
 
  
 
-支持[在线调整持久卷的大小](https://github.com/kubernetes/features/issues/284)已作为 alpha 功能引入。这使用户可以增加 PV 的大小，而无需首先终止pod 并卸载卷。用户将更新 PVC 以请求新的大小，并且 kubelet 将调整 PVC 的文件系统的大小。
+支持[在线调整持久卷的大小](https://github.com/kubernetes/features/issues/284)已作为 alpha 功能引入。这使用户可以增加 PV 的大小，而无需首先终止 pod 并卸载卷。用户将更新 PVC 以请求新的大小，并且 kubelet 将调整 PVC 的文件系统的大小。
 
  
 
@@ -237,7 +239,8 @@ You can also install 1.11 using Kubeadm. Version 1.11.0 will be available as Deb
 
  
 
-Kubernetes 1.11可以[在GitHub上下载](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0)。 要开始使用 Kubernetes，请查看这些[交互式教程](https://kubernetes.io/docs/tutorials/)。
+Kubernetes 1.11可以[在 GitHub 上下载](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0)。 要开始使用 Kubernetes，请查看这些[交互式教程](https://kubernetes.io/docs/tutorials/)。
+
 
  
 
@@ -275,13 +278,14 @@ If you’re interested in exploring these features more in depth, check back in 
 
  
 
-*第1天：[基于IPVS的集群内服务负载均衡的普遍可用性](/blog/2018/07/09/ipvs-based-in-cluster-load-balancing-deep-dive/)
+*第1天：[基于 IPVS 的集群内服务负载均衡的普遍可用性](/blog/2018/07/09/ipvs-based-in-cluster-load-balancing-deep-dive/)
 
-*第2天：[CoreDNS升级至广泛可用](/blog/2018/07/10/coredns-ga-for-kubernetes-cluster-dns/)
+*第2天：[ CoreDNS 升级至广泛可用](/blog/2018/07/10/coredns-ga-for-kubernetes-cluster-dns/)
 
-*第3天：[动态Kubelet配置转变到Beta](/blog/2018/07/11/dynamic-kubelet-configuration/)
+*第3天：[动态 Kubelet 配置转变到Beta](/blog/2018/07/11/dynamic-kubelet-configuration/)
 
-*第4天：[使用Kubernetes调整持久卷的大小](/blog/2018/07/11/resizing-persistent-volumes-using-kubernetes/)
+*第4天：[使用 Kubernetes 调整持久卷的大小](/blog/2018/07/11/resizing-persistent-volumes-using-kubernetes/)
+
 
  
 
