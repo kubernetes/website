@@ -67,13 +67,14 @@ of enabling feature gates. The RuntimeClass feature gate must be enabled on apis
 <!--
 #### 2. Install the RuntimeClass CRD
 -->
-#### 2.安装RuntimeClass CRD
+#### 2.安装 RuntimeClass CRD
 
 <!--
 The RuntimeClass [CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/] (CRD) can be found in the addons directory of the
 Kubernetes git repo:
 -->
-可以在Kubernetes git repo的addons目录中找到[CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/] (CRD)：
+可以在Kubernetes git repo的addons目录中找到相关信息
+RuntimeClass[CustomResourceDefinition] [ /docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/ ] (CRD)：
 
 https://github.com/kubernetes/kubernetes/tree/release-1.12/cluster/addons/runtimeclass/runtimeclass_crd.yaml
 
@@ -84,10 +85,10 @@ Install the CRD with `kubectl apply -f runtimeclass_crd.yaml`.
 
 [CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/]
 
-<
-!--#### 3. Configure the CRI implementation on nodes
+<!--
+#### 3. Configure the CRI implementation on nodes
 -->
-####3.在节点上配置CRI运行
+#### 3.在节点上配置CRI运行
 
 <!--
 The configurations to select between with RuntimeClass are CRI implementation dependent. See the
@@ -115,7 +116,7 @@ RuntimeHandler must be a valid DNS-1123 subdomain (alpha-numeric characters, `-`
 <!--
 #### 4. Create the corresponding RuntimeClass resources
 -->
-####4.创建相应的RuntimeClass资源
+#### 4.创建相应的RuntimeClass资源
 
 <!--
 The configurations setup in step 3 should each have an associated `RuntimeHandler` name, which
@@ -132,13 +133,13 @@ RuntimeClass 资源当前只有两个重要的域：RuntimeClass 名 (`metadata.
 
 
 ```yaml
-apiVersion: node.k8s.io/v1alpha1  # RuntimeClass is defined in the node.k8s.io API group
+apiVersion: node.k8s.io/v1alpha1  # 在 node.k8s.io API 中对 RuntimeClass 进行定义
 kind: RuntimeClass
 metadata:
-  name: myclass  # The name the RuntimeClass will be referenced by
-  # RuntimeClass is a non-namespaced resource
+  name: myclass  # 对 RuntimeClass 进行被引用
+  # RuntimeClass 属于 non-namespaced 的资源
 spec:
-  runtimeHandler: myconfiguration  # The name of the correpsonding CRI configuration
+  runtimeHandler: myconfiguration  # 设置 CRI 配置的名称
 ```
 
 
@@ -177,14 +178,14 @@ RuntimeClass does not exist, or the CRI cannot run the corresponding handler, th
 corresponding [event](/docs/tasks/debug-application-cluster/debug-application-introspection/) for an
 error message.-->
 这会告诉 Kubelet 使用命名的 RuntimeClass 来运行这个 pod。如果命名的 RuntimeClass 不存在，
-或者 CRI 无法运行相应的 handler，那么 pod 将会进入 `Failed` 终端 [阶段](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
-查看相应的 [事件](/docs/tasks/debug-application-cluster/debug-application-introspection/)，获取错误信息。
+或者 CRI 无法运行相应的 handler，那么 pod 将会进入 `Failed` 终端 [阶段]( /docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)。
+查看相应的 [事件](/docs/tasks/debug-application-cluster/debug-application-introspection/ )，获取错误信息。
 
 <!--
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
 to the behavior when the RuntimeClass feature is disabled.
 -->
-如果未指定 `runtimeClassName` ，则将使用默认的RuntimeHandler，相当于禁用RuntimeClass功能。
+如果未指定 `runtimeClassName` ，则将使用默认的 RuntimeHandler ，相当于禁用 RuntimeClass 功能。
 
 {{% /capture %}}
 
