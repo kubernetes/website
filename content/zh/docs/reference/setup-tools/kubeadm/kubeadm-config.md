@@ -14,7 +14,7 @@ Beginning with v1.8.0, kubeadm uploads the configuration of your cluster to a Co
 This enables correct configuration of system components, and provides a seamless user experience.
 -->
 
-{{％capture overview％}}
+{{%capture overview%}}
 从 v1.8.0 开始，kubeadm 将集群的配置上传到名为 kube-system 的 ConfigMap 对象中，对象位于 kube-system 命名空间内。并在以后的升级中读取这个 ConfigMap 配置对象。
 这样可以保证系统组件的正确配置，提供无缝的用户体验。
 
@@ -70,5 +70,5 @@ to list and pull the images that kubeadm requires.
 -->
 
 *  [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)将Kubernetes集群升级到更新版本[kubeadm upgrade]
-{{% /capture %}}
+{{% /capture %}
 
