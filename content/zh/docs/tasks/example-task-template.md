@@ -1,5 +1,13 @@
----
+<!-- ---
 title: Example Task Template
+reviewers:
+- chenopis
+content_template: templates/task
+toc_hide: true
+--- -->
+
+---
+title: 任务模板示例
 reviewers:
 - chenopis
 content_template: templates/task
@@ -40,7 +48,7 @@ toc_hide: true
 1. Do this next. Possibly read this [related explanation](...). -->
 
 1. 做这个。
-1. 下一步做这个. 可以阅读 [相关解释](...).
+1. 下一步做这个. 可以阅读 [相关解释](...)。
 
 {{% /capture %}}
 
@@ -67,8 +75,8 @@ toc_hide: true
 <!-- * Learn more about [Writing a New Topic](/docs/home/contribute/write-new-topic/).
 * See [Using Page Templates - Task template](/docs/home/contribute/page-templates/#task_template) for how to use this template. -->
 
-* 学习更多关于 [写一个新主题](/docs/home/contribute/write-new-topic/)。
-* 阅读 [使用页面模板 - 任务模板](/docs/home/contribute/page-templates/#task_template) 学习如何使用这些模板。
+* 学习更多关于[写一个新主题](/docs/home/contribute/write-new-topic/)。
+* 阅读[使用页面模板 - 任务模板](/docs/home/contribute/page-templates/#task_template) 学习如何使用这些模板。
 
 {{% /capture %}}
 
