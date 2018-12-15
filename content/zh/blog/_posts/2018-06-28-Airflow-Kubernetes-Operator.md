@@ -1,7 +1,9 @@
 ---
-'Airflow 在 Kubernetes中的使用（第一部分）：一种不同的 Operator'
+layout: blog
+title: 'Airflow 在 Kubernetes中的使用（第一部分）：一种不同的 Operator'
 cn-approvers:
 - congfairy
+date:   2018-06-28
 ---
 <!--
 ---
