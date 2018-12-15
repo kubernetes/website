@@ -2,7 +2,7 @@
 <!-- 
 kubeadm: easily bootstrap a secure Kubernetes cluster 
 -->
-kubeadm：简易步骤创建一个安全的 Kubernetes 集群
+kubeadm：轻松创建一个安全的 Kubernetes 集群
 
 <!-- 
 ### Synopsis 
@@ -14,7 +14,7 @@ kubeadm：简易步骤创建一个安全的 Kubernetes 集群
 <!-- 
 kubeadm: easily bootstrap a secure Kubernetes cluster. 
 -->
-kubeadm：简易步骤创建一个安全的 Kubernetes 集群
+kubeadm：轻松创建一个安全的 Kubernetes 集群
 
 <!-- 
     ┌──────────────────────────────────────────────────────────┐
@@ -29,8 +29,8 @@ kubeadm：简易步骤创建一个安全的 Kubernetes 集群
     ┌──────────────────────────────────────────────────────────┐
     │ KUBEADM 正处在 BETA 阶段                                  │
     │                                                          │
-    │ 欢迎您踊跃试用，并通过  向我们提出反馈，同时标注和           │
-    │ https://github.com/kubernetes/kubeadm/issues 提交反馈     │
+    │ 欢迎您踊跃试用，并通过以下网址提交反馈：                     │
+    │ https://github.com/kubernetes/kubeadm/issues             │
     │ 同时标注 @kubernetes/sig-cluster-lifecycle-bugs           │
     │ 和 @kubernetes/sig-cluster-lifecycle-feature-requests    │
     └──────────────────────────────────────────────────────────┘ 
@@ -44,7 +44,7 @@ Example usage:
 -->
 用途示例:
 
-    创建一个双机器集群，包含一个主节点（控制集群），和一个节点（运行您的工作负载，像 Pod 和 Deployment）。
+    创建一个有两台机器的集群，包含一个主节点（用来控制集群），和一个节点（运行您的工作负载，像 Pod 和 Deployment）。
 
 <!-- 
     ┌──────────────────────────────────────────────────────────┐
