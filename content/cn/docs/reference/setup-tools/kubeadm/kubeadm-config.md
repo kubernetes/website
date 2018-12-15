@@ -70,5 +70,5 @@ to list and pull the images that kubeadm requires.
 -->
 
 *  [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)将Kubernetes集群升级到更新版本[kubeadm upgrade]
-{{% /capture %}
+{{% /capture %}}
 
