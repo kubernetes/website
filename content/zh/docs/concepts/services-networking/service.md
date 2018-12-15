@@ -11,7 +11,20 @@ content_template: templates/concept
 weight: 10
 ---
 
+<!--
+---
+reviewers:
+- bprashanth
+title: Services
+feature:
+  title: Service discovery and load balancing
+  description: >
+    No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
 
+content_template: templates/concept
+weight: 10
+---
+-->
 
 Kubernetes [`Pod`](/docs/user-guide/pods) 是有生命周期的，它们可以被创建，也可以被销毁，然而一旦被销毁生命就永远结束。 
 通过 [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) 能够动态地创建和销毁 `Pod`（例如，需要进行扩缩容，或者执行 [滚动升级](/docs/user-guide/kubectl/v1.7/#rolling-update)）。 
