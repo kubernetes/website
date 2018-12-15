@@ -242,7 +242,7 @@ IPVS 中有三种代理模式：NAT（masq），IPIP 和 DR。 只有 NAT 模式
 
     TCP  10.102.128.4:3080 rr
       -> 10.244.0.235:8080            Masq    1      0          0         
-      -> 10.244.1.237:8080            Masq    1      0        
+      -> 10.244.1.237:8080            Masq    1      0      
 
 <!--
 
@@ -363,7 +363,7 @@ Finally, for Kubernetes v1.10, feature gate SupportIPVSProxyMode is set to true 
     ip_vs_sh
     nf_conntrack_ipv4
 
-最后，对于 Kubernetes v1.10，“SupportIPVSProxyMode” 默认设置为 “true”。 对于 Kubernetes v1.11 ，该选项已完全删除。 但是，您需要在v1.10之前为Kubernetes 明确启用--feature-gates=SupportIPVSProxyMode=true。
+最后，对于 Kubernetes v1.10，“SupportIPVSProxyMode” 默认设置为 “true”。 对于 Kubernetes v1.11 ，该选项已完全删除。 但是，您需要在v1.10之前为Kubernetes 明确启用 --feature-gates = SupportIPVSProxyMode = true。
 
 <!--
 
