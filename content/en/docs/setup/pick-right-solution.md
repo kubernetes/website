@@ -117,6 +117,7 @@ few commands.
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
 * [Kublr](https://kublr.com/)
+* [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Giant Swarm](https://giantswarm.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
@@ -187,6 +188,7 @@ IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs              
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
+Red Hat OpenShift    | Ansible & CoreOS | RHEL & CoreOS   | [multi-support](https://docs.openshift.com/container-platform/3.11/architecture/networking/network_plugins.html) | [docs](https://docs.openshift.com/container-platform/3.11/welcome/index.html) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
