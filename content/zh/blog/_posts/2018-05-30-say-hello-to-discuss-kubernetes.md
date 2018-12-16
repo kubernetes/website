@@ -1,7 +1,5 @@
 ---
 title: 'Kubernetes 1 11：向 discuss kubernetes 问好'
-cn-approvers:
-- congfairy
 layout: blog
 date: 2018-05-30
 ---
