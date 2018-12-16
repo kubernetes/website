@@ -21,7 +21,7 @@ You specify quotas in a
 object.
 -->
 
-这个页面显示了如何为 API 对象配置配额，包括 PersistentVolumeClaims 和 Services。
+本文讨论如何为 API 对象配置配额，包括 PersistentVolumeClaims 和 Services。
 配额限制了可以在命名空间中创建的特定类型对象的数量。
 您可以在 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core) 对象中指定配额。
 
@@ -90,7 +90,7 @@ one PersistentVolumeClaim, at most two Services of type LoadBalancer, and no Ser
 of type NodePort.
 -->
 
-输出表明在 quota-object-example 命名空间中，最多可以有一个 PersistentVolumeClaim，最多两个 LoadBalancer 类型的服务，不能有 NodePort 类型的服务。
+输出结果表明在 quota-object-example 命名空间中，至多只能有一个 PersistentVolumeClaim，最多两个 LoadBalancer 类型的服务，不能有 NodePort 类型的服务。
 
 
 ```yaml
@@ -131,7 +131,7 @@ kubectl create -f https://k8s.io/examples/admin/resource/quota-objects-pvc.yaml 
 Verify that the PersistentVolumeClaim was created:
 -->
 
-确认下 PersistentVolumeClaim 已创建完成：
+确认已创建完 PersistentVolumeClaim：
 
 ```shell
 kubectl get persistentvolumeclaims --namespace=quota-object-example
@@ -210,7 +210,7 @@ by quotas:
 Delete your namespace:
 -->
 
-## 数据清理
+## 清理
 
 删除您的命名空间：
 
