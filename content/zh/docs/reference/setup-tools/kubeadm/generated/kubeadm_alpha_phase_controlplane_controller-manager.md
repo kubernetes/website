@@ -50,7 +50,7 @@ Alpha Disclaimer: this command is currently alpha.
   <tbody>
 
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes/pki"</td>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">证书的保存路径</td>
@@ -67,7 +67,7 @@ Alpha Disclaimer: this command is currently alpha.
       <td colspan="2">--controller-manager-extra-args mapStringString</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组额外参数，传递给控制管理器或以 &lt;flagname&gt;=&lt;value&gt; 的格式覆写默认参数。&gt;</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组额外参数，传递给控制管理器或以 &lt;flagname&gt;=&lt;value&gt; 的格式覆写默认参数。</td>
     </tr>
 
     <tr>
