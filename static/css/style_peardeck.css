@@ -15,11 +15,10 @@ a {
 body {
   margin:0;
   background-color:#ffffff !important;
-
 }
 
 footer {
-background-color:#ffffff !important;
+  background-color:#ffffff !important;
 }
 
 h1 {
@@ -35,7 +34,6 @@ h1 {
   font-weight:100;
   line-height:40px;
   padding-bottom:1%;
-
 }
 
 .banner1 {
@@ -63,7 +61,6 @@ h1 {
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
-
 }
 
 .banner3 {
@@ -180,23 +177,21 @@ hr {
 }
 
 .col1 {
-font-family:"Roboto", sans-serif;
-font-weight:100;
-color:#606060;
-line-height:20px;
+  font-family:"Roboto", sans-serif;
+  font-weight:100;
+  color:#606060;
+  line-height:20px;
   letter-spacing:0.03em;
-font-size:14px;
-
+  font-size:14px;
 }
 
 .col2 {
-font-family:"Roboto", sans-serif;
-font-weight:300;
-line-height:20px;
-color:#606060;
+  font-family:"Roboto", sans-serif;
+  font-weight:300;
+  line-height:20px;
+  color:#606060;
   letter-spacing:0.03em;
-font-size:14px;
-
+  font-size:14px;
 }
 
 .fullcol {
@@ -220,7 +215,6 @@ font-size:14px;
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-
 }
 
 h4 {
@@ -230,7 +224,6 @@ h4 {
   font-size:20px;
   padding-bottom:0px;
 }
-
 
 @media screen and (max-width: 910px){
 
@@ -263,7 +256,7 @@ h4 {
   }
 
   .logo {
-      width:8%;
+    width:8%;
   }
 
   .col1 {

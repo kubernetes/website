@@ -1,10 +1,9 @@
 #caseStudyTitle {
-    margin-top: 1em !important;
-    font-family:"Roboto", sans-serif;
+  margin-top: 1em !important;
+  font-family:"Roboto", sans-serif;
 }
 
 body {
-
   background-color:#ffffff;
 }
 
@@ -20,7 +19,6 @@ a {
 
 body {
   margin:0;
-
 }
 
 h1 {
@@ -36,7 +34,6 @@ h1 {
   font-weight:100;
   line-height:40px;
   padding-bottom:1%;
-
 }
 
 .banner1 {
@@ -50,7 +47,6 @@ h1 {
   background: url('/images/CaseStudy_box_banner1.jpg');
   background-size:100% auto;
   background-repeat:no-repeat;
-
 }
 
 .banner2 {
@@ -65,7 +61,6 @@ h1 {
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
-
 }
 
 .banner3 {
@@ -144,7 +139,6 @@ h1 {
   margin:0 auto;
 }
 
-
 h2 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
@@ -172,8 +166,6 @@ h2 {
   padding-left:10%;
 }
 
-
-
 hr {
   border-bottom:0px solid;
   width:100%;
@@ -183,26 +175,22 @@ hr {
 }
 
 .col1 {
-font-family:"Roboto", sans-serif;
-font-weight:100;
-color:#606060;
-line-height:20px;
+  font-family:"Roboto", sans-serif;
+  font-weight:100;
+  color:#606060;
+  line-height:20px;
   letter-spacing:0.03em;
-font-size:14px;
-
+  font-size:14px;
 }
 
 .col2 {
-font-family:"Roboto", sans-serif;
-font-weight:300;
-line-height:20px;
-color:#606060;
+  font-family:"Roboto", sans-serif;
+  font-weight:300;
+  line-height:20px;
+  color:#606060;
   letter-spacing:0.03em;
-font-size:14px;
-
+  font-size:14px;
 }
-
-
 
 .fullcol {
   width:77%;
@@ -234,7 +222,6 @@ h4 {
   font-size:20px;
   padding-bottom:0px;
 }
-
 
 @media screen and (max-width: 910px){
 

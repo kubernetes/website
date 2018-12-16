@@ -1,6 +1,6 @@
 #caseStudyTitle {
-    margin-top: 1em !important;
-    font-family:"Roboto", sans-serif;
+  margin-top: 1em !important;
+  font-family:"Roboto", sans-serif;
 }
 
 p {
@@ -266,7 +266,7 @@ h4 {
   }
 
   .logo {
-      width:8%;
+    width:8%;
   }
 
   .col1 {
@@ -437,6 +437,5 @@ h4 {
     margin-bottom:1%;
     margin-left:0;
     margin-top:2%;
-
   }
 }

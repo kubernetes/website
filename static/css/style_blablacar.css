@@ -1,6 +1,6 @@
 #caseStudyTitle {
-    margin-top: 1em !important;
-    font-family:"Roboto", sans-serif;
+  margin-top: 1em !important;
+  font-family:"Roboto", sans-serif;
 }
 
 p {
@@ -9,7 +9,6 @@ p {
 }
 
 .header_logo {
-
   width:24%;
   margin-bottom:-0.5%;
   margin-left:10px;
@@ -22,7 +21,6 @@ a {
 
 body {
   margin:0;
-
 }
 
 h1 {
@@ -39,7 +37,6 @@ h1 {
   line-height:40px;
   padding-bottom:1%;
   padding-top:0.5%;
-
 }
 
 .banner1 {
@@ -150,7 +147,6 @@ h1 {
   margin:0 auto;
 }
 
-
 h2 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
@@ -178,7 +174,6 @@ h2 {
   padding-left:10%;
 }
 
-
 hr {
   border-bottom:0px solid;
   width:100%;
@@ -194,7 +189,6 @@ hr {
   line-height:20px;
   letter-spacing:0.03em;
   font-size:14px;
-
 }
 
 .col2 {
@@ -204,7 +198,6 @@ hr {
   color:#606060;
   letter-spacing:0.03em;
   font-size:14px;
-
 }
 
 .fullcol {
@@ -237,7 +230,6 @@ h4 {
   font-size:20px;
   padding-bottom:0px;
 }
-
 
 @media screen and (max-width: 910px){
 
@@ -276,7 +268,7 @@ h4 {
   }
 
   .logo {
-      width:8%;
+    width:8%;
   }
 
   .col1 {
@@ -446,7 +438,6 @@ h4 {
     width:60%;
     margin-bottom:1%;
     margin-top:2%;
-
   }
 
   .banner1 {
