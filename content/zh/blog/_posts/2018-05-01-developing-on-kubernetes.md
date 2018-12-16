@@ -132,7 +132,6 @@ Implications:
 <!--
 * With [Draft version 0.12.0](https://github.com/Azure/draft/releases/tag/v0.12.0) or older, every time user wants to test a change, they need to wait for Draft to copy the code to the cluster, then run the build, push the image and release updated chart; this can timely, but it results in an image being for every single change made by the user (whether it was committed to git or not)
 -->
-
 * 如果使用 [Draft version 0.12.0](https://github.com/Azure/draft/releases/tag/v0.12.0)<sup>1</sup> 或者更老版本，每一次用户想要测试一个改动，他们需要等 Draft 把代码拷贝到集群，运行构建，推送镜像并且发布更新后的图表；这些步骤可能进行得很快，但是每一次用户的改动都会产生一个镜像（无论是否提交到 git ）
 
 <!--
@@ -140,7 +139,6 @@ Implications:
 * User doesn’t have an option to choose something other than Helm for deployment
 * It can watch local changes and trigger deployments, but this feature is not enabled by default
 -->
-
 * 在 Draft 0.12.0版本，构建是本地进行的
 * 用户不能选择 Helm 以外的工具进行部署
 * 它可以监控本地的改动并且触发部署，但是这个功能默认是关闭的
@@ -150,7 +148,6 @@ Implications:
 * Deploying to production is up to the user, Draft authors recommend their other project – Brigade
 * Can be used instead of Skaffold, and along the side of Squash
 -->
-
 * 它允许开发人员使用本地或者远程的 Kubernates 集群
 * 如何部署到生产环境取决于用户， Draft 作者推荐他们另一个项目 - Brigade
 * 可以代替 Skaffold， 并且可以和 Squash 一起使用
@@ -168,56 +165,125 @@ More info:
 
 ### Skaffold
 
+<!--
 [Skaffold](https://github.com/GoogleCloudPlatform/skaffold) is a tool that aims to provide portability for CI integrations with different build system, image registry and deployment tools. It is different from Draft, yet somewhat comparable. It has a basic capability for generating manifests, but it’s not a prominent feature. Skaffold is extendible and lets user pick tools for use in each of the steps in building and deploying their app.
+-->
 
+[Skaffold](https://github.com/GoogleCloudPlatform/skaffold) 使用各种构建系统，镜像注册和部署工具提供可移植性的 CI 集成。它不同于 Draft，同时也具有一定的可比性。它具有生成系统表现的基本能力，但那不是一个重要功能。Skaffold 易于扩展，允许用户在构建和部署应用的每一步选取相应的工具。
+
+<!--
 Implications:
+-->
 
+这意味着：
+
+<!--
 * Modular by design
 * Works independently of CI vendor, user doesn’t need Docker or Kubernetes plugin
 * Works without CI as such, i.e. from the developer’s laptop
 * It can watch local changes and trigger deployments
+-->
+* 模块化设计
+* 不依赖于 CI，用户不需要 Docker 或者 Kubernetes 插件
+* 没有 CI 也可以工作，也就是说，可以在开发人员的电脑上工作
+* 它可以监控本地的改动并且触发部署
+
+<!--
 * It allows developer to use either local or remote Kubernetes cluster
 * It can be used to deploy to production, user can configure how exactly they prefer to do it and provide different kind of pipeline for each target environment
 * Can be used instead of Draft, and along the side with most other tools
+-->
+* 它允许开发人员使用本地或者远程的 Kubernetes 集群
+* 它可以用于部署生产环境，用户可以配置具体他们想怎么做，也可以为每一套目标环境提供不同的生产线
+* 可以代替 Draft，并且和其他工具一起使用
 
+<!--
 More info:
+-->
+
+更多信息：
 
 * [Introducing Skaffold: Easy and repeatable Kubernetes development](https://cloudplatform.googleblog.com/2018/03/introducing-Skaffold-Easy-and-repeatable-Kubernetes-development.html)
 * [Getting Started Guide](https://github.com/GoogleCloudPlatform/skaffold#getting-started-with-local-tooling)
 
 ### Squash
 
+<!--
 [Squash](https://github.com/solo-io/squash) consists of a debug server that is fully integrated with Kubernetes, and a IDE plugin. It allows you to insert breakpoints and do all the fun stuff you are used to doing when debugging an application using an IDE. It bridges IDE debugging experience with your Kubernetes cluster by allowing you to attach the debugger to a pod running in your Kubernetes cluster.
+-->
+[Squash](https://github.com/solo-io/squash) 包含一个与 Kubernetes 全面集成的调试服务器，以及一个 IDE 插件。它允许你插入断点和所有的调试操作，就像你所习惯的使用 IDE 调试一个程序一般。它允许你将调试器附加到 Kubernetes 集群中运行的 pod，从而将 IDE 调试体验与 Kubernetes 集群联接起来。
 
+<!--
 Implications:
+-->
 
+这意味着：
+
+<!--
 * Can be used independently of other tools you chose
 * Requires a privileged DaemonSet
 * Integrates with popular IDEs
 * Supports Go, Python, Node.js, Java and gdb
+-->
+* 不依赖你选择的其它工具
+* 需要特权 DaemonSet
+* 可以和流行 IDE 集成
+* 支持 Go、Python、Node.js、Java 和 gdb
+
+<!--
 * User must ensure application binaries inside the container image are compiled with debug symbols
 * Can be used in combination with any other tools described here
 * It can be used with either local or remote Kubernetes cluster
+-->
+* 用户必须确保使用调试符号编译容器映像中的应用程序二进制文件
+* 可与此处描述的任何其他工具结合使用
+* 它可以与本地或远程 Kubernetes 集群一起使用
 
+<!--
 More info:
+-->
+
+更多信息：
 
 * [Squash: A Debugger for Kubernetes Apps](https://www.youtube.com/watch?v=5TrV3qzXlgI)
 * [Getting Started Guide](https://github.com/solo-io/squash/blob/master/docs/getting-started.md)
 
 ### Telepresence
 
+<!--
 [Telepresence](https://www.telepresence.io/) connects containers running on developer’s workstation with a remote Kubernetes cluster using a two-way proxy and emulates in-cluster environment as well as provides access to config maps and secrets. It aims to improve iteration time for container app development by eliminating the need for deploying app to the cluster and leverages local container to abstract network and filesystem interface in order to make it appear as if the app was running in the cluster.
+-->
+[Telepresence](https://www.telepresence.io/) 使用双向代理将开发人员工作站上运行的容器与远程 Kubernetes 集群连接起来，并模拟集群内环境，并提供对配置映射和机密的访问。它旨在消除需要将应用部署到集群，并利用本地容器抽象网络和文件系统接口，以使其看起来应用好像就在集群中运行，来改进容器应用程序开发的迭代时间。
 
+<!--
 Implications:
+-->
 
+这意味着：
+
+<!--
 * It can be used independently of other tools you chose
 * Using together with Squash is possible, although Squash would have to be used for pods in the cluster, while conventional/local debugger would need to be used for debugging local container that’s connected to the cluster via Telepresence
 * Telepresence imposes some network latency
+-->
+* 它不依赖于其它你选取的工具
+* 有可能同 Squash 一起使用，但是 Squash 必须用于调试集群中的 pods，而传统/本地调试器需要用于调试通过 Telepresence 连接到集群的本地容器
+* Telepresence 会产生一些网络延迟
+
+<!--
 * It provides connectivity via a side-car process - sshuttle, which is based on SSH
 * More intrusive dependency injection mode with LD_PRELOAD/DYLD_INSERT_LIBRARIES is also available
 * It is most commonly used with a remote Kubernetes cluster, but can be used with a local one also
+-->
+* 它通过辅助进程提供连接 -  sshuttle，基于SSH的一个工具
+* 还提供了使用 LD_PRELOAD/DYLD_INSERT_LIBRARIES 的更具侵入性的依赖注入模式
+* 它最常用于远程 Kubernetes 集群，但也可以与本地集群一起使用
 
+<!--
 More info:
+-->
+
+更多信息：
 
 * [Telepresence: fast, realistic local development for Kubernetes microservices](https://www.telepresence.io/)
 * [Getting Started Guide](https://www.telepresence.io/tutorials/docker)
@@ -225,20 +291,47 @@ More info:
 
 ### Ksync
 
+<!--
 [Ksync](https://github.com/vapor-ware/ksync) synchronizes application code (and configuration) between your local machine and the container running in Kubernetes, akin to what [oc rsync](https://docs.openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html) does in OpenShift. It aims to improve iteration time for app development by eliminating build and deployment steps.
+-->
 
+
+[Ksync]（https://github.com/vapor-ware/ksync）在本地计算机和运行在 Kubernetes 中的容器之间同步应用程序代码（和配置），类似于[oc rsync]（https：// docs。 openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html）在 OpenShift 中的角色。它旨在通过消除构建和部署步骤来缩短应用程序开发的迭代时间。
+
+
+<!--
 Implications:
+-->
 
+这意味着：
+
+<!--
 * It bypasses container image build and revision control
 * Compiled language users have to run builds inside the pod (TBC)
 * Two-way sync – remote files are copied to local directory
 * Container is restarted each time remote filesystem is updated
 * No security features – development only
+-->
+* 它绕过容器图像构建和修订控制
+* 使用编译语言的用户必须在 pod（TBC）内运行构建
+* 双向同步 - 远程文件会复制到本地目录
+* 每次更新远程文件系统时都会重启容器
+* 无安全功能 - 仅限开发
+
+<!--
 * Utilizes [Syncthing](https://github.com/syncthing/syncthing), a Go library for peer-to-peer sync
 * Requires a privileged DaemonSet running in the cluster
 * Node has to use Docker with overlayfs2 – no other CRI implementations are supported at the time of writing
+-->
+* 利用 [Syncthing]（https://github.com/syncthing/syncthing），一个用于点对点同步的 Go 语言库
+* 需要一个在集群中运行的特权 DaemonSet
+* Node 必须使用带有 overlayfs2 的 Docker  - 在写作本文时，尚不支持其他 CRI 实现
 
+<!--
 More info:
+-->
+
+更多信息：
 
 * [Getting Started Guide](https://github.com/vapor-ware/ksync#getting-started)
 * [How It Works](https://github.com/vapor-ware/ksync/blob/master/docs/architecture.md)
