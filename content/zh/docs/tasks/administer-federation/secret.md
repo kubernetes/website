@@ -59,7 +59,7 @@ You are also expected to have a basic
 general and [Secrets](/docs/concepts/configuration/secret/) in particular.
 -->
 
-也希望您大概了解一些基本的 [Kubernetes 工作知识](/docs/setup/) 特别是 [Secrets](/docs/concepts/configuration/secret/)。
+也希望您大概了解一些基本的 [Kubernetes 知识](/docs/setup/) 特别是和 [Secrets](/docs/concepts/configuration/secret/) 相关的知识。
 
 <!--
 ## Creating a Federated Secret
@@ -86,7 +86,7 @@ request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 -->
 
-`--context=federation-cluster` 标记告诉 kubectl 将请求提交给联邦 ApiServer 而不是将其发送到 Kubernetes 集群。
+`--context=federation-cluster` 参数告诉 kubectl 将请求提交给联邦 ApiServer 而不是将其发送到 Kubernetes 集群上。
 
 <!--
 Once a federated secret is created, the federation control plane will create
@@ -94,7 +94,7 @@ a matching secret in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 -->
 
-一旦创建了联邦 secret，联邦控制平面将在所有底层 Kubernetes 集群中创建匹配的 secret。
+在创建完联邦 secret 后，联邦控制平面将在所有底层 Kubernetes 集群中创建匹配的 secret。
 您可以通过检查每个底层集群来验证这一点，例如：
 
 ``` shell
@@ -125,7 +125,7 @@ match it.
 
 ## 更新联邦 secret
 
-您可以像更新 Kubernetes secret 那样更新联邦 secret；但是，对于联邦 secret，必须将请求发送到联邦 ApiServer，而不是将其发送到特定的 Kubernetes 集群。
+您可以像更新 Kubernetes secret 那样更新联邦 secret；但是，对于联邦 secret，必须将请求发送到联邦 ApiServer，而非某个 Kubernetes 集群上。
 联邦控制平面确保每当联邦 secret 被更新时，它来更新所有底层集群中的相应 secret ，以便相互匹配。
 
 <!--
@@ -150,7 +150,7 @@ kubectl --context=federation-cluster delete secret mysecret
 
 {{< note >}}
 <!--At this point, deleting a federated secret will not delete the corresponding secrets from underlying clusters. You must delete the underlying secrets manually. We intend to fix this in the future.-->
-目前，删除联邦 secret 并不会从底层集群中删除相应的 secret。您必须手动删除底层 secret。我们计划在将来解决这个问题。
+目前，删除联邦 secret 并不会从底层集群中删除相应的 secret。您必须手动删除底层 secret。我们考虑在将来解决这个问题。
 {{< /note >}}
 
 {{% /capture %}}
