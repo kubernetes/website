@@ -69,7 +69,7 @@ API for traditional Kubernetes Secret. You can create a secret by sending
 a request to the federation apiserver.
 
 You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
---
+-->
 
 ## 创建联邦 Secret
 
@@ -142,7 +142,7 @@ For example, you can do that using kubectl by running:
 
 您可以像删除 Kubernetes secret 那样删除联邦 secret；但是，对于联邦 secret，必须将请求发送到联邦 ApiServer，而不是将其发送到特定的 Kubernetes 集群。
 
-例如，您可以通过执行 kubectl 来进行删除：
+例如，您可以使用 kubectl 来进行删除：
 
 ```shell
 kubectl --context=federation-cluster delete secret mysecret
