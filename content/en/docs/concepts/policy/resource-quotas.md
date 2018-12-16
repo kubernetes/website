@@ -15,7 +15,6 @@ Resource quotas are a tool for administrators to address this concern.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -28,7 +27,7 @@ Resource quotas work like this:
 
 - Different teams work in different namespaces.  Currently this is voluntary, but
   support for making this mandatory via ACLs is planned.
-- The administrator creates one or more `ResourceQuotas` for each namespace.
+- The administrator creates one `ResourceQuota` for each namespace.
 - Users create resources (pods, services, etc.) in the namespace, and the quota system
   tracks usage to ensure it does not exceed hard resource limits defined in a `ResourceQuota`.
 - If creating or updating a resource violates a quota constraint, the request will fail with HTTP
@@ -194,7 +193,7 @@ The `Terminating`, `NotTerminating`, and `NotBestEffort` scopes restrict a quota
 
 ### Resource Quota Per PriorityClass
 
-{{< feature-state for_k8s_version="1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="1.12" state="beta" >}}
 
 Pods can be created at a specific [priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority).
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
@@ -203,7 +202,7 @@ field in the quota spec.
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 
 {{< note >}}
-**Note:** You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
+You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
 per PriorityClass.
 {{< /note >}}
 
@@ -548,7 +547,7 @@ kind: AdmissionConfiguration
 plugins:
 - name: "ResourceQuota"
   configuration:
-    apiVersion: resourcequota.admission.k8s.io/v1alpha1
+    apiVersion: resourcequota.admission.k8s.io/v1beta1
     kind: Configuration
     limitedResources:
     - resource: pods
@@ -568,11 +567,7 @@ For example:
         values: ["cluster-services"]
 ```
 
-{{< note >}}
-**Note:** `scopeSelector` is an alpha field and feature gate `ResourceQuotaScopeSelectors` must be enabled before using it.
-{{< /note >}}
-
-See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota supoport for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
+See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and [Quota support for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md) for more information.
 
 ## Example
 

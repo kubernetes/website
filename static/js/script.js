@@ -1,4 +1,12 @@
- //modal close button
+function addAnchorTags() {
+  anchors.options = {
+    visible: 'touch'
+  }
+
+  anchors.add('#docsContent h2, #docsContent h3, #docsContent h4, #docsContent h5, #docsContent h6');
+}
+
+//modal close button
 (function(){
     //π.modalCloseButton = function(closingFunction){
     //	return π.button('pi-modal-close-button', null, null, closingFunction);
@@ -170,6 +178,9 @@ var kub = (function () {
     }
 
     function setHomeHeaderStyles() {
+        if (!quickstartButton[0]) {
+            return;
+        }
         var Y = window.pageYOffset;
         var quickstartBottom = quickstartButton[0].getBoundingClientRect().bottom;
 
@@ -506,11 +517,8 @@ var pushmenu = (function(){
 })();
 
 $(function() {
+  addAnchorTags();
 
-    // Make global nav be active based on pathname
-    if ((location.pathname.split("/")[1]) !== ""){
-        $('.global-nav li a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
-    }
 
     // If vendor strip doesn't exist add className
     if ( !$('#vendorStrip').length > 0 ) {

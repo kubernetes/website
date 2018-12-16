@@ -14,12 +14,33 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+
+## Running the site locally using Docker
+
+The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com) image that includes the [Hugo](https://gohugo.io) static site generator.
+
+> If you are running on Windows, you'll need a few more tools which you can install with [Chocolatey](https://chocolatey.org). `choco install make`
+
+> If you'd prefer to run the website locally without Docker, see [Running the site locally using Hugo](#running-the-site-locally-using-hugo) below.
+
+If you have Docker [up and running](https://www.docker.com/get-started), build the `kubernetes-hugo` Docker image locally:
+
+```bash
+make docker-image
+```
+
+Once the image has been built, you can run the site locally:
+
+```bash
+make docker-serve
+```
+
+Open up your browser to http://localhost:1313 to view the site. As you make changes to the source files, Hugo updates the site and forces a browser refresh.
 
 ## Running the site locally using Hugo
 
-The Kubernetes documentation is built using the [Hugo](https://gohugo.io) static site generator. See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions.
-
-> Building and running the site requires the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
+See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions. Make sure to install the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
 
 To run the site locally when you have Hugo installed:
 
@@ -27,23 +48,7 @@ To run the site locally when you have Hugo installed:
 make serve
 ```
 
-This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the site. As you make changes to the source files, Hugo updates immediately and forces a browser refresh.
-
-## Building the site using Docker
-
-You can build the Kubernetes docs using [Docker](https://docker.com). To get started, make sure that you have Docker running and build the image locally:
-
-```bash
-make docker-image
-```
-
-Once the `kubernetes-hugo` image has been built locally, you can run the site locally:
-
-```bash
-make docker-serve
-```
-
-Open up your browser to http://localhost:1313 to view the site.
+This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the site. As you make changes to the source files, Hugo updates the site and forces a browser refresh.
 
 ## Thank you!
 

@@ -112,8 +112,10 @@ Alternately, you can run commands inside that container with `exec`:
 kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
 ```
 
-{{< note >}}**Note:** `-c ${CONTAINER_NAME}` is optional. You can omit it for pods that
-only contain a single container.{{< /note >}}
+{{< note >}}
+`-c ${CONTAINER_NAME}` is optional. You can omit it for pods that
+only contain a single container.
+{{< /note >}}
 
 As an example, to look at the logs from a running Cassandra pod, you might run:
 

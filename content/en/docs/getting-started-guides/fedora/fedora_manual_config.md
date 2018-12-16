@@ -124,6 +124,8 @@ KUBELET_ARGS="--cgroup-driver=systemd --kubeconfig=/etc/kubernetes/master-kubeco
 
 ```
 
+* Edit `/etc/kubernetes/master-kubeconfig.yaml` to contain the following information:
+
 ```yaml
 kind: Config
 clusters:

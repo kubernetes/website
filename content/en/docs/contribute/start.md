@@ -24,12 +24,7 @@ code repositories, refer to
 
 ## The basics about our docs
 
-The Kubernetes documentation is written in Markdown and processed and deployed
-using Hugo. The source is in Github at
-[https://github.com/kubernetes/website](https://github.com/kubernetes/website).
-Most of the documentation source is stored in `/content/en/docs/`. Some of the
-reference documentation is automatically generated from scripts, mostly in the
-`update-imported-docs/` directory.
+The Kubernetes documentation is written in Markdown and processed and deployed using Hugo. The source is in Github at [https://github.com/kubernetes/website](https://github.com/kubernetes/website). Most of the documentation source is stored in `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
 
 You can file issues, edit content, and review changes from others, all from the
 Github website. You can also use Github's embedded history and search tools.
@@ -69,6 +64,14 @@ The Kubernetes documentation is transformed from Markdown to HTML using Hugo.
 We make use of the standard Hugo shortcodes, as well as a few that are custom to
 the Kubernetes documentation. See [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) for
 information about how to use them.
+
+### Multiple languages 
+
+Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`. 
+
+For more information about contributing to documentation in multiple languages, see ["Localize content"](/docs/contribute/intermediate#localize-content) in the intermediate contributing guide.
+
+If you're interested in starting a new localization, see ["Localization"](/docs/contribute/localization/).
 
 ## File actionable issues
 
@@ -114,7 +117,7 @@ in mind:
     For instance, "Fix the security docs" is not an actionable issue, but "Add
     details to the 'Restricting network access' topic" might be.
 - If the issue relates to another issue or pull request, you can refer to it
-  either by its full URL or by the the issue or pull request number prefixed
+  either by its full URL or by the issue or pull request number prefixed
   with a `#` character. For instance, `Introduced by #987654`.
 - Be respectful and avoid venting. For instance, "The docs about X suck" is not
   helpful or actionable feedback. The
@@ -154,8 +157,8 @@ process guidelines and information about deadlines.
 ### Sign the CLA
 
 Before you can contribute code or documentation to Kubernetes, you **must** read
-the [Contributor guide](/docs/community/guide/) and
-[sign the Contributor License Agreement (CLA)](/docs/community/guide/#sign-the-cla).
+the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and
+[sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 Don't worry -- this doesn't take long!
 
 ### Find something to work on
@@ -179,7 +182,7 @@ to base your work on. Use these guidelines to make the decision:
 
 - Use `master` for fixing problems in content that is already published, or
   making improvements to content that already exists.
-- Use a release branch (such as `release-1.12`) to document upcoming features
+  - Use a release branch (such as `dev-{{< release-branch >}}` for the {{< release-branch >}} release) to document upcoming features
   or changes for an upcoming release that is not yet published.
 - Use a feature branch that has been agreed upon by SIG Docs to collaborate on
   big improvements or changes to the existing documentation, including content
@@ -213,7 +216,7 @@ documentation.
     include more detail if appropriate.
 
     {{< note >}}
-**Note**: Do not include references to other Github issues or pull
+Do not include references to other Github issues or pull
 requests in your commit message. You can add those to the pull request
 description later.
 {{< /note >}}
@@ -231,7 +234,7 @@ description later.
     **Create pull request**.
     
     {{< note >}}
-**Note**: If you don't want to create the pull request now, you can do it
+If you don't want to create the pull request now, you can do it
 later, by browsing to the main URL of the Kubernetes website repository or
 your fork's repository. The Github website will prompt you to create the
 pull request if it detects that you pushed a new branch to your fork.

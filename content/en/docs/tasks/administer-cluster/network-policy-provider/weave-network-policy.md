@@ -33,7 +33,7 @@ Verify that the weave works.
 Enter the following command:
 
 ```shell
-kubectl get po -n kube-system -o wide
+kubectl get pods -n kube-system -o wide
 ```
 
 The output is similar to this:

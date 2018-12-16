@@ -10,21 +10,20 @@ This document helps you get started using the Kubernetes [NetworkPolicy API](/do
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-You'll need to have a Kubernetes cluster in place, with network policy support. There are a number of network providers that support NetworkPolicy, including:
-
-* [Calico](/docs/tasks/configure-pod-container/calico-network-policy/)
-* [Cilium](/docs/tasks/administer-cluster/cilium-network-policy/)
-* [Kube-router](/docs/tasks/administer-cluster/kube-router-network-policy/)
-* [Romana](/docs/tasks/configure-pod-container/romana-network-policy/)
-* [Weave Net](/docs/tasks/administer-cluster/weave-network-policy/)
-
-**Note**: The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
-{{% /capture %}}
-
-{{% capture prerequisites %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+Make sure you've configured a network provider with network policy support. There are a number of network providers that support NetworkPolicy, including:
+
+* [Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
+* [Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
+* [Kube-router](/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
+* [Romana](/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
+* [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
+
+{{< note >}}
+The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
+{{< /note >}}
 {{% /capture %}}
 
 {{% capture steps %}}

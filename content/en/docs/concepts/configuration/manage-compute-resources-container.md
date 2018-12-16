@@ -2,6 +2,10 @@
 title: Managing Compute Resources for Containers
 content_template: templates/concept
 weight: 20
+feature:
+  title: Automatic binpacking
+  description: >
+    Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
 ---
 
 {{% capture overview %}}
@@ -145,7 +149,9 @@ When using Docker:
   multiplied by 100. The resulting value is the total amount of CPU time that a container can use
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 
-  {{< note >}}**Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.{{</ note >}}
+  {{< note >}}
+  The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
+  {{</ note >}}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -313,7 +319,7 @@ Kubernetes version 1.8 introduces a new resource, _ephemeral-storage_ for managi
 This partition is “ephemeral” and applications cannot expect any performance SLAs (Disk IOPS for example) from this partition. Local ephemeral storage management only applies for the root partition; the optional partition for image layer and writable layer is out of scope.
 
 {{< note >}}
-**Note:** If an optional runtime partition is used, root partition will not hold any image layer or writable layers.
+If an optional runtime partition is used, root partition will not hold any image layer or writable layers.
 {{< /note >}}
 
 ### Requests and limits setting for local ephemeral storage
@@ -362,7 +368,9 @@ spec:
 ### How Pods with ephemeral-storage requests are scheduled
 
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
-run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. (For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
+
+The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 
 ### How Pods with ephemeral-storage limits run
 
@@ -414,7 +422,7 @@ http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 ```
 
 {{< note >}}
-**Note**: In the preceding request, `~1` is the encoding for the character `/`
+In the preceding request, `~1` is the encoding for the character `/`
 in the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 [IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3).
@@ -470,7 +478,7 @@ Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m`.
 
 {{< note >}}
-**Note:** Extended resources replace Opaque Integer Resources.
+Extended resources replace Opaque Integer Resources.
 Users can use any domain name prefix other than `kubernetes.io` which is reserved.
 {{< /note >}}
 
@@ -478,7 +486,7 @@ To consume an extended resource in a Pod, include the resource name as a key
 in the `spec.containers[].resources.limits` map in the container spec.
 
 {{< note >}}
-**Note:** Extended resources cannot be overcommitted, so request and limit
+Extended resources cannot be overcommitted, so request and limit
 must be equal if both are present in a container spec.
 {{< /note >}}
 

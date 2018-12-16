@@ -64,7 +64,6 @@ h1 {
   font-size:24px;
   letter-spacing:0.03em;
   line-height:34px;
-  float:left;
   background-size:100% auto;
   background-color:#666666;
   background-repeat:repeat;
@@ -82,7 +81,6 @@ h1 {
   font-size:24px;
   letter-spacing:0.03em;
   line-height:34px;
-  float:left;
   background-size:100% auto;
 }
 
@@ -95,7 +93,6 @@ h1 {
   font-size:24px;
   letter-spacing:0.03em;
   line-height:34px;
-  float:left;
   background-size:100% auto;
 }
 
@@ -108,7 +105,6 @@ h1 {
   font-size:24px;
   letter-spacing:0.03em;
   line-height:35px;
-  float:left;
   width:100%;
   background-size:100% auto;
   background-color:#666666;
@@ -120,9 +116,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:70%;
-  padding-left:15%;
-  float:left;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner3text {
@@ -130,8 +125,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:75%;
-  padding-left:13%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner4text {
@@ -139,8 +134,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:65%;
-  padding-left:17%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner5text {
@@ -148,9 +143,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:68%;
-  padding-left:16%;
-  float:left;
   text-align:center;
+  margin:0 auto;
 }
 
 
@@ -186,14 +180,11 @@ hr {
   border-bottom:0px solid;
   width:100%;
   opacity:0.5;
-  color:#aaaaaa;
+  background-color:#999999;
   height:1px;
 }
 
 .col1 {
-  width: 42%;
-  padding-right:8%;
-  float:left;
   font-family:"Roboto", sans-serif;
   font-weight:100;
   color:#606060;
@@ -204,10 +195,8 @@ hr {
 }
 
 .col2 {
-  width: 45%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
   line-height:20px;
   color:#606060;
   letter-spacing:0.03em;
@@ -223,7 +212,6 @@ hr {
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
   line-height:22px;
   color:#606060;
   letter-spacing:0.03em;
@@ -237,8 +225,6 @@ hr {
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
-
 }
 
 h4 {
@@ -287,7 +273,7 @@ h4 {
         letter-spacing: 0.03em;
         padding-bottom: 2%;
         line-height: 28px;
-        padding-top: 4%;
+        padding-top: 1em;
         padding-left: 10%;
     }
 
@@ -297,8 +283,6 @@ h4 {
 
     .col1 {
         width: 95%;
-        padding-right: 8%;
-        float: left;
         font-family: "Roboto", sans-serif;
         font-weight: 300;
         color: #606060;
@@ -313,7 +297,6 @@ h4 {
         padding-bottom: 5%;
         font-family: "Roboto", sans-serif;
         font-weight: 300;
-        float: left;
         line-height: 20px;
         color: #606060;
         letter-spacing: 0.03em;
@@ -341,7 +324,6 @@ h4 {
         letter-spacing: 0.03em;
         line-height: 24px;
         width: 100%;
-        float: left;
         background: none;
         background-color: #666666;
     }
@@ -356,7 +338,6 @@ h4 {
         letter-spacing: 0.03em;
         line-height: 23px;
         width: 90%;
-        float: left;
     }
 
     .banner4 {
@@ -369,7 +350,6 @@ h4 {
         letter-spacing: 0.03em;
         line-height: 24px;
         width: 100%;
-        float: left;
     }
 
     .banner5 {
@@ -382,7 +362,6 @@ h4 {
         letter-spacing: 0.03em;
         line-height: 23px;
         width: 100%;
-        float: left;
         background: none;
         background-color: #666666;
     }
@@ -395,7 +374,6 @@ h4 {
         padding-left: 5%;
         padding-bottom: 1%;
         padding-top: 1%;
-        float: left;
         text-align: center;
         color: #ffffff;
     }

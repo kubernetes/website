@@ -97,7 +97,7 @@ The token file is a csv file with a minimum of 3 columns: token, user name, user
 followed by optional group names.
 
 {{< note >}}
-**Note:** If you have more than one group the column must be double quoted e.g.
+If you have more than one group the column must be double quoted e.g.
 
 ```conf
 token,user,uid,"group1,group2,group3"
@@ -137,7 +137,7 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 ```
 
 You must enable the Bootstrap Token Authenticator with the
-`--experimental-bootstrap-token-auth` flag on the API Server.  You must enable
+`--enable-bootstrap-token-auth` flag on the API Server.  You must enable
 the TokenCleaner controller via the `--controllers` flag on the Controller
 Manager.  This is done with something like `--controllers=*,tokencleaner`.
 `kubeadm` will do this for you if you are using it to bootstrap a cluster.
@@ -190,7 +190,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 `serviceAccountName` field of a `PodSpec`.
 
 {{< note >}}
-**Note:** `serviceAccountName` is usually omitted because this is done automatically.
+`serviceAccountName` is usually omitted because this is done automatically.
 {{< /note >}}
 
 ```yaml
@@ -246,7 +246,7 @@ type: kubernetes.io/service-account-token
 ```
 
 {{< note >}}
-**Note:** Values are base64 encoded because secrets are always base64 encoded.
+Values are base64 encoded because secrets are always base64 encoded.
 {{< /note >}}
 
 The signed JWT can be used as a bearer token to authenticate as the given service
@@ -342,7 +342,7 @@ Setup instructions for specific systems:
 
 The first option is to use the kubectl `oidc` authenticator, which sets the `id_token` as a bearer token for all requests and refreshes the token once it expires. After you've logged into your provider, use kubectl to add your `id_token`, `refresh_token`, `client_id`, and `client_secret` to configure the plugin.
 
-Providers that don't return an `id_token` as part of their refresh token response (e.g. [Okta](https://developer.okta.com/docs/api/resources/oidc.html#response-parameters-4)) aren't supported by this plugin and should use "Option 2" below.
+Providers that don't return an `id_token` as part of their refresh token response aren't supported by this plugin and should use "Option 2" below.
 
 ```bash
 kubectl config set-credentials USER_NAME \
@@ -408,6 +408,10 @@ file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 
 ```yaml
+# Kubernetes API version
+apiVersion: v1
+# kind of the API object
+kind: Config
 # clusters refers to the remote service.
 clusters:
   - name: name-of-remote-authn-service
@@ -506,8 +510,9 @@ It is designed for use in combination with an authenticating proxy, which sets t
 * `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
 * `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
 * `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed. The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) and becomes the extra key, and the header value is the extra value.
+
 {{< note >}}
-**Note:** Prior to 1.11.2, the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+Prior to 1.11.3 (and 1.10.7, 1.9.11), the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
 {{< /note >}}
 
 For example, with this configuration:
@@ -548,7 +553,8 @@ extra:
 
 In order to prevent header spoofing, the authenticating proxy is required to present a valid client
 certificate to the API server for validation against the specified CA before the request headers are
-checked.
+checked. WARNING: do **not** reuse a CA that is used in a different context unless you understand
+the risks and the mechanisms to protect the CA's usage.
 
 * `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
 * `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed.
@@ -596,7 +602,7 @@ The following HTTP headers can be used to performing an impersonation request:
 * `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
 
 {{< note >}}
-**Note:** Prior to 1.11.2, `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+Prior to 1.11.3 (and 1.10.7, 1.9.11), `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
 {{< /note >}}
 
 An example set of headers:

@@ -86,7 +86,7 @@ For example:
         }
         ...
 
-A given Kubernetes server will only preserve a historical list of changes for a limited time. Older clusters using etcd2 preserve a maximum of 1000 changes. Newer clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
+A given Kubernetes server will only preserve a historical list of changes for a limited time. Clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
 
 ## Retrieving large results sets in chunks
 
@@ -164,7 +164,7 @@ For example:
 1. List all of the pods on a cluster in the Table format.
 
         GET /api/v1/pods
-        Accept: application/json;as=Table;v=meta.k8s.io;g=v1beta1
+        Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1
         ---
         200 OK
         Content-Type: application/json
@@ -205,7 +205,7 @@ For API resource types that do not have a custom Table definition on the server,
 Table responses are available beginning in version 1.10 of the kube-apiserver. As such, not all API resource types will support a Table response, specifically when using a client against older clusters. Clients that must work against all resource types, or can potentially deal with older clusters, should specify multiple content types in their `Accept` header to support fallback to non-Tabular JSON:
 
 ```
-Accept: application/json;as=Table;v=meta.k8s.io;g=v1beta1, application/json
+Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1, application/json
 ```
 
 
@@ -283,6 +283,39 @@ An encoded Protobuf message with the following IDL:
 ```
 
 Clients that receive a response in `application/vnd.kubernetes.protobuf` that does not match the expected prefix should reject the response, as future versions may need to alter the serialization format in an incompatible way and will do so by changing the prefix.
+
+
+## Dry run
+
+{{< feature-state for_k8s_version="v1.13" state="beta" >}} In version 1.13, the dry run beta feature is enabled by default. The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry run mode. Dry run mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non dry run response. The system guarantees that dry run requests will not be persisted in storage or have any other side effects.
+
+
+### Make a dry run request
+
+Dry run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and in 1.13 the only accepted values are:
+
+* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. All built in admission control plugins support dry run. Additionally, admission webhooks can declare in their [configuration object](/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration-k8s-io) that they do not have side effects by setting the sideEffects field to "None". If a webhook actually does have side effects, then the sideEffects field should be set to "NoneOnDryRun", and the webhook should also be modified to understand the `DryRun` field in AdmissionReview, and prevent side effects on dry run requests.
+* Leave the value empty, which is also the default: Keep the default modifying behavior.
+
+For example:
+
+        POST /api/v1/namespaces/test/pods?dryRun=All
+        Content-Type: application/json
+        Accept: application/json
+
+The response would look the same as for non dry run request, but the values of some generated fields may differ.
+
+
+### Generated values
+
+Some values of an object are typically generated before the object is persisted. It is important not to rely upon the values of these fields set by a dry run request, since these values will likely be different in dry run mode from when the real request is made. Some of these fields are:
+
+* `name`: if `generateName` is set, `name` will have a unique random name
+* `creationTimestamp`/`deletionTimestamp`: records the time of creation/deletion
+* `UID`: uniquely identifies the object and is randomly generated (non-deterministic)
+* `resourceVersion`: tracks the persisted version of the object
+* Any field set by a mutating admission controller
+* For the `Service` resource: Ports or IPs that kube-apiserver assigns to v1.Service objects
 
 {{% /capture %}}
 

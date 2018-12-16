@@ -8,7 +8,7 @@ content_template: templates/concept
 weight: 20
 ---
 {{% capture overview %}}
-This command initializes a Kubernetes master node.
+This command initializes a Kubernetes control-plane node.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -16,7 +16,7 @@ This command initializes a Kubernetes master node.
 {{< include "generated/kubeadm_init.md" >}}
 
 ### Init workflow {#init-workflow}
-`kubeadm init` bootstraps a Kubernetes master node by executing the
+`kubeadm init` bootstraps a Kubernetes control-plane node by executing the
 following steps:
 
 1. Runs a series of pre-flight checks to validate the system state
@@ -36,13 +36,6 @@ following steps:
    API server, each with its own identity, as well as an additional
    kubeconfig file for administration named `admin.conf`.
 
-1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
-   it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file.
-   See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
-   and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/)
-   for more information about Dynamic Kubelet Configuration.
-   This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
-
 1. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
    an additional static Pod manifest are generated for etcd.
@@ -52,13 +45,7 @@ following steps:
 
    Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
 
-1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
-   it completes the kubelet dynamic configuration by creating a ConfigMap and some RBAC rules that enable
-   kubelets to access to it, and updates the node by pointing `Node.spec.configSource` to the
-   newly-created ConfigMap.
-   This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions.
-
-1. Apply labels and taints to the master node so that no additional workloads will
+1. Apply labels and taints to the control-plane node so that no additional workloads will
    run there.
 
 1. Generates the token that additional nodes can use to register
@@ -82,18 +69,47 @@ following steps:
 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
-   To install kube-dns instead of CoreDNS, kubeadm must be invoked with `--feature-gates=CoreDNS=false`.
+   To install kube-dns instead of CoreDNS, the DNS addon has to configured in the kubeadm `ClusterConfiguration`. For more information about the configuration see the section
+   `Using kubeadm init with a configuration file` bellow.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 
-1. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
-   (`--feature-gates=SelfHosting=true`), the static Pod based control plane is
-   transformed into a [self-hosted control plane](#self-hosting).
+### Using init phases with kubeadm {#init-phases}
+
+Kubeadm allows you create a control-plane node in phases. In 1.13 the `kubeadm init phase` command has graduated to GA from it’s previous alpha state under `kubeadm alpha phase`.
+
+To view the ordered list of phases and sub-phases you can call `kubeadm init --help`. The list will be located at the top of the help screen and each phase will have a description next to it.
+Note that by calling `kubeadm init` all of the phases and sub-phases will be executed in this exact order.
+
+Some phases have unique flags, so if you want to have a look at the list of available options add `--help`, for example:
+
+```bash
+sudo kubeadm init phase control-plane controller-manager --help
+```
+
+You can also use `--help` to see the list of sub-phases for a certain parent phase:
+
+```bash
+sudo kubeadm init phase control-plane --help
+```
+
+`kubeadm init` also expose a flag called `--skip-phases` that can be used to skip certain phases. The flag accepts a list of phase names and the names can be taken from the above ordered list.
+
+An example:
+
+```bash
+sudo kubeadm init phase control-plane all --config=configfile.yaml
+sudo kubeadm init phase etcd local --config=configfile.yaml
+# you can now modify the control plane and etcd manifest files
+sudo kubeadm init --skip-phases=control-plane,etcd --config=configfile.yaml
+```
+
+What this example would do is write the manifest files for the control plane and etcd in `/etc/kubernetes/manifests` based on the configuration in `configfile.yaml`. This allows you to modify the files and then skip these phases using `--skip-phases`. By calling the last command you will create a control plane node with the custom manifest files.
 
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
 **Caution:** The config file is
-still considered alpha and may change in future versions.
+still considered beta and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
@@ -101,166 +117,21 @@ line flags, and some more advanced features may only be available as
 configuration file options. This file is passed in the `--config` option.
 
 In Kubernetes 1.11 and later, the default configuration can be printed out using the
-[kubeadm config print-default](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
-It is **recommended** that you migrate your old `v1alpha1` configuration to `v1alpha2` using
+[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+It is **recommended** that you migrate your old `v1alpha3` configuration to `v1beta1` using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
-because `v1alpha1` will be removed in Kubernetes 1.12.
+because `v1alpha3` will be removed in Kubernetes 1.14.
 
-For more details on each field in the configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#MasterConfiguration)
-
-Example of the kubeadm MasterConfiguration version `v1alpha2`:
-
-```yaml
-apiVersion: kubeadm.k8s.io/v1alpha2
-kind: MasterConfiguration
-kubernetesVersion: v1.11.0
-api:
-  advertiseAddress: 192.168.0.102
-  bindPort: 6443
-  controlPlaneEndpoint: ""
-auditPolicy:
-  logDir: /var/log/kubernetes/audit
-  logMaxAge: 2
-  path: ""
-bootstrapTokens:
-- groups:
-  - system:bootstrappers:kubeadm:default-node-token
-  token: abcdef.0123456789abcdef
-  ttl: 24h0m0s
-  usages:
-  - signing
-  - authentication
-certificatesDir: /etc/kubernetes/pki
-clusterName: kubernetes
-etcd:
-  local:
-    dataDir: /var/lib/etcd
-    image: ""
-imageRepository: k8s.gcr.io
-kubeProxy:
-  config:
-    bindAddress: 0.0.0.0
-    clientConnection:
-      acceptContentTypes: ""
-      burst: 10
-      contentType: application/vnd.kubernetes.protobuf
-      kubeconfig: /var/lib/kube-proxy/kubeconfig.conf
-      qps: 5
-    clusterCIDR: ""
-    configSyncPeriod: 15m0s
-    conntrack:
-      max: null
-      maxPerCore: 32768
-      min: 131072
-      tcpCloseWaitTimeout: 1h0m0s
-      tcpEstablishedTimeout: 24h0m0s
-    enableProfiling: false
-    healthzBindAddress: 0.0.0.0:10256
-    hostnameOverride: ""
-    iptables:
-      masqueradeAll: false
-      masqueradeBit: 14
-      minSyncPeriod: 0s
-      syncPeriod: 30s
-    ipvs:
-      ExcludeCIDRs: null
-      minSyncPeriod: 0s
-      scheduler: ""
-      syncPeriod: 30s
-    metricsBindAddress: 127.0.0.1:10249
-    mode: ""
-    nodePortAddresses: null
-    oomScoreAdj: -999
-    portRange: ""
-    resourceContainer: /kube-proxy
-    udpIdleTimeout: 250ms
-kubeletConfiguration:
-  baseConfig:
-    address: 0.0.0.0
-    authentication:
-      anonymous:
-        enabled: false
-      webhook:
-        cacheTTL: 2m0s
-        enabled: true
-      x509:
-        clientCAFile: /etc/kubernetes/pki/ca.crt
-    authorization:
-      mode: Webhook
-      webhook:
-        cacheAuthorizedTTL: 5m0s
-        cacheUnauthorizedTTL: 30s
-    cgroupDriver: cgroupfs
-    cgroupsPerQOS: true
-    clusterDNS:
-    - 10.96.0.10
-    clusterDomain: cluster.local
-    containerLogMaxFiles: 5
-    containerLogMaxSize: 10Mi
-    contentType: application/vnd.kubernetes.protobuf
-    cpuCFSQuota: true
-    cpuManagerPolicy: none
-    cpuManagerReconcilePeriod: 10s
-    enableControllerAttachDetach: true
-    enableDebuggingHandlers: true
-    enforceNodeAllocatable:
-    - pods
-    eventBurst: 10
-    eventRecordQPS: 5
-    evictionHard:
-      imagefs.available: 15%
-      memory.available: 100Mi
-      nodefs.available: 10%
-      nodefs.inodesFree: 5%
-    evictionPressureTransitionPeriod: 5m0s
-    failSwapOn: true
-    fileCheckFrequency: 20s
-    hairpinMode: promiscuous-bridge
-    healthzBindAddress: 127.0.0.1
-    healthzPort: 10248
-    httpCheckFrequency: 20s
-    imageGCHighThresholdPercent: 85
-    imageGCLowThresholdPercent: 80
-    imageMinimumGCAge: 2m0s
-    iptablesDropBit: 15
-    iptablesMasqueradeBit: 14
-    kubeAPIBurst: 10
-    kubeAPIQPS: 5
-    makeIPTablesUtilChains: true
-    maxOpenFiles: 1000000
-    maxPods: 110
-    nodeStatusUpdateFrequency: 10s
-    oomScoreAdj: -999
-    podPidsLimit: -1
-    port: 10250
-    registryBurst: 10
-    registryPullQPS: 5
-    resolvConf: /etc/resolv.conf
-    rotateCertificates: true
-    runtimeRequestTimeout: 2m0s
-    serializeImagePulls: true
-    staticPodPath: /etc/kubernetes/manifests
-    streamingConnectionIdleTimeout: 4h0m0s
-    syncFrequency: 1m0s
-    volumeStatsAggPeriod: 1m0s
-networking:
-  dnsDomain: cluster.local
-  podSubnet: ""
-  serviceSubnet: 10.96.0.0/12
-nodeRegistration:
-  criSocket: /var/run/dockershim.sock
-  name: your-host-name
-  taints:
-  - effect: NoSchedule
-    key: node-role.kubernetes.io/master
-unifiedControlPlaneImage: ""
-```
+For more details on each field in the `v1beta1` configuration you can navigate to our
+[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
-For information about kube-proxy parameters in the MasterConfiguration see:
-- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig/v1alpha1#KubeProxyConfiguration)
+For information about kube-proxy parameters in the kubeadm configuration see:
+- [kube-proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+
+For information about enabling IPVS mode with kubeadm see:
+- [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
 
 ### Passing custom flags to control plane components {#control-plane-flags}
 
@@ -326,7 +197,7 @@ Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manife
 Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
 Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
 Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
-Environment="KUBELET_CADVISOR_ARGS=--cadvisor-port=0"
+Environment="KUBELET_CADVISOR_ARGS="
 Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
 ```
@@ -354,21 +225,11 @@ Here's a breakdown of what/why:
    API using this CA certificate.
 * `--authorization-mode=Webhook` authorizes requests to the Kubelet API by `POST`-ing
    a `SubjectAccessReview` to the API server.
-* `--cadvisor-port=0` disables cAdvisor from listening to `0.0.0.0:4194` by default.
-   cAdvisor will still be run inside of the kubelet and its API can be accessed at
-   `https://{node-ip}:10250/stats/`. If you want to enable cAdvisor to listen on a
-   wide-open port, run:
-
-   ```bash
-   sed -e "/cadvisor-port=0/d" -i /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-   systemctl daemon-reload
-   systemctl restart kubelet
-   ```
 * `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
    certificates from the `kube-apiserver` when the certificate expiration approaches.
 * `--cert-dir`the directory where the TLS certs are located.
 
-### Use kubeadm with other CRI runtimes
+### Use kubeadm with CRI runtimes
 
 Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
 The container runtime used by default is Docker, which is enabled through the built-in
@@ -380,6 +241,8 @@ Other CRI-based runtimes include:
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
+
+Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
 
 After you have successfully installed `kubeadm` and `kubelet`, execute
 these two additional steps:
@@ -420,7 +283,7 @@ In order to set up a cluster where the master and worker nodes communicate with 
 
 ### Setting the node name
 
-By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the  `--node-name`flag.
+By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the `--node-name`flag.
 The flag passes the appropriate [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) 
 to the kubelet.
 
@@ -434,31 +297,24 @@ manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controll
 configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
 configured in the kubelet via static files.
 
-{{< caution >}}
-**Caution:** Self-hosting is alpha, but is expected to become the default in
-a future version. To create a self-hosted cluster, pass the `--feature-gates=SelfHosting=true`
-flag to `kubeadm init`.
-{{< /caution >}}
+To create a self-hosted cluster, pass the flag `--feature-gates=SelfHosting=true` to `kubeadm init`.
 
-{{< warning >}}
-**Warning:** See self-hosted caveats and limitations.
-{{< /warning >}}
+{{< caution >}}
+`SelfHosting` is an alpha feature. It is deprecated in 1.12
+and will be removed in 1.13.
+{{< /caution >}}
 
 #### Caveats
 
-Self-hosting in 1.8 has some important limitations. In particular, a
-self-hosted cluster _cannot recover from a reboot of the master node_
+Self-hosting in 1.8 and later has some important limitations. In particular, a
+self-hosted cluster _cannot recover from a reboot of the control-plane node_
 without manual intervention. This and other limitations are expected to be
 resolved before self-hosting graduates from alpha.
 
 By default, self-hosted control plane Pods rely on credentials loaded from
 [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)
 volumes. Except for initial creation, these credentials are not managed by
-kubeadm. You can use `--feature-gates=StoreCertsInSecrets=true` to enable an
-experimental mode where control plane credentials are loaded from Secrets
-instead. This requires very careful control over the authentication and
-authorization configuration for your cluster, and may not be appropriate for
-your environment.
+kubeadm.
 
 In kubeadm 1.8, the self-hosted portion of the control plane does not include etcd,
 which still runs as a static Pod.
@@ -468,7 +324,7 @@ which still runs as a static Pod.
 The self-hosting bootstrap process is documented in the [kubeadm design
 document](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-self-hosting).
 
-In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
+In summary, `kubeadm alpha selfhosting` works as follows:
 
   1. Waits for this bootstrap static control plane to be running and
     healthy. This is identical to the `kubeadm init` process without self-hosting.
@@ -488,36 +344,38 @@ In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows:
   1. When the original static control plane stops, the new self-hosted control
     plane is able to bind to listening ports and become active.
 
-This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting convert-from-staticpods`.
-
 ### Running kubeadm without an internet connection
 
 For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
 
-| Image Name                                               | v1.8 release branch version | v1.9 release branch version |
-|----------------------------------------------------------|-----------------------------|-----------------------------|
-| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/kube-proxy-${ARCH}              | v1.8.x                      | v1.9.x                      |
-| k8s.gcr.io/etcd-${ARCH}                    | 3.0.17                      | 3.1.10                      |
-| k8s.gcr.io/pause-${ARCH}                   | 3.0                         | 3.0                         |
-| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.5                      | 1.14.7                      |
-| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.5                      | 1.14.7                      |
-| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.5                      | 1.14.7                      |
+| Image Name                                 | v1.10 release branch version |
+|--------------------------------------------|------------------------------|
+| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.10.x                      |
+| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.10.x                      |
+| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.10.x                      |
+| k8s.gcr.io/kube-proxy-${ARCH}              | v1.10.x                      |
+| k8s.gcr.io/etcd-${ARCH}                    | 3.1.12                       |
+| k8s.gcr.io/pause-${ARCH}                   | 3.1                          |
+| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.8                       |
+| coredns/coredns                            | 1.0.6                        |
 
-Here `v1.8.x` means the "latest patch release of the v1.8 branch".
+Here `v1.10.x` means the "latest patch release of the v1.10 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
 If you run Kubernetes version 1.10 or earlier, and if you set `--feature-gates=CoreDNS=true`,
-you must also use the image `coredns/coredns:1.0.2`, instead of the three `k8s-dns-*` images.
+you must also use the `coredns/coredns` image, instead of the three `k8s-dns-*` images.
 
 In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
 ```
 kubeadm config images list
 kubeadm config images pull
 ```
+
+Starting with Kubernetes 1.12, the `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` images
+don't require an `-${ARCH}` suffix.
 
 ### Automating kubeadm
 
@@ -536,11 +394,11 @@ know the IP address that the master will have after it is started.
     kubeadm token generate
     ```
 
-1. Start both the master node and the worker nodes concurrently with this token.
+1. Start both the control-plane node and the worker nodes concurrently with this token.
    As they come up they should find each other and form the cluster.  The same
    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 
-Once the cluster is up, you can grab the admin credentials from the master node
+Once the cluster is up, you can grab the admin credentials from the control-plane node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 
 Note that this style of bootstrap has some relaxed security guarantees because
@@ -551,6 +409,8 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+* [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
+`kubadm init` phases
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`

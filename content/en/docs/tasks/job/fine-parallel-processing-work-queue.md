@@ -26,7 +26,6 @@ Here is an overview of the steps in this example:
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 

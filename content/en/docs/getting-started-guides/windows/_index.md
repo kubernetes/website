@@ -3,7 +3,7 @@ title: Using Windows Server Containers in Kubernetes
 toc_hide: true
 ---
 {{< note >}}
-**Note:** These instructions were recently updated based on Windows Server platform enhancements and the Kubernetes v1.9 release
+These instructions were recently updated based on Windows Server platform enhancements and the Kubernetes v1.9 release
 {{< /note >}}
 
 Kubernetes version 1.5 introduced Alpha support for Windows Server
@@ -23,7 +23,7 @@ Containers on Kubernetes include:
 The Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server 2016 or later
 
 {{< note >}}
-**Note:** Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
+Windows Server Containers on Kubernetes is a Beta feature in Kubernetes v1.9
 {{< /note >}}
 
 ## Get Windows Binaries
@@ -156,10 +156,37 @@ Note: this file assumes that a user previous created 'l2bridge' host networks on
 }
 ```
 
+#### DNS configurations
+
+DNS configurations for Windows containers are set by CNI plugins which support `dns` capabilities. To enable `dns` capabilities, the following options should be included in the CNI configuration file:
+
+```json
+{
+    ...
+    "capabilities": {"dns": true},
+}
+```
+
+The following DNS options from kubelet will be passed to CNI plugins:
+
+- servers: List of DNS servers.
+- searches: List of DNS search domains.
+- options: List of DNS options.
+
+e.g.
+
+```json
+"dns" {
+  "servers": ["10.0.0.10"],
+  "searches": ["default.svc.cluster.local","svc.cluster.local","cluster.local"],
+  "options": []
+}
+```
+
 #### For 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay
 
 {{< note >}}
-**Note:** Fully automated setup via Ansible playbooks is [available](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib).
+Fully automated setup via Ansible playbooks is [available](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib).
 {{< /note >}}
 
 For manual setup, continue the following steps.
@@ -264,7 +291,7 @@ Because your cluster has both Linux and Windows nodes, you must explicitly set t
 {{< codenew file="windows/simple-pod.yaml" >}}
 
 {{< note >}}
-**Note:** This example assumes you are running on Windows Server 1709, so uses the image tag to support that. If you are on a different version, you will need to update the tag. For example, if on Windows Server 2016, update to use `"image": "microsoft/iis"` which will default to that OS version.
+This example assumes you are running on Windows Server 1709, so uses the image tag to support that. If you are on a different version, you will need to update the tag. For example, if on Windows Server 2016, update to use `"image": "microsoft/iis"` which will default to that OS version.
 {{< /note >}}
 
 ### Secrets and ConfigMaps
@@ -360,16 +387,15 @@ Some of these limitations will be addressed by the community in future releases 
 - Mount propagation is not supported on Windows
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
-- Hyper-V isolated containers are not supported. 
+- Hyper-V isolated containers are not supported.
 - Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
 - Flannel and Weavenet are not yet supported
-- Some .Net Core applications expect environment variables with a colon (`:`) in the name.  Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
+- Some .Net Core applications expect environment variables with a colon (`:`) in the name. Kubernetes currently does not allow this.  Replace colon (`:`) with  double underscore (`__`) as documented [here](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?tabs=basicconfiguration#configuration-by-environment).
 - As cgroups are not supported on windows, kubelet.exe should be started with the following additional arguments `--cgroups-per-qos=false --enforce-node-allocatable=""` [issue 61716](https://github.com/kubernetes/kubernetes/issues/61716)
 
 ## Next steps and resources
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
 - Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
-

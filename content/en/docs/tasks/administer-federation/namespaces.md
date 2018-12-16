@@ -41,7 +41,7 @@ You can do that using kubectl by running:
 kubectl --context=federation-cluster create -f myns.yaml
 ```
 
-The '--context=federation-cluster' flag tells kubectl to submit the
+The `--context=federation-cluster` flag tells kubectl to submit the
 request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
@@ -64,7 +64,7 @@ the Federated Namespace that you created above.
 You can update a federated Namespace as you would update a Kubernetes
 Namespace, just send the request to federation apiserver instead of sending it
 to a specific Kubernetes cluster.
-Federation control plan will ensure that whenever the federated Namespace is
+Federation control plane will ensure that whenever the federated Namespace is
 updated, it updates the corresponding Namespaces in all underlying clusters to
 match it.
 
@@ -84,7 +84,7 @@ As in Kubernetes, deleting a federated Namespace will delete all resources in th
 Namespace from the federation control plane.
 
 {{< note >}}
-**Note:** At this point, deleting a federated Namespace will not delete the corresponding Namespace, or resources in those Namespaces, from underlying clusters. Users must delete them manually. We intend to fix this in the future.
+At this point, deleting a federated Namespace will not delete the corresponding Namespace, or resources in those Namespaces, from underlying clusters. Users must delete them manually. We intend to fix this in the future.
 {{< /note >}}
 
 {{% /capture %}}

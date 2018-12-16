@@ -81,7 +81,7 @@ the following things are true:
 
 Once the "deletion in progress" state is set, the garbage
 collector deletes the object's dependents. Once the garbage collector has deleted all
-"blocking" dependents (objects with `ownerReference.blockOwnerDeletion=true`), it delete
+"blocking" dependents (objects with `ownerReference.blockOwnerDeletion=true`), it deletes
 the owner object.
 
 Note that in the "foregroundDeletion", only dependents with

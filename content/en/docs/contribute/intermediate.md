@@ -12,8 +12,7 @@ This page assumes that you've read and mastered the tasks in the
 learn about more ways to contribute.
 
 {{< note >}}
-**Note:** Some tasks require you to use the Git command line client and other
-tools.
+Some tasks require you to use the Git command line client and other tools.
 {{< /note >}}
 
 {{% /capture %}}
@@ -38,7 +37,7 @@ that one person does all of them all of the time.
 In any given week, a specific docs approver volunteers to do initial triage
 and review of [pull requests and issues](#triage-and-categorize-issues). This
 person is the "PR Wrangler" for the week. The schedule is maintained using the
-[PR Wrangler scheduler(https://github.com/kubernetes/website/wiki/PR-Wranglers).
+[PR Wrangler scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers).
 To be added to this list, attend the weekly SIG Docs meeting and volunteer. Even
 if you are not on the schedule for the current week, you can still review pull
 requests (PRs) that are not already under active review.
@@ -257,7 +256,7 @@ to the Github UI.
       ```
 
 4.  Check out the remote branch. This command will fail if you already have a
-    local branch with the sane name.
+    local branch with the same name.
 
       ```bash
       git checkout <branch-from-PR>
@@ -387,11 +386,11 @@ most up-to-date version of that branch.
       ```
 
       {{< note >}}
-**Note:** Do not reference a Github issue or pull request by ID or URL in the
-commit message. If you do, it will cause that issue or pull request to get
-a notification every time the commit shows up in a new Git branch. You can
-link issues and pull requests together later, in the Github UI.
-{{< /note >}}
+      Do not reference a Github issue or pull request by ID or URL in the
+      commit message. If you do, it will cause that issue or pull request to get
+      a notification every time the commit shows up in a new Git branch. You can
+      link issues and pull requests together later, in the Github UI.
+      {{< /note >}}
 
 5.  Optionally, you can test your change by staging the site locally using the
     `hugo` command. See [View your changes locally](#view-your-changes-locally).
@@ -488,23 +487,8 @@ Slack channel or the
 ### View your changes locally
 
 If you aren't ready to create a pull request but you want to see what your
-changes look like, you can use the `hugo` command to stage the changes locally.
-
-1.  Install Hugo version `0.40.3` or later.
-
-2.  In a terminal, go to the root directory of your clone of the Kubernetes
-    docs, and enter this command:
-
-      ```bash
-      hugo server
-      ```
-
-3.  In your browser’s address bar, enter `localhost:1313`.
-
-4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
-    or just close the terminal window.
-
-Alternatively, you can build the Kubernetes docs using Docker.
+changes look like, you can build and run a docker image to generate all the documentation and 
+serve it locally.
 
 1.  Build the image locally:
 
@@ -519,7 +503,26 @@ Alternatively, you can build the Kubernetes docs using Docker.
       ```
 
 3.  In your browser's address bar, enter `localhost:1313`. Hugo will watch the
-filesystem for changes and rebuild the site as needed.
+    filesystem for changes and rebuild the site as needed.
+
+4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
+    or just close the terminal window.
+
+Alternatively, you can install and use the `hugo` command on your development machine:
+
+1.  [Install Hugo](https://gohugo.io/getting-started/installing/) version {{< hugoVersion >}} or later.
+
+2.  In a terminal, go to the root directory of your clone of the Kubernetes
+    docs, and enter this command:
+
+      ```bash
+      hugo server
+      ```
+
+3.  In your browser’s address bar, enter `localhost:1313`.
+
+4.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`
+    or just close the terminal window.
 
 ## Triage and categorize issues
 
@@ -528,7 +531,7 @@ In any given week, a specific docs approver volunteers to do initial
 on this list, attend the weekly SIG Docs meeting and volunteer. Even if you are
 not on the schedule for the current week, you can still review PRs.
 
-People in SIG Docs are only responsible for triaging and categorizing
+People in SIG Docs are responsible only for triaging and categorizing
 documentation issues. General website issues are also filed in the
 `kubernetes/website` repository.
 
@@ -626,6 +629,13 @@ resolve the issue. Dead links in the API and Kubectl docs are automation issues
 and should be assigned a P1 until the problem can be fully understood. All other
 dead links are issues that need to be manually fixed and can be assigned a P3.
 
+#### Blog issues
+
+[Kubernetes Blog](https://kubernetes.io/blog/) entries are expected to become
+outdated over time, so we maintain only blog entries that are less than one year old. 
+If an issue is related to a blog entry that is more than one year old, it should be closed
+without fixing. 
+
 #### Support requests or code bug reports
 
 Some issues opened for docs are instead issues with the underlying code, or
@@ -643,7 +653,7 @@ your question to the `#kubernetes-users` channel in
 [Kubernetes slack](http://slack.k8s.io/). You can also search
 resources like
 [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
-for answers  to similar questions.
+for answers to similar questions.
 
 You can also open issues for Kubernetes functionality in
  https://github.com/kubernetes/kubernetes.
@@ -730,6 +740,7 @@ the techniques described in
 [Commit into another person's PR](#commit-into-another-persons-pr).
 
 If you need to write a new topic, the following links are useful:
+
 - [Writing a New Topic](/docs/contribute/style/write-new-topic/)
 - [Using Page Templates](/docs/contribute/style/page-templates/)
 - [Documentation Style Guide](/docs/contribute/style/style-guide/)
@@ -764,6 +775,11 @@ deadlines. Some deadlines related to documentation are:
   documentation and the docs are not ready, the feature may be removed from the
   milestone.
 
+If your feature is an Alpha feature and is behind a feature gate, make sure you
+add it to [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+as part of your pull request. If your feature is moving out of Alpha, make sure to
+remove it from that file.
+
 ## Contribute to other repos
 
 The [Kubernetes project](https://github.com/kubernetes) contains more than 50
@@ -793,6 +809,18 @@ localize the Kubernetes documentation or provide feedback on existing localized
 content. See [Localization](/docs/contribute/localization/) and ask on the
 [kubernetes-sig-docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 or in `#sig-docs` on Slack if you are interested in helping out.
+
+### Working with localized content
+
+Follow these guidelines for working with localized content:
+
+- Limit PRs to a single language. 
+
+   Each language has its own reviewers and approvers.
+
+- Reviewers, verify that PRs contain changes to only one language.
+
+   If a PR contains changes to source in more than one language, ask the PR contributor to open separate PRs for each language.
 
 {{% /capture %}}
 

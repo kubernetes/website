@@ -15,7 +15,6 @@ a {
 
 body {
   margin:0;
-
 }
 
 h1 {
@@ -56,11 +55,9 @@ h1 {
   font-size:19px;
   letter-spacing:0.03em;
   line-height:28px;
-  float:left;
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
-
 }
 
 .banner3 {
@@ -74,7 +71,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background: url('/images/CaseStudy_wink_banner3.jpg');
   background-size:100% auto;
 }
@@ -88,7 +84,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background: url('/images/CaseStudy_wink_banner4.jpg');
   background-size:100% auto;
 }
@@ -102,7 +97,6 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  float:left;
   background-size:100% auto;
   background-color:#666666;
   background-repeat:no-repeat;
@@ -113,9 +107,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:62%;
-  padding-left:18%;
-  float:left;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner3text {
@@ -123,8 +116,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:70%;
-  padding-left:15%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner4text {
@@ -132,8 +125,8 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:60%;
-  padding-left:20%;
   text-align:center;
+  margin:0 auto;
 }
 
 .banner5text {
@@ -141,11 +134,9 @@ h1 {
   font-weight:300;
   color:#ffffff;
   width:65%;
-  padding-left:16%;
-  float:left;
   text-align:center;
+  margin:0 auto;
 }
-
 
 h2 {
   font-family:"Roboto", sans-serif;
@@ -174,22 +165,15 @@ h2 {
   padding-left:10%;
 }
 
-
-
 hr {
   border-bottom:0px solid;
   width:100%;
   opacity:0.5;
-  color:#aaaaaa;
+  background-color:#999999;
   height:1px;
 }
 
 .col1 {
-
-width: 38%;
-padding-left:5%;
-padding-right:8%;
-float:left;
 font-family:"Roboto", sans-serif;
 font-weight:100;
 color:#606060;
@@ -200,16 +184,12 @@ font-size:14px;
 }
 
 .col2 {
-
-width: 44%;
 font-family:"Roboto", sans-serif;
 font-weight:300;
-float:left;
 line-height:20px;
 color:#606060;
 letter-spacing:0.03em;
 font-size:14px;
-
 }
 
 .fullcol {
@@ -220,7 +200,6 @@ font-size:14px;
   margin-bottom:6%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
   line-height:22px;
   color:#606060;
   letter-spacing:0.03em;
@@ -234,8 +213,6 @@ font-size:14px;
   margin-bottom:4%;
   font-family:"Roboto", sans-serif;
   font-weight:300;
-  float:left;
-
 }
 
 h4 {
@@ -245,7 +222,6 @@ h4 {
   font-size:20px;
   padding-bottom:0px;
 }
-
 
 @media screen and (max-width: 910px){
 
@@ -326,7 +302,7 @@ h4 {
     color:#ffffff;
     padding-top:4%;
     padding-bottom:4%;
-    padding-left:0%;
+    padding-left:0;
     font-size:18px;
     letter-spacing:0.03em;
     line-height:24px;
@@ -372,7 +348,7 @@ h4 {
     color:#ffffff;
     padding-top:4%;
     padding-bottom:4%;
-    padding-left:0%;
+    padding-left:0;
     font-size:18px;
     letter-spacing:0.03em;
     line-height:24px;

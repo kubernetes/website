@@ -74,10 +74,12 @@ curl --header "Content-Type: application/json-patch+json" \
 http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
-**Note**: In the preceding request, `~1` is the encoding for the character / in
+{{< note >}}
+In the preceding request, `~1` is the encoding for the character / in
 the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 [IETF RFC 6901](https://tools.ietf.org/html/rfc6901), section 3.
+{{< /note >}}
 
 The output shows that the Node has a capacity of 4 dongles:
 
@@ -110,7 +112,7 @@ number of dongles. See
 ## Discussion
 
 Extended resources are similar to memory and CPU resources. For example,
-just as  a Node has a certain amount of memory and CPU to be shared by all components
+just as a Node has a certain amount of memory and CPU to be shared by all components
 running on the Node, it can have a certain number of dongles to be shared
 by all components running on the Node. And just as application developers
 can create Pods that request a certain amount of memory and CPU, they can

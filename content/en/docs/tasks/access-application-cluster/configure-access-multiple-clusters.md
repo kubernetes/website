@@ -13,20 +13,12 @@ one or more configuration files, you can quickly switch between clusters by usin
 `kubectl config use-context` command.
 
 {{< note >}}
-**Note:** A file that is used to configure access to a cluster is sometimes called
+A file that is used to configure access to a cluster is sometimes called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
 {{% /capture %}}
-
-{{% capture prerequisites %}}
-
-You need to have the [`kubectl`](/docs/tasks/tools/install-kubectl/) command-line tool installed.
-
-{{% /capture %}}
-
-{{< toc >}}
 
 {{% capture prerequisites %}}
 

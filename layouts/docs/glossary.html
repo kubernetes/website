@@ -26,8 +26,10 @@
 	<span class="tag-option"><a id="deselect-all-tags" href="javascript:void(0)">Deselect all</a></span>
 </div>
 <p>Click on the <a href="javascript:void(0)" class="no-underline">[+]</a> indicators below to get a longer explanation for any particular term.</p>
-{{ $glossary_terms :=  (.Site.GetPage "page" "docs/reference/glossary").Resources.ByType "page" }}
-{{ $glossary_terms := sort $glossary_terms "Title" "asc" }}
+{{ partial "docs/glossary-terms.html" . }}
+{{ $glossary_items := $.Scratch.Get "glossary_items" }}
+{{ with $glossary_items }}
+{{ $glossary_terms := sort . "Title" "asc" }}
 <ul>
 	{{ range $glossary_terms }}
 	{{ $.Scratch.Set "tag_classes" "" }}
@@ -52,5 +54,6 @@
 	</li>
 	{{ end }}
 </ul>
+{{ end }}
 {{ end }}
 

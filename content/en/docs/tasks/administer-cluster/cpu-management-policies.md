@@ -20,7 +20,6 @@ directives.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -76,16 +75,16 @@ The `static` policy allows containers in `Guaranteed` pods with integer CPU
 using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt).
 
 {{< note >}}
-**Note:** System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
+System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
 {{< /note >}}
 
 {{< note >}}
-**Note:** The alpha version of this policy does not guarantee static
+The alpha version of this policy does not guarantee static
 exclusive allocations across Kubelet restarts.
 {{< /note >}}
 
 {{< note >}}
-**Note:** CPU Manager doesn't support offlining and onlining of
+CPU Manager doesn't support offlining and onlining of
 CPUs at runtime. Also, if the set of online CPUs changes on the node,
 the node must be drained and CPU manager manually reset by deleting the
 state file `cpu_manager_state` in the kubelet root directory.
@@ -103,7 +102,7 @@ both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 
 {{< note >}}
-**Note:** The kubelet requires a CPU reservation greater than zero be made
+The kubelet requires a CPU reservation greater than zero be made
 using either `--kube-reserved` and/or `--system-reserved` when the static
 policy is enabled. This is because zero CPU reservation would allow the shared
 pool to become empty.
@@ -178,7 +177,7 @@ spec:
 ```
 
 This pod runs in the `Guaranteed` QoS class because `requests` are equal to `limits`.
-And the container's resource limit for the CPU resource is an integer greater than 
+And the container's resource limit for the CPU resource is an integer greater than
 or equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 
@@ -213,8 +212,8 @@ spec:
 ```
 
 This pod runs in the `Guaranteed` QoS class because only `limits` are specified
-and `requests` are set equal to `limits` when not explicitly specified. And the 
-container's resource limit for the CPU resource is an integer greater than or 
+and `requests` are set equal to `limits` when not explicitly specified. And the
+container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 {{% /capture %}}

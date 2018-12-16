@@ -18,7 +18,6 @@ architecture design doc for more details.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -54,7 +53,6 @@ The `conditions` field describes the status of all `Running` nodes.
 | `PIDPressure`    | `True` if pressure exists on the processes -- that is, if there are too many processes on the node; otherwise `False` |
 | `DiskPressure`    | `True` if pressure exists on the disk size -- that is, if the disk capacity is low; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
-| `ConfigOK`    | `True` if the kubelet is correctly configured, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
@@ -76,20 +74,18 @@ the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce fr
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-Version 1.8 introduced an alpha feature that automatically creates
+In version 1.12, `TaintNodesByCondition` feature is promoted to beta，so node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
-To enable this behavior, pass an additional feature gate flag `--feature-gates=...,TaintNodesByCondition=true`
-to the API server, controller manager, and scheduler.
-When `TaintNodesByCondition` is enabled, the scheduler ignores conditions when considering a Node; instead
+Similarly the scheduler ignores conditions when considering a Node; instead
 it looks at the Node's taints and a Pod's tolerations.
 
 Now users can choose between the old scheduling model and a new, more flexible scheduling model.
-A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that 
+A Pod that does not have any tolerations gets scheduled according to the old model. But a Pod that
 tolerates the taints of a particular Node can be scheduled on that Node.
 
 {{< caution >}}
-**Caution:** Enabling this feature creates a small delay between the 
-time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet. 
+Enabling this feature creates a small delay between the
+time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
 {{< /caution >}}
 
 ### Capacity
@@ -129,10 +125,10 @@ a node from the following content:
 Kubernetes creates a node object internally (the representation), and
 validates the node by health checking based on the `metadata.name` field. If the node is valid -- that is, if all necessary
 services are running -- it is eligible to run a pod. Otherwise, it is
-ignored for any cluster activity until it becomes valid. 
+ignored for any cluster activity until it becomes valid.
 
 {{< note >}}
-**Note:** Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
+Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
 You must explicitly delete the Node object to stop this process.
 {{< /note >}}
 
@@ -161,6 +157,20 @@ all the pods from the node (using graceful termination) if the node continues
 to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
+
+In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
+node. Starting from Kubernetes 1.13, node lease feature is introduced as an
+alpha feature (feature gate `NodeLease`,
+[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+When node lease feature is enabled, each node has an associated `Lease` object in
+`kube-node-lease` namespace that is renewed by the node periodically, and both
+NodeStatus and node lease are treated as heartbeats from the node. Node leases
+are renewed frequently while NodeStatus is reported from node to master only
+when there is some change or enough time has passed (default is 1 minute, which
+is longer than the default timeout of 40 seconds for unreachable nodes). Since
+node lease is much more lightweight than NodeStatus, this feature makes node
+heartbeat significantly cheaper from both scalability and performance
+perspectives.
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
@@ -216,11 +226,12 @@ For self-registration, the kubelet is started with the following options:
   - `--register-node` - Automatically register with the API server.
   - `--register-with-taints` - Register the node with the given list of taints (comma separated `<key>=<value>:<effect>`). No-op if `register-node` is false.
   - `--node-ip` - IP address of the node.
-  - `--node-labels` - Labels to add when registering the node in the cluster.
+  - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-Currently, any kubelet is authorized to create/modify any node resource, but in practice it only creates/modifies
-its own. (In the future, we plan to only allow a kubelet to modify its own node resource.)
+When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and 
+[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
+kubelets are only authorized to create/modify their own Node resource.
 
 #### Manual Node Administration
 
@@ -245,7 +256,7 @@ kubectl cordon $NODENAME
 ```
 
 {{< note >}}
-**Note:** Pods created by a DaemonSet controller bypass the Kubernetes scheduler
+Pods created by a DaemonSet controller bypass the Kubernetes scheduler
 and do not respect the unschedulable attribute on a node. This assumes that daemons belong on
 the machine even if it is being drained of applications while it prepares for a reboot.
 {{< /note >}}

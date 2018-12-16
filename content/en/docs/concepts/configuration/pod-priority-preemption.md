@@ -9,7 +9,6 @@ weight: 70
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.8" state="alpha" >}}
 {{< feature-state for_k8s_version="1.11" state="beta" >}}
 
 [Pods](/docs/user-guide/pods) can have _priority_. Priority indicates the
@@ -36,13 +35,13 @@ Kubernetes Version | Priority and Preemption State | Enabled by default
 1.10               | alpha                         | no
 1.11               | beta                          | yes
 
-{{< warning >}} **Warning**: In a cluster where not all users are trusted, a
+{{< warning >}}In a cluster where not all users are trusted, a
 malicious user could create pods at the highest possible priorities, causing
 other pods to be evicted/not get scheduled. To resolve this issue,
 [ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is
 augmented to support Pod priority. An admin can create ResourceQuota for users
 at specific priority levels, preventing them from creating pods at high
-priorities. However, this feature is in alpha as of Kubernetes 1.11.
+priorities. This feature is in beta since Kubernetes 1.12.
 {{< /warning >}}
 
 {{% /capture %}}
@@ -71,24 +70,13 @@ Pods.
 
 ## How to disable preemption
 
-{{< note >}} **Note**: In Kubernetes 1.11, critical pods (except DaemonSet pods,
-which are still scheduled by the DaemonSet controller) rely on scheduler
-preemption to be scheduled when a cluster is under resource pressure. For this
-reason, you will need to run an older version of Rescheduler if you decide to
-disable preemption. More on this is provided below. {{< /note >}}
-
-#### Option 1: Disable both Pod priority and preemption
-
-Disabling Pod priority disables preemption as well. In order to disable Pod
-Priority, set the feature to false for API server, Scheduler, and Kubelet.
-Disabling the feature on Kubelets is not vital. You can leave the feature on for
-Kubelets if rolling out is hard.
-
-```
---feature-gates=PodPriority=false
-```
-
-#### Option 2: Disable Preemption only
+{{< note >}}
+In Kubernetes 1.11, critical pods (except DaemonSet pods, which are
+still scheduled by the DaemonSet controller) rely on scheduler preemption to be
+scheduled when a cluster is under resource pressure. For this reason, you will
+need to run an older version of Rescheduler if you decide to disable preemption.
+More on this is provided below.
+{{< /note >}}
 
 In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag
 `disablePreemption`, which is set to `false` by default.
@@ -161,7 +149,7 @@ cluster when they should use this PriorityClass.
 ### Example PriorityClass
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1alpha1
+apiVersion: scheduling.k8s.io/v1beta1
 kind: PriorityClass
 metadata:
   name: high-priority
@@ -202,7 +190,7 @@ spec:
 In Kubernetes 1.9 and later, when Pod priority is enabled, scheduler orders
 pending Pods by their priority and a pending Pod is placed ahead of other
 pending Pods with lower priority in the scheduling queue. As a result, the
-higher priority Pod may by scheduled sooner that Pods with lower priority if its
+higher priority Pod may be scheduled sooner than Pods with lower priority if its
 scheduling requirements are met. If such Pod cannot be scheduled, scheduler will
 continue and tries to schedule other lower priority Pods.
 
@@ -253,7 +241,7 @@ priority Pods to zero or a small number.
 #### PodDisruptionBudget is supported, but not guaranteed!
 
 A [Pod Disruption Budget (PDB)](/docs/concepts/workloads/pods/disruptions/)
-allows application owners to limit the number Pods of a replicated application
+allows application owners to limit the number of Pods of a replicated application
 that are down simultaneously from voluntary disruptions. Kubernetes 1.9 supports
 PDB when preempting Pods, but respecting PDB is best effort. The Scheduler tries
 to find victims whose PDB are not violated by preemption, but if no such victims
@@ -266,11 +254,13 @@ A Node is considered for preemption only when the answer to this question is
 yes: "If all the Pods with lower priority than the pending Pod are removed from
 the Node, can the pending Pod be scheduled on the Node?"
 
-{{< note >}} **Note:** Preemption does not necessarily remove all lower-priority
+{{< note >}}
+Preemption does not necessarily remove all lower-priority
 Pods. If the pending Pod can be scheduled by removing fewer than all
 lower-priority Pods, then only a portion of the lower-priority Pods are removed.
 Even so, the answer to the preceding question must be yes. If the answer is no,
-the Node is not considered for preemption. {{< /note >}}
+the Node is not considered for preemption.
+{{< /note >}}
 
 If a pending Pod has inter-pod affinity to one or more of the lower-priority
 Pods on the Node, the inter-Pod affinity rule cannot be satisfied in the absence
@@ -339,7 +329,7 @@ than the victims. If preemption happens in such scenarios, please file an issue.
 
 When pods are preempted, they receive their requested graceful termination
 period, which is by default 30 seconds, but it can be any different value as
-specified in the PodSpec. If the victim Pods do not terminate within this period
+specified in the PodSpec. If the victim Pods do not terminate within this period,
 they are force-terminated. Once all the victims go away, the preemptor Pod can
 be scheduled.
 
@@ -374,11 +364,11 @@ Pod priority and
 [QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md)
 are two orthogonal features with few interactions and no default restrictions on
 setting the priority of a Pod based on its QoS classes. The scheduler's
-preemption logic does consider QoS when choosing preemption targets. Preemption
-considers Pod priority and attempts to choose a set of targets with the lowest
-priority. Higher-priority Pods are considered for preemption only if the removal
-of the lowest priority Pods is not sufficient to allow the scheduler to schedule
-the preemptor Pod, or if the lowest priority Pods are protected by
+preemption logic does not consider QoS when choosing preemption targets.
+Preemption considers Pod priority and attempts to choose a set of targets with
+the lowest priority. Higher-priority Pods are considered for preemption only if
+the removal of the lowest priority Pods is not sufficient to allow the scheduler
+to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 `PodDisruptionBudget`.
 
 The only component that considers both QoS and Pod priority is

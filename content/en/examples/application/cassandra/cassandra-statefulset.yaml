@@ -34,8 +34,8 @@ spec:
             cpu: "500m"
             memory: 1Gi
           requests:
-           cpu: "500m"
-           memory: 1Gi
+            cpu: "500m"
+            memory: 1Gi
         securityContext:
           capabilities:
             add:

@@ -28,8 +28,7 @@ Here are a few methods to install kubectl.
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
 sudo apt-get update && sudo apt-get install -y apt-transport-https
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo touch /etc/apt/sources.list.d/kubernetes.list 
-echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubectl
 {{< /tab >}}
@@ -86,7 +85,8 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 1. Run the installation command:
 
     ```
-    port install kubectl
+    sudo port selfupdate
+    sudo port install kubectl
     ```
     
 2. Test to ensure the version you installed is sufficiently up-to-date:
@@ -99,8 +99,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update kubectl with Powershell.
 
-To install:
-* Run the installation commands (making sure to specify a DownloadLocation):
+1. Run the installation commands (making sure to specify a `DownloadLocation`):
 
     ```
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
@@ -108,16 +107,20 @@ To install:
     ```
     
     {{< note >}}
-    **Note:** If you do not specify a DownloadLocation, kubectl will be installed in the user's temp Directory.
+    If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.
     {{< /note >}}
-    The installer creates $HOME/.kube and instructs it to create a config file
-To update:
-* Run the update commands:
+    
+    The installer creates `$HOME/.kube` and instructs it to create a config file
+
+2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
-    re-run Install-Script to update the installer
-    re-run install-kubectl.ps1 to install latest binaries
+    kubectl version
     ```
+
+    {{< note >}}
+    Updating the installation is performed by rerunning the two commands listed in step 1.
+    {{< /note >}}
 
 ## Install with Chocolatey on Windows
 
@@ -151,9 +154,13 @@ If you are on Windows and using [Chocolatey](https://chocolatey.org) package man
     ```
 
 6. Configure kubectl to use a remote Kubernetes cluster:
-        New-Item config -type file
+
+    ```
+    New-Item config -type file
+    ```
+    
     {{< note >}}
-    **Note:** Edit the config file with a text editor of your choice, such as Notepad.
+    Edit the config file with a text editor of your choice, such as Notepad.
     {{< /note >}}
 
 ## Download as part of the Google Cloud SDK
@@ -231,7 +238,7 @@ You can install kubectl as part of the Google Cloud SDK.
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
 {{% /tab %}}
-{{% tab  name="Windows" %}}
+{{% tab name="Windows" %}}
 1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
     Or if you have `curl` installed, use this command:

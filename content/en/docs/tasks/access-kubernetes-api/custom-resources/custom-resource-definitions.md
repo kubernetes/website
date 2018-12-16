@@ -3,6 +3,7 @@ title: Extend the Kubernetes API with CustomResourceDefinitions
 reviewers:
 - deads2k
 - enisoc
+- sttts
 content_template: templates/task
 weight: 20
 ---
@@ -145,10 +146,8 @@ items:
 - apiVersion: stable.example.com/v1
   kind: CronTab
   metadata:
-    clusterName: ""
     creationTimestamp: 2017-05-31T12:56:35Z
-    deletionGracePeriodSeconds: null
-    deletionTimestamp: null
+    generation: 1
     name: my-new-cron-object
     namespace: default
     resourceVersion: "285"
@@ -174,7 +173,7 @@ kubectl get crontabs
 ```
 
 ```console
-Error from server (NotFound): Unable to list "crontabs": the server could not find the requested resource (get crontabs.stable.example.com)
+Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontabs"}: the server could not find the requested resource (get crontabs.stable.example.com)
 ```
 
 If you later recreate the same CustomResourceDefinition, it will start out empty.
@@ -447,8 +446,9 @@ The column's `format` controls the style used when `kubectl` prints the value.
 
 ### Subresources
 
+{{< feature-state state="beta" for_kubernetes_version="1.11" >}}
+
 Custom resources support `/status` and `/scale` subresources.
-This feature is __beta__ in v1.11 and enabled by default.
 
 You can disable this feature using the `CustomResourceSubresources` feature gate on
 the [kube-apiserver](/docs/admin/kube-apiserver):
@@ -468,8 +468,29 @@ When the status subresource is enabled, the `/status` subresource for the custom
 - `PUT` requests to the `/status` subresource take a custom resource object and ignore changes to anything except the status stanza.
 - `PUT` requests to the `/status` subresource only validate the status stanza of the custom resource.
 - `PUT`/`POST`/`PATCH` requests to the custom resource ignore changes to the status stanza.
-- Any changes to the spec stanza increments the value at `.metadata.generation`.
-- `properties`, `required` and `description` are the only constructs allowed in the root of the CRD OpenAPI validation schema.
+- The `.metadata.generation` value is incremented for all changes, except for changes to `.metadata` or `.status`.
+- Only the following constructs are allowed at the root of the CRD OpenAPI validation schema:
+
+  - Description
+  - Example
+  - ExclusiveMaximum
+  - ExclusiveMinimum
+  - ExternalDocs
+  - Format
+  - Items
+  - Maximum
+  - MaxItems
+  - MaxLength
+  - Minimum
+  - MinItems
+  - MinLength
+  - MultipleOf
+  - Pattern
+  - Properties
+  - Required
+  - Title
+  - Type
+  - UniqueItems
 
 #### Scale subresource
 
@@ -663,8 +684,10 @@ crontabs/my-new-cron-object   3s
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn how to [Migrate a ThirdPartyResource to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/).
+
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions-k8s-io).
+
 * Serve [multiple versions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/) of a
-  CustomResourceDefinition
+  CustomResourceDefinition.
+
 {{% /capture %}}

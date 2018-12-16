@@ -167,10 +167,8 @@ You can use a Kubernetes binary release (recommended) or build your Kubernetes b
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
 Server binary tarballs are no longer included in the Kubernetes final tarball, so you will need to locate and run
-`./kubernetes/cluster/get-kube-binaries.sh` to download the client and server binaries.
-Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.
-Then, within the second set of unzipped files, locate `./kubernetes/server/bin`, which contains
-all the necessary binaries.
+`./kubernetes/cluster/get-kube-binaries.sh` to download and extract the client and server binaries.
+Then locate `./kubernetes/server/bin`, which contains all the necessary binaries.
 
 #### Selecting Images
 
@@ -194,17 +192,12 @@ You have several choices for Kubernetes images:
   - You can verify if the image is loaded successfully with the right repository and tag using
     command like `docker images`
 
-For etcd, you can:
-
-- Use images hosted on Google Container Registry (GCR), such as `k8s.gcr.io/etcd:2.2.1`
-- Use images hosted on [Docker Hub](https://hub.docker.com/search/?q=etcd) or [Quay.io](https://quay.io/repository/coreos/etcd), such as `quay.io/coreos/etcd:v2.2.1`
-- Use etcd binary included in your OS distro.
-- Build your own image
-  - You can do: `cd kubernetes/cluster/images/etcd; make`
-
 We recommend that you use the etcd version which is provided in the Kubernetes binary distribution.   The Kubernetes binaries in the release
 were tested extensively with this version of etcd and not with any other version.
 The recommended version number can also be found as the value of `TAG` in `kubernetes/cluster/images/etcd/Makefile`.
+
+For the minimum recommended version of etcd, refer to
+[Configuring and Updating etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
 
@@ -424,7 +417,7 @@ Note that on some Linux platforms, you may need to manually install the
 `conntrack` package which is a dependency of kube-proxy, or else kube-proxy
 cannot be started successfully.
 
-For more details on debugging kube-proxy problems, please refer to
+For more details about debugging kube-proxy problems, refer to
 [Debug Services](/docs/tasks/debug-application-cluster/debug-service/)
 
 ### Networking
@@ -470,7 +463,7 @@ traffic to the internet, but have no problem with them inside your GCE Project.
 
 The previous steps all involved "conventional" system administration techniques for setting up
 machines.  You may want to use a Configuration Management system to automate the node configuration
-process.  There are examples of [Saltstack](/docs/setup/salt/), Ansible, Juju, and CoreOS Cloud Config in the
+process.  There are examples of Ansible, Juju, and CoreOS Cloud Config in the
 various Getting Started Guides.
 
 ## Bootstrapping the Cluster
@@ -492,11 +485,11 @@ You will need to run one or more instances of etcd.
   - Not highly available, but easy to restore - Run one etcd instance, with its log written to a directory backed
     by durable storage (RAID, GCE PD).
     
-    {{< note >}}**Note:** May result in operations outages in case of
+    {{< note >}}May result in operations outages in case of
     instance outage. {{< /note >}}
   - Highly available - Run 3 or 5 etcd instances with non durable storage.
   
-    {{< note >}}**Note:** Log can be written to non-durable storage
+    {{< note >}}Log can be written to non-durable storage
     because storage is replicated.{{< /note >}}
 
 See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting/) for more discussion on factors affecting cluster
@@ -869,8 +862,8 @@ pinging or SSH-ing from one node to another.
 
 ### Getting Help
 
-If you run into trouble, please see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
-[kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
+If you run into trouble, see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
+[Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level
 

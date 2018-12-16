@@ -1,9 +1,14 @@
 >^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > Please delete this note before submitting the pull request.
-> For 1.12 Features: set Milestone to 1.12 and Base Branch to release-1.12
-> Help editing and submitting pull requests:  https://deploy-preview-9510--kubernetes-io-master-staging.netlify.com/docs/contribute/start/#submit-a-pull-request.
-> Help choosing which branch to use, see
+>
+> For 1.14 Features: set Milestone to 1.14 and Base Branch to dev-1.14
+> 
+> For Chinese localization, base branch to release-1.12
+>
+> Help editing and submitting pull requests:
+> https://kubernetes.io/docs/contribute/start/#improve-existing-content.
+>
+> Help choosing which branch to use:
 > https://kubernetes.io/docs/contribute/start#choose-which-git-branch-to-use.
 >^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >
-

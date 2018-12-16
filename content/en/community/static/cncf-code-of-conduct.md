@@ -34,7 +34,8 @@ Conduct may be permanently removed from the project team.
 This code of conduct applies both within project spaces and in public spaces
 when an individual is representing the project or its community.
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting a CNCF project maintainer, Sarah Novotny <sarahnovotny@google.com>, and/or Dan Kohn <dan@linuxfoundation.org>.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting
+the [Kubernetes Code of Conduct Committee](https://github.com/kubernetes/community/tree/master/committee-code-of-conduct) <conduct@kubernetes.io>.
 
 This Code of Conduct is adapted from the Contributor Covenant
 (http://contributor-covenant.org), version 1.2.0, available at

@@ -1,5 +1,5 @@
 ---
-title: v1.11
+title: v1.13
 ---
 
-[Kubernetes API v1.11](/docs/reference/generated/kubernetes-api/v1.11/)
+[Kubernetes API v1.13](/docs/reference/generated/kubernetes-api/v1.13/)

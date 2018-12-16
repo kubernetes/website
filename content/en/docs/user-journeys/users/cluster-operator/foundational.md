@@ -65,7 +65,8 @@ These resources are covered in a number of articles within the Kubernetes docume
 
 As a cluster operator you may not need to use all these resources, although you should be familiar with them to understand how the cluster is being used.
 There are a number of additional resources that you should be aware of, some listed under [Intermediate Resources](/docs/user-journeys/users/cluster-operator/intermediate#section-1).
-You should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/).
+You should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/)
+and [supported versions and version skew between cluster components](/docs/setup/version-skew-policy/).
 
 ## Get information about your cluster
 
@@ -87,8 +88,6 @@ Some additional resources for getting information about your cluster and how it 
 ### Tutorials
 
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/)
-* [Kubernetes 101](/docs/user-guide/walkthrough/) - kubectl command line interface and Pods
-* [Kubernetes 201](/docs/user-guide/walkthrough/k8s201/) - labels, deployments, services, and health checking
 * [Configuring Redis with a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 * Stateless Applications
   * [Deploying PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook/)

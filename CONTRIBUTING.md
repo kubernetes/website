@@ -9,7 +9,8 @@ These are just guidelines, not rules. Use your best judgment, and feel free to p
 
 ### Code of Conduct
 
-Kubernetes follows the [Cloud Native Computing Foundation (CNCF) Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to Sarah Novotny [sarahnovotny@google.com](mailto:sarahnovotny@google.com) and/or Dan Kohn [dan@linuxfoundation.org](mailto:dan@linuxfoundation.org).
+Kubernetes follows the [Cloud Native Computing Foundation (CNCF) Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to the
+[Kubernetes Code of Conduct Committee](https://github.com/kubernetes/community/tree/master/committee-code-of-conduct) <conduct@kubernetes.io>.
 
 ### Documentation and Site Decisions
 

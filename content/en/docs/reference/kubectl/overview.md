@@ -3,9 +3,17 @@ reviewers:
 - bgrant0607
 - hw-qiaolei
 title: Overview of kubectl
+content_template: templates/concept
+weight: 20
 ---
 
-`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+{{% capture overview %}}
+Kubectl is a command line interface for running commands against Kubernetes clusters.
+This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Syntax
 
@@ -30,22 +38,25 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
-   
+
    * To specify resources by type and name:
-   
+
       * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
       Example: `$ kubectl get pod example-pod1 example-pod2`
-        
+
       * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
       Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
-        
+
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
-   
+
       * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `$ kubectl get pod -f ./pod.yaml`
 
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
-**Important**: Flags that you specify from the command line override default values and any corresponding environment variables.
+
+{{< caution >}}
+Flags that you specify from the command line override default values and any corresponding environment variables.
+{{< /caution >}}
 
 If you need help, just run `kubectl help` from the terminal window.
 
@@ -65,10 +76,11 @@ Operation       | Syntax    |       Description
 `create`        | `kubectl create -f FILENAME [flags]` | Create one or more resources from a file or stdin.
 `delete`        | `kubectl delete (-f FILENAME \| TYPE [NAME \| /NAME \| -l label \| --all]) [flags]` | Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
 `describe`    | `kubectl describe (-f FILENAME \| TYPE [NAME_PREFIX \| /NAME \| -l label]) [flags]` | Display the detailed state of one or more resources.
+`diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration (**BETA**)
 `edit`        | `kubectl edit (-f FILENAME \| TYPE NAME \| TYPE/NAME) [flags]` | Edit and update the definition of one or more resources on the server by using the default editor.
-`exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod,
+`exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
 `explain`    | `kubectl explain [--include-extended-apis=true] [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
-`expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [----external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
+`expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
 `get`        | `kubectl get (-f FILENAME \| TYPE [NAME \| /NAME \| -l label]) [--watch] [--sort-by=FIELD] [[-o \| --output]=OUTPUT_FORMAT] [flags]` | List one or more resources.
 `label`        | `kubectl label (-f FILENAME \| TYPE NAME \| TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the labels of one or more resources.
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | Print the logs for a container in a pod.
@@ -135,7 +147,7 @@ Use the following sections for information about how you can format or sort the 
 
 ### Formatting output
 
-The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `-output` flags to a supported `kubectl` command.
+The default output format for all `kubectl` commands is the human readable plain-text format. To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 
 #### Syntax
 
@@ -262,7 +274,7 @@ $ kubectl create -f <directory>
 // List all pods in plain-text output format.
 $ kubectl get pods
 
-// List all pods in plain-text output format and includes additional information (such as node name).
+// List all pods in plain-text output format and include additional information (such as node name).
 $ kubectl get pods -o wide
 
 // List the replication controller with the specified name in plain-text output format. Tip: You can shorten and replace the 'replicationcontroller' resource type with the alias 'rc'.
@@ -299,7 +311,7 @@ $ kubectl describe pods --include-uninitialized=false
 ```
 
 {{< note >}}
-**Note:** The `kubectl get` command is usually used for retrieving one or more
+The `kubectl get` command is usually used for retrieving one or more
 resources of the same resource type. It features a rich set of flags that allows
 you to customize the output format using the `-o` or `--output` flag, for example.
 You can specify the `-w` or `--watch` flag to start watching updates to a particular
@@ -349,7 +361,92 @@ $ kubectl logs <pod-name>
 $ kubectl logs -f <pod-name>
 ```
 
+## Examples: Creating and using plugins
 
-## Next steps
+Use the following set of examples to help you familiarize yourself with writing and using `kubectl` plugins:
+
+```shell
+// create a simple plugin in any language and name the resulting executable file
+// so that it begins with the prefix "kubectl-"
+$ cat ./kubectl-hello
+#!/bin/bash
+
+# this plugin prints the words "hello world"
+echo "hello world"
+
+// with our plugin written, let's make it executable
+$ sudo chmod +x ./kubectl-hello
+
+// and move it to a location in our PATH
+$ sudo mv ./kubectl-hello /usr/local/bin
+
+// we have now created and "installed" a kubectl plugin.
+// we can begin using our plugin by invoking it from kubectl as if it were a regular command
+$ kubectl hello
+hello world
+
+// we can "uninstall" a plugin, by simply removing it from our PATH
+$ sudo rm /usr/local/bin/kubectl-hello
+```
+
+In order to view all of the plugins that are available to `kubectl`, we can use
+the `kubectl plugin list` subcommand:
+
+```shell
+$ kubectl plugin list
+The following kubectl-compatible plugins are available:
+
+/usr/local/bin/kubectl-hello
+/usr/local/bin/kubectl-foo
+/usr/local/bin/kubectl-bar
+
+// this command can also warn us about plugins that are
+// not executable, or that are overshadowed by other
+// plugins, for example
+$ sudo chmod -x /usr/local/bin/kubectl-foo
+$ kubectl plugin list
+The following kubectl-compatible plugins are available:
+
+/usr/local/bin/kubectl-hello
+/usr/local/bin/kubectl-foo
+  - warning: /usr/local/bin/kubectl-foo identified as a plugin, but it is not executable
+/usr/local/bin/kubectl-bar
+
+error: one plugin warning was found
+```
+
+We can think of plugins as a means to build more complex functionality on top
+of the existing kubectl commands:
+
+```shell
+$ cat ./kubectl-whoami
+#!/bin/bash
+
+# this plugin makes use of the `kubectl config` command in order to output
+# information about the current user, based on the currently selected context
+kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
+```
+
+Running the above plugin gives us an output containing the user for the currently selected
+context in our KUBECONFIG file:
+
+```shell
+// make the file executable
+$ sudo chmod +x ./kubectl-whoami
+
+// and move it into our PATH
+$ sudo mv ./kubectl-whoami /usr/local/bin
+
+$ kubectl whoami
+Current user: plugins-user
+```
+
+To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
+
+{{% /capture %}}

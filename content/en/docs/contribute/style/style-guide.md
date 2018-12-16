@@ -19,7 +19,7 @@ docs, follow the instructions on
 {{% capture body %}}
 
 {{< note >}}
-**Note:** Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
+Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
 and representing feature state.
 {{< /note >}}
 
@@ -56,11 +56,11 @@ leads to an awkward construction.
 Use angle brackets for placeholders. Tell the reader what a placeholder
 represents.
 
-1. Display information about a pod:
+1. Display information about a Pod:
 
        kubectl describe pod <pod-name>
 
-    where `<pod-name>` is the name of one of your pods.
+    where `<pod-name>` is the name of one of your Pods.
 
 ### Use bold for user interface elements
 
@@ -138,7 +138,7 @@ For field values of type string or integer, use normal style without quotation m
 
 ### Separate commands from output
 
-Verify that the pod is running on your chosen node:
+Verify that the Pod is running on your chosen node:
 
     kubectl get pods --output=wide
 
@@ -149,7 +149,7 @@ The output is similar to this:
 
 ### Versioning Kubernetes examples
 
-Code examples and configuration examples that include version information should be consistent with the accompanying text. 
+Code examples and configuration examples that include version information should be consistent with the accompanying text.
 
 If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-templates/#task-template) or the [Tutorial template] (/docs/contribute/style/page-templates/#tutorial-template). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
@@ -189,15 +189,16 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 </table>
 
 ## Shortcodes
-Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create different rhetorical appeal levels. Our documentation supports three different shortcodes in this category: **Note:** {{</* note */>}}, **Caution:** {{</* caution */>}}, and **Warning:** {{</* warning */>}}.
+
+Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create different rhetorical appeal levels. Our documentation supports three different shortcodes in this category: **Note** {{</* note */>}}, **Caution** {{</* caution */>}}, and **Warning** {{</* warning */>}}.
 
 1. Surround the text with an opening and closing shortcode.
 
 2. Use the following syntax to apply a style:
-    
+
     ```
     {{</* note */>}}
-    **Note:** The prefix you use is the same text you use in the tag.
+    No need to include a prefix; the shortcode automatically provides on (Note:, Caution:, etc.).
     {{</* /note */>}}
     ```
 
@@ -205,7 +206,7 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
 The output is:
 
 {{< note >}}
-**Note:** The prefix you choose is the same text for the tag.
+The prefix you choose is the same text for the tag.
 {{< /note >}}
 
 ### Note
@@ -213,17 +214,17 @@ The output is:
 Use {{</* note */>}} to highlight a tip or a piece of information that may be helpful to know.
 
 For example:
-    
+
 ```
 {{</* note */>}}
-**Note:** You can _still_ use Markdown inside these callouts.
+You can _still_ use Markdown inside these callouts.
 {{</* /note */>}}
 ```
 
 The output is:
 
 {{< note >}}
-**Note:** You can _still_ use Markdown inside these callouts.
+You can _still_ use Markdown inside these callouts.
 {{< /note >}}
 
 ### Caution
@@ -234,14 +235,14 @@ For example:
 
 ```
 {{</* caution */>}}
-**Caution:** The callout style only applies to the line directly above the tag.
+The callout style only applies to the line directly above the tag.
 {{</* /caution */>}}
 ```
 
 The output is:
 
 {{< caution >}}
-**Caution:** The callout style only applies to the line directly above the tag.
+The callout style only applies to the line directly above the tag.
 {{< /caution >}}
 
 ### Warning
@@ -252,7 +253,7 @@ For example:
 
 ```
 {{</* warning */>}}
-**Warning:** Beware.
+Beware.
 {{</* /warning */>}}
 ```
 
@@ -260,8 +261,31 @@ For example:
 The output is:
 
 {{< warning >}}
-**Warning:** Beware.
+Beware.
 {{< /warning >}}
+
+### Katacoda Embedded Live Environment
+
+This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel). 
+It lowers the barier of entry by allowing users to use Minikube with one click instead of going through the complete 
+Minikube and Kubectl installation process locally.
+
+The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window 
+as the documentation.
+
+{{< caution >}}
+The session is limited to 15 minutes.
+{{< /caution >}}
+
+For example:
+
+```
+{{</* kat-button */>}}
+```
+
+The output is: 
+
+{{< kat-button >}}
 
 ## Common Shortcode Issues
 
@@ -283,7 +307,8 @@ The output is:
 1. Preheat oven to 350˚F
 
 1. Prepare the batter, and pour into springform pan.
-    {{< note >}}**Note:** Grease the pan for best results.{{< /note >}}
+
+    {{< note >}}Grease the pan for best results.{{< /note >}}
 
 1. Bake for 20-25 minutes or until set.
 
@@ -364,7 +389,7 @@ whether they're part of the "we" you're describing.
   <tr><th>Do</th><th>Don't</th></tr>
   <tr><td>Version 1.4 includes ...</td><td>In version 1.4, we have added ...</td></tr>
   <tr><td>Kubernetes provides a new feature for ...</td><td>We provide a new feature ...</td></tr>
-  <tr><td>This page teaches you how to use pods.</td><td>In this page, we are going to learn about pods.</td></tr>
+  <tr><td>This page teaches you how to use Pods.</td><td>In this page, we are going to learn about Pods.</td></tr>
 </table>
 
 ### Avoid jargon and idioms

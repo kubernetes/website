@@ -53,6 +53,33 @@ Minikube can be installed locally, and runs a simple, single-node Kubernetes clu
 
 You can get basic information about your cluster with the commands `kubectl cluster-info` and `kubectl get nodes`. However, to get a good idea of what's really going on, you need to deploy an application to your cluster. This is covered in the next section.
 
+#### microk8s
+
+On Linux, *microk8s* is a good alternative to Minikube for a local
+install of Kubernetes:
+
+* Runs on the native OS, so there is no overhead from running a virtual machine.
+* Always provides the latest stable version of Kubernetes, using built-in auto-upgrade functionality.
+* Installs in less than a minute.
+
+* {{< link text="Install microk8s" url="https://microk8s.io/" >}}.
+
+After you install microk8s, you can use its tab-completion
+functionality. All microk8s commands start with `microk8s.`. Type
+`microk8s.` (with the period) and then use the tab key to see a list
+of available commands.
+
+It also includes commands to enable Kubernetes subsystems. For example:
+
+* the Kubernetes Dashboard
+* the DNS service
+* GPU passthrough (for NVIDIA)
+* Ingress
+* Istio
+* Metrics server
+* Registry
+* Storage
+
 ## Deploy an application
 
 #### Basic workloads
@@ -220,10 +247,6 @@ The Kubernetes documentation is rich in detail. Here's a curated list of resourc
 * {{< link text="Kubernetes Basics" url="/docs/tutorials/kubernetes-basics/" >}}
 
 * {{< link text="Hello Minikube" url="/docs/tutorials/stateless-application/hello-minikube/" >}} *(Runs on Mac only)*
-
-* {{< link text="Kubernetes 101" url="/docs/user-guide/walkthrough/" >}}
-
-* {{< link text="Kubernetes 201" url="/docs/user-guide/walkthrough/k8s201/" >}}
 
 * {{< link text="Kubernetes object management" url="/docs/tutorials/object-management-kubectl/object-management/" >}}
 

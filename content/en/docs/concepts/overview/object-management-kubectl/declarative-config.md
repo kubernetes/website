@@ -9,7 +9,8 @@ Kubernetes objects can be created, updated, and deleted by storing multiple
 object configuration files in a directory and using `kubectl apply` to
 recursively create and update those objects as needed. This method
 retains writes made to live objects without merging the changes
-back into the object configuration files.
+back into the object configuration files. `kubectl diff` also gives you a
+preview of what changes `apply` will make.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -60,12 +61,20 @@ annotation on each object. The annotation contains the contents of the object
 configuration file that was used to create the object.
 
 {{< note >}}
-**Note:** Add the `-R` flag to recursively process directories.
+Add the `-R` flag to recursively process directories.
 {{< /note >}}
 
 Here's an example of an object configuration file:
 
 {{< codenew file="application/simple_deployment.yaml" >}}
+
+Run `kubectl diff` to print the object that will be created:
+```shell
+kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
+```
+{{< note >}}
+**Note:** `diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
+{{< /note >}}
 
 Create the object using `kubectl apply`:
 
@@ -130,11 +139,12 @@ if those objects already exist. This approach accomplishes the following:
 2. Clears fields removed from the configuration file in the live configuration.
 
 ```shell
+kubectl diff -f <directory>/
 kubectl apply -f <directory>/
 ```
 
 {{< note >}}
-**Note:** Add the `-R` flag to recursively process directories.
+Add the `-R` flag to recursively process directories.
 {{< /note >}}
 
 Here's an example configuration file:
@@ -148,7 +158,7 @@ kubectl apply -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 
 {{< note >}}
-**Note:** For purposes of illustration, the preceding command refers to a single
+For purposes of illustration, the preceding command refers to a single
 configuration file instead of a directory.
 {{< /note >}}
 
@@ -262,6 +272,7 @@ Update the `simple_deployment.yaml` configuration file to change the image from
 Apply the changes made to the configuration file:
 
 ```shell
+kubectl diff -f https://k8s.io/examples/application/update_deployment.yaml
 kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 ```
 
@@ -322,7 +333,7 @@ spec:
 ```
 
 {{< warning >}}
-**Warning:** Mixing `kubectl apply` with the imperative object configuration commands
+Mixing `kubectl apply` with the imperative object configuration commands
 `create` and `replace` is not supported. This is because `create`
 and `replace` do not retain the `kubectl.kubernetes.io/last-applied-configuration`
 that `kubectl apply` uses to compute updates.
@@ -347,12 +358,12 @@ kubectl delete -f <filename>
 Only use this if you know what you are doing.
 
 {{< warning >}}
-**Warning:** `kubectl apply --prune` is in alpha, and backwards incompatible
+`kubectl apply --prune` is in alpha, and backwards incompatible
 changes might be introduced in subsequent releases.
 {{< /warning >}}
 
 {{< warning >}}
-**Warning:** You must be careful when using this command, so that you
+You must be careful when using this command, so that you
 do not delete objects unintentionally.
 {{< /warning >}}
 
@@ -373,7 +384,7 @@ kubectl apply -f <directory/> --prune -l <labels>
 ```
 
 {{< warning >}}
-**Warning:** Apply with prune should only be run against the root directory
+Apply with prune should only be run against the root directory
 containing the object configuration files. Running against sub-directories
 can cause objects to be unintentionally deleted if they are returned
 by the label selector query specified with `-l <labels>` and
@@ -391,10 +402,9 @@ kubectl get -f <filename|url> -o yaml
 ## How apply calculates differences and merges changes
 
 {{< caution >}}
-**Caution:** A *patch* is an update operation that is scoped to specific
-fields of an object instead of the entire object.
-This enables updating only a specific set of fields on an object without
-reading the object first.
+A *patch* is an update operation that is scoped to specific fields of an object
+instead of the entire object. This enables updating only a specific set of fields
+on an object without reading the object first.
 {{< /caution >}}
 
 When `kubectl apply` updates the live configuration for an object,
@@ -546,7 +556,7 @@ and merged.
 Primitive fields are replaced or cleared.
 
 {{< note >}}
-**Note:** '-' is used for "not applicable" because the value is not used.
+`-` is used for "not applicable" because the value is not used.
 {{< /note >}}
 
 | Field in object configuration file  | Field in live object configuration | Field in last-applied-configuration | Action                                    |
@@ -561,7 +571,7 @@ Primitive fields are replaced or cleared.
 Fields that represent maps are merged by comparing each of the subfields or elements of the map:
 
 {{< note >}}
-**Note:** '-' is used for "not applicable" because the value is not used.
+`-` is used for "not applicable" because the value is not used.
 {{< /note >}}
 
 | Key in object configuration file    | Key in live object configuration   | Field in last-applied-configuration | Action                           |
@@ -615,7 +625,7 @@ Add, delete, or update individual elements. This does not preserve ordering.
 
 This merge strategy uses a special tag on each field called a `patchMergeKey`. The
 `patchMergeKey` is defined for each field in the Kubernetes source code:
-[types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
+[types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2747)
 When merging a list of maps, the field specified as the `patchMergeKey` for a given element
 is used like a map key for that element.
 
@@ -689,8 +699,8 @@ by `name`.
 As of Kubernetes 1.5, merging lists of primitive elements is not supported.
 
 {{< note >}}
-**Note:** Which of the above strategies is chosen for a given field is controlled by
-the `patchStrategy` tag in [types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
+Which of the above strategies is chosen for a given field is controlled by
+the `patchStrategy` tag in [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2748)
 If no `patchStrategy` is specified for a field of type list, then
 the list is replaced.
 {{< /note >}}
@@ -900,7 +910,7 @@ Kubernetes objects should be managed using only one method at a time.
 Switching from one method to another is possible, but is a manual process.
 
 {{< note >}}
-**Note:** It is OK to use imperative deletion with declarative management.
+It is OK to use imperative deletion with declarative management.
 {{< /note >}}
 
 {{< comment >}}
@@ -924,8 +934,10 @@ configuration involves several manual steps:
 
 1. Manually remove the `status` field from the configuration file.
 
-    {{< note >}}**Note:** This step is optional, as `kubectl apply` does not update the status field
-    even if it is present in the configuration file.{{< /note >}}
+    {{< note >}}
+    This step is optional, as `kubectl apply` does not update the status field
+    even if it is present in the configuration file.
+    {{< /note >}}
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object:
 
@@ -952,7 +964,7 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 ## Defining controller selectors and PodTemplate labels
 
 {{< warning >}}
-**Warning:** Updating selectors on controllers is strongly discouraged.
+Updating selectors on controllers is strongly discouraged.
 {{< /warning >}}
 
 The recommended approach is to define a single, immutable PodTemplate label
@@ -976,5 +988,3 @@ template:
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}
-
-

@@ -71,7 +71,7 @@ cluster/kube-up.sh
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
 If you run into trouble, please see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
-[kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting/#slack).
+[Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on [Slack](/docs/troubleshooting/#slack).
 
 The next few steps will show you:
 
@@ -96,7 +96,7 @@ gcloud components install kubectl
 ```
 
 {{< note >}}
-**Note:** The kubectl version bundled with `gcloud` may be older than the one
+The kubectl version bundled with `gcloud` may be older than the one
 downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/kubectl/install/)
 document to see how you can set up the latest `kubectl` on your workstation.
 {{< /note >}}
@@ -134,11 +134,11 @@ You'll see a list of pods that looks something like this (the name specifics wil
 
 ```shell
 NAMESPACE     NAME                                           READY     STATUS    RESTARTS   AGE
+kube-system   coredns-5f4fbb68df-mc8z8                       1/1       Running   0          15m
 kube-system   fluentd-cloud-logging-kubernetes-minion-63uo   1/1       Running   0          14m
 kube-system   fluentd-cloud-logging-kubernetes-minion-c1n9   1/1       Running   0          14m
 kube-system   fluentd-cloud-logging-kubernetes-minion-c4og   1/1       Running   0          14m
 kube-system   fluentd-cloud-logging-kubernetes-minion-ngua   1/1       Running   0          14m
-kube-system   kube-dns-v5-7ztia                              3/3       Running   0          15m
 kube-system   kube-ui-v1-curt1                               1/1       Running   0          15m
 kube-system   monitoring-heapster-v5-ex4u3                   1/1       Running   1          15m
 kube-system   monitoring-influx-grafana-v1-piled             2/2       Running   0          15m

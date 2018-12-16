@@ -82,7 +82,7 @@ CPU request and limit to the Container.
 * Verify that the Container specifies a CPU limit that is less than or equal to 800 millicpu.
 
 {{< note >}}
-**Note:** When creating a `LimitRange` object, you can specify limits on huge-pages
+When creating a `LimitRange` object, you can specify limits on huge-pages
 or GPUs as well. However, when both `default` and `defaultRequest` are specified
 on these resources, the two values must be the same.
 {{< /note >}}

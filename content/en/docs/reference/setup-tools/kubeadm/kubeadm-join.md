@@ -204,35 +204,26 @@ These commands should be run after `kubeadm init` but before `kubeadm join`.
 ### Using kubeadm join with a configuration file {#config-file}
 
 {{< caution >}}
-**Caution:** The config file is
-still considered alpha and may change in future versions.
+The config file is still considered alpha and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm join` with a configuration file instead of command
 line flags, and some more advanced features may only be available as
-configuration file options.  This file is passed in the `--config` option.
+configuration file options. This file is passed using the `--config` flag and it must
+contain a `JoinConfiguration` structure.
 
-```yaml
-apiVersion: kubeadm.k8s.io/v1alpha1
-kind: NodeConfiguration
-caCertPath: <path|string>
-discoveryFile: <path|string>
-discoveryToken: <string>
-discoveryTokenAPIServers:
-- <address|string>
-- <address|string>
-nodeName: <string>
-tlsBootstrapToken: <string>
-token: <string>
-discoveryTokenCACertHashes:
-- <SHA-256 hash|string>
-- <SHA-256 hash|string>
-discoveryTokenUnsafeSkipCAVerification: <bool>
+To print the default values of `JoinConfiguration` run the following command:
+
+```bash
+kubeadm config print-default --api-objects=JoinConfiguration
 ```
+
+For details on individual fields in `JoinConfiguration` see [the godoc](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#JoinConfiguration).
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes master node
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}

@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Configuring each kubelet in your cluster using kubeadm
 content_template: templates/concept
-weight: 40
+weight: 80
 ---
 
 {{% capture overview %}}
@@ -11,8 +11,8 @@ weight: 40
 {{< feature-state for_k8s_version="1.11" state="stable" >}}
 
 The lifecycle of the kubeadm CLI tool is decoupled from the
-[Kubernetes Node Agent](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
-on each Kubernetes master or Node. The kubeadm CLI tool is executed by the user when Kubernetes is
+[kubelet](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
+on each node within the Kubernetes cluster. The kubeadm CLI tool is executed by the user when Kubernetes is
 initialized or upgraded, whereas the kubelet is always running in the background.
 
 Since the kubelet is a daemon, it needs to be maintained by some kind of a init
@@ -23,7 +23,7 @@ manager instead, but you need to configure it manually.
 Some kubelet configuration details need to be the same across all kubelets involved in the cluster, while
 other configuration aspects need to be set on a per-kubelet basis, to accommodate the different
 characteristics of a given machine, such as OS, storage, and networking. You can manage the configuration
-of your kubelets manually, but [kubeadm now provides a `MasterConfig` API type for managing your
+of your kubelets manually, but [kubeadm now provides a `KubeletConfiguration` API type for managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 
 {{% /capture %}}
@@ -52,7 +52,7 @@ Virtual IPs for services are now allocated from this subnet. You also need to se
 by the kubelet, using the `--cluster-dns` flag. This setting needs to be the same for every kubelet
 on every manager and Node in the cluster. The kubelet provides a versioned, structured API object
 that can configure most parameters in the kubelet and push out this configuration to each running
-kubelet in the cluster. This object is called **the kubelet's ComponentConfig**. 
+kubelet in the cluster. This object is called **the kubelet's ComponentConfig**.
 The ComponentConfig allows the user to specify flags such as the cluster DNS IP addresses expressed as
 a list of values to a camelCased key, illustrated by the following example:
 
@@ -63,17 +63,14 @@ clusterDNS:
 - 10.96.0.10
 ```
 
-See the
-[API reference for the
-kubelet ComponentConfig](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/kubeletconfig#KubeletConfiguration)
-for more information.
+For more details on the ComponentConfig have a look at [this section](#configure-kubelets-using-kubeadm).
 
 ### Providing instance-specific configuration details
 
 Some hosts require specific kubelet configurations, due to differences in hardware, operating system,
 networking, or other host-specific parameters. The following list provides a few examples.
 
-- The path to the DNS resolution file, as specified by the `--resolve-conf` kubelet
+- The path to the DNS resolution file, as specified by the `--resolv-conf` kubelet
   configuration flag, may differ among operating systems, or depending on whether you are using
   `systemd-resolved`. If this path is wrong, DNS resolution will fail on the Node whose kubelet
   is configured incorrectly.
@@ -85,7 +82,7 @@ networking, or other host-specific parameters. The following list provides a few
 - Currently, the kubelet cannot automatically detects the cgroup driver used by the CRI runtime,
   but the value of `--cgroup-driver` must match the cgroup driver used by the CRI runtime to ensure
   the health of the kubelet.
- 
+
 - Depending on the CRI runtime your cluster uses, you may need to specify different flags to the kubelet.
   For instance, when using Docker, you need to specify flags such as `--network-plugin=cni`, but if you
   are using an external runtime, you need to specify `--container-runtime=remote` and specify the CRI
@@ -96,14 +93,19 @@ such as systemd.
 
 ## Configure kubelets using kubeadm
 
-The kubeadm config API type `MasterConfiguration` embeds the kubelet's ComponentConfig under
-the `.kubeletConfiguration.baseConfig` key. Any user writing a `MasterConfiguration`
-file can use this configuration key to also set the base-level configuration for all kubelets
-in the cluster.
+It is possible to configure the kubelet that kubeadm will start if a custom `KubeletConfiguration`
+API object is passed with a configuration file like so `kubeadm ... --config some-config-file.yaml`.
+
+By calling `kubeadm config print-default --api-objects KubeletConfiguration` you can
+see all the default values for this structure.
+
+Also have a look at the [API reference for the
+kubelet ComponentConfig](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
+for more information on the individual fields.
 
 ### Workflow when using `kubeadm init`
 
-When you call `kubeadm init`, the `.kubeletConfiguration.baseConfig` structure is marshalled to disk
+When you call `kubeadm init`, the kubelet configuration is marshalled to disk
 at `/var/lib/kubelet/config.yaml`, and also uploaded to a ConfigMap in the cluster. The ConfigMap
 is named `kubelet-config-1.X`, where `.X` is the minor version of the Kubernetes version you are
 initializing. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf` with the

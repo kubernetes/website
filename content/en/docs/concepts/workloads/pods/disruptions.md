@@ -18,7 +18,6 @@ cluster actions, like upgrading and autoscaling clusters.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -94,7 +93,7 @@ time as frequent voluntary disruptions.  We call this set of features
 ## How Disruption Budgets Work
 
 An Application Owner can create a `PodDisruptionBudget` object (PDB) for each application.
-A PDB limits the number pods of a replicated application that are down simultaneously from
+A PDB limits the number of pods of a replicated application that are down simultaneously from
 voluntary disruptions.  For example, a quorum-based application would
 like to ensure that the number of replicas running is never brought below the
 number needed for a quorum. A web front end might want to
@@ -266,6 +265,3 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 * Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
 
 {{% /capture %}}
-
-
-

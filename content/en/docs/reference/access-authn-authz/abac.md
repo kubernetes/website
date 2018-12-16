@@ -16,12 +16,12 @@ Attribute-based access control (ABAC) defines an access control paradigm whereby
 {{% capture body %}}
 ## Policy File Format
 
-For mode `ABAC`, also specify `--authorization-policy-file=SOME_FILENAME`.
+To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC` on startup.
 
 The file format is [one JSON object per line](http://jsonlines.org/).  There
 should be no enclosing list or map, just one map per line.
 
-Each line is a "policy object".  A policy object is a map with the following
+Each line is a "policy object", where each such object is a map with the following
 properties:
 
   - Versioning properties:
@@ -49,12 +49,14 @@ properties:
           - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
 
-**NOTES:** An unset property is the same as a property set to the zero value for its type
+{{< note >}}
+An unset property is the same as a property set to the zero value for its type
 (e.g. empty string, 0, false). However, unset should be preferred for
 readability.
 
 In the future, policies may be expressed in a JSON format, and managed via a
 REST interface.
+{{< /note >}}
 
 ## Authorization Algorithm
 
@@ -104,12 +106,12 @@ up the verbosity:
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}
     ```
- 2. Kubelet can read any pods:
+ 2. The Kubelet can read any pods:
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}
     ```
- 3. Kubelet can read and write events:
+ 3. The Kubelet can read and write events:
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
@@ -130,22 +132,20 @@ up the verbosity:
 
 ## A quick note on service accounts
 
-A service account automatically generates a user. The user's name is generated
-according to the naming convention:
+Every service account has a corresponding ABAC username, and that service account's user name is generated according to the naming convention:
 
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
 ```
-Creating a new namespace also causes a new service account to be created, of
-this form:
+
+Creating a new namespace leads to the creation of a new service account in the following format:
 
 ```shell
 system:serviceaccount:<namespace>:default
 ```
 
-For example, if you wanted to grant the default service account in the
-kube-system full privilege to the API, you would add this line to your policy
-file:
+For example, if you wanted to grant the default service account (in the `kube-system` namespace) full 
+privilege to the API using ABAC, you would add this line to your policy file:
 
 ```json
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
