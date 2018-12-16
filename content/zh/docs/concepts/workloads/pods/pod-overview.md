@@ -146,13 +146,12 @@ Pod 中的所有容器都可以访问共享卷，允许这些容器共享数据�
 You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a Node in your cluster. The Pod remains on that Node until the process is terminated, the pod object is deleted, the pod is *evicted* for lack of resources, or the Node fails.
 -->
 
-## 使用 Pod 协同工作
+## 使用 Pod
 
 你很少在 Kubernetes 中直接创建单独的 Pod，甚至是单个存在的 Pod。
 这是因为 Pod 被设计成了相对短暂的一次性的实体。
-当 Pod 由您创建或者间接地由控制器创建时，它被安排在集群中的节点上运行。
-Pod 会保持在该节点上运行，直到进程终止、删除 Pod 对象、由于缺少资源而 *驱逐* Pod、或者节点运行失败。
-
+当 Pod 由您创建或者间接地由控制器创建时，它被调度在集群中的节点上运行。
+Pod 会保持在该节点上运行，直到进程被终止、Pod 对象被删除、Pod 因资源不足而被 *驱逐* 或者节点失效为止。
 {{< note >}}
 <!--
 Restarting a container in a Pod should not be confused with restarting the Pod. The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
@@ -251,7 +250,7 @@ Pod 模板就像饼干切割器，而不是指定所有副本的当前期望状�
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * Other Pod Topics
 -->
-* 了解 Pod 的更多行为：
+* 进一步了解 Pod 的行为：
   * [Pod 的终止](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * 其他 Pod 话题
 {{% /capture %}}
