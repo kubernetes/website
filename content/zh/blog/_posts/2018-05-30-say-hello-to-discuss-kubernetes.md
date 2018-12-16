@@ -1,5 +1,5 @@
 ---
-title: ' Kubernetes 1 11：让我们开始讨论Kubernetes '
+title: 'Kubernetes 1 11：向 discuss kubernetes 问好'
 cn-approvers:
 - congfairy
 layout: blog
@@ -30,7 +30,7 @@ Communication is key when it comes to engaging a community of over 35,000 people
 
 -->
 
-就一个超过 35,000 人的全球性社区而言，参与其中时沟通是非常关键的。 跟踪 Kubernetes 社区中的所有内容可能是一项艰巨的任务。 一方面，我们有官方资源，如 Stack Overflow，GitHub 和邮件列表，另一方面，我们有更多瞬时性的资源，如 Slack，你可以在加入进去，与某人聊天，然后各走各路。
+就一个超过 35,000 人的全球性社区而言，参与其中时沟通是非常关键的。 跟踪 Kubernetes 社区中的所有内容可能是一项艰巨的任务。 一方面，我们有官方资源，如 Stack Overflow，GitHub 和邮件列表，另一方面，我们有更多瞬时性的资源，如 Slack，你可以加入进去、与某人聊天然后各走各路。
 
 
 <!--
@@ -44,8 +44,6 @@ While our current assortment of communication channels are valuable in their own
 Slack 非常适合随意和及时的对话，并与其他社区成员保持联系，但未来很难轻易引用通信。此外，在35,000名参与者中提问并得到回答很难。邮件列表在有问题尝试联系特定人群并且想要跟踪大家的回应时非常有用，但是对于大量人员来说可能是麻烦的。 Stack Overflow 和 GitHub 非常适合在涉及代码的项目或问题上进行协作，并且如果在将来要进行搜索也很有用，但某些主题如“你最喜欢的 CI/CD 工具是什么”或“[Kubectl提示和技巧](http://discuss.kubernetes.io/t/kubectl-tips-and-tricks/192)“在那里是没有意义的。
 
 虽然我们目前的各种沟通渠道对他们自己来说都很有价值，但我们发现电子邮件和实时聊天之间仍然存在差距。在网络的其他部分，许多其他开源项目，如 Docker、Mozilla、Swift、Ghost 和 Chef，已经成功地在[Discourse](http://www.discourse.org/features)之上构建社区，一个开放的讨论平台。那么，如果我们可以使用这个工具将我们的讨论结合在一个平台下，使用开放的API，或许也不会让我们的大部分信息消失在网络中呢？只有一种方法可以找到：欢迎来到[discuss.kubernetes.io](http://discuss.kubernetes.io)
-
-
 
 <!--
 
