@@ -1,12 +1,11 @@
+---
+title: "存储"
+weight: 70
+---
+
 <!--
 ---
 title: "Storage"
-weight: 90
+weight: 70
 ---
 -->
-
----
-title: "存储"
-weight: 90
----
-

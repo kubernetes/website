@@ -258,8 +258,11 @@ kubectl -n kube-system get deployment coredns -o yaml | \
   kubectl apply -f -
 ```
 
+Another cause for CoreDNS to have `CrashLoopBackOff` is when a CoreDNS Pod deployed in Kubernetes detects a loop. [A number of workarounds](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
+are available to avoid Kubernetes trying to restart the CoreDNS Pod every time CoreDNS detects the loop and exits.
+
 {{< warning >}}
-**Warning**: Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
+Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
 the security of your cluster.
 {{< /warning >}}
 

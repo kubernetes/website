@@ -18,7 +18,7 @@ them using [Kibana](https://www.elastic.co/products/kibana), as an alternative t
 Stackdriver Logging when running on GCE. 
 
 {{< note >}}
-**Note:** You cannot automatically deploy Elasticsearch and Kibana in the Kubernetes cluster hosted on Google Kubernetes Engine. You have to deploy them manually.
+You cannot automatically deploy Elasticsearch and Kibana in the Kubernetes cluster hosted on Google Kubernetes Engine. You have to deploy them manually.
 {{< /note >}}
 
 {{% /capture %}}

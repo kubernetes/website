@@ -11,7 +11,7 @@ This page will outline how to manage and execute a Kubernetes upgrade.
 This page assumes you have a working deployed cluster.
 
 {{< warning >}}
-**Warning:** You should always back up all your data before attempting an upgrade.
+You should always back up all your data before attempting an upgrade.
 Don't forget to include the workload inside your cluster!
 Refer to the [backup documentation](/docs/getting-started-guides/ubuntu/backups).
 {{< /warning >}}
@@ -83,7 +83,7 @@ First you need to upgrade the masters:
     juju upgrade-charm kubernetes-master
 
 {{< note >}}
-**Note:** Always upgrade the masters before the workers.
+Always upgrade the masters before the workers.
 {{< /note >}}
 
 Once the latest charm is deployed, the channel for Kubernetes can be selected by issuing the following:

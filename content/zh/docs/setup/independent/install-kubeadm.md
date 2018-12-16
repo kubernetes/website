@@ -78,19 +78,25 @@ If these values are not unique to each node, the installation process
 may [fail](https://github.com/kubernetes/kubeadm/issues/31). 
 -->
 一般来讲，硬件设备会拥有独一无二的地址，但是有些虚拟机可能会雷同。Kubernetes 使用这些值来唯一确定集群中的节点。如果这些值在集群中不唯一，可能会导致安装[失败](https://github.com/kubernetes/kubeadm/issues/31)。
+
 <!--
 ## Check network adapters
 -->
+
 ## 检查网络适配器
+
 <!--
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 -->
 如果您有一个以上的网络适配器，同时您的 Kubernetes 组件通过默认路由不可达，我们建议您预先添加 IP 路由规则，这样 Kubernetes 集群就可以通过对应的适配器完成连接。
+
 <!--
 ## Check required ports
 -->
+
 ## 检查所需端口
+
 <!--
 ### Master node(s)
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
@@ -122,7 +128,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open. 
 -->
-任意使用 * 标记的端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开放的。
+使用 * 标记的任意端口号都有可能被覆盖，所以您需要保证您的自定义端口的状态是开放的。
 
 <!-- 
 Although etcd ports are included in master nodes, you can also host your own
@@ -164,7 +170,7 @@ Other CRI-based runtimes include:
 <!-- 
 Refer to the [CRI installation instructions](/docs/setup/cri) for more information. 
 -->
-参考 [CRI 安装指南](/docs/setup/cri) 获取更多信息.
+参考 [CRI 安装指南](/docs/setup/cri) 获取更多信息。
 
 <!--
 ## Installing kubeadm, kubelet and kubectl
@@ -198,7 +204,7 @@ kubelet and the control plane is supported, but the kubelet version may never ex
 server version. For example, kubelets running 1.7.0 should be fully compatible with a 1.8.0 API server,
 but not vice versa. 
 -->
-kubeadm **不能** 帮您安装或管理 `kubelet` 或 `kubectl` ，所以您得保证他们满足通过 kubeadm 安装的 Kubernetes 控制层对版本的要求。如果版本没有满足要求，就有可能导致一些难以想到的错误或问题。然而控制层与 kubelet 间的 _小版本号_ 不一致无伤大雅，不过请记住 kubelet 的版本不可以超过 API server 的版本。例如 1.8.0 的 API server 可以适配 1.7.0 的 kubelet，反之就不行了。
+kubeadm **不能** 帮您安装或管理 `kubelet` 或 `kubectl` ，所以您得保证它们满足通过 kubeadm 安装的 Kubernetes 控制层对版本的要求。如果版本没有满足要求，就有可能导致一些难以想到的错误或问题。然而控制层与 kubelet 间的 _小版本号_ 不一致无伤大雅，不过请记住 kubelet 的版本不可以超过 API server 的版本。例如 1.8.0 的 API server 可以适配 1.7.0 的 kubelet，反之则不可以。
 
 <!-- 
 {{< warning >}}
@@ -230,6 +236,11 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl
 apt-mark hold kubelet kubeadm kubectl
 ```
+
+<!--
+# Set SELinux in permissive mode (effectively disabling it)
+-->
+
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```bash
@@ -244,9 +255,6 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 exclude=kube*
 EOF
 
-<!--
-# Set SELinux in permissive mode (effectively disabling it)
--->
 # 将 SELinux 设置为 permissive 模式(将其禁用)
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
@@ -267,8 +275,8 @@ systemctl enable kubelet && systemctl start kubelet
     `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g. 
   -->
   - 通过命令 `setenforce 0` 和 `sed ...` 可以将 SELinux 设置为 permissive 模式(将其禁用)。
-    只有执行这一操作之后，容器才能访问宿主的文件系统，进而能够正常使用 Pod 网络。您必须这么做，直到 kubelet 做出升级支持 SELinux 为止。
-  - 一些 RHEL/CentOS 7 的用户曾经遇到过：由于 iptable 被绕过导致网络请求被错误的路由。您得保证
+    只有执行这一操作之后，容器才能访问宿主的文件系统，进而能够正常使用 pod 网络。您必须这么做，直到 kubelet 做出升级支持 SELinux 为止。
+  - 一些 RHEL/CentOS 7 的用户曾经遇到过：由于 iptables 被绕过导致网络请求被错误的路由。您得保证
     在您的 `sysctl` 配置中 `net.bridge.bridge-nf-call-iptables` 被设为1。
 
     ```bash
@@ -361,7 +369,7 @@ KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 This file will be used by `kubeadm init` and `kubeadm join` to source extra
 user defined arguments for the kubelet.
 -->
-这个文件将会被 `kubeadm init` 和 `kubeadm join` 用于为 kubelet 获取 额外的用户参数。
+这个文件将会被 `kubeadm init` 和 `kubeadm join` 用于为 kubelet 获取额外的用户参数。
 
 <!--
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
@@ -387,7 +395,7 @@ systemctl restart kubelet
 <!-- 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 -->
-如果您在使用 kubeadm 时候遇到问题，请查看我们的[疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/). 
+如果您在使用 kubeadm 时候遇到问题，请查看我们的 [疑难解答文档](/docs/setup/independent/troubleshooting-kubeadm/)。
 {{% capture whatsnext %}}
 <!-- 
 * [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/)

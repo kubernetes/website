@@ -71,7 +71,7 @@ load-balanced access to an application running in a cluster.
    command.
 
    {{< note >}}
-   **Note:** If you are using Minikube, you don't get an external IP address. The
+   If you are using Minikube, you don't get an external IP address. The
    external IP address remains in the pending state.
    {{< /note >}}
 
@@ -90,7 +90,7 @@ load-balanced access to an application running in a cluster.
        Hello Kubernetes!
 
    {{< note >}}
-   **Note:** If you are using Minikube, enter these commands:
+   If you are using Minikube, enter these commands:
    {{< /note >}}
 
        kubectl cluster-info

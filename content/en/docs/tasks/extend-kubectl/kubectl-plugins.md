@@ -18,9 +18,10 @@ of plugins as a means of utilizing these building blocks to create more complex 
 
 {{% capture prerequisites %}}
 
-You need to have a working `kubectl` binary installed. 
+You need to have a working `kubectl` binary installed.
+
 {{< note >}}
-**Note:** Plugins were officially introduced as an alpha feature in the v1.8.0 release. They have been re-worked in the v1.12.0 release to support a wider range of use-cases. So, while some parts of the plugins feature were already available in previous versions, a `kubectl` version of 1.12.0 or later is recommended if you are following these docs.
+Plugins were officially introduced as an alpha feature in the v1.8.0 release. They have been re-worked in the v1.12.0 release to support a wider range of use-cases. So, while some parts of the plugins feature were already available in previous versions, a `kubectl` version of 1.12.0 or later is recommended if you are following these docs.
 {{< /note >}}
 
 Until a GA version is released, plugins should be considered unstable, and their underlying mechanism is prone to change.
@@ -34,7 +35,7 @@ Until a GA version is released, plugins should be considered unstable, and their
 A plugin is nothing more than a standalone executable file, whose name begins with `kubectl-`. To install a plugin, simply move this executable file to anywhere on your PATH.
 
 {{< note >}}
-**Note:** Kubernetes does not provide a package manager or anything similar to install or update plugins. It is your responsibility to ensure that plugin executables have a filename that begins with `kubectl-`, and that they are placed somewhere on your PATH.
+Kubernetes does not provide a package manager or anything similar to install or update plugins. It is your responsibility to ensure that plugin executables have a filename that begins with `kubectl-`, and that they are placed somewhere on your PATH.
 {{< /note >}}
 
 ### Discovering plugins
@@ -126,9 +127,15 @@ For example, a plugin that wishes to be invoked whenever the command `kubectl fo
 
 #### Flags and argument handling
 
+{{< note >}}
+Unlike previous versions of `kubectl`, the plugin mechanism will _not_ create any custom, plugin-specific values or environment variables to a plugin process.
+This means that environment variables such as `KUBECTL_PLUGINS_CURRENT_NAMESPACE` are no longer provided to a plugin. Plugins must parse all of the arguments passed to them by a user,
+and handle flag validation as part of their own implementation. For plugins written in Go, a set of utilities has been provided under [k8s.io/cli-runtime](https://github.com/kubernetes/cli-runtime) to assist with this.
+{{< /note >}}
+
 Taking our `kubectl-foo-bar-baz` plugin from the above scenario, we further explore additional cases where users invoke our plugin while providing additional flags and arguments.
 For example, in a situation where a user invokes the command `kubectl foo bar baz arg1 --flag=value arg2`, the plugin mechanism will first try to find the plugin with the longest possible name, which in this case
-would be `kubectk-foo-bar-baz-arg1`. Upon not finding that plugin, it then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.
+would be `kubectl-foo-bar-baz-arg1`. Upon not finding that plugin, it then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.
 Upon finding a plugin with this name, it then invokes that plugin, passing all args and flags after its name to the plugin executable.
 
 Example:
@@ -184,7 +191,7 @@ The command from the above example, can be invoked using either a dash (`-`) or 
 $ kubectl foo-bar
 I am a plugin with a dash in my name
 
-# it can also be inovked using an underscore
+# it can also be invoked using an underscore
 $ kubectl foo_bar
 I am a plugin with a dash in my name
 ```

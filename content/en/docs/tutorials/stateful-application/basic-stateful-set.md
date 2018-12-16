@@ -284,7 +284,7 @@ web-1
 ```
 
 {{< note >}}
-**Note:** If you instead see 403 Forbidden responses for the above curl command,
+If you instead see 403 Forbidden responses for the above curl command,
 you will need to fix the permissions of the directory mounted by the `volumeMounts`
 (due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)) with:
 

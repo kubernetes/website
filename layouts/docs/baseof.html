@@ -15,39 +15,13 @@
 		<section id="encyclopedia">
 			{{ block "side-menu" . }}<div id="docsToc" style="display:none;"></div>{{ end }}
 			<div id="{{ block "content-id" . }}docsContent{{ end }}">
-				{{ block "content" . }}{{ end }}
+        {{ block "content" . }}{{ end }}
+        
+        {{ partial "feedback.html" . }}
+
+        {{ partial "git-info.html" . }}
 			</div>
 		</section>
-    <div id="pre-footer"> <!-- This is at the bottom of every topic underneath the TOC and content -->
-      <div class="issue-button-container">
-        <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ .Path }}?pixel" alt="Analytics" /></a></p>
-        {{ if and (ne .Kind "404") (not (strings.Contains .Path "search")) }}
-        {{ if not .Params.no_issue }}
-        <script type="text/javascript">
-        PDRTJS_settings_8345992 = {
-        "id" : "8345992",
-        "unique_id" : "{{ .RelPermalink }}",
-        "title" : "{{ .Title }}",
-        "permalink" : "{{ .Permalink }}"
-        };
-        (function(d,c,j){if(!document.getElementById(j)){var pd=d.createElement(c),s;pd.id=j;pd.src=('https:'==document.location.protocol)?'https://polldaddy.com/js/rating/rating.js':'http://i0.poll.fm/js/rating/rating.js';s=document.getElementsByTagName(c)[0];s.parentNode.insertBefore(pd,s);}}(document,'script','pd-rating-js'));
-        </script>
-        <a href="" onclick="window.open('https://github.com/kubernetes/website/issues/new?title=Issue%20with%20' +
-        'k8s.io'+window.location.pathname)" class="button issue">{{ T "main_github_create_an_issue" }}</a>
-        {{ end }}
-        {{ end }}
-        {{ if not .Params.noedit }}
-        <a href="https://github.com/kubernetes/website/edit/master/content/{{ .Site.Language.Lang }}/{{ .File.Path }}" class="button issue">{{ T "main_edit_this_page" }}</a>
-        {{ end }}
-      </div>
-      {{ if not .Params.showcommit }}
-        {{ if $.GitInfo }}
-      <div id="lastedit" class="lastedit issue-button-container">
-        {{ T "main_page_last_modified_on" }} {{ .GitInfo.AuthorDate.Format "January 02, 2006 at 3:04 PM PST" }} {{ T "main_by" }}  <a href="https://github.com/kubernetes/website/commit/{{ .GitInfo.Hash }}/">{{ .GitInfo.Subject }}</a> (<a href="https://github.com/kubernetes/website/commits/master/content/en/{{ .File.Path }}">{{ T "main_page_history" }}</a>)
-      </div>
-        {{ end }}
-      {{ end }}
-    </div>
 		{{ partialCached "footer.html" . }}
 		{{ partialCached "footer-scripts.html" . }}
     <script language="application/javascript">
