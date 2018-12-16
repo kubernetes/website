@@ -3,22 +3,10 @@ reviewers:
 - mikedanese
 - luxas
 - jbeda
-title: kubeadm 重置
-content_template: templates/concept
-weight: 60
----
-
-<!--
----
-reviewers:
-- mikedanese
-- luxas
-- jbeda
 title: kubeadm reset
 content_template: templates/concept
 weight: 60
 ---
--->
 
 {{% capture overview %}}
 <!--
