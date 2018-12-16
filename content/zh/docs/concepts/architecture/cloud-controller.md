@@ -246,6 +246,14 @@ rules:
 
 以下云服务供应商为自己的云部署了 CCM。
 
+<!--
+* [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
+* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
+* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
+* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
+* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
+-->
+
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
 * [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
