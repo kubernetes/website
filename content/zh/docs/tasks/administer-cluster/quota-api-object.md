@@ -156,6 +156,8 @@ Here is the configuration file for a second PersistentVolumeClaim:
 
 ## 尝试创建第二个 PersistentVolumeClaim
 
+下面是第二个 PersistentVolumeClaim 的配置文件：
+
 {{< codenew file="admin/resource/quota-objects-pvc-2.yaml" >}}
 
 <!--
