@@ -58,7 +58,7 @@ deprecated in v1.10 and completely removed in v1.12.
 
 ![cAdvisor](/images/docs/cadvisor.png)
 
-Starting from v1.13, you can [deploy cAdvisor as DaemonSet](https://github.com/google/cadvisor/tree/master/deploy/kubernetes) to for an access to the cAdvisor UI.
+Starting from v1.13, you can [deploy cAdvisor as a DaemonSet](https://github.com/google/cadvisor/tree/master/deploy/kubernetes) for an access to the cAdvisor UI.
 
 ## Full metrics pipelines
 
