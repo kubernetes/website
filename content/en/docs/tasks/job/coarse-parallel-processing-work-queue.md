@@ -64,7 +64,7 @@ First create a temporary interactive Pod.
 
 ```shell
 # Create a temporary interactive container
-$ kubectl run -i --tty temp --image ubuntu:14.04
+$ kubectl run -i --tty temp --image ubuntu:18.04
 Waiting for pod default/temp-loe07 to be running, status is Pending, pod ready: false
 ... [ previous line repeats several times .. hit return when it stops ] ...
 ```
