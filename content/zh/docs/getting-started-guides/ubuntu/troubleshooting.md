@@ -126,9 +126,9 @@ to share with a developer to identify problems. This is best accomplished with [
 <!-- Download and execute the collect.py script from [CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent) on a box that has a Juju client configured with the current controller and model pointing at the CDK deployment of interest. -->
 
 在带有 Juju 客户端，而客户端配有指向相应的 CDK 部署的控制器的节点上，
-下载并执行[CDK Field Agent]中的 collect.py 文件。
+下载并执行[CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent)中的 collect.py 文件。
 
-Running the script will generate a tarball of system information and includes basic information such as systemctl status, Juju logs, charm unit data, etc. Additional application-specific information may be included as well.
+<!-- Running the script will generate a tarball of system information and includes basic information such as systemctl status, Juju logs, charm unit data, etc. Additional application-specific information may be included as well. -->
 
 运行该脚本会生成一个 tar 包，包含系统信息以及诸如 systemctl 状态，Juju 日志，charm 单元数据等基本信息。
 额外和应用相关的信息可能也会包含其中。
