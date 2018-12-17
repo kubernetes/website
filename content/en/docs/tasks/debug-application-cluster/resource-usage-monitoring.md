@@ -52,11 +52,13 @@ The Kubelet acts as a bridge between the Kubernetes master and the nodes. It man
 
 cAdvisor is an open source container resource usage and performance analysis agent. It is purpose-built for containers and supports Docker containers natively. In Kubernetes, cAdvisor is integrated into the Kubelet binary. cAdvisor auto-discovers all containers in the machine and collects CPU, memory, filesystem, and network usage statistics. cAdvisor also provides the overall machine usage by analyzing the 'root' container on the machine.
 
-Kubelet exposes a simple cAdvisor UI for on-machine containers on default port 4194. The picture below shows the overall machine usage. However, this function has been marked deprecated in v1.10 and totally removed in v.12.
+Kubelet exposes a simple cAdvisor UI for containers on a machine, via the default port 4194.
+The picture below is an example showing the overall machine usage. However, this feature has been marked
+deprecated in v1.10 and completely removed in v1.12.
 
 ![cAdvisor](/images/docs/cadvisor.png)
 
-Now user could [deploy cAdvisor as DaemonSet.](https://github.com/google/cadvisor/tree/master/deploy/kubernetes) to access cAdvisor UI page.
+Starting from v1.13, you can [deploy cAdvisor as DaemonSet](https://github.com/google/cadvisor/tree/master/deploy/kubernetes) to for an access to the cAdvisor UI.
 
 ## Full metrics pipelines
 
