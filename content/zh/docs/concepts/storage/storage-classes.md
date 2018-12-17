@@ -471,7 +471,7 @@ parameters:
     [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
 -->
 * `secretNamespace`，`secretName`：Secret 实例的标识，包含与 Gluster REST 服务交互时使用的用户密码。
-  这些参数是可选的，`secretNamespace` 和 `secretName` 都省略是使用空密码。提供的密码必须有 "kubernetes.io/glusterfs" 类型，例如以这种方式创建：
+  这些参数是可选的，`secretNamespace` 和 `secretName` 都省略时使用空密码。所提供的 Secret 必须将类型设置为 "kubernetes.io/glusterfs"，例如以这种方式创建：
 
     ```
     kubectl create secret generic heketi-secret \
