@@ -59,8 +59,9 @@ It acts synchronously to modify pods as they are created or updated. When this p
   1. It adds a `volume` to the pod which contains a token for API access.
   1. It adds a `volumeSource` to each container of the pod mounted at `/var/run/secrets/kubernetes.io/serviceaccount`.
 
-In and after v1.13, you could migrate service account volume to a projected volume when `BoundServiceAccountTokenVolume` feature is enabled.
-The serviceaccount token would be expired after 1 hour or the pod was deleted. See more details about [projected volume](docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+Starting from v1.13, you can migrate a service account volume to a projected volume when
+the `BoundServiceAccountTokenVolume` feature gate is enabled.
+The serviceaccount token will expire after 1 hour or the pod is deleted. See more details about [projected volume](docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection).
 
 ### Token Controller
 
