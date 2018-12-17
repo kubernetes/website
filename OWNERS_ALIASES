@@ -174,11 +174,15 @@ aliases:
     - jimangel      # Temporary for 1.13 release
     - tfogo         # Temporary for 1.13 release
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
+    - AdamDang
     - chenrui333
     - idealhack
     - markthink
+    - Mr-Linus
+    - SataQiu
     - tengqm
     - xiangpengzhao
+    - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
   sig-federation: #Team: Federation; e.g. Federated Clusters
