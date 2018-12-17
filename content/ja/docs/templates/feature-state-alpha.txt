@@ -1,8 +1,7 @@
-This feature is currently in a *alpha* state, meaning:
+この機能は、現在 *alpha版* です。
 
-* The version names contain alpha (e.g. v1alpha1).
-* Might be buggy. Enabling the feature may expose bugs. Disabled by default.
-* Support for feature may be dropped at any time without notice.
-* The API may change in incompatible ways in a later software release without notice.
-* Recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of long-term support.
-
+* バージョン名には `alpha` がつきます(例:`v1alpha1`)。
+* 現在もバグが多く含まれる可能性があり、この機能を利用するとバグが顕在化することがあります。そのため、現時点ではデフォルトで無効化されています。
+* 予告なく、随時この機能のサポートを中止する場合があります。
+* 予告なく、今後のリリースにおいて、互換性のないAPIの仕様変更が入る場合があります。
+* 一時的な検証目的の利用に留めてください。現時点ではバグが顕在化するリスクが高く、また長期的なサポートも保証されていません。
