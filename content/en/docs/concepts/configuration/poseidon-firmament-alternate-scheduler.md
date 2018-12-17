@@ -26,7 +26,10 @@ Poseidon/Firmament scheduler runs alongside the default Kubernetes Scheduler as 
 ### Flow graph scheduling based Poseidon/Firmament scheduler provides the following key advantages:  
 - Workloads (pods) are bulk scheduled for enabling scheduling decisions at massive scale.  
 - Based on the extensive performance test results, Poseidon/Firmament scales much better than Kubernetes default scheduler as the number of nodes increase in a cluster. This is due to the fact that Poseidon/Firmament is able to amortize more and more work across workloads.  
-- Poseidon/Firmament Scheduler outperforms K8S default scheduler by a wide margin when it comes to throughput performance numbers for scenarios where compute resource requirements are somewhat uniform across jobs (Replicasets/Deployments/Jobs). As shown in the graph below, Poseidon/Firmament scheduler end-to-end throughput performance numbers (including bind time) consistently get better and better as the no. of nodes in a cluster increase. For example, for a 2,700 nodes cluster as shown in the graph below, Poseidon/Firmament scheduler is more than 7X or so better end-to-end throughput-wise that includes bind time. In the future, we are planning to further reduced/optimized the bind time by doing bulk bind process in order to make use of bulk scheduling in Poseidon/Firmament.    
+- Poseidon/Firmament Scheduler outperforms K8S default scheduler by a wide margin when it comes to throughput performance numbers for scenarios where compute resource requirements are somewhat uniform across jobs (Replicasets/Deployments/Jobs). As shown in the graph below, Poseidon/Firmament scheduler end-to-end throughput performance numbers (including bind time) consistently get better and better as the number of nodes in a cluster increase. For example, for a 2,700 nodes cluster (shown in the graph below), Poseidon/Firmament scheduler is 7X (or more) better end-to-end throughput-wise that includes bind time. 
+<br/><br/>
+It is also important to highlight that Poseidon/Firmament Scheduling algorithm as it is outperforms K8S default scheduling algorithm by a wide margin (up to 30X or so) when it comes to throughput performance numbers for scenarios where compute resource requirements are somewhat uniform across jobs. In the future, we are planning to further reduce/optimize the bind time by doing bulk bind process in order to make use of bulk scheduling in Poseidon/Firmament in order to realize even better end-to-end throughput performance numbers.    
+
 - Availability of complex rule constraints.  
 - Scheduling in Firmament is very dynamic; it keeps cluster resources in a global optimal state during every scheduling run.  
 - Highly efficient resource utilizations.  
@@ -42,10 +45,10 @@ For details about the design of this project see the [design document](https://g
 
 ## Possible Use Case Scenarios - When to use it  
 
-As mentioned earlier that Poseidon/Firmament scheduler enables extremely high throughput scheduling environment at scale due to its bulk scheduling approach superiority versus K8S pod-at-a-time approach. In our extensive tests, we have observed substantial throughput benefits as long as resource requirements (CPU/Memory) for incoming Pods is uniform across jobs (Replicasets/Deployments/Jobs), mainly due to efficient amortization of work across jobs.
+As mentioned earlier, Poseidon/Firmament scheduler enables extremely high throughput scheduling environment at scale due to its bulk scheduling approach superiority versus K8S pod-at-a-time approach. In our extensive tests, we have observed substantial throughput benefits as long as resource requirements (CPU/Memory) for incoming Pods are uniform across jobs (Replicasets/Deployments/Jobs), mainly due to efficient amortization of work across jobs.
 
 Although, Poseidon/Firmament scheduler is capable of scheduling various types of workloads (service, batch, etc.), following are the few use cases where it excels the most:  
-1. For “Big Data/AI” jobs consisting of large no. of tasks, throughput benefits are tremendous.  
+1. For “Big Data/AI” jobs consisting of large number of tasks, throughput benefits are tremendous.  
 2. Substantial throughput benefits also for service or batch job scenarios where workload resource requirements are uniform across jobs (Replicasets/Deployments/Jobs).  
 
 ## Current Project Stage	
