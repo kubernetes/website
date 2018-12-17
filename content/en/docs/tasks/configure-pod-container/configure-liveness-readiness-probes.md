@@ -173,9 +173,11 @@ the Container has been restarted:
 kubectl describe pod liveness-http
 ```
 
-In releases prior to v1.13 and in v1.13, if `http_proxy` or `HTTP_PROXY` environment variables
- is set in the node on which a pod is running, the http liveness probe uses that proxy.
-In the releases after v1.13, local http proxy envirnment variables do not effect the http liveness probe.
+In releases prior to v1.13 (including v1.13), if the environment variable
+`http_proxy` (or `HTTP_PROXY`) is set on the node where a pod is running,
+the HTTP liveness probe uses that proxy.
+In releases after v1.13, local HTTP proxy environment variable settings do not
+affect the HTTP liveness probe.
 
 ## Define a TCP liveness probe
 
