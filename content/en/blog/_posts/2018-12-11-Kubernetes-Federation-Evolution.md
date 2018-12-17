@@ -27,10 +27,12 @@ The ability to _'easily federate arbitrary Kubernetes resources'_, and a decoupl
 
 ## Federating resources: the details
 Fundamentally, federation must be configured with two types of information:
+
 * Which API types federation should handle 
 * Which clusters federation should target for distributing those resources. 
 
 For each API type that federation handles, different parts of the declared state live in different API resources:
+
 * A `Template` type holds the base specification of the resource - for example, a type called `FederatedReplicaSet` holds the base specification of a `ReplicaSet` that should be distributed to the targeted clusters 
 * A `Placement` type holds the specification of the clusters the resource should be distributed to - for example, a type called `FederatedReplicaSetPlacement` holds information about which clusters `FederatedReplicaSets` should be distributed to 
 * An optional `Overrides` type holds the specification of how the `Template` resource should be varied in some clusters - for example, a type called `FederatedReplicaSetOverrides` holds information about how a `FederatedReplicaSet` should be varied in certain clusters.
@@ -80,7 +82,7 @@ As further reading, a more elaborate example for users is available in the [Mult
 # Try it yourself
 To get started with Federation v2, please refer to the [user guide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md). Deployment can be accomplished with a [Helm chart](https://github.com/kubernetes-sigs/federation-v2/blob/master/charts/federation-v2/README.md), and once the control plane is available, the [user guide’s example](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md#example) can be used to get some hands-on experience with using Federation V2.
 
-Federation V2 can be deployed in both _cluster-scoped_ and _namespace-scoped_ configurations.  A cluster-scoped deployment will require cluster-admin privileges to both host and member clusters, and may be a good fit for evaluating federation on clusters that are not running critical workloads. Namespace-scoped deployment requires access to only a single namespace on host and member clusters, and is a better fit for evaluating federation on clusters running workloads.  Most of the user guide refers to cluster-scoped deployment, with the [namespaced federation](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md#namespaced-federation) section documenting how use of a namespaced deployment differs.  The same cluster can host multiple federations, and clusters can be part of multiple federations when using namespaced federation.
+Federation v2 can be deployed in both _cluster-scoped_ and _namespace-scoped_ configurations.  A cluster-scoped deployment will require cluster-admin privileges to both host and member clusters, and may be a good fit for evaluating federation on clusters that are not running critical workloads. Namespace-scoped deployment requires access to only a single namespace on host and member clusters, and is a better fit for evaluating federation on clusters running workloads.  Most of the user guide refers to cluster-scoped deployment, with the [namespaced federation](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md#namespaced-federation) section documenting how use of a namespaced deployment differs.  The same cluster can host multiple federations, and clusters can be part of multiple federations when using namespaced federation.
 
 # Next Steps
 As we noted in the beginning of this post, the multicluster problem space is extremely broad. It can be difficult to know exactly how to handle such broad problem spaces without concrete pieces of software to frame those conversations around. Our hope in the Federation working group is that Federation v2 can be a concrete artifact to frame discussions around. We would love to know experiences that folks have had in this problem space, how they feel about Federation v2, and what use-cases they’re interested in exploring in the future.
