@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: The evolution of Kubernetes Federation
+title: Kubernetes Federation Evolution
 date: 2018-12-12
 ---
 
