@@ -108,8 +108,7 @@ What this example would do is write the manifest files for the control plane and
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
-**Caution:** The config file is
-still considered beta and may change in future versions.
+The config file is still considered beta and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
