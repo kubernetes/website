@@ -471,7 +471,7 @@ parameters:
     [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
 -->
 * `secretNamespace`，`secretName`：Secret 实例的标识，包含与 Gluster REST 服务交互时使用的用户密码。
-  这些参数是可选的，`secretNamespace` 和 `secretName` 都省略是使用空密码。提供的密码必须有 "kubernetes.io/glusterfs" type，例如以这种方式创建：
+  这些参数是可选的，`secretNamespace` 和 `secretName` 都省略是使用空密码。提供的密码必须有 "kubernetes.io/glusterfs" 类型，例如以这种方式创建：
 
     ```
     kubectl create secret generic heketi-secret \
@@ -479,7 +479,7 @@ parameters:
       --namespace=default
     ```
 
-    secret 都例子可以在 [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
+    secret 的例子可以在 [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
 <!--
 * `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
   which will be used by Heketi when provisioning the volume. It can also be a
@@ -527,7 +527,7 @@ parameters:
 
     更多相关的参考信息，请参阅 [如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。
 
-    当动态分配持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>` 当端点和 headless service。在 PVC 被删除时动态端点和 headless service 会自动被删除。
+    当动态分配持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>` 的端点和 headless service。在 PVC 被删除时动态端点和 headless service 会自动被删除。
 
 ### OpenStack Cinder
 
@@ -555,7 +555,7 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
  -->
 {{< note >}}
 {{< feature-state state="deprecated" for_k8s_version="1.11" >}}
-OpenStack 的内部分配器已经被弃用。请使用 [OpenStack 的外部云提供商](https://github.com/kubernetes/cloud-provider-openstack).
+OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部驱动程序](https://github.com/kubernetes/cloud-provider-openstack)。
 {{< /note >}}
 
 ### vSphere
@@ -652,7 +652,7 @@ OpenStack 的内部分配器已经被弃用。请使用 [OpenStack 的外部云�
         Vsphere Infrastructure（VI）管理员将能够在动态卷配置期间指定自定义 Virtual SAN 存储功能。您现在可以定义存储需求，例如性能和可用性，当动态卷供分配时会以存储功能的形式提供。存储功能需求会转换为 Virtual SAN 策略，然后当 persistent volume（虚拟磁盘）在创建时，会将其推送到 Virtual SAN 层。虚拟磁盘分布在 Virtual SAN 数据存储中以满足要求。
 
         更多有关 persistent volume 管理的存储策略的详细信息，
-        您可以参考 [Storage Policy Based Management for dynamic provisioning of volumes](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)。
+        您可以参考 [基于存储策略的动态分配卷管理](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)。
 
 <!--
 There are few
@@ -699,7 +699,7 @@ parameters:
 * `adminId`：Ceph 客户端 ID，用于在池（ceph pool）中创建映像。默认是 "admin"。
 * `adminSecret`：`adminId` 的 Secret 名称。该参数是必需的。
   提供的 secret 必须有值为 "kubernetes.io/rbd" 的 type 参数。
-* `adminSecretNamespace`：`adminSecret` 的 namespace。默认是 "default"。
+* `adminSecretNamespace`：`adminSecret` 的命名空间。默认是 "default"。
 * `pool`: Ceph RBD 池. 默认是 "rbd"。
 * `userId`：Ceph 客户端 ID，用于映射 RBD 镜像（RBD image）。默认与 `adminId` 相同。
 <!--
@@ -774,7 +774,7 @@ parameters:
 * `registry`：用于挂载卷的 Quobyte registry。你可以指定 registry 为 ``<host>:<port>``
   或者如果你想指定多个 registry，你只需要在他们之间添加逗号，例如
   ``<host1>:<port>,<host2>:<port>,<host3>:<port>``。
-  主机可以是一个 IP 地址，或者如果您有正在运行的DNS，您也可以提供 DNS 名称。
+  主机可以是一个 IP 地址，或者如果您有正在运行的 DNS，您也可以提供 DNS 名称。
 * `adminSecretNamespace`：`adminSecretName`的 namespace。
   默认值是 "default"。
 <!--
@@ -875,7 +875,7 @@ parameters:
   the cluster.
 -->
 * `storageaccounttype`：Azure 存储帐户 Sku 层。默认为空。
-* `kind`：可能的值是 `shared`（默认），`dedicated` 和 `managed`。
+* `kind`：可能的值是 `shared`（默认）、`dedicated` 和 `managed`。
   当 `kind` 的值是 `shared` 时，所有非托管磁盘都在集群的同一个资源组中的几个共享存储帐户中创建。
   当 `kind` 的值是 `dedicated` 时，将为在集群的同一个资源组中新的非托管磁盘创建新的专用存储帐户。
 
