@@ -139,7 +139,7 @@ Running the script will generate a tarball of system information and includes ba
 
 <!-- ### Load Balancer interfering with Helm -->
 
-### Helm 对负载均衡器的影响
+### 负载均衡器对 Helm 的影响
 
 <!-- This section assumes you have a working deployment of Kubernetes via Juju
 using a Load Balancer for the API, and that you are using Helm to deploy charts. -->
@@ -190,7 +190,7 @@ To deploy using helm, you will need to follow these steps: -->
    ```
 
 <!-- 1. Identify the public IP address of one of your masters -->
-1. 确定其中一个主节点的公共 IP 地址
+1. 确定其中一个主节点的共有 IP 地址
 
    ```
    juju status kubernetes-master
@@ -223,7 +223,7 @@ To deploy using helm, you will need to follow these steps: -->
 
    If you want to access this data programmatically you can use the JSON output: -->
 
-   本例中，公共 IP 地址为 54.210.100.102。
+   本例中，共有 IP 地址为 54.210.100.102。
    如果想编程访问得到这个值，可以使用 JSON 输出：
 
    ```
