@@ -61,6 +61,7 @@ their authors, not the Kubernetes team.
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Ruby                 | [github.com/kontena/k8s-client](https://github.com/kontena/k8s-client) |
+| Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
 | Scala                | [github.com/doriordan/skuber](https://github.com/doriordan/skuber) |
 | dotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
