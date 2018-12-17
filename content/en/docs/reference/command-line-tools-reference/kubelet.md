@@ -721,7 +721,7 @@ kubelet [flags]
        <td colspan="2">--kubeconfig string</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeconfig file, specifying how to connect to the API server. (default "/var/lib/kubelet/kubeconfig")</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeconfig file, specifying how to connect to the API server. Providing --kubeconfig enables API server mode, omitting --kubeconfig enables standalone mode. </td>
     </tr>
 
      <tr>
