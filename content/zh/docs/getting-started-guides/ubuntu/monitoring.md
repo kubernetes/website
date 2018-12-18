@@ -38,7 +38,7 @@ To deploy a full Kubernetes stack with Datadog out of the box, do: -->
 
 Datadog 是一个 SaaS 方案，包含了对很多不同类型的应用集成的支持，例如，Kubernetes 和 etcd。
 在提供商业版本的同时，也支持通过如下方式免费使用。
-部署一个带有 Datadog 的完整 Kubernetes 集群：
+部署一个带有现成的 Databox 的 Kubernetes 集群：
 
 ```
 juju deploy canonical-kubernetes-datadog
@@ -83,7 +83,7 @@ facilitate log aggregation, monitoring, and dashboarding.
 To deploy a full Kubernetes stack with elastic out of the box, do: -->
 
 Elastic 栈，正规地说是 "ELK" 栈, 指的是 ElasticSearch 和日志收集，监控，dashboard 的套件.
-部署带有 elastic 栈的完整的 Kubernetes 集群命令如下：
+部署带有现成的 elastic 栈的 Kubernetes 集群命令如下：
 
 ```
 juju deploy canonical-kubernetes-elastic
