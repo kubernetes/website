@@ -126,9 +126,9 @@ to share with a developer to identify problems. This is best accomplished with [
 <!-- Download and execute the collect.py script from [CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent) on a box that has a Juju client configured with the current controller and model pointing at the CDK deployment of interest. -->
 
 在带有 Juju 客户端，而客户端配有指向相应的 CDK 部署的控制器的节点上，
-下载并执行[CDK Field Agent]中的 collect.py 文件。
+下载并执行[CDK Field Agent](https://github.com/juju-solutions/cdk-field-agent)中的 collect.py 文件。
 
-Running the script will generate a tarball of system information and includes basic information such as systemctl status, Juju logs, charm unit data, etc. Additional application-specific information may be included as well.
+<!-- Running the script will generate a tarball of system information and includes basic information such as systemctl status, Juju logs, charm unit data, etc. Additional application-specific information may be included as well. -->
 
 运行该脚本会生成一个 tar 包，包含系统信息以及诸如 systemctl 状态，Juju 日志，charm 单元数据等基本信息。
 额外和应用相关的信息可能也会包含其中。
@@ -139,7 +139,7 @@ Running the script will generate a tarball of system information and includes ba
 
 <!-- ### Load Balancer interfering with Helm -->
 
-### Helm 对负载均衡器的影响
+### 负载均衡器对 Helm 的影响
 
 <!-- This section assumes you have a working deployment of Kubernetes via Juju
 using a Load Balancer for the API, and that you are using Helm to deploy charts. -->
@@ -190,7 +190,7 @@ To deploy using helm, you will need to follow these steps: -->
    ```
 
 <!-- 1. Identify the public IP address of one of your masters -->
-1. 确定其中一个主节点的公共 IP 地址
+1. 确定其中一个主节点的公开 IP 地址
 
    ```
    juju status kubernetes-master
@@ -223,7 +223,7 @@ To deploy using helm, you will need to follow these steps: -->
 
    If you want to access this data programmatically you can use the JSON output: -->
 
-   本例中，公共 IP 地址为 54.210.100.102。
+   本例中，公开 IP 地址为 54.210.100.102。
    如果想编程访问得到这个值，可以使用 JSON 输出：
 
    ```
