@@ -48,7 +48,7 @@ This action consists of the following steps:
    for more information about Dynamic Kubelet Configuration.
 -->
 
-1. 如果调用 kubeadm 时启用了 `--feature-gates=DynamicKubeletConfig`，它首先从主机上检索 kubelet init 配置并将其写入磁盘。
+1. 如果调用 kubeadm 时启用了 `--feature-gates=DynamicKubeletConfig`，它首先从主机上检索 kubelet 初始化配置并将其写入磁盘。
    当 kubelet 启动时，kubeadm 更新节点的 `Node.spec.configSource` 属性。
    进一步了解动态 kubelet 配置 请参考 [使用配置文件设置 Kubelet 参数](/docs/tasks/administer-cluster/kubelet-config-file/) 和 [重新配置集群中节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/)。
 
@@ -70,7 +70,7 @@ This action consists of the following steps:
    server with the definitive identity assigned to the node.
 -->
 
-1. 最后，kubeadm 配置本地 kubelet 以连接到 API 服务器，该 API 服务器具有分配给节点的最终标识。
+1. 最后，kubeadm 配置本地 kubelet 使用分配给节点的确定标识连接到 API 服务器。
 
 <!--
 ### Discovering what cluster CA to trust
@@ -82,8 +82,8 @@ security expectations you have about your network and node lifecycles.
 
 ### 发现要信任的集群 CA
 
-Kubeadm 的发现有几个选项，每个选项都有安全考虑。
-适合您的环境的正确方法取决于节点的驱动方式以及您对网络和节点生命周期安全的期望。
+Kubeadm 的发现有几个选项，每个选项都有安全性上的优缺点。
+适合您的环境的正确方法取决于节点是如何准备的以及您对网络的安全性期望和节点的生命周期特点。
 
 <!--
 #### Token-based discovery with CA pinning
@@ -94,7 +94,7 @@ as well as validating that the root CA public key matches the provided hash and
 that the API server certificate is valid under the root CA.
 -->
 
-#### 通过填充 CA 来实现基于令牌的发现
+#### 带 CA 锁定模式的基于令牌的发现
 
 这是 Kubernetes 1.8 及以上版本中的默认模式。
 在这种模式下，kubeadm 下载集群配置（包括根CA）并使用令牌验证它，并且会验证根 CA 的公钥与所提供的哈希是否匹配，以及 API 服务器证书在根 CA 下是否有效。
@@ -134,7 +134,7 @@ kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert
 **优势：**
  - 允许引导节点安全地发现主节点的信任根，即使其他工作节点或网络受到损害。
 
- - 方便手动执行，因为所需的所有信息都适合于易于复制和粘贴的单个“kubeadm join”命令。
+ - 方便手动执行，因为所需的所有信息都适合于易于复制和粘贴的单个 `kubeadm join` 命令。
 
 <!-- 
 **Disadvantages:**
@@ -146,7 +146,7 @@ kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert
 -->
 
 **劣势：**
- - CA 哈希通常在主设备被提供之前是不知道的，这使得构建使用 kubeadm 的自动化配置工具更加困难。
+ - CA 哈希通常在主节点被提供之前是不知道的，这使得构建使用 kubeadm 的自动化配置工具更加困难。
    通过预先生成CA，您可以解决这个限制。
 
 <!--   
@@ -162,9 +162,9 @@ using one of the other modes if possible.
 **Example `kubeadm join` command:**
 -->
 
-#### 无 CA 指定的基于令牌的发现
+#### 无 CA 锁定模式的基于令牌的发现
 
-_这是 Kubernetes 1.7 和早期版本_中的默认设置，但是也带来了一些重要的警告。
+_这是 Kubernetes 1.7 和早期版本_中的默认设置；使用时要注意一些重要的补充说明。
 此模式仅依赖于对称令牌来签名(HMAC-SHA256)发现信息，这些发现信息为主节点建立信任根。
 在 Kubernetes 1.8 及以上版本中仍然可以使用 `--discovery-token-unsafe-skip-ca-verification` 参数，但是如果可能的话，您应该考虑使用一种其他模式。
 
@@ -202,7 +202,7 @@ kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-ve
 
 **劣势**
 
- - 如果攻击者能够通过某些漏洞窃取引导令牌，那么他们可以使用该令牌（连同网络级访问）将主机模拟为其他引导节点。
+ - 如果攻击者能够通过某些漏洞窃取引导令牌，那么他们可以使用该令牌（连同网络级访问）为其它处于引导过程中的节点提供假冒的主节点。
    在您的环境中，这可能是一个适当的折衷方法，也可能不是。
 
 <!--
@@ -214,7 +214,7 @@ using kubeadm.
 
 #### 基于 HTTPS 或文件发现
 
-这提供了一种带外方式在主节点和引导节点之间建立信任根。
+这种方案提供了一种带外方式在主节点和引导节点之间建立信任根。
 如果使用 kubeadm 构建自动配置，请考虑使用此模式。
 
 <!--
@@ -222,9 +222,9 @@ using kubeadm.
 -->
 
 **`kubeadm join` 命令示例：**
- - `kubeadm join --discovery-file path/to/file.conf` (local file)
+ - `kubeadm join --discovery-file path/to/file.conf` （本地文件）
 
- - `kubeadm join --discovery-file https://url/file.conf` (remote HTTPS URL)
+ - `kubeadm join --discovery-file https://url/file.conf` (远程 HTTPS URL)
 
 <!--
 **Advantages:**
@@ -274,7 +274,7 @@ automatically approve kubelet client certs, you can turn it off by executing thi
 
 #### 关闭节点客户端证书的自动批准
 
-默认情况下，启用了 CSR 自动批准器，如果在身份验证时使用 Bootstrap Token，它会批准对 kubelet 的任何客户端证书的请求。
+默认情况下，Kubernetes 启用了 CSR 自动批准器，如果在身份验证时使用 Bootstrap Token，它会批准对 kubelet 的任何客户端证书的请求。
 如果不希望集群自动批准kubelet客户端证书，可以通过执行以下命令关闭它：
 
 ```console
@@ -314,9 +314,9 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 
 只有执行了 `kubectl certificate approve` 后，`kubeadm join` 才会继续。
 
-#### 关闭对集群信息 ConfigMap 的公共访问
+#### 关闭对集群信息 ConfigMap 的公开访问
 
-为了实现使用令牌作为唯一验证信息的加入工作流，默认情况下会公开带有验证主标识所需数据的 ConfigMap。
+为了实现使用令牌作为唯一验证信息的加入工作流，默认情况下会公开带有验证主节点标识所需数据的 ConfigMap。
 虽然此 ConfigMap 中没有私有数据，但一些用户可能希望无论如何都关闭它。
 这样做需要禁用 `kubeadm join` 工作流的 `--discovery-token` 参数。
 以下是实现步骤：
@@ -344,7 +344,7 @@ users: []
 
 * 使用 `cluster-info.yaml` 文件作为 `kubeadm join --discovery-file` 参数。
 
-* 关闭 `cluster-info` ConfigMap 的公共访问：
+* 关闭 `cluster-info` ConfigMap 的公开访问：
 
 ```console
 $ kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
@@ -358,7 +358,7 @@ These commands should be run after `kubeadm init` but before `kubeadm join`.
 
 这些命令应该在执行 `kubeadm init` 之后、在`kubeadm join` 之前执行。
 
-### 使用带有配置文件的 kubeadm 加入
+### 使用带有配置文件的 kubeadm join
 
 {{< caution >}}
 <!--The config file is still considered alpha and may change in future versions.-->
