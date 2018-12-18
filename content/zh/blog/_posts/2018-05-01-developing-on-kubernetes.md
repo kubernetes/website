@@ -338,34 +338,78 @@ More info:
 * [Katacoda scenario to try out ksync in your browser](https://www.katacoda.com/vaporio/scenarios/ksync)
 * [Syncthing Specification](https://docs.syncthing.net/specs/)
 
+<!--
 ## Hands-on walkthroughs
+-->
 
+## 上手练习
+
+
+<!--
 The app we will be using for the hands-on walkthroughs of the tools in the following is a simple [stock market simulator](https://github.com/kubernauts/dok-example-us), consisting of two microservices:
+-->
 
+我们接下来用于练习使用工具的应用是一个简单的[股市模拟器](https://github.com/kubernauts/dok-example-us)， 包含两个微服务：
+
+<!--
 * The `stock-gen` microservice is written in Go and generates stock data randomly and exposes it via HTTP endpoint `/stockdata`.
 ‎* A second microservice, `stock-con` is a Node.js app that consumes the stream of stock data from `stock-gen` and provides an aggregation in form of a moving average via the HTTP endpoint `/average/$SYMBOL` as well as a health-check endpoint at `/healthz`.
+-->
 
+* `stock-gen`（股市数据生成器） 微服务是用 Go 编写的，随机生成股票数据并通过 HTTP 端点 `/ stockdata` 公开
+* 第二个微服务，`stock-con`（股市数据消费者） 是一个 Node.js 应用程序，它使用来自 `stock-gen` 的股票数据流，并通过 HTTP 端点 `/average/$SYMBOL` 提供股价移动平均线形式的聚合，也提供一个健康检查端点 `/healthz`。
+
+<!--
 Overall, the default setup of the app looks as follows:
+-->
+
+总体上，此应用的默认配置如下图所示：
 
 ![Default Setup](/images/blog/2018-05-01-developing-on-kubernetes/dok-architecture_preview.png)
 
+<!--
 In the following we’ll do a hands-on walkthrough for a representative selection of tools discussed above: ksync, Minikube with local build, as well as Skaffold. For each of the tools we do the following:
+-->
 
+在下文中，我们将为上面讨论的代表性工具选择进行实践演练：ksync，具有本地构建的 Minikube 以及 Skaffold。对于每个工具，我们执行以下操作：
+
+<!--
 * Set up the respective tool incl. preparations for the deployment and local consumption of the `stock-con` microservice.
 * Perform a code update, that is, change the source code of the `/healthz` endpoint in the `stock-con` microservice and observe the updates.
+-->
 
+* 设置相应的工具，包括部署准备和 `stock-con` 微服务数据的本地读取。
+* 执行代码更新，即更改 `stock-con` 微服务中 `/healthz` 端点的源代码并观察网页刷新
+
+<!--
 Note that for the target Kubernetes cluster we’ve been using Minikube locally, but you can also a remote cluster for ksync and Skaffold if you want to follow along.
+-->
 
-## Walkthrough: ksync
+请注意，我们一直使用 Minikube 的本地 Kubernetes 集群，但是你也可以使用 ksync 和 Skaffold 的远程集群跟随练习。
 
+<!--
+### Walkthrough: ksync
+-->
+
+### 实践演练：ksync
+
+<!--
 As a preparation, install [ksync](https://vapor-ware.github.io/ksync/#installation) and then carry out the following steps to prepare the development setup:
+-->
+
+作为准备，安装[ksync]（https://vapor-ware.github.io/ksync/#installation），然后执行以下步骤准备开发配置：
 
 ```
 $ mkdir -p $(pwd)/ksync
 $ kubectl create namespace dok
 $ ksync init -n dok
 ```
+<!--
 With the basic setup completed we're ready to tell ksync’s local client to watch a certain Kubernetes namespace and then we create a spec to define what we want to sync (the directory `$(pwd)/ksync` locally with `/app` in the container). Note that target pod is specified via the selector parameter:
+-->
+
+
+完成基本设置后，我们可以告诉 ksync 的本地客户端监控 Kubernetes 的某个命名空间，然后我们创建一个规则来定义我们想要同步的内容（在本地的 `$(pwd)/ksync` 目录和容器中的 `/ app`）。请注意，目标 pod 是用 selector 参数指定：
 
 ```
 $ ksync watch -n dok
@@ -373,7 +417,11 @@ $ ksync create -n dok --selector=app=stock-con $(pwd)/ksync /app
 $ ksync get -n dok
 ```
 
+<!--
 Now we deploy the stock generator and the stock consumer microservice:
+-->
+
+现在我们部署股市生成器和股市消费者微服务：
 
 ```
 $ kubectl -n=dok apply \
@@ -381,28 +429,51 @@ $ kubectl -n=dok apply \
 $ kubectl -n=dok apply \
       -f https://raw.githubusercontent.com/kubernauts/dok-example-us/master/stock-con/app.yaml
 ```
-
+<!--
 Once both deployments are created and the pods are running, we forward the `stock-con` service for local consumption (in a separate terminal session):
+-->
+
+
+一旦两个部署建好并且 pod 开始运行，我们转发 `stock-con` 服务以供本地读取（另开一个终端窗口）：
 
 ```
 $ kubectl get -n dok po --selector=app=stock-con  \
                      -o=custom-columns=:metadata.name --no-headers |  \
                      xargs -IPOD kubectl -n dok port-forward POD 9898:9898
 ```
-
+<!--
 With that we should be able to consume the `stock-con` service from our local machine; we do this by regularly checking the response of the `healthz` endpoint like so (in a separate terminal session):
+-->
+
+
+这样，通过定期查询 `healthz` 端点的响应，我们就应该能够从本地机器上使用 `stock-con` 服务，如此（在一个单独的终端窗口）：
 
 ```
 $ watch curl localhost:9898/healthz
 ```
-
+<!--
 Now change the code in the `ksync/stock-con`directory, for example update the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response and observe how the pod gets updated and the response of the `curl localhost:9898/healthz` command changes. Overall you should have something like the following in the end:
+-->
+
+
+现在，改一下 `ksync/stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码]（https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52），在 JSON 形式的响应中添加一个字段并观察 pod 如何更新以及 `curl localhost：9898/healthz` 命令的输出发生变化。总的来说，你最后应该看到类似的内容：
+
 
 ![Preview](/images/blog/2018-05-01-developing-on-kubernetes/dok-ksync_preview.png)
 
-### Walkthrough: Minikube with local build
 
+<!--
+### Walkthrough: Minikube with local build
+-->
+
+### 实践演练：带本地构建的 Minikube
+
+<!--
 For the following you will need to have Minikube up and running and we will leverage the Minikube-internal Docker daemon for building images, locally. As a preparation, do the following
+-->
+
+
+对于以下内容，你需要启动并运行 Minikube，我们将利用 Minikube 自带的 Docker 守护程序在本地构建镜像。作为准备，请执行以下操作
 
 ```
 $ git clone https://github.com/kubernauts/dok-example-us.git && cd dok-example-us
@@ -410,13 +481,23 @@ $ eval $(minikube docker-env)
 $ kubectl create namespace dok
 ```
 
+<!--
 Now we deploy the stock generator and the stock consumer microservice:
+-->
+
+现在我们部署股市生成器和股市消费者微服务：
+
 
 ```
 $ kubectl -n=dok apply -f stock-gen/app.yaml
 $ kubectl -n=dok apply -f stock-con/app.yaml
 ```
-Once both deployments are created and the pods are running, we forward the `stock-con` service for local consumption (in a separate terminal session) and check the response of the `healthz` endpoint:
+<!--
+Once both deployments are created and the pods are running, we forward the `stock-con` service for local consumption (in a separate terminal session):
+-->
+
+
+一旦两个部署建好并且 pod 开始运行，我们转发 `stock-con` 服务以供本地读取（另开一个终端窗口）：
 
 ```
 $ kubectl get -n dok po --selector=app=stock-con  \
@@ -424,31 +505,58 @@ $ kubectl get -n dok po --selector=app=stock-con  \
                      xargs -IPOD kubectl -n dok port-forward POD 9898:9898 &
 $ watch curl localhost:9898/healthz
 ```
-
+<!--
 Now change the code in the `stock-con`directory, for example, update the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response. Once you’re done with your code update, the last step is to build a new container image and kick off a new deployment like shown below:
+-->
+
+现在，改一下 `ksync/stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码]（https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52），在 JSON 形式的响应中添加一个字段。完成代码更新后，最后一步是构建新的容器镜像并启动新部署，如下所示：
+
 
 ```
 $ docker build -t stock-con:dev -f Dockerfile .
 $ kubectl -n dok set image deployment/stock-con *=stock-con:dev
 ```
+<!--
 Overall you should have something like the following in the end:
+-->
+
+总的来说，你最后应该看到类似的内容：
 
 ![Local Preview](/images/blog/2018-05-01-developing-on-kubernetes/dok-minikube-localdev_preview.png)
 
+<!--
 ### Walkthrough: Skaffold
+-->
 
+### 实践演练：Skaffold
+
+<!--
 To perform this walkthrough you first need to install [Skaffold](https://github.com/GoogleContainerTools/skaffold#installation). Once that is done, you can do the following steps to prepare the development setup:
+-->
+
+要执行此演练，首先需要安装 [Skaffold]（https://github.com/GoogleContainerTools/skaffold#installation）。完成后，您可以执行以下步骤来准备开发设置：
 
 ```
 $ git clone https://github.com/kubernauts/dok-example-us.git && cd dok-example-us
 $ kubectl create namespace dok
 ```
+<!--
 Now we deploy the stock generator (but not the stock consumer microservice, that is done via Skaffold):
+-->
+
+现在我们部署股市生成器（但是暂不部署股市消费者微服务，那将使用 Skaffold 完成）：
 
 ```
 $ kubectl -n=dok apply -f stock-gen/app.yaml
 ```
+
+<!--
 Note that initially we experienced an authentication error when doing `skaffold dev` and needed to apply a fix as described in [Issue 322](https://github.com/GoogleContainerTools/skaffold/issues/322). Essentially it means changing the content of `~/.docker/config.json` to:
+-->
+
+
+请注意，最初我们在执行 `skaffold dev` 时发生身份验证错误，避免此错误需要安装[问题322]（https://github.com/GoogleContainerTools/skaffold/issues/322）中所述的修复。本质上，需要将 `〜/.docker/config.json` 的内容改为：
+
 
 ```
 {
@@ -456,12 +564,26 @@ Note that initially we experienced an authentication error when doing `skaffold 
 }
 ```
 
+<!--
 Next, we had to patch `stock-con/app.yaml` slightly to make it work with Skaffold:
+-->
 
+接下来，我们需要略微改动 `stock-con/app.yaml`，这样 Skaffold 才能正常工作：
+
+<!--
 Add a `namespace` field to both the `stock-con` deployment and the service with the value of `dok`.
 Change the `image` field of the container spec to `quay.io/mhausenblas/stock-con` since Skaffold manages the container image tag on the fly.
+-->
 
+在 `stock-con` 部署和服务中添加一个 `namespace` 字段，其值为 `dok`
+
+将容器规格的 `image` 字段更改为 `quay.io/mhausenblas/stock-con`，因为 Skaffold 可以即时管理容器镜像标签。
+
+<!--
  The resulting `app.yaml` file stock-con looks as follows:
+ -->
+最终的 stock-con 的 `app.yaml` 文件看起来如下：
+
 
 ```
 apiVersion: apps/v1beta1
@@ -519,8 +641,11 @@ spec:
   selector:
     app: stock-con
 ```
-
+<!--
 The final step before we can start development is to configure Skaffold. So, create a file `skaffold.yaml` in the `stock-con/` directory with the following content:
+ -->
+
+我们开始开发之前的最后一步是配置 Skaffold。因此，在 `stock-con/` 目录中创建文件 `skaffold.yaml`，其中包含以下内容：
 
 ```
 apiVersion: skaffold/v1alpha2
@@ -536,14 +661,21 @@ deploy:
     manifests:
       - app.yaml
 ```
-
+<!--
 Now we’re ready to kick off the development. For that execute the following in the `stock-con/` directory:
+ -->
+
+现在我们准备好开始开发了。为此，在 `stock-con/` 目录中执行以下命令：
 
 ```
 $ skaffold dev
 ```
-
+<!--
 Above command triggers a build of the `stock-con` image and then a deployment. Once the pod of the `stock-con` deployment is running, we again forward the `stock-con` service for local consumption (in a separate terminal session) and check the response of the `healthz` endpoint:
+ -->
+
+
+上面的命令将触发 `stock-con` 图像的构建，然后是部署。一旦 `stock-con` 部署的 pod 开始运行，我们再次转发 `stock-con` 服务以供本地读取（在单独的终端窗口中）并检查 `healthz` 端点的响应：
 
 ```bash
 $ kubectl get -n dok po --selector=app=stock-con  \
@@ -551,12 +683,19 @@ $ kubectl get -n dok po --selector=app=stock-con  \
                      xargs -IPOD kubectl -n dok port-forward POD 9898:9898 &
 $ watch curl localhost:9898/healthz
 ```
-
+<!--
 If you now change the code in the `stock-con`directory, for example, by updating the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response, you should see Skaffold noticing the change and create a new image as well as deploy it. The resulting screen would look something like this:
-
+ -->
+ 
+现在，如果你修改一下 `stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码]（https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52），在 JSON 形式的响应中添加一个字段，你应该看到 Skaffold 检测到代码改动并创建新图像以及部署它。你的屏幕看起来应该类似这样：
+ 
+ 
 ![Skaffold Preview](/images/blog/2018-05-01-developing-on-kubernetes/dok-skaffold_preview.png)
-
+<!--
 By now you should have a feeling how different tools enable you to develop apps on Kubernetes and if you’re interested to learn more about tools and or methods, check out the following resources:
+ -->
+
+至此，你应该对不同的工具如何帮你在 Kubernetes 上开发应用程序有了一定的概念，如果您有兴趣了解有关工具和/或方法的更多信息，请查看以下资源：
 
 * Blog post by Shahidh K Muhammed on [Draft vs Gitkube vs Helm vs Ksonnet vs Metaparticle vs Skaffold](https://blog.hasura.io/draft-vs-gitkube-vs-helm-vs-ksonnet-vs-metaparticle-vs-skaffold-f5aa9561f948) (03/2018)
 * Blog post by Gergely Nemeth on [Using Kubernetes for Local Development](https://nemethgergely.com/using-kubernetes-for-local-development/index.html), with a focus on Skaffold (03/2018)
