@@ -3,9 +3,9 @@ title: 为容器管理计算资源
 content_template: templates/concept
 weight: 20
 feature:
-  title: 自动包装
+  title: 自动装箱
   description: >
-    根据资源需求和其他约束自动放置容器，同时不会牺牲可用性，混合关键和最大努力的工作负载，以提高资源利用率并节省更多资源。
+    根据资源需求和其他约束自动放置容器，同时不会牺牲可用性，将任务关键工作负载和尽力服务工作负载进行混合放置，以提高资源利用率并节省更多资源。
 ---
 
 <!--
@@ -31,7 +31,7 @@ resources on a node can be handled in a specified manner. For more details about
 the difference between requests and limits, see
 [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 -->
-当您定义 [Pod](/docs/user-guide/pods) 的时候可以选择为每个容器指定需要的 CPU 和内存（RAM）大小。当为容器指定了资源请求后，调度器就能够更好的判断出将容器调度到哪个节点上。如果您还为容器指定了资源限制，节点上的资源就可以按照指定的方式做竞争。关于资源请求和限制的不同点和更多资料请参考 [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md)。
+当您定义 [Pod](/docs/user-guide/pods) 的时候可以选择为每个容器指定需要的 CPU 和内存（RAM）大小。当为容器指定了资源请求后，调度器就能够更好的判断出将容器调度到哪个节点上。如果您还为容器指定了资源限制，Kubernetes 就可以按照指定的方式来处理节点上的资源竞争。关于资源请求和限制的不同点和更多资料请参考 [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md)。
 
 {{% /capture %}}
 
@@ -53,9 +53,9 @@ through the Kubernetes API server.
 
 ## 资源类型
 
-*CPU* 和 *内存* 都是 *资源类型*。资源类型具有基本单位。CPU 的单位是 core，内存的单位是 byte。
+*CPU* 和*内存*都是*资源类型*。资源类型具有基本单位。CPU 的单位是核心数，内存的单位是字节。
 
-CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/docs/api/) 不同。 API 资源（如 Pod 和 [Service](/docs/user-guide/services)）是可通过 Kubernetes API server 读取和修改的对象。
+CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/docs/concepts/overview/kubernetes-api/) 不同。 API 资源（如 Pod 和 [Service](/docs/concepts/services-networking/service/)）是可通过 Kubernetes API server 读取和修改的对象。
 
 <!--
 ## Resource requests and limits of Pod and Container
