@@ -16,7 +16,7 @@ How do you develop a Kubernetes app? That is, how do you write and test an app t
 We’re assuming you are a developer, you have a favorite programming language, editor/IDE, and a testing framework available. The overarching goal is to introduce minimal changes to your current workflow when developing the app for Kubernetes. For example, if you’re a Node.js developer and are used to a hot-reload setup—that is, on save in your editor the running app gets automagically updated—then dealing with containers and container images, with container registries, Kubernetes deployments, triggers, and more can not only be overwhelming but really take all the fun out if it.
 -->
 
-我们假定你是一位开发人员，有你钟爱的编程语言，编辑器/IDE（集成开发环境），以及现成的测试框架。在针对 Kubernates 开发应用时，最重要的目标是减少对当前工作流程的影响，改变越少越好，尽量做到最小。举个例子，如果你是 Node.js 开发人员，习惯于那种即时重载的环境----你一在编辑器里做保存，正在运行的程序就会自动更新----那么跟 containers、 container images 或者 container registries 打交道，又或是跟 Kubernetes 部署、triggers 以及更多头疼东西打交道，不仅会让人难以招架也真的会让开发过程完全失去乐趣。
+我们假定你是一位开发人员，有你钟爱的编程语言，编辑器/IDE（集成开发环境），以及现成的测试框架。在针对 Kubernates 开发应用时，最重要的目标是减少对当前工作流程的影响，改变越少越好，尽量做到最小。举个例子，如果你是 Node.js 开发人员，习惯于那种即时重载的环境----你一在编辑器里做保存，正在运行的程序就会自动更新----那么跟容器、容器镜像或者容器注册表打交道，又或是跟 Kubernetes 部署、triggers 以及更多头疼东西打交道，不仅会让人难以招架也真的会让开发过程完全失去乐趣。
 
 <!--
 In the following, we’ll first discuss the overall development setup, then review tools of the trade, and last but not least do a hands-on walkthrough of three exemplary tools that allow for iterative, local app development against Kubernetes.
@@ -42,13 +42,13 @@ As a developer you want to think about where the Kubernetes cluster you’re dev
 A number of tools support pure offline development including Minikube, Docker for Mac/Windows, Minishift, and the ones we discuss in detail below. Sometimes, for example, in a microservices setup where certain microservices already run in the cluster, a proxied setup (forwarding traffic into and from the cluster) is preferable and Telepresence is an example tool in this category. The live mode essentially means you’re building and/or deploying against a remote cluster and, finally, the pure online mode means both your development environment and the cluster are remote, as this is the case with, for example, [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) or [Cloud 9](https://github.com/errordeveloper/k9c). Let’s now have a closer look at the basics of offline development: running Kubernetes locally.
 -->
 
-许多工具支持纯 offline 开发，包括 Minikube、Docker（Mac版/Windows版）、Minishift 以及下文我们将详细讨论的几种。有时，比如说在一个微服务系统中，已经有若干微服务在运行，proxied 模式（通过某种机制把数据流传进传出集群）就非常合适，Telepresence 就是此类工具的一个实例。live 模式本质是你基于一个远程集群进行构建和部署。最后，纯 online 模式意味着你的开发环境和运行集群都是远程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。 现在我们仔细看看离线开发的基础：在本地运行Kubernetes。
+许多工具支持纯 offline 开发，包括 Minikube、Docker（Mac 版/Windows 版）、Minishift 以及下文我们将详细讨论的几种。有时，比如说在一个微服务系统中，已经有若干微服务在运行，proxied 模式（通过某种机制把数据流传进传出集群）就非常合适，Telepresence 就是此类工具的一个实例。live 模式本质是你基于一个远程集群进行构建和部署。最后，纯 online 模式意味着你的开发环境和运行集群都是远程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。现在我们仔细看看离线开发的基础：在本地运行 Kubernetes。
 
 <!--
 [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) is a popular choice for those who prefer to run Kubernetes in a local VM. More recently Docker for [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) and [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) started shipping Kubernetes as an experimental package (in the “edge” channel). Some reasons why you may want to prefer using Minikube over the Docker desktop option are:
 -->
 
-[Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) 为更加喜欢在本地 VM 上运行 Kubernetes 的开发人员欢迎。不久前，Docker 的 [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) 版和 [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) 版，都试验性地开始自带 Kubernetes （需要下载 “edge” 安装包）。 在两者之间，以下原因也许会促使你选择 Minikube 而不是 Docker 桌面版：
+[Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) 为更加喜欢在本地 VM 上运行 Kubernetes 的开发人员欢迎。不久前，Docker 的 [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) 版和 [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) 版，都试验性地开始自带 Kubernetes（需要下载 “edge” 安装包）。在两者之间，以下原因也许会促使你选择 Minikube 而不是 Docker 桌面版：
 
 <!--
 * You already have Minikube installed and running
@@ -60,7 +60,7 @@ A number of tools support pure offline development including Minikube, Docker fo
 * 你已经安装了 Minikube 并且开始运行
 * 你想等到 Docker 出稳定版本
 * 你是 Linux 桌面用户
-* 你是 Windows 用户，但是没有配置 Hyper-V 的  Windows 10 Pro
+* 你是 Windows 用户，但是没有配置 Hyper-V 的 Windows 10 Pro
 
 <!--
 Running a local cluster allows folks to work offline and that you don’t have to pay for using cloud resources. Cloud provider costs are often rather affordable and free tiers exists, however some folks prefer to avoid having to approve those costs with their manager as well as potentially incur unexpected costs, for example, when leaving cluster running over the weekend.
@@ -102,7 +102,7 @@ We are now going to review tooling allowing you to develop apps on Kubernetes wi
 Note that this is a tricky area since even for established technologies such as, for example, JSON vs YAML vs XML or REST vs gRPC vs SOAP a lot depends on your background, your preferences and organizational settings. It’s even harder to compare tooling in the Kubernetes ecosystem as things evolve very rapidly and new tools are announced almost on a weekly basis; during the preparation of this post alone, for example, [Gitkube](https://gitkube.sh/) and [Watchpod](https://github.com/MinikubeAddon/watchpod) came out. To cover these new tools as well as related, existing tooling such as [Weave Flux](https://github.com/weaveworks/flux) and OpenShift’s [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html) we are planning a follow-up blog post to the one you’re reading.
 -->
 
-请注意，这很棘手，因为即使对于已定型的技术，比如说在 JSON、YAML、XML、REST、gRPC  或者 SOAP 之间做选择，很大程度也取决于你的背景、喜好以及公司环境。在 Kubernetes 生态系统内比较工具就更加困难，因为技术发展太快，每周几乎都有新工具面市；举个例子，仅在准备这篇博客的期间，[Gitkube](https://gitkube.sh/) 和 [Watchpod](https://github.com/MinikubeAddon/watchpod) 相继出品。为了进一步覆盖到这些新的，以及一些相关的已有的工具，例如 [Weave Flux](https://github.com/weaveworks/flux) 和 OpenShift 的 [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html)， 我们计划再写一篇跟进的博客。
+请注意，这很棘手，因为即使对于已定型的技术，比如说在 JSON、YAML、XML、REST、gRPC 或者 SOAP 之间做选择，很大程度也取决于你的背景、喜好以及公司环境。在 Kubernetes 生态系统内比较工具就更加困难，因为技术发展太快，每周几乎都有新工具面市；举个例子，仅在准备这篇博客的期间，[Gitkube](https://gitkube.sh/) 和 [Watchpod](https://github.com/MinikubeAddon/watchpod) 相继出品。为了进一步覆盖到这些新的，以及一些相关的已有的工具，例如 [Weave Flux](https://github.com/weaveworks/flux) 和 OpenShift 的 [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html)，我们计划再写一篇跟进的博客。
 
 ### Draft
 
@@ -161,7 +161,7 @@ More info:
 * [Draft: Kubernetes container development made easy](https://kubernetes.io/blog/2017/05/draft-kubernetes-container-development)
 * [Getting Started Guide](https://github.com/Azure/draft/blob/master/docs/getting-started.md)
 
-【1】：此处疑为0.11.0，因为0.12.0已经支持本地构建，见下一条
+【1】：此处疑为 0.11.0，因为 0.12.0 已经支持本地构建，见下一条
 
 ### Skaffold
 
@@ -296,7 +296,7 @@ More info:
 -->
 
 
-[Ksync]（https://github.com/vapor-ware/ksync）在本地计算机和运行在 Kubernetes 中的容器之间同步应用程序代码（和配置），类似于[oc rsync]（https：// docs。 openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html）在 OpenShift 中的角色。它旨在通过消除构建和部署步骤来缩短应用程序开发的迭代时间。
+【Ksync】（https://github.com/vapor-ware/ksync）在本地计算机和运行在 Kubernetes 中的容器之间同步应用程序代码（和配置），类似于 【oc rsync】（https://docs.openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html）在 OpenShift 中的角色。它旨在通过消除构建和部署步骤来缩短应用程序开发的迭代时间。
 
 
 <!--
@@ -349,15 +349,15 @@ More info:
 The app we will be using for the hands-on walkthroughs of the tools in the following is a simple [stock market simulator](https://github.com/kubernauts/dok-example-us), consisting of two microservices:
 -->
 
-我们接下来用于练习使用工具的应用是一个简单的[股市模拟器](https://github.com/kubernauts/dok-example-us)， 包含两个微服务：
+我们接下来用于练习使用工具的应用是一个简单的[股市模拟器](https://github.com/kubernauts/dok-example-us)，包含两个微服务：
 
 <!--
 * The `stock-gen` microservice is written in Go and generates stock data randomly and exposes it via HTTP endpoint `/stockdata`.
 ‎* A second microservice, `stock-con` is a Node.js app that consumes the stream of stock data from `stock-gen` and provides an aggregation in form of a moving average via the HTTP endpoint `/average/$SYMBOL` as well as a health-check endpoint at `/healthz`.
 -->
 
-* `stock-gen`（股市数据生成器） 微服务是用 Go 编写的，随机生成股票数据并通过 HTTP 端点 `/ stockdata` 公开
-* 第二个微服务，`stock-con`（股市数据消费者） 是一个 Node.js 应用程序，它使用来自 `stock-gen` 的股票数据流，并通过 HTTP 端点 `/average/$SYMBOL` 提供股价移动平均线形式的聚合，也提供一个健康检查端点 `/healthz`。
+* `stock-gen`（股市数据生成器）微服务是用 Go 编写的，随机生成股票数据并通过 HTTP 端点 `/ stockdata` 公开
+* 第二个微服务，`stock-con`（股市数据消费者）是一个 Node.js 应用程序，它使用来自 `stock-gen` 的股票数据流，并通过 HTTP 端点 `/average/$SYMBOL` 提供股价移动平均线形式的聚合，也提供一个健康检查端点 `/healthz`。
 
 <!--
 Overall, the default setup of the app looks as follows:
@@ -397,7 +397,7 @@ Note that for the target Kubernetes cluster we’ve been using Minikube locally,
 As a preparation, install [ksync](https://vapor-ware.github.io/ksync/#installation) and then carry out the following steps to prepare the development setup:
 -->
 
-作为准备，安装[ksync]（https://vapor-ware.github.io/ksync/#installation），然后执行以下步骤准备开发配置：
+作为准备，安装 【ksync】（https://vapor-ware.github.io/ksync/#installation），然后执行以下步骤准备开发配置：
 
 ```
 $ mkdir -p $(pwd)/ksync
