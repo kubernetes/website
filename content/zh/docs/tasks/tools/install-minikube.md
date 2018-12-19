@@ -42,13 +42,10 @@ VT-x or AMD-v virtualization must be enabled in your computer's BIOS.
 If you do not already have a hypervisor installed, install the appropriate one for your OS now:
 -->
 <!--
-* macOS: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
-[VMware Fusion](https://www.vmware.com/products/fusion), or
-[HyperKit](https://github.com/moby/hyperkit).
+* macOS: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMware Fusion](https://www.vmware.com/products/fusion), or [HyperKit](https://github.com/moby/hyperkit).
 -->
 <!--
-* Linux: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
-[KVM](http://www.linux-kvm.org/).
+* Linux: [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [KVM](http://www.linux-kvm.org/).
 -->
 
 * macOS：[VirtualBox](https://www.virtualbox.org/wiki/Downloads) 或者
