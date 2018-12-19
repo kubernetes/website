@@ -18,6 +18,13 @@ sudo snap install conjure-up --classic
 sudo usermod -a -G lxd $(whoami)
 ```
 
+If you have never run or configured lxd before, you will need to run
+```
+lxd init
+```
+to set up the default storage pool and networking bridge required. If bridge `lxdbr0` already exists, then
+just tell the init config tool to use existing.
+
 Note: If conjure-up asks you to "Setup an IPv6 subnet" with LXD, answer NO. IPv6 with Juju/LXD is currently unsupported.
 If you already have a bridge configured, e.g. `lxdbr0`, [disable IPv6 on the bridge](https://docs.conjure-up.io/stable/en/troubleshoot#common-problems), otherwise you won't be able to choose it.
 {{% /capture %}}
