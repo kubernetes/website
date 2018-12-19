@@ -13,12 +13,12 @@ Mark a node as master
 <!--
 Applies a label that specifies that a node is a master and a taint that forces workloads to be deployed accordingly. 
 -->
-使用一个标签，该标签指定节点是一个主节点，并且是强制部署工作负载的污点。
+使用一个标签，该标签指定节点是一个主节点，并且强制部署工作负载的污点。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-免责声明：此命令目前属于 alpha。
+Alpha 免责声明：此命令目前属于 alpha。
 
 ```
 kubeadm alpha phase mark-master [flags]
@@ -37,10 +37,10 @@ kubeadm alpha phase mark-master [flags]
 -->
 
 ```
-  # 将主标签和污点在当前节点使用，在功能上等同于 kubeadm init 执行的操作。
+  # 将主节点标签和污点应用到当前节点上，在功能上等同于 kubeadm init 执行的操作。
   kubeadm alpha phase mark-master
   
-  # 将主标签和污点在特定节点使用
+  # 将主节点标签和污点应用到当前节点上
   kubeadm alpha phase mark-master --node-name myNode
 ```
 
