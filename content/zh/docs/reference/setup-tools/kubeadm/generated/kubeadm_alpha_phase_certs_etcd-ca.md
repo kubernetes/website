@@ -2,7 +2,7 @@
 <!--
 Generates the self-signed CA to provision identities for etcd
 -->
-生成自签名证书以为 etcd 提供标识
+生成自签名证书以便为 etcd 提供标识
 
 <!--
 ### Synopsis
@@ -23,7 +23,7 @@ If both files already exist, kubeadm skips the generation step and existing file
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-免责声明：此命令目前属于 alpha。
+Alpha 免责声明：此命令目前属于 alpha。
 
 ```
 kubeadm alpha phase certs etcd-ca [flags]
