@@ -15,7 +15,7 @@ Dashboard is a web-based Kubernetes user interface. You can use Dashboard to dep
 
 Dashboard also provides information on the state of Kubernetes resources in your cluster, and on any errors that may have occurred.
  -->
-Dashboard 是基于网页的 Kubernetes 用户界面。您可以使用 Dashboard 将容器应用部署到 Kubernetes 集群中，也可以对容器应用排错，还能管理集群本身及其附属资源。您可以使用 Dashboard 获取运行在集群中的应用的概览信息，也可以创建或者修改 Kubernetes（如 Deployment，Job，DaemonSet 等等）资源。例如，您可以对 Deployment 实现弹性伸缩、创建滚动升级、重启 Pod 或者使用向导创建新的应用。
+Dashboard 是基于网页的 Kubernetes 用户界面。您可以使用 Dashboard 将容器应用部署到 Kubernetes 集群中，也可以对容器应用排错，还能管理集群本身及其附属资源。您可以使用 Dashboard 获取运行在集群中的应用的概览信息，也可以创建或者修改 Kubernetes 资源（如 Deployment，Job，DaemonSet 等等）。例如，您可以对 Deployment 实现弹性伸缩、发起滚动升级、重启 Pod 或者使用向导创建新的应用。
 
 Dashboard 同时展示了 Kubernetes 集群中的资源状态信息和所有报错信息。
 
@@ -46,7 +46,7 @@ There are multiple ways you can access the Dashboard UI; either by using the kub
  -->
 ## 访问 Dashboard UI
 
-访问 Dashboard UI 有多种方式；可以使用 kubectl 命令行，或者使用浏览器访问 Kubernetes 主 apiserver。
+访问 Dashboard UI 有多种方式；可以使用 kubectl 命令行，或者使用浏览器访问 Kubernetes 主节点的 API 服务器。
 
 <!--
 ### Command line proxy
@@ -64,7 +64,7 @@ Kubectl will handle authentication with apiserver and make Dashboard available a
 
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
  -->
-kubectl 会处理与 apiserver 的认证过程，并使得 Dashboard 可以通过 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ 访问。
+kubectl 会处理与 API 服务器的认证过程，并使得 Dashboard 可以通过 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ 访问。
 
 UI _只能_ 通过执行这条命令的机器进行访问。更多选项参见 `kubectl proxy --help`。
 
@@ -78,10 +78,10 @@ Please note, this works only if the apiserver is set up to allow authentication 
 
 If the username and password are configured but unknown to you, then use `kubectl config view` to find it.
  -->
-### 主服务器
-UI 可以直接通过 Kubernetes 主 apiserver 访问。打开浏览器，输入 `https://<master-ip>:<apiserver-port>/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`，其中 `<<master-ip>` 是 Kubernetes 主服务器的 IP 地址或域名。
+### 主节点 API 服务器
+UI 可以直接通过 Kubernetes 主节点上的 API 服务器访问。打开浏览器，输入 `https://<master-ip>:<apiserver-port>/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`，其中 `<<master-ip>` 是 Kubernetes 主服务器的 IP 地址或域名。
 
-请注意，只有当 apiserver 允许使用用户名密码认证时，这种方式才可以正常工作。但目前对于安装工具（如 `kubeadm`）来说并非如此。关于如何手工设置，参见 [认证管理文档](/docs/reference/access-authn-authz/authentication/)。
+请注意，只有当 API 服务器允许使用用户名密码认证时，这种方式才可以正常工作。但目前对于安装工具（如 `kubeadm`）来说并非如此。关于如何手工设置，参见 [认证管理文档](/docs/reference/access-authn-authz/authentication/)。
 
 如果您不知道配置的用户名密码，可以使用 `kubectl config view` 查询。
 
@@ -131,9 +131,9 @@ The deploy wizard expects that you provide the following information:
 
   The application name must be unique within the selected Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces/). It must start with a lowercase character, and end with a lowercase character or a number, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
  -->
-- **应用名称**（必填）：应用的名称。带有名称的 [label](/docs/concepts/overview/working-with-objects/labels/) 会被写入任何将被部署的 Deployment 和 Service。
+- **应用名称**（必填）：应用的名称。内容为`应用名称`的[标签](/docs/concepts/overview/working-with-objects/labels/) 会被添加到任何将被部署的 Deployment 和 Service。
 
-  在选定的 Kuberntes [命名空间](/docs/tasks/administer-cluster/namespaces/) 中，要求应用名称唯一。必须由小写字母开头，以数字或者小写字母结尾，并且只含有小写字母、数字和中划线（-）。小于等于24个字符。开头和结尾的空格会被忽略。
+  在选定的 Kubernetes [命名空间](/docs/tasks/administer-cluster/namespaces/) 中，应用名称必须唯一。必须由小写字母开头，以数字或者小写字母结尾，并且只含有小写字母、数字和中划线（-）。小于等于24个字符。开头和结尾的空格会被忽略。
 
 <!--
 - **Container image** (mandatory): The URL of a public Docker [container image](/docs/concepts/containers/images/) on any registry, or a private image (commonly hosted on the Google Container Registry or Docker Hub). The container image specification must end with a colon.
