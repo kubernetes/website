@@ -78,14 +78,14 @@ kubeadm reset [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">到存储证书的目录的路径。如果指定了，需要清除此目录。</td>
     </tr>
     
     <tr>
-      <td colspan="2">--cri-socket string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/run/dockershim.sock"</td>
+      <td colspan="2">--cri-socket string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/var/run/dockershim.sock"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">在清理容器时与 crictl 一起使用的 CRI 套接字的路径。</td>
@@ -102,7 +102,7 @@ kubeadm reset [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for reset</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">重置帮助</td>
     </tr>
 
     <tr>
