@@ -211,7 +211,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
 1.  Upgrade the Kubernetes package version on each `$NODE` node by running the Linux package manager for your distribution:
 
-    {{< tabs name="k8s_install" >}}
+    {{< tabs name="k8s_upgrade" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt-get update
     apt-get upgrade -y kubelet kubeadm
