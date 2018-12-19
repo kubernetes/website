@@ -184,7 +184,7 @@ In your text editor, add the following YAML under `spec`:
 
 ```yaml
 configSource:
-    configMap:
+    configMapRef:
         name: CONFIG_MAP_NAME
         namespace: kube-system
         kubeletConfigKey: kubelet
