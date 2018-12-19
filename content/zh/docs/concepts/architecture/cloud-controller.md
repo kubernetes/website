@@ -42,7 +42,7 @@ Here's the architecture of a Kubernetes cluster without the cloud controller man
 ![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
 -->
 
-![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
+![没有云控制器管理器的 Kubernetes 架构](/images/docs/pre-ccm-arch.png)
 
 {{% /capture %}}
 
@@ -80,7 +80,7 @@ CCM 整合了前三个组件中的所有依赖于云的逻辑，以创建与云�
 
 <!-- ![CCM Kube Arch](/images/docs/post-ccm-arch.png) -->
 
-![CCM Kube Arch](/images/docs/post-ccm-arch.png)
+![含有云控制器管理器的 Kubernetes 架构](/images/docs/post-ccm-arch.png)
 
 <!--
 ## Components of the CCM
@@ -101,7 +101,7 @@ CCM 打破了 Kubernetes 控制器管理器（KCM）的一些功能，并将其�
 -->
 
 * 节点控制器
-* 数据卷控制器
+* 卷控制器
 * 路由控制器
 * 服务控制器
 <!--
@@ -131,7 +131,7 @@ Additionally, it runs another controller called the PersistentVolumeLabels contr
 Volume controller was deliberately chosen to not be a part of CCM. Due to the complexity involved and due to the existing efforts to abstract away vendor specific volume logic, it was decided that volume controller will not be moved to CCM.
 -->
 
-注意 volume 控制器不属于 CCM，由于其中涉及到的复杂性和对现有供应商特定数据卷的逻辑抽象，因此决定了 volume 控制器不会被移动到 CCM 之中。
+注意卷控制器不属于 CCM，由于其中涉及到的复杂性和对现有供应商特定卷的逻辑抽象，因此决定了卷控制器不会被移动到 CCM 之中。
 
 {{< /note >}}
 
@@ -157,7 +157,7 @@ Considering these dynamics, we decided to have an intermediate stop gap measure 
 The CCM inherits its functions from components of Kubernetes that are dependent on a cloud provider. This section is structured based on those components.
 -->
 
-CCM 从依赖于云提供商的 Kubernetes 组件继承其功能，本节基于这些组件构建。
+CCM 从依赖于云提供商的 Kubernetes 组件继承其功能，本节基于这些组件组织。
 
 <!--
 ### 1. Kubernetes controller manager
@@ -242,13 +242,13 @@ The Service controller is responsible for listening to service create, update, a
 The PersistentVolumeLabels controller applies labels on AWS EBS/GCE PD volumes when they are created. This removes the need for users to manually set the labels on these volumes.
 -->
 
-PersistentVolumeLabels 控制器在创建 AWS EBS/GCE PD 数据卷时应用标签，这样就无需用户手动设置这些数据卷上的标签。
+PersistentVolumeLabels 控制器在创建 AWS EBS/GCE PD 卷时应用标签，这样就无需用户手动设置这些卷上的标签。
 
 <!--
 These labels are essential for the scheduling of pods as these volumes are constrained to work only within the region/zone that they are in. Any Pod using these volumes needs to be scheduled in the same region/zone.
 -->
 
-这些标签对于 pod 的调度至关重要，因为这些数据卷仅限于在它们所在的域（zone）/区（region）内工作，使用这些数据卷的任何 Pod 都需要在同一域（zone）/区（region）中进行调度。
+这些标签对于 pod 的调度至关重要，因为这些卷仅限于在它们所在的域（zone）/区（region）内工作，使用这些卷的任何 Pod 都需要在同一域（zone）/区（region）中进行调度。
 
 <!--
 The PersistentVolumeLabels controller was created specifically for the CCM; that is, it did not exist before the CCM was created. This was done to move the PV labelling logic in the Kubernetes API server (it was an admission controller) to the CCM. It does not run on the KCM.
@@ -355,6 +355,7 @@ v1/Node:
 - Update
 - Patch
 - Watch
+- Delete
 
 <!--
 ### Route controller
@@ -366,7 +367,7 @@ v1/Node:
 The route controller listens to Node object creation and configures routes appropriately. It requires get access to Node objects.
 -->
 
-route 控制器侦听 Node 对象创建并适当地配置路由，它需要访问 Node 对象。
+路由控制器侦听 Node 对象创建并适当地配置路由，它需要访问 Node 对象。
 
 v1/Node:
 - Get
@@ -393,7 +394,7 @@ To access Services, it requires list, and watch access. To update Services, it r
 To set up endpoints for the Services, it requires access to create, list, get, watch, and update.
 -->
 
-要为服务设置端点，需要访问 create，list，get，watch 和 update。
+要为服务设置端点，需要访问 create、list、get、watch 和 update。
 
 v1/Service:
 - List
@@ -430,7 +431,7 @@ v1/PersistentVolume:
 The implementation of the core of CCM requires access to create events, and to ensure secure operation, it requires access to create ServiceAccounts.
 -->
 
-CCM 核心的实现需要访问以创建事件，并且为了确保安全操作，它需要访问以创建 ServiceAccounts 的权限。
+CCM 核心的实现需要访问权限以创建事件，并且为了确保安全操作，它需要访问权限以创建服务账户。
 
 v1/Event:
 - Create
@@ -520,7 +521,7 @@ rules:
 The following cloud providers have implemented CCMs:
 -->
 
-以下云服务提供商已实施了 CCM：
+以下云服务提供商已实现了 CCM：
 
 * [Digital Ocean]()
 * [Oracle]()
