@@ -1,3 +1,9 @@
+---
+title: 使用端口转发来访问集群中的应用
+content_template: templates/task
+weight: 40
+---
+
 <!--
 ---
 title: Use Port Forwarding to Access Applications in a Cluster
@@ -5,11 +11,6 @@ content_template: templates/task
 weight: 40
 ---
 -->
----
-title: 使用端口转发来访问集群中的应用
-content_template: templates/task
-weight: 40
----
 
 {{% capture overview %}}
 
