@@ -68,8 +68,9 @@ kubectl 会处理与 apiserver 的认证过程，并使得 Dashboard 可以通�
 
 UI _只能_ 通过执行这条命令的机器进行访问。更多选项参见 `kubectl proxy --help`。
 
-### Master server
 <!--
+### Master server
+
 You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to ``https://<master-ip>:<apiserver-port>/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/``, where `<master-ip>` is IP address or domain name of the Kubernetes
 master.
 
@@ -78,9 +79,9 @@ Please note, this works only if the apiserver is set up to allow authentication 
 If the username and password are configured but unknown to you, then use `kubectl config view` to find it.
  -->
 ### 主服务器
-UI 可以直接通过 Kubernetes 主 apiserver 访问。打开浏览器，输入 ``https://<master-ip>:<apiserver-port>/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/``，其中 `<<master-ip>` 是 Kubernetes 主服务器的 IP 地址或域名。
+UI 可以直接通过 Kubernetes 主 apiserver 访问。打开浏览器，输入 `https://<master-ip>:<apiserver-port>/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`，其中 `<<master-ip>` 是 Kubernetes 主服务器的 IP 地址或域名。
 
-请注意，只有当 apiserver 允许使用用户名密码认证时，这种方式才可以正常工作。但目前对于安装工具（如 `kubeadm`）来说并非如此。关于如何手工设置认证，参见 [认证管理文档](/docs/reference/access-authn-authz/authentication/)。
+请注意，只有当 apiserver 允许使用用户名密码认证时，这种方式才可以正常工作。但目前对于安装工具（如 `kubeadm`）来说并非如此。关于如何手工设置，参见 [认证管理文档](/docs/reference/access-authn-authz/authentication/)。
 
 如果您不知道配置的用户名密码，可以使用 `kubectl config view` 查询。
 
@@ -93,7 +94,10 @@ When you access Dashboard on an empty cluster, you'll see the welcome page. This
 
 当访问空集群的 Dashboard 时，您会看到欢迎界面。页面包含一个指向此文档的链接，以及一个用于部署第一个应用程序的按钮。此外，您可以看到在默认情况下有哪些默认系统应用运行在 `kube-system` [命名空间](/docs/tasks/administer-cluster/namespaces/) 中，比如 Dashboard 自己。
 
+<!--
 ![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
+ -->
+![Kubernetes Dashboard 欢迎页面](/images/docs/ui-dashboard-zerostate.png)
 
 <!--
 ## Deploying containerized applications
@@ -104,11 +108,14 @@ To access the deploy wizard from the Welcome page, click the respective button. 
  -->
 ## 部署容器化应用
 
-通过一个简单的向导，您可以使用 Dashboard 将容器化应用作为一个 Deployment 和可选的 Service 进行创建和部署。可以手工指定应用的详细配置，或者上传一个包含应用配置的 YAML 或 JSON 文件。
+通过一个简单的部署向导，您可以使用 Dashboard 将容器化应用作为一个 Deployment 和可选的 Service 进行创建和部署。可以手工指定应用的详细配置，或者上传一个包含应用配置的 YAML 或 JSON 文件。
 
-想要访问向导，可以点击欢迎界面上的各个部署按钮。向导也可以之后通过点击任何页面右上角的 **创建** 按钮进行快速访问。
+想要访问部署向导，可以点击欢迎界面上的各个部署按钮。向导也可以之后通过点击任何页面右上角的 **创建** 按钮进行快速访问。
 
+<!--
 ![Deploy wizard](/images/docs/ui-dashboard-deploy-simple.png)
+ -->
+![部署向导](/images/docs/ui-dashboard-deploy-simple.png)
 
 <!--
 ### Specifying application details
@@ -243,7 +250,10 @@ Kubernetes 支持声明式配置。所有的配置都存储在遵循 Kubernetes 
 
 作为一种替代在部署向导中指定应用详情的方式，您可以在 YAML 或者 JSON 文件中定义应用，并且使用 Dashboard 上传文件：
 
+<!--
 ![Deploy wizard file upload](/images/docs/ui-dashboard-deploy-file.png)
+ -->
+![部署向导中上传文件](/images/docs/ui-dashboard-deploy-file.png)
 
 <!--
 ## Using Dashboard
@@ -272,39 +282,51 @@ View for cluster and namespace administrators. It lists Nodes, Namespaces and Pe
 #### 管理
 集群和命名空间管理的视图。它会列出节点、命名空间和持久卷，并且有它们的详细视图。节点列表视图包含从所有节点聚合的 CPU 和内存使用的度量值。详细信息视图显示了一个节点的度量值，它的规格、状态、分配的资源、事件和这个节点上运行的 Pod。
 
+<!--
 ![Node detail view](/images/docs/ui-dashboard-node.png)
+ -->
+![节点详细信息视图](/images/docs/ui-dashboard-node.png)
 
 <!--
 #### Workloads
 Entry point view that shows all applications running in the selected namespace. The view lists applications by workload kind (e.g., Deployments, Replica Sets, Stateful Sets, etc.) and each workload kind can be viewed separately. The lists summarize actionable information about the workloads, such as the number of ready pods for a Replica Set or current memory usage for a Pod.
  -->
 #### 负载
-入口（Entry point）视图显示选中的命名空间中所有运行的应用。视图按照负载类型（如 Deployment、ReplicaSet、StatefulSet 等）罗列应用，并且每种负载都可以单独查看。列表总结了关于负载的可执行信息，比如一个 ReplicaSet 的准备状态的 Pod 数量，或者目前一个 Pod 的内存使用量。
+入口视图显示选中的命名空间中所有运行的应用。视图按照负载类型（如 Deployment、ReplicaSet、StatefulSet 等）罗列应用，并且每种负载都可以单独查看。列表总结了关于负载的可执行信息，比如一个 ReplicaSet 的准备状态的 Pod 数量，或者目前一个 Pod 的内存使用量。
 
+<!--
 ![Workloads view](/images/docs/ui-dashboard-workloadview.png)
+ -->
+![负载视图](/images/docs/ui-dashboard-workloadview.png)
 
 <!--
 Detail views for workloads show status and specification information and surface relationships between objects. For example, Pods that Replica Set is controlling or New Replica Sets and Horizontal Pod Autoscalers for Deployments.
  -->
-负载的详细视图展示状态、详细信息和对象间的关系。例如，ReplicaSet 所控制的 Pod，或者 Deployment 关联的 新 ReplicaSet 和 Pod 水平扩展控制器。
+工作负载的详情视图展示了对象的状态、详细信息和相互关系。例如，ReplicaSet 所控制的 Pod，或者 Deployment 关联的 新 ReplicaSet 和 Pod 水平扩展控制器。
 
+<!--
 ![Deployment detail view](/images/docs/ui-dashboard-deployment-detail.png)
+ -->
+![部署详情视图](/images/docs/ui-dashboard-deployment-detail.png)
 
 <!--
 #### Services and discovery
 Services and discovery view shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and external endpoints for external users.
  -->
-#### 服务（Service）和发现（discovery）
-服务和发现视图展示允许暴露给外网服务和允许集群内部发现的 Kubernetes 资源。因此，Service 和 Ingress 视图展示他们关联的 Pod、给集群连接使用的内部端点和给外部用户使用的外部端点。
+#### 服务发现
+服务发现视图展示允许暴露给外网服务和允许集群内部发现的 Kubernetes 资源。因此，Service 和 Ingress 视图展示他们关联的 Pod、给集群连接使用的内部端点和给外部用户使用的外部端点。
 
+<!--
 ![Service list partial view](/images/docs/ui-dashboard-service-list.png)
+ -->
+![服务列表部分视图](/images/docs/ui-dashboard-service-list.png)
 
 <!--
 #### Storage
 Storage view shows Persistent Volume Claim resources which are used by applications for storing data.
  -->
 #### 存储
-存储视图展示持久卷申领（PVC）资源，这些资源被用于存储数据的应用程序使用。
+存储视图展示持久卷申领（PVC）资源，这些资源被应用程序用来存储数据。
 
 <!--
 #### Config
@@ -313,7 +335,10 @@ Config view shows all Kubernetes resources that are used for live configuration 
 #### 配置
 配置视图展示的所有 Kubernetes 资源是在集群中运行的应用程序的实时配置。目前来说就是 ConfigMap 和 Secret。通过这个视图可以编辑和管理配置对象，并显示那些默认隐藏的 secret。
 
+<!--
 ![Secret detail view](/images/docs/ui-dashboard-secret-detail.png)
+ -->
+![Secret 详情视图](/images/docs/ui-dashboard-secret-detail.png)
 
 <!--
 #### Logs viewer
@@ -322,7 +347,10 @@ Pod lists and detail pages link to logs viewer that is built into Dashboard. The
 #### 日志查看器
 Pod 列表和详细信息页面可以链接到 Dashboard 内置的日志查看器。查看器可以钻取属于同一个 Pod 的不同容器的日志。
 
+<!--
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
+ -->
+![日志浏览](/images/docs/ui-dashboard-logs-view.png)
 
 {{% /capture %}}
 
