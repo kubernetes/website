@@ -1,5 +1,5 @@
 ---
-title: Developing on Kubernetes
+title: 在 Kubernetes 上开发
 date: 2018-05-01
 slug: developing-on-kubernetes
 ---
@@ -122,7 +122,7 @@ Implications:
 <!--
 * User can customise the chart and Dockerfile templates however they like, or even create a [custom pack](https://github.com/Azure/draft/blob/master/docs/reference/dep-003.md) (with Dockerfile, the chart and more) for future use
 -->
-* 用户可以任意地自定义 Helm 图表和 Dockerfile 模版，或者甚至创建一个 [custom pack](https://github.com/Azure/draft/blob/master/docs/reference/dep-003.md）（使用 Dockerfile、Heml 图表以及其他）以备后用
+* 用户可以任意地自定义 Helm 图表和 Dockerfile 模版，或者甚至创建一个 [custom pack](https://github.com/Azure/draft/blob/master/docs/reference/dep-003.md)（使用 Dockerfile、Helm 图表以及其他）以备后用
 
 <!--
 * It’s not very simple to guess how just any app is supposed to be built, in some cases user may need to tweak Dockerfile and the Helm chart that Draft generates
@@ -296,7 +296,7 @@ More info:
 -->
 
 
-【Ksync】（https://github.com/vapor-ware/ksync）在本地计算机和运行在 Kubernetes 中的容器之间同步应用程序代码（和配置），类似于 【oc rsync】（https://docs.openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html）在 OpenShift 中的角色。它旨在通过消除构建和部署步骤来缩短应用程序开发的迭代时间。
+[Ksync](https://github.com/vapor-ware/ksync) 在本地计算机和运行在 Kubernetes 中的容器之间同步应用程序代码（和配置），类似于 [oc rsync](https://docs.openshift.com/container-platform/3.9/dev_guide/copy_files_to_container.html) 在 OpenShift 中的角色。它旨在通过消除构建和部署步骤来缩短应用程序开发的迭代时间。
 
 
 <!--
@@ -323,7 +323,7 @@ Implications:
 * Requires a privileged DaemonSet running in the cluster
 * Node has to use Docker with overlayfs2 – no other CRI implementations are supported at the time of writing
 -->
-* 利用 [Syncthing]（https://github.com/syncthing/syncthing），一个用于点对点同步的 Go 语言库
+* 利用 [Syncthing](https://github.com/syncthing/syncthing)，一个用于点对点同步的 Go 语言库
 * 需要一个在集群中运行的特权 DaemonSet
 * Node 必须使用带有 overlayfs2 的 Docker  - 在写作本文时，尚不支持其他 CRI 实现
 
@@ -397,7 +397,7 @@ Note that for the target Kubernetes cluster we’ve been using Minikube locally,
 As a preparation, install [ksync](https://vapor-ware.github.io/ksync/#installation) and then carry out the following steps to prepare the development setup:
 -->
 
-作为准备，安装 【ksync】（https://vapor-ware.github.io/ksync/#installation），然后执行以下步骤准备开发配置：
+作为准备，安装 [ksync](https://vapor-ware.github.io/ksync/#installation)，然后执行以下步骤准备开发配置：
 
 ```
 $ mkdir -p $(pwd)/ksync
@@ -456,7 +456,7 @@ Now change the code in the `ksync/stock-con`directory, for example update the [`
 -->
 
 
-现在，改一下 `ksync/stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码]（https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52），在 JSON 形式的响应中添加一个字段并观察 pod 如何更新以及 `curl localhost：9898/healthz` 命令的输出发生变化。总的来说，你最后应该看到类似的内容：
+现在，改一下 `ksync/stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52)，在 JSON 形式的响应中添加一个字段并观察 pod 如何更新以及 `curl localhost：9898/healthz` 命令的输出发生变化。总的来说，你最后应该看到类似的内容：
 
 
 ![Preview](/images/blog/2018-05-01-developing-on-kubernetes/dok-ksync_preview.png)
@@ -509,7 +509,7 @@ $ watch curl localhost:9898/healthz
 Now change the code in the `stock-con`directory, for example, update the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response. Once you’re done with your code update, the last step is to build a new container image and kick off a new deployment like shown below:
 -->
 
-现在，改一下 `ksync/stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码]（https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52），在 JSON 形式的响应中添加一个字段。完成代码更新后，最后一步是构建新的容器镜像并启动新部署，如下所示：
+现在，改一下 `ksync/stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52)，在 JSON 形式的响应中添加一个字段。完成代码更新后，最后一步是构建新的容器镜像并启动新部署，如下所示：
 
 
 ```
@@ -534,7 +534,7 @@ Overall you should have something like the following in the end:
 To perform this walkthrough you first need to install [Skaffold](https://github.com/GoogleContainerTools/skaffold#installation). Once that is done, you can do the following steps to prepare the development setup:
 -->
 
-要执行此演练，首先需要安装 [Skaffold]（https://github.com/GoogleContainerTools/skaffold#installation）。完成后，您可以执行以下步骤来准备开发设置：
+要执行此演练，首先需要安装 [Skaffold](https://github.com/GoogleContainerTools/skaffold#installation)。完成后，您可以执行以下步骤来准备开发设置：
 
 ```
 $ git clone https://github.com/kubernauts/dok-example-us.git && cd dok-example-us
@@ -555,7 +555,7 @@ Note that initially we experienced an authentication error when doing `skaffold 
 -->
 
 
-请注意，最初我们在执行 `skaffold dev` 时发生身份验证错误，避免此错误需要安装[问题322]（https://github.com/GoogleContainerTools/skaffold/issues/322）中所述的修复。本质上，需要将 `〜/.docker/config.json` 的内容改为：
+请注意，最初我们在执行 `skaffold dev` 时发生身份验证错误，避免此错误需要安装[问题322](https://github.com/GoogleContainerTools/skaffold/issues/322)中所述的修复。本质上，需要将 `〜/.docker/config.json` 的内容改为：
 
 
 ```
@@ -687,7 +687,7 @@ $ watch curl localhost:9898/healthz
 If you now change the code in the `stock-con`directory, for example, by updating the [`/healthz` endpoint code in `service.js`](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52) by adding a field to the JSON response, you should see Skaffold noticing the change and create a new image as well as deploy it. The resulting screen would look something like this:
  -->
  
-现在，如果你修改一下 `stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码]（https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52），在 JSON 形式的响应中添加一个字段，你应该看到 Skaffold 检测到代码改动并创建新图像以及部署它。你的屏幕看起来应该类似这样：
+现在，如果你修改一下 `stock-con` 目录中的代码，例如 [`service.js` 中定义的 `/healthz` 端点代码](https://github.com/kubernauts/dok-example-us/blob/2334ee8fb11f8813370122bd46285cf45bdd4c48/stock-con/service.js#L52)，在 JSON 形式的响应中添加一个字段，你应该看到 Skaffold 检测到代码改动并创建新图像以及部署它。你的屏幕看起来应该类似这样：
  
  
 ![Skaffold Preview](/images/blog/2018-05-01-developing-on-kubernetes/dok-skaffold_preview.png)
@@ -712,4 +712,8 @@ By now you should have a feeling how different tools enable you to develop apps 
     * [TGI Kubernetes 033: Developing with Draft](https://www.youtube.com/watch?v=8B1D7cTMPgA)
 * Raw responses to the [Kubernetes Application Survey](https://docs.google.com/spreadsheets/d/12ilRCly2eHKPuicv1P_BD6z__PXAqpiaR-tDYe2eudE/edit) 2018 by SIG Apps
 
+<!--
 With that we wrap up this post on how to go about developing apps on Kubernetes, we hope you learned something and if you have feedback and/or want to point out a tool that you found useful, please let us know via Twitter: [Ilya](https://twitter.com/errordeveloper) and [Michael](https://twitter.com/mhausenblas).
+-->
+
+有了这些，我们这篇关于如何在 Kubernetes 上开发应用程序的博客就可以收尾了，我们希望你有所收获，如果您有反馈和/或想要指出您认为有用的工具，请通过 Twitter 告诉我们：[Ilya](https://twitter.com/errordeveloper) 和 [Michael](https://twitter.com/mhausenblas)
