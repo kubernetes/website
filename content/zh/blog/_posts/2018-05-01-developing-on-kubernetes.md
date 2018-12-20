@@ -555,7 +555,7 @@ Note that initially we experienced an authentication error when doing `skaffold 
 -->
 
 
-请注意，最初我们在执行 `skaffold dev` 时发生身份验证错误，避免此错误需要安装[问题322](https://github.com/GoogleContainerTools/skaffold/issues/322)中所述的修复。本质上，需要将 `〜/.docker/config.json` 的内容改为：
+请注意，最初我们在执行 `skaffold dev` 时发生身份验证错误，避免此错误需要安装[问题322](https://github.com/GoogleContainerTools/skaffold/issues/322) 中所述的修复。本质上，需要将 `〜/.docker/config.json` 的内容改为：
 
 
 ```
