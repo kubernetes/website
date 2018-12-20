@@ -76,8 +76,7 @@ and the former approach is used in any other environment. In both cases, by
 default rotation is configured to take place when log file exceeds 10MB.
 
 As an example, you can find detailed information about how `kube-up.sh` sets
-up logging for COS image on GCP in the corresponding [script]
-[cosConfigureHelper].
+up logging for COS image on GCP in the corresponding [script][cosConfigureHelper].
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
@@ -89,9 +88,9 @@ only the contents of the latest log file will be available through
 `kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
 the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
+{{< /note >}}
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-{{< /note >}}
 
 ### System component logs
 
