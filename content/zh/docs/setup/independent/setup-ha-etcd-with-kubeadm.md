@@ -209,7 +209,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     <!--
     1. Create certificates for each member 
     -->
-    1. 为每个成员创建证书
+1. 为每个成员创建证书
 
     <!--
     ```sh
