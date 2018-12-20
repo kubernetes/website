@@ -13,7 +13,7 @@ Mark a node as master
 <!--
 Applies a label that specifies that a node is a master and a taint that forces workloads to be deployed accordingly. 
 -->
-使用一个标签，该标签指定节点是一个主节点，并且强制部署工作负载的污点。
+为某节点添加标签表明该节点是主节点，并为之添加污点以迫使工作负载在部署时考虑该污点的存在。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
