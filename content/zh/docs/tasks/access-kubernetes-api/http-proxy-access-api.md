@@ -18,7 +18,7 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
  -->
 {% capture overview %}
 本文说明如何使用 HTTP 代理访问 Kubernetes API。
-{% endcapture %}
+{% /capture %}
 
 {{% capture prerequisites %}}
 
@@ -53,7 +53,7 @@ This command starts a proxy to the Kubernetes API server:
 When the proxy server is running, you can explore the API using `curl`, `wget`,
 or a browser.
  -->
-## 访问 Kubernetes API
+## 探究 Kubernetes API
 
 当代理服务器在运行时，你可以通过 `curl`、`wget` 或者浏览器访问 API。
 
@@ -117,4 +117,4 @@ Learn more about [kubectl proxy](/docs/reference/generated/kubectl/kubectl-comma
  -->
 {% capture whatsnext %}
 想了解更多信息，请参阅 [kubectl 代理](/docs/reference/generated/kubectl/kubectl-commands#proxy)。
-{% endcapture %}
+{% /capture %}
