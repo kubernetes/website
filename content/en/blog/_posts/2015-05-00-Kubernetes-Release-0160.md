@@ -6,7 +6,7 @@ url: /blog/2015/05/Kubernetes-Release-0160
 ---
 Release Notes:
 
-- Bring up a kuberenetes cluster using coreos image as worker nodes [#7445](https://github.com/GoogleCloudPlatform/kubernetes/pull/7445) (dchen1107)
+- Bring up a kubernetes cluster using coreos image as worker nodes [#7445](https://github.com/GoogleCloudPlatform/kubernetes/pull/7445) (dchen1107)
 - Cloning v1beta3 as v1 and exposing it in the apiserver [#7454](https://github.com/GoogleCloudPlatform/kubernetes/pull/7454) (nikhiljindal)
 - API Conventions for Late-initializers [#7366](https://github.com/GoogleCloudPlatform/kubernetes/pull/7366) (erictune)
 - Upgrade Elasticsearch to 1.5.2 for cluster logging [#7455](https://github.com/GoogleCloudPlatform/kubernetes/pull/7455) (satnam6502)
