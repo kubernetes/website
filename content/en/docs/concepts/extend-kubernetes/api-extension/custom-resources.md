@@ -114,7 +114,7 @@ Kubernetes provides these two options to meet the needs of different users, so t
 
 Aggregated APIs are subordinate APIServers that sit behind the primary API server, which acts as a proxy. This arrangement is called [API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). To users, it simply appears that the Kubernetes API is extended.
 
-CRDs allow users to create new types of resources without adding another APIserver. You do not need to understand API Aggregation to use CRDs.
+CRDs allow users to create new types of resources without adding another API server. You do not need to understand API Aggregation to use CRDs.
 
 Regardless of how they are installed, the new resources are referred to as Custom Resources to distinguish them from built-in Kubernetes resources (like pods).
 
