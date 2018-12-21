@@ -19,7 +19,7 @@ weight: 30
 The cloud controller manager (CCM) concept (not to be confused with the binary) was originally created to allow cloud specific vendor code and the Kubernetes core to evolve independent of one another. The cloud controller manager runs alongside other master components such as the Kubernetes controller manager, the API server, and scheduler. It can also be started as a Kubernetes addon, in which case it runs on top of Kubernetes.
 -->
 
-云控制器管理器（CCM）这个概念 （不要与二进制文件混淆）创建的初衷是为了让特定的云服务供应商代码和 Kubernetes 核心相互独立演化。云控制器管理器与其他主要组件（如 Kubernetes 控制器管理器，API 服务器和调度程序）一起运行。它也可以作为 Kubernetes 的插件启动，在这种情况下，它会运行在 Kubernetes 之上。
+云控制器管理器（cloud controller manager，CCM）这个概念 （不要与二进制文件混淆）创建的初衷是为了让特定的云服务供应商代码和 Kubernetes 核心相互独立演化。云控制器管理器与其他主要组件（如 Kubernetes 控制器管理器，API 服务器和调度程序）一起运行。它也可以作为 Kubernetes 的插件启动，在这种情况下，它会运行在 Kubernetes 之上。
 
 <!--
 The cloud controller manager's design is based on a plugin mechanism that allows new cloud providers to integrate with Kubernetes easily by using plugins. There are plans in place for on-boarding new cloud providers on Kubernetes and for migrating cloud providers from the old model to the new CCM model.
