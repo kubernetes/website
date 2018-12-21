@@ -55,20 +55,18 @@ restarts. Here is the configuration file for the Pod:
 {{< codenew file="pods/storage/redis.yaml" >}}
 
 1. 创建 Pod:
-
-<!--
-1. Create the Pod:
--->
+    <!--
+    1.Create the Pod:
+    -->
     ```shell
     kubectl create -f https://k8s.io/examples/pods/storage/redis.yaml
     ```
 
 1. 验证 Pod 中的容器是否正在运行，然后留意 Pod 的更改：
-
-<!--
-1. Verify that the Pod's Container is running, and then watch for changes to
-the Pod:
--->
+    <!--
+    1.Verify that the Pod's Container is running, and then watch for changes to
+    the Pod:
+    -->
     ```shell
     kubectl get pod redis --watch
     ```
@@ -81,29 +79,26 @@ the Pod:
     ```
 
 1. 在另一个终端，用 shell 连接正在运行的容器：
-
-<!--
-1. In another terminal, get a shell to the running Container:
--->
+    <!--
+    1.In another terminal, get a shell to the running Container:
+    -->
     ```shell
     kubectl exec -it redis -- /bin/bash
     ```
 
 1. 在您的 shell 终端中，切换到 `/data/redis` 目录下，然后创建一个文件：
-
-<!--
-1. In your shell, go to `/data/redis`, and then create a file:
--->
+    <!--
+    1.In your shell, go to `/data/redis`, and then create a file:
+    -->
     ```shell
     root@redis:/data# cd /data/redis/
     root@redis:/data/redis# echo Hello > test-file
     ```
 
 1. 在您的 shell 终端中，列出正在运行的进程：
-
-<!--
-1. In your shell, list the running processes:
--->
+    <!--
+    1.In your shell, list the running processes:
+    -->
     ```shell
     root@redis:/data/redis# apt-get update
     root@redis:/data/redis# apt-get install procps
@@ -120,10 +115,9 @@ the Pod:
     ```
 
 1. 在您的 shell 终端中，结束 Redis 进程：
-
-<!--
-1. In your shell, kill the Redis process:
--->
+    <!--
+    1.In your shell, kill the Redis process:
+    -->
     ```shell
     root@redis:/data/redis# kill <pid>
     ```
@@ -131,11 +125,10 @@ the Pod:
     其中 `<pid>` 是 Redis 进程的 ID (PID)。
 
 1. 在您原先终端中，留意 Redis Pod 的更改。最终您将会看到和下面类似的输出：
-
-<!--
-1. In your original terminal, watch for changes to the Redis Pod. Eventually,
-you will see something like this:
--->
+    <!--
+    1. In your original terminal, watch for changes to the Redis Pod. Eventually,
+    you will see something like this:
+    -->
     ```shell
     NAME      READY     STATUS     RESTARTS   AGE
     redis     1/1       Running    0          13s
@@ -153,18 +146,18 @@ of `Always`.
 -->
 1. 用 shell 终端进入重新启动的容器中：
 
-<!--
-1. Get a shell into the restarted Container:
--->
+    <!--
+    1.Get a shell into the restarted Container:
+    -->
     ```shell
     kubectl exec -it redis -- /bin/bash
     ```
 
 1. 在您的 shell 终端中，进入到 `/data/redis` 目录下，并确认 `test-file` 文件是否仍然存在。
 
-<!--
-1. In your shell, goto `/data/redis`, and verify that `test-file` is still there.
--->
+    <!--
+    1.In your shell, goto `/data/redis`, and verify that `test-file` is still there.
+    -->
     ```shell
     root@redis:/data/redis# cd /data/redis/
     root@redis:/data/redis# ls
@@ -173,9 +166,9 @@ of `Always`.
 
 1. 删除为此练习所创建的 Pod：
 
-<!--
-1. Delete the Pod that you created for this exercise:
--->
+    <!--
+    1.Delete the Pod that you created for this exercise:
+    -->
     ```shell
     kubectl delete pod redis
     ```
