@@ -140,7 +140,7 @@ different Kubernetes components.
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | |
-| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
+| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
@@ -305,5 +305,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
   type when used together with the `PersistentLocalVolumes` feature gate.
 - `VolumeSnapshotDataSource`: Enable volume snapshot data source support.
+- `VolumeSubpathEnvExpansion`: Enable `subPathExpr` field for expanding environment variables into a `subPath`.
 
 {{% /capture %}}

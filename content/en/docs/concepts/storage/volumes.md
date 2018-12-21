@@ -1072,13 +1072,14 @@ spec:
 
 ### Using subPath with expanded environment variables
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
 
-`subPath` directory names can also be constructed from Downward API environment variables.
+`subPath` directory names can also be constructed from Downward API environment variables by using the `subPathExpr` field.
 Before you use this feature, you must enable the `VolumeSubpathEnvExpansion` feature gate.
+`subPath` and `subPathExpr` are mutually exclusive.
 
-In this example, a Pod uses `subPath` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
+In this example, a Pod uses `subPathExpr` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 
 ```yaml
 apiVersion: v1
@@ -1099,7 +1100,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
-      subPath: $(POD_NAME)
+      subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
   - name: workdir1
