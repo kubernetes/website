@@ -102,7 +102,7 @@ kubeadm reset [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">重置帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">reset 操作的帮助信息</td>
     </tr>
 
     <tr>
