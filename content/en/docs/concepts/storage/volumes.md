@@ -1074,9 +1074,9 @@ spec:
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
 
-`subPath` directory names can also be constructed from Downward API environment variables by using the `subPathExpr` field.
+Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.
 Before you use this feature, you must enable the `VolumeSubpathEnvExpansion` feature gate.
-`subPath` and `subPathExpr` are mutually exclusive.
+The `subPath` and `subPathExpr` properties are mutually exclusive.
 
 In this example, a Pod uses `subPathExpr` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 
