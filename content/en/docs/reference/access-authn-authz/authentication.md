@@ -642,7 +642,7 @@ kubectl drain mynode
 Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
 ```
 
-Set the `--as-group` flag:
+Set the `--as` and `--as-group` flag:
 
 ```bash
 kubectl drain mynode --as=superman --as-group=system:masters
