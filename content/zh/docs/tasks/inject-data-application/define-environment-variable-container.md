@@ -30,9 +30,9 @@ content_template: templates/task
 
 1. 基于YAML文件创建一个Pod:
        
-       ```shell
+```shell
        kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
-       ```
+```
 
 1. 获取一下当前正在运行的Pods信息:
        
