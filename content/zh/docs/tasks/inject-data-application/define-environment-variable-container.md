@@ -47,8 +47,10 @@ content_template: templates/task
 
 1. 在命令终端中通过执行`printenv`打印出环境变量。
 
-       root@envar-demo:/# printenv
-
+    ```shell
+    root@envar-demo:/# printenv
+    ```
+    
     打印结果应为:
 
         NODE_VERSION=4.4.2
