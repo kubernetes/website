@@ -1,10 +1,11 @@
-﻿---
+---
 reviewers:
 - janetkuo
 title: 基于Replication Controller执行滚动升级
 content_template: templates/concept
 weight: 80
 ---
+
 <!-- 
 ---
 reviewers:
