@@ -30,19 +30,32 @@ The above list is sorted alphabetically by product name, not by recommendation o
 
 ## Create an `nginx` deployment and expose it via a service
 
-To see how Kubernetes network policy works, start off by creating an `nginx` deployment and exposing it via a service.
+To see how Kubernetes network policy works, start off by creating an `nginx` deployment.
 
 ```console
-$ kubectl run nginx --image=nginx --replicas=2
+kubectl run nginx --image=nginx --replicas=2
+```
+```none
 deployment.apps/nginx created
-$ kubectl expose deployment nginx --port=80
+```
+
+And expose it via a service.
+
+```console
+kubectl expose deployment nginx --port=80
+```
+
+```none
 service/nginx exposed
 ```
 
 This runs two `nginx` pods in the default namespace, and exposes them through a service called `nginx`.
 
 ```console
-$ kubectl get svc,pod
+kubectl get svc,pod
+```
+
+```none
 NAME                        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
 service/kubernetes          10.100.0.1    <none>        443/TCP    46m
 service/nginx               10.100.0.16   <none>        80/TCP     33s
@@ -59,7 +72,10 @@ You should be able to access the new `nginx` service from other pods. To test, a
 Start a busybox container, and use `wget` on the `nginx` service:
 
 ```console
-$ kubectl run busybox --rm -ti --image=busybox /bin/sh
+kubectl run busybox --rm -ti --image=busybox /bin/sh
+```
+
+```console
 Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending, pod ready: false
 
 Hit enter for command prompt
@@ -94,7 +110,10 @@ spec:
 Use kubectl to create a NetworkPolicy from the above nginx-policy.yaml file:
 
 ```console
-$ kubectl create -f nginx-policy.yaml
+kubectl create -f nginx-policy.yaml
+```
+
+```none
 networkpolicy.networking.k8s.io/access-nginx created
 ```
 
@@ -102,7 +121,10 @@ networkpolicy.networking.k8s.io/access-nginx created
 If we attempt to access the nginx Service from a pod without the correct labels, the request will now time out:
 
 ```console
-$ kubectl run busybox --rm -ti --image=busybox /bin/sh
+kubectl run busybox --rm -ti --image=busybox /bin/sh
+```
+
+```console
 Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending, pod ready: false
 
 Hit enter for command prompt
@@ -118,7 +140,10 @@ wget: download timed out
 Create a pod with the correct labels, and you'll see that the request is allowed:
 
 ```console
-$ kubectl run busybox --rm -ti --labels="access=true" --image=busybox /bin/sh
+kubectl run busybox --rm -ti --labels="access=true" --image=busybox /bin/sh
+```
+
+```console
 Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending, pod ready: false
 
 Hit enter for command prompt
