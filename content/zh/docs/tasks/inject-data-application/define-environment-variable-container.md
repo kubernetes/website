@@ -29,29 +29,29 @@ content_template: templates/task
 {{< code file="envars.yaml" >}}
 
 1. 基于YAML文件创建一个Pod:
-       
-       ```shell
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
-       ```
 
+    ```shell
+    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
+    ```
+       
 1. 获取一下当前正在运行的Pods信息:
-       
-       ```shell
-       kubectl get pods -l purpose=demonstrate-envars
-       ```
 
+    ```shell
+    kubectl get pods -l purpose=demonstrate-envars
+    ```
+       
     查询结果应为:
-       
-        ```shell
-        NAME            READY     STATUS    RESTARTS   AGE
-        envar-demo      1/1       Running   0          9s
-        ```
-       
+    
+    ```shell
+    NAME            READY     STATUS    RESTARTS   AGE
+    envar-demo      1/1       Running   0          9s
+    ```
+      
 1. 进入该Pod下的容器并打开一个命令终端:
-       
-       ```shell
-       kubectl exec -it envar-demo -- /bin/bash
-       ```
+    
+    ```shell
+    kubectl exec -it envar-demo -- /bin/bash
+    ```
 
 1. 在命令终端中通过执行`printenv`打印出环境变量。
 
@@ -60,14 +60,14 @@ content_template: templates/task
     ```
     
     打印结果应为:
-       
-        ```shell
-        NODE_VERSION=4.4.2
-        EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
-        HOSTNAME=envar-demo
-        ...
-        DEMO_GREETING=Hello from the environment
-        ```
+    
+    ```shell
+    NODE_VERSION=4.4.2
+    EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
+    HOSTNAME=envar-demo
+    ...
+    DEMO_GREETING=Hello from the environment
+    ```
         
 1. 通过键入`exit`退出命令终端。
 
