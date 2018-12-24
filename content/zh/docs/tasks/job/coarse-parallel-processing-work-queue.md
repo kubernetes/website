@@ -172,12 +172,14 @@ You can also find the service IP in an env var:
 如果 Kube-DNS 没有正确安装，上一步可能会出错。
 你也可以在环境变量中找到服务 IP。
 
-```
-# env | grep RABBIT | grep HOST
-RABBITMQ_SERVICE_SERVICE_HOST=10.0.147.152
 <!--
 # Your address will vary.
 -->
+
+```
+# env | grep RABBIT | grep HOST
+RABBITMQ_SERVICE_SERVICE_HOST=10.0.147.152
+
 # 你的 IP 地址将会发生变化。
 ```
 
