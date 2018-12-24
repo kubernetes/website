@@ -16,8 +16,11 @@ weight: 40
 This page shows how to use an HTTP proxy to access the Kubernetes API.
 {{% /capture %}}
  -->
+ 
 {% capture overview %}
+
 本文说明如何使用 HTTP 代理访问 Kubernetes API。
+
 {% /capture %}
 
 {{% capture prerequisites %}}
@@ -116,5 +119,8 @@ Learn more about [kubectl proxy](/docs/reference/generated/kubectl/kubectl-comma
 {{% /capture %}}
  -->
 {% capture whatsnext %}
+
 想了解更多信息，请参阅 [kubectl 代理](/docs/reference/generated/kubectl/kubectl-commands#proxy)。
+
 {% /capture %}
+
