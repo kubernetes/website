@@ -144,11 +144,14 @@ Next, we will check that we can discover the rabbitmq service:
 
 接着，我们将要验证我们发现 RabbitMQ 服务：
 
-```
 <!--
 # Note the rabbitmq-service has a DNS name, provided by Kubernetes:
 -->
+<!--
+# Your address will vary.
+-->
 
+```
 # 请注意 rabbitmq-service 有Kubernetes 提供的 DNS 名称，
 
 root@temp-loe07:/# nslookup rabbitmq-service
@@ -157,9 +160,7 @@ Address:    10.0.0.10#53
 
 Name:    rabbitmq-service.default.svc.cluster.local
 Address: 10.0.147.152
-<!--
-# Your address will vary.
--->
+
 # 你的 IP 地址将会发生变化。
 ```
 
@@ -171,12 +172,14 @@ You can also find the service IP in an env var:
 如果 Kube-DNS 没有正确安装，上一步可能会出错。
 你也可以在环境变量中找到服务 IP。
 
-```
-# env | grep RABBIT | grep HOST
-RABBITMQ_SERVICE_SERVICE_HOST=10.0.147.152
 <!--
 # Your address will vary.
 -->
+
+```
+# env | grep RABBIT | grep HOST
+RABBITMQ_SERVICE_SERVICE_HOST=10.0.147.152
+
 # 你的 IP 地址将会发生变化。
 ```
 
@@ -186,39 +189,42 @@ Next we will verify we can create a queue, and publish and consume messages.
 
 接着我们将要确认可以创建队列，并能发布消息和消费消息。
 
-```shell
 <!--
 # In the next line, rabbitmq-service is the hostname where the rabbitmq-service
 # can be reached.  5672 is the standard port for rabbitmq.
 -->
-# 下一行，rabbitmq-service 是访问 rabbitmq-service 的主机名。5672是 rabbitmq 的标准端口。
-
-root@temp-loe07:/# export BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
 <!--
 # If you could not resolve "rabbitmq-service" in the previous step,
 # then use this command instead:
 # root@temp-loe07:/# BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
 
 # Now create a queue:
+
 -->
+<!-- 
+# and publish a message to it:
+-->
+<!--
+# and get it back.
+-->
+
+
+```shell
+# 下一行，rabbitmq-service 是访问 rabbitmq-service 的主机名。5672是 rabbitmq 的标准端口。
+
+root@temp-loe07:/# export BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
+
 # 如果上一步中你不能解析 "rabbitmq-service"，可以用下面的命令替换：
 # root@temp-loe07:/# BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
 
 # 现在创建队列：
 
-root@temp-loe07:/# /usr/bin/amqp-declare-queue --url=$BROKER_URL -q foo -d
-foo
-<!-- 
-# and publish a message to it:
--->
+root@temp-loe07:/# /usr/bin/amqp-declare-queue --url=$BROKER_URL -q foo -d foo
 
 # 向它推送一条消息:
 
 root@temp-loe07:/# /usr/bin/amqp-publish --url=$BROKER_URL -r foo -p -b Hello
 
-<!--
-# and get it back.
--->
 # 然后取回它.
 
 root@temp-loe07:/# /usr/bin/amqp-consume --url=$BROKER_URL -q foo -c 1 cat && echo
@@ -276,9 +282,9 @@ In practice, you might write a program to fill the queue using an amqp client li
 例如，我们创建队列并使用 amqp 命令行工具向队列中填充消息。实践中，你可以写个程序来利用 amqp 客户端库来填充这些队列。
 
 ```shell
-$ /usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
-job1
-$ for f in apple banana cherry date fig grape lemon melon
+$ /usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d job1
+$ for f in apple banana cherry date fig grape lemon melon 
+
 do
   /usr/bin/amqp-publish --url=$BROKER_URL -r job1 -p -b $f
 done
