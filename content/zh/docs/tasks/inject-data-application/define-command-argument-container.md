@@ -34,17 +34,17 @@ content_template: templates/task
 {{< code file="commands.yaml" >}}
 
 1. 基于YAML文件创建一个Pod：
-       
+    
     ```shell
     kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
     ```
-
+ 
 <!--
 2. List the running Pods:
 -->
 
    获取正在运行的 pod
-
+   
     ```shell
     kubectl get pods
     ```
@@ -58,7 +58,7 @@ content_template: templates/task
     ```
 
     日志中显示了HOSTNAME 与KUBERNETES_PORT 这两个环境变量的值：
-
+    
     ```shell
     command-demo
     tcp://10.3.240.1:443
@@ -95,7 +95,6 @@ content_template: templates/task
     ```shell
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello; sleep 10;done"]
-
     ```
 
 ## 注意
