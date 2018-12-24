@@ -20,16 +20,16 @@ in a `Pod` it is often necessary to share files between those Containers.  The
 Kubernetes `Volume` abstraction solves both of these problems.
 -->
 
-容器中的文件在磁盘上是暂时存放的，这给容器中运行的特殊应用程序带来一些问题。
-首先，当容器崩溃时，kubelet 将重新启动容器，容器中的文件将会丢失——因为容器会以干净的状态重建。
-其次，当在一个 `Pod` 中同时运行多个容器时，常常需要在这些容器之间共享文件。
-Kubernetes 抽象出了 `Volume` 对象来解决了这两个问题。
+容器中的文件在磁盘上是临时存放的，这给容器中运行的特殊应用程序带来一些问题。
+首先，当容器崩溃时，kubelet 将重新启动容器，容器中的文件将会丢失——因为容器会以干净的状态进行重建。
+其次，当在一个 `Pod` 中同时运行多个容器时，常常需要在这些容器之间进行文件共享。
+Kubernetes 抽象了 `Volume` 对象来解决了这两个问题。
 
 <!--
 Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 -->
 
-建议熟悉一下 [Pods](/docs/user-guide/pods)。 
+阅读本文前建议您熟悉一下 [Pods](/docs/user-guide/pods)。 
 
 {{% /capture %}}
 
@@ -51,10 +51,10 @@ parameters to volumes).
 
 ## 背景
 
-Docker 也有 [Volume](https://docs.docker.com/engine/admin/volumes/) 的概念。虽然它有些松散，管理更少。
+Docker 也有 [Volume](https://docs.docker.com/engine/admin/volumes/) 的概念。虽然它有些松散，对它的管理也不多。
 在 Docker 中，Volume 是磁盘上或者另外一个容器内的一个目录。
-直到最近，才支持对基于本地磁盘的 Volume 的生存期进行管理。
-虽然 Docker 现在也能提供卷驱动程序，但是目前功能非常有限（例如，截至 Docker 1.7，每个容器只允许一个 Volume 驱动程序，并且无法将参数传递给卷）。
+直到最近，Docker 才支持对基于本地磁盘的 Volume 的生存期进行管理。
+虽然 Docker 现在也能提供 Volume 驱动程序，但是目前功能还非常有限（例如，截至 Docker 1.7，每个容器只允许有一个 Volume 驱动程序，并且无法将参数传递给卷）。
 
 <!--
 A Kubernetes volume, on the other hand, has an explicit lifetime - the same as
@@ -66,8 +66,8 @@ use any number of them simultaneously.
 -->
 
 另一方面，Kubernetes Volume 具有明确的生命周期——与包裹它的 Pod 相同。
-因此，Volume 比 Pod 中运行的任何容器都长寿，在容器重新启动时数据也会得到保存。
-当然，当一个 Pod 不再存在时，Volume 也将不再存在。也许更重要的是，Kubernetes 支持许多类型的 Volume，Pod 可以同时使用任意数量的 Volume。
+因此，Volume 比 Pod 中运行的任何容器都长寿，在容器重新启动时数据也会得到保留。
+当然，当一个 Pod 不再存在时，Volume 也将不再存在。也许更重要的是，Kubernetes 支持许多类型的 Volume，Pod 也能同时使用任意数量的 Volume。
 
 <!--
 At its core, a volume is just a directory, possibly with some data in it, which
@@ -77,7 +77,7 @@ volume type used.
 -->
 
 Volume 的核心是个包含一些数据的目录，Pod 中的容器可以访问该目录。
-特定的 Volume 类型可以决定这个目录如何形成的，并决定它支持何种介质以及目录中存放的内容。
+特定的 Volume 类型可以决定这个目录如何形成的，并能决定它支持何种介质，以及目录中存放什么内容。
 
 
 <!--
@@ -88,7 +88,7 @@ field) and where to mount those into Containers (the
 field).
 -->
 
-使用 Volume 时, Pod 声明中需要提供：(`.spec.volumes` 字段)和 Volume 挂载到容器的什么位置 (`.spec.containers.volumeMounts` 字段).
+使用 Volume 时, Pod 声明中需要提供 Volume 的类型 (`.spec.volumes` 字段)和 Volume 挂载的位置 (`.spec.containers.volumeMounts` 字段).
 
 <!--
 A process in a container sees a filesystem view composed from their Docker
@@ -102,7 +102,7 @@ mount each volume.
 
 容器中的进程能看到由它们的 Docker 镜像和 Volume 组成的文件系统视图。
 [Docker 镜像](https://docs.docker.com/userguide/dockerimages/) 位于文件系统层次结构的根部，并且任何 Volume 都挂载在镜像内的指定路径上。
- Volume 不能挂载到其他 Volume，也不能与其他 Volume 有硬链接。
+Volume 不能挂载到其他 Volume，也不能与其他 Volume 有硬链接。
 Pod 中的每个容器必须独立地指定每个 Volume 的挂载位置。
 
 <!--
@@ -160,13 +160,13 @@ EBS volume can be pre-populated with data, and that data can be "handed off"
 between Pods.
 -->
 
-`awsElasticBlockStore` Volume 将 Amazon Web服务（AWS）[EBS Volume](http://aws.amazon.com/ebs/) 挂载到您的 Pod 中。
-与 `emptyDir` 在删除 Pod 时会被删除不同，EBS Volume 的内容在删除 Pod 时会被保留，Volume 只是被卸载。
-这意味着 EBS Volume 可以预先填充数据，并且可以在 Pod 之间切换数据。
+`awsElasticBlockStore` Volume 将 Amazon Web服务（AWS）[EBS 卷](http://aws.amazon.com/ebs/) 挂载到您的 Pod 中。
+与 `emptyDir` 在删除 Pod 时会被删除不同，EBS 卷的内容在删除 Pod 时会被保留，卷只是被卸载掉了。
+这意味着 EBS 卷可以预先填充数据，并且可以在 Pod 之间切换数据。
 
 {{< caution >}}
 <!--You must create an EBS volume using `aws ec2 create-volume` or the AWS API before you can use it.-->
-您在使用前必须先创建 EBS Volume，可以使用 `aws ec2 create-volume` 命令或 AWS API 进行创建。
+您在使用前必须先创建 EBS 卷，可以使用 `aws ec2 create-volume` 命令或 AWS API 进行创建。
 {{< /caution >}}
 
 <!--
@@ -177,11 +177,11 @@ There are some restrictions when using an `awsElasticBlockStore` volume:
 * EBS only supports a single EC2 instance mounting a volume
 -->
 
-使用 `awsElasticBlockStore` Volume 时有一些限制：
+使用 `awsElasticBlockStore` 卷时有一些限制：
 
 * Pod 正在运行的节点必须是AWS EC2实例。
-* 这些实例需要与 EBS Volume 在相同的区域和可用区。
-* EBS 只支持挂载到单个 EC2 实例上
+* 这些实例需要与 EBS 卷在相同的地域和可用区。
+* EBS 卷只支持被挂载到单个 EC2 实例上。
 
 <!--
 #### Creating an EBS volume
@@ -189,9 +189,9 @@ There are some restrictions when using an `awsElasticBlockStore` volume:
 Before you can use an EBS volume with a Pod, you need to create it.
 -->
 
-#### 创建 EBS Volume
+#### 创建 EBS 卷
 
-在将 EBS Volume 用到 Pod 上之前，您先要创建它。
+在将 EBS 卷用到 Pod 上之前，您首先要创建它。
 
 ```shell
 aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
@@ -202,7 +202,7 @@ Make sure the zone matches the zone you brought up your cluster in.  (And also c
 type are suitable for your use!)
 -->
 
-确保该区域与您的群集所在的区域相匹配。（也要检查 Volume 的大小和 EBS Volume 类型都适合您的用途！）
+确保该区域与您的群集所在的区域相匹配。（也要检查 Volume 的大小和 EBS 卷类型都适合您的用途！）
 
 <!--
 #### AWS EBS Example configuration
@@ -251,7 +251,7 @@ into a Pod.
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
 -->
 
-`azureFile` 用来在 Pod 上挂载微软 Azure 文件 Volume (SMB 2.1 and 3.0)。
+`azureFile` 用来在 Pod 上挂载微软 Azure 文件卷 (SMB 2.1 和 3.0)。
 更多详情请参考[这里](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md)。
 
 ### cephfs {#cephfs}
@@ -265,13 +265,13 @@ that data can be "handed off" between Pods.  CephFS can be mounted by multiple
 writers simultaneously.
 -->
 
-`cephfs` 允许您将现存的 CephFS Volume 挂载到 Pod 中。不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`cephfs` Volume 的内容在删除 Pod 时会被保存，Volume 只是被卸载掉了。
-这意味着 CephFS Volume 可以被预先填充数据，并且这些数据可以在 Pod 之间"传递"。CephFS Volume 可同时被多方挂载。
+`cephfs` 允许您将现存的 CephFS 卷挂载到 Pod 中。不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`cephfs` 卷的内容在删除 Pod 时会被保存，卷只是被卸载掉了。
+这意味着 CephFS 卷可以被预先填充数据，并且这些数据可以在 Pod 之间"传递"。CephFS 卷可同时被多方挂载。
 
 
 {{< caution >}}
 <!--You must have your own Ceph server running with the share exported before you can use it.-->
-在您使用 Ceph Volume 之前，您的 Ceph 服务器必须运行可导出的部分。
+在您使用 Ceph 卷之前，您的 Ceph 服务器必须正常运行并带有可导出的部分。
 {{< /caution >}}
 
 <!--
@@ -290,7 +290,7 @@ The data stored in a `ConfigMap` object can be referenced in a volume of type
 -->
 
 [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) 资源提供了向 Pod 注入配置数据的方法。
-`ConfigMap` 对象中存储的数据可以被 `configMap` 类型的 Volume 引用，然后被应用到 Pod 中运行的容器化应用。
+`ConfigMap` 对象中存储的数据可以被 `configMap` 类型的卷引用，然后被应用到 Pod 中运行的容器化应用。
 
 <!--
 When referencing a `configMap` object, you can simply provide its name in the
@@ -332,7 +332,7 @@ Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 -->
 
-`log-config` ConfigMap 是已 Volume 的形式挂载的，
+`log-config` ConfigMap 是以卷的形式挂载的，
 存储在 `log_level` 条目的所有内容都被挂载到 Pod 的 "`/etc/config/log_level`" 路径下。
 请注意，这个路径来源于 Volume 的 `mountPath` 和 `log_level` 键对应的 `path`。
 
@@ -368,7 +368,7 @@ receive Downward API updates.-->
 <!--
 See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 -->
-更多详细信息请参考 [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)。
+更多详细信息请参考 [`downwardAPI` 卷示例](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)。
 
 ### emptyDir {#emptydir}
 
@@ -388,7 +388,7 @@ any reason, the data in the `emptyDir` is deleted forever.
 
 {{< note >}}
 <!--A Container crashing does *NOT* remove a Pod from a node, so the data in an `emptyDir` volume is safe across Container crashes.-->
-容器崩溃并不会导致 Pod 被从节点上移除，因此容器崩溃时 `emptyDir` Volume 中的数据时安全的。
+容器崩溃并不会导致 Pod 被从节点上移除，因此容器崩溃时 `emptyDir` Volume 中的数据是安全的。
 {{< /note >}}
 
 <!--
@@ -419,7 +419,7 @@ memory limit.
 
 默认情况下， `emptyDir` Volume 存储在支持该节点的任何介质上，可以是磁盘或 SSD 或网络存储，这取决于您的环境。
 但是，您可以将 `emptyDir.medium` 字段设置为 `"Memory"`，以告诉 Kubernetes 为您安装 tmpfs（RAM支持的文件系统）。
-虽然tmpfs非常快，但是要注意，它与磁盘不同，它在节点重新启动时会被清除，并且您编写的任何文件都将根据容器的内存限制进行计数。
+虽然 tmpfs 速度非常快，但是要注意，它与磁盘不同，它在节点重新启动时会被清除，并且您编写的任何文件都将根据容器的内存限制进行计数。
 
 <!--
 #### Example Pod
@@ -490,8 +490,8 @@ reattached by Flocker to the node that the Pod is scheduled. This means data
 can be "handed off" between Pods as required.
 -->
 
-一个 `flocker` Volume 允许将一个 Flocker 数据集挂载到 Pod 中。
-如果数据集在 Flocker 中不存在，则需要首先使用 Flocker CLI 或使用 Flocker API 创建数据集。
+`flocker` Volume 允许将一个 Flocker 数据集挂载到 Pod 中。
+如果数据集在 Flocker 中不存在，则需要首先使用 Flocker CLI 或 Flocker API 创建数据集。
 如果数据集已经存在，那么 Flocker 将把它重新附加到 Pod 被调度的节点。
 这意味着数据可以根据需要在 Pod 之间 "切换"。
 
@@ -520,7 +520,7 @@ pre-populated with data, and that data can be "handed off" between Pods.
 ### gcePersistentDisk {#gcepersistentdisk}
 
 `gcePersistentDisk` Volume 能将 Google 计算引擎 (GCE) [持久盘（PD）](http://cloud.google.com/compute/docs/disks) 挂载到您的 Pod 中。
-不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，持久盘 Volume 的内容在删除 Pod 时会被保存，Volume 只是被卸载掉了。
+不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，持久盘 Volume 的内容在删除 Pod 时会被保留，Volume 只是被卸载掉了。
 这意味着持久盘 Volume 可以被预先填充数据，并且这些数据可以在 Pod 之间"传递"。
 
 {{< caution >}}
@@ -1499,7 +1499,7 @@ For installation instructions, consult the
 [StorageOS documentation](https://docs.storageos.com).
 -->
 
-您必须在希望访问 StorageOS Volume 或将向存储资源池提供存储容量的每个节点上运行 StorageOS 容器。
+您必须在每个希望访问 StorageOS Volume 的节点或者将向存储资源池提供存储容量的每个节点上运行 StorageOS 容器。
 有关安装说明，请参阅 [StorageOS 文档](https://docs.storageos.com)。
 
 {{< /caution >}}
@@ -1537,7 +1537,7 @@ For more information including Dynamic Provisioning and Persistent Volume Claims
 [StorageOS examples](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos).
 -->
 
-包括动态供应和持久卷申领的更多信息，请参考 [StorageOS 示例](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos)
+更多关于动态供应和持久卷申领的信息请参考 [StorageOS 示例](https://github.com/kubernetes/examples/blob/master/staging/volumes/storageos)
 
 ### vsphereVolume {#vspherevolume}
 
@@ -1546,7 +1546,7 @@ For more information including Dynamic Provisioning and Persistent Volume Claims
 Prerequisite: Kubernetes with vSphere Cloud Provider configured. For cloudprovider
 configuration please refer [vSphere getting started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/).
 -->
-前提条件：配备了 vSphere 云提供商的 Kubernetes。云提供商配置情参考 [vSphere getting started guide](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)。
+前提条件：配备了 vSphere 云驱动的 Kubernetes。云驱动的配置方法请参考 [vSphere 使用指南](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)。
 {{< /note >}}
 
 <!--
@@ -2021,7 +2021,7 @@ Its values are:
    
    换句话说，如果主机在此挂载 Volume 中挂载任何内容，容器将能看到它被挂载在那里。
    
-   类似的，如果带有 `Bidirectional` 挂载扩展的 Pod 在相同 Volume 上挂载了任何内容，那么带有 `HostToContainer` 挂在扩展的容器将能看到它。
+   类似的，如果带有 `Bidirectional` 挂载扩展的 Pod 在相同 Volume 上挂载了任何内容，那么带有 `HostToContainer` 挂载扩展的容器将能看到它。
 
    该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt) 中描述的 `rslave` 挂载扩展。
 
@@ -2067,7 +2067,7 @@ Docker as shown below.
 -->
 ### 配置
 
-挂载扩展在一些部署上正常工作前，必须在 Docker 中正确配置挂在共享，如下所示。
+挂载扩展在一些部署上正常工作前，必须在 Docker 中正确配置挂载共享，如下所示。
 
 <!--
 Edit your Docker's `systemd` service file.  Set `MountFlags` as follows:
