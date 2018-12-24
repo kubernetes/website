@@ -21,8 +21,8 @@ content_template: templates/task
 `39528$vdg7Jb`。 首先使用 [Base64 编码](https://www.base64encode.org/) 将用户名和密码转化为 base-64 形式。 这里是一个 Linux 示例：
 
     ```shell
-    echo -n 'my-app' | base64
-    echo -n '39528$vdg7Jb' | base64
+    	echo -n 'my-app' | base64
+    	echo -n '39528$vdg7Jb' | base64
     ```
 
 结果显示 base-64 形式的用户名为 `bXktYXBw`，
