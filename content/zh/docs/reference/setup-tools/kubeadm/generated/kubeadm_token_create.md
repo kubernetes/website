@@ -25,7 +25,7 @@ If no [token] is given, kubeadm will generate a random token instead.
 
 这里的 [token] 是指将要生成的真实 token。
 这应该是一个通过安全生成的随机令牌，形式为 "[a-z0-9]{6}.[a-z0-9]{16}"。
-如果没有给出 [token] ，kubeadm 将生成一个随机令牌。
+如果没有给出 [token]，kubeadm 将生成一个随机令牌。
 
 ```
 kubeadm token create [token]
@@ -122,7 +122,7 @@ kubeadm token create [token]
       <td colspan="2">--groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: [system:bootstrappers:kubeadm:default-node-token]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">此令牌将在用于身份验证时进行身份验证的额外组。必须匹配 "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">此令牌将在用于身份验证时进行身份验证的额外组。必须匹配  "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"</td>
     </tr>
 
     <tr>
@@ -143,20 +143,23 @@ kubeadm token create [token]
       <td colspan="2">--ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 24h0m0s</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">令牌有效时间，超过该时间令牌被自动删除。 (例如： 1s, 2m, 3h)。如果设置为 '0'，令牌将永远不过期。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">令牌有效时间，超过该时间令牌被自动删除。(例如： 1s, 2m, 3h)。如果设置为 '0'，令牌将永远不过期。</td>
     </tr>
 
     <tr>
       <td colspan="2">--usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: [signing,authentication]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">描述可以使用此令牌的方式。你可以多次使用 `--usages` 或者提供一个以逗号分隔的选项列表。 有效选项: [signing,authentication]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">描述可以使用此令牌的方式。你可以多次使用 `--usages` 或者提供一个以逗号分隔的选项列表。有效选项: [signing,authentication]</td>
     </tr>
 
   </tbody>
 </table>
 
 
+<!--
+### Options inherited from parent commands
+-->
 
 ### 从父命令继承的选项
 
@@ -211,7 +214,7 @@ kubeadm token create [token]
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">与群集通信时使用的 KubeConfig 文件。如果未设置，则搜索一系列默认位置以查找存在的 KubeConfig 文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
     </tr>
 
     <tr>
