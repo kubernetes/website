@@ -47,7 +47,7 @@ as part of a pod and are made available to be mounted into each application's
 filesystem.
 
 In terms of [Docker](https://www.docker.com/) constructs, a pod is modelled as
-a group of Docker containers with shared namespaces and shared
+a group of Docker containers with shared network namespaces and shared
 [volumes](/docs/concepts/storage/volumes/).
 
 Like individual application containers, pods are considered to be relatively
