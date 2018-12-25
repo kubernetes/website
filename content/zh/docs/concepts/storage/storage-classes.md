@@ -16,8 +16,8 @@ This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 -->
-本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉 [volumes（卷）](/docs/concepts/storage/volumes/) 和
-[persistent volumes（持久卷）](/docs/concepts/storage/persistent-volumes) 的概念。
+本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉 [卷](/docs/concepts/storage/volumes/) 和
+[持久卷](/docs/concepts/storage/persistent-volumes) 的概念。
 
 {{% /capture %}}
 
@@ -35,9 +35,9 @@ systems.
 -->
 ## 介绍
 
-`StorageClass` 为管理员提供了描述存储 "class（类）" 的方法。
-不同的 class 可能会映射到不同的服务质量等级或备份策略，或是由群集管理员制定的任意策略。
-Kubernetes 本身并不清楚各种 class 代表的什么。这个 class 的概念在其他存储系统中有时被称为"配置文件"。
+`StorageClass` 为管理员提供了描述存储 `"类"` 的方法。
+不同的`类型`可能会映射到不同的服务质量等级或备份策略，或是由群集管理员制定的任意策略。
+Kubernetes 本身并不清楚各种`类`代表的什么。这个`类`的概念在其他存储系统中有时被称为"配置文件"。
 
 <!--
 ## The StorageClass Resource
@@ -48,8 +48,8 @@ class needs to be dynamically provisioned.
  -->
 ## StorageClass 资源
 
-`StorageClass` 中包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
-这些字段会在 class 需要动态分配 `PersistentVolume` 时会使用到。
+每个 `StorageClass` 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
+这些字段会在`StorageClass`需要动态分配 `PersistentVolume` 时会使用到。
 
 <!--
 The name of a `StorageClass` object is significant, and is how users can
@@ -66,7 +66,7 @@ request any particular class to bind to: see the
 [`PersistentVolumeClaim` section](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
  -->
-管理员可以为没有申请绑定到特定 class 的 PVC 指定一个默认的 `StorageClass` ：
+管理员可以为没有申请绑定到特定 `StorageClass` 的 PVC 指定一个默认的`类` ：
 更多详情请参阅 [`PersistentVolumeClaim` 章节](#persistentvolumeclaims)。
 
 ```yaml
@@ -89,11 +89,11 @@ volumeBindingMode: Immediate
 Storage classes have a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
  -->
-### Provisioner（存储分配器）
+### 存储分配器
 
-Storage class 有一个分配器，用来决定使用哪个 volume plugin（卷插件）分配 PV。该字段必须指定。
+`StorageClass` 有一个分配器，用来决定使用哪个`卷插件`分配`持久化卷申领`。该字段必须指定。
 
-| Volume Plugin        | Internal Provisioner| Config Example                       |
+| 卷插件        | 提供厂商 | 配置例子                      |
 | :---                 |     :---:           |    :---:                             |
 | AWSElasticBlockStore | &#x2713;            | [AWS EBS](#aws-ebs)                          |
 | AzureFile            | &#x2713;            | [Azure File](#azure-file)            |
@@ -154,10 +154,10 @@ whatever reclaim policy they were assigned at creation.
  -->
 ### 回收策略
 
-由 storage class 动态创建的 Persistent Volume 会在的 `reclaimPolicy` 字段中指定回收策略，可以是
+由 `StorageClass` 动态创建的持久化卷会在的 `reclaimPolicy` 字段中指定回收策略，可以是
 `Delete` 或者 `Retain`。如果 `StorageClass` 对象被创建时没有指定 `reclaimPolicy` ，它将默认为 `Delete`。
 
-通过 storage class 手动创建并管理的 Persistent Volume 会使用它们被创建时指定的回收政策。
+通过 `StorageClass` 手动创建并管理的 Persistent Volume 会使用它们被创建时指定的回收政策。
 
 <!--
 ### Mount Options
@@ -171,10 +171,10 @@ the class or PV, so mount of the PV will simply fail if one is invalid.
  -->
 ### 挂载选项
 
-由 storage class 动态创建的 Persistent Volume 将使用 class 中 `mountOption` 字段指定的挂载选项。
+由 `StorageClass` 动态创建的 Persistent Volume 将使用`类`中 `mountOption` 字段指定的挂载选项。
 
 如果卷插件不支持挂载选项，却指定了该选项，则分配操作会失败。
-挂载选项在 class 和 PV 上都不会做验证，所以如果挂载选项无效，那么这个 PV 就会失败。
+挂载选项在 `StorageClass` 和持久卷上都不会做验证，所以如果挂载选项无效，那么这个 PV 就会失败。
 
 <!--
 ### Volume Binding Mode
@@ -193,8 +193,7 @@ enabled.
 The `volumeBindingMode` field controls when [volume binding and dynamic
 provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
  -->
-`volumeBindingMode` 字段控制了 [volume binding and dynamic
-provisioning（卷绑定和动态分配）](/docs/concepts/storage/persistent-volumes/#provisioning)
+`volumeBindingMode` 字段控制了 [卷绑定和动态分配](/docs/concepts/storage/persistent-volumes/#provisioning)
 应该发生在什么时候。
 
 <!--
@@ -221,9 +220,9 @@ and [taints and tolerations](/docs/concepts/configuration/taint-and-toleration).
 集群管理员可以通过指定 `WaitForFirstConsumer` 模式来解决此问题。
 该模式将延迟 PersistentVolume 的绑定和分配，直到使用该 PersistentVolumeClaim 的 Pod 被创建。
 PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或分配。这些包括但不限于 [资源需求](/docs/concepts/configuration/manage-compute-resources-container)，
-[节点筛选器（nodeselector）](/docs/concepts/configuration/assign-pod-node/#nodeselector)，
-[pod 亲和度和互斥性](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
-and [污点和容忍度](/docs/concepts/configuration/taint-and-toleration).
+[节点筛选器](/docs/concepts/configuration/assign-pod-node/#nodeselector)，
+[pod 亲和性和互斥性](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
+以及 [污点和容忍度](/docs/concepts/configuration/taint-and-toleration).
 
 <!--
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
@@ -252,20 +251,20 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 <!--
 ### Allowed Topologies
 -->
-### 允许的拓扑
+### 允许的拓扑结构
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 <!--
 **Note:** This feature requires the `VolumeScheduling` feature gate to be enabled.
 -->
-**注意：** 这个特性需要开启 `VolumeScheduling` 特性开关（feature gate）。
+**注意：** 这个特性需要开启 `VolumeScheduling` 特性开关。
 
 <!--
 When a cluster operactor specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
 to restrict provisioning to specific topologies in most situations. However,
 if still required, `allowedTopologies` can be specified.
 -->
-当集群操作人员使用了 `WaitForFirstConsumer` 的卷绑定模式，在大部分情况下就没有必要将配置限制为特定拓扑。
+当集群操作人员使用了 `WaitForFirstConsumer` 的卷绑定模式，在大部分情况下就没有必要将配置限制为特定的拓扑结构。
 然而，如果还有需要的话，可以使用 `allowedTopologies`。
 
 <!--
@@ -345,8 +344,8 @@ parameters:
   generated by AWS. See AWS docs for valid ARN value.
 -->
 * `type`：`io1`，`gp2`，`sc1`，`st1`。详细信息参见 [AWS 文档](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。默认值：`gp2`。
-* `zone`(弃用)：AWS 区域。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。`zone` 和 `zones` 参数不能同时使用。
-* `zones`(弃用)：以逗号分隔的 AWS 区域列表。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。`zone`和`zones`参数不能同时使用。
+* `zone`(弃用)：AWS 区域。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone` 和 `zones` 参数不能同时使用。
+* `zones`(弃用)：以逗号分隔的 AWS 区域列表。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone`和`zones`参数不能同时使用。
 * `iopsPerGB`：只适用于 `io1` 卷。每 GiB 每秒 I/O 操作。AWS 卷插件将其与请求卷的大小相乘以计算 IOPS 的容量，并将其限制在 20 000 IOPS（AWS 支持的最高值，请参阅 [AWS 文档](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。
   这里需要输入一个字符串，即 `"10"`，而不是 `10`。
 * `fsType`：受 Kubernetes 支持的文件类型。默认值：`"ext4"`。
@@ -356,7 +355,7 @@ parameters:
 **Note:** `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
  -->
-**注意：** `zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
+**注意：** `zone` 和 `zones` 已被弃用并被 [允许的拓扑结构](#allowed-topologies) 取代。
 
 ### GCE PD
 
@@ -382,14 +381,14 @@ parameters:
 * `replication-type`: `none` or `regional-pd`. Default: `none`.
 -->
 * `type`：`pd-standard` 或者 `pd-ssd`。默认：`pd-standard`
-* `zone`(弃用)：GCE 区域。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。`zone` 和 `zones` 参数不能同时使用。
+* `zone`(弃用)：GCE 区域。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone` 和 `zones` 参数不能同时使用。
 * `zones`(弃用)：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。`zone` 和 `zones` 参数不能同时使用。
 * `replication-type`：`none` 或者 `regional-pd`。默认值：`none`。
 
 <!--
 If `replication-type` is set to `none`, a regular (zonal) PD will be provisioned.
 -->
-如果 `replication-type` 设置为 `none`，会分配一个常规（zonal）持久化磁盘。
+如果 `replication-type` 设置为 `none`，会分配一个常规（当前区域内的）持久化磁盘。
 
 <!--
 If `replication-type` is set to `regional-pd`, a
@@ -450,7 +449,7 @@ parameters:
 * `resturl`：分配 gluster 卷的需求的 Gluster REST 服务/Heketi 服务 url。
   通用格式应该是 `IPaddress:Port`，这是 GlusterFS 动态分配器的必需参数。
   如果 Heketi 服务在 openshift/kubernetes 中安装并暴露为可路由服务，则可以使用类似于
-  `http://heketi-storage-project.cloudapps.mystorage.com` 的格式，其中 fqdn 是可解析的 heketi 服务 url。
+  `http://heketi-storage-project.cloudapps.mystorage.com` 的格式，其中 fqdn 是可解析的 heketi 服务网址。
 * `restauthenabled`：Gluster REST 服务身份验证布尔值，用于启用对 REST 服务器的身份验证。如果此值为 'true'，则必须填写 `restuser` 和 `restuserkey` 或 `secretNamespace` + `secretName`。此选项已弃用，当在指定 `restuser`，`restuserkey`，`secretName` 或  `secretNamespace` 时，身份验证被启用。
 * `restuser`：在 Gluster 可信池中有权创建卷的 Gluster REST服务/Heketi 用户。
 * `restuserkey`：Gluster REST 服务/Heketi 用户的密码将被用于对 REST 服务器进行身份验证。此参数已弃用，取而代之的是 `secretNamespace` + `secretName`。
@@ -545,7 +544,7 @@ parameters:
 * `availability`: Availability Zone. If not specified, volumes are generally
   round-robin-ed across all active zones where Kubernetes cluster has a node.
 -->
-* `availability`：可用区域。如果没有指定，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。
+* `availability`：可用区域。如果没有指定，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。
 
 <!--
 {{< note >}}
@@ -609,7 +608,7 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
 <!--
 3. Storage Policy Management inside kubernetes
 -->
-3. Kubernetes 中的存储策略管理（Storage Policy Management）
+3. Kubernetes 中的存储策略管理
 
 <!--
     * Using existing vCenter SPBM policy
@@ -696,12 +695,12 @@ parameters:
   same as `adminId`.
 -->
 * `monitors`：Ceph monitor，逗号分隔。该参数是必需的。
-* `adminId`：Ceph 客户端 ID，用于在池（ceph pool）中创建映像。默认是 "admin"。
+* `adminId`：Ceph 客户端 ID，用于在池 ceph 池中创建映像。默认是 "admin"。
 * `adminSecret`：`adminId` 的 Secret 名称。该参数是必需的。
   提供的 secret 必须有值为 "kubernetes.io/rbd" 的 type 参数。
 * `adminSecretNamespace`：`adminSecret` 的命名空间。默认是 "default"。
 * `pool`: Ceph RBD 池. 默认是 "rbd"。
-* `userId`：Ceph 客户端 ID，用于映射 RBD 镜像（RBD image）。默认与 `adminId` 相同。
+* `userId`：Ceph 客户端 ID，用于映射 RBD 镜像。默认与 `adminId` 相同。
 <!--
 * `userSecretName`: The name of Ceph Secret for `userId` to map RBD image. It
   must exist in the same namespace as PVCs. This parameter is required.
