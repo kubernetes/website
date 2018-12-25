@@ -1,10 +1,13 @@
 
-在服务器上创建启动引导令牌
+在服务器上创建引导令牌
 
 <!--
 Create bootstrap tokens on the server.
 -->
 
+<!--
+### Synopsis
+-->
 
 ### 概要
 
@@ -18,11 +21,11 @@ If no [token] is given, kubeadm will generate a random token instead.
 -->
 
 这个命令将为你创建一个引导令牌。
-您可以指定此令牌的用途，“生存时间”和可选的人性化的描述。
+您可以设置此令牌的用途，"有效时间" 和可选的人性化的描述。
 
-这里的[token] 是指将要生成的真实token。
-这应该是一个通过安全生成的随机令牌，形式为“[a-z0-9]{6}.[a-z0-9]{16}”。
-如果没有给出[token]，kubeadm将生成一个随机令牌。
+这里的 [token] 是指将要生成的真实 token。
+这应该是一个通过安全生成的随机令牌，形式为 "[a-z0-9]{6}.[a-z0-9]{16}"。
+如果没有给出 [token] ，kubeadm 将生成一个随机令牌。
 
 ```
 kubeadm token create [token]
@@ -126,18 +129,18 @@ kubeadm token create [token]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">操作的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">创建操作的帮助信息</td>
     </tr>
 
     <tr>
       <td colspan="2">--print-join-command</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">输出使用令牌加入群集所需的完整的“kubeadm join”样式的命令，而不是只输出令牌。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">输出使用令牌加入群集所需的完整的 "kubeadm join" 样式的命令，而不是只输出令牌。</td>
     </tr>
 
     <tr>
-      <td colspan="2">--ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 24h0m0s</td>
+      <td colspan="2">--ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 24h0m0s</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">令牌有效时间，超过该时间令牌被自动删除。 (例如： 1s, 2m, 3h)。如果设置为 '0'，令牌将永远不过期。</td>
@@ -201,14 +204,14 @@ kubeadm token create [token]
       <td colspan="2">--dry-run</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">是否启用`dry-run`运行模式</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">是否启用 `dry-run` 运行模式</td>
     </tr>
 
     <tr>
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">与群集通信时使用的KubeConfig文件。如果未设置，则搜索一系列默认位置以查找存在的KubeConfig文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">与群集通信时使用的 KubeConfig 文件。如果未设置，则搜索一系列默认位置以查找存在的 KubeConfig 文件。</td>
     </tr>
 
     <tr>
