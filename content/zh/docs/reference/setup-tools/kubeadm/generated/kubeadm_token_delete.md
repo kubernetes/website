@@ -17,7 +17,7 @@ The [token-value] is the full Token of the form "[a-z0-9]{6}.[a-z0-9]{16}" or th
 Token ID of the form "[a-z0-9]{6}" to delete.
 -->
 
-这个命令将为你创建一个引导令牌。
+这个命令将为你删除指定的引导令牌。
 
 [token-value] 是要删除的 "[a-z0-9]{6}.[a-z0-9]{16}" 形式的完整令牌或者是 "[a-z0-9]{6}" 形式的的令牌 ID。
 
@@ -61,7 +61,7 @@ kubeadm token delete [token-value]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">删除操作的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">delete 操作的帮助信息</td>
     </tr>
 
   </tbody>
