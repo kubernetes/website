@@ -23,8 +23,8 @@ If no [token] is given, kubeadm will generate a random token instead.
 这个命令将为你创建一个引导令牌。
 您可以设置此令牌的用途，"有效时间" 和可选的人性化的描述。
 
-这里的 [token] 是指将要生成的真实 token。
-这应该是一个通过安全生成的随机令牌，形式为 "[a-z0-9]{6}.[a-z0-9]{16}"。
+这里的 [token] 是指将要生成的实际令牌。
+该令牌应该是一个通过安全机制生成的随机令牌，形式为 "[a-z0-9]{6}.[a-z0-9]{16}"。
 如果没有给出 [token]，kubeadm 将生成一个随机令牌。
 
 ```
@@ -129,7 +129,7 @@ kubeadm token create [token]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">创建操作的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create 操作的帮助信息</td>
     </tr>
 
     <tr>
@@ -150,7 +150,7 @@ kubeadm token create [token]
       <td colspan="2">--usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: [signing,authentication]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">描述可以使用此令牌的方式。你可以多次使用 `--usages` 或者提供一个以逗号分隔的选项列表。有效选项: [signing,authentication]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">描述可以使用此令牌的方式。你可以多次使用 `--usages` 或者提供一个以逗号分隔的选项列表。合法选项有: [signing,authentication]</td>
     </tr>
 
   </tbody>
