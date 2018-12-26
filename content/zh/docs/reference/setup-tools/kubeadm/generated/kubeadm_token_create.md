@@ -129,7 +129,7 @@ kubeadm token create [token]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Create 操作的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">create 操作的帮助信息</td>
     </tr>
 
     <tr>
