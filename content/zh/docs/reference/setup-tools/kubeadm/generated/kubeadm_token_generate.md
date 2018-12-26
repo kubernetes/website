@@ -1,5 +1,5 @@
 
-在服务器上生成并输出引导令牌，但并不创建
+生成并打印一个引导令牌但并不在服务器上创建令牌对象。
 
 <!--
 Generate and print a bootstrap token, but do not create it on the server.
@@ -23,11 +23,11 @@ You can also use "kubeadm init" without specifying a token and it will
 generate and print one for you.
 -->
 
-此命令将输出一个随机生成的可以被 "init" 和 "join" 命令使用的引导令牌。
+此命令将打印一个随机生成的可以被 "init" 和 "join" 命令使用的引导令牌。
 
 您不必使用此命令来生成令牌。你可以自己设定，只要格式符合 "[a-z0-9]{6}.[a-z0-9]{16}"。这个命令提供是为了方便生成规定格式的令牌。
 
-您也可以使用 "kubeadm init" 并且不指定令牌，它会为您输出并打印一个。
+您也可以使用 "kubeadm init" 并且不指定令牌，该命令会生成一个令牌并打印出来。
 
 ```
 kubeadm token generate [flags]
@@ -70,7 +70,7 @@ kubeadm token generate [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">生成命令的帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">generate 操作的帮助信息</td>
     </tr>
 
   </tbody>
