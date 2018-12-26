@@ -34,7 +34,7 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/
 To protect your cluster data, Dashboard deploys with a minimal RBAC configuration by default. Currently, Dashboard only supports logging in with a Bearer Token. To create a token for this demo, you can follow our guide on [creating a sample user](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user).
 
 {{< warning >}}
-The sample user created in the tutorial will have administrative privelages and is for educational purposes only.
+The sample user created in the tutorial will have administrative privileges and is for educational purposes only.
 {{< /warning >}}
 
 ### Command line proxy
