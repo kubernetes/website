@@ -31,7 +31,7 @@ A service account provides an identity for processes that run in a Pod.
 
 服务账户为 Pod 中运行的进程提供了一个标识。
 
-*本文是服务账户的用户使用介绍。您也可以参考 [集群管理指南之服务账户](/docs/reference/access-authn-authz/service-accounts-admin/)。*
+*本文是服务账户的用户使用介绍。您也可以参考[集群管理指南之服务账户](/docs/reference/access-authn-authz/service-accounts-admin/)。*
 
 
 {{< note >}}
@@ -42,7 +42,7 @@ customized the behavior in your cluster, in which case this documentation may
 not apply.
 -->
 
-本文档描述 Kubernetes 项目推荐的集群中服务帐户的属性。
+本文档描述 Kubernetes 项目推荐的集群中服务帐户的行为。
 集群管理员也可能已经定制了服务账户在集群中的属性，在这种情况下，本文档可能并不适用。
 
 {{< /note >}}
