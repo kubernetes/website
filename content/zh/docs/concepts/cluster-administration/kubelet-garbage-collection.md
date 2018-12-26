@@ -152,14 +152,14 @@ Users can adjust the following thresholds to tune image garbage collection with 
 1. `image-gc-high-threshold`，触发镜像垃圾回收的磁盘使用率百分比。默认值为 85%。
 
     <!--
-    1.`image-gc-high-threshold`, the percent of disk usage which triggers image garbage collection.
+    1. `image-gc-high-threshold`, the percent of disk usage which triggers image garbage collection.
     Default is 85%.
     -->
 
 2. `image-gc-low-threshold`，镜像垃圾回收试图释放资源后达到的磁盘使用率百分比。默认值为 80%。
 
     <!--
-    2.`image-gc-low-threshold`, the percent of disk usage to which image garbage collection attempts
+    2. `image-gc-low-threshold`, the percent of disk usage to which image garbage collection attempts
     to free. Default is 80%.
     -->
 
@@ -172,21 +172,21 @@ We also allow users to customize garbage collection policy through the following
 1. `minimum-container-ttl-duration`，完成的容器在被垃圾回收之前的最小年龄，默认是 0 分钟，这意味着每个完成的容器都会被执行垃圾回收。
 
     <!--
-    1.`minimum-container-ttl-duration`, minimum age for a finished container before it is
+    1. `minimum-container-ttl-duration`, minimum age for a finished container before it is
     garbage collected. Default is 0 minute, which means every finished container will be garbage collected.
     -->
 
 2. `maximum-dead-containers-per-container`，每个容器要保留的旧实例的最大数量。默认值为 1。
 
     <!--
-    2.`maximum-dead-containers-per-container`, maximum number of old instances to be retained
+    2. `maximum-dead-containers-per-container`, maximum number of old instances to be retained
     per container. Default is 1.
     -->
 
 3. `maximum-dead-containers`，要全局保留的旧容器实例的最大数量。默认值是 -1，这意味着没有全局限制。
 
     <!--
-    3.`maximum-dead-containers`, maximum number of old instances of containers to retain globally.
+    3. `maximum-dead-containers`, maximum number of old instances of containers to retain globally.
     Default is -1, which means there is no global limit.
     -->
 
