@@ -1,5 +1,5 @@
 
-为将要添加的用户输出 kubeconfig 文件
+为其他用户输出 kubeconfig 文件
 <!--
 Outputs a kubeconfig file for an additional user
 -->
@@ -16,7 +16,7 @@ Outputs a kubeconfig file for an additional user.
 Alpha Disclaimer: this command is currently alpha.
 -->
 
-为将要添加的用户输出 kubeconfig 文件。
+为其他用户输出 kubeconfig 文件。
 Alpha 免责声明：此命令目前是 alpha。
 
 ```
@@ -37,7 +37,7 @@ kubeadm alpha phase kubeconfig user [flags]
 -->
 
 ```
-  # 为名为 foo 的将要添加的用户输出 kubeconfig 文件
+  # 为名为 foo 的其他用户输出 kubeconfig 文件
   kubeadm alpha phase kubeconfig user --client-name=foo
 ```
 
@@ -126,14 +126,14 @@ kubeadm alpha phase kubeconfig user [flags]
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">可访问的 API 服务器 IP 地址</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用来访问 API 服务器的 IP 地址</td>
     </tr>
 
     <tr>
       <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 6443</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">可访问的 API 服务器的端口</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用来访问 API 服务器的端口</td>
     </tr>
 
     <tr>
@@ -175,7 +175,7 @@ kubeadm alpha phase kubeconfig user [flags]
       <td colspan="2">--token string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">应该用作此 kubeconfig 身份验证机制的令牌，而不是客户端证书</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">需要用来完成 kubeconfig 身份认证操作的令牌，设定此值时 kubeadm 不再使用客户端证书</td>
     </tr>
 
   </tbody>
