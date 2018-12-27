@@ -1,5 +1,5 @@
 
-实验子命令尚未完成全部功能。
+功能尚不完整的实验性子命令
 
 <!--
 Experimental sub-commands not yet fully functional.
@@ -16,7 +16,7 @@ Experimental sub-commands not yet fully functional.
 -->
 
 
-实验子命令尚未完成全部功能。
+功能尚不完整的实验性子命令。
 
 <!--
 ### Options
