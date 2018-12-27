@@ -1,4 +1,4 @@
-为给定的 shell 输出 shell 自动补全代码（ bash 或 zsh）。
+为指定的 shell 输出 shell 自动补全代码（ bash 或 zsh）。
 <!--
 Output shell completion code for the specified shell (bash or zsh).
 -->
@@ -16,7 +16,7 @@ completion of kubeadm commands. This can be done by sourcing it from
 the .bash_profile.
 -->
 
-为给定的 shell 输出 shell 自动补全代码（ bash 或 zsh）。
+为指定的 shell 输出 shell 自动补全代码（ bash 或 zsh）。
 必须激活 shell 代码以提供交互式 kubeadm 命令补全。这可以通过加载 .bash_profile 文件完成。
 
 
