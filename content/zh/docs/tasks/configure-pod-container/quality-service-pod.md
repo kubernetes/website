@@ -20,7 +20,7 @@ Quality of Service (QoS) classes. Kubernetes uses QoS classes to make decisions 
 scheduling and evicting Pods.
 -->
 
-本文介绍怎样配置 Pod 让其获得特定的服务质量（QoS）分组。Kubernetes 使用 QoS 分组来决定 Pod 的调度和驱逐策略。
+本文介绍怎样配置 Pod 让其获得特定的服务质量（QoS）类。Kubernetes 使用 QoS 类来决定 Pod 的调度和驱逐策略。
 
 {{% /capture %}}
 
@@ -40,9 +40,9 @@ scheduling and evicting Pods.
 When Kubernetes creates a Pod it assigns one of these QoS classes to the Pod:
 -->
 
-## QoS 分组
+## QoS 类
 
-Kubernetes 创建 Pod 时就给它指定了下列一种 QoS 分组：
+Kubernetes 创建 Pod 时就给它指定了下列一种 QoS 类：
 
 * Guaranteed
 * Burstable
@@ -57,7 +57,7 @@ isolated from the rest of your cluster.
 
 ## 创建命名空间
 
-创建一个命名空间，以便本练习所创建的资源与集群的其余资源相隔离。
+创建一个命名空间，以便将本练习所创建的资源与集群的其余资源相隔离。
 
 ```shell
 kubectl create namespace qos-example
@@ -75,9 +75,9 @@ Here is the configuration file for a Pod that has one Container. The Container h
 memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU request, both equal to 700 milliCPU:
 -->
 
-## 创建一个 QoS 分组为 Guaranteed 的 Pod
+## 创建一个 QoS 类为 Guaranteed 的 Pod
 
-对于 QoS 分组为 Guaranteed 的 Pod：
+对于 QoS 类为 Guaranteed 的 Pod：
 
 * Pod 中的每个容器必须指定内存请求和内存限制，并且两者要相等。
 * Pod 中的每个容器必须指定 CPU 请求和 CPU 限制，并且两者要相等。
@@ -114,7 +114,7 @@ verifies that the Pod Container has a memory request that matches its memory lim
 a CPU request that matches its CPU limit.
 -->
 
-结果表明 Kubernetes 为 Pod 配置的 QoS 分组为 Guaranteed。
+结果表明 Kubernetes 为 Pod 配置的 QoS 类为 Guaranteed。
 结果也确认了 Pod 容器设置了与内存限制匹配的内存请求，设置了与 CPU 限制匹配的 CPU 请求。
 
 ```yaml
@@ -166,11 +166,11 @@ Here is the configuration file for a Pod that has one Container. The Container h
 and a memory request of 100 MiB.
 -->
 
-## 创建一个 QoS 分组为 Burstable 的 Pod
+## 创建一个 QoS 类为 Burstable 的 Pod
 
-如果满足下面条件，将会指定 Pod 的 QoS 分组为 Burstable：
+如果满足下面条件，将会指定 Pod 的 QoS 类为 Burstable：
 
-* Pod 不符合 Guaranteed QoS 分组的标准。
+* Pod 不符合 Guaranteed QoS 类的标准。
 * Pod 中至少一个容器具有内存或 CPU 请求。
 
 下面是包含一个容器的 Pod 配置文件。
@@ -202,7 +202,7 @@ kubectl get pod qos-demo-2 --namespace=qos-example --output=yaml
 The output shows that Kubernetes gave the Pod a QoS class of Burstable.
 -->
 
-结果表明 Kubernetes 为 Pod 配置的 QoS 分组为 Burstable。
+结果表明 Kubernetes 为 Pod 配置的 QoS 类为 Burstable。
 
 ```yaml
 spec:
@@ -239,9 +239,9 @@ Here is the configuration file for a Pod that has one Container. The Container h
 limits or requests:
 -->
 
-## 创建一个 QoS 分组为 BestEffort 的 Pod
+## 创建一个 QoS 类为 BestEffort 的 Pod
 
-对于 QoS 分组为 BestEffort 的 Pod，Pod 中的容器必须没有设置内存和 CPU 限制或请求。
+对于 QoS 类为 BestEffort 的 Pod，Pod 中的容器必须没有设置内存和 CPU 限制或请求。
 
 下面是包含一个容器的 Pod 配置文件。
 容器没有设置内存和 CPU 限制或请求。
@@ -274,7 +274,7 @@ kubectl get pod qos-demo-3 --namespace=qos-example --output=yaml
 The output shows that Kubernetes gave the Pod a QoS class of BestEffort.
 -->
 
-结果表明 Kubernetes 为 Pod 配置的 QoS 分组为 BestEffort。
+结果表明 Kubernetes 为 Pod 配置的 QoS 类为 BestEffort。
 
 ```yaml
 spec:
@@ -318,8 +318,8 @@ criteria for QoS class Guaranteed, and one of its Containers has a memory reques
 Create the Pod:
 -->
 
-注意此 Pod 满足 Burstable QoS 分组的标准。
-也就是说它不满足 Guaranteed QoS 分组标准，因为它的一个容器设有内存请求。
+注意此 Pod 满足 Burstable QoS 类的标准。
+也就是说它不满足 Guaranteed QoS 类标准，因为它的一个容器设有内存请求。
 
 创建 Pod：
 
@@ -341,7 +341,7 @@ kubectl get pod qos-demo-4 --namespace=qos-example --output=yaml
 The output shows that Kubernetes gave the Pod a QoS class of Burstable:
 -->
 
-结果表明 Kubernetes 为 Pod 配置的 QoS 分组为 Burstable：
+结果表明 Kubernetes 为 Pod 配置的 QoS 类为 Burstable：
 
 ```yaml
 spec:
@@ -434,7 +434,7 @@ kubectl delete namespace qos-example
 * [为命名空间配置 Pod 配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
 
 * [为 API 对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
--->
+
 
 {{% /capture %}}
 
