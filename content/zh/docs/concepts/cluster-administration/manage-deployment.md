@@ -56,7 +56,7 @@ deployment.apps/my-nginx created
 <!--
 The resources will be created in the order they appear in the file. Therefore, it's best to specify the service first, since that will ensure the scheduler can spread the pods associated with the service as they are created by the controller(s), such as Deployment.
  -->
-资源将按照它们在文件中的顺序创建。因此，最好先指定`服务`，因为在 Pod 由控制器创建的时候，能够确保调度程序可以扩展与服务关联的 Pod，例如Deployment。
+资源将按照它们在文件中的顺序创建。因此，最好先指定服务，这样在控制器（例如 Deployment）创建 Pod 时能够确保调度器可以将与服务关联的多个 Pod 分散到不同节点。
 
 <!--
 `kubectl create` also accepts multiple `-f` arguments:
@@ -70,7 +70,7 @@ $ kubectl create -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f 
 <!--
 And a directory can be specified rather than or in addition to individual files:
  -->
-还可以指定目录，而不用额外添加多个单独的文件：
+还可以指定目录，而不用添加多个单独的文件：
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/application/nginx/
@@ -85,9 +85,9 @@ A URL can also be specified as a configuration source, which is handy for deploy
  -->
 `kubectl` 将读取任何后缀为 `.yaml`，`.yml` 或者 `.json` 的文件。
 
-建议的做法时将同一个微服务或应用层相关的资源放到同一个文件中，将同一个应用相关的所有文件分组到同一个目录中。如果应用的各层使用 DNS 相互绑定，那么您可以简单地将堆栈的所有组件一起部署。
+建议的做法是，将同一个微服务或同一应用层相关的资源放到同一个文件中，将同一个应用相关的所有文件按组存放到同一个目录中。如果应用的各层使用 DNS 相互绑定，那么您可以简单地将堆栈的所有组件一起部署。
 
-还可以将 URL 指定为配置源，便于直接用 Github 上的配置文件进行部署：
+还可以使用 URL 作为配置源，便于直接使用已经提交到 Github 上的配置文件进行部署：
 
 ```shell
 $ kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
@@ -101,7 +101,7 @@ Resource creation isn't the only operation that `kubectl` can perform in bulk. I
  -->
 ## kubectl 中的批量操作
 
-资源创建并不是 `kubectl` 可以批量执行的唯一操作。它还可以从配置文件中提取资源名，以便执行其他操作，特别是删除您之前创建的资源：
+资源创建并不是 `kubectl` 可以批量执行的唯一操作。`kubectl` 还可以从配置文件中提取资源名，以便执行其他操作，特别是删除您之前创建的资源：
 
 ```shell
 $ kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
@@ -112,7 +112,7 @@ service "my-nginx-svc" deleted
 <!--
 In the case of just two resources, it's also easy to specify both on the command line using the resource/name syntax:
  -->
-尤其在有两种资源的情况下，可以使用 资源/名称 的语法在命令行中指定这两个资源：
+在仅有两种资源的情况下，可以使用"资源/名称"的语法在命令行中同时指定这两个资源：
 
 ```shell
 $ kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -121,7 +121,7 @@ $ kubectl delete deployments/my-nginx services/my-nginx-svc
 <!--
 For larger numbers of resources, you'll find it easier to specify the selector (label query) specified using `-l` or `--selector`, to filter resources by their labels:
  -->
-对于更多的资源，您会发现使用 `-l` 或 `--selector` 指定的筛选器（`标签`查询）能很容易根据标签筛选资源：
+对于资源数目较大的情况，您会发现使用 `-l` 或 `--selector` 指定的筛选器（标签查询）能很容易根据标签筛选资源：
 
 ```shell
 $ kubectl delete deployment,services -l app=nginx
@@ -132,7 +132,7 @@ service "my-nginx-svc" deleted
 <!--
 Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
  -->
-由于 `kubectl` 输出和接受的资源名称的语法相同，所以很容易使用 `$()` 或 `xargs` 进行链操作：
+由于 `kubectl` 用来输出资源名称的语法与其所接受的资源名称语法相同，所以很容易使用 `$()` 或 `xargs` 进行链式操作：
 
 ```shell
 $ kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
@@ -144,7 +144,7 @@ my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 With the above commands, we first create resources under `examples/application/nginx/` and print the resources created with `-o name` output format
 (print each resource as resource/name). Then we `grep` only the "service", and then print it with `kubectl get`.
  -->
-上面的命令中，我们首先使用 `examples/application/nginx/` 下的配置文件创建资源，并使用 `-o name` 的输出格式（以 资源/名称 的形式打印每个资源）打印创建的资源。然后，我们通过 `grep` 仅获取`"服务"`，最后再打印 `kubectl get` 的内容。
+上面的命令中，我们首先使用 `examples/application/nginx/` 下的配置文件创建资源，并使用 `-o name` 的输出格式（以"资源/名称"的形式打印每个资源）打印所创建的资源。然后，我们通过 `grep` 来过滤 "service"，最后再打印 `kubectl get` 的内容。
 
 <!--
 If you happen to organize your resources across several subdirectories within a particular directory, you can recursively perform the operations on the subdirectories also, by specifying `--recursive` or `-R` alongside the `--filename,-f` flag.
@@ -169,7 +169,8 @@ project/k8s/development
 <!--
 By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we had tried to create the resources in this directory using the following command, we would have encountered an error:
  -->
-默认情况下，对 `project/k8s/development` 执行批量操作将停止在目录的第一级，而不是处理所有子目录。如果我们试图使用以下命令在此目录中创建资源，则会遇到一个错误：
+默认情况下，对 `project/k8s/development` 执行的批量操作将停止在目录的第一级，而不是处理所有子目录。
+如果我们试图使用以下命令在此目录中创建资源，则会遇到一个错误：
 
 ```shell
 $ kubectl create -f project/k8s/development
@@ -193,7 +194,7 @@ The `--recursive` flag works with any operation that accepts the `--filename,-f`
 
 The `--recursive` flag also works when multiple `-f` arguments are provided:
  -->
-`--recursive` 与接受 `--filename,-f` 标志的任何操作都能一起工作，例如：`kubectl {create,get,delete,describe,rollout}` 等。
+`--recursive` 可以用于接受 `--filename,-f` 标志的任何操作，例如：`kubectl {create,get,delete,describe,rollout}` 等。
 
 有多个 `-f` 参数出现的时候，`--recursive` 标志也能正常工作：
 
@@ -216,14 +217,15 @@ If you're interested in learning more about `kubectl`, go ahead and read [kubect
 
 The examples we've used so far apply at most a single label to any resource. There are many scenarios where multiple labels should be used to distinguish sets from one another.
  -->
-## 有效地使用`标签`
+## 有效地使用标签
 
-到目前为止我们使用的示例中的资源最多使用了一个`标签`。在许多情况下，应使用多个`标签`来区分集合。
+到目前为止我们使用的示例中的资源最多使用了一个标签。在许多情况下，应使用多个标签来区分集合。
 
 <!--
 For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
  -->
-例如，不同的应用将为 `app` 标签设置不同的值，但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 这样的多层应用，还需要区分每一层。前端可以带以下`标签`：
+例如，不同的应用可能会为  `app` 标签设置不同的值。
+但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 这样的多层应用，还需要区分每一层。前端可以带以下标签：
 
 ```yaml
      labels:
@@ -234,7 +236,7 @@ For instance, different applications would use different values for the `app` la
 <!--
 while the Redis master and slave would have different `tier` labels, and perhaps even an additional `role` label:
  -->
-Redis 的主节点和从节点会有不同的 `tier` 值的`标签`，甚至还有一个额外的 `role` `标签`：
+Redis 的主节点和从节点会有不同 `tier` 值的标签，甚至还有一个额外的 `role` 标签：
 
 ```yaml
      labels:
@@ -258,7 +260,7 @@ and
 <!--
 The labels allow us to slice and dice our resources along any dimension specified by a label:
  -->
-`标签`允许我们按照`标签`指定的任何维度对我们的资源进行切片和剪裁：
+标签允许我们按照标签指定的任何维度对我们的资源进行切片和剪裁：
 
 ```shell
 $ kubectl create -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
@@ -286,16 +288,16 @@ guestbook-redis-slave-qgazl   1/1       Running   0          3m
 <!--
 Another scenario where multiple labels are needed is to distinguish deployments of different releases or configurations of the same component. It is common practice to deploy a *canary* of a new application release (specified via image tag in the pod template) side by side with the previous release so that the new release can receive live production traffic before fully rolling it out.
  -->
-另一个需要多`标签`的场景是区分同一组件不同版本或者配置的部署。常见的做法是部署一个使用*金丝雀发布*来部署新应用版本（在 pod 模板中通过镜像标签指定），保持新旧版本应用同时运行，这样，新版本在完全发布之前可以接收实时生产流量。
+另一个需要多标签的场景是用来区分同一组件的不同版本或者不同配置的多个部署。常见的做法是部署一个使用*金丝雀发布*来部署新应用版本（在 pod 模板中通过镜像标签指定），保持新旧版本应用同时运行，这样，新版本在完全发布之前可以接收实时生产流量。
 
 <!--
 For instance, you can use a `track` label to differentiate different releases.
 
 The primary, stable release would have a `track` label with value as `stable`:
  -->
-例如，您可以使用 `track` `标签`来区分不同的版本。
+例如，您可以使用 `track` 标签来区分不同的版本。
 
-主要稳定的发行版将有一个 `track` `标签`，其值为 `stable`：
+主要稳定的发行版将有一个 `track` 标签，其值为 `stable`：
 
 ```yaml
      name: frontend
@@ -312,7 +314,7 @@ The primary, stable release would have a `track` label with value as `stable`:
 <!--
 and then you can create a new release of the guestbook frontend that carries the `track` label with different value (i.e. `canary`), so that two sets of pods would not overlap:
  -->
-然后，您可以创建 guestbook 前端的新版本，让这些版本的 `track` `标签`带有不同的值（即 `金丝雀发布`），以便两组 pod 不会重叠：
+然后，您可以创建 guestbook 前端的新版本，让这些版本的 `track` 标签带有不同的值（即 `canary`），以便两组 pod 不会重叠：
 
 ```yaml
      name: frontend-canary
@@ -329,7 +331,7 @@ and then you can create a new release of the guestbook frontend that carries the
 <!--
 The frontend service would span both sets of replicas by selecting the common subset of their labels (i.e. omitting the `track` label), so that the traffic will be redirected to both applications:
  -->
-前端服务通过选择`标签`的公共子集（即省略 `track` `标签`）来同时关联两组副本，这样，流量就可以重定向到两个应用：
+前端服务通过选择标签的公共子集（即忽略 `track` 标签）来覆盖两组副本，以便流量可以转发到两个应用：
 
 ```yaml
   selector:
@@ -341,7 +343,7 @@ The frontend service would span both sets of replicas by selecting the common su
 You can tweak the number of replicas of the stable and canary releases to determine the ratio of each release that will receive live production traffic (in this case, 3:1).
 Once you're confident, you can update the stable track to the new application release and remove the canary one.
  -->
-您可以调整 `stable` 和 `canary` 版本的副本数量，以确定每个版本将接收实时生产流量的比例(在本例中为 3:1)。一旦有信心，您就可以将新版本应用的 `track` `标签`的值从 `canary` 替换为 `stable`，并且将老版本应用删除。
+您可以调整 `stable` 和 `canary` 版本的副本数量，以确定每个版本将接收实时生产流量的比例(在本例中为 3:1)。一旦有信心，您就可以将新版本应用的 `track` 标签的值从 `canary` 替换为 `stable`，并且将老版本应用删除。
 
 <!--
 For a more concrete example, check the [tutorial of deploying Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
@@ -354,7 +356,7 @@ For a more concrete example, check the [tutorial of deploying Ghost](https://git
 Sometimes existing pods and other resources need to be relabeled before creating new resources. This can be done with `kubectl label`.
 For example, if you want to label all your nginx pods as frontend tier, simply run:
  -->
-## 更新`标签`
+## 更新标签
 
 有时，现有的 pod 和其它资源需要在创建新资源之前重新标记。这可以用 `kubectl label` 完成。
 例如，如果想要将所有 nginx pod 标记为前端层，只需运行：
@@ -394,9 +396,9 @@ For more information, please see [labels](/docs/concepts/overview/working-with-o
 
 Sometimes you would want to attach annotations to resources. Annotations are arbitrary non-identifying metadata for retrieval by API clients such as tools, libraries, etc. This can be done with `kubectl annotate`. For example:
  -->
-## 更新`注解`
+## 更新注解
 
-有时，您可能希望将`注解`附加到资源中。`注解`是 API 客户端（如工具、库等）用于检索的任意非标识元数据。这可以通过 `kubectl annotate` 来完成。例如：
+有时，您可能希望将注解附加到资源中。注解是 API 客户端（如工具、库等）用于检索的任意非标识元数据。这可以通过 `kubectl annotate` 来完成。例如：
 
 ```shell
 $ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
@@ -489,17 +491,17 @@ deployment.apps/my-nginx configured
 <!--
 Note that `kubectl apply` attaches an annotation to the resource in order to determine the changes to the configuration since the previous invocation. When it's invoked, `kubectl apply` does a three-way diff between the previous configuration, the provided input and the current configuration of the resource, in order to determine how to modify the resource.
  -->
-注意，`kubectl apply` 将为资源增加一个额外的`注解`，以确定自上次调用以来对配置的更改。当调用它时，`kubectl apply`  会在以前的配置、提供的输入和资源的当前配置之间找出三方差异，以确定如何修改资源。
+注意，`kubectl apply` 将为资源增加一个额外的注解，以确定自上次调用以来对配置的更改。当调用它时，`kubectl apply`  会在以前的配置、提供的输入和资源的当前配置之间找出三方差异，以确定如何修改资源。
 
 <!--
 Currently, resources are created without this annotation, so the first invocation of `kubectl apply` will fall back to a two-way diff between the provided input and the current configuration of the resource. During this first invocation, it cannot detect the deletion of properties set when the resource was created. For this reason, it will not remove them.
  -->
-目前，新创建的资源是没有这个`注解`的，所以，第一次调用 `kubectl apply` 将使用提供的输入和资源的当前配置双方之间差异进行比较。在第一次调用期间，它无法检测资源创建时属性集的删除情况。因此，不会删除它们。
+目前，新创建的资源是没有这个注解的，所以，第一次调用 `kubectl apply` 将使用提供的输入和资源的当前配置双方之间差异进行比较。在第一次调用期间，它无法检测资源创建时属性集的删除情况。因此，不会删除它们。
 
 <!--
 All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
  -->
-所有后续调用 `kubectl apply` 以及其它修改配置的命令，如 `kubectl replace` 和 `kubectl edit`，都将更新`注解`，并允许随后调用的 `kubectl apply` 使用三方差异进行检查和执行删除。
+所有后续调用 `kubectl apply` 以及其它修改配置的命令，如 `kubectl replace` 和 `kubectl edit`，都将更新注解，并允许随后调用的 `kubectl apply` 使用三方差异进行检查和执行删除。
 
 <!--
 {{< note >}}
@@ -565,7 +567,7 @@ In some cases, you may need to update resource fields that cannot be updated onc
  -->
 ## 破坏性的更新
 
-在某些情况下，您可能需要更新某些初始化后无法更新的资源字段，或者您可能只想立即进行递归更改，例如修复 Deployment 创建的不正常的 pod。若要更改这些字段，请使用 `replace --force`，它将删除并重新创建资源。在这种情况下，您可以简单地修改原始配置文件：
+在某些情况下，您可能需要更新某些初始化后无法更新的资源字段，或者您可能只想立即进行递归更改，例如修复 Deployment 创建的不正常的 Pod。若要更改这些字段，请使用 `replace --force`，它将删除并重新创建资源。在这种情况下，您可以简单地修改原始配置文件：
 
 ```shell
 $ kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
