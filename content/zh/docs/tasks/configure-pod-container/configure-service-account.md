@@ -82,9 +82,9 @@ you can see the `spec.serviceAccountName` field has been
 
 ## 使用默认的服务账户访问 API 服务器
 
-当您创建 Pod 时，如果没有指定服务账户，Pod 会被指定命名空间中的`默认`服务账户。
+当您创建 Pod 时，如果没有指定服务账户，Pod 会被指定命名空间中的`default`服务账户。
 如果您查看 Pod 的原始 json 或 yaml（例如：`kubectl get pods/podname -o yaml`），
-您可以看到 `spec.serviceAccountName` 字段已经被 [自动设置](/docs/user-guide/working-with-resources/#resources-are-automatically-modified)了。
+您可以看到 `spec.serviceAccountName` 字段已经被[自动设置](/docs/user-guide/working-with-resources/#resources-are-automatically-modified)了。
 
 <!--
 You can access the API from inside a pod using automatically mounted service account credentials,
@@ -95,10 +95,10 @@ In version 1.6+, you can opt out of automounting API credentials for a service a
 `automountServiceAccountToken: false` on the service account:
 -->
 
-您可以使用自动挂载给 Pod 的服务账户认证信息访问 API，[访问集群](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod) 中有相关描述。
+您可以使用自动挂载给 Pod 的服务账户凭据访问 API，[访问集群](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod) 中有相关描述。
 服务账户的 API 许可取决于您所使用的[授权插件和策略](/docs/reference/access-authn-authz/authorization/#authorization-modules)。
 
-在 1.6 以上版本中，您可以通过在服务账户上设置 `automountServiceAccountToken: false` 来实现不给服务账号自动挂载 API 认证信息：
+在 1.6 以上版本中，您可以通过在服务账户上设置 `automountServiceAccountToken: false` 来实现不给服务账号自动挂载 API 凭据：
 
 
 ```yaml
@@ -114,7 +114,7 @@ automountServiceAccountToken: false
 In version 1.6+, you can also opt out of automounting API credentials for a particular pod:
 -->
 
-在 1.6 以上版本中，您也可以选择不给特定 Pod 自动挂载 API 认证信息：
+在 1.6 以上版本中，您也可以选择不给特定 Pod 自动挂载 API 凭据：
 
 ```yaml
 apiVersion: v1
