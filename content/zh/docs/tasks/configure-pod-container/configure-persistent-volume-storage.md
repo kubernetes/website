@@ -75,7 +75,7 @@ In your shell, create a `/mnt/data` directory:
 如何打开 shell 取决于集群的设置。
 例如，如果您正在使用 Minikube，那么可以通过输入 `minikube ssh` 来打开节点的 shell。
 
-在shell中，创建一个 `/mnt/data` 目录：
+在 shell 中，创建一个 `/mnt/data` 目录：
 
     mkdir /mnt/data
 
@@ -172,7 +172,7 @@ Here is the configuration file for the PersistentVolumeClaim:
 
 下一步是创建一个 PersistentVolumeClaim。
 Pod 使用 PersistentVolumeClaim 来请求物理存储。
-在本练习中，您将创建一个 PersistentVolumeClaim，它请求至少 3 gibibytes 容量的卷，该卷至少可以为一个节点提供读写访问。
+在本练习中，您将创建一个 PersistentVolumeClaim，它请求至少 3 吉比特容量的卷，该卷至少可以为一个节点提供读写访问。
 
 下面是 PersistentVolumeClaim 的配置文件：
 
@@ -182,7 +182,7 @@ Pod 使用 PersistentVolumeClaim 来请求物理存储。
 Create the PersistentVolumeClaim:
 -->
 
-创建 PersistentVolumeClaim
+创建 PersistentVolumeClaim：
 
     kubectl create -f https://k8s.io/examples/pods/storage/pv-claim.yaml
 
