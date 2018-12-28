@@ -8,7 +8,7 @@ content_template: templates/concept
 weight: 50
 ---
 
-{{%capture overview%}}
+{{% capture overview %}}
 <!--
 Beginning with v1.8.0, kubeadm uploads the configuration of your cluster to a ConfigMap called
 `kubeadm-config` in the `kube-system` namespace, and later reads the ConfigMap when upgrading.
