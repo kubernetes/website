@@ -1,10 +1,12 @@
+在想要加入现有集群的每台机器上运行。
+
 <!--
 Run this on any machine you wish to join an existing cluster
-
-### Synopsis
 -->
 
-在想要加入现有集群的每台机器上运行。
+<!--
+### Synopsis
+-->
 
 ### 摘要
 
