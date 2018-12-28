@@ -26,7 +26,11 @@ tags:
 ---
 -->
 
- 可以指：Kubernetes 生态系统中依赖于核心 Kubernetes 代码库或分支代码库的代码。
+<--
+May refer to: code in the Kubernetes ecosystem that depends upon the core Kubernetes codebase or a forked repo.
+-->
+
+可以指：Kubernetes 生态系统中依赖于核心 Kubernetes 代码库或分支代码库的代码。
 
 <!--more--> 
 
