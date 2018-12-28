@@ -35,7 +35,7 @@ title: 노드 구성 검증하기
 2. 다음 커맨드로 노드 적합성 테스트를 실행한다:
 
 ```shell
-# $CONFIG_DIR는 Kublet의 파드 명세 경로이다.
+# $CONFIG_DIR는 Kublet의 파드 매니페스트 경로이다.
 # $LOG_DIR는 테스트 출력 경로이다.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
