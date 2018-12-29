@@ -58,7 +58,7 @@ Here is the configuration file for a Pod that has one Container:
 ## 给 Pod 分派扩展资源
 
 要请求扩展资源，需要在您的容器清单中包括 `resources:requests` 字段。
-扩展资源使用任何完全限定名称，只是不能使用 `*.kubernetes.io/`。
+扩展资源可以使用任何完全限定名称，只是不能使用 `*.kubernetes.io/`。
 有效的扩展资源名的格式为 `example.com/foo`，其中 `example.com` 应被替换为您的组织的域名，而 `foo` 则是描述性的资源名称。
 
 下面是包含一个容器的 Pod 配置文件：
@@ -93,7 +93,7 @@ kubectl get pod extended-resource-demo
 Describe the Pod:
 -->
 
-描写 Pod:
+描述 Pod:
 
 ```shell
 kubectl describe pod extended-resource-demo
@@ -144,7 +144,7 @@ kubectl create -f https://k8s.io/examples/pods/resource/extended-resource-pod-2.
 Describe the Pod
 -->
 
-描写 Pod
+描述 Pod
 
 ```shell
 kubectl describe pod extended-resource-demo-2
