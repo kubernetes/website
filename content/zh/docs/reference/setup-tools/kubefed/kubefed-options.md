@@ -96,44 +96,44 @@ kubefed options [flags]
 -->
 
 ```
-      --sologtostderr                                记录到标准错误以及文件
+      --alsologtostderr                              同时将日志输出到标准错误输出（stderr）
       --as string                                    用户名模拟操作
       --as-group stringArray                         要模拟操作的组，可以重复使用此参数来指定多个组。
       --cache-dir string                             默认 HTTP 缓存目录(默认 "/Users/jrondeau/.kube/http-cache")
-      --certificate-authority string                 证书创建的证书文件的路径
+      --certificate-authority string                 证书创建的证书机构的的路径
       --client-certificate string                    TLS 客户端证书的路径
       --client-key string                            TLS 客户端秘钥的路径
-      --cloud-provider-gce-lb-src-cidrs cidrs        CIDRs 在 GCE 防火墙中打开，用于 LB 流量代理和检查是否正常(默认 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16)
+      --cloud-provider-gce-lb-src-cidrs cidrs        在 GCE 防火墙中放开的 CIDRs，用于 LB 流量代理和检查是否正常(默认 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16)
       --cluster string                               使用的 kubeconfig 集群的名称
       --context string                               使用的 kubeconfig 上下文名称
-      --default-not-ready-toleration-seconds int     显示 notReady 的默认秒数：默认情况下 NoExecute 被添加到没有这种默认的每个 pod 中(默认 300)。
-      --default-unreachable-toleration-seconds int   显示无法达到默认的默认秒：NoExecute，默认情况下添加到没有这种默认的每个 pod (默认 300)。
+      --default-not-ready-toleration-seconds int     对于未添加 notReady:NoExecute 容忍度设置的所有 Pod，为其设置此参数值作为对 notReady:NoExecute 容忍度的容忍秒数（tolerationSeconds）；默认值为 300 秒。
+      --default-unreachable-toleration-seconds int   对于未设置 unreachable:NoExecute 容忍度的所有 Pod，设置其对 unreachable:NoExecute 的容忍度秒数（tolerationSeconds）；默认值为 300 秒。
       
       --insecure-skip-tls-verify                     如果是 true，将不检查服务器证书的有效性。这将使您的 HTTPS 连接不安全
-      --ir-data-source string                        由 InitialResources 使用的数据源支持的选项有：influxdb， gcm(默认 "influxdb")。
+      --ir-data-source string                        由 InitialResources 使用的数据源；支持的选项有：influxdb 和 gcm(默认 "influxdb")。
       --ir-dbname string                             数据库名，其中包含 InitialResources 所需的指标 (默认 "k8s")
       --ir-hawkular string                           Hawkular 配置 URL
       --ir-influxdb-host string                      包含 InitialResources 需要的指标的 InfluxDB 的地址(默认 "localhost:8080/api/v1/namespaces/kube-system/services/monitoring-influxdb:api/proxy")
       --ir-namespace-only                            是否仅根据来自相同命名空间的数据进行估算。
       --ir-password string                           用于连接到 InfluxDB 的密码(默认 "root")
-      --ir-percentile int   
+      --ir-percentile int                            在估算资源时，InitialResoruces 要使用的样本百分比。仅用于实验目的。默认值为 90。 
       --ir-user string                               用于连接到 InfluxDB 的用户(默认 "root")
       --kubeconfig string                            用于 CLI 请求的 kubeconfig 文件的路径。
-      --log-backtrace-at traceLocation               当日志记录到行文件: N 时，发出堆栈跟踪 (默认 :0)
-      --log-dir string                               如果非空，请在此目录中写入日志文件
+      --log-backtrace-at traceLocation               当日志机制遇到文件行 file:N 时，打印堆栈轨迹；默认值为 ”:0“
+      --log-dir string                               如果非空，在此目录中写入日志文件
       --log-flush-frequency duration                 日志刷新的最大秒数 (默认 5s)
-      --logtostderr                                  到标准错误，而不是文件 (默认 true)
+      --logtostderr                                  记录日志到标准错误输出（stderr）而不是文件中； 默认值为 true
       --match-server-version                         要求服务器版本与客户端版本匹配
-  -n, --namespace string                             如果存在，CLI 请求的命名空间范围
-      --password string                              API server 的基本身份验证密码
-      --request-timeout string                       放弃单个服务器请求前等待的时间长度。Non-zero 值应包含相应的时间单元(如 1s, 2m, 3h)。 值为0表示不超时请求 (默认 "0")
-  -s, --server string                                Kubernetes API server 的地址和端口
+  -n, --namespace string                             若给定，用来设置 CLI 请求的命名空间范围
+      --password string                              用来对 API 服务器进行基本身份验证的密码
+      --request-timeout string                       放弃单个服务器请求前等待的时间长度。非零值应包含相应的时间单位（如 1s、2m 或 3h）。值为 0 表示请求不超时； 默认值为 "0"
+  -s, --server string                                Kubernetes API 服务器的地址和端口
       --stderrthreshold severity                     在此阈值或以上的日志将转到 stderr (默认 2)
-      --token string                                 向 API server 进行身份验证的承载令牌
+      --token string                                 向 API 服务器进行身份验证的持有者令牌
       --user string                                  使用的 kubeconfig 用户的名称
-      --username string                              用户名，API server 的基本身份验证
+      --username string                              用户名，用于对 API 服务器的基本身份验证
   -v, --v Level                                      V log 的 log 级别
-      --vmodule moduleSpec                           文件过滤日志记录的模式 = N 设置逗号分隔列表
+      --vmodule moduleSpec                           基于文件的日志过滤，取值为逗号分隔的列表，列表中每项的格式为 "pattern=N"
 ```
 
 <!--
@@ -165,7 +165,7 @@ kubefed options [flags]
 
 ### 查看其它
 
-* [kubefed](/docs/reference/setup-tools/kubefed/kubefed/)	 - kubefed controls a Kubernetes Cluster Federation
+* [kubefed](/docs/reference/setup-tools/kubefed/kubefed/)	 - kubefed 控制一个 Kubernetes 集群联邦
 
 <!--
 ###### Auto generated by spf13/cobra on 25-Mar-2018
