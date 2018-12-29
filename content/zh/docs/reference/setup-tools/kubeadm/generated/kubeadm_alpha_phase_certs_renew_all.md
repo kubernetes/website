@@ -1,18 +1,20 @@
+更新所有可用的证书
+
 <!--
 renew all available certificates
+-->
 
+<!--
 ### Synopsis
 
 
 Renews all known certificates necessary to run the control plan. Renewals are run unconditionally, regardless of expiration date. Renewals can also be run individually for more control.
 -->
 
-更新所有可用的证书
-
 ### 摘要
 
 
-更新运行控制计划所需的所有已知证书。无论到期日期如何，更新都是无条件运行的。更新也可以单独运行以获得更多的控制。
+更新运行控制平面所需的所有已知证书。续期操作是无条件执行的，与证书到期时间无关。续期也可以单独运行以获得更多的控制。
 
 
 ```
@@ -78,7 +80,7 @@ kubeadm alpha phase certs renew all [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">保存证书的路径</td>
@@ -95,11 +97,11 @@ kubeadm alpha phase certs renew all [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">所有帮助信息</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">all 操作的帮助信息</td>
     </tr>
 
     <tr>
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群交互时使用的 KubeConfig 文件。如果没有设置该参数，将会搜索一组标准位置来查找现有的 KubeConfig 文件。</td>
@@ -151,7 +153,7 @@ kubeadm alpha phase certs renew all [flags]
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验]通往'真正的'主机 root 文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验特性] 指向主机根文件系统的'真实'路径。</td>
     </tr>
 
   </tbody>
