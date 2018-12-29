@@ -1,5 +1,5 @@
 
-生成创建控制平面所需的所有静态 Pod 清单文件
+生成用于创建控制平面所需的所有静态 Pod 清单文件
 <!--
 Generates all static Pod manifest files necessary to establish the control plane
 -->
@@ -13,12 +13,12 @@ Generates all static Pod manifest files necessary to establish the control plane
 <!--
 Generates all static Pod manifest files necessary to establish the control plane. 
 -->
-生成创建控制平面所需的所有静态 Pod 的清单文件。
+生成用于创建控制平面所需的所有静态 Pod 清单文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令目前属于 alpha。
+Alpha 免责声明：此命令目前属于 alpha 阶段。
 
 ```
 kubeadm alpha phase controlplane all [flags]
@@ -38,7 +38,7 @@ kubeadm alpha phase controlplane all [flags]
 -->
 
 ```
-  # 为控制平面组件生成所有的静态 Pod 清单文件。
+  # 生成控制平面组件所需的所有静态 Pod 清单文件。
   # 在功能上和 kubeadm init 生成的内容是相同的。
   kubeadm alpha phase controlplane all
   
@@ -88,7 +88,7 @@ kubeadm alpha phase controlplane all [flags]
       <td colspan="2">--apiserver-extra-args mapStringString</td>
 -->
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组以 &lt;flagname&gt;=&lt;value&gt; 的形式传递给 API 服务器或覆盖默认参数的附加的参数;</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组以 &lt;flagname&gt;=&lt;value&gt; 的格式传递给 API 服务器或覆盖默认参数的附加的参数;</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</td>
@@ -120,7 +120,7 @@ kubeadm alpha phase controlplane all [flags]
       <td colspan="2">--controller-manager-extra-args mapStringString</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组以 &lt;flagname&gt;=&lt;value&gt; 的形式传递给控制器管理器或覆盖默认参数的附加的参数;</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组以 &lt;flagname&gt;=&lt;value&gt; 的格式传递给控制器管理器或覆盖默认参数的附加的参数;</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</td>
@@ -130,7 +130,7 @@ kubeadm alpha phase controlplane all [flags]
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组 "key=value" 偶对，用来描述多种功能特性的特性开关；可选项有：<br/>Auditing=true|false (ALPHA - 默认=false)<br/>CoreDNS=true|false (默认=true)<br/>DynamicKubeletConfig=true|false (BETA - 默认=false)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">键值对集合，用来描述多种功能特性的特性开关；可选项有：<br/>Auditing=true|false (ALPHA - 默认=false)<br/>CoreDNS=true|false (默认=true)<br/>DynamicKubeletConfig=true|false (BETA - 默认=false)</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (BETA - default=false)</td>
@@ -172,7 +172,7 @@ kubeadm alpha phase controlplane all [flags]
       <td colspan="2">--scheduler-extra-args mapStringString</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组以 &lt;flagname&gt;=&lt;value&gt; 的形式传递给调度器或覆盖默认参数的附加的参数;</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组以 &lt;flagname&gt;=&lt;value&gt; 的格式传递给调度器或覆盖默认参数的附加的参数;</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</td>
