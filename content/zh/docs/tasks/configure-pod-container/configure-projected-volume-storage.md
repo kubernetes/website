@@ -70,7 +70,6 @@ Here is the configuration file for the Pod:
        kubectl create secret generic pass --from-file=./password.txt
 ```
 -->
-
 1. 创建 Secrets:
 ```shell
     # 创建包含用户名和密码的文件:
@@ -81,49 +80,38 @@ Here is the configuration file for the Pod:
        kubectl create secret generic user --from-file=./username.txt
        kubectl create secret generic pass --from-file=./password.txt
 ```
-
 <!--
 1. Create the Pod:
 -->
 1. 创建 Pod：
-
 ```shell
        kubectl create -f https://k8s.io/examples/pods/storage/projected.yaml
 ```
-
 <!--
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
 -->
 1. 确认 Pod 中的容器运行正常，然后监视 Pod 的变化：
-
 ```shell
        kubectl get --watch pod test-projected-volume
 ```
-
 <!--
     The output looks like this:
 -->
     输出结果和下面类似：
-
        NAME                    READY     STATUS    RESTARTS   AGE
        test-projected-volume   1/1       Running   0          14s
-
 <!--
 1. In another terminal, get a shell to the running Container:
 -->
 1. 在另外一个终端中，打开容器的 shell：
-
 ```shell
        kubectl exec -it test-projected-volume -- /bin/sh
 ```
-
 <!--
 1. In your shell, verify that the `projected-volume` directory contains your projected sources:
 -->
-
 1. 在 shell 中，确认 `projected-volume` 目录包含你的投射源：
-
 ```shell
        ls /projected-volume/
 ```
