@@ -1,4 +1,4 @@
-更新所有可用的证书
+续期所有可用的证书
 
 <!--
 renew all available certificates
@@ -14,7 +14,7 @@ Renews all known certificates necessary to run the control plan. Renewals are ru
 ### 摘要
 
 
-更新运行控制平面所需的所有已知证书。续期操作是无条件执行的，与证书到期时间无关。续期也可以单独运行以获得更多的控制。
+续期运行控制平面所需的所有已知证书。续期操作是无条件执行的，与证书到期时间无关。续期也可以单独运行以获得更多的控制。
 
 
 ```
@@ -111,7 +111,7 @@ kubeadm alpha phase certs renew all [flags]
       <td colspan="2">--use-api</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用 Kubernetes 证书 API 更新证书</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用 Kubernetes 证书 API 续期证书</td>
     </tr>
 
   </tbody>
