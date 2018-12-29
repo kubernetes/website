@@ -56,7 +56,7 @@ locating the apiserver and authenticating.
 Run it like this:
 
 ```shell
-$ kubectl proxy --port=8080 &
+$ kubectl proxy --port=8080 
 ```
 
 See [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) for more details.
