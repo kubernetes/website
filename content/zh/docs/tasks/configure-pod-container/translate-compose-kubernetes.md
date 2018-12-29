@@ -155,10 +155,9 @@ you need is an existing `docker-compose.yml` file.
 再需几步，我们就把你从 Docker Compose 带到 Kubernetes。
 您只需要一个现有的 `docker-compose.yml` 文件。
 
-<!--1.  Go to the directory containing your `docker-compose.yml` file. If you don't
+1.  <!--Go to the directory containing your `docker-compose.yml` file. If you don't
     have one, test using this one.-->
-
-1.  进入 `docker-compose.yml` 文件所在的目录。如果没有，请使用下面这个进行测试。
+    进入 `docker-compose.yml` 文件所在的目录。如果没有，请使用下面这个进行测试。
 
       ```yaml
       version: "2"
@@ -187,12 +186,10 @@ you need is an existing `docker-compose.yml` file.
             kompose.service.type: LoadBalancer
       ```
 
-<!--
-2.  Run the `kompose up` command to deploy to Kubernetes directly, or skip to
-    the next step instead to generate a file to use with `kubectl`.
--->
 
-2.  运行 `kompose up` 命令直接部署到 Kubernetes，或者跳到下一步，生成 `kubectl` 使用的文件。
+2.  <!--Run the `kompose up` command to deploy to Kubernetes directly, or skip to
+    the next step instead to generate a file to use with `kubectl`.-->
+    运行 `kompose up` 命令直接部署到 Kubernetes，或者跳到下一步，生成 `kubectl` 使用的文件。
 
       ```bash
       $ kompose up
@@ -207,12 +204,10 @@ you need is an existing `docker-compose.yml` file.
       Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
       ```
 
-<!--
-3.  To convert the `docker-compose.yml` file to files that you can use with
-    `kubectl`, run `kompose convert` and then `kubectl create -f <output file>`.
--->
 
-3.  要将 `docker-compose.yml` 转换为 `kubectl` 可用的文件，请运行 `kompose convert` 命令进行转换，然后运行 `kubectl create -f <output file>` 进行创建。
+3.  <!--To convert the `docker-compose.yml` file to files that you can use with
+    `kubectl`, run `kompose convert` and then `kubectl create -f <output file>`.-->
+    要将 `docker-compose.yml` 转换为 `kubectl` 可用的文件，请运行 `kompose convert` 命令进行转换，然后运行 `kubectl create -f <output file>` 进行创建。
 
       ```bash
       $ kompose convert                           
@@ -238,23 +233,18 @@ you need is an existing `docker-compose.yml` file.
 -->
       您部署的应用在 Kubernetes 中运行起来了。
 
-<!--
-4.  Access your application.
--->
-<!--
-      If you're already using `minikube` for your development process:
--->
 
-4.  访问您的应用。
+4.  <!--Access your application.-->访问您的应用。
+
+      <!--If you're already using `minikube` for your development process:-->
 
       如果您在开发过程中使用 `minikube`，请执行：
 
       ```bash
       $ minikube service frontend
       ```
-<!--
-      Otherwise, let's look up what IP your service is using!
--->
+
+      <!--Otherwise, let's look up what IP your service is using!-->
       否则，我们要查看一下您的服务使用了什么 IP！
 
       ```sh
@@ -273,9 +263,8 @@ you need is an existing `docker-compose.yml` file.
       No events.
 
       ```
-<!--
-      If you're using a cloud provider, your IP will be listed next to `LoadBalancer Ingress`.
--->
+
+      <!--If you're using a cloud provider, your IP will be listed next to `LoadBalancer Ingress`.-->
       如果您使用的是云提供商，您的 IP 将在 `LoadBalancer Ingress` 字段给出。
 
       ```sh
@@ -288,7 +277,11 @@ you need is an existing `docker-compose.yml` file.
 
 <!--
 ## User Guide
+-->
 
+## 用户指南
+
+<!--
 - CLI
   - [`kompose convert`](#kompose-convert)
   - [`kompose up`](#kompose-up)
@@ -300,8 +293,6 @@ you need is an existing `docker-compose.yml` file.
   - [Restart](#restart)
   - [Docker Compose Versions](#docker-compose-versions)
 -->
-
-## 用户指南
 
 - CLI
   - [`kompose convert`](#kompose-convert)
