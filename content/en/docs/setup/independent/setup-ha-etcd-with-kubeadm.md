@@ -46,7 +46,7 @@ this example.
 
 1. Configure the kubelet to be a service manager for etcd.
 
-    Running etcd is simpler than running kubernetes so you must override the
+    Running etcd is later than running kubeadm so you must override the
     kubeadm-provided kubelet unit file by creating a new one with a higher
     precedence.
 
