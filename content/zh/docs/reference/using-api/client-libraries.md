@@ -82,7 +82,7 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 The following Kubernetes API client libraries are provided and maintained by
 their authors, not the Kubernetes team.
 -->
-以下 Kubernetes API 客户端库是由它们的作者提供和维护的，而不是由 Kubernetes 团队提供和维护的。
+以下 Kubernetes API 客户端库是由社区，而非 Kubernetes 团队支持、维护的。
 
 <!--
 | Language             | Client Library                           |
