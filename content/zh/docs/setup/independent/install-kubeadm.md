@@ -354,7 +354,7 @@ kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 
 When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
 and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
 -->
-使用 Docker 时，kubeadm 会自动为其检测 cgroup 驱动在运行时对 `/var/lib/kubelet/kubeadm-flags.env` 文件进行配置。
+使用 Docker 时，kubeadm 会自动为其检测 cgroup 驱动并在运行时对 `/var/lib/kubelet/kubeadm-flags.env` 文件进行配置。
 <!--
 If you are using a different CRI, you have to modify the file
 `/etc/default/kubelet` with your `cgroup-driver` value, like so:
