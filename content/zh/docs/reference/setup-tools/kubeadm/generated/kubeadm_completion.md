@@ -1,4 +1,4 @@
-为指定的 shell 输出 shell 自动补全代码（ bash 或 zsh）。
+为指定的 shell 输出 shell 自动补全代码（bash 或 zsh）。
 <!--
 Output shell completion code for the specified shell (bash or zsh).
 -->
@@ -16,15 +16,14 @@ completion of kubeadm commands. This can be done by sourcing it from
 the .bash_profile.
 -->
 
-为指定的 shell 输出 shell 自动补全代码（ bash 或 zsh）。
+为指定的 shell 输出 shell 自动补全代码（bash 或 zsh）。
 必须激活 shell 代码以提供交互式 kubeadm 命令补全。这可以通过加载 .bash_profile 文件完成。
-
 
 <!--
 Note: this requires the bash-completion framework.
 -->
 
-注意: 依赖 `bash-completion` 框架。
+注意: 此功能依赖于 `bash-completion` 框架。
 
 <!--
 To install it on Mac use homebrew:
@@ -35,9 +34,12 @@ following line to the .bash_profile
 -->
 
 在 Mac 上使用 homebrew 安装:
-    $ brew install bash-completion
+
+    brew install bash-completion
+
 安装后，必须激活 bash_completion。这可以通过添加以下行到 .bash_profile 文件完成 
-    $ source $(brew --prefix)/etc/bash_completion
+
+    source $(brew --prefix)/etc/bash_completion
 
 <!--
 If bash-completion is not installed on Linux, please install the 'bash-completion' package
@@ -50,7 +52,7 @@ via your distribution's package manager.
 Note for zsh users: [1] zsh completions are only supported in versions of zsh >= 5.2
 -->
 
-zsh 用户注意事项：[1] zsh  自动补全仅在 zsh> = 5.2 的版本中被支持。
+zsh 用户注意事项：[1] zsh 自动补全仅在 zsh>=5.2 的版本中支持。
 
 ```
 kubeadm completion SHELL [flags]
@@ -84,17 +86,15 @@ source <(kubeadm completion zsh)
 -->
 
 ```
-
 # 在 Mac 上使用 homebrew 安装 bash completion
 brew install bash-completion
 printf "\n# Bash completion support\nsource $(brew --prefix)/etc/bash_completion\n" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
-
-# 将 bash 版本的 kubeadm  自动补全代码加载到当前 shell 中
+# 将 bash 版本的 kubeadm 自动补全代码加载到当前 shell 中
 source <(kubeadm completion bash)
 
-# 将 bash  自动补全完成代码写入文件并且从 .bash_profile 文件加载它
+# 将 bash 自动补全完成代码写入文件并且从 .bash_profile 文件加载它
 printf "\n# Kubeadm shell completion\nsource '$HOME/.kube/kubeadm_completion.bash.inc'\n" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
