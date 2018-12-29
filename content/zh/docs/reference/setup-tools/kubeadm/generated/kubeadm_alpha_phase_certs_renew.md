@@ -1,5 +1,5 @@
 
-更新 Kubernetes 集群的证书
+续期 Kubernetes 集群的证书
 <!--
 Renews certificates for a Kubernetes cluster
 -->
