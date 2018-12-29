@@ -299,11 +299,11 @@ you need is an existing `docker-compose.yml` file.
   - [`kompose up`](#kompose-up)
   - [`kompose down`](#kompose-down)
 - 文档
-  - [构建和推送 Docker 镜像](#构建和推送-Docker-镜像)
+  - [构建和推送 Docker 镜像](#构建和推送-docker-镜像)
   - [其他转换方式](#其他转换方式)
   - [标签](#标签)
   - [重启](#重启)
-  - [Docker Compose 版本](#Docker-Compose-版本)
+  - [Docker Compose 版本](#docker-compose-版本)
 
 <!--
 Kompose has support for two providers: OpenShift and Kubernetes.
