@@ -109,8 +109,11 @@ kubeadm alpha phase preflight master [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">主节点帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">master 的帮助信息</td>
     </tr>
+<!--
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for master</td>
+-->
 
   </tbody>
 </table>
@@ -131,8 +134,11 @@ kubeadm alpha phase preflight master [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件路径(警告：使用配置文件为测试版本)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubeadm 配置文件的路径(警告：配置文件的使用是实验性的)</td>
     </tr>
+<!--
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
+-->
 
     <tr>
       <td colspan="2">--ignore-preflight-errors stringSlice</td>
@@ -145,9 +151,11 @@ kubeadm alpha phase preflight master [flags]
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"> [EXPERIMENTAL] 宿主机根文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机根文件系统的路径。</td>
     </tr>
-
+<!--
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+-->
   </tbody>
 </table>
 
