@@ -349,6 +349,7 @@ v1/Node:
 -->
 
 v1/Node:
+
 - Get
 - List
 - Create
@@ -370,6 +371,7 @@ The route controller listens to Node object creation and configures routes appro
 路由控制器侦听 Node 对象创建并适当地配置路由，它需要访问 Node 对象。
 
 v1/Node:
+
 - Get
 
 <!--
@@ -397,6 +399,7 @@ To set up endpoints for the Services, it requires access to create, list, get, w
 要为服务设置端点，需要访问 create、list、get、watch 和 update。
 
 v1/Service:
+
 - List
 - Get
 - Watch
@@ -416,6 +419,7 @@ The PersistentVolumeLabels controller listens on PersistentVolume (PV) create ev
 PersistentVolumeLabels 控制器侦听 PersistentVolume（PV）创建事件并更新它们，该控制器需要访问以获取和更新 PV。
 
 v1/PersistentVolume:
+
 - Get
 - List
 - Watch
@@ -434,11 +438,13 @@ The implementation of the core of CCM requires access to create events, and to e
 CCM 核心的实现需要访问权限以创建事件，并且为了确保安全操作，它需要访问权限以创建服务账户。
 
 v1/Event:
+
 - Create
 - Patch
 - Update
 
 v1/ServiceAccount:
+
 - Create
 
 <!--
