@@ -289,11 +289,11 @@ you need is an existing `docker-compose.yml` file.
   - [`kompose up`](#kompose-up)
   - [`kompose down`](#kompose-down)
 - 文档
-  - [构建和推送 Docker 镜像](#build-and-push-docker-images)
-  - [替代转换](#alternative-conversions)
-  - [标签](#labels)
-  - [重启](#restart)
-  - [Docker Compose 版本](#docker-compose-versions)
+  - [构建和推送 Docker 镜像](#构建和推送-Docker-镜像)
+  - [其他转换方式](#其他转换方式)
+  - [标签](#标签)
+  - [重启](#重启)
+  - [Docker Compose 版本](#Docker-Compose-版本)
 
 <!--
 Kompose has support for two providers: OpenShift and Kubernetes.
@@ -303,7 +303,7 @@ You can choose a targeted provider using global option `--provider`. If no provi
 Kompose 支持两种驱动：OpenShift 和 Kubernetes。
 您可以通过全局选项 `--provider` 选择驱动方式。如果没有指定，会将 Kubernetes 作为默认驱动。
 
-## `kompose convert`{#kompose-convert}
+## `kompose convert`
 
 Kompose 支持将 V1、V2 和 V3 版本的 Docker Compose 文件转换为 Kubernetes 和 OpenShift 资源对象。
 
@@ -407,7 +407,7 @@ If you are manually pushing the Openshift artifacts using ``oc create -f``, you 
 如果使用 ``oc create -f`` 手动推送 Openshift 工件，则需要确保在构建配置工件之前推送 imagestream 工件，以解决 Openshift 的这个问题：https://github.com/openshift/origin/issues/4518 。
 {{< /note >}}
 
-## `kompose up` {#kompose-up}
+## `kompose up`
 
 <!--
 Kompose supports a straightforward way to deploy your "composed" application to Kubernetes or OpenShift via `kompose up`.
@@ -504,7 +504,7 @@ is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1
 
 - 您必须有一个运行正常的 OpenShift 集群，该集群具有预先配置的 `oc` 上下文 (`oc login`)。
 
-## `kompose down` {#kompose-down}
+## `kompose down`
 
 <!--
 Once you have deployed "composed" application to Kubernetes, `$ kompose down` will help you to take the application out by deleting its deployments and services. If you need to remove other resources, use the 'kubectl' command.
@@ -541,7 +541,7 @@ Using an [example Docker Compose file](https://raw.githubusercontent.com/kuberne
 
 - 您必须有一个运行正常的 Kubernetes 集群，该集群具有预先配置的 kubectl 上下文。
 
-## 构建和推送 Docker 镜像 {#build-and-push-docker-images}
+## 构建和推送 Docker 镜像
 
 Kompose 支持构建和推送 Docker 镜像。如果 Docker Compose 文件中使用了 `build` 关键字，您的镜像将会：
 
@@ -602,7 +602,7 @@ $ kompose up --provider openshift --build build-config
 The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) objects, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) charts.
 -->
 
-## 替代转换 {#alternative-conversions}
+## 其他转换方式
 
 默认的 `kompose` 转换会生成 yaml 格式的 Kubernetes [Deployment](/docs/concepts/workloads/controllers/deployment/) 和 [Service](/docs/concepts/services-networking/service/) 对象。
 您可以选择通过 `-j` 参数生成 json 格式的对象。
@@ -687,7 +687,7 @@ For example:
 
 这个图标结构旨在为构建 Helm Chart 提供框架。
 
-## 标签 {#labels}
+## 标签
 
 `kompose` 支持 `docker-compose.yml` 文件中用于 Kompose 的标签，以便在转换时明确定义 Service 的行为。
 
@@ -770,7 +770,7 @@ The `kompose.service.type` label should be defined with `ports` only, otherwise 
 If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what happens on the `restart` value.
 -->
 
-## 重启 {#restart}
+## 重启
 
 如果你想创建没有控制器的普通 Pod，可以使用 docker-compose 的 `restart` 结构来定义它。请参考下表了解 `restart` 的不同参数。
 
@@ -843,7 +843,7 @@ Kompose supports Docker Compose versions: 1, 2 and 3. We have limited support on
 A full list on compatibility between all three versions is listed in our [conversion document](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md) including a list of all incompatible Docker Compose keys.
 -->
 
-## Docker Compose 版本 {#docker-compose-versions}
+## Docker Compose 版本
 
 Kompose 支持的 Docker Compose 版本包括：1、2 和 3。有限支持 2.1 和 3.2 版本，因为它们还在实验阶段。
 
