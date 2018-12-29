@@ -24,7 +24,7 @@ What's Kompose? It's a conversion tool for all things compose (namely Docker Com
 More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
 -->
 
-Kompose 是什么？它是个转换工具，可用于由容器编排器（Kubernetes 或 OpenShift）组成（即 Docker Compose）的所有内容。
+Kompose 是什么？它是个转换工具，可将 compose（即 Docker Compose）所组装的所有内容转换成容器编排器（Kubernetes 或 OpenShift）可识别的形式。
 
 更多信息请参考 Kompose 官网 [http://kompose.io](http://kompose.io)。
 
@@ -51,7 +51,7 @@ Kompose is released via GitHub on a three-week cycle, you can see all current re
 
 ## 安装 Kompose
 
-我们有很多种方式安装 Kompose。首选方式是从最新的 GitHub 发布版本下载二进制文件。
+我们有很多种方式安装 Kompose。首选方式是从最新的 GitHub 发布页面下载二进制文件。
 
 ## GitHub 发布版本
 
@@ -295,12 +295,15 @@ you need is an existing `docker-compose.yml` file.
   - [重启](#restart)
   - [Docker Compose 版本](#docker-compose-versions)
 
-
+<!--
 Kompose has support for two providers: OpenShift and Kubernetes.
 You can choose a targeted provider using global option `--provider`. If no provider is specified, Kubernetes is set by default.
+-->
 
+Kompose 支持两种驱动：OpenShift 和 Kubernetes。
+您可以通过全局选项 `--provider` 选择驱动方式。如果没有指定，会将 Kubernetes 作为默认驱动。
 
-## `kompose convert`
+## `kompose convert`{#kompose-convert}
 
 Kompose 支持将 V1、V2 和 V3 版本的 Docker Compose 文件转换为 Kubernetes 和 OpenShift 资源对象。
 
@@ -385,8 +388,8 @@ It also supports creating buildconfig for build directive in a service. By defau
 -->
 
 kompose 还支持为服务中的构建指令创建 buildconfig。
-默认情况下，它使用当前 git 分支的远程 repo 作为源 repo，使用当前分支作为构建的源分支。
-您可以分别使用 ``--build-repo`` 和 ``--build-branch`` 选项指定不同的源 repo 和分支。
+默认情况下，它使用当前 git 分支的 remote 仓库作为源仓库，使用当前分支作为构建的源分支。
+您可以分别使用 ``--build-repo`` 和 ``--build-branch`` 选项指定不同的源仓库和分支。
 
 ```sh
 $ kompose --provider openshift --file buildconfig/docker-compose.yml convert
@@ -404,7 +407,7 @@ If you are manually pushing the Openshift artifacts using ``oc create -f``, you 
 如果使用 ``oc create -f`` 手动推送 Openshift 工件，则需要确保在构建配置工件之前推送 imagestream 工件，以解决 Openshift 的这个问题：https://github.com/openshift/origin/issues/4518 。
 {{< /note >}}
 
-## `kompose up`
+## `kompose up` {#kompose-up}
 
 <!--
 Kompose supports a straightforward way to deploy your "composed" application to Kubernetes or OpenShift via `kompose up`.
@@ -501,7 +504,7 @@ is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1
 
 - 您必须有一个运行正常的 OpenShift 集群，该集群具有预先配置的 `oc` 上下文 (`oc login`)。
 
-## `kompose down`
+## `kompose down` {#kompose-down}
 
 <!--
 Once you have deployed "composed" application to Kubernetes, `$ kompose down` will help you to take the application out by deleting its deployments and services. If you need to remove other resources, use the 'kubectl' command.
@@ -538,7 +541,7 @@ Using an [example Docker Compose file](https://raw.githubusercontent.com/kuberne
 
 - 您必须有一个运行正常的 Kubernetes 集群，该集群具有预先配置的 kubectl 上下文。
 
-## 构建和推送 Docker 镜像
+## 构建和推送 Docker 镜像 {#build-and-push-docker-images}
 
 Kompose 支持构建和推送 Docker 镜像。如果 Docker Compose 文件中使用了 `build` 关键字，您的镜像将会：
 
@@ -583,7 +586,7 @@ Your application has been deployed to Kubernetes. You can run 'kubectl get deplo
 In order to disable the functionality, or choose to use BuildConfig generation (with OpenShift) `--build (local|build-config|none)` can be passed.
 -->
 
-要想禁用该功能，或者使用 BuildConfig 生成（在 OpenShift 中），可以通过传递 `--build (local|build-config|none)` 参数来实现。
+要想禁用该功能，或者使用 BuildConfig 中的版本（在 OpenShift 中），可以通过传递 `--build (local|build-config|none)` 参数来实现。
 
 ```sh
 # Disable building/pushing Docker images
@@ -599,7 +602,7 @@ $ kompose up --provider openshift --build build-config
 The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) objects, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) charts.
 -->
 
-## 替代转换
+## 替代转换 {#alternative-conversions}
 
 默认的 `kompose` 转换会生成 yaml 格式的 Kubernetes [Deployment](/docs/concepts/workloads/controllers/deployment/) 和 [Service](/docs/concepts/services-networking/service/) 对象。
 您可以选择通过 `-j` 参数生成 json 格式的对象。
@@ -684,7 +687,7 @@ For example:
 
 这个图标结构旨在为构建 Helm Chart 提供框架。
 
-## 标签
+## 标签 {#labels}
 
 `kompose` 支持 `docker-compose.yml` 文件中用于 Kompose 的标签，以便在转换时明确定义 Service 的行为。
 
@@ -758,7 +761,7 @@ The currently supported options are:
 <!--
 The `kompose.service.type` label should be defined with `ports` only, otherwise `kompose` will fail.
 -->
-`kompose.service.type` 标签应该只用`端口`来定义，否则 `kompose` 会失败。
+`kompose.service.type` 标签应该只用`ports`来定义，否则 `kompose` 会失败。
 {{< /note >}}
 
 <!--
@@ -767,7 +770,7 @@ The `kompose.service.type` label should be defined with `ports` only, otherwise 
 If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what happens on the `restart` value.
 -->
 
-## 重启
+## 重启 {#restart}
 
 如果你想创建没有控制器的普通 Pod，可以使用 docker-compose 的 `restart` 结构来定义它。请参考下表了解 `restart` 的不同参数。
 
@@ -782,8 +785,8 @@ If you want to create normal pods without controllers you can use `restart` cons
 
 | `docker-compose` `restart` | 创建的对象          | Pod `restartPolicy` |
 |----------------------------|-------------------|---------------------|
-| `""`                       | controller object | `Always`            |
-| `always`                   | controller object | `Always`            |
+| `""`                       | 控制器对象         | `Always`            |
+| `always`                   | 控制器对象         | `Always`            |
 | `on-failure`               | Pod               | `OnFailure`         |
 | `no`                       | Pod               | `Never`             |
 
@@ -840,7 +843,7 @@ Kompose supports Docker Compose versions: 1, 2 and 3. We have limited support on
 A full list on compatibility between all three versions is listed in our [conversion document](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md) including a list of all incompatible Docker Compose keys.
 -->
 
-## Docker Compose 版本
+## Docker Compose 版本 {#docker-compose-versions}
 
 Kompose 支持的 Docker Compose 版本包括：1、2 和 3。有限支持 2.1 和 3.2 版本，因为它们还在实验阶段。
 
