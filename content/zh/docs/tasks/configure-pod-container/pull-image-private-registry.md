@@ -124,7 +124,7 @@ You have successfully set your Docker credentials in the cluster as a Secret cal
 
 在这里：
 
-* `<your-registry-server>` 是你的私有 Docker Registry FQDN. (参考 https://index.docker.io/v1/ 中关于 DockerHub 的部分)
+* `<your-registry-server>` 是你的私有 Docker 仓库 FQDN. (参考 https://index.docker.io/v1/ 中关于 DockerHub 的部分)
 * `<your-name>` 是你的 Docker 用户名。
 * `<your-pword>` 是你的 Docker 密码。
 * `<your-email>` 是你的 Docker email。
