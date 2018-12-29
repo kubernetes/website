@@ -1,5 +1,5 @@
 
-生成建立控制平面所需的所有静态 Pod 清单文件
+生成创建控制平面所需的所有静态 Pod 清单文件
 <!--
 Generates all static Pod manifest files necessary to establish the control plane
 -->
@@ -13,7 +13,7 @@ Generates all static Pod manifest files necessary to establish the control plane
 <!--
 Generates all static Pod manifest files necessary to establish the control plane. 
 -->
-生成建立控制平面所需的所有静态 Pod 的清单文件。
+生成创建控制平面所需的所有静态 Pod 的清单文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
