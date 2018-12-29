@@ -44,7 +44,7 @@ private Docker registry or repository.
 On your laptop, you must authenticate with a registry in order to pull a private image:
 -->
 
-## 登录 Docker
+## 登录 Docker 镜像仓库
 
 在个人电脑上，要想拉取私有镜像必须在镜像仓库上进行身份验证。
 
@@ -124,10 +124,10 @@ You have successfully set your Docker credentials in the cluster as a Secret cal
 
 在这里：
 
-* `<your-registry-server>` 是你的私有 Docker 仓库 FQDN. (参考 https://index.docker.io/v1/ 中关于 DockerHub 的部分)
+* `<your-registry-server>` 是你的私有 Docker 仓库全限定域名（FQDN）。(参考 https://index.docker.io/v1/ 中关于 DockerHub 的部分)
 * `<your-name>` 是你的 Docker 用户名。
 * `<your-pword>` 是你的 Docker 密码。
-* `<your-email>` 是你的 Docker email。
+* `<your-email>` 是你的 Docker 邮箱。
 
 这样您就成功地将集群中的 Docker 凭据设置为名为 `regcred` 的 Secret。
 
@@ -192,7 +192,7 @@ The output is similar to this:
 To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
 -->
 
-要了解 `auth` 字段中的内容，请将 base64 编码的数据转换为可读格式：
+要了解 `auth` 字段中的内容，请将 base64 编码过的数据转换为可读格式：
 
 ```shell
 echo "c3R...zE2" | base64 --decode
