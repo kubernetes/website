@@ -36,9 +36,9 @@ kubeadm alpha phase upload-config [flags]
 ### 例子
 
 <!--
-
--->
   # uploads the configuration of your cluster
+-->
+
 ```
   # 上传集群的配置
   kubeadm alpha phase upload-config --config=myConfig.yaml
