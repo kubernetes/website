@@ -23,7 +23,7 @@ Alternatively, you can use kubeadm config.
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令目前属于 alpha。
+Alpha 免责声明：此命令目前属于 alpha 阶段。
 
 ```
 kubeadm alpha phase upload-config [flags]
