@@ -18,7 +18,7 @@ Adds an annotation to the current node with the CRI socket specified in the kube
 <!--
 Alpha Disclaimer: this command is currently alpha.
 -->
-Alpha 免责声明：此命令目前属于 alpha。
+Alpha 免责声明：此命令目前属于 alpha 阶段。
 
 ```
 kubeadm alpha phase kubelet config annotate-cri [flags]
