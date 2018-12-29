@@ -1,6 +1,10 @@
+生成 etcd 节点之间相互通信的凭证
+
 <!--
 Generates the credentials for etcd nodes to communicate with each other
+-->
 
+<!--
 ### Synopsis
 
 
@@ -8,8 +12,6 @@ Renews the credentials for etcd nodes to communicate with each other, and saves 
 
 Extra attributes such as SANs will be based on the existing certificates, there is no need to resupply them.
 -->
-
-生成 etcd 节点之间相互通信的凭证
 
 ### 摘要
 
@@ -81,7 +83,7 @@ kubeadm alpha phase certs renew etcd-peer [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">保存凭证的路径</td>
@@ -102,7 +104,7 @@ kubeadm alpha phase certs renew etcd-peer [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
+      <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">与集群交互时使用的 KubeConfig 文件。如果没有设置该参数，将会搜索一组标准位置来查找现有的 KubeConfig 文件。</td>
@@ -112,7 +114,7 @@ kubeadm alpha phase certs renew etcd-peer [flags]
       <td colspan="2">--use-api</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用 Kubernetes 凭证 API 更新凭证</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用 Kubernetes 证书 API 更新证书</td>
     </tr>
 
   </tbody>
@@ -153,7 +155,7 @@ kubeadm alpha phase certs renew etcd-peer [flags]
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验]通往'真正的'主机 root 文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验性]指向主机根文件系统的“真实”路径。</td>
     </tr>
 
   </tbody>
