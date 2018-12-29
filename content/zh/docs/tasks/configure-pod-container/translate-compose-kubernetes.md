@@ -20,11 +20,13 @@ weight: 170
 
 <!--
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
-
-More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
 -->
 
 Kompose 是什么？它是个转换工具，可将 compose（即 Docker Compose）所组装的所有内容转换成容器编排器（Kubernetes 或 OpenShift）可识别的形式。
+
+<!--
+More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
+-->
 
 更多信息请参考 Kompose 官网 [http://kompose.io](http://kompose.io)。
 
@@ -41,19 +43,25 @@ Kompose 是什么？它是个转换工具，可将 compose（即 Docker Compose�
 
 <!--
 ## Install Kompose
-
-We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
-
-## GitHub release
-
-Kompose is released via GitHub on a three-week cycle, you can see all current releases on the [GitHub release page](https://github.com/kubernetes/kompose/releases).
 -->
 
 ## 安装 Kompose
 
+<!--
+We have multiple ways to install Kompose. Our preferred method is downloading the binary from the latest GitHub release.
+-->
+
 我们有很多种方式安装 Kompose。首选方式是从最新的 GitHub 发布页面下载二进制文件。
 
+<!--
+## GitHub release
+-->
+
 ## GitHub 发布版本
+
+<!--
+Kompose is released via GitHub on a three-week cycle, you can see all current releases on the [GitHub release page](https://github.com/kubernetes/kompose/releases).
+-->
 
 Kompose 通过 GitHub 发布版本，发布周期为三星期。您可以在[GitHub 发布页面](https://github.com/kubernetes/kompose/releases)上看到所有当前版本。
 
@@ -73,15 +81,14 @@ sudo mv ./kompose /usr/local/bin/kompose
 
 <!--
 Alternatively, you can download the [tarball](https://github.com/kubernetes/kompose/releases).
-
-## Go
-
-Installing using `go get` pulls from the master branch with the latest development changes.
 -->
-
 或者，您可以下载 [tarball](https://github.com/kubernetes/kompose/releases)。
 
 ## Go
+
+<!--
+Installing using `go get` pulls from the master branch with the latest development changes.
+-->
 
 用 `go get` 命令从主分支拉取最新的开发变更的方法安装 Kompose。
 
@@ -95,12 +102,15 @@ go get -u github.com/kubernetes/kompose
 <!--
 Kompose is in [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS repository.
 If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running  `sudo yum install epel-release`
-
-If you have [EPEL](https://fedoraproject.org/wiki/EPEL) enabled in your system, you can install Kompose like any other package.
 -->
 
 Kompose 位于 [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS 代码仓库。
 如果您还没有安装启用 [EPEL](https://fedoraproject.org/wiki/EPEL) 代码仓库，请运行命令 `sudo yum install epel-release`。
+
+<!--
+If you have [EPEL](https://fedoraproject.org/wiki/EPEL) enabled in your system, you can install Kompose like any other package.
+-->
+
 如果您的系统中已经启用了 [EPEL](https://fedoraproject.org/wiki/EPEL)，您就可以像安装其他软件包一样安装 Kompose。
 
 ```bash
@@ -133,18 +143,20 @@ brew install kompose
 ```
 <!--
 ## Use Kompose
-
-In just a few steps, we'll take you from Docker Compose to Kubernetes. All
-you need is an existing `docker-compose.yml` file.
-
-1.  Go to the directory containing your `docker-compose.yml` file. If you don't
-    have one, test using this one.
 -->
 
 ## 使用 Kompose
 
+<!--
+In just a few steps, we'll take you from Docker Compose to Kubernetes. All
+you need is an existing `docker-compose.yml` file.
+-->
+
 再需几步，我们就把你从 Docker Compose 带到 Kubernetes。
 您只需要一个现有的 `docker-compose.yml` 文件。
+
+<!--1.  Go to the directory containing your `docker-compose.yml` file. If you don't
+    have one, test using this one.-->
 
 1.  进入 `docker-compose.yml` 文件所在的目录。如果没有，请使用下面这个进行测试。
 
@@ -174,10 +186,10 @@ you need is an existing `docker-compose.yml` file.
           labels:
             kompose.service.type: LoadBalancer
       ```
-<!--
-2.  Run the `kompose up` command to deploy to Kubernetes directly, or skip to
-    the next step instead to generate a file to use with `kubectl`.
--->
+
+<!--2.  Run the `kompose up` command to deploy to Kubernetes directly, or skip to
+    the next step instead to generate a file to use with `kubectl`.-->
+
 2.  运行 `kompose up` 命令直接部署到 Kubernetes，或者跳到下一步，生成 `kubectl` 使用的文件。
 
       ```bash
@@ -192,10 +204,10 @@ you need is an existing `docker-compose.yml` file.
 
       Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods,pvc' for details.
       ```
-<!--
-3.  To convert the `docker-compose.yml` file to files that you can use with
-    `kubectl`, run `kompose convert` and then `kubectl create -f <output file>`.
--->
+
+<!--3.  To convert the `docker-compose.yml` file to files that you can use with
+    `kubectl`, run `kompose convert` and then `kubectl create -f <output file>`.-->
+
 3.  要将 `docker-compose.yml` 转换为 `kubectl` 可用的文件，请运行 `kompose convert` 命令进行转换，然后运行 `kubectl create -f <output file>` 进行创建。
 
       ```bash
@@ -221,11 +233,11 @@ you need is an existing `docker-compose.yml` file.
       Your deployments are running in Kubernetes.
 -->
       您部署的应用在 Kubernetes 中运行起来了。
-<!--
-4.  Access your application.
 
-      If you're already using `minikube` for your development process:
--->
+<!--4.  Access your application.
+
+      If you're already using `minikube` for your development process:-->
+
 4.  访问您的应用。
 
       如果您在开发过程中使用 `minikube`，请执行：
@@ -404,6 +416,7 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 <!--
 If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
 -->
+
 如果使用 ``oc create -f`` 手动推送 Openshift 工件，则需要确保在构建配置工件之前推送 imagestream 工件，以解决 Openshift 的这个问题：https://github.com/openshift/origin/issues/4518 。
 {{< /note >}}
 
@@ -416,6 +429,7 @@ Kompose supports a straightforward way to deploy your "composed" application to 
 Kompose 支持通过 `kompose up` 直接将您的"复合的（composed）" 应用程序部署到 Kubernetes 或 OpenShift。
 
 ### Kubernetes
+
 ```sh
 $ kompose --file ./examples/docker-guestbook.yml up
 We are going to create Kubernetes deployments and services for your Dockerized application.
@@ -450,7 +464,6 @@ pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
 
 <!--
 **Note**:
-
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
 - Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the `kompose convert` and `kubectl create -f` commands instead.
 -->
@@ -496,7 +509,6 @@ is/redis-slave     172.30.12.200:5000/fff/redis-slave    v1
 
 <!--
 **Note**:
-
 - You must have a running OpenShift cluster with a pre-configured `oc` context (`oc login`)
 -->
 
@@ -524,16 +536,11 @@ INFO Successfully deleted deployment: frontend
 
 <!--
 **Note**:
-
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
-
 ## Build and Push Docker Images
-
 Kompose supports both building and pushing Docker images. When using the `build` key within your Docker Compose file, your image will:
-
   - Automatically be built with Docker using the `image` key specified within your file
   - Be pushed to the correct Docker repository using local credentials (located at `.docker/config`)
-
 Using an [example Docker Compose file](https://raw.githubusercontent.com/kubernetes/kompose/master/examples/buildconfig/docker-compose.yml):
 -->
 
@@ -598,7 +605,6 @@ $ kompose up --provider openshift --build build-config
 
 <!--
 ## Alternative Conversions
-
 The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](/docs/concepts/services-networking/service/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) objects, [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), or [Helm](https://github.com/helm/helm) charts.
 -->
 
@@ -646,7 +652,6 @@ INFO Kubernetes file "web-daemonset.yaml" created
 
 <!--
 The `*-daemonset.yaml` files contain the Daemon Set objects
-
 If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) simply do:
 -->
 
@@ -675,13 +680,9 @@ docker-compose
 
 <!--
 The chart structure is aimed at providing a skeleton for building your Helm charts.
-
 ## Labels
-
 `kompose` supports Kompose-specific labels within the `docker-compose.yml` file in order to explicitly define a service's behavior upon conversion.
-
 - `kompose.service.type` defines the type of service to be created.
-
 For example:
 -->
 
@@ -713,7 +714,6 @@ services:
 - `kompose.service.expose` defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
   - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
   - For the OpenShift provider, a route is created.
-
 For example:
 -->
 
@@ -742,7 +742,6 @@ services:
 
 <!--
 The currently supported options are:
-
 | Key                  | Value                               |
 |----------------------|-------------------------------------|
 | kompose.service.type | nodeport / clusterip / loadbalancer |
@@ -766,7 +765,6 @@ The `kompose.service.type` label should be defined with `ports` only, otherwise 
 
 <!--
 ## Restart
-
 If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what happens on the `restart` value.
 -->
 
@@ -817,7 +815,6 @@ services:
 
 <!--
 ### Warning about Deployment Config's
-
 If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time.
 -->
 
@@ -828,7 +825,6 @@ If the Docker Compose file has a volume specified for a service, the Deployment 
 
 <!--
 If the Docker Compose file has service name with `_` in it (eg.`web_service`), then it will be replaced by `-` and the service name will be renamed accordingly (eg.`web-service`). Kompose does this because "Kubernetes" doesn't allow `_` in object name.
-
 Please note that changing service name might break some `docker-compose` files.
 -->
 
@@ -837,9 +833,7 @@ Kompose 这样做的原因是 "Kubernetes" 不允许对象名称中包含 `_`。
 
 <!--
 ## Docker Compose Versions
-
 Kompose supports Docker Compose versions: 1, 2 and 3. We have limited support on versions 2.1 and 3.2 due to their experimental nature.
-
 A full list on compatibility between all three versions is listed in our [conversion document](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md) including a list of all incompatible Docker Compose keys.
 -->
 
