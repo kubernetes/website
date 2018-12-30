@@ -23,7 +23,7 @@ Alpha Disclaimer: this command is currently alpha.
 
 或者，您可以使用 kubeadm 令牌。
 
-Alpha 免责声明：此命令目前是 alpha。
+Alpha 免责声明：此命令目前属于 alpha 阶段。
 
 ```
 kubeadm alpha phase bootstrap-token create [flags]
@@ -128,7 +128,7 @@ kubeadm alpha phase bootstrap-token create [flags]
       <td colspan="2">--groups stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: [system:bootstrappers:kubeadm:default-node-token]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用这个 token 进行身份认证的额外组。必须符合 "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">使用这个令牌进行身份认证的额外组。必须符合 "\\Asystem:bootstrappers:[a-z0-9:-]{0,255}[a-z0-9]\\z"</td>
     </tr>
 
     <tr>
@@ -142,28 +142,28 @@ kubeadm alpha phase bootstrap-token create [flags]
       <td colspan="2">--skip-token-print</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">跳过打印 bootstrap token</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">跳过打印引导令牌操作</td>
     </tr>
 
     <tr>
       <td colspan="2">--token string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">token 用来建立节点和 master 间的双向互信。格式为 [a-z0-9]{6}\.[a-z0-9]{16} - 例如 abcdef.0123456789abcdef</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">令牌用来建立节点与主控节点键的双向信任。格式为 [a-z0-9]{6}\.[a-z0-9]{16} - 例如 abcdef.0123456789abcdef</td>
     </tr>
 
     <tr>
       <td colspan="2">--token-ttl duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 24h0m0s</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">token 在被自动删除前的持续时间（如 1s, 2m, 3h）。如果设为'0'，token 将永不失效</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">令牌在被自动删除前的持续时间（如 1s, 2m, 3h）。如果设为'0'，token 将永不失效</td>
     </tr>
 
     <tr>
       <td colspan="2">--usages stringSlice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: [signing,authentication]</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">描述 token 可以使用的方式。您可以多次传递 --usages 或用逗号分隔开多个选择项。有效的选择项: [signing,authentication]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">描述令牌可以使用的方式。您可以多次传递 --usages 或用逗号分隔开多个选择项。有效的选择项: [signing,authentication]</td>
     </tr>
 
   </tbody>
