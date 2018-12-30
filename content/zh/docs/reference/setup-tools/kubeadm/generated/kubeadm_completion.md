@@ -1,4 +1,4 @@
-为指定的 shell 输出 shell 自动补全代码（bash 或 zsh）。
+为指定的 shell（bash 或 zsh）输出 shell 自动补全代码。
 <!--
 Output shell completion code for the specified shell (bash or zsh).
 -->
@@ -16,7 +16,7 @@ completion of kubeadm commands. This can be done by sourcing it from
 the .bash_profile.
 -->
 
-为指定的 shell 输出 shell 自动补全代码（bash 或 zsh）。
+为指定的 shell（bash 或 zsh）输出 shell 自动补全代码。
 必须激活 shell 代码以提供交互式 kubeadm 命令补全。这可以通过加载 .bash_profile 文件完成。
 
 <!--
@@ -37,7 +37,7 @@ following line to the .bash_profile
 
     brew install bash-completion
 
-安装后，必须激活 bash_completion。这可以通过添加以下行到 .bash_profile 文件完成 
+安装后，必须激活 bash_completion。这可以通过在 .bash_profile 文件中添加下面的命令行来完成 
 
     source $(brew --prefix)/etc/bash_completion
 
@@ -52,7 +52,7 @@ via your distribution's package manager.
 Note for zsh users: [1] zsh completions are only supported in versions of zsh >= 5.2
 -->
 
-zsh 用户注意事项：[1] zsh 自动补全仅在 zsh>=5.2 的版本中支持。
+zsh 用户注意事项：[1] zsh 自动补全仅在 v5.2 及以上版本中支持。
 
 ```
 kubeadm completion SHELL [flags]
@@ -98,7 +98,7 @@ source <(kubeadm completion bash)
 printf "\n# Kubeadm shell completion\nsource '$HOME/.kube/kubeadm_completion.bash.inc'\n" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
-# 将 zsh[1] 版本的 kubeadm 自动补全代码加载到当前 shell 中
+# 将 zsh 版本的 kubeadm 自动补全代码加载到当前 shell 中
 source <(kubeadm completion zsh)
 ```
 
