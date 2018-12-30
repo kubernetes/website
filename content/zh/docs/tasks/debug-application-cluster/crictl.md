@@ -142,9 +142,9 @@ general purpose workflow tool, but a tool that is useful for debugging.-->
 List all pods:
 -->
 
-### 查询 Pod
+### 打印 Pod 清单
 
-查询所有的 Pod：
+打印所有 Pod 的清单：
 
 ```bash
 crictl pods
@@ -161,7 +161,7 @@ a86316e96fa89       17 hours ago         Ready               kube-proxy-gblk4   
 List pods by name:
 -->
 
-根据名称查询 Pod：
+根据名称打印 Pod 清单：
 
 ```bash
 crictl pods --name nginx-65899c769f-wv2gp
@@ -175,7 +175,7 @@ POD ID              CREATED             STATE               NAME                
 List pods by label:
 -->
 
-根据标签查询 Pod：
+根据标签打印 Pod 清单：
 
 ```bash
 crictl pods --label run=nginx
@@ -191,9 +191,9 @@ POD ID              CREATED             STATE               NAME                
 List all images:
 -->
 
-### 查询镜像
+### 打印镜像清单
 
-查询所有镜像：
+打印所有镜像清单：
 
 ```bash
 crictl images
@@ -210,7 +210,7 @@ nginx                                     latest              cd5239a0906a6     
 List images by repository:
 -->
 
-根据仓库查询镜像：
+根据仓库打印镜像清单：
 
 ```bash
 crictl images nginx
@@ -224,7 +224,7 @@ nginx               latest              cd5239a0906a6       109MB
 Only list image IDs:
 -->
 
-只查询镜像 ID：
+只打印镜像 ID：
 
 ```bash
 crictl images -q
@@ -242,9 +242,9 @@ sha256:cd5239a0906a6ccf0562354852fae04bc5b52d72a2aff9a871ddb6bd57553569
 List all containers:
 -->
 
-### 查询容器
+### 打印容器清单
 
-查询所有容器：
+打印所有容器清单：
 
 ```bash
 crictl ps -a
@@ -261,7 +261,7 @@ CONTAINER ID        IMAGE                                                       
 List running containers:
 -->
 
-查询运行中的容器：
+打印正在运行的容器清单：
 
 ```bash
 crictl ps
@@ -277,7 +277,7 @@ CONTAINER ID        IMAGE                                                       
 ### Execute a command in a running container
 -->
 
-### 在运行中的容器上执行命令
+### 在正在运行的容器上执行命令
 
 ```bash
 crictl exec -i -t 1f73f2d81bf98 ls
@@ -329,10 +329,10 @@ deleted by the Kubelet.
 ### 运行 Pod 沙盒
 
 用 `crictl` 运行 Pod 沙盒对容器运行时排错很有帮助。
-在运行的 Kubernetes 集群中，沙盒会随机的被 kubelet 停止和删除。
+在运行的 Kubernetes 集群中，沙盒会随机地被 kubelet 停止和删除。
 
 1.  <!--Create a JSON file like the following:-->
-    编写下面的 JSON文件：
+    编写下面的 JSON 文件：
 
       ```json
       {
