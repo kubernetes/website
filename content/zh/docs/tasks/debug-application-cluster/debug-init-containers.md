@@ -145,7 +145,7 @@ You can also access the Init Container statuses programmatically by reading the
 `status.initContainerStatuses` field on the Pod Spec:
 -->
 
-您还可以通过读取 Pod Spec 上的 `status.initContainerStatuses` 字段以编程方式访问 Init 容器的状态：
+您还可以通过读取 Pod Spec 上的 `status.initContainerStatuses` 字段以编程方式了解 Init 容器的状态：
 
 ```shell
 kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
