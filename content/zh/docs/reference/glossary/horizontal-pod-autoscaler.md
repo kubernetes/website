@@ -1,10 +1,10 @@
 ---
-title: Pod 水平自动缩放器
+title: Pod 水平自动扩缩器
 id: horizontal-pod-autoscaler
 date: 2018-04-12
 full_link: /docs/tasks/run-application/horizontal-pod-autoscale/
 short_description: >
-  Pod 水平自动缩放器（Horizontal Pod Autoscaler）是一种 API 资源，它根据目标 CPU 利用率或自定义度量目标缩放 Pod 副本的数量。
+  Pod 水平自动扩缩器（Horizontal Pod Autoscaler）是一种 API 资源，它根据目标 CPU 利用率或自定义度量目标扩缩 Pod 副本的数量。
 
 aka: 
 tags:
@@ -26,7 +26,7 @@ tags:
 ---
 -->
 
- Pod 水平自动缩放器（Horizontal Pod Autoscaler）是一种 API 资源，它根据目标 CPU 利用率或自定义度量目标缩放 Pod 副本的数量。
+ Pod 水平自动扩缩器（Horizontal Pod Autoscaler）是一种 API 资源，它根据目标 CPU 利用率或自定义度量目标扩缩 Pod 副本的数量。
 
 <!--more--> 
 
@@ -34,4 +34,4 @@ tags:
 HPA is typically used with {{< glossary_tooltip text="Replication Controllers" term_id="replication-controller" >}}, {{< glossary_tooltip text="Deployments" term_id="deployment" >}}, or Replica Sets. It cannot be applied to objects that cannot be scaled, for example {{< glossary_tooltip text="DaemonSets" term_id="daemonset" >}}.
 -->
 
-HPA（Horizontal Pod Autoscaler）通常用于 {{< glossary_tooltip text="Replication Controllers" term_id="replication-controller" >}}、{{< glossary_tooltip text="Deployments" term_id="deployment" >}} 或者 Replica Sets 上。HPA 不能用于不支持缩放的对象，例如 {{< glossary_tooltip text="DaemonSets" term_id="daemonset" >}}。
+HPA 通常用于 {{< glossary_tooltip text="Replication Controllers" term_id="replication-controller" >}}、{{< glossary_tooltip text="Deployments" term_id="deployment" >}} 或者 Replica Sets 上。HPA 不能用于不支持扩缩的对象，例如 {{< glossary_tooltip text="DaemonSets" term_id="daemonset" >}}。
