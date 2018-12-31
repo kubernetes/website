@@ -2,9 +2,9 @@
 approvers:
 - chenopis
 title: Kubernetes Documentation
-layout: docsportal_home
 noedit: true
 cid: docsHome
+layout: basic
 class: gridPage
 linkTitle: "Home"
 main_menu: true
