@@ -631,7 +631,7 @@ parameters:
 * `block_size`: block size in Kbytes (default: <em>32</em>).
 * `repl`: number of synchronous replicas to be provided in the form of
   replication factor `1..3` (default: <em>1</em>) A string is expected here i.e.
-  `"1"` and not `1`.
+  <em>"1"</em> and not <em>1</em>.
 * `io_priority`: determines whether the volume will be created from higher
   performance or a lower priority storage `high/medium/low</strong` (default: <em>low</em>).
 * `snap_interval`: clock/time interval in minutes for when to trigger snapshots.
