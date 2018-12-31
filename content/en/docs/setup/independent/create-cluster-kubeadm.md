@@ -551,7 +551,7 @@ The reset process does not reset or clean up iptables rules or IPVS tables. If y
 iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
 ```
 
-If you wish to reset IPVS tables,you must do so manually to reset your system's IPVS tables:
+If you wish to reset IPVS tables, you must call the following command:
 
 ```bash
 ipvsadm -C
