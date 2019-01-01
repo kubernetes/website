@@ -73,7 +73,7 @@ monitoring statistics by default:
   `external.metrics.k8s.io` API.
 -->
 
-- 一个[**完整度量管道**](#full-metrics-pipelines)，如普罗米修斯，可以让您访问更丰富的度量。
+- 一个[**完整度量管道**](#full-metrics-pipelines)，如 Prometheus，可以让您访问更丰富的度量。
   此外，Kubernetes 还可以根据集群的当前状态，使用 Pod 水平自动扩缩器等机制，通过自动调用扩展或调整集群来响应这些度量。
   监控管道从 kubelet 获取度量，然后通过适配器将它们公开给 Kubernetes，方法是实现 `custom.metrics.k8s.io` 或 `external.metrics.k8s.io` API。
 
@@ -90,7 +90,7 @@ monitoring statistics by default:
 The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
 -->
 
-Kubelet充当Kubernetes主节点和节点之间的桥梁。
+Kubelet充 当 Kubernetes 主节点和节点之间的桥梁。
 它管理机器上运行的 Pod 和容器。
 Kubelet 将每个 Pod 转换为它的组成容器，并从 cAdvisor 获取各个容器的使用统计信息。然后它通过一个 REST API 公开聚合的 Pod 资源使用统计信息。
 
