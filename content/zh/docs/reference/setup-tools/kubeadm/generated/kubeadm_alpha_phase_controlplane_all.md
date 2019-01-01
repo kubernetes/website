@@ -120,7 +120,7 @@ kubeadm alpha phase controlplane all [flags]
       <td colspan="2">--controller-manager-extra-args mapStringString</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组以 &lt;flagname&gt;=&lt;value&gt; 的格式传递给控制器管理器或覆盖默认参数的附加的参数;</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">一组以 &lt;flagname&gt;=&lt;value&gt; 的格式传递给控制器管理器或覆盖默认参数的附加的参数。</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</td>
@@ -162,7 +162,7 @@ kubeadm alpha phase controlplane all [flags]
       <td colspan="2">--pod-network-cidr string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于 Pod 网络的 IP 地址范</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于 Pod 网络的 IP 地址范围</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The range of IP addresses used for the Pod network</td>
