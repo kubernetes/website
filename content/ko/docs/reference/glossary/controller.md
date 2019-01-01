@@ -4,7 +4,7 @@ id: controller
 date: 2018-04-12
 full_link: /docs/admin/kube-controller-manager/
 short_description: >
-  API 서버를 통해 클러스터 공유된 상태를 감시하고, 현재 상태를 원하는 상태로 이행시키도록 하는 컨트롤 루프.
+  API 서버를 통해 클러스터의 공유된 상태를 감시하고, 현재 상태를 원하는 상태로 이행시키도록 하는 컨트롤 루프.
 
 aka: 
 tags:
