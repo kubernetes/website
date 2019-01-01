@@ -13,7 +13,7 @@ Generates the Client certificate for the API server to connect to kubelet
 <!--
 Renews the Client certificate for the API server to connect to kubelet, and saves them into apiserver-kubelet-client.cert and apiserver-kubelet-client.key files. 
 -->
-续订 API 服务器的客户端证书以连接到 kubelet，并将其保存到 apiserver-kubelet-client.cert 和 apiserver-kubelet-client.key 中。
+续订 API 服务器的客户端证书以连接到 kubelet，并将其保存到 apiserver-kubelet-client.cert 和 apiserver-kubelet-client.key 文件中。
 
 <!--
 Extra attributes such as SANs will be based on the existing certificates, there is no need to resupply them.
@@ -77,7 +77,7 @@ kubeadm alpha phase certs renew apiserver-kubelet-client [flags]
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
 -->
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一组标准路径来查找现有的 KubeConfig 文件。</td>
     </tr>
 <!--
 <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
