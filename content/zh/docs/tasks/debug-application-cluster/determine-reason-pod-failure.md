@@ -19,16 +19,17 @@ termination message.
 
 本文介绍如何编写和读取容器的终止消息。
 
+<!--
 Termination messages provide a way for containers to write information about 
 fatal events to a location where it can be easily retrieved and surfaced by 
 tools like dashboards and monitoring software. In most cases, information that 
 you put in a termination message should also be written to the general 
 [Kubernetes logs](/docs/concepts/cluster-administration/logging/).
+-->
 
-<!--
 终止消息为容器提供了一种方法，可以将有关致命事件的信息写入某个位置，在该位置可以通过仪表板和监控软件等工具轻松检索和显示致命事件。
 在大多数情况下，您放入终止消息中的信息也应该写入[常规 Kubernetes 日志](/docs/concepts/cluster-administration/logging/)。
--->
+
 
 
 {{% /capture %}}
@@ -94,8 +95,7 @@ the container starts.
                   Sleep expired
                 ...
 
-1. <!--Use a Go template to filter the output so that it includes
-only the termination message:-->使用 Go 模板过滤输出结果，使其包括只有终止消息：
+1. <!--Use a Go template to filter the output so that it includes only the termination message:-->使用 Go 模板过滤输出结果，使其只含有终止消息：
 
         kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
 
