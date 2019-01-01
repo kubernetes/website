@@ -30,9 +30,9 @@ content_template: templates/tutorial
 
 ## 실세상 예제: 컨피그 맵을 사용해서 Redis 설정하기
 
-아래의 단계를 통해서 컨피그 맵에 저장된 데이터를 사용해서 Redis 캐쉬를 설정할 수 있다.
+아래의 단계를 통해서 컨피그 맵에 저장된 데이터를 사용해서 Redis 캐시를 설정할 수 있다.
 
-첫째, `redis-config` 파일에서 컨피그 맵을 생성한다:
+첫째, `redis-config` 파일에서 컨피그 맵을 생성한다.
 
 {{< codenew file="pods/config/redis-config" >}}
 
@@ -45,7 +45,7 @@ kubectl create configmap example-redis-config --from-file=redis-config
 configmap/example-redis-config created
 ```
 
-생성된 컨피그 맵을 점검한다:
+생성된 컨피그 맵을 점검한다.
 
 ```shell
 kubectl get configmap example-redis-config -o yaml
@@ -71,7 +71,7 @@ metadata:
 
 {{< codenew file="pods/config/redis-pod.yaml" >}}
 
-파드를 생성한다:
+파드를 생성한다.
 
 ```shell
 kubectl create -f https://k8s.io/examples/pods/config/redis-pod.yaml
