@@ -11,7 +11,7 @@ tags:
 - architecture
 - fundamental
 ---
- {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}를 통해 클러스터 공유된 상태를 감시하고, 현재 상태를 원하는 상태로 이행시키도록 하는 컨트롤 루프.
+ {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}를 통해 클러스터의 공유된 상태를 감시하고, 현재 상태를 원하는 상태로 이행시키도록 하는 컨트롤 루프.
 
 <!--more--> 
 
