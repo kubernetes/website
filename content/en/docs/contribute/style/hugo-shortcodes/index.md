@@ -14,7 +14,7 @@ Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content
 {{% capture body %}}
 ## Feature state
 
-In a markdown page (.md file) on this site, you can add a shortcode to display version and state of the documented feature.
+In a markdown page (`.md` file) on this site, you can add a shortcode to display version and state of the documented feature.
 
 ### Feature state demo
 
@@ -24,7 +24,7 @@ Below is a demo of the feature state snippet, which displays the feature as stab
 {{</* feature-state for_k8s_version="v1.10" state="stable" */>}}
 ```
 
-Will render to: 
+Renders to: 
 
 {{< feature-state for_k8s_version="v1.10" state="stable" >}}
 
@@ -36,8 +36,6 @@ The valid values for `state` are:
 * stable
 
 ### Feature state code
-
-Below is the template code for each available feature state.
 
 The displayed Kubernetes version defaults to that of the page or the site. This can be changed by passing the <code>for_k8s_version</code> shortcode parameter.
 
@@ -92,14 +90,14 @@ Renders to:
 
 ## Glossary
 
-You can reference glossary terms with an inclusion that will automatically update and replace content with the relevant links from [our glossary](/docs/reference/glossary/). When the term is moused-over by someone
-using the online documentation, the glossary entry will display a tooltip.
+You can reference glossary terms with an inclusion that automatically updates and replaces content with the relevant links from [our glossary](/docs/reference/glossary/). When the term is moused-over by someone
+using the online documentation, the glossary entry displays a tooltip.
 
 The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary), with a content file for each glossary term.
 
 ### Glossary Demo
 
-For example, the following include within the markdown will render to {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
+For example, the following include within the markdown renders to {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
 
 ````liquid
 {{</* glossary_tooltip text="cluster" term_id="cluster" */>}}
@@ -113,9 +111,8 @@ The `tabs` shortcode takes these parameters:
 
 * `name`: The name as shown on the tab.
 * `codelang`: If you provide inner content to the `tab` shortcode, you can tell Hugo what code language to use for highlighting.
-* `include`: The file to include in the tab. If the tab lives in a Hugo [leaf bundle](https://gohugo.io/content-management/page-bundles/#leaf-bundles), the file -- which can be any MIME type supported by Hugo -- will be looked up in the bundle itself. If not, the content page to include will be looked up relative to the current. Note that with the `include` you will not have any shortcode inner content and must use the self-closing syntax, e.g. {{</* tab name="Content File #1" include="example1" /*/>}}. Non-content files will be code-highlighted. The language to use will be taken from the filename if not provided in `codelang`.
-
-* If your inner content is markdown, you must use `%`-delimiter to surorund the tab, e.g. `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
+* `include`: The file to include in the tab. If the tab lives in a Hugo [leaf bundle](https://gohugo.io/content-management/page-bundles/#leaf-bundles), the file -- which can be any MIME type supported by Hugo -- is looked up in the bundle itself. If not, the content page that needs to be included is looked up relative to the current page. Note that with the `include`, you do not have any shortcode inner content and must use the self-closing syntax. For example, <code>{{</* tab name="Content File #1" include="example1" /*/>}}</code>. The language needs to be specified under `codelang` or the language is taken based on the file name. Non-content files are code-highlighted by default. 
+* If your inner content is markdown, you must use the `%`-delimiter to surround the tab. For example, `{{%/* tab name="Tab 1" %}}This is **markdown**{{% /tab */%}}`
 * You can combine the variations mentioned above inside a tab set.
 
 Below is a demo of the tabs shortcode.
@@ -137,7 +134,7 @@ println "This is tab 2."
 {{< /tabs */>}}
 ```
 
-Will be rendered as:
+Renders to: 
 
 {{< tabs name="tab_with_code" >}}
 {{< tab name="Tab 1" codelang="bash" >}}
@@ -154,7 +151,9 @@ println "This is tab 2."
 {{</* tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
 This is **some markdown.**
-{{< note >}}**Note:** It can even contain shortcodes.{{< /note >}}
+{{< note >}}
+It can even contain shortcodes.
+{{< /note >}}
 {{% /tab %}}
 {{< tab name="HTML" >}}
 <div>
@@ -165,12 +164,16 @@ This is **some markdown.**
 {{< /tabs */>}}
 ```
 
-Will be rendered as:
+Renders to:
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Markdown" %}}
 This is **some markdown.**
-{{< note >}}**Note:** It can even contain shortcodes.{{< /note >}}
+
+{{< note >}}
+It can even contain shortcodes.
+{{< /note >}}
+
 {{% /tab %}}
 {{< tab name="HTML" >}}
 <div>
@@ -190,7 +193,7 @@ This is **some markdown.**
 {{< /tabs */>}}
 ```
 
-Will be rendered as:
+Renders to:
 
 {{< tabs name="tab_with_file_include" >}}
 {{< tab name="Content File #1" include="example1" />}}

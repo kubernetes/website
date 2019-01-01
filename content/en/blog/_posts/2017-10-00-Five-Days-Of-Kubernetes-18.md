@@ -14,7 +14,7 @@ While many improvements have been contributed, we highlight key features in this
 
 **Day 1:** [5 Days of Kubernetes 1.8](https://kubernetes.io/blog/2017/10/five-days-of-kubernetes-18)  
 **Day 2:** [kubeadm v1.8 Introduces Easy Upgrades for Kubernetes Clusters](https://kubernetes.io/blog/2017/10/kubeadm-v18-released)  
-**Day 3:** [Kuberentes v.1.8 Retrospective: It Takes a Village to Raise a Kubernetes](https://kubernetes.io/blog/2017/10/it-takes-village-to-raise-kubernetes)  
+**Day 3:** [Kubernetes v.1.8 Retrospective: It Takes a Village to Raise a Kubernetes](https://kubernetes.io/blog/2017/10/it-takes-village-to-raise-kubernetes)
 **Day 4:** [Using RBAC, Generally Available in Kubernetes v1.8](https://kubernetes.io/blog/2017/10/using-rbac-generally-available-18)  
 **Day 5:** [Enforcing Network Policies in Kubernetes](https://kubernetes.io/blog/2017/10/enforcing-network-policies-in-kubernetes)  
 

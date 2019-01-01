@@ -1,3 +1,9 @@
+---
+title: 使用端口转发来访问集群中的应用
+content_template: templates/task
+weight: 40
+---
+
 <!--
 ---
 title: Use Port Forwarding to Access Applications in a Cluster
@@ -5,11 +11,6 @@ content_template: templates/task
 weight: 40
 ---
 -->
----
-title: 使用端口转发来访问集群中的应用
-content_template: templates/task
-weight: 40
----
 
 {{% capture overview %}}
 
@@ -200,7 +201,7 @@ local workstation to debug the database that is running in the pod.
 
 {{< warning >}}
 <!--
-**Warning**: Due to known limitations, port forward today only works for TCP protocol.
+Due to known limitations, port forward today only works for TCP protocol.
 The support to UDP protocol is being tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 -->

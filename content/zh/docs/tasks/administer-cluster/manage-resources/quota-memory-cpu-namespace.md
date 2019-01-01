@@ -298,8 +298,3 @@ kubectl delete namespace quota-mem-cpu-example
 * [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 {{% /capture %}}
-
-
-
-
-

@@ -22,9 +22,9 @@ with upgrading your clusters, for example. We encourage you to try either approa
 and provide feedback.
 
 {{< caution >}}
-**Caution**: This page does not address running your cluster on a cloud provider.
-In a cloud environment, neither approach documented here works with Service objects
-of type LoadBalancer, or with dynamic PersistentVolumes.
+This page does not address running your cluster on a cloud provider. In a cloud
+environment, neither approach documented here works with Service objects of type
+LoadBalancer, or with dynamic PersistentVolumes.
 {{< /caution >}}
 
 {{% /capture %}}
@@ -49,9 +49,8 @@ For the external etcd cluster only, you also need:
 - Three additional machines for etcd members
 
 {{< note >}}
-**Note**: The following examples run Calico as the Pod networking provider. If
-you run another networking provider, make sure to replace any default values as
-needed.
+The following examples run Calico as the Pod networking provider. If you run another
+networking provider, make sure to replace any default values as needed.
 {{< /note >}}
 
 {{% /capture %}}
@@ -61,8 +60,7 @@ needed.
 ## First steps for both methods
 
 {{< note >}}
-**Note**: All commands in this guide on any control plane or etcd node should be
-run as root.
+All commands in this guide on any control plane or etcd node should be run as root.
 {{< /note >}}
 
 - Find your pod CIDR. For details, see [the CNI network
@@ -102,9 +100,8 @@ run as root.
 ### Create load balancer for kube-apiserver
 
 {{< note >}}
-**Note**: There are many configurations for load balancers. The following
-example is only one option. Your cluster requirements may need a
-different configuration.
+There are many configurations for load balancers. The following example is only one
+option. Your cluster requirements may need a different configuration.
 {{< /note >}}
 
 1.  Create a kube-apiserver load balancer with a name that resolves to DNS.
@@ -140,7 +137,7 @@ different configuration.
 ### Bootstrap the first stacked control plane node
 
 {{< note >}}
-**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.12.0`.
+Optionally replace the string `stable` with a different version of Kubernetes, for example `v1.12.0`.
 {{< /note >}}
 
 1.  Create a `kubeadm-config.yaml` template file:
@@ -154,6 +151,7 @@ different configuration.
         etcd:
           local:
             extraArgs:
+              name: "CP0_HOSTNAME"
               listen-client-urls: "https://127.0.0.1:2379,https://CP0_IP:2379"
               advertise-client-urls: "https://CP0_IP:2379"
               listen-peer-urls: "https://CP0_IP:2380"
@@ -217,7 +215,7 @@ done
 ```
 
 {{< note >}}
-**Note**: Remember that your config may differ from this example.
+Remember that your config may differ from this example.
 {{< /note >}}
 
 ### Add the second stacked control plane node
@@ -233,6 +231,7 @@ done
         etcd:
           local:
             extraArgs:
+              name: "CP1_HOSTNAME"
               listen-client-urls: "https://127.0.0.1:2379,https://CP1_IP:2379"
               advertise-client-urls: "https://CP1_IP:2379"
               listen-peer-urls: "https://CP1_IP:2380"
@@ -292,9 +291,9 @@ done
     export CP1_IP=10.0.0.8
     export CP1_HOSTNAME=cp1
 
+    kubeadm alpha phase etcd local --config kubeadm-config.yaml
     export KUBECONFIG=/etc/kubernetes/admin.conf
     kubectl exec -n kube-system etcd-${CP0_HOSTNAME} -- etcdctl --ca-file /etc/kubernetes/pki/etcd/ca.crt --cert-file /etc/kubernetes/pki/etcd/peer.crt --key-file /etc/kubernetes/pki/etcd/peer.key --endpoints=https://${CP0_IP}:2379 member add ${CP1_HOSTNAME} https://${CP1_IP}:2380
-    kubeadm alpha phase etcd local --config kubeadm-config.yaml
     ```
 
     - This command causes the etcd cluster to become unavailable for a
@@ -323,6 +322,7 @@ done
         etcd:
           local:
             extraArgs:
+              name: "CP2_HOSTNAME"
               listen-client-urls: "https://127.0.0.1:2379,https://CP2_IP:2379"
               advertise-client-urls: "https://CP2_IP:2379"
               listen-peer-urls: "https://CP2_IP:2380"
@@ -431,16 +431,16 @@ done
 
 ### Set up the first control plane node
 
+{{< note >}}
+Optionally replace the string `stable` with a different version of Kubernetes, for example `v1.11.3`.
+{{< /note >}}
+
 1.  Extract the etcd certificates
 
         mkdir -p /etc/kubernetes/pki
         tar -xzf etcd-pki.tar.gz -C /etc/kubernetes/pki --strip-components=3
 
 1.  Create a `kubeadm-config.yaml`:
-
-{{< note >}}
-**Note**: Optionally replace `stable` with a different version of Kubernetes, for example `v1.11.3`.
-{{< /note >}}
 
         apiVersion: kubeadm.k8s.io/v1alpha3
         kind: ClusterConfiguration
@@ -470,7 +470,7 @@ done
     - `ETCD_2_IP`
 
 1.  Run `kubeadm init --config kubeadm-config.yaml`
-1.  Copy the output join commamnd.
+1.  Copy the output from the join command
 
 ### Copy required files to the correct locations
 

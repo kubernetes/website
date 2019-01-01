@@ -84,7 +84,7 @@ in the Kubernetes organization. Follow these steps:
 1.  Find two reviewers or approvers to [sponsor](/docs/contribute/advanced#sponsor-a-new-contributor)
     your membership.
     
-      Ask for sponsorship in the #sig-docs channel on the 
+      Ask for sponsorship in the [#sig-docs channel on the 
       Kubernetes Slack instance](https://kubernetes.slack.com) or on the
       [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
       

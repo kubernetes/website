@@ -104,7 +104,7 @@ kube-apiserver
 
       --event-ttl duration                                      事件驻留时间。（默认值1h0m0s)
 
-      --experimental-bootstrap-token-auth                       启用此选项以允许'kube-system'命名空间中的'bootstrap.kubernetes.io/token'类型密钥可以被用于TLS的启动认证。
+      --enable-bootstrap-token-auth                             启用此选项以允许'kube-system'命名空间中的'bootstrap.kubernetes.io/token'类型密钥可以被用于TLS的启动认证。
 
       --experimental-encryption-provider-config string          包含加密提供程序的配置的文件，该加密提供程序被用于在etcd中保存密钥。
 

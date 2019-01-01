@@ -1,3 +1,9 @@
+---
+title: 列出集群中所有运行容器的镜像
+content_template: templates/task
+weight: 100
+---
+
 <!--
 ---
 title: List All Container Images Running in a Cluster
@@ -5,11 +11,6 @@ content_template: templates/task
 weight: 100
 ---
 -->
----
-title: 列出集群中所有运行容器的镜像
-content_template: templates/task
-weight: 100
----
 
 {{% capture overview %}}
 
@@ -102,7 +103,7 @@ jsonpath 解释如下：
 
 {{< note >}}
 <!--
-**Note:** When fetching a single Pod by name, e.g. `kubectl get pod nginx`,
+When fetching a single Pod by name, e.g. `kubectl get pod nginx`,
 the `.items[*]` portion of the path should be omitted because a single
 Pod is returned instead of a list of items.
 -->

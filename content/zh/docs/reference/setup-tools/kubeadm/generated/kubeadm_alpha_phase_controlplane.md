@@ -9,7 +9,7 @@ This command is not meant to be run on its own. See list of available subcommand
 ### Options
 -->
 
-生成建立控制面所需的所有静态Pod清单文件
+生成建立控制面所需的所有静态 Pod 清单文件
 
 ### 简介
 
@@ -48,7 +48,7 @@ This command is not meant to be run on its own. See list of available subcommand
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">controlplane帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">controlplane 的帮助信息</td>
     </tr>
 
   </tbody>
@@ -87,7 +87,7 @@ This command is not meant to be run on its own. See list of available subcommand
       <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] 宿主机根文件系统的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 宿主机根文件系统的路径。</td>
     </tr>
 
   </tbody>

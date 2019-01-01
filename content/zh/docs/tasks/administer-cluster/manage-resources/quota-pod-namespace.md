@@ -1,3 +1,9 @@
+---
+title: 为命名空间配置 Pod 配额
+content_template: templates/task
+weight: 60
+---
+
 <!--
 ---
 title: Configure a Pod Quota for a Namespace
@@ -5,12 +11,6 @@ content_template: templates/task
 weight: 60
 ---
 -->
-
----
-title: 为命名空间配置 Pod 配额
-content_template: templates/task
-weight: 60
----
 
 {{% capture overview %}}
 

@@ -44,7 +44,7 @@ https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files
 These commands rely on and are implemented purely on the Docker CLI. You will need to either edit the `$HOME/.docker/config.json` and set `experimental` key to `enabled` or you can just set `DOCKER_CLI_EXPERIMENTAL` environment variable to `enabled` when you call the CLI commands.
 
 {{< note >}}
-**Note:** Please use Docker *18.06 or above*, versions below that either have bugs or do not support the experimental command line option. Example https://github.com/docker/cli/issues/1135 causes problems under containerd.
+Please use Docker *18.06 or above*, versions below that either have bugs or do not support the experimental command line option. Example https://github.com/docker/cli/issues/1135 causes problems under containerd.
 {{< /note >}}
 
 If you run into trouble with uploading stale manifests, just clean up the older manifests in `$HOME/.docker/manifests` to start fresh.
@@ -156,16 +156,16 @@ You can use the IBM Cloud Container Registry to deploy containers from [IBM Clou
 ### Configuring Nodes to Authenticate to a Private Registry
 
 {{< note >}}
-**Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
+If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
 {{< /note >}}
 
 {{< note >}}
-**Note:** If you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
+If you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
 manage and update the ECR login credentials. You cannot use this approach.
 {{< /note >}}
 
 {{< note >}}
-**Note:** This approach is suitable if you can control node configuration.  It
+This approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 {{< /note >}}
@@ -183,7 +183,7 @@ in the search paths list below, kubelet uses it as the credential provider when 
 *   `/.dockercfg`
 
 {{< note >}}
-**Note**: You may have to set `HOME=/root` explicitly in your environment file for kubelet.
+You may have to set `HOME=/root` explicitly in your environment file for kubelet.
 {{< /note >}}
 
 Here are the recommended steps to configuring your nodes to use a private registry.  In this
@@ -240,11 +240,11 @@ registry keys are added to the `.docker/config.json`.
 ### Pre-pulling Images
 
 {{< note >}}
-**Note:** If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
+If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
 {{< /note >}}
 
 {{< note >}}
-**Note:** This approach is suitable if you can control node configuration.  It
+This approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 {{< /note >}}
@@ -263,7 +263,7 @@ All pods will have read access to any pre-pulled images.
 ### Specifying ImagePullSecrets on a Pod
 
 {{< note >}}
-**Note:** This approach is currently the recommended approach for Google Kubernetes Engine, GCE, and any cloud-providers
+This approach is currently the recommended approach for Google Kubernetes Engine, GCE, and any cloud-providers
 where node creation is automated.
 {{< /note >}}
 

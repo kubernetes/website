@@ -12,7 +12,7 @@ find the information it needs to choose a cluster and communicate with the API s
 of a cluster.
 
 {{< note >}}
-**Note:** A file that is used to configure access to clusters is called
+A file that is used to configure access to clusters is called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}

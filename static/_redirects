@@ -211,13 +211,6 @@
 /docs/home/contribute/blog-post/ /docs/contribute/start/ 301
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
 
-/docs/imported/release/notes/ /docs/setup/release/notes/ 301
-
-/docs/imported/community/devel/ /docs/community/devel/ 301
-/docs/imported/community/keps/ /docs/commuinty/keps/ 301
-/docs/imported/community/guide/ /docs/community/guide/ 301
-/docs/imported/community/mentoring/ /docs/commuinty/mentoring/ 301
-
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
 /docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
@@ -489,8 +482,6 @@
 /docs/user-guide/update-dem/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/update-demo/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/volumes/     /docs/concepts/storage/volumes/ 301
-/docs/user-guide/walkthrough/     /docs/tutorials/k8s101/ 301
-/docs/user-guide/walkthrough/k8s201/     /docs/tutorials/k8s201/ 301
 /docs/user-guide/working-with-resources/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301

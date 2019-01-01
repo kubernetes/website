@@ -3,8 +3,11 @@
 <!--
 Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster.
 -->
-### Synopsis
+### 概要
 
+<!--
+### Synopsis
+-->
 
 <!--
 There is a ConfigMap in the kube-system namespace called "kubeadm-config" that kubeadm uses to store internal configuration about the

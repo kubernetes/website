@@ -118,15 +118,19 @@ coredns-provider.conf has below format:
  - `zones` is the federation domain for which CoreDNS is authoritative and is same as --dns-zone-name flag of `kubefed init`.
  - `coredns-endpoints` is the endpoint to access CoreDNS server. This is an optional parameter introduced from v1.7 onwards.
 
-{{< note >}}**Note**: *plugins.etcd.zones in CoreDNS configuration and --dns-zone-name flag to kubefed init should match.*{{< /note >}}
+{{< note >}}
+`plugins.etcd.zones` in the CoreDNS configuration and the `--dns-zone-name` flag to `kubefed init` should match.
+{{< /note >}}
 
 
 ## Setup CoreDNS server in nameserver resolv.conf chain
 
-*Note: The following section applies only to versions prior to v1.7
+{{< note >}}
+The following section applies only to versions prior to v1.7
 and will be automatically taken care of if the `coredns-endpoints`
 parameter is configured in `coredns-provider.conf` as described in
-section above.*
+section above.
+{{< /note >}}
 
 Once the federation control plane is deployed and federated clusters
 are joined to the federation, you need to add the CoreDNS server to the
