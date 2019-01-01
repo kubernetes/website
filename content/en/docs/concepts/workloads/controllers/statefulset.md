@@ -36,7 +36,7 @@ following.
 
 In the above, stable is synonymous with persistence across Pod (re)scheduling.
 If an application doesn't require any stable identifiers or ordered deployment,
-deletion, or scaling, you should deploy your application with a controller that
+deletion, or scaling, you should not deploy your application with a controller that
 provides a set of stateless replicas. Controllers such as
 [Deployment](/docs/concepts/workloads/controllers/deployment/) or
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
