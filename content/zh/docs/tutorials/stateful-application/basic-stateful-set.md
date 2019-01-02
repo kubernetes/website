@@ -46,7 +46,7 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 
 {{% capture lessoncontent %}}
 
-##创建 StatefulSet
+## 创建 StatefulSet
 
 
 作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中的示例相似。它创建了一个  [Headless Service](/docs/user-guide/services/#headless-services)  `nginx` 用来发布StatefulSet `web` 中的 Pod 的 IP 地址。
