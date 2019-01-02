@@ -28,7 +28,7 @@ where bottlenecks can be removed to improve overall performance.
 -->
 
 要扩展应用程序并提供可靠的服务，您需要了解应用程序部署时的行为。
-您可以通过检查容器、[pod](/docs/user-guide/pods)、[service](/docs/user-guide/services) 和整个集群的特性来检查 Kubernetes 集群中的应用程序性能。
+您可以通过检查容器、[pod](/docs/user-guide/pods)、[服务](/docs/user-guide/services) 和整个集群的特性来检查 Kubernetes 集群中的应用程序性能。
 Kubernetes 在每一个级别上提供了关于应用程序资源使用的详细信息。
 此信息允许您评估应用程序的性能，以及在何处可以消除瓶颈以提高整体性能。
 
@@ -90,7 +90,7 @@ monitoring statistics by default:
 The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
 -->
 
-Kubelet充 当 Kubernetes 主节点和节点之间的桥梁。
+Kubelet充当 Kubernetes 主节点和节点之间的桥梁。
 它管理机器上运行的 Pod 和容器。
 Kubelet 将每个 Pod 转换为它的组成容器，并从 cAdvisor 获取各个容器的使用统计信息。然后它通过一个 REST API 公开聚合的 Pod 资源使用统计信息。
 
@@ -110,7 +110,7 @@ cAdvisor 还通过分析机器上的 'root' 容器来提供机器的总体使用
 On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine containers on port 4194. Here is a snapshot of part of cAdvisor's UI that shows the overall machine usage:
 -->
 
-在大多数 Kubernetes 集群中，cAdvisor 在端口 4194 上为机上容器公开了一个简单的用户界面。以下是 cAdvisor 的部分用户界面的快照，其中显示了机器的总体使用情况：
+在大多数 Kubernetes 集群中，cAdvisor 在端口 4194 上为机上容器提供了一个简单的用户界面。以下是 cAdvisor 的部分用户界面的快照，其中显示了机器的总体使用情况：
 
 ![cAdvisor](/images/docs/cadvisor.png)
 
@@ -207,10 +207,10 @@ Create alert conditions on Kubernetes data.
 Learn more on this [page](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration).
 -->
 
-字幕功能：
+移动文字功能：
 在预构建的仪表板中查看数据，以便立即了解 Kubernetes 环境信息。
 根据自动报告的数据创建自己的自定义查询和图表。
-对 Kubernetes 数据创建告警条件。
+对 Kubernetes 数据创建警告条件。
 进一步了解该功能请参考这个[页面](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration)。
 
 
