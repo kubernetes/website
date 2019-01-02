@@ -698,6 +698,6 @@ plugins=(kubectl)
 <!--
 [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 -->
-[了解如何启动并对外暴露您的应用程序。](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+[了解如何启动并对外暴露您的应用程序](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 {{% /capture %}}
 
