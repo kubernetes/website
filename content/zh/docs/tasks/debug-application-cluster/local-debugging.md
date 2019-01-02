@@ -74,7 +74,7 @@ Enter `exit` to quit and close the shell.
 When developing an application on Kubernetes, you typically program or debug a single service. The service might require access to other services for testing and debugging. One option is to use the continuous deployment pipeline, but even the fastest deployment pipeline introduces a delay in the program or debug cycle.
 -->
 
-## 开发和调试先有的服务
+## 开发和调试现有的服务
 
 在 Kubernetes 上开发应用程序时，通常对单个服务进行编程或调试。
 服务可能需要访问其他服务以进行测试和调试。
