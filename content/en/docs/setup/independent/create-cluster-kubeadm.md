@@ -323,7 +323,7 @@ please see [here](https://kubernetes.io/docs/concepts/cluster-administration/net
 Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+kubectl apply -f kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
