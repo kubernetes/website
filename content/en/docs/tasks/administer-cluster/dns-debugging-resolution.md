@@ -122,7 +122,7 @@ Use `kubectl logs` command to see logs for the DNS containers.
 
 For CoreDNS:
 ```shell
-for p in $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name); do kubectl logs --namespace=kube-system $p; done
+for p in $(kubectl get pods --namespace=kube-system -l k8s-app=coredns -o name); do kubectl logs --namespace=kube-system $p; done
 ```
 
 Here is an example of a healthy CoreDNS log:
