@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 
-이 페이지에서는 외부 IP 주소를 노출하는 쿠버네티스 서비스 객체를 생성하는 방법에 대해 설명한다.
+이 페이지에서는 외부 IP 주소를 노출하는 쿠버네티스 서비스 오브젝트를 생성하는 방법에 대해 설명한다.
 
 {{% /capture %}}
 
@@ -15,7 +15,7 @@ weight: 10
 
  * [kubectl](/docs/tasks/tools/install-kubectl/)을 설치한다.
 
- * 구글 쿠버네티스 엔진 또는 아마존 웹 서비스와 같은 클라우드 공급자를 사용하여 쿠버네티스 클러스터를 생성한다. 이 튜토리얼은 [외부 로드 밸런서](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 생성하는데, 클라우드 공급자가 필요하다.
+ * Google Kubernetes Engine 또는 Amazon Web Services와 같은 클라우드 공급자를 사용하여 쿠버네티스 클러스터를 생성한다. 이 튜토리얼은 [외부 로드 밸런서](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 생성하는데, 클라우드 공급자가 필요하다.
 
  * `kubectl`이 쿠버네티스 API 서버와 통신하도록 설정한다. 자세한 내용은 클라우드 공급자의 설명을 참고한다.
 
@@ -26,7 +26,7 @@ weight: 10
 
 * Hello World 애플리케이션을 다섯 개의 인스턴스로 실행한다.
 * 외부 IP 주소를 노출하는 서비스를 생성한다.
-* 실행 중인 애플리케이션에 접근하기 위해 서비스 객체를 사용한다.
+* 실행 중인 애플리케이션에 접근하기 위해 서비스 오브젝트를 사용한다.
 
 {{% /capture %}}
 
@@ -39,24 +39,24 @@ weight: 10
 
         kubectl run hello-world --replicas=5 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
 
-    위의 명령어는 [배포](/docs/concepts/workloads/controllers/deployment/)
-    객체와 관련된
+    위의 명령어는 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)
+    오브젝트와 관련된
     [레플리카 셋](/docs/concepts/workloads/controllers/replicaset/)
-    객체를 생성한다. 레플리카 셋은 다섯 개의 
+    오브젝트를 생성한다. 레플리카 셋은 다섯 개의 
     [파드](/docs/concepts/workloads/pods/pod/)가 있으며,
     각 파드는 Hello World 애플리케이션을 실행한다.
 
-1. 배포에 대한 정보를 확인한다.
+1. 디플로이먼트에 대한 정보를 확인한다.
 
         kubectl get deployments hello-world
         kubectl describe deployments hello-world
 
-1. 레플리카 셋 객체에 대한 정보를 확인한다.
+1. 레플리카 셋 오브젝트에 대한 정보를 확인한다.
 
         kubectl get replicasets
         kubectl describe replicasets
 
-1. 배포를 외부로 노출시키는 서비스 객체를 생성한다.
+1. 디플로이먼트를 외부로 노출시키는 서비스 오브젝트를 생성한다.
 
         kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
 
@@ -69,7 +69,7 @@ weight: 10
         NAME         TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   ClusterIP   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    중요: 만약 외부 IP 주소가 \<pending\>으로 표시되면 잠시 기다린 다음, 동일한 명령어를 다시 입력한다.
+    참고: 만약 외부 IP 주소가 \<pending\>으로 표시되면 잠시 기다린 다음, 동일한 명령어를 다시 입력한다.
 
 1. 서비스에 대한 자세한 정보를 확인한다.
 
@@ -130,7 +130,7 @@ weight: 10
 
         kubectl delete services my-service
 
-Hello World 애플리케이션을 실행 중인 배포, 레플리카 셋, 파드를 삭제하려면, 아래의 명령어를 입력한다.
+Hello World 애플리케이션을 실행 중인 디플로이먼트, 레플리카 셋, 파드를 삭제하려면, 아래의 명령어를 입력한다.
 
         kubectl delete deployment hello-world
 
