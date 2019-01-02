@@ -2,7 +2,7 @@
 reviewers:
 - caesarxuchao
 - mikedanese
-title: 启动 Shell 访问运行中的容器
+title: 获取正在运行容器的 Shell
 content_template: templates/task
 ---
 
@@ -23,7 +23,7 @@ This page shows how to use `kubectl exec` to get a shell to a
 running Container.
 -->
 
-本文介绍怎样使用 `kubectl exec` 命令启动 shell 来访问运行中的容器。
+本文介绍怎样使用 `kubectl exec` 命令获取正在运行容器的 Shell。
 
 {{% /capture %}}
 
@@ -41,7 +41,7 @@ running Container.
 ## Getting a shell to a Container
 -->
 
-## 启动 shell 访问容器
+## 获取容器的 Shell
 
 <!--
 In this exercise, you create a Pod that has one Container. The Container
@@ -76,7 +76,7 @@ kubectl get pod shell-demo
 Get a shell to the running Container:
 -->
 
-启动 shell 访问容器：
+获取正在运行容器的 Shell：
 
 ```shell
 kubectl exec -it shell-demo -- /bin/bash
