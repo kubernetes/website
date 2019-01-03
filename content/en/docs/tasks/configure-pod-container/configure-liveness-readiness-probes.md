@@ -235,11 +235,16 @@ livenessProbe:
 
 Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
-files during startup. In such cases, you don't want to kill the application,
+files during startup, or depend on external services after startup.
+In such cases, you don't want to kill the application,
 but you don’t want to send it requests either. Kubernetes provides
 readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
+
+{{< note >}}
+Readiness probes runs on the container during its whole lifecycle.
+{{< /note >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
