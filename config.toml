@@ -153,11 +153,22 @@ contentDir = "content/ko"
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
 
+[languages.ja]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "日本語 Japanese"
+weight = 4
+contentDir = "content/ja"
+
+[languages.ja.params]
+time_format_blog = "2006.01.02"
+language_alternatives = ["en"]
+
 [languages.no]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
 languageName ="Norsk"
-weight = 4
+weight = 5
 contentDir = "content/no"
 
 [languages.no.params]
