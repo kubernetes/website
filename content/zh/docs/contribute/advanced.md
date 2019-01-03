@@ -1,3 +1,10 @@
+---
+title: 高级贡献
+slug: advanced
+content_template: templates/concept
+weight: 30
+---
+
 <!--
 ---
 title: Advanced contributing
@@ -6,13 +13,6 @@ content_template: templates/concept
 weight: 30
 ---
 -->
-
----
-title: 高级贡献
-slug: advanced
-content_template: templates/concept
-weight: 30
----
 
 {{% capture overview %}}
 
