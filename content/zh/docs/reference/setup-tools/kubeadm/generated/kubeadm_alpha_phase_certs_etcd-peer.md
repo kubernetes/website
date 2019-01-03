@@ -13,7 +13,7 @@ Generates the credentials for etcd nodes to communicate with each other
 <!--
 Generates the credentials for etcd nodes to communicate with each other, and saves them into etcd/peer.cert and etcd/peer.key files.
 -->
-生成 etcd 节点的证书以相互通信，并将它们保存到 etcd/peer.cert 和 etcd/peer.key文件中。
+为 etcd 节点生成证书以便相互通信。并将这些证书保存到 etcd/peer.cert 和 etcd/peer.key 文件中。
 
 <!--
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1 
