@@ -9,7 +9,7 @@ weight: 50
 Unjoin a cluster from a federation
 -->
 
-从联邦中取消集群连接
+从联邦中移除一个集群
 
 <!--
 ### Synopsis
@@ -20,7 +20,7 @@ Unjoin a cluster from a federation
 Unjoin a cluster from a federation.
 -->
 
-从联邦中取消集群连接
+从联邦中移除一个集群
 
 <!--
     Current context is assumed to be a federation endpoint.
@@ -49,7 +49,7 @@ kubefed unjoin CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
 -->
 
 ```
-  # 从联邦中取消指定群集的连接。必须通过 --host-cluster-context 参数指定联邦控制平面的主机群集上下文名称，才能正确清理凭证。
+  # 从联邦中移除指定集群。必须通过 --host-cluster-context 参数指定联邦控制平面所在群集的上下文名称，以便正确清理凭证。
   kubectl unjoin foo --host-cluster-context=bar --cluster-context=baz
 ```
 
@@ -71,7 +71,7 @@ kubefed unjoin CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
       --cluster-context string               本地 kubeconfig 中的集群上下文名称。 如果未指定，默认为集群名称。
       --federation-system-namespace string   主机集群上用来安装联邦系统组件的命名空间（默认 "federation-system"）
   -h, --help                                 unjoin 的帮助信息
-      --host-cluster-context string          主机集群的上下文
+      --host-cluster-context string          宿主集群的上下文
 ```
 
 <!--
