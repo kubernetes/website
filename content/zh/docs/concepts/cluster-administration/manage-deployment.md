@@ -24,7 +24,7 @@ weight: 40
 <!--
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
  -->
-您已经部署了应用并通过服务暴露它。然后呢？Kubernetes 提供了一些工具来帮助管理您的应用部署，包括缩放和更新。我们将更深入讨论的特性包括[配置文件](/docs/concepts/configuration/overview/)和[标签](/docs/concepts/overview/working-with-objects/labels/)。
+您已经部署了应用并通过服务暴露它。然后呢？Kubernetes 提供了一些工具来帮助管理您的应用部署，包括缩扩容和更新。我们将更深入讨论的特性包括[配置文件](/docs/concepts/configuration/overview/)和[标签](/docs/concepts/overview/working-with-objects/labels/)。
 
 {{% /capture %}}
 
@@ -70,7 +70,7 @@ $ kubectl create -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f 
 <!--
 And a directory can be specified rather than or in addition to individual files:
  -->
-还可以指定目录，而不用添加多个单独的文件：
+还可以指定目录路径，而不用添加多个单独的文件：
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/application/nginx/
@@ -112,7 +112,7 @@ service "my-nginx-svc" deleted
 <!--
 In the case of just two resources, it's also easy to specify both on the command line using the resource/name syntax:
  -->
-在仅有两种资源的情况下，可以使用"资源/名称"的语法在命令行中同时指定这两个资源：
+在仅有两种资源的情况下，可以使用"资源类型/资源名"的语法在命令行中同时指定这两个资源：
 
 ```shell
 $ kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -149,12 +149,12 @@ With the above commands, we first create resources under `examples/application/n
 <!--
 If you happen to organize your resources across several subdirectories within a particular directory, you can recursively perform the operations on the subdirectories also, by specifying `--recursive` or `-R` alongside the `--filename,-f` flag.
  -->
-如果您碰巧在一个特定目录下的多个子目录中组织资源，那么也可以递归地在所有子目录上执行操作，方法是在 `--filename,-f` 后面指定 `--recursive` 或者 `-R`。
+如果您碰巧在某个路径下的多个子路径中组织资源，那么也可以递归地在所有子路径上执行操作，方法是在 `--filename,-f` 后面指定 `--recursive` 或者 `-R`。
 
 <!--
 For instance, assume there is a directory `project/k8s/development` that holds all of the manifests needed for the development environment, organized by resource type:
  -->
-例如，假设有一个目录为 `project/k8s/development`，它保存开发环境所需的所有清单，并按资源类型组织：
+例如，假设有一个目录路径为 `project/k8s/development`，它保存开发环境所需的所有清单，并按资源类型组织：
 
 ```
 project/k8s/development
@@ -180,7 +180,7 @@ error: you must provide one or more resources by argument or filename (.json|.ya
 <!--
 Instead, specify the `--recursive` or `-R` flag with the `--filename,-f` flag as such:
  -->
-然而，在 `--filename,-f` 后面指定 `--recursive` 或者 `-R` 之后：
+然而，在 `--filename,-f` 后面标明 `--recursive` 或者 `-R` 之后：
 
 ```shell
 $ kubectl create -f project/k8s/development --recursive
@@ -194,9 +194,9 @@ The `--recursive` flag works with any operation that accepts the `--filename,-f`
 
 The `--recursive` flag also works when multiple `-f` arguments are provided:
  -->
-`--recursive` 可以用于接受 `--filename,-f` 标志的任何操作，例如：`kubectl {create,get,delete,describe,rollout}` 等。
+`--recursive` 可以用于接受 `--filename,-f` 参数的任何操作，例如：`kubectl {create,get,delete,describe,rollout}` 等。
 
-有多个 `-f` 参数出现的时候，`--recursive` 标志也能正常工作：
+有多个 `-f` 参数出现的时候，`--recursive` 参数也能正常工作：
 
 ```shell
 $ kubectl create -f project/k8s/namespaces -f project/k8s/development --recursive
@@ -224,7 +224,7 @@ The examples we've used so far apply at most a single label to any resource. The
 <!--
 For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
  -->
-例如，不同的应用可能会为  `app` 标签设置不同的值。
+例如，不同的应用可能会为 `app` 标签设置不同的值。
 但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 这样的多层应用，还需要区分每一层。前端可以带以下标签：
 
 ```yaml
@@ -236,7 +236,7 @@ For instance, different applications would use different values for the `app` la
 <!--
 while the Redis master and slave would have different `tier` labels, and perhaps even an additional `role` label:
  -->
-Redis 的主节点和从节点会有不同 `tier` 值的标签，甚至还有一个额外的 `role` 标签：
+Redis 的主节点和从节点会有不同的 `tier` 标签，甚至还有一个额外的 `role` 标签：
 
 ```yaml
      labels:
@@ -260,7 +260,7 @@ and
 <!--
 The labels allow us to slice and dice our resources along any dimension specified by a label:
  -->
-标签允许我们按照标签指定的任何维度对我们的资源进行切片和剪裁：
+标签允许我们按照标签指定的任何维度对我们的资源进行切片和切块：
 
 ```shell
 $ kubectl create -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
@@ -288,7 +288,7 @@ guestbook-redis-slave-qgazl   1/1       Running   0          3m
 <!--
 Another scenario where multiple labels are needed is to distinguish deployments of different releases or configurations of the same component. It is common practice to deploy a *canary* of a new application release (specified via image tag in the pod template) side by side with the previous release so that the new release can receive live production traffic before fully rolling it out.
  -->
-另一个需要多标签的场景是用来区分同一组件的不同版本或者不同配置的多个部署。常见的做法是部署一个使用*金丝雀发布*来部署新应用版本（在 pod 模板中通过镜像标签指定），保持新旧版本应用同时运行，这样，新版本在完全发布之前可以接收实时生产流量。
+另一个需要多标签的场景是用来区分同一组件的不同版本或者不同配置的多个部署。常见的做法是部署一个使用*金丝雀发布*来部署新应用版本（在 pod 模板中通过镜像标签指定），保持新旧版本应用同时运行，这样，新版本在完全发布之前也可以接收实时的生产流量。
 
 <!--
 For instance, you can use a `track` label to differentiate different releases.
@@ -348,7 +348,7 @@ Once you're confident, you can update the stable track to the new application re
 <!--
 For a more concrete example, check the [tutorial of deploying Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
  -->
-想要了解更具体的示例，请查看 [Ghost 部署指南](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary)。
+想要了解更具体的示例，请查看 [Ghost 部署教程](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary)。
 
 <!--
 ## Updating labels
@@ -387,7 +387,7 @@ This outputs all "app=nginx" pods, with an additional label column of pods' tier
 
 For more information, please see [labels](/docs/concepts/overview/working-with-objects/labels/) and [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
  -->
-这将输出所有 "app=nginx" 的 pod，并有一个额外的描述 pod 的 tier 的标签列（使用 `-L` 或者 `--label-columns` 指定）。
+这将输出所有 "app=nginx" 的 pod，并有一个额外的描述 pod 的 tier 的标签列（用参数 `-L` 或者 `--label-columns` 标明）。
 
 想要了解更多信息，请参考 [标签](/docs/concepts/overview/working-with-objects/labels/) 和 [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label)。
 
@@ -421,9 +421,9 @@ For more information, please see [annotations](/docs/concepts/overview/working-w
 
 When load on your application grows or shrinks, it's easy to scale with `kubectl`. For instance, to decrease the number of nginx replicas from 3 to 1, do:
  -->
-## 伸缩您的应用
+## 缩扩您的应用
 
-当应用上的负载增长或收缩时，使用 `kubectl` 能够轻松实现规模的伸缩。例如，要将 nginx 副本的数量从 3 减少到 1，请执行以下操作：
+当应用上的负载增长或收缩时，使用 `kubectl` 能够轻松实现规模的缩扩。例如，要将 nginx 副本的数量从 3 减少到 1，请执行以下操作：
 
 ```shell
 $ kubectl scale deployment/my-nginx --replicas=1
@@ -465,9 +465,9 @@ For more information, please see [kubectl scale](/docs/reference/generated/kubec
 
 Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created.
  -->
-## 直接更新资源
+## 就地更新资源
 
-有时，有必要对您所创建的资源进行小范围的、无干扰的更新。
+有时，有必要对您所创建的资源进行小范围、无干扰地更新。
 
 ### kubectl apply
 
@@ -476,7 +476,7 @@ It is suggested to maintain a set of configuration files in source control (see 
 so that they can be maintained and versioned along with the code for the resources they configure.
 Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to push your configuration changes to the cluster.
  -->
-建议在源代码管理中维护一组配置文件（参见 [配置即代码](http://martinfowler.com/bliki/InfrastructureAsCode.html)），这样，它们就可以和应用代码一样进行维护和版本管理。然后，您可以用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) 将配置变更应用到集群。
+建议在源代码管理中维护一组配置文件（参见[配置即代码](http://martinfowler.com/bliki/InfrastructureAsCode.html)），这样，它们就可以和应用代码一样进行维护和版本管理。然后，您可以用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) 将配置变更应用到集群中。
 
 <!--
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
@@ -491,7 +491,7 @@ deployment.apps/my-nginx configured
 <!--
 Note that `kubectl apply` attaches an annotation to the resource in order to determine the changes to the configuration since the previous invocation. When it's invoked, `kubectl apply` does a three-way diff between the previous configuration, the provided input and the current configuration of the resource, in order to determine how to modify the resource.
  -->
-注意，`kubectl apply` 将为资源增加一个额外的注解，以确定自上次调用以来对配置的更改。当调用它时，`kubectl apply`  会在以前的配置、提供的输入和资源的当前配置之间找出三方差异，以确定如何修改资源。
+注意，`kubectl apply` 将为资源增加一个额外的注解，以确定自上次调用以来对配置的更改。当调用它时，`kubectl apply` 会在以前的配置、提供的输入和资源的当前配置之间找出三方差异，以确定如何修改资源。
 
 <!--
 Currently, resources are created without this annotation, so the first invocation of `kubectl apply` will fall back to a two-way diff between the provided input and the current configuration of the resource. During this first invocation, it cannot detect the deletion of properties set when the resource was created. For this reason, it will not remove them.
