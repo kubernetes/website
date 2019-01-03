@@ -1,5 +1,5 @@
 
-生成用于 healtcheck etcd 的活跃性探测的客户端证书
+为用于 etcd 健康检查的存活性探针生成客户端证书
 <!--
 Generates the client certificate for liveness probes to healtcheck etcd
 -->
@@ -13,7 +13,7 @@ Generates the client certificate for liveness probes to healtcheck etcd
 <!--
 Renews the client certificate for liveness probes to healtcheck etcd, and saves them into etcd/healthcheck-client.cert and etcd/healthcheck-client.key files. 
 -->
-更新用于 healtcheck etcd 的活跃性探测的客户端证书，并将其保存到 etcd/healthcheck-client.cert 和 etcd/healthcheck-client.key 文件中。
+更新用于 etcd 健康检查的存活性探针的客户端证书，并将其保存到 etcd/healthcheck-client.cert 和 etcd/healthcheck-client.key 文件中。
 
 <!--
 Extra attributes such as SANs will be based on the existing certificates, there is no need to resupply them.
