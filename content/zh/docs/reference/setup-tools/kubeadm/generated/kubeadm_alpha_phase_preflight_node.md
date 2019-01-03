@@ -1,5 +1,5 @@
 
-运行节点 pre-flight 检查
+运行节点加入前的检查
 <!--
 Run node pre-flight checks
 -->
@@ -13,7 +13,7 @@ Run node pre-flight checks
 <!--
 Run node pre-flight checks, functionally equivalent to what implemented by kubeadm join. 
 -->
-运行节点 pre-flight 检查，功能上与 kubeadm join 的实现相同。
+运行节点加入前的检查，功能上与 kubeadm join 的实现相同。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
@@ -35,7 +35,7 @@ kubeadm alpha phase preflight node [flags]
 -->
 
 ```
-  # 运行节点 pre-flight 检查
+  # 运行节点加入前的检查
   kubeadm alpha phase preflight node
 ```
 
@@ -94,7 +94,7 @@ kubeadm alpha phase preflight node [flags]
       <td colspan="2">--ignore-preflight-errors stringSlice</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">将错误显示为警告检查的列表。例如： 'IsPrivilegedUser,Swap' 值 'all' 忽略来自所有检查的错误。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">检查项列表，这些检查项的错误将以警告的形式显示。例如：'IsPrivilegedUser,Swap'。 值设置为 'all' 将会忽略来自所有检查项的错误。</td>
     </tr>
 <!--
      <td></td><td style="line-height: 130%; word-wrap: break-word;">A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</td>
