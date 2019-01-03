@@ -143,6 +143,22 @@ addressing.
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
+### cni-ipvlan-vpc-k8s
+[cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s) contains a set 
+of CNI and IPAM plugins to provide a simple, host-local, low latency, high
+throughput, and compliant networking stack for Kubernetes within Amazon Virtual
+Private Cloud (VPC) environments by making use of Amazon Elastic Network
+Interfaces (ENI) and binding AWS-managed IPs into Pods using the Linux kernel's
+IPvlan driver in L2 mode.
+
+The plugins are designed to be straightforward to configure and deploy within a
+VPC. Kubelets boot and then self-configure and scale their IP usage as needed 
+without requiring the often recommended complexities of administering overlay 
+networks, BGP, disabling source/destination checks, or adjusting VPC route 
+tables to provide per-instance subnets to each host (which is limited to 50-100
+entries per VPC). In short, cni-ipvlan-vpc-k8s significantly reduces the 
+network complexity required to deploy Kubernetes at scale within AWS.
+
 ### Contiv
 
 [Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
