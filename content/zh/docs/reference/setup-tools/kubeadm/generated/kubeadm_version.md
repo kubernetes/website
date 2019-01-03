@@ -1,8 +1,8 @@
 
+打印 kubeadm 的版本号
 <!--
 Print the version of kubeadm
 -->
-打印 kubeadm 的版本号
 
 <!--
 ### Synopsis
