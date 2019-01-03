@@ -66,6 +66,22 @@
     left: 0;
 }
 
+.launch-cards {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.launch-card {
+    position: relative;
+    width: 50%;
+    padding: 0 40px 0 20px;
+    margin-bottom: 60px;
+    min-height: 152px;
+}
+
 .gridPage #mainContent .content .case-study p {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
