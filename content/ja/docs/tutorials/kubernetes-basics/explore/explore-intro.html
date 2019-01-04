@@ -9,7 +9,7 @@ weight: 10
 
 <body>
 
-<link href="/ja/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 
 <div class="layout" id="top">
@@ -19,21 +19,21 @@ weight: 10
         <div class="row">
 
      <div class="col-md-8">
-          <h3>Objectives</h3>
+          <h3>目標</h3>
                 <ul>
-                    <li>Learn about Kubernetes Pods.</li>
-                    <li>Learn about Kubernetes Nodes.</li>
-                    <li>Troubleshoot deployed applications.</li>
+                    <li>Kubernetesのポッドについて学ぶ</li>
+                    <li>Kubernetesのノードについて学ぶ</li>
+                    <li>デプロイされたアプリケーションのトラブルシューティング</li>
                 </ul>
             </div>
 
             <div class="col-md-8">
-                <h2>Kubernetes Pods</h2>
-                <p>When you created a Deployment in Module <a href="/ja/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker or rkt), and some shared resources for those containers. Those resources include:</p>
+                <h2>Kubernetesのポッド</h2>
+                <p>モジュール2でデプロイを作成したときに、Kubernetesはアプリケーションインスタンスをホストするためのポッドを作成しました。ポッドは、1つ以上のアプリケーションコンテナ（Dockerやrktなど）のグループとそれらのコンテナの共有リソースを表すKubernetesの抽象概念です。 ポッドには以下のものが含まれます:</p>
                 <ul>
-                    <li>Shared storage, as Volumes</li>
-                    <li>Networking, as a unique cluster IP address</li>
-                    <li>Information about how to run each container, such as the container image version or specific ports to use</li>
+                    <li>共有のストレージ(Volume), as Volumes</li>
+                    <li>ネットワーキング(クラスターに固有のIPアドレス)</li>
+                    <li>コンテナのイメージバージョンや使用するポートなどの、各コンテナをどう動かすかに関する情報</li>
                 </ul>
                 <p>A Pod models an application-specific "logical host" and can contain different application containers which are relatively tightly coupled. For example, a Pod might include both the container with your Node.js app as well as a different container that feeds the data to be published by the Node.js webserver. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
 
@@ -66,7 +66,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p><img src="/ja/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
             </div>
         </div>
         <br>
@@ -100,7 +100,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p><img src="/ja/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
             </div>
         </div>
         <br>
