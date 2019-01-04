@@ -227,7 +227,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 
 ### `NodePort`를 통해 프론트엔드 서비스 확인하기
 
-애플리케이션을 Minikube 또는 로컬 클러스터에 디플로이먼트한 경우, 방명록을 보려면 IP 주소를 찾아야 한다.
+애플리케이션을 Minikube 또는 로컬 클러스터에 배포한 경우, 방명록을 보려면 IP 주소를 찾아야 한다.
 
 1. 프론트엔드 서비스의 IP 주소를 얻기 위해 아래 명령어를 실행한다.
 
@@ -245,7 +245,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 
 ### `LoadBalancer`를 통해 프론트엔드 서비스 확인하기
 
-`frontend-service.yaml` 매니페스트를 `LoadBalancer`와 함께 디플로이먼트한 경우, 방명록을 보기 위해 IP 주소를 찾아야 한다.
+`frontend-service.yaml` 매니페스트를 `LoadBalancer`와 함께 배포한 경우, 방명록을 보기 위해 IP 주소를 찾아야 한다.
 
 1. 프론트엔드 서비스의 IP 주소를 얻기 위해 아래 명령어를 실행한다.
 
