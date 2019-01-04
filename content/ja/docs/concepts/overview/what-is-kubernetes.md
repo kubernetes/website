@@ -65,36 +65,28 @@ Kubernetesは...
 
 コンテナは小さくて速いので、1つのアプリケーションを各コンテナイメージにまとめることができます。 この1対1のアプリケーションとイメージの関係により、コンテナの利点が完全に引き出されます。コンテナを使用すると、各アプリケーションを残りのアプリケーションスタックと合成したり、本番インフラストラクチャ環境と結合したりする必要がないため、不変のコンテナイメージをデプロイ時ではなく、ビルド時またはリリース時に作成できます。ビルド/リリース時にコンテナイメージを生成することで、開発から運用に一貫した環境を持ち込むことができます。同様に、コンテナはVMよりもはるかに透過的であるため、監視と管理が容易になります。これは、コンテナのプロセスライフサイクルがコンテナ内のプロセススーパーバイザによって隠されるのではなく、インフラストラクチャによって管理される場合に特に当てはまります。最後に、コンテナごとに1つのアプリケーションを使用すると、コンテナの管理はアプリケーションのデプロイ管理と同等になります。
 
-Summary of container benefits:
+コンテナの利点をまとめると:
 
 * **アジャイルなアプリケーション作成とデプロイ**:
-    Increased ease and efficiency of container image creation compared to VM image use.
+    VMイメージの使用と比べ、コンテナイメージ作成は容易で効率も高いです。
 * **継続的な開発、インテグレーション、デプロイ**:
-    Provides for reliable and frequent container image build and
-    deployment with quick and easy rollbacks (due to image
-    immutability).
-* **Dev and Ops separation of concerns**:
-    Create application container images at build/release time rather
-    than deployment time, thereby decoupling applications from
-    infrastructure.
+    迅速で簡単なロールバックで、信頼性の高い頻繁なコンテナイメージのビルドとデプロイを提供します(イメージの不変性にもよりますが)。
+* **開発と運用の懸念を分離**:
+    デプロイ時ではなくビルド時またはリリース時にアプリケーションのコンテナイメージを作成することで、アプリケーションをインフラストラクチャから切り離します。
 * **可観測性**
-    Not only surfaces OS-level information and metrics, but also application
-    health and other signals.
-* **Environmental consistency across development, testing, and production**:
-    Runs the same on a laptop as it does in the cloud.
-* **Cloud and OS distribution portability**:
-    Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.
+    OSレベルの情報や測定基準だけでなく、アプリケーションの正常性やその他のシグナルも明確にします。
+* **開発、テスト、本番環境に跨った環境の一貫性**:
+    手元のノートPC上でも、クラウド上と同じように動作します。
+* **クラウドとOSディストリビューションの移植性**:
+    Ubuntu、RHEL、CoreOS、オンプレミス、Google Kubernetes Engine、その他のどこでも動作します。
 * **アプリケーション中心の管理**:
-    Raises the level of abstraction from running an OS on virtual
-    hardware to running an application on an OS using logical resources.
-* **Loosely coupled, distributed, elastic, liberated [micro-services](https://martinfowler.com/articles/microservices.html)**:
-    Applications are broken into smaller, independent pieces and can
-    be deployed and managed dynamically -- not a monolithic stack
-    running on one big single-purpose machine.
-* **Resource isolation**:
-    Predictable application performance.
-* **Resource utilization**:
-    High efficiency and density.
+    仮想ハードウェア上でのOS実行から、論理リソースを使用したOS上でのアプリケーション実行へと、抽象度のレベルを上げます。
+* **疎結合で、分散された、伸縮自在の遊離した[マイクロサービス](https://martinfowler.com/articles/microservices.html)**:
+    アプリケーションは小さな独立した欠片に分割され、動的に配置および管理できます。1つの大きな単一目的のマシンで実行されるモノリシックなスタックではありません。
+* **リソース分割**:
+    アプリケーションパフォーマンスが予測可能です。
+* **リソースの効率利用**:
+    高効率で高密度です。
 
 ## Kubernetesってどういう意味? K8sって何?
 
