@@ -5,6 +5,8 @@
 > 
 > For Chinese localization, base branch to release-1.12
 >
+> For Korean Localization: set Base Branch to dev-1.13-ko.<latest team milestone>
+>
 > Help editing and submitting pull requests:
 > https://kubernetes.io/docs/contribute/start/#improve-existing-content.
 >
