@@ -65,6 +65,6 @@ content_template: templates/concept
 
 {{% capture whatsnext %}}
 
-チュートリアルを書きたい場合は、[ページテンプレートの使用](/docs/home/contribute/page-templates/)を参照し、チュートリアルのページタイプとチュートリアルテンプレートについてご確認ください。
+チュートリアルを書きたい場合は、[ページテンプレートの使用](/docs/contribute/style/page-templates/)を参照し、チュートリアルのページタイプとチュートリアルテンプレートについてご確認ください。
 
 {{% /capture %}}
