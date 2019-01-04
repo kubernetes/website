@@ -59,38 +59,11 @@ Kubernetesは...
 
 ![なぜコンテナなのか?](/images/docs/why_containers.svg)
 
-The *Old Way* to deploy applications was to install the applications
-on a host using the operating-system package manager. This had the
-disadvantage of entangling the applications' executables,
-configuration, libraries, and lifecycles with each other and with the
-host OS. One could build immutable virtual-machine images in order to
-achieve predictable rollouts and rollbacks, but VMs are heavyweight
-and non-portable.
+アプリケーションをデプロイするための古い方法は、オペレーティングシステムのパッケージマネージャを使用してアプリケーションをホストにインストールすることでした。これには、アプリケーションの実行ファイル、構成、ライブラリ、ライフサイクルがそれぞれ、またホストOS自身と絡み合うというデメリットがありました。予測可能なロールアウトとロールバックを実現するために、不変の仮想マシンイメージを作成することもできますが、VMは重く、移植性がありません。
 
-The *New Way* is to deploy containers based on operating-system-level
-virtualization rather than hardware virtualization. These containers
-are isolated from each other and from the host: they have their own
-filesystems, they can't see each others' processes, and their
-computational resource usage can be bounded. They are easier to build
-than VMs, and because they are decoupled from the underlying
-infrastructure and from the host filesystem, they are portable across
-clouds and OS distributions.
+新しい方法は、ハードウェア仮想化ではなく、オペレーティングシステムレベルの仮想化に基づいてコンテナを展開することです。各コンテナは互いに、そしてホストから隔離されています。また、独自のファイルシステムを持ち、お互いのプロセスを見ることができず、計算リソースの使用量を制限することができます。これはVMよりも構築が簡単で、基盤となるインフラストラクチャとホストのファイルシステムから分離されているため、クラウドやOSのディストリビューション間で移植性があります。
 
-Because containers are small and fast, one application can be packed
-in each container image. This one-to-one application-to-image
-relationship unlocks the full benefits of containers. With containers,
-immutable container images can be created at build/release time rather
-than deployment time, since each application doesn't need to be
-composed with the rest of the application stack, nor married to the
-production infrastructure environment. Generating container images at
-build/release time enables a consistent environment to be carried from
-development into production.  Similarly, containers are vastly more
-transparent than VMs, which facilitates monitoring and
-management. This is especially true when the containers' process
-lifecycles are managed by the infrastructure rather than hidden by a
-process supervisor inside the container. Finally, with a single
-application per container, managing the containers becomes tantamount
-to managing deployment of the application.
+コンテナは小さくて速いので、1つのアプリケーションを各コンテナイメージにまとめることができます。 この1対1のアプリケーションとイメージの関係により、コンテナの利点が完全に引き出されます。コンテナを使用すると、各アプリケーションを残りのアプリケーションスタックと合成したり、本番インフラストラクチャ環境と結合したりする必要がないため、不変のコンテナイメージをデプロイ時ではなく、ビルド時またはリリース時に作成できます。ビルド/リリース時にコンテナイメージを生成することで、開発から運用に一貫した環境を持ち込むことができます。同様に、コンテナはVMよりもはるかに透過的であるため、監視と管理が容易になります。これは、コンテナのプロセスライフサイクルがコンテナ内のプロセススーパーバイザによって隠されるのではなく、インフラストラクチャによって管理される場合に特に当てはまります。最後に、コンテナごとに1つのアプリケーションを使用すると、コンテナの管理はアプリケーションのデプロイ管理と同等になります。
 
 Summary of container benefits:
 
