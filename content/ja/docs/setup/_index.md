@@ -12,7 +12,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-このページを使い、ご自身のニーズに最も適したソリューションを見つけてください。
+このページを使い、自分のニーズに最も適したソリューションを見つけてください。
 
 Kubernetesをどこで実行するかは、利用可能なリソースと必要な柔軟性によって異なります。ノートPCからクラウドプロバイダのVM、ベアメタルのラックまで、ほぼどのような場所でもKubernetesを実行できます。単一のコマンドを実行して完全に管理されたクラスタを設定したり、ベアメタルで独自にカスタマイズしたクラスタを作成したりすることもできます。
 
@@ -29,61 +29,53 @@ Kubernetesをどこで実行するかは、利用可能なリソースと必要�
 * Kubernetesの検証や勉強
 * ローカルでのクラスタの開発やテスト
 
-[ローカルマシンソリューション](/docs/setup/pick-right-solution/#local-machine-solutions)を選ぶ。
+[ローカルマシンソリューション](/docs/setup/pick-right-solution/#local-machine-solutions)を選ぶ
 
-## Hosted Solutions
+## ホスト型ソリューション
 
-Hosted solutions are a convenient way to create and maintain Kubernetes clusters. They 
-manage and operate your clusters so you don’t have to.  
+ホスト型ソリューションは、Kubernetesクラスタを作成および管理するためには便利な方法です。自身で管理せずとも、ホスティングプロバイダがクラスターが管理、運用します。
 
-You should pick a hosted solution if you:
+もし以下のようなことを実現したいのであれば、ホスト型ソリューションを選ぶべきです:
 
-* Want a fully-managed solution
-* Want to focus on developing your apps or services  
-* Don’t have dedicated site reliability engineering (SRE) team but want high availability
-* Don't have resources to host and monitor your clusters 
+* 完全に管理されたソリューションが欲しい
+* アプリケーションやサービスの開発に集中したい
+* 専用のSite Reliability Engineering (SRE)チームはないが、高可用性を求めている
+* クラスタをホストしたり、監視したりするためのリソースがない
 
-Pick a [hosted solution](/docs/setup/pick-right-solution/#hosted-solutions).
+[ホスト型ソリューション](/docs/setup/pick-right-solution/#hosted-solutions)を選ぶ
 
-## Turnkey – Cloud Solutions
+## ターンキークラウドソリューション
 
+このソリューションを使用すると、わずかなコマンドでKubernetesクラスターを作成できます。また、積極的に開発されており、積極的なコミュニティサポートを受けています。さまざまなCloud IaaSプロバイダでホストすることもできますが、努力と引き換えに、より多くの自由と柔軟性を提供します。
 
-These solutions allow you to create Kubernetes clusters with only a few commands and 
-are actively developed and have active community support. They can also be hosted on 
-a range of Cloud IaaS providers, but they offer more freedom and flexibility in 
-exchange for effort. 
+もし以下のようなことを実現したいのであれば、ターンキークラウドソリューションを選ぶべきです:
 
-You should pick a turnkey cloud solution if you:
+* ホスト型ソリューションが許可する以上に、クラスタをもっと制御したい
+* より多くのオペレーションの所有権を引き受けたい
 
-* Want more control over your clusters than the hosted solutions allow
-* Want to take on more operations ownership 
+[ターンキークラウドソリューション](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)を選ぶ
 
-Pick a [turnkey cloud solution](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
+## オンプレミスターンキークラウドソリューション
 
-## Turnkey – On-Premises Solutions
+このソリューションを使用すると、内部の安全なクラウドネットワーク上に、少ないコマンドでKubernetesクラスタを作成できます。
 
-These solutions allow you to create Kubernetes clusters on your internal, secure,
-cloud network with only a few commands.
+もし以下のようなことを実現したいのであれば、オンプレミスターンキークラウドソリューションを選ぶべきです:
 
-You should pick a on-prem turnkey cloud solution if you:
+* プライベートクラウド内にクラスタを配置したい
+* 専用のSREチームがいる
+* クラスタをホストし、監視するためのリソースを持っている
 
-* Want to deploy clusters on your private cloud network
-* Have a dedicated SRE team
-* Have the resources to host and monitor your clusters
+[オンプレミスターンキークラウドソリューション](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions)を選ぶ
 
-Pick an [on-prem turnkey cloud solution](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions).
+## カスタムソリューション
 
-## Custom Solutions
+カスタムソリューションは、クラスタに対して最も自由度が高いですが、専門知識が最も必要になります。このソリューションは、数多くのオペレーティングシステム上のベアメタルからクラウドプロバイダまで、多岐にわたります。
 
-Custom solutions give you the most freedom over your clusters but require the 
-most expertise. These solutions range from bare-metal to cloud providers on 
-different operating systems.
-
-Pick a [custom solution](/docs/setup/pick-right-solution/#custom-solutions).
+[カスタムソリューション](/docs/setup/pick-right-solution/#custom-solutions)を選ぶ
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Go to [Picking the Right Solution](/docs/setup/pick-right-solution/) for a complete
-list of solutions.
+
+ソリューションの完全なリストを見るには、[正しいソリューションの選択](/docs/setup/pick-right-solution/) に進んでください。
 {{% /capture %}}
