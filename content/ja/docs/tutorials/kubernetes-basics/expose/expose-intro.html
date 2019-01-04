@@ -1,5 +1,5 @@
 ---
-title: Using a Service to Expose Your App
+title: サービスを使ってデプロイ済みのアプリを公開する
 weight: 10
 ---
 
@@ -17,16 +17,16 @@ weight: 10
 
 		<div class="row">
 			<div class="col-md-8">
-    		<h3>Objectives</h3>
+    		<h3>目標</h3>
 				<ul>
-					<li>Learn about a Service in Kubernetes</li>
-					<li>Understand how labels and LabelSelector objects relate to a Service</li>
-					<li>Expose an application outside a Kubernetes cluster using a Service</li>
+					<li>KubernetesにおけるServiceについて理解する</li>
+					<li>ラベルとLabelSelectorオブジェクトがServiceにどう関係しているかを理解する</li>
+					<li>Serviceを使って、Kubernetesクラスタの外にアプリケーションを公開する</li>
 				</ul>
 			</div>
 
 			<div class="col-md-8">
-			<h3>Overview of Kubernetes Services</h3>
+			<h3>Kubernetes Servicesの概要</h3>
 
 			<p>Kubernetes <a href="/ja/docs/concepts/workloads/pods/pod-overview/">Pods</a> are mortal. Pods in fact have a <a href="/ja/docs/concepts/workloads/pods/pod-lifecycle/">lifecycle</a>. When a worker node dies, the Pods running on the Node are also lost. A <a href="/ja/docs/user-guide/replication-controller/#what-is-a-replicationcontroller">ReplicationController</a> might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
 			
