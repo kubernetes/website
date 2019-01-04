@@ -1,23 +1,22 @@
 ---
-title: Supported Versions of the Kubernetes Documentation
+title: Kubernetesドキュメントがサポートしているバージョン
 content_template: templates/concept
 ---
 
 {{% capture overview %}}
 
-This website contains documentation for the current version of Kubernetes
-and the four previous versions of Kubernetes.
+本ウェブサイトでは、現行版とその直前4バージョンのKubernetesドキュメントを含んでいます。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Current version
+## 現行版
 
-The current version is
+現在のバージョンは
 [{{< param "version" >}}](/).
 
-## Previous versions
+## 以前のバージョン
 
 {{< versions-other >}}
 
