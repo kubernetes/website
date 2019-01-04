@@ -1,15 +1,15 @@
 ---
-title: Using kubectl to Create a Deployment
+title: kubectlを使ったデプロイの作成
 weight: 10
 ---
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="ja">
 
 <body>
 
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+<link href="/ja/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
@@ -18,39 +18,36 @@ weight: 10
         <div class="row">
 
          <div class="col-md-8">
-          <h3>Objectives</h3>
+          <h3>目標</h3>
                 <ul>
-                    <li>Learn about application Deployments.</li>
-                    <li>Deploy your first app on Kubernetes with kubectl.</li>
+                    <li>アプリケーションのデプロイについて学ぶ</li>
+                    <li>kubectlを使って、Kubenretes上にはじめてのアプリケーションをデプロイする</li>
                 </ul>
             </div>
 
             <div class="col-md-8">
-                <h3>Kubernetes Deployments</h3>
+                <h3>Kubernetesのデプロイ</h3>
                 <p>
-                Once you have a running Kubernetes cluster, you can deploy your containerized applications on top of it.
-                To do so, you create a Kubernetes <b>Deployment</b> configuration. The Deployment instructs Kubernetes
-                how to create and update instances of your application. Once you've created a Deployment, the Kubernetes
-                master schedules mentioned application instances onto individual Nodes in the cluster.
+                実行中のKubernetesクラスターを入手すると、その上にコンテナー化アプリケーションをデプロイすることができます。そのためには、Kubernetesのデプロイ設定を作成します。DeploymentはKubernetesにあなたのアプリケーションのインスタンスを作成し、更新する方法を指示します。デプロイを作成すると、Kubernetesマスターは指定されたアプリケーションインスタンスをクラスタ内の個々のノードにスケジュールします。
                 </p>
 
-                <p>Once the application instances are created, a Kubernetes Deployment Controller continuously monitors those instances. If the Node hosting an instance goes down or is deleted, the Deployment controller replaces it. <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p>
+                <p>アプリケーションインスタンスが作成されると、Kubernetesのデプロイコントローラは、それらのインスタンスを継続的に監視します。インスタンスをホストしているノードが停止、削除された場合、デプロイコントローラがそれを置き換えます。<b>これは、マシンの故障やメンテナンスに対処するためのセルフヒーリングの仕組みを提供しています。</b></p>
 
-                <p>In a pre-orchestration world, installation scripts would often be used to start applications, but they did not allow recovery from machine failure.  By both creating your application instances and keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach to application management. </p>
+                <p>オーケストレーションが入る前の世界では、インストールスクリプトを使用してアプリケーションを起動することはよくありましたが、マシン障害が発生した場合に復旧する事はできませんでした。アプリケーションのインスタンスを作成し、それらをノード間で実行し続けることで、Kubernetesのデプロイはアプリケーションの管理に根本的に異なるアプローチを提供します。</p>
 
             </div>
 
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
-                    <h3>Summary:</h3>
+                    <h3>まとめ:</h3>
                     <ul>
-                        <li>Deployments</li>
-                        <li>Kubectl</li>
+                        <li>デプロイ</li>
+                        <li>kubectl</li>
                     </ul>
                 </div>
                 <div class="content__box content__box_fill">
                     <p><i>
-                        A Deployment is responsible for creating and updating instances of your application
+                        デプロイは、アプリケーションのインスタンスを作成および更新する責務があります。
                     </i></p>
                 </div>
             </div>
@@ -59,13 +56,13 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <h2 style="color: #3771e3;">Deploying your first app on Kubernetes</h2>
+                <h2 style="color: #3771e3;">Kubenretes上にはじめてのアプリケーションをデプロイする</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+                <p><img src="/ja/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
             </div>
         </div>
         <br>
@@ -73,17 +70,14 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>You can create and manage a Deployment by using the Kubernetes command line interface, <b>Kubectl</b>. Kubectl uses the Kubernetes API to interact with the cluster. In this module, you'll learn the most common Kubectl commands needed to create Deployments that run your applications on a Kubernetes cluster.</p>
+                <p>Kubernetesのコマンドラインインターフェイスである<b>Kubectl</b>を使用して、デプロイを作成、管理できます。KubectlはKubernetes APIを使用してクラスタと対話します。このモジュールでは、Kubernetesクラスタでアプリケーションを実行するデプロイを作成するために必要な、最も一般的なKubectlコマンドについて学びます。</p>
 
-                <p>When you create a Deployment, you'll need to specify the container image for your application and the number of replicas that you want to run. You can change that information later by updating your Deployment; Modules <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> and <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a> of the bootcamp discuss how you can scale and update your Deployments.</p>
-
-
-
+                <p>デプロイを作成するときは、アプリケーションのコンテナイメージと実行するレプリカの数を指定する必要があります。デプロイを更新することで、あとでその情報を変更できます。チュートリアルのモジュール<a href="/ja/docs/tutorials/kubernetes-basics/scale-intro/">5</a>と<a href="/ja/docs/tutorials/kubernetes-basics/update-intro/">6</a>では、デプロイをどのようにスケール、更新できるかについて説明します。</p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i> Applications need to be packaged into one of the supported container formats in order to be deployed on Kubernetes </i></p>
+                    <p><i>Kubernetesにデプロイするには、アプリケーションをサポートされているコンテナ形式のいずれかにパッケージ化する必要があります。</i></p>
                 </div>
             </div>
         </div>
@@ -91,11 +85,9 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>For our first Deployment, we'll use a <a href="https://nodejs.org">Node.js</a> application packaged in a Docker container.
-                    To create the Node.js application and deploy the Docker container, follow the instructions from the
-                    <a href="/docs/tutorials/hello-minikube/#create-your-node-js-application">Hello Minikube tutorial</a>.</p>
+                <p>最初のデプロイでは、Dockerコンテナにパッケージされた<a href="https://nodejs.org">Node.js</a>アプリケーションを使用します。Node.jsアプリケーションを作成してDockerコンテナをデプロイするには、<a href="/ja/docs/tutorials/hello-minikube/#create-your-node-js-application">Hello Minikubeチュートリアル</a>の指示に従ってください。</p>
 
-                <p>Now that you know what Deployments are, let's go to the online tutorial and deploy our first app!</p>
+                <p>デプロイが何であるかがわかったので、オンラインチュートリアルに行き、最初のアプリケーションをデプロイしましょう！</p>
 
             </div>
         </div>
@@ -103,7 +95,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
+                <a class="btn btn-lg btn-success" href="/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">対話型のチュートリアルを始める <span class="btn__next">›</span></a>
             </div>
         </div>
 
