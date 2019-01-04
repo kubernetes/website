@@ -4,7 +4,7 @@ reviewers:
 - erictune
 - mikedanese
 no_issue: true
-title: Setup
+title: セットアップ
 main_menu: true
 weight: 30
 content_template: templates/concept
@@ -12,30 +12,24 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Use this page to find the type of solution that best fits your needs.
+このページを使い、ご自身のニーズに最も適したソリューションを見つけてください。
 
-Deciding where to run Kubernetes depends on what resources you have available 
-and how much flexibility you need. You can run Kubernetes almost anywhere, 
-from your laptop to VMs on a cloud provider to a rack of bare metal servers. 
-You can also set up a fully-managed cluster by running a single command or craft 
-your own customized cluster on your bare metal servers.
+Kubernetesをどこで実行するかは、利用可能なリソースと必要な柔軟性によって異なります。ノートPCからクラウドプロバイダのVM、ベアメタルのラックまで、ほぼどのような場所でもKubernetesを実行できます。単一のコマンドを実行して完全に管理されたクラスタを設定したり、ベアメタルで独自にカスタマイズしたクラスタを作成したりすることもできます。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Local-machine Solutions
+## ローカルマシンのソリューション
 
-A local-machine solution is an easy way to get started with Kubernetes. You
-can create and test Kubernetes clusters without worrying about consuming cloud
-resources and quotas.
+ローカルマシンソリューションは、Kubernetesを使い始めるための簡単な方法です。クラウドリソースと、割当量の消費を気にせずにKubernetesクラスタを作成してテストできます。
 
-You should pick a local solution if you want to:
+もし以下のようなことを実現したいのであれば、ローカルマシンソリューションを選ぶべきです:
 
-* Try or start learning about Kubernetes
-* Develop and test clusters locally
+* Kubernetesの検証や勉強
+* ローカルでのクラスタの開発やテスト
 
-Pick a [local-machine solution](/docs/setup/pick-right-solution/#local-machine-solutions).
+[ローカルマシンソリューション](/docs/setup/pick-right-solution/#local-machine-solutions)を選ぶ。
 
 ## Hosted Solutions
 
