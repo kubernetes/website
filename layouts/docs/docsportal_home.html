@@ -11,7 +11,7 @@
 {{ define "content-id" }}content{{ end }}
 
 {{ define "docs-portal-user-journey" }}
-{{ $data := .Site.Data }}
+{{ $data := site.Data }}
 <div id="user-persona-data" class="hide">
   {{ $user_personas := index $data "user-personas" }}
   {{ $user_personas | jsonify }}
@@ -29,7 +29,7 @@
     {{ if $persona_info.short_desc }}
     {{ $persona_info.short_desc }}
     {{ else if $persona_info.glossary_id }}
-    {{ with $persona_info.glossary_id | printf "%s.md" | ($.Site.GetPage "page" "docs/reference/glossary").Resources.GetMatch }}
+    {{ with $persona_info.glossary_id | printf "%s.md" | (site.GetPage "page" "docs/reference/glossary").Resources.GetMatch }}
     {{ .Params.short_description }}
     {{ end }}
     {{ end }}
