@@ -1,7 +1,4 @@
 ---
-reviewers:
-- caesarxuchao
-- erictune
 title: oVirt
 content_template: templates/concept
 ---

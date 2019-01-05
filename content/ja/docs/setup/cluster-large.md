@@ -1,7 +1,4 @@
 ---
-reviewers:
-- davidopp
-- lavalamp
 title: Building Large Clusters
 weight: 80
 ---

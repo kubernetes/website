@@ -1,6 +1,4 @@
 ---
-reviewers:
-- sig-cluster-lifecycle
 title: Configuring each kubelet in your cluster using kubeadm
 content_template: templates/concept
 weight: 80

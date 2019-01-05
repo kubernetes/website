@@ -1,7 +1,4 @@
 ---
-reviewers:
-- colemickens
-- brendandburns
 title: Running Kubernetes on Alibaba Cloud
 ---
 

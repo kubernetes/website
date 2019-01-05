@@ -1,9 +1,4 @@
 ---
-reviewers:
-- brendandburns
-- jbeda
-- mikedanese
-- thockin
 title: Running Kubernetes on Google Compute Engine
 content_template: templates/task
 ---

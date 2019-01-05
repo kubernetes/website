@@ -1,6 +1,4 @@
 ---
-reviewers:
-- sig-cluster-lifecycle
 title: Customizing control plane configuration with kubeadm
 content_template: templates/concept
 weight: 40

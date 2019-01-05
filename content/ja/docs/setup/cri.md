@@ -1,7 +1,4 @@
 ---
-reviewers:
-- vincepri
-- bart0sh
 title: CRI installation
 content_template: templates/concept
 weight: 100

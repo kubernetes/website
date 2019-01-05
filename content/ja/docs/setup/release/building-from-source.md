@@ -1,7 +1,4 @@
 ---
-reviewers:
-- david-mcmahon
-- jbeda
 title: Building from Source
 ---
 

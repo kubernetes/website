@@ -1,7 +1,4 @@
 ---
-reviewers:
-- justinsb
-- clove
 title: Running Kubernetes on AWS EC2
 content_template: templates/task
 ---

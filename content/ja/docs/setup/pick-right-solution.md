@@ -1,8 +1,4 @@
 ---
-reviewers:
-- brendandburns
-- erictune
-- mikedanese
 title: Picking the Right Solution
 weight: 10
 content_template: templates/concept

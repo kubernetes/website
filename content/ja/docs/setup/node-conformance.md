@@ -1,6 +1,4 @@
 ---
-reviewers:
-- Random-Liu
 title: Validate Node Setup
 ---
 
