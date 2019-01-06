@@ -1,5 +1,5 @@
 ---
-title: Performing a Rolling Update
+title: ローリングアップデートの実行
 weight: 10
 ---
 
@@ -19,30 +19,29 @@ weight: 10
         <div class="row">
 
      <div class="col-md-8">
-          <h3>Objectives</h3>
+          <h3>目標</h3>
                 <ul>
-                    <li>Perform a rolling update using kubectl.</li>
+                    <li>kubectlを使ってローリングアップデートを実行する</li>
                 </ul>
             </div>
 
             <div class="col-md-8">
-            <h3>Updating an application</h3>
+            <h3>アプリケーションのアップデート</h3>
 
-            <p>Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. <b>Rolling updates</b> allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.</p>
+            <p>ユーザーはアプリケーションが常に利用可能であることを期待し、開発者はそれらの新しいバージョンを1日に数回デプロイすることが期待されます。Kubernetesでは、アプリケーションのアップデートをローリングアップデートで行います。<b>ローリングアップデート</b>では、Podインスタンスを新しいインスタンスで段階的にアップデートすることで、ダウンタイムなしでDeploymentをアップデートできます。新しいPodは、利用可能なリソースを持つNodeにスケジュールされます。</p>
 
-            <p>In the previous module we scaled our application to run multiple instances. This is a requirement for performing updates without affecting application availability. By default, the maximum number of Pods that can be unavailable during the update and the maximum number of new Pods that can be created, is one. Both options can be configured to either numbers or percentages (of Pods).
-            In Kubernetes, updates are versioned and any Deployment update can be reverted to previous (stable) version.</p>
+            <p>前回のモジュールでは、複数のインスタンスを実行するようにアプリケーションをデプロイしました。これは、アプリケーションの可用性に影響を与えずにアップデートを行うための要件です。デフォルトでは、アップデート中に使用できなくなる可能性があるPodの最大数と作成できる新しいPodの最大数は1です。どちらのオプションも、Podの数または全体数に対する割合(%)のいずれかに設定できます。Kubernetesでは、アップデートはバージョン管理されており、Deploymentにおけるアップデートは以前の（stable）バージョンに戻すことができます。</p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
-                    <h3>Summary:</h3>
+                    <h3>まとめ</h3>
                     <ul>
-                        <li>Updating an app</li>
+                        <li>アプリケーションのアップデート</li>
                     </ul>
                 </div>
                 <div class="content__box content__box_fill">
-                    <p><i>Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. </i></p>
+                    <p><i>ローリングアップデートでは、Podを新しいインスタンスで段階的にアップデートすることで、ダウンタイムなしDeploymentをアップデートできます。</i></p>
                 </div>
             </div>
         </div>
@@ -50,7 +49,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <h2 style="color: #3771e3;">Rolling updates overview</h2>
+                <h2 style="color: #3771e3;">ローリングアップデートの概要</h2>
             </div>
         </div>
         <div class="row">
@@ -96,20 +95,20 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>Similar to application Scaling, if a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. An available Pod is an instance that is available to the users of the application.</p>
+                <p>アプリケーションのスケーリングと同様に、Deploymentがパブリックに公開されている場合、Serviceはアップデート中に利用可能なPodのみにトラフィックを負荷分散します。 利用可能なPodは、アプリケーションのユーザーが利用できるインスタンスです。</p>
 
-                <p>Rolling updates allow the following actions:</p>
+                <p>ローリングアップデートでは、次の操作が可能です。</p>
                 <ul>
-                    <li>Promote an application from one environment to another (via container image updates)</li>
-                    <li>Rollback to previous versions</li>
-                    <li>Continuous Integration and Continuous Delivery of applications with zero downtime</li>
+                    <li>コンテナーイメージのアップデートを介した、ある環境から別の環境へのアプリケーションの昇格</li>
+                    <li>以前のバージョンへのロールバック</li>
+                    <li>ダウンタイムなしでのアプリケーションのCI/CD</li>
 
                 </ul>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i>If a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. </i></p>
+                    <p><i>Deploymentがパブリックに公開されている場合、Serviceはアップデート中に利用可能なPodにのみトラフィックを負荷分散します。 </i></p>
                 </div>
             </div>
         </div>
@@ -118,7 +117,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p> In the following interactive tutorial, we'll update our application to a new version, and also perform a rollback.</p>
+                <p>次の対話型チュートリアルでは、アプリケーションを新しいバージョンにアップデートし、ロールバックも実行します。</p>
             </div>
         </div>
         <br>
