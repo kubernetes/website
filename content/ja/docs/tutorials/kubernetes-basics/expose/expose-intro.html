@@ -1,5 +1,5 @@
 ---
-title: サービスを使ってデプロイ済みのアプリを公開する
+title: Serviceを使ってデプロイ済みのアプリを公開する
 weight: 10
 ---
 
@@ -26,33 +26,33 @@ weight: 10
 			</div>
 
 			<div class="col-md-8">
-			<h3>Kubernetes Servicesの概要</h3>
+			<h3>Kubernetes Serviceの概要</h3>
 
-			<p>Kubernetes <a href="/ja/docs/concepts/workloads/pods/pod-overview/">Pods</a> are mortal. Pods in fact have a <a href="/ja/docs/concepts/workloads/pods/pod-lifecycle/">lifecycle</a>. When a worker node dies, the Pods running on the Node are also lost. A <a href="/ja/docs/user-guide/replication-controller/#what-is-a-replicationcontroller">ReplicationController</a> might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
+			<p>Kubernetes Podの寿命は永続的ではありません。実際、<a href="/ja/docs/concepts/workloads/pods/pod-overview/">Pod</a>には<a href="/ja/docs/concepts/workloads/pods/pod-lifecycle/">ライフサイクル</a>があります。ワーカーのNodeが停止すると、そのNodeで実行されているPodも失われます。そうなると、<a href="/ja/docs/user-guide/replication-controller/#what-is-a-replicationcontroller">ReplicationController</a>は、新しいPodを作成してアプリケーションを実行し続けるために、クラスタを動的に目的の状態に戻すことができます。別の例として、3つのレプリカを持つ画像処理バックエンドを考えます。それらのレプリカは交換可能です。フロントエンドシステムはバックエンドのレプリカを気にしたり、Podが失われて再作成されたとしても配慮すべきではありません。ただし、Kubernetesクラスタ内の各Podは、同じNode上のPodであっても一意のIPアドレスを持っているため、アプリケーションが機能し続けるように、Pod間の変更を自動的に調整する方法が必要です。</p>
 			
-			<p>A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using YAML <a href="/ja/docs/concepts/configuration/overview/#general-config-tips">(preferred)</a> or JSON, like all Kubernetes objects. The set of Pods targeted by a Service is usually determined by a <i>LabelSelector</i> (see below for why you might want a Service without including <code>selector</code> in the spec).</p>
+			<p>KubernetesのServiceは、Podの論理セットと、それらにアクセスするためのポリシーを定義する抽象概念です。Serviceによって、依存Pod間の疎結合が可能になります。Serviceは、すべてのKubernetesオブジェクトのように、YAML<a href="/ja/docs/concepts/configuration/overview/#general-config-tips">（推奨）</a>またはJSONを使って定義されます。Serviceが対象とするPodのセットは通常、<i>LabelSelector</i>によって決定されます（なぜ仕様に<code>セレクタ</code>を含めずにServiceが必要になるのかについては下記を参照してください）。</p>
 
-			<p>Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a <code>type</code> in the ServiceSpec:</p>
+			<p>各Podには固有のIPアドレスがありますが、それらのIPは、Serviceなしではクラスタの外部に公開されません。Serviceによって、アプリケーションはトラフィックを受信できるようになります。ServiceSpecで<code>type</code>を指定することで、Serviceをさまざまな方法で公開することができます。</p>
 			<ul>
-				<li><i>ClusterIP</i> (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.</li>
-				<li><i>NodePort</i> - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superset of ClusterIP.</li>
-				<li><i>LoadBalancer</i> - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.</li>
-				<li><i>ExternalName</i> - Exposes the Service using an arbitrary name (specified by <code>externalName</code> in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of <code>kube-dns</code>.</li>
+				<li><i>ClusterIP</i> (既定値) - クラスタ内の内部IPでServiceを公開します。この型では、Serviceはクラスタ内からのみ到達可能になります。</li>
+				<li><i>NodePort</i> - NATを使用して、クラスタ内の選択された各Nodeの同じポートにServiceを公開します。<code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>を使用してクラスタの外部からServiceにアクセスできるようにします。これはClusterIPのスーパーセットです。</li>
+				<li><i>LoadBalancer</i> - 現在のクラウドに外部ロードバランサを作成し（サポートされている場合）、Serciceに固定の外部IPを割り当てます。これはNodePortのスーパーセットです。</li>
+				<li><i>ExternalName</i> - 仕様の<code>externalName</code>で指定した名前のCNAMEレコードを返すことによって、任意の名前を使ってServiceを公開します。プロキシは使用されません。このタイプはv1.7以上の<code>kube-dns</code>を必要とします。</li>
 			</ul>
-			<p>More information about the different types of Services can be found in the <a href="/ja/docs/tutorials/services/source-ip/">Using Source IP</a> tutorial. Also see <a href="/ja/docs/concepts/services-networking/connect-applications-service">Connecting Applications with Services</a>.</p>
-			<p>Additionally, note that there are some use cases with Services that involve not defining <code>selector</code> in the spec. A Service created without <code>selector</code> will also not create the corresponding Endpoints object. This allows users to manually map a Service to specific endpoints. Another possibility why there may be no selector is you are strictly using <code>type: ExternalName</code>.</p>
+			<p>さまざまな種類のServiceに関する詳細情報は<a href="/ja/docs/tutorials/services/source-ip/">Using Source IP</a> tutorialにあります。<a href="/ja/docs/concepts/services-networking/connect-applications-service">アプリケーションとServiceの接続</a>も参照してください。</p>
+			<p>加えて、Serviceには、仕様に<code>selector</code>を定義しないというユースケースがいくつかあります。<code>selector</code>を指定せずに作成したServiceについて、対応するEndpointsオブジェクトは作成されません。これによって、ユーザーは手動でServiceを特定のエンドポイントにマッピングできます。セレクタがない可能性があるもう1つの可能性は、<code>type：ExternalName</code>を厳密に使用していることです。</p>
 			</div>
 			<div class="col-md-4">
 				<div class="content__box content__box_lined">
-					<h3>Summary</h3>
+					<h3>まとめ</h3>
 					<ul>
-						<li>Exposing Pods to external traffic</li>
-						<li>Load balancing traffic across multiple Pods</li>
-						<li>Using labels</li>
+						<li>Podを外部トラフィックに公開する</li>
+						<li>複数のPod間でトラフィックを負荷分散する</li>
+						<li>ラベルを使う</li>
 					</ul>
 				</div>
 				<div class="content__box content__box_fill">
-						<p><i>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</i></p>
+						<p><i>Kubernetes Serviceは、Podの論理セットを定義し、それらのPodに対する外部トラフィックの公開、負荷分散、およびサービス検出を可能にする抽象化層です。</i></p>
 				</div>
 			</div>
 		</div>
@@ -60,7 +60,7 @@ weight: 10
 
 		<div class="row">
 			<div class="col-md-8">
-				<h3>Services and Labels</h3>
+				<h3>Serviceとラベル</h3>
 			</div>
 		</div>
 
@@ -72,18 +72,18 @@ weight: 10
 
 		<div class="row">
 			<div class="col-md-8">
-				<p>A Service routes traffic across a set of Pods. Services are the abstraction that allow pods to die and replicate in Kubernetes without impacting your application. Discovery and routing among dependent Pods (such as the frontend and backend components in an application) is handled by Kubernetes Services.</p>
-				<p>Services match a set of Pods using <a href="/ja/docs/concepts/overview/working-with-objects/labels">labels and selectors</a>, a grouping primitive that allows logical operation on objects in Kubernetes. Labels are key/value pairs attached to objects and can be used in any number of ways:</p>
+				<p>Serviceは、一連のPodにトラフィックをルーティングします。Serviceは、アプリケーションに影響を与えることなく、KubernetesでPodが死んだり複製したりすることを可能にする抽象概念です。（アプリケーションのフロントエンドおよびバックエンドコンポーネントなどの）依存Pod間の検出とルーティングは、Kubernetes Serviceによって処理されます。</p>
+				<p>Serviceは、ラベルとセレクタを使用して一連のPodを照合します。これは、Kubernetes内のオブジェクトに対する論理操作を可能にするグループ化のプリミティブです。ラベルはオブジェクトに付けられたkey/valueのペアであり、さまざまな方法で使用できます。</p>
 				<ul>
-					<li>Designate objects for development, test, and production</li>
-					<li>Embed version tags</li>
-					<li>Classify an object using tags</li>
+					<li>開発、テスト、および本番用のオブジェクトを指定する</li>
+					<li>バージョンタグを埋め込む</li>
+					<li>タグを使用してオブジェクトを分類する</li>
 				</ul>
 
 			</div>
 			<div class="col-md-4">
 				<div class="content__box content__box_fill">
-					<p><i>You can create a Service at the same time you create a Deployment by using<br><code>--expose</code> in kubectl.</i></p>
+					<p><i>kubectlの<br> <code> --expose </code>を使用して、Deploymentの作成と同時にServiceを作成できます。</i></p>
 				</div>
 			</div>
 		</div>
@@ -98,7 +98,7 @@ weight: 10
 		<br>
 		<div class="row">
 			<div class="col-md-8">
-				<p>Labels can be attached to objects at creation time or later on. They can be modified at any time. Let's expose our application now using a Service and apply some labels.</p>
+				<p>ラベルは、作成時またはそれ以降にオブジェクトにアタッチでき、いつでも変更可能です。Serviceを使用してアプリケーションを公開し、いくつかのラベルを適用してみましょう。</p>
 			</div>
 		</div>
 		<br>
