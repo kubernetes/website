@@ -1,51 +1,51 @@
 ---
-title: CRI installation
+title: CRIのインストール
 content_template: templates/concept
 weight: 100
 ---
 {{% capture overview %}}
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
-This page contains installation instruction for various runtimes.
+Kubernetesでは、v1.6.0からデフォルトでCRI(Container Runtime Interface)を利用できます。
+このページでは、いくつかのCRIのインストール方法について説明します。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-Please proceed with executing the following commands based on your OS as root.
-You may become the root user by executing `sudo -i` after SSH-ing to each host.
+手順を進めるにあたっては、下記に示しているコマンドを、ご利用のOSのものに従ってrootユーザとして実行してください。
+環境によっては、それぞれのホストへSSHで接続した後に`sudo -i`を実行することで、rootユーザになることができる場合があります。
 
 ## Docker
 
-On each of your machines, install Docker.
-Version 18.06 is recommended, but 1.11, 1.12, 1.13 and 17.03 are known to work as well.
-Keep track of the latest verified Docker version in the Kubernetes release notes.
+それぞれのマシンに対してDockerをインストールします。
+バージョン18.06が推奨されていますが、1.11、1.12、1.13、17.03についても動作確認されています。
+Kubernetesのリリースノートには、最新の動作確認済のDockerのバージョンが記載されているので、そちらも参照するようにしてください。
 
-Use the following commands to install Docker on your system:
+システムへDockerをインストールするには、次のコマンドを実行します。
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# Install Docker from Ubuntu's repositories:
+# UbuntuのリポジトリからDockerをインストールする場合は次を実行します:
 apt-get update
 apt-get install -y docker.io
 
-# or install Docker CE 18.06 from Docker's repositories for Ubuntu or Debian:
+# または、UbuntuやDebian向けのDockerのリポジトリからDocker CE 18.06をインストールする場合は、次を実行します:
 
-## Install prerequisites.
+## 必要なパッケージをインストールします。
 apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
-## Download GPG key.
+## GPGキーをダウンロードします。
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-## Add docker apt repository.
+## dockerパッケージ用のaptリポジトリを追加します。
 add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 
-## Install docker.
+## dockerをインストールします。
 apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
 
-# Setup daemon.
+# デーモンをセットアップします。
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -59,32 +59,32 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
-# Restart docker.
+# dockerを再起動します。
 systemctl daemon-reload
 systemctl restart docker
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# Install Docker from CentOS/RHEL repository:
+# CentOSやRHELのリポジトリからDockerをインストールする場合は、次を実行します:
 yum install -y docker
 
-# or install Docker CE 18.06 from Docker's CentOS repositories:
+# または、CentOS向けのDockerのリポジトリからDocker CE 18.06をインストールする場合は、次を実行します:
 
-## Install prerequisites.
+## 必要なパッケージをインストールします。
 yum install yum-utils device-mapper-persistent-data lvm2
 
-## Add docker repository.
+## dockerパッケージ用のyumリポジトリを追加します。
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-## Install docker.
+## dockerをインストールします。
 yum update && yum install docker-ce-18.06.1.ce
 
-## Create /etc/docker directory.
+## /etc/docker ディレクトリを作成します。
 mkdir /etc/docker
 
-# Setup daemon.
+# デーモンをセットアップします。
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -101,28 +101,27 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
-# Restart docker.
+# dockerを再起動します。
 systemctl daemon-reload
 systemctl restart docker
 {{< /tab >}}
 {{< /tabs >}}
 
-Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
-for more information.
+詳細については、[Dockerの公式インストールガイド](https://docs.docker.com/engine/installation/)を参照してください。
 
 ## CRI-O
 
-This section contains the necessary steps to install `CRI-O` as CRI runtime.
+CRIランタイムとして`CRI-O`を利用するために必要な手順について説明します。
 
-Use the following commands to install CRI-O on your system:
+システムへCRI-Oをインストールするためには以下のコマンドを利用します:
 
-### Prerequisites
+### 必要な設定の追加
 
 ```shell
 modprobe overlay
 modprobe br_netfilter
 
-# Setup required sysctl params, these persist across reboots.
+# 必要なカーネルパラメータの設定をします。このコマンドを実行すると、これらのカーネルパラメータの設定値は再起動後も永続化されます。
 cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
@@ -135,50 +134,49 @@ sysctl --system
 {{< tabs name="tab-cri-cri-o-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
 
-# Install prerequisites
+# 必要なパッケージをインストールし、リポジトリを追加します。
 apt-get update
 apt-get install software-properties-common
 
 add-apt-repository ppa:projectatomic/ppa
 apt-get update
 
-# Install CRI-O
+# CRI-Oをインストールします。
 apt-get install cri-o-1.11
 
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# Install prerequisites
+# 必要なリポジトリを追加します。
 yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-311-candidate/x86_64/os/
 
-# Install CRI-O
+# CRI-Oをインストールします。
 yum install --nogpgcheck cri-o
 
 {{< /tab >}}
 {{< /tabs >}}
 
-### Start CRI-O
+### CRI-Oの起動
 
 ```
 systemctl start crio
 ```
 
-Refer to the [CRI-O installation guide](https://github.com/kubernetes-sigs/cri-o#getting-started)
-for more information.
+詳細については、[CRI-Oインストールガイド](https://github.com/kubernetes-sigs/cri-o#getting-started)を参照してください。
 
 ## Containerd
 
-This section contains the necessary steps to use `containerd` as CRI runtime.
+CRIランタイムとして`containerd`を利用するために必要な手順について説明します。
 
-Use the following commands to install Containerd on your system:
+システムへContainerdをインストールするためには次のコマンドを実行します。
 
-### Prerequisites
+### 必要な設定の追加
 
 ```shell
 modprobe overlay
 modprobe br_netfilter
 
-# Setup required sysctl params, these persist across reboots.
+# 必要なカーネルパラメータの設定をします。このコマンドを実行すると、これらのカーネルパラメータの設定値は再起動後も永続化されます。
 cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
@@ -197,30 +195,30 @@ yum install -y libseccomp
 {{< /tab >}}
 {{< /tabs >}}
 
-### Install containerd
+### containerdのインストール
 
-[Containerd releases](https://github.com/containerd/containerd/releases) are published regularly, the values below are hardcoded to the latest version available at the time of writing. Please check for newer versions and hashes [here](https://storage.googleapis.com/cri-containerd-release).
+[Containerdは定期的にリリース](https://github.com/containerd/containerd/releases)されますが、以下に示すコマンドで利用している値は、この手順が作成された時点での最新のバージョンにしたがって書かれています。以降のバージョンとダウンロードするファイルのハッシュ値については[こちら](https://storage.googleapis.com/cri-containerd-release)で確認するようにしてください。
 
 ```shell
-# Export required environment variables.
+# 必要な環境変数をexportします。
 export CONTAINERD_VERSION="1.1.2"
 export CONTAINERD_SHA256="d4ed54891e90a5d1a45e3e96464e2e8a4770cd380c21285ef5c9895c40549218"
 
-# Download containerd tar.
+# containerdのtarボールをダウンロードします。
 wget https://storage.googleapis.com/cri-containerd-release/cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
 
-# Check hash.
+# ハッシュ値をチェックします。
 echo "${CONTAINERD_SHA256} cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz" | sha256sum --check -
 
-# Unpack.
+# 解凍して展開します。
 tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
 
-# Start containerd.
+# containerdを起動します。
 systemctl start containerd
 ```
 
-## Other CRI runtimes: rktlet and frakti
+## その他のCRIランタイム(rktletおよびfrakti)について
 
-Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) and [Rktlet Getting Started guide](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md) for more information.
+詳細については[Fraktiのクイックスタートガイド](https://github.com/kubernetes/frakti#quickstart)および[Rktletのクイックスタートガイド](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md)を参照してください。
 
 {{% /capture %}}
