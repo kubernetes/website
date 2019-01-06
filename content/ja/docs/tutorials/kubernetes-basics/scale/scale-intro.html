@@ -1,5 +1,5 @@
 ---
-title: Running Multiple Instances of Your App
+title: アプリケーションの複数インスタンスを実行する
 weight: 10
 ---
 
@@ -18,15 +18,16 @@ weight: 10
         <div class="row">
 
      <div class="col-md-8">
-          <h3>Objectives</h3>
+          <h3>目標</h3>
                 <ul>
-                    <li>Scale an app using kubectl.</li>
+                    <li>kubectlを使用してアプリケーションをスケーリングする</li>
                 </ul>
             </div>
 
             <div class="col-md-8">
-       <h3>Scaling an application</h3>
+       <h3>アプリケーションのスケーリング</h3>
 
+            <p>前回のモジュールでは、Deploymentを作成し、それをService経由で公開しました。Deploymentでは、アプリケーションを実行するためのPodを1つだけ作成しました。トラフィックが増加した場合、ユーザーの需要に対応するためにアプリケーションをスケールする必要があります。</p>
             <p>In the previous modules we created a <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, and then exposed it publicly via a <a href="https://kubernetes.io/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with  user demand.</p>
 
             <p><b>Scaling</b> is accomplished by changing the number of replicas in a Deployment</p>
