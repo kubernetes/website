@@ -176,7 +176,7 @@ Summary of container benefits:
 * **Environmental consistency across development, testing, and production**:
     Runs the same on a laptop as it does in the cloud.
 * **Cloud and OS distribution portability**:
-    Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.
+    Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, windows and anywhere else.
 * **Application-centric management**:
     Raises the level of abstraction from running an OS on virtual
     hardware to running an application on an OS using logical resources.
