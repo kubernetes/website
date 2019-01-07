@@ -29,7 +29,7 @@ kubeadm 配置公开了以下字段，这些字段可以覆盖传递给控制平
 These fields consist of `key: value` pairs. To override a flag for a control plane component:
 -->
 这些字段由 `key: value` 对组成。
-要覆盖控制平面组件的标志:
+要覆盖控制平面组件的参数:
 
 <!--
 1.  Add the appropriate field to your configuration.
