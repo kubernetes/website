@@ -18,7 +18,7 @@ Renews the client certificate for liveness probes to healtcheck etcd, and saves 
 <!--
 Extra attributes such as SANs will be based on the existing certificates, there is no need to resupply them.
 -->
-额外的属性(如 SANs) 将基于现有的证书，不需要重新提供它们。
+额外的属性(如 SANs)将基于现有的证书完成设置，不需要重新提供。
 
 ```
 kubeadm alpha phase certs renew etcd-healthcheck-client [flags]
@@ -44,7 +44,7 @@ kubeadm alpha phase certs renew etcd-healthcheck-client [flags]
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
 -->
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">证书保存的路径</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">证书的保存路径</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the certificates</td>
