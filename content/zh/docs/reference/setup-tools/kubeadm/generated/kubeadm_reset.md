@@ -1,3 +1,10 @@
+
+此命令可将 'kubeadm init' 或者 'kubeadm join' 对主机的改动恢复到执行前的状态。
+
+### 摘要
+
+此命令可将 'kubeadm init' 或者 'kubeadm join' 对主机的改动恢复到执行前的状态。
+
 <!--
 Run this to revert any changes made to this host by 'kubeadm init' or 'kubeadm join'.
 
@@ -6,12 +13,6 @@ Run this to revert any changes made to this host by 'kubeadm init' or 'kubeadm j
 
 Run this to revert any changes made to this host by 'kubeadm init' or 'kubeadm join'.
 -->
-
-此命令可将 'kubeadm init' 或者 'kubeadm join' 对主机的改动恢复到执行前的状态。
-
-### 摘要
-
-此命令可将 'kubeadm init' 或者 'kubeadm join' 对主机的改动恢复到执行前的状态。
 
 ```
 kubeadm reset [flags]
