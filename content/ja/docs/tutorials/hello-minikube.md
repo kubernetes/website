@@ -48,7 +48,7 @@ menu:
 
     {{< kat-button >}}
 
-    {{< note >}}もしMinikubeをローカルで実装している場合には、`minikube start`を実行します。{{< /note >}}
+    {{< note >}}Minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。{{< /note >}}
 
 2. ブラウザーでKubernetesダッシュボードを開きます:
 
