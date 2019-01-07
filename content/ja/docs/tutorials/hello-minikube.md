@@ -144,7 +144,7 @@ Kubernetesの管理やネットワーキングの目的でまとめられた [*P
     minikube service hello-node
     ```
 
-4. Kataconda環境の場合のみ：ターミナルペーン上部の+ボタンをクリックして **Select port to view on Host 1** をクリックします。
+4. Katacoda環境の場合のみ：ターミナルペーン上部の+ボタンをクリックして **Select port to view on Host 1** をクリックしてください。
 
 5. Katacoda環境の場合のみ：8080をタイプし、**Display Port**をクリックしてください。 
 
