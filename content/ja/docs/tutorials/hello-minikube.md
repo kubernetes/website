@@ -56,7 +56,7 @@ menu:
     minikube dashboard
     ```
 
-3. Kataconda環境の場合のみ：ターミナルペーン上部の+ボタンをクリックして **Select port to view on Host 1** をクリックします。
+3. Katacoda環境の場合のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
 
 4. Kataconda環境の場合のみ：30000をタイプし、**Display Port**をクリックします。 
 
