@@ -1,5 +1,5 @@
 
-升级部署在此节点上的控制平面实例，重要。在另一个控制平面实例上执行 `kubeadm upgrade apply` 之后，应该执行此命令
+升级部署在此节点上的控制平面实例。【重要】执行此命令之前，需要在控制平面的另一实例上执行 `kubeadm upgrade apply`。
 <!--
 Upgrades the control plane instance deployed on this node. IMPORTANT. This command should be executed after executing `kubeadm upgrade apply` on another control plane instance
 -->
@@ -13,7 +13,7 @@ Upgrades the control plane instance deployed on this node. IMPORTANT. This comma
 <!--
 Downloads the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. kubeadm uses the --kubelet-version parameter to determine what the desired kubelet version is. Give
 -->
-从群集中 "kubelet-config-1.X" 的 ConfigMap 下载 kubelet 配置，在集群中 X 是 kubelet 的次要版本。kubeadm 使用 --kubelet-version 参数来确定所需的 kubelet 版本。
+从集群中 "kubelet-config-1.X" 的 ConfigMap 下载 kubelet 配置，在集群中 X 是 kubelet 的次要版本。kubeadm 使用 --kubelet-version 参数来确定所需的 kubelet 版本。
 
 ```
 kubeadm upgrade node experimental-control-plane [flags]
