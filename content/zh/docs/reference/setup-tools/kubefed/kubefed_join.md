@@ -81,22 +81,22 @@ kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
 -->
 
 ```
-      --allow-missing-template-keys          如果为 true，当模版中的字段或者映射键缺失时，将忽略模版中的任何错误。仅应用于 golang 和 jsonpath 输出格式。（默认 true）
+      --allow-missing-template-keys          如果为 true，当模版中的字段或者映射键缺失时，将忽略模版中的任何错误。仅应用于 golang 和 jsonpath 输出格式。（默认值为 true）
       --cluster-context string               本地 kubeconfig 中的集群上下文名称。如果未指定，默认为集群名称。
       --credentials-kubeconfig string        本地文件系统上的 kubeconfig 的文件路径，应用于对主机群集或加入群集（而不是默认的 kubeconfig）进行身份验证。这可用于在初始化联合控制平面或将群集加入到其中时覆盖基于 RBAC 的身份验证，即使在群集公开 RBAC API 时也是如此。
       --dry-run                              如果为 true，只打印将要发送的对象，实际上并没有发送出去。
-      --federation-system-namespace string   安装联邦系统组件的主机集群命名空间（默认 "federation-system"）
-      --generator string                     要使用的 API 生成器的名称（default "cluster/v1beta1"）
-  -h, --help                                 join 的帮助信息
-      --host-cluster-context string          主机集群上下文
-      --no-headers                           当使用默认或者定制列输出格式时，不打印头信息（default print headers）。
+      --federation-system-namespace string   安装联邦系统组件的主机集群命名空间（默认值为 "federation-system"）。
+      --generator string                     要使用的 API 生成器的名称（默认值为 "cluster/v1beta1"）。
+  -h, --help                                 join 的帮助信息。
+      --host-cluster-context string          主机集群上下文。
+      --no-headers                           当使用默认或者定制列输出格式时，不打印头信息（默认打印头信息）。
   -o, --output string                        输出格式。下列之一： json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... 参考定制列 [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns]，golang 模版 [http://golang.org/pkg/text/template/#pkg-overview] 和 jsonpath 模版 [http://kubernetes.io/docs/user-guide/jsonpath]。
       --save-config                          如果为 true，当前对象的配置将保存到它的注解中。否则将不会改变注解。 当你将来对此对象执行 kubectl apply 时，会用到该参数。
   -a, --show-all                             打印时，显示所有资源。（默认隐藏已终止的 pod）
-      --show-labels                          打印时，将所有标签显示在最后一列 (默认隐藏标签列）
+      --show-labels                          打印时，将所有标签显示在最后一列。 (默认隐藏标签列）
       --sort-by string                       如果非空， 使用此字段的指定项对列表类型进行排序。此字段的指定项实用 JSONPath 表达式（例如 '{.metadata.name}'）。 此 JSONPath 表达式指定的 API 资源中的字段必须是整数或字符串。
       --template string                       当设置 -o=go-template，-o=go-template-file 时， 要使用的模板文件的模板字符串或路径。模版格式为 golang 模版 [http://golang.org/pkg/text/template/#pkg-overview]。
-      --validate                             如果为 true，在发送输入信息之前先进行语法检查（默认 true）。
+      --validate                             如果为 true，在发送输入信息之前先进行语法检查（默认值为 true）。
 ```
 
 <!--
@@ -148,43 +148,43 @@ kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
 -->
 
 ```
-      --alsologtostderr                              同时将日志输出到标准错误输出（stderr）
-      --as string                                    用户名模拟操作
+      --alsologtostderr                              同时将日志输出到标准错误输出（stderr）。
+      --as string                                    用户名模拟操作。
       --as-group stringArray                         要模拟操作的组，可以重复使用此参数来指定多个组。
-      --cache-dir string                             默认 HTTP 缓存目录（默认 "/Users/jrondeau/.kube/http-cache"）
-      --certificate-authority string                 证书创建的证书机构的的路径
-      --client-certificate string                    TLS 客户端证书的路径
-      --client-key string                            TLS 客户端秘钥的路径
-      --cloud-provider-gce-lb-src-cidrs cidrs        在 GCE 防火墙中放开的 CIDRs，用于 LB 流量代理和检查是否正常（默认 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16）
-      --cluster string                               使用的 kubeconfig 集群的名称
-      --context string                               使用的 kubeconfig 上下文名称
+      --cache-dir string                             默认 HTTP 缓存目录（默认值为 "/Users/jrondeau/.kube/http-cache"）。
+      --certificate-authority string                 证书创建的证书机构的的路径。
+      --client-certificate string                    TLS 客户端证书的路径。
+      --client-key string                            TLS 客户端秘钥的路径。
+      --cloud-provider-gce-lb-src-cidrs cidrs        在 GCE 防火墙中放开的 CIDRs，用于 LB 流量代理和检查是否正常（默认 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16）。
+      --cluster string                               使用的 kubeconfig 集群的名称。
+      --context string                               使用的 kubeconfig 上下文名称。
       --default-not-ready-toleration-seconds int     对于未添加 notReady:NoExecute 容忍度设置的所有 Pod，为其设置此参数值作为对 notReady:NoExecute 容忍度的容忍秒数（tolerationSeconds）；默认值为 300 秒。
       --default-unreachable-toleration-seconds int   对于未设置 unreachable:NoExecute 容忍度的所有 Pod，设置其对 unreachable:NoExecute 的容忍度秒数（tolerationSeconds）；默认值为 300 秒。
-      --insecure-skip-tls-verify                     如果是 true，将不检查服务器证书的有效性。这将使您的 HTTPS 连接不安全
-      --ir-data-source string                        由 InitialResources 使用的数据源；支持的选项有：influxdb 和 gcm（默认 "influxdb"）。
-      --ir-dbname string                             数据库名，其中包含 InitialResources 所需的指标（默认 "k8s"）
-      --ir-hawkular string                           Hawkular 配置 URL
-      --ir-influxdb-host string                      包含 InitialResources 需要的指标的 InfluxDB 的地址（默认 "localhost:8080/api/v1/namespaces/kube-system/services/monitoring-influxdb:api/proxy"）
+      --insecure-skip-tls-verify                     如果是 true，将不检查服务器证书的有效性。这将使您的 HTTPS 连接不安全。
+      --ir-data-source string                        由 InitialResources 使用的数据源；支持的选项有：influxdb 和 gcm（默认值为 "influxdb"）。
+      --ir-dbname string                             数据库名，其中包含 InitialResources 所需的指标（默认值为 "k8s"）。
+      --ir-hawkular string                           Hawkular 配置 URL。
+      --ir-influxdb-host string                      包含 InitialResources 需要的指标的 InfluxDB 的地址（默认值为 "localhost:8080/api/v1/namespaces/kube-system/services/monitoring-influxdb:api/proxy"）。
       --ir-namespace-only                            是否仅根据来自相同命名空间的数据进行估算。
-      --ir-password string                           用于连接到 InfluxDB 的密码（默认 "root"）
+      --ir-password string                           用于连接到 InfluxDB 的密码（默认值为 "root"）。
       --ir-percentile int                            在估算资源时，InitialResoruces 要使用的样本百分比。仅用于实验目的。默认值为 90。 
-      --ir-user string                               用于连接到 InfluxDB 的用户（默认 "root"）
+      --ir-user string                               用于连接到 InfluxDB 的用户（默认值为 "root"）。
       --kubeconfig string                            用于 CLI 请求的 kubeconfig 文件的路径。
-      --log-backtrace-at traceLocation               当日志机制遇到文件行 file:N 时，打印堆栈轨迹；默认值为 ”:0“
-      --log-dir string                               如果非空，在此目录中写入日志文件
-      --log-flush-frequency duration                 日志刷新的最大秒数（默认 5s）
-      --logtostderr                                  记录日志到标准错误输出（stderr）而不是文件中；默认值为 true
-      --match-server-version                         要求服务器版本与客户端版本匹配
-  -n, --namespace string                             若给定，用来设置 CLI 请求的命名空间范围
-      --password string                              用来对 API 服务器进行基本身份验证的密码
-      --request-timeout string                       放弃单个服务器请求前等待的时间长度。非零值应包含相应的时间单位（如 1s、2m 或 3h）。值为 0 表示请求不超时；默认值为 "0"
-  -s, --server string                                Kubernetes API 服务器的地址和端口
-      --stderrthreshold severity                     在此阈值或以上的日志将转到 stderr（默认 2）
-      --token string                                 向 API 服务器进行身份验证的持有者令牌
-      --user string                                  使用的 kubeconfig 用户的名称
-      --username string                              用户名，用于对 API 服务器的基本身份验证
-  -v, --v Level                                      V 日志的日志级别
-      --vmodule moduleSpec                           基于文件的日志过滤，取值为逗号分隔的列表，列表中每项的格式为 "pattern=N"
+      --log-backtrace-at traceLocation               当日志机制遇到文件行 file:N 时，打印堆栈轨迹；默认值为：0。
+      --log-dir string                               如果非空，在此目录中写入日志文件。
+      --log-flush-frequency duration                 日志刷新的最大秒数（默认值为 5s）。
+      --logtostderr                                  记录日志到标准错误输出（stderr）而不是文件中；默认值为 true。
+      --match-server-version                         要求服务器版本与客户端版本匹配。
+  -n, --namespace string                             若给定，用来设置 CLI 请求的命名空间范围。
+      --password string                              用来对 API 服务器进行基本身份验证的密码。
+      --request-timeout string                       放弃单个服务器请求前等待的时间长度。非零值应包含相应的时间单位（如 1s、2m 或 3h）。值为 0 表示请求不超时；默认值为 "0"。
+  -s, --server string                                Kubernetes API 服务器的地址和端口。
+      --stderrthreshold severity                     在此阈值或以上的日志将转到 stderr（默认值为 2）。
+      --token string                                 向 API 服务器进行身份验证的持有者令牌。
+      --user string                                  使用的 kubeconfig 用户的名称。
+      --username string                              用户名，用于对 API 服务器的基本身份验证。
+  -v, --v Level                                      V 日志的日志级别。
+      --vmodule moduleSpec                           基于文件的日志过滤，取值为逗号分隔的列表，列表中每项的格式为 "pattern=N"。
 ```
 
 <!--
