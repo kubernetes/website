@@ -13,7 +13,7 @@ Writes an environment file with runtime flags for the kubelet.
 <!--
 Writes an environment file with flags that should be passed to the kubelet executing on the master or node. This --config flag can either consume a InitConfiguration object or a JoinConfiguration one, as this function is used for both "kubeadm init" and "kubeadm join". 
 -->
-写入带有参数的环境文件，该参数应该传递给在主节点或节点上执行的 kubelet。这个 --config 参数可以使用 InitConfiguration 对象，也可以使用 JoinConfiguration 对象，因为这个函数用于 "kubeadm init" 和 "kubeadm join"。
+生成一个环境文件，其中包含需要传递给在主节点或节点上执行的 kubelet 的参数。--config 参数的取值可以是一个 InitConfiguration 对象或一个 JoinConfiguration 对象，因为这个功能既用于 "kubeadm init" 也用于 "kubeadm join"。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
