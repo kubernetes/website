@@ -36,7 +36,7 @@ menu:
 
 {{< codenew language="conf" file="minikube/Dockerfile" >}}
 
-docker buildコマンドについての詳細な情報は、[Docker documentation](https://docs.docker.com/engine/reference/commandline/build/)を参照します。
+`docker build`コマンドについての詳細な情報は、[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/build/)を参照してください。
 
 {{% /capture %}}
 
