@@ -83,7 +83,7 @@ kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
 ```
       --allow-missing-template-keys          如果为 true，当模版中的字段或者映射键缺失时，将忽略模版中的任何错误。仅应用于 golang 和 jsonpath 输出格式。（默认值为 true）
       --cluster-context string               本地 kubeconfig 中的集群上下文名称。如果未指定，默认为集群名称。
-      --credentials-kubeconfig string        本地文件系统上的 kubeconfig 的文件路径，应用于对主机群集或加入群集（而不是默认的 kubeconfig）进行身份验证。这可用于在初始化联合控制平面或将群集加入到其中时覆盖基于 RBAC 的身份验证，即使在群集公开 RBAC API 时也是如此。
+      --credentials-kubeconfig string        本地文件系统上的 kubeconfig 的文件路径，应用于对主机集群或加入集群（而不是默认的 kubeconfig）进行身份验证。这可用于在初始化联合控制平面或将集群加入到其中时覆盖基于 RBAC 的身份验证，即使在集群公开 RBAC API 时也是如此。
       --dry-run                              如果为 true，只打印将要发送的对象，实际上并没有发送出去。
       --federation-system-namespace string   安装联邦系统组件的主机集群命名空间（默认值为 "federation-system"）。
       --generator string                     要使用的 API 生成器的名称（默认值为 "cluster/v1beta1"）。
@@ -94,7 +94,7 @@ kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
       --save-config                          如果为 true，当前对象的配置将保存到它的注解中。否则将不会改变注解。 当你将来对此对象执行 kubectl apply 时，会用到该参数。
   -a, --show-all                             打印时，显示所有资源。（默认隐藏已终止的 pod）
       --show-labels                          打印时，将所有标签显示在最后一列。 (默认隐藏标签列）
-      --sort-by string                       如果非空， 使用此字段的指定项对列表类型进行排序。此字段的指定项实用 JSONPath 表达式（例如 '{.metadata.name}'）。 此 JSONPath 表达式指定的 API 资源中的字段必须是整数或字符串。
+      --sort-by string                       如果非空， 使用此字段的指定项对列表类型进行排序。此字段的指定项使用 JSONPath 表达式（例如 '{.metadata.name}'）。 此 JSONPath 表达式指定的 API 资源中的字段必须是整数或字符串。
       --template string                       当设置 -o=go-template，-o=go-template-file 时， 要使用的模板文件的模板字符串或路径。模版格式为 golang 模版 [http://golang.org/pkg/text/template/#pkg-overview]。
       --validate                             如果为 true，在发送输入信息之前先进行语法检查（默认值为 true）。
 ```
