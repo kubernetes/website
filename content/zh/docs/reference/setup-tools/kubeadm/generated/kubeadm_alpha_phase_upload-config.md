@@ -13,12 +13,12 @@ Uploads the currently used configuration for kubeadm to a ConfigMap
 <!--
 Uploads the kubeadm init configuration of your cluster to a ConfigMap called kubeadm-config in the kube-system namespace. This enables correct configuration of system components and a seamless user experience when upgrading. 
 -->
-将集群 kubeadm init 配置上传到 kube 系统命名空间中名为 kubeadm-config 的 ConfigMap 中。这可以正确配置系统组件，并在升级时提供无缝的用户体验。
+将集群 kubeadm init 配置上传到 kube-system 命名空间中名为 kubeadm-config 的 ConfigMap 中。这可以正确配置系统组件，并在升级时提供无缝的用户体验。
 
 <!--
 Alternatively, you can use kubeadm config. 
 -->
-或者您可以使用 kubeadm 配置。
+或者您可以使用 kubeadm config。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
