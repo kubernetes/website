@@ -211,7 +211,7 @@ kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", 
 ```
 
 ## Editing Resources
-The edit any API resource in an editor.
+To edit any API resource in an editor.
 
 ```bash
 kubectl edit svc/docker-registry                      # Edit the service named docker-registry
