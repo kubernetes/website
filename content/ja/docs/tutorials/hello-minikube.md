@@ -107,7 +107,7 @@ Kubernetesの管理やネットワーキングの目的でまとめられた [*P
     kubectl config view
     ```
   
-    {{< note >}} kubectlコマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照します。{{< /note >}}
+    {{< note >}} `kubectl`コマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照してください。{{< /note >}}
 
 ## Serviceの作成
 
