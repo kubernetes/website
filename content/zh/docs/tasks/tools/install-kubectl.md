@@ -20,14 +20,14 @@ weight: 10
 <!--
  Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.
  -->
- 在 Kubernetes 上使用 Kubernetes 命令行工具 [kubectl](/docs/user-guide/kubectl/) 部署和管理应用程序。使用 kubectl，您可以检查集群资源；创建、删除和更新组件；查看您的新集群；并提出实例应用程序。
+ 在 Kubernetes 上使用 Kubernetes 命令行工具 [kubectl](/docs/user-guide/kubectl/) 部署和管理应用程序。使用 kubectl，您可以检查集群资源；创建、删除和更新组件；查看您的新集群；并启动实例应用程序。
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 <!--
 You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
 -->
-您必须使用与集群版本有较小差异的 kubectl 版本。例如，1.2版本的客户端应该与1.1版本、1.2版本和1.3版本的主机一起使用。使用最新版本的 kubectl 有助于避免无法预料的问题。
+您必须使用与集群小版本号差别为一的 kubectl 版本。例如，1.2版本的客户端应该与1.1版本、1.2版本和1.3版本的主节点一起使用。使用最新版本的 kubectl 有助于避免无法预料的问题。
 {{% /capture %}}
 
 
@@ -66,7 +66,7 @@ yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 -->
-## 使用本地包管理安装 kubectl 二进制文件
+## 使用本地软件包管理软件安装 kubectl 二进制文件
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
@@ -111,7 +111,7 @@ If you are on Ubuntu or one of other Linux distributions that support [snap](htt
 
 如果您使用的是 Ubuntu 或其他支持 [snap](https://snapcraft.io/docs/core/install) 软件包管理器的Linux发行版，kubectl 可以作为一个 [snap](https://snapcraft.io/) 应用程序使用。
 
-1. 切换到快照用户并运行安装命令：
+1. 切换到 snap 用户并运行安装命令：
 
     ```
     sudo snap install kubectl --classic
@@ -140,7 +140,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
     kubectl version
     ```
 -->
-## 在 macOS 上用 Homebrew 安装 kubectl
+## <span id = "jump"> 在 macOS 上用 Homebrew 安装 kubectl </span>
 
 如果您使用的是 macOS 系统并使用 [Homebrew](https://brew.sh/) 包管理器，您可以通过 Homebrew 安装 kubectl。
 
@@ -234,7 +234,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     如果你没有指定 `DownloadLocation`，那么 `kubectl` 将安装在用户的临时目录中。
     {{< /note >}}
 
-    安装程序创建 `$ HOME / .kube` 并指示它创建配置文件
+    安装程序创建 `$ HOME/.kube` 并指示它创建配置文件
 
 2. 测试以确保您安装的版本是最新的：
     ```
@@ -289,7 +289,7 @@ If you are on Windows and using [Chocolatey](https://chocolatey.org) package man
 -->
 ## 在 Windows 上用 Chocolatey 安装 kubectl
 
-如果您使用的是 Windows 系统并使用 Chocolatey 包管理器，您可以使用 Chocolatey 安装 kubectl。
+如果您使用的是 Windows 系统并使用 [Chocolatey](https://chocolatey.org) 包管理器，您可以使用 Chocolatey 安装 kubectl。
 
 1. 运行安装命令：
 
@@ -325,7 +325,7 @@ If you are on Windows and using [Chocolatey](https://chocolatey.org) package man
     ```
 
     {{< note >}}
-    使用您选择的文本编辑器编辑配置文件，例如 Notepad。
+    使用您偏爱的编辑器编辑配置文件，例如 Notepad。
     {{< /note >}}
 
 <!--
@@ -461,7 +461,7 @@ kubectl 可以作为 Google Cloud SDK 的一部分进行安装。
     chmod +x ./kubectl
     ```
 
-3. 将 kubectl 可执行文件放置到系统 PATH 目录下。
+3. 将 kubectl 可执行文件放置到你的 PATH 目录下。
 
 
     ```
@@ -490,7 +490,7 @@ kubectl 可以作为 Google Cloud SDK 的一部分进行安装。
     chmod +x ./kubectl
     ```
 
-3. 将 kubectl 可执行文件放置到系统 PATH 目录下。
+3. 将 kubectl 可执行文件放置到你的 PATH 目录下。
 
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
@@ -507,7 +507,7 @@ kubectl 可以作为 Google Cloud SDK 的一部分进行安装。
 
 若要查找最新的稳定版本（例如脚本等），请查看 [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
 
-2. 将 kubectl 可执行文件添加到系统 PATH 目录。
+2. 将 kubectl 可执行文件添加到你的 PATH 目录。
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -521,7 +521,7 @@ By default, kubectl configuration is located at `~/.kube/config`.
 -->
 ## 配置 kubectl 
 
-kubectl 需要一个 [kubeconfig 配置文件](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)使其找到并访问 Kubernetes 集群。当您使用 kube-up.sh 脚本创建 Kubernetes 集群或者成功部署 Minikube 集群后，kubectlconfig 配置文件将自动产生。请参阅[入门指南](/docs/setup/)以了解更多创建集群相关的信息。如果您需要访问一个并非由您创建的集群，请参阅[如何共享集群的访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。默认情况下，kubectl 配置文件位于 `~/.kube/config`。
+kubectl 需要一个 [kubeconfig 配置文件](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)使其找到并访问 Kubernetes 集群。当您使用 kube-up.sh 脚本创建 Kubernetes 集群或者部署 Minikube 集群时，会自动生成 kubeconfig 配置文件。请参阅[入门指南](/docs/setup/)以了解更多创建集群相关的信息。如果您需要访问一个并非由您创建的集群，请参阅[如何共享集群的访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。默认情况下，kubectl 配置文件位于 `~/.kube/config`。
 
 <!--
 ## Check the kubectl configuration
@@ -562,7 +562,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 例如，如果您打算在笔记本电脑（本地）上运行 Kubernetes 集群，则需要首先安装 minikube 等工具，然后重新运行上述命令。
 
-如果 kubectl cluster-info 返回的 url 响应但您无法访问您的集群，要检查它是否配置正确，请使用：
+如果 kubectl cluster-info 能够返回 url 响应，但您无法访问您的集群，可以使用下面的命令检查配置是否正确：
 
 ```shell
 kubectl cluster-info dump
@@ -651,7 +651,7 @@ brew install bash-completion@2
 
 请根据 Homebrew 输出的”注意事项（caveats）”部分的内容将 bash-completion 的路径添加到本地 .bashrc 文件中。
 
-如果您是按照 [Homebrew 指示](#install-with-homebrew-on-macos)中的步骤安装的 kubectl，那么无需其他配置，kubectl 的自动补全功能已经被启用。
+如果您是按照 [Homebrew 指示](#jump)中的步骤安装的 kubectl，那么无需其他配置，kubectl 的自动补全功能已经被启用。
 
 如果您是手工下载并安装的 kubectl，那么您需要将 kubectl 自动补全添加到 bash-completion：
 
@@ -687,7 +687,7 @@ if [ $commands[kubectl] ]; then
 fi
 ```
 
-如果您使用的是 [Oh-My-Zsh](http://ohmyz.sh/)，请编辑 ~/.zshrc 文件并更新 `plugins=` 属性包含 kubectl 插件。
+如果您使用的是 [Oh-My-Zsh](http://ohmyz.sh/)，请编辑 ~/.zshrc 文件并更新 `plugins=` 行以包含 kubectl 插件。
 
 ```shell
 plugins=(kubectl)
