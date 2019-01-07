@@ -103,7 +103,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 
 1. Determine the context to use based on the first hit in this chain:
 
-    1. Use the `--context` command-line flag if it exits.
+    1. Use the `--context` command-line flag if it exists.
     1. Use the `current-context` from the merged kubeconfig files.
 
    An empty context is allowed at this point.
