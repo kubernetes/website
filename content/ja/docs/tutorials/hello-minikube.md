@@ -119,7 +119,7 @@ Kubernetesの管理やネットワーキングの目的でまとめられた [*P
     kubectl expose deployment hello-node --type=LoadBalancer
     ```
     
-    `--type=LoadBalancer`フラグはServiceをクラスターがいぶに公開したいことを示すフラグです。
+    `--type=LoadBalancer`フラグはServiceをクラスター外部に公開したいということを示すフラグです。
 
 2. 作成したServiceを確認します:
 
