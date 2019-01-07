@@ -1,5 +1,5 @@
 
-Run this command in order to set up the Kubernetes master.
+Run this command in order to set up the Kubernetes control plane.
 
 ### Synopsis
 
