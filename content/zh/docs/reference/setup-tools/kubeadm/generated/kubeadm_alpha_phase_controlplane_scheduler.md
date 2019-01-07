@@ -1,5 +1,5 @@
 
-生成调度静态 Pod 清单
+生成调度器的静态 Pod 清单
 <!--
 Generates the scheduler static Pod manifest
 -->
@@ -13,7 +13,7 @@ Generates the scheduler static Pod manifest
 <!--
 Generates the static Pod manifest file for the scheduler and saves it into /etc/kubernetes/manifests/kube-scheduler.yaml file. 
 -->
-为调度生成静态 Pod 清单文件，并将其保存到 /etc/kubernetes/manifests/kube-scheduler.yaml 文件中。
+为调度器生成静态 Pod 清单文件，并将其保存到 /etc/kubernetes/manifests/kube-scheduler.yaml 文件中。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
@@ -44,7 +44,7 @@ kubeadm alpha phase controlplane scheduler [flags]
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
 -->
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">存储证书的路径</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">证书的存储路径</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where certificates are stored</td>
