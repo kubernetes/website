@@ -1,5 +1,5 @@
 
-生成服务 etcd 的证书
+生成提供 etcd 服务所需的证书
 <!--
 Generates the certificate for serving etcd
 -->
@@ -13,12 +13,12 @@ Generates the certificate for serving etcd
 <!--
 Renews the certificate for serving etcd, and saves them into etcd/server.cert and etcd/server.key files. 
 -->
-更新服务 etcd 的证书，并将它们保存到 etcd/server.cert 和 etcd/server.key 文件中。
+更新提供 etcd 服务所需的证书并将它们保存到 etcd/server.cert 和 etcd/server.key 文件中。
 
 <!--
 Extra attributes such as SANs will be based on the existing certificates, there is no need to resupply them.
 -->
-额外的属性(如 SANs) 将基于现有的证书，不需要重新提供它们。
+额外的属性（如 SANs）将基于现有的证书完成设置，不需要重新提供。
 
 ```
 kubeadm alpha phase certs renew etcd-server [flags]
@@ -44,7 +44,7 @@ kubeadm alpha phase certs renew etcd-server [flags]
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
 -->
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">保存证书的路径</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">证书的保存路径</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the certificates</td>
