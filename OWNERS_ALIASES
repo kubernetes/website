@@ -128,13 +128,14 @@ aliases:
     - tengqm
     - tfogo
     - zacharysarah
+    - zhangxiaoyu-zidif
     - zparnold
   sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews
     - jimangel
     - rajakavitha1
     - stewart-yu
     - xiangpengzhao
-    - zhangxiaoyu
+    - zhangxiaoyu-zidif
   sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
     - cstoku
     - nasa9084
