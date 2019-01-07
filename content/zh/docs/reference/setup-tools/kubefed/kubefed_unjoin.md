@@ -128,7 +128,7 @@ kubefed unjoin CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
       --cache-dir string                             默认 HTTP 缓存目录（默认 "/Users/jrondeau/.kube/http-cache"）
       --certificate-authority string                 证书创建的证书机构的的路径
       --client-certificate string                    TLS 客户端证书的路径
-      --client-key string                            TLS 客户端秘钥的路径
+      --client-key string                            TLS 客户端密钥的路径
       --cloud-provider-gce-lb-src-cidrs cidrs        在 GCE 防火墙中放开的 CIDRs，用于 LB 流量代理和检查是否正常（默认 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16）
       --cluster string                               使用的 kubeconfig 集群的名称
       --context string                               使用的 kubeconfig 上下文名称
