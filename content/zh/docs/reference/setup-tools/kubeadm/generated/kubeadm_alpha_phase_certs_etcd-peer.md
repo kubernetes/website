@@ -18,12 +18,12 @@ Generates the credentials for etcd nodes to communicate with each other, and sav
 <!--
 Default SANs are localhost, 127.0.0.1, 127.0.0.1, ::1 
 -->
-默认 SAN 是 localhost，127.0.0.1,127.0.0.1，:: 1
+默认 SAN 是 localhost、127.0.0.1 和 ::1
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
 -->
-如果两个文件都已存在，kubeadm 将跳过生成步骤，并将使用现有文件。
+如果两个文件都已存在，kubeadm 将跳过生成步骤并使用现有文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
@@ -54,7 +54,7 @@ kubeadm alpha phase certs etcd-peer [flags]
       <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
 -->
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">保存证书的路径</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">证书的保存路径</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the certificates</td>
