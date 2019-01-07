@@ -42,7 +42,7 @@ For a stable output in a script:
 * Don't rely on context, preferences, or other implicit states.
 -->
 
-* 请求一个面向机器的输出表单，例如 `-o name`、`-o json`、`-o yaml`、`-o go template` 或 `-o jsonpath`。
+* 请求一个面向机器的输出格式，例如 `-o name`、`-o json`、`-o yaml`、`-o go template` 或 `-o jsonpath`。
 * 完全限定版本。例如 `jobs.v1.batch/myjob`。这将确保 kubectl 不会使用其默认版本，该版本会随着时间的推移而更改。
 * 在使用基于生成器的命令（例如 `kubectl run` 或者 `kubectl expose`）时，指定 `--generator` 参数以固定到特定行为。
 * 不要依赖上下文、首选项或其他隐式状态。
@@ -57,7 +57,7 @@ For a stable output in a script:
 <!--
 For `kubectl run` to satisfy infrastructure as code:
 -->
-对于使用 `kubectl run` 以满足基础设施的代码要求：
+若希望 `kubectl run` 满足"基础设施即代码（infrastructure as code）"的要求：
 
 <!--
 * Tag the image with a version-specific tag and don't move that tag to a new version. For example, use `:v1234`, `v1.2.3`, `r03062016-1-4`, rather than `:latest` (For more information, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images)).
@@ -68,9 +68,9 @@ For `kubectl run` to satisfy infrastructure as code:
 -->
 
 * 使用特定版本的标签标记镜像，不要将该标签移动到新版本。例如，使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，而不是 `:latest`（有关详细信息，请参阅[配置的最佳实践](/docs/concepts/configuration/overview/#container-images))。
-* 捕获签入脚本中的参数，或者至少使用 `--record` 参数以便使用轻度参数化的镜像的命令行注释创建的对象。
-* 在脚本中签入大量参数化的镜像。
-* 切换到签入源代码管理的配置文件，以获取所需功能，但不能通过 `kubectl run` 参数表示的功能。
+* 使用基于版本控制的脚本来记录所使用的参数，或者至少使用 `--record` 参数以便为所创建的对象添加注解，在使用轻度参数化的镜像时，记录下所使用的命令行。
+* 使用基于版本控制的脚本来运行包含大量参数的镜像。
+* 对于无法通过 `kubectl run` 参数来表示的功能特性，使用基于源码控制的配置文件，以记录要使用的功能特性。
 * 固定到特定的[生成器](#生成器)版本，例如 `kubectl run --generator=deployment/v1beta1`。
 
 <!--
@@ -104,21 +104,21 @@ You can create the following resources using `kubectl run` with the `--generator
 | Pod                             | `kubectl run --generator=run-pod/v1`              |
 | Replication controller          | `kubectl run --generator=run/v1`                  |
 | Deployment                      | `kubectl run --generator=extensions/v1beta1`      |
-|  -端点 (默认)     | `kubectl run --generator=deployment/v1beta1`      |
+|  -同时获得端点（默认）     | `kubectl run --generator=deployment/v1beta1`      |
 | Deployment                      | `kubectl run --generator=apps/v1beta1`            |
-|  -端点 (推荐) | `kubectl run --generator=deployment/apps.v1beta1` |
+|  -端点（推荐） | `kubectl run --generator=deployment/apps.v1beta1` |
 | Job                             | `kubectl run --generator=job/v1`                  |
 | CronJob                         | `kubectl run --generator=batch/v1beta1`           |
-|  -端点 (默认)     | `kubectl run --generator=cronjob/v1beta1`         |
+|  -端点（默认）    | `kubectl run --generator=cronjob/v1beta1`         |
 | CronJob                         | `kubectl run --generator=batch/v2alpha1`          |
-|  -端点 (废弃)  | `kubectl run --generator=cronjob/v2alpha1`        |
+|  -端点（废弃）  | `kubectl run --generator=cronjob/v2alpha1`        |
 
 
 
 <!--
 If you do not specify a generator flag, other flags prompt you to use a specific generator. The following table lists the flags that force you to use specific generators, depending on the version of the cluster:
 -->
-如果不指定生成器标志，其他标志将提示您使用特定的生成器。下表列出了强制您使用特定生成器的标志，具体取决于群集的版本：
+如果不指定 generator 参数，其他参数将提示您使用特定的生成器。下表列出了强制您使用特定生成器的参数，具体取决于集群的版本：
 
 <!--
 |   Generated Resource   | Cluster v1.4 and later | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and earlier                   |
@@ -147,7 +147,7 @@ and `--generator=run/v1`, a Replication Controller is created.
 This enables you to pin to a specific behavior with the generator,
 even when the default generator is changed later.
 -->
-只有在未指定任何标志时，这些标志才使用默认生成器。
+只有在未指定任何参数时，这些参数才使用默认生成器。
 这意味着，当您将 `--generator` 与其他参数组合时，随后指定的生成器不会更改。
 例如，在集群版本 v1.4 中，如果最初指定了 `--restart=always`，则会创建 Deployment；如果后来指定了 `--restart=always` 和 `--generator=run/v1`，则会创建 Replication Controller。
 这使您能够将生成器固定到特定的行为，即使在以后更改默认生成器时也是如此。
@@ -156,13 +156,13 @@ even when the default generator is changed later.
 <!--
 The flags set the generator in the following order: first the `--schedule` flag, then the `--restart` policy flag, and finally the `--generator` flag.
 -->
-这些参数按以下顺序设置生成器：首先是 `--schedule` 参数，然后是 `--restart` 策略参数，最后是 `--generator` 标志。
+这些参数按以下顺序设置生成器：首先是 `--schedule` 参数，然后是 `--restart` 策略参数，最后是 `--generator` 参数。
 
 <!--
 To check the final resource that was created, use the `--dry-run`
 flag, which provides the object to be submitted to the cluster.
 -->
-要检查创建的最终资源，请使用 `--dry run` 参数，该参数可以提供将要提交到集群的对象。
+要检查最终所创建的资源，请使用 `--dry run` 参数；该参数可以提供将要提交到集群的对象。
 
 ### `kubectl apply`
 
