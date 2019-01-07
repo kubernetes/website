@@ -55,17 +55,17 @@ Kubernetesをどこで実行するかは、利用可能なリソースと必要�
 
 [ターンキークラウドソリューション](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)を選ぶ
 
-## オンプレミスターンキークラウドソリューション
+## ターンキーオンプレミスソリューション
 
 このソリューションを使用すると、内部の安全なクラウドネットワーク上に、少ないコマンドでKubernetesクラスタを作成できます。
 
-もし以下のようなことを実現したいのであれば、オンプレミスターンキークラウドソリューションを選ぶべきです:
+もし以下のようなことを実現したいのであれば、ターンキーオンプレミスソリューションを選ぶべきです:
 
 * プライベートクラウド内にクラスタを配置したい
 * 専用のSREチームがいる
 * クラスタをホストし、監視するためのリソースを持っている
 
-[オンプレミスターンキークラウドソリューション](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions)を選ぶ
+[ターンキーオンプレミスソリューション](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions)を選ぶ
 
 ## カスタムソリューション
 
