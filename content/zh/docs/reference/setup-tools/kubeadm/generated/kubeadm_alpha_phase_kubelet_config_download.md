@@ -1,5 +1,5 @@
 
-从群集 ConfigMap kubelet-config-1.X 下载 kubelet 配置，其中 X 是 kubelet 的次要版本。
+从集群 ConfigMap kubelet-config-1.X 下载 kubelet 配置，其中 X 是 kubelet 的次要版本。
 <!--
 Downloads the kubelet configuration from the cluster ConfigMap kubelet-config-1.X, where X is the minor version of the kubelet.
 -->
@@ -8,12 +8,12 @@ Downloads the kubelet configuration from the cluster ConfigMap kubelet-config-1.
 ### Synopsis
 -->
 
-### 选项
+### 概要
 
 <!--
 Downloads the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. Either kubeadm autodetects the kubelet version by exec-ing "kubelet --version" or respects the --kubelet-version parameter. 
 -->
-从群集中 "kubelet-config-1.X" 的 ConfigMap 下载 kubelet 配置，其中 X 是kubelet 的次要版本。kubeadm 使用 --kubelet-version 参数来确定所需的 kubelet 版本。
+从集群中名为 "kubelet-config-1.X" 的 ConfigMap 中下载 kubelet 配置信息，其中 X 是kubelet 的次要版本。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
@@ -83,7 +83,7 @@ kubeadm alpha phase kubelet config download [flags]
       <td colspan="2">--kubelet-version string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubelet 的理想版本，默认 'kubelet --version' 自动检测。</td>
+            <td></td><td style="line-height: 130%; word-wrap: break-word;">kubelet 的理想版本，默认通过 'kubelet --version' 自动检测。</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The desired version for the kubelet. Defaults to being autodetected from 'kubelet --version'.</td>
