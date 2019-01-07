@@ -1,5 +1,5 @@
 ---
-title: 用于 Docker 用户的 kubectl 命令
+title: Docker 用户的 kubectl  指南
 content_template: templates/concept
 reviewers:
 - bgrant0607
@@ -76,7 +76,7 @@ service "nginx-http" exposed
 -->
 
 ```shell
-# 通过 Service 公开端口
+# 通过 Service 暴露端口
 $ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
@@ -85,8 +85,8 @@ service "nginx-http" exposed
 By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 -->
 通过使用 kubectl，您可以创建一个[Deployment](/docs/concepts/workloads/controllers/deployment/) 来确保 N 个 Pod 运行 nginx，其中 N 是声明中规定的副本数，默认值为 1。
-您还可以使用与 Pod 标签匹配的选择器创建 [service](/docs/concepts/services-networking/service/)。
-有关详细信息，请参阅[使用 Service 访问群集中的应用](/docs/tasks/access-application-cluster/service-access-application-cluster)。
+您还可以使用与 Pod 标签匹配的选择器创建 [服务](/docs/concepts/services-networking/service/)。
+有关详细信息，请参阅[使用服务访问群集中的应用](/docs/tasks/access-application-cluster/service-access-application-cluster)。
 
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use:
@@ -102,15 +102,15 @@ Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `st
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 -->
 
-不像 `docker run ...`，如果您指定了 `--attach` 参数，那您就能附加 `stdin`、`stdout` 和 `stderr`。
-无法控制附加哪个流(`docker -a ...`)。
+不像 `docker run ...`，如果您指定了 `--attach` 参数，那您实际上就为其关联了 `stdin`、`stdout` 和 `stderr`。
+无法控制关联哪个流（`docker -a ...`）。
 
 <!--
 Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
 To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
 -->
 
-因为 kubectl run 命令启动容器的 Deployment，所以如果使用 ctrl+c 终止附加的进程，那么 Deployment 将重新启动，这与 `docker run -it` 不同。
+因为 kubectl run 命令会为容器启动 Deployment，所以如果使用 Ctrl+C 终止关联的进程，则 Deployment 将重新启动，这与 `docker run -it` 不同。
 
 要销毁 Deployment 及其 Pod，需要运行 `kubectl delete deployment <name>`。
 
@@ -174,7 +174,7 @@ $ kubectl attach -it nginx-app-5jyvm
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 -->
 
-要从容器中离开，可以键入转义序列 Ctrl+P，然后键入 Ctrl+Q。
+要退出容器，可以键入转义序列 Ctrl+P，然后键入 Ctrl+Q。
 
 ## docker exec
 
@@ -182,7 +182,7 @@ To detach from the container, you can type the escape sequence Ctrl+P followed b
 To execute a command in a container, see [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec).
 -->
 
-要在容器中执行命令，请参见[kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)。
+要在容器中执行命令，请参见 [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)。
 
 docker:
 
@@ -261,8 +261,8 @@ There is a slight difference between pods and containers; by default pods do not
 -->
 
 Pod 和容器之间有细微的区别；默认情况下，如果进程退出，Pod 不会终止。相反，Pod 会重新启动进程。
-这类似于 Docker 运行选项 `--restart=always`，有一个主要区别。
-在 Docker 中，每个进程调用的输出都被连接起来，但是对于 Kubernetes，每个调用是独立的。
+这与 docker run 的选项 `--restart=always` 类似，不过有一点不同。
+在 Docker 中，每次进程调用的输出都是串联的，但是对于 Kubernetes，每次调用是独立的。
 要查看 Kubernetes 上一次运行的输出，请执行以下操作：
 
 ```shell
@@ -350,7 +350,7 @@ When you use kubectl, you don't delete the pod directly.You have to first delete
 There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 -->
 
-在 kubectl 中没有 `docker login` 的直接模拟。如果您有兴趣在私有仓库中使用 Kubernetes，请参考 [使用私有仓库](/docs/concepts/containers/images/#using-a-private-registry)。
+在 kubectl 中没有与 docker login 直接对应的操作。如果您有兴趣在 Kubernetes 中使用私有仓库，请参考 [使用私有仓库](/docs/concepts/containers/images/#using-a-private-registry)。
 
 ## docker version
 
