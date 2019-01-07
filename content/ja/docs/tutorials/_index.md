@@ -15,7 +15,7 @@ content_template: templates/concept
 
 ## 基本
 
-* [Kubernetesの基本](/docs/tutorials/kubernetes-basics/)は、Kubernetesのシステムを理解し、基本的な機能を試すのに役立つ、詳細な対話式のチュートリアルです。
+* [Kubernetesの基本](/ja/docs/tutorials/kubernetes-basics/)は、Kubernetesのシステムを理解し、基本的な機能を試すのに役立つ、詳細な対話式のチュートリアルです。
 
 * [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
