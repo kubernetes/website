@@ -1,16 +1,16 @@
-<!-- ---
-title: " How to deploy secure, auditable, and reproducible Kubernetes clusters on AWS "
-date: 2016-04-15
-slug: kubernetes-on-aws_15
-url: /blog/2016/04/Kubernetes-On-Aws_15
---- -->
-
 ---
 title: " 如何在AWS上部署安全，可审计，可复现的k8s集群 "
 date: 2016-04-15
 slug: kubernetes-on-aws_15
 url: /blog/2016/04/Kubernetes-On-Aws_15
 ---
+
+<!-- ---
+title: " How to deploy secure, auditable, and reproducible Kubernetes clusters on AWS "
+date: 2016-04-15
+slug: kubernetes-on-aws_15
+url: /blog/2016/04/Kubernetes-On-Aws_15
+--- -->
 
 <!-- _Today’s guest post is written by Colin Hom, infrastructure engineer at [CoreOS](https://coreos.com/), the company delivering Google’s Infrastructure for Everyone Else (#GIFEE) and running the world's containers securely on CoreOS Linux, Tectonic and Quay._
 
