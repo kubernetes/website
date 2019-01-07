@@ -1,7 +1,7 @@
 ---
-布局: 博客
-标题: '第一次 Kubecon 演讲的第二部分的建议'
-日期: 2018-10-26
+layout: blog
+title: '第一次 Kubecon 演讲的第二部分的建议'
+date: 2018-10-26
 ---
 
 <!--
@@ -28,7 +28,7 @@ Hello and welcome back to the second and final part about tips for KubeCon first
 ## The Day before the Show
 -->
 
-## 展会前一天
+## 会议前一天
 
 <!--
 **Tip #13 - Get enough sleep**. I don't know about you, but when I don't get enough sleep (especially when beer is in the game), the next day my brain power is around 80% at best. It's very easy to get distracted at KubeCon (in a positive sense). "Let's have dinner tonight and chat about XYZ". Get some food, beer or wine because you're so excited and all the good resolutions you had set for the day before your presentation are forgotten :) 
@@ -64,7 +64,7 @@ OK, I'm slightly exaggerating here. But don't underestimate the dynamics of this
 So I texted the one and only [Tim Hockin](https://twitter.com/thockin?lang=de). Even though these well-respected community leaders are super busy and thus usually cannot attend many talks during the conference, the worst thing that can happen is that they cannot show up and will let you know. (see the end of this post to find out whether or not I was lucky :))
 -->
 
-所以我发短信给了[Tim Hockin]，尽管这些备受尊敬的社区领导人非常忙碌，因此在会议期间通常无法参加很多会谈，但最糟糕的事情是他们无法出现并会让你知道。 （看这篇文章的结尾，看看我是否幸运:)）
+所以我发短信给了 [Tim Hockin]，尽管这些备受尊敬的社区领导人非常忙碌，因此在会议期间通常无法参加很多会谈，但最糟糕的事情是他们无法出现并会让你知道。 （看这篇文章的结尾，看看我是否幸运:)）
 
 <!--
 ## The show is on!
@@ -112,7 +112,7 @@ So, without further ado, here are my final tips for you.
 **Tip #21 - Repeat questions. Always**. Because of the time constraints, questions should be asked at the end of your presentation (unless you are giving a community meeting or panel of course). Always (always!) repeat the questions at the end. Sometimes people will not use the microphone. This is not only hard for the people in the back, but also it won't be captured on the recording. I am sure you also had that moment watching a recording and not getting what is being asked/discussed because the question was not captured.
 -->
 
-**建议 #21 - 总是在最后重复问题**. 由于时间限制，应在演示结束时询问问题（除非您正在举办社区会议或小组讨论）。 总是（总是！）在最后重复问题。 有时人们不会使用麦克风。 这不仅对后面的人很难，而且也不会在录音中被捕获。 我相信你也有那一刻观看录音而没有得到被问及/讨论的内容，因为这个问题没有被捕获。
+**建议 #21 - 总是在最后重复问题**。由于时间限制，应在演示结束时询问问题（除非您正在举办社区会议或小组讨论）。 总是（总是！）在最后重复问题。 有时人们不会使用麦克风。 这不仅对后面的人很难，而且也不会在录音中被捕获。 我相信你也有那一刻观看录音而没有得到被问及/讨论的内容，因为这个问题没有被捕获。
 
 <!--
 **Tip #22 - Feedback**. Don't forget to ask the audience to fill out the survey. They're not always enforced/mandatory during conferences (especially not at KubeCon), so it's easy to forget to give the speaker feedback. Feedback is super critical (also for the committee) as sometimes people won't directly tell you but rather write their thoughts. Also, you might want to block your calendar to leave some time after the presentation for follow-up questions, so you are not in the hurry to catch your next meeting/session.
@@ -130,7 +130,7 @@ So, without further ado, here are my final tips for you.
 **Final Tip - Your Voice matters**. Don't underestimate the power of giving a talk at a conference. In my case I was lucky that the Zalando crew was in the room and took this talk as an opportunity for an ad hoc meeting after the conference. This drove an important performance fix forward, which eventually was [merged](https://github.com/kubernetes/kubernetes/pull/63437) (kudos to the Zalando team again!). 
 -->
 
-**最后的建议 - 你的声音很重要**. 不要低估在会议上演讲的力量。就我而言，我很幸运， Zalando 的工作人员当时就在会议室里，并把这次演讲作为会后召开 ad hoc 会议的机会。这推动了一个重要的性能修正，最终被[合并](https://github.com/kubernetes/kubernetes/pull/63437)(再次向 Zalando 团队致敬!)
+**最后的建议 - 你的声音很重要**。 不要低估在会议上演讲的力量。就我而言，我很幸运， Zalando 的工作人员当时就在会议室里，并把这次演讲作为会后召开 ad hoc 会议的机会。这推动了一个重要的性能修正，最终被[合并] (https://github.com/kubernetes/kubernetes/pull/63437) (再次向 Zalando 团队致敬!)
 
 <!--
 Embrace the opportunity to give a talk at a conference, take it serious, be professional and make the best use of your time. But I'm sure I don't have to tell you that ;)
