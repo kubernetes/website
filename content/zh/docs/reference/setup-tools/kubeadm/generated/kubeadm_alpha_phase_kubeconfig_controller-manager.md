@@ -13,7 +13,7 @@ Generates a kubeconfig file for the controller manager to use
 <!--
 Generates the kubeconfig file for the controller manager to use and saves it to /etc/kubernetes/controller-manager.conf file. 
 -->
-生成要使用的控制器管理器的 kubeconfig 文件，并将其保存到 /etc/kubernetes/controller-manager.conf 文件中。
+生成一个 kubeconfig 文件供控制器管理器使用，并将其保存到 /etc/kubernetes/controller-manager.conf 文件中。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
