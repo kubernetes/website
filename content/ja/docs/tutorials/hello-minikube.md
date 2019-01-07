@@ -15,7 +15,7 @@ menu:
 このチュートリアルでは、[Minikube](/docs/getting-started-guides/minikube)とKatacodaを使用して、Kubernetes上でシンプルなHello World Node.jsアプリケーションを動かす方法を紹介します。KatacodaはブラウザでフリーのKubernetes環境を提供します。
 
 {{< note >}}
-[Minikubeをローカルにインストール](/docs/tasks/tools/install-minikube/)してこのチュートリアルを進めることも可能です。
+[Minikubeをローカルにインストール](/docs/tasks/tools/install-minikube/)している場合もこのチュートリアルを進めることが可能です。
 {{< /note >}}
 
 {{% /capture %}}
