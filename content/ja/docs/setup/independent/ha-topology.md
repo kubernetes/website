@@ -1,6 +1,4 @@
 ---
-reviewers:
-- sig-cluster-lifecycle
 title: Options for Highly Available Topology
 content_template: templates/concept
 weight: 50

@@ -1,7 +1,5 @@
 ---
 title: CoreOS on AWS or GCE
-reviewers:
-- errordeveloper
 content_template: templates/concept
 ---
 

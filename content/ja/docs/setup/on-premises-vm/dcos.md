@@ -1,6 +1,4 @@
 ---
-reviewers:
-- smugcloud
 title: Kubernetes on DC/OS
 content_template: templates/concept
 ---

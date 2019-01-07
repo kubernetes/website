@@ -1,6 +1,4 @@
 ---
-reviewers:
-- thockin
 title: Cloudstack
 content_template: templates/concept
 ---

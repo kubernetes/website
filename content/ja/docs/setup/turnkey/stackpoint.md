@@ -1,6 +1,4 @@
 ---
-reviewers:
-- baldwinspc
 title: Running Kubernetes on Multiple Clouds with Stackpoint.io
 content_template: templates/concept
 ---

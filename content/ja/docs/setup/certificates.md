@@ -1,7 +1,5 @@
 ---
 title: PKI Certificates and Requirements
-reviewers:
-- sig-cluster-lifecycle 
 content_template: templates/concept
 ---
 

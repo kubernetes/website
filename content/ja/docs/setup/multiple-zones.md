@@ -1,8 +1,4 @@
 ---
-reviewers:
-- jlowdermilk
-- justinsb
-- quinton-hoole
 title: Running in Multiple Zones
 weight: 90
 ---

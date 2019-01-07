@@ -1,8 +1,4 @@
 ---
-reviewers:
-- erictune
-- lavalamp
-- thockin
 title: Creating a Custom Cluster from Scratch
 ---
 

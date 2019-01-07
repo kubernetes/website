@@ -1,8 +1,4 @@
 ---
-reviewers:
-- dlorenc
-- balopat
-- aaron-prindle
 title: Running Kubernetes Locally via Minikube
 content_template: templates/concept
 ---
