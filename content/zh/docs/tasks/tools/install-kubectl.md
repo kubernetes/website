@@ -107,7 +107,7 @@ If you are on Ubuntu or one of other Linux distributions that support [snap](htt
     kubectl version
     ```
 -->
-## 在 Ubuntu 系统上使用 snap 进行安装 kubectl
+## 在 Ubuntu 上使用 snap 安装 kubectl
 
 如果您使用的是 Ubuntu 或其他支持 [snap](https://snapcraft.io/docs/core/install) 软件包管理器的Linux发行版，kubectl 可以作为一个 [snap](https://snapcraft.io/) 应用程序使用。
 
@@ -140,7 +140,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
     kubectl version
     ```
 -->
-## 在 macOS 系统上通过 Homebrew 安装 kubectl
+## 在 macOS 上用 Homebrew 安装 kubectl
 
 如果您使用的是 macOS 系统并使用 [Homebrew](https://brew.sh/) 包管理器，您可以通过 Homebrew 安装 kubectl。
 
@@ -175,7 +175,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     ```
 -->
 
-## 在 macOS 系统上通过 Macports 安装 kubectl
+## 在 macOS 上用 Macports 安装 kubectl
 
 如果您使用的是 macOS 系统并使用 [Macports](https://macports.org/) 包管理器，您可以通过 Macports 安装 kubectl。
 
@@ -287,7 +287,7 @@ If you are on Windows and using [Chocolatey](https://chocolatey.org) package man
     Edit the config file with a text editor of your choice, such as Notepad.
     {{< /note >}}
 -->
-## 在 Windows 系统上通过 Chocolatey 安装 kubectl
+## 在 Windows 上用 Chocolatey 安装 kubectl
 
 如果您使用的是 Windows 系统并使用 Chocolatey 包管理器，您可以使用 Chocolatey 安装 kubectl。
 
