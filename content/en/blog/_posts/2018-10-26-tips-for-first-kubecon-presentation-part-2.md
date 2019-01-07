@@ -22,7 +22,7 @@ date: 2018-10-26
 Hello and welcome back to the second and final part about tips for KubeCon first-time speakers. If you missed the last post, please give it a read [here](https://kubernetes.io/blog/2018/10/18/tips-for-your-first-kubecon-presentation---part-1/).
 -->
 
-您好，欢迎回到 KubeCon 首次发言人的第二部分和最后部分。如果您错过了上一篇文章，请阅读[此处] (https://kubernetes.io/blog/2018/10/18/tips-for-your-first-kubecon-presentation---part-1/)。
+您好，欢迎回到 KubeCon 首次发言人的第二部分和最后部分。如果您错过了上一篇文章，请阅读[此处](https://kubernetes.io/blog/2018/10/18/tips-for-your-first-kubecon-presentation---part-1/)。
 
 <!--
 ## The Day before the Show
@@ -130,7 +130,7 @@ So, without further ado, here are my final tips for you.
 **Final Tip - Your Voice matters**. Don't underestimate the power of giving a talk at a conference. In my case I was lucky that the Zalando crew was in the room and took this talk as an opportunity for an ad hoc meeting after the conference. This drove an important performance fix forward, which eventually was [merged](https://github.com/kubernetes/kubernetes/pull/63437) (kudos to the Zalando team again!). 
 -->
 
-**最后的建议 - 你的声音很重要**。 不要低估在会议上演讲的力量。就我而言，我很幸运， Zalando 的工作人员当时就在会议室里，并把这次演讲作为会后召开 ad hoc 会议的机会。这推动了一个重要的性能修正，最终被[合并] (https://github.com/kubernetes/kubernetes/pull/63437) (再次向 Zalando 团队致敬!)
+**最后的建议 - 你的声音很重要**。 不要低估在会议上演讲的力量。就我而言，我很幸运， Zalando 的工作人员当时就在会议室里，并把这次演讲作为会后召开 ad hoc 会议的机会。这推动了一个重要的性能修正，最终被[合并](https://github.com/kubernetes/kubernetes/pull/63437) (再次向 Zalando 团队致敬!)
 
 <!--
 Embrace the opportunity to give a talk at a conference, take it serious, be professional and make the best use of your time. But I'm sure I don't have to tell you that ;)
