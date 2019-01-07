@@ -39,7 +39,7 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 -->
 * 了解[服务目录](/docs/concepts/service-catalog/)的主要概念。
 * 安装 [Go 1.6+](https://golang.org/dl/) 以及设置 `GOPATH`。
-* 安装生成 SSL 构件所需的 [cfssl](https://github.com/cloudflare/cfssl) 工具。
+* 安装生成 SSL 工件所需的 [cfssl](https://github.com/cloudflare/cfssl) 工具。
 * 服务目录需要 Kubernetes 1.7+ 版本。
 * [安装和设置 kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)，以便将其配置为连接到 Kubernetes v1.7+ 集群。
 * 要安装服务目录，kubectl 用户必须绑定到 *cluster-admin* 角色。为了确保这是正确的，请运行以下命令：
