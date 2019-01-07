@@ -10,10 +10,10 @@ weight: 10
 
 {{% capture body %}}
 Kubernetesは、宣言的な設定と自動化を簡素化し、コンテナ化されたワークロードやサービスを管理するための、ポータブルで拡張性のあるオープンソースプラットフォームです。
+
 Kubernetesは膨大で、急速に成長しているエコシステムを備えており、それらのサービス、サポート、ツールは幅広い形で利用可能です。
 
-Googleは2014年にKubernetesプロジェクトをオープンソース化しました。Kubernetesは[Googleが大規模な本番ワークロードを動かしてきた10年半の経験
-](<https://research.google.com/pubs/pub43438.html>)と、コミュニティから得られた最善のアイデア、プラクティスに基づいています。
+Googleは2014年にKubernetesプロジェクトをオープンソース化しました。Kubernetesは[Googleが大規模な本番ワークロードを動かしてきた10年半の経験](https://research.google.com/pubs/pub43438.html)と、コミュニティから得られた最善のアイデア、プラクティスに基づいています。
 
 ## なぜKubernetesが必要で、どんなことができるのか?
 
