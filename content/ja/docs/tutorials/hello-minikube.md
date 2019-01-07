@@ -146,7 +146,7 @@ Kubernetesの管理やネットワーキングの目的でまとめられた [*P
 
 4. Kataconda環境の場合のみ：ターミナルペーン上部の+ボタンをクリックして **Select port to view on Host 1** をクリックします。
 
-5. Kataconda環境の場合のみ：8080をタイプし、**Display Port**をクリックします。 
+5. Katacoda環境の場合のみ：8080をタイプし、**Display Port**をクリックしてください。 
 
     これで”Hello World”メッセージを表示するアプリケーションのブラウザに表示されます。
 
