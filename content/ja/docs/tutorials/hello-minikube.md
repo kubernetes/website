@@ -64,7 +64,7 @@ menu:
 
 Kubernetesの管理やネットワーキングの目的でまとめられた [*Pod*](/docs/concepts/workloads/pods/pod/) は1つ以上のコンテナのグループで構成されます。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合にはリスタートします。DeploymentsはPodsを作成し、拡張を管理するために推奨される方法です。
 
-1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成します。Podは提供されたDockerイメージを使用してコンテナを実行します。
+1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを使用してコンテナを実行します。
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
