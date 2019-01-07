@@ -58,7 +58,7 @@ menu:
 
 3. Katacoda環境の場合のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
 
-4. Kataconda環境の場合のみ：30000をタイプし、**Display Port**をクリックします。 
+4. Katacoda環境の場合のみ：30000をタイプし、**Display Port**をクリックしてください。 
 
 ## Deploymentの作成
 
