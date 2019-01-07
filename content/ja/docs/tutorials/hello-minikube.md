@@ -50,7 +50,7 @@ menu:
 
     {{< note >}}Minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。{{< /note >}}
 
-2. ブラウザーでKubernetesダッシュボードを開きます:
+2. ブラウザーでKubernetesダッシュボードを開いてください:
 
     ```shell
     minikube dashboard
