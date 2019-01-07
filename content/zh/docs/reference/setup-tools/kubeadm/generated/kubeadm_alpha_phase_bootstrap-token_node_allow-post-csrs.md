@@ -1,5 +1,5 @@
 
-配置 RBAC 允许节点引导令牌发布 CSR，以便节点获得长期证书凭据
+配置 RBAC 允许节点引导令牌发送 CSR 请求，以便节点获得长期证书凭据
 <!--
 Configures RBAC to allow node bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
 -->
@@ -13,7 +13,7 @@ Configures RBAC to allow node bootstrap tokens to post CSRs in order for nodes t
 <!--
 Configures RBAC rules to allow node bootstrap tokens to post a certificate signing request, thus enabling nodes joining the cluster to request long term certificate credentials. 
 -->
-配置 RBAC 规则，允许节点引导令牌发布证书签名请求，从而允许加入集群的节点请求长期证书凭据。
+配置 RBAC 规则，允许节点引导令牌发送证书签名请求，从而允许正在加入到集群中的节点请求长期证书凭据。
 
 <!--
 See online documentation about TLS bootstrapping for more details. 
