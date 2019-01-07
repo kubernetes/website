@@ -44,7 +44,7 @@ menu:
 
 ## Minikubeクラスターの作成
 
-1. **Launch Terminal** をクリックします
+1. **Launch Terminal** をクリックしてください
 
     {{< kat-button >}}
 
