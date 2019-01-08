@@ -39,7 +39,11 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT [flags]
   # Initialize federation control plane for a federation
   # named foo in the host cluster whose local kubeconfig
   # context is bar.
+  kubefed init foo --host-cluster-context=bar
+```
 -->
+
+```
   # 为主机群集中名为 foo 的联邦初始化控制平面，该主机群集中的本地 kubeconfig 上下文为 bar。
   kubefed init foo --host-cluster-context=bar
 ```
