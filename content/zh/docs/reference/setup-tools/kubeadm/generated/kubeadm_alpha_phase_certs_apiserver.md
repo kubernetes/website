@@ -36,7 +36,7 @@ kubeadm alpha phase certs apiserver [flags]
 <!--
 ### Options
 -->
-选项
+### 选项
 
 <!--
 <table style="width: 100%; table-layout: fixed;">
