@@ -120,7 +120,7 @@ Note that this is a tricky area since even for established technologies such as,
 [Draft](https://github.com/Azure/draft) aims to help you get started deploying any app to Kubernetes. It is capable of applying heuristics as to what programming language your app is written in and generates a Dockerfile along with a Helm chart. It then runs the build for you and deploys resulting image to the target cluster via the Helm chart. It also allows user to setup port forwarding to localhost very easily.
 -->
 
-[Draft](https://github.com/Azure/draft) 旨在帮助你将任何应用程序部署到 Kubernetes。它能够检测到您的应用所使用的编程语言，并且生成一份 Dockerfile 和 Helm 图表。然后它替你启动构建并且依照 Helm 图表把镜像部署到目标集群。它也可以让您很容易地设置到 localhost 的端口映射。
+[Draft](https://github.com/Azure/draft) 旨在帮助您将任何应用程序部署到 Kubernetes。它能够检测到您的应用所使用的编程语言，并且生成一份 Dockerfile 和 Helm 图表。然后它替您启动构建并且依照 Helm 图表把所生产的镜像部署到目标集群。它也可以让您很容易地设置到 localhost 的端口映射。
 
 <!--
 Implications:
@@ -158,7 +158,7 @@ Implications:
 * Can be used instead of Skaffold, and along the side of Squash
 -->
 * 它允许开发人员使用本地或者远程的 Kubernates 集群
-* 如何部署到生产环境取决于用户， Draft 作者推荐他们另一个项目 - Brigade
+* 如何部署到生产环境取决于用户， Draft 的作者推荐了他们的另一个项目 - Brigade
 * 可以代替 Skaffold， 并且可以和 Squash 一起使用
 
 <!--
@@ -178,7 +178,7 @@ More info:
 [Skaffold](https://github.com/GoogleCloudPlatform/skaffold) is a tool that aims to provide portability for CI integrations with different build system, image registry and deployment tools. It is different from Draft, yet somewhat comparable. It has a basic capability for generating manifests, but it’s not a prominent feature. Skaffold is extendible and lets user pick tools for use in each of the steps in building and deploying their app.
 -->
 
-[Skaffold](https://github.com/GoogleCloudPlatform/skaffold) 使用各种构建系统，镜像注册和部署工具提供可移植性的 CI 集成。它不同于 Draft，同时也具有一定的可比性。它具有生成系统表现的基本能力，但那不是一个重要功能。Skaffold 易于扩展，允许用户在构建和部署应用的每一步选取相应的工具。
+[Skaffold](https://github.com/GoogleCloudPlatform/skaffold) 让 CI 集成具有可移植性的，它允许用户采用不同的构建系统，镜像仓库和部署工具。它不同于 Draft，同时也具有一定的可比性。它具有生成系统清单的基本能力，但那不是一个重要功能。Skaffold 易于扩展，允许用户在构建和部署应用的每一步选取相应的工具。
 
 <!--
 Implications:
@@ -203,7 +203,7 @@ Implications:
 * Can be used instead of Draft, and along the side with most other tools
 -->
 * 它允许开发人员使用本地或者远程的 Kubernetes 集群
-* 它可以用于部署生产环境，用户可以配置具体他们想怎么做，也可以为每一套目标环境提供不同的生产线
+* 它可以用于部署生产环境，用户可以精确配置，也可以为每一套目标环境提供不同的生产线
 * 可以代替 Draft，并且和其他工具一起使用
 
 <!--
@@ -220,7 +220,7 @@ More info:
 <!--
 [Squash](https://github.com/solo-io/squash) consists of a debug server that is fully integrated with Kubernetes, and a IDE plugin. It allows you to insert breakpoints and do all the fun stuff you are used to doing when debugging an application using an IDE. It bridges IDE debugging experience with your Kubernetes cluster by allowing you to attach the debugger to a pod running in your Kubernetes cluster.
 -->
-[Squash](https://github.com/solo-io/squash) 包含一个与 Kubernetes 全面集成的调试服务器，以及一个 IDE 插件。它允许你插入断点和所有的调试操作，就像你所习惯的使用 IDE 调试一个程序一般。它允许你将调试器附加到 Kubernetes 集群中运行的 pod，从而将 IDE 调试体验与 Kubernetes 集群联接起来。
+[Squash](https://github.com/solo-io/squash) 包含一个与 Kubernetes 全面集成的调试服务器，以及一个 IDE 插件。它允许你插入断点和所有的调试操作，就像你所习惯的使用 IDE 调试一个程序一般。它允许你将调试器应用到 Kubernetes 集群中运行的 pod 上，从而让您可以使用 IDE 调试 Kubernetes 集群。
 
 <!--
 Implications:
@@ -235,7 +235,7 @@ Implications:
 * Supports Go, Python, Node.js, Java and gdb
 -->
 * 不依赖你选择的其它工具
-* 需要特权 DaemonSet
+* 需要一组特权 DaemonSet
 * 可以和流行 IDE 集成
 * 支持 Go、Python、Node.js、Java 和 gdb
 
@@ -244,7 +244,7 @@ Implications:
 * Can be used in combination with any other tools described here
 * It can be used with either local or remote Kubernetes cluster
 -->
-* 用户必须确保使用调试符号编译容器映像中的应用程序二进制文件
+* 用户必须确保容器中的应用程序使编译时使用了调试符号
 * 可与此处描述的任何其他工具结合使用
 * 它可以与本地或远程 Kubernetes 集群一起使用
 
