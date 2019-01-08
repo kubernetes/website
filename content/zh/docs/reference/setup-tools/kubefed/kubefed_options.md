@@ -12,7 +12,7 @@ Print the list of flags inherited by all commands
 ### Synopsis
 -->
 
-## 概要
+### 概要
 
 <!--
 Print the list of flags inherited by all commands
