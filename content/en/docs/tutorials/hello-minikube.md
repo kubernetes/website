@@ -60,7 +60,7 @@ For more information on the `docker build` command, read the [Docker documentati
 
 3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
 
-4. Katacoda environment only: Type 30000, and then click **Display Port**. 
+4. Katacoda environment only: Type `30000`, and then click **Display Port**. 
 
 ## Create a Deployment
 
@@ -160,7 +160,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
-5. Katacoda environment only: Type in the Port number following `8080:`, and then click **Display Port**. 
+5. Katacoda environment only: Type `8080`, and then click **Display Port**. 
 
     This opens up a browser window that serves your app and shows the "Hello World" message.
 
