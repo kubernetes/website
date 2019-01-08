@@ -4,6 +4,16 @@ date: 2016-07-21
 slug: oh-the-places-you-will-go
 url: /blog/2016/07/Oh-The-Places-You-Will-Go
 ---
+
+<!--
+---
+title: " Happy Birthday Kubernetes. Oh, the places you’ll go! "
+date: 2016-07-21
+slug: oh-the-places-you-will-go
+url: /blog/2016/07/Oh-The-Places-You-Will-Go
+---
+-->
+
 <!--
 _Editor’s note, Today’s guest post is from an independent Kubernetes contributor, Justin Santa Barbara, sharing his reflection on growth of the project from inception to its future._
 -->
@@ -43,7 +53,7 @@ And yet, somehow, you’ve managed to avoid a lot of the common dead-ends that o
 <!--
 And so although you’re only a year old, you really have an [old soul](http://queue.acm.org/detail.cfm?id=2898444). I’m just one of the [many people raising you](https://kubernetes.io/blog/2016/07/happy-k8sbday-1), but it’s a wonderful learning experience for me to be able to work with the people that have built these incredible systems and have all this domain knowledge. Yet because we started from scratch (rather than taking the existing Borg code) we’re at the same level and can still have genuine discussions about how to raise you. Well, at least as close to the same level as we could ever be, but it’s to their credit that they are all far too nice ever to mention it!  
 -->
-因此，虽然你只有一岁，但你真的有一个[老的灵魂]（http://queue.acm.org/detail.cfm?id=2898444）。 我只是[很多人抚养你]中的一员（https://kubernetes.io/blog/2016/07/happy-k8sbday-1），但对我来说与已建立这些令人难以置信的系统并具备所有这些领域知识的人一起工作，这是一次很棒的学习经历。 然而，因为我们是从头开始（而不是采用现有的 Borg 代码），我们处于同一水平，并且仍然可以就如何开发你进行真正的讨论。 好吧，至少和我们以往一样接近同一水平，但值得赞扬的是，他们都非常好，无论如何都要提到这些！
+因此，虽然你只有一岁，但你真的有一个[老的灵魂](http://queue.acm.org/detail.cfm?id=2898444)。 我只是[很多人抚养你](https://kubernetes.io/blog/2016/07/happy-k8sbday-1)中的一员，但对我来说与已建立这些令人难以置信的系统并具备所有这些领域知识的人一起工作，这是一次很棒的学习经历。 然而，因为我们是从头开始（而不是采用现有的 Borg 代码），我们处于同一水平，并且仍然可以就如何开发你进行真正的讨论。 好吧，至少和我们以往一样接近同一水平，但值得赞扬的是，他们都非常好，无论如何都要提到这些！
 
 <!--
 If I would pick just two of the wise decisions those brilliant people made:  
@@ -53,7 +63,7 @@ If I would pick just two of the wise decisions those brilliant people made:
 <!--
 - Labels & selectors give us declarative “pointers”, so we can say “why” we want things, rather than listing the things directly. It’s the secret to how you can scale to [great heights](https://kubernetes.io/blog/2016/07/thousand-instances-of-cassandra-using-kubernetes-pet-set); not by naming each step, but saying “a thousand more steps just like that first one”.
 -->
-- 标签和选择器给了我们声明性的“指针”，所以我们可以对于我们想要的东西说“为什么”，而不是直接列出事物。 这是你如何扩展到[伟大的高度]的秘诀（https://kubernetes.io/blog/2016/07/thousand-instances-of-cassandra-using-kubernetes-pet-set）;不是通过命名每一步，而是说“比第一步更多的步骤”。
+标签和选择器给了我们声明性的“指针”，所以我们可以对于我们想要的东西说“为什么”，而不是直接列出事物。 这是你如何扩展到[高峰](https://kubernetes.io/blog/2016/07/thousand-instances-of-cassandra-using-kubernetes-pet-set)的秘诀；不是通过命名每一步，而是说“比第一步更多的步骤”。
 <!--
 - Controllers are state-synchronizers: we specify the goals, and your controllers will indefatigably work to bring the system to that state. They work through that strongly-typed API foundation, and are used throughout the code, so Kubernetes is more of a set of a hundred small programs than one big one. It’s not enough to scale to thousands of nodes technically; the project also has to scale to thousands of developers and features; and controllers help us get there.
 -->
@@ -72,9 +82,9 @@ So I’m looking forward to seeing more and more growth happen further and furth
 <!--
 So I’m looking forward to your second birthday: I can try to predict what you’ll look like then, but I know you’ll surpass even the most audacious things I can imagine. Oh, the places you’ll go!  
 -->
-所以我很期待你的第二个生日：我可以尝试预测你的样子，但我知道你甚至会超越我能想象到的最大胆的东西。 哦，那个你将会到达的地方！
+所以我很期待你的第二个生日：我可以尝试预测你的样子，但我知道你甚至会超越我能想象到的最大胆的事情。 哦，那个你将会到达的地方！
 
 <!--
 _-- Justin Santa Barbara, Independent Kubernetes Contributor_  
 -->
-_-- Justin Santa Barbara ，独立 Kubernetes 贡献者_
+_-- Justin Santa Barbara ，独立的 Kubernetes 贡献者_
