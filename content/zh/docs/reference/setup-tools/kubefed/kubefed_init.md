@@ -22,7 +22,7 @@ Init initializes a federation control plane.
 
 Init 用来初始化联邦控制平面
 
-    联邦控制平面位于 Kubernetes 集群内。必须使用 --host-cluster-context 参数指定主机群集。
+    联邦控制平面位于 Kubernetes 集群内。必须使用 --host-cluster-context 参数指定主机集群。
 
 ```
 kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT [flags]
@@ -44,7 +44,7 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT [flags]
 -->
 
 ```
-  # 为主机群集中名为 foo 的联邦初始化控制平面，该主机群集中的本地 kubeconfig 上下文为 bar。
+  # 为主机集群中名为 foo 的联邦初始化控制平面，该主机集群中的本地 kubeconfig 上下文为 bar。
   kubefed init foo --host-cluster-context=bar
 ```
 
@@ -91,7 +91,7 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT [flags]
       --apiserver-enable-basic-auth              为联邦 API 服务器启用 HTTP 基本身份验证。默认关闭。
       --apiserver-enable-token-auth              为联邦 API 服务器启用令牌身份验证。默认关闭。
       --controllermanager-arg-overrides string   要重写的 federation-controller-manager 参数列表，用逗号分隔，例如："--arg1=value1,--arg2=value2..."
-      --credentials-kubeconfig string            本地文件系统上的 kubeconfig 文件路径，应用于与主机群集或加入群集（而不是默认的 kubeconfig）进行身份验证。这可用于在初始化联邦控制平面或将群集加入到一个群集时覆盖基于 RBAC 的身份验证，即使在群集公开 RBAC API 时也是如此。
+      --credentials-kubeconfig string            本地文件系统上的 kubeconfig 文件路径，应用于与主机集群或加入集群（而不是默认的 kubeconfig）进行身份验证。这可用于在初始化联邦控制平面或将集群加入到一个集群时覆盖基于 RBAC 的身份验证，即使在集群公开 RBAC API 时也是如此。
       --dns-provider string                      此 deployment 使用的 DNS 驱动。
       --dns-provider-config string               用来配置 DNS 驱动的本地文件系统中的配置文件。
       --dns-zone-name string                     此联邦的 DNS 后缀。使用此后缀发布联邦服务 DNS 名称。
