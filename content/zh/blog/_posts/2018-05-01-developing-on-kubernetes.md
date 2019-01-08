@@ -19,19 +19,19 @@ slug: developing-on-kubernetes
 How do you develop a Kubernetes app? That is, how do you write and test an app that is supposed to run on Kubernetes? This article focuses on the challenges, tools and methods you might want to be aware of to successfully write Kubernetes apps alone or in a team setting. 
 -->
 
-你将如何开发一个 Kubernates 应用？也就是说，你如何编写并测试一个要在 Kubernates 上运行的应用程序？此文就此主题进行讨论，关注于为了成功地编写 Kubernates 应用所会遇到的挑战、工具和方法，无论是自己单干或者团队协作。
+您将如何开发一个 Kubernates 应用？也就是说，您如何编写并测试一个要在 Kubernates 上运行的应用程序？本文将重点介绍在独自开发或者团队协作中，您可能希望了解到的为了成功编写 Kubernetes 应用程序而需面临的挑战，工具和方法。
 
 <!--
 We’re assuming you are a developer, you have a favorite programming language, editor/IDE, and a testing framework available. The overarching goal is to introduce minimal changes to your current workflow when developing the app for Kubernetes. For example, if you’re a Node.js developer and are used to a hot-reload setup—that is, on save in your editor the running app gets automagically updated—then dealing with containers and container images, with container registries, Kubernetes deployments, triggers, and more can not only be overwhelming but really take all the fun out if it.
 -->
 
-我们假定你是一位开发人员，有你钟爱的编程语言，编辑器/IDE（集成开发环境），以及现成的测试框架。在针对 Kubernates 开发应用时，最重要的目标是减少对当前工作流程的影响，改变越少越好，尽量做到最小。举个例子，如果你是 Node.js 开发人员，习惯于那种即时重载的环境 - 也就是说你在编辑器里一做保存，正在运行的程序就会自动更新 - 那么跟容器、容器镜像或者容器注册表打交道，又或是跟 Kubernetes 部署、triggers 以及更多头疼东西打交道，不仅会让人难以招架也真的会让开发过程完全失去乐趣。
+我们假定您是一位开发人员，有您钟爱的编程语言，编辑器/IDE（集成开发环境），以及可用的测试框架。在针对 Kubernates 开发应用时，最重要的目标是减少对当前工作流程的影响，改变越少越好，尽量做到最小。举个例子，如果你是 Node.js 开发人员，习惯于那种热重载的环境 - 也就是说您在编辑器里一做保存，正在运行的程序就会自动更新 - 那么跟容器、容器镜像或者镜像仓库打交道，又或是跟 Kubernetes 部署、triggers 以及更多头疼东西打交道，不仅会让人难以招架也真的会让开发过程完全失去乐趣。
 
 <!--
 In the following, we’ll first discuss the overall development setup, then review tools of the trade, and last but not least do a hands-on walkthrough of three exemplary tools that allow for iterative, local app development against Kubernetes.
 -->
 
-接下来，我们先看 Kubernates 总体开发环境，然后回顾经常使用的工具，最后做几个上手练习。我们将使用三套工具演示如何在 Kubernetes 上进入迭代式地本地应用开发。
+在下文中，我们将首先讨论 Kubernetes 总体开发环境，然后回顾常用工具，最后进行三个示例性工具的实践演练。这些工具允许针对 Kubernetes 进行本地应用程序的开发和迭代。
 
 <!--
 ## Where to run your cluster?
@@ -43,7 +43,7 @@ In the following, we’ll first discuss the overall development setup, then revi
 As a developer you want to think about where the Kubernetes cluster you’re developing against runs as well as where the development environment sits. Conceptually there are four development modes:
 -->
 
-作为开发人员，你既需要考虑你所针对开发的 Kubernetes 集群运行在哪里，也需要思考开发环境如何配置。概念上，有四种开发模式：
+作为开发人员，您既需要考虑所针对开发的 Kubernetes 集群运行在哪里，也需要思考开发环境如何配置。概念上，有四种开发模式：
 
 ![Dev Modes](/images/blog/2018-05-01-developing-on-kubernetes/dok-devmodes_preview.png)
 
@@ -51,13 +51,13 @@ As a developer you want to think about where the Kubernetes cluster you’re dev
 A number of tools support pure offline development including Minikube, Docker for Mac/Windows, Minishift, and the ones we discuss in detail below. Sometimes, for example, in a microservices setup where certain microservices already run in the cluster, a proxied setup (forwarding traffic into and from the cluster) is preferable and Telepresence is an example tool in this category. The live mode essentially means you’re building and/or deploying against a remote cluster and, finally, the pure online mode means both your development environment and the cluster are remote, as this is the case with, for example, [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) or [Cloud 9](https://github.com/errordeveloper/k9c). Let’s now have a closer look at the basics of offline development: running Kubernetes locally.
 -->
 
-许多工具支持纯 offline 开发，包括 Minikube、Docker（Mac 版/Windows 版）、Minishift 以及下文我们将详细讨论的几种。有时，比如说在一个微服务系统中，已经有若干微服务在运行，proxied 模式（通过某种机制把数据流传进传出集群）就非常合适，Telepresence 就是此类工具的一个实例。live 模式本质是你基于一个远程集群进行构建和部署。最后，纯 online 模式意味着你的开发环境和运行集群都是远程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。现在我们仔细看看离线开发的基础：在本地运行 Kubernetes。
+许多工具支持纯 offline 开发，包括 Minikube、Docker（Mac 版/Windows 版）、Minishift 以及下文中我们将详细讨论的几种。有时，比如说在一个微服务系统中，已经有若干微服务在运行，proxied 模式（通过转发把数据流传进传出集群）就非常合适，Telepresence 就是此类工具的一个实例。live 模式，本质上是您基于一个远程集群进行构建和部署。最后，纯 online 模式意味着你的开发环境和运行集群都是远程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。现在让我们仔细看看离线开发的基础：在本地运行 Kubernetes。
 
 <!--
 [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) is a popular choice for those who prefer to run Kubernetes in a local VM. More recently Docker for [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) and [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) started shipping Kubernetes as an experimental package (in the “edge” channel). Some reasons why you may want to prefer using Minikube over the Docker desktop option are:
 -->
 
-[Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) 为更加喜欢在本地 VM 上运行 Kubernetes 的开发人员欢迎。不久前，Docker 的 [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) 版和 [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) 版，都试验性地开始自带 Kubernetes（需要下载 “edge” 安装包）。在两者之间，以下原因也许会促使你选择 Minikube 而不是 Docker 桌面版：
+[Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) 在更加喜欢于本地 VM 上运行 Kubernetes 的开发人员中，非常受欢迎。不久前，Docker 的 [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) 版和 [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) 版，都试验性地开始自带 Kubernetes（需要下载 “edge” 安装包）。在两者之间，以下原因也许会促使你选择 Minikube 而不是 Docker 桌面版：
 
 <!--
 * You already have Minikube installed and running
@@ -66,34 +66,34 @@ A number of tools support pure offline development including Minikube, Docker fo
 * You are a Windows user who doesn’t have Windows 10 Pro with Hyper-V
 -->
 
-* 你已经安装了 Minikube 并且开始运行
+* 你已经安装了 Minikube 并且它运行良好
 * 你想等到 Docker 出稳定版本
 * 你是 Linux 桌面用户
-* 你是 Windows 用户，但是没有配置 Hyper-V 的 Windows 10 Pro
+* 你是 Windows 用户，但是没有配有 Hyper-V 的 Windows 10 Pro
 
 <!--
 Running a local cluster allows folks to work offline and that you don’t have to pay for using cloud resources. Cloud provider costs are often rather affordable and free tiers exists, however some folks prefer to avoid having to approve those costs with their manager as well as potentially incur unexpected costs, for example, when leaving cluster running over the weekend.
 -->
 
-运行一个本地集群，开发人员可以离线工作，不用支付云服务。当然云服务成本一般不太高，并且免费的等级也有，但是一些开发人员不喜欢为了使用云服务还要经过经理的批准，也不愿意支付想不到的费用，比如说忘了下线集群在周末也在运转。
+运行一个本地集群，开发人员可以离线工作，不用支付云服务。云服务收费一般不会太高，并且免费的等级也有，但是一些开发人员不喜欢为了使用云服务而必须得到经理的批准，也不愿意支付意想不到的费用，比如说忘了下线而集群在周末也在运转。
 
 <!--
 Some developers prefer to use a remote Kubernetes cluster, and this is usually to allow for larger compute and storage capacity and also enable collaborative workflows more easily. This means it’s easier for you to pull in a colleague to help with debugging or share access to an app in the team. Additionally, for some developers it can be critical to mirror production environment as closely as possible, especially when it comes down to external cloud services, say,  proprietary databases, object stores, message queues, external load balancer, or mail delivery systems.
 -->
 
-有些开发人员却更喜欢远程的 Kubernetes 集群，因为这样他们通常可以获取到更多的计算能力和存储容量，也简化协同工作流程。这意味着你可以更容易的拉上一个同事来帮你调试，或者在团队内共享一个应用的使用。再者，对某些开发人员来说，尽可能的让开发环境类似生产环境至关重要，尤其是你依赖外部厂商的云服务时，如：专有数据库、云对象存储、消息队列、外商的负载均衡器或者邮件投递系统。
+有些开发人员却更喜欢远程的 Kubernetes 集群，这样他们通常可以获得更大的计算能力和存储容量，也简化了协同工作流程。你可以更容易的拉上一个同事来帮你调试，或者在团队内共享一个应用的使用。再者，对某些开发人员来说，尽可能的让开发环境类似生产环境至关重要，尤其是你依赖外部厂商的云服务时，如：专有数据库、云对象存储、消息队列、外商的负载均衡器或者邮件投递系统。
 
 <!--
 In summary, there are good reasons for you to develop against a local cluster as well as a remote one. It very much depends on in which phase you are: from early prototyping and/or developing alone to integrating a set of more stable microservices.
 -->
 
-总之，无论你选择本地或者远程集群，都有足够多的理由。这很大程度上取决于你所处的阶段：从早期的原型设计/单人开发到后期面对一系列的稳定微服务的集成。
+总之，无论您选择本地或者远程集群，理由都足够多。这很大程度上取决于您所处的阶段：从早期的原型设计/单人开发到后期面对一批稳定微服务的集成。
 
 <!--
 Now that you have a basic idea of the options around the runtime environment, let’s move on to how to iteratively develop and deploy your app.
 -->
 
-既然你已经了解到基本的运行环境选项，就让我们接着进入到如何迭代式的开发部署你的应用。
+既然您已经了解到运行环境的基本选项，那么我们就接着讨论如何迭代式的开发并部署您的应用。
 
 <!--
 ## The tools of the trade
@@ -105,13 +105,13 @@ Now that you have a basic idea of the options around the runtime environment, le
 We are now going to review tooling allowing you to develop apps on Kubernetes with the focus on having minimal impact on your existing workflow. We strive to provide an unbiased description including implications of using each of the tools in general terms.
 -->
 
-我们接下来回顾一些工具，它们使得你可以在 Kubernetes 上开发应用并且关注于尽可能小地改变现有工作流程。我们致力于提供一份不偏不倚的描述，包括一般使用每种工具意味着什么。
+我们现在回顾既可以允许您可以在 Kubernetes 上开发应用程序又尽可能最小地改变您现有的工作流程的一些工具。我们致力于提供一份不偏不倚的描述，也会提及使用某个工具将会意味着什么。
 
 <!--
 Note that this is a tricky area since even for established technologies such as, for example, JSON vs YAML vs XML or REST vs gRPC vs SOAP a lot depends on your background, your preferences and organizational settings. It’s even harder to compare tooling in the Kubernetes ecosystem as things evolve very rapidly and new tools are announced almost on a weekly basis; during the preparation of this post alone, for example, [Gitkube](https://gitkube.sh/) and [Watchpod](https://github.com/MinikubeAddon/watchpod) came out. To cover these new tools as well as related, existing tooling such as [Weave Flux](https://github.com/weaveworks/flux) and OpenShift’s [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html) we are planning a follow-up blog post to the one you’re reading.
 -->
 
-请注意，这很棘手，因为即使对于已定型的技术，比如说在 JSON、YAML、XML、REST、gRPC 或者 SOAP 之间做选择，很大程度也取决于你的背景、喜好以及公司环境。在 Kubernetes 生态系统内比较工具就更加困难，因为技术发展太快，每周几乎都有新工具面市；举个例子，仅在准备这篇博客的期间，[Gitkube](https://gitkube.sh/) 和 [Watchpod](https://github.com/MinikubeAddon/watchpod) 相继出品。为了进一步覆盖到这些新的，以及一些相关的已有的工具，例如 [Weave Flux](https://github.com/weaveworks/flux) 和 OpenShift 的 [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html)，我们计划再写一篇跟进的博客。
+请注意这很棘手，因为即使在成熟定型的技术中做选择，比如说在 JSON、YAML、XML、REST、gRPC 或者 SOAP 之间做选择，很大程度也取决于你的背景、喜好以及公司环境。在 Kubernetes 生态系统内比较各种工具就更加困难，因为技术发展太快，几乎每周都有新工具面市；举个例子，仅在准备这篇博客的期间，[Gitkube](https://gitkube.sh/) 和 [Watchpod](https://github.com/MinikubeAddon/watchpod) 相继出品。为了进一步覆盖到这些新的，以及一些相关的已推出的工具，例如 [Weave Flux](https://github.com/weaveworks/flux) 和 OpenShift 的 [S2I](https://docs.openshift.com/container-platform/3.9/creating_images/s2i.html)，我们计划再写一篇跟进的博客。
 
 ### Draft
 
@@ -120,7 +120,7 @@ Note that this is a tricky area since even for established technologies such as,
 [Draft](https://github.com/Azure/draft) aims to help you get started deploying any app to Kubernetes. It is capable of applying heuristics as to what programming language your app is written in and generates a Dockerfile along with a Helm chart. It then runs the build for you and deploys resulting image to the target cluster via the Helm chart. It also allows user to setup port forwarding to localhost very easily.
 -->
 
-[Draft](https://github.com/Azure/draft) 旨在帮助你将任何应用程序部署到 Kubernetes。它能够检测到你的应用所使用的编程语言，并且生成一份 Dockerfile 和 Helm 图表。然后它替你启动构建并且通过 Helm 图表把镜像部署到目标集群。它也可以让你很容易地设置到 localhost 的端口映射。
+[Draft](https://github.com/Azure/draft) 旨在帮助你将任何应用程序部署到 Kubernetes。它能够检测到您的应用所使用的编程语言，并且生成一份 Dockerfile 和 Helm 图表。然后它替你启动构建并且依照 Helm 图表把镜像部署到目标集群。它也可以让您很容易地设置到 localhost 的端口映射。
 
 <!--
 Implications:
