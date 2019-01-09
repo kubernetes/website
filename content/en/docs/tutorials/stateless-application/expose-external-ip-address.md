@@ -99,7 +99,10 @@ external IP address.
         Events:         <none>
 
     Make a note of the external IP address (`LoadBalancer Ingress`) exposed by
-    your service. In this example, the external IP address is 104.198.205.71.
+    your service. *If you do not have an entry for LoadBalancer Ingress* you should do what next?
+
+
+    In this example, the external IP address is 104.198.205.71.
     Also note the value of `Port` and `NodePort`. In this example, the `Port`
     is 8080 and the `NodePort` is 32377.
 
