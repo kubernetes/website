@@ -36,7 +36,7 @@
 /docs/admin/kubelet-tls-bootstrapping/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
 /docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
-/docs/admin/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
+/docs/admin/master-node-communication/     /docs/concepts/architecture/control-plane-communication/ 301
 /docs/admin/multi-cluster/     /docs/concepts/cluster-administration/federation/ 301
 /docs/admin/multiple-schedulers/     /docs/tasks/administer-cluster/configure-multiple-schedulers/ 301
 /docs/admin/namespaces/     /docs/tasks/administer-cluster/namespaces/ 301
@@ -76,6 +76,7 @@
 /docs/concepts/abstractions/pod/     /docs/concepts/workloads/pods/pod-overview/ 301
 /docs/concepts/api-extension/apiserver-aggregation/     /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/ 301
 /docs/concepts/api-extension/custom-resources/     /docs/concepts/extend-kubernetes/api-extension/custom-resources/ 301
+/docs/concepts/architecture/master-node-communication/     /docs/concepts/architecture/control-plane-communication/ 301
 /docs/concepts/cluster/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/concepts/cluster-administration/audit/     /docs/tasks/debug-application-cluster/audit/ 301
@@ -86,7 +87,7 @@
 /docs/concepts/cluster-administration/etcd-upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/cluster-administration/federation-service-discovery/     /docs/tasks/federation/federation-service-discovery/ 301
 /docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
-/docs/concepts/cluster-administration/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
+/docs/concepts/cluster-administration/master-node-communication/     /docs/concepts/architecture/control-plane-communication/ 301
 /docs/concepts/cluster-administration/multiple-clusters/     /docs/concepts/cluster-administration/federation/ 301
 /docs/concepts/cluster-administration/network-plugins/     /docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/ 301
 /docs/concepts/cluster-administration/out-of-resource/     /docs/tasks/administer-cluster/out-of-resource/ 301

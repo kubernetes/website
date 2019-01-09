@@ -10,11 +10,11 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-In a Kubernetes cluster, the components on the worker nodes - kubelet and kube-proxy - need to communicate with Kubernetes master components, specifically kube-apiserver.
+In a Kubernetes cluster, the components on the nodes - kubelet and kube-proxy - need to communicate with Kubernetes control-plane components, specifically kube-apiserver.
 In order to ensure that communication is kept private, not interfered with, and ensure that each component of the cluster is talking to another trusted component, we strongly
 recommend using client TLS certificates on nodes.
 
-The normal process of bootstrapping these components, especially worker nodes that need certificates so they can communicate safely with kube-apiserver, 
+The normal process of bootstrapping these components, especially nodes that need certificates so they can communicate safely with kube-apiserver,
 can be a challenging process as it is often outside of the scope of Kubernetes and requires significant additional work. 
 This in turn, can make it challenging to initialize or scale a cluster.
 
@@ -29,7 +29,7 @@ kubelets, and how it works.
 {{% capture body %}}
 
 ## Initialization Process
-When a worker node starts up, the kubelet does the following:
+When a node starts up, the kubelet does the following:
 
 1. Look for its `kubeconfig` file
 2. Retrieve the URL of the API server and credentials, normally a TLS key and signed certificate from the `kubeconfig` file
@@ -45,7 +45,7 @@ Note that the above process depends upon:
 All of the following are responsibilities of whoever sets up and manages the cluster:
 
 1. Creating the CA key and certificate
-2. Distributing the CA certificate to the master nodes, where kube-apiserver is running
+2. Distributing the CA certificate to the control-plane machines, where kube-apiserver is running
 3. Creating a key and certificate for each kubelet; strongly recommended to have a unique one, with a unique CN, for each kubelet
 4. Signing the kubelet certificate using the CA key
 5. Distributing the kubelet key and signed certificate to the specific node on which the kubelet is running
@@ -88,9 +88,9 @@ In addition, you need your Kubernetes Certificate Authority (CA).
 
 ## Certificate Authority
 As without bootstrapping, you will need a Certificate Authority (CA) key and certificate. As without bootstrapping, these will be used
-to sign the kubelet certificate. As before, it is your responsibility to distribute them to master nodes.
+to sign the kubelet certificate. As before, it is your responsibility to distribute them to control-plane machines.
 
-For the purposes of this document, we will assume these have been distributed to master nodes at `/var/lib/kubernetes/ca.pem` (certificate) and `/var/lib/kubernetes/ca-key.pem` (key). 
+For the purposes of this document, we will assume these have been distributed to control-plane machines at `/var/lib/kubernetes/ca.pem` (certificate) and `/var/lib/kubernetes/ca-key.pem` (key).
 We will refer to these as "Kubernetes CA certificate and key".
 
 All Kubernetes components that use these certificates - kubelet, kube-apiserver, kube-controller-manager - assume the key and certificate to be PEM-encoded.
@@ -140,7 +140,7 @@ particular bootstrap group's access when you are done provisioning the nodes.
 
 #### Bootstrap tokens
 Bootstrap tokens are described in detail [here](/docs/reference/access-authn-authz/bootstrap-tokens/). These are tokens that are stored as secrets in the Kubernetes cluster,
-and then issued to the individual kubelet. You can use a single token for an entire cluster, or issue one per worker node.
+and then issued to the individual kubelet. You can use a single token for an entire cluster, or issue one per node.
 
 The process is two-fold:
 
@@ -221,7 +221,7 @@ In order for the controller-manager to sign certificates, it needs the following
 * enabling CSR signing
 
 ### Access to key and certificate
-As described earlier, you need to create a Kubernetes CA key and certificate, and distribute it to the master nodes.
+As described earlier, you need to create a Kubernetes CA key and certificate, and distribute it to the control-plane machines.
 These will be used by the controller-manager to sign the kubelet certificates.
 
 Since these signed certificates will, in turn, be used by the kubelet to authenticate as a regular kubelet to kube-apiserver, it is important that the CA
@@ -333,7 +333,7 @@ collection.
 
 
 ## kubelet configuration
-Finally, with the master nodes properly set up and all of the necessary authentication and authorization in place, we can configure the kubelet.
+Finally, with the control plane properly set up and all of the necessary authentication and authorization in place, we can configure the kubelet.
 
 The kubelet requires the following configuration to bootstrap:
 
@@ -475,9 +475,9 @@ certificate approve <name>` and `kubectl certificate deny <name>`.
 
 
 ## Limits
-Although Kubernetes supports running control plane master components like kube-apiserver and kube-controller-manager in containers, and even as `Pod`s in a kubelet, as of this writing, you cannot both TLS Bootstrap a kubelet and run master plane components on it.
+Although Kubernetes supports running control-plane components like kube-apiserver and kube-controller-manager in containers, and even as `Pod`s in a kubelet, as of this writing, you cannot both TLS Bootstrap a kubelet and run control-plane components on it.
 
-The reason for this limitation is that the kubelet attempts to bootstrap communication with kube-apiserver _before_ starting any pods, even static ones define on disk and referenced via the kubelet option `--pod-manifest-path=<PATH>`. Trying to do both TLS Bootstrapping and master components in kubelet leads to a race condition: kubelet needs to communicate to kube-apiserver to request certificates, yet requires those certificates to be available to start kube-apiserver.
+The reason for this limitation is that the kubelet attempts to bootstrap communication with kube-apiserver _before_ starting any pods, even static ones define on disk and referenced via the kubelet option `--pod-manifest-path=<PATH>`. Trying to do both TLS Bootstrapping and control-plane components in kubelet leads to a race condition: kubelet needs to communicate to kube-apiserver to request certificates, yet requires those certificates to be available to start kube-apiserver.
 
 An issue is open referencing this [here](https://github.com/kubernetes/kubernetes/issues/68686).
 

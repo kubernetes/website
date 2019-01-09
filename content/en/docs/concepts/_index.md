@@ -19,9 +19,9 @@ To work with Kubernetes, you use *Kubernetes API objects* to describe your clust
 
 Once you've set your desired state, the *Kubernetes Control Plane* works to make the cluster's current state match the desired state. To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster: 
 
-* The **Kubernetes Master** is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
-* Each individual non-master node in your cluster runs two processes:
-  * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
+* The **Kubernetes Control Plane** is a collection of three processes: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).  These processes can be replicated for availability and redundancy.
+* Each individual node in your cluster runs two processes:
+  * **[kubelet](/docs/admin/kubelet/)**, which communicates with the control plane.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node.
 
 ## Kubernetes Objects
@@ -45,22 +45,16 @@ In addition, Kubernetes contains a number of higher-level abstractions called Co
 
 ## Kubernetes Control Plane
 
-The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
+The various parts of the Kubernetes Control Plane govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
 
 For example, when you use the Kubernetes API to create a Deployment object, you provide a new desired state for the system. The Kubernetes Control Plane records that object creation, and carries out your instructions by starting the required applications and scheduling them to cluster nodes--thus making the cluster's actual state match the desired state.
-
-### Kubernetes Master
-
-The Kubernetes master is responsible for maintaining the desired state for your cluster. When you interact with Kubernetes, such as by using the `kubectl` command-line interface, you're communicating with your cluster's Kubernetes master.
-
-> The "master" refers to a collection of processes managing the cluster state.  Typically these processes are all run on a single node in the cluster, and this node is also referred to as the master. The master can also be replicated for availability and redundancy.
+When you interact with Kubernetes, such as by using the `kubectl` command-line interface, you're communicating with your cluster's Kubernetes Control Plane.
 
 ### Kubernetes Nodes
 
-The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
+The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The control plane controls each node; you'll rarely interact with nodes directly.
 
 #### Object Metadata
-
 
 * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
 

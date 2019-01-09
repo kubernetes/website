@@ -82,7 +82,7 @@ only schedule as many pods as there are nodes in your container cluster.
 ### My pod stays waiting
 
 If a pod is stuck in the `Waiting` state, then it has been scheduled to a
-worker node, but it can't run on that machine. Again, the information from
+node, but it can't run on that machine. Again, the information from
 `kubectl describe ...` should be informative. The most common cause of
 `Waiting` pods is a failure to pull the image. There are three things to check:
 

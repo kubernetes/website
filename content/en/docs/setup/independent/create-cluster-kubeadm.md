@@ -410,7 +410,7 @@ taint "node-role.kubernetes.io/master:" not found
 ```
 
 This will remove the `node-role.kubernetes.io/master` taint from any nodes that
-have it, including the master node, meaning that the scheduler will then be able
+have it, including the master, meaning that the scheduler will then be able
 to schedule pods everywhere.
 
 ### Joining your nodes {#join-nodes}
@@ -425,7 +425,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-If you do not have the token, you can get it by running the following command on the master node:
+If you do not have the token, you can get it by running the following command on the master:
 
 ``` bash
 kubeadm token list
@@ -442,7 +442,7 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
 ```
 
 By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
-you can create a new token by running the following command on the master node:
+you can create a new token by running the following command on the master:
 
 ``` bash
 kubeadm token create
@@ -454,7 +454,7 @@ The output is similar to this:
 5didvk.d09sbcov8ph2amjw
 ```
 
-If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the master node:
+If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the master:
 
 ``` bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \

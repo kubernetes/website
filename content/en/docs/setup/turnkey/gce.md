@@ -10,7 +10,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-The example below creates a Kubernetes cluster with 3 worker node Virtual Machines and a master Virtual Machine (i.e. 4 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
+The example below creates a Kubernetes cluster with three Virtual Machine nodes and a Virtual Machine control-plane machine (i.e. 4 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
 {{% /capture %}}
 
@@ -55,7 +55,7 @@ or
 wget -q -O - https://get.k8s.io | bash
 ```
 
-Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
+Once this command completes, you will have a control-plane machine VM and four node VMs, running as a Kubernetes cluster.
 
 By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/concepts/cluster-administration/logging/), while `heapster` provides [monitoring](https://releases.k8s.io/master/cluster/addons/cluster-monitoring/README.md) services.
 
@@ -68,7 +68,7 @@ cd kubernetes
 cluster/kube-up.sh
 ```
 
-If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
+If you want more than one cluster running in your project, want to use a different name, or want a different number of nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
 If you run into trouble, please see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
 [Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on [Slack](/docs/troubleshooting/#slack).
@@ -166,7 +166,7 @@ Likewise, the `kube-up.sh` in the same directory will bring it back up. You do n
 ## Customizing
 
 The script above relies on Google Storage to stage the Kubernetes release. It
-then will start (by default) a single master VM along with 3 worker VMs.  You
+then will start (by default) a single control-plane VM along with three node VMs.  You
 can tweak some of these parameters by editing `kubernetes/cluster/gce/config-default.sh`
 You can view a transcript of a successful cluster creation
 [here](https://gist.github.com/satnam6502/fc689d1b46db9772adea).
@@ -185,7 +185,7 @@ Also ensure that-- as listed in the [Prerequisites section](#prerequisites)-- yo
 
 ### Cluster initialization hang
 
-If the Kubernetes startup script hangs waiting for the API to be reachable, you can troubleshoot by SSHing into the master and node VMs and looking at logs such as `/var/log/startupscript.log`.
+If the Kubernetes startup script hangs waiting for the API to be reachable, you can troubleshoot by SSHing into the control-plane and node VMs and looking at logs such as `/var/log/startupscript.log`.
 
 **Once you fix the issue, you should run `kube-down.sh` to cleanup** after the partial cluster creation, before running `kube-up.sh` to try again.
 

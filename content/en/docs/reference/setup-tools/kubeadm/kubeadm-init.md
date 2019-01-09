@@ -49,7 +49,7 @@ following steps:
    run there.
 
 1. Generates the token that additional nodes can use to register
-   themselves with the master in the future.  Optionally, the user can provide a
+   themselves with the control plane in the future.  Optionally, the user can provide a
    token via `--token`, as described in the
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 
@@ -268,13 +268,13 @@ using an external CRI implementation.
 
 ### Using internal IPs in your cluster
 
-In order to set up a cluster where the master and worker nodes communicate with internal IP addresses (instead of public ones), execute following steps.
+In order to set up a cluster where the control plane and nodes communicate with internal IP addresses (instead of public ones), execute following steps.
 
 1. When running init, you must make sure you specify an internal IP for the API server's bind address, like so:
 
-   `kubeadm init --apiserver-advertise-address=<private-master-ip>`
+   `kubeadm init --apiserver-advertise-address=<private-control-plane-ip>`
 
-2. When a master or worker node has been provisioned, add a flag to `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` that specifies the private IP of the worker node:
+2. When a control plane or node has been provisioned, add a flag to `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` that specifies the private IP of the node:
 
    `--node-ip=<private-node-ip>`
 
@@ -345,7 +345,7 @@ In summary, `kubeadm alpha selfhosting` works as follows:
 
 ### Running kubeadm without an internet connection
 
-For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
+For running kubeadm without an internet connection you have to pre-pull the required control-plane images for the version of choice:
 
 | Image Name                                 | v1.10 release branch version |
 |--------------------------------------------|------------------------------|
@@ -381,7 +381,7 @@ don't require an `-${ARCH}` suffix.
 Rather than copying the token you obtained from `kubeadm init` to each node, as
 in the [basic kubeadm tutorial](/docs/setup/independent/create-cluster-kubeadm/), you can parallelize the
 token distribution for easier automation. To implement this automation, you must
-know the IP address that the master will have after it is started.
+know the IP address that the control plane will have after it is started.
 
 1.  Generate a token. This token must have the form  `<6 character string>.<16
     character string>`.  More formally, it must match the regex:
@@ -393,7 +393,7 @@ know the IP address that the master will have after it is started.
     kubeadm token generate
     ```
 
-1. Start both the control-plane node and the worker nodes concurrently with this token.
+1. Start both the control-plane node and the other nodes concurrently with this token.
    As they come up they should find each other and form the cluster.  The same
    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 
@@ -410,7 +410,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 {{% capture whatsnext %}}
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
 `kubeadm init` phases
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes node and join it to the cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}

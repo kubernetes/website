@@ -80,12 +80,12 @@ vars:
   k8s_instance_type: <serviceofferingname>
 ```
 
-This will start a Kubernetes master node and a number of compute nodes (by default 2).
+This will start a Kubernetes control plane and a number of nodes (by default 2).
 The `instance_type` and `template` are specific, edit them to specify your CloudStack cloud specific template and instance type (i.e. service offering).
 
 Check the tasks and templates in `roles/k8s` if you want to modify anything.
 
-Once the playbook as finished, it will print out the IP of the Kubernetes master:
+Once the playbook as finished, it will print out the IP of the Kubernetes control plane:
 
 ```none
 TASK: [k8s | debug msg='k8s master IP is {{ k8s_master.default_ip }}'] ********

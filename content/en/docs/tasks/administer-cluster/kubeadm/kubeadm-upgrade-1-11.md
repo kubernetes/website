@@ -30,7 +30,7 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
 
 ## Upgrade the control plane
 
-1.  On your master node, run the following (as root):
+1.  On the control-plane machine, run the following (as root):
 
         export VERSION=$(curl -sSL https://dl.k8s.io/release/stable.txt) # or manually specify a released Kubernetes version
         export ARCH=amd64 # or: arm, arm64, ppc64le, s390x
@@ -45,7 +45,7 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
     kubeadm version
     ```
 
-1.  On the master node, run:
+1.  On the control-plane machine, run:
 
     ```shell
     kubeadm upgrade plan
@@ -182,7 +182,7 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
     find your CNI provider and see whether additional upgrade steps are required.
 
-## Upgrade master and node packages
+## Upgrade control-plane and node packages
 
 1.  Prepare each host for maintenance, marking it unschedulable and evicting the workload:
 
@@ -190,7 +190,7 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
     kubectl drain $HOST --ignore-daemonsets
     ```
 
-    On the master host, you must add `--ignore-daemonsets`:
+    On the control-plane machine, you must add `--ignore-daemonsets`:
 
     ```shell
     kubectl drain ip-172-31-85-18
@@ -223,7 +223,7 @@ To keep `kube-dns`, pass `--feature-gates=CoreDNS=false` to `kubeadm upgrade app
 
 ## Upgrade kubelet on each node
 
-1.  On each node except the master node, upgrade the kubelet config:
+1.  On each node except the control-plane machines, upgrade the kubelet config:
 
     ```shell
     sudo kubeadm upgrade node config --kubelet-version $(kubelet --version | cut -d ' ' -f 2)

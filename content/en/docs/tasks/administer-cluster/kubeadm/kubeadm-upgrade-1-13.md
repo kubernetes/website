@@ -74,7 +74,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     kubeadm version
     ```
 
-1.  On the master node, run:
+1.  On the control-plane machine, run:
 
     ```shell
     kubeadm upgrade plan
@@ -234,7 +234,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     {{% /tab %}}
     {{< /tabs >}}
 
-## Drain control plane and worker nodes
+## Drain control plane and nodes
 
 1.  Prepare each node for maintenance by marking it unschedulable and evicting the workloads. Run:
 
@@ -261,7 +261,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     node "ip-172-31-85-18" drained
     ```
 
-## Upgrade the kubelet config on worker nodes
+## Upgrade the kubelet config on nodes
 
 1.  On each node except the control plane node, upgrade the kubelet config:
 
@@ -272,7 +272,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     Replace `x` with the patch version you picked for this ugprade.
 
 
-## Upgrade kubeadm and the kubelet on worker nodes
+## Upgrade kubeadm and the kubelet on nodes
 
 1.  Upgrade the Kubernetes package version on each `$NODE` node by running the Linux package manager for your distribution:
 

@@ -60,10 +60,10 @@ This may be caused by a number of problems. The most common are:
  1. Install Docker again following instructions
   [here](/docs/setup/independent/install-kubeadm/#installing-docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-    [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+    [Configure cgroup driver used by kubelet on control-plane nodes](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-nodes)
     for detailed instructions.
 
-- control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
+- control-plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
 ## kubeadm blocks when removing managed containers
 

@@ -20,17 +20,17 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
 * [**AWS Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html)
 
     Guide and CLI tool for setting up a multi-node cluster on AWS.
-    CloudFormation is used to set up a master and multiple workers in auto-scaling groups.
+    CloudFormation is used to set up a control-plane machines and multiple nodes in auto-scaling groups.
 
 * [**Bare Metal Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-baremetal.html#automated-provisioning)
 
     Guide and HTTP/API service for PXE booting and provisioning a multi-node cluster on bare metal.
-    [Ignition](https://coreos.com/ignition/docs/latest/) is used to provision a master and multiple workers on the first boot from disk.
+    [Ignition](https://coreos.com/ignition/docs/latest/) is used to provision a control plane and multiple nodes on the first boot from disk.
 
 * [**Vagrant Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant.html)
 
     Guide to setting up a multi-node cluster on Vagrant.
-    The deployer can independently configure the number of etcd nodes, master nodes, and worker nodes to bring up a fully HA control plane.
+    The deployer can independently configure the number of etcd machines, control-plane machines, and nodes to bring up a fully HA control plane.
 
 * [**Vagrant Single-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant-single.html)
 
@@ -40,7 +40,7 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
 * [**Full Step by Step Guide**](https://coreos.com/kubernetes/docs/latest/getting-started.html)
 
     A generic guide to setting up an HA cluster on any cloud or bare metal, with full TLS.
-    Repeat the master or worker steps to configure more machines of that role.
+    Repeat the control-plane or node steps to configure more machines of that role.
 
 ## Community Guides
 
@@ -48,7 +48,7 @@ These guides are maintained by community members, cover specific platforms and u
 
 * [**Easy Multi-node Cluster on Google Compute Engine**](https://github.com/rimusz/coreos-multi-node-k8s-gce/blob/master/README.md)
 
-    Scripted installation of a single master, multi-worker cluster on GCE.
+    Scripted installation of a single-control-plane-machine, multi-node cluster on GCE.
     Kubernetes components are managed by [fleet](https://github.com/coreos/fleet).
 
 * [**Multi-node cluster using cloud-config and Weave on Vagrant**](https://github.com/errordeveloper/weave-demos/blob/master/poseidon/README.md)
@@ -57,21 +57,21 @@ These guides are maintained by community members, cover specific platforms and u
 
 * [**Multi-node cluster using cloud-config and Vagrant**](https://github.com/pires/kubernetes-vagrant-coreos-cluster/blob/master/README.md)
 
-    Configure a single master, multi-worker cluster locally, running on your choice of hypervisor: VirtualBox, Parallels, or VMware
+    Configure a single-control-plane-machine, multi-node cluster locally, running on your choice of hypervisor: VirtualBox, Parallels, or VMware
 
 * [**Single-node cluster using a small macOS App**](https://github.com/rimusz/kube-solo-osx/blob/master/README.md)
 
-    Guide to running a solo cluster (master + worker) controlled by an macOS menubar application.
+    Guide to running a solo cluster (control plane node) controlled by an macOS menubar application.
     Uses xhyve + CoreOS under the hood.
 
 * [**Multi-node cluster with Vagrant and fleet units using a small macOS App**](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster/blob/master/README.md)
 
-    Guide to running a single master, multi-worker cluster controlled by an macOS menubar application.
+    Guide to running a single-control-plane-machine, multi-node cluster controlled by an macOS menubar application.
     Uses Vagrant under the hood.
 
 * [**Multi-node cluster using cloud-config, CoreOS and VMware ESXi**](https://github.com/xavierbaude/VMware-coreos-multi-nodes-Kubernetes)
 
-    Configure a single master, single worker cluster on VMware ESXi.
+    Configure a single-control-plane-machine, single node cluster on VMware ESXi.
 
 * [**Single/Multi-node cluster using cloud-config, CoreOS and Foreman**](https://github.com/johscheuer/theforeman-coreos-kubernetes)
 

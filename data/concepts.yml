@@ -29,7 +29,7 @@ toc:
   landing_page: /docs/concepts/architecture/nodes/
   section:
   - docs/concepts/architecture/nodes.md
-  - docs/concepts/architecture/master-node-communication.md
+  - docs/concepts/architecture/control-plane-communication.md
   - docs/concepts/architecture/cloud-controller.md
 
 - title: Extending Kubernetes
@@ -118,7 +118,7 @@ toc:
   - docs/concepts/cluster-administration/federation.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
-  - docs/concepts/cluster-administration/master-node-communication.md
+  - docs/concepts/cluster-administration/control-plane-communication.md
   - docs/concepts/cluster-administration/proxies.md
   - docs/concepts/cluster-administration/controller-metrics.md
   - docs/concepts/cluster-administration/device-plugins.md

@@ -30,12 +30,12 @@ Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://www.u
 Out of the box the deployment comes with the following components on 9 machines:
 
 - Kubernetes (automated deployment, operations, and scaling)
-     - Four node Kubernetes cluster with one master and three worker nodes.
+     - Four node Kubernetes cluster with one control-plane machine and three nodes.
      - TLS used for communication between units for security.
      - Flannel Software Defined Network (SDN) plugin
-     - A load balancer for HA kubernetes-master (Experimental)
-     - Optional Ingress Controller (on worker)
-     - Optional Dashboard addon (on master) including Heapster for cluster monitoring
+     - A load balancer for HA Kubernetes control plane (Experimental)
+     - Optional Ingress Controller (on a node)
+     - Optional Dashboard addon (on the control-plane machine) including Heapster for cluster monitoring
 - EasyRSA
      - Performs the role of a certificate authority serving self signed certificates
        to the requesting units of the cluster.
@@ -193,7 +193,7 @@ kubernetes-worker:cni                flannel:cni                          kubern
 
 ## Interacting with the cluster
 
-After the cluster is deployed you may assume control over the cluster from any kubernetes-master, or kubernetes-worker node.
+After the cluster is deployed you may assume control over the cluster from any control-plane machine or node.
 
 If you didn't use conjure-up, you will first need to download the credentials and client application to your local workstation:
 
@@ -246,7 +246,7 @@ details.
 
 ## Scale out cluster
 
-Need more workers? We just add more units:    
+Need more nodes? We just add more units:
 
 ```shell
 juju add-unit kubernetes-worker

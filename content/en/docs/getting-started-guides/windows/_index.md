@@ -60,7 +60,7 @@ The above networking approaches are already supported on Linux using a bridge in
 Windows supports the CNI network model and uses plugins to interface with the Windows Host Networking Service (HNS) to configure host networking and policy. At the time of this writing, the only publicly available CNI plugin from Microsoft is built from a private repo and available here [wincni.exe](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/cni/wincni.exe). It uses an l2bridge network created through the Windows Host Networking Service (HNS) by an administrator using HNS PowerShell commands on each node as documented in the [Windows Host Setup](#windows-host-setup) section below. Source code for the future CNI plugins will be made available publicly.
 
 #### Upstream L3 Routing Topology
-In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a pod CIDR assigned. All pods on a given worker node will be connected to the pod CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with pod CIDR prefix => Host IP.
+In this topology, networking is achieved using L3 routing with static IP routes configured in an upstream Top of Rack (ToR) switch/router. Each cluster node is connected to the management network with a host IP. Additionally, each node uses a local 'l2bridge' network with a pod CIDR assigned. All pods on a given node will be connected to the pod CIDR subnet ('l2bridge' network). In order to enable network communication between pods running on different nodes, the upstream router has static routes configured with pod CIDR prefix => Host IP.
 
 The following example diagram illustrates the Windows Server networking setup for Kubernetes using Upstream L3 Routing Setup:
 ![K8s Cluster using L3 Routing with ToR](UpstreamRouting.png)
@@ -87,7 +87,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 ##### Linux Host Setup
 
 1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using.
-2. Configure Linux Master node using steps [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/creating-a-linux-master.md)
+2. Configure Linux control-plane machines using steps [here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/virtualization/windowscontainers/kubernetes/creating-a-linux-master.md)
 3. [Optional] CNI network plugin installed.
 
 ##### Windows Host Setup
@@ -95,7 +95,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 1. Windows Server container host running the required Windows Server and Docker versions. Follow the setup instructions outlined by this help topic: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-server.
 2. [Get Windows Binaries](#get-windows-binaries) kubelet.exe, kube-proxy.exe, and kubectl.exe using instructions
-3. Copy Node spec file (kube config) from Linux master node with X.509 keys
+3. Copy Node spec file (kube config) from a Linux control-plane machine with X.509 keys
 4. Create the HNS Network, ensure the correct CNI network config, and start kubelet.exe using this script [start-kubelet.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1)
 5. Start kube-proxy using this script [start-kubeproxy.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubeproxy.ps1)
 6. [Only required for #2 Host-Gateway mode] Add static routes on Windows host using this script [AddRoutes.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/AddRoutes.ps1)
@@ -273,11 +273,11 @@ Use your preferred method to start Kubernetes cluster on Linux. Please note that
 ## Support for kubeadm join
 
 If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/),
-and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the master with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux worker nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
+and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the control-plane machine with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
 
 The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive. Adding a Windows node is not any different than adding a Linux node:
 
-`kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
+`kubeadm.exe join --token <token> <control-plane-ip>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>`
 
 See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) for more details.
 

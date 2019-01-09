@@ -21,7 +21,7 @@ At {{< param "version" >}}, Kubernetes supports clusters with up to 5000 nodes. 
 
 ## Setup
 
-A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by a "master" (the cluster-level control plane).
+A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by a control plane.
 
 Normally the number of nodes in a cluster is controlled by the value `NUM_NODES` in the platform-specific `config-default.sh` file (for example, see [GCE's `config-default.sh`](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/gce/config-default.sh)).
 
@@ -54,9 +54,9 @@ When creating a cluster, existing salt scripts:
 * start and configure additional etcd instance
 * configure api-server to use it for storing events
 
-### Size of master and master components
+### Size of control-plane components
 
-On GCE/Google Kubernetes Engine, and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
+On GCE/Google Kubernetes Engine, and AWS, `kube-up` automatically configures the proper VM size for your control-plane machine depending on the number of nodes
 in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are
 
 * 1-5 nodes: n1-standard-1
@@ -76,9 +76,9 @@ And the sizes we use on AWS are
 * more than 500 nodes: c4.8xlarge
 
 {{< note >}}
-On Google Kubernetes Engine, the size of the master node adjusts automatically based on the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
+On Google Kubernetes Engine, the size of the control-plane machine adjusts automatically based on the size of your cluster. For more information, see [this blog post](https://cloudplatform.googleblog.com/2017/11/Cutting-Cluster-Management-Fees-on-Google-Kubernetes-Engine.html).
 
-On AWS, master node sizes are currently set at cluster startup time and do not change, even if you later scale your cluster up or down by manually removing or adding nodes or using a cluster autoscaler.
+On AWS, control-plane-machine sizes are currently set at cluster startup time and do not change, even if you later scale your cluster up or down by manually removing or adding nodes or using a cluster autoscaler.
 {{< /note >}}
 
 ### Addon Resources

@@ -1027,7 +1027,7 @@ filename | sha512 hash
 * The --service-account-api-audiences on kube-apiserver is deprecated in favor of --api-audiences. ([#70105](https://github.com/kubernetes/kubernetes/pull/70105), [@mikedanese](https://github.com/mikedanese))
 * kubeadm: fix unnecessary upgrades caused by undefined order of Volumes and VolumeMounts in manifests ([#70027](https://github.com/kubernetes/kubernetes/pull/70027), [@bart0sh](https://github.com/bart0sh))
 * kubeadm: Implemented preflight check to ensure that number of CPUs ([#70048](https://github.com/kubernetes/kubernetes/pull/70048), [@bart0sh](https://github.com/bart0sh))
-    * on the master node is not less than required.
+    on the control-plane machine is not less than required.
 * Reduce memory utilization of admission webhook metrics by removing resource related labels. ([#69895](https://github.com/kubernetes/kubernetes/pull/69895), [@jpbetz](https://github.com/jpbetz))
 * kubeadm: Introduce config print init/join-defaults that deprecate config print-defaults by decoupling init and join configs. ([#69617](https://github.com/kubernetes/kubernetes/pull/69617), [@rosti](https://github.com/rosti))
 * Images based on debian-base no longer include the libsystemd0 package. This should have no user-facing impact. ([#69995](https://github.com/kubernetes/kubernetes/pull/69995), [@ixdy](https://github.com/ixdy))

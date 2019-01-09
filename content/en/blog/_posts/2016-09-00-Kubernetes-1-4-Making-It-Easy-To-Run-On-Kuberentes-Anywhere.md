@@ -20,7 +20,7 @@ Additional product highlights in this release include simplified cluster deploym
 - Kubernetes 1.4 introduces ‘[kubeadm](http://kubernetes.io/docs/getting-started-guides/kubeadm/)’ which reduces bootstrapping to two commands, with no complex scripts involved. Once kubernetes is installed, kubeadm init starts the master while kubeadm join joins the nodes to the cluster.
 - Installation is also streamlined by packaging Kubernetes with its dependencies, for most major Linux distributions including Red Hat and Ubuntu Xenial. This means users can now install Kubernetes using familiar tools such as apt-get and yum.
 - Add-on deployments, such as for an overlay network, can be reduced to one command by using a [DaemonSet](http://kubernetes.io/docs/admin/daemons/).
-- Enabling this simplicity is a new certificates API and its use for kubelet [TLS bootstrap](http://kubernetes.io/docs/admin/master-node-communication/#kubelet-tls-bootstrap), as well as a new discovery API.
+- Enabling this simplicity is a new certificates API and its use for kubelet [TLS bootstrap](http://kubernetes.io/docs/admin/control-plane-communication/#kubelet-tls-bootstrap), as well as a new discovery API.
   
 **Expanded stateful application support -** While cloud-native applications are built to run in containers, many existing applications need additional features to make it easy to adopt containers. Most commonly, these include stateful applications such as batch processing, databases and key-value stores. In Kubernetes 1.4, we have introduced a number of features simplifying the deployment of such applications, including:&nbsp;  
   

@@ -45,7 +45,7 @@ on how flags are set on various components.
 - You can use virtual or physical machines.
 - While you can build a cluster with 1 machine, in order to run all the examples and tests you
   need at least 4 nodes.
-- Many Getting-started-guides make a distinction between the master node and regular nodes.  This
+- Many Getting-started-guides make a distinction between control-plane machines and regular nodes.  This
   is not strictly necessary.
 - Nodes will need to run some version of Linux with the x86_64 architecture.  It may be possible
   to run on other OSes and Architectures, but this guide does not try to assist with that.
@@ -121,9 +121,9 @@ need to allocate a block of IPs for services.  Call this
 be active at once.  Note that you can grow the end of this range, but you
 cannot move it without disrupting the services and pods that already use it.
 
-Also, you need to pick a static IP for master node.
+Also, you need to pick a static IP for the control plane.
 
-- Call this `MASTER_IP`.
+- Call this `CONTROL_PLANE_IP`.
 - Open any firewalls to allow access to the apiserver ports 80 and/or 443.
 - Enable ipv4 forwarding sysctl, `net.ipv4.ip_forward = 1`
 
@@ -222,12 +222,12 @@ If following the HTTPS approach, you will need to prepare certs and credentials.
 
 You need to prepare several certs:
 
-- The master needs a cert to act as an HTTPS server.
-- The kubelets optionally need certs to identify themselves as clients of the master, and when
+- The control plane needs a cert to act as an HTTPS server.
+- The kubelets optionally need certs to identify themselves as clients of the control plane, and when
   serving its own API over HTTPS.
 
 Unless you plan to have a real CA generate your certs, you will need
-to generate a root cert and use that to sign the master, kubelet, and
+to generate a root cert and use that to sign the control-plane, kubelet, and
 kubectl certs. How to do this is described in the [authentication
 documentation](/docs/concepts/cluster-administration/certificates/).
 
@@ -235,10 +235,10 @@ You will end up with the following files (we will use these variables later on)
 
 - `CA_CERT`
   - put in on node where apiserver runs, for example in `/srv/kubernetes/ca.crt`.
-- `MASTER_CERT`
+- `CONTROL_PLANE_CERT`
   - signed by CA_CERT
   - put in on node where apiserver runs, for example in `/srv/kubernetes/server.crt`
-- `MASTER_KEY `
+- `CONTROL_PLANE_KEY `
   - put in on node where apiserver runs, for example in `/srv/kubernetes/server.key`
 - `KUBELET_CERT`
   - optional
@@ -264,11 +264,11 @@ The kubeconfig file for the administrator can be created as follows:
 
  - If you have already used Kubernetes with a non-custom cluster (for example, used a Getting Started
    Guide), you will already have a `$HOME/.kube/config` file.
- - You need to add certs, keys, and the master IP to the kubeconfig file:
+ - You need to add certs, keys, and the control-plane IP to the kubeconfig file:
     - If using the firewall-only security option, set the apiserver this way:
-      - `kubectl config set-cluster $CLUSTER_NAME --server=http://$MASTER_IP --insecure-skip-tls-verify=true`
+      - `kubectl config set-cluster $CLUSTER_NAME --server=http://$CONTROL_PLANE_IP --insecure-skip-tls-verify=true`
     - Otherwise, do this to set the apiserver ip, client certs, and user credentials.
-      - `kubectl config set-cluster $CLUSTER_NAME --certificate-authority=$CA_CERT --embed-certs=true --server=https://$MASTER_IP`
+      - `kubectl config set-cluster $CLUSTER_NAME --certificate-authority=$CA_CERT --embed-certs=true --server=https://$CONTROL_PLANE_IP`
       - `kubectl config set-credentials $USER --client-certificate=$CLI_CERT --client-key=$CLI_KEY --embed-certs=true --token=$TOKEN`
     - Set your cluster as the default cluster to use:
       - `kubectl config set-context $CONTEXT_NAME --cluster=$CLUSTER_NAME --user=$USER`
@@ -396,22 +396,22 @@ Arguments to consider:
   - `--cluster-domain=` to the dns domain prefix to use for cluster DNS addresses.
   - `--docker-root=`
   - `--root-dir=`
-  - `--pod-cidr=` The CIDR to use for pod IP addresses, only used in standalone mode.  In cluster mode, this is obtained from the master.
+  - `--pod-cidr=` The CIDR to use for pod IP addresses, only used in standalone mode.  In cluster mode, this is obtained from the control plane.
   - `--register-node` (described in [Node](/docs/admin/node/) documentation.)
 
 ### kube-proxy
 
-All nodes should run kube-proxy.  (Running kube-proxy on a "master" node is not
+All nodes should run kube-proxy.  (Running kube-proxy on a control-plane node is not
 strictly required, but being consistent is easier.)   Obtain a binary as described for
 kubelet.
 
 Arguments to consider:
 
   - If following the HTTPS security approach:
-    - `--master=https://$MASTER_IP`
+    - `--master=https://$CONTROL_PLANE_IP`
     - `--kubeconfig=/var/lib/kube-proxy/kubeconfig`
   - Otherwise, if taking the firewall-based security approach
-    - `--master=http://$MASTER_IP`
+    - `--master=http://$CONTROL_PLANE_IP`
 
 Note that on some Linux platforms, you may need to manually install the
 `conntrack` package which is a dependency of kube-proxy, or else kube-proxy
@@ -469,7 +469,7 @@ various Getting Started Guides.
 ## Bootstrapping the Cluster
 
 While the basic node services (kubelet, kube-proxy, docker) are typically started and managed using
-traditional system administration/automation approaches, the remaining *master* components of Kubernetes are
+traditional system administration/automation approaches, the remaining *control-plane* components of Kubernetes are
 all configured and managed *by Kubernetes*:
 
   - Their options are specified in a Pod spec (yaml or json) rather than an /etc/init.d file or
@@ -503,7 +503,7 @@ To run an etcd instance:
 
 ### Apiserver, Controller Manager, and Scheduler
 
-The apiserver, controller manager, and scheduler will each run as a pod on the master node.
+The apiserver, controller manager, and scheduler will each run as a pod on the control-plane node.
 
 For each of these components, the steps to start them running are similar:
 
@@ -595,7 +595,7 @@ Here are some apiserver flags you may need to set:
 
 - `--cloud-provider=` see [cloud providers](#cloud-providers)
 - `--cloud-config=` see [cloud providers](#cloud-providers)
-- `--address=${MASTER_IP}` *or* `--bind-address=127.0.0.1` and `--address=127.0.0.1` if you want to run a proxy on the master node.
+- `--address=${CONTROL_PLANE_IP}` *or* `--bind-address=127.0.0.1` and `--address=127.0.0.1` if you want to run a proxy on the control-plane machine.
 - `--service-cluster-ip-range=$SERVICE_CLUSTER_IP_RANGE`
 - `--etcd-servers=http://127.0.0.1:4001`
 - `--tls-cert-file=/srv/kubernetes/server.cert`
@@ -607,8 +607,8 @@ Here are some apiserver flags you may need to set:
 If you are following the firewall-only security approach, then use these arguments:
 
 - `--token-auth-file=/dev/null`
-- `--insecure-bind-address=$MASTER_IP`
-- `--advertise-address=$MASTER_IP`
+- `--insecure-bind-address=$CONTROL_PLANE_IP`
+- `--advertise-address=$CONTROL_PLANE_IP`
 
 If you are using the HTTPS approach, then set:
 

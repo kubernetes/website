@@ -18,7 +18,7 @@ If you run into any problems or want help with anything, we are here to help. Re
 
 ## Clusters of VMs or Physical Servers, your choice.
 
-- We support Kubernetes clusters on both Virtual Machines or Physical Servers. If you want to use physical servers for the worker nodes (minions), simple use the --minion_type=bareMetal flag.
+- We support Kubernetes clusters on both Virtual Machines or Physical Servers. If you want to use physical servers for the {{ < glossary_tooltip text="node" term_id="node" >}}, simple use the `--minion_type=bareMetal` flag.
 - For more information on physical servers, visit: [https://www.ctl.io/bare-metal/](https://www.ctl.io/bare-metal/)
 - Physical serves are only available in the VA1 and GB3 data centers.
 - VMs are available in all 13 of our public cloud locations
@@ -185,19 +185,19 @@ Kubernetes Cluster. We hope to add a scripted option to do this soon.
 
 ## Examples
 
-Create a cluster with name of k8s_1, 1 master node and 3 worker minions (on physical machines), in VA1
+Create a cluster with name of k8s_1, 1 control-plane machine and 3 nodes (on physical machines), in VA1
 
 ```shell
 bash kube-up.sh --clc_cluster_name=k8s_1 --minion_type=bareMetal --minion_count=3 --datacenter=VA1
 ```
 
-Create a cluster with name of k8s_2, an ha etcd cluster on 3 VMs and 6 worker minions (on VMs), in VA1
+Create a cluster with name of k8s_2, an ha etcd cluster on 3 VMs and 6 nodes (on VMs), in VA1
 
 ```shell
 bash kube-up.sh --clc_cluster_name=k8s_2 --minion_type=standard --minion_count=6 --datacenter=VA1 --etcd_separate_cluster=yes
 ```
 
-Create a cluster with name of k8s_3, 1 master node, and 10 worker minions (on VMs) with higher mem/cpu, in UC1:
+Create a cluster with name of k8s_3, 1 control-plane machine, and 10 nodes (on VMs) with higher mem/cpu, in UC1:
 
 ```shell
 bash kube-up.sh --clc_cluster_name=k8s_3 --minion_type=standard --minion_count=10 --datacenter=VA1 -mem=6 -cpu=4
@@ -254,13 +254,13 @@ kubectl cluster-info
 
 It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/using-api/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice. 
 
-To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to the master apiserver via https:
+To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to control plane via https:
 
 ```shell
 curl \
    --cacert ${CLC_CLUSTER_HOME}/pki/ca.crt  \
    --key ${CLC_CLUSTER_HOME}/pki/kubecfg.key \
-   --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt  https://${MASTER_IP}:6443
+   --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt  https://${CONTROL_PLANE_IP}:6443
 ```
 
 But please note, this *does not* work out of the box with the ```curl``` binary
@@ -271,11 +271,11 @@ distributed with macOS.
 We install [the kubernetes dashboard](/docs/tasks/web-ui-dashboard/). When you
 create a cluster, the script should output URLs for these interfaces like this:
 
-kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```.
+kubernetes-dashboard is running at ```https://${CONTROL_PLANE_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```.
 
 Note on Authentication to the UIs: The cluster is set up to use basic
 authentication for the user _admin_.   Hitting the url at
-```https://${MASTER_IP}:6443``` will require accepting the self-signed certificate
+```https://${CONTROL_PLANE_IP}:6443``` will require accepting the self-signed certificate
 from the apiserver, and then presenting the admin password written to file at:
 
 ```> _${CLC_CLUSTER_HOME}/kube/admin_password.txt_```
@@ -287,7 +287,7 @@ Various configuration files are written into the home directory *CLC_CLUSTER_HOM
 ```.clc_kube/${CLC_CLUSTER_NAME}``` in several subdirectories. You can use these files
 to access the cluster from machines other than where you created the cluster from.
 
-* ```config/```: Ansible variable files containing parameters describing the master and minion hosts
+* ```config/```: Ansible variable files containing parameters describing the control plane and nodes
 * ```hosts/```: hosts files listing access information for the ansible playbooks
 * ```kube/```: ```kubectl``` configuration files, and the basic-authentication password for admin access to the Kubernetes API
 * ```pki/```: public key infrastructure files enabling TLS communication in the cluster

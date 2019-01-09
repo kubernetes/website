@@ -3,15 +3,15 @@ reviewers:
 - dchen1107
 - roberthbailey
 - liggitt
-title: Master-Node communication
+title: Control-plane communication
 content_template: templates/concept
 weight: 20
 ---
 
 {{% capture overview %}}
 
-This document catalogs the communication paths between the master (really the
-apiserver) and the Kubernetes cluster. The intent is to allow users to
+This document catalogs the communication paths between the control plane
+and the Kubernetes cluster. The intent is to allow users to
 customize their installation to harden the network configuration such that
 the cluster can be run on an untrusted network (or on fully public IPs on a
 cloud provider).
@@ -21,10 +21,10 @@ cloud provider).
 
 {{% capture body %}}
 
-## Cluster to Master
+## Cluster to control plane
 
-All communication paths from the cluster to the master terminate at the
-apiserver (none of the other master components are designed to expose remote
+All communication paths from the cluster to the control plane terminate at the
+apiserver (none of the other control-plane components are designed to expose remote
 services). In a typical deployment, the apiserver is configured to listen for
 remote connections on a secure HTTPS port (443) with one or more forms of
 client [authentication](/docs/reference/access-authn-authz/authentication/) enabled.
@@ -47,15 +47,15 @@ The `kubernetes` service (in all namespaces) is configured with a virtual IP
 address that is redirected (via kube-proxy) to the HTTPS endpoint on the
 apiserver.
 
-The master components also communicate with the cluster apiserver over the secure port.
+The control-plane components also communicate with the cluster apiserver over the secure port.
 
 As a result, the default operating mode for connections from the cluster
-(nodes and pods running on the nodes) to the master is secured by default
+(nodes and pods running on the nodes) to the control plane is secured by default
 and can run over untrusted and/or public networks.
 
-## Master to Cluster
+## Control plane to cluster
 
-There are two primary communication paths from the master (apiserver) to the
+There are two primary communication paths from the control plane to the
 cluster. The first is from the apiserver to the kubelet process which runs on
 each node in the cluster. The second is from the apiserver to any node, pod,
 or service through the apiserver's proxy functionality.

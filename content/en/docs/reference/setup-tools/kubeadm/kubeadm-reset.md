@@ -29,5 +29,5 @@ See the [etcd documentation](https://github.com/coreos/etcd/tree/master/etcdctl)
 
 {{% capture whatsnext %}}
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes node and join it to the cluster
 {{% /capture %}}

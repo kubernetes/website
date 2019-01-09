@@ -180,13 +180,13 @@ The output is:
 
     deployment.extensions "dns-autoscaler" deleted
 
-### Option 3: Delete the dns-autoscaler manifest file from the master node
+### Option 3: Delete the dns-autoscaler manifest file from the control-plane machine
 
 This option works if dns-autoscaler is under control of the
 [Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md)'s
-control, and you have write access to the master node.
+control, and you have write access to the control-plane machine.
 
-Sign in to the master node and delete the corresponding manifest file.
+Sign in to the control-plane machine and delete the corresponding manifest file.
 The common path for this dns-autoscaler is:
 
     /etc/kubernetes/addons/dns-horizontal-autoscaler/dns-horizontal-autoscaler.yaml

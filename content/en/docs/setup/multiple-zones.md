@@ -68,7 +68,7 @@ work if you directly specify an EBS volume in the pod spec (for example).
 federation support).
 
 * Although your nodes are in multiple zones, kube-up currently builds
-a single master node by default.  While services are highly
+a single control-plane machine by default.  While services are highly
 available and can tolerate the loss of a zone, the control plane is
 located in a single zone.  Users that want a highly available control
 plane should follow the [high availability](/docs/admin/high-availability) instructions.
@@ -135,9 +135,9 @@ kubernetes-minion-a12q   Ready                      <none>   6m    v1.13.0      
 ### Add more nodes in a second zone
 
 Let's add another set of nodes to the existing cluster, reusing the
-existing master, running in a different zone (us-central1-b or us-west-2b).
+existing control plane, running in a different zone (us-central1-b or us-west-2b).
 We run kube-up again, but by specifying `KUBE_USE_EXISTING_MASTER=true`
-kube-up will not create a new master, but will reuse one that was previously
+kube-up will not create a new control-plane machine, but will reuse one that was previously
 created instead.
 
 GCE:
@@ -147,7 +147,7 @@ KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=gce KUBE_GCE_ZO
 ```
 
 On AWS we also need to specify the network CIDR for the additional
-subnet, along with the master internal IP address:
+subnet, along with the control plane's internal IP address:
 
 ```shell
 KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2b NUM_NODES=3 KUBE_SUBNET_CIDR=172.20.1.0/24 MASTER_INTERNAL_IP=172.20.0.9 kubernetes/cluster/kube-up.sh
@@ -202,7 +202,7 @@ EOF
 {{< note >}}
 For version 1.3+ Kubernetes will distribute dynamic PV claims across
 the configured zones. For version 1.2, dynamic persistent volumes were
-always created in the zone of the cluster master
+always created in the zone of the cluster's control-plane machine
 (here us-central1-a / us-west-2a); that issue
 ([#23330](https://github.com/kubernetes/kubernetes/issues/23330))
 was addressed in 1.3+.

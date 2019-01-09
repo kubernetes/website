@@ -8,7 +8,7 @@ content_template: templates/concept
 weight: 30
 ---
 {{% capture overview %}}
-This command initializes a Kubernetes worker node and joins it to the cluster.
+This command initializes a Kubernetes {{< glossary_tooltip text="node" term_id="node" >}} and joins it to the cluster.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -16,7 +16,7 @@ This command initializes a Kubernetes worker node and joins it to the cluster.
 
 ### The joining workflow
 
-`kubeadm join` bootstraps a Kubernetes worker node and joins it to the cluster.
+`kubeadm join` bootstraps a Kubernetes {{< glossary_tooltip text="node" term_id="node" >}} and joins it to the cluster.
 This action consists of the following steps:
 
 1. kubeadm downloads necessary cluster information from the API server.
@@ -25,7 +25,7 @@ This action consists of the following steps:
    file or URL.
 
 1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
-   it first retrieves the kubelet init configuration from the master and writes it to
+   it first retrieves the kubelet init configuration from the control plane and writes it to
    the disk. When kubelet starts up, kubeadm updates the node `Node.spec.configSource` property of the node.
    See [Set Kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
    and [Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/)
@@ -69,14 +69,14 @@ kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert
 **Advantages:**
 
  - Allows bootstrapping nodes to securely discover a root of trust for the
-   master even if other worker nodes or the network are compromised.
+   control plane even if other nodes or the network are compromised.
 
  - Convenient to execute manually since all of the information required fits
    into a single `kubeadm join` command that is easy to copy and paste.
 
 **Disadvantages:**
 
- - The CA hash is not normally known until the master has been provisioned,
+ - The CA hash is not normally known until the control plane has been provisioned,
    which can make it more difficult to build automated provisioning tools that
    use kubeadm. By generating your CA in beforehand, you may workaround this
    limitation though.
@@ -86,7 +86,7 @@ kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert
 _This was the default in Kubernetes 1.7 and earlier_, but comes with some
 important caveats. This mode relies only on the symmetric token to sign
 (HMAC-SHA256) the discovery information that establishes the root of trust for
-the master. It's still possible in Kubernetes 1.8 and above using the
+the control plane. It's still possible in Kubernetes 1.8 and above using the
 `--discovery-token-unsafe-skip-ca-verification` flag, but you should consider
 using one of the other modes if possible.
 
@@ -100,19 +100,19 @@ kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-ve
 
  - Still protects against many network-level attacks.
 
- - The token can be generated ahead of time and shared with the master and
-   worker nodes, which can then bootstrap in parallel without coordination. This
+ - The token can be generated ahead of time and shared with the control plane and
+   nodes, which can then bootstrap in parallel without coordination. This
    allows it to be used in many provisioning scenarios.
 
 **Disadvantages:**
 
  - If an attacker is able to steal a bootstrap token via some vulnerability,
    they can use that token (along with network-level access) to impersonate the
-   master to other bootstrapping nodes. This may or may not be an appropriate
+   control plane to other bootstrapping nodes. This may or may not be an appropriate
    tradeoff in your environment.
 
 #### File or HTTPS-based discovery
-This provides an out-of-band way to establish a root of trust between the master
+This provides an out-of-band way to establish a root of trust between the control plane
 and bootstrapping nodes.   Consider using this mode if you are building automated provisioning
 using kubeadm.
 
@@ -125,12 +125,12 @@ using kubeadm.
 **Advantages:**
 
  - Allows bootstrapping nodes to securely discover a root of trust for the
-   master even if the network or other worker nodes are compromised.
+   control plane even if the network or other nodes are compromised.
 
 **Disadvantages:**
 
  - Requires that you have some way to carry the discovery information from
-   the master to the bootstrapping nodes. This might be possible, for example,
+   the control plane to the bootstrapping nodes. This might be possible, for example,
    via your cloud provider or provisioning tool. The information in this file is
    not secret, but HTTPS or equivalent is required to ensure its integrity.
 
@@ -169,7 +169,7 @@ Only after `kubectl certificate approve` has been run, `kubeadm join` can procee
 #### Turning off public access to the cluster-info ConfigMap
 
 In order to achieve the joining flow using the token as the only piece of validation information, a
- ConfigMap with some data needed for validation of the master's identity is exposed publicly by
+ ConfigMap with some data needed for validation of the control plane's identity is exposed publicly by
 default. While there is no private data in this ConfigMap, some users might wish to turn
 it off regardless. Doing so will disable the ability to use the `--discovery-token` flag of the
 `kubeadm join` flow. Here are the steps to do so:

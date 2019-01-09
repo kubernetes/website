@@ -50,7 +50,7 @@ to enable the DynamicKubeletConfiguration feature.
 
 ## kubeadm alpha preflight node {#cmd-phase-preflight}
 
-You can use the `node` sub command to run preflight checks on a worker node.
+You can use the `node` sub command to run preflight checks on a node.
 
 {{< tabs name="tab-preflight" >}}
 {{< tab name="preflight" include="generated/kubeadm_alpha_preflight.md" />}}

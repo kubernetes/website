@@ -10,7 +10,7 @@ content_template: templates/concept
 
 This document describes several topics related to the lifecycle of a cluster: creating a new cluster,
 upgrading your cluster's
-master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
+control plane and nodes, performing machine maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
 running cluster.
 
 {{% /capture %}}
@@ -35,8 +35,8 @@ currently user-initiated and is described in the [Azure AKS documentation](https
 
 ### Upgrading Google Compute Engine clusters
 
-Google Compute Engine Open Source (GCE-OSS) support master upgrades by deleting and
-recreating the master, while maintaining the same Persistent Disk (PD) to ensure that data is retained across the
+Google Compute Engine Open Source (GCE-OSS) support control-plane upgrades by deleting and
+recreating the control-plane machine, while maintaining the same Persistent Disk (PD) to ensure that data is retained across the
 upgrade.
 
 Node upgrades for GCE use a [Managed Instance Group](https://cloud.google.com/compute/docs/instance-groups/), each node
@@ -47,7 +47,7 @@ Upgrades on open source Google Compute Engine (GCE) clusters are controlled by t
 
 Get its usage by running `cluster/gce/upgrade.sh -h`.
 
-For example, to upgrade just your master to a specific version (v1.0.2):
+For example, to upgrade just your control plane to a specific version (v1.0.2):
 
 ```shell
 cluster/gce/upgrade.sh -M v1.0.2
@@ -61,7 +61,7 @@ cluster/gce/upgrade.sh release/stable
 
 ### Upgrading Google Kubernetes Engine clusters
 
-Google Kubernetes Engine automatically updates master components (e.g. `kube-apiserver`, `kube-scheduler`) to the latest version. It also handles upgrading the operating system and other components that the master runs on.
+Google Kubernetes Engine automatically updates control-plane components (e.g. `kube-apiserver`, `kube-scheduler`) to the latest version. It also handles upgrading the operating system and other components that the control plane runs on.
 
 The node upgrade process is user-initiated and is described in the [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade).
 

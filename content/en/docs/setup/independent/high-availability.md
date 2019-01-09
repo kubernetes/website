@@ -43,10 +43,10 @@ For both methods you need this infrastructure:
 
 - Three machines that meet [kubeadm's minimum
   requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for
-  the masters
+  the control-plane machines
 - Three machines that meet [kubeadm's minimum
   requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for
-  the workers
+  the nodes
 - Full network connectivity between all machines in the cluster (public or
   private network)
 - sudo privileges on all machines
@@ -338,11 +338,11 @@ To summarize:
 
 [Follow these instructions](/docs/setup/independent/create-cluster-kubeadm/#pod-network) to install
 the pod network. Make sure this corresponds to whichever pod CIDR you provided
-in the master configuration file.
+in the control-plane configuration file.
 
-### Install workers
+### Install nodes
 
-Each worker node can now be joined to the cluster with the command returned from any of the
-`kubeadm init` commands. The flag `--experimental-control-plane` should not be added to worker nodes.
+Each node can now be joined to the cluster with the command returned from any of the
+`kubeadm init` commands. The flag `--experimental-control-plane` should not be added to nodes.
 
 {{% /capture %}}

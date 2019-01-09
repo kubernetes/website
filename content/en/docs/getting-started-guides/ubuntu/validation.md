@@ -31,7 +31,7 @@ End-to-end tests will pass on a properly running CDK cluster outside of bugs in 
 ### Deploy kubernetes-e2e charm
 
 To deploy the end-to-end test suite, you need to relate the `kubernetes-e2e` charm
-to your existing kubernetes-master nodes and easyrsa:
+to your existing control plane and easyrsa:
 
 ```
 juju deploy cs:~containers/kubernetes-e2e

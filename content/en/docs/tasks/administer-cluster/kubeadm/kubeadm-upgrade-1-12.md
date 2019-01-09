@@ -35,7 +35,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
 ## Upgrade the control plane
 
-1.  On your master node, upgrade kubeadm:
+1.  On the control-plane machine, upgrade kubeadm:
 
     {{< tabs name="k8s_install" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -54,7 +54,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     kubeadm version
     ```
 
-1.  On the master node, run:
+1.  On the control-plane machine, run:
 
     ```shell
     kubeadm upgrade plan
@@ -199,7 +199,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
     find your CNI provider and see whether additional upgrade steps are required.
 
-## Upgrade master and node packages
+## Upgrade control-plane and node packages
 
 1.  Prepare each node for maintenance, marking it unschedulable and evicting the workloads:
 
@@ -207,7 +207,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     kubectl drain $NODE --ignore-daemonsets
     ```
 
-    On the master node, you must add `--ignore-daemonsets`:
+    On the control-plane machine, you must add `--ignore-daemonsets`:
 
     ```shell
     kubectl drain ip-172-31-85-18
@@ -240,7 +240,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
 ## Upgrade kubelet on each node
 
-1.  On each node except the master node, upgrade the kubelet config:
+1.  On each node except the control-plane machine, upgrade the kubelet config:
 
     ```shell
     sudo kubeadm upgrade node config --kubelet-version $(kubelet --version | cut -d ' ' -f 2)

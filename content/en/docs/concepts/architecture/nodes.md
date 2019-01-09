@@ -9,12 +9,11 @@ weight: 10
 
 {{% capture overview %}}
 
-A node is a worker machine in Kubernetes, previously known as a `minion`. A node
-may be a VM or physical machine, depending on the cluster. Each node contains
-the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is managed by the master
-components. The services on a node include the [container runtime](/docs/concepts/overview/components/#node-components), kubelet and kube-proxy. See
-[The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the
-architecture design doc for more details.
+A node is a machine that can run Kubernetes pods.
+A node may be a VM or physical machine, depending on the cluster.
+Each node contains the services necessary to run [pods](/docs/concepts/workloads/pods/pod/) and is managed by the control plane.
+The services on a node include the [container runtime](/docs/concepts/overview/components/#node-components), kubelet and kube-proxy.
+See [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the architecture design doc for more details.
 
 {{% /capture %}}
 
@@ -137,7 +136,7 @@ interface: node controller, kubelet, and kubectl.
 
 ### Node Controller
 
-The node controller is a Kubernetes master component which manages various
+The node controller is a Kubernetes Control Plane component which manages various
 aspects of nodes.
 
 The node controller has multiple roles in a node's life. The first is assigning a
@@ -165,7 +164,7 @@ alpha feature (feature gate `NodeLease`,
 When node lease feature is enabled, each node has an associated `Lease` object in
 `kube-node-lease` namespace that is renewed by the node periodically, and both
 NodeStatus and node lease are treated as heartbeats from the node. Node leases
-are renewed frequently while NodeStatus is reported from node to master only
+are renewed frequently while NodeStatus is reported from node to control plane only
 when there is some change or enough time has passed (default is 1 minute, which
 is longer than the default timeout of 40 seconds for unreachable nodes). Since
 node lease is much more lightweight than NodeStatus, this feature makes node
@@ -173,8 +172,8 @@ heartbeat significantly cheaper from both scalability and performance
 perspectives.
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
-cases when a large number of nodes have problems with reaching the master
-(e.g. because the master has networking problem). Starting with 1.4, the node
+cases when a large number of nodes have problems with reaching the control plane
+(e.g. because the control plane has networking problem). Starting with 1.4, the node
 controller looks at the state of all nodes in the cluster when making a
 decision about pod eviction.
 
@@ -192,7 +191,7 @@ if the cluster is small (i.e. has less than or equal to
 stopped, otherwise the eviction rate is reduced to
 `--secondary-node-eviction-rate` (default 0.01) per second. The reason these
 policies are implemented per availability zone is because one availability zone
-might become partitioned from the master while the others remain connected. If
+might become partitioned from the control plane while the others remain connected. If
 your cluster does not span multiple cloud provider availability zones, then
 there is only one availability zone (the whole cluster).
 
@@ -201,7 +200,7 @@ workload can be shifted to healthy zones when one entire zone goes down.
 Therefore, if all nodes in a zone are unhealthy then node controller evicts at
 the normal rate `--node-eviction-rate`.  The corner case is when all zones are
 completely unhealthy (i.e. there are no healthy nodes in the cluster). In such
-case, the node controller assumes that there's some problem with master
+case, the node controller assumes that there's some problem with control-plane
 connectivity and stops all evictions until some connectivity is restored.
 
 Starting in Kubernetes 1.6, the NodeController is also responsible for evicting
@@ -227,7 +226,7 @@ For self-registration, the kubelet is started with the following options:
   - `--register-with-taints` - Register the node with the given list of taints (comma separated `<key>=<value>:<effect>`). No-op if `register-node` is false.
   - `--node-ip` - IP address of the node.
   - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
-  - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
+  - `--node-status-update-frequency` - Specifies how often kubelet posts node status to the control plane.
 
 When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and 
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,

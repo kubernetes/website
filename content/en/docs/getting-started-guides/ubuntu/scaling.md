@@ -4,7 +4,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows how to horizontally scale master and worker nodes on a cluster.
+This page shows how to horizontally scale the control plane and nodes on a cluster.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -19,27 +19,26 @@ watch -c juju status --color
 {{% /capture %}}
 
 {{% capture steps %}}
-## Kubernetes masters
+## Kubernetes control plane
 
-The provided Kubernetes master nodes act as a control plane for the cluster.
-The deployment has been designed so that these nodes can be scaled independently
-of worker nodes to allow for more operational flexibility.
-To scale a master node up, simply execute:
+The provided deployment has been designed so that the control plane can be scaled independently
+of nodes to allow for more operational flexibility.
+To scale the control plane up, simply execute:
 
     juju add-unit kubernetes-master
 
-This will add another master node to the control plane.
+This will add another control-plane machine to the control plane.
 See the [building high-availability clusters](/docs/admin/high-availability)
 section of the documentation for more information.
 
-## Kubernetes workers
+## Kubernetes nodes
 
-The kubernetes-worker nodes are the load-bearing units of a Kubernetes cluster.
+The nodes are the load-bearing units of a Kubernetes cluster.
 
-By default pods are automatically spread throughout the kubernetes-worker units
+By default pods are automatically spread throughout the node
 that you have deployed.
 
-To add more kubernetes-worker units to the cluster:
+To add more nodes to the cluster:
 
 ```
 juju add-unit kubernetes-worker
@@ -54,7 +53,7 @@ juju add-unit kubernetes-worker
 
 Refer to the
 [machine constraints documentation](https://jujucharms.com/docs/stable/charms-constraints)
-for other machine constraints that might be useful for the kubernetes-worker units.
+for other machine constraints that might be useful for the nodes.
 
 ## etcd
 

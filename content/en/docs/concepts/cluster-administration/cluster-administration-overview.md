@@ -34,7 +34,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 ## Managing a cluster
 
-* [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
+* [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s control plane and nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
 
 * Learn how to [manage nodes](/docs/concepts/nodes/node/).
 
@@ -59,7 +59,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 * [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
 ### Securing the kubelet
-  * [Master-Node communication](/docs/concepts/architecture/master-node-communication/)
+  * [Control-plane communication](/docs/concepts/architecture/control-plane-communication/)
   * [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
   * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
 

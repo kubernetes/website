@@ -188,7 +188,7 @@ If you're not running Kubernetes or a similar automated system, you might find t
 
 This process can be tedious and also inconvenient, especially if (2) happens in the early hours of the morning!
 
-**If you have Kubernetes set up, however, manual intervention is not as necessary.** The Kubernetes {{< link text="control plane" url="/docs/concepts/overview/components/#master-components" >}}, which runs on your cluster's master node, gracefully handles (3) and (4) on your behalf. As a result, Kubernetes is often referred to as a *self-healing* system.
+**If you have Kubernetes set up, however, manual intervention is not as necessary.** The Kubernetes {{< link text="control plane" url="/docs/concepts/overview/components/#control-plane-components" >}} gracefully handles (3) and (4) on your behalf. As a result, Kubernetes is often referred to as a *self-healing* system.
 
 There are two key parts of the control plane that facilitate this behavior: the *Kubernetes API server* and the *Controllers*.
 

@@ -12,15 +12,15 @@ deliver a functioning Kubernetes cluster.
 {{% /capture %}}
 
 {{% capture body %}}
-## Master Components
+## Control-Plane Components
 
-Master components provide the cluster's control plane. Master components make global decisions about the
+Control-plane components make global decisions about the
 cluster (for example, scheduling), and detecting and responding to cluster events (starting up a new pod when a replication controller's 'replicas' field is unsatisfied).
 
-Master components can be run on any machine in the cluster. However,
-for simplicity, set up scripts typically start all master components on
+Control-plane components can be run on any machine in the cluster. However,
+for simplicity, set up scripts typically start all control-plane components on
 the same machine, and do not run user containers on this machine. See
-[Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
+[Building High-Availability Clusters](/docs/admin/high-availability/) for an example setup.
 
 ### kube-apiserver
 
