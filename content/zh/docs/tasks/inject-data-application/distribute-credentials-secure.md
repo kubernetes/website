@@ -32,23 +32,20 @@ base-64 形式的密码为 `Mzk1MjgkdmRnN0pi`。
 
 这里是一个配置文件，可以用来创建存有用户名和密码的 Secret:
 
-{{< code file="secret.yaml" >}}
-
-<!--
-kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
--->
+{{< codenew file="pods/inject/secret.yaml" >}}
 
 1. 创建 Secret
 
     ```shell
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret.yaml
     ```  
 
     {{< note >}}
     **注意：** 如果想要跳过 Base64 编码的步骤，可以使用 `kubectl create secret` 命令来创建 Secret：
     {{< /note >}}
+
     ```shell
-       kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
+    kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
     ```
 
 1. 查看 Secret 相关信息：
@@ -58,11 +55,11 @@ kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
     输出：
 	
     ```shell
-        NAME          TYPE      DATA      AGE
-        test-secret   Opaque    2         1m
+    NAME          TYPE      DATA      AGE
+    test-secret   Opaque    2         1m
     ```
 
-3. 查看 Secret 相关的更多详细信息：
+1. 查看 Secret 相关的更多详细信息：
 
        kubectl describe secret test-secret
 
@@ -86,7 +83,7 @@ kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
 
 这里是一个可以用来创建 pod 的配置文件：
 
-{{< code file="secret-pod.yaml" >}}
+{{< codenew file="pods/inject/secret-pod.yaml" >}}
 
 1. 创建 Pod：
 
@@ -148,16 +145,12 @@ kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
 
 这里是一个可以用来创建 pod 的配置文件：
 
-{{< code file="secret-envars-pod.yaml" >}}
-
-<!--
-kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
--->
+{{< codenew file="pods/inject/secret-envars-pod.yaml" >}}
 
 1. 创建 Pod：
 
     ```shell
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
+       kubectl create -f https://k8s.io/examples/pods/inject/secret-envars-pod.yaml
     ```
 
 1. 确认 Pod 正在运行：

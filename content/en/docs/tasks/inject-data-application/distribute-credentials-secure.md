@@ -40,7 +40,7 @@ username and password:
 1. Create the Secret
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret.yaml
     ```
 
 1. View information about the Secret:
@@ -90,7 +90,7 @@ Here is a configuration file you can use to create a Pod:
 1. Create the Pod:
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret-pod.yaml
     ```
 
 1. Verify that your Pod is running:
@@ -145,7 +145,7 @@ Here is a configuration file you can use to create a Pod:
 1. Create the Pod:
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-pod.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret-envars-pod.yaml
     ```
 
 1. Verify that your Pod is running:
