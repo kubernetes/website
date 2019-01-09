@@ -290,7 +290,7 @@ make brodocs
 Verify that you have the brodocs image:
 -->
 
-确认 brodocs 镜像是否存在
+确认 brodocs 镜像是否存在：
 
 ```shell
 docker images
