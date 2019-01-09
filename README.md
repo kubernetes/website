@@ -2,7 +2,9 @@
 
 # Kubernetes文档
 
-Welcome! This repository houses all of the assets required to build the Kubernetes website and documentation. We're very pleased that you want to contribute!
+<!-- Welcome! This repository houses all of the assets required to build the Kubernetes website and documentation. We're very pleased that you want to contribute! -->
+
+欢迎光临!这个存储库存储构建Kubernetes网站和文档所需的所有资产。我们很高兴你愿意贡献自己的力量!
 
 ## Contributing to the docs
 
