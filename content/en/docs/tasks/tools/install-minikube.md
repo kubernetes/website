@@ -94,7 +94,7 @@ After Minikube has finished installing, close the current CLI session and restar
 
 #### Windows manual installation
 
-To install Minikube manually on Windows, download [`minikube-windows-amd64.exe`](https://github.com/kubernetes/minikube/releases/download/latest/minikube-windows-amd64), rename it to `minikube.exe`, and add it to your path.
+To install Minikube manually on Windows, download [`minikube-windows-amd64.exe`](https://github.com/kubernetes/minikube/releases/latest), rename it to `minikube.exe`, and add it to your path.
 
 #### Windows Installer
 
