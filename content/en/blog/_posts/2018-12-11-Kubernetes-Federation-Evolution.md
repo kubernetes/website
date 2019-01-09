@@ -51,7 +51,7 @@ By default, Kubernetes clusters come preconfigured with a cluster-local DNS serv
 
 With the introduction of Federated Services and Cross-Cluster Service Discovery, this concept is extended to cover Kubernetes services running in any other cluster across your Cluster Federation, globally. To take advantage of this extended range, you use a slightly different DNS name (e.g. `myservice.mynamespace.myfederation`) to resolve federated services. Using a different DNS name also avoids having your existing applications accidentally traversing cross-zone or cross-region networks and you incurring perhaps unwanted network charges or latency, without you explicitly opting in to this behavior.
 
-Lets consider an example: (The example uses a service named `nginx` and the query name for described above)
+Let's consider an example: (The example uses a service named `nginx` and the query name for described above)
 
 A Pod in a cluster in the `us-central1-a` availability zone needs to contact our `nginx` service. Rather than use the service’s traditional cluster-local DNS name (`nginx.mynamespace`, which is automatically expanded to `nginx.mynamespace.svc.cluster.local`) it can now use the service’s Federated DNS name, which is `nginx.mynamespace.myfederation`. This will be automatically expanded and resolved to the closest healthy shard of my `nginx` service, wherever in the world that may be. If a healthy shard exists in the local cluster, that service’s cluster-local IP address will be returned (by the cluster-local DNS). This is exactly equivalent to non-federated service resolution.
 

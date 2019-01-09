@@ -49,7 +49,7 @@ You can still access services in other namespaces by looking it up via the full 
 
 ####  An Example
 
-Lets look at an example application. Let’s say you want to deploy your music store service MyTunes in Kubernetes. You can run the application production and staging environment as well as some one-off apps running in the same cluster. You can get a better idea of what’s going on by running some commands:
+Let's look at an example application. Let’s say you want to deploy your music store service MyTunes in Kubernetes. You can run the application production and staging environment as well as some one-off apps running in the same cluster. You can get a better idea of what’s going on by running some commands:
 
 
 

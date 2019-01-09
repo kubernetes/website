@@ -41,7 +41,7 @@ $ curl $NODE_IP:$NODE_PORT
 ```
 This is a sanity check that things are working as expected. If the last step hangs, you might need a [firewall rule](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/BETA_LIMITATIONS.md#creating-the-firewall-rule-for-glbc-health-checks).  
 
-Now lets create our TLS secret:  
+Now let's create our TLS secret:  
 ```
 $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout   
 
