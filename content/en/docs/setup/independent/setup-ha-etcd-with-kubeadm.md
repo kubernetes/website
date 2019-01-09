@@ -46,7 +46,7 @@ this example.
 
 1. Configure the kubelet to be a service manager for etcd.
 
-    Since etcd was created first,You must override the service priority by creating a new unit file
+    Since etcd was created first, you must override the service priority by creating a new unit file
     that has higher precedence than the kubeadm-provided kubelet unit file.
 
     ```sh
