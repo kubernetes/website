@@ -43,7 +43,7 @@ content_template: templates/task
 **注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。 
 {{< /note >}}
 
-创建Pod：
+创建 Pod：
 
 ```shell
 kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-volume.yaml
@@ -61,7 +61,10 @@ kubectl get pods
 kubectl logs kubernetes-downwardapi-volume-example
 ```
 
-输出显示`labels`和`annotations`文件的内容：
+<!--
+The output shows the contents of the labels file and the annotations file:
+-->
+输出显示 `labels` 和 `annotations` 文件的内容：
 
 ```shell
 cluster="test-cluster1"
