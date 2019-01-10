@@ -29,6 +29,12 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
   That is, you cannot skip versions when you upgrade.
   For example, you can upgrade only from 1.10 to 1.11, not from 1.9 to 1.11.
 
+{{< warning >}}
+The command `join --experimental-control-plane` is known to fail on single node clusters created with kubeadm v1.12 and then upgraded to v1.13.x.
+This will be fixed when graduating the `join --control-plane` workflow from alpha to beta.
+A possible workaround is described [here](https://github.com/kubernetes/kubeadm/issues/1269#issuecomment-441116249).
+{{</ warning >}}
+
 {{% /capture %}}
 
 {{% capture steps %}}
