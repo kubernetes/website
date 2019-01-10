@@ -16,7 +16,7 @@ and control plane nodes are co-located.
 - With an external etcd cluster. This approach requires more infrastructure. The
 control plane nodes and etcd members are separated.
 
-Before proceeding, you should carefully consideer which approach best meets the needs of your applications
+Before proceeding, you should carefully consider which approach best meets the needs of your applications
 and environment. [This comparison topic](/docs/setup/independent/ha-topology/) outlines the advantages and disadvantages of each.
 
 Your clusters must run Kubernetes version 1.12 or later. You should also be aware that
@@ -74,7 +74,7 @@ run as root.
 {{< /note >}}
 
 - Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-  some like Weave do not. See the see [the CNI network
+  some like Weave do not. See the [CNI network
   documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
   To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
   the `networking` object of `ClusterConfiguration`.

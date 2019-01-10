@@ -40,15 +40,8 @@ username and password:
 1. Create the Secret
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret.yaml
     ```
-
-    {{< note >}}
- If you want to skip the Base64 encoding step, you can create a Secret by using the `kubectl create secret` command:
- ```shell
- kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
- ```
-    {{< /note >}}
 
 1. View information about the Secret:
 
@@ -97,7 +90,7 @@ Here is a configuration file you can use to create a Pod:
 1. Create the Pod:
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret-pod.yaml
     ```
 
 1. Verify that your Pod is running:
@@ -152,7 +145,7 @@ Here is a configuration file you can use to create a Pod:
 1. Create the Pod:
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-pod.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret-envars-pod.yaml
     ```
 
 1. Verify that your Pod is running:

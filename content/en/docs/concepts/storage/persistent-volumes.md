@@ -461,7 +461,7 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Volume Modes
 
-Claims use the same convention as volumes to indicates the consumption of the volume as either a filesystem or block device.
+Claims use the same convention as volumes to indicate the consumption of the volume as either a filesystem or block device.
 
 ### Resources
 

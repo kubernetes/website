@@ -288,9 +288,6 @@ $ kubectl get ds --include-uninitialized
 
 // List all pods running on node server01
 $ kubectl get pods --field-selector=spec.nodeName=server01
-
-// List all pods in plain-text output format, delegating the details of printing to the server
-$ kubectl get pods --experimental-server-print
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.

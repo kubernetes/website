@@ -85,7 +85,8 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 1. Run the installation command:
 
     ```
-    port install kubectl
+    sudo port selfupdate
+    sudo port install kubectl
     ```
     
 2. Test to ensure the version you installed is sufficiently up-to-date:

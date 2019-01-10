@@ -108,8 +108,7 @@ What this example would do is write the manifest files for the control plane and
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
-**Caution:** The config file is
-still considered beta and may change in future versions.
+The config file is still considered beta and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
@@ -410,7 +409,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 
 {{% capture whatsnext %}}
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
-`kubadm init` phases
+`kubeadm init` phases
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
