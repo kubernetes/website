@@ -56,6 +56,8 @@ a Kubernetes cluster from scratch.
 
 * [Azure Kubernetes Service](https://azure.microsoft.com/services/container-service/) offers managed Kubernetes clusters.
 
+* [Containership Kubernetes Engine (CKE)](https://containership.io/containership-platform) intuitive Kubernetes cluster provisioning and management on GCP, Azure, AWS, Packet, and DigitalOcean. Seamless version upgrades, autoscaling, metrics, workload creation, and more.
+
 * [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes/) offers managed Kubernetes service.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
@@ -96,6 +98,7 @@ few commands. These solutions are actively developed and have active community s
 * [Azure](/docs/setup/turnkey/azure/)
 * [CenturyLink Cloud](/docs/setup/turnkey/clc/)
 * [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
+* [Containership](https://containership.io/containership-platform)
 * [Gardener](https://gardener.cloud/)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
