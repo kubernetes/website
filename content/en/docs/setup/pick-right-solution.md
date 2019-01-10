@@ -44,7 +44,7 @@ a Kubernetes cluster from scratch.
 
 * [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
 
-* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
+* [Ubuntu on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) supports a nine-instance deployment on localhost with LXD.
 
 ## Hosted Solutions
 
@@ -177,7 +177,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Digital Rebar](/docs/setup/on-premises-metal/krib/)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
-* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
+* [Kubernetes on Ubuntu](https://www.ubuntu.com/kubernetes/docs/quickstart)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 
 ### Integrations
