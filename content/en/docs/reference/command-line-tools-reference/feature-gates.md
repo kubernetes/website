@@ -63,9 +63,11 @@ different Kubernetes components.
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | |
-| `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.11 |
+| `CustomResourceSubresources` | `true` | Beta | 1.11 | - |
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
+| `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | |
 | `DebugContainers` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
@@ -222,6 +224,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `CustomResourceValidation`: Enable schema based validation on resources created from
   [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+- `CustomResourceWebhookConversion`: Enable webhook-based conversion
+  on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to
   troubleshoot a running Pod.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
