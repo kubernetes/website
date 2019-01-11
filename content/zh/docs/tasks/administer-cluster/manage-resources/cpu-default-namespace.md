@@ -310,7 +310,7 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 * [为容器和Pod分配CPU资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [为Pod配置Service数量](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [为Pod配置服务质量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 {{% /capture %}}
 
