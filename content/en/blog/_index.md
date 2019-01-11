@@ -4,7 +4,7 @@ linkTitle: Blog
 menu:
   main:
     title: "Blog"
-    weight: 50
+    weight: 60
     post: >
        <p>Read the latest news for Kubernetes and the containers space in general, and get technical how-tos hot off the presses.</p>
 ---
