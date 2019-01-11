@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'APIServer dry-run and kubectl diff'
-date:
+date: 2019-01-15
 ---
 
 **Author**: Antoine Pelisse (Google Cloud, @apelisse)
@@ -28,7 +28,7 @@ experience with Kubernetes, and we tried to address some of these:
 - It can be difficult to know how your object is going to be applied by the
   server for multiple reasons:
   - Defaulting will set some fields to potentially unexpected values,
-  - Mutating webhooks might set fields or clobber/change somes values.
+  - Mutating webhooks might set fields or clobber/change some values.
   - Patch and merges can have surprising effects and result in unexpected
     objects. For example, it can be hard to know how lists are going to be
     ordered once merged.
