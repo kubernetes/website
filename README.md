@@ -1,26 +1,3 @@
-# The Kubernetes documentation
-
-Welcome! This repository houses all of the assets required to build the Kubernetes website and documentation. We're very pleased that you want to contribute!
-
-## Contributing to the docs
-
-You can click the **Fork** button in the upper-right area of the screen to create a copy of this repository in your GitHub account. This copy is called a *fork*. Make any changes you want in your fork, and when you are ready to send those changes to us, go to your fork and create a new pull request to let us know about it.
-
-Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.  As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**  Also note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one originally assigned to provide you feedback. Furthermore, in some cases, one of your reviewers might ask for a technical review from a [Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers) when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
-
-For more information about contributing to the Kubernetes documentation, see:
-
-* [Start contributing](https://kubernetes.io/docs/contribute/start/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
-* [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
-
-## `README.md`'s Localizing Kubernetes Documentation
-
-### Korean
-
-See translation of `README.md` and more detail guidance for Korean contributors on the [Korean README](README-ko.md) page.
 
 You can reach the maintainers of Korean localization at:
 
