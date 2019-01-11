@@ -1,5 +1,5 @@
 ---
-title: 使用配置文件强制管理 Kubernetes 对象
+title: 使用配置文件指令式管理 Kubernetes 对象
 content_template: templates/concept
 weight: 30
 ---
@@ -18,7 +18,7 @@ Kubernetes objects can be created, updated, and deleted by using the `kubectl`
 command-line tool along with an object configuration file written in YAML or JSON.
 This document explains how to define and manage objects using configuration files.
 -->
-通过使用 `kubectl` 命令行工具以及用 yaml 或 json 格式编写的对象配置文件，用户可以创建、更新和删除 Kubernetes 对象。
+通过使用 `kubectl` 命令行工具和 yaml 或 json 格式编写的对象配置文件，用户可以创建、更新和删除 Kubernetes 对象。
 本文档介绍如何使用配置文件定义和管理对象。
 {{% /capture %}}
 
@@ -27,7 +27,7 @@ This document explains how to define and manage objects using configuration file
 <!--
 ## Trade-offs
 -->
-## 约定
+## 取舍权衡
 
 <!--
 The `kubectl` tool supports three kinds of object management:
@@ -40,8 +40,8 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 -->
-* 强制性命令
-* 强制性对象配置
+* 指令性命令
+* 指令性对象配置
 * 声明式对象配置
 
 <!--
@@ -81,12 +81,11 @@ the `externalIPs` field is managed independently from the configuration
 file.  Independently managed fields must be copied to the configuration
 file to prevent `replace` from dropping them.
 -->
-使用 `replace` 命令更新对象时，将会删除 spec 中的配置文件中未指定的所有内容。
-这不应用于规范部分管理的对象。
+使用 `replace` 命令更新对象时，系统将会删除配置文件的 spec 中未指定的所有内容。
+对于部分上由集群来管理的对象而言，不要使用这种对象管理方式。
 
-通过集群，例如“loadBalancer”类型的服务，其中“externalips”字段独立于配置文件进行管理。
-
-独立管理的字段必须复制到配置文件中，以防止“replace”删除它们。
+例如，对于 `LoadBalancer` 类型的服务而言，其 `externalIPs` 字段值是独立于配置文件进行管理的。
+独立管理的字段必须复制到配置文件中，以防止被 `replace` 操作删除。
 {{< /warning >}}
 
 <!--
@@ -183,7 +182,7 @@ that point to a configuration file that could be modified by the reader.
 
 假设您知道一个对象配置文件的 URL。
 您可以在对象被创建之前使用 `kubectl create --edit` 命令来更改它的配置。
-这对于指向那些读者可修改的配置文件的教程和任务特别有用。
+这对于指向那些读者可修改配置文件的教程和任务特别有用。
 
 ```sh
 kubectl create -f <url> --edit
@@ -192,13 +191,13 @@ kubectl create -f <url> --edit
 <!--
 ## Migrating from imperative commands to imperative object configuration
 -->
-## 从强制性命令迁移到强制性对象配置
+## 从指令性命令迁移到指令性对象配置
 
 <!--
 Migrating from imperative commands to imperative object configuration involves
 several manual steps.
 -->
-从强制性命令迁移到强制性对象配置包括几个手动步骤。
+从指令性命令迁移到指令性对象配置包括几个手动步骤。
 
 
 1. <!--Export the live object to a local object configuration file:-->将存活态的对象导出为本地对象配置文件：
@@ -206,7 +205,7 @@ several manual steps.
 kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
 ```
 1. <!--Manually remove the status field from the object configuration file.-->手动从对象配置文件中移除状态信息。
-1. <!--For subsequent object management, use `replace` exclusively.-->对于后续的对象管理，只使用'replace'。
+1. <!--For subsequent object management, use `replace` exclusively.-->对于后续的对象管理，只使用 `replace`。
 ```sh
 kubectl replace -f <kind>_<name>.yaml
 ```
@@ -220,7 +219,7 @@ kubectl replace -f <kind>_<name>.yaml
 <!--
 Updating selectors on controllers is strongly discouraged.
 -->
-强烈反对更新控制器的选择器。
+强烈不建议更新控制器的选择器。
 {{< /warning >}}
 
 <!--
@@ -254,7 +253,7 @@ template:
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
 
-- [使用强制性命令管理 Kubernetes 对象](/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [使用指令性命令管理 Kubernetes 对象](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [使用对象配置文件（声明式）管理 Kubernetes 对象](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
