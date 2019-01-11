@@ -11,7 +11,7 @@ tags:
 - core-object
 - fundamental
 ---
- A key-value pair and an effect to enable the scheduling of pods on nodes or node groups that have a matching {% glossary_tooltip term_id="taint" %}.
+ A key-value pair and an effect to enable the scheduling of pods on nodes or node groups that have a matching {{< glossary_tooltip text="taints" term_id="taint" >}}.
 
 <!--more-->
 
