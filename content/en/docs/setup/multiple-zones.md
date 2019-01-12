@@ -208,7 +208,7 @@ always created in the zone of the cluster master
 was addressed in 1.3+.
 {{< /note >}}
 
-Now lets validate that Kubernetes automatically labeled the zone & region the PV was created in.
+Now let's validate that Kubernetes automatically labeled the zone & region the PV was created in.
 
 ```shell
 > kubectl get pv --show-labels
