@@ -60,19 +60,19 @@ kubectl create -f https://k8s.io/examples/pods/inject/dapi-envars-pod.yaml
 
 Verify that the Container in the Pod is running:
 
-```
+```shell
 kubectl get pods
 ```
 
 View the Container's logs:
 
-```
+```shell
 kubectl logs dapi-envars-fieldref
 ```
 
 The output shows the values of selected environment variables:
 
-```
+```log
 minikube
 dapi-envars-fieldref
 default
@@ -86,20 +86,20 @@ five environment variables to stdout. It repeats this every ten seconds.
 
 Next, get a shell into the Container that is running in your Pod:
 
-```
+```shell
 kubectl exec -it dapi-envars-fieldref -- sh
 ```
 
 In your shell, view the environment variables:
 
-```
+```shell
 /# printenv
 ```
 
 The output shows that certain environment variables have been assigned the
 values of Pod fields:
 
-```
+```log
 MY_POD_SERVICE_ACCOUNT=default
 ...
 MY_POD_NAMESPACE=default
@@ -135,19 +135,19 @@ kubectl create -f https://k8s.io/examples/pods/inject/dapi-envars-container.yaml
 
 Verify that the Container in the Pod is running:
 
-```
+```shell
 kubectl get pods
 ```
 
 View the Container's logs:
 
-```
+```shell
 kubectl logs dapi-envars-resourcefieldref
 ```
 
 The output shows the values of selected environment variables:
 
-```
+```log
 1
 1
 33554432
