@@ -2,7 +2,7 @@
 <!--
 Generates the static Pod manifest file for a local, single-node etcd instance
 -->
-为本地部署且只有一个节点的 etcd 实例生成静态 Pod 清单文件
+为本地单节点 etcd 实例生成静态 Pod 清单文件
 
 <!--
 ### Synopsis
@@ -12,7 +12,7 @@ Generates the static Pod manifest file for a local, single-node etcd instance
 <!--
 Generates the static Pod manifest file for a local, single-node etcd instance and saves it to /etc/kubernetes/manifests/etcd.yaml file. 
 -->
-为本地部署且只有一个节点的 etcd 实例生成静态 Pod 清单文件，并保存到 /etc/kubernetes/manifests/etcd.yaml 文件中。
+为本地单节点 etcd 实例生成静态 Pod 清单文件，并保存到 /etc/kubernetes/manifests/etcd.yaml 文件中。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
