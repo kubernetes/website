@@ -89,7 +89,7 @@ Kubernetesは...
 
 ## Kubernetesってどういう意味? K8sって何?
 
-**Kubernetes**という名前はギリシャ語で*操舵手*やパイロットという意味があり、知事や[サイバネティックス](http://www.etymonline.com/index.php?term=cybernetics)の語源にもなっています。K8sは、8文字の「ubernete」を「8」に置き換えた略語です。
+**Kubernetes**という名前はギリシャ語で*操舵手*や*パイロット*という意味があり、*知事*や[サイバネティックス](http://www.etymonline.com/index.php?term=cybernetics)の語源にもなっています。*K8s*は、8文字の「ubernete」を「8」に置き換えた略語です。
 
 {{% /capture %}}
 
