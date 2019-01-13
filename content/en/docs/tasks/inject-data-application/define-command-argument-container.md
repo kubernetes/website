@@ -69,7 +69,7 @@ from the Pod:
     The output shows the values of the HOSTNAME and KUBERNETES_PORT environment
     variables:
 
-    ```log
+    ```
     command-demo
     tcp://10.3.240.1:443
     ```

@@ -72,7 +72,7 @@ kubectl logs dapi-envars-fieldref
 
 The output shows the values of selected environment variables:
 
-```log
+```
 minikube
 dapi-envars-fieldref
 default
@@ -99,7 +99,7 @@ In your shell, view the environment variables:
 The output shows that certain environment variables have been assigned the
 values of Pod fields:
 
-```log
+```
 MY_POD_SERVICE_ACCOUNT=default
 ...
 MY_POD_NAMESPACE=default
@@ -147,7 +147,7 @@ kubectl logs dapi-envars-resourcefieldref
 
 The output shows the values of selected environment variables:
 
-```log
+```
 1
 1
 33554432

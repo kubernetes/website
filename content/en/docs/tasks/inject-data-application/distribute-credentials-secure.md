@@ -53,7 +53,7 @@ username and password:
 
     Output:
 
-    ```log
+    ```
     NAME          TYPE      DATA      AGE
     test-secret   Opaque    2         1m
     ```
@@ -66,7 +66,7 @@ username and password:
 
     Output:
 
-    ```log
+    ```
     Name:       test-secret
     Namespace:  default
     Labels:     <none>
