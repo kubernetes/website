@@ -51,7 +51,7 @@ content_template: templates/concept
 
 * [Run and Scale a Distributed Crossword Puzzle App with CI/CD on Kubernetes (Part 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
 
-* [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/ch考えようapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
+* [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
 
 ## クラスタ
 
@@ -61,7 +61,7 @@ content_template: templates/concept
 
 * [Source IPを使う](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
+{{% /capture %}}考
 
 {{% capture whatsnext %}}
 
