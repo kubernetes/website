@@ -61,7 +61,7 @@ content_template: templates/concept
 
 * [Source IPを使う](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}考
+{{% /capture %}}
 
 {{% capture whatsnext %}}
 
