@@ -1,207 +1,101 @@
 ---
-reviewers:
-- bgrant0607
-- mikedanese
-title: What is Kubernetes?
+title: Kubernetesとは何か?
 content_template: templates/concept
 weight: 10
 ---
 
 {{% capture overview %}}
-This page is an overview of Kubernetes.
+このページでは、Kubernetesの概要について説明します。
 {{% /capture %}}
 
 {{% capture body %}}
-Kubernetes is a portable, extensible open-source platform for managing
-containerized workloads and services, that facilitates both
-declarative configuration and automation. It has a large, rapidly
-growing ecosystem. Kubernetes services, support, and tools are widely available.
+Kubernetesは、宣言的な構成管理と自動化を促進し、コンテナ化されたワークロードやサービスを管理するための、ポータブルで拡張性のあるオープンソースプラットホームです。
 
-Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon
-a [decade and a half of experience that Google has with running
-production workloads at
-scale](https://research.google.com/pubs/pub43438.html), combined with
-best-of-breed ideas and practices from the community.
+Kubernetesは膨大で、急速に成長しているエコシステムを備えており、それらのサービス、サポート、ツールは幅広い形で利用可能です。
 
-## Why do I need Kubernetes and what can it do?
+Googleは2014年にKubernetesプロジェクトをオープンソース化しました。Kubernetesは[Googleが大規模な本番ワークロードを動かしてきた10年半の経験](https://research.google.com/pubs/pub43438.html)と、コミュニティから得られた最善のアイデア、知見に基づいています。
 
-Kubernetes has a number of features. It can be thought of as:
+## なぜKubernetesが必要で、どんなことができるのか?
 
-- a container platform
-- a microservices platform
-- a portable cloud platform
-and a lot more.
+Kubernetesには多くの機能があります。考えられるものとしては
 
-Kubernetes provides a **container-centric** management environment. It
-orchestrates computing, networking, and storage infrastructure on
-behalf of user workloads. This provides much of the simplicity of
-Platform as a Service (PaaS) with the flexibility of Infrastructure as
-a Service (IaaS), and enables portability across infrastructure
-providers.
+- コンテナ基盤
+- マイクロサービス基盤
+- ポータブルなクラウド基盤
 
-## How is Kubernetes a platform?
+など、他にもいろいろ
 
-Even though Kubernetes provides a lot of functionality, there are
-always new scenarios that would benefit from new
-features. Application-specific workflows can be streamlined to
-accelerate developer velocity. Ad hoc orchestration that is acceptable
-initially often requires robust automation at scale. This is why
-Kubernetes was also designed to serve as a platform for building an
-ecosystem of components and tools to make it easier to deploy, scale,
-and manage applications.
+Kubernetesは、**コンテナを中心とした**管理基盤です。ユーザーワークロードの代表格であるコンピューティング、ネットワーキング、ストレージインフラストラクチャのオーケストレーションを行います。それによって、Platform as a Service (PaaS)の簡単さの大部分を、Infrastructure as a Service (IaaS)の柔軟さとともに提供し、インフラストラクチャプロバイダの垣根を超えたポータビリティを実現します。
 
-[Labels](/docs/concepts/overview/working-with-objects/labels/) empower
-users to organize their resources however they
-please. [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
-enable users to decorate resources with custom information to
-facilitate their workflows and provide an easy way for management
-tools to checkpoint state.
+## Kubernetesが基盤になるってどういうこと?
 
-Additionally, the [Kubernetes control
-plane](/docs/concepts/overview/components/) is built upon the same
-[APIs](/docs/reference/using-api/api-overview/) that are available to developers
-and users. Users can write their own controllers, such as
-[schedulers](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md),
-with [their own
-APIs](/docs/concepts/api-extension/custom-resources/)
-that can be targeted by a general-purpose [command-line
-tool](/docs/user-guide/kubectl-overview/).
+Kubernetesが多くの機能を提供すると言いつつも、新しい機能から恩恵を受ける新しいシナリオは常にあります。アプリケーション固有のワークフローを効率化して開発者のスピードを早めることができます。最初は許容できるアドホックなオーケストレーションでも、大規模で堅牢な自動化が必要となることはしばしばあります。これが、Kubernetesがアプリケーションのデプロイ、拡張、および管理を容易にするために、コンポーネントとツールのエコシステムを構築するための基盤としても機能するように設計された理由です。
 
-This
-[design](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)
-has enabled a number of other systems to build atop Kubernetes.
+[ラベル](/docs/concepts/overview/working-with-objects/labels/)を使用すると、ユーザーは自分のリソースを整理できます。 [アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を使用すると、ユーザーは自分のワークフローを容易にし、管理ツールが状態をチェックするための簡単な方法を提供するためにカスタムデータを使ってリソースを装飾できるようになります。
 
-## What Kubernetes is not
+さらに、[Kubernetesコントロールプレーン](/docs/concepts/overview/components/)は、開発者やユーザーが使える[API](/docs/reference/using-api/api-overview/)の上で成り立っています。ユーザーは[スケジューラー](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md)などの独自のコントローラーを、汎用の[コマンドラインツール](/docs/user-guide/kubectl-overview/)で使える[独自のAPI](/docs/concepts/api-extension/custom-resources/)を持たせて作成することができます。
 
-Kubernetes is not a traditional, all-inclusive PaaS (Platform as a
-Service) system. Since Kubernetes operates at the container level
-rather than at the hardware level, it provides some generally
-applicable features common to PaaS offerings, such as deployment,
-scaling, load balancing, logging, and monitoring. However, Kubernetes
-is not monolithic, and these default solutions are optional and
-pluggable. Kubernetes provides the building blocks for building developer
-platforms, but preserves user choice and flexibility where it is
-important.
+この[デザイン](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)によって、他の多くのシステムがKubernetes上で構築できるようになりました。
 
-Kubernetes:
+## Kubernetesにないこと
 
-* Does not limit the types of applications supported. Kubernetes aims
-  to support an extremely diverse variety of workloads, including
-  stateless, stateful, and data-processing workloads. If an
-  application can run in a container, it should run great on
-  Kubernetes.
-* Does not deploy source code and does not build your
-  application. Continuous Integration, Delivery, and Deployment
-  (CI/CD) workflows are determined by organization cultures and preferences
-  as well as technical requirements.
-* Does not provide application-level services, such as middleware
-  (e.g., message buses), data-processing frameworks (for example,
-  Spark), databases (e.g., mysql), caches, nor cluster storage systems (e.g.,
-  Ceph) as built-in services. Such components can run on Kubernetes, and/or
-  can be accessed by applications running on Kubernetes through portable
-  mechanisms, such as the Open Service Broker.
-* Does not dictate logging, monitoring, or alerting solutions. It provides
-  some integrations as proof of concept, and mechanisms to collect and
-  export metrics.
-* Does not provide nor mandate a configuration language/system (e.g.,
-  [jsonnet](https://github.com/google/jsonnet)). It provides a declarative
-  API that may be targeted by arbitrary forms of declarative specifications.
-* Does not provide nor adopt any comprehensive machine configuration,
-  maintenance, management, or self-healing systems.
+Kubernetesは伝統的な何でも入りのPaaSシステムではありません。Kubernetesはハードウェアレベルではなくコンテナレベルで動作するため、PaaS製品が提供するような、共通のいくつかの一般的に適用可能な機能(デプロイ、拡張、負荷分散、ログ記録、監視など)を提供します。ただし、Kubernetesはモノリシックではなく、これらのデフォルトのソリューションは任意に脱着可能です。Kubernetesは開発者の基盤を構築するための構成要素を提供しますが、重要な場合はユーザーの選択と柔軟性を維持します。
 
-Additionally, Kubernetes is not a mere *orchestration system*. In
-fact, it eliminates the need for orchestration. The technical
-definition of *orchestration* is execution of a defined workflow:
-first do A, then B, then C. In contrast, Kubernetes is comprised of a
-set of independent, composable control processes that continuously
-drive the current state towards the provided desired state. It
-shouldn't matter how you get from A to C. Centralized control is also
-not required. This results in a system that is easier to use and more
-powerful, robust, resilient, and extensible.
+Kubernetesは...
 
-## Why containers?
+* サポートするアプリケーションの種類を限定しません。Kubernetesはステートレス、ステートフル、およびデータ処理ワークロードなど、非常に多様なワークロードをサポートするように作られています。アプリケーションをコンテナ内で実行できる場合は、Kubernetes上でもうまく動作するはずです。
+* ソースコードのデプロイやアプリケーションのビルドを行いません。継続的インテグレーション、デリバリー、デプロイ(CI/CD)ワークフローは、技術選定がそうであるように、組織の文化や好みによって決まるからです。
+* ミドルウェア(例: message buses)、データ処理フレームワーク(例: Spark)、データベース(例: mysql)、キャッシュ、クラスターストレージシステム(例: Ceph)のような、アプリケーションレベルの機能は組み込みでは提供しません。これらのコンポーネントはKubernetesの上で動作できますし、Open Service Brokerのようなポータブルメカニズムを経由してKubernetes上のアプリケーションからアクセスすることもできます。
+* ロギング、モニタリング、アラーティングソリューションへの指示は行いません。概念実証(PoC)としていくつかのインテグレーション、およびメトリックを収集およびエクスポートするためのメカニズムを提供します。
+* 設定言語/システム（例：jsonnet）を提供も強制もしません。任意の形式の宣言仕様の対象となる可能性がある宣言APIを提供します。
+* 包括的なインフラ構成、保守、管理、またはセルフヒーリングシステムを提供、導入しません。
 
-Looking for reasons why you should be using containers?
+さらに、Kubernetesは単なる*オーケストレーションシステム*ではありません。実際、オーケストレーションは不要です。*オーケストレーション*の技術的定義は、定義されたワークフローの実行です。最初にA、次にB、次にCを実行します。対照的に、Kubernetesは現在の状態を提供された望ましい状態に向かって継続的に推進する一連の独立した構成可能な制御プロセスで構成されます。AからCへのアクセス方法は関係ありません。集中管理も必要ありません。これにより、使いやすく、より強力で、堅牢で、回復力があり、そして拡張性のあるシステムが得られます。
 
-![Why Containers?](/images/docs/why_containers.svg)
+## なぜコンテナなのか?
 
-The *Old Way* to deploy applications was to install the applications
-on a host using the operating-system package manager. This had the
-disadvantage of entangling the applications' executables,
-configuration, libraries, and lifecycles with each other and with the
-host OS. One could build immutable virtual-machine images in order to
-achieve predictable rollouts and rollbacks, but VMs are heavyweight
-and non-portable.
+なぜコンテナを使うべきかの理由をお探しですか?
 
-The *New Way* is to deploy containers based on operating-system-level
-virtualization rather than hardware virtualization. These containers
-are isolated from each other and from the host: they have their own
-filesystems, they can't see each others' processes, and their
-computational resource usage can be bounded. They are easier to build
-than VMs, and because they are decoupled from the underlying
-infrastructure and from the host filesystem, they are portable across
-clouds and OS distributions.
+![なぜコンテナなのか?](/images/docs/why_containers.svg)
 
-Because containers are small and fast, one application can be packed
-in each container image. This one-to-one application-to-image
-relationship unlocks the full benefits of containers. With containers,
-immutable container images can be created at build/release time rather
-than deployment time, since each application doesn't need to be
-composed with the rest of the application stack, nor married to the
-production infrastructure environment. Generating container images at
-build/release time enables a consistent environment to be carried from
-development into production.  Similarly, containers are vastly more
-transparent than VMs, which facilitates monitoring and
-management. This is especially true when the containers' process
-lifecycles are managed by the infrastructure rather than hidden by a
-process supervisor inside the container. Finally, with a single
-application per container, managing the containers becomes tantamount
-to managing deployment of the application.
+アプリケーションをデプロイするための古い方法は、オペレーティングシステムのパッケージマネージャを使用してアプリケーションをホストにインストールすることでした。これには、アプリケーションの実行ファイル、構成、ライブラリ、ライフサイクルがそれぞれ、またホストOS自身と絡み合うというデメリットがありました。予測可能なロールアウトとロールバックを実現するために、不変の仮想マシンイメージを作成することもできますが、VMは重く、移植性がありません。
 
-Summary of container benefits:
+新しい方法は、ハードウェア仮想化ではなく、オペレーティングシステムレベルの仮想化に基づいてコンテナを展開することです。各コンテナは互いに、そしてホストから隔離されています。また、独自のファイルシステムを持ち、お互いのプロセスを見ることができず、計算リソースの使用量を制限することができます。これはVMよりも構築が簡単で、基盤となるインフラストラクチャとホストのファイルシステムから分離されているため、クラウドやOSのディストリビューション間で移植性があります。
 
-* **Agile application creation and deployment**:
-    Increased ease and efficiency of container image creation compared to VM image use.
-* **Continuous development, integration, and deployment**:
-    Provides for reliable and frequent container image build and
-    deployment with quick and easy rollbacks (due to image
-    immutability).
-* **Dev and Ops separation of concerns**:
-    Create application container images at build/release time rather
-    than deployment time, thereby decoupling applications from
-    infrastructure.
-* **Observability**
-    Not only surfaces OS-level information and metrics, but also application
-    health and other signals.
-* **Environmental consistency across development, testing, and production**:
-    Runs the same on a laptop as it does in the cloud.
-* **Cloud and OS distribution portability**:
-    Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.
-* **Application-centric management**:
-    Raises the level of abstraction from running an OS on virtual
-    hardware to running an application on an OS using logical resources.
-* **Loosely coupled, distributed, elastic, liberated [micro-services](https://martinfowler.com/articles/microservices.html)**:
-    Applications are broken into smaller, independent pieces and can
-    be deployed and managed dynamically -- not a monolithic stack
-    running on one big single-purpose machine.
-* **Resource isolation**:
-    Predictable application performance.
-* **Resource utilization**:
-    High efficiency and density.
+コンテナは小さくて速いので、1つのアプリケーションを各コンテナイメージにまとめることができます。 この1対1のアプリケーションとイメージの関係により、コンテナの利点が完全に引き出されます。コンテナを使用すると、各アプリケーションを残りのアプリケーションスタックと合成したり、本番インフラストラクチャ環境と結合したりする必要がないため、不変のコンテナイメージをデプロイ時ではなく、ビルド時またはリリース時に作成できます。ビルド/リリース時にコンテナイメージを生成することで、開発から運用に一貫した環境を持ち込むことができます。同様に、コンテナはVMよりもはるかに透過的であるため、監視と管理が容易になります。これは、コンテナのプロセスライフサイクルがコンテナ内のプロセススーパーバイザによって隠されるのではなく、インフラストラクチャによって管理される場合に特に当てはまります。最後に、コンテナごとに1つのアプリケーションを使用すると、コンテナの管理はアプリケーションのデプロイ管理と同等になります。
 
-## What does Kubernetes mean? K8s?
+コンテナの利点をまとめると:
 
-The name **Kubernetes** originates from Greek, meaning *helmsman* or
-*pilot*, and is the root of *governor* and
-[cybernetic](http://www.etymonline.com/index.php?term=cybernetics). *K8s*
-is an abbreviation derived by replacing the 8 letters "ubernete" with
-"8".
+* **アジャイルなアプリケーション作成とデプロイ**:
+    VMイメージの使用と比べ、コンテナイメージ作成は容易で効率も高いです。
+* **継続的な開発、インテグレーション、デプロイ**:
+    迅速で簡単なロールバックで、信頼性の高い頻繁なコンテナイメージのビルドとデプロイを提供します(イメージの不変性にもよります)。
+* **開発と運用の懸念を分離**:
+    デプロイ時ではなくビルド時またはリリース時にアプリケーションのコンテナイメージを作成することで、アプリケーションをインフラストラクチャから切り離します。
+* **可観測性**
+    OSレベルの情報や測定基準だけでなく、アプリケーションの正常性やその他のシグナルも明確にします。
+* **開発、テスト、本番環境に跨った環境の一貫性**:
+    手元のノートPC上でも、クラウド上と同じように動作します。
+* **クラウドとOSディストリビューションの移植性**:
+    Ubuntu、RHEL、CoreOS、オンプレミス、Google Kubernetes Engine、その他のどこでも動作します。
+* **アプリケーション中心の管理**:
+    仮想ハードウェア上でのOS実行から、論理リソースを使用したOS上でのアプリケーション実行へと、抽象度のレベルを上げます。
+* **疎結合で、分散された、伸縮自在の遊離した[マイクロサービス](https://martinfowler.com/articles/microservices.html)**:
+    アプリケーションは小さな独立した欠片に分割され、動的に配置および管理できます。1つの大きな単一目的のマシンで実行されるモノリシックなスタックではありません。
+* **リソース分割**:
+    アプリケーションパフォーマンスが予測可能です。
+* **リソースの効率利用**:
+    高効率で高密度です。
+
+## Kubernetesってどういう意味? K8sって何?
+
+**Kubernetes**という名前はギリシャ語で*操舵手*や*パイロット*という意味があり、*知事*や[サイバネティックス](http://www.etymonline.com/index.php?term=cybernetics)の語源にもなっています。*K8s*は、8文字の「ubernete」を「8」に置き換えた略語です。
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-*   Ready to [Get Started](/docs/setup/)?
-*   For more details, see the [Kubernetes Documentation](/docs/home/).
+*   [はじめる](/docs/setup/)準備はできましたか?
+*   さらなる詳細については、[Kubernetesのドキュメント](/docs/home/)を御覧ください。
 {{% /capture %}}
 
 
