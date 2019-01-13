@@ -134,23 +134,23 @@ sysctl --system
 {{< tabs name="tab-cri-cri-o-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
 
-# 必要なパッケージをインストールし、リポジトリを追加します。
+# 必要なパッケージをインストールし、リポジトリを追加
 apt-get update
 apt-get install software-properties-common
 
 add-apt-repository ppa:projectatomic/ppa
 apt-get update
 
-# CRI-Oをインストールします。
+# CRI-Oをインストール
 apt-get install cri-o-1.11
 
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# 必要なリポジトリを追加します。
+# 必要なリポジトリを追加
 yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-311-candidate/x86_64/os/
 
-# CRI-Oをインストールします。
+# CRI-Oをインストール
 yum install --nogpgcheck cri-o
 
 {{< /tab >}}
@@ -197,7 +197,7 @@ yum install -y libseccomp
 
 ### containerdのインストール
 
-[Containerdは定期的にリリース](https://github.com/containerd/containerd/releases)されますが、以下に示すコマンドで利用している値は、この手順が作成された時点での最新のバージョンにしたがって書かれています。以降のバージョンとダウンロードするファイルのハッシュ値については[こちら](https://storage.googleapis.com/cri-containerd-release)で確認するようにしてください。
+[Containerdは定期的にリリース](https://github.com/containerd/containerd/releases)されますが、以下に示すコマンドで利用している値は、この手順が作成された時点での最新のバージョンにしたがって書かれています。より新しいバージョンとダウンロードするファイルのハッシュ値については[こちら](https://storage.googleapis.com/cri-containerd-release)で確認するようにしてください。
 
 ```shell
 # 必要な環境変数をexportします。
