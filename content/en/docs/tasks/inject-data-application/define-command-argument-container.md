@@ -80,7 +80,7 @@ In the preceding example, you defined the arguments directly by
 providing strings. As an alternative to providing strings directly,
 you can define arguments by using environment variables:
 
-```shell
+```yaml
 env:
 - name: MESSAGE
   value: "hello world"
