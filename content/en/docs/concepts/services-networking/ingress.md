@@ -86,7 +86,7 @@ Additional controllers include:
 
 You may deploy [any number of ingress controllers](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) within a cluster.
 When you create an ingress, you should annotate each ingress with the appropriate
-[`ingress-class`](https://git.k8s.io/ingress-gce/examples/PREREQUISITES.md#ingress-class) to indicate which ingress
+[`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster) to indicate which ingress
 controller should be used if more than one exists within your cluster.
 If you do not define a class, your cloud provider may use a default ingress provider.
 
