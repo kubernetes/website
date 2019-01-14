@@ -1,5 +1,5 @@
 
-生成提供 kubernetes API 的证书
+生成服务 kubernetes API 的证书
 <!--
 Generates the certificate for serving the kubernetes API
 -->
