@@ -42,7 +42,7 @@ weight: 20
 
 ## Minikube 설치
 
-* [최신 릴리즈](https://github.com/kubernetes/minikube/releases)의 지침에 따라 Minikube를 설치한다.
+* [최신 릴리스](https://github.com/kubernetes/minikube/releases)의 지침에 따라 Minikube를 설치한다.
 
 {{% /capture %}}
 
