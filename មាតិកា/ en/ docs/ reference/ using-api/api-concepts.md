@@ -312,7 +312,7 @@ Some values of an object are typically generated before the object is persisted.
 
 * `name`: if `generateName` is set, `name` will have a unique random name
 * `creationTimestamp`/`deletionTimestamp`: records the time of creation/deletion
-* `UID`: uniquely identifies the object and is randomly generated (non-deterministic)
+* `UID`: uniquely identifies the objet and is randomly generated (non-deterministic)
 * `resourceVersion`: tracks the persisted version of the object
 * Any field set by a mutating admission controller
 * For the `Service` resource: Ports or IPs that kube-apiserver assigns to v1.Service objects
