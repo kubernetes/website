@@ -19,7 +19,7 @@ For more information about contributing to the Kubernetes documentation, see:
 ## `README.md`'s Localizing Kubernetes Documentation
 
 ### Korean
-
+  
 See translation of `README.md` and more detail guidance for Korean contributors on the [Korean README](README-ko.md) page.
 
 You can reach the maintainers of Korean localization at:
