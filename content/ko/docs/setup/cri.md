@@ -21,7 +21,7 @@ v1.6.0에서부터, 쿠버네티스는 CRI(컨테이너 런타임 인터페이�
 
 각 머신들에 대해서, Docker를 설치한다.
 버전 18.06이 추천된다. 그러나 1.11, 1.12, 1.13, 그리고 17.03도 동작하는 것으로 알려져 있다. 
-쿠버네티스 릴리즈 노트를 통해서, 최신에 검증된 Docker 버전의 지속적인 파악이 필요하다.
+쿠버네티스 릴리스 노트를 통해서, 최신에 검증된 Docker 버전의 지속적인 파악이 필요하다.
 
 시스템에 Docker를 설치하기 위해서 아래의 커맨드들을 사용한다.
 
@@ -202,7 +202,7 @@ yum install -y libseccomp
 
 ### Containerd 설치
 
-[Containerd 릴리즈](https://github.com/containerd/containerd/releases)는 주기적으로 출판된다. 아래의 값들은 작성 당시에 가용한 최신 버전을 기준으로 하드코드 되었다. 새로운 버전과 해시는 [여기](https://storage.googleapis.com/cri-containerd-release)에서 참고한다.
+[Containerd 릴리스](https://github.com/containerd/containerd/releases)는 주기적으로 출판된다. 아래의 값들은 작성 당시에 가용한 최신 버전을 기준으로 하드코드 되었다. 새로운 버전과 해시는 [여기](https://storage.googleapis.com/cri-containerd-release)에서 참고한다.
 
 ```shell
 # 요구되는 환경 변수 export.
