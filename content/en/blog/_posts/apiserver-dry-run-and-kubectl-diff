@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'APIServer dry-run and kubectl diff'
-date: 2019-01-15
+date: 2019-01-14
 ---
 
 **Author**: Antoine Pelisse (Google Cloud, @apelisse)
