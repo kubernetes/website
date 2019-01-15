@@ -13,12 +13,12 @@ EXPERIMENTAL: Enables or updates dynamic kubelet configuration for a Node
 <!--
 Enables or updates dynamic kubelet configuration for a Node, against the kubelet-config-1.X ConfigMap in the cluster, where X is the minor version of the desired kubelet version. 
 -->
-针对群集中的 kubelet-config-1.X ConfigMap 启用或更新节点的动态 kubelet 配置，其中 X 是 kubelet 的次要版本。
+针对集群中的 kubelet-config-1.X ConfigMap 启用或更新节点的动态 kubelet 配置，其中 X 是 kubelet 的次要版本。
 
 <!--
 WARNING: This feature is still experimental, and disabled by default. Enable only if you know what you are doing, as it may have surprising side-effects at this stage. 
 -->
-警告：此功能仍处于试验阶段，默认情况下禁用。只有当您知道自己在做什么时才启用它，在这个阶段它可能有意想不到的的效果。
+警告：此功能仍处于试验阶段，默认情况下禁用。只有当您知道自己在做什么时才启用它，在这个阶段它可能有意想不到的效果。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
@@ -92,7 +92,7 @@ kubeadm alpha phase kubelet config enable-dynamic [flags]
       <td colspan="2">--kubelet-version string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubelet 的最佳配置版本</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">kubelet 的期望版本</td>
     </tr>
 <!--
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The desired version for the kubelet</td>
