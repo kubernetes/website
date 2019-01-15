@@ -1,5 +1,5 @@
 {{- $filepath := .page.File.Path }}
-{{- $editLink := printf "https://github.com/kubernetes/website/edit/master/content/en/%s" $filepath }}
+{{- $editLink := printf "https://github.com/kubernetes/website/edit/master/content/%s/%s" .page.Language.Lang $filepath }}
 <p>
   <a href="{{ $editLink }}" id="editPageButton" target="_blank">
     Edit This Page
