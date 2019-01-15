@@ -48,7 +48,7 @@ content_template: templates/task
     gold                 kubernetes.io/gce-pd      1d
     ```
 
-   默认 StorageClass 以 `(default)` 标记。
+    默认 StorageClass 以 `(default)` 标记。
 
 
 2. 标记默认 StorageClass  非默认：
