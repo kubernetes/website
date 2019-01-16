@@ -24,8 +24,10 @@ Suppose you want to have two pieces of secret data: a username `my-app` and a pa
 convert your username and password to a base-64 representation. Here's a Linux
 example:
 
-    echo -n 'my-app' | base64
-    echo -n '39528$vdg7Jb' | base64
+```shell
+echo -n 'my-app' | base64
+echo -n '39528$vdg7Jb' | base64
+```
 
 The output shows that the base-64 representation of your username is `bXktYXBw`,
 and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
@@ -40,44 +42,43 @@ username and password:
 1. Create the Secret
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret.yaml
     ```
-
-    {{< note >}}
- If you want to skip the Base64 encoding step, you can create a Secret by using the `kubectl create secret` command:
- ```shell
- kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
- ```
-    {{< /note >}}
 
 1. View information about the Secret:
 
-       kubectl get secret test-secret
+    ```shell
+    kubectl get secret test-secret
+    ```
 
     Output:
 
-        NAME          TYPE      DATA      AGE
-        test-secret   Opaque    2         1m
-
+    ```
+    NAME          TYPE      DATA      AGE
+    test-secret   Opaque    2         1m
+    ```
 
 1. View more detailed information about the Secret:
 
-       kubectl describe secret test-secret
+    ```shell
+    kubectl describe secret test-secret
+    ```
 
     Output:
 
-        Name:       test-secret
-        Namespace:  default
-        Labels:     <none>
-        Annotations:    <none>
+    ```
+    Name:       test-secret
+    Namespace:  default
+    Labels:     <none>
+    Annotations:    <none>
 
-        Type:   Opaque
+    Type:   Opaque
 
-        Data
-        ====
-        password:   13 bytes
-        username:   7 bytes
-
+    Data
+    ====
+    password:   13 bytes
+    username:   7 bytes
+    ```
 
 {{< note >}}
 If you want to skip the Base64 encoding step, you can create a Secret
@@ -97,7 +98,7 @@ Here is a configuration file you can use to create a Pod:
 1. Create the Pod:
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-pod.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret-pod.yaml
     ```
 
 1. Verify that your Pod is running:
@@ -152,7 +153,7 @@ Here is a configuration file you can use to create a Pod:
 1. Create the Pod:
 
     ```shell
-    kubectl create -f https://k8s.io/docs/tasks/inject-data-application/secret-envars-pod.yaml
+    kubectl create -f https://k8s.io/examples/pods/inject/secret-envars-pod.yaml
     ```
 
 1. Verify that your Pod is running:

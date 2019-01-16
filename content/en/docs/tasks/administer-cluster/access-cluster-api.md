@@ -81,9 +81,13 @@ It is possible to avoid using kubectl proxy by passing an authentication token
 directly to the API server, like this:
 
 ``` shell
-$ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
-$ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+# Check all possible clusters, as you .KUBECONFIG may have multiple contexts
+$ kubectl config view -o jsonpath='{range .clusters[*]}{.name}{"\t"}{.cluster.server}{"\n"}{end}'
+# Point to the API server refering the cluster name
+$ APISERVER=$(kubectl config view -o jsonpath='{.clusters[?(@.name=="$CLUSTER_NAME")].cluster.server}')
+# Gets the token value
+$ TOKEN=$(kubectl get secrets -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='default')].data.token}"|base64 -d)
+$ curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
   "versions": [

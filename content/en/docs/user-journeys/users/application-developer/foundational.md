@@ -204,7 +204,7 @@ Examples of state include but are not limited to the following:
 
 Note that the API server is just the gateway, and that object data is actually stored in a highly available datastore called {{< link text="*etcd*" url="https://github.com/coreos/etcd" >}}. For most intents and purposes, though, you can focus on the API server. Most reads and writes to cluster state take place as API requests.
 
-You can read more about the Kubernetes API {{< link text="here" url="/docs/concepts/overview/working-with-objects/kubernetes-objects/" >}}.
+For more information, see {{< link text="Understanding Kubernetes Objects" url="/docs/concepts/overview/working-with-objects/kubernetes-objects/" >}}.
 
 #### Controllers
 

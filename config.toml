@@ -4,6 +4,7 @@ title = "Kubernetes"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 enableRobotsTXT = true
+disableBrowserError = true
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 

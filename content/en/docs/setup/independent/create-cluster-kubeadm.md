@@ -545,6 +545,18 @@ Then, on the node being removed, reset all kubeadm installed state:
 kubeadm reset
 ```
 
+The reset process does not reset or clean up iptables rules or IPVS tables. If you wish to reset iptables, you must do so manually:
+
+```bash
+iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
+```
+
+If you want to reset the IPVS tables, you must run the following command:
+
+```bash
+ipvsadm -C
+```
+
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 

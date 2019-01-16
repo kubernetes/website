@@ -49,7 +49,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
-      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
+      * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `$ kubectl get pod -f ./pod.yaml`
 
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
@@ -288,9 +288,6 @@ $ kubectl get ds --include-uninitialized
 
 // List all pods running on node server01
 $ kubectl get pods --field-selector=spec.nodeName=server01
-
-// List all pods in plain-text output format, delegating the details of printing to the server
-$ kubectl get pods --experimental-server-print
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.

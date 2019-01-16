@@ -73,7 +73,7 @@ Run `kubectl diff` to print the object that will be created:
 kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 {{< note >}}
-**Note:** `diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
+`diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
 {{< /note >}}
 
 Create the object using `kubectl apply`:

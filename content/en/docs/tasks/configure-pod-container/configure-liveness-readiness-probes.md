@@ -173,6 +173,12 @@ the Container has been restarted:
 kubectl describe pod liveness-http
 ```
 
+In releases prior to v1.13 (including v1.13), if the environment variable
+`http_proxy` (or `HTTP_PROXY`) is set on the node where a pod is running,
+the HTTP liveness probe uses that proxy.
+In releases after v1.13, local HTTP proxy environment variable settings do not
+affect the HTTP liveness probe.
+
 ## Define a TCP liveness probe
 
 A third type of liveness probe uses a TCP Socket. With this configuration, the
@@ -229,11 +235,16 @@ livenessProbe:
 
 Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
-files during startup. In such cases, you don't want to kill the application,
+files during startup, or depend on external services after startup.
+In such cases, you don't want to kill the application,
 but you don’t want to send it requests either. Kubernetes provides
 readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
+
+{{< note >}}
+Readiness probes runs on the container during its whole lifecycle.
+{{< /note >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
