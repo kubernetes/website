@@ -150,7 +150,7 @@
 
 /docs/getting-started-guide/*     /docs/setup/ 301
 /docs/getting-started-guides/     /docs/setup/pick-right-solution/ 301
-/docs/getting-started-guides/binary_release/    /docs/setup/building-from-source/ 301
+/docs/getting-started-guides/binary_release/    /docs/setup/release/building-from-source/ 301
 /docs/getting-started-guides/cloudstack/     /docs/setup/on-premises-vm/cloudstack/ 301
 /docs/getting-started-guides/dcos/     /docs/setup/on-premises-vm/dcos/ 301
 /docs/getting-started-guides/ovirt/     /docs/setup/on-premises-vm/ovirt/ 301

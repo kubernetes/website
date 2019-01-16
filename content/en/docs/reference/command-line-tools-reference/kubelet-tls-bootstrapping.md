@@ -217,7 +217,7 @@ default set of key usages.
 
 In order for the controller-manager to sign certificates, it needs the following:
 
-* access to the "kuberetes CA key and certificate" that you created and distributed
+* access to the "Kubernetes CA key and certificate" that you created and distributed
 * enabling CSR signing
 
 ### Access to key and certificate

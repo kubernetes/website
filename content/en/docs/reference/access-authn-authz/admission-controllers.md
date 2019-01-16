@@ -89,10 +89,10 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.11, they are:
+In 1.13, they are:
  
 ```shell
-NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
+NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeClaimResize,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
 ```
 
 ## What does each admission controller do?
@@ -227,7 +227,7 @@ imagePolicy:
   # time in s to cache approval
   allowTTL: 50
   # time in s to cache denial
-  denyTTL: 50 
+  denyTTL: 50
   # time in ms to wait between retries
   retryBackoff: 500
   # determines behavior if the webhook backend fails
@@ -264,6 +264,7 @@ users:
     client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
     client-key: /path/to/key.pem          # key matching the cert
 ```
+
 For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation.
 
 #### Request Payloads
@@ -274,7 +275,7 @@ Note that webhook API objects are subject to the same versioning compatibility r
 
 An example request body:
 
-```
+```json
 {  
   "apiVersion":"imagepolicy.k8s.io/v1alpha1",
   "kind":"ImageReview",
@@ -297,7 +298,7 @@ An example request body:
 
 The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
 
-```
+```json
 {
   "apiVersion": "imagepolicy.k8s.io/v1alpha1",
   "kind": "ImageReview",
@@ -309,7 +310,7 @@ The remote service is expected to fill the ImageReviewStatus field of the reques
 
 To disallow access, the service would return:
 
-```
+```json
 {
   "apiVersion": "imagepolicy.k8s.io/v1alpha1",
   "kind": "ImageReview",
@@ -468,9 +469,9 @@ This file may be json or yaml and has the following format:
 
 ```yaml
 podNodeSelectorPluginConfig:
- clusterDefaultNodeSelector: <node-selectors-labels>
- namespace1: <node-selectors-labels>
- namespace2: <node-selectors-labels>
+ clusterDefaultNodeSelector: name-of-node-selector
+ namespace1: name-of-node-selector
+ namespace2: name-of-node-selector
 ```
 
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
@@ -492,7 +493,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations:
-    scheduler.alpha.kubernetes.io/node-selector: <node-selectors-labels>
+    scheduler.alpha.kubernetes.io/node-selector: name-of-node-selector
   name: namespace3
 ```
 
@@ -633,7 +634,7 @@ For Kubernetes version 1.10 and later, we recommend running the following set of
 {{< /note >}}
 
 ```shell
---enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
+--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,Priority,ResourceQuota
 ```
 
 For Kubernetes 1.9 and earlier, we recommend running the following set of admission controllers using the `--admission-control` flag (**order matters**).

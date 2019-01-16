@@ -73,7 +73,7 @@ Run `kubectl diff` to print the object that will be created:
 kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 {{< note >}}
-**Note:** `diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
+`diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
 {{< /note >}}
 
 Create the object using `kubectl apply`:
@@ -625,7 +625,7 @@ Add, delete, or update individual elements. This does not preserve ordering.
 
 This merge strategy uses a special tag on each field called a `patchMergeKey`. The
 `patchMergeKey` is defined for each field in the Kubernetes source code:
-[types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
+[types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2747)
 When merging a list of maps, the field specified as the `patchMergeKey` for a given element
 is used like a map key for that element.
 
@@ -700,7 +700,7 @@ As of Kubernetes 1.5, merging lists of primitive elements is not supported.
 
 {{< note >}}
 Which of the above strategies is chosen for a given field is controlled by
-the `patchStrategy` tag in [types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
+the `patchStrategy` tag in [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2748)
 If no `patchStrategy` is specified for a field of type list, then
 the list is replaced.
 {{< /note >}}

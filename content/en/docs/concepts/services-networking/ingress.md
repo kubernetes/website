@@ -86,7 +86,7 @@ Additional controllers include:
 
 You may deploy [any number of ingress controllers](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) within a cluster.
 When you create an ingress, you should annotate each ingress with the appropriate
-[`ingress-class`](https://git.k8s.io/ingress-gce/examples/PREREQUISITES.md#ingress-class) to indicate which ingress
+[`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster) to indicate which ingress
 controller should be used if more than one exists within your cluster.
 If you do not define a class, your cloud provider may use a default ingress provider.
 
@@ -294,7 +294,7 @@ spec:
 If you create an ingress resource without any hosts defined in the rules, then any
 web traffic to the IP address of your ingress controller can be matched without a name based
 virtual host being required. For example, the following ingress resource will route traffic 
-requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic
+requested for `first.bar.com` to `service1`, `second.foo.com` to `service2`, and any traffic
 to the IP address without a hostname defined in request (that is, without a request header being
 presented) to `service3`.
 

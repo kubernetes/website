@@ -16,6 +16,17 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
 
+## `README.md`'s Localizing Kubernetes Documentation
+
+### Korean
+
+See translation of `README.md` and more detail guidance for Korean contributors on the [Korean README](README-ko.md) page.
+
+You can reach the maintainers of Korean localization at:
+
+* June Yi ([GitHub - @gochist](https://github.com/gochist))
+* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
+
 ## Running the site locally using Docker
 
 The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com) image that includes the [Hugo](https://gohugo.io) static site generator.
