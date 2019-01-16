@@ -123,6 +123,6 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 데몬셋, 디플로이먼트, HorizontalPodAutoscaler, 인그레스, 잡 및 레플리카셋이 기본적으로 활성화되어 있다.
 다른 확장 리소스는 apiserver의 `--runtime-config`를 설정해서 활성화 시킬 수 있다.
 `--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어 디플로이먼트와 인그레스를 비활성화 시키려면,
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`와 같이 설정한다.
+`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`와 같이 설정한다.
 
 {{% /capture %}}
