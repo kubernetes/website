@@ -8,7 +8,7 @@ weight: 80
 
 **Current release of Poseidon-Firmament scheduler is an <code> alpha </code> release.**
  
-Poseidon-Firmament scheduler is an alternate scheduler alongside the default Kubernetes scheduler. 
+Poseidon-Firmament scheduler is an alternate scheduler that can be deployed alongside the default Kubernetes scheduler.
 
 {{% /capture %}}
 
@@ -17,7 +17,7 @@ Poseidon-Firmament scheduler is an alternate scheduler alongside the default Kub
 
 ## Introduction	
 
-Poseidon is the integration glue for the  [Firmament scheduler](https://github.com/Huawei-PaaS/firmament) with Kubernetes. Poseidon-Firmament scheduler augments the current Kubernetes scheduling capabilities. It incorporates novel flow network graph based scheduling capabilities alongside the default Kubernetes Scheduler. Firmament scheduler models workloads and clusters as flow networks and runs min-cost flow optimizations over these networks to make scheduling decisions.
+Poseidon is a service that acts as the integration glue for the  [Firmament scheduler](https://github.com/Huawei-PaaS/firmament) with Kubernetes. Poseidon-Firmament scheduler augments the current Kubernetes scheduling capabilities. It incorporates novel flow network graph based scheduling capabilities alongside the default Kubernetes Scheduler. Firmament scheduler models workloads and clusters as flow networks and runs min-cost flow optimizations over these networks to make scheduling decisions.
 
 It models the scheduling problem as a constraint-based optimization over a flow network graph. This is achieved by reducing scheduling to a min-cost max-flow optimization problem. The Poseidon-Firmament scheduler dynamically refines the workload placements.  
 
