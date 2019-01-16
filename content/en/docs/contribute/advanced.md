@@ -50,7 +50,7 @@ reviewed is usually small. These queries specifically exclude localization PRs, 
 - [Needs LGTM](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-label%3Algtm+):
   If it needs technical review, loop in one of the reviewers suggested by the bot. If it needs docs review
   or copy-editing, either suggest changes or add a copyedit commit to the PR to move it along.
-- [Has HGTM, needs docs approval](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
+- [Has LGTM, needs docs approval](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
   See if you can figure out what needs to happen for the PR to be merged.
 - [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): If it's against a `dev-` branch, it's for an upcoming release.
   Make sure the [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) knows about it.
