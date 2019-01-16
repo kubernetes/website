@@ -1,6 +1,6 @@
 #caseStudyTitle {
-    margin-top: 1em !important;
-    font-family:"Roboto", sans-serif;
+  margin-top: 1em !important;
+  font-family:"Roboto", sans-serif;
 }
 
 p {
@@ -9,7 +9,6 @@ p {
 }
 
 .header_logo {
-
   width:24%;
   margin-bottom:-1%;
   margin-left:10px;
@@ -22,7 +21,6 @@ a {
 
 body {
   margin:0;
-
 }
 
 h1 {
@@ -39,7 +37,6 @@ h1 {
   line-height:40px;
   padding-bottom:1%;
   padding-top:0.5%;
-
 }
 
 .banner1 {
@@ -68,7 +65,6 @@ h1 {
   background-size:100% auto;
   background-color:#666666;
   background-repeat:repeat;
-
 }
 
 .banner3 {
@@ -149,7 +145,6 @@ h1 {
   margin:0 auto;
 }
 
-
 h2 {
   font-family:"Roboto", sans-serif;
   font-weight:300;
@@ -177,7 +172,6 @@ h2 {
   padding-left:10%;
 }
 
-
 hr {
   border-bottom:0px solid;
   width:100%;
@@ -193,7 +187,6 @@ hr {
   line-height:20px;
   letter-spacing:0.03em;
   font-size:14px;
-
 }
 
 .col2 {
@@ -203,7 +196,6 @@ hr {
   color:#606060;
   letter-spacing:0.03em;
   font-size:14px;
-
 }
 
 .fullcol {
@@ -237,196 +229,207 @@ h4 {
   padding-bottom:0px;
 }
 
-
 @media screen and (max-width: 910px){
 
-h1 {
-  font-family:"Roboto", sans-serif;
-  font-weight:bold;
-  line-height:36px;
-  letter-spacing:0.03em;
-  font-size:30px !important;
-  padding-bottom:0px;
-  width:80%;
-}
+  h1 {
+    font-family:"Roboto", sans-serif;
+    font-weight:bold;
+    line-height:36px;
+    letter-spacing:0.03em;
+    font-size:30px !important;
+    padding-bottom:0px;
+    width:80%;
+  }
 
-.header_logo {
-  width:35%;
-  margin-bottom:-.5%;
-  magin-left:10px;
-}
+  .header_logo {
+    width:35%;
+    margin-bottom:-.5%;
+    margin-left:10px;
+  }
 
-.subhead {
-  font-size:18px;
-  font-weight:100;
-  line-height:27px;
-}
+  .subhead {
+    font-size:18px;
+    font-weight:100;
+    line-height:27px;
+  }
 
-.details {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  font-size:16px;
-  color:#3366ff;
-  letter-spacing:0.03em;
-  padding-bottom:2%;
-  line-height:28px;
-  padding-top:4%;
-  padding-left:10%;
-}
+  .details {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    font-size:16px;
+    color:#3366ff;
+    letter-spacing:0.03em;
+    padding-bottom:2%;
+    line-height:28px;
+    padding-top:4%;
+    padding-left:10%;
+  }
 
-.logo {
+  .logo {
     width:8%;
-}
+  }
+  
+  .col1 {
+    width: 95%;
+    padding-right:8%;
+    float:left;
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#606060;
+    line-height:20px;
+    letter-spacing:0.03em;
+    font-size:14px;
+  }
 
-.col1 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#606060;
-  line-height:20px;
-  letter-spacing:0.03em;
-  font-size:14px;
-}
+  .col2 {
+    width: 95%;
+    padding-top:2%;
+    padding-bottom:5%;
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    float:left;
+    line-height:20px;
+    color:#606060;
+    letter-spacing:0.03em;
+    font-size:14px;
+  }
 
-.col2 {
-  padding-top:2%;
-  padding-bottom:5%;
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  line-height:20px;
-  color:#606060;
-  letter-spacing:0.03em;
-  font-size:14px;
-}
+  .banner1 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:15%;
+    padding-bottom:2%;
+    padding-left:10%;
+    font-size:18px;
+    background: url('/images/CaseStudy_crowdfire_banner1.jpg');
+    background-size:100% auto;
+  }
 
-.banner1 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:15%;
-  padding-bottom:2%;
-  padding-left:10%;
-  font-size:18px;
-  background: url('/images/CaseStudy_crowdfire_banner1.jpg');
-  background-size:100% auto;
-}
+  .banner2 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:4%;
+    padding-bottom:4%;
+    font-size:18px;
+    letter-spacing:0.03em;
+    line-height:24px;
+    width:100%;
+    float:left;
+    background:none;
+    background-color:#666666;
+  }
 
-.banner2 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:4%;
-  padding-bottom:4%;
-  font-size:18px;
-  letter-spacing:0.03em;
-  line-height:24px;
-  width:100%;
-  background:none;
-  background-color:#666666;
-}
+  .banner3 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:5%;
+    padding-bottom:5%;
+    font-size:16px;
+    letter-spacing:0.03em;
+    line-height:23px;
+    width:90%;
+    float:left;
+    background: url('/images/CaseStudy_crowdfire_banner3.jpg');
+  }
 
-.banner3 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:5%;
-  padding-bottom:5%;
-  font-size:16px;
-  letter-spacing:0.03em;
-  line-height:23px;
-  width:100%;
-  background: url('/images/CaseStudy_crowdfire_banner3.jpg');
-}
+  .banner4 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:4%;
+    padding-bottom:4%;
+    font-size:18px;
+    letter-spacing:0.03em;
+    line-height:24px;
+    width:100%;
+    float:left;
+    background: url('/images/CaseStudy_crowdfire_banner4.jpg');
+  }
 
-.banner4 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:4%;
-  padding-bottom:4%;
-  font-size:18px;
-  letter-spacing:0.03em;
-  line-height:24px;
-  width:100%;
-  background: url('/images/CaseStudy_crowdfire_banner4.jpg');
-}
+  .banner5 {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    padding-top:4%;
+    padding-bottom:4%;
+    font-size:16px;
+    letter-spacing:0.03em;
+    line-height:23px;
+    width:100%;
+    float:left;
+    background:none;
+    background-color:#666666;
+  }
 
-.banner5 {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  padding-top:4%;
-  padding-bottom:4%;
-  font-size:16px;
-  letter-spacing:0.03em;
-  line-height:23px;
-  width:100%;
-  background:none;
-  background-color:#666666;
-}
+  .banner2text {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    width:80%;
+    padding-left:10%;
+    padding-bottom:1%;
+    padding-top:1%;
+    float:left;
+    text-align:center;
+    color:#ffffff;
+  }
 
-.banner2text {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  width:80%;
-  padding-bottom:1%;
-  padding-top:1%;
-  text-align:center;
-  color:#ffffff;
-  margin:0 auto;
-}
+  .banner3text {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    width:80%;
+    padding-left:10%;
+    padding-top:5%;
+    padding-bottom:5%;
+    text-align:center;
+  }
 
-.banner3text {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  width:80%;
-  padding-top:5%;
-  padding-bottom:5%;
-  text-align:center;
-  margin:0 auto;
-}
+  .banner4text {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    width:80%;
+    padding-left:10%;
+    padding-right:10%;
+    padding-top:3%;
+    padding-bottom:3%;
+    text-align:center;
+  }
 
-.banner4text {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  width:80%;
-  padding-top:3%;
-  padding-bottom:3%;
-  text-align:center;
-  margin:0 auto;
-}
+  .banner5text {
+    font-family:"Roboto", sans-serif;
+    font-weight:300;
+    color:#ffffff;
+    width:80%;
+    padding-left:10%;
+    padding-top:3%;
+    padding-bottom:3%;
+    text-align:center;
+  }
 
-.banner5text {
-  font-family:"Roboto", sans-serif;
-  font-weight:300;
-  color:#ffffff;
-  width:80%;
-  padding-top:3%;
-  padding-bottom:3%;
-  text-align:center;
-  margin:0 auto;
-}
+  .fullcol {
+    margin-top:6%;
+    margin-bottom:8%;
+  }
 
-.fullcol {
-  margin-top:6%;
-  margin-bottom:8%;
-}
+  h2 {
+    line-height:26px;
+    font-size:18px;
+  }
 
-h2 {
-  line-height:26px;
-  font-size:18px;
-}
+  .quote {
+    font-size:18px;
+    line-height:24px;
+  }
 
-.quote {
-  font-size:18px;
-  line-height:24px;
-}
-
-.logo {
-  width:35%;
-}
+  .logo {
+    width:35%;
+  }
+} /* End Media 910px */
 
 @media screen and (max-width: 580px){
 
@@ -435,11 +438,9 @@ h2 {
     margin-left:0px;
     margin-bottom:1%;
     margin-top:2%;
-
   }
 
   .banner1 {
     background: url('/images/CaseStudy_crowdfire_banner1.jpg');
-
-
+  }
 }

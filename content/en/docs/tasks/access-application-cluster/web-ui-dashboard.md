@@ -10,9 +10,9 @@ weight: 10
 
 {{% capture overview %}}
 
-Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster itself along with its attendant resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
+Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
-Dashboard also provides information on the state of Kubernetes resources in your cluster, and on any errors that may have occurred.
+Dashboard also provides information on the state of Kubernetes resources in your cluster and on any errors that may have occurred.
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
@@ -26,12 +26,16 @@ Dashboard also provides information on the state of Kubernetes resources in your
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
 ```
-kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
 ```
 
 ## Accessing the Dashboard UI
 
-There are multiple ways you can access the Dashboard UI; either by using the kubectl command-line interface, or by accessing the Kubernetes master apiserver using your web browser.
+To protect your cluster data, Dashboard deploys with a minimal RBAC configuration by default. Currently, Dashboard only supports logging in with a Bearer Token. To create a token for this demo, you can follow our guide on [creating a sample user](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user).
+
+{{< warning >}}
+The sample user created in the tutorial will have administrative privileges and is for educational purposes only.
+{{< /warning >}}
 
 ### Command line proxy
 You can access Dashboard using the kubectl command-line tool by running the following command:
@@ -40,17 +44,13 @@ You can access Dashboard using the kubectl command-line tool by running the foll
 kubectl proxy
 ```
 
-Kubectl will handle authentication with apiserver and make Dashboard available at http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/.
+Kubectl will make Dashboard available at http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/.
 
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 
-### Master server
-You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to ``https://<master-ip>:<apiserver-port>/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/``, where `<master-ip>` is IP address or domain name of the Kubernetes
-master.
-
-Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/reference/access-authn-authz/authentication/) for information on how to configure authentication manually.
-
-If the username and password are configured but unknown to you, then use `kubectl config view` to find it.
+{{< note >}}
+Kubeconfig Authentication method does NOT support external identity providers or x509 certificate-based authentication.
+{{< /note >}}
 
 ## Welcome view
 
@@ -62,9 +62,7 @@ When you access Dashboard on an empty cluster, you'll see the welcome page. This
 
 Dashboard lets you create and deploy a containerized application as a Deployment and optional Service with a simple wizard. You can either manually specify application details, or upload a YAML or JSON file containing application configuration.
 
-To access the deploy wizard from the Welcome page, click the respective button. To access the wizard at a later point in time, click the **CREATE** button in the upper right corner of any page.
-
-![Deploy wizard](/images/docs/ui-dashboard-deploy-simple.png)
+Click the **CREATE** button in the upper right corner of any page to begin.
 
 ### Specifying application details
 
@@ -126,9 +124,7 @@ track=stable
 
 Kubernetes supports declarative configuration. In this style, all configuration is stored in YAML or JSON configuration files using the Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
 
-As an alternative to specifying application details in the deploy wizard, you can define your application in YAML or JSON files, and upload the files using Dashboard:
-
-![Deploy wizard file upload](/images/docs/ui-dashboard-deploy-file.png)
+As an alternative to specifying application details in the deploy wizard, you can define your application in YAML or JSON files, and upload the files using Dashboard.
 
 ## Using Dashboard
 Following sections describe views of the Kubernetes Dashboard UI; what they provide and how can they be used.
@@ -139,35 +135,25 @@ When there are Kubernetes objects defined in the cluster, Dashboard shows them i
 
 Dashboard shows most Kubernetes object kinds and groups them in a few menu categories.
 
-#### Admin
-View for cluster and namespace administrators. It lists Nodes, Namespaces and Persistent Volumes and has detail views for them. Node list view contains CPU and memory usage metrics aggregated across all Nodes. The details view shows the metrics for a Node, its specification, status, allocated resources, events and pods running on the node.
-
-![Node detail view](/images/docs/ui-dashboard-node.png)
+#### Admin Overview
+For cluster and namespace administrators, Dashboard lists Nodes, Namespaces and Persistent Volumes and has detail views for them. Node list view contains CPU and memory usage metrics aggregated across all Nodes. The details view shows the metrics for a Node, its specification, status, allocated resources, events and pods running on the node.
 
 #### Workloads
-Entry point view that shows all applications running in the selected namespace. The view lists applications by workload kind (e.g., Deployments, Replica Sets, Stateful Sets, etc.) and each workload kind can be viewed separately. The lists summarize actionable information about the workloads, such as the number of ready pods for a Replica Set or current memory usage for a Pod.
-
-![Workloads view](/images/docs/ui-dashboard-workloadview.png)
+Shows all applications running in the selected namespace. The view lists applications by workload kind (e.g., Deployments, Replica Sets, Stateful Sets, etc.) and each workload kind can be viewed separately. The lists summarize actionable information about the workloads, such as the number of ready pods for a Replica Set or current memory usage for a Pod.
 
 Detail views for workloads show status and specification information and surface relationships between objects. For example, Pods that Replica Set is controlling or New Replica Sets and Horizontal Pod Autoscalers for Deployments.
 
-![Deployment detail view](/images/docs/ui-dashboard-deployment-detail.png)
-
-#### Services and discovery
-Services and discovery view shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and external endpoints for external users.
-
-![Service list partial view](/images/docs/ui-dashboard-service-list.png)
+#### Services
+Shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and external endpoints for external users.
 
 #### Storage
 Storage view shows Persistent Volume Claim resources which are used by applications for storing data.
 
-#### Config
-Config view shows all Kubernetes resources that are used for live configuration of applications running in clusters. This is now Config Maps and Secrets. The view allows for editing and managing config objects and displays secrets hidden by default.
-
-![Secret detail view](/images/docs/ui-dashboard-secret-detail.png)
+#### Config Maps and Secrets
+Shows all Kubernetes resources that are used for live configuration of applications running in clusters. The view allows for editing and managing config objects and displays secrets hidden by default.
 
 #### Logs viewer
-Pod lists and detail pages link to logs viewer that is built into Dashboard. The viewer allows for drilling down logs from containers belonging to a single Pod.
+Pod lists and detail pages link to a logs viewer that is built into Dashboard. The viewer allows for drilling down logs from containers belonging to a single Pod.
 
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 

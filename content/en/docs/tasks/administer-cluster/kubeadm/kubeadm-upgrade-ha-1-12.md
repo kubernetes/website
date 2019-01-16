@@ -37,7 +37,7 @@ Upgrade `kubeadm` to the version that matches the version of Kubernetes that you
 
 ```shell
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm && \
+apt-get update && apt-get upgrade -y kubeadm && \
 apt-mark hold kubeadm
 ```
 
@@ -113,7 +113,7 @@ You should see something like the following:
 
     [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.12.0". Enjoy!
 
-The `kubeadm-config` ConfigMap is now updated from `v1alpha3` version to `v1beta1`.
+The `kubeadm-config` ConfigMap is now updated from `v1alpha2` version to `v1alpha3`.
 
 ### Upgrading additional control plane nodes
 
@@ -143,7 +143,7 @@ Open the file in an editor and replace the following values for `ClusterConfigur
 
 You must also modify the `ClusterStatus` to add a mapping for the current host under apiEndpoints.
 
-Add an annotation for the cri-socket to the current node, for example to use docker:
+Add an annotation for the cri-socket to the current node, for example to use Docker:
 
 ```shell
 kubectl annotate node <nodename> kubeadm.alpha.kubernetes.io/cri-socket=/var/run/dockershim.sock
