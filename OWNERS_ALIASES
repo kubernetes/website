@@ -149,6 +149,7 @@ aliases:
   sig-docs-ko-owners: #Team Korean docs localization; GH: sig-docs-ko-owners
     - ClaudiaJKang
     - gochist
+    - ianychoi
     - zacharysarah
   sig-docs-ko-reviews: #Team Korean docs reviews; GH: sig-docs-ko-reviews
     - ClaudiaJKang
@@ -286,3 +287,4 @@ aliases:
     - floreks
   sig-windows:
     - michmike
+

@@ -46,9 +46,8 @@ this example.
 
 1. Configure the kubelet to be a service manager for etcd.
 
-    Running etcd is simpler than running kubernetes so you must override the
-    kubeadm-provided kubelet unit file by creating a new one with a higher
-    precedence.
+    Since etcd was created first, you must override the service priority by creating a new unit file
+    that has higher precedence than the kubeadm-provided kubelet unit file.
 
     ```sh
     cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf

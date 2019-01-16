@@ -56,6 +56,10 @@ a Kubernetes cluster from scratch.
 
 * [Azure Kubernetes Service](https://azure.microsoft.com/services/container-service/) offers managed Kubernetes clusters.
 
+* [Containership Kubernetes Engine (CKE)](https://containership.io/containership-platform) intuitive Kubernetes cluster provisioning and management on GCP, Azure, AWS, Packet, and DigitalOcean. Seamless version upgrades, autoscaling, metrics, workload creation, and more.
+
+* [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes/) offers managed Kubernetes service.
+
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
 * [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
@@ -94,6 +98,7 @@ few commands. These solutions are actively developed and have active community s
 * [Azure](/docs/setup/turnkey/azure/)
 * [CenturyLink Cloud](/docs/setup/turnkey/clc/)
 * [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
+* [Containership](https://containership.io/containership-platform)
 * [Gardener](https://gardener.cloud/)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
@@ -101,6 +106,7 @@ few commands. These solutions are actively developed and have active community s
 * [Kubermatic](https://cloud.kubermatic.io)
 * [Kublr](https://kublr.com/)
 * [Madcore.Ai](https://madcore.ai/)
+* [Nirmata](https://nirmata.com/)
 * [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Giant Swarm](https://giantswarm.io)
@@ -119,6 +125,7 @@ few commands.
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
 * [Kublr](https://kublr.com/)
+* [Nirmata](https://nirmata.com/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Giant Swarm](https://giantswarm.io)

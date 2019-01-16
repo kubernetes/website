@@ -80,7 +80,7 @@ Use `kubectl describe secret...` to get the token for the default service accoun
 
 ```shell
 $ APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
-$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep ^default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d " ")
+$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep "^default" | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d " ")
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
@@ -160,11 +160,11 @@ at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 
 From within a pod the recommended ways to connect to API are:
 
-  - run `kubectl proxy` in a sidecar container in the pod, or as a background
+  - Run `kubectl proxy` in a sidecar container in the pod, or as a background
     process within the container. This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
     in any container of the pod can access it.
-  - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
+  - Use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
     They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
 
 In each case, the credentials of the pod are used to communicate securely with the apiserver.

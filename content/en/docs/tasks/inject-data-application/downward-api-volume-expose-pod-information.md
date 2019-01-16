@@ -84,7 +84,7 @@ builder="john-doe"
 
 Get a shell into the Container that is running in your Pod:
 
-```
+```shell
 kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 ```
 
@@ -177,7 +177,7 @@ kubectl create -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
 
 Get a shell into the Container that is running in your Pod:
 
-```
+```shell
 kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 ```
 
