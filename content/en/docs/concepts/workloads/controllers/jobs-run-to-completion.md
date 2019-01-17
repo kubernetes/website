@@ -133,8 +133,8 @@ There are three main types of jobs:
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
   - **not implemented yet:** Each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
-  - do not specify `.spec.completions`, default to `.spec.parallelism`.
-  - the pods must coordinate with themselves or an external service to determine what each should work on.
+  - do not specify `.spec.completions`, default to `.spec.parallelism`.
+  - the pods must coordinate with themselves or an external service to determine what each should work on.
   - each pod is independently capable of determining whether or not all its peers are done, thus the entire Job is done.
   - when _any_ pod terminates with success, no new pods are created.
   - once at least one pod has terminated with success and all pods are terminated, then the job is completed with success.
