@@ -71,6 +71,15 @@ array has six possible fields:
     due to lacking of resources or other constraints;
   * `ContainersReady`: all containers in the Pod are ready.
 
+Current valid PodConditions are: 
+
+ * `PodScheduled` represents status of the scheduling process for this pod.
+ 
+ * `PodReady` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
+ 
+ * `PodInitialized` means that all init containers in the pod have started successfully.
+ 
+ * `ContainersReady` indicates whether all containers in the pod are ready.
 
 
 ## Container probes
