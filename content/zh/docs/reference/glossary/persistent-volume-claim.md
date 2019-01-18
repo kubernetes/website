@@ -1,5 +1,5 @@
 ---
-title: 持久卷声明
+title: 持久卷申领
 id: persistent-volume-claim
 date: 2018-04-12
 full_link: /docs/concepts/storage/persistent-volumes/
@@ -38,7 +38,7 @@ tags:
 <!--
 Specifies the amount of storage, how the storage will be accessed (read-only, read-write and/or exclusive) and how it is reclaimed (retained, recycled or deleted). Details of the storage itself are in the PersistentVolume specification.
 -->
-指定存储的数量，如何访问存储(只读、读写或独占)以及如何回收存储(保留、回收或删除)。存储本身的详细信息在 PersistentVolume 规范中。
+指定存储的数量，如何访问存储（只读、读写或独占）以及如何回收存储（保留、回收或删除）。存储本身的详细信息在 PersistentVolume 规范中。
 
 
 
