@@ -36,54 +36,61 @@ content_template: templates/task
 
 1. 列出您集群中的 StorageClasses：
 
-        kubectl get storageclass
+    ```bash
+    kubectl get storageclass
+    ```
 
+    输出类似这样：
 
-	输出类似这样：
+    ```bash
+    NAME                 PROVISIONER               AGE
+    standard (default)   kubernetes.io/gce-pd      1d
+    gold                 kubernetes.io/gce-pd      1d
+    ```
 
-        NAME                 TYPE
-        standard (default)   kubernetes.io/gce-pd
-        gold                 kubernetes.io/gce-pd
-
-
-   默认 StorageClass 以 `(default)` 标记。
+    默认 StorageClass 以 `(default)` 标记。
 
 
 2. 标记默认 StorageClass  非默认：
 
 
-   默认 StorageClass 的注解 `storageclass.kubernetes.io/is-default-class` 设置为 `true`。注解的其它任意值或者缺省值将被解释为 `false`。
+      默认 StorageClass 的注解 `storageclass.kubernetes.io/is-default-class` 设置为 `true`。注解的其它任意值或者缺省值将被解释为 `false`。
+
+      要标记一个 StorageClass 为非默认的，您需要改变它的值为 `false`： 
+   
+      ```bash
+      kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+      ```
 
 
-   要标记一个 StorageClass 为非默认的，您需要改变它的值为 `false`： 
-
-        kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
-
-
-    这里的 `<your-class-name>` 是您选择的 StorageClass 的名字。
+      这里的 `<your-class-name>` 是您选择的 StorageClass 的名字。
 
 
 3. 标记一个 StorageClass 为默认的：
 
 
-   和前面的步骤类似，您需要添加/设置注解 `storageclass.kubernetes.io/is-default-class=true`。
+      和前面的步骤类似，您需要添加/设置注解 `storageclass.kubernetes.io/is-default-class=true`。
 
-        kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+      ```bash
+      kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+      ```
 
-
-   请注意，最多只能有一个 StorageClass 能够被标记为默认。如果它们中有两个或多个被标记为默认，Kubernetes 将忽略这个注解，也就是它将表现为没有默认 StorageClass。
+      请注意，最多只能有一个 StorageClass 能够被标记为默认。如果它们中有两个或多个被标记为默认，Kubernetes 将忽略这个注解，也就是它将表现为没有默认 StorageClass。
 
 
 4. 验证您选用的 StorageClass 为默认的：
 
-        kubectl get storageclass
+      ```bash
+      kubectl get storageclass
+      ```
 
+      输出类似这样：
 
-    输出类似这样：
-
-        NAME             TYPE
-        standard         kubernetes.io/gce-pd
-        gold (default)   kubernetes.io/gce-pd
+      ```bash
+      NAME             PROVISIONER               AGE
+      standard         kubernetes.io/gce-pd      1d
+      gold (default)   kubernetes.io/gce-pd      1d
+      ```
 
 {{% /capture %}}
 

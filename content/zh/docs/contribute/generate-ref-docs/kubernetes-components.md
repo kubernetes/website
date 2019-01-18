@@ -29,7 +29,7 @@ reference documentation for tools and components in the
 * You need a machine that is running Linux or macOS.
 -->
 
-* 您需要一个运行着 Linux 或 macOS 操作系统的机器。
+* 你需要一个运行着 Linux 或 macOS 操作系统的机器。
 
 <!--
 * You need to have this software installed:
@@ -43,7 +43,7 @@ reference documentation for tools and components in the
     * [gcc compiler/linker](https://gcc.gnu.org/)
 -->
 
-* 您需要安装以下软件：
+* 你需要安装以下软件：
 
     * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
