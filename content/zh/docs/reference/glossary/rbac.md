@@ -38,6 +38,6 @@ tags:
 <!--
 RBAC utilizes *roles*, which contain permission rules, and *role bindings*, which grant the permissions defined in a role to a set of users.
 -->
-RBAC 使用 *roles* (包含权限规则)和 *role bindings* (将角色中定义的权限授予一组用户)。
+RBAC 使用 *角色* (包含权限规则)和 *角色绑定* (将角色中定义的权限授予一组用户)。
 
 
