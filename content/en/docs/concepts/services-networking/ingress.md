@@ -76,8 +76,8 @@ Additional controllers include:
 * [Istio](https://istio.io/) based ingress controller
   [Control Ingress Traffic](https://istio.io/docs/tasks/traffic-management/ingress/).
 * [Kong](https://konghq.com/) offers [community](https://discuss.konghq.com/c/kubernetes) or
-  [commercial](https://konghq.com/api-customer-success/) support and maintenance for the
-  [Kong Ingress Controllerfor Kubernetes](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/).
+  [commercial](https://konghq.com/kong-enterprise/) support and maintenance for the
+  [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller).
 * [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the
   [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller).
 * [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
