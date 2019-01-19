@@ -4,13 +4,16 @@ reviewers:
 title: 使用 CoreDNS 进行服务发现
 min-kubernetes-server-version: v1.9
 content_template: templates/task
+---
 
 <!--
+---
 reviewers:
 - johnbelamaric
 title: Using CoreDNS for Service Discovery
 min-kubernetes-server-version: v1.9
 content_template: templates/task
+---
 -->
 
 {{% capture overview %}}
@@ -38,13 +41,13 @@ This page describes the CoreDNS upgrade process and how to install CoreDNS inste
 [CoreDNS](https://coredns.io) is a flexible, extensible DNS server that can serve as the Kubernetes cluster DNS.
 Like Kubernetes, the CoreDNS project is hosted by the [CNCF.](http://www.cncf.io)
 -->
-[CoreDNS](https://coredns.io) 是一个灵活，可扩展的 DNS 服务器，可以作为 Kubernetes 集群 DNS。与 Kubernetes 一样，CoreDNS 项目由 CNCF(http://www.cncf.io) 持有。
+[CoreDNS](https://coredns.io) 是一个灵活可扩展的 DNS 服务器，可以作为 Kubernetes 集群 DNS。与 Kubernetes 一样，CoreDNS 项目由 CNCF(http://www.cncf.io) 持有。
 
 <!--
 You can use CoreDNS instead of kube-dns in your cluster by replacing kube-dns in an existing
 deployment, or by using tools like kubeadm that will deploy and upgrade the cluster for you.
 -->
-通过在现有的集群中替换 ku-dns，可以在集群中使用 CoreDNS 代替 ku-dns 部署，或者使用 kubeadm 等工具来为您部署和升级集群。
+通过在现有的集群中替换 kube-dns，可以在集群中使用 CoreDNS 代替 kube-dns 部署，或者使用 kubeadm 等工具来为您部署和升级集群。
 
 <!--
 ## Installing CoreDNS
@@ -56,7 +59,7 @@ deployment, or by using tools like kubeadm that will deploy and upgrade the clus
 For manual deployment or replacement of kube-dns, see the documentation at the
 [CoreDNS GitHub project.](https://github.com/coredns/deployment/tree/master/kubernetes)
 -->
-有关手动部署或替换 ku-dns，请参阅 [CoreDNS GitHub project](https://github.com/coredns/deployment/tree/master/kubernetes)。
+有关手动部署或替换 kube-dns，请参阅 [CoreDNS GitHub 工程](https://github.com/coredns/deployment/tree/master/kubernetes)。
 
 <!--
 ## Upgrading an existing cluster with kubeadm
@@ -116,7 +119,7 @@ and is installed by default.
 To install kube-dns instead, set the `CoreDNS` feature gate
 value to `false`:
 -->
-若要安装 ku-dns，请将 `CoreDNS` 特性门值设置为 `false`：
+若要安装 kube-dns，请将 `CoreDNS` 特性门值设置为 `false`：
 
 ```
 kubeadm init --feature-gates=CoreDNS=false
@@ -126,13 +129,13 @@ kubeadm init --feature-gates=CoreDNS=false
 ## Tuning CoreDNS
 -->
 
-## 调优 CoreDNS
+## CoreDNS 调优
 
 <!--
 When resource utilisation is a concern, it may be useful to tune the configuration of CoreDNS. For more details, check out the
 [documentation on scaling CoreDNS]((https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)).
 -->
-当涉及到资源利用时，优化内核的配置可能是有用的。有关详细信息，请参阅 [documentation on scaling CoreDNS]((https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md))。
+当涉及到资源利用时，优化内核的配置可能是有用的。有关详细信息，请参阅 [关于扩展 CoreDNS 的文档]((https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md))。
 
 {{% /capture %}}
 
@@ -143,7 +146,7 @@ You can configure [CoreDNS](https://coredns.io) to support many more use cases t
 kube-dns by modifying the `Corefile`. For more information, see the
 [CoreDNS site](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).
 -->
-您可以通过修改 `Corefile` 来配置 [CoreDNS](https://coredns.io)，以支持比 ku-dns 更多的用例。有关更多信息，请参考 [CoreDNS site](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)。
+您可以通过修改 `Corefile` 来配置 [CoreDNS](https://coredns.io)，以支持比 ku-dns 更多的用例。有关更多信息，请参考 [CoreDNS 网站](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)。
 
 {{% /capture %}}
 
