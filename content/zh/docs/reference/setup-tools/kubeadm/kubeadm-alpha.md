@@ -174,7 +174,7 @@ or selectively configure single elements.
 You can use this command to upload the kubeadm configuration to your cluster.
 Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 -->
-可以使用此命令将 kubeadm 配置上传到集群。或者，您可以使用 [kubeadm config]/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
+可以使用此命令将 kubeadm 配置上传到集群。或者，您可以使用 [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
 
 {{< tabs name="upload-config" >}}
 {{< tab name="mark-master" include="generated/kubeadm_alpha_phase_upload-config.md" />}}
@@ -187,14 +187,14 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 You can install all the available addons with the `all` subcommand, or
 install them selectively.
 -->
-您可以使用“all”子命令安装所有可用的插件，也可以选择安装它们。
+您可以使用 `all` 子命令安装所有可用的插件，也可以选择安装它们。
 
 {{< note >}}
 
 <!--
 If `kubeadm` is invoked with `--feature-gates=CoreDNS=false`, kube-dns is installed.
 -->
-如果用 `--feature-gates=CoreDNS=false`，调用 `kubeadm` 则安装 kube-dns。
+如果用 `--feature-gates=CoreDNS=false` 调用 `kubeadm` 则安装 kube-dns。
 
 {{< /note >}}
 
@@ -213,7 +213,7 @@ If `kubeadm` is invoked with `--feature-gates=CoreDNS=false`, kube-dns is instal
 <!--
 Self-hosting is an alpha feature. See [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) documentation for self-hosting limitations.
 -->
-自托管是 alpha 的一个特性。查看 [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) documentation for self-hosting limitations。
+自托管是 alpha 的一个特性。有关自托管限制，请参阅 [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 文档。
 
 {{< /caution >}}
 
