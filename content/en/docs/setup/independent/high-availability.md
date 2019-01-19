@@ -27,7 +27,7 @@ We encourage you to try either approach, and provide us with feedback in the kub
 
 Note that the alpha feature gate `HighAvailability` is deprecated in v1.12 and removed in v1.13.
 
-See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha).
+See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13).
 
 {{< caution >}}
 This page does not address running your cluster on a cloud provider. In a cloud
