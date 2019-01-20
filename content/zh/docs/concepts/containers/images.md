@@ -18,12 +18,12 @@ content_template: templates/concept
 {{% capture body %}}
 
 ## 升级镜像
-默认的镜像拉取策略是“IfNotPresent”，在镜像已经存在的情况下，kubelet将不在去拉取镜像。
-如果总是想要拉取镜像，必须设置拉取策略为“Always”或者设置镜像标签为“:latest”。
+默认的镜像拉取策略是 `IfNotPresent`，在镜像已经存在的情况下，kubelet将不在去拉取镜像。
+如果总是想要拉取镜像，必须设置拉取策略为 `Always` 或者设置镜像标签为 `:latest`。
 
-如果没有指定镜像的标签，它会被假定为“:latest”,同时拉取策略为“Always”。
+如果没有指定镜像的标签，它会被假定为 `:latest`，同时拉取策略为 `Always`。
 
-注意应避免使用“:latest”标签，参见 [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) 获取更多信息。
+注意应避免使用 `:latest` 标签，参见 [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) 获取更多信息。
 
 ## 使用私有仓库
 
