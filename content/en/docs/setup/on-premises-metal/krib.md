@@ -92,4 +92,4 @@ When running the reset Workflow, be sure not to accidentally target your product
 ## Feedback
 
 * Slack Channel: [#community](https://rackn.slack.com/messages/community/)
-* [GitHub Issues](https://github.com/digital/provision/issues)
+* [GitHub Issues](https://github.com/digitalrebar/provision/issues)
