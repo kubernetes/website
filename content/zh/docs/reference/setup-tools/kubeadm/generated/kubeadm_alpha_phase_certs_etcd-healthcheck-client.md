@@ -1,5 +1,5 @@
 
-为 healtcheck etcd 生成 liveness 探针的客户端证书
+为活跃性探针生成客户端证书以便对 etcd 执行健康检查
 <!--
 Generates the client certificate for liveness probes to healtcheck etcd
 -->
@@ -13,7 +13,7 @@ Generates the client certificate for liveness probes to healtcheck etcd
 <!--
 Generates the client certificate for liveness probes to healtcheck etcd, and saves them into etcd/healthcheck-client.cert and etcd/healthcheck-client.key files. 
 -->
-为 healtcheck etcd 生成 liveness 探针的客户端证书，并将它们保存到 etcd/healthcheck-client.cert 和 etcd/healthcheck-client.key 文件中。
+为活跃性探针生成客户端证书以便对 etcd 执行健康检查，并将它们保存到 etcd/healthcheck-client.cert 和 etcd/healthcheck-client.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
