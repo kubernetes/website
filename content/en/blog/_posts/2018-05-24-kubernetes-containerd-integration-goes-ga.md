@@ -109,7 +109,7 @@ For a detailed list of changes in the containerd 1.1 release, please see the rel
 To setup a Kubernetes cluster using containerd as the container runtime:
 
 *   For a production quality cluster on GCE brought up with kube-up.sh, see [here](https://github.com/containerd/cri/blob/v1.0.0/docs/kube-up.md).
-*   For a multi-node cluster installer and bring up steps using ansible and kubeadm, see [here](https://github.com/containerd/cri/blob/v1.0.0/contrib/ansible/README.md).
+*   For a multi-node cluster installer and bring up steps using Ansible and kubeadm, see [here](https://github.com/containerd/cri/blob/v1.0.0/contrib/ansible/README.md).
 *   For creating a cluster from scratch on Google Cloud, see [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way).
 *   For a custom installation from release tarball, see [here](https://github.com/containerd/cri/blob/v1.0.0/docs/installation.md).
 *   To install using LinuxKit on a local VM, see [here](https://github.com/linuxkit/linuxkit/tree/master/projects/kubernetes).

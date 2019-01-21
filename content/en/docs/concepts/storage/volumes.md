@@ -75,6 +75,7 @@ Kubernetes supports several types of Volumes:
    * [downwardAPI](#downwardapi)
    * [emptyDir](#emptydir)
    * [fc (fibre channel)](#fc)
+   * [flexVolume](#flexVolume)
    * [flocker](#flocker)
    * [gcePersistentDisk](#gcepersistentdisk)
    * [gitRepo (deprecated)](#gitrepo)
@@ -1237,7 +1238,7 @@ Learn how to
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
 
-### Flexvolume
+### Flexvolume {#flexVolume}
 
 Flexvolume is an out-of-tree plugin interface that has existed in Kubernetes
 since version 1.2 (before CSI). It uses an exec-based model to interface with

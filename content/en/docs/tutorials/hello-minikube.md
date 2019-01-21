@@ -60,7 +60,7 @@ For more information on the `docker build` command, read the [Docker documentati
 
 3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
 
-4. Katacoda environment only: Type 30000, and then click **Display Port**. 
+4. Katacoda environment only: Type `30000`, and then click **Display Port**. 
 
 ## Create a Deployment
 
@@ -75,7 +75,7 @@ recommended way to manage the creation and scaling of Pods.
 Pod runs a Container based on the provided Docker image. 
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
+    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
     ```
 
 2. View the Deployment:
@@ -127,7 +127,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 1. Expose the Pod to the public internet using the `kubectl expose` command:
 
     ```shell
-    kubectl expose deployment hello-node --type=LoadBalancer
+    kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
     
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
@@ -160,7 +160,8 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
-5. Katacoda environment only: Type in the Port number following `8080:`, and then click **Display Port**. 
+5. Katacoda environment only: Type `30369` (see port opposite to `8080` in services output), and then click
+**Display Port**. 
 
     This opens up a browser window that serves your app and shows the "Hello World" message.
 

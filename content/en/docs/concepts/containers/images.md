@@ -355,7 +355,7 @@ common use cases and suggested solutions.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
    - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
-     - It may be hosted on the [Docker Hub](https://hub.docker.com/account/signup/), or elsewhere.
+     - It may be hosted on the [Docker Hub](https://hub.docker.com/signup), or elsewhere.
      - Manually configure .docker/config.json on each node as described above.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.

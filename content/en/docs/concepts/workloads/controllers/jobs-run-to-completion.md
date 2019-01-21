@@ -133,8 +133,8 @@ There are three main types of jobs:
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
   - **not implemented yet:** Each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
-  - do not specify `.spec.completions`, default to `.spec.parallelism`.
-  - the pods must coordinate with themselves or an external service to determine what each should work on.
+  - do not specify `.spec.completions`, default to `.spec.parallelism`.
+  - the pods must coordinate with themselves or an external service to determine what each should work on.
   - each pod is independently capable of determining whether or not all its peers are done, thus the entire Job is done.
   - when _any_ pod terminates with success, no new pods are created.
   - once at least one pod has terminated with success and all pods are terminated, then the job is completed with success.
@@ -221,8 +221,7 @@ By default, a Job will run uninterrupted unless a Pod fails, at which point the 
 Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
 
 The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
-Once a Job reaches `activeDeadlineSeconds`, the Job and all of its Pods are terminated.
-The result is that the job has a status with `reason: DeadlineExceeded`.
+Once a Job reaches `activeDeadlineSeconds`, all of its Pods are terminated and the Job status will become `type: Failed` with `reason: DeadlineExceeded`.
 
 Note that a Job's `.spec.activeDeadlineSeconds` takes precedence over its `.spec.backoffLimit`. Therefore, a Job that is retrying one or more failed Pods will not deploy additional Pods once it reaches the time limit specified by `activeDeadlineSeconds`, even if the `backoffLimit` is not yet reached.
 

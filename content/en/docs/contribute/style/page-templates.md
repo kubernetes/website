@@ -65,17 +65,13 @@ To write a new concept page, create a Markdown file in a subdirectory of the
     {{%/* /capture */%}}
     ```
 
-- Within each section, write your content. Use the following guidelines:
-  - Use a minimum of H2 headings (with two leading `#` characters). The sections
-    themselves are titled automatically by the template.
-  - For `overview`, use a paragraph to set context for the entire topic.
-  - For `body`, explain the concept using free-form Markdown.
-  - For `whatsnext`, give a bullet list of up to 5 topics the reader might be
-    interested in reading next.
+- Fill each section with content. Follow these guidelines:
+  - Organize content with H2 and H3 headings.
+  - For `overview`, set the topic's context with a single paragraph.
+  - For `body`, explain the concept.
+  - For `whatsnext`, provide a bulleted list of topics (5 maximum) to learn more about the concept.
 
-An example of a published topic that uses the concept template is
-[Annotations](/docs/concepts/overview/working-with-objects/annotations/). The
-page you are currently reading also uses the concept template.
+[Annotations](/docs/concepts/overview/working-with-objects/annotations/) is a published example of the concept template. This page also uses the concept template.
 
 ## Task template
 

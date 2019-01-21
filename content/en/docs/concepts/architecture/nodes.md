@@ -74,7 +74,7 @@ the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce fr
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta，so node lifecycle controller automatically creates
+In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
 Similarly the scheduler ignores conditions when considering a Node; instead
 it looks at the Node's taints and a Pod's tolerations.
@@ -272,27 +272,8 @@ The Kubernetes scheduler ensures that there are enough resources for all the pod
 checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
 includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#node-components) nor any process running outside of the containers.
 
-If you want to explicitly reserve resources for non-pod processes, you can create a placeholder
-pod. Use the following template:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: resource-reserver
-spec:
-  containers:
-  - name: sleep-forever
-    image: k8s.gcr.io/pause:0.8.0
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-```
-
-Set the `cpu` and `memory` values to the amount of resources you want to reserve.
-Place the file in the manifest directory (`--config=DIR` flag of kubelet).  Do this
-on each kubelet where you want to reserve resources.
+If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
+[reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 
 
 ## API Object

@@ -251,11 +251,11 @@ file:
   monitor for the Neutron load balancer. Valid values are `true` and `false`.
   The default is `false`. When `true` is specified then `monitor-delay`,
   `monitor-timeout`, and `monitor-max-retries` must also be set.
-* `monitor-delay` (Optional): The time, in seconds, between sending probes to
-  members of the load balancer.
-* `monitor-timeout` (Optional): Maximum number of seconds for a monitor to wait
+* `monitor-delay` (Optional): The time between sending probes to
+  members of the load balancer. Ensure that you specify a valid time unit. The valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
+* `monitor-timeout` (Optional): Maximum time for a monitor to wait
   for a ping reply before it times out. The value must be less than the delay
-  value.
+  value. Ensure that you specify a valid time unit. The valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
 * `monitor-max-retries` (Optional): Number of permissible ping failures before
   changing the load balancer member's status to INACTIVE. Must be a number
   between 1 and 10.
