@@ -99,7 +99,7 @@ kubeadm alpha phase kubeconfig kubelet [flags]
 -->
 
     <tr>
-      <td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M默认值： "/etc/kubernetes"</td>
+      <td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值： "/etc/kubernetes"</td>
     </tr>
 <!--
       <td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes"</td>
