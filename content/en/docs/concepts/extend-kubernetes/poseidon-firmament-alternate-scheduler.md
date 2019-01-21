@@ -66,7 +66,7 @@ Although, Poseidon-Firmament scheduler is capable of scheduling various types of
 - Currently, Poseidon-Firmament scheduler **does not provide support for high availability**, our implementation assumes that the scheduler cannot fail. The [design document](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/design/README.md) describes possible ways to enable high availability, but we leave this to future work.  
 - We are **not aware of any production deployment** of Poseidon-Firmament scheduler at this time.  
 - Poseidon-Firmament is supported from Kubernetes release 1.6 and works with all subsequent releases.   
-- The current Poseidon release is 0.6 and the corresponding Firmament release is 0.6.
+- Release process for Poseidon and Firmament repos are in lock step.  The current Poseidon release can be found [here](https://github.com/kubernetes-sigs/poseidon/releases) and the corresponding Firmament release can be found [here](https://github.com/Huawei-PaaS/firmament/releases).
 
 ## Features Comparison Matrix	
 
