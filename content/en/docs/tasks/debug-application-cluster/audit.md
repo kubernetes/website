@@ -276,7 +276,7 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
 1. create a config file for fluentd
 
     ```none
-    $ cat <<EOF > /etc/fluentd/config
+    $ cat <<'EOF' > /etc/fluentd/config
     # fluentd conf runs in the same host with kube-apiserver
     <source>
         @type tail
@@ -321,6 +321,7 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
             include_time_key true
         </template>
     </match>
+    EOF
     ```
 
 1. start fluentd
@@ -373,6 +374,7 @@ different users into different files.
             path=>"/var/log/kube-audit-%{[event][user][username]}/audit"
         }
     }
+    EOF
     ```
 
 1. start logstash
