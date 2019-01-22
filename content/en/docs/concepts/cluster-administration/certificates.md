@@ -139,8 +139,8 @@ Finally, add the same parameters into the API server start parameters.
 
         mkdir cert
         cd cert
-        ../cfssl print-defaults config > config.json
-        ../cfssl print-defaults csr > csr.json
+        ../cfssl print-defaults config > ca-config.json
+        ../cfssl print-defaults csr > ca-csr.json
 1.  Create a JSON config file for generating the CA file, for example, `ca-config.json`:
 
         {
