@@ -32,13 +32,13 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{% capture prerequisites %}}
 
-이 튜토리얼에서 아래 파일들을 빌드한 컨테이너 이미지를 제공한다:
+이 튜토리얼에서 아래 파일들을 빌드한 컨테이너 이미지를 제공한다.
 
 {{< codenew language="js" file="minikube/server.js" >}}
 
 {{< codenew language="conf" file="minikube/Dockerfile" >}}
 
-`docker build`명령에 대한 자세한 설명은 [도커 문서](https://docs.docker.com/engine/reference/commandline/build/)를 읽어보자.
+`docker build`명령에 대한 자세한 설명은 [Docker 문서](https://docs.docker.com/engine/reference/commandline/build/)를 읽어보자.
 
 {{% /capture %}}
 
@@ -46,19 +46,19 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 ## Minikubue 클러스터 만들기
 
-1. **Launch Terminal** 을 클릭.
+1. **Launch Terminal** 을 클릭
 
     {{< kat-button >}}
 
     {{< note >}}Minikube를 로컬에 설치했다면 `minikube start`을 실행한다.{{< /note >}}
 
-2. 브라우저에서 쿠버네티스 대쉬보드를 열어보자:
+2. 브라우저에서 쿠버네티스 대시보드를 열어보자.
 
     ```shell
     minikube dashboard
     ```
 
-3. Katacoda 환경에서는: 터미널 패널의 상단에서 플러스를 클릭하고, 이어서 **Select port to view on Host 1**를 클릭.
+3. Katacoda 환경에서는: 터미널 패널의 상단에서 플러스를 클릭하고, 이어서 **Select port to view on Host 1**를 클릭
 
 4. Katacoda 환경에서는: 30000 을 입력하고 **Display Port**을 클락.
 
@@ -69,13 +69,13 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 헬스를 검사해서 파드의 컨테이너가 종료되었다면 재시작해준다.
 파드의 생성 및 스케일링을 관리하는 방법으로 디플로이먼트를 권장한다.
 
-1. `kubectl create` 명령어를 실행하여 파드를 관리할 디플로이먼트를 만든다. 이 파드는 제공된 도커 이미지를 기반으로 한 컨테이너를 실행한다.
+1. `kubectl create` 명령어를 실행하여 파드를 관리할 디플로이먼트를 만든다. 이 파드는 제공된 Docker 이미지를 기반으로 한 컨테이너를 실행한다.
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
     ```
 
-2. 디플로이먼트 보기:
+2. 디플로이먼트 보기
 
     ```shell
     kubectl get deployments
@@ -88,7 +88,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     hello-node   1         1         1            1           1m
     ```
 
-3. 파드 보기:
+3. 파드 보기
 
     ```shell
     kubectl get pods
@@ -100,13 +100,13 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. 클러스터 이벤트 보기:
+4. 클러스터 이벤트 보기
 
     ```shell
     kubectl get events
     ```
 
-5. `kubectl` 환경설정 보기:
+5. `kubectl` 환경설정 보기
 
     ```shell
     kubectl config view
@@ -120,7 +120,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 `hello-node` 컨테이너를 쿠버네티스 가상 네트워크 외부에서 접근하려면
 파드를 쿠버네티스 [*서비스*](/docs/concepts/services-networking/service/)로 노출해야 한다.
 
-1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출시키기:
+1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출시키기
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer
@@ -128,7 +128,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     
     `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출시키기 원한다는 뜻이다.
 
-2. 방금 생성한 서비스 살펴보기:
+2. 방금 생성한 서비스 살펴보기
 
     ```shell
     kubectl get services
@@ -142,10 +142,10 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    로드 발란서를 지원하는 클라우드 프로바이더의 경우에는 서비스에 접근할 수 있도록 외부 IP주소가 프로비저닝 한다.
+    로드 밸런서를 지원하는 클라우드 프로바이더의 경우에는 서비스에 접근할 수 있도록 외부 IP주소가 프로비저닝 한다.
     Minikube에서 `LoadBalancer`타입은 `minikube service` 명령어를 통해서 해당 서비스를 접근할 수 있게 한다.
 
-3. 다음 명령어를 실행한다:
+3. 다음 명령어를 실행한다
 
     ```shell
     minikube service hello-node
@@ -153,7 +153,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 4. Katacoda 환경에서만: 플러스를 클릭한 후에 **Select port to view on Host 1** 를 클릭.
 
-5. Katacoda 환경에서만: 포트 번호를 `8080:`로 입력하고, **Display Port** 클릭.
+5. Katacoda 환경에서만: 포트 번호를 `8080`로 입력하고, **Display Port** 클릭.
 
     이렇게 하면 당신의 앱을 서비스하는 브라우저 윈도우를 띄우고 Hellow World" 메시지를 보여준다.
 
@@ -161,7 +161,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 애드온셋이 있다.
 
-1. 현재 지원하는 애드온 목록을 확인한다:
+1. 현재 지원하는 애드온 목록을 확인한다.
 
     ```shell
     minikube addons list
@@ -187,7 +187,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     storage-provisioner: enabled
     ```
    
-2. 한 애드온을 활성화 한다. 예를 들어 `heapster`:
+2. 한 애드온을 활성화 한다. 예를 들어 `heapster`
 
     ```shell
     minikube addons enable heapster
@@ -199,7 +199,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     heapster was successfully enabled
     ```
 
-3. 방금 생성한 파드와 서비스를 확인한다:
+3. 방금 생성한 파드와 서비스를 확인한다.
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -224,7 +224,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. `heapster` 비활성화:
+4. `heapster` 비활성화
 
     ```shell
     minikube addons disable heapster
@@ -245,13 +245,13 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-필요시 Minikube 가상 머신(VM)을 정지한다:
+필요시 Minikube 가상 머신(VM)을 정지한다.
 
 ```shell
 minikube stop
 ```
 
-필요시 minikube VM을 삭제한다:
+필요시 minikube VM을 삭제한다.
 
 ```shell
 minikube delete
