@@ -5,12 +5,7 @@
     "@slack/client": "^4.4.0",
     "babel-loader": "^8.0.2",
     "netlify-lambda": "^0.4.0",
-    "grunt": "^1.0.3",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-eslint": "^21.0.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "load-grunt-tasks": "^4.0.0",
-    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-cli": "^0.1.0",
     "the-a11y-machine": "0.9.3"
   }
 }
