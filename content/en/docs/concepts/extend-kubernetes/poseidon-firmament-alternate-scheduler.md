@@ -94,7 +94,7 @@ Although, Poseidon-Firmament scheduler is capable of scheduling various types of
 
 ## Installation	
 
-For in-cluster installation of Poseidon, please start at the [installation instructions](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/install/README.md).
+For in-cluster installation of Poseidon, please start at the [Installation instructions](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/install/README.md).
 
 
 ## Development	
