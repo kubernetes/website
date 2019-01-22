@@ -12,7 +12,7 @@ View the kubeadm configuration stored inside the cluster.
 
 使用此命令，可以查看 kubeadm 配置的集群中的 ConfigMap。
 
-该配置位于 "kubead -config" ConfigMap 中的 "kube-system" 命名空间中。
+该配置位于 "kube-system" 名称空间中的名为 "kubeadm-config" 的 ConfigMap 中。
 
 <!--
 Using this command, you can view the ConfigMap in the cluster where the configuration for kubeadm is located.

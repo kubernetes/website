@@ -19,7 +19,7 @@ If you initialized your cluster using a v1.7.x or lower kubeadm client and used 
 same config file before upgrading to v1.8 using 'kubeadm upgrade'.
 -->
 
-该配置位于 "kubead -config" ConfigMap 中的 "kube-system" 命名空间中。
+该配置位于 "kube-system" 名称空间中的名为 "kubeadm-config" 的 ConfigMap 中。
 <!--
 The configuration is located in the "kube-system" namespace in the "kubeadm-config" ConfigMap.
 -->
