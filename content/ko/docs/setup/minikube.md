@@ -124,7 +124,7 @@ $ minikube start \
 
 #### CRI-O
 
-[CRI-O](https://github.com/kubernetes-incubator/cri-o)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다:
+[CRI-O](https://github.com/kubernetes-incubator/cri-o)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
 
 ```bash
 $ minikube start \
@@ -133,7 +133,7 @@ $ minikube start \
     --bootstrapper=kubeadm
 ```
 
-혹은 확장 버전을 사용할 수 있다:
+혹은 확장 버전을 사용할 수 있다.
 
 ```bash
 $ minikube start \
@@ -146,7 +146,7 @@ $ minikube start \
 
 #### rkt 컨테이너 엔진
 
-[rkt](https://github.com/rkt/rkt)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다:
+[rkt](https://github.com/rkt/rkt)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
 
 ```shell
 $ minikube start \
@@ -181,13 +181,13 @@ eval $(minikube docker-env)
 docker ps
 ```
 
-Centos 7 에서 도커는 다음과 같은 오류를 발생한다:
+Centos 7 에서 도커는 아래와 같은 오류를 발생한다.
 
 ```
 Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no such file or directory
 ```
 
-해결 방법은 /etc/sysconfig/docker를 minikube의 환경 변화를 기대한 것대로 바꾸도록 업데이트하는 것이다:
+해결 방법은 /etc/sysconfig/docker를 minikube의 환경 변화를 기대한 것대로 바꾸도록 업데이트하는 것이다.
 
 ```
 < DOCKER_CERT_PATH=/etc/docker
@@ -329,7 +329,7 @@ spec:
 ```
 
 ## 호스트 폴더 마운트
-몇몇 드라이버는 VM 안에 호스트 폴더를 마운트하여 VM 과 호스트 사이에 쉽게 파일을 공유할 수 있게 한다. 이런 것은 지금은 설정할 수 없고 사용하는 드라이버나 운영체제에 따라 다릅니다.
+몇몇 드라이버는 VM 안에 호스트 폴더를 마운트하여 VM 과 호스트 사이에 쉽게 파일을 공유할 수 있게 한다. 이들은 지금 설정할 수 없고 사용하는 드라이버나 운영체제에 따라 다르다.
 
 **주의:** 호스트 폴더 공유는 KVM 드라이버에서 아직 구현되어 있지 않다.
 
@@ -352,7 +352,7 @@ spec:
 
 minikube에서 커스텀 애드온을 적절히 시작하고 재시작할 수 있으려면, 
 minikube와 함께 시작하려는 애드온을 `~/.minikube/addons` 디렉터리에 두자.
-이 폴더에 애드온은 minikube VM 으로 이동되어 minikube가 시작하고 재시작 될때에 함께 실행됩니다.
+이 폴더에 애드온은 minikube VM 으로 이동되어 minikube가 시작하고 재시작 될때에 함께 실행된다.
 
 ## HTTP 프록시 환경에서 Minikube 사용
 
@@ -378,13 +378,13 @@ $ export no_proxy=$no_proxy,$(minikube ip)
 
 ## 알려진 이슈
 * 클라우드 프로바이더에서 필요한 기능은 Minikube에서 동작하지 않다. 이런 것은:
-  * 로드발란서
+  * 로드밸런서
 * 멀티플 노드를 위한 기능들. 이런 것은:
   * 진보된 스케쥴링 정책
 
 ## 설계
 
-minikube는 VM을 프로비저닝하기 위해 [libmachine](https://github.com/docker/machine/tree/master/libmachine)과 클러스터를 운영하기 위해 [localkube](https://git.k8s.io/minikube/pkg/localkube)(원래 이 프로젝트를 위해 [RedSpread](https://github.com/redspread)이 작성하고 기부했다)를 이용한다.
+minikube는 VM을 프로비저닝하기 위해서 [libmachine](https://github.com/docker/machine/tree/master/libmachine)를 클러스터를 운영하기 위해 [localkube](https://git.k8s.io/minikube/pkg/localkube)(원래 이 프로젝트를 위해 [RedSpread](https://github.com/redspread)이 작성하고 기부했다)를 이용한다.
 
 minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md) 부분을 읽어보자
 
