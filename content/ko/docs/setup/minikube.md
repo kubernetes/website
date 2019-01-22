@@ -14,7 +14,7 @@ Minikube는 매일 쿠버네티스를 사용하거나 개발하려는 사용자�
   * 노드 포트
   * 컨피그 맵과 시크릿
   * 대시보드
-  * 컨테이너 런타임: 도커, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) 와 [containerd](https://github.com/containerd/containerd)
+  * 컨테이너 런타임: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) 와 [containerd](https://github.com/containerd/containerd)
   * CNI(Container Network Interface) 사용 
   * 잉그레스
 
@@ -154,34 +154,34 @@ $ minikube start \
     --container-runtime=rkt
 ```
 
-이것은 rkt와 도커와 CNI 네트워킹을 포함하는 대안적인 minikube ISO 이미지를 이용한다.
+이것은 rkt와 Docker와 CNI 네트워킹을 포함하는 대안적인 minikube ISO 이미지를 이용한다.
 
 ### 드라이버 플러그인
 
 지원하는 드라이버 상세 정보와 설치방법은 [드라이버](https://git.k8s.io/minikube/docs/drivers.md)를 살펴보자 꼭 필요하다면 말이다.
 
 
-### 도커 데몬 재사용
+### Docker 데몬 재사용
 
-쿠버네티스 단일 VM을 사용하면 minikube에 내장된 도커 데몬을 재사용하기에 매우 간편하다.
-이 경우는 호스트 장비에 도커 레지스트리를 설치하고 이미지를 배포할 필요가 없다.
-또 로컬에서 실험을 빠르게 할 수 있는데 이는 minikube와 동일한 도커 데몬 안에서 이미지를 빌드하기 때문이다.
-도커 이미지를 'latest'가 아닌 다른 태그로 태그했는지 확인하고 이미지를 풀링할 때에는 그 태그를 이용한다.
+쿠버네티스 단일 VM을 사용하면 minikube에 내장된 Docker 데몬을 재사용하기에 매우 간편하다.
+이 경우는 호스트 장비에 Docker 레지스트리를 설치하고 이미지를 배포할 필요가 없다.
+또 로컬에서 실험을 빠르게 할 수 있는데 이는 minikube와 동일한 Docker 데몬 안에서 이미지를 빌드하기 때문이다.
+Docker 이미지를 'latest'가 아닌 다른 태그로 태그했는지 확인하고 이미지를 풀링할 때에는 그 태그를 이용한다.
 혹시 이미지 태그 버전을 지정하지 않았다면, 기본값은 `:latest`이고 이미지 풀링 정책은 `Always`가 가정하나,
-만약 기본 도커 레지스트리(보통 DockerHub)에 해당 도커 이미지 버전이 없다면 `ErrImagePull`의 결과가 나타날 것이다.
+만약 기본 Docker 레지스트리(보통 DockerHub)에 해당 Docker 이미지 버전이 없다면 `ErrImagePull`의 결과가 나타날 것이다.
 
-맥이나 리눅스 호스트의 도커 데몬에서 이 작업이 가능하게 하려면 `docker-env command`를 쉘에서 사용해야 한다:
+맥이나 리눅스 호스트의 Docker 데몬에서 이 작업이 가능하게 하려면 `docker-env command`를 쉘에서 사용해야 한다:
 
 ```
 eval $(minikube docker-env)
 ```
-맥이나 리눅스 호스트에서 minikube VM안에 도커 데몬과 통신하도록 도커를 명령행에서 사용할 수 있어야 한다:
+맥이나 리눅스 호스트에서 minikube VM안에 Docker 데몬과 통신하도록 Docker를 명령행에서 사용할 수 있어야 한다:
 
 ```
 docker ps
 ```
 
-Centos 7 에서 도커는 아래와 같은 오류를 발생한다.
+Centos 7 에서 Docker는 아래와 같은 오류를 발생한다.
 
 ```
 Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no such file or directory
@@ -356,10 +356,10 @@ minikube와 함께 시작하려는 애드온을 `~/.minikube/addons` 디렉터�
 
 ## HTTP 프록시 환경에서 Minikube 사용
 
-minikube는 쿠버네티스와 도커 데몬을 포함한 가상 머신을 생성한다.
-쿠버네티스가 도커를 이용하여 컨테이너를 스케쥴링 시도할 때에, 도커 데몬은 컨테이너 이미지를 풀링하기 위해 외부 네트워크를 이용해야 한다.
+minikube는 쿠버네티스와 Docker 데몬을 포함한 가상 머신을 생성한다.
+쿠버네티스가 Docker를 이용하여 컨테이너를 스케쥴링 시도할 때에, Docker 데몬은 컨테이너 이미지를 풀링하기 위해 외부 네트워크를 이용해야 한다.
 
-HTTP프락시 내부라면, 도커에서 프락시 설정을 해야한다.
+HTTP프락시 내부라면, Docker에서 프락시 설정을 해야한다.
 이를 하기 위해서 요구되는 환경 변수를 `minikube start`에 플래그로 전달한다.
 
 예를 들어:
