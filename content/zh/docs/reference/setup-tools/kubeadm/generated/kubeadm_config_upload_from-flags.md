@@ -85,8 +85,7 @@ kubeadm config upload from-file [flags]
       <td colspan="2">--apiserver-cert-extra-sans stringSlice</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"><td></td><td style="line-height: 130%; word-wrap: break-word;">用于 API 服务器服务证书的可选额外主题替代名称(SANs)。
-可以是 IP 地址和 DNS 名称。</td></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于 API 服务器服务证书的可选额外主题替代名称(SANs)。可以是 IP 地址和 DNS 名称。</td></td>
     </tr>
 
     <tr>
