@@ -4,7 +4,7 @@ approvers:
 title: Kubernetes Documentation
 noedit: true
 cid: docsHome
-layout: docsportal
+layout: docshome
 class: gridPage
 linkTitle: "Home"
 main_menu: true
