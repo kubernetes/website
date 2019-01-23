@@ -34,7 +34,10 @@ a Kubernetes cluster from scratch.
 
 * [Minikube](/docs/setup/minikube/) is a method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
-* [Docker Desktop](https://www.docker.com/products/docker-desktop) is an easy-to-install application for your Mac or Windows environment that enables you to start coding and containerizing in minutes on a single-node Kubernetes cluster.
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) is an easy-
+to-install application for your Mac or Windows environment that enables you to 
+start coding and deploying in containers in minutes on a single-node Kubernetes 
+cluster.
 
 * [Minishift](https://docs.okd.io/latest/minishift/) installs the community version of the Kubernetes enterprise platform OpenShift for local development & testing.  It offers an All-In-One VM (`minishift start`) for Windows, macOS and Linux and the containeriz based `oc cluster up` (Linux only) and [comes with some easy to install Add Ons](https://github.com/minishift/minishift-addons/tree/master/add-ons).
 
