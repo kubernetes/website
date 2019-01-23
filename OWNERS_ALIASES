@@ -122,6 +122,7 @@ aliases:
     - jimangel
     - kbarnard10
     - mistyhacks
+    - rajakavitha1
     - ryanmcginnis
     - steveperry-53
     - stewart-yu
@@ -129,8 +130,7 @@ aliases:
     - tfogo
     - zacharysarah
     - zhangxiaoyu-zidif
-    - zparnold
-    - rajakavitha1
+    - zparnold    
   sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews
     - jimangel
     - rajakavitha1
