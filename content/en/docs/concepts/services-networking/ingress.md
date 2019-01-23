@@ -64,6 +64,9 @@ In order for the ingress resource to work, the cluster must have an ingress cont
 
 Additional controllers include:
 
+* [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io) based ingress 
+  controller with [community](https://www.getambassador.io/docs) or 
+  [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
 * [Contour](https://github.com/heptio/contour) is an [Envoy](https://www.envoyproxy.io) based ingress controller
   provided and supported by Heptio.
 * F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508)
