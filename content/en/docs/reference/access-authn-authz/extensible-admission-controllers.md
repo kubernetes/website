@@ -5,6 +5,7 @@ reviewers:
 - whitlockjc
 - caesarxuchao
 - deads2k
+- liggitt
 title: Dynamic Admission Control
 content_template: templates/concept
 weight: 40
@@ -19,16 +20,14 @@ the following:
 * They need to be compiled into kube-apiserver.
 * They are only configurable when the apiserver starts up.
 
-Two features, *Admission Webhooks* (beta in 1.9) and *Initializers* (alpha),
-address these limitations. They allow admission controllers to be developed
-out-of-tree and configured at runtime.
+*Admission Webhooks* (beta in 1.9) addresses these limitations. It allows
+admission controllers to be developed out-of-tree and configured at runtime.
 
-This page describes how to use Admission Webhooks and Initializers.
+This page describes how to use Admission Webhooks.
+
 {{% /capture %}}
 
 {{% capture body %}}
-## Admission Webhooks
-
 ### What are admission webhooks?
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
@@ -196,116 +195,4 @@ users:
 ```
 
 Of course you need to set up the webhook server to handle these authentications.
-
-## Initializers
-
-### What are initializers?
-
-*Initializer* has two meanings:
-
-* A list of pending pre-initialization tasks, stored in every object's metadata
-  (e.g., "AddMyCorporatePolicySidecar").
-
-* A user customized controller, which actually performs those tasks. The name of the task
-  corresponds to the controller which performs the task. For clarity, we call
-  them *initializer controllers* in this page.
-
-Once the controller has performed its assigned task, it removes its name from
-the list. For example, it may send a PATCH that inserts a container in a pod and
-also removes its name from `metadata.initializers.pending`. Initializers may make
-mutations to objects.
-
-Objects which have a non-empty initializer list are considered uninitialized,
-and are not visible in the API unless specifically requested by using the query parameter,
-`?includeUninitialized=true`.
-
-### When to use initializers?
-
-Initializers are useful for admins to force policies (e.g., the
-[AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
-admission controller), or to inject defaults (e.g., the
-[DefaultStorageClass](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
-admission controller), etc.
-
-{{< note >}}
-If your use case does not involve mutating objects, consider using
-external admission webhooks, as they have better performance.
-{{< /note >}}
-
-### How are initializers triggered?
-
-When an object is POSTed, it is checked against all existing
-`initializerConfiguration` objects (explained below). For all that it matches,
-all `spec.initializers[].name`s are appended to the new object's
-`metadata.initializers.pending` field.
-
-An initializer controller should list and watch for uninitialized objects, by
-using the query parameter `?includeUninitialized=true`. If using client-go, just
-set
-[listOptions.includeUninitialized](https://github.com/kubernetes/kubernetes/blob/v1.7.0-rc.1/staging/src/k8s.io/apimachinery/pkg/apis/meta/v1/types.go#L315)
-to true.
-
-For the observed uninitialized objects, an initializer controller should first
-check if its name matches `metadata.initializers.pending[0]`. If so, it should then
-perform its assigned task and remove its name from the list.
-
-### Enable initializers alpha feature
-
-*Initializers* is an alpha feature, so it is disabled by default. To turn it on,
-you need to:
-
-* Include "Initializers" in the `--enable-admission-plugins` flag when starting
-  `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all should
-  have the same flag setting.
-
-* Enable the dynamic admission controller registration API by adding
-  `admissionregistration.k8s.io/v1alpha1` to the `--runtime-config` flag passed
-  to `kube-apiserver`, e.g.
-  `--runtime-config=admissionregistration.k8s.io/v1alpha1`. Again, all replicas
-  should have the same flag setting.
-
-### Deploy an initializer controller
-
-You should deploy an initializer controller via the [deployment
-API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1beta1-apps).
-
-### Configure initializers on the fly
-
-You can configure what initializers are enabled and what resources are subject
-to the initializers by creating `initializerConfiguration` resources.
-
-You should first deploy the initializer controller and make sure that it is
-working properly before creating the `initializerConfiguration`. Otherwise, any
-newly created resources will be stuck in an uninitialized state.
-
-The following is an example `initializerConfiguration`:
-
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: InitializerConfiguration
-metadata:
-  name: example-config
-initializers:
-  # the name needs to be fully qualified, i.e., containing at least two "."
-  - name: podimage.example.com
-    rules:
-      # apiGroups, apiVersion, resources all support wildcard "*".
-      # "*" cannot be mixed with non-wildcard.
-      - apiGroups:
-          - ""
-        apiVersions:
-          - v1
-        resources:
-          - pods
-```
-
-After you create the `initializerConfiguration`, the system will take a few
-seconds to honor the new configuration. Then, `"podimage.example.com"` will be
-appended to the `metadata.initializers.pending` field of newly created pods. You
-should already have a ready "podimage" initializer controller that handles pods
-whose `metadata.initializers.pending[0].name="podimage.example.com"`. Otherwise
-the pods will be stuck in an uninitialized state.
-
-Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple
-in a `rule` are valid. If they are not, separate them in different `rules`.
 {{% /capture %}}
