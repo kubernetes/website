@@ -122,26 +122,37 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     Updating the installation is performed by rerunning the two commands listed in step 1.
     {{< /note >}}
 
-## Install with Chocolatey on Windows
+## Install on Windows using Chocolatey or scoop
 
-If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install kubectl with Chocolatey.
+If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager or [`scoop`](https://scoop.sh) command-line installer, you can install kubectl with one of it.
 
 1. Run the installation command:
 
+    {{< tabs name="kubectl_win_install" >}}
+    {{< tab name="Chocolatey" >}}
     ```
     choco install kubernetes-cli
     ```
+    {{< /tab >}}
+    {{< tab name="scoop" >}}
+    ```
+    scoop install kubectl
+    ``` 
+    {{< /tab >}}
+    {{< /tabs >}}
     
 2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
     kubectl version
     ```
-3. Change to your %HOME% directory:
+3. Navigate to your home directory:
 
-    For example: `cd C:\users\yourusername`
-
-4. Create the .kube directory:
+    ```
+    cd %USERPROFILE%
+    ```
+    
+4. Create the `.kube` directory:
 
     ```
     mkdir .kube
