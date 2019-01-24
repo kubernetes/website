@@ -128,19 +128,19 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
 
 1. Run the installation command:
 
-    {{< tabs name="kubectl_win_install" >}}
-    {{< tab name="Chocolatey" >}}
-    ```
+{{< tabs name="kubectl_win_install" >}}
+{{% tab name="choco" %}}
+
     choco install kubernetes-cli
-    ```
-    {{< /tab >}}
-    {{< tab name="scoop" >}}
-    ```
+
+{{% /tab %}}
+{{% tab name="scoop" %}}
+
     scoop install kubectl
-    ``` 
-    {{< /tab >}}
-    {{< /tabs >}}
-    
+
+{{% /tab %}}
+{{< /tabs >}}
+
 2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
@@ -151,14 +151,13 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
     ```
     cd %USERPROFILE%
     ```
-    
 4. Create the `.kube` directory:
 
     ```
     mkdir .kube
     ```
 
-5. Change to the .kube directory you just created:
+5. Change to the `.kube` directory you just created:
 
     ```
     cd .kube
