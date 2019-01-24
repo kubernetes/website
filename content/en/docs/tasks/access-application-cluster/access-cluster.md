@@ -78,7 +78,7 @@ $ curl http://localhost:8080/api/
 
 Use `kubectl describe secret...` to get the token for the default service account:
 
-Using `grep/cut` approach:
+Use `kubectl describe secret` with grep/cut:
 
 ```shell
 $ APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
@@ -98,7 +98,7 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-Using `jsonpath` approach:
+Using `jsonpath`:
 
 ```shell
 $ APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
@@ -314,7 +314,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - locates apiserver
     - adds authentication headers
 
-1.  The [apiserver proxy](#discovering-builtin-services):
+2.  The [apiserver proxy](#discovering-builtin-services):
 
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
@@ -324,7 +324,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
 
-1.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+3.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
     - runs on each node
     - proxies UDP and TCP
@@ -332,13 +332,13 @@ There are several different proxies you may encounter when using Kubernetes:
     - provides load balancing
     - is just used to reach services
 
-1.  A Proxy/Load-balancer in front of apiserver(s):
+4.  A Proxy/Load-balancer in front of apiserver(s):
 
     - existence and implementation varies from cluster to cluster (e.g. nginx)
     - sits between all clients and one or more apiservers
     - acts as load balancer if there are several apiservers.
 
-1.  Cloud Load Balancers on external services:
+5.  Cloud Load Balancers on external services:
 
     - are provided by some cloud providers (e.g. AWS ELB, Google Cloud Load Balancer)
     - are created automatically when the Kubernetes service has type `LoadBalancer`
