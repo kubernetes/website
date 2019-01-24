@@ -13,7 +13,7 @@ content_template: templates/task
 {{% capture overview %}}
 <!-- This page gives recommendations and hints for people managing long lived clusters  -->
 
-本文为管理维护长期运行的集群的工程师提供一些建议和提示
+本文为管理维护长期运行的集群的工程师提供一些建议和提示。
 
 {{% /capture %}}
 {{% capture prerequisites %}}
