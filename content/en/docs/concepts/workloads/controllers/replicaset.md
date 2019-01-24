@@ -138,7 +138,7 @@ If you do end up with multiple controllers that have overlapping selectors, you
 will have to manage the deletion yourself.
 
 {{< note >}}
-For 2 ReplicaSet specifying the same `.spec.selector` but different `.spec.template.metadata.labels` and `.spec.template.spec`, each ReplicaSet ignores the pods created by another and controller creates the Replicas.
+For 2 ReplicaSet specifying the same `.spec.selector` but different `.spec.template.metadata.labels` and `.spec.template.spec`, each ReplicaSet ignores the Pods created by another and controller creates the Replicas.
 {{< /note >}}
 
 ### Labels on a ReplicaSet
