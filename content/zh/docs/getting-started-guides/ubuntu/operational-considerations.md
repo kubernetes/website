@@ -13,7 +13,7 @@ content_template: templates/task
 {{% capture overview %}}
 <!-- This page gives recommendations and hints for people managing long lived clusters  -->
 
-本文为管理维护长期运行的集群的工程师提供一些推荐和提示
+本文为管理维护长期运行的集群的工程师提供一些建议和提示
 
 {{% /capture %}}
 {{% capture prerequisites %}}
@@ -31,7 +31,7 @@ content_template: templates/task
 
 <!-- ### Sizing your controller node -->
 
-### 裁剪控制节点
+### 确定控制节点规模
 
 <!-- The Juju Controller:  -->
 
@@ -42,7 +42,7 @@ Juju 控制器：
 * aggregates and stores the log data of all services and units. Therefore, significant storage is needed for long lived models. If your intention is to keep the cluster running, make sure to provision at least 64GB for the logs.  -->
 
 * 运行需要大概 2 到 2.5 GB 的 RAM。
-* 用 MongoDB 数据库作为集群配置和状态的存储后端。这个数据库可能增长很快，也可能是实例中 CPU 周期的最大消费者
+* 用 MongoDB 数据库作为集群配置和状态的存储后端。这个数据库可能增长很快，也可能是实例中 CPU 周期的最大消费者。
 * 汇总和存储所有服务和单位的日志数据。因此，长期运行的模型需要大量的存储。如果您的目的是保持集群运行，请确保为日志配置至少 64 GB 的存储空间。
 
 <!-- To bootstrap a controller with constraints run the following command: -->
@@ -212,7 +212,7 @@ it uses storage tied to the kubernetes node where the pod is running.
 Consequently, if the registry pod is migrated from one node to another, you will
 need to re-publish the images. -->
 
-通过仓库功能，您可以很容易地创建一个使用 TLS 身份验证的私有 docker 仓库。
+通过 registry 操作，您可以很容易地创建一个使用 TLS 身份验证的私有 docker 仓库。
 但是请注意，通过这些功能部署的仓库不是高可用性的；
 它使用的存储绑定到运行 pod 的 kubernetes 节点上。
 因此，如果仓库所在的 pod 从一个节点迁移到另一个节点上，
@@ -242,9 +242,9 @@ htpasswd -c -b -B htpasswd userA passwordA
 you already have your TLS key in the ```registry.key``` file, and your TLS
 certificate (with ```myregistry.company.com``` as Common Name) in the ```registry.crt``` file, you would then run: -->
 
-假设您的仓库可以通过 ```myregistry.company.com``` 获得，
+假设您的仓库可以通过 ```myregistry.company.com``` 访问，
 您已经在 ```registry.key``` 文件中拥有了您的 TLS 密钥，
-并且您的 TLS 身份验证（以 ```myregistry.company.com``` 作为通用名）在
+并且您的 TLS 身份验证（以 ```myregistry.company.com``` 作为 Common Name）在
 ```registry.crt``` 文件中，那么您可以运行：
 
 ```
