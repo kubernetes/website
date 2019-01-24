@@ -318,7 +318,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - locates apiserver
     - adds authentication headers
 
-2.  The [apiserver proxy](#discovering-builtin-services):
+1.  The [apiserver proxy](#discovering-builtin-services):
 
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
@@ -328,7 +328,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
 
-3.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
     - runs on each node
     - proxies UDP and TCP
@@ -336,13 +336,13 @@ There are several different proxies you may encounter when using Kubernetes:
     - provides load balancing
     - is just used to reach services
 
-4.  A Proxy/Load-balancer in front of apiserver(s):
+1.  A Proxy/Load-balancer in front of apiserver(s):
 
     - existence and implementation varies from cluster to cluster (e.g. nginx)
     - sits between all clients and one or more apiservers
     - acts as load balancer if there are several apiservers.
 
-5.  Cloud Load Balancers on external services:
+1.  Cloud Load Balancers on external services:
 
     - are provided by some cloud providers (e.g. AWS ELB, Google Cloud Load Balancer)
     - are created automatically when the Kubernetes service has type `LoadBalancer`
