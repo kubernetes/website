@@ -417,6 +417,10 @@ to schedule pods everywhere.
 
 The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
 
+{{< note >}}
+All nodes must have unique hostname, otherwise `kubectl get nodes` will not show them.
+{{< note >}}
+
 * SSH to the machine
 * Become root (e.g. `sudo su -`)
 * Run the command that was output by `kubeadm init`. For example:
