@@ -115,6 +115,7 @@ To use [containerd](https://github.com/containerd/containerd) as the container r
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=containerd \
     --bootstrapper=kubeadm
 ```
@@ -124,6 +125,7 @@ Or you can use the extended version:
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=unix:///run/containerd/containerd.sock \
     --extra-config=kubelet.image-service-endpoint=unix:///run/containerd/containerd.sock \
@@ -137,6 +139,7 @@ To use [CRI-O](https://github.com/kubernetes-incubator/cri-o) as the container r
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=cri-o \
     --bootstrapper=kubeadm
 ```
@@ -146,6 +149,7 @@ Or you can use the extended version:
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=/var/run/crio.sock \
     --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
@@ -159,6 +163,7 @@ To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
 ```shell
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=rkt
 ```
 
