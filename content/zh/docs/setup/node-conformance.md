@@ -19,7 +19,7 @@ title: Validate Node Setup
 <!--
 ## Node Conformance Test
 -->
-## 节点一致性测试
+## 节点合规性测试
 
 <!--
 *Node conformance test* is a containerized test framework that provides a system
@@ -27,7 +27,7 @@ verification and functionality test for a node. The test validates whether the
 node meets the minimum requirements for Kubernetes; a node that passes the test
 is qualified to join a Kubernetes cluster.
 -->
-*节点一致性测试* 是一种容器化测试框架，为节点提供系统验证和功能测试。该测试验证节点是否满足 Kubernetes 的最低要求；通过测试的节点有资格加入 Kubernetes 集群。
+*节点合规性测试* 是一种容器化测试框架，为节点提供系统验证和功能测试。该测试验证节点是否满足 Kubernetes 的最低要求；通过测试的节点有资格加入 Kubernetes 集群。
 
 <!--
 ## Limitations
@@ -39,9 +39,9 @@ In Kubernetes version 1.5, node conformance test has the following limitations:
 
 * Node conformance test only supports Docker as the container runtime.
 -->
-在 Kubernetes 1.5 版中，节点一致性测试具有以下限制：
+在 Kubernetes 1.5 版中，节点合规性测试具有以下限制：
 
-* 节点一致性测试仅支持 Docker 作为容器运行时。
+* 节点合规性测试仅支持 Docker 作为容器运行时。
 
 <!--
 ## Node Prerequisite
@@ -56,7 +56,7 @@ daemons installed:
 * Container Runtime (Docker)
 * Kubelet
 -->
-要运行节点一致性测试，节点必须满足与标准 Kubernetes 节点相同的先决条件。该节点至少应安装以下守护程序：
+要运行节点合规性测试，节点必须满足与标准 Kubernetes 节点相同的先决条件。该节点至少应安装以下守护程序：
 
 * 容器运行时（Docker）
 * Kubelet
@@ -64,7 +64,7 @@ daemons installed:
 <!--
 ## Running Node Conformance Test
 -->
-## 运行节点一致性测试
+## 运行节点合规性测试
 
 <!--
 To run the node conformance test, perform the following steps:
@@ -87,13 +87,13 @@ sudo docker run -it --rm --privileged --net=host \
 ```
 -->
 
-要运行节点一致性测试，请执行以下步骤：
+要运行节点合规性测试，请执行以下步骤：
 
-1. 将您的 Kubelet 指向 localhost `-- api-servers ="http：// localhost：8080"`，因为测试框架启动了一个本地主服务器来测试 Kubelet。您可能会关注其他一些 Kubelet 标记：
-  * `--pod-cidr`： 如果你使用 `kubenet`，你应该为Kubelet指定一个任意的CIDR，例如 `--pod-cidr = 10.180.0.0 / 24`。
+1. 将您的 Kubelet 指向 localhost `--api-servers="http://localhost:8080"`，因为测试框架启动了一个本地主服务器来测试 Kubelet。您可能会关注其他一些 Kubelet 标记：
+  * `--pod-cidr`： 如果你使用 `kubenet`，你应该为 Kubelet 指定一个任意的 CIDR，例如 `--pod-cidr=10.180.0.0/24`。
   * `--cloud-provider`: 如果您使用`--cloud-provider = gce`，则应删除该标志以运行测试。
 
-2. 使用以下命令运行节点一致性测试：
+2. 使用以下命令运行节点合规性测试：
 
 ```shell
 # $CONFIG_DIR is the pod manifest path of your Kubelet.
@@ -106,13 +106,13 @@ sudo docker run -it --rm --privileged --net=host \
 <!--
 ## Running Node Conformance Test for Other Architectures
 -->
-## 其他架构的运行节点一致性测试
+## 为其他架构运行节点合规性测试
 
 <!--
 Kubernetes also provides node conformance test docker images for other
 architectures:
 -->
-Kubernetes 还为其他架构提供节点一致性测试 docker 镜像：
+Kubernetes 还为其他架构提供节点合规性测试 docker 镜像：
 
   Arch  |       Image       |
 --------|:-----------------:|
@@ -129,7 +129,7 @@ Kubernetes 还为其他架构提供节点一致性测试 docker 镜像：
 To run specific tests, overwrite the environment variable `FOCUS` with the
 regular expression of tests you want to run.
 -->
-要运行特定测试，请使用要运行的测试的正则表达式覆盖环境变量`FOCUS`。
+要运行特定测试，请使用要运行的测试的正则表达式覆盖环境变量 `FOCUS`。
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
@@ -142,7 +142,7 @@ sudo docker run -it --rm --privileged --net=host \
 To skip specific tests, overwrite the environment variable `SKIP` with the
 regular expression of tests you want to skip.
 -->
-要跳过特定测试，请使用要跳过的测试的正则表达式覆盖环境变量`SKIP`。
+要跳过特定测试，请使用要跳过的测试的正则表达式覆盖环境变量 `SKIP`。
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
@@ -154,7 +154,7 @@ sudo docker run -it --rm --privileged --net=host \
 <!--
 Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md).By default, it runs all conformance tests.
 -->
-节点一致性测试是 [节点e2e测试](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md) 的容器化版本。默认情况下，它会运行所有一致性测试。
+节点合规性测试是[节点e2e测试](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md)的容器化版本。默认情况下，它会运行所有一致性测试。
 
 <!--
 Theoretically, you can run any node e2e test if you configure the container and
@@ -174,5 +174,5 @@ mount required volumes properly. But **it is strongly recommended to only run co
 * The test leaves dead containers on the node. These containers are created
   during the functionality test.
 -->
-* 测试在节点上留下一些泊坞窗图像，包括节点一致性测试图像和功能测试中使用的容器图像。
+* 测试在节点上留下一些 docker 镜像，包括节点合规性测试图像和功能测试中使用的容器图像。
 * 测试在节点上留下了死容器。 这些容器是在功能测试期间创建的。
