@@ -34,6 +34,11 @@ a Kubernetes cluster from scratch.
 
 * [Minikube](/docs/setup/minikube/) is a method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) is an 
+easy-to-install application for your Mac or Windows environment that enables you to 
+start coding and deploying in containers in minutes on a single-node Kubernetes 
+cluster.
+
 * [Minishift](https://docs.okd.io/latest/minishift/) installs the community version of the Kubernetes enterprise platform OpenShift for local development & testing.  It offers an All-In-One VM (`minishift start`) for Windows, macOS and Linux and the containeriz based `oc cluster up` (Linux only) and [comes with some easy to install Add Ons](https://github.com/minishift/minishift-addons/tree/master/add-ons).
 
 * [MicroK8s](https://microk8s.io/) provides a single command installation of the latest Kubernetes release on a local machine for development and testing. Setup is quick, fast (~30 sec) and supports many plugins including Istio with a single command.
@@ -101,6 +106,7 @@ few commands. These solutions are actively developed and have active community s
 * [CenturyLink Cloud](/docs/setup/turnkey/clc/)
 * [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
 * [Containership](https://containership.io/containership-platform)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Gardener](https://gardener.cloud/)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
@@ -123,6 +129,7 @@ few commands.
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 * [Kontena Pharos](https://kontena.io/pharos/)
@@ -183,6 +190,7 @@ These solutions are combinations of cloud providers and operating systems not co
 
 * [CoreOS](/docs/setup/custom-cloud/coreos/)
 * [Digital Rebar](/docs/setup/on-premises-metal/krib/)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
@@ -204,6 +212,7 @@ IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs              
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
+Docker Enterprise    | custom | [multi-support](https://success.docker.com/article/compatibility-matrix) | [multi-support](https://docs.docker.com/ee/ucp/kubernetes/install-cni-plugin/) | [docs](https://docs.docker.com/ee/) | Commercial
 Red Hat OpenShift    | Ansible & CoreOS | RHEL & CoreOS   | [multi-support](https://docs.openshift.com/container-platform/3.11/architecture/networking/network_plugins.html) | [docs](https://docs.openshift.com/container-platform/3.11/welcome/index.html) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
