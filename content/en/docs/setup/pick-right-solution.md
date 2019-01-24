@@ -34,8 +34,8 @@ a Kubernetes cluster from scratch.
 
 * [Minikube](/docs/setup/minikube/) is a method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
-* [Docker Desktop](https://www.docker.com/products/docker-desktop) is an easy-
-to-install application for your Mac or Windows environment that enables you to 
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) is an 
+easy-to-install application for your Mac or Windows environment that enables you to 
 start coding and deploying in containers in minutes on a single-node Kubernetes 
 cluster.
 
