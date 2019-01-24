@@ -125,9 +125,6 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
 ## Install on Windows using Chocolatey or scoop
 
 To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [scoop](https://scoop.sh) command-line installer.
-
-1. Run the installation command:
-
 {{< tabs name="kubectl_win_install" >}}
 {{% tab name="choco" %}}
 
@@ -140,12 +137,12 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
 
 {{% /tab %}}
 {{< /tabs >}}
-
 2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
     kubectl version
     ```
+
 3. Navigate to your home directory:
 
     ```
