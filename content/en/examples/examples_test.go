@@ -298,8 +298,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"namespace-prod": {&api.Namespace{}},
 		},
 		"admin/cloud": {
-			"ccm-example":            {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
-			"pvl-initializer-config": {&admissionregistration.InitializerConfiguration{}},
+			"ccm-example": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
 		},
 		"admin/dns": {
 			"busybox":                   {&api.Pod{}},
