@@ -4,7 +4,7 @@ krib-version: 2.4
 author: Rob Hirschfeld (zehicle)
 -->
 ---
-title: 通过 KRIB 安装带有 Digital Rebar Provision（DRP）的Kubernetes
+title: 通过 KRIB 安装带有 Digital Rebar Provision（DRP）的 Kubernetes
 krib-version: 2.4
 author: Rob Hirschfeld (zehicle)
 ---
@@ -17,12 +17,12 @@ author: Rob Hirschfeld (zehicle)
 <!--
 This guide helps to install a Kubernetes cluster hosted on bare metal with [Digital Rebar Provision](https://github.com/digitalrebar/provision) using only its Content packages and *kubeadm*. 
 -->
-本指南仅使用其内容包和 *kubeadm* 帮助安装使用 [Digital Rebar Provision](https://github.com/digitalrebar/provision) 在裸机上托管的Kubernetes群集。
+本指南仅使用其内容包和 *kubeadm* 帮助安装使用 [Digital Rebar Provision](https://github.com/digitalrebar/provision) 在裸机上托管的 Kubernetes 集群。
 
 <!--
 Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform. While [DRP can be used to invoke](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
 -->
-Digital Rebar Provision（DRP）是一个集成的Golang DHCP，裸机配置（PXE / iPXE）和工作流自动化平台。 虽然 [DRP 可用于调用](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray)，但它还提供了一个独立的 Kubernetes 安装，称为 [KRIB（Kubernetes Rebar Integrated Bootstrap）](https://github.com/digitalrebar/provision-content/tree/master/krib)。
+Digital Rebar Provision（DRP）是一个集成的 Golang DHCP，裸机配置（PXE/iPXE）和工作流自动化平台。 虽然 [DRP 可用于调用](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray)，但它还提供了一个独立的 Kubernetes 安装，称为 [KRIB（Kubernetes Rebar Integrated Bootstrap）](https://github.com/digitalrebar/provision-content/tree/master/krib)。
 
 {{< note >}}
 <!--
@@ -48,7 +48,7 @@ KRIB特点：
 * 零接触，自配置集群，无需预配置或库存
 * 非常快，无需 ssh 自动化
 * 裸机，本地集中平台
-* 高度可用的群集选项（包括从控制器分割 etcd）
+* 高度可用的集群选项（包括从控制器分割 etcd）
 * 动态生成 TLS 基础架构
 * 可组合属性和按配置文件自动检测硬件
 * 用于持久，不可变和基于映像的部署的选项
@@ -62,7 +62,7 @@ KRIB特点：
 <!--
 Review [Digital Rebar documentation](https://https://provision.readthedocs.io/en/tip/README.html) for details about installing the platform.
 -->
-有关安装平台的详细信息，请查看 [Digital Rebar文档](https://https://provision.readthedocs.io/en/tip/README.html)。
+有关安装平台的详细信息，请查看 [Digital Rebar 文档](https://https://provision.readthedocs.io/en/tip/README.html)。
 
 <!--
 The Digital Rebar Provision Golang binary should be installed on a Linux-like system with 16 GB of RAM or larger (Packet.net Tiny and Rasberry Pi are also acceptable).
@@ -92,7 +92,7 @@ Upload the KRIB Content bundle (or build from [source](https://github.com/digita
 <!--
 ### (3/5) Start your cluster deployment
 -->
-### (3/5) 启动群集部署
+### (3/5) 启动集群部署
 
 {{< note >}}
 <!--
@@ -104,7 +104,7 @@ KRIB 文档是从源代码动态生成的，并且将比本指南更新。
 <!--
 Following the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html), create a Profile for your cluster and assign your target servers into the cluster Profile. The Profile must set `krib\cluster-name` and `etcd\cluster-name` Params to be the name of the Profile. Cluster configuration choices can be made by adding additional Params to the Profile; however, safe defaults are provided for all Params.
 -->
-遵循 [KRIB 文档](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)，为您的群集创建配置文件，并将目标服务器分配到群集配置文件中。 配置文件必须将 `krib\cluster-name` 和 `etcd\cluster-name` 参数设置为配置文件的名称。 可以通过向配置文件添加其他 Params 来进行群集配置选择; 但是，为所有 Params 提供了安全默认值。
+遵循 [KRIB 文档](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)，为您的集群创建配置文件，并将目标服务器分配到集群配置文件中。 配置文件必须将 `krib\cluster-name` 和 `etcd\cluster-name` 参数设置为配置文件的名称。 可以通过向配置文件添加其他 Params 来进行集群配置选择; 但是，为所有 Params 提供了安全默认值。
 
 <!--
 Once all target servers are assigned to the cluster Profile, start a KRIB installation Workflow by assigning one of the included Workflows to all cluster servers. For example, selecting `krib-live-cluster` will perform an immutable deployment into the Sledgehammer discovery operating system. You may use one of the pre-created read-only Workflows or choose to build your own custom variation.
@@ -128,12 +128,12 @@ During the installation, KRIB writes cluster configuration data back into the cl
 -->
 Digital Rebar Provision 在安装过程中提供详细的日志记录和实时更新。 工作流事件可通过 websocket 连接或监视作业列表获得。
 
-在安装过程中，KRIB 将群集配置数据写回群集配置文件。
+在安装过程中，KRIB 将集群配置数据写回集群配置文件。
 
 <!--
 ### (5/5) Access your cluster
 -->
-### (5/5) 访问您的群集
+### (5/5) 访问您的集群
 
 <!--
 The cluster is available for access via *kubectl* once the `krib/cluster-admin-conf` Param has been set. This Param contains the `kubeconfig` information necessary to access the cluster. 
@@ -142,7 +142,7 @@ For example, if you named the cluster Profile `krib` then the following commands
 -->
 一旦设置了 `krib/cluster-admin-conf` 参数，就可以通过 *kubectl* 访问集群。 该 Param 包含访问集群所需的 `kubeconfig` 信息。
 
-例如，如果您将群集配置文件命名为 `krib`，则以下命令将允许您从本地终端连接到已安装的群集。
+例如，如果您将集群配置文件命名为 `krib`，则以下命令将允许您从本地终端连接到已安装的集群。
 
   ::
 
@@ -158,22 +158,22 @@ The installation continues after the `krib/cluster-admin-conf` is set to install
 <!--
 ## Cluster operations
 -->
-## 群集操作
+## 集群操作
 
 <!--
 KRIB provides additional Workflows to manage your cluster. Please see the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html) for an updated list of advanced cluster operations.
 -->
-KRIB 提供额外的工作流来管理您的群集。有关高级群集操作的更新列表，请参阅 [KRIB 文档](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)。
+KRIB 提供额外的工作流来管理您的集群。有关高级集群操作的更新列表，请参阅 [KRIB 文档](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)。
 
 <!--
 ### Scale your cluster
 -->
-### 扩展您的群集
+### 扩展您的集群
 
 <!--
 You can add servers into your cluster by adding the cluster Profile to the server and running the appropriate Workflow.
 -->
-您可以通过将群集配置文件添加到服务器并运行相应的工作流来将服务器添加到群集中。
+您可以通过将集群配置文件添加到服务器并运行相应的工作流来将服务器添加到集群中。
 
 <!--
 ### Cleanup your cluster (for developers)
@@ -183,13 +183,13 @@ You can add servers into your cluster by adding the cluster Profile to the serve
 <!--
 You can reset your cluster and wipe out all configuration and TLS certificates using the `krib-reset-cluster` Workflow on any of the servers in the cluster.
 -->
-您可以使用群集中任何服务器上的 `krib-reset-cluster` 工作流重置您的群集并清除所有配置和 TLS 证书。
+您可以使用集群中任何服务器上的 `krib-reset-cluster` 工作流重置您的集群并清除所有配置和 TLS 证书。
 
 {{< caution >}}
 <!--
 When running the reset Workflow, be sure not to accidentally target your production cluster!
 -->
-运行重置工作流程时，请确保不要意外地定位生产群集！
+运行重置工作流程时，请确保不要意外地定位生产集群！
 {{< /caution >}}
 
 <!--
@@ -202,4 +202,4 @@ When running the reset Workflow, be sure not to accidentally target your product
 * [GitHub Issues](https://github.com/digital/provision/issues)
 -->
 * Slack Channel：[#community](https://rackn.slack.com/messages/community/)
-* [GitHub问题](https://github.com/digital/provision/issues)
+* [GitHub 问题](https://github.com/digital/provision/issues)
