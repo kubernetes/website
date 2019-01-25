@@ -103,7 +103,7 @@ that do not run in a container. For example:
 On machines with systemd, the kubelet and container runtime write to journald. If
 systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
-bypassing the default logging mechanism. They use the [glog][glog]
+bypassing the default logging mechanism. They use the [klog][klog]
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://git.k8s.io/community/contributors/devel/logging.md).
 
@@ -112,7 +112,7 @@ directory should be rotated. In Kubernetes clusters brought up by
 the `kube-up.sh` script, those logs are configured to be rotated by
 the `logrotate` tool daily or once the size exceeds 100MB.
 
-[glog]: https://godoc.org/github.com/golang/glog
+[klog]: https://github.com/kubernetes/klog
 
 ## Cluster-level logging architectures
 
