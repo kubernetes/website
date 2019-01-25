@@ -17,12 +17,12 @@ author: Rob Hirschfeld (zehicle)
 <!--
 This guide helps to install a Kubernetes cluster hosted on bare metal with [Digital Rebar Provision](https://github.com/digitalrebar/provision) using only its Content packages and *kubeadm*. 
 -->
-本指南仅使用其内容包和 *kubeadm* 帮助安装使用 [Digital Rebar Provision](https://github.com/digitalrebar/provision) 在裸机上托管的 Kubernetes 集群。
+本指南帮助使用 [Digital Rebar Provision](https://github.com/digitalrebar/provision) 安装在裸机上托管的 Kubernetes 集群，且仅使用其内容包和 *kubeadm* 。
 
 <!--
 Digital Rebar Provision (DRP) is an integrated Golang DHCP, bare metal provisioning (PXE/iPXE) and workflow automation platform. While [DRP can be used to invoke](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray), it also offers a self-contained Kubernetes installation known as [KRIB (Kubernetes Rebar Integrated Bootstrap)](https://github.com/digitalrebar/provision-content/tree/master/krib).
 -->
-Digital Rebar Provision（DRP）是一个集成的 Golang DHCP，裸机配置（PXE/iPXE）和工作流自动化平台。 虽然 [DRP 可用于调用](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray)，但它还提供了一个独立的 Kubernetes 安装，称为 [KRIB（Kubernetes Rebar Integrated Bootstrap）](https://github.com/digitalrebar/provision-content/tree/master/krib)。
+Digital Rebar Provision（DRP）是一个集成的 Golang DHCP、裸机配置（PXE/iPXE）和工作流自动化平台。 虽然 [DRP 可用于调用](https://provision.readthedocs.io/en/tip/doc/integrations/ansible.html) [kubespray](../kubespray)，但它还提供了一个独立的 Kubernetes 安装，称为 [KRIB（Kubernetes Rebar Integrated Bootstrap）](https://github.com/digitalrebar/provision-content/tree/master/krib)。
 
 {{< note >}}
 <!--
@@ -45,9 +45,9 @@ KRIB features:
 -->
 KRIB特点：
 
-* 零接触，自配置集群，无需预配置或库存
-* 非常快，无需 ssh 自动化
-* 裸机，本地集中平台
+* 零接触，无需预配置或组件目录的自配置集群
+* 非常快，无需 ssh 的自动化
+* 关注裸机和本地部署的平台
 * 高度可用的集群选项（包括从控制器分割 etcd）
 * 动态生成 TLS 基础架构
 * 可组合属性和按配置文件自动检测硬件
@@ -87,24 +87,24 @@ Following the [Digital Rebar installation](https://provision.readthedocs.io/en/t
 <!--
 Upload the KRIB Content bundle (or build from [source](https://github.com/digitalrebar/provision-content/tree/master/krib)) and the Cert Plugin for your DRP platform (e.g.: [amd64 Linux v2.4.0](https://s3-us-west-2.amazonaws.com/rebar-catalog/certs/v2.4.0-0-02301d35f9f664d6c81d904c92a9c81d3fd41d2c/amd64/linux/certs)). Both are freely available via the [RackN UX](https://portal.rackn.io).
 -->
-从您的 DRP 平台上传 KRIB 内容包（或从[源代码](https://github.com/digitalrebar/provision-content/tree/master/krib)构建）和 Cert 插件（例如：[amd64 Linux v2.4.0](https://s3-us-west-2.amazonaws.com/rebar-catalog/certs/v2.4.0-0-02301d35f9f664d6c81d904c92a9c81d3fd41d2c/amd64/linux/certs)）。 两者都可以通过 [RackN UX](https://portal.rackn.io) 免费获得。
+上传与您的 DRP 平台匹配的 KRIB 软件包（或从[源代码](https://github.com/digitalrebar/provision-content/tree/master/krib)构建）和 Cert 插件（例如：[amd64 Linux v2.4.0](https://s3-us-west-2.amazonaws.com/rebar-catalog/certs/v2.4.0-0-02301d35f9f664d6c81d904c92a9c81d3fd41d2c/amd64/linux/certs)）。两者都可以通过 [RackN UX](https://portal.rackn.io) 免费获得。
 
 <!--
 ### (3/5) Start your cluster deployment
 -->
 ### (3/5) 启动集群部署
 
-{{< note >}}
 <!--
 KRIB documentation is dynamically generated from the source and will be more up to date than this guide.
 -->
+{{< note >}}
 KRIB 文档是从源代码动态生成的，并且将比本指南更新。
 {{< /note >}}
 
 <!--
 Following the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html), create a Profile for your cluster and assign your target servers into the cluster Profile. The Profile must set `krib\cluster-name` and `etcd\cluster-name` Params to be the name of the Profile. Cluster configuration choices can be made by adding additional Params to the Profile; however, safe defaults are provided for all Params.
 -->
-遵循 [KRIB 文档](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)，为您的集群创建配置文件，并将目标服务器分配到集群配置文件中。 配置文件必须将 `krib\cluster-name` 和 `etcd\cluster-name` 参数设置为配置文件的名称。 可以通过向配置文件添加其他 Params 来进行集群配置选择; 但是，为所有 Params 提供了安全默认值。
+遵循 [KRIB 文档](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)，为您的集群创建配置文件，并将目标服务器分配到集群配置文件中。 配置文件必须将 `krib\cluster-name` 和 `etcd\cluster-name` 参数设置为配置文件的名称。 可以通过向配置文件添加其他 Params 来进行集群配置选择; 不过所有 Params 都有安全的默认值。
 
 <!--
 Once all target servers are assigned to the cluster Profile, start a KRIB installation Workflow by assigning one of the included Workflows to all cluster servers. For example, selecting `krib-live-cluster` will perform an immutable deployment into the Sledgehammer discovery operating system. You may use one of the pre-created read-only Workflows or choose to build your own custom variation.
@@ -114,7 +114,7 @@ Once all target servers are assigned to the cluster Profile, start a KRIB instal
 <!--
 For basic installs, no further action is required. Advanced users may choose to assign the controllers, etcd servers or other configuration values in the relevant Params.
 -->
-对于一般安装，无需进一步操作。高级用户可以选择在相关参数中分配控制器，etcd 服务器或其他配置值。
+对于一般安装，无需进一步操作。高级用户可以选择在相关参数中分配控制器、etcd 服务器或其他配置值。
 
 <!--
 ### (4/5) Monitor your cluster deployment
@@ -126,7 +126,7 @@ Digital Rebar Provision provides detailed logging and live updates during the in
 
 During the installation, KRIB writes cluster configuration data back into the cluster Profile.
 -->
-Digital Rebar Provision 在安装过程中提供详细的日志记录和实时更新。 工作流事件可通过 websocket 连接或监视作业列表获得。
+Digital Rebar Provision 在安装过程中提供详细的日志记录和实时更新。 通过 websocket 连接或监视作业列表可以获得工作流事件。
 
 在安装过程中，KRIB 将集群配置数据写回集群配置文件。
 
