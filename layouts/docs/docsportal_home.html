@@ -3,102 +3,143 @@
 	 <h1>{{ .Title }}</h1>
     {{ end }}
     {{ if eq .Lang "en" }}
-    {{ template "docs-portal-user-journey" . }}
+    {{ template "docs-portal-cards" . }}
     {{ end }}
-    {{ partial "docs/browse.html" .Parent }}
 {{ end }}
 
 {{ define "content-id" }}content{{ end }}
 
-{{ define "docs-portal-user-journey" }}
-{{ $data := .Site.Data }}
-<div id="user-persona-data" class="hide">
-  {{ $user_personas := index $data "user-personas" }}
-  {{ $user_personas | jsonify }}
-</div>
+{{ define "docs-portal-cards" }}
+<section id="mainContent">
+  <div class="launch-content">
 
-<div class="hide">
-{{  $skip_uj_paths := "migrators" }}
-{{ range $k, $v := $user_personas }}
+    <p>Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).</p>
 
-{{ if strings.Contains $skip_uj_paths $k }}
-{{ else }}
-  {{ range $kk, $vv := $v }}
-    <div class="persona-def-data" data-name="{{ $kk }}">
-    {{ $persona_info := $vv }}
-    {{ if $persona_info.short_desc }}
-    {{ $persona_info.short_desc }}
-    {{ else if $persona_info.glossary_id }}
-    {{ with $persona_info.glossary_id | printf "%s.md" | ($.Site.GetPage "page" "docs/reference/glossary").Resources.GetMatch }}
-    {{ .Params.short_description }}
-    {{ end }}
-    {{ end }}
-    </div>
-    {{ end }}
-{{ end }}
+    <br>
+    <div class="launch-cards">
 
-{{ end }}
-</div>
+      <div class="launch-card">
+        <h4>Understand the basics</h4>
 
-<div id='aboutWrapper'>
-  <div class="aboutsection" markdown="1">
-    <p>
-      Kubernetes is an open source system for managing containerized applications across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
-      The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
-    </p>
-    <div class="aboutcolumn" markdown="1">
-      <a href="{{ "docs/setup/release/notes/" | relURL }}">Download Current Release</a>
-    </div>
-    <div class="aboutcolumn" markdown="1">
-      <a href="{{ "docs/home/supported-doc-versions/" | relURL }}">Supported Doc Versions</a>
+        <p>Learn about Kubernetes and its fundamental concepts.</p>
+        <br>
+        <ul>
+          <li><a href="/docs/concepts/overview/what-is-kubernetes/">What is Kubernetes?</a></li>
+          <li><a href="/docs/concepts/overview/components/">Kubernetes components</a></li>
+          <li><a href="/docs/concepts/overview/kubernetes-api/">The Kubernetes API</a></li>
+          <li><a href="/docs/concepts/overview/working-with-objects/kubernetes-objects/">Understanding Kubernetes objects</a></li>
+          <li><a href="/docs/concepts/workloads/pods/pod-overview/">Pod overview</a></li>
+        </ul>
+
+        <br><br>
+
+        <button id="btn-concepts" class="button" onClick="location.href='/docs/concepts/';">Learn Concepts</button>
+      </div>
+
+      <div class="launch-card">
+        <h4>Try Kubernetes</h4>
+        
+        <p>Follow tutorials to learn how to deploy applications in Kubernetes.</p>
+        <br>
+        <ul>
+          <li><a href="/docs/tutorials/hello-minikube/">Hello Minikube</a></li>
+          <li><a href="/docs/tutorials/kubernetes-basics/">Walkthrough the basics</a></li>
+          <li><a href="/docs/tutorials/stateless-application/guestbook/">Stateless Example: PHP Guestbook with Redis</a></li>
+          <li><a href="/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/">Stateful Example: Wordpress with Persistent Volumes</a></li>
+        </ul>
+        <br><br>
+        <button id="btn-concepts" class="button" onClick="location.href='/docs/tutorials/';">View Tutorials</button>
+      </div>
+
+      <div class="launch-card">
+        <h4>Set up a cluster</h4>
+        
+        <p>Get Kubernetes running based on your resources and needs.</p>
+        <br>
+        <ul>
+          <li><a href="/docs/setup/pick-right-solution/#hosted-solutions">Hosted Solutions</a></li>
+          <li><a href="/docs/setup/pick-right-solution/#turnkey-cloud-solutions">Turnkey Cloud Solutions</a></li>
+          <li><a href="/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions">On-Premises Solutions</a></li>
+          <li><a href="/docs/setup/pick-right-solution/#custom-solutions">Custom Solutions</a></li>
+          <li><a href="/docs/setup/pick-right-solution/#local-machine-solutions">Local Machine</a></li>
+          <li><a href="/docs/setup/independent/install-kubeadm/">Install the kubeadm setup tool</a></li>
+        </ul>
+        <br><br>
+        <button id="btn-concepts" class="button" onClick="location.href='/docs/setup/';">Set up Kubernetes</button>
+      </div>
+
+      <div class="launch-card">
+        <h4>Learn how to use Kubernetes</h4>
+        
+        <p>Look up common tasks and how to perform them using a short sequence of steps.</p>
+        <br>
+        <ul>
+          <li><a href="/docs/tasks/tools/install-minikube/">Install Minikube</a></li>
+          <li><a href="/docs/tasks/tools/install-kubectl/">Install kubectl</a></li>
+          <li><a href="/docs/tasks/access-application-cluster/web-ui-dashboard/">Use the Web UI Dashboard</a></li>
+          <li><a href="/docs/tasks/access-application-cluster/configure-access-multiple-clusters/">Configure access to multiple clusters</a></li>
+          <li><a href="/docs/tasks/configure-pod-container/configure-pod-configmap/">Configure a Pod to use a ConfigMap</a></li>
+        </ul>
+        <br><br>
+        <button id="btn-concepts" class="button" onClick="location.href='/docs/tasks/';">View Tasks</button>
+      </div>
+
+      <div class="launch-card">
+        <h4>Look up reference information</h4>
+        
+        <p>Browse terminology, command line syntax, API resource types, and setup tool documentation.</p>
+        <br>
+        <ul>
+          <li><a href="/docs/reference/glossary/?fundamental=true">Glossary</a></li>
+          <li><a href="/docs/reference/kubectl/overview/">Overview of kubectl</a></li>
+          <li><a href="/docs/reference/kubectl/cheatsheet/">kubectl cheat sheet</a></li>
+          <li><a href="/docs/reference/setup-tools/kubeadm/kubeadm/">Overview of kubeadm</a></li>
+          <li><a href="/docs/reference/using-api/api-overview/">Overview of API</a></li>
+        </ul>
+        <br><br>
+        <button id="btn-concepts" class="button" onClick="location.href='/docs/reference/';">View Reference</button>
+      </div>
+
+      <div class="launch-card">
+        <h4>Contribute to the docs</h4>
+        
+        <p>Anyone can contribute, whether you’re new to the project or you’ve been around a long time.</p>
+        <br>
+        <ul>
+          <li><a href="/docs/contribute/start/">Start contributing</a></li>
+          <li><a href="/docs/contribute/style/style-guide">Documentation style guide</a></li>
+          <li><a href="/docs/contribute/localization/">Translating the docs</a></li>
+          <li><a href="/docs/contribute/participating/">Participate in SIG Docs</a></li>
+          <li><a href="/docs/contribute/intermediate/">Intermediate contributing</a></li>
+        </ul>
+        <br><br>
+        <button id="btn-concepts" class="button" onClick="location.href='/docs/contribute/';">Contribute to the docs</button>
+      </div>
+
+      <div class="launch-card">
+        <h4>Download Kubernetes</h4>
+        
+        <p>If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.</p>
+        <br>
+        <ul>
+          <li><a href="/docs/setup/release/notes/">Current release notes</a></li>
+          <li><a href="/docs/setup/release/notes/#urgent-upgrade-notes">Urgent upgrade notes</a></li>
+          <li><a href="/docs/setup/release/building-from-source/">Build from source code</a></li>
+        </ul>
+      </div>
+
+      <div class="launch-card">
+        <h4>About the documentation</h4>
+        
+        <p>This website contains documentation for the current and previous 4 versions of Kubernetes.</p>
+        <br>
+        <ul>
+          <li><a href="/docs/home/supported-doc-versions/">Supported versions of the documentation</a></li>
+        </ul>
+      </div>
+
     </div>
   </div>
-</div>
+</section>
 
-<div class="paths">
-    <div class="navButton users">{{ T "docs_label_users" }}</div>
-    <div class="navButton contributors">{{ T "docs_label_contributors" }}</div>
-    <a> <div class="navButton browse">{{ T "docs_label_browse" }}</div></a>
-</div>
-
-<div id="cardWrapper">
-  <div class="display-bar">{{ T "docs_label_i_am" }}</div>
-  <div class='cards' markdown="1">
-  <div class='docsection1' id='persona-definition'>.</div>
-  </div>
-</div>
-
-<div style='text-align: center;' class="applicationDeveloperContainer">
-	<div class="display-bar" id="subTitle">LEVEL</div>
-	<div class="levels">
-		<div class="level" data-name="foundational">
-			<i class="fa fa-sign-in" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
-			<br>
-			<div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
-				Foundational
-			</div>
-		</div>
-		<div class="level" data-name="intermediate">
-			<i class="fa fa-university" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
-			<br>
-			<div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
-				Intermediate
-			</div>
-		</div>
-		<div class="level" data-name="advanced">
-			<i class="fa fa-magic" aria-hidden="true" style="font-size:50pt !important;padding-top:7% !important;padding-bottom:15% !important"></i>
-			<br>
-			<div class="tabbottom" style="padding-top:5%;padding-bottom:5%">
-				Advanced Topics
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class='infobarWrapper'>
-    <div class="infobar">
-        <span style="padding-bottom: 3% ">I want to...</span>
-        <div id="infobarLinks"></div>
-    </div>
-</div>
 {{ end }}
