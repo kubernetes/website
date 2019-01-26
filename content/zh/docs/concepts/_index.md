@@ -93,7 +93,7 @@ Kubernetes master 节点负责维护集群的目标状态。当你要与 Kuberne
 
 <!-- > The "master" refers to a collection of processes managing the cluster state.  Typically these processes are all run on a single node in the cluster, and this node is also referred to as the master. The master can also be replicated for availability and redundancy. -->
 
-> "master" 是指管理集群状态的一组进程的集合。通常这些进程都跑在集群中一个单独的节点上，并且这个节点被称为 master 节点。master 节点也可以扩展副本数，来获取更好的性能及冗余。
+> "master" 是指管理集群状态的一组进程的集合。通常这些进程都跑在集群中一个单独的节点上，并且这个节点被称为 master 节点。master 节点也可以扩展副本数，来获取更好的可用性及冗余。
 
 <!-- ### Kubernetes Nodes -->
 
