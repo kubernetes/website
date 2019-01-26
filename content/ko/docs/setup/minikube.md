@@ -1,13 +1,18 @@
 ---
 title: Minikube로 로컬 상에서 쿠버네티스 구동
+content_template: templates/concept	
 ---
+
+{{% capture overview %}}
 
 Minikube는 쿠버네티스를 로컬에서 쉽게 실행하는 도구이다.
 Minikube는 매일 쿠버네티스를 사용하거나 개발하려는 사용자들을 위해 VM 이나 노트북에서 단일 노드 쿠버네티스 클러스터를 실행한다.
 
-{{< toc >}}
+{{% /capture %}}
 
-### Minikube 특징
+{{% capture body %}}
+
+## Minikube 특징
 
 * Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다:
   * DNS
@@ -160,7 +165,6 @@ $ minikube start \
 
 지원하는 드라이버 상세 정보와 설치방법은 [드라이버](https://git.k8s.io/minikube/docs/drivers.md)를 살펴보자 꼭 필요하다면 말이다.
 
-
 ### Docker 데몬 재사용
 
 쿠버네티스 단일 VM을 사용하면 minikube에 내장된 Docker 데몬을 재사용하기에 매우 간편하다.
@@ -172,24 +176,24 @@ Docker 이미지를 'latest'가 아닌 다른 태그로 태그했는지 확인�
 
 맥이나 리눅스 호스트의 Docker 데몬에서 이 작업이 가능하게 하려면 `docker-env command`를 쉘에서 사용해야 한다:
 
-```
+```shell
 eval $(minikube docker-env)
 ```
 맥이나 리눅스 호스트에서 minikube VM안에 Docker 데몬과 통신하도록 Docker를 명령행에서 사용할 수 있어야 한다:
 
-```
+```shell
 docker ps
 ```
 
 Centos 7 에서 Docker는 아래와 같은 오류를 발생한다.
 
-```
+```shell
 Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no such file or directory
 ```
 
 해결 방법은 /etc/sysconfig/docker를 minikube의 환경 변화를 기대한 것대로 바꾸도록 업데이트하는 것이다.
 
-```
+```shell
 < DOCKER_CERT_PATH=/etc/docker
 ---
 > if [ -z "${DOCKER_CERT_PATH}" ]; then
@@ -209,7 +213,7 @@ imagePullPolicy:Always를 꺼야하는 것은 명심하자 안 그러면 쿠버�
 
 만약 웹 프락시를 사용한다면, 프락시를 사용 정보도 전달해야 해야 하는데 예를 들어 
 
-```
+```shell
 https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
 ```
 
@@ -217,6 +221,7 @@ https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docke
 
 Minikube는 또한 "minikube" 컨텍스트를 생성하고, kubectl의 기본값으로 설정한다.
 나중에 이 컨택스를 변경하려면, `kubectl config use-context minikube`명령을 실행하자.
+
 
 #### 쿠버네티스 버전 지정
 
@@ -226,6 +231,7 @@ minikube에서 사용할 쿠버네티스 버전을 `--kubernetes-version` 문자
 ```
 minikube start --kubernetes-version v1.7.3
 ```
+
 ### 쿠버네티스 구성
 
 minikube는 유저가 쿠버네티스 컴포넌트를 다양한 값으로 설정할 수 있도록 하는 '설정기' 기능이 있다.
@@ -240,10 +246,10 @@ minikube는 유저가 쿠버네티스 컴포넌트를 다양한 값으로 설정
 
 * [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/kubeletconfig#KubeletConfiguration)
 * [apiserver](https://godoc.org/k8s.io/kubernetes/cmd/kube-apiserver/app/options#ServerRunOptions)
-* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/kubeproxyconfig#KubeProxyConfiguration)
-* [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeControllerManagerConfiguration)
+* [proxy](https://godoc.org/k8s.io/kubernetes/pkg/proxy/apis/config#KubeProxyConfiguration)
+* [controller-manager](https://godoc.org/k8s.io/kubernetes/pkg/controller/apis/config#KubeControllerManagerConfiguration)
 * [etcd](https://godoc.org/github.com/coreos/etcd/etcdserver#ServerConfig)
-* [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeSchedulerConfiguration)
+* [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
 
 #### 예제
 
@@ -301,7 +307,6 @@ minikube VM은 host-only IP 주로를 통해 호스트 시스템에 노출되고
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## 퍼시스턴트 볼륨
-
 Minikube는 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
 이런 퍼시스턴트 볼륨은 minikube VM 내에 디렉터리로 매핑됩니다.
 
@@ -309,7 +314,7 @@ Minikube VM은 tmpfs에서 부트하는데, 매우 많은 디렉터리가 재부
 그러나, Minikube 는 다음의 호스트 디렉터리 아래 파일은 유지하도록 설정되어 있다.
 
 * `/data`
-* `/var/lib/localkube`
+* `/var/lib/minikube`
 * `/var/lib/docker`
 
 이것은 `/data` 디렉터리에 데이터를 보존하도록 한 퍼시스턴트 볼륨 환경설정의 예이다.
@@ -331,7 +336,9 @@ spec:
 ## 호스트 폴더 마운트
 몇몇 드라이버는 VM 안에 호스트 폴더를 마운트하여 VM 과 호스트 사이에 쉽게 파일을 공유할 수 있게 한다. 이들은 지금 설정할 수 없고 사용하는 드라이버나 운영체제에 따라 다르다.
 
-**주의:** 호스트 폴더 공유는 KVM 드라이버에서 아직 구현되어 있지 않다.
+{{< note >}}
+호스트 폴더 공유는 KVM 드라이버에서 아직 구현되어 있지 않다.
+{{< /note >}}
 
 | Driver | OS | HostFolder | VM |
 | --- | --- | --- | --- |
@@ -340,7 +347,6 @@ spec:
 | VirtualBox | Windows | C://Users | /c/Users |
 | VMware Fusion | macOS | /Users | /Users |
 | Xhyve | macOS | /Users | /Users |
-
 
 ## 프라이빗 컨테이너 레지스트리
 
@@ -389,6 +395,7 @@ minikube는 VM을 프로비저닝하기 위해서 [libmachine](https://github.co
 minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md) 부분을 읽어보자
 
 ## 추가적인 링크:
+
 * **골와 골이 아닌 것**: minikube 프로젝트의 골과 골이 아닌 것에 대해서는 [로드맵](https://git.k8s.io/minikube/docs/contributors/roadmap.md)을 살펴보자.
 * **개발 가이드**: 어떻게 풀 리퀘스트를 보내는지 알기원하면 [참여 가이드](https://git.k8s.io/minikube/CONTRIBUTING.md)를 살펴보자.
 * **Minikube 빌드하기**: 소스에서 빌드하고 테스트는 방법은 [빌드 가이드](https://git.k8s.io/minikube/docs/contributors/build_guide.md)를 살펴보자.
@@ -399,3 +406,5 @@ minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 ## 커뮤니티
 
 컨트리뷰션, 질문과 의견은 모두 환영하며 격려한다! minikube 개발자는 [슬랙](https://kubernetes.slack.com)에 #minikube 채널(초청받으려면 [여기](http://slack.kubernetes.io/))에 상주하고 있다. 또한 [kubernetes-dev 구글 그룹 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-dev)도 있다. 메일링 리스트에 포스팅한다면 제목에 "minikube: "라는 접두어를 사용하자.
+
+{{% /capture %}}
