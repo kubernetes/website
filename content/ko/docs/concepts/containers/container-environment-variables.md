@@ -1,7 +1,4 @@
 ---
-reviewers:
-- mikedanese
-- thockin
 title: 컨테이너 환경 변수
 content_template: templates/concept
 weight: 20
@@ -26,8 +23,8 @@ weight: 20
 
 ### 컨테이너 정보
 
-컨테이너의 *호스트네임*은 컨테이너가 동작 중인 파드의 이름과 같다.
-그것은 `호스트네임` 커맨드 또는 libc의 
+컨테이너의 *호스트네임* 은 컨테이너가 동작 중인 파드의 이름과 같다.
+그것은 `hostname` 커맨드 또는 libc의 
 [`gethostname`](http://man7.org/linux/man-pages/man2/gethostname.2.html) 
 함수 호출을 통해서 구할 수 있다.
 
@@ -43,12 +40,12 @@ Docker 이미지에 정적으로 명시된 환경 변수와 마찬가지로,
 있다.
 이러한 환경 변수는 Docker 링크 구문과 일치한다.
 
-*bar*라는 이름의 컨테이너에 매핑되는 *foo*라는 이름의 서비스에 대해서는, 
+*bar* 라는 이름의 컨테이너에 매핑되는 *foo* 라는 이름의 서비스에 대해서는, 
 다음의 형태로 변수가 정의된다.
 
 ```shell
-FOO_서비스_호스트=<서비스가 동작 중인 호스트>
-FOO_서비스_포트=<서비스가 동작 중인 포트>
+FOO_SERVICE_HOST=<서비스가 동작 중인 호스트>
+FOO_SERVICE_PORT=<서비스가 동작 중인 포트>
 ```
 
 서비스에 지정된 IP 주소가 있고 [DNS 애드온](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/)이 활성화된 경우, DNS를 통해서 컨테이너가 서비스를 사용할 수 있다.
