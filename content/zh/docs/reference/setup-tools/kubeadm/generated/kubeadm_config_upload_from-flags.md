@@ -19,7 +19,7 @@ If you initialized your cluster using a v1.7.x or lower kubeadm client and used 
 same config file before upgrading to v1.8 using 'kubeadm upgrade'.
 -->
 
-该配置位于 "kubead -config" ConfigMap 中的 "kube-system" 命名空间中。
+该配置位于 "kube-system" 名称空间中的名为 "kubeadm-config" 的 ConfigMap 中。
 <!--
 The configuration is located in the "kube-system" namespace in the "kubeadm-config" ConfigMap.
 -->
@@ -85,8 +85,7 @@ kubeadm config upload from-file [flags]
       <td colspan="2">--apiserver-cert-extra-sans stringSlice</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"><td></td><td style="line-height: 130%; word-wrap: break-word;">用于 API 服务器服务证书的可选额外主题替代名称(SANs)。
-可以是 IP 地址和 DNS 名称。</td></td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">用于 API 服务器服务证书的可选额外主题替代名称(SANs)。可以是 IP 地址和 DNS 名称。</td></td>
     </tr>
 
     <tr>

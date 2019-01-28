@@ -45,7 +45,6 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 55c103fa1296        nginx               "nginx -g 'daemon of…"   9 seconds ago       Up 9 seconds        0.0.0.0:80->80/tcp   nginx-app
 ```
 
-kubectl:
 <!--
 ```shell
 # start the pod running nginx
@@ -53,6 +52,8 @@ $ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 deployment "nginx-app" created
 ```
 -->
+
+kubectl:
 
 ```shell
 # 启动 Pod 运行 nginx
