@@ -421,7 +421,7 @@ high enough to cover all of the DNS names it generates.
 -->
 ## Service 是否通过 DNS 工作？
 
-从相同`命名空间`下的 `Pod` 中运行：
+从相同 `Namespace` 下的 `Pod` 中运行：
 
 ```shell
 u@pod$ nslookup hostnames
@@ -431,7 +431,7 @@ Name:      hostnames
 Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
 ```
 
-如果失败，那么您的 `Pod` 和 `Service` 可能位于不同的`命名空间`中，请尝试使用限定命名空间的名称：
+如果失败，那么您的 `Pod` 和 `Service` 可能位于不同的 `Namespace` 中，请尝试使用限定命名空间的名称：
 
 ```shell
 u@pod$ nslookup hostnames.default
@@ -441,7 +441,7 @@ Name:      hostnames.default
 Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
 ```
 
-如果成功，那么需要调整您的应用，使用跨命名空间的名称去访问服务，或者，在相同的`命名空间`中运行应用和 `Service`。如果仍然失败，请尝试一个完全限定的名称：
+如果成功，那么需要调整您的应用，使用跨命名空间的名称去访问服务，或者，在相同的 `Namespace` 中运行应用和 `Service`。如果仍然失败，请尝试一个完全限定的名称：
 
 ```shell
 u@pod$ nslookup hostnames.default.svc.cluster.local
@@ -451,7 +451,7 @@ Name:      hostnames.default.svc.cluster.local
 Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
 ```
 
-注意这里的后缀："default.svc.cluster.local"。"default" 是我们正在操作的`命名空间`。"svc" 表示这是一个 `Service`。"cluster.local" 是您的集群域，在您自己的集群中可能会有所不同。
+注意这里的后缀："default.svc.cluster.local"。"default" 是我们正在操作的 `Namespace`。"svc" 表示这是一个 `Service`。"cluster.local" 是您的集群域，在您自己的集群中可能会有所不同。
 
 您也可以在集群中的 Node 上尝试此操作：
 
@@ -479,7 +479,7 @@ options ndots:5
 
 `nameserver` 行必须指示您的集群的 DNS `Service`，它通过 `--cluster-dns` 标志传递到 `kubelet`。
 
-`search` 行必须包含一个适当的后缀，以便查找 `Service` 名称。在本例中，它在本地 `命名空间`（`default.svc.cluster.local`）、所有 `命名空间` 中的 `Service`（`svc.cluster.local`）以及集群（`cluster.local`）中查找服务。 根据您自己的安装情况，可能会有额外的记录（最多 6 条）。集群后缀通过 `--cluster-domain` 标志传递给 `kubelet`。 本文档中，我们假定它是 “cluster.local”，但是您的可能不同，这种情况下，您应该在上面的所有命令中更改它。
+`search` 行必须包含一个适当的后缀，以便查找 `Service` 名称。在本例中，它在本地 `Namespace`（`default.svc.cluster.local`）、所有 `Namespace` 中的 `Service`（`svc.cluster.local`）以及集群（`cluster.local`）中查找服务。 根据您自己的安装情况，可能会有额外的记录（最多 6 条）。集群后缀通过 `--cluster-domain` 标志传递给 `kubelet`。 本文档中，我们假定它是 “cluster.local”，但是您的可能不同，这种情况下，您应该在上面的所有命令中更改它。
 
 `options` 行必须设置足够高的 `ndots`，以便 DNS 客户端库考虑搜索路径。在默认情况下，Kubernetes 将这个值设置为 5，这个值足够高，足以覆盖它生成的所有 DNS 名称。
 
@@ -761,7 +761,7 @@ hostnames-632524106-tlaok   1/1       Running   0          2m
 If the restart count is high, read more about how to [debug
 pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods).
 -->
-Pod 正常工作吗？
+## Pod 正常工作吗？
 
 到了这步，我们知道您的 `Service` 存在并选择了您的 `Pods`。让我们检查一下 `Pod` 是否真的在工作 - 我们可以绕过 `Service` 机制，直接进入 `Pod`。
 
@@ -803,7 +803,7 @@ suspect.  Let's confirm it, piece by piece.
 -->
 ## kube-proxy 正常工作吗？
 
-如果您到了这里，那么您的 `Service` 正在运行，也有`端点`，而您的 `Pod` 实际上也正在服务。在这一点上，整个 `Service` 代理机制是否正常就是可疑的了。我们来确认一下，一部分一部分来。
+如果您到了这里，那么您的 `Service` 正在运行，也有 `Endpoints`，而您的 `Pod` 实际上也正在服务。在这一点上，整个 `Service` 代理机制是否正常就是可疑的了。我们来确认一下，一部分一部分来。
 
 <!--
 ### Is kube-proxy running?
@@ -847,7 +847,7 @@ and then retry.
 -->
 ### kube-proxy 是在运行中吗？
 
-确认 `kube-proxy` 正在您的`节点`上运行。您应该得到如下内容：
+确认 `kube-proxy` 正在您的 `Nodes` 上运行。您应该得到如下内容：
 
 ```shell
 u@node$ ps auxw | grep kube-proxy
@@ -869,7 +869,7 @@ I1027 22:14:54.040154    5063 proxier.go:294] Adding new service "kube-system/ku
 I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/kube-dns:dns-tcp" at 10.0.0.10:53/TCP
 ```
 
-如果您看到有关无法连接主节点的错误消息，则应再次检查`节点`配置和安装步骤。
+如果您看到有关无法连接主节点的错误消息，则应再次检查 `Node` 配置和安装步骤。
 
 `kube-proxy` 无法正确运行的可能原因之一是找不到所需的 `conntrack` 二进制文件。在一些 Linux 系统上，这也是可能发生的，这取决于您如何安装集群，例如，您正在从头开始安装 Kubernetes。如果是这样的话，您需要手动安装 `conntrack` 包（例如，在 Ubuntu 上使用 `sudo apt install conntrack`），然后重试。
 
@@ -1163,7 +1163,7 @@ Contact us on
 -->
 ## 寻求帮助
 
-如果您走到这一步，那么就真的是奇怪的事情发生了。您的 `Service` 正在运行，有`端点`，您的 `Pods` 也确实在服务中。您的 DNS 正常，`iptables` 规则已经安装，`kube-proxy` 看起来也正常。然而 `Service` 不起作用。这种情况下，您应该让我们知道，这样我们可以帮助调查！
+如果您走到这一步，那么就真的是奇怪的事情发生了。您的 `Service` 正在运行，有 `Endpoints`，您的 `Pods` 也确实在服务中。您的 DNS 正常，`iptables` 规则已经安装，`kube-proxy` 看起来也正常。然而 `Service` 不起作用。这种情况下，您应该让我们知道，这样我们可以帮助调查！
 
 使用 [Slack](/docs/troubleshooting/#slack) 或者 [Forum](https://discuss.kubernetes.io) 或者 [GitHub](https://github.com/kubernetes/kubernetes) 联系我们。
 
