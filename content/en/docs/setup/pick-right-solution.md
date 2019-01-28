@@ -108,6 +108,7 @@ few commands. These solutions are actively developed and have active community s
 * [Containership](https://containership.io/containership-platform)
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Gardener](https://gardener.cloud/)
+* [Giant Swarm](https://giantswarm.io)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
 * [Kontena Pharos](https://kontena.io/pharos/)
@@ -118,10 +119,10 @@ few commands. These solutions are actively developed and have active community s
 * [Nutanix Karbon](https://www.nutanix.com/products/karbon/)
 * [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
-* [Giant Swarm](https://giantswarm.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
+* [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)
 
 ## On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -130,6 +131,7 @@ few commands.
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
+* [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 * [Kontena Pharos](https://kontena.io/pharos/)
@@ -139,7 +141,6 @@ few commands.
 * [Nirmata](https://nirmata.com/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
-* [Giant Swarm](https://giantswarm.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
@@ -167,6 +168,7 @@ with a single command per machine.
 
 These solutions are combinations of cloud providers and operating systems not covered by the above solutions.
 
+* [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CoreOS on AWS or GCE](/docs/setup/custom-cloud/coreos/)
 * [Gardener](https://gardener.cloud/)
 * [Kublr](https://kublr.com/)
@@ -176,6 +178,7 @@ These solutions are combinations of cloud providers and operating systems not co
 
 ### On-Premises VMs
 
+* [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible, CoreOS and flannel)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
 * [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization/)
