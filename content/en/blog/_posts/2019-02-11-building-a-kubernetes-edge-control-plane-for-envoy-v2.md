@@ -1,6 +1,6 @@
 ---
 title: Building a Kubernetes Edge (Ingress) Control Plane for Envoy v2
-date:
+date: 2019-02-11
 slug: building-a-kubernetes-edge-control-plane-for-envoy-v2
 ---
 
