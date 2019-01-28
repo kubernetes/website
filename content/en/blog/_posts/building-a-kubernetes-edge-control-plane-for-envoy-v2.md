@@ -78,23 +78,25 @@ Thus, as part of the Ambassador rearchitecture, we introduced the [Kubernetes Ac
 
 KAT is designed for performance -- it batches test setup upfront, and then runs all the queries in step 3 asynchronously with a high performance client. The traffic driver in KAT runs locally using [Telepresence](https://www.telepresence.io), which makes it easier to debug issues.
 
-With the KAT test framework in place, we quickly ran into some issues with Envoy v2 configuration and hot restart, which presented the opportunity to switch to use Envoy’s Aggregated Discovery Service (ADS) APIs instead of hot restart. This completely eliminated the requirement for restart on configuration changes, which we found could lead to dropped connection under high loads or long-lived connections.
-
-
 ### Introducing Golang to the Ambassador Stack
 
-KAT also made it clear that our testing had reached the point where Python’s performance with many network connections was a limitation. After some agonizing, we decided that the way to tackle this was to reimplement the KAT network services in Go, despite the additional complexity of introducing a Go dependency into a codebase that had been 100% Python.
+With the KAT test framework in place, we quickly ran into some issues with Envoy v2 configuration and hot restart, which presented the opportunity to switch to use Envoy’s Aggregated Discovery Service (ADS) APIs instead of hot restart. This completely eliminated the requirement for restart on configuration changes, which we found could lead to dropped connection under high loads or long-lived connections.
 
-With a new test framework, new IR generating valid Envoy v2 configuration, and the ADS, we thought we were done with the major architectural changes in Ambassador 0.50. Alas, we hit one more issue. On the [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/), Ambassador annotation changes were no longer being detected.
+However, we faced an interesting question as we considered the move to the ADS. The ADS is not as simple as one might expect: there are explicit ordering dependencies when sending updates to Envoy. The Envoy project has reference implementations of the ordering logic, but only in Go and Java, where Ambassador was primarily in Python. We agonized a bit, and decided that the simplest way forward was to accept the polyglot nature of our world, and do our ADS implementation in Go.
 
-Working with the highly-responsive AKS engineering team, we were able to identify the issue -- namely, the Kubernetes API server in AKS is exposed through a chain of proxies, requiring clients to be updating to understand how to connect using the FQDN of the API server, which is provided through a mutating webhook in AKS. Unfortunately, support for this feature was not available in the official Kubernetes Python client. We thus elected to switch to the Kubernetes Golang client. After all, what’s another Golang dependency when you’ve already taken the plunge?
+We also found, with KAT,  that our testing had reached the point where Python’s performance with many network connections was a limitation, so we took advantage of Go here, as well, writing KAT’s querying and backend services primarily in Go. After all, what’s another Golang dependency when you’ve already taken the plunge?
 
+With a new test framework, new IR generating valid Envoy v2 configuration, and the ADS, we thought we were done with the major architectural changes in Ambassador 0.50. Alas, we hit one more issue. On the Azure Kubernetes Service, Ambassador annotation changes were no longer being detected.
+
+Working with the highly-responsive AKS engineering team, we were able to identify the issue -- namely, the Kubernetes API server in AKS is exposed through a chain of proxies, requiring clients to be updating to understand how to connect using the FQDN of the API server, which is provided through a mutating webhook in AKS. Unfortunately, support for this feature was not available in the official Kubernetes Python client, so this was the third spot where we chose to switch to Go instead of Python.
+
+This raises the interesting question of, “why not ditch all the Python code, and just rewrite Ambassador entirely in Go?” It’s a valid question. The main concern with a rewrite is that Ambassador and Envoy operate at different conceptual levels rather than simply expressing the same concepts with different syntax. Being certain that we’ve expressed the conceptual bridges in a new language is not a trivial challenge, and not something to undertake without already having really excellent test coverage in place
+
+At this point, we use Go to coverage very specific, well-contained functions that can be verified for correctness much more easily that we could verify a complete Golang rewrite. In the future, who knows? But for 0.50.0, this functional split let us both take advantage of Golang’s strengths, while letting us retain more confidence about all the changes already in 0.50.
 
 ## Lessons Learned
 
 We've learned a lot in the process of building [Ambassador 0.50](https://blog.getambassador.io/ambassador-0-50-ga-release-notes-sni-new-authservice-and-envoy-v2-support-3b30a4d04c81). Some of our key takeaways:
-
-
 
 *   Kubernetes and Envoy are very powerful frameworks, but they are also extremely fast moving targets -- there is sometimes no substitute for reading the source code and talking to the maintainers (who are fortunately all quite accessible!)
 *   The best supported libraries in the Kubernetes / Envoy ecosystem are written in Go. While we love Python, we have had to adopt Go so that we're not forced to maintain too many components ourselves.
