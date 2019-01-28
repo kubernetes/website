@@ -1,13 +1,15 @@
+---
+title: 联邦事件
+content_template: templates/concept
+---
+
 <!--
 ---
 title: Federated Events
 content_template: templates/concept
 ---
 -->
----
-title: 联邦事件
-content_template: templates/concept
----
+
 
 {{% capture overview %}}
 
