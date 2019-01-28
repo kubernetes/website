@@ -5,11 +5,15 @@ slug: building-a-kubernetes-edge-control-plane-for-envoy-v2
 ---
 
 
-**Author:** Daniel Bryant, Product Architect, Datawire
+**Author:**
+Daniel Bryant, Product Architect, Datawire
+Flynn, Ambassador Lead Developer, Datawire
+Richard Li, CEO and Co-founder, Datawire
+
 
 Kubernetes has become the de facto runtime for container-based microservice applications, but this orchestration framework alone does not provide all of the infrastructure necessary for running a distributed system. Microservices typically communicate through Layer 7 protocols such as HTTP, gRPC, or WebSockets, and therefore having the ability to make routing decisions, manipulate protocol metadata, and observe at this layer is vital. However, traditional load balancers and edge proxies have predominantly focused on L3/4 traffic. This is where the [Envoy Proxy](https://www.envoyproxy.io/) comes into play.
 
-Envoy proxy was designed as a [universal data plane](https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a) from the ground-up by the Lyft Engineering team for today's distributed, L7-centric world, with broad support for L7 protocols, a real-time API for managing its configuration, first-class observability, and high performance within a small memory footprint. However, Envoy's vast feature set and flexibility of operation also makes its configuration highly complicated -- this is evidence in its rich but verbose [control plane](https://blog.envoyproxy.io/service-mesh-data-plane-vs-control-plane-2774e720f7fc) syntax.
+Envoy proxy was designed as a [universal data plane](https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a) from the ground-up by the Lyft Engineering team for today's distributed, L7-centric world, with broad support for L7 protocols, a real-time API for managing its configuration, first-class observability, and high performance within a small memory footprint. However, Envoy's vast feature set and flexibility of operation also makes its configuration highly complicated -- this is evident from looking at its rich but verbose [control plane](https://blog.envoyproxy.io/service-mesh-data-plane-vs-control-plane-2774e720f7fc) syntax.
 
 With the open source [Ambassador API Gateway](https://www.getambassador.io), we wanted to tackle the challenge of creating a new control plane that focuses on the use case of deploying Envoy as an forward-facing edge proxy within a Kubernetes cluster, in a way that is idiomatic to Kubernetes operators. In this article, we'll walk through two major iterations of the Ambassador design, and how we integrated Ambassador with Kubernetes.
 
@@ -42,7 +46,7 @@ spec:
 ```
 
 
-Translating this simple Ambassador annotation config into valid [Envoy v1](https://www.envoyproxy.io/docs/envoy/v1.6.0/configuration/overview/v1_overview) config was not a trivial task. By design, Ambassador's configuration isn't based on the same conceptual model as Envoy's configuration -- we deliberately wanted to aggregate and simplify operations and config. Therefore, a fair amount of logic within Ambassador translates between one set of concepts to the other.
+Translating this simple Ambassador annotation config into valid [Envoy v1](https://www.envoyproxy.io/docs/envoy/v1.6.0/configuration/overview/v1_overview) config was not a trivial task. By design, Ambassador's configuration isn't based on the same conceptual model as Envoy's configuration -- we deliberately wanted to aggregate and simplify operations and config. Therefore, translating between one set of concepts to the other involves a fair amount of logic within Ambassador.
 
 In this first iteration of Ambassador we created a Python-based service that watched the Kubernetes API for changes to Service objects. When new or updated Ambassador annotations were detected, these were translated from the Ambassador syntax into an intermediate representation (IR) which embodied our core configuration model and concepts. Next, Ambassador translated this IR into a representative Envoy configuration which was saved as a file within pods associated with the running Ambassador k8s Service. Ambassador then "hot-restarted" the Envoy process running within the Ambassador pods, which triggered the loading of the new configuration.
 
@@ -50,10 +54,10 @@ There were many benefits with this initial implementation. The mechanics involve
 
 However, there were also notable challenges with this version of Ambassador. First, although the hot restart was effective for the majority of our customers' use cases, it was not very fast, and some customers (particularly those with huge application deployments) found it was limiting the frequency with which they could change their configuration. Hot restart can also drop connections, especially long-lived connections like WebSockets or gRPC streams.
 
-More crucially, though, the first implementation of the IR allowed rapid prototyping but primitive enough that it proved very difficult to make substantial changes. While this was a pain point from the beginning, it became a critical issue as Envoy shifted to the [Envoy v2 API](https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview). It was clear that the v2 API would offer Ambassador many benefits -- as Matt Klein outlined in his blog post, "[The universal data plane API](https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a)" -- including access to new features and a solution to the connection-drop problem noted above, but it was also clear that the existing IR implementation was not capable of making the leap.
+More crucially, though, the first implementation of the IR allowed rapid prototyping but was primitive enough that it proved very difficult to make substantial changes. While this was a pain point from the beginning, it became a critical issue as Envoy shifted to the [Envoy v2 API](https://www.envoyproxy.io/docs/envoy/latest/configuration/overview/v2_overview). It was clear that the v2 API would offer Ambassador many benefits -- as Matt Klein outlined in his blog post, "[The universal data plane API](https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a)" -- including access to new features and a solution to the connection-drop problem noted above, but it was also clear that the existing IR implementation was not capable of making the leap.
 
 
-## Ambassador > v0.50: Envoy v2 APIs (ADS), Testing with KAT, and Golang
+## Ambassador >= v0.50: Envoy v2 APIs (ADS), Testing with KAT, and Golang
 
 In consultation with the [Ambassador community](http://d6e.co/slack), the [Datawire](www.datawire.io) team undertook a redesign of the internals of Ambassador in 2018. This was driven by two key goals. First, we wanted to integrate Envoy's v2 configuration format, which would enable the support of features such as [SNI](https://www.getambassador.io/user-guide/sni/), [rate limiting](https://www.getambassador.io/user-guide/rate-limiting) and [gRPC authentication APIs](https://www.getambassador.io/user-guide/auth-tutorial). Second, we also wanted to do much more robust semantic validation of Envoy configuration due to its increasing complexity (particularly when operating with large-scale application deployments).
 
@@ -74,14 +78,16 @@ Thus, as part of the Ambassador rearchitecture, we introduced the [Kubernetes Ac
 
 KAT is designed for performance -- it batches test setup upfront, and then runs all the queries in step 3 asynchronously with a high performance client. The traffic driver in KAT runs locally using [Telepresence](https://www.telepresence.io), which makes it easier to debug issues.
 
+With the KAT test framework in place, we quickly ran into some issues with Envoy v2 configuration and hot restart, which presented the opportunity to switch to use Envoy’s Aggregated Discovery Service (ADS) APIs instead of hot restart. This completely eliminated the requirement for restart on configuration changes, which we found could lead to dropped connection under high loads or long-lived connections.
+
 
 ### Introducing Golang to the Ambassador Stack
 
-With the KAT test framework in place, we quickly ran into some issues with Envoy v2 configuration and hot restart, which presented the opportunity to switch to use Envoy's Aggregated Discovery Service (ADS) APIs instead of hot restart. This completely eliminated the requirement for restart on configuration changes, which we found could lead to dropped connection under high loads or long-lived connections. We decided to use the [Envoy Go control plane](https://github.com/envoyproxy/go-control-plane) to interface to the ADS. This introduced a Golang dependency to the previously predominantly Python-based Ambassador codebase.
+KAT also made it clear that our testing had reached the point where Python’s performance with many network connections was a limitation. After some agonizing, we decided that the way to tackle this was to reimplement the KAT network services in Go, despite the additional complexity of introducing a Go dependency into a codebase that had been 100% Python.
 
 With a new test framework, new IR generating valid Envoy v2 configuration, and the ADS, we thought we were done with the major architectural changes in Ambassador 0.50. Alas, we hit one more issue. On the [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/), Ambassador annotation changes were no longer being detected.
 
-Working with the highly-responsive AKS engineering team, we were able to identify the issue -- namely, the Kubernetes API server in AKS is exposed through a chain of proxies that was dropping some requests. The proper mitigation for this was to support calling the FQDN of the API server, which is provided through a mutating webhook in AKS. Unfortunately, support for this feature was not available in the official Kubernetes Python client. We thus elected to switch to the Kubernetes Golang client. After all, what's another Golang dependency when you've already taken the plunge?
+Working with the highly-responsive AKS engineering team, we were able to identify the issue -- namely, the Kubernetes API server in AKS is exposed through a chain of proxies, requiring clients to be updating to understand how to connect using the FQDN of the API server, which is provided through a mutating webhook in AKS. Unfortunately, support for this feature was not available in the official Kubernetes Python client. We thus elected to switch to the Kubernetes Golang client. After all, what’s another Golang dependency when you’ve already taken the plunge?
 
 
 ## Lessons Learned
@@ -91,7 +97,7 @@ We've learned a lot in the process of building [Ambassador 0.50](https://blog.ge
 
 
 *   Kubernetes and Envoy are very powerful frameworks, but they are also extremely fast moving targets -- there is sometimes no substitute for reading the source code and talking to the maintainers (who are fortunately all quite accessible!)
-*   The best supported libraries in the Kubernetes / Envoy ecosystem are written in Go. While we love Python, but we have had to adopt Go so that we're not forced to maintain too many components ourselves.
+*   The best supported libraries in the Kubernetes / Envoy ecosystem are written in Go. While we love Python, we have had to adopt Go so that we're not forced to maintain too many components ourselves.
 *   Redesigning a test harness is sometimes necessary to move your software forward.
 *   The real cost in redesigning a test harness is often in porting your old tests to the new harness implementation.
 *   Designing (and implementing) an effective control plane for the edge proxy use case has been challenging, and the feedback from the open source community around Kubernetes, Envoy and Ambassador has been extremely useful.
