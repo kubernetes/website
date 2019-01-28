@@ -12,7 +12,7 @@ content_template: templates/concept
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 In upcoming releases, Cloud Controller Manager will
 be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers
-can develop their features independently from the core Kubernetes release cycles.**
+can develop their features independently from the core Kubernetes release cycles.
 
 {{< feature-state for_k8s_version="1.8" state="alpha" >}}
 
