@@ -61,23 +61,23 @@ OUTPUT
 -->
 ## 约定
 
-在整个文档中，您将看到可以运行的各种命令。有些命令需要在 `Pod` 中运行，有些命令需要在 Kubernetes `Node` 上运行，还有一些命令可以在您拥有 `kubectl` 和集群凭证的任何地方运行。为了明确命令期望运行的位置，本文档将使用以下约定。
+在整个文档中，您将看到各种可以运行的命令。有些命令需要在 `Pod` 中运行，有些命令需要在 Kubernetes `Node` 上运行，还有一些命令可以在您拥有 `kubectl` 和集群凭证的任何地方运行。为了明确预期的效果，本文档将使用以下约定。
 
-如果命令 “COMMAND” 期望在 `Pod` 中运行，并且产生 “OUTPUT”：
+如果命令 "COMMAND" 期望在 `Pod` 中运行，并且产生 "OUTPUT"：
 
 ```shell
 u@pod$ COMMAND
 OUTPUT
 ```
 
-如果命令 “COMMAND” 期望在 `Node` 上运行，并且产生 “OUTPUT”：
+如果命令 "COMMAND" 期望在 `Node` 上运行，并且产生 "OUTPUT"：
 
 ```shell
 u@node$ COMMAND
 OUTPUT
 ```
 
-如果命令是 “kubectl ARGS”：
+如果命令是 "kubectl ARGS"：
 
 ```shell
 $ kubectl ARGS
@@ -173,7 +173,7 @@ hostnames-632524106-ly40y   1/1       Running   0          2m
 hostnames-632524106-tlaok   1/1       Running   0          2m
 ```
 -->
-## 安装
+## 设置
 
 为了完成本次演练的目的，我们先运行几个 `Pod`。因为可能正在调试您自己的 `Service`，所以，您可以使用自己的详细信息进行替换，或者，您也可以跟随并开始下面的步骤来获得第二个数据点。
 
@@ -213,7 +213,7 @@ spec:
 ```
 {{< /note >}}
 
-确认您的 `Pods` 是 running 状态:
+确认您的 `Pods` 是运行状态:
 
 ```shell
 $ kubectl get pods -l app=hostnames
@@ -451,7 +451,7 @@ Name:      hostnames.default.svc.cluster.local
 Address 1: 10.0.1.175 hostnames.default.svc.cluster.local
 ```
 
-注意这里的后缀：“default.svc.cluster.local”。“default” 是我们正在操作的`命名空间`。“svc” 表示这是一个 `Service`。“cluster.local” 是您的集群域，在您自己的集群中可能会有所不同。
+注意这里的后缀："default.svc.cluster.local"。"default" 是我们正在操作的`命名空间`。"svc" 表示这是一个 `Service`。"cluster.local" 是您的集群域，在您自己的集群中可能会有所不同。
 
 您也可以在集群中的 Node 上尝试此操作：
 
@@ -693,7 +693,7 @@ values on your `Pods`.  A common mistake is to have a typo or other error, such
 as the `Service` selecting for `run=hostnames`, but the `Deployment` specifying
 `app=hostnames`.
 -->
-## Service 有 Endpoints 吗？
+## Service 有端点吗？
 
 如果您已经走到了这一步，我们假设您已经确认您的 `Service` 存在，并能通过 DNS 解析。现在，让我们检查一下，您运行的 `Pod` 确实是由 `Service` 选择的。
 
@@ -707,7 +707,7 @@ hostnames-bvc05   1/1       Running   0          1h
 hostnames-yp2kp   1/1       Running   0          1h
 ```
 
-“AGE” 列表明这些 `Pod` 已经启动一个小时了，这意味着它们运行良好，而不是崩溃。
+"AGE" 列表明这些 `Pod` 已经启动一个小时了，这意味着它们运行良好，而不是崩溃。
 
 `-l app=hostnames` 参数是一个标签选择器 - 就像我们的 `Service` 一样。在 Kubernetes 系统中有一个控制循环，它评估每个 `Service` 的选择器，并将结果保存到 `Endpoints` 对象中。
 
@@ -803,7 +803,7 @@ suspect.  Let's confirm it, piece by piece.
 -->
 ## kube-proxy 正常工作吗？
 
-如果您到了这里，那么您的 `Service` 正在运行，也有 `Endpoints`，而您的 `Pods` 实际上也正在服务。在这一点上，整个 `Service` 代理机制是否正常就是可疑的了。我们来确认一下，一部分一部分来。
+如果您到了这里，那么您的 `Service` 正在运行，也有`端点`，而您的 `Pod` 实际上也正在服务。在这一点上，整个 `Service` 代理机制是否正常就是可疑的了。我们来确认一下，一部分一部分来。
 
 <!--
 ### Is kube-proxy running?
@@ -869,7 +869,7 @@ I1027 22:14:54.040154    5063 proxier.go:294] Adding new service "kube-system/ku
 I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/kube-dns:dns-tcp" at 10.0.0.10:53/TCP
 ```
 
-如果您看到有关无法连接主节点的错误消息，则应再次检查 `Node` 配置和安装步骤。
+如果您看到有关无法连接主节点的错误消息，则应再次检查`节点`配置和安装步骤。
 
 `kube-proxy` 无法正确运行的可能原因之一是找不到所需的 `conntrack` 二进制文件。在一些 Linux 系统上，这也是可能发生的，这取决于您如何安装集群，例如，您正在从头开始安装 Kubernetes。如果是这样的话，您需要手动安装 `conntrack` 包（例如，在 Ubuntu 上使用 `sudo apt install conntrack`），然后重试。
 
@@ -904,8 +904,8 @@ more time on it here.
 
 `kube-proxy` 的主要职责之一是写实现 `Services` 的 `iptables` 规则。让我们检查一下这些规则是否已经被写好了。
 
-kube-proxy 可以在 “userspace” 模式、 “iptables” 模式或者 “ipvs” 模式下运行。
-希望您正在使用 “iptables” 模式或者 “ipvs” 模式。您应该看到以下情况之一。
+kube-proxy 可以在 "userspace" 模式、 "iptables" 模式或者 "ipvs" 模式下运行。
+希望您正在使用 "iptables" 模式或者 "ipvs" 模式。您应该看到以下情况之一。
 
 #### Userpace
 
@@ -915,9 +915,9 @@ u@node$ iptables-save | grep hostnames
 -A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
 ```
 
-您的 `Service` 上的每个端口应该有两个规则（本例中只有一个）- “KUBE-PORTALS-CONTAINER” 和 “KUBE-PORTALS-HOST”。如果您没有看到这些，请尝试将 `-V` 标志设置为 4 之后重新启动 `kube-proxy`，然后再次查看日志。
+您的 `Service` 上的每个端口应该有两个规则（本例中只有一个）- "KUBE-PORTALS-CONTAINER" 和 "KUBE-PORTALS-HOST"。如果您没有看到这些，请尝试将 `-V` 标志设置为 4 之后重新启动 `kube-proxy`，然后再次查看日志。
 
-几乎没有人应该再使用 “userspace” 模式了，所以我们不会在这里花费更多的时间。
+几乎没有人应该再使用 "userspace" 模式了，所以我们不会在这里花费更多的时间。
 
 <!--
 #### Iptables
@@ -957,7 +957,7 @@ u@node$ iptables-save | grep hostnames
 -A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/hostnames:" -j KUBE-SEP-57KPRZ3JQVENLNBR
 ```
 
-`KUBE-SERVICES` 中应该有 1 条规则，`KUBE-SVC-(hash)` 中每个 endpoint 有 1 或 2 条规则（取决于 `SessionAffinity`），每个 endpoint 中应有 1 条 `KUBE-SEP-(hash)` 链。准确的规则将根据您的确切配置（包括 节点-端口 以及 负载均衡）而有所不同。
+`KUBE-SERVICES` 中应该有 1 条规则，`KUBE-SVC-(hash)` 中每个端点有 1 或 2 条规则（取决于 `SessionAffinity`），每个端点中应有 1 条 `KUBE-SEP-(hash)` 链。准确的规则将根据您的确切配置（包括 节点-端口 以及 负载均衡）而有所不同。
 
 <!--
 #### IPVS
@@ -990,7 +990,8 @@ TCP  10.0.1.175:80 rr
 ...
 ```
 
-IPVS 代理将为每个服务器地址（例如集群 IP、外部 IP、节点端口 IP、负载均衡 IP等）创建虚拟服务器，并为服务的 endpoints 创建一些相应的真实服务器（如果有）。在这个例子中，服务器主机名（`10.0.1.175:80`）有 3 个   endpoints(`10.244.0.5:9376`, `10.244.0.6:9376`, `10.244.0.7:9376`)，你会得到类似上面的结果。
+IPVS 代理将为每个服务器地址（例如集群 IP、外部 IP、节点端口 IP、负载均衡 IP等）创建虚拟服务器，并为服务的端点创建一些相应的真实服务器（如果有）。在这个例子中，服务器主机名（`10.0.1.175:80`）有 3 个端点(`10.244.0.5:9376`, `10.244.0.6:9376`, `10.244.0.7:9376`)，你会得到类似上面的结果。
+
 
 <!--
 ### Is kube-proxy proxying?
@@ -1107,7 +1108,7 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 
 * Seek help if none of above works out.
 -->
-### Pod 无法通过 Service IP 到达自己
+### Pod 无法通过 Service IP 访问自己
 
 如果网络没有正确配置为 “hairpin” 流量，通常当 `kube-proxy` 以 `iptables` 模式运行，并且 Pod 与桥接网络连接时，就会发生这种情况。`Kubelet` 公开了一个 `hairpin-mode` 标志，如果 pod 试图访问它们自己的 Service VIP，就可以让 Service 的 endpoints 重新负载到他们自己身上。`hairpin-mode` 标志必须设置为 `hairpin-veth` 或者 `promiscuous-bridge`。
 
@@ -1160,9 +1161,9 @@ Contact us on
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 -->
-## 求助
+## 寻求帮助
 
-如果您走到这一步，那么就真的是奇怪的事情发生了。您的 `Service` 正在运行，有 `Endpoints`，您的 `Pods` 也确实在服务中。您的 DNS 正常，`iptables` 规则已经安装，`kube-proxy` 看起来也正常。然而 `Service` 不起作用。这种情况下，您应该让我们知道，这样我们可以帮助调查！
+如果您走到这一步，那么就真的是奇怪的事情发生了。您的 `Service` 正在运行，有`端点`，您的 `Pods` 也确实在服务中。您的 DNS 正常，`iptables` 规则已经安装，`kube-proxy` 看起来也正常。然而 `Service` 不起作用。这种情况下，您应该让我们知道，这样我们可以帮助调查！
 
 使用 [Slack](/docs/troubleshooting/#slack) 或者 [Forum](https://discuss.kubernetes.io) 或者 [GitHub](https://github.com/kubernetes/kubernetes) 联系我们。
 
