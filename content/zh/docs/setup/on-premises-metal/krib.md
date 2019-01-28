@@ -48,11 +48,11 @@ KRIB特点：
 * 零接触，无需预配置或组件目录的自配置集群
 * 非常快，无需 ssh 的自动化
 * 关注裸机和本地部署的平台
-* 高度可用的集群选项（包括从控制器分割 etcd）
+* 高度可用的集群选项（包括将 etcd 从控制节点分离）
 * 动态生成 TLS 基础架构
 * 可组合属性和按配置文件自动检测硬件
-* 用于持久，不可变和基于映像的部署的选项
-* 支持 Ubuntu 18.04，CentOS/RHEL 7 等
+* 支持基于持久存储、不可变存储和映像的部署
+* 支持 Ubuntu 18.04、CentOS/RHEL 7 等
 
 <!--
 ## Creating a cluster
@@ -62,7 +62,7 @@ KRIB特点：
 <!--
 Review [Digital Rebar documentation](https://https://provision.readthedocs.io/en/tip/README.html) for details about installing the platform.
 -->
-有关安装平台的详细信息，请查看 [Digital Rebar 文档](https://https://provision.readthedocs.io/en/tip/README.html)。
+有关安装该平台的详细信息，请查看 [Digital Rebar 文档](https://https://provision.readthedocs.io/en/tip/README.html)。
 
 <!--
 The Digital Rebar Provision Golang binary should be installed on a Linux-like system with 16 GB of RAM or larger (Packet.net Tiny and Rasberry Pi are also acceptable).
@@ -77,7 +77,7 @@ Digital Rebar Provision Golang 二进制文件应该安装在类似 Linux 的系
 <!--
 Following the [Digital Rebar installation](https://provision.readthedocs.io/en/tip/doc/quickstart.html), allow one or more servers to boot through the _Sledgehammer_ discovery process to register with the API. This will automatically install the Digital Rebar runner and to allow for next steps.
 -->
-在 [Digital Rebar 安装](https://provision.readthedocs.io/en/tip/doc/quickstart.html)之后，允许一个或多个服务器通过 _Sledgehammer_ 发现过程引导以向 API 注册。 这将自动安装 Digital Rebar runner 并允许后续步骤。
+按 [Digital Rebar 安装](https://provision.readthedocs.io/en/tip/doc/quickstart.html) 文档所给的步骤执行安装，允许一个或多个服务器通过 _Sledgehammer_ 发现过程引导以向 API 注册。 这将自动安装 Digital Rebar runner 并允许后续步骤。
 
 <!--
 ### (2/5) Install KRIB Content and Certificate Plugin
