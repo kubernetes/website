@@ -17,7 +17,7 @@ menu:
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{< note >}}
-[로컬에서 Minikube](/docs/tasks/tools/install-minikube/)를 설치했다면 이 튜토리얼도 따라할 수 있다.
+[로컬에서 Minikube](/ko/docs/tasks/tools/install-minikube/)를 설치했다면 이 튜토리얼도 따라할 수 있다.
 {{< /note >}}
 
 {{% /capture %}}
@@ -60,7 +60,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 3. Katacoda 환경에서는: 터미널 패널의 상단에서 플러스를 클릭하고, 이어서 **Select port to view on Host 1**를 클릭
 
-4. Katacoda 환경에서는: 30000 을 입력하고 **Display Port**을 클락.
+4. Katacoda 환경에서는: 30000 을 입력하고 **Display Port**을 클릭.
 
 ## 디플로이먼트 만들기
 
@@ -123,7 +123,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출시키기
 
     ```shell
-    kubectl expose deployment hello-node --type=LoadBalancer
+    kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
     
     `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출시키기 원한다는 뜻이다.
@@ -142,7 +142,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    로드 밸런서를 지원하는 클라우드 프로바이더의 경우에는 서비스에 접근할 수 있도록 외부 IP주소가 프로비저닝 한다.
+    로드 밸런서를 지원하는 클라우드 공급자의 경우에는 서비스에 접근할 수 있도록 외부 IP 주소가 프로비저닝 한다.
     Minikube에서 `LoadBalancer`타입은 `minikube service` 명령어를 통해서 해당 서비스를 접근할 수 있게 한다.
 
 3. 다음 명령어를 실행한다
@@ -159,7 +159,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 ## 애드온 사용하기
 
-Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 애드온셋이 있다.
+Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 애드온 셋이 있다.
 
 1. 현재 지원하는 애드온 목록을 확인한다.
 
