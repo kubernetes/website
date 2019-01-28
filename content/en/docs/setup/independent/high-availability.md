@@ -225,7 +225,7 @@ SSH is required if you want to control all nodes from a single machine.
 
 {{< caution >}}
 Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates
-with the required SANs for the joining control-plane instances. If by mistake you copy all the certificates,
+with the required SANs for the joining control-plane instances. If you copy all the certificates by mistake,
 the creation of additional nodes could fail due to a lack of required SANs.
 {{< /caution >}}
 
