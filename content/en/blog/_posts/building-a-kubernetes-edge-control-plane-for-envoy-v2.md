@@ -1,6 +1,6 @@
 ---
 title: Building a Kubernetes Edge (Ingress) Control Plane for Envoy v2
-date:
+date: 2019-02-11
 slug: building-a-kubernetes-edge-control-plane-for-envoy-v2
 ---
 
@@ -92,7 +92,7 @@ Working with the highly-responsive AKS engineering team, we were able to identif
 
 This raises the interesting question of, “why not ditch all the Python code, and just rewrite Ambassador entirely in Go?” It’s a valid question. The main concern with a rewrite is that Ambassador and Envoy operate at different conceptual levels rather than simply expressing the same concepts with different syntax. Being certain that we’ve expressed the conceptual bridges in a new language is not a trivial challenge, and not something to undertake without already having really excellent test coverage in place
 
-At this point, we use Go to cover very specific, well-contained functions that can be verified for correctness much more easily that we could verify a complete Golang rewrite. In the future, who knows? But for 0.50, this functional split let us both take advantage of Golang’s strengths, while letting us retain more confidence about all the changes already in 0.50.
+At this point, we use Go to cover very specific, well-contained functions that can be verified for correctness much more easily that we could verify a complete Golang rewrite. In the future, who knows? But for 0.50, this functional split allowed us to take advantage of Golang’s strengths, while letting us retain more confidence about all the changes already in 0.50.
 
 ## Lessons Learned
 
