@@ -156,7 +156,7 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-systemctl enable kubelet && systemctl start kubelet
+systemctl enable --now kubelet
 ```
 
   **Note:**
@@ -210,7 +210,7 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/bu
 Enable and start `kubelet`:
 
 ```bash
-systemctl enable kubelet && systemctl start kubelet
+systemctl enable --now kubelet
 ```
 {{% /tab %}}
 {{< /tabs >}}
