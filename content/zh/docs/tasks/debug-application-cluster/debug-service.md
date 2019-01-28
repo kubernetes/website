@@ -538,7 +538,7 @@ Address 1: 10.0.0.1 kubernetes.default.svc.cluster.local
 
 如果失败，您可能需要转到这个文档的 kube-proxy 部分，或者甚至回到文档的顶部重新开始，但不是调试您自己的 `Service`，而是调试 DNS。
 
-### Service 是通过 IP 工作的吗？
+### Service 能够通过 IP 访问么？
 
 假设我们可以确认 DNS 工作正常，那么接下来要测试的是您的 `Service` 是否工作正常。从集群中的一个节点，访问 `Service` 的 IP（从上面的 `kubectl get` 命令获取）。
 
@@ -697,7 +697,7 @@ as the `Service` selecting for `run=hostnames`, but the `Deployment` specifying
 
 如果您已经走到了这一步，我们假设您已经确认您的 `Service` 存在，并能通过 DNS 解析。现在，让我们检查一下，您运行的 `Pod` 确实是由 `Service` 选择的。
 
-早些时候，我们已经看到 `Pod` 是 running 状态。我们可以再检查一下：
+早些时候，我们已经看到 `Pod` 是运行状态。我们可以再检查一下：
 
 ```shell
 $ kubectl get pods -l app=hostnames
@@ -845,7 +845,7 @@ installing Kubernetes from scratch. If this is the case, you need to manually
 install the `conntrack` package (e.g. `sudo apt install conntrack` on Ubuntu)
 and then retry.
 -->
-### kube-proxy 是在运行中吗？
+### kube-proxy 在运行吗？
 
 确认 `kube-proxy` 正在您的 `Nodes` 上运行。您应该得到如下内容：
 
@@ -869,7 +869,7 @@ I1027 22:14:54.040154    5063 proxier.go:294] Adding new service "kube-system/ku
 I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/kube-dns:dns-tcp" at 10.0.0.10:53/TCP
 ```
 
-如果您看到有关无法连接主节点的错误消息，则应再次检查 `Node` 配置和安装步骤。
+如果您看到有关无法连接主节点的错误消息，则应再次检查节点配置和安装步骤。
 
 `kube-proxy` 无法正确运行的可能原因之一是找不到所需的 `conntrack` 二进制文件。在一些 Linux 系统上，这也是可能发生的，这取决于您如何安装集群，例如，您正在从头开始安装 Kubernetes。如果是这样的话，您需要手动安装 `conntrack` 包（例如，在 Ubuntu 上使用 `sudo apt install conntrack`），然后重试。
 
@@ -957,7 +957,7 @@ u@node$ iptables-save | grep hostnames
 -A KUBE-SVC-NWV5X2332I4OT4T3 -m comment --comment "default/hostnames:" -j KUBE-SEP-57KPRZ3JQVENLNBR
 ```
 
-`KUBE-SERVICES` 中应该有 1 条规则，`KUBE-SVC-(hash)` 中每个端点有 1 或 2 条规则（取决于 `SessionAffinity`），每个端点中应有 1 条 `KUBE-SEP-(hash)` 链。准确的规则将根据您的确切配置（包括 节点-端口 以及 负载均衡）而有所不同。
+`KUBE-SERVICES` 中应该有 1 条规则，`KUBE-SVC-(hash)` 中每个端点有 1 或 2 条规则（取决于 `SessionAffinity`），每个端点中应有 1 条 `KUBE-SEP-(hash)` 链。准确的规则将根据您的确切配置（包括节点、端口组合以及负载均衡器设置）而有所不同。
 
 <!--
 #### IPVS
@@ -1024,7 +1024,7 @@ Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9
 If you don't see those, try restarting `kube-proxy` with the `-V` flag set to 4, and
 then look at the logs again.
 -->
-### kube-proxy 正在代理中吗？
+### kube-proxy 在执行代理操作么？
 
 假设您确实看到了上述规则，请再次尝试通过 IP 访问您的 `Service`：
 
@@ -1110,7 +1110,7 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 -->
 ### Pod 无法通过 Service IP 访问自己
 
-如果网络没有正确配置为 “hairpin” 流量，通常当 `kube-proxy` 以 `iptables` 模式运行，并且 Pod 与桥接网络连接时，就会发生这种情况。`Kubelet` 公开了一个 `hairpin-mode` 标志，如果 pod 试图访问它们自己的 Service VIP，就可以让 Service 的 endpoints 重新负载到他们自己身上。`hairpin-mode` 标志必须设置为 `hairpin-veth` 或者 `promiscuous-bridge`。
+如果网络没有为“发夹模式”流量生成正确配置，通常当 `kube-proxy` 以 `iptables` 模式运行，并且 Pod 与桥接网络连接时，就会发生这种情况。`Kubelet` 公开了一个 `hairpin-mode` 标志，如果 pod 试图访问它们自己的 Service VIP，就可以让 Service 的端点重新负载到他们自己身上。`hairpin-mode` 标志必须设置为 `hairpin-veth` 或者 `promiscuous-bridge`。
 
 解决这一问题的常见步骤如下：
 
@@ -1127,7 +1127,7 @@ root      3392  1.1  0.8 186804 65208 ?        Sl   00:51  11:11 /usr/local/bin/
 I0629 00:51:43.648698    3252 kubelet.go:380] Hairpin mode set to "promiscuous-bridge"
 ```
 
-* 如果有效的 hairpin 模式是 `hairpin-veth`，请确保 `Kubelet` 具有在节点上的 `/sys` 中操作的权限。如果一切正常工作，您应该看到如下内容：
+* 如果有效的发夹模式是 `hairpin-veth`，请确保 `Kubelet` 具有在节点上的 `/sys` 中操作的权限。如果一切正常工作，您应该看到如下内容：
 
 ```shell
 for intf in /sys/devices/virtual/net/cbr0/brif/*; do cat $intf/hairpin_mode; done
@@ -1137,7 +1137,7 @@ for intf in /sys/devices/virtual/net/cbr0/brif/*; do cat $intf/hairpin_mode; don
 1
 ```
 
-* 如果有效的 hairpin 模式是 `promiscuous-bridge`，则请确保 `Kubelet` 拥有在节点上操纵 Linux 网桥的权限。如果正确使用和配置了 cbr0 网桥，您应该看到：
+* 如果有效的发夹模式是 `promiscuous-bridge`，则请确保 `Kubelet` 拥有在节点上操纵 Linux 网桥的权限。如果正确使用和配置了 cbr0 网桥，您应该看到：
 
 ```shell
 u@node$ ifconfig cbr0 |grep PROMISC
