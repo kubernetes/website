@@ -31,9 +31,6 @@ nohup.out
 public/
 resources/
 
-# User-specific editorconfig files
-.editorconfig
-
 # Netlify Functions build output
 package-lock.json
 functions/
