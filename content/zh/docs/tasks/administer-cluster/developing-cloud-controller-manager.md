@@ -1,3 +1,12 @@
+---
+reviewers:
+- luxas
+- thockin
+- wlan0
+title: 开发云控制器管理器
+content_template: templates/concept
+---
+
 <!--
 ---
 reviewers:
@@ -8,14 +17,8 @@ title: Developing Cloud Controller Manager
 content_template: templates/concept
 ---
 -->
----
-reviewers:
-- luxas
-- thockin
-- wlan0
-title: 开发云控制器管理器
-content_template: templates/concept
----
+
+
 
 {{% capture overview %}}
 
@@ -25,7 +28,7 @@ In upcoming releases, Cloud Controller Manager will
 be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers
 can develop their features independently from the core Kubernetes release cycles.**
 -->
-在即将发布的版本中，云控制器管理器将是把 Kubernetes 与任何云集成的首选方式。 这将确保云提供商可以独立于核心 Kubernetes 发布周期开发其功能。**
+在即将发布的版本中，云控制器管理器将是把 Kubernetes 与任何云集成的首选方式。 这将确保云提供商可以独立于核心 Kubernetes 发布周期开发其功能。
 
 {{< feature-state for_k8s_version="1.8" state="alpha" >}}
 
