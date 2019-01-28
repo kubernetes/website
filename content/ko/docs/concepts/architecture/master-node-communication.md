@@ -1,4 +1,3 @@
-구성된다---
 title: 마스터-노드 커뮤니케이션
 content_template: templates/concept
 weight: 20
