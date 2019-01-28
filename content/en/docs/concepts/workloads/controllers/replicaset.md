@@ -10,16 +10,26 @@ weight: 10
 
 {{% capture overview %}}
 
-ReplicaSet is the next-generation Replication Controller. The only difference
+ReplicaSet is a type of Replication Controller. The only difference
 between a _ReplicaSet_ and a
-[_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) right now is
+[_ReplicationController_](/docs/concepts/workloads/controllers/replicationcontroller/) right now is
 the selector support. ReplicaSet supports the new set-based selector requirements
 as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 whereas a Replication Controller only supports equality-based selector requirements.
 
+
 {{% /capture %}}
 
 {{% capture body %}}
+
+## How a ReplicaSet Works
+
+Just like a ReplicationController, a ReplicaSet's purpose is to maintain a stable set of replica Pods available at any
+given time. It does so by creating and deleting a pods as needed to reach the desired number. The link a ReplicaSet has
+to its Pods is via the [metadata.ownerReferences][/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents]
+field, which specifies one resource dependent on another. All these _Pods_ have their owning ReplicaSet's identifying
+information within their ownerReferences field. It's through this link that the ReplicaSet knows of the state of the
+Pods it is maintaining and plan accordingly.
 
 ## How to use a ReplicaSet
 
@@ -32,9 +42,9 @@ instead. Also, the
 imperative whereas Deployments are declarative, so we recommend using Deployments
 through the [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout) command.
 
-While ReplicaSets can be used independently, today it's mainly used by
-[Deployments](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod
-creation, deletion and updates. When you use Deployments you don't have to worry
+While ReplicaSets can be used independently, it could also be used by other resources. For example,
+[Deployments](/docs/concepts/workloads/controllers/deployment/) use them as a mechanism to orchestrate
+pod creation, deletion and updates. When you use Deployments you don't have to worry
 about managing the ReplicaSets that they create. Deployments own and manage
 their ReplicaSets.
 
@@ -53,13 +63,25 @@ use a Deployment instead, and define your application in the spec section.
 
 {{< codenew file="controllers/frontend.yaml" >}}
 
-Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster should
+Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster will
 create the defined ReplicaSet and the pods that it manages.
 
 ```shell
-$ kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
+kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
+```
+
+With the output of
+```shell
 replicaset.apps/frontend created
-$ kubectl describe rs/frontend
+```
+
+You can then check on the state of the replicaset:
+```shell
+kubectl describe rs/frontend
+```
+
+And you will see output similar to:
+```shell
 Name:		frontend
 Namespace:	default
 Selector:	tier=frontend,tier in (frontend)
@@ -88,7 +110,15 @@ Events:
   1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-qhloh
   1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-dnjpy
   1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-9si5l
-$ kubectl get pods
+```
+
+And lastly checking on the pods brought up:
+```shell
+kubectl get pods
+```
+
+Will yield pod information similar to
+```shell
 NAME             READY     STATUS    RESTARTS   AGE
 frontend-9si5l   1/1       Running   0          1m
 frontend-dnjpy   1/1       Running   0          1m
@@ -104,8 +134,8 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 ### Pod Template
 
-The `.spec.template` is the only required field of the `.spec`. The `.spec.template` is a 
-[pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a 
+The `.spec.template` is the only required field of the `.spec`. The `.spec.template` is a
+[pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a
 [pod](/docs/concepts/workloads/pods/pod/), except that it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields of a pod, a pod template in a ReplicaSet must specify appropriate
@@ -130,8 +160,8 @@ be rejected by the API.
 
 In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the current version and is enabled by default. The API version `apps/v1beta2` is deprecated.
 
-Also you should not normally create any pods whose labels match this selector, either directly, with 
-another ReplicaSet, or with another controller such as a Deployment. If you do so, the ReplicaSet thinks that it 
+Also you should not normally create any pods whose labels match this selector, either directly, with
+another ReplicaSet, or with another controller such as a Deployment. If you do so, the ReplicaSet thinks that it
 created the other pods. Kubernetes does not stop you from doing this.
 
 If you do end up with multiple controllers that have overlapping selectors, you
@@ -183,7 +213,7 @@ To update pods to a new spec in a controlled way, use a [rolling update](#rollin
 
 ### Isolating pods from a ReplicaSet
 
-Pods may be removed from a ReplicaSet's target set by changing their labels. This technique may be used to remove pods 
+Pods may be removed from a ReplicaSet's target set by changing their labels. This technique may be used to remove pods
 from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (
   assuming that the number of replicas is not also changed).
 
@@ -242,5 +272,3 @@ to a machine lifetime: the pod needs to be running on the machine before other p
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 {{% /capture %}}
-
-

@@ -9,6 +9,8 @@ spec:
   # modify replicas according to your case
   replicas: 3
   selector:
+    # The matchLabels and matchExpressions achieve the same effect, and the redundancy
+    # is to demonstrate the usage of both equality-based and set-based selectors
     matchLabels:
       tier: frontend
     matchExpressions:
