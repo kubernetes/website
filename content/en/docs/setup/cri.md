@@ -218,8 +218,8 @@ tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd6
 systemctl start containerd
 ```
 
-## Other CRI runtimes: rktlet and frakti
+## Other CRI runtimes: frakti
 
-Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) and [Rktlet Getting Started guide](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md) for more information.
+Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
 
 {{% /capture %}}
