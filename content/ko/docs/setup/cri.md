@@ -27,25 +27,24 @@ v1.6.0에서부터, 쿠버네티스는 CRI(컨테이너 런타임 인터페이�
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# Ubuntu 저장소를 통한 Docker 설치:
-apt-get update
-apt-get install -y docker.io
+# Docker CE 설치
+## 저장소 설정
+### apt 패키지 인덱스 업데이트
+    apt-get update
 
-# 또는 Docker 저장소를 통한 Ubuntu 또는 Debian 용 Docker CE 18.06 설치:
+### apt가 HTTPS 저장소를 사용할 수 있도록 해주는 패키지 설치
+    apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
-## 선행 조건들 설치.
-apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+### Docker의 공식 GPG 키 추가
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-## GPG 키 다운로드.
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+### Docker apt 저장소 추가.
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
 
-## Docker apt 저장소 추가.
-add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-## Docker 설치.
+## Docker ce 설치.
 apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
 
 # 데몬 설정.
@@ -68,20 +67,17 @@ systemctl restart docker
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# CentOS/RHEL 저장소를 통한 Docker 설치:
-yum install -y docker
+# Docker CE 설치
+## 저장소 설정
+### 필요한 패키지 설치.
+    yum install yum-utils device-mapper-persistent-data lvm2
 
-# 또는 Docker의 CentOS 저장소를 통한 Docker CE 18.06 설치:
-
-## 선행 조건들 설치.
-yum install yum-utils device-mapper-persistent-data lvm2
-
-## Docker 저장소 추가.
+### Docker 저장소 추가
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-## Docker 설치.
+## Docker ce 설치.
 yum update && yum install docker-ce-18.06.1.ce
 
 ## /etc/docker 디렉토리 생성.
