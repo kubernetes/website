@@ -1,6 +1,6 @@
 ---
 reviewers:
-- bgrant0607
+- bgrant0607 
 - mikedanese
 title: What is Kubernetes?
 content_template: templates/concept
