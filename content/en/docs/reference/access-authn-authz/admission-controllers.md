@@ -334,13 +334,6 @@ Examples of information you might put here are:
 
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of ImageReviewSpec.
 
-### Initializers (alpha) {#initializers}
-
-The admission controller determines the initializers of a resource based on the existing
-`InitializerConfiguration`s. It sets the pending initializers by modifying the
-metadata of the resource to be created.
-For more information, please check [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
-
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 
 This admission controller denies any pod that defines `AntiAffinity` topology key other than
