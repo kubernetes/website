@@ -10,12 +10,8 @@ weight: 10
 
 {{% capture overview %}}
 
-ReplicaSet is a type of Replication Controller. The only difference
-between a _ReplicaSet_ and a
-[_ReplicationController_](/docs/concepts/workloads/controllers/replicationcontroller/) right now is
-the selector support. ReplicaSet supports the new set-based selector requirements
-as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
-whereas a Replication Controller only supports equality-based selector requirements.
+A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often
+used to guarantee the availability of a specified number of identical pods.
 
 
 {{% /capture %}}
@@ -24,12 +20,19 @@ whereas a Replication Controller only supports equality-based selector requireme
 
 ## How a ReplicaSet Works
 
-Just like a ReplicationController, a ReplicaSet's purpose is to maintain a stable set of replica Pods available at any
-given time. It does so by creating and deleting a pods as needed to reach the desired number. The link a ReplicaSet has
-to its Pods is via the [metadata.ownerReferences][/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents]
-field, which specifies one resource dependent on another. All these _Pods_ have their owning ReplicaSet's identifying
-information within their ownerReferences field. It's through this link that the ReplicaSet knows of the state of the
-Pods it is maintaining and plan accordingly.
+A ReplicaSet is defined with fields including, a selector which specifies how to identify pods it can acquire, a number
+of replicas indicating how many pods it should be maintaining, and a pod template specifying the data of new pods
+it should bring bring up to meet the number of replicas criteria. A ReplicaSet then fulfills its purpose by creating
+and deleting a Pods as needed to reach the desired number, using its given pod template for the creation.
+
+The link a ReplicaSet has to its Pods is via the [metadata.ownerReferences][/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents]
+field, which specifies one resource dependent on another. All _Pods_ acquired by a ReplicaSet have their owning
+ReplicaSet's identifying information within their ownerReferences field. It's through this link that the ReplicaSet
+knows of the state of the Pods it is maintaining and plan accordingly.
+
+ReplicaSets identify new Pods to acquire by using its selector. If there is a Pod that has no OwnerReference or the
+OwnerReference is not a Controller and it matches a ReplicaSet's selector, it will be immediately acquired by said
+ReplicaSet.
 
 ## How to use a ReplicaSet
 
@@ -43,10 +46,10 @@ imperative whereas Deployments are declarative, so we recommend using Deployment
 through the [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout) command.
 
 While ReplicaSets can be used independently, it could also be used by other resources. For example,
-[Deployments](/docs/concepts/workloads/controllers/deployment/) use them as a mechanism to orchestrate
-pod creation, deletion and updates. When you use Deployments you don't have to worry
-about managing the ReplicaSets that they create. Deployments own and manage
-their ReplicaSets.
+[Deployments](/docs/concepts/workloads/controllers/deployment/) are the recommended way of using ReplicaSets.
+When you use Deployments you don't have to worry about managing the ReplicaSets that they create. Deployments own
+and manage their ReplicaSets.
+
 
 ## When to use a ReplicaSet
 
@@ -68,11 +71,6 @@ create the defined ReplicaSet and the pods that it manages.
 
 ```shell
 kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
-```
-
-With the output of
-```shell
-replicaset.apps/frontend created
 ```
 
 You can then check on the state of the replicaset:
@@ -125,7 +123,65 @@ frontend-dnjpy   1/1       Running   0          1m
 frontend-qhloh   1/1       Running   0          1m
 ```
 
-## Writing a ReplicaSet Spec
+## Non-Template Acquisitions
+
+A ReplicaSet is not limited to owning pods specified by its template. Take the previous frontend ReplicaSet example,
+and the Pods specified in the following manifest:
+
+{{< codenew file="controllers/pod-rs.yaml" >}}
+
+As those Pods do not have a Controller (or any object) as their owner reference and match the selector of the forntend
+ReplicaSet, they will immediately be acquired by it.
+
+Creating the Pods after the frontend ReplicaSet has been deployed and set up its initial Pod replicas to fulfill its
+replica count requirement:
+
+```shell
+kubectl create -f http://k8s.io/examples/controllers/pod-rs.yaml
+```
+
+Will cause the new Pods to be acquired by the ReplicaSet, then immediately terminated as the ReplicaSet would be over
+its desired count. Fetching the pods:
+```shell
+kubectl get pods
+```
+
+Will show that the new Pods are either already terminated, or in the process of being terminated
+```shell
+NAME             READY   STATUS        RESTARTS   AGE
+frontend-9si5l   1/1     Running       0          1m
+frontend-dnjpy   1/1     Running       0          1m
+frontend-qhloh   1/1     Running       0          1m
+pod2             0/1     Terminating   0          4s
+```
+
+If we create the Pods first:
+```shell
+kubectl create -f http://k8s.io/examples/controllers/pod-rs.yaml
+```
+
+And then create the ReplicaSet however:
+```shell
+kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
+```
+
+We shall see that the ReplicaSet has acquired the Pods and has only created new ones according to its spec until the
+number of its new Pods and the original matches its desired count. As fetching the pods:
+```shell
+kubectl get pods
+```
+
+Will reveal in its output:
+```shell
+NAME             READY   STATUS    RESTARTS   AGE
+frontend-pxj4r   1/1     Running   0          5s
+pod1             1/1     Running   0          13s
+pod2             1/1     Running   0          13s
+```
+
+In this manner, a ReplicaSet can own a non-homogenous set of Pods
+
+## Writing a ReplicaSet Manifest
 
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with manifests, see [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/).
@@ -270,5 +326,11 @@ Use a [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) instead of 
 machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime that is tied
 to a machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
+
+### ReplicationController
+ReplicaSets are the successors to [_ReplicationControllers_](/docs/concepts/workloads/controllers/replicationcontroller/).
+The two serve the same purpose, and behave seimilarly except that a ReplicationController does not support set-based
+selector requirements as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
+As such, ReplicaSets are preferred over ReplicationControllers
 
 {{% /capture %}}
