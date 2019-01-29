@@ -169,7 +169,7 @@ language_alternatives = ["en"]
 [languages.it]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName ="Italian "
+languageName ="Italian"
 weight = 5
 contentDir = "content/it"
 
