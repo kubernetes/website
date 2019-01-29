@@ -208,7 +208,7 @@ imagePullPolicy:Always를 꺼야하는 것은 명심하자. 그렇지 않으면 
 ### 클러스터 시작
 
 `minikube start` 명령은 클러스터를 시작하는데 사용할 수 있다.
-이 명령은 단일 노드 쿠버네티스 클러스터를 샐행/구동하는 가상머신을 생성하고 구성한다.
+이 명령은 단일 노드 쿠버네티스 클러스터를 실행하는 가상머신을 생성하고 구성한다.
 또한 클러스터와 통신하기 위해 [kubectl](/docs/user-guide/kubectl-overview/)를 구성한다.
 
 만약 웹 프록시를 사용 중이라면 `minikube start` 명령에서 이 정보를 포함해야 한다.
@@ -220,7 +220,7 @@ https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docke
 불행히 환경 설정 변수만으로는 동작하지 않는다.
 
 Minikube는 또한 "minikube" 컨텍스트를 생성하고, kubectl의 기본값으로 설정한다.
-나중에 이 컨택스를 변경하려면, `kubectl config use-context minikube` 명령을 실행하자.
+나중에 이 컨택스트를 변경하려면, `kubectl config use-context minikube` 명령을 실행하자.
 
 
 #### 쿠버네티스 버전 지정
@@ -388,7 +388,7 @@ $ export no_proxy=$no_proxy,$(minikube ip)
 
 ## 설계
 
-Minikube는 VM 프로비저닝을 위해서 [libmachine](https://github.com/docker/machine/tree/master/libmachine)를 사용하고,  쿠버네티스 클러스트를 프로비저닝하기 위해 [kubeadm](https://github.com/kubernetes/kubeadm)을 사용한다.
+Minikube는 VM 프로비저닝을 위해서 [libmachine](https://github.com/docker/machine/tree/master/libmachine)를 사용하고,  쿠버네티스 클러스터를 프로비저닝하기 위해 [kubeadm](https://github.com/kubernetes/kubeadm)을 사용한다.
 
 Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md) 부분을 읽어보자.
 
@@ -396,9 +396,9 @@ Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 
 * **목표와 비목표**: Minikube 프로젝트의 목표와 비목표에 대해서는 [로드맵](https://git.k8s.io/minikube/docs/contributors/roadmap.md)을 살펴보자.
 * **개발 가이드**: 풀 리퀘스트를 보내는 방법에 대한 개요는 [참여 가이드](https://git.k8s.io/minikube/CONTRIBUTING.md)를 살펴보자.
-* **Minikube 빌드**: Minikube 를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://git.k8s.io/minikube/docs/contributors/build_guide.md)를 살펴보자.
-* **새 의존성 추가하기**: Minikube 에 새 의존성을 추가하는 방법에 대해서는 [의존성 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)를 보자.
-* **새 애드온 추가하기**: Minikube 에 새 애드온을 추가하는 방법에 대해서는 [애드온 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)를 보자. 
+* **Minikube 빌드**: Minikube를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://git.k8s.io/minikube/docs/contributors/build_guide.md)를 살펴보자.
+* **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는 [의존성 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)를 보자.
+* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는 [애드온 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)를 보자. 
 
 ## 커뮤니티
 
