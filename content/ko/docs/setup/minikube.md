@@ -381,14 +381,14 @@ $ export no_proxy=$no_proxy,$(minikube ip)
 ```
 
 ## 알려진 이슈
-* 클라우드 프로바이더에서 필요한 기능은 Minikube에서 동작하지 않다. 이런 것은:
+* 클라우드 공급자를 필요로 하는 기능은 Minikube에서 동작하지 않는다.  여기에는 다음이 포함된다.
   * 로드밸런서
 * 다중 노드를 위한 기능들이다. 여기에는 다음이 포함된다.
   * 진보된 스케쥴링 정책
 
 ## 설계
 
-Minikube는 VM 프로비저닝을 위해서 [libmachine](https://github.com/docker/machine/tree/master/libmachine)를 사용하고,  쿠버네티스 클러스터를 프로비저닝하기 위해 [kubeadm](https://github.com/kubernetes/kubeadm)을 사용한다.
+Minikube는 VM 프로비저닝을 위해서 [libmachine](https://github.com/docker/machine/tree/master/libmachine)를 사용하고, 쿠버네티스 클러스터를 프로비저닝하기 위해 [kubeadm](https://github.com/kubernetes/kubeadm)을 사용한다.
 
 Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md) 부분을 읽어보자.
 
