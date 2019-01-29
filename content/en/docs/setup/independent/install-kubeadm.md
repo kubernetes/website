@@ -174,7 +174,7 @@ systemctl enable --now kubelet
     EOF
     sysctl --system
     ```
-  - Make sure that the `br_netfilter` module is loaded before this step. To load it explicitly call `modprobe br_netfilter`.
+  - Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
 Install CNI plugins (required for most pod network):
