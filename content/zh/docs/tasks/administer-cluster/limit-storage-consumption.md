@@ -92,7 +92,7 @@ spec:
 Minimum storage requests are used when the underlying storage provider requires certain minimums. For example,
 AWS EBS volumes have a 1Gi minimum requirement.
 -->
-当底层存储提供程序需要某些最小值时，将使用最小存储请求。例如，AWS EBS volumes 的最低要求为 1Gi。
+当底层存储提供程序需要某些最小值时，将会用到所设置最小存储请求值。例如，AWS EBS volumes 的最低要求为 1Gi。
 
 <!--
 ## StorageQuota to limit PVC count and cumulative storage capacity
