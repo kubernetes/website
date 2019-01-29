@@ -1,5 +1,35 @@
 # i18n strings for the Chinese version of the site (https://kubernetes.io/zh/)
 
+[deprecation_warning]
+other = " 版本的文档已不再维护。您现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击"
+
+[objectives_heading]
+other = "教程目标"
+
+[cleanup_heading]
+other = "清理现场"
+
+[prerequisites_heading]
+other = "准备开始"
+
+[whatsnext_heading]
+other = "接下来"
+
+[feedback_heading]
+other = "反馈"
+
+[feedback_question]
+other = "此页是否对您有帮助？"
+
+[feedback_yes]
+other = "是"
+
+[feedback_no]
+other = "否"
+
+[latest_version]
+other = "最新版本。"
+
 [main_read_about]
 other = "Read about"
 
