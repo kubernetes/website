@@ -104,17 +104,17 @@ KRIB 文档是从源代码动态生成的，并且将比本指南更新。
 <!--
 Following the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html), create a Profile for your cluster and assign your target servers into the cluster Profile. The Profile must set `krib\cluster-name` and `etcd\cluster-name` Params to be the name of the Profile. Cluster configuration choices can be made by adding additional Params to the Profile; however, safe defaults are provided for all Params.
 -->
-遵循 [KRIB 文档](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)，为您的集群创建配置文件，并将目标服务器分配到集群配置文件中。 配置文件必须将 `krib\cluster-name` 和 `etcd\cluster-name` 参数设置为配置文件的名称。 可以通过向配置文件添加其他 Params 来进行集群配置选择; 不过所有 Params 都有安全的默认值。
+遵循 [KRIB 文档](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)，为您的集群创建配置文件，并将目标服务器分配到集群配置文件中。 配置文件必须将 `krib\cluster-name` 和 `etcd\cluster-name` 参数（Params）设置为配置文件的名称。 可以通过向配置文件添加其他参数来进行集群配置选择; 不过所有参数都有安全的默认值。
 
 <!--
 Once all target servers are assigned to the cluster Profile, start a KRIB installation Workflow by assigning one of the included Workflows to all cluster servers. For example, selecting `krib-live-cluster` will perform an immutable deployment into the Sledgehammer discovery operating system. You may use one of the pre-created read-only Workflows or choose to build your own custom variation.
 -->
-将所有目标服务器分配给集群配置文件后，通过将所包含的工作流程之一分配给所有集群服务器来启动 KRIB 安装工作流程。 例如，选择 `krib-live-cluster` 将在 Sledgehammer 发现的操作系统中执行不可变的部署。您可以使用其中一个预先创建的只读工作流程，也可以选择构建自己的自定义变体。
+将所有目标服务器分配给集群配置文件后，通过将所包含的工作流程之一分配给所有集群服务器来启动 KRIB 安装工作流程。 例如，选择 `krib-live-cluster` 将在 Sledgehammer 所发现的操作系统中执行不可变的部署。您可以使用其中一个预先创建的只读工作流，也可以选择构建自己的自定义变体。
 
 <!--
 For basic installs, no further action is required. Advanced users may choose to assign the controllers, etcd servers or other configuration values in the relevant Params.
 -->
-对于一般安装，无需进一步操作。高级用户可以选择在相关参数中分配控制器、etcd 服务器或其他配置值。
+对于一般安装，无需进一步操作。高级用户可以选择在相关参数中设定控制器、etcd 服务器或其他配置值。
 
 <!--
 ### (4/5) Monitor your cluster deployment
@@ -126,7 +126,7 @@ Digital Rebar Provision provides detailed logging and live updates during the in
 
 During the installation, KRIB writes cluster configuration data back into the cluster Profile.
 -->
-Digital Rebar Provision 在安装过程中提供详细的日志记录和实时更新。 通过 websocket 连接或监视作业列表可以获得工作流事件。
+Digital Rebar Provision 在安装过程中提供详细的日志记录和实时更新。通过 websocket 连接或监视作业列表可以获得工作流事件。
 
 在安装过程中，KRIB 将集群配置数据写回集群配置文件。
 
@@ -140,7 +140,7 @@ The cluster is available for access via *kubectl* once the `krib/cluster-admin-c
 
 For example, if you named the cluster Profile `krib` then the following commands would allow you to connect to the installed cluster from your local terminal.
 -->
-一旦设置了 `krib/cluster-admin-conf` 参数，就可以通过 *kubectl* 访问集群。 该 Param 包含访问集群所需的 `kubeconfig` 信息。
+一旦设置了 `krib/cluster-admin-conf` 参数，就可以通过 *kubectl* 访问集群。 该参数包含访问集群所需的 `kubeconfig` 信息。
 
 例如，如果您将集群配置文件命名为 `krib`，则以下命令将允许您从本地终端连接到已安装的集群。
 
@@ -185,11 +185,11 @@ You can reset your cluster and wipe out all configuration and TLS certificates u
 -->
 您可以使用集群中任何服务器上的 `krib-reset-cluster` 工作流重置您的集群并清除所有配置和 TLS 证书。
 
-{{< caution >}}
 <!--
 When running the reset Workflow, be sure not to accidentally target your production cluster!
 -->
-运行重置工作流程时，请确保不要意外地定位生产集群！
+{{< caution >}}
+运行重置工作流程时，请小心不要指向生产集群！
 {{< /caution >}}
 
 <!--
