@@ -122,7 +122,7 @@ frontend-qhloh   1/1       Running   0          1m
 A ReplicaSet is not limited to owning pods specified by its template. Take the previous frontend ReplicaSet example,
 and the Pods specified in the following manifest:
 
-{{< codenew file="controllers/pod-rs.yaml" >}}
+{{< codenew file="pods/pod-rs.yaml" >}}
 
 As those Pods do not have a Controller (or any object) as their owner reference and match the selector of the forntend
 ReplicaSet, they will immediately be acquired by it.
@@ -151,7 +151,7 @@ pod2             0/1     Terminating   0          4s
 
 If we create the Pods first:
 ```shell
-kubectl create -f http://k8s.io/examples/controllers/pod-rs.yaml
+kubectl create -f http://k8s.io/examples/pods/pod-rs.yaml
 ```
 
 And then create the ReplicaSet however:
