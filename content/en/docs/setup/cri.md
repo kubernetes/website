@@ -45,7 +45,7 @@ Use the following commands to install Docker on your system:
     stable"
 
 ## Install docker ce.
-apt-get update && apt-get install docker-ce=18.09.0~ce~3-0~ubuntu
+apt-get update && apt-get install docker-ce
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
