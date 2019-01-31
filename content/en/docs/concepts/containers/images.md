@@ -170,6 +170,11 @@ will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 {{< /note >}}
 
+{{< note >}}
+Kubernetes as of now only supports the `auths` and `HttpHeaders` section of docker config. This means credential helpers (`credHelpers` or `credsStore`) are not supported.
+{{< /note >}}
+
+
 Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
 in the search paths list below, kubelet uses it as the credential provider when pulling images.
 
