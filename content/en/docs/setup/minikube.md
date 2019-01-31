@@ -36,6 +36,7 @@ Here's a brief demo of Minikube usage.
 If you want to change the VM driver add the appropriate `--vm-driver=xxx` flag to `minikube start`. Minikube supports
 the following drivers:
 
+* none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 * virtualbox
 * vmwarefusion
 * kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
