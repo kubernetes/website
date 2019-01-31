@@ -153,7 +153,7 @@ to owning Pods specified by its template-- it can acquire other Pods in the mann
 
 Take the previous frontend ReplicaSet example, and the Pods specified in the  following manifest:
 
-{{< codenew file="Pods/pod-rs.yaml" >}}
+{{< codenew file="pods/pod-rs.yaml" >}}
 
 As those Pods do not have a Controller (or any object) as their owner reference and match the selector of the frontend
 ReplicaSet, they will immediately be acquired by it.
@@ -162,7 +162,7 @@ Suppose you create the Pods after the frontend ReplicaSet has been deployed and 
 fulfill its replica count requirement:
 
 ```shell
-kubectl create -f http://k8s.io/examples/Pods/pod-rs.yaml
+kubectl create -f http://k8s.io/examples/pods/pod-rs.yaml
 ```
 
 The new Pods will be acquired by the ReplicaSet, and then immediately terminated as the ReplicaSet would be over
@@ -184,7 +184,7 @@ pod2             0/1     Terminating   0          4s
 
 If you create the Pods first:
 ```shell
-kubectl create -f http://k8s.io/examples/Pods/pod-rs.yaml
+kubectl create -f http://k8s.io/examples/pods/pod-rs.yaml
 ```
 
 And then create the ReplicaSet however:
