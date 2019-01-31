@@ -61,7 +61,7 @@ Make sure you review your ingress controller's documentation to understand the c
 
 {{% capture whatsnext %}}
 
-* Learn more about [Writing a New Topic](/docs/home/contribute/write-new-topic/).
-* See [Using Page Templates - Concept template](/docs/home/contribute/page-templates/#concept_template) for how to use this template.
+* Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
+* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube.md).
 
 {{% /capture %}}
