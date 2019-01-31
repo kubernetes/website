@@ -236,7 +236,7 @@ matchLabels:
 	tier: frontend
 ```
 
-The `.spec.template.metadata.labels` must match the `.spec.selector`, or it will
+In the ReplicaSet, `.spec.template.metadata.labels` must match `spec.selector`, or it will
 be rejected by the API.
 
 ### Replicas
