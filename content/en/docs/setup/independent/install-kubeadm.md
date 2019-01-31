@@ -90,7 +90,6 @@ Other CRI-based runtimes include:
 - [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
-- [rkt](https://github.com/kubernetes-incubator/rktlet)
 
 Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
 
