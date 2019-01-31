@@ -27,7 +27,6 @@ RUN mkdir -p /usr/local/src && \
     #mv minify /usr/local/bin && \
     addgroup -Sg 1000 hugo && \
     adduser -Sg hugo -u 1000 -h /src hugo
-RUN npm install -g grunt
 
 WORKDIR /src
 

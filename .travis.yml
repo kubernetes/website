@@ -21,6 +21,9 @@ jobs:
       - go get -t -v k8s.io/website/content/en/examples
       script:
       - go test -v k8s.io/website/content/en/examples
+    - name: "Grunt Build"
+      install:
+      - npm install -g grunt
     - name: "Hugo build"
       install:
       - make travis-hugo-build
