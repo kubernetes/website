@@ -184,7 +184,7 @@ This file specifies the default locations for all of the files managed by kubead
 - The file containing the kubelet's ComponentConfig is `/var/lib/kubelet/config.yaml`.
 - The dynamic environment file that contains `KUBELET_KUBEADM_ARGS` is sourced from `/var/lib/kubelet/kubeadm-flags.env`.
 - The file that can contain user-specified flag overrides with `KUBELET_EXTRA_ARGS` is sourced from
-  `/etc/default/kubelet` (for DEBs), or `/etc/systconfig/kubelet` (for RPMs). `KUBELET_EXTRA_ARGS`
+  `/etc/default/kubelet` (for DEBs), or `/etc/sysconfig/kubelet` (for RPMs). `KUBELET_EXTRA_ARGS`
   is last in the flag chain and has the highest priority in the event of conflicting settings.
 
 ## Kubernetes binaries and package contents
