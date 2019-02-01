@@ -6,8 +6,14 @@ weight: 60
 
 {{% capture overview %}}
 
-The role of the Kubernetes garbage collector is to delete certain objects
-that once had an owner, but no longer have an owner.
+Garbage Collection is a process of reclaiming resources by deleting unused or unowned objects. In Kubernetes, there are two different aspects of Garbage Collection - Master level handled by [Kube-Controller-Manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/) and Node level managed by [Kubelet](https://kubernetes.io/docs/concepts/cluster-administration/kubelet-garbage-collection/).
+
+* Garbage Collector at Master
+  Kubernetes ships with a garbage collector controller managed via Kubernetes Controller Manager. This garbage collector is responsible for deleting Deployments and it's components.
+
+* Garbage Collector at Node (Formally Minion)
+
+  Kubelet provides the function of Garbage Collection at Node level by cleaning up unused images and containers. It will perform Garbage collection for images every five minutes and containers every minute. Along with Garbage collection, the Kubelet also performs additional resource handling as mentioned [here](https://kubernetes.io/docs/concepts/cluster-administration/kubelet-garbage-collection/). For example, Eviction Policy.
 
 {{% /capture %}}
 
@@ -107,8 +113,8 @@ field on the `deleteOptions` argument when deleting an Object. Possible values i
 
 Prior to Kubernetes 1.9, the default garbage collection policy for many controller resources was `orphan`.
 This included ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
-Deployment. For kinds in the `extensions/v1beta1`, `apps/v1beta1`, and `apps/v1beta2` group versions, unless you 
-specify otherwise, dependent objects are orphaned by default. In Kubernetes 1.9, for all kinds in the `apps/v1` 
+Deployment. For kinds in the `extensions/v1beta1`, `apps/v1beta1`, and `apps/v1beta2` group versions, unless you
+specify otherwise, dependent objects are orphaned by default. In Kubernetes 1.9, for all kinds in the `apps/v1`
 group version, dependent objects are deleted by default.
 
 Here's an example that deletes dependents in background:
@@ -170,6 +176,3 @@ Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 [Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
 {{% /capture %}}
-
-
-
