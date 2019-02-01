@@ -51,7 +51,7 @@ Infrastructure as a Service (IaaS)의 유연함을 더해 주며, 인프라스�
 
 추가로, [쿠버네티스 컨트롤 플레인](/docs/concepts/overview/components/)은
 개발자와 사용자가 공통으로 사용할 수 있는 [API](/docs/reference/using-api/api-overview/)를
-기반으로 하고 있다. 사용자는 범용의 [명령줄 도구]((/docs/user-guide/kubectl-overview/))를
+기반으로 하고 있다. 사용자는 범용의 [커맨드라인 툴]((/docs/user-guide/kubectl-overview/))을
 대상으로 하는 [자체 API](/docs/concepts/api-extension/custom-resources/)를 가진
 [스케줄러](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md)와
 같은 사용자만의 컨트롤러를 작성할 수 있다.
