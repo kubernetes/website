@@ -202,7 +202,7 @@ Node is found that satisfies all the specified requirements of the Pod,
 preemption logic is triggered for the pending Pod. Let's call the pending Pod P.
 Preemption logic tries to find a Node where removal of one or more Pods with
 lower priority than P would enable P to be scheduled on that Node. If such a
-Node is found, one or more lower priority Pods get deleted from the Node. After
+Node is found, one or more lower priority Pods get evicted from the Node. After
 the Pods are gone, P can be scheduled on the Node.
 
 ### User exposed information
