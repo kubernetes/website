@@ -20,7 +20,7 @@ You may become the root user by executing `sudo -i` after SSH-ing to each host.
 ## Docker
 
 On each of your machines, install Docker.
-Version 18.09 is recommended, but 1.11, 1.12, 1.13 and 17.03 are known to work as well.
+Version 18.06 is recommended, but 1.11, 1.12, 1.13, 17.03 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
@@ -45,7 +45,7 @@ Use the following commands to install Docker on your system:
     stable"
 
 ## Install docker ce.
-apt-get update && apt-get install docker-ce=18.09.0~ce~3-0~ubuntu
+apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
@@ -78,7 +78,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Install docker ce.
-yum update && yum install docker-ce-18.09.1.ce
+yum update && yum install docker-ce-18.06.1.ce
 
 ## Create /etc/docker directory.
 mkdir /etc/docker
