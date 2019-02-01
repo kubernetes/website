@@ -31,8 +31,8 @@ content_template: templates/concept
 
 * [Docker Desktop](https://www.docker.com/products/docker-desktop)는 
 Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다. 
-단일 노드 쿠버네티스 클러스터에서 분 단위로 컨테이너에서 코딩과 배포를 
-시작할 수 있다. 
+수 분 내에 단일 노드 쿠버네티스 클러스터에서 컨테이너로 코딩과 배포를 
+시작할 수 있게 해준다.
 
 * [Minishift](https://docs.okd.io/latest/minishift/)는 커뮤니티 버전의 쿠버네티스 엔터프라이즈 플랫폼 OpenShift를 로컬 개발과 테스트 용으로 설치한다. Windows, macOS와 리눅스를 위한 All-In-One VM (`minishift start`)과 컨테이너 기반의 `oc cluster up` (리눅스 전용)을 지원하고 [쉬운 설치가 가능한 몇 가지 애드온도 포함](https://github.com/minishift/minishift-addons/tree/master/add-ons)한다.
 
