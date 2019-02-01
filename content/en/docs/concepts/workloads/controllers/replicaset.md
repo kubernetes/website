@@ -27,7 +27,7 @@ and deleting Pods as needed to reach the desired number. When a ReplicaSet needs
 template.
 
 The link a ReplicaSet has to its Pods is via the Pods' [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
-field, which specifies what resource the current object is owned by. All _Pods_ acquired by a ReplicaSet have their owning
+field, which specifies what resource the current object is owned by. All Pods acquired by a ReplicaSet have their owning
 ReplicaSet's identifying information within their ownerReferences field. It's through this link that the ReplicaSet
 knows of the state of the Pods it is maintaining and plans accordingly.
 
@@ -110,7 +110,7 @@ And lastly you can check for the Pods brought up:
 kubectl get Pods
 ```
 
-You should see Pod information similar to
+You should see Pod information similar to:
 ```shell
 NAME             READY     STATUS    RESTARTS   AGE
 frontend-9si5l   1/1       Running   0          1m
@@ -148,7 +148,7 @@ metadata:
 ## Non-Template Pod acquisitions
 
 While you can create bare Pods with no problems, it is strongly recommended to make sure that the bare Pods do not have
-labels which match the selector of one of you ReplicaSets. The reason for this is because a ReplicaSet is not limited
+labels which match the selector of one of your ReplicaSets. The reason for this is because a ReplicaSet is not limited
 to owning Pods specified by its template-- it can acquire other Pods in the manner specified in the previous sections.
 
 Take the previous frontend ReplicaSet example, and the Pods specified in the  following manifest:
@@ -158,7 +158,7 @@ Take the previous frontend ReplicaSet example, and the Pods specified in the  fo
 As those Pods do not have a Controller (or any object) as their owner reference and match the selector of the frontend
 ReplicaSet, they will immediately be acquired by it.
 
-Suppose you create the Pods after the frontend ReplicaSet has been deployed and had set up its initial Pod replicas to
+Suppose you create the Pods after the frontend ReplicaSet has been deployed and has set up its initial Pod replicas to
 fulfill its replica count requirement:
 
 ```shell
@@ -173,7 +173,7 @@ Fetching the Pods:
 kubectl get Pods
 ```
 
-The output shows that the new Pods are either already terminated, or in the process of being terminated
+The output shows that the new Pods are either already terminated, or in the process of being terminated:
 ```shell
 NAME             READY   STATUS        RESTARTS   AGE
 frontend-9si5l   1/1     Running       0          1m
@@ -192,7 +192,7 @@ And then create the ReplicaSet however:
 kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
 ```
 
-We shall see that the ReplicaSet has acquired the Pods and has only created new ones according to its spec until the
+You shall see that the ReplicaSet has acquired the Pods and has only created new ones according to its spec until the
 number of its new Pods and the original matches its desired count. As fetching the Pods:
 ```shell
 kubectl get Pods
@@ -252,7 +252,8 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 
 To delete a ReplicaSet and all of its Pods, use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). The [Garbage collector](/docs/concepts/workloads/controllers/garbage-collection/) automatically deletes all of the dependent Pods by default.
 
-When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Background` or `Foreground` in delete option.
+When using the REST API or the `client-go` library, you must set `propagationPolicy` to `Background` or `Foreground` in
+the -d option.
 For example:
 ```shell
 kubectl proxy --port=8080
