@@ -61,6 +61,19 @@ make serve
 
 This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the site. As you make changes to the source files, Hugo updates the site and forces a browser refresh.
 
+## Community, discussion, contribution, and support
+
+Learn how to engage with the Kubernetes community on the [community page](http://kubernetes.io/community/).
+
+You can reach the maintainers of this project at:
+
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+
+### Code of conduct
+
+Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
+
 ## Thank you!
 
 Kubernetes thrives on community participation, and we really appreciate your contributions to our site and our documentation!
