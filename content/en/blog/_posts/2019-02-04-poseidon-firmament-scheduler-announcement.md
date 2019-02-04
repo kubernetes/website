@@ -7,41 +7,49 @@ date: 2019-02-03
 
 ## Introduction  
 
-Cluster Management systems such as Mesos, Google Borg, Kubernetes etc. in a cloud scale datacenter environment (also termed as ***Datacenter-as-a-Computer*** or ***Warehouse-Scale Computing - WSC***) typically manage application workloads by performing tasks such as tracking machine live-ness, starting, monitoring, and terminating workloads, and more importantly using a **Cluster Scheduler** to decide on workload placements.
+Cluster Management systems such as Mesos, Google Borg, Kubernetes etc. in a cloud scale datacenter environment (also termed as ***Datacenter-as-a-Computer*** or ***Warehouse-Scale Computing - WSC***) typically manage application workloads by performing tasks such as tracking machine live-ness, starting, monitoring, terminating workloads and more importantly using a **Cluster Scheduler** to decide on workload placements.
 
 A **Cluster Scheduler** essentially performs the scheduling of workloads to compute resources – combining the global placement of work across the WSC environment makes the “warehouse-scale computer” more efficient, increases utilization, and saves energy. **Cluster Scheduler** examples are Google Borg, Kubernetes, Firmament, Mesos, Tarcil, Quasar, Quincy, Swarm, YARN, Nomad, Sparrow, Apollo etc.  
 
-In this blog post, we briefly describe the novel Firmament flow network graph based Scheduling approach [OSDI paper](https://www.usenix.org/conference/osdi16/technical-sessions/presentation/gog) in Kubernetes. We specifically describe Firmament Scheduler and how it integrates with Kubernetes cluster manager using Poseidon as the integration glue. We have seen extremely impressive scheduling throughput performance benchmarking numbers with this novel scheduling approach. Originally, Firmament scheduler was conceptualized, designed and implemented by University of Cambridge researchers, [Malte Schwarzkopf](http://www.malteschwarzkopf.de/) & [Ionel Gog](http://ionelgog.org/).  
+In this blog post, we briefly describe the novel Firmament flow network graph based Scheduling approach ([OSDI paper](https://www.usenix.org/conference/osdi16/technical-sessions/presentation/gog)) in Kubernetes. We specifically describe Firmament Scheduler and how it integrates with Kubernetes cluster manager using Poseidon as the integration glue. We have seen extremely impressive scheduling throughput performance benchmarking numbers with this novel scheduling approach. Originally, Firmament scheduler was conceptualized, designed and implemented by University of Cambridge researchers, [Malte Schwarzkopf](http://www.malteschwarzkopf.de/) & [Ionel Gog](http://ionelgog.org/).  
 
 ## Poseidon-Firmament Scheduler – How it works  
 
-At a very high level, Poseidon-Firmament scheduler augments the current Kubernetes scheduling capabilities by incorporating a novel flow network graph based scheduling capabilities alongside the default Kubernetes Scheduler. It models the scheduling problem as a constraint-based optimization over a flow network graph – by reducing scheduling to a min-cost max-flow optimization problem. Due to the inherent rescheduling capabilities, the new scheduler enables a globally optimal scheduling environment that constantly keeps refining the workloads placements dynamically.  
+At a very high level, [Poseidon-Firmament scheduler](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) augments the current Kubernetes scheduling capabilities by incorporating novel flow network graph based scheduling capabilities alongside the default Kubernetes Scheduler. It models the scheduling problem as a constraint-based optimization over a flow network graph – by reducing scheduling to a min-cost max-flow optimization problem. Due to the inherent rescheduling capabilities, the new scheduler enables a globally optimal scheduling environment that constantly keeps refining the workloads placements dynamically.  
 
 ## Key Advantages  
 
-Flow graph scheduling based Poseidon-Firmament scheduler provides the following key advantages:  
-- Workloads (pods) are bulk scheduled for enabling scheduling decisions at massive scale.  
-- Based on the extensive performance test results, Poseidon-Firmament scales much better than Kubernetes default scheduler as the number of nodes increase in a cluster. This is due to the fact that Poseidon-Firmament is able to amortize more and more work across workloads.  
-- Poseidon-Firmament Scheduling algorithm outperforms K8S default scheduling algorithm by a wide margin (30X) when it comes to throughput performance numbers for scenarios where compute resource requirements are somewhat uniform across jobs (Replicasets/Deployments/Jobs).  
-- Availability of complex rule constraints.  
-- Scheduling in Firmament is very dynamic; it keeps cluster resources in a global optimal state during every scheduling run.  
-- Highly efficient resource utilizations.  
+Flow graph scheduling based [Poseidon-Firmament scheduler](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) provides the following key advantages:  
+
+  * Workloads (pods) are bulk scheduled to enable scheduling decisions at massive scale.  
+
+  * Based on the extensive performance test results, Poseidon-Firmament scales much better than Kubernetes default scheduler as the number of nodes increase in a cluster. This is due to the fact that Poseidon-Firmament is able to amortize more and more work across workloads.  
+
+  * Poseidon-Firmament Scheduling algorithm outperforms K8S default scheduling algorithm by a wide margin (30X) when it comes to throughput performance numbers for scenarios where compute resource requirements are somewhat uniform across jobs (Replicasets/Deployments/Jobs).  
+
+  * Availability of complex rule constraints.  
+
+  * Scheduling in Poseidon-Firmament is very dynamic; it keeps cluster resources in a global optimal state during every scheduling run.  
+
+  * Highly efficient resource utilizations.  
 
 ## Firmament Flow Network Graph – an overview  
 
-Firmament scheduler runs a min-cost flow algorithm over the flow network to find an optimal flow, from which it extracts the implied workload (pod placements. A flow network is a directed graph whose arcs carry flow from source nodes (i.e. pod nodes) to a sink node. A cost and capacity associated with each arc constrain the flow, and specify preferential routes for it.  
+Firmament scheduler runs a min-cost flow algorithm over the flow network to find an optimal flow, from which it extracts the implied workload (pod placements). A flow network is a directed graph whose arcs carry flow from source nodes (i.e. pod nodes) to a sink node. A cost and capacity associated with each arc constrain the flow, and specify preferential routes for it.  
+
+Figure 1 below shows an example of a flow network for a cluster with two tasks (workloads or pods) and four machines (nodes) – each workload on the left hand side, is a source of one unit of flow. All such flow must be drained into the sink node (S) for a feasible solution to the optimization problem. 
 
 {{<figure width="600" src="/images/blog/2019-02-03-poseidon-firmament-scheduler/example-of-a-flow-network.png" caption="Figure 1. Example of a Flow Network">}}  
 
-Figure 1 above shows an example of a flow network for a cluster with two tasks (workloads or pods) and four machines (nodes) – each workload on the left hand side, is a source of one unit of flow. All such flow must be drained into the sink node (S) for a feasible solution to the optimization problem.  
+ 
 
 ## Poseidon Mediation Layer – an overview  
 
-Poseidon is a service that acts as the integration glue for the Firmament scheduler with Kubernetes. It augments the current Kubernetes scheduling capabilities by incorporating a new flow network graph based Firmament scheduling capabilities alongside the default Kubernetes Scheduler – multiple schedulers running simultaneously. Figure 2 below describes the high level overall design as far as how Poseidon integration glue works in conjunction with the underlying Firmament flow network graph based scheduler. 
+Poseidon is a service that acts as the integration glue for the Firmament scheduler with Kubernetes. It augments the current Kubernetes scheduling capabilities by incorporating new flow network graph based Firmament scheduling capabilities alongside the default Kubernetes Scheduler; multiple schedulers running simultaneously. Figure 2 below describes the high level overall design as far as how Poseidon integration glue works in conjunction with the underlying Firmament flow network graph based scheduler. 
 
 {{<figure width="600"  src="/images/blog/2019-02-03-poseidon-firmament-scheduler/firmament-kubernetes-integration-overview.png" caption="Figure 2. Firmament Kubernetes Integration Overview">}}  
 
-As part of the Kubernetes multiple schedulers support, each new pod is typically scheduled by the default scheduler, but Kubernetes can be instructed to use another scheduler by specifying the name of another custom scheduler (Poseidon-Firmament, in our case) at the time of pod deployment. In this case, the default scheduler will ignore that Pod and allow Poseidon scheduler to schedule the Pod to a relevant node.  
+As part of the Kubernetes multiple schedulers support, each new pod is typically scheduled by the default scheduler, but Kubernetes can be instructed to use another scheduler by specifying the name of another custom scheduler (in our case, [Poseidon-Firmament](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/)) at the time of pod deployment. In this case, the default scheduler will ignore that Pod and allow Poseidon scheduler to schedule the Pod to a relevant node.  
 
 {{< note >}}
 For details about the design of this project see the [design document](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/design/README.md).
@@ -49,12 +57,14 @@ For details about the design of this project see the [design document](https://g
 
 ## Possible Use Case Scenarios – When to use it  
 
-As mentioned earlier that Poseidon-Firmament scheduler enables extremely high throughput scheduling environment at scale due to its bulk scheduling approach superiority versus K8S pod-at-a-time approach. In our extensive tests, we have observed substantial throughput benefits as long as resource requirements (CPU/Memory) for incoming Pods is uniform across jobs (Replicasets/Deployments/Jobs), mainly due to efficient amortization of work across jobs.
+[Poseidon-Firmament scheduler](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) enables extremely high throughput scheduling environment at scale due to its bulk scheduling approach superiority versus K8S pod-at-a-time approach. In our extensive tests, we have observed substantial throughput benefits as long as resource requirements (CPU/Memory) for incoming Pods is uniform across jobs (Replicasets/Deployments/Jobs), mainly due to efficient amortization of work across jobs.
 
-Although, Poseidon-Firmament scheduler is capable of scheduling various types of workloads (service, batch, etc.), following are the few use cases where it excels the most:  
-1. For “Big Data/AI” jobs consisting of large no. of tasks, throughput benefits are tremendous.  
-2. Substantial throughput benefits also for service or batch job scenarios where workload resource requirements are uniform across jobs (Replicasets/Deplyments/Jobs).  
+Although, [Poseidon-Firmament scheduler](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) is capable of scheduling various types of workloads (service, batch, etc.), following are the few use cases where it excels the most:  
+
+  1. For “Big Data/AI” jobs consisting of large no. of tasks, throughput benefits are tremendous.  
+
+  2. Substantial throughput benefits also for service or batch job scenarios where workload resource requirements are uniform across jobs (Replicasets/Deplyments/Jobs).  
 
 ## Current Project Stage  
 
-Currently Poseidon-Firmament project is an incubation project - Alpha Release available at https://github.com/kubernetes-sigs/poseidon.
+Currently Poseidon-Firmament project is an incubation project. Alpha Release is available at https://github.com/kubernetes-sigs/poseidon.
