@@ -18,8 +18,8 @@
 				</div>
 				<div class="col-xs-12 col-md-3 text">
 					<div class="widget-content">
-						{{ with .Site.Home.OutputFormats.Get "rss" -}}
-						<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}">
+						{{ with site.Home.OutputFormats.Get "rss" -}}
+						<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
 						<a class="widget-link" href="{{ .Permalink | safeURL }}"> <i class="fas fa-rss fab-icon"> </i> </a>
 						{{ end -}}
 						<a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square fab-icon"> </i> @Kubernetesio</a>

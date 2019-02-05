@@ -2,7 +2,7 @@
 {{ template "section-tree-nav" (dict "ctx" . "section" .) }}
 {{ define "section-tree-nav" }}
 	{{ $pages :=  (union .section.Pages .section.Sections) }}
-	{{ with $.ctx.Site.Params.language_alternatives }}
+	{{ with site.Params.language_alternatives }}
 		{{ range . }}	
 			{{ with (where $.section.Translations ".Lang" . ) }}
 			{{ $p := index . 0 }}
