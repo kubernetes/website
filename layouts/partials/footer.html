@@ -1,10 +1,10 @@
 <footer>
     <main class="light-text">
         <nav>
-            {{ with $.Site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+            {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
             {{ $sections := slice "docs/home" "blog" "partners" "community" "case-studies" }}
             {{ range $sections }}
-            {{ with $.Site.GetPage "section" . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+            {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
             {{ end }}
         </nav>
         <div class="social">
@@ -19,7 +19,7 @@
                 <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
             </div>
             <div>
-                {{ with .Site.GetPage "page" "/docs/setup/pick-right-solution/" }}<a href="{{  .RelPermalink }}" class="button">{{ .LinkTitle }}</a>{{ end }}
+                {{ with site.GetPage "page" "/docs/setup/pick-right-solution/" }}<a href="{{  .RelPermalink }}" class="button">{{ .LinkTitle }}</a>{{ end }}
                 <a href="https://git.k8s.io/community/contributors/guide" class="button">{{ T "main_contribute" }}</a>
             </div>
         </div>

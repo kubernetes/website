@@ -3,11 +3,11 @@
 {{- partial "docs/glossary-terms.html" $.Page -}}
 {{- $glossary_items := $.Page.Scratch.Get "glossary_items" -}}
 {{- if not $glossary_items -}}
-{{- errorf "[%s] No glossary items found" .Page.Site.Language.Lang -}}
+{{- errorf "[%s] No glossary items found" site.Language.Lang -}}
 {{- else -}}
 {{- $term_info := $glossary_items.GetMatch (printf "%s*" $id ) -}}
 {{- if not $term_info -}}
-{{- errorf "[%s] %q: %q is not a valid glossary term_id, see ./docs/reference/glossary/* for a full list" .Page.Site.Language.Lang .Page.Path $id -}}
+{{- errorf "[%s] %q: %q is not a valid glossary term_id, see ./docs/reference/glossary/* for a full list" site.Language.Lang .Page.Path $id -}}
 {{- end }}
 {{- with $term_info -}}
 {{- $text := $text | default $term_info.Title -}}
