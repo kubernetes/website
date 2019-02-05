@@ -160,30 +160,38 @@ Note that the information reported as Pod status depends on the current
 
 ## Container States
 
-Once pod is assigned to any node by scheduler, kubelet start creating container using container runtime.
-There are three possible states of containers. So container can be at one of these state at any time. To check state of container, you can use “kubectl describe pod” command. State will be displayed for each container within that pod.
+Once pod is assigned to a node by scheduler, kubelet starts creating container using container runtime.There are three possible states of containers, i.e Waiting, Running and Terminated. To check state of container, you can use `kubectl describe pod` command. State will be displayed for each container within that pod.
 
-* `Waiting`: This is default state of container. If container is not in running or terminated, it is in waiting state. In this state        container is still creating and doing all required things like pulling images, applying secrets etc. to get started 
-   Along with this state, details message about this state is also displayed to give more information about this.  Also brief reason        will be displayed to give idea about waiting state.
+* `Waiting`: This is default state of container. If container is not in running or terminated state, it is in waiting state. In this        state container is still creating and doing all required things like pulling images, applying secrets etc.
+   Along with this state, message and reason about this state is also displayed to give more information about waiting state.
 
+    ```yaml
+   ...
       State:          Waiting
        Reason:       ErrImagePull
-	  
-* `Running`: Running state indicate that container is running. It also indicates that container is doing what is intended to do. Once      container enters into running state, postStart (link to postStart section) hook will be executed immediately.
-   This state also displays the time from which it is in running state i.e. start time.  
- 
+	  ...
+   ```
+   
+* `Running`: Running state indicate that container is executing without any issue. Once container enters into running state, `postStart`    hook (if any) will be executed. This state also displays the time from which it is in running state i.e.start time.  
+   
+   ```yaml
+   ...
       State:          Running
        Started:      Wed, 30 Jan 2019 16:46:38 +0530
+   ...
+   ```   
        
-* `Terminated`: This state indicate that container completed its execution. Container can enter into this state either because it          completed execution successfully or it failed due to some reason. Appropriate information with reason and exit code will be displayed    for this state.  We can also see when that container was started and when it is terminated with Started and Finished Time. 
-   Before container enters into terminated state presto (link to preStop section) hook will be executed if any.
+* `Terminated`: This state indicate that container completed its execution. Container can enter into this state either because it          completed execution successfully or it failed due to some reason. Appropriate information with reason and exit code will be displayed    for this state. It also displays start and finish time for container. Before container enters into terminated state `preStop` hook      (if any) will be executed.
   
+   ```yaml
+   ...
       State:          Terminated
         Reason:       Completed
         Exit Code:    0
         Started:      Wed, 30 Jan 2019 11:45:26 +0530
-       Finished:     Wed, 30 Jan 2019 11:45:26 +0530
-
+        Finished:     Wed, 30 Jan 2019 11:45:26 +0530
+    ...
+   ``` 
 
 ## Pod readiness gate
 
