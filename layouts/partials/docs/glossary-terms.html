@@ -1,7 +1,7 @@
-{{ $glossaryBundle := .Site.GetPage "page" "docs/reference/glossary" }}
+{{ $glossaryBundle := site.GetPage "page" "docs/reference/glossary" }}
 {{- if $glossaryBundle -}}
 	{{ $pages := $glossaryBundle.Resources.ByType "page" }}
-	{{- range $.Site.Params.language_alternatives -}}
+	{{- range site.Params.language_alternatives -}}
 		{{- with (where $glossaryBundle.Translations ".Lang" . ) -}}
 		{{ $p := (index . 0) }}
 		{{ $pages = $pages | lang.Merge ($p.Resources.ByType "page") }}
@@ -9,5 +9,5 @@
 	{{ end }}
 	{{- $.Scratch.Set "glossary_items"  $pages -}}
 {{- else -}}
-{{- errorf "[%s] Glossary Bundle not found for language. Create at least an index.md file inside docs/reference/glossary" .Page.Site.Language.Lang -}}
+{{- errorf "[%s] Glossary Bundle not found for language. Create at least an index.md file inside docs/reference/glossary" site.Language.Lang -}}
 {{- end -}}
