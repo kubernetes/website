@@ -26930,7 +26930,7 @@ The contents of the target ConfigMap&#39;s Data field will be presented in a vol
 <TABLE>
 <THEAD><TR><TH>Field</TH><TH>Description</TH></TR></THEAD>
 <TBODY>
-<TR><TD><CODE>fieldRef</CODE><BR /><I><a href="#objectfieldselector-v1-core">ObjectFieldSelector</a></I></TD><TD>Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.</TD></TR>
+<TR><TD><CODE>fieldRef</CODE><BR /><I><a href="#objectfieldselector-v1-core">ObjectFieldSelector</a></I></TD><TD>Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.</TD></TR>
 <TR><TD><CODE>mode</CODE><BR /><I>integer</I></TD><TD>Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.</TD></TR>
 <TR><TD><CODE>path</CODE><BR /><I>string</I></TD><TD>Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the &#39;..&#39; path. Must be utf-8 encoded. The first item of the relative path must not start with &#39;..&#39;</TD></TR>
 <TR><TD><CODE>resourceFieldRef</CODE><BR /><I><a href="#resourcefieldselector-v1-core">ResourceFieldSelector</a></I></TD><TD>Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.</TD></TR>
