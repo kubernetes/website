@@ -66,8 +66,10 @@ Additional controllers include:
 
 * [Contour](https://github.com/heptio/contour) is an [Envoy](https://www.envoyproxy.io) based ingress controller
   provided and supported by Heptio.
+* Citrix provides an [Ingress Controller](https://github.com/citrix/citrix-k8s-ingress-controller) for its hardware (MPX), virtualized (VPX) and [free containerized (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) for [baremetal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) and [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
 * F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508)
   for the [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest).
+* [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io) which offers API Gateway functionality with enterprise support from [solo.io](https://www.solo.io).  
 * [HAProxy](http://www.haproxy.org/) based ingress controller
   [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) which is mentioned on the blog post
   [HAProxy Ingress Controller for Kubernetes](https://www.haproxy.com/blog/haproxy_ingress_controller_for_kubernetes/).

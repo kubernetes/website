@@ -181,6 +181,12 @@ example program:
 
 {{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
 
+Give the script execution permission:
+
+```shell
+$ chmod +x worker.py
+```
+
 Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.
 Otherwise, make a temporary directory, change to it,

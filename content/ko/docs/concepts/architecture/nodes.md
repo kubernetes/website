@@ -171,24 +171,7 @@ DaemonSet 컨트롤러에 의해 생성된 파드는 쿠버네티스 스케줄�
 
 쿠버네티스 스케줄러는 노드 상에 모든 노드에 대해 충분한 리소스가 존재하도록 보장한다. 노드 상에 컨테이너에 대한 요청의 합이 노드 용량보다 더 크지 않도록 체크한다. kubelet에 의해 구동된 모든 컨테이너를 포함하지만, [컨테이너 런타임](/docs/concepts/overview/components/#node-components)에 의해 직접 구동된 컨테이너 또는 컨테이너 외부에서 동작하는 임의의 프로세스는 해당되지 않는다.
 
-파드 형태가 아닌 프로세스에 대해 명시적으로 리소스를 확보하려면, 플레이스홀더 파드를 생성할 수 있다. 다음 템플릿을 이용한다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: resource-reserver
-spec:
-  containers:
-  - name: sleep-forever
-    image: k8s.gcr.io/pause:0.8.0
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-```
-
-`cpu`와 `memory`값을 확보하고자 하는 리소스의 양만큼 설정한다. 메니페스트 디렉토리 내 파일을 둔다(kubelet 의 `--config=DIR` 플래그). 리소스를 확보하고자 하는 위치에 각 kubelet 에 대해 이를 수행한다.
+파드 형태가 아닌 프로세스에 대해 명시적으로 리소스를 확보하려면, [reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved) 튜토리얼을 따른다.
 
 
 ## API 오브젝트

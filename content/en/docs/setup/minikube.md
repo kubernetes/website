@@ -42,8 +42,9 @@ the following drivers:
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
-
+* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
+* none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 
 ```shell
 $ minikube start
@@ -115,6 +116,7 @@ To use [containerd](https://github.com/containerd/containerd) as the container r
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=containerd \
     --bootstrapper=kubeadm
 ```
@@ -124,6 +126,7 @@ Or you can use the extended version:
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=unix:///run/containerd/containerd.sock \
     --extra-config=kubelet.image-service-endpoint=unix:///run/containerd/containerd.sock \
@@ -137,6 +140,7 @@ To use [CRI-O](https://github.com/kubernetes-incubator/cri-o) as the container r
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=cri-o \
     --bootstrapper=kubeadm
 ```
@@ -146,6 +150,7 @@ Or you can use the extended version:
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=/var/run/crio.sock \
     --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
@@ -159,6 +164,7 @@ To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
 ```shell
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=rkt
 ```
 

@@ -191,6 +191,8 @@ spec:
   podSelector: {}
   ingress:
   - {}
+  policyTypes:
+  - Ingress
 ```
 
 ### Default deny all egress traffic

@@ -5,12 +5,12 @@ weight: 80
 
 ## 지원
 
-At {{< param "version" >}}, Kubernetes supports clusters with up to 5000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
+{{< param "version" >}} 버전에서, 쿠버네티스는 노드 5000개까지의 클러스터를 지원한다. 보다 정확하게는, 다음 기준을 *모두* 만족하는 설정을 지원한다.
 
-* No more than 5000 nodes
-* No more than 150000 total pods
-* No more than 300000 total containers
-* No more than 100 pods per node
+* 노드 5000개 이하
+* 전체 파드 150000개 이하
+* 전체 컨테이너 300000개 이하
+* 노드 당 파드 100개 이하
 
 <br>
 

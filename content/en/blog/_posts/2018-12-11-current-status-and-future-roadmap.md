@@ -17,7 +17,7 @@ In June 2014, Kubernetes was released with etcd as a backing storage for all mas
 |   | etcd | Kubernetes |
 |---|---|---|
 | Initial Commit | June 2, 2013 | June 1, 2014 |
-| First Stable Release | January 28, 2015 (v2.0.0) | July 13, 2016 (v1.0.0) |
+| First Stable Release | January 28, 2015 (v2.0.0) | July 13, 2015 (v1.0.0) |
 | Latest Release | October 10, 2018 (v3.3.10) | December 3, 2018 (v1.13.0) |
 
 ## etcd v3.1, early 2017

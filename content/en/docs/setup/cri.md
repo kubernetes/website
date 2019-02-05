@@ -20,7 +20,7 @@ You may become the root user by executing `sudo -i` after SSH-ing to each host.
 ## Docker
 
 On each of your machines, install Docker.
-Version 18.06 is recommended, but 1.11, 1.12, 1.13 and 17.03 are known to work as well.
+Version 18.06 is recommended, but 1.11, 1.12, 1.13, 17.03 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
@@ -218,8 +218,8 @@ tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd6
 systemctl start containerd
 ```
 
-## Other CRI runtimes: rktlet and frakti
+## Other CRI runtimes: frakti
 
-Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) and [Rktlet Getting Started guide](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md) for more information.
+Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
 
 {{% /capture %}}
