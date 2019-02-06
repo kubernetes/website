@@ -1,0 +1,16 @@
+id: pod-disruption-budget
+name: Pod Disruption Budget
+full-link: /docs/concepts/workloads/pods/disruptions/
+aka:
+ - PDB
+related:
+ - pod
+ - container
+tags:
+ - operation
+short-description: >
+ An object that limits the number of pods of a replicated application, that are down simultaneously from voluntary disruptions.
+long-description: >
+ A [Pod Disruption Budget](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#pod-priority) allows an application owner to create an object for a replicated application, that ensures a certain number or percentage of pods with an  assisgned label will not be voluntarily evicted at any point in time. PDBs cannot prevent an involuntary disruption, but will count against the budget.
+ 
+
