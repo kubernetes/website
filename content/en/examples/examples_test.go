@@ -453,6 +453,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"private-reg-pod":         {&api.Pod{}},
 			"share-process-namespace": {&api.Pod{}},
 			"simple-pod":              {&api.Pod{}},
+			"pod-rs":                  {&api.Pod{}, &api.Pod{}},
 			"two-container-pod":       {&api.Pod{}},
 		},
 		"pods/config": {
