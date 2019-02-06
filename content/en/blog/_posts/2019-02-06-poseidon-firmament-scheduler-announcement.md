@@ -25,7 +25,7 @@ Flow graph scheduling based [Poseidon-Firmament scheduler](https://kubernetes.io
 
   * Based on the extensive performance test results, Poseidon-Firmament scales much better than Kubernetes default scheduler as the number of nodes increase in a cluster. This is due to the fact that Poseidon-Firmament is able to amortize more and more work across workloads.  
 
-  * Poseidon-Firmament Scheduling algorithm outperforms K8s default scheduling algorithm by a wide margin (30X) when it comes to throughput performance numbers for scenarios where compute resource requirements are somewhat uniform across jobs (Replicasets/Deployments/Jobs).  
+  * Poseidon-Firmament Scheduler outperforms the Kubernetes default scheduler by a wide margin when it comes to throughput performance numbers for scenarios where compute resource requirements are somewhat uniform across jobs (Replicasets/Deployments/Jobs). Poseidon-Firmament scheduler end-to-end throughput performance numbers, including bind time, consistently get better as the number of nodes in a cluster increase. For example, for a 2,700 node cluster (shown in the graphs [here](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/benchmark/README.md)), Poseidon-Firmament scheduler achieves a 7X or greater end-to-end throughput than the Kubernetes default scheduler, which includes bind time.  
 
   * Availability of complex rule constraints.  
 
