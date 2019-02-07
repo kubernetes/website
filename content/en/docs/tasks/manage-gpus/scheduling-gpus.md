@@ -162,7 +162,7 @@ For AMD GPUs, you can deploy [Node Labeller](https://github.com/RadeonOpenComput
 * VRAM Size (-vram)
 * Number of SIMD (-simd-count)
 * Number of Compute Unit (-cu-count)
-* Firmware and Feature Verions
+* Firmware and Feature Verions (-firmware)
 * GPU Family, in two letters acronym (-family)
   * SI - Southern Islands
   * CI - Sea Islands
