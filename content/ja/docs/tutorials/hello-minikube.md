@@ -7,7 +7,7 @@ menu:
     title: "Get Started"
     weight: 10
     post: >
-      <p>実践する準備はできていますか？本チュートリアルでは簡単なNode.js"Hello World"を実行するKubernetesクラスターをビルドします。</p>
+      <p>実践する準備はできていますか？簡単なNode.js"Hello World"を実行するKubernetesクラスタをビルドします。</p>
 ---
 
 {{% capture overview %}}
