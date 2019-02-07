@@ -7,12 +7,12 @@ menu:
     title: "Get Started"
     weight: 10
     post: >
-      <p>実践する準備はできているか？簡単なNode.js"Hello World"を実行するKubernetesクラスターをビルドしてみよう。</p>
+      <p>実践する準備はできていますか？本チュートリアルでは簡単なNode.js"Hello World"を実行するKubernetesクラスターをビルドします。</p>
 ---
 
 {{% capture overview %}}
 
-このチュートリアルでは、[Minikube](/docs/getting-started-guides/minikube)とKatacodaを使用して、Kubernetes上でシンプルなHello World Node.jsアプリケーションを動かす方法を紹介します。KatacodaはブラウザでフリーのKubernetes環境を提供します。
+このチュートリアルでは、[Minikube](/docs/getting-started-guides/minikube)とKatacodaを使用して、Kubernetes上でシンプルなHello World Node.jsアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
 
 {{< note >}}
 [Minikubeをローカルにインストール](/docs/tasks/tools/install-minikube/)している場合もこのチュートリアルを進めることが可能です。
@@ -56,15 +56,15 @@ menu:
     minikube dashboard
     ```
 
-3. Katacoda環境の場合のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
+3. Katacoda環境のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
 
-4. Katacoda環境の場合のみ：30000をタイプし、**Display Port**をクリックしてください。 
+4. Katacoda環境のみ：30000を入力し、**Display Port**をクリックしてください。 
 
 ## Deploymentの作成
 
-Kubernetesの管理やネットワーキングの目的でまとめられた [*Pod*](/docs/concepts/workloads/pods/pod/) は1つ以上のコンテナのグループで構成されます。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合にはリスタートします。DeploymentsはPodsを作成し、拡張を管理するために推奨される方法です。
+Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
-1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを使用してコンテナを実行します。
+1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
@@ -101,7 +101,7 @@ Kubernetesの管理やネットワーキングの目的でまとめられた [*P
     kubectl get events
     ```
 
-5. `kubectl` で構成を確認します:
+5. `kubectl` で設定を確認します:
 
     ```shell
     kubectl config view
@@ -111,15 +111,15 @@ Kubernetesの管理やネットワーキングの目的でまとめられた [*P
 
 ## Serviceの作成
 
-デフォルトでPodはKuberntesクラスターの内部IPアドレスからのみアクセスすることしかできません。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetes [*Service*](/docs/concepts/services-networking/service/)としてポッドを公開する必要があります。
+通常、PodはKubernetesクラスター内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/docs/concepts/services-networking/service/)としてポッドを公開する必要があります。
 
-1. `kubectl expose` コマンドを使用してPodをパブリックインターネットに公開します:
+1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer
     ```
     
-    `--type=LoadBalancer`フラグはServiceをクラスター外部に公開したいということを示すフラグです。
+    `--type=LoadBalancer`フラグはServiceをクラスター外部に公開したいことを示しています。
 
 2. 作成したServiceを確認します:
 
@@ -135,7 +135,7 @@ Kubernetesの管理やネットワーキングの目的でまとめられた [*P
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    ロードバランサーをサポートするクラウドプロバイダーでは、Serviceにアクセスするための外部IPアドレスがプロビジョニングされます。
+    ロードバランサーをサポートするクラウドプロバイダーでは、Serviceにアクセスするための外部IPアドレスが提供されます。
     Minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。    
 
 3. 次のコマンドを実行します:
@@ -144,17 +144,17 @@ Kubernetesの管理やネットワーキングの目的でまとめられた [*P
     minikube service hello-node
     ```
 
-4. Katacoda環境の場合のみ：ターミナルペーン上部の+ボタンをクリックして **Select port to view on Host 1** をクリックしてください。
+4. Katacoda環境のみ：ターミナル画面上部の+ボタンをクリックして **Select port to view on Host 1** をクリックしてください。
 
-5. Katacoda環境の場合のみ：8080をタイプし、**Display Port**をクリックしてください。 
+5. Katacoda環境のみ：8080を入力し、**Display Port**をクリックしてください。 
 
-    これで”Hello World”メッセージを表示するアプリケーションのブラウザに表示されます。
+    "Hello World"メッセージが表示されるアプリケーションのブラウザウィンドウが開きます。
 
 ## アドオンの有効化
 
-Minikubeはビルトインのアドオンがあり、ローカルのKubernetes環境において、有効化、無効化、あるいは公開することができます。
+Minikubeはビルトインのアドオンがあり、有効化、無効化、あるいはローカルのKubernetes環境に公開することができます。
 
-1. サポートされているアドオンをリストします:
+1. サポートされているアドオンをリストアップします:
 
     ```shell
     minikube addons list
@@ -229,7 +229,7 @@ Minikubeはビルトインのアドオンがあり、ローカルのKubernetes�
     heapster was successfully disabled
     ```
 
-## クリーンナップ
+## クリーンアップ
 
 クラスターに作成したリソースをクリーンアップします:
 
@@ -254,8 +254,8 @@ minikube delete
 
 {{% capture whatsnext %}}
 
-* Learn more about [オブジェクトのデプロイ](/docs/concepts/workloads/controllers/deployment/).
-* Learn more about [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/).
-* Learn more about [サービスオブジェクト](/docs/concepts/services-networking/service/).
+* [オブジェクトのデプロイ](/docs/concepts/workloads/controllers/deployment/)について学ぶ.
+* [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)について学ぶ.
+* [サービスオブジェクト](/docs/concepts/services-networking/service/)について学ぶ.
 
 {{% /capture %}}
