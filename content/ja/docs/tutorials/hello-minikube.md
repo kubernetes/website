@@ -119,7 +119,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
     kubectl expose deployment hello-node --type=LoadBalancer
     ```
     
-    `--type=LoadBalancer`フラグはServiceをクラスター外部に公開したいことを示しています。
+    `--type=LoadBalancer`フラグはServiceをクラスタ外部に公開したいことを示しています。
 
 2. 作成したServiceを確認します:
 
