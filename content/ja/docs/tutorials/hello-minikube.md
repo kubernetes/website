@@ -42,7 +42,7 @@ menu:
 
 {{% capture lessoncontent %}}
 
-## Minikubeクラスターの作成
+## Minikubeクラスタの作成
 
 1. **Launch Terminal** をクリックしてください
 
