@@ -439,9 +439,7 @@ Specifying the list of profiles Pod containers is allowed to specify:
 
 Additional resources:
 
-* [Quick guide to the AppArmor profile language](http://wiki.apparmor.net/index.php/QuickProfileLanguage)
-* [AppArmor core policy reference](http://wiki.apparmor.net/index.php/ProfileLanguage)
+* [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
+* [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
 
 {{% /capture %}}
-
-
