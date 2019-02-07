@@ -95,7 +95,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. クラスターイベントを確認します:
+4. クラスタイベントを確認します:
 
     ```shell
     kubectl get events
