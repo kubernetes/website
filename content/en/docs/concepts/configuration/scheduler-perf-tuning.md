@@ -31,12 +31,14 @@ once it finds a certain number of them. This improves the scheduler's
 performance in large clusters. The number is specified as a percentage of the
 cluster size. The percentage can be controlled by a configuration option called
 `percentageOfNodesToScore`. The range should be between 1 and 100. Larger values
-are considered as 100%. Kubernetes 1.14 has logic to find the percentage of
-nodes to score based on the size of the cluster if it is not specified in the
-configuration. It uses a linear formula which yields 50% for a 100-node cluster.
-The formula yields 10% for a 5000-node cluster. The lower bound is 5%. In other
-words, the scheduler will always scores at least 5% of the cluster no matter how
-large the cluster is.
+are considered as 100%. Zero is equivalent to not providing the config option.
+Kubernetes 1.14 has logic to find the percentage of nodes to score based on the
+size of the cluster if it is not specified in the configuration. It uses a
+linear formula which yields 50% for a 100-node cluster. The formula yields 10%
+for a 5000-node cluster. The lower bound for the automatic value is 5%. In other
+words, the scheduler always scores at least 5% of the cluster no matter how
+large the cluster is, unless the user provides the config option with a value 
+smaller than 5.
 
 Below is an example configuration that sets `percentageOfNodesToScore` to 50%.
 
@@ -61,7 +63,7 @@ the scheduler's search early. {{< /note >}}
 
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
 value being calculated based on the cluster size. There is also a hardcoded
-minimum value of 50 nodes or 5% whichever is larger. This means that changing
+minimum value of 50 nodes. This means that changing
 this option to lower values in clusters with several hundred nodes will not have
 much impact on the number of feasible nodes that the scheduler tries to find.
 This is intentional as this option is unlikely to improve performance noticeably
