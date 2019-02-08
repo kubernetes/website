@@ -301,7 +301,11 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
     <match audit>
         # route audit according to namespace element in context
         @type rewrite_tag_filter
-        rewriterule1 namespace ^(.+) ${tag}.$1
+        <rule>
+            key namespace
+            pattern /^(.+)/
+            tag ${tag}.$1
+        </rule>
     </match>
 
     <filter audit.**>
@@ -420,8 +424,8 @@ plugin which supports full-text search and analytics.
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
 [kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
-[fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
-[fluentd_plugin_management_doc]: https://docs.fluentd.org/v0.12/articles/plugin-management
+[fluentd_install_doc]: https://docs.fluentd.org/v1.0/articles/quickstart#step-1:-installing-fluentd
+[fluentd_plugin_management_doc]: https://docs.fluentd.org/v1.0/articles/plugin-management
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
