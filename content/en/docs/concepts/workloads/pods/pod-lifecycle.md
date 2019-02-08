@@ -133,7 +133,6 @@ specify a readiness probe. In this case, the readiness probe might be the same
 as the liveness probe, but the existence of the readiness probe in the spec means
 that the Pod will start without receiving any traffic and only start receiving
 traffic after the probe starts succeeding.
-
 If your Container needs to work on loading large data, configuration files, or migrations during startup, specify a readiness probe.
 
 If you want your Container to be able to take itself down for maintenance, you
@@ -160,10 +159,9 @@ Note that the information reported as Pod status depends on the current
 
 ## Container States
 
-Once pod is assigned to a node by scheduler, kubelet starts creating container using container runtime.There are three possible states of containers, i.e Waiting, Running and Terminated. To check state of container, you can use `kubectl describe pod` command. State will be displayed for each container within that pod.
+Once Pod is assigned to a node by scheduler, kubelet starts creating containers using container runtime.There are three possible states of containers: Waiting, Running and Terminated. To check state of container, you can use `kubectl describe pod [POD_NAME]`. State is displayed for each container within that Pod.
 
-* `Waiting`: This is default state of container. If container is not in running or terminated state, it is in waiting state. In this        state container is still creating and doing all required things like pulling images, applying secrets etc.
-   Along with this state, message and reason about this state is also displayed to give more information about waiting state.
+* `Waiting`: Default state of container. If container is not in either Running or Terminated state, it is in Waiting state. A container in Waiting state still runs its required operations, like pulling images, applying Secrets, etc. Along with this state, a message and reason about the state are displayed to provide more information.
 
     ```yaml
    ...
@@ -172,7 +170,7 @@ Once pod is assigned to a node by scheduler, kubelet starts creating container u
 	  ...
    ```
    
-* `Running`: Running state indicate that container is executing without any issue. Once container enters into running state, `postStart`    hook (if any) will be executed. This state also displays the time from which it is in running state i.e.start time.  
+* `Running`: Indicates that the container is executing without issues. Once a container enters into Running, `postStart` hook (if any) is executed. This state also displays the time when the container entered Running state.  
    
    ```yaml
    ...
@@ -181,7 +179,7 @@ Once pod is assigned to a node by scheduler, kubelet starts creating container u
    ...
    ```   
        
-* `Terminated`: This state indicate that container completed its execution. Container can enter into this state either because it          completed execution successfully or it failed due to some reason. Appropriate information with reason and exit code will be displayed    for this state. It also displays start and finish time for container. Before container enters into terminated state `preStop` hook      (if any) will be executed.
+* `Terminated`:  Indicates that the container completed its execution and has stopped running.A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
   
    ```yaml
    ...
