@@ -10,7 +10,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
+The example below creates a Kubernetes cluster with 3 worker node Virtual Machines and a master Virtual Machine (i.e. 4 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
 {{% /capture %}}
 
@@ -96,7 +96,7 @@ gcloud components install kubectl
 ```
 
 {{< note >}}
-**Note:** The kubectl version bundled with `gcloud` may be older than the one
+The kubectl version bundled with `gcloud` may be older than the one
 downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/kubectl/install/)
 document to see how you can set up the latest `kubectl` on your workstation.
 {{< /note >}}
@@ -134,11 +134,11 @@ You'll see a list of pods that looks something like this (the name specifics wil
 
 ```shell
 NAMESPACE     NAME                                           READY     STATUS    RESTARTS   AGE
+kube-system   coredns-5f4fbb68df-mc8z8                       1/1       Running   0          15m
 kube-system   fluentd-cloud-logging-kubernetes-minion-63uo   1/1       Running   0          14m
 kube-system   fluentd-cloud-logging-kubernetes-minion-c1n9   1/1       Running   0          14m
 kube-system   fluentd-cloud-logging-kubernetes-minion-c4og   1/1       Running   0          14m
 kube-system   fluentd-cloud-logging-kubernetes-minion-ngua   1/1       Running   0          14m
-kube-system   kube-dns-v5-7ztia                              3/3       Running   0          15m
 kube-system   kube-ui-v1-curt1                               1/1       Running   0          15m
 kube-system   monitoring-heapster-v5-ex4u3                   1/1       Running   1          15m
 kube-system   monitoring-influx-grafana-v1-piled             2/2       Running   0          15m
@@ -166,7 +166,7 @@ Likewise, the `kube-up.sh` in the same directory will bring it back up. You do n
 ## Customizing
 
 The script above relies on Google Storage to stage the Kubernetes release. It
-then will start (by default) a single master VM along with 4 worker VMs.  You
+then will start (by default) a single master VM along with 3 worker VMs.  You
 can tweak some of these parameters by editing `kubernetes/cluster/gce/config-default.sh`
 You can view a transcript of a successful cluster creation
 [here](https://gist.github.com/satnam6502/fc689d1b46db9772adea).

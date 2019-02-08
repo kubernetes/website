@@ -2,6 +2,28 @@
     margin-top: 1em !important;
 }
 
+.gridPage .launch-content {
+    position: relative;
+    margin: 20px auto 50px;
+}
+
+.launch-cards {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.launch-card {
+    position: relative;
+    width: 33%;
+    padding: 0 30px 0 0;
+    margin-bottom: 50px;
+    min-height: 152px;
+}
+
+
 .gridPage p {
     color: rgb(26,26,26) !important;
     margin-left: 0 !important;

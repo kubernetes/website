@@ -16,7 +16,6 @@ well as any provider specific details that may be necessary.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -30,7 +29,7 @@ well as any provider specific details that may be necessary.
 
  When using a Service with `spec.type: LoadBalancer`, you can specify the IP ranges that are allowed to access the load balancer
  by using `spec.loadBalancerSourceRanges`. This field takes a list of IP CIDR ranges, which Kubernetes will use to configure firewall exceptions.
- This feature is currently supported on Google Compute Engine, Google Kubernetes Engine, AWS Elastic Kubernetes Service, and Azure Kubernetes Service. This field will be ignored if the cloud provider does not support the feature.
+ This feature is currently supported on Google Compute Engine, Google Kubernetes Engine, AWS Elastic Kubernetes Service, Azure Kubernetes Service, and IBM Cloud Kubernetes Service. This field will be ignored if the cloud provider does not support the feature.
 
  Assuming 10.0.0.0/8 is the internal subnet. In the following example, a load balancer will be created that is only accessible to cluster internal IPs.
  This will not allow clients from outside of your Kubernetes cluster to access the load balancer.
@@ -85,12 +84,11 @@ gcloud compute firewall-rules create my-rule --allow=tcp:<port>
 ```
 
 {{< note >}}
-**Note**: GCE firewalls are defined per-vm, rather than per-ip
-address. This means that when you open a firewall for a service's ports,
-anything that serves on that port on that VM's host IP address may potentially
-serve traffic.  Note that this is not a problem for other Kubernetes services,
-as they listen on IP addresses that are different than the host node's external
-IP address.
+GCE firewalls are defined per-vm, rather than per-ip address. This means that
+when you open a firewall for a service's ports, anything that serves on that
+port on that VM's host IP address may potentially serve traffic. Note that this
+is not a problem for other Kubernetes services, as they listen on IP addresses
+that are different than the host node's external IP address.
 
 Consider:
 

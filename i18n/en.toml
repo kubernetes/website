@@ -1,5 +1,35 @@
 # i18n strings for the English (main) site.
 
+[deprecation_warning]
+other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see "
+
+[objectives_heading]
+other = "Objectives"
+
+[cleanup_heading]
+other = "Cleaning up"
+
+[prerequisites_heading]
+other = "Before you begin"
+
+[whatsnext_heading]
+other = "What's next"
+
+[feedback_heading]
+other = "Feedback"
+
+[feedback_question]
+other = "Was this page helpful?"
+
+[feedback_yes]
+other = "Yes"
+
+[feedback_no]
+other = "No"
+
+[latest_version]
+other = "latest version."
+
 [main_read_about]
 other = "Read about"
 
@@ -24,6 +54,9 @@ other = "Kubernetes Features"
 [main_cncf_project]
 other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
 
+[main_kubeweekly_signup]
+other = "Subscribe"
+
 [main_contribute]
 other = "Contribute"
 
@@ -44,6 +77,21 @@ other = """The Kubernetes Authors | Documentation Distributed under <a href="htt
 
 [main_copyright_notice]
 other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "Browse Docs"
+
+[docs_label_contributors]
+other = "Contributors"
+
+[docs_label_users]
+other = "Users"
+
+[docs_label_i_am]
+other = "I AM..."
+
+
 
 # Community links
 [community_twitter_name]

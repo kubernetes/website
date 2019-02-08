@@ -4,7 +4,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows how to configure and enable the ip-masq-agent. 
+This page shows how to configure and enable the ip-masq-agent.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -23,7 +23,7 @@ The ip-masq-agent configures iptables rules to hide a pod's IP address behind th
 *   **NAT (Network Address Translation)**
     Is a method of remapping one IP address to another by modifying either the source and/or destination address information in the IP header.  Typically performed by a device doing IP routing.
 *   **Masquerading**
-    A form of NAT that is typically used to perform a many to one address translation, where multiple source IP addresses are masked behind a single address, which is typically the device doing the IP routing. In Kubernetes this is the Node's IP address. 
+    A form of NAT that is typically used to perform a many to one address translation, where multiple source IP addresses are masked behind a single address, which is typically the device doing the IP routing. In Kubernetes this is the Node's IP address.
 *   **CIDR (Classless Inter-Domain Routing)**
     Based on the variable-length subnet masking, allows specifying arbitrary-length prefixes. CIDR introduced a new method of representation for IP addresses, now commonly known as **CIDR notation**, in which an address or routing prefix is written with a suffix indicating the number of bits of the prefix, such as 192.168.2.0/24.
 *   **Link Local**
@@ -73,14 +73,16 @@ kubectl label nodes my-node beta.kubernetes.io/masq-agent-ds-ready=true
 More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-incubator/ip-masq-agent)
 
 In most cases, the default set of rules should be sufficient; however, if this is not the case for your cluster, you can create and apply a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to customize the IP ranges that are affected.  For example, to allow only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called "config".
-**Note:** It is important that the file is called config since, by default, that will be used as the key for lookup by the ip-masq-agent:
+
+{{< note >}}
+It is important that the file is called config since, by default, that will be used as the key for lookup by the ip-masq-agent:
 
 ```
 nonMasqueradeCIDRs:
   - 10.0.0.0/8
 resyncInterval: 60s
-
 ```
+{{< /note >}}
 
 Run the following command to add the config map to your cluster:
 
@@ -88,13 +90,13 @@ Run the following command to add the config map to your cluster:
 kubectl create configmap ip-masq-agent --from-file=config --namespace=kube-system
 ```
 
-This will update a file located at */etc/config/ip-masq-agent* which is periodically checked every *resyscInterval* and applied to the cluster node.
+This will update a file located at */etc/config/ip-masq-agent* which is periodically checked every *resyncInterval* and applied to the cluster node.
 After the resync interval has expired, you should see the iptables rules reflect your changes:
 
 ```
 iptables -t nat -L IP-MASQ-AGENT
 Chain IP-MASQ-AGENT (1 references)
-target     prot opt source               destination         
+target     prot opt source               destination
 RETURN     all  --  anywhere             169.254.0.0/16       /* ip-masq-agent: cluster-local traffic should not be subject to MASQUERADE */ ADDRTYPE match dst-type !LOCAL
 RETURN     all  --  anywhere             10.0.0.0/8           /* ip-masq-agent: cluster-local
 MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent: outbound traffic should be subject to MASQUERADE (this match must come after cluster-local CIDR matches) */ ADDRTYPE match dst-type !LOCAL

@@ -39,6 +39,9 @@ Value | Description
 `Succeeded` | All Containers in the Pod have terminated in success, and will not be restarted.
 `Failed` | All Containers in the Pod have terminated, and at least one Container has terminated in failure. That is, the Container either exited with non-zero status or was terminated by the system.
 `Unknown` | For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.
+`Completed` | The pod has run to completion as there's nothing to keep it running eg. Completed Jobs.
+`CrashLoopBackOff` | This means that one of the containers in the pod has exited unexpectedly, and perhaps with a non-zero error code even after restarting due to [restart policy](#restart-policy).
+
 
 ## Pod conditions
 
@@ -157,11 +160,11 @@ Note that the information reported as Pod status depends on the current
 
 ## Pod readiness gate
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 In order to add extensibility to Pod readiness by enabling the injection of
 extra feedbacks or signals into `PodStatus`, Kubernetes 1.11 introduced a
-feature named [Pod ready++](https://github.com/kubernetes/community/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
+feature named [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
 You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
 conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
 condition in the `status.conditions` field of a Pod, the status of the condition 
@@ -203,9 +206,11 @@ when both the following statements are true:
 To facilitate this change to Pod readiness evaluation, a new Pod condition
 `ContainersReady` is introduced to capture the old Pod `Ready` condition.
 
-As an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
+In K8s 1.11, as an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
 setting the `PodReadinessGates` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to True.
+to true.
+
+In K8s 1.12, the feature is enabled by default.
 
 ## Restart policy
 

@@ -13,20 +13,12 @@ one or more configuration files, you can quickly switch between clusters by usin
 `kubectl config use-context` command.
 
 {{< note >}}
-**Note:** A file that is used to configure access to a cluster is sometimes called
+A file that is used to configure access to a cluster is sometimes called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 {{< /note >}}
 
 {{% /capture %}}
-
-{{% capture prerequisites %}}
-
-You need to have the [`kubectl`](/docs/tasks/tools/install-kubectl/) command-line tool installed.
-
-{{% /capture %}}
-
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -147,6 +139,14 @@ users:
     password: some-password
     username: exp
 ```
+
+The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above is the placeholders
+for the real path of the certification files. You need change these to the real path
+of certification files in your environment.
+
+Some times you may want to use base64 encoded data here instead of the path of the 
+certification files, then you need add the suffix `-data` to the keys. For example,
+`certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 
 Each context is a triple (cluster, user, namespace). For example, the
 `dev-frontend` context says, Use the credentials of the `developer`

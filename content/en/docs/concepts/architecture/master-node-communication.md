@@ -18,7 +18,6 @@ cloud provider).
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -67,9 +66,9 @@ The connections from the apiserver to the kubelet are used for:
 
   * Fetching logs for pods.
   * Attaching (through kubectl) to running pods.
-  * Providing the kubelet's port-forwarding functionality. 
+  * Providing the kubelet's port-forwarding functionality.
 
-These connections terminate at the kubelet's HTTPS endpoint. By default, 
+These connections terminate at the kubelet's HTTPS endpoint. By default,
 the apiserver does not verify the kubelet's serving certificate,
 which makes the connection subject to man-in-the-middle attacks, and
 **unsafe** to run over untrusted and/or public networks.
@@ -78,7 +77,7 @@ To verify this connection, use the `--kubelet-certificate-authority` flag to
 provide the apiserver with a root certificate bundle to use to verify the
 kubelet's serving certificate.
 
-If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)
+If that is not possible, use [SSH tunneling](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 

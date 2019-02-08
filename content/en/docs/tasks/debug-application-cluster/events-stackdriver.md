@@ -25,7 +25,7 @@ This article describes a solution that exports Kubernetes events to
 Stackdriver Logging, where they can be processed and analyzed.
 
 {{< note >}}
-**Note:** It is not guaranteed that all events happening in a cluster will be
+It is not guaranteed that all events happening in a cluster will be
 exported to Stackdriver. One possible scenario when events will not be
 exported is when event exporter is not running (e.g. during restart or
 upgrade). In most cases it's fine to use events for purposes like setting up
@@ -38,7 +38,6 @@ of the potential inaccuracy.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

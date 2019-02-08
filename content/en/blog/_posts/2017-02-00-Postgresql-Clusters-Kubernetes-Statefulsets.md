@@ -205,7 +205,7 @@ This environment variable is a hint to the container initialization logic as to 
 
 
 
-The tests below assume that the psql client has been installed on the test system.  If if not, the psql client has been previously installed, it can be installed as follows:
+The tests below assume that the psql client has been installed on the test system. If not, the psql client has been previously installed, it can be installed as follows:
 
 
 

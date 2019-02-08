@@ -36,7 +36,7 @@ There are several different proxies you may encounter when using Kubernetes:
 1.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
     - runs on each node
-    - proxies UDP and TCP
+    - proxies UDP, TCP and SCTP
     - does not understand HTTP
     - provides load balancing
     - is just used to reach services
@@ -51,7 +51,8 @@ There are several different proxies you may encounter when using Kubernetes:
 
     - are provided by some cloud providers (e.g. AWS ELB, Google Cloud Load Balancer)
     - are created automatically when the Kubernetes service has type `LoadBalancer`
-    - use UDP/TCP only
+    - usually supports UDP/TCP only
+    - SCTP support is up to the load balancer implementation of the cloud provider
     - implementation varies by cloud provider.
 
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin

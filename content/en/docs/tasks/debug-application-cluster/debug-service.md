@@ -14,7 +14,6 @@ This document will hopefully help you to figure out what's going wrong.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -80,7 +79,7 @@ deployment.apps/hostnames created
 
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
 {{< note >}}
-**Note:** This is the same as if you started the `Deployment` with the following YAML:
+This is the same as if you started the `Deployment` with the following YAML:
 
 ```yaml
 apiVersion: apps/v1
@@ -127,8 +126,9 @@ have another `Pod` that consumes this `Service` by name you would get something
 like:
 
 ```shell
-u@pod$ wget -qO- hostnames
-wget: bad address 'hostname'
+u@pod$ wget -O- hostnames
+Resolving hostnames (hostnames)... failed: Name or service not known.
+wget: unable to resolve host address 'hostnames'
 ```
 
 So the first thing to check is whether that `Service` actually exists:
@@ -215,7 +215,10 @@ The "cluster.local" is your cluster domain, which COULD be different in your
 own cluster.
 
 You can also try this from a `Node` in the cluster:
-{{< note >}}**Note:** 10.0.0.10 is my DNS `Service`, yours might be different){{< /note >}}
+
+{{< note >}}
+10.0.0.10 is my DNS `Service`, yours might be different).
+{{< /note >}}
 
 ```shell
 u@node$ nslookup hostnames.default.svc.cluster.local 10.0.0.10
@@ -384,8 +387,11 @@ as the `Service` selecting for `run=hostnames`, but the `Deployment` specifying
 
 At this point, we know that your `Service` exists and has selected your `Pods`.
 Let's check that the `Pods` are actually working - we can bypass the `Service`
-mechanism and go straight to the `Pods`.  
-{{< note >}}**Note:** These commands use the `Pod` port (9376), rather than the `Service` port (80).{{< /note >}}
+mechanism and go straight to the `Pods`.
+
+{{< note >}}
+These commands use the `Pod` port (9376), rather than the `Service` port (80).
+{{< /note >}}
 
 ```shell
 u@pod$ wget -qO- 10.244.0.5:9376

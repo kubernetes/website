@@ -21,6 +21,14 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Learn Kubernetes using Interactive Hands-on Scenarios (Katacoda)](https://www.katacoda.com/courses/kubernetes/)
 
+* [Certified Kubernetes Administrator Preparation Course (LinuxAcademy.com)](https://linuxacademy.com/linux/training/course/name/certified-kubernetes-administrator-preparation-course)
+
+* [Kubernetes the Hard Way (LinuxAcademy.com)](https://linuxacademy.com/linux/training/course/name/kubernetes-the-hard-way)
+
+* [Kubernetes for the Absolute Beginners with Hands-on Labs (KodeKloud.com)](https://kodekloud.com/p/kubernetes-for-the-absolute-beginners-hands-on)
+
+* [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud.com)](https://kodekloud.com/p/kubernetes-certification-course)
+
 {{% /capture %}}
 
 

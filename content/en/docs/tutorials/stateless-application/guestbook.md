@@ -70,7 +70,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
      ```
 
 {{< note >}}
-**Note:** Replace POD-NAME with the name of your Pod.
+Replace POD-NAME with the name of your Pod.
 {{< /note >}}
 
 ### Creating the Redis Master Service
@@ -100,7 +100,7 @@ The guestbook applications needs to communicate to the Redis master to write its
       ```
 
 {{< note >}}
-**Note:** This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.   
+This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.   
 {{< /note >}}
 
 
@@ -200,7 +200,7 @@ The `redis-slave` and `redis-master` Services you applied are only accessible wi
 If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.  
 
 {{< note >}}
-**Note:** Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`. 
+Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`. 
 {{< /note >}}
 
 {{< codenew file="application/guestbook/frontend-service.yaml" >}}

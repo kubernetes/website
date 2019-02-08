@@ -9,7 +9,7 @@ weight: 80
 {{% capture overview %}}
 
 {{< note >}}
-**Note**: The preferred way to create a replicated application is to use a
+The preferred way to create a replicated application is to use a
 [Deployment](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps),
 which in turn uses a
 [ReplicaSet](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replicaset-v1-apps).
@@ -42,7 +42,6 @@ Rolling updates are initiated with the `kubectl rolling-update` command:
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

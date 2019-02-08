@@ -27,7 +27,7 @@ default, these certificates are issued with one year expiration so that they do
 not need to be renewed too frequently.
 
 Kubernetes 1.8 contains [kubelet certificate
-rotation](/docs/tasks/administer-cluster/certificate-rotation/), a beta feature
+rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/), a beta feature
 that will automatically generate a new key and request a new certificate from
 the Kubernetes API as the current certificate approaches expiration. Once the
 new certificate is available, it will be used for authenticating connections to

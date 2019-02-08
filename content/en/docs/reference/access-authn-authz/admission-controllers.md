@@ -62,15 +62,15 @@ For example, the following command line enables the `NamespaceLifecycle` and the
 admission control plugins:
 
 ```shell
-kube-apiserver --enable-admission-plugins=NamespaceLifecyle,LimitRanger ...
+kube-apiserver --enable-admission-plugins=NamespaceLifecycle,LimitRanger ...
 ```
 
 {{< note >}}
-**Note**: Depending on the way your Kubernetes cluster is deployed and how the
-API server is started, you may need to apply the settings in different ways.
-For example, you may have to modify the systemd unit file if the API server is
-deployed as a systemd service, you may modify the manifest file for the API
-server if Kubernetes is deployed in a self-hosted way.
+Depending on the way your Kubernetes cluster is deployed and how the API server is
+started, you may need to apply the settings in different ways. For example, you may
+have to modify the systemd unit file if the API server is deployed as a systemd
+service, you may modify the manifest file for the API server if Kubernetes is deployed
+in a self-hosted way.
 {{< /note >}}
 
 ## How do I turn off an admission controller?
@@ -89,10 +89,10 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.11, they are:
+In 1.13, they are:
  
 ```shell
-NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
+NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeClaimResize,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
 ```
 
 ## What does each admission controller do?
@@ -227,7 +227,7 @@ imagePolicy:
   # time in s to cache approval
   allowTTL: 50
   # time in s to cache denial
-  denyTTL: 50 
+  denyTTL: 50
   # time in ms to wait between retries
   retryBackoff: 500
   # determines behavior if the webhook backend fails
@@ -264,6 +264,7 @@ users:
     client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
     client-key: /path/to/key.pem          # key matching the cert
 ```
+
 For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation.
 
 #### Request Payloads
@@ -274,7 +275,7 @@ Note that webhook API objects are subject to the same versioning compatibility r
 
 An example request body:
 
-```
+```json
 {  
   "apiVersion":"imagepolicy.k8s.io/v1alpha1",
   "kind":"ImageReview",
@@ -297,7 +298,7 @@ An example request body:
 
 The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
 
-```
+```json
 {
   "apiVersion": "imagepolicy.k8s.io/v1alpha1",
   "kind": "ImageReview",
@@ -309,7 +310,7 @@ The remote service is expected to fill the ImageReviewStatus field of the reques
 
 To disallow access, the service would return:
 
-```
+```json
 {
   "apiVersion": "imagepolicy.k8s.io/v1alpha1",
   "kind": "ImageReview",
@@ -415,6 +416,25 @@ This admission controller limits the `Node` and `Pod` objects a kubelet can modi
 kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`.
 Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
 In Kubernetes 1.11+, kubelets are not allowed to update or remove taints from their `Node` API object.
+
+In Kubernetes 1.13+, the `NodeRestriction` admission plugin prevents kubelets from deleting their `Node` API object,
+and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.io/` prefixes as follows:
+
+* **Prevents** kubelets from adding/removing/updating labels with a `node-restriction.kubernetes.io/` prefix.
+This label prefix is reserved for administrators to label their `Node` objects for workload isolation purposes,
+and kubelets will not be allowed to modify labels with that prefix.
+* **Allows** kubelets to add/remove/update these labels and label prefixes:
+  * `kubernetes.io/hostname`
+  * `beta.kubernetes.io/arch`
+  * `beta.kubernetes.io/instance-type`
+  * `beta.kubernetes.io/os`
+  * `failure-domain.beta.kubernetes.io/region`
+  * `failure-domain.beta.kubernetes.io/zone`
+  * `kubelet.kubernetes.io/`-prefixed labels
+  * `node.kubernetes.io/`-prefixed labels
+
+Use of any other labels under the `kubernetes.io` or `k8s.io` prefixes by kubelets is reserved, and may be disallowed or allowed by the `NodeRestriction` admission plugin in the future.
+
 Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
 
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}
@@ -449,9 +469,9 @@ This file may be json or yaml and has the following format:
 
 ```yaml
 podNodeSelectorPluginConfig:
- clusterDefaultNodeSelector: <node-selectors-labels>
- namespace1: <node-selectors-labels>
- namespace2: <node-selectors-labels>
+ clusterDefaultNodeSelector: name-of-node-selector
+ namespace1: name-of-node-selector
+ namespace2: name-of-node-selector
 ```
 
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
@@ -473,7 +493,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations:
-    scheduler.alpha.kubernetes.io/node-selector: <node-selectors-labels>
+    scheduler.alpha.kubernetes.io/node-selector: name-of-node-selector
   name: namespace3
 ```
 
@@ -489,7 +509,7 @@ plugin configuration file as the node selector.
 Conflicts result in rejection.
 
 {{< note >}}
-**Note:** PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 
+PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 
 admission plugin, which allows preventing pods from running on specifically tainted nodes.
 {{< /note >}}
 
@@ -498,7 +518,7 @@ admission plugin, which allows preventing pods from running on specifically tain
 This admission controller implements additional validations for checking incoming `PersistentVolumeClaim` resize requests.
 
 {{< note >}}
-**Note:** Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
+Support for volume resizing is available as an alpha feature. Admins must set the feature gate `ExpandPersistentVolumes`
 to `true` to enable resizing.
 {{< /note >}}
 
@@ -610,11 +630,11 @@ Yes.
 For Kubernetes version 1.10 and later, we recommend running the following set of admission controllers using the `--enable-admission-plugins` flag (**order doesn't matter**).
 
 {{< note >}}
-**Note:** `--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
+`--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
 {{< /note >}}
 
 ```shell
---enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
+--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,Priority,ResourceQuota
 ```
 
 For Kubernetes 1.9 and earlier, we recommend running the following set of admission controllers using the `--admission-control` flag (**order matters**).

@@ -1,5 +1,8 @@
 # The Kubernetes documentation
 
+[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
+[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+
 Welcome! This repository houses all of the assets required to build the Kubernetes website and documentation. We're very pleased that you want to contribute!
 
 ## Contributing to the docs
@@ -14,12 +17,44 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+
+## `README.md`'s Localizing Kubernetes Documentation
+
+### Korean
+
+See translation of `README.md` and more detail guidance for Korean contributors on the [Korean README](README-ko.md) page.
+
+You can reach the maintainers of Korean localization at:
+
+* June Yi ([GitHub - @gochist](https://github.com/gochist))
+* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
+
+## Running the site locally using Docker
+
+The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com) image that includes the [Hugo](https://gohugo.io) static site generator.
+
+> If you are running on Windows, you'll need a few more tools which you can install with [Chocolatey](https://chocolatey.org). `choco install make`
+
+> If you'd prefer to run the website locally without Docker, see [Running the site locally using Hugo](#running-the-site-locally-using-hugo) below.
+
+If you have Docker [up and running](https://www.docker.com/get-started), build the `kubernetes-hugo` Docker image locally:
+
+```bash
+make docker-image
+```
+
+Once the image has been built, you can run the site locally:
+
+```bash
+make docker-serve
+```
+
+Open up your browser to http://localhost:1313 to view the site. As you make changes to the source files, Hugo updates the site and forces a browser refresh.
 
 ## Running the site locally using Hugo
 
-The Kubernetes documentation is built using the [Hugo](https://gohugo.io) static site generator. See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions.
-
-> Building and running the site requires the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
+See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions. Make sure to install the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
 
 To run the site locally when you have Hugo installed:
 
@@ -27,23 +62,20 @@ To run the site locally when you have Hugo installed:
 make serve
 ```
 
-This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the site. As you make changes to the source files, Hugo updates immediately and forces a browser refresh.
+This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the site. As you make changes to the source files, Hugo updates the site and forces a browser refresh.
 
-## Building the site using Docker
+## Community, discussion, contribution, and support
 
-You can build the Kubernetes docs using [Docker](https://docker.com). To get started, make sure that you have Docker running and build the image locally:
+Learn how to engage with the Kubernetes community on the [community page](http://kubernetes.io/community/).
 
-```bash
-make docker-image
-```
+You can reach the maintainers of this project at:
 
-Once the `kubernetes-hugo` image has been built locally, you can run the site locally:
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-```bash
-make docker-serve
-```
+### Code of conduct
 
-Open up your browser to http://localhost:1313 to view the site.
+Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
 
 ## Thank you!
 

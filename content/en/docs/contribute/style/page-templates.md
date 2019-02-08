@@ -15,7 +15,7 @@ directory of the [`kubernetes/website`](https://github.com/kubernetes/website)
 repository.
 
 {{< note >}}
-**Note**: Every new topic needs to use a template. If you are unsure which
+Every new topic needs to use a template. If you are unsure which
 template to use for a new topic, start with the
 [concept template](#concept-template).
 {{< /note >}}
@@ -23,7 +23,6 @@ template to use for a new topic, start with the
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -51,32 +50,28 @@ To write a new concept page, create a Markdown file in a subdirectory of the
 
     The page's body will look like this (remove any optional captures you don't
     need):
-    
+
     ```
     {{%/* capture overview */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture body */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture whatsnext */%}}
-    
+
     {{%/* /capture */%}}
     ```
 
-- Within each section, write your content. Use the following guidelines:
-  - Use a minimum of H2 headings (with two leading `#` characters). The sections
-    themselves are titled automatically by the template.
-  - For `overview`, use a paragraph to set context for the entire topic.
-  - For `body`, explain the concept using free-form Markdown.
-  - For `whatsnext`, give a bullet list of up to 5 topics the reader might be
-    interested in reading next.
+- Fill each section with content. Follow these guidelines:
+  - Organize content with H2 and H3 headings.
+  - For `overview`, set the topic's context with a single paragraph.
+  - For `body`, explain the concept.
+  - For `whatsnext`, provide a bulleted list of topics (5 maximum) to learn more about the concept.
 
-An example of a published topic that uses the concept template is
-[Annotations](/docs/concepts/overview/working-with-objects/annotations/). The
-page you are currently reading also uses the content template.
+[Annotations](/docs/concepts/overview/working-with-objects/annotations/) is a published example of the concept template. This page also uses the concept template.
 
 ## Task template
 
@@ -101,28 +96,28 @@ To write a new task page, create a Markdown file in a subdirectory of the
 
     The page's body will look like this (remove any optional captures you don't
     need):
-    
+
     ```
     {{%/* capture overview */%}}
-  
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture prerequisites */%}}
-    
+
     {{</* include "task-tutorial-prereqs.md" */>}} {{</* version-check */>}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture steps */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture discussion */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture whatsnext */%}}
-    
+
     {{%/* /capture */%}}
     ```
 
@@ -167,32 +162,32 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 
     The page's body will look like this (remove any optional captures you don't
     need):
-    
+
     ```
     {{%/* capture overview */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture prerequisites */%}}
-    
+
     {{</* include "task-tutorial-prereqs.md" */>}} {{</* version-check */>}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture objectives */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture lessoncontent */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture cleanup */%}}
-    
+
     {{%/* /capture */%}}
-    
+
     {{%/* capture whatsnext */%}}
-    
+
     {{%/* /capture */%}}
     ```
 
@@ -221,4 +216,3 @@ An example of a published topic that uses the tutorial template is
 - Learn about [content organization](/docs/contribute/style/content-organization/)
 
 {{% /capture %}}
-

@@ -15,7 +15,6 @@ Horizontal Pod Autoscaler, to make decisions.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
@@ -35,7 +34,7 @@ The API is defined in [k8s.io/metrics](https://github.com/kubernetes/metrics/blo
 repository. You can find more information about the API there.
 
 {{< note >}}
-**Note:** The API requires metrics server to be deployed in the cluster. Otherwise it will be not available.
+The API requires metrics server to be deployed in the cluster. Otherwise it will be not available.
 {{< /note >}}
 
 ## Metrics Server
