@@ -23,14 +23,15 @@ problems to address:
 {{% capture body %}}
 
 Kubernetes is all about sharing machines between applications.  Typically,
-sharing machines requires ensuring that two applications on the same do not try
-to use the same ports.  Coordinating ports across multiple developers is very
-difficult to do at scale and exposes users to cluster-level issues outside of
-their control.  Dynamic port allocation brings a lot of complications to the
-system - every application has to take ports as flags, the API servers have to
-know how to insert dynamic port numbers into configuration blocks, services
-have to know how to find each other, etc.  Rather than deal with this,
-Kubernetes takes a different approach.
+sharing machines requires ensuring that two applications do not try to use the
+same ports.  Coordinating ports across multiple developers is very difficult to
+do at scale and exposes users to cluster-level issues outside of their control.
+
+Dynamic port allocation brings a lot of complications to the system - every
+application has to take ports as flags, the API servers have to know how to
+insert dynamic port numbers into configuration blocks, services have to know
+how to find each other, etc.  Rather than deal with this, Kubernetes takes a
+different approach.
 
 ## The Kubernetes network model
 
@@ -44,19 +45,15 @@ application configuration, and migration.
 Kubernetes imposes the following fundamental requirements on any networking
 implementation (barring any intentional network segmentation policies):
 
-   * pods on any node can communicate with all pods on all nodes without NAT
-   * agents on a node can communicate with all pods on that node
-   * the IP that a pod sees itself as is the same IP that others see it as
+   * pods on a node can communicate with all pods on all nodes without NAT
+   * agents on a node (e.g. system daemons, kubelet) can communicate with all
+     pods on that node
 
-In addition to these, for those platforms that support `Pods` running in the host
-network (e.g. Linux supports this):
+Note: For those platforms that support `Pods` running in the host network (e.g.
+Linux):
 
-   * pods in the host network of any node can communicate with all pods on all
+   * pods in the host network of a node can communicate with all pods on all
      nodes without NAT
-
-What this means in practice is that you can not just take two computers
-running Docker and expect Kubernetes to work.  You must ensure that the
-fundamental requirements are met.
 
 This model is not only less complex overall, but it is principally compatible
 with the desire for Kubernetes to enable low-friction porting of apps from VMs
@@ -72,9 +69,9 @@ is no different than processes in a VM.  This is called the "IP-per-pod" model.
 How this is implemented is a detail of the particular container runtime in use.
 
 It is possible to request ports on the `Node` itself which forward to your `Pod`
-(called host-ports), but this is reduced to a very niche operation. How that
-forwarding is implemented is also a detail of the container runtime. The `Pod`
-itself is blind to the existence or non-existence of host-ports.
+(called host ports), but this is a very niche operation. How that forwarding is
+implemented is also a detail of the container runtime. The `Pod` itself is
+blind to the existence or non-existence of host ports.
 
 ## How to implement the Kubernetes networking model
 
