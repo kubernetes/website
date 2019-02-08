@@ -207,13 +207,13 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
-In Kubernetes version 1.13, you can configure dynamic audit webhook backends AuditSink API objects. 
+In Kubernetes version 1.13, you can configure dynamic audit webhook backends AuditSink API objects.
 
 To enable dynamic auditing you must set the following apiserver flags:
 
-- `--audit-dynamic-configuration`: the primary switch. When the feature is at GA, the only required flag.   
-- `--feature-gates=DynamicAuditing=true`: feature gate at alpha and beta.   
-- `--runtime-config=auditregistration.k8s.io/v1alpha1=true`: enable API.   
+- `--audit-dynamic-configuration`: the primary switch. When the feature is at GA, the only required flag.
+- `--feature-gates=DynamicAuditing=true`: feature gate at alpha and beta.
+- `--runtime-config=auditregistration.k8s.io/v1alpha1=true`: enable API.
 
 When enabled, an AuditSink object can be provisioned:
 
