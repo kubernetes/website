@@ -7,139 +7,127 @@ menu:
     title: "Get Started"
     weight: 10
     post: >
-      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
+      <p>手を動かす準備はできていますか？本チュートリアルでは、Node.jsを使った簡単な"Hello World"を実行するKubernetesクラスタをビルドします。</p>
 ---
 
 {{% capture overview %}}
 
-This tutorial shows you how to run a simple Hello World Node.js app
-on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Katacoda.
-Katacoda provides a free, in-browser Kubernetes environment. 
+このチュートリアルでは、[Minikube](/docs/getting-started-guides/minikube)とKatacodaを使用して、Kubernetes上でシンプルなHello WorldのNode.jsアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
 
 {{< note >}}
-You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
+[Minikubeをローカルにインストール](/docs/tasks/tools/install-minikube/)している場合もこのチュートリアルを進めることが可能です。
 {{< /note >}}
 
 {{% /capture %}}
 
 {{% capture objectives %}}
 
-* Deploy a hello world application to Minikube.
-* Run the app.
-* View application logs.
+* Minikubeへのhello worldアプリケーションのデプロイ
+* アプリケーションの実行
+* アプリケーションログの確認
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-This tutorial provides a container image built from the following files:
+このチュートリアルは下記のファイルからビルドされるコンテナーイメージを提供します:
 
 {{< codenew language="js" file="minikube/server.js" >}}
 
 {{< codenew language="conf" file="minikube/Dockerfile" >}}
 
-For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
+`docker build`コマンドについての詳細な情報は、[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/build/)を参照してください。
 
 {{% /capture %}}
 
 {{% capture lessoncontent %}}
 
-## Create a Minikube cluster
+## Minikubeクラスタの作成
 
-1. Click **Launch Terminal** 
+1. **Launch Terminal** をクリックしてください
 
     {{< kat-button >}}
 
-    {{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
+    {{< note >}}Minikubeをローカルにインストール済みの場合は、`minikube start`を実行してください。{{< /note >}}
 
-2. Open the Kubernetes dashboard in a browser:
+2. ブラウザーでKubernetesダッシュボードを開いてください:
 
     ```shell
     minikube dashboard
     ```
 
-3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
+3. Katacoda環境のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
 
-4. Katacoda environment only: Type 30000, and then click **Display Port**. 
+4. Katacoda環境のみ：30000を入力し、**Display Port**をクリックしてください。 
 
-## Create a Deployment
+## Deploymentの作成
 
-A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
-tied together for the purposes of administration and networking. The Pod in this
-tutorial has only one Container. A Kubernetes
-[*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
-Pod and restarts the Pod's Container if it terminates. Deployments are the
-recommended way to manage the creation and scaling of Pods.
+Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
-1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on the provided Docker image. 
+1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
     ```
 
-2. View the Deployment:
+2. Deploymentを確認します:
 
     ```shell
     kubectl get deployments
     ```
 
-    Output:
+    出力:
 
     ```shell
     NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     hello-node   1         1         1            1           1m
     ```
 
-3. View the Pod:
+3. Podを確認します:
 
     ```shell
     kubectl get pods
     ```
-    Output:
+    出力:
 
     ```shell
     NAME                          READY     STATUS    RESTARTS   AGE
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. View cluster events:
+4. クラスタイベントを確認します:
 
     ```shell
     kubectl get events
     ```
 
-5. View the `kubectl` configuration:
+5. `kubectl` で設定を確認します:
 
     ```shell
     kubectl config view
     ```
   
-    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
+    {{< note >}} `kubectl`コマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照してください。{{< /note >}}
 
-## Create a Service
+## Serviceの作成
 
-By default, the Pod is only accessible by its internal IP address within the
-Kubernetes cluster. To make the `hello-node` Container accessible from outside the
-Kubernetes virtual network, you have to expose the Pod as a
-Kubernetes [*Service*](/docs/concepts/services-networking/service/).
+通常、PodはKubernetesクラスタ内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/docs/concepts/services-networking/service/)としてポッドを公開する必要があります。
 
-1. Expose the Pod to the public internet using the `kubectl expose` command:
+1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer
     ```
     
-    The `--type=LoadBalancer` flag indicates that you want to expose your Service
-    outside of the cluster.
+    `--type=LoadBalancer`フラグはServiceをクラスタ外部に公開したいことを示しています。
 
-2. View the Service you just created:
+2. 作成したServiceを確認します:
 
     ```shell
     kubectl get services
     ```
 
-    Output:
+    出力:
 
     ```shell
     NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
@@ -147,34 +135,32 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    On cloud providers that support load balancers,
-    an external IP address would be provisioned to access the Service. On Minikube,
-    the `LoadBalancer` type makes the Service accessible through the `minikube service`
-    command.
+    ロードバランサーをサポートするクラウドプロバイダーでは、Serviceにアクセスするための外部IPアドレスが提供されます。
+    Minikube では、`LoadBalancer`タイプは`minikube service`コマンドを使用した接続可能なServiceを作成します。    
 
-3. Run the following command:
+3. 次のコマンドを実行します:
 
     ```shell
     minikube service hello-node
     ```
 
-4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
+4. Katacoda環境のみ：ターミナル画面上部の+ボタンをクリックして **Select port to view on Host 1** をクリックしてください。
 
-5. Katacoda environment only: Type in the Port number following `8080:`, and then click **Display Port**. 
+5. Katacoda環境のみ：8080を入力し、**Display Port**をクリックしてください。 
 
-    This opens up a browser window that serves your app and shows the "Hello World" message.
+    "Hello World"メッセージが表示されるアプリケーションのブラウザウィンドウが開きます。
 
-## Enable addons
+## アドオンの有効化
 
-Minikube has a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment.
+Minikubeはビルトインのアドオンがあり、有効化、無効化、あるいはローカルのKubernetes環境に公開することができます。
 
-1. List the currently supported addons:
+1. サポートされているアドオンをリストアップします:
 
     ```shell
     minikube addons list
     ```
 
-    Output:
+    出力:
 
     ```shell
     addon-manager: enabled
@@ -194,25 +180,25 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     storage-provisioner: enabled
     ```
    
-2. Enable an addon, for example, `heapster`:
+2. ここでは例として`heapster`のアドオンを有効化します:
 
     ```shell
     minikube addons enable heapster
     ```
   
-    Output:
+    出力:
 
     ```shell
     heapster was successfully enabled
     ```
 
-3. View the Pod and Service you just created:
+3. 作成されたポッドとサービスを確認します:
 
     ```shell
     kubectl get pod,svc -n kube-system
     ```
 
-    Output:
+    出力:
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
@@ -231,34 +217,34 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Disable `heapster`:
+4. `heapster`を無効化します:
 
     ```shell
     minikube addons disable heapster
     ```
   
-    Output:
+    出力:
 
     ```shell
     heapster was successfully disabled
     ```
 
-## Clean up
+## クリーンアップ
 
-Now you can clean up the resources you created in your cluster:
+クラスタに作成したリソースをクリーンアップします:
 
 ```shell
 kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Optionally, stop the Minikube virtual machine (VM):
+（オプション）Minikubeの仮想マシン（VM）を停止します:
 
 ```shell
 minikube stop
 ```
 
-Optionally, delete the Minikube VM:
+（オプション）MinikubeのVMを削除します:
 
 ```shell
 minikube delete
@@ -268,8 +254,8 @@ minikube delete
 
 {{% capture whatsnext %}}
 
-* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
-* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
-* Learn more about [Service objects](/docs/concepts/services-networking/service/).
+* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)について学ぶ.
+* [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)について学ぶ.
+* [Serviceオブジェクト](/docs/concepts/services-networking/service/)について学ぶ.
 
 {{% /capture %}}
