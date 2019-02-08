@@ -256,6 +256,6 @@ minikube delete
 
 * [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)について学ぶ.
 * [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)について学ぶ.
-* [サービスオブジェクト](/docs/concepts/services-networking/service/)について学ぶ.
+* [Serviceオブジェクト](/docs/concepts/services-networking/service/)について学ぶ.
 
 {{% /capture %}}
