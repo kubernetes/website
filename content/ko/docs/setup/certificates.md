@@ -7,64 +7,64 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Kubernetes requires PKI certificates for authentication over TLS.
-If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
-You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.
-This page explains the certificates that your cluster requires.
+쿠버네티스는 TLS 위에 인증을 위해 PKI 인증서가 필요하다.
+만약 쿠버네티스를 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)를 이용해서 설치했다면, 클러스터에 필요한 인증서는 자동으로 생성된다.
+또한 예를 들어 개인키를 API서버에 저장하지 않으므로 더 안전하게 자신이 소유한 인증서를 생성할 수 있다.
+이 페이지는 클러스터에 필요한 인증서를 설명한다.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## How certificates are used by your cluster
+## 클러스터에서 인증서는 어떻게 이용되나?
 
-Kubernetes requires PKI for the following operations:
+쿠버네티는 다음 작업에서 PKI가 필요하다.
 
-* Client certificates for the kubelet to authenticate to the API server
-* Server certificate for the API server endpoint
-* Client certificates for administrators of the cluster to authenticate to the API server
-* Client certificates for the API server to talk to the kubelets
-* Client certificate for the API server to talk to etcd
-* Client certificate/kubeconfig for the controller manager to talk to the API server
-* Client certificate/kubeconfig for the scheduler to talk to the API server.
-* Client and server certificates for the [front-proxy][proxy]
+* 쿠블렛(kubelet)에서 API서버 인증서를 인증시 사용하는 클라이언트 인증서
+* API서버 엔드 포인트를 위한 서버 인증서
+* API서버에 클러스터 관리자 인증을 위한 클라이언트 인증서
+* API서버에서 쿠블렛과 통신을 위한 클라언트 인증서
+* API서버에서 etcd 간의 통신을 위한 클라언트 인증서
+* 콘트롤러 매니저와 API서버 간의 통신을 위한 클라언트 인증서/kubeconfig
+* 스케쥴러와 API서버간 통신을 위한 클라언트 인증서/kubeconfig
+* [front-proxy][proxy]를 위한 클라언트와 서버인증서
 
 {{< note >}}
-`front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/).
+`front-proxy` 인증서는 kube-proxy에서 [API server 확장 ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)을 지원할 때만 kube-proxy에서 필요하다.
 {{< /note >}}
 
-etcd also implements mutual TLS to authenticate clients and peers.
+etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 
-## Where certificates are stored
+## 인증서를 저장하는 위치
 
-If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
+만약 쿠버네티스를 kubeadm으로 설치했다면 인증서는 `/etc/kubernets/pki`에 저장된다. 이 문서에 언급된 모든 파일 경로는 그 디렉토리에 상대적이다.
 
-## Configure certificates manually
+## 인증서 수동 설정
 
-If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways.
+필요한 인증서를 kubeadm으로 생성하기 싫다면 다음 방법 중 하나로 생성할 수 있다.
 
-### Single root CA
+### 단일 루트 CA
 
-You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself. 
+관리자에 의해 제어되는 단일 루트 CA를 만들 수 있다. 이 루트 CA는 여러 중간 CA를 생성할 수 있고, 모든 추가 생성에 관해서도 쿠버네티스 자체에 위임할 수 있다.
 
-Required CAs:
+필요 CA:
 
-| path                   | Default CN                | description                      |
+| 경로                   | 기본 CN                   | 설명                             |
 |------------------------|---------------------------|----------------------------------|
-| ca.crt,key             | kubernetes-ca             | Kubernetes general CA            |
-| etcd/ca.crt,key        | etcd-ca                   | For all etcd-related functions   |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy][proxy] |
+| ca.crt,key             | kubernetes-ca             | 쿠버네티스 일반 CA               |
+| etcd/ca.crt,key        | etcd-ca                   | 모든 etcd 관련 기능을 위해서     |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy][proxy] 위해서  |
 
-### All certificates
+### 모든 인증서
 
-If you don't wish to copy these private keys to your API servers, you can generate all certificates yourself. 
+이런 개인키를 API서버에 복사하기 원치 않는다면, 모든 인증서를 스스로 생성할 수 있다.
 
-Required certificates:
+필요한 인증서:
 
-| Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
+| 기본 CN                       | 부모 CA                   | O (주체에서)   | 종류                                   | 호스트 (SAN)                                |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client [<sup>1</sup>][etcdbug] | `localhost`, `127.0.0.1`                        |
-| kube-etcd-peer                | etcd-ca                   |                | server, client                                   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
+| kube-etcd                     | etcd-ca                   |                | server, client [<sup>1</sup>][etcdbug] | `localhost`, `127.0.0.1`                    |
+| kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
 | kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]` |
@@ -73,18 +73,18 @@ Required certificates:
 
 [1]: `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`, `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`
 
-where `kind` maps to one or more of the [x509 key usage][usage] types:
+`kind`는 하나 이상의 [x509 키 사용][usage] 종류를 가진다.
 
-| kind   | Key usage                                                                       |
+| 종류   | 키 사용                                                                         |
 |--------|---------------------------------------------------------------------------------|
 | server | digital signature, key encipherment, server auth                                |
 | client | digital signature, key encipherment, client auth                                |
 
-### Certificate paths
+### 인증서 파일 경로
 
-Certificates should be placed in a recommended path (as used by [kubeadm][kubeadm]). Paths should be specified using the given argument regardless of location.
+인증서는 권고하는 파일 경로에 존재해야 한다([kubeadm][kubeadm]에서 사용되는 것처럼). 경로는 위치에 관계없이 주어진 파라미터를 사용하여 지정되야 한다.
 
-| Default CN                   | recommend key path           | recommended cert path       | command        | key argument                 | cert argument                             |
+| 기본 CN                      | 권고하는 키 파일 경로        | 권고하는 인증서 파일 경로   | 명령어         | 키 파라미터                  | 인증서 파라미터                           |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
 | etcd-ca                      |                              | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
 | etcd-client                  | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-keyfile               | --etcd-certfile                           |
@@ -100,26 +100,26 @@ Certificates should be placed in a recommended path (as used by [kubeadm][kubead
 | etcd-ca                      |                              | etcd/ca.crt                 | etcdctl[2]     |                              | --cacert                                  |
 | kube-etcd-healthcheck-client | etcd/healthcheck-client.key  | etcd/healthcheck-client.crt | etcdctl[2]     | --key                        | --cert                                    |
 
-[2]: For a liveness probe, if self-hosted
+[2]: 셀프 호스팅시, 생존신호(liveness probe)를 위해
 
-## Configure certificates for user accounts
+## 각 사용자 어카운트를 위한 인증서 설정하기
 
-You must manually configure these administrator account and service accounts: 
+반드시 이런 관리자 계정과 서비스 어카운트를 설정해야 한다.
 
-| filename                | credential name            | Default CN                     | O (in Subject) |
+| 파일명                  | 크레덴셜 이름              | 기본 CN                        | O (주체에서)   |
 |-------------------------|----------------------------|--------------------------------|----------------|
 | admin.conf              | default-admin              | kubernetes-admin               | system:masters |
-| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` (note를 보자) | system:nodes   |
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
 | scheduler.conf          | default-manager            | system:kube-scheduler          |                |
 
 {{< note >}}
-The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).
+`kubelet.conf`을 위한 `<nodeName>`값은 API서버에 등록된 것처럼 쿠불렛에 제공되는 노드 이름 값과 **반드시** 정확히 일치해야 한다. 더 자세한 내용은 [노드 인증](/docs/reference/access-authn-authz/node/)을 살펴보자.
 {{< /note >}}
 
-1. For each config, generate an x509 cert/key pair with the given CN and O.
+1. 각 환경 설정에 대해 주어진 CN과 O를 이용하여 x509 인증서와 키쌍을 생성한다.
 
-1. Run `kubectl` as follows for each config:
+1. 각 환경 설정에 대해 다음과 같이 `kubectl`를 실행한다.
 
 ```shell
 KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
@@ -128,14 +128,14 @@ KUBECONFIG=<filename> kubectl config set-context default-system --cluster defaul
 KUBECONFIG=<filename> kubectl config use-context default-system
 ```
 
-These files are used as follows:
+이 파일들은 다음과 같이 사용된다.
 
-| filename                | command                 | comment                                                               |
+| 파일이름                | 명령어                  | 설명                                                                  |
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
-| admin.conf              | kubectl                 | Configures administrator user for the cluster                                      |
-| kubelet.conf            | kubelet                 | One required for each node in the cluster.                            |
-| controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
-| scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
+| admin.conf              | kubectl                 | 클러스터 관리자를 설정한다.                                           |
+| kubelet.conf            | kubelet                 | 클러스터 각 노드를 위해 필요하다.                                     |
+| controller-manager.conf | kube-controller-manager | 반드시 manifest를 `manifests/kube-controller-manager.yaml`에 추가해야한다. |
+| scheduler.conf          | kube-scheduler          | 반드시 manifest를 `manifests/kube-scheduler.yaml`에 추가해야한다.          |
 
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
