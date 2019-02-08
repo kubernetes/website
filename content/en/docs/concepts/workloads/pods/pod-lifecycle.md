@@ -133,7 +133,6 @@ specify a readiness probe. In this case, the readiness probe might be the same
 as the liveness probe, but the existence of the readiness probe in the spec means
 that the Pod will start without receiving any traffic and only start receiving
 traffic after the probe starts succeeding.
-
 If your Container needs to work on loading large data, configuration files, or migrations during startup, specify a readiness probe.
 
 If you want your Container to be able to take itself down for maintenance, you
@@ -157,6 +156,40 @@ and
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
 Note that the information reported as Pod status depends on the current
 [ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
+
+## Container States
+
+Once Pod is assigned to a node by scheduler, kubelet starts creating containers using container runtime.There are three possible states of containers: Waiting, Running and Terminated. To check state of container, you can use `kubectl describe pod [POD_NAME]`. State is displayed for each container within that Pod.
+
+* `Waiting`: Default state of container. If container is not in either Running or Terminated state, it is in Waiting state. A container in Waiting state still runs its required operations, like pulling images, applying Secrets, etc. Along with this state, a message and reason about the state are displayed to provide more information.
+
+    ```yaml
+   ...
+      State:          Waiting
+       Reason:       ErrImagePull
+	  ...
+   ```
+   
+* `Running`: Indicates that the container is executing without issues. Once a container enters into Running, `postStart` hook (if any) is executed. This state also displays the time when the container entered Running state.  
+   
+   ```yaml
+   ...
+      State:          Running
+       Started:      Wed, 30 Jan 2019 16:46:38 +0530
+   ...
+   ```   
+       
+* `Terminated`:  Indicates that the container completed its execution and has stopped running.A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
+  
+   ```yaml
+   ...
+      State:          Terminated
+        Reason:       Completed
+        Exit Code:    0
+        Started:      Wed, 30 Jan 2019 11:45:26 +0530
+        Finished:     Wed, 30 Jan 2019 11:45:26 +0530
+    ...
+   ``` 
 
 ## Pod readiness gate
 
