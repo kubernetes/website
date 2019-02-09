@@ -34,7 +34,7 @@ weight: 10
                 master schedules mentioned application instances onto individual Nodes in the cluster.
                 </p>
 
-                <p>Once the application instances are created, a Kubernetes Deployment Controller continuously monitors those instances. If the Node hosting an instance goes down or is deleted, the Deployment controller replaces it. <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p>
+                <p>Once the application instances are created, a Kubernetes Deployment Controller continuously monitors those instances. If the Node hosting an instance goes down or is deleted, the Deployment controller replaces the instance with an instance on another Node in the cluster. <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p>
 
                 <p>In a pre-orchestration world, installation scripts would often be used to start applications, but they did not allow recovery from machine failure.  By both creating your application instances and keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach to application management. </p>
 
