@@ -4,6 +4,9 @@ reviewers:
 title: Kubernetes Components
 content_template: templates/concept
 weight: 20
+card: 
+  name: concepts
+  weight: 20
 ---
 
 {{% capture overview %}}

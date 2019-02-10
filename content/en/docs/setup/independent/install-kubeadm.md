@@ -2,6 +2,10 @@
 title: Installing kubeadm
 content_template: templates/task
 weight: 20
+card:
+  name: setup
+  weight: 20
+  title: Install the kubeadm setup tool
 ---
 
 {{% capture overview %}}

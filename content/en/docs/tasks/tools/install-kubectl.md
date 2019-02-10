@@ -5,6 +5,10 @@ reviewers:
 title: Install and Set Up kubectl
 content_template: templates/task
 weight: 10
+card:
+  name: tasks
+  weight: 20
+  title: Install kubectl
 ---
 
 {{% capture overview %}}

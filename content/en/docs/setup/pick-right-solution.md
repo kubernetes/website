@@ -6,6 +6,20 @@ reviewers:
 title: Picking the Right Solution
 weight: 10
 content_template: templates/concept
+card:
+  name: setup
+  weight: 20
+  anchors:
+  - anchor: "#hosted-solutions"
+    title: Hosted Solutions
+  - anchor: "#turnkey-cloud-solutions"
+    title: Turnkey Cloud Solutions
+  - anchor: "#on-premises-turnkey-cloud-solutions"
+    title: On-Premises Solutions
+  - anchor: "#custom-solutions"
+    title: Custom Solutions
+  - anchor: "#local-machine-solutions"
+    title: Local Machine
 ---
 
 {{% capture overview %}}

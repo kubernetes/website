@@ -6,6 +6,9 @@ reviewers:
 - krousey
 - clove
 content_template: templates/concept
+card:
+  name: reference
+  weight: 30
 ---
 
 {{% capture overview %}}

@@ -5,6 +5,10 @@ approvers:
 - chenopis
 - zacharysarah
 - zparnold
+card:
+  name: contribute
+  weight: 30
+  title: Translating the docs
 ---
 
 {{% capture overview %}}
