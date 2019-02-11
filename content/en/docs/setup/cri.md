@@ -45,7 +45,7 @@ Use the following commands to install Docker on your system:
     stable"
 
 ## Install docker ce.
-apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
+apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
@@ -78,7 +78,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Install docker ce.
-yum update && yum install docker-ce-18.06.1.ce
+yum update && yum install docker-ce-18.06.2.ce
 
 ## Create /etc/docker directory.
 mkdir /etc/docker
@@ -108,6 +108,14 @@ systemctl restart docker
 
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
+
+Please Note: 
+A flaw was found in the way runc handled system file descriptors when running containers.
+A malicious container could use this flaw to overwrite contents of the runc binary and 
+consequently run arbitrary commands on the container host system.
+
+Please refer to this link for more information about this issue 
+[cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
 
 ## CRI-O
 
