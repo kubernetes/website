@@ -64,6 +64,7 @@ In order for the ingress resource to work, the cluster must have an ingress cont
 
 Additional controllers include:
 
+* [Ambassador](https://www.getambassador.io/) is an open source Kubernetes-native API gateway built on the [Envoy Proxy](https://www.envoyproxy.io) with community and enterprise support from [Datawire](https://www.datawire.io/).
 * [Contour](https://github.com/heptio/contour) is an [Envoy](https://www.envoyproxy.io) based ingress controller
   provided and supported by Heptio.
 * Citrix provides an [Ingress Controller](https://github.com/citrix/citrix-k8s-ingress-controller) for its hardware (MPX), virtualized (VPX) and [free containerized (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) for [baremetal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) and [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
