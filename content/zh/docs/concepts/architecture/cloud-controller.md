@@ -102,7 +102,7 @@ PersistentVolumeLabels控制器将Kubernetes API服务器的依赖于云的功�
 
 ## 插件机制
 
-云控制器管理器使用Go接口与外部对接从而实现功能扩展。具体来说，它使用了[这里](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/cloud.go)定义的CloudProvider接口。
+云控制器管理器使用Go接口与外部对接从而实现功能扩展。具体来说，它使用了[这里](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62)定义的CloudProvider接口。
 
 上面强调的四个共享控制器的实现，以及一些辅助设施（scaffolding）和共享的云服务供应商接口，将被保留在Kubernetes核心当中。但云服务供应商特有的实现将会建立在核心之外，并实现核心中定义的接口。
 
