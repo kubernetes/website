@@ -441,7 +441,7 @@ kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/
 想了解关于 Calico 的使用的更多信息, 请参阅[Kubernetes上的Calico快速实践](https://docs.projectcalico.org/latest/getting-started/kubernetes/)、[安装 Calico 实现网络策略](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico)和其他相关资源。
 
 为了 Calico 可以正确工作，您需要给 `kubeadm init` 传递 `--Pod-network-cidr=192.168.0.0/16` 这样的选项，
-或者根据您的网络方案更新 `calico.yml` 。注意 Calico 只适用于 `amd64` 架构。
+或者根据您的网络方案更新 `calico.yml` 。注意 Calico 只适用于 `amd64`、`arm64`、`ppc64le`和`s390x` 架构。
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
