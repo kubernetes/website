@@ -354,13 +354,13 @@ This means that you can now register them as Windows services via `sc` command. 
 
 To create the service:
 ```
-PS > sc.exe create <component_name> binPath= "<path_to_binary> --service <other_args>"
-CMD > sc create <component_name> binPath= "<path_to_binary> --service <other_args>"
+PS > sc.exe create <component_name> binPath= "<path_to_binary> --windows-service <other_args>"
+CMD > sc create <component_name> binPath= "<path_to_binary> --windows-service <other_args>"
 ```
 Please note that if the arguments contain spaces, it must be escaped. Example:
 ```
-PS > sc.exe create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
-CMD > sc create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
+PS > sc.exe create kubelet binPath= "C:\kubelet.exe --windows-service --hostname-override 'minion' <other_args>"
+CMD > sc create kubelet binPath= "C:\kubelet.exe --windows-service --hostname-override 'minion' <other_args>"
 ```
 To start the service:
 ```

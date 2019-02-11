@@ -108,7 +108,6 @@ Other CRI-based runtimes include:
 - [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
-- [rkt](https://github.com/kubernetes-incubator/rktlet)
 
 Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
 
@@ -137,8 +136,10 @@ This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
 {{</ warning >}}
 
-For more information on version skews, please read our
-[version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
+For more information on version skews, see:
+
+* Kubernetes [version and version-skew policy](/docs/setup/version-skew-policy/)
+* Kubeadm-specific [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -172,7 +173,7 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-systemctl enable kubelet && systemctl start kubelet
+systemctl enable --now kubelet
 ```
 
   **Note:**
@@ -190,6 +191,7 @@ systemctl enable kubelet && systemctl start kubelet
     EOF
     sysctl --system
     ```
+  - Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
 Install CNI plugins (required for most pod network):
@@ -226,7 +228,7 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/bu
 Enable and start `kubelet`:
 
 ```bash
-systemctl enable kubelet && systemctl start kubelet
+systemctl enable --now kubelet
 ```
 {{% /tab %}}
 {{< /tabs >}}

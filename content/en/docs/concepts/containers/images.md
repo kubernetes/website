@@ -170,6 +170,11 @@ will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 {{< /note >}}
 
+{{< note >}}
+Kubernetes as of now only supports the `auths` and `HttpHeaders` section of docker config. This means credential helpers (`credHelpers` or `credsStore`) are not supported.
+{{< /note >}}
+
+
 Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
 in the search paths list below, kubelet uses it as the credential provider when pulling images.
 
@@ -355,7 +360,7 @@ common use cases and suggested solutions.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
    - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
-     - It may be hosted on the [Docker Hub](https://hub.docker.com/account/signup/), or elsewhere.
+     - It may be hosted on the [Docker Hub](https://hub.docker.com/signup), or elsewhere.
      - Manually configure .docker/config.json on each node as described above.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.

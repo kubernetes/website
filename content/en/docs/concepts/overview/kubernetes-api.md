@@ -33,16 +33,18 @@ What constitutes a compatible change and how to change the API are detailed by t
 
 ## OpenAPI and Swagger definitions
 
-Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`.
+Complete API details are documented using [OpenAPI](https://www.openapis.org/).
 
-Starting with Kubernetes 1.10, OpenAPI spec is served in a single `/openapi/v2` endpoint. The format-separated endpoints (`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`) are deprecated and will get removed in Kubernetes 1.14.
-
-Requested format is specified by setting HTTP headers:
+Starting with Kubernetes 1.10, the Kubernetes API server serves an OpenAPI spec via the `/openapi/v2` endpoint.
+The requested format is specified by setting HTTP headers:
 
 Header | Possible Values
 ------ | ---------------
 Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (the default content-type is `application/json` for `*/*` or not passing this header)
 Accept-Encoding | `gzip` (not passing this header is acceptable)
+
+Prior to 1.14, format-separated endpoints (`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)
+serve the OpenAPI spec in different formats. These endpoints are deprecated, and will be removed in Kubernetes 1.14.
 
 **Examples of getting OpenAPI spec**:
 
@@ -52,8 +54,11 @@ GET /swagger.json | GET /openapi/v2 **Accept**: application/json
 GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
 GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip
 
-
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
+
+Prior to 1.14, the Kubernetes apiserver also exposes an API that can be used to retrieve 
+the [Swagger v1.2](http://swagger.io/) Kubernetes API spec at `/swaggerapi`.
+This endpoint is deprecated, and will be removed in Kubernetes 1.14.
 
 ## API versioning
 
@@ -125,9 +130,9 @@ to pick up the `--runtime-config` changes.
 
 ## Enabling resources in the groups
 
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
+DaemonSets, Deployments, HorizontalPodAutoscalers, Ingresses, Jobs and ReplicaSets are enabled by default.
 Other extensions resources can be enabled by setting `--runtime-config` on
 apiserver. `--runtime-config` accepts comma separated values. For example: to disable deployments and ingress, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`
+`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
 
 {{% /capture %}}

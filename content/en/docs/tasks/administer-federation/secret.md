@@ -70,7 +70,7 @@ These secrets in underlying clusters will match the federated secret.
 You can update a federated secret as you would update a Kubernetes
 secret; however, for a federated secret, you must send the request to
 the federation apiserver instead of sending it to a specific Kubernetes cluster.
-The Federation control plan ensures that whenever the federated secret is
+The Federation control plane ensures that whenever the federated secret is
 updated, it updates the corresponding secrets in all underlying clusters to
 match it.
 

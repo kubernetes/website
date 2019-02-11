@@ -92,13 +92,13 @@ admins constructing their own audit profiles.
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides two backends:
+[Kube-apiserver][kube-apiserver] out of the box provides three backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
 - Dynamic backend, which configures webhook backends through an AuditSink API object.
 
-In both cases, audit events structure is defined by the API in the
+In all cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
 [`v1`][auditing-api].
 
@@ -276,7 +276,7 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
 1. create a config file for fluentd
 
     ```none
-    $ cat <<EOF > /etc/fluentd/config
+    $ cat <<'EOF' > /etc/fluentd/config
     # fluentd conf runs in the same host with kube-apiserver
     <source>
         @type tail
@@ -321,6 +321,7 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
             include_time_key true
         </template>
     </match>
+    EOF
     ```
 
 1. start fluentd
@@ -373,6 +374,7 @@ different users into different files.
             path=>"/var/log/kube-audit-%{[event][user][username]}/audit"
         }
     }
+    EOF
     ```
 
 1. start logstash

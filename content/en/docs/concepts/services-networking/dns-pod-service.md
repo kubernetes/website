@@ -84,7 +84,7 @@ the hostname of the pod. For example, given a Pod with `hostname` set to
 The Pod spec also has an optional `subdomain` field which can be used to specify
 its subdomain. For example, a Pod with `hostname` set to "`foo`", and `subdomain`
 set to "`bar`", in namespace "`my-namespace`", will have the fully qualified
-domain name (FQDN) "`foo.bar.my-namespace.svc.cluster.local`".
+domain name (FQDN) "`foo.bar.my-namespace.pod.cluster.local`".
 
 Example:
 
@@ -141,7 +141,7 @@ record for the Pod's fully qualified hostname.
 For example, given a Pod with the hostname set to "`busybox-1`" and the subdomain set to
 "`default-subdomain`", and a headless Service named "`default-subdomain`" in
 the same namespace, the pod will see its own FQDN as
-"`busybox-1.default-subdomain.my-namespace.svc.cluster.local`". DNS serves an
+"`busybox-1.default-subdomain.my-namespace.pod.cluster.local`". DNS serves an
 A record at that name, pointing to the Pod's IP. Both pods "`busybox1`" and
 "`busybox2`" can have their distinct A records.
 
@@ -251,7 +251,7 @@ options ndots:2 edns0
 For IPv6 setup, search path and name server should be setup like this:
 
 ```
-$ kubectl exec -it busybox -- cat /etc/resolv.conf
+$ kubectl exec -it dns-example -- cat /etc/resolv.conf
 nameserver fd00:79:30::a
 search default.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5

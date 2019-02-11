@@ -758,13 +758,10 @@ for supported instance types.
 
 ### Type ExternalName {#externalname}
 
-{{< note >}}
-ExternalName Services are available only with `kube-dns` version 1.7 and later.
-{{< /note >}}
+Services of type ExternalName map a service to a DNS name, not to a typical selector such as
+`my-service` or `cassandra`. You specify these services with the `spec.externalName` parameter.
 
-Services of type ExternalName map a service to a DNS name (specified using
-the `spec.externalName` parameter) rather than to a typical selector like
-`my-service` or `cassandra`. This Service definition, for example, would map
+This Service definition, for example, maps
 the `my-service` Service in the `prod` namespace to `my.database.example.com`:
 
 ```yaml
@@ -777,6 +774,10 @@ spec:
   type: ExternalName
   externalName: my.database.example.com
 ```
+{{< note >}}
+ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address. ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
+is intended to specify a canonical DNS name. To hardcode an IP address, consider headless services.
+{{< /note >}}
 
 When looking up the host `my-service.prod.svc.cluster.local`, the cluster DNS service
 will return a `CNAME` record with the value `my.database.example.com`. Accessing

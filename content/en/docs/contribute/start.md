@@ -79,7 +79,7 @@ Anyone with a Github account can file an issue (bug report) against the
 Kubernetes documentation. If you see something wrong, even if you have no idea
 how to fix it, [file an issue](#how-to-file-an-issue). The exception to this
 rule is a tiny bug like a typo that you intend to fix yourself. In that case,
-you can instead [fix it](#fix-it) without filing a bug first.
+you can instead [fix it](#improve-existing-content) without filing a bug first.
 
 ### How to file an issue
 

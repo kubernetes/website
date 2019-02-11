@@ -16,7 +16,7 @@ and control plane nodes are co-located.
 - With an external etcd cluster. This approach requires more infrastructure. The
 control plane nodes and etcd members are separated.
 
-Before proceeding, you should carefully consideer which approach best meets the needs of your applications
+Before proceeding, you should carefully consider which approach best meets the needs of your applications
 and environment. [This comparison topic](/docs/setup/independent/ha-topology/) outlines the advantages and disadvantages of each.
 
 Your clusters must run Kubernetes version 1.12 or later. You should also be aware that
@@ -27,7 +27,7 @@ We encourage you to try either approach, and provide us with feedback in the kub
 
 Note that the alpha feature gate `HighAvailability` is deprecated in v1.12 and removed in v1.13.
 
-See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha).
+See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13).
 
 {{< caution >}}
 This page does not address running your cluster on a cloud provider. In a cloud
@@ -74,7 +74,7 @@ run as root.
 {{< /note >}}
 
 - Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-  some like Weave do not. See the see [the CNI network
+  some like Weave do not. See the [CNI network
   documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
   To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
   the `networking` object of `ClusterConfiguration`.
@@ -222,6 +222,12 @@ SSH is required if you want to control all nodes from a single machine.
         scp /etc/kubernetes/admin.conf "${USER}"@$host:
     done
     ```
+
+{{< caution >}}
+Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates
+with the required SANs for the joining control-plane instances. If you copy all the certificates by mistake,
+the creation of additional nodes could fail due to a lack of required SANs.
+{{< /caution >}}
 
 ### Steps for the rest of the control plane nodes
 

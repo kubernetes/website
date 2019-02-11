@@ -18,12 +18,11 @@ content_template: templates/concept
 
 * [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - 쿠버네티스 API에 대한 개요
 * 쿠버네티스 API 버전
+  * [1.13](/docs/reference/generated/kubernetes-api/v1.13/)
   * [1.12](/docs/reference/generated/kubernetes-api/v1.12/)
   * [1.11](/docs/reference/generated/kubernetes-api/v1.11/)
   * [1.10](https://v1-10.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/)
   * [1.9](https://v1-9.docs.kubernetes.io/docs/api-reference/v1.9/)
-  * [1.8](https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/)
-  * [1.7](https://v1-7.docs.kubernetes.io/docs/api-reference/v1.7/)
 
 ## API 클라이언트 라이브러리
 
@@ -33,6 +32,8 @@ content_template: templates/concept
 
 - [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
 - [Kubernetes Python client library](https://github.com/kubernetes-client/python)
+- [Kubernetes Java client library](https://github.com/kubernetes-client/java)
+- [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
 
 ## CLI 레퍼런스
 

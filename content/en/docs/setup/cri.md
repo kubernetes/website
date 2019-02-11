@@ -20,32 +20,31 @@ You may become the root user by executing `sudo -i` after SSH-ing to each host.
 ## Docker
 
 On each of your machines, install Docker.
-Version 18.06 is recommended, but 1.11, 1.12, 1.13 and 17.03 are known to work as well.
+Version 18.06 is recommended, but 1.11, 1.12, 1.13, 17.03 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# Install Docker from Ubuntu's repositories:
-apt-get update
-apt-get install -y docker.io
+# Install Docker CE
+## Set up the repository:
+### Update the apt package index
+    apt-get update
 
-# or install Docker CE 18.06 from Docker's repositories for Ubuntu or Debian:
+### Install packages to allow apt to use a repository over HTTPS
+    apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
-## Install prerequisites.
-apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+### Add Docker’s official GPG key
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-## Download GPG key.
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+### Add docker apt repository.
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
 
-## Add docker apt repository.
-add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-## Install docker.
+## Install docker ce.
 apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
 
 # Setup daemon.
@@ -68,20 +67,17 @@ systemctl restart docker
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# Install Docker from CentOS/RHEL repository:
-yum install -y docker
+# Install Docker CE
+## Set up the repository
+### Install required packages.
+    yum install yum-utils device-mapper-persistent-data lvm2
 
-# or install Docker CE 18.06 from Docker's CentOS repositories:
-
-## Install prerequisites.
-yum install yum-utils device-mapper-persistent-data lvm2
-
-## Add docker repository.
+### Add docker repository.
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-## Install docker.
+## Install docker ce.
 yum update && yum install docker-ce-18.06.1.ce
 
 ## Create /etc/docker directory.
@@ -222,8 +218,8 @@ tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd6
 systemctl start containerd
 ```
 
-## Other CRI runtimes: rktlet and frakti
+## Other CRI runtimes: frakti
 
-Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) and [Rktlet Getting Started guide](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md) for more information.
+Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
 
 {{% /capture %}}

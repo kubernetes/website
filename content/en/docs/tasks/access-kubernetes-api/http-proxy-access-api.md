@@ -10,12 +10,14 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 
 {{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* If you do not already have an application running in your cluster, start
-  a Hello world application by entering this command:
+If you do not already have an application running in your cluster, start
+a Hello world application by entering this command:
 
-      kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+```shell
+kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+```
 
 {{% /capture %}}
 

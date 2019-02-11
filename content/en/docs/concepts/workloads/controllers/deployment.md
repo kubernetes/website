@@ -66,9 +66,9 @@ In this example:
   * The Pods are labeled `app: nginx`using the `labels` field.
   * The Pod template's specification, or `.template.spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
-  [Docker Hub](https://hub.docker.com/) image at version 1.15.4.
+  [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
   * Create one container and name it `nginx` using the `name` field.
-  * Run the `nginx` image at version `1.15.4`.
+  * Run the `nginx` image at version `1.7.9`.
   * Open port `80` so that the container can send and accept traffic.
 
 To create this Deployment, run the following command:
@@ -171,8 +171,8 @@ Suppose that you now want to update the nginx Pods to use the `nginx:1.9.1` imag
 instead of the `nginx:1.7.9` image.
 
 ```shell
-$ kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record
-deployment.apps/nginx-deployment image updated
+$ kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment
+nginx=nginx:1.9.1 image updated
 ```
 
 Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
