@@ -318,7 +318,7 @@ type: kubernetes.io/dockerconfigjson
 
 If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
 If you get an error message like `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`, it means
-the data was successfully un-base64 encoded, but could not be parsed as a `.docker/config.json` file.
+the base64 encoded string in the data was successfully decoded, but could not be parsed as a `.docker/config.json` file.
 
 #### Referring to an imagePullSecrets on a Pod
 
