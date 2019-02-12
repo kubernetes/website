@@ -6,8 +6,8 @@ slug: building-a-kubernetes-edge-control-plane-for-envoy-v2
 
 
 **Author:**
-Daniel Bryant, Product Architect, Datawire
-Flynn, Ambassador Lead Developer, Datawire
+Daniel Bryant, Product Architect, Datawire;
+Flynn, Ambassador Lead Developer, Datawire;
 Richard Li, CEO and Co-founder, Datawire
 
 
