@@ -15,5 +15,4 @@ tags:
 
 <!--more--> 
 
-A cluster has several worker nodes and at least one master node.
-
+A cluster has several {{< glossary_tooltip text="worker nodes" term_id="node" >}} and at least one master node.

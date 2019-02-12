@@ -10,7 +10,7 @@ aka:
 tags:
 - architecture
 ---
- Component on the master that watches newly created pods that have no node assigned, and selects a node for them to run on.
+ Component on the master that watches newly created {{< glossary_tooltip text="pods" term_id="pod" >}} that have no {{< glossary_tooltip term_id="node" >}} assigned, and selects a node for them to run on.
 
 <!--more--> 
 

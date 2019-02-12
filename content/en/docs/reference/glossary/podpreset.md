@@ -10,7 +10,7 @@ aka:
 tags:
 - operation
 ---
- An API object that injects information such as secrets, volume mounts, and environment variables into pods at creation time.
+ An API object that injects information such as secrets, volume mounts, and environment variables into {{< glossary_tooltip text="pods" term_id="pod" >}} at creation time.
 
 <!--more--> 
 

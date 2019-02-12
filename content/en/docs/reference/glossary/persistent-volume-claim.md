@@ -11,7 +11,7 @@ tags:
 - core-object
 - storage
 ---
- Claims storage resources defined in a PersistentVolume so that it can be mounted as a volume in a container.
+ Claims storage resources defined in a PersistentVolume so that it can be mounted as a volume in a {{< glossary_tooltip text="container" term_id="container" >}}.
 
 <!--more--> 
 

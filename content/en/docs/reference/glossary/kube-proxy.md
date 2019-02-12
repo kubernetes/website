@@ -11,7 +11,7 @@ tags:
 - fundamental
 - core-object
 ---
- `kube-proxy` is a network proxy that runs on each node in the cluster.
+ `kube-proxy` is a network proxy that runs on each {{< glossary_tooltip text="node" term_id="node" >}} in the cluster.
 
 <!--more--> 
 

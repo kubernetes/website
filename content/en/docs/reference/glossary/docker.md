@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
- Docker is a software technology providing operating-system-level virtualization also known as containers.
+ Docker is a software technology providing operating-system-level virtualization also known as {{< glossary_tooltip text="containers" term_id="container" >}}.
 
 <!--more--> 
 

@@ -11,7 +11,7 @@ tags:
 - workload
 - core-object
 ---
- Kubernetes service that ensures a specific number of instances of a pod are always running.
+ Kubernetes service that ensures a specific number of instances of a {{< glossary_tooltip text="Pod" term_id="pod" >}} are always running.
 
 <!--more--> 
 

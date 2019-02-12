@@ -16,5 +16,5 @@ tags:
 
 <!--more--> 
 
-ReplicaSet, like ReplicationController, ensures that a specified number of pods replicas are running at one time. ReplicaSet supports the new set-based selector requirements as described in the labels user guide, whereas a Replication Controller only supports equality-based selector requirements.
+ReplicaSet, like ReplicationController, ensures that a specified number of pods replicas are running at one time. ReplicaSet supports the new set-based {{< glossary_tooltip text="selector" term_id="selector" >}} requirements as described in the labels user guide, whereas a Replication Controller only supports equality-based selector requirements.
 

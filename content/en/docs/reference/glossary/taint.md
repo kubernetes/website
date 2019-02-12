@@ -11,7 +11,7 @@ tags:
 - core-object
 - fundamental
 ---
- A key-value pair and an effect to prevent the scheduling of pods on nodes or node groups.
+ A key-value pair and an effect to prevent the scheduling of {{< glossary_tooltip text="pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups.
 
 <!--more-->
 
