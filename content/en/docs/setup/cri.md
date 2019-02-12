@@ -17,10 +17,19 @@ This page contains installation instruction for various runtimes.
 Please proceed with executing the following commands based on your OS as root.
 You may become the root user by executing `sudo -i` after SSH-ing to each host.
 
+{{< caution >}}
+A flaw was found in the way runc handled system file descriptors when running containers.
+A malicious container could use this flaw to overwrite contents of the runc binary and 
+consequently run arbitrary commands on the container host system.
+
+Please refer to this link for more information about this issue 
+[cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
+{{< /caution >}}
+
 ## Docker
 
 On each of your machines, install Docker.
-Version 18.06 is recommended, but 1.11, 1.12, 1.13, 17.03 and 18.09 are known to work as well.
+Version 18.06.2 is recommended, but 1.11, 1.12, 1.13, 17.03 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
@@ -45,7 +54,7 @@ Use the following commands to install Docker on your system:
     stable"
 
 ## Install docker ce.
-apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
+apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
@@ -78,7 +87,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Install docker ce.
-yum update && yum install docker-ce-18.06.1.ce
+yum update && yum install docker-ce-18.06.2.ce
 
 ## Create /etc/docker directory.
 mkdir /etc/docker
