@@ -223,7 +223,7 @@ kubectl describe nodes
 The output includes a record of the Container being killed because of an out-of-memory condition:
 
 ```
-Warning OOMKilling  Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
+Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
 ```
 
 Delete your Pod:
