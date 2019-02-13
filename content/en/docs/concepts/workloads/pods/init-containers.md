@@ -83,7 +83,7 @@ Here are some ideas for how to use Init Containers:
 
 * Register this Pod with a remote server from the downward API with a command like:
 
-      curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
+      `curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'`
 
 * Wait for some time before starting the app Container with a command like `sleep 60`.
 * Clone a git repository into a volume.
