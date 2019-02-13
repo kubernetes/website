@@ -137,6 +137,30 @@ aliases:
     - stewart-yu
     - xiangpengzhao
     - zhangxiaoyu-zidif
+  sig-docs-fr-owners: #Team: Documentation; GH: sig-docs-fr-owners
+    - sieben
+    - perriea
+    - rekcah78
+    - lledru
+    - yastij
+    - smana
+    - rbenzair
+    - abuisine
+    - erickhun
+    - jygastaud
+    - awkif
+  sig-docs-fr-reviews: #Team: Documentation; GH: sig-docs-fr-reviews
+    - sieben
+    - perriea
+    - rekcah78
+    - lledru
+    - yastij
+    - smana
+    - rbenzair
+    - abuisine
+    - erickhun
+    - jygastaud
+    - awkif
   sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
     - cstoku
     - nasa9084
