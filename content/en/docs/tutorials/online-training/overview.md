@@ -23,6 +23,8 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [IBM Cloud: Deploying Microservices with Kubernetes (Coursera)](https://www.coursera.org/learn/deploy-micro-kube-ibm-cloud)
 
+* [Introduction to Kubernetes (Cloud Native Computing Foundation)](https://www.cncf.io/certification/training/)
+
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x)
 
 * [Kubernetes for the Absolute Beginners with Hands-on Labs (KodeKloud.com)](https://kodekloud.com/p/kubernetes-for-the-absolute-beginners-hands-on)
