@@ -302,31 +302,30 @@ kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/
 {{% /tab %}}
 
 {{% tab name="Cilium" %}}
-For more information about using Cilium with Kubernetes, see [Quickstart for Cilium on Kubernetes](http://docs.cilium.io/en/v1.2/kubernetes/quickinstall/) and [Kubernetes Install guide for Cilium](http://docs.cilium.io/en/v1.2/kubernetes/install/).
-
-Passing `--pod-network-cidr` option to `kubeadm init` is not required, but highly recommended.
+For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
 
 These commands will deploy Cilium with its own etcd managed by etcd operator.
 
+_Note_: If you are running kubeadm in a single node please untaint it so that
+etcd-operator pods can be scheduled in the control-plane node.
+
 ```shell
-# Download required manifests from Cilium repository
-wget https://github.com/cilium/cilium/archive/v1.2.0.zip
-unzip v1.2.0.zip
-cd cilium-1.2.0/examples/kubernetes/addons/etcd-operator
-
-# Generate and deploy etcd certificates
-export CLUSTER_DOMAIN=$(kubectl get ConfigMap --namespace kube-system coredns -o yaml | awk '/kubernetes/ {print $2}')
-tls/certs/gen-cert.sh $CLUSTER_DOMAIN
-tls/deploy-certs.sh
-
-# Label kube-dns with fixed identity label
-kubectl label -n kube-system pod $(kubectl -n kube-system get pods -l k8s-app=kube-dns -o jsonpath='{range .items[]}{.metadata.name}{" "}{end}') io.cilium.fixed-identity=kube-dns
-
-kubectl create -f ./
-
-# Wait several minutes for Cilium, coredns and etcd pods to converge to a working state
+kubectl taint nodes <node-name> node-role.kubernetes.io/master:NoSchedule-
 ```
 
+To deploy Cilium you just need to run:
+
+```shell
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.4/examples/kubernetes/1.13/cilium.yaml
+```
+
+Once all Cilium pods are marked as `READY`, you start using your cluster.
+
+```shell
+$ kubectl get pods -n kube-system --selector=k8s-app=cilium
+NAME           READY   STATUS    RESTARTS   AGE
+cilium-drxkl   1/1     Running   0          18m
+```
 
 {{% /tab %}}
 {{% tab name="Flannel" %}}
