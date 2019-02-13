@@ -66,6 +66,7 @@ If none are enabled, you can skip creating Pod Disruption Budgets.
 {{< caution >}}
 Not all voluntary disruptions are constrained by Pod Disruption Budgets. For example,
 deleting deployments or pods bypasses Pod Disruption Budgets.**
+{{< /caution >}}
 
 ## Dealing with Disruptions
 
