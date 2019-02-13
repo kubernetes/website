@@ -1,5 +1,5 @@
 
-生成 API 服务器的客户端证书连接到 kubelet
+生成 API 服务器连接 kubelet 所使用的客户端证书
 <!--
 Generates the Client certificate for the API server to connect to kubelet
 -->
@@ -13,12 +13,12 @@ Generates the Client certificate for the API server to connect to kubelet
 <!--
 Generates the Client certificate for the API server to connect to kubelet, and saves them into apiserver-kubelet-client.cert and apiserver-kubelet-client.key files. 
 -->
-生成 API 服务器的客户端证书连接到 kubelet，并将其保存到 apiserver-kubelet-client.cert 和 apiserver-kubelet-client.key 文件中。
+生成 API 服务器连接 kubelet 所使用的客户端证书，并将其保存到 apiserver-kubelet-client.cert 和 apiserver-kubelet-client.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used. 
 -->
-如果两个文件都已存在，kubeadm 将跳过生成步骤并将使用现有文件。
+如果两个文件都已存在，kubeadm 将跳过生成步骤而直接使用现有文件。
 
 <!--
 Alpha Disclaimer: this command is currently alpha.
@@ -50,10 +50,10 @@ kubeadm alpha phase certs apiserver-kubelet-client [flags]
 -->
 
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the certificates</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">保存证书的路径</td>
     </tr>
 <!--
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">保存证书的路径</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the certificates</td>
 -->
 
     <tr>
