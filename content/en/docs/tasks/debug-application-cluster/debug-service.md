@@ -489,7 +489,7 @@ u@node$ iptables-save | grep hostnames
 
 There should be 2 rules for each port on your `Service` (just one in this
 example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".  If you do
-not see these, try restarting `kube-proxy` with the `-V` flag set to 4, and
+not see these, try restarting `kube-proxy` with the `-v` flag set to 4, and
 then look at the logs again.
 
 Almost nobody should be using the "userspace" mode any more, so we won't spend
@@ -559,7 +559,7 @@ If this still fails, look at the `kube-proxy` logs for specific lines like:
 Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376]
 ```
 
-If you don't see those, try restarting `kube-proxy` with the `-V` flag set to 4, and
+If you don't see those, try restarting `kube-proxy` with the `-v` flag set to 4, and
 then look at the logs again.
 
 ### A Pod cannot reach itself via Service IP
