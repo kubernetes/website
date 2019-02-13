@@ -73,14 +73,14 @@ If you have a DNS Deployment, your scale target is:
 
     Deployment/<your-deployment-name>
 
-where <dns-deployment-name> is the name of your DNS Deployment. For example, if
+where `<your-deployment-name>` is the name of your DNS Deployment. For example, if
 your DNS Deployment name is coredns, your scale target is Deployment/coredns.
 
 If you have a DNS ReplicationController, your scale target is:
 
     ReplicationController/<your-rc-name>
 
-where <your-rc-name> is the name of your DNS ReplicationController. For example,
+where `<your-rc-name>` is the name of your DNS ReplicationController. For example,
 if your DNS ReplicationController name is kube-dns-v20, your scale target is
 ReplicationController/kube-dns-v20.
 
@@ -238,6 +238,3 @@ is under consideration as a future development.
 Learn more about the
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
 {{% /capture %}}
-
-
-
