@@ -25,3 +25,5 @@ For example, there are [admission controllers](/docs/reference/access-authn-auth
 that intercept requests to the Kubernetes API server and send these to an
 external service. These admission controllers stall the original request
 until the external service has responded.
+
+For more on webhooks in general, see [What Webhooks Are And Why You Should Care](http://timothyfitz.com/2009/02/09/what-webhooks-are-and-why-you-should-care/).
