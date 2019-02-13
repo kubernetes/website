@@ -988,15 +988,12 @@ Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1
 
 ### Revision History Limit
 
-A Deployment's revision history is stored in the replica sets it controls.
+A Deployment's revision history is stored in the ReplicaSets it controls.
 
 `.spec.revisionHistoryLimit` is an optional field that specifies the number of old ReplicaSets to retain
-to allow rollback. Its ideal value depends on the frequency and stability of new Deployments. All old
-ReplicaSets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`,
-if this field is not set. The configuration of each Deployment revision is stored in its ReplicaSets;
-therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment.
+to allow rollback. These old ReplicaSets consume resources in `etcd` and crowd the output of `kubectl get rs`. The configuration of each Deployment revision is stored in its ReplicaSets; therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment. By default, 10 old ReplicaSets will be kept, however its ideal value depends on the frequency and stability of new Deployments. 
 
-More specifically, setting this field to zero means that all old ReplicaSets with 0 replica will be cleaned up.
+More specifically, setting this field to zero means that all old ReplicaSets with 0 replicas will be cleaned up.
 In this case, a new Deployment rollout cannot be undone, since its revision history is cleaned up.
 
 ### Paused
