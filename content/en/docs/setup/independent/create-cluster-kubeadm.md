@@ -337,10 +337,11 @@ Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`.
+Note that `flannel` works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` under Linux.
+Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml
 ```
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
