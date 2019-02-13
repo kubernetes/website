@@ -185,7 +185,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 ### Deploy the conversion webhook service
 
 Documentation for deploying the conversion webhook is the same as for the [admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
-The assumption for next sections is that the conversion webhook server is deployed to a service named `example-conversion-webhook-server` in `default` namespace and serving on path `/crdconvert`.
+The assumption for next sections is that the conversion webhook server is deployed to a service named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
 
 {{< note >}}
 When the webhook server is deployed into the Kubernetes cluster as a
