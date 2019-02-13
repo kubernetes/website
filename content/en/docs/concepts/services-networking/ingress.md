@@ -346,7 +346,7 @@ kind: Secret
 metadata:
   name: testsecret-tls
   namespace: default
-type: Opaque
+type: kubernetes.io/tls
 ```
 
 Referencing this secret in an ingress will tell the ingress controller to
