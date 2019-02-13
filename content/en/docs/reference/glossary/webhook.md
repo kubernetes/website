@@ -21,7 +21,7 @@ that includes a payload in JSON format. On the recipient side, the webhook can
 trigger further processing such as invalidating a cache and refetching.
 
 In Kubernetes, “webhook mode” refers to calling an external service via HTTP.
-You can configure Kubernetes so that its API server makes a `POST` to an
-external service when processing certain requests. The API server waits for
-a response to that `POST` so that it can continue processing the original
-request.
+For example, there are [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
+that intercept requests to the Kubernetes API server and send these to an
+external service. These admission controllers stall the original request
+until the external service has responded.
