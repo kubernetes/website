@@ -63,7 +63,8 @@ Ask your cluster administrator or consult your cloud provider or distribution do
 to determine if any sources of voluntary disruptions are enabled for your cluster.
 If none are enabled, you can skip creating Pod Disruption Budgets.
 
-**Not all voluntary disruptions are constrained by Pod Disruption Budgets. For example,
+{{< caution >}}
+Not all voluntary disruptions are constrained by Pod Disruption Budgets. For example,
 deleting deployments or pods bypasses Pod Disruption Budgets.**
 
 ## Dealing with Disruptions
