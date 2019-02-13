@@ -10,7 +10,7 @@ aka:
 tags:
 - workload
 ---
-A workload consists of a system of services or applications that can run to fulfil a
+A workload consists of a system of services or applications that can run to fulfill a
 task or carry out a business process.
 
 <!--more-->
