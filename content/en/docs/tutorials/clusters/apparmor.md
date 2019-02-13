@@ -390,7 +390,7 @@ Pod is running.
 To debug problems with AppArmor, you can check the system logs to see what, specifically, was
 denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
 logs or through `journalctl`. More information is provided in
-[AppArmor failures](http://wiki.apparmor.net/index.php/AppArmor_Failures).
+[AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures).
 
 
 ## API Reference
@@ -414,7 +414,7 @@ Specifying the profile a container will run with:
     containers, and unconfined (no profile) for privileged containers.
 - `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
   - The possible profile names are detailed in the
-    [core policy reference](http://wiki.apparmor.net/index.php/AppArmor_Core_Policy_Reference#Profile_names_and_attachment_specifications).
+    [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
 - `unconfined`: This effectively disables AppArmor on the container.
 
 Any other profile reference format is invalid.
