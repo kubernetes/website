@@ -4,21 +4,22 @@ id: webhook
 date: 2019-02-13
 full_link: /docs/reference/access-authn-authz/webhook/
 short_description: >
-  A way for one component to notify another component in real time, via HTTP.
+  A way to notify a web service via HTTP, in real time.
 
 aka:
 tags:
 - networking
 ---
- A notification message sent from one component to another component's unique URL,
- via HTTP.
+ A de facto mechanism for sending event notifications to an external web service.
 
 <!--more-->
 
 The two components need not be related, and often are not. The sender need only
-know the URL of the recipient side. Typically, a webhook makes a `POST` request
-that includes a payload in JSON format. On the recipient side, the webhook can
-trigger further processing such as invalidating a cache and refetching.
+know the URL of the recipient side. Typically, the sending side makes a `POST`
+request to a pre-arranged URL on the recipient component. The body of that `POST`
+is either empty, or consists of machine-readable data such as JSON.
+On the receiving side, the webhook's arrival can trigger further processing such
+as invalidating a cache and refetching.
 
 In Kubernetes, “webhook mode” refers to calling an external service via HTTP.
 For example, there are [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
