@@ -4,7 +4,7 @@ id: workload
 date: 2019-02-12
 full_link: /docs/concepts/workloads/
 short_description: >
-  A set of applications for processing information to serve a user need.
+  A set of applications for processing information to serve a purpose that is valuable to a single user or group of users.
 
 aka:
 tags:
