@@ -29,8 +29,8 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud.com)](https://kodekloud.com/p/kubernetes-certification-course)
 
+* [Getting Started with Google Kubernetes Engine (Coursera)](https://www.coursera.org/learn/google-kubernetes-engine)
+
+* [IBM Cloud: Deploying Microservices with Kubernetes (Coursera)](https://www.coursera.org/learn/deploy-micro-kube-ibm-cloud)
+
 {{% /capture %}}
-
-
-
-
