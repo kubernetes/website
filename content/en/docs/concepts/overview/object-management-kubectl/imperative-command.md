@@ -73,7 +73,7 @@ that must be set:
 The `kubectl` command also supports update commands driven by an aspect of the object.
 Setting this aspect may set different fields for different object types:
 
-- `set` <field>: Set an aspect of an object.
+- `set` `<field>`: Set an aspect of an object.
 
 {{< note >}}
 In Kubernetes version 1.5, not every verb-driven command has an associated aspect-driven command.
@@ -160,5 +160,3 @@ kubectl create --edit -f /tmp/srv.yaml
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}
-
-
