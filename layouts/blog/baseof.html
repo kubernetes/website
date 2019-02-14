@@ -20,7 +20,7 @@
 					<div class="widget-content">
 						{{ with site.Home.OutputFormats.Get "rss" -}}
 						<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
-						<a class="widget-link" href="{{ .Permalink | safeURL }}"> <i class="fas fa-rss fab-icon"> </i> </a>
+						<a class="widget-link" href="{{ .Permalink | safeURL }}"> <i class="fas fa-rss fab-icon"> </i> RSS Feed </a>
 						{{ end -}}
 						<a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square fab-icon"> </i> @Kubernetesio</a>
 						<a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square fab-icon"></i> View on Github </a>
