@@ -1,6 +1,6 @@
 ---
 title: Preemption
-id: Preemption
+id: preemption
 date: 2019-01-31
 full_link: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#preemption
 short_description: >
