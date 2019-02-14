@@ -7,7 +7,7 @@ weight: 40
 
 {{% capture overview %}}
 
-La section Concepts vous aide à mieux comprendre les composants du système Kubernetes et ses abstractions qu'il utilise pour représenter votre cluster. Elle vous aide également à mieux comprendre le fonctionnement de Kubernetes.
+La section Concepts vous aide à mieux comprendre les composants du système Kubernetes et les abstractions utilisées pour représenter votre cluster. Elle vous aide également à comprendre plus en profondeur comment fonctionne Kubernetes.
 
 {{% /capture %}}
 
@@ -15,9 +15,9 @@ La section Concepts vous aide à mieux comprendre les composants du système Kub
 
 ## Vue d'ensemble
 
-Pour utiliser Kubernetes, vous utilisez *les objets de l'API Kubernetes* pour décrire l'état souhaité *de votre cluster*: quelles applications ou autres charges de travail que vous souhaitez exécuter, quelles images de conteneur elles utilisent, le nombre de réplicas, les ressources réseau et disque souhaitées mettre à disposition, et plus encore. Vous définissez l'état souhaité en créant des objets à l'aide de l'API Kubernetes, généralement via l'interface de ligne de commande, `kubectl`. Vous pouvez également utiliser l'API Kubernetes directement pour interagir avec le cluster et définir ou modifier l'état souhaité.
+Pour utiliser Kubernetes, vous utilisez *les objets de l'API Kubernetes* pour décrire l'état souhaité *de votre cluster*: quelles applications ou autres workload (charge de travail) que vous souhaitez exécuter, quelles images de conteneur elles utilisent, le nombre de réplicas, les ressources réseau et disque que vous souhaitez mettre à disposition, et plus encore. Vous définissez l'état souhaité en créant des objets à l'aide de l'API Kubernetes, généralement via l'interface de ligne de commande, `kubectl`. Vous pouvez également utiliser l'API Kubernetes directement pour interagir avec le cluster et définir ou modifier l'état souhaité.
 
-Une fois que vous avez défini l'état souhaité, le *Kubernetes Control Plane* permet de faire en sorte que l'état actuel du cluster corresponde à l'état souhaité. Pour ce faire, Kubernetes effectue automatiquement diverses tâches, telles que le démarrage ou le redémarrage de conteneurs, la mise à l'échelle du nombre de réplicas d'une application donnée, etc. Le plan de contrôle Kubernetes comprend un ensemble de processus en cours d'exécution sur votre cluster:
+Une fois que vous avez défini l'état souhaité, le *Kubernetes Control Plane* (plan de contrôle Kubernetes) permet de faire en sorte que l'état actuel du cluster corresponde à l'état souhaité. Pour ce faire, Kubernetes effectue automatiquement diverses tâches, telles que le démarrage ou le redémarrage de conteneurs, la mise à l'échelle du nombre de réplicas d'une application donnée, etc. Le Kubernetes Control Plane comprend un ensemble de processus en cours d'exécution sur votre cluster:
 
 * Le **Master Kubernetes** est un ensemble de trois processus qui s'exécutent sur un seul nœud de votre cluster, désigné comme nœud master. Ces processus sont: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) et [kube-scheduler](/docs/admin/kube-scheduler/)
 
@@ -46,9 +46,9 @@ En outre, Kubernetes contient un certain nombre d'abstractions de niveau supéri
 
 ## Plan de contrôle de Kubernetes
 
-Les différentes parties du plan de contrôle Kubernetes, telles que les processus Kubernetes Master et kubelet, déterminent la manière dont Kubernetes communique avec votre cluster. Le plan de contrôle conserve un enregistrement de tous les objets Kubernetes du système et exécute des boucles de contrôle continues pour gérer l'état de ces objets. À tout moment, les boucles de contrôle du plan de contrôle répondent aux modifications du cluster et permettent de faire en sorte que l'état actuel de tous les objets du système corresponde à l'état souhaité que vous avez poussé.
+Les différentes parties du Kubernetes Control Plane, telles que les processus Kubernetes Master et kubelet, déterminent la manière dont Kubernetes communique avec votre cluster. Le plan de contrôle conserve un enregistrement de tous les objets Kubernetes du système et exécute des boucles de contrôle continues pour gérer l'état de ces objets. À tout moment, les boucles de contrôle du plan de contrôle répondent aux modifications du cluster et permettent de faire en sorte que l'état actuel de tous les objets du système corresponde à l'état souhaité que vous avez poussé.
 
-Par exemple, lorsque vous utilisez l'API Kubernetes pour créer un objet Deployment, vous fournissez un nouvel état souhaité au système. Le plan de contrôle Kubernetes enregistre la création de cet objet et exécute vos instructions en lançant les applications requises tout en les planifiant sur les nœuds de cluster de manière que l'état actuel du cluster corresponde à l'état souhaité.
+Par exemple, lorsque vous utilisez l'API Kubernetes pour créer un objet Deployment, vous fournissez un nouvel état souhaité au système. Le Kubernetes Control Plane enregistre la création de cet objet et exécute vos instructions en lançant les applications requises tout en les planifiant sur les nœuds de cluster de manière à ce que l'état actuel du cluster corresponde à l'état souhaité.
 
 ### Master Kubernetes
 
