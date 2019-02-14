@@ -349,7 +349,7 @@ After you specify an MCS label for a Pod, all Pods with the same label can acces
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 * [Tuning Docker with the newest security enhancements](https://opensource.com/business/15/3/docker-security-tuning)
-* [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
+* [Security Contexts design document](https://git.k8s.io/communityy/contributors/design-proposals/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
 * [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
 * [AllowPrivilegeEscalation design
