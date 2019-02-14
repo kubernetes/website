@@ -1,0 +1,188 @@
+Blog Post: TEN Commandants to Hack in Kubernetes World
+                                 
+1.	The Beginning 
+  “Well begun is half done”
+  -	Aristotle
+It all started around 2007-2008 with Linux operating system giving its users the flexibility to have separate namespaces for file systems and processes. Linux always had isolation within its Kernel. But it was LXC (LinuX Containers) which brought this isolation feature to forefront and usage. LXC is nothing but OS level Virtualization, to understand it think of it as a Hotel Room with Kitchenette now OS is the Hotel here and the different Hotel Rooms with Kitchenette are independent separate entities with independent users. As the Hotel rooms are isolated but use some common Hotel Services in similar way Linux Containers use the OS but still remain isolated from each other. This isolation in system is achieved using a lot of Linux Kernel technologies like cgroups, namespace isolation etc.
+In around 2013-2014 the old wine came in new bottle called Docker. It was tastier, more appealing and became an instant hit in the market. The underlying concept of Docker is the same as LXC but it came up with better packaging, reusability of Docker’s Container images and the icing on the cake was the simple runtime commands. Again trying to extend my example to understand the Docker Concept, think of Docker image as a RV (Recreational Vehicle) or Camper which is movable Room(Trailer) with Kitchenette. Since now Docker Image is packaged it can be moved to places and is no longer bonded to the OS(Hotel).
+Then the next big thing came in around 2014-2015 was Kubernetes but the key to its emergence and success was that it existed since long although not as an open source but existed as Google’s internal Cluster Management System. So when it hit the market it had already evolved as a product and as a system. At core Kubernetes is a container orchestration system. Trying to explain this from my example think of the RV as a Vehicle in a video game you are playing and you have too many RVs to handle also each RV has a different destination then there are traffic lights in the game so you need to stop and start RVs. There will be accidents and a lot more. You are playing the game and have the control, you manage the RVs and the end goal is to take RVs to the respective destinations with minimal disruption in the transport eco system. The role you are playing is all done by Kubernetes. The orchestration part means you tell Kubernetes what containers you want running and it will take care of actually running the containers in your cluster, routing traffic to the correct pods, and a lot many other features.
+
+
+2.	What’s in the Name 
+   “A good name is more desirable than great riches”
+  - Bible
+KUBERNETES (κυβερνήτης) in Greek means Pilot, Governor or Helmsman of a Ship. Governor the who governs and manages, the Pilot who navigates and in a sense orchestrates. As explained in Commandant 1 through an example the one playing the video game is the Controller or Governor.
+The Logo of Kubernetes looks like a wheel having spokes. The Seven Spokes in the wheel Logo is a reference to the Project Seven which was the original codename for Kubernetes within Google.
+Kubernetes is also abbreviated rather stylized as “K8s”. The number 8 represents the number of letters between K and s in the word Kubernetes. In the stylish world of “g8” and “f9” this stylization of K8s is very well accepted. 
+
+
+3.	Manuscript and the Build Blocks
+  “You can't build a great building on a weak foundation”
+  -	Gordon B Hinckley
+Kubernetes is written in GO. GO is an open source Programing Language that makes it easy to build simple, reliable and efficient software. GO was chosen for the very simple reason that it is very fast and easy Code coverage. GO is neither too high level nor too low level that makes it the perfect choice. GO is also referred as GoLang. GO is statically typed and Complied Programming language. GO is an Open source and can learnt here.  
+Some of the key features of GO are listed below making it a preferred choice:
+●	Open-Source (Available here)
+●	Compiled
+●	Statically-typed
+●	Garbage collected
+●	High speed of Deployment
+●	Short compile times
+●	Simple syntax
+●	Large standard library
+●	Concurrency
+
+Kubernetes is an open source system for orchestration, automating deployment, scaling, and management of containerized applications. It runs and manages containerized applications on a Cluster. It can be used for auto-scaling, auto-healing, load balancing, automating deployment and a lot more.
+Basic building blocks and key concepts of Kubernetes are as below with basic definition of them:
+•	POD: the smallest deployable object in the Kubernetes object model
+•	Jobs: A job creates one or more pods and ensures that a specified number of them successfully terminate. A simple case is to create one Job object in order to reliably run one Pod to completion.
+•	Replica Sets: ReplicaSet is the next-generation Replication Controller. The only difference between a ReplicaSet and a Replication Controller right now is the selector support.
+•	Daemon Sets: A DaemonSet ensures that all (or some) Nodes run a copy of a Pod
+•	Deployments: A Deployment controller provides declarative updates for Pods and ReplicaSets
+•	Services: A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service. The set of Pods targeted by a Service is (usually) determined by a Label Selector
+•	Secrets: Objects of type secret are intended to hold sensitive information, such as passwords, OAuth tokens, and ssh keys.
+•	Config Maps: ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
+•	Volumes: At its core, a volume is just a directory, possibly with some data in it, which is accessible to the Containers in a Pod.  It has an explicit lifetime - the same as the Pod that encloses it.
+•	Ingress: An API object that manages external access to the services in a cluster, typically HTTP. Ingress can provide load balancing, SSL termination and name-based virtual hosting.
+
+
+4.	Bread & Butter Relationship – Docker & Kubernetes
+  “Music & Singing Complement each other rather than compete”
+  -	 Abhishek Bhardwaj
+What is the relationship between Bread & Butter? Both are independent entities and can be consumed separately but it’s the combination of these two which makes a unique entity and adds to the value of each other. Bread can be consumed with other entities as well like Butter and similarly Butter can also be consumed with other entity. But it’s the fact that they complement each other to make a complete meal is the what makes this combination so popular.
+
+Same is the relationship between Docker and Kubernetes. Both of them have their independent identity but it’s the combination of these two which complements each other and adds value to the final product. In a way Kubernetes picks from where Docker leaves it to complete the race.
+The question which is asked a lot on Cloud forms “Docker or Kubernetes” is in itself flawed. There are not the alternatives to each other. On the contrary; Kubernetes can run without Docker and Docker can function without Kubernetes. But Kubernetes can (and does) benefit greatly from Docker and vice versa.
+
+Differences between Docker & Kubernetes
+Docker	Kubernetes
+ 	 
+Docker is a Container Platform that helps create and deploy Software within containers.	Kubernetes is a container orchestration platform that automates the process of scaling, managing, updating and removing containers.
+Docker features the Docker Engine, which is a runtime and allows you to build and run containers, and includes Docker Hub, a service for storing and sharing images.	Kubernetes works around the concept of pods, which are scheduling units (and can contain one or more containers) in the Kubernetes ecosystem, and they are distributed among nodes to provide high availability
+Docker can be used with its own orchestration engine Docker Swarm.	Kubernetes can work with any containerization technology e.g. rkt.
+
+The bottom-line of the Docker & Kubernetes relationship is that its 1 and 1 which makes 11. Independently they are One but when they come together they make Eleven.
+
+
+5.	Beginner’s Magic Wand – MiniKube
+  “Get rid of everything that is not essential to making a point.”
+  –	Christoph Niemann
+
+Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day. The challenge which a beginner or a developer will have in adoption of Kubernetes is actually the way a developer works. Most of the developers work on their local machines and an application can be developed locally without the need for a full cluster. But in real world scenario of larger organizations need for a cluster that is running locally is imperative in order to mimic the production like infra for integration tests and many other scenarios.
+A local machine Kubernetes solution can help developers to configure and run a Kubernetes cluster in their local development environments and test their application during all development phases, without investing significant effort to configure and manage a Kubernetes cluster. A MiniKube is that solution.  MiniKube is available in all OS flavours (Windows, Mac, Linux). MiniKube is nothing but a VirtualBox instance running Linux and docker-daemon pre-installed. MiniKube for Windows not only supports drivers like Hyper-V and VirtualBox but also allows the use of Kubernetes add-ons. 
+Minikube supports Kubernetes features such as:
+•	DNS
+•	NodePorts
+•	ConfigMaps and Secrets
+•	Dashboards
+•	Container Runtime: Docker, rkt, CRI-O and containerd
+•	Enabling CNI (Container Network Interface)
+•	Ingress
+MiniKube benefits are as listed below:
+•	Works on Windows (any version and edition), Mac, and Linux
+•	Multiple drivers that can match any environment
+•	Can work with or without an intermediate VM on Linux (vmdriver=none)
+•	Installs several plugins (such as dashboard) by default
+•	Very flexible on installation requirements and upgrades
+             
+Here is how you can run simple app on Kubernetes using MiniKube.
+
+
+6.	Look over the Shoulder – Monitoring
+  “Siri never Sleeps but why because she is monitoring”
+  -	Abhishek Bhardwaj
+
+At the infrastructure level, a Kubernetes cluster is set of VMs or may be physical machines. At very basic the cluster consists of machines be it physical or virtual. Now these machines being machines can have failures and faults so we need some sort of monitoring to help with basic sanity and health check. Kubernetes cluster will have a master component which will be managing and orchestrating containers running on its nodes.
+A Service as defined earlier is an abstraction which defines a logical set of Pods and a policy by which to access them and Pods are the basic unit of deployment in Kubernetes. Namespaces define a logical namespace for resources such as pods and services. Many namespaces and services can be spread across the infrastructure. Each of the service is made up of pods which can have multiple containers in it. With this complex architecture and so many moving parts it is a big challenge to monitor a Kubernetes cluster. To overcome this big challenge Kubernetes ships with Tools for monitoring the cluster:
+
+•	Probes: Probes actively monitor the health of a container. If the probe determines that a container is no longer healthy, the probe will restart it. A Probe is a diagnostic performed periodically by the kubelet on a Container. To perform a diagnostic, the kubelet calls a Handler implemented by the Container. Each Probe has one of the 3 results: 
+Success: The Container passed the diagnostic.
+Failure: The Container passed the diagnostic.
+Unknown: The diagnostic failed, so no action should be taken.
+
+•	cAdvisor: cAdvisor is an open source agent that monitors resource usage and analyzes the performance of containers. Originally created by Google, cAdvisor is now integrated with the Kubelet. It collects, aggregates, processes and exports metrics such as CPU, memory, file and network usage for all containers running on a given node. cAdvisor also provides the overall machine usage by analyzing the ‘root’ container on the machine. In Kubernetes, cAdvisor is integrated into the Kubelet binary.
+
+•	Kubernetes Dashboard: Also referred as WebUI (Dashboard) in Kubernetes circles is a web-based Kubernetes user interface. It gives an overview of the resources running on your cluster. It also gives a very basic means of deploying and interacting with those resources. Dashboard can be used to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster resources.
+It also provides information on the state of Kubernetes resources in your cluster and on any errors that may have occurred. Here is glimpse of how the dashboard looks like:
+ 
+ 
+7.	SHAKEN – The Real Hack
+  “No one is Safe”
+  -	Too many
+As the famous quote goes “NO ONE is SAFE” same is true for Kubernetes. K8s was considered invincible till the chink in the armor was found in the world’s most popular orchestrator. Kubernetes ecosystem was shaken by news of the first major security hole discovered in Kubernetes. The chink in the armor was the vulnerability – CVE-2018-1002105 – enables attackers to compromise clusters via the Kubernetes API server, allowing them run code to perform malicious activity such as installing malware, etc. The surprising fact was that this vulnerability existed in every version of Kubernetes since v1.0 and was not detected/discovered earlier. This vulnerability is tied to the Kubernetes API server, which is central to orchestrating and managing containerized applications. This vulnerability allows a bad actor to access every single machine in a cluster via the API server to compromise the entire environment. All the while, the attacker would appear to be making authorized requests, making it difficult to identify the attack.
+
+Although the scope and impact of the attack and vulnerability was huge but the fix for it was a mere 37 lines of Code. For the consumers or end users fixing the flaw is simple and straightforward -- immediately upgrade the version of Kubernetes to one of several recent releases that have been patched. This fix reinforces the trust and faith which the cloud community has over the world’s most popular orchestrator.
+
+
+8.	Safety First – The Security 
+  “Knowing Safety is not enough. Practice It !!!”
+  -	Anonymous
+
+Proverb goes “Once Bitten, twice Shy”. Being Shaken one needs to have the Safety First approach. With the adoption of Kubernetes becoming more and more popular it becomes necessary to safeguard infrastructure against any attacks. Here are some basic Kubernetes Security best practices to help protect the infrastructure:
+•	Upgrade to the latest Version
+•	Enable Role-Based Access Control(RBAC)
+•	Enable TLS for every component that supports it
+•	Use Namespaces to Establish Security Boundaries
+•	Separate Sensitive Workloads
+•	Policy for Rotation of Encryption Keys and Certificates 
+•	Monitor Logs & Turn on Audit Logging
+•	Do not expose Kubernetes Dashboard to public internet
+•	Perform static analysis of YAML 
+•	Define and Use Network Policies
+ Implementation of some of the best Kubernetes security practices can be learnt here.
+
+
+9.	Taming the Lion via Learning – CKA
+  "Learning is a Treasure that will follow its owner everywhere”
+  -	Chinese Proverb
+      
+The Lion here is the Kubernetes and becoming Certified Kubernetes Administrator is like becoming the Ring Master. Kubernetes is one of the hottest technology in market and showing off your skills is going to boost your resume. When you claim to be a Kubernetes expert then CKA is a good baseline to prove your credentials. 
+
+The Certified Kubernetes Administrator (CKA) program was created by the Cloud Native Computing Foundation (CNCF), in collaboration with The Linux Foundation, to help develop the Kubernetes ecosystem. The Cloud Native Computing Foundation is committed to growing the community of Kubernetes Administrators, thereby allowing continued growth across the broad set of companies and organizations that are using Kubernetes. Certification is a key step in that process, allowing certified administrators to quickly establish their credibility and value in the job market, and also allowing companies to more quickly hire high-quality teams to support their growth.
+Tips to clear CKA:
+•	Get your basics right and have complete understanding of all the building blocks.
+•	Master the kubectl. This is must, as it would be extensively used in many questions
+•	Learn the commands (e.g. systemctl) and have basic overview on how to Sys-Admin a K8s Cluster
+•	Use the docs and docs search functionality extensively during the exam
+•	Plan ahead and then use the same strategy to attain passing % as there is different weightage to each question
+•	Practice Kubernetes the hands on way. Do it again and again until you master it. 
+Key things about the exam:
+•	Cost of Exam $300
+•	Duration 3 hours 
+•	Number of Questions 24
+•	Pass mark is 74%
+•	Completely practical, no theory
+•	All on the command line
+•	Online Exam can be taken from Laptop or Desktop from anywhere
+•	You can have 2 browser tabs open one is Actual exam and other is official Kubernetes docs site
+•	Questions are visibly weighted with a percentage
+•	Each question carries different points, harder the question more the points
+•	Exam is remotely proctored by the CNCF
+CNCF record your desktop, and you through your webcam and microphone for the duration of the exam.
+
+
+10.	 Hand in Hand – DevOps & Docker-Kubernetes
+  “Surround yourself with those who have the same mission as you”
+  -	Anonymous
+DevOps & Docker-Kubernetes go hand in hand in achieving the goal of fully automated CICD Pipeline with seamless deployment experience. Kubernetes and DevOps are the power couple of clouds! They run hand-in-hand for the enterprises that are looking to develop complex applications. The integration of cloud deployment into a standard CICD pipeline can go a long way toward eliminating overall app deployment burdens. Most of the DevOps Tools whether open Source or commercial provide direct integrations with multiple cloud service providers to enable seamless deployment with minimal overhead.
+DevOps came into existence to overcome the challenge of disconnect between the dev and operations team and the need to shorten the software delivery cycle time. DevOps came up with aim to unify application development and its operations throughout the software development life-cycle from strategy, planning, coding, building and testing through deploying, operating and monitoring. Now with Docker emergence it goes a step further where developer creates Docker image of their application on local environment which can then be utilized by Sys-Admins or environment owners to deploy it in their respective environments. This helps to make immutable development, staging and production environment with a lot of control as changes are made only using immutable Docker images and containers. Finally add the Kubernetes as a container orchestration Tool that will enable multiple containers to work together in harmony, reducing the operational burden. 
+
+Listed below are some of the common advantages of using DevOps with Docker-Kubernetes:
+•	Build once run everywhere
+•	Unified Solution for building, packaging, shipping and scaling
+•	Reduce configuration overhead 
+•	Consistency among Dev, test and Production Environments
+•	Easier updates
+•	Offers Scalability & Load Balancing
+•	Built-in features like Deployments, StatefulSets, ReplicaSets and the process of rolling updates
+•	Support for out-of-the-box of deployment scenarios to multi-cloud
+Now in the end
+“Although DevOps and Containers are different concepts but are often part of the same conversation.” 
+
+
+References:
+https://kubernetes.io/docs/home/
+https://en.wikipedia.org/wiki/Kubernetes
+https://golang.org/
+https://github.com/golang/go
+https://github.com/
+https://en.wikipedia.org/wiki/Docker_(software)
