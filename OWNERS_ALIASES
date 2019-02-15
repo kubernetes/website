@@ -163,8 +163,10 @@ aliases:
     - awkif
   sig-docs-it-owners: #Team: Italian docs localization; GH: sig-docs-it-owners
     - rlenferink
+    - lledru
   sig-docs-it-reviews: #Team: Italian docs PR reviews; GH:sig-docs-it-reviews
     - rlenferink
+    - lledru
   sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
     - cstoku
     - nasa9084
