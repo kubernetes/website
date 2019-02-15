@@ -51,7 +51,7 @@ Ces guides sont maintenus par CoreOS et déploient Kubernetes à la "façon Core
 
 ## Guide de la communauté
 
-Ces guides sont maintenus par des membres de la communauté et couvrent des besoins et cas d'usages spécifiques. Ils expérimentent différentes manières de configurer Kubernetes sur CoreOS.
+Ces guides sont maintenus par des membres de la communauté et couvrent des besoins et cas d'usages spécifiques. Ils proposent différentes manières de configurer Kubernetes sur CoreOS.
 
 * [**Cluster multi-noeuds facile sur Google Compute Engine**](https://github.com/rimusz/coreos-multi-node-k8s-gce/blob/master/README.md)
 
@@ -64,7 +64,7 @@ Ces guides sont maintenus par des membres de la communauté et couvrent des beso
 
 * [**Cluster multi-noeuds en utilisant cloud-config et Vagrant**](https://github.com/pires/kubernetes-vagrant-coreos-cluster/blob/master/README.md)
 
-    Configure un cluster local composé d'un master et de plusieurs workers sur l'hyperviseur de votre choix: VirtualBox, Parallels, or VMware
+    Configure un cluster local composé d'un master et de plusieurs workers sur l'hyperviseur de votre choix: VirtualBox, Parallels, ou VMware
 
 * [**Cluster d'un seul noeud en utilisant une application macOS**](https://github.com/rimusz/kube-solo-osx/blob/master/README.md)
 
@@ -73,7 +73,7 @@ Ces guides sont maintenus par des membres de la communauté et couvrent des beso
 
 * [**Cluster multi-noeuds avec Vagrant et fleet en utilisant une petite application macOS**](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster/blob/master/README.md)
 
-    Guide permettant d'obtenir un cluster composé d'un master, de plusieurs workers contrôlé par une application macOS menubar.
+    Guide permettant d'obtenir un cluster composé d'un master, de plusieurs workers contrôlés par une application macOS menubar.
 
 * [**Multi-node cluster using cloud-config, CoreOS and VMware ESXi**](https://github.com/xavierbaude/VMware-coreos-multi-nodes-Kubernetes)
 
@@ -91,6 +91,6 @@ Ces guides sont maintenus par des membres de la communauté et couvrent des beso
 | GCE           | CoreOS       | CoreOS | flannel    | [docs](/docs/getting-started-guides/coreos) |          | Community ([@pires](https://github.com/pires))                                                         |
 | Vagrant       | CoreOS       | CoreOS | flannel    | [docs](/docs/getting-started-guides/coreos) |          | Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles)) |
 
-Pour le niveaud de support de toutes les solutions se référer au [Tableau des solutions](/docs/getting-started-guides/#table-of-solutions).
+Pour le niveau de support de toutes les solutions se référer au [Tableau des solutions](/docs/getting-started-guides/#table-of-solutions).
 
 {{% /capture %}}
