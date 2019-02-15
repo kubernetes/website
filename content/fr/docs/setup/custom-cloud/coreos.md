@@ -44,7 +44,7 @@ Ces guides sont maintenus par CoreOS et déploient Kubernetes à la "façon Core
     Il suffit simplement de `git clone`, `vagrant up` puis configurer `kubectl`.
 
 
-* [**Guide complaet pas à pas**](https://coreos.com/kubernetes/docs/latest/getting-started.html)
+* [**Guide complet pas à pas**](https://coreos.com/kubernetes/docs/latest/getting-started.html)
 
     Un guide générique qui permet de déployer un cluster en haute disponibilité (avec du TLS) sur n'importe cloud ou sur du bare metal.
     Répéter les étapes pour obtenir plus de noeuds master ou worker
@@ -66,14 +66,14 @@ Ces guides sont maintenus par des membres de la communauté et couvrent des beso
 
     Configure un cluster local composé d'un master et de plusieurs workers sur l'hyperviseur de votre choix: VirtualBox, Parallels, or VMware
 
-* [**Cluster d'un seul noeud en utilisant une petite application macOS**](https://github.com/rimusz/kube-solo-osx/blob/master/README.md)
+* [**Cluster d'un seul noeud en utilisant une application macOS**](https://github.com/rimusz/kube-solo-osx/blob/master/README.md)
 
-    Guide permettant d'obtenir un cluster d'un seul noeud faisant office de master et worker et controller par une application macOS menubar.
+    Guide permettant d'obtenir un cluster d'un seul noeud faisant office de master et worker et contrôlé par une application macOS menubar.
     (basé sur xhyve et CoreOS)
 
 * [**Cluster multi-noeuds avec Vagrant et fleet en utilisant une petite application macOS**](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster/blob/master/README.md)
 
-    Guide permettant d'obtenir un cluster composé d'un master, de plusieurs workers controller par une application macOS menubar.
+    Guide permettant d'obtenir un cluster composé d'un master, de plusieurs workers contrôlé par une application macOS menubar.
 
 * [**Multi-node cluster using cloud-config, CoreOS and VMware ESXi**](https://github.com/xavierbaude/VMware-coreos-multi-nodes-Kubernetes)
 
