@@ -1,0 +1,226 @@
+Testing the Kubernetes Cluster – Acceptance and Conformance.
+
+Contents:
+What is Acceptance testing of a kubernetes Cluster?
+Steps to perform an acceptance testing of a kubernetes cluster
+What is Conformance testing of a kubernetes Cluster?	
+Steps to perform the conformance testing of a kubernetes cluster
+
+What is Acceptance testing of a kubernetes Cluster?
+     From an infrastructure engineer point of view we need to test if the kubernetes cluster we develop meets all the requirements of a basic kubernetes cluster before it is delivered to the customer. We can achieve this buy using a simple tool called kuberang. We can be confident that the cluster is functional at basics if the kuberang test passes without any errors.
+     
+Kuberang:
+     Kuberang is a command-line utility for testing a kubernetes cluster something similar to a smoke test. It can evaluate the below features on your kubernetes cluster (the below check list can also be viewed at github: https://github.com/apprenda/kuberang)
+
+
+•	Has kubectl installed correctly with access controls
+•	Has active kubernetes namespace (if specified)
+•	Has available workers
+•	Has working pod & service networks
+•	Has working pod <-> pod DNS
+•	Has working master(s)
+•	Has the ability to access pods and services from the node you run it on.
+Whenever we run an acceptance testing, it is always good to run it out of the worker node (earlier referred to as minions in Kubernetes)
+Steps to perform an acceptance testing of a kubernetes cluster
+Consider that we have a kubernetes cluster which has masters, etcds and worker nodes as per the basic set up.
+Pre-requisites for running the kuberang test:
+•	Kubectl cli that works perfectly without issues
+•	Docker registry with busybox and ngnix images
+Once the cluster is provisioned. Create a job using your favorite configuration tool (Jenkins/rundeck) or just run the below code on your cluster.
+
+#!/bin/bash
+
+set -x
+
+wget -q -O /tmp/kuberang https://github.com/apprenda/kuberang/releases/download/v1.3.0/kuberang-linux-amd64
+
+chmod u+x /tmp/kuberang
+
+exec /tmp/kuberang
+
+Once the above script is run, kuberang would be downloaded from github and executed. Following is a sample output of the same which shows the acceptance testing is successful.
+
+Sample output of a successful kuberang test: 
+ OUTPUT
+-----
++ wget -q -O /tmp/kuberang https://github.com/apprenda/kuberang/releases/download/v1.3.0/kuberang-linux-amd64
+14:30:00			+ chmod u+x /tmp/kuberang
+14:30:00			+ exec /tmp/kuberang
+14:30:00			Kubectl configured on this node                                                 [OK]
+14:30:00			Delete existing deployments if they exist                                       [OK]
+14:30:00			Nginx service does not already exist                                            [OK]
+14:30:01			BusyBox service does not already exist                                          [OK]
+14:30:01			Nginx service does not already exist                                            [OK]
+14:30:01			Issued BusyBox start request                                                    [OK]
+14:30:01			Issued Nginx start request                                                      [OK]
+14:30:01			Issued expose Nginx service request                                             [OK]
+14:30:12			Both deployments completed successfully within timeout                          [OK]
+14:30:12			Grab nginx pod ip addresses                                                     [OK]
+14:30:12			Grab nginx service ip address                                                   [OK]
+14:30:12			Grab BusyBox pod name                                                           [OK]
+14:30:12			Accessed Nginx service at 172.30.193.186 from BusyBox                           [OK]
+14:30:13			Accessed Nginx service via DNS kuberang-nginx-1549875600800156425 from BusyBox  [OK]
+14:30:13			Accessed Nginx pod at 172.20.4.9 from BusyBox                                   [OK]
+14:30:13			Accessed Nginx pod at 172.20.3.7 from BusyBox                                   [OK]
+14:30:13			Accessed Nginx pod at 172.20.5.6 from BusyBox                                   [OK]
+14:30:13			Accessed Nginx pod at 172.20.5.9 from BusyBox                                   [OK]
+14:30:13			Accessed Nginx pod at 172.20.5.8 from BusyBox                                   [OK]
+14:30:13			Accessed Nginx pod at 172.20.4.10 from BusyBox                                  [OK]
+14:30:14			Accessed Nginx pod at 172.20.4.8 from BusyBox                                   [OK]
+14:30:14			Accessed Nginx pod at 172.20.5.7 from BusyBox                                   [OK]
+14:30:14			Accessed Nginx pod at 172.20.3.8 from BusyBox                                   [OK]
+14:30:14			Accessed Nginx pod at 172.20.3.9 from BusyBox                                   [OK]
+14:30:14			Accessed Google.com from BusyBox                                                [OK]
+14:30:14			Accessed Nginx pod at 172.20.4.9 from this node                                 [OK]
+14:30:14			Accessed Nginx pod at 172.20.3.7 from this node                                 [OK]
+14:30:14			Accessed Nginx pod at 172.20.5.6 from this node                                 [OK]
+14:30:14			Accessed Nginx pod at 172.20.5.9 from this node                                 [OK]
+14:30:14			Accessed Nginx pod at 172.20.5.8 from this node                                 [OK]
+14:30:14			Accessed Nginx pod at 172.20.4.10 from this node                                [OK]
+14:30:14			Accessed Nginx pod at 172.20.4.8 from this node                                 [OK]
+14:30:14			Accessed Nginx pod at 172.20.5.7 from this node                                 [OK]
+14:30:14			Accessed Nginx pod at 172.20.3.8 from this node                                 [OK]
+14:30:14			Accessed Nginx pod at 172.20.3.9 from this node                                 [OK]
+14:30:14			Accessed Google.com from this node                                              [OK]
+14:30:14			Powered down Nginx service                                                      [OK]
+14:30:14			Powered down Busybox deployment                                                 [OK]
+14:30:14			Powered down Nginx deployment                                                   [OK]
+
+We can write an evaluation script to automatically parse and check if the result of the test is erroneous or not and integrate it with our provisioning pipeline.
+
+What is Conformance testing of a kubernetes Cluster?
+    Conformance testing is otherwise known as end to end testing of a kubernetes cluster. Once we acceptance test the cluster for basic functionalities we can go to the next level of conformance testing.
+A conformance-passing cluster provides the following guarantees: (can also be viewed at https://github.com/heptio/sonobuoy/blob/master/docs/conformance-testing.md)
+•	Best practices: Your Kubernetes is properly configured. This is useful to know whether you are running a distribution out of the box or handling your own custom setup.
+•	Predictability: All your cluster behavior is well-documented. Available features in the official Kubernetes documentation can be taken as a given. Unexpected bugs should be rare, because distribution-specific issues are weeded out during the conformance tests.
+•	Interoperability: Workloads from other conforming clusters can be ported into your cluster, or vice versa. This standardization of Kubernetes is a key advantage of open source software, and allows you to avoid vendor lock-in.
+We can use a diagnostic tool called Sonobuoy to perform the conformance testing of an application. It can also be customized and can help us to perform the end to end testing of a cluster. It can also workload debugging on a cluster.
+Below is the basic architecture of the sonobuoy plugin as taken from the github.
+
+ 
+
+Steps to perform the conformance testing of a kubernetes cluster
+
+We can create a script to with the above plugin and trigger it on any of the master nodes to get the desirable output. 
+
+Kubernetes Conformance Test
+ Modified
+ testing
+Executes official Kubernetes conformance test against any arbitrary master (only provide one of the master nodes). 
+mode=conformance runs >1hour mode=quick <1minute
+
+
+# Install sonobuoy
+echo "Downloading sonobuoy binary"
+wget -O sonobuoy.tar.gz https://github.com/heptio/sonobuoy/releases/download/v0.11.3/sonobuoy_0.11.3_linux_amd64.tar.gz
+tar -xzvf sonobuoy.tar.gz
+
+
+# Clean up previous run
+./sonobuoy delete
+rm -rf /tmp/sonobuoy-results
+
+
+# Start sonobuoy run
+./sonobuoy run --mode=@option.mode@ --kube-conformance-image=gcr.io/heptio-images/kube-conformance:@option.version@
+
+
+# Evaluate results
+echo ""
+echo "Evaluate sonobuoy results"
+./sonobuoy retrieve /tmp/sonobuoy-results
+cd /tmp/sonobuoy-results
+
+
+
+The above shows the basic and most important steps that can be used to perform the conformance testing. The log output below is a snapshot of few of the checks run by the testing
+
+
+podlogs/kube-system/fluentd-agent-jknnx
+12:15:12            podlogs/kube-system/fluentd-agent-jknnx/logs
+12:15:12            podlogs/kube-system/fluentd-agent-jknnx/logs/fluentd-agent.txt
+12:15:12            podlogs/kube-system/fluentd-agent-jknnx/logs/logsymlink.txt
+12:15:12            podlogs/kube-system/fluentd-agent-l2pk9
+podlogs/heptio-sonobuoy/sonobuoy-systemd-logs-daemon-set-05f34516445f4e85-jtxrf
+12:15:12            podlogs/heptio-sonobuoy/sonobuoy-systemd-logs-daemon-set-05f34516445f4e85-jtxrf/logs
+12:15:12            podlogs/heptio-sonobuoy/sonobuoy-systemd-logs-daemon-set-05f34516445f4e85-jtxrf/logs/sonobuoy-systemd-logs-config.txt
+12:15:12            podlogs/heptio-sonobuoy/sonobuoy-systemd-logs-daemon-set-05f34516445f4e85-jtxrf/logs/sonobuoy-worker.txt
+12:15:12            podlogs/heptio-sonobuoy/sonobuoy-systemd-logs-daemon-set-05f34516445f4e85-lpsgg
+12:15:12            podlogs/heptio-sonobuoy/sonobuoy-systemd-logs-daemon-set-05f34516445f4e85-lpsgg/logs
+    [sig-storage] Projected 
+12:15:12              should provide podname only [Conformance]
+12:15:12              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/framework/framework.go:648
+12:15:12            [BeforeEach] [sig-storage] Projected
+12:15:12              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/framework/framework.go:134
+12:15:12            STEP: Creating a kubernetes client
+12:15:12            Sep 20 05:52:15.389: INFO: >>> kubeConfig: /tmp/kubeconfig-969770006
+12:15:12            STEP: Building a namespace api object
+12:15:12            STEP: Waiting for a default service account to be provisioned in namespace
+12:15:12            [BeforeEach] [sig-storage] Projected
+12:15:12              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/common/projected.go:858
+12:15:12            [It] should provide podname only [Conformance]
+12:15:12              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/framework/framework.go:648
+12:15:12            STEP: Creating a pod to test downward API volume plugin
+12:15:12            Sep 20 05:52:15.433: INFO: Waiting up to 5m0s for pod "downwardapi-volume-53a66156-bc99-11e8-aa32-0a58ac14030f" in namespace "e2e-tests-projected-cxbn8" to be "success or failure"
+12:15:12            Sep 20 05:52:15.436: INFO: Pod "downwardapi-volume-53a66156-bc99-11e8-aa32-0a58ac14030f": Phase="Pending", Reason="", readiness=false. Elapsed: 2.449294ms
+12:15:12            Sep 20 05:52:17.440: INFO: Pod "downwardapi-volume-53a66156-bc99-11e8-aa32-0a58ac14030f": Phase="Pending", Reason="", readiness=false. Elapsed: 2.006513889s
+12:15:12            Sep 20 05:52:19.444: INFO: Pod "downwardapi-volume-53a66156-bc99-11e8-aa32-0a58ac14030f": Phase="Succeeded", Reason="", readiness=false. Elapsed: 4.010917683s
+12:15:12            STEP: Saw pod success
+****
+[sig-network] Services 
+12:15:13              should provide secure master service  [Conformance]
+12:15:13              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/framework/framework.go:648
+12:15:13            [BeforeEach] [sig-network] Services
+12:15:13              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/framework/framework.go:134
+12:15:13            STEP: Creating a kubernetes client
+12:15:13            Sep 20 06:44:02.561: INFO: >>> kubeConfig: /tmp/kubeconfig-969770006
+12:15:13            STEP: Building a namespace api object
+12:15:13            STEP: Waiting for a default service account to be provisioned in namespace
+12:15:13            [BeforeEach] [sig-network] Services
+12:15:13              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/network/service.go:51
+12:15:13            [It] should provide secure master service  [Conformance]
+12:15:13              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/framework/framework.go:648
+12:15:13            [AfterEach] [sig-network] Services
+12:15:13              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/framework/framework.go:135
+12:15:13            Sep 20 06:44:02.598: INFO: Waiting up to 3m0s for all (but 0) nodes to be ready
+12:15:13            STEP: Destroying namespace "e2e-tests-services-cds4g" for this suite.
+12:15:13            Sep 20 06:44:08.620: INFO: Waiting up to 30s for server preferred namespaced resources to be successfully discovered
+12:15:13            Sep 20 06:44:08.704: INFO: namespace: e2e-tests-services-cds4g, resource: bindings, ignored listing per whitelist
+12:15:13            Sep 20 06:44:08.731: INFO: namespace e2e-tests-services-cds4g deletion completed in 6.125093359s
+12:15:13            [AfterEach] [sig-network] Services
+12:15:13              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/network/service.go:56
+12:15:13            
+12:15:13            • [SLOW TEST:6.170 seconds]
+12:15:13            [sig-network] Services
+12:15:13            /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/network/framework.go:22
+12:15:13              should provide secure master service  [Conformance]
+12:15:13              /workspace/anago-v1.9.4-beta.0.53+bee2d1505c4fe8/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e/framework/framework.go:648
+12:15:13            ------------------------------
+12:15:13            Sep 20 06:44:08.731: INFO: Running AfterSuite actions on all node
+12:15:13            Sep 20 06:44:08.731: INFO: Running AfterSuite actions on node 1
+12:15:13            Sep 20 06:44:08.731: INFO: Skipping dumping logs from cluster
+12:15:13            
+12:15:13            Ran 125 of 782 Specs in 3269.453 seconds
+12:15:13            SUCCESS! -- 125 Passed | 0 Failed | 0 Pending | 657 Skipped PASS
+12:15:13            
+12:15:13            Ginkgo ran 1 suite in 54m34.060742593s
+12:15:13            Test Suite Passed
+12:15:13            ###############################################################
+12:15:13            
+12:15:13            INFO[0000] deleted                                       kind=namespace namespace=heptio-sonobuoy
+12:15:13            INFO[0000] deleted                                       kind=clusterrolebindings
+12:15:13            INFO[0000] deleted                                       kind=clusterroles
+12:15:13            Sonobuoy e2e plugin run successfully.
+
+As you can see the above log snippet shows the check for some of the kube-system components present in the cluster and various other functionalities.
+
+Best Practices:
+It is always better to integrate the Acceptance and conformance test jobs to the CI/CD pipeline where a kubernetes cluster is provisioned so that we can be sure about the reliability and interoperability of the cluster.
+
+Basic CI/CD cluster kubernetes cluster provisioning with testing embedded can be delivered to a customer/end user if the cluster successfully passes its acceptance and Conformance testing post integration test of the provisoned cluster.
+
+
+References: 
+https://github.com/apprenda/kuberang
+https://github.com/heptio/sonobuoy/blob/master/docs/conformance-testing.md
+
