@@ -336,7 +336,6 @@ pause-7774d79b5-qrgcb   0/1       Pending   0         1s
 pause-7774d79b5-qrgcb   0/1       Pending   0         1s
 pause-7774d79b5-qrgcb   0/1       ContainerCreating   0         1s
 pause-7774d79b5-qrgcb   1/1       Running   0         2s
-^C
 ```
 
 ### Clean up
