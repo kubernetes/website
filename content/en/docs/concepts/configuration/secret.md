@@ -13,10 +13,10 @@ weight: 50
 
 {{% capture overview %}}
 
-Objects of type `secret` are intended to hold sensitive information, such as
-passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
-is safer and more flexible than putting it verbatim in a `pod` definition or in
-a docker image. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
+Kubernetes `secret` objects let you store and manage sensitive information, such
+as passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
+is safer and more flexible than putting it verbatim in a
+{{< glossary_tooltip term_id="pod" >}} definition or in a {{< glossary_tooltip text="container image" term_id="image" >}}. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
 {{% /capture %}}
 
@@ -32,7 +32,8 @@ more control over how it is used, and reduces the risk of accidental exposure.
 Users can create secrets, and the system also creates some secrets.
 
 To use a secret, a pod needs to reference the secret.
-A secret can be used with a pod in two ways: as files in a [volume](/docs/concepts/storage/volumes/) mounted on one or more of
+A secret can be used with a pod in two ways: as files in a
+{{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
 its containers, or used by kubelet when pulling images for the pod.
 
 ### Built-in Secrets
@@ -271,8 +272,9 @@ $ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 
 ### Using Secrets
 
-Secrets can be mounted as data volumes or be exposed as environment variables to
-be used by a container in a pod.  They can also be used by other parts of the
+Secrets can be mounted as data volumes or be exposed as
+{{< glossary_tooltip text="environment variables" term_id="container-env-variables" >}}
+to be used by a container in a pod.  They can also be used by other parts of the
 system, without being directly exposed to the pod.  For example, they can hold
 credentials that other parts of the system should use to interact with external
 systems on your behalf.
@@ -458,7 +460,8 @@ Secret updates.
 
 #### Using Secrets as Environment Variables
 
-To use a secret in an environment variable in a pod:
+To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
+in a pod:
 
 1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
 1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[].valueFrom.secretKeyRef`.
@@ -534,8 +537,8 @@ Secret volume sources are validated to ensure that the specified object
 reference actually points to an object of type `Secret`.  Therefore, a secret
 needs to be created before any pods that depend on it.
 
-Secret API objects reside in a namespace.   They can only be referenced by pods
-in that same namespace.
+Secret API objects reside in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+They can only be referenced by pods in that same namespace.
 
 Individual secrets are limited to 1MB in size.  This is to discourage creation
 of very large secrets which would exhaust apiserver and kubelet memory.
@@ -851,7 +854,8 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
 ### Risks
 
- - In the API server secret data is stored as plaintext in etcd; therefore:
+ - In the API server secret data is stored as plaintext in {{< glossary_tooltip term_id="etcd" >}};
+   therefore:
    - Administrators should limit access to etcd to admin users
    - Secret data in the API server is at rest on the disk that etcd uses; admins may want to wipe/shred disks
      used by etcd when no longer in use
