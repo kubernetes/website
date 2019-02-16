@@ -552,8 +552,8 @@ controller.  It does not include pods created via the kubelets
 not common ways to create pods.)
 
 Secrets must be created before they are consumed in pods as environment
-variables unless they are marked as optional.  References to Secrets that do not exist will prevent
-the pod from starting.
+variables unless they are marked as optional.  References to Secrets that do
+not exist will prevent the pod from starting.
 
 References via `secretKeyRef` to keys that do not exist in a named Secret
 will prevent the pod from starting.
@@ -824,6 +824,7 @@ be available in future releases of Kubernetes.
 
 ## Security Properties
 
+
 ### Protections
 
 Because `secret` objects can be created independently of the `pods` that use
@@ -832,52 +833,52 @@ creating, viewing, and editing pods.  The system can also take additional
 precautions with `secret` objects, such as avoiding writing them to disk where
 possible.
 
-A secret is only sent to a node if a pod on that node requires it.  It is not
-written to disk.  It is stored in a tmpfs.  It is deleted once the pod that
-depends on it is deleted.
-
-On most Kubernetes-project-maintained distributions, communication between user
-to the apiserver, and from apiserver to the kubelets, is protected by SSL/TLS.
-Secrets are protected when transmitted over these channels.
-
-Secret data on nodes is stored in tmpfs volumes and thus does not come to rest
-on the node.
+A secret is only sent to a node if a pod on that node requires it.
+Kubelet stores the secret into a `tmpfs` so that the secret is not written
+to disk storage. Once the Pod that depends on the secret is deleted, kubelet
+will delete its local copy of the secret data as well.
 
 There may be secrets for several pods on the same node.  However, only the
 secrets that a pod requests are potentially visible within its containers.
-Therefore, one Pod does not have access to the secrets of another pod.
+Therefore, one Pod does not have access to the secrets of another Pod.
 
 There may be several containers in a pod.  However, each container in a pod has
 to request the secret volume in its `volumeMounts` for it to be visible within
 the container.  This can be used to construct useful [security partitions at the
 Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
+On most Kubernetes-project-maintained distributions, communication between user
+to the apiserver, and from apiserver to the kubelets, is protected by SSL/TLS.
+Secrets are protected when transmitted over these channels.
+
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
+
+You can enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
+for secret data, so that the secrets are not stored in the clear into {{< glossary_tooltip term_id="etcd" >}}.
+
 ### Risks
 
- - In the API server secret data is stored as plaintext in {{< glossary_tooltip term_id="etcd" >}};
+ - In the API server secret data is stored in {{< glossary_tooltip term_id="etcd" >}};
    therefore:
+   - Administrators should enable encryption at rest for cluster data (requires v1.13 or later)
    - Administrators should limit access to etcd to admin users
-   - Secret data in the API server is at rest on the disk that etcd uses; admins may want to wipe/shred disks
-     used by etcd when no longer in use
+   - Administrators may want to wipe/shred disks used by etcd when no longer in use
+   - If running etcd in a cluster, administrators should make sure to use SSL/TLS
+     for etcd peer-to-peer communication.
  - If you configure the secret through a manifest (JSON or YAML) file which has
    the secret data encoded as base64, sharing this file or checking it in to a
-   source repository means the secret is compromised. Base64 encoding is not an
+   source repository means the secret is compromised. Base64 encoding is _not_ an
    encryption method and is considered the same as plain text.
  - Applications still need to protect the value of secret after reading it from the volume,
    such as not accidentally logging it or transmitting it to an untrusted party.
  - A user who can create a pod that uses a secret can also see the value of that secret.  Even
    if apiserver policy does not allow that user to read the secret object, the user could
    run a pod which exposes the secret.
- - If multiple replicas of etcd are run, then the secrets will be shared between them.
-   By default, etcd does not secure peer-to-peer communication with SSL/TLS, though this can be configured.
- - Currently, anyone with root on any node can read any secret from the apiserver,
+ - Currently, anyone with root on any node can read _any_ secret from the apiserver,
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
    single node.
 
-{{< note >}}
-As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
-{{< /note >}}
 
 {{% capture whatsnext %}}
 
