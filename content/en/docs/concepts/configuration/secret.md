@@ -543,7 +543,7 @@ needs to be created before any pods that depend on it.
 Secret API objects reside in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 They can only be referenced by pods in that same namespace.
 
-Individual secrets are limited to 1MB in size.  This is to discourage creation
+Individual secrets are limited to 1MiB in size.  This is to discourage creation
 of very large secrets which would exhaust apiserver and kubelet memory.
 However, creation of many smaller secrets could also exhaust memory.  More
 comprehensive limits on memory usage due to secrets is a planned feature.
