@@ -239,6 +239,10 @@ matchLabels:
 In the ReplicaSet, `.spec.template.metadata.labels` must match `spec.selector`, or it will
 be rejected by the API.
 
+{{< note >}}
+For 2 ReplicaSets specifying the same `.spec.selector` but different `.spec.template.metadata.labels` and `.spec.template.spec` fields, each ReplicaSet ignores the Pods created by the other ReplicaSet.
+{{< /note >}}
+
 ### Replicas
 
 You can specify how many Pods should run concurrently by setting `.spec.replicas`. The ReplicaSet will create/delete
