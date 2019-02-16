@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-Welcome! This repository houses all of the assets required to build the Kubernetes website and documentation. We're very pleased that you want to contribute!
+Welcome! This repository houses all of the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're very pleased that you want to contribute!
 
 ## Contributing to the docs
 
