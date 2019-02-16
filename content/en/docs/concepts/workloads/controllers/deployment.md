@@ -467,7 +467,7 @@ $ kubectl rollout undo deployment.v1.apps/nginx-deployment
 deployment.apps/nginx-deployment
 ```
 
-Alternatively, you can rollback to a specific revision by specify that in `--to-revision`:
+Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
 ```shell
 $ kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
