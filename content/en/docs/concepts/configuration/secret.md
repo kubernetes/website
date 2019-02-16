@@ -95,11 +95,14 @@ password.txt:    12 bytes
 username.txt:    5 bytes
 ```
 
-Note that neither `get` nor `describe` shows the contents of the file by default.
-This is to protect the secret from being exposed accidentally to someone looking
+{{< note >}}
+`kubectl get` and `kubectl describe` avoid showing the contents of a secret by
+default.
+This is to protect the secret from being exposed accidentally to an onlooker,
 or from being stored in a terminal log.
+{{< /note >}}
 
-See [decoding a secret](#decoding-a-secret) for how to see the contents.
+See [decoding a secret](#decoding-a-secret) for how to see the contents of a secret.
 
 #### Creating a Secret Manually
 
