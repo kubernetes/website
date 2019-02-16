@@ -40,10 +40,27 @@ content_template: templates/concept
 즉, 원문이 한 문단을 줄바꿈하지 않고 한 행에 길게 기술했다면 한글화 시에도 한 행에 길게 기술하고, 원문이 한 문단을 
 줄바꿈해서 여러 행으로 기술한 경우에는 한글화 시에도 가로폭을 원문과 비슷하게 유지한다.
 
+### 리뷰어 삭제
+
+일반적으로 원문 페이지의 리뷰어가 한글 페이지를 리뷰하기 어려우므로 다음과 같이 리소스 메타데이터에서 리뷰어를 
+삭제한다.
+
+```diff
+---
+- reviews:
+- - reviewer1
+- - reviewer2
+- title: Kubernetes Components
++ title: 쿠버네티스 컴포넌트
+content_template: templates/concept
+weight: 10
+---
+```
 
 ## 용어
 
 용어 선택은 다음의 우선 순위를 따르나, 자연스럽지 않은 용어를 무리하게 선택하지는 않는다.
+
 
 * 한글 단어
   * 순 우리말 단어
@@ -51,8 +68,13 @@ content_template: templates/concept
 * 한영 병기 (예: 훅(hook))
 * 영어 단어 (예: Kubelet)
 
+단, 자연스러움을 판단하는 기준은 주관적이므로 문서 한글화팀이 공동으로 관리하는 
+[한글화팀 용어집](https://goo.gl/BDNeJ1)과 기존에 번역된 문서를 참고한다.
+
 {{% note %}}
-API 오브젝트는 원 단어를 국립국어원 외래어 표기법에 따라 한글화 한다. 예를 들면 다음과 같다.
+API 오브젝트는 원 단어를 
+[국립국어원 외래어 표기법](http://www.korean.go.kr/front/page/pageView.do?page_id=P000104&mn_id=97)에 
+따라 한글화 한다. 예를 들면 다음과 같다.
 
 원 단어    | 외래어 
 ---        | --- 
