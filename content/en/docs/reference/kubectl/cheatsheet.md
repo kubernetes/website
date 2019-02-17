@@ -146,6 +146,10 @@ kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 kubectl get pods --selector=app=cassandra rc -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
+# Get all worker nodes (use a selector to exclude results that have a label
+# named 'node-role.kubernetes.io/master')
+kubectl get node --selector='!node-role.kubernetes.io/master'
+
 # Get all running pods in the namespace
 kubectl get pods --field-selector=status.phase=Running
 
