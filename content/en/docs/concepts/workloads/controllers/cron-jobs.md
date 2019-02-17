@@ -52,7 +52,7 @@ be down from `08:29:00` to `10:21:00`, the job will not start as the number of m
 
 For example, suppose a cron job is run to schedule every one minute, say it is set to start at exactly `08:30:00` and its
 `startingDeadlineSeconds` is set to 200 seconds, if the CronJob controller happens to
-be down from `08:29:00` to `10:21:00`, the job will still start at 10:22:00 as it checks how many missed schedules happen in last 200 seconds (that will come to 3 missed schedules), rather than from last scheduled time until now which happens when we do not set the `startingDeadlineSeconds`.
+be down from `08:29:00` to `10:21:00`, the job will still start at 10:22:00. This happens as the controller now checks how many missed schedules happened in the last 200 seconds (ie, 3 missed schedules), rather than from the last scheduled time until now.
 
 The Cronjob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
