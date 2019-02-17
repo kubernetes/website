@@ -48,7 +48,7 @@ A CronJob is counted as missed if it has failed to be created at its scheduled t
 
 For example, suppose a cron job is run to schedule every one minute, say it is set to start at exactly `08:30:00` and its
 `startingDeadlineSeconds` is not set, if the CronJob controller happens to
-be down from `08:29:00` to `10:21:00`, the job will not start as the number of missed jobs which missed it's schedule is greater than 100.
+be down from `08:29:00` to `10:21:00`, the job will not start as the number of missed jobs which missed their schedule is greater than 100.
 
 For example, suppose a cron job is run to schedule every one minute, say it is set to start at exactly `08:30:00` and its
 `startingDeadlineSeconds` is set to 200 seconds, if the CronJob controller happens to
