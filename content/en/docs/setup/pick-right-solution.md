@@ -75,6 +75,8 @@ cluster.
 
 * [Kublr](https://kublr.com) offers enterprise-grade secure, scalable, highly reliable Kubernetes clusters on AWS, Azure, GCP, and on-premise. It includes out-of-the-box backup and disaster recovery, multi-cluster centralized logging and monitoring, and built-in alerting.
 
+* [KubeSail](https://kubesail.com) is an easy, free way to try Kubernetes.
+
 * [Madcore.Ai](https://madcore.ai) is devops-focused CLI tool for deploying Kubernetes infrastructure in AWS. Master, auto-scaling group nodes with spot-instances, ingress-ssl-lego, Heapster, and Grafana.
 
 * [Nutanix Karbon](https://www.nutanix.com/products/karbon/) is a multi-cluster, highly available Kubernetes management and operational platform that simplifies the provisioning, operations, and lifecycle management of Kubernetes.
