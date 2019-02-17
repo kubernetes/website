@@ -19,7 +19,7 @@ Ansible is an infrastructure automation engine that automates software configura
 ### Pre-requisites
 - Vagrant should be installed on your machine. Installation binaries can be found [here](https://www.vagrantup.com/downloads.html).
 - Oracle VirtualBox can be used as Vagrant provider or make use of similar providers as described in official [documentation](https://www.vagrantup.com/docs/providers/) of Vagrant.
- - Ansible should be installed in your machine. Refer to the [Ansible installation guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for platform specific installation.
+- Ansible should be installed in your machine. Refer to the [Ansible installation guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for platform specific installation.
 
 ## Setup overview
 We will be setting up a Kubernetes cluster that will consist of one master and two worker nodes. All the nodes will run Ubuntu Xenial 64-bit OS and Ansible playbooks will be used for provisioning.
@@ -57,17 +57,17 @@ end
 
 ```
 
-#### Step 2: Creating Ansible playbook for Kubernetes master.
+### Step 2: Create Ansible playbook for Kubernetes master.
 Create a directory named `kubernetes-setup` in the same directory as the `Vagrantfile`. Create two files named `master-playbook.yml` and `node-playbook.yml` in the directory `kubernetes-setup`.
 
-In the file master-playbook.yml, start adding below code.
+In the file `master-playbook.yml`, add the code below.
 #### Step 2.1: Install Docker and its dependent components.
 We will be installing the following packages, and then adding a user named “vagrant” to the “docker” group.
 - docker-ce
 - docker-ce-cli
 - containerd.io
 
-```
+```yaml
 ---
 - hosts: master
   become_user: root
@@ -96,7 +96,7 @@ We will be installing the following packages, and then adding a user named “va
 
 #### Step 2.2: Kubelet will not start if the system has swap enabled, so we are disabling swap using below code.
 
-```
+```yaml
   - name: Remove swapfile from /etc/fstab
     mount:
       name: "{{ item }}"
@@ -113,7 +113,7 @@ We will be installing the following packages, and then adding a user named “va
 
 #### Step 2.3: Installing kubelet, kubeadm and kubectl using below code.
 
-```
+```yaml
   - name: Install curl
     apt: 
       name: "{{ packages }}"
@@ -149,15 +149,14 @@ We will be installing the following packages, and then adding a user named “va
 
 #### Step 2.3: Initialize the Kubernetes cluster with kubeadm below code (applicable only on master node).
 
-```
+```yaml
   - name: Initialize the Kubernetes cluster using kubeadm
     command: kubeadm init --apiserver-advertise-address="{{ master-ip }}" --apiserver-cert-extra-sans="{{ master-ip }}"  --node-name {{ master-hostname }} --pod-network-cidr=192.168.0.0/16
-
 ```
 
-#### Step 2.4: Setup kube config file vagrant user to access Kubernetes cluster below code.
+#### Step 2.4: Setup kube config file for vagrant user to access Kubernetes cluster using below code.
 
-```
+```yaml
   - name: Setup kubeconfig for vagrant user
     command: "{{item}}"
     with_items:
@@ -168,14 +167,14 @@ We will be installing the following packages, and then adding a user named “va
 
 #### Step 2.5: Setup container networking provider and network policy engine using below code.
 
-```
+```yaml
   - name: Install calico pod network
     command: kubectl apply -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
 ```
 
 #### Step 2.6: Setup a handler for checking Docker daemon using below code.
 
-```
+```yaml
   handlers:
     - name: docker status
       service: name=docker state=started
@@ -187,7 +186,7 @@ Create a file named `node-playbook.yml` in the directory `kubernetes-setup`.
 Add the code below into `node-playbook.yml`
 #### Step 3.1: Generate kube join command for joining the node to Kubernetes cluster.
 
-```
+```yaml
 ---
 - hosts: master
   become_user: root
@@ -198,18 +197,17 @@ Add the code below into `node-playbook.yml`
     register: join_command
     set_fact:
       join_command: "{{ join_command.stdout_lines[0] }}"
-
 ```
 
 #### Step 3.2: Start adding the code from Steps 2.1 till 2.4 with making changes to host in yaml file. We need this Ansible playbook to be executed only on worker nodes.
 
-```
+```yaml
 - hosts: nodes
 ```
 
 #### Step 3.3: Join the nodes to Kubernetes cluster using below code.
 
-```
+```yaml
   - name: Joining the node to cluster
     command: "{{ hostvars['master'].join_command }}"
 ```
@@ -219,7 +217,7 @@ Add the code below into `node-playbook.yml`
 #### Step 4: Create inventory file for Ansible in kubernetes-setup directory and add below code in inventory file.
 Node IPs depend on the value of N declared in Vagrantfile, in our case we have entered value of N as 2, hence we are creating two entries.
 
-```
+```ini
 [master]
 192.168.50.10
 
@@ -230,7 +228,7 @@ Node IPs depend on the value of N declared in Vagrantfile, in our case we have e
 
 #### Step 5: Upon completing the Vagrantfile and playbooks follow below steps.
 
-```
+```shell
 $ cd /path/to/Vagrantfile
 $ vagrant up
 ```
@@ -238,7 +236,7 @@ $ vagrant up
 Upon completion of all the above steps, Kubernetes cluster should be up and running.
 We can login into master or worker nodes using vagrant as below.
 
-```
+```shell
 $ ## Accessing master
 $ vagrant ssh k8s-master
 
