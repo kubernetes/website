@@ -258,52 +258,52 @@ Use the following set of examples to help you familiarize yourself with running 
 `kubectl create` - Create a resource from a file or stdin.
 
 ```shell
-// Create a service using the definition in example-service.yaml.
+# Create a service using the definition in example-service.yaml.
 $ kubectl create -f example-service.yaml
 
-// Create a replication controller using the definition in example-controller.yaml.
+# Create a replication controller using the definition in example-controller.yaml.
 $ kubectl create -f example-controller.yaml
 
-// Create the objects that are defined in any .yaml, .yml, or .json file within the <directory> directory.
+# Create the objects that are defined in any .yaml, .yml, or .json file within the <directory> directory.
 $ kubectl create -f <directory>
 ```
 
 `kubectl get` - List one or more resources.
 
 ```shell
-// List all pods in plain-text output format.
+# List all pods in plain-text output format.
 $ kubectl get pods
 
-// List all pods in plain-text output format and include additional information (such as node name).
+# List all pods in plain-text output format and include additional information (such as node name).
 $ kubectl get pods -o wide
 
-// List the replication controller with the specified name in plain-text output format. Tip: You can shorten and replace the 'replicationcontroller' resource type with the alias 'rc'.
+# List the replication controller with the specified name in plain-text output format. Tip: You can shorten and replace the 'replicationcontroller' resource type with the alias 'rc'.
 $ kubectl get replicationcontroller <rc-name>
 
-// List all replication controllers and services together in plain-text output format.
+# List all replication controllers and services together in plain-text output format.
 $ kubectl get rc,services
 
-// List all daemon sets, including uninitialized ones, in plain-text output format.
+# List all daemon sets, including uninitialized ones, in plain-text output format.
 $ kubectl get ds --include-uninitialized
 
-// List all pods running on node server01
+# List all pods running on node server01
 $ kubectl get pods --field-selector=spec.nodeName=server01
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.
 
 ```shell
-// Display the details of the node with name <node-name>.
+# Display the details of the node with name <node-name>.
 $ kubectl describe nodes <node-name>
 
-// Display the details of the pod with name <pod-name>.
+# Display the details of the pod with name <pod-name>.
 $ kubectl describe pods/<pod-name>
 
-// Display the details of all the pods that are managed by the replication controller named <rc-name>.
-// Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
+# Display the details of all the pods that are managed by the replication controller named <rc-name>.
+# Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
 $ kubectl describe pods <rc-name>
 
-// Describe all pods, not including uninitialized ones
+# Describe all pods, not including uninitialized ones
 $ kubectl describe pods --include-uninitialized=false
 ```
 
@@ -322,39 +322,39 @@ the pods running on it, the events generated for the node etc.
 `kubectl delete` - Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
 
 ```shell
-// Delete a pod using the type and name specified in the pod.yaml file.
+# Delete a pod using the type and name specified in the pod.yaml file.
 $ kubectl delete -f pod.yaml
 
-// Delete all the pods and services that have the label name=<label-name>.
+# Delete all the pods and services that have the label name=<label-name>.
 $ kubectl delete pods,services -l name=<label-name>
 
-// Delete all the pods and services that have the label name=<label-name>, including uninitialized ones.
+# Delete all the pods and services that have the label name=<label-name>, including uninitialized ones.
 $ kubectl delete pods,services -l name=<label-name> --include-uninitialized
 
-// Delete all pods, including uninitialized ones.
+# Delete all pods, including uninitialized ones.
 $ kubectl delete pods --all
 ```
 
 `kubectl exec` - Execute a command against a container in a pod.
 
 ```shell
-// Get output from running 'date' from pod <pod-name>. By default, output is from the first container.
+# Get output from running 'date' from pod <pod-name>. By default, output is from the first container.
 $ kubectl exec <pod-name> date
 
-// Get output from running 'date' in container <container-name> of pod <pod-name>.
+# Get output from running 'date' in container <container-name> of pod <pod-name>.
 $ kubectl exec <pod-name> -c <container-name> date
 
-// Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
+# Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
 $ kubectl exec -ti <pod-name> /bin/bash
 ```
 
 `kubectl logs` - Print the logs for a container in a pod.
 
 ```shell
-// Return a snapshot of the logs from pod <pod-name>.
+# Return a snapshot of the logs from pod <pod-name>.
 $ kubectl logs <pod-name>
 
-// Start streaming the logs from pod <pod-name>. This is similar to the 'tail -f' Linux command.
+# Start streaming the logs from pod <pod-name>. This is similar to the 'tail -f' Linux command.
 $ kubectl logs -f <pod-name>
 ```
 
@@ -363,26 +363,26 @@ $ kubectl logs -f <pod-name>
 Use the following set of examples to help you familiarize yourself with writing and using `kubectl` plugins:
 
 ```shell
-// create a simple plugin in any language and name the resulting executable file
-// so that it begins with the prefix "kubectl-"
+# create a simple plugin in any language and name the resulting executable file
+# so that it begins with the prefix "kubectl-"
 $ cat ./kubectl-hello
 #!/bin/bash
 
 # this plugin prints the words "hello world"
 echo "hello world"
 
-// with our plugin written, let's make it executable
+# with our plugin written, let's make it executable
 $ sudo chmod +x ./kubectl-hello
 
-// and move it to a location in our PATH
+# and move it to a location in our PATH
 $ sudo mv ./kubectl-hello /usr/local/bin
 
-// we have now created and "installed" a kubectl plugin.
-// we can begin using our plugin by invoking it from kubectl as if it were a regular command
+# we have now created and "installed" a kubectl plugin.
+# we can begin using our plugin by invoking it from kubectl as if it were a regular command
 $ kubectl hello
 hello world
 
-// we can "uninstall" a plugin, by simply removing it from our PATH
+# we can "uninstall" a plugin, by simply removing it from our PATH
 $ sudo rm /usr/local/bin/kubectl-hello
 ```
 
@@ -397,9 +397,9 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 
-// this command can also warn us about plugins that are
-// not executable, or that are overshadowed by other
-// plugins, for example
+# this command can also warn us about plugins that are
+# not executable, or that are overshadowed by other
+# plugins, for example
 $ sudo chmod -x /usr/local/bin/kubectl-foo
 $ kubectl plugin list
 The following kubectl-compatible plugins are available:
@@ -428,10 +428,10 @@ Running the above plugin gives us an output containing the user for the currentl
 context in our KUBECONFIG file:
 
 ```shell
-// make the file executable
+# make the file executable
 $ sudo chmod +x ./kubectl-whoami
 
-// and move it into our PATH
+# and move it into our PATH
 $ sudo mv ./kubectl-whoami /usr/local/bin
 
 $ kubectl whoami
