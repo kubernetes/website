@@ -161,7 +161,6 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
 5. Katacoda environment only: Type `30369` (see port opposite to `8080` in services output), and then click
-**Display Port**. 
 
     This opens up a browser window that serves your app and shows the "Hello World" message.
 
