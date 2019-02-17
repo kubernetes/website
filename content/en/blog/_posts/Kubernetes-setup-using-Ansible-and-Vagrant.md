@@ -5,7 +5,7 @@ date: 2019-02-06
 ---
 
 ## Objective
-This blog describes the steps required to setup multi node Kubernetes cluster for development purpose. This setup provides production like cluster that can be setup in local machine.  
+This blog post describes the steps required to setup multi node Kubernetes cluster for development purposes. This setup provides a production-like cluster that can be setup on your local machine. 
 
 ## Why do we require multi node cluster setup?
 Multi node Kubernetes cluster offers production like environment which in turn has various advantages. Even though Minikube provides an excellent platform for getting started it doesn't provide the opportunity to work with multi node cluster which can help solve problems or bugs that are related to application design and architecture. For instance, Ops can reproduce an issue in multi node cluster environment, Testers can deploy multiple version of application for executing test cases and verifying changes. These benefits enable teams to resolve issues faster which can contribute to being agile. 
@@ -13,21 +13,21 @@ Multi node Kubernetes cluster offers production like environment which in turn h
 ## Why use Vagrant and Ansible?
 Vagrant is a tool that will allow us to create a virtual environment easily and it eliminates pitfalls that cause the works-on-my-machine phenomenon. It can be used with multiple providers such as Oracle VirtualBox, VMware, Docker and so on. It allows us to create disposable environment by making use of configuration files. 
 
-Ansible is Infrastructure automation engine that automates software configuration management. It is agent less and allows us to use ssh keys for connecting to remote machines. Ansible playbooks are written in yaml and it offers inventory management in simple text files.
+Ansible is an infrastructure automation engine that automates software configuration management. It is agentless and allows us to use ssh keys for connecting to remote machines. Ansible playbooks are written in yaml and it offers inventory management in simple text files.
 
 
 ### Pre-requisites
 - Vagrant should be installed on your machine. Installation binaries can be found [here](https://www.vagrantup.com/downloads.html).
 - Oracle VirtualBox can be used as Vagrant provider or make use of similar providers as described in official [documentation](https://www.vagrantup.com/docs/providers/) of Vagrant.
-- Ansible should be installed in your machine. Refer Ansible installation [guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for platform specific installation.
+ - Ansible should be installed in your machine. Refer to the [Ansible installation guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for platform specific installation.
 
 ## Setup overview
 We will be setting up a Kubernetes cluster that will consist of one master and two worker nodes. All the nodes will run Ubuntu Xenial 64-bit OS and Ansible playbooks will be used for provisioning.
 
 #### Step 1: Creating a Vagrantfile
-Use text editor of your choice and create a file with name Vagrantfile and insert the below code. The value of N denotes the no. of nodes present in the cluster, it can be modified accordingly. In the below example we are setting the value of N as 2.
+Use the text editor of your choice and create a file with named `Vagrantfile`, inserting the code below. The value of N denotes the number of nodes present in the cluster, it can be modified accordingly. In the below example we are setting the value of N as 2.
 
-```
+```ruby
 IMAGE_NAME = "ubuntu/xenial64"
 N = 2
 
@@ -58,11 +58,11 @@ end
 ```
 
 #### Step 2: Creating Ansible playbook for Kubernetes master.
-Create a directory with name kubernetes-setup adjacent to the Vagrantfile. Create files with name master-playbook.yml and node-playbook.yml in the directory kubernetes-setup.
+Create a directory named `kubernetes-setup` in the same directory as the `Vagrantfile`. Create two files named `master-playbook.yml` and `node-playbook.yml` in the directory `kubernetes-setup`.
 
 In the file master-playbook.yml, start adding below code.
 #### Step 2.1: Install Docker and its dependent components.
-We will be installing the following packages and adding user with the name vagrant to docker group.
+We will be installing the following packages, and then adding a user named “vagrant” to the “docker” group.
 - docker-ce
 - docker-ce-cli
 - containerd.io
@@ -181,10 +181,10 @@ We will be installing the following packages and adding user with the name vagra
       service: name=docker state=started
 ```
 
-#### Step 3: Creating Ansible playbook for Kubernetes node.
-Create a file with name node-playbook.yml in the directory kubernetes-setup.
+#### Step 3: Create Ansible playbook for Kubernetes node.
+Create a file named `node-playbook.yml` in the directory `kubernetes-setup`.
 
-In the file node-playbook.yml, start adding below code.
+Add the code below into `node-playbook.yml`
 #### Step 3.1: Generate kube join command for joining the node to Kubernetes cluster.
 
 ```
