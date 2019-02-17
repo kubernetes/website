@@ -23,7 +23,9 @@ You should be familiar with [PKI certificates and requirements in Kubernetes](/d
 
 ## Renew certificates with the certificates API
 
-Kubeadm can renew certificates with the `kubeadm alpha certs renew` commands.
+The Kubernetes certificates normally reach their expiration date after one year. 
+
+Kubeadm can renew certificates with the `kubeadm alpha certs renew` commands; you should run these commands on control-plane nodes only.
 
 Typically this is done by loading on-disk CA certificates and keys and using them to issue new certificates.
 This approach works well if your certificate tree is self-contained. However, if your certificates are externally
