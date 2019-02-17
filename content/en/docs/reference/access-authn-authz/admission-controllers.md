@@ -142,20 +142,24 @@ if the pods don't already have toleration for taints
 
 This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
 
-If your cluster supports privileged containers, and you want to restrict the ability of end-users to exec
-commands in those containers, we strongly encourage enabling this admission controller.
-
 This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
+The DenyExecOnPrivileged admission plugin is deprecated and will be removed in v1.18.
 
-### DenyEscalatingExec {#denyescalatingexec}
+Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
+which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
+is recommended instead.
+
+### DenyEscalatingExec (deprecated) {#denyescalatingexec}
 
 This admission controller will deny exec and attach commands to pods that run with escalated privileges that
 allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
 have access to the host PID namespace.
 
-If your cluster supports containers that run with escalated privileges, and you want to
-restrict the ability of end-users to exec commands in those containers, we strongly encourage
-enabling this admission controller.
+The DenyEscalatingExec admission plugin is deprecated and will be removed in v1.18.
+
+Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
+which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
+is recommended instead.
 
 ### EventRateLimit (alpha) {#eventratelimit}
 
