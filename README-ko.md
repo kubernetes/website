@@ -1,5 +1,8 @@
 # 쿠버네티스 문서화
 
+[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
+[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+
 환영합니다! 이 저장소는 쿠버네티스 웹사이트 및 문서화를 만드는 데 필요로 하는 모든 asset에 대한 공간을 제공합니다. 여러 분이 기여를 원한다는 사실에 매우 기쁩니다!
 
 ## 문서에 기여하기
