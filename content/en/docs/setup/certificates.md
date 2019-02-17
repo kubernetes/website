@@ -109,9 +109,13 @@ You must manually configure these administrator account and service accounts:
 | filename                | credential name            | Default CN                     | O (in Subject) |
 |-------------------------|----------------------------|--------------------------------|----------------|
 | admin.conf              | default-admin              | kubernetes-admin               | system:masters |
-| kubelet.conf            | default-auth               | system:node:`<nodename>`        | system:nodes   |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
 | scheduler.conf          | default-manager            | system:kube-scheduler          |                |
+
+{{< note >}}
+The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).
+{{< /note >}}
 
 1. For each config, generate an x509 cert/key pair with the given CN and O.
 

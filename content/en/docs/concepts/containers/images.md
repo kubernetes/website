@@ -170,6 +170,11 @@ will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 {{< /note >}}
 
+{{< note >}}
+Kubernetes as of now only supports the `auths` and `HttpHeaders` section of docker config. This means credential helpers (`credHelpers` or `credsStore`) are not supported.
+{{< /note >}}
+
+
 Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
 in the search paths list below, kubelet uses it as the credential provider when pulling images.
 
@@ -313,7 +318,7 @@ type: kubernetes.io/dockerconfigjson
 
 If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
 If you get an error message like `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`, it means
-the data was successfully un-base64 encoded, but could not be parsed as a `.docker/config.json` file.
+the base64 encoded string in the data was successfully decoded, but could not be parsed as a `.docker/config.json` file.
 
 #### Referring to an imagePullSecrets on a Pod
 

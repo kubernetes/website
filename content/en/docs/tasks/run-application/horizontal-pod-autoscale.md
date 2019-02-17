@@ -37,7 +37,7 @@ to match the observed average CPU utilization to the target specified by user.
 
 The Horizontal Pod Autoscaler is implemented as a control loop, with a period controlled
 by the controller manager's `--horizontal-pod-autoscaler-sync-period` flag (with a default
-value of 30 seconds).
+value of 15 seconds).
 
 During each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition.  The controller manager
@@ -249,7 +249,7 @@ Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal P
 You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta2` API.
 Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
 
-See [Support for metrics APIs](#support-for-metrics-APIs) for the requirements.
+See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 
 ## Support for metrics APIs
 

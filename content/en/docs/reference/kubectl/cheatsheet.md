@@ -29,6 +29,13 @@ source <(kubectl completion bash) # setup autocomplete in bash into the current 
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
+You can also use a shorthand alias for `kubectl` that also works with completion: 
+
+```bash
+alias k=kubectl
+complete -F __start_kubectl k
+```
+
 ### ZSH
 
 ```bash
@@ -149,6 +156,10 @@ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP
 # "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
+
+# Show labels for all pods (or any other Kubernetes object that supports labelling)
+# Also uses "jq"
+for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
 
 # Check which nodes are ready
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \

@@ -171,8 +171,8 @@ Suppose that you now want to update the nginx Pods to use the `nginx:1.9.1` imag
 instead of the `nginx:1.7.9` image.
 
 ```shell
-$ kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record
-deployment.apps/nginx-deployment image updated
+$ kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment
+nginx=nginx:1.9.1 image updated
 ```
 
 Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
@@ -467,7 +467,7 @@ $ kubectl rollout undo deployment.v1.apps/nginx-deployment
 deployment.apps/nginx-deployment
 ```
 
-Alternatively, you can rollback to a specific revision by specify that in `--to-revision`:
+Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
 ```shell
 $ kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
@@ -988,15 +988,12 @@ Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1
 
 ### Revision History Limit
 
-A Deployment's revision history is stored in the replica sets it controls.
+A Deployment's revision history is stored in the ReplicaSets it controls.
 
 `.spec.revisionHistoryLimit` is an optional field that specifies the number of old ReplicaSets to retain
-to allow rollback. Its ideal value depends on the frequency and stability of new Deployments. All old
-ReplicaSets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`,
-if this field is not set. The configuration of each Deployment revision is stored in its ReplicaSets;
-therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment.
+to allow rollback. These old ReplicaSets consume resources in `etcd` and crowd the output of `kubectl get rs`. The configuration of each Deployment revision is stored in its ReplicaSets; therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment. By default, 10 old ReplicaSets will be kept, however its ideal value depends on the frequency and stability of new Deployments. 
 
-More specifically, setting this field to zero means that all old ReplicaSets with 0 replica will be cleaned up.
+More specifically, setting this field to zero means that all old ReplicaSets with 0 replicas will be cleaned up.
 In this case, a new Deployment rollout cannot be undone, since its revision history is cleaned up.
 
 ### Paused

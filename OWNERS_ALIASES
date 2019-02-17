@@ -122,19 +122,45 @@ aliases:
     - jimangel
     - kbarnard10
     - mistyhacks
+    - rajakavitha1
     - ryanmcginnis
     - steveperry-53
     - stewart-yu
     - tengqm
     - tfogo
     - zacharysarah
+    - zhangxiaoyu-zidif
     - zparnold
   sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews
     - jimangel
     - rajakavitha1
     - stewart-yu
     - xiangpengzhao
-    - zhangxiaoyu
+    - zhangxiaoyu-zidif
+  sig-docs-fr-owners: #Team: Documentation; GH: sig-docs-fr-owners
+    - sieben
+    - perriea
+    - rekcah78
+    - lledru
+    - yastij
+    - smana
+    - rbenzair
+    - abuisine
+    - erickhun
+    - jygastaud
+    - awkif
+  sig-docs-fr-reviews: #Team: Documentation; GH: sig-docs-fr-reviews
+    - sieben
+    - perriea
+    - rekcah78
+    - lledru
+    - yastij
+    - smana
+    - rbenzair
+    - abuisine
+    - erickhun
+    - jygastaud
+    - awkif
   sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
     - cstoku
     - nasa9084

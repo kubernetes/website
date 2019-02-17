@@ -64,10 +64,15 @@ In order for the ingress resource to work, the cluster must have an ingress cont
 
 Additional controllers include:
 
+* [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io) based ingress 
+  controller with [community](https://www.getambassador.io/docs) or 
+  [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
 * [Contour](https://github.com/heptio/contour) is an [Envoy](https://www.envoyproxy.io) based ingress controller
   provided and supported by Heptio.
+* Citrix provides an [Ingress Controller](https://github.com/citrix/citrix-k8s-ingress-controller) for its hardware (MPX), virtualized (VPX) and [free containerized (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) for [baremetal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) and [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
 * F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508)
   for the [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest).
+* [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io) which offers API Gateway functionality with enterprise support from [solo.io](https://www.solo.io).  
 * [HAProxy](http://www.haproxy.org/) based ingress controller
   [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) which is mentioned on the blog post
   [HAProxy Ingress Controller for Kubernetes](https://www.haproxy.com/blog/haproxy_ingress_controller_for_kubernetes/).
@@ -76,8 +81,8 @@ Additional controllers include:
 * [Istio](https://istio.io/) based ingress controller
   [Control Ingress Traffic](https://istio.io/docs/tasks/traffic-management/ingress/).
 * [Kong](https://konghq.com/) offers [community](https://discuss.konghq.com/c/kubernetes) or
-  [commercial](https://konghq.com/api-customer-success/) support and maintenance for the
-  [Kong Ingress Controllerfor Kubernetes](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/).
+  [commercial](https://konghq.com/kong-enterprise/) support and maintenance for the
+  [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller).
 * [NGINX, Inc.](https://www.nginx.com/) offers support and maintenance for the
   [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller).
 * [Traefik](https://github.com/containous/traefik) is a fully featured ingress controller
@@ -344,7 +349,7 @@ kind: Secret
 metadata:
   name: testsecret-tls
   namespace: default
-type: Opaque
+type: kubernetes.io/tls
 ```
 
 Referencing this secret in an ingress will tell the ingress controller to
