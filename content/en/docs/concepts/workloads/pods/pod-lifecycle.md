@@ -18,7 +18,7 @@ This page describes the lifecycle of a Pod.
 
 ## Pod phase
 
-A Pod's `status` field is a
+A {{< glossary_tooltip term_id="pod" >}}'s `status` field is a
 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 object, which has a `phase` field.
 
@@ -39,7 +39,7 @@ Value | Description
 `Succeeded` | All Containers in the Pod have terminated in success, and will not be restarted.
 `Failed` | All Containers in the Pod have terminated, and at least one Container has terminated in failure. That is, the Container either exited with non-zero status or was terminated by the system.
 `Unknown` | For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.
-`Completed` | The pod has run to completion as there's nothing to keep it running eg. Completed Jobs.
+`Completed` | The pod has run to completion as there's nothing to keep it running eg. pods from a {{< glossary_tooltip term_id="job" >}} that has completed.
 `CrashLoopBackOff` | This means that one of the containers in the pod has exited unexpectedly, and perhaps with a non-zero error code even after restarting due to [restart policy](#restart-policy).
 
 
@@ -68,7 +68,7 @@ array has six possible fields:
   * `PodScheduled`: the Pod has been scheduled to a node;
   * `Ready`: the Pod is able to serve requests and should be added to the load
     balancing pools of all matching Services;
-  * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
+  * `Initialized`: all {{< glossary_tooltip text="init containers" term_id="init-container" >}}
     have started successfully;
   * `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
     due to lacking of resources or other constraints;
