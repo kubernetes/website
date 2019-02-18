@@ -244,11 +244,12 @@ The preceding configuration file defines a new context named `dev-ramp-up`.
 See whether you have an environment variable named `KUBECONFIG`. If so, save the
 current value of your `KUBECONFIG` environment variable, so you can restore it later.
 For example:
-Linux
+
+### Linux
 ```shell
 export  KUBECONFIG_SAVED=$KUBECONFIG
 ```
-Windows PowerShell
+### Windows PowerShell
 ```shell
  $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
  ```
@@ -259,7 +260,7 @@ in the list.
 
 Temporarily append two paths to your `KUBECONFIG` environment variable. For example:<br>
 
-### Linux:
+### Linux
 ```shell
 export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
@@ -322,11 +323,11 @@ If you have a `$HOME/.kube/config` file, and it's not already listed in your
 `KUBECONFIG` environment variable, append it to your `KUBECONFIG` environment variable now.
 For example:
 
-### Linux:
+### Linux
 ```shell
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
-### Windows Powershell:
+### Windows Powershell
 ```shell
  $Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
 ```
