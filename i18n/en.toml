@@ -30,6 +30,24 @@ other = "No"
 [latest_version]
 other = "latest version."
 
+[version_check_mustbe]
+other = "Your Kubernetes server must be version "
+
+[version_check_mustbeorlater]
+other = "Your Kubernetes server must be at or later than version "
+
+[version_check_tocheck]
+other = "To check the version, enter "
+
+[caution]
+other = "Caution:"
+
+[note]
+other = "Note:"
+
+[warning]
+other = "Warning:"
+
 [main_read_about]
 other = "Read about"
 
