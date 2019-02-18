@@ -156,7 +156,7 @@ kubectl label nodes <node-with-k80> accelerator=nvidia-tesla-k80
 kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 ```
 
-For AMD GPUs, you can deploy [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller), which automatically label your nodes with GPU properties.  Currently supported properties are:
+For AMD GPUs, you can deploy [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller), which automatically labels your nodes with GPU properties. Currently supported properties:
 
 * Device ID (-device-id)
 * VRAM Size (-vram)
