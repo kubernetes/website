@@ -7,7 +7,8 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.
+Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}}
+help different projects, teams, or customers to share a Kubernetes cluster.
 
 It does this by providing the following:
 
