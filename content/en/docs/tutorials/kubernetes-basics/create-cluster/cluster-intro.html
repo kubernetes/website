@@ -1,5 +1,5 @@
 ---
-title: Using Minikube to Create a Cluster
+title: Create a Cluster
 weight: 10
 ---
 
