@@ -259,14 +259,15 @@ in the list.
 
 Temporarily append two paths to your `KUBECONFIG` environment variable. For example:<br>
 
-Linux:
+### Linux:
 ```shell
 export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
-Windows PowerShell
+### Windows PowerShell
 ```shell
 $Env:KUBECONFIG_SAVED=(config-demo;config-demo-2)
 ```
+
 In your `config-exercise` directory, enter this command:
 
 ```shell
