@@ -251,21 +251,30 @@ The preceding configuration file defines a new context named `dev-ramp-up`.
 
 See whether you have an environment variable named `KUBECONFIG`. If so, save the
 current value of your `KUBECONFIG` environment variable, so you can restore it later.
-For example, on Linux:
+For example:
 
+### Linux
 ```shell
 export  KUBECONFIG_SAVED=$KUBECONFIG
 ```
-
+### Windows PowerShell
+```shell
+ $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
+ ```
  The `KUBECONFIG` environment variable is a list of paths to configuration files. The list is
 colon-delimited for Linux and Mac, and semicolon-delimited for Windows. If you have
 a `KUBECONFIG` environment variable, familiarize yourself with the configuration files
 in the list.
 
-Temporarily append two paths to your `KUBECONFIG` environment variable. For example, on Linux:
+Temporarily append two paths to your `KUBECONFIG` environment variable. For example:<br>
 
+### Linux
 ```shell
 export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
+```
+### Windows PowerShell
+```shell
+$Env:KUBECONFIG_SAVED=(config-demo;config-demo-2)
 ```
 
 In your `config-exercise` directory, enter this command:
@@ -320,10 +329,15 @@ familiarize yourself with the contents of these files.
 
 If you have a `$HOME/.kube/config` file, and it's not already listed in your
 `KUBECONFIG` environment variable, append it to your `KUBECONFIG` environment variable now.
-For example, on Linux:
+For example:
 
+### Linux
 ```shell
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
+```
+### Windows Powershell
+```shell
+ $Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
 ```
 
 View configuration information merged from all the files that are now listed
@@ -335,10 +349,14 @@ kubectl config view
 
 ## Clean up
 
-Return your `KUBECONFIG` environment variable to its original value. For example, on Linux:
-
+Return your `KUBECONFIG` environment variable to its original value. For example:<br>
+Linux:
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
+```
+Windows PowerShell
+```shell
+ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
 {{% /capture %}}
