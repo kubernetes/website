@@ -290,8 +290,10 @@ This is particularly useful if you are using multiple private container
 registries, as `kubectl create secret docker-registry` creates a Secret that will
 only work with a single private registry.
 
+{{< note >}}
 Pods can only reference image pull secrets in their own namespace,
 so this process needs to be done one time per namespace.
+{{< /note >}}
 
 #### Referring to an imagePullSecrets on a Pod
 
