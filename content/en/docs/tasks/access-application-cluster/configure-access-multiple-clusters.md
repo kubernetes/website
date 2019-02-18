@@ -320,12 +320,13 @@ familiarize yourself with the contents of these files.
 
 If you have a `$HOME/.kube/config` file, and it's not already listed in your
 `KUBECONFIG` environment variable, append it to your `KUBECONFIG` environment variable now.
-For example:<br>
-Linux:
+For example:
+
+### Linux:
 ```shell
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
-Windows Powershell:
+### Windows Powershell:
 ```shell
  $Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
 ```
