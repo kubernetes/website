@@ -24,7 +24,7 @@ object, which has a `phase` field.
 
 The phase of a Pod is a simple, high-level summary of where the Pod is in its
 lifecycle. The phase is not intended to be a comprehensive rollup of observations
-of Container or Pod state, nor is it intended to be a comprehensive state machine.
+of container or Pod state, nor is it intended to be a comprehensive state machine.
 
 The number and meanings of Pod phase values are tightly guarded.
 Other than what is documented here, nothing should be assumed about Pods that
@@ -34,10 +34,10 @@ Here are the possible values for `phase`:
 
 Value | Description
 :-----|:-----------
-`Pending` | The Pod has been accepted by the Kubernetes system, but one or more of the Container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while.
-`Running` | The Pod has been bound to a node, and all of the Containers have been created. At least one Container is still running, or is in the process of starting or restarting.
-`Succeeded` | All Containers in the Pod have terminated in success, and will not be restarted.
-`Failed` | All Containers in the Pod have terminated, and at least one Container has terminated in failure. That is, the Container either exited with non-zero status or was terminated by the system.
+`Pending` | The Pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while.
+`Running` | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
+`Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.
+`Failed` | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
 `Unknown` | For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.
 `Completed` | The pod has run to completion as there's nothing to keep it running eg. pods from a {{< glossary_tooltip term_id="job" >}} that has completed.
 `CrashLoopBackOff` | This means that one of the containers in the pod has exited unexpectedly, and perhaps with a non-zero error code even after restarting due to [restart policy](#restart-policy).
@@ -80,52 +80,52 @@ array has six possible fields:
 
 A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) is a diagnostic
 performed periodically by the [kubelet](/docs/admin/kubelet/)
-on a Container. To perform a diagnostic,
+on a container. To perform a diagnostic,
 the kubelet calls a
 [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implemented by
-the Container. There are three types of handlers:
+the container. There are three types of handlers:
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):
-  Executes a specified command inside the Container. The diagnostic
+  Executes a specified command inside the container. The diagnostic
   is considered successful if the command exits with a status code of 0.
 
 * [TCPSocketAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#tcpsocketaction-v1-core):
-  Performs a TCP check against the Container's IP address on
+  Performs a TCP check against the container's IP address on
   a specified port. The diagnostic is considered successful if the port is open.
 
 * [HTTPGetAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core):
-  Performs an HTTP Get request against the Container's IP
+  Performs an HTTP Get request against the container's IP
   address on a specified port and path. The diagnostic is considered successful
   if the response has a status code greater than or equal to 200 and less than 400.
 
 Each probe has one of three results:
 
-* Success: The Container passed the diagnostic.
-* Failure: The Container failed the diagnostic.
+* Success: The container passed the diagnostic.
+* Failure: The container failed the diagnostic.
 * Unknown: The diagnostic failed, so no action should be taken.
 
 The kubelet can optionally perform and react to two kinds of probes on running
-Containers:
+containers:
 
-* `livenessProbe`: Indicates whether the Container is running. If
-   the liveness probe fails, the kubelet kills the Container, and the Container
-   is subjected to its [restart policy](#restart-policy). If a Container does not
+* `livenessProbe`: Indicates whether the container is running. If
+   the liveness probe fails, the kubelet kills the container, and the container
+   is subjected to its [restart policy](#restart-policy). If a container does not
    provide a liveness probe, the default state is `Success`.
 
-* `readinessProbe`: Indicates whether the Container is ready to service requests.
+* `readinessProbe`: Indicates whether the container is ready to service requests.
    If the readiness probe fails, the endpoints controller removes the Pod's IP
    address from the endpoints of all Services that match the Pod. The default
-   state of readiness before the initial delay is `Failure`. If a Container does
+   state of readiness before the initial delay is `Failure`. If a container does
    not provide a readiness probe, the default state is `Success`.
 
 ### When should you use liveness or readiness probes?
 
-If the process in your Container is able to crash on its own whenever it
+If the process in your container is able to crash on its own whenever it
 encounters an issue or becomes unhealthy, you do not necessarily need a liveness
 probe; the kubelet will automatically perform the correct action in accordance
 with the Pod's `restartPolicy`.
 
-If you'd like your Container to be killed and restarted if a probe fails, then
+If you'd like your container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
 
 If you'd like to start sending traffic to a Pod only when a probe succeeds,
@@ -133,16 +133,16 @@ specify a readiness probe. In this case, the readiness probe might be the same
 as the liveness probe, but the existence of the readiness probe in the spec means
 that the Pod will start without receiving any traffic and only start receiving
 traffic after the probe starts succeeding.
-If your Container needs to work on loading large data, configuration files, or migrations during startup, specify a readiness probe.
+If your container needs to work on loading large data, configuration files, or migrations during startup, specify a readiness probe.
 
-If you want your Container to be able to take itself down for maintenance, you
+If you want your container to be able to take itself down for maintenance, you
 can specify a readiness probe that checks an endpoint specific to readiness that
 is different from the liveness probe.
 
 Note that if you just want to be able to drain requests when the Pod is deleted,
 you do not necessarily need a readiness probe; on deletion, the Pod automatically
 puts itself into an unready state regardless of whether the readiness probe exists.
-The Pod remains in the unready state while it waits for the Containers in the Pod
+The Pod remains in the unready state while it waits for the containers in the Pod
 to stop.
 
 For more information about how to set up a liveness or readiness probe, see
@@ -150,7 +150,7 @@ For more information about how to set up a liveness or readiness probe, see
 
 ## Pod and Container status
 
-For detailed information about Pod Container status, see
+For detailed status information about Pods and their containers, see
 [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 and
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
@@ -249,9 +249,9 @@ In K8s 1.12, the feature is enabled by default.
 
 A PodSpec has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
-`restartPolicy` applies to all Containers in the Pod. `restartPolicy` only
-refers to restarts of the Containers by the kubelet on the same node. Exited
-Containers that are restarted by the kubelet are restarted with an exponential
+`restartPolicy` applies to all containers in the Pod. `restartPolicy` only
+refers to restarts of the containers by the kubelet on the same node. Exited
+containers that are restarted by the kubelet are restarted with an exponential
 back-off delay (10s, 20s, 40s ...) capped at five minutes, and is reset after ten
 minutes of successful execution. As discussed in the
 [Pods document](/docs/user-guide/pods/#durability-of-pods-or-lack-thereof),
@@ -326,43 +326,43 @@ spec:
 
 ### Example states
 
-   * Pod is running and has one Container. Container exits with success.
+   * Pod is running and has one container. Container exits with success.
      * Log completion event.
      * If `restartPolicy` is:
-       * Always: Restart Container; Pod `phase` stays Running.
+       * Always: Restart container; Pod `phase` stays Running.
        * OnFailure: Pod `phase` becomes Succeeded.
        * Never: Pod `phase` becomes Succeeded.
 
-   * Pod is running and has one Container. Container exits with failure.
+   * Pod is running and has one container. Container exits with failure.
      * Log failure event.
      * If `restartPolicy` is:
-       * Always: Restart Container; Pod `phase` stays Running.
-       * OnFailure: Restart Container; Pod `phase` stays Running.
+       * Always: Restart container; Pod `phase` stays Running.
+       * OnFailure: Restart container; Pod `phase` stays Running.
        * Never: Pod `phase` becomes Failed.
 
-   * Pod is running and has two Containers. Container 1 exits with failure.
+   * Pod is running and has two containers. Container 1 exits with failure.
      * Log failure event.
      * If `restartPolicy` is:
-       * Always: Restart Container; Pod `phase` stays Running.
-       * OnFailure: Restart Container; Pod `phase` stays Running.
-       * Never: Do not restart Container; Pod `phase` stays Running.
-     * If Container 1 is not running, and Container 2 exits:
+       * Always: Restart failed container; Pod `phase` stays Running.
+       * OnFailure: Restart failed container; Pod `phase` stays Running.
+       * Never: Do not restart any container; Pod `phase` stays Running.
+     * If container 1 is not running, and container 2 exits:
        * Log failure event.
        * If `restartPolicy` is:
-         * Always: Restart Container; Pod `phase` stays Running.
-         * OnFailure: Restart Container; Pod `phase` stays Running.
+         * Always: Restart container that exited; Pod `phase` stays Running.
+         * OnFailure: Restart container that exited; Pod `phase` stays Running.
          * Never: Pod `phase` becomes Failed.
 
-   * Pod is running and has one Container. Container runs out of memory.
+   * Pod is running and has one container. Container runs out of memory.
      * Container terminates in failure.
      * Log OOM event.
      * If `restartPolicy` is:
-       * Always: Restart Container; Pod `phase` stays Running.
-       * OnFailure: Restart Container; Pod `phase` stays Running.
+       * Always: Restart container; Pod `phase` stays Running.
+       * OnFailure: Restart container; Pod `phase` stays Running.
        * Never: Log failure event; Pod `phase` becomes Failed.
 
    * Pod is running, and a disk dies.
-     * Kill all Containers.
+     * Kill all containers.
      * Log appropriate event.
      * Pod `phase` becomes Failed.
      * If running under a controller, Pod is recreated elsewhere.
@@ -378,12 +378,12 @@ spec:
 {{% capture whatsnext %}}
 
 * Get hands-on experience
-  [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+  [attaching handlers to container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Get hands-on experience
   [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
+* Learn more about [container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
 {{% /capture %}}
 
