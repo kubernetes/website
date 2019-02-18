@@ -38,7 +38,7 @@ Value | Description
 `Running` | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
 `Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.
 `Failed` | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
-`Unknown` | For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.
+`Unknown` | For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the {{< glossary_tooltip text="node" term_id="node" >}} where that Pod is scheduled.
 `Completed` | The pod has run to completion as there's nothing to keep it running eg. pods from a {{< glossary_tooltip term_id="job" >}} that has completed.
 `CrashLoopBackOff` | This means that one of the containers in the pod has exited unexpectedly, and perhaps with a non-zero error code even after restarting due to [restart policy](#restart-policy).
 
