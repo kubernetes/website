@@ -436,7 +436,7 @@ kubectl apply -f <add-on.yaml>
 [安装 Calico 用于策略和网络](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico)和其他相关资源。
 
 要使 Calico 正常工作，您需要执行 `kubeadm init` 时增加 `--pod-network-cidr=192.168.0.0/16` 参数或更新 `calico.yml` 文件以匹配您的 Pod 网络。
-请注意，Calico 仅适用于 `amd64` 设备。
+请注意，Calico 仅适用于 `amd64`、`arm64`、`ppc64le` 和 `s390x` 架构。
 
 ```shell
 kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
