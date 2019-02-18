@@ -255,6 +255,7 @@ The following cloud providers have implemented CCMs:
 * [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
 * [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
 * [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
+* [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 
 ## Cluster Administration
 

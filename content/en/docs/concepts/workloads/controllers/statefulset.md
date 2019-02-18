@@ -134,6 +134,10 @@ As each Pod is created, it gets a matching DNS subdomain, taking the form:
 `$(podname).$(governing service domain)`, where the governing service is defined
 by the `serviceName` field on the StatefulSet.
 
+As mentioned in the [limitations](#limitations) section, you are responsible for
+creating the [Headless Service](/docs/concepts/services-networking/service/#headless-services)
+responsible for the network identity of the pods.
+
 Here are some examples of choices for Cluster Domain, Service name,
 StatefulSet name, and how that affects the DNS names for the StatefulSet's Pods.
 

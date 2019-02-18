@@ -90,7 +90,6 @@ Other CRI-based runtimes include:
 - [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
-- [rkt](https://github.com/kubernetes-incubator/rktlet)
 
 Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
 
@@ -106,7 +105,7 @@ You will install these packages on all of your machines:
 * `kubectl`: the command line util to talk to your cluster.
 
 kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
-need to ensure they match the version of the Kubernetes control panel you want
+need to ensure they match the version of the Kubernetes control plane you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
 can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
