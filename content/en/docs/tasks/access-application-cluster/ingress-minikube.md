@@ -136,24 +136,24 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-   ```yaml    
-   ---
-   apiVersion: extensions/v1beta1
-   kind: Ingress
-   metadata:
-     name: example-ingress
-     annotations:
-       nginx.ingress.kubernetes.io/rewrite-target: /
-   spec:
-    rules:
-    - host: hello-world.info
-      http:
-        paths:
-        - path: /*
-          backend:
-            serviceName: web
-            servicePort: 8080
-   ```
+    ```yaml    
+    ---
+    apiVersion: extensions/v1beta1
+    kind: Ingress
+    metadata:
+      name: example-ingress
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /
+    spec:
+     rules:
+     - host: hello-world.info
+       http:
+         paths:
+         - path: /*
+           backend:
+             serviceName: web
+             servicePort: 8080
+    ```
 
 1. Create the Ingress resrouce by running the following command:
     
@@ -173,9 +173,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     kubectl get ingress
     ```
 
-    {{< note >}}
-    This can take a couple of minutes.
-    {{< /note >}}
+    {{< note >}}This can take a couple of minutes.{{< /note >}}
 
     ```shell
     NAME              HOSTS              ADDRESS       PORTS     AGE
@@ -184,9 +182,9 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Add the following line to the bottom of the `/etc/hosts` file. 
 
-   ```shell
-   172.17.0.15 hello-world.info
-   ```
+    ```shell
+    172.17.0.15 hello-world.info
+    ```
 
     This sends requests from hello-world.info to Minikube.
 
@@ -203,9 +201,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     Hostname: web-55b8c6998d-8k564
     ```
 
-    {{< note >}}
-    If you are running Minikube locally, you can visit hello-world.info from your browser.
-    {{< /note >}}
+    {{< note >}}If you are running Minikube locally, you can visit hello-world.info from your browser.{{< /note >}}
 
 ## Create Second Deployment
 
@@ -236,12 +232,12 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Edit the existing `example-ingress.yaml` and add the following lines:  
 
-   ```yaml
-     - path: /v2/*
-       backend:
-         serviceName: web2
-         servicePort: 8080
-   ```
+    ```yaml
+      - path: /v2/*
+        backend:
+          serviceName: web2
+          servicePort: 8080
+    ```
 
 1. Apply the changes:
 
