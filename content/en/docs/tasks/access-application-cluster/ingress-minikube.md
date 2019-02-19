@@ -118,12 +118,12 @@ Output:
     http://172.17.0.15:31637
     ```
     
-    {{< note >}}
-    Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click 
-    **Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**
-    {{< /note >}}
+{{< note >}}
+Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click 
+**Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**
+{{< /note >}}
     
-    Output:
+   Output:
     
     ```shell
     Hello, world!
