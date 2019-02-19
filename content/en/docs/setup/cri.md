@@ -35,7 +35,7 @@ systems, look for documentation specific to your platform.
 You should execute all the commands in this guide as `root`. For example, prefix commands
 with `sudo `, or become `root` and run the commands as that user.
 
-## Cgroup drivers
+### Cgroup drivers
 
 When systemd is chosen as the init system for a Linux distribution, the init process generates
 and consumes a root control group (`cgroup`) and acts as a cgroup manager. Systemd has a tight
