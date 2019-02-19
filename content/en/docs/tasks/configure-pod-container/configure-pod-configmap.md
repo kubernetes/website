@@ -150,13 +150,6 @@ ui.properties:          83 bytes
 
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
 ```shell
-# Env-files contain a list of environment variables.
-# These syntax rules apply:
-#   Each line in an env file has to be in VAR=VAL format.
-#   Lines beginning with # (i.e. comments) are ignored.
-#   Blank lines are ignored.
-#   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value)).
-
 wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game-env-file.properties -O configure-pod-container/configmap/kubectl/game-env-file.properties
 cat configure-pod-container/configmap/kubectl/game-env-file.properties
 enemies=aliens
@@ -164,6 +157,7 @@ lives=3
 allowed="true"
 
 # This comment and the empty line above it are ignored
+
 ```
 
 ```shell
