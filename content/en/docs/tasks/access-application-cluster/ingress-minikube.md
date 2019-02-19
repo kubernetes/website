@@ -55,7 +55,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 This can take up to a minute.
 {{< /note >}}
 
-    Output:
+Output:
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
