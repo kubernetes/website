@@ -195,6 +195,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     Hello, world!
     Version: 1.0.0
     Hostname: web-55b8c6998d-8k564
+    ```
 
     {{< note >}}If you are running Minikube locally, you can visit hello-world.info from your browser.{{< /note >}}
 
