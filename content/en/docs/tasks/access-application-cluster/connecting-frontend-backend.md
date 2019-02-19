@@ -8,14 +8,15 @@ weight: 70
 
 This task shows how to create a frontend and a backend
 microservice. The backend microservice is a hello greeter. The
-frontend and backend are connected using a Kubernetes Service object.
+frontend and backend are connected using a Kubernetes
+{{< glossary_tooltip term_id="service" >}} object.
 
 {{% /capture %}}
 
 
 {{% capture objectives %}}
 
-* Create and run a microservice using a Deployment object.
+* Create and run a microservice using a {{< glossary_tooltip term_id="deployment" >}} object.
 * Route traffic to the backend using a frontend.
 * Use a Service object to connect the frontend application to the
   backend application.
@@ -99,7 +100,8 @@ Events:
 The key to connecting a frontend to a backend is the backend
 Service. A Service creates a persistent IP address and DNS name entry
 so that the backend microservice can always be reached. A Service uses
-selector labels to find the Pods that it routes traffic to.
+{{< glossary_tooltip text="selectors" term_id="selector" >}} to find
+the Pods that it routes traffic to.
 
 First, explore the Service configuration file:
 
