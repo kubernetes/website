@@ -7,7 +7,7 @@ weight: 100
 {{% capture overview %}}
 
 An [Ingress](/docs/concepts/services-networking/ingress/) is an API object that defines rules which allow external access 
-to services in a cluster. An [Ingress controller](#) fulfills the rules set in the Ingress. 
+to services in a cluster. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers/) fulfills the rules set in the Ingress. 
 
 {{< caution >}}
 For the Ingress resource to work, the cluster **must** also have an Ingress controller running.
@@ -285,7 +285,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 {{% capture whatsnext %}}
 * Read more about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read more about [Ingress Controllers](#)
+* Read more about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * Read more about [Services](/docs/concepts/services-networking/service/)
 
 {{% /capture %}}
