@@ -57,7 +57,6 @@ This can take up to a minute.
 
 Output:
 
-    ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
     default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
     kube-addon-manager-minikube                 1/1       Running   0          3m
@@ -65,7 +64,6 @@ Output:
     kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
     nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
     storage-provisioner                         1/1       Running   0          2m
-    ```
 
 ## Deploy a hello, world app
 
@@ -125,13 +123,11 @@ Katacoda environment only: at the top of the terminal panel, click the plus sign
     
    Output:
     
-    ```shell
     Hello, world!
     Version: 1.0.0
     Hostname: web-55b8c6998d-8k564
-    ```
 
-    You can now access the sample app via the Minikube IP address and NodePort. The next step will let you access 
+   You can now access the sample app via the Minikube IP address and NodePort. The next step will let you access 
     the app using the Ingress resource.
 
 ## Create an Ingress resource
@@ -140,24 +136,24 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-    ```yaml
-    ---
-    apiVersion: extensions/v1beta1
-    kind: Ingress
-    metadata:
-      name: example-ingress
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /
-    spec:
-     rules:
-     - host: hello-world.info
-       http:
-         paths:
-         - path: /*
-           backend:
-             serviceName: web
-             servicePort: 8080
-    ```
+   ```yaml    
+   ---
+   apiVersion: extensions/v1beta1
+   kind: Ingress
+   metadata:
+     name: example-ingress
+     annotations:
+       nginx.ingress.kubernetes.io/rewrite-target: /
+   spec:
+    rules:
+    - host: hello-world.info
+      http:
+        paths:
+        - path: /*
+          backend:
+            serviceName: web
+            servicePort: 8080
+   ```
 
 1. Create the Ingress resrouce by running the following command:
     
@@ -166,6 +162,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     ```
     
     Output:
+    
     ```shell
     ingress.extensions/example-ingress created
     ```
