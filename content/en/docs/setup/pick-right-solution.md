@@ -123,6 +123,7 @@ few commands. These solutions are actively developed and have active community s
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
+* [Supergiant.io](https://supergiant.io/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)
 
