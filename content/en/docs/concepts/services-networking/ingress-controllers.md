@@ -8,19 +8,17 @@ toc_hide: true
 {{% capture overview %}}
 
 In order for the Ingress resource to work, the cluster must have an ingress controller running. 
-  
-{{% /capture %}}
-
-{{% capture body %}}
-
-## Ingress Controllers
 
 Unlike other types of controllers which run as part of the `kube-controller-manager` binary, Ingress controllers 
 and are not started automatically with a cluster. Choose the ingress controller implementation 
 that best fits your cluster.
 
-* Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and
+Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and
   [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers.
+  
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## Additional controllers
 
