@@ -51,10 +51,12 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     kubectl get pods -n kube-system
     ```
 
-       {{< note >}}This can take up to a minute.{{< /note >}}
+{{< note >}}
+This can take up to a minute.
+{{< /note >}}
 
-   Output:
-    
+    Output:
+
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
     default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
