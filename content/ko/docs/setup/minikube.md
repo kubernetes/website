@@ -38,9 +38,8 @@ VM 드라이버를 바꾸기 원하면 적절한 `--vm-driver=xxx` 플래그를 
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
-
+* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))	
 아래 나오는 IP 주소는 동적이므로 바뀔 수 있다. `minikube ip`를 하면 알 수 있다.
-
 
 ```shell
 $ minikube start

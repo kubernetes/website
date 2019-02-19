@@ -218,8 +218,8 @@ tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd6
 systemctl start containerd
 ```
 
-## 다른 CRI 런타임: rktlet과 frakti
+## 다른 CRI 런타임: frakti
 
-자세한 정보는 [Frakti 빠른 시작 가이드](https://github.com/kubernetes/frakti#quickstart) 및 [Rktlet 시작하기 가이드](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md)를 참고한다.
+자세한 정보는 [Frakti 빠른 시작 가이드](https://github.com/kubernetes/frakti#quickstart)를 참고한다.
 
 {{% /capture %}}
