@@ -2,6 +2,7 @@
 title: Ingress Controllers
 reviewers:
 content_template: templates/concept
+weight: 40
 ---
 
 {{% capture overview %}}
