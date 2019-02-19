@@ -29,9 +29,14 @@ content_template: templates/concept
 
 * [Minikube](/docs/setup/minikube/)는 개발과 테스트를 위한 단일 노드 쿠버네티스 클러스터를 로컬에 생성하기 위한 하나의 방법이다. 설치는 완전히 자동화 되어 있고, 클라우드 공급자 계정 정보가 필요하지 않다. 
 
+* [Docker Desktop](https://www.docker.com/products/docker-desktop)는 
+Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다. 
+수 분 내에 단일 노드 쿠버네티스 클러스터에서 컨테이너로 코딩과 배포를 
+시작할 수 있게 해준다.
+
 * [Minishift](https://docs.okd.io/latest/minishift/)는 커뮤니티 버전의 쿠버네티스 엔터프라이즈 플랫폼 OpenShift를 로컬 개발과 테스트 용으로 설치한다. Windows, macOS와 리눅스를 위한 All-In-One VM (`minishift start`)과 컨테이너 기반의 `oc cluster up` (리눅스 전용)을 지원하고 [쉬운 설치가 가능한 몇 가지 애드온도 포함](https://github.com/minishift/minishift-addons/tree/master/add-ons)한다.
 
-* [microk8s](https://microk8s.io/)는 개발과 테스트를 위한 쿠버네티스 최신 버전을 단일 명령어로 로컬 머신 상의 설치를 제공한다. 설치는 신속하고 빠르며(~30초) 단일 명령어로 Istio를 포함한 많은 플러그인을 지원한다. 
+* [Microk8s](https://microk8s.io/)는 개발과 테스트를 위한 쿠버네티스 최신 버전을 단일 명령어로 로컬 머신 상의 설치를 제공한다. 설치는 신속하고 빠르며(~30초) 단일 명령어로 Istio를 포함한 많은 플러그인을 지원한다. 
 
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private)는 개발과 테스트 시나리오를 위해 1개 또는 더 많은 VM에 쿠버네티스를 배포하기 위해서 머신의 VirtualBox를 사용할 수 있다. 이는 전체 멀티 노드 클러스터로 확장할 수 있다. 
 
@@ -67,6 +72,8 @@ content_template: templates/concept
 
 * [Madcore.Ai](https://madcore.ai)는 AWS에서 쿠버네티스 인프라를 배포하기 위한 devops 중심의 CLI 도구이다. 또한 마스터, 스팟 인스턴스 그룹 노드 오토-스케일링, ingress-ssl-lego, Heapster, Grafana를 지원한다.
 
+* [Nutanix Karbon](https://www.nutanix.com/products/karbon/)는 다중 클러스터의 고 가용성 쿠버네티스 관리 운영 플랫폼으로, 쿠버네티스의 프로비저닝, 운영 및 라이프 사이클 관리를 단순화해준다. 
+
 * [OpenShift Dedicated](https://www.openshift.com/dedicated/)는 OpenShift의 관리형 쿠버네티스 클러스터를 제공한다.
 
 * [OpenShift Online](https://www.openshift.com/features/)은 쿠버네티스 애플리케이션을 위해 호스트 된 무료 접근을 제공한다. 
@@ -93,7 +100,9 @@ content_template: templates/concept
 * [CenturyLink Cloud](/docs/setup/turnkey/clc/)
 * [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
 * [Containership](https://containership.io/containership-platform)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Gardener](https://gardener.cloud/)
+* [Giant Swarm](https://giantswarm.io)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
 * [Kontena Pharos](https://kontena.io/pharos/)
@@ -101,12 +110,13 @@ content_template: templates/concept
 * [Kublr](https://kublr.com/)
 * [Madcore.Ai](https://madcore.ai/)
 * [Nirmata](https://nirmata.com/)
+* [Nutanix Karbon](https://www.nutanix.com/products/karbon/)
 * [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
-* [Giant Swarm](https://giantswarm.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
+* [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)
 
 ## 온-프레미스 턴키 클라우드 솔루션
 
@@ -114,15 +124,17 @@ content_template: templates/concept
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
+* [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
 * [Kublr](https://kublr.com/)
+* [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)
 * [Nirmata](https://nirmata.com/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
-* [Giant Swarm](https://giantswarm.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
@@ -145,6 +157,7 @@ content_template: templates/concept
 
 다음 솔루션은 위의 솔루션에서 다루지 않는 클라우드 공급자와 운영체제의 조합이다. 
 
+* [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CoreOS on AWS or GCE](/docs/setup/custom-cloud/coreos/)
 * [Gardener](https://gardener.cloud/)
 * [Kublr](https://kublr.com/)
@@ -154,8 +167,10 @@ content_template: templates/concept
 
 ### 온-프레미스 VM
 
+* [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (Ansible, CoreOS와 flannel를 사용)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (Fedora와 flannel를 사용)
+* [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [oVirt](/docs/setup/on-premises-vm/ovirt/)
 * [Vagrant](/docs/setup/custom-cloud/coreos/) (CoreOS와 flannel를 사용)
@@ -167,6 +182,7 @@ content_template: templates/concept
 
 * [CoreOS](/docs/setup/custom-cloud/coreos/)
 * [Digital Rebar](/docs/setup/on-premises-metal/krib/)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
@@ -188,6 +204,7 @@ IaaS 공급자        | 구성 관리 | OS     | 네트워킹  | 문서         
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
+Docker Enterprise    | custom | [multi-support](https://success.docker.com/article/compatibility-matrix) | [multi-support](https://docs.docker.com/ee/ucp/kubernetes/install-cni-plugin/) | [docs](https://docs.docker.com/ee/) | Commercial
 Red Hat OpenShift    | Ansible & CoreOS | RHEL & CoreOS   | [multi-support](https://docs.openshift.com/container-platform/3.11/architecture/networking/network_plugins.html) | [docs](https://docs.openshift.com/container-platform/3.11/welcome/index.html) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
@@ -232,6 +249,7 @@ Agile Stacks       | Terraform   | CoreOS | multi-support | [docs](https://www.a
 IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://console.bluemix.net/docs/containers/container_index.html) | Commercial
 Digital Rebar        | kubeadm      | any    | metal       | [docs](/docs/setup/on-premises-metal/krib/)                                  | Community ([@digitalrebar](https://github.com/digitalrebar))
 VMware Cloud PKS     |              | Photon OS | Canal | [docs](https://docs.vmware.com/en/VMware-Kubernetes-Engine/index.html) | Commercial
+Mirantis Cloud Platform | Salt | Ubuntu | multi-support | [docs](https://docs.mirantis.com/mcp/) | Commercial
 
 {{< note >}}
 위의 표는 버전 테스트/사용된 노드의 지원 레벨을 기준으로 정렬된다.
