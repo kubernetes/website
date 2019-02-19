@@ -51,9 +51,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     kubectl get pods -n kube-system
     ```
 
-{{< note >}}
-This can take up to a minute.
-{{< /note >}}
+    {{< note >}}This can take up to a minute.{{< /note >}}
 
 Output:
 
@@ -116,10 +114,7 @@ Output:
     http://172.17.0.15:31637
     ```
     
-{{< note >}}
-Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click 
-**Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**
-{{< /note >}}
+    {{< note >}}Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click **Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**{{< /note >}}
     
    Output:
     
@@ -278,9 +273,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     Hostname: web2-75cd47646f-t8cjk
     ```
 
-    {{< note >}}
-    If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.
-    {{< /note >}}
+    {{< note >}}If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.{{< /note >}}
 
 {{% /capture %}}
 
