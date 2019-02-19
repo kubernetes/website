@@ -51,9 +51,9 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     kubectl get pods -n kube-system
     ```
 
-    {{< note >}}
-    This can take up to a minute.
-    {{< /note >}}
+   {{< note >}}
+   This can take up to a minute.
+   {{< /note >}}
 
     Output:
     
