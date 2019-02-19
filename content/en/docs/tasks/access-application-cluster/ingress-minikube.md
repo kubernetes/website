@@ -129,26 +129,26 @@ Output:
 
 The following file is an Ingress resource that sends traffic to your Service via hello-world.info.
 
-1. Create `example-ingress.yaml` from the following file:
+1. Create `example-ingress.yaml` from the above file:
 
     ```yaml    
-    ---
-    apiVersion: extensions/v1beta1
-    kind: Ingress
-    metadata:
-      name: example-ingress
-      annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /
-    spec:
-     rules:
-     - host: hello-world.info
-       http:
-         paths:
-         - path: /*
-           backend:
-             serviceName: web
-             servicePort: 8080
-    ```
+      ---
+      apiVersion: extensions/v1beta1
+      kind: Ingress
+      metadata:
+        name: example-ingress
+        annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: /
+      spec:
+       rules:
+       - host: hello-world.info
+         http:
+           paths:
+           - path: /*
+             backend:
+               serviceName: web
+               servicePort: 8080
+      ```
 
 1. Create the Ingress resrouce by running the following command:
     
