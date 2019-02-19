@@ -7,12 +7,14 @@ content_template: templates/concept
 weight: 100
 ---
 {{% capture overview %}}
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
-This page contains installation instruction for various runtimes.
+{{< feature-state for_k8s_version="v1.6" state="stable" >}}
+To run containers in Pods, Kubernetes uses a container runtime. Here are
+the installation instruction for various runtimes.
 
 {{% /capture %}}
 
 {{% capture body %}}
+
 
 Please proceed with executing the following commands based on your OS as root.
 You may become the root user by executing `sudo -i` after SSH-ing to each host.
