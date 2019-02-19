@@ -1,15 +1,13 @@
 ---
-title: PKI Certificates and Requirements
-reviewers:
-- sig-cluster-lifecycle 
+title: PKI 인증서 및 요구 조건
 content_template: templates/concept
 ---
 
 {{% capture overview %}}
 
 쿠버네티스는 TLS 위에 인증을 위해 PKI 인증서가 필요하다.
-만약 쿠버네티스를 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)를 이용해서 설치했다면, 클러스터에 필요한 인증서는 자동으로 생성된다.
-또한 예를 들어 개인키를 API서버에 저장하지 않으므로 더 안전하게 자신이 소유한 인증서를 생성할 수 있다.
+만약 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)으로 쿠버네티스를 설치했다면, 클러스터에 필요한 인증서는 자동으로 생성된다.
+또한 더 안전하게 자신이 소유한 인증서를 생성할 수 있다. 이를 테면, 개인키를 API 서버에 저장하지 않으므로 더 안전하게 보관할 수 있다.
 이 페이지는 클러스터에 필요한 인증서를 설명한다.
 
 {{% /capture %}}
@@ -18,19 +16,19 @@ content_template: templates/concept
 
 ## 클러스터에서 인증서는 어떻게 이용되나?
 
-쿠버네티는 다음 작업에서 PKI가 필요하다.
+쿠버네티스는 다음 작업에서 PKI가 필요하다.
 
-* 쿠블렛(kubelet)에서 API서버 인증서를 인증시 사용하는 클라이언트 인증서
-* API서버 엔드 포인트를 위한 서버 인증서
-* API서버에 클러스터 관리자 인증을 위한 클라이언트 인증서
-* API서버에서 쿠블렛과 통신을 위한 클라언트 인증서
-* API서버에서 etcd 간의 통신을 위한 클라언트 인증서
-* 콘트롤러 매니저와 API서버 간의 통신을 위한 클라언트 인증서/kubeconfig
-* 스케쥴러와 API서버간 통신을 위한 클라언트 인증서/kubeconfig
-* [front-proxy][proxy]를 위한 클라언트와 서버인증서
+* kubelet에서 API 서버 인증서를 인증시 사용하는 클라이언트 인증서
+* API 서버 엔드포인트를 위한 서버 인증서
+* API 서버에 클러스터 관리자 인증을 위한 클라이언트 인증서
+* API 서버에서 kubelet과 통신을 위한 클라이언트 인증서
+* API 서버에서 etcd 간의 통신을 위한 클라이언트 인증서
+* 컨트롤러 매니저와 API 서버 간의 통신을 위한 클라이언트 인증서/kubeconfig
+* 스케줄러와 API 서버간 통신을 위한 클라이언트 인증서/kubeconfig
+* [front-proxy][proxy]를 위한 클라이언트와 서버 인증서
 
 {{< note >}}
-`front-proxy` 인증서는 kube-proxy에서 [API server 확장 ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)을 지원할 때만 kube-proxy에서 필요하다.
+`front-proxy` 인증서는 kube-proxy에서 [API 서버 확장](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)을 지원할 때만 kube-proxy에서 필요하다.
 {{< /note >}}
 
 etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
@@ -49,7 +47,7 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 
 필요 CA:
 
-| 경로                   | 기본 CN                   | 설명                             |
+| 경로                   | 기본 CN                   | 설명                      |
 |------------------------|---------------------------|----------------------------------|
 | ca.crt,key             | kubernetes-ca             | 쿠버네티스 일반 CA               |
 | etcd/ca.crt,key        | etcd-ca                   | 모든 etcd 관련 기능을 위해서     |
@@ -57,11 +55,11 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 
 ### 모든 인증서
 
-이런 개인키를 API서버에 복사하기 원치 않는다면, 모든 인증서를 스스로 생성할 수 있다.
+이런 개인키를 API 서버에 복사하기 원치 않는다면, 모든 인증서를 스스로 생성할 수 있다.
 
 필요한 인증서:
 
-| 기본 CN                       | 부모 CA                   | O (주체에서)   | 종류                                   | 호스트 (SAN)                                |
+| 기본 CN                       | 부모 CA                   | O (주체에서)   | 종류                                   | 호스트  (SAN)                                |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
 | kube-etcd                     | etcd-ca                   |                | server, client [<sup>1</sup>][etcdbug] | `localhost`, `127.0.0.1`                    |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
@@ -102,11 +100,11 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 
 [2]: 셀프 호스팅시, 생존신호(liveness probe)를 위해
 
-## 각 사용자 어카운트를 위한 인증서 설정하기
+## 각 사용자 계정을 위한 인증서 설정하기
 
-반드시 이런 관리자 계정과 서비스 어카운트를 설정해야 한다.
+반드시 이런 관리자 계정과 서비스 계정을 설정해야 한다.
 
-| 파일명                  | 크레덴셜 이름              | 기본 CN                        | O (주체에서)   |
+| 파일명                | 자격증명 이름            | 기본 CN                     | O (주체에서) |
 |-------------------------|----------------------------|--------------------------------|----------------|
 | admin.conf              | default-admin              | kubernetes-admin               | system:masters |
 | kubelet.conf            | default-auth               | system:node:`<nodeName>` (note를 보자) | system:nodes   |
@@ -114,7 +112,7 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 | scheduler.conf          | default-manager            | system:kube-scheduler          |                |
 
 {{< note >}}
-`kubelet.conf`을 위한 `<nodeName>`값은 API서버에 등록된 것처럼 쿠불렛에 제공되는 노드 이름 값과 **반드시** 정확히 일치해야 한다. 더 자세한 내용은 [노드 인증](/docs/reference/access-authn-authz/node/)을 살펴보자.
+`kubelet.conf`을 위한 `<nodeName>`값은 API 서버에 등록된 것처럼 kubelet에 제공되는 노드 이름 값과 **반드시** 정확히 일치해야 한다. 더 자세한 내용은 [노드 인증](/docs/reference/access-authn-authz/node/)을 살펴보자.
 {{< /note >}}
 
 1. 각 환경 설정에 대해 주어진 CN과 O를 이용하여 x509 인증서와 키쌍을 생성한다.
@@ -130,12 +128,12 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 
 이 파일들은 다음과 같이 사용된다.
 
-| 파일이름                | 명령어                  | 설명                                                                  |
+| 파일명                | 명령어                  | 설명                                                                  | 
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
 | admin.conf              | kubectl                 | 클러스터 관리자를 설정한다.                                           |
 | kubelet.conf            | kubelet                 | 클러스터 각 노드를 위해 필요하다.                                     |
-| controller-manager.conf | kube-controller-manager | 반드시 manifest를 `manifests/kube-controller-manager.yaml`에 추가해야한다. |
-| scheduler.conf          | kube-scheduler          | 반드시 manifest를 `manifests/kube-scheduler.yaml`에 추가해야한다.          |
+| controller-manager.conf | kube-controller-manager | 반드시 매니페스트를 `manifests/kube-controller-manager.yaml`에 추가해야한다. |
+| scheduler.conf | kube-scheduler | 반드시 매니페스트를 `manifests/kube-scheduler.yaml`에 추가해야한다. |
 
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
