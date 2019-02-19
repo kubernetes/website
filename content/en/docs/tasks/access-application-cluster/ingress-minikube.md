@@ -53,8 +53,9 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 
     {{< note >}}This can take up to a minute.{{< /note >}}
 
-Output:
+    Output:
 
+    ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
     default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
     kube-addon-manager-minikube                 1/1       Running   0          3m
@@ -62,6 +63,7 @@ Output:
     kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
     nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
     storage-provisioner                         1/1       Running   0          2m
+    ```
 
 ## Deploy a hello, world app
 
@@ -116,20 +118,22 @@ Output:
     
     {{< note >}}Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click **Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**{{< /note >}}
     
-   Output:
+    Output:
     
+    ```shell
     Hello, world!
     Version: 1.0.0
     Hostname: web-55b8c6998d-8k564
-
-   You can now access the sample app via the Minikube IP address and NodePort. The next step will let you access 
+    ```
+    
+    You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access 
     the app using the Ingress resource.
 
 ## Create an Ingress resource
 
 The following file is an Ingress resource that sends traffic to your Service via hello-world.info.
 
-1. Create `example-ingress.yaml` from the above file:
+1. Create `example-ingress.yaml` from the following file:
 
       ```yaml    
         ---
