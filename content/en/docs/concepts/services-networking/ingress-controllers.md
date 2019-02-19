@@ -2,7 +2,6 @@
 title: Ingress Controllers
 reviewers:
 content_template: templates/concept
-toc_hide: true
 ---
 
 {{% capture overview %}}
