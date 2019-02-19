@@ -2,12 +2,12 @@
     {{ if not .Params.notitle }}
 	 <h1>{{ .Title }}</h1>
     {{ end }}
-    {{ template "docs-portal-cards" . }}
+    {{ template "docs-portal-content" . }}
 {{ end }}
 
 {{ define "content-id" }}content{{ end }}
 
-{{ define "docs-portal-cards" }}
+{{ define "docs-portal-content" }}
   <section id="mainContent">
   <div class="launch-content">
     <p>{{ .Params.overview | safeHTML }}</p>
