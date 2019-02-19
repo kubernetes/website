@@ -16,9 +16,6 @@ the installation instruction for various runtimes.
 {{% capture body %}}
 
 
-Please proceed with executing the following commands based on your OS as root.
-You may become the root user by executing `sudo -i` after SSH-ing to each host.
-
 {{< caution >}}
 A flaw was found in the way runc handled system file descriptors when running containers.
 A malicious container could use this flaw to overwrite contents of the runc binary and 
@@ -27,6 +24,16 @@ consequently run arbitrary commands on the container host system.
 Please refer to this link for more information about this issue 
 [cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
 {{< /caution >}}
+
+### Applicability
+
+{{< note >}}
+This document is written for users installing CRI onto Linux. For other operating
+systems, look for documentation specific to your platform.
+{{< /note >}}
+
+You should execute all the commands in this guide as `root`. For example, prefix commands
+with `sudo `, or become `root` and run the commands as that user.
 
 ## Cgroup drivers
 
