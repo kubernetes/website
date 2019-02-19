@@ -158,7 +158,10 @@ Kubernetes officially supports client libraries for [Go](#go-client) and
 
 #### Go client
 
-* To get the library, run the following command: `go get k8s.io/client-go/{{< param "version" >}}/kubernetes`, see [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user) for detailed installation instructions. If you want support for a different Kubernetes version, change `{{< param "version" >}}` to the version you want to use.
+* To get the library, run:
+  `go get k8s.io/client-go/{{< param "version" >}}/kubernetes`
+  (see [INSTALL](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user) for detailed installation instructions).
+  If you want support for a different Kubernetes version, change `{{< param "version" >}}` to the version you want to use.
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/{{< param "version" >}}/pkg/api/v1"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
