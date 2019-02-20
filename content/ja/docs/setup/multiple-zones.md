@@ -91,7 +91,7 @@ cluster on both GCE & AWS.  To do so, you bring up a full cluster
 (specifying `MULTIZONE=true`), and then you add nodes in additional zones
 by running `kube-up` again (specifying `KUBE_USE_EXISTING_MASTER=true`).
 
-### クラスタの作成
+### クラスタを作成する
 
 Create the cluster as normal, but pass MULTIZONE to tell the cluster to manage multiple zones; creating nodes in us-central1-a.
 
