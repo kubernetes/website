@@ -838,7 +838,7 @@ etcd-0               Healthy   {"health": "true"}
 Cluster validation succeeded
 ```
 
-### podsとservicesを検査する
+### podsとservicesの検査
 
 Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/docs/setup/turnkey/gce/#inspect-your-cluster).
 You should see some services.  You should also see "mirror pods" for the apiserver, scheduler and controller-manager, plus any add-ons you started.
