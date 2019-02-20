@@ -497,7 +497,7 @@ To run an etcd instance:
 1. Make any modifications needed
 1. Start the pod by putting it into the kubelet manifest directory
 
-### Apiserver, Controller Manager, およびScheduler
+### APIサーバー、コントローラーマネージャー、およびスケジューラー
 
 The apiserver, controller manager, and scheduler will each run as a pod on the master node.
 
@@ -510,7 +510,7 @@ For each of these components, the steps to start them running are similar:
 1. Start the pod by putting the completed template into the kubelet manifest directory.
 1. Verify that the pod is started.
 
-#### Apiserver podテンプレート
+#### APIサーバーpodテンプレート
 
 ```json
 {
@@ -641,7 +641,7 @@ Some cloud providers require a config file. If so, you need to put config file i
 - AWS format defined by type [AWSCloudConfig](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/cloudprovider/providers/aws/aws.go)
 - There is a similar type in the corresponding file for other cloud providers.
 
-#### Scheduler podテンプレート
+#### スケジューラーpodテンプレート
 
 Complete this template for the scheduler pod:
 
@@ -686,7 +686,7 @@ Typically, no additional flags are required for the scheduler.
 
 Optionally, you may want to mount `/var/log` as well and redirect output there.
 
-#### Controller Managerテンプレート
+#### コントローラーマネージャーpodテンプレート
 
 Template for controller manager pod:
 
@@ -760,7 +760,7 @@ Flags to consider using with controller manager:
  - `--service-account-private-key-file=/srv/kubernetes/server.key`, used by the [service account](/docs/user-guide/service-accounts) feature.
  - `--master=127.0.0.1:8080`
 
-#### Apiserver, Scheduler, およびController Managerの起動と確認
+#### APIサーバー、スケジューラー、およびコントローラーマネージャーの起動と確認
 
 Place each completed pod template into the kubelet config dir
 (whatever `--config=` argument of kubelet is set to, typically
