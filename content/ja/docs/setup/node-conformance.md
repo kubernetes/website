@@ -59,7 +59,7 @@ architectures:
   arm   |    node-test-arm  |
  arm64  |  node-test-arm64  |
 
-## テストを選択して動かす
+## 選択したテストの実行
 
 To run specific tests, overwrite the environment variable `FOCUS` with the
 regular expression of tests you want to run.
