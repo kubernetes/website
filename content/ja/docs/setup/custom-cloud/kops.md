@@ -158,7 +158,7 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 * To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
 
-## Feedback
+## フィードバック
 
 * Slack Channel: [#kops-users](https://kubernetes.slack.com/messages/kops-users/)
 * [GitHub Issues](https://github.com/kubernetes/kops/issues)
