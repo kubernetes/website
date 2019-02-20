@@ -1,5 +1,5 @@
 ---
-title: Installing Kubernetes on AWS with kops
+title: kopsを使ったAWS上でのKubernetesのインストール
 content_template: templates/concept
 ---
 
@@ -24,15 +24,15 @@ a building block.  kops builds on the kubeadm work.
 
 {{% capture body %}}
 
-## Creating a cluster
+## クラスタの作成
 
-### (1/5) Install kops
+### (1/5) kopsのインストール
 
-#### Requirements
+#### 要件
 
 You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
 
-#### Installation
+#### インストール
 
 Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
 
@@ -54,7 +54,7 @@ chmod +x kops-linux-amd64
 mv kops-linux-amd64 /usr/local/bin/kops
 ```
 
-### (2/5) Create a route53 domain for your cluster
+### (2/5) クラスタ用のroute53ドメインの作成
 
 kops uses DNS for discovery, both inside the cluster and so that you can reach the kubernetes API server
 from clients.
@@ -86,7 +86,7 @@ your cluster is configured correctly if you have the dig tool by running:
 
 You should see the 4 NS records that Route53 assigned your hosted zone.
 
-### (3/5) Create an S3 bucket to store your clusters state
+### (3/5) クラスタの状態を保存するS3バケットの作成
 
 kops lets you manage your clusters even after installation.  To do this, it must keep track of the clusters
 that you have created, along with their configuration, the keys they are using etc.  This information is stored
@@ -111,7 +111,7 @@ the S3 bucket name.
    We suggest putting this in your bash profile or similar.
 
 
-### (4/5) Build your cluster configuration
+### (4/5) クラスタ設定の作成
 
 Run "kops create cluster" to create your cluster configuration:
 
@@ -134,7 +134,7 @@ You can have several instance groups, for example if you wanted nodes that are a
 GPU and non-GPU instances.
 
 
-### (5/5) Create the cluster in AWS
+### (5/5) AWSにクラスタを作成
 
 Run "kops update cluster" to create your cluster in AWS:
 
@@ -150,11 +150,11 @@ sometimes you will also have to `kops rolling-update cluster` to roll out the co
 Without `--yes`, `kops update cluster` will show you a preview of what it is going to do.  This is handy
 for production clusters!
 
-### Explore other add-ons
+### 他の追加機能を探す
 
 See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
 
-## Cleanup
+## クリーンアップ
 
 * To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
 
