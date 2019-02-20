@@ -1,5 +1,5 @@
 ---
-title: Running Kubernetes Locally via Minikube
+title: Minikubeを使ってローカル環境でKubernetesを動かす
 content_template: templates/concept
 ---
 
@@ -11,7 +11,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 
 {{% capture body %}}
 
-## Minikube Features
+## Minikubeの特徴
 
 * Minikube supports Kubernetes features such as:
   * DNS
@@ -22,11 +22,11 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
   * Enabling CNI (Container Network Interface)
   * Ingress
 
-## Installation
+## インストール
 
 See [Installing Minikube](/docs/tasks/tools/install-minikube/).
 
-## Quickstart
+## クイックスタート
 
 Here's a brief demo of Minikube usage.
 If you want to change the VM driver add the appropriate `--vm-driver=xxx` flag to `minikube start`. Minikube supports
@@ -102,7 +102,7 @@ Stopping local Kubernetes cluster...
 Stopping "minikube"...
 ```
 
-### Alternative Container Runtimes
+### コンテナランタイムの代替
 
 #### containerd
 
@@ -148,7 +148,7 @@ $ minikube start \
     --bootstrapper=kubeadm
 ```
 
-#### rkt container engine
+#### rktコンテナエンジン
 
 To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
 
@@ -160,12 +160,12 @@ $ minikube start \
 
 This will use an alternative minikube ISO image containing both rkt, and Docker, and enable CNI networking.
 
-### Driver plugins
+### Driverプラグイン
 
 See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
 plugins, if required.
 
-### Use local images by re-using the Docker daemon
+### Dockerデーモンの再利用によるローカルイメージの使用
 
 When using a single VM of Kubernetes, it's really handy to reuse the Minikube's built-in Docker daemon; as this means you don't have to build a docker registry on your host machine and push the image into it - you can just build inside the same docker daemon as minikube which speeds up local experiments. Just make sure you tag your Docker image with something other than 'latest' and use that tag while you pull the image. Otherwise, if you do not specify version of your image, it will be assumed as `:latest`, with pull image policy of `Always` correspondingly, which may eventually result in `ErrImagePull` as you may not have any versions of your Docker image out there in the default docker registry (usually DockerHub) yet.
 
@@ -199,9 +199,9 @@ The fix is to update /etc/sysconfig/docker to ensure that Minikube's environment
 
 Remember to turn off the imagePullPolicy:Always, otherwise Kubernetes won't use images you built locally.
 
-## Managing your Cluster
+## クラスタの管理
 
-### Starting a Cluster
+### クラスタの起動
 
 The `minikube start` command can be used to start your cluster.
 This command creates and configures a Virtual Machine that runs a single-node Kubernetes cluster.
@@ -218,7 +218,7 @@ Unfortunately just setting the environment variables will not work.
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
 
-#### Specifying the Kubernetes version
+#### Kubernetesのバージョンを指定する
 
 You can specify the specific version of Kubernetes for Minikube to use by
 adding the `--kubernetes-version` string to the `minikube start` command. For
@@ -228,7 +228,7 @@ example, to run version `v1.7.3`, you would run the following:
 minikube start --kubernetes-version v1.7.3
 ```
 
-### Configuring Kubernetes
+### Kubernetesの設定
 
 Minikube has a "configurator" feature that allows users to configure the Kubernetes components with arbitrary values.
 To use this feature, you can use the `--extra-config` flag on the `minikube start` command.
@@ -248,7 +248,7 @@ Here is the documentation for each supported configuration:
 * [etcd](https://godoc.org/github.com/coreos/etcd/etcdserver#ServerConfig)
 * [scheduler](https://godoc.org/k8s.io/kubernetes/pkg/scheduler/apis/config#KubeSchedulerConfiguration)
 
-#### Examples
+#### 例
 
 To change the `MaxPods` setting to 5 on the Kubelet, pass this flag: `--extra-config=kubelet.MaxPods=5`.
 
@@ -256,16 +256,16 @@ This feature also supports nested structs. To change the `LeaderElection.LeaderE
 
 To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.authorization-mode=RBAC`.
 
-### Stopping a Cluster
+### クラスタの停止
 The `minikube stop` command can be used to stop your cluster.
 This command shuts down the Minikube Virtual Machine, but preserves all cluster state and data.
 Starting the cluster again will restore it to it's previous state.
 
-### Deleting a Cluster
+### クラスタの削除
 The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the Minikube Virtual Machine. No data or state is preserved.
 
-## Interacting with Your Cluster
+## クラスタに触れてみよう
 
 ### Kubectl
 
@@ -278,7 +278,7 @@ Minikube sets this context to default automatically, but if you need to switch b
 
 Or pass the context on each command like this: `kubectl get pods --context=minikube`.
 
-### Dashboard
+### ダッシュボード
 
 To access the [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/), run this command in a shell after starting Minikube to get the address:
 
@@ -286,7 +286,7 @@ To access the [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-
 minikube dashboard
 ```
 
-### Services
+### サービス
 
 To access a service exposed via a node port, run this command in a shell after starting Minikube to get the address:
 
@@ -294,7 +294,7 @@ To access a service exposed via a node port, run this command in a shell after s
 minikube service [-n NAMESPACE] [--url] NAME
 ```
 
-## Networking
+## ネットワーク
 
 The Minikube VM is exposed to the host system via a host-only IP address, that can be obtained with the `minikube ip` command.
 Any services of type `NodePort` can be accessed over that IP address, on the NodePort.
@@ -303,7 +303,7 @@ To determine the NodePort for your service, you can use a `kubectl` command like
 
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
-## Persistent Volumes
+## 永続化ボリューム
 Minikube supports [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) of type `hostPath`.
 These PersistentVolumes are mapped to a directory inside the Minikube VM.
 
@@ -330,7 +330,7 @@ spec:
     path: /data/pv0001/
 ```
 
-## Mounted Host Folders
+## ホストのフォルダのマウント
 Some drivers will mount a host folder within the VM so that you can easily share files between the VM and host.  These are not configurable at the moment and different for the driver and OS you are using.
 
 {{< note >}}
@@ -345,20 +345,20 @@ Host folder sharing is not implemented in the KVM driver yet.
 | VMware Fusion | macOS | /Users | /Users |
 | Xhyve | macOS | /Users | /Users |
 
-## Private Container Registries
+## プライベートコンテナレジストリ
 
 To access a private container registry, follow the steps on [this page](/docs/concepts/containers/images/).
 
 We recommend you use `ImagePullSecrets`, but if you would like to configure access on the Minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
 
-## Add-ons
+## 追加機能
 
 In order to have Minikube properly start or restart custom addons,
 place the addons you wish to be launched with Minikube in the `~/.minikube/addons`
 directory. Addons in this folder will be moved to the Minikube VM and
 launched each time Minikube is started or restarted.
 
-## Using Minikube with an HTTP Proxy
+## HTTPプロキシを通してMinikubeを使う
 
 Minikube creates a Virtual Machine that includes Kubernetes and a Docker daemon.
 When Kubernetes attempts to schedule containers using Docker, the Docker daemon may require external network access to pull containers.
@@ -380,19 +380,19 @@ To by-pass proxy configuration for this IP address, you should modify your no_pr
 $ export no_proxy=$no_proxy,$(minikube ip)
 ```
 
-## Known Issues
+## 現在知られている問題
 * Features that require a Cloud Provider will not work in Minikube. These include:
   * LoadBalancers
 * Features that require multiple nodes. These include:
   * Advanced scheduling policies
 
-## Design
+## 設計
 
 Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs, and [kubeadm](https://github.com/kubernetes/kubeadm) to provision a Kubernetes cluster.
 
 For more information about Minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md).
 
-## Additional Links
+## 追加リンク集
 
 * **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
@@ -401,7 +401,7 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 * **Adding a New Addon**: For instruction on how to add a new addon for Minikube see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
 * **Updating Kubernetes**: For instructions on how to update Kubernetes see the [updating Kubernetes guide](https://git.k8s.io/minikube/docs/contributors/updating_kubernetes.md).
 
-## Community
+## コミュニティ
 
 Contributions, questions, and comments are all welcomed and encouraged! Minikube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
 
