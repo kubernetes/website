@@ -111,7 +111,7 @@ the S3 bucket name.
    We suggest putting this in your bash profile or similar.
 
 
-### (4/5) クラスタ設定の作成
+### (4/5) クラスタ設定の構築
 
 Run "kops create cluster" to create your cluster configuration:
 
