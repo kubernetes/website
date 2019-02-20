@@ -455,7 +455,7 @@ traffic to the internet, but have no problem with them inside your GCE Project.
   - Install any client binaries for optional volume types, such as `glusterfs-client` for GlusterFS
     volumes.
 
-### 設定管理ツールを使う
+### 設定管理ツールの使用
 
 The previous steps all involved "conventional" system administration techniques for setting up
 machines.  You may want to use a Configuration Management system to automate the node configuration
