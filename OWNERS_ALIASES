@@ -161,6 +161,14 @@ aliases:
     - erickhun
     - jygastaud
     - awkif
+  sig-docs-it-owners: #Team: Italian docs localization; GH: sig-docs-it-owners
+    - rlenferink
+    - lledru
+    - micheleberardi
+  sig-docs-it-reviews: #Team: Italian docs PR reviews; GH:sig-docs-it-reviews
+    - rlenferink
+    - lledru
+    - micheleberardi
   sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
     - cstoku
     - nasa9084
