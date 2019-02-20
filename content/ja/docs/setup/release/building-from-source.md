@@ -1,16 +1,16 @@
 ---
-title: Building from Source
+title: リリースをビルドする
 ---
 
-You can either build a release from source or download a pre-built release.  If you do not plan on developing Kubernetes itself, we suggest using a pre-built version of the current release, which can be found in the [Release Notes](/docs/setup/release/notes/).
+あなたはソースからリリースをビルドすることもできますし、既にビルドされたリリースをダウンロードすることも可能です。もしあなたがKubernetesを開発する予定が無いのであれば、[リリースノート](/docs/setup/release/notes/)内の現在リリースされている既にビルドされたバージョンを使用することを推奨します。
 
-The Kubernetes source code can be downloaded from the [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repo.
+Kubernetes のソースコードは[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)のリポジトリからダウンロードすることが可能です。
 
-## Building from source
+## ソースからビルドする
 
-If you are simply building a release from source there is no need to set up a full golang environment as all building happens in a Docker container.
+もしあなたが単にソースからリリースをビルドするだけなのであれば、完全なGOの環境を準備する必要はなく、全てのビルドはDockerコンテナの中で行われます。
 
-Building a release is simple.
+リリースをビルドすることは簡単です。
 
 ```shell
 git clone https://github.com/kubernetes/kubernetes.git
@@ -18,4 +18,4 @@ cd kubernetes
 make release
 ```
 
-For more details on the release process see the kubernetes/kubernetes [`build`](http://releases.k8s.io/{{< param "githubbranch" >}}/build/) directory.
+リリース手段の詳細な情報はkubernetes/kubernetes内の[`build`](http://releases.k8s.io/{{< param "githubbranch" >}}/build/)ディレクトリを参照して下さい。
