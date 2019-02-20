@@ -29,7 +29,7 @@ or someone else setup the cluster and provided you with credentials and a locati
 Check the location and credentials that kubectl knows about with this command:
 
 ```shell
-$ kubectl config view
+kubectl config view
 ```
 
 Many of the [examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/) provide an introduction to using
@@ -53,7 +53,7 @@ locating the API server and authenticating.
 Run it like this:
 
 ```shell
-$ kubectl proxy --port=8080 &
+kubectl proxy --port=8080 &
 ```
 
 See [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) for more details.
@@ -61,7 +61,12 @@ See [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) f
 Then you can explore the API with curl, wget, or a browser, like so:
 
 ```shell
-$ curl http://localhost:8080/api/
+curl http://localhost:8080/api/
+```
+
+The output is similar to this:
+
+```json
 {
   "versions": [
     "v1"
@@ -80,9 +85,44 @@ $ curl http://localhost:8080/api/
 It is possible to avoid using kubectl proxy by passing an authentication token
 directly to the API server, like this:
 
+Using `grep/cut` approach:
+
 ``` shell
-$ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
+# Check all possible clusters, as you .KUBECONFIG may have multiple contexts
+kubectl config view -o jsonpath='{range .clusters[*]}{.name}{"\t"}{.cluster.server}{"\n"}{end}'
+
+# Point to the API server refering the cluster name
+APISERVER=$(kubectl config view -o jsonpath='{.clusters[?(@.name=="$CLUSTER_NAME")].cluster.server}')
+
+# Gets the token value
+TOKEN=$(kubectl get secrets -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='default')].data.token}"|base64 -d)
+
+# Explore the API with TOKEN
+curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+```
+
+The output is similar to this:
+
+```json
+{
+  "kind": "APIVersions",
+  "versions": [
+    "v1"
+  ],
+  "serverAddressByClientCIDRs": [
+    {
+      "clientCIDR": "0.0.0.0/0",
+      "serverAddress": "10.0.1.149:443"
+    }
+  ]
+}
+```
+
+Using `jsonpath` approach:
+
+```
+$ APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+$ TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",

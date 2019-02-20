@@ -1,16 +1,16 @@
 <div id="cellophane" onclick="kub.toggleMenu()"></div>
 
 <header>
-    <a href="{{ .Site.Home.RelPermalink }}" class="logo"></a>
+    <a href="{{ site.Home.RelPermalink }}" class="logo"></a>
 
     <div class="nav-buttons" data-auto-burger="primary">
         <ul class="global-nav">
             {{ $sections := slice "docs" "blog" "partners" "community" "case-studies" }}
             {{ range $sections }}
-            {{ with $.Site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}"{{ if eq .Section $.Section }} class="active"{{ end}}>{{ .LinkTitle }}</a></li>{{ end }}
+            {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}"{{ if eq .Section $.Section }} class="active"{{ end}}>{{ .LinkTitle }}</a></li>{{ end }}
             {{ end }}
             {{/* Link directly to documentation etc., if possible. */}}
-            {{ $langPage := cond (gt (len .Translations) 0) . .Site.Home }}
+            {{ $langPage := cond (gt (len .Translations) 0) . site.Home }}
              <li>
                 <a href="#">
                     {{ $langPage.Language.LanguageName }} <span class="ui-icon ui-icon-carat-1-s"></span>
@@ -24,16 +24,16 @@
          
             <li>
                 <a href="#">
-                    {{ .Site.Params.version }} <span class="ui-icon ui-icon-carat-1-s"></span>
+                    {{ site.Params.version }} <span class="ui-icon ui-icon-carat-1-s"></span>
                 </a>
                 <ul>
-                {{ range .Site.Params.versions }}
+                {{ range site.Params.versions }}
                     <li><a href="{{  .url }}">{{ .version }}</a></li>
                 {{ end }}
                 </ul>
             </li>
         </ul>
-        {{ with .Site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
+        {{ with site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
         <a href="{{ .RelPermalink }}" class="button" id="tryKubernetes" data-auto-burger-exclude>{{ .LinkTitle }}</a>
         {{ end }}
 
@@ -42,7 +42,7 @@
 
     <nav id="mainNav">
         <main data-auto-burger="primary">
-         {{ range .Site.Menus.main }}
+         {{ range site.Menus.main }}
            <div class="nav-box">
             <h3><a href="{{ .URL }}">{{ .Title }}</a></h3>
            {{ .Post }}

@@ -74,7 +74,7 @@ the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce fr
 permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from
 Kubernetes causes all the Pod objects running on the node to be deleted from the apiserver, and frees up their names.
 
-In version 1.12, `TaintNodesByCondition` feature is promoted to beta，so node lifecycle controller automatically creates
+In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
 Similarly the scheduler ignores conditions when considering a Node; instead
 it looks at the Node's taints and a Pod's tolerations.
@@ -158,6 +158,20 @@ to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
+In versions of Kubernetes prior to 1.13, NodeStatus is the heartbeat from the
+node. Starting from Kubernetes 1.13, node lease feature is introduced as an
+alpha feature (feature gate `NodeLease`,
+[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+When node lease feature is enabled, each node has an associated `Lease` object in
+`kube-node-lease` namespace that is renewed by the node periodically, and both
+NodeStatus and node lease are treated as heartbeats from the node. Node leases
+are renewed frequently while NodeStatus is reported from node to master only
+when there is some change or enough time has passed (default is 1 minute, which
+is longer than the default timeout of 40 seconds for unreachable nodes). Since
+node lease is much more lightweight than NodeStatus, this feature makes node
+heartbeat significantly cheaper from both scalability and performance
+perspectives.
+
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
 (e.g. because the master has networking problem). Starting with 1.4, the node
@@ -212,11 +226,12 @@ For self-registration, the kubelet is started with the following options:
   - `--register-node` - Automatically register with the API server.
   - `--register-with-taints` - Register the node with the given list of taints (comma separated `<key>=<value>:<effect>`). No-op if `register-node` is false.
   - `--node-ip` - IP address of the node.
-  - `--node-labels` - Labels to add when registering the node in the cluster.
+  - `--node-labels` - Labels to add when registering the node in the cluster (see label restrictions enforced by the [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
-Currently, any kubelet is authorized to create/modify any node resource, but in practice it only creates/modifies
-its own. (In the future, we plan to only allow a kubelet to modify its own node resource.)
+When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and 
+[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) are enabled,
+kubelets are only authorized to create/modify their own Node resource.
 
 #### Manual Node Administration
 
@@ -257,27 +272,8 @@ The Kubernetes scheduler ensures that there are enough resources for all the pod
 checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
 includes all containers started by the kubelet, but not containers started directly by the [container runtime](/docs/concepts/overview/components/#node-components) nor any process running outside of the containers.
 
-If you want to explicitly reserve resources for non-pod processes, you can create a placeholder
-pod. Use the following template:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: resource-reserver
-spec:
-  containers:
-  - name: sleep-forever
-    image: k8s.gcr.io/pause:0.8.0
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-```
-
-Set the `cpu` and `memory` values to the amount of resources you want to reserve.
-Place the file in the manifest directory (`--config=DIR` flag of kubelet).  Do this
-on each kubelet where you want to reserve resources.
+If you want to explicitly reserve resources for non-Pod processes, follow this tutorial to
+[reserve resources for system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 
 
 ## API Object

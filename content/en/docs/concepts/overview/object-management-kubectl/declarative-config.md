@@ -9,7 +9,8 @@ Kubernetes objects can be created, updated, and deleted by storing multiple
 object configuration files in a directory and using `kubectl apply` to
 recursively create and update those objects as needed. This method
 retains writes made to live objects without merging the changes
-back into the object configuration files.
+back into the object configuration files. `kubectl diff` also gives you a
+preview of what changes `apply` will make.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -66,6 +67,14 @@ Add the `-R` flag to recursively process directories.
 Here's an example of an object configuration file:
 
 {{< codenew file="application/simple_deployment.yaml" >}}
+
+Run `kubectl diff` to print the object that will be created:
+```shell
+kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
+```
+{{< note >}}
+`diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
+{{< /note >}}
 
 Create the object using `kubectl apply`:
 
@@ -130,6 +139,7 @@ if those objects already exist. This approach accomplishes the following:
 2. Clears fields removed from the configuration file in the live configuration.
 
 ```shell
+kubectl diff -f <directory>/
 kubectl apply -f <directory>/
 ```
 
@@ -262,6 +272,7 @@ Update the `simple_deployment.yaml` configuration file to change the image from
 Apply the changes made to the configuration file:
 
 ```shell
+kubectl diff -f https://k8s.io/examples/application/update_deployment.yaml
 kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 ```
 
@@ -614,7 +625,7 @@ Add, delete, or update individual elements. This does not preserve ordering.
 
 This merge strategy uses a special tag on each field called a `patchMergeKey`. The
 `patchMergeKey` is defined for each field in the Kubernetes source code:
-[types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
+[types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2747)
 When merging a list of maps, the field specified as the `patchMergeKey` for a given element
 is used like a map key for that element.
 
@@ -689,7 +700,7 @@ As of Kubernetes 1.5, merging lists of primitive elements is not supported.
 
 {{< note >}}
 Which of the above strategies is chosen for a given field is controlled by
-the `patchStrategy` tag in [types.go](https://git.k8s.io/api/core/v1/types.go#L2565)
+the `patchStrategy` tag in [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2748)
 If no `patchStrategy` is specified for a field of type list, then
 the list is replaced.
 {{< /note >}}
@@ -977,5 +988,3 @@ template:
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}
-
-

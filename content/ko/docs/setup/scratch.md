@@ -163,10 +163,8 @@ You can use a Kubernetes binary release (recommended) or build your Kubernetes b
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
 Server binary tarballs are no longer included in the Kubernetes final tarball, so you will need to locate and run
-`./kubernetes/cluster/get-kube-binaries.sh` to download the client and server binaries.
-Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.
-Then, within the second set of unzipped files, locate `./kubernetes/server/bin`, which contains
-all the necessary binaries.
+`./kubernetes/cluster/get-kube-binaries.sh` to download and extract the client and server binaries.
+Then locate `./kubernetes/server/bin`, which contains all the necessary binaries.
 
 #### 이미지 선택
 
@@ -194,7 +192,7 @@ We recommend that you use the etcd version which is provided in the Kubernetes b
 were tested extensively with this version of etcd and not with any other version.
 The recommended version number can also be found as the value of `TAG` in `kubernetes/cluster/images/etcd/Makefile`.
 
-For the miniumum recommended version of etcd, refer to
+For the minimum recommended version of etcd, refer to
 [Configuring and Updating etcd](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):

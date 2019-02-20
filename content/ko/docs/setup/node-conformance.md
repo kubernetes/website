@@ -6,43 +6,37 @@ title: 노드 구성 검증하기
 
 ## 노드 적합성 테스트
 
-*Node conformance test* is a containerized test framework that provides a system
-verification and functionality test for a node. The test validates whether the
-node meets the minimum requirements for Kubernetes; a node that passes the test
-is qualified to join a Kubernetes cluster.
+*노드 적합성 테스트* 는 노드의 시스템 검증과 기능 테스트를 제공하기 위해 컨테이너화된 테스트 프레임워크이다.
+테스트는 노드가 쿠버네티스를 위한 최소 요구조건을 만족하는지를 검증한다. 그리고 테스트를 통과한 노드는 쿠버네티스 클러스터에 참
+여할 자격이 주어진다.
 
 ## 제한 사항
 
-In Kubernetes version 1.5, node conformance test has the following limitations:
+쿠버네티스 1.5에서는 노드 적합성 테스트가 아래의 제약이 있다.
 
-* Node conformance test only supports Docker as the container runtime.
+* 노드 적합성 테스트는 컨테이너 런타임으로 Docker만 지원한다.
 
 ## 노드 필수 구성 요소
 
-To run node conformance test, a node must satisfy the same prerequisites as a
-standard Kubernetes node. At a minimum, the node should have the following
-daemons installed:
+노드 적합성 테스트를 실행하기 위해서는, 해당 노드는 표준 쿠버네티스 노드로서 동일한 전제조건을 만족해야 한다.
+노드는 최소한 아래 데몬들이 설치되어 있어야 한다.
 
-* Container Runtime (Docker)
+* 컨테이너 런타임 (Docker)
 * Kubelet
 
 ## 노드 적합성 테스트 실행
 
-To run the node conformance test, perform the following steps:
+노드 적합성 테스트는 다음 순서로 진행된다.
 
-1. Point your Kubelet to localhost `--api-servers="http://localhost:8080"`,
-because the test framework starts a local master to test Kubelet. There are some
-other Kubelet flags you may care:
-  * `--pod-cidr`: If you are using `kubenet`, you should specify an arbitrary CIDR
-    to Kubelet, for example `--pod-cidr=10.180.0.0/24`.
-  * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
-    remove the flag to run the test.
+1. 테스트 프레임워크는 Kublet을 테스트하기 위해 로컬 마스터를 시작하기 때문에, Kublet이 localhost를 가르키도록 `--api-servers="http://localhost:8080"`를 사용한다. 고려해야 할 다른 Kubelet 플래그들은 다음과 같다.
+  * `--pod-cidr`: `kubenet`을 사용 중이라면, 임의의 CIDR을 Kubelet에 지정해주어야 한다. 예) `--pod-cidr=10.180.0.0/24`.
+  * `--cloud-provider`: `--cloud-provider=gce`를 사용 중이라면, 테스트 실행 시에는 제거해야 한다.
 
-2. Run the node conformance test with command:
+2. 다음 커맨드로 노드 적합성 테스트를 실행한다.
 
 ```shell
-# $CONFIG_DIR is the pod manifest path of your Kubelet.
-# $LOG_DIR is the test output path.
+# $CONFIG_DIR는 Kublet의 파드 매니페스트 경로이다.
+# $LOG_DIR는 테스트 출력 경로이다.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   k8s.gcr.io/node-test:0.2
@@ -50,8 +44,7 @@ sudo docker run -it --rm --privileged --net=host \
 
 ## 다른 아키텍처에서 노드 적합성 테스트 실행
 
-Kubernetes also provides node conformance test docker images for other
-architectures:
+쿠버네티스는 다른 아키텍쳐용 노드 적합성 테스트 Docker 이미지도 제공한다.
 
   Arch  |       Image       |
 --------|:-----------------:|
@@ -61,37 +54,31 @@ architectures:
 
 ## 선택된 테스트 실행
 
-To run specific tests, overwrite the environment variable `FOCUS` with the
-regular expression of tests you want to run.
+특정 테스트만 실행하기 위해서는 환경 변수 `FOCUS`에 테스트하고자 하는 테스트를 정규식으로 지정한다.
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e FOCUS=MirrorPod \ # Only run MirrorPod test
+  -e FOCUS=MirrorPod \ # MirrorPod 테스트만 실행
   k8s.gcr.io/node-test:0.2
 ```
 
-To skip specific tests, overwrite the environment variable `SKIP` with the
-regular expression of tests you want to skip.
+특정 테스트를 건너뛰기 위해서는, 환경 변수 `SKIP`에 건너뛰고자 하는 테스트를 정규식으로 지정한다.
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e SKIP=MirrorPod \ # Run all conformance tests but skip MirrorPod test
+  -e SKIP=MirrorPod \ # MirrorPod 테스트만 건너뛰고 모든 적합성 테스트를 실행한다
   k8s.gcr.io/node-test:0.2
 ```
 
-Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md).
-By default, it runs all conformance tests.
+노드 적합성 테스트는 [노드 e2e 테스트](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md)를 컨테이너화한 버전이다.
+기본적으로, 모든 적합성 테스트를 실행한다.
 
-Theoretically, you can run any node e2e test if you configure the container and
-mount required volumes properly. But **it is strongly recommended to only run conformance
-test**, because it requires much more complex configuration to run non-conformance test.
+이론적으로, 컨테이너와 필요한 볼륨을 적절히 설정했다면 어떤 노드 e2e 테스트도 수행할 수 있다.
+하지만, 적합성 테스트가 아닌 테스트들은 훨씬 복잡한 설정이 필요하기 때문에 **적합성 테스트만 실행하기를 강하게 추천한다.**
 
 ## 주의 사항
 
-* The test leaves some docker images on the node, including the node conformance
-  test image and images of containers used in the functionality
-  test.
-* The test leaves dead containers on the node. These containers are created
-  during the functionality test.
+* 테스트 후, 노드 적합성 테스트 이미지 및 기능 테스트에 사용된 이미지들을 포함하여 몇 개의 Docker 이미지들이 노드에 남는다.
+* 테스트 후, 노드에 죽은 컨테이너가 남는다. 기능 테스트 도중에 생성된 컨테이너들이다.

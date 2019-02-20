@@ -1,5 +1,5 @@
 {{ $pages := .CurrentSection.Pages }}
-{{ with $.Site.Params.language_alternatives }}
+{{ with site.Params.language_alternatives }}
   {{ range . }}
           {{ with (where $.CurrentSection.Translations ".Lang" . ) }}
           {{ $p := index . 0 }}      

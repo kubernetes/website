@@ -7,7 +7,7 @@ functions = "functions"
 command = "make non-production-build"
 
 [build.environment]
-HUGO_VERSION = "0.49"
+HUGO_VERSION = "0.53"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
@@ -15,10 +15,10 @@ HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview]
-command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
+command = "hugo --enableGitInfo --buildFuture -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy]
-command = "hugo --enableGitInfo -b $DEPLOY_PRIME_URL"
+command = "hugo --enableGitInfo --buildFuture -b $DEPLOY_PRIME_URL"
 
 [context.master]
 # This context is triggered by the `master` branch and allows search indexing

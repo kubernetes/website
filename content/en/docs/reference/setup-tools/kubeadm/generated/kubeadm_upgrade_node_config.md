@@ -14,11 +14,11 @@ kubeadm upgrade node config [flags]
 
 ```
   # Downloads the kubelet configuration from the ConfigMap in the cluster. Uses a specific desired kubelet version.
-  kubeadm upgrade node config --kubelet-version v1.12.0
+  kubeadm upgrade node config --kubelet-version v1.13.0
   
   # Simulates the downloading of the kubelet configuration from the ConfigMap in the cluster with a specific desired
   # version. Does not change any state locally on the node.
-  kubeadm upgrade node config --kubelet-version v1.12.0 --dry-run
+  kubeadm upgrade node config --kubelet-version v1.13.0 --dry-run
 ```
 
 ### Options
@@ -48,7 +48,7 @@ kubeadm upgrade node config [flags]
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/kubelet.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
     </tr>
 
     <tr>

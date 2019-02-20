@@ -16,7 +16,7 @@ One CronJob object is like one line of a _crontab_ (cron table) file. It runs a 
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
 {{< note >}}
-All **CronJob** `schedule:` times are denoted in UTC.
+All **CronJob** `schedule:` times are based the timezone of the master where the job is initiated.
 {{< /note >}}
 
 For instructions on creating and working with cron jobs, and for an example of a spec file for a cron job, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
@@ -46,11 +46,13 @@ It is important to note that if the `startingDeadlineSeconds` field is set (not 
 
 A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
 
-For example, suppose a cron job is set to start at exactly `08:30:00` and its
-`startingDeadlineSeconds` is set to 10, if the CronJob controller happens to
-be down from `08:29:00` to `08:42:00`, the job will not start.
-Set a longer `startingDeadlineSeconds` if starting later is better than not
-starting at all.
+For example, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
+`startingDeadlineSeconds` field is not set. The default for this field is `100` seconds. If the CronJob controller happens to
+be down from `08:29:00` to `10:21:00`, the job will not start as the number of missed jobs which missed their schedule is greater than 100.
+
+To illustrate this concept further, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
+`startingDeadlineSeconds` is set to 200 seconds. If the CronJob controller happens to
+be down for the same period as the previous example (`08:29:00` to `10:21:00`,) the Job will still start at 10:22:00. This happens as the controller now checks how many missed schedules happened in the last 200 seconds (ie, 3 missed schedules), rather than from the last scheduled time until now.
 
 The Cronjob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.

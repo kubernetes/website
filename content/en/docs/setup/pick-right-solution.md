@@ -34,7 +34,14 @@ a Kubernetes cluster from scratch.
 
 * [Minikube](/docs/setup/minikube/) is a method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
-* [microk8s](https://microk8s.io/) provides a single command installation of the latest Kubernetes release on a local machine for development and testing. Setup is quick, fast (~30 sec) and supports many plugins including Istio with a single command.
+* [Docker Desktop](https://www.docker.com/products/docker-desktop) is an
+easy-to-install application for your Mac or Windows environment that enables you to
+start coding and deploying in containers in minutes on a single-node Kubernetes 
+cluster.
+
+* [Minishift](https://docs.okd.io/latest/minishift/) installs the community version of the Kubernetes enterprise platform OpenShift for local development & testing.  It offers an all-in-one VM (`minishift start`) for Windows, macOS, and Linux. The container start is based on `oc cluster up` (Linux only). You can also install [the included add-ons](https://github.com/minishift/minishift-addons/tree/master/add-ons).
+
+* [MicroK8s](https://microk8s.io/) provides a single command installation of the latest Kubernetes release on a local machine for development and testing. Setup is quick, fast (~30 sec) and supports many plugins including Istio with a single command.
 
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
 
@@ -54,6 +61,10 @@ a Kubernetes cluster from scratch.
 
 * [Azure Kubernetes Service](https://azure.microsoft.com/services/container-service/) offers managed Kubernetes clusters.
 
+* [Containership Kubernetes Engine (CKE)](https://containership.io/containership-platform) intuitive Kubernetes cluster provisioning and management on GCP, Azure, AWS, Packet, and DigitalOcean. Seamless version upgrades, autoscaling, metrics, workload creation, and more.
+
+* [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes/) offers managed Kubernetes service.
+
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
 * [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) offers managed Kubernetes clusters.
@@ -64,7 +75,11 @@ a Kubernetes cluster from scratch.
 
 * [Kublr](https://kublr.com) offers enterprise-grade secure, scalable, highly reliable Kubernetes clusters on AWS, Azure, GCP, and on-premise. It includes out-of-the-box backup and disaster recovery, multi-cluster centralized logging and monitoring, and built-in alerting.
 
+* [KubeSail](https://kubesail.com) is an easy, free way to try Kubernetes.
+
 * [Madcore.Ai](https://madcore.ai) is devops-focused CLI tool for deploying Kubernetes infrastructure in AWS. Master, auto-scaling group nodes with spot-instances, ingress-ssl-lego, Heapster, and Grafana.
+
+* [Nutanix Karbon](https://www.nutanix.com/products/karbon/) is a multi-cluster, highly available Kubernetes management and operational platform that simplifies the provisioning, operations, and lifecycle management of Kubernetes.
 
 * [OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift.
 
@@ -92,19 +107,25 @@ few commands. These solutions are actively developed and have active community s
 * [Azure](/docs/setup/turnkey/azure/)
 * [CenturyLink Cloud](/docs/setup/turnkey/clc/)
 * [Conjure-up Kubernetes with Ubuntu on AWS, Azure, Google Cloud, Oracle Cloud](/docs/getting-started-guides/ubuntu/)
+* [Containership](https://containership.io/containership-platform)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Gardener](https://gardener.cloud/)
+* [Giant Swarm](https://giantswarm.io)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://cloud.kubermatic.io)
 * [Kublr](https://kublr.com/)
 * [Madcore.Ai](https://madcore.ai/)
+* [Nirmata](https://nirmata.com/)
+* [Nutanix Karbon](https://www.nutanix.com/products/karbon/)
 * [Oracle Container Engine for K8s](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
-* [Giant Swarm](https://giantswarm.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
+* [Supergiant.io](https://supergiant.io/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
+* [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)
 
 ## On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -112,13 +133,17 @@ few commands.
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
+* [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
 * [Kublr](https://kublr.com/)
+* [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)
+* [Nirmata](https://nirmata.com/)
+* [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
-* [Giant Swarm](https://giantswarm.io)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
@@ -133,19 +158,17 @@ it will be easier than starting from scratch. If you do want to start from scrat
 have special requirements, or just because you want to understand what is underneath a Kubernetes
 cluster, try the [Getting Started from Scratch](/docs/setup/scratch/) guide.
 
-If you are interested in supporting Kubernetes on a new platform, see
-[Writing a Getting Started Guide](https://git.k8s.io/community/contributors/devel/writing-a-getting-started-guide.md).
-
 ### Universal
 
 If you already have a way to configure hosting resources, use
-[kubeadm](/docs/setup/independent/create-cluster-kubeadm/) to easily bring up a cluster
+[kubeadm](/docs/setup/independent/create-cluster-kubeadm/) to bring up a cluster
 with a single command per machine.
 
 ### Cloud
 
 These solutions are combinations of cloud providers and operating systems not covered by the above solutions.
 
+* [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CoreOS on AWS or GCE](/docs/setup/custom-cloud/coreos/)
 * [Gardener](https://gardener.cloud/)
 * [Kublr](https://kublr.com/)
@@ -155,8 +178,11 @@ These solutions are combinations of cloud providers and operating systems not co
 
 ### On-Premises VMs
 
+* [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible, CoreOS and flannel)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
+* [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization/)
+* [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [oVirt](/docs/setup/on-premises-vm/ovirt/)
 * [Vagrant](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
 * [VMware](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
@@ -167,9 +193,11 @@ These solutions are combinations of cloud providers and operating systems not co
 
 * [CoreOS](/docs/setup/custom-cloud/coreos/)
 * [Digital Rebar](/docs/setup/on-premises-metal/krib/)
+* [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
+* [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 
 ### Integrations
 
@@ -187,6 +215,9 @@ IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs              
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
+Docker Enterprise    | custom | [multi-support](https://success.docker.com/article/compatibility-matrix) | [multi-support](https://docs.docker.com/ee/ucp/kubernetes/install-cni-plugin/) | [docs](https://docs.docker.com/ee/) | Commercial
+IBM Cloud Private  | Ansible  | multi-support  | multi-support  | [docs](https://www.ibm.com/support/knowledgecenter/SSBS6K/product_welcome_cloud_private.html) | [Commercial](https://www.ibm.com/mysupport/s/topic/0TO500000001o0fGAA/ibm-cloud-private?language=en_US&productId=01t50000004X1PWAA0) and [Community](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.1.2/troubleshoot/support_types.html) |
+Red Hat OpenShift    | Ansible & CoreOS | RHEL & CoreOS   | [multi-support](https://docs.openshift.com/container-platform/3.11/architecture/networking/network_plugins.html) | [docs](https://docs.openshift.com/container-platform/3.11/welcome/index.html) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
@@ -230,6 +261,7 @@ Agile Stacks       | Terraform   | CoreOS | multi-support | [docs](https://www.a
 IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://console.bluemix.net/docs/containers/container_index.html) | Commercial
 Digital Rebar        | kubeadm      | any    | metal       | [docs](/docs/setup/on-premises-metal/krib/)                                  | Community ([@digitalrebar](https://github.com/digitalrebar))
 VMware Cloud PKS     |              | Photon OS | Canal | [docs](https://docs.vmware.com/en/VMware-Kubernetes-Engine/index.html) | Commercial
+Mirantis Cloud Platform | Salt | Ubuntu | multi-support | [docs](https://docs.mirantis.com/mcp/) | Commercial
 
 {{< note >}}
 The above table is ordered by version test/used in nodes, followed by support level.

@@ -142,9 +142,9 @@ Report issues with this device plugin and installation method to [GoogleCloudPla
 Instructions for using NVIDIA GPUs on GKE are
 [here](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus)
 
-## Clusters containing different types of NVIDIA GPUs
+## Clusters containing different types of GPUs
 
-If different nodes in your cluster have different types of NVIDIA GPUs, then you
+If different nodes in your cluster have different types of GPUs, then you
 can use [Node Labels and Node Selectors](/docs/tasks/configure-pod-container/assign-pods-nodes/)
 to schedule pods to appropriate nodes.
 
@@ -155,6 +155,39 @@ For example:
 kubectl label nodes <node-with-k80> accelerator=nvidia-tesla-k80
 kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 ```
+
+For AMD GPUs, you can deploy [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller), which automatically labels your nodes with GPU properties. Currently supported properties:
+
+* Device ID (-device-id)
+* VRAM Size (-vram)
+* Number of SIMD (-simd-count)
+* Number of Compute Unit (-cu-count)
+* Firmware and Feature Versions (-firmware)
+* GPU Family, in two letters acronym (-family)
+  * SI - Southern Islands
+  * CI - Sea Islands
+  * KV - Kaveri
+  * VI - Volcanic Islands
+  * CZ - Carrizo
+  * AI - Arctic Islands
+  * RV - Raven
+
+Example result:
+
+    $ kubectl describe node cluster-node-23
+    Name:               cluster-node-23
+    Roles:              <none>
+    Labels:             beta.amd.com/gpu.cu-count.64=1
+                        beta.amd.com/gpu.device-id.6860=1
+                        beta.amd.com/gpu.family.AI=1
+                        beta.amd.com/gpu.simd-count.256=1
+                        beta.amd.com/gpu.vram.16G=1
+                        beta.kubernetes.io/arch=amd64
+                        beta.kubernetes.io/os=linux
+                        kubernetes.io/hostname=cluster-node-23
+    Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                        node.alpha.kubernetes.io/ttl: 0
+    ......
 
 Specify the GPU type in the pod spec:
 

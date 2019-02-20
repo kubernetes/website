@@ -64,7 +64,7 @@ First create a temporary interactive Pod.
 
 ```shell
 # Create a temporary interactive container
-$ kubectl run -i --tty temp --image ubuntu:14.04
+$ kubectl run -i --tty temp --image ubuntu:18.04
 Waiting for pod default/temp-loe07 to be running, status is Pending, pod ready: false
 ... [ previous line repeats several times .. hit return when it stops ] ...
 ```
@@ -141,7 +141,7 @@ return so the example is readable.
 
 ## Filling the Queue with tasks
 
-Now lets fill the queue with some "tasks".  In our example, our tasks are just strings to be
+Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
 printed.
 
 In a practice, the content of the messages might be:
@@ -180,6 +180,12 @@ from the queue and run our actual program.  Here is a very simple
 example program:
 
 {{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
+
+Give the script execution permission:
+
+```shell
+$ chmod +x worker.py
+```
 
 Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.

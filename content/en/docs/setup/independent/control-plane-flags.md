@@ -8,15 +8,18 @@ weight: 40
 
 {{% capture overview %}}
 
-The kubeadm configuration exposes the following fields that can override the default flags passed to control plane components such as the APIServer, ControllerManager and Scheduler:
+{{< feature-state for_k8s_version="1.12" state="stable" >}}
 
-- `APIServerExtraArgs`
-- `ControllerManagerExtraArgs`
-- `SchedulerExtraArgs`
+The kubeadm `ClusterConfiguration` object exposes the field `extraArgs` that can override the default flags passed to control plane
+components such as the APIServer, ControllerManager and Scheduler. The components are defined using the following fields:
 
-These fields consist of `key: value` pairs. To override a flag for a control plane component:
+- `apiServer`
+- `controllerManager`
+- `scheduler`
 
-1.  Add the appropriate field to your configuration.
+The `extraArgs` field consist of `key: value` pairs. To override a flag for a control plane component:
+
+1.  Add the appropriate fields to your configuration.
 2.  Add the flags to override to the field.
 
 For more details on each field in the configuration you can navigate to our
@@ -32,16 +35,17 @@ For details, see the [reference documentation for kube-apiserver](/docs/referenc
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.13.0
 metadata:
-  name: 1.12-sample
-apiServerExtraArgs:
-  advertise-address: 192.168.0.103
-  anonymous-auth: false
-  enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
-  audit-log-path: /home/johndoe/audit.log
+  name: 1.13-sample
+apiServer:
+  extraArgs:
+    advertise-address: 192.168.0.103
+    anonymous-auth: false
+    enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
+    audit-log-path: /home/johndoe/audit.log
 ```
 
 ## ControllerManager flags
@@ -50,15 +54,16 @@ For details, see the [reference documentation for kube-controller-manager](/docs
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.13.0
 metadata:
-  name: 1.12-sample
-controllerManagerExtraArgs:
-  cluster-signing-key-file: /home/johndoe/keys/ca.key
-  bind-address: 0.0.0.0
-  deployment-controller-sync-period: 50
+  name: 1.13-sample
+controllerManager:
+  extraArgs:
+    cluster-signing-key-file: /home/johndoe/keys/ca.key
+    bind-address: 0.0.0.0
+    deployment-controller-sync-period: 50
 ```
 
 ## Scheduler flags
@@ -67,15 +72,16 @@ For details, see the [reference documentation for kube-scheduler](/docs/referenc
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1alpha3
+apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
-kubernetesVersion: v1.12.0
+kubernetesVersion: v1.13.0
 metadata:
-  name: 1.12-sample
-schedulerExtraArgs:
-  address: 0.0.0.0
-  config: /home/johndoe/schedconfig.yaml
-  kubeconfig: /home/johndoe/kubeconfig.yaml
+  name: 1.13-sample
+scheduler:
+  extraArgs:
+    address: 0.0.0.0
+    config: /home/johndoe/schedconfig.yaml
+    kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
 {{% /capture %}}
