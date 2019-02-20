@@ -847,7 +847,7 @@ You should see some services.  You should also see "mirror pods" for the apiserv
 
 At this point you should be able to run through one of the basic examples, such as the [nginx example](/examples/application/deployment.yaml).
 
-### 適合テストを動かす
+### 適合テストの実行
 
 You may want to try to run the [Conformance test](http://releases.k8s.io/{{< param "githubbranch" >}}/test/e2e_node/conformance/run_test.sh).  Any failures may give a hint as to areas that need more attention.
 
