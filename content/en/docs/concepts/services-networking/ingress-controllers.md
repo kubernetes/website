@@ -69,6 +69,6 @@ Make sure you review your ingress controller's documentation to understand the c
 {{% capture whatsnext %}}
 
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube.md).
+* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 
 {{% /capture %}}
