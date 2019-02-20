@@ -11,7 +11,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 
 {{% capture body %}}
 
-## Minikubeの特徴
+## Minikubeの機能
 
 * Minikube supports Kubernetes features such as:
   * DNS
@@ -351,7 +351,7 @@ To access a private container registry, follow the steps on [this page](/docs/co
 
 We recommend you use `ImagePullSecrets`, but if you would like to configure access on the Minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
 
-## 追加機能
+## アドオン
 
 In order to have Minikube properly start or restart custom addons,
 place the addons you wish to be launched with Minikube in the `~/.minikube/addons`
