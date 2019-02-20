@@ -1,23 +1,23 @@
 ---
-title: Validate Node Setup
+title: ノードのセットアップの検証
 ---
 
 {{< toc >}}
 
-## Node Conformance Test
+## ノード適合テスト
 
 *Node conformance test* is a containerized test framework that provides a system
 verification and functionality test for a node. The test validates whether the
 node meets the minimum requirements for Kubernetes; a node that passes the test
 is qualified to join a Kubernetes cluster.
 
-## Limitations
+## 制約
 
 In Kubernetes version 1.5, node conformance test has the following limitations:
 
 * Node conformance test only supports Docker as the container runtime.
 
-## Node Prerequisite
+## ノードの前提条件
 
 To run node conformance test, a node must satisfy the same prerequisites as a
 standard Kubernetes node. At a minimum, the node should have the following
@@ -26,7 +26,7 @@ daemons installed:
 * Container Runtime (Docker)
 * Kubelet
 
-## Running Node Conformance Test
+## ノード適合テストを動かす
 
 To run the node conformance test, perform the following steps:
 
@@ -48,7 +48,7 @@ sudo docker run -it --rm --privileged --net=host \
   k8s.gcr.io/node-test:0.2
 ```
 
-## Running Node Conformance Test for Other Architectures
+## 他のアーキテクチャ向けにノード適合テストを動かす
 
 Kubernetes also provides node conformance test docker images for other
 architectures:
@@ -59,7 +59,7 @@ architectures:
   arm   |    node-test-arm  |
  arm64  |  node-test-arm64  |
 
-## Running Selected Test
+## テストを選択して動かす
 
 To run specific tests, overwrite the environment variable `FOCUS` with the
 regular expression of tests you want to run.
@@ -88,7 +88,7 @@ Theoretically, you can run any node e2e test if you configure the container and
 mount required volumes properly. But **it is strongly recommended to only run conformance
 test**, because it requires much more complex configuration to run non-conformance test.
 
-## Caveats
+## 注意事項
 
 * The test leaves some docker images on the node, including the node conformance
   test image and images of containers used in the functionality
