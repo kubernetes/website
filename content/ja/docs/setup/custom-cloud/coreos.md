@@ -1,5 +1,5 @@
 ---
-title: CoreOS on AWS or GCE
+title: AWSまたはGCE上のCoreOS
 content_template: templates/concept
 ---
 
@@ -11,7 +11,7 @@ There are multiple guides on running Kubernetes with [CoreOS](https://coreos.com
 
 {{% capture body %}}
 
-## Official CoreOS Guides
+## 公式CoreOSガイド
 
 These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" with full TLS, the DNS add-on, and more. These guides pass Kubernetes conformance testing and we encourage you to [test this yourself](https://coreos.com/kubernetes/docs/latest/conformance-tests.html).
 
@@ -40,7 +40,7 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
     A generic guide to setting up an HA cluster on any cloud or bare metal, with full TLS.
     Repeat the master or worker steps to configure more machines of that role.
 
-## Community Guides
+## コミュニティガイド
 
 These guides are maintained by community members, cover specific platforms and use cases, and experiment with different ways of configuring Kubernetes on CoreOS.
 
@@ -75,7 +75,7 @@ These guides are maintained by community members, cover specific platforms and u
 
     Configure a standalone Kubernetes or a Kubernetes cluster with [Foreman](https://theforeman.org).
 
-## Support Level
+## サポートレベル
 
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
