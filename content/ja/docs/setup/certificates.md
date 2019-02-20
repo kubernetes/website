@@ -78,7 +78,7 @@ where `kind` maps to one or more of the [x509 key usage][usage] types:
 | server | digital signature, key encipherment, server auth                                |
 | client | digital signature, key encipherment, client auth                                |
 
-### 証明書の場所
+### 証明書のパス
 
 Certificates should be placed in a recommended path (as used by [kubeadm][kubeadm]). Paths should be specified using the given argument regardless of location.
 
