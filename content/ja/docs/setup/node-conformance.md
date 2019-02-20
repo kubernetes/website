@@ -26,7 +26,7 @@ daemons installed:
 * Container Runtime (Docker)
 * Kubelet
 
-## ノード適合テストを動かす
+## ノード適合テストの実行
 
 To run the node conformance test, perform the following steps:
 
