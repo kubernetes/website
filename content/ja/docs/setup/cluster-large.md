@@ -26,7 +26,7 @@ Simply changing that value to something very large, however, may cause the setup
 
 When setting up a large Kubernetes cluster, the following issues must be considered.
 
-### 制限の問題
+### クォータの問題
 
 To avoid running into cloud provider quota issues, when creating a cluster with many nodes, consider:
 
@@ -78,7 +78,7 @@ On Google Kubernetes Engine, the size of the master node adjusts automatically b
 On AWS, master node sizes are currently set at cluster startup time and do not change, even if you later scale your cluster up or down by manually removing or adding nodes or using a cluster autoscaler.
 {{< /note >}}
 
-### 追加リソース
+### アドオンのリソース
 
 To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](http://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)).
 
