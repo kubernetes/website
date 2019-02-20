@@ -1,5 +1,5 @@
 ---
-title: 複数のゾーンで動かす
+title: 複数のゾーンでの稼働
 weight: 90
 ---
 
@@ -91,7 +91,7 @@ cluster on both GCE & AWS.  To do so, you bring up a full cluster
 (specifying `MULTIZONE=true`), and then you add nodes in additional zones
 by running `kube-up` again (specifying `KUBE_USE_EXISTING_MASTER=true`).
 
-### クラスタを作成する
+### クラスタの立ち上げ
 
 Create the cluster as normal, but pass MULTIZONE to tell the cluster to manage multiple zones; creating nodes in us-central1-a.
 
@@ -128,7 +128,7 @@ kubernetes-minion-9vlv   Ready                      <none>   6m    v1.12.0      
 kubernetes-minion-a12q   Ready                      <none>   6m    v1.12.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
 ```
 
-### 2つ目のゾーンにさらにノードを追加する
+### 2つ目のゾーンにさらにノードを追加
 
 Let's add another set of nodes to the existing cluster, reusing the
 existing master, running in a different zone (us-central1-b or us-west-2b).
@@ -312,7 +312,7 @@ LoadBalancer Ingress:   130.211.126.21
 
 The load balancer correctly targets all the pods, even though they are in multiple zones.
 
-### クラスタを停止する
+### クラスタの停止
 
 When you're done, clean up:
 
