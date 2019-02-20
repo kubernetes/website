@@ -1,5 +1,5 @@
 ---
-title: PKI Certificates and Requirements
+title: PKI証明書とその要件
 content_template: templates/concept
 ---
 
@@ -14,7 +14,7 @@ This page explains the certificates that your cluster requires.
 
 {{% capture body %}}
 
-## How certificates are used by your cluster
+## あなたのクラスタではどのように証明書が使われているのか
 
 Kubernetes requires PKI for the following operations:
 
@@ -33,15 +33,15 @@ Kubernetes requires PKI for the following operations:
 
 etcd also implements mutual TLS to authenticate clients and peers.
 
-## Where certificates are stored
+## 証明書の保存場所
 
 If you install Kubernetes with kubeadm, certificates are stored in `/etc/kubernetes/pki`. All paths in this documentation are relative to that directory.
 
-## Configure certificates manually
+## 手動で証明書を設定する
 
 If you don't want kubeadm to generate the required certificates, you can create them in either of the following ways.
 
-### Single root CA
+### 単一ルート認証局
 
 You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself. 
 
@@ -53,7 +53,7 @@ Required CAs:
 | etcd/ca.crt,key        | etcd-ca                   | For all etcd-related functions   |
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | For the [front-end proxy][proxy] |
 
-### All certificates
+### 全ての証明書
 
 If you don't wish to copy these private keys to your API servers, you can generate all certificates yourself. 
 
@@ -78,7 +78,7 @@ where `kind` maps to one or more of the [x509 key usage][usage] types:
 | server | digital signature, key encipherment, server auth                                |
 | client | digital signature, key encipherment, client auth                                |
 
-### Certificate paths
+### 証明書のパス
 
 Certificates should be placed in a recommended path (as used by [kubeadm][kubeadm]). Paths should be specified using the given argument regardless of location.
 
@@ -99,7 +99,7 @@ Certificates should be placed in a recommended path (as used by [kubeadm][kubead
 
 [2]: For a liveness probe, if self-hosted
 
-## Configure certificates for user accounts
+## ユーザアカウント用に証明書を設定する
 
 You must manually configure these administrator account and service accounts: 
 
