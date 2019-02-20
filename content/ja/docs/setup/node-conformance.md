@@ -48,7 +48,7 @@ sudo docker run -it --rm --privileged --net=host \
   k8s.gcr.io/node-test:0.2
 ```
 
-## 他のアーキテクチャ向けにノード適合テストを動かす
+## 他アーキテクチャ向けのノード適合テストの実行
 
 Kubernetes also provides node conformance test docker images for other
 architectures:
