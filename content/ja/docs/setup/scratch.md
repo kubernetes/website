@@ -305,7 +305,7 @@ Put the kubeconfig(s) on every node.  The examples later in this
 guide assume that there are kubeconfigs in `/var/lib/kube-proxy/kubeconfig` and
 `/var/lib/kubelet/kubeconfig`.
 
-## ノードの基本的なソフトウェアのインストールと設定
+## ノードの基本的なソフトウェアの設定とインストール
 
 This section discusses how to configure machines to be Kubernetes nodes.
 
@@ -856,7 +856,7 @@ You may want to try to run the [Conformance test](http://releases.k8s.io/{{< par
 The nodes must be able to connect to each other using their private IP. Verify this by
 pinging or SSH-ing from one node to another.
 
-### ヘルプを参照する
+### 困った時は
 
 If you run into trouble, see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
 [Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on [Slack](/docs/troubleshooting#slack).
