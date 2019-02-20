@@ -1,5 +1,5 @@
 ---
-title: 正しい解決策を選ぶ
+title: 正しいソリューションを選ぶ
 weight: 10
 content_template: templates/concept
 ---
@@ -26,7 +26,7 @@ a Kubernetes cluster from scratch.
 
 {{% capture body %}}
 
-## ローカルマシンを使った解決策
+## ローカルマシンを使ったソリューション
 
 * [Minikube](/docs/setup/minikube/) is a method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
@@ -40,7 +40,7 @@ a Kubernetes cluster from scratch.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
-## ホスティングを使った解決策
+## ホスティングを使ったソリューション
 
 * [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
 
@@ -76,7 +76,7 @@ a Kubernetes cluster from scratch.
 
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks) is an enterprise Kubernetes-as-a-Service offering in the VMware Cloud Services portfolio that provides easy to use, secure by default, cost effective, SaaS-based Kubernetes clusters.
 
-## すぐに使えるクラウドを使った解決策
+## すぐに使えるクラウドを使ったソリューション
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
@@ -102,7 +102,7 @@ few commands. These solutions are actively developed and have active community s
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 
-## すぐに使えるオンプレミスを使った解決策
+## すぐに使えるオンプレミスを使ったソリューション
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
 few commands.
 
@@ -119,7 +119,7 @@ few commands.
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
 
-## カスタム解決策
+## カスタムソリューション
 
 Kubernetes can run on a wide range of Cloud providers and bare-metal environments, and with many
 base operating systems.
@@ -175,7 +175,7 @@ These solutions provide integration with third-party schedulers, resource manage
   * Community Edition DCOS uses AWS
   * Enterprise Edition DCOS supports cloud hosting, on-premises VMs, and bare metal
 
-## 解決策の表
+## ソリューションの表
 
 Below is a table of all of the solutions listed above.
 
