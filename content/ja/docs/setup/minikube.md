@@ -380,7 +380,7 @@ To by-pass proxy configuration for this IP address, you should modify your no_pr
 $ export no_proxy=$no_proxy,$(minikube ip)
 ```
 
-## 現在知られている問題
+## 既知の問題
 * Features that require a Cloud Provider will not work in Minikube. These include:
   * LoadBalancers
 * Features that require multiple nodes. These include:
