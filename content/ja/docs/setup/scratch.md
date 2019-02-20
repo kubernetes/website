@@ -52,7 +52,7 @@ on how flags are set on various components.
 
 ### ネットワーク
 
-#### ネットワークの到達性
+#### ネットワークの接続性
 Kubernetes has a distinctive [networking model](/docs/concepts/cluster-administration/networking/).
 
 Kubernetes allocates an IP address to each pod.  When creating a cluster, you
