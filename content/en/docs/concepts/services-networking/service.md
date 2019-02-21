@@ -519,6 +519,16 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="Baidu Cloud" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.beta.kubernetes.io/cce-load-balancer-internal-vpc: "true"
+[...]
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 
