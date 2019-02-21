@@ -358,7 +358,7 @@ place the addons you wish to be launched with Minikube in the `~/.minikube/addon
 directory. Addons in this folder will be moved to the Minikube VM and
 launched each time Minikube is started or restarted.
 
-## HTTPプロキシを通してMinikubeを使う
+## HTTPプロキシ経由のMinikube利用
 
 Minikube creates a Virtual Machine that includes Kubernetes and a Docker daemon.
 When Kubernetes attempts to schedule containers using Docker, the Docker daemon may require external network access to pull containers.
