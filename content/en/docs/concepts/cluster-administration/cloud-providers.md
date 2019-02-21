@@ -378,3 +378,10 @@ To expose apps to the public or within the cluster, you can leverage NodePort, L
 
 ### Storage
 The IBM Cloud Kubernetes Service provider leverages Kubernetes-native persistent volumes to enable users to mount file, block, and cloud object storage to their apps. You can also use database-as-a-service and third-party add-ons for persistent storage of your data. For more information, see [Planning highly available persistent storage](https://console.bluemix.net/docs/containers/cs_storage_planning.html#storage_planning).
+
+## Baidu Cloud Container Engine
+
+### Node Name
+
+The Baidu cloud provider uses the private IP address of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+Note that the Kubernetes Node name must match the Baidu VM private IP.
