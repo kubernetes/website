@@ -1,5 +1,5 @@
 ---
-title: Minikubeを使ってローカル環境でKubernetesを動かす
+title: Minikubeを使ったローカル環境でのKubernetesの起動
 content_template: templates/concept
 ---
 
@@ -160,7 +160,7 @@ $ minikube start \
 
 This will use an alternative minikube ISO image containing both rkt, and Docker, and enable CNI networking.
 
-### Driverプラグイン
+### ドライバープラグイン
 
 See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
 plugins, if required.
@@ -218,7 +218,7 @@ Unfortunately just setting the environment variables will not work.
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
 
-#### Kubernetesのバージョンを指定する
+#### Kubernetesバージョンの指定
 
 You can specify the specific version of Kubernetes for Minikube to use by
 adding the `--kubernetes-version` string to the `minikube start` command. For
@@ -330,7 +330,7 @@ spec:
     path: /data/pv0001/
 ```
 
-## ホストのフォルダのマウント
+## ホストフォルダのマウント
 Some drivers will mount a host folder within the VM so that you can easily share files between the VM and host.  These are not configurable at the moment and different for the driver and OS you are using.
 
 {{< note >}}
