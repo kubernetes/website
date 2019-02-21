@@ -90,7 +90,7 @@ timeframe; which also applies to `kubeadm`.
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
-## 始めに
+## 説明
 
 ### kubeadmのインストール
 
