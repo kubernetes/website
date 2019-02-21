@@ -37,7 +37,7 @@ content_template: templates/task
 
 在这个练习中，你将创建一个包含一个容器的pod。这是该pod的配置文件：
 
-{{< code file="dapi-envars-pod.yaml" >}}
+{{< codenew file="dapi-envars-pod.yaml" >}}
 
 这个配置文件中，你可以看到五个环境变量。`env`字段是一个[EnvVars](/docs/resources-reference/{{< param "version" >}}/#envvar-v1-core)类型的数组。
 数组中第一个元素指定`MY_NODE_NAME`这个环境变量从Pod的`spec.nodeName`字段获取变量值。同样，其它环境变量也是从Pod的字段获取它们的变量值。
@@ -105,7 +105,7 @@ MY_POD_NAME=dapi-envars-fieldref
 
 前面的练习中，你将Pod字段作为环境变量的值。接下来这个练习，你将用容器字段作为环境变量的值。这里是包含一个容器的pod的配置文件：
 
-{{< code file="dapi-envars-container.yaml" >}}
+{{< codenew file="dapi-envars-container.yaml" >}}
 
 这个配置文件中，你可以看到四个环境变量。`env`字段是一个[EnvVars](/docs/resources-reference/{{< param "version" >}}/#envvar-v1-core)
 类型的数组。数组中第一个元素指定`MY_CPU_REQUEST`这个环境变量从容器的`requests.cpu`字段获取变量值。同样，其它环境变量也是从容器的字段获取它们的变量值。

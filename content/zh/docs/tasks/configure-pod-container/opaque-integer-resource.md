@@ -31,7 +31,7 @@ content_template: templates/task
 
 下面是含有一个容器的Pod的配置文件:
 
-{{< code file="oir-pod.yaml" >}}
+{{< codenew file="oir-pod.yaml" >}}
 
 在配置文件中，可以看到容器请求了3个dongles资源。
 
@@ -64,7 +64,7 @@ Requests:
 
 下面是含有一个容器的Pod的配置文件。该容器请求了两个dongles资源。
 
-{{< code file="oir-pod-2.yaml" >}}
+{{< codenew file="oir-pod-2.yaml" >}}
 
 Kubernetes无法再满足两个dongles的请求，因为第一个Pod已经使用了四个可用dongles中的三个。
 

@@ -70,7 +70,7 @@ ZooKeeper 在内存中保存它们的整个状态机，但是每个改变都被�
 
 下面的清单包含一个 [Headless Service](/docs/user-guide/services/#headless-services)，一个 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)，一个 [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget) 和 一个 [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)。
 
-{{< code file="zookeeper.yaml" >}}
+{{< codenew file="zookeeper.yaml" >}}
 
 
 打开一个命令行终端，使用 [`kubectl create`](/docs/user-guide/kubectl/{{< param "version" >}}/#create) 创建这个清单。

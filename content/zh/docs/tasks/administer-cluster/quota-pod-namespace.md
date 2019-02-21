@@ -32,7 +32,7 @@ kubectl create namespace quota-pod-example
 
 下面是一个资源配额的配置文件：
 
-{{< code file="quota-pod.yaml" >}}
+{{< codenew file="quota-pod.yaml" >}}
 
 创建这个资源配额：
 
@@ -61,7 +61,7 @@ status:
 
 下面是一个Deployment的配置文件：
 
-{{< code file="quota-pod-deployment.yaml" >}}
+{{< codenew file="quota-pod-deployment.yaml" >}}
 
 在配置文件中， `replicas: 3` 告诉kubernetes尝试创建三个pods，且运行相同的应用。
 

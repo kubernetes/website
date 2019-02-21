@@ -48,7 +48,7 @@ content_template: templates/tutorial
 
 后端是一个简单的 hello 欢迎微服务应用。这是后端应用的 Deployment 配置文件：
 
-{{< code file="hello.yaml" >}}
+{{< codenew file="hello.yaml" >}}
 
 
 创建后端 Deployment：
@@ -98,7 +98,7 @@ Events:
 
 首先，浏览 Service 的配置文件：
 
-{{< code file="hello-service.yaml" >}}
+{{< codenew file="hello-service.yaml" >}}
 
 
 
@@ -130,7 +130,7 @@ DNS 名是 "hello"，也就是 Service 配置文件中 `name` 字段的值。
 前端 Deployment 中的 Pods 运行一个 nginx 镜像，这个已经配置好镜像去寻找后端的 hello Service。
 只是 nginx 的配置文件：
 
-{{< code file="frontend/frontend.conf" >}}
+{{< codenew file="frontend/frontend.conf" >}}
 
 
 
@@ -138,7 +138,7 @@ DNS 名是 "hello"，也就是 Service 配置文件中 `name` 字段的值。
 与后端类似，前端用包含一个 Deployment 和一个 Service。Service 的配置文件包含了 `type: LoadBalancer`，
 也就是说，Service 会使用你的云服务商的默认负载均衡设备。
 
-{{< code file="frontend.yaml" >}}
+{{< codenew file="frontend.yaml" >}}
 
 
 创建前端 Deployment 和 Service：

@@ -51,7 +51,7 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 
 作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中的示例相似。它创建了一个  [Headless Service](/docs/user-guide/services/#headless-services)  `nginx` 用来发布StatefulSet `web` 中的 Pod 的 IP 地址。
 
-{{< code file="web.yaml" >}}
+{{< codenew file="web.yaml" >}}
 
 
 下载上面的例子并保存为文件 `web.yaml`。
@@ -991,7 +991,7 @@ statefulset "web" deleted
 
 `Parallel` pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，在启动或终止另一个 Pod 前，不必等待这些 Pod 变成 Running 和 Ready 或者完全终止状态。
 
-{{< code file="webp.yaml" >}}
+{{< codenew file="webp.yaml" >}}
 
 
 下载上面的例子并保存为 `webp.yaml`。

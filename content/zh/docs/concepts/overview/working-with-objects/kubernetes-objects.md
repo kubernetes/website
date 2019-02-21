@@ -60,7 +60,7 @@ Kubernetes 系统读取 Deployment 规约，并启动我们所期望的该应用
 
 这里有一个 `.yaml` 示例文件，展示了 Kubernetes Deployment 的必需字段和对象规约：
 
-{{< code file="nginx-deployment.yaml" >}}
+{{< codenew file="nginx-deployment.yaml" >}}
 
 使用类似于上面的 `.yaml` 文件来创建 Deployment，一种方式是使用 `kubectl` 命令行接口（CLI）中的 [`kubectl create`](/docs/user-guide/kubectl/v1.7/#create) 命令，将 `.yaml` 文件作为参数。下面是一个示例：
 

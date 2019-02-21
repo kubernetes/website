@@ -35,7 +35,7 @@ Kubernetes 假设 Pod 可与其它 Pod 通信，不管它们在哪个主机上�
 我们在之前的示例中已经做过，然而再让我重试一次，这次聚焦在网络连接的视角。
 创建一个 Nginx Pod，指示它具有一个容器端口的说明：
 
-{{< code file="run-my-nginx.yaml" >}}
+{{< codenew file="run-my-nginx.yaml" >}}
 
 
 
@@ -91,7 +91,7 @@ service "my-nginx" exposed
 
 这等价于使用 `kubectl create -f` 命令创建，对应如下的 yaml 文件：
 
-{{< code file="nginx-svc.yaml" >}}
+{{< codenew file="nginx-svc.yaml" >}}
 
 
 
@@ -247,7 +247,7 @@ nginxsecret           Opaque                                2         1m
 
 现在修改 Nginx 副本，启动一个使用在秘钥中的证书的 https 服务器和 Servcie，都暴露端口（80 和 443）：
 
-{{< code file="nginx-secure-app.yaml" >}}
+{{< codenew file="nginx-secure-app.yaml" >}}
 
 
 
@@ -281,7 +281,7 @@ node $ curl -k https://10.244.3.5
 通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod使用的实际 DNS 名字。
 让我们从一个 Pod 来测试（为了简化使用同一个秘钥，Pod 仅需要使用 nginx.crt 去访问 Service）：
 
-{{< code file="curlpod.yaml" >}}
+{{< codenew file="curlpod.yaml" >}}
 
 ```shell
 $ kubectl create -f ./curlpod.yaml

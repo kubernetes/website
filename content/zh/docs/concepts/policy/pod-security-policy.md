@@ -148,7 +148,7 @@ Pod 必须基于 PSP 验证每个字段。
 
 下面是一个 Pod 安全策略的例子，所有字段的设置都被允许：
 
-{{< code file="psp.yaml" >}}
+{{< codenew file="psp.yaml" >}}
 
 
 

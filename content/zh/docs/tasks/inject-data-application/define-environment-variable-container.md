@@ -26,7 +26,7 @@ content_template: templates/task
 本示例中，将创建一个只包含单个容器的Pod。Pod的配置文件中设置环境变量的名称为`DEMO_GREETING`，
 其值为`"Hello from the environment"`。下面是Pod的配置文件内容:
 
-{{< code file="envars.yaml" >}}
+{{< codenew file="envars.yaml" >}}
 
 1. 基于YAML文件创建一个Pod:
 
