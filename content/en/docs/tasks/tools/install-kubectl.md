@@ -354,3 +354,9 @@ plugins=(kubectl)
 [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 {{% /capture %}}
 
+## Cleanup everything to start fresh
+If you have installed kubectl before and when running `kubectl cluster-info` is throwing error then simply wipe existing configuration files.
+
+```shell
+rm -rf ~/.kube
+```
