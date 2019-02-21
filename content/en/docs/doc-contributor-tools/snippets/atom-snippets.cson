@@ -116,7 +116,7 @@
     'body': '{{< toc >}}'
   'Insert code from file':
     'prefix': 'codefile'
-    'body': '{{< code file="$1" >}}'
+    'body': '{{< codenew file="$1" >}}'
   'Insert feature state':
     'prefix': 'fstate'
     'body': '{{< feature-state for_k8s_version="$1" state="$2" >}}'
