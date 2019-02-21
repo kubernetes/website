@@ -114,4 +114,18 @@ To install Minikube manually on windows using [Windows Installer](https://docs.m
 
 {{% /capture %}}
 
+## Cleanup everything to start fresh
+If you have previously installed minikube, and run:
+```shell
+minikube start
+```
 
+If this command returns an error:
+```shell
+machine does not exist
+```
+
+You need to wipe the configuration files:
+```shell
+rm -rf ~/.minikube
+```
