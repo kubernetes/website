@@ -1,5 +1,5 @@
 ---
-title: 正しいソリューションを選ぶ
+title: 正しいソリューションの選択
 weight: 10
 content_template: templates/concept
 ---
@@ -76,7 +76,7 @@ a Kubernetes cluster from scratch.
 
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks) is an enterprise Kubernetes-as-a-Service offering in the VMware Cloud Services portfolio that provides easy to use, secure by default, cost effective, SaaS-based Kubernetes clusters.
 
-## すぐに使えるクラウドを使ったソリューション
+## すぐに利用できるクラウドを使ったソリューション
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
@@ -102,7 +102,7 @@ few commands. These solutions are actively developed and have active community s
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 
-## すぐに使えるオンプレミスを使ったソリューション
+## すぐに利用できるオンプレミスを使ったソリューション
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
 few commands.
 
