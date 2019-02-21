@@ -167,6 +167,11 @@ GCE 및 자동 노드 교체를 수행하는 다른 클라우드 제공자에 �
 않을 것이다.
 {{< /note >}}
 
+{{< note >}}
+현재 쿠버네티스는 docker 설정의 `auths`와 `HttpHeaders` 섹션만 지원한다. 이는 자격증명 도우미(`credHelpers` 또는 `credStore`)가 지원되지 않는다는 뜻이다.
+{{< /note >}}
+
+
 Docker는 프라이빗 레지스트리를 위한 키를 `$HOME/.dockercfg` 또는 `$HOME/.docker/config.json` 파일에 저장한다. 만약 동일한 파일을 
 아래의 검색 경로 리스트에 넣으면, kubelete은 이미지를 풀 할 때 해당 파일을 자격 증명 공급자로 사용한다.
 
@@ -310,7 +315,7 @@ type: kubernetes.io/dockerconfigjson
 
 `error: no objects passed to create`라는 에러 메시지가 나오면, 그것은 base64 인코딩된 문자열이 유효하지 않다는 것을 뜻한다. 
 `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`와 유사한 에러 메시지가 나오면, 그것은 
-데이터가 성공적으로 un-base64 인코딩되었지만, `.docker/config.json` 파일로는 파싱될 수 없었음을 의미한다.
+base64 인코딩 된 데이터가 성공적으로 디코딩되었지만, `.docker/config.json` 파일로는 파싱될 수 없었음을 의미한다.
 
 #### 파드의 imagePullSecrets 참조
 
