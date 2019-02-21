@@ -1,5 +1,5 @@
 ---
-title: Creating a single master cluster with kubeadm
+title: kubeadmを使用したシングルマスタークラスタの作成
 content_template: templates/task
 weight: 30
 ---
@@ -31,7 +31,7 @@ installing deb or rpm packages. The responsible SIG for kubeadm,
 but you may also build them from source for other OSes.
 
 
-### kubeadm Maturity
+### kubeadmの成熟度
 
 | Area                      | Maturity Level |
 |---------------------------|--------------- |
@@ -51,7 +51,7 @@ may change slightly as the tool evolves, but the overall implementation should b
 Any commands under `kubeadm alpha` are by definition, supported on an alpha level.
 
 
-### Support timeframes
+### サポート期間
 
 Kubernetes releases are generally supported for nine months, and during that
 period a patch release may be issued from the release branch if a severe bug or
@@ -84,15 +84,15 @@ timeframe; which also applies to `kubeadm`.
 
 {{% capture steps %}}
 
-## Objectives
+## 目的
 
 * Install a single master Kubernetes cluster or [high availability cluster](https://kubernetes.io/docs/setup/independent/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
-## Instructions
+## 始めに
 
-### Installing kubeadm on your hosts
+### kubeadmのインストール
 
 See ["Installing kubeadm"](/docs/setup/independent/install-kubeadm/).
 
@@ -105,7 +105,7 @@ kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your master, the kubelet runs normally.
 {{< /note >}}
 
-### Initializing your master
+### マスターの初期化
 
 The master is the machine where the control plane components run, including
 etcd (the cluster database) and the API server (which the kubectl CLI
@@ -129,7 +129,7 @@ Now run:
 kubeadm init <args> 
 ```
 
-### More information
+### 詳細
 
 For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/).
 
@@ -223,7 +223,7 @@ token can add authenticated nodes to your cluster. These tokens can be listed,
 created, and deleted with the `kubeadm token` command. See the
 [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 
-### Installing a pod network add-on {#pod-network}
+### Podネットワークアドオンのインストール {#pod-network}
 
 {{< caution >}}
 This section contains important information about installation and deployment order. Read it carefully before proceeding.
@@ -389,7 +389,7 @@ And once the CoreDNS pod is up and running, you can continue by joining your nod
 If your network is not working or CoreDNS is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
-### Control plane node isolation
+### コントロールプレーンノードの隔離
 
 By default, your cluster will not schedule pods on the master for security
 reasons. If you want to be able to schedule pods on the master, e.g. for a
@@ -411,7 +411,7 @@ This will remove the `node-role.kubernetes.io/master` taint from any nodes that
 have it, including the master node, meaning that the scheduler will then be able
 to schedule pods everywhere.
 
-### Joining your nodes {#join-nodes}
+### ノードの追加 {#join-nodes}
 
 The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
 
@@ -487,7 +487,7 @@ Run 'kubectl get nodes' on the master to see this machine join.
 A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the master.
 
-### (Optional) Controlling your cluster from machines other than the master
+### (任意) マスター以外のマシンからのクラスタ操作
 
 In order to get a kubectl on some other computer (e.g. laptop) to talk to your
 cluster, you need to copy the administrator kubeconfig file from your master
@@ -512,7 +512,7 @@ should save to a file and distribute to your user. After that, whitelist
 privileges by using `kubectl create (cluster)rolebinding`.
 {{< /note >}}
 
-### (Optional) Proxying API Server to localhost
+### (任意) APIサーバをlocalhostへプロキシ
 
 If you want to connect to the API Server from outside the cluster you can use
 `kubectl proxy`:
@@ -524,7 +524,7 @@ kubectl --kubeconfig ./admin.conf proxy
 
 You can now access the API Server locally at `http://localhost:8001/api/v1`
 
-## Tear down {#tear-down}
+## クラスタの削除 {#tear-down}
 
 To undo what kubeadm did, you should first [drain the
 node](/docs/reference/generated/kubectl/kubectl-commands#drain) and make
@@ -549,24 +549,24 @@ appropriate arguments.
 More options and information about the
 [`kubeadm reset command`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
 
-## Maintaining a cluster {#lifecycle}
+## クラスタの維持 {#lifecycle}
 
 Instructions for maintaining kubeadm clusters (e.g. upgrades,downgrades, etc.) can be found [here.](/docs/tasks/administer-cluster/kubeadm)
 
-## Explore other add-ons {#other-addons}
+## 他アドオンの参照 {#other-addons}
 
 See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
 including tools for logging, monitoring, network policy, visualization &amp;
 control of your Kubernetes cluster.
 
-## What's next {#whats-next}
+## 次の手順 {#whats-next}
 
 * Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
 * Learn about kubeadm's advanced usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Configure log rotation. You can use **logrotate** for that. When using Docker, you can specify log rotation options for Docker daemon, for example `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`. See [Configure and troubleshoot the Docker daemon](https://docs.docker.com/engine/admin/) for more details.
 
-## Feedback {#feedback}
+## フィードバック {#feedback}
 
 * For bugs, visit [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * For support, visit kubeadm Slack Channel:
@@ -577,7 +577,7 @@ control of your Kubernetes cluster.
 * SIG Cluster Lifecycle Mailing List:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
-## Version skew policy {#version-skew-policy}
+## バージョン互換ポリシー {#version-skew-policy}
 
 The kubeadm CLI tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
 kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
@@ -590,7 +590,7 @@ v1.8.
 Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 for more information on the version skew between kubelets and the control plane.
 
-## kubeadm works on multiple platforms {#multi-platform}
+## kubeadmは様々なプラットフォームで動く
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
@@ -602,7 +602,7 @@ Only some of the network providers offer solutions for all platforms. Please con
 network providers above or the documentation from each provider to figure out whether the provider
 supports your chosen platform.
 
-## Limitations {#limitations}
+## 制限事項 {#limitations}
 
 Please note: kubeadm is a work in progress and these limitations will be
 addressed in due course.
@@ -617,7 +617,7 @@ addressed in due course.
    [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
    etcd data directory configured by kubeadm is at `/var/lib/etcd` on the master.
 
-## Troubleshooting {#troubleshooting}
+## トラブルシューティング {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
