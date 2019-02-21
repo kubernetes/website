@@ -1,5 +1,5 @@
 ---
-title: Creating Highly Available Clusters with kubeadm
+title: kubeadmを使用した高可用性クラスタの作成
 content_template: templates/task
 weight: 60
 ---
@@ -64,7 +64,7 @@ networking provider, make sure to replace any default values as needed.
 
 {{% capture steps %}}
 
-## First steps for both methods
+## 両手順における最初のステップ
 
 {{< note >}}
 **Note**: All commands on any control plane or etcd node should be
@@ -77,7 +77,7 @@ run as root.
   To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
   the `networking` object of `ClusterConfiguration`.
 
-### Create load balancer for kube-apiserver
+### kube-apiserver用にロードバランサを作成
 
 {{< note >}}
 There are many configurations for load balancers. The following example is only one
@@ -117,7 +117,7 @@ option. Your cluster requirements may need a different configuration.
 
 1.  Add the remaining control plane nodes to the load balancer target group.
 
-### Configure SSH
+### SSHの設定
 
 SSH is required if you want to control all nodes from a single machine.
 
@@ -149,9 +149,9 @@ SSH is required if you want to control all nodes from a single machine.
         sudo -E -s
         ```
 
-## Stacked control plane and etcd nodes
+## コントロールプレーンとetcdノード
 
-### Steps for the first control plane node
+### 最初のコントロールプレーンノードの手順
 
 1.  On the first control plane node, create a configuration file called `kubeadm-config.yaml`:
 
@@ -221,7 +221,7 @@ SSH is required if you want to control all nodes from a single machine.
     done
     ```
 
-### Steps for the rest of the control plane nodes
+### 残りのコントロールプレーンノードの手順
 
 1.  Move the files created by the previous step where `scp` was used:
 
@@ -259,14 +259,14 @@ SSH is required if you want to control all nodes from a single machine.
 
 1.  Repeat these steps for the rest of the control plane nodes.
 
-## External etcd nodes
+## 外部のetcdノード
 
-### Set up the etcd cluster
+### etcdクラスタの構築
 
 - Follow [these instructions](/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
   to set up the etcd cluster.
 
-### Set up the first control plane node
+### 最初のコントロールプレーンノードの構築
 
 1.  Copy the following files from any node from the etcd cluster to this node:
 
@@ -318,7 +318,7 @@ SSH is required if you want to control all nodes from a single machine.
     kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
     ```
 
-### Steps for the rest of the control plane nodes
+### 残りのコントロールプレーンノードの手順
 
 To add the rest of the control plane nodes, follow [these instructions](#steps-for-the-rest-of-the-control-plane-nodes).
 The steps are the same as for the stacked etcd setup, with the exception that a local
@@ -330,15 +330,15 @@ To summarize:
 - Copy certificates between the first control plane node and the other control plane nodes.
 - Join each control plane node with the join command you saved to a text file, plus add the `--experimental-control-plane` flag.
 
-## Common tasks after bootstrapping control plane
+## コントロールプレーン起動後の共通タスク
 
-### Install a pod network
+### Podネットワークのインストール
 
 [Follow these instructions](/docs/setup/independent/create-cluster-kubeadm/#pod-network) to install
 the pod network. Make sure this corresponds to whichever pod CIDR you provided
 in the master configuration file.
 
-### Install workers
+### ワーカーノードのインストール
 
 Each worker node can now be joined to the cluster with the command returned from any of the
 `kubeadm init` commands. The flag `--experimental-control-plane` should not be added to worker nodes.
