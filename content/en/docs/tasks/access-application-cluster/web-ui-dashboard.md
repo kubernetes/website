@@ -6,6 +6,10 @@ reviewers:
 title: Web UI (Dashboard)
 content_template: templates/concept
 weight: 10
+card:
+  name: tasks
+  weight: 30
+  title: Use the Web UI Dashboard
 ---
 
 {{% capture overview %}}
