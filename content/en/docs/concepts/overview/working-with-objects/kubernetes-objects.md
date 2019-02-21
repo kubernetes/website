@@ -2,6 +2,9 @@
 title: Understanding Kubernetes Objects
 content_template: templates/concept
 weight: 10
+card: 
+  name: concepts
+  weight: 40
 ---
 
 {{% capture overview %}}

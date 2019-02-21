@@ -4,6 +4,10 @@ reviewers:
 - ahmetb
 content_template: templates/tutorial
 weight: 20
+card:
+  name: tutorials
+  weight: 30
+  title: "Stateless Example: PHP Guestbook with Redis"
 ---
 
 {{% capture overview %}}
