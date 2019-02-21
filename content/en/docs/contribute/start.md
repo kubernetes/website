@@ -3,6 +3,9 @@ title: Start contributing
 slug: start
 content_template: templates/concept
 weight: 10
+card:
+  name: contribute
+  weight: 10
 ---
 
 {{% capture overview %}}

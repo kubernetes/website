@@ -2,6 +2,9 @@
 title: Configure Access to Multiple Clusters
 content_template: templates/task
 weight: 30
+card:
+  name: tasks
+  weight: 40
 ---
 
 
