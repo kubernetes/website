@@ -4,6 +4,10 @@ reviewers:
 - ahmetb
 content_template: templates/tutorial
 weight: 20
+card: 
+  name: tutorials
+  weight: 40
+  title: "Stateful Example: Wordpress with Persistent Volumes"
 ---
 
 {{% capture overview %}}

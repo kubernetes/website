@@ -4,6 +4,9 @@ reviewers:
 title: The Kubernetes API
 content_template: templates/concept
 weight: 30
+card: 
+  name: concepts
+  weight: 30
 ---
 
 {{% capture overview %}}

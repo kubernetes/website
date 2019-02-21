@@ -5,6 +5,9 @@ reviewers:
 title: Overview of kubectl
 content_template: templates/concept
 weight: 20
+card:
+  name: reference
+  weight: 20
 ---
 
 {{% capture overview %}}
