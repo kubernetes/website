@@ -150,7 +150,7 @@ sometimes you will also have to `kops rolling-update cluster` to roll out the co
 Without `--yes`, `kops update cluster` will show you a preview of what it is going to do.  This is handy
 for production clusters!
 
-### 他の追加機能を探す
+### 他のアドオンの参照
 
 See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
 
