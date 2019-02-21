@@ -92,10 +92,10 @@ A CSR represents a request to a CA for a signed certificate for a client.
 In kubeadm terms, any certificate that would normally be signed by an on-disk CA can be produced as a CSR instead. A CA, however, cannot be produced as a CSR.
 
 You can create an individual CSR with `kubeadm init phase certs apiserver --use-csr`. 
-The `--use-csr` flag can be applied only to individual phases. After [all certificates are in place][certs], you can run `kubeadm init --external-ca`.
+The `--use-csr` flag can be applied only to individual phases. After [all certificates are in place][certs], you can run `kubeadm init --external-ca`. On kubeadm version 1.13 on, `--use-csr` is no longer available. Use `--csr-only` instead.
 
 You can pass in a directory with `--csr-dir` to output the CSRs to the specified location. 
-If `--csr-dire` is not specified, the default certificate directory (`/etc/kubernetes/pki`) is used.
+If `--csr-dir` is not specified, the default certificate directory (`/etc/kubernetes/pki`) is used.
 Both the CSR and the accompanying private key are given in the output. After a certificate is signed, the certificate and the private key must be copied to the PKI directory (by default `/etc/kubernetes/pki`).
 
 ### Renew certificates
@@ -103,6 +103,8 @@ Both the CSR and the accompanying private key are given in the output. After a c
 Certificates can be renewed with `kubeadm alpha certs renew --use-csr`. 
 As with `kubeadm init`, an output directory can be specified with the `--csr-dir` flag. 
 To use the new certificates, copy the signed certificate and private key into the PKI directory (by default `/etc/kubernetes/pki`)
+
+On kubeadm version 1.13 on, `--use-csr` is no longer available. Use `--csr-only` instead.
 
 ## Cert usage
 
