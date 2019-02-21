@@ -1,5 +1,5 @@
 ---
-title: Picking the Right Solution
+title: 正しいソリューションの選択
 weight: 10
 content_template: templates/concept
 ---
@@ -26,7 +26,7 @@ a Kubernetes cluster from scratch.
 
 {{% capture body %}}
 
-## Local-machine Solutions
+## ローカルマシンを使ったソリューション
 
 * [Minikube](/docs/setup/minikube/) is a method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
@@ -40,7 +40,7 @@ a Kubernetes cluster from scratch.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
-## Hosted Solutions
+## ホスティングを使ったソリューション
 
 * [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
 
@@ -76,7 +76,7 @@ a Kubernetes cluster from scratch.
 
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks) is an enterprise Kubernetes-as-a-Service offering in the VMware Cloud Services portfolio that provides easy to use, secure by default, cost effective, SaaS-based Kubernetes clusters.
 
-## Turnkey Cloud Solutions
+## すぐに利用できるクラウドを使ったソリューション
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands. These solutions are actively developed and have active community support.
@@ -102,7 +102,7 @@ few commands. These solutions are actively developed and have active community s
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 
-## On-Premises turnkey cloud solutions
+## すぐに利用できるオンプレミスを使ったソリューション
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
 few commands.
 
@@ -119,7 +119,7 @@ few commands.
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
 
-## Custom Solutions
+## カスタムソリューション
 
 Kubernetes can run on a wide range of Cloud providers and bare-metal environments, and with many
 base operating systems.
@@ -132,13 +132,13 @@ cluster, try the [Getting Started from Scratch](/docs/setup/scratch/) guide.
 If you are interested in supporting Kubernetes on a new platform, see
 [Writing a Getting Started Guide](https://git.k8s.io/community/contributors/devel/writing-a-getting-started-guide.md).
 
-### Universal
+### 全般
 
 If you already have a way to configure hosting resources, use
 [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) to easily bring up a cluster
 with a single command per machine.
 
-### Cloud
+### クラウド
 
 These solutions are combinations of cloud providers and operating systems not covered by the above solutions.
 
@@ -149,7 +149,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Kubespray](/docs/setup/custom-cloud/kubespray/)
 * [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
 
-### On-Premises VMs
+### オンプレミスの仮想マシン
 
 * [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible, CoreOS and flannel)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
@@ -159,7 +159,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [VMware vSphere](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)
 * [VMware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
 
-### Bare Metal
+### ベアメタル
 
 * [CoreOS](/docs/setup/custom-cloud/coreos/)
 * [Digital Rebar](/docs/setup/on-premises-metal/krib/)
@@ -167,7 +167,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 
-### Integrations
+### 統合
 
 These solutions provide integration with third-party schedulers, resource managers, and/or lower level platforms.
 
@@ -175,7 +175,7 @@ These solutions provide integration with third-party schedulers, resource manage
   * Community Edition DCOS uses AWS
   * Enterprise Edition DCOS supports cloud hosting, on-premises VMs, and bare metal
 
-## Table of Solutions
+## ソリューションの表
 
 Below is a table of all of the solutions listed above.
 
@@ -231,7 +231,7 @@ VMware Cloud PKS     |              | Photon OS | Canal | [docs](https://docs.vm
 The above table is ordered by version test/used in nodes, followed by support level.
 {{< /note >}}
 
-### Definition of columns
+### カラムの定義
 
 * **IaaS Provider** is the product or organization which provides the virtual or physical machines (nodes) that Kubernetes runs on.
 * **OS** is the base operating system of the nodes.
