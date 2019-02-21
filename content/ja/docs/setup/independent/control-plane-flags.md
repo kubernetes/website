@@ -1,33 +1,32 @@
 ---
-title: Customizing control plane configuration with kubeadm
+title: kubeadmを使ったコントロールプレーンの設定のカスタマイズ
 content_template: templates/concept
 weight: 40
 ---
 
 {{% capture overview %}}
 
-The kubeadm `ClusterConfiguration` object exposes the field `extraArgs` that can override the default flags passed to control plane
-components such as the APIServer, ControllerManager and Scheduler. The components are defined using the following fields:
+kubeadmの`ClusterConfiguration`オブジェクトはAPIServer、ControllerManager、およびSchedulerのようなコントロールプレーンの構成要素に渡されたデフォルトのフラグを上書きすることができる `extraArgs`の項目があります。
+その構成要素は次の項目で定義されています。
 
 - `apiServer`
 - `controllerManager`
 - `scheduler`
 
-The `extraArgs` field consist of `key: value` pairs. To override a flag for a control plane component:
+`extraArgs` の項目は `キー: 値` のペアです。コントロールプレーンの構成要素のフラグを上書きするには:
 
-1.  Add the appropriate fields to your configuration.
-2.  Add the flags to override to the field.
+1.  設定内容に適切な項目を追加
+2.  フラグを追加して項目を上書き
 
-For more details on each field in the configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration).
+各設定項目のより詳細な情報は[APIリファレンスのページ](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration)を参照してください。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## APIServer flags
+## APIServerフラグ
 
-For details, see the [reference documentation for kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/).
+詳細は[kube-apiserverのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
 
 Example usage:
 ```yaml
@@ -44,9 +43,9 @@ apiServer:
     audit-log-path: /home/johndoe/audit.log
 ```
 
-## ControllerManager flags
+## ControllerManagerフラグ
 
-For details, see the [reference documentation for kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+詳細は[kube-controller-managerのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-controller-manager/)を参照してください。
 
 Example usage:
 ```yaml
@@ -62,9 +61,9 @@ controllerManager:
     deployment-controller-sync-period: 50
 ```
 
-## Scheduler flags
+## Schedulerフラグ
 
-For details, see the [reference documentation for kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
+詳細は[kube-schedulerのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
 
 Example usage:
 ```yaml
