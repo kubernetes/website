@@ -13,7 +13,7 @@ This page describes how to install a Kubernetes cluster on AWS.
 
 To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
 
-### Supported Production Grade Tools
+### サポートされているプロダクショングレードのツール
 
 * [conjure-up](/docs/getting-started-guides/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
 
@@ -27,7 +27,7 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 {{% capture steps %}}
 
-## クラスタのはじまり
+## クラスタの始まり
 
 ### コマンドライン管理ツール: kubectl
 
