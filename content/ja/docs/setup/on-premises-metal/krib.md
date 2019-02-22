@@ -52,7 +52,7 @@ Once all target servers are assigned to the cluster Profile, start a KRIB instal
 
 For basic installs, no further action is required. Advanced users may choose to assign the controllers, etcd servers or other configuration values in the relevant Params.
 
-### (4/5) クラスター構築の監視
+### (4/5) クラスター構築を監視
 
 Digital Rebar Provision provides detailed logging and live updates during the installation process. Workflow events are available via a websocket connection or monitoring the Jobs list.
 
