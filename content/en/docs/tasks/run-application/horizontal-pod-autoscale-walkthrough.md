@@ -288,7 +288,7 @@ spec:
     resource:
       name: cpu
       target:
-        kind: AverageUtilization
+        type: AverageUtilization
         averageUtilization: 50
   - type: Pods
     pods:
