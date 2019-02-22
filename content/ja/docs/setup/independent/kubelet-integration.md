@@ -1,5 +1,5 @@
 ---
-title: Configuring each kubelet in your cluster using kubeadm
+title: kubeadmを使用したクラスター内の各kubeletの設定
 content_template: templates/concept
 weight: 80
 ---
@@ -28,12 +28,12 @@ kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 
 {{% capture body %}}
 
-## Kubelet configuration patterns
+## Kubeletの設定パターン
 
 The following sections describe patterns to kubelet configuration that are simplified by
 using kubeadm, rather than managing the kubelet configuration for each Node manually.
 
-### Propagating cluster-level configuration to each kubelet
+### 各kubeletにクラスターレベルの設定を配布
 
 You can provide the kubelet with default values to be used by `kubeadm init` and `kubeadm join`
 commands. Interesting examples include using a different CRI runtime or setting the default subnet
@@ -63,7 +63,7 @@ clusterDNS:
 
 For more details on the ComponentConfig have a look at [this section](#configure-kubelets-using-kubeadm).
 
-### Providing instance-specific configuration details
+### インスタンス固有の設定内容を適用
 
 Some hosts require specific kubelet configurations, due to differences in hardware, operating system,
 networking, or other host-specific parameters. The following list provides a few examples.
@@ -89,7 +89,7 @@ networking, or other host-specific parameters. The following list provides a few
 You can specify these flags by configuring an individual kubelet's configuration in your service manager,
 such as systemd.
 
-## Configure kubelets using kubeadm
+## kubeadmを使用したkubeletの設定
 
 It is possible to configure the kubelet that kubeadm will start if a custom `KubeletConfiguration`
 API object is passed with a configuration file like so `kubeadm ... --config some-config-file.yaml`.
@@ -101,7 +101,7 @@ Also have a look at the [API reference for the
 kubelet ComponentConfig](https://godoc.org/k8s.io/kubernetes/pkg/kubelet/apis/config#KubeletConfiguration)
 for more information on the individual fields.
 
-### Workflow when using `kubeadm init`
+### `kubeadm init`実行時の流れ
 
 When you call `kubeadm init`, the kubelet configuration is marshalled to disk
 at `/var/lib/kubelet/config.yaml`, and also uploaded to a ConfigMap in the cluster. The ConfigMap
@@ -134,7 +134,7 @@ systemctl daemon-reload && systemctl restart kubelet
 
 If the reload and restart are successful, the normal `kubeadm init` workflow continues.
 
-### Workflow when using `kubeadm join`
+### `kubeadm join`実行時の流れ
 
 When you run `kubeadm join`, kubeadm uses the Bootstrap Token credential perform
 a TLS bootstrap, which fetches the credential needed to download the
@@ -153,7 +153,7 @@ Token. These are used by the kubelet to perform the TLS Bootstrap and obtain a u
 credential, which is stored in `/etc/kubernetes/kubelet.conf`. When this file is written, the kubelet
 has finished performing the TLS Bootstrap.
 
-##  The kubelet drop-in file for systemd
+##  kubelet用のsystemdファイル
 
 The configuration file installed by the kubeadm DEB or RPM package is written to
 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
@@ -185,7 +185,7 @@ This file specifies the default locations for all of the files managed by kubead
   `/etc/default/kubelet` (for DEBs), or `/etc/systconfig/kubelet` (for RPMs). `KUBELET_EXTRA_ARGS`
   is last in the flag chain and has the highest priority in the event of conflicting settings.
 
-## Kubernetes binaries and package contents
+## Kubernetesバイナリとパッケージの内容
 
 The DEB and RPM packages shipped with the Kubernetes releases are:
 
