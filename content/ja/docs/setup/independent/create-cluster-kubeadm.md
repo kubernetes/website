@@ -1,5 +1,5 @@
 ---
-title: kubeadmを使用したシングルマスタークラスタの作成
+title: kubeadmを使用したシングルマスタークラスターの作成
 content_template: templates/task
 weight: 30
 ---
@@ -487,7 +487,7 @@ Run 'kubectl get nodes' on the master to see this machine join.
 A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the master.
 
-### (任意) マスター以外のマシンからのクラスタ操作
+### (任意) マスター以外のマシンからのクラスター操作
 
 In order to get a kubectl on some other computer (e.g. laptop) to talk to your
 cluster, you need to copy the administrator kubeconfig file from your master
@@ -512,7 +512,7 @@ should save to a file and distribute to your user. After that, whitelist
 privileges by using `kubectl create (cluster)rolebinding`.
 {{< /note >}}
 
-### (任意) APIサーバをlocalhostへプロキシ
+### (任意) APIサーバーをlocalhostへプロキシ
 
 If you want to connect to the API Server from outside the cluster you can use
 `kubectl proxy`:
@@ -524,7 +524,7 @@ kubectl --kubeconfig ./admin.conf proxy
 
 You can now access the API Server locally at `http://localhost:8001/api/v1`
 
-## クラスタの削除 {#tear-down}
+## クラスターの削除 {#tear-down}
 
 To undo what kubeadm did, you should first [drain the
 node](/docs/reference/generated/kubectl/kubectl-commands#drain) and make
@@ -549,7 +549,7 @@ appropriate arguments.
 More options and information about the
 [`kubeadm reset command`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
 
-## クラスタの維持 {#lifecycle}
+## クラスターの維持 {#lifecycle}
 
 Instructions for maintaining kubeadm clusters (e.g. upgrades,downgrades, etc.) can be found [here.](/docs/tasks/administer-cluster/kubeadm)
 
