@@ -1,5 +1,5 @@
 ---
-title: kubeadmを使用した高可用性クラスタの作成
+title: kubeadmを使用した高可用性クラスターの作成
 content_template: templates/task
 weight: 60
 ---
@@ -77,7 +77,7 @@ run as root.
   To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
   the `networking` object of `ClusterConfiguration`.
 
-### kube-apiserver用にロードバランサを作成
+### kube-apiserver用にロードバランサーを作成
 
 {{< note >}}
 There are many configurations for load balancers. The following example is only one
@@ -261,7 +261,7 @@ SSH is required if you want to control all nodes from a single machine.
 
 ## 外部のetcdノード
 
-### etcdクラスタの構築
+### etcdクラスターの構築
 
 - Follow [these instructions](/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
   to set up the etcd cluster.
