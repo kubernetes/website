@@ -1,23 +1,25 @@
 ---
-title: Kubernetes on DC/OS
+title: DC/OS上のKubernetes
 content_template: templates/concept
 ---
 
 {{% capture overview %}}
 
-Mesosphere provides an easy option to provision Kubernetes onto [DC/OS](https://mesosphere.com/product/), offering:
+Mesosphereは[DC/OS](https://mesosphere.com/product/)上にKubernetesを構築する為の簡単な選択肢を提供します。それは
 
-* Pure upstream Kubernetes
-* Single-click cluster provisioning
-* Highly available and secure by default
-* Kubernetes running alongside fast-data platforms (e.g. Akka, Cassandra, Kafka, Spark)
+* 純粋なアップストリームのKubernetes
+* シングルクリッククラスター構築
+* デフォルトで高可用であり安全
+* Kubernetesと共に高速なデータプラットフォーム(例えばAkka、Cassandra、Kafka、Spark)が稼働
+
+です。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Official Mesosphere Guide
+## 公式Mesosphereガイド
 
-The canonical source of getting started on DC/OS is located in the [quickstart repo](https://github.com/mesosphere/dcos-kubernetes-quickstart).
+DC/OS入門の正規のソースは[クイックスタートリポジトリ](https://github.com/mesosphere/dcos-kubernetes-quickstart)に配置されています。
 
 {{% /capture %}}
