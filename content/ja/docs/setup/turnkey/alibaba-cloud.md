@@ -1,17 +1,17 @@
 ---
-title: Running Kubernetes on Alibaba Cloud
+title: Alibaba CloudでKubernetesを動かす
 ---
 
 ## Alibaba Cloud Container Service
 
-The [Alibaba Cloud Container Service](https://www.aliyun.com/product/containerservice) lets you run and manage Docker applications on a cluster of Alibaba Cloud ECS instances. It supports the popular open source container orchestrators: Docker Swarm and Kubernetes.
+[Alibaba Cloud Container Service](https://www.aliyun.com/product/containerservice)はAlibaba Cloud ECSインスタンスのクラスター上でDockerアプリケーションを起動して管理します。著名なオープンソースのコンテナオーケストレーターであるDocker SwarmおよびKubernetesをサポートしています。
 
-To simplify cluster deployment and management, use [Kubernetes Support for Alibaba Cloud Container Service](https://www.aliyun.com/solution/kubernetes/). You can get started quickly by following the [Kubernetes walk-through](https://help.aliyun.com/document_detail/53751.html), and there are some [tutorials for Kubernetes Support on Alibaba Cloud](https://yq.aliyun.com/teams/11/type_blog-cid_200-page_1) in Chinese. 
+クラスターの構築と管理を簡素化する為に、[Kubernetes Support for Alibaba Cloud Container Service](https://www.aliyun.com/solution/kubernetes/)を使用します。[Kubernetes walk-through](https://help.aliyun.com/document_detail/53751.html)に従ってすぐに始めることができ、中国語の[Alibaba CloudにおけるKubernetesサポートの為のチュートリアル](https://yq.aliyun.com/teams/11/type_blog-cid_200-page_1)もあります。
 
-To use custom binaries or open source Kubernetes, follow the instructions below.
+カスタムバイナリもしくはオープンソースKubernetesを使用する場合は、以下の手順に従って下さい。
 
-## Custom Deployments
+## 構築のカスタム
 
-The source code for [Kubernetes with Alibaba Cloud provider implementation](https://github.com/AliyunContainerService/kubernetes) is open source and available on GitHub.
+[Alibaba Cloudプロバイダーが実装されたKubernetesのソースコード](https://github.com/AliyunContainerService/kubernetes)はオープンソースであり、GitHubから入手可能です。
 
-For more information, see "[Quick deployment of Kubernetes - VPC environment on Alibaba Cloud](https://www.alibabacloud.com/forum/read-830)" in English and [Chinese](https://yq.aliyun.com/articles/66474).
+詳細な情報は英語の[Quick deployment of Kubernetes - VPC environment on Alibaba Cloud](https://www.alibabacloud.com/forum/read-830)および[中国語](https://yq.aliyun.com/articles/66474)を見て下さい。
