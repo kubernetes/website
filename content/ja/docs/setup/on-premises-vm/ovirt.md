@@ -11,7 +11,7 @@ oVirt is a virtual datacenter manager that delivers powerful management of multi
 
 {{% capture body %}}
 
-## oVirt Cloud Provider Deployment
+## oVirtクラウドプロバイダーによる構築
 
 The oVirt cloud provider allows to easily discover and automatically add new VM instances as nodes to your Kubernetes cluster.
 At the moment there are no community-supported or pre-loaded VM images including Kubernetes but it is possible to [import] or [install] Project Atomic (or Fedora) in a VM to [generate a template]. Any other distribution that includes Kubernetes may work as well.
@@ -25,7 +25,7 @@ Once the Kubernetes template is available it is possible to start instantiating 
 [generate a template]: https://www.ovirt.org/documentation/quickstart/quickstart-guide/#using-templates
 [install the ovirt-guest-agent]: https://www.ovirt.org/documentation/how-to/guest-agent/install-the-guest-agent-in-fedora/
 
-## Using the oVirt Cloud Provider
+## oVirtクラウドプロバイダーの使用
 
 The oVirt Cloud Provider requires access to the oVirt REST-API to gather the proper information, the required credential should be specified in the `ovirt-cloud.conf` file:
 
@@ -52,13 +52,13 @@ The `ovirt-cloud.conf` file then must be specified in kube-controller-manager:
 kube-controller-manager ... --cloud-provider=ovirt --cloud-config=/path/to/ovirt-cloud.conf ...
 ```
 
-## oVirt Cloud Provider Screencast
+## oVirtクラウドプロバイダーのスクリーンキャスト
 
 This short screencast demonstrates how the oVirt Cloud Provider can be used to dynamically add VMs to your Kubernetes cluster.
 
 [![Screencast](https://img.youtube.com/vi/JyyST4ZKne8/0.jpg)](https://www.youtube.com/watch?v=JyyST4ZKne8)
 
-## Support Level
+## サポートレベル
 
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
