@@ -1,5 +1,5 @@
 ---
-title: Minikubeを使ったローカル環境でのKubernetesの起動
+title: Minikubを使用してローカル環境でKubernetesを動かす
 content_template: templates/concept
 ---
 
@@ -199,9 +199,9 @@ The fix is to update /etc/sysconfig/docker to ensure that Minikube's environment
 
 Remember to turn off the imagePullPolicy:Always, otherwise Kubernetes won't use images you built locally.
 
-## クラスタの管理
+## クラスターの管理
 
-### クラスタの起動
+### クラスターの起動
 
 The `minikube start` command can be used to start your cluster.
 This command creates and configures a Virtual Machine that runs a single-node Kubernetes cluster.
@@ -256,16 +256,16 @@ This feature also supports nested structs. To change the `LeaderElection.LeaderE
 
 To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.authorization-mode=RBAC`.
 
-### クラスタの停止
+### クラスターの停止
 The `minikube stop` command can be used to stop your cluster.
 This command shuts down the Minikube Virtual Machine, but preserves all cluster state and data.
 Starting the cluster again will restore it to it's previous state.
 
-### クラスタの削除
+### クラスターの削除
 The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the Minikube Virtual Machine. No data or state is preserved.
 
-## クラスタに触れてみよう
+## クラスターに触れてみよう
 
 ### Kubectl
 
@@ -330,7 +330,7 @@ spec:
     path: /data/pv0001/
 ```
 
-## ホストフォルダのマウント
+## ホストフォルダーのマウント
 Some drivers will mount a host folder within the VM so that you can easily share files between the VM and host.  These are not configurable at the moment and different for the driver and OS you are using.
 
 {{< note >}}
