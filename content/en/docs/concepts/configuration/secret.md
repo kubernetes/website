@@ -61,8 +61,8 @@ username and password that the pods should use is in the files
 
 ```shell
 # Create files needed for rest of example.
-$ echo -n 'admin' > ./username.txt
-$ echo -n '1f2d1e2e67df' > ./password.txt
+echo -n 'admin' > ./username.txt
+echo -n '1f2d1e2e67df' > ./password.txt
 ```
 
 The `kubectl create secret` command
@@ -70,18 +70,25 @@ packages these files into a Secret and creates
 the object on the Apiserver.
 
 ```shell
-$ kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
+kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
+```
+```
 secret "db-user-pass" created
 ```
 
 You can check that the secret was created like this:
 
 ```shell
-$ kubectl get secrets
+kubectl get secrets
+```
+```
 NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
-
-$ kubectl describe secrets/db-user-pass
+```
+```shell
+kubectl describe secrets/db-user-pass
+```
+```
 Name:            db-user-pass
 Namespace:       default
 Labels:          <none>
@@ -139,7 +146,9 @@ data:
 Now create the Secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
 
 ```shell
-$ kubectl create -f ./secret.yaml
+kubectl create -f ./secret.yaml
+```
+```
 secret "mysecret" created
 ```
 
@@ -250,7 +259,9 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 Secrets can be retrieved via the `kubectl get secret` command. For example, to retrieve the secret created in the previous section:
 
 ```shell
-$ kubectl get secret mysecret -o yaml
+kubectl get secret mysecret -o yaml
+```
+```
 apiVersion: v1
 data:
   username: YWRtaW4=
@@ -269,7 +280,9 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
+echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
+```
+```
 1f2d1e2e67df
 ```
 
@@ -429,12 +442,19 @@ This is the result of commands
 executed inside the container from the example above:
 
 ```shell
-$ ls /etc/foo/
+ls /etc/foo/
 username
 password
-$ cat /etc/foo/username
+```
+```shell
+cat /etc/foo/username
+```
 admin
-$ cat /etc/foo/password
+```
+```
+cat /etc/foo/password
+```
+```
 1f2d1e2e67df
 ```
 
@@ -502,9 +522,14 @@ normal environment variables containing the base-64 decoded values of the secret
 This is the result of commands executed inside the container from the example above:
 
 ```shell
-$ echo $SECRET_USERNAME
+echo $SECRET_USERNAME
+```
+```
 admin
-$ echo $SECRET_PASSWORD
+```
+```
+echo $SECRET_PASSWORD
+```
 1f2d1e2e67df
 ```
 
@@ -569,7 +594,9 @@ invalid keys that were skipped. The example shows a pod which refers to the
 default/mysecret that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
-$ kubectl get events
+kubectl get events
+```
+```
 LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
@@ -592,7 +619,10 @@ start until all the pod's volumes are mounted.
 Create a secret containing some ssh keys:
 
 ```shell
-$ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
+kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa 
+```
+```
+--from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
 {{< caution >}}
@@ -642,9 +672,18 @@ credentials.
 Make the secrets:
 
 ```shell
-$ kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
+kubectl create secret generic prod-db-secret --from-literal=username=produser 
+--from-literal=password=Y4nys7f11
+```
+
+```
 secret "prod-db-secret" created
-$ kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
+```
+
+```shell
+kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
+```
+```
 secret "test-db-secret" created
 ```
 {{< note >}}
