@@ -1,5 +1,5 @@
 ---
-title: Running Kubernetes on AWS EC2
+title: AWS EC2上でKubernetesを動かす
 content_template: templates/task
 ---
 
@@ -13,7 +13,7 @@ This page describes how to install a Kubernetes cluster on AWS.
 
 To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
 
-### Supported Production Grade Tools
+### サポートされているプロダクショングレードのツール
 
 * [conjure-up](/docs/getting-started-guides/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
 
@@ -27,9 +27,9 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 {{% capture steps %}}
 
-## Getting started with your cluster
+## クラスターの始まり
 
-### Command line administration tool: kubectl
+### コマンドライン管理ツール: kubectl
 
 The cluster startup script will leave you with a `kubernetes` directory on your workstation.
 Alternately, you can download the latest Kubernetes release from [this page](https://github.com/kubernetes/kubernetes/releases).
@@ -49,7 +49,7 @@ An up-to-date documentation page for this tool is available here: [kubectl manua
 By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
 For more information, please read [kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 
-### Examples
+### 例
 
 See [a simple nginx example](/docs/tasks/run-application/run-stateless-application-deployment/) to try out your new cluster.
 
@@ -57,11 +57,11 @@ The "Guestbook" application is another popular example to get started with Kuber
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)
 
-## Scaling the cluster
+## クラスターのスケーリング
 
 Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes manually through adjustments of the 'Desired' and 'Max' properties within the [Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html), which was created during the installation.
 
-## Tearing down the cluster
+## クラスターの解体
 
 Make sure the environment variables you used to provision your cluster are still exported, then call the following script inside the
 `kubernetes` directory:
@@ -70,7 +70,7 @@ Make sure the environment variables you used to provision your cluster are still
 cluster/kube-down.sh
 ```
 
-## Support Level
+## サポートレベル
 
 
 IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
@@ -81,7 +81,7 @@ AWS                  | Juju         | Ubuntu        | flannel, calico, canal    
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
-## Further reading
+## 参考文献
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
