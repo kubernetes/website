@@ -172,8 +172,8 @@ Suppose that you now want to update the nginx Pods to use the `nginx:1.9.1` imag
 instead of the `nginx:1.7.9` image.
 
 ```shell
-$ kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment
-nginx=nginx:1.9.1 image updated
+$ kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 
+image updated
 ```
 
 Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
