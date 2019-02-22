@@ -149,7 +149,7 @@ SSH is required if you want to control all nodes from a single machine.
         sudo -E -s
         ```
 
-## コントロールプレーンとetcdノード
+## 積み重なったコントロールプレーンとetcdノード
 
 ### 最初のコントロールプレーンノードの手順
 
@@ -338,7 +338,7 @@ To summarize:
 the pod network. Make sure this corresponds to whichever pod CIDR you provided
 in the master configuration file.
 
-### ワーカーノードのインストール
+### ワーカーのインストール
 
 Each worker node can now be joined to the cluster with the command returned from any of the
 `kubeadm init` commands. The flag `--experimental-control-plane` should not be added to worker nodes.
