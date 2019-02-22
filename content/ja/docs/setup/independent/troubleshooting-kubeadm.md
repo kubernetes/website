@@ -1,5 +1,5 @@
 ---
-title: Troubleshooting kubeadm
+title: kubeadmのトラブルシューティング
 content_template: templates/concept
 weight: 90
 ---
@@ -22,7 +22,7 @@ If your problem is not listed below, please follow the following steps:
 
 {{% capture body %}}
 
-## `ebtables` or some similar executable not found during installation
+## インストール中に`ebtables`もしくは他の似たような実行プログラムが見つからない
 
 If you see the following warnings while running `kubeadm init`
 
@@ -36,7 +36,7 @@ Then you may be missing `ebtables`, `ethtool` or a similar executable on your no
 - For Ubuntu/Debian users, run `apt install ebtables ethtool`.
 - For CentOS/Fedora users, run `yum install ebtables ethtool`.
 
-## kubeadm blocks waiting for control plane during installation
+## インストール中にkubeadmがコントロールプレーンを待ち続けて止まる
 
 If you notice that `kubeadm init` hangs after printing out the following line:
 
@@ -65,7 +65,7 @@ This may be caused by a number of problems. The most common are:
 
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
-## kubeadm blocks when removing managed containers
+## 管理コンテナを削除する時にkubeadmが止まる
 
 The following could happen if Docker halts and does not remove any Kubernetes-managed containers:
 
@@ -91,7 +91,7 @@ Inspecting the logs for docker may also be useful:
 journalctl -ul docker
 ```
 
-## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
+## Podの状態が`RunContainerError`、`CrashLoopBackOff`、または`Error`
 
 Right after `kubeadm init` there should not be any pods in these states.
 
@@ -109,14 +109,14 @@ Right after `kubeadm init` there should not be any pods in these states.
   MountFlags can interfere with volumes mounted by Kubernetes, and put the Pods in `CrashLoopBackOff` state.
   The error happens when Kubernetes does not find `var/run/secrets/kubernetes.io/serviceaccount` files.
 
-## `coredns` (or `kube-dns`) is stuck in the `Pending` state
+## `coredns`(もしくは`kube-dns`)が`Pending`状態でスタックする
 
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
 should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
 before CoreDNS may deployed fully. Hence the `Pending` state before the network is set up.
 
-## `HostPort` services do not work
+## `HostPort`サービスが動かない
 
 The `HostPort` and `HostIP` functionality is available depending on your Pod Network
 provider. Please contact the author of the Pod Network solution to find out whether
@@ -129,7 +129,7 @@ For more information, see the [CNI portmap documentation](https://github.com/con
 If your network provider does not support the portmap CNI plugin, you may need to use the [NodePort feature of
 services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetwork=true`.
 
-## Pods are not accessible via their Service IP
+## サービスIP経由でPodにアクセスすることができない
 
 - Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
@@ -142,7 +142,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
   is to modify `/etc/hosts`, see this [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)
   for an example.
 
-## TLS certificate errors
+## TLS証明書のエラー
 
 The following error indicates a possible certificate mismatch.
 
@@ -163,7 +163,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
 
-## Default NIC When using flannel as the pod network in Vagrant
+## Vagrant内でPodネットワークとしてflannelを使用する時のデフォルトNIC
 
 The following error might indicate that something was wrong in the pod network:
 
@@ -177,7 +177,7 @@ Error from server (NotFound): the server could not find the requested resource
 
   This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `--iface eth1` flag to flannel so that the second interface is chosen.
 
-## Non-public IP used for containers
+## 公開されていないIPがコンテナに使われている
 
 In some situations `kubectl logs` and `kubectl run` commands may return with the following errors in an otherwise functional cluster:
 
@@ -203,7 +203,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   systemctl restart kubelet
   ```
 
-## `coredns` pods have `CrashLoopBackOff` or `Error` state
+## `coredns`のPodが`CrashLoopBackOff`もしくは`Error`状態になる
 
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
 where the `coredns` pods are not starting. To solve that you can try one of the following options:
