@@ -2,6 +2,9 @@
 title: Using Page Templates
 content_template: templates/concept
 weight: 30
+card:
+  name: contribute
+  weight: 30
 ---
 
 {{% capture overview %}}
