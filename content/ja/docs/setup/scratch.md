@@ -27,7 +27,7 @@ steps that existing cluster setup scripts are making.
     effect of completing one of the other Getting Started Guides.  If not, follow the instructions
     [here](/docs/tasks/kubectl/install/).
 
-### クラウドプロバイダ
+### クラウドプロバイダー
 
 Kubernetes has the concept of a Cloud Provider, which is a module which provides
 an interface for managing TCP Load Balancers, Nodes (Instances) and Networking Routes.
@@ -129,7 +129,7 @@ Kubernetes enables the definition of fine-grained network policy between Pods us
 
 Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/tasks/configure-pod-container/declare-network-policy/) for more information.
 
-### クラスタの名前
+### クラスターの名前
 
 You should pick a name for your cluster.  Pick a short name for each cluster
 which is unique from future cluster names. This will be used in several ways:
@@ -462,7 +462,7 @@ machines.  You may want to use a Configuration Management system to automate the
 process.  There are examples of Ansible, Juju, and CoreOS Cloud Config in the
 various Getting Started Guides.
 
-## クラスタのブートストラッピング
+## クラスターのブートストラッピング
 
 While the basic node services (kubelet, kube-proxy, docker) are typically started and managed using
 traditional system administration/automation approaches, the remaining *master* components of Kubernetes are
@@ -624,7 +624,7 @@ This pod mounts several node file system directories using the  `hostPath` volum
 
 *TODO* document proxy-ssh setup.
 
-##### クラウドプロバイダ
+##### クラウドプロバイダー
 
 Apiserver supports several cloud providers.
 
@@ -791,7 +791,7 @@ If you have selected the `--register-node=true` option for kubelets, they will n
 You should soon be able to see all your nodes by running the `kubectl get nodes` command.
 Otherwise, you will need to manually create node objects.
 
-### クラスタサービスの開始
+### クラスターサービスの開始
 
 You will want to complete your Kubernetes clusters by adding cluster-wide
 services.  These are sometimes called *addons*, and [an overview
