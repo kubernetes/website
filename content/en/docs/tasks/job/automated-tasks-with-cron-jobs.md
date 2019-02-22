@@ -74,8 +74,8 @@ kubectl get cronjob hello
 ```
 
 ```
-NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
-hello     */1 * * * *   False     0         <none>
+NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+hello   */1 * * * *   False     0        <none>          10s
 ```
 
 As you can see from the results of the command, the cron job has not scheduled or run any jobs yet.
