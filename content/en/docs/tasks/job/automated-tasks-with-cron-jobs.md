@@ -50,6 +50,7 @@ This example cron job config `.spec` file prints the current time and a hello me
 Run the example cron job by downloading the example file and then running this command:
 
 ```shell
+curl -sO https://kubernetes.io/examples/application/job/cronjob.yaml
 kubectl create -f ./cronjob.yaml
 ```
 
@@ -104,7 +105,7 @@ NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        50s             75s
 ```
 
-You should see that the cron job "hello" successfully scheduled a job at the time specified in `LAST-SCHEDULE`.
+You should see that the cron job "hello" successfully scheduled a job at the time specified in `LAST SCHEDULE`.
 There are currently 0 active jobs, meaning that the job has completed or failed.
 
 Now, find the pods that the last scheduled job created and view the standard output of one of the pods.
@@ -139,7 +140,7 @@ kubectl logs $pods
 The output is similar to this:
 
 ```
-Mon Aug 29 21:34:09 UTC 2016
+Fri Feb 22 11:02:09 UTC 2019
 Hello from the Kubernetes cluster
 ```
 
