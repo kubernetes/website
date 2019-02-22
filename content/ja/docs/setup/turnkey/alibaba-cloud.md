@@ -14,4 +14,4 @@ title: Alibaba CloudでKubernetesを動かす
 
 [Alibaba Cloudプロバイダーが実装されたKubernetesのソースコード](https://github.com/AliyunContainerService/kubernetes)はオープンソースであり、GitHubから入手可能です。
 
-詳細な情報は英語の[Quick deployment of Kubernetes - VPC environment on Alibaba Cloud](https://www.alibabacloud.com/forum/read-830)および[中国語](https://yq.aliyun.com/articles/66474)を見て下さい。
+詳細な情報は英語の[Quick deployment of Kubernetes - VPC environment on Alibaba Cloud](https://www.alibabacloud.com/forum/read-830)および[中国語](https://yq.aliyun.com/articles/66474)をご覧下さい。
