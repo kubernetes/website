@@ -1,9 +1,9 @@
 ---
-title: Running in Multiple Zones
+title: 複数のゾーンで動かす
 weight: 90
 ---
 
-## Introduction
+## 始めに
 
 Kubernetes 1.2 adds support for running a single cluster in multiple failure zones
 (GCE calls them simply "zones", AWS calls them "availability zones", here we'll refer to them as "zones").
@@ -25,7 +25,7 @@ for the appropriate labels to be added to nodes and volumes).
 
 {{< toc >}}
 
-## Functionality
+## 機能性
 
 When nodes are started, the kubelet automatically adds labels to them with
 zone information.
@@ -48,7 +48,7 @@ admission controller automatically adds zone labels to them.  The scheduler (via
 given volume are only placed into the same zone as that volume, as volumes
 cannot be attached across zones.
 
-## Limitations
+## 制限
 
 There are some important limitations of the multizone support:
 
@@ -69,7 +69,7 @@ available and can tolerate the loss of a zone, the control plane is
 located in a single zone.  Users that want a highly available control
 plane should follow the [high availability](/docs/admin/high-availability) instructions.
 
-### Volume limitations
+### ボリュームの制限
 The following limitations are addressed with [topology-aware volume binding](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
 * StatefulSet volume zone spreading when using dynamic provisioning is currently not compatible with
@@ -84,14 +84,14 @@ The following limitations are addressed with [topology-aware volume binding](/do
   StatefulSet, which will ensure that all the volumes for a replica are
   provisioned in the same zone.
 
-## Walkthrough
+## 全体の流れ
 
 We're now going to walk through setting up and using a multi-zone
 cluster on both GCE & AWS.  To do so, you bring up a full cluster
 (specifying `MULTIZONE=true`), and then you add nodes in additional zones
 by running `kube-up` again (specifying `KUBE_USE_EXISTING_MASTER=true`).
 
-### Bringing up your cluster
+### クラスターの立ち上げ
 
 Create the cluster as normal, but pass MULTIZONE to tell the cluster to manage multiple zones; creating nodes in us-central1-a.
 
@@ -110,7 +110,7 @@ curl -sS https://get.k8s.io | MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZO
 This step brings up a cluster as normal, still running in a single zone
 (but `MULTIZONE=true` has enabled multi-zone capabilities).
 
-### Nodes are labeled
+### ノードはラベルが付与される
 
 View the nodes; you can see that they are labeled with zone information.
 They are all in `us-central1-a` (GCE) or `us-west-2a` (AWS) so far.  The
@@ -128,7 +128,7 @@ kubernetes-minion-9vlv   Ready                      <none>   6m    v1.12.0      
 kubernetes-minion-a12q   Ready                      <none>   6m    v1.12.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
 ```
 
-### Add more nodes in a second zone
+### 2つ目のゾーンにさらにノードを追加
 
 Let's add another set of nodes to the existing cluster, reusing the
 existing master, running in a different zone (us-central1-b or us-west-2b).
@@ -166,7 +166,7 @@ kubernetes-minion-pp2f   Ready                      <none>   2m    v1.12.0      
 kubernetes-minion-wf8i   Ready                      <none>   2m    v1.12.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-wf8i
 ```
 
-### Volume affinity
+### ボリュームのアフィニティ
 
 Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
@@ -247,7 +247,7 @@ NAME                     STATUS    AGE    VERSION          LABELS
 kubernetes-minion-9vlv   Ready     22m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
 ```
 
-### Pods are spread across zones
+### Podがゾーンをまたがって配置される
 
 Pods in a replication controller or service are automatically spread
 across zones.  First, let's launch more nodes in a third zone:
@@ -312,7 +312,7 @@ LoadBalancer Ingress:   130.211.126.21
 
 The load balancer correctly targets all the pods, even though they are in multiple zones.
 
-### Shutting down the cluster
+### クラスターの停止
 
 When you're done, clean up:
 
