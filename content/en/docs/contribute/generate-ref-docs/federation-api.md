@@ -47,7 +47,7 @@ go get github.com/kubernetes/federation
 Determine the base directory of your local
 [kubernetes/federation](https://github.com/kubernetes/federation) repository.
 For example, if you followed the preceding step to get the federation source
-code, you base directory is `$GOPATH/src/github.com/kubernetes/federation.`
+code, your base directory is `$GOPATH/src/github.com/kubernetes/federation.`
 The remaining steps refer to your base directory as `<fed-base>`.
 
 Run the doc generation script:

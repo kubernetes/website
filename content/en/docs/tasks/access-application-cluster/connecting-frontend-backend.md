@@ -148,11 +148,13 @@ deployment.apps/frontend created
 service/frontend created
 ```
 
-{{< note >}}**Note:** The nginx configuration is baked into the
-[container image](/examples/service/access/Dockerfile).
-A better way to do this would be to use a
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/), so
-you can change the configuration more easily.{{< /note >}}
+{{< note >}}
+The nginx configuration is baked into the [container
+image](/examples/service/access/Dockerfile). A better way to do this would
+be to use a
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+so that you can change the configuration more easily.
+{{< /note >}}
 
 ### Interact with the frontend Service
 
@@ -167,16 +169,16 @@ This displays the configuration for the `frontend` Service and watches for
 changes. Initially, the external IP is listed as `<pending>`:
 
 ```
-NAME       TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
-frontend   ClusterIP  10.51.252.116   <pending>     80/TCP   10s
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
+frontend   LoadBalancer   10.51.252.116   <pending>     80/TCP   10s
 ```
 
 As soon as an external IP is provisioned, however, the configuration updates
 to include the new IP under the `EXTERNAL-IP` heading:
 
 ```
-NAME       TYPE        CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
-frontend   ClusterIP   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
+frontend   LoadBalancer   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 ```
 
 That IP can now be used to interact with the `frontend` service from outside the

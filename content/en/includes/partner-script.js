@@ -292,7 +292,7 @@
  			name: 'Emerging Technology Advisors',
  			logo: 'eta',
  			link: 'https://www.emergingtechnologyadvisors.com/services/kubernetes.html',
- 			blurb: 'ETA helps companies architect, implement, and manage scalable applications using Kubernetes on on public or private cloud.'
+ 			blurb: 'ETA helps companies architect, implement, and manage scalable applications using Kubernetes on public or private cloud.'
   		},
 		{
  			type: 0,
@@ -831,7 +831,7 @@
 			name: 'IBM',
 			logo: 'ibm',
 			link: 'https://www.ibm.com/cloud/container-service',
-			blurb: 'IBM - IBM Cloud Container Service'
+			blurb: 'IBM - IBM Cloud Kubernetes Service'
 				},
 		{
 			type: 2,

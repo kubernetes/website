@@ -17,14 +17,13 @@ Create a fork of the Kubernetes documentation repository as described in
 
 ## Choosing a page type
 
-As you prepare to write a new topic, think about which of these page types
-is the best fit for your content:
+As you prepare to write a new topic, think about the page type that would fit your content the best:
 
 <table>
 
   <tr>
     <td>Concept</td>
-    <td>A concept page explains some aspect of Kubernetes. For example, a concept page might describe the Kubernetes Deployment object and explain the role it plays as an application is deployed, scaled, and updated. Typically, concept pages don't include sequences of steps, but instead provide links to tasks or tutorials. For an example of a concept topic, see <a href="/docs/concepts/architecture/nodes/">Nodes</a>.</td>
+    <td>A concept page explains some aspect of Kubernetes. For example, a concept page might describe the Kubernetes Deployment object and explain the role it plays as an application while it is deployed, scaled, and updated. Typically, concept pages don't include sequences of steps, but instead provide links to tasks or tutorials. For an example of a concept topic, see <a href="/docs/concepts/architecture/nodes/">Nodes</a>.</td>
   </tr>
 
   <tr>
@@ -80,7 +79,7 @@ subdirectory.
 
 ## Placing your topic in the table of contents
 
-The table of contents is built dynamicaly using the directory structure of the
+The table of contents is built dynamically using the directory structure of the
 documentation source. The top-level directories under `/content/en/docs/` create
 top-level navigation, and subdirectories each have entries in the table of
 contents.
@@ -106,7 +105,7 @@ following cases (not an exhaustive list):
 - The code is not generic enough for users to try out. As an example, you can
   embed the YAML
   file for creating a Pod which depends on a specific
-  [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation.
+  [Flexvolume](/docs/concepts/storage/volumes#flexvolume) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
   customize the [PodSecurityPolicy](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
@@ -138,7 +137,7 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 ```
 
 {{< note >}}
-**Note**: To show raw Hugo shortcodes as in the above example and prevent Hugo
+To show raw Hugo shortcodes as in the above example and prevent Hugo
 from interpreting them, use C-style comments directly after the `<` and before
 the `>` characters. View the code for this page for an example.
 {{< /note >}}
@@ -156,7 +155,7 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 ```
 
 {{< note >}}
-**Note**: When adding new YAML files to the `<LANG>/examples` directory, make
+When adding new YAML files to the `<LANG>/examples` directory, make
 sure the file is also included into the `<LANG>/examples_test.go` file. The
 Travis CI for the Website automatically runs this test case when PRs are
 submitted to ensure all examples pass the tests.

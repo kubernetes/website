@@ -47,7 +47,7 @@ Kubernetes reviews only the following API request attributes:
  * **extra** - A map of arbitrary string keys to string values, provided by the authentication layer.
  * **API** - Indicates whether the request is for an API resource.
  * **Request path** - Path to miscellaneous non-resource endpoints like `/api` or `/healthz`.
- * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see [Determine the request verb](/docs/reference/access-authn-authz/authorization/#determine-whether-a-request-is-allowed-or-denied) below.
+ * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see [Determine the request verb](/docs/reference/access-authn-authz/authorization/#determine-the-request-verb).
  * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests.
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
@@ -168,12 +168,11 @@ secrets the user cannot themselves read, or that run under a service account
 with different/greater permissions.
 
 {{< caution >}}
-**Caution:** System administrators, use care when granting access to pod
-creation.  A user granted permission to create pods (or controllers that create
-pods) in the namespace can: read all secrets in the namespace; read all config
-maps in the namespace; and impersonate any service account in the namespace and
-take any action the account could take. This applies regardless of authorization
-mode.
+System administrators, use care when granting access to pod creation. A user
+granted permission to create pods (or controllers that create pods) in the
+namespace can: read all secrets in the namespace; read all config maps in the
+namespace; and impersonate any service account in the namespace and take any
+action the account could take. This applies regardless of authorization mode.
 {{< /caution >}}
 {{% /capture %}}
 

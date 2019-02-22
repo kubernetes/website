@@ -98,7 +98,7 @@ or more comments in the Kubernetes source code.
 ### Making changes to comments in the source code
 
 {{< note >}}
-**Note**: The following steps are an example, not a general procedure. Details 
+The following steps are an example, not a general procedure. Details 
 will be different in your situation.
 {{< /note >}}
 
@@ -184,7 +184,7 @@ to monitor your pull request until it has been merged.
 is an example of a pull request that fixes a typo in the Kubernetes source code.
 
 {{< note >}}
-**Note**: It can be tricky to determine the correct source file to be changed. In the
+It can be tricky to determine the correct source file to be changed. In the
 preceding example, the authoritative source file is under the `staging` directory
 in the `kubernetes/kubernetes` repository. But in your situation,the `staging` directory
 might not be the place to find the authoritative source. For guidance, check the
@@ -208,9 +208,11 @@ commit into the release-1.9 branch. The idea is to cherry pick the commit that e
 the commit that has the results of running the scripts. For instructions, see
 [Propose a Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/cherry-picks.md). 
 
-**Note:** Proposing a cherry pick requires that you have permission to set a label and a milestone in your
+{{< note >}}
+Proposing a cherry pick requires that you have permission to set a label and a milestone in your
 pull request. If you don't have those permissions, you will need to work with someone who can set the label
 and milestone for you.
+{{< /note >}}
 
 When you have a pull request in place for cherry picking your one commit into the release-1.9 branch,
 the next step is to run these scripts in the release-1.9 branch of your local environment.

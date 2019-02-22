@@ -55,13 +55,3 @@
     opacity: 1;
 }
 
-/* In-page section heading permalinks */
-a.inpage_heading {
-  color: #000;
-  text-decoration: none !important;
-}
-
-a.inpage_heading:hover {
-  text-decoration: underline !important;
-  opacity: .8;
-}

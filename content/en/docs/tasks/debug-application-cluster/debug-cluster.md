@@ -14,7 +14,6 @@ You may also visit [troubleshooting document](/docs/troubleshooting/) for more i
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

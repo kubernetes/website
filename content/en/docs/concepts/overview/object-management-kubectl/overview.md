@@ -15,7 +15,7 @@ approaches.
 ## Management techniques
 
 {{< warning >}}
-**Warning:** A Kubernetes object should be managed using only one technique. Mixing
+A Kubernetes object should be managed using only one technique. Mixing
 and matching techniques for the same object results in undefined behavior.
 {{< /warning >}}
 
@@ -74,7 +74,7 @@ See the [API reference](/docs/reference/generated/kubernetes-api/{{< param "vers
 for more details on object definitions.
 
 {{< warning >}}
-**Warning:** The imperative `replace` command replaces the existing
+The imperative `replace` command replaces the existing
 spec with the newly provided one, dropping all changes to the object missing from
 the configuration file.  This approach should not be used with resource
 types whose specs are updated independently of the configuration file.
@@ -135,7 +135,7 @@ are automatically detected per-object by `kubectl`. This enables working on
 directories, where different operations might be needed for different objects.
 
 {{< note >}}
-**Note:** Declarative object configuration retains changes made by other
+Declarative object configuration retains changes made by other
 writers, even if the changes are not merged back to the object configuration file.
 This is possible by using the `patch` API operation to write only
 observed differences, instead of using the `replace`
@@ -144,16 +144,19 @@ API operation to replace the entire object configuration.
 
 ### Examples
 
-Process all object configuration files in the `configs` directory, and
-create or patch the live objects:
+Process all object configuration files in the `configs` directory, and create or
+patch the live objects. You can first `diff` to see what changes are going to be
+made, and then apply:
 
 ```sh
+kubectl diff -f configs/
 kubectl apply -f configs/
 ```
 
 Recursively process directories:
 
 ```sh
+kubectl diff -R -f configs/
 kubectl apply -R -f configs/
 ```
 
@@ -181,5 +184,3 @@ Disadvantages compared to imperative object configuration:
 {{< comment >}}
 {{< /comment >}}
 {{% /capture %}}
-
-

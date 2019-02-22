@@ -6,6 +6,9 @@ reviewers:
 - krousey
 - clove
 content_template: templates/concept
+card:
+  name: reference
+  weight: 30
 ---
 
 {{% capture overview %}}
@@ -27,6 +30,13 @@ This page is an overview of the `kubectl` command.
 ```bash
 source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+```
+
+You can also use a shorthand alias for `kubectl` that also works with completion: 
+
+```bash
+alias k=kubectl
+complete -F __start_kubectl k
 ```
 
 ### ZSH
@@ -72,7 +82,7 @@ kubectl create -f ./my-manifest.yaml           # create resource(s)
 kubectl create -f ./my1.yaml -f ./my2.yaml     # create from multiple files
 kubectl create -f ./dir                        # create resource(s) in all manifest files in dir
 kubectl create -f https://git.io/vPieo         # create resource(s) from url
-kubectl run nginx --image=nginx                # start a single instance of nginx
+kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 kubectl explain pods,svc                       # get the documentation for pod and svc manifests
 
 # Create multiple YAML objects from stdin
@@ -110,8 +120,8 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: $(echo -n "s33msi4" | base64)
-  username: $(echo -n "jane" | base64)
+  password: $(echo -n "s33msi4" | base64 -w0)
+  username: $(echo -n "jane" | base64 -w0)
 EOF
 
 ```
@@ -139,6 +149,10 @@ kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 kubectl get pods --selector=app=cassandra rc -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
+# Get all worker nodes (use a selector to exclude results that have a label
+# named 'node-role.kubernetes.io/master')
+kubectl get node --selector='!node-role.kubernetes.io/master'
+
 # Get all running pods in the namespace
 kubectl get pods --field-selector=status.phase=Running
 
@@ -149,6 +163,10 @@ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP
 # "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
+
+# Show labels for all pods (or any other Kubernetes object that supports labelling)
+# Also uses "jq"
+for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
 
 # Check which nodes are ready
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
@@ -163,12 +181,20 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## Updating Resources
 
+As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), use `rollout` instead.
+
 ```bash
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # Rolling update pods of frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # Change the name of the resource and update the image
-kubectl rolling-update frontend --image=image:v2                 # Update the pods image of frontend
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # Abort existing rollout in progress
-cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
+kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
+kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
+kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
+
+# deprecated starting version 1.11
+kubectl rolling-update frontend-v1 -f frontend-v2.json           # (deprecated) Rolling update pods of frontend-v1
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (deprecated) Change the name of the resource and update the image
+kubectl rolling-update frontend --image=image:v2                 # (deprecated) Update the pods image of frontend
+kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (deprecated) Abort existing rollout in progress
+
+cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
 kubectl replace --force -f ./pod.json
@@ -282,7 +308,7 @@ kubectl api-resources --api-group=extensions # All resources in the "extensions"
 
 ### Formatting output
 
-To output details to your terminal window in a specific format, you can add either the `-o` or `-output` flags to a supported `kubectl` command.
+To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
 
 Output format | Description
 --------------| -----------
@@ -320,5 +346,7 @@ Verbosity | Description
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 
 * Also [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use it in reusable scripts.
+
+* See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
 {{% /capture %}}

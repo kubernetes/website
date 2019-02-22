@@ -1,6 +1,9 @@
 ---
 title: Participating in SIG Docs
 content_template: templates/concept
+card:
+  name: contribute
+  weight: 40
 ---
 
 {{% capture overview %}}
@@ -84,7 +87,7 @@ in the Kubernetes organization. Follow these steps:
 1.  Find two reviewers or approvers to [sponsor](/docs/contribute/advanced#sponsor-a-new-contributor)
     your membership.
     
-      Ask for sponsorship in the #sig-docs channel on the 
+      Ask for sponsorship in the [#sig-docs channel on the 
       Kubernetes Slack instance](https://kubernetes.slack.com) or on the
       [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
       
@@ -93,33 +96,17 @@ in the Kubernetes organization. Follow these steps:
       SIG Docs member.
       {{< /note >}}
 
-2.  Send an email to the [Kubernetes membership request list](mailto:kubernetes-membership@googlegroups.com)
-    and add your two sponsors and any other relevant people to the CC of the
-    email. Use the following template.
-    
-      ```plaintext
-        I have joined kubernetes-dev@googlegroups.com and fulfilled all the
-        prerequisites outlined at
-        https://github.com/kubernetes/community/blob/master/community-membership.md.
+2.  Open a Github issue in the `kubernetes/org` repository to request membership.
+    Fill out the template using the guidelines at
+    [Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md).
 
-        Sponsors:
-        - Github username / email address
-        - Github username / email address
+3.  Let your sponsors know about the Github issue, either by at-mentioning them
+    in the Github issue (adding a comment with `@<Github-username>`) or by sending them the link directly,
+    so that they can add a `+1` vote.
 
-        List of contributions:
-        - PR URL or other link - description or summary
-        - PR URL or other link - description or summary
-        - PR URL or other link - description or summary
-        - PR URL or other link - description or summary
-        - PR URL or other link - description or summary
-
-        Thanks for your consideration,
-        Your Name
-      ```
-
-3.  Wait for your sponsors to reply, and be available to answer any questions
-    that your sponsors or other Kubernetes leadership has, and for the final
-    result of your application.
+4.  When your membership is approved, the github admin team member assigned to your request updates the
+    Github issue to show approval and then closes the Github issue.
+    Congratulations, you are now a member!
 
 If for some reason your membership request is not accepted right away, the
 membership committee provides information or steps to take before applying

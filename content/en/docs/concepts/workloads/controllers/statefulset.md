@@ -16,7 +16,7 @@ weight: 40
 StatefulSet is the workload API object used to manage stateful applications.
 
 {{< note >}}
-**Note:** StatefulSets are stable (GA) in 1.9.
+StatefulSets are stable (GA) in 1.9.
 {{< /note >}}
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
@@ -32,7 +32,6 @@ following.
 * Stable, unique network identifiers.
 * Stable, persistent storage.
 * Ordered, graceful deployment and scaling.
-* Ordered, graceful deletion and termination.
 * Ordered, automated rolling updates.
 
 In the above, stable is synonymous with persistence across Pod (re)scheduling.
@@ -48,6 +47,7 @@ provides a set of stateless replicas. Controllers such as
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
+* StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is deleted. To achieve ordered and graceful termination of the pods in the StatefulSet, it is possible to scale the StatefulSet down to 0 prior to deletion.
 
 ## Components
 The example below demonstrates the components of a StatefulSet.
@@ -134,6 +134,10 @@ As each Pod is created, it gets a matching DNS subdomain, taking the form:
 `$(podname).$(governing service domain)`, where the governing service is defined
 by the `serviceName` field on the StatefulSet.
 
+As mentioned in the [limitations](#limitations) section, you are responsible for
+creating the [Headless Service](/docs/concepts/services-networking/service/#headless-services)
+responsible for the network identity of the pods.
+
 Here are some examples of choices for Cluster Domain, Service name,
 StatefulSet name, and how that affects the DNS names for the StatefulSet's Pods.
 
@@ -143,8 +147,10 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
-Note that Cluster Domain will be set to `cluster.local` unless
+{{< note >}}
+Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
+{{< /note >}}
 
 ### Stable Storage
 

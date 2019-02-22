@@ -33,6 +33,7 @@
 /docs/admin/high-availability/      /docs/admin/high-availability/building/ 301
 /docs/admin/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
 /docs/admin/kubelet-authentication-authorization/     /docs/reference/command-line-tools-reference/kubelet-authentication-authorization/ 301
+/docs/admin/kubelet-tls-bootstrapping/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
 /docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
 /docs/admin/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
@@ -149,7 +150,7 @@
 
 /docs/getting-started-guide/*     /docs/setup/ 301
 /docs/getting-started-guides/     /docs/setup/pick-right-solution/ 301
-/docs/getting-started-guides/binary_release/    /docs/setup/building-from-source/ 301
+/docs/getting-started-guides/binary_release/    /docs/setup/release/building-from-source/ 301
 /docs/getting-started-guides/cloudstack/     /docs/setup/on-premises-vm/cloudstack/ 301
 /docs/getting-started-guides/dcos/     /docs/setup/on-premises-vm/dcos/ 301
 /docs/getting-started-guides/ovirt/     /docs/setup/on-premises-vm/ovirt/ 301
@@ -256,7 +257,7 @@
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
 /docs/tasks/administer-cluster/calico-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/ 301
-/docs/tasks/administer-cluster/certificate-rotation/     /docs/admin/kubelet-tls-bootstrapping/ 301
+/docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
@@ -481,8 +482,6 @@
 /docs/user-guide/update-dem/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/update-demo/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
 /docs/user-guide/volumes/     /docs/concepts/storage/volumes/ 301
-/docs/user-guide/walkthrough/     /docs/tutorials/k8s101/ 301
-/docs/user-guide/walkthrough/k8s201/     /docs/tutorials/k8s201/ 301
 /docs/user-guide/working-with-resources/     /docs/concepts/overview/object-management-kubectl/overview/ 301
 
 /docs/whatisk8s/     /docs/concepts/overview/what-is-kubernetes/ 301

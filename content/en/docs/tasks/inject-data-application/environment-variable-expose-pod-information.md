@@ -48,7 +48,7 @@ variable gets its value from the Pod's `spec.nodeName` field. Similarly, the
 other environment variables get their names from Pod fields.
 
 {{< note >}}
-**Note:** The fields in this example are Pod fields. They are not fields of the
+The fields in this example are Pod fields. They are not fields of the
 Container in the Pod.
 {{< /note >}}
 
@@ -60,13 +60,13 @@ kubectl create -f https://k8s.io/examples/pods/inject/dapi-envars-pod.yaml
 
 Verify that the Container in the Pod is running:
 
-```
+```shell
 kubectl get pods
 ```
 
 View the Container's logs:
 
-```
+```shell
 kubectl logs dapi-envars-fieldref
 ```
 
@@ -86,13 +86,13 @@ five environment variables to stdout. It repeats this every ten seconds.
 
 Next, get a shell into the Container that is running in your Pod:
 
-```
+```shell
 kubectl exec -it dapi-envars-fieldref -- sh
 ```
 
 In your shell, view the environment variables:
 
-```
+```shell
 /# printenv
 ```
 
@@ -135,13 +135,13 @@ kubectl create -f https://k8s.io/examples/pods/inject/dapi-envars-container.yaml
 
 Verify that the Container in the Pod is running:
 
-```
+```shell
 kubectl get pods
 ```
 
 View the Container's logs:
 
-```
+```shell
 kubectl logs dapi-envars-resourcefieldref
 ```
 

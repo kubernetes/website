@@ -65,9 +65,11 @@ Make sure:
    If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor
    options if the kernel module is not enabled.
 
-   **Note:** Ubuntu carries many AppArmor patches that have not been merged into the upstream Linux
-    kernel, including patches that add additional hooks and features. Kubernetes has only been
-    tested with the upstream version, and does not promise support for other features.
+  {{< note >}}
+  Ubuntu carries many AppArmor patches that have not been merged into the upstream Linux
+  kernel, including patches that add additional hooks and features. Kubernetes has only been
+  tested with the upstream version, and does not promise support for other features.
+  {{< /note >}}
 
 3. Container runtime is Docker -- Currently the only Kubernetes-supported container runtime that
    also supports AppArmor is Docker. As more runtimes add AppArmor support, the options will be
@@ -117,9 +119,11 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 
 ## Securing a Pod
 
-**Note:** AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
+{{< note >}}
+AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
 general availability, the annotations will be replaced with first-class fields (more details in
 [Upgrade path to GA](#upgrade-path-to-general-availability)).
+{{< /note >}}
 
 AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
 container with, add an annotation to the Pod's metadata:
@@ -303,7 +307,7 @@ nodes. There are lots of ways to setup the profiles though, such as:
 
 * Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found
-  [here](https://git.k8s.io/contrib/apparmor/loader).
+  [here](https://git.k8s.io/kubernetes/test/images/apparmor-loader).
 * At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
   image.
 * By copying the profiles to each node and loading them through SSH, as demonstrated in the
@@ -386,7 +390,7 @@ Pod is running.
 To debug problems with AppArmor, you can check the system logs to see what, specifically, was
 denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
 logs or through `journalctl`. More information is provided in
-[AppArmor failures](http://wiki.apparmor.net/index.php/AppArmor_Failures).
+[AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures).
 
 
 ## API Reference
@@ -410,7 +414,7 @@ Specifying the profile a container will run with:
     containers, and unconfined (no profile) for privileged containers.
 - `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
   - The possible profile names are detailed in the
-    [core policy reference](http://wiki.apparmor.net/index.php/AppArmor_Core_Policy_Reference#Profile_names_and_attachment_specifications).
+    [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
 - `unconfined`: This effectively disables AppArmor on the container.
 
 Any other profile reference format is invalid.
@@ -435,9 +439,7 @@ Specifying the list of profiles Pod containers is allowed to specify:
 
 Additional resources:
 
-* [Quick guide to the AppArmor profile language](http://wiki.apparmor.net/index.php/QuickProfileLanguage)
-* [AppArmor core policy reference](http://wiki.apparmor.net/index.php/ProfileLanguage)
+* [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
+* [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
 
 {{% /capture %}}
-
-

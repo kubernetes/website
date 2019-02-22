@@ -5,7 +5,9 @@ content_template: templates/task
 
 {{% capture overview %}}
 
+{{< note >}}
 {{< include "federation-current-state.md" >}}
+{{< /note >}}
 
 This guide explains how to use ConfigMaps in a Federation control plane.
 
@@ -79,7 +81,7 @@ kubectl --context=federation-cluster delete configmap
 ```
 
 {{< note >}}
-**Note:** Deleting a Federated ConfigMap does not delete the corresponding ConfigMaps from underlying clusters. You must delete the underlying ConfigMaps manually.
+Deleting a Federated ConfigMap does not delete the corresponding ConfigMaps from underlying clusters. You must delete the underlying ConfigMaps manually.
 {{< /note >}}
 
 {{% /capture %}}

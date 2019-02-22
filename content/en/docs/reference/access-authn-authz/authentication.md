@@ -97,7 +97,7 @@ The token file is a csv file with a minimum of 3 columns: token, user name, user
 followed by optional group names.
 
 {{< note >}}
-**Note:** If you have more than one group the column must be double quoted e.g.
+If you have more than one group the column must be double quoted e.g.
 
 ```conf
 token,user,uid,"group1,group2,group3"
@@ -120,7 +120,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 
 ### Bootstrap Tokens
 
-This feature is currently in **alpha**.
+This feature is currently in **beta**.
 
 To allow for streamlined bootstrapping for new clusters, Kubernetes includes a
 dynamically-managed Bearer token type called a *Bootstrap Token*. These tokens
@@ -137,7 +137,7 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 ```
 
 You must enable the Bootstrap Token Authenticator with the
-`--experimental-bootstrap-token-auth` flag on the API Server.  You must enable
+`--enable-bootstrap-token-auth` flag on the API Server.  You must enable
 the TokenCleaner controller via the `--controllers` flag on the Controller
 Manager.  This is done with something like `--controllers=*,tokencleaner`.
 `kubeadm` will do this for you if you are using it to bootstrap a cluster.
@@ -190,7 +190,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 `serviceAccountName` field of a `PodSpec`.
 
 {{< note >}}
-**Note:** `serviceAccountName` is usually omitted because this is done automatically.
+`serviceAccountName` is usually omitted because this is done automatically.
 {{< /note >}}
 
 ```yaml
@@ -217,10 +217,21 @@ Kubernetes API. To manually create a service account, simply use the `kubectl
 create serviceaccount (NAME)` command. This creates a service account in the
 current namespace and an associated secret.
 
+```bash
+kubectl create serviceaccount jenkins
 ```
-$ kubectl create serviceaccount jenkins
+
+```none
 serviceaccount "jenkins" created
-$ kubectl get serviceaccounts jenkins -o yaml
+```
+
+Check an associated secret:
+
+```bash
+kubectl get serviceaccounts jenkins -o yaml
+```
+
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -232,8 +243,11 @@ secrets:
 The created secret holds the public CA of the API server and a signed JSON Web
 Token (JWT).
 
+```bash
+kubectl get secret jenkins-token-1yvwg -o yaml
 ```
-$ kubectl get secret jenkins-token-1yvwg -o yaml
+
+```yaml
 apiVersion: v1
 data:
   ca.crt: (APISERVER'S CA BASE64 ENCODED)
@@ -246,7 +260,7 @@ type: kubernetes.io/service-account-token
 ```
 
 {{< note >}}
-**Note:** Values are base64 encoded because secrets are always base64 encoded.
+Values are base64 encoded because secrets are always base64 encoded.
 {{< /note >}}
 
 The signed JWT can be used as a bearer token to authenticate as the given service
@@ -308,6 +322,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-username-prefix` | Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `--oidc-user-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. The value `-` can be used to disable all prefixing. | `oidc:` | No |
 | `--oidc-groups-claim` | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
+| `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
@@ -342,7 +357,7 @@ Setup instructions for specific systems:
 
 The first option is to use the kubectl `oidc` authenticator, which sets the `id_token` as a bearer token for all requests and refreshes the token once it expires. After you've logged into your provider, use kubectl to add your `id_token`, `refresh_token`, `client_id`, and `client_secret` to configure the plugin.
 
-Providers that don't return an `id_token` as part of their refresh token response (e.g. [Okta](https://developer.okta.com/docs/api/resources/oidc.html#response-parameters-4)) aren't supported by this plugin and should use "Option 2" below.
+Providers that don't return an `id_token` as part of their refresh token response aren't supported by this plugin and should use "Option 2" below.
 
 ```bash
 kubectl config set-credentials USER_NAME \
@@ -391,7 +406,7 @@ Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` 
 
 The `kubectl` command lets you pass in a token using the `--token` option.  Simply copy and paste the `id_token` into this option:
 
-```
+```bash
 kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo4MDQzL2F1dGgvaWRwL29pZGMiLCJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNDc0NTk2NjY5LCJqdGkiOiI2RDUzNXoxUEpFNjJOR3QxaWVyYm9RIiwiaWF0IjoxNDc0NTk2MzY5LCJuYmYiOjE0NzQ1OTYyNDksInN1YiI6Im13aW5kdSIsInVzZXJfcm9sZSI6WyJ1c2VycyIsIm5ldy1uYW1lc3BhY2Utdmlld2VyIl0sImVtYWlsIjoibXdpbmR1QG5vbW9yZWplZGkuY29tIn0.f2As579n9VNoaKzoF-dOQGmXkFKf1FMyNV0-va_B63jn-_n9LGSCca_6IVMP8pO-Zb4KvRqGyTP0r3HkHxYy5c81AnIh8ijarruczl-TK_yF5akjSTHFZD-0gRzlevBDiH8Q79NAr-ky0P4iIXS8lY9Vnjch5MF74Zx0c3alKJHJUnnpjIACByfF2SCaYzbWFMUNat-K1PaUk5-ujMBG7yYnr95xD-63n8CO8teGUAAEMx6zRjzfhnhbzX-ajwZLGwGUBT4WqjMs70-6a7_8gZmLZb2az1cZynkFRj2BaCkVT3A2RrjeEwZEtGXlMqKJ1_I2ulrOVsYx01_yD35-rw get nodes
 ```
 
@@ -408,6 +423,10 @@ file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 
 ```yaml
+# Kubernetes API version
+apiVersion: v1
+# kind of the API object
+kind: Config
 # clusters refers to the remote service.
 clusters:
   - name: name-of-remote-authn-service
@@ -506,8 +525,9 @@ It is designed for use in combination with an authenticating proxy, which sets t
 * `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
 * `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
 * `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed. The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) and becomes the extra key, and the header value is the extra value.
+
 {{< note >}}
-**Note:** Prior to 1.11.2, the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+Prior to 1.11.3 (and 1.10.7, 1.9.11), the extra key could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
 {{< /note >}}
 
 For example, with this configuration:
@@ -548,7 +568,8 @@ extra:
 
 In order to prevent header spoofing, the authenticating proxy is required to present a valid client
 certificate to the API server for validation against the specified CA before the request headers are
-checked.
+checked. WARNING: do **not** reuse a CA that is used in a different context unless you understand
+the risks and the mechanisms to protect the CA's usage.
 
 * `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
 * `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed.
@@ -596,7 +617,7 @@ The following HTTP headers can be used to performing an impersonation request:
 * `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
 
 {{< note >}}
-**Note:** Prior to 1.11.2, `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
+Prior to 1.11.3 (and 1.10.7, 1.9.11), `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
 {{< /note >}}
 
 An example set of headers:
@@ -614,11 +635,21 @@ Impersonate-Extra-scopes: development
 When using `kubectl` set the `--as` flag to configure the `Impersonate-User`
 header, set the `--as-group` flag to configure the `Impersonate-Group` header.
 
-```shell
-$ kubectl drain mynode
-Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
+```bash
+kubectl drain mynode
+```
 
-$ kubectl drain mynode --as=superman --as-group=system:masters
+```none
+Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
+```
+
+Set the `--as` and `--as-group` flag:
+
+```bash
+kubectl drain mynode --as=superman --as-group=system:masters
+```
+
+```none
 node/mynode cordoned
 node/mynode drained
 ```

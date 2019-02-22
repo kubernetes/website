@@ -18,8 +18,6 @@ where bottlenecks can be removed to improve overall performance.
 
 {{% /capture %}}
 
-{{< toc >}}
-
 {{% capture body %}}
 
 In Kubernetes, application monitoring does not depend on a single monitoring
@@ -54,9 +52,13 @@ The Kubelet acts as a bridge between the Kubernetes master and the nodes. It man
 
 cAdvisor is an open source container resource usage and performance analysis agent. It is purpose-built for containers and supports Docker containers natively. In Kubernetes, cAdvisor is integrated into the Kubelet binary. cAdvisor auto-discovers all containers in the machine and collects CPU, memory, filesystem, and network usage statistics. cAdvisor also provides the overall machine usage by analyzing the 'root' container on the machine.
 
-On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine containers on port 4194. Here is a snapshot of part of cAdvisor's UI that shows the overall machine usage:
+Kubelet exposes a simple cAdvisor UI for containers on a machine, via the default port 4194.
+The picture below is an example showing the overall machine usage. However, this feature has been marked
+deprecated in v1.10 and completely removed in v1.12.
 
 ![cAdvisor](/images/docs/cadvisor.png)
+
+Starting from v1.13, you can [deploy cAdvisor as a DaemonSet](https://github.com/google/cadvisor/tree/master/deploy/kubernetes) for an access to the cAdvisor UI.
 
 ## Full metrics pipelines
 
@@ -89,10 +91,20 @@ This video shows how to configure and run a Google Cloud Monitoring backed Heaps
 
 {{< figure src="/images/docs/gcm.png" alt="Google Cloud Monitoring dashboard example" title="Google Cloud Monitoring dashboard example" caption="This dashboard shows cluster-wide resource usage." >}}
 
-### Dynatrace Kubernetes monitoring
+## CronJob monitoring
 
-With [Dynatrace Kubernetes monitoring](https://www.dynatrace.com/technologies/cloud-and-microservices/kubernetes-monitoring/), you can monitor application and cluster health in highly-dynamic Kubernetes environments. 
+### Kubernetes Job Monitor
 
-Dynatrace automatically discovers all containers running on Kubernetes and presents you with a real-time view of all the connections between your containerized processes, hosts, and cloud instances. Dynatrace includes root cause analysis and the ability to replay problems to see how they evolved over time.
+With the [Kubernetes Job Monitor](https://github.com/pietervogelaar/kubernetes-job-monitor) dashboard a Cluster Administrator can see which jobs are running and view the status of completed jobs.
+
+### New Relic Kubernetes monitoring integration
+
+[New Relic Kubernetes](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration) integration provides increased visibility into the performance of your Kubernetes environment. New Relic's Kubernetes integration instruments the container orchestration layer by reporting metrics from Kubernetes objects. The integration gives you insight into your Kubernetes nodes, namespaces, deployments, replica sets, pods, and containers.
+
+Marquee capabilities:
+View your data in pre-built dashboards for immediate insight into your Kubernetes environment.
+Create your own custom queries and charts in Insights from automatically reported data.
+Create alert conditions on Kubernetes data.
+Learn more on this [page](https://docs.newrelic.com/docs/integrations/host-integrations/host-integrations-list/kubernetes-monitoring-integration).
 
 {{% /capture %}}

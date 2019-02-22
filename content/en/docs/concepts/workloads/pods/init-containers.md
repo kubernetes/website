@@ -12,7 +12,6 @@ Containers that run before app Containers and can contain utilities or setup
 scripts not present in an app image.
 {{% /capture %}}
 
-{{< toc >}}
 
 This feature has exited beta in 1.6. Init Containers can be specified in the PodSpec
 alongside the app `containers` array. The beta annotation value will still be respected
@@ -84,7 +83,7 @@ Here are some ideas for how to use Init Containers:
 
 * Register this Pod with a remote server from the downward API with a command like:
 
-      curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
+      `curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'`
 
 * Wait for some time before starting the app Container with a command like `sleep 60`.
 * Clone a git repository into a volume.
@@ -329,6 +328,3 @@ is removed, requiring a conversion from the deprecated annotations to the
 * [Creating a Pod that has an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
 
 {{% /capture %}}
-
-
-

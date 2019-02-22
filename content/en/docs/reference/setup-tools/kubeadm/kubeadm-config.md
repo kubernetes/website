@@ -21,6 +21,10 @@ to print the default configuration and `kubeadm config migrate` to convert your 
 files to a newer version. `kubeadm config images list` and `kubeadm config images pull` can be used
 to list and pull the images that kubeadm requires.
 
+In Kubernetes v1.13.0 and later to list/pull kube-dns images instead of the CoreDNS image
+the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
+has to be used.
+
 {{% /capture %}}
 
 {{% capture body %}}
@@ -33,8 +37,11 @@ to list and pull the images that kubeadm requires.
 ## kubeadm config view {#cmd-config-view}
 {{< include "generated/kubeadm_config_view.md" >}}
 
-## kubeadm config print-default {#cmd-config-print-default}
-{{< include "generated/kubeadm_config_print-default.md" >}}
+## kubeadm config print init-defaults {#cmd-config-print-init-defaults}
+{{< include "generated/kubeadm_config_print_init-defaults.md" >}}
+
+## kubeadm config print join-defaults {#cmd-config-print-join-defaults}
+{{< include "generated/kubeadm_config_print_join-defaults.md" >}}
 
 ## kubeadm config migrate {#cmd-config-migrate}
 {{< include "generated/kubeadm_config_migrate.md" >}}

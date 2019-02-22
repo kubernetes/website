@@ -8,13 +8,11 @@ weight: 60
 
 {{% capture overview %}}
 
-You can use a `podpreset` object to inject information like secrets, volume
+You can use a `PodPreset` object to inject information like secrets, volume
 mounts, and environment variables etc into pods at creation time.
 This task shows some examples on using the `PodPreset` resource.
 
 {{% /capture %}}
-
-{{< toc >}}
 
 {{% capture prerequisites %}}
 
@@ -27,9 +25,8 @@ Get an overview of PodPresets at
 
 {{% capture steps %}}
 
-## Create a Pod Preset
 
-### Simple Pod Spec Example
+## Simple Pod Spec Example
 
 This is a simple example to show how a Pod spec is modified by the Pod
 Preset.
@@ -78,7 +75,7 @@ To see above output, run the following command:
 $ kubectl get pod website -o yaml
 ```
 
-### Pod Spec with `ConfigMap` Example
+## Pod Spec with ConfigMap Example
 
 This is an example to show how a Pod spec is modified by the Pod Preset
 that defines a `ConfigMap` for Environment Variables.
@@ -99,7 +96,7 @@ that defines a `ConfigMap` for Environment Variables.
 
 {{< codenew file="podpreset/allow-db-merged.yaml" >}}
 
-### ReplicaSet with Pod Spec Example
+## ReplicaSet with Pod Spec Example
 
 The following example shows that only the pod spec is modified by the Pod
 Preset.
@@ -119,7 +116,7 @@ to validate that the PodPreset has been applied.
 
 {{< codenew file="podpreset/replicaset-merged.yaml" >}}
 
-### Multiple PodPreset Example
+## Multiple PodPreset Example
 
 This is an example to show how a Pod spec is modified by multiple Pod
 Injection Policies.
@@ -140,7 +137,7 @@ Injection Policies.
 
 {{< codenew file="podpreset/multi-merged.yaml" >}}
 
-### Conflict Example
+## Conflict Example
 
 This is an example to show how a Pod spec is not modified by the Pod Preset
 when there is a conflict.

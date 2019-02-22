@@ -5,7 +5,9 @@ content_template: templates/task
 
 {{% capture overview %}}
 
+{{< note >}}
 {{< include "federation-current-state.md" >}}
+{{< /note >}}
 
 This guide explains how to use jobs in the federation control plane.
 
@@ -38,7 +40,7 @@ You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
 kubectl --context=federation-cluster create -f myjob.yaml
 ```
 
-The '--context=federation-cluster' flag tells kubectl to submit the
+The `--context=federation-cluster` flag tells kubectl to submit the
 request to the federation API server instead of sending it to a Kubernetes
 cluster.
 
@@ -97,7 +99,7 @@ kubectl --context=federation-cluster delete job myjob
 ```
 
 {{< note >}}
-**Note:** Deleting a federated job will not delete the
+Deleting a federated job will not delete the
 corresponding jobs from underlying clusters.
 You must delete the underlying jobs manually.
 {{< /note >}}

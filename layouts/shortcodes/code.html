@@ -4,7 +4,7 @@
 {{ $fileDir := path.Split $file }}
 {{ $bundlePath := path.Join .Page.Dir $fileDir.Dir }}
 {{ $filename := path.Join $p.Dir $file }}
-{{ $ghlink := printf "https://%s/blob/master/content/%s/%s" .Page.Site.Params.githubWebsiteRepo .Page.Lang $filename | safeURL }}
+{{ $ghlink := printf "https://%s/blob/master/content/%s/%s" site.Params.githubwebsiterepo .Page.Lang $filename | safeURL }}
 {{/* First assume this is a bundle and the file is inside it. */}}
 {{ $resource := $p.Resources.GetMatch (printf "%s*" $file ) }}
 {{ with $resource }}
@@ -15,7 +15,7 @@
 {{ with $resource }}{{ $.Scratch.Set "content" . }}{{ end }}
 {{ end }}
 {{ if not ($.Scratch.Get "content") }}
-{{ errorf "[%s] %q not found in %q" $p.Site.Language.Lang $fileDir.File $bundlePath }}
+{{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}
 {{ end }}
 {{ with $.Scratch.Get "content" }}
 <table class="includecode" id="{{ $file | anchorize }}">

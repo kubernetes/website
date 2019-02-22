@@ -48,7 +48,7 @@ Pod:
 
     The output is similar to this:
 
-    ```log
+    ```
     NAME            READY     STATUS    RESTARTS   AGE
     envar-demo      1/1       Running   0          9s
     ```
@@ -67,7 +67,7 @@ Pod:
 
     The output is similar to this:
 
-    ```log
+    ```
     NODE_VERSION=4.4.2
     EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
     HOSTNAME=envar-demo
@@ -79,7 +79,7 @@ Pod:
 1. To exit the shell, enter `exit`.
 
 {{< note >}}
-**Note:** The environment variables set using the `env` or `envFrom` field
+The environment variables set using the `env` or `envFrom` field
 will override any environment variables specified in the container image.
 {{< /note >}}
 
@@ -113,7 +113,7 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 
 {{% capture whatsnext %}}
 
-* Learn more about [environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/).
+* Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
 * Learn about [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
 * See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
 

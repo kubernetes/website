@@ -24,7 +24,7 @@ Applications and cluster resources typically require some operational work - whe
 
 With the Kubernetes API model, management logic is embedded directly into an application specific Kubernetes API, e.g. a “MySQL” API. Users then declaratively manage the application through YAML configuration using tools such as kubectl, just like they do for Kubernetes objects. This approach is referred to as an Application Controller, also known as an Operator. Controllers are a powerful technique backing the core Kubernetes APIs that may be used to build many kinds of solutions in addition to Applications; such as Autoscalers, Workload APIs, Configuration APIs, CI/CD systems, and more.
 
-However, while it has been possible for trailblazers to build new Controllers on top of the raw API machinery, doing so has been a DIY “from scratch” experience, requiring developers to learn low level details about how Kubernetes libraries are implemented, handwrite boilerplate code, and warp their own solutions for integration testing, RBAC configuration, documentation, etc. Kubebuilder makes this experience simple and easy by applying the lessons learned from building the core Kubernetes APIs.
+However, while it has been possible for trailblazers to build new Controllers on top of the raw API machinery, doing so has been a DIY “from scratch” experience, requiring developers to learn low level details about how Kubernetes libraries are implemented, handwrite boilerplate code, and wrap their own solutions for integration testing, RBAC configuration, documentation, etc. Kubebuilder makes this experience simple and easy by applying the lessons learned from building the core Kubernetes APIs.
 
 ### Getting Started Building Application Controllers and Kubernetes APIs
 

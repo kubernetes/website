@@ -5,13 +5,14 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
+{{< note >}}
 {{< include "federation-current-state.md" >}}
+{{< /note >}}
 
 This guide explains how to use events in federation control plane to help in debugging.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 

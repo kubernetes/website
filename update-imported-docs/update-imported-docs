@@ -1,0 +1,158 @@
+#!/usr/bin/env python
+
+import glob
+import os
+import re
+import shutil
+import subprocess
+import sys
+
+try:
+    import yaml
+except Exception:
+    print("Please ensure PyYAML package is installed. This can be done, for "
+          "example, by executing the following command:\n\n"
+          " pip install pyyaml\n")
+    sys.exit(-1)
+
+
+def processLinks(content, remotePrefix, subPath):
+    """Process markdown links found in the docs."""
+    def analyze(matchObj):
+        ankor = matchObj.group('ankor')
+        target = matchObj.group('target')
+        if not (target.startswith("https://") or
+                target.startswith("mailto:") or
+                target.startswith("#")):
+            if target.startswith("/"):
+                target = "/".join(remotePrefix, target[1:])
+            else:
+                target = "/".join(remotePrefix, subPath, target)
+
+        return "[%s](%s)" % (ankor, target)
+
+    # Links are in the form '[text](url)'
+    linkRegex = re.compile(r"\[(?P<ankor>.*)\]\((?P<target>.*)\)")
+    content = re.sub(linkRegex, analyze, content)
+
+    h1Regex = re.compile("^(# .*)?\n")
+    content = re.sub(h1Regex, "", content)
+
+    return content
+
+
+def processFile(src, dst, repoPath, repoDir, rootDir, genAbsoluteLinks):
+    """Process a file element.
+
+    :param src: A string containing the relative path of a source file. The
+        string may contain wildcard characters such as '*' or '?'.
+    :param dst: The path for the destination file. The string can be a
+        directory name or a file name.
+    """
+    pattern = os.path.join(repoDir, repoPath, src)
+    dstPath = os.path.join(rootDir, dst)
+
+    for src in glob.glob(pattern):
+        # we don't dive into subdirectories
+        if not os.path.isfile(src):
+            print("[Error] skipping non-regular path %s" % src)
+            continue
+
+        content = ""
+        try:
+            with open(src, "r") as srcFile:
+                content = srcFile.read()
+        except Exception as ex:
+            print("[Error] failed in reading source file: " + str(ex))
+            continue
+
+        dst = dstPath
+        if dstPath.endswith("/"):
+            baseName = os.path.basename(src)
+            dst = os.path.join(dst, baseName)
+
+        try:
+            print("Writing doc: " + dst)
+            with open(dst, "w") as dstFile:
+                if genAbsoluteLinks:
+                    srcDir = os.path.dirname(src)
+                    remotePrefix = repoPath + "/tree/master"
+                    content = processLinks(content, remotePrefix, srcDir)
+                dstFile.write(content)
+        except Exception as ex:
+            print("[Error] failed in writing target file '%s': %s"
+                  "" % (dst, str(ex)))
+            continue
+
+
+def main():
+    """The main entry of the program."""
+    if len(sys.argv) < 2:
+        print("[Error] Please specify a config file")
+        return -1
+
+    configFile = sys.argv[1]
+    currDir = os.path.dirname(__file__)
+    rootDir = os.path.realpath(os.path.join(currDir, '..'))
+
+    try:
+        configData = yaml.load(open(configFile, 'r'))
+    except Exception as ex:
+        print("[Error] failed in loading config file - %s" % str(ex))
+        return -2
+
+    os.chdir(rootDir)
+    workDir = "/tmp/update_docs"
+    shutil.rmtree(workDir, True)
+    os.mkdir(workDir, 0750)
+
+    for repo in configData["repos"]:
+        if "name" not in repo:
+            print("[Error] repo missing name")
+            continue
+        repoName = repo["name"]
+
+        if "remote" not in repo:
+            print("[Error] repo '%s' missing repo path" % repoName)
+            continue
+        repoRemote = repo["remote"]
+
+        remoteRegex = re.compile(r"^https://(?P<prefix>.*)\.git$")
+        matches = remoteRegex.search(repoRemote)
+        if not matches:
+            print("[Error] repo path for '%s' is invalid" % repoName)
+            continue
+
+        repoPath = os.path.join("src", matches.group('prefix'))
+        os.chdir(workDir)
+        print("Cloning repo %s..." % repoName)
+        cmd = "git clone --depth=1 -b {0} {1} {2}".format(
+            repo["branch"], repoRemote, repoPath)
+        res = subprocess.call(cmd, shell=True)
+        if res != 0:
+            print("[Error] failed in cloning repo '%s'" % repoName)
+            continue
+
+        os.chdir(repoPath)
+        if "generate-command" in repo:
+            genCmd = repo["generate-command"]
+            genCmd = "export GOPATH=" + workDir + "\n" + genCmd
+            print("Generating docs for %s with %s" % (repoName, genCmd))
+            res = subprocess.call(genCmd, shell=True)
+            if res != 0:
+                print("[Error] failed in generating docs for '%s'" % repoName)
+                continue
+
+        os.chdir(rootDir)
+        for f in repo["files"]:
+            processFile(f['src'], f['dst'], repoPath, workDir, rootDir,
+                        "gen-absolute-links" in repo)
+
+    print("Completed docs update. Now run the following command to commit:\n\n"
+          " git add .\n"
+          " git commit -m <comment>\n"
+          " git push\n")
+
+
+if __name__ == '__main__':
+    sys.exit(main())

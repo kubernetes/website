@@ -30,28 +30,27 @@ scope.
 You can install _kubeadm_ very easily on operating systems that support
 installing deb or rpm packages. The responsible SIG for kubeadm,
 [SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
-but you may also on other OSes.
+but you may also build them from source for other OSes.
 
 
 ### kubeadm Maturity
 
 | Area                      | Maturity Level |
 |---------------------------|--------------- |
-| Command line UX           | beta           |
-| Implementation            | beta           |
-| Config file API           | alpha          |
-| Self-hosting              | alpha          |
-| kubeadm alpha subcommands | alpha          |
+| Command line UX           | GA             |
+| Implementation            | GA             |
+| Config file API           | beta           |
 | CoreDNS                   | GA             |
+| kubeadm alpha subcommands | alpha          |
+| High availability         | alpha          |
 | DynamicKubeletConfig      | alpha          |
+| Self-hosting              | alpha          |
 
 
-kubeadm's overall feature state is **Beta** and will soon be graduated to
-**General Availability (GA)** during 2018. Some sub-features, like self-hosting
-or the configuration file API are still under active development. The
-implementation of creating the cluster may change slightly as the tool evolves,
-but the overall implementation should be pretty stable. Any commands under
-`kubeadm alpha` are by definition, supported on an alpha level.
+kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
+file API are still under active development. The implementation of creating the cluster
+may change slightly as the tool evolves, but the overall implementation should be pretty stable.
+Any commands under `kubeadm alpha` are by definition, supported on an alpha level.
 
 
 ### Support timeframes
@@ -69,6 +68,8 @@ timeframe; which also applies to `kubeadm`.
 | v1.9.x             | December 2017  | September 2018    |
 | v1.10.x            | March 2018     | December 2018     |
 | v1.11.x            | June 2018      | March 2019        |
+| v1.12.x            | September 2018 | June 2019         |
+| v1.13.x            | December 2018  | September 2019    |
 
 {{% /capture %}}
 
@@ -98,7 +99,7 @@ timeframe; which also applies to `kubeadm`.
 See ["Installing kubeadm"](/docs/setup/independent/install-kubeadm/).
 
 {{< note >}}
-**Note:** If you have already installed kubeadm, run `apt-get update &&
+If you have already installed kubeadm, run `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
@@ -152,52 +153,69 @@ The output should look like:
 ```none
 [init] Using Kubernetes version: vX.Y.Z
 [preflight] Running pre-flight checks
-[kubeadm] WARNING: starting in 1.8, tokens expire after 24 hours by default (if you require a non-expiring token use --token-ttl 0)
-[certificates] Generated ca certificate and key.
-[certificates] Generated apiserver certificate and key.
-[certificates] apiserver serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
-[certificates] Generated apiserver-kubelet-client certificate and key.
-[certificates] Generated sa key and public key.
-[certificates] Generated front-proxy-ca certificate and key.
-[certificates] Generated front-proxy-client certificate and key.
-[certificates] Valid certificates and keys now exist in "/etc/kubernetes/pki"
-[kubeconfig] Wrote KubeConfig file to disk: "admin.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "kubelet.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "controller-manager.conf"
-[kubeconfig] Wrote KubeConfig file to disk: "scheduler.conf"
-[controlplane] Wrote Static Pod manifest for component kube-apiserver to "/etc/kubernetes/manifests/kube-apiserver.yaml"
-[controlplane] Wrote Static Pod manifest for component kube-controller-manager to "/etc/kubernetes/manifests/kube-controller-manager.yaml"
-[controlplane] Wrote Static Pod manifest for component kube-scheduler to "/etc/kubernetes/manifests/kube-scheduler.yaml"
-[etcd] Wrote Static Pod manifest for a local etcd instance to "/etc/kubernetes/manifests/etcd.yaml"
-[init] Waiting for the kubelet to boot up the control plane as Static Pods from directory "/etc/kubernetes/manifests"
-[init] This often takes around a minute; or longer if the control plane images have to be pulled.
-[apiclient] All control plane components are healthy after 39.511972 seconds
-[uploadconfig] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
-[markmaster] Will mark node master as master by adding a label and a taint
-[markmaster] Master master tainted and labelled with key/value: node-role.kubernetes.io/master=""
-[bootstraptoken] Using token: <token>
-[bootstraptoken] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
-[bootstraptoken] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
-[bootstraptoken] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Activating the kubelet service
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [kubeadm-master localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [kubeadm-master localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "sa" key and public key
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[apiclient] All control plane components are healthy after 31.501735 seconds
+[uploadconfig] storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-X.Y" in namespace kube-system with the configuration for the kubelets in the cluster
+[patchnode] Uploading the CRI Socket information "/var/run/dockershim.sock" to the Node API object "kubeadm-master" as an annotation
+[mark-control-plane] Marking the node kubeadm-master as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node kubeadm-master as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[bootstrap-token] Using token: <token>
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstraptoken] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstraptoken] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstraptoken] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstraptoken] creating the "cluster-info" ConfigMap in the "kube-public" namespace
 [addons] Applied essential addon: CoreDNS
 [addons] Applied essential addon: kube-proxy
 
 Your Kubernetes master has initialized successfully!
 
-To start using your cluster, you need to run (as a regular user):
+To start using your cluster, you need to run the following as a regular user:
 
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the addon options listed at:
-  http://kubernetes.io/docs/admin/addons/
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+  kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
 To make kubectl work for your non-root user, run these commands, which are
@@ -227,7 +245,7 @@ created, and deleted with the `kubeadm token` command. See the
 ### Installing a pod network add-on {#pod-network}
 
 {{< caution >}}
-**Caution:** This section contains important information about installation and deployment order. Read it carefully before proceeding.
+This section contains important information about installation and deployment order. Read it carefully before proceeding.
 {{< /caution >}}
 
 You must install a pod network add-on so that your pods can communicate with
@@ -243,6 +261,9 @@ support [Network Policy](/docs/concepts/services-networking/networkpolicies/). S
 
 Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/docs/reference/access-authn-authz/rbac/).
 Make sure that your network manifest supports RBAC.
+
+Also, beware, that your Pod network must not overlap with any of the host networks as this can cause issues.
+If you find a collision between your network plugin’s preferred Pod network and some of your host networks, you should think of a suitable CIDR replacement and use that during `kubeadm init` with `--pod-network-cidr` and as a replacement in your network plugin’s YAML.
 
 You can install a pod network add-on with the following command:
 
@@ -260,11 +281,11 @@ Please select one of the tabs to see installation instructions for the respectiv
 {{% tab name="Calico" %}}
 For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
 
-In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`. Note that Calico works on `amd64` only.
+For Calico to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init` or update the `calico.yml` file to match your Pod network. Note that Calico works on `amd64`, `arm64`, `ppc64le` and `s390x` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
 ```
 
 {{% /tab %}}
@@ -274,8 +295,36 @@ Canal uses Calico for policy and Flannel for networking. Refer to the Calico doc
 For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that Canal works on `amd64` only.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/canal/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/canal.yaml
+```
+
+{{% /tab %}}
+
+{{% tab name="Cilium" %}}
+For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
+
+These commands will deploy Cilium with its own etcd managed by etcd operator.
+
+_Note_: If you are running kubeadm in a single node please untaint it so that
+etcd-operator pods can be scheduled in the control-plane node.
+
+```shell
+kubectl taint nodes <node-name> node-role.kubernetes.io/master:NoSchedule-
+```
+
+To deploy Cilium you just need to run:
+
+```shell
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.4/examples/kubernetes/1.13/cilium.yaml
+```
+
+Once all Cilium pods are marked as `READY`, you start using your cluster.
+
+```shell
+$ kubectl get pods -n kube-system --selector=k8s-app=cilium
+NAME           READY   STATUS    RESTARTS   AGE
+cilium-drxkl   1/1     Running   0          18m
 ```
 
 {{% /tab %}}
@@ -287,14 +336,11 @@ Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
 please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
-```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
-```
-Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`, but until `flannel v0.11.0` is released
-you need to use the following manifest that supports all the architectures:
+Note that `flannel` works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` under Linux.
+Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/c5d10c8/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml
 ```
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
@@ -362,7 +408,7 @@ And once the CoreDNS pod is up and running, you can continue by joining your nod
 If your network is not working or CoreDNS is not in the Running state, check
 out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
-### Master Isolation
+### Control plane node isolation
 
 By default, your cluster will not schedule pods on the master for security
 reasons. If you want to be able to schedule pods on the master, e.g. for a
@@ -439,7 +485,7 @@ The output is similar to this:
 ```
 
 {{< note >}}
-**Note:** To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
 {{< /note >}}
 
 The output should look something like:
@@ -472,14 +518,14 @@ kubectl --kubeconfig ./admin.conf get nodes
 ```
 
 {{< note >}}
-**Note:** The example above assumes SSH access is enabled for root. If that is not the
+The example above assumes SSH access is enabled for root. If that is not the
 case, you can copy the `admin.conf` file to be accessible by some other user
 and `scp` using that other user instead.
 
 The `admin.conf` file gives the user _superuser_ privileges over the cluster.
 This file should be used sparingly. For normal users, it's recommended to
 generate an unique credential to which you whitelist privileges. You can do
-this with the `kubeadm alpha phase kubeconfig user --client-name <CN>`
+this with the `kubeadm alpha kubeconfig user --client-name <CN>`
 command. That command will print out a KubeConfig file to STDOUT which you
 should save to a file and distribute to your user. After that, whitelist
 privileges by using `kubectl create (cluster)rolebinding`.
@@ -514,6 +560,18 @@ Then, on the node being removed, reset all kubeadm installed state:
 
 ```bash
 kubeadm reset
+```
+
+The reset process does not reset or clean up iptables rules or IPVS tables. If you wish to reset iptables, you must do so manually:
+
+```bash
+iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
+```
+
+If you want to reset the IPVS tables, you must run the following command:
+
+```bash
+ipvsadm -C
 ```
 
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
@@ -560,14 +618,18 @@ Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be abl
 Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
 v1.8.
 
-Please also check our [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
-for more information on the version skew between kubelets and the control plane.
+These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
+
+* Kubernetes [version and version-skew policy](/docs/setup/version-skew-policy/)
+* Kubeadm-specific [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
 ## kubeadm works on multiple platforms {#multi-platform}
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
 following the [multi-platform
 proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
+
+Multiplatform container images for the control plane and addons are also supported since v1.12.
 
 Only some of the network providers offer solutions for all platforms. Please consult the list of
 network providers above or the documentation from each provider to figure out whether the provider

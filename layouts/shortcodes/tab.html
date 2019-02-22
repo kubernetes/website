@@ -15,5 +15,5 @@
 	{{ $.Parent.Scratch.Add "tabs" (dict "name" $name "include" $include "codelang" $codelang) }}
 	{{ end }}
 {{ else }}
-	{{- errorf "[%s] %q: tab shortcode missing its parent" .Page.Site.Language.Lang .Page.Path -}}
+	{{- errorf "[%s] %q: tab shortcode missing its parent" site.Language.Lang .Page.Path -}}
 {{ end}}

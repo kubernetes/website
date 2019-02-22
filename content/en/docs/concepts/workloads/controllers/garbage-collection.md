@@ -60,6 +60,14 @@ metadata:
   ...
 ```
 
+{{< note >}}
+Cross-namespace owner references is disallowed by design. This means: 
+1) Namespace-scoped dependents can only specify owners in the same namespace,
+and owners that are cluster-scoped.
+2) Cluster-scoped dependents can only specify cluster-scoped owners, but not
+namespace-scoped owners.
+{{< /note >}}
+
 ## Controlling how the garbage collector deletes dependents
 
 When you delete an object, you can specify whether the object's dependents are
@@ -81,7 +89,7 @@ the following things are true:
 
 Once the "deletion in progress" state is set, the garbage
 collector deletes the object's dependents. Once the garbage collector has deleted all
-"blocking" dependents (objects with `ownerReference.blockOwnerDeletion=true`), it delete
+"blocking" dependents (objects with `ownerReference.blockOwnerDeletion=true`), it deletes
 the owner object.
 
 Note that in the "foregroundDeletion", only dependents with

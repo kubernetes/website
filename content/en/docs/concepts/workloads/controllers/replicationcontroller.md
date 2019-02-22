@@ -3,6 +3,12 @@ reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController
+feature: 
+  title: Self-healing
+  anchor: How a ReplicationController Works
+  description: >
+    Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
+
 content_template: templates/concept
 weight: 20
 ---
@@ -10,7 +16,7 @@ weight: 20
 {{% capture overview %}}
 
 {{< note >}}
-**NOTE:** A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
+A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
 {{< /note >}}
 
 A _ReplicationController_ ensures that a specified number of pod replicas are running at any one

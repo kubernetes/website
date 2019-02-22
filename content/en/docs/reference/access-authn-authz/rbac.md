@@ -148,6 +148,24 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
+You cannot modify which `Role` or `ClusterRole` a binding object refers to.
+Attempts to change the `roleRef` field of a binding object will result in a validation error.
+To change the `roleRef` field on an existing binding object, the binding object must be deleted and recreated.
+There are two primary reasons for this restriction:
+
+1. A binding to a different role is a fundamentally different binding.
+Requiring a binding to be deleted/recreated in order to change the `roleRef`
+ensures the full list of subjects in the binding is intended to be granted
+the new role (as opposed to enabling accidentally modifying just the roleRef 
+without verifying all of the existing subjects should be given the new role's permissions).
+2. Making `roleRef` immutable allows giving `update` permission on an existing binding object
+to a user, which lets them manage the list of subjects, without being able to change the 
+role that is granted to those subjects.
+
+The `kubectl auth reconcile` command-line utility creates or updates a manifest file containing RBAC objects,
+and handles deleting and recreating binding objects if required to change the role they refer to.
+See [command usage and examples](#kubectl-auth-reconcile) for more information.
+
 ### Referring to Resources
 
 Most resources are represented by a string representation of their name, such as "pods", just as it
@@ -452,6 +470,16 @@ Auto-reconciliation is enabled in Kubernetes version 1.6+ when the RBAC authoriz
 
 ### Discovery Roles
 
+Default role bindings authorize unauthenticated and authenticated users to read API information that is deemed safe to be publicly accessible (including CustomResourceDefinitions). To disable anonymous unauthenticated access add `--anonymous-auth=false` to the API server configuration.
+
+To view the configuration of these roles via `kubectl` run:
+
+```
+kubectl get clusterroles system:discovery -o yaml
+```
+
+NOTE: editing the role is not recommended as changes will be overwritten on API server restart via auto-reconciliation (see above).
+
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
 <tr>
@@ -634,11 +662,13 @@ These roles include:
 
 * system:controller:attachdetach-controller
 * system:controller:certificate-controller
+* system:controller:clusterrole-aggregation-controller
 * system:controller:cronjob-controller
 * system:controller:daemon-set-controller
 * system:controller:deployment-controller
 * system:controller:disruption-controller
 * system:controller:endpoint-controller
+* system:controller:expand-controller
 * system:controller:generic-garbage-collector
 * system:controller:horizontal-pod-autoscaler
 * system:controller:job-controller
@@ -651,6 +681,7 @@ These roles include:
 * system:controller:replicaset-controller
 * system:controller:replication-controller
 * system:controller:resourcequota-controller
+* system:controller:root-ca-cert-publisher
 * system:controller:route-controller
 * system:controller:service-account-controller
 * system:controller:service-controller
@@ -662,13 +693,19 @@ These roles include:
 The RBAC API prevents users from escalating privileges by editing roles or role bindings.
 Because this is enforced at the API level, it applies even when the RBAC authorizer is not in use.
 
-A user can only create/update a role if they already have all the permissions contained in the role,
-at the same scope as the role (cluster-wide for a `ClusterRole`, within the same namespace or cluster-wide for a `Role`).
+A user can only create/update a role if at least one of the following things is true:
+
+1. they already have all the permissions contained in the role, at the same scope as the object being modified
+(cluster-wide for a `ClusterRole`, within the same namespace or cluster-wide for a `Role`)
+2. they are given explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
+
 For example, if "user-1" does not have the ability to list secrets cluster-wide, they cannot create a `ClusterRole`
 containing that permission. To allow a user to create/update roles:
 
 1. Grant them a role that allows them to create/update `Role` or `ClusterRole` objects, as desired.
-2. Grant them roles containing the permissions you would want them to be able to set in a `Role` or `ClusterRole`. If they attempt to create or modify a `Role` or `ClusterRole` with permissions they themselves have not been granted, the API request will be forbidden.
+2. Grant them permission to include specific permissions in the roles the create/update:
+    * implicitly, by giving them those permissions (if they attempt to create or modify a `Role` or `ClusterRole` with permissions they themselves have not been granted, the API request will be forbidden)
+    * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
 
 A user can only create/update a role binding if they already have all the permissions contained in the referenced role 
 (at the same scope as the role binding) *or* if they've been given explicit permission to perform the `bind` verb on the referenced role.
@@ -719,44 +756,154 @@ To bootstrap initial roles and role bindings:
 
 ## Command-line Utilities
 
-Two `kubectl` commands exist to grant roles within a namespace or across the entire cluster.
+### `kubectl create role`
+
+Creates a `Role` object defining permissions within a single namespace. Examples:
+
+* Create a `Role` named "pod-reader" that allows user to perform "get", "watch" and "list" on pods:
+
+    ```
+    kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=pods
+    ```
+
+* Create a `Role` named "pod-reader" with resourceNames specified:
+
+    ```
+    kubectl create role pod-reader --verb=get --resource=pods --resource-name=readablepod --resource-name=anotherpod
+    ```
+
+* Create a `Role` named "foo" with apiGroups specified:
+
+    ```
+    kubectl create role foo --verb=get,list,watch --resource=replicasets.apps
+    ```
+
+* Create a `Role` named "foo" with subresource permissions:
+
+    ```
+    kubectl create role foo --verb=get,list,watch --resource=pods,pods/status
+    ```
+
+* Create a `Role` named "my-component-lease-holder" with permissions to get/update a resource with a specific name:
+
+    ```
+    kubectl create role my-component-lease-holder --verb=get,list,watch,update --resource=lease --resource-name=my-component
+    ```
+
+### `kubectl create clusterrole`
+
+Creates a `ClusterRole` object. Examples:
+
+* Create a `ClusterRole` named "pod-reader" that allows user to perform "get", "watch" and "list" on pods:
+
+    ```
+    kubectl create clusterrole pod-reader --verb=get,list,watch --resource=pods
+    ```
+
+* Create a `ClusterRole` named "pod-reader" with resourceNames specified:
+
+    ```
+    kubectl create clusterrole pod-reader --verb=get --resource=pods --resource-name=readablepod --resource-name=anotherpod
+    ```
+
+* Create a `ClusterRole` named "foo" with apiGroups specified:
+
+    ```
+    kubectl create clusterrole foo --verb=get,list,watch --resource=replicasets.apps
+    ```
+
+* Create a `ClusterRole` named "foo" with subresource permissions:
+
+    ```
+    kubectl create clusterrole foo --verb=get,list,watch --resource=pods,pods/status
+    ```
+
+* Create a `ClusterRole` name "foo" with nonResourceURL specified:
+
+    ```
+    kubectl create clusterrole "foo" --verb=get --non-resource-url=/logs/*
+    ```
+
+* Create a `ClusterRole` name "monitoring" with aggregationRule specified:
+
+    ```
+    kubectl create clusterrole monitoring --aggregation-rule="rbac.example.com/aggregate-to-monitoring=true"
+    ```
 
 ### `kubectl create rolebinding`
 
 Grants a `Role` or `ClusterRole` within a specific namespace. Examples:
 
-* Grant the `admin` `ClusterRole` to a user named "bob" in the namespace "acme":
+* Within the namespace "acme", grant the permissions in the `admin` `ClusterRole` to a user named "bob":
 
     ```
     kubectl create rolebinding bob-admin-binding --clusterrole=admin --user=bob --namespace=acme
     ```
 
-* Grant the `view` `ClusterRole` to a service account named "myapp" in the namespace "acme":
+* Within the namespace "acme", grant the permissions in the `view` `ClusterRole` to the service account in the namespace "acme" named "myapp" :
 
     ```
     kubectl create rolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp --namespace=acme
+    ```
+
+* Within the namespace "acme", grant the permissions in the `view` `ClusterRole` to a service account in the namespace "myappnamespace" named "myapp":
+
+    ```
+    kubectl create rolebinding myappnamespace-myapp-view-binding --clusterrole=view --serviceaccount=myappnamespace:myapp --namespace=acme
     ```
 
 ### `kubectl create clusterrolebinding`
 
 Grants a `ClusterRole` across the entire cluster, including all namespaces. Examples:
 
-* Grant the `cluster-admin` `ClusterRole` to a user named "root" across the entire cluster:
+* Across the entire cluster, grant the permissions in the `cluster-admin` `ClusterRole` to a user named "root":
 
     ```
     kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole=cluster-admin --user=root
     ```
 
-* Grant the `system:node` `ClusterRole` to a user named "kubelet" across the entire cluster:
+* Across the entire cluster, grant the permissions in the `system:node-proxier	` `ClusterRole` to a user named "system:kube-proxy":
 
     ```
-    kubectl create clusterrolebinding kubelet-node-binding --clusterrole=system:node --user=kubelet
+    kubectl create clusterrolebinding kube-proxy-binding --clusterrole=system:node-proxier --user=system:kube-proxy
     ```
 
-* Grant the `view` `ClusterRole` to a service account named "myapp" in the namespace "acme" across the entire cluster:
+* Across the entire cluster, grant the permissions in the `view` `ClusterRole` to a service account named "myapp" in the namespace "acme":
 
     ```
     kubectl create clusterrolebinding myapp-view-binding --clusterrole=view --serviceaccount=acme:myapp
+    ```
+
+### `kubectl auth reconcile` {#kubectl-auth-reconcile}
+
+Creates or updates `rbac.authorization.k8s.io/v1` API objects from a manifest file.
+
+Missing objects are created, and the containing namespace is created for namespaced objects, if required.
+
+Existing roles are updated to include the permissions in the input objects,
+and remove extra permissions if `--remove-extra-permissions` is specified.
+
+Existing bindings are updated to include the subjects in the input objects,
+and remove extra subjects if `--remove-extra-subjects` is specified.
+
+Examples:
+
+* Test applying a manifest file of RBAC objects, displaying changes that would be made:
+
+    ```
+    kubectl auth reconcile -f my-rbac-rules.yaml --dry-run
+    ```
+
+* Apply a manifest file of RBAC objects, preserving any extra permissions (in roles) and any extra subjects (in bindings):
+
+    ```
+    kubectl auth reconcile -f my-rbac-rules.yaml
+    ```
+
+* Apply a manifest file of RBAC objects, removing any extra permissions (in roles) and any extra subjects (in bindings):
+
+    ```
+    kubectl auth reconcile -f my-rbac-rules.yaml --remove-extra-subjects --remove-extra-permissions
     ```
 
 See the CLI help for detailed usage.
@@ -791,7 +938,7 @@ In order from most secure to least secure, the approaches are:
 
     If an application does not specify a `serviceAccountName`, it uses the "default" service account.
 
-    {{< note >}}**Note:** Permissions given to the "default" service
+    {{< note >}}Permissions given to the "default" service
     account are available to any pod in the namespace that does not
     specify a `serviceAccountName`.{{< /note >}}
 
@@ -807,7 +954,7 @@ In order from most secure to least secure, the approaches are:
     Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the `kube-system` namespace.
     To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the `kube-system` namespace.
 
-    {{< note >}}**Note:** Enabling this means the `kube-system`
+    {{< note >}}Enabling this means the `kube-system`
     namespace contains secrets that grant super-user access to the
     API.{{< /note >}}
 
@@ -847,9 +994,11 @@ In order from most secure to least secure, the approaches are:
 
     If you don't care about partitioning permissions at all, you can grant super-user access to all service accounts.
 
-    {{< warning >}}**Warning:** This allows any user with read access
+    {{< warning >}}
+    This allows any user with read access
     to secrets or the ability to create a pod to access super-user
-    credentials.{{< /warning >}}
+    credentials.
+    {{< /warning >}}
 
     ```shell
     kubectl create clusterrolebinding serviceaccounts-cluster-admin \
@@ -882,7 +1031,8 @@ The RBAC authorizer will attempt to authorize requests first. If it denies an AP
 the ABAC authorizer is then run. This means that any request allowed by *either* the RBAC
 or ABAC policies is allowed.
 
-When run with a log level of 2 or higher (`--v=2`), you can see RBAC denials in the apiserver log (prefixed with `RBAC DENY:`).
+When the apiserver is run with a log level of 5 or higher for the RBAC component (`--vmodule=rbac*=5` or `--v=5`),
+you can see RBAC denials in the apiserver log (prefixed with `RBAC DENY:`).
 You can use that information to determine which roles need to be granted to which users, groups, or service accounts.
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
 in the server logs, you can remove the ABAC authorizer.
@@ -892,7 +1042,7 @@ in the server logs, you can remove the ABAC authorizer.
 You can replicate a permissive policy using RBAC role bindings.
 
 {{< warning >}}
-**Warning:** The following policy allows **ALL** service accounts to act as cluster administrators.
+The following policy allows **ALL** service accounts to act as cluster administrators.
 Any application running in a container receives service account credentials automatically,
 and could perform any action against the API, including viewing secrets and modifying permissions.
 This is not a recommended policy.
