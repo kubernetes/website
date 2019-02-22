@@ -20,6 +20,6 @@ Mesosphereは[DC/OS](https://mesosphere.com/product/)上にKubernetesを構築�
 
 ## 公式Mesosphereガイド
 
-DC/OS入門の正規のソースは[クイックスタートリポジトリ](https://github.com/mesosphere/dcos-kubernetes-quickstart)に配置されています。
+DC/OS入門の正規のソースは[クイックスタートリポジトリ](https://github.com/mesosphere/dcos-kubernetes-quickstart)にあります。
 
 {{% /capture %}}
