@@ -1,10 +1,10 @@
 ---
-title: Installing Kubernetes with Digital Rebar Provision (DRP) via KRIB
+title: KRIBを使用してDigital Rebar Provision (DRP)と共にKubernetesをインストールする
 krib-version: 2.4
 author: Rob Hirschfeld (zehicle)
 ---
 
-## Overview
+## 概要
 
 This guide helps to install a Kubernetes cluster hosted on bare metal with [Digital Rebar Provision](https://github.com/digitalrebar/provision) using only its Content packages and *kubeadm*. 
 
@@ -26,21 +26,21 @@ KRIB features:
 * options for persistent, immutable and image-based deployments
 * support for Ubuntu 18.04, CentOS/RHEL 7 and others
 
-## Creating a cluster
+## クラスターの作成
 
 Review [Digital Rebar documentation](https://https://provision.readthedocs.io/en/tip/README.html) for details about installing the platform.
 
 The Digital Rebar Provision Golang binary should be installed on a Linux-like system with 16 GB of RAM or larger (Packet.net Tiny and Rasberry Pi are also acceptable).
 
-### (1/5) Discover servers
+### (1/5) サーバーの発見
 
 Following the [Digital Rebar installation](https://provision.readthedocs.io/en/tip/doc/quickstart.html), allow one or more servers to boot through the _Sledgehammer_ discovery process to register with the API. This will automatically install the Digital Rebar runner and to allow for next steps.
 
-### (2/5) Install KRIB Content and Certificate Plugin
+### (2/5) KRIBと証明書プラグインのインストール
 
 Upload the KRIB Content bundle (or build from [source](https://github.com/digitalrebar/provision-content/tree/master/krib)) and the Cert Plugin for your DRP platform (e.g.: [amd64 Linux v2.4.0](https://s3-us-west-2.amazonaws.com/rebar-catalog/certs/v2.4.0-0-02301d35f9f664d6c81d904c92a9c81d3fd41d2c/amd64/linux/certs)). Both are freely available via the [RackN UX](https://portal.rackn.io).
 
-### (3/5) Start your cluster deployment
+### (3/5) クラスター構築の開始
 
 {{< note >}}
 KRIB documentation is dynamically generated from the source and will be more up to date than this guide.
@@ -52,13 +52,13 @@ Once all target servers are assigned to the cluster Profile, start a KRIB instal
 
 For basic installs, no further action is required. Advanced users may choose to assign the controllers, etcd servers or other configuration values in the relevant Params.
 
-### (4/5) Monitor your cluster deployment
+### (4/5) クラスター構築を監視
 
 Digital Rebar Provision provides detailed logging and live updates during the installation process. Workflow events are available via a websocket connection or monitoring the Jobs list.
 
 During the installation, KRIB writes cluster configuration data back into the cluster Profile.
 
-### (5/5) Access your cluster
+### (5/5) クラスターへのアクセス
 
 The cluster is available for access via *kubectl* once the `krib/cluster-admin-conf` Param has been set. This Param contains the `kubeconfig` information necessary to access the cluster. 
 
@@ -73,15 +73,15 @@ For example, if you named the cluster Profile `krib` then the following commands
 
 The installation continues after the `krib/cluster-admin-conf` is set to install the Kubernetes UI and Helm. You may interact with the cluster as soon as the `admin.conf` file is available.
 
-## Cluster operations
+## クラスター操作
 
 KRIB provides additional Workflows to manage your cluster. Please see the [KRIB documentation](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html) for an updated list of advanced cluster operations.
 
-### Scale your cluster
+### クラスターのスケール
 
 You can add servers into your cluster by adding the cluster Profile to the server and running the appropriate Workflow.
 
-### Cleanup your cluster (for developers)
+### クラスターのクリーンアップ(開発者向け)
 
 You can reset your cluster and wipe out all configuration and TLS certificates using the `krib-reset-cluster` Workflow on any of the servers in the cluster.
 
@@ -89,7 +89,7 @@ You can reset your cluster and wipe out all configuration and TLS certificates u
 When running the reset Workflow, be sure not to accidentally target your production cluster!
 {{< /caution >}}
 
-## Feedback
+## フィードバック
 
 * Slack Channel: [#community](https://rackn.slack.com/messages/community/)
 * [GitHub Issues](https://github.com/digital/provision/issues)
