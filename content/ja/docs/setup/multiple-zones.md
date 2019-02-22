@@ -1,5 +1,5 @@
 ---
-title: 複数のゾーンでの稼働
+title: 複数のゾーンで動かす
 weight: 90
 ---
 
@@ -91,7 +91,7 @@ cluster on both GCE & AWS.  To do so, you bring up a full cluster
 (specifying `MULTIZONE=true`), and then you add nodes in additional zones
 by running `kube-up` again (specifying `KUBE_USE_EXISTING_MASTER=true`).
 
-### クラスタの立ち上げ
+### クラスターの立ち上げ
 
 Create the cluster as normal, but pass MULTIZONE to tell the cluster to manage multiple zones; creating nodes in us-central1-a.
 
@@ -312,7 +312,7 @@ LoadBalancer Ingress:   130.211.126.21
 
 The load balancer correctly targets all the pods, even though they are in multiple zones.
 
-### クラスタの停止
+### クラスターの停止
 
 When you're done, clean up:
 
