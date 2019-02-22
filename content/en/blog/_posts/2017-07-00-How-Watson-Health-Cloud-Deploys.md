@@ -19,7 +19,7 @@ I was able to run more processes on a single physical server than I could using 
 
 
 
-To orchestrate container deployment, we are using[Armada infrastructure](https://console.bluemix.net/containers-kubernetes/launch), a Kubernetes implementation by IBM for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure.
+To orchestrate container deployment, we are using [IBM Cloud Kubernetes Service infrastructure](https://cloud.ibm.com/containers-kubernetes/landing), a Kubernetes implementation by IBM for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure.
 
 
 
@@ -39,7 +39,7 @@ Here is a snapshot of Watson Care Manager, running inside a Kubernetes cluster:
 
 
 
-Before deploying an app, a user must create a worker node cluster. I can create a cluster using the kubectl cli commands or create it from[a Bluemix](http://bluemix.net/) dashboard.
+Before deploying an app, a user must create a worker node cluster. I can create a cluster using the kubectl cli commands or create it from the [IBM Cloud](https://cloud.ibm.com/) dashboard.
 
 
 
