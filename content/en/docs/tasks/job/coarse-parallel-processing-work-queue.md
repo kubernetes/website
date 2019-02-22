@@ -45,10 +45,20 @@ cluster and reuse it for many jobs, as well as for long-running services.
 
 Start RabbitMQ as follows:
 
+Step: 1
 ```shell
 $ kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+```
+The output is similar to this:
+```shell
 service "rabbitmq-service" created
+```
+Step: 2
+```shell
 $ kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+```
+The output is similar to this:
+```shell
 replicationcontroller "rabbitmq-controller" created
 ```
 
@@ -162,7 +172,13 @@ In practice, you might write a program to fill the queue using an amqp client li
 
 ```shell
 $ /usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
+```
+The output is similar to this:
+```shell
 job1
+```
+
+```shell
 $ for f in apple banana cherry date fig grape lemon melon
 do
   /usr/bin/amqp-publish --url=$BROKER_URL -r job1 -p -b $f
@@ -241,6 +257,9 @@ Now wait a bit, then check on the job.
 
 ```shell
 $ kubectl describe jobs/job-wq-1
+```
+The output is similar to this:
+```shell
 Name:             job-wq-1
 Namespace:        default
 Selector:         controller-uid=41d75705-92df-11e7-b85e-fa163ee3c11f
