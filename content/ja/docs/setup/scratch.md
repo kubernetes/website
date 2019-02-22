@@ -1,5 +1,5 @@
 ---
-title: ゼロからのカスタムクラスタの作成
+title: ゼロからのカスタムクラスターの作成
 ---
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
