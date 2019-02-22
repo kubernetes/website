@@ -54,11 +54,13 @@ Check if it worked:
 
 ```shell
 $ ls jobs/
+```
+
+```shell
 job-apple.yaml
 job-banana.yaml
 job-cherry.yaml
 ```
-
 Here, we used `sed` to replace the string `$ITEM` with the loop variable.
 You could use any type of template language (jinja2, erb) or write a program
 to generate the Job objects.
@@ -67,6 +69,9 @@ Next, create all the jobs with one kubectl command:
 
 ```shell
 $ kubectl create -f ./jobs
+```
+
+```shell
 job "process-item-apple" created
 job "process-item-banana" created
 job "process-item-cherry" created
@@ -76,6 +81,9 @@ Now, check on the jobs:
 
 ```shell
 $ kubectl get jobs -l jobgroup=jobexample
+```
+
+```shell
 NAME                  DESIRED   SUCCESSFUL   AGE
 process-item-apple    1         1            31s
 process-item-banana   1         1            31s
@@ -90,6 +98,9 @@ We can check on the pods as well using the same label selector:
 
 ```shell
 $ kubectl get pods -l jobgroup=jobexample
+```
+
+```shell
 NAME                        READY     STATUS      RESTARTS   AGE
 process-item-apple-kixwv    0/1       Completed   0          4m
 process-item-banana-wrsf7   0/1       Completed   0          4m
