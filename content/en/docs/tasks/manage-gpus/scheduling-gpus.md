@@ -112,6 +112,9 @@ kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.
 
 # For Kubernetes v1.9
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.9/nvidia-device-plugin.yml
+
+# For Kubernetes v1.12 and v1.13
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v1.12/nvidia-device-plugin.yml
 ```
 
 Report issues with this device plugin to [NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin).
@@ -201,7 +204,7 @@ spec:
   containers:
     - name: cuda-vector-add
       # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "mirrorgooglecontainers/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1
