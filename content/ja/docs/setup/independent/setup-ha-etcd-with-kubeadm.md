@@ -1,5 +1,5 @@
 ---
-title: kubeadmを使用した高可用性etcdクラスタの作成
+title: kubeadmを使用した高可用性etcdクラスターの作成
 content_template: templates/task
 weight: 70
 ---
@@ -30,7 +30,7 @@ when using kubeadm to set up a kubernetes cluster.
 
 {{% capture steps %}}
 
-## クラスタの構築
+## クラスターの構築
 
 The general approach is to generate all certs on one node and only distribute
 the *necessary* files to the other nodes.
