@@ -203,7 +203,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   systemctl restart kubelet
   ```
 
-## `coredns`のpodが`CrashLoopBackOff`もしくは`Error`状態になる
+## `coredns`のPodが`CrashLoopBackOff`もしくは`Error`状態になる
 
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
 where the `coredns` pods are not starting. To solve that you can try one of the following options:
