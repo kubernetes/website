@@ -1,7 +1,4 @@
 ---
-reviewers:
-- vincepri
-- bart0sh
 title: CRI 설치
 content_template: templates/concept
 weight: 100
@@ -17,10 +14,37 @@ v1.6.0에서부터, 쿠버네티스는 CRI(컨테이너 런타임 인터페이�
 다음의 커맨드들은 사용자의 운영체제에 따라 root로서 실행하길 바란다.
 각 호스트에 SSH 접속 후 `sudo -i` 실행을 통해서 root 사용자가 될 수 있을 것이다.
 
+{{< caution >}}
+A flaw was found in the way runc handled system file descriptors when running containers.
+A malicious container could use this flaw to overwrite contents of the runc binary and 
+consequently run arbitrary commands on the container host system.
+
+Please refer to this link for more information about this issue 
+[cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
+{{< /caution >}}
+
+## Cgroup 드라이버
+
+systemd가 Linux 배포용 init 시스템으로써 선정되면, init 프로세스는 루트 cgroup을 생성 및 사용하고   
+cgroup 관리자로 작동한다. Systemd는 cgroup과의 긴밀한 통합을 통해 
+프로세스당 cgroup을 할당한다. 컨테이너 런타임과 kubelet이 
+`cgroupfs`를 사용하도록 설정할 수 있다. 두 개의 서로 다른 
+cgroup 관리자가 존재한다.
+
+Cgroup은 프로세스에 할당된 리소스를 제한하는데 사용된다. 
+하나의 단일 cgroup 관리자는 할당된 리소스의 무엇인지를 단순화하고, 
+기본적으로 사용가능한 리소스와 사용중인 리소스를 일관성있게 볼 수 있다. 
+관리자가 두 개일 경우, 두 가지의 리소스를 볼 수 있다. kubelet과 Docker에 대해 
+`cgroupfs`를 사용하도록 설정된 노드와, 노드에서 구동중인 나머지 프로세스에 대해 `systemd`가
+리소스 압력하에서 불안정 해지가 되는 사례에서 확인할 수 있다.
+
+컨테이너 런타임과 kubelet이 `systemd`를 cgroup 드라이버로 사용하도록 설정을 변경하면
+시스템이 안정화된다. 아래의 Docker 설정에서 `native.cgroupdriver=systemd` 옵션을 확인하라.
+
 ## Docker
 
 각 머신들에 대해서, Docker를 설치한다.
-버전 18.06이 추천된다. 그러나 1.11, 1.12, 1.13, 그리고 17.03도 동작하는 것으로 알려져 있다. 
+버전 18.06.2가 추천된다. 그러나 1.11, 1.12, 1.13, 17.03 그리고 18.09도 동작하는 것으로 알려져 있다. 
 쿠버네티스 릴리스 노트를 통해서, 최신에 검증된 Docker 버전의 지속적인 파악이 필요하다.
 
 시스템에 Docker를 설치하기 위해서 아래의 커맨드들을 사용한다.
@@ -45,7 +69,7 @@ v1.6.0에서부터, 쿠버네티스는 CRI(컨테이너 런타임 인터페이�
     stable"
 
 ## Docker ce 설치.
-apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
+apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 # 데몬 설정.
 cat > /etc/docker/daemon.json <<EOF
@@ -78,7 +102,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ## Docker ce 설치.
-yum update && yum install docker-ce-18.06.1.ce
+yum update && yum install docker-ce-18.06.2.ce
 
 ## /etc/docker 디렉토리 생성.
 mkdir /etc/docker

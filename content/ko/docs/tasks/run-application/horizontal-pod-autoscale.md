@@ -29,7 +29,7 @@ Horizontal Pod Autoscaler는 쿠버네티스 API 리소스 및 컨트롤러로 �
 ![Horizontal Pod Autoscaler 다이어그램](/images/docs/horizontal-pod-autoscaler.svg)
 
 
-Horizontal Pod Autoscaler는 컨트롤러 관리자의 `--horizontal-pod-autoscaler-sync-period` 플래그(기본값은 30 초)에 의해 제어되는 주기를 가진 컨트롤 루프로 구현된다.
+Horizontal Pod Autoscaler는 컨트롤러 관리자의 `--horizontal-pod-autoscaler-sync-period` 플래그(기본값은 15초)에 의해 제어되는 주기를 가진 컨트롤 루프로 구현된다.
 
 각 주기 동안 컨트롤러 관리자는 각 HorizontalPodAutoscaler 정의에 지정된 메트릭에 대해 리소스 사용률을 질의한다. 컨트롤러 관리자는 리소스 메트릭 API(파드 단위 리소스 메트릭 용) 또는 사용자 지정 메트릭 API(다른 모든 메트릭 용)에서 메트릭을 가져온다.
 

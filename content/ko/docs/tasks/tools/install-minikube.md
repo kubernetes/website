@@ -60,7 +60,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 Minikube 실행 파일을 경로에 추가하는 쉬운 방법은 다음과 같다.
 
 ```shell
-sudo cp minikube /usr/local/bin && rm minikube
+sudo mv minikube /usr/local/bin
 ```
 
 ### Linux
