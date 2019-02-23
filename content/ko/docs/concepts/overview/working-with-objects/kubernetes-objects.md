@@ -28,7 +28,7 @@ weight: 10
 
 예를 들어, 쿠버네티스 디플로이먼트는 클러스터에서 동작하는 애플리케이션을 표현해 줄 수 있는 오브젝트이다. 디플로이먼트를 생성할 때, 디플로이먼트 spec에 3개의 애플리케이션 레플리카가 동작되도록 설정할 수 있다. 쿠버네티스 시스템은 그 디플로이먼트 spec을 읽어 spec에 일치되도록 상태를 업데이트하여 3개의 의도한 애플리케이션 인스턴스를 구동시킨다. 만약, 그 인스턴스들 중 어느 하나가 (상태 변경에) 실패가 난다면, 쿠버네티스 시스템은 보정을 통해, 이 경우에는 인스턴스 대체를 착수하여, spec과 status 간의 차이에 대응한다.
 
-오브젝트 spec, staus, 그리고 metadata에 대한 추가 정보는, [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md) 를 참조한다.
+오브젝트 spec, staus, 그리고 metadata에 대한 추가 정보는, [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md) 를 참조한다.
 
 ### 쿠버네티스 오브젝트 기술하기
 

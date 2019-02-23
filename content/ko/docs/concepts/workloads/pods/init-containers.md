@@ -79,7 +79,7 @@ weight: 40
 
 * 다음과 같은 커맨드로, 다운워드 API(Downward API)를 통한 원격 서버에 해당 파드를 등록하기.
 
-      curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
+      `curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'`
 
 * `sleep 60`와 같은 커맨드로 앱 컨테이너가 시작되기 전에 일정 시간 기다리기.
 * git 저장소를 볼륨 안에 클론하기.

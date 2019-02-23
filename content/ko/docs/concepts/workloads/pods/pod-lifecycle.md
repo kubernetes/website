@@ -37,6 +37,8 @@ weight: 30
 `Succeeded` | 파드에 있는 모든 컨테이너들이 성공으로 종료되었고, 재시작되지 않을 것이다. 
 `Failed` | 파드에 있는 모든 컨테이너들이 종료되었고, 적어도 하나 이상의 컨테이너가 실패로 종료되었다. 즉, 해당 컨테이너는 non-zero 상태로 빠져나왔거나(exited) 시스템에 의해서 종료(terminated)되었다. 
 `Unknown` | 어떤 이유에 의해서 파드의 상태를 얻을 수 없다. 일반적으로 파드 호스트와의 통신 오류에 의해서 발생한다. 
+`Completed` | 완료된 잡(Job)과 같이 다 실행되어서 더 작동하고 있을 필요 없이 완료된 상태가 되었다.
+`CrashLoopBackOff` | 파드 내 컨테이너 중 하나가 예상과는 달리 종료(exit)되었고, [restart policy](#restart-policy)에 따라 재시작된 뒤에도 0이 아닌 에러 코드가 발생했을 것이다.
 
 ## 파드의 조건(condition)
 
@@ -143,6 +145,41 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 두 가지
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)를 참조하면 된다.
 파드의 상태로서 보고되는 정보는 현재의 
 [ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)에 의존적이라는 점에 유의하길 바란다.
+
+## 컨테이너 상태
+
+일단 스케줄러가 파드를 노드에 할당하면, kubelet이 컨테이너 런타임으로 컨테이너를 만들기 시작한다. 컨테이너에 세 가지 상태가 있는데, Waiting, Running, 그리고 Terminated이다. 컨테이너의 상태를 체크하려면 `kubectl describe pod [POD_NAME]` 명령을 사용할 수 있다. 상태는 파드 안에 있는 컨테이너 각각에 대해 출력된다. 
+
+* `Waiting`: 컨테이너의 기본 상태이다. 컨테이너가 Running 이나 Terminated 상태가 아닌 경우, Waiting 상태이다. Waiting 상태의 컨테이너는 이미지를 내려받거나(pull), 시크릿을 적용하는 등의 필요한 오퍼레이션이 수행 중인 상태이다. 이 상태와 더불어서, 더 자세한 정보를 제공하기 위해 상태에 대한 메시지와 이유가 출력된다.
+
+    ```yaml
+   ...
+      State:          Waiting
+       Reason:       ErrImagePull
+	  ...
+   ```
+   
+* `Running`: 컨테이너가 이슈 없이 구동된다는 뜻이다. 컨테이너가 Running 상태가 되면, `postStart` 훅이 (존재한다면) 실행된다. 이 상태는 컨테이너가 언제 Running 상태에 돌입한 시간도 함께 출력된다.
+   
+   ```yaml
+   ...
+      State:          Running
+       Started:      Wed, 30 Jan 2019 16:46:38 +0530
+   ...
+   ```   
+       
+* `Terminated`:  컨테이너가 실행이 완료되어 구동을 멈추었다는 뜻이다. 컨테이너가 성공적으로 작업을 완료했을 때나 어떤 이유에서 실패했을 때 이 상태가 된다. 원인과 종료 코드(exit code)가 컨테이너의 시작과 종료 시간과 함께 무조건 출력된다.
+  컨테이너가 Terminated 상태가 되기 전에, `preStop` 훅이 (존재한다면) 실행된다.
+  
+   ```yaml
+   ...
+      State:          Terminated
+        Reason:       Completed
+        Exit Code:    0
+        Started:      Wed, 30 Jan 2019 11:45:26 +0530
+        Finished:     Wed, 30 Jan 2019 11:45:26 +0530
+    ...
+   ``` 
 
 ## 파드의 준비성 게이트(readiness gate)
 
