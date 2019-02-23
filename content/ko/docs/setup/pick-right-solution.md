@@ -29,12 +29,12 @@ content_template: templates/concept
 
 * [Minikube](/docs/setup/minikube/)는 개발과 테스트를 위한 단일 노드 쿠버네티스 클러스터를 로컬에 생성하기 위한 하나의 방법이다. 설치는 완전히 자동화 되어 있고, 클라우드 공급자 계정 정보가 필요하지 않다. 
 
-* [Docker Desktop](https://www.docker.com/products/docker-desktop)는 
-Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다. 
+* [Docker Desktop](https://www.docker.com/products/docker-desktop)는
+Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다.
 수 분 내에 단일 노드 쿠버네티스 클러스터에서 컨테이너로 코딩과 배포를 
 시작할 수 있게 해준다.
 
-* [Minishift](https://docs.okd.io/latest/minishift/)는 커뮤니티 버전의 쿠버네티스 엔터프라이즈 플랫폼 OpenShift를 로컬 개발과 테스트 용으로 설치한다. Windows, macOS와 리눅스를 위한 All-In-One VM (`minishift start`)과 컨테이너 기반의 `oc cluster up` (리눅스 전용)을 지원하고 [쉬운 설치가 가능한 몇 가지 애드온도 포함](https://github.com/minishift/minishift-addons/tree/master/add-ons)한다.
+* [Minishift](https://docs.okd.io/latest/minishift/)는 커뮤니티 버전의 쿠버네티스 엔터프라이즈 플랫폼 OpenShift를 로컬 개발과 테스트 용으로 설치한다. Windows, macOS와 리눅스를 위한 all-in-one VM (`minishift start`)과 컨테이너 기반의 `oc cluster up` (리눅스 전용)을 지원하고 [포함된 애드온](https://github.com/minishift/minishift-addons/tree/master/add-ons)을 설치할 수 있다.
 
 * [Microk8s](https://microk8s.io/)는 개발과 테스트를 위한 쿠버네티스 최신 버전을 단일 명령어로 로컬 머신 상의 설치를 제공한다. 설치는 신속하고 빠르며(~30초) 단일 명령어로 Istio를 포함한 많은 플러그인을 지원한다. 
 
@@ -69,6 +69,8 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [Kubermatic](https://www.loodse.com)는 AWS와  Digital Ocean을 포함한 다양한 퍼블릭 클라우드뿐만 아니라 온-프레미스 상의 OpenStack 통합을 위한 관리형 쿠버네티스 클러스터를 제공한다.
 
 * [Kublr](https://kublr.com)는 AWS, Azure, GCP 및 온-프레미스에서 기업 수준의 안전하고, 확장 가능하며, 신뢰성 높은 쿠버네티스 클러스터를 제공한다. 여기에는 즉시 사용 가능한 백업 및 재해 복구, 중앙 집중식 다중 클러스터 로깅 및  모니터링, 내장 경고 서비스가 포함된다.
+
+* [KubeSail](https://kubesail.com)는 쿠버네티스를 쉽고, 무료로 시도할 수 있는 방법이다.
 
 * [Madcore.Ai](https://madcore.ai)는 AWS에서 쿠버네티스 인프라를 배포하기 위한 devops 중심의 CLI 도구이다. 또한 마스터, 스팟 인스턴스 그룹 노드 오토-스케일링, ingress-ssl-lego, Heapster, Grafana를 지원한다.
 
@@ -147,11 +149,9 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 특별한 요구사항이 있기 때문에, 또는 단지 쿠버네티스 클러스터의 아래에 무엇이 있는지를 이해하기 원하기 때문에 
 처음부터 시작하기를 원한다면, [맨 처음부터 시작하기](/docs/setup/scratch/) 가이드를 시도하라. 
 
-새로운 플랫폼에서 쿠버네티스 지원하는 것에 관심이 있다면, [Writing a Getting Started Guide](https://git.k8s.io/community/contributors/devel/writing-a-getting-started-guide.md) 가이드를 참고하라. 
-
 ### 일반
 
-호스팅한 리소스를 구성하는 방법을 이미 알고 있다면, [kubeadm](/docs/setup/independent/create-cluster-kubeadm/)을 사용하면 머신당 단일 명령어로 쉽게 클러스터를 가지고 올 수 있다. 
+호스팅한 리소스를 구성하는 방법을 이미 알고 있다면, [kubeadm](/docs/setup/independent/create-cluster-kubeadm/)을 사용하면 머신당 단일 명령어로 클러스터를 가지고 올 수 있다. 
 
 ### 클라우드
 
@@ -205,6 +205,7 @@ IaaS 공급자        | 구성 관리 | OS     | 네트워킹  | 문서         
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 Google Kubernetes Engine |              |        | GCE         | [docs](https://cloud.google.com/kubernetes-engine/docs/) | Commercial
 Docker Enterprise    | custom | [multi-support](https://success.docker.com/article/compatibility-matrix) | [multi-support](https://docs.docker.com/ee/ucp/kubernetes/install-cni-plugin/) | [docs](https://docs.docker.com/ee/) | Commercial
+IBM Cloud Private  | Ansible  | multi-support  | multi-support  | [docs](https://www.ibm.com/support/knowledgecenter/SSBS6K/product_welcome_cloud_private.html) | [Commercial](https://www.ibm.com/mysupport/s/topic/0TO500000001o0fGAA/ibm-cloud-private?language=en_US&productId=01t50000004X1PWAA0) and [Community](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.1.2/troubleshoot/support_types.html) |
 Red Hat OpenShift    | Ansible & CoreOS | RHEL & CoreOS   | [multi-support](https://docs.openshift.com/container-platform/3.11/architecture/networking/network_plugins.html) | [docs](https://docs.openshift.com/container-platform/3.11/welcome/index.html) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
