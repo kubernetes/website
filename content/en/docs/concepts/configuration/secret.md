@@ -386,7 +386,7 @@ Then, the secret will be mounted on `/etc/foo` and all the files created by the
 secret volume mount will have permission `0400`.
 
 Note that the JSON spec doesn't support octal notation, so use the value 256 for
-0400 permissions. If you use yaml instead of json for the pod, you can use octal
+0400 permission. If you use yaml instead of json for the pod, you can use octal
 notation to specify permissions in a more natural way.
 
 You can also use mapping, as in the previous example, and specify different
