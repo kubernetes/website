@@ -146,9 +146,9 @@ kubelet은 ECR 자격 증명을 가져오고 주기적으로 갱신할 것이다
 IBM 클라우드 컨테이너 레지스트리는 멀티-테넌트 프라이빗 이미지 레지스트리를 제공하여 사용자가 Docker 이미지를 안전하게 저장하고 공유할 수 있도록 한다. 기본적으로, 
 프라이빗 레지스트리의 이미지는 통합된 취약점 조언기(Vulnerability Advisor)를 통해 조사되어 보안 이슈와 잠재적 취약성을 검출한다. IBM 클라우드 계정의 모든 사용자가 이미지에 접근할 수 있도록 하거나, 레지스트리 네임스페이스에 접근을 승인하는 토큰을 생성할 수 있다.
 
-IBM 클라우드 컨테이너 레지스트리 CLI 플러그인을 설치하고 사용자 이미지를 위한 네임스페이스를 생성하기 위해서는, [IBM 클라우드 컨테이너 레지스트리 시작하기](https://console.bluemix.net/docs/services/Registry/index.html#index)를 참고한다.
+IBM 클라우드 컨테이너 레지스트리 CLI 플러그인을 설치하고 사용자 이미지를 위한 네임스페이스를 생성하기 위해서는, [IBM 클라우드 컨테이너 레지스트리 시작하기](https://cloud.ibm.com/docs/services/Registry?topic=registry-index#index)를 참고한다.
 
-[IBM 클라우드 퍼블릭 이미지](https://console.bluemix.net/docs/services/RegistryImages/index.html#ibm_images) 및 사용자의 프라이빗 이미지로부터 컨테이너를 사용자의 IBM 클라우드 쿠버네티스 서비스 클러스터의 `default` 네임스페이스에 디플로이하기 위해서 IBM 클라우드 컨테이너 레지스트리를 사용하면 된다. 컨테이너를 다른 네임스페이스에 디플로이하거나, 다른 IBM 클라우드 컨테이너 레지스트리 지역 또는 IBM 클라우드 계정을 사용하기 위해서는, 쿠버네티스 `imagePullSecret`를 생성한다. 더 자세한 정보는, [이미지로부터 컨테이너 빌드하기](https://console.bluemix.net/docs/containers/cs_images.html#images)를 참고한다.
+[IBM 클라우드 퍼블릭 이미지](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images#public_images) 및 사용자의 프라이빗 이미지로부터 컨테이너를 사용자의 IBM 클라우드 쿠버네티스 서비스 클러스터의 `default` 네임스페이스에 디플로이하기 위해서 IBM 클라우드 컨테이너 레지스트리를 사용하면 된다. 컨테이너를 다른 네임스페이스에 디플로이하거나, 다른 IBM 클라우드 컨테이너 레지스트리 지역 또는 IBM 클라우드 계정을 사용하기 위해서는, 쿠버네티스 `imagePullSecret`를 생성한다. 더 자세한 정보는, [이미지로부터 컨테이너 빌드하기](https://cloud.ibm.com/docs/containers?topic=containers-images#images)를 참고한다.
 
 ### 프라이빗 레지스트리에 대한 인증을 위한 노드 구성
 
