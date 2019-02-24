@@ -1,5 +1,5 @@
 ---
-title: Running Kubernetes on Google Compute Engine
+title: Google Compute Engine上でKubernetesを動かす
 content_template: templates/task
 ---
 
@@ -20,7 +20,7 @@ to open a Google Cloud Shell with an auto-cloned copy of the Kubernetes source r
 
 If you want to use custom binaries or pure open source Kubernetes, please continue with the instructions below.
 
-### Prerequisites
+### 前提条件
 
 1. You need a Google Cloud Platform account with billing enabled. Visit the [Google Developers Console](https://console.cloud.google.com) for more details.
 1. Install `gcloud` as necessary. `gcloud` can be installed as a part of the [Google Cloud SDK](https://cloud.google.com/sdk/).
@@ -35,7 +35,7 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 
 {{% capture steps %}}
 
-## Starting a cluster
+## クラスターの開始
 
 You can install a client and start a cluster with either one of these commands (we list both in case only one is installed on your machine):
 
@@ -75,7 +75,7 @@ The next few steps will show you:
 1. How to delete the cluster
 1. How to start clusters with non-default options (like larger clusters)
 
-## Installing the Kubernetes command line tools on your workstation
+## ワークステーション上でのKubernetesコマンドラインツールのインストール
 
 The cluster startup script will leave you with a running cluster and a `kubernetes` directory on your workstation.
 
@@ -96,9 +96,9 @@ downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/task
 document to see how you can set up the latest `kubectl` on your workstation.
 {{< /note >}}
 
-## Getting started with your cluster
+## クラスターの始まり
 
-### Inspect your cluster
+### クラスターの検査
 
 Once `kubectl` is in your path, you can use it to look at your cluster. E.g., running:
 
@@ -141,13 +141,13 @@ kube-system   monitoring-influx-grafana-v1-piled             2/2       Running  
 
 Some of the pods may take a few seconds to start up (during this time they'll show `Pending`), but check that they all show as `Running` after a short period.
 
-### Run some examples
+### いくつかの例の実行
 
 Then, see [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new cluster.
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/).  The [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) is a good "getting started" walkthrough.
 
-## Tearing down the cluster
+## クラスターの解体
 
 To remove/delete/teardown the cluster, use the `kube-down.sh` script.
 
@@ -158,7 +158,7 @@ cluster/kube-down.sh
 
 Likewise, the `kube-up.sh` in the same directory will bring it back up. You do not need to rerun the `curl` or `wget` command: everything needed to setup the Kubernetes cluster is now on your workstation.
 
-## Customizing
+## カスタマイズ
 
 The script above relies on Google Storage to stage the Kubernetes release. It
 then will start (by default) a single master VM along with 4 worker VMs.  You
@@ -166,9 +166,9 @@ can tweak some of these parameters by editing `kubernetes/cluster/gce/config-def
 You can view a transcript of a successful cluster creation
 [here](https://gist.github.com/satnam6502/fc689d1b46db9772adea).
 
-## Troubleshooting
+## トラブルシュート
 
-### Project settings
+### プロジェクトの設定
 
 You need to have the Google Cloud Storage API, and the Google Cloud Storage
 JSON API enabled. It is activated by default for new projects. Otherwise, it
@@ -176,9 +176,9 @@ can be done in the Google Cloud Console.  See the [Google Cloud Storage JSON
 API Overview](https://cloud.google.com/storage/docs/json_api/) for more
 details.
 
-Also ensure that-- as listed in the [Prerequisites section](#prerequisites)-- you've enabled the `Compute Engine Instance Group Manager API`, and can start up a GCE VM from the command line as in the [GCE Quickstart](https://cloud.google.com/compute/docs/quickstart) instructions.
+Also ensure that-- as listed in the [Prerequisites section](#前提条件)-- you've enabled the `Compute Engine Instance Group Manager API`, and can start up a GCE VM from the command line as in the [GCE Quickstart](https://cloud.google.com/compute/docs/quickstart) instructions.
 
-### Cluster initialization hang
+### クラスター初期化のハング
 
 If the Kubernetes startup script hangs waiting for the API to be reachable, you can troubleshoot by SSHing into the master and node VMs and looking at logs such as `/var/log/startupscript.log`.
 
@@ -195,7 +195,7 @@ expose it: `gcloud compute firewall-rules create default-ssh --network=<network-
 Additionally, your GCE SSH key must either have no passcode or you need to be
 using `ssh-agent`.
 
-### Networking
+### ネットワーク
 
 The instances must be able to connect to each other using their private IP. The
 script uses the "default" network which should have a firewall rule called
@@ -207,7 +207,7 @@ field values:
 * Source Ranges: `10.0.0.0/8`
 * Allowed Protocols and Port: `tcp:1-65535;udp:1-65535;icmp`
 
-## Support Level
+## サポートレベル
 
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
@@ -216,7 +216,7 @@ GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
-## Further reading
+## 参考文献
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
