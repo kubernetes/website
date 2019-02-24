@@ -235,7 +235,8 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
     apt-get upgrade -y kubelet kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum upgrade -y kubelet kubeadm --disableexcludes=kubernetes
+    # replace "x" with the latest patch version
+    yum upgrade -y kubelet-1.12.x kubeadm-1.12.x --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 
