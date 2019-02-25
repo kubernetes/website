@@ -69,7 +69,7 @@ networking provider, make sure to replace any default values as needed.
 ## First steps for both methods
 
 {{< note >}}
-**Note**: All commands on any control plane or etcd node should be
+All commands on any control plane or etcd node should be
 run as root.
 {{< /note >}}
 
