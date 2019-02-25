@@ -398,6 +398,16 @@ There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
 
 Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
 {{% /tab %}}
+
+{{% tab name="Contiv-VPP" %}}
+[Contiv-VPP](https://contivpp.io/) employs a programmable CNF vSwitch based on [FD.io VPP](https://fd.io/),
+offering feature-rich & high-performance cloud-native networking and services.
+
+It implements k8s services and network policies in the user space (on VPP).
+
+Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
+{{% /tab %}}
+
 {{< /tabs >}}
 
 
