@@ -45,7 +45,7 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 
 {{< feature-state for_k8s_version="v1.1" state="beta" >}}
 
-Before you start using an Ingress, there are a few things you should understand. The Ingress is a beta resource. 
+Before you start using an Ingress, there are a few things you should understand. The Ingress is a beta resource.
 
 {{< note >}}
 You must have an [Ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
@@ -68,8 +68,8 @@ In order for the ingress resource to work, the cluster must have an ingress cont
 
 Additional controllers include:
 
-* [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io) based ingress 
-  controller with [community](https://www.getambassador.io/docs) or 
+* [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io) based ingress
+  controller with [community](https://www.getambassador.io/docs) or
   [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
 * [Contour](https://github.com/heptio/contour) is an [Envoy](https://www.envoyproxy.io) based ingress controller
   provided and supported by Heptio.
@@ -302,7 +302,7 @@ spec:
 
 If you create an Ingress resource without any hosts defined in the rules, then any
 web traffic to the IP address of your Ingress controller can be matched without a name based
-virtual host being required. For example, the following Ingress resource will route traffic 
+virtual host being required. For example, the following Ingress resource will route traffic
 requested for `first.bar.com` to `service1`, `second.foo.com` to `service2`, and any traffic
 to the IP address without a hostname defined in request (that is, without a request header being
 presented) to `service3`.
@@ -358,7 +358,7 @@ type: kubernetes.io/tls
 
 Referencing this secret in an Ingress will tell the Ingress controller to
 secure the channel from the client to the loadbalancer using TLS. You need to make
-sure the TLS secret you created came from a certificate that contains a CN 
+sure the TLS secret you created came from a certificate that contains a CN
 for `sslexample.foo.com`.
 
 ```yaml
@@ -511,6 +511,5 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube.md)
+* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube)
 {{% /capture %}}
-
