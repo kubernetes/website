@@ -1,0 +1,46 @@
+
+Multi Container Service Deployments with Kubernetes
+
+#Docker #Kubernetes #micro-service multi container deployments
+
+
+Multi Container Deployment Kubernetes 
+In this post I am talking about multi container service Docker build and deployment using Kubernetes.
+
+When I started Docker and Kubernetes to automate all the micro services of my project it was very hard to find a ready to use sample application for multi container build & deployment using Docker & Kubernetes. Hence, I am explaining here with a sample example to achieve multi container services deployment which have Web application interface, RDBMS, in-memory REDIS cache, and worker application.
+
+Prerequisites:
+I assume reader got pretty good hands on knowledge of Docker and basic kubernetes concepts like pod, replicas, deployments, and services to proceed with real life production grade deployments with Kubernetes, if not then read Docker & Docker compose documentation before starting with Kubernetes deployment.
+
+
+
+
+
+
+
+
+
+
+
+Let’s see below application architecture diagram explaining high level end goal. 
+
+
+
+1.    A react application which accepts number as input and returns Fibonacci value of the number.
+2.    An API Express Server which connects with Redis & PostgreSQL to check if the number was already calculated before then returns form cache; Store all visited indices in postgres DB.
+3.    Worker Service keeps checking the Redis cache if a new index added it takes the index calculate the Fibonacci value and set back to Redis.
+4.    Postgres DB to store already visited index permanently in DB.
+
+I am using Nginx Ingress API to manage the routing and load balancing for external world. Users can only connect to Nginx and no other service is exposed to outside world.  
+Below diagram explaining how each component connecting each other inside kubernetes cluster 
+
+
+
+Each service has a Deployment yaml file and a Cluster Service IP yaml file. Cluster IP Service is contact point for other services within the cluster. As you can see in the above diagram I am running 2 instances of client and server. However, single IP is exposed by ClusterIPService and will be accessible even if original pods VM physical address gets changed due to restart or migration to other nodes.
+
+Check out the code form git hub and follow the readme to build and run the application locally.
+
+Git Hub URL https://github.com/lakshdipak/multi-k8s/tree/master
+
+Take away:  If you are beginner/intermediate in Kubernetes or implementing in real production grade project, can download the sample build and deployment scripts to get a blue print of multi container deployment using Kubernetes for your services
+
