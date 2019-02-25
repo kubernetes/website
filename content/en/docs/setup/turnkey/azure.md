@@ -25,7 +25,7 @@ agent pools, and more. Some community contributions to AKS-Engine may even becom
 
 The input to AKS-Engine is an apimodel JSON file describing the Kubernetes cluster. It is similar to the Azure Resource Manager (ARM) template syntax used to deploy a cluster directly with the Azure Kubernetes Service. The resulting output is an ARM template that can be checked into source control and used to deploy Kubernetes clusters to Azure.
 
-You can get started by following the **[ACS-Engine Kubernetes Tutorial](https://github.com/Azure/aks-engine/blob/master/docs/tutorials/README.md)**.
+You can get started by following the **[AKS-Engine Kubernetes Tutorial](https://github.com/Azure/aks-engine/blob/master/docs/tutorials/README.md)**.
 
 ## CoreOS Tectonic for Azure
 
