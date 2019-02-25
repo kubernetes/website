@@ -1,5 +1,5 @@
 ---
-title: 릴리즈 빌드
+title: 릴리스 빌드
 content_template: templates/concept
 ---
 

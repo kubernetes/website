@@ -25,18 +25,18 @@ Please refer to this link for more information about this issue
 
 ## Cgroup 드라이버
 
-systemd가 Linux 배포용 init 시스템으로써 선정되면, init 프로세스는 루트 cgroup을 생성 및 사용하고   
+Linux 배포판의 init 시스템이 systemd인 경우, init 프로세스는 루트 cgroup을 생성 및 사용하고   
 cgroup 관리자로 작동한다. Systemd는 cgroup과의 긴밀한 통합을 통해 
 프로세스당 cgroup을 할당한다. 컨테이너 런타임과 kubelet이 
-`cgroupfs`를 사용하도록 설정할 수 있다. 두 개의 서로 다른 
-cgroup 관리자가 존재한다.
+`cgroupfs`를 사용하도록 설정할 수 있다. 이 경우는 두 개의 서로 다른 cgroup 관리자가 존재하게 된다는 뜻이다.
 
 Cgroup은 프로세스에 할당된 리소스를 제한하는데 사용된다. 
-하나의 단일 cgroup 관리자는 할당된 리소스의 무엇인지를 단순화하고, 
+단일 cgroup 관리자는 할당된 리소스의 무엇인지를 단순화하고, 
 기본적으로 사용가능한 리소스와 사용중인 리소스를 일관성있게 볼 수 있다. 
-관리자가 두 개일 경우, 두 가지의 리소스를 볼 수 있다. kubelet과 Docker에 대해 
-`cgroupfs`를 사용하도록 설정된 노드와, 노드에서 구동중인 나머지 프로세스에 대해 `systemd`가
-리소스 압력하에서 불안정 해지가 되는 사례에서 확인할 수 있다.
+관리자가 두 개인 경우, 이런 리소스도 두 개의 관점에서 보게 된다. kubelet과 Docker는 
+`cgroupfs`를 사용하고 나머지 프로세스는 
+`systemd`를 사용하도록 노드가 설정된 경우, 
+리소스가 부족할 때 불안정해지는 사례를 본 적이 있다.
 
 컨테이너 런타임과 kubelet이 `systemd`를 cgroup 드라이버로 사용하도록 설정을 변경하면
 시스템이 안정화된다. 아래의 Docker 설정에서 `native.cgroupdriver=systemd` 옵션을 확인하라.
