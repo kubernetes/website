@@ -35,7 +35,7 @@ For information on the Kubernetes documentation style guide, see the [style guid
   Some of the duties of a SIG Docs approver, such as coordinating a release,
   require a significant time commitment.
 
-## Ways to contribute
+## 기여할 수 있는 방법
 
 This list is divided into things anyone can do, things Kubernetes organization
 members can do, and things that require a higher level of access and familiarity
