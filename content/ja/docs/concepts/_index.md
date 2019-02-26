@@ -24,7 +24,7 @@ Once you've set your desired state, the *Kubernetes Control Plane* works to make
   * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node.
 
-## Kubernetesのオブジェクト
+## Kubernetesオブジェクト
 
 Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API; see the [Kubernetes Objects overview](/docs/concepts/abstractions/overview/) for more details. 
 
@@ -59,7 +59,7 @@ The Kubernetes master is responsible for maintaining the desired state for your 
 
 The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
 
-#### オブジェクトのメタデータ
+#### オブジェクトメタデータ
 
 
 * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
