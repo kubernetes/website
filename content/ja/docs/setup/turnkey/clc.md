@@ -250,7 +250,7 @@ kubectl version
 kubectl cluster-info
 ```
 
-### プログラム的なクラスターへのアクセス
+### プログラムでクラスターへアクセス
 
 It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/using-api/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice. 
 
