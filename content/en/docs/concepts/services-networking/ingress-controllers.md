@@ -10,7 +10,7 @@ weight: 40
 In order for the Ingress resource to work, the cluster must have an ingress controller running. 
 
 Unlike other types of controllers which run as part of the `kube-controller-manager` binary, Ingress controllers 
-and are not started automatically with a cluster. Choose the ingress controller implementation 
+are not started automatically with a cluster. Use this page to choose the ingress controller implementation 
 that best fits your cluster.
 
 Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and
