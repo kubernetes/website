@@ -1,8 +1,8 @@
 ---
 reviewers:
-  - bgrant0607
-  - mikedanese
   - jygastaud
+  - lledru
+  - sieben
 title: Qu'est-ce-que Kubernetes ?
 content_template: templates/concept
 weight: 10
