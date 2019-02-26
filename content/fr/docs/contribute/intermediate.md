@@ -26,7 +26,7 @@ améliorer vos connaissances sur ces différents domaines:
 
 - Les concepts de Kubernetes
 - Kubernetes documentation workflows
-- Où et comment trouver des information à propos des prochaines fonctionnalités de Kubernetes
+- Où et comment trouver des informations à propos des prochaines fonctionnalités de Kubernetes
 - Solides compétences en recherches
 
 Ces tâches ne sont pas aussi séquentielles que les tâches de débutant. Il n'est pas d'attendu
