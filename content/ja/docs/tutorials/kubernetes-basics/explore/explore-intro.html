@@ -29,14 +29,14 @@ weight: 10
 
             <div class="col-md-8">
                 <h2>Kubernetes Pod</h2>
-                <p>モジュール<a href="/ja/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>でDeploymentを作成したときに、KubernetesはアプリケーションインスタンスをホストするためのPodを作成しました。Podは、1つ以上のアプリケーションコンテナ（Dockerやrktなど）のグループとそれらのコンテナの共有リソースを表すKubernetesの抽象概念です。 Podには以下のものが含まれます:</p>
+                <p>モジュール<a href="/ja/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>でDeploymentを作成したときに、KubernetesはアプリケーションインスタンスをホストするためのPodを作成しました。Podは、1つ以上のアプリケーションコンテナ(Dockerやrktなど)のグループとそれらのコンテナの共有リソースを表すKubernetesの抽象概念です。 Podには以下のものが含まれます:</p>
                 <ul>
                     <li>共有ストレージ(ボリューム)</li>
                     <li>ネットワーキング(クラスタに固有のIPアドレス)</li>
                     <li>コンテナのイメージバージョンや使用するポートなどの、各コンテナをどう動かすかに関する情報</li>
                 </ul>
                 <p>Podは、アプリケーション固有の「論理ホスト」をモデル化し、比較的密接に結合されたさまざまなアプリケーションコンテナを含むことができます。 たとえば、Podには、Node.jsアプリケーションを含むコンテナと、Node.js Webサーバによって公開されるデータを供給する別のコンテナの両方を含めることができます。Pod内のコンテナはIPアドレスとポートスペースを共有し、常に同じ場所に配置され、同じスケジュールに入れられ、同じNode上の共有コンテキストで実行されます。</p>
-                <p>Podは、Kubernetesプラットフォームの原子単位です。 Kubernetes上にDeploymentを作成すると、そのDeploymentはその中にコンテナを持つPodを作成します（コンテナを直接作成するのではなく）。 各Podは、スケジュールされているNodeに関連付けられており、終了（再起動ポリシーに従って）または削除されるまでそこに残ります。 Nodeに障害が発生した場合、同じPodがクラスタ内の他の使用可能なNodeにスケジュールされます。</p>
+                <p>Podは、Kubernetesプラットフォームの原子単位です。 Kubernetes上にDeploymentを作成すると、そのDeploymentはその中にコンテナを持つPodを作成します(コンテナを直接作成するのではなく)。 各Podは、スケジュールされているNodeに関連付けられており、終了(再起動ポリシーに従って)または削除されるまでそこに残ります。 Nodeに障害が発生した場合、同じPodがクラスタ内の他の使用可能なNodeにスケジュールされます。</p>
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_lined">
@@ -49,7 +49,7 @@ weight: 10
                 </div>
                 <div class="content__box content__box_fill">
                         <p><i>
-                            Podは1つ以上のアプリケーションコンテナ（Dockerやrktなど）のグループであり、共有ストレージ（ボリューム）、IPアドレス、それらの実行方法に関する情報が含まれています。
+                            Podは1つ以上のアプリケーションコンテナ(Dockerやrktなど)のグループであり、共有ストレージ(ボリューム)、IPアドレス、それらの実行方法に関する情報が含まれています。
                         </i></p>
                 </div>
             </div>

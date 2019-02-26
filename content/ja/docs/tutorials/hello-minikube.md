@@ -222,7 +222,7 @@ Minikubeはビルトインのアドオンがあり、有効化、無効化、あ
     ```shell
     minikube addons disable heapster
     ```
-  
+
     出力:
 
     ```shell
@@ -238,13 +238,13 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-（オプション）Minikubeの仮想マシン（VM）を停止します:
+(オプション)Minikubeの仮想マシン(VM)を停止します:
 
 ```shell
 minikube stop
 ```
 
-（オプション）MinikubeのVMを削除します:
+(オプション)MinikubeのVMを削除します:
 
 ```shell
 minikube delete
