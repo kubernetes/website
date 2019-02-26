@@ -55,6 +55,10 @@ defined by configuration files in a specified directory:
 ```shell
 kubectl apply -f <directory>/
 ```
+or
+```shell
+kubectl apply -k <kustomization_directory>/
+```
 
 This sets the `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
 annotation on each object. The annotation contains the contents of the object
