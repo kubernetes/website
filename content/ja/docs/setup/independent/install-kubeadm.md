@@ -1,5 +1,5 @@
 ---
-title: Installing kubeadm
+title: kubeadmのインストール
 content_template: templates/task
 weight: 20
 ---
@@ -25,15 +25,15 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more
 * Full network connectivity between all machines in the cluster (public or private network is fine)
-* Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) for more details.
-* Certain ports are open on your machines. See [here](#check-required-ports) for more details.
+* Unique hostname, MAC address, and product_uuid for every node. See [here](#MACアドレスとproduct_uuidが全てのノードでユニークであることの検証) for more details.
+* Certain ports are open on your machines. See [here](#必須ポートの確認) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
 
 {{% /capture %}}
 
 {{% capture steps %}}
 
-## Verify the MAC address and product_uuid are unique for every node
+## MACアドレスとproduct_uuidが全てのノードでユニークであることの検証
 
 * You can get the MAC address of the network interfaces using the command `ip link` or `ifconfig -a`
 * The product_uuid can be checked by using the command `sudo cat /sys/class/dmi/id/product_uuid`
@@ -43,14 +43,14 @@ identical values. Kubernetes uses these values to uniquely identify the nodes in
 If these values are not unique to each node, the installation process
 may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 
-## Check network adapters
+## ネットワークアダプタの確認
 
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
-## Check required ports
+## 必須ポートの確認
 
-### Master node(s)
+### マスターノード
 
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
 |----------|-----------|------------|-------------------------|---------------------------|
@@ -60,7 +60,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 | TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
 | TCP      | Inbound   | 10252      | kube-controller-manager | Self                      |
 
-### Worker node(s)
+### ワーカーノード
 
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
 |----------|-----------|-------------|-----------------------|-------------------------|
@@ -79,7 +79,7 @@ The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
-## Installing runtime
+## ランタイムのインストール
 
 Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
 The container runtime used by default is Docker, which is enabled through the built-in
@@ -94,7 +94,7 @@ Other CRI-based runtimes include:
 
 Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
 
-## Installing kubeadm, kubelet and kubectl
+## kubeadm、kubelet、kubectlのインストール
 
 You will install these packages on all of your machines:
 
@@ -217,7 +217,7 @@ systemctl enable kubelet && systemctl start kubelet
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
-## Configure cgroup driver used by kubelet on Master Node
+## マスターノードのkubeletによって使用されるcgroupドライバの設定
 
 When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
 and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
@@ -242,7 +242,7 @@ systemctl daemon-reload
 systemctl restart kubelet
 ```
 
-## Troubleshooting
+## トラブルシュート
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
 
