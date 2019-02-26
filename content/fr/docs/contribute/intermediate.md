@@ -7,7 +7,7 @@ weight: 20
 
 {{% capture overview %}}
 
-Cette page assume que vous avez lu et compris les tâches dans le topic
+Cette page suppose que vous avez lu et compris les tâches dans le topic
 [commencez à contribuer](/docs/contribute/start/) et êtes prêt à
 apprendre différentes manières de contribuer
 
@@ -26,7 +26,6 @@ améliorer vos connaissances sur ces différents domaines:
 
 - Les concepts de Kubernetes
 - Kubernetes documentation workflows
-- Where and how to find information about upcoming Kubernetes features
 - Où et comment trouver des information à propos des prochaines fonctionnalités de Kubernetes
 - Solides compétences en recherches
 
@@ -40,7 +39,7 @@ pour effectuer le triage initial et revoir les [pull requests et issues](#triage
 Cette personne est le "PR Wrangler" pour la semaine. L’emploi du temps est maintenu en utilisant le
 [Planificateur PR Wrangler](https://github.com/kubernetes/website/wiki/PR-Wranglers).
 Pour être ajouté à cette liste, assistez à la réunion hebdomadaire du SIG Docs et faites du bénévolat. Même
-si vous n'êtes pas planifier pour la semaine en cours, vous pouvez toujours consulter les Pull Requests
+si vous n'êtes pas planifié pour la semaine en cours, vous pouvez toujours consulter les Pull Requests
 (PRs) qui ne sont pas encore en cours de vérification.
 
 In addition to the rotation, an automated system comments on each new PR and
