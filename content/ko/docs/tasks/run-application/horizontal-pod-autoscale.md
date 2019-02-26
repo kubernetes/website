@@ -3,7 +3,7 @@ title: Horizontal Pod Autoscaler
 feature:
   title: Horizontal 스케일링
   description: >
-    간단한 명령어나 UI를 통해서 또는 CPU 사용량에 따라 자동으로 어플리케이션의 스케일을 업 또는 다운한다.
+    간단한 명령어나 UI를 통해서 또는 CPU 사용량에 따라 자동으로 애플리케이션의 스케일을 업 또는 다운한다.
 
 content_template: templates/concept
 weight: 90
@@ -14,7 +14,7 @@ weight: 90
 Horizontal Pod Autoscaler는 CPU 사용량
 (또는 [사용자 정의 메트릭](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), 
 아니면 다른 애플리케이션 지원 메트릭)을 관찰하여 레플리케이션 
-컨트롤러, 디플로이먼트 또는 레플리카 셋의 파드 개수를 자동으로 스케일한다. Horizontal 
+컨트롤러, 디플로이먼트 또는 레플리카 셋의 파드 개수를 자동으로 스케일한다. Horizontal
 Pod Autoscaler는 크기를 조정할 수 없는 오브젝트(예: 데몬 셋)에는 적용되지 않는다.
 
 Horizontal Pod Autoscaler는 쿠버네티스 API 리소스 및 컨트롤러로 구현된다.
