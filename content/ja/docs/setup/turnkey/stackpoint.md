@@ -1,5 +1,5 @@
 ---
-title: Running Kubernetes on Multiple Clouds with Stackpoint.io
+title: Stackpoint.ioを利用して複数のクラウド上でKubernetesを動かす
 content_template: templates/concept
 ---
 
