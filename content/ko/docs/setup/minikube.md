@@ -39,7 +39,7 @@ VM 드라이버를 바꾸기 원하면 적절한 `--vm-driver=xxx` 플래그를 
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))	
-아래 나오는 IP 주소는 동적이므로 바뀔 수 있다. `minikube ip`를 하면 알 수 있다.
+* none (쿠버네티스 구성요소는 VM이 아닌 호스트상에서 동작한다. 이 드라이버를 사용하기 위해서는 Docker ([docker 설치](https://docs.docker.com/install/linux/docker-ce/ubuntu/))와 리눅스 환경)이 필요하다.
 
 ```shell
 $ minikube start
@@ -111,6 +111,7 @@ Stopping "minikube"...
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=containerd \
     --bootstrapper=kubeadm
 ```
@@ -120,6 +121,7 @@ $ minikube start \
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=unix:///run/containerd/containerd.sock \
     --extra-config=kubelet.image-service-endpoint=unix:///run/containerd/containerd.sock \
@@ -133,6 +135,7 @@ $ minikube start \
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=cri-o \
     --bootstrapper=kubeadm
 ```
@@ -142,6 +145,7 @@ $ minikube start \
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=/var/run/crio.sock \
     --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
@@ -155,6 +159,7 @@ $ minikube start \
 ```shell
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=rkt
 ```
 
@@ -396,8 +401,9 @@ Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 * **목표와 비목표**: Minikube 프로젝트의 목표와 비목표에 대해서는 [로드맵](https://git.k8s.io/minikube/docs/contributors/roadmap.md)을 살펴보자.
 * **개발 가이드**: 풀 리퀘스트를 보내는 방법에 대한 개요는 [참여 가이드](https://git.k8s.io/minikube/CONTRIBUTING.md)를 살펴보자.
 * **Minikube 빌드**: Minikube를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://git.k8s.io/minikube/docs/contributors/build_guide.md)를 살펴보자.
-* **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는 [의존성 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)를 보자.
-* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는 [애드온 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)를 보자. 
+* **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는, [의존성 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)를 보자.
+* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는, [애드온 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)를 보자. 
+* **MicroK8s**: 가상 머신을 사용하지 않으려는 Linux 사용자는 대안으로 [MicroK8s](https://microk8s.io/)를 고려할 수 있다.
 
 ## 커뮤니티
 
