@@ -54,7 +54,7 @@ percentageOfNodesToScore: 50
 ### percentageOfNodesToScore 튜닝
 
 `percentageOfNodesToScore`는 1과 100 사이의 값이어야하며 
-기본 값은 50이다. 또한 50%의 노드로 하드코딩된 최소 값이 내부적으로 
+기본 값은 50이다. 또한 50%의 노드로 하드 코딩된 최소 값이 내부적으로 
 적용된다. 스케줄러는 `percentageOfNodesToScore` 값과 상관없이 
 적어도 50%의 노드 탐색을 수행한다. 이는 수백 개 정도의 노드가 있는 
 클러스터에서는 해당 옵션을 더 낮은 값으로 변경하더라도 스케줄러가 
