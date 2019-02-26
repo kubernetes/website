@@ -16,7 +16,7 @@ If you run into any problems or want help with anything, we are here to help. Re
 - Send an email to Kubernetes AT ctl DOT io
 - Visit [http://info.ctl.io/kubernetes](http://info.ctl.io/kubernetes)
 
-## 仮想マシンのクラスターもしくは物理サーバー、その選択
+## 仮想マシンもしくは物理サーバーのクラスター、その選択
 
 - We support Kubernetes clusters on both Virtual Machines or Physical Servers. If you want to use physical servers for the worker nodes (minions), simple use the --minion_type=bareMetal flag.
 - For more information on physical servers, visit: [https://www.ctl.io/bare-metal/](https://www.ctl.io/bare-metal/)
