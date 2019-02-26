@@ -1,28 +1,28 @@
 ---
-title: Intermediate contributing
-slug: intermediate
+title: Contribution intermédiaire
+slug: intermediaire
 content_template: templates/concept
 weight: 20
 ---
 
 {{% capture overview %}}
 
-This page assumes that you've read and mastered the tasks in the
-[start contributing](/docs/contribute/start/) topic and are ready to
-learn about more ways to contribute.
+Cette page assume que vous avez lu et compris les tâches dans le topic
+[start contributing](/docs/contribute/start/) et êtes prêt à
+apprendre différentes manières de contribuer
 
 {{< note >}}
-Some tasks require you to use the Git command line client and other tools.
+Certaines tâches nécessitent l'utilisation de Git en ligne de commande ainsi que d'autres outils
 {{< /note >}}
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-Now that you've gotten your feet wet and helped out with the Kubernetes docs in
-the ways outlined in the [start contributing](/docs/contribute/start/) topic,
-you may feel ready to do more. These tasks assume that you have, or are willing
-to gain, deeper knowledge of the following topic areas:
+Maintenant que vous vous êtes fait la main et que vous avez aidé à la documentation de Kubernetes en
+suivant les principes du topic [start contributing](/docs/contribute/start/),
+vous êtes surement prêt pour en faire plus. Ces tâches assument que vous avez, ou voulez
+améliorer vos connaissances sur ces différents domaines:
 
 - Kubernetes concepts
 - Kubernetes documentation workflows
