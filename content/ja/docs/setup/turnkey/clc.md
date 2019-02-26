@@ -1,5 +1,5 @@
 ---
-title: Running Kubernetes on CenturyLink Cloud
+title: CenturyLink Cloud上でKubernetesを動かす
 ---
 
 {: toc}
@@ -8,7 +8,7 @@ These scripts handle the creation, deletion and expansion of Kubernetes clusters
 
 You can accomplish all these tasks with a single command. We have made the Ansible playbooks used to perform these tasks available [here](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md).
 
-## Find Help
+## ヘルプの検索
 
 If you run into any problems or want help with anything, we are here to help. Reach out to use via any of the following ways:
 
@@ -16,14 +16,14 @@ If you run into any problems or want help with anything, we are here to help. Re
 - Send an email to Kubernetes AT ctl DOT io
 - Visit [http://info.ctl.io/kubernetes](http://info.ctl.io/kubernetes)
 
-## Clusters of VMs or Physical Servers, your choice.
+## 仮想マシンもしくは物理サーバーのクラスター、その選択
 
 - We support Kubernetes clusters on both Virtual Machines or Physical Servers. If you want to use physical servers for the worker nodes (minions), simple use the --minion_type=bareMetal flag.
 - For more information on physical servers, visit: [https://www.ctl.io/bare-metal/](https://www.ctl.io/bare-metal/)
 - Physical serves are only available in the VA1 and GB3 data centers.
 - VMs are available in all 13 of our public cloud locations
 
-## Requirements
+## 必要条件
 
 The requirements to run this script are:
 
@@ -34,7 +34,7 @@ The requirements to run this script are:
 - A CenturyLink Cloud account with rights to create new hosts
 - An active VPN connection to the CenturyLink Cloud from your linux host
 
-## Script Installation
+## スクリプトのインストール
 
 After you have all the requirements met, please follow these instructions to install this script.
 
@@ -66,7 +66,7 @@ source ansible/credentials.sh
 4) Grant your machine access to the CenturyLink Cloud network by using a VM inside the network or [ configuring a VPN connection to the CenturyLink Cloud network.](https://www.ctl.io/knowledge-base/network/how-to-configure-client-vpn/)
 
 
-#### Script Installation Example: Ubuntu 14 Walkthrough
+#### スクリプトのインストールの例: Ububtu 14の手順
 
 If you use an ubuntu 14, for your convenience we have provided a step by step
 guide to install the requirements and install the script.
@@ -93,7 +93,7 @@ source credentials.sh
 
 
 
-## Cluster Creation
+## クラスターの作成
 
 To create a new Kubernetes cluster, simply run the ```kube-up.sh``` script. A complete
 list of script options and some examples are listed below.
@@ -116,7 +116,7 @@ locally on your administrative host, in the following directory
 ```
 
 
-#### Cluster Creation: Script Options
+#### クラスターの作成: スクリプトのオプション
 
 ```shell
 Usage: kube-up.sh [OPTIONS]
@@ -142,7 +142,7 @@ between option name and option value.
                                    otherwise run etcd on the master node
 ```
 
-## Cluster Expansion
+## クラスターの拡張
 
 To expand an existing Kubernetes cluster, run the ```add-kube-node.sh```
 script. A complete list of script options and some examples are listed [below](#cluster-expansion-script-options).
@@ -154,7 +154,7 @@ cd ./adm-kubernetes-on-clc
 bash add-kube-node.sh -c="name_of_kubernetes_cluster" -m=2
 ```
 
-#### Cluster Expansion: Script Options
+#### クラスターの拡張: スクリプトのオプション
 
 ```shell
 Usage: add-kube-node.sh [OPTIONS]
@@ -169,7 +169,7 @@ order to access the CenturyLinkCloud API
      -m= (--minion_count=)         number of kubernetes minion nodes to add
 ```
 
-## Cluster Deletion
+## クラスターの削除
 
 There are two ways to delete an existing cluster:
 
@@ -183,7 +183,7 @@ python delete_cluster.py --cluster=clc_cluster_name --datacenter=DC1
 Cloud control portal and delete the parent server group that contains the
 Kubernetes Cluster. We hope to add a scripted option to do this soon.
 
-## Examples
+## 例
 
 Create a cluster with name of k8s_1, 1 master node and 3 worker minions (on physical machines), in VA1
 
@@ -205,7 +205,7 @@ bash kube-up.sh --clc_cluster_name=k8s_3 --minion_type=standard --minion_count=1
 
 
 
-## Cluster Features and Architecture
+## クラスターの機能とアーキテクチャ
 
 We configure the Kubernetes cluster with the following features:
 
@@ -223,7 +223,7 @@ We use the following to create the Kubernetes cluster:
 * Docker 1.9.1-0~trusty
 * Etcd 2.2.2
 
-## Optional add-ons
+## 任意のアドオン
 
 * Logging: We offer an integrated centralized logging ELK platform so that all
   Kubernetes and docker logs get sent to the ELK stack. To install the ELK stack
@@ -231,7 +231,7 @@ We use the following to create the Kubernetes cluster:
   aggregation documentation](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/log_aggregration.md). Note: We don't install this by default as
   the footprint isn't trivial.
 
-## Cluster management
+## クラスターの管理
 
 The most widely used tool for managing a Kubernetes cluster is the command-line
 utility ```kubectl```.  If you do not already have a copy of this binary on your
@@ -250,7 +250,7 @@ kubectl version
 kubectl cluster-info
 ```
 
-### Accessing the cluster programmatically 
+### プログラムでクラスターへアクセス
 
 It's possible to use the locally stored client certificates to access the apiserver. For example, you may want to use any of the [Kubernetes API client libraries](/docs/reference/using-api/client-libraries/) to program against your Kubernetes cluster in the programming language of your choice. 
 
@@ -266,7 +266,7 @@ curl \
 But please note, this *does not* work out of the box with the ```curl``` binary
 distributed with macOS.
 
-### Accessing the cluster with a browser
+### ブラウザーを使ったクラスターへのアクセス
 
 We install [the kubernetes dashboard](/docs/tasks/web-ui-dashboard/). When you
 create a cluster, the script should output URLs for these interfaces like this:
@@ -281,7 +281,7 @@ from the apiserver, and then presenting the admin password written to file at:
 ```> _${CLC_CLUSTER_HOME}/kube/admin_password.txt_```
 
 
-### Configuration files
+### 設定ファイル
 
 Various configuration files are written into the home directory *CLC_CLUSTER_HOME* under
 ```.clc_kube/${CLC_CLUSTER_NAME}``` in several subdirectories. You can use these files
@@ -318,7 +318,7 @@ kubectl proxy -p 8001
 Then, you can access urls like ```http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/``` without the need for client certificates in your browser.
 
 
-## What Kubernetes features do not work on CenturyLink Cloud
+## どのKubernetesの機能がCenturyLink Cloud上で動かないのか
 
 These are the known items that don't work on CenturyLink cloud but do work on other cloud providers:
 
@@ -329,11 +329,11 @@ These are the known items that don't work on CenturyLink cloud but do work on ot
   offering. We ourselves use Gluster.
 
 
-## Ansible Files
+## Ansibleのファイル
 
 If you want more information about our Ansible files, please [read this file](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md)
 
-## Further reading
+## 参考文献
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
