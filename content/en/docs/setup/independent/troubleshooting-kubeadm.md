@@ -56,7 +56,7 @@ This may be caused by a number of problems. The most common are:
   ```
 
   There are two common ways to fix the cgroup driver problem:
-  
+
  1. Install Docker again following instructions
   [here](/docs/setup/independent/install-kubeadm/#installing-docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
@@ -154,6 +154,18 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   regenerate a certificate if necessary. The certificates in a kubeconfig file
   are base64 encoded. The `base64 -d` command can be used to decode the certificate
   and `openssl x509 -text -noout` can be used for viewing the certificate information.
+- Unset the `KUBECONFIG` environment variable using:
+
+  ```sh
+  unset KUBECONFIG
+  ```
+
+  Or set it to the default `KUBECONFIG` location:
+
+  ```sh
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+  ```
+
 - Another workaround is to overwrite the existing `kubeconfig` for the "admin" user:
 
   ```sh
