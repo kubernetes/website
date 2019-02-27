@@ -57,7 +57,7 @@ of this controller if you are using GCE/GKE.
 
 In environments other than GCE/Google Kubernetes Engine, you may need to
 [deploy an ingress controller](https://kubernetes.github.io/ingress-nginx/deploy/). There are a number of
-[ingress controller](/docs/concepts/services-networking/ingress-controllers) you may choose from.
+[ingress controllers](/docs/concepts/services-networking/ingress-controllers) you may choose from.
 
 ### Before you begin
 
