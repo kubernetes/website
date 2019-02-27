@@ -35,7 +35,7 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 
 {{% capture steps %}}
 
-## クラスターの開始
+## クラスターの起動
 
 You can install a client and start a cluster with either one of these commands (we list both in case only one is installed on your machine):
 
