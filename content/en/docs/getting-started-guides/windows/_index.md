@@ -350,6 +350,10 @@ Starting with kubernetes v1.11, kubelet and kube-proxy can run as Windows servic
 
 This means that you can now register them as Windows services via `sc` command. More details about how to create Windows services with `sc` can be found [here](https://support.microsoft.com/en-us/help/251192/how-to-create-a-windows-service-by-using-sc-exe).
 
+### GMSA support
+
+Starting with Kubernetes v1.14, Windows container workloads can be configured with a GMSA credential spec JSON. Operators can configure a set of GMSA credential specs that can be used in Windows worker nodes across the Kubernetes cluster 
+
 **Examples:**
 
 To create the service:
