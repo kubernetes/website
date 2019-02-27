@@ -2,23 +2,30 @@
 title: Ingress Controllers
 reviewers:
 content_template: templates/concept
-toc_hide: true
+weight: 40
 ---
+
+{{% capture overview %}}
+
+In order for the Ingress resource to work, the cluster must have an ingress controller running. 
+
+Unlike other types of controllers which run as part of the `kube-controller-manager` binary, Ingress controllers 
+are not started automatically with a cluster. Use this page to choose the ingress controller implementation 
+that best fits your cluster.
+
+Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and
+  [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers.
+  
+{{% /capture %}}
 
 {{% capture body %}}
 
-## Ingress controllers
+## Additional controllers
 
-In order for the Ingress resource to work, the cluster must have an ingress controller running. 
-This is unlike other types of controllers, which run as part of the `kube-controller-manager` binary, 
-and are typically started automatically with a cluster. Choose the ingress controller implementation 
-that best fits your cluster.
-
-* Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and
-  [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers.
-
-### Additional controllers include:
-
+* [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io) based ingress 
+  controller with [community](https://www.getambassador.io/docs) or 
+  [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
+* [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](http://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager).  
 * [Contour](https://github.com/heptio/contour) is an [Envoy](https://www.envoyproxy.io) based ingress controller
   provided and supported by Heptio.
 * Citrix provides an [Ingress Controller](https://github.com/citrix/citrix-k8s-ingress-controller) for its hardware (MPX), virtualized (VPX) and [free containerized (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) for [baremetal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) and [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
@@ -62,6 +69,6 @@ Make sure you review your ingress controller's documentation to understand the c
 {{% capture whatsnext %}}
 
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube.md).
+* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 
 {{% /capture %}}
