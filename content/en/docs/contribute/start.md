@@ -136,10 +136,9 @@ The SIG Docs team communicates using the following mechanisms:
   introduce yourself!
 - [Join the `kubernetes-sig-docs` mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
   where broader discussions take place and official decisions are recorded.
-- Participate in the weekly SIG Docs video meeting, which is announced on the
-  Slack channel and the mailing list. Currently, these meetings take place on
-  Zoom, so you'll need to download the [Zoom client](https://zoom.us/download)
-  or dial in using a phone.
+- Participate in the [weekly SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) video meeting, which is announced on the Slack channel and the mailing list. Currently, these meetings take place on Zoom, so you'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
+
+{{< note >}} You can also check the SIG Docs weekly meeting on the [K8s calnedar meetings](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) {{< /note >}}
 
 ## Improve existing content
 
