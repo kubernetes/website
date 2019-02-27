@@ -166,7 +166,7 @@ can tweak some of these parameters by editing `kubernetes/cluster/gce/config-def
 You can view a transcript of a successful cluster creation
 [here](https://gist.github.com/satnam6502/fc689d1b46db9772adea).
 
-## トラブルシュート
+## トラブルシューティング
 
 ### プロジェクトの設定
 
