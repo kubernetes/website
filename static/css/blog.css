@@ -30,6 +30,7 @@ a:hover {
   color: #33aaff;
 }
 
+
 /* Header
 ----------------------------------------------- */
 
@@ -311,7 +312,12 @@ h3.post-title {
 * a:active {
   color: #326DE6;
 }
-
+#kubfoot * a:link,
+* a:visited,
+* a:hover,
+* a:active {
+  color: #326DE6;
+}
 
 div.post-footer {
   display: none;
