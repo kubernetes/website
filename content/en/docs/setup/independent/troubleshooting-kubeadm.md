@@ -100,9 +100,8 @@ Right after `kubeadm init` there should not be any pods in these states.
   until you have deployed the network solution.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
   after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution and nothing happens to the DNS server, it's very
-  likely that the Pod Network solution that you installed is somehow broken. You
-  might have to grant it more RBAC privileges or use a newer version. Please file
+  it's very likely that the Pod Network solution that you installed is somehow broken. 
+  You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 - If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
   when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
