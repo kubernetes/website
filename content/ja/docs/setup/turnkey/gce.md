@@ -98,7 +98,7 @@ document to see how you can set up the latest `kubectl` on your workstation.
 
 ## クラスターの始まり
 
-### クラスターの検査
+### クラスターの様子を見る
 
 Once `kubectl` is in your path, you can use it to look at your cluster. E.g., running:
 
