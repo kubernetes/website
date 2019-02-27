@@ -240,12 +240,11 @@ You must manually configure these administrator account and service accounts:
 
 <!-- 
 1. For each config, generate an x509 cert/key pair with the given CN and O. 
+
+1. Run `kubectl` as follows for each config: 
 -->
 1. 对于每个配置，使用给定的 CN 和 O 生成 x509 证书/密钥对。
 
-<!-- 
-1. Run `kubectl` as follows for each config: 
--->
 1. 对于每个配置按如下所示执行 `kubectl`：
 
 ```shell

@@ -1,5 +1,35 @@
 # i18n strings for the English (main) site.
 
+[deprecation_warning]
+other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see "
+
+[objectives_heading]
+other = "Objectives"
+
+[cleanup_heading]
+other = "Cleaning up"
+
+[prerequisites_heading]
+other = "Before you begin"
+
+[whatsnext_heading]
+other = "What's next"
+
+[feedback_heading]
+other = "Feedback"
+
+[feedback_question]
+other = "Was this page helpful?"
+
+[feedback_yes]
+other = "Yes"
+
+[feedback_no]
+other = "No"
+
+[latest_version]
+other = "latest version."
+
 [main_read_about]
 other = "Read about"
 
