@@ -154,7 +154,7 @@ The following file is an Ingress resource that sends traffic to your Service via
                  servicePort: 8080
       ```
 
-1. Create the Ingress resrouce by running the following command:
+1. Create the Ingress resource by running the following command:
     
     ```shell
     kubectl apply -f example-ingress.yaml
@@ -187,7 +187,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 
     This sends requests from hello-world.info to Minikube.
 
-1. Verify that the Ingress contorller is directing traffic:
+1. Verify that the Ingress controller is directing traffic:
 
     ```shell
     curl hello-world.info
