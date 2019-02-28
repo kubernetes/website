@@ -446,6 +446,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"commands":                {&api.Pod{}},
 			"init-containers":         {&api.Pod{}},
 			"lifecycle-events":        {&api.Pod{}},
+			"pod-nginx-specific-node": {&api.Pod{}},
 			"pod-nginx":               {&api.Pod{}},
 			"pod-with-node-affinity":  {&api.Pod{}},
 			"pod-with-pod-affinity":   {&api.Pod{}},

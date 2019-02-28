@@ -86,6 +86,13 @@ a `disktype=ssd` label.
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
+## Create a pod that gets scheduled to specific node
+
+You can also schedule a pod to one specific node via setting `nodeName`.
+
+{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
+
+Use the configuration file to create a pod that will get scheduled on `foo-node` only.
 
 {{% /capture %}}
 
