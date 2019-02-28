@@ -283,42 +283,17 @@ kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGIS
 secret/myregistrykey created.
 ```
 
-If you need access to multiple registries, you can create one secret for each registry.
-Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
-when pulling images for your Pods.
+If you already have a Docker credentials file then, rather than using the above
+command, you can import the credentials file as a Kubernetes secret.
+[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explains how to set this up.
+This is particularly useful if you are using multiple private container
+registries, as `kubectl create secret docker-registry` creates a Secret that will
+only work with a single private registry.
 
+{{< note >}}
 Pods can only reference image pull secrets in their own namespace,
 so this process needs to be done one time per namespace.
-
-##### Bypassing kubectl create secrets
-
-If for some reason you need multiple items in a single `.docker/config.json` or need
-control not given by the above command, then you can [create a secret using
-json or yaml](/docs/user-guide/secrets/#creating-a-secret-manually).
-
-Be sure to:
-
-- set the name of the data item to `.dockerconfigjson`
-- base64 encode the docker file and paste that string, unbroken
-  as the value for field `data[".dockerconfigjson"]`
-- set `type` to `kubernetes.io/dockerconfigjson`
-
-Example:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: myregistrykey
-  namespace: awesomeapps
-data:
-  .dockerconfigjson: UmVhbGx5IHJlYWxseSByZWVlZWVlZWVlZWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGx5eXl5eXl5eXl5eXl5eXl5eXl5eSBsbGxsbGxsbGxsbGxsbG9vb29vb29vb29vb29vb29vb29vb29vb29vb25ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubmdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2cgYXV0aCBrZXlzCg==
-type: kubernetes.io/dockerconfigjson
-```
-
-If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
-If you get an error message like `Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`, it means
-the base64 encoded string in the data was successfully decoded, but could not be parsed as a `.docker/config.json` file.
+{{< /note >}}
 
 #### Referring to an imagePullSecrets on a Pod
 
@@ -377,3 +352,6 @@ common use cases and suggested solutions.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 
 {{% /capture %}}
+
+If you need access to multiple registries, you can create one secret for each registry.
+Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
