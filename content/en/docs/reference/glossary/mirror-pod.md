@@ -15,7 +15,7 @@ tags:
 
 <!--more--> 
 
-When Kubelet finds a static pod in its configuration, it automatically tries to
+When the Kubelet finds a static pod in its configuration, it automatically tries to
 create a Pod object on the Kubernetes API server for it. This means that the pod
 will be visible on the API server, but cannot be controlled from there.
 
