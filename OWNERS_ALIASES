@@ -149,6 +149,7 @@ aliases:
     - erickhun
     - jygastaud
     - awkif
+    - oussemos
   sig-docs-fr-reviews: #Team: Documentation; GH: sig-docs-fr-reviews
     - sieben
     - perriea
@@ -161,6 +162,7 @@ aliases:
     - erickhun
     - jygastaud
     - awkif
+    - oussemos
   sig-docs-it-owners: #Team: Italian docs localization; GH: sig-docs-it-owners
     - rlenferink
     - lledru
