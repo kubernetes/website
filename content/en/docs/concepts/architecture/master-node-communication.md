@@ -104,6 +104,6 @@ all traffic destined for a kubelet, node, pod, or service through the tunnel.
 This tunnel ensures that the traffic is not exposed outside of the network in
 which the nodes are running.
 
-SSH tunnels are deprecated, but a replacement is being designed.
+SSH tunnels are currently deprecated so you shouldn't opt to use them unless you know what you are doing. A replacement for this communication channel is being designed.
 
 {{% /capture %}}
