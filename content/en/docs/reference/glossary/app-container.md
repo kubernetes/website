@@ -16,5 +16,5 @@ tags:
 
 An init container lets you separate initialization details that are important for the overall 
 {{< glossary_tooltip text="workload" term_id="workload" >}}, and that don't need to keep running
-once the pod has started.
+once the application container has started.
 If a pod doesn't have any init containers configured, all the containers in that pod are app containers.
