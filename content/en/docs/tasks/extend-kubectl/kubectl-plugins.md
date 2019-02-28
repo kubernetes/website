@@ -96,14 +96,14 @@ sudo mv ./kubectl-foo /usr/local/bin
 You may now invoke your plugin as a `kubectl` command:
 
 ```
-$ kubectl foo
+kubectl foo
 I am a plugin named kubectl-foo
 ```
 
 All args and flags are passed as-is to the executable:
 
 ```
-$ kubectl foo version
+kubectl foo version
 1.0.0
 ```
 
@@ -111,7 +111,7 @@ All environment variables are also passed as-is to the executable:
 
 ```bash
 $ export KUBECONFIG=~/.kube/config
-$ kubectl foo config
+kubectl foo config
 /home/<user>/.kube/config
 
 $ KUBECONFIG=/etc/kube/config kubectl foo config
@@ -149,7 +149,7 @@ $ sudo chmod +x ./kubectl-foo-bar-baz
 $ sudo mv ./kubectl-foo-bar-baz /usr/local/bin
 
 # ensure our plugin is recognized by kubectl
-$ kubectl plugin list
+kubectl plugin list
 The following kubectl-compatible plugins are available:
 
 /usr/local/bin/kubectl-foo-bar-baz
@@ -157,7 +157,7 @@ The following kubectl-compatible plugins are available:
 # test that calling our plugin via a "kubectl" command works
 # even when additional arguments and flags are passed to our
 # plugin executable by the user.
-$ kubectl foo bar baz arg1 --meaningless-flag=true
+kubectl foo bar baz arg1 --meaningless-flag=true
 My first command-line argument was arg1
 ```
 
@@ -179,7 +179,7 @@ $ sudo chmod +x ./kubectl-foo_bar
 $ sudo mv ./kubectl-foo_bar /usr/local/bin
 
 # our plugin can now be invoked from `kubectl` like so:
-$ kubectl foo-bar
+kubectl foo-bar
 I am a plugin with a dash in my name
 ```
 
@@ -188,11 +188,11 @@ The command from the above example, can be invoked using either a dash (`-`) or 
 
 ```bash
 # our plugin can be invoked with a dash
-$ kubectl foo-bar
+kubectl foo-bar
 I am a plugin with a dash in my name
 
 # it can also be invoked using an underscore
-$ kubectl foo_bar
+kubectl foo_bar
 I am a plugin with a dash in my name
 ```
 
@@ -223,16 +223,16 @@ There is another kind of overshadowing that can occur with plugin filenames. Giv
 
 ```bash
 # for a given kubectl command, the plugin with the longest possible filename will always be preferred
-$ kubectl foo bar baz
+kubectl foo bar baz
 Plugin kubectl-foo-bar-baz is executed
 
-$ kubectl foo bar
+kubectl foo bar
 Plugin kubectl-foo-bar is executed
 
-$ kubectl foo bar baz buz
+kubectl foo bar baz buz
 Plugin kubectl-foo-bar-baz is executed, with "buz" as its first argument
 
-$ kubectl foo bar buz
+kubectl foo bar buz
 Plugin kubectl-foo-bar is executed, with "buz" as its first argument
 ```
 
@@ -250,7 +250,7 @@ kubectl-parent-subcommand-subsubcommand
 You can use the aforementioned `kubectl plugin list` command to ensure that your plugin is visible by `kubectl`, and verify that there are no warnings preventing it from being called as a `kubectl` command.
 
 ```bash
-$ kubectl plugin list
+kubectl plugin list
 The following kubectl-compatible plugins are available:
 
 test/fixtures/pkg/kubectl/plugins/kubectl-foo

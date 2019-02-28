@@ -55,14 +55,14 @@ This example ReplicationController config runs three copies of the nginx web ser
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/controllers/replication.yaml
+kubectl create -f https://k8s.io/examples/controllers/replication.yaml
 replicationcontroller/nginx created
 ```
 
 Check on the status of the ReplicationController using this command:
 
 ```shell
-$ kubectl describe replicationcontrollers/nginx
+kubectl describe replicationcontrollers/nginx
 Name:        nginx
 Namespace:   default
 Selector:    app=nginx

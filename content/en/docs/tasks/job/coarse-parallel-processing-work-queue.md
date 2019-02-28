@@ -46,9 +46,9 @@ cluster and reuse it for many jobs, as well as for long-running services.
 Start RabbitMQ as follows:
 
 ```shell
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
 service "rabbitmq-service" created
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
 replicationcontroller "rabbitmq-controller" created
 ```
 
@@ -64,7 +64,7 @@ First create a temporary interactive Pod.
 
 ```shell
 # Create a temporary interactive container
-$ kubectl run -i --tty temp --image ubuntu:18.04
+kubectl run -i --tty temp --image ubuntu:18.04
 Waiting for pod default/temp-loe07 to be running, status is Pending, pod ready: false
 ... [ previous line repeats several times .. hit return when it stops ] ...
 ```
@@ -240,7 +240,7 @@ kubectl create -f ./job.yaml
 Now wait a bit, then check on the job.
 
 ```shell
-$ kubectl describe jobs/job-wq-1
+kubectl describe jobs/job-wq-1
 Name:             job-wq-1
 Namespace:        default
 Selector:         controller-uid=41d75705-92df-11e7-b85e-fa163ee3c11f

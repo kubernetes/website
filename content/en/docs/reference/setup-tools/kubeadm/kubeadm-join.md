@@ -146,20 +146,20 @@ for a kubelet when a Bootstrap Token was used when authenticating. If you don't 
 automatically approve kubelet client certs, you can turn it off by executing this command:
 
 ```console
-$ kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
+kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
 ```
 
 After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
 
 ```console
-$ kubectl get csr
+kubectl get csr
 NAME                                                   AGE       REQUESTOR                 CONDITION
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
 
-$ kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
 certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
 
-$ kubectl get csr
+kubectl get csr
 NAME                                                   AGE       REQUESTOR                 CONDITION
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
 ```
@@ -177,7 +177,7 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 * Fetch the `cluster-info` file from the API Server:
 
 ```console
-$ kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
 apiVersion: v1
 clusters:
 - cluster:
@@ -196,7 +196,7 @@ users: []
 * Turn off public access to the `cluster-info` ConfigMap:
 
 ```console
-$ kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
+kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
 ```
 
 These commands should be run after `kubeadm init` but before `kubeadm join`.

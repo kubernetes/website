@@ -90,9 +90,9 @@ a given action, and works regardless of the authorization mode used.
 
 
 ```bash
-$ kubectl auth can-i create deployments --namespace dev
+kubectl auth can-i create deployments --namespace dev
 yes
-$ kubectl auth can-i create deployments --namespace prod
+kubectl auth can-i create deployments --namespace prod
 no
 ```
 
@@ -100,7 +100,7 @@ Administrators can combine this with [user impersonation](/docs/reference/access
 to determine what action other users can perform.
 
 ```bash
-$ kubectl auth can-i list secrets --namespace dev --as dave
+kubectl auth can-i list secrets --namespace dev --as dave
 no
 ```
 
@@ -116,7 +116,7 @@ These APIs can be queried by creating normal Kubernetes resources, where the res
 field of the returned object is the result of the query.
 
 ```bash
-$ kubectl create -f - -o yaml << EOF
+kubectl create -f - -o yaml << EOF
 apiVersion: authorization.k8s.io/v1
 kind: SelfSubjectAccessReview
 spec:

@@ -63,7 +63,7 @@ all be running in the kube-system namespace soon after the cluster comes to
 life.
 
 ```shell
-$ kubectl get pods --namespace=kube-system
+kubectl get pods --namespace=kube-system
 NAME                                           READY     STATUS    RESTARTS   AGE
 elasticsearch-logging-v1-78nog                 1/1       Running   0          2h
 elasticsearch-logging-v1-nj2nb                 1/1       Running   0          2h

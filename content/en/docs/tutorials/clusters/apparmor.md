@@ -107,7 +107,7 @@ on nodes by checking the node ready condition message (though this is likely to 
 later release):
 
 ```shell
-$ kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
+kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
 gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
 gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor enabled
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
@@ -148,14 +148,14 @@ prerequisites have not been met, the Pod will be rejected, and will not run.
 To verify that the profile was applied, you can look for the AppArmor security option listed in the container created event:
 
 ```shell
-$ kubectl get events | grep Created
+kubectl get events | grep Created
 22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-minion-group-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
 ```
 
 You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
 
 ```shell
-$ kubectl exec <pod_name> cat /proc/1/attr/current
+kubectl exec <pod_name> cat /proc/1/attr/current
 k8s-apparmor-example-deny-write (enforce)
 ```
 
@@ -198,14 +198,14 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 {{< codenew file="pods/security/hello-apparmor.yaml" >}}
 
 ```shell
-$ kubectl create -f ./hello-apparmor.yaml
+kubectl create -f ./hello-apparmor.yaml
 ```
 
 If we look at the pod events, we can see that the Pod container was created with the AppArmor
 profile "k8s-apparmor-example-deny-write":
 
 ```shell
-$ kubectl get events | grep hello-apparmor
+kubectl get events | grep hello-apparmor
 14s        14s         1         hello-apparmor   Pod                                Normal    Scheduled   {default-scheduler }                           Successfully assigned hello-apparmor to gke-test-default-pool-239f5d02-gyn2
 14s        14s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulling     {kubelet gke-test-default-pool-239f5d02-gyn2}   pulling image "busybox"
 13s        13s         1         hello-apparmor   Pod       spec.containers{hello}   Normal    Pulled      {kubelet gke-test-default-pool-239f5d02-gyn2}   Successfully pulled image "busybox"
@@ -216,14 +216,14 @@ $ kubectl get events | grep hello-apparmor
 We can verify that the container is actually running with that profile by checking its proc attr:
 
 ```shell
-$ kubectl exec hello-apparmor cat /proc/1/attr/current
+kubectl exec hello-apparmor cat /proc/1/attr/current
 k8s-apparmor-example-deny-write (enforce)
 ```
 
 Finally, we can see what happens if we try to violate the profile by writing to a file:
 
 ```shell
-$ kubectl exec hello-apparmor touch /tmp/test
+kubectl exec hello-apparmor touch /tmp/test
 touch: /tmp/test: Permission denied
 error: error executing remote command: command terminated with non-zero exit code: Error executing in Docker Container: 1
 ```
@@ -231,7 +231,7 @@ error: error executing remote command: command terminated with non-zero exit cod
 To wrap up, let's look at what happens if we try to specify a profile that hasn't been loaded:
 
 ```shell
-$ kubectl create -f /dev/stdin <<EOF
+kubectl create -f /dev/stdin <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -246,7 +246,7 @@ spec:
 EOF
 pod/hello-apparmor-2 created
 
-$ kubectl describe pod hello-apparmor-2
+kubectl describe pod hello-apparmor-2
 Name:          hello-apparmor-2
 Namespace:     default
 Node:          gke-test-default-pool-239f5d02-x1kf/

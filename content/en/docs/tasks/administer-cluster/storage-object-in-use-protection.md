@@ -304,9 +304,9 @@ task-pv-volume   1Gi          RWO            Delete           Terminating   defa
 ```shell
 kubectl delete pvc task-pv-claim
 persistentvolumeclaim "task-pv-claim" deleted
-$ kubectl get pvc
+kubectl get pvc
 No resources found.
-$ kubectl get pv
+kubectl get pv
 No resources found.
 ```
 

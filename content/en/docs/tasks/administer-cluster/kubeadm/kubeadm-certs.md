@@ -74,7 +74,7 @@ The following kubeadm command outputs the name of the certificate to approve, th
 $ sudo kubeadm alpha certs renew apiserver --use-api &
 [1] 2890
 [certs] certificate request "kubeadm-cert-kube-apiserver-ld526" created
-$ kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
+kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
 certificatesigningrequest.certificates.k8s.io/kubeadm-cert-kube-apiserver-ld526 approved
 [1]+  Done                    sudo kubeadm alpha certs renew apiserver --use-api
 ```

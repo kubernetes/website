@@ -320,7 +320,7 @@ INFO Successfully created deployment: frontend
 
 Your application has been deployed to Kubernetes. You can run 'kubectl get deployment,svc,pods' for details.
 
-$ kubectl get deployment,svc,pods
+kubectl get deployment,svc,pods
 NAME                                              DESIRED       CURRENT       UP-TO-DATE   AVAILABLE   AGE
 deployment.extensions/frontend                    1             1             1            1           4m
 deployment.extensions/redis-master                1             1             1            1           4m

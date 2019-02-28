@@ -26,7 +26,7 @@ or someone else setup the cluster and provided you with credentials and a locati
 Check the location and credentials that kubectl knows about with this command:
 
 ```shell
-$ kubectl config view
+kubectl config view
 ```
 
 Many of the [examples](/docs/user-guide/kubectl-cheatsheet) provide an introduction to using
@@ -56,7 +56,7 @@ locating the apiserver and authenticating.
 Run it like this:
 
 ```shell
-$ kubectl proxy --port=8080 
+kubectl proxy --port=8080 
 ```
 
 See [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) for more details.
@@ -239,7 +239,7 @@ Typically, there are several services which are started on a cluster by kube-sys
 with the `kubectl cluster-info` command:
 
 ```shell
-$ kubectl cluster-info
+kubectl cluster-info
 
   Kubernetes master is running at https://104.197.5.247
   elasticsearch-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy

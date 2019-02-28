@@ -189,7 +189,7 @@ unscheduled until a place can be found. An event is produced each time the
 scheduler fails to find a place for the Pod, like this:
 
 ```shell
-$ kubectl describe pod frontend | grep -A 3 Events
+kubectl describe pod frontend | grep -A 3 Events
 Events:
   FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
   36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
@@ -210,7 +210,7 @@ You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 
 ```shell
-$ kubectl describe nodes e2e-test-minion-group-4lw4
+kubectl describe nodes e2e-test-minion-group-4lw4
 Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
