@@ -1,9 +1,7 @@
 ---
 title: Automate Operations on your Cluster with OperatorHub.io
 date: 2019-02-28
-slug: building-a-kubernetes-edge-control-plane-for-envoy-v2
 ---
-
 
 **Author:**
 Diane Mueller, Director of Community Development, Cloud Platforms, Red Hat
@@ -41,7 +39,7 @@ The `EtcdOperator` would be responsible for creating a 3-node etcd cluster runni
 
 ## How do I create and run an Operator?
 
-One way to get started is with the [Operator Framework](https://github.com/operator-framework), an open source toolkit that provides an SDK, lifecycle management, metering and monitoring capabilities. It enables developers to build, test, and package Operators. Operators can be implemented in several programming and automation languages, including Go, [Helm](https://blog.openshift.com/make-a-kubernetes-operator-in-15-minutes-with-helm/) and Ansible, all three of which are supported directly by the SDK.
+One way to get started is with the [Operator Framework](https://github.com/operator-framework), an open source toolkit that provides an SDK, lifecycle management, metering and monitoring capabilities. It enables developers to build, test, and package Operators. Operators can be implemented in several programming and automation languages, including Go, Helm, and Ansible, all three of which are supported directly by the SDK.
 
 If you are interested in creating your own Operator, we recommend checking out the Operator Framework to [get started](https://github.com/operator-framework/getting-started).
 
@@ -57,7 +55,7 @@ Some examples of Operators that are currently listed on OperatorHub.io include: 
 
 ## Want to add your Operator to OperatorHub.io? Follow these steps
 
-If you have an existing Operator, follow the [contribution guide](http://operatorhub.io/contribute) using a fork of the [community-operators](https://github.com/operator-framework/community-operators/) repository. Each contribution contains the CSV, all of the `CustomResourceDefinitions`, access control rules and references to the container image needed to install and run your Operator, plus other info like a description of its features and supported Kubernetes versions. A complete example, including multiple versions of the Operator, can be found with the [EtcdOperator](https://github.com/operator-framework/community-operators/tree/master/community-operators/etcd).
+If you have an existing Operator, follow the [contribution guide](https://www.operatorhub.io/contribute) using a fork of the [community-operators](https://github.com/operator-framework/community-operators/) repository. Each contribution contains the CSV, all of the `CustomResourceDefinitions`, access control rules and references to the container image needed to install and run your Operator, plus other info like a description of its features and supported Kubernetes versions. A complete example, including multiple versions of the Operator, can be found with the [EtcdOperator](https://github.com/operator-framework/community-operators/tree/master/community-operators/etcd).
 
 After testing out your Operator on your own cluster, submit a PR to the [community repository](https://github.com/operator-framework/community-operators) with all of YAML files following [this directory structure](https://github.com/operator-framework/community-operators#adding-your-operator). Subsequent versions of the Operator can be published in the same way. At first this will be reviewed manually, but automation is on the way. After it’s merged by the maintainers, it will show up on OperatorHub.io along with its documentation and a convenient installation method.
 
