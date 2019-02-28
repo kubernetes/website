@@ -1,16 +1,17 @@
 ---
+title: Cross-cluster Service Discovery using Federated Services
 reviewers:
 - bprashanth
 - quinton-hoole
 content_template: templates/task
-title: Cross-cluster Service Discovery using Federated Services
+weight: 140
 ---
 
 {{% capture overview %}}
 
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This guide explains how to use Kubernetes Federated Services to deploy
 a common Service across multiple Kubernetes clusters. This makes it

@@ -6,7 +6,9 @@ weight: 80
 
 {{% capture overview %}}
 
-{{< include "federation-current-state.md" >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This page explains why and how to manage multiple Kubernetes clusters using
 federation.
