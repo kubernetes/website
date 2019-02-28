@@ -1,3 +1,9 @@
+---
+title: 在 Kubernetes 上开发
+date: 2018-05-01
+slug: developing-on-kubernetes
+---
+
 <!--
 ---
 title: Developing on Kubernetes
@@ -5,12 +11,6 @@ date: 2018-05-01
 slug: developing-on-kubernetes
 ---
 -->
-
----
-标题: 在 Kubernetes 上开发
-日期: 2018-05-01
-slug: developing-on-kubernetes
----
 
 <!--**Authors**:-->
 **作者**： [Michael Hausenblas](https://twitter.com/mhausenblas) (Red Hat), [Ilya Dmitrichenko](https://twitter.com/errordeveloper) (Weaveworks)
