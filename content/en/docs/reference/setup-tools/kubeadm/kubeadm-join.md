@@ -227,3 +227,4 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}
+
