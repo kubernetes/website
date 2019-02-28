@@ -317,6 +317,10 @@ Some values of an object are typically generated before the object is persisted.
 * Any field set by a mutating admission controller
 * For the `Service` resource: Ports or IPs that kube-apiserver assigns to v1.Service objects
 
+## Server Side Apply
+
+Server Side Apply (SSA) is offering an apply path on the apiserver side of kubernetes instead of the previous/current Client Side Apply (CSA) that happens in kubectl.
+
 {{% /capture %}}
 
 
