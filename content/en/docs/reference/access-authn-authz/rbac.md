@@ -215,6 +215,12 @@ aggregationRule:
 rules: [] # Rules are automatically filled in by the controller manager.
 ```
 
+You could also create aggregated ClusterRole via `kubectl`
+
+```
+kubectl create clusterrole monitoring --aggregation-rule="rbac.example.com/aggregate-to-monitoring=true"
+```
+
 Creating a ClusterRole that matches the label selector will add rules to the aggregated ClusterRole. In this case
 rules can be added to the "monitoring" ClusterRole by creating another ClusterRole that has the label
 `rbac.example.com/aggregate-to-monitoring: true`.
