@@ -170,7 +170,7 @@ From a client perspective, the HPC scheduler runs as a service deployed in Kuber
 <!--
 ## Deploying mixed workloads at IHME
 -->
-## 在IHME部署混合工作负载
+## 在 IHME 部署混合工作负载
 
 <!--
 One client having success with mixed workloads is the Institute for Health Metrics & Evaluation (IHME), an independent health research center at the University of Washington. In support of their globally recognized Global Health Data Exchange (GHDx), IHME operates a significantly sized environment comprised of 500 nodes and 20,000 cores running a mix of analytic, HPC, and container-based applications on Kubernetes. [This case study](http://navops.io/ihme-case-study.html) describes IHME’s success hosting existing HPC workloads on a shared Kubernetes cluster using Navops Command.
