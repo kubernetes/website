@@ -1,4 +1,6 @@
-您必须拥有一个 Kubernetes 集群，并且必须使用 kubectl 命令行工具与你的集群进行通信。如果您还没有一个集群，您可以通过 [Minikube](/docs/getting-started-guides/minikube) 创建一个集群，或者使用这些 Kubernetes playground ：
+您必须拥有一个 Kubernetes 集群，并且必须使用 kubectl 命令行工具与你的集群进行通信。
+如果您还没有一个集群，您可以通过 [Minikube](/docs/getting-started-guides/minikube) 
+创建一个集群，或者使用这些 Kubernetes playground ：
 
 * [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
 * [Play with Kubernetes](http://labs.play-with-k8s.com/)
