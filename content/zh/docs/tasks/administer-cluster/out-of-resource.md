@@ -3,7 +3,7 @@ reviewers:
 - derekwaynecarr
 - vishh
 - timstclair
-title: 配置资源处理方式
+title: 配置资源不足时的处理方式
 content_template: templates/concept
 ---
 <!--
@@ -27,7 +27,7 @@ are low. This is especially important when dealing with incompressible
 compute resources, such as memory or disk space. If such resources are exhausted,
 nodes become unstable.
 -->
-本页介绍了如何使用 `kubelet` 配置资源处理方式。
+本页介绍了如何使用 `kubelet` 配置资源不足时的处理方式。
 
 当可用计算资源较少时，`kubelet` 需要保证节点稳定性。这在处理如内存和硬盘之类的不可压缩资源时尤为重要。如果任意一种资源耗尽，节点将会变得不稳定。
 
@@ -44,9 +44,9 @@ compute resource. In those cases, the `kubelet` can reclaim the starved
 resource by proactively failing one or more Pods. When the `kubelet` fails
 a Pod, it terminates all of its containers and transitions its `PodPhase` to `Failed`.
 -->
-## 移除策略
+## 驱逐策略
 
-`kubelet` 能够主动监测和防止计算资源的全面短缺。在那种情况下，`kubelet` 可以主动的结束一个或多个 pod 以回收短缺的资源。当 `kubelet` 结束一个 pod 时，它将终止 pod 中的所有容器，而 pod 的 `PodPhase` 将变为 `Failed`。
+`kubelet` 能够主动监测和防止计算资源的全面短缺。在那种情况下，`kubelet` 可以主动地结束一个或多个 pod 以回收短缺的资源。当 `kubelet` 结束一个 pod 时，它将终止 pod 中的所有容器，而 pod 的 `PodPhase` 将变为 `Failed`。
 
 <!--
 ### Eviction Signals
@@ -94,11 +94,11 @@ In future releases, the `kubelet` will deprecate the existing [garbage
 collection](/docs/concepts/cluster-administration/kubelet-garbage-collection/)
 support in favor of eviction in response to disk pressure.
 -->
-### 移除信号
+### 驱逐信号
 
-`kubelet` 支持按照以下表格中描述的信号触发移除决定。每个信号的值在 description 列描述，基于 `kubelet` 摘要 API。
+`kubelet` 支持按照以下表格中描述的信号触发驱逐决定。每个信号的值在 description 列描述，基于 `kubelet` 摘要 API。
 
-| Eviction Signal  | Description                                                                     |
+| 驱逐信号  | 描述                                                                     |
 |----------------------------|-----------------------------------------------------------------------|
 | `memory.available` | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
 | `nodefs.available` | `nodefs.available` := `node.stats.fs.available` |
@@ -117,7 +117,7 @@ support in favor of eviction in response to disk pressure.
 
 `imagefs` 可选。`kubelet` 使用 cAdvisor 自动发现这些文件系统。`kubelet` 不关心其它文件系统。当前不支持配置任何其它类型。例如，在专用`文件系统`中存储卷和日志是不可以的。
 
-在将来的发布中，`kubelet` 将废除当前存在的[垃圾回收](/docs/concepts/cluster-administration/kubelet-garbage-collection/)机制，这种机制目前支持将移除操作作为对磁盘压力的响应。
+在将来的发布中，`kubelet` 将废除当前存在的[垃圾回收](/docs/concepts/cluster-administration/kubelet-garbage-collection/)机制，这种机制目前支持将驱逐操作作为对磁盘压力的响应。
 
 <!--
 ### Eviction Thresholds
@@ -140,19 +140,19 @@ For example, if a node has `10Gi` of total memory and you want trigger eviction 
 the available memory falls below `1Gi`, you can define the eviction threshold as
 either `memory.available<10%` or `memory.available<1Gi`. You cannot use both.
 -->
-### 移除门限
+### 驱逐阈值
 
-`kubelet` 支持指定移除门限，用于触发 `kubelet` 回收资源。
+`kubelet` 支持指定驱逐阈值，用于触发 `kubelet` 回收资源。
 
-每个门限形式如下：
+每个阈值形式如下：
 
 `[eviction-signal][operator][quantity]`
 
 * 合法的 `eviction-signal` 标志如上所示。
 * `operator` 是所需的关系运算符，例如 `<`。
-* `quantity` 是移除门限值标志，例如 `1Gi`。合法的标志必须匹配 Kubernetes 使用的数量表示。移除门限也可以使用 `%` 标记表示百分比。
+* `quantity` 是驱逐阈值值标志，例如 `1Gi`。合法的标志必须匹配 Kubernetes 使用的数量表示。驱逐阈值也可以使用 `%` 标记表示百分比。
 
-举例说明，如果一个节点有 `10Gi` 内存，希望在可用内存下降到 `1Gi` 以下时引起移除操作，则移除门限可以使用下面任意一种方式指定（但不是两者同时）。
+举例说明，如果一个节点有 `10Gi` 内存，希望在可用内存下降到 `1Gi` 以下时引起驱逐操作，则驱逐阈值可以使用下面任意一种方式指定（但不是两者同时）。
 
 * `memory.available<10%`
 * `memory.available<1Gi`
@@ -182,17 +182,17 @@ correspond to how long a soft eviction threshold must hold before triggering a P
 * `eviction-max-pod-grace-period` describes the maximum allowed grace period (in seconds) to use when terminating
 pods in response to a soft eviction threshold being met.
 -->
-#### 软移除门限
+#### 软驱逐阈值
 
-软移除门限使用一对由移除门限和管理员必须指定的宽限期组成的配置对。在超过宽限期前，`kubelet` 不会采取任何动作回收和移除信号关联的资源。如果没有提供宽限期，`kubelet` 启动时将报错。
+软驱逐阈值使用一对由驱逐阈值和管理员必须指定的宽限期组成的配置对。在超过宽限期前，`kubelet` 不会采取任何动作回收和驱逐信号关联的资源。如果没有提供宽限期，`kubelet` 启动时将报错。
 
-此外，如果达到了软移除门限，操作员可以指定从节点移除 pod 时，在宽限期内允许结束的 pod 的最大数量。如果指定了 `pod.Spec.TerminationGracePeriodSeconds` 值，`kubelet` 将使用它和宽限期二者中较小的一个。如果没有指定，`kubelet` 将立即终止 pod，而不会优雅结束它们。
+此外，如果达到了软驱逐阈值，操作员可以指定从节点驱逐 pod 时，在宽限期内允许结束的 pod 的最大数量。如果指定了 `pod.Spec.TerminationGracePeriodSeconds` 值，`kubelet` 将使用它和宽限期二者中较小的一个。如果没有指定，`kubelet` 将立即终止 pod，而不会优雅结束它们。
 
-软移除门限的配置支持下列标记：
+软驱逐阈值的配置支持下列标记：
 
-* `eviction-soft` 描述了移除门限的集合（例如 `memory.available<1.5Gi`），如果在宽限期之外满足条件将触发 pod 移除。
-* `eviction-soft-grace-period` 描述了移除宽限期的集合（例如 `memory.available=1m30s`），对应于在移除 pod 前软移除门限应该被控制的时长。
-* `eviction-max-pod-grace-period` 描述了当满足软移除门限并终止 pod 时允许的最大宽限期值（秒数）。
+* `eviction-soft` 描述了驱逐阈值的集合（例如 `memory.available<1.5Gi`），如果在宽限期之外满足条件将触发 pod 驱逐。
+* `eviction-soft-grace-period` 描述了驱逐宽限期的集合（例如 `memory.available=1m30s`），对应于在驱逐 pod 前软驱逐阈值应该被控制的时长。
+* `eviction-max-pod-grace-period` 描述了当满足软驱逐阈值并终止 pod 时允许的最大宽限期值（秒数）。
 
 <!--
 #### Hard Eviction Thresholds
@@ -214,15 +214,15 @@ The `kubelet` has the following default hard eviction threshold:
 * `nodefs.inodesFree<5%`
 * `imagefs.available<15%`
 -->
-#### 硬移除门限
+#### 硬驱逐阈值
 
-硬移除门限没有宽限期，一旦察觉，`kubelet` 将立即采取行动回收关联的短缺资源。如果满足硬移除门限，`kubelet` 将立即结束 pod 而不是优雅终止。
+硬驱逐阈值没有宽限期，一旦察觉，`kubelet` 将立即采取行动回收关联的短缺资源。如果满足硬驱逐阈值，`kubelet` 将立即结束 pod 而不是优雅终止。
 
-硬移除门限的配置支持下列标记：
+硬驱逐阈值的配置支持下列标记：
 
-* `eviction-hard` 描述了移除门限的集合（例如 `memory.available<1Gi`），如果满足条件将触发 pod 移除。
+* `eviction-hard` 描述了驱逐阈值的集合（例如 `memory.available<1Gi`），如果满足条件将触发 pod 驱逐。
 
-`kubelet` 有如下所示的默认硬移除门限：
+`kubelet` 有如下所示的默认硬驱逐阈值：
 
 * `memory.available<100Mi`
 * `nodefs.available<10%`
@@ -236,9 +236,9 @@ The `kubelet` evaluates eviction thresholds per its configured housekeeping inte
 
 * `housekeeping-interval` is the interval between container housekeepings.
 -->
-### 移除监控时间间隔
+### 驱逐监控时间间隔
 
-`kubelet` 根据其配置的整理时间间隔计算移除门限。
+`kubelet` 根据其配置的整理时间间隔计算驱逐阈值。
 
 * `housekeeping-interval` 是容器管理时间间隔。
 
@@ -263,13 +263,13 @@ The `kubelet` continues to report node status updates at the frequency specified
 -->
 ### 节点状态
 
-`kubelet` 会将一个或多个移除信号映射到对应的节点状态。
+`kubelet` 会将一个或多个驱逐信号映射到对应的节点状态。
 
-如果满足硬移除门限，或者满足独立于其关联宽限期的软移除门限时，`kubelet` 将报告节点处于压力下的状态。
+如果满足硬驱逐阈值，或者满足独立于其关联宽限期的软驱逐阈值时，`kubelet` 将报告节点处于压力下的状态。
 
-下列节点状态根据相应的移除信号定义。
+下列节点状态根据相应的驱逐信号定义。
 
-| Node Condition | Eviction Signal  | Description                                                      |
+| 节点状态 | 驱逐信号  | 描述                                                      |
 |-------------------------|-------------------------------|--------------------------------------------|
 | `MemoryPressure` | `memory.available` | Available memory on the node has satisfied an eviction threshold |
 | `DiskPressure` | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
@@ -296,13 +296,13 @@ condition back to `false`.
 -->
 ### 节点状态振荡
 
-如果节点在软移除门限的上下振荡，但没有超过关联的宽限期时，将引起对应节点的状态持续在 true 和 false 间跳变，并导致不好的调度结果。
+如果节点在软驱逐阈值的上下振荡，但没有超过关联的宽限期时，将引起对应节点的状态持续在 true 和 false 间跳变，并导致不好的调度结果。
 
 为了防止这种振荡，可以定义下面的标志，用于控制 `kubelet` 从压力状态中退出之前必须等待的时间。
 
 * `eviction-pressure-transition-period` 是 `kubelet` 从压力状态中退出之前必须等待的时长。
 
-`kubelet` 将确保在设定的时间段内没有发现和指定压力条件相对应的移除门限被满足时，才会将状态变回 `false`。
+`kubelet` 将确保在设定的时间段内没有发现和指定压力条件相对应的驱逐阈值被满足时，才会将状态变回 `false`。
 
 <!--
 ### Reclaiming node level resources
@@ -317,9 +317,9 @@ machine has a dedicated `imagefs` configured for the container runtime.
 -->
 ### 回收节点层级资源
 
-如果满足移除门限并超过了宽限期，`kubelet` 将启动回收压力资源的过程，直到它发现低于设定门限的信号为止。
+如果满足驱逐阈值并超过了宽限期，`kubelet` 将启动回收压力资源的过程，直到它发现低于设定阈值的信号为止。
 
-`kubelet` 将尝试在移除终端用户 pod 前回收节点层级资源。发现磁盘压力时，如果节点针对容器运行时配置有独占的 `imagefs`，`kubelet` 回收节点层级资源的方式将会不同。
+`kubelet` 将尝试在驱逐终端用户 pod 前回收节点层级资源。发现磁盘压力时，如果节点针对容器运行时配置有独占的 `imagefs`，`kubelet` 回收节点层级资源的方式将会不同。
 
 <!--
 #### With `imagefs`
@@ -337,13 +337,13 @@ If `nodefs` filesystem has met eviction thresholds, `kubelet` frees up disk spac
 -->
 #### 使用 `Imagefs`
 
-如果 `nodefs` 文件系统满足移除门限，`kubelet` 通过移除 pod 及其容器来释放磁盘空间。
+如果 `nodefs` 文件系统满足驱逐阈值，`kubelet` 通过驱逐 pod 及其容器来释放磁盘空间。
 
-如果 `imagefs` 文件系统满足移除门限，`kubelet` 通过删除所有未使用的镜像来释放磁盘空间。
+如果 `imagefs` 文件系统满足驱逐阈值，`kubelet` 通过删除所有未使用的镜像来释放磁盘空间。
 
 #### 未使用 `Imagefs`
 
-如果 `nodefs` 满足移除门限，`kubelet` 将以下面的顺序释放磁盘空间：
+如果 `nodefs` 满足驱逐阈值，`kubelet` 将以下面的顺序释放磁盘空间：
 
 1. 删除停止运行的 pod/container
 2. 删除全部没有使用的镜像
@@ -376,18 +376,18 @@ is encountered. If the `kubelet` is responding to `inode` starvation, it reclaim
 is responding to lack of available disk, it ranks Pods within a quality of service
 that consumes the largest amount of disk and kill those first.
 -->
-### 移除最终用户的 pod
+### 驱逐最终用户的 pod
 
-如果 `kubelet` 在节点上无法回收足够的资源，`kubelet` 将开始移除 pod。
+如果 `kubelet` 在节点上无法回收足够的资源，`kubelet` 将开始驱逐 pod。
 
-`kubelet` 首先根据他们对短缺资源的使用是否超过请求来排除 pod 的移除行为，然后通过[优先级](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)，然后通过相对于 pod 的调度请求消耗急需的计算资源。
+`kubelet` 首先根据他们对短缺资源的使用是否超过请求来排除 pod 的驱逐行为，然后通过[优先级](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)，然后通过相对于 pod 的调度请求消耗急需的计算资源。
 
-`kubelet` 按以下顺序对要移除的 pod 排名：
+`kubelet` 按以下顺序对要驱逐的 pod 排名：
 
 * `BestEffort` 或 `Burstable`，其对短缺资源的使用超过了其请求，此类 pod 按优先级排序，然后使用高于请求。
-* `Guaranteed` pod 和 `Burstable` pod,其使用率低于请求，最后被移除。`Guaranteed` pod 只有为所有的容器指定了要求和限制并且它们相等时才能得到保证。由于另一个 pod 的资源消耗，这些 pod 保证永远不会被移除。如果系统守护进程（例如 `kubelet`、`docker`、和 `journald`）消耗的资源多于通过 `system-reserved` 或 `kube-reserved` 分配保留的资源，并且该节点只有 `Guaranteed` 或 `Burstable` pod 使用少于剩余的请求，然后节点必须选择移除这样的 pod 以保持节点的稳定性并限制意外消耗对其他 pod 的影响。在这种情况下，它将首先移除优先级最低的 pod。
+* `Guaranteed` pod 和 `Burstable` pod,其使用率低于请求，最后被驱逐。`Guaranteed` pod 只有为所有的容器指定了要求和限制并且它们相等时才能得到保证。由于另一个 pod 的资源消耗，这些 pod 保证永远不会被驱逐。如果系统守护进程（例如 `kubelet`、`docker`、和 `journald`）消耗的资源多于通过 `system-reserved` 或 `kube-reserved` 分配保留的资源，并且该节点只有 `Guaranteed` 或 `Burstable` pod 使用少于剩余的请求，然后节点必须选择驱逐这样的 pod 以保持节点的稳定性并限制意外消耗对其他 pod 的影响。在这种情况下，它将首先驱逐优先级最低的 pod。
 
-必要时，`kubelet` 会在遇到 `DiskPressure` 时移除一个 pod 来回收磁盘空间。如果 `kubelet` 响应 `inode` 短缺，它会首先移除服务质量最低的 pod 来回收 `inodes`。如果 `kubelet` 响应缺少可用磁盘，它会将 pod 排在服务质量范围内，该服务会消耗大量的磁盘并首先结束这些磁盘。
+必要时，`kubelet` 会在遇到 `DiskPressure` 时驱逐一个 pod 来回收磁盘空间。如果 `kubelet` 响应 `inode` 短缺，它会首先驱逐服务质量最低的 pod 来回收 `inodes`。如果 `kubelet` 响应缺少可用磁盘，它会将 pod 排在服务质量范围内，该服务会消耗大量的磁盘并首先结束这些磁盘。
 
 <!--
 #### With `imagefs`
@@ -404,13 +404,13 @@ If `nodefs` is triggering evictions, `kubelet` sorts Pods based on their total d
 -->
 #### 使用 `imagefs`
 
-如果是 `nodefs` 触发移除，`kubelet` 将按 `nodefs` 用量 - 本地卷 + pod 的所有容器日志的总和对其排序。
+如果是 `nodefs` 触发驱逐，`kubelet` 将按 `nodefs` 用量 - 本地卷 + pod 的所有容器日志的总和对其排序。
 
-如果是 `imagefs` 触发移除，`kubelet` 将按 pod 所有可写层的用量对其进行排序。
+如果是 `imagefs` 触发驱逐，`kubelet` 将按 pod 所有可写层的用量对其进行排序。
 
 #### 未使用 `imagefs`
 
-如果是 `nodefs` 触发移除，`kubelet` 会根据磁盘的总使用情况对 pod 进行排序 - 本地卷 + 所有容器的日志及其可写层。
+如果是 `nodefs` 触发驱逐，`kubelet` 会根据磁盘的总使用情况对 pod 进行排序 - 本地卷 + 所有容器的日志及其可写层。
 
 <!--
 ### Minimum eviction reclaim
@@ -438,11 +438,11 @@ on their associated resources.
 
 The default `eviction-minimum-reclaim` is `0` for all resources.
 -->
-### 最小移除回收
+### 最小驱逐回收
 
-在某些场景，移除 pod 会导致回收少量资源。这将导致 `kubelet` 反复碰到移除门限。除此之外，对如 `disk` 这类资源的移除时比较耗时的。
+在某些场景，驱逐 pod 会导致回收少量资源。这将导致 `kubelet` 反复碰到驱逐阈值。除此之外，对如 `disk` 这类资源的驱逐时比较耗时的。
 
-为了减少这类问题，`kubelet` 可以为每个资源配置一个 `minimum-reclaim`。当 `kubelet` 发现资源压力时，`kubelet` 将尝试至少回收移除门限之下 `minimum-reclaim` 数量的资源。
+为了减少这类问题，`kubelet` 可以为每个资源配置一个 `minimum-reclaim`。当 `kubelet` 发现资源压力时，`kubelet` 将尝试至少回收驱逐阈值之下 `minimum-reclaim` 数量的资源。
 
 例如使用下面的配置：
 
@@ -451,7 +451,7 @@ The default `eviction-minimum-reclaim` is `0` for all resources.
 --eviction-minimum-reclaim="memory.available=0Mi,nodefs.available=500Mi,imagefs.available=2Gi"`
 ```
 
-如果 `memory.available` 移除门限被触发，`kubelet` 将保证 `memory.available` 至少为 `500Mi`。对于 `nodefs.available`，`kubelet` 将保证 `nodefs.available` 至少为 `1.5Gi`。对于 `imagefs.available`，`kubelet` 将保证 `imagefs.available` 至少为 `102Gi`，直到不再有相关资源报告压力为止。
+如果 `memory.available` 驱逐阈值被触发，`kubelet` 将保证 `memory.available` 至少为 `500Mi`。对于 `nodefs.available`，`kubelet` 将保证 `nodefs.available` 至少为 `1.5Gi`。对于 `imagefs.available`，`kubelet` 将保证 `imagefs.available` 至少为 `102Gi`，直到不再有相关资源报告压力为止。
 
 所有资源的默认 `eviction-minimum-reclaim` 值为 `0`。
 
@@ -471,7 +471,7 @@ pods on the node.
 
 当资源处于压力之下时，节点将报告状态。调度器将那种状态视为一种信号，阻止更多 pod 调度到这个节点上。
 
-| Node Condition    | Scheduler Behavior                               |
+| 节点状态    | 调度器行为                               |
 | ---------------- | ------------------------------------------------ |
 | `MemoryPressure` | No new `BestEffort` Pods are scheduled to the node. |
 | `DiskPressure` | No new Pods are scheduled to the node. |
@@ -506,7 +506,7 @@ Unlike Pod eviction, if a Pod container is OOM killed, it may be restarted by th
 
 `kubelet` 基于 pod 的 service 质量为每个容器设置一个 `oom_score_adj` 值。
 
-| Quality of Service | oom_score_adj |
+| Service 质量 | oom_score_adj |
 |----------------------------|-----------------------------------------------------------------------|
 | `Guaranteed` | -998 |
 | `BestEffort` | 1000 |
@@ -516,7 +516,7 @@ Unlike Pod eviction, if a Pod container is OOM killed, it may be restarted by th
 
 预期的行为应该是拥有最低 service 质量并消耗和调度请求相关内存量最多的容器第一个被结束，以回收内存。
 
-和 pod 移除不同，如果一个 pod 的容器是被 OOM 结束的，基于其 `RestartPolicy`，它可能会被 `kubelet` 重新启动。
+和 pod 驱逐不同，如果一个 pod 的容器是被 OOM 结束的，基于其 `RestartPolicy`，它可能会被 `kubelet` 重新启动。
 
 <!--
 ## Best Practices
@@ -550,13 +550,13 @@ and trigger eviction assuming those Pods use less than their configured request.
 
 以下部分描述了资源外处理的最佳实践。
 
-### 可调度资源和移除策略
+### 可调度资源和驱逐策略
 
 考虑以下场景：
 
 * 节点内存容量：`10Gi`
 * 操作员希望为系统守护进程保留 10% 内存容量（内核、`kubelet` 等）。
-* 操作员希望在内存用量达到 95% 时移除 pod，以减少对系统的冲击并防止系统 OOM 的发生。
+* 操作员希望在内存用量达到 95% 时驱逐 pod，以减少对系统的冲击并防止系统 OOM 的发生。
 
 为了促成这个场景，`kubelet` 将像下面这样启动：
 
@@ -565,11 +565,11 @@ and trigger eviction assuming those Pods use less than their configured request.
 --system-reserved=memory=1.5Gi
 ```
 
-这个配置的暗示是理解“系统保留”应该包含被移除门限覆盖的内存数量。
+这个配置的暗示是理解“系统保留”应该包含被驱逐阈值覆盖的内存数量。
 
 要达到这个容量，要么某些 pod 使用了超过它们请求的资源，要么系统使用的内存超过 `1.5Gi - 500Mi = 1Gi`。
 
-这个配置将保证在 pod 使用量都不超过它们配置的请求值时，如果可能立即引起内存压力并触发移除时，调度器不会将 pod 放到这个节点上。
+这个配置将保证在 pod 使用量都不超过它们配置的请求值时，如果可能立即引起内存压力并触发驱逐时，调度器不会将 pod 放到这个节点上。
 
 <!--
 ### DaemonSet
@@ -588,11 +588,11 @@ for eviction. Instead `DaemonSet` should ideally launch `Guaranteed` Pods.
 -->
 ### DaemonSet
 
-我们永远都不希望 `kubelet` 移除一个从 `DaemonSet` 派生的 pod，因为这个 pod 将立即被重建并调度回相同的节点。
+我们永远都不希望 `kubelet` 驱逐一个从 `DaemonSet` 派生的 pod，因为这个 pod 将立即被重建并调度回相同的节点。
 
-目前，`kubelet` 没有办法区分一个 pod 是由 `DaemonSet` 还是其他对象创建。如果/当这个信息可用时，`kubelet` 可能会预先将这些 pod 从提供给移除策略的候选集合中过滤掉。
+目前，`kubelet` 没有办法区分一个 pod 是由 `DaemonSet` 还是其他对象创建。如果/当这个信息可用时，`kubelet` 可能会预先将这些 pod 从提供给驱逐策略的候选集合中过滤掉。
 
-总之，强烈推荐 `DaemonSet` 不要创建 `BestEffort` 的 pod，防止其被识别为移除的候选 pod。相反，理想情况下 `DaemonSet` 应该启动 `Guaranteed` 的 pod。
+总之，强烈推荐 `DaemonSet` 不要创建 `BestEffort` 的 pod，防止其被识别为驱逐的候选 pod。相反，理想情况下 `DaemonSet` 应该启动 `Guaranteed` 的 pod。
 
 <!--
 ## Deprecation of existing feature flags to reclaim disk
@@ -616,9 +616,9 @@ in favor of the simpler configuration supported around eviction.
 
 `kubelet` 已经按需求清空了磁盘空间以保证节点稳定性。
 
-当磁盘移除成熟时，下面的 `kubelet` 标志将被标记为废弃的，以简化支持移除的配置。
+当磁盘驱逐成熟时，下面的 `kubelet` 标志将被标记为废弃的，以简化支持驱逐的配置。
 
-| Existing Flag | New Flag |
+| 现有标签 | 新标签 |
 | ------------- | -------- |
 | `--image-gc-high-threshold` | `--eviction-hard` or `eviction-soft` |
 | `--image-gc-low-threshold` | `--eviction-minimum-reclaim` |
@@ -650,9 +650,9 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 
 ### kubelet 可能无法立即发现内存压力
 
-`kubelet` 当前通过以固定的时间间隔轮询 `cAdvisor` 来收集内存使用数据。如果内存使用在那个时间窗口内迅速增长，`kubelet` 可能不能足够快的发现 `MemoryPressure`，`OOMKiller` 将不会被调用。我们准备在将来的发行版本中通过集成 `memcg` 通知 API 来减小这种延迟。当超过门限时，内核将立即告诉我们。
+`kubelet` 当前通过以固定的时间间隔轮询 `cAdvisor` 来收集内存使用数据。如果内存使用在那个时间窗口内迅速增长，`kubelet` 可能不能足够快的发现 `MemoryPressure`，`OOMKiller` 将不会被调用。我们准备在将来的发行版本中通过集成 `memcg` 通知 API 来减小这种延迟。当超过阈值时，内核将立即告诉我们。
 
-如果您想处理可察觉的超量使用而不要求极端精准，可以设置移除门限为大约 75% 容量作为这个问题的变通手段。这将增强这个特性的能力，防止系统 OOM，并提升负载卸载能力，以再次平衡集群状态。
+如果您想处理可察觉的超量使用而不要求极端精准，可以设置驱逐阈值为大约 75% 容量作为这个问题的变通手段。这将增强这个特性的能力，防止系统 OOM，并提升负载卸载能力，以再次平衡集群状态。
 
 <!--
 ### kubelet may evict more Pods than needed
@@ -660,8 +660,8 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 The Pod eviction may evict more Pods than needed due to stats collection timing gap. This can be mitigated by adding
 the ability to get root container stats on an on-demand basis [(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247) in the future.
 -->
-### kubelet 可能会移除超过需求数量的 pod
+### kubelet 可能会驱逐超过需求数量的 pod
 
-由于状态采集的时间差，移除操作可能移除比所需的更多的 pod。将来可通过添加从根容器获取所需状态的能力 [(https://github.com/google/cadvisor/issues/1247)]([(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247)) 来减缓这种状况。
+由于状态采集的时间差，驱逐操作可能驱逐比所需的更多的 pod。将来可通过添加从根容器获取所需状态的能力 [(https://github.com/google/cadvisor/issues/1247)]([(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247)) 来减缓这种状况。
 
 {{% /capture %}}
