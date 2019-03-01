@@ -5,29 +5,25 @@ approvers:
 - chenopis
 - zacharysarah
 - zparnold
+card:
+  name: contribute
+  weight: 30
+  title: Translating the docs
 ---
 
 {{% capture overview %}}
 
-Documentation for Kubernetes is available in multiple languages:
-
-- English
-- Chinese
-- Japanese
-- Korean
-
-We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)!
+Documentation for Kubernetes is available in multiple languages. We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)!
 
 {{% /capture %}}
-
 
 {{% capture body %}}
 
 ## Getting started
 
-Localizations must meet some requirements for workflow (*how* to localize) and output (*what* to localize).
+Localizations must meet some requirements for workflow (*how* to localize) and output (*what* to localize) before publishing.
 
-To add a new localization of the Kubernetes documentation, you'll need to update the website by modifying the  [site configuration](#modify-the-site-configuration) and [directory structure](#add-a-new-localization-directory). Then you can start [translating documents](#translating-documents)!
+To add a new localization of the Kubernetes documentation, you'll need to update the website by modifying the [site configuration](#modify-the-site-configuration) and [directory structure](#add-a-new-localization-directory). Then you can start [translating documents](#translating-documents)!
 
 {{< note >}}
 For an example localization-related [pull request](../create-pull-request), see [this pull request](https://github.com/kubernetes/website/pull/8636) to the [Kubernetes website repo](https://github.com/kubernetes/website) adding Korean localization to the Kubernetes docs.
@@ -203,13 +199,13 @@ For more information about working from forks or directly from the repository, s
 
 ### Upstream contributions
 
-SIG Docs welcomes upstream contributions and corrections to the English source! Open a [pull request](https://kubernetes.io/docs/contribute/start/#improve-existing-content) (from a fork) with any updates.
+SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/intermediate#localize-content) to the English source. 
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-Once a l10n meets requirements for workflow and minimum output, SIG docs will:
+Once a localization meets requirements for workflow and minimum output, SIG docs will:
 
 - Enable language selection on the website
 - Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).

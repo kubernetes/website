@@ -95,4 +95,15 @@ connection will be encrypted, it will not provide any guarantees of integrity.
 These connections **are not currently safe** to run over untrusted and/or
 public networks.
 
+### SSH Tunnels
+
+Kubernetes supports SSH tunnels to protect the Master -> Cluster communication
+paths. In this configuration, the apiserver initiates an SSH tunnel to each node
+in the cluster (connecting to the ssh server listening on port 22) and passes
+all traffic destined for a kubelet, node, pod, or service through the tunnel.
+This tunnel ensures that the traffic is not exposed outside of the network in
+which the nodes are running.
+
+SSH tunnels are currently deprecated so you shouldn't opt to use them unless you know what you are doing. A replacement for this communication channel is being designed.
+
 {{% /capture %}}

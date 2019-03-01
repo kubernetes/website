@@ -69,7 +69,7 @@ $ docker ps
 
 CONTAINER ID        IMAGE                                           COMMAND                  CREATED             STATUS              PORTS               NAMES
 
-a17784253dd2        gcr.io/google\_containers/hyperkube-arm:v1.1.2   "/hyperkube controlle"   2 hours ago         Up 2 hours                              k8s\_controller-manager.7042038a\_k8s-master-127.0.0.1\_default\_43160049df5e3b1c5ec7bcf23d4b97d0\_2174a7c3
+a17784253dd2        gcr.io/google\_containers/hyperkube-arm:v1.1.2   "/hyperkube controller"   2 hours ago         Up 2 hours                              k8s\_controller-manager.7042038a\_k8s-master-127.0.0.1\_default\_43160049df5e3b1c5ec7bcf23d4b97d0\_2174a7c3
 
 a0fb6a169094        gcr.io/google\_containers/hyperkube-arm:v1.1.2   "/hyperkube scheduler"   2 hours ago         Up 2 hours                              k8s\_scheduler.d905fc61\_k8s-master-127.0.0.1\_default\_43160049df5e3b1c5ec7bcf23d4b97d0\_511945f8
 

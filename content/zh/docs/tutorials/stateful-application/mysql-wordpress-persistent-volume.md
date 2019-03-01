@@ -147,7 +147,7 @@ MySQL 和 WordPress pod 配置引用了这个 secret，所以这些 pods 就可�
 
 ## 部署 MySQL
 
-<--
+<!--
 Now that the persistent disks and secrets are defined, the Kubernetes
 pods can be launched. Start MySQL using
 [mysql-deployment.yaml](https://git.k8s.io/examples/mysql-wordpress-pd/mysql-deployment.yaml).

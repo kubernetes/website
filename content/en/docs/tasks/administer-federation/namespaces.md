@@ -64,7 +64,7 @@ the Federated Namespace that you created above.
 You can update a federated Namespace as you would update a Kubernetes
 Namespace, just send the request to federation apiserver instead of sending it
 to a specific Kubernetes cluster.
-Federation control plan will ensure that whenever the federated Namespace is
+Federation control plane will ensure that whenever the federated Namespace is
 updated, it updates the corresponding Namespaces in all underlying clusters to
 match it.
 

@@ -202,7 +202,7 @@ Node is found that satisfies all the specified requirements of the Pod,
 preemption logic is triggered for the pending Pod. Let's call the pending Pod P.
 Preemption logic tries to find a Node where removal of one or more Pods with
 lower priority than P would enable P to be scheduled on that Node. If such a
-Node is found, one or more lower priority Pods get deleted from the Node. After
+Node is found, one or more lower priority Pods get evicted from the Node. After
 the Pods are gone, P can be scheduled on the Node.
 
 ### User exposed information
@@ -241,7 +241,7 @@ priority Pods to zero or a small number.
 #### PodDisruptionBudget is supported, but not guaranteed!
 
 A [Pod Disruption Budget (PDB)](/docs/concepts/workloads/pods/disruptions/)
-allows application owners to limit the number Pods of a replicated application
+allows application owners to limit the number of Pods of a replicated application
 that are down simultaneously from voluntary disruptions. Kubernetes 1.9 supports
 PDB when preempting Pods, but respecting PDB is best effort. The Scheduler tries
 to find victims whose PDB are not violated by preemption, but if no such victims
@@ -329,7 +329,7 @@ than the victims. If preemption happens in such scenarios, please file an issue.
 
 When pods are preempted, they receive their requested graceful termination
 period, which is by default 30 seconds, but it can be any different value as
-specified in the PodSpec. If the victim Pods do not terminate within this period
+specified in the PodSpec. If the victim Pods do not terminate within this period,
 they are force-terminated. Once all the victims go away, the preemptor Pod can
 be scheduled.
 
@@ -364,11 +364,11 @@ Pod priority and
 [QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md)
 are two orthogonal features with few interactions and no default restrictions on
 setting the priority of a Pod based on its QoS classes. The scheduler's
-preemption logic does consider QoS when choosing preemption targets. Preemption
-considers Pod priority and attempts to choose a set of targets with the lowest
-priority. Higher-priority Pods are considered for preemption only if the removal
-of the lowest priority Pods is not sufficient to allow the scheduler to schedule
-the preemptor Pod, or if the lowest priority Pods are protected by
+preemption logic does not consider QoS when choosing preemption targets.
+Preemption considers Pod priority and attempts to choose a set of targets with
+the lowest priority. Higher-priority Pods are considered for preemption only if
+the removal of the lowest priority Pods is not sufficient to allow the scheduler
+to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 `PodDisruptionBudget`.
 
 The only component that considers both QoS and Pod priority is

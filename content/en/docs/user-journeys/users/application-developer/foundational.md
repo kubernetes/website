@@ -53,9 +53,9 @@ Minikube can be installed locally, and runs a simple, single-node Kubernetes clu
 
 You can get basic information about your cluster with the commands `kubectl cluster-info` and `kubectl get nodes`. However, to get a good idea of what's really going on, you need to deploy an application to your cluster. This is covered in the next section.
 
-#### microk8s
+#### MicroK8s
 
-On Linux, *microk8s* is a good alternative to Minikube for a local
+On Linux, *MicroK8s* is a good alternative to Minikube for a local
 install of Kubernetes:
 
 * Runs on the native OS, so there is no overhead from running a virtual machine.
@@ -64,8 +64,8 @@ install of Kubernetes:
 
 * {{< link text="Install microk8s" url="https://microk8s.io/" >}}.
 
-After you install microk8s, you can use its tab-completion
-functionality. All microk8s commands start with `microk8s.`. Type
+After you install MicroK8s, you can use its tab-completion
+functionality. All MicroK8s commands start with `microk8s.`. Type
 `microk8s.` (with the period) and then use the tab key to see a list
 of available commands.
 
@@ -204,7 +204,7 @@ Examples of state include but are not limited to the following:
 
 Note that the API server is just the gateway, and that object data is actually stored in a highly available datastore called {{< link text="*etcd*" url="https://github.com/coreos/etcd" >}}. For most intents and purposes, though, you can focus on the API server. Most reads and writes to cluster state take place as API requests.
 
-You can read more about the Kubernetes API {{< link text="here" url="/docs/concepts/overview/working-with-objects/kubernetes-objects/" >}}.
+For more information, see {{< link text="Understanding Kubernetes Objects" url="/docs/concepts/overview/working-with-objects/kubernetes-objects/" >}}.
 
 #### Controllers
 
@@ -258,6 +258,3 @@ If you feel fairly comfortable with the topics on this page and want to learn mo
 * {{< link text="Foundational Cluster Operator" url="/docs/user-journeys/users/cluster-operator/foundational/" >}} - Build breadth, by exploring other journeys.
 
 {{% /capture %}}
-
-
-

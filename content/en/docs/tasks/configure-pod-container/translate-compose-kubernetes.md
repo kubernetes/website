@@ -297,7 +297,7 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
 {{< note >}}
-If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+If you are manually pushing the OpenShift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
 {{< /note >}}
 
 ## `kompose up`

@@ -127,7 +127,7 @@ juju config kubernetes-worker allow-privileged=true
 
 ### Private registry
 
-With the registry action, you can easily create a private docker registry that
+With the registry action, you can easily create a private Docker registry that
 uses TLS authentication. However, note that a registry deployed with that action
 is not HA; it uses storage tied to the kubernetes node where the pod is running.
 Consequently, if the registry pod is migrated from one node to another, you will

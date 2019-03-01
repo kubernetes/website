@@ -79,8 +79,8 @@ To encrypt the data:
 1. Create a new encryption configuration file using the appropriate properties for the `kms` provider:
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets
@@ -92,8 +92,12 @@ resources:
    - identity: {}
 ```
 
-2. Set the `--experimental-encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
+2. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
 3. Restart your API server.
+
+Note:
+The alpha version of the encryption feature prior to 1.13 required a config file with
+`kind: EncryptionConfig` and `apiVersion: v1`, and used the `--experimental-encryption-provider-config` flag.
 
 ## Verifying that the data is encrypted
 Data is encrypted when written to etcd. After restarting your kube-apiserver, any newly created or updated secret should be encrypted when stored. To verify, you can use the etcdctl command line program to retrieve the contents of your secret.
@@ -130,8 +134,8 @@ To switch from a local encryption provider to the `kms` provider and re-encrypt 
 1. Add the `kms` provider as the first entry in the configuration file as shown in the following example.
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets
@@ -160,8 +164,8 @@ To disable encryption at rest:
 1. Place the `identity` provider as the first entry in the configuration file: 
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets

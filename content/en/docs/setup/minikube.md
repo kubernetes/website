@@ -42,8 +42,9 @@ the following drivers:
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
-
+* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
+* none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 
 ```shell
 $ minikube start
@@ -115,6 +116,7 @@ To use [containerd](https://github.com/containerd/containerd) as the container r
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=containerd \
     --bootstrapper=kubeadm
 ```
@@ -124,6 +126,7 @@ Or you can use the extended version:
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=unix:///run/containerd/containerd.sock \
     --extra-config=kubelet.image-service-endpoint=unix:///run/containerd/containerd.sock \
@@ -137,6 +140,7 @@ To use [CRI-O](https://github.com/kubernetes-incubator/cri-o) as the container r
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=cri-o \
     --bootstrapper=kubeadm
 ```
@@ -146,6 +150,7 @@ Or you can use the extended version:
 ```bash
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
     --extra-config=kubelet.container-runtime-endpoint=/var/run/crio.sock \
     --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
@@ -159,6 +164,7 @@ To use [rkt](https://github.com/rkt/rkt) as the container runtime run:
 ```shell
 $ minikube start \
     --network-plugin=cni \
+    --enable-default-cni \
     --container-runtime=rkt
 ```
 
@@ -401,9 +407,9 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 * **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
 * **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
-* **Adding a New Addon**: For instruction on how to add a new addon for Minikube see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
-* **Updating Kubernetes**: For instructions on how to update Kubernetes see the [updating Kubernetes guide](https://git.k8s.io/minikube/docs/contributors/updating_kubernetes.md).
+* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
+* **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
+* **MicroK8s**: Linux users wishing to avoid running a virtual machine may consider [MicroK8s](https://microk8s.io/) as an alternative.
 
 ## Community
 

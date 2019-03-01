@@ -63,6 +63,11 @@ Ask your cluster administrator or consult your cloud provider or distribution do
 to determine if any sources of voluntary disruptions are enabled for your cluster.
 If none are enabled, you can skip creating Pod Disruption Budgets.
 
+{{< caution >}}
+Not all voluntary disruptions are constrained by Pod Disruption Budgets. For example,
+deleting deployments or pods bypasses Pod Disruption Budgets.
+{{< /caution >}}
+
 ## Dealing with Disruptions
 
 Here are some ways to mitigate involuntary disruptions:
@@ -102,7 +107,7 @@ percentage of the total.
 
 Cluster managers and hosting providers should use tools which
 respect Pod Disruption Budgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)
-instead of directly deleting pods.  Examples are the `kubectl drain` command
+instead of directly deleting pods or deployments.  Examples are the `kubectl drain` command
 and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 
 When a cluster administrator wants to drain a node

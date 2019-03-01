@@ -1,7 +1,7 @@
 {{/* This will try to find a resource in the "includes"  bundle */}}
 {{- $name := .Get 0 -}}
 {{- if $name -}}
-	{{- $bundle := $.Site.GetPage "page" "includes" -}}
+	{{- $bundle := site.GetPage "page" "includes" -}}
 	{{- with $bundle -}}
 	{{- $pattern := printf "%s*" $name -}}
 	{{- range $bundle.Resources -}}
@@ -12,7 +12,7 @@
 	{{- else -}}
 	{{/* It is not a resource in the includes bundle. Try to find the page relative to the current. */}}
 	{{- $path := path.Join $.Page.Dir $name -}}
-	{{- $page := $.Page.Site.GetPage "page" $path -}}
+	{{- $page := site.GetPage "page" $path -}}
 	{{- with $page }}
 	{{ .Content }}
 	{{- else -}}
@@ -20,7 +20,7 @@
 	{{- end -}}
 	{{- end -}}
 	{{- else -}}
-	{{ errorf "[%s] the 'inclucdes' bundle was not found." $.Page.Lang }}
+	{{ errorf "[%s] the 'includes' bundle was not found." $.Page.Lang }}
 	{{- end -}}
 {{- else -}}
 	{{- errorf "[%s] missing resource name in include for page %q" $.Page.Lang $.Page.Path -}}

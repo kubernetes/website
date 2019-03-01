@@ -13,7 +13,7 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* Kubernetes version 1.7.0 or later is required
+* Kubernetes version 1.13.0 or later is required
 
 * etcd v3 or later is required
 
@@ -23,15 +23,18 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 ## Configuration and determining whether encryption at rest is already enabled
 
-The `kube-apiserver` process accepts an argument `--experimental-encryption-provider-config`
+The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd. An example configuration
 is provided below.
+
+Note:
+The alpha version of the encryption feature prior to 1.13 used the `--experimental-encryption-provider-config` flag.
 
 ## Understanding the encryption at rest configuration.
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets
@@ -66,8 +69,12 @@ resources from storage each provider that matches the stored data attempts to de
 order. If no provider can read the stored data due to a mismatch in format or secret key, an error 
 is returned which prevents clients from accessing that resource. 
 
+Note:
+The alpha version of the encryption feature prior to 1.13 required to be configured with
+`kind: EncryptionConfig` and `apiVersion: v1`.
+
 {{< caution >}}
-If any resource is not readable via the encryption config (because keys were changed), 
+**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed), 
 the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to 
 read that resource will fail until it is deleted or a valid decryption key is provided.
 {{< /caution >}}
@@ -90,8 +97,8 @@ is the first provider, the first key is used for encryption.
 Create a new encryption config file:
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets
@@ -112,7 +119,7 @@ To create a new secret perform the following steps:
     ```
 
 2. Place that value in the secret field.
-3. Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file.
+3. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file.
 4. Restart your API server.
 
 {{< caution >}}
@@ -183,8 +190,8 @@ With a single `kube-apiserver`, step 2 may be skipped.
 To disable encryption at rest place the `identity` provider as the first entry in the config:
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets

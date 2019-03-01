@@ -55,9 +55,9 @@ In this example:
   In this case, you simply select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
-  
+
   {{< note >}}
-  `matchLabels` is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map 
+  `matchLabels` is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
   is equivalent to an element of `matchExpressions`, whose key field is "key", the operator is "In",
   and the values array contains only "value". The requirements are ANDed.
   {{< /note >}}
@@ -66,9 +66,9 @@ In this example:
   * The Pods are labeled `app: nginx`using the `labels` field.
   * The Pod template's specification, or `.template.spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
-  [Docker Hub](https://hub.docker.com/) image at version 1.15.4.
+  [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
   * Create one container and name it `nginx` using the `name` field.
-  * Run the `nginx` image at version `1.15.4`.
+  * Run the `nginx` image at version `1.7.9`.
   * Open port `80` so that the container can send and accept traffic.
 
 To create this Deployment, run the following command:
@@ -128,18 +128,19 @@ To see the ReplicaSet (`rs`) created by the deployment, run `kubectl get rs`:
 
 ```shell
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-2035384211   3         3         3       18s
+nginx-deployment-75675f5897   3         3         3       18s
 ```
 
-Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[POD-TEMPLATE-HASH-VALUE]`. The hash value is automatically generated when the Deployment is created.
+Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
+randomly generated and uses the pod-template-hash as a seed.
 
 To see the labels automatically generated for each pod, run `kubectl get pods --show-labels`. The following output is returned:
 
 ```shell
 NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-nginx-deployment-2035384211-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=2035384211
-nginx-deployment-2035384211-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=2035384211
-nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=2035384211
+nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
 ```
 
 The created ReplicaSet ensures that there are three `nginx` Pods running at all times.
@@ -171,8 +172,8 @@ Suppose that you now want to update the nginx Pods to use the `nginx:1.9.1` imag
 instead of the `nginx:1.7.9` image.
 
 ```shell
-$ kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record
-deployment.apps/nginx-deployment image updated
+$ kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 
+image updated
 ```
 
 Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
@@ -467,7 +468,7 @@ $ kubectl rollout undo deployment.v1.apps/nginx-deployment
 deployment.apps/nginx-deployment
 ```
 
-Alternatively, you can rollback to a specific revision by specify that in `--to-revision`:
+Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
 ```shell
 $ kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
@@ -988,15 +989,12 @@ Field `.spec.rollbackTo` has been deprecated in API versions `extensions/v1beta1
 
 ### Revision History Limit
 
-A Deployment's revision history is stored in the replica sets it controls.
+A Deployment's revision history is stored in the ReplicaSets it controls.
 
 `.spec.revisionHistoryLimit` is an optional field that specifies the number of old ReplicaSets to retain
-to allow rollback. Its ideal value depends on the frequency and stability of new Deployments. All old
-ReplicaSets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`,
-if this field is not set. The configuration of each Deployment revision is stored in its ReplicaSets;
-therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment.
+to allow rollback. These old ReplicaSets consume resources in `etcd` and crowd the output of `kubectl get rs`. The configuration of each Deployment revision is stored in its ReplicaSets; therefore, once an old ReplicaSet is deleted, you lose the ability to rollback to that revision of Deployment. By default, 10 old ReplicaSets will be kept, however its ideal value depends on the frequency and stability of new Deployments.
 
-More specifically, setting this field to zero means that all old ReplicaSets with 0 replica will be cleaned up.
+More specifically, setting this field to zero means that all old ReplicaSets with 0 replicas will be cleaned up.
 In this case, a new Deployment rollout cannot be undone, since its revision history is cleaned up.
 
 ### Paused
@@ -1015,5 +1013,3 @@ in a similar fashion. But Deployments are recommended, since they are declarativ
 additional features, such as rolling back to any previous revision even after the rolling update is done.
 
 {{% /capture %}}
-
-

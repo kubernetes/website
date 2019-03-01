@@ -26,3 +26,4 @@ database in one {{< glossary_tooltip term_id="StatefulSet" >}} of
 {{< glossary_tooltip text="pods" term_id="pod" >}} and the webserver via
 a {{< glossary_tooltip term_id="Deployment" >}} that consists of many web app
 {{< glossary_tooltip text="pods" term_id="pod" >}}, all alike.
+

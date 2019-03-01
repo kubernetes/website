@@ -32,7 +32,7 @@ The application can simply use it as a service.
 
 Service Catalog uses the [Open service broker API](https://github.com/openservicebrokerapi/servicebroker) to communicate with service brokers, acting as an intermediary for the Kubernetes API Server to negotiate the initial provisioning and retrieve the credentials necessary for the application to use a managed service.
 
-It is implemented as an extension API server and a controller, using etcd for storage. It also uses the [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) available in Kubernetes 1.7+ to present its API.
+It is implemented as an extension API server and a controller, using etcd for storage. It also uses the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) available in Kubernetes 1.7+ to present its API.
 
 <br>
 

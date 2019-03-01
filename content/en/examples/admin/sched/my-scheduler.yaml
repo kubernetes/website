@@ -14,7 +14,7 @@ subjects:
   namespace: kube-system
 roleRef:
   kind: ClusterRole
-  name: kube-scheduler
+  name: system:kube-scheduler
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: apps/v1
