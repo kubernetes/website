@@ -1217,7 +1217,7 @@ persistent volume:
 
 #### CSI raw block volume support
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
 Starting with version 1.11, CSI introduced support for raw block volumes, which
 relies on the raw block volume feature that was introduced in a previous version of
