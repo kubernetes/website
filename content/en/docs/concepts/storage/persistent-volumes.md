@@ -181,6 +181,7 @@ However, the particular path specified in the custom recycler pod template in th
 
 {{< feature-state for_k8s_version="v1.8" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
+
 Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default. You can expand
 the following types of volumes:
 
@@ -193,6 +194,9 @@ the following types of volumes:
 * Azure Disk
 * Portworx
 * FlexVolumes
+* CSI
+
+CSI support is in alpha in 1.14 release and requires enabling `ExpandCSIVolumes` feature gate.
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
