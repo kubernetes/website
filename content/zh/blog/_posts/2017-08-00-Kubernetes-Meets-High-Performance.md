@@ -24,13 +24,13 @@ Editor's note: today's post is by Robert Lalonde, general manager at Univa, on s
 Anyone who has worked with Docker can appreciate the enormous gains in efficiency achievable with containers. While Kubernetes excels at orchestrating containers, high-performance computing (HPC) applications can be tricky to deploy on Kubernetes.
 -->
 
-任何与Docker合作过的人都可以体会到容器可实现的效率的巨大提升。虽然Kubernetes擅长编排容器，但在Kubernetes上部署高性能计算（HPC）应用程序可能会非常棘手。
+任何与 Docker 合作过的人都可以体会到容器可实现的效率的巨大提升。虽然 Kubernetes 擅长编排容器，但在 Kubernetes 上部署高性能计算(HPC) 应用程序可能会非常棘手。
 
 <!--
 In this post, I discuss some of the challenges of running HPC workloads with Kubernetes, explain how organizations approach these challenges today, and suggest an approach for supporting mixed workloads on a shared Kubernetes cluster. We will also provide information and links to a case study on a customer, IHME, showing how Kubernetes is extended to service their HPC workloads seamlessly while retaining scalability and interfaces familiar to HPC users.
 -->
 
-在本文中，我将讨论使用Kubernetes运行HPC工作负载的一些挑战，解释组织如何应对当前的这些挑战，并提出一种在共享Kubernetes集群上支持混合工作负载的方法。我们还将提供有关客户IHME案例研究的信息和链接，展示如何扩展Kubernetes以无缝地为其HPC工作负载提供服务，同时保留HPC用户熟悉的可扩展性和界面。
+在本文中，我将讨论使用 Kubernetes 运行 HPC 工作负载的一些挑战，解释组织如何应对当前的这些挑战，并提出一种在共享 Kubernetes 集群上支持混合工作负载的方法。我们还将提供有关客户 IHME 案例研究的信息和链接，展示如何扩展 Kubernetes 以无缝地为其 HPC 工作负载提供服务，同时保留 HPC 用户熟悉的可扩展性和界面。
 
 <!--
 ## HPC workloads unique challenges
@@ -69,16 +69,17 @@ HPC 工作负载调度程序已经发展为支持这些类型的工作负载。�
 
 <!--
 HPC users believe containers are valuable for the same reasons as other organizations. Packaging logic in a container to make it portable, insulated from environmental dependencies, and easily exchanged with other containers clearly has value. However, making the switch to containers can be difficult.
-
-HPC workloads are often integrated at the command line level. Rather than requiring coding, jobs are submitted to queues via the command line as binaries or simple shell scripts that act as wrappers. There are literally hundreds of engineering, scientific and analytic applications used by HPC sites that take this approach and have mature and certified integrations with popular workload schedulers.
-
-While the notion of packaging a workload into a Docker container, publishing it to a registry, and submitting a YAML description of the workload is second nature to users of Kubernetes, this is foreign to most HPC users. An analyst running models in R, MATLAB or Stata simply wants to submit their simulation quickly, monitor their execution, and get a result as quickly as possible.
-
 -->
 HPC 用户认为容器的价值与其他组织相同。容器中的封装逻辑使其便于携带，不受环境依赖，并且易于与其他容器交换，这显然具有价值。但是，切换到容器可能很困难。
 
+<!--
+HPC workloads are often integrated at the command line level. Rather than requiring coding, jobs are submitted to queues via the command line as binaries or simple shell scripts that act as wrappers. There are literally hundreds of engineering, scientific and analytic applications used by HPC sites that take this approach and have mature and certified integrations with popular workload schedulers.
+-->
 HPC 工作负载通常在命令行级别集成。作业不是要求编码，而是通过命令行作为二进制文件或作为包装器的简单 shell 脚本提交给队列。 HPC 站点使用了数百种工程，科学和分析应用程序，这些应用程序采用这种方法，并且与流行的工作负载调度程序进行了成熟且经过认证的集成。
 
+<!--
+While the notion of packaging a workload into a Docker container, publishing it to a registry, and submitting a YAML description of the workload is second nature to users of Kubernetes, this is foreign to most HPC users. An analyst running models in R, MATLAB or Stata simply wants to submit their simulation quickly, monitor their execution, and get a result as quickly as possible.
+-->
 虽然将工作负载打包到Docker容器，将其发布到注册表以及提交工作负载的 YAML 描述的概念是 Kubernetes 用户的第二天性，但这对于大多数 HPC 用户来说是陌生的。在 R，MATLAB 或 Stata 中运行模型的分析师只想快速提交模拟，监控其执行情况，并尽快获得结果。
 
 <!--
