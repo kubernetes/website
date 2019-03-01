@@ -3,7 +3,7 @@ title: Using Windows Server Containers in Kubernetes
 toc_hide: true
 ---
 {{< note >}}
-These instructions were recently updated based on Windows Server platform enhancements and the Kubernetes v1.9 release
+These instructions are under revision for the v1.14 release with a [tracking issue](https://github.com/kubernetes/website/issues/12426). You can find the WIP draft in a [Google Doc](https://docs.google.com/document/d/1a2bRd7PZXygIEm4cEcCeLXpEqJ7opakP_j4Pc6AJVYA/edit?usp=sharing)
 {{< /note >}}
 
 Kubernetes version 1.5 introduced Alpha support for Windows Server
