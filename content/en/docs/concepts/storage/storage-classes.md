@@ -739,7 +739,7 @@ references it.
 
 ### Local
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 ```yaml
 kind: StorageClass
@@ -750,7 +750,7 @@ provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
 
-Local volumes do not support dynamic provisioning yet, however a StorageClass
+Local volumes do not currently support dynamic provisioning, however a StorageClass
 should still be created to delay volume binding until pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
 
