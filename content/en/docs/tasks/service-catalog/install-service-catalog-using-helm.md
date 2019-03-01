@@ -53,11 +53,19 @@ svc-cat/catalog 0.0.1   service-catalog API server and controller-manag...
 
 Your Kubernetes cluster must have RBAC enabled, which requires your Tiller Pod(s) to have `cluster-admin` access.
 
-If you are using Minikube, run the `minikube start` command with the following flag:
+When using Minikube v0.25 or older, you must run Minikube with RBAC explicitly enabled:
 
 ```shell
 minikube start --extra-config=apiserver.Authorization.Mode=RBAC
 ```
+
+When using Minikube v0.26+, run:
+
+```shell
+minikube start
+```
+
+With Minikube v0.26+, do not specify `--extra-config`. The flag has since been changed to --extra-config=apiserver.authorization-mode and Minikube now uses RBAC by default. Specifying the older flag may cause the start command to hang.
 
 If you are using `hack/local-up-cluster.sh`, set the `AUTHORIZATION_MODE` environment variable with the following values:
 

@@ -7,15 +7,14 @@ content_template: templates/concept
 weight: 100
 ---
 {{% capture overview %}}
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
-This page contains installation instruction for various runtimes.
+{{< feature-state for_k8s_version="v1.6" state="stable" >}}
+To run containers in Pods, Kubernetes uses a container runtime. Here are
+the installation instruction for various runtimes.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-Please proceed with executing the following commands based on your OS as root.
-You may become the root user by executing `sudo -i` after SSH-ing to each host.
 
 {{< caution >}}
 A flaw was found in the way runc handled system file descriptors when running containers.
@@ -26,15 +25,25 @@ Please refer to this link for more information about this issue
 [cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
 {{< /caution >}}
 
-## Cgroup drivers
+### Applicability
+
+{{< note >}}
+This document is written for users installing CRI onto Linux. For other operating
+systems, look for documentation specific to your platform.
+{{< /note >}}
+
+You should execute all the commands in this guide as `root`. For example, prefix commands
+with `sudo `, or become `root` and run the commands as that user.
+
+### Cgroup drivers
 
 When systemd is chosen as the init system for a Linux distribution, the init process generates
-and consumes a root cgroup and acts as a cgroup manager. Systemd has a tight integration with
-cgroups and will allocate cgroups per process. It's possible to configure your container
-runtime and the kubelet to use `cgroupfs`. This means that there will then be two different
-cgroup managers.
+and consumes a root control group (`cgroup`) and acts as a cgroup manager. Systemd has a tight
+integration with cgroups and will allocate cgroups per process. It's possible to configure your
+container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside systemd means
+that there will then be two different cgroup managers.
 
-Cgroups are used to constrain resources that are allocated to processes. 
+Control groups are used to constrain resources that are allocated to processes.
 A single cgroup manager will simplify the view of what resources are being allocated
 and will by default have a more consistent view of the available and in-use resources. When we have
 two managers we end up with two views of those resources. We have seen cases in the field

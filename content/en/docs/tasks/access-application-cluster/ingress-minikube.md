@@ -51,9 +51,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     kubectl get pods -n kube-system
     ```
 
-    {{< note >}}
-    This can take up to a minute.
-    {{< /note >}}
+    {{< note >}}This can take up to a minute.{{< /note >}}
 
     Output:
 
@@ -117,12 +115,9 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     ```shell
     http://172.17.0.15:31637
     ```
-
-    {{< note >}}
-    Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click
-    **Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**
-    {{< /note >}}
-
+    
+    {{< note >}}Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click **Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**.{{< /note >}}
+    
     Output:
 
     ```shell
@@ -131,7 +126,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     Hostname: web-55b8c6998d-8k564
     ```
 
-    You can now access the sample app via the Minikube IP address and NodePort. The next step will let you access
+    You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access 
     the app using the Ingress resource.
 
 ## Create an Ingress resource
@@ -156,15 +151,16 @@ The following file is an Ingress resource that sends traffic to your Service via
                backend:
                  serviceName: web
                  servicePort: 8080
-    ```
+      ```
 
 1. Create the Ingress resource by running the following command:
-
+    
     ```shell
     kubectl apply -f example-ingress.yaml
     ```
 
     Output:
+    
     ```shell
     ingress.extensions/example-ingress created
     ```
@@ -175,9 +171,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     kubectl get ingress
     ```
 
-    {{< note >}}
-    This can take a couple of minutes.
-    {{< /note >}}
+    {{< note >}}This can take a couple of minutes.{{< /note >}}
 
     ```shell
     NAME              HOSTS              ADDRESS       PORTS     AGE
@@ -186,9 +180,9 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Add the following line to the bottom of the `/etc/hosts` file.
 
-     ```shell
-     172.17.0.15 hello-world.info
-     ```
+    ```
+    172.17.0.15 hello-world.info
+    ```
 
      This sends requests from hello-world.info to Minikube.
 
@@ -199,15 +193,14 @@ The following file is an Ingress resource that sends traffic to your Service via
     ```
 
     Output:
+    
     ```shell
     Hello, world!
     Version: 1.0.0
     Hostname: web-55b8c6998d-8k564
     ```
 
-    {{< note >}}
-    If you are running Minikube locally, you can visit hello-world.info from your browser.
-    {{< /note >}}
+    {{< note >}}If you are running Minikube locally, you can visit hello-world.info from your browser.{{< /note >}}
 
 ## Create Second Deployment
 
@@ -284,16 +277,14 @@ The following file is an Ingress resource that sends traffic to your Service via
     Hostname: web2-75cd47646f-t8cjk
     ```
 
-    {{< note >}}
-    If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.
-    {{< /note >}}
+    {{< note >}}If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.{{< /note >}}
 
 {{% /capture %}}
 
 
 {{% capture whatsnext %}}
 * Read more about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read more about [Ingress Controllers](#)
+* Read more about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * Read more about [Services](/docs/concepts/services-networking/service/)
 
 {{% /capture %}}

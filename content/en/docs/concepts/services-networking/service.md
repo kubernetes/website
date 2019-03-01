@@ -83,12 +83,9 @@ deploying and evolving your `Services`.  For example, you can change the port
 number that pods expose in the next version of your backend software, without
 breaking clients.
 
-Kubernetes `Services` support `TCP`, `UDP` and `SCTP` for protocols.  The default
-is `TCP`.
-
-{{< note >}}
-SCTP support is an alpha feature since Kubernetes 1.12
-{{< /note >}}
+`TCP` is the default protocol for services, and you can also use any other
+[supported protocol](#protocol-support). At the moment, you can only set a
+single `port` and `protocol` for a Service.
 
 ### Services without selectors
 
@@ -944,29 +941,74 @@ Service is a top-level resource in the Kubernetes REST API. More details about t
 API object can be found at:
 [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
 
-## SCTP support
+## Supported protocols {#protocol-support}
+
+### TCP
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
+
+You can use TCP for any kind of service, and it's the default network protocol.
+
+### UDP
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
+
+You can use UDP for most services. For type=LoadBalancer services, UDP support
+depends on the cloud provider offering this facility.
+
+### HTTP
+
+{{< feature-state for_k8s_version="v1.1" state="stable" >}}
+
+If your cloud provider supports it, you can use a Service in LoadBalancer mode
+to set up external HTTP / HTTPS reverse proxying, forwarded to the Endpoints
+of the Service.
+
+{{< note >}}
+You can also use {{< glossary_tooltip term_id="ingress" >}} in place of Service
+to expose HTTP / HTTPS services.
+{{< /note >}}
+
+### PROXY protocol
+
+{{< feature-state for_k8s_version="v1.1" state="stable" >}}
+
+If your cloud provider supports it (eg, [AWS](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#aws)),
+you can use a Service in LoadBalancer mode to configure a load balancer outside
+of Kubernetes itself, that will forward connections prefixed with
+[PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
+
+The load balancer will send an initial series of octets describing the
+incoming connection, similar to this example
+
+```
+PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
+```
+followed by the data from the client.
+
+### SCTP
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
 Kubernetes supports SCTP as a `protocol` value in `Service`, `Endpoint`, `NetworkPolicy` and `Pod` definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a `Service`, `Endpoint`, `NetworkPolicy` and `Pod` to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
-### Warnings
+#### Warnings {#caveat-sctp-overview}
 
-#### The support of multihomed SCTP associations
+##### Support for multihomed SCTP associations {#caveat-sctp-multihomed}
 
 The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a `Pod`.
 
 NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
 
-#### Service with type=LoadBalancer
+##### Service with type=LoadBalancer {#caveat-sctp-loadbalancer-service-type}
 
 A `Service` with `type` LoadBalancer and `protocol` SCTP can be created only if the cloud provider's load balancer implementation supports SCTP as a protocol. Otherwise the `Service` creation request is rejected. The current set of cloud load balancer providers (`Azure`, `AWS`, `CloudStack`, `GCE`, `OpenStack`) do not support SCTP.
 
-#### Windows
+##### Windows {#caveat-sctp-windows-os}
 
 SCTP is not supported on Windows based nodes.
 
-#### Userspace kube-proxy
+##### Userspace kube-proxy {#caveat-sctp-kube-proxy-userspace}
 
 The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
 
