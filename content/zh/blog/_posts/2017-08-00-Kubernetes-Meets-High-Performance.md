@@ -1,5 +1,5 @@
 ---
-title："Kubernetes遇见高性能计算"
+title：" Kubernetes遇见高性能计算 "
 date：2017-08-22
 slug: kubernetes-meets-high-performance
 url: /blog/2017/08/Kubernetes-Meets-High-Performance
@@ -115,7 +115,7 @@ For sites running traditional HPC workloads, another approach is to use existing
 <!--
 - Use native job scheduling features in Kubernetes
 -->
-- 使用Kubernetes中的本机作业调度功能
+- 使用 Kubernetes 中的本机作业调度功能
 
 <!--
 Sites less invested in existing HPC applications can use existing scheduling facilities in Kubernetes for [jobs that run to completion](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/). While this is an option, it may be impractical for many HPC users. HPC applications are often either optimized towards massive throughput or large scale parallelism. In both cases startup and teardown latencies have a discriminating impact. Latencies that appear to be acceptable for containerized microservices today would render such applications unable to scale to the required levels.
