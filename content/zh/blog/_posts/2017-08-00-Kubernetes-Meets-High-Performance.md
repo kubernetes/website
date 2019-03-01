@@ -18,13 +18,13 @@ url: /blog/2017/08/Kubernetes-Meets-High-Performance
 Editor's note: today's post is by Robert Lalonde, general manager at Univa, on supporting mixed HPC and containerized applications &nbsp;
 -->
 
-编者按：今天的帖子是 Univa 总经理 Robert Lalonde 关于支持混合 HPC 和容器化应用程序的帖子&nbsp;
+编者的话：今天的文章由是 Univa 的总经理 Robert Lalonde 撰写，内容是关于支持混合高性能计算和容器化应用程序 &nbsp;
 
 <!--
 Anyone who has worked with Docker can appreciate the enormous gains in efficiency achievable with containers. While Kubernetes excels at orchestrating containers, high-performance computing (HPC) applications can be tricky to deploy on Kubernetes.
 -->
 
-任何与 Docker 合作过的人都可以体会到容器可实现的效率的巨大提升。虽然 Kubernetes 擅长编排容器，但在 Kubernetes 上部署高性能计算(HPC) 应用程序可能会非常棘手。
+任何与 Docker 合作过的人都能体会到容器在效率方面的巨大提升。虽然 Kubernetes 擅长编排容器，但在 Kubernetes 上部署高性能计算(HPC) 应用程序可能会非常棘手。
 
 <!--
 In this post, I discuss some of the challenges of running HPC workloads with Kubernetes, explain how organizations approach these challenges today, and suggest an approach for supporting mixed workloads on a shared Kubernetes cluster. We will also provide information and links to a case study on a customer, IHME, showing how Kubernetes is extended to service their HPC workloads seamlessly while retaining scalability and interfaces familiar to HPC users.
@@ -65,7 +65,7 @@ HPC 工作负载调度程序已经发展为支持这些类型的工作负载。�
 <!--
 ## Blurring the lines between containers and HPC
 -->
-##模糊容器和HPC之间的界限
+## 模糊容器和 HPC 之间的界限
 
 <!--
 HPC users believe containers are valuable for the same reasons as other organizations. Packaging logic in a container to make it portable, insulated from environmental dependencies, and easily exchanged with other containers clearly has value. However, making the switch to containers can be difficult.
@@ -80,12 +80,12 @@ HPC 工作负载通常在命令行级别集成。作业不是要求编码，而�
 <!--
 While the notion of packaging a workload into a Docker container, publishing it to a registry, and submitting a YAML description of the workload is second nature to users of Kubernetes, this is foreign to most HPC users. An analyst running models in R, MATLAB or Stata simply wants to submit their simulation quickly, monitor their execution, and get a result as quickly as possible.
 -->
-虽然将工作负载打包到Docker容器，将其发布到注册表以及提交工作负载的 YAML 描述的概念是 Kubernetes 用户的第二天性，但这对于大多数 HPC 用户来说是陌生的。在 R，MATLAB 或 Stata 中运行模型的分析师只想快速提交模拟，监控其执行情况，并尽快获得结果。
+虽然将工作负载打包到 Docker 容器，将其发布到注册表以及提交工作负载的 YAML 描述的概念是 Kubernetes 用户的第二天性，但这对于大多数 HPC 用户来说是陌生的。在 R，MATLAB 或 Stata 中运行模型的分析师只想快速提交模拟，监控其执行情况，并尽快获得结果。
 
 <!--
 ## Existing approaches
 -->
-##现有方法
+## 现有方法
 
 <!--
 To deal with the challenges of migrating to containers, organizations running container and HPC workloads have several options:
@@ -105,7 +105,7 @@ For sites with sunk investments in HPC, this may be a preferred approach. Rather
 <!--
 - Run containerized workloads under an existing HPC workload manager
 -->
- - 在现有 HPC 工作负载管理器下运行容器化工作负载
+- 在现有 HPC 工作负载管理器下运行容器化工作负载
 
 <!--
 For sites running traditional HPC workloads, another approach is to use existing job submission mechanisms to launch jobs that in turn instantiate Docker containers on one or more target hosts. Sites using this approach can introduce containerized workloads with minimal disruption to their environment. Leading HPC workload managers such as [Univa Grid Engine Container Edition](http://blogs.univa.com/2016/05/new-version-of-univa-grid-engine-now-supports-docker-containers/) and [IBM Spectrum LSF](http://blogs.univa.com/2016/05/new-version-of-univa-grid-engine-now-supports-docker-containers/) are adding native support for Docker containers. [Shifter](https://github.com/NERSC/shifter) and [Singularity](http://singularity.lbl.gov/) are important open source tools supporting this type of deployment also. While this is a good solution for sites with simple requirements that want to stick with their HPC scheduler, they will not have access to native Kubernetes features, and this may constrain flexibility in managing long-running services where Kubernetes excels.
@@ -115,7 +115,7 @@ For sites running traditional HPC workloads, another approach is to use existing
 <!--
 - Use native job scheduling features in Kubernetes
 -->
- - 使用Kubernetes中的本机作业调度功能
+- 使用Kubernetes中的本机作业调度功能
 
 <!--
 Sites less invested in existing HPC applications can use existing scheduling facilities in Kubernetes for [jobs that run to completion](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/). While this is an option, it may be impractical for many HPC users. HPC applications are often either optimized towards massive throughput or large scale parallelism. In both cases startup and teardown latencies have a discriminating impact. Latencies that appear to be acceptable for containerized microservices today would render such applications unable to scale to the required levels.
@@ -130,7 +130,7 @@ All of these solutions involve tradeoffs. The first option doesn’t allow resou
 <!--
 ## Mixed workloads on Kubernetes
 -->
-## Kubernetes的混合工作负载
+## Kubernetes 的混合工作负载
 
 <!--
 A better approach is to support HPC and container workloads natively in the same shared environment. Ideally, users should see the environment appropriate to their workload or workflow type.
@@ -170,12 +170,12 @@ From a client perspective, the HPC scheduler runs as a service deployed in Kuber
 <!--
 ## Deploying mixed workloads at IHME
 -->
-##在IHME部署混合工作负载
+## 在IHME部署混合工作负载
 
 <!--
 One client having success with mixed workloads is the Institute for Health Metrics & Evaluation (IHME), an independent health research center at the University of Washington. In support of their globally recognized Global Health Data Exchange (GHDx), IHME operates a significantly sized environment comprised of 500 nodes and 20,000 cores running a mix of analytic, HPC, and container-based applications on Kubernetes. [This case study](http://navops.io/ihme-case-study.html) describes IHME’s success hosting existing HPC workloads on a shared Kubernetes cluster using Navops Command.
 -->
-一个在混合工作负载方面取得成功的客户是华盛顿大学独立的健康研究中心健康指标与评估研究所 (IHME)。为支持其全球公认的全球健康数据交换 (GHDx)，IHME 运营着一个规模相当大的环境，包括500个节点和20,000个核心，在 Kubernetes 上运行分析，HPC 和基于容器的应用程序。 [本案例研究](http://navops.io/ihme-case-study.html) 描述了 IHME 使用 Navops Command 在共享 Kubernetes 集群上托管现有 HPC 工作负载的成功。
+一个在混合工作负载方面取得成功的客户是华盛顿大学独立的健康研究中心健康指标与评估研究所 (IHME)。为支持其全球公认的全球健康数据交换 (GHDx)，IHME 运营着一个规模相当大的环境，包括500个节点和20,000个核心，在 Kubernetes 上运行分析，HPC 和基于容器的应用程序。 [案例研究](http://navops.io/ihme-case-study.html) 描述了 IHME 使用 Navops Command 在共享 Kubernetes 集群上托管现有 HPC 工作负载的成功。
 
 <!--
 ![](https://lh5.googleusercontent.com/GJeP6e89r6drl72yzZM_OsZ81MYDp7Zm5xEFpItpmioian3lOp535H4jy1_eELKrzGMYr_wnjGwpK3Uku9dwg2-vqmMC1A1GrMtJc-PZR6GR6Z-fAZNJMEr_Uw3HqvWvi86mF_63XTozysaLpg)
