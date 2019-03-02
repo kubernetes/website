@@ -43,14 +43,14 @@ guides for installation instructions for your platform.
 <!--
 The Federation control plane can be deployed using `kubefed init`.
 -->
-可以使用 `kubefed init` 部署联合控制平面。
+可以使用 `kubefed init` 部署联邦控制平面。
 
 <!--
 After deploying the Federation control plane, you must configure an Admission
 Controller in the Federation API server that enforces placement decisions
 received from the external policy engine.
 -->
-部署联邦控制平面之后，必须在联邦 API 服务器中配置一个允许控制器，该控制器强制执行从外部策略引擎接收到的放置决策。
+部署联邦控制平面之后，必须在联邦 API 服务器中配置一个准入控制器，该控制器强制执行从外部策略引擎接收到的放置决策。
 
 
     kubectl create -f scheduling-policy-admission.yaml
@@ -77,7 +77,7 @@ ConfigMap 包含三个文件：
 * `opa-kubeconfig` is a standard kubeconfig containing the URL and credentials
   needed to contact the external policy engine.
 -->
-* `config.yml` 指定 `调度策略` 承认控制器配置文件的位置。
+* `config.yml` 指定 `调度策略` 准入控制器配置文件的位置。
 * `scheduling-policy-config.yml` 指定与外部策略引擎联系所需的 kubeconfig 文件的位置。
 该文件还可以包含一个 `retryBackoff` 值，该值以毫秒为单位控制初始重试 backoff 延迟。
 * `opa-kubeconfig` 是一个标准的 kubeconfig，包含联系外部策略引擎所需的 URL 和凭证。
@@ -86,7 +86,7 @@ ConfigMap 包含三个文件：
 Edit the Federation API server deployment to enable the `SchedulingPolicy`
 Admission Controller.
 -->
-编辑联邦 API 服务器部署以启用 `调度策略` 许可控制器。
+编辑联邦 API 服务器部署以启用 `调度策略` 准入控制器。
 
 	kubectl -n federation-system edit deployment federation-apiserver
 
