@@ -96,7 +96,7 @@ Controller and mount the ConfigMap into the container. If there's an existing
 `--enable-admission-plugins` flag, append `,SchedulingPolicy` instead of adding
 another line.
 -->
-更新 Federation API 服务器命令行参数以启用承认控制器，
+更新 Federation API 服务器命令行参数以启用准入控制器，
 并将 ConfigMap 挂载到容器中。如果存在现有的 `-enable- admissionplugins` 参数，则追加 `SchedulingPolicy` 而不是添加另一行。
 
 
