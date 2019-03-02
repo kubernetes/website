@@ -297,6 +297,13 @@ This example assumes you are running on Windows Server 1709, so uses the image t
 ### Secrets and ConfigMaps
 Secrets and ConfigMaps can be utilized in Windows Server Containers, but must be used as environment variables. See limitations section below for additional details.
 
+### Group Managed Service Accounts (GMSA) support
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+Starting with Kubernetes v1.14, Windows container workloads can be configured with a Group Managed Service Accounts (GMSA) credential spec JSON. Operators can configure a set of GMSA credential specs that can be used by pods scheduled in Windows worker nodes across the Kubernetes cluster to authenticate against other Windows services using GMSA.
+
+
 **Examples:**
 
 Windows pod with secrets mapped to environment variables
