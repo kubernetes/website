@@ -1,35 +1,33 @@
 ---
-title: Running Kubernetes on Azure
+title: Azure 上で Kubernetes を動かす
 ---
 
 ## Azure Kubernetes Service (AKS)
 
-The [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/) offers simple
-deployments for Kubernetes clusters.
+[Azure Kubernetes Service](https://azure.microsoft.com/ja-jp/services/kubernetes-service/) は、Kubernetes クラスタのためのシンプルなデプロイメントを提供します。
 
-For an example of deploying a Kubernetes cluster onto Azure via the Azure Kubernetes Service:
+たとえば、 Azure Kubernetes Service を利用して Azure 上に Kubernetes クラスタをデプロイするには、こちらをご参照ください:
 
-**[Microsoft Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)**
+**[Microsoft Azure Kubernetes Service](https://docs.microsoft.com/ja-jp/azure/aks/intro-kubernetes)**
 
-## Custom Deployments: ACS-Engine
+## デプロイメントのカスタマイズ: ACS-Engine
 
-The core of the Azure Kubernetes Service is **open source** and available on GitHub for the community
-to use and contribute to: **[ACS-Engine](https://github.com/Azure/acs-engine)**.
+Azure Kubernetes Service のコア部分は **オープンソース** であり、コミュニティのために GitHub 上で公開され、利用およびコントリビュートすることができます: **[ACS-Engine](https://github.com/Azure/acs-engine)**.
 
-ACS-Engine is a good choice if you need to make customizations to the deployment beyond what the Azure Kubernetes
-Service officially supports. These customizations include deploying into existing virtual networks, utilizing multiple
-agent pools, and more. Some community contributions to ACS-Engine may even become features of the Azure Kubernetes Service.
+ACS-Engine は、 Azure Kubernetes Service が公式にサポートしている機能を超えてデプロイメントをカスタマイズしたい場合に適した選択肢です。
+既存の仮想ネットワークへのデプロイや、複数の agent pool を利用するなどのカスタマイズをすることができます。
+コミュニティによる ACS-Engine へのコントリビュートは、 Azure Kubernetes Service に組み込まれるかもしれません。
 
-The input to ACS-Engine is similar to the ARM template syntax used to deploy a cluster directly with the Azure Kubernetes Service.
-The resulting output is an Azure Resource Manager Template that can then be checked into source control and can then be used
-to deploy Kubernetes clusters into Azure.
+ACS-Engine への入力は、Azure Kubernetes Service を使用してクラスタを直接デプロイすることに利用される ARM テンプレートの構文に似ています。
+処理結果は Azure Resource Manager テンプレートとして出力され、ソース管理に組み込んだり、 Azure に Kubernetes クラスタをデプロイするために使うことができます。
 
-You can get started quickly by following the **[ACS-Engine Kubernetes Walkthrough](https://github.com/Azure/acs-engine/blob/master/docs/kubernetes.md)**.
+**[ACS-Engine Kubernetes Walkthrough](https://github.com/Azure/acs-engine/blob/master/docs/kubernetes.md)** を参照して、すぐに始めることができます。
 
 ## CoreOS Tectonic for Azure
 
-The CoreOS Tectonic Installer for Azure is **open source** and available on GitHub for the community to use and contribute to: **[Tectonic Installer](https://github.com/coreos/tectonic-installer)**.
+CoreOS Tectonic Installer for Azure は **オープンソース** であり、コミュニティのために GitHub 上で公開され、利用およびコントリビュートすることができます: **[Tectonic Installer](https://github.com/coreos/tectonic-installer)**.
 
-Tectonic Installer is a good choice when you need to make cluster customizations as it is built on [Hashicorp's Terraform](https://www.terraform.io/docs/providers/azurerm/) Azure Resource Manager (ARM) provider. This enables users to customize or integrate using familiar Terraform tooling.
+Tectonic Installer は、 [Hashicorp が提供する Terraform](https://www.terraform.io/docs/providers/azurerm/) の Azure Resource Manager (ARM) プロバイダを用いてクラスタをカスタマイズしたい場合に適した選択肢です。
+これを利用することにより、 Terraform と親和性の高いツールを使用してカスタマイズしたり連携したりすることができます。
 
-You can get started using the [Tectonic Installer for Azure Guide](https://coreos.com/tectonic/docs/latest/install/azure/azure-terraform.html).
+[Tectonic Installer for Azure Guide](https://coreos.com/tectonic/docs/latest/install/azure/azure-terraform.html) を参照して、すぐに始めることができます。
