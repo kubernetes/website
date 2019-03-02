@@ -1235,6 +1235,20 @@ Learn how to
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
 
+#### Migrating to CSI drivers from in-tree plugins
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature, when enabled, directs all operations against existing in-tree
+plugins to corresponding CSI plugins, if installed. The feature implements the
+necessary translation logic and shims to re-route the operations in a seamless fashion. 
+As a result, operators do not have to make any configuration changes to existing
+Storage Classes, PVs or PVCs (referring to in-tree plugins) when transitioning to
+a CSI driver that supersedes an in-tree plugin.
+
+In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented 
+are listed in the "Types of Volumes" section above.
+
 ### Flexvolume {#flexVolume}
 
 Flexvolume is an out-of-tree plugin interface that has existed in Kubernetes
