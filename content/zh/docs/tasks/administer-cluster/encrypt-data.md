@@ -1,7 +1,7 @@
 ---
 reviewers:
 - smarterclayton
-title: 加密静态 Secret 数据
+title: 静态加密 Secret 数据
 content_template: templates/task
 ---
 
