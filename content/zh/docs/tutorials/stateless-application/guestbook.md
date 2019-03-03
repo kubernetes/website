@@ -1,5 +1,5 @@
 ---
-title: "示例：使用 Redis 部署 PHP Guestbook 应用程序"
+title: "示例：使用 Redis 部署 PHP 留言板应用程序"
 reviewers:
 - ahmetb
 content_template: templates/tutorial
@@ -31,7 +31,7 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 -->
 
 * 一个单实例 [Redis](https://redis.io/) 主程序来存储留言板条目
-* 多个 [复制的 Redis](https://redis.io/topics/replication) 实例用于提供读取
+* 多个[复制的 Redis](https://redis.io/topics/replication) 实例用于提供读取
 * 多个 web 前端实例
 
 
@@ -47,7 +47,7 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 * Clean up.
 -->
 
-* 启动Redis主服务器。
+* 启动 Redis 主服务器。
 * 启动 Redis slaves。
 * 启动留言板前端。
 * 公开并查看前端服务。
@@ -196,7 +196,7 @@ This manifest file creates a Service named `redis-master` with a set of labels t
 <!--
 Although the Redis master is a single pod, you can make it highly available to meet traffic demands by adding replica Redis slaves.
 -->
-尽管 Redis master 是一个单独的 pod，但是您可以通过添加副本 Redis slave 来使其高度可用，以满足流量需求。
+尽管主 Redis 是一个单独的 pod，但是您可以通过添加副本 Redis slave 来使其高度可用，以满足流量需求。
 
 <!--
 ### Creating the Redis Slave Deployment
