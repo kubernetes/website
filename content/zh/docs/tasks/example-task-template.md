@@ -1,5 +1,5 @@
 ---
-title: 任务模板示例
+title: 示例任务的模板
 reviewers:
 - chenopis
 content_template: templates/task
@@ -43,8 +43,8 @@ This page shows how to ...
 
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* 这样做。
-* 也这样做。
+* 做这个。
+* 也做这个。
 
 {{% /capture %}}
 
@@ -61,8 +61,8 @@ This page shows how to ...
 1. Do this next. Possibly read this [related explanation](...).
 -->
 
-1. 这样。
-1. 做下一个可能需要阅读一下这个[相关解释](...).
+1. 做这个。
+1. 接下来做这个。可能需要阅读一下这个[相关解释](...).
 
 {{% /capture %}}
 
@@ -80,7 +80,7 @@ This page shows how to ...
 <!--
 Here's an interesting thing to know about the steps you just did.
 -->
-关于你刚才所做的步骤，有一件有趣的事情要知道。
+关于你刚才所做的过程，有一点是需要知道的。
 
 {{% /capture %}}
 
