@@ -1,6 +1,6 @@
 ---
 title: 使用 kubectl patch 更新 API 对象
-description: 使用 kubectl patch 更新 Kubernetes API 对象。做一个战略性的合并补丁或 JSON 合并补丁。
+description: 使用 kubectl patch 更新 Kubernetes API 对象。做一个策略性的合并补丁或 JSON 合并补丁。
 content_template: templates/task
 weight: 40
 ---
@@ -21,7 +21,7 @@ This task shows how to use `kubectl patch` to update an API object in place. The
 in this task demonstrate a strategic merge patch and a JSON merge patch.
 -->
 
-这个任务展示了如何使用 `kubectl patch` 就地更新 API 对象。这个任务中的练习演示了一个战略性合并补丁和一个 JSON 合并补丁。
+这个任务展示了如何使用 `kubectl patch` 就地更新 API 对象。这个任务中的练习演示了一个策略性合并补丁和一个 JSON 合并补丁。
 
 {{% /capture %}}
 
@@ -199,9 +199,9 @@ Container to the list. In other words, the list in the patch was merged with the
 existing list. This is not always what happens when you use a strategic merge patch on a list.
 In some cases, the list is replaced, not merged.
 -->
-您在前面的练习中所做的补丁称为`战略性合并补丁`。
+您在前面的练习中所做的补丁称为`策略性合并补丁`。
 请注意，补丁没有替换`容器`列表。相反，它向列表中添加了一个新容器。换句话说，
-补丁中的列表与现有列表合并。当您在列表中使用战略性合并补丁时，并不总是这样。
+补丁中的列表与现有列表合并。当您在列表中使用策略性合并补丁时，并不总是这样。
 在某些情况下，列表是替换的，而不是合并的。
 
 <!--
@@ -296,7 +296,7 @@ the Tolerations field of PodSpec does not have a `patchStrategy` key in its fiel
 strategic merge patch uses the default patch strategy, which is `replace`.
 -->
 请注意，PodSpec 中的 `tolerations` 列表被替换，而不是合并。这是因为 PodSpec 的 tolerance 字段的字段标签中没有
-`patchStrategy` 键。所以战略合并补丁使用默认的补丁策略，也就是 `replace`。
+`patchStrategy` 键。所以策略合并补丁使用默认的补丁策略，也就是 `replace`。
 
 ```go
 type PodSpec struct {
@@ -341,7 +341,7 @@ For a comparison of JSON patch and JSON merge patch, see
 The default value for the `type` parameter is `strategic`. So in the preceding exercise, you
 did a strategic merge patch.
 -->
-`type` 参数的默认值是 `strategic`。在前面的练习中，我们做了一个战略性的合并补丁。
+`type` 参数的默认值是 `strategic`。在前面的练习中，我们做了一个策略性的合并补丁。
 
 <!--
 Next, do a JSON merge patch on your same Deployment. Create a file named `patch-file-2.yaml`
