@@ -131,6 +131,11 @@ Now run:
 kubeadm init <args> 
 ```
 
+{{< note >}}
+If you have installed kubeadm from development packages (e.g., deb or rpm) of version X,
+the arguments should include: `--kubernetes-version=latest-X`.
+{{< /note >}}
+
 ### More information
 
 For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm/).
