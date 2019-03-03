@@ -47,7 +47,7 @@ Start RabbitMQ as follows:
 
 Step: 1
 ```shell
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
 ```
 The output is similar to this:
 ```shell
@@ -55,7 +55,7 @@ service "rabbitmq-service" created
 ```
 Step: 2
 ```shell
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
 ```
 The output is similar to this:
 ```shell
@@ -74,7 +74,7 @@ First create a temporary interactive Pod.
 
 ```shell
 # Create a temporary interactive container
-$ kubectl run -i --tty temp --image ubuntu:18.04
+kubectl run -i --tty temp --image ubuntu:18.04
 Waiting for pod default/temp-loe07 to be running, status is Pending, pod ready: false
 ... [ previous line repeats several times .. hit return when it stops ] ...
 ```
@@ -171,7 +171,7 @@ For our example, we will create the queue and fill it using the amqp command lin
 In practice, you might write a program to fill the queue using an amqp client library.
 
 ```shell
-$ /usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
+/usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
 ```
 The output is similar to this:
 ```shell
@@ -179,7 +179,7 @@ job1
 ```
 
 ```shell
-$ for f in apple banana cherry date fig grape lemon melon
+ for f in apple banana cherry date fig grape lemon melon
 do
   /usr/bin/amqp-publish --url=$BROKER_URL -r job1 -p -b $f
 done
@@ -200,7 +200,7 @@ example program:
 Give the script execution permission:
 
 ```shell
-$ chmod +x worker.py
+chmod +x worker.py
 ```
 
 Now, build an image.  If you are working in the source
@@ -211,7 +211,7 @@ and [worker.py](/examples/application/job/rabbitmq/worker.py).  In either case,
 build the image with this command:
 
 ```shell
-$ docker build -t job-wq-1 .
+docker build -t job-wq-1 .
 ```
 
 For the [Docker Hub](https://hub.docker.com/), tag your app image with
@@ -256,7 +256,7 @@ kubectl create -f ./job.yaml
 Now wait a bit, then check on the job.
 
 ```shell
-$ kubectl describe jobs/job-wq-1
+kubectl describe jobs/job-wq-1
 ```
 The output is similar to this:
 ```shell
