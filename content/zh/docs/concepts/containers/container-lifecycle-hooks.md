@@ -76,7 +76,7 @@ so it must complete before the call to delete the container can be sent.
 No parameters are passed to the handler.
 -->
 在容器终止之前立即调用此钩子。
-它是阻塞的，意味着它是同步的，因此它必须在删除容器的调用之前完成。
+它是阻塞的，同时也是同步的，因此它必须在删除容器的调用之前完成。
 没有参数传递给处理程序。
 
 <!--
@@ -89,14 +89,14 @@ A more detailed description of the termination behavior can be found in
 ### Hook handler implementations
 -->
 
-### 钩子处理程序实现
+### 钩子处理程序的实现
 
 <!--
 Containers can access a hook by implementing and registering a handler for that hook.
 There are two types of hook handlers that can be implemented for Containers:
 -->
 容器可以通过实现和注册该钩子的处理程序来访问该钩子。
-有两种类型的钩子处理程序可以为容器实现：
+针对容器，有两种类型的钩子处理程序可供实现：
 
 <!--
 * Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
@@ -104,8 +104,9 @@ Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 -->
 
-* 执行一个特定的命令，例如 `pre-stop.sh`，在容器的 cgroups 和名称空间中。命令消耗的资源根据容器计算。
-* HTTP - 对容器上的特定端点执行HTTP请求。
+* Exec - 执行一个特定的命令，例如 `pre-stop.sh`，在容器的 cgroups 和名称空间中。
+命令所消耗的资源根据容器进行计算。
+* HTTP - 对容器上的特定端点执行 HTTP 请求。
 
 <!--
 ### Hook handler execution
@@ -137,7 +138,7 @@ the Pod phase stays in a `Terminating` state and is killed after `terminationGra
 If a `PostStart` or `PreStop` hook fails,
 it kills the Container.
 -->
-`PreStop` 钩子的行为类似。
+行为与 `PreStop` 钩子的行为类似。
 如果钩子在执行过程中挂起，Pod 阶段将保持在 `Terminating` 状态，并在 Pod 结束的 `terminationGracePeriodSeconds` 之后被杀死。
 如果 `PostStart` 或 `PreStop` 钩子失败，它会杀死容器。
 
@@ -147,13 +148,13 @@ There are cases, however, when long running commands make sense,
 such as when saving state prior to stopping a Container.
 -->
 用户应该使他们的钩子处理程序尽可能的轻量级。
-但是，有些情况下长时间运行的命令是有意义的，比如在停止容器之前保存状态。
+但也需要考虑长时间运行的命令也很有用的情况，比如在停止容器之前保存状态。
 
 <!--
 ### Hook delivery guarantees
 -->
 
-### 钩子传递保证
+### 钩子寄送保证
 
 <!--
 Hook delivery is intended to be *at least once*,
@@ -161,8 +162,8 @@ which means that a hook may be called multiple times for any given event,
 such as for `PostStart` or `PreStop`.
 It is up to the hook implementation to handle this correctly.
 -->
-钩子的传递应该是*至少一次*，这意味着对于任何给定的事件，例如 `PostStart` 或 `PreStop`，钩子可以被调用多次。
-如何正确处理这个问题取决于钩子实现。
+钩子的寄送应该是*至少一次*，这意味着对于任何给定的事件，例如 `PostStart` 或 `PreStop`，钩子可以被调用多次。
+如何正确处理，是钩子实现所要考虑的问题。
 
 <!--
 Generally, only single deliveries are made.
@@ -172,10 +173,10 @@ In some rare cases, however, double delivery may occur.
 For instance, if a kubelet restarts in the middle of sending a hook,
 the hook might be resent after the kubelet comes back up.
 -->
-通常情况下，只有一次传递。
+通常情况下，只会进行单次寄送。
 例如，如果 HTTP 钩子接收器宕机，无法接收流量，则不会尝试重新发送。
-然而，在一些罕见的情况下，可能会发生双传递。
-例如，如果 kubelet 在发送钩子的过程中重新启动，钩子可能会在 kubelet 返回后重新发送。
+然而，偶尔也会发生重复寄送的可能。
+例如，如果 kubelet 在发送钩子的过程中重新启动，钩子可能会在 kubelet 恢复后重新发送。
 
 <!--
 ### Debugging Hook handlers
@@ -194,7 +195,7 @@ Here is some example output of events from running this command:
 钩子处理程序的日志不会在 Pod 事件中公开。
 如果处理程序由于某种原因失败，它将播放一个事件。
 对于 `PostStart`，这是 `FailedPostStartHook` 事件，对于 `PreStop`，这是 `FailedPreStopHook` 事件。
-您可以通过运行 `kubectl describe pod <pod_name>` 来查看这些事件。
+您可以通过运行 `kubectl describe pod <pod_name>` 命令来查看这些事件。
 下面是运行这个命令的一些事件输出示例:
 
 ```
