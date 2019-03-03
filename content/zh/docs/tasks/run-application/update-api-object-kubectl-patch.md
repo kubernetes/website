@@ -1,6 +1,6 @@
 ---
-title: 使用 kubectl 补丁更新 API 对象
-description: 使用 kubectl 补丁更新 Kubernetes API 对象。做一个战略性的合并补丁或 JSON 合并补丁。
+title: 使用 kubectl patch 更新 API 对象
+description: 使用 kubectl patch 更新 Kubernetes API 对象。做一个战略性的合并补丁或 JSON 合并补丁。
 content_template: templates/task
 weight: 40
 ---
@@ -21,7 +21,7 @@ This task shows how to use `kubectl patch` to update an API object in place. The
 in this task demonstrate a strategic merge patch and a JSON merge patch.
 -->
 
-这个任务展示了如何使用 `kubectl patch` 更新适合的 API 对象。这个任务中的练习演示了一个战略性合并补丁和一个 JSON 合并补丁。
+这个任务展示了如何使用 `kubectl patch` 就地更新 API 对象。这个任务中的练习演示了一个战略性合并补丁和一个 JSON 合并补丁。
 
 {{% /capture %}}
 
@@ -38,14 +38,14 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 ## Use a strategic merge patch to update a Deployment
 -->
 
-## 使用策略合并补丁更新部署
+## 使用策略合并补丁更新 Deployment
 
 <!--
 Here's the configuration file for a Deployment that has two replicas. Each replica
 is a Pod that has one container:
 -->
 
-下面是具有两个副本的部署的配置文件。每个副本是一个 Pod，有一个容器：
+下面是具有两个副本的 Deployment 的配置文件。每个副本是一个 Pod，有一个容器：
 
 {{< codenew file="application/deployment-patch.yaml" >}}
 
@@ -53,7 +53,7 @@ is a Pod that has one container:
 Create the Deployment:
 -->
 
-创建部署：
+创建 Deployment：
 
 ```shell
 kubectl create -f https://k8s.io/examples/application/deployment-patch.yaml
@@ -62,7 +62,7 @@ kubectl create -f https://k8s.io/examples/application/deployment-patch.yaml
 <!--
 View the Pods associated with your Deployment:
 -->
-查看与部署相关的 Pod：
+查看与 Deployment 相关的 Pod：
 
 ```shell
 kubectl get pods
@@ -72,7 +72,7 @@ kubectl get pods
 The output shows that the Deployment has two Pods. The `1/1` indicates that
 each Pod has one container:
 -->
-输出显示部署有两个 Pod。`1/1` 表示每个 Pod 有一个容器:
+输出显示 Deployment 有两个 Pod。`1/1` 表示每个 Pod 有一个容器:
 
 ```
 NAME                        READY     STATUS    RESTARTS   AGE
@@ -84,7 +84,7 @@ patch-demo-28633765-j5qs3   1/1       Running   0          23s
 Make a note of the names of the running Pods. Later, you will see that these Pods
 get terminated and replaced by new ones.
 -->
-把运行的名字记下来。稍后，您将看到这些 Pod 被终止并被新的 Pod 替换。
+把运行的 Pod 的名字记下来。稍后，您将看到这些 Pod 被终止并被新的 Pod 替换。
 
 <!--
 At this point, each Pod has one Container that runs the nginx image. Now suppose
@@ -109,7 +109,7 @@ spec:
 <!--
 Patch your Deployment:
 -->
-补丁部署：
+修补您的 Deployment：
 
 ```shell
 kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
@@ -117,7 +117,7 @@ kubectl patch deployment patch-demo --patch "$(cat patch-file-containers.yaml)"
 <!--
 View the patched Deployment:
 -->
-查看补丁部署：
+查看修补后的 Deployment：
 
 ```shell
 kubectl get deployment patch-demo --output yaml
@@ -126,7 +126,7 @@ kubectl get deployment patch-demo --output yaml
 <!--
 The output shows that the PodSpec in the Deployment has two Containers:
 -->
-输出显示部署中的 PodSpec 有两个容器:
+输出显示 Deployment 中的 PodSpec 有两个容器:
 
 ```shell
 containers:
@@ -143,7 +143,7 @@ containers:
 <!--
 View the Pods associated with your patched Deployment:
 -->
-查看与补丁部署相关的 Pod:
+查看与补丁 Deployment 相关的 Pod:
 
 ```shell
 kubectl get pods
@@ -155,7 +155,7 @@ were running previously. The Deployment terminated the old Pods and created two
 new Pods that comply with the updated Deployment spec. The `2/2` indicates that
 each Pod has two Containers:
 -->
-输出显示正在运行的 Pod 与以前运行的 Pod 有不同的名称。部署终止了旧的 Pod，并创建了两个
+输出显示正在运行的 Pod 与以前运行的 Pod 有不同的名称。Deployment 终止了旧的 Pod，并创建了两个
 符合更新的部署规范的新 Pod。`2/2` 表示每个 Pod 有两个容器:
 
 ```
@@ -167,7 +167,7 @@ patch-demo-1081991389-jmg7b   2/2       Running   0          1m
 <!--
 Take a closer look at one of the patch-demo Pods:
 -->
-仔细查看其中一个补丁-演示 Pod:
+仔细查看其中一个 patch-demo Pod:
 
 ```shell
 kubectl get pod <your-pod-name> --output yaml
@@ -190,7 +190,7 @@ containers:
 ### Notes on the strategic merge patch
 -->
 
-### 战略合并补丁的说明
+### 策略性合并类的修补
 
 <!--
 The patch you did in the preceding exercise is called a *strategic merge patch*.
