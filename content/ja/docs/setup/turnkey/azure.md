@@ -27,7 +27,7 @@ ACS-Engine への入力は、Azure Kubernetes Service を使用してクラス�
 
 CoreOS Tectonic Installer for Azure は **オープンソース** であり、コミュニティのために GitHub 上で公開され、利用およびコントリビュートすることができます: **[Tectonic Installer](https://github.com/coreos/tectonic-installer)**.
 
-Tectonic Installer は、 [Hashicorp が提供する Terraform](https://www.terraform.io/docs/providers/azurerm/) の Azure Resource Manager (ARM) プロバイダを用いてクラスタをカスタマイズしたい場合に適した選択肢です。
+Tectonic Installer は、 [Hashicorp が提供する Terraform](https://www.terraform.io/docs/providers/azurerm/) の Azure Resource Manager (ARM) プロバイダーを用いてクラスターをカスタマイズしたい場合に適した選択肢です。
 これを利用することにより、 Terraform と親和性の高いツールを使用してカスタマイズしたり連携したりすることができます。
 
 [Tectonic Installer for Azure Guide](https://coreos.com/tectonic/docs/latest/install/azure/azure-terraform.html) を参照して、すぐに始めることができます。
