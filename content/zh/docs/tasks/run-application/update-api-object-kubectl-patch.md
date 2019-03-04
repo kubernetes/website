@@ -263,7 +263,7 @@ spec:
 <!--
 Patch your Deployment:
 -->
-补丁 patch：
+patch Deployment：
 
 ```shell
 kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
@@ -272,7 +272,7 @@ kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
 <!--
 View the patched Deployment:
 -->
-查看补丁 patch：
+查看 patch Deployment：
 
 ```shell
 kubectl get deployment patch-demo --output yaml
