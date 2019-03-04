@@ -36,7 +36,7 @@ CloudStack operators need to [register](http://docs.cloudstack.apache.org/projec
 This guide uses a single [Ansible playbook](https://github.com/apachecloudstack/k8s), which is completely automated and can deploy Kubernetes on a CloudStack based Cloud using CoreOS images. The playbook, creates an ssh key pair, creates a security group and associated rules and finally starts coreOS instances configured via cloud-init.
 -->
 
-本指南使用一个 [Ansible playbook](https://github.com/apachecloudstack/k8s)，它是完全自动化的，可以使用 CoreOS 镜像在基于 CloudStack 的云上部署 Kubernetes。playbook 创建 ssh 密钥对、创建安全组和相关规则，最后启动通过 cloud-init 配置的 coreOS 实例。
+本指南使用一个 [Ansible 副本](https://github.com/apachecloudstack/k8s)，它是完全自动化的，可以使用 CoreOS 镜像在基于 CloudStack 的云上部署 Kubernetes。副本创建 ssh 密钥对、创建安全组和相关规则，最后启动通过 cloud-init 配置的 coreOS 实例。
 
 {{% /capture %}}
 
