@@ -422,7 +422,7 @@ Scaling of DNS backends based on DNS-specific metrics is under consideration as
 a future development. The current implementation, which uses the number of nodes
 and cores in cluster, is limited.
 -->
-基于 DNS 特定指标的 DNS 后端扩展正在考虑作为未来发展。当前实现使用群集中的节点和核心数量是有限的。
+基于 DNS 特定指标的 DNS 后端扩展正在考虑作为未来发展。当前实现使用集群中的节点和核心数量是有限的。
 
 <!--
 Support for custom metrics, similar to that provided by
