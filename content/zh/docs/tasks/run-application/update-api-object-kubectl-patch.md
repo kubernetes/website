@@ -1,6 +1,6 @@
 ---
 title: 使用 kubectl patch 更新 API 对象
-description: 使用 kubectl patch 更新 Kubernetes API 对象。做一个策略性的合并补丁或 JSON 合并补丁。
+description: 使用 kubectl patch 更新 Kubernetes API 对象。做一个策略性的合并 patch 或 JSON 合并 patch。
 content_template: templates/task
 weight: 40
 ---
@@ -21,7 +21,7 @@ This task shows how to use `kubectl patch` to update an API object in place. The
 in this task demonstrate a strategic merge patch and a JSON merge patch.
 -->
 
-这个任务展示了如何使用 `kubectl patch` 就地更新 API 对象。这个任务中的练习演示了一个策略性合并补丁和一个 JSON 合并补丁。
+这个任务展示了如何使用 `kubectl patch` 就地更新 API 对象。这个任务中的练习演示了一个策略性合并 patch 和一个 JSON 合并 patch。
 
 {{% /capture %}}
 
@@ -38,7 +38,7 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 ## Use a strategic merge patch to update a Deployment
 -->
 
-## 使用策略合并补丁更新 Deployment
+## 使用策略合并 patch 更新 Deployment
 
 <!--
 Here's the configuration file for a Deployment that has two replicas. Each replica
@@ -143,7 +143,7 @@ containers:
 <!--
 View the Pods associated with your patched Deployment:
 -->
-查看与补丁 Deployment 相关的 Pod:
+查看与 patch Deployment 相关的 Pod:
 
 ```shell
 kubectl get pods
@@ -190,7 +190,7 @@ containers:
 ### Notes on the strategic merge patch
 -->
 
-### 策略性合并类的修补
+### 策略性合并类的 patch
 
 <!--
 The patch you did in the preceding exercise is called a *strategic merge patch*.
@@ -199,9 +199,9 @@ Container to the list. In other words, the list in the patch was merged with the
 existing list. This is not always what happens when you use a strategic merge patch on a list.
 In some cases, the list is replaced, not merged.
 -->
-您在前面的练习中所做的补丁称为`策略性合并补丁`。
-请注意，补丁没有替换`容器`列表。相反，它向列表中添加了一个新容器。换句话说，
-补丁中的列表与现有列表合并。当您在列表中使用策略性合并补丁时，并不总是这样。
+您在前面的练习中所做的 patch 称为`策略性合并 patch`。
+请注意，patch 没有替换`容器`列表。相反，它向列表中添加了一个新容器。换句话说，
+patch 中的列表与现有列表合并。当您在列表中使用策略性合并 patch 时，并不总是这样。
 在某些情况下，列表是替换的，而不是合并的。
 
 <!--
@@ -210,7 +210,7 @@ patch strategy. The patch strategy is specified by the value of the `patchStrate
 in a field tag in the Kubernetes source code. For example, the `Containers` field of `PodSpec`
 struct has a `patchStrategy` of `merge`:
 -->
-对于策略性合并补丁，列表可以根据其补丁策略进行替换或合并。补丁策略由 Kubernetes 源代码中字段标记中的 `patchStrategy` 键的值指定。
+对于策略性合并 patch，列表可以根据其 patch 策略进行替换或合并。patch 策略由 Kubernetes 源代码中字段标记中的 `patchStrategy` 键的值指定。
 例如，`PodSpec` 结构体的 `Containers` 字段有 `merge` 的 `patchStrategy`：
 
 ```go
@@ -225,7 +225,7 @@ You can also see the patch strategy in the
 -->
 
 您还可以在 [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json)
-规范中看到补丁策略：
+规范中看到 patch 策略：
 
 ```json
 "io.k8s.api.core.v1.PodSpec": {
@@ -243,7 +243,7 @@ And you can see the patch strategy in the
 [Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 您可以在 [Kubernetes API 文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-中看到补丁策略
+中看到 patch 策略
 
 <!--
 Create a file named `patch-file-tolerations.yaml` that has this content:
@@ -263,7 +263,7 @@ spec:
 <!--
 Patch your Deployment:
 -->
-补丁部署：
+补丁 patch：
 
 ```shell
 kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
@@ -272,7 +272,7 @@ kubectl patch deployment patch-demo --patch "$(cat patch-file-tolerations.yaml)"
 <!--
 View the patched Deployment:
 -->
-查看补丁部署：
+查看补丁 patch：
 
 ```shell
 kubectl get deployment patch-demo --output yaml
@@ -296,7 +296,7 @@ the Tolerations field of PodSpec does not have a `patchStrategy` key in its fiel
 strategic merge patch uses the default patch strategy, which is `replace`.
 -->
 请注意，PodSpec 中的 `tolerations` 列表被替换，而不是合并。这是因为 PodSpec 的 tolerance 字段的字段标签中没有
-`patchStrategy` 键。所以策略合并补丁使用默认的补丁策略，也就是 `replace`。
+`patchStrategy` 键。所以策略合并 patch 使用默认的 patch 策略，也就是 `replace`。
 
 ```go
 type PodSpec struct {
@@ -307,7 +307,7 @@ type PodSpec struct {
 <!--
 ## Use a JSON merge patch to update a Deployment
 -->
-## 使用 JSON 合并补丁更新部署
+## 使用 JSON 合并 patch 更新部署
 
 <!--
 A strategic merge patch is different from a
@@ -316,8 +316,8 @@ With a JSON merge patch, if you
 want to update a list, you have to specify the entire new list. And the new list completely
 replaces the existing list.
 -->
-策略性合并补丁不同于 [JSON 合并补丁](https://tools.ietf.org/html/rfc7386)。
-使用 JSON 合并补丁，如果您想更新列表，您必须指定整个新列表。新的列表完全取代了现有的列表。
+策略性合并 patch 不同于 [JSON 合并 patch](https://tools.ietf.org/html/rfc7386)。
+使用 JSON 合并 patch，如果您想更新列表，您必须指定整个新列表。新的列表完全取代了现有的列表。
 
 <!--
 The `kubectl patch` command has a `type` parameter that you can set to one of these values:
@@ -335,19 +335,19 @@ The `kubectl patch` command has a `type` parameter that you can set to one of th
 For a comparison of JSON patch and JSON merge patch, see
 [JSON Patch and JSON Merge Patch](http://erosb.github.io/post/json-patch-vs-merge-patch/).
 -->
-有关 JSON 补丁和 JSON 合并补丁的比较，查看[ JSON 补丁和 JSON 合并补丁](http://erosb.github.io/post/json-patch-vs-merge-patch/)。
+有关 JSON patch 和 JSON 合并 patch 的比较，查看[ JSON patch 和 JSON 合并 patch](http://erosb.github.io/post/json-patch-vs-merge-patch/)。
 
 <!--
 The default value for the `type` parameter is `strategic`. So in the preceding exercise, you
 did a strategic merge patch.
 -->
-`type` 参数的默认值是 `strategic`。在前面的练习中，我们做了一个策略性的合并补丁。
+`type` 参数的默认值是 `strategic`。在前面的练习中，我们做了一个策略性的合并 patch。
 
 <!--
 Next, do a JSON merge patch on your same Deployment. Create a file named `patch-file-2.yaml`
 that has this content:
 -->
-下一步，在相同的部署上执行 JSON 合并补丁。创建一个名为 `patch-file-2` 的文件。内容如下:
+下一步，在相同的部署上执行 JSON 合并 patch。创建一个名为 `patch-file-2` 的文件。内容如下:
 
 ```yaml
 spec:
@@ -361,7 +361,7 @@ spec:
 <!--
 In your patch command, set `type` to `merge`:
 -->
-在补丁命令中，将 `type` 设置为 `merge`：
+在 patch 命令中，将 `type` 设置为 `merge`：
 
 ```shell
 kubectl patch deployment patch-demo --type merge --patch "$(cat patch-file-2.yaml)"
@@ -370,7 +370,7 @@ kubectl patch deployment patch-demo --type merge --patch "$(cat patch-file-2.yam
 <!--
 View the patched Deployment:
 -->
-查看补丁部署：
+查看 patch 部署：
 
 ```shell
 kubectl get deployment patch-demo --output yaml
@@ -380,7 +380,7 @@ kubectl get deployment patch-demo --output yaml
 The `containers` list that you specified in the patch has only one Container.
 The output shows that your list of one Container replaced the existing `containers` list.
 -->
-补丁中指定的`容器`列表只有一个容器。
+patch 中指定的`容器`列表只有一个容器。
 输出显示您的一个容器列表替换了现有的`容器`列表。
 
 ```shell
@@ -416,13 +416,13 @@ patch-demo-1307768864-c86dc   1/1       Running   0          1m
 ## Alternate forms of the kubectl patch command
 -->
 
-## kubectl 补丁命令的其他形式
+## kubectl patch 命令的其他形式
 
 <!--
 The `kubectl patch` command takes YAML or JSON. It can take the patch as a file or
 directly on the command line.
 -->
- `kubectl patch` 命令使用 YAML 或 JSON。它可以将补丁作为文件，也可以直接在命令行中使用。
+ `kubectl patch` 命令使用 YAML 或 JSON。它可以将 patch 作为文件，也可以直接在命令行中使用。
 
 <!--
 Create a file named `patch-file.json` that has this content:
