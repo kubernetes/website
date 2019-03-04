@@ -4,6 +4,7 @@
 slug: kubernetes-meets-high-performance
 url: /blog/2017/08/Kubernetes-Meets-High-Performance
 ---
+编者的话：今天的文章由是 Univa 的总经理 Robert Lalonde 撰写，内容是关于支持混合高性能计算和容器化应用程序 &nbsp;
 <!--
 ---
 title: " Kubernetes Meets High-Performance Computing "
@@ -11,12 +12,8 @@ date: 2017-08-22
 slug: kubernetes-meets-high-performance
 url: /blog/2017/08/Kubernetes-Meets-High-Performance
 ---
--->
-
-<!--
 Editor's note: today's post is by Robert Lalonde, general manager at Univa, on supporting mixed HPC and containerized applications &nbsp;
 -->
-编者的话：今天的文章由是 Univa 的总经理 Robert Lalonde 撰写，内容是关于支持混合高性能计算和容器化应用程序 &nbsp;
 
 <!--
 Anyone who has worked with Docker can appreciate the enormous gains in efficiency achievable with containers. While Kubernetes excels at orchestrating containers, high-performance computing (HPC) applications can be tricky to deploy on Kubernetes.
@@ -31,13 +28,12 @@ In this post, I discuss some of the challenges of running HPC workloads with Kub
 <!--
 ## HPC workloads unique challenges
 -->
-
 ## HPC 工作负载的独特挑战
 
 <!--
 In Kubernetes, the base unit of scheduling is a Pod: one or more Docker containers scheduled to a cluster host. Kubernetes assumes that workloads are containers. While Kubernetes has the notion of [Cron Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) and [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/) that run to completion, applications deployed on Kubernetes are typically long-running services, like web servers, load balancers or data stores and while they are highly dynamic with pods coming and going, they differ greatly from HPC application patterns.
 -->
-在 Kubernetes 中，调度的基-本单位是 Pod：一个或多个计划到集群主机的 Docker 容器。 Kubernetes 假设工作负载是容器。虽然 Kubernetes 有 [Cron Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) 和 [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/) 的概念运行完成，部署在 Kubernetes 上的应用程序通常是长期运行的服务，如 Web 服务器，负载均衡器或数据存储，虽然它们是高度动态的，随着 pod 的进出，它们与 HPC 应用程序模式有很大不同。
+在 Kubernetes 中，调度的基本单位是 Pod：一个或多个计划到集群主机的 Docker 容器。 Kubernetes 假设工作负载是容器。 虽然 Kubernetes 有 [Cron Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) 和 [Jobs](https://kubernetes.io/docs/concepts/workloads) 的概念 /controllers/jobs-run-to-completion /）运行完成，部署在 Kubernetes 上的应用程序通常是长期运行的服务，如 Web 服务器，负载均衡器或数据存储，虽然它们是高度动态的，随着 pod 的进出，它们 与 HPC 应用程序模式有很大不同。
 
 <!--
 Traditional HPC applications often exhibit different characteristics:
@@ -50,13 +46,13 @@ Traditional HPC applications often exhibit different characteristics:
 - Other HPC workloads may require specialized resources like GPUs or require access to limited software licenses. Organizations may enforce policies around what types of resources can be used by whom to ensure projects are adequately resourced and deadlines are met.
 -->
 - 在财务或工程模拟中，作业可能由数万个短期运行任务组成，要求低延迟和高吞吐量调度以在可接受的时间内完成模拟。
-- 计算流体动力学 (CFD) 问题可以使用消息传递库来同步状态，在数百个甚至数千个节点上并行执行。这需要专门的调度和作业管理功能来分配和启动此类作业，然后检查点，暂停/恢复或回填它们。
-- 其他 HPC 工作负载可能需要 GPU 等专用资源，或者需要访问有限的软件许可证。组织可以围绕谁可以使用哪些类型的资源来执行策略，以确保项目资源充足并且满足最后期限。
+- 计算流体动力学 (CFD) 问题可以使用消息传递库来同步状态，在数百个甚至数千个节点上并行执行。 这需要专门的调度和作业管理功能来分配和启动此类作业，然后检查点，暂停/恢复或回填它们。
+- 其他 HPC 工作负载可能需要 GPU 等专用资源，或者需要访问有限的软件许可证。 组织可以围绕谁可以使用哪些类型的资源来执行策略，以确保项目资源充足并且满足最后期限。
  
 <!--
 HPC workload schedulers have evolved to support exactly these kinds of workloads. Examples include [Univa Grid Engine](http://www.univa.com/products/), [IBM Spectrum LSF](https://www-03.ibm.com/systems/spectrum-computing/products/lsf/) and Altair’s [PBS Professional](http://www.pbsworks.com/PBSProduct.aspx?n=PBS-Professional&c=Overview-and-Capabilities). Sites managing HPC workloads have come to rely on capabilities like array jobs, configurable pre-emption, user, group or project based quotas and a variety of other features.  
 -->
-HPC 工作负载调度程序已经发展为支持这些类型的工作负载。示例包括 [Univa Grid Engine](http://www.univa.com/products/),[IBM Spectrum LSF](https://www-03.ibm.com/systems/spectrum-computing/products/lsf/) 和 Altair 的 [PBS Professional](http://www.pbsworks.com/PBSProduct.aspx?n=PBS-Professional&c=Overview-and-Capabilities)。管理 HPC 工作负载的站点已经开始依赖于阵列作业，可配置抢占，基于用户，组或项目的配额以及各种其他功能等功能。
+HPC 工作负载调度程序已经发展为支持这些类型的工作负载。 示例包括 [Univa Grid Engine](http://www.univa.com/products/),[IBM Spectrum LSF](https://www-03.ibm.com/systems/spectrum-computing/products/lsf/) 和 Altair 的 [PBS Professional](http://www.pbsworks.com/PBSProduct.aspx?n=PBS-Professional&c=Overview-and-Capabilities)。 管理 HPC 工作负载的站点已经开始依赖于阵列作业，可配置抢占，基于用户，组或项目的配额以及各种其他功能等功能。
 
 <!--
 ## Blurring the lines between containers and HPC
@@ -66,17 +62,17 @@ HPC 工作负载调度程序已经发展为支持这些类型的工作负载。�
 <!--
 HPC users believe containers are valuable for the same reasons as other organizations. Packaging logic in a container to make it portable, insulated from environmental dependencies, and easily exchanged with other containers clearly has value. However, making the switch to containers can be difficult.
 -->
-HPC 用户认为容器的价值与其他组织相同。容器中的封装逻辑使其便于携带，不受环境依赖，并且易于与其他容器交换，这显然具有价值。但是，切换到容器可能很困难。
+HPC 用户认为容器的价值与其他组织相同。 容器中的封装逻辑使其便于携带，不受环境依赖，并且易于与其他容器交换，这显然具有价值。 但是，切换到容器可能很困难。
 
 <!--
 HPC workloads are often integrated at the command line level. Rather than requiring coding, jobs are submitted to queues via the command line as binaries or simple shell scripts that act as wrappers. There are literally hundreds of engineering, scientific and analytic applications used by HPC sites that take this approach and have mature and certified integrations with popular workload schedulers.
 -->
-HPC 工作负载通常在命令行级别集成。作业不是要求编码，而是通过命令行作为二进制文件或作为包装器的简单 shell 脚本提交给队列。 HPC 站点使用了数百种工程，科学和分析应用程序，这些应用程序采用这种方法，并且与流行的工作负载调度程序进行了成熟且经过认证的集成。
+HPC 工作负载通常在命令行级别集成。 作业不是要求编码，而是通过命令行作为二进制文件或作为包装器的简单shell脚本提交给队列。 HPC 站点使用了数百种工程，科学和分析应用程序，这些应用程序采用这种方法，并且与流行的工作负载调度程序进行了成熟且经过认证的集成。
 
 <!--
 While the notion of packaging a workload into a Docker container, publishing it to a registry, and submitting a YAML description of the workload is second nature to users of Kubernetes, this is foreign to most HPC users. An analyst running models in R, MATLAB or Stata simply wants to submit their simulation quickly, monitor their execution, and get a result as quickly as possible.
 -->
-虽然将工作负载打包到 Docker 容器，将其发布到注册表以及提交工作负载的 YAML 描述的概念是 Kubernetes 用户的第二天性，但这对于大多数 HPC 用户来说是陌生的。在 R，MATLAB 或 Stata 中运行模型的分析师只想快速提交模拟，监控其执行情况，并尽快获得结果。
+虽然将工作负载打包到 Docker 容器，将其发布到注册表以及提交工作负载的 YAML 描述的概念是 Kubernetes 用户的第二天性，但这对于大多数 HPC 用户来说是陌生的。 在 R，MATLAB 或 Stata 中运行模型的分析师只想快速提交模拟，监控其执行情况，并尽快获得结果。
 
 <!--
 ## Existing approaches
@@ -156,7 +152,7 @@ With this approach, Kubernetes acts as a resource manager, making resources avai
 <!--
  ![](https://lh6.googleusercontent.com/wSBBl5d-YL4_UCYgvHpE_XzijtqftSi6PTHJLGfHr5nAxmTj945jQB-pMNIGLovWwKWGnEsPjCkCPrUMWZEs9UHnQPPDSWPEl-Gl76Yczd-Yn65pEE8mKC-Asj3zP5xyfZc-r2qU-YmmOyBhLQ)
 -->
- this is a image
+this is a image
 
 <!--
 From a client perspective, the HPC scheduler runs as a service deployed in Kubernetes pods, operating just as it would on a bare metal cluster. Navops Command provides additional scheduling features including things like resource reservation, run-time quotas, workload preemption and more. This environment works equally well for on-premise, cloud-based or hybrid deployments.
@@ -174,7 +170,7 @@ One client having success with mixed workloads is the Institute for Health Metri
 一个在混合工作负载方面取得成功的客户是华盛顿大学独立的健康研究中心健康指标与评估研究所 (IHME)。为支持其全球公认的全球健康数据交换 (GHDx)，IHME 运营着一个规模相当大的环境，包括500个节点和20,000个核心，在 Kubernetes 上运行分析，HPC 和基于容器的应用程序。 [案例研究](http://navops.io/ihme-case-study.html) 描述了 IHME 使用 Navops Command 在共享 Kubernetes 集群上托管现有 HPC 工作负载的成功。
 
 <!--
-![](https://lh5.googleusercontent.com/GJeP6e89r6drl72yzZM_OsZ81MYDp7Zm5xEFpItpmioian3lOp535H4jy1_eELKrzGMYr_wnjGwpK3Uku9dwg2-vqmMC1A1GrMtJc-PZR6GR6Z-fAZNJMEr_Uw3HqvWvi86mF_63XTozysaLpg)
+ ![](https://lh5.googleusercontent.com/GJeP6e89r6drl72yzZM_OsZ81MYDp7Zm5xEFpItpmioian3lOp535H4jy1_eELKrzGMYr_wnjGwpK3Uku9dwg2-vqmMC1A1GrMtJc-PZR6GR6Z-fAZNJMEr_Uw3HqvWvi86mF_63XTozysaLpg)
 -->
 this is a image
 
