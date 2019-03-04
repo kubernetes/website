@@ -1,10 +1,9 @@
 ---
-title：" Kubernetes遇见高性能计算 "
-date：2017-08-22
+标题：" Kubernetes遇见高性能计算 "
+日期：2017-08-22
 slug: kubernetes-meets-high-performance
 url: /blog/2017/08/Kubernetes-Meets-High-Performance
 ---
-
 <!--
 ---
 title: " Kubernetes Meets High-Performance Computing "
@@ -17,20 +16,17 @@ url: /blog/2017/08/Kubernetes-Meets-High-Performance
 <!--
 Editor's note: today's post is by Robert Lalonde, general manager at Univa, on supporting mixed HPC and containerized applications &nbsp;
 -->
-
 编者的话：今天的文章由是 Univa 的总经理 Robert Lalonde 撰写，内容是关于支持混合高性能计算和容器化应用程序 &nbsp;
 
 <!--
 Anyone who has worked with Docker can appreciate the enormous gains in efficiency achievable with containers. While Kubernetes excels at orchestrating containers, high-performance computing (HPC) applications can be tricky to deploy on Kubernetes.
 -->
-
-任何与 Docker 合作过的人都能体会到容器在效率方面的巨大提升。虽然 Kubernetes 擅长编排容器，但在 Kubernetes 上部署高性能计算(HPC) 应用程序可能会非常棘手。
+任何与 Docker 合作过的人都能体会到容器在效率方面的巨大提升。虽然 Kubernetes 擅长编排容器，但在 Kubernetes 上部署高性能计算 (HPC) 应用程序可能会非常棘手。
 
 <!--
 In this post, I discuss some of the challenges of running HPC workloads with Kubernetes, explain how organizations approach these challenges today, and suggest an approach for supporting mixed workloads on a shared Kubernetes cluster. We will also provide information and links to a case study on a customer, IHME, showing how Kubernetes is extended to service their HPC workloads seamlessly while retaining scalability and interfaces familiar to HPC users.
 -->
-
-在本文中，我将讨论使用 Kubernetes 运行 HPC 工作负载的一些挑战，解释组织如何应对当前的这些挑战，并提出一种在共享 Kubernetes 集群上支持混合工作负载的方法。我们还将提供有关客户 IHME 案例研究的信息和链接，展示如何扩展 Kubernetes 以无缝地为其 HPC 工作负载提供服务，同时保留 HPC 用户熟悉的可扩展性和界面。
+在本文中，我将讨论使用 Kubernetes 运行 HPC 工作负载的一些挑战，解释如何组织应对当前的这些挑战，并提出一种在共享 Kubernetes 集群上支持混合工作负载的方法。我们还将提供有关客户 IHME 案例研究的信息和链接，展示如何扩展 Kubernetes 以无缝地为其 HPC 工作负载提供服务，同时保留 HPC 用户熟悉的可扩展性和界面。
 
 <!--
 ## HPC workloads unique challenges
@@ -53,9 +49,9 @@ Traditional HPC applications often exhibit different characteristics:
 - A computational fluid dynamics (CFD) problem may execute in parallel across many hundred or even thousands of nodes using a message passing library to synchronize state. This requires specialized scheduling and job management features to allocate and launch such jobs and then to checkpoint, suspend/resume or backfill them.
 - Other HPC workloads may require specialized resources like GPUs or require access to limited software licenses. Organizations may enforce policies around what types of resources can be used by whom to ensure projects are adequately resourced and deadlines are met.
 -->
- - 在财务或工程模拟中，作业可能由数万个短期运行任务组成，要求低延迟和高吞吐量调度以在可接受的时间内完成模拟。
- - 计算流体动力学 (CFD) 问题可以使用消息传递库来同步状态，在数百个甚至数千个节点上并行执行。这需要专门的调度和作业管理功能来分配和启动此类作业，然后检查点，暂停/恢复或回填它们。
- - 其他 HPC 工作负载可能需要 GPU 等专用资源，或者需要访问有限的软件许可证。组织可以围绕谁可以使用哪些类型的资源来执行策略，以确保项目资源充足并且满足最后期限。
+- 在财务或工程模拟中，作业可能由数万个短期运行任务组成，要求低延迟和高吞吐量调度以在可接受的时间内完成模拟。
+- 计算流体动力学 (CFD) 问题可以使用消息传递库来同步状态，在数百个甚至数千个节点上并行执行。这需要专门的调度和作业管理功能来分配和启动此类作业，然后检查点，暂停/恢复或回填它们。
+- 其他 HPC 工作负载可能需要 GPU 等专用资源，或者需要访问有限的软件许可证。组织可以围绕谁可以使用哪些类型的资源来执行策略，以确保项目资源充足并且满足最后期限。
  
 <!--
 HPC workload schedulers have evolved to support exactly these kinds of workloads. Examples include [Univa Grid Engine](http://www.univa.com/products/), [IBM Spectrum LSF](https://www-03.ibm.com/systems/spectrum-computing/products/lsf/) and Altair’s [PBS Professional](http://www.pbsworks.com/PBSProduct.aspx?n=PBS-Professional&c=Overview-and-Capabilities). Sites managing HPC workloads have come to rely on capabilities like array jobs, configurable pre-emption, user, group or project based quotas and a variety of other features.  
@@ -120,7 +116,7 @@ For sites running traditional HPC workloads, another approach is to use existing
 <!--
 Sites less invested in existing HPC applications can use existing scheduling facilities in Kubernetes for [jobs that run to completion](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/). While this is an option, it may be impractical for many HPC users. HPC applications are often either optimized towards massive throughput or large scale parallelism. In both cases startup and teardown latencies have a discriminating impact. Latencies that appear to be acceptable for containerized microservices today would render such applications unable to scale to the required levels.
 -->
-在现有 HPC 应用程序上投资较少的站点可以使用 Kubernetes 中的现有调度工具来[完成运行的作业](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/)。虽然这是一种选择，但对于许多 HPC 用户来说可能是不切实际的。 HPC 应用程序通常针对大规模吞吐量或大规模并行性进行优化。在这两种情况下，启动和拆卸延迟都会产生歧视性影响。今天容器化微服务似乎可以接受的延迟会使这些应用无法扩展到所需的水平。
+在现有 HPC 应用程序上投资较少的站点可以使用 Kubernetes 中的现有调度工具来[完成运行的作业] (https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/)。虽然这是一种选择，但对于许多 HPC 用户来说可能是不切实际的。 HPC 应用程序通常针对大规模吞吐量或大规模并行性进行优化。在这两种情况下，启动和拆卸延迟都会产生歧视性影响。今天容器化微服务似乎可以接受的延迟会使这些应用无法扩展到所需的水平。
 
 <!--
 All of these solutions involve tradeoffs. The first option doesn’t allow resources to be shared (increasing costs) and the second and third options require customers to pick a single scheduler, constraining future flexibility.
@@ -150,7 +146,7 @@ Another approach is to use a peer scheduler that coordinates with the Kubernetes
 <!--
 ![Screen Shot 2017-08-15 at 9.15.45 AM.png](https://lh6.googleusercontent.com/nKTtfQVVmL4qBoSR0lBmBuLt8KOrVEyjn9YcAu7hrhhV-rwnxRY3p-Y5Qfddf7BI6u1KN85VKfeaaU74xDl-oDk5NzybdIxAp0SJ42x14gwzpmwLwjVy5nIng6K8Ih-bRDlOmA9j)
 -->
- ![屏幕截图2017-08-15 at 9.15.45 AM.png](https://lh6.googleusercontent.com/nKTtfQVVmL4qBoSR0lBmBuLt8KOrVEyjn9YcAu7hrhhV-rwnxRY3p-Y5Qfddf7BI6u1KN85VKfeaaU74xDl-oDk5NzybdIxAp0SJ42x14gwzpmwLwjVy5nIng6K8Ih-bRDlOmA9j)
+![屏幕截图2017-08-15 at 9.15.45 AM.png](https://lh6.googleusercontent.com/nKTtfQVVmL4qBoSR0lBmBuLt8KOrVEyjn9YcAu7hrhhV-rwnxRY3p-Y5Qfddf7BI6u1KN85VKfeaaU74xDl-oDk5NzybdIxAp0SJ42x14gwzpmwLwjVy5nIng6K8Ih-bRDlOmA9j)
 
 <!--
 With this approach, Kubernetes acts as a resource manager, making resources available to a separate HPC scheduler. Cluster administrators can use a visual interface to allocate resources based on policy or simply drag sliders via a web UI to allocate different proportions of the Kubernetes environment to non-container (HPC) workloads, and native Kubernetes applications and services.
@@ -180,7 +176,7 @@ One client having success with mixed workloads is the Institute for Health Metri
 <!--
 ![](https://lh5.googleusercontent.com/GJeP6e89r6drl72yzZM_OsZ81MYDp7Zm5xEFpItpmioian3lOp535H4jy1_eELKrzGMYr_wnjGwpK3Uku9dwg2-vqmMC1A1GrMtJc-PZR6GR6Z-fAZNJMEr_Uw3HqvWvi86mF_63XTozysaLpg)
 -->
- ![](https://lh5.googleusercontent.com/GJeP6e89r6drl72yzZM_OsZ81MYDp7Zm5xEFpItpmioian3lOp535H4jy1_eELKrzGMYr_wnjGwpK3Uku9dwg2-vqmMC1A1GrMtJc-PZR6GR6Z-fAZNJMEr_Uw3HqvWvi86mF_63XTozysaLpg)
+![](https://lh5.googleusercontent.com/GJeP6e89r6drl72yzZM_OsZ81MYDp7Zm5xEFpItpmioian3lOp535H4jy1_eELKrzGMYr_wnjGwpK3Uku9dwg2-vqmMC1A1GrMtJc-PZR6GR6Z-fAZNJMEr_Uw3HqvWvi86mF_63XTozysaLpg)
 
 <!--
 For sites deploying new clusters that want access to the rich capabilities in Kubernetes but need the flexibility to run non-containerized workloads, this approach is worth a look. It offers the opportunity for sites to share infrastructure between Kubernetes and HPC workloads without disrupting existing applications and businesses processes. It also allows them to migrate their HPC workloads to use Docker containers at their own pace.
