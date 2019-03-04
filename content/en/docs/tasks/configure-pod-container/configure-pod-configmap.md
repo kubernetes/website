@@ -572,6 +572,43 @@ ConfigMap updates.
 
 {{% capture discussion %}}
 
+## Automatically Created ConfigMaps
+
+{{< feature-state for_k8s_version="v1.13" state="stable" >}}
+
+If BoundServiceAccountTokenVolume was enabled, kube-controller-manager would create a ConfigMap named `kube-root-ca.crt` in each namespace.
+
+Verify that the `kube-root-ca.crt` ConfigMap exists in `default` Namespace:
+
+```shell
+kubectl get cm -n default
+```
+
+The output is similar to this:
+
+```shell 
+NAME               DATA   AGE
+kube-root-ca.crt   1      6m44s
+```
+
+This ConfigMap is created for storing ca.crt data, container would use that certificate to access api-server. You could observe it like:
+
+```shell
+kubectl describe pod foo-pod
+```
+
+The output would contain something like this:
+
+```shell
+Volumes:
+  kube-api-access-25xfx:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3600
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+```
+
 ## Understanding ConfigMaps and Pods
 
 The ConfigMap API resource stores configuration data as key-value pairs. The data can be consumed in pods or provide the configurations for system components such as controllers. ConfigMap is similar to [Secrets](/docs/concepts/configuration/secret/), but provides a means of working with strings that don't contain sensitive information. Users and system components alike can store configuration data in ConfigMap.
