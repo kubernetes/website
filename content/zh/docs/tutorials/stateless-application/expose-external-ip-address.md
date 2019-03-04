@@ -87,9 +87,8 @@ external IP address.
     each of which runs the Hello World application.
 -->
     前面的命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 
-    对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-     对象。ReplicaSet 有五个 [Pod](/docs/concepts/workloads/pods/pod/)，
-     每个都运行 Hello World 应用程序。
+    对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)对象。
+    ReplicaSet 有五个 [Pod](/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
 
 <!--
 1. Display information about the Deployment:
@@ -122,18 +121,18 @@ external IP address.
         kubectl get services my-service
 
 <!--
-    The output is similar to this:
+   The output is similar to this:
 -->
-    输出类似于：
+   输出类似于：
     
         NAME         TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   ClusterIP   10.3.245.137   104.198.205.71   8080/TCP   54s
 
 <!--
-    Note: If the external IP address is shown as \<pending\>, wait for a minute
-    and enter the same command again.
+   Note: If the external IP address is shown as \<pending\>, wait for a minute
+   and enter the same command again.
 -->
-    注意：如果外部 IP 地址显示为 \<pending\>，请等待一分钟再次输入相同的命令。
+   注意：如果外部 IP 地址显示为 \<pending\>，请等待一分钟再次输入相同的命令。
 
 <!--
 1. Display detailed information about the Service:
@@ -143,9 +142,9 @@ external IP address.
         kubectl describe services my-service
 
 <!--
-    The output is similar to this:
+   The output is similar to this:
 -->
-    输出类似于：
+   输出类似于：
 
         Name:           my-service
         Namespace:      default
@@ -162,15 +161,15 @@ external IP address.
         Events:         <none>
 
 <!--
-    Make a note of the external IP address (`LoadBalancer Ingress`) exposed by
-    your service. In this example, the external IP address is 104.198.205.71.
-    Also note the value of `Port` and `NodePort`. In this example, the `Port`
-    is 8080 and the `NodePort` is 32377.
+   Make a note of the external IP address (`LoadBalancer Ingress`) exposed by
+   your service. In this example, the external IP address is 104.198.205.71.
+   Also note the value of `Port` and `NodePort`. In this example, the `Port`
+   is 8080 and the `NodePort` is 32377.
 -->
-    记下服务公开的外部 IP 地址（`LoadBalancer Ingress`)。
-    在本例中，外部 IP 地址是 104.198.205.71。还要注意 `Port` 和 `NodePort` 的值。
-    在本例中，`Port` 是 8080，`NodePort` 是32377。
-    
+   记下服务公开的外部 IP 地址（`LoadBalancer Ingress`)。
+   在本例中，外部 IP 地址是 104.198.205.71。还要注意 `Port` 和 `NodePort` 的值。
+   在本例中，`Port` 是 8080，`NodePort` 是32377。
+   
     
 <!--
 1. In the preceding output, you can see that the service has several endpoints:
@@ -186,9 +185,9 @@ external IP address.
         kubectl get pods --output=wide
 
 <!--
-    The output is similar to this:
+   The output is similar to this:
 -->
-    输出类似于：
+   输出类似于：
 
         NAME                         ...  IP         NODE
         hello-world-2895499144-1jaz9 ...  10.0.1.6   gke-cluster-1-default-pool-e0b8d269-1afc
@@ -206,20 +205,20 @@ external IP address.
         curl http://<external-ip>:<port>
 
 <!--
-    where `<external-ip>` is the external IP address (`LoadBalancer Ingress`)
-    of your Service, and `<port>` is the value of `Port` in your Service
-    description.
-    If you are using minikube, typing `minikube service my-service` will
-    automatically open the Hello World application in a browser.
+   where `<external-ip>` is the external IP address (`LoadBalancer Ingress`)
+   of your Service, and `<port>` is the value of `Port` in your Service
+   description.
+   If you are using minikube, typing `minikube service my-service` will
+   automatically open the Hello World application in a browser.
 -->
-    其中 `<external-ip>` 是您的服务的外部 IP 地址（`LoadBalancer Ingress`），
-    `<port>` 是您的服务描述中的 `port` 的值。
-    如果您正在使用 minikube，输入 `minikube service my-service` 将在浏览器中自动打开 Hello World 应用程序。
+   其中 `<external-ip>` 是您的服务的外部 IP 地址（`LoadBalancer Ingress`），
+   `<port>` 是您的服务描述中的 `port` 的值。
+   如果您正在使用 minikube，输入 `minikube service my-service` 将在浏览器中自动打开 Hello World 应用程序。
   
 <!--  
-    The response to a successful request is a hello message:
+   The response to a successful request is a hello message:
 -->
-    成功请求的响应是一条问候消息：
+   成功请求的响应是一条问候消息：
 
         Hello Kubernetes!
 
@@ -252,6 +251,7 @@ the Hello World application, enter this command:
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
+
 了解更多关于[将应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)。
 
 {{% /capture %}}
