@@ -58,7 +58,7 @@ received from the external policy engine.
 <!--
 Shown below is an example ConfigMap for the Admission Controller:
 -->
-下图是接纳控制器的 ConfigMap 示例：
+下图是准入控制器的 ConfigMap 示例：
 
 {{< codenew file="federation/scheduling-policy-admission.yaml" >}}
 
@@ -214,7 +214,7 @@ This sample policy illustrates a few key ideas:
 * 位置策略可以引用联邦资源中的任何字段。
 * 放置策略可以利用外部上下文(例如，集群元数据)来做出决策。
 * 管理策略可以集中管理。
-* 策略可以定义简单的接口(例如 ·requirements -pci` 注释)，以避免在清单中重复逻辑。
+* 策略可以定义简单的接口(例如 `requirements -pci` 注解)，以避免在清单中重复逻辑。
 
 <!--
 ## Testing placement policies
@@ -246,7 +246,7 @@ Shown below is the command to deploy a ReplicaSet that *does* match the policy.
 <!--
 Inspect the ReplicaSet to confirm the appropriate annotations have been applied:
 -->
-检查副本集以确认已应用适当的注释：
+检查副本集以确认已应用适当的注解：
 
     kubectl --context=federation get rs nginx-pci -o jsonpath='{.metadata.annotations}'
 
