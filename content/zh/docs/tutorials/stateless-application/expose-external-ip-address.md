@@ -1,5 +1,5 @@
 ---
-title: 公开外部 IP 地址访问集群中的应用程序
+title: 公开外部 IP 地址以访问集群中应用程序
 content_template: templates/tutorial
 weight: 10
 ---
@@ -39,7 +39,7 @@ external IP address.
 
  * 安装 [kubectl](/docs/tasks/tools/install-kubectl/).
 
- * 使用 Google Kubernetes 引擎或 Amazon Web 服务等云供应商创建 Kubernetes 群集。
+ * 使用 Google Kubernetes Engine 或 Amazon Web 服务等云供应商创建 Kubernetes 群集。
  本教程创建了一个[外部负载均衡器](/docs/tasks/access-application-cluster/create-external-load-balancer/)，需要云供应商。
 
  * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
@@ -56,7 +56,7 @@ external IP address.
 -->
 
 * 运行 Hello World 应用程序的五个实例。
-* 创建一个公开外部 IP 地址的服务对象。
+* 创建一个公开外部 IP 地址的 Service 对象。
 * 使用服务对象访问正在运行的应用程序。
 
 {{% /capture %}}
@@ -117,7 +117,7 @@ external IP address.
 <!--
 1. Display information about the Service:
 -->
-1. 显示有关服务的信息：
+1. 显示有关 Service 的信息：
 
         kubectl get services my-service
 
@@ -138,7 +138,7 @@ external IP address.
 <!--
 1. Display detailed information about the Service:
 -->
-1. 显示有关服务的详细信息：
+1. 显示有关 Service 的详细信息：
 
         kubectl describe services my-service
 
@@ -179,8 +179,8 @@ external IP address.
    verify these are pod addresses, enter this command:
 -->
 1. 在前面的输出中，您可以看到服务有几个端点：
-   10.0.0.6:8080,10.0.1.6:8080,10.0.1.7:8080 + 2， 
-   这些都是内部正在运行 Hello World 应用程序的 pod 的地址。
+   10.0.0.6:8080、10.0.1.6:8080、10.0.1.7:8080 和另外两个，
+   这些都是正在运行 Hello World 应用程序的 pod 的内部地址。
    要验证这些是 pod 地址，请输入以下命令：
 
         kubectl get pods --output=wide
