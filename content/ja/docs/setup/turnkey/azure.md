@@ -16,7 +16,7 @@ Azure Kubernetes Service のコア部分は **オープンソース** であり�
 
 ACS-Engine は、 Azure Kubernetes Service が公式にサポートしている機能を超えてデプロイメントをカスタマイズしたい場合に適した選択肢です。
 既存の仮想ネットワークへのデプロイや、複数の agent pool を利用するなどのカスタマイズをすることができます。
-コミュニティによる ACS-Engine へのコントリビュートは、 Azure Kubernetes Service に組み込まれるかもしれません。
+コミュニティによる ACS-Engine へのコントリビュートが、 Azure Kubernetes Service に組み込まれる場合もあります。
 
 ACS-Engine への入力は、Azure Kubernetes Service を使用してクラスタを直接デプロイすることに利用される ARM テンプレートの構文に似ています。
 処理結果は Azure Resource Manager テンプレートとして出力され、ソース管理に組み込んだり、 Azure に Kubernetes クラスタをデプロイするために使うことができます。
