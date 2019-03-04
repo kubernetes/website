@@ -20,7 +20,7 @@ a common template.  You may want to be familiar with the basic,
 non-parallel, use of [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) first.
 -->
 在这个示例中，我们将运行从一个公共模板创建的多个 Kubernetes 作业。您可能希望熟悉
-[作业](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 的基本、非并行使用。
+[Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 的基本、非并行使用。
 
 {{% /capture %}}
 
@@ -45,8 +45,8 @@ Unlike a *pod template*, our *job template* is not a Kubernetes API type.  It is
 a yaml representation of a Job object that has some placeholders that need to be filled
 in before it can be used.  The `$ITEM` syntax is not meaningful to Kubernetes.
 -->
-与 *pod template* 不同，我们的 *pod template* 不是 Kubernetes API 类型。它只是作业对象的 yaml 表示，
-作业对象有一些占位符，在使用它之前需要填充这些占位符。`$ITEM` 语法对 Kubernetes 没有意义。
+与 *pod 模板*不同，我们的 *job 模板*不是 Kubernetes API 类型。它只是作业对象的 yaml 表示，
+YAML 文件有一些占位符，在使用它之前需要填充这些占位符。`$ITEM` 语法对 Kubernetes 没有意义。
 
 <!--
 In this example, the only processing the container does is to `echo` a string and sleep for a bit.
@@ -55,7 +55,7 @@ of a movie, or processing a range of rows in a database.  The `$ITEM` parameter 
 example, the frame number or the row range.
 -->
 在这个例子中，容器所做的唯一处理是 `echo` 一个字符串并休眠一段时间。
-在真实的用例中，处理将是一些重要的计算，例如呈现电影的帧，或者处理数据库中的一系列行。例如，`$ITEM` 参数将指定帧号或行范围。
+在真实的用例中，处理将是一些重要的计算，例如呈现电影的帧，或者处理数据库中的一系列行。例如，`$ITEM` 参数将指定帧号或行渲染。
 
 <!--
 This Job and its Pod template have a label: `jobgroup=jobexample`.  There is nothing special
@@ -67,11 +67,11 @@ After the job is created, the system will add more labels that distinguish one J
 from another Job's pods.
 Note that the label key `jobgroup` is not special to Kubernetes. You can pick your own label scheme.
 -->
-这个作业及其 Pod 模板有一个标签: `jobgroup=jobexample`。这个标签在系统中没有什么特别之处。这个标签
-这个标签可以方便地同时操作该组中的所有作业。
+这个作业及其 Pod 模板有一个标签: `jobgroup=jobexample`。这个标签在系统中没有什么特别之处。
+这个标签使得我们可以方便地同时操作组中的所有作业。
 我们还将相同的标签放在 pod 模板上，这样我们就可以用一个命令检查这些作业的所有 pod。
 创建作业之后，系统将添加更多的标签来区分一个作业的 pod 和另一个作业的 pod。
-注意，标签键 `jobgroup` 对 Kubernetes 并不特殊。您可以选择自己的标签方案。
+注意，标签键 `jobgroup` 对 Kubernetes 并无特殊含义。您可以选择自己的标签方案。
 
 <!--
 Next, expand the template into multiple files, one for each item to be processed.
@@ -90,7 +90,7 @@ done
 <!--
 Check if it worked:
 -->
-检查是否工作：
+检查是否工作正常：
 
 ```shell
 $ ls jobs/
@@ -142,7 +142,7 @@ do not care to see.)
 <!--
 We can check on the pods as well using the same label selector:
 -->
-我们可以检查 pod 以及使用相同的标签选择器：
+我们可以检查 pod 以及使用同样地标签选择器：
 
 ```shell
 $ kubectl get pods -l jobgroup=jobexample
@@ -179,14 +179,14 @@ In the first example, each instance of the template had one parameter, and that 
 used as a label.  However label keys are limited in [what characters they can
 contain](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 -->
-在第一个示例中，模板的每个实例都有一个参数，该参数也用作标签。但是标签键在
-[它们可以包含什么字符](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)中受到限制。
+在第一个示例中，模板的每个实例都有一个参数，该参数也用作标签。
+但是标签的键名在[可包含的字符](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)方面有一定的约束。
 
 <!--
 This slightly more complex example uses the jinja2 template language to generate our objects.
 We will use a one-line python script to convert the template to a file.
 -->
-这个稍微复杂一点的示例使用 jnja2 板语言来生成我们的对象。
+这个稍微复杂一点的示例使用 jinja2 板语言来生成我们的对象。
 我们将使用一行 python 脚本将模板转换为文件。
 
 <!-
@@ -235,15 +235,15 @@ with the `---` separator (second to last line).
 create the objects.
 -->
 上面的模板使用 python dicts 列表（第1-4行）定义每个作业对象的参数。
-然后 for 循环为每组参数（剩余行）发出一个作业 yaml 对象。
-我们利用了多个 yaml 文档可以与 `---` 分隔符连接的事实（倒数第二行）
+然后 for 循环为每组参数（剩余行）生成一个作业 yaml 对象。
+我们利用了多个 yaml 文档可以与 `---` 分隔符连接的事实（倒数第二行）。
 我们可以将输出直接传递给 kubectl 来创建对象。
 
 <!--
 You will need the jinja2 package if you do not already have it: `pip install --user jinja2`.
 Now, use this one-line python program to expand the template:
 -->
-如果您还没有 jinja2 包则需要它: `pip install --user jinja2`。
+如果您还没有 jinja2 包则需要安装它: `pip install --user jinja2`。
 现在，使用这个一行 python 程序来展开模板:
 
 ```shell
@@ -272,7 +272,7 @@ cat job.yaml.jinja2 | render_template | kubectl create -f -
 <!--
 ## Alternatives
 -->
-## 选择方案
+## 替代方案
 
 <!--
 If you have a large number of job objects, you may find that:
@@ -288,7 +288,7 @@ If you have a large number of job objects, you may find that:
 -->
 
 - 即使使用标签，管理这么多作业对象也很麻烦。
-- 在一次创建所有作业时，您超过了资源配额，并且不希望等待以递增方式创建它们。
+- 在一次创建所有作业时，您超过了资源配额，可是您也不希望以递增方式创建作业并等待其完成。
 - 同时创建的大量作业会使 Kubernetes apiserver、控制器或调度程序过载。
   
 
