@@ -9,14 +9,6 @@ toc_hide: false
 
 {{% capture overview %}}
 
-This is the third article on how to use and extend the Kubernetes scheduler series. The series of articles are listed below:
-
-* [How does the Kubernetes scheduler work?](docs/concepts/scheduling/how-scheduler-works/)
-* [How to customize and extend the Kubernetes scheduler?](/docs/concepts/scheduling/customization-and-extension/)
-* How to configure your Kubernetes scheduler?
-* [Choose scheduling algorithms and strategies for your cluster.](TODO)
-* [Learn the kube-scheduler's design and implementation from source code.](TODO)
-
 This page explains how to configure Kubernetes scheduler.
 
 {{% /capture %}}
@@ -25,7 +17,7 @@ This page explains how to configure Kubernetes scheduler.
 
 ## Scheduler
 
-The [Kubernetes scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) is a main component of Kubernetes. It is responsible for selecting the best node for the pod based on a series of predefined scheduler policies. Kubenetes provides the default scheduler and policies to place the pod on the appropriate node in a Kubernetes cluster.
+The Kubernetes scheduler is a main component of Kubernetes. It is responsible for selecting the best node for the pod based on predicates and priorites policies. Kubenetes provides the default scheduler and policies to place the pod on the appropriate node in a Kubernetes cluster.
 
 ## Configure the Policies
 
@@ -35,83 +27,66 @@ The Kubernetes scheduler plugin frameworks provides the user with the ability to
 2. Extend the scheduler.
 3. Write the new scheduler(s) to either run alongside the default scheduler or replace the default scheduler.
 
-For more information, see the article [Customization and Extension ](/docs/concepts/scheduling/customization-and-extension/).
-
 The default scheduler policies fit most use cases. Users can fine-tune the scheduler behavior without modifying the default scheduler by specifying the customized-policy file when the kube-scheduler starts with the `--policy-config-file` option.
 
-Given below is an example of a typical policy file:
+The following is an example the policy file [scheduler-policy-config.json](https://github.com/kubernetes/kubernetes/blob/c014cc274049ab1ab28b3acdd87da68eab5ffb30/examples/scheduler-policy-config.json),
 
 ```json
 {
-   "kind":"Policy",
-   "apiVersion":"v1",
-   "predicates":[
-      {
-         "name":"NoVolumeZoneConflict"
-      },
-      {
-         "name":"MaxEBSVolumeCount"
-      },
-      {
-         "name":"MaxGCEPDVolumeCount"
-      },
-      {
-         "name":"MaxAzureDiskVolumeCount"
-      },
-      {
-         "name":"MatchInterPodAffinity"
-      },
-      {
-         "name":"NoDiskConflict"
-      },
-      {
-         "name":"GeneralPredicates"
-      },
-      {
-         "name":"CheckNodeMemoryPressure"
-      },
-      {
-         "name":"CheckNodeDiskPressure"
-      },
-      {
-         "name":"PodToleratesNodeTaints"
-      },
-      {
-         "name":"CheckVolumeBinding"
-      }
-   ],
-   "priorities":[
-      {
-         "name":"ImageLocalityPriority",
-         "weight":1
-      },
-      {
-         "name":"SelectorSpreadPriority",
-         "weight":1
-      },
-      {
-         "name":"InterPodAffinityPriority",
-         "weight":1
-      },
-      {
-         "name":"LeastRequestedPriority",
-         "weight":1
-      },
-      {
-         "name":"BalancedResourceAllocation",
-         "weight":1
-      },
-      {
-         "name":"NodeAffinityPriority",
-         "weight":1
-      },
-      {
-         "name":"TaintTolerationPriority",
-         "weight":1
-      }
-   ],
+"kind" : "Policy",
+"apiVersion" : "v1",
+"predicates" : [
+	{"name" : "PodFitsHostPorts"},
+	{"name" : "PodFitsResources"},
+	{"name" : "NoDiskConflict"},
+	{"name" : "NoVolumeZoneConflict"},
+	{"name" : "MatchNodeSelector"},
+	{"name" : "HostName"}
+	],
+"priorities" : [
+	{"name" : "LeastRequestedPriority", "weight" : 1},
+	{"name" : "BalancedResourceAllocation", "weight" : 1},
+	{"name" : "ServiceSpreadingPriority", "weight" : 1},
+	{"name" : "EqualPriority", "weight" : 1}
+	],
+"hardPodAffinitySymmetricWeight" : 10,
+"alwaysCheckAllPredicates" : false
 }
+```
 
+And an example of the extender policy file [scheduler-policy-config-with-extender.json](https://github.com/kubernetes/kubernetes/blob/c014cc274049ab1ab28b3acdd87da68eab5ffb30/examples/scheduler-policy-config-with-extender.json) as following,
+
+```json
+{
+"kind" : "Policy",
+"apiVersion" : "v1",
+"predicates" : [
+	{"name" : "PodFitsHostPorts"},
+	{"name" : "PodFitsResources"},
+	{"name" : "NoDiskConflict"},
+	{"name" : "MatchNodeSelector"},
+	{"name" : "HostName"}
+	],
+"priorities" : [
+	{"name" : "LeastRequestedPriority", "weight" : 1},
+	{"name" : "BalancedResourceAllocation", "weight" : 1},
+	{"name" : "ServiceSpreadingPriority", "weight" : 1},
+	{"name" : "EqualPriority", "weight" : 1}
+	],
+"extenders" : [
+	{
+        "urlPrefix": "http://127.0.0.1:12346/scheduler",
+        "filterVerb": "filter",
+        "bindVerb": "bind",
+        "prioritizeVerb": "prioritize",
+        "weight": 5,
+        "enableHttps": false,
+        "nodeCacheCapable": false
+	}
+    ],
+"hardPodAffinitySymmetricWeight" : 10,
+"alwaysCheckAllPredicates" : false
+}
 ```
 
 ## Predicates
@@ -213,9 +188,8 @@ nodes with the same "region=foo" label.
 
 {{% /capture %}}
 
-{{% capture whatsnext %}}
-
-* Learn more about [Configure Multiple Schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/).
+{{% capture whatsnext %}} 
+* [Configure Multiple Schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/).
 * See [kube-scheduler](docs/reference/command-line-tools-reference/kube-scheduler/) for command line reference.
 
 {{% /capture %}}
