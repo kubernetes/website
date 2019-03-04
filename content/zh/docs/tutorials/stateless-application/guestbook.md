@@ -30,7 +30,7 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 * Multiple web frontend instances
 -->
 
-* 一个单实例 [Redis](https://redis.io/) 主程序来存储留言板条目
+* 一个单实例 [Redis](https://redis.io/) 主节点来存储留言板条目
 * 多个[复制的 Redis](https://redis.io/topics/replication) 实例用于提供读取
 * 多个 web 前端实例
 
@@ -47,8 +47,8 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 * Clean up.
 -->
 
-* 启动 Redis 主服务器。
-* 启动 Redis slaves。
+* 启动 Redis 主节点。
+* 启动 Redis 工作节点。
 * 启动留言板前端。
 * 公开并查看前端服务。
 * 清理。
@@ -132,7 +132,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 <!--
 Replace POD-NAME with the name of your Pod.
 -->
-将您的 Pod 名称替换为 POD-NAME。
+将 POD-NAME 替换为您的 Pod 名称。
 
 {{< /note >}}
 
@@ -191,7 +191,7 @@ This manifest file creates a Service named `redis-master` with a set of labels t
 ## Start up the Redis Slaves
 -->
 
-## 启动 Redis Slaves
+## 启动 Redis 工作节点
 
 <!--
 Although the Redis master is a single pod, you can make it highly available to meet traffic demands by adding replica Redis slaves.
@@ -207,7 +207,7 @@ Although the Redis master is a single pod, you can make it highly available to m
 <!--
 Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas. 
 -->
-Deployments 根据清单文件中设置的配置进行伸缩。在这种情况下，部署对象指定两个副本。
+Deployments 根据清单文件中设置的配置进行伸缩。在这种情况下，Deployment 对象指定两个副本。
 
 <!--
 If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas are running, it would scale down until two replicas are running. 
