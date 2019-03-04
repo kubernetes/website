@@ -462,8 +462,6 @@ kubectl get clusterroles system:discovery -o yaml
 
 NOTE: editing the role is not recommended as changes will be overwritten on API server restart via auto-reconciliation (see above).
 
-As of Kubernetes version 1.14+, the default RBAC discovery ClusterRoles are:
-
 <table>
 <colgroup><col width="25%"><col width="25%"><col></colgroup>
 <tr>
@@ -474,17 +472,17 @@ As of Kubernetes version 1.14+, the default RBAC discovery ClusterRoles are:
 <tr>
 <td><b>system:basic-user</b></td>
 <td><b>system:authenticated</b> group</td>
-<td>Allows a user read-only access to basic information about themselves.</td>
+<td>Allows a user read-only access to basic information about themselves. Prior to 1.14, this role was also bound to `system:unauthenticated` by default.</td>
 </tr>
 <tr>
 <td><b>system:discovery</b></td>
 <td><b>system:authenticated</b> group</td>
-<td>Allows read-only access to API discovery endpoints needed to discover and negotiate an API level.</td>
+<td>Allows read-only access to API discovery endpoints needed to discover and negotiate an API level. Prior to 1.14, this role was also bound to `system:unauthenticated` by default.</td>
 </tr>
 <tr>
 <td><b>system:public-info-viewer</b></td>
 <td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
-<td>Allows read-only access to non-sensitive information about the cluster.</td>
+<td>Allows read-only access to non-sensitive information about the cluster. Introduced in 1.14.</td>
 </tr>
 </table>
 
