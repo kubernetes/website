@@ -2,6 +2,9 @@
 title: 쿠버네티스란 무엇인가?
 content_template: templates/concept
 weight: 10
+card:
+  name: concepts
+  weight: 10
 ---
 
 {{% capture overview %}}

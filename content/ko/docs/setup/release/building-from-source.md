@@ -1,6 +1,10 @@
 ---
 title: 릴리스 빌드
 content_template: templates/concept
+card:
+  name: download
+  weight: 20
+  title: 릴리스 빌드하기
 ---
 
 {{% capture overview %}}

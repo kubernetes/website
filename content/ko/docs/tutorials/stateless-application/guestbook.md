@@ -2,6 +2,10 @@
 title: "예시: Redis를 사용한 PHP 방명록 애플리케이션 배포하기"
 content_template: templates/tutorial
 weight: 20
+card:
+  name: tutorials
+  weight: 30
+  title: "상태를 유지하지 않는 예제: Redis를 사용한 PHP 방명록"
 ---
 
 {{% capture overview %}}
