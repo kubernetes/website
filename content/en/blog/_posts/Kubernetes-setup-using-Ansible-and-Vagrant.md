@@ -1,31 +1,33 @@
 ---
 layout: blog
-title: Kubernetes setup using Ansible and Vagrant
-date: 2019-02-06
+title: Kubernetes Setup Using Ansible and Vagrant
+date: 2019-03-05
 ---
 
+**Author** 
+
 ## Objective
-This blog post describes the steps required to setup multi node Kubernetes cluster for development purposes. This setup provides a production-like cluster that can be setup on your local machine. 
+This blog post describes the steps required to setup a multi node Kubernetes cluster for development purposes. This setup provides a production-like cluster that can be setup on your local machine. 
 
 ## Why do we require multi node cluster setup?
-Multi node Kubernetes cluster offers production like environment which in turn has various advantages. Even though Minikube provides an excellent platform for getting started it doesn't provide the opportunity to work with multi node cluster which can help solve problems or bugs that are related to application design and architecture. For instance, Ops can reproduce an issue in multi node cluster environment, Testers can deploy multiple version of application for executing test cases and verifying changes. These benefits enable teams to resolve issues faster which can contribute to being agile. 
+Multi node Kubernetes clusters offer a production-like environment which has various advantages. Even though Minikube provides an excellent platform for getting started, it doesn't provide the opportunity to work with multi node clusters which can help solve problems or bugs that are related to application design and architecture. For instance, Ops can reproduce an issue in a multi node cluster environment, Testers can deploy multiple versions of an application for executing test cases and verifying changes. These benefits enable teams to resolve issues faster which make the more agile. 
 
 ## Why use Vagrant and Ansible?
-Vagrant is a tool that will allow us to create a virtual environment easily and it eliminates pitfalls that cause the works-on-my-machine phenomenon. It can be used with multiple providers such as Oracle VirtualBox, VMware, Docker and so on. It allows us to create disposable environment by making use of configuration files. 
+Vagrant is a tool that will allow us to create a virtual environment easily and it eliminates pitfalls that cause the works-on-my-machine phenomenon. It can be used with multiple providers such as Oracle VirtualBox, VMware, Docker, and so on. It allows us to create a disposable environment by making use of configuration files. 
 
-Ansible is an infrastructure automation engine that automates software configuration management. It is agentless and allows us to use ssh keys for connecting to remote machines. Ansible playbooks are written in yaml and it offers inventory management in simple text files.
+Ansible is an infrastructure automation engine that automates software configuration management. It is agentless and allows us to use SSH keys for connecting to remote machines. Ansible playbooks are written in yaml and offer inventory management in simple text files.
 
 
-### Pre-requisites
+### Prerequisites
 - Vagrant should be installed on your machine. Installation binaries can be found [here](https://www.vagrantup.com/downloads.html).
-- Oracle VirtualBox can be used as Vagrant provider or make use of similar providers as described in official [documentation](https://www.vagrantup.com/docs/providers/) of Vagrant.
+- Oracle VirtualBox can be used as a Vagrant provider or make use of similar providers as described in Vagrant's official [documentation](https://www.vagrantup.com/docs/providers/).
 - Ansible should be installed in your machine. Refer to the [Ansible installation guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for platform specific installation.
 
 ## Setup overview
 We will be setting up a Kubernetes cluster that will consist of one master and two worker nodes. All the nodes will run Ubuntu Xenial 64-bit OS and Ansible playbooks will be used for provisioning.
 
 #### Step 1: Creating a Vagrantfile
-Use the text editor of your choice and create a file with named `Vagrantfile`, inserting the code below. The value of N denotes the number of nodes present in the cluster, it can be modified accordingly. In the below example we are setting the value of N as 2.
+Use the text editor of your choice and create a file with named `Vagrantfile`, inserting the code below. The value of N denotes the number of nodes present in the cluster, it can be modified accordingly. In the below example, we are setting the value of N as 2.
 
 ```ruby
 IMAGE_NAME = "bento/ubuntu-16.04"
@@ -60,11 +62,13 @@ Vagrant.configure("2") do |config|
     end
 ```
 
-### Step 2: Create Ansible playbook for Kubernetes master.
+### Step 2: Create an Ansible playbook for Kubernetes master.
 Create a directory named `kubernetes-setup` in the same directory as the `Vagrantfile`. Create two files named `master-playbook.yml` and `node-playbook.yml` in the directory `kubernetes-setup`.
 
 In the file `master-playbook.yml`, add the code below.
+
 #### Step 2.1: Install Docker and its dependent components.
+
 We will be installing the following packages, and then adding a user named “vagrant” to the “docker” group.
 - docker-ce
 - docker-ce-cli
@@ -117,7 +121,7 @@ We will be installing the following packages, and then adding a user named “va
       group: docker
 ```
 
-#### Step 2.2: Kubelet will not start if the system has swap enabled, so we are disabling swap using below code.
+#### Step 2.2: Kubelet will not start if the system has swap enabled, so we are disabling swap using the below code.
 
 ```yaml
   - name: Remove swapfile from /etc/fstab
@@ -134,7 +138,7 @@ We will be installing the following packages, and then adding a user named “va
     when: ansible_swaptotal_mb > 0
 ```
 
-#### Step 2.3: Installing kubelet, kubeadm and kubectl using below code.
+#### Step 2.3: Installing kubelet, kubeadm and kubectl using the below code.
 
 ```yaml
   - name: Add an apt signing key for Kubernetes
@@ -160,14 +164,14 @@ We will be installing the following packages, and then adding a user named “va
         - kubectl
 ```
 
-#### Step 2.3: Initialize the Kubernetes cluster with kubeadm below code (applicable only on master node).
+#### Step 2.3: Initialize the Kubernetes cluster with kubeadm using the below code (applicable only on master node).
 
 ```yaml
   - name: Initialize the Kubernetes cluster using kubeadm
     command: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
 ```
 
-#### Step 2.4: Setup kube config file for vagrant user to access Kubernetes cluster using below code.
+#### Step 2.4: Setup the kube config file for the vagrant user to access the Kubernetes cluster using the below code.
 
 ```yaml
   - name: Setup kubeconfig for vagrant user
@@ -178,7 +182,7 @@ We will be installing the following packages, and then adding a user named “va
      - chown vagrant:vagrant /home/vagrant/.kube/config
 ```
 
-#### Step 2.5: Setup container networking provider and network policy engine using below code.
+#### Step 2.5: Setup the container networking provider and the network policy engine using the below code.
 
 ```yaml
   - name: Install calico pod network
@@ -186,7 +190,7 @@ We will be installing the following packages, and then adding a user named “va
     command: kubectl create -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
 ```
 
-#### Step 2.6: Generate kube join command for joining the node to Kubernetes cluster and store the command in the file named `join-command`.
+#### Step 2.6: Generate kube join command for joining the node to the Kubernetes cluster and store the command in the file named `join-command`.
 
 ```yaml
   - name: Generate join command
@@ -197,7 +201,7 @@ We will be installing the following packages, and then adding a user named “va
     local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
 ```
 
-#### Step 2.7: Setup a handler for checking Docker daemon using below code.
+#### Step 2.7: Setup a handler for checking Docker daemon using the below code.
 
 ```yaml
   handlers:
@@ -205,14 +209,14 @@ We will be installing the following packages, and then adding a user named “va
       service: name=docker state=started
 ```
 
-#### Step 3: Create Ansible playbook for Kubernetes node.
+#### Step 3: Create the Ansible playbook for Kubernetes node.
 Create a file named `node-playbook.yml` in the directory `kubernetes-setup`.
 
 Add the code below into `node-playbook.yml`
 
 #### Step 3.1: Start adding the code from Steps 2.1 till 2.3.
 
-#### Step 3.2: Join the nodes to Kubernetes cluster using below code.
+#### Step 3.2: Join the nodes to the Kubernetes cluster using below code.
 
 ```yaml
   - name: Copy the join command to server location
@@ -224,15 +228,15 @@ Add the code below into `node-playbook.yml`
 
 #### Step 3.3: Add the code from step 2.7 to finish this playbook.
 
-#### Step 4: Upon completing the Vagrantfile and playbooks follow below steps.
+#### Step 4: Upon completing the Vagrantfile and playbooks follow the below steps.
 
 ```shell
 $ cd /path/to/Vagrantfile
 $ vagrant up
 ```
 
-Upon completion of all the above steps, Kubernetes cluster should be up and running.
-We can login into master or worker nodes using vagrant as below.
+Upon completion of all the above steps, the Kubernetes cluster should be up and running.
+We can login to the master or worker nodes using Vagrant as follows:
 
 ```shell
 $ ## Accessing master
