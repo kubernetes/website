@@ -140,7 +140,7 @@ Sinon, le contrôleur de nœud supprime le nœud de sa liste de nœuds.
 La troisième est la surveillance de la santé des nœuds.
 Le contrôleur de noeud est responsable de la mise à jour de la condition NodeReady de NodeStatus vers ConditionUnknown lorsqu'un noeud devient inaccessible (le contrôleur de noeud cesse de recevoir des heartbeats pour une raison quelconque, par exemple en raison d'une panne du noeud), puis de l'éviction ultérieure de tous les pods du noeud. (en utilisant une terminaison propre) si le nœud continue d’être inaccessible.
 (Les délais d'attente par défaut sont de 40 secondes pour commencer à signaler ConditionUnknown et de 5 minutes après cela pour commencer à expulser les pods.)
-Le contrôleur de noeud vérifie l'état de chaque noeud toutes les `--node-monitor-period` secondes.
+Le contrôleur de nœud vérifie l'état de chaque nœud toutes les `--node-monitor-period` secondes.
 
 Dans les versions de Kubernetes antérieures à 1.13, NodeStatus correspond au heartbeat du nœud.
 À partir de Kubernetes 1.13, la fonctionnalité de bail de nœud (node lease en anglais) est introduite en tant que fonctionnalité alpha (feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
