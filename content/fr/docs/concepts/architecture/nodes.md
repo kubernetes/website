@@ -135,7 +135,7 @@ La première consiste à affecter un bloc CIDR au nœud lorsqu’il est enregist
 
 La seconde consiste à tenir à jour la liste interne des nœuds du contrôleur de nœud avec la liste des machines disponibles du fournisseur de cloud.
 Lorsqu'il s'exécute dans un environnement de cloud, chaque fois qu'un nœud est en mauvaise santé, le contrôleur de nœud demande au fournisseur de cloud si la machine virtuelle de ce nœud est toujours disponible.
-Sinon, le contrôleur de noeud supprime le noeud de sa liste de noeuds.
+Sinon, le contrôleur de nœud supprime le nœud de sa liste de nœuds.
 
 La troisième est la surveillance de la santé des nœuds.
 Le contrôleur de noeud est responsable de la mise à jour de la condition NodeReady de NodeStatus vers ConditionUnknown lorsqu'un noeud devient inaccessible (le contrôleur de noeud cesse de recevoir des heartbeats pour une raison quelconque, par exemple en raison d'une panne du noeud), puis de l'éviction ultérieure de tous les pods du noeud. (en utilisant une terminaison propre) si le nœud continue d’être inaccessible.
