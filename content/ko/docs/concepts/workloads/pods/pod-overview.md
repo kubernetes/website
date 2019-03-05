@@ -103,5 +103,5 @@ spec:
 {{% capture whatsnext %}}
 * 파드의 다른 동작들을 더 배워보자.
   * [파드 종료](/docs/concepts/workloads/pods/pod/#termination-of-pods)
-  * 다른 파드 주제
+  * [파드 라이프사이클](../pod-lifecycle)
 {{% /capture %}}
