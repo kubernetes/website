@@ -8,32 +8,32 @@ weight: 80
 
 {{% capture overview %}}
 
-쿠버네티스 문서 또는 website에 기여하여 도움을 제공하고 싶다면,
-우리는 당신의 도움을 기쁘게 생각합니다! 당신이 새로운 프로젝트에 참여했거나
+쿠버네티스 문서 또는 웹사이트에 기여하여 도움을 제공하고 싶다면,
+우리는 당신의 도움을 기쁘게 생각한다! 당신이 새로운 프로젝트에 참여했거나
 오랜 시간 동안 진행해온 누군가로써, 
-혹은 개발자, 최종 사용자 또는 발견하지 못한 오타를 식별한 누군가로써
-기여할 수 있습니다. 
+혹은 개발자, 최종 사용자 또는 단지 오타를 보고 참지 못하는 누군가로써
+기여할 수 있다. 
 
-쿠버네티스 커뮤니티에 참여하거나, 우리에 대해 더 많이 알아보고 싶다면, [쿠버네티스 커뮤니티 사이트](/community/)를 방문하라. 
-쿠버네티스 문서 스타일 가이드에 대해 더 많은 정보를 알고 싶다면, [스타일 가이드](/docs/contribute/style/style-guide/)를 참고하라.
+쿠버네티스 커뮤니티에 참여하거나, 우리에 대해 더 많이 알아보고 싶다면, [쿠버네티스 커뮤니티 사이트](/community/)를 방문하자. 
+쿠버네티스 문서 스타일 가이드에 대해 더 많은 정보를 알고 싶다면, [스타일 가이드](/docs/contribute/style/style-guide/)를 참고하자.
 
 {{% capture body %}}
 
 ## 컨트리뷰터 유형
 
-- 쿠버네티스 조직 _member_ 는 [CLA 서명](/docs/contribute/start#sign-the-cla)을 획득하고,
-  프로젝트에 시간과 노력을 기여한다.
+- 쿠버네티스 조직의 _멤버_ 는 [CLA에 서명](/docs/contribute/start#sign-the-cla)하고,
+  프로젝트에 어느 정도 시간과 노력을 바친 사람이다.
   멤버십 자격에 대한 구체적인 기준은 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)을
   참고하라.
-- SIG Docs _reviewer_ 는 풀 리퀘스트(pull request) 리뷰에 관심을 가지고 있는 
-  쿠버네티스 조직의 멤버로, SIG Docs Approver에 의해
- 특정 Github 그룹 및 저장소 `OWNERS` 파일에 
-  추가되어야 한다. 
-- SIG Docs _approver_ 는 지속적으로 프로젝트에 기여를 해온 좋은 입지를 가진 멤버이다.
-  approver는 풀 리퀘스트를 머지(merge)할 수 있고,
-  쿠버네티스 조직을 대신하여 콘텐츠를 공개한다.
-  Approver는 거대한 쿠버네티스 커뮤니티에서 SIG Docs를 대표할 수 있다.
-  SIG Docs approver의 의무 중 릴리스 조정과 같은 일은 
+- SIG Docs _리뷰어_ 는 문서 풀 리퀘스트(pull request) 리뷰하는 일에 관심을 보여서 
+  SIG Docs 승안자가 적합한 
+  Github 그룹 및 저장소 내 그룹과 `OWNERS` 파일에 등록한
+  쿠버네티스 조직의 멤버이다. 
+- SIG Docs _승인자_ 는 지속적으로 프로젝트에 기여를 해온 좋은 입지를 가진 멤버이다.
+  승인자는 풀 리퀘스트를 머지(merge)할 수 있고,
+  쿠버네티스 조직을 대표하여 콘텐츠를 공개한다.
+  승인자는 거대한 쿠버네티스 커뮤니티에서 SIG Docs를 대표할 수 있다.
+  SIG Docs 승인자의 의무 중 릴리스 조정과 같은 일은 
   상당한 시간을 필요로 한다.
 
 ## 기여할 수 있는 방법
@@ -47,23 +47,23 @@ weight: 80
 시작하는 데에 도움이 될 것이다.
 
 - [누구나](/docs/contribute/start/)
-  - 확인 가능한 파일의 버그
-- [Member](/docs/contribute/start/)
-  - 존재하는 문서 개선
+  - 조치 가능한 버그 리포트 제출
+- [멤버](/docs/contribute/start/)
+  - 기존 문서 개선
   - [Slack](http://slack.k8s.io/) 또는 [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에서 개선을 위한 아이디어 제시
   - 문서 접근성 개선
   - PR에 대한 구속력 없는 피드백 제공
   - 블로그 포스트 또는 사례 연구 작성
-- [Reviewer](/docs/contribute/intermediate/)
-  - 새로운 특징 문서화
+- [리뷰어](/docs/contribute/intermediate/)
+  - 새로운 기능 문서화
   - 이슈 선별 및 분류
   - PR 리뷰
   - 다이어그램, 그래픽 자료, 내장 스크린샷 생성
   - 현지화(Localization)
   - docs 대표로 다른 저장소에 기여
-  - 코드 내 사용자 관련 문자열 편집
+  - 코드 내 사용자 대면 문자열 편집
   - 코드 주석 및 Godoc 개선
-- [Approver](/docs/contribute/advanced/)
+- [승인자](/docs/contribute/advanced/)
   - 승인되어 머지된 PR을 바탕으로 컨트리뷰터 콘텐츠 출시
   - docs 대표로 쿠버네티스 릴리스 팀에 참가
   - 스타일 가이드 개선 제안
