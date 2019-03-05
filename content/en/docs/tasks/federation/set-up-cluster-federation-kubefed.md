@@ -52,7 +52,7 @@ now maintained. Consequently, the federation release information is available on
 [release page](https://github.com/kubernetes/federation/releases).
 {{< /note >}}
 
-### For k8s versions 1.8.x and earlier:
+### For Kubernetes versions 1.8.x and earlier:
 
 ```shell
 curl -LO https://storage.googleapis.com/kubernetes-release/release/${RELEASE-VERSION}/kubernetes-client-linux-amd64.tar.gz
@@ -70,7 +70,7 @@ sudo cp kubernetes/client/bin/kubefed /usr/local/bin
 sudo chmod +x /usr/local/bin/kubefed
 ```
 
-### For k8s versions 1.9.x and above:
+### For Kubernetes versions 1.9.x and above:
 
 ```shell
 curl -LO https://storage.cloud.google.com/kubernetes-federation-release/release/${RELEASE-VERSION}/federation-client-linux-amd64.tar.gz
