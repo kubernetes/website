@@ -194,7 +194,7 @@ Un administrateur de cluster peut créer et modifier des objets de nœud.
 
 Si l'administrateur souhaite créer des objets de noeud manuellement, définissez l'argument de kubelet: `--register-node=false`.
 
-L'administrateur peut modifier les ressources du noeud (quel que soit le réglage de `--register-node`).
+L'administrateur peut modifier les ressources du nœud (quel que soit le réglage de `--register-node`).
 Les modifications comprennent la définition de labels sur le nœud et son marquage comme non programmable.
 
 Les étiquettes sur les nœuds peuvent être utilisées avec les sélecteurs de nœuds sur les pods pour contrôler la planification. Par exemple, pour contraindre un pod à ne pouvoir s'exécuter que sur un sous-ensemble de nœuds.
