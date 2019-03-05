@@ -130,7 +130,7 @@ Actuellement, trois composants interagissent avec l'interface de noeud Kubernete
 
 Le contrôleur de noeud (node controller en anglais) est un composant du master Kubernetes qui gère divers aspects des noeuds.
 
-Le contrôleur de noeud a plusieurs rôles dans la vie d'un noeud.
+Le contrôleur de nœud a plusieurs rôles dans la vie d'un nœud.
 La première consiste à affecter un bloc CIDR au nœud lorsqu’il est enregistré (si l’affectation CIDR est activée).
 
 La seconde consiste à tenir à jour la liste interne des nœuds du contrôleur de nœud avec la liste des machines disponibles du fournisseur de cloud.
