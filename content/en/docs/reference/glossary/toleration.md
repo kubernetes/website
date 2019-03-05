@@ -2,7 +2,7 @@
 title: Toleration
 id: toleration
 date: 2019-01-11
-full_link: docs/concepts/configuration/taint-and-toleration/
+full_link: /docs/concepts/configuration/taint-and-toleration/
 short_description: >
   A key-value pair and an effect to enable the scheduling of pods on nodes or node groups that have a matching {% glossary_tooltip term_id="taint" %}.
 
