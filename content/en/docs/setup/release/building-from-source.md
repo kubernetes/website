@@ -7,6 +7,7 @@ card:
   name: download
   weight: 20
   title: Building a release
+content_template: templates/concept
 ---
 {{% capture overview %}}
 You can either build a release from source or download a pre-built release.  If you do not plan on developing Kubernetes itself, we suggest using a pre-built version of the current release, which can be found in the [Release Notes](/docs/setup/release/notes/).
