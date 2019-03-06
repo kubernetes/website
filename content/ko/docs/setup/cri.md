@@ -29,18 +29,17 @@ weight: 100
 {{< /note >}}
 
 이 가이드의 모든 명령은 `root`로 실행해야 한다.
-For example, prefix commands with `sudo `, or become `root` and run the commands as that user.
 예를 들어,`sudo`로 접두사를 붙이거나, `root` 사용자가 되어 명령을 실행한다.
 
 ### Cgroup 드라이버
 
 Linux 배포판의 init 시스템이 systemd인 경우, init 프로세스는 
-루트 제어 그룹(`cgroup`)을 생성 및 사용하는 cgroup 관리자로 작동한다. 
+root control group(`cgroup`)을 생성 및 사용하는 cgroup 관리자로 작동한다. 
 Systemd는 cgroup과의 긴밀한 통합을 통해 프로세스당 cgroup을 할당한다. 
 컨테이너 런타임과 kubelet이 `cgroupfs`를 사용하도록 설정할 수 있다. 
 systemd와 함께`cgroupfs`를 사용하면 두 개의 서로 다른 cgroup 관리자가 존재하게 된다는 뜻이다.
 
-제어 그룹은 프로세스에 할당된 리소스를 제한하는데 사용된다. 
+Control group은 프로세스에 할당된 리소스를 제한하는데 사용된다. 
 단일 cgroup 관리자는 할당된 리소스가 무엇인지를 단순화하고, 
 기본적으로 사용가능한 리소스와 사용중인 리소스를 일관성있게 볼 수 있다. 
 관리자가 두 개인 경우, 이런 리소스도 두 개의 관점에서 보게 된다. kubelet과 Docker는 
