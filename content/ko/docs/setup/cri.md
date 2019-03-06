@@ -4,33 +4,42 @@ content_template: templates/concept
 weight: 100
 ---
 {{% capture overview %}}
-v1.6.0에서부터, 쿠버네티스는 CRI(컨테이너 런타임 인터페이스) 사용을 기본으로 지원한다.
+{{< feature-state for_k8s_version="v1.6" state="stable" >}}
+파드에서 컨테이너를 실행하기 위해 쿠버네티스는 컨테이너 런타임을 사용한다.
 이 페이지는 다양한 런타임들에 대한 설치 지침을 담고 있다.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-다음의 커맨드들은 사용자의 운영체제에 따라 root로서 실행하길 바란다.
-각 호스트에 SSH 접속 후 `sudo -i` 실행을 통해서 root 사용자가 될 수 있을 것이다.
-
 {{< caution >}}
-A flaw was found in the way runc handled system file descriptors when running containers.
-A malicious container could use this flaw to overwrite contents of the runc binary and 
-consequently run arbitrary commands on the container host system.
+컨테이너를 실행할 때 runc가 시스템 파일 디스크립터를 처리하는 방식에서 결함이 발견되었다.
+악성 컨테이너는 이 결함을 사용하여 runc 바이너리의 내용을 덮어쓸 수 있으며 
+따라서 컨테이너 호스트 시스템에서 임의의 명령을 실행할 수 있다.
 
-Please refer to this link for more information about this issue 
-[cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
+이 문제에 대한 자세한 내용은 
+[cve-2019-5736 : runc 취약점 ] (https://access.redhat.com/security/cve/cve-2019-5736) 참고하자.
 {{< /caution >}}
 
-## Cgroup 드라이버
+### 적용 가능성
 
-Linux 배포판의 init 시스템이 systemd인 경우, init 프로세스는 루트 cgroup을 생성 및 사용하고   
-cgroup 관리자로 작동한다. Systemd는 cgroup과의 긴밀한 통합을 통해 
-프로세스당 cgroup을 할당한다. 컨테이너 런타임과 kubelet이 
-`cgroupfs`를 사용하도록 설정할 수 있다. 이 경우는 두 개의 서로 다른 cgroup 관리자가 존재하게 된다는 뜻이다.
+{{< note >}}
+이 문서는 Linux에 CRI를 설치하는 사용자를 위해 작성되었다.
+다른 운영 체제의 경우, 해당 플랫폼과 관련된 문서를 찾아보자.
+{{< /note >}}
 
-Cgroup은 프로세스에 할당된 리소스를 제한하는데 사용된다. 
+이 가이드의 모든 명령은 `root`로 실행해야 한다.
+예를 들어,`sudo`로 접두사를 붙이거나, `root` 사용자가 되어 명령을 실행한다.
+
+### Cgroup 드라이버
+
+Linux 배포판의 init 시스템이 systemd인 경우, init 프로세스는 
+root control group(`cgroup`)을 생성 및 사용하는 cgroup 관리자로 작동한다. 
+Systemd는 cgroup과의 긴밀한 통합을 통해 프로세스당 cgroup을 할당한다. 
+컨테이너 런타임과 kubelet이 `cgroupfs`를 사용하도록 설정할 수 있다. 
+systemd와 함께`cgroupfs`를 사용하면 두 개의 서로 다른 cgroup 관리자가 존재하게 된다는 뜻이다.
+
+Control group은 프로세스에 할당된 리소스를 제한하는데 사용된다. 
 단일 cgroup 관리자는 할당된 리소스가 무엇인지를 단순화하고, 
 기본적으로 사용가능한 리소스와 사용중인 리소스를 일관성있게 볼 수 있다. 
 관리자가 두 개인 경우, 이런 리소스도 두 개의 관점에서 보게 된다. kubelet과 Docker는 
