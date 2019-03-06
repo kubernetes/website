@@ -2,9 +2,11 @@
 {{ $state := .Get "state" }}
 {{ $for_k8s_version := .Get "for_k8s_version" }}
 {{ $width := .Get "width" }}
+{{ $feature_name := .Get "feature_name"}}
+{{ $feature_name_link := $feature_name | urlize }}
 {{ $is_valid := strings.Contains $valid_states $state }}
 {{ if not $is_valid }}
 {{ errorf "%q is not a valid feature-state, use one of %q" $valid_states }}
 {{ else }}
-{{ partial "templates/feature-state.html" (dict "ctx" . "page" .Page "state" $state "for_k8s_version" $for_k8s_version "width"  $width) }}
+{{ partial "templates/feature-state.html" (dict "ctx" . "page" .Page "state" $state "for_k8s_version" $for_k8s_version "width"  $width "feature_name" $feature_name "feature_name_link" $feature_name_link) }}
 {{ end }}

@@ -188,7 +188,7 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ### Proxy-mode: ipvs
 
-{{< feature-state for_k8s_version="v1.9" state="beta" >}}
+{{< feature-state feature_name="ipvs" for_k8s_version="v1.9" state="beta" >}}
 
 In this mode, kube-proxy watches Kubernetes Services and Endpoints,
 calls `netlink` interface to create ipvs rules accordingly and syncs ipvs rules with Kubernetes
@@ -945,20 +945,20 @@ API object can be found at:
 
 ### TCP
 
-{{< feature-state for_k8s_version="v1.0" state="stable" >}}
+{{< feature-state feature_name="tcp" for_k8s_version="v1.0" state="stable" >}}
 
 You can use TCP for any kind of service, and it's the default network protocol.
 
 ### UDP
 
-{{< feature-state for_k8s_version="v1.0" state="stable" >}}
+{{< feature-state feature_name="udp" for_k8s_version="v1.0" state="stable" >}}
 
 You can use UDP for most services. For type=LoadBalancer services, UDP support
 depends on the cloud provider offering this facility.
 
 ### HTTP
 
-{{< feature-state for_k8s_version="v1.1" state="stable" >}}
+{{< feature-state feature_name="http" for_k8s_version="v1.1" state="stable" >}}
 
 If your cloud provider supports it, you can use a Service in LoadBalancer mode
 to set up external HTTP / HTTPS reverse proxying, forwarded to the Endpoints
@@ -971,7 +971,7 @@ to expose HTTP / HTTPS services.
 
 ### PROXY protocol
 
-{{< feature-state for_k8s_version="v1.1" state="stable" >}}
+{{< feature-state feature_name="proxy protocol" for_k8s_version="v1.1" state="stable" >}}
 
 If your cloud provider supports it (eg, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
 you can use a Service in LoadBalancer mode to configure a load balancer outside
@@ -988,7 +988,7 @@ followed by the data from the client.
 
 ### SCTP
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state feature_name="sctp" for_k8s_version="v1.12" state="alpha" >}}
 
 Kubernetes supports SCTP as a `protocol` value in `Service`, `Endpoint`, `NetworkPolicy` and `Pod` definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a `Service`, `Endpoint`, `NetworkPolicy` and `Pod` to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
