@@ -3,7 +3,7 @@
 {{ $width := .width | default "600" }}
 {{ $state := .state }}
 {{ $feature_name := .feature_name }}
-{{ $feature_name_link := .feature_name_link }}
+{{ $feature_name_link := $feature_name | urlize }}
 <b>FEATURE:</b> <code>{{ $feature_name }} <b>STATE:</b> Kubernetes {{ $for_k8s_version }}</code>
 {{/* docs/templates is a Hugo page bundle */}}
 {{ $templates_path := "docs/templates" }}
@@ -12,7 +12,7 @@
 	{{ $template_path := printf "**feature-state-%s*" $state }}
 	{{ $content_template := .GetMatch $template_path }}
 	{{ with $content_template }}
-	{{ $dialog := dict "page" $content_template "for_k8s_version" $for_k8s_version "width" $width "feature_name" $feature_name "feature_name_link" $feature_name_link }}
+	{{ $dialog := dict "page" $content_template "for_k8s_version" $for_k8s_version "width" $width "feature_name_link" $feature_name_link }}
 	{{ partial "templates/feature-dialog.html" $dialog }}
 	{{ else }}
 	{{ errorf "[%s] template not found in %s" site.Language.Lang $template_path }}
