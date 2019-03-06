@@ -835,7 +835,9 @@ You must have your own Quobyte setup running with the volumes
 created before you can use it.
 {{< /caution >}}
 
-See the [Quobyte example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/quobyte) for more details.
+Quobyte supports [Container Storage Interface](https://kubernetes.io/blog/2018/01/introducing-container-storage-interface/).
+CSI is the recommended plugin to use Quobyte volumes inside Kubernetes. Quobyte's
+CSI deployment instructions and examples can be found [here](https://github.com/quobyte/quobyte-csi).
 
 ### rbd {#rbd}
 
