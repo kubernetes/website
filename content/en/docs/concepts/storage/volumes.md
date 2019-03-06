@@ -93,6 +93,7 @@ Kubernetes supports several types of Volumes:
    * [secret](#secret)
    * [storageos](#storageos)
    * [vsphereVolume](#vspherevolume)
+   * [cinder](#cinder)
 
 We welcome additional contributions.
 
@@ -1032,6 +1033,40 @@ spec:
 ```
 
 More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
+
+### cinder {#cinder}
+
+{{< note >}}
+Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
+configuration please refer [cloud provider openstack](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#openstack).
+{{< /note >}}
+
+`cinder` is used to mount OpenStack Cinder Volume into your Pod.
+
+#### Cinder Volume Example configuration
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-cinder
+spec:
+  containers:
+  - image: k8s.gcr.io/test-webserver
+    name: test-cinder-container
+    volumeMounts:
+    - mountPath: /test-cinder
+      name: test-volume
+  volumes:
+  - name: test-volume
+    # This OpenStack volume must already exist.
+    cinder:
+      volumeID: <volume-id>
+      fsType: ext4
+```
+{{< note >}}
+CSI Migration: To enable CSI Migration for Cinder in-tree driver, `CSIMigration` and `CSIMigrationOpenStack` feature gates needs to be set true
+{{< /note >}}
 
 
 ## Using subPath
