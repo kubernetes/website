@@ -2,6 +2,9 @@
 title: 쿠버네티스 오브젝트 이해하기
 content_template: templates/concept
 weight: 10
+card:
+  name: concepts
+  weight: 40
 ---
 
 {{% capture overview %}}
