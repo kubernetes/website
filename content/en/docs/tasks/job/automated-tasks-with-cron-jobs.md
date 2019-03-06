@@ -47,7 +47,7 @@ This example cron job config `.spec` file prints the current time and a hello me
 
 {{< codenew file="application/job/cronjob.yaml" >}}
 
-Run the example cron job by using this command:
+Run the example CronJob by using this command:
 
 ```shell
 kubectl create -f https://k8s.io/examples/application/job/cronjob.yaml
