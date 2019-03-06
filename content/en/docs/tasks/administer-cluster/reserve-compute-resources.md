@@ -250,4 +250,7 @@ for `kube-reserved` and `system-reserved`.
 As of Kubernetes version 1.8, the `storage` key name was changed to `ephemeral-storage`
 for the alpha release.
 
+As of Kubernetes version 1.14, the `kubelet` supports specifying `pids` as a resource
+for `kube-reserved` and `system-reserved`.
+
 {{% /capture %}}
