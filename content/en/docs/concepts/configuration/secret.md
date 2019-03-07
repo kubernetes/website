@@ -443,15 +443,20 @@ executed inside the container from the example above:
 
 ```shell
 ls /etc/foo/
+```
+```
 username
 password
 ```
+
 ```shell
 cat /etc/foo/username
 ```
+```
 admin
 ```
-```
+
+```shell
 cat /etc/foo/password
 ```
 ```
@@ -527,8 +532,9 @@ echo $SECRET_USERNAME
 ```
 admin
 ```
-```
+```shell
 echo $SECRET_PASSWORD
+```
 ```
 1f2d1e2e67df
 ```
@@ -619,10 +625,8 @@ start until all the pod's volumes are mounted.
 Create a secret containing some ssh keys:
 
 ```shell
-kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa 
-```
-```
---from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
+kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa \
+  --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
 {{< caution >}}
@@ -672,14 +676,11 @@ credentials.
 Make the secrets:
 
 ```shell
-kubectl create secret generic prod-db-secret --from-literal=username=produser 
---from-literal=password=Y4nys7f11
+kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
 ```
-
 ```
 secret "prod-db-secret" created
 ```
-
 ```shell
 kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
 ```
@@ -690,7 +691,9 @@ secret "test-db-secret" created
 Special characters such as `$`, `\*`, and `!` require escaping.
 If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
 
-    kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
+```shell
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
+```
 
 You do not need to escape special characters in passwords from files (`--from-file`).
 {{< /note >}}
