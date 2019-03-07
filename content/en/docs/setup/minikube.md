@@ -59,7 +59,6 @@ Starting local Kubernetes cluster...
 kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
 ```
 deployment.apps/hello-minikube created
-```
 
 ```shell
 kubectl expose deployment hello-minikube --type=NodePort
