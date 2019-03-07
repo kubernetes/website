@@ -277,7 +277,7 @@ export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
 ### Windows PowerShell
 ```shell
-$Env:KUBECONFIG_SAVED=(config-demo;config-demo-2)
+$Env:KUBECONFIG=("config-demo;config-demo-2")
 ```
 
 In your `config-exercise` directory, enter this command:
