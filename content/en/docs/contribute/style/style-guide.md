@@ -114,7 +114,7 @@ document, use the backtick (`).
 </table>
 
 {{< note >}} 
-The website supports syntax highlighting for code samples, but specifying a language is optional
+The website supports syntax highlighting for code samples, but specifying a language is optional.
 {{< /note >}}
 
 ### Use code style for object field names
