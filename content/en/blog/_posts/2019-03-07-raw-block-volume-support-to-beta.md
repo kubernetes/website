@@ -120,11 +120,12 @@ https://github.com/kubernetes/community/tree/master/sig-storage
 https://github.com/container-storage-interface/community/blob/master/README.md
 
 Special thanks to all the contributors who helped add block volume support to Kubernetes including:
-Ben Swartzlander (https://github.com/bswartz)
-Brad Childs (https://github.com/childsb)
-Erin Boyd (https://github.com/erinboyd)
-Masaki Kimura (https://github.com/mkimuram)
-Matthew Wong (https://github.com/wongma7)
-Michelle Au (https://github.com/msau42)
-Mitsuhiro Tanino (https://github.com/mtanino)
-Saad Ali (https://github.com/saad-ali)
+
+- Ben Swartzlander (https://github.com/bswartz)
+- Brad Childs (https://github.com/childsb)
+- Erin Boyd (https://github.com/erinboyd)
+- Masaki Kimura (https://github.com/mkimuram)
+- Matthew Wong (https://github.com/wongma7)
+- Michelle Au (https://github.com/msau42)
+- Mitsuhiro Tanino (https://github.com/mtanino)
+- Saad Ali (https://github.com/saad-ali)
