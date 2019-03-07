@@ -145,7 +145,9 @@ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
 You can observe the running pod:
 
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+```
 NAME                                           READY     STATUS    RESTARTS   AGE
 counter                                        1/1       Running   0          5m
 ```
@@ -155,7 +157,9 @@ has to download the container image first. When the pod status changes to `Runni
 you can use the `kubectl logs` command to view the output of this counter pod.
 
 ```shell
-$ kubectl logs counter
+kubectl logs counter
+```
+```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -169,21 +173,27 @@ if the pod is evicted from the node, log files are lost. Let's demonstrate this
 by deleting the currently running counter container:
 
 ```shell
-$ kubectl delete pod counter
+kubectl delete pod counter
+```
+```
 pod "counter" deleted
 ```
 
 and then recreating it:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+```
+```
 pod/counter created
 ```
 
 After some time, you can access logs from the counter pod again:
 
 ```shell
-$ kubectl logs counter
+kubectl logs counter
+```
+```
 0: Mon Jan  1 00:01:00 UTC 2001
 1: Mon Jan  1 00:01:01 UTC 2001
 2: Mon Jan  1 00:01:02 UTC 2001
@@ -226,7 +236,9 @@ It uses Stackdriver Logging [filtering syntax](https://cloud.google.com/logging/
 to query specific logs. For example, you can run the following command:
 
 ```none
-$ gcloud beta logging read 'logName="projects/$YOUR_PROJECT_ID/logs/count"' --format json | jq '.[].textPayload'
+gcloud beta logging read 'logName="projects/$YOUR_PROJECT_ID/logs/count"' --format json | jq '.[].textPayload'
+```
+```
 ...
 "2: Mon Jan  1 00:01:02 UTC 2001\n"
 "1: Mon Jan  1 00:01:01 UTC 2001\n"
