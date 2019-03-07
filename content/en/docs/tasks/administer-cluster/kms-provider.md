@@ -89,7 +89,7 @@ resources:
         name: myKmsPlugin
         endpoint: unix:///tmp/socketfile.sock
         cachesize: 100
-   - identity: {}
+    - identity: {}
 ```
 
 2. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
