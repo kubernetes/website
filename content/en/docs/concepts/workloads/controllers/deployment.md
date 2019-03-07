@@ -172,21 +172,28 @@ Suppose that you now want to update the nginx Pods to use the `nginx:1.9.1` imag
 instead of the `nginx:1.7.9` image.
 
 ```shell
-$ kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 
+kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment 
+```
+```
+nginx=nginx:1.9.1 
 image updated
 ```
 
 Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
 
 ```shell
-$ kubectl edit deployment.v1.apps/nginx-deployment
+kubectl edit deployment.v1.apps/nginx-deployment
+```
+```
 deployment.apps/nginx-deployment edited
 ```
 
 To see the rollout status, run:
 
 ```shell
-$ kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment.v1.apps/nginx-deployment
+```
+```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 deployment.apps/nginx-deployment successfully rolled out
 ```
@@ -194,7 +201,9 @@ deployment.apps/nginx-deployment successfully rolled out
 After the rollout succeeds, you may want to `get` the Deployment:
 
 ```shell
-$ kubectl get deployments
+kubectl get deployments
+```
+```
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           36s
 ```
@@ -207,7 +216,9 @@ You can run `kubectl get rs` to see that the Deployment updated the Pods by crea
 up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
 
 ```shell
-$ kubectl get rs
+kubectl get rs
+```
+```
 NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-1564180365   3         3         3       6s
 nginx-deployment-2035384211   0         0         0       36s
@@ -216,7 +227,9 @@ nginx-deployment-2035384211   0         0         0       36s
 Running `get pods` should now show only the new Pods:
 
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+```
 NAME                                READY     STATUS    RESTARTS   AGE
 nginx-deployment-1564180365-khku8   1/1       Running   0          14s
 nginx-deployment-1564180365-nacti   1/1       Running   0          14s
@@ -237,7 +250,9 @@ new Pods have come up, and does not create new Pods until a sufficient number of
 It makes sure that number of available Pods is at least 2 and the number of total Pods is at most 4.
 
 ```shell
-$ kubectl describe deployments
+kubectl describe deployments
+```
+```
 Name:                   nginx-deployment
 Namespace:              default
 CreationTimestamp:      Thu, 30 Nov 2017 10:56:25 +0000
@@ -338,14 +353,18 @@ rolled back.
 Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 
 ```shell
-$ kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+```
+```
 deployment.apps/nginx-deployment image updated
 ```
 
 The rollout will be stuck.
 
 ```shell
-$ kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment.v1.apps/nginx-deployment
+```
+```
 Waiting for rollout to finish: 1 out of 3 new replicas have been updated...
 ```
 
@@ -355,7 +374,9 @@ Press Ctrl-C to stop the above rollout status watch. For more information on stu
 You will see that the number of old replicas (nginx-deployment-1564180365 and nginx-deployment-2035384211) is 2, and new replicas (nginx-deployment-3066724191) is 1.
 
 ```shell
-$ kubectl get rs
+kubectl get rs
+```
+```
 NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-1564180365   3         3         3       25s
 nginx-deployment-2035384211   0         0         0       36s
@@ -365,7 +386,9 @@ nginx-deployment-3066724191   1         1         0       6s
 Looking at the Pods created, you will see that 1 Pod created by new ReplicaSet is stuck in an image pull loop.
 
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+```
 NAME                                READY     STATUS             RESTARTS   AGE
 nginx-deployment-1564180365-70iae   1/1       Running            0          25s
 nginx-deployment-1564180365-jbqqo   1/1       Running            0          25s
@@ -380,7 +403,9 @@ Kubernetes by default sets the value to 25%.
 {{< /note >}}
 
 ```shell
-$ kubectl describe deployment
+kubectl describe deployment
+```
+```
 Name:           nginx-deployment
 Namespace:      default
 CreationTimestamp:  Tue, 15 Mar 2016 14:48:04 -0700
@@ -427,7 +452,9 @@ To fix this, you need to rollback to a previous revision of Deployment that is s
 First, check the revisions of this deployment:
 
 ```shell
-$ kubectl rollout history deployment.v1.apps/nginx-deployment
+kubectl rollout history deployment.v1.apps/nginx-deployment
+```
+```
 deployments "nginx-deployment"
 REVISION    CHANGE-CAUSE
 1           kubectl create --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
@@ -443,7 +470,9 @@ REVISION    CHANGE-CAUSE
 To further see the details of each revision, run:
 
 ```shell
-$ kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
+kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
+```
+```
 deployments "nginx-deployment" revision 2
   Labels:       app=nginx
           pod-template-hash=1159050644
@@ -464,14 +493,18 @@ deployments "nginx-deployment" revision 2
 Now you've decided to undo the current rollout and rollback to the previous revision:
 
 ```shell
-$ kubectl rollout undo deployment.v1.apps/nginx-deployment
+kubectl rollout undo deployment.v1.apps/nginx-deployment
+```
+```
 deployment.apps/nginx-deployment
 ```
 
 Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
 ```shell
-$ kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
+kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
+```
+```
 deployment.apps/nginx-deployment
 ```
 
@@ -481,11 +514,17 @@ The Deployment is now rolled back to a previous stable revision. As you can see,
 for rolling back to revision 2 is generated from Deployment controller.
 
 ```shell
-$ kubectl get deployment nginx-deployment
+kubectl get deployment nginx-deployment
+```
+```
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           30m
+```
 
-$ kubectl describe deployment nginx-deployment
+```shell
+kubectl describe deployment nginx-deployment
+```
+```
 Name:                   nginx-deployment
 Namespace:              default
 CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
@@ -534,7 +573,9 @@ Events:
 You can scale a Deployment by using the following command:
 
 ```shell
-$ kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
+kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
+```
+```
 deployment.apps/nginx-deployment scaled
 ```
 
@@ -543,7 +584,9 @@ in your cluster, you can setup an autoscaler for your Deployment and choose the 
 Pods you want to run based on the CPU utilization of your existing Pods.
 
 ```shell
-$ kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
+kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
+```
+```
 deployment.apps/nginx-deployment scaled
 ```
 
@@ -557,7 +600,9 @@ ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *p
 For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surge)=3, and [maxUnavailable](#max-unavailable)=2.
 
 ```shell
-$ kubectl get deploy
+kubectl get deploy
+```
+```
 NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment     10        10        10           10          50s
 ```
@@ -565,7 +610,9 @@ nginx-deployment     10        10        10           10          50s
 You update to a new image which happens to be unresolvable from inside the cluster.
 
 ```shell
-$ kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
+kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
+```
+```
 deployment.apps/nginx-deployment image updated
 ```
 
@@ -573,7 +620,9 @@ The image update starts a new rollout with ReplicaSet nginx-deployment-198919819
 `maxUnavailable` requirement that you mentioned above.
 
 ```shell
-$ kubectl get rs
+kubectl get rs
+```
+```
 NAME                          DESIRED   CURRENT   READY     AGE
 nginx-deployment-1989198191   5         5         0         9s
 nginx-deployment-618515232    8         8         8         1m
@@ -591,10 +640,17 @@ new ReplicaSet. The rollout process should eventually move all replicas to the n
 the new replicas become healthy.
 
 ```shell
-$ kubectl get deploy
+kubectl get deploy
+```
+```
 NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment     15        18        7            8           7m
-$ kubectl get rs
+```
+
+```shell
+kubectl get rs
+```
+```
 NAME                          DESIRED   CURRENT   READY     AGE
 nginx-deployment-1989198191   7         7         0         7m
 nginx-deployment-618515232    11        11        11        7m
@@ -608,10 +664,16 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 For example, with a Deployment that was just created:
 
 ```shell
-$ kubectl get deploy
+kubectl get deploy
+```
+```
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx     3         3         3            3           1m
-$ kubectl get rs
+```
+```shell
+kubectl get rs
+```
+```
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   3         3         3         1m
 ```
@@ -619,26 +681,36 @@ nginx-2142116321   3         3         3         1m
 Pause by running the following command:
 
 ```shell
-$ kubectl rollout pause deployment.v1.apps/nginx-deployment
+kubectl rollout pause deployment.v1.apps/nginx-deployment
+```
+```
 deployment.apps/nginx-deployment paused
 ```
 
 Then update the image of the Deployment:
 
 ```shell
-$ kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+```
+```
 deployment.apps/nginx-deployment image updated
 ```
 
 Notice that no new rollout started:
 
 ```shell
-$ kubectl rollout history deployment.v1.apps/nginx-deployment
+kubectl rollout history deployment.v1.apps/nginx-deployment
+```
+```
 deployments "nginx"
 REVISION  CHANGE-CAUSE
 1   <none>
+```
 
-$ kubectl get rs
+```shell
+kubectl get rs
+```
+```
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   3         3         3         2m
 ```
@@ -646,7 +718,9 @@ nginx-2142116321   3         3         3         2m
 You can make as many updates as you wish, for example, update the resources that will be used:
 
 ```shell
-$ kubectl set resources deployment.v1.apps/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+kubectl set resources deployment.v1.apps/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+```
+```
 deployment.apps/nginx-deployment resource requirements updated
 ```
 
@@ -656,9 +730,14 @@ the Deployment will not have any effect as long as the Deployment is paused.
 Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
 
 ```shell
-$ kubectl rollout resume deployment.v1.apps/nginx-deployment
+kubectl rollout resume deployment.v1.apps/nginx-deployment
+```
 deployment.apps/nginx-deployment resumed
-$ kubectl get rs -w
+```
+```shell
+kubectl get rs -w
+```
+```
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   2         2         2         2m
 nginx-3926361531   2         2         0         6s
@@ -674,8 +753,12 @@ nginx-2142116321   0         1         1         2m
 nginx-2142116321   0         1         1         2m
 nginx-2142116321   0         0         0         2m
 nginx-3926361531   3         3         3         20s
-^C
-$ kubectl get rs
+
+```
+```shell
+kubectl get rs
+```
+```
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   0         0         0         2m
 nginx-3926361531   3         3         3         28s
@@ -714,7 +797,9 @@ You can check if a Deployment has completed by using `kubectl rollout status`. I
 successfully, `kubectl rollout status` returns a zero exit code.
 
 ```shell
-$ kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment.v1.apps/nginx-deployment
+```
+```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment.apps/nginx-deployment successfully rolled out
 $ echo $?
@@ -742,7 +827,9 @@ The following `kubectl` command sets the spec with `progressDeadlineSeconds` to 
 lack of progress for a Deployment after 10 minutes:
 
 ```shell
-$ kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
+kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
+```
+```
 deployment.apps/nginx-deployment patched
 ```
 Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following
@@ -771,7 +858,9 @@ due to any other kind of error that can be treated as transient. For example, le
 insufficient quota. If you describe the Deployment you will notice the following section:
 
 ```shell
-$ kubectl describe deployment nginx-deployment
+kubectl describe deployment nginx-deployment
+```
+```
 <...>
 Conditions:
   Type            Status  Reason
@@ -847,7 +936,9 @@ You can check if a Deployment has failed to progress by using `kubectl rollout s
 returns a non-zero exit code if the Deployment has exceeded the progression deadline.
 
 ```shell
-$ kubectl rollout status deployment.v1.apps/nginx-deployment
+kubectl rollout status deployment.v1.apps/nginx-deployment
+```
+```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
 $ echo $?
