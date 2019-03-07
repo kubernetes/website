@@ -132,10 +132,10 @@ data:
   password: MWYyZDFlMmU2N2Rm
 ```
 
-Now create the Secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
+Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
 
 ```shell
-$ kubectl create -f ./secret.yaml
+$ kubectl apply -f ./secret.yaml
 secret "mysecret" created
 ```
 
@@ -171,7 +171,7 @@ stringData:
 ```
 
 Your deployment tool could then replace the `{{username}}` and `{{password}}`
-template variables before running `kubectl create`.
+template variables before running `kubectl apply`.
 
 stringData is a write-only convenience field. It is never output when
 retrieving Secrets. For example, if you run the following command:
@@ -240,6 +240,69 @@ be omitted.  When using the `base64` utility on Darwin/macOS users should avoid
 using the `-b` option to split long lines.  Conversely Linux users *should* add
 the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 `-w` option is not available.
+
+#### Creating a Secret from Generator
+You can also create a Secret from generators and then apply it to create the object on 
+the Apiserver. The generators
+should be specified in a `kustomization.yaml` inside a directory.
+
+For example, to generate a Secret from files `./username.txt` and `./password.txt`
+```shell
+# Create a kustomization.yaml file with SecretGenerator
+$ cat <<EOF >./kustomization.yaml
+secretGenerator:
+- name: db-user-pass
+  files:
+  - username.txt
+  - password.txt
+EOF
+```
+Apply the kustomization directory to create the Secret object.
+```shell
+$ kubectl apply -k .
+secret/db-user-pass-96mffmfh4k created
+```
+
+You can check that the secret was created like this:
+
+```shell
+$ kubectl get secrets
+NAME                             TYPE                                  DATA      AGE
+db-user-pass-96mffmfh4k          Opaque                                2         51s
+
+$ kubectl describe secrets/db-user-pass-96mffmfh4k
+Name:            db-user-pass
+Namespace:       default
+Labels:          <none>
+Annotations:     <none>
+
+Type:            Opaque
+
+Data
+====
+password.txt:    12 bytes
+username.txt:    5 bytes
+```
+
+For example, to generate a Secret from literals `username=admin` and `password=secret`,
+you can specify the secret generator in `kusotmization.yaml` as
+```shell
+# Create a kustomization.yaml file with SecretGenerator
+$ cat <<EOF >./kustomization.yaml
+secretGenerator:
+- name: db-user-pass
+  literals:
+  - username=admin
+  - password=secret
+EOF
+```
+Apply the kustomization directory to create the Secert object.
+```shell
+$ kubectl apply -k .
+secret/db-user-pass-dddghtt9b5 created
+```
+Note that the generated Secrets name has a suffix appended by hashing the contents. This ensures that a new
+Secret is generated each time the contents is modified.
 
 #### Decoding a Secret
 
@@ -583,10 +646,20 @@ start until all the pod's volumes are mounted.
 
 ### Use-Case: Pod with ssh keys
 
-Create a secret containing some ssh keys:
-
+Create a kustomization.yaml with SecretGenerator containing some ssh keys:
 ```shell
-$ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
+$ cp /path/to/.ssh/id_rsa ./id_rsa
+$ cp /path/to/.ssh/id_rsa.pub ./id_rsa.pub
+$ cat <<EOF >./kustomization.yaml
+SecretGenerator:
+- name: ssh-key-secret
+  files:
+  - id_rsa
+  - id_rsa.pub
+```
+Create the SecretObject on Apiserver:
+```shell
+$ kubectl apply -k .
 ```
 
 {{< caution >}}
@@ -633,26 +706,25 @@ This example illustrates a pod which consumes a secret containing prod
 credentials and another pod which consumes a secret with test environment
 credentials.
 
-Make the secrets:
-
+Make the kustomization.yaml with SecretGenerator
 ```shell
-$ kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
-secret "prod-db-secret" created
-$ kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
-secret "test-db-secret" created
+$ cat <<EOF > kustomization.yaml
+secretGenerator:
+- name: prod-db-secret
+  literals:
+  - username=produser
+  - password=Y4nys7f11
+- name: test-db-secret
+  literals:
+  - username=testuser
+  - password=iluvtests
+EOF
 ```
-{{< note >}}
-Special characters such as `$`, `\*`, and `!` require escaping.
-If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
-
-    kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
-
-You do not need to escape special characters in passwords from files (`--from-file`).
-{{< /note >}}
 
 Now make the pods:
 
-```yaml
+```shell
+$ cat <<EOF > pod.yaml
 apiVersion: v1
 kind: List
 items:
@@ -692,6 +764,21 @@ items:
       - name: secret-volume
         readOnly: true
         mountPath: "/etc/secret-volume"
+EOF
+```
+
+Add the pods to the same kustomization.yaml
+```shell
+$ cat <<EOF >> kustomization.yaml
+resources:
+- pod.yaml
+EOF
+```
+
+Apply all those objects on the Apiserver by
+
+```shell
+kubectl apply --k .
 ```
 
 Both containers will have the following files present on their filesystems with the values for each container's environment:

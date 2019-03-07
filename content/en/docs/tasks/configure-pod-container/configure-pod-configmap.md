@@ -18,7 +18,10 @@ ConfigMaps allow you to decouple configuration artifacts from image content to k
 {{% capture steps %}}
 
 
-## Create a ConfigMap 
+## Create a ConfigMap
+You can use either `kubectl create configmap` or a ConfigMap generator in `kustomization.yaml` to create a ConfigMap.
+
+### Create a ConfigMap Using kubectl create configmap
 
 Use the `kubectl create configmap` command to create configmaps from [directories](#create-configmaps-from-directories), [files](#create-configmaps-from-files), or [literal values](#create-configmaps-from-literal-values):
 
@@ -37,7 +40,7 @@ You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-comma
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to retrieve information
 about a ConfigMap.
 
-### Create ConfigMaps from directories
+#### Create ConfigMaps from directories
 
 You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory.
 
@@ -105,7 +108,7 @@ metadata:
   uid: b4952dc3-d670-11e5-8cd0-68f728db1985
 ```
 
-### Create ConfigMaps from files
+#### Create ConfigMaps from files
 
 You can use `kubectl create configmap` to create a ConfigMap from an individual file, or from multiple files.
 
@@ -263,7 +266,7 @@ metadata:
   uid: 05f8da22-d671-11e5-8cd0-68f728db1985
 ```
 
-### Create ConfigMaps from literal values
+#### Create ConfigMaps from literal values
 
 You can use `kubectl create configmap` with the `--from-literal` argument to define a literal value from the command line:
 
@@ -292,6 +295,100 @@ metadata:
   uid: dadce046-d673-11e5-8cd0-68f728db1985
 ```
 
+### Create a ConfigMap from generator
+You can also create a ConfigMap from generators and then apply it to create the object on
+the Apiserver. The generators
+should be specified in a `kustomization.yaml` inside a directory.
+
+#### Generate ConfigMaps from files
+For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
+```shell
+# Create a kustomization.yaml file with ConfigMapGenerator
+$ cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: game-config-4
+  files:
+  - configure-pod-container/configmap/kubectl/game.properties
+EOF
+```
+
+Apply the kustomization directory to create the ConfigMap object.
+```shell
+$ kubectl apply -k .
+configmap/game-config-4-m9dm2f92bt created
+```
+
+You can check that the ConfigMap was created like this:
+
+```shell
+$ kubectl get configmap
+NAME                       DATA   AGE
+game-config-4-m9dm2f92bt   1      37s
+
+
+$ kubectl describe configmaps/game-config-4-m9dm2f92bt
+Name:         game-config-4-m9dm2f92bt
+Namespace:    default
+Labels:       <none>
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"v1","data":{"game.properties":"enemies=aliens\nlives=3\nenemies.cheat=true\nenemies.cheat.level=noGoodRotten\nsecret.code.p...
+
+Data
+====
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+Events:  <none>
+```
+
+Note that the generated ConfigMaps name has a suffix appended by hashing the contents. This ensures that a
+new ConfigMap is generated each time the contents is modified.
+
+#### Define the key to use when generating a ConfigMap from a file
+You can define a key other than the file name to use in the ConfigMap generator.
+For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
+with the key `game-special-key`
+
+```shell
+# Create a kustomization.yaml file with ConfigMapGenerator
+$ cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: game-config-5
+  files:
+  - game-special-key=configure-pod-container/configmap/kubectl/game.properties
+EOF
+```
+
+Apply the kustomization directory to create the ConfigMap object.
+```shell
+$ kubectl apply -k .
+configmap/game-config-5-m67dt67794 created
+```
+
+#### Generate ConfigMaps from Literals
+To generate a ConfigMap from literals `special.type=charm` and `special.how=very`,
+you can specify the ConfigMap generator in `kusotmization.yaml` as
+```shell
+# Create a kustomization.yaml file with ConfigMapGenerator
+$ cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: special-config-2
+  literals:
+  - special.how=very
+  - special.type=charm
+EOF
+```
+Apply the kustomization directory to create the ConfigMap object.
+```shell
+$ kubectl apply -k .
+configmap/special-config-2-c92b5mmcf2 created
+```
 
 ## Define container environment variables using ConfigMap data
 
