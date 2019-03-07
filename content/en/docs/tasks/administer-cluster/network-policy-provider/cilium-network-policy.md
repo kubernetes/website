@@ -30,10 +30,14 @@ To start minikube, minimal version required is >= v0.33.1, run the with the
 following arguments:
 
 ```shell
-$ minikube version
+minikube version
+```
+```
 minikube version: v0.33.1
-$
-$ minikube start --network-plugin=cni --memory=4096
+```
+
+```shell
+minikube start --network-plugin=cni --memory=4096
 ```
 
 For minikube you can deploy this simple ''all-in-one'' YAML file that includes
@@ -41,7 +45,9 @@ DaemonSet configurations for Cilium, and the necessary configurations to connect
 to the etcd instance deployed in minikube as well as appropriate RBAC settings:
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.4/examples/kubernetes/1.13/cilium-minikube.yaml
+kubectl create -f  https://raw.githubusercontent.com/cilium/cilium/v1.4/examples/kubernetes/1.13/cilium-minikube.yaml
+```
+```
 configmap/cilium-config created
 daemonset.apps/cilium created
 clusterrolebinding.rbac.authorization.k8s.io/cilium created
