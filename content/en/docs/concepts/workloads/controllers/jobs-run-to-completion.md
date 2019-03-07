@@ -108,7 +108,7 @@ $ kubectl logs $pods
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
 
-A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
