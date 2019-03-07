@@ -35,14 +35,14 @@ a container that writes some text to standard output once per second.
 To run this pod, use the following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
 pod/counter created
 ```
 
 To fetch the logs, use the `kubectl logs` command, as follows:
 
 ```shell
-$ kubectl logs counter
+kubectl logs counter
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -178,7 +178,9 @@ Now when you run this pod, you can access each log stream separately by
 running the following commands:
 
 ```shell
-$ kubectl logs counter count-log-1
+kubectl logs counter count-log-1
+```
+```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -186,7 +188,9 @@ $ kubectl logs counter count-log-1
 ```
 
 ```shell
-$ kubectl logs counter count-log-2
+kubectl logs counter count-log-2
+```
+```
 Mon Jan  1 00:00:00 UTC 2001 INFO 0
 Mon Jan  1 00:00:01 UTC 2001 INFO 1
 Mon Jan  1 00:00:02 UTC 2001 INFO 2

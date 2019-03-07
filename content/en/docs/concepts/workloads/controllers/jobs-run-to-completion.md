@@ -39,14 +39,18 @@ It takes around 10s to complete.
 You can run the example with this command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/controllers/job.yaml
+kubectl create -f https://k8s.io/examples/controllers/job.yaml
+```
+```
 job "pi" created
 ```
 
 Check on the status of the Job with `kubectl`:
 
 ```shell
-$ kubectl describe jobs/pi
+kubectl describe jobs/pi
+```
+```
 Name:             pi
 Namespace:        default
 Selector:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
@@ -83,8 +87,10 @@ To view completed Pods of a Job, use `kubectl get pods`.
 To list all the Pods that belong to a Job in a machine readable form, you can use a command like this:
 
 ```shell
-$ pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
-$ echo $pods
+pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
+echo $pods
+```
+```
 pi-aiw0a
 ```
 

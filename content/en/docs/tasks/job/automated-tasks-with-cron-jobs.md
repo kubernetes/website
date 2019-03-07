@@ -132,6 +132,7 @@ hello-4111706356-o9qcm
 
 Show pod log:
 
+
 ```shell
 kubectl logs $pods
 ```

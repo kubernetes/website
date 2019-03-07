@@ -65,7 +65,9 @@ It defines an index.php page which performs some CPU intensive computations:
 First, we will start a deployment running the image and expose it as a service:
 
 ```shell
-$ kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --expose --port=80
+```
+```
 service/php-apache created
 deployment.apps/php-apache created
 ```
@@ -82,14 +84,18 @@ Roughly speaking, HPA will increase and decrease the number of replicas
 See [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 ```shell
-$ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+```
+```
 horizontalpodautoscaler.autoscaling/php-apache autoscaled
 ```
 
 We may check the current status of autoscaler by running:
 
 ```shell
-$ kubectl get hpa
+kubectl get hpa
+```
+```
 NAME         REFERENCE                     TARGET    MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1          18s
 
@@ -104,17 +110,19 @@ Now, we will see how the autoscaler reacts to increased load.
 We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 
 ```shell
-$ kubectl run -i --tty load-generator --image=busybox /bin/sh
+kubectl run -i --tty load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
-$ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
 ```
 
 Within a minute or so, we should see the higher CPU load by executing:
 
 ```shell
-$ kubectl get hpa
+kubectl get hpa
+```
+```
 NAME         REFERENCE                     TARGET      CURRENT   MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   305% / 50%  305%      1         10        1          3m
 
@@ -124,7 +132,9 @@ Here, CPU consumption has increased to 305% of the request.
 As a result, the deployment was resized to 7 replicas:
 
 ```shell
-$ kubectl get deployment php-apache
+kubectl get deployment php-apache
+```
+```
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7         7         7            7           19m
 ```
@@ -145,11 +155,17 @@ the load generation by typing `<Ctrl> + C`.
 Then we will verify the result state (after a minute or so):
 
 ```shell
-$ kubectl get hpa
+kubectl get hpa
+```
+```
 NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPLICAS   AGE
 php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
+```
 
-$ kubectl get deployment php-apache
+```shell
+kubectl get deployment php-apache
+```
+```
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   1         1         1            1           27m
 ```
@@ -172,7 +188,7 @@ by making use of the `autoscaling/v2beta2` API version.
 First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2beta2` form:
 
 ```shell
-$ kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
+kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
 ```
 
 Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
@@ -288,7 +304,7 @@ spec:
     resource:
       name: cpu
       target:
-        kind: AverageUtilization
+        type: AverageUtilization
         averageUtilization: 50
   - type: Pods
     pods:
@@ -401,7 +417,9 @@ The conditions appear in the `status.conditions` field.  To see the conditions a
 we can use `kubectl describe hpa`:
 
 ```shell
-$ kubectl describe hpa cm-test
+kubectl describe hpa cm-test
+```
+```shell
 Name:                           cm-test
 Namespace:                      prom
 Labels:                         <none>
@@ -454,7 +472,9 @@ can use the following file to create it declaratively:
 We will create the autoscaler by executing the following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
+kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
+```
+```
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
 

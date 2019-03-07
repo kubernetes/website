@@ -49,10 +49,16 @@ other = "Ouvrez un ticket"
 other = "Explorez la communauté"
 
 [main_kubernetes_features]
-other = "Kubernetes fonctionnalités"
+other = "Fonctionnalités Kubernetes"
 
 [main_cncf_project]
 other = """Nous sommes un projet <a href="https://cncf.io/">CNCF</a> diplômé</p>"""
+
+[main_kubeweekly_baseline]
+other = "Intéressez pour recevoir les dernières informations sur Kubernetes ? Abonnez-vous à KubeWeekly."
+
+[main_kubernetes_past_link]
+other = "Voir les newsletters précédentes"
 
 [main_kubeweekly_signup]
 other = "S'abonner"

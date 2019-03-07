@@ -54,6 +54,12 @@ other = "Kubernetes 特性"
 [main_cncf_project]
 other = """我们是 <a href="https://cncf.io/">CNCF</a> 毕业项目</p>"""
 
+[main_kubeweekly_baseline]
+other = "想要获取最新的 Kubernetes 新闻么？请订阅 KubeWeekly。"
+
+[main_kubernetes_past_link]
+other = "浏览往期的周报"
+
 [main_kubeweekly_signup]
 other = "订阅"
 
