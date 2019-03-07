@@ -4,7 +4,7 @@ id: static-pod
 date: 2091-02-12
 full_link: /docs/tasks/administer-cluster/static-pod/
 short_description: >
-  A pod configured directly into Kubelet on a specific node
+  A pod configured directly into kubelet on a specific node
 
 aka: 
 tags:
