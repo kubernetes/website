@@ -87,7 +87,7 @@ directly to the API server, like this:
 
 Using `grep/cut` approach:
 
-``` shell
+```shell
 # Check all possible clusters, as you .KUBECONFIG may have multiple contexts:
 kubectl config view -o jsonpath='{"Cluster name\tServer\n"}{range .clusters[*]}{.name}{"\t"}{.cluster.server}{"\n"}{end}'
 
