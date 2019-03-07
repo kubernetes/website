@@ -4,16 +4,16 @@ id: controller
 date: 2018-04-12
 full_link: /docs/admin/kube-controller-manager/
 short_description: >
-  A control loop that watches the shared state of the cluster through the apiserver and makes changes attempting to move the current state towards the desired state.
+  API 서버를 통해 클러스터의 공유된 상태를 감시하고, 현재 상태를 원하는 상태로 이행시키도록 하는 컨트롤 루프.
 
 aka: 
 tags:
 - architecture
 - fundamental
 ---
- A control loop that watches the shared state of the cluster through the {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}} and makes changes attempting to move the current state towards the desired state.
+ {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}를 통해 클러스터의 공유된 상태를 감시하고, 현재 상태를 원하는 상태로 이행시키도록 하는 컨트롤 루프.
 
 <!--more--> 
 
-Examples of controllers that ship with Kubernetes today are the replication controller, endpoints controller, namespace controller, and serviceaccounts controller.
+현재 쿠버네티스에 포함된 컨트롤러의 예시로는 레플리케이션 컨트롤러, 엔드포인트 컨트롤러, 네임스페이스 컨트롤러, 서비스어카운트 컨트롤러가 있다.
 

@@ -117,7 +117,7 @@ itself. To attempt an eviction (perhaps more REST-precisely, to attempt to
 You can attempt an eviction using `curl`:
 
 ```bash
-$ curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/namespaces/default/pods/quux/eviction -d @eviction.json
+curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/namespaces/default/pods/quux/eviction -d @eviction.json
 ```
 
 The API can respond in one of three ways:

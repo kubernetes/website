@@ -202,7 +202,7 @@ Node is found that satisfies all the specified requirements of the Pod,
 preemption logic is triggered for the pending Pod. Let's call the pending Pod P.
 Preemption logic tries to find a Node where removal of one or more Pods with
 lower priority than P would enable P to be scheduled on that Node. If such a
-Node is found, one or more lower priority Pods get deleted from the Node. After
+Node is found, one or more lower priority Pods get evicted from the Node. After
 the Pods are gone, P can be scheduled on the Node.
 
 ### User exposed information
@@ -364,11 +364,11 @@ Pod priority and
 [QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md)
 are two orthogonal features with few interactions and no default restrictions on
 setting the priority of a Pod based on its QoS classes. The scheduler's
-preemption logic does consider QoS when choosing preemption targets. Preemption
-considers Pod priority and attempts to choose a set of targets with the lowest
-priority. Higher-priority Pods are considered for preemption only if the removal
-of the lowest priority Pods is not sufficient to allow the scheduler to schedule
-the preemptor Pod, or if the lowest priority Pods are protected by
+preemption logic does not consider QoS when choosing preemption targets.
+Preemption considers Pod priority and attempts to choose a set of targets with
+the lowest priority. Higher-priority Pods are considered for preemption only if
+the removal of the lowest priority Pods is not sufficient to allow the scheduler
+to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 `PodDisruptionBudget`.
 
 The only component that considers both QoS and Pod priority is

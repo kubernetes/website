@@ -50,7 +50,7 @@ weight: 20
 
 cloud-controller-manager는 클라우드-제공사업자-특유 컨트롤러 루프만을 동작시킨다. 이 컨트롤러 루프는 kube-controller-manager에서 비활성 시켜야만 한다. kube-controller-manager를 구동시킬 때 `--cloud-provider` 플래그를 `external`로 설정함으로써 이 컨트롤러 루프를 비활성 시킬 수 있다.
 
-cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코어가 서로 독립적으로 발전시켜 나갈 수 있도록 해준다. 이전 릴리스에서는, 코어 쿠버네티스 코드가 기능상으로 클라우드-제공사업자-특유 코드에 대해 의존적이었다. 향후 릴리스에서, 클라우드 밴더에 따른 코드는 클라우드 밴더 자체에 의해 유지되도록 하여야만 하며, 쿠버네티스가 동작하는 동안 cloud-controller-manager에 연계되도록 하여야만 한다.
+cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드가 서로 독립적으로 발전시켜 나갈 수 있도록 해준다. 이전 릴리스에서는, 코어 쿠버네티스 코드가 기능상으로 클라우드-제공사업자-특유 코드에 대해 의존적이었다. 향후 릴리스에서, 클라우드 밴더에 따른 코드는 클라우드 밴더 자체에 의해 유지되도록 하여야만 하며, 쿠버네티스가 동작하는 동안 cloud-controller-manager에 연계되도록 하여야만 한다.
 
 다음 컨트롤러들은 클라우드 제공사업자의 의존성을 갖는다.
 
@@ -73,7 +73,8 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코어
 
 ### 컨테이너 런타임
 
-컨테이너 런타임은 컨테이너의 동작을 책임지는 소프트웨어다. 쿠버네티스는 몇몇의 런타임을 지원하는데 [Docker](http://www.docker.com), [rkt](https://coreos.com/rkt/), [runc](https://github.com/opencontainers/runc) 그리고 OCI [runtime-spec](https://github.com/opencontainers/runtime-spec)을 충족하는 모든 런타임 등이 있다.
+컨테이너 런타임은 컨테이너의 동작을 책임지는 소프트웨어다. 
+쿠버네티스는 몇몇의 런타임을 지원하는데 [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) 그리고 [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md)를 구현한 모든 런타임이다.
 
 ## 애드온
 

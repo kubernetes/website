@@ -309,9 +309,7 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Volume Mode
 
-{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
-
-To enable this feature, enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
 Now, you can set the value of `volumeMode` to `raw` to use a raw block device, or `filesystem`
@@ -461,7 +459,7 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Volume Modes
 
-Claims use the same convention as volumes to indicates the consumption of the volume as either a filesystem or block device.
+Claims use the same convention as volumes to indicate the consumption of the volume as either a filesystem or block device.
 
 ### Resources
 
@@ -548,10 +546,7 @@ spec:
 
 ## Raw Block Volume Support
 
-{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
-
-To enable support for raw block volumes, enable the `BlockVolume` feature gate on the
-apiserver, controller-manager and the kubelet.
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 The following volume plugins support raw block volumes, including dynamic provisioning where
 applicable.

@@ -27,7 +27,7 @@ E2E issues and LGTM process
 
     * Question/concern to work out is securing Jenkins. Short term conclusion: Will look at pushing Jenkins logs into GCS bucket. Lavalamp will follow up with Jeff Grafton.
 
-    * Longer term solution may be a merge queue, where e2e runs for each merge (as opposed to multiple merges). This exists in Openshift today.
+    * Longer term solution may be a merge queue, where e2e runs for each merge (as opposed to multiple merges). This exists in OpenShift today.
 
 Cluster Upgrades for Kubernetes as final v1 feature
 

@@ -39,11 +39,14 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
     {{< tabs name="k8s_install" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    apt-get update
-    apt-get upgrade -y kubeadm
+    # replace "x" with the latest patch version
+    apt-mark unhold kubeadm && \
+    apt-get update && apt-get upgrade -y kubeadm=1.12.x-00 && \
+    apt-mark hold kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum upgrade -y kubeadm --disableexcludes=kubernetes
+    # replace "x" with the latest patch version
+    yum upgrade -y kubeadm-1.12.x --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 
@@ -229,11 +232,13 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 
     {{< tabs name="k8s_upgrade" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+    # replace "x" with the latest patch version
     apt-get update
-    apt-get upgrade -y kubelet kubeadm
+    apt-get upgrade -y kubelet=1.12.x-00 kubeadm=1.12.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum upgrade -y kubelet kubeadm --disableexcludes=kubernetes
+    # replace "x" with the latest patch version
+    yum upgrade -y kubelet-1.12.x kubeadm-1.12.x --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
 

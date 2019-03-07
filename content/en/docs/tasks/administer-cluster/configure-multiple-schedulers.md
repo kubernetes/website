@@ -96,7 +96,9 @@ kubectl create -f my-scheduler.yaml
 Verify that the scheduler pod is running:
 
 ```shell
-$ kubectl get pods --namespace=kube-system
+kubectl get pods --namespace=kube-system
+```
+```
 NAME                                           READY     STATUS    RESTARTS   AGE
 ....
 my-scheduler-lnf4s-4744f                       1/1       Running   0          2m
@@ -114,9 +116,11 @@ First, update the following fields in your YAML file:
 * `--lock-object-namespace=lock-object-namespace`
 * `--lock-object-name=lock-object-name`
 
-If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add you scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
+If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add your scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
 ```
-$ kubectl edit clusterrole system:kube-scheduler
+kubectl edit clusterrole system:kube-scheduler
+```
+```yaml
 - apiVersion: rbac.authorization.k8s.io/v1
   kind: ClusterRole
   metadata:

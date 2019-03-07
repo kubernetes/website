@@ -9,7 +9,7 @@ content_template: templates/task
 {{% capture overview %}}
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
-[Dynamic Kubelet Configuration](https://github.com/kubernetes/features/issues/281)
+[Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
 allows you to change the configuration of each Kubelet in a live Kubernetes
 cluster by deploying a ConfigMap and configuring each Node to use it.
 

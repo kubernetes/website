@@ -1,12 +1,9 @@
 
-Run this command in order to set up the Kubernetes master.
+Run this command in order to set up the Kubernetes control plane.
 
 ### Synopsis
 
-
-Run this command in order to set up the Kubernetes master.
-
-The "init" command executes the following phases:
+The `init` command executes the following phases:
 ```
 preflight                  Run master pre-flight checks
 kubelet-start              Writes kubelet settings and (re)starts the kubelet

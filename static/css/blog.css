@@ -179,7 +179,7 @@ div.header-try a {
 div.widget > h2,
 div.widget h2.title {
   margin: 0 0 1em 0;
-  font: normal bold 11px 'Roboto',sans-serif;
+  font: normal bold 11px 'Roboto', sans-serif;
   color: #000000;
 }
 
@@ -321,8 +321,7 @@ div.post-footer {
   font-size: 16px;
   line-height: 1.5;
 }
---></style>
-<style id='template-skin-1' type='text/css'><!--
+
 body {
   min-width: 1200px;
 }
@@ -336,14 +335,16 @@ body {
   padding-left: 0px;
   padding-right: 310px;
 }
+
 .main-inner .fauxcolumn-center-outer {
   left: 0px;
   right: 310px;
   /* IE6 does not respect left and right together */
   _width: expression(this.parentNode.offsetWidth -
-    parseInt("0px") -
-    parseInt("310px") + 'px');
+  parseInt("0px") -
+  parseInt("310px") + 'px');
   }
+
   .main-inner .fauxcolumn-left-outer {
     width: 0px;
   }
@@ -405,6 +406,7 @@ body {
 ul {
   padding: 1em;
 }
+
 /* Sidebar Icon Styles */
 .widget-link svg {
   font-size: 48px;

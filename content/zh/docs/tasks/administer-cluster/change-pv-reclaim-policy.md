@@ -44,13 +44,17 @@ content_template: templates/task
 
 2. 选择你的 PersistentVolumes 中的一个并更改它的回收策略：
 
-       kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
-
+    ```shell
+    kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+    ```
+       
     这里的 `<your-pv-name>` 是你选择的 PersistentVolume 的名字。
 
 3. 验证你选择的 PersistentVolume 拥有正确的策略：
 
-       kubectl get pv
+    ```shell
+    kubectl get pv
+    ```
 
     输出类似于这样：
 
