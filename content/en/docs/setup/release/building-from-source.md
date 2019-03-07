@@ -3,6 +3,7 @@ reviewers:
 - david-mcmahon
 - jbeda
 title: Building a release
+content_template: templates/concept
 card:
   name: download
   weight: 20
