@@ -50,21 +50,27 @@ This example cron job config `.spec` file prints the current time and a hello me
 Run the example cron job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f ./cronjob.yaml
+kubectl create -f ./cronjob.yaml
+```
+```
 cronjob "hello" created
 ```
 
 Alternatively, you can use `kubectl run` to create a cron job without writing a full config:
 
 ```shell
-$ kubectl run hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
+kubectl run hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
+```
+```
 cronjob "hello" created
 ```
 
 After creating the cron job, get its status using this command:
 
 ```shell
-$ kubectl get cronjob hello
+kubectl get cronjob hello
+```
+```
 NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
 hello     */1 * * * *   False     0         <none>
 ```
@@ -73,7 +79,9 @@ As you can see from the results of the command, the cron job has not scheduled o
 Watch for the job to be created in around one minute:
 
 ```shell
-$ kubectl get jobs --watch
+kubectl get jobs --watch
+```
+```
 NAME               DESIRED   SUCCESSFUL   AGE
 hello-4111706356   1         1         2s
 ```
@@ -82,7 +90,9 @@ Now you've seen one running job scheduled by the "hello" cron job.
 You can stop watching the job and view the cron job again to see that it scheduled the job:
 
 ```shell
-$ kubectl get cronjob hello
+kubectl get cronjob hello
+```
+```
 NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
 hello     */1 * * * *   False     0         Mon, 29 Aug 2016 14:34:00 -0700
 ```
@@ -95,12 +105,18 @@ Note that the job name and pod name are different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-$ pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
 
-$ echo $pods
+echo $pods
+```
+```
 hello-4111706356-o9qcm
+```
 
-$ kubectl logs $pods
+```shell
+kubectl logs $pods
+```
+```
 Mon Aug 29 21:34:09 UTC 2016
 Hello from the Kubernetes cluster
 ```
@@ -110,7 +126,9 @@ Hello from the Kubernetes cluster
 When you don't need a cron job any more, delete it with `kubectl delete cronjob`:
 
 ```shell
-$ kubectl delete cronjob hello
+kubectl delete cronjob hello
+```
+```
 cronjob "hello" deleted
 ```
 

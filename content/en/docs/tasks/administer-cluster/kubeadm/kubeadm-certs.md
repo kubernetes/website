@@ -71,10 +71,14 @@ Otherwise, you must manually approve certificates with the [`kubectl certificate
 The following kubeadm command outputs the name of the certificate to approve, then blocks and waits for approval to occur:
 
 ```shell
-$ sudo kubeadm alpha certs renew apiserver --use-api &
+sudo kubeadm alpha certs renew apiserver --use-api &
+```
+```
 [1] 2890
 [certs] certificate request "kubeadm-cert-kube-apiserver-ld526" created
-$ kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
+```
+```shell
+kubectl certificate approve kubeadm-cert-kube-apiserver-ld526
 certificatesigningrequest.certificates.k8s.io/kubeadm-cert-kube-apiserver-ld526 approved
 [1]+  Done                    sudo kubeadm alpha certs renew apiserver --use-api
 ```
