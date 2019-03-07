@@ -837,7 +837,7 @@ created before you can use it.
 
 Quobyte supports the {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
 CSI is the recommended plugin to use Quobyte volumes inside Kubernetes. Quobyte's
-CSI deployment instructions and examples can be found [here](https://github.com/quobyte/quobyte-csi).
+GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte-csi) for deploying Quobyte using CSI, along with examples.
 
 ### rbd {#rbd}
 
