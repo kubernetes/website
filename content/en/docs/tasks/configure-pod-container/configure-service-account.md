@@ -92,7 +92,7 @@ default   1          1d
 You can create additional ServiceAccount objects like this:
 
 ```shell
-kubectl create -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -141,7 +141,7 @@ Suppose we have an existing service account named "build-robot" as mentioned abo
 a new secret manually.
 
 ```shell
-kubectl create -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:

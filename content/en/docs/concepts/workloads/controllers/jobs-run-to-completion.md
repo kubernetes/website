@@ -39,7 +39,7 @@ It takes around 10s to complete.
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/controllers/job.yaml
+$ kubectl apply -f https://k8s.io/examples/controllers/job.yaml
 job "pi" created
 ```
 

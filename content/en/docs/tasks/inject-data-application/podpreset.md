@@ -36,7 +36,7 @@ Preset.
 Create the PodPreset:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/preset.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/preset.yaml
 ```
 
 Examine the created PodPreset:
@@ -54,7 +54,7 @@ The new PodPreset will act upon any pod that has label `role: frontend`.
 Create a pod:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
+$ kubectl apply -f https://k8s.io/examples/podpreset/pod.yaml
 ```
 
 List the running Pods:

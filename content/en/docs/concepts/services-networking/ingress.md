@@ -170,7 +170,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 
 {{< codenew file="service/networking/ingress.yaml" >}}
 
-If you create it using `kubectl create -f` you should see:
+If you create it using `kubectl apply -f` you should see:
 
 ```shell
 kubectl get ingress test-ingress
@@ -224,7 +224,7 @@ spec:
           servicePort: 8080
 ```
 
-When you create the ingress with `kubectl create -f`:
+When you create the ingress with `kubectl apply -f`:
 
 ```shell
 kubectl describe ingress simple-fanout-example

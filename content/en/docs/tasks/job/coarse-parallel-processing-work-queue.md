@@ -46,9 +46,9 @@ cluster and reuse it for many jobs, as well as for long-running services.
 Start RabbitMQ as follows:
 
 ```shell
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+$ kubectl apply -f examples/celery-rabbitmq/rabbitmq-service.yaml
 service "rabbitmq-service" created
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+$ kubectl apply -f examples/celery-rabbitmq/rabbitmq-controller.yaml
 replicationcontroller "rabbitmq-controller" created
 ```
 
@@ -234,7 +234,7 @@ done.  So we set, `.spec.completions: 8` for the example, since we put 8 items i
 So, now run the Job:
 
 ```shell
-kubectl create -f ./job.yaml
+kubectl apply -f ./job.yaml
 ```
 
 Now wait a bit, then check on the job.

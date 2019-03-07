@@ -26,7 +26,7 @@ To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
 The RBAC API declares four top-level types which will be covered in this
 section. Users can interact with these resources as they would with any other
 API resource (via `kubectl`, API calls, etc.). For instance,
-`kubectl create -f (resource).yml` can be used with any of these examples,
+`kubectl apply -f (resource).yml` can be used with any of these examples,
 though readers who wish to follow along should review the section on
 bootstrapping first.
 

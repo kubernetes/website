@@ -326,7 +326,7 @@ tls/deploy-certs.sh
 # Label kube-dns with fixed identity label
 kubectl label -n kube-system pod $(kubectl -n kube-system get pods -l k8s-app=kube-dns -o jsonpath='{range .items[]}{.metadata.name}{" "}{end}') io.cilium.fixed-identity=kube-dns
 
-kubectl create -f ./
+kubectl apply -f ./
 
 # Wait several minutes for Cilium, coredns and etcd pods to converge to a working state
 ```

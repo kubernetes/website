@@ -60,7 +60,7 @@ volume.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/security/security-context.yaml
+kubectl apply -f https://k8s.io/examples/pods/security/security-context.yaml
 ```
 
 Verify that the Pod's Container is running:
@@ -146,7 +146,7 @@ and the Container have a `securityContext` field:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/security/security-context-2.yaml
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-2.yaml
 ```
 
 Verify that the Pod's Container is running:
@@ -199,7 +199,7 @@ Here is configuration file that does not add or remove any Container capabilitie
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/security/security-context-3.yaml
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-3.yaml
 ```
 
 Verify that the Pod's Container is running:
@@ -261,7 +261,7 @@ adds the `CAP_NET_ADMIN` and `CAP_SYS_TIME` capabilities:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/security/security-context-4.yaml
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-4.yaml
 ```
 
 Get a shell into the running Container:

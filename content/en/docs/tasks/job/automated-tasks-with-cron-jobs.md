@@ -50,7 +50,7 @@ This example cron job config `.spec` file prints the current time and a hello me
 Run the example cron job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f ./cronjob.yaml
+$ kubectl apply -f ./cronjob.yaml
 cronjob "hello" created
 ```
 

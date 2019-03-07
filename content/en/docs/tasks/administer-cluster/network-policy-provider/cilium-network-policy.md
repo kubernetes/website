@@ -30,7 +30,7 @@ As Cilium requires a standalone etcd instance, for minikube you can deploy it
 by running:
 
 ```shell
-kubectl create -n kube-system -f https://raw.githubusercontent.com/cilium/cilium/v1.3/examples/kubernetes/addons/etcd/standalone-etcd.yaml
+kubectl apply -n kube-system -f https://raw.githubusercontent.com/cilium/cilium/v1.3/examples/kubernetes/addons/etcd/standalone-etcd.yaml
 ```
 
 After etcd is up and running you can deploy Cilium Kubernetes descriptor which
@@ -39,7 +39,7 @@ Cilium, to connect to the etcd instance previously deployed as well as
 appropriate RBAC settings:
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.3/examples/kubernetes/1.12/cilium.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/v1.3/examples/kubernetes/1.12/cilium.yaml
 configmap/cilium-config created
 daemonset.apps/cilium created
 clusterrolebinding.rbac.authorization.k8s.io/cilium created

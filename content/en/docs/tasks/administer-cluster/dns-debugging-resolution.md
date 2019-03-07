@@ -27,7 +27,7 @@ Create a file named busybox.yaml with the following contents:
 Then create a pod using this file and verify its status:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
+kubectl apply -f https://k8s.io/examples/admin/dns/busybox.yaml
 pod/busybox created
 
 kubectl get pods busybox
