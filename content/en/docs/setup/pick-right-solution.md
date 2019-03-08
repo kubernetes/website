@@ -140,6 +140,7 @@ few commands. These solutions are actively developed and have active community s
 * [Supergiant.io](https://supergiant.io/)
 * [Tectonic by CoreOS](https://coreos.com/tectonic)
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)
+* [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)
 
 ## On-Premises turnkey cloud solutions
 These solutions allow you to create Kubernetes clusters on your internal, secure, cloud network with only a
@@ -161,6 +162,8 @@ few commands.
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
+* [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)
+
 
 ## Custom Solutions
 
@@ -189,6 +192,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubespray](/docs/setup/custom-cloud/kubespray/)
 * [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
+* [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-PKS)
 
 ### On-Premises VMs
 
@@ -200,6 +204,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [oVirt](/docs/setup/on-premises-vm/ovirt/)
 * [Vagrant](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
 * [VMware](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
+* [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-PKS)
 * [VMware vSphere](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)
 * [VMware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
 
@@ -212,6 +217,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
+* [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-PKS)
 
 ### Integrations
 
@@ -275,6 +281,7 @@ Agile Stacks       | Terraform   | CoreOS | multi-support | [docs](https://www.a
 IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index) | Commercial
 Digital Rebar        | kubeadm      | any    | metal       | [docs](/docs/setup/on-premises-metal/krib/)                                  | Community ([@digitalrebar](https://github.com/digitalrebar))
 VMware Cloud PKS     |              | Photon OS | Canal | [docs](https://docs.vmware.com/en/VMware-Kubernetes-Engine/index.html) | Commercial
+VMware Enterprise PKS     | BOSH       | Ubuntu | VMware NSX-T/flannel | [docs](https://docs.vmware.com/en/VMware-Enterprise-PKS/) | Commercial
 Mirantis Cloud Platform | Salt | Ubuntu | multi-support | [docs](https://docs.mirantis.com/mcp/) | Commercial
 
 {{< note >}}
