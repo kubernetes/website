@@ -23,20 +23,21 @@ To deploy Kubernetes on CloudStack there are several possibilities depending on 
 CloudStack also has a vagrant plugin available, hence Vagrant could be used to deploy Kubernetes either using the existing shell provisioner or using new Salt based recipes.
 -->
 
-[CloudStack](https://cloudstack.apache.org/) 是一种基于硬件虚拟化原则(传统 IaaS) 构建公有云和私有云的软件。要在 CloudStack 上部署 Kubernetes，
+[CloudStack](https://cloudstack.apache.org/) 是一种基于硬件虚拟化原则(传统 IaaS 概念)用来构建公有云和私有云的软件。要在 CloudStack 上部署 Kubernetes，
 有几种可能性取决于正在使用的云以及可用的镜像。CloudStack 还提供了一个 vagrant 插件，因此 vagrant 可以使用现有的 shell 创建程序，或新的基于 Salt 的方法来部署 Kubernetes。
 
 <!--
 [CoreOS](http://coreos.com) templates for CloudStack are built [nightly](http://stable.release.core-os.net/amd64-usr/current/). 
 CloudStack operators need to [register](http://docs.cloudstack.apache.org/projects/cloudstack-administration/en/latest/templates.html) this template in their cloud before proceeding with these Kubernetes deployment instructions.
 -->
-[CoreOS](http://coreos.com) 为 CloudStack [每夜](http://stable.release.core-os.net/amd64-usr/current/)构建模板。在继续执行这些 Kubernetes 部署指令之前，CloudStack 操作人员需要在他们的云中 [注册](http://docs.cloudstack.apache.org/projects/cloudstack-administration/en/latest/templates.html)这个模板。
+CloudStack 的 [CoreOS](http://coreos.com) 模板会[每夜](http://stable.release.core-os.net/amd64-usr/current/)构建。
+CloudStack operators 需要在他们的云中 [注册](http://docs.cloudstack.apache.org/projects/cloudstack-administration/en/latest/templates.html)这个模板，然后才能继续执行 Kubernetes 部署的命令。
 
 <!--
 This guide uses a single [Ansible playbook](https://github.com/apachecloudstack/k8s), which is completely automated and can deploy Kubernetes on a CloudStack based Cloud using CoreOS images. The playbook, creates an ssh key pair, creates a security group and associated rules and finally starts coreOS instances configured via cloud-init.
 -->
 
-本指南使用一个 [Ansible 副本](https://github.com/apachecloudstack/k8s)，它是完全自动化的，可以使用 CoreOS 镜像在基于 CloudStack 的云上部署 Kubernetes。副本创建 ssh 密钥对、创建安全组和相关规则，最后启动通过 cloud-init 配置的 coreOS 实例。
+本指南只用到一个 [Ansible playbook](https://github.com/apachecloudstack/k8s)，完全自动化，可以使用 CoreOS 镜像在基于 CloudStack 的云上部署 Kubernetes。playbook 会创建 ssh 密钥对、创建安全组和相关规则，最后启动通过 cloud-init 配置的 CoreOS 实例。
 
 {{% /capture %}}
 
@@ -104,7 +105,7 @@ We need to use the http POST method to pass the _large_ userdata to the coreOS i
 ### Clone the playbook
 -->
 
-### 克隆的副本
+### 复制 playbook
 
 ```shell
 git clone https://github.com/apachecloudstack/k8s
@@ -120,7 +121,7 @@ cd kubernetes-cloudstack
 <!--
 You simply need to run the playbook.
 -->
-你只需要运行副本。
+你只需要运行 playbook 即可。
 
 ```shell
 ansible-playbook k8s.yml
@@ -199,9 +200,9 @@ IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs               
 CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/setup/on-premises-vm/cloudstack/)                             |          | Community ([@Guiques](https://github.com/ltupin/))
 -->
 
-IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+IaaS 供应商        | 配置管理 | 操作系统     | 网络  | 文档                                              | 合规 | 支持级别
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-CloudStack           | Ansible      | CoreOS | flannel     | [文档](/docs/setup/on-premises-vm/cloudstack/)                             |          | Community ([@Guiques](https://github.com/ltupin/))
+CloudStack           | Ansible      | CoreOS | flannel     | [文档](/docs/setup/on-premises-vm/cloudstack/)                             |          | 社区 ([@Guiques](https://github.com/ltupin/))
 
 
 <!--
