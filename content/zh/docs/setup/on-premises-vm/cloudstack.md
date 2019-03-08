@@ -24,7 +24,7 @@ CloudStack also has a vagrant plugin available, hence Vagrant could be used to d
 -->
 
 [CloudStack](https://cloudstack.apache.org/) 是一种基于硬件虚拟化原则(传统 IaaS) 构建公有云和私有云的软件。要在 CloudStack 上部署 Kubernetes，
-有几种可能性取决于正在使用的云以及可用的图像。CloudStack 还提供了一个 vagrant 插件，因此 vagrant 可以使用现有的 shell 供应程序或新的基于 Salt 的方法来部署 Kubernetes。
+有几种可能性取决于正在使用的云以及可用的镜像。CloudStack 还提供了一个 vagrant 插件，因此 vagrant 可以使用现有的 shell 创建程序，或新的基于 Salt 的方法来部署 Kubernetes。
 
 <!--
 [CoreOS](http://coreos.com) templates for CloudStack are built [nightly](http://stable.release.core-os.net/amd64-usr/current/). 
