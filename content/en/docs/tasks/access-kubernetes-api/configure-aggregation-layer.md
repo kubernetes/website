@@ -200,7 +200,7 @@ Enable the aggregation layer via the following `kube-apiserver` flags. They may 
 
 ### CA Reusage and Conflicts
 
-It is important to note that the Kubernetes apiserver has **two** client CA options:
+The Kubernetes apiserver has two client CA options:
 
 * `--client-ca-file`
 * `--requestheader-client-ca-file`
