@@ -520,7 +520,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
 <!--
 1. Run the following command to scale down the number of frontend Pods:
 -->
-1. 运行以下命令缩小前端 Pod 的数量：
+3. 运行以下命令缩小前端 Pod 的数量：
 
       ```shell
       kubectl scale deployment frontend --replicas=2
@@ -529,7 +529,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
 <!--
 1. Query the list of Pods to verify the number of frontend Pods running:
 -->
-2. 查询 Pod 列表验证正在运行的前端 Pod 的数量：
+4. 查询 Pod 列表验证正在运行的前端 Pod 的数量：
 
       ```shell
       kubectl get pods
@@ -561,7 +561,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 <!--
 1. Run the following commands to delete all Pods, Deployments, and Services.
 -->
-1. 运行以下命令以删除所有 Pod，Deployments 和 Services。
+5. 运行以下命令以删除所有 Pod，Deployments 和 Services。
 
       ```shell
       kubectl delete deployment -l app=redis
@@ -587,7 +587,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 <!--
 1. Query the list of Pods to verify that no Pods are running:
 -->
-2. 查询 Pod 列表，确认没有 Pod 在运行：
+6. 查询 Pod 列表，确认没有 Pod 在运行：
 
       ```shell
       kubectl get pods
