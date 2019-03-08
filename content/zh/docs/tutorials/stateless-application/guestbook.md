@@ -30,8 +30,8 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 * Multiple web frontend instances
 -->
 
-* 一个单实例 [Redis](https://redis.io/) 主节点来存储留言板条目
-* 多个[复制的 Redis](https://redis.io/topics/replication) 实例用于提供读取
+* 单实例 [Redis](https://redis.io/) 主节点保存留言板条目
+* 多个[从 Redis](https://redis.io/topics/replication) 节点用来读取数据
 * 多个 web 前端实例
 
 
@@ -48,7 +48,7 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 -->
 
 * 启动 Redis 主节点。
-* 启动 Redis 工作节点。
+* 启动 Redis 从节点。
 * 启动留言板前端。
 * 公开并查看前端服务。
 * 清理。
@@ -69,7 +69,7 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 ## Start up the Redis Master
 -->
 
-## 启动主 Redis
+##  启动 Redis 主节点
 
 <!--
 The guestbook application uses Redis to store its data. It writes its data to a Redis master instance and reads data from multiple Redis slave instances.
@@ -80,12 +80,12 @@ The guestbook application uses Redis to store its data. It writes its data to a 
 ### Creating the Redis Master Deployment
 -->
 
-### 创建 Redis 主 Deployment
+### 创建 Redis 主节点的 Deployment
 
 <!--
 The manifest file, included below, specifies a Deployment controller that runs a single replica Redis master Pod.
 -->
-下面包含的清单文件指定了一个 Deployment 控制器，该控制器运行一个 Redis 主 Pod 副本。
+下面包含的清单文件指定了一个 Deployment 控制器，该控制器运行一个 Redis 主节点 Pod 副本。
 
 {{< codenew file="application/guestbook/redis-master-deployment.yaml" >}}
 
@@ -94,7 +94,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 1. Apply the Redis Master Deployment from the `redis-master-deployment.yaml` file:
 -->
 1. 在下载清单文件的目录中启动终端窗口。
-1. 从 `redis-master-deployment.yaml` 文件中应用 Redis 主 Deployment：
+2. 从 `redis-master-deployment.yaml` 文件中应用 Redis 主 Deployment：
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
@@ -103,7 +103,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 <!--
 1. Query the list of Pods to verify that the Redis Master Pod is running:
 -->
-1. 查询 Pod 列表以验证 Redis 主 Pod 是否正在运行：
+3. 查询 Pod 列表以验证 Redis 主节点 Pod 是否正在运行：
 
       ```shell
       kubectl get pods
@@ -121,7 +121,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 <!--
 1. Run the following command to view the logs from the Redis Master Pod:
 -->
-1. 运行以下命令查看 Redis 主 Pod 中的日志：
+4. 运行以下命令查看 Redis 主节点 Pod 中的日志：
 
      ```shell
      kubectl logs -f POD-NAME
@@ -140,19 +140,19 @@ Replace POD-NAME with the name of your Pod.
 ### Creating the Redis Master Service
 -->
 
-### 创建 Redis 主服务
+### 创建 Redis 主节点的服务
 
 <!--
 The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 -->
-留言板应用程序需要与 Redis 主机通信以写入其数据。您需要应用服务来代理 Redis 主 Pod 的流量。服务定义了访问 Pod 的策略。
+留言板应用程序需要往 Redis 主节点中写数据。因此，需要创建 [Service](/docs/concepts/services-networking/service/) 来代理 Redis 主节点 Pod 的流量。Service 定义了访问 Pod 的策略。
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
 <!--
 1. Apply the Redis Master Service from the following `redis-master-service.yaml` file: 
 -->
-1. 从以下 `redis-master-service.yaml` 文件应用 Redis 主服务：
+1. 使用下面的 `redis-master-service.yaml` 文件创建 Redis 主节点的服务：
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
@@ -161,7 +161,7 @@ The guestbook applications needs to communicate to the Redis master to write its
 <!--
 1. Query the list of Services to verify that the Redis Master Service is running:
 -->
-1. 查询服务列表验证 Redis 主服务是否正在运行：
+2. 查询服务列表验证 Redis 主节点服务是否正在运行：
 
       ```shell
       kubectl get service
@@ -183,7 +183,7 @@ The guestbook applications needs to communicate to the Redis master to write its
 <!--
 This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.   
 -->
-这个清单文件创建了一个名为 `Redis-master` 的服务，其中包含一组与前面定义的标签匹配的标签，因此服务将网络流量路由到 Redis 主 Pod。
+这个清单文件创建了一个名为 `Redis-master` 的 Service，其中包含一组与前面定义的标签匹配的标签，因此服务将网络流量路由到 Redis 主节点 Pod 上。
 
 {{< /note >}}
 
@@ -191,18 +191,18 @@ This manifest file creates a Service named `redis-master` with a set of labels t
 ## Start up the Redis Slaves
 -->
 
-## 启动 Redis 工作节点
+## 启动 Redis 从节点
 
 <!--
 Although the Redis master is a single pod, you can make it highly available to meet traffic demands by adding replica Redis slaves.
 -->
-尽管主 Redis 是一个单独的 pod，但是您可以通过添加副本 Redis slave 来使其高度可用，以满足流量需求。
+尽管 Redis 主节点是一个单独的 pod，但是您可以通过添加 Redis 从节点的方式来使其高可用性，以满足流量需求。
 
 <!--
 ### Creating the Redis Slave Deployment
 -->
 
-### 创建 Redis Slave Deployment
+### 创建 Redis 从节点 Deployment
 
 <!--
 Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas. 
@@ -229,7 +229,7 @@ If there are not any replicas running, this Deployment would start the two repli
 <!--
 1. Query the list of Pods to verify that the Redis Slave Pods are running:
 -->
-1. 查询 Pod 列表以验证 Redis Slave Pod 正在运行：
+2. 查询 Pod 列表以验证 Redis Slave Pod 正在运行：
 
       ```shell
       kubectl get pods
@@ -251,13 +251,14 @@ If there are not any replicas running, this Deployment would start the two repli
 ### Creating the Redis Slave Service
 -->
 
-### 创建 Redis Slave 服务
+### 创建 Redis 从节点的 Service
 
 <!--
 The guestbook application needs to communicate to Redis slaves to read data. To make the Redis slaves discoverable, you need to set up a Service. A Service provides transparent load balancing to a set of Pods.
 -->
-留言板应用程序需要与 Redis 从服务器通信以读取数据。要使 Redis 从服务器能够被发现，
-您需要设置一个服务。服务为一组 Pod 提供透明的负载均衡。
+留言板应用程序需要从 Redis 从节点中读取数据。
+为了便于 Redis 从节点可发现，
+您需要设置一个 Service。Service 为一组 Pod 提供负载均衡。
 
 {{< codenew file="application/guestbook/redis-slave-service.yaml" >}}
 
@@ -273,7 +274,7 @@ The guestbook application needs to communicate to Redis slaves to read data. To 
 <!--
 1. Query the list of Services to verify that the Redis slave service is running:
 -->
-1. 查询服务列表以验证 Redis 在服务是否正在运行：
+2. 查询服务列表以验证 Redis 在服务是否正在运行：
 
       ```shell
       kubectl get services
@@ -323,7 +324,7 @@ The guestbook application has a web frontend serving the HTTP requests written i
 <!--
 1. Query the list of Pods to verify that the three frontend replicas are running:
 -->
-1. 查询 Pod 列表 验证三个前端副本是否正在运行：
+2. 查询 Pod 列表，验证三个前端副本是否正在运行：
 
       ```shell
       kubectl get pods -l app=guestbook -l tier=frontend
@@ -363,8 +364,8 @@ If you want guests to be able to access your guestbook, you must configure the f
 <!--
 Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`. 
 -->
-一些云提供商，如谷歌计算引擎或谷歌 Kubernetes 引擎，支持外部负载均衡器。如果您的云提供商支持负载均衡器，并且您希望使用它，
-只需删除或注释掉 `type: NodePort`，并取消注释 `type: LoadBalancer`。
+一些云提供商，如 Google Compute Engine 或 Google Kubernetes Engine，支持外部负载均衡器。如果您的云提供商支持负载均衡器，并且您希望使用它，
+只需删除或注释掉 `type: NodePort`，并取消注释 `type: LoadBalancer` 即可。
 
 {{< /note >}}
 
@@ -382,7 +383,7 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 <!--
 1. Query the list of Services to verify that the frontend Service is running:
 -->
-1. 查询服务列表以验证前端服务正在运行:
+2. 查询服务列表以验证前端服务正在运行:
 
       ```shell
       kubectl get services 
@@ -433,7 +434,7 @@ If you deployed this application to Minikube or a local cluster, you need to fin
 <!--
 1. Copy the IP address, and load the page in your browser to view your guestbook.
 -->
-1. 复制 IP 地址，然后在浏览器中加载页面以查看留言板。
+2. 复制 IP 地址，然后在浏览器中加载页面以查看留言板。
 
 <!--
 ### Viewing the Frontend Service via `LoadBalancer`
@@ -468,7 +469,7 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
 <!--
 1. Copy the external IP address, and load the page in your browser to view your guestbook.
 -->
-1. 复制外部 IP 地址，然后在浏览器中加载页面以查看留言板。
+2. 复制外部 IP 地址，然后在浏览器中加载页面以查看留言板。
 
 <!--
 ## Scale the Web Frontend 
@@ -479,7 +480,7 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
 <!--
 Scaling up or down is easy because your servers are defined as a Service that uses a Deployment controller.
 -->
-向上或向下伸缩很容易，因为您的服务器被定义为使用 Deployment 控制器的服务。
+伸缩很容易是因为服务器本身被定义为使用一个 Deployment 控制器的 Service。
 
 <!--
 1. Run the following command to scale up the number of frontend Pods:
@@ -493,7 +494,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
 <!--
 1. Query the list of Pods to verify the number of frontend Pods running:
 -->
-1. 查询 Pod 列表验证正在运行的前端 Pod 的数量：
+2. 查询 Pod 列表验证正在运行的前端 Pod 的数量：
 
       ```shell
       kubectl get pods
@@ -528,7 +529,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
 <!--
 1. Query the list of Pods to verify the number of frontend Pods running:
 -->
-1. 查询 Pod 列表验证正在运行的前端 Pod 的数量：
+2. 查询 Pod 列表验证正在运行的前端 Pod 的数量：
 
       ```shell
       kubectl get pods
@@ -586,7 +587,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 <!--
 1. Query the list of Pods to verify that no Pods are running:
 -->
-1. 查询 Pod 列表，确认没有 Pod 在运行：
+2. 查询 Pod 列表，确认没有 Pod 在运行：
 
       ```shell
       kubectl get pods
@@ -613,7 +614,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 -->
 
 * 完成 [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) 交互式教程
-* 使用 Kubernetes 创建一个博客，使用[ MySQL 和 Wordpress 的持久卷](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
+* 使用 Kubernetes 创建一个博客，使用 [MySQL 和 Wordpress 的持久卷](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * 阅读更多关于[连接应用程序](/docs/concepts/services-networking/connect-applications-service/)
 * 阅读更多关于[管理资源](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 
