@@ -93,7 +93,7 @@ external IP address.
 <!--
 1. Display information about the Deployment:
 -->
-1. 显示有关 Deployment 的信息：
+2. 显示有关 Deployment 的信息：
 
         kubectl get deployments hello-world
         kubectl describe deployments hello-world
@@ -101,7 +101,7 @@ external IP address.
 <!--
 1. Display information about your ReplicaSet objects:
 -->
-1. 显示有关 ReplicaSet 对象的信息：
+3. 显示有关 ReplicaSet 对象的信息：
 
         kubectl get replicasets
         kubectl describe replicasets
@@ -109,14 +109,14 @@ external IP address.
 <!--
 1. Create a Service object that exposes the deployment:
 -->
-2. 创建公开 deployment 的 Service 对象：
+4. 创建公开 deployment 的 Service 对象：
 
         kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
 
 <!--
 1. Display information about the Service:
 -->
-3. 显示有关 Service 的信息：
+5. 显示有关 Service 的信息：
 
         kubectl get services my-service
 
@@ -137,7 +137,7 @@ external IP address.
 <!--
 1. Display detailed information about the Service:
 -->
-4. 显示有关 Service 的详细信息：
+6. 显示有关 Service 的详细信息：
 
         kubectl describe services my-service
 
@@ -177,7 +177,7 @@ external IP address.
    addresses of the pods that are running the Hello World application. To
    verify these are pod addresses, enter this command:
 -->
-5. 在前面的输出中，您可以看到服务有几个端点：
+7. 在前面的输出中，您可以看到服务有几个端点：
    10.0.0.6:8080、10.0.1.6:8080、10.0.1.7:8080 和另外两个，
    这些都是正在运行 Hello World 应用程序的 pod 的内部地址。
    要验证这些是 pod 地址，请输入以下命令：
@@ -200,7 +200,7 @@ external IP address.
 1. Use the external IP address (`LoadBalancer Ingress`) to access the Hello
    World application:
 -->
-6. 使用外部 IP 地址（`LoadBalancer Ingress`）访问 Hello World 应用程序:
+8. 使用外部 IP 地址（`LoadBalancer Ingress`）访问 Hello World 应用程序:
 
         curl http://<external-ip>:<port>
 
