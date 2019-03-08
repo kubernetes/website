@@ -172,10 +172,9 @@ Suppose that you now want to update the nginx Pods to use the `nginx:1.9.1` imag
 instead of the `nginx:1.7.9` image.
 
 ```shell
-kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment 
+kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
 ```
 ```
-nginx=nginx:1.9.1 
 image updated
 ```
 
