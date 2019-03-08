@@ -443,15 +443,18 @@ executed inside the container from the example above:
 
 ```shell
 ls /etc/foo/
+```
+```
 username
 password
 ```
 ```shell
 cat /etc/foo/username
 ```
+```
 admin
 ```
-```
+```shell
 cat /etc/foo/password
 ```
 ```
