@@ -86,7 +86,7 @@ ConfigMap 包含三个文件：
 Edit the Federation API server deployment to enable the `SchedulingPolicy`
 Admission Controller.
 -->
-编辑联邦 API 服务器部署以启用 `调度策略` 准入控制器。
+编辑联邦 API 服务器部署以启用 `SchedulingPolicy` 准入控制器。
 
 	kubectl -n federation-system edit deployment federation-apiserver
 
@@ -97,7 +97,7 @@ Controller and mount the ConfigMap into the container. If there's an existing
 another line.
 -->
 更新 Federation API 服务器命令行参数以启用准入控制器，
-并将 ConfigMap 挂载到容器中。如果存在现有的 `-enable- admissionplugins` 参数，则追加 `SchedulingPolicy` 而不是添加另一行。
+并将 ConfigMap 挂载到容器中。如果存在现有的 `-enable-admissionplugins` 参数，则追加 `SchedulingPolicy` 而不是添加另一行。
 
 
     --enable-admission-plugins=SchedulingPolicy
