@@ -530,8 +530,9 @@ echo $SECRET_USERNAME
 ```
 admin
 ```
-```
+```shell
 echo $SECRET_PASSWORD
+```
 ```
 1f2d1e2e67df
 ```
