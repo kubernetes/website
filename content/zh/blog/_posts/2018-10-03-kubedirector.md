@@ -168,7 +168,7 @@ NAME                           READY     STATUS     RESTARTS     AGE
 kubedirector-58cf59869-qd9hb   1/1       Running    0            1m     
 ```
 
-<1--
+<!--
 List the installed KubeDirector applications with `kubectl get KubeDirectorApp`
 -->
 `kubectl get KubeDirectorApp` 列出中已安装的 KubeDirector 应用程序
