@@ -322,7 +322,7 @@ When a Pod is preempted, there will be events recorded for the preempted Pod.
 Preemption should happen only when a cluster does not have enough resources for
 a Pod. In such cases, preemption happens only when the priority of the pending
 Pod (preemptor) is higher than the victim Pods. Preemption must not happen when
-there is no pending Pod, or when the pending Pods have equal or higher priority
+there is no pending Pod, or when the pending Pods have equal or lower priority
 than the victims. If preemption happens in such scenarios, please file an issue.
 
 #### Pods are preempted, but the preemptor is not scheduled
