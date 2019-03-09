@@ -28,13 +28,13 @@ weight: 50
 This is a Cluster Administrator guide to service accounts. It assumes knowledge of
 the [User Guide to Service Accounts](/docs/user-guide/service-accounts).
 -->
-这是一个关于 service accounts 的集群管理指南，它假定您了解 [Service Accounts 用户指南](/docs/user-guide/service-accounts)。
+这是一个关于 service accounts 的集群管理指南，它假设您了解 [Service Accounts 用户指南](/docs/user-guide/service-accounts)。
 
 <!--
 Support for authorization and user accounts is planned but incomplete.  Sometimes
 incomplete features are referred to in order to better describe service accounts.
 -->
-计划支持授权和用户帐户，但不完整。有时会引用不完整的功能以便更好地描述 service accounts。
+计划支持授权和用户帐户，但并不完整。有时会引用不完整的功能以便更好地描述 service accounts。
 
 {{% /capture %}}
 
@@ -74,7 +74,7 @@ Kubernetes 区分用户帐户和 service account 的概念有以下几个原因�
   - 通常，集群的用户帐户可能与企业数据库同步，在企业数据库中，新用户帐户的创建需要特殊的权限，并且与复杂的业务流程相关联。
     Service account 创建的目的是更加轻量级，允许集群用户为特定任务创建 Service account (即：最小特权原则)。
   - 对人员和 Service account 的审计考虑可能有所不同。    
-  - 复杂系统的配置包可能包括该系统组件的各种 Service account 的定义。由于 Service account 可以临时创建并具有命名空间名称，因此这种配置是可移植的。。
+  - 复杂系统的配置包可能包括该系统组件的各种 Service account 的定义。由于 Service account 可以临时创建并具有命名空间名称，因此这种配置是可移植的。
 
 <!--
 ## Service account automation
