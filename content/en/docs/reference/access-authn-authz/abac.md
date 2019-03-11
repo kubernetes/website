@@ -8,6 +8,7 @@ title: Using ABAC Authorization
 content_template: templates/concept
 weight: 80
 ---
+(NOTE: This ABAC Authorization feature has been deprecated )
 
 {{% capture overview %}}
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
