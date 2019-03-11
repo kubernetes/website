@@ -347,20 +347,19 @@ In summary, `kubeadm alpha selfhosting` works as follows:
 
 For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
 
-| Image Name                                 | v1.10 release branch version |
+| Image Name                                 | v1.13 release branch version |
 |--------------------------------------------|------------------------------|
-| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.10.x                      |
-| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.10.x                      |
-| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.10.x                      |
-| k8s.gcr.io/kube-proxy-${ARCH}              | v1.10.x                      |
-| k8s.gcr.io/etcd-${ARCH}                    | 3.1.12                       |
-| k8s.gcr.io/pause-${ARCH}                   | 3.1                          |
-| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.8                       |
-| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.8                       |
-| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.8                       |
-| coredns/coredns                            | 1.0.6                        |
+| k8s.gcr.io/kube-apiserver                  | v1.13.x                      |
+| k8s.gcr.io/kube-controller-manager         | v1.13.x                      |
+| k8s.gcr.io/kube-scheduler                  | v1.13.x                      |
+| k8s.gcr.io/kube-proxy                      | v1.13.x                      |
+| k8s.gcr.io/pause                           | 3.1                          |
+| k8s.gcr.io/etcd                            | 3.2.24                       |
+| k8s.gcr.io/coredns                         | 1.2.6                        |
 
-Here `v1.10.x` means the "latest patch release of the v1.10 branch".
+Here `v1.13.x` means the "latest patch release of the v1.13 branch".
+
+For Kubernetes version 1.10 or earlier, `-${ARCH}` suffix is required for all image names except `coredns/coredns`.
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
