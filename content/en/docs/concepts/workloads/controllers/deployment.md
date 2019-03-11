@@ -732,10 +732,9 @@ Eventually, resume the Deployment and observe a new ReplicaSet coming up with al
 kubectl rollout resume deployment.v1.apps/nginx-deployment
 ```
 deployment.apps/nginx-deployment resumed
-```
+
 ```shell
 kubectl get rs -w
-```
 ```
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   2         2         2         2m
