@@ -221,7 +221,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CSIBlockVolume`: Enable external CSI volume drivers to support block storage. See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support) documentation for more details.
 - `CSIDriverRegistry`: Enable all logic related to the CSIDriver API object in csi.storage.k8s.io.
 - `CSIMigration`: Enables shims and translation logic to route volume operations from in-tree plugins to corresponding pre-installed CSI plugins
-- `CSIMigrationAWS`: Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin
+- `CSIMigrationAWS`:  Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin
 - `CSIMigrationGCE`: Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin
 - `CSIMigrationOpenStack`: Enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
