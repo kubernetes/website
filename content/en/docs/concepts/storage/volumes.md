@@ -148,6 +148,12 @@ spec:
       fsType: ext4
 ```
 
+#### CSI Migration 
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+To enable the feature, set `CSIMigration` and `CSIMigrationAWS` alpha feature gates to `true`. Once enabled, this feature shims all plugin operations from in-tree `awsElasticBlockStore` plugin to [AWS EBS CSI Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver). To use this feature, AWS EBS CSI driver must be installed on the cluster.
+
 ### azureDisk {#azuredisk}
 
 A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
