@@ -131,9 +131,9 @@
 /docs/contribute/style-guide/     /docs/home/contribute/style-guide/ 301
 
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
-/docs/deprecate/     /docs/reference/deprecation-policy/ 301
-/docs/deprecated/     /docs/reference/deprecation-policy/ 301
-/docs/deprecation-policy/     /docs/reference/deprecation-policy/ 301
+/docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
 /docs/federation/api-reference/     /docs/reference/federation/v1/operations/ 301
 /docs/federation/api-reference/v1/definitions.html    /docs/reference/generated/federation/v1/definitions/ 301
