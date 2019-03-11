@@ -1,0 +1,4 @@
+{{ $caption   := .Get "caption" }}
+{{ $captionEl := printf "<table><caption>%s</caption>" $caption }}
+{{ $table     := .Inner | replaceRE "<table>" $captionEl }}
+{{ .Inner | markdownify | replaceRE "<table>" $captionEl | safeHTML }}
