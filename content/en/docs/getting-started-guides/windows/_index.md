@@ -397,13 +397,11 @@ As an alpha feature, there are some additional setup steps that must be taken in
 6. Configure pods to use GMSA credential specs along with a service account authorized to use the GMSA credential specs
 
 ##### Enable the WindowsGMSA feature gate
-In the alpha state, the `WindowsGMSA` feature gate needs to be enabled on kubelet on Windows nodes. This is required to pass down the GMSA credential specs from the cluster scoped configurations to the container runtime. See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates. 
+In the alpha state, the `WindowsGMSA` feature gate needs to be enabled on kubelet on Windows nodes. This is required to pass down the GMSA credential specs from the cluster scoped configurations to the container runtime. See [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates. 
 
 ##### Install the GMSACredentialSpec CRD
-A [CustomResourceDefinition](CRD) for GMSA credential spec resources needs to be configured on the cluster to define the custom resource type `GMSACredentialSpec`. Download the GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl#L131-L148) and save it as gmsa-crd.yaml.
+A [CustomResourceDefinition](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) (CRD) for GMSA credential spec resources needs to be configured on the cluster to define the custom resource type `GMSACredentialSpec`. Download the GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl#L131-L148) and save it as gmsa-crd.yaml.
 Next, install the CRD with `kubectl apply -f gmsa-crd.yaml`
-
-[CustomResourceDefinition]: /docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/
 
 ##### Create GMSA credspec resources
 With the GMSACredentialSpec CRD installed, GMSA credspec custom resources can now be configured. The GMSA credential spec does not contain secret or sensitive data. It is information that a container runtime can use to describe the desired GMSA of a container to Windows. The GMSA credspec resources can be generated in JSON format with a utility [PowerShell][] script. Following are the steps for generating a GMSA credspec YAML based on the JSON:
