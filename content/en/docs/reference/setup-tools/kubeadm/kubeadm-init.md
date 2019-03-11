@@ -122,7 +122,7 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 because `v1alpha3` will be removed in Kubernetes 1.14.
 
 For more details on each field in the `v1beta1` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
+[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -148,8 +148,23 @@ Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
-* To set `useHyperKubeImage` to `true` to use custom images from HyperKube.
-* To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
+* To set `useHyperKubeImage` to `true` to use images from HyperKube.
+* (For `etcd` only) To provide a specific `imageRepository` and `imageTag` to be used instead of the image available at`k8s.gcr.io`.
+
+An example from [kubeadm API v1beta1](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1#hdr-Kubeadm_init_configuration_types):
+
+```yaml
+...
+etcd:
+  # one of local or external
+  local:
+    imageRepository: "k8s.gcr.io"
+    imageTag: "3.2.24"
+...
+imageRepository: "k8s.gcr.io"
+useHyperKubeImage: false
+...
+```
 
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
