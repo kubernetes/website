@@ -1,4 +1,6 @@
-{{ $caption   := .Get "caption" }}
-{{ $captionEl := printf "<table><caption>%s</caption>" $caption }}
-{{ $table     := .Inner | replaceRE "<table>" $captionEl }}
-{{ .Inner | markdownify | replaceRE "<table>" $captionEl | safeHTML }}
+{{ $hasCaption := isset .Params "caption" }}
+{{ $caption    := .Get "caption" }}
+{{ $captionEl  := printf "<table><caption style=\"display: none;\">%s</caption>" $caption }}
+{{ $table      := .Inner | markdownify }}
+{{ $html       := cond $hasCaption ($table | replaceRE "<table>" $captionEl) $table | safeHTML }}
+{{ $html }}
