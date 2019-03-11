@@ -55,7 +55,7 @@ cluster.
 
 * [Minishift](https://docs.okd.io/latest/minishift/) installs the community version of the Kubernetes enterprise platform OpenShift for local development & testing.  It offers an all-in-one VM (`minishift start`) for Windows, macOS, and Linux. The container start is based on `oc cluster up` (Linux only). You can also install [the included add-ons](https://github.com/minishift/minishift-addons/tree/master/add-ons).
 
-* [MicroK8s](https://microk8s.io/) provides a single command installation of the latest Kubernetes release on a local machine for development and testing. Setup is quick, fast (~30 sec) and supports many plugins including Istio with a single command.
+* [MicroK8s](https://microk8s.io/) provides a single command installation of the latest Kubernetes release on a local machine for development and testing. Setup is quick, fast (~30 secs) and supports many plugins including Istio with a single command.
 
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs for development and test scenarios. Scales to full multi-node cluster.
 
