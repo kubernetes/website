@@ -149,7 +149,7 @@ Allowed customization are:
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
 * To set `useHyperKubeImage` to `true` to use the HyperKube image.
-* To provide a specific `imageRepository` and `imageTag` for etcd.
+* To provide a specific `imageRepository` and `imageTag` for etcd or DNS add-on.
 
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
