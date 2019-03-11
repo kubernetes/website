@@ -294,7 +294,7 @@ The pre-alpha code for KubeDirector has just been released and we would love for
 Follow [@BlueK8s](https://twitter.com/BlueK8s/) on Twitter and get involved through these channels:
 -->
 KubeDirector 是一个完全开放源码的 Apache v2 授权项目 – 在我们称为 BlueK8s 的更广泛的计划中，它是多个开放源码项目中的第一个。
-KubeDirector 的 pre-alpha 代码刚刚发布，我们希望您加入到不断增长的开发人员、贡献者和采用者社区中来。
+KubeDirector 的 pre-alpha 代码刚刚发布，我们希望您加入到不断增长的开发人员、贡献者和使用者社区。
 在 Twitter 上关注 [@BlueK8s](https://twitter.com/BlueK8s/)，并通过以下渠道参与:
 
 <!--
