@@ -148,23 +148,8 @@ Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
-* To set `useHyperKubeImage` to `true` to use images from HyperKube.
-* (For `etcd` only) To provide a specific `imageRepository` and `imageTag` to be used instead of the image available at`k8s.gcr.io`.
-
-An example from [kubeadm API v1beta1](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1#hdr-Kubeadm_init_configuration_types):
-
-```yaml
-...
-etcd:
-  # one of local or external
-  local:
-    imageRepository: "k8s.gcr.io"
-    imageTag: "3.2.24"
-...
-imageRepository: "k8s.gcr.io"
-useHyperKubeImage: false
-...
-```
+* To set `useHyperKubeImage` to `true` to use the HyperKube image.
+* To provide a specific `imageRepository` and `imageTag` for etcd.
 
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
@@ -362,19 +347,20 @@ In summary, `kubeadm alpha selfhosting` works as follows:
 
 For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
 
-| Image Name                                 | v1.13 release branch version |
+| Image Name                                 | v1.10 release branch version |
 |--------------------------------------------|------------------------------|
-| k8s.gcr.io/kube-apiserver                  | v1.13.x                      |
-| k8s.gcr.io/kube-controller-manager         | v1.13.x                      |
-| k8s.gcr.io/kube-scheduler                  | v1.13.x                      |
-| k8s.gcr.io/kube-proxy                      | v1.13.x                      |
-| k8s.gcr.io/pause                           | 3.1                          |
-| k8s.gcr.io/etcd                            | 3.2.24                       |
-| k8s.gcr.io/coredns                         | 1.2.6                        |
+| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.10.x                      |
+| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.10.x                      |
+| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.10.x                      |
+| k8s.gcr.io/kube-proxy-${ARCH}              | v1.10.x                      |
+| k8s.gcr.io/etcd-${ARCH}                    | 3.1.12                       |
+| k8s.gcr.io/pause-${ARCH}                   | 3.1                          |
+| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.8                       |
+| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.8                       |
+| coredns/coredns                            | 1.0.6                        |
 
-Here `v1.13.x` means the "latest patch release of the v1.13 branch".
-
-For Kubernetes version 1.10 or earlier, `-${ARCH}` suffix is required for all image names except `coredns/coredns`.
+Here `v1.10.x` means the "latest patch release of the v1.10 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
