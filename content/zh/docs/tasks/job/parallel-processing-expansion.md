@@ -55,7 +55,7 @@ of a movie, or processing a range of rows in a database.  The `$ITEM` parameter 
 example, the frame number or the row range.
 -->
 在这个例子中，容器所做的唯一处理是 `echo` 一个字符串并休眠一段时间。
-在真实的用例中，处理将是一些重要的计算，例如呈现电影的帧，或者处理数据库中的一系列行。例如，`$ITEM` 参数将指定帧号或行渲染。
+在真实的用例中，处理将是一些重要的计算，例如呈现电影的帧，或者处理数据库中的一系列行。例如，`$ITEM` 参数将指定帧号或行范围。
 
 <!--
 This Job and its Pod template have a label: `jobgroup=jobexample`.  There is nothing special
@@ -189,7 +189,7 @@ We will use a one-line python script to convert the template to a file.
 这个稍微复杂一点的示例使用 jinja2 板语言来生成我们的对象。
 我们将使用一行 python 脚本将模板转换为文件。
 
-<!-
+<!--
 First, copy and paste the following template of a Job object, into a file called `job.yaml.jinja2`:
 -->
 首先，粘贴作业对象的以下模板到一个名为 `job.yaml.jinja2` 的文件中：
