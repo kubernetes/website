@@ -321,6 +321,111 @@ Some values of an object are typically generated before the object is persisted.
 
 Server Side Apply (SSA) is offering an apply path on the apiserver side of kubernetes instead of the previous/current Client Side Apply (CSA) that happens in kubectl.
 
+*Note:* This is an alpha feature and needs to be enabled by setting the related (Feature Gate)[docs/reference/command-line-tools-reference/feature-gates.md].
+
+### Concepts
+
+With SSA we replace the current `last-applied` annotation managed by `kubectl` with a more declarative approach to keep track of field ownership.
+This means, when using SSA we assign ownership of fields to the applier (`fieldManager`).
+
+#### Field Ownership
+
+Owning a field in the SSA context means, the subject who last changed the field will be recorded as the current field owner.
+Any other subject that tries to change the field, will get its request rejected (if not forced, see Forcing changes below).
+
+Field ownership is stored in a newly introduced field that is part of the objects `metadata`.
+
+A simple example looks like this:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cm
+  namespace: default
+  labels:
+    test-label: test
+  managedFields:
+  - manager: apply
+    operation: Apply
+    apiVersion: v1
+    fields:
+      f:metadata:
+        f:labels:
+          f:test-label: {}
+      f:data:
+        f:key: {}
+data:
+  key: new value
+```
+
+The above object contains a manager in `metadata.managedFields`. The manager object consists of basic information about the managing entity itself, like operation type, api version
+and eventually the fields managed by it.
+
+Note that this field is managed by the apiserver itself and should not get changed by the user (while possible through a non-SSA PATCH).
+
+#### Operations
+
+The operation mainly implemented by this feature, is `Apply`(`application/apply-patch+yaml`). Other operations like the current `Update`(`application/merge-patch+json`) will update the
+`managedFields` as well, but behave a little differently.
+
+For instance, only the `Apply` operation will fail on conflicts while `Update` does not.
+
+An example of multiple managers could look like this:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cm
+  namespace: default
+  labels:
+    test-label: test
+  managedFields:
+  - manager: apply
+    operation: Apply
+    apiVersion: v1
+    fields:
+      f:metadata:
+        f:labels:
+          f:test-label: {}
+  - manager: kubectl
+    operation: Update
+    apiVersion: v1
+    time: '2019-03-30T16:00:00.000Z'
+    fields:
+      f:data:
+        f:key: {}
+data:
+  key: new value
+```
+
+In this example, a second operation was run as an `Update` by the manager called `kubectl`. The update changed the data field which caused a field ownership change to the `kubectl` manager.
+Note that if this update would have been an `Apply` operation by the `kubectl` manager, the operation would have failed due to conflicting ownership.
+
+#### Conflicts
+
+A conflict is a special error event that occurs when an `Apply` operation tries to change a field, the requesting manager does now currently own.
+
+TODO/WIP
+
+#### Comparison with CSA
+
+TODO
+
+### Make a SSA request
+
+To use the server side apply feature both the direct api as well as a kubectl flag is available.
+
+#### Kubectl
+
+To use the new server side apply path instead of the current client side path inside kubectl, provide the `--server-side` flag when applying.
+For example to create a new object through SSA, apply the yaml file as usual:
+
+```bash
+kubectl apply --server-side -f https://k8s.io/examples/application/simple_deployment.yaml
+```
+
 {{% /capture %}}
 
 
