@@ -99,8 +99,7 @@ NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeClaimResize,Defaul
 
 ### AlwaysAdmit {#alwaysadmit} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-This admission controller allows all pods into the cluster. It is deprecated because it may not be useful as an admission controller since it's behavior
-is the same as if there were no admission controller at all.
+This admission controller allows all pods into the cluster. It is deprecated because its behavior is the same as if there were no admission controller at all.
 
 ### AlwaysPullImages {#alwayspullimages}
 
