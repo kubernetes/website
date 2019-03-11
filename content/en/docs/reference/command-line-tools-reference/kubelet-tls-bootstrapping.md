@@ -416,7 +416,7 @@ be used as serving certificates, or `server auth`.
 However, you _can_ enable its server certificate, at least partially, via certificate rotation.
 
 ### Certificate Rotation
-Kubernetes v1.7 and higher kubelet implements __beta__ features for enabling
+Kubernetes v1.8 and higher kubelet implements __beta__ features for enabling
 rotation of its client and/or serving certficates.  These can be enabled through
 the respective `RotateKubeletClientCertificate` and
 `RotateKubeletServerCertificate` feature flags on the kubelet and are enabled by
