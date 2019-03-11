@@ -147,6 +147,7 @@ different Kubernetes components.
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
+| `WindowsGMSA` | `false` | Alpha | 1.14 | |
 
 ## Using a Feature
 
@@ -311,5 +312,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   type when used together with the `PersistentLocalVolumes` feature gate.
 - `VolumeSnapshotDataSource`: Enable volume snapshot data source support.
 - `VolumeSubpathEnvExpansion`: Enable `subPathExpr` field for expanding environment variables into a `subPath`.
+- `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
 
 {{% /capture %}}
