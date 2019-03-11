@@ -34,7 +34,8 @@ The files provided in this tutorial are using GA Deployment APIs and are specifi
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}} 
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+The example shown on this page works with `kubectl` 1.14 and above.
 
 Download the following configuration files:
 
@@ -69,19 +70,18 @@ If you have a Kubernetes cluster running on Google Kubernetes Engine, please fol
 ## Create a kustomization.yaml
 
 ### Add a Secret generator
-A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piece of sensitive data like a password or key. You can create a Secret by generators in `kustomization.yaml`
+A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piece of sensitive data like a password or key. Since 1.14, `kubectl` supports the management of Kubernetes objects using a kustomization file. You can create a Secret by generators in `kustomization.yaml`.
 
-1. Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace
-   `YOUR_PASSWORD` with the password you want to use.
+Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace `YOUR_PASSWORD` with the password you want to use.
 
-      ```shell
-      cat <<EOF >./kustomization.yaml
-      secretGenerator:
-      - name: mysql-pass
-        literals:
-        - password=YOUR_PASSWORD
-      EOF
-      ```
+```shell
+cat <<EOF >./kustomization.yaml
+secretGenerator:
+- name: mysql-pass
+  literals:
+  - password=YOUR_PASSWORD
+EOF
+```
 
 ## Add resource configs for MySQL and WordPress
 
@@ -89,25 +89,27 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
-1. Download the MySQL deployment configuration file
+1. Download the MySQL deployment configuration file.
 
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
       ```
-2. Download the WordPress configuration file
+            
+2. Download the WordPress configuration file.
 
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/wordpress-deployment.yaml
       ```
-3. Add them to `kustomization.yaml`
+      
+3. Add them to `kustomization.yaml` file.
 
-     ```shell
-     cat <<EOF >>./kustomization.yaml
-     resources:
-     - mysql-deployment.yaml
-     - wordpress-deployment.yaml
-     EOF
-     ```
+      ```shell
+      cat <<EOF >>./kustomization.yaml
+      resources:
+        - mysql-deployment.yaml
+        - wordpress-deployment.yaml
+      EOF
+      ```
 
 ## Apply and Verify
 The `kustomization.yaml` contains all the resources for deploying a WordPress site and a 
@@ -115,20 +117,21 @@ MySQL database. You can apply the directory by
 ```shell
 kubectl apply -k ./
 ```
+
 Now you can verify that all objects exist.
+
 1. Verify that the Secret exists by running the following command:
 
-     ```shell
+      ```shell
       kubectl get secrets
       ```
 
       The response should be like this:
 
-      ```
+      ```shell
       NAME                    TYPE                                  DATA   AGE
       mysql-pass-c57bb4t7mf   Opaque                                1      9s
       ```
-
 
 2. Verify that a PersistentVolume got dynamically provisioned. Note that it can
    It can take up to a few minutes for the PVs to be provisioned and bound.
@@ -139,7 +142,7 @@ Now you can verify that all objects exist.
 
       The response should be like this:
 
-      ```
+      ```shell
       NAME             STATUS    VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS       AGE
       mysql-pv-claim   Bound     pvc-8cbd7b2e-4044-11e9-b2bb-42010a800002   20Gi       RWO            standard           77s
       wp-pv-claim      Bound     pvc-8cd0df54-4044-11e9-b2bb-42010a800002   20Gi       RWO            standard           77s
@@ -205,23 +208,10 @@ Do not leave your WordPress installation on this page. If another user finds it,
 
 {{% capture cleanup %}}
 
-1. Run the following command to delete your Secret:
+1. Run the following command to delete your Secret, Deployments, Services and PersistentVolumeClaims:
 
       ```shell
-      kubectl delete secret mysql-pass
-      ```
-
-2. Run the following commands to delete all Deployments and Services:
-
-      ```shell
-      kubectl delete deployment -l app=wordpress
-      kubectl delete service -l app=wordpress
-      ```
-
-3. Run the following commands to delete the PersistentVolumeClaims.  The dynamically provisioned PersistentVolumes will be automatically deleted.
-
-      ```shell
-      kubectl delete pvc -l app=wordpress
+      kubectl delete -k ./
       ```
 
 {{% /capture %}}

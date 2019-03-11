@@ -72,6 +72,12 @@ the object on the Apiserver.
 $ kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
 secret "db-user-pass" created
 ```
+{{< note >}}	
+Special characters such as `$`, `\*`, and `!` require escaping.	
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:	
+     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb	
+ You do not need to escape special characters in passwords from files (`--from-file`).	
+{{< /note >}}
 
 You can check that the secret was created like this:
 
@@ -135,7 +141,7 @@ data:
 Now create the Secret using [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply):
 
 ```shell
-$ kubectl apply -f ./secret.yaml
+kubectl apply -f ./secret.yaml
 secret "mysecret" created
 ```
 
@@ -242,14 +248,16 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 `-w` option is not available.
 
 #### Creating a Secret from Generator
-You can also create a Secret from generators and then apply it to create the object on 
+Kubectl supports [managing objects using Kustomize](/docs/concepts/overview/object-management-kubectl/kustomization/)
+since 1.14. With this new feature,
+you can also create a Secret from generators and then apply it to create the object on 
 the Apiserver. The generators
 should be specified in a `kustomization.yaml` inside a directory.
 
 For example, to generate a Secret from files `./username.txt` and `./password.txt`
 ```shell
 # Create a kustomization.yaml file with SecretGenerator
-$ cat <<EOF >./kustomization.yaml
+cat <<EOF >./kustomization.yaml
 secretGenerator:
 - name: db-user-pass
   files:
@@ -296,13 +304,15 @@ secretGenerator:
   - password=secret
 EOF
 ```
-Apply the kustomization directory to create the Secert object.
+Apply the kustomization directory to create the Secret object.
 ```shell
 $ kubectl apply -k .
 secret/db-user-pass-dddghtt9b5 created
 ```
-Note that the generated Secrets name has a suffix appended by hashing the contents. This ensures that a new
+{{< note >}}
+The generated Secrets name has a suffix appended by hashing the contents. This ensures that a new
 Secret is generated each time the contents is modified.
+{{< /note >}}
 
 #### Decoding a Secret
 

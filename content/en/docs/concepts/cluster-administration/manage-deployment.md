@@ -36,13 +36,13 @@ The resources will be created in the order they appear in the file. Therefore, i
 `kubectl apply` also accepts multiple `-f` arguments:
 
 ```shell
-$ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
 
 And a directory can be specified rather than or in addition to individual files:
 
 ```shell
-$ kubectl apply -f https://k8s.io/examples/application/nginx/
+kubectl apply -f https://k8s.io/examples/application/nginx/
 ```
 
 `kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
@@ -52,7 +52,7 @@ It is a recommended practice to put resources related to the same microservice o
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
 deployment.apps/my-nginx created
 ```
 
@@ -83,7 +83,7 @@ service "my-nginx-svc" deleted
 Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
 
 ```shell
-$ kubectl get $(kubectl apply -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+kubectl get $(kubectl apply -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
 NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
@@ -108,14 +108,14 @@ project/k8s/development
 By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we had tried to create the resources in this directory using the following command, we would have encountered an error:
 
 ```shell
-$ kubectl apply -f project/k8s/development
+kubectl apply -f project/k8s/development
 error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
 ```
 
 Instead, specify the `--recursive` or `-R` flag with the `--filename,-f` flag as such:
 
 ```shell
-$ kubectl apply -f project/k8s/development --recursive
+kubectl apply -f project/k8s/development --recursive
 configmap/my-config created
 deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
@@ -320,7 +320,7 @@ Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-co
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
 ```shell
-$ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 deployment.apps/my-nginx configured
 ```
 
@@ -329,10 +329,6 @@ Note that `kubectl apply` attaches an annotation to the resource in order to det
 Currently, resources are created without this annotation, so the first invocation of `kubectl apply` will fall back to a two-way diff between the provided input and the current configuration of the resource. During this first invocation, it cannot detect the deletion of properties set when the resource was created. For this reason, it will not remove them.
 
 All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
-
-{{< note >}}
-To use apply, always create resource initially with either `kubectl apply`.
-{{< /note >}}
 
 ### kubectl edit
 

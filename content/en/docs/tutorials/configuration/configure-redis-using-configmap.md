@@ -14,10 +14,10 @@ This page provides a real world example of how to configure Redis using a Config
 
 {{% capture objectives %}}
 
-* Create a kustomization.yaml with
+* Create a `kustomization.yaml` file containing:
   * a ConfigMap generator
   * a Pod resource config using the ConfigMap
-* Apply the directory by `kubectl apply -k ./`
+* Apply the directory by running `kubectl apply -k ./`
 * Verify that the configuration was correctly applied.
 
 {{% /capture %}}
@@ -25,6 +25,7 @@ This page provides a real world example of how to configure Redis using a Config
 {{% capture prerequisites %}}
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* The example shown on this page works with `kubectl` 1.14 and above.
 * Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 {{% /capture %}}
@@ -36,7 +37,7 @@ This page provides a real world example of how to configure Redis using a Config
 
 You can follow the steps below to configure a Redis cache using data stored in a ConfigMap.
 
-First create a `kustomization.yaml` with a ConfigMap from the `redis-config` file:
+First create a `kustomization.yaml` containing a ConfigMap from the `redis-config` file:
 
 {{< codenew file="pods/config/redis-config" >}}
 

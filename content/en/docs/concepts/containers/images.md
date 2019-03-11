@@ -279,7 +279,7 @@ Kubernetes supports specifying registry keys on a pod.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
-$ cat <<EOF > ./kustomization.yaml
+cat <<EOF > ./kustomization.yaml
 secretGenerator:
 - name: myregistrykey
   type: docker-registry
@@ -290,7 +290,7 @@ secretGenerator:
   - docker-email=DOCKER_EMAIL
 EOF
 
-$ kubectl apply -k .
+kubectl apply -k .
 secret/myregistrykey-66h7d4d986 created
 ```
 
@@ -307,7 +307,7 @@ Now, you can create pods which reference that secret by adding an `imagePullSecr
 section to a pod definition.
 
 ```shell
-$ cat <<EOF > pod.yaml
+cat <<EOF > pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -321,7 +321,7 @@ spec:
     - name: myregistrykey
 EOF
 
-$ cat <<EOF >> ./kustomization.yaml
+cat <<EOF >> ./kustomization.yaml
 resources:
 - pod.yaml
 EOF

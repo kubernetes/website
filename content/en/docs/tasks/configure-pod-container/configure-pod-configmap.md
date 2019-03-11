@@ -19,7 +19,7 @@ ConfigMaps allow you to decouple configuration artifacts from image content to k
 
 
 ## Create a ConfigMap
-You can use either `kubectl create configmap` or a ConfigMap generator in `kustomization.yaml` to create a ConfigMap.
+You can use either `kubectl create configmap` or a ConfigMap generator in `kustomization.yaml` to create a ConfigMap. Note that `kubectl` starts to support `kustomization.yaml` since 1.14. 
 
 ### Create a ConfigMap Using kubectl create configmap
 
@@ -296,6 +296,7 @@ metadata:
 ```
 
 ### Create a ConfigMap from generator
+`kubectl` supports `kustomization.yaml` since 1.14.
 You can also create a ConfigMap from generators and then apply it to create the object on
 the Apiserver. The generators
 should be specified in a `kustomization.yaml` inside a directory.
@@ -304,7 +305,7 @@ should be specified in a `kustomization.yaml` inside a directory.
 For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
-$ cat <<EOF >./kustomization.yaml
+cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-4
   files:
@@ -314,19 +315,19 @@ EOF
 
 Apply the kustomization directory to create the ConfigMap object.
 ```shell
-$ kubectl apply -k .
+kubectl apply -k .
 configmap/game-config-4-m9dm2f92bt created
 ```
 
 You can check that the ConfigMap was created like this:
 
 ```shell
-$ kubectl get configmap
+kubectl get configmap
 NAME                       DATA   AGE
 game-config-4-m9dm2f92bt   1      37s
 
 
-$ kubectl describe configmaps/game-config-4-m9dm2f92bt
+kubectl describe configmaps/game-config-4-m9dm2f92bt
 Name:         game-config-4-m9dm2f92bt
 Namespace:    default
 Labels:       <none>
@@ -347,8 +348,8 @@ secret.code.lives=30
 Events:  <none>
 ```
 
-Note that the generated ConfigMaps name has a suffix appended by hashing the contents. This ensures that a
-new ConfigMap is generated each time the contents is modified.
+Note that the generated ConfigMap name has a suffix appended by hashing the contents. This ensures that a
+new ConfigMap is generated each time the content is modified.
 
 #### Define the key to use when generating a ConfigMap from a file
 You can define a key other than the file name to use in the ConfigMap generator.
@@ -357,7 +358,7 @@ with the key `game-special-key`
 
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
-$ cat <<EOF >./kustomization.yaml
+cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-5
   files:
@@ -367,7 +368,7 @@ EOF
 
 Apply the kustomization directory to create the ConfigMap object.
 ```shell
-$ kubectl apply -k .
+kubectl apply -k .
 configmap/game-config-5-m67dt67794 created
 ```
 
@@ -376,7 +377,7 @@ To generate a ConfigMap from literals `special.type=charm` and `special.how=very
 you can specify the ConfigMap generator in `kusotmization.yaml` as
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
-$ cat <<EOF >./kustomization.yaml
+cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: special-config-2
   literals:
@@ -386,7 +387,7 @@ EOF
 ```
 Apply the kustomization directory to create the ConfigMap object.
 ```shell
-$ kubectl apply -k .
+kubectl apply -k .
 configmap/special-config-2-c92b5mmcf2 created
 ```
 

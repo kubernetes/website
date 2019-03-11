@@ -62,6 +62,9 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
 ```
 
+## Apply
+`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
+
 ## Creating Objects
 
 Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
