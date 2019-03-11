@@ -56,6 +56,7 @@ their authors, not the Kubernetes team.
 | Perl                 | [metacpan.org/pod/Net::Kubernetes](https://metacpan.org/pod/Net::Kubernetes) |
 | PHP                  | [github.com/maclof/kubernetes-client](https://github.com/maclof/kubernetes-client) |
 | PHP                  | [github.com/allansun/kubernetes-php-client](https://github.com/allansun/kubernetes-php-client) |
+| PHP                  | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
 | Python               | [github.com/eldarion-gondor/pykube](https://github.com/eldarion-gondor/pykube) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
