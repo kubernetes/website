@@ -5,6 +5,9 @@ go:
 jobs:
   include:
     - name: "Testing examples"
+      cache:
+        directories:
+          - $HOME/.cache/go-build
       # Don't want default ./... here:
       install:
       - export PATH=$GOPATH/bin:$PATH
