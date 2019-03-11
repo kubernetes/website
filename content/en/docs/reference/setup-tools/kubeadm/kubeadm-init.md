@@ -148,7 +148,7 @@ Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
-* To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
+* To set `useHyperKubeImage` to `true` to use custom images from HyperKube.
 * To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
 
 Please note that the configuration field `kubernetesVersion` or the command line flag
