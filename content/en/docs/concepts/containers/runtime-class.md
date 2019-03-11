@@ -23,15 +23,10 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 RuntimeClass is a beta feature (as of v1.14) for selecting the container runtime configuration to
 use to run a pod's containers.
 
-{{< warning >}} RuntimeClass includes *breaking* changes in the beta upgrade in v1.14. If you were
-using RuntimeClass prior to v1.14, the following actions are required:
-
-- The `node.k8s.io` API group and `runtimeclasses.node.k8s.io` resource have been migrated to a
-  built-in API. RuntimeClass resources must be recreated *after* upgrading to v1.14, and the
-  runtimeclasses.node.k8s.io CRD should be manually deleted.
-- The `spec.runtimeHandler` field in v1aplha1 has been renamed to `handler` (no more `spec`). The
-  handler is now a required field. Handlers can no longer include `.` characters.
-
+{{< warning >}}
+RuntimeClass includes *breaking* changes in the beta upgrade in v1.14. If you were using
+RuntimeClass prior to v1.14, see [Upgrading RuntimeClass from Alpha to
+Beta](#upgrading-runtimeclass-from-alpha-to-beta).
 {{< /warning >}}
 
 ### Set Up
@@ -138,5 +133,32 @@ table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#
 
 See cri-o's config documentation for more details:
 https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
+
+
+### Upgrading RuntimeClass from Alpha to Beta
+
+RuntimeClass Beta (v1.14) included the following changes:
+
+- The `node.k8s.io` API group and `runtimeclasses.node.k8s.io` resource have been migrated to a
+  built-in API from a CustomResourceDefintion.
+- The `spec` has been inlined in the RuntimeClass definition (i.e. there is no more
+  RuntimeClassSpec).
+- The `runtimeHandler` field has been renamed `handler`.
+- The `handler` field is now required in all API versions. This means the `runtimeHandler` field in
+  the Alpha API is also required.
+- The `handler` field must be a valid DNS label ([RFC 1123](https://tools.ietf.org/html/rfc1123)),
+  meaning it can no longer container `.` characters (in all versions). Valid handlers match the
+  following regular expression: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`.
+
+If you were using RuntimeClass Alpha (prior to v1.14), the following actions are required
+
+- RuntimeClass resources must be recreated *after* upgrading to v1.14, and the
+  `runtimeclasses.node.k8s.io` CRD should be manually deleted:
+
+      kubectl delete customresourcedefinitions.apiextensions.k8s.io runtimeclasses.node.k8s.io
+
+- Alpha RuntimeClasses with an unspecified or empty `runtimeHandler` or those using a `.` character
+  in the handler are no longer valid, and must be migrated to a valid handler configuration (see
+  above).
 
 {{% /capture %}}

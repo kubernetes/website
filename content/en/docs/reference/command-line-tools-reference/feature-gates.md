@@ -119,7 +119,7 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `false` | Alpha | 1.10 | |
-| `RuntimeClass` | `false` | Alpha | 1.12 | |
+| `RuntimeClass` | `true` | Beta | 1.14 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
