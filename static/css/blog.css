@@ -19,7 +19,7 @@ html body .region-inner {
 
 a:link {
   text-decoration:none;
-  color: #2288bb;
+  color: #326DE6;
 }
 a:visited {
   text-decoration:none;
@@ -309,7 +309,6 @@ h3.post-title {
 * a:visited,
 * a:hover,
 * a:active {
-  color: #326DE6;
 }
 
 
