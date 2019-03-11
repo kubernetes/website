@@ -124,7 +124,7 @@ pod 的修改是通过一个名为[准入控制器](/docs/reference/access-authn
   2. 它确保 pod 引用的 `ServiceAccount` 存在，否则拒绝它。
   3. 如果 pod 不包含任何 `ImagePullSecrets`，则将 `ServiceAccount` 的 `ImagePullSecrets` 添加到 pod 中。
   4. 它向包含 API 访问令牌的 pod 添加了一个 `volume`。
-  5. 它为安装在 `/var/run/secrets/kubernetes.io/serviceaccount` 上的 pod 的每个容器添加了一个 `volumeSource`。
+  5. 它为 pod 内的每个容器添加一个 `volumeSource`，该 volume 被挂载到 `/var/run/secrets/kubernetes.io/serviceaccount`。
 
 <!--
 ### Token Controller
@@ -135,7 +135,7 @@ pod 的修改是通过一个名为[准入控制器](/docs/reference/access-authn
 <!--
 TokenController runs as part of controller-manager. It acts asynchronously. It:
 -->
-TokenController 作为控制器-管理器的一部分运行，异步运行。它:
+TokenController 作为控制器-管理器的一部分异步运行。它用于:
 
 <!--
 - observes serviceAccount creation and creates a corresponding Secret to allow API access.
@@ -163,7 +163,7 @@ kube-apiserver。公钥将用于在身份验证期间验证令牌。
 #### To create additional API tokens
 -->
 
-#### 创建其他API令牌
+#### 创建其他 API 令牌
 
 <!--
 A controller loop ensures a secret with an API token exists for each service
@@ -172,10 +172,7 @@ of type `ServiceAccountToken` with an annotation referencing the service
 account, and the controller will update it with a generated token:
 -->
 控制器循环确保每个 service account 都存在具有 API 令牌的 secret。要为 service account 创建其他 API 令牌，
-请使用 ServiceAccountToken 引用 service account 的注解创建类型的  ，控制器将使用生成的令牌更新它：
-
-控制器循环确保每个 service account 都存在一个带有 API 令牌的 secret。若要为 service account 创建额外的 API 令牌，
-请创建一个 `ServiceAccountToken` 类型的密钥，并使用引用 service account 的注释，控制器将使用生成的令牌更新该密钥:
+请使用 ServiceAccountToken 引用 service account 的注解创建类型的 secret，控制器将使用生成的令牌更新它：
 
 secret.json:
 
