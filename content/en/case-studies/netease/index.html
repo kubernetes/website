@@ -18,21 +18,20 @@ css: /css/style_case_studies.css
 <hr>
 <section class="section1">
 <div class="cols">
-  <div class="col1">
+  <div class="col1" style="margin-left:-1.5% !important">
     <h2>Challenge</h2>
          Its gaming business is one of the largest in the world, but that’s not all that <a href="https://netease-na.com/">NetEase</a> provides to Chinese consumers. The company also operates e-commerce, advertising, music streaming, online education, and email platforms; the last of which serves almost a billion users with free email services through sites like <a href="https://www.163.com/">163.com</a>. In 2015, the NetEase Cloud team providing the infrastructure for all of these systems realized that their R&D process was slowing down developers. “Our users needed to prepare all of the infrastructure by themselves,” says Feng Changjian, Architect for NetEase Cloud and Container Service. “We were eager to provide the infrastructure and tools for our users automatically via serverless container service.”
 <br><br>
  <h2>Solution</h2>
       After considering building its own orchestration solution, NetEase decided to base its private cloud platform on <a href="https://kubernetes.io/">Kubernetes</a>. The fact that the technology came out of Google gave the team confidence that it could keep up with NetEase’s scale. “After our 2-to-3-month evaluation, we believed it could satisfy our needs,” says Feng. The team started working with Kubernetes in 2015, before it was even 1.0. Today, the NetEase internal cloud platform—which also leverages the CNCF projects <a href="https://prometheus.io/">Prometheus</a>, <a href="https://www.envoyproxy.io/">Envoy</a>, <a href="https://goharbor.io/">Harbor</a>, <a href="https://grpc.io/">gRPC</a>, and <a href="https://helm.sh/">Helm</a>—runs 10,000 nodes in a production cluster and can support up to 30,000 nodes in a cluster. Based on its learnings from its internal platform, the company introduced a Kubernetes-based cloud and microservices-oriented PaaS product, <a href="https://landscape.cncf.io/selected=netease-qingzhou-microservice">NetEase Qingzhou Microservice</a>, to outside customers.
-      </div>
 
-<div class="col2">
 
+<br><br>
 <h2>Impact</h2>
       The NetEase team reports that Kubernetes has increased R&D efficiency by more than 100%. Deployment efficiency has improved by 280%. “In the past, if we wanted to do upgrades, we needed to work with other teams, even in other departments,” says Feng. “We needed special staff to prepare everything, so it took about half an hour. Now we can do it in only 5 minutes.” The new platform also allows for mixed deployments using GPU and CPU resources. “Before, if we put all the resources toward the GPU, we won’t have spare resources for the CPU. But now we have improvements thanks to the mixed deployments,” he says. Those improvements have also brought an increase in resource utilization.
 </div>
-
 </div>
+
 </section>
 <div class="banner2">
   <div class="banner2text">
