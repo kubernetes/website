@@ -1,11 +1,3 @@
----
-title: Using Windows Server Containers in Kubernetes
-toc_hide: true
----
-{{< note >}}
-These instructions are under revision for the v1.14 release with a [tracking issue](https://github.com/kubernetes/website/issues/12426). You can find the WIP draft in a [Google Doc](https://docs.google.com/document/d/1a2bRd7PZXygIEm4cEcCeLXpEqJ7opakP_j4Pc6AJVYA/edit?usp=sharing)
-{{< /note >}}
-
 # Document 1: Using Windows containers in Kubernetes. Section: ​Overview
 
 ([https://kubernetes.io/docs/getting-started-guides/windows/](https://kubernetes.io/docs/getting-started-guides/windows/) [https://github.com/kubernetes/website/pull/12929](https://github.com/kubernetes/website/pull/12929))
@@ -1369,6 +1361,3 @@ and send us both before and after collectlogs.ps1 and C:\server.etl
 
 
 <!-- Docs to Markdown version 1.0β16 -->
-
-
-
