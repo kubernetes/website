@@ -59,4 +59,4 @@ Happy cloud computing!
 <!--
  - Kit Merker - Product Manager, Google Cloud Platform
 -->
- - Kit Merker - Google 云端平台产品经理
+ - Kit Merker - Google 云平台产品经理
