@@ -47,16 +47,20 @@ You can use `kubectl create configmap` to create a ConfigMap from multiple files
 For example:
 
 ```shell
-mkdir -p configure-pod-container/configmap/kubectl/
-wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game.properties -O configure-pod-container/configmap/kubectl/game.properties
-wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/ui.properties -O configure-pod-container/configmap/kubectl/ui.properties
-kubectl create configmap game-config --from-file=configure-pod-container/configmap/kubectl/
+# Create the local directory
+mkdir -p configure-pod-container/configmap/
+
+# Download the sample files into `configure-pod-container/configmap/` directory
+wget https://k8s.io/examples/configmap/game.properties -O configure-pod-container/configmap/game.properties
+wget https://k8s.io/examples/configmap/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
+
+# Create the configmap
+kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
-combines the contents of the `configure-pod-container/configmap/kubectl/` directory
+combines the contents of the `configure-pod-container/configmap/` directory
 
 ```shell
-ls configure-pod-container/configmap/kubectl/
 game.properties
 ui.properties
 ```
@@ -65,6 +69,10 @@ into the following ConfigMap:
 
 ```shell
 kubectl describe configmaps game-config
+```
+
+where the output is similar to this:
+```
 Name:           game-config
 Namespace:      default
 Labels:         <none>
@@ -76,11 +84,12 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
-The `game.properties` and `ui.properties` files in the `configure-pod-container/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
+The `game.properties` and `ui.properties` files in the `configure-pod-container/configmap/` directory are represented in the `data` section of the ConfigMap.
 
 ```shell
 kubectl get configmaps game-config -o yaml
 ```
+The output is similar to this:
 
 ```yaml
 apiVersion: v1
@@ -115,13 +124,18 @@ You can use `kubectl create configmap` to create a ConfigMap from an individual 
 For example,
 
 ```shell
-kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/kubectl/game.properties
+kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties
 ```
 
 would produce the following ConfigMap:
 
 ```shell
 kubectl describe configmaps game-config-2
+```
+
+where the output is similar to this:
+
+```
 Name:           game-config-2
 Namespace:      default
 Labels:         <none>
@@ -132,14 +146,21 @@ Data
 game.properties:        158 bytes
 ```
 
-You can pass in the  `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
+You can pass in the `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
 
 ```shell
-kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/kubectl/game.properties --from-file=configure-pod-container/configmap/kubectl/ui.properties
+kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties --from-file=configure-pod-container/configmap/ui.properties
 ```
+
+Describe the above `game-config-2` configmap created
 
 ```shell
 kubectl describe configmaps game-config-2
+```
+
+The output is similar to this:
+
+```
 Name:           game-config-2
 Namespace:      default
 Labels:         <none>
@@ -152,6 +173,7 @@ ui.properties:          83 bytes
 ```
 
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
+
 ```shell
 # Env-files contain a list of environment variables.
 # These syntax rules apply:
@@ -160,8 +182,11 @@ Use the option `--from-env-file` to create a ConfigMap from an env-file, for exa
 #   Blank lines are ignored.
 #   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value)).
 
-wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/game-env-file.properties -O configure-pod-container/configmap/kubectl/game-env-file.properties
-cat configure-pod-container/configmap/kubectl/game-env-file.properties
+# Download the sample files into `configure-pod-container/configmap/` directory
+wget https://k8s.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
+
+# The env-file `game-env-file.properties` looks like below
+cat configure-pod-container/configmap/game-env-file.properties
 enemies=aliens
 lives=3
 allowed="true"
@@ -171,7 +196,7 @@ allowed="true"
 
 ```shell
 kubectl create configmap game-config-env-file \
-        --from-env-file=configure-pod-container/configmap/kubectl/game-env-file.properties
+       --from-env-file=configure-pod-container/configmap/game-env-file.properties
 ```
 
 would produce the following ConfigMap:
@@ -180,6 +205,7 @@ would produce the following ConfigMap:
 kubectl get configmap game-config-env-file -o yaml
 ```
 
+where the output is similar to this:
 ```yaml
 apiVersion: v1
 data:
@@ -199,10 +225,13 @@ metadata:
 When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
 
 ```shell
-wget https://k8s.io/docs/tasks/configure-pod-container/configmap/kubectl/ui-env-file.properties -O configure-pod-container/configmap/kubectl/ui-env-file.properties
+# Download the sample files into `configure-pod-container/configmap/` directory
+wget https://k8s.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
+
+# Create the configmap
 kubectl create configmap config-multi-env-files \
-        --from-env-file=configure-pod-container/configmap/kubectl/game-env-file.properties \
-        --from-env-file=configure-pod-container/configmap/kubectl/ui-env-file.properties
+        --from-env-file=configure-pod-container/configmap/game-env-file.properties \
+        --from-env-file=configure-pod-container/configmap/ui-env-file.properties
 ```
 
 would produce the following ConfigMap:
@@ -211,6 +240,7 @@ would produce the following ConfigMap:
 kubectl get configmap config-multi-env-files -o yaml
 ```
 
+where the output is similar to this:
 ```yaml
 apiVersion: v1
 data:
@@ -240,11 +270,15 @@ where `<my-key-name>` is the key you want to use in the ConfigMap and `<path-to-
 For example:
 
 ```shell
-kubectl create configmap game-config-3 --from-file=game-special-key=configure-pod-container/configmap/kubectl/game.properties
+kubectl create configmap game-config-3 --from-file=game-special-key=configure-pod-container/configmap/game.properties
+```
 
+would produce the following ConfigMap:
+```
 kubectl get configmaps game-config-3 -o yaml
 ```
 
+where the output is similar to this:
 ```yaml
 apiVersion: v1
 data:
@@ -280,6 +314,7 @@ You can pass in multiple key-value pairs. Each pair provided on the command line
 kubectl get configmaps special-config -o yaml
 ```
 
+The output is similar to this:
 ```yaml
 apiVersion: v1
 data:
@@ -306,158 +341,83 @@ metadata:
     kubectl create configmap special-config --from-literal=special.how=very
     ```
 
-1.  Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+2.  Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
 
-    ```shell
-    kubectl edit pod dapi-test-pod
-    ```
+   {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
 
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: dapi-test-pod
-    spec:
-      containers:
-        - name: test-container
-          image: k8s.gcr.io/busybox
-          command: [ "/bin/sh", "-c", "env" ]
-          env:
-            # Define the environment variable
-            - name: SPECIAL_LEVEL_KEY
-              valueFrom:
-                configMapKeyRef:
-                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
-                  name: special-config
-                  # Specify the key associated with the value
-                  key: special.how
-      restartPolicy: Never
-    ```
-
-1.  Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
+   Create the Pod:
+ 
+ ```shell
+ kubectl create -f https://k8s.io/examples/pods/pod-single-configmap-env-variable.yaml
+ ```
+   
+   Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
  
 ### Define container environment variables with data from multiple ConfigMaps
  
-1.  As with the previous example, create the ConfigMaps first.
+ * As with the previous example, create the ConfigMaps first.
 
-    ```yaml
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: special-config
-      namespace: default
-    data:
-      special.how: very
-    ```
+   {{< codenew file="configmap/configmaps.yaml" >}}
 
-    ```yaml
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: env-config
-      namespace: default
-    data:
-      log_level: INFO
-    ```
-
-1.  Define the environment variables in the Pod specification.
-
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: dapi-test-pod
-    spec:
-      containers:
-        - name: test-container
-          image: k8s.gcr.io/busybox
-          command: [ "/bin/sh", "-c", "env" ]
-          env:
-            - name: SPECIAL_LEVEL_KEY
-              valueFrom:
-                configMapKeyRef:
-                  name: special-config
-                  key: special.how
-            - name: LOG_LEVEL
-              valueFrom:
-                configMapKeyRef:
-                  name: env-config
-                  key: log_level
-      restartPolicy: Never
-    ```
+   Create the ConfigMap:
  
-1.  Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`. 
+ ```shell
+ kubectl create -f https://k8s.io/examples/configmap/configmaps.yaml
+ ```
+
+* Define the environment variables in the Pod specification.
+
+  {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
+
+  Create the Pod:
+ 
+ ```shell
+ kubectl create -f https://k8s.io/examples/pods/pod-multiple-configmap-env-variable.yaml
+ ```
+
+  Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`. 
 
 ## Configure all key-value pairs in a ConfigMap as container environment variables 
 
-   {{< note >}}
-   This functionality is available in Kubernetes v1.6 and later.
-   {{< /note >}}
+{{< note >}}
+This functionality is available in Kubernetes v1.6 and later.
+{{< /note >}}
 
-1.  Create a ConfigMap containing multiple key-value pairs. 
+* Create a ConfigMap containing multiple key-value pairs. 
 
-    ```yaml
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: special-config
-      namespace: default
-    data:
-      SPECIAL_LEVEL: very
-      SPECIAL_TYPE: charm
-    ```
+  {{< codenew file="configmap/configmap-multikeys.yaml" >}}
 
-1.  Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
+  Create the ConfigMap:
+ 
+ ```shell
+ kubectl create -f https://k8s.io/examples/configmap/configmap-multikeys.yaml
+ ```
+
+* Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
    
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: dapi-test-pod
-    spec:
-      containers:
-        - name: test-container
-          image: k8s.gcr.io/busybox
-          command: [ "/bin/sh", "-c", "env" ]
-          envFrom:
-          - configMapRef:
-              name: special-config
-      restartPolicy: Never
-    ```
+ {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
+ Create the Pod:
+ 
+ ```shell
+ kubectl create -f https://k8s.io/examples/pods/pod-configmap-envFrom.yaml
+ ```
+
+ Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
 
 
 ## Use ConfigMap-defined environment variables in Pod commands  
 
 You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
-For example:
+For example, the following Pod specification
 
-The following Pod specification
+{{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: k8s.gcr.io/busybox
-      command: [ "/bin/sh", "-c", "echo $(SPECIAL_LEVEL_KEY) $(SPECIAL_TYPE_KEY)" ]
-      env:
-        - name: SPECIAL_LEVEL_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: special-config
-              key: SPECIAL_LEVEL
-        - name: SPECIAL_TYPE_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: special-config
-              key: SPECIAL_TYPE
-  restartPolicy: Never
+created by running
+
+```shell
+kubectl create -f https://k8s.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
 ```
 
 produces the following output in the `test-container` container:
@@ -472,15 +432,12 @@ As explained in [Create ConfigMaps from files](#create-configmaps-from-files), w
 
 The examples in this section refer to a ConfigMap named special-config, shown below.
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: special-config
-  namespace: default
-data:
-  special.level: very
-  special.type: charm
+{{< codenew file="configmap/configmap-multikeys.yaml" >}}
+
+Create the ConfigMap:
+ 
+```shell
+kubectl create -f https://k8s.io/examples/configmap/configmap-multikeys.yaml
 ```
 
 ### Populate a Volume with data stored in a ConfigMap
@@ -489,29 +446,15 @@ Add the ConfigMap name under the `volumes` section of the Pod specification.
 This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
 The `command` section references the `special.level` item stored in the ConfigMap.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: k8s.gcr.io/busybox
-      command: [ "/bin/sh", "-c", "ls /etc/config/" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
-    - name: config-volume
-      configMap:
-        # Provide the name of the ConfigMap containing the files you want
-        # to add to the container
-        name: special-config
-  restartPolicy: Never
+{{< codenew file="pods/pod-configmap-volume.yaml" >}}
+
+Create the Pod:
+
+```shell
+kubectl create -f https://k8s.io/examples/pods/pod-configmap-volume.yaml
 ```
 
-When the pod runs, the command (`"ls /etc/config/"`) produces the output below:
+When the pod runs, the command `ls /etc/config/` produces the output below:
 
 ```shell
 special.level
@@ -527,30 +470,15 @@ If there are some files in the `/etc/config/` directory, they will be deleted.
 Use the `path` field to specify the desired file path for specific ConfigMap items. 
 In this case, the `special.level` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: k8s.gcr.io/busybox
-      command: [ "/bin/sh","-c","cat /etc/config/keys" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
-    - name: config-volume
-      configMap:
-        name: special-config
-        items:
-        - key: special.level
-          path: keys
-  restartPolicy: Never
+{{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
+
+Create the Pod:
+
+```shell
+kubectl create -f https://k8s.io/examples/pods/pod-configmap-volume-specific-key.yaml
 ```
 
-When the pod runs, the command (`"cat /etc/config/keys"`) produces the output below:
+When the pod runs, the command `cat /etc/config/keys` produces the output below:
 
 ```shell
 very
@@ -566,9 +494,7 @@ basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files
 When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period + ttl of ConfigMaps cache in kubelet.
 
 {{< note >}}
-A container using a ConfigMap as a
-[subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive
-ConfigMap updates.
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
 {{< /note >}}
 
 {{% /capture %}}
@@ -611,14 +537,17 @@ data:
 
    ```shell
    kubectl get events
+   ```
+   
+   The output is similar to this:
+   ```   
    LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
    0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
    ```
 
 - ConfigMaps reside in a specific [namespace](/docs/concepts/overview/working-with-objects/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
 
-- Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
-   This includes pods created via the Kubelet's --manifest-url flag, --config flag, or the Kubelet REST API.
+- Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. This includes pods created via the Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API.
    
    {{< note >}}
    These are not commonly-used ways to create pods.
@@ -632,3 +561,4 @@ data:
 {{% /capture %}}
 
 
+`
