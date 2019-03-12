@@ -58,6 +58,9 @@ the values.
   	requestCounter.WithLabelValues(*verb, *resource, client, strconv.Itoa(*httpCode)).Inc()
    ```
 
+{{% /capture %}}
+
+{{% capture whatsnext %}}
 
 ### Reference
 
