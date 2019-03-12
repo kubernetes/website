@@ -150,7 +150,7 @@ RuntimeClass Beta (v1.14) included the following changes:
   meaning it can no longer container `.` characters (in all versions). Valid handlers match the
   following regular expression: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`.
 
-If you were using RuntimeClass Alpha (prior to v1.14), the following **actions are required**:
+**Action Required:** If you were using RuntimeClass Alpha (prior to v1.14), the following actions are required upon upgrade to v1.14:
 
 - RuntimeClass resources must be recreated *after* upgrading to v1.14, and the
   `runtimeclasses.node.k8s.io` CRD should be manually deleted:
