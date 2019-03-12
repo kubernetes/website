@@ -33,7 +33,7 @@ Release 说明：
 
 -->
 
-* 启用 1beta3 API 并将其设置为默认API版本 ([#6098][1])
+* 启用 1beta3 API 并将其设置为默认 API 版本 ([#6098][1])
 * 增加了多端口服务([#6182][2])
     * 新入门指南
     * 多节点本地启动指南 ([#6505][3])
@@ -136,8 +136,8 @@ To download, please visit https://github.com/GoogleCloudPlatform/kubernetes/rele
 [11]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6207 "为服务器处理的正在运行的请求数量添加一个限制。"
 [12]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6355 "添加速度限制删除 pod"
 [13]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6150 "将均衡资源分配算法作为优先级函数实现在调度程序包中。"
-[14]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6396 "启用从主服务器收集日志。"
-[15]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6497 "pod 日志子资源"
+[14]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6396 "启用主服务器收集日志。"
+[15]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6497 "pod 子日志资源"
 [16]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6368 "将基本延迟指标添加到调度程序。"
 [17]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6409 "向 REST 客户端添加延迟指标"
 [18]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6221 "在 pod 中运行 etcd 2.0.5"
