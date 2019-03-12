@@ -110,9 +110,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     install-kubectl.ps1 [-DownloadLocation <path>]
     ```
     
-    {{< note >}}
-    If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.
-    {{< /note >}}
+    {{< note >}}If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.{{< /note >}}
     
     The installer creates `$HOME/.kube` and instructs it to create a config file
 
@@ -122,9 +120,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     kubectl version
     ```
 
-    {{< note >}}
-    Updating the installation is performed by rerunning the two commands listed in step 1.
-    {{< /note >}}
+    {{< note >}}Updating the installation is performed by rerunning the two commands listed in step 1.{{< /note >}}
 
 ## Install on Windows using Chocolatey or scoop
 
@@ -170,9 +166,7 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
     New-Item config -type file
     ```
     
-    {{< note >}}
-    Edit the config file with a text editor of your choice, such as Notepad.
-    {{< /note >}}
+    {{< note >}}Edit the config file with a text editor of your choice, such as Notepad.{{< /note >}}
 
 ## Download as part of the Google Cloud SDK
 
