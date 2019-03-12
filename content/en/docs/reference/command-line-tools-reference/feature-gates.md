@@ -55,7 +55,8 @@ different Kubernetes components.
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
-| `CSIBlockVolume` | `false` | Alpha | 1.11 | |
+| `CSIBlockVolume` | `false` | Alpha | 1.11 | 1.13 |
+| `CSIBlockVolume` | `true` | Beta | 1.14 | |
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
