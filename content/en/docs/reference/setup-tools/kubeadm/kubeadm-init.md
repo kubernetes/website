@@ -122,7 +122,7 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 because `v1alpha3` will be removed in Kubernetes 1.14.
 
 For more details on each field in the `v1beta1` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
+[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -148,8 +148,8 @@ Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
-* To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
-* To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
+* To set `useHyperKubeImage` to `true` to use the HyperKube image.
+* To provide a specific `imageRepository` and `imageTag` for etcd or DNS add-on.
 
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
