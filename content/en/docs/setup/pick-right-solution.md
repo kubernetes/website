@@ -205,7 +205,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Vagrant](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
 * [VMware](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
 * [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-PKS)
-* [VMware vSphere](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)
+* [VMware vSphere](https://github.com/kubernetes/cloud-provider-vsphere)
 * [VMware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
 
 ### Bare Metal
@@ -258,7 +258,7 @@ AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/setup/
 GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires))
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
 CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack/)                             |  Community ([@sebgoa](https://github.com/sebgoa))
-VMware vSphere       | any          | multi-support | multi-support     | [docs](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/)  |  [Community](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/contactus.html)
+VMware vSphere       | any          | multi-support | multi-support     | [docs](https://github.com/kubernetes/cloud-provider-vsphere/tree/master/docs)  |  [Community](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/contactus.html)
 Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/getting-started-guides/centos/centos_manual_config/)            |  Community ([@coolsvap](https://github.com/coolsvap))
 lxd                  | Juju         | Ubuntu | flannel/canal            | [docs](/docs/getting-started-guides/ubuntu/local/)              |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
 AWS                  | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
