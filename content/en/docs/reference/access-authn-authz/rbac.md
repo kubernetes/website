@@ -695,9 +695,9 @@ Because this is enforced at the API level, it applies even when the RBAC authori
 
 A user can only create/update a role if at least one of the following things is true:
 
-1. they already have all the permissions contained in the role, at the same scope as the object being modified
+1. They already have all the permissions contained in the role, at the same scope as the object being modified
 (cluster-wide for a `ClusterRole`, within the same namespace or cluster-wide for a `Role`)
-2. they are given explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
+2. They are given explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group (Kubernetes 1.12 and newer)
 
 For example, if "user-1" does not have the ability to list secrets cluster-wide, they cannot create a `ClusterRole`
 containing that permission. To allow a user to create/update roles:
