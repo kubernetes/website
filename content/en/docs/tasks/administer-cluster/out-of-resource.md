@@ -225,7 +225,7 @@ If necessary, `kubelet` evicts Pods one at a time to reclaim disk when `DiskPres
 is encountered. If the `kubelet` is responding to `inode` starvation, it reclaims
 `inodes` by evicting Pods with the lowest quality of service first. If the `kubelet`
 is responding to lack of available disk, it ranks Pods within a quality of service
-that consumes the largest amount of disk and kill those first.
+that consumes the largest amount of disk and kills those first.
 
 #### With `imagefs`
 
