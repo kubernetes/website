@@ -43,4 +43,6 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Self-paced Kubernetes online course (Learnk8s Academy)](https://learnk8s.io/academy)
 
+* [Getting Started with Kubernetes Clusters on OCI Oracle Kubernetes Engine (OKE) (Learning Library)](https://apexapps.oracle.com/pls/apex/f?p=44785:50:0:::50:P50_EVENT_ID,P50_COURSE_ID:5935,256)
+
 {{% /capture %}}
