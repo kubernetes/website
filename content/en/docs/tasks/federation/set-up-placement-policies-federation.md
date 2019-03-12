@@ -1,13 +1,14 @@
 ---
 title: Set up placement policies in Federation
 content_template: templates/task
+weight: 135
 ---
 
 {{% capture overview %}}
 
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This page shows how to enforce policy-based placement decisions over Federated
 resources using an external policy engine.

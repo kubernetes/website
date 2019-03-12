@@ -327,7 +327,7 @@ Shortcodes inside include statements will break the build. You must insert them 
 
 ```
 {{</* note */>}}
-{{</* include "federation-current-state.md" */>}}
+{{</* include "task-tutorial-prereqs.md" */>}}
 {{</* /note */>}}
 ```
 
