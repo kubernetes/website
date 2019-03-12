@@ -1,5 +1,5 @@
 ---
-title: " Kubernetes社区每周聚会笔记 - 2015年3月27日 "
+title: " Kubernetes 社区每周聚会笔记 - 2015年3月27日 "
 date: 2015-03-28
 slug: weekly-kubernetes-community-hangout
 url: /blog/2015/03/Weekly-Kubernetes-Community-Hangout
