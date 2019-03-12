@@ -13,6 +13,12 @@ weight: 20
 
 This page describes the RuntimeClass resource and runtime selection mechanism.
 
+{{< warning >}}
+RuntimeClass includes *breaking* changes in the beta upgrade in v1.14. If you were using
+RuntimeClass prior to v1.14, see [Upgrading RuntimeClass from Alpha to
+Beta](#upgrading-runtimeclass-from-alpha-to-beta).
+{{< /warning >}}
+
 {{% /capture %}}
 
 
@@ -22,12 +28,6 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 
 RuntimeClass is a beta feature (as of v1.14) for selecting the container runtime configuration to
 use to run a pod's containers.
-
-{{< warning >}}
-RuntimeClass includes *breaking* changes in the beta upgrade in v1.14. If you were using
-RuntimeClass prior to v1.14, see [Upgrading RuntimeClass from Alpha to
-Beta](#upgrading-runtimeclass-from-alpha-to-beta).
-{{< /warning >}}
 
 ### Set Up
 
@@ -106,7 +106,7 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 
 #### dockershim
 
-Kubernete's built-in dockershim CRI does not support runtime handlers.
+Kubernetes built-in dockershim CRI does not support runtime handlers.
 
 #### [containerd](https://containerd.io/)
 
@@ -150,13 +150,13 @@ RuntimeClass Beta (v1.14) included the following changes:
   meaning it can no longer container `.` characters (in all versions). Valid handlers match the
   following regular expression: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`.
 
-If you were using RuntimeClass Alpha (prior to v1.14), the following actions are required
+If you were using RuntimeClass Alpha (prior to v1.14), the following **actions are required**:
 
 - RuntimeClass resources must be recreated *after* upgrading to v1.14, and the
   `runtimeclasses.node.k8s.io` CRD should be manually deleted:
-
-      kubectl delete customresourcedefinitions.apiextensions.k8s.io runtimeclasses.node.k8s.io
-
+  ```
+  kubectl delete customresourcedefinitions.apiextensions.k8s.io runtimeclasses.node.k8s.io
+  ```
 - Alpha RuntimeClasses with an unspecified or empty `runtimeHandler` or those using a `.` character
   in the handler are no longer valid, and must be migrated to a valid handler configuration (see
   above).
