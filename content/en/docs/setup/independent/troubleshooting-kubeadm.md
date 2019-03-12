@@ -261,4 +261,23 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 yum install docker-ce-18.06.1.ce-3.el7.x86_64
 ```
 
+## Not possible to pass a comma separated list of values to arguments inside a `--component-extra-args` flag
+
+`kubeadm init` flags such as `--component-extra-args` allow you to pass custom arguments to a control-plane
+component like the kube-apiserver. However, this mechanism is limited due to the underlying type used for parsing
+the values (`mapStringString`).
+
+If you decide to pass an argument that supports multiple, comma-separated values such as
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,NamespaceExists"` this flag will fail with
+`flag: malformed pair, expect string=string`. This happens because the list of arguments for
+`--apiserver-extra-args` expects `key=value` pairs and in this case `NamespacesExists` is considered
+as a key that is missing a value.
+
+Alternativelly, you can try separating the `key=value` pairs like so:
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
+but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
+
+A known workaround is to use the kubeadm
+[configuration file](https://kubernetes.io/docs/setup/independent/control-plane-flags/#apiserver-flags).
+
 {{% /capture %}}
