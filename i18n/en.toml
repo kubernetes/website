@@ -3,6 +3,9 @@
 [deprecation_warning]
 other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see "
 
+[deprecation_file_warning]
+other = "Deprecated"
+
 [objectives_heading]
 other = "Objectives"
 

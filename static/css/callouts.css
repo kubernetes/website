@@ -49,3 +49,12 @@
     color: #a94442;
     border-color: #ebccd1;
 }
+
+.deprecation_file_warning {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-color: #d9534f;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
