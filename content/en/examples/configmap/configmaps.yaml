@@ -6,7 +6,6 @@ metadata:
 data:
   special.how: very
 ---
-
 apiVersion: v1
 kind: ConfigMap
 metadata:

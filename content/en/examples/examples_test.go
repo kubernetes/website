@@ -404,6 +404,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"application/zookeeper": {
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
+		"configmap": {
+			"configmaps":            {&api.ConfigMap{}, &api.ConfigMap{}},
+			"configmap-multikeys":   {&api.ConfigMap{}},
+		},
 		"controllers": {
 			"daemonset":        {&apps.DaemonSet{}},
 			"frontend":         {&apps.ReplicaSet{}},
