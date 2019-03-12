@@ -5,9 +5,9 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This guide explains how to use secrets in Federation control plane.
 

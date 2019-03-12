@@ -7,9 +7,9 @@ content_template: templates/task
 
 {{< feature-state state="alpha" >}}
 
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This guide explains how to use federated horizontal pod autoscalers (HPAs) in the federation control plane.
 
