@@ -48,7 +48,7 @@ Kubernetes cluster.
 <!--
 List the Deployments in your cluster in the kube-system namespace:
 -->
-在 kube-system 命名空间中列出集群中的部署：
+在 kube-system 命名空间中列出集群中的 Deployments：
 
     kubectl get deployment --namespace=kube-system
 
@@ -79,7 +79,7 @@ already enabled, and you can skip to
 <!--
 List the Deployments in your cluster in the kube-system namespace:
 -->
-在 kube-system 命名空间中列出集群中的部署：
+在 kube-system 命名空间中列出集群中的 Deployments：
 
     kubectl get deployment --namespace=kube-system
 
@@ -99,7 +99,7 @@ The output is similar to this:
 In Kubernetes versions earlier than 1.12, the DNS Deployment was called "kube-dns".
 -->
 
-在早于 1.12 的 Kubernetes 版本中，DNS 部署称之为 `kube-dns`。
+在早于 1.12 的 Kubernetes 版本中，DNS Deployments 称之为 `kube-dns`。
 
 <!--
 In Kubernetes versions earlier than 1.5 DNS was implemented using a
@@ -196,7 +196,7 @@ Go to the directory that contains your configuration file, and enter this
 command to create the Deployment:
 -->
 
-转至包含配置文件的目录，然后输入以下命令以创建部署：
+转至包含配置文件的目录，然后输入以下命令以创建 Deployments：
 
     kubectl create -f dns-horizontal-autoscaler.yaml
 
@@ -305,7 +305,7 @@ use depends on different conditions.
 ### Option 1: Scale down the dns-autoscaler deployment to 0 replicas
 -->
 
-### 选项 1：将 dns-autoscaler 部署降低到 0 个副本
+### 选项 1：将 dns-autoscaler deployment 降低到 0 个副本
 
 <!--
 This option works for all situations. Enter this command:
@@ -346,7 +346,7 @@ The output displays 0 in the DESIRED and CURRENT columns:
 ### Option 2: Delete the dns-autoscaler deployment
 -->
 
-### 选项 2：删除 dns-autoscaler 部署
+### 选项 2：删除 dns-autoscaler deployment
 
 <!--
 This option works if dns-autoscaler is under your own control, which means
@@ -427,7 +427,7 @@ the autoscaler Pod.
 patterns: *linear* and *ladder*.
 -->
 
-* 集群比例自动伸缩器应用程序与 DNS 服务分开部署。
+* 集群比例自动伸缩器应用程序与 DNS 服务分开 deployment。
 
 * 一个自动伸缩 Pod 运行一个客户端，该客户端轮询 Kubernetes API 服务器以获得集群中的节点和核心的数量。
 
