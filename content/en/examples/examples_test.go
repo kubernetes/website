@@ -88,6 +88,8 @@ func getCodecForObject(obj runtime.Object) (runtime.Codec, error) {
 func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	// Enable CustomPodDNS for testing
 	utilfeature.DefaultFeatureGate.Set("CustomPodDNS=true")
+	// Enable TokenRequestProjection for ServiceAccountTokenVolumeProjection testing
+	utilfeature.DefaultFeatureGate.Set("TokenRequestProjection=true")
 	switch t := obj.(type) {
 	case *admissionregistration.InitializerConfiguration:
 		// cluster scope resource
@@ -453,6 +455,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-multiple-configmap-env-variable":  {&api.Pod{}},
 			"pod-nginx-specific-node":              {&api.Pod{}},
 			"pod-nginx":                            {&api.Pod{}},
+			"pod-projected-svc-token":              {&api.Pod{}},
 			"pod-rs":                               {&api.Pod{}, &api.Pod{}},
 			"pod-single-configmap-env-variable":    {&api.Pod{}},
 			"pod-with-node-affinity":               {&api.Pod{}},
