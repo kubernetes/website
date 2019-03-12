@@ -25,9 +25,7 @@ in future versions. You might encounter issues with upgrading your clusters, for
 We encourage you to try either approach, and provide us with feedback in the kubeadm
 [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
 
-Note that the alpha feature gate `HighAvailability` is deprecated in v1.12 and removed in v1.13.
-
-See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13).
+See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-14).
 
 {{< caution >}}
 This page does not address running your cluster on a cloud provider. In a cloud
@@ -69,7 +67,7 @@ networking provider, make sure to replace any default values as needed.
 ## First steps for both methods
 
 {{< note >}}
-**Note**: All commands on any control plane or etcd node should be
+All commands on any control plane or etcd node should be
 run as root.
 {{< /note >}}
 
@@ -170,24 +168,40 @@ SSH is required if you want to control all nodes from a single machine.
     - `controlPlaneEndpoint` should match the address or DNS and port of the load balancer.
     - It's recommended that the versions of kubeadm, kubelet, kubectl and Kubernetes match.
 
-1.  Make sure that the node is in a clean state:
+1.  Initialize the control plane:
 
     ```sh
-    sudo kubeadm init --config=kubeadm-config.yaml
+    sudo kubeadm init --config=kubeadm-config.yaml --experimental-upload-certs
     ```
-    
+    - The `--experimental-upload-certs` flags is used to upload the control plane
+  certificates to the cluster. 
+
     You should see something like:
     
     ```sh
     ...
-    You can now join any number of machines by running the following on each node
-    as root:
+    You can now join any number of control-plane node running the following command on each as a root:
+      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --experimental-control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
     
-    kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash    sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
+    Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+    As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
+    
+    Then you can join any number of worker nodes by running the following on each as root:
+      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
     ```
 
-1.  Copy this output to a text file. You will need it later to join other control plane nodes to the
-    cluster.
+    - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
+    - When `--experimental-upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
+    are uploaded to the cluster in a Secret and encrypted.
+    -  When joining new control plane nodes using `kubeadm join ... --experimental-control-plane`,
+    if `--certificate-key ...` is provided it will cause the new control plane to download the certificates
+    from the Secret and decrypt them.
+    - Please note that the Secret and decryption key expire after two hours by default. To re-upload the certificates
+    and generate a new decryption key, use the following command on a control plane that is already joined the cluster:
+
+      ```sh
+      kubeadm init phase upload-certs --experimental-upload-certs
+      ```
 
 1.  Apply the Weave CNI plugin:
 
@@ -201,9 +215,9 @@ SSH is required if you want to control all nodes from a single machine.
     kubectl get pod -n kube-system -w
     ```
 
-    - It's recommended that you join new control plane nodes only after the first node has finished initializing.
+    - It's recommended that you join new control plane nodes in a sequence, only after the first node has finished initializing.
 
-1.  Copy the certificate files from the first control plane node to the rest:
+1.  Optionally copy the `admin.conf` file from the first control plane node to the rest:
 
     In the following example, replace `CONTROL_PLANE_IPS` with the IP addresses of the
     other control plane nodes.
@@ -211,53 +225,30 @@ SSH is required if you want to control all nodes from a single machine.
     USER=ubuntu # customizable
     CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
     for host in ${CONTROL_PLANE_IPS}; do
-        scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
-        scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
-        scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
-        scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
-        scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
-        scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
-        scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
-        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
         scp /etc/kubernetes/admin.conf "${USER}"@$host:
     done
     ```
 
-{{< caution >}}
-Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates
-with the required SANs for the joining control-plane instances. If you copy all the certificates by mistake,
-the creation of additional nodes could fail due to a lack of required SANs.
-{{< /caution >}}
-
 ### Steps for the rest of the control plane nodes
 
-1.  Move the files created by the previous step where `scp` was used:
+1.  Optionally move the `admin.conf` file created by the previous step where `scp` was used:
 
     ```sh
     USER=ubuntu # customizable
-    mkdir -p /etc/kubernetes/pki/etcd
-    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
-    mv /home/${USER}/ca.key /etc/kubernetes/pki/
-    mv /home/${USER}/sa.pub /etc/kubernetes/pki/
-    mv /home/${USER}/sa.key /etc/kubernetes/pki/
-    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
-    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
-    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
     ```
-
-    This process writes all the requested files in the `/etc/kubernetes` folder.
 
 1.  Start `kubeadm join` on this node using the join command that was previously given to you by `kubeadm init` on
     the first node. It should look something like this:
 
     ```sh
-    sudo kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f --experimental-control-plane
+    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --experimental-control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
     ```
 
-    - Notice the addition of the `--experimental-control-plane` flag. This flag automates joining this
-    control plane node to the cluster.
+    - The `--experimental-control-plane` flag will automate the process of this
+  control plane joining the cluster.
+    - The `--certificate-key ...` flag provides a decryption key used to download
+  control plane certificates from the cluster.
 
 1.  Type the following and watch the pods of the components get started:
 
@@ -306,7 +297,9 @@ the creation of additional nodes could fail due to a lack of required SANs.
                 certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
-    - The difference between stacked etcd and external etcd here is that we are using the `external` field for `etcd` in the kubeadm config. In the case of the stacked etcd topology this is managed automatically.
+    - The difference between stacked etcd and external etcd here is that we are using
+  the `external` field for `etcd` in the kubeadm config. In the case of the stacked
+  etcd topology this is managed automatically.
 
     -  Replace the following variables in the template with the appropriate values for your cluster:
 
@@ -316,9 +309,9 @@ the creation of additional nodes could fail due to a lack of required SANs.
         - `ETCD_1_IP`
         - `ETCD_2_IP`
 
-1.  Run `kubeadm init --config kubeadm-config.yaml` on this node.
+1.  Run `kubeadm init --config kubeadm-config.yaml --experimental-upload-certs` on this node.
 
-1.  Write the join command that is returned to a text file for later use.
+1.  Write the output join commands that are returned to a text file for later use.
 
 1.  Apply the Weave CNI plugin:
 
@@ -328,15 +321,12 @@ the creation of additional nodes could fail due to a lack of required SANs.
 
 ### Steps for the rest of the control plane nodes
 
-To add the rest of the control plane nodes, follow [these instructions](#steps-for-the-rest-of-the-control-plane-nodes).
-The steps are the same as for the stacked etcd setup, with the exception that a local
-etcd member is not created.
-
-To summarize:
+The steps are the same as for the stacked etcd setup:
 
 - Make sure the first control plane node is fully initialized.
-- Copy certificates between the first control plane node and the other control plane nodes.
-- Join each control plane node with the join command you saved to a text file, plus add the `--experimental-control-plane` flag.
+- Join each control plane node with the join command you saved to a text file. It's recommended
+to join the control plane nodes one at a time.
+- Don't forget that the decryption key from `--certificate-key` expires after two hours, by default.
 
 ## Common tasks after bootstrapping control plane
 
@@ -344,11 +334,15 @@ To summarize:
 
 [Follow these instructions](/docs/setup/independent/create-cluster-kubeadm/#pod-network) to install
 the pod network. Make sure this corresponds to whichever pod CIDR you provided
-in the master configuration file.
+in the kubeadm configuration file.
 
 ### Install workers
 
-Each worker node can now be joined to the cluster with the command returned from any of the
-`kubeadm init` commands. The flag `--experimental-control-plane` should not be added to worker nodes.
+Worker nodes can be joined to the cluster with the command you stored previously
+as the output from the `kubeadm init` command:
+
+```sh
+kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+```
 
 {{% /capture %}}
