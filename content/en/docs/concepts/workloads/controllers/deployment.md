@@ -40,7 +40,6 @@ The following are typical use cases for Deployments:
 * [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck.
 * [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore.
 
-
 ## Creating a Deployment
 
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
@@ -731,11 +730,15 @@ Eventually, resume the Deployment and observe a new ReplicaSet coming up with al
 ```shell
 kubectl rollout resume deployment.v1.apps/nginx-deployment
 ```
+
+```
 deployment.apps/nginx-deployment resumed
 ```
+
 ```shell
 kubectl get rs -w
 ```
+
 ```
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   2         2         2         2m
