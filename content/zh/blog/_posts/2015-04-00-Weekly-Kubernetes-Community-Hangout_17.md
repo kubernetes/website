@@ -22,7 +22,7 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
 <!--
 Agenda  
 
-* Mesos 集成
+* Mesos Integration
 * High Availability (HA)
 * Adding performance and profiling details to e2e to track regressions
 * Versioned clients
@@ -30,7 +30,7 @@ Agenda
 -->
 议程  
 
-* Mesos Integration
+* Mesos 集成
 * 高可用性（HA）
 * 向 e2e 添加性能和分析详细信息以跟踪回归
 * 客户端版本化
@@ -54,7 +54,7 @@ Notes
 
 * Mesos 集成
 
-    * Mesos集成提案：
+    * Mesos 集成提案：
 
     * 没有阻塞集成的因素。
 
