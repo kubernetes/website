@@ -21,6 +21,7 @@ docker:
 ```shell
 docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
 ```
+```
 55c103fa129692154a7652490236fee9be47d70a8dd562281ae7d2f9a339a6db
 ```
 
