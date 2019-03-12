@@ -1,7 +1,7 @@
 ---
 title: Controller manager metrics
 content_template: templates/concept
-weight: 100
+weight: 110
 ---
 
 {{% capture overview %}}

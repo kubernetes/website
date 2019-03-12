@@ -1,7 +1,7 @@
 ---
 title: Proxies in Kubernetes
 content_template: templates/concept
-weight: 90
+weight: 100
 ---
 
 {{% capture overview %}}
