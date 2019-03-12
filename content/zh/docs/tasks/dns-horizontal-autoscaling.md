@@ -48,7 +48,7 @@ Kubernetes cluster.
 <!--
 List the Deployments in your cluster in the kube-system namespace:
 -->
-在 kube-system 命名空间中列出集群中的 Deployments：
+在 kube-system 命名空间中列出集群中的 Deployment：
 
     kubectl get deployment --namespace=kube-system
 
@@ -79,7 +79,7 @@ already enabled, and you can skip to
 <!--
 List the Deployments in your cluster in the kube-system namespace:
 -->
-在 kube-system 命名空间中列出集群中的 Deployments：
+在 kube-system 命名空间中列出集群中的 Deployment：
 
     kubectl get deployment --namespace=kube-system
 
@@ -99,7 +99,7 @@ The output is similar to this:
 In Kubernetes versions earlier than 1.12, the DNS Deployment was called "kube-dns".
 -->
 
-在早于 1.12 的 Kubernetes 版本中，DNS Deployments 称之为 `kube-dns`。
+在早于 1.12 的 Kubernetes 版本中，DNS Deployment 称之为 `kube-dns`。
 
 <!--
 In Kubernetes versions earlier than 1.5 DNS was implemented using a
@@ -196,7 +196,7 @@ Go to the directory that contains your configuration file, and enter this
 command to create the Deployment:
 -->
 
-转至包含配置文件的目录，然后输入以下命令以创建 Deployments：
+转至包含配置文件的目录，然后输入以下命令以创建 Deployment：
 
     kubectl create -f dns-horizontal-autoscaler.yaml
 
@@ -427,7 +427,7 @@ the autoscaler Pod.
 patterns: *linear* and *ladder*.
 -->
 
-* 集群比例自动伸缩器应用程序与 DNS 服务分开 deployment。
+* 集群比例自动伸缩器应用程序与 DNS 服务分开部署。
 
 * 一个自动伸缩 Pod 运行一个客户端，该客户端轮询 Kubernetes API 服务器以获得集群中的节点和核心的数量。
 
