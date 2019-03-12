@@ -11,13 +11,15 @@ Here are some of the sites that offer online training for Kubernetes:
 
 {{% capture body %}}
 
-* [Certified Kubernetes Administrator Preparation Course (LinuxAcademy.com)](https://linuxacademy.com/linux/training/course/name/certified-kubernetes-administrator-preparation-course)
+* [Certified Kubernetes Administrator Preparation Course (Linux Academy)](https://linuxacademy.com/linux/training/course/name/certified-kubernetes-administrator-preparation-course)
 
 * [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud.com)](https://kodekloud.com/p/kubernetes-certification-course)
 
 * [Getting Started with Google Kubernetes Engine (Coursera)](https://www.coursera.org/learn/google-kubernetes-engine)
 
 * [Getting Started with Kubernetes (Pluralsight)](https://www.pluralsight.com/courses/getting-started-kubernetes)
+
+* [Getting Started with Kubernetes Clusters on OCI Oracle Kubernetes Engine (OKE) (Learning Library)](https://apexapps.oracle.com/pls/apex/f?p=44785:50:0:::50:P50_EVENT_ID,P50_COURSE_ID:5935,256)
 
 * [Google Kubernetes Engine Deep Dive (Linux Academy)] (https://linuxacademy.com/google-cloud-platform/training/course/name/google-kubernetes-engine-deep-dive)
 
@@ -33,7 +35,7 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Kubernetes Quick Start (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-quick-start)
 
-* [Kubernetes the Hard Way (LinuxAcademy.com)](https://linuxacademy.com/linux/training/course/name/kubernetes-the-hard-way)
+* [Kubernetes the Hard Way (Linux Academy)](https://linuxacademy.com/linux/training/course/name/kubernetes-the-hard-way)
 
 * [Learn Kubernetes using Interactive Hands-on Scenarios (Katacoda)](https://www.katacoda.com/courses/kubernetes/)
 
@@ -42,7 +44,4 @@ Here are some of the sites that offer online training for Kubernetes:
 * [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
 * [Self-paced Kubernetes online course (Learnk8s Academy)](https://learnk8s.io/academy)
-
-* [Getting Started with Kubernetes Clusters on OCI Oracle Kubernetes Engine (OKE) (Learning Library)](https://apexapps.oracle.com/pls/apex/f?p=44785:50:0:::50:P50_EVENT_ID,P50_COURSE_ID:5935,256)
-
 {{% /capture %}}
