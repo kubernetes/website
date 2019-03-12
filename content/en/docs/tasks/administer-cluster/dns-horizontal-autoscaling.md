@@ -145,7 +145,7 @@ There are other supported scaling patterns. For details, see
 
 ## Disable DNS horizontal autoscaling
 
-There are a few options for turning DNS horizontal autoscaling. Which option to
+There are a few options for tuning DNS horizontal autoscaling. Which option to
 use depends on different conditions.
 
 ### Option 1: Scale down the dns-autoscaler deployment to 0 replicas
@@ -183,8 +183,8 @@ The output is:
 ### Option 3: Delete the dns-autoscaler manifest file from the master node
 
 This option works if dns-autoscaler is under control of the
-[Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md)'s
-control, and you have write access to the master node.
+[Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md),
+and you have write access to the master node.
 
 Sign in to the master node and delete the corresponding manifest file.
 The common path for this dns-autoscaler is:
