@@ -475,7 +475,7 @@ While the Kubernetes control plane runs on your Linux node(s), the following com
 3. kubectl (optional)
 4. Container runtime
 
-Get the latest binaries from [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases), starting with v1.14 or later. The Windows-amd64 binaries for kubeadm, kubectl, kubelet, and kube-proxy can be found under the CHANGELOG link. 
+Get the latest binaries from [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases), starting with v1.14 or later. The Windows-amd64 binaries for kubeadm, kubectl, kubelet, and kube-proxy can be found under the CHANGELOG link.
 
 ### ​Networking Configuration
 
@@ -639,7 +639,7 @@ Tip: You can use tools such as [xcopy](https://docs.microsoft.com/en-us/windows-
 
 4. Download Kubernetes binaries
 
-To be able to run Kubernetes, you first need to download the `kubectl`, `kubelet`, and `kube-proxy` binaries. You can download these from the links in the CHANGELOG.md file of the [latest releases](https://github.com/kubernetes/kubernetes/releases/).
+To be able to run Kubernetes, you first need to download the `kubelet` and `kube-proxy` binaries. You download these from the Node Binaries links in the CHANGELOG.md file of the [latest releases](https://github.com/kubernetes/kubernetes/releases/). For example 'kubernetes-node-windows-amd64.tar.gz'. You may also optionally download `kubectl` to run on Windows which you can find under Client Binaries.
 
 Use the [Expand-Archive](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) PowerShell command to extract the archive and place the binaries into `C:\k`.
 
