@@ -320,14 +320,12 @@ Some values of an object are typically generated before the object is persisted.
 
 ## Server Side Apply
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, The `PATCH` endpoint will accept the additional `application/apply-patch+yaml` content type. 
-
-Compared to the `last-applied` annotation managed by `kubectl`, Server Side Apply uses a more declarative approach, which tracks a user's field management, rather than a user's last applied state. This means that as a side effect of using Server Side Apply, information about which field manager manages each field in an object also becomes available.
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, The `PATCH` endpoint will accept the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
 
 
 ### Enable the Server Side Apply alpha feature
 
-Server Side Apply is an alpha feature, so it is disabled by default. To turn this [feature gate](/docs/reference/command-line-tools-reference/feature-gates.md) on,
+Server Side Apply is an alpha feature, so it is disabled by default. To turn this [feature gate](/docs/reference/command-line-tools-reference/feature-gates) on,
 you need to:
 
 * Include "ServerSideApply=true" in the `--feature-gates` flag when starting
@@ -337,11 +335,13 @@ you need to:
 
 ### Field Management
 
+Compared to the `last-applied` annotation managed by `kubectl`, Server Side Apply uses a more declarative approach, which tracks a user's field management, rather than a user's last applied state. This means that as a side effect of using Server Side Apply, information about which field manager manages each field in an object also becomes available.
+
 For a user to manage a field, in the Server Side Apply sense, means that the user relies on and expects the value of the field not to change. The user who last made an assertion about the value of a field will be recorded as the current field manager. This can be done either by changing the value with `POST`, `PUT`, or non-apply `PATCH`, or by including the field in a config sent to the Server Side Apply endpoint. Any applier that tries to change the field which is managed by someone else will get its request rejected (if not forced, see the Conflicts section below).
 
 Field management is stored in a newly introduced `managedFields` field that is part of an object's [`metadata`](/docs/reference/generated/kubernetes-api/v1.14/#objectmeta-v1-meta).
 
-A simple example looks like this:
+A simple example of an object created by Server Side Apply could look like this:
 
 ```yaml
 apiVersion: v1
@@ -362,10 +362,10 @@ metadata:
       f:data:
         f:key: {}
 data:
-  key: new value
+  key: some value
 ```
 
-The above object contains a manager in `metadata.managedFields`. The manager object consists of basic information about the managing entity itself, like operation type, api version, and the fields managed by it.
+The above object contains a single manager in `metadata.managedFields`. The manager consists of basic information about the managing entity itself, like operation type, api version, and the fields managed by it.
 
 Note that this field is managed by the apiserver and should not be changed by the user.
 
@@ -374,7 +374,7 @@ Note that this field is managed by the apiserver and should not be changed by th
 
 The two operation types considered by this feature are `Apply` (`PATCH` with content type `application/apply-patch+yaml`) and `Update` (all other operations which modify the object). These two operations will both update the `managedFields`, but behave a little differently.
 
-For instance, only the `Apply` operation will fail on conflicts while `Update` does not. Also, `Apply` operations are required to identify themselves by providing a `fieldManager` query parameter, while the field is optional for `Update` operations.
+For instance, only the apply operation will fail on conflicts while update does not. Also, apply operations are required to identify themselves by providing a `fieldManager` query parameter, while the query parameter is optional for update operations.
 
 An example object with multiple managers could look like this:
 
@@ -409,9 +409,9 @@ In this example, a second operation was run as an `Update` by the manager called
 Note that if this update would have been an `Apply` operation, the operation would have failed due to conflicting ownership.
 
 
-### Merge
+### Merge Rules
 
-When an user sends a partially specified object to the Server Side Apply endpoint, the server merges it with the live object favoring the value in the applied config if it is specified twice. If the set of items present in the applied config is not a superset of the items applied by the same user last time, each missing item not managed by any other field manager is removed.
+When a user sends a partially specified object to the Server Side Apply endpoint, the server merges it with the live object favoring the value in the applied config if it is specified twice. If the set of items present in the applied config is not a superset of the items applied by the same user last time, each missing item not managed by any other field manager is removed. For more information about how an object's schema is used to make decisions when merging, see [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
 
 ### Conflicts
@@ -434,4 +434,4 @@ Another difference is that an applier using Client Side Apply is unable to chang
 
 ### Custom Resources
 
-Server Side Apply currently treats all custom resources as unstructured data. All keys are treated the same as struct fields, and all lists are considered atomic. In the future, it will use the validation field in Custom Resource Definitions to Custom Resource authors to definte how to how to merge their own objects.
+Server Side Apply currently treats all custom resources as unstructured data. All keys are treated the same as struct fields, and all lists are considered atomic. In the future, it will use the validation field in Custom Resource Definitions to allow Custom Resource authors to define how to how to merge their own objects.
