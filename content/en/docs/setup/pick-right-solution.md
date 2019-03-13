@@ -69,6 +69,8 @@ cluster.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
+* [Kind](https://kind.sigs.k8s.io/), Kubernetes IN Docker is a tool for running local Kubernetes clusters using Docker containers as "nodes". It is primarily designed for testing Kubernetes, initially targeting the conformance tests.
+
 ## Hosted Solutions
 
 * [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
