@@ -22,7 +22,7 @@ Each node in your cluster must have at least 1 CPU.
 
 A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service in your cluster. If you do not have the metrics-server
+service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 
 If you are running minikube, run the following command to enable
