@@ -93,7 +93,7 @@ The detailed steps for each are available at https://github.com/kubeedge/kubeedg
 
 ## Future : Taking off with competent features and community collaboration
 
-KubeEdge has been developed by members from community who are active contributors to Kubernetes/CNCF and doing research in edge computing. Within few months of KubeEdge announcement it could attract members from different organizations including JingDong, Zhejiang University, SEL Lab, Eclipse, China Mobile, ARM, Intel to collaborate in building the platform and ecosystem.
+KubeEdge has been developed by members from community who are active contributors to Kubernetes/CNCF and doing research in edge computing. KubeEdge team is also actively collaborating with Kubernetes IOT/EDGE WORKING GROUP. Within few months of KubeEdge announcement it could attract members from different organizations including JingDong, Zhejiang University, SEL Lab, Eclipse, China Mobile, ARM, Intel to collaborate in building the platform and ecosystem.
 
 KubeEdge has a clear roadmap for its upcoming major releases in 2019. vc1.0 targets to provide a complete edge cluster and device management solution with standard edge to edge communication, while v2.0 targets to have advanced features like service mesh, function service , data analytics etc at edge. Also, for all the features, KubeEdge architecture would attempt to utilize the existing CNCF projects/software.
 
