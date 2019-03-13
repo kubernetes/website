@@ -67,7 +67,7 @@ You pass these arguments in any of the following ways:
 ### Approve requests
 
 If you set up an external signer such as [cert-manager][cert-manager], certificate signing requests (CSRs) are automatically approved.
-Otherwise, you must manually approve certificates with the [`kubectl certificates`][certs] command. 
+Otherwise, you must manually approve certificates with the [`kubectl certificate`][certs] command. 
 The following kubeadm command outputs the name of the certificate to approve, then blocks and waits for approval to occur:
 
 ```shell
