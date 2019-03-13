@@ -26,12 +26,12 @@ Beta](#upgrading-runtimeclass-from-alpha-to-beta).
 
 ## Runtime Class
 
-RuntimeClass is a beta feature (as of v1.14) for selecting the container runtime configuration to
-use to run a pod's containers.
+RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
+configuration is used to run a Pod's containers.
 
 ### Set Up
 
-Prerequisite: Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
+Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
 Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
 feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _and_ kubelets.
 
@@ -40,8 +40,9 @@ feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _an
 
 #### 1. Configure the CRI implementation on nodes
 
-The configurations available through RuntimeClass are CRI implementation dependent. See the
-corresponding documentation ([below](#cri-documentaiton)) for your CRI implementation for how to configure.
+The configurations available through RuntimeClass are Container Runtime Interface (CRI)
+implementation dependent. See the corresponding documentation ([below](#cri-documentation)) for your
+CRI implementation for how to configure.
 
 {{< note >}}
 RuntimeClass currently assumes a homogeneous node configuration across the cluster (which means that
@@ -137,20 +138,21 @@ https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
 
 ### Upgrading RuntimeClass from Alpha to Beta
 
-RuntimeClass Beta (v1.14) included the following changes:
+The RuntimeClass Beta feature includes the following changes:
 
 - The `node.k8s.io` API group and `runtimeclasses.node.k8s.io` resource have been migrated to a
-  built-in API from a CustomResourceDefintion.
+  built-in API from a CustomResourceDefinition.
 - The `spec` has been inlined in the RuntimeClass definition (i.e. there is no more
   RuntimeClassSpec).
 - The `runtimeHandler` field has been renamed `handler`.
 - The `handler` field is now required in all API versions. This means the `runtimeHandler` field in
   the Alpha API is also required.
 - The `handler` field must be a valid DNS label ([RFC 1123](https://tools.ietf.org/html/rfc1123)),
-  meaning it can no longer container `.` characters (in all versions). Valid handlers match the
+  meaning it can no longer contain `.` characters (in all versions). Valid handlers match the
   following regular expression: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`.
 
-**Action Required:** If you were using RuntimeClass Alpha (prior to v1.14), the following actions are required upon upgrade to v1.14:
+**Action Required:** The following actions are required to upgrade from the alpha version of the
+RuntimeClass feature to the beta version:
 
 - RuntimeClass resources must be recreated *after* upgrading to v1.14, and the
   `runtimeclasses.node.k8s.io` CRD should be manually deleted:
