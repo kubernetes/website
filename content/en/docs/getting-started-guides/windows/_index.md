@@ -6,11 +6,6 @@ toc_hide: true
 These instructions are under revision for the v1.14 release with a [tracking issue](https://github.com/kubernetes/website/issues/12426). You can find the WIP draft in a [Google Doc](https://docs.google.com/document/d/1a2bRd7PZXygIEm4cEcCeLXpEqJ7opakP_j4Pc6AJVYA/edit?usp=sharing)
 {{< /note >}}
 
-# Document 1: Using Windows containers in Kubernetes. Section: ​Overview
-
-([https://kubernetes.io/docs/getting-started-guides/windows/](https://kubernetes.io/docs/getting-started-guides/windows/) [https://github.com/kubernetes/website/pull/12929](https://github.com/kubernetes/website/pull/12929))
-
-
 ## ​Motivation
 
 Windows applications constitute a large portion of the services and applications that run in many organizations. [Windows containers](https://aka.ms/windowscontainers) provide a modern way to encapsulate processes and package dependencies, making it easier to use DevOps practices and follow cloud native patterns for Windows applications. Kubernetes has become the defacto standard container orchestrator, and the release of Kubernetes 1.14 includes production support for scheduling Windows containers on Windows nodes in a Kubernetes cluster, enabling a vast ecosystem of Windows applications to leverage the power of Kubernetes. Enterprises with investments in Windows-based applications and Linux-based applications don't have to look for separate orchestrators to manage their workloads, leading to increased operational efficiencies across their deployments, regardless of operating system. 
@@ -662,11 +657,7 @@ Next, since the Flannel pods are Linux-based, apply a NodeSelector patch, which 
 ```
     kubectl patch ds/kube-flannel-ds-amd64 --patch "$(cat node-selector-patch.yml)" -n=kube-system
 ```
-
-
 After a few minutes, you should see all the pods as running if the Flannel pod network was deployed.
-
-
 ```
 kubectl get pods --all-namespaces
 ```
@@ -683,9 +674,7 @@ kubectl get ds -n kube-system
 
 ![alt_text](flannel-master-kubectl-get-ds.png "flannel master kubectl get ds screen capture")
 
-
-
-### Join Windows Worker
+#### Join Windows Worker
 
 In this section we'll cover configuring a Windows node from scratch to join a cluster on-prem. If your cluster is on a cloud you'll likely want to follow the cloud specific guides in the next section.
 
@@ -715,13 +704,9 @@ If you are behind a proxy, the following PowerShell environment variables must b
 [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
 [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
 ```
-
-
 If after reboot you may see the following error:
 
 ![alt_text](windows-docker-error.png "windows docker error screen capture")
-
-
 If so then you need to restart the docker service manually:
 
 
@@ -756,7 +741,7 @@ mkdir c:\k
 
 Copy the Kubernetes certificate file (`$HOME/.kube/config`) [from Linux controller](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information) to this new `C:\k` directory on your Windows node.
 
-Tip: You can use tools such as [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy) or [WinSCP](https://winscp.net/eng/download.php) to transfer the config file between nodes.
+Tip: You can use tools such as [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy), [WinSCP](https://winscp.net/eng/download.php), [PowerShell wrapper for WinSCP](https://www.powershellgallery.com/packages/WinSCP/5.13.2.0) to transfer the config file between nodes.
 
 
 
@@ -786,11 +771,11 @@ Note: [start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flanne
 
 ```
 .\start.ps1 -ManagementIP <Windows Node IP> -NetworkMode overlay  -ClusterCIDR <Cluster CIDR> -ServiceCIDR <Service CIDR> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Log directory>
-
+```
 
 <table>
   <tr>
-   <td>```
+   <td>
 
 Parameter
    </td>
@@ -890,15 +875,15 @@ Kubeadm is becoming the de facto standard for users to deploy a Kubernetes clust
 Now that you've configured a Windows worker in your cluster to run Windows containers you may want to add one or more Linux nodes as well to run Linux containers. Now you're ready to proceed to the next step to schedule Windows containers on your cluster.
 
 
-# User Guide: Running Windows containers in Kubernetes
+# User Guide: Scheduling Windows containers in Kubernetes
 
 
 ## Objectives
 
 
 
-*   Configure a deployment to run Windows containers on the Windows node
-*   (Optional) Configure Windows service identity using Group Managed Service Accounts (gMSA)
+*   Configure an example deployment to run Windows containers on the Windows node
+*   (Optional) Configure an Active Directory Identity for your Pod using Group Managed Service Accounts (GMSA)
 
 
 ## Before you begin
@@ -1001,97 +986,63 @@ Note: Port mapping is also supported, but for simplicity in this example the con
 Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](https://kubernetes.io/docs/concepts/configuration/workload-identity/).
 
 
-### Taints and Tolerations
+## Taints and Tolerations
+
+Users today will need to use some combination of taints and node selectors in order to keep Linux and Windows workloads on their respective OS-specific nodes. This will likely impose a burden only on Windows users. The recommended approach is outlined below, with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
 
-## ​Secrets Management
+### Ensuring OS-specific workloads land on the appropriate container host
+
+Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. All Kubernetes nodes today have the following default labels:
 
 
 
-1. Create a secret by following the[ standard directions](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-secret)
-2. Configure your pod to receive the secret via an environment variable. 
+*   beta.kubernetes.io/os = [windows|linux]
+*   beta.kubernetes.io/arch = [amd64|arm64|...]
 
-    `--- \
-apiVersion: v1 \
-kind: Pod \
-metadata: \
-  name: secret-envars-test-pod \
-spec: \
-  containers: \
-  - name: envars-test-container \
-    image: microsoft/windowsservercore:ltsc2019 \
-    imagePullPolicy: Never \
-    command: \
-    - ping \
-    - -t \
-    - localhost \
-    env: \
-    - name: SECRET_USERNAME \
-      valueFrom: \
-        secretKeyRef: \
-          name: test-secret \
-          key: username \
-    - name: SECRET_PASSWORD \
-      valueFrom: \
-        secretKeyRef: \
-          name: test-secret \
-          key: password` \
+If a Pod specification does not specify a nodeSelector like `"beta.kubernetes.io/os": windows`, it is possible the Pod can be scheduled on any host, Windows or Linux. This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. The best practice is to use a nodeSelector.
 
+However, we understand that in many cases users have a pre-existing large number of deployments for Linux containers, as well as an ecosystem of off-the-shelf configurations, such as community Helm charts, and programmatic Pod generation cases, such as with Operators. In those situations, you may be hesitant to make the configuration change to add nodeSelectors. The alternative is to use Taints. Because the kubelet can set Taints during registration, it could easily be modified to automatically add a taint when running on Windows only.
 
-3. Deploy the pod and verify that it is running:
+For example:  `--register-with-taints='os=Win1809:NoSchedule'`
+
+By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). In order for a Windows Pod to be scheduled on a Windows node, it would need both the nodeSelector to choose Windows, and the appropriate matching toleration.
 
 
 ```
-kubectl create -f https://k8s.io/docs/getting-started-guides/windows/secret-pod.yaml
-kubectl get pod secret-envars-test-pod
-
+nodeSelector:
+    "beta.kubernetes.io/os": windows
+tolerations:
+    - key: "os"
+      operator: "Equal"
+      value: "Win1809"
+      effect: "NoSchedule"
 ```
 
-
-
-1. Open a shell into the container running the pod:
-
-
-```
-kubectl exec -it secret-envars-test-pod -- powershell
-
-```
-
-
-
-1. See that the secret is in the environment variable:
-
-
-```
-echo $env:SECRET_USERNAME $env:SECRET_PASSWORD
-```
-
-
-You should see the output:` \
-my-app \
-39528$vdg7Jb`
 
 
 # ​Getting Help and Troubleshooting
 
-
-
-1. How do I know start.ps1 on Windows completed successfully?
-
-You should see kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flanneld host-agent processes running on your node, with running logs being displayed in separate PoSh windows. In addition to this, your Windows node should be listed as "Ready" in your Kubernetes cluster.
+Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section.
 
 
 
-2. Can I configure the Kubernetes node processes as in the background?
+1. How do I know start.ps1 completed successfully?
+
+You should see kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flanneld host-agent processes running on your node, with running logs being displayed in separate PowerShell windows. In addition to this, your Windows node should be listed as "Ready" in your Kubernetes cluster.
+
+
+
+2. Can I configure the Kubernetes node processes run in the background?
     1. As native Windows Services
 
-Kubelet & kube-proxy can be run as native [Windows Services](https://kubernetes.io/docs/getting-started-guides/windows/#kubelet-and-kube-proxy-can-now-run-as-windows-services). See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. [TO DO create a section for setting up as Windows Services]
+Kubelet & kube-proxy can be run as native [Windows Services](https://kubernetes.io/docs/getting-started-guides/windows/#kubelet-and-kube-proxy-can-now-run-as-windows-services). See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. [TODO create a section for setting up as Windows Services]
 
 
 
     2. Using nssm.exe
 
-You can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to always run these processes (flanneld, kubelet & kube-proxy) in the background for you. For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
+Kubelet and kube-proxy are already configured to run as native Windows Services. However, you can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
 
 
 ```
@@ -1112,7 +1063,7 @@ If you are using virtual machines, ensure that MAC spoofing is enabled on all th
 
 4. My Windows Pods cannot ping external resources
 
-Windows pods do not have outbound rules programmed for the ICMP protocol today. However, TCP/UDP is supported. When trying to demonstrate connectivity to resources outside of the cluster, please substitute `ping <IP>` with corresponding `curl <IP>` commands. \
+Windows Pods do not have outbound rules programmed for the ICMP protocol today. However, TCP/UDP is supported. When trying to demonstrate connectivity to resources outside of the cluster, please substitute `ping <IP>` with corresponding `curl <IP>` commands. \
  \
 If you are still facing problems, most likely your network configuration in [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf) deserves some extra attention. You can always edit this static file, the configuration will be applied to any newly created Kubernetes resources. \
  \
@@ -1150,7 +1101,7 @@ C:\k\kube-proxy.exe --hostname-override=$(hostname)
 
 7. With flannel my nodes are having issues after rejoining a cluster
 
-Whenever a previously deleted node is being rejoined to the cluster, flannelD will try to assign a new pod subnet to the node. Users should remove the old pod subnet configuration files in the following paths:
+Whenever a previously deleted node is being re-joined to the cluster, flannelD will try to assign a new pod subnet to the node. Users should remove the old pod subnet configuration files in the following paths:
 
 
 ```
@@ -1191,7 +1142,7 @@ FLANNEL_IPMASQ=true
 
 10. My Windows node cannot access my services using the service IP
 
-This is a known limitation of the current networking stack on Windows. Windows pods are able to access the service IP however.
+This is a known limitation of the current networking stack on Windows. Windows Pods are able to access the service IP however.
 
 
 
@@ -1221,6 +1172,9 @@ If these steps don't resolve your problem, you can get help running Windows Cont
 *   StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
 *   Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
 *   Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/C0SJ4AFB7)
+1. DNS resolution is not properly working
+
+Check the DNS limitations for Windows in this section [todo insert link]. 
 
 
 ### Bugs and Feature Requests
@@ -1261,114 +1215,3 @@ The CRI-ContainerD interface will be able to manage sandboxes based on Hyper-V. 
 ### Deployment with kubeadm and cluster API
 
 Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
-
-
-# Document 2: Windows Node contribution specifics
-
-[https://contributor.kubernetes.io/contributors/guide/](https://contributor.kubernetes.io/contributors/guide/) Under Contributing section
-
-
-## Joining the SIG-Windows Mailing List and Slack Channel
-
-The best way to get in contact with the contributors working on Windows support is through the Kubernetes Slack. To get a Slack invite, visit [http://slack.k8s.io/](http://slack.k8s.io/) . Once you're logged in, join us in the [#SIG-Windows](https://kubernetes.slack.com/messages/C0SJ4AFB7) channel.
-
-To get access to shared documents, meeting calendar, and additional discussions, be sure to also join the [SIG-Windows Google Group](https://groups.google.com/forum/#!forum/kubernetes-sig-windows). 
-
-
-## Building Kubernetes for Windows from Source
-
-The Kubernetes build scripts have not been ported to Windows, so it's best to run in a Linux VM where you can run the same Docker container used in the official Kubernetes builds. This simplifies the steps, but means that you cannot build under Windows Subsystem for Linux (WSL). 
-
-It's best to skim over the [Building Kubernetes](https://github.com/kubernetes/kubernetes/blob/master/build/README.md) guide if you have never built Kubernetes before to get the latest info. These steps are a summary focused on cross-building the Windows node binaries (kubelet & kube-proxy).
-
-
-### ​Build Prerequisites
-
-At least 60GB of disk space is required, and 16GB of memory (or memory + swap).
-
-Once you have a VM, install Git, [Docker-CE](https://docs.docker.com/install/), and make. The build scripts will pull a Docker container with the required version of golang and other needed tools preinstalled.
-
-If you're using Ubuntu, then install the following packages: git, build-essential, [Docker-CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
-
-
-### ​Pulling a PR (optional)
-
-If there is a PR you would like to build, it's easy. You can create a working branch, pull the changes from GitHub in a patch, apply, then build.
-
-The examples here are based off a patch on GitHub: [https://github.com/kubernetes/kubernetes/pull/74788](https://github.com/kubernetes/kubernetes/pull/74788) . Be sure to replace the URL with the PR you want to test.
-
-First, make sure your local clone is up-to-date with master: `git checkout master ; git pull master`
-
-Next, create a branch in your repo: `git checkout -b pr74788`
-
-Now, get the patch for the PR you want. Append .patch to the URL, and download it with curl: `curl -L -o pr74788.patch https://github.com/kubernetes/kubernetes/pull/74788.patch`
-
-Merge it with ``patch -p1 < pr74788.patch``
-
-If there are errors, fix them as needed. Once you're done, delete the .patch file and then `git commit` the rest to your local branch.
-
-
-### Building Kubernetes binaries for Windows
-
-You can build individual components such as kubelet, kube-proxy, or kubectl by running `./build/run.sh make <binary name> KUBE_BUILD_PLATFORMS=windows/amd64` such as `./build/run.sh make kubelet KUBE_BUILD_PLATFORMS=windows/amd64`
-
-If you would like to build all binaries at once, then run `./build/run.sh make cross KUBE_BUILD_PLATFORMS=windows/amd64`
-
-Once the build completes, the files will be in _output/dockerized/bin.
-
-
-## Running Your Own Cluster
-
-
-## Testing Your Changes
-
-
-### Updating the Node binaries
-
-Once you have binaries built (see Building Kubernetes binaries for Windows), the easiest way to test them is to replace them on an existing cluster. Use the steps above to build a cluster in your cloud of choice. To update the binaries on an existing node, follow these steps:
-
-
-
-1. Drain & cordon a node with `kubectl drain <nodename>`
-2. Connect to the node with SSH or Windows Remote Desktop, and start PowerShell
-3. On the node, run `Stop-Service kubelet -Force`
-4. Copy kubelet.exe and kube-proxy.exe to a cloud storage account, or use SSH to copy them directly to the node.
-5. Overwrite the existing kubelet & kube-proxy binaries. If you don't know where they are, run `sc.exe qc kubelet` or `sc.exe qc kube-proxy` and look at the BINARY_PATH_NAME returned.
-6. Start the updated kubelet & kube-proxy with `Start-Service kubelet`
-
-
-### ​Running Tests
-
-For the most up-to-date steps on how to build and run tests, please go to [https://github.com/kubernetes-sigs/windows-testing](https://github.com/kubernetes-sigs/windows-testing) . It has everything you need to build and run tests, as well as links to the SIG-Windows configurations used on [TestGrid](https://testgrid.k8s.io/sig-windows).
-
-
-## Reporting Issues
-
-
-### Gathering Logs
-
-Gathering trouble shooting info for CNI. [https://github.com/kubernetes/kubernetes/issues/74766#issuecomment-468736127](https://github.com/kubernetes/kubernetes/issues/74766#issuecomment-468736127) 
-
-On the node before creating the pod for the first time.
-
-start-birstranfer [https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/windows/debug/collectlogs.ps1](https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/windows/debug/collectlogs.ps1)
-
-run collectlogs.ps1
-
-then start the trace by running the following command
-
-C:\k\debug\starthnstrace.cmd
-
-repro the issue
-
-run "netsh trace stop"
-
-then do again collectlogs.ps1
-
-and send us both before and after collectlogs.ps1 and C:\server.etl
-
-
-<!-- Docs to Markdown version 1.0β16 -->
-
-
-
