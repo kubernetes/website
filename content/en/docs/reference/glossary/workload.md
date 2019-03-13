@@ -2,9 +2,9 @@
 title: Workloads
 id: workloads
 date: 2019-02-13
-full_link: https://kubernetes.io/docs/concepts/workloads/
+full_link: /docs/concepts/workloads/
 short_description: >
-   A workload is a framing term to refer to a set of APIs/resources/objects.
+   Workloads are objects you use to manage and run your containers on the cluster.
 
 aka: 
 tags:
@@ -12,14 +12,13 @@ tags:
 - core-object
 - workload
 ---
-  A workload is a framing term to refer to a set of APIs/resources/objects.
+  Workloads are objects you use to manage and run your containers on the cluster.
 
 <!--more--> 
 
-Workload is a framing term to refer to a set of APIs/resources/objects. Kubernetes performs the 
-deployment and updates the workload with the current state of the application. Workloads let you define the 
-rules for application scheduling, scaling, and upgrade.
-Workloads includes the Daemon Sets, Deployments, Jobs, Pods, Replica Sets, Replication Controllers, Stateful Sets.
+Workloads are objects you use to manage and run your containers on the cluster. Kubernetes performs the 
+deployment and updates the workload with the current state of the application.
+Workloads include the DaemonSet, Deployments, Jobs, Pods, ReplicaSet, ReplicationController, StatefulSet.
 
 For example, a workload that has a web element and a database element might run the
 database in one {{< glossary_tooltip term_id="StatefulSet" >}} of
