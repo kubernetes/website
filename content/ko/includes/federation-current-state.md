@@ -1,0 +1,1 @@
+쿠버네티스 API 리소스를 '있는 그대로' 재사용하는 현재의 쿠버네티스 페더레이션 API `Federation V1`는 많은 특징에 의해서 알파 상태로 여겨지고 있다. 페더레이션 API를 GA 단계로 진화시키는데 명확한 길은 없지만, 쿠버네티스 API와 별도로 페더레이션 전용 API를 구현하기 위한 `Federation V2`에 대한 노력이 진행 중이다. 자세한 사항은 [sig-multicluster 커뮤니티 페이지](https://github.com/kubernetes/community/tree/master/sig-multicluster)에서 확인할 수 있다.
