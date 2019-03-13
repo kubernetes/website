@@ -3,7 +3,7 @@ title: Using Windows Server Containers in Kubernetes
 toc_hide: true
 ---
 {{< note >}}
-These instructions are under revision for the v1.14 release with a [tracking issue](https://github.com/kubernetes/website/issues/12426). You can find the WIP draft in a [Google Doc](https://docs.google.com/document/d/1a2bRd7PZXygIEm4cEcCeLXpEqJ7opakP_j4Pc6AJVYA/edit?usp=sharing)
+These instructions are under review for the v1.14 release with a [tracking issue](https://github.com/kubernetes/website/issues/12426).
 {{< /note >}}
 
 ## ​Motivation
@@ -17,8 +17,9 @@ To enable the orchestration of Windows containers in Kubernetes, simply include 
 
 In order to run Windows containers, your Kubernetes cluster must include multiple operating systems, with control plane nodes running Linux and workers running either Windows or Linux depending on your workload needs. Windows Server 2019 is the only Windows operating system supported, enabling [Kubernetes Node](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) on Windows (including kubelet, [container runtime](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd), and kube-proxy). For a detailed explanation of Windows distribution channels see the [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
-NOTE: The Kubernetes control plane, including the [master components](https://kubernetes.io/docs/concepts/overview/components/), will continue to run on Linux. There are no plans have a Windows-only Kubernetes cluster.
-
+{{< note >}}
+The Kubernetes control plane, including the [master components](https://kubernetes.io/docs/concepts/overview/components/), will continue to run on Linux. There are no plans have a Windows-only Kubernetes cluster.
+{{</ note >}}
 
 ## ​Supported Functionality and Limitations
 
@@ -67,12 +68,12 @@ Let's start with the operating system version. Refer to the following table for 
 </table>
 
 
-
-    NOTE: The Windows Server Host Operating System is subject to the [Windows Server ](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) licensing. The Windows Container images are subject to the [Supplemental License Terms for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula).
-
-
-    NOTE: Windows containers have strict compatibility rules, [where the host OS version must match the container base image OS version.](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility)
-
+{{< note >}}
+    The Windows Server Host Operating System is subject to the [Windows Server ](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) licensing. The Windows Container images are subject to the [Supplemental License Terms for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula).
+{{</ note >}}
+{{< note >}}
+    Windows containers have strict compatibility rules, [where the host OS version must match the container base image OS version.](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility)
+{{</ note >}}
 Key Kubernetes elements work the same way in Windows as they do in Linux. In this section, we will talk about some of the key workload enablers and how they map to Windows.
 
 
@@ -610,9 +611,9 @@ net-conf.json: |
         *   VNI 4096 is set in the backend
         *   Port 4789 is set in the backend
 2. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to "`vxlan0"`.
-
-Note: The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
-
+{{< note >}}
+The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
+{{< note >}}
 Your `cni-conf.json` should look as follows:
 
 
@@ -680,9 +681,9 @@ In this section we'll cover configuring a Windows node from scratch to join a cl
 
 
 #### Preparing a Windows Node
-
-Note: All code snippets in Windows sections are to be run in a PowerShell environment with elevated permissions (Admin).
-
+{{< note >}}
+All code snippets in Windows sections are to be run in a PowerShell environment with elevated permissions (Admin).
+{{</ note >}}
 
 
 1. Install Docker (requires a system reboot)
@@ -714,16 +715,14 @@ If so then you need to restart the docker service manually:
 Start-Service docker
 ```
 
-
-Note: the "pause" (infrastructure) image is on Microsoft Container Registry (MCR) and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) 
-
+{{< note >}}
+The "pause" (infrastructure) image is on Microsoft Container Registry (MCR) and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) 
+{{</ note >}}
 
 ```
 docker pull mcr.microsoft.com/k8s/core/pause:1.0.0
 
 ```
-
-
 
 2. Prepare a Windows directory for Kubernetes
 
@@ -765,9 +764,9 @@ cd c:\k
 wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/start.ps1 -o c:\k\start.ps1
 ```
 
-
-Note: [start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1) references [install.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/install.ps1), which will download additional files such as the `flanneld` executable and the [Dockerfile for infrastructure pod](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) and install those for you. For overlay networking mode, the [firewall](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/helper.psm1#L111) will be opened for local UDP port 4789. There may be multiple powershell windows being opened/closed as well as a few seconds of network outage while the new external vSwitch for the pod network is being created the first time. Run the script using the arguments as specified below:
-
+{{< note >}}
+[start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1) references [install.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/install.ps1), which will download additional files such as the `flanneld` executable and the [Dockerfile for infrastructure pod](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) and install those for you. For overlay networking mode, the [firewall](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/helper.psm1#L111) will be opened for local UDP port 4789. There may be multiple powershell windows being opened/closed as well as a few seconds of network outage while the new external vSwitch for the pod network is being created the first time. Run the script using the arguments as specified below:
+{{</ note >}}
 
 ```
 .\start.ps1 -ManagementIP <Windows Node IP> -NetworkMode overlay  -ClusterCIDR <Cluster CIDR> -ServiceCIDR <Service CIDR> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Log directory>
@@ -944,9 +943,9 @@ spec:
         beta.kubernetes.io/os: windows
 ```
 
-
+{{< note >}}
 Note: Port mapping is also supported, but for simplicity in this example the container port 80 is exposed directly to the service.
-
+{{</ note >}}
 
 
 2. Check that all nodes are healthy:
@@ -977,9 +976,9 @@ Note: Port mapping is also supported, but for simplicity in this example the con
     *   Service discovery, `curl` the service name with the Kubernetes[ default DNS suffix](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services)
     *   Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
     *   Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
-
-**Note: **Windows _container hosts_ are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows _pods_ are able to access service IPs.
-
+{{< note >}}
+**Windows _container hosts_ are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows _pods_ are able to access service IPs.
+{{</ note >}}
 
 ## Managing Workload Identity with Group Managed Service Accounts
 
