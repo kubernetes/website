@@ -144,7 +144,6 @@ few commands. These solutions are actively developed and have active community s
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Supergiant.io](https://supergiant.io/)
-* [Tectonic by CoreOS](https://coreos.com/tectonic)
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)
 * [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)
 
@@ -189,7 +188,6 @@ with a single command per machine.
 These solutions are combinations of cloud providers and operating systems not covered by the above solutions.
 
 * [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
-* [CoreOS on AWS or GCE](/docs/setup/custom-cloud/coreos/)
 * [Gardener](https://gardener.cloud/)
 * [Kublr](www.kublr.com/kubernetes.io/setup-hosted-solution)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
@@ -200,20 +198,17 @@ These solutions are combinations of cloud providers and operating systems not co
 ### On-Premises VMs
 
 * [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
-* [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible, CoreOS and flannel)
+* [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
 * [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [oVirt](/docs/setup/on-premises-vm/ovirt/)
-* [Vagrant](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
-* [VMware](/docs/setup/custom-cloud/coreos/) (uses CoreOS and flannel)
 * [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-PKS)
 * [VMware vSphere](https://github.com/kubernetes/cloud-provider-vsphere)
 * [VMware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
 
 ### Bare Metal
 
-* [CoreOS](/docs/setup/custom-cloud/coreos/)
 * [Digital Rebar](/docs/setup/on-premises-metal/krib/)
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
@@ -257,9 +252,6 @@ Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/gettin
 libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
 KVM                  | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
 DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/getting-started-guides/dcos/)                                   |  Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
-AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/setup/turnkey/aws/)                                 |  Community
-GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires))
-Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
 CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack/)                             |  Community ([@sebgoa](https://github.com/sebgoa))
 VMware vSphere       | any          | multi-support | multi-support     | [docs](https://github.com/kubernetes/cloud-provider-vsphere/tree/master/docs)  |  [Community](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/contactus.html)
 Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/getting-started-guides/centos/centos_manual_config/)            |  Community ([@coolsvap](https://github.com/coolsvap))
