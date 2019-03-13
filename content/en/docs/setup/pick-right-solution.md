@@ -67,9 +67,9 @@ cluster.
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) is a Terraform/Packer/BASH based Infrastructure as Code (IaC) scripts to create a seven node (1 Boot, 1 Master, 1 Management, 1 Proxy and 3 Workers) LXD cluster on  Linux Host.
 
-* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
-
 * [Kind](https://kind.sigs.k8s.io/), Kubernetes IN Docker is a tool for running local Kubernetes clusters using Docker containers as "nodes". It is primarily designed for testing Kubernetes, initially targeting the conformance tests.
+
+* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
 ## Hosted Solutions
 
