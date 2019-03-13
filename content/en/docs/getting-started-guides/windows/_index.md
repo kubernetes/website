@@ -984,15 +984,15 @@ Often it is worthwhile to modify the [InterfaceName](https://github.com/Microsof
 
 Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you will need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service will expect the image to be tagged as :latest.
 
+## Further investigation
+
+Check the DNS limitations for Windows in this section [todo insert link].
+
 If these steps don't resolve your problem, you can get help running Windows Containers on Windows nodes in Kubernetes through:
 
 * StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
 * Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
 * Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/C0SJ4AFB7)
-
-13. DNS resolution is not properly working
-
-Check the DNS limitations for Windows in this section [todo insert link].
 
 ## Bugs and Feature Requests
 
