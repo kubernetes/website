@@ -76,7 +76,7 @@ Use the file [`namespace-dev.json`](/examples/admin/namespace-dev.json) which de
 Create the `development` namespace using kubectl.
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
+kubectl create -f namespace-dev.json
 ```
 
 Save the following contents into file [`namespace-prod.json`](/examples/admin/namespace-prod.json) which describes a `production` namespace:
@@ -86,7 +86,7 @@ Save the following contents into file [`namespace-prod.json`](/examples/admin/na
 And then let's create the `production` namespace using kubectl.
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
+kubectl create -f namespace-prod.json
 ```
 
 To be sure things are right, let's list all of the namespaces in our cluster.
