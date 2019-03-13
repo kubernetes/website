@@ -1302,7 +1302,7 @@ configuration changes to existing Storage Classes, PVs or PVCs (referring to
 in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
 
 In the alpha state, the operations and features that are supported include 
-provisioning/de-provision, attach/detach and mount/unmount of volumes.
+provisioning/delete, attach/detach and mount/unmount of volumes with `volumeMode` set to `filesystem`
 
 In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented 
 are listed in the "Types of Volumes" section above.
