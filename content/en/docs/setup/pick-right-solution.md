@@ -285,10 +285,6 @@ VMware vSphere       | Juju         | Ubuntu | flannel/calico/canal     | [docs]
 VMware Cloud PKS     |              | Photon OS | Canal | [docs](https://docs.vmware.com/en/VMware-Kubernetes-Engine/index.html) | Commercial
 VMware Enterprise PKS     | BOSH       | Ubuntu | VMware NSX-T/flannel | [docs](https://docs.vmware.com/en/VMware-Enterprise-PKS/) | Commercial
 
-{{< note >}}
-The above table is ordered by version test/used in nodes, followed by support level.
-{{< /note >}}
-
 ### Definition of columns
 
 * **IaaS Provider** is the product or organization which provides the virtual or physical machines (nodes) that Kubernetes runs on.
