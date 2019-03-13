@@ -239,7 +239,7 @@ roleRef:
 ```
 
 ### Configure GMSA credential spec reference in pod spec
-In the alpha stage of the feature, the annotation `pod.alpha.windows.kubernetes.io/gmsa-credential-spec-name` is used to specify references to desired GMSA credential spec custom resources from pod specs. A sample pod spec with the annotation populated:
+In the alpha stage of the feature, the annotation `pod.alpha.windows.kubernetes.io/gmsa-credential-spec-name` is used to specify references to desired GMSA credential spec custom resources from pod specs. This configures all containers in the podspec to use the specified GMSA. A sample pod spec with the annotation populated:
 
 ```
 apiVersion: apps/v1beta1
@@ -256,16 +256,45 @@ spec:
       run: with-creds
   template:
     metadata:
-      creationTimestamp: null
       labels:
         run: with-creds
       annotations:
         pod.alpha.windows.kubernetes.io/gmsa-credential-spec-name: gmsa-WebApp1
     spec:
       containers:
-      - image: xxxxx/test-ad-loop
+      - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
         imagePullPolicy: Always
-        name: with-creds
+        name: iis
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+```
+
+Individual containers in a pod spec can also specify the desired GMSA credspec using annotation `<containerName>.container.alpha.windows.kubernetes.io/gmsa-credential-spec`. For example:
+
+```
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: with-creds
+  name: with-creds
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: with-creds
+  template:
+    metadata:
+      labels:
+        run: with-creds
+      annotations:
+        iis.container.alpha.windows.kubernetes.io/gmsa-credential-spec-name: gmsa-WebApp1
+    spec:
+      containers:
+      - image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+        imagePullPolicy: Always
+        name: iis
       nodeSelector:
         beta.kubernetes.io/os: windows
 ```
