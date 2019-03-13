@@ -148,6 +148,12 @@ spec:
       fsType: ext4
 ```
 
+#### CSI Migration 
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+To enable the feature, set `CSIMigration` and `CSIMigrationAWS` alpha feature gates to `true`. Once enabled, this feature shims all plugin operations from in-tree `awsElasticBlockStore` plugin to [AWS EBS CSI Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver). To use this feature, AWS EBS CSI driver must be installed on the cluster.
+
 ### azureDisk {#azuredisk}
 
 A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
@@ -400,6 +406,17 @@ spec:
     pdName: my-data-disk
     fsType: ext4
 ```
+
+#### CSI Migration
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature for GCE PD, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
+Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
+Alpha features must be enabled.
 
 ### gitRepo (deprecated) {#gitrepo}
 
