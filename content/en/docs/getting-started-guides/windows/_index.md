@@ -65,10 +65,10 @@ Let's start with the operating system version. Refer to the following table for 
 </table>
 
 {{< note >}}
-    The Windows Server Host Operating System is subject to the [Windows Server ](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) licensing. The Windows Container images are subject to the [Supplemental License Terms for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula).
+The Windows Server Host Operating System is subject to the [Windows Server ](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) licensing. The Windows Container images are subject to the [Supplemental License Terms for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula).
 {{< /note >}}
 {{< note >}}
-    Windows containers have strict compatibility rules, [where the host OS version must match the container base image OS version.](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility)
+Windows containers have strict compatibility rules, [where the host OS version must match the container base image OS version.](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility)
 {{< /note >}}
 
 Key Kubernetes elements work the same way in Windows as they do in Linux. In this section, we will talk about some of the key workload enablers and how they map to Windows.
@@ -757,33 +757,23 @@ Now that you've configured a Windows worker in your cluster to run Windows conta
 
 # User Guide: Scheduling Windows containers in Kubernetes
 
-
 ## Objectives
 
-
-
-*   Configure an example deployment to run Windows containers on the Windows node
-*   (Optional) Configure an Active Directory Identity for your Pod using Group Managed Service Accounts (GMSA)
-
+* Configure an example deployment to run Windows containers on the Windows node
+* (Optional) Configure an Active Directory Identity for your Pod using Group Managed Service Accounts (GMSA)
 
 ## Before you begin
 
-
-
-*   Create a Kubernetes cluster that includes a master and a worker node running Windows Server <todo link to section 2 user guide>
-*   It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](https://kubernetes.io/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
-
+* Create a Kubernetes cluster that includes a master and a worker node running Windows Server <todo link to section 2 user guide>
+* It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](https://kubernetes.io/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
 
 ## ​Getting Started: Deploying a Windows Container
-
-
 
 1. Create a simple webserver example:
 
 Create a service spec `win-webserver.yaml` with the contents below: [TODO create this as a file in the docs folder and add a link]
 
-
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -826,59 +816,51 @@ spec:
 
 {{< note >}}
 Note: Port mapping is also supported, but for simplicity in this example the container port 80 is exposed directly to the service.
-{{</ note >}}
-
+{{< /note >}}
 
 2. Check that all nodes are healthy:
 
-    ```
-    kubectl get nodes
-    ```
-
+```bash
+kubectl get nodes
+```
 
 3. Deploy the service and watch for pod updates:
 
-    ```
-    kubectl apply -f win-webserver.yaml
+```bash
+kubectl apply -f win-webserver.yaml
+kubectl get pods -o wide -w
+```
 
-    	kubectl get pods -o wide -w
-    	When the service is deployed correctly both Pods will be marked as Ready. To exit the watch command, press Ctrl+C.
-
-    ```
-
-
+When the service is deployed correctly both Pods will be marked as Ready. To exit the watch command, press Ctrl+C.
 
 4. Check that the deployment succeeded. To verify:
-    *   Two containers per pod on the Windows node, use `docker ps` 
-    *   Two pods listed from the Linux master, use `kubectl get pods` 
-    *   Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
-    *   Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
-    *   Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
-    *   Service discovery, `curl` the service name with the Kubernetes[ default DNS suffix](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services)
-    *   Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
-    *   Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
+
+* Two containers per pod on the Windows node, use `docker ps` 
+* Two pods listed from the Linux master, use `kubectl get pods` 
+* Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
+* Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
+* Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
+* Service discovery, `curl` the service name with the Kubernetes[ default DNS suffix](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services)
+* Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
+* Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 {{< note >}}
 **Windows _container hosts_ are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows _pods_ are able to access service IPs.
-{{</ note >}}
+{{< /note >}}
 
 ## Managing Workload Identity with Group Managed Service Accounts
 
 Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](https://kubernetes.io/docs/concepts/configuration/workload-identity/).
 
-
 ## Taints and Tolerations
 
 Users today will need to use some combination of taints and node selectors in order to keep Linux and Windows workloads on their respective OS-specific nodes. This will likely impose a burden only on Windows users. The recommended approach is outlined below, with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
-
 
 ### Ensuring OS-specific workloads land on the appropriate container host
 
 Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. All Kubernetes nodes today have the following default labels:
 
-
-
-*   beta.kubernetes.io/os = [windows|linux]
-*   beta.kubernetes.io/arch = [amd64|arm64|...]
+* beta.kubernetes.io/os = [windows|linux]
+* beta.kubernetes.io/arch = [amd64|arm64|...]
 
 If a Pod specification does not specify a nodeSelector like `"beta.kubernetes.io/os": windows`, it is possible the Pod can be scheduled on any host, Windows or Linux. This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. The best practice is to use a nodeSelector.
 
@@ -888,8 +870,7 @@ For example:  `--register-with-taints='os=Win1809:NoSchedule'`
 
 By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). In order for a Windows Pod to be scheduled on a Windows node, it would need both the nodeSelector to choose Windows, and the appropriate matching toleration.
 
-
-```
+```yaml
 nodeSelector:
     "beta.kubernetes.io/os": windows
 tolerations:
@@ -899,58 +880,42 @@ tolerations:
       effect: "NoSchedule"
 ```
 
-
-
 # ​Getting Help and Troubleshooting
 
 Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section.
-
-
 
 1. How do I know start.ps1 completed successfully?
 
 You should see kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flanneld host-agent processes running on your node, with running logs being displayed in separate PowerShell windows. In addition to this, your Windows node should be listed as "Ready" in your Kubernetes cluster.
 
-
-
 2. Can I configure the Kubernetes node processes run in the background?
-    1. As native Windows Services
+   1. As native Windows Services
 
 Kubelet & kube-proxy can be run as native [Windows Services](https://kubernetes.io/docs/getting-started-guides/windows/#kubelet-and-kube-proxy-can-now-run-as-windows-services). See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. [TODO create a section for setting up as Windows Services]
-
-
-
-    2. Using nssm.exe
+   2. Using nssm.exe
 
 Kubelet and kube-proxy are already configured to run as native Windows Services. However, you can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
 
-
-```
+```powershell
 nssm set <Service Name> AppStdout C:\k\mysvc.log
 nssm set <Service Name> AppStderr C:\k\mysvc.log
 ```
 
-
 For additional details, see official [nssm usage](https://nssm.cc/usage) docs.
-
-
 
 3. My Windows Pods do not have network connectivity
 
 If you are using virtual machines, ensure that MAC spoofing is enabled on all the VM network adapter(s).
 
-
-
 4. My Windows Pods cannot ping external resources
 
-Windows Pods do not have outbound rules programmed for the ICMP protocol today. However, TCP/UDP is supported. When trying to demonstrate connectivity to resources outside of the cluster, please substitute `ping <IP>` with corresponding `curl <IP>` commands. \
- \
-If you are still facing problems, most likely your network configuration in [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf) deserves some extra attention. You can always edit this static file, the configuration will be applied to any newly created Kubernetes resources. \
- \
+Windows Pods do not have outbound rules programmed for the ICMP protocol today. However, TCP/UDP is supported. When trying to demonstrate connectivity to resources outside of the cluster, please substitute `ping <IP>` with corresponding `curl <IP>` commands.
+
+If you are still facing problems, most likely your network configuration in [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf) deserves some extra attention. You can always edit this static file, the configuration will be applied to any newly created Kubernetes resources.
+
 One of the Kubernetes networking requirements (see [Kubernetes model](https://kubernetes.io/docs/concepts/cluster-administration/networking/)) is for cluster communication to occur without NAT internally. To honor this requirement, there is an [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) for all the communication where we do not want outbound NAT to occur. However, this also means that you need to exclude the external IP you are trying to query from the ExceptionList. Only then will the traffic originating from your Windows pods be SNAT'ed correctly to receive a response from the outside world. In this regard, your ExceptionList in `cni.conf` should look as follows:
 
-
-```
+```conf
 "ExceptionList": [
                     "10.244.0.0/16",  # Cluster subnet
                     "10.96.0.0/12",   # Service subnet
@@ -959,87 +924,61 @@ One of the Kubernetes networking requirements (see [Kubernetes model](https://ku
 
 ```
 
-
-
 5. My Windows node cannot access NodePort service
 
 Local NodePort access from the node itself will fail. This is a known limitation. NodePort access will work from other nodes or external clients.
-
-
 
 6. vNICs and HNS endpoints of containers are being deleted
 
 This issue can be caused when the `hostname-override` parameter is not passed to [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/). To resolve it, users need to pass the hostname to kube-proxy as follows:
 
-
-```
+```powershell
 C:\k\kube-proxy.exe --hostname-override=$(hostname)
-
 ```
-
-
 
 7. With flannel my nodes are having issues after rejoining a cluster
 
 Whenever a previously deleted node is being re-joined to the cluster, flannelD will try to assign a new pod subnet to the node. Users should remove the old pod subnet configuration files in the following paths:
 
-
-```
+```powershell
 Remove-Item C:\k\SourceVip.json
 Remove-Item C:\k\SourceVipRequest.json
-
 ```
-
-
 
 8. After launching `start.ps1`, flanneld is stuck in "Waiting for the Network to be created"
 
 There are numerous reports of this issue which are being investigated; most likely it is a timing issue for when the management IP of the flannel network is set. A workaround is to simply relaunch start.ps1 or relaunch it manually as follows:
 
-
-```
+```powershell
 PS C:> [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")
 PS C:> C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows_Worker_Node_IP> --ip-masq=1 --kube-subnet-mgr=1
-
 ```
-
-
 
 9. My Windows Pods cannot launch because of missing `/run/flannel/subnet.env`
 
 This indicates that Flannel didn't launch correctly. You can either try to restart flanneld.exe or you can copy the files over manually from `/run/flannel/subnet.env` on the Kubernetes master to` C:\run\flannel\subnet.env` on the Windows worker node and modify the `FLANNEL_SUBNET` row to a different number. For example, if node subnet 10.244.4.1/24 is desired:
 
-
-```
+```env
 FLANNEL_NETWORK=10.244.0.0/16
 FLANNEL_SUBNET=10.244.4.1/24
 FLANNEL_MTU=1500
 FLANNEL_IPMASQ=true
-
 ```
-
-
 
 10. My Windows node cannot access my services using the service IP
 
 This is a known limitation of the current networking stack on Windows. Windows Pods are able to access the service IP however.
 
-
-
 11. No network adapter is found when starting kubelet
 
 The Windows networking stack needs a virtual adapter for Kubernetes networking to work. If the following commands return no results (in an admin shell), virtual network creation — a necessary prerequisite for Kubelet to work — has failed:
 
-
-```
+```powershell
 Get-HnsNetwork | ? Name -ieq "cbr0"
 Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
 ```
 
-
 Often it is worthwhile to modify the [InterfaceName](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/start.ps1#L6) parameter of the start.ps1 script, in cases where the host's network adapter isn't "Ethernet". Otherwise, consult the output of the `start-kubelet.ps1` script to see if there are errors during virtual network creation.
-
-
 
 12. My Pods are stuck at "Container Creating" or restarting over and over
 
@@ -1047,17 +986,15 @@ Check that your pause image is compatible with your OS version. The [instruction
 
 If these steps don't resolve your problem, you can get help running Windows Containers on Windows nodes in Kubernetes through:
 
+* StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
+* Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
+* Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/C0SJ4AFB7)
 
+13. DNS resolution is not properly working
 
-*   StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
-*   Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
-*   Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/C0SJ4AFB7)
-1. DNS resolution is not properly working
+Check the DNS limitations for Windows in this section [todo insert link].
 
-Check the DNS limitations for Windows in this section [todo insert link]. 
-
-
-### Bugs and Feature Requests
+## Bugs and Feature Requests
 
 If you have what looks like a bug, or you would like to make a feature request, please use the [Github issue tracking system](https://github.com/kubernetes/kubernetes/issues).
 
@@ -1065,33 +1002,26 @@ Before you file an issue, please search existing issues to see if your issue is 
 
 If filing a bug, please include detailed information about how to reproduce the problem, such as:
 
-
-
-*   Kubernetes version: kubectl version
-*   Cloud provider, OS distro, network configuration, and Docker version
-*   Steps to reproduce the problem
-*   Tag the issue sig/windows to bring it to the Windows Special Interest Group member attention
-
+* Kubernetes version: kubectl version
+* Cloud provider, OS distro, network configuration, and Docker version
+* Steps to reproduce the problem
+* Tag the issue sig/windows to bring it to the Windows Special Interest Group member attention
 
 # Roadmap
 
-We have a lot of features in our roadmap. 
+We have a lot of features in our roadmap.
 
-
-### CRI-ContainerD
+## CRI-ContainerD
 
 ContainerD is another OCI-compliant runtime that recently graduated as a CNCF project. It's currently tested on Linux, but 1.3 will bring support for Windows and Hyper-V. [[reference](https://blog.docker.com/2019/02/containerd-graduates-within-the-cncf/)]
 
 The CRI-ContainerD interface will be able to manage sandboxes based on Hyper-V. This provides a foundation where RuntimeClasses could be implemented for new use cases including:
 
+* Hypervisor-based isolation between pods for additional security
+* Backwards compatibility allowing a node to run a newer Windows Server version without requiring containers to be rebuilt
+* Specific CPU/NUMA settings for a pod
+* Memory isolation and reservations
 
-
-*   Hypervisor-based isolation between pods for additional security
-*   Backwards compatibility allowing a node to run a newer Windows Server version without requiring containers to be rebuilt
-*   Specific CPU/NUMA settings for a pod
-*   Memory isolation and reservations
-
-
-### Deployment with kubeadm and cluster API
+## Deployment with kubeadm and cluster API
 
 Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
