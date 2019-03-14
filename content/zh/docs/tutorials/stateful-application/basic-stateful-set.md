@@ -478,8 +478,11 @@ web-1   k8s.gcr.io/nginx-slim:0.8
 web-2   k8s.gcr.io/nginx-slim:0.8
 ```
 
+<!--
 `web-0` has had its image updated, but `web-0` and `web-1` still have the original 
 image. Complete the update by deleting the remaining Pod.
+-->
+`web-0` 已经更新了它的镜像，但是 `web-0` 和 `web-1` 仍保留了原始镜像。通过删除剩余的 Pod 完成更新。
 
 ​```shell
 kubectl delete pod web-1 web-2
