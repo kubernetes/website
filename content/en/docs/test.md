@@ -350,3 +350,19 @@ To add shortcodes to includes.
 ## Katacoda Embedded Live Environment
 
 {{< kat-button >}}
+
+## Table for Removed Fields 
+
+1. Because OpenAPI v2 doesn't support them, the following fields are removed:
+
+   * `oneOf`, `anyOf`, and `not`
+
+   {{< note >}}OpenAPI v3 will be used without these restrictions{{< /note >}}
+   
+2. The following table lists fields that are removed because they aren't allowed by kubectl in v1.13. 
+
+   |Schema | Fields Removed | Conditional Removal |
+   |`$ref`| `properties`, `type`| If the `$ref` is outside of the `definition`, the field `$ref` is removed|
+   |  | | |
+
+3. The following fields are removed as they aren’t supported by the OpenAPI protobuf implementation
