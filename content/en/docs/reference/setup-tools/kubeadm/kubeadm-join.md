@@ -16,7 +16,7 @@ This command initializes a Kubernetes worker node and joins it to the cluster.
 
 ### The join workflow {#join-workflow}
 
-`kubeadm join` bootstraps a Kubernetes worker or a control-plane node and adds it to the cluster.
+`kubeadm join` bootstraps a Kubernetes worker node or a control-plane node and adds it to the cluster.
 This action consists of the following steps for worker nodes:
 
 1. kubeadm downloads necessary cluster information from the API server.
@@ -36,9 +36,10 @@ This action consists of the following steps for worker nodes:
 
 For control-plane nodes additional steps are performed:
 
-1. Downloading certificates shared among control-plane nodes from the cluster.
+1. Downloading certificates shared among control-plane nodes from the cluster
+  (if explicitly requested by the user).
 
-1. Generating control-plane component manifests, certificites and kubeconfig.
+1. Generating control-plane component manifests, certificates and kubeconfig.
 
 1. Adding new local etcd member.
 

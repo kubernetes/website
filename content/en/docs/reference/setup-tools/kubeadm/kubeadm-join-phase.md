@@ -2,7 +2,7 @@
 title: kubeadm join phase
 weight: 90
 ---
-In v1.14.0, kubeadm introduces the `kubeadm join phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the bootstrap process.
+In v1.14.0, kubeadm introduces the `kubeadm join phase` command with the aim of making kubeadm more modular. This modularity enables you to invoke atomic sub-steps of the join process.
 Hence, you can let kubeadm do some parts and fill in yourself where you need customizations.
 
 `kubeadm join phase` is consistent with the [kubeadm join workflow](/docs/reference/setup-tools/kubeadm/kubeadm-join/#join-workflow),

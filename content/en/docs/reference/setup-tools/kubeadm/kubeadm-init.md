@@ -49,7 +49,7 @@ following steps:
    run there.
 
 1. Generates the token that additional nodes can use to register
-   themselves with the primary control-plane in the future.  Optionally, the user can provide a
+   themselves with a control-plane in the future. Optionally, the user can provide a
    token via `--token`, as described in the
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 
@@ -266,21 +266,6 @@ with the `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster
 
 You may also want to set `--cri-socket` to `kubeadm init` and `kubeadm reset` when
 using an external CRI implementation.
-
-### Using internal IPs in your cluster
-
-In order to set up a cluster where the control-plane and worker nodes communicate with internal IP addresses
-(instead of public ones), execute following steps.
-
-1. When running init, you must make sure you specify an internal IP for the API server's bind address, like so:
-
-   `kubeadm init --apiserver-advertise-address=<private-control-plane-node-ip>`
-
-2. When a control-plane or a worker node has been provisioned, add a flag to `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` that specifies the private IP of the worker node:
-
-   `--node-ip=<private-node-ip>`
-
-3. Finally, when you run `kubeadm join`, make sure you provide the private IP of the API server addressed as defined in step 1.
 
 ### Setting the node name
 
