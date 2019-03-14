@@ -52,6 +52,7 @@ Run the example CronJob by using this command:
 ```shell
 kubectl create -f https://k8s.io/examples/application/job/cronjob.yaml
 ```
+The output is similar to this:
 
 ```
 cronjob.batch/hello created
@@ -63,15 +64,12 @@ Alternatively, you can use `kubectl run` to create a cron job without writing a 
 kubectl run hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
 ```
 
-```
-cronjob.batch/hello created
-```
-
 After creating the cron job, get its status using this command:
 
 ```shell
 kubectl get cronjob hello
 ```
+The output is similar to this:
 
 ```
 NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
@@ -84,6 +82,7 @@ Watch for the job to be created in around one minute:
 ```shell
 kubectl get jobs --watch
 ```
+The output is similar to this:
 
 ```
 NAME               COMPLETIONS   DURATION   AGE
@@ -98,14 +97,14 @@ You can stop watching the job and view the cron job again to see that it schedul
 ```shell
 kubectl get cronjob hello
 ```
+The output is similar to this:
 
 ```
 NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        50s             75s
 ```
 
-You should see that the cron job "hello" successfully scheduled a job at the time specified in `LAST SCHEDULE`.
-There are currently 0 active jobs, meaning that the job has completed or failed.
+You should see that the cron job `hello` successfully scheduled a job at the time specified in `LAST SCHEDULE`. There are currently 0 active jobs, meaning that the job has completed or failed.
 
 Now, find the pods that the last scheduled job created and view the standard output of one of the pods.
 
@@ -115,28 +114,13 @@ The job name and pod name are different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items.metadata.name})
 ```
-
-Check pod name:
-
-```shell
-echo $pods
-```
-
-The output is similar to this:
-
-```
-hello-4111706356-o9qcm
-```
-
 Show pod log:
-
 
 ```shell
 kubectl logs $pods
 ```
-
 The output is similar to this:
 
 ```
@@ -146,14 +130,10 @@ Hello from the Kubernetes cluster
 
 ## Deleting a Cron Job
 
-When you don't need a cron job any more, delete it with `kubectl delete cronjob`:
+When you don't need a cron job any more, delete it with `kubectl delete cronjob <cronjob name>`:
 
 ```shell
 kubectl delete cronjob hello
-```
-
-```
-cronjob.batch "hello" deleted
 ```
 
 Deleting the cron job removes all the jobs and pods it created and stops it from creating additional jobs.
@@ -203,21 +183,19 @@ After the deadline, the cron job does not start the job.
 Jobs that do not meet their deadline in this way count as failed jobs.
 If this field is not specified, the jobs have no deadline.
 
-The CronJob controller counts how many missed schedules happen for a cron job. If there are more than 100 missed
-schedules, the cron job is no longer scheduled. When `.spec.startingDeadlineSeconds` is not set, the CronJob
-controller counts missed schedules from `status.lastScheduleTime` until now. For example, one cron job is
-supposed to run every minute, the `status.lastScheduleTime` of the cronjob is 5:00am, but now it's 7:00am.
-That means 120 schedules were missed, so the cron job is no longer scheduled. If the `.spec.startingDeadlineSeconds`
-field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of
-`.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed
-schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the
-last 200 seconds, the cron job is no longer scheduled. 
+The CronJob controller counts how many missed schedules happen for a cron job. If there are more than 100 missed schedules, the cron job is no longer scheduled. When `.spec.startingDeadlineSeconds` is not set, the CronJob controller counts missed schedules from `status.lastScheduleTime` until now. 
+
+For example, one cron job is supposed to run every minute, the `status.lastScheduleTime` of the cronjob is 5:00am, but now it's 7:00am. That means 120 schedules were missed, so the cron job is no longer scheduled. 
+
+If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of `.spec.startingDeadlineSeconds` until now. 
+
+For example, if it is set to `200`, it counts how many missed schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the last 200 seconds, the cron job is no longer scheduled. 
 
 ### Concurrency Policy
 
 The `.spec.concurrencyPolicy` field is also optional.
 It specifies how to treat concurrent executions of a job that is created by this cron job.
-the spec may specify only one of the following concurrency policies:
+The spec may specify only one of the following concurrency policies:
 
 * `Allow` (default): The cron job allows concurrently running jobs
 * `Forbid`: The cron job does not allow concurrent runs; if it is time for a new job run and the previous job run hasn't finished yet, the cron job skips the new job run
