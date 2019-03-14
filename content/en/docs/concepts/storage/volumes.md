@@ -153,7 +153,12 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-To enable the feature, set `CSIMigration` and `CSIMigrationAWS` alpha feature gates to `true`. Once enabled, this feature shims all plugin operations from in-tree `awsElasticBlockStore` plugin to [AWS EBS CSI Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver). To use this feature, AWS EBS CSI driver must be installed on the cluster.
+The CSI Migration feature for awsElasticBlockStore, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `ebs.csi.aws.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [AWS EBS CSI
+Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAWS`
+Alpha features must be enabled.
 
 ### azureDisk {#azuredisk}
 
@@ -218,7 +223,12 @@ spec:
 
 {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
-To enable the feature, set `CSIMigration` and `CSIMigrationOpenStack` alpha feature gates to `true`. Once enabled, this feature shims all plugin operations from in-tree `cinder` plugin to [Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md). To use this feature, Cinder CSI driver must be installed on the cluster.
+The CSI Migration feature for Cinder, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
+Alpha features must be enabled.
 
 ### configMap {#configmap}
 
