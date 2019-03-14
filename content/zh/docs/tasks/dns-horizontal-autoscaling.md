@@ -48,7 +48,7 @@ Kubernetes cluster.
 <!--
 List the Deployments in your cluster in the kube-system namespace:
 -->
-在 kube-system 命名空间中列出集群中的 Deployment：
+列出集群中命名空间 kube-system 下的 Deployment：
 
     kubectl get deployment --namespace=kube-system
 
@@ -79,7 +79,7 @@ already enabled, and you can skip to
 <!--
 List the Deployments in your cluster in the kube-system namespace:
 -->
-在 kube-system 命名空间中列出集群中的 Deployment：
+列出集群中命名空间 kube-system 下的 Deployment：
 
     kubectl get deployment --namespace=kube-system
 
