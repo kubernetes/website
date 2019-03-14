@@ -89,7 +89,7 @@ The installation is simple and can be done in few steps:
   3. Run Cloud
   4. Run Edge
 
-The detailed steps for each are available at https://github.com/kubeedge/kubeedge
+The detailed steps for each are available at [KubeEdge/kubeedge](https://github.com/kubeedge/kubeedge)
 
 ## Future : Taking off with competent features and community collaboration
 
