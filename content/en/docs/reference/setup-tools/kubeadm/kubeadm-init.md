@@ -117,9 +117,10 @@ configuration file options. This file is passed in the `--config` option.
 
 In Kubernetes 1.11 and later, the default configuration can be printed out using the
 [kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+
 It is **recommended** that you migrate your old `v1alpha3` configuration to `v1beta1` using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
-because `v1alpha3` will be removed in Kubernetes 1.14.
+because `v1alpha3` will be removed in Kubernetes 1.15.
 
 For more details on each field in the `v1beta1` configuration you can navigate to our
 [API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
