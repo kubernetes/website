@@ -291,7 +291,7 @@ kubectl cluster-info dump
 
 kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing!
 
-Below are the procedures to set up autocompletion for Bash and Zsh. For Bash, it furthermore makes a difference whether you use Linux or macOS.
+Below are the procedures to set up autocompletion for Bash (including the difference between Linux and macOS) and Zsh.
 
 {{< tabs name="kubectl_autocompletion" >}}
 
