@@ -203,6 +203,7 @@ aliases:
     - markthink
     - tengqm
     - xiangpengzhao
+    - xichengliudui
     - zacharysarah
     - zhangxiaoyu-zidif
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
@@ -211,6 +212,7 @@ aliases:
     - markthink
     - tengqm
     - xiangpengzhao
+    - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
   sig-federation: #Team: Federation; e.g. Federated Clusters
