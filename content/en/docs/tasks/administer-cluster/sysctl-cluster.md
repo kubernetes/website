@@ -83,7 +83,7 @@ kubelet --allowed-unsafe-sysctls \
 For minikube, this can be done via the `extra-config` flag:
 
 ```shell
-minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
+minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
 ```
 
 Only _namespaced_ sysctls can be enabled this way.
