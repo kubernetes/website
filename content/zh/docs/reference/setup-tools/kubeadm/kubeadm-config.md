@@ -34,7 +34,7 @@ to list and pull the images that kubeadm requires.
 -->
 
 在 Kubernetes v1.11.0 中，添加了一些新命令。你可以使用 kubeadm config print-default
-打印默认配置,也可以用 kubeadm config migrate 来将就配置文件转换到较新的版本。可以使用 kubeadm config images list 和 kubeadm config images pull
+打印默认配置，可以用 kubeadm config migrate 来将旧的配置文件转换到较新的版本，还可以使用 kubeadm config images list 和 kubeadm config images pull
 列出并拉取 kubeadm 所需的镜像。
 
 {{% /capture %}}
@@ -68,6 +68,6 @@ to list and pull the images that kubeadm requires.
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 -->
 
-*  [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)将Kubernetes集群升级到更新版本[kubeadm upgrade]
+*  [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 将 Kubernetes 集群升级到更新版本 [kubeadm upgrade]
 {{% /capture %}}
 
