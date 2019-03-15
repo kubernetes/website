@@ -116,13 +116,13 @@ option. Your cluster requirements may need a different configuration.
     - `controlPlaneEndpoint` should match the address or DNS and port of the load balancer.
     - It's recommended that the versions of kubeadm, kubelet, kubectl and Kubernetes match.
 
-    {{< note >}}
-    Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-    some like Weave do not. See the [CNI network
-    documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
-    To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
-    the `networking` object of `ClusterConfiguration`.
-    {{< /note >}}
+{{< note >}}
+Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
+some like Weave do not. See the [CNI network
+documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
+To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
+the `networking` object of `ClusterConfiguration`.
+{{< /note >}}
 
 1.  Initialize the control plane:
 
@@ -158,9 +158,9 @@ option. Your cluster requirements may need a different configuration.
       sudo kubeadm init phase upload-certs --experimental-upload-certs
       ```
 
-    {{< caution >}}
-    As stated in the command output, please note that the certificate-key gives access to cluster sensitive data, keep it secret!
-    {{< /caution >}}
+{{< caution >}}
+As stated in the command output, please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+{{< /caution >}}
 
 1.  Apply the CNI plugin of your choice:
 
@@ -240,11 +240,11 @@ in the kubeadm config file.
                 certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
-      {{< note >}}
-      The difference between stacked etcd and external etcd here is that we are using
-      the `external` field for `etcd` in the kubeadm config. In the case of the stacked
-      etcd topology this is managed automatically.
-      {{< /note >}}
+{{< note >}}
+The difference between stacked etcd and external etcd here is that we are using
+the `external` field for `etcd` in the kubeadm config. In the case of the stacked
+etcd topology this is managed automatically.
+{{< /note >}}
 
     -  Replace the following variables in the config template with the appropriate values for your cluster:
 
