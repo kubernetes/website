@@ -160,9 +160,6 @@ SSH is required if you want to control all nodes from a single machine.
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
         kubernetesVersion: stable
-        apiServer:
-          certSANs:
-          - "LOAD_BALANCER_DNS"
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
 
     - `kubernetesVersion` should be set to the Kubernetes version to use. This
