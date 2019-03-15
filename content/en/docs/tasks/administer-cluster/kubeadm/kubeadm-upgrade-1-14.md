@@ -7,13 +7,19 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page explains how to upgrade a Kubernetes cluster created with `kubeadm` from version 1.13.x to version 1.14.x, and from version 1.14.x to 1.14.y, where `y > x`.
+This page explains how to upgrade a Kubernetes cluster created with `kubeadm` from version 1.13.x to version 1.14.x,
+and from version 1.14.x to 1.14.y, where `y > x`.
 
 The upgrade workflow at high level is the following:
 
 1. Upgrade the primary control plane node.
 1. Upgrade additional control plane nodes.
 1. Upgrade worker nodes.
+
+{{< note >}}
+With the release of Kubernetes v1.14, the kubeadm instructions for upgrading both HA and single control plane clusters
+are merged into a single document.
+{{</ note >}}
 
 {{% /capture %}}
 
@@ -26,7 +32,6 @@ The upgrade workflow at high level is the following:
 - Make sure to back up any important components, such as app-level state stored in a database.
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 
-
 [swap]: https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux
 ### Additional information
 
@@ -34,12 +39,6 @@ The upgrade workflow at high level is the following:
 - You can upgrade only from one minor version to the next minor version.
   That is, you cannot skip versions when you upgrade.
   For example, you can upgrade only from 1.y to 1.y+1, not from 1.y to 1.y+2
-
-{{< warning >}}
-The command `join --experimental-control-plane` is known to fail on single node clusters created with kubeadm v1.12 and then upgraded to v1.13.x.
-This will be fixed when graduating the `join --control-plane` workflow from alpha to beta.
-A possible workaround is described [here](https://github.com/kubernetes/kubeadm/issues/1269#issuecomment-441116249).
-{{</ warning >}}
 
 {{% /capture %}}
 
@@ -65,9 +64,9 @@ A possible workaround is described [here](https://github.com/kubernetes/kubeadm/
 
 ## Upgrade the first control plane node
 
-1.  On your control plane node, upgrade kubeadm:
+1.  On your first control plane node, upgrade kubeadm:
 
-    {{< tabs name="k8s_install_kubeadm" >}}
+    {{< tabs name="k8s_install_kubeadm_first_cp" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.14.x-00 with the latest patch version
     apt-mark unhold kubeadm && \
@@ -89,7 +88,7 @@ A possible workaround is described [here](https://github.com/kubernetes/kubeadm/
 1.  On the control plane node, run:
 
     ```shell
-    kubeadm upgrade plan
+    sudo kubeadm upgrade plan
     ```
 
     You should see output similar to this:
@@ -130,7 +129,7 @@ A possible workaround is described [here](https://github.com/kubernetes/kubeadm/
 1.  Choose a version to upgrade to, and run the appropriate command. For example:
 
     ```shell
-    kubeadm upgrade apply v1.14.0
+    sudo kubeadm upgrade apply v1.14.0
     ```
 
     You should see output similar to this:
@@ -257,7 +256,7 @@ without compromising the minimum required capacity for running your workloads.
 
 1.  Upgrade kubeadm on all worker nodes:
 
-    {{< tabs name="k8s_install_kubeadm" >}}
+    {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.14.x-00 with the latest patch version
     apt-mark unhold kubeadm && \
@@ -288,12 +287,12 @@ without compromising the minimum required capacity for running your workloads.
     error: DaemonSet-managed pods (use --ignore-daemonsets to ignore): calico-node-5798d, kube-proxy-thjp9
     ```
 
-## Upgrade the kubelet config
+### Upgrade the kubelet config
 
 1.  Upgrade the kubelet config:
 
     ```shell
-    kubeadm upgrade node config --kubelet-version v1.14.x
+    sudo kubeadm upgrade node config --kubelet-version v1.14.x
     ```
 
     Replace `x` with the patch version you picked for this ugprade.
