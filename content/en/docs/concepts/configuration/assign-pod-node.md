@@ -83,8 +83,8 @@ with a standard set of labels. As of Kubernetes v1.4 these labels are
 * `failure-domain.beta.kubernetes.io/zone`
 * `failure-domain.beta.kubernetes.io/region`
 * `beta.kubernetes.io/instance-type`
-* `beta.kubernetes.io/os`
-* `beta.kubernetes.io/arch`
+* `kubernetes.io/os`
+* `kubernetes.io/arch`
 
 {{< note >}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
