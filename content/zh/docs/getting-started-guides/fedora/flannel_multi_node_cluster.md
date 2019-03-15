@@ -22,10 +22,10 @@ title: Fedora (Multi Node)
 This document describes how to deploy Kubernetes on multiple hosts to set up a multi-node cluster and networking with flannel. Follow fedora [getting started guide](/docs/getting-started-guides/fedora/fedora_manual_config/) to setup 1 master (fed-master) and 2 or more nodes. Make sure that all nodes have different names (fed-node1, fed-node2 and so on) and labels (fed-node1-label, fed-node2-label, and so on) to avoid any conflict. Also make sure that the Kubernetes master host is running etcd, kube-controller-manager, kube-scheduler, and kube-apiserver services, and the nodes are running docker, kube-proxy and kubelet services. Now install flannel on Kubernetes nodes. Flannel on each node configures an overlay network that docker uses. Flannel runs on each node to setup a unique class-C container network.
 -->
 本文档描述了如何在多个主机上部署 Kubernetes 来建立一个多节点集群和 flannel 网络。遵循 fedora 入门指南设置 1 个主节点 （fed-master）
- 和 2 个或更多节点。确保所有节点具有不同的名称（fed-node1、fed-node2 等等）和标签 （fed-node1-label、fed-node2-label 等等），以避免
- 任何冲突。还要确保 Kubernetes 主节点主机正在运行 etcd、kube-controller-manager、kube-scheduler 和 kube-apiserver 服务，节点正在
+ 和 2 个或更多节点。确保所有节点具有不同的名称（fed-node1、fed-node2 等等）和标签（fed-node1-label、fed-node2-label 等等），以避免
+任何冲突。还要确保 Kubernetes 主节点主机正在运行 etcd、kube-controller-manager、kube-scheduler 和 kube-apiserver 服务，节点正在
  运行 docker、kube-proxy 和 kubelet 服务。现在在 Kubernetes 节点上安装 flannel。每个节点上的 flannel 配置 docker 使用的 overlay  网络。
- Flannel 在每个节点上运行，以设置一个惟一的 C 类容器网络。
+ Flannel 在每个节点上运行，以设置一个惟一的 class-C 容器网络。
 
 <!--
 ## Prerequisites
@@ -42,7 +42,7 @@ You need 2 or more machines with Fedora installed.
 ## Master Setup
 -->
 
-## 主节点 Setup
+## 主节点设置
 
 <!--
 **Perform following commands on the Kubernetes master**
@@ -327,6 +327,6 @@ IaaS 供应商           | 配置 管理    | 系统    | 网络        | 文档
 Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
 libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
 KVM                  | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
--->
+
 
 
