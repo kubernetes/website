@@ -37,17 +37,19 @@ A [CustomResourceDefinition](https://kubernetes.io/docs/tasks/access-kubernetes-
 Next, install the CRD with `kubectl apply -f gmsa-crd.yaml`
 
 #### Install webhooks to validate GMSA users
-Two webhooks need to be configured on the Kubernetes cluster to populate and validate GMSA credential spec references at the pod or container level. The mutating webhook expands references to GMSAs (by name from a pod specification) into the full credential spec in JSON form within the pod spec. The validating webhook ensures all references to GMSAs are authorized to be used by the pod service account. 
+Two webhooks need to be configured on the Kubernetes cluster to populate and validate GMSA credential spec references at the pod or container level:
+1. A mutating webhook that expands references to GMSAs (by name from a pod specification) into the full credential spec in JSON form within the pod spec. 
+2. A validating webhook ensures all references to GMSAs are authorized to be used by the pod service account. 
 
-Installing the webhooks and associated objects require the steps below:
+Installing the above webhooks and associated objects require the steps below:
 1. Create a certificate key pair (that will be used to allow the webhook container to communicate to the cluster)
 2. Install a secret with the certificate from above.
 3. Create a deployment for the core webhook logic. 
 4. Create the validating and mutating webhook configurations referring to the deployment. 
 
-A [script] (https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a ```--dry-run``` option to allow you to review the changes that would be made to your cluster.
+A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a ```--dry-run``` option to allow you to review the changes that would be made to your cluster.
 
-The [YAML template] (https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) used by the script may also be used to deploy the webhooks and associated objects manually (with appropriate substitutions for the parameters)
+The [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) used by the script may also be used to deploy the webhooks and associated objects manually (with appropriate substitutions for the parameters)
 
 ### Configuration and usage of GMSAs in pods
 This section covers the set of steps necessary for configuring individual GMSA credentials and using them in pods. These include:
