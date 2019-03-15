@@ -240,12 +240,22 @@ are merged into a single document.
 1. Restart the kubelet
 
     ```shell
-    systemctl restart kubelet
+    sudo systemctl restart kubelet
     ```
 
 ## Upgrade additional control plane nodes
 
-1.  Same as the first control plane node but use `kubeadm upgrade node experimental-control-plane` instead of `kubeadm upgrade apply`.
+1.  Same as the first control plane node but use:
+
+```
+sudo kubeadm upgrade node experimental-control-plane
+```
+
+instead of:
+
+```
+sudo kubeadm upgrade apply
+```
 
 ## Ugrade worker nodes
 
@@ -317,7 +327,7 @@ without compromising the minimum required capacity for running your workloads.
 1. Restart the kubelet
 
     ```shell
-    systemctl restart kubelet
+    sudo systemctl restart kubelet
     ```
 
 ### Uncordon the node
