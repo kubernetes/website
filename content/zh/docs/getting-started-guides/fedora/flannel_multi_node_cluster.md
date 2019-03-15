@@ -25,7 +25,7 @@ This document describes how to deploy Kubernetes on multiple hosts to set up a m
  和 2 个或更多节点。确保所有节点具有不同的名称（fed-node1、fed-node2 等等）和标签（fed-node1-label、fed-node2-label 等等），以避免
 任何冲突。还要确保 Kubernetes 主节点主机正在运行 etcd、kube-controller-manager、kube-scheduler 和 kube-apiserver 服务，节点正在
  运行 docker、kube-proxy 和 kubelet 服务。现在在 Kubernetes 节点上安装 flannel。每个节点上的 flannel 配置 docker 使用的 overlay  网络。
- Flannel 在每个节点上运行，以设置一个惟一的 class-C 容器网络。
+ Flannel 在每个节点上运行，以设置一个唯一的 class-C 容器网络。
 
 <!--
 ## Prerequisites
@@ -36,7 +36,7 @@ This document describes how to deploy Kubernetes on multiple hosts to set up a m
 <!--
 You need 2 or more machines with Fedora installed.
 -->
-您需要安装 Fedora 的两台或更多机器。
+安装 Fedora 您需要两台或更多机器。
 
 <!--
 ## Master Setup
@@ -52,7 +52,7 @@ You need 2 or more machines with Fedora installed.
 
 **在 Kubernetes 主节点上执行以下命令**
 
-* 在您当前的目录上的 fed-master 中通过创建一个 `flannel-config.json` 来配置 flannel。Flannel 在其他 overlay 网络后端选项中提供 udp 和 vxlan 。在本指南中，我们选择基于内核的 vxlan 后端 json 的内容为:
+* 在您当前的目录上的 fed-master 中通过创建一个 `flannel-config.json` 来配置 flannel。Flannel 在其他 overlay 网络后端选项中提供 udp 和 vxlan 。在本指南中，我们选择基于内核的 vxlan 后端。json 的内容为：
 
 ```json
 {
@@ -138,7 +138,7 @@ Edit the flannel configuration file /etc/sysconfig/flanneld as follows:
 # etcd url 位置，将此指向 etcd 运行的服务器
 FLANNEL_ETCD="http://fed-master:2379"
 
-# etcd 配置的关键。这是 flannel 查询的配置键
+# etcd 配置的键。这是 flannel 查询的配置键
 # 用于地址范围分配
 FLANNEL_ETCD_KEY="/coreos.com/network"
 
@@ -151,7 +151,7 @@ FLANNEL_OPTIONS=""
 <!--
 By default, flannel uses the interface for the default route. If you have multiple interfaces and would like to use an interface other than the default route one, you could add "-iface=" to FLANNEL_OPTIONS. For additional options, run `flanneld --help` on command line.
 -->
-默认情况下，flannel 使用默认路由的接口。如果您有多个接口并且想要使用默认路由 1 以外的接口，则可以将 "-iface=" 添加到 FLANNEL_OPTIONS。有关其他选项，请在命令行上运行 `flanneld --help`。
+默认情况下，flannel 使用默认路由的接口。如果您有多个接口并且想要使用默认路由以外的接口，则可以将 "-iface=" 添加到 FLANNEL_OPTIONS。有关其他选项，请在命令行上运行 `flanneld --help`。
 
 {{< /note >}}
 
@@ -189,12 +189,12 @@ systemctl start docker
 ## Test the cluster and flannel configuration
 -->
 
-## 测试群集和 flannel 配置
+## 测试集群和 flannel 配置
 
 <!--
 Now check the interfaces on the nodes. Notice there is now a flannel.1 interface, and the ip addresses of docker0 and flannel.1 interfaces are in the same network. You will notice that docker0 is assigned a subnet (18.16.29.0/24 as shown below) on each Kubernetes node out of the IP range configured above. A working output should look like this:
 -->
-现在检查节点上的接口。请注意，现在有一个 flannel.1 接口，docker0 和 flannel.1 接口的 ip 地址在同一个网络中。您会注意到 docker0 在上面配置的 IP 范围之外的每个 Kubernetes 节点上分配了一个子网（18.16.29.0/24，如下所示）。工作输出应如下所示：
+现在检查节点上的接口。请注意，现在有一个 flannel.1 接口，docker0 和 flannel.1 接口的 ip 地址在同一个网络中。您会注意到 docker0 在上面配置的 IP 范围之外的每个 Kubernetes 节点上分配了一个子网（18.16.29.0/24，如下所示）。 正常运行的输出应如下所示：
 
 
 ```shell
