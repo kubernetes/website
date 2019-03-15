@@ -38,7 +38,7 @@ guides for installation instructions for your platform.
 <!--
 ## Deploying Federation and configuring an external policy engine
 -->
-## 部署联邦并配置外部策略引擎
+## Deploying 联邦并配置外部策略引擎
 
 <!--
 The Federation control plane can be deployed using `kubefed init`.
@@ -50,7 +50,7 @@ After deploying the Federation control plane, you must configure an Admission
 Controller in the Federation API server that enforces placement decisions
 received from the external policy engine.
 -->
-部署联邦控制平面之后，必须在联邦 API 服务器中配置一个准入控制器，该控制器强制执行从外部策略引擎接收到的放置决策。
+Deploying 联邦控制平面之后，必须在联邦 API 服务器中配置一个准入控制器，该控制器强制执行从外部策略引擎接收到的放置决策。
 
 
     kubectl create -f scheduling-policy-admission.yaml
@@ -125,7 +125,7 @@ Add the following volume mount the Federation API server `apiserver` container:
 ## Deploying an external policy engine
 -->
 
-## 部署外部策略引擎
+## Deploying 外部策略引擎
 
 <!--
 The [Open Policy Agent (OPA)](http://openpolicyagent.org) is an open source,
