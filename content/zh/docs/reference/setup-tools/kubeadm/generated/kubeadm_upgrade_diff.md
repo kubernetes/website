@@ -130,7 +130,7 @@ kubeadm upgrade diff [version] [flags]
       <td colspan="2">--rootfs string</td>
 -->
     <tr>
-      <td colspan="2">--rootfs 字符串</td>
+      <td colspan="2">--rootfs string</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 到'真实'主机 root 文件系统的路径。</td>
