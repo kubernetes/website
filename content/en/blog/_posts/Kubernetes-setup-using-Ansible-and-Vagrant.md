@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Kubernetes Setup Using Ansible and Vagrant
-date: 2019-03-05
+date: 2019-03-15
 ---
 
 **Author:** Naresh L J (Infosys)
