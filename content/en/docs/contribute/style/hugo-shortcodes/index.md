@@ -105,10 +105,10 @@ For example, the following include within the markdown renders to {{< glossary_t
 
 ## Table captions
 
-If you'd like to add a [caption](https://www.w3schools.com/tags/tag_caption.asp) to a table, you can encapsulate the table with `table` shortcode and specify the caption using the `caption` parameter.
+You can make tables more accessible to screen readers by adding a table caption. To add a [caption](https://www.w3schools.com/tags/tag_caption.asp) to a table, enclose the table with a `table` shortcode and specify the caption with the `caption` parameter.
 
 {{< note >}}
-When you add a caption to a table this way, the caption is invisible when the table is viewed as standard HTML but accessible to screen readers.
+Table captions are visible to screen readers but invisible when viewed in standard HTML.
 {{< /note >}}
 
 Here's an example:
