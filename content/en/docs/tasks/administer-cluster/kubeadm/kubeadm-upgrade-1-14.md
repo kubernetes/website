@@ -258,6 +258,8 @@ instead of:
 sudo kubeadm upgrade apply
 ```
 
+Also `sudo kubeadm upgrade plan` is not needed.
+
 ## Ugrade worker nodes
 
 The upgrade procedure on worker nodes should be executed one node at a time or few nodes at a time,
@@ -371,3 +373,8 @@ To recover from a bad state, you can also run `kubeadm upgrade --force` without 
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
 - Applies the new `kube-dns` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
 - Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
+
+`kubeadm upgrade node experimental-control-plane` does the following on additional control plane nodes:
+- Fetches the kubeadm `ClusterConfiguration` from the cluster.
+- Optionally backups the kube-apiserver certificate.
+- Upgrades the static Pod manifests for the control plane components.
