@@ -59,6 +59,8 @@ Check if it worked:
 ls jobs/
 ```
 
+The output is:
+
 ```
 job-apple.yaml
 job-banana.yaml
@@ -75,6 +77,8 @@ Next, create all the jobs with one kubectl command:
 kubectl create -f ./jobs
 ```
 
+The output is:
+
 ```
 job.batch/process-item-apple created
 job.batch/process-item-banana created
@@ -86,6 +90,8 @@ Now, check on the jobs:
 ```shell
 kubectl get jobs -l jobgroup=jobexample
 ```
+
+The output is similar to this:
 
 ```
 NAME                  COMPLETIONS   DURATION   AGE
@@ -104,6 +110,8 @@ We can check on the pods as well using the same label selector:
 kubectl get pods -l jobgroup=jobexample
 ```
 
+The output is similar to this:
+
 ```
 NAME                        READY     STATUS      RESTARTS   AGE
 process-item-apple-kixwv    0/1       Completed   0          4m
@@ -120,6 +128,8 @@ do
   kubectl logs $p
 done
 ```
+
+The output is:
 
 ```
 Processing item apple
