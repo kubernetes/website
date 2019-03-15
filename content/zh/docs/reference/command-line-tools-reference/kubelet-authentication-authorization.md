@@ -19,13 +19,13 @@ title: Kubelet authentication/authorization
 A kubelet's HTTPS endpoint exposes APIs which give access to data of varying sensitivity,
 and allow you to perform operations with varying levels of power on the node and within containers.
 -->
-kubelet 的 HTTPS endpoint 端点公开了 API，可以访问不同敏感度的数据，
+kubelet 的 HTTPS 端点公开了 API，可以访问不同敏感度的数据，
 并允许您在节点和容器内执行不同权限级别的操作。
 
 <!--
 This document describes how to authenticate and authorize access to the kubelet's HTTPS endpoint.
 -->
-本文档介绍如何认证和授权访问 kubelet 的 HTTPS endpoint 端点。
+本文档介绍如何认证和授权访问 kubelet 的 HTTPS 端点。
 
 <!--
 ## Kubelet authentication
@@ -37,7 +37,7 @@ By default, requests to the kubelet's HTTPS endpoint that are not rejected by ot
 authentication methods are treated as anonymous requests, and given a username of `system:anonymous`
 and a group of `system:unauthenticated`.
 -->
-默认情况下，未被其他已配置的身份验证方法拒绝的对 kubelet 的 HTTPS endpoint 端点的请求将被视为匿名请求，
+默认情况下，未被其他已配置的身份验证方法拒绝的对 kubelet 的 HTTPS 端点的请求将被视为匿名请求，
 并提供一个 `system：anonymous` 用户名和一个 `system：unauthenticated` 用户组。
 
 <!--
@@ -53,7 +53,7 @@ To disable anonymous access and send `401 Unauthorized` responses to unauthentic
 <!--
 To enable X509 client certificate authentication to the kubelet's HTTPS endpoint:
 -->
-要为 kubelet 的 HTTPS endpoint 端点启用 X509 客户端证书身份验证，请执行以下操作：
+要为 kubelet 的 HTTPS 端点启用 X509 客户端证书身份验证，请执行以下操作：
 
 <!--
 * start the kubelet with the `--client-ca-file` flag, providing a CA bundle to verify client certificates with
@@ -67,7 +67,7 @@ To enable X509 client certificate authentication to the kubelet's HTTPS endpoint
 <!--
 To enable API bearer tokens (including service account tokens) to be used to authenticate to the kubelet's HTTPS endpoint:
 -->
-启用 API bearer 令牌（包括服务帐户令牌）以用于对 kubelet 的 HTTPS endpoint 端点进行身份验证：
+启用 API bearer 令牌（包括服务帐户令牌）以用于对 kubelet 的 HTTPS 端点进行身份验证：
 
 <!--
 * ensure the `authentication.k8s.io/v1beta1` API group is enabled in the API server
