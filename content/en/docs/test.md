@@ -353,16 +353,42 @@ To add shortcodes to includes.
 
 ## Table for Removed Fields 
 
-1. Because OpenAPI v2 doesn't support them, the following fields are removed:
 
-   * `oneOf`, `anyOf`, and `not`
 
-   {{< note >}}OpenAPI v3 will be used without these restrictions{{< /note >}}
-   
-2. The following table lists fields that are removed because they aren't allowed by kubectl in v1.13. 
+#### OpenAPI v2 limitations
 
-   |Schema | Fields Removed | Conditional Removal |
-   |`$ref`| `properties`, `type`| If the `$ref` is outside of the `definition`, the field `$ref` is removed|
-   |  | | |
+OpenAPI v2 doesn't support and will remove the following fields:
 
-3. The following fields are removed as they aren’t supported by the OpenAPI protobuf implementation
+* `oneOf`
+* `anyOf`
+* `not`
+
+{{< note >}}OpenAPI v3 will be used without these restrictions.{{< /note >}}
+
+#### kubectl v1.13 limitations
+
+Verion 1.13 of kubectl doesn't allow the following fields:
+
+|Schema with  |Fields Removed   | Additional Conditions|
+|---|---|---|
+|`$ref`   |`properties`, `type`   |If `$ref` is outside of `definitions`, the field `$ref` is removed   |
+|`type`   | `type`, `property`   | |
+|`null`   |`type`   |   |
+|`array`, `No type specified`  |`type`, `items`    |    |
+
+#### OpenAPI protobuf implementation limitations
+
+The OpenAPI protobuf implementation doesn't support and will remove the following fields:
+
+* `id`
+* `schema`
+* `definitions`
+* `additionalItems`
+* `dependencies`
+* `patternProperties`
+
+|Schema with  |Fields Removed   | Condition   |
+|---|---|---|
+|`externalDocs`   |`externalDocs`   |If `url` is defined   |
+|`items`   |`items`   |If `items` has multiple schemas   |
+
