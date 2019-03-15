@@ -6,6 +6,7 @@ reviewers:
 - deads2k
 - liggitt
 title: Authenticating
+feature_base: "authenticating"
 content_template: templates/concept
 weight: 10
 ---
@@ -717,7 +718,7 @@ rules:
 
 ## client-go credential plugins
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state feature_name="example-client-go-exec-plugin" for_k8s_version="v1.11" state="beta" >}}
 
 `k8s.io/client-go` and tools using it such as `kubectl` and `kubelet` are able to execute an
 external command to receive user credentials.

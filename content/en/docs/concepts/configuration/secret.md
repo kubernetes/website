@@ -10,7 +10,6 @@ feature:
 weight: 50
 ---
 
-
 {{% capture overview %}}
 
 Kubernetes `secret` objects let you store and manage sensitive information, such
@@ -967,7 +966,7 @@ On most Kubernetes-project-maintained distributions, communication between user
 to the apiserver, and from apiserver to the kubelets, is protected by SSL/TLS.
 Secrets are protected when transmitted over these channels.
 
-{{< feature-state for_k8s_version="v1.13" state="beta" >}}
+{{< feature-state feature_name="encryption at rest" for_k8s_version="v1.13" state="beta" >}}
 
 You can enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
 for secret data, so that the secrets are not stored in the clear into {{< glossary_tooltip term_id="etcd" >}}.

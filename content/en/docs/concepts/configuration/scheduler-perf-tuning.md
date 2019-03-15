@@ -2,13 +2,14 @@
 reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
+feature_base: kube-scheduler
 content_template: templates/concept
 weight: 70
 ---
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.14" state="beta" >}}
+{{< feature-state feature_name="percentageOfNodesToScore" for_k8s_version="1.14" state="beta" >}}
 
 Kube-scheduler is the Kubernetes default scheduler. It is responsible for
 placement of Pods on Nodes in a cluster. Nodes in a cluster that meet the
