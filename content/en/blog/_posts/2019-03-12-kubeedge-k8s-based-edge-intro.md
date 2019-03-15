@@ -84,9 +84,13 @@ Now, the complete edge solution can be installed and tested very easily, also wi
 As described, the KubeEdge Edge and Cloud core components can be deployed easily and can run the user applications. The edge core has a foot print of 66MB and just needs 30MB memory to run. Similarly the cloud core can run on any cloud nodes. (User can experience by running it on a laptop as well)
 
 The installation is simple and can be done in few steps:
+
   1. Setup the pre-requisites Docker, Kubernetes, MQTT and openssl
+  
   2. Clone and Build KubeEdge Cloud and Edge
+  
   3. Run Cloud
+  
   4. Run Edge
 
 The detailed steps for each are available at [KubeEdge/kubeedge](https://github.com/kubeedge/kubeedge)
