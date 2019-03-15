@@ -134,24 +134,16 @@ nginx-app-5jyvm
 
 使用 docker 命令：
 
-<!--
-# exit
--->
-
 ```shell
 $ docker exec -ti a9ec34d98787 /bin/sh
-# 退出
+# exit
 ```
 
 使用 kubectl 命令：
 
-<!--
-# exit
--->
-
 ```shell
 $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
-# 退出
+# exit
 ```
 
 更多信息请查看[获取运行中容器的 Shell 环境](/docs/tasks/kubectl/get-shell-running-container/)。
