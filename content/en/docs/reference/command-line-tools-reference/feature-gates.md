@@ -107,7 +107,8 @@ different Kubernetes components.
 | `MountPropagation` | `true` | GA | 1.12 | |
 | `NodeLease` | `false` | Alpha | 1.12 | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
-| `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
+| `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
+| `PersistentLocalVolumes` | `true` | GA | 1.14 | |
 | `PodPriority` | `false` | Alpha | 1.8 | |
 | `PodReadinessGates` | `false` | Alpha | 1.11 | |
 | `PodReadinessGates` | `true` | Beta | 1.12 | |

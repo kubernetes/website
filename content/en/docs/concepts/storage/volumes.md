@@ -535,14 +535,7 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "g
 
 ### local {#local}
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
-{{< note >}}
-The alpha PersistentVolume NodeAffinity annotation has been deprecated
-and will be removed in a future release. Existing PersistentVolumes using this
-annotation must be updated by the user to use the new PersistentVolume
-`NodeAffinity` field.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
@@ -608,7 +601,8 @@ selectors, Pod affinity, and Pod anti-affinity.
 An external static provisioner can be run separately for improved management of
 the local volume lifecycle. Note that this provisioner does not support dynamic
 provisioning yet. For an example on how to run an external local provisioner,
-see the [local volume provisioner user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
+see the [local volume provisioner user
+guide](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 
 {{< note >}}
 The local PersistentVolume requires manual cleanup and deletion by the
