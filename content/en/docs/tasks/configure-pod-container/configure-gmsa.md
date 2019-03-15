@@ -59,7 +59,9 @@ This section covers the set of steps necessary for configuring individual GMSA c
 4. Configuring pods with a service account authorized to use the desired GMSA credential specs.
 
 #### Create GMSA credspec resources
-With the GMSACredentialSpec CRD installed, custom resources containing GMSA credential specs can be configured. The GMSA credential spec does not contain secret or sensitive data. It is information that a container runtime can use to describe the desired GMSA of a container to Windows. GMSA credential specs can be generated in JSON format with a utility [PowerShell script](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/windows-server-container-tools/ServiceAccounts/CredentialSpec.psm1). Following are the steps for generating a GMSA credential spec YAML based on the JSON:
+With the GMSACredentialSpec CRD installed, custom resources containing GMSA credential specs can be configured. The GMSA credential spec does not contain secret or sensitive data. It is information that a container runtime can use to describe the desired GMSA of a container to Windows. GMSA credential specs can be generated in YAML format with a utility [PowerShell script](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1). 
+
+Following are the steps for generating a GMSA credential spec YAML manually in JSON format and then converting it:
 1. Import the CredentialSpec [module](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/windows-server-container-tools/ServiceAccounts/CredentialSpec.psm1): `ipmo CredentialSpec.psm1`
 2. Create a credential spec in JSON format using `New-CredentialSpec`. To create a GMSA credential spec named WebApp1, invoke `New-CredentialSpec -Name WebApp1 -AccountName WebApp1 -Domain $(Get-ADDomain -Current LocalComputer)`
 3. Use `Get-CredentialSpec` to show the path of the JSON file. 
