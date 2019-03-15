@@ -55,7 +55,7 @@ Note that by calling `kubeadm join` all of the phases and sub-phases will be exe
 
 Some phases have unique flags, so if you want to have a look at the list of available options add `--help`, for example:
 
-```bash
+```shell
 kubeadm join phase kubelet-start --help
 ```
 
@@ -64,7 +64,7 @@ command, `kubadm join phase` allows you to skip a list of phases using the `--sk
 
 For example:
 
-```bash
+```shell
 sudo kubeadm join --skip-phases=preflight --config=config.yaml
 ```
 
@@ -83,7 +83,7 @@ that the API server certificate is valid under the root CA.
 
 The CA key hash has the format `sha256:<hex_encoded_hash>`. By default, the hash value is returned in the `kubeadm join` command printed at the end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`. It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be calculated by 3rd party tools or provisioning systems. For example, using the OpenSSL CLI:
 
-```bash
+```shell
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
 
@@ -91,13 +91,13 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 
 For worker nodes:
 
-```bash
+```shell
 kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443
 ```
 
 For control-plane nodes:
 
-```bash
+```shell
 kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef --experimental-control-plane 1.2.3.4:6443
 ```
 
@@ -127,7 +127,7 @@ using one of the other modes if possible.
 
 **Example `kubeadm join` command:**
 
-```
+```shell
 kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-verification 1.2.3.4:6443`
 ```
 
@@ -180,21 +180,21 @@ By default, there is a CSR auto-approver enabled that basically approves any cli
 for a kubelet when a Bootstrap Token was used when authenticating. If you don't want the cluster to
 automatically approve kubelet client certs, you can turn it off by executing this command:
 
-```console
+```shell
 $ kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
 ```
 
 After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
 
-```console
-$ kubectl get csr
+```shell
+kubectl get csr
 NAME                                                   AGE       REQUESTOR                 CONDITION
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
 
-$ kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
 certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
 
-$ kubectl get csr
+kubectl get csr
 NAME                                                   AGE       REQUESTOR                 CONDITION
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
 ```
@@ -211,8 +211,8 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 
 * Fetch the `cluster-info` file from the API Server:
 
-```console
-$ kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+```shell
+kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
 apiVersion: v1
 clusters:
 - cluster:
@@ -230,8 +230,8 @@ users: []
 
 * Turn off public access to the `cluster-info` ConfigMap:
 
-```console
-$ kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
+```shell
+kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
 ```
 
 These commands should be run after `kubeadm init` but before `kubeadm join`.
@@ -249,7 +249,7 @@ contain a `JoinConfiguration` structure.
 
 To print the default values of `JoinConfiguration` run the following command:
 
-```bash
+```shell
 kubeadm config print-default --api-objects=JoinConfiguration
 ```
 

@@ -82,13 +82,13 @@ Note that by calling `kubeadm init` all of the phases and sub-phases will be exe
 
 Some phases have unique flags, so if you want to have a look at the list of available options add `--help`, for example:
 
-```bash
+```shell
 sudo kubeadm init phase control-plane controller-manager --help
 ```
 
 You can also use `--help` to see the list of sub-phases for a certain parent phase:
 
-```bash
+```shell
 sudo kubeadm init phase control-plane --help
 ```
 
@@ -96,7 +96,7 @@ sudo kubeadm init phase control-plane --help
 
 An example:
 
-```bash
+```shell
 sudo kubeadm init phase control-plane all --config=configfile.yaml
 sudo kubeadm init phase etcd local --config=configfile.yaml
 # you can now modify the control plane and etcd manifest files
@@ -331,7 +331,8 @@ In summary, `kubeadm alpha selfhosting` works as follows:
 For running kubeadm without an internet connection you have to pre-pull the required control-plane images.
 
 In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
-```
+
+```shell
 kubeadm config images list
 kubeadm config images pull
 ```
@@ -352,7 +353,7 @@ know the IP address that the control-plane node will have after it is started.
 
     kubeadm can generate a token for you:
 
-    ```bash
+    ```shell
     kubeadm token generate
     ```
 
