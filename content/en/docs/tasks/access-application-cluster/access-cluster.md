@@ -68,6 +68,8 @@ with [::1] for IPv6, like so:
 curl http://localhost:8080/api/
 ```
 
+The output is similar to this:
+
 ```json
 {
   "versions": [
@@ -88,6 +90,8 @@ TOKEN=$(kubectl describe secret $SECRET_NAME | grep -E '^token' | cut -f2 -d':' 
 
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
+
+The output is similar to this:
 
 ```json
 {
@@ -113,6 +117,8 @@ TOKEN=$(kubectl get secret $SECRET_NAME -o jsonpath='{.data.token}' | base64 --d
 
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
+
+The output is similar to this:
 
 ```json
 {
