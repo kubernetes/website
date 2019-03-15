@@ -196,7 +196,7 @@ GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/gettin
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
 -->
 
-IaaS 供应商           | 配置 管理    | 系统    |   网络      | 文档                                              |    符合   | 支持级别
+IaaS 供应商           | 配置 管理    | 系统    |   网络      | 文档                                              |    标准   | 支持级别
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GCE                  | CoreOS       | CoreOS | flannel     | [文档](/docs/getting-started-guides/coreos)                                 |          | 社区 ([@pires](https://github.com/pires))
 Vagrant              | CoreOS       | CoreOS | flannel     | [文档](/docs/getting-started-guides/coreos)                                 |          | 社区 ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
