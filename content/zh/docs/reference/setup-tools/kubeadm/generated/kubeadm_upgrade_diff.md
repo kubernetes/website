@@ -1,5 +1,5 @@
 
-显示将对现有静态 pod 清单应用的差异。参阅：kubeadm upgrade apply --dry-run
+显示将对现有静态 pod 清单产生的影响。这也能够通过 `kubeadm upgrade apply --dry-run` 命令查看。
 <!--
 Show what differences would be applied to existing static pod manifests. See also: kubeadm upgrade apply --dry-run
 -->
@@ -13,7 +13,7 @@ Show what differences would be applied to existing static pod manifests. See als
 <!--
 Show what differences would be applied to existing static pod manifests. See also: kubeadm upgrade apply --dry-run
 -->
-显示将对现有静态 pod 清单应用的差异。参阅：kubeadm upgrade apply --dry-run
+显示将对现有静态 pod 清单产生的影响。这也能够通过 `kubeadm upgrade apply --dry-run` 命令查看。
 
 ```
 kubeadm upgrade diff [version] [flags]
