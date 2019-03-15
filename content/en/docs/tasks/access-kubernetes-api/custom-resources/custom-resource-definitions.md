@@ -373,31 +373,31 @@ valid OpenAPI schemas that it doesn't understand. The conversion won't modify th
 and therefore won't affect [validation](#validation) in the API server.
 
 1. The following fields are removed as they aren't supported by OpenAPI v2 (in future versions OpenAPI v3 will be used without these restrictions)
-  - The fields `oneOf`, `anyOf` and `not` are removed
+   - The fields `oneOf`, `anyOf` and `not` are removed
 2. The following fields are removed as they aren't allowed by kubectl in
    previous 1.13 version
-  - For a schema with a `$ref`
-    - the fields `properties` and `type` are removed
-    - if the `$ref` is outside of the `definitions`, the field `$ref` is removed
-  - For a schema of a primitive data type (which means the field `type` has two elements: one type and one format)
-    - if any one of the two elements is `null`, the field `type` is removed
-    - otherwise, the fields `type` and `properties` are removed
-  - For a schema of more than two types
-    - the fields `type` and `properties` are removed
-  - For a schema of `null` type
-    - the field `type` is removed
-  - For a schema of `array` type
-    - if the schema doesn't have exactly one item, the fields `type` and `items` are
-      removed
-  - For a schema with no type specified
-    - the field `properties` is removed
+   - For a schema with a `$ref`
+      - the fields `properties` and `type` are removed
+      - if the `$ref` is outside of the `definitions`, the field `$ref` is removed
+   - For a schema of a primitive data type (which means the field `type` has two elements: one type and one format)
+      - if any one of the two elements is `null`, the field `type` is removed
+      - otherwise, the fields `type` and `properties` are removed
+   - For a schema of more than two types
+      - the fields `type` and `properties` are removed
+   - For a schema of `null` type
+      - the field `type` is removed
+   - For a schema of `array` type
+      - if the schema doesn't have exactly one item, the fields `type` and `items` are
+        removed
+   - For a schema with no type specified
+      - the field `properties` is removed
 3. The following fields are removed as they aren't supported by the OpenAPI protobuf implementation
-  - The fields `id`, `schema`, `definitions`, `additionalItems`, `dependencies`,
-    and `patternProperties` are removed
-  - For a schema with a `externalDocs`
-    - if the `externalDocs` has `url` defined, the field `externalDocs` is removed
-  - For a schema with `items` defined
-    - if the field `items` has multiple schemas, the field `items` is removed
+   - The fields `id`, `schema`, `definitions`, `additionalItems`, `dependencies`,
+     and `patternProperties` are removed
+   - For a schema with a `externalDocs`
+      - if the `externalDocs` has `url` defined, the field `externalDocs` is removed
+   - For a schema with `items` defined
+      - if the field `items` has multiple schemas, the field `items` is removed
 
 ### Additional printer columns
 
