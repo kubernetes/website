@@ -135,7 +135,7 @@ synthetic log generator pod specification [counter-pod.yaml](/examples/debug/cou
 {{< codenew file="debug/counter-pod.yaml" >}}
 
 This pod specification has one container that runs a bash script
-that writes out the value of a counter and the date once per
+that writes out the value of a counter and the datetime once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
@@ -341,7 +341,7 @@ by running the following command:
 kubectl get cm fluentd-gcp-config --namespace kube-system -o yaml > fluentd-gcp-configmap.yaml
 ```
 
-Then in the value for the key `containers.input.conf` insert a new filter right after
+Then in the value of the key `containers.input.conf` insert a new filter right after
 the `source` section.
 
 {{< note >}}
