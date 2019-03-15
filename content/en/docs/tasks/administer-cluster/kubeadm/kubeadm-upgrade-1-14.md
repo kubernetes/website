@@ -7,8 +7,8 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page explains how to upgrade a Kubernetes cluster created with `kubeadm` from version 1.13.x to version 1.14.x,
-and from version 1.14.x to 1.14.y, where `y > x`.
+This page explains how to upgrade a Kubernetes cluster created with kubeadm from version 1.13.x to version 1.14.x,
+and from version 1.14.x to 1.14.y (where `y > x`).
 
 The upgrade workflow at high level is the following:
 
@@ -25,20 +25,19 @@ are merged into a single document.
 
 {{% capture prerequisites %}}
 
-- You need to have a `kubeadm` Kubernetes cluster running version 1.13.0 or later.
-  [Swap must be disabled][swap].
-  The cluster should use a static control plane and etcd pods.
+- You need to have a kubeadm Kubernetes cluster running version 1.13.0 or later.
+- [Swap must be disabled](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
+- The cluster should use a static control plane and etcd pods.
 - Make sure you read the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md) carefully.
 - Make sure to back up any important components, such as app-level state stored in a database.
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
 
-[swap]: https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux
 ### Additional information
 
 - All containers are restarted after upgrade, because the container spec hash value is changed.
-- You can upgrade only from one minor version to the next minor version.
-  That is, you cannot skip versions when you upgrade.
-  For example, you can upgrade only from 1.y to 1.y+1, not from 1.y to 1.y+2
+- You only can upgrade from one MINOR version to the next MINOR version,
+  or between PATCH versions of the same MINOR. That is, you cannot skip MINOR versions when you upgrade.
+  For example, you can upgrade from 1.y to 1.y+1, but not from 1.y to 1.y+2.
 
 {{% /capture %}}
 
@@ -129,8 +128,10 @@ are merged into a single document.
 1.  Choose a version to upgrade to, and run the appropriate command. For example:
 
     ```shell
-    sudo kubeadm upgrade apply v1.14.0
+    sudo kubeadm upgrade apply v1.14.x
     ```
+
+    - Replace `x` with the patch version you picked for this ugprade.
 
     You should see output similar to this:
 
@@ -342,11 +343,11 @@ without compromising the minimum required capacity for running your workloads.
 
 After the kubelet is upgraded on all nodes verify that all nodes are available again by running the following command from anywhere kubectl can access the cluster:
 
-    ```shell
-    kubectl get nodes
-    ```
+```shell
+kubectl get nodes
+```
 
-    The `STATUS` column should show `Ready` for all your nodes, and the version number should be updated.
+The `STATUS` column should show `Ready` for all your nodes, and the version number should be updated.
 
 {{% /capture %}}
 
