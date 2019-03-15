@@ -187,11 +187,11 @@ You must join new control plane nodes sequentially, only after the first node ha
 
 For each additional control plane node you should:
 
-1.  Execute the join command that was previously
-    given to you by `kubeadm init` on the first node. It should look something like this:
+1.  Execute the join command that was previously given to you by the `kubeadm init` output on the first node.
+    It should look something like this:
 
     ```sh
-    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --experimental-control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+    sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --experimental-control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
     ```
 
     - The `--experimental-control-plane` flag tells `kubeadm join` to create a new control plane.
@@ -256,7 +256,7 @@ etcd topology this is managed automatically.
 
 The following steps are exactly the same as described for stacked etcd setup:
 
-1.  Run `kubeadm init --config kubeadm-config.yaml --experimental-upload-certs` on this node.
+1.  Run `sudo kubeadm init --config kubeadm-config.yaml --experimental-upload-certs` on this node.
 
 1.  Write the output join commands that are returned to a text file for later use.
 
@@ -283,7 +283,7 @@ Worker nodes can be joined to the cluster with the command you stored previously
 as the output from the `kubeadm init` command:
 
 ```sh
-kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
 ```
 
 ## Manual certificate distribution {#manual-certs}
@@ -325,7 +325,7 @@ SSH is required if you want to control all nodes from a single machine.
         ```
 
 1. After configuring SSH on all the nodes you should run the following script on the first control plane node after
-   running `kubeadm init. This script will copy the certificates from the first control plane node to the other
+   running `kubeadm init`. This script will copy the certificates from the first control plane node to the other
    control plane nodes:
 
     In the following example, replace `CONTROL_PLANE_IPS` with the IP addresses of the
@@ -351,7 +351,8 @@ with the required SANs for the joining control-plane instances. If you copy all 
 the creation of additional nodes could fail due to a lack of required SANs.
 {{< /caution >}}
 
-1. Then on each joining control plane node you have to run the following script before running `kubeadm join`:
+1. Then on each joining control plane node you have to run the following script before running `kubeadm join`.
+   This script will move the previously copied certificates from the home directory to `/etc/kuberentes/pki`:
 
     ```sh
     USER=ubuntu # customizable
