@@ -50,7 +50,7 @@ Installing the webhooks require several steps:
 3. Create a deployment for the core webhook logic. 
 4. Create the validating and mutating webhook configurations referring to the deployment. 
 
-The provided script will assist you in creating the YAML file that will create the webhooks and supporting objects.  [Deploy GMSA Webhook](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh)
+The provided script will assist you in creating the YAML file that will create the webhooks and supporting objects.  [Deploy GMSA Webhook](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh).
 The script can be ran with the ```--dry-run``` option to allow you to review the changes that would be made to your cluster.
 
 If you wish to do this step manually or just want to see the YAML template is in entirety it can be found here:  [gmsa-webhook.yml.tpl](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl)
