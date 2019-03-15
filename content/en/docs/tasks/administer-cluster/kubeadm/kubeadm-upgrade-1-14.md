@@ -290,6 +290,8 @@ without compromising the minimum required capacity for running your workloads.
     kubectl drain $NODE --ignore-daemonsets
     ```
 
+   You should see output similar to this:
+
     ```shell
     kubectl drain ip-172-31-85-18
     node "ip-172-31-85-18" cordoned
