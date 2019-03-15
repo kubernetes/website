@@ -186,7 +186,6 @@ $ kubectl logs --previous nginx-app-zibvs
 
 查看[记录和监控集群活动](/docs/concepts/cluster-administration/logging/)获取更多信息。
 
-
 #### docker stop 和 docker rm
 
 
