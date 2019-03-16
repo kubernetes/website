@@ -92,13 +92,13 @@ admins constructing their own audit profiles.
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides two backends:
+[Kube-apiserver][kube-apiserver] out of the box provides three backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
 - Dynamic backend, which configures webhook backends through an AuditSink API object.
 
-In both cases, audit events structure is defined by the API in the
+In all cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
 [`v1`][auditing-api].
 
@@ -207,13 +207,13 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
-In Kubernetes version 1.13, you can configure dynamic audit webhook backends AuditSink API objects. 
+In Kubernetes version 1.13, you can configure dynamic audit webhook backends AuditSink API objects.
 
 To enable dynamic auditing you must set the following apiserver flags:
 
-- `--audit-dynamic-configuration`: the primary switch. When the feature is at GA, the only required flag.   
-- `--feature-gates=DynamicAuditing=true`: feature gate at alpha and beta.   
-- `--runtime-config=auditregistration.k8s.io/v1alpha1=true`: enable API.   
+- `--audit-dynamic-configuration`: the primary switch. When the feature is at GA, the only required flag.
+- `--feature-gates=DynamicAuditing=true`: feature gate at alpha and beta.
+- `--runtime-config=auditregistration.k8s.io/v1alpha1=true`: enable API.
 
 When enabled, an AuditSink object can be provisioned:
 
@@ -276,7 +276,7 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
 1. create a config file for fluentd
 
     ```none
-    $ cat <<EOF > /etc/fluentd/config
+    $ cat <<'EOF' > /etc/fluentd/config
     # fluentd conf runs in the same host with kube-apiserver
     <source>
         @type tail
@@ -301,7 +301,11 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
     <match audit>
         # route audit according to namespace element in context
         @type rewrite_tag_filter
-        rewriterule1 namespace ^(.+) ${tag}.$1
+        <rule>
+            key namespace
+            pattern /^(.+)/
+            tag ${tag}.$1
+        </rule>
     </match>
 
     <filter audit.**>
@@ -321,6 +325,7 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
             include_time_key true
         </template>
     </match>
+    EOF
     ```
 
 1. start fluentd
@@ -373,6 +378,7 @@ different users into different files.
             path=>"/var/log/kube-audit-%{[event][user][username]}/audit"
         }
     }
+    EOF
     ```
 
 1. start logstash
@@ -418,8 +424,8 @@ plugin which supports full-text search and analytics.
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
 [kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
-[fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
-[fluentd_plugin_management_doc]: https://docs.fluentd.org/v0.12/articles/plugin-management
+[fluentd_install_doc]: https://docs.fluentd.org/v1.0/articles/quickstart#step-1:-installing-fluentd
+[fluentd_plugin_management_doc]: https://docs.fluentd.org/v1.0/articles/plugin-management
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation

@@ -56,7 +56,7 @@ This may be caused by a number of problems. The most common are:
   ```
 
   There are two common ways to fix the cgroup driver problem:
-  
+
  1. Install Docker again following instructions
   [here](/docs/setup/independent/install-kubeadm/#installing-docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
@@ -100,9 +100,8 @@ Right after `kubeadm init` there should not be any pods in these states.
   until you have deployed the network solution.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
   after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution and nothing happens to the DNS server, it's very
-  likely that the Pod Network solution that you installed is somehow broken. You
-  might have to grant it more RBAC privileges or use a newer version. Please file
+  it's very likely that the Pod Network solution that you installed is somehow broken. 
+  You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 - If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
   when booting `dockerd` with `systemd` and restart `docker`. You can see the MountFlags in `/usr/lib/systemd/system/docker.service`.
@@ -155,6 +154,18 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   regenerate a certificate if necessary. The certificates in a kubeconfig file
   are base64 encoded. The `base64 -d` command can be used to decode the certificate
   and `openssl x509 -text -noout` can be used for viewing the certificate information.
+- Unset the `KUBECONFIG` environment variable using:
+
+  ```sh
+  unset KUBECONFIG
+  ```
+
+  Or set it to the default `KUBECONFIG` location:
+
+  ```sh
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+  ```
+
 - Another workaround is to overwrite the existing `kubeconfig` for the "admin" user:
 
   ```sh
@@ -225,5 +236,48 @@ are available to avoid Kubernetes trying to restart the CoreDNS Pod every time C
 Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
 the security of your cluster.
 {{< /warning >}}
+
+## etcd pods restart continually
+
+If you encounter the following error:
+
+```
+rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:247: starting container process caused "process_linux.go:110: decoding init error from pipe caused \"read parent: connection reset by peer\""
+```
+
+this issue appears if you run CentOS 7 with Docker 1.13.1.84.
+This version of Docker can prevent the kubelet from executing into the etcd container.
+
+To work around the issue, choose one of these options:
+
+- Roll back to an earlier version of Docker, such as 1.13.1-75
+```
+yum downgrade docker-1.13.1-75.git8633870.el7.centos.x86_64 docker-client-1.13.1-75.git8633870.el7.centos.x86_64 docker-common-1.13.1-75.git8633870.el7.centos.x86_64
+```
+
+- Install one of the more recent recommended versions, such as 18.06:
+```bash
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install docker-ce-18.06.1.ce-3.el7.x86_64
+```
+
+## Not possible to pass a comma separated list of values to arguments inside a `--component-extra-args` flag
+
+`kubeadm init` flags such as `--component-extra-args` allow you to pass custom arguments to a control-plane
+component like the kube-apiserver. However, this mechanism is limited due to the underlying type used for parsing
+the values (`mapStringString`).
+
+If you decide to pass an argument that supports multiple, comma-separated values such as
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,NamespaceExists"` this flag will fail with
+`flag: malformed pair, expect string=string`. This happens because the list of arguments for
+`--apiserver-extra-args` expects `key=value` pairs and in this case `NamespacesExists` is considered
+as a key that is missing a value.
+
+Alternativelly, you can try separating the `key=value` pairs like so:
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
+but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
+
+A known workaround is to use the kubeadm
+[configuration file](https://kubernetes.io/docs/setup/independent/control-plane-flags/#apiserver-flags).
 
 {{% /capture %}}

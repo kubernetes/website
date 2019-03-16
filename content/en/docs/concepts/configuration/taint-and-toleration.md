@@ -191,7 +191,7 @@ on the special hardware nodes. This will make sure that these special hardware
 nodes are dedicated for pods requesting such hardware and you don't have to
 manually add tolerations to your pods.
 
-* **Taint based Evictions (alpha feature)**: A per-pod-configurable eviction behavior
+* **Taint based Evictions (beta feature)**: A per-pod-configurable eviction behavior
 when there are node problems, which is described in the next section.
 
 ## Taint based Evictions
@@ -279,7 +279,7 @@ which matches the behavior when this feature is disabled.
 In version 1.12, `TaintNodesByCondition` feature is promoted to beta, so node lifecycle controller automatically creates taints corresponding to
 Node conditions.
 Similarly the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
-Note that `TaintNodesByCondition` only taints nodes with `NoSchedule` effect. `NoExecute` effect is controlled by `TaintBasedEviction` which is an alpha feature and disabled by default.
+Note that `TaintNodesByCondition` only taints nodes with `NoSchedule` effect. `NoExecute` effect is controlled by `TaintBasedEviction` which is a beta feature and enabled by default since version 1.13.
 
 Starting in Kubernetes 1.8, the DaemonSet controller automatically adds the
 following `NoSchedule` tolerations to all daemons, to prevent DaemonSets from

@@ -1,7 +1,7 @@
 {{- if eq (getenv "HUGO_ENV") "production" }}
-{{- $cssFilesFromConfig := .Site.Params.pushAssets.css -}}
-{{- $jsFilesFromConfig := .Site.Params.pushAssets.js -}}
-{{- $pages := .Site.RegularPages -}}
+{{- $cssFilesFromConfig := site.Params.pushAssets.css -}}
+{{- $jsFilesFromConfig := site.Params.pushAssets.js -}}
+{{- $pages := site.RegularPages -}}
   Link: </images/favicon.png>; rel=preload; as=image
   {{- range $cssFilesFromConfig -}}
   {{- $cssUrl := printf "/css/%s.css" . }}

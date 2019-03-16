@@ -65,7 +65,7 @@ For quorum reasons it is recommended to keep an odd number of etcd nodes. 3, 5, 
 [optimal cluster size](https://coreos.com/etcd/docs/latest/admin_guide.html#optimal-cluster-size)
 to determine fault tolerance.
 
-To add an etcd unit: 
+To add an etcd unit:
 
 ```
 juju add-unit etcd
@@ -80,9 +80,8 @@ on each machine that manage Kubernetes; it is called the controller node.
 For production deployments it is recommended to enable HA of the controller node:
 
     juju enable-ha
-    
-Enabling HA results in 3 controller nodes, this should be sufficient for most use cases. 5 and 7 controller nodes are also supported for extra large deployments. 
-    
-Refer to the [Juju HA controller documentation](https://jujucharms.com/docs/2.2/controllers-ha) for more information.
-{{% /capture %}}
 
+Enabling HA results in 3 controller nodes, this should be sufficient for most use cases. 5 and 7 controller nodes are also supported for extra large deployments.
+
+For more information, see "Controller high availability" topic in [Juju documentation](https://docs.jujucharms.com).
+{{% /capture %}}

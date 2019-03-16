@@ -108,8 +108,7 @@ What this example would do is write the manifest files for the control plane and
 ### Using kubeadm init with a configuration file {#config-file}
 
 {{< caution >}}
-**Caution:** The config file is
-still considered beta and may change in future versions.
+The config file is still considered beta and may change in future versions.
 {{< /caution >}}
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
@@ -123,7 +122,7 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 because `v1alpha3` will be removed in Kubernetes 1.14.
 
 For more details on each field in the `v1beta1` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
+[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -149,8 +148,8 @@ Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
-* To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
-* To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
+* To set `useHyperKubeImage` to `true` to use the HyperKube image.
+* To provide a specific `imageRepository` and `imageTag` for etcd or DNS add-on.
 
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
@@ -410,7 +409,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 
 {{% capture whatsnext %}}
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
-`kubadm init` phases
+`kubeadm init` phases
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`

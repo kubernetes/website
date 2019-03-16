@@ -21,7 +21,7 @@ Each node in your cluster must have at least 300 MiB of memory.
 
 A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service in your cluster. If you do not have the metrics-server
+service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 
 If you are running Minikube, run the following command to enable the
@@ -223,7 +223,7 @@ kubectl describe nodes
 The output includes a record of the Container being killed because of an out-of-memory condition:
 
 ```
-Warning OOMKilling  Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
+Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
 ```
 
 Delete your Pod:

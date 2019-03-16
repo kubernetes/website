@@ -44,9 +44,9 @@ cid: partners
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-			var defaultLink = "https://landscape.cncf.io/grouping=landscape&landscape=kubernetes-certified-service-provider&embed=true";
-			var firstLink = "https://landscape.cncf.io/grouping=landscape&landscape=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&embed=true";
-      var secondLink = "https://landscape.cncf.io/grouping=landscape&landscape=kubernetes-training-partner&embed=true";
+			var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
+			var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
+      var secondLink = "https://landscape.cncf.io/category=kubernetes-training-partner&format=card-mode&grouping=category&embed=yes";
 
       function updateSrc(buttonId) {
       	if (buttonId == "kcsp") {
@@ -76,22 +76,7 @@ cid: partners
 <body>
     <div id="frameHolder">
       <iframe id="landscape" frameBorder="0" scrolling="no" style="width: 1px; min-width: 100%" src=""></iframe>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.0/iframeResizer.js"></script>
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          iFrameResize({
-            log:true,
-            messageCallback         : function(messageData){ // Callback fn when message is received
-              if (messageData.message.type === 'showModal') {
-                document.querySelector('body').style.overflow = 'hidden';
-              }
-              if (messageData.message.type === 'hideModal') {
-                document.querySelector('body').style.overflow = 'auto';
-              }
-            },
-          }, '#landscape');
-        });
-      </script>
+      <script src="https://landscape.cncf.io/iframeResizer.js"></script>
     </div>
 </body>
     </main>

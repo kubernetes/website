@@ -567,16 +567,6 @@ kube-apiserver [flags]
     </tr>
 
     <tr>
-<<<<<<< HEAD
-      <td colspan="2">--encryption-provider-config string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The file containing configuration for encryption providers to be used for storing secrets in etcd</td>
-    </tr>
-
-    <tr>
-=======
->>>>>>> Generate copmonents and tools reference
       <td colspan="2">--external-hostname string</td>
     </tr>
     <tr>
@@ -937,11 +927,7 @@ kube-apiserver [flags]
       <td colspan="2">--storage-backend string</td>
     </tr>
     <tr>
-<<<<<<< HEAD
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The storage backend for persistence. Options: 'etcd3' (default)</td>
-=======
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The storage backend for persistence. Options: 'etcd3' (default).</td>
->>>>>>> Generate copmonents and tools reference
     </tr>
 
     <tr>

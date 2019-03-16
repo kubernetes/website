@@ -17,7 +17,7 @@ Horizontal Pod Autoscaler는 CPU 사용량(또는 베타 지원의 다른 애플
 {{% capture prerequisites %}}
 
 이 예제는 버전 1.2 또는 이상의 쿠버네티스 클러스터와 kubectl을 필요로 한다.
-[메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다. 이는 Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다. ([GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.)
+[메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다. Horizontal Pod Autoscaler가 메트릭을 수집할때 해당 API를 사용한다. 메트릭-서버를 배포하는 지침은 [메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/)의 GitHub 저장소에 있고, [GCE 가이드](/docs/setup/turnkey/gce/)로 클러스터를 올리는 경우 메트릭-서버 모니터링은 디폴트로 활성화된다.
 
 Horizontal Pod Autoscaler에 다양한 자원 메트릭을 적용하고자 하는 경우, 버전 1.6 또는 이상의 쿠버네티스 클러스터와 kubectl를 사용해야 한다. 또한, 사용자 정의 메트릭을 사용하기 위해서는, 클러스터가 사용자 정의 메트릭 API를 제공하는 API 서버와 통신할 수 있어야 한다. 마지막으로, 쿠버네티스 오브젝트와 관련이 없는 메트릭을 사용하는 경우 버전 1.10 또는 이상의 쿠버네티스 클러스터와 kubectl을 사용해야 하며, 외부 메트릭 API와 통신이 가능해야 한다. 자세한 사항은 [Horizontal Pod Autoscaler 사용자 가이드](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)를 참고하길 바란다.
 
@@ -60,7 +60,7 @@ deployment.apps/php-apache created
 ## Horizontal Pod Autoscaler 생성
 
 이제 서비스가 동작중이므로, [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_autoscale.md)를 사용하여 오토스케일러를 생성한다. 다음 명령어는 첫 번째 단계에서 만든 php-apache 디플로이먼트 파드의 개수를 1부터 10 사이로 유지하는 Horizontal Pod Autoscaler를 생성한다.
-간략히 얘기하면, HPA는 (디플로이먼트를 통한) 평균 CPU 사용량을 50%로 유지하기 위하여 레플리카의 개수를 늘리고 줄인다. ([kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md)으로 각 파드는 200 밀리코어까지 요청할 수 있고, 따라서 여기서 말하는 평균 CPU 사용은 100 밀리코어를 말한다.) 이에 대한 자세한 알고리즘은 [여기](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm)를 참고하기 바란다.
+간단히 얘기하면, HPA는 (디플로이먼트를 통한) 평균 CPU 사용량을 50%로 유지하기 위하여 레플리카의 개수를 늘리고 줄인다. ([kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md)으로 각 파드는 200 밀리코어까지 요청할 수 있고, 따라서 여기서 말하는 평균 CPU 사용은 100 밀리코어를 말한다.) 이에 대한 자세한 알고리즘은 [여기](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm)를 참고하기 바란다.
 
 ```shell
 $ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
@@ -107,7 +107,9 @@ NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7         7         7            7           19m
 ```
 
-**참고** 때로는 레플리카의 개수를 안정화시키는데 몇 분이 걸릴 수 있다. 부하의 양은 환경에 따라 다르기 때문에, 최종 레플리카의 개수는 본 예제와 다를 수 있다.
+{{< note >}}
+레플리카의 개수를 안정화시키는데 몇 분이 걸릴 수 있다. 부하의 양은 환경에 따라 다르기 때문에, 최종 레플리카의 개수는 본 예제와 다를 수 있다.
+{{< /note >}}
 
 ## 부하 중지
 
@@ -127,7 +129,7 @@ php-apache   1         1         1            1           27m
 CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮췄다.
 
 {{< note >}}
-**참고** 레플리카 오토스케일링은 몇 분 정도 소요된다.
+레플리카 오토스케일링은 몇 분 정도 소요된다.
 {{< /note >}}
 
 {{% /capture %}}
@@ -144,7 +146,7 @@ CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮
 $ kubectl get hpa.v2beta2.autoscaling -o yaml > /tmp/hpa-v2.yaml
 ```
 
-에디터로 `/tmp/hpa-v2.yaml` 파일을 열면, 다음과 같은 YAML이 보일 것입니다.
+에디터로 `/tmp/hpa-v2.yaml` 파일을 열면, 다음과 같은 YAML을 확인할 수 있다.
 
 ```yaml
 apiVersion: autoscaling/v2beta2
@@ -203,7 +205,7 @@ pods:
     averageValue: 1k
 ```
 
-두 번째 대체 메트릭 타입은 *오브젝트 메트릭*이다. 이 메트릭은 파드를 기술하는 대신에 동일한 네임스페이스 내에 다른 오브젝트를 표현한다. 이 메트릭은 반드시 오브젝트로부터 가져올 필요는 없다. 단지 오브젝트를 기술할 뿐이다. 오브젝트 메트릭은 `Value`과 `AverageValue`의 `target` 타입을 지원한다. `Value`를 사용할 경우 대상은 API로부터 반환되는 메트릭과 직접 비교된다. `AverageValue`를 사용할 경우, 대상 값과 비교되기 이전에 사용자 정의 메트릭 API로부터 반환된 값은 파드의 개수로 나눠진다. 다음은 `requests-per-second` 메트릭을 YAML로 기술한 예제이다.
+두 번째 대체 메트릭 타입은 *오브젝트 메트릭* 이다. 이 메트릭은 파드를 기술하는 대신에 동일한 네임스페이스 내에 다른 오브젝트를 표현한다. 이 메트릭은 반드시 오브젝트로부터 가져올 필요는 없다. 단지 오브젝트를 기술할 뿐이다. 오브젝트 메트릭은 `Value`과 `AverageValue`의 `target` 타입을 지원한다. `Value`를 사용할 경우 대상은 API로부터 반환되는 메트릭과 직접 비교된다. `AverageValue`를 사용할 경우, 대상 값과 비교되기 이전에 사용자 정의 메트릭 API로부터 반환된 값은 파드의 개수로 나눠진다. 다음은 `requests-per-second` 메트릭을 YAML로 기술한 예제이다.
 
 ```yaml
 type: Object
@@ -301,7 +303,7 @@ object:
 
 ### 쿠버네티스 오브젝트와 관련이 없는 메트릭을 기초로한 오토스케일링
 
-쿠버네티스 위에서 동작하는 애플리케이션은 쿠버네티스 클러스터의 어떤 오브젝트와도 관련이 없는 메트릭에 기반하여 오토스케일링을 할 수도 있다. 예로, 쿠버네티스 네임스페이스와 관련이 없는 서비스를 기초로한 메트릭을 들 수 있다. 쿠버네티스 버전 1.10 포함 이후 버전에서, *외부 메트릭*을 사용하여 이러한 유스케이스를 해결할 수 있다.
+쿠버네티스 위에서 동작하는 애플리케이션은 쿠버네티스 클러스터의 어떤 오브젝트와도 관련이 없는 메트릭에 기반하여 오토스케일링을 할 수도 있다. 예로, 쿠버네티스 네임스페이스와 관련이 없는 서비스를 기초로한 메트릭을 들 수 있다. 쿠버네티스 버전 1.10 포함 이후 버전에서, *외부 메트릭* 을 사용하여 이러한 유스케이스를 해결할 수 있다.
 
 외부 메트릭 사용시, 먼저 모니터링 시스템에 대한 이해가 있어야 한다. 이 설치는 사용자 정의 메트릭과 유사하다.
 외부 메트릭을 사용하면 모니터링 시스템의 사용 가능한 메트릭에 기반하여 클러스터를 오토스케일링 할 수 있다.

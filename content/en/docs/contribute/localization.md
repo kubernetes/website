@@ -5,29 +5,25 @@ approvers:
 - chenopis
 - zacharysarah
 - zparnold
+card:
+  name: contribute
+  weight: 30
+  title: Translating the docs
 ---
 
 {{% capture overview %}}
 
-Documentation for Kubernetes is available in multiple languages:
-
-- English
-- Chinese
-- Japanese
-- Korean
-
-We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)!
+Documentation for Kubernetes is available in multiple languages. We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)!
 
 {{% /capture %}}
-
 
 {{% capture body %}}
 
 ## Getting started
 
-Localizations must meet some requirements for workflow (*how* to localize) and output (*what* to localize).
+Localizations must meet some requirements for workflow (*how* to localize) and output (*what* to localize) before publishing.
 
-To add a new localization of the Kubernetes documentation, you'll need to update the website by modifying the  [site configuration](#modify-the-site-configuration) and [directory structure](#add-a-new-localization-directory). Then you can start [translating documents](#translating-documents)!
+To add a new localization of the Kubernetes documentation, you'll need to update the website by modifying the [site configuration](#modify-the-site-configuration) and [directory structure](#add-a-new-localization-directory). Then you can start [translating documents](#translating-documents)!
 
 {{< note >}}
 For an example localization-related [pull request](../create-pull-request), see [this pull request](https://github.com/kubernetes/website/pull/8636) to the [Kubernetes website repo](https://github.com/kubernetes/website) adding Korean localization to the Kubernetes docs.
@@ -209,7 +205,7 @@ SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/inte
 
 {{% capture whatsnext %}}
 
-Once a l10n meets requirements for workflow and minimum output, SIG docs will:
+Once a localization meets requirements for workflow and minimum output, SIG docs will:
 
 - Enable language selection on the website
 - Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).

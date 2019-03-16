@@ -10,12 +10,12 @@
 <div id="tag-container">
 	<p>Filter terms according to their tags:</p>
 	<div class="tag-description invisible" id="placeholder">.</div>
-	{{ range (index .Site.Data "canonical-tags") }}
+	{{ range (index site.Data "canonical-tags") }}
 	<div class="tag-description hide" id="{{ printf "tag-%s-description" .id  }}">
 		<i>{{ .description }}</i>
 	</div>
 	{{ end }}
-	{{ $sorted_tags := sort (index .Site.Data "canonical-tags") "name" }}
+	{{ $sorted_tags := sort (index site.Data "canonical-tags") "name" }}
 	{{ range $sorted_tags }}
 	{{ $full_tag_name := printf "tag-%s" .id }}
 	<span id="{{ $full_tag_name  }}" class="tag-option canonical-tag" data-target="{{ $full_tag_name  }}">

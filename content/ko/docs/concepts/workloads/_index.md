@@ -1,4 +1,4 @@
 ---
 title: "워크로드"
-weight: 60
+weight: 50
 ---

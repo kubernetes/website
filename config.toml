@@ -4,6 +4,7 @@ title = "Kubernetes"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 enableRobotsTXT = true
+disableBrowserError = true
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
@@ -153,15 +154,49 @@ contentDir = "content/ko"
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
 
+[languages.ja]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName = "日本語 Japanese"
+weight = 4
+contentDir = "content/ja"
+
+[languages.ja.params]
+time_format_blog = "2006.01.02"
+language_alternatives = ["en"]
+
+[languages.fr]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Français"
+weight = 5
+contentDir = "content/fr"
+
+[languages.fr.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
+[languages.it]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Italian"
+weight = 6
+contentDir = "content/it"
+
+[languages.it.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
 [languages.no]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
 languageName ="Norsk"
-weight = 4
+weight = 7
 contentDir = "content/no"
 
 [languages.no.params]
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
-

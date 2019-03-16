@@ -41,7 +41,7 @@ OUTPUT
 If the command is "kubectl ARGS":
 
 ```shell
-$ kubectl ARGS
+kubectl ARGS
 OUTPUT
 ```
 
@@ -51,16 +51,18 @@ For many steps here you will want to see what a `Pod` running in the cluster
 sees.  The simplest way to do this is to run an interactive busybox `Pod`:
 
 ```none
-$ kubectl run -it --rm --restart=Never busybox --image=busybox sh
-If you don't see a command prompt, try pressing enter.
+kubectl run -it --rm --restart=Never busybox --image=busybox sh
 / #
 ```
+{{< note >}}
+If you don't see a command prompt, try pressing enter.
+{{< /note >}}
 
 If you already have a running `Pod` that you prefer to use, you can run a
 command in it using:
 
 ```shell
-$ kubectl exec <POD-NAME> -c <CONTAINER-NAME> -- <COMMAND>
+kubectl exec <POD-NAME> -c <CONTAINER-NAME> -- <COMMAND>
 ```
 
 ## Setup
@@ -70,7 +72,7 @@ probably debugging your own `Service` you can substitute your own details, or yo
 can follow along and get a second data point.
 
 ```shell
-$ kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
+kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
                         --labels=app=hostnames \
                         --port=9376 \
                         --replicas=3
@@ -108,7 +110,7 @@ spec:
 Confirm your `Pods` are running:
 
 ```shell
-$ kubectl get pods -l app=hostnames
+kubectl get pods -l app=hostnames
 NAME                        READY     STATUS    RESTARTS   AGE
 hostnames-632524106-bbpiw   1/1       Running   0          2m
 hostnames-632524106-ly40y   1/1       Running   0          2m
@@ -134,7 +136,7 @@ wget: unable to resolve host address 'hostnames'
 So the first thing to check is whether that `Service` actually exists:
 
 ```shell
-$ kubectl get svc hostnames
+kubectl get svc hostnames
 No resources found.
 Error from server (NotFound): services "hostnames" not found
 ```
@@ -143,14 +145,14 @@ So we have a culprit, let's create the `Service`.  As before, this is for the
 walk-through - you can use your own `Service`'s details here.
 
 ```shell
-$ kubectl expose deployment hostnames --port=80 --target-port=9376
+kubectl expose deployment hostnames --port=80 --target-port=9376
 service/hostnames exposed
 ```
 
 And read it back, just to be sure:
 
 ```shell
-$ kubectl get svc hostnames
+kubectl get svc hostnames
 NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 ```
@@ -301,7 +303,7 @@ It might sound silly, but you should really double and triple check that your
 and verify it:
 
 ```shell
-$ kubectl get service hostnames -o json
+kubectl get service hostnames -o json
 ```
 ```json
 {
@@ -341,11 +343,13 @@ $ kubectl get service hostnames -o json
 }
 ```
 
-Is the port you are trying to access in `spec.ports[]`?  Is the `targetPort`
-correct for your `Pods` (many `Pods` choose to use a different port than the
-`Service`)?  If you meant it to be a numeric port, is it a number (9376) or a
-string "9376"?  If you meant it to be a named port, do your `Pods` expose a port
-with the same name?  Is the port's `protocol` the same as the `Pod`'s?
+* Is the port you are trying to access in `spec.ports[]`?  
+* Is the `targetPort` correct for your `Pods` (many `Pods` choose to use a different port than the `Service`)?
+* If you meant it to be a numeric port, is it a number (9376) or a
+string "9376"?
+* If you meant it to be a named port, do your `Pods` expose a port
+with the same name?
+* Is the port's `protocol` the same as the `Pod`'s?
 
 ## Does the Service have any Endpoints?
 
@@ -356,7 +360,7 @@ actually being selected by the `Service`.
 Earlier we saw that the `Pods` were running.  We can re-check that:
 
 ```shell
-$ kubectl get pods -l app=hostnames
+kubectl get pods -l app=hostnames
 NAME              READY     STATUS    RESTARTS   AGE
 hostnames-0uton   1/1       Running   0          1h
 hostnames-bvc05   1/1       Running   0          1h
@@ -371,7 +375,7 @@ has.  Inside the Kubernetes system is a control loop which evaluates the
 selector of every `Service` and saves the results into an `Endpoints` object.
 
 ```shell
-$ kubectl get endpoints hostnames
+kubectl get endpoints hostnames
 NAME        ENDPOINTS
 hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
 ```
@@ -414,7 +418,7 @@ Another thing to check is that your `Pods` are not crashing or being restarted.
 Frequent restarts could lead to intermittent connectivity issues.
 
 ```shell
-$ kubectl get pods -l app=hostnames
+kubectl get pods -l app=hostnames
 NAME                        READY     STATUS    RESTARTS   AGE
 hostnames-632524106-bbpiw   1/1       Running   0          2m
 hostnames-632524106-ly40y   1/1       Running   0          2m
@@ -489,7 +493,7 @@ u@node$ iptables-save | grep hostnames
 
 There should be 2 rules for each port on your `Service` (just one in this
 example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".  If you do
-not see these, try restarting `kube-proxy` with the `-V` flag set to 4, and
+not see these, try restarting `kube-proxy` with the `-v` flag set to 4, and
 then look at the logs again.
 
 Almost nobody should be using the "userspace" mode any more, so we won't spend
@@ -559,7 +563,7 @@ If this still fails, look at the `kube-proxy` logs for specific lines like:
 Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376]
 ```
 
-If you don't see those, try restarting `kube-proxy` with the `-V` flag set to 4, and
+If you don't see those, try restarting `kube-proxy` with the `-v` flag set to 4, and
 then look at the logs again.
 
 ### A Pod cannot reach itself via Service IP

@@ -119,21 +119,58 @@ aliases:
     - chenopis
     - cody-clark
     - jaredbhatti
+    - jimangel
     - kbarnard10
     - mistyhacks
+    - rajakavitha1
     - ryanmcginnis
     - steveperry-53
     - stewart-yu
     - tengqm
     - tfogo
     - zacharysarah
+    - zhangxiaoyu-zidif
     - zparnold
   sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews
     - jimangel
     - rajakavitha1
     - stewart-yu
     - xiangpengzhao
-    - zhangxiaoyu
+    - zhangxiaoyu-zidif
+  sig-docs-fr-owners: #Team: Documentation; GH: sig-docs-fr-owners
+    - sieben
+    - perriea
+    - rekcah78
+    - lledru
+    - yastij
+    - smana
+    - rbenzair
+    - abuisine
+    - erickhun
+    - jygastaud
+    - awkif
+    - oussemos
+  sig-docs-fr-reviews: #Team: Documentation; GH: sig-docs-fr-reviews
+    - sieben
+    - perriea
+    - rekcah78
+    - lledru
+    - yastij
+    - smana
+    - rbenzair
+    - abuisine
+    - erickhun
+    - jygastaud
+    - awkif
+    - oussemos
+  sig-docs-it-owners: #Team: Italian docs localization; GH: sig-docs-it-owners
+    - rlenferink
+    - lledru
+    - micheleberardi
+  sig-docs-it-reviews: #Team: Italian docs PR reviews; GH:sig-docs-it-reviews
+    - rlenferink
+    - lledru
+    - micheleberardi
   sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
     - cstoku
     - nasa9084
@@ -148,9 +185,7 @@ aliases:
   sig-docs-ko-owners: #Team Korean docs localization; GH: sig-docs-ko-owners
     - ClaudiaJKang
     - gochist
-    - bradamant3    # Temporary for 1.13 release
-    - jimangel      # Temporary for 1.13 release
-    - tfogo         # Temporary for 1.13 release
+    - ianychoi
     - zacharysarah
   sig-docs-ko-reviews: #Team Korean docs reviews; GH: sig-docs-ko-reviews
     - ClaudiaJKang
@@ -168,17 +203,16 @@ aliases:
     - markthink
     - tengqm
     - xiangpengzhao
+    - xichengliudui
     - zacharysarah
     - zhangxiaoyu-zidif
-    - bradamant3    # Temporary for 1.13 release
-    - jimangel      # Temporary for 1.13 release
-    - tfogo         # Temporary for 1.13 release
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
     - chenrui333
     - idealhack
     - markthink
     - tengqm
     - xiangpengzhao
+    - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
   sig-federation: #Team: Federation; e.g. Federated Clusters
@@ -291,3 +325,4 @@ aliases:
     - floreks
   sig-windows:
     - michmike
+

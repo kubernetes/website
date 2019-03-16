@@ -22,7 +22,7 @@
         <div id="mc_embed_signup">
         <form action="https://kubeweekly.us10.list-manage.com/subscribe/post?u=3885586f8f1175194017967d6&amp;id=11c1b8bcb2" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
             <div id="mc_embed_signup_scroll">
-        	<p style="font-size: 20px">Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly.</p>
+        	<p style="font-size: 20px">{{ T "main_kubeweekly_baseline" }}</p>
           <br />
         	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
             <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
@@ -30,7 +30,7 @@
             <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
             </div>
         </form>
-        <h5 style="text-align: center"><a href="https://us10.campaign-archive.com/home/?u=3885586f8f1175194017967d6&id=11c1b8bcb2" style="color: #3371E3; font-weight: 400; font-size: 20px">View past newsletters</a></h5>
+        <h5 style="text-align: center"><a href="https://us10.campaign-archive.com/home/?u=3885586f8f1175194017967d6&id=11c1b8bcb2" style="color: #3371E3; font-weight: 400; font-size: 20px">{{ T "main_kubeweekly_past_link" }}</a></h5>
         </div>
 <br>
 <br>
@@ -41,7 +41,7 @@
 
 
 {{ define "hero-more" }}
-{{ with .Site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
+{{ with site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
 <a href="{{ .RelPermalink }}" id="quickstartButton" class="button">{{ .LinkTitle }}</a>
 {{ end }}
 {{ end }}

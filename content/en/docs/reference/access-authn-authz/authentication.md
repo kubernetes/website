@@ -120,7 +120,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 
 ### Bootstrap Tokens
 
-This feature is currently in **alpha**.
+This feature is currently in **beta**.
 
 To allow for streamlined bootstrapping for new clusters, Kubernetes includes a
 dynamically-managed Bearer token type called a *Bootstrap Token*. These tokens
@@ -217,10 +217,21 @@ Kubernetes API. To manually create a service account, simply use the `kubectl
 create serviceaccount (NAME)` command. This creates a service account in the
 current namespace and an associated secret.
 
+```bash
+kubectl create serviceaccount jenkins
 ```
-$ kubectl create serviceaccount jenkins
+
+```none
 serviceaccount "jenkins" created
-$ kubectl get serviceaccounts jenkins -o yaml
+```
+
+Check an associated secret:
+
+```bash
+kubectl get serviceaccounts jenkins -o yaml
+```
+
+```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -232,8 +243,11 @@ secrets:
 The created secret holds the public CA of the API server and a signed JSON Web
 Token (JWT).
 
+```bash
+kubectl get secret jenkins-token-1yvwg -o yaml
 ```
-$ kubectl get secret jenkins-token-1yvwg -o yaml
+
+```yaml
 apiVersion: v1
 data:
   ca.crt: (APISERVER'S CA BASE64 ENCODED)
@@ -308,6 +322,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-username-prefix` | Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `--oidc-user-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. The value `-` can be used to disable all prefixing. | `oidc:` | No |
 | `--oidc-groups-claim` | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
+| `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
@@ -334,7 +349,7 @@ Setup instructions for specific systems:
 
 - [UAA](http://apigee.com/about/blog/engineering/kubernetes-authentication-enterprise)
 - [Dex](https://speakerdeck.com/ericchiang/kubernetes-access-control-with-dex)
-- [OpenUnison](https://github.com/TremoloSecurity/openunison-qs-kubernetes)
+- [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
 
 #### Using kubectl
 
@@ -391,7 +406,7 @@ Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` 
 
 The `kubectl` command lets you pass in a token using the `--token` option.  Simply copy and paste the `id_token` into this option:
 
-```
+```bash
 kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo4MDQzL2F1dGgvaWRwL29pZGMiLCJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNDc0NTk2NjY5LCJqdGkiOiI2RDUzNXoxUEpFNjJOR3QxaWVyYm9RIiwiaWF0IjoxNDc0NTk2MzY5LCJuYmYiOjE0NzQ1OTYyNDksInN1YiI6Im13aW5kdSIsInVzZXJfcm9sZSI6WyJ1c2VycyIsIm5ldy1uYW1lc3BhY2Utdmlld2VyIl0sImVtYWlsIjoibXdpbmR1QG5vbW9yZWplZGkuY29tIn0.f2As579n9VNoaKzoF-dOQGmXkFKf1FMyNV0-va_B63jn-_n9LGSCca_6IVMP8pO-Zb4KvRqGyTP0r3HkHxYy5c81AnIh8ijarruczl-TK_yF5akjSTHFZD-0gRzlevBDiH8Q79NAr-ky0P4iIXS8lY9Vnjch5MF74Zx0c3alKJHJUnnpjIACByfF2SCaYzbWFMUNat-K1PaUk5-ujMBG7yYnr95xD-63n8CO8teGUAAEMx6zRjzfhnhbzX-ajwZLGwGUBT4WqjMs70-6a7_8gZmLZb2az1cZynkFRj2BaCkVT3A2RrjeEwZEtGXlMqKJ1_I2ulrOVsYx01_yD35-rw get nodes
 ```
 
@@ -620,11 +635,21 @@ Impersonate-Extra-scopes: development
 When using `kubectl` set the `--as` flag to configure the `Impersonate-User`
 header, set the `--as-group` flag to configure the `Impersonate-Group` header.
 
-```shell
-$ kubectl drain mynode
-Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
+```bash
+kubectl drain mynode
+```
 
-$ kubectl drain mynode --as=superman --as-group=system:masters
+```none
+Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
+```
+
+Set the `--as` and `--as-group` flag:
+
+```bash
+kubectl drain mynode --as=superman --as-group=system:masters
+```
+
+```none
 node/mynode cordoned
 node/mynode drained
 ```
