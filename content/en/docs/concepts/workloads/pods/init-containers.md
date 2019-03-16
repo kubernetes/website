@@ -240,13 +240,9 @@ Once we start the `mydb` and `myservice` services, we can see the Init Container
 complete and the `myapp-pod` is created:
 
 ```shell
-<<<<<<< HEAD
-$ kubectl apply -f services.yaml
-=======
-kubectl create -f services.yaml
+kubectl apply -f services.yaml
 ```
 ```
->>>>>>> master
 service/myservice created
 service/mydb created
 ```

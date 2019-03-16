@@ -706,14 +706,7 @@ SecretGenerator:
 ```
 Create the SecretObject on Apiserver:
 ```shell
-<<<<<<< HEAD
 $ kubectl apply -k .
-=======
-kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa 
-```
-```
---from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
->>>>>>> master
 ```
 
 {{< caution >}}
@@ -762,8 +755,7 @@ credentials.
 
 Make the kustomization.yaml with SecretGenerator
 ```shell
-<<<<<<< HEAD
-$ cat <<EOF > kustomization.yaml
+cat <<EOF > kustomization.yaml
 secretGenerator:
 - name: prod-db-secret
   literals:
@@ -774,21 +766,6 @@ secretGenerator:
   - username=testuser
   - password=iluvtests
 EOF
-=======
-kubectl create secret generic prod-db-secret --from-literal=username=produser 
---from-literal=password=Y4nys7f11
-```
-
-```
-secret "prod-db-secret" created
-```
-
-```shell
-kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
-```
-```
-secret "test-db-secret" created
->>>>>>> master
 ```
 
 Now make the pods:

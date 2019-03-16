@@ -231,15 +231,10 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
 
 ```shell
-<<<<<<< HEAD
-$ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
-$ kubectl apply -f /tmp/secret.json
-=======
 make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
-kubectl create -f /tmp/secret.json
+kubectl apply -f /tmp/secret.json
 ```
 ```
->>>>>>> master
 secret/nginxsecret created
 ```
 ```shell
@@ -274,15 +269,10 @@ data:
 Now create the secrets using the file:
 
 ```shell
-<<<<<<< HEAD
-$ kubectl apply -f nginxsecrets.yaml
-$ kubectl get secrets
-=======
-kubectl create -f nginxsecrets.yaml
+kubectl apply -f nginxsecrets.yaml
 kubectl get secrets
 ```
 ```
->>>>>>> master
 NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           Opaque                                2         1m
@@ -302,11 +292,7 @@ Noteworthy points about the nginx-secure-app manifest:
   This is setup *before* the nginx server is started.
 
 ```shell
-<<<<<<< HEAD
-$ kubectl delete deployments,svc my-nginx; kubectl apply -f ./nginx-secure-app.yaml
-=======
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
->>>>>>> master
 ```
 
 At this point you can reach the nginx server from any node.
@@ -326,15 +312,10 @@ Let's test this from a pod (the same secret is being reused for simplicity, the 
 {{< codenew file="service/networking/curlpod.yaml" >}}
 
 ```shell
-<<<<<<< HEAD
-$ kubectl apply -f ./curlpod.yaml
-$ kubectl get pods -l app=curlpod
-=======
-kubectl create -f ./curlpod.yaml
+kubectl apply -f ./curlpod.yaml
 kubectl get pods -l app=curlpod
 ```
 ```
->>>>>>> master
 NAME                               READY     STATUS    RESTARTS   AGE
 curl-deployment-1515033274-1410r   1/1       Running   0          1m
 ```
