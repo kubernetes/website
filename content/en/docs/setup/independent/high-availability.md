@@ -24,7 +24,7 @@ simplified in future versions. You might encounter issues with upgrading your cl
 We encourage you to try either approach, and provide us with feedback in the kubeadm
 [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
 
-See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-14).
+See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14).
 
 {{< caution >}}
 This page does not address running your cluster on a cloud provider. In a cloud
@@ -151,21 +151,26 @@ the `networking` object of `ClusterConfiguration`.
     - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
     - When `--experimental-upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
     are encrypted and uploaded in the `kubeadm-certs` Secret.
-    - Please note that the `kubeadm-certs` Secret and decryption key expire after two hours. To re-upload the certificates
-    and generate a new decryption key, use the following command on a control plane that is already joined the cluster:
+    - To re-upload the certificates and generate a new decryption key, use the following command on a control plane
+    node that is already joined to the cluster:
 
       ```sh
       sudo kubeadm init phase upload-certs --experimental-upload-certs
       ```
 
+{{< note >}}
+The `kubeadm-certs` Secret and decryption key expire after two hours.
+{{< /note >}}
+
 {{< caution >}}
-As stated in the command output, please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As stated in the command output, the certificate-key gives access to cluster sensitive data, keep it secret!
 {{< /caution >}}
 
 1.  Apply the CNI plugin of your choice:
 
     [Follow these instructions](/docs/setup/independent/create-cluster-kubeadm/#pod-network) to install
-    the pod network. Make sure this corresponds to whichever pod CIDR you provided in the kubeadm configuration file.
+    the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm
+    configuration file if applicable.
 
     In this example we are using Weave Net:
 
