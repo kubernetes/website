@@ -65,7 +65,9 @@ Following are the steps for generating a GMSA credential spec YAML manually in J
 1. Import the CredentialSpec [module](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/windows-server-container-tools/ServiceAccounts/CredentialSpec.psm1): `ipmo CredentialSpec.psm1`
 2. Create a credential spec in JSON format using `New-CredentialSpec`. To create a GMSA credential spec named WebApp1, invoke `New-CredentialSpec -Name WebApp1 -AccountName WebApp1 -Domain $(Get-ADDomain -Current LocalComputer)`
 3. Use `Get-CredentialSpec` to show the path of the JSON file. 
-4. Convert the credspec file from JSON to YAML format and apply the necessary header fields `apiVersion`, `kind`, `metadata` and `credspec` to make it a GMSACredentialSpec custom resource that can be configured in Kubernetes. An example based on a GMSA credential spec named WebApp1 is below:
+4. Convert the credspec file from JSON to YAML format and apply the necessary header fields `apiVersion`, `kind`, `metadata` and `credspec` to make it a GMSACredentialSpec custom resource that can be configured in Kubernetes. 
+
+The following YAML configuration describes a GMSA credential spec named `gmsa-WebApp1`:
 
 ```
 apiVersion: windows.k8s.io/v1alpha1
@@ -94,14 +96,14 @@ credspec:
 
 
 #### Configure cluster role to enable RBAC on specific GMSA credential specs
-A cluster role needs to be defined for each GMSA that authorizes the `use` verb on a specific GMSA resource by a subject such as a service account. The following shows an example of a cluster role that authorizes usage of gmsa-WebApp1 credential spec from above. Save the file as gmsa-webapp1-role.yaml and apply using `kubectl apply -f gmsa-webapp1-role.yaml`
+A cluster role needs to be defined for each GMSA credential spec resource. This authorizes the `use` verb on a specific GMSA resource by a subject which is typically a service account. The following example shows a cluster role that authorizes usage of the `gmsa-WebApp1` credential spec from above. Save the file as gmsa-webapp1-role.yaml and apply using `kubectl apply -f gmsa-webapp1-role.yaml`
 
 ```
 #Create the Role to read the credspec
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: my-rbac-reader
+  name: webapp1-role
 rules:
 - apiGroups: ["windows.k8s.io"]
   resources: ["gmsacredentialspecs"]
@@ -110,7 +112,7 @@ rules:
 ```
 
 #### Assign role to service accounts to use specific GMSA credspecs
-A service account that a pod is configured with needs to be bound to the role create above. This authorizes the service account to "use" the desired GMSA credential spec resource. The following demonstrates the default service account being bound to a role to use a GMSA credential spec from above. 
+A service account (that pods will be configured with) needs to be bound to the cluster role create above. This authorizes the service account to "use" the desired GMSA credential spec resource. The following shows the default service account being bound to a cluster role `webapp1-role` to use `gmsa-WebApp1` credential spec resource created above. 
 
 ```
 kind: RoleBinding
@@ -129,7 +131,7 @@ roleRef:
 ```
 
 #### Configure GMSA credential spec reference in pod spec
-In the alpha stage of the feature, the annotation `pod.alpha.windows.kubernetes.io/gmsa-credential-spec-name` is used to specify references to desired GMSA credential spec custom resources from pod specs. This configures all containers in the podspec to use the specified GMSA. A sample pod spec with the annotation populated:
+In the alpha stage of the feature, the annotation `pod.alpha.windows.kubernetes.io/gmsa-credential-spec-name` is used to specify references to desired GMSA credential spec custom resources from pod specs. This configures all containers in the podspec to use the specified GMSA. A sample pod spec with the annotation populated to refer to `gmsa-WebApp1`:
 
 ```
 apiVersion: apps/v1beta1
