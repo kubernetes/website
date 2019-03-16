@@ -3,6 +3,10 @@ title: Documentation Style Guide
 linktitle: Style guide
 content_template: templates/concept
 weight: 10
+card:
+  name: contribute
+  weight: 20
+  title: Documentation Style Guide
 ---
 
 {{% capture overview %}}
@@ -106,7 +110,12 @@ document, use the backtick (`).
   <tr><th>Do</th><th>Don't</th></tr>
   <tr><td>The <code>kubectl run</code> command creates a Deployment.</td><td>The "kubectl run" command creates a Deployment.</td></tr>
   <tr><td>For declarative management, use <code>kubectl apply</code>.</td><td>For declarative management, use "kubectl apply".</td></tr>
+  <tr><td>Enclose code samples with triple backticks. <code>(```)</code></td><td>Enclose code samples with any other syntax.</td></tr>
 </table>
+
+{{< note >}} 
+The website supports syntax highlighting for code samples, but specifying a language is optional.
+{{< /note >}}
 
 ### Use code style for object field names
 
@@ -318,7 +327,7 @@ Shortcodes inside include statements will break the build. You must insert them 
 
 ```
 {{</* note */>}}
-{{</* include "federation-current-state.md" */>}}
+{{</* include "task-tutorial-prereqs.md" */>}}
 {{</* /note */>}}
 ```
 

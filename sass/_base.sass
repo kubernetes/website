@@ -1846,6 +1846,23 @@ $feature-box-div-margin-bottom: 40px
   color: #0000CC
   margin-right: 8px
 
+// This Sass ensures a sticky footer at the bottom
+.page
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+
+  .page-content
+    flex: 1
+
+// 404 page
+.container-404
+  text-align: center
+  margin: 3.5rem 0
+
+  ul li a
+    font-size: 1.5rem
+
 // GitHub info/edit buttons
 #pre-footer
   margin-top: 2rem

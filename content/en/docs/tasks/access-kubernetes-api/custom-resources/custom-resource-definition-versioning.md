@@ -110,7 +110,7 @@ same way that the Kubernetes project sorts Kubernetes versions. Versions start w
 `v` followed by a number, an optional `beta` or `alpha` designation, and
 optional additional numeric versioning information. Broadly, a version string might look
 like `v2` or `v2beta1`. Versions are sorted using the following algorithm:
-  
+
 - Entries that follow Kubernetes version patterns are sorted before those that
   do not.
 - For entries that follow Kubernetes version patterns, the numeric portions of
@@ -185,7 +185,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 ### Deploy the conversion webhook service
 
 Documentation for deploying the conversion webhook is the same as for the [admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
-The assumption for next sections is that the conversion webhook server is deployed to a service named `example-conversion-webhook-server` in `default` namespace.
+The assumption for next sections is that the conversion webhook server is deployed to a service named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
 
 {{< note >}}
 When the webhook server is deployed into the Kubernetes cluster as a
@@ -242,6 +242,8 @@ spec:
       service:
         namespace: default
         name: example-conversion-webhook-server
+        # path is the url the API server will call. It should match what the webhook is serving at. The default is '/'.
+        path: /crdconvert
       caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
   # either Namespaced or Cluster
   scope: Namespaced

@@ -41,7 +41,7 @@ administrator to control the following:
 | Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
-| The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedProcMountTypes) |
+| The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedprocmounttypes) |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
 | The sysctl profile used by containers               | [annotations](#sysctl)                      |
@@ -336,7 +336,6 @@ pause-7774d79b5-qrgcb   0/1       Pending   0         1s
 pause-7774d79b5-qrgcb   0/1       Pending   0         1s
 pause-7774d79b5-qrgcb   0/1       ContainerCreating   0         1s
 pause-7774d79b5-qrgcb   1/1       Running   0         2s
-^C
 ```
 
 ### Clean up
@@ -465,7 +464,7 @@ Please make sure [`volumes`](#volumes-and-file-systems) field contains the
 For example:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: allow-flex-volumes
@@ -610,6 +609,6 @@ default cannot be changed.
 ### Sysctl
 
 Controlled via annotations on the PodSecurityPolicy. Refer to the [Sysctl documentation](
-/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy-annotations).
+/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
 {{% /capture %}}

@@ -179,7 +179,9 @@ Assuming you don't actually have pods matching `app: zookeeper` in your namespac
 then you'll see something like this:
 
 ```shell
-$ kubectl get poddisruptionbudgets
+kubectl get poddisruptionbudgets
+```
+```
 NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
 zk-pdb    2               0                     7s
 ```
@@ -187,7 +189,9 @@ zk-pdb    2               0                     7s
 If there are matching pods (say, 3), then you would see something like this:
 
 ```shell
-$ kubectl get poddisruptionbudgets
+kubectl get poddisruptionbudgets
+```
+```
 NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
 zk-pdb    2               1                     7s
 ```
@@ -198,7 +202,9 @@ counted the matching pods, and updated the status of the PDB.
 You can get more information about the status of a PDB with this command:
 
 ```shell
-$ kubectl get poddisruptionbudgets zk-pdb -o yaml
+kubectl get poddisruptionbudgets zk-pdb -o yaml
+```
+```yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:

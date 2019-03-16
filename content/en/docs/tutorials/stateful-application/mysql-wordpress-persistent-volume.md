@@ -4,6 +4,10 @@ reviewers:
 - ahmetb
 content_template: templates/tutorial
 weight: 20
+card: 
+  name: tutorials
+  weight: 40
+  title: "Stateful Example: Wordpress with Persistent Volumes"
 ---
 
 {{% capture overview %}}
@@ -133,12 +137,15 @@ Now you can verify that all objects exist.
       mysql-pass-c57bb4t7mf   Opaque                                1      9s
       ```
 
-2. Verify that a PersistentVolume got dynamically provisioned. Note that it can
-   It can take up to a few minutes for the PVs to be provisioned and bound.
-
+2. Verify that a PersistentVolume got dynamically provisioned.
+ 
       ```shell
       kubectl get pvc
       ```
+      
+      {{< note >}}
+      It can take up to a few minutes for the PVs to be provisioned and bound.
+      {{< /note >}}
 
       The response should be like this:
 

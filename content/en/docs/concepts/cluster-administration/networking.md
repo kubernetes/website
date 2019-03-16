@@ -7,8 +7,9 @@ weight: 50
 ---
 
 {{% capture overview %}}
-Kubernetes approaches networking somewhat differently than Docker does by
-default.  There are 4 distinct networking problems to solve:
+Networking is a central part of Kubernetes, but it can be challenging to
+understand exactly how it is expected to work.  There are 4 distinct networking
+problems to address:
 
 1. Highly-coupled container-to-container communications: this is solved by
    [pods](/docs/concepts/workloads/pods/pod/) and `localhost` communications.
@@ -21,80 +22,56 @@ default.  There are 4 distinct networking problems to solve:
 
 {{% capture body %}}
 
-Kubernetes assumes that pods can communicate with other pods, regardless of
-which host they land on. Every pod gets its own IP address so you do not
-need to explicitly create links between pods and you almost never need to deal
-with mapping container ports to host ports.  This creates a clean,
-backwards-compatible model where pods can be treated much like VMs or physical
-hosts from the perspectives of port allocation, naming, service discovery, load
-balancing, application configuration, and migration.
+Kubernetes is all about sharing machines between applications.  Typically,
+sharing machines requires ensuring that two applications do not try to use the
+same ports.  Coordinating ports across multiple developers is very difficult to
+do at scale and exposes users to cluster-level issues outside of their control.
 
-There are requirements imposed on how you set up your cluster networking to
-achieve this.
-
-## Docker model
-
-Before discussing the Kubernetes approach to networking, it is worthwhile to
-review the "normal" way that networking works with Docker.  By default, Docker
-uses host-private networking.  It creates a virtual bridge, called `docker0` by
-default, and allocates a subnet from one of the private address blocks defined
-in [RFC1918](https://tools.ietf.org/html/rfc1918) for that bridge.  For each
-container that Docker creates, it allocates a virtual Ethernet device (called
-`veth`) which is attached to the bridge. The veth is mapped to appear as `eth0`
-in the container, using Linux namespaces.  The in-container `eth0` interface is
-given an IP address from the bridge's address range.
-
-The result is that Docker containers can talk to other containers only if they
-are on the same machine (and thus the same virtual bridge).  Containers on
-different machines can not reach each other - in fact they may end up with the
-exact same network ranges and IP addresses.
-
-In order for Docker containers to communicate across nodes, there must
-be allocated ports on the machine’s own IP address, which are then
-forwarded or proxied to the containers. This obviously means that
-containers must either coordinate which ports they use very carefully
-or ports must be allocated dynamically.
-
-## Kubernetes model
-
-Coordinating ports across multiple developers is very difficult to do at
-scale and exposes users to cluster-level issues outside of their control.
 Dynamic port allocation brings a lot of complications to the system - every
 application has to take ports as flags, the API servers have to know how to
 insert dynamic port numbers into configuration blocks, services have to know
 how to find each other, etc.  Rather than deal with this, Kubernetes takes a
 different approach.
 
+## The Kubernetes network model
+
+Every `Pod` gets its own IP address. This means you do not need to explicitly
+create links between `Pods` and you almost never need to deal with mapping
+container ports to host ports.  This creates a clean, backwards-compatible
+model where `Pods` can be treated much like VMs or physical hosts from the
+perspectives of port allocation, naming, service discovery, load balancing,
+application configuration, and migration.
+
 Kubernetes imposes the following fundamental requirements on any networking
 implementation (barring any intentional network segmentation policies):
 
-   * all containers can communicate with all other containers without NAT
-   * all nodes can communicate with all containers (and vice-versa) without NAT
-   * the IP that a container sees itself as is the same IP that others see it as
+   * pods on a node can communicate with all pods on all nodes without NAT
+   * agents on a node (e.g. system daemons, kubelet) can communicate with all
+     pods on that node
 
-What this means in practice is that you can not just take two computers
-running Docker and expect Kubernetes to work.  You must ensure that the
-fundamental requirements are met.
+Note: For those platforms that support `Pods` running in the host network (e.g.
+Linux):
+
+   * pods in the host network of a node can communicate with all pods on all
+     nodes without NAT
 
 This model is not only less complex overall, but it is principally compatible
 with the desire for Kubernetes to enable low-friction porting of apps from VMs
 to containers.  If your job previously ran in a VM, your VM had an IP and could
 talk to other VMs in your project.  This is the same basic model.
 
-Until now this document has talked about containers.  In reality, Kubernetes
-applies IP addresses at the `Pod` scope - containers within a `Pod` share their
-network namespaces - including their IP address.  This means that containers
-within a `Pod` can all reach each other's ports on `localhost`. This does imply
-that containers within a `Pod` must coordinate port usage, but this is no
-different than processes in a VM.  This is called the "IP-per-pod" model.  This
-is implemented, using Docker, as a "pod container" which holds the network namespace
-open while "app containers" (the things the user specified) join that namespace
-with Docker's `--net=container:<id>` function.
+Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
+share their network namespaces - including their IP address.  This means that
+containers within a `Pod` can all reach each other's ports on `localhost`. This
+also means that containers within a `Pod` must coordinate port usage, but this
+is no different than processes in a VM.  This is called the "IP-per-pod" model.
 
-As with Docker, it is possible to request host ports, but this is reduced to a
-very niche operation.  In this case a port will be allocated on the host `Node`
-and traffic will be forwarded to the `Pod`.  The `Pod` itself is blind to the
-existence or non-existence of host ports.
+How this is implemented is a detail of the particular container runtime in use.
+
+It is possible to request ports on the `Node` itself which forward to your `Pod`
+(called host ports), but this is a very niche operation. How that forwarding is
+implemented is also a detail of the container runtime. The `Pod` itself is
+blind to the existence or non-existence of host ports.
 
 ## How to implement the Kubernetes networking model
 

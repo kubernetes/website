@@ -137,6 +137,40 @@ aliases:
     - stewart-yu
     - xiangpengzhao
     - zhangxiaoyu-zidif
+  sig-docs-fr-owners: #Team: Documentation; GH: sig-docs-fr-owners
+    - sieben
+    - perriea
+    - rekcah78
+    - lledru
+    - yastij
+    - smana
+    - rbenzair
+    - abuisine
+    - erickhun
+    - jygastaud
+    - awkif
+    - oussemos
+  sig-docs-fr-reviews: #Team: Documentation; GH: sig-docs-fr-reviews
+    - sieben
+    - perriea
+    - rekcah78
+    - lledru
+    - yastij
+    - smana
+    - rbenzair
+    - abuisine
+    - erickhun
+    - jygastaud
+    - awkif
+    - oussemos
+  sig-docs-it-owners: #Team: Italian docs localization; GH: sig-docs-it-owners
+    - rlenferink
+    - lledru
+    - micheleberardi
+  sig-docs-it-reviews: #Team: Italian docs PR reviews; GH:sig-docs-it-reviews
+    - rlenferink
+    - lledru
+    - micheleberardi
   sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
     - cstoku
     - nasa9084
@@ -169,6 +203,7 @@ aliases:
     - markthink
     - tengqm
     - xiangpengzhao
+    - xichengliudui
     - zacharysarah
     - zhangxiaoyu-zidif
   sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
@@ -177,6 +212,7 @@ aliases:
     - markthink
     - tengqm
     - xiangpengzhao
+    - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
   sig-federation: #Team: Federation; e.g. Federated Clusters

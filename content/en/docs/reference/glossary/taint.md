@@ -2,7 +2,7 @@
 title: Taint
 id: taint
 date: 2019-01-11
-full_link: docs/concepts/configuration/taint-and-toleration/
+full_link: /docs/concepts/configuration/taint-and-toleration/
 short_description: >
   A key-value pair and an effect to prevent the scheduling of pods on nodes or node groups.
 

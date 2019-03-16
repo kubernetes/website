@@ -1,14 +1,16 @@
 ---
+title: Set up Cluster Federation with Kubefed
 reviewers:
 - madhusudancs
 content_template: templates/task
-title: Set up Cluster Federation with Kubefed
+weight: 125
 ---
 
 {{% capture overview %}}
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 Kubernetes version 1.5 and above includes a new command line tool called
 [`kubefed`](/docs/admin/kubefed/) to help you administrate your federated
@@ -52,7 +54,7 @@ now maintained. Consequently, the federation release information is available on
 [release page](https://github.com/kubernetes/federation/releases).
 {{< /note >}}
 
-### For k8s versions 1.8.x and earlier:
+### For Kubernetes versions 1.8.x and earlier:
 
 ```shell
 curl -LO https://storage.googleapis.com/kubernetes-release/release/${RELEASE-VERSION}/kubernetes-client-linux-amd64.tar.gz
@@ -70,7 +72,7 @@ sudo cp kubernetes/client/bin/kubefed /usr/local/bin
 sudo chmod +x /usr/local/bin/kubefed
 ```
 
-### For k8s versions 1.9.x and above:
+### For Kubernetes versions 1.9.x and above:
 
 ```shell
 curl -LO https://storage.cloud.google.com/kubernetes-federation-release/release/${RELEASE-VERSION}/federation-client-linux-amd64.tar.gz

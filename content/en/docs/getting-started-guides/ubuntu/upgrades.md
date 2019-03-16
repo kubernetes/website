@@ -107,15 +107,15 @@ but is a safer upgrade route.
 
 #### Blue/green worker upgrade
 
-Given a deployment where the workers are named kubernetes-alpha.
+Given a deployment where the workers are named kubernetes-blue.
 
 Deploy new workers:
 
-    juju deploy kubernetes-alpha
+    juju deploy kubernetes-green
 
 Pause the old workers so your workload migrates:
 
-    juju run-action kubernetes-alpha/# pause
+    juju run-action kubernetes-blue/# pause
 
 Verify old workloads have migrated with:
 
@@ -123,7 +123,7 @@ Verify old workloads have migrated with:
 
 Tear down old workers with:
 
-    juju remove-application kubernetes-alpha
+    juju remove-application kubernetes-blue
 
 #### In place worker upgrade
 

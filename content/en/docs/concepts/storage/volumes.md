@@ -784,9 +784,8 @@ receive updates for those volume sources.
 ### portworxVolume {#portworxvolume}
 
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
-Kubernetes. Portworx fingerprints storage in a server, tiers based on capabilities,
-and aggregates capacity across multiple servers. Portworx runs in-guest in virtual
-machines or on bare metal Linux nodes.
+Kubernetes. [Portworx](https://portworx.com/use-case/kubernetes-storage/) fingerprints storage in a server, tiers based on capabilities,
+and aggregates capacity across multiple servers. Portworx runs in-guest in virtual machines or on bare metal Linux nodes.
 
 A `portworxVolume` can be dynamically created through Kubernetes or it can also
 be pre-provisioned and referenced inside a Kubernetes Pod.
@@ -829,7 +828,9 @@ You must have your own Quobyte setup running with the volumes
 created before you can use it.
 {{< /caution >}}
 
-See the [Quobyte example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/quobyte) for more details.
+Quobyte supports the {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
+CSI is the recommended plugin to use Quobyte volumes inside Kubernetes. Quobyte's
+GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte-csi) for deploying Quobyte using CSI, along with examples.
 
 ### rbd {#rbd}
 
@@ -1145,12 +1146,12 @@ CSI support was introduced as alpha in Kubernetes v1.9, moved to beta in
 Kubernetes v1.10, and is GA in Kubernetes v1.13.
 
 {{< note >}}
-**Note:** Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
+Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
 v1.13 and will be removed in a future release.
 {{< /note >}}
 
 {{< note >}}
-**Note:** CSI drivers may not be compatible across all Kubernetes releases.
+CSI drivers may not be compatible across all Kubernetes releases.
 Please check the specific CSI driver's documentation for supported
 deployments steps for each Kubernetes release and a compatibility matrix.
 {{< /note >}}
@@ -1334,8 +1335,8 @@ MountFlags=shared
 ```
 Or, remove `MountFlags=slave` if present.  Then restart the Docker daemon:
 ```shell
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 

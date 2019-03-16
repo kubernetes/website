@@ -149,9 +149,9 @@ Once you have those variables filled in you can
 ### Using IBM Cloud Container Registry
 IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to safely store and share your Docker images. By default, images in your private registry are scanned by the integrated Vulnerability Advisor to detect security issues and potential vulnerabilities. Users in your IBM Cloud account can access your images, or you can create a token to grant access to registry namespaces.
 
-To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://console.bluemix.net/docs/services/Registry/index.html#index).
+To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://cloud.ibm.com/docs/services/Registry?topic=registry-index#index).
 
-You can use the IBM Cloud Container Registry to deploy containers from [IBM Cloud public images](https://console.bluemix.net/docs/services/RegistryImages/index.html#ibm_images) and your private images into the `default` namespace of your IBM Cloud Kubernetes Service cluster. To deploy a container into other namespaces, or to use an image from a different IBM Cloud Container Registry region or IBM Cloud account, create a Kubernetes `imagePullSecret`. For more information, see [Building containers from images](https://console.bluemix.net/docs/containers/cs_images.html#images).
+You can use the IBM Cloud Container Registry to deploy containers from [IBM Cloud public images](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images#public_images) and your private images into the `default` namespace of your IBM Cloud Kubernetes Service cluster. To deploy a container into other namespaces, or to use an image from a different IBM Cloud Container Registry region or IBM Cloud account, create a Kubernetes `imagePullSecret`. For more information, see [Building containers from images](https://cloud.ibm.com/docs/containers?topic=containers-images#images).
 
 ### Configuring Nodes to Authenticate to a Private Registry
 
@@ -294,12 +294,17 @@ kubectl apply -k .
 secret/myregistrykey-66h7d4d986 created
 ```
 
-If you need access to multiple registries, you can create one secret for each registry.
-Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
-when pulling images for your Pods.
+If you already have a Docker credentials file then, rather than using the above
+command, you can import the credentials file as a Kubernetes secret.
+[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explains how to set this up.
+This is particularly useful if you are using multiple private container
+registries, as `kubectl create secret docker-registry` creates a Secret that will
+only work with a single private registry.
 
+{{< note >}}
 Pods can only reference image pull secrets in their own namespace,
 so this process needs to be done one time per namespace.
+{{< /note >}}
 
 #### Referring to an imagePullSecrets on a Pod
 
@@ -365,3 +370,6 @@ common use cases and suggested solutions.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 
 {{% /capture %}}
+
+If you need access to multiple registries, you can create one secret for each registry.
+Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`

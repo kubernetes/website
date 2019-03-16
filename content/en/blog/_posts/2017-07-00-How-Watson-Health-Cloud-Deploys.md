@@ -19,7 +19,7 @@ I was able to run more processes on a single physical server than I could using 
 
 
 
-To orchestrate container deployment, we are using[Armada infrastructure](https://console.bluemix.net/containers-kubernetes/launch), a Kubernetes implementation by IBM for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure.
+To orchestrate container deployment, we are using [IBM Cloud Kubernetes Service infrastructure](https://cloud.ibm.com/containers-kubernetes/landing), a Kubernetes implementation by IBM for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure.
 
 
 
@@ -39,7 +39,7 @@ Here is a snapshot of Watson Care Manager, running inside a Kubernetes cluster:
 
 
 
-Before deploying an app, a user must create a worker node cluster. I can create a cluster using the kubectl cli commands or create it from[a Bluemix](http://bluemix.net/) dashboard.
+Before deploying an app, a user must create a worker node cluster. I can create a cluster using the kubectl cli commands or create it from the [IBM Cloud](https://cloud.ibm.com/) dashboard.
 
 
 
@@ -107,16 +107,16 @@ If needed, run a rolling update to update the existing pod.
 
 
 
-Deploying the application in Armada:
+Deploying the application in IBM Cloud Kubernetes Service:
 
 
 
-Provision a cluster in Armada with \<x\> worker nodes. Create Kubernetes controllers for deploying the containers in worker nodes, the Armada infrastructure pulls the Docker images from IBM Bluemix Docker registry to create containers. We tried deploying an application container and running a logmet agent (see Reading and displaying logs using logmet container, below) inside the containers that forwards the application logs to an IBM cloud logging service. As part of the process, YAML files are used to create a controller resource for the UrbanCode Deploy (UCD). UCD agent is deployed as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) controller, which is used to connect to the UCD server. The whole process of deployment of application happens in UCD. To support the application for public access, we created a service resource to interact between pods and access container services. For storage support, we created persistent volume claims and mounted the volume for the containers.
+Provision a cluster in IBM Cloud Kubernetes Service with \<x\> worker nodes. Create Kubernetes controllers for deploying the containers in worker nodes, the IBM Cloud Kubernetes Service infrastructure pulls the Docker images from IBM Cloud Container Registry to create containers. We tried deploying an application container and running a logmet agent (see Reading and displaying logs using logmet container, below) inside the containers that forwards the application logs to an IBM Cloud logging service. As part of the process, YAML files are used to create a controller resource for the UrbanCode Deploy (UCD). UCD agent is deployed as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) controller, which is used to connect to the UCD server. The whole process of deployment of application happens in UCD. To support the application for public access, we created a service resource to interact between pods and access container services. For storage support, we created persistent volume claims and mounted the volume for the containers.
 
 
 
 | ![](https://lh6.googleusercontent.com/iFKlbBX8rjWTuygIfjImdxP8R7xXuvaaoDwldEIC3VRL03XIehxagz8uePpXllYMSxoyai5a6N-0NB4aTGK9fwwd8leFyfypxtbmaWBK-b2Kh9awcA76-_82F7ZZl7lgbf0gyFN7) |
-| UCD: IBM UrbanCode Deploy is a tool for automating application deployments through your environments. Armada: Kubernetes implementation of IBM. WH Docker Registry: Docker Private image registry. Common agent containers: We expect to configure our services to use the WHC mandatory agents. We deployed all ion containers. |
+| UCD: IBM UrbanCode Deploy is a tool for automating application deployments through your environments. IBM Cloud Kubernetes Service: Kubernetes implementation of IBM. WH Docker Registry: Docker Private image registry. Common agent containers: We expect to configure our services to use the WHC mandatory agents. We deployed all ion containers. |
 
 
 
@@ -142,7 +142,7 @@ Exposing services with Ingress:
 
 
 
-To expose our services to outside the cluster, we used Ingress. In Armada, if we create a paid cluster, an Ingress controller is automatically installed for us to use. We were able to access services through Ingress by creating a YAML resource file that specifies the service path.
+To expose our services to outside the cluster, we used Ingress. In IBM Cloud Kubernetes Service, if we create a paid cluster, an Ingress controller is automatically installed for us to use. We were able to access services through Ingress by creating a YAML resource file that specifies the service path.
 
 
 

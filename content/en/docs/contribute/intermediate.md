@@ -3,6 +3,9 @@ title: Intermediate contributing
 slug: intermediate
 content_template: templates/concept
 weight: 20
+card:
+  name: contribute
+  weight: 50
 ---
 
 {{% capture overview %}}

@@ -189,7 +189,9 @@ unscheduled until a place can be found. An event is produced each time the
 scheduler fails to find a place for the Pod, like this:
 
 ```shell
-$ kubectl describe pod frontend | grep -A 3 Events
+kubectl describe pod frontend | grep -A 3 Events
+```
+```
 Events:
   FirstSeen LastSeen   Count  From          Subobject   PathReason      Message
   36s   5s     6      {scheduler }              FailedScheduling  Failed for reason PodExceedsFreeCPU and possibly others
@@ -210,7 +212,9 @@ You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 
 ```shell
-$ kubectl describe nodes e2e-test-minion-group-4lw4
+kubectl describe nodes e2e-test-minion-group-4lw4
+```
+```
 Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
@@ -260,7 +264,9 @@ whether a Container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:
 
 ```shell
-[12:54:41] $ kubectl describe pod simmemleak-hra99
+kubectl describe pod simmemleak-hra99
+```
+```
 Name:                           simmemleak-hra99
 Namespace:                      default
 Image(s):                       saadali/simmemleak
@@ -304,7 +310,9 @@ You can call `kubectl get pod` with the `-o go-template=...` option to fetch the
 of previously terminated Containers:
 
 ```shell
-[13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
+kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-hra99
+```
+```
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
 ```
