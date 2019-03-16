@@ -187,28 +187,33 @@ Windows supports five different networking drivers/modes: L2bridge, L2tunnel, Ov
    </td>
   </tr>
   <tr>
-   <td>Overlay (Overlay networking for Windows in Kubernetes is in <strong>alpha </strong>stage)
+   <td>Overlay (Overlay networking for Windows in Kubernetes is in <strong>alpha</strong> stage)
    </td>
    <td>Containers are given a vNIC connected to an external vSwitch. Each overlay network gets its own IP subnet, defined by a custom IP prefix.The overlay network driver uses VXLAN encapsulation.
    </td>
    <td>Encapsulated with an outer header, inner packet remains the same.
    </td>
-   <td><a href="https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay">Win-overlay</a>, Flannel VXLAN (uses win-overlay),
-   <a href="https://github.com/openvswitch/ovn-kubernetes">OVN-Kubernetes</a> (uses <a href="http://docs.openvswitch.org/en/latest/intro/install/windows/#open-vswitch-on-windows">OpenVSwitch on Windows</a> - <a href="https://cloudbase.it/openvswitch/#download">Prebuilt certified installer</a>), requires <a href="https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887">KB4482887</a>
+   <td><a href="https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay">Win-overlay</a>, Flannel VXLAN (uses win-overlay)
    </td>
    <td>win-overlay should be used when virtual container networks are desired to be isolated from underlay of hosts (e.g. for security reasons). Allows for IPs to be re-used for different overlay networks (which have different VNID tags)  if you are restricted on IPs in your datacenter. This option may be used when the container hosts are not L2 adjacent but have L3 connectivity 
    </td>
   </tr>
   <tr>
-   <td>Transparent <em>(not used in Kubernetes</em>)
+   <td>Transparent (special use case for <a href="https://github.com/openvswitch/ovn-kubernetes">ovn-kubernetes</a>)
    </td>
-   <td>Containers are given a vNIC connected to an external vSwitch. Containers are attached to the underlay network directly and the physical network needs to learn the container MACs.
+   <td>Containers are given a vNIC connected to a required external vSwitch. Containers are attached to the underlay network directly (external vSwitch) and the physical network needs to learn the container MACs. The external vSwitch enables intra-pod communication via logical networks (logical switches and routers)
    </td>
-   <td>Both MAC and IP remains the same.
+   <td>Packet is encapsulated either via <a href="https://datatracker.ietf.org/doc/draft-gross-geneve/">GENEVE</a> or <a href="https://datatracker.ietf.org/doc/draft-davie-stt/">STT</a> tunneling to reach pods which are not on the same host.
+
+Packets are forwarded or dropped via the tunnel metadata information supplied by the ovn network controller.
+
+NAT is done for north-south communication.
    </td>
    <td>
+  <a href="https://github.com/openvswitch/ovn-kubernetes">ovn-kubernetes</a>
    </td>
-   <td>Included here for completeness
+   <td>
+  <a href="https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib">Deploy via ansible</a>. Distributed ACLs can be applied via Kubernetes policies. IPAM support. Load-balancing can be achieved without kube-proxy. NATing is done without using iptables/netsh.
    </td>
   </tr>
   <tr>
@@ -747,7 +752,7 @@ kubectl get nodes
 
 AKS-Engine can deploy a complete, customizable Kubernetes cluster with both Linux & Windows nodes. There is a step-by-step walkthrough available in the [docs on GitHub](https://github.com/Azure/aks-engine/blob/master/docs/topics/windows.md).
 
-#### ​GCP
+#### GCP
 
 Users can easily deploy a complete Kubernetes cluster on GCE following this step-by-step walkthrough on [GitHub](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/windows/README-GCE-Windows-kube-up.md)
 
@@ -844,7 +849,7 @@ When the service is deployed correctly both Pods will be marked as Ready. To exi
 * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
 * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
 * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
-* Service discovery, `curl` the service name with the Kubernetes[ default DNS suffix](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services)
+* Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services)
 * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
 * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 {{< note >}}
@@ -853,7 +858,7 @@ When the service is deployed correctly both Pods will be marked as Ready. To exi
 
 ## Managing Workload Identity with Group Managed Service Accounts
 
-Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](https://kubernetes.io/docs/concepts/configuration/workload-identity/).
+Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/content/en/docs/tasks/configure-pod-container/configure-gmsa.md).
 
 ## Taints and Tolerations
 
