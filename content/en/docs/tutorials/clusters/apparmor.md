@@ -198,7 +198,7 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 {{< codenew file="pods/security/hello-apparmor.yaml" >}}
 
 ```shell
-$ kubectl create -f ./hello-apparmor.yaml
+$ kubectl apply -f ./hello-apparmor.yaml
 ```
 
 If we look at the pod events, we can see that the Pod container was created with the AppArmor
@@ -231,7 +231,7 @@ error: error executing remote command: command terminated with non-zero exit cod
 To wrap up, let's look at what happens if we try to specify a profile that hasn't been loaded:
 
 ```shell
-$ kubectl create -f /dev/stdin <<EOF
+$ kubectl apply -f /dev/stdin <<EOF
 apiVersion: v1
 kind: Pod
 metadata:

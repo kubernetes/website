@@ -70,7 +70,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 Then a new namespaced RESTful API endpoint is created at:
@@ -112,7 +112,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 You can then manage your CronTab objects using kubectl. For example:
@@ -288,7 +288,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 A request to create a custom object of kind `CronTab` will be rejected if there are invalid values in its fields.
@@ -313,7 +313,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 you will get an error:
@@ -343,7 +343,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
 
@@ -439,7 +439,7 @@ columns.
 2.  Create the CustomResourceDefinition:
 
       ```shell
-      kubectl create -f resourcedefinition.yaml
+      kubectl apply -f resourcedefinition.yaml
       ```
 
 3.  Create an instance using the `my-crontab.yaml` from the previous section.
@@ -612,7 +612,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 After the CustomResourceDefinition object has been created, you can create custom objects.
@@ -633,7 +633,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 Then new namespaced RESTful API endpoints are created at:
@@ -697,7 +697,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 After the CustomResourceDefinition object has been created, you can create custom objects.
@@ -717,7 +717,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 You can specify the category using `kubectl get`:

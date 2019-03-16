@@ -66,7 +66,7 @@ to generate the Job objects.
 Next, create all the jobs with one kubectl command:
 
 ```shell
-$ kubectl create -f ./jobs
+$ kubectl apply -f ./jobs
 job "process-item-apple" created
 job "process-item-banana" created
 job "process-item-cherry" created
@@ -178,7 +178,7 @@ cat job.yaml.jinja2 | render_template > jobs.yaml
 Or sent directly to kubectl, like this:
 
 ```shell
-cat job.yaml.jinja2 | render_template | kubectl create -f -
+cat job.yaml.jinja2 | render_template | kubectl apply -f -
 ```
 
 ## Alternatives

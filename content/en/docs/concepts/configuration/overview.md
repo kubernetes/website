@@ -23,7 +23,7 @@ This is a living document. If you think of something that is not on this list bu
 
 - Group related objects into a single file whenever it makes sense. One file is often easier to manage than several. See the [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml) file as an example of this syntax.
 
-- Note also that many `kubectl` commands can be called on a directory. For example, you can call `kubectl create` on a directory of config files.
+- Note also that many `kubectl` commands can be called on a directory. For example, you can call `kubectl apply` on a directory of config files.
 
 - Don't specify default values unnecessarily: simple, minimal configuration will make errors less likely.
 
@@ -97,7 +97,7 @@ The caching semantics of the underlying image provider make even `imagePullPolic
 
 ## Using kubectl
 
-- Use `kubectl apply -f <directory>` or `kubectl create -f <directory>`. This looks for Kubernetes configuration in all `.yaml`, `.yml`, and `.json` files in `<directory>` and passes it to `apply` or `create`.
+- Use `kubectl apply -f <directory>`. This looks for Kubernetes configuration in all `.yaml`, `.yml`, and `.json` files in `<directory>` and passes it to `apply`.
 
 - Use label selectors for `get` and `delete` operations instead of specific object names. See the sections on [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 

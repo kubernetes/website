@@ -53,9 +53,9 @@ directory and start a temporary Pod running Redis and a service so we can find i
 
 ```shell
 $ cd content/en/examples/application/job/redis
-$ kubectl create -f ./redis-pod.yaml
+$ kubectl apply -f ./redis-pod.yaml
 pod/redis-master created
-$ kubectl create -f ./redis-service.yaml
+$ kubectl apply -f ./redis-service.yaml
 service/redis created
 ```
 
@@ -196,7 +196,7 @@ too.
 So, now run the Job:
 
 ```shell
-kubectl create -f ./job.yaml
+kubectl apply -f ./job.yaml
 ```
 
 Now wait a bit, then check on the job.

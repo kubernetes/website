@@ -89,7 +89,7 @@ metadata:
 Then run:
 
 ```shell
-$ kubectl create -f ./my-namespace.yaml
+$ kubectl apply -f ./my-namespace.yaml
 ```
 
 Note that the name of your namespace must be a DNS compatible label.
@@ -151,13 +151,13 @@ Use the file [`namespace-dev.json`](/examples/admin/namespace-dev.json) which de
 Create the development namespace using kubectl.
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
+$ kubectl apply -f https://k8s.io/examples/admin/namespace-dev.json
 ```
 
 And then let's create the production namespace using kubectl.
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
+$ kubectl apply -f https://k8s.io/examples/admin/namespace-prod.json
 ```
 
 To be sure things are right, list all of the namespaces in our cluster.

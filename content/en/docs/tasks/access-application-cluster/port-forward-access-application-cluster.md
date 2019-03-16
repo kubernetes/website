@@ -28,7 +28,7 @@ for database debugging.
 
 1. Create a Redis deployment:
 
-        kubectl create -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
+        kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
 
     The output of a successful command verifies that the deployment was created:
 
@@ -64,7 +64,7 @@ for database debugging.
 
 2. Create a Redis service:
 
-        kubectl create -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
+        kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
 
     The output of a successful command verifies that the service was created:
 

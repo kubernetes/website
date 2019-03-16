@@ -26,7 +26,7 @@ For this example we'll use a Deployment to create two pods, similar to the earli
 Create deployment by running following command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/nginx-with-request.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx-with-request.yaml
 ```
 
 ```none

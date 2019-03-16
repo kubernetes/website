@@ -167,7 +167,7 @@ automatically responds to changes in the number of replicas of the corresponding
 
 ## Create the PDB object
 
-You can create the PDB object with a command like `kubectl create -f mypdb.yaml`.
+You can create the PDB object with a command like `kubectl apply -f mypdb.yaml`.
 
 You cannot update PDB objects.  They must be deleted and re-created.
 
