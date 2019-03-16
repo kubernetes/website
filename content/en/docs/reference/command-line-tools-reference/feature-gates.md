@@ -59,6 +59,7 @@ different Kubernetes components.
 | `CSIBlockVolume` | `true` | Beta | 1.14 | |
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
+| `CSIInlineVolume` | `false` | Alpha | 1.14 | - |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
 | `CSINodeInfo` | `true` | Beta | 1.14 | |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
@@ -222,6 +223,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
+- `CSIInlineVolume`: Enable CSI volumes to be directly embedded in Pod specifications instead of a PersistentVolume.
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
