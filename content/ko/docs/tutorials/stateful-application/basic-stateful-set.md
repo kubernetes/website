@@ -445,7 +445,7 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 이 기능은 컨테이너 이미지, 스테이트풀셋의 리소스 요청이나 
 혹은 한계와 레이블과 파드의 어노테이션을 업그레이드하기 위해 사용될 수 있다. 
 `RollingUpdate`과 `OnDelete`의 2개의 
-유효한 업데이트 정책이 있다.
+유효한 업데이트 전략이 있다.
 
 `RollingUpdate` 업데이트 전략은 스테이트풀셋에서 기본 값이다.
 
@@ -453,7 +453,7 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 
 `RollingUpdate` 업데이트 전략은 스테이트풀셋을 보장하면서 스테이트풀셋 내에 파드를 역순으로 업데이트합니다. 
 
-스테이트풀셋 `web`의 업데이트정책을 `RollingUpdate`으로 패치하자.
+스테이트풀셋 `web`의 업데이트 전략을 `RollingUpdate`으로 패치하자.
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
@@ -533,7 +533,7 @@ k8s.gcr.io/nginx-slim:0.8
 명령어도 사용할 수 있다.
 
 #### 단계적으로 업데이트 하기 {#staging-an-update}
-`RollingUpdate` 업데이트 정책의 파라미터인 `partition`를 이용하여 
+`RollingUpdate` 업데이트 전략의 파라미터인 `partition`를 이용하여
 스테이트풀셋의 단계적으로 업데이트할 수 있다.
 단계적 업데이트는 스테이트풀셋의 모든 파드를 현재 버전으로 유지하면서 
 스테이트풀셋의 `.spec.template`에 변경을 허용한다.
@@ -578,7 +578,7 @@ k8s.gcr.io/nginx-slim:0.8
 
 ```
 
-비록 업데이트 정책이 `RollingUpdate`이지만 스테이트풀셋은 
+비록 업데이트 전략이 `RollingUpdate`이지만 스테이트풀셋은
 파드를 그것의 원래 컨테이너로 복원한다. 
 파드의 순번이 `updateStrategy`에서 지정된 
 `파티션`보다 작기 때문이다.
@@ -613,7 +613,7 @@ k8s.gcr.io/nginx-slim:0.7
 
 ```
 
-`partition`을 바꾸면 스테이트풀셋 컨트로러는 자동으로 
+`partition`을 바꾸면 스테이트풀셋 컨트롤러는 자동으로
 `web-2` 파드를 업데이트하는데 
 이는 해당 파드의 순번이 `partition` 이상이기 때문이다.
 
@@ -705,10 +705,10 @@ k8s.gcr.io/nginx-slim:0.7
 
 ### 삭제시 동작
 
-`OnDelete` 업데이트 정책은 예전 동작(1.6 이하)으로, 
-이 업데이트 정책을 선택하면 스테이트풀셋 컨트롤러는 스테이트풀셋의 
+`OnDelete` 업데이트 전략은 예전 동작(1.6 이하)으로,
+이 업데이트 전략을 선택하면 스테이트풀셋 컨트롤러는 스테이트풀셋의
 `.spec.template` 필드에 수정 사항이 발생해도 자동으로 파드를 업데이트하지 않는다. 
-이 정책은 `.spec.template.updateStrategy.type`을 `OnDelete`로 설정하여 선택할 수 있다.
+이 전략은 `.spec.template.updateStrategy.type`을 `OnDelete`로 설정하여 선택할 수 있다.
 
 ## 스테이트풀셋 삭제하기
 
