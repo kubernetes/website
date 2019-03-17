@@ -16,12 +16,12 @@ In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide
 Currently this feature is in alpha state. While the overall goals and functionality will not change, the way in which the GMSA credspec references are specified in pod specs may change from annotations to API fields. Please take this into consideration when testing or adopting this feature.
 {{< /note >}}
 
-{{% /capture %}}
-
-{{% capture body %}}
-
 ## Setup and configuration for GMSA
 Configuring GMSA credential specs in the cluster and configuring individual pods and containers to be able to use them requires several steps described in detail below.
+
+{{% /capture %}}
+
+{{% capture prerequisites %}}
 
 ### Initial configuration of Kubernetes cluster to use GMSA
 This section covers a set of initial steps required once for each cluster. These include:
@@ -55,6 +55,10 @@ The [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/
 Before pods in Kubernetes can be configured to use GMSAs, the following configuration steps are necessary in Active Directory:
 1. The desired GMSAs need to be provisioned in Active Directory as described [here](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1)
 2. Windows worker nodes need to be configured in Active Directory to access the secret credentials associated with a GMSA as described [here](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ### Configuration and usage of GMSAs in pods
 This section covers the set of steps necessary for configuring individual GMSA credential specs in Kubernetes and using them in pods. The steps include:
@@ -195,6 +199,10 @@ spec:
       nodeSelector:
         beta.kubernetes.io/os: windows
 ```
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ### Conclusion
 As pod specs with GMSA annotations (as described above) are applied in a cluster configured for GMSA, the following sequence of events will take place:
