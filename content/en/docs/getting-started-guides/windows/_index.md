@@ -2,10 +2,6 @@
 title: Using Windows Server Containers in Kubernetes
 toc_hide: true
 ---
-{{< note >}}
-These instructions are under review for the v1.14 release with a [tracking issue](https://github.com/kubernetes/website/issues/12426).
-{{< /note >}}
-
 ## Motivation
 
 Windows applications constitute a large portion of the services and applications that run in many organizations. [Windows containers](https://aka.ms/windowscontainers) provide a modern way to encapsulate processes and package dependencies, making it easier to use DevOps practices and follow cloud native patterns for Windows applications. Kubernetes has become the defacto standard container orchestrator, and the release of Kubernetes 1.14 includes production support for scheduling Windows containers on Windows nodes in a Kubernetes cluster, enabling a vast ecosystem of Windows applications to leverage the power of Kubernetes. Enterprises with investments in Windows-based applications and Linux-based applications don't have to look for separate orchestrators to manage their workloads, leading to increased operational efficiencies across their deployments, regardless of operating system. 
@@ -72,7 +68,7 @@ Let's start with the operating system version. Refer to the following table for 
 The Windows Server Host Operating System is subject to the [Windows Server ](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) licensing. The Windows Container images are subject to the [Supplemental License Terms for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula).
 {{< /note >}}
 {{< note >}}
-Windows containers with process isolation have strict compatibility rules, [where the host OS version must match the container base image OS version.](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility). Once we support Windows containers with Hyper-V isolation in Kubernetes, the limitation and compatibility rules will change.
+Windows containers with process isolation have strict compatibility rules, [where the host OS version must match the container base image OS version](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility). Once we support Windows containers with Hyper-V isolation in Kubernetes, the limitation and compatibility rules will change.
 {{< /note >}}
 
 Key Kubernetes elements work the same way in Windows as they do in Linux. In this section, we will talk about some of the key workload enablers and how they map to Windows.
@@ -130,6 +126,7 @@ Kubernetes Volumes enable complex applications with data persistence and Pod vol
 * FlexVolume out-of-tree plugin with [SMB and iSCSI](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)support
 * [azureDisk](https://kubernetes.io/docs/concepts/storage/volumes/#azuredisk)
 * [azureFile](https://kubernetes.io/docs/concepts/storage/volumes/#azurefile)
+* [gcePersistentDisk](https://kubernetes.io/docs/concepts/storage/volumes/#gcepersistentdisk)
 
 #### Networking
 
@@ -600,17 +597,18 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
 
 1. Install Docker (requires a system reboot)
 
-Kubernetes uses [Docker](https://www.docker.com/) as its container engine, so we need to install it. You can follow the [official Docs instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), the [Docker instructions](https://store.docker.com/editions/enterprise/docker-ee-server-windows), or try these steps:
+Kubernetes uses [Docker](https://www.docker.com/) as its container engine, so we need to install it. You can follow the [official Docs instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), the [Docker instructions](https://store.docker.com/editions/enterprise/docker-ee-server-windows), or try the following *recommended* steps:
 
-```powershell
-PS C:\Users\Administrator\Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
-PS C:\Users\Administrator\Install-Package -Name Docker -ProviderName DockerMsftProvider
-PS C:\Users\Administrator\Restart-Computer -Force
+```PowerShell
+Enable-WindowsOptionalFeature -FeatureName Containers
+Restart-Computer -Force
+Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+Install-Package -Name Docker -ProviderName DockerMsftProvider
 ```
 
 If you are behind a proxy, the following PowerShell environment variables must be defined:
 
-```powershell
+```PowerShell
 [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
 [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
 ```
@@ -620,7 +618,7 @@ If after reboot you may see the following error:
 ![alt_text](windows-docker-error.png "windows docker error screen capture")
 If so then you need to restart the docker service manually:
 
-```powershell
+```PowerShell
 Start-Service docker
 ```
 
@@ -628,7 +626,7 @@ Start-Service docker
 The "pause" (infrastructure) image is on Microsoft Container Registry (MCR) and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) 
 {{< /note >}}
 
-```powershell
+```PowerShell
 docker pull mcr.microsoft.com/k8s/core/pause:1.0.0
 ```
 
@@ -636,7 +634,7 @@ docker pull mcr.microsoft.com/k8s/core/pause:1.0.0
 
 Create a "Kubernetes for Windows" directory to store Kubernetes binaries as well as any deployment scripts and config files.
 
-```powershell
+```PowerShell
 mkdir c:\k
 ```
 
@@ -658,7 +656,7 @@ The Flannel overlay deployment scripts and documentation are available in [this 
 
 Download the [Flannel start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1) script, the contents of which should be extracted to `C:\k`:
 
-```powershell
+```PowerShell
 cd c:\k
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/start.ps1 -o c:\k\start.ps1
@@ -668,7 +666,7 @@ wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/s
 [start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1) references [install.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/install.ps1), which will download additional files such as the `flanneld` executable and the [Dockerfile for infrastructure pod](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) and install those for you. For overlay networking mode, the [firewall](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/helper.psm1#L111) will be opened for local UDP port 4789. There may be multiple powershell windows being opened/closed as well as a few seconds of network outage while the new external vSwitch for the pod network is being created the first time. Run the script using the arguments as specified below:
 {{< /note >}}
 
-```powershell
+```PowerShell
 .\start.ps1 -ManagementIP <Windows Node IP> -NetworkMode overlay  -ClusterCIDR <Cluster CIDR> -ServiceCIDR <Service CIDR> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Log directory>
 ```
 
