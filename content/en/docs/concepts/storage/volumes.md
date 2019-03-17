@@ -22,7 +22,6 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
 {{% /capture %}}
 
-
 {{% capture body %}}
 
 ## Background
@@ -424,7 +423,7 @@ spec:
 ```
 
 #### Regional Persistent Disks
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state feature_name="regional persistent disks" for_k8s_version="v1.10" state="beta" >}}
 
 The [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#repds) feature allows the creation of Persistent Disks that are available in two zones within the same region. In order to use this feature, the volume must be provisioned as a PersistentVolume; referencing the volume directly from a pod is not supported.
 
@@ -600,7 +599,7 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "g
 
 ### local {#local}
 
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
+{{< feature-state feature_name="local" for_k8s_version="v1.14" state="stable" >}}
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
@@ -1068,7 +1067,6 @@ vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 
 {{< /tabs >}}
 
-
 #### vSphere VMDK Example configuration
 
 ```yaml
@@ -1092,7 +1090,6 @@ spec:
 ```
 
 More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
-
 
 ## Using subPath
 
@@ -1132,8 +1129,7 @@ spec:
 
 ### Using subPath with expanded environment variables
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
-
+{{< feature-state feature_name="subPath" for_k8s_version="v1.14" state="alpha" >}}
 
 Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.
 Before you use this feature, you must enable the `VolumeSubpathEnvExpansion` feature gate.
@@ -1277,7 +1273,7 @@ persistent volume:
 
 #### CSI raw block volume support
 
-{{< feature-state for_k8s_version="v1.14" state="beta" >}}
+{{< feature-state feature_name="raw block volume" for_k8s_version="v1.14" state="beta" >}}
 
 Starting with version 1.11, CSI introduced support for raw block volumes, which
 relies on the raw block volume feature that was introduced in a previous version of
@@ -1420,8 +1416,6 @@ Or, remove `MountFlags=slave` if present.  Then restart the Docker daemon:
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
-
-
 
 {{% capture whatsnext %}}
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).

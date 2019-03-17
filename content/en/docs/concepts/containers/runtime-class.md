@@ -21,7 +21,6 @@ Beta](#upgrading-runtimeclass-from-alpha-to-beta).
 
 {{% /capture %}}
 
-
 {{% capture body %}}
 
 ## Runtime Class
@@ -41,7 +40,7 @@ feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _an
 #### 1. Configure the CRI implementation on nodes
 
 The configurations available through RuntimeClass are Container Runtime Interface (CRI)
-implementation dependent. See the corresponding documentation ([below](#cri-documentation)) for your
+implementation dependent. See the corresponding documentation ([below](#cri-configuration)) for your
 CRI implementation for how to configure.
 
 {{< note >}}
@@ -134,7 +133,6 @@ table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#
 
 See cri-o's config documentation for more details:
 https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
-
 
 ### Upgrading RuntimeClass from Alpha to Beta
 
