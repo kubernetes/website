@@ -889,7 +889,7 @@ tolerations:
 
 # Getting Help and Troubleshooting
 
-Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section.
+Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section.
 
 1. How do I know start.ps1 completed successfully?
 
@@ -898,7 +898,7 @@ You should see kubelet, kube-proxy, and (if you chose Flannel as your networking
 2. Can I configure the Kubernetes node processes to run in the background?
    1. As native Windows Services
 
-Kubelet & kube-proxy can be run as native [Windows Services](/docs/getting-started-guides/windows/#kubelet-and-kube-proxy-can-now-run-as-windows-services). See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. [TODO create a section for setting up as Windows Services]
+Kubelet & kube-proxy can be run as native Windows Services. See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. [TODO create a section for setting up as Windows Services]
    2. Using nssm.exe
 
 Kubelet and kube-proxy are already configured to run as native Windows Services. However, you can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
