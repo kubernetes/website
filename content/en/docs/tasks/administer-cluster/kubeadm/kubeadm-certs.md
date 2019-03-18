@@ -37,9 +37,9 @@ With kubeadm, you can use this API by running `kubeadm alpha certs renew --use-a
 ## Set up a signer
 
 The Kubernetes Certificate Authority does not work out of the box. 
-You can configure an external signer such as [cert-manager][cert-manager-issuer], or you can use the build-in signer. 
+You can configure an external signer such as [cert-manager][cert-manager-issuer], or you can use the built-in signer. 
 The built-in signer is part of [`kube-controller-manager`][kcm]. 
-To activate the build-in signer, you pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` arguments.
+To activate the built-in signer, you pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` arguments.
 
 You pass these arguments in any of the following ways:
 
