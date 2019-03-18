@@ -96,10 +96,10 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
    * 要按类型和名称指定资源：
    
-      * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`.<br/>
+      * 要对所有类型相同的资源进行分组，请执行以下操作：`TYPE1 name1 name2 name<#>`。<br/>
       例子：`$ kubectl get pod example-pod1 example-pod2`
         
-      * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
+      * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。<br/>
       栗子：`$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
         
    * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
