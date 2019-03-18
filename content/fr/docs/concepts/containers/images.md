@@ -8,7 +8,7 @@ weight: 10
 
 Vous créez une image Docker et la poussez dans un registre avant de la référencer depuis un pod Kubernetes.
 
-La propriété `image` d'un conteneur utilise la même syntaxe que la commande `docker`, y compris les registres privés et les tags.
+La propriété `image` d'un conteneur utilise la même syntaxe que la commande `docker`, y compris pour les registres privés et les tags.
 
 {{% /capture %}}
 
@@ -17,7 +17,7 @@ La propriété `image` d'un conteneur utilise la même syntaxe que la commande `
 
 ## Mettre à jour des images
 
-La politique de réupération par défaut est `IfNotPresent`, la Kubelet ne récupère alors pas une image si elle existe déjà. 
+La politique de récupération par défaut est `IfNotPresent`, Kubelet ne récupère alors pas une image si elle est déjà présente sur le nœud. 
 Si vous voulez forcer une récupération à chaque fois, vous pouvez faire une des actions suivantes :
 
 - définissez `imagePullPolicy` du conteneur à `Always`.
@@ -27,9 +27,9 @@ Si vous voulez forcer une récupération à chaque fois, vous pouvez faire une d
 
 Notez que vous devez éviter d'utiliser le tag `:latest`, voir [Bonnes pratiques pour la configuration](/docs/concepts/configuration/overview/#container-images) pour plus d'informations.
 
-## Créer des images multi-architecture à partir de manifests
+## Créer des images multi-architecture à partir de manifestes
 
-La CLI Docker prend maintenant en charge la commande `docker manifest` avec des sous-commandes comme `create`, `annotate` et `push`. Ces commandes peuvent être utilisées pour construire et pousser les manifests. Vous pouvez utiliser `docker manifest inspect` pour voir le manifest.
+La CLI Docker prend maintenant en charge la commande `docker manifest` avec des sous-commandes comme `create`, `annotate` et `push`. Ces commandes peuvent être utilisées pour construire et pousser les manifestes. Vous pouvez utiliser `docker manifest inspect` pour voir le manifeste.
 
 Vous pouvez voir la documentation Docker ici :
 https://docs.docker.com/edge/engine/reference/commandline/manifest/
@@ -40,17 +40,17 @@ https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files
 Ces commandes se basent et sont implémentées purement sur la CLI Docker. Vous devrez soit éditer `$HOME/.docker/config.json` et définir la clé `experimental` à `enabled` ou vous pouvez simplement définir la variable d'environnement `DOCKER_CLI_EXPERIMENTAL` à `enabled` lorsque vous appelez les commandes de la CLI.
 
 {{< note >}}
-Veuillez utiliser les versions *18.06 ou ultérieure*, le versions antérieures ayant des bugs ou ne prenant pas en charge l'option `experimental` pour la ligne de commande. Par exemple https://github.com/docker/cli/issues/1135 cause des problèmes sous `containerd`.
+Veuillez utiliser les versions *18.06 ou ultérieure*, les versions antérieures ayant des bugs ou ne prenant pas en charge l'option `experimental` pour la ligne de commande. Par exemple https://github.com/docker/cli/issues/1135 cause des problèmes sous `containerd`.
 {{< /note >}}
 
-Si vous avez des problèmes en uploadant des manifests viciés, nettoyez les anciens manifests dans `$HOME/.docker/manifests` pour recommencer de zéro.
+Si vous avez des problèmes en téléchargeant des manifestes viciés, nettoyez les anciens manifestes dans `$HOME/.docker/manifests` pour recommencer de zéro.
 
-Pour Kubernetes, nous avons historiquement utilisé des images avec des suffixes `-$(ARCH)`. Pour une rétrocompatibilité, veuillez générer les anciennes images avec des suffixes. L'idée est de générer disons l'image `pause` qui a le manifest pour toutes les architetures et disons `pause-amd64` qui est rétrocompatible 
-pour d'anciennes configurations ou des fichiers YAML qui auraient hard-codé les images avec des suffixes.
+Pour Kubernetes, nous avons historiquement utilisé des images avec des suffixes `-$(ARCH)`. Pour une rétrocompatibilité, veuillez générer les anciennes images avec des suffixes. Par exemple, l'image `pause` qui a le manifeste pour toutes les architetures et l'image `pause-amd64` qui est rétrocompatible 
+pour d'anciennes configurations ou des fichiers YAML qui auraient codé en dur les images avec des suffixes.
 
 ## Utiliser un registre privé
 
-Les registres privés peuvent demander des clés pour pouvoir lire ses images.
+Les registres privés peuvent demander des clés pour pouvoir lire leurs images.
 
 Ces certificats peuvent être fournis de différentes manières :
 
@@ -80,11 +80,11 @@ Kubernetes prend en charge nativement la [Google Container
 Registry (GCR)](https://cloud.google.com/tools/container-registry/), lorsqu'il s'exécute dans Google Compute
 Engine (GCE). Si vous exécutez votre cluster dans GCE ou Google Kubernetes Engine, utilisez simplement le nom complet de l'image (par ex. gcr.io/my_project/image:tag).
 
-Tous les pods dand un cluster auront un accès en lecture aux images dans le registre.
+Tous les pods dans un cluster auront un accès en lecture aux images dans le registre.
 
-La kubelet va s'authentifier auprès de GCR en utilisant le compte de service Google de l'instance.
+Kubelet va s'authentifier auprès de GCR en utilisant le compte de service Google de l'instance.
 Le compte de service dans l'instance aura un `https://www.googleapis.com/auth/devstorage.read_only`,
-de manière qu'il pourra récupérer depuis le GCR du projet, mais pas pousser.
+afin qu'il puisse récupérer depuis le GCR du projet mais qu'il ne puisse pas pousser une image.
 
 ### Utiliser AWS EC2 Container Registry
 
@@ -97,7 +97,7 @@ dans la définition du Pod.
 Tous les utilisateurs du cluster qui peuvent créer des pods auront la possibilité 
 d'exécuter des pods qui utilisent n'importe quelle image du registre ECR.
 
-La kubelet va aller chercher et rafraîchir périodiquement les certificats ECR.  Elle a besoin des permissions suivantes pour cela :
+Kubelet va aller chercher et rafraîchir périodiquement les certificats ECR.  Les permissions suivantes sont requises par kubelet :
 
 - `ecr:GetAuthorizationToken`
 - `ecr:BatchCheckLayerAvailability`
@@ -109,16 +109,16 @@ La kubelet va aller chercher et rafraîchir périodiquement les certificats ECR.
 
 Exigences :
 
-- Vous devez utiliser la kubelet version `v1.2.0` ou ultérieure.  (exécutez par ex. `/usr/bin/kubelet --version=true`).
-- Si vos nœuds sont dans une région A et votre registre dans une région différente B, vous devez utiliser la version `v1.3.0` ou ultérieure.
+- Vous devez utiliser kubelet version `v1.2.0` ou ultérieure.  (exécutez par ex. `/usr/bin/kubelet --version=true`).
+- Si vos nœuds sont dans une région différente de votre registre, vous devez utiliser la version `v1.3.0` ou ultérieure.
 - ECR doit être disponible dans votre région.
 
 Dépannage :
 
 - Vérifiez toutes les exigences ci-dessus.
 - Copiez les certificats de $REGION (par ex. `us-west-2`) sur votre poste de travail. Connectez-vous en SSH sur l'hôte et exécutez Docker manuellement avec ces certificats. Est-ce que ça marche ?
-- Vérifiez que la kubelet s'exécute avec `--cloud-provider=aws`.
-- Recherchez dans les logs de la kubelet (par ex. `journalctl -u kubelet`) des lignes de logs ressemblant à :
+- Vérifiez que kubelet s'exécute avec `--cloud-provider=aws`.
+- Recherchez dans les logs de kubelet (par ex. `journalctl -u kubelet`) des lignes de logs ressemblant à :
   - `plugins.go:56] Registering credential provider: aws-ecr-key`
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
 
@@ -154,7 +154,7 @@ Si vous travaillez dans Google Kubernetes Engine, vous trouverez un `.dockercfg`
 {{< /note >}}
 
 {{< note >}}
-Si vous travaillez dans AWS EC2 et utilisez EC2 Container Registry (ECR), la kubelet sur chaque nœud va gérer et mettre à jour les certificats du login ECR. Vous ne pourrez pas utiliser cette méthode.
+Si vous travaillez dans AWS EC2 et utilisez EC2 Container Registry (ECR), kubelet sur chaque nœud va gérer et mettre à jour les certificats du login ECR. Vous ne pourrez pas utiliser cette méthode.
 {{< /note >}}
 
 {{< note >}}
@@ -167,7 +167,7 @@ Kubernetes prend pour l'instant en charge uniquement les sections `auths` et `Ht
 {{< /note >}}
 
 
-Docker stocke les clés pour les regisres privés dans le fichier `$HOME/.dockercfg` ou `$HOME/.docker/config.json`.  Si vous placez le même fichier dans un des chemins de recherche ci-dessous, la kubelet l'utilise comme fournisseur de clés lorsqu'elle récupère les images.
+Docker stocke les clés pour les regisres privés dans le fichier `$HOME/.dockercfg` ou `$HOME/.docker/config.json`.  Si vous placez le même fichier dans un des chemins de recherche ci-dessous, kubelet l'utilise comme fournisseur de clés lorsque les images sont récupérées.
 
 *   `{--root-dir:-/var/lib/kubelet}/config.json`
 *   `{cwd of kubelet}/config.json`
@@ -179,7 +179,7 @@ Docker stocke les clés pour les regisres privés dans le fichier `$HOME/.docker
 *   `/.dockercfg`
 
 {{< note >}}
-Vous pouvez avoir à définir `HOME=/root` explicitement dans votre fichier d'environnement pour la kubelet.
+Vous pouvez avoir à définir `HOME=/root` explicitement dans votre fichier d'environnement pour kubelet.
 {{< /note >}}
 
 Voici les étapes recommandées pour configurer vos nœuds pour qu'ils utilisent un registre privé. Dans cet exemple, exécutez-les sur votre poste de travail : 
@@ -238,7 +238,7 @@ Cette méthode est utilisable si vous avez le contrôle sur la configuration des
 correctement sur GCE, et sur tout autre fournisseur cloud qui fait du remplacement de nœud automatique.
 {{< /note >}}
 
-Par défaut, la kubelet essaiera de récupérer chaque image depuis le registre spécifié.
+Par défaut, kubelet essaiera de récupérer chaque image depuis le registre spécifié.
 Cependant, si la propriété `imagePullPolicy` du conteneur est `IfNotPresent` ou `Never`,
 alors une image locale est utilisée (respectivement de préférence ou exclusivement).
 
@@ -318,7 +318,7 @@ Il y a plusieurs solutions pour configurer des registres privés. Voici quelques
    - Ou, utilisez un registre privé interne derrière votre pare-feu avec un accès ouvert en lecture.
      - Aucune configuration Kubernetes n'est nécessaire.
    - Ou, dans GCE/Google Kubernetes Engine, utilisez le Google Container Registry du projet.
-     - Cela fonctionnera mieux pour l'autosclaing du cluster que la configuration manuelle des nœuds.
+     - Cela fonctionnera mieux pour l'autoscaling du cluster que la configuration manuelle des nœuds.
    - Ou, dans un cluster où le changement de la configuration des nœuds est difficile, utilisez `imagePullSecrets`.
 1. Cluster avec des images propriétaires, dont quelques-unes nécessitent un contrôle d'accès plus strict.
    - Assurez-vous que [l'admission controller AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) est actif. Autrement, tous les Pods ont potentiellement accès à toutes les images.
