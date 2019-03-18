@@ -491,100 +491,97 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
 
 1. Prepare Kubernetes master for Flannel
 
-Some minor preparation is recommended on the Kubernetes master in our cluster. It is recommended to enable bridged IPv4 traffic to iptables chains when using Flannel. This can be done using the following command:
+    Some minor preparation is recommended on the Kubernetes master in our cluster. It is recommended to enable bridged IPv4 traffic to iptables chains when using Flannel. This can be done using the following command:
 
-```bash
-sudo sysctl net.bridge.bridge-nf-call-iptables=1
-
-```
+    ```bash
+    sudo sysctl net.bridge.bridge-nf-call-iptables=1
+    ```
 
 1. Download & configure Flannel
 
-Download the most recent Flannel manifest:
+    Download the most recent Flannel manifest:
 
-```bash
-wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-```
+    ```bash
+    wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+    ```
 
-There are two sections you should modify to enable the vxlan networking backend:
+    There are two sections you should modify to enable the vxlan networking backend:
 
-After applying the steps below, the `net-conf.json` section of `kube-flannel.yml` should look as follows:
+    After applying the steps below, the `net-conf.json` section of `kube-flannel.yml` should look as follows:
 
-```json
-net-conf.json: |
-    {
-      "Network": "10.244.0.0/16",
-      "Backend": {
-        "Type": "vxlan",
-        "VNI" : 4096,
-        "Port": 4789
-      }
-    }
-
-```
+    ```json
+    net-conf.json: |
+        {
+          "Network": "10.244.0.0/16",
+          "Backend": {
+            "Type": "vxlan",
+            "VNI" : 4096,
+            "Port": 4789
+          }
+        }
+    ```
 
 1. In the `net-conf.json` section of your `kube-flannel.yml`, double-check:
     1. The cluster subnet (e.g. "10.244.0.0/16") is set as per your IP plan.
-    * VNI 4096 is set in the backend
-    * Port 4789 is set in the backend
-2. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to "`vxlan0"`.
-{{< note >}}
-The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
-{{< /note >}}
-Your `cni-conf.json` should look as follows:
+        * VNI 4096 is set in the backend
+        * Port 4789 is set in the backend
+    2. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to "`vxlan0"`.
+    {{< note >}}
+    The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
+    {{< /note >}}
+    Your `cni-conf.json` should look as follows:
 
-```json
-cni-conf.json: |
-    {
-      "name": "vxlan0",
-      "plugins": [
+    ```json
+    cni-conf.json: |
         {
-          "type": "flannel",
-          "delegate": {
-            "hairpinMode": true,
-            "isDefaultGateway": true
-          }
-        },
-        {
-          "type": "portmap",
-          "capabilities": {
-            "portMappings": true
-          }
+          "name": "vxlan0",
+          "plugins": [
+            {
+              "type": "flannel",
+              "delegate": {
+                "hairpinMode": true,
+                "isDefaultGateway": true
+              }
+            },
+            {
+              "type": "portmap",
+              "capabilities": {
+                "portMappings": true
+              }
+            }
+          ]
         }
-      ]
-    }
-
-```
+    ```
 
 1. Apply the Flannel yaml and Validate
 
-Let's apply the Flannel configuration:
+    Let's apply the Flannel configuration:
 
-```bash
-kubectl apply -f kube-flannel.yml
-```
+    ```bash
+    kubectl apply -f kube-flannel.yml
+    ```
 
-Next, since the Flannel pods are Linux-based, apply a NodeSelector patch, which can be found [here](https://github.com/Microsoft/SDN/blob/1d5c055bb195fecba07ad094d2d7c18c188f9d2d/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml), to the Flannel DaemonSet pod:
+    Next, since the Flannel pods are Linux-based, apply a NodeSelector patch, which can be found [here](https://github.com/Microsoft/SDN/blob/1d5c055bb195fecba07ad094d2d7c18c188f9d2d/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml), to the Flannel DaemonSet pod:
 
-```bash
-kubectl patch ds/kube-flannel-ds-amd64 --patch "$(cat node-selector-patch.yml)" -n=kube-system
-```
+    ```bash
+    kubectl patch ds/kube-flannel-ds-amd64 --patch "$(cat node-selector-patch.yml)" -n=kube-system
+    ```
 
-After a few minutes, you should see all the pods as running if the Flannel pod network was deployed.
+    After a few minutes, you should see all the pods as running if the Flannel pod network was deployed.
 
-```bash
-kubectl get pods --all-namespaces
-```
+    ```bash
+    kubectl get pods --all-namespaces
+    ```
 
-![alt_text](flannel-master-kubeclt-get-pods.png "flannel master kubectl get pods screen capture")
+    ![alt_text](flannel-master-kubeclt-get-pods.png "flannel master kubectl get pods screen capture")
 
-Verify that the Flannel DaemonSet has the NodeSelector applied.
+    Verify that the Flannel DaemonSet has the NodeSelector applied.
 
-```bash
-kubectl get ds -n kube-system
-```
+    ```bash
+    kubectl get ds -n kube-system
+    ```
 
-![alt_text](flannel-master-kubectl-get-ds.png "flannel master kubectl get ds screen capture")
+    ![alt_text](flannel-master-kubectl-get-ds.png "flannel master kubectl get ds screen capture")
 
 #### Join Windows Worker
 
@@ -597,58 +594,58 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
 
 1. Install Docker (requires a system reboot)
 
-Kubernetes uses [Docker](https://www.docker.com/) as its container engine, so we need to install it. You can follow the [official Docs instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), the [Docker instructions](https://store.docker.com/editions/enterprise/docker-ee-server-windows), or try the following *recommended* steps:
+    Kubernetes uses [Docker](https://www.docker.com/) as its container engine, so we need to install it. You can follow the [official Docs instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), the [Docker instructions](https://store.docker.com/editions/enterprise/docker-ee-server-windows), or try the following *recommended* steps:
 
-```PowerShell
-Enable-WindowsOptionalFeature -FeatureName Containers
-Restart-Computer -Force
-Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
-Install-Package -Name Docker -ProviderName DockerMsftProvider
-```
+    ```PowerShell
+    Enable-WindowsOptionalFeature -FeatureName Containers
+    Restart-Computer -Force
+    Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+    Install-Package -Name Docker -ProviderName DockerMsftProvider
+    ```
 
-If you are behind a proxy, the following PowerShell environment variables must be defined:
+    If you are behind a proxy, the following PowerShell environment variables must be defined:
 
-```PowerShell
-[Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
-[Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
-```
+    ```PowerShell
+    [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
+    [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
+    ```
 
-If after reboot you may see the following error:
+    If after reboot you may see the following error:
 
-![alt_text](windows-docker-error.png "windows docker error screen capture")
-If so then you need to restart the docker service manually:
+    ![alt_text](windows-docker-error.png "windows docker error screen capture")
+    If so then you need to restart the docker service manually:
 
-```PowerShell
-Start-Service docker
-```
+    ```PowerShell
+    Start-Service docker
+    ```
 
-{{< note >}}
-The "pause" (infrastructure) image is on Microsoft Container Registry (MCR) and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) 
-{{< /note >}}
+    {{< note >}}
+    The "pause" (infrastructure) image is on Microsoft Container Registry (MCR) and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) 
+    {{< /note >}}
 
-```PowerShell
-docker pull mcr.microsoft.com/k8s/core/pause:1.0.0
-```
+    ```PowerShell
+    docker pull mcr.microsoft.com/k8s/core/pause:1.0.0
+    ```
 
-2. Prepare a Windows directory for Kubernetes
+1. Prepare a Windows directory for Kubernetes
 
-Create a "Kubernetes for Windows" directory to store Kubernetes binaries as well as any deployment scripts and config files.
+    Create a "Kubernetes for Windows" directory to store Kubernetes binaries as well as any deployment scripts and config files.
 
-```PowerShell
-mkdir c:\k
-```
+    ```PowerShell
+    mkdir c:\k
+    ```
 
-3. Copy Kubernetes certificate
+1. Copy Kubernetes certificate
 
-Copy the Kubernetes certificate file (`$HOME/.kube/config`) [from Linux controller](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information) to this new `C:\k` directory on your Windows node.
+    Copy the Kubernetes certificate file (`$HOME/.kube/config`) [from Linux controller](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information) to this new `C:\k` directory on your Windows node.
 
-Tip: You can use tools such as [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy), [WinSCP](https://winscp.net/eng/download.php), or this [PowerShell wrapper for WinSCP](https://www.powershellgallery.com/packages/WinSCP/5.13.2.0) to transfer the config file between nodes.
+    Tip: You can use tools such as [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy), [WinSCP](https://winscp.net/eng/download.php), or this [PowerShell wrapper for WinSCP](https://www.powershellgallery.com/packages/WinSCP/5.13.2.0) to transfer the config file between nodes.
 
-4. Download Kubernetes binaries
+1. Download Kubernetes binaries
 
-To be able to run Kubernetes, you first need to download the `kubelet` and `kube-proxy` binaries. You download these from the Node Binaries links in the CHANGELOG.md file of the [latest releases](https://github.com/kubernetes/kubernetes/releases/). For example 'kubernetes-node-windows-amd64.tar.gz'. You may also optionally download `kubectl` to run on Windows which you can find under Client Binaries.
+    To be able to run Kubernetes, you first need to download the `kubelet` and `kube-proxy` binaries. You download these from the Node Binaries links in the CHANGELOG.md file of the [latest releases](https://github.com/kubernetes/kubernetes/releases/). For example 'kubernetes-node-windows-amd64.tar.gz'. You may also optionally download `kubectl` to run on Windows which you can find under Client Binaries.
 
-Use the [Expand-Archive](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) PowerShell command to extract the archive and place the binaries into `C:\k`.
+    Use the [Expand-Archive](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) PowerShell command to extract the archive and place the binaries into `C:\k`.
 
 #### Join the Windows node to the Flannel cluster
 
@@ -778,81 +775,81 @@ Now that you've configured a Windows worker in your cluster to run Windows conta
 
 1. Create a simple webserver example:
 
-Create a service spec `win-webserver.yaml` with the contents below: [TODO create this as a file in the docs folder and add a link]
+    Create a service spec `win-webserver.yaml` with the contents below: [TODO create this as a file in the docs folder and add a link]
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: win-webserver
-  labels:
-    app: win-webserver
-spec:
-  ports:
-    # the port that this service should serve on
-  - port: 80
-    targetPort: 80
-  selector:
-    app: win-webserver
-  type: NodePort
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  labels:
-    app: win-webserver
-  name: win-webserver
-spec:
-  replicas: 2
-  template:
+    ```yaml
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: win-webserver
+      labels:
+        app: win-webserver
+    spec:
+      ports:
+        # the port that this service should serve on
+      - port: 80
+        targetPort: 80
+      selector:
+        app: win-webserver
+      type: NodePort
+    ---
+    apiVersion: extensions/v1beta1
+    kind: Deployment
     metadata:
       labels:
         app: win-webserver
       name: win-webserver
     spec:
-      containers:
-      - name: windowswebserver
-        image: mcr.microsoft.com/windows/servercore:ltsc2019
-        command:
-        - powershell.exe
-        - -command
-        - "<#code used from https://gist.github.com/wagnerandrade/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
-      nodeSelector:
-        beta.kubernetes.io/os: windows
-```
+      replicas: 2
+      template:
+        metadata:
+          labels:
+            app: win-webserver
+          name: win-webserver
+        spec:
+          containers:
+          - name: windowswebserver
+            image: mcr.microsoft.com/windows/servercore:ltsc2019
+            command:
+            - powershell.exe
+            - -command
+            - "<#code used from https://gist.github.com/wagnerandrade/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
+          nodeSelector:
+            beta.kubernetes.io/os: windows
+    ```
 
-{{< note >}}
-Note: Port mapping is also supported, but for simplicity in this example the container port 80 is exposed directly to the service.
-{{< /note >}}
+    {{< note >}}
+    Note: Port mapping is also supported, but for simplicity in this example the container port 80 is exposed directly to the service.
+    {{< /note >}}
 
-2. Check that all nodes are healthy:
+1. Check that all nodes are healthy:
 
-```bash
-kubectl get nodes
-```
+    ```bash
+    kubectl get nodes
+    ```
 
-3. Deploy the service and watch for pod updates:
+1. Deploy the service and watch for pod updates:
 
-```bash
-kubectl apply -f win-webserver.yaml
-kubectl get pods -o wide -w
-```
+    ```bash
+    kubectl apply -f win-webserver.yaml
+    kubectl get pods -o wide -w
+    ```
 
-When the service is deployed correctly both Pods will be marked as Ready. To exit the watch command, press Ctrl+C.
+    When the service is deployed correctly both Pods will be marked as Ready. To exit the watch command, press Ctrl+C.
 
-4. Check that the deployment succeeded. To verify:
+1. Check that the deployment succeeded. To verify:
 
-* Two containers per pod on the Windows node, use `docker ps` 
-* Two pods listed from the Linux master, use `kubectl get pods` 
-* Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
-* Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
-* Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
-* Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
-* Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
-* Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
-{{< note >}}
-**Windows _container hosts_ are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows _pods_ are able to access service IPs.
-{{< /note >}}
+    * Two containers per pod on the Windows node, use `docker ps` 
+    * Two pods listed from the Linux master, use `kubectl get pods` 
+    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
+    * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
+    * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
+    * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
+    * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
+    * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
+    {{< note >}}
+    **Windows _container hosts_ are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows _pods_ are able to access service IPs.
+    {{< /note >}}
 
 ## Managing Workload Identity with Group Managed Service Accounts
 
@@ -893,126 +890,126 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
 1. How do I know start.ps1 completed successfully?
 
-You should see kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flanneld host-agent processes running on your node, with running logs being displayed in separate PowerShell windows. In addition to this, your Windows node should be listed as "Ready" in your Kubernetes cluster.
+    You should see kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flanneld host-agent processes running on your node, with running logs being displayed in separate PowerShell windows. In addition to this, your Windows node should be listed as "Ready" in your Kubernetes cluster.
 
 1. Can I configure the Kubernetes node processes to run in the background?
 
-Kubelet and kube-proxy are already configured to run as native Windows Services. You have two options for configuring these node components as services.
+    Kubelet and kube-proxy are already configured to run as native Windows Services. You have two options for configuring these node components as services.
 
-   1. As native Windows Services
+    1. As native Windows Services
 
-Kubelet & kube-proxy can be run as native Windows Services using `sc.exe`.
+        Kubelet & kube-proxy can be run as native Windows Services using `sc.exe`.
 
-```powershell
-# Create the services for kubelet and kube-proxy in two separate commands
-sc.exe create <component_name> binPath= "<path_to_binary> --service <other_args>"
+        ```powershell
+        # Create the services for kubelet and kube-proxy in two separate commands
+        sc.exe create <component_name> binPath= "<path_to_binary> --service <other_args>"
 
-# Please note that if the arguments contain spaces, they must be escaped.
-sc.exe create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
+        # Please note that if the arguments contain spaces, they must be escaped.
+        sc.exe create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
 
-# Start the services
-Start-Service kubelet
-Start-Service kube-proxy
+        # Start the services
+        Start-Service kubelet
+        Start-Service kube-proxy
 
-# Stop the service
-Stop-Service kubelet (-Force)
-Stop-Service kube-proxy (-Force)
+        # Stop the service
+        Stop-Service kubelet (-Force)
+        Stop-Service kube-proxy (-Force)
 
-# Query the service status
-Get-Service kubelet
-Get-Service kube-proxy
-```
-   1. Using nssm.exe
+        # Query the service status
+        Get-Service kubelet
+        Get-Service kube-proxy
+        ```
 
-You can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
+    1. Using nssm.exe
 
-```powershell
-nssm set <Service Name> AppStdout C:\k\mysvc.log
-nssm set <Service Name> AppStderr C:\k\mysvc.log
-```
+        You can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
 
-For additional details, see official [nssm usage](https://nssm.cc/usage) docs.
+        ```powershell
+        nssm set <Service Name> AppStdout C:\k\mysvc.log
+        nssm set <Service Name> AppStderr C:\k\mysvc.log
+        ```
+
+        For additional details, see official [nssm usage](https://nssm.cc/usage) docs.
 
 1. My Windows Pods do not have network connectivity
 
-If you are using virtual machines, ensure that MAC spoofing is enabled on all the VM network adapter(s).
+    If you are using virtual machines, ensure that MAC spoofing is enabled on all the VM network adapter(s).
 
 1. My Windows Pods cannot ping external resources
 
-Windows Pods do not have outbound rules programmed for the ICMP protocol today. However, TCP/UDP is supported. When trying to demonstrate connectivity to resources outside of the cluster, please substitute `ping <IP>` with corresponding `curl <IP>` commands.
+    Windows Pods do not have outbound rules programmed for the ICMP protocol today. However, TCP/UDP is supported. When trying to demonstrate connectivity to resources outside of the cluster, please substitute `ping <IP>` with corresponding `curl <IP>` commands.
 
-If you are still facing problems, most likely your network configuration in [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf) deserves some extra attention. You can always edit this static file, the configuration will be applied to any newly created Kubernetes resources.
+    If you are still facing problems, most likely your network configuration in [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf) deserves some extra attention. You can always edit this static file, the configuration will be applied to any newly created Kubernetes resources.
 
-One of the Kubernetes networking requirements (see [Kubernetes model](/docs/concepts/cluster-administration/networking/)) is for cluster communication to occur without NAT internally. To honor this requirement, there is an [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) for all the communication where we do not want outbound NAT to occur. However, this also means that you need to exclude the external IP you are trying to query from the ExceptionList. Only then will the traffic originating from your Windows pods be SNAT'ed correctly to receive a response from the outside world. In this regard, your ExceptionList in `cni.conf` should look as follows:
+    One of the Kubernetes networking requirements (see [Kubernetes model](/docs/concepts/cluster-administration/networking/)) is for cluster communication to occur without NAT internally. To honor this requirement, there is an [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) for all the communication where we do not want outbound NAT to occur. However, this also means that you need to exclude the external IP you are trying to query from the ExceptionList. Only then will the traffic originating from your Windows pods be SNAT'ed correctly to receive a response from the outside world. In this regard, your ExceptionList in `cni.conf` should look as follows:
 
-```conf
-"ExceptionList": [
+    ```conf
+    "ExceptionList": [
                     "10.244.0.0/16",  # Cluster subnet
                     "10.96.0.0/12",   # Service subnet
                     "10.127.130.0/24" # Management (host) subnet
                 ]
-
-```
+    ```
 
 1. My Windows node cannot access NodePort service
 
-Local NodePort access from the node itself will fail. This is a known limitation. NodePort access will work from other nodes or external clients.
+    Local NodePort access from the node itself will fail. This is a known limitation. NodePort access will work from other nodes or external clients.
 
 1. vNICs and HNS endpoints of containers are being deleted
 
-This issue can be caused when the `hostname-override` parameter is not passed to [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/). To resolve it, users need to pass the hostname to kube-proxy as follows:
+    This issue can be caused when the `hostname-override` parameter is not passed to [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/). To resolve it, users need to pass the hostname to kube-proxy as follows:
 
-```powershell
-C:\k\kube-proxy.exe --hostname-override=$(hostname)
-```
+    ```powershell
+    C:\k\kube-proxy.exe --hostname-override=$(hostname)
+    ```
 
 1. With flannel my nodes are having issues after rejoining a cluster
 
-Whenever a previously deleted node is being re-joined to the cluster, flannelD will try to assign a new pod subnet to the node. Users should remove the old pod subnet configuration files in the following paths:
+    Whenever a previously deleted node is being re-joined to the cluster, flannelD will try to assign a new pod subnet to the node. Users should remove the old pod subnet configuration files in the following paths:
 
-```powershell
-Remove-Item C:\k\SourceVip.json
-Remove-Item C:\k\SourceVipRequest.json
-```
+    ```powershell
+    Remove-Item C:\k\SourceVip.json
+    Remove-Item C:\k\SourceVipRequest.json
+    ```
 
 1. After launching `start.ps1`, flanneld is stuck in "Waiting for the Network to be created"
 
-There are numerous reports of this issue which are being investigated; most likely it is a timing issue for when the management IP of the flannel network is set. A workaround is to simply relaunch start.ps1 or relaunch it manually as follows:
+    There are numerous reports of this issue which are being investigated; most likely it is a timing issue for when the management IP of the flannel network is set. A workaround is to simply relaunch start.ps1 or relaunch it manually as follows:
 
-```powershell
-PS C:> [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")
-PS C:> C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows_Worker_Node_IP> --ip-masq=1 --kube-subnet-mgr=1
-```
+    ```powershell
+    PS C:> [Environment]::SetEnvironmentVariable("NODE_NAME", "<Windows_Worker_Hostname>")
+    PS C:> C:\flannel\flanneld.exe --kubeconfig-file=c:\k\config --iface=<Windows_Worker_Node_IP> --ip-masq=1 --kube-subnet-mgr=1
+    ```
 
 1. My Windows Pods cannot launch because of missing `/run/flannel/subnet.env`
 
-This indicates that Flannel didn't launch correctly. You can either try to restart flanneld.exe or you can copy the files over manually from `/run/flannel/subnet.env` on the Kubernetes master to` C:\run\flannel\subnet.env` on the Windows worker node and modify the `FLANNEL_SUBNET` row to a different number. For example, if node subnet 10.244.4.1/24 is desired:
+    This indicates that Flannel didn't launch correctly. You can either try to restart flanneld.exe or you can copy the files over manually from `/run/flannel/subnet.env` on the Kubernetes master to` C:\run\flannel\subnet.env` on the Windows worker node and modify the `FLANNEL_SUBNET` row to a different number. For example, if node subnet 10.244.4.1/24 is desired:
 
-```env
-FLANNEL_NETWORK=10.244.0.0/16
-FLANNEL_SUBNET=10.244.4.1/24
-FLANNEL_MTU=1500
-FLANNEL_IPMASQ=true
-```
+    ```env
+    FLANNEL_NETWORK=10.244.0.0/16
+    FLANNEL_SUBNET=10.244.4.1/24
+    FLANNEL_MTU=1500
+    FLANNEL_IPMASQ=true
+    ```
 
 1. My Windows node cannot access my services using the service IP
 
-This is a known limitation of the current networking stack on Windows. Windows Pods are able to access the service IP however.
+    This is a known limitation of the current networking stack on Windows. Windows Pods are able to access the service IP however.
 
 1. No network adapter is found when starting kubelet
 
-The Windows networking stack needs a virtual adapter for Kubernetes networking to work. If the following commands return no results (in an admin shell), virtual network creation — a necessary prerequisite for Kubelet to work — has failed:
+    The Windows networking stack needs a virtual adapter for Kubernetes networking to work. If the following commands return no results (in an admin shell), virtual network creation — a necessary prerequisite for Kubelet to work — has failed:
 
-```powershell
-Get-HnsNetwork | ? Name -ieq "cbr0"
-Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
-```
+    ```powershell
+    Get-HnsNetwork | ? Name -ieq "cbr0"
+    Get-NetAdapter | ? Name -Like "vEthernet (Ethernet*"
+    ```
 
-Often it is worthwhile to modify the [InterfaceName](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/start.ps1#L6) parameter of the start.ps1 script, in cases where the host's network adapter isn't "Ethernet". Otherwise, consult the output of the `start-kubelet.ps1` script to see if there are errors during virtual network creation.
+    Often it is worthwhile to modify the [InterfaceName](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/start.ps1#L6) parameter of the start.ps1 script, in cases where the host's network adapter isn't "Ethernet". Otherwise, consult the output of the `start-kubelet.ps1` script to see if there are errors during virtual network creation.
 
 1. My Pods are stuck at "Container Creating" or restarting over and over
 
-Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you will need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service will expect the image to be tagged as :latest.
+    Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you will need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service will expect the image to be tagged as :latest.
 
 ## Further investigation
 
