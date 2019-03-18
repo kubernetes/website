@@ -20,10 +20,7 @@ Currently this feature is in alpha state. While the overall goals and functional
 
 {{% capture prerequisites %}}
 
-You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running windows workloads requiring GMSA credentials will get scheduled. This section covers a set of initial steps required once for each cluster. These include:
-1. Enabling the `WindowsGMSA` feature gate on kubelet on the Windows nodes you'll use to run GMSA-dependent workloads.
-2. Installing the GMSACredentialSpec Custom Resource Definition (CRD).
-3. Installing two GMSA admission webhooks to expand and validate references to GMSA credential spec resources from pod specs.
+You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running windows workloads requiring GMSA credentials will get scheduled. This section covers a set of initial steps required once for each cluster:
 
 ### Enable the WindowsGMSA feature gate
 In the alpha state, the `WindowsGMSA` feature gate needs to be enabled on kubelet on Windows nodes. This is required to pass down the GMSA credential specs from the cluster scoped configurations to the container runtime. See [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates. Please make sure `--feature-gates=WindowsGMSA=true` parameter exists in the kubelet.exe command line.
@@ -34,36 +31,44 @@ Next, install the CRD with `kubectl apply -f gmsa-crd.yaml`
 
 ### Install webhooks to validate GMSA users
 Two webhooks need to be configured on the Kubernetes cluster to populate and validate GMSA credential spec references at the pod or container level:
-1. A mutating webhook that expands references to GMSAs (by name from a pod specification) into the full credential spec in JSON form within the pod spec. 
-2. A validating webhook ensures all references to GMSAs are authorized to be used by the pod service account. 
 
-Installing the above webhooks and associated objects requires the steps below:
+1. A mutating webhook that expands references to GMSAs (by name from a pod specification) into the full credential spec in JSON form within the pod spec. 
+
+1. A validating webhook ensures all references to GMSAs are authorized to be used by the pod service account. 
+
+Installing the above webhooks and associated objects require the steps below:
+
 1. Create a certificate key pair (that will be used to allow the webhook container to communicate to the cluster)
-2. Install a secret with the certificate from above.
-3. Create a deployment for the core webhook logic. 
-4. Create the validating and mutating webhook configurations referring to the deployment. 
+
+1. Install a secret with the certificate from above.
+
+1. Create a deployment for the core webhook logic. 
+
+1. Create the validating and mutating webhook configurations referring to the deployment. 
 
 A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a ```--dry-run``` option to allow you to review the changes that would be made to your cluster.
 
 The [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) used by the script may also be used to deploy the webhooks and associated objects manually (with appropriate substitutions for the parameters)
 
-### Configuration of GMSAs and Windows cluster nodes in Active Directory
-Before pods in Kubernetes can be configured to use GMSAs, the following configuration steps are necessary in Active Directory:
-1. The desired GMSAs need to be provisioned in Active Directory as described [here](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1)
-2. Windows worker nodes need to be configured in Active Directory to access the secret credentials associated with a GMSA as described [here](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)
-
 {{% /capture %}}
 
 {{% capture steps %}}
 
+## Configure GMSAs and Windows nodes in Active Directory
+Before pods in Kubernetes can be configured to use GMSAs, the desired GMSAs need to be provisioned in Active Directory as described [here](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). Windows worker nodes (that are part of the Kubernetes cluster) need to be configured in Active Directory to access the secret credentials associated with the desired GMSA as described [here](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)
+
 ## Create GMSA credential spec resources
-With the GMSACredentialSpec CRD installed, custom resources containing GMSA credential specs can be configured. The GMSA credential spec does not contain secret or sensitive data. It is information that a container runtime can use to describe the desired GMSA of a container to Windows. GMSA credential specs can be generated in YAML format with a utility [PowerShell script](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1). 
+With the GMSACredentialSpec CRD installed (as described earlier), custom resources containing GMSA credential specs can be configured. The GMSA credential spec does not contain secret or sensitive data. It is information that a container runtime can use to describe the desired GMSA of a container to Windows. GMSA credential specs can be generated in YAML format with a utility [PowerShell script](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1). 
 
 Following are the steps for generating a GMSA credential spec YAML manually in JSON format and then converting it:
+
 1. Import the CredentialSpec [module](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/windows-server-container-tools/ServiceAccounts/CredentialSpec.psm1): `ipmo CredentialSpec.psm1`
-2. Create a credential spec in JSON format using `New-CredentialSpec`. To create a GMSA credential spec named WebApp1, invoke `New-CredentialSpec -Name WebApp1 -AccountName WebApp1 -Domain $(Get-ADDomain -Current LocalComputer)`
-3. Use `Get-CredentialSpec` to show the path of the JSON file. 
-4. Convert the credspec file from JSON to YAML format and apply the necessary header fields `apiVersion`, `kind`, `metadata` and `credspec` to make it a GMSACredentialSpec custom resource that can be configured in Kubernetes. 
+
+1. Create a credential spec in JSON format using `New-CredentialSpec`. To create a GMSA credential spec named WebApp1, invoke `New-CredentialSpec -Name WebApp1 -AccountName WebApp1 -Domain $(Get-ADDomain -Current LocalComputer)`
+
+1. Use `Get-CredentialSpec` to show the path of the JSON file. 
+
+1. Convert the credspec file from JSON to YAML format and apply the necessary header fields `apiVersion`, `kind`, `metadata` and `credspec` to make it a GMSACredentialSpec custom resource that can be configured in Kubernetes. 
 
 The following YAML configuration describes a GMSA credential spec named `gmsa-WebApp1`:
 
@@ -90,7 +95,7 @@ credspec:
     Sid: S-1-5-21-2126449477-2524075714-3094792973 #SID of GMSA
 ```
 
-5. Deploy the credential spec resource: `kubectl apply -f gmsa-Webapp1-credspec.yml`
+1. Deploy the credential spec resource: `kubectl apply -f gmsa-Webapp1-credspec.yml`
 
 
 ## Configure cluster role to enable RBAC on specific GMSA credential specs
@@ -190,8 +195,11 @@ spec:
 ```
 
 As pod specs with GMSA annotations (as described above) are applied in a cluster configured for GMSA, the following sequence of events will take place:
+
 1. The mutating webhook will resolve and expand all references to GMSA credential spec resources to the contents of the GMSA credential spec.
-2. The validating webhook will ensure the service account associated with the pod is authorized for the "use" verb on the specified GMSA credential spec.
-3. The container runtime will configure each Windows container with the specified GMSA credential spec so that the container can assume the identity of the GMSA in Active Directory and access services in the domain using that identity.
+
+1. The validating webhook will ensure the service account associated with the pod is authorized for the "use" verb on the specified GMSA credential spec.
+
+1. The container runtime will configure each Windows container with the specified GMSA credential spec so that the container can assume the identity of the GMSA in Active Directory and access services in the domain using that identity.
 
 {{% /capture %}}
