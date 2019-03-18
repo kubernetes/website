@@ -412,7 +412,7 @@ None of the PodSecurityContext fields work on Windows. They're listed here for r
 * V1.PodSecurityContext.SupplementalGroups - provides GID, not available on Windows
 * V1.PodSecurityContext.Sysctls - these are part of the Linux sysctl interface. There's no equivalent on Windows.
 
-# User Guide: Add Windows Nodes in Kubernetes
+# User Guide: Add Windows Nodes in Kubernetes {#UG-windows-nodes}
 
 ## Objectives
 
@@ -786,7 +786,7 @@ Now that you've configured a Windows worker in your cluster to run Windows conta
 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a master and a worker node running Windows Server <todo link to section 2 user guide>
+* Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](#UG-windows-nodes) <todo link to section 2 user guide>
 * It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows Container
