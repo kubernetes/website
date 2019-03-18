@@ -59,7 +59,7 @@ Check if it worked:
 ls jobs/
 ```
 
-The output is:
+The output is similar to this:
 
 ```
 job-apple.yaml
@@ -77,7 +77,7 @@ Next, create all the jobs with one kubectl command:
 kubectl create -f ./jobs
 ```
 
-The output is:
+The output is similar to this:
 
 ```
 job.batch/process-item-apple created
