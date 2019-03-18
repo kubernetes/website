@@ -1,4 +1,4 @@
-注意:这些测试是从 kubernetes 导入的代码实际上并不打算在存储库之外使用。
+注意：这些测试是从 kubernetes 导入的代码实际上并不打算在存储库之外使用。
 这就导致了供应商依赖问题。因此，我们必须在 travis 配置这些行:
 <!--
 Note: These tests are importing code from kubernetes that isn't really
