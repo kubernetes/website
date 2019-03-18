@@ -124,7 +124,7 @@ different Kubernetes components.
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
-| `RunAsGroup` | `false` | Alpha | 1.10 | |
+| `RunAsGroup` | `true` | Beta | 1.14 | |
 | `RuntimeClass` | `true` | Beta | 1.14 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
