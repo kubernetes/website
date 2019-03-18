@@ -113,6 +113,8 @@ cluster.
 
 * [SysEleven MetaKube](https://www.syseleven.io/products-services/managed-kubernetes/) offers managed Kubernetes as a service powered on our OpenStack public cloud. It includes lifecycle management, administration dashboards, monitoring, autoscaling and much more.
 
+* [VEXXHOST](https://vexxhost.com/public-cloud/container-services/kubernetes/) VEXXHOST proudly offers Certified Kubernetes on our public cloud, which also happens to be the largest OpenStack public cloud in Canada.
+
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks) is an enterprise Kubernetes-as-a-Service offering in the VMware Cloud Services portfolio that provides easy to use, secure by default, cost effective, SaaS-based Kubernetes clusters.
 
 ## Turnkey Cloud Solutions
@@ -144,6 +146,7 @@ few commands. These solutions are actively developed and have active community s
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Supergiant.io](https://supergiant.io/)
+* [VEXXHOST](https://vexxhost.com/private-cloud/)
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)
 * [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)
 
