@@ -154,13 +154,13 @@ sudo docker run -it --rm --privileged --net=host \
 <!--
 Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md).By default, it runs all conformance tests.
 -->
-节点合规性测试是[节点e2e测试](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md)的容器化版本。默认情况下，它会运行所有一致性测试。
+节点合规性测试是[节点 e2e 测试](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md)的容器化版本。默认情况下，它会运行所有一致性测试。
 
 <!--
 Theoretically, you can run any node e2e test if you configure the container and
 mount required volumes properly. But **it is strongly recommended to only run conformance test**, because it requires much more complex configuration to run non-conformance test.
 -->
-从理论上讲，如果配置容器并正确安装所需的卷，则可以运行任何节点e2e测试。 但**强烈建议仅运行一致性测试**，因为它需要更复杂的配置来运行不一致性测试。
+从理论上讲，如果配置容器并正确安装所需的卷，则可以运行任何节点 e2e 测试。 但**强烈建议仅运行一致性测试**，因为它需要更复杂的配置来运行不一致性测试。
 
 <!--
 ## Caveats
@@ -174,5 +174,5 @@ mount required volumes properly. But **it is strongly recommended to only run co
 * The test leaves dead containers on the node. These containers are created
   during the functionality test.
 -->
-* 测试在节点上留下一些 docker 镜像，包括节点合规性测试图像和功能测试中使用的容器图像。
+* 测试在节点上留下一些 docker 镜像，包括节点合规性测试镜像和功能测试中使用的容器镜像。
 * 测试在节点上留下了死容器。 这些容器是在功能测试期间创建的。

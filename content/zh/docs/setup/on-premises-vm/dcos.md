@@ -17,7 +17,7 @@ content_template: templates/concept
 <!--
 Mesosphere provides an easy option to provision Kubernetes onto [DC/OS](https://mesosphere.com/product/), offering:
 -->
-Mesosphere 提供了一个将 Kubernetes 加入 [DC/OS](https://mesosphere.com/product/)的简易选项，提供：
+Mesosphere 提供了一个将 Kubernetes 加入 [DC/OS](https://mesosphere.com/product/) 的简易选项，提供：
 
 <!--
 * Pure upstream Kubernetes
