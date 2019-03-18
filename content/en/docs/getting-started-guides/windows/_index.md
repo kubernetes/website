@@ -444,6 +444,15 @@ In order to deploy your cluster you will need the following address spaces:
    </td>
   </tr>
   <tr>
+   <td>---
+   </td>
+   <td>---
+   </td>
+   <td>---
+   </td>
+  </tr>
+  <tr>
+  <tr>
    <td>Service Subnet
    </td>
    <td>A non-routable, purely virtual subnet that is used by pods to uniformly access services without caring about the network topology. It is translated to/from routable address space by <code>kube-proxy</code> running on the nodes.
@@ -678,6 +687,15 @@ Parameter
    </td>
   </tr>
   <tr>
+   <td>
+---
+   </td>
+   <td>---
+   </td>
+   <td>---
+   </td>
+  </tr>
+  <tr>
    <td>-ManagementIP
    </td>
    <td>N/A (required)
@@ -775,7 +793,7 @@ Now that you've configured a Windows worker in your cluster to run Windows conta
 
 1. Create a simple webserver example:
 
-    Create a service spec `win-webserver.yaml` with the contents below: [TODO create this as a file in the docs folder and add a link]
+    Create a service spec `win-webserver.yaml` with the contents below:
 
     ```yaml
     apiVersion: v1
