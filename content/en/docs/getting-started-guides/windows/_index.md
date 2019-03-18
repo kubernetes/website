@@ -9,12 +9,12 @@ Windows applications constitute a large portion of the services and applications
 
 ## Intro to Windows containers in Kubernetes
 
-To enable the orchestration of Windows containers in Kubernetes, simply include Windows nodes in your existing Linux cluster. Scheduling Windows containers in [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) on Kubernetes is as simple and easy as scheduling Linux-based containers.
+To enable the orchestration of Windows containers in Kubernetes, simply include Windows nodes in your existing Linux cluster. Scheduling Windows containers in [Pods](/docs/concepts/workloads/pods/pod-overview/) on Kubernetes is as simple and easy as scheduling Linux-based containers.
 
 In order to run Windows containers, your Kubernetes cluster must include multiple operating systems, with control plane nodes running Linux and workers running either Windows or Linux depending on your workload needs. Windows Server 2019 is the only Windows operating system supported, enabling [Kubernetes Node](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) on Windows (including kubelet, [container runtime](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd), and kube-proxy). For a detailed explanation of Windows distribution channels see the [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
 
 {{< note >}}
-The Kubernetes control plane, including the [master components](https://kubernetes.io/docs/concepts/overview/components/), will continue to run on Linux. There are no plans to have a Windows-only Kubernetes cluster.
+The Kubernetes control plane, including the [master components](/docs/concepts/overview/components/), will continue to run on Linux. There are no plans to have a Windows-only Kubernetes cluster.
 {{< /note >}}
 
 {{< note >}}
@@ -73,7 +73,7 @@ Windows containers with process isolation have strict compatibility rules, [wher
 
 Key Kubernetes elements work the same way in Windows as they do in Linux. In this section, we will talk about some of the key workload enablers and how they map to Windows.
 
-* [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)
+* [Pods](/docs/concepts/workloads/pods/pod-overview/)
 
     A Pod is the basic building block of Kubernetes–the smallest and simplest unit in the Kubernetes object model that you create or deploy. The following Pod capabilities, properties and events are supported with Windows containers:
 
@@ -85,7 +85,7 @@ Key Kubernetes elements work the same way in Windows as they do in Linux. In thi
   * EmptyDir
   * Named pipe host mounts
   * Resource limits
-* [Controllers](https://kubernetes.io/docs/concepts/workloads/controllers/)
+* [Controllers](/docs/concepts/workloads/controllers/)
 
     Kubernetes controllers handle the desired state of Pods. The following workload controllers are supported with Windows containers:
 
@@ -96,7 +96,7 @@ Key Kubernetes elements work the same way in Windows as they do in Linux. In thi
   * DaemonSet
   * Job
   * CronJob
-* [Services](https://kubernetes.io/docs/concepts/services-networking/service/)
+* [Services](/docs/concepts/services-networking/service/)
 
     A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service. You can use services for cross-operating system connectivity. In Windows, services can utilize the following types, properties and capabilities:
 
@@ -121,16 +121,16 @@ Docker EE-basic 18.09 is required on Windows Server 2019 / 1809 nodes for Kubern
 
 #### Storage
 
-Kubernetes Volumes enable complex applications with data persistence and Pod volume sharing requirements to be deployed on Kubernetes. Kubernetes on Windows supports the following types of [volumes](https://kubernetes.io/docs/concepts/storage/volumes/):
+Kubernetes Volumes enable complex applications with data persistence and Pod volume sharing requirements to be deployed on Kubernetes. Kubernetes on Windows supports the following types of [volumes](/docs/concepts/storage/volumes/):
 
 * FlexVolume out-of-tree plugin with [SMB and iSCSI](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)support
-* [azureDisk](https://kubernetes.io/docs/concepts/storage/volumes/#azuredisk)
-* [azureFile](https://kubernetes.io/docs/concepts/storage/volumes/#azurefile)
-* [gcePersistentDisk](https://kubernetes.io/docs/concepts/storage/volumes/#gcepersistentdisk)
+* [azureDisk](/docs/concepts/storage/volumes/#azuredisk)
+* [azureFile](/docs/concepts/storage/volumes/#azurefile)
+* [gcePersistentDisk](/docs/concepts/storage/volumes/#gcepersistentdisk)
 
 #### Networking
 
-Networking for Windows containers is exposed through [CNI plugins](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Windows containers function similarly to virtual machines in regards to networking. Each container has a virtual network adapter (vNIC) which is connected to a Hyper-V virtual switch (vSwitch). The Host Networking Service (HNS) and the Host Compute Service (HCS) work together to create containers and attach container vNICs to networks. HCS is responsible for the management of containers whereas HNS is responsible for the management of networking resources such as:
+Networking for Windows containers is exposed through [CNI plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Windows containers function similarly to virtual machines in regards to networking. Each container has a virtual network adapter (vNIC) which is connected to a Hyper-V virtual switch (vSwitch). The Host Networking Service (HNS) and the Host Compute Service (HCS) work together to create containers and attach container vNICs to networks. HCS is responsible for the management of containers whereas HNS is responsible for the management of networking resources such as:
 
 * Virtual networks (including creation of vSwitches)
 * Endpoints / vNICs
@@ -277,7 +277,7 @@ Windows has strict compatibility rules, where the host OS version must match the
 
 Windows does not have an out-of-memory process killer as Linux does. Windows always treats all user-mode memory allocations as virtual, and pagefiles are mandatory. The net effect is that Windows won't reach out of memory conditions the same way Linux does, and processes will page to disk instead of being subject to out of memory (OOM) termination. If memory is over-provisioned and all physical memory is exhausted, then paging can slow down performance.
 
-Keeping memory usage within reasonable bounds is possible with a two-step process. First, use the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for memory usage on the node (outside of containers). This will reduce [NodeAllocatable](https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)). As you deploy workloads, use resource limits (must set only limits or limits must equal requests) on containers. This will also subtract from NodeAllocatable and prevent the scheduler from adding more pods once a node is full.
+Keeping memory usage within reasonable bounds is possible with a two-step process. First, use the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for memory usage on the node (outside of containers). This will reduce [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)). As you deploy workloads, use resource limits (must set only limits or limits must equal requests) on containers. This will also subtract from NodeAllocatable and prevent the scheduler from adding more pods once a node is full.
 
 A best practice to avoid over-provisioning is to configure the kubelet with a system reserved memory of at least 2GB to account for Windows, Docker, and Kubernetes processes.
 
@@ -350,7 +350,7 @@ Secrets are written in clear text on the node's volume (as compared to tmpfs/in-
 1. Use file ACLs to secure the secrets file location
 2. Use volume-level encryption using [BitLocker](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)
 
-[RunAsUser ](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#users-and-groups)is not currently supported on Windows. The workaround is to create local accounts before packaging the container. The RunAsUsername capability may be added in a future release.
+[RunAsUser ](/docs/concepts/policy/pod-security-policy/#users-and-groups)is not currently supported on Windows. The workaround is to create local accounts before packaging the container. The RunAsUsername capability may be added in a future release.
 
 Linux specific pod security context privileges such as SELinux, AppArmor, Seccomp, Capabilities (POSIX Capabilities), and others are not supported. 
 
@@ -424,13 +424,13 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 ## Before you begin
 
 * Obtain a [Windows Server license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) in order to run the Windows node that will execute the Windows container. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
-* Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Getting Started from Scratch](https://kubernetes.io/docs/setup/scratch/), [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/), [AKS Engine](https://kubernetes.io/docs/setup/turnkey/azure/), [GCE](https://kubernetes.io/docs/setup/turnkey/gce/), [AWS](https://kubernetes.io/docs/setup/turnkey/aws/)).
+* Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Getting Started from Scratch](/docs/setup/scratch/), [kubeadm](/docs/setup/independent/create-cluster-kubeadm/), [AKS Engine](/docs/setup/turnkey/azure/), [GCE](/docs/setup/turnkey/gce/), [AWS](/docs/setup/turnkey/aws/)).
 
 ## Getting Started: Adding a Windows Node to Your Cluster
 
 ### Plan IP Addressing
 
-Kubernetes cluster management requires careful planning of your IP addresses so that you do not inadvertently cause network collision. This guide assumes that you are familiar with the [Kubernetes networking concepts](https://kubernetes.io/docs/concepts/cluster-administration/networking/).
+Kubernetes cluster management requires careful planning of your IP addresses so that you do not inadvertently cause network collision. This guide assumes that you are familiar with the [Kubernetes networking concepts](/docs/concepts/cluster-administration/networking/).
 
 In order to deploy your cluster you will need the following address spaces:
 
@@ -772,7 +772,7 @@ Now that you've configured a Windows worker in your cluster to run Windows conta
 ## Before you begin
 
 * Create a Kubernetes cluster that includes a master and a worker node running Windows Server <todo link to section 2 user guide>
-* It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](https://kubernetes.io/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
+* It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows Container
 
@@ -847,7 +847,7 @@ When the service is deployed correctly both Pods will be marked as Ready. To exi
 * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
 * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
 * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
-* Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#services)
+* Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
 * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
 * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 {{< note >}}
@@ -856,7 +856,7 @@ When the service is deployed correctly both Pods will be marked as Ready. To exi
 
 ## Managing Workload Identity with Group Managed Service Accounts
 
-Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/content/en/docs/tasks/configure-pod-container/configure-gmsa.md).
+Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa.md).
 
 ## Taints and Tolerations
 
@@ -889,7 +889,7 @@ tolerations:
 
 # Getting Help and Troubleshooting
 
-Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section.
+Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section.
 
 1. How do I know start.ps1 completed successfully?
 
@@ -898,7 +898,7 @@ You should see kubelet, kube-proxy, and (if you chose Flannel as your networking
 2. Can I configure the Kubernetes node processes to run in the background?
    1. As native Windows Services
 
-Kubelet & kube-proxy can be run as native [Windows Services](https://kubernetes.io/docs/getting-started-guides/windows/#kubelet-and-kube-proxy-can-now-run-as-windows-services). See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. [TODO create a section for setting up as Windows Services]
+Kubelet & kube-proxy can be run as native [Windows Services](/docs/getting-started-guides/windows/#kubelet-and-kube-proxy-can-now-run-as-windows-services). See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. [TODO create a section for setting up as Windows Services]
    2. Using nssm.exe
 
 Kubelet and kube-proxy are already configured to run as native Windows Services. However, you can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
@@ -920,7 +920,7 @@ Windows Pods do not have outbound rules programmed for the ICMP protocol today. 
 
 If you are still facing problems, most likely your network configuration in [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf) deserves some extra attention. You can always edit this static file, the configuration will be applied to any newly created Kubernetes resources.
 
-One of the Kubernetes networking requirements (see [Kubernetes model](https://kubernetes.io/docs/concepts/cluster-administration/networking/)) is for cluster communication to occur without NAT internally. To honor this requirement, there is an [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) for all the communication where we do not want outbound NAT to occur. However, this also means that you need to exclude the external IP you are trying to query from the ExceptionList. Only then will the traffic originating from your Windows pods be SNAT'ed correctly to receive a response from the outside world. In this regard, your ExceptionList in `cni.conf` should look as follows:
+One of the Kubernetes networking requirements (see [Kubernetes model](/docs/concepts/cluster-administration/networking/)) is for cluster communication to occur without NAT internally. To honor this requirement, there is an [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20) for all the communication where we do not want outbound NAT to occur. However, this also means that you need to exclude the external IP you are trying to query from the ExceptionList. Only then will the traffic originating from your Windows pods be SNAT'ed correctly to receive a response from the outside world. In this regard, your ExceptionList in `cni.conf` should look as follows:
 
 ```conf
 "ExceptionList": [
@@ -937,7 +937,7 @@ Local NodePort access from the node itself will fail. This is a known limitation
 
 6. vNICs and HNS endpoints of containers are being deleted
 
-This issue can be caused when the `hostname-override` parameter is not passed to [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/). To resolve it, users need to pass the hostname to kube-proxy as follows:
+This issue can be caused when the `hostname-override` parameter is not passed to [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/). To resolve it, users need to pass the hostname to kube-proxy as follows:
 
 ```powershell
 C:\k\kube-proxy.exe --hostname-override=$(hostname)
