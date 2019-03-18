@@ -759,6 +759,10 @@ Now you can view the Windows nodes in your cluster by running the following:
 kubectl get nodes
 ```
 
+{{< note >}}
+You may want to configure your Windows node components like kubelet and kube-proxy to run as services. View the services and background processes section under [troubleshooting](#troubleshooting) for additional instructions. Once you are running the node components as services, collecting logs becomes an important part of troubleshooting. View the [gelevant logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs) section of the contributing guide for further instructions.
+{{< /note >}}
+
 ### Public Cloud Providers
 
 #### Azure
@@ -902,7 +906,7 @@ tolerations:
       effect: "NoSchedule"
 ```
 
-# Getting Help and Troubleshooting
+# Getting Help and Troubleshooting {#troubleshooting}
 
 Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section. Logs are an important element of troubleshooting issues in Kubernetes. Make sure to include them any time you seek troubleshooting assistance from other contributors. Follow the instructions in the SIG-Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
@@ -910,7 +914,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     You should see kubelet, kube-proxy, and (if you chose Flannel as your networking solution) flanneld host-agent processes running on your node, with running logs being displayed in separate PowerShell windows. In addition to this, your Windows node should be listed as "Ready" in your Kubernetes cluster.
 
-1. Can I configure the Kubernetes node processes to run in the background?
+1. Can I configure the Kubernetes node processes to run in the background as services?
 
     Kubelet and kube-proxy are already configured to run as native Windows Services, offering resiliency by re-starting the services automatically in the event of failure (for example a process crash). You have two options for configuring these node components as services.
 
