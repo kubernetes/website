@@ -20,7 +20,7 @@ weight: 40
 for both planning an upgrade and actually performing it. `kubeadm upgrade` can also be used for downgrading
 cluster if necessary.
 -->
-`kubeadm upgrade` 是一个对用户友好的命令，它将复杂的升级逻辑包装在一个命令后面，支持规划升级和实际执行。
+`kubeadm upgrade` 是一个对用户友好的命令，它将复杂的升级逻辑包装在一个命令后面，支持升级的规划和实际执行。
 如有必要，`kubeadm upgrade` 也可用于降级集群。
 {{% /capture %}}
 
