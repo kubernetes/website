@@ -195,10 +195,10 @@ spec:
 
 As pod specs with GMSA annotations (as described above) are applied in a cluster configured for GMSA, the following sequence of events will take place:
 
-1. The mutating webhook will resolve and expand all references to GMSA credential spec resources to the contents of the GMSA credential spec.
+1. The mutating webhook resolves and expands all references to GMSA credential spec resources to the contents of the GMSA credential spec.
 
-1. The validating webhook will ensure the service account associated with the pod is authorized for the "use" verb on the specified GMSA credential spec.
+1. The validating webhook ensures the service account associated with the pod is authorized for the "use" verb on the specified GMSA credential spec.
 
-1. The container runtime will configure each Windows container with the specified GMSA credential spec so that the container can assume the identity of the GMSA in Active Directory and access services in the domain using that identity.
+1. The container runtime configures each Windows container with the specified GMSA credential spec so that the container can assume the identity of the GMSA in Active Directory and access services in the domain using that identity.
 
 {{% /capture %}}
