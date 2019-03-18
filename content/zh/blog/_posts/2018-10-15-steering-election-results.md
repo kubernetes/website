@@ -50,7 +50,7 @@ The [Kubernetes Steering Committee Election](https://kubernetes.io/blog/2018/09/
 <!--
 You can follow along to Steering Committee [backlog items](https://git.k8s.io/steering/backlog.md) and weigh in by filing an issue or creating a PR against their [repo](https://github.com/kubernetes/steering). They meet bi-weekly on [Wednesdays at 8pm UTC](https://github.com/kubernetes/steering) and regularly attend Meet Our Contributors.
 -->
-你可以关注督导委员会的[积压项目](https://git.k8s.io/steering/backlog.md)，并通过提交 issue 或针对他们的[代码仓库](https://github.com/kubernetes/steering)创建 PR 来参与。他们在[UTC 时间每周三晚 8 点](https://github.com/kubernetes/steering)举行会议，并定期与我们的贡献者见面。
+你可以关注督导委员会的[任务清单](https://git.k8s.io/steering/backlog.md)，并通过向他们的[代码仓库](https://github.com/kubernetes/steering)提交 issue 或 PR 的方式来参与。他们也会在[UTC 时间每周三晚 8 点](https://github.com/kubernetes/steering)举行会议，并定期与我们的贡献者见面。
 
 <!--
 Steering Committee Meetings:
