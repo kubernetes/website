@@ -43,7 +43,7 @@ Don’t miss these great speaker sessions at the conference:
 * And many more http://kubeconeurope2016.sched.org/
 -->
 
-* 
+* “Kubernetes 硬件攻防：通过旋钮、推杆和滑块探索 Kubernetes API” 作者 Ian Lewis 和 Brian Dorsey，开发者倡导者，谷歌 -* [http://sched.co/6Bl3](http://sched.co/6Bl3)  
 
 * “rktnetes: 容器运行时和 Kubernetes 的新功能” 作者 Jonathan Boulle, CoreOS 的开发人员和团队负责人 -* [http://sched.co/6BY7](http://sched.co/6BY7)
 
