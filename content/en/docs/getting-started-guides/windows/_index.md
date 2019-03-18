@@ -338,7 +338,7 @@ The following networking functionality is not supported on Windows nodes
 1. Node-pod connectivity isn't possible by design. It's only possible for local pods with Flannel [PR 1096](https://github.com/coreos/flannel/pull/1096)
 2. We are restricted to using VNI 4096 and UDP port 4789. The VNI limitation is being worked on and will be overcome (open-source flannel changes). See official [Flannel VXLAN ](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)backend docs for more details on these parameters.
 
-##### DNS
+##### DNS {#dns-limitations}
 
 * ClusterFirstWithHostNet is not supported for DNS. Windows treats all names with a '.' as a FQDN and skips PQDN resolution
 * On Linux, you have a DNS suffix list, which is used when trying to resolve PQDNs. On Windows, we only have 1 DNS suffix, which is the DNS suffix associated with that pod's namespace (mydns.svc.cluster.local for example). Windows can resolve FQDNs and services or names resolvable with just that suffix. For example, a pod spawned in the default namespace, will have the DNS suffix **default.svc.cluster.local**. On a Windows pod, we will be able to resolve both **kubernetes.default.svc.cluster.local** and **kubernetes**, but not the in-betweens, like **kubernetes.default** or **kubernetes.default.svc**.
@@ -786,7 +786,7 @@ Now that you've configured a Windows worker in your cluster to run Windows conta
 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](#UG-windows-nodes) <todo link to section 2 user guide>
+* Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](#UG-windows-nodes) 
 * It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows Container
@@ -912,7 +912,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
 1. Can I configure the Kubernetes node processes to run in the background?
 
-    Kubelet and kube-proxy are already configured to run as native Windows Services. You have two options for configuring these node components as services.
+    Kubelet and kube-proxy are already configured to run as native Windows Services, offering resiliency by re-starting the services automatically in the event of failure (for example a process crash). You have two options for configuring these node components as services.
 
     1. As native Windows Services
 
@@ -940,7 +940,51 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     1. Using nssm.exe
 
-        You can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. See [Windows Services on Kubernetes](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/kube-windows-services) for example steps. For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
+        You can also always use alternative service managers like [nssm.exe](https://nssm.cc/) to run these processes (flanneld, kubelet & kube-proxy) in the background for you. You can use this [sample script](https://github.com/Microsoft/SDN/tree/master/Kubernetes/flannel/register-svc.ps1), leveraging nssm.exe to register kubelet, kube-proxy, and flanneld.exe to run as Windows services in the background.
+        
+        ```powershell
+        register-svc.ps1 -NetworkMode <Network mode> -ManagementIP <Windows Node IP> -ClusterCIDR <Cluster subnet> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Directory to place logs>
+        
+        # NetworkMode      = The network mode l2bridge (flannel host-gw, also the default value) or overlay (flannel vxlan) chosen as a network solution
+        # ManagementIP     = The IP address assigned to the Windows node. You can use ipconfig to find this
+        # ClusterCIDR      = The cluster subnet range. (Default value 10.244.0.0/16)
+        # KubeDnsServiceIP = The Kubernetes DNS service IP (Default value 10.96.0.10)
+        # LogDir           = The directory where kubelet and kube-proxy logs are redirected into their respective output files (Default value C:\k)
+        ```
+        
+        If the above referenced script is not suitable, you can manually configure nssm.exe using the following examples.
+        ```powershell
+        # Register flanneld.exe
+        nssm install flanneld C:\flannel\flanneld.exe
+        nssm set flanneld AppParameters --kubeconfig-file=c:\k\config --iface=<ManagementIP> --ip-masq=1 --kube-subnet-mgr=1
+        nssm set flanneld AppEnvironmentExtra NODE_NAME=<hostname>
+        nssm set flanneld AppDirectory C:\flannel 
+        nssm start flanneld
+        
+        # Register kubelet.exe
+        nssm install kubelet C:\k\kubelet.exe
+        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=kubeletwin/pause --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+        nssm set kubelet AppDirectory C:\k
+        nssm start kubelet
+  
+        # Register kube-proxy.exe (l2bridge / host-gw)
+        nssm install kube-proxy C:\k\kube-proxy.exe
+        nssm set kube-proxy AppDirectory c:\k
+        nssm set kube-proxy AppParameters --v=4 --proxy-mode=kernelspace --hostname-override=<hostname>--kubeconfig=c:\k\config --enable-dsr=false --log-dir=<log directory> --logtostderr=false
+        nssm.exe set kube-proxy AppEnvironmentExtra KUBE_NETWORK=cbr0
+        nssm set kube-proxy DependOnService kubelet
+        nssm start kube-proxy
+  
+        # Register kube-proxy.exe (overlay / vxlan)
+        nssm install kube-proxy C:\k\kube-proxy.exe
+        nssm set kube-proxy AppDirectory c:\k
+        nssm set kube-proxy AppParameters --v=4 --proxy-mode=kernelspace --feature-gates="WinOverlay=true" --hostname-override=<hostname> --kubeconfig=c:\k\config --network-name=vxlan0 --source-vip=<source-vip> --enable-dsr=false --log-dir=<log directory> --logtostderr=false
+        nssm set kube-proxy DependOnService kubelet
+        nssm start kube-proxy
+        ```
+        
+        
+        For initial troubleshooting, you can use the following flags in [nssm.exe](https://nssm.cc/) to redirect stdout and stderr to a output file:
 
         ```powershell
         nssm set <Service Name> AppStdout C:\k\mysvc.log
@@ -1031,30 +1075,29 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
 ## Further investigation
 
-Check the DNS limitations for Windows in this section [todo insert link].
+Check the DNS limitations for Windows in this [section](#dns-limitations).
 
-If these steps don't resolve your problem, you can get help running Windows Containers on Windows nodes in Kubernetes through:
+If these steps don't resolve your problem, you can get help running Windows containers on Windows nodes in Kubernetes through:
 
 * StackOverflow [Windows Server Container](https://stackoverflow.com/questions/tagged/windows-server-container) topic
 * Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes.io/)
 * Kubernetes Slack [#SIG-Windows Channel](https://kubernetes.slack.com/messages/sig-windows)
 
-## Bugs and Feature Requests
+## Reporting Issues and Feature Requests
 
-If you have what looks like a bug, or you would like to make a feature request, please use the [Github issue tracking system](https://github.com/kubernetes/kubernetes/issues).
-
-Before you file an issue, please search existing issues to see if your issue is already covered.
+If you have what looks like a bug, or you would like to make a feature request, please use the [Github issue tracking system](https://github.com/kubernetes/kubernetes/issues). You can open issues on [GitHub](https://github.com/kubernetes/kubernetes/issues/new/choose) and assign them to SIG-Windows. You should first search the list of issues in case it was reported previously and comment with your experience on the issue and add additional logs. SIG-Windows Slack is also a great avenue to get some initial support and troubleshooting ideas prior to creating a ticket.
 
 If filing a bug, please include detailed information about how to reproduce the problem, such as:
 
 * Kubernetes version: kubectl version
-* Cloud provider, OS distro, network configuration, and Docker version
-* Steps to reproduce the problem
-* Tag the issue sig/windows to bring it to the Windows Special Interest Group member attention
+* Environment details: Cloud provider, OS distro, networking choice and configuration, and Docker version
+* Detailed steps to reproduce the problem
+* Relevant logs
+* Tag the issue sig/windows by commenting on the issue with `/sig windows` to bring it to a SIG-Windows member's attention
 
 # Roadmap
 
-We have a lot of features in our roadmap. <todo add more stuff here>
+We have a lot of features in our roadmap. An abbreviated high level list is included below, but we encourage you to view our [roadmap project](https://github.com/orgs/kubernetes/projects/8) and help us make Windows support better by [contributing](https://github.com/kubernetes/community/blob/master/sig-windows/).
 
 ## CRI-ContainerD
 
@@ -1070,3 +1113,8 @@ The CRI-ContainerD interface will be able to manage sandboxes based on Hyper-V. 
 ## Deployment with kubeadm and cluster API
 
 Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
+
+## A few other big ticket items
+### Beta support for Group Managed Service Accounts
+### More CNIs
+### More Storage Plugins
