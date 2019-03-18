@@ -1,12 +1,12 @@
 ---
-title: 명령형 명령어를 이용한 쿠버네티스 오브젝트 관리하기
+title: 명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기
 content_template: templates/concept
 weight: 20
 ---
 
 {{% capture overview %}}
-쿠버네티스 오브젝트는 `kubectl` 커맨드 라인 툴 속에 내장된 명령형 명령어를 이용함으로써
-바로 신속하게 생성, 업데이트 및 삭제할 수 있다. 이 문서는 어떻게 명령어가 구성되어 있으며,
+쿠버네티스 오브젝트는 `kubectl` 커맨드 라인 툴 속에 내장된 명령형 커맨드를 이용함으로써
+바로 신속하게 생성, 업데이트 및 삭제할 수 있다. 이 문서는 어떻게 커맨드가 구성되어 있으며,
 이를 사용하여 활성 오브젝트를 어떻게 관리하는 지에 대해 설명한다.
 {{% /capture %}}
 
@@ -16,7 +16,7 @@ weight: 20
 
 `kubectl`툴은 3가지 종류의 오브젝트 관리를 지원한다.
 
-* 명령형 명령어
+* 명령형 커맨드
 * 명령형 오브젝트 구성
 * 선언형 오브젝트 구성
 
@@ -26,7 +26,7 @@ weight: 20
 ## 오브젝트 생성 방법
 
 `kubectl` 툴은 가장 일반적인 오브젝트 타입을 생성하는데 동사형태 기반의 명령을
-지원한다. 쿠버네티스 오브젝트 타입에 익숙하지 않은 사용자가 인지할 수 있도록 명령어
+지원한다. 쿠버네티스 오브젝트 타입에 익숙하지 않은 사용자가 인지할 수 있도록 커맨드
 이름이 지어졌다.
 
 - `run`: 하나 이상의 파드 내 컨테이너를 실행하도록 새로운 디플로이먼트 오브젝트를 생성한다.
@@ -34,13 +34,13 @@ weight: 20
 - `autoscale`: 디플로이먼트와 같이, 하나의 컨트롤러에 대해 자동으로 수평적 스케일이 이루어 지도록 새로운 Autoscaler 오브젝트를 생성한다.
 
 또한 `kubectl` 툴은 오브젝트 타입에 의해 구동되는 생성 명령을 지원한다.
-이러한 명령어는 더 많은 오브젝트 타입을 지원해주며 그 의도하는 바에 대해
+이러한 커맨드는 더 많은 오브젝트 타입을 지원해주며 그 의도하는 바에 대해
 보다 명확하게 해주지만, 사용자가 생성하고자 하는 오브젝트 타입에 대해
 알 수 있도록 해야한다.
 
 - `create <objecttype> [<subtype>] <instancename>`
 
-일부 오브젝트 타입은 `create` 명령어 내 정의할 수 있는 서브타입을 가진다.
+일부 오브젝트 타입은 `create` 커맨드 내 정의할 수 있는 서브타입을 가진다.
 예를 들어, 서비스 오브젝트는 ClusterIP, LoadBalancer 및 NodePort 등을
 포함하는 여러 서브타입을 가진다, 다음은 NodePort 서브타입을 통해 서비스를
 생성하는 예제이다.
@@ -50,9 +50,9 @@ kubectl create service nodeport <myservicename>
 ```
 
 이전 예제에서, `create service nodeport` 명령은
-`create service` 명령의 부명령어라고 칭한다.
+`create service` 명령의 부커맨드라고 칭한다.
 
-`-h` 플래그를 사용하여 부명령어에 의해 지원되는 인수 및 플래그를
+`-h` 플래그를 사용하여 부커맨드에 의해 지원되는 인수 및 플래그를
 찾아 볼 수 있다.
 
 ```shell
@@ -61,8 +61,8 @@ kubectl create service nodeport -h
 
 ## 오브젝트 업데이트 방법
 
-`kubectl` 명령어는 일반적인 몇몇의 업데이트 작업을 위해 동사형태 기반의 명령어를 지원한다.
-이 명령어는 쿠버네티스 오브젝트에 익숙하지 않은 사용자가 설정되어져야
+`kubectl` 커맨드는 일반적인 몇몇의 업데이트 작업을 위해 동사형태 기반의 커맨드를 지원한다.
+이 커맨드는 쿠버네티스 오브젝트에 익숙하지 않은 사용자가 설정되어져야
 하는 특정 필드를 모르는 상태에서도 업데이트를 수행할 수 있도록
 이름 지어졌다.
 
@@ -76,7 +76,7 @@ kubectl create service nodeport -h
 - `set` `<field>`: 오브젝트의 측면을 설정한다.
 
 {{< note >}}
-쿠버네티스 1.5 버전에서는 모든 동사형태 기반의 명령어가 관련된 측면 중심의 명령어를 가지는 것은 아니다.
+쿠버네티스 1.5 버전에서는 모든 동사형태 기반의 커맨드가 관련된 측면 중심의 커맨드를 가지는 것은 아니다.
 {{< /note >}}
 
 `kubectl` 툴은 활성 오브젝트를 바로 업데이트 하기위해 추가적인 방법을 지원하지만,
@@ -95,7 +95,7 @@ kubectl create service nodeport -h
 
 {{< note >}}
 명령형 명령과 명령형 오브젝트 구성 모두 `kubectl delete`를 사용할 수
-있다. 차이점은 명령어에 전해지는 인수에 있다. 명령형 명령어로
+있다. 차이점은 커맨드에 전해지는 인수에 있다. 명령형 커맨드로
 `kubectl delete`을 사용하기위해, 삭제할 오브젝트를 인수로 전한다.
 다음은 nginx라는 디플로이먼트 오브젝트를 전하는 예제이다.
 {{< /note >}}
@@ -123,12 +123,12 @@ TODO(pwittrock): 구현이 이루어지면 주석을 해제한다.
 - `describe`: 일치하는 오브젝트에 대해 수집한 상세한 정보를 출력한다.
 - `logs`: 파드에서 실행중인 컨테이너에 대한 stdout과 stderr를 출력한다.
 
-## 생성 전 오브젝트 수정을 위해 `set` 명령어 사용하기
+## 생성 전 오브젝트 수정을 위해 `set` 커맨드 사용하기
 
-`create` 명령어에 사용할 수 있는 플래그가 없는 몇 가지 오브젝트
+`create` 커맨드에 사용할 수 있는 플래그가 없는 몇 가지 오브젝트
 필드가 있다. 이러한 경우, 오브젝트 생성 전에 필드에 대한 값을
 정의하기 위해 `set`과 `create`을 조합해서 사용할 수 있다.
-이는 `set` 명령어에 `create` 명령의 출력을 파이프 함으로써 수행할 수 있다.
+이는 `set` 커맨드에 `create` 명령의 출력을 파이프 함으로써 수행할 수 있다.
 다음은 관련 예제이다.
 
 ```sh
@@ -157,6 +157,6 @@ kubectl create --edit -f /tmp/srv.yaml
 {{% capture whatsnext %}}
 - [오브젝트 구성을 이용하여 쿠베네티스 관리하기 (명령형)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [오브젝트 구성을 이용하여 쿠버네티스 관리하기 (선언형)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl/)
+- [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl/)
 - [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}
