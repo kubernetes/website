@@ -904,7 +904,7 @@ tolerations:
 
 # Getting Help and Troubleshooting
 
-Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section.
+Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section. Logs are an important element of troubleshooting issues in Kubernetes. Make sure to include them any time you seek troubleshooting assistance from other contributors. Follow the instructions in the SIG-Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
 1. How do I know start.ps1 completed successfully?
 
@@ -1092,7 +1092,7 @@ If filing a bug, please include detailed information about how to reproduce the 
 * Kubernetes version: kubectl version
 * Environment details: Cloud provider, OS distro, networking choice and configuration, and Docker version
 * Detailed steps to reproduce the problem
-* Relevant logs
+* [Relevant logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)
 * Tag the issue sig/windows by commenting on the issue with `/sig windows` to bring it to a SIG-Windows member's attention
 
 # Roadmap
