@@ -193,7 +193,7 @@ spec:
         beta.kubernetes.io/os: windows
 ```
 
-As pod specs with GMSA annotations (as described above) are applied in a cluster configured for GMSA, the following sequence of events will take place:
+As pod specs with GMSA annotations (as described above) are applied in a cluster configured for GMSA, the following sequence of events take place:
 
 1. The mutating webhook resolves and expands all references to GMSA credential spec resources to the contents of the GMSA credential spec.
 
