@@ -40,7 +40,7 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 * StatefulSet 怎样管理它的 Pods
 * 如何删除 StatefulSet
 * 如何对 StatefulSet 进行扩容/缩容
-* 如何更新一个 StatefulSet 的 Pod
+* 如何更新一个 StatefulSet 的 Pods
   {{% /capture %}}
 
 
@@ -131,7 +131,7 @@ web-1     1/1       Running   0          1m
 ```
 
 
-如同 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中所提到的， StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。 Pod 的名称的形式为 `<statefulset 的名称>-<ordinal index>`。`web` StatefulSet 拥有两个副本，所以它创建了两个 Pod：`web-0` 和 `web-1`。
+如同 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中所提到的， StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。 Pod 的名称的形式为 `<statefulset name>-<ordinal index>`。`web` StatefulSet 拥有两个副本，所以它创建了两个 Pod：`web-0` 和 `web-1`。
 
 
 ### 使用稳定的网络身份标识
@@ -482,7 +482,7 @@ web-2   k8s.gcr.io/nginx-slim:0.8
 `web-0` has had its image updated, but `web-0` and `web-1` still have the original 
 image. Complete the update by deleting the remaining Pods.
 -->
-`web-0` 已经更新了它的镜像，但是 `web-0` 和 `web-1` 仍保留了原始镜像。通过删除剩余的 Pod 完成更新。
+`web-0` 已经更新了它的镜像，但是 `web-1` 和 `web-2` 仍保留了原始镜像。
 
 ​```shell
 kubectl delete pod web-1 web-2
