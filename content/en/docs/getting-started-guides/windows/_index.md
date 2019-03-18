@@ -1,5 +1,5 @@
 ---
-title: Using Windows Server Containers in Kubernetes
+title: Adding Windows nodes and scheduling Windows containers in Kubernetes
 toc_hide: true
 ---
 ## Motivation
