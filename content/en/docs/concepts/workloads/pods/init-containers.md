@@ -83,7 +83,7 @@ Here are some ideas for how to use Init Containers:
 
 * Register this Pod with a remote server from the downward API with a command like:
 
-      curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
+      `curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'`
 
 * Wait for some time before starting the app Container with a command like `sleep 60`.
 * Clone a git repository into a volume.
@@ -180,12 +180,24 @@ spec:
 This Pod can be started and debugged with the following commands:
 
 ```shell
-$ kubectl create -f myapp.yaml
+kubectl apply -f myapp.yaml
+```
+```
 pod/myapp-pod created
-$ kubectl get -f myapp.yaml
+```
+
+```shell
+kubectl get -f myapp.yaml
+```
+```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
-$ kubectl describe -f myapp.yaml
+```
+
+```shell
+kubectl describe -f myapp.yaml
+```
+```
 Name:          myapp-pod
 Namespace:     default
 [...]
@@ -218,18 +230,25 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulled        Successfully pulled image "busybox"
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created       Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started       Started container with docker id 5ced34a04634
-$ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
-$ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
+```
+```shell
+kubectl logs myapp-pod -c init-myservice # Inspect the first init container
+kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
 Once we start the `mydb` and `myservice` services, we can see the Init Containers
 complete and the `myapp-pod` is created:
 
 ```shell
-$ kubectl create -f services.yaml
+kubectl apply -f services.yaml
+```
+```
 service/myservice created
 service/mydb created
-$ kubectl get -f myapp.yaml
+```
+
+```shell
+kubectl get -f myapp.yaml
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```

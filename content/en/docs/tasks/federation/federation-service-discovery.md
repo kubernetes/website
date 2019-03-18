@@ -1,16 +1,17 @@
 ---
+title: Cross-cluster Service Discovery using Federated Services
 reviewers:
 - bprashanth
 - quinton-hoole
 content_template: templates/task
-title: Cross-cluster Service Discovery using Federated Services
+weight: 140
 ---
 
 {{% capture overview %}}
 
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This guide explains how to use Kubernetes Federated Services to deploy
 a common Service across multiple Kubernetes clusters. This makes it
@@ -118,8 +119,9 @@ The status of your Federated Service will automatically reflect the
 real-time status of the underlying Kubernetes services, for example:
 
 ``` shell
-$kubectl --context=federation-cluster describe services nginx
-
+kubectl --context=federation-cluster describe services nginx
+```
+```
 Name:                   nginx
 Namespace:              default
 Labels:                 run=nginx
@@ -187,7 +189,9 @@ this. For example, if your Federation is configured to use Google
 Cloud DNS, and a managed DNS domain 'example.com':
 
 ``` shell
-$ gcloud dns managed-zones describe example-dot-com
+gcloud dns managed-zones describe example-dot-com
+```
+```
 creationTime: '2016-06-26T18:18:39.229Z'
 description: Example domain for Kubernetes Cluster Federation
 dnsName: example.com.
@@ -202,7 +206,9 @@ nameServers:
 ```
 
 ```shell
-$ gcloud dns record-sets list --zone example-dot-com
+gcloud dns record-sets list --zone example-dot-com
+```
+```
 NAME                                                            TYPE      TTL     DATA
 example.com.                                                    NS        21600   ns-cloud-e1.googledomains.com., ns-cloud-e2.googledomains.com.
 example.com.                                                    OA        21600   ns-cloud-e1.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 1209600 300
@@ -225,12 +231,12 @@ nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME     180   
 If your Federation is configured to use AWS Route53, you can use one of the equivalent AWS tools, for example:
 
 ``` shell
-$ aws route53 list-hosted-zones
+aws route53 list-hosted-zones
 ```
 and
 
 ``` shell
-$ aws route53 list-resource-record-sets --hosted-zone-id Z3ECL0L9QLOVBX
+aws route53 list-resource-record-sets --hosted-zone-id Z3ECL0L9QLOVBX
 ```
 {{< /note >}}
 

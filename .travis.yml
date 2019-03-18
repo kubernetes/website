@@ -1,10 +1,13 @@
 language: go
 go:
-  - 1.10.2
+  - 1.11.5
 
 jobs:
   include:
     - name: "Testing examples"
+      cache:
+        directories:
+          - $HOME/.cache/go-build
       # Don't want default ./... here:
       install:
       - export PATH=$GOPATH/bin:$PATH
@@ -13,7 +16,7 @@ jobs:
 
       # Make sure we are testing against the correct branch
       - pushd $GOPATH/src/k8s.io && git clone https://github.com/kubernetes/kubernetes && popd
-      - pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.11 && popd
+      - pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.13 && make generated_files && popd
       - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
       - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
 

@@ -43,7 +43,7 @@ of the nginx server.
 
 Create the Pod:
 
-    kubectl create -f https://k8s.io/examples/pods/init-containers.yaml
+    kubectl apply -f https://k8s.io/examples/pods/init-containers.yaml
 
 Verify that the nginx container is running:
 

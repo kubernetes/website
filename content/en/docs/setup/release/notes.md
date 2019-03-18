@@ -1,5 +1,13 @@
 ---
 title: v1.13 Release Notes
+card:
+  name: download
+  weight: 10
+  anchors:
+  - anchor: "#"
+    title: Current Release Notes
+  - anchor: "#urgent-upgrade-notes"
+    title: Urgent Upgrade Notes
 ---
 <!-- NEW RELEASE NOTES ENTRY -->
 

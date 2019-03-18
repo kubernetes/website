@@ -249,7 +249,7 @@ Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal P
 You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta2` API.
 Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
 
-See [Support for metrics APIs](#support-for-metrics-APIs) for the requirements.
+See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 
 ## Support for metrics APIs
 

@@ -600,14 +600,7 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "g
 
 ### local {#local}
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
-{{< note >}}
-The alpha PersistentVolume NodeAffinity annotation has been deprecated
-and will be removed in a future release. Existing PersistentVolumes using this
-annotation must be updated by the user to use the new PersistentVolume
-`NodeAffinity` field.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
@@ -673,7 +666,8 @@ selectors, Pod affinity, and Pod anti-affinity.
 An external static provisioner can be run separately for improved management of
 the local volume lifecycle. Note that this provisioner does not support dynamic
 provisioning yet. For an example on how to run an external local provisioner,
-see the [local volume provisioner user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
+see the [local volume provisioner user
+guide](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 
 {{< note >}}
 The local PersistentVolume requires manual cleanup and deletion by the
@@ -855,9 +849,8 @@ receive updates for those volume sources.
 ### portworxVolume {#portworxvolume}
 
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
-Kubernetes. Portworx fingerprints storage in a server, tiers based on capabilities,
-and aggregates capacity across multiple servers. Portworx runs in-guest in virtual
-machines or on bare metal Linux nodes.
+Kubernetes. [Portworx](https://portworx.com/use-case/kubernetes-storage/) fingerprints storage in a server, tiers based on capabilities,
+and aggregates capacity across multiple servers. Portworx runs in-guest in virtual machines or on bare metal Linux nodes.
 
 A `portworxVolume` can be dynamically created through Kubernetes or it can also
 be pre-provisioned and referenced inside a Kubernetes Pod.
@@ -900,7 +893,9 @@ You must have your own Quobyte setup running with the volumes
 created before you can use it.
 {{< /caution >}}
 
-See the [Quobyte example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/quobyte) for more details.
+Quobyte supports the {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
+CSI is the recommended plugin to use Quobyte volumes inside Kubernetes. Quobyte's
+GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte-csi) for deploying Quobyte using CSI, along with examples.
 
 ### rbd {#rbd}
 
@@ -1216,12 +1211,12 @@ CSI support was introduced as alpha in Kubernetes v1.9, moved to beta in
 Kubernetes v1.10, and is GA in Kubernetes v1.13.
 
 {{< note >}}
-**Note:** Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
+Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
 v1.13 and will be removed in a future release.
 {{< /note >}}
 
 {{< note >}}
-**Note:** CSI drivers may not be compatible across all Kubernetes releases.
+CSI drivers may not be compatible across all Kubernetes releases.
 Please check the specific CSI driver's documentation for supported
 deployments steps for each Kubernetes release and a compatibility matrix.
 {{< /note >}}
@@ -1296,7 +1291,44 @@ feature gates which must be enabled for this feature are `BlockVolume` and
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
-#### Developer resources
+#### CSI ephemeral volumes
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
+
+Example:
+
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: my-csi-app
+spec:
+  containers:
+    - name: my-frontend
+      image: busybox
+      volumeMounts:
+      - mountPath: "/data"
+        name: my-csi-inline-vol
+      command: [ "sleep", "1000000" ]
+  volumes:
+    - name: my-csi-inline-vol
+      csi:
+        driver: inline.storage.kubernetes.io
+        volumeAttributes:
+              foo: bar
+```
+
+This feature requires CSIInlineVolume feature gate to be enabled:
+
+```
+--feature-gates=CSIInlineVolume=true
+```
+
+CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
+
+# Developer resources
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
 
@@ -1385,8 +1417,8 @@ MountFlags=shared
 ```
 Or, remove `MountFlags=slave` if present.  Then restart the Docker daemon:
 ```shell
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 

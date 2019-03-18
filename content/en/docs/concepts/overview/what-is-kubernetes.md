@@ -5,6 +5,9 @@ reviewers:
 title: What is Kubernetes?
 content_template: templates/concept
 weight: 10
+card: 
+  name: concepts
+  weight: 10
 ---
 
 {{% capture overview %}}

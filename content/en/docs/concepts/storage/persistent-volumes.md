@@ -312,7 +312,7 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 {{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
-Now, you can set the value of `volumeMode` to `raw` to use a raw block device, or `filesystem`
+Now, you can set the value of `volumeMode` to `block` to use a raw block device, or `filesystem`
 to use a filesystem. `filesystem` is the default if the value is omitted. This is an optional API
 parameter.
 

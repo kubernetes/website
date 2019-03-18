@@ -73,11 +73,11 @@ kubectl get pods -w -l app=nginx
 ```
 
 In the second terminal, use 
-[`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands/#create) to create the 
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to create the
 Headless Service and StatefulSet defined in `web.yaml`.
 
 ```shell
-kubectl create -f web.yaml 
+kubectl apply -f web.yaml
 service/nginx created
 statefulset.apps/web created
 ```
@@ -160,7 +160,7 @@ Using `nslookup` on the Pods' hostnames, you can examine their in-cluster DNS
 addresses.
 
 ```shell
-kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh 
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm  
 nslookup web-0.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -783,7 +783,7 @@ you deleted the `nginx` Service ( which you should not have ), you will see
 an error indicating that the Service already exists.
 
 ```shell
-kubectl create -f web.yaml 
+kubectl apply -f web.yaml
 statefulset.apps/web created
 Error from server (AlreadyExists): error when creating "web.yaml": services "nginx" already exists
 ```
@@ -883,7 +883,7 @@ service "nginx" deleted
 Recreate the StatefulSet and Headless Service one more time.
 
 ```shell
-kubectl create -f web.yaml 
+kubectl apply -f web.yaml
 service/nginx created
 statefulset.apps/web created
 ```
@@ -947,7 +947,7 @@ kubectl get po -l app=nginx -w
 In another terminal, create the StatefulSet and Service in the manifest.
 
 ```shell
-kubectl create -f web-parallel.yaml 
+kubectl apply -f web-parallel.yaml
 service/nginx created
 statefulset.apps/web created
 ```

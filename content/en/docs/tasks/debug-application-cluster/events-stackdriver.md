@@ -59,7 +59,7 @@ average, approximately 100Mb RAM and 100m CPU is needed.
 Deploy event exporter to your cluster using the following command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/debug/event-exporter.yaml
+kubectl apply -f https://k8s.io/examples/debug/event-exporter.yaml
 ```
 
 Since event exporter accesses the Kubernetes API, it requires permissions to

@@ -59,6 +59,7 @@ different Kubernetes components.
 | `CSIBlockVolume` | `true` | Beta | 1.14 | |
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
+| `CSIInlineVolume` | `false` | Alpha | 1.14 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | |
@@ -111,8 +112,10 @@ different Kubernetes components.
 | `MountPropagation` | `true` | GA | 1.12 | |
 | `NodeLease` | `false` | Alpha | 1.12 | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
-| `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
-| `PodPriority` | `false` | Alpha | 1.8 | |
+| `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
+| `PersistentLocalVolumes` | `true` | GA | 1.14 | |
+| `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
+| `PodPriority` | `true` | Beta | 1.11 | |
 | `PodReadinessGates` | `false` | Alpha | 1.11 | |
 | `PodReadinessGates` | `true` | Beta | 1.12 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
@@ -126,7 +129,7 @@ different Kubernetes components.
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `false` | Alpha | 1.10 | |
-| `RuntimeClass` | `false` | Alpha | 1.12 | |
+| `RuntimeClass` | `true` | Beta | 1.14 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
@@ -154,6 +157,7 @@ different Kubernetes components.
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
+| `WindowsGMSA` | `false` | Alpha | 1.14 | |
 
 ## Using a Feature
 
@@ -229,6 +233,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
+- `CSIInlineVolume`: Enable CSI volumes to be directly embedded in Pod specifications instead of a PersistentVolume.
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
@@ -322,5 +327,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   type when used together with the `PersistentLocalVolumes` feature gate.
 - `VolumeSnapshotDataSource`: Enable volume snapshot data source support.
 - `VolumeSubpathEnvExpansion`: Enable `subPathExpr` field for expanding environment variables into a `subPath`.
+- `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
 
 {{% /capture %}}

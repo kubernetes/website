@@ -26,7 +26,7 @@ or someone else setup the cluster and provided you with credentials and a locati
 Check the location and credentials that kubectl knows about with this command:
 
 ```shell
-$ kubectl config view
+kubectl config view
 ```
 
 Many of the [examples](/docs/user-guide/kubectl-cheatsheet) provide an introduction to using
@@ -56,7 +56,7 @@ locating the apiserver and authenticating.
 Run it like this:
 
 ```shell
-$ kubectl proxy --port=8080 
+kubectl proxy --port=8080
 ```
 
 See [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) for more details.
@@ -65,7 +65,12 @@ Then you can explore the API with curl, wget, or a browser, replacing localhost
 with [::1] for IPv6, like so:
 
 ```shell
-$ curl http://localhost:8080/api/
+curl http://localhost:8080/api/
+```
+
+The output is similar to this:
+
+```json
 {
   "versions": [
     "v1"
@@ -76,16 +81,19 @@ $ curl http://localhost:8080/api/
 
 ### Without kubectl proxy
 
-Use `kubectl describe secret...` to get the token for the default service account:
-
-Use `kubectl describe secret` with grep/cut:
+Use `kubectl describe secret...` to get the token for the default service account with grep/cut:
 
 ```shell
-$ APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
-$ SECRET_NAME=$(kubectl get secrets | grep ^default | cut -f1 -d ' ')
-$ TOKEN=$(kubectl describe secret $SECRET_NAME | grep -E '^token' | cut -f2 -d':' | tr -d " ")
+APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
+SECRET_NAME=$(kubectl get secrets | grep ^default | cut -f1 -d ' ')
+TOKEN=$(kubectl describe secret $SECRET_NAME | grep -E '^token' | cut -f2 -d':' | tr -d " ")
 
-$ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+```
+
+The output is similar to this:
+
+```json
 {
   "kind": "APIVersions",
   "versions": [
@@ -103,11 +111,16 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 Using `jsonpath`:
 
 ```shell
-$ APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-$ SECRET_NAME=$(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}')
-$ TOKEN=$(kubectl get secret $SECRET_NAME -o jsonpath='{.data.token}' | base64 --decode)
+APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+SECRET_NAME=$(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}')
+TOKEN=$(kubectl get secret $SECRET_NAME -o jsonpath='{.data.token}' | base64 --decode)
 
-$ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+```
+
+The output is similar to this:
+
+```json
 {
   "kind": "APIVersions",
   "versions": [
@@ -239,14 +252,18 @@ Typically, there are several services which are started on a cluster by kube-sys
 with the `kubectl cluster-info` command:
 
 ```shell
-$ kubectl cluster-info
+kubectl cluster-info
+```
 
-  Kubernetes master is running at https://104.197.5.247
-  elasticsearch-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
-  kibana-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kibana-logging/proxy
-  kube-dns is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kube-dns/proxy
-  grafana is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
-  heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
+The output is similar to this:
+
+```
+Kubernetes master is running at https://104.197.5.247
+elasticsearch-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
+kibana-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kibana-logging/proxy
+kube-dns is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kube-dns/proxy
+grafana is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
 
 This shows the proxy-verb URL for accessing each service.
@@ -278,18 +295,18 @@ The supported formats for the name segment of the URL are:
  * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:   `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true`
 
 ```json
-  {
-    "cluster_name" : "kubernetes_logging",
-    "status" : "yellow",
-    "timed_out" : false,
-    "number_of_nodes" : 1,
-    "number_of_data_nodes" : 1,
-    "active_primary_shards" : 5,
-    "active_shards" : 5,
-    "relocating_shards" : 0,
-    "initializing_shards" : 0,
-    "unassigned_shards" : 5
-  }
+{
+  "cluster_name" : "kubernetes_logging",
+  "status" : "yellow",
+  "timed_out" : false,
+  "number_of_nodes" : 1,
+  "number_of_data_nodes" : 1,
+  "active_primary_shards" : 5,
+  "active_shards" : 5,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 5
+}
 ```
 
 ### Using web browsers to access services running on the cluster

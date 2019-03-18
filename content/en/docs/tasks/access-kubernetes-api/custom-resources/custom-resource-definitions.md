@@ -70,7 +70,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 Then a new namespaced RESTful API endpoint is created at:
@@ -112,7 +112,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 You can then manage your CronTab objects using kubectl. For example:
@@ -288,7 +288,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 A request to create a custom object of kind `CronTab` will be rejected if there are invalid values in its fields.
@@ -313,7 +313,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 you will get an error:
@@ -343,9 +343,61 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+
+### Publish Validation Schema in OpenAPI v2
+
+{{< feature-state state="alpha" for_kubernetes_version="1.14" >}}
+
+Starting with Kubernetes 1.14, [custom resource validation schema](#validation) can be published as part
+of [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from
+Kubernetes API server.
+
+[kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation
+(`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources.
+The published schema can be consumed for other purposes. The feature is Alpha in 1.14 and disabled by default.
+You can enable the feature using the `CustomResourcePublishOpenAPI` feature gate on the
+[kube-apiserver](/docs/admin/kube-apiserver):
+
+```
+--feature-gates=CustomResourcePublishOpenAPI=true
+```
+
+Custom resource validation schema will be converted to OpenAPI v2 schema, and
+show up in `definitions` and `paths` fields in the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
+The following modifications are applied during the conversion to keep backwards compatiblity with
+kubectl in previous 1.13 version. These modifications prevent kubectl from being over-strict and rejecting
+valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
+and therefore won't affect [validation](#validation) in the API server.
+
+1. The following fields are removed as they aren't supported by OpenAPI v2 (in future versions OpenAPI v3 will be used without these restrictions)
+   - The fields `oneOf`, `anyOf` and `not` are removed
+2. The following fields are removed as they aren't allowed by kubectl in
+   previous 1.13 version
+   - For a schema with a `$ref`
+      - the fields `properties` and `type` are removed
+      - if the `$ref` is outside of the `definitions`, the field `$ref` is removed
+   - For a schema of a primitive data type (which means the field `type` has two elements: one type and one format)
+      - if any one of the two elements is `null`, the field `type` is removed
+      - otherwise, the fields `type` and `properties` are removed
+   - For a schema of more than two types
+      - the fields `type` and `properties` are removed
+   - For a schema of `null` type
+      - the field `type` is removed
+   - For a schema of `array` type
+      - if the schema doesn't have exactly one item, the fields `type` and `items` are
+        removed
+   - For a schema with no type specified
+      - the field `properties` is removed
+3. The following fields are removed as they aren't supported by the OpenAPI protobuf implementation
+   - The fields `id`, `schema`, `definitions`, `additionalItems`, `dependencies`,
+     and `patternProperties` are removed
+   - For a schema with a `externalDocs`
+      - if the `externalDocs` has `url` defined, the field `externalDocs` is removed
+   - For a schema with `items` defined
+      - if the field `items` has multiple schemas, the field `items` is removed
 
 ### Additional printer columns
 
@@ -387,7 +439,7 @@ columns.
 2.  Create the CustomResourceDefinition:
 
       ```shell
-      kubectl create -f resourcedefinition.yaml
+      kubectl apply -f resourcedefinition.yaml
       ```
 
 3.  Create an instance using the `my-crontab.yaml` from the previous section.
@@ -560,7 +612,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 After the CustomResourceDefinition object has been created, you can create custom objects.
@@ -581,7 +633,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 Then new namespaced RESTful API endpoints are created at:
@@ -645,7 +697,7 @@ spec:
 And create it:
 
 ```shell
-kubectl create -f resourcedefinition.yaml
+kubectl apply -f resourcedefinition.yaml
 ```
 
 After the CustomResourceDefinition object has been created, you can create custom objects.
@@ -665,7 +717,7 @@ spec:
 and create it:
 
 ```shell
-kubectl create -f my-crontab.yaml
+kubectl apply -f my-crontab.yaml
 ```
 
 You can specify the category using `kubectl get`:
