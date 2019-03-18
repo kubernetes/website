@@ -20,7 +20,7 @@ Currently this feature is in alpha state. While the overall goals and functional
 
 {{% capture prerequisites %}}
 
-You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running windows workloads requiring GMSA credentials will get scheduled. This section covers a set of initial steps required once for each cluster:
+You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running Windows workloads requiring GMSA credentials will get scheduled. This section covers a set of initial steps required once for each cluster:
 
 ### Enable the WindowsGMSA feature gate
 In the alpha state, the `WindowsGMSA` feature gate needs to be enabled on kubelet on Windows nodes. This is required to pass down the GMSA credential specs from the cluster scoped configurations to the container runtime. See [Feature Gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling feature gates. Please make sure `--feature-gates=WindowsGMSA=true` parameter exists in the kubelet.exe command line.
