@@ -95,8 +95,7 @@ credspec:
     Sid: S-1-5-21-2126449477-2524075714-3094792973 #SID of GMSA
 ```
 
-1. Deploy the credential spec resource: `kubectl apply -f gmsa-Webapp1-credspec.yml`
-
+Apply the above credential spec resource using: `kubectl apply -f gmsa-Webapp1-credspec.yml`
 
 ## Configure cluster role to enable RBAC on specific GMSA credential specs
 A cluster role needs to be defined for each GMSA credential spec resource. This authorizes the `use` verb on a specific GMSA resource by a subject which is typically a service account. The following example shows a cluster role that authorizes usage of the `gmsa-WebApp1` credential spec from above. Save the file as gmsa-webapp1-role.yaml and apply using `kubectl apply -f gmsa-webapp1-role.yaml`
