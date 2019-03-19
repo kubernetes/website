@@ -291,8 +291,6 @@ The above table is ordered by version test/used in nodes, followed by support le
   nodes.
 * **Networking** is what implements the [networking model](/docs/concepts/cluster-administration/networking/). Those with networking type
   _none_ may not support more than a single node, or may support multiple VM nodes in a single physical node.
-* **Conformance** indicates whether a cluster created with this configuration has passed the project's conformance
-  tests for supporting the API and base features of Kubernetes v1.0.0.
 * **Support Levels**
   * **Project**: Kubernetes committers regularly use this configuration, so it usually works with the latest release
     of Kubernetes.
