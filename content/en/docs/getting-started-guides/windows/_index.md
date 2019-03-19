@@ -9,7 +9,7 @@ weight: 50
 
 {{% capture overview %}}
 
-Windows applications constitute a large portion of the services and applications that run in many organizations. [Windows containers](https://aka.ms/windowscontainers) provide a modern way to encapsulate processes and package dependencies, making it easier to use DevOps practices and follow cloud native patterns for Windows applications. Kubernetes has become the defacto standard container orchestrator, and the release of Kubernetes 1.14 includes production support for scheduling Windows containers on Windows nodes in a Kubernetes cluster, enabling a vast ecosystem of Windows applications to leverage the power of Kubernetes. Enterprises with investments in Windows-based applications and Linux-based applications don't have to look for separate orchestrators to manage their workloads, leading to increased operational efficiencies across their deployments, regardless of operating system. 
+Windows applications constitute a large portion of the services and applications that run in many organizations. [Windows containers](https://aka.ms/windowscontainers) provide a modern way to encapsulate processes and package dependencies, making it easier to use DevOps practices and follow cloud native patterns for Windows applications. Kubernetes has become the defacto standard container orchestrator, and the release of Kubernetes 1.14 includes production support for scheduling Windows containers on Windows nodes in a Kubernetes cluster, enabling a vast ecosystem of Windows applications to leverage the power of Kubernetes. Organizations with investments in Windows-based applications and Linux-based applications don't have to look for separate orchestrators to manage their workloads, leading to increased operational efficiencies across their deployments, regardless of operating system. 
 
 {{% /capture %}}
 
@@ -538,16 +538,17 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
         }
     ```
 
+{{< note >}}
+The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
+{{< /note >}} 
+
 1. In the `net-conf.json` section of your `kube-flannel.yml`, double-check:
     1. The cluster subnet (e.g. "10.244.0.0/16") is set as per your IP plan.
         * VNI 4096 is set in the backend
         * Port 4789 is set in the backend
     2. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to `vxlan0`.
     
-{{< note >}}
-The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
-{{< /note >}}    
-
+    
     Your `cni-conf.json` should look as follows:
 
     ```json
@@ -638,13 +639,9 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     ```
 
 {{< note >}}
-The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR) and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) 
+The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR), `docker pull mcr.microsoft.com/k8s/core/pause:1.0.0`, and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile).
 {{< /note >}}
-
-    ```PowerShell
-    docker pull mcr.microsoft.com/k8s/core/pause:1.0.0
-    ```
-
+    
 1. Prepare a Windows directory for Kubernetes
 
     Create a "Kubernetes for Windows" directory to store Kubernetes binaries as well as any deployment scripts and config files.
@@ -786,7 +783,7 @@ Users can easily deploy a complete Kubernetes cluster on GCE following this step
 
 Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
 
-##### Next Steps
+#### Next Steps
 
 Now that you've configured a Windows worker in your cluster to run Windows containers you may want to add one or more Linux nodes as well to run Linux containers. Now you're ready to proceed to the next step to schedule Windows containers on your cluster.
 
