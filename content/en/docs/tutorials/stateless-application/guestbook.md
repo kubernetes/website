@@ -225,7 +225,7 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       ClusterIP   10.0.0.112   <none>       80:31323/TCP   6s
+      frontend       NodePort    10.0.0.112   <none>       80:31323/TCP   6s
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
       redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP       2m
       redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP       1m
