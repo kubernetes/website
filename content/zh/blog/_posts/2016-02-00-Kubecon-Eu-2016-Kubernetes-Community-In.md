@@ -17,7 +17,7 @@ url: /blog/2016/02/Kubecon-Eu-2016-Kubernetes-Community-In
 <!--
 KubeCon EU 2016 is the inaugural [European Kubernetes](http://kubernetes.io/) community conference that follows on the American launch in November 2015. KubeCon is fully dedicated to education and community engagement for[Kubernetes](http://kubernetes.io/) enthusiasts, production users and the surrounding ecosystem.
 -->
-KubeCon EU 2016 是首届[欧洲 Kubernetes](http://kubernetes.io/) 社区会议，随后于2015年11月在美国推出。KubeCon 致力于为 [Kubernetes](http://kubernetes.io/) 爱好者、产品用户和周围的生态系统提供教育和社区参与。
+KubeCon EU 2016 是首届[欧洲 Kubernetes](http://kubernetes.io/) 社区会议，紧随 2015 年 11 月召开的北美会议。KubeCon 致力于为 [Kubernetes](http://kubernetes.io/) 爱好者、产品用户和周围的生态系统提供教育和社区参与。
 
 <!--
 Come join us in London and hang out with hundreds from the Kubernetes community and experience a wide variety of deep technical expert talks and use cases.
@@ -27,7 +27,7 @@ Come join us in London and hang out with hundreds from the Kubernetes community 
 <!--
 Don’t miss these great speaker sessions at the conference:
 -->
-不要错过这些伟大的演讲者会议：
+不要错过这些优质的演讲：
 
 <!--
 * “Kubernetes Hardware Hacks: Exploring the Kubernetes API Through Knobs, Faders, and Sliders” by Ian Lewis and Brian Dorsey, Developer Advocate, Google -* [http://sched.co/6Bl3](http://sched.co/6Bl3)  
@@ -43,9 +43,9 @@ Don’t miss these great speaker sessions at the conference:
 * And many more http://kubeconeurope2016.sched.org/
 -->
 
-* “Kubernetes 硬件攻防：通过旋钮、推杆和滑块探索 Kubernetes API” 作者 Ian Lewis 和 Brian Dorsey，开发者倡导者，谷歌 -* [http://sched.co/6Bl3](http://sched.co/6Bl3)  
+* “Kubernetes 硬件黑客：通过旋钮、推杆和滑块探索 Kubernetes API” 演讲者 Ian Lewis 和 Brian Dorsey，谷歌开发布道师* [http://sched.co/6Bl3](http://sched.co/6Bl3)  
 
-* “rktnetes: 容器运行时和 Kubernetes 的新功能” 作者 Jonathan Boulle, CoreOS 的开发人员和团队负责人 -* [http://sched.co/6BY7](http://sched.co/6BY7)
+* “rktnetes: 容器运行时和 Kubernetes 的新功能” 演讲者 Jonathan Boulle, CoreOS 的主程 -* [http://sched.co/6BY7](http://sched.co/6BY7)
 
 * “Kubernetes 文档：贡献、修复问题、收集奖金” 作者：John Mulhausen，首席技术作家，谷歌 -* [http://sched.co/6BUP](http://sched.co/6BUP)&nbsp;
 * “[OpenStack 在 Kubernetes 的世界中扮演什么角色？](https://kubeconeurope2016.sched.org/event/6BYC/what-is-openstacks-role-in-a-kubernetes-world?iframe=yes&w=i:0;&sidebar=yes&bg=no#?iframe=yes&w=i:100;&sidebar=yes&bg=no)” 作者：Thierry carez, OpenStack 基金会工程总监 -* http://sched.co/6BYC
@@ -67,11 +67,11 @@ Website: [kubecon.io](https://www.kubecon.io/)
 Twitter: [@KubeConio](https://twitter.com/kubeconio) #KubeCon
 Google is a proud Diamond sponsor of KubeCon EU 2016. Come to London next month, March 10th & 11th, and visit booth #13 to learn all about Kubernetes, Google Container Engine (GKE) and Google Cloud Platform!  
 -->
-地点：英国伦敦，南 Pl， * 10
-酒店住宿：（酒店）(https://skillsmatter.com/contact-us)
+会场地址：CodeNode * 英国伦敦南广场 10 号
+酒店住宿：[酒店](https://skillsmatter.com/contact-us)
 网站：[kubecon.io] (https://www.kubecon.io/)
 推特：[@KubeConio] (https://twitter.com/kubeconio)
-谷歌是 KubeCon EU 2016 的钻石赞助商。下个月3月10-11号来伦敦，参观13号展位，了解 Kubernetes，Google Container Engine（GKE），Google Cloud Platform 的所有信息!
+谷歌是 KubeCon EU 2016 的钻石赞助商。下个月 3 月 10 - 11 号来伦敦，参观 13 号展位，了解 Kubernetes，Google Container Engine（GKE），Google Cloud Platform 的所有信息!
 
 <!--
 _KubeCon is organized by KubeAcademy, LLC, a community-driven group of developers focused on the education of developers and the promotion of Kubernetes._  
@@ -80,5 +80,5 @@ _KubeCon is organized by KubeAcademy, LLC, a community-driven group of developer
 -->
 
 _KubeCon 是由 KubeAcademy、LLC 组织的，这是一个由社区驱动的开发者团体，专注于开发人员的教育和 kubernet.com 的推广
--* Sarah Novotny, Kubernetes 社区经理，谷歌
+-* Sarah Novotny, 谷歌的 Kubernetes 社区经理
 
