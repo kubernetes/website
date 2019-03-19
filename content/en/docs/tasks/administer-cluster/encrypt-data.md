@@ -92,12 +92,15 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
 
-__It is not recommended to use EncryptionConfig without using the `kms` provider, as this does not materially change your
-security posture.__ By default, the `identity` provider is used to protect secrets in etcd, which provides no encryption.
-`EncryptionConfiguration` was introduced in 1.7, to encrypt secrets locally, with a locally managed key. In this case, if etcd
-is compromised, there is no additional protection for secrets compared to when they are stored in plaintext. This was a
-stepping stone in development to the `kms` provider, introduced in 1.10. Envelope encryption creates dependence on a separate
-key, not stored in Kubernetes. In this case, if etcd is compromised, Kubernetes secrets remain protected.
+__Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture, compared to no encryption.
+Please use `kms` provider for additional security.__ By default, the `identity` provider is used to protect secrets in etcd, which
+provides no encryption. `EncryptionConfiguration` was introduced in 1.7, to encrypt secrets locally, with a locally managed key.
+Encrypting secrets with a locally managed key protects against an etcd compromise, but it fails to protect against a host compromise.
+Since the encryption keys are stored on the host in the EncryptionConfig YAML file, a skilled attacker can access that file and
+extract the encryption keys. This was a stepping stone in development to the `kms` provider, introduced in 1.10. Envelope encryption
+creates dependence on a separate key, not stored in Kubernetes. In this case, an attacker would need to compromise etcd, the
+kubeapi-server, and the third-party KMS provider to retrieve the plaintext values, providing a higher level of security than
+locally-stored encryption keys.
 
 ## Encrypting your data
 
