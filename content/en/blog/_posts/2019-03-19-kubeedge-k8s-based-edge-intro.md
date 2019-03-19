@@ -19,7 +19,7 @@ The key goal for KubeEdge is extending Kubernetes ecosystem from cloud to edge. 
 It started with its v0.1 providing the basic edge computing features. Now, with its latest release v0.2, it brings the cloud components to connect and complete the loop. With consistent and scalable Kubernetes-based interfaces, KubeEdge enables the orchestration and management of edge clusters similar to how Kubernetes manages in the cloud. This opens up seamless possibilities of bringing cloud computing capabilities to the edge, quickly and efficiently.
 
 <p align="center">
-<img src="../../../../static/images/blog/2019-03-12-kubeedge-k8s-based-edge-intro/kubeedge-logo.png">
+<img src="/images/blog/2019-03-12-kubeedge-k8s-based-edge-intro/kubeedge-logo.png">
 </p>
 
 **KubeEdge Links:**
@@ -42,7 +42,7 @@ By open sourcing both the edge and cloud modules, KubeEdge brings a complete clo
 The core architecture tenet for KubeEdge is to build interfaces that are consistent with Kubernetes, be it on the cloud side or edge side. 
 
 <p align="center">
-<img src="../../../../static/images/blog/2019-03-12-kubeedge-k8s-based-edge-intro/kubeedge-highlevel-arch.png">
+<img src="/images/blog/2019-03-12-kubeedge-k8s-based-edge-intro/kubeedge-highlevel-arch.png">
 </p>
 
 **Edged**: Manages containerized Applications at the Edge.
