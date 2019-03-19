@@ -37,8 +37,12 @@ A rolling update works by:
 
 Rolling updates are initiated with the `kubectl rolling-update` command:
 
-    kubectl rolling-update NAME \
-        ([NEW_NAME] --image=IMAGE | -f FILE)
+```shell
+kubectl rolling-update NAME NEW_NAME --image=IMAGE:TAG
+
+# or read the configuration from a file
+kubectl rolling-update NAME -f FILE
+```
 
 {{% /capture %}}
 
@@ -50,7 +54,9 @@ Rolling updates are initiated with the `kubectl rolling-update` command:
 To initiate a rolling update using a configuration file, pass the new file to
 `kubectl rolling-update`:
 
-    kubectl rolling-update NAME -f FILE
+```shell
+kubectl rolling-update NAME -f FILE
+```
 
 The configuration file must:
 
@@ -65,18 +71,22 @@ Replication controller configuration files are described in
 
 ### Examples
 
-    // Update pods of frontend-v1 using new replication controller data in frontend-v2.json.
-    kubectl rolling-update frontend-v1 -f frontend-v2.json
+```shell
+# Update pods of frontend-v1 using new replication controller data in frontend-v2.json.
+kubectl rolling-update frontend-v1 -f frontend-v2.json
 
-    // Update pods of frontend-v1 using JSON data passed into stdin.
-    cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
+# Update pods of frontend-v1 using JSON data passed into stdin.
+cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
+```
 
 ## Updating the container image
 
 To update only the container image, pass a new image name and tag with the
 `--image` flag and (optionally) a new controller name:
 
-    kubectl rolling-update NAME [NEW_NAME] --image=IMAGE:TAG
+```shell
+kubectl rolling-update NAME NEW_NAME --image=IMAGE:TAG
+```
 
 The `--image` flag is only supported for single-container pods. Specifying
 `--image` with multi-container pods returns an error.
@@ -94,11 +104,13 @@ Moreover, the use of `:latest` is not recommended, see
 
 ### Examples
 
-    // Update the pods of frontend-v1 to frontend-v2
-    kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2
+```shell
+# Update the pods of frontend-v1 to frontend-v2
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2
 
-    // Update the pods of frontend, keeping the replication controller name
-    kubectl rolling-update frontend --image=image:v2
+# Update the pods of frontend, keeping the replication controller name
+kubectl rolling-update frontend --image=image:v2
+```
 
 ## Required and optional fields
 
