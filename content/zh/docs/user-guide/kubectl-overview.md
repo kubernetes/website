@@ -152,7 +152,7 @@ kubectl [command] [TYPE] [NAME] -o=<output_format>
 例子
 
 在此示例中，以下命令将单个pod的详细信息作为YAML格式化对象输出：
-`$ kubectl get pod web-pod-13je7 -o=yaml`
+`$ kubectl get pod <pod-name> -o=yaml`
 记住：有关每个命令支持哪种输出格式的详细信息，请参阅kubectl参考文档。
 
 自定义列
@@ -226,7 +226,7 @@ $ kubectl get pods
 // 使用文本格式列出所有的信息，包含一些额外的信息(比如节点名称).
 $ kubectl get pods -o wide
 
-// 使用文本格式列出指定名称的replicationcontroller. 注: 你可以缩短 'replicationcontroller' 资源类型使用别名 'rc'.
+// 使用文本格式列出指定名称的replication controller. 注: 你可以使用 'replicationcontroller' 的别名 'rc'.
 $ kubectl get replicationcontroller <rc-name>
 
 // 使用文本格式列出所有的rc,services.
@@ -244,7 +244,7 @@ $ kubectl describe nodes <node-name>
 $ kubectl describe pods/<pod-name>
 
 // 显示所有被名称为<rc-name>的replication controller管理的所有pods的详情信息.
-// 请记住: 任何被replication controller的pod的名称前缀为replication controller的名称.
+// 请记住: 任何被replication controller管理的pod的名称前缀为replication controller的名称，此例为<rc-name>.
 $ kubectl describe pods <rc-name>
 ```
 
@@ -270,7 +270,7 @@ $ kubectl exec <pod-name> date
 // 在<pod-name>的pod中的<container-name>容器中运行'date'获取输出.
 $ kubectl exec <pod-name> -c <container-name> date
 
-// 从名称为<pod-name>的pod获取一个交互的终端和运行/bin/bash. 默认返回的是pod中第一个容器的终端.
+// 从名称为<pod-name>的pod获取一个交互的终端并运行/bin/bash. 默认返回的是pod中第一个容器的终端.
 $ kubectl exec -ti <pod-name> /bin/bash
 ```
 
