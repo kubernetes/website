@@ -534,10 +534,12 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
     1. The cluster subnet (e.g. "10.244.0.0/16") is set as per your IP plan.
         * VNI 4096 is set in the backend
         * Port 4789 is set in the backend
-    2. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to "`vxlan0"`.
-    {{< note >}}
-    The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
-    {{< /note >}}
+    2. In the `cni-conf.json` section of your `kube-flannel.yml`, change the network name to `vxlan0`.
+    
+{{< note >}}
+The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
+{{< /note >}}    
+
     Your `cni-conf.json` should look as follows:
 
     ```json
@@ -619,18 +621,17 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     [Environment]::SetEnvironmentVariable("HTTPS_PROXY", "http://proxy.example.com:443/", [EnvironmentVariableTarget]::Machine)
     ```
 
-    If after reboot you may see the following error:
+    If after reboot you see the following error, you need to restart the docker service manually
 
-    ![alt_text](windows-docker-error.png "windows docker error screen capture")
-    If so then you need to restart the docker service manually:
+    ![alt_text](windows-docker-error.png "windows docker error screen capture")    
 
     ```PowerShell
     Start-Service docker
     ```
 
-    {{< note >}}
-    The "pause" (infrastructure) image is on Microsoft Container Registry (MCR) and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) 
-    {{< /note >}}
+{{< note >}}
+The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR) and the DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) 
+{{< /note >}}
 
     ```PowerShell
     docker pull mcr.microsoft.com/k8s/core/pause:1.0.0
@@ -646,7 +647,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
 
 1. Copy Kubernetes certificate
 
-    Copy the Kubernetes certificate file (`$HOME/.kube/config`) [from Linux controller](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information) to this new `C:\k` directory on your Windows node.
+    Copy the Kubernetes certificate file `$HOME/.kube/config` [from the Linux controller](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information) to this new `C:\k` directory on your Windows node.
 
     Tip: You can use tools such as [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy), [WinSCP](https://winscp.net/eng/download.php), or this [PowerShell wrapper for WinSCP](https://www.powershellgallery.com/packages/WinSCP/5.13.2.0) to transfer the config file between nodes.
 
@@ -838,9 +839,9 @@ To deploy a Windows container on Kubernetes, you must first create an example ap
             beta.kubernetes.io/os: windows
 ```
 
-    {{< note >}}
-    Note: Port mapping is also supported, but for simplicity in this example the container port 80 is exposed directly to the service.
-    {{< /note >}}
+{{< note >}}
+Port mapping is also supported, but for simplicity in this example the container port 80 is exposed directly to the service.
+{{< /note >}}
 
 1. Check that all nodes are healthy:
 
@@ -867,9 +868,10 @@ To deploy a Windows container on Kubernetes, you must first create an example ap
     * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
     * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
     * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
-    {{< note >}}
-    **Windows _container hosts_ are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows _pods_ are able to access service IPs.
-    {{< /note >}}
+
+{{< note >}}
+Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows pods are able to access service IPs.
+{{< /note >}}
 
 ## Managing Workload Identity with Group Managed Service Accounts
 
