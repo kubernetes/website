@@ -123,7 +123,7 @@ Docker EE-basic 18.09 is required on Windows Server 2019 / 1809 nodes for Kubern
 
 Kubernetes Volumes enable complex applications with data persistence and Pod volume sharing requirements to be deployed on Kubernetes. Kubernetes on Windows supports the following types of [volumes](/docs/concepts/storage/volumes/):
 
-* FlexVolume out-of-tree plugin with [SMB and iSCSI](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)support
+* FlexVolume out-of-tree plugin with [SMB and iSCSI](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows) support
 * [azureDisk](/docs/concepts/storage/volumes/#azuredisk)
 * [azureFile](/docs/concepts/storage/volumes/#azurefile)
 * [gcePersistentDisk](/docs/concepts/storage/volumes/#gcepersistentdisk)
@@ -875,7 +875,7 @@ Windows container hosts are not able to access the IP of services scheduled on t
 
 ## Managing Workload Identity with Group Managed Service Accounts
 
-Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa.md).
+Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa/).
 
 ## Taints and Tolerations
 
