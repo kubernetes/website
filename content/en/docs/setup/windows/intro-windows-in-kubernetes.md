@@ -2,7 +2,7 @@
 reviewers:
 - michmike
 - patricklang
-title: Adding Windows nodes and scheduling Windows containers in Kubernetes
+title: Intro to Windows support in Kubernetes
 content_template: templates/concept
 weight: 65
 ---
