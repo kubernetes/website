@@ -141,8 +141,8 @@ ordinal index.
 It waits until each Pod reports being Ready before starting the next one.
 
 In addition, the controller assigns each Pod a unique, stable name of the form
-`<statefulset-name>-<ordinal-index>`.
-In this case, that results in Pods named `mysql-0`, `mysql-1`, and `mysql-2`.
+`<statefulset-name>-<ordinal-index>`, which results in Pods named `mysql-0`,
+`mysql-1`, and `mysql-2`.
 
 The Pod template in the above StatefulSet manifest takes advantage of these
 properties to perform orderly startup of MySQL replication.
