@@ -1,4 +1,4 @@
 ---
 title: "Support for Windows in Kubernetes"
-weight: 20
+weight: 65
 ---
