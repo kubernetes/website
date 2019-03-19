@@ -1,5 +1,5 @@
 ---
-title: CoreOS 在 AWS 或者 GCE 上
+title: 在 AWS 或者 GCE 上的 CoreOS
 reviewers:
 - errordeveloper
 content_template: templates/concept
@@ -46,7 +46,7 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
     CloudFormation is used to set up a master and multiple workers in auto-scaling groups.
 -->
     用于在 AWS 上设置多节点群集的指南和 CLI 工具。
-    CloudFormation 用于在自动扩缩组中设置一个 master 和多个工作节点。
+    使用了 CloudFormation 来将一个主节点和多个工作节点配置到一个自动扩缩组中。
 
 <!--
 * [**Bare Metal Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-baremetal.html#automated-provisioning)
@@ -57,8 +57,8 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
 
 * [**Bare Metal 多节点**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-baremetal.html#automated-provisioning)
 
-    用于 PXE 引导和配置裸机上的多节点群集的指南和 HTTP/API 服务。
-    [Ignition](https://coreos.com/ignition/docs/latest/) 用于在第一个磁盘引导上提供一个主进程和多个工作。
+    用于 PXE 引导和配置裸机上的多节点集群的指南和 HTTP/API 服务。
+    [Ignition](https://coreos.com/ignition/docs/latest/) 被用来在第一次从磁盘引导时配置一个主节点和多个工作节点。
     
 <!--    
 * [**Vagrant Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant.html)
@@ -69,8 +69,8 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
 
 * [**Vagrant 多节点**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant.html)
 
-    在 Vagrant 上设置多节点群集的指南。
-    部署人员可以独立配置 etcd 节点、主节点和工作节点的数量，从而生成一个完整的 HA 控制平面。
+    在 Vagrant 上设置多节点集群的指南。
+    部署人员可以独立配置 etcd 节点、主节点和工作节点的数量，从而生成一个完全高可用的控制平面。
 
 <!--
 * [**Vagrant Single-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant-single.html)
@@ -82,7 +82,7 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
 * [**Vagrant 单节点**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant-single.html)
 
     在本地设置 Kubernetes 开发环境的最快方法。
-    就像 `git clone`、`vagrant up` 和 配置 `kubectl` 一样简单。
+    简单到只需 `git clone`、`vagrant up` 和 配置 `kubectl`。
 
 <!--
 * [**Full Step by Step Guide**](https://coreos.com/kubernetes/docs/latest/getting-started.html)
@@ -90,9 +90,9 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
     A generic guide to setting up an HA cluster on any cloud or bare metal, with full TLS.
     Repeat the master or worker steps to configure more machines of that role.
 -->
-* [**完整的一步一步的指导**](https://coreos.com/kubernetes/docs/latest/getting-started.html)
+* [**完整的分步指南**](https://coreos.com/kubernetes/docs/latest/getting-started.html)
 
-    使用完整 TLS 在任何云或裸机上设置 HA 群集的通用指南。
+    使用完整 TLS 在任何云或裸机上设置 HA 集群的通用指南。
     重复主节点或工作节点步骤，以配置更多同一角色的机器。
 
 <!--
@@ -113,9 +113,9 @@ These guides are maintained by community members, cover specific platforms and u
     Kubernetes components are managed by [fleet](https://github.com/coreos/fleet).
 -->
 
-* [**Google Compute Engine 上的轻松多节点群集**](https://github.com/rimusz/coreos-multi-node-k8s-gce/blob/master/README.md)
+* [**Google Compute Engine 上的轻松多节点集群**](https://github.com/rimusz/coreos-multi-node-k8s-gce/blob/master/README.md)
 
-    在 GCE 上脚本安装单个主、多个工作节点集群。
+    在 GCE 上脚本安装单个主节点、多个工作节点集群。
     Kubernetes 组件由 [fleet](https://github.com/coreos/fleet) 管理。
 
 <!--
@@ -160,7 +160,7 @@ These guides are maintained by community members, cover specific platforms and u
 
 * [**使用一个小型 macOS 应用程序并具有 Vagrant 和 fleet 单元搭建多节点集群**](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster/blob/master/README.md)
 
-    运行由 macOS 菜单栏应用程序控制的单个主，多工作集群的指南。
+    运行由 macOS 菜单栏应用程序控制的单主节点，多工作节点集群的指南。
     底层使用的是 Vagrant。
 
 <!--
