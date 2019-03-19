@@ -1,6 +1,7 @@
 ---
 reviewers:
 - michmike
+- patricklang
 title: Adding Windows nodes and scheduling Windows containers in Kubernetes
 content_template: templates/concept
 weight: 50
@@ -13,11 +14,6 @@ Windows applications constitute a large portion of the services and applications
 {{% /capture %}}
 
 {{% capture body %}}
-
-## Motivation
-
-Windows applications constitute a large portion of the services and applications that run in many organizations. [Windows containers](https://aka.ms/windowscontainers) provide a modern way to encapsulate processes and package dependencies, making it easier to use DevOps practices and follow cloud native patterns for Windows applications. Kubernetes has become the defacto standard container orchestrator, and the release of Kubernetes 1.14 includes production support for scheduling Windows containers on Windows nodes in a Kubernetes cluster, enabling a vast ecosystem of Windows applications to leverage the power of Kubernetes. Enterprises with investments in Windows-based applications and Linux-based applications don't have to look for separate orchestrators to manage their workloads, leading to increased operational efficiencies across their deployments, regardless of operating system. 
-
 
 ## Intro to Windows containers in Kubernetes
 
@@ -424,23 +420,23 @@ None of the PodSecurityContext fields work on Windows. They're listed here for r
 * V1.PodSecurityContext.SupplementalGroups - provides GID, not available on Windows
 * V1.PodSecurityContext.Sysctls - these are part of the Linux sysctl interface. There's no equivalent on Windows.
 
-# User Guide: Add Windows Nodes in Kubernetes {#UG-windows-nodes}
+## User Guide: Add Windows Nodes in Kubernetes {#UG-windows-nodes}
 
-## Objectives
+### Objectives
 
 The Kubernetes platform can now be used to run both Linux and Windows containers. One or more Windows nodes can be registered to a cluster. This guide shows how to:
 
 * Register a Windows node to the cluster
 * Configure networking so pods on Linux and Windows can communicate
 
-## Before you begin
+### Before you begin
 
 * Obtain a [Windows Server license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) in order to run the Windows node that will execute the Windows container. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
 * Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Getting Started from Scratch](/docs/setup/scratch/), [kubeadm](/docs/setup/independent/create-cluster-kubeadm/), [AKS Engine](/docs/setup/turnkey/azure/), [GCE](/docs/setup/turnkey/gce/), [AWS](/docs/setup/turnkey/aws/)).
 
-## Getting Started: Adding a Windows Node to Your Cluster
+### Getting Started: Adding a Windows Node to Your Cluster
 
-### Plan IP Addressing
+#### Plan IP Addressing
 
 Kubernetes cluster management requires careful planning of your IP addresses so that you do not inadvertently cause network collision. This guide assumes that you are familiar with the [Kubernetes networking concepts](/docs/concepts/cluster-administration/networking/).
 
@@ -493,7 +489,7 @@ Example: for a 5 node cluster for 100 pods per node: <code>(5) + (5 * 100) = 505
 
 Review the networking options supported in 'Intro to Windows containers in Kubernetes: Supported Functionality: Networking' to determine how you need to allocate IP addresses for your cluster.
 
-### Components that run on Windows
+#### Components that run on Windows
 
 While the Kubernetes control plane runs on your Linux node(s), the following components will be configured and run on your Windows node(s).
 
@@ -504,11 +500,11 @@ While the Kubernetes control plane runs on your Linux node(s), the following com
 
 Get the latest binaries from [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases), starting with v1.14 or later. The Windows-amd64 binaries for kubeadm, kubectl, kubelet, and kube-proxy can be found under the CHANGELOG link.
 
-### Networking Configuration
+#### Networking Configuration
 
 Once you have a Linux-based Kubernetes master node you are ready to choose a networking solution. This guide illustrates using Flannel in VXLAN mode for simplicity.
 
-#### Configuring Flannel in VXLAN mode on the Linux controller
+##### Configuring Flannel in VXLAN mode on the Linux controller
 
 1. Prepare Kubernetes master for Flannel
 
@@ -606,11 +602,11 @@ The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate w
 
     ![alt_text](flannel-master-kubectl-get-ds.png "flannel master kubectl get ds screen capture")
 
-#### Join Windows Worker
+##### Join Windows Worker
 
 In this section we'll cover configuring a Windows node from scratch to join a cluster on-prem. If your cluster is on a cloud you'll likely want to follow the cloud specific guides in the next section.
 
-#### Preparing a Windows Node
+##### Preparing a Windows Node
 {{< note >}}
 All code snippets in Windows sections are to be run in a PowerShell environment with elevated permissions (Admin).
 {{< /note >}}
@@ -669,7 +665,7 @@ The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MC
 
     Use the [Expand-Archive](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) PowerShell command to extract the archive and place the binaries into `C:\k`.
 
-#### Join the Windows node to the Flannel cluster
+##### Join the Windows node to the Flannel cluster
 
 The Flannel overlay deployment scripts and documentation are available in [this repository](https://github.com/Microsoft/SDN/tree/master/Kubernetes/flannel/overlay). The following steps are a simple walkthrough of the more comprehensive instructions available there.
 
@@ -776,37 +772,37 @@ kubectl get nodes
 You may want to configure your Windows node components like kubelet and kube-proxy to run as services. View the services and background processes section under [troubleshooting](#troubleshooting) for additional instructions. Once you are running the node components as services, collecting logs becomes an important part of troubleshooting. View the [gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs) section of the contributing guide for further instructions.
 {{< /note >}}
 
-### Public Cloud Providers
+#### Public Cloud Providers
 
-#### Azure
+##### Azure
 
 AKS-Engine can deploy a complete, customizable Kubernetes cluster with both Linux & Windows nodes. There is a step-by-step walkthrough available in the [docs on GitHub](https://github.com/Azure/aks-engine/blob/master/docs/topics/windows.md).
 
-#### GCP
+##### GCP
 
 Users can easily deploy a complete Kubernetes cluster on GCE following this step-by-step walkthrough on [GitHub](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/windows/README-GCE-Windows-kube-up.md)
 
-#### Deployment with kubeadm and cluster API
+##### Deployment with kubeadm and cluster API
 
 Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
 
-#### Next Steps
+##### Next Steps
 
 Now that you've configured a Windows worker in your cluster to run Windows containers you may want to add one or more Linux nodes as well to run Linux containers. Now you're ready to proceed to the next step to schedule Windows containers on your cluster.
 
-# User Guide: Scheduling Windows containers in Kubernetes
+## User Guide: Scheduling Windows containers in Kubernetes
 
-## Objectives
+### Objectives
 
 * Configure an example deployment to run Windows containers on the Windows node
 * (Optional) Configure an Active Directory Identity for your Pod using Group Managed Service Accounts (GMSA)
 
-## Before you begin
+### Before you begin
 
 * Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](#UG-windows-nodes)
 * It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
 
-## Getting Started: Deploying a Windows container
+### Getting Started: Deploying a Windows container
 
 To deploy a Windows container on Kubernetes, you must first create an example application. The example YAML file below creates a simple webserver application. Create a service spec named `win-webserver.yaml` with the contents below:
 
@@ -885,15 +881,15 @@ Port mapping is also supported, but for simplicity in this example the container
 Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows pods are able to access service IPs.
 {{< /note >}}
 
-## Managing Workload Identity with Group Managed Service Accounts
+### Managing Workload Identity with Group Managed Service Accounts
 
 Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa/).
 
-## Taints and Tolerations
+### Taints and Tolerations
 
 Users today will need to use some combination of taints and node selectors in order to keep Linux and Windows workloads on their respective OS-specific nodes. This will likely impose a burden only on Windows users. The recommended approach is outlined below, with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
-### Ensuring OS-specific workloads land on the appropriate container host
+#### Ensuring OS-specific workloads land on the appropriate container host
 
 Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. All Kubernetes nodes today have the following default labels:
 
@@ -918,7 +914,7 @@ tolerations:
       effect: "NoSchedule"
 ```
 
-# Getting Help and Troubleshooting {#troubleshooting}
+## Getting Help and Troubleshooting {#troubleshooting}
 
 Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section. Logs are an important element of troubleshooting issues in Kubernetes. Make sure to include them any time you seek troubleshooting assistance from other contributors. Follow the instructions in the SIG-Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
@@ -1089,7 +1085,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you will need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service will expect the image to be tagged as :latest.
 
-## Further investigation
+### Further investigation
 
 Check the DNS limitations for Windows in this [section](#dns-limitations).
 
@@ -1117,7 +1113,7 @@ If filing a bug, please include detailed information about how to reproduce the 
 
 We have a lot of features in our roadmap. An abbreviated high level list is included below, but we encourage you to view our [roadmap project](https://github.com/orgs/kubernetes/projects/8) and help us make Windows support better by [contributing](https://github.com/kubernetes/community/blob/master/sig-windows/).
 
-## CRI-ContainerD
+### CRI-ContainerD
 
 ContainerD is another OCI-compliant runtime that recently graduated as a CNCF project. It's currently tested on Linux, but 1.3 will bring support for Windows and Hyper-V. [[reference](https://blog.docker.com/2019/02/containerd-graduates-within-the-cncf/)]
 
@@ -1128,13 +1124,13 @@ The CRI-ContainerD interface will be able to manage sandboxes based on Hyper-V. 
 * Specific CPU/NUMA settings for a pod
 * Memory isolation and reservations
 
-## Deployment with kubeadm and cluster API
+### Deployment with kubeadm and cluster API
 
 Kubeadm is becoming the de facto standard for users to deploy a Kubernetes cluster. Windows node support in kubeadm will come in a future release. We are also making investments in cluster API to ensure Windows nodes are properly provisioned.
 
-## A few other big ticket items
-### Beta support for Group Managed Service Accounts
-### More CNIs
-### More Storage Plugins
+### A few other key features
+* Beta support for Group Managed Service Accounts
+* More CNIs
+* More Storage Plugins
 
 {{% /capture %}}
