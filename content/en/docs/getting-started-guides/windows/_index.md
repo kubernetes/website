@@ -790,7 +790,7 @@ Now that you've configured a Windows worker in your cluster to run Windows conta
 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](#UG-windows-nodes) 
+* Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](#UG-windows-nodes)
 * It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows Container
@@ -808,7 +808,7 @@ Now that you've configured a Windows worker in your cluster to run Windows conta
         app: win-webserver
     spec:
       ports:
-        # the port that this service should serve on
+      # the port that this service should serve on
       - port: 80
         targetPort: 80
       selector:
