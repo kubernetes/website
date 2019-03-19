@@ -161,7 +161,7 @@ Execute a command against a container in a pod.
 `apply`            | `kubectl apply -f FILENAME [flags]`| 从文件或 stdin 对资源应用配置更改。
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | 附加到正在运行的容器，查看输出流或与容器（stdin）交互。
 `autoscale`    | `kubectl autoscale (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]` | 自动缩放由复制控制器管理的一组 pod。
-`cluster-info`    | `kubectl cluster-info [flags]` | 显示有关群集中主服务器和服务的端口信息。
+`cluster-info`    | `kubectl cluster-info [flags]` | 显示有关集群中主服务器和服务的端口信息。
 `config`        | `kubectl config SUBCOMMAND [flags]` | 修改 kubeconfig 文件。有关详细信息，请参阅各个子命令。
 `create`        | `kubectl create -f FILENAME [flags]` | 从文件或 stdin 创建一个或多个资源。
 `delete`        | `kubectl delete (-f FILENAME \| TYPE [NAME \| /NAME \| -l label \| --all]) [flags]` | 从文件、标准输入或指定标签选择器、名称、资源选择器或资源中删除资源。
@@ -417,7 +417,7 @@ This allows for consistent human-readable output across clients used against the
 -->
 `kubectl` 支持从服务器接收关于对象的特定列信息。
 这意味着对于任何给定的资源，服务器将返回与该资源相关的列和行，以便客户端打印。
-通过让服务器封装打印的细节，这允许在针对同一群集使用的客户端之间提供一致的人类可读输出。
+通过让服务器封装打印的细节，这允许在针对同一集群使用的客户端之间提供一致的人类可读输出。
 
 <!--
 This feature is enabled by default in `kubectl` 1.11 and higher. To disable it, add the
