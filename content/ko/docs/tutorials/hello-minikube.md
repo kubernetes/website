@@ -8,6 +8,9 @@ menu:
     weight: 10
     post: >
       <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
+card:
+  name: tutorials
+  weight: 10 
 ---
 
 {{% capture overview %}}
