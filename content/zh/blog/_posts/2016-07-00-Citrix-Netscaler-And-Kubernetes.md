@@ -17,7 +17,7 @@ url: /blog/2016/07/Citrix-Netscaler-And-Kubernetes
 <!--
 _Editor’s note: today’s guest post is by Mikko Disini, a Director of Product Management at Citrix Systems, sharing their collaboration experience on a Kubernetes integration.&nbsp;_  
 -->
-编者：今天的嘉宾是 Citrix Systems 的产品管理总监 Mikko Disini，他分享了他们在 Kubernetes 集成上的合作经验。&nbsp;_ 
+作者：今天的嘉宾是 Citrix Systems 的产品管理总监 Mikko Disini，他分享了他们在 Kubernetes 集成上的合作经验。&nbsp;_ 
 
 <!--
 Technical collaboration is like sports. If you work together as a team, you can go down the homestretch and pull through for a win. That’s our experience with the Google Cloud Platform team.  
