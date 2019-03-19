@@ -59,11 +59,11 @@ and a StatefulSet.
 
 Create the ConfigMap from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
 
 This ConfigMap provides `my.cnf` overrides that let you independently control
 configuration on the MySQL master and slaves.
@@ -79,11 +79,11 @@ based on information provided by the StatefulSet controller.
 
 Create the Services from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-services.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-services.yaml" >}}
 
 The Headless Service provides a home for the DNS entries that the StatefulSet
 controller creates for each Pod that's part of the set.
@@ -105,11 +105,11 @@ writes.
 
 Finally, create the StatefulSet from the following YAML configuration file:
 
+{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
+
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
 ```
-
-{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
 
 You can watch the startup progress by running:
 
