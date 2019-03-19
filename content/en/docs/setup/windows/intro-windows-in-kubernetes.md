@@ -15,7 +15,7 @@ Windows applications constitute a large portion of the services and applications
 
 {{% capture body %}}
 
-## Intro to Windows containers in Kubernetes
+## Windows containers in Kubernetes
 
 To enable the orchestration of Windows containers in Kubernetes, simply include Windows nodes in your existing Linux cluster. Scheduling Windows containers in [Pods](/docs/concepts/workloads/pods/pod-overview/) on Kubernetes is as simple and easy as scheduling Linux-based containers.
 
@@ -480,8 +480,10 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
         nssm start flanneld
         
         # Register kubelet.exe
+        # Microsoft releases the pause infrastructure container at mcr.microsoft.com/k8s/core/pause:1.0.0
+        # For more info search for "pause" in the "Guide for adding Windows Nodes in Kubernetes"
         nssm install kubelet C:\k\kubelet.exe
-        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=kubeletwin/pause --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
+        nssm set kubelet AppParameters --hostname-override=<hostname> --v=6 --pod-infra-container-image=mcr.microsoft.com/k8s/core/pause:1.0.0 --resolv-conf="" --allow-privileged=true --enable-debugging-handlers --cluster-dns=<DNS-service-IP> --cluster-domain=cluster.local --kubeconfig=c:\k\config --hairpin-mode=promiscuous-bridge --image-pull-progress-deadline=20m --cgroups-per-qos=false  --log-dir=<log directory> --logtostderr=false --enforce-node-allocatable="" --network-plugin=cni --cni-bin-dir=c:\k\cni --cni-conf-dir=c:\k\cni\config
         nssm set kubelet AppDirectory C:\k
         nssm start kubelet
   
@@ -590,6 +592,8 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 1. My Pods are stuck at "Container Creating" or restarting over and over
 
     Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you will need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service will expect the image to be tagged as :latest.
+    
+    With Kubernetes v1.14, Microsoft will release the pause infrastructure container at mcr.microsoft.com/k8s/core/pause:1.0.0. For more information search for "pause" in the "Guide for adding Windows Nodes in Kubernetes".
 
 ### Further investigation
 
