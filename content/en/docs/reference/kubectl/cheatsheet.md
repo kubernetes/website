@@ -58,11 +58,12 @@ kubectl config view # Show Merged kubeconfig settings.
 # use multiple kubeconfig files at the same time and view merged config
 KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
 
-# Get the password for the e2e user
+# get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config current-context              # Display the current-context
-kubectl config use-context my-cluster-name  # set the default context to my-cluster-name
+kubectl config view -o jsonpath='{.users[].name}'    # get a list of users
+kubectl config current-context			               # display the current-context
+kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new cluster to your kubeconf that supports basic auth
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
@@ -70,6 +71,8 @@ kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser -
 # set a context utilizing a specific username and namespace.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
+ 
+kubectl config unset users.foo                       # delete user foo
 ```
 
 ## Creating Objects
