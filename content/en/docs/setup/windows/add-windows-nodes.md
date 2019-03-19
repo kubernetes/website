@@ -593,7 +593,7 @@ The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate w
     kubectl get pods --all-namespaces
     ```
 
-    ![alt_text](flannel-master-kubeclt-get-pods.png "flannel master kubectl get pods screen capture")
+    ![alt_text](../flannel-master-kubeclt-get-pods.png "flannel master kubectl get pods screen capture")
 
     Verify that the Flannel DaemonSet has the NodeSelector applied.
 
@@ -601,7 +601,7 @@ The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate w
     kubectl get ds -n kube-system
     ```
 
-    ![alt_text](flannel-master-kubectl-get-ds.png "flannel master kubectl get ds screen capture")
+    ![alt_text](../flannel-master-kubectl-get-ds.png "flannel master kubectl get ds screen capture")
 
 ##### Join Windows Worker
 
@@ -632,7 +632,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
 
     If after reboot you see the following error, you need to restart the docker service manually
 
-    ![alt_text](windows-docker-error.png "windows docker error screen capture")    
+    ![alt_text](../windows-docker-error.png "windows docker error screen capture")    
 
     ```PowerShell
     Start-Service docker
