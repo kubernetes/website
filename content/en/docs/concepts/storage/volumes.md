@@ -70,6 +70,7 @@ Kubernetes supports several types of Volumes:
    * [azureDisk](#azuredisk)
    * [azureFile](#azurefile)
    * [cephfs](#cephfs)
+   * [cinder](#cinder)
    * [configMap](#configmap)
    * [csi](#csi)
    * [downwardAPI](#downwardapi)
@@ -148,6 +149,17 @@ spec:
       fsType: ext4
 ```
 
+#### CSI Migration 
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature for awsElasticBlockStore, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `ebs.csi.aws.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [AWS EBS CSI
+Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAWS`
+Alpha features must be enabled.
+
 ### azureDisk {#azuredisk}
 
 A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
@@ -175,6 +187,48 @@ You must have your own Ceph server running with the share exported before you ca
 {{< /caution >}}
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
+
+### cinder {#cinder}
+
+{{< note >}}
+Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
+configuration please refer [cloud provider openstack](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#openstack).
+{{< /note >}}
+
+`cinder` is used to mount OpenStack Cinder Volume into your Pod.
+
+#### Cinder Volume Example configuration
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-cinder
+spec:
+  containers:
+  - image: k8s.gcr.io/test-webserver
+    name: test-cinder-container
+    volumeMounts:
+    - mountPath: /test-cinder
+      name: test-volume
+  volumes:
+  - name: test-volume
+    # This OpenStack volume must already exist.
+    cinder:
+      volumeID: <volume-id>
+      fsType: ext4
+```
+
+#### CSI Migration 
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature for Cinder, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
+Alpha features must be enabled.
 
 ### configMap {#configmap}
 
@@ -400,6 +454,17 @@ spec:
     pdName: my-data-disk
     fsType: ext4
 ```
+
+#### CSI Migration
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature for GCE PD, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
+Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
+Alpha features must be enabled.
 
 ### gitRepo (deprecated) {#gitrepo}
 
@@ -1266,6 +1331,23 @@ CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see 
 # Developer resources
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
+
+#### Migrating to CSI drivers from in-tree plugins
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature, when enabled, directs operations against existing in-tree
+plugins to corresponding CSI plugins (which are expected to be installed and configured). 
+The feature implements the necessary translation logic and shims to re-route the 
+operations in a seamless fashion. As a result, operators do not have to make any 
+configuration changes to existing Storage Classes, PVs or PVCs (referring to 
+in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
+
+In the alpha state, the operations and features that are supported include 
+provisioning/delete, attach/detach and mount/unmount of volumes with `volumeMode` set to `filesystem`
+
+In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented 
+are listed in the "Types of Volumes" section above.
 
 ### Flexvolume {#flexVolume}
 
