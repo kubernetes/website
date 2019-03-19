@@ -48,13 +48,13 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 * CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, kube-aws](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
 -->
 
-* [conjure-up](/docs/getting-started-guides/ubuntu/) 是 Kubernetes 的一个开源安装程序，可以在 Ubuntu 上创建具有本机 AWS 集成的 Kubernetes 集群。
+* [conjure-up](/docs/getting-started-guides/ubuntu/) 是 Kubernetes 的一个开源安装程序，可以在 Ubuntu 上创建本机 AWS 集成的 Kubernetes 集群。
                                                                                       \
 * [Kubernetes 操作](https://github.com/kubernetes/kops) - 生产级 K8s 安装、升级和管理。支持在 AWS 中运行 Debian、Ubuntu、CentOS 和 RHEL。
 
-* [CoreOS 结构](https://coreos.com/tectonic/)包括开源[结构](https://github.com/coreos/tectonic-installer)，它在AWS上创建带有容器Linux节点的Kubernetes集群。
+* [CoreOS 结构](https://coreos.com/tectonic/)包括开源[结构](https://github.com/coreos/tectonic-installer)，它在 AWS 上创建带有 Linux 容器节点的 Kubernetes 集群。
 
-* CoreOS 起源于 Kubernetes 孵化器，Kubernetes 孵化器维护 [一个 CLI 工具，kube-aws](https://github.com/kubernetes-incubator/kube-aws)，它使用 AWS 工具：EC2、CloudFormation 和 Autoscaling 创建和管理 [Linux 容器](https://coreos.com/why/)节点的 Kubernetes 集群。
+* CoreOS 起源于 Kubernetes 孵化器，Kubernetes 孵化器维护 [一个 CLI 工具 kube-aws](https://github.com/kubernetes-incubator/kube-aws)，它使用 AWS 工具：EC2、CloudFormation 和 Autoscaling 创建和管理 [Linux 容器](https://coreos.com/why/)节点的 Kubernetes 集群。
 
 
 {{% /capture %}}
@@ -141,7 +141,7 @@ Adding and removing nodes through `kubectl` is not supported. You can still scal
 ## Tearing down the cluster
 -->
 
-## 拆除群集
+## 拆除集群
 
 <!--
 Make sure the environment variables you used to provision your cluster are still exported, then call the following script inside the
