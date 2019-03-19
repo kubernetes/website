@@ -83,8 +83,8 @@ different Kubernetes components.
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
+| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | | |
 | `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.13 | |
-| `ExpandInUsePersistentVolumes` | `true` | Beta | 1.14 | |
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
