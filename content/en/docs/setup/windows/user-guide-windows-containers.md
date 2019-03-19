@@ -2,7 +2,7 @@
 reviewers:
 - michmike
 - patricklang
-title: User Guide: Scheduling Windows containers in Kubernetes
+title: User Guide - Scheduling Windows containers in Kubernetes
 content_template: templates/concept
 weight: 75
 ---
