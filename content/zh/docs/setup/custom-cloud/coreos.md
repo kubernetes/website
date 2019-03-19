@@ -55,7 +55,7 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
     [Ignition](https://coreos.com/ignition/docs/latest/) is used to provision a master and multiple workers on the first boot from disk.
 -->
 
-* [**Bare Metal 多节点**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-baremetal.html#automated-provisioning)
+* [**裸金属多节点**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-baremetal.html#automated-provisioning)
 
     用于 PXE 引导和配置裸机上的多节点集群的指南和 HTTP/API 服务。
     [Ignition](https://coreos.com/ignition/docs/latest/) 被用来在第一次从磁盘引导时配置一个主节点和多个工作节点。
