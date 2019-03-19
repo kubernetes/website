@@ -280,7 +280,7 @@ Digital Rebar        | kubeadm      | any    | metal       | [docs](/docs/setup/
 VMware Cloud PKS     |              | Photon OS | Canal | [docs](https://docs.vmware.com/en/VMware-Kubernetes-Engine/index.html) | Commercial
 VMware Enterprise PKS     | BOSH       | Ubuntu | VMware NSX-T/flannel | [docs](https://docs.vmware.com/en/VMware-Enterprise-PKS/) | Commercial
 Mirantis Cloud Platform | Salt | Ubuntu | multi-support | [docs](https://docs.mirantis.com/mcp/) | Commercial
-IAAS Provider- Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) |              |              | multi-support | [docs](https://docs.cloud.oracle.com/iaas/Content/ContEng/Concepts/contengoverview.htm) | Commercial
+Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) |              |              | multi-support | [docs](https://docs.cloud.oracle.com/iaas/Content/ContEng/Concepts/contengoverview.htm) | Commercial
 
 {{< note >}}
 The above table is ordered by version test/used in nodes, followed by support level.
