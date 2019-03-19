@@ -92,6 +92,13 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
 
+__It is not recommended to use EncryptionConfig without using the `kms` provider, as this does not materially change your
+security posture.__ By default, the `identity` provider is used to protect secrets in etcd, which provides no encryption.
+`EncryptionConfiguration` was introduced in 1.7, to encrypt secrets locally, with a locally managed key. In this case, if etcd
+is compromised, there is no additional protection for secrets compared to when they are stored in plaintext. This was a
+stepping stone in development to the `kms` provider, introduced in 1.10. Envelope encryption creates dependence on a separate
+key, not stored in Kubernetes. In this case, if etcd is compromised, Kubernetes secrets remain protected.
+
 ## Encrypting your data
 
 Create a new encryption config file:
