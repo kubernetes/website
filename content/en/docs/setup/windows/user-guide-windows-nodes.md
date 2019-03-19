@@ -2,7 +2,7 @@
 reviewers:
 - michmike
 - patricklang
-title: User Guide - Add Windows Nodes in Kubernetes
+title: Guide for adding Windows Nodes in Kubernetes
 content_template: templates/concept
 weight: 70
 ---
