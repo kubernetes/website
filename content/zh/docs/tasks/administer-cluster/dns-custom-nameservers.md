@@ -40,9 +40,9 @@ metadata:
   namespace: kube-system
 data:
   stubDomains: |
-    {“acme.local”: [“1.2.3.4”]}
+    {"acme.local": ["1.2.3.4"]}
   upstreamNameservers: |
-    [“8.8.8.8”, “8.8.4.4”]
+    ["8.8.8.8", "8.8.4.4"]
 ```
 
 
@@ -130,15 +130,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kube-dns
-    namespace: kube-system
-    data:
-      stubDomains: |
-          {“consul.local”: [“10.150.0.1”]}
+  namespace: kube-system
+data:
+  stubDomains: |
+    {"consul.local": ["10.150.0.1"]}
 ```
 
-
 注意，集群管理员不希望覆盖节点的上游域名服务器，所以他们不会指定可选的 `upstreamNameservers` 字段。
-
 
 
 ### 示例：上游域名服务器
@@ -151,10 +149,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kube-dns
-    namespace: kube-system
-    data:
-      upstreamNameservers: |
-          [“172.16.0.1”]
+  namespace: kube-system
+data:
+  upstreamNameservers: |
+    ["172.16.0.1"]
 ```
 
 {{% /capture %}}

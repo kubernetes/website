@@ -12,7 +12,11 @@ weight: 20
 
 {{% capture prerequisites %}}
 
-컴퓨터의 바이오스에서 VT-x 또는 AMD-v 가상화가 필수적으로 활성화되어 있어야 한다.
+컴퓨터의 바이오스에서 VT-x 또는 AMD-v 가상화가 필수적으로 활성화되어 있어야 한다. 이를 확인하려면 리눅스 상에서 아래의 명령을 실행하고, 
+출력이 비어있지 않은지 확인한다.
+```shell	
+egrep --color 'vmx|svm' /proc/cpuinfo	
+```
 
 {{% /capture %}}
 
@@ -56,7 +60,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 Minikube 실행 파일을 경로에 추가하는 쉬운 방법은 다음과 같다.
 
 ```shell
-sudo cp minikube /usr/local/bin && rm minikube
+sudo mv minikube /usr/local/bin
 ```
 
 ### Linux

@@ -231,8 +231,11 @@ refresh the local list for valid certificates.
 On each client, perform the following operations:
 
 ```bash
-$ sudo cp ca.crt /usr/local/share/ca-certificates/kubernetes.crt
-$ sudo update-ca-certificates
+sudo cp ca.crt /usr/local/share/ca-certificates/kubernetes.crt
+sudo update-ca-certificates
+```
+
+```
 Updating certificates in /etc/ssl/certs...
 1 added, 0 removed; done.
 Running hooks in /etc/ca-certificates/update.d....

@@ -21,7 +21,7 @@ Each node in your cluster must have at least 300 MiB of memory.
 
 A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
-service in your cluster. If you do not have the metrics-server
+service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 
 If you are running Minikube, run the following command to enable the
@@ -76,7 +76,7 @@ The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 1
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
+kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
 ```
 
 Verify that the Pod Container is running:
@@ -146,7 +146,7 @@ will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limi
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-2.yaml --namespace=mem-example
+kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit-2.yaml --namespace=mem-example
 ```
 
 View detailed information about the Pod:
@@ -223,7 +223,7 @@ kubectl describe nodes
 The output includes a record of the Container being killed because of an out-of-memory condition:
 
 ```
-Warning OOMKilling  Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
+Warning OOMKilling Memory cgroup out of memory: Kill process 4481 (stress) score 1994 or sacrifice child
 ```
 
 Delete your Pod:
@@ -252,7 +252,7 @@ of any Node in your cluster.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
+kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
 ```
 
 View the Pod status:

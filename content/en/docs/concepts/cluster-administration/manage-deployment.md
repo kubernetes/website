@@ -26,23 +26,26 @@ Many applications require multiple resources to be created, such as a Deployment
 Multiple resources can be created the same way as a single resource:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/nginx-app.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx-app.yaml
+```
+
+```shell
 service/my-nginx-svc created
 deployment.apps/my-nginx created
 ```
 
 The resources will be created in the order they appear in the file. Therefore, it's best to specify the service first, since that will ensure the scheduler can spread the pods associated with the service as they are created by the controller(s), such as Deployment.
 
-`kubectl create` also accepts multiple `-f` arguments:
+`kubectl apply` also accepts multiple `-f` arguments:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
 
 And a directory can be specified rather than or in addition to individual files:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/nginx/
+kubectl apply -f https://k8s.io/examples/application/nginx/
 ```
 
 `kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
@@ -52,7 +55,10 @@ It is a recommended practice to put resources related to the same microservice o
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+```
+
+```shell
 deployment.apps/my-nginx created
 ```
 
@@ -61,7 +67,10 @@ deployment.apps/my-nginx created
 Resource creation isn't the only operation that `kubectl` can perform in bulk. It can also extract resource names from configuration files in order to perform other operations, in particular to delete the same resources you created:
 
 ```shell
-$ kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
+kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
+```
+
+```shell
 deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
@@ -69,13 +78,16 @@ service "my-nginx-svc" deleted
 In the case of just two resources, it's also easy to specify both on the command line using the resource/name syntax:
 
 ```shell
-$ kubectl delete deployments/my-nginx services/my-nginx-svc
+kubectl delete deployments/my-nginx services/my-nginx-svc
 ```
 
 For larger numbers of resources, you'll find it easier to specify the selector (label query) specified using `-l` or `--selector`, to filter resources by their labels:
 
 ```shell
-$ kubectl delete deployment,services -l app=nginx
+kubectl delete deployment,services -l app=nginx
+```
+
+```shell
 deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
@@ -83,7 +95,10 @@ service "my-nginx-svc" deleted
 Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
 
 ```shell
-$ kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
+```
+
+```shell
 NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
@@ -108,14 +123,20 @@ project/k8s/development
 By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we had tried to create the resources in this directory using the following command, we would have encountered an error:
 
 ```shell
-$ kubectl create -f project/k8s/development
+kubectl apply -f project/k8s/development
+```
+
+```shell
 error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
 ```
 
 Instead, specify the `--recursive` or `-R` flag with the `--filename,-f` flag as such:
 
 ```shell
-$ kubectl create -f project/k8s/development --recursive
+kubectl apply -f project/k8s/development --recursive
+```
+
+```shell
 configmap/my-config created
 deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
@@ -126,7 +147,10 @@ The `--recursive` flag works with any operation that accepts the `--filename,-f`
 The `--recursive` flag also works when multiple `-f` arguments are provided:
 
 ```shell
-$ kubectl create -f project/k8s/namespaces -f project/k8s/development --recursive
+kubectl apply -f project/k8s/namespaces -f project/k8s/development --recursive
+```
+
+```shell
 namespace/development created
 namespace/staging created
 configmap/my-config created
@@ -169,8 +193,11 @@ and
 The labels allow us to slice and dice our resources along any dimension specified by a label:
 
 ```shell
-$ kubectl create -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
-$ kubectl get pods -Lapp -Ltier -Lrole
+kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+kubectl get pods -Lapp -Ltier -Lrole
+```
+
+```shell
 NAME                           READY     STATUS    RESTARTS   AGE       APP         TIER       ROLE
 guestbook-fe-4nlpb             1/1       Running   0          1m        guestbook   frontend   <none>
 guestbook-fe-ght6d             1/1       Running   0          1m        guestbook   frontend   <none>
@@ -180,7 +207,12 @@ guestbook-redis-slave-2q2yf    1/1       Running   0          1m        guestboo
 guestbook-redis-slave-qgazl    1/1       Running   0          1m        guestbook   backend    slave
 my-nginx-divi2                 1/1       Running   0          29m       nginx       <none>     <none>
 my-nginx-o0ef1                 1/1       Running   0          29m       nginx       <none>     <none>
-$ kubectl get pods -lapp=guestbook,role=slave
+```
+
+```shell
+kubectl get pods -lapp=guestbook,role=slave
+```
+```shell
 NAME                          READY     STATUS    RESTARTS   AGE
 guestbook-redis-slave-2q2yf   1/1       Running   0          3m
 guestbook-redis-slave-qgazl   1/1       Running   0          3m
@@ -240,7 +272,10 @@ Sometimes existing pods and other resources need to be relabeled before creating
 For example, if you want to label all your nginx pods as frontend tier, simply run:
 
 ```shell
-$ kubectl label pods -l app=nginx tier=fe
+kubectl label pods -l app=nginx tier=fe
+```
+
+```shell
 pod/my-nginx-2035384211-j5fhi labeled
 pod/my-nginx-2035384211-u2c7e labeled
 pod/my-nginx-2035384211-u3t6x labeled
@@ -250,7 +285,9 @@ This first filters all pods with the label "app=nginx", and then labels them wit
 To see the pods you just labeled, run:
 
 ```shell
-$ kubectl get pods -l app=nginx -L tier
+kubectl get pods -l app=nginx -L tier
+```
+```shell
 NAME                        READY     STATUS    RESTARTS   AGE       TIER
 my-nginx-2035384211-j5fhi   1/1       Running   0          23m       fe
 my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
@@ -266,8 +303,10 @@ For more information, please see [labels](/docs/concepts/overview/working-with-o
 Sometimes you would want to attach annotations to resources. Annotations are arbitrary non-identifying metadata for retrieval by API clients such as tools, libraries, etc. This can be done with `kubectl annotate`. For example:
 
 ```shell
-$ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
-$ kubectl get pods my-nginx-v4-9gw19 -o yaml
+kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
+kubectl get pods my-nginx-v4-9gw19 -o yaml
+```
+```shell
 apiversion: v1
 kind: pod
 metadata:
@@ -283,14 +322,18 @@ For more information, please see [annotations](/docs/concepts/overview/working-w
 When load on your application grows or shrinks, it's easy to scale with `kubectl`. For instance, to decrease the number of nginx replicas from 3 to 1, do:
 
 ```shell
-$ kubectl scale deployment/my-nginx --replicas=1
+kubectl scale deployment/my-nginx --replicas=1
+```
+```shell
 deployment.extensions/my-nginx scaled
 ```
 
 Now you only have one pod managed by the deployment.
 
 ```shell
-$ kubectl get pods -l app=nginx
+kubectl get pods -l app=nginx
+```
+```shell
 NAME                        READY     STATUS    RESTARTS   AGE
 my-nginx-2035384211-j5fhi   1/1       Running   0          30m
 ```
@@ -298,7 +341,9 @@ my-nginx-2035384211-j5fhi   1/1       Running   0          30m
 To have the system automatically choose the number of nginx replicas as needed, ranging from 1 to 3, do:
 
 ```shell
-$ kubectl autoscale deployment/my-nginx --min=1 --max=3
+kubectl autoscale deployment/my-nginx --min=1 --max=3
+```
+```shell
 horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 ```
 
@@ -320,7 +365,8 @@ Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-co
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
 ```shell
-$ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
+```shell
 deployment.apps/my-nginx configured
 ```
 
@@ -330,27 +376,25 @@ Currently, resources are created without this annotation, so the first invocatio
 
 All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
 
-{{< note >}}
-To use apply, always create resource initially with either `kubectl apply` or `kubectl create --save-config`.
-{{< /note >}}
-
 ### kubectl edit
 
 Alternatively, you may also update resources with `kubectl edit`:
 
 ```shell
-$ kubectl edit deployment/my-nginx
+kubectl edit deployment/my-nginx
 ```
 
 This is equivalent to first `get` the resource, edit it in text editor, and then `apply` the resource with the updated version:
 
 ```shell
-$ kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
-$ vi /tmp/nginx.yaml
+kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
+vi /tmp/nginx.yaml
 # do some edit, and then save the file
-$ kubectl apply -f /tmp/nginx.yaml
+
+kubectl apply -f /tmp/nginx.yaml
 deployment.apps/my-nginx configured
-$ rm /tmp/nginx.yaml
+
+rm /tmp/nginx.yaml
 ```
 
 This allows you to do more significant changes more easily. Note that you can specify the editor with your `EDITOR` or `KUBE_EDITOR` environment variables.
@@ -370,7 +414,9 @@ and
 In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can simply modify your original configuration file:
 
 ```shell
-$ kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
+kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
+```
+```shell
 deployment.apps/my-nginx deleted
 deployment.apps/my-nginx replaced
 ```
@@ -379,20 +425,21 @@ deployment.apps/my-nginx replaced
 
 At some point, you'll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
 
-We'll guide you through how to create and update applications with Deployments. If your deployed application is managed by Replication Controllers,
-you should read [how to use `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/) instead.
+We'll guide you through how to create and update applications with Deployments.
 
 Let's say you were running version 1.7.9 of nginx:
 
 ```shell
-$ kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
+kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
+```
+```shell
 deployment.apps/my-nginx created
 ```
 
 To update to version 1.9.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`, with the kubectl commands we learned above.
 
 ```shell
-$ kubectl edit deployment/my-nginx
+kubectl edit deployment/my-nginx
 ```
 
 That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).

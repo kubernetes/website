@@ -2,6 +2,9 @@
 title: Understanding Kubernetes Objects
 content_template: templates/concept
 weight: 10
+card: 
+  name: concepts
+  weight: 40
 ---
 
 {{% capture overview %}}
@@ -28,7 +31,7 @@ Every Kubernetes object includes two nested object fields that govern the object
 
 For example, a Kubernetes Deployment is an object that can represent an application running on your cluster. When you create the Deployment, you might set the Deployment spec to specify that you want three replicas of the application to be running. The Kubernetes system reads the Deployment spec and starts three instances of your desired application--updating the status to match your spec. If any of those instances should fail (a status change), the Kubernetes system responds to the difference between spec and status by making a correction--in this case, starting a replacement instance.
 
-For more information on the object spec, status, and metadata, see the [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md).
+For more information on the object spec, status, and metadata, see the [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
 ### Describing a Kubernetes Object
 
@@ -39,11 +42,11 @@ Here's an example `.yaml` file that shows the required fields and object spec fo
 {{< codenew file="application/deployment.yaml" >}}
 
 One way to create a Deployment using a `.yaml` file like the one above is to use the
-[`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create) command
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) command
 in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/deployment.yaml --record
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
 ```
 
 The output is similar to this:

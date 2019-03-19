@@ -54,7 +54,7 @@ Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes clus
 create the defined ReplicaSet and the Pods that it manages.
 
 ```shell
-kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
+kubectl apply -f http://k8s.io/examples/controllers/frontend.yaml
 ```
 
 You can then get the current ReplicaSets deployed:
@@ -162,7 +162,7 @@ Suppose you create the Pods after the frontend ReplicaSet has been deployed and 
 fulfill its replica count requirement:
 
 ```shell
-kubectl create -f http://k8s.io/examples/pods/pod-rs.yaml
+kubectl apply -f http://k8s.io/examples/pods/pod-rs.yaml
 ```
 
 The new Pods will be acquired by the ReplicaSet, and then immediately terminated as the ReplicaSet would be over
@@ -184,12 +184,12 @@ pod2             0/1     Terminating   0          4s
 
 If you create the Pods first:
 ```shell
-kubectl create -f http://k8s.io/examples/pods/pod-rs.yaml
+kubectl apply -f http://k8s.io/examples/pods/pod-rs.yaml
 ```
 
 And then create the ReplicaSet however:
 ```shell
-kubectl create -f http://k8s.io/examples/controllers/frontend.yaml
+kubectl apply -f http://k8s.io/examples/controllers/frontend.yaml
 ```
 
 You shall see that the ReplicaSet has acquired the Pods and has only created new ones according to its spec until the
@@ -238,6 +238,10 @@ matchLabels:
 
 In the ReplicaSet, `.spec.template.metadata.labels` must match `spec.selector`, or it will
 be rejected by the API.
+
+{{< note >}}
+For 2 ReplicaSets specifying the same `.spec.selector` but different `.spec.template.metadata.labels` and `.spec.template.spec` fields, each ReplicaSet ignores the Pods created by the other ReplicaSet.
+{{< /note >}}
 
 ### Replicas
 
@@ -304,7 +308,7 @@ create the defined HPA that autoscales the target ReplicaSet depending on the CP
 of the replicated Pods.
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/hpa-rs.yaml
+kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 ```
 
 Alternatively, you can use the `kubectl autoscale` command to accomplish the same

@@ -1,5 +1,53 @@
 # i18n strings for the Korean translation.
 
+[deprecation_warning]
+other = " 문서는 더 이상 적극적으로 관리되지 않음. 현재 보고있는 문서는 정적 스냅샷임. 최신 문서를 위해서는, 다음을 참고. "
+
+[objectives_heading]
+other = "목적"
+
+[cleanup_heading]
+other = "정리하기"
+
+[prerequisites_heading]
+other = "시작하기 전에"
+
+[whatsnext_heading]
+other = "다음 내용"
+
+[feedback_heading]
+other = "피드백"
+
+[feedback_question]
+other = "이 페이지가 도움이 되었나요?"
+
+[feedback_yes]
+other = "네"
+
+[feedback_no]
+other = "아니요"
+
+[latest_version]
+other = "최신 버전."
+
+[version_check_mustbe]
+other = "쿠버네티스 서버의 버전은 다음과 같아야 함. 버전: "
+
+[version_check_mustbeorlater]
+other = "쿠버네티스 서버의 버전은 다음과 같거나 더 높아야 함. 버전: "
+
+[version_check_tocheck]
+other = "버전 확인을 위해서, 다음 커맨드를 실행 "
+
+[caution]
+other = "주의:"
+
+[note]
+other = "참고:"
+
+[warning]
+other = "경고:"
+
 [main_read_about]
 other = "Read about"
 
@@ -23,6 +71,12 @@ other = "쿠버네티스 기능"
 
 [main_cncf_project]
 other = """쿠버네티스는 <a href="https://cncf.io/">CNCF</a> graduated 프로젝트입니다.</p>"""
+
+[main_kubeweekly_baseline]
+other = "최신 쿠버네티스 뉴스 수신에 관심이 있으십니까? KubeWeekly를 신청하세요."
+
+[main_kubernetes_past_link]
+other = "과거 뉴스레터 보기"
 
 [main_kubeweekly_signup]
 other = "구독하기"

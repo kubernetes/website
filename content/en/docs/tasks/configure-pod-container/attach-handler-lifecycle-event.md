@@ -38,7 +38,7 @@ nginx gracefully. This is helpful if the Container is being terminated because o
 
 Create the Pod:
 
-    kubectl create -f https://k8s.io/examples/pods/lifecycle-events.yaml
+    kubectl apply -f https://k8s.io/examples/pods/lifecycle-events.yaml
 
 Verify that the Container in the Pod is running:
 

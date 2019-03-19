@@ -43,8 +43,8 @@ Next, expand the template into multiple files, one for each item to be processed
 
 ```shell
 # Expand files into a temporary directory
-$ mkdir ./jobs
-$ for i in apple banana cherry
+mkdir ./jobs
+for i in apple banana cherry
 do
   cat job-tmpl.yaml | sed "s/\$ITEM/$i/" > ./jobs/job-$i.yaml
 done
@@ -53,7 +53,7 @@ done
 Check if it worked:
 
 ```shell
-$ ls jobs/
+ls jobs/
 job-apple.yaml
 job-banana.yaml
 job-cherry.yaml
@@ -66,7 +66,7 @@ to generate the Job objects.
 Next, create all the jobs with one kubectl command:
 
 ```shell
-$ kubectl create -f ./jobs
+kubectl create -f ./jobs
 job "process-item-apple" created
 job "process-item-banana" created
 job "process-item-cherry" created
@@ -75,7 +75,7 @@ job "process-item-cherry" created
 Now, check on the jobs:
 
 ```shell
-$ kubectl get jobs -l jobgroup=jobexample
+kubectl get jobs -l jobgroup=jobexample
 NAME                  DESIRED   SUCCESSFUL   AGE
 process-item-apple    1         1            31s
 process-item-banana   1         1            31s
@@ -89,7 +89,7 @@ do not care to see.)
 We can check on the pods as well using the same label selector:
 
 ```shell
-$ kubectl get pods -l jobgroup=jobexample
+kubectl get pods -l jobgroup=jobexample
 NAME                        READY     STATUS      RESTARTS   AGE
 process-item-apple-kixwv    0/1       Completed   0          4m
 process-item-banana-wrsf7   0/1       Completed   0          4m
@@ -100,7 +100,7 @@ There is not a single command to check on the output of all jobs at once,
 but looping over all the pods is pretty easy:
 
 ```shell
-$ for p in $(kubectl get pods -l jobgroup=jobexample -o name)
+for p in $(kubectl get pods -l jobgroup=jobexample -o name)
 do
   kubectl logs $p
 done
@@ -178,7 +178,7 @@ cat job.yaml.jinja2 | render_template > jobs.yaml
 Or sent directly to kubectl, like this:
 
 ```shell
-cat job.yaml.jinja2 | render_template | kubectl create -f -
+cat job.yaml.jinja2 | render_template | kubectl apply -f -
 ```
 
 ## Alternatives

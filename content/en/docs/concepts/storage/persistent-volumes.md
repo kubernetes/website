@@ -179,8 +179,8 @@ However, the particular path specified in the custom recycler pod template in th
 
 ### Expanding Persistent Volumes Claims
 
-{{< feature-state for_k8s_version="v1.8" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
+
 Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default. You can expand
 the following types of volumes:
 
@@ -193,6 +193,7 @@ the following types of volumes:
 * Azure Disk
 * Portworx
 * FlexVolumes
+* CSI
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
@@ -213,6 +214,13 @@ allowVolumeExpansion: true
 To request a larger volume for a PVC, edit the PVC object and specify a larger
 size. This triggers expansion of the volume that backs the underlying `PersistentVolume`. A
 new `PersistentVolume` is never created to satisfy the claim. Instead, an existing volume is resized.
+
+#### CSI Volume expansion
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+CSI volume expansion requires enabling `ExpandCSIVolumes` feature gate and also requires specific CSI driver to support volume expansion. Please refer to documentation of specific CSI driver for more information.
+
 
 #### Resizing a volume containing a file system
 
@@ -312,7 +320,7 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 {{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
-Now, you can set the value of `volumeMode` to `raw` to use a raw block device, or `filesystem`
+Now, you can set the value of `volumeMode` to `block` to use a raw block device, or `filesystem`
 to use a filesystem. `filesystem` is the default if the value is omitted. This is an optional API
 parameter.
 

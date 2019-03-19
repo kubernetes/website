@@ -6,6 +6,7 @@ reviewers:
 - caesarxuchao
 - deads2k
 - liggitt
+- mbohlool
 title: Dynamic Admission Control
 content_template: templates/concept
 weight: 40
@@ -66,6 +67,13 @@ that is validated in a Kubernetes e2e test. The webhook handles the
 `admissionReview` requests sent by the apiservers, and sends back its decision
 wrapped in `admissionResponse`.
 
+the `admissionReview` request can have different versions (e.g. v1beta1 or `v1` in a future version).
+The webhook can define what version they accept using `admissionReviewVersions` field. API server
+will try to use first version in the list which it supports. If none of the versions specified
+in this list supported by API server, validation will fail for this object. If the webhook
+configuration has already been persisted, calls to the webhook will fail and be
+subject to the failure policy.
+
 The example admission webhook server leaves the `ClientAuth` field
 [empty](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/webhook/config.go#L47-L48),
 which defaults to `NoClientCert`. This means that the webhook server does not
@@ -111,16 +119,30 @@ webhooks:
     - CREATE
     resources:
     - pods
+    scope: "Namespaced"
   clientConfig:
     service:
       namespace: <namespace of the front-end service>
       name: <name of the front-end service>
     caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
+  admissionReviewVersions:
+  - v1beta1
+  timeoutSeconds: 1
 ```
+
+The scope field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
+resources ("Namespaced") will match this rule. "*" means that there are no scope restrictions.
 
 {{< note >}}
 When using `clientConfig.service`, the server cert must be valid for
 `<svc_name>.<svc_namespace>.svc`.
+{{< /note >}}
+
+{{< note >}}
+Default timeout for a webhook call is 30 seconds but starting in kubernetes 1.14 you
+can set the timeout and it is encouraged to use a very small timeout for webhooks.
+If the webhook call times out, the request is handled according to the webhook's 
+failure policy.
 {{< /note >}}
 
 When an apiserver receives a request that matches one of the `rules`, the
@@ -129,13 +151,6 @@ apiserver sends an `admissionReview` request to webhook as specified in the
 
 After you create the webhook configuration, the system will take a few seconds
 to honor the new configuration.
-
-{{< note >}}
-When the webhook plugin is deployed into the Kubernetes cluster as a
-service, it has to expose its service on the 443 port. The communication
-between the API server and the webhook service may fail if a different port
-is used.
-{{< /note >}}
 
 ### Authenticate apiservers
 

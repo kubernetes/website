@@ -12,7 +12,7 @@ title: Docker 用户使用 kubectl 命令指南
 
 #### docker run
 
-如何运行一个 nginx Deployment 并将其暴露出来？ 查看 [kubectl run](/docs/user-guide/kubectl/{{< param "version" >}}/#run) 。
+如何运行一个 nginx Deployment 并将其暴露出来？ 查看 [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/#run) 。
 
 使用 docker 命令：
 
@@ -26,22 +26,30 @@ a9ec34d98787        nginx               "nginx -g 'daemon of   2 seconds ago    
 
 使用 kubectl 命令：
 
-```shell
+<!--
 # start the pod running nginx
+-->
+
+```shell
+# 启动运行 nginx 的 pod
 $ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 deployment "nginx-app" created
 ```
 
 在 1.2 及以上版本的 Kubernetes 集群中，使用`kubectl run` 命令将创建一个名为 "nginx-app" 的 Deployment。如果您运行的是老版本，将会创建一个 replication controller。
-如果您想沿用旧的行为，使用 `--generation=run/v1` 参数，这样就会创建 replication controller。查看 [`kubectl run`](/docs/user-guide/kubectl/{{< param "version" >}}/#run) 获取更多详细信息。
+如果您想沿用旧的行为，使用 `--generation=run/v1` 参数，这样就会创建 replication controller。查看 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 获取更多详细信息。
+
+<!--
+# expose a port through with a service
+-->
 
 ```shell
-# expose a port through with a service
+# 通过服务暴露端口
 $ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
 
-在 kubectl 命令中，我们创建了一个 [Deployment](/docs/concepts/workloads/controllers/deployment/)，这将保证有 N 个运行 nginx 的 pod（N 代表 spec 中声明的 replica 数，默认为 1）。我们还创建了一个 [service](/docs/user-guide/services)，使用  selector 匹配具有相应的 selector 的 Deployment。查看 [快速开始](/docs/user-guide/quick-start) 获取更多信息。
+在 kubectl 命令中，我们创建了一个 [Deployment](/docs/concepts/workloads/controllers/deployment/)，这将保证有 N 个运行 nginx 的 pod（N 代表 spec 中声明的 replica 数，默认为 1）。我们还创建了一个 [service](/docs/user-guide/services)，使用  selector 匹配具有相应的 selector 的 Deployment。查看[快速开始](/docs/user-guide/quick-start)获取更多信息。
 
 默认情况下镜像会在后台运行，与`docker run -d ...` 类似，如果您想在前台运行，使用：
 
@@ -56,7 +64,7 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 
 #### docker ps
 
-如何列出哪些正在运行？查看 [kubectl get](/docs/user-guide/kubectl/{{< param "version" >}}/#get)。
+如何列出哪些正在运行？查看 [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get)。
 
 使用 docker 命令：
 
@@ -76,7 +84,7 @@ nginx-app-5jyvm   1/1       Running   0          1h
 
 #### docker attach
 
-如何连接到已经运行在容器中的进程？查看 [kubectl attach](/docs/user-guide/kubectl/{{< param "version" >}}/#attach)。
+如何连接到已经运行在容器中的进程？查看 [kubectl attach](/docs/reference/generated/kubectl/kubectl-commands/#attach)。
 
 使用 docker 命令：
 
@@ -100,7 +108,7 @@ $ kubectl attach -it nginx-app-5jyvm
 
 #### docker exec
 
-如何在容器中执行命令？查看 [kubectl exec](/docs/user-guide/kubectl/{{< param "version" >}}/#exec)。
+如何在容器中执行命令？查看 [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)。
 
 使用 docker 命令：
 
@@ -138,11 +146,11 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-更多信息请查看 [获取运行中容器的 Shell 环境](/docs/tasks/kubectl/get-shell-running-container/)。
+更多信息请查看[获取运行中容器的 Shell 环境](/docs/tasks/kubectl/get-shell-running-container/)。
 
 #### docker logs
 
-如何查看运行中进程的 stdout/stderr？查看 [kubectl logs](/docs/user-guide/kubectl/{{< param "version" >}}/#logs)。
+如何查看运行中进程的 stdout/stderr？查看 [kubectl logs](/docs/reference/generated/kubectl/kubectl-commands/#logs)。
 
 使用 docker 命令：
 
@@ -168,11 +176,12 @@ $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-查看 [记录和监控集群活动](/docs/concepts/cluster-administration/logging/) 获取更多信息。
+查看[记录和监控集群活动](/docs/concepts/cluster-administration/logging/)获取更多信息。
 
 #### docker stop 和 docker rm
 
-如何停止和删除运行中的进程？查看 [kubectl delete](/docs/user-guide/kubectl/{{< param "version" >}}/#delete)。
+
+如何停止和删除运行中的进程？查看 [kubectl delete](/docs/reference/generated/kubectl/kubectl-commands/#delete)。
 
 使用 docker 命令：
 
@@ -201,15 +210,15 @@ $ kubectl get po -l run=nginx-app
 # Return nothing
 ```
 
-请注意，我们不直接删除 pod。使用 kubectl 命令，我们要删除拥有该 pod 的 Deployment。如果我们直接删除pod，Deployment 将会重新创建该 pod。
+请注意，我们不直接删除 pod。使用 kubectl 命令，我们要删除拥有该 pod 的 Deployment。如果我们直接删除 pod，Deployment 将会重新创建该 pod。
 
 #### docker login
 
-在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅 [使用私有镜像仓库](/docs/concepts/containers/images/#using-a-private-registry)。
+在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅[使用私有镜像仓库](/docs/concepts/containers/images/#using-a-private-registry)。
 
 #### docker version
 
-如何查看客户端和服务端的版本？查看  [kubectl version](/docs/user-guide/kubectl/{{< param "version" >}}/#version)。
+如何查看客户端和服务端的版本？查看  [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version)。
 
 使用 docker 命令：
 
@@ -237,7 +246,7 @@ Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 
 #### docker info
 
-如何获取有关环境和配置的各种信息？查看  [kubectl cluster-info](/docs/user-guide/kubectl/{{< param "version" >}}/#cluster-info)。
+如何获取有关环境和配置的各种信息？查看  [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info)。
 
 使用 docker 命令：
 

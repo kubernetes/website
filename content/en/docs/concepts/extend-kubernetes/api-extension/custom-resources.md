@@ -9,40 +9,48 @@ weight: 20
 
 {{% capture overview %}}
 
-This page explains *custom resources*, which are extensions of the Kubernetes
-API, including when to add a custom resource to your Kubernetes cluster and when
-to use a standalone service. It describes the two methods for adding custom
-resources and how to choose between them.
+*Custom resources* are extensions of the Kubernetes API. This page discusses when to add a custom
+resource to your Kubernetes cluster and when to use a standalone service. It describes the two
+methods for adding custom resources and how to choose between them.
 
 {{% /capture %}}
 
 {{% capture body %}}
 ## Custom resources
 
-A *resource* is an endpoint in the [Kubernetes API](/docs/reference/using-api/api-overview/) that stores a collection of [API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) of a certain kind. For example, the built-in *pods* resource contains a collection of Pod objects.
+A *resource* is an endpoint in the [Kubernetes API](/docs/reference/using-api/api-overview/) that stores a collection of
+[API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) of a certain kind. For example, the built-in *pods* resource contains a collection of Pod objects.
 
-A *custom resource* is an extension of the Kubernetes API that is not necessarily available on every
-Kubernetes cluster.
-In other words, it represents a customization of a particular Kubernetes installation.
+A *custom resource* is an extension of the Kubernetes API that is not necessarily available in a default
+Kubernetes installation. It represents a customization of a particular Kubernetes installation. However,
+many core Kubernetes functions are now built using custom resources, making Kubernetes more modular.
 
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
-Once a custom resource is installed, users can create and access its objects with
-[kubectl](/docs/user-guide/kubectl-overview/), just as they do for built-in resources like *pods*.
+Once a custom resource is installed, users can create and access its objects using
+[kubectl](/docs/user-guide/kubectl-overview/), just as they do for built-in resources like
+*Pods*.
 
-### Custom controllers
+## Custom controllers
 
 On their own, custom resources simply let you store and retrieve structured data.
-It is only when combined with a *controller* that they become a true declarative API.
+When you combine a custom resource with a *custom controller*, custom resources
+provide a true _declarative API_.
+
 A [declarative API](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects)
-allows you to _declare_ or specify the desired state of your resource and tries
-to match the actual state to this desired state.
-Here, the controller interprets the structured data as a record of the user's
-desired state, and continually takes action to achieve and maintain this state.
+allows you to _declare_ or specify the desired state of your resource and tries to
+keep the current state of Kubernetes objects in sync with the desired state.
+The controller interprets the structured data as a record of the user's
+desired state, and continually maintains this state.
 
-A *custom controller* is a controller that users can deploy and update on a running cluster, independently of the cluster's own lifecycle. Custom controllers can work with any kind of resource, but they are especially effective when combined with custom resources. The [Operator](https://coreos.com/blog/introducing-operators.html) pattern is one example of such a combination. It allows developers to encode domain knowledge for specific applications into an extension of the Kubernetes API.
+You can deploy and update a custom controller on a running cluster, independently
+of the cluster's own lifecycle. Custom controllers can work with any kind of resource,
+but they are especially effective when combined with custom resources. The
+[Operator pattern](https://coreos.com/blog/introducing-operators.html) combines custom
+resources and custom controllers. You can use custom controllers to encode domain knowledge
+for specific applications into an extension of the Kubernetes API.
 
-### Should I add a custom resource to my Kubernetes Cluster?
+## Should I add a custom resource to my Kubernetes Cluster?
 
 When creating a new API, consider whether to [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/api-extension/apiserver-aggregation/) or let your API stand alone.
 
@@ -56,7 +64,7 @@ When creating a new API, consider whether to [aggregate your API with the Kubern
 | Your resources are naturally scoped to a cluster or to namespaces of a cluster. | Cluster or namespace scoped resources are a poor fit; you need control over the specifics of resource paths. |
 | You want to reuse [Kubernetes API support features](#common-features).  | You don't need those features. |
 
-#### Declarative APIs
+### Declarative APIs
 
 In a Declarative API, typically:
 
@@ -80,7 +88,7 @@ Signs that your API might not be declarative include:
  - The API is not easily modeled as objects.
  - You chose to represent pending operations with an operation ID or an operation object.
 
-### Should I use a configMap or a custom resource?
+## Should I use a configMap or a custom resource?
 
 Use a ConfigMap if any of the following apply:
 
@@ -126,13 +134,9 @@ This frees you from writing your own API server to handle the custom resource,
 but the generic nature of the implementation means you have less flexibility than with
 [API server aggregation](#api-server-aggregation).
 
-Refer to the [Custom Controller example, which uses Custom Resources](https://github.com/kubernetes/sample-controller)
-for a demonstration of how to register a new custom resource, work with instances of your new resource type,
-and setup a controller to handle events.
-
-{{< note >}}
-CRD is the successor to the deprecated *ThirdPartyResource* (TPR) API, and is available as of Kubernetes 1.7.
-{{< /note >}}
+Refer to the [custom controller example](https://github.com/kubernetes/sample-controller)
+for an example of how to register a new custom resource, work with instances of your new resource type,
+and use a controller to handle events.
 
 ## API server aggregation
 
@@ -143,7 +147,7 @@ implementations for your custom resources by writing and deploying your own stan
 The main API server delegates requests to you for the custom resources that you handle,
 making them available to all of its clients.
 
-### Choosing a method for adding custom resources
+## Choosing a method for adding custom resources
 
 CRDs are easier to use. Aggregated APIs are more flexible. Choose the method that best meets your needs.
 
@@ -152,7 +156,7 @@ Typically, CRDs are a good fit if:
 * You have a handful of fields
 * You are using the resource within your company, or as part of a small open-source project (as opposed to a commercial product)
 
-#### Comparing ease of use
+### Comparing ease of use
 
 CRDs are easier to create than Aggregated APIs.
 
@@ -181,7 +185,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 | Protocol Buffers | The new resource supports clients that want to use Protocol Buffers | No | Yes |
 | OpenAPI Schema | Is there an OpenAPI (swagger) schema for the types that can be dynamically fetched from the server? Is the user protected from misspelling field names by ensuring only allowed fields are set? Are types enforced (in other words, don't put an `int` in a `string` field?) | No, but planned | Yes |
 
-#### Common Features
+### Common Features
 
 When you create a custom resource, either via a CRDs or an AA, you get many features for your API, compared to implementing it outside the Kubernetes platform:
 
