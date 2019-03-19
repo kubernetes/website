@@ -2,6 +2,9 @@
 title: 파드(Pod) 개요
 content_template: templates/concept
 weight: 10
+card:
+  name: concepts
+  weight: 60
 ---
 
 {{% capture overview %}}

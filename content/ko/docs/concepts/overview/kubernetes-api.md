@@ -2,6 +2,9 @@
 title: 쿠버네티스 API
 content_template: templates/concept
 weight: 30
+card:
+  name: concepts
+  weight: 30
 ---
 
 {{% capture overview %}}
