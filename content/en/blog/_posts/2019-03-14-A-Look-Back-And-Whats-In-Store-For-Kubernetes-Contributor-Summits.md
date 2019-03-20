@@ -8,7 +8,7 @@ Paris Pittman (Google), Jonas Rosland (VMware)
 
 **tl;dr** - [click here] for Barcelona Contributor Summit information.
 
-{{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summit/celebrationsig.jpg" caption="Seattle Contributor Summit">}}
+{{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summits/celebrationsig.jpg" caption="Seattle Contributor Summit">}}
 
 As our contributing community grows in great numbers, with more than 16,000 contributors this year across 150+ GitHub repositories, it’s important to provide face to face connections for our large distributed teams to have opportunities for collaboration and learning. In [Contributor Experience], our methodology with planning events is a lot like our documentation; we build from personas -- interests, skills, and motivators to name a few. This way we ensure there is valuable content and learning for everyone.
 
@@ -23,7 +23,7 @@ We build the contributor summits around you:
 * Active Contributors
 * Casual Contributors
 
-{{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summit/newcontrib.jpg" caption="New Contributor Workshop">}}
+{{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summits/newcontrib.jpg" caption="New Contributor Workshop">}}
 
 These personas combined with ample feedback from previous events, produce the   altogether experience that welcomed over 600 contributors in Copenhagen (May), Shanghai(November), and Seattle(December) in 2018. Seattle's event drew over 300+ contributors, equal to Shanghai and Copenhagen combined, for the 6th contributor event in Kubernetes history. In true Kubernetes fashion, we expect another record breaking year of attendance. We've pre-ordered 900+ [contributor patches], a tradition, and we are   looking forward to giving them to you!
 
@@ -42,7 +42,7 @@ In an effort of continual improvement, here's what to expect from us this year:
 * Opportunities to get involved: We still have 2019 roles available!
 Reach out to Contributor Experience via community@kubernetes.io, stop by a Wednesday SIG update meeting, or catch us on Slack (#sig-contribex).  
 
-{{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summit/unconference.jpg" caption="Unconference voting">}}
+{{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summits/unconference.jpg" caption="Unconference voting">}}
 
 ## Thanks!
 Our 2018 crew 🥁  
@@ -70,7 +70,7 @@ Jonas Rosland, Josh Berkus, Paris Pittman, Jorge Castro, Bob Killen, Deb Giles, 
 Garage Pic
 Reg Desk
 
-{{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summit/grouppicseattle.JPG" caption="Some of the group in Seattle">}}
+{{<figure width="600" src="/images/blog/2019-03-14-A-Look-Back-And-Whats-In-Store-For-Kubernetes-Contributor-Summits/grouppicseatle.JPG" caption="Some of the group in Seattle">}}
 
 
 “I love Contrib Summit! The intros and deep dives during KubeCon were a great extension of Contrib Summit. Y'all did an excellent job in the morning to level set expectations and prime everyone.” -- julianv    
