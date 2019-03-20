@@ -326,7 +326,7 @@ To start using your cluster, you need to run (as a regular user):
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the addon options listed at:
-  http://kubernetes.io/docs/admin/addons/
+  /docs/admin/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
@@ -953,7 +953,3 @@ kubeadm 的 deb / rpm 包和二进制文件是为 amd64、arm（32位）、arm64
 ## 故障排除 {#troubleshooting}
 
 如果您遇到 kubeadm 上的困难，请参阅我们的[故障排除文档](/docs/setup/independent/troubleshooting-kubeadm/).
-
-
-
-

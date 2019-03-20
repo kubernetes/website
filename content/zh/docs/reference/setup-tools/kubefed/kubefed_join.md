@@ -70,7 +70,7 @@ kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
   -h, --help                                 help for join
       --host-cluster-context string          Host cluster context
       --no-headers                           When using the default or custom-column output format, don't print headers (default print headers).
-  -o, --output string                        Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath].
+  -o, --output string                        Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [/docs/user-guide/jsonpath].
       --save-config                          If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
   -a, --show-all                             When printing, show all resources (default hide terminated pods.)
       --show-labels                          When printing, show all labels as the last column (default hide labels column)
@@ -90,7 +90,7 @@ kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
   -h, --help                                 join 的帮助信息。
       --host-cluster-context string          主机集群上下文。
       --no-headers                           当使用默认或者定制列输出格式时，不打印头信息（默认打印头信息）。
-  -o, --output string                        输出格式。下列之一： json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... 参考定制列 [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns]，golang 模版 [http://golang.org/pkg/text/template/#pkg-overview] 和 jsonpath 模版 [http://kubernetes.io/docs/user-guide/jsonpath]。
+  -o, --output string                        输出格式。下列之一： json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... 参考定制列 [/docs/user-guide/kubectl-overview/#custom-columns]，golang 模版 [http://golang.org/pkg/text/template/#pkg-overview] 和 jsonpath 模版 [/docs/user-guide/jsonpath]。
       --save-config                          如果为 true，当前对象的配置将保存到它的注解中。否则将不会改变注解。 当你将来对此对象执行 kubectl apply 时，会用到该参数。
   -a, --show-all                             打印时，显示所有资源。（默认隐藏已终止的 pod）
       --show-labels                          打印时，将所有标签显示在最后一列。 (默认隐藏标签列）
