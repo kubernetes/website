@@ -19,12 +19,16 @@ Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extensi
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{< note >}}
-There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA.
+There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA. 
+
+{{< caution >}}
+Reusing the same CA for different client types can negatively impact the cluster's ability to function. For more information, see ["CA Reusage and Conflicts"][ca-reusage-and-conflicts].
+{{< /caution >}}
 {{< /note >}}
 
 {{% /capture %}}
 
-{{% capture authflow %}}
+{{% capture steps %}}
 
 ## Authentication Flow
 
@@ -182,10 +186,6 @@ In order for the extension apiserver to be authorized itself to submit the `Subj
 If the `SubjectAccessReview` passes, the extension apiserver executes the request.
 
 
-{{% /capture %}}
-
-{{% capture steps %}}
-
 ## Enable Kubernetes Apiserver flags
 
 Enable the aggregation layer via the following `kube-apiserver` flags. They may have already been taken care of by your provider.
@@ -197,6 +197,22 @@ Enable the aggregation layer via the following `kube-apiserver` flags. They may 
     --requestheader-username-headers=X-Remote-User
     --proxy-client-cert-file=<path to aggregator proxy cert>
     --proxy-client-key-file=<path to aggregator proxy key>
+
+### CA Reusage and Conflicts
+
+The Kubernetes apiserver has two client CA options:
+
+* `--client-ca-file`
+* `--requestheader-client-ca-file`
+
+Each of these functions independently and can conflict with each other, if not used correctly.
+
+* `--client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file referenced by `--client-ca-file`, then the request is treated as a legitimate request, and the user is the value of the common name `CN=`, while the group is the organization `O=`. See the [documentaton on TLS authentication](/docs/reference/access-authn-authz/authentication/#x509-client-certs).
+* `--requestheader-client-ca-file`: When a request arrives to the Kubernetes apiserver, if this option is enabled, the Kubernetes apiserver checks the certificate of the request. If it is signed by one of the CA certificates in the file reference by `--requestheader-client-ca-file`, then the request is treated as a potentially legitimate request. The Kubernetes apiserver then checks if the common name `CN=` is one of the names in the list provided by `--requestheader-allowed-names`. If the name is allowed, the request is approved; if it is not, the request is not.
+
+If _both_ `--client-ca-file` and `--requestheader-client-ca-file` are provided, then the request first checks the `--requestheader-client-ca-file` CA and then the `--client-ca-file`. Normally, different CAs, either root CAs or intermediate CAs, are used for each of these options; regular client requests match against `--client-ca-file`, while aggregation requests match against `--requestheader-client-ca-file`. However, if both use the _same_ CA, then client requests that normally would pass via `--client-ca-file` will fail, because the CA will match the CA in `--requestheader-client-ca-file`, but the common name `CN=` will **not** match one of the acceptable common names in `--requestheader-allowed-names`. This can cause your kubelets and other control plane components, as well as end-users, to be unable to authenticate to the Kubernetes apiserver.
+
+For this reason, use different CA certs for the `--client-ca-file` option - to authorize control plane components and end-users - and the `--requestheader-client-ca-file` option - to authorize aggregation apiserver requests.
 
 {{< warning >}}
 Do **not** reuse a CA that is used in a different context unless you understand the risks and the mechanisms to protect the CA's usage.
