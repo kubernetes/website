@@ -19,7 +19,7 @@ title: v1.12 Release Notes
 
 <!-- BEGIN MUNGE: GENERATED_TOC -->
 - [v1.12.0-rc.2](#v1120-rc2)
-  - [下载 for v1.12.0-rc.2](#downloads-for-v1120-rc2)
+  - [下载 v1.12.0-rc.2](#downloads-for-v1120-rc2)
     - [客户端二进制文件](#client-binaries)
     - [服务器二进制文件](#server-binaries)
     - [节点的二进制文件](#node-binaries)
