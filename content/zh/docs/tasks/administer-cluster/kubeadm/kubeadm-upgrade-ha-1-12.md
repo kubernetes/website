@@ -4,7 +4,7 @@ reviewers:
 - luxas
 - timothysc
 - jbeda
-title: 将 kubeadm 高可用群集从 v1.11 升级到 v1.12
+title: 将 kubeadm 高可用集群从 v1.11 升级到 v1.12
 content_template: templates/task
 ---
 
@@ -25,7 +25,7 @@ content_template: templates/task
 <!--
 This page explains how to upgrade a highly available (HA) Kubernetes cluster created with `kubeadm` from version 1.11.x to version 1.12.x. In addition to upgrading, you must also follow the instructions in [Creating HA clusters with kubeadm](/docs/setup/independent/high-availability/).
 -->
-本页面解释如何从 1.11.x 版本升级使用 `kubeadm` 创建的高可用性（HA） Kubernetes 集群。到版本 1.12.x。除了升级，您还必须遵循[使用 kubeadm 创建 HA 集群](/docs/setup/independent/high-availability/)。
+本页面解释如何从 1.11.x 版本升级使用 `kubeadm` 创建的高可用性（HA） Kubernetes 集群到版本 1.12.x。除了升级，您还必须遵循[使用 kubeadm 创建 HA 集群](/docs/setup/independent/high-availability/)。
 
 {{% /capture %}}
 
@@ -43,7 +43,7 @@ Before proceeding:
 - Check the prerequisites for [Upgrading/downgrading kubeadm clusters between v1.11 to v1.12](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/).
 -->
 
-- 您需要 kubeadm 运行 1.11 或更高版本的高可用群集。
+- 您需要 kubeadm 运行 1.11 或更高版本的高可用集群。
 - 请务必仔细阅读[发行说明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md)。
 - 确保备份所有重要组件，比如存储在数据库中的应用程序级状态。`kubeadm upgrade` 不涉及您的工作负载，只涉及 Kubernetes 内部的组件，但备份始终是最佳实践。
 - 检查[在 v1.11 到 v1.12 之间升级/降级 kubeadm 集群](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/) 的条件。
