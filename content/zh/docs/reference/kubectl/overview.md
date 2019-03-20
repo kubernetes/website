@@ -40,7 +40,7 @@ Kubectl 是一个命令行接口，用于运行 Kubernetes 集群运行命令。
 <!--
 Use the following syntax to run `kubectl` commands from your terminal window:
 -->
-使用以下语法 `kubectl` 从终端窗口运行命令：
+使用以下命令 `kubectl` 从终端窗口运行命令：
 
 ```shell
 kubectl [command] [TYPE] [NAME] [flags]
