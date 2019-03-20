@@ -261,7 +261,7 @@ filename | sha256 hash
 filename | sha256 hash
 -->
 
-文件名   | sha256 哈希值
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-client-darwin-386.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-client-darwin-386.tar.gz) | `7b6f6f264464d40b7975baecdd796d4f75c5a305999b4ae1f4513646184cac7c`
 [kubernetes-client-darwin-amd64.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-client-darwin-amd64.tar.gz) | `5feabe3e616125a36ce4c8021d6bdccdec0f3d82f151b80af7cac1453255b4d5`
@@ -280,56 +280,11 @@ filename | sha256 hash
 
 ### 服务器二进制文件
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--
 filename | sha256 hash
+-->
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-server-linux-amd64.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-server-linux-amd64.tar.gz) | `202958d3cfb774fd065ad1ec2477dc9c92ce7f0ff355807c9a2a3a61e8dad927`
 [kubernetes-server-linux-arm.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-server-linux-arm.tar.gz) | `474de8f6a58d51eb01f6cc73b41897351528a839f818d5c4f828a484f8bc988b`
@@ -337,9 +292,15 @@ filename | sha256 hash
 [kubernetes-server-linux-ppc64le.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-server-linux-ppc64le.tar.gz) | `a62fefa8ad7b3fbfeb7702dac7d4d6f37823b6c3e4edae3356bf0781b48e42e1`
 [kubernetes-server-linux-s390x.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-server-linux-s390x.tar.gz) | `0f77690f87503c8ee7ccb473c9d2b9d26420292defd82249509cf50d8bb1a16c`
 
+<!--
 ### Node Binaries
 
 filename | sha256 hash
+-->
+
+### 节点二进制文件
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-node-linux-amd64.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-node-linux-amd64.tar.gz) | `2191845147d5aab08f14312867f86078b513b6aff8685bb8ce84a06b78ae9914`
 [kubernetes-node-linux-arm.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-node-linux-arm.tar.gz) | `54de98d7d2a71b78bc7a45e70a2005144d210401663f5a9daadedd05f89291f0`
@@ -348,13 +309,25 @@ filename | sha256 hash
 [kubernetes-node-linux-s390x.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-node-linux-s390x.tar.gz) | `7d4f502eda6aa70b7a18420344abfaec740d74a1edffcb9869e4305c22bba260`
 [kubernetes-node-windows-amd64.tar.gz](https://dl.k8s.io/v1.12.0-rc.1/kubernetes-node-windows-amd64.tar.gz) | `ed5516b1f66a39592a101bec135022b3905a66ae526b8ed3e2e9dff5ed68eda0`
 
+<!--
 ## Changelog since v1.12.0-beta.2
 
 ### Action Required
+-->
 
+## 自更新日志以来 v1.12.0-beta.2
+
+### 功能要求
+
+<!--
 * Service events are now added in azure-cloud-provider for easily identify the underground errors of Azure API. ([#68212](https://github.com/kubernetes/kubernetes/pull/68212), [@feiskyer](https://github.com/feiskyer))
    * Action required: The following clusterrole and clusterrolebinding should be applied:
-   
+-->
+
+* 服务事件现在被添加到 azure-cloud-provider 中，以方便识别 Azure API 的错误。 ([#68212](https://github.com/kubernetes/kubernetes/pull/68212), [@feiskyer](https://github.com/feiskyer))
+   * 需要采取的措施：应该应用以下 clusterrole 和 clusterrolebinding：
+
+
    ```yaml
    kind: List
    apiVersion: v1
@@ -388,7 +361,11 @@ filename | sha256 hash
        namespace: kube-system
    ```
 
+<!--
    * If the clusterrole with same has already been provisioned (e.g. for accessing azurefile secrets), then the above yaml should be merged together, e.g.
+-->
+   * 如果已经提供了具有相同功能的 clusterrole（例如用于访问 azurefile secret)，那么应该将上面的 yaml 合并在一起，例如。
+
 
    ```yaml
    kind: List
@@ -431,18 +408,41 @@ filename | sha256 hash
        namespace: kube-system
    ```
 
+<!--
 ### Other notable changes
+-->
 
+### 其他值得注意的变化
+
+<!--
 * Update metrics-server to v0.3.1 ([#68746](https://github.com/kubernetes/kubernetes/pull/68746), [@DirectXMan12](https://github.com/DirectXMan12))
 * Upgrade kubeadm's version of docker support ([#68495](https://github.com/kubernetes/kubernetes/pull/68495), [@yuansisi](https://github.com/yuansisi))
 * fix a bug that overwhelming number of prometheus metrics are generated because $NAMESPACE is not replaced by string "{namespace}" ([#68530](https://github.com/kubernetes/kubernetes/pull/68530), [@wenjiaswe](https://github.com/wenjiaswe))
 * The feature gates `ReadOnlyAPIDataVolumes` and `ServiceProxyAllowExternalIPs`, deprecated since 1.10, have been removed and any references must be removed from command-line invocations. ([#67951](https://github.com/kubernetes/kubernetes/pull/67951), [@liggitt](https://github.com/liggitt))
 * Verify invalid secret/configmap/projected volumes before calling setup ([#68691](https://github.com/kubernetes/kubernetes/pull/68691), [@gnufied](https://github.com/gnufied))
+-->
+
+* 将 metrics-server 更新为v0.3.1 ([#68746](https://github.com/kubernetes/kubernetes/pull/68746), [@DirectXMan12](https://github.com/DirectXMan12))
+* 升级 kubeadm 版本的 docker 支持 ([#68495](https://github.com/kubernetes/kubernetes/pull/68495), [@yuansisi](https://github.com/yuansisi))
+* 修复一个错误，因为 $NAMESPACE 没有被字符串 "{namespace}" 替换，所以生成了大量的 prometheus 指标。 ([#68530](https://github.com/kubernetes/kubernetes/pull/68530), [@wenjiaswe](https://github.com/wenjiaswe))
+* 特性 gates `ReadOnlyAPIDataVolumes` 和 `ServiceProxyAllowExternalIPs` 已经被删除，而且必须从命令行调用中删除任何引用。 ([#67951](https://github.com/kubernetes/kubernetes/pull/67951), [@liggitt](https://github.com/liggitt))
+* 在调用设置之前，验证无效的 secret/configmap/projected 卷 ([#68691](https://github.com/kubernetes/kubernetes/pull/68691), [@gnufied](https://github.com/gnufied))
+
+<!--
 * Fix bug that caused `kubectl` commands to sometimes fail to refresh access token when running against GKE clusters. ([#66314](https://github.com/kubernetes/kubernetes/pull/66314), [@jlowdermilk](https://github.com/jlowdermilk))
 * Use KubeDNS by default in GCE setups, as CoreDNS has significantly higher memory usage in large clusters. ([#68629](https://github.com/kubernetes/kubernetes/pull/68629), [@shyamjvs](https://github.com/shyamjvs))
 * Fix PodAntiAffinity issues in case of multiple affinityTerms. ([#68173](https://github.com/kubernetes/kubernetes/pull/68173), [@Huang-Wei](https://github.com/Huang-Wei))
 * Make APIGroup field in TypedLocalObjectReference optional. ([#68419](https://github.com/kubernetes/kubernetes/pull/68419), [@xing-yang](https://github.com/xing-yang))
 * Fix potential panic when getting azure load balancer status ([#68609](https://github.com/kubernetes/kubernetes/pull/68609), [@feiskyer](https://github.com/feiskyer))
+-->
+
+* 修复了 kubectl 在针对 GKE 集群运行时导致命令有时无法刷新访问令牌的错误。 ([#66314](https://github.com/kubernetes/kubernetes/pull/66314), [@jlowdermilk](https://github.com/jlowdermilk))
+* 默认情况下，在 GCE 设置中使用 KubeDNS，因为 CoreDNS 在大型群集中具有显着更高的内存使用率。 ([#68629](https://github.com/kubernetes/kubernetes/pull/68629), [@shyamjvs](https://github.com/shyamjvs))
+* 在多个 affinityTerms 的情况下修复 PodAntiAffinity 问题。([#68173](https://github.com/kubernetes/kubernetes/pull/68173), [@Huang-Wei](https://github.com/Huang-Wei))
+* 使 TypedLocalObjectReference 中的 APIGroup 字段可选。 ([#68419](https://github.com/kubernetes/kubernetes/pull/68419), [@xing-yang](https://github.com/xing-yang))
+* 修复获取 azure 负载均衡器状态时的潜在恐慌 ([#68609](https://github.com/kubernetes/kubernetes/pull/68609), [@feiskyer](https://github.com/feiskyer))
+
+<!--
 * Fix kubelet panics when RuntimeClass is enabled. ([#68521](https://github.com/kubernetes/kubernetes/pull/68521), [@yujuhong](https://github.com/yujuhong))
 * - cAdvisor: Fix NVML initialization race condition ([#68431](https://github.com/kubernetes/kubernetes/pull/68431), [@dashpole](https://github.com/dashpole))
     * - cAdvisor: Fix brtfs filesystem discovery
@@ -451,23 +451,50 @@ filename | sha256 hash
     * - cAdvisor: Reduce lock contention during list containers
 * Promote ScheduleDaemonSetPods by default scheduler to beta ([#67899](https://github.com/kubernetes/kubernetes/pull/67899), [@ravisantoshgudimetla](https://github.com/ravisantoshgudimetla))
 
+-->
+
+* 启用 RuntimeClass 时修复 kubelet panics。 ([#68521](https://github.com/kubernetes/kubernetes/pull/68521), [@yujuhong](https://github.com/yujuhong))
+* - cAdvisor: 修复 NVML 初始化竞争条件 ([#68431](https://github.com/kubernetes/kubernetes/pull/68431), [@dashpole](https://github.com/dashpole))
+    * - cAdvisor: 修复 brtfs 文件系统发现
+    * - cAdvisor: 修复 AllDockerContainers 的竞态条件
+    * - cAdvisor: 不要监听，挂载 cgroups
+    * - cAdvisor: 减少列表容器期间的锁争用
+* 将 ScheduleDaemonSetPods 默认调度器提升到 beta ([#67899](https://github.com/kubernetes/kubernetes/pull/67899), [@ravisantoshgudimetla](https://github.com/ravisantoshgudimetla))
+
 
 
 # v1.12.0-beta.2
 
+<!
 [Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
 
 ## Downloads for v1.12.0-beta.2
+-->
 
+[文档](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
 
+## 下载 v1.12.0-beta.2
+
+<!--
 filename | sha256 hash
+-->
+
+
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes.tar.gz) | `7163d18b9c1bd98ce804b17469ed67b399deb7b574dd12a86609fc647c5c773b`
 [kubernetes-src.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-src.tar.gz) | `6225b71b2dec0f29afb713e64d2b6b82bd0e122274c31310c0de19ef023cb1d0`
 
+<!--
 ### Client Binaries
 
 filename | sha256 hash
+-->
+
+### 客户端二进制文件
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-client-darwin-386.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-client-darwin-386.tar.gz) | `f2ec9799e47c28fce336bc90a6e9b4e47def7081fd73b8e2164940f0a6c824c7`
 [kubernetes-client-darwin-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-client-darwin-amd64.tar.gz) | `0e8cfcbe5ec862423ced97da1d9740d4cc4904a0d5cd11a60616aee596bc7622`
@@ -480,9 +507,15 @@ filename | sha256 hash
 [kubernetes-client-windows-386.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-client-windows-386.tar.gz) | `2395051c8cbd0a995b5f3689c0f8c0447bcc1c46440d8cdeffd7c7fccf8e8ae1`
 [kubernetes-client-windows-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-client-windows-amd64.tar.gz) | `c6a38ee6eda20656b391ecfcc1f24505eb8a3a5a3200d4bddede318291773619`
 
+<!--
 ### Server Binaries
 
 filename | sha256 hash
+-->
+
+### 服务器二进制
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-server-linux-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-server-linux-amd64.tar.gz) | `795c713a91118218f5952e1bd4cf0933f36476aa3d9d60a9ee43c9bae8400fd3`
 [kubernetes-server-linux-arm.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-server-linux-arm.tar.gz) | `1798d48a37b8f06878e0ecb8d9b67d0fb5c8ee721608412add57725eb5ce5f1e`
@@ -490,9 +523,15 @@ filename | sha256 hash
 [kubernetes-server-linux-ppc64le.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-server-linux-ppc64le.tar.gz) | `7fd1c2ba0c2c9da5db54f8d0aed28261f03e9953ce01fa367e4ce3d84bf01b4f`
 [kubernetes-server-linux-s390x.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-server-linux-s390x.tar.gz) | `c9fafb009d7e5da74f588aaa935244c452de52b9488863b90e8b477b1bb16e52`
 
+<!--
 ### Node Binaries
 
 filename | sha256 hash
+-->
+
+### 节点二进制文件
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-node-linux-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-node-linux-amd64.tar.gz) | `ab901137b499829b20b868492d04c1f69d738620b96eb349c642d6d773c44448`
 [kubernetes-node-linux-arm.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-node-linux-arm.tar.gz) | `116dd82721f200f3f37df0e47aebb611fdd7856f94d4c2ebb1d51db21b793a9c`
@@ -501,14 +540,29 @@ filename | sha256 hash
 [kubernetes-node-linux-s390x.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-node-linux-s390x.tar.gz) | `688e09becc9327e50c68b33161eac63a8ba018c02fb298cbd0de82d6ed5dba90`
 [kubernetes-node-windows-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.2/kubernetes-node-windows-amd64.tar.gz) | `b72582f67d19c06f605ca9b02c08b7227796c15c639e3c09b06a8b667c4569fe`
 
+<!--
 ## Changelog since v1.12.0-beta.1
 
 ### Action Required
+-->
 
+## 自更新日志以来 v1.12.0-beta.1
+
+### 功能要求
+
+<!--
 * Action required: The --storage-versions flag of kube-apiserver is deprecated. Please omit this flag to ensure the default storage versions are used. Otherwise the cluster is not safe to upgrade to a version newer than 1.12. This flag will be removed in 1.13. ([#68080](https://github.com/kubernetes/kubernetes/pull/68080), [@caesarxuchao](https://github.com/caesarxuchao))
+-->
+* 功能要求：不推荐使用 kube-apiserver 的 --storage-versions 参数。请省略此参数以确保使用默认存储版本。否则，集群升级到比 1.12 更新的版本是不安全的。这个参数将在 1.13 中移除。 ([#68080](https://github.com/kubernetes/kubernetes/pull/68080), [@caesarxuchao](https://github.com/caesarxuchao))
 
+
+<!--
 ### Other notable changes
+-->
 
+### 其他值得注意的变化
+
+<!--
 * kubeadm: add mandatory "--config" flag to "kubeadm alpha phase preflight" ([#68446](https://github.com/kubernetes/kubernetes/pull/68446), [@neolit123](https://github.com/neolit123))
 * Apply user configurations for local etcd ([#68334](https://github.com/kubernetes/kubernetes/pull/68334), [@SataQiu](https://github.com/SataQiu))
 * kubeadm: added phase command "alpha phase kubelet config annotate-cri" ([#68449](https://github.com/kubernetes/kubernetes/pull/68449), [@fabriziopandini](https://github.com/fabriziopandini))
@@ -516,6 +570,17 @@ filename | sha256 hash
     *  `node.kubernetes.io/network-unavailable` automatically to DaemonSet pods.
 * Deprecate cloudstack and ovirt controllers ([#68199](https://github.com/kubernetes/kubernetes/pull/68199), [@dims](https://github.com/dims))
 * add missing LastTransitionTime of ContainerReady condition ([#64867](https://github.com/kubernetes/kubernetes/pull/64867), [@dixudx](https://github.com/dixudx))
+-->
+
+* kubeadm：在 "kubeadm alpha phase preflight" 中添加强制的 "--config" 参数 ([#68446](https://github.com/kubernetes/kubernetes/pull/68446), [@neolit123](https://github.com/neolit123))
+* 为本地 etcd 应用用户配置 ([#68334](https://github.com/kubernetes/kubernetes/pull/68334), [@SataQiu](https://github.com/SataQiu))
+* kubeadm：添加阶段命令 "alpha phase kubelet config annotate-cri" ([#68449](https://github.com/kubernetes/kubernetes/pull/68449), [@fabriziopandini](https://github.com/fabriziopandini))
+* 如果 `TaintNodesByCondition` 已启动，请添加 `node.kubernetes.io/unschedulable` 和 ([#64954](https://github.com/kubernetes/kubernetes/pull/64954), [@k82cn](https://github.com/k82cn))
+    *  `node.kubernetes.io/network-unavailable` 自动到 DaemonSet pod
+* 弃用 cloudstack 和 ovirt 控制器 ([#68199](https://github.com/kubernetes/kubernetes/pull/68199), [@dims](https://github.com/dims))
+* 添加缺少容器就绪状态的 LastTransitionTime ([#64867](https://github.com/kubernetes/kubernetes/pull/64867), [@dixudx](https://github.com/dixudx))
+
+<!--
 * kube-controller-manager: use informer cache instead of active pod gets in HPA controller ([#68241](https://github.com/kubernetes/kubernetes/pull/68241), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
 * Support NodeShutdown taint for azure ([#68033](https://github.com/kubernetes/kubernetes/pull/68033), [@yastij](https://github.com/yastij))
 * Registers volume topology information reported by a node-level Container Storage Interface (CSI) driver. This enables Kubernetes support of CSI topology mechanisms. ([#67684](https://github.com/kubernetes/kubernetes/pull/67684), [@verult](https://github.com/verult))
@@ -524,6 +589,18 @@ filename | sha256 hash
 * Bump addon-manager to v8.7 ([#68299](https://github.com/kubernetes/kubernetes/pull/68299), [@MrHohn](https://github.com/MrHohn))
     * - Support extra `--prune-whitelist` resources in kube-addon-manager.
     * - Update kubectl to v1.10.7.
+-->
+
+* kube-controller-manager：在 HPA 控制器中使用 informer cache 而不是 active pod ([#68241](https://github.com/kubernetes/kubernetes/pull/68241), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
+* 支持 NodeShutdown 污染 azure ([#68033](https://github.com/kubernetes/kubernetes/pull/68033), [@yastij](https://github.com/yastij))
+* 注册由节点级容器存储接口（CSI）驱动程序报告的卷拓扑信息。这使得 Kubernetes 支持 CSI 拓扑机制。 ([#67684](https://github.com/kubernetes/kubernetes/pull/67684), [@verult](https://github.com/verult))
+* 对于 kubernetes 1.12，将默认的 etcd 服务器更新为 3.2.24 ([#68318](https://github.com/kubernetes/kubernetes/pull/68318), [@timothysc](https://github.com/timothysc))
+* 现在，只要所有必需的证书都已经存在，外部 CA 就可以仅使用一个证书用于 kubeadm。 ([#68296](https://github.com/kubernetes/kubernetes/pull/68296), [@liztio](https://github.com/liztio))
+* 将 addon-manager 提升到 v8.7 ([#68299](https://github.com/kubernetes/kubernetes/pull/68299), [@MrHohn](https://github.com/MrHohn))
+    * - 在 kube-addon-manager 中支持额外的 `--prune-whitelist` 资源。
+    * - 将 kubectl 更新为 v1.10.7。
+
+<!--
 * Let service controller retry creating load balancer when persistUpdate failed due to conflict. ([#68087](https://github.com/kubernetes/kubernetes/pull/68087), [@grayluck](https://github.com/grayluck))
 * Kubelet now only sync iptables on Linux. ([#67690](https://github.com/kubernetes/kubernetes/pull/67690), [@feiskyer](https://github.com/feiskyer))
 * CSI NodePublish call can optionally contain information about the pod that requested the CSI volume. ([#67945](https://github.com/kubernetes/kubernetes/pull/67945), [@jsafrane](https://github.com/jsafrane))
@@ -531,6 +608,17 @@ filename | sha256 hash
 * cluster/gce: generate consistent key sizes in config-default.sh using /dev/urandom instead of /dev/random   ([#67139](https://github.com/kubernetes/kubernetes/pull/67139), [@yogi-sagar](https://github.com/yogi-sagar))
 * Add support for volume attach limits for CSI volumes ([#67731](https://github.com/kubernetes/kubernetes/pull/67731), [@gnufied](https://github.com/gnufied))
 * CSI volume plugin does not need external attacher for non-attachable CSI volumes. ([#67955](https://github.com/kubernetes/kubernetes/pull/67955), [@jsafrane](https://github.com/jsafrane))
+-->
+
+* 当 persistUpdate 因冲突而失败时，让服务控制器重试创建负载均衡器。 ([#68087](https://github.com/kubernetes/kubernetes/pull/68087), [@grayluck](https://github.com/grayluck))
+* Kubelet 现在只在 Linux 上同步 iptables。 ([#67690](https://github.com/kubernetes/kubernetes/pull/67690), [@feiskyer](https://github.com/feiskyer))
+* CSI NodePublish 调用可以选择性地包含请求 CSI 卷的 pod 信息。 ([#67945](https://github.com/kubernetes/kubernetes/pull/67945), [@jsafrane](https://github.com/jsafrane))
+* [e2e] 在创建新的 pod 之前，验证 LimitRange 更新是有效的 ([#68171](https://github.com/kubernetes/kubernetes/pull/68171), [@dixudx](https://github.com/dixudx))
+* cluster/gce：使用 /dev/urandom 而不是 /dev/random 在 config-default.sh 中生成一致的密钥大小 ([#67139](https://github.com/kubernetes/kubernetes/pull/67139), [@yogi-sagar](https://github.com/yogi-sagar))
+* 添加对 CSI 卷的卷附加限制的支持 ([#67731](https://github.com/kubernetes/kubernetes/pull/67731), [@gnufied](https://github.com/gnufied))
+* 对于不可连接的 CSI 卷，CSI 卷插件不需要外部附加器。 ([#67955](https://github.com/kubernetes/kubernetes/pull/67955), [@jsafrane](https://github.com/jsafrane))
+
+<!--
 * KubeletPluginsWatcher feature graduates to beta. ([#68200](https://github.com/kubernetes/kubernetes/pull/68200), [@RenaudWasTaken](https://github.com/RenaudWasTaken))
 * Update etcd client to 3.2.24 for latest release ([#68147](https://github.com/kubernetes/kubernetes/pull/68147), [@timothysc](https://github.com/timothysc))
 * [fluentd-gcp-scaler addon] Bump fluentd-gcp-scaler to 0.4 to pick up security fixes. ([#67691](https://github.com/kubernetes/kubernetes/pull/67691), [@loburm](https://github.com/loburm))
@@ -540,24 +628,51 @@ filename | sha256 hash
 * Kubelet only applies default hard evictions of nodefs.inodesFree on Linux ([#67709](https://github.com/kubernetes/kubernetes/pull/67709), [@feiskyer](https://github.com/feiskyer))
 * Add kubelet stats for windows system container "pods" ([#66427](https://github.com/kubernetes/kubernetes/pull/66427), [@feiskyer](https://github.com/feiskyer))
 * Add a TTL machenism to clean up Jobs after they finish. ([#66840](https://github.com/kubernetes/kubernetes/pull/66840), [@janetkuo](https://github.com/janetkuo))
+-->
+
+* KubeletPluginsWatcher 特性从 beta 版毕业。 ([#68200](https://github.com/kubernetes/kubernetes/pull/68200), [@RenaudWasTaken](https://github.com/RenaudWasTaken))
+* 更新 etcd 客户端到 3.2.24 的最新版本 ([#68147](https://github.com/kubernetes/kubernetes/pull/68147), [@timothysc](https://github.com/timothysc))
+* [fluentd-gcp-scaler addon] 将 fluentd-gcp-scaler 提升到 0.4 以修复安全问题。 ([#67691](https://github.com/kubernetes/kubernetes/pull/67691), [@loburm](https://github.com/loburm))
+    * [prometheus-to-sd 插件]将 prometheus-to-sd 升级到 0.3.1 获取安全修复程序，错误修复和新功能。
+    * [event-exporter 差劲] 将事件导出程序提升到 0.2.3 修复安全问题。
+* 修复了使用本地 PV 时 pod 调度可能失败的问题以及没有默认 StatefulSet OrderedReady pod 管理策略的 pod 亲和性和反关联性 ([#67556](https://github.com/kubernetes/kubernetes/pull/67556), [@msau42](https://github.com/msau42))
+* Kubelet 仅在 Linux 上应用 nodefs.inodesFree 默认硬驱逐节点 ([#67709](https://github.com/kubernetes/kubernetes/pull/67709), [@feiskyer](https://github.com/feiskyer))
+* 为 Windows 系统容器 "pod" 添加 kubelet 统计信息 ([#66427](https://github.com/kubernetes/kubernetes/pull/66427), [@feiskyer](https://github.com/feiskyer))
+* 添加 TTL 机制在完成后清理 Jobs。([#66840](https://github.com/kubernetes/kubernetes/pull/66840), [@janetkuo](https://github.com/janetkuo))
 
 
-
+<!--
 # v1.12.0-beta.1
 
 [Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
 
 ## Downloads for v1.12.0-beta.1
+-->
 
+# v1.12.0-beta.1
 
+[文档](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+
+## 下载 v1.12.0-beta.1
+
+<!--
 filename | sha256 hash
+-->
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes.tar.gz) | `caa332b14a6ea9d24710e3b015a91b62c04cab14bed14c49077e08bd82b8f4c1`
 [kubernetes-src.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-src.tar.gz) | `821bdea3a52a348306fa8226bcfffa67b375cf1dd80e4be343ce0b38dd20a9a0`
 
+<!--
 ### Client Binaries
 
 filename | sha256 hash
+-->
+
+### 客户端二进制文件
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-client-darwin-386.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-client-darwin-386.tar.gz) | `58323c0a81afe53dd0dda1c6eb513caa4c82514fb6c7f0a327242e573ce80490`
 [kubernetes-client-darwin-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-client-darwin-amd64.tar.gz) | `28e9344ede16890ea7848c261e461ded89c3bb2dd5b08446da04b071b48f0b02`
@@ -570,9 +685,15 @@ filename | sha256 hash
 [kubernetes-client-windows-386.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-client-windows-386.tar.gz) | `8b0085606ff38bded362bbe4826b5c8ee5199a33d5cbbc1b9b58f1336648ad5b`
 [kubernetes-client-windows-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-client-windows-amd64.tar.gz) | `f44a3ec55dc7d926e681c33b5f7830c6d1cb165e24e349e426c1089b2d05a1df`
 
+<!--
 ### Server Binaries
 
 filename | sha256 hash
+-->
+
+### 服务器二进制文件
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-server-linux-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-server-linux-amd64.tar.gz) | `1bf7364aa168fc251768bc850d66fef1d93f324f0ec85f6dce74080627599b70`
 [kubernetes-server-linux-arm.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-server-linux-arm.tar.gz) | `dadc94fc0564cfa98add5287763bbe9c33bf8ba3eebad95fb2258c33fe8c5df3`
@@ -580,9 +701,15 @@ filename | sha256 hash
 [kubernetes-server-linux-ppc64le.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-server-linux-ppc64le.tar.gz) | `ced4a0a4e03639378eff0d3b8bfb832f5fb96be8df3e0befbdbd71373a323130`
 [kubernetes-server-linux-s390x.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-server-linux-s390x.tar.gz) | `7e1a3fac2115c15b5baa0db04c7f319fbaaca92aa4c4588ecf62fb19812465a8`
 
+<!--
 ### Node Binaries
 
 filename | sha256 hash
+-->
+
+### 节点的二进制文件
+
+文件名    | sha256 哈希值
 -------- | -----------
 [kubernetes-node-linux-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-node-linux-amd64.tar.gz) | `81d2e2f4cd3254dd345c1e921b12bff62eb96e7551336c44fb0da5407bf5fe5f`
 [kubernetes-node-linux-arm.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-node-linux-arm.tar.gz) | `b14734a20190aca2b2af9cee59549d285be4f0c38faf89c5308c94534110edc1`
@@ -591,9 +718,40 @@ filename | sha256 hash
 [kubernetes-node-linux-s390x.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-node-linux-s390x.tar.gz) | `0fc7d55fb2750b29c0bbc36da050c8bf14508b1aa40e38e3b7f6cf311b464827`
 [kubernetes-node-windows-amd64.tar.gz](https://dl.k8s.io/v1.12.0-beta.1/kubernetes-node-windows-amd64.tar.gz) | `09bf133156b9bc474d272bf16e765b143439959a1f007283c477e7999f2b4d6a`
 
+<!--
 ## Changelog since v1.12.0-alpha.1
 
 ### Action Required
+-->
+
+## 自更新日志以来 v1.12.0-beta.1
+
+### 功能要求
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 * Move volume dynamic provisioning scheduling to beta (ACTION REQUIRED: The DynamicProvisioningScheduling alpha feature gate has been removed. The VolumeScheduling beta feature gate is still required for this feature) ([#67432](https://github.com/kubernetes/kubernetes/pull/67432), [@lichuqiang](https://github.com/lichuqiang))
 
