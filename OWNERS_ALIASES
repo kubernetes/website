@@ -1,68 +1,4 @@
 aliases:
-  sig-api-machinery: #Team: API Server; GH: sig-api-machinery-pr-reviews; e.g. Annotations, Labels
-    - lavalamp
-    - sttts
-    - liggitt
-    - smarterclayton
-    - deads2k
-  sig-apps: #Team: Workloads; GH: sig-apps-pr-reviews; e.g. ConfigMaps, CronJobs, CustomResourceDefinitions, DaemonSets, Deployments, Jobs, Secrets, StatefulSets
-    - enisoc
-    - erictune
-    - foxish
-    - janetkuo
-    - kow3ns
-    - lukaszo
-    - mfojtik
-    - smarterclayton
-    - soltysh
-    - tnozicka
-  sig-architecture: #GH: sig-architecture-pr-reviews
-    - smarterclayton
-    - bgrant0607
-  sig-auth: #GH: sig-auth-pr-reviews
-    - php-coder
-    - liggitt
-    - mikedanese
-    - ericchiang
-    - mattmoyer
-    - enj
-    - deads2k
-    - davidopp
-  sig-autoscaling: #GH: sig-autoscaling-pr-reviews
-    - DirectXMan12
-    - bskiba
-    - aleksandra-malinowska
-    - MaciekPytel
-    - davidopp
-    - mwielgus
-  sig-aws: #Amazon AWS
-    - justinsb
-    - kris-nova
-    - chrislovecnm
-    - mfburnett
-  sig-azure: #Microsoft Azure
-    - andyzhangx
-    - feiskyer
-    - justaugustus
-    - karataliu
-    - khenidak
-  sig-big-data: #GH: sig-big-data-pr-reviews
-    - foxish
-  sig-cli: #Team: CLI; GH: sig-cli-pr-reviews; e.g. kubectl
-    - adohe
-    - deads2k
-    - derekwaynecarr
-    - dims
-    - dshulyak
-    - eparis
-    - ericchiang
-    - ghodss
-    - mengqiy
-    - rootfs
-    - shiywang
-    - smarterclayton
-    - soltysh
-    - sttts
   sig-cluster-lifecycle-kubeadm-approvers: # Approving changes to kubeadm documentation
     - timothysc
     - lukemarsden
@@ -82,38 +18,7 @@ aliases:
     - chuckha
     - detiber
     - dixudx
-  sig-cluster-ops:
-    - zehicle
-    - jdumars
-  sig-contribex: #aka Contributor Experience; GH: sig-contributor-experience-pr-reviews
-    - rmmh
-    - cblecker
-    - apelisse
-    - grodrigues3
-    - spxtr
-  sig-contributor-experience: #GH: sig-contributor-experience-pr-reviews
-    - rmmh
-    - cblecker
-    - apelisse
-    - grodrigues3
-    - spxtr
-  sig-docs: #Team: documentation; GH: sig-docs-maintainers
-    - bradamant3
-    - bradtopol
-    - chenopis
-    - cody-clark
-    - jaredbhatti
-    - kbarnard10
-    - mistyhacks
-    - ryanmcginnis
-    - steveperry-53
-    - tengqm
-    - tfogo
-    - xiangpengzhao
-    - zacharysarah
-    - zhangxiaoyu-zidif
-    - zparnold
-  sig-docs-en-owners: #Team: Documentation; GH: sig-docs-en-owners
+  sig-docs-en-owners: # Admins for English content
     - bradamant3
     - bradtopol
     - chenopis
@@ -131,13 +36,13 @@ aliases:
     - zacharysarah
     - zhangxiaoyu-zidif
     - zparnold
-  sig-docs-en-reviews: #Team: Documentation; GH: sig-docs-pr-reviews
+  sig-docs-en-reviews: # PR reviews for English content
     - jimangel
     - rajakavitha1
     - stewart-yu
     - xiangpengzhao
     - zhangxiaoyu-zidif
-  sig-docs-fr-owners: #Team: Documentation; GH: sig-docs-fr-owners
+  sig-docs-fr-owners: # Admins for French content
     - sieben
     - perriea
     - rekcah78
@@ -150,7 +55,7 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
-  sig-docs-fr-reviews: #Team: Documentation; GH: sig-docs-fr-reviews
+  sig-docs-fr-reviews: # PR reviews for French content
     - sieben
     - perriea
     - rekcah78
@@ -163,35 +68,47 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
-  sig-docs-it-owners: #Team: Italian docs localization; GH: sig-docs-it-owners
+  sig-docs-it-owners: # Admins for Italian content
     - rlenferink
     - lledru
     - micheleberardi
-  sig-docs-it-reviews: #Team: Italian docs PR reviews; GH:sig-docs-it-reviews
+  sig-docs-it-reviews: # PR reviews for Italian content
     - rlenferink
     - lledru
     - micheleberardi
-  sig-docs-ja-owners: #Team: Japanese docs localization; GH: sig-docs-ja-owners
+  sig-docs-ja-owners: # Admins for Japanese content 
     - cstoku
     - nasa9084
     - tnir
     - zacharysarah
-  sig-docs-ja-reviews: #Team: Japanese docs PR reviews; GH:sig-docs-ja-reviews
+  sig-docs-ja-reviews: # PR reviews for Italian content 
     - cstoku
     - makocchi-git
     - MasayaAoyama
     - nasa9084
     - tnir
-  sig-docs-ko-owners: #Team Korean docs localization; GH: sig-docs-ko-owners
+  sig-docs-ko-owners: # Admins for Korean content
     - ClaudiaJKang
     - gochist
     - ianychoi
     - zacharysarah
-  sig-docs-ko-reviews: #Team Korean docs reviews; GH: sig-docs-ko-reviews
+  sig-docs-ko-reviews: # PR reviews for Korean content
     - ClaudiaJKang
     - gochist
     - ianychoi
-  sig-docs-zh-owners: #Team Chinese docs localization; GH: sig-docs-zh-owners
+  sig-docs-maintainers: # Website maintainers
+    - bradamant3
+    - chenopis
+    - jaredbhatti
+    - jimangel
+    - kbarnard10
+    - mistyhacks
+    - pwittrock
+    - steveperry-53
+    - tengqm
+    - zacharysarah
+    - zparnold
+  sig-docs-zh-owners: # Admins for Chinese content
     - bradtopol
     - chenopis
     - chenrui333
@@ -207,7 +124,7 @@ aliases:
     - xichengliudui
     - zacharysarah
     - zhangxiaoyu-zidif
-  sig-docs-zh-reviews: #Team Chinese docs reviews; GH: sig-docs-zh-reviews
+  sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
     - idealhack
     - markthink
@@ -217,114 +134,4 @@ aliases:
     - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
-  sig-federation: #Team: Federation; e.g. Federated Clusters
-    - csbell
-  sig-gcp: #Google Cloud Platform; GH: sig-gcp-pr-reviews
-    - abgworrall
-  sig-instrumentation: #GH: sig-instrumentation-pr-reviews; e.g. metrics, logging, events
-    - DirectXMan12
-    - x13n
-    - kawych
-    - brancz
-    - fabxc
-    - loburm
-    - piosz
-    - fgrzadkowski
-  sig-multicluster: #GH: sig-multicluster-pr-reviews; e.g. resiliency against availability zone outages; hybrid clouds; spanning multiple cloud providers; migration to public clouds
-    - madhusudancs
-    - marun
-    - jianhuiz
-    - shashidharatd
-    - nikhiljindal
-    - quinton-hoole
-    - mwielgus
-    - csbell
-  sig-network: #Team: Network; GH: sig-network-pr-reviews; e.g. Ingress, Network Policies, Services
-    - bowei
-    - caseydavenport
-    - danwinship
-    - dcbw
-    - dnardo
-    - freehan
-    - mrhohn
-    - nicksardo
-    - thockin
-  sig-node: #Team: Node; GH: sig-node-pr-reviews; e.g. Containers, Docker, Images, OS images, Pods, Registries
-    - Random-Liu
-    - dashpole
-    - dchen1107
-    - derekwaynecarr
-    - dims
-    - feiskyer
-    - mtaufen
-    - ncdc
-    - pmorie
-    - resouer
-    - sjpotter
-    - tallclair
-    - tmrts
-    - vishh
-    - yifan-gu
-    - yujuhong
-  sig-onprem: #On-premises; GH: sig-onprem-pr-reviews
-    - zen
-    - idvoretskyi
-    - pigmej
-    - feiskyer
-    - nebril
-  sig-openstack: #GH: sig-openstack-pr-reviews
-    - hogepodge
-    - dklyle
-    - rjmorse
-  sig-pm: #aka Product Management
-    - apsinha
-    - idvoretskyi
-    - calebamiles
-  sig-product-management:
-    - apsinha
-    - idvoretskyi
-    - calebamiles
-  sig-release: #GH: sig-release-pr-reviews
-    - calebamiles
-    - enisoc
-    - pwittrock
-  sig-rktnetes:
-    - calebamiles
-  sig-scalability: #GH: sig-scalability-pr-reviews
-    - jbeda
-    - spiffxp
-    - lavalamp
-    - countspongebob
-  sig-scheduling: #Team: Sharing; GH: sig-scheduling-pr-reviews; e.g. Scheduler
-    - bsalamat
-    - davidopp
-    - jayunit100
-    - k82cn
-    - resouer
-    - timothysc
-    - wojtek-t
-  sig-service-catalog: #GH: sig-service-catalog-pr-reviews; e.g. Service Broker
-    - pmorie
-    - jessfraz
-    - pwittrock
-    - droot
-    - seans3
-  sig-storage: #Team: Storage; GH: sig-storage-pr-reviews; e.g. Volumes
-    - childsb
-    - jsafrane
-    - rootfs
-    - saad-ali
-    - matchstick
-    - msau42
-  sig-testing: #GH: sig-testing-pr-reviews
-    - fejta
-    - ixdy
-    - rmmh
-    - spiffxp
-    - spxtr
-  sig-ui: #User Interface
-    - danielromlein
-    - floreks
-  sig-windows:
-    - michmike
-
+  
