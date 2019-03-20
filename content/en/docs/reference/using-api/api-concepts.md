@@ -363,6 +363,8 @@ The above object contains a single manager in `metadata.managedFields`. The mana
 
 {{< note >}} This field is managed by the apiserver and should not be changed by the user. {{< /note >}}
 
+Nevertheless it is possible to change `metadata.managedFields` through an `Update` operation. Doing so is highly discouraged, but might be a reasonable option to try if, for example, the `managedFields` get into an inconsistent state (which clearly should not happen).
+
 ### Operations
 
 The two operation types considered by this feature are `Apply` (`PATCH` with content type `application/apply-patch+yaml`) and `Update` (all other operations which modify the object). Both operations update the `managedFields`, but behave a little differently.
@@ -401,9 +403,13 @@ data:
 In this example, a second operation was run as an `Update` by the manager called `kube-controller-manager`. The update changed a value in the data field which caused the field's management to change to the `kube-controller-manager`.
 {{< note >}}If this update would have been an `Apply` operation, the operation would have failed due to conflicting ownership.{{< /note >}}
 
-### Merge Rules
+### Merge Strategy
 
-When a user sends a partially specified object to the Server Side Apply endpoint, the server merges it with the live object favoring the value in the applied config if it is specified twice. If the set of items present in the applied config is not a superset of the items applied by the same user last time, each missing item not managed by any other field manager is removed. For more information about how an object's schema is used to make decisions when merging, see [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
+Through the merging strategy implemented with Server Side Apply, it is intended to provide a generally more stable object lifecycle.
+Server Side Apply tries to merge fields based on the fact who manages them instead of overruling just based on values.
+This way it is intended to make it easier and more stable for multiple actors updating the same object by causing less unexpected interference.
+
+When a user sends a partially specified object to the Server Side Apply endpoint, the server merges it with the live object favoring the value in the applied config if it is specified in both places. If the set of items present in the applied config is not a superset of the items applied by the same user last time, each missing item not managed by any other field manager is removed. For more information about how an object's schema is used to make decisions when merging, see [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
 ### Conflicts
 
