@@ -1,6 +1,6 @@
 ---
 title: A Look Back and What's in Store for Kubernetes Contributor Summits
-date: 2019-03-14
+date: 2019-03-20
 ---
 
 **Authors:**
