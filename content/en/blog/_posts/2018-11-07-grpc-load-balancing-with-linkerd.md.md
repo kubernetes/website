@@ -85,9 +85,9 @@ application would have to watch the Kubernetes API and keep itself up to date
 with the pods.
 
 Alternatively, in Kubernetes, we could deploy our app as [headless
-services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services).
+services](/docs/concepts/services-networking/service/#headless-services).
 In this case, Kubernetes [will create multiple A
-records](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)
+records](/docs/concepts/services-networking/service/#headless-services)
 in the DNS entry for the service. If our gRPC client is sufficiently advanced,
 it can automatically maintain the load balancing pool from those DNS entries.
 But this approach restricts us to certain gRPC clients, and it's rarely
