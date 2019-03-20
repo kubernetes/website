@@ -39,38 +39,10 @@ From an API and kubectl perspective, Windows containers behave in much the same 
 
 Let's start with the operating system version. Refer to the following table for Windows operating system support in Kubernetes. A single heterogeneous Kubernetes cluster can have both Windows and Linux worker nodes. Windows containers have to be scheduled on Windows nodes and Linux containers on Linux nodes.
 
-<table>
-  <tr>
-   <td>Kubernetes version
-   </td>
-   <td>Host OS version (Kubernetes Node)
-   </td>
-   <td>
-   </td>
-   <td>
-   </td>
-  </tr>
-  <tr>
-   <td>
-   </td>
-   <td><strong>Windows Server 1709</strong>
-   </td>
-   <td><strong>Windows Server 1803</strong>
-   </td>
-   <td><strong>Windows Server 1809/Windows Server 2019</strong>
-   </td>
-  </tr>
-  <tr>
-   <td><strong>Kubernetes v1.14</strong>
-   </td>
-   <td>Not Supported
-   </td>
-   <td>Not Supported
-   </td>
-   <td>Supported for Windows Server containers Builds 17763.* with Docker EE-basic 18.09
-   </td>
-  </tr>
-</table>
+| Kubernetes version | Host OS version (Kubernetes Node) | | |
+| --- | --- | --- | --- |
+| | *Windows Server 1709* | *Windows Server 1803* | *Windows Server 1809/Windows Server 2019* |
+| *Kubernetes v1.14* | Not Supported | Not Supported| Supported for Windows Server containers Builds 17763.* with Docker EE-basic 18.09 |
 
 {{< note >}}
 The Windows Server Host Operating System is subject to the [Windows Server ](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) licensing. The Windows Container images are subject to the [Supplemental License Terms for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula).
@@ -154,86 +126,14 @@ The following service spec types are supported:
 
 Windows supports five different networking drivers/modes: L2bridge, L2tunnel, Overlay, Transparent, and NAT. In a heterogeneous cluster with Windows and Linux worker nodes, you need to select a networking solution that is compatible on both Windows and Linux. The following out-of-tree plugins are supported on Windows, with recommendations on when to use each CNI:
 
-<table>
-  <tr>
-   <td>Network Driver
-   </td>
-   <td>Description
-   </td>
-   <td>Container Packet Modifications
-   </td>
-   <td>Network Plugins
-   </td>
-   <td>Network Plugin Characteristics
-   </td>
-  </tr>
-  <tr>
-   <td>L2bridge
-   </td>
-   <td>Containers are attached to an external vSwitch. Containers are attached to the underlay network, although the physical network doesn't need to learn the container MACs because they are rewritten on ingress/egress. Inter-container traffic is bridged inside the container host. 
-   </td>
-   <td>MAC is rewritten to host MAC, IP remains the same.
-   </td>
-   <td><a href="https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-bridge">win-bridge</a>, <a href="https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md">Azure-CNI</a>, Flannel host-gateway uses win-bridge
-   </td>
-   <td>win-bridge uses L2bridge network mode, connects containers to the underlay of hosts, offering best performance. Requires L2 adjacency between container hosts
-   </td>
-  </tr>
-  <tr>
-   <td>L2Tunnel
-   </td>
-   <td>This is a special case of l2bridge, but only used on Azure. All packets are sent to the virtualization host where SDN policy is applied. 
-   </td>
-   <td>MAC rewritten, IP visible on the underlay network
-   </td>
-   <td><a href="https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md">Azure-CNI</a>
-   </td>
-   <td>Azure-CNI allows integration of containers with Azure vNET, and allows them to leverage the set of capabilities that <a href="https://azure.microsoft.com/en-us/services/virtual-network/ ">Azure Virtual Network provides</a>. For example, securely connect to Azure services or use Azure NSGs. See <a href=" https://docs.microsoft.com/en-us/azure/aks/concepts-network#azure-cni-advanced-networking">azure-cni for some examples</a>
-   </td>
-  </tr>
-  <tr>
-   <td>Overlay (Overlay networking for Windows in Kubernetes is in <strong>alpha</strong> stage)
-   </td>
-   <td>Containers are given a vNIC connected to an external vSwitch. Each overlay network gets its own IP subnet, defined by a custom IP prefix.The overlay network driver uses VXLAN encapsulation.
-   </td>
-   <td>Encapsulated with an outer header, inner packet remains the same.
-   </td>
-   <td><a href="https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay">Win-overlay</a>, Flannel VXLAN (uses win-overlay)
-   </td>
-   <td>win-overlay should be used when virtual container networks are desired to be isolated from underlay of hosts (e.g. for security reasons). Allows for IPs to be re-used for different overlay networks (which have different VNID tags)  if you are restricted on IPs in your datacenter. This option may be used when the container hosts are not L2 adjacent but have L3 connectivity 
-   </td>  
-  </tr>
-  <tr>
-   <td>Transparent (special use case for <a href="https://github.com/openvswitch/ovn-kubernetes">ovn-kubernetes</a>)
-   </td>
-   <td>Requires an external vSwitch. Containers are attached to an external vSwitch which will enable intra-pod communication via logical networks (logical switches and routers).
-   </td>
-   <td>Packet is encapsulated either via <a href="https://datatracker.ietf.org/doc/draft-gross-geneve/">GENEVE</a> or <a href="https://datatracker.ietf.org/doc/draft-davie-stt/">STT</a> tunneling to reach pods which are not on the same host.
-
-Packets are forwarded or dropped via the tunnel metadata information supplied by the ovn network controller.
-
-NAT is done for north-south communication.
-   </td>
-   <td>
-  <a href="https://github.com/openvswitch/ovn-kubernetes">ovn-kubernetes</a>
-   </td>
-   <td>
-  <a href="https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib">Deploy via ansible</a>. Distributed ACLs can be applied via Kubernetes policies. IPAM support. Load-balancing can be achieved without kube-proxy. NATing is done without using iptables/netsh.
-   </td>
-  </tr>
-  <tr>
-   <td>NAT (<em>not used in Kubernetes</em>)
-   </td>
-   <td>Containers are given a vNIC connected to an internal vSwitch. DNS/DHCP is provided using an internal component called <a href="https://blogs.technet.microsoft.com/virtualization/2016/05/25/windows-nat-winnat-capabilities-and-limitations/">WinNAT</a>
-   </td>
-   <td>MAC and IP is rewritten to host MAC/IP.
-   </td>
-   <td><a href="https://github.com/Microsoft/windows-container-networking/tree/master/plugins/nat">nat</a>
-   </td>
-   <td>Included here for completeness
-   </td>
-  </tr>
-</table>
+| Network Driver | Description | Container Packet Modifications | Network Plugins | Network Plugin Characteristics |
+| -------------- | ----------- | ------------------------------ | --------------- | ------------------------------ |
+| L2bridge       | Containers are attached to an external vSwitch. Containers are attached to the underlay network, although the physical network doesn't need to learn the container MACs because they are rewritten on ingress/egress. Inter-container traffic is bridged inside the container host. | MAC is rewritten to host MAC, IP remains the same. | [win-bridge](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-bridge), [Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md), Flannel host-gateway uses win-bridge | win-bridge uses L2bridge network mode, connects containers to the underlay of hosts, offering best performance. Requires L2 adjacency between container hosts |
+| L2Tunnel | This is a special case of l2bridge, but only used on Azure. All packets are sent to the virtualization host where SDN policy is applied. | MAC rewritten, IP visible on the underlay network | [Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) | Azure-CNI allows integration of containers with Azure vNET, and allows them to leverage the set of capabilities that [Azure Virtual Network provides](https://azure.microsoft.com/en-us/services/virtual-network/). For example, securely connect to Azure services or use Azure NSGs. See [azure-cni for some examples](https://docs.microsoft.com/en-us/azure/aks/concepts-network#azure-cni-advanced-networking) |
+| Overlay (Overlay networking for Windows in Kubernetes is in *alpha* stage) | Containers are given a vNIC connected to an external vSwitch. Each overlay network gets its own IP subnet, defined by a custom IP prefix.The overlay network driver uses VXLAN encapsulation. | Encapsulated with an outer header, inner packet remains the same. | [Win-overlay](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay), Flannel VXLAN (uses win-overlay) | win-overlay should be used when virtual container networks are desired to be isolated from underlay of hosts (e.g. for security reasons). Allows for IPs to be re-used for different overlay networks (which have different VNID tags)  if you are restricted on IPs in your datacenter. This option may be used when the container hosts are not L2 adjacent but have L3 connectivity |
+| Transparent (special use case for [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)) | Requires an external vSwitch. Containers are attached to an external vSwitch which will enable intra-pod communication via logical networks (logical switches and routers). | Packet is encapsulated either via [GENEVE](https://datatracker.ietf.org/doc/draft-gross-geneve/) or [STT](https://datatracker.ietf.org/doc/draft-davie-stt/) tunneling to reach pods which are not on the same host.  <br/> Packets are forwarded or dropped via the tunnel metadata information supplied by the ovn network controller. <br/> NAT is done for north-south communication. | [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes) . 
+| Transparent (special use case for [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)) | Requires an external vSwitch. Containers are attached to an external vSwitch which will enable intra-pod communication via logical networks (logical switches and routers). | Packet is encapsulated either via [GENEVE](https://datatracker.ietf.org/doc/draft-gross-geneve/) or [STT](https://datatracker.ietf.org/doc/draft-davie-stt/) tunneling to reach pods which are not on the same host. | [Deploy via ansible](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib). Distributed ACLs can be applied via Kubernetes policies. IPAM support. Load-balancing can be achieved without kube-proxy. NATing is done without using iptables/netsh. |
+| NAT (<em>not used in Kubernetes</em>) | Containers are given a vNIC connected to an internal vSwitch. DNS/DHCP is provided using an internal component called [WinNAT](https://blogs.technet.microsoft.com/virtualization/2016/05/25/windows-nat-winnat-capabilities-and-limitations/) | MAC and IP is rewritten to host MAC/IP. | [nat](https://github.com/Microsoft/windows-container-networking/tree/master/plugins/nat) | Included here for completeness |
 
 As outlined above, the [Flannel](https://github.com/coreos/flannel) CNI [meta plugin](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel) is also supported on [Windows](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel#windows-support-experimental) via the [VXLAN network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) (**alpha support** ; delegates to win-overlay) and [host-gateway network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#host-gw) (stable support; delegates to win-bridge). This plugin supports delegating to one of the reference CNI plugins (win-overlay, win-bridge), to work in conjunction with Flannel daemon on Windows (Flanneld) for automatic node subnet lease assignment and HNS network creation. This plugin reads in its own configuration file (net-conf.json), and aggregates it with the environment variables from the FlannelD generated subnet.env file. It then delegates to one of the reference CNI plugins for network plumbing, and sends the correct configuration containing the node-assigned subnet to the IPAM plugin (e.g. host-local).
 
