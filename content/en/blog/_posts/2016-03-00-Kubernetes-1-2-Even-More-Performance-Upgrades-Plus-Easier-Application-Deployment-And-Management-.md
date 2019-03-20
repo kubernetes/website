@@ -60,7 +60,7 @@ All of our work is done in the open, to learn the latest about the project j[oin
 - Scheduled job&nbsp;
 - Public dashboard that allows for nightly test runs across multiple cloud providers&nbsp;
 - Lots, lots more!&nbsp;
-Kubernetes 1.2 is available for download at [get.k8s.io](http://get.k8s.io/) and via the open source repository hosted on [GitHub](https://github.com/kubernetes/kubernetes). To get started with Kubernetes try our new [Hello World app](http://kubernetes.io/docs/hellonode/).&nbsp;
+Kubernetes 1.2 is available for download at [get.k8s.io](http://get.k8s.io/) and via the open source repository hosted on [GitHub](https://github.com/kubernetes/kubernetes). To get started with Kubernetes try our new [Hello World app](/docs/hellonode/).&nbsp;
 
 
 

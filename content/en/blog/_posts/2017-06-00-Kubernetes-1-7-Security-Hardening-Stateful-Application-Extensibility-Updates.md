@@ -60,7 +60,7 @@ Kubernetes adoption has been coming from every sector across the world. Recent u
 Huge kudos and thanks go out to the Kubernetes 1.7 [release team](https://github.com/kubernetes/features/blob/master/release-1.7/release_team.md), led by Dawn Chen of Google.&nbsp;  
 
 **Availability**  
-Kubernetes 1.7 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.7.0). To get started with Kubernetes, try one of the these [interactive tutorials](http://kubernetes.io/docs/tutorials/kubernetes-basics/).&nbsp;  
+Kubernetes 1.7 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.7.0). To get started with Kubernetes, try one of the these [interactive tutorials](/docs/tutorials/kubernetes-basics/).&nbsp;  
 
 **Get Involved**  
 Join the community at [CloudNativeCon + KubeCon](http://events.linuxfoundation.org/events/cloudnativecon-and-kubecon-north-america) in Austin Dec. 6-8 for the largest Kubernetes gathering ever. [Speaking submissions](http://events.linuxfoundation.org/events/cloudnativecon-and-kubecon-north-america/program/cfp) are open till August 21 and [discounted registration](https://www.regonline.com/registration/Checkin.aspx?EventID=1903774&_ga=2.224109086.464556664.1498490094-1623727562.1496428006) ends October 6.  

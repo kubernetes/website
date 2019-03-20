@@ -16,7 +16,7 @@ For users who want to scale beyond 5,000 nodes or spread across multiple regions
 
 **Security and Setup** : Users concerned with security will find that [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac), now _beta_ adds a significant security benefit through more tightly scoped default roles for system components. The default RBAC policies in 1.6 grant scoped permissions to control-plane components, nodes, and controllers. RBAC allows cluster administrators to selectively grant particular users or service accounts fine-grained access to specific resources on a per-namespace basis. RBAC users upgrading from 1.5 to 1.6 should view the guidance [here](https://kubernetes.io/docs/reference/access-authn-authz/rbac#upgrading-from-1-5).&nbsp;
 
-Users looking for an easy way to provision a secure cluster on physical or cloud servers can use [kubeadm](https://kubernetes.io/docs/getting-started-guides/kubeadm/), which is now _beta_. kubeadm has been enhanced with a set of command line flags and a base feature set that includes RBAC setup, use of the [Bootstrap Token system](http://kubernetes.io/docs/reference/access-authn-authz/bootstrap-tokens/) and an enhanced [Certificates API](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/).  
+Users looking for an easy way to provision a secure cluster on physical or cloud servers can use [kubeadm](https://kubernetes.io/docs/getting-started-guides/kubeadm/), which is now _beta_. kubeadm has been enhanced with a set of command line flags and a base feature set that includes RBAC setup, use of the [Bootstrap Token system](/docs/reference/access-authn-authz/bootstrap-tokens/) and an enhanced [Certificates API](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/).  
 
 **Advanced Scheduling** : This release adds a set of [powerful and versatile scheduling constructs](https://kubernetes.io/docs/user-guide/node-selection/) to give you greater control over how pods are scheduled, including rules to restrict pods to particular nodes in heterogeneous clusters, and rules to spread or pack pods across failure domains such as nodes, racks, and zones.  
 
@@ -89,7 +89,7 @@ We’re continuing to see rapid adoption of Kubernetes in all sectors and sizes 
 - Share your Kubernetes use case story with the community [here](https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform).
 
 **Availability**  
-Kubernetes 1.6 is available for download [here](https://github.com/kubernetes/kubernetes/releases/tag/v1.6.0) on GitHub and via [get.k8s.io](http://get.k8s.io/). To get started with Kubernetes, try one of the these [interactive tutorials](http://kubernetes.io/docs/tutorials/kubernetes-basics/).&nbsp;  
+Kubernetes 1.6 is available for download [here](https://github.com/kubernetes/kubernetes/releases/tag/v1.6.0) on GitHub and via [get.k8s.io](http://get.k8s.io/). To get started with Kubernetes, try one of the these [interactive tutorials](/docs/tutorials/kubernetes-basics/).&nbsp;  
 
 
 **Get Involved**  
