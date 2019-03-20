@@ -31,50 +31,11 @@ Kubernetes cluster management requires careful planning of your IP addresses so 
 
 In order to deploy your cluster you will need the following address spaces:
 
-<table>
-  <tr>
-   <td>Subnet / address range
-   </td>
-   <td>Description
-   </td>
-   <td>Default value
-   </td>
-  </tr>
-  <tr>
-   <td>---
-   </td>
-   <td>---
-   </td>
-   <td>---
-   </td>
-  </tr>
-  <tr>
-  <tr>
-   <td>Service Subnet
-   </td>
-   <td>A non-routable, purely virtual subnet that is used by pods to uniformly access services without caring about the network topology. It is translated to/from routable address space by <code>kube-proxy</code> running on the nodes.
-   </td>
-   <td>"10.96.0.0/12"
-   </td>
-  </tr>
-  <tr>
-   <td>Cluster Subnet
-   </td>
-   <td>This is a global subnet that is used by all pods in the cluster. Each node is assigned a smaller /24 subnet from this for their pods to use. It must be large enough to accommodate all pods used in your cluster. To calculate <em>minimumsubnet</em> size:<code> (number of nodes) + (number of nodes * maximum pods per node that you configure)</code>
-Example: for a 5 node cluster for 100 pods per node: <code>(5) + (5 * 100) = 505.</code>
-   </td>
-   <td>"10.244.0.0/16"
-   </td>
-  </tr>
-  <tr>
-   <td>Kubernetes DNS Service IP
-   </td>
-   <td>IP address of <code>kube-dns</code> service that will be used for DNS resolution & cluster service discovery.
-   </td>
-   <td>"10.96.0.10"
-   </td>
-  </tr>
-</table>
+| Subnet / address range | Description | Default value |
+| --- | --- | --- |
+| Service Subnet | A non-routable, purely virtual subnet that is used by pods to uniformly access services without caring about the network topology. It is translated to/from routable address space by `kube-proxy` running on the nodes. | "10.96.0.0/12" |
+| Cluster Subnet | This is a global subnet that is used by all pods in the cluster. Each node is assigned a smaller /24 subnet from this for their pods to use. It must be large enough to accommodate all pods used in your cluster. To calculate *minimumsubnet* size:` (number of nodes) + (number of nodes * maximum pods per node that you configure)` <br/> Example: for a 5 node cluster for 100 pods per node: `(5) + (5 * 100) = 505.` | "10.244.0.0/16" |
+| Kubernetes DNS Service IP | IP address of `kube-dns` service that will be used for DNS resolution & cluster service discovery. | "10.96.0.10" |
 
 Review the networking options supported in 'Intro to Windows containers in Kubernetes: Supported Functionality: Networking' to determine how you need to allocate IP addresses for your cluster.
 
@@ -271,82 +232,15 @@ wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/s
 .\start.ps1 -ManagementIP <Windows Node IP> -NetworkMode overlay  -ClusterCIDR <Cluster CIDR> -ServiceCIDR <Service CIDR> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Log directory>
 ```
 
-<table>
-  <tr>
-   <td>
-Parameter
-   </td>
-   <td>Default Value
-   </td>
-   <td>Notes
-   </td>
-  </tr>
-  <tr>
-   <td>
----
-   </td>
-   <td>---
-   </td>
-   <td>---
-   </td>
-  </tr>
-  <tr>
-   <td>-ManagementIP
-   </td>
-   <td>N/A (required)
-   </td>
-   <td>The IP address assigned to the Windows node. You can use <code>ipconfig</code> to find this.
-   </td>
-  </tr>
-  <tr>
-   <td>-NetworkMode
-   </td>
-   <td>l2bridge
-   </td>
-   <td>We're using <code>overlay</code> here
-   </td>
-  </tr>
-  <tr>
-   <td>-ClusterCIDR
-   </td>
-   <td>10.244.0.0/16
-   </td>
-   <td>Refer to your cluster IP plan
-   </td>
-  </tr>
-  <tr>
-   <td>-ServiceCIDR
-   </td>
-   <td>10.96.0.0/12
-   </td>
-   <td>Refer to your cluster IP plan
-   </td>
-  </tr>
-  <tr>
-   <td>-KubeDnsServiceIP
-   </td>
-   <td>10.96.0.10
-   </td>
-   <td>
-   </td>
-  </tr>
-  <tr>
-   <td>-InterfaceName
-   </td>
-   <td>Ethernet
-   </td>
-   <td>The name of the network interface of the Windows host. You can use <code>ipconfig</code> to find this.
-   </td>
-  </tr>
-  <tr>
-   <td>-LogDir
-   </td>
-   <td>C:\k
-   </td>
-   <td>The directory where kubelet and kube-proxy logs are redirected into their respective output files.
-   </td>
-  </tr>
-</table>
+| Parameter | Default Value | Notes |
+| --- | --- | --- |
+| -ManagementIP | N/A (required) | The IP address assigned to the Windows node. You can use `ipconfig` to find this. |
+| -NetworkMode | l2bridge | We're using `overlay` here |
+| -ClusterCIDR | 10.244.0.0/16 | Refer to your cluster IP plan |
+| -ServiceCIDR | 10.96.0.0/12 | Refer to your cluster IP plan |
+| -KubeDnsServiceIP | 10.96.0.10 | |
+| -InterfaceName | Ethernet | The name of the network interface of the Windows host. You can use <code>ipconfig</code> to find this. |
+| -LogDir | C:\k | The directory where kubelet and kube-proxy logs are redirected into their respective output files. |
 
 Now you can view the Windows nodes in your cluster by running the following:
 
