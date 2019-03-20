@@ -18,7 +18,7 @@ content_template: templates/concept
 {{< toc >}}
 
 
-这个特性在 1.6 版本已经退出 beta 版本。Init 容器可以在 PodSpec 中同应用的 `containers` 数组一起来指定。
+这个特性在 1.6 版本已经退出 beta 版本。Init 容器可以在 PodSpec 中有效 QoS 层同应用的 `containers` 数组一起来指定。
 beta 注解的值将仍然需要保留，并覆盖 PodSpec 字段值。
 
 {{% capture body %}}
@@ -291,7 +291,7 @@ Init 容器具有应用容器的所有字段。
   * 所有应用容器对某个资源的请求/限制之和
   * 对某个资源的有效初始请求/限制
 * 基于有效请求/限制完成调度，这意味着 Init 容器能够为初始化预留资源，这些资源在 Pod 生命周期过程中并没有被使用。
-* Pod 的 *有效 QoS 层*，是 Init 容器和应用容器相同的 QoS 层。
+* Pod 的 *有效 QoS 层* ，是 Init 容器和应用容器相同的 QoS 层。
 
 
 
