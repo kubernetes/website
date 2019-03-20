@@ -82,7 +82,7 @@ Start with the [basics on Kubernetes logging](/docs/concepts/cluster-administrat
 * [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
 
 Like log aggregation, many clusters utilize additional software to help capture metrics and display them. There is an overview of tools at [Tools for Monitoring Compute, Storage, and Network Resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/).
-Kubernetes also supports a [core metrics pipeline](/docs/tasks/debug-application-cluster/core-metrics-pipeline/) which can be used by Horizontal Pod Autoscaler with custom metrics.
+Kubernetes also supports a [resource metrics pipeline](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/) which can be used by Horizontal Pod Autoscaler with custom metrics.
 
 [Prometheus](https://prometheus.io/), which is another CNCF project, is a common choice to support capture and temporary collection of metrics. There are several options for installing Prometheus, including using the [stable/prometheus](https://github.com/kubernetes/charts/tree/master/stable/prometheus) [helm](https://helm.sh/) chart, and CoreOS provides a [prometheus operator](https://github.com/coreos/prometheus-operator) and [kube-prometheus](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus), which adds on Grafana dashboards and common configurations.
 
