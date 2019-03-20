@@ -1,13 +1,11 @@
 ---
-title: Docs smoke test page
+title: 文档 smoke 测试页面
 main_menu: false
 ---
 
 <!--
----
-title: 文档 smoke 测试页面
+title: Docs smoke test page
 main_menu: false
----
 -->
 
 <!--
@@ -127,7 +125,7 @@ Markdown doesn't have strict rules about how to process lists. When we moved
 from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
 mind:
 -->
-Markdown 没有关于如何处理列表的严格规则。当我们从 Jekyll 搬到 Hugo 时，我们打破了一些列表。要解决这些问题，请记住以下几点:
+Markdown 没有关于如何处理列表的严格规则。当我们从 Jekyll 搬到 Hugo 时，我们破坏了一些列表。要解决这些问题，请记住以下几点:
 
 <!--
 - Make sure you indent sub-list items **4 spaces** rather than the 2 that you
@@ -139,7 +137,7 @@ Markdown 没有关于如何处理列表的严格规则。当我们从 Jekyll 搬
   otherwise, no matter how many blank lines you put between it and the second.
 -->
 
-- 确保缩进子列表项** 4 个空格**而不是您可能习惯的 2 个空格。与直觉相反，您需要将列表项中的块级内容缩进额外的4个空格。
+- 确保缩进子列表项**4个空格**而不是您可能习惯的2个空格。与直觉相反，您需要将列表项中的块级内容缩进额外的4个空格。
 - 要结束列表并启动另一个列表，您需要在列表之间的新行上使用 HTML 注释块，并使用左侧边框刷新。
   无论你在第二个列表和第二个列表之间放置多少空行，第一个列表都不会以其他方式结束。
 
@@ -364,7 +362,7 @@ the contents of the code block contain lines starting with `-` or `*` characters
 This is due to
 [blackfriday issue #239](https://github.com/russross/blackfriday/issues/239).
 -->
-有一种情况需要对代码块使用缩进：当代码块的内容包含以 `-` 或 `*` 字符开头的行时。这是由于[ blackfriday 问题 #239](https://github.com/russross/blackfriday/issues/239).
+有一种情况需要对代码块使用缩进：当代码块的内容包含以 `-` 或 `*` 字符开头的行时。这是由于 [blackfriday 问题 #239(https://github.com/russross/blackfriday/issues/239).
 
 {{< /warning >}}
 
@@ -594,7 +592,7 @@ Markdown 在单元格中很难处理块级元素，例如列表项代码块或�
 ## Sidebars and Admonitions
 -->
 
-## 边栏和警告
+## 侧边栏和警告
 
 <!--
 Sidebars and admonitions provide ways to add visual importance to text. Use
