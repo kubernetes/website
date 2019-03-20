@@ -1,3 +1,6 @@
+env:
+  global:
+    - KUBE_VERSION: 1.13
 language: go
 go:
   - 1.11.5
@@ -8,22 +11,10 @@ jobs:
       cache:
         directories:
           - $HOME/.cache/go-build
-      # Don't want default ./... here:
       install:
-      - export PATH=$GOPATH/bin:$PATH
-      - mkdir -p $HOME/gopath/src/k8s.io
-      - mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/website && cd $HOME/gopath/src/k8s.io/website
-
-      # Make sure we are testing against the correct branch
-      - pushd $GOPATH/src/k8s.io && git clone https://github.com/kubernetes/kubernetes && popd
-      - pushd $GOPATH/src/k8s.io/kubernetes && git checkout release-1.13 && make generated_files && popd
-      - cp -L -R $GOPATH/src/k8s.io/kubernetes/vendor/ $GOPATH/src/
-      - rm -r $GOPATH/src/k8s.io/kubernetes/vendor/
-
-      # Fetch additional dependencies to run the tests in examples/examples_test.go
-      - go get -t -v k8s.io/website/content/en/examples
+      - bash scripts/test_examples.sh install
       script:
-      - go test -v k8s.io/website/content/en/examples
+      - bash scripts/test_examples.sh run
     - name: "Hugo build"
       install:
       - make travis-hugo-build
