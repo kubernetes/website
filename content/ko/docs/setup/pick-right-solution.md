@@ -2,6 +2,20 @@
 title: 알맞은 솔루션 선정
 weight: 10
 content_template: templates/concept
+card:
+  name: setup
+  weight: 20
+  anchors:
+  - anchor: "#호스트-된-솔루션"
+    title: 호스트 된 솔루션
+  - anchor: "#턴키-클라우드-솔루션"
+    title: 턴키 클라우드 솔루션
+  - anchor: "#온-프레미스-턴키-클라우드-솔루션"
+    title: 온-프레미스 솔루션
+  - anchor: "#사용자-지정-솔루션"
+    title: 사용자 지정 솔루션
+  - anchor: "#로컬-머신-솔루션"
+    title: 로컬 머신
 ---
 
 {{% capture overview %}}

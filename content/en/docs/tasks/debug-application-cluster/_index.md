@@ -1,5 +1,5 @@
 ---
-title: "Monitor, Log, and Debug"
+title: "Monitoring, Logging, and Debugging"
 weight: 80
 ---
 
