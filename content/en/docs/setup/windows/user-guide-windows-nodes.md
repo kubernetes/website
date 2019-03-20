@@ -89,7 +89,7 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
     ```
 
     {{< note >}}
-    The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See [VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) for an explanation of these fields.
+    The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See the VXLAN documentation at https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan for an explanation of these fields.
     {{< /note >}} 
 
 1. In the `net-conf.json` section of your `kube-flannel.yml`, double-check:
@@ -188,9 +188,9 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     Start-Service docker
     ```
 
-{{< note >}}
-The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `docker pull mcr.microsoft.com/k8s/core/pause:1.0.0`. The DOCKERFILE is available at [https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile).
-{{< /note >}}
+    {{< note >}}
+    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using `docker pull mcr.microsoft.com/k8s/core/pause:1.0.0`. The DOCKERFILE is available at https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile.
+    {{< /note >}}
     
 1. Prepare a Windows directory for Kubernetes
 
