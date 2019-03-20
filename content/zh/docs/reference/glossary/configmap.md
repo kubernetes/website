@@ -35,7 +35,7 @@ tags:
 <!--more--> 
 
 <!--
-Allows you to decouple environment-specific configuration from your {{< glossary_tooltip text="container images" term_id="container" >}}, so that your applications are easily portable. When storing confidential data use a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/).
+Allows you to decouple environment-specific configuration from your {{< glossary_tooltip text="container images" term_id="container" >}}, so that your applications are easily portable. When storing confidential data use a [Secret](/docs/concepts/configuration/secret/).
 -->
 
-ConfigMap 将您的环境配置信息和 {{< glossary_tooltip text="容器镜像" term_id="container" >}} 解耦，便于应用配置的修改。当您需要储存机密信息时可以使用 [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) 对象。
+ConfigMap 将您的环境配置信息和 {{< glossary_tooltip text="容器镜像" term_id="container" >}} 解耦，便于应用配置的修改。当您需要储存机密信息时可以使用 [Secret](/docs/concepts/configuration/secret/) 对象。

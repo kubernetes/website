@@ -38,7 +38,7 @@ title: “示例：使用 Stateful Sets 部署 Cassandra”
 ## 准备工作
 
 
-本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](https://kubernetes.io/docs/getting-started-guides/) 获取关于你的平台的安装说明。
+本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](/docs/getting-started-guides/) 获取关于你的平台的安装说明。
 
 
 本示例还需要一些代码和配置文件。为了避免手动输入，你可以 `git clone` Kubernetes 源到你本地。
@@ -176,7 +176,7 @@ cassandra   None         <none>        9042/TCP   45s
 ## 步骤2：使用 StatefulSet 创建  Cassandra Ring环
 
 
-StatefulSets（以前叫做 PetSets）特性在 Kubernetes 1.5 中升级为一个 <i>Beta</i> 组件。在集群环境中部署类似于 Cassandra 的有状态分布式应用是一项具有挑战性的工作。我们实现了StatefulSet，极大的简化了这个过程。本示例使用了 StatefulSet 的多个特性，但其本身超出了本文的范围。[请参考 Stateful Set 文档。](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
+StatefulSets（以前叫做 PetSets）特性在 Kubernetes 1.5 中升级为一个 <i>Beta</i> 组件。在集群环境中部署类似于 Cassandra 的有状态分布式应用是一项具有挑战性的工作。我们实现了StatefulSet，极大的简化了这个过程。本示例使用了 StatefulSet 的多个特性，但其本身超出了本文的范围。[请参考 Stateful Set 文档。](/docs/concepts/workloads/controllers/statefulset/)
 
 
 以下是StatefulSet 的清单文件，用于创建一个由三个 pods 组成的 Cassandra ring环。
@@ -848,4 +848,3 @@ $ kubectl delete daemonset cassandra
 
 
 [!Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/cassandra/README.md?pixel)]()
-

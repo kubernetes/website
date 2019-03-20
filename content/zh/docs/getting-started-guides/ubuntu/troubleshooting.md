@@ -264,9 +264,9 @@ To deploy using helm, you will need to follow these steps: -->
 ## 日志和监控
 
 <!-- By default there is no log aggregation of the Kubernetes nodes, each node logs locally.
-Please read over the [logging](https://kubernetes.io/docs/getting-started-guides/ubuntu/logging/) page for more information. -->
+Please read over the [logging](/docs/getting-started-guides/ubuntu/logging/) page for more information. -->
 
 默认情况下， Kubernetes 没有节点的日志聚合，每个节点都是本地保存日志。
-请参阅[日志](https://kubernetes.io/docs/getting-started-guides/ubuntu/logging/)文档，获取更多信息。
+请参阅[日志](/docs/getting-started-guides/ubuntu/logging/)文档，获取更多信息。
 
 {{% /capture %}}

@@ -13,11 +13,11 @@ content_template: templates/task
 {{% capture overview %}}
 
 <!--
-Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/) and running your tools inside the remote shell.
+Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](/docs/tasks/debug-application-cluster/get-shell-running-container/) and running your tools inside the remote shell.
 -->
 
 Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在自己的容器中运行。
-在远端的 Kubernetes 集群上开发和调试这些服务可能很麻烦，需要[在运行的容器上打开 shell](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/)，然后在远端 shell 中运行您所需的工具。
+在远端的 Kubernetes 集群上开发和调试这些服务可能很麻烦，需要[在运行的容器上打开 shell](/docs/tasks/debug-application-cluster/get-shell-running-container/)，然后在远端 shell 中运行您所需的工具。
 
 <!--
 `telepresence` is a tool to ease the process of developing and debugging services locally, while proxying the service to a remote Kubernetes cluster. Using `telepresence` allows you to use custom tools, such as a debugger and IDE, for a local service and provides the service full access to ConfigMap, secrets, and the services running on the remote cluster.
@@ -124,5 +124,3 @@ Telepresence 有[多种代理选项](https://www.telepresence.io/reference/metho
 要了解更多信息，请访问 [Telepresence 网站](https://www.telepresence.io)。
 
 {{% /capture %}}
-
-

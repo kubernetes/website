@@ -354,7 +354,7 @@ If `nodefs` filesystem has met eviction thresholds, `kubelet` frees up disk spac
 If the `kubelet` is unable to reclaim sufficient resource on the node, `kubelet` begins evicting Pods.
 
 The `kubelet` ranks Pods for eviction first by whether or not their usage of the starved resource exceeds requests,
-then by [Priority](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/), and then by the consumption of the starved compute resource relative to the Pods' scheduling requests.
+then by [Priority](/docs/concepts/configuration/pod-priority-preemption/), and then by the consumption of the starved compute resource relative to the Pods' scheduling requests.
 
 As a result, `kubelet` ranks and evicts Pods in the following order:
 
@@ -380,7 +380,7 @@ that consumes the largest amount of disk and kill those first.
 
 如果 `kubelet` 在节点上无法回收足够的资源，`kubelet` 将开始驱逐 pod。
 
-`kubelet` 首先根据他们对短缺资源的使用是否超过请求来排除 pod 的驱逐行为，然后通过[优先级](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/)，然后通过相对于 pod 的调度请求消耗急需的计算资源。
+`kubelet` 首先根据他们对短缺资源的使用是否超过请求来排除 pod 的驱逐行为，然后通过[优先级](/docs/concepts/configuration/pod-priority-preemption/)，然后通过相对于 pod 的调度请求消耗急需的计算资源。
 
 `kubelet` 按以下顺序对要驱逐的 pod 排名：
 

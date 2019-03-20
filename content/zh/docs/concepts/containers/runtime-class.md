@@ -149,12 +149,12 @@ spec:
 <!--
 It is recommended that RuntimeClass write operations (create/update/patch/delete) be
 restricted to the cluster administrator. This is typically the default. See [Authorization
-Overview](https://kubernetes.io/docs/reference/access-authn-authz/authorization/) for more details.
+Overview](/docs/reference/access-authn-authz/authorization/) for more details.
 -->
 
 {{< note >}}
 建议将 RuntimeClass 写操作（create、update、patch 和 delete）限定于集群管理员使用。
-通常这是默认配置。参阅[授权概述](https://kubernetes.io/docs/reference/access-authn-authz/authorization/)了解更多信息。
+通常这是默认配置。参阅[授权概述](/docs/reference/access-authn-authz/authorization/)了解更多信息。
 {{< /note >}}
 
 <!--

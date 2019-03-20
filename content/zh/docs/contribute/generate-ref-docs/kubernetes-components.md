@@ -236,11 +236,11 @@ directory. The tool performs the following steps:
 <!--
 When the Markdown files are in your local clone of the `kubernetes/website`
 repository, you can submit them in a
-[pull request](https://kubernetes.io/docs/home/contribute/create-pull-request/)
+[pull request](/docs/home/contribute/create-pull-request/)
 to `kubernetes/website`.
 -->
 
-当 Markdown 文件放入 `kubernetes/website` 仓库的本地目录中后，你就可以创建 [PR](https://kubernetes.io/docs/home/contribute/create-pull-request/) 将它们提交到 `kubernetes/website`。
+当 Markdown 文件放入 `kubernetes/website` 仓库的本地目录中后，你就可以创建 [PR](/docs/home/contribute/create-pull-request/) 将它们提交到 `kubernetes/website`。
 
 <!--
 ## Customizing the config file
