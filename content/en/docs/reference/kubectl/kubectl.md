@@ -11,7 +11,7 @@ kubectl controls the Kubernetes cluster manager
 
 kubectl controls the Kubernetes cluster manager. 
 
-Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+Find more information at: /docs/reference/kubectl/overview/
 
 ```
 kubectl [flags]
@@ -311,4 +311,3 @@ kubectl [flags]
 * [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - Mark node as schedulable
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Print the client and server version information
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Experimental: Wait for a specific condition on one or many resources.
-

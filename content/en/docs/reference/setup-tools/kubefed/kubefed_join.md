@@ -44,7 +44,7 @@ kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
   -h, --help                                 help for join
       --host-cluster-context string          Host cluster context
       --no-headers                           When using the default or custom-column output format, don't print headers (default print headers).
-  -o, --output string                        Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath].
+  -o, --output string                        Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [/docs/user-guide/jsonpath].
       --save-config                          If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
   -a, --show-all                             When printing, show all resources (default hide terminated pods.)
       --show-labels                          When printing, show all labels as the last column (default hide labels column)

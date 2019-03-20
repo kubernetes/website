@@ -8,16 +8,16 @@ _Editor’s note: this post is part of a [series of in-depth articles](https://k
 
 In the latest [Kubernetes 1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads), you’ll notice that support for Cluster Federation is maturing. That functionality was introduced in Kubernetes 1.3, and the 1.5 release includes a number of new features, including an easier setup experience and a step closer to supporting all Kubernetes API objects.  
 
-A new command line tool called ‘**[kubefed](http://kubernetes.io/docs/admin/federation/kubefed/)**’ was introduced to make getting started with Cluster Federation much simpler. Also, alpha level support was added for Federated DaemonSets, Deployments and ConfigMaps. In summary:  
+A new command line tool called ‘**[kubefed](/docs/admin/federation/kubefed/)**’ was introduced to make getting started with Cluster Federation much simpler. Also, alpha level support was added for Federated DaemonSets, Deployments and ConfigMaps. In summary:  
 
-- **DaemonSets** are Kubernetes deployment rules that guarantee that a given pod is always present at every node, as new nodes are added to the cluster (more [info](http://kubernetes.io/docs/admin/daemons/)).
-- **Deployments** describe the desired state of Replica Sets (more [info](http://kubernetes.io/docs/user-guide/deployments/)).
-- **ConfigMaps** are variables applied to Replica Sets (which greatly improves image reusability as their parameters can be externalized - more [info](http://kubernetes.io/docs/user-guide/configmap/)).
+- **DaemonSets** are Kubernetes deployment rules that guarantee that a given pod is always present at every node, as new nodes are added to the cluster (more [info](/docs/admin/daemons/)).
+- **Deployments** describe the desired state of Replica Sets (more [info](/docs/user-guide/deployments/)).
+- **ConfigMaps** are variables applied to Replica Sets (which greatly improves image reusability as their parameters can be externalized - more [info](/docs/user-guide/configmap/)).
 **Federated DaemonSets** , **Federated Deployments** , **Federated ConfigMaps** take the qualities of the base concepts to the next level. For instance, Federated DaemonSets guarantee that a pod is deployed on every node of the newly added cluster.  
 
 But what actually is “federation”? Let’s explain it by what needs it satisfies. Imagine a service that operates globally. Naturally, all its users expect to get the same quality of service, whether they are located in Asia, Europe, or the US. What this means is that the service must respond equally fast to requests at each location. This sounds simple, but there’s lots of logic involved behind the scenes. This is what Kubernetes Cluster Federation aims to do.  
 
-How does it work? One of the Kubernetes clusters must become a master by running a **Federation Control Plane**. In practice, this is a controller that monitors the health of other clusters, and provides a single entry point for administration. The entry point behaves like a typical Kubernetes cluster. It allows creating [Replica Sets](http://kubernetes.io/docs/user-guide/replicasets/), [Deployments](http://kubernetes.io/docs/user-guide/deployments/), [Services](http://kubernetes.io/docs/user-guide/services/), but the federated control plane passes the resources to underlying clusters. This means that if we request the federation control plane to create a Replica Set with 1,000 replicas, it will spread the request across all underlying clusters. If we have 5 clusters, then by default each will get its share of 200 replicas.  
+How does it work? One of the Kubernetes clusters must become a master by running a **Federation Control Plane**. In practice, this is a controller that monitors the health of other clusters, and provides a single entry point for administration. The entry point behaves like a typical Kubernetes cluster. It allows creating [Replica Sets](/docs/user-guide/replicasets/), [Deployments](/docs/user-guide/deployments/), [Services](/docs/user-guide/services/), but the federated control plane passes the resources to underlying clusters. This means that if we request the federation control plane to create a Replica Set with 1,000 replicas, it will spread the request across all underlying clusters. If we have 5 clusters, then by default each will get its share of 200 replicas.  
 
 This on its own is a powerful mechanism. But there’s more. It’s also possible to create a Federated Ingress. Effectively, this is a global application-layer load balancer. Thanks to an understanding of the application layer, it allows load balancing to be “smarter” -- for instance, by taking into account the geographical location of clients and servers, and routing the traffic between them in an optimal way.  
 
@@ -54,7 +54,7 @@ export FED\_DNS\_ZONE=\<YOUR DNS SUFFIX e.g. example.com\>
  ```
 
 
-And get kubectl and kubefed binaries. (for installation instructions refer to guides [here](http://kubernetes.io/docs/user-guide/prereqs/) and [here](http://kubernetes.io/docs/admin/federation/kubefed/#getting-kubefed)).  
+And get kubectl and kubefed binaries. (for installation instructions refer to guides [here](/docs/user-guide/prereqs/) and [here](/docs/admin/federation/kubefed/#getting-kubefed)).  
 Now the setup is ready to create a few Google Container Engine (GKE) clusters with gcloud container clusters create (1-create.sh). In this case one is in US, one in Europe and one in Asia.  
 
 ```
@@ -210,7 +210,7 @@ As you can see, the two commands refer to the “federation” context, i.e. to 
 
 **Creating The Ingress**  
 
-After the Service is ready, we can create [Ingress](http://kubernetes.io/docs/user-guide/ingress/) - the global load balancer. The command is like this:
+After the Service is ready, we can create [Ingress](/docs/user-guide/ingress/) - the global load balancer. The command is like this:
 
 
 

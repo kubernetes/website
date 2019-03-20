@@ -51,7 +51,7 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 
 ```
 
-By default, in GCE/Google Kubernetes Engine starting with Kubernetes version 1.7.0, if network policy is enabled or you are using a cluster CIDR not in the 10.0.0.0/8 range, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) to your cluster:
+By default, in GCE/Google Kubernetes Engine starting with Kubernetes version 1.7.0, if network policy is enabled or you are using a cluster CIDR not in the 10.0.0.0/8 range, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) to your cluster:
 
 {{% /capture %}}
 
@@ -111,5 +111,3 @@ resyncInterval: 60s
 masqLinkLocal: true
 ```
 {{% /capture %}}
-
-

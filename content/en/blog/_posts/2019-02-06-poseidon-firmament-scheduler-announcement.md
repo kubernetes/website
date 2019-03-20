@@ -15,11 +15,11 @@ In this blog post, we briefly describe the novel Firmament flow network graph ba
 
 ## Poseidon-Firmament Scheduler – How It Works  
 
-At a very high level, [Poseidon-Firmament scheduler](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) augments the current Kubernetes scheduling capabilities by incorporating novel flow network graph based scheduling capabilities alongside the default Kubernetes Scheduler. It models the scheduling problem as a constraint-based optimization over a flow network graph – by reducing scheduling to a min-cost max-flow optimization problem. Due to the inherent rescheduling capabilities, the new scheduler enables a globally optimal scheduling environment that constantly keeps refining the workloads placements dynamically.  
+At a very high level, [Poseidon-Firmament scheduler](/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) augments the current Kubernetes scheduling capabilities by incorporating novel flow network graph based scheduling capabilities alongside the default Kubernetes Scheduler. It models the scheduling problem as a constraint-based optimization over a flow network graph – by reducing scheduling to a min-cost max-flow optimization problem. Due to the inherent rescheduling capabilities, the new scheduler enables a globally optimal scheduling environment that constantly keeps refining the workloads placements dynamically.  
 
 ## Key Advantages  
 
-Flow graph scheduling based [Poseidon-Firmament scheduler](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) provides the following key advantages:  
+Flow graph scheduling based [Poseidon-Firmament scheduler](/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) provides the following key advantages:  
 
   * Workloads (pods) are bulk scheduled to enable scheduling decisions at massive scale.  
 
@@ -49,7 +49,7 @@ Poseidon is a service that acts as the integration glue for the Firmament schedu
 
 {{<figure width="600"  src="/images/blog/2019-02-03-poseidon-firmament-scheduler/firmament-kubernetes-integration-overview.png" caption="Figure 2. Firmament Kubernetes Integration Overview">}}  
 
-As part of the Kubernetes multiple schedulers support, each new pod is typically scheduled by the default scheduler, but Kubernetes can be instructed to use another scheduler by specifying the name of another custom scheduler (in our case, [Poseidon-Firmament](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/)) at the time of pod deployment. In this case, the default scheduler will ignore that Pod and allow Poseidon scheduler to schedule the Pod to a relevant node.  
+As part of the Kubernetes multiple schedulers support, each new pod is typically scheduled by the default scheduler, but Kubernetes can be instructed to use another scheduler by specifying the name of another custom scheduler (in our case, [Poseidon-Firmament](/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/)) at the time of pod deployment. In this case, the default scheduler will ignore that Pod and allow Poseidon scheduler to schedule the Pod to a relevant node.  
 
 {{< note >}}
 For details about the design of this project see the [design document](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/design/README.md).
@@ -57,9 +57,9 @@ For details about the design of this project see the [design document](https://g
 
 ## Possible Use Case Scenarios – When To Use It  
 
-[Poseidon-Firmament scheduler](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) enables extremely high throughput scheduling environment at scale due to its bulk scheduling approach superiority versus K8s pod-at-a-time approach. In our extensive tests, we have observed substantial throughput benefits as long as resource requirements (CPU/Memory) for incoming Pods is uniform across jobs (Replicasets/Deployments/Jobs), mainly due to efficient amortization of work across jobs.
+[Poseidon-Firmament scheduler](/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) enables extremely high throughput scheduling environment at scale due to its bulk scheduling approach superiority versus K8s pod-at-a-time approach. In our extensive tests, we have observed substantial throughput benefits as long as resource requirements (CPU/Memory) for incoming Pods is uniform across jobs (Replicasets/Deployments/Jobs), mainly due to efficient amortization of work across jobs.
 
-Although, [Poseidon-Firmament scheduler](https://kubernetes.io/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) is capable of scheduling various types of workloads (service, batch, etc.), following are the few use cases where it excels the most:  
+Although, [Poseidon-Firmament scheduler](/docs/concepts/extend-kubernetes/poseidon-firmament-alternate-scheduler/) is capable of scheduling various types of workloads (service, batch, etc.), following are the few use cases where it excels the most:  
 
   1. For “Big Data/AI” jobs consisting of a large number of tasks, throughput benefits are tremendous.  
 

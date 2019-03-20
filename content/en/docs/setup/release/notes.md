@@ -106,7 +106,7 @@ Before upgrading to Kubernetes 1.13, you must keep the following in mind:
 - kubelet
   - Use of the beta plugin registration directory `{kubelet_root_dir}/plugins/` for registration of external drivers via the kubelet plugin registration protocol is deprecated in favor of `{kubelet_root_dir}/plugins_registry/`. Support for the old directory is planned to be removed in v1.15. Device plugin and CSI storage drivers should switch to the new directory prior to v1.15. Only CSI storage drivers that support 0.x versions of the CSI API are allowed in the old directory. ([#70494](https://github.com/kubernetes/kubernetes/pull/70494) by [@RenaudWasTaken](https://github.com/RenaudWasTaken) and [#71314](https://github.com/kubernetes/kubernetes/pull/71314) by [@saad-ali](https://github.com/saad-ali))
   - With the release of the CSI 1.0 API, support for CSI drivers using 0.3 and older releases of the CSI API is deprecated, and is planned to be removed in Kubernetes v1.15. CSI drivers should be updated to support the CSI 1.0 API, and deployed in the new kubelet plugin registration directory (`{kubelet_root_dir}/plugins_registry/`) once all nodes in the cluster are at 1.13 or higher ([#71020](https://github.com/kubernetes/kubernetes/pull/71020) and [#71314](https://github.com/kubernetes/kubernetes/pull/71314), both by [@saad-ali](https://github.com/saad-ali))
-  - Use of the `--node-labels` flag to set labels under the `kubernetes.io/` and `k8s.io/` prefix will be subject to restriction by the `NodeRestriction` admission plugin in future releases. [See admission plugin documentation](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction) for allowed labels. ([#68267](https://github.com/kubernetes/kubernetes/pull/68267), [@liggitt](https://github.com/liggitt))
+  - Use of the `--node-labels` flag to set labels under the `kubernetes.io/` and `k8s.io/` prefix will be subject to restriction by the `NodeRestriction` admission plugin in future releases. [See admission plugin documentation](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) for allowed labels. ([#68267](https://github.com/kubernetes/kubernetes/pull/68267), [@liggitt](https://github.com/liggitt))
 - kube-scheduler
   - The alpha critical pod annotation (`scheduler.alpha.kubernetes.io/critical-pod`) is deprecated. Pod priority should be used instead to mark pods as critical. ([#70298](https://github.com/kubernetes/kubernetes/pull/70298), [@bsalamat](https://github.com/bsalamat))
 - The following features are now GA, and the associated feature gates are deprecated and will be removed in a future release:
@@ -131,7 +131,7 @@ For the 1.13 release, SIG API Machinery is happy to announce that the [dry-run f
 
 ### SIG Auth
 
-With this release we've made several important enhancements to core SIG Auth areas. In the authorization category, we've further reduced Kubelet privileges by [restricting node self-updates of labels to a whitelisted selection and by disallowing kubelets from deleting their Node API object](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction). In authentication, we added alpha-level support for automounting improved service account tokens through projected volumes. We also enabled [audience validation in TokenReview](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#tokenreview-v1-authentication-k8s-io) for the new tokens for improved scoping. Under audit logging, the new alpha-level "dynamic audit configuration" adds support for [dynamically registering webhooks to receive a stream of audit events](https://kubernetes.io/docs/tasks/debug-application-cluster/audit/#dynamic-backend). Finally, we've enhanced secrets protection by graduating [etcd encryption](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) out of experimental.
+With this release we've made several important enhancements to core SIG Auth areas. In the authorization category, we've further reduced Kubelet privileges by [restricting node self-updates of labels to a whitelisted selection and by disallowing kubelets from deleting their Node API object](/docs/reference/access-authn-authz/admission-controllers/#noderestriction). In authentication, we added alpha-level support for automounting improved service account tokens through projected volumes. We also enabled [audience validation in TokenReview](/docs/reference/generated/kubernetes-api/v1.13/#tokenreview-v1-authentication-k8s-io) for the new tokens for improved scoping. Under audit logging, the new alpha-level "dynamic audit configuration" adds support for [dynamically registering webhooks to receive a stream of audit events](/docs/tasks/debug-application-cluster/audit/#dynamic-backend). Finally, we've enhanced secrets protection by graduating [etcd encryption](/docs/tasks/administer-cluster/encrypt-data/) out of experimental.
 
 ### SIG AWS
 
@@ -157,7 +157,7 @@ During the 1.13 release cycle, SIG Big Data has been focused on community engage
 
 ### SIG CLI
 
-Over the course of 1.13 release SIG CLI mostly focused on stabilizing the items we’ve been working on over the past releases such as server-side printing and its support in kubectl, as well as finishing [kubectl diff which is based on server-side dry-run feature](https://kubernetes.io/docs/concepts/overview/object-management-kubectl/#how-to-create-objects). We’ve continued separating kubectl code to prepare for extraction out of main repository. Finally, thanks to the awesome support and feedback from community we’ve managed to promote the new [plugin mechanism to Beta](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/).
+Over the course of 1.13 release SIG CLI mostly focused on stabilizing the items we’ve been working on over the past releases such as server-side printing and its support in kubectl, as well as finishing [kubectl diff which is based on server-side dry-run feature](/docs/concepts/overview/object-management-kubectl/#how-to-create-objects). We’ve continued separating kubectl code to prepare for extraction out of main repository. Finally, thanks to the awesome support and feedback from community we’ve managed to promote the new [plugin mechanism to Beta](/docs/tasks/extend-kubectl/kubectl-plugins/).
 
 ### SIG Cloud Provider
 
@@ -233,7 +233,7 @@ With CSI the Kubernetes volume layer becomes truly extensible, allowing third pa
 
 CSI was first introduction as alpha in Kubernetes v1.9 and moved to beta in Kubernetes v1.10.
 
-You can find a list of sample and production drivers in the [CSI Documentation](https://kubernetes.io/docs/concepts/storage/volumes/#csi).
+You can find a list of sample and production drivers in the [CSI Documentation](/docs/concepts/storage/volumes/#csi).
 
 SIG Storage also moves support for Block Volumes to beta (introduced as alpha in v1.9) and support for Topology Aware Volume Scheduling to stable (introduced as alpha in v1.9 and promoted to beta in 1.10).
 
@@ -1228,4 +1228,3 @@ filename | sha512 hash
 * Get public IP for Azure vmss nodes. ([#68498](https://github.com/kubernetes/kubernetes/pull/68498), [@feiskyer](https://github.com/feiskyer))
 * test/integration: add a basic test for covering CronJobs ([#66937](https://github.com/kubernetes/kubernetes/pull/66937), [@mortent](https://github.com/mortent))
 * Make service environment variables optional ([#68754](https://github.com/kubernetes/kubernetes/pull/68754), [@bradhoekstra](https://github.com/bradhoekstra))
-
