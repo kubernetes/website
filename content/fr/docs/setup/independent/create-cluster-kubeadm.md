@@ -218,7 +218,7 @@ To start using your cluster, you need to run the following as a regular user:
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+  /docs/concepts/cluster-administration/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
@@ -356,7 +356,7 @@ Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutan
 ` sysctl net.bridge.bridge-nf-call-iptables = 1`
 passez le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI 
 fonctionnent, pour plus d'informations
-allez voir [ici](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Notez que `flannel` fonctionne sur` amd64`, `arm`,` arm64`, `ppc64le` et` s390x` sous Linux.
 Windows (`amd64`) est annoncé comme supporté dans la v0.11.0 mais son utilisation n’est pas 
@@ -373,7 +373,7 @@ Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutan
 `sysctl net.bridge.bridge-nf-call-iptables = 1`
 Cette commande indiquera de passer le trafic IPv4 bridgé à iptables. 
 Ceci est nécessaire pour que certains plugins CNI fonctionnent, pour plus d'informations
-s'il vous plaît allez voir [ici](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+s'il vous plaît allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router s'appuie sur kube-controller-manager pour allouer le pod CIDR aux nœuds. Par conséquent, 
 utilisez `kubeadm init` avec l'option` --pod-network-cidr`.
@@ -390,7 +390,7 @@ Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à` 1` en exécutant
 `sysctl net.bridge.bridge-nf-call-iptables = 1`
 Cette commande indiquera de passer le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI fonctionnent, 
 pour plus d'informations
-veuillez consulter la documentation [ici](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+veuillez consulter la documentation [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Le guide d'installation officiel de Romana est [ici](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -404,7 +404,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {{% tab name="Weave Net" %}}
 Paramétrez `/proc/sys/net/bridge/bridge-nf-call-iptables` à «1» en exécutant` sysctl net.bridge.bridge-nf-call-iptables = 1`
 Cette commande indiquera de passer le trafic IPv4 bridged à iptables. Ceci est nécessaire pour que certains plugins CNI fonctionnent, pour plus d'informations
-s'il vous plaît allez voir [ici](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+s'il vous plaît allez voir [ici](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Le guide de configuration officiel de Weave Net est [ici](https://www.weave.works/docs/net/latest/kube-addon/).
 
@@ -681,7 +681,3 @@ le répertoire des données etcd configuré par kubeadm se trouve dans `/var/lib
 
 Si vous rencontrez des difficultés avec kubeadm, veuillez consulter nos
  [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
-
-
-
-
