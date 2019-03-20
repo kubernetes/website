@@ -4,7 +4,7 @@ date: 2016-09-21
 slug: high-performance-network-policies-kubernetes
 url: /blog/2016/09/High-Performance-Network-Policies-Kubernetes
 ---
-_Editor's note: today’s post is by Juergen Brendel, Pritesh Kothari and Chris Marino co-founders of Pani Networks, the sponsor of the Romana project, the network policy software used for these benchmark tests._  
+_Editor's note: today’s post is by Juergen Brendel, Pritesh Kothari and Chris Marino co-founders of Pani Networks, the sponsor of the Romana project, the network policy software used for these benchmark tests._
 
 
 
@@ -20,7 +20,7 @@ Since the release of Kubernetes 1.3 back in July, users have been able to define
 
 
 
-What does this mean for the application developer? At last, Kubernetes has gained the necessary capabilities to provide "[defence in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing))". Traffic can be segmented and different parts of your application can be secured independently. For example, you can very easily protect each of your services via specific network policies: All the pods identified by a [Replication Controller](http://kubernetes.io/docs/user-guide/replication-controller/) behind a service are already identified by a specific label. Therefore, you can use this same label to apply a policy to those pods.
+What does this mean for the application developer? At last, Kubernetes has gained the necessary capabilities to provide "[defence in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing))". Traffic can be segmented and different parts of your application can be secured independently. For example, you can very easily protect each of your services via specific network policies: All the pods identified by a [Replication Controller](/docs/user-guide/replication-controller/) behind a service are already identified by a specific label. Therefore, you can use this same label to apply a policy to those pods.
 
 
 
@@ -35,21 +35,21 @@ However, prior to network policies, this kind of isolation for containers was no
 
 
 ```
-apiVersion: extensions/v1beta1  
-kind: NetworkPolicy  
-metadata:  
- name: pol1  
-spec:  
- podSelector:  
-   matchLabels:  
-     role: backend  
- ingress:  
- - from:  
-   - podSelector:  
-      matchLabels:  
-       role: frontend  
-   ports:  
-   - protocol: tcp  
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+ name: pol1
+spec:
+ podSelector:
+   matchLabels:
+     role: backend
+ ingress:
+ - from:
+   - podSelector:
+      matchLabels:
+       role: frontend
+   ports:
+   - protocol: tcp
      port: 80
  ```
 

@@ -5,13 +5,13 @@ slug: resource-usage-monitoring-kubernetes
 url: /blog/2015/05/Resource-Usage-Monitoring-Kubernetes
 ---
 
-Understanding how an application behaves when deployed is crucial to scaling the application and providing a reliable service. In a Kubernetes cluster, application performance can be examined at many different levels: containers, [pods](http://kubernetes.io/docs/user-guide/pods), [services](http://kubernetes.io/docs/user-guide/services), and whole clusters. As part of Kubernetes we want to provide users with detailed resource usage information about their running applications at all these levels. This will give users deep insights into how their applications are performing and where possible application bottlenecks may be found. In comes [Heapster](https://github.com/kubernetes/heapster), a project meant to provide a base monitoring platform on Kubernetes.  
+Understanding how an application behaves when deployed is crucial to scaling the application and providing a reliable service. In a Kubernetes cluster, application performance can be examined at many different levels: containers, [pods](/docs/user-guide/pods), [services](/docs/user-guide/services), and whole clusters. As part of Kubernetes we want to provide users with detailed resource usage information about their running applications at all these levels. This will give users deep insights into how their applications are performing and where possible application bottlenecks may be found. In comes [Heapster](https://github.com/kubernetes/heapster), a project meant to provide a base monitoring platform on Kubernetes.
 
 
-**Overview**  
+**Overview**
 
 
-Heapster is a cluster-wide aggregator of monitoring and event data. It currently supports Kubernetes natively and works on all Kubernetes setups. Heapster runs as a pod in the cluster, similar to how any Kubernetes application would run. The Heapster pod discovers all nodes in the cluster and queries usage information from the nodes’ [Kubelets](https://github.com/kubernetes/kubernetes/blob/master/DESIGN.md#kubelet), the on-machine Kubernetes agent. The Kubelet itself fetches the data from [cAdvisor](https://github.com/google/cadvisor). Heapster groups the information by pod along with the relevant labels. This data is then pushed to a configurable backend for storage and visualization. Currently supported backends include [InfluxDB](http://influxdb.com/) (with [Grafana](http://grafana.org/) for visualization), [Google Cloud Monitoring](https://cloud.google.com/monitoring/) and many others described in more details here. The overall architecture of the service can be seen below:  
+Heapster is a cluster-wide aggregator of monitoring and event data. It currently supports Kubernetes natively and works on all Kubernetes setups. Heapster runs as a pod in the cluster, similar to how any Kubernetes application would run. The Heapster pod discovers all nodes in the cluster and queries usage information from the nodes’ [Kubelets](https://github.com/kubernetes/kubernetes/blob/master/DESIGN.md#kubelet), the on-machine Kubernetes agent. The Kubelet itself fetches the data from [cAdvisor](https://github.com/google/cadvisor). Heapster groups the information by pod along with the relevant labels. This data is then pushed to a configurable backend for storage and visualization. Currently supported backends include [InfluxDB](http://influxdb.com/) (with [Grafana](http://grafana.org/) for visualization), [Google Cloud Monitoring](https://cloud.google.com/monitoring/) and many others described in more details here. The overall architecture of the service can be seen below:
 
 
 [![](https://2.bp.blogspot.com/-6Bu15356Zqk/V4mGINP8eOI/AAAAAAAAAmk/-RwvkJUt4rY2cmjqYFBmRo25FQQPRb27ACEw/s640/monitoring-architecture.png)](https://2.bp.blogspot.com/-6Bu15356Zqk/V4mGINP8eOI/AAAAAAAAAmk/-RwvkJUt4rY2cmjqYFBmRo25FQQPRb27ACEw/s1600/monitoring-architecture.png)
@@ -28,12 +28,12 @@ cAdvisor is an open source container resource usage and performance analysis age
 
 
 
-On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine containers on port 4194. Here is a snapshot of part of cAdvisor’s UI that shows the overall machine usage:  
+On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine containers on port 4194. Here is a snapshot of part of cAdvisor’s UI that shows the overall machine usage:
 
 
 [![](https://3.bp.blogspot.com/-V5KAfomW7Cg/V4mGH6OTKSI/AAAAAAAAAmo/EZHcG0afrs0606eTDMCryT6j6SoNzu3PgCEw/s400/cadvisor.png)](https://3.bp.blogspot.com/-V5KAfomW7Cg/V4mGH6OTKSI/AAAAAAAAAmo/EZHcG0afrs0606eTDMCryT6j6SoNzu3PgCEw/s1600/cadvisor.png)
 
-**Kubelet**  
+**Kubelet**
 
 The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
 

@@ -5,15 +5,15 @@ slug: highly-available-kubernetes-clusters
 url: /blog/2017/02/Highly-Available-Kubernetes-Clusters
 ---
 
-Today’s post shows how to set-up a reliable, highly available distributed Kubernetes cluster. The support for running such clusters on Google Compute Engine (GCE) was added as an alpha feature in [Kubernetes 1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads).   
+Today’s post shows how to set-up a reliable, highly available distributed Kubernetes cluster. The support for running such clusters on Google Compute Engine (GCE) was added as an alpha feature in [Kubernetes 1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads).
 
-**Motivation**  
+**Motivation**
 
-We will create a Highly Available Kubernetes cluster, with master replicas and worker nodes distributed among three zones of a region. Such setup will ensure that the cluster will continue operating during a zone failure.   
+We will create a Highly Available Kubernetes cluster, with master replicas and worker nodes distributed among three zones of a region. Such setup will ensure that the cluster will continue operating during a zone failure.
 
-**Setting Up HA cluster**  
+**Setting Up HA cluster**
 
-The following instructions apply to GCE. First, we will setup a cluster that will span over one zone (europe-west1-b), will contain one master and three worker nodes and will be HA-compatible (will allow adding more master replicas and more worker nodes in multiple zones in future). To implement this, we’ll export the following environment variables:  
+The following instructions apply to GCE. First, we will setup a cluster that will span over one zone (europe-west1-b), will contain one master and three worker nodes and will be HA-compatible (will allow adding more master replicas and more worker nodes in multiple zones in future). To implement this, we’ll export the following environment variables:
 
 
  ```
@@ -29,7 +29,7 @@ $ export ENABLE\_ETCD\_QUORUM\_READ=true
 
 
 
-and run kube-up script (note that the entire cluster will be initially placed in zone europe-west1-b):  
+and run kube-up script (note that the entire cluster will be initially placed in zone europe-west1-b):
 
 
  ```
@@ -38,7 +38,7 @@ $ KUBE\_GCE\_ZONE=europe-west1-b ./cluster/kube-up.sh
 
 
 
-Now, we will add two additional pools of worker nodes, each of three nodes, in zones europe-west1-c and europe-west1-d (more details on adding pools of worker nodes can be find [here](http://kubernetes.io/docs/setup/multiple-zones/)):  
+Now, we will add two additional pools of worker nodes, each of three nodes, in zones europe-west1-c and europe-west1-d (more details on adding pools of worker nodes can be find [here](/docs/setup/multiple-zones/)):
 
 
  ```
@@ -72,7 +72,7 @@ Note that adding the first replica will take longer (~15 minutes), as we need to
 
 
 
-We may now list all nodes present in the cluster:  
+We may now list all nodes present in the cluster:
 
 
  ```
@@ -111,7 +111,7 @@ As we can see, we have 3 master replicas (with disabled scheduling) and 9 worker
 
 
 
-We will deploy a sample application (nginx server) to verify that our cluster is working correctly:  
+We will deploy a sample application (nginx server) to verify that our cluster is working correctly:
 
 
  ```
@@ -120,7 +120,7 @@ $ kubectl run nginx --image=nginx --expose --port=80
 
 
 
-After waiting for a while, we can verify that both the deployment and the service were correctly created and are running:  
+After waiting for a while, we can verify that both the deployment and the service were correctly created and are running:
 
 
  ```
@@ -150,7 +150,7 @@ If you don't see a command prompt, try pressing enter.
 
 
 
-Now, let’s simulate failure of one of master’s replicas by executing halt command on it (kubernetes-master-137, zone europe-west1-c):  
+Now, let’s simulate failure of one of master’s replicas by executing halt command on it (kubernetes-master-137, zone europe-west1-c):
 
 
  ```
@@ -163,7 +163,7 @@ $ sudo halt
 
 
 
-After a while the master replica will be marked as NotReady:  
+After a while the master replica will be marked as NotReady:
 
 
  ```
@@ -289,7 +289,7 @@ Note that the second removal of replica will take longer (~15 minutes), as we ne
 
 
 
-Then, we will remove the additional worker nodes from zones europe-west1-c and europe-west1-d:  
+Then, we will remove the additional worker nodes from zones europe-west1-c and europe-west1-d:
 
 
  ```
@@ -316,7 +316,7 @@ $ KUBE\_GCE\_ZONE=europe-west1-b ./cluster/kube-down.sh
 
 
 
-We have shown how, by adding worker node pools and master replicas, a Highly Available Kubernetes cluster can be created. As of Kubernetes version 1.5.2, it is supported in kube-up/kube-down scripts for GCE (as alpha). Additionally, there is a support for HA cluster on AWS in kops scripts (see [this article](http://kubecloud.io/setup-ha-k8s-kops/) for more details).  
+We have shown how, by adding worker node pools and master replicas, a Highly Available Kubernetes cluster can be created. As of Kubernetes version 1.5.2, it is supported in kube-up/kube-down scripts for GCE (as alpha). Additionally, there is a support for HA cluster on AWS in kops scripts (see [this article](http://kubecloud.io/setup-ha-k8s-kops/) for more details).
 
 
 - [Download](http://get.k8s.io/) Kubernetes

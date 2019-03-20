@@ -4,20 +4,20 @@ date: 2017-01-30
 slug: running-mongodb-on-kubernetes-with-statefulsets
 url: /blog/2017/01/Running-Mongodb-On-Kubernetes-With-Statefulsets
 ---
-_Editor's note: Today’s post is by Sandeep Dinesh, Developer Advocate, Google Cloud Platform, showing how to run a database in a container._  
+_Editor's note: Today’s post is by Sandeep Dinesh, Developer Advocate, Google Cloud Platform, showing how to run a database in a container._
 
 
-Conventional wisdom says you can’t run a database in a container. “Containers are stateless!” they say, and “databases are pointless without state!”   
+Conventional wisdom says you can’t run a database in a container. “Containers are stateless!” they say, and “databases are pointless without state!”
 
-Of course, this is not true at all. At Google, everything runs in a container, including databases. You just need the right tools. [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) includes the new [StatefulSet](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/) API object (in previous versions, StatefulSet was known as PetSet). With StatefulSets, Kubernetes makes it much easier to run stateful workloads such as databases.  
+Of course, this is not true at all. At Google, everything runs in a container, including databases. You just need the right tools. [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) includes the new [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) API object (in previous versions, StatefulSet was known as PetSet). With StatefulSets, Kubernetes makes it much easier to run stateful workloads such as databases.
 
-If you’ve followed my previous posts, you know how to create a [MEAN Stack app with Docker](http://blog.sandeepdinesh.com/2015/07/running-mean-web-application-in-docker.html), then [migrate it to Kubernetes](https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d) to provide easier management and reliability, and [create a MongoDB replica set](https://medium.com/google-cloud/mongodb-replica-sets-with-kubernetes-d96606bd9474) to provide redundancy and high availability.  
+If you’ve followed my previous posts, you know how to create a [MEAN Stack app with Docker](http://blog.sandeepdinesh.com/2015/07/running-mean-web-application-in-docker.html), then [migrate it to Kubernetes](https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d) to provide easier management and reliability, and [create a MongoDB replica set](https://medium.com/google-cloud/mongodb-replica-sets-with-kubernetes-d96606bd9474) to provide redundancy and high availability.
 
-While the replica set in my previous blog post worked, there were some annoying steps that you needed to follow. You had to manually create a disk, a ReplicationController, and a service for each replica. Scaling the set up and down meant managing all of these resources manually, which is an opportunity for error, and would put your stateful application at risk In the previous example, we created a Makefile to ease the management of these resources, but it would have been great if Kubernetes could just take care of all of this for us.  
+While the replica set in my previous blog post worked, there were some annoying steps that you needed to follow. You had to manually create a disk, a ReplicationController, and a service for each replica. Scaling the set up and down meant managing all of these resources manually, which is an opportunity for error, and would put your stateful application at risk In the previous example, we created a Makefile to ease the management of these resources, but it would have been great if Kubernetes could just take care of all of this for us.
 
-With StatefulSets, these headaches finally go away. You can create and manage your MongoDB replica set natively in Kubernetes, without the need for scripts and Makefiles. Let’s take a look how.  
+With StatefulSets, these headaches finally go away. You can create and manage your MongoDB replica set natively in Kubernetes, without the need for scripts and Makefiles. Let’s take a look how.
 
-_Note: StatefulSets are currently a beta resource. The [sidecar container](https://github.com/cvallance/mongo-k8s-sidecar) used for auto-configuration is also unsupported._  
+_Note: StatefulSets are currently a beta resource. The [sidecar container](https://github.com/cvallance/mongo-k8s-sidecar) used for auto-configuration is also unsupported._
 
 
 
@@ -25,7 +25,7 @@ _Note: StatefulSets are currently a beta resource. The [sidecar container](https
 
 
 
-Before we get started, you’ll need a Kubernetes 1.5+ and the [Kubernetes command line tool](http://kubernetes.io/docs/user-guide/prereqs/). If you want to follow along with this tutorial and use Google Cloud Platform, you also need the [Google Cloud SDK](http://cloud.google.com/sdk).
+Before we get started, you’ll need a Kubernetes 1.5+ and the [Kubernetes command line tool](/docs/user-guide/prereqs/). If you want to follow along with this tutorial and use Google Cloud Platform, you also need the [Google Cloud SDK](http://cloud.google.com/sdk).
 
 
 
@@ -33,7 +33,7 @@ Once you have a [Google Cloud project created](https://console.cloud.google.com/
 
 
 
-To create a Kubernetes 1.5 cluster, run the following command:  
+To create a Kubernetes 1.5 cluster, run the following command:
 
 
 ```
@@ -42,7 +42,7 @@ gcloud container clusters create "test-cluster"
 
 
 
-This will make a three node Kubernetes cluster. Feel free to [customize the command](https://cloud.google.com/sdk/gcloud/reference/container/clusters/create) as you see fit.  
+This will make a three node Kubernetes cluster. Feel free to [customize the command](https://cloud.google.com/sdk/gcloud/reference/container/clusters/create) as you see fit.
 
 Then, authenticate into the cluster:
 
@@ -62,11 +62,11 @@ gcloud container clusters get-credentials test-cluster
 
 
 
-To set up the MongoDB replica set, you need three things: A [StorageClass](http://kubernetes.io/docs/user-guide/persistent-volumes/#storageclasses), a [Headless Service](http://kubernetes.io/docs/user-guide/services/#headless-services), and a [StatefulSet](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/).
+To set up the MongoDB replica set, you need three things: A [StorageClass](/docs/user-guide/persistent-volumes/#storageclasses), a [Headless Service](/docs/user-guide/services/#headless-services), and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/).
 
 
 
-I’ve created the configuration files for these already, and you can clone the example from GitHub:  
+I’ve created the configuration files for these already, and you can clone the example from GitHub:
 
 
 ```
@@ -77,7 +77,7 @@ cd /mongo-k8s-sidecar/example/StatefulSet/
 
 
 
-To create the MongoDB replica set, run these two commands:  
+To create the MongoDB replica set, run these two commands:
 
 
 ```
@@ -108,20 +108,20 @@ Let’s examine each piece in more detail.
 
 
 
-The storage class tells Kubernetes what kind of storage to use for the database nodes. You can set up many different types of StorageClasses in a ton of different environments. For example, if you run Kubernetes in your own datacenter, you can use [GlusterFS](https://www.gluster.org/). On GCP, your [storage choices](https://cloud.google.com/compute/docs/disks/) are SSDs and hard disks. There are currently drivers for [AWS](http://kubernetes.io/docs/user-guide/persistent-volumes/#aws), [Azure](http://kubernetes.io/docs/user-guide/persistent-volumes/#azure-disk), [Google Cloud](http://kubernetes.io/docs/user-guide/persistent-volumes/#gce), [GlusterFS](http://kubernetes.io/docs/user-guide/persistent-volumes/#glusterfs), [OpenStack Cinder](http://kubernetes.io/docs/user-guide/persistent-volumes/#openstack-cinder), [vSphere](http://kubernetes.io/docs/user-guide/persistent-volumes/#vsphere), [Ceph RBD](http://kubernetes.io/docs/user-guide/persistent-volumes/#ceph-rbd), and [Quobyte](http://kubernetes.io/docs/user-guide/persistent-volumes/#quobyte).
+The storage class tells Kubernetes what kind of storage to use for the database nodes. You can set up many different types of StorageClasses in a ton of different environments. For example, if you run Kubernetes in your own datacenter, you can use [GlusterFS](https://www.gluster.org/). On GCP, your [storage choices](https://cloud.google.com/compute/docs/disks/) are SSDs and hard disks. There are currently drivers for [AWS](/docs/user-guide/persistent-volumes/#aws), [Azure](/docs/user-guide/persistent-volumes/#azure-disk), [Google Cloud](/docs/user-guide/persistent-volumes/#gce), [GlusterFS](/docs/user-guide/persistent-volumes/#glusterfs), [OpenStack Cinder](/docs/user-guide/persistent-volumes/#openstack-cinder), [vSphere](/docs/user-guide/persistent-volumes/#vsphere), [Ceph RBD](/docs/user-guide/persistent-volumes/#ceph-rbd), and [Quobyte](/docs/user-guide/persistent-volumes/#quobyte).
 
 
 
-The configuration for the StorageClass looks like this:  
+The configuration for the StorageClass looks like this:
 
 
 ```
-kind: StorageClass  
-apiVersion: storage.k8s.io/v1beta1  
-metadata:  
- name: fast  
-provisioner: kubernetes.io/gce-pd  
-parameters:  
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+ name: fast
+provisioner: kubernetes.io/gce-pd
+parameters:
  type: pd-ssd
  ```
 
@@ -131,7 +131,7 @@ This configuration creates a new StorageClass called “fast” that is backed b
 
 
 
-Deploy this StorageClass:  
+Deploy this StorageClass:
 
 
 ```
@@ -148,7 +148,7 @@ Now you have created the Storage Class, you need to make a Headless Service. The
 
 
 
-The configuration for the Headless Service looks like this:  
+The configuration for the Headless Service looks like this:
 
 
 ```
@@ -189,7 +189,7 @@ You can tell this is a Headless Service because the clusterIP is set to “None.
 
 
 
-The pièce de résistance. The StatefulSet actually runs MongoDB and orchestrates everything together. StatefulSets differ from Kubernetes [ReplicaSets](http://kubernetes.io/docs/user-guide/replicasets/) (not to be confused with MongoDB replica sets!) in certain ways that makes them more suited for stateful applications. Unlike Kubernetes ReplicaSets, pods created under a StatefulSet have a few unique attributes. The name of the pod is not random, instead each pod gets an ordinal name. Combined with the Headless Service, this allows pods to have stable identification. In addition, pods are created one at a time instead of all at once, which can help when bootstrapping a stateful system. You can read more about StatefulSets in the [documentation](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/).
+The pièce de résistance. The StatefulSet actually runs MongoDB and orchestrates everything together. StatefulSets differ from Kubernetes [ReplicaSets](/docs/user-guide/replicasets/) (not to be confused with MongoDB replica sets!) in certain ways that makes them more suited for stateful applications. Unlike Kubernetes ReplicaSets, pods created under a StatefulSet have a few unique attributes. The name of the pod is not random, instead each pod gets an ordinal name. Combined with the Headless Service, this allows pods to have stable identification. In addition, pods are created one at a time instead of all at once, which can help when bootstrapping a stateful system. You can read more about StatefulSets in the [documentation](/docs/concepts/abstractions/controllers/statefulsets/).
 
 
 
@@ -197,7 +197,7 @@ Just like before, [this “sidecar” container](https://github.com/cvallance/mo
 
 
 
-The configuration for the StatefulSet looks like this:  
+The configuration for the StatefulSet looks like this:
 
 
 ```
@@ -298,11 +298,11 @@ The first second describes the StatefulSet object. Then, we move into the Metada
 
 
 
-Next comes the pod spec. The terminationGracePeriodSeconds is used to gracefully shutdown the pod when you scale down the number of replicas, which is important for databases! Then the configurations for the two containers is shown. The first one runs MongoDB with command line flags that configure the replica set name. It also mounts the persistent storage volume to /data/db, the location where MongoDB saves its data. The second container runs the sidecar.  
+Next comes the pod spec. The terminationGracePeriodSeconds is used to gracefully shutdown the pod when you scale down the number of replicas, which is important for databases! Then the configurations for the two containers is shown. The first one runs MongoDB with command line flags that configure the replica set name. It also mounts the persistent storage volume to /data/db, the location where MongoDB saves its data. The second container runs the sidecar.
 
 
 
-Finally, there is the volumeClaimTemplates. This is what talks to the StorageClass we created before to provision the volume. It will provision a 100 GB disk for each MongoDB replica.  
+Finally, there is the volumeClaimTemplates. This is what talks to the StorageClass we created before to provision the volume. It will provision a 100 GB disk for each MongoDB replica.
 
 
 
@@ -310,7 +310,7 @@ Finally, there is the volumeClaimTemplates. This is what talks to the StorageCla
 
 
 
-At this point, you should have three pods created in your cluster. These correspond to the three nodes in your MongoDB replica set. You can see them with this command:  
+At this point, you should have three pods created in your cluster. These correspond to the three nodes in your MongoDB replica set. You can see them with this command:
 
 
 ```
@@ -327,9 +327,9 @@ mongo-2 2/2  Running 0     3m
 
 
 
-Each pod in a StatefulSet backed by a Headless Service will have a stable DNS name. The template follows this format: \<pod-name\>.\<service-name\>  
+Each pod in a StatefulSet backed by a Headless Service will have a stable DNS name. The template follows this format: \<pod-name\>.\<service-name\>
 
-This means the DNS names for the MongoDB replica set are:  
+This means the DNS names for the MongoDB replica set are:
 
 
 
@@ -343,9 +343,9 @@ mongo-2.mongo
 
 
 
-You can use these names directly in the [connection string URI](http://docs.mongodb.com/manual/reference/connection-string) of your app.  
+You can use these names directly in the [connection string URI](http://docs.mongodb.com/manual/reference/connection-string) of your app.
 
-In this case, the connection string URI would be:  
+In this case, the connection string URI would be:
 
 
 ```
@@ -353,11 +353,11 @@ In this case, the connection string URI would be:
  ```
 
 
-That’s it!  
+That’s it!
 
-**Scaling the MongoDB replica set**  
+**Scaling the MongoDB replica set**
 
-A huge advantage of StatefulSets is that you can scale them just like Kubernetes ReplicaSets. If you want 5 MongoDB Nodes instead of 3, just run the scale command:  
+A huge advantage of StatefulSets is that you can scale them just like Kubernetes ReplicaSets. If you want 5 MongoDB Nodes instead of 3, just run the scale command:
 
 
 
@@ -366,15 +366,15 @@ kubectl scale --replicas=5 statefulset mongo
  ```
 
 
-The sidecar container will automatically configure the new MongoDB nodes to join the replica set.  
+The sidecar container will automatically configure the new MongoDB nodes to join the replica set.
 
-Include the two new nodes (mongo-3.mongo & mongo-4.mongo) in your connection string URI and you are good to go. Too easy!  
+Include the two new nodes (mongo-3.mongo & mongo-4.mongo) in your connection string URI and you are good to go. Too easy!
 
-**Cleaning Up**  
+**Cleaning Up**
 
-To clean up the deployed resources, delete the StatefulSet, Headless Service, and the provisioned volumes.  
+To clean up the deployed resources, delete the StatefulSet, Headless Service, and the provisioned volumes.
 
-Delete the StatefulSet:  
+Delete the StatefulSet:
 
 
 ```
@@ -383,7 +383,7 @@ kubectl delete statefulset mongo
 
 
 
-Delete the Service:  
+Delete the Service:
 
 
 ```
@@ -392,7 +392,7 @@ kubectl delete svc mongo
 
 
 
-Delete the Volumes:  
+Delete the Volumes:
 
 
 
@@ -404,7 +404,7 @@ kubectl delete pvc -l role=mongo
 
 
 
-Finally, you can delete the test cluster:  
+Finally, you can delete the test cluster:
 
 
 

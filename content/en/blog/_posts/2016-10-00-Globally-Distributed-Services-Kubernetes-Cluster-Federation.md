@@ -4,23 +4,23 @@ date: 2016-10-14
 slug: globally-distributed-services-kubernetes-cluster-federation
 url: /blog/2016/10/Globally-Distributed-Services-Kubernetes-Cluster-Federation
 ---
-_Editor's note: Today’s post is by Allan Naim, Product Manager, and Quinton Hoole, Staff Engineer at Google, showing how to deploy a multi-homed service behind a global load balancer and have requests sent to the closest cluster._  
+_Editor's note: Today’s post is by Allan Naim, Product Manager, and Quinton Hoole, Staff Engineer at Google, showing how to deploy a multi-homed service behind a global load balancer and have requests sent to the closest cluster._
 
-In Kubernetes 1.3, we announced Kubernetes Cluster Federation and introduced the concept of Cross Cluster Service Discovery, enabling developers to deploy a service that was sharded across a federation of clusters spanning different zones, regions or cloud providers. This enables developers to achieve higher availability for their applications, without sacrificing quality of service, as detailed in our [previous](https://kubernetes.io/blog/2016/07/cross-cluster-services) blog post.   
+In Kubernetes 1.3, we announced Kubernetes Cluster Federation and introduced the concept of Cross Cluster Service Discovery, enabling developers to deploy a service that was sharded across a federation of clusters spanning different zones, regions or cloud providers. This enables developers to achieve higher availability for their applications, without sacrificing quality of service, as detailed in our [previous](https://kubernetes.io/blog/2016/07/cross-cluster-services) blog post.
 
-In the latest release, [Kubernetes 1.4](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere), we've extended Cluster Federation to support Replica Sets, Secrets, Namespaces and Ingress objects. This means that you no longer need to deploy and manage these objects individually in each of your federated clusters. Just create them once in the federation, and have its built-in controllers automatically handle that for you.  
+In the latest release, [Kubernetes 1.4](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere), we've extended Cluster Federation to support Replica Sets, Secrets, Namespaces and Ingress objects. This means that you no longer need to deploy and manage these objects individually in each of your federated clusters. Just create them once in the federation, and have its built-in controllers automatically handle that for you.
 
-[**Federated Replica Sets**](http://kubernetes.io/docs/user-guide/federation/replicasets/) leverage the same configuration as non-federated Kubernetes Replica Sets and automatically distribute Pods across one or more federated clusters. By default, replicas are evenly distributed across all clusters, but for cases where that is not the desired behavior, we've introduced Replica Set preferences, which allow replicas to be distributed across only some clusters, or in non-equal proportions ([define annotations](https://github.com/kubernetes/kubernetes/blob/master/federation/apis/federation/types.go#L114)).   
+[**Federated Replica Sets**](/docs/user-guide/federation/replicasets/) leverage the same configuration as non-federated Kubernetes Replica Sets and automatically distribute Pods across one or more federated clusters. By default, replicas are evenly distributed across all clusters, but for cases where that is not the desired behavior, we've introduced Replica Set preferences, which allow replicas to be distributed across only some clusters, or in non-equal proportions ([define annotations](https://github.com/kubernetes/kubernetes/blob/master/federation/apis/federation/types.go#L114)).
 
-Starting with Google Cloud Platform (GCP), we’ve introduced [**Federated Ingress**](http://kubernetes.io/docs/user-guide/federation/federated-ingress/) as a Kubernetes 1.4 alpha feature which enables external clients point to a single IP address and have requests sent to the closest cluster with usable capacity in any region, zone of the Federation.   
+Starting with Google Cloud Platform (GCP), we’ve introduced [**Federated Ingress**](/docs/user-guide/federation/federated-ingress/) as a Kubernetes 1.4 alpha feature which enables external clients point to a single IP address and have requests sent to the closest cluster with usable capacity in any region, zone of the Federation.
 
-[**Federated Secrets**](http://kubernetes.io/docs/user-guide/federation/secrets/) automatically create and manage secrets across all clusters in a Federation, automatically ensuring that these are kept globally consistent and up-to-date, even if some clusters are offline when the original updates are applied.  
+[**Federated Secrets**](/docs/user-guide/federation/secrets/) automatically create and manage secrets across all clusters in a Federation, automatically ensuring that these are kept globally consistent and up-to-date, even if some clusters are offline when the original updates are applied.
 
-[**Federated Namespaces**](http://kubernetes.io/docs/user-guide/federation/namespaces/) are similar to the traditional [Kubernetes Namespaces](http://kubernetes.io/docs/user-guide/namespaces/) providing the same functionality. Creating them in the Federation control plane ensures that they are synchronized across all the clusters in Federation.  
+[**Federated Namespaces**](/docs/user-guide/federation/namespaces/) are similar to the traditional [Kubernetes Namespaces](/docs/user-guide/namespaces/) providing the same functionality. Creating them in the Federation control plane ensures that they are synchronized across all the clusters in Federation.
 
-[**Federated Events**](http://kubernetes.io/docs/user-guide/federation/events/) are similar to the traditional Kubernetes Events providing the same functionality. Federation Events are stored only in Federation control plane and are not passed on to the underlying kubernetes clusters.  
+[**Federated Events**](/docs/user-guide/federation/events/) are similar to the traditional Kubernetes Events providing the same functionality. Federation Events are stored only in Federation control plane and are not passed on to the underlying kubernetes clusters.
 
-Let’s walk through how all this stuff works. We’re going to provision 3 clusters per region, spanning 3 continents (Europe, North America and Asia).   
+Let’s walk through how all this stuff works. We’re going to provision 3 clusters per region, spanning 3 continents (Europe, North America and Asia).
 
 
 
@@ -44,15 +44,15 @@ Let’s verify that we have 9 clusters in 3 regions running.
 $ kubectl --context=federation-cluster get clusters
 
 
-NAME              STATUS    AGE  
-gce-asia-east1-a     Ready     17m  
-gce-asia-east1-b     Ready     15m  
-gce-asia-east1-c     Ready     10m  
-gce-europe-west1-b   Ready     7m  
-gce-europe-west1-c   Ready     7m  
-gce-europe-west1-d   Ready     4m  
-gce-us-central1-a    Ready     1m  
-gce-us-central1-b    Ready     53s  
+NAME              STATUS    AGE
+gce-asia-east1-a     Ready     17m
+gce-asia-east1-b     Ready     15m
+gce-asia-east1-c     Ready     10m
+gce-europe-west1-b   Ready     7m
+gce-europe-west1-c   Ready     7m
+gce-europe-west1-d   Ready     4m
+gce-us-central1-a    Ready     1m
+gce-us-central1-b    Ready     53s
 gce-us-central1-c    Ready     39s
   ```
 
@@ -68,7 +68,7 @@ gce-us-central1-c    Ready     39s
 
 
 
-In our example, we’ll be deploying the service and ingress object using the federated control plane. The [ConfigMap](http://kubernetes.io/docs/user-guide/configmap/) object isn’t currently supported by Federation, so we’ll be deploying it manually in each of the underlying Federation clusters. Our cluster deployment will look as follows:
+In our example, we’ll be deploying the service and ingress object using the federated control plane. The [ConfigMap](/docs/user-guide/configmap/) object isn’t currently supported by Federation, so we’ll be deploying it manually in each of the underlying Federation clusters. Our cluster deployment will look as follows:
 
 
 
@@ -97,37 +97,37 @@ It will take a few minutes for the service to propagate across the 9 clusters.
 $ kubectl --context=federation-cluster describe services nginx
 
 
-Name:                   nginx  
-Namespace:              default  
-Labels:                 app=nginx  
-Selector:               app=nginx  
-Type:                   LoadBalancer  
-IP:  
-LoadBalancer Ingress:   108.59.xx.xxx, 104.199.xxx.xxx, ...  
+Name:                   nginx
+Namespace:              default
+Labels:                 app=nginx
+Selector:               app=nginx
+Type:                   LoadBalancer
+IP:
+LoadBalancer Ingress:   108.59.xx.xxx, 104.199.xxx.xxx, ...
 Port:                   http    80/TCP
 
-NodePort:               http    30061/TCP  
-Endpoints:              <none>  
+NodePort:               http    30061/TCP
+Endpoints:              <none>
 Session Affinity:       None
  ```
 
 
 
-Let’s now create a Federated Ingress. Federated Ingresses are created in much that same way as traditional [Kubernetes Ingresses](http://kubernetes.io/docs/user-guide/ingress/): by making an API call which specifies the desired properties of your logical ingress point. In the case of Federated Ingress, this API call is directed to the Federation API endpoint, rather than a Kubernetes cluster API endpoint. The API for Federated Ingress is 100% compatible with the API for traditional Kubernetes Services.
+Let’s now create a Federated Ingress. Federated Ingresses are created in much that same way as traditional [Kubernetes Ingresses](/docs/user-guide/ingress/): by making an API call which specifies the desired properties of your logical ingress point. In the case of Federated Ingress, this API call is directed to the Federation API endpoint, rather than a Kubernetes cluster API endpoint. The API for Federated Ingress is 100% compatible with the API for traditional Kubernetes Services.
 
 
 
 
 ```
-$ cat ingress/ingress.yaml   
+$ cat ingress/ingress.yaml
 
-apiVersion: extensions/v1beta1  
-kind: Ingress  
-metadata:  
-  name: nginx  
-spec:  
-  backend:  
-    serviceName: nginx  
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx
+spec:
+  backend:
+    serviceName: nginx
     servicePort: 80
  ```
 
@@ -135,7 +135,7 @@ spec:
 
 
 ```
-$ kubectl --context=federation-cluster create -f ingress/ingress.yaml   
+$ kubectl --context=federation-cluster create -f ingress/ingress.yaml
 ingress "nginx" created
  ```
 
@@ -153,27 +153,27 @@ We can verify the ingress objects are matching in the underlying clusters. Notic
 
 
 ```
-$ for c in $(kubectl config view -o jsonpath='{.contexts[*].name}'); do kubectl --context=$c get ingress; done  
+$ for c in $(kubectl config view -o jsonpath='{.contexts[*].name}'); do kubectl --context=$c get ingress; done
 
-NAME      HOSTS     ADDRESS   PORTS     AGE  
-nginx     \*                   80        1h  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
-nginx     \*         130.211.40.xxx   80        40m  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
-nginx     \*         130.211.40.xxx   80        1h  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
-nginx     \*         130.211.40.xxx   80        26m  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
-nginx     \*         130.211.40.xxx   80        1h  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
-nginx     \*         130.211.40.xxx   80        25m  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
-nginx     \*         130.211.40.xxx   80        38m  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
-nginx     \*         130.211.40.xxx   80        3m  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
-nginx     \*         130.211.40.xxx   80        57m  
-NAME      HOSTS     ADDRESS          PORTS     AGE  
+NAME      HOSTS     ADDRESS   PORTS     AGE
+nginx     \*                   80        1h
+NAME      HOSTS     ADDRESS          PORTS     AGE
+nginx     \*         130.211.40.xxx   80        40m
+NAME      HOSTS     ADDRESS          PORTS     AGE
+nginx     \*         130.211.40.xxx   80        1h
+NAME      HOSTS     ADDRESS          PORTS     AGE
+nginx     \*         130.211.40.xxx   80        26m
+NAME      HOSTS     ADDRESS          PORTS     AGE
+nginx     \*         130.211.40.xxx   80        1h
+NAME      HOSTS     ADDRESS          PORTS     AGE
+nginx     \*         130.211.40.xxx   80        25m
+NAME      HOSTS     ADDRESS          PORTS     AGE
+nginx     \*         130.211.40.xxx   80        38m
+NAME      HOSTS     ADDRESS          PORTS     AGE
+nginx     \*         130.211.40.xxx   80        3m
+NAME      HOSTS     ADDRESS          PORTS     AGE
+nginx     \*         130.211.40.xxx   80        57m
+NAME      HOSTS     ADDRESS          PORTS     AGE
 nginx     \*         130.211.40.xxx   80        56m
  ```
 
@@ -211,46 +211,46 @@ Let’s have a quick peek at our Replica Set:
 $ cat replicasets/nginx-rs.yaml
 
 
-apiVersion: extensions/v1beta1  
-kind: ReplicaSet  
-metadata:  
-  name: nginx  
-  labels:  
-    app: nginx  
-    type: demo  
-spec:  
-  replicas: 9  
-  template:  
-    metadata:  
-      labels:  
-        app: nginx  
-    spec:  
-      containers:  
-      - image: nginx  
-        name: frontend  
-        ports:  
-          - containerPort: 80  
-        volumeMounts:  
-        - name: html-dir  
-          mountPath: /usr/share/nginx/html  
-      - image: busybox  
-        name: zone-fetcher  
-        command:  
-          - "/bin/sh"  
-          - "-c"  
-          - "/zonefetch/zonefetch.sh"  
-        volumeMounts:  
-        - name: zone-fetch  
-          mountPath: /zonefetch  
-        - name: html-dir  
-          mountPath: /usr/share/nginx/html  
-      volumes:  
-        - name: zone-fetch  
-          configMap:  
-            defaultMode: 0777  
-            name: zone-fetch  
-        - name: html-dir  
-          emptyDir:  
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    type: demo
+spec:
+  replicas: 9
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx
+        name: frontend
+        ports:
+          - containerPort: 80
+        volumeMounts:
+        - name: html-dir
+          mountPath: /usr/share/nginx/html
+      - image: busybox
+        name: zone-fetcher
+        command:
+          - "/bin/sh"
+          - "-c"
+          - "/zonefetch/zonefetch.sh"
+        volumeMounts:
+        - name: zone-fetch
+          mountPath: /zonefetch
+        - name: html-dir
+          mountPath: /usr/share/nginx/html
+      volumes:
+        - name: zone-fetch
+          configMap:
+            defaultMode: 0777
+            name: zone-fetch
+        - name: html-dir
+          emptyDir:
             medium: ""
  ```
 
@@ -262,26 +262,26 @@ The Replica Set consists of 9 replicas, spread evenly across 9 clusters within t
 
 
 ```
-apiVersion: extensions/v1beta1  
-kind: ReplicaSet  
-metadata:  
-  name: nginx-us  
-  annotations:  
-    federation.kubernetes.io/replica-set-preferences: ```  
-        {  
-            "rebalance": true,  
-            "clusters": {  
-                "gce-us-central1-a": {  
-                    "minReplicas": 2,  
-                    "maxReplicas": 4,  
-                    "weight": 1  
-                },  
-                "gce-us-central10b": {  
-                    "minReplicas": 2,  
-                    "maxReplicas": 4,  
-                    "weight": 1  
-                }  
-            }  
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: nginx-us
+  annotations:
+    federation.kubernetes.io/replica-set-preferences: ```
+        {
+            "rebalance": true,
+            "clusters": {
+                "gce-us-central1-a": {
+                    "minReplicas": 2,
+                    "maxReplicas": 4,
+                    "weight": 1
+                },
+                "gce-us-central10b": {
+                    "minReplicas": 2,
+                    "maxReplicas": 4,
+                    "weight": 1
+                }
+            }
         }
  ```
 
@@ -308,47 +308,47 @@ Verify the Replica Sets and Pods were created in each cluster:
 
 
 ```
-$ for c in $(kubectl config view -o jsonpath='{.contexts[\*].name}'); do kubectl --context=$c get rs; done  
+$ for c in $(kubectl config view -o jsonpath='{.contexts[\*].name}'); do kubectl --context=$c get rs; done
 
-NAME      DESIRED   CURRENT   READY     AGE  
-nginx     1         1         1         42s  
-NAME      DESIRED   CURRENT   READY     AGE  
-nginx     1         1         1         14m  
-NAME      DESIRED   CURRENT   READY     AGE  
-nginx     1         1         1         45s  
-NAME      DESIRED   CURRENT   READY     AGE  
-nginx     1         1         1         46s  
-NAME      DESIRED   CURRENT   READY     AGE  
-nginx     1         1         1         47s  
-NAME      DESIRED   CURRENT   READY     AGE  
-nginx     1         1         1         48s  
-NAME      DESIRED   CURRENT   READY     AGE  
-nginx     1         1         1         49s  
-NAME      DESIRED   CURRENT   READY     AGE  
-nginx     1         1         1         49s  
-NAME      DESIRED   CURRENT   READY     AGE  
+NAME      DESIRED   CURRENT   READY     AGE
+nginx     1         1         1         42s
+NAME      DESIRED   CURRENT   READY     AGE
+nginx     1         1         1         14m
+NAME      DESIRED   CURRENT   READY     AGE
+nginx     1         1         1         45s
+NAME      DESIRED   CURRENT   READY     AGE
+nginx     1         1         1         46s
+NAME      DESIRED   CURRENT   READY     AGE
+nginx     1         1         1         47s
+NAME      DESIRED   CURRENT   READY     AGE
+nginx     1         1         1         48s
+NAME      DESIRED   CURRENT   READY     AGE
+nginx     1         1         1         49s
+NAME      DESIRED   CURRENT   READY     AGE
+nginx     1         1         1         49s
+NAME      DESIRED   CURRENT   READY     AGE
 nginx     1         1         1         49s
 
 
-$ for c in $(kubectl config view -o jsonpath='{.contexts[\*].name}'); do kubectl --context=$c get po; done  
+$ for c in $(kubectl config view -o jsonpath='{.contexts[\*].name}'); do kubectl --context=$c get po; done
 
-NAME          READY     STATUS    RESTARTS   AGE  
-nginx-ph8zx   2/2       Running   0          25s  
-NAME          READY     STATUS    RESTARTS   AGE  
-nginx-sbi5b   2/2       Running   0          27s  
-NAME          READY     STATUS    RESTARTS   AGE  
-nginx-pf2dr   2/2       Running   0          28s  
-NAME          READY     STATUS    RESTARTS   AGE  
-nginx-imymt   2/2       Running   0          30s  
-NAME          READY     STATUS    RESTARTS   AGE  
-nginx-9cd5m   2/2       Running   0          31s  
-NAME          READY     STATUS    RESTARTS   AGE  
-nginx-vxlx4   2/2       Running   0          33s  
-NAME          READY     STATUS    RESTARTS   AGE  
-nginx-itagl   2/2       Running   0          33s  
-NAME          READY     STATUS    RESTARTS   AGE  
-nginx-u7uyn   2/2       Running   0          33s  
-NAME          READY     STATUS    RESTARTS   AGE  
+NAME          READY     STATUS    RESTARTS   AGE
+nginx-ph8zx   2/2       Running   0          25s
+NAME          READY     STATUS    RESTARTS   AGE
+nginx-sbi5b   2/2       Running   0          27s
+NAME          READY     STATUS    RESTARTS   AGE
+nginx-pf2dr   2/2       Running   0          28s
+NAME          READY     STATUS    RESTARTS   AGE
+nginx-imymt   2/2       Running   0          30s
+NAME          READY     STATUS    RESTARTS   AGE
+nginx-9cd5m   2/2       Running   0          31s
+NAME          READY     STATUS    RESTARTS   AGE
+nginx-vxlx4   2/2       Running   0          33s
+NAME          READY     STATUS    RESTARTS   AGE
+nginx-itagl   2/2       Running   0          33s
+NAME          READY     STATUS    RESTARTS   AGE
+nginx-u7uyn   2/2       Running   0          33s
+NAME          READY     STATUS    RESTARTS   AGE
 nginx-i0jh6   2/2       Running   0          34s
  ```
 
@@ -380,14 +380,14 @@ $ gcloud compute ssh test-instance-asia --zone asia-east1-a
 
 -----
 
-user@test-instance-asia:~$ curl 130.211.40.186  
-<!DOCTYPE html>  
-<html>  
-<head>  
-<title>Welcome to the global site!</title>  
-</head>  
-<body>  
-<h1>Welcome to the global site! You are being served from asia-east1-b</h1>  
+user@test-instance-asia:~$ curl 130.211.40.186
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to the global site!</title>
+</head>
+<body>
+<h1>Welcome to the global site! You are being served from asia-east1-b</h1>
 <p>Congratulations!</p>
 
 
@@ -400,14 +400,14 @@ $ gcloud compute ssh test-instance-us --zone us-west1-b
 
 ----
 
-user@test-instance-us:~$ curl 130.211.40.186  
-<!DOCTYPE html>  
-<html>  
-<head>  
-<title>Welcome to the global site!</title>  
-</head>  
-<body>  
-<h1>Welcome to the global site! You are being served from us-central1-b</h1>  
+user@test-instance-us:~$ curl 130.211.40.186
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to the global site!</title>
+</head>
+<body>
+<h1>Welcome to the global site! You are being served from us-central1-b</h1>
 <p>Congratulations!</p>
 
 

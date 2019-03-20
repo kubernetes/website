@@ -5,9 +5,9 @@ slug: bringing-end-to-end-testing-to-azure
 url: /blog/2016/06/Bringing-End-To-End-Testing-To-Azure
 ---
 
-_Today’s guest post is by Travis Newhouse, Chief Architect at AppFormix, writing about their experiences bringing Kubernetes to Azure._  
+_Today’s guest post is by Travis Newhouse, Chief Architect at AppFormix, writing about their experiences bringing Kubernetes to Azure._
 
-At [AppFormix](http://www.appformix.com/), continuous integration testing is part of our culture. We see many benefits to running end-to-end tests regularly, including minimizing regressions and ensuring our software works together as a whole. To ensure a high quality experience for our customers, we require the ability to run end-to-end testing not just for our application, but for the entire orchestration stack. Our customers are adopting Kubernetes as their container orchestration technology of choice, and they demand choice when it comes to where their containers execute, from private infrastructure to public providers, including Azure. After several weeks of work, we are pleased to announce we are contributing a nightly, continuous integration job that executes e2e tests on the Azure platform. After running the e2e tests each night for only a few weeks, we have already found and fixed two issues in Kubernetes. We hope our contribution of an e2e job will help the community maintain support for the Azure platform as Kubernetes evolves.    
+At [AppFormix](http://www.appformix.com/), continuous integration testing is part of our culture. We see many benefits to running end-to-end tests regularly, including minimizing regressions and ensuring our software works together as a whole. To ensure a high quality experience for our customers, we require the ability to run end-to-end testing not just for our application, but for the entire orchestration stack. Our customers are adopting Kubernetes as their container orchestration technology of choice, and they demand choice when it comes to where their containers execute, from private infrastructure to public providers, including Azure. After several weeks of work, we are pleased to announce we are contributing a nightly, continuous integration job that executes e2e tests on the Azure platform. After running the e2e tests each night for only a few weeks, we have already found and fixed two issues in Kubernetes. We hope our contribution of an e2e job will help the community maintain support for the Azure platform as Kubernetes evolves.
 
 
 
@@ -17,11 +17,11 @@ In this blog post, we describe the journey we took to implement deployment scrip
 
 **BACKGROUND**
 
-While Kubernetes is designed to operate on any IaaS, and [solution guides](http://kubernetes.io/docs/getting-started-guides/#table-of-solutions) exist for many platforms including [Google Compute Engine](http://kubernetes.io/docs/getting-started-guides/gce/), [AWS](http://kubernetes.io/docs/getting-started-guides/aws/), [Azure](http://kubernetes.io/docs/getting-started-guides/coreos/azure/), and [Rackspace](http://kubernetes.io/docs/getting-started-guides/rackspace/), the Kubernetes project refers to these as “versioned distros,” as they are only tested against a particular binary release of Kubernetes. On the other hand, “development distros” are used daily by automated, e2e tests for the latest Kubernetes source code, and serve as gating checks to code submission.
+While Kubernetes is designed to operate on any IaaS, and [solution guides](/docs/getting-started-guides/#table-of-solutions) exist for many platforms including [Google Compute Engine](/docs/getting-started-guides/gce/), [AWS](/docs/getting-started-guides/aws/), [Azure](/docs/getting-started-guides/coreos/azure/), and [Rackspace](/docs/getting-started-guides/rackspace/), the Kubernetes project refers to these as “versioned distros,” as they are only tested against a particular binary release of Kubernetes. On the other hand, “development distros” are used daily by automated, e2e tests for the latest Kubernetes source code, and serve as gating checks to code submission.
 
 
 
-When we first surveyed existing support for Kubernetes on Azure, we found documentation for running Kubernetes on Azure using CoreOS and Weave. The documentation includes [scripts for deployment](http://kubernetes.io/docs/getting-started-guides/coreos/azure/), but the scripts do not conform to the cluster/kube-up.sh framework for automated cluster creation required by a “development distro.” Further, there did not exist a continuous integration job that utilized the scripts to validate Kubernetes using the end-to-end test scenarios (those found in test/e2e  in the Kubernetes repository).
+When we first surveyed existing support for Kubernetes on Azure, we found documentation for running Kubernetes on Azure using CoreOS and Weave. The documentation includes [scripts for deployment](/docs/getting-started-guides/coreos/azure/), but the scripts do not conform to the cluster/kube-up.sh framework for automated cluster creation required by a “development distro.” Further, there did not exist a continuous integration job that utilized the scripts to validate Kubernetes using the end-to-end test scenarios (those found in test/e2e  in the Kubernetes repository).
 
 
 
@@ -85,7 +85,7 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 
 10.244.1.0      10.8.0.9        255.255.255.0   UG    0      0        0 tun0
 
-10.244.2.0      0.0.0.0         255.255.255.0   U     0      0        0 cbr0  
+10.244.2.0      0.0.0.0         255.255.255.0   U     0      0        0 cbr0
 ```
 
  [![](https://3.bp.blogspot.com/-U2KYWNzJpFI/V3QMYbKRX8I/AAAAAAAAAks/SqEvCDJHJ8QtbB9hJVM8WAkFuAUlrFl8ACLcB/s400/Kubernetes%2BBlog%2BPost%2B-%2BKubernetes%2Bon%2BAzure%2B%2528Part%2B1%2529.png)](https://3.bp.blogspot.com/-U2KYWNzJpFI/V3QMYbKRX8I/AAAAAAAAAks/SqEvCDJHJ8QtbB9hJVM8WAkFuAUlrFl8ACLcB/s1600/Kubernetes%2BBlog%2BPost%2B-%2BKubernetes%2Bon%2BAzure%2B%2528Part%2B1%2529.png) |

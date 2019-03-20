@@ -11,17 +11,17 @@ _[Who's on First?](https://www.youtube.com/watch?v=kTcRRaXV-fg) by Abbott and Co
 
 
 
-**Introduction**  
+**Introduction**
 
-Kubernetes is a system with several concepts. Many of these concepts get manifested as “objects” in the RESTful API (often called “resources” or “kinds”). One of these concepts is [Namespaces](http://kubernetes.io/docs/user-guide/namespaces/). In Kubernetes, Namespaces are the way to partition a single Kubernetes cluster into multiple virtual clusters. In this post we’ll highlight examples of how our customers are using Namespaces.&nbsp;  
+Kubernetes is a system with several concepts. Many of these concepts get manifested as “objects” in the RESTful API (often called “resources” or “kinds”). One of these concepts is [Namespaces](/docs/user-guide/namespaces/). In Kubernetes, Namespaces are the way to partition a single Kubernetes cluster into multiple virtual clusters. In this post we’ll highlight examples of how our customers are using Namespaces.&nbsp;
 
-But first, a metaphor: Namespaces are like human family names. A family name, e.g. Wong, identifies a family unit. Within the Wong family, one of its members, e.g. Sam Wong, is readily identified as just “Sam” by the family. Outside of the family, and to avoid “Which Sam?” problems, Sam would usually be referred to as “Sam Wong”, perhaps even “Sam Wong from San Francisco”. &nbsp;  
+But first, a metaphor: Namespaces are like human family names. A family name, e.g. Wong, identifies a family unit. Within the Wong family, one of its members, e.g. Sam Wong, is readily identified as just “Sam” by the family. Outside of the family, and to avoid “Which Sam?” problems, Sam would usually be referred to as “Sam Wong”, perhaps even “Sam Wong from San Francisco”. &nbsp;
 
-Namespaces are a logical partitioning capability that enable one Kubernetes cluster to be used by multiple users, teams of users, or a single user with multiple applications without concern for undesired interaction. Each user, team of users, or application may exist within its Namespace, isolated from every other user of the cluster and operating as if it were the sole user of the cluster. (Furthermore, [Resource Quotas](http://kubernetes.io/docs/admin/resourcequota/) provide the ability to allocate a subset of a Kubernetes cluster’s resources to a Namespace.)  
+Namespaces are a logical partitioning capability that enable one Kubernetes cluster to be used by multiple users, teams of users, or a single user with multiple applications without concern for undesired interaction. Each user, team of users, or application may exist within its Namespace, isolated from every other user of the cluster and operating as if it were the sole user of the cluster. (Furthermore, [Resource Quotas](/docs/admin/resourcequota/) provide the ability to allocate a subset of a Kubernetes cluster’s resources to a Namespace.)
 
-For all but the most trivial uses of Kubernetes, you will benefit by using Namespaces. In this post, we’ll cover the most common ways that we’ve seen Kubernetes users on Google Cloud Platform use Namespaces, but our list is not exhaustive and we’d be interested to learn other examples from you.  
+For all but the most trivial uses of Kubernetes, you will benefit by using Namespaces. In this post, we’ll cover the most common ways that we’ve seen Kubernetes users on Google Cloud Platform use Namespaces, but our list is not exhaustive and we’d be interested to learn other examples from you.
 
-**Use-cases covered**  
+**Use-cases covered**
 
 - Roles and Responsibilities in an enterprise for namespaces
 - Partitioning landscapes: dev vs. test vs. prod
@@ -32,7 +32,7 @@ For all but the most trivial uses of Kubernetes, you will benefit by using Names
 
 
 
-A typical enterprise contains multiple business/technology entities that operate independently of each other with some form of overarching layer of controls managed by the enterprise itself. Operating a Kubernetes clusters in such an environment can be done effectively when roles and responsibilities pertaining to Kubernetes are defined.&nbsp;  
+A typical enterprise contains multiple business/technology entities that operate independently of each other with some form of overarching layer of controls managed by the enterprise itself. Operating a Kubernetes clusters in such an environment can be done effectively when roles and responsibilities pertaining to Kubernetes are defined.&nbsp;
 
 Below are a few recommended roles and their responsibilities that can make managing Kubernetes clusters in a large scale organization easier.
 
@@ -90,7 +90,7 @@ Anti-patterns
 1. Multi-tenant applications don’t need the additional complexity of Kubernetes namespaces since the application is already enforcing this partitioning.
 2. Inconsistent mapping of customers to namespaces. For example, you win business at a global corporate, you may initially consider one namespace for the enterprise not taking into account that this customer may prefer further partitioning e.g. BigCorp Accounting and BigCorp Engineering. In this case, the customer’s departments may each warrant a namespace.
 
-**When Not to use Namespaces**  
+**When Not to use Namespaces**
 
 
 In some circumstances Kubernetes Namespaces will not provide the isolation that you need. This may be due to geographical, billing or security factors. For all the benefits of the logical partitioning of namespaces, there is currently no ability to enforce the partitioning. Any user or resource in a Kubernetes cluster may access any other resource in the cluster regardless of namespace. So, if you need to protect or isolate resources, the ultimate namespace is a separate Kubernetes cluster against which you may apply your regular security|ACL controls.
@@ -125,7 +125,7 @@ You may wish to, but you cannot create a hierarchy of namespaces. Namespaces can
 
 
 
-Namespaces are easy to create and use but it’s also easy to deploy code inadvertently into the wrong namespace. Good DevOps hygiene suggests documenting and automating processes where possible and this will help. The other way to avoid using the wrong namespace is to set a [kubectl context](http://kubernetes.io/docs/user-guide/kubectl/kubectl_config_set-context/).&nbsp;
+Namespaces are easy to create and use but it’s also easy to deploy code inadvertently into the wrong namespace. Good DevOps hygiene suggests documenting and automating processes where possible and this will help. The other way to avoid using the wrong namespace is to set a [kubectl context](/docs/user-guide/kubectl/kubectl_config_set-context/).&nbsp;
 
 
 

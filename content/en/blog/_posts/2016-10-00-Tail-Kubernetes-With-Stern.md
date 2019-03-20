@@ -4,19 +4,19 @@ date: 2016-10-31
 slug: tail-kubernetes-with-stern
 url: /blog/2016/10/Tail-Kubernetes-With-Stern
 ---
-_Editor’s note: today’s post is by Antti Kupila, Software Engineer, at Wercker, about building a tool to tail multiple pods and containers on Kubernetes._  
+_Editor’s note: today’s post is by Antti Kupila, Software Engineer, at Wercker, about building a tool to tail multiple pods and containers on Kubernetes._
 
-We love Kubernetes here at [Wercker](http://wercker.com/) and build all our infrastructure on top of it. When deploying anything you need to have good visibility to what's going on and logs are a first view into the inner workings of your application. Good old tail -f has been around for a long time and Kubernetes has this too, built right into [kubectl](http://kubernetes.io/docs/user-guide/kubectl-overview/).  
+We love Kubernetes here at [Wercker](http://wercker.com/) and build all our infrastructure on top of it. When deploying anything you need to have good visibility to what's going on and logs are a first view into the inner workings of your application. Good old tail -f has been around for a long time and Kubernetes has this too, built right into [kubectl](/docs/user-guide/kubectl-overview/).
 
-I should say that tail is by no means the tool to use for debugging issues but instead you should feed the logs into a more persistent place, such as [Elasticsearch](https://www.elastic.co/products/elasticsearch). However, there's still a place for tail where you need to quickly debug something or perhaps you don't have persistent logging set up yet (such as when developing an app in [Minikube](https://github.com/kubernetes/minikube)).  
+I should say that tail is by no means the tool to use for debugging issues but instead you should feed the logs into a more persistent place, such as [Elasticsearch](https://www.elastic.co/products/elasticsearch). However, there's still a place for tail where you need to quickly debug something or perhaps you don't have persistent logging set up yet (such as when developing an app in [Minikube](https://github.com/kubernetes/minikube)).
 
-**Multiple Pods**  
+**Multiple Pods**
 
-Kubernetes has the concept of [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) which ensure that n pods are running at the same time. This allows rolling updates and redundancy. Considering they're quite easy to set up there's really no reason not to do so.  
+Kubernetes has the concept of [Replication Controllers](/docs/user-guide/replication-controller/) which ensure that n pods are running at the same time. This allows rolling updates and redundancy. Considering they're quite easy to set up there's really no reason not to do so.
 
-However now there are multiple pods running and they all have a unique id. One issue here is that you'll need to know the exact pod id (kubectl get pods) but that changes every time a pod is created so you'll need to do this every time. Another consideration is the fact that Kubernetes load balances the traffic so you won't know at which pod the request ends up at. If you're tailing pod A but the traffic ends up at pod B you'll miss what happened.  
+However now there are multiple pods running and they all have a unique id. One issue here is that you'll need to know the exact pod id (kubectl get pods) but that changes every time a pod is created so you'll need to do this every time. Another consideration is the fact that Kubernetes load balances the traffic so you won't know at which pod the request ends up at. If you're tailing pod A but the traffic ends up at pod B you'll miss what happened.
 
-Let's say we have a pod called service with 3 replicas. Here's what that would look like:  
+Let's say we have a pod called service with 3 replicas. Here's what that would look like:
 
 
 ```
@@ -157,7 +157,7 @@ View pods from another namespace
 
 
 
-Stern is open source and [available on GitHub](https://github.com/wercker/stern), we'd love your contributions or ideas. If you don't want to build from source you can also download a precompiled binary from [GitHub releases](https://github.com/wercker/stern/releases).   
+Stern is open source and [available on GitHub](https://github.com/wercker/stern), we'd love your contributions or ideas. If you don't want to build from source you can also download a precompiled binary from [GitHub releases](https://github.com/wercker/stern/releases).
 
 
 [![](https://4.bp.blogspot.com/-oNscZEvpzVw/WBeWc4cW4zI/AAAAAAAAAyw/71okg07IPHM6dtBOubO_0kxdYxzwoUGOACLcB/s640/stern-long.gif)](https://4.bp.blogspot.com/-oNscZEvpzVw/WBeWc4cW4zI/AAAAAAAAAyw/71okg07IPHM6dtBOubO_0kxdYxzwoUGOACLcB/s1600/stern-long.gif)

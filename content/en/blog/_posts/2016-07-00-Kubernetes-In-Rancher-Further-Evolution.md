@@ -4,20 +4,20 @@ date: 2016-07-12
 slug: kubernetes-in-rancher-further-evolution
 url: /blog/2016/07/Kubernetes-In-Rancher-Further-Evolution
 ---
-_Editor’s note: today's guest post is from Alena Prokharchyk, Principal Software Engineer at Rancher Labs, who’ll share how they are incorporating new Kubernetes features into their platform._  
+_Editor’s note: today's guest post is from Alena Prokharchyk, Principal Software Engineer at Rancher Labs, who’ll share how they are incorporating new Kubernetes features into their platform._
 
-Kubernetes was the first external orchestration platform supported by [Rancher](http://rancher.com/kubernetes), and since its release, it has become one of the most widely used among our users, and continues to grow rapidly in adoption. As Kubernetes has evolved, so has Rancher in terms of adapting new Kubernetes features. We’ve started with supporting Kubernetes version 1.1, then switched to 1.2 as soon as it was released, and now we’re working on supporting the exciting new features in 1.3. I’d like to walk you through the features that we’ve been adding support for during each of these stages.  
+Kubernetes was the first external orchestration platform supported by [Rancher](http://rancher.com/kubernetes), and since its release, it has become one of the most widely used among our users, and continues to grow rapidly in adoption. As Kubernetes has evolved, so has Rancher in terms of adapting new Kubernetes features. We’ve started with supporting Kubernetes version 1.1, then switched to 1.2 as soon as it was released, and now we’re working on supporting the exciting new features in 1.3. I’d like to walk you through the features that we’ve been adding support for during each of these stages.
 
 
 ### Rancher and Kubernetes 1.2
 
-Kubernetes 1.2 introduced enhanced Ingress object to simplify allowing inbound connections to reach the cluster services: here’s an excellent [blog post about ingress](https://kubernetes.io/blog/2016/03/Kubernetes-1.2-and-simplifying-advanced-networking-with-Ingress) policies. Ingress resource allows users to define host name routing rules and TLS config for the Load Balancer in a user friendly way. Then it should be backed up by an Ingress controller that would configure a corresponding cloud provider’s Load Balancer with the Ingress rules. Since Rancher already included a software defined Load Balancer based on HAproxy, we already supported all of the configuration requirements of the Ingress resource, and didn’t have to do any changes on the Rancher side to adopt Ingress. What we had to do was write an Ingress controller that would listen to Kubernetes ingress specific events, configure the Rancher Load Balancer accordingly, and propagate the Load Balancer public entry point back to Kubernetes:  
+Kubernetes 1.2 introduced enhanced Ingress object to simplify allowing inbound connections to reach the cluster services: here’s an excellent [blog post about ingress](https://kubernetes.io/blog/2016/03/Kubernetes-1.2-and-simplifying-advanced-networking-with-Ingress) policies. Ingress resource allows users to define host name routing rules and TLS config for the Load Balancer in a user friendly way. Then it should be backed up by an Ingress controller that would configure a corresponding cloud provider’s Load Balancer with the Ingress rules. Since Rancher already included a software defined Load Balancer based on HAproxy, we already supported all of the configuration requirements of the Ingress resource, and didn’t have to do any changes on the Rancher side to adopt Ingress. What we had to do was write an Ingress controller that would listen to Kubernetes ingress specific events, configure the Rancher Load Balancer accordingly, and propagate the Load Balancer public entry point back to Kubernetes:
 
 
 
  ![Screen-Shot-2016-05-13-at-11.15.56-AM.png](https://lh3.googleusercontent.com/C8wg_8Vih0evMIAEvCaX3IAbARddxhk5S_Mzv9jdpt87njQR9cbEEGZnFiWrKx7TPm-uPO1V4TP4LDOKvLg7gJ-19-esVMNhbkSf6fXSrbE3nS3Sr45rdP1c-VBuzShgpn9jDCiQ)
 
-Now, the ingress controller gets deployed as a part of our Rancher Kubernetes system stack, and is managed by Rancher. Rancher monitors Ingress controller health, and recreates it in case of any failures. In addition to standard ingress features, Rancher also lets you to horizontally scale the Load Balancer supporting the ingress service by specifying scale via Ingress annotations. For example:  
+Now, the ingress controller gets deployed as a part of our Rancher Kubernetes system stack, and is managed by Rancher. Rancher monitors Ingress controller health, and recreates it in case of any failures. In addition to standard ingress features, Rancher also lets you to horizontally scale the Load Balancer supporting the ingress service by specifying scale via Ingress annotations. For example:
 
 
 ```
@@ -54,7 +54,7 @@ spec:
 
 
 
-As a result of the above, 2 instances of Rancher Load Balancer will get started on separate hosts, and Ingress will get updated with 2 public ip addresses:  
+As a result of the above, 2 instances of Rancher Load Balancer will get started on separate hosts, and Ingress will get updated with 2 public ip addresses:
 
 
 
@@ -84,7 +84,7 @@ More details on Rancher Ingress Controller implementation for Kubernetes can be 
 ### Rancher and Kubernetes 1.3
 
 
-We’ve very excited about Kubernetes 1.3 release, and all the new features that are included with it. There are two that we are especially interested in: Stateful Apps and Cluster Federation.  
+We’ve very excited about Kubernetes 1.3 release, and all the new features that are included with it. There are two that we are especially interested in: Stateful Apps and Cluster Federation.
 
 
 #### Kubernetes Stateful Apps
@@ -121,11 +121,11 @@ dig mdb-3.mongodb.namespace.svc.cluster.local +short A
 
 
 
-The above is implemented via an annotation on pods, which is surfaced to endpoints, and finally surfaced as DNS on the service that exposes those pods. Currently Rancher simplifies DNS configuration by leveraging Rancher DNS as a drop-in replacement for SkyDNS. Rancher DNS is fast, stable, and scalable - every host in cluster gets DNS server running. Kubernetes services get programmed to Rancher DNS, and being resolved to either service’s cluster IP from 10,43.x.x address space, or to set of Pod ip addresses for headless service. To make PetSet work with Kubernetes via Rancher, we’ll have to add support for Pod Identities to Rancher DNS configuration. We’re working on this now and should have it supported in one of the upcoming Rancher releases.  
+The above is implemented via an annotation on pods, which is surfaced to endpoints, and finally surfaced as DNS on the service that exposes those pods. Currently Rancher simplifies DNS configuration by leveraging Rancher DNS as a drop-in replacement for SkyDNS. Rancher DNS is fast, stable, and scalable - every host in cluster gets DNS server running. Kubernetes services get programmed to Rancher DNS, and being resolved to either service’s cluster IP from 10,43.x.x address space, or to set of Pod ip addresses for headless service. To make PetSet work with Kubernetes via Rancher, we’ll have to add support for Pod Identities to Rancher DNS configuration. We’re working on this now and should have it supported in one of the upcoming Rancher releases.
 
 
 #### Cluster Federation
-Cluster Federation is a control plane of cluster federation in Kubernetes. It offers improved application availability by spreading applications across multiple clusters (the image below is a courtesy of Kubernetes):  
+Cluster Federation is a control plane of cluster federation in Kubernetes. It offers improved application availability by spreading applications across multiple clusters (the image below is a courtesy of Kubernetes):
 
 
 
@@ -151,7 +151,7 @@ To support Cluster Federation via Kubernetes in Rancher, certain changes need to
 
 
 
-Then every underlying Kubernetes cluster represented by Rancher environment, should be registered to a specific Cluster Federation. Potentially each cluster can be auto-discovered by Rancher Cluster Federation environment via label representing federation name on Kubernetes cluster. We’re still working through finalizing our design, but we’re very excited by this feature, and see a lot of use cases it can solve. Cluster Federation doc references:  
+Then every underlying Kubernetes cluster represented by Rancher environment, should be registered to a specific Cluster Federation. Potentially each cluster can be auto-discovered by Rancher Cluster Federation environment via label representing federation name on Kubernetes cluster. We’re still working through finalizing our design, but we’re very excited by this feature, and see a lot of use cases it can solve. Cluster Federation doc references:
 
 
 - Kubernetes [cluster federation design doc](https://github.com/kubernetes/kubernetes/blob/master/docs/design/federation-phase-1.md)
@@ -168,7 +168,7 @@ When we launched Kubernetes support in Rancher we decided to maintain our own di
 - Rancher as a CredentialProvider (to support Rancher private registries).
 - Rancher Ingress controller to back up Kubernetes ingress resource.
 
-So we’ve decided to eliminate the need of Rancher Kubernetes distribution, and try to upstream all our changes to the Kubernetes repo. To do that, we will be reworking our networking integration, and support Rancher networking as a [CNI plugin for Kubernetes](http://kubernetes.io/docs/admin/network-plugins/#cni). More details on that will be shared as soon as the feature design is finalized, but expect it to come in the next 2-3 months. We will also continue investing in Rancher’s core capabilities integrated with Kubernetes, including, but not limited to:
+So we’ve decided to eliminate the need of Rancher Kubernetes distribution, and try to upstream all our changes to the Kubernetes repo. To do that, we will be reworking our networking integration, and support Rancher networking as a [CNI plugin for Kubernetes](/docs/admin/network-plugins/#cni). More details on that will be shared as soon as the feature design is finalized, but expect it to come in the next 2-3 months. We will also continue investing in Rancher’s core capabilities integrated with Kubernetes, including, but not limited to:
 
 - Access rights management via Rancher environment that represents Kubernetes cluster
 - Credential management and easy web-based access to standard kubectl cli

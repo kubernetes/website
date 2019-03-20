@@ -4,7 +4,7 @@ date: 2016-03-17
 slug: kubernetes-1.2-even-more-performance-upgrades-plus-easier-application-deployment-and-management
 url: /blog/2016/03/Kubernetes-1.2-Even-More-Performance-Upgrades-Plus-Easier-Application-Deployment-And-Management
 ---
-Today we released Kubernetes 1.2. This release represents significant improvements for large organizations building distributed systems. Now with over 680 unique contributors to the project, this release represents our largest yet.  
+Today we released Kubernetes 1.2. This release represents significant improvements for large organizations building distributed systems. Now with over 680 unique contributors to the project, this release represents our largest yet.
 
 From the beginning, our mission has been to make building distributed systems easy and accessible for all. With the Kubernetes 1.2 release we’ve made strides towards our goal by increasing scale, decreasing latency and overall simplifying the way applications are deployed and managed. Now, developers at organizations of all sizes can build production scale apps more easily than ever before.&nbsp;
 
@@ -60,7 +60,7 @@ All of our work is done in the open, to learn the latest about the project j[oin
 - Scheduled job&nbsp;
 - Public dashboard that allows for nightly test runs across multiple cloud providers&nbsp;
 - Lots, lots more!&nbsp;
-Kubernetes 1.2 is available for download at [get.k8s.io](http://get.k8s.io/) and via the open source repository hosted on [GitHub](https://github.com/kubernetes/kubernetes). To get started with Kubernetes try our new [Hello World app](http://kubernetes.io/docs/hellonode/).&nbsp;
+Kubernetes 1.2 is available for download at [get.k8s.io](http://get.k8s.io/) and via the open source repository hosted on [GitHub](https://github.com/kubernetes/kubernetes). To get started with Kubernetes try our new [Hello World app](/docs/hellonode/).&nbsp;
 
 
 

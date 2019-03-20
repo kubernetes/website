@@ -4,21 +4,21 @@ date: 2016-11-07
 slug: skytap-modernizing-microservice-architecture-with-kubernetes
 url: /blog/2016/11/Skytap-Modernizing-Microservice-Architecture-With-Kubernetes
 ---
-_Editor's note: Today’s guest post is by the Tools and Infrastructure Engineering team at Skytap, a public cloud provider focused on empowering DevOps workflows, sharing their experience on adopting Kubernetes.&nbsp;_  
+_Editor's note: Today’s guest post is by the Tools and Infrastructure Engineering team at Skytap, a public cloud provider focused on empowering DevOps workflows, sharing their experience on adopting Kubernetes.&nbsp;_
 
-[Skytap](https://www.skytap.com/) is a global public cloud that provides our customers the ability to save and clone complex virtualized environments in any given state. Our customers include enterprise organizations running applications in a hybrid cloud, educational organizations providing [virtual training labs](https://www.skytap.com/solutions/virtual-training/), users who need easy-to-maintain development and test labs, and a variety of organizations with diverse DevOps workflows.  
+[Skytap](https://www.skytap.com/) is a global public cloud that provides our customers the ability to save and clone complex virtualized environments in any given state. Our customers include enterprise organizations running applications in a hybrid cloud, educational organizations providing [virtual training labs](https://www.skytap.com/solutions/virtual-training/), users who need easy-to-maintain development and test labs, and a variety of organizations with diverse DevOps workflows.
 
-Some time ago, we started growing our business at an accelerated pace — our user base and our engineering organization continue to grow simultaneously. These are exciting, rewarding challenges! However, it's difficult to scale applications and organizations smoothly, and we’re approaching the task carefully. When we first began looking at improvements to scale our toolset, it was very clear that traditional OS virtualization was not going to be an effective way to achieve our scaling goals. We found that the persistent nature of VMs encouraged engineers to build and maintain bespoke ‘pet’ VMs; this did not align well with our desire to build reusable runtime environments with a stable, predictable state. Fortuitously, growth in the Docker and Kubernetes communities has aligned with our growth, and the concurrent explosion in community engagement has (from our perspective) helped these tools mature.  
+Some time ago, we started growing our business at an accelerated pace — our user base and our engineering organization continue to grow simultaneously. These are exciting, rewarding challenges! However, it's difficult to scale applications and organizations smoothly, and we’re approaching the task carefully. When we first began looking at improvements to scale our toolset, it was very clear that traditional OS virtualization was not going to be an effective way to achieve our scaling goals. We found that the persistent nature of VMs encouraged engineers to build and maintain bespoke ‘pet’ VMs; this did not align well with our desire to build reusable runtime environments with a stable, predictable state. Fortuitously, growth in the Docker and Kubernetes communities has aligned with our growth, and the concurrent explosion in community engagement has (from our perspective) helped these tools mature.
 
-In this article we’ll explore how Skytap uses Kubernetes as a key component in services that handle production workloads growing the Skytap Cloud.  
+In this article we’ll explore how Skytap uses Kubernetes as a key component in services that handle production workloads growing the Skytap Cloud.
 
-As we add engineers, we want to maintain our agility and continue enabling ownership of components throughout the software development lifecycle. This requires a lot of modularization and consistency in key aspects of our process. Previously, we drove reuse with systems-level packaging through our VM and environment templates, but as we scale, containers have become increasingly important as a packaging mechanism due to their comparatively lightweight and precise control of the runtime environment.&nbsp;  
+As we add engineers, we want to maintain our agility and continue enabling ownership of components throughout the software development lifecycle. This requires a lot of modularization and consistency in key aspects of our process. Previously, we drove reuse with systems-level packaging through our VM and environment templates, but as we scale, containers have become increasingly important as a packaging mechanism due to their comparatively lightweight and precise control of the runtime environment.&nbsp;
 
-In addition to this packaging flexibility, containers help us establish more efficient resource utilization, and they head off growing complexity arising from the natural inclination of teams to mix resources into large, highly-specialized VMs. For example, our operations team would install tools for monitoring health and resource utilization, a development team would deploy a service, and the security team might install traffic monitoring; combining all of that into a single VM greatly increases the test burden and often results in surprises—oops, you pulled in a new system-level Ruby gem!  
+In addition to this packaging flexibility, containers help us establish more efficient resource utilization, and they head off growing complexity arising from the natural inclination of teams to mix resources into large, highly-specialized VMs. For example, our operations team would install tools for monitoring health and resource utilization, a development team would deploy a service, and the security team might install traffic monitoring; combining all of that into a single VM greatly increases the test burden and often results in surprises—oops, you pulled in a new system-level Ruby gem!
 
-Containerization of individual components in a service is pretty trivial with Docker. Getting started is easy, but as anyone who has built a distributed system with more than a handful of components knows, the real difficulties are deployment, scaling, availability, consistency, and communication between each unit in the cluster.  
+Containerization of individual components in a service is pretty trivial with Docker. Getting started is easy, but as anyone who has built a distributed system with more than a handful of components knows, the real difficulties are deployment, scaling, availability, consistency, and communication between each unit in the cluster.
 
-**Let’s containerize!&nbsp;**  
+**Let’s containerize!&nbsp;**
 
 We’d begun to trade a lot of our heavily-loved pet VMs for, [as the saying goes](https://ericsysmin.com/2016/03/07/pets-vs-cattle/), cattle.
 
@@ -31,7 +31,7 @@ _____
            (__)\       )\/\
                ||-----w |
                ||     ||
-```  
+```
 
 The challenges of distributed systems aren’t simplified by creating a large herd of free-range containers, though. When we started using containers, we recognized the need for a container management framework. We evaluated Docker Swarm, Mesosphere, and Kubernetes, but we found that the Mesosphere usage model didn’t match our needs — we need the ability to manage discrete VMs; this doesn’t match the Mesosphere ‘distributed operating system’ model — and Docker Swarm was still not mature enough. So, we selected Kubernetes. &nbsp;
 
@@ -124,7 +124,7 @@ With dynamic reconfiguration of the network, the replication mechanics of Kubern
 - Build a load analysis and scaling service (easy, right?)
 - If load patterns match the configured triggers in the scaling service (for example, request rate or volume above certain bounds), issue: kubectl scale --replicas=COUNT rc NAME
 
-This would allow us fine-grained control of autoscaling at the platform level, instead of from the applications themselves – but we’ll also evaluate [**Horizontal Pod Autoscaling**](http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/) in Kubernetes; which may suit our need without a custom service.&nbsp;
+This would allow us fine-grained control of autoscaling at the platform level, instead of from the applications themselves – but we’ll also evaluate [**Horizontal Pod Autoscaling**](/docs/user-guide/horizontal-pod-autoscaling/) in Kubernetes; which may suit our need without a custom service.&nbsp;
 
 
 

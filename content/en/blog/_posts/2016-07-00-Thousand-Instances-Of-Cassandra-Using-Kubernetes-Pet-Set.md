@@ -5,17 +5,17 @@ slug: thousand-instances-of-cassandra-using-kubernetes-pet-set
 url: /blog/2016/07/Thousand-Instances-Of-Cassandra-Using-Kubernetes-Pet-Set
 ---
 
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_    
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1.3) on what's new in Kubernetes 1.3_
 
 
 ## Running The Greek Pet Monster Races
 
 
-For the [Kubernetes 1.3 launch](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), we wanted to put the new Pet Set through its paces. By testing a thousand instances of [Cassandra](https://cassandra.apache.org/), we could make sure that Kubernetes 1.3 was production ready. Read on for how we adapted Cassandra to Kubernetes, and had our largest deployment ever.  
+For the [Kubernetes 1.3 launch](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), we wanted to put the new Pet Set through its paces. By testing a thousand instances of [Cassandra](https://cassandra.apache.org/), we could make sure that Kubernetes 1.3 was production ready. Read on for how we adapted Cassandra to Kubernetes, and had our largest deployment ever.
 
-It’s fairly straightforward to use containers with basic stateful applications today. Using a persistent volume, you can mount a disk in a pod, and ensure that your data lasts beyond the life of your pod. However, with deployments of distributed stateful applications, things can become more tricky. With Kubernetes 1.3, the new [Pet Set](http://kubernetes.io/docs/user-guide/petset/) component makes everything much easier. To test this new feature out at scale, we decided to host the Greek Pet Monster Races! We raced Centaurs and other Ancient Greek Monsters over hundreds of thousands of races across multiple availability zones.  
+It’s fairly straightforward to use containers with basic stateful applications today. Using a persistent volume, you can mount a disk in a pod, and ensure that your data lasts beyond the life of your pod. However, with deployments of distributed stateful applications, things can become more tricky. With Kubernetes 1.3, the new [Pet Set](/docs/user-guide/petset/) component makes everything much easier. To test this new feature out at scale, we decided to host the Greek Pet Monster Races! We raced Centaurs and other Ancient Greek Monsters over hundreds of thousands of races across multiple availability zones.
 
-[![File:Cassandra1.jpeg](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Cassandra1.jpeg/283px-Cassandra1.jpeg)](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Cassandra1.jpeg/283px-Cassandra1.jpeg)  
+[![File:Cassandra1.jpeg](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Cassandra1.jpeg/283px-Cassandra1.jpeg)](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Cassandra1.jpeg/283px-Cassandra1.jpeg)
 As many of you know Kubernetes is from the Ancient Greek: κυβερνήτης. This means helmsman, pilot, steersman, or ship master. So in order to keep track of race results, we needed a data store, and we choose Cassandra. Κασσάνδρα, Cassandra who was the daughter of King of Priam and Queen Hecuba of Troy. With multiple references to the ancient Greek language, we thought it would be appropriate to race ancient Greek monsters.
 
 
@@ -40,7 +40,7 @@ Pet Sets provides the following capabilities:
 
 
 
-If your application has one or more of these requirements, then it may be a candidate for Pet Set.  
+If your application has one or more of these requirements, then it may be a candidate for Pet Set.
 A relevant analogy is that a Pet Set is composed of Pet dogs. If you have a white, brown or black dog and the brown dog runs away, you can replace it with another brown dog no one would notice. If over time you can keep replacing your dogs with only white dogs then someone would notice. Pet Set allows your application to maintain the unique identity or hair color of your Pets.
 
 
@@ -62,7 +62,7 @@ So back to our races!
 
 
 
-As we have mentioned, Cassandra was a perfect candidate to deploy via a Pet Set. A Pet Set is much like a [Replica Controller](http://kubernetes.io/docs/user-guide/replication-controller/) with a few new bells and whistles. Here's an example YAML manifest:  
+As we have mentioned, Cassandra was a perfect candidate to deploy via a Pet Set. A Pet Set is much like a [Replica Controller](/docs/user-guide/replication-controller/) with a few new bells and whistles. Here's an example YAML manifest:
 
 
 
@@ -275,11 +275,11 @@ spec:
 
 
 
-You may notice that these containers are on the rather large size, and it is not unusual to run Cassandra in production with 8 CPU and 16GB of ram. There are two key new features that you will notice above; dynamic volume provisioning, and of course Pet Set. The above manifest will create 5 Cassandra Pets / Pods starting with the number 0: cassandra-data-0, cassandra-data-1, etc.  
+You may notice that these containers are on the rather large size, and it is not unusual to run Cassandra in production with 8 CPU and 16GB of ram. There are two key new features that you will notice above; dynamic volume provisioning, and of course Pet Set. The above manifest will create 5 Cassandra Pets / Pods starting with the number 0: cassandra-data-0, cassandra-data-1, etc.
 
-In order to generate data for the races, we used another Kubernetes feature called Jobs. Simple python code was written to generate the random speed of the monster for every second of the race. Then that data, position information, winners, other data points, and metrics were stored in Cassandra. To visualize the data, we used JHipster to generate a AngularJS UI with Java services, and then used D3 for graphing.  
+In order to generate data for the races, we used another Kubernetes feature called Jobs. Simple python code was written to generate the random speed of the monster for every second of the race. Then that data, position information, winners, other data points, and metrics were stored in Cassandra. To visualize the data, we used JHipster to generate a AngularJS UI with Java services, and then used D3 for graphing.
 
-An example of one of the Jobs:  
+An example of one of the Jobs:
 
 
 ```
@@ -336,11 +336,11 @@ spec:
 
 
 
-[![File:Polyphemus.gif](https://upload.wikimedia.org/wikipedia/commons/0/0e/Polyphemus.gif)](https://upload.wikimedia.org/wikipedia/commons/0/0e/Polyphemus.gif)Since we are talking about Monsters, we had to go big. We deployed 1,009 minion nodes to [Google Compute Engine](https://cloud.google.com/compute/) (GCE), spread across 4 zones, running a custom version of the Kubernetes 1.3 beta. We ran this demo on beta code since the demo was being set up before the 1.3 release date. For the minion nodes, GCE virtual machine n1-standard-8 machine size was chosen, which is vm with 8 virtual CPUs and 30GB of memory. It would allow for a single instance of Cassandra to run on one node, which is recommended for disk I/O.  
+[![File:Polyphemus.gif](https://upload.wikimedia.org/wikipedia/commons/0/0e/Polyphemus.gif)](https://upload.wikimedia.org/wikipedia/commons/0/0e/Polyphemus.gif)Since we are talking about Monsters, we had to go big. We deployed 1,009 minion nodes to [Google Compute Engine](https://cloud.google.com/compute/) (GCE), spread across 4 zones, running a custom version of the Kubernetes 1.3 beta. We ran this demo on beta code since the demo was being set up before the 1.3 release date. For the minion nodes, GCE virtual machine n1-standard-8 machine size was chosen, which is vm with 8 virtual CPUs and 30GB of memory. It would allow for a single instance of Cassandra to run on one node, which is recommended for disk I/O.
 
-Then the pets were deployed! One thousand of them, in two different Cassandra Data Centers. Cassandra distributed architecture is specifically tailored for multiple-data center deployment. Often multiple Cassandra data centers are deployed inside the same physical or virtual data center, in order to separate workloads. Data is replicated across all data centers, but workloads can be different between data centers and thus application tuning can be different. Data centers named 'DC1-Analytics' and ‘DC1-Data’ where deployed with 500 pets each. The race data was created by the python Batch Jobs connected to DC1-Data, and the JHipster UI was connected DC1-Analytics.  
+Then the pets were deployed! One thousand of them, in two different Cassandra Data Centers. Cassandra distributed architecture is specifically tailored for multiple-data center deployment. Often multiple Cassandra data centers are deployed inside the same physical or virtual data center, in order to separate workloads. Data is replicated across all data centers, but workloads can be different between data centers and thus application tuning can be different. Data centers named 'DC1-Analytics' and ‘DC1-Data’ where deployed with 500 pets each. The race data was created by the python Batch Jobs connected to DC1-Data, and the JHipster UI was connected DC1-Analytics.
 
-Here are the final numbers:  
+Here are the final numbers:
 
 
 - 8,072 Cores. The master used 24, minion nodes used the rest
@@ -349,7 +349,7 @@ Here are the final numbers:
 - 100,510 GB persistent disk used by the Minions and the Master
 - 380,020 GB SSD disk persistent disk. 20 GB for the master and 340 GB per Cassandra Pet.
 - 1,000 deployed instances of Cassandra
-Yes we deployed 1,000 pets, but one really did not want to join the party! Technically with the Cassandra setup, we could have lost 333 nodes without service or data loss.  
+Yes we deployed 1,000 pets, but one really did not want to join the party! Technically with the Cassandra setup, we could have lost 333 nodes without service or data loss.
 
 
 
@@ -367,9 +367,9 @@ Yes we deployed 1,000 pets, but one really did not want to join the party! Techn
 
 
 - The source code for the demo is available on [GitHub](https://github.com/k8s-for-greeks/gpmr): (Pet Set examples will be merged into the Kubernetes Cassandra Examples).
-- More information about [Jobs](http://kubernetes.io/docs/user-guide/jobs/)
+- More information about [Jobs](/docs/user-guide/jobs/)
 - [Documentation for Pet Set](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.3/docs/user-guide/petset.md)
 - Image credits: Cassandra [image](https://commons.wikimedia.org/wiki/File:Cassandra1.jpeg) and Cyclops [image](https://commons.wikimedia.org/wiki/File:Polyphemus.gif)
 
 
-_-- Chris Love, Senior DevOps Open Source Consultant for [Datapipe](https://www.datapipe.com/). [Twitter @chrislovecnm](https://twitter.com/chrislovecnm/)_  
+_-- Chris Love, Senior DevOps Open Source Consultant for [Datapipe](https://www.datapipe.com/). [Twitter @chrislovecnm](https://twitter.com/chrislovecnm/)_
