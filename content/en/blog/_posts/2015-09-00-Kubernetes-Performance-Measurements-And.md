@@ -117,7 +117,7 @@ This is by no means an exhaustive list. We will be adding new elements (or remov
 \- Wojciech Tyczynski, Google Software Engineer
 
 [1]: http://kubernetes.io/images/nav_logo.svg
-[2]: /docs/
+[2]: http://kubernetes.io/docs/
 [3]: https://kubernetes.io/blog/
 [4]: http://www.nasa.gov/mission_pages/station/expeditions/expedition30/tryanny.html
 [5]: https://github.com/kubernetes/kubernetes

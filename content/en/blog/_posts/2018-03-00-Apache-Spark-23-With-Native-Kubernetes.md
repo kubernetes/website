@@ -95,7 +95,7 @@ Anirudh Ramanathan and Palak Bhatia
 Google
 
 [1]: /docs/concepts/api-extension/custom-resources/
-[2]: /docs/concepts/api-extension/custom-resources/#custom-controllers
+[2]: http://kubernetes.io/docs/concepts/api-extension/custom-resources/#custom-controllers
 [3]: http://spark.apache.org/releases/spark-release-2-3-0.html
 [4]: /docs/concepts/overview/working-with-objects/namespaces/
 [5]: /docs/concepts/policy/resource-quotas/

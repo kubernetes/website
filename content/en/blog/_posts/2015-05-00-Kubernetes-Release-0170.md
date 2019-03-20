@@ -316,7 +316,7 @@ Simple theme. Powered by [Blogger][385].
 [ ![][327] ][386]
 
 [1]: http://kubernetes.io/images/nav_logo.svg
-[2]: /docs/
+[2]: http://kubernetes.io/docs/
 [3]: https://kubernetes.io/blog/
 [4]: https://github.com/GoogleCloudPlatform/kubernetes/pull/8065 "Remove old salt configs"
 [5]: https://github.com/GoogleCloudPlatform/kubernetes/pull/8069 "Kubelet: minor cleanups"
