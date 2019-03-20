@@ -60,9 +60,9 @@ You pass these arguments in any of the following ways:
 * You can also upload a config file using [`kubeadm config upload from-files`][config-upload]
 
 [cert-manager-issuer]: https://cert-manager.readthedocs.io/en/latest/tutorials/ca/creating-ca-issuer.html
-[kcm]: https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
+[kcm]: /docs/reference/command-line-tools-reference/kube-controller-manager/
 [config]: https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1
-[config-upload]: https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-from-file
+[config-upload]: /docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-from-file
 
 ### Approve requests
 
@@ -85,9 +85,9 @@ certificatesigningrequest.certificates.k8s.io/kubeadm-cert-kube-apiserver-ld526 
 
 You can view a list of pending certificates with `kubectl get csr`.
 
-[manage-tls]: https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/
+[manage-tls]: /docs/tasks/tls/managing-tls-in-a-cluster/
 [cert-manager]: https://github.com/jetstack/cert-manager
-[certs]: https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#certificate
+[certs]: /docs/reference/generated/kubectl/kubectl-commands#certificate
 
 ## Certificate requests with kubeadm
 
@@ -122,8 +122,8 @@ Kubeadm sets up [three CAs][cert-cas] by default. Make sure to sign the CSRs wit
 
 [openssl-ca]: https://superuser.com/questions/738612/openssl-ca-keyusage-extension
 [cfssl-usages]: https://github.com/cloudflare/cfssl/blob/master/doc/cmd/cfssl.txt#L170
-[certs]: https://kubernetes.io/docs/setup/certificates
-[cert-cas]: https://kubernetes.io/docs/setup/certificates/#single-root-ca
-[cert-table]: https://kubernetes.io/docs/setup/certificates/#all-certificates
+[certs]: /docs/setup/certificates
+[cert-cas]: /docs/setup/certificates/#single-root-ca
+[cert-table]: /docs/setup/certificates/#all-certificates
 
 {{% /capture %}}

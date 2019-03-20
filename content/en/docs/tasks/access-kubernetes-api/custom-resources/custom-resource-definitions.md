@@ -228,7 +228,7 @@ meaning all finalizers have been executed.
 {{< feature-state state="beta" for_kubernetes_version="1.9" >}}
 
 Validation of custom objects is possible via
-[OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) or [validatingadmissionwebhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
+[OpenAPI v3 schema](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) or [validatingadmissionwebhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 Additionally, the following restrictions are applied to the schema:
 
 - The fields `default`, `nullable`, `discriminator`, `readOnly`, `writeOnly`, `xml`,

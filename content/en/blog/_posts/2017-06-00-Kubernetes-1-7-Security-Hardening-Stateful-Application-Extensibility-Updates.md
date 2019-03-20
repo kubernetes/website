@@ -15,34 +15,34 @@ Also, for power users, API aggregation in this release allows user-provided apis
 **What’s New**  
 Security:  
 
-- [The Network Policy API](https://kubernetes.io/docs/concepts/services-networking/network-policies/) is promoted to stable. Network policy, implemented through a network plug-in, allows users to set and enforce rules governing which pods can communicate with each other.&nbsp;
-- [Node authorizer](https://kubernetes.io/docs/reference/access-authn-authz/node/) and admission control plugin are new additions that restrict kubelet’s access to secrets, pods and other objects based on its node.
-- [Encryption for Secrets](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/), and other resources in etcd, is now available as alpha.&nbsp;
-- [Kubelet TLS bootstrapping](https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/) now supports client and server certificate rotation.
-- [Audit logs](https://kubernetes.io/docs/tasks/debug-application-cluster/audit/) stored by the API server are now more customizable and extensible with support for event filtering and webhooks. They also provide richer data for system audit.
+- [The Network Policy API](/docs/concepts/services-networking/network-policies/) is promoted to stable. Network policy, implemented through a network plug-in, allows users to set and enforce rules governing which pods can communicate with each other.&nbsp;
+- [Node authorizer](/docs/reference/access-authn-authz/node/) and admission control plugin are new additions that restrict kubelet’s access to secrets, pods and other objects based on its node.
+- [Encryption for Secrets](/docs/tasks/administer-cluster/encrypt-data/), and other resources in etcd, is now available as alpha.&nbsp;
+- [Kubelet TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) now supports client and server certificate rotation.
+- [Audit logs](/docs/tasks/debug-application-cluster/audit/) stored by the API server are now more customizable and extensible with support for event filtering and webhooks. They also provide richer data for system audit.
 
 Stateful workloads:  
 
-- [StatefulSet Updates](https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) is a new beta feature in 1.7, allowing automated updates of stateful applications such as Kafka, Zookeeper and etcd, using a range of update strategies including rolling updates.
-- StatefulSets also now support faster scaling and startup for applications that do not require ordering through [Pod Management Policy](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#pod-management-policies). This can be a major performance improvement.&nbsp;
-- [Local Storage](https://kubernetes.io/docs/concepts/storage/volumes/#local) (alpha) was one of most frequently requested features for stateful applications. Users can now access local storage volumes through the standard PVC/PV interface and via StorageClasses in StatefulSets.
-- DaemonSets, which create one pod per node already have an update feature, and in 1.7 have added smart [rollback and history](https://kubernetes.io/docs/tasks/manage-daemon/rollback-daemon-set/) capability.
-- A new [StorageOS Volume plugin](https://kubernetes.io/docs/concepts/storage/volumes/#storageos) provides highly-available cluster-wide persistent volumes from local or attached node storage.
+- [StatefulSet Updates](/docs/tutorials/stateful-application/basic-stateful-set/#updating-statefulsets) is a new beta feature in 1.7, allowing automated updates of stateful applications such as Kafka, Zookeeper and etcd, using a range of update strategies including rolling updates.
+- StatefulSets also now support faster scaling and startup for applications that do not require ordering through [Pod Management Policy](/docs/concepts/workloads/controllers/statefulset/#pod-management-policies). This can be a major performance improvement.&nbsp;
+- [Local Storage](/docs/concepts/storage/volumes/#local) (alpha) was one of most frequently requested features for stateful applications. Users can now access local storage volumes through the standard PVC/PV interface and via StorageClasses in StatefulSets.
+- DaemonSets, which create one pod per node already have an update feature, and in 1.7 have added smart [rollback and history](/docs/tasks/manage-daemon/rollback-daemon-set/) capability.
+- A new [StorageOS Volume plugin](/docs/concepts/storage/volumes/#storageos) provides highly-available cluster-wide persistent volumes from local or attached node storage.
 
 Extensibility:  
 
-- [API aggregation](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/) at runtime is the most powerful extensibility features in this release, allowing power users to add Kubernetes-style pre-built, 3rd party or user-created APIs to their cluster.
+- [API aggregation](/docs/concepts/api-extension/apiserver-aggregation/) at runtime is the most powerful extensibility features in this release, allowing power users to add Kubernetes-style pre-built, 3rd party or user-created APIs to their cluster.
 - [Container Runtime Interface](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md) (CRI) has been enhanced with New RPC calls to retrieve container metrics from the runtime. [Validation tests for the CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/cri-validation.md) have been published and Alpha integration with [containerd](http://containerd.io/), which supports basic pod lifecycle and image management is now available. Read our previous [in-depth post introducing CRI](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes).
 
 Additional Features:  
 
-- Alpha support for [external admission controllers](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) is introduced, providing two options for adding custom business logic to the API server for modifying objects as they are created and validating policy.&nbsp;
-- [Policy-based Federated Resource Placement](https://kubernetes.io/docs/tasks/federation/set-up-placement-policies-federation/) is introduced as Alpha providing placement policies for the federated clusters, based on custom requirements such as regulation, pricing or performance.
+- Alpha support for [external admission controllers](/docs/reference/access-authn-authz/extensible-admission-controllers/) is introduced, providing two options for adding custom business logic to the API server for modifying objects as they are created and validating policy.&nbsp;
+- [Policy-based Federated Resource Placement](/docs/tasks/federation/set-up-placement-policies-federation/) is introduced as Alpha providing placement policies for the federated clusters, based on custom requirements such as regulation, pricing or performance.
 
 Deprecation:&nbsp;  
 
 
-- Third Party Resource (TPR) has been replaced with Custom Resource Definitions (CRD) which provides a cleaner API, and resolves issues and corner cases that were raised during the beta period of TPR. If you use the TPR beta feature, you are encouraged to [migrate](https://kubernetes.io/docs/tasks/access-kubernetes-api/migrate-third-party-resource/), as it is slated for removal by the community in Kubernetes 1.8.
+- Third Party Resource (TPR) has been replaced with Custom Resource Definitions (CRD) which provides a cleaner API, and resolves issues and corner cases that were raised during the beta period of TPR. If you use the TPR beta feature, you are encouraged to [migrate](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/), as it is slated for removal by the community in Kubernetes 1.8.
 
 The above are a subset of the feature highlights in Kubernetes 1.7. For a complete list please visit the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#v170).  
 
@@ -60,7 +60,7 @@ Kubernetes adoption has been coming from every sector across the world. Recent u
 Huge kudos and thanks go out to the Kubernetes 1.7 [release team](https://github.com/kubernetes/features/blob/master/release-1.7/release_team.md), led by Dawn Chen of Google.&nbsp;  
 
 **Availability**  
-Kubernetes 1.7 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.7.0). To get started with Kubernetes, try one of the these [interactive tutorials](http://kubernetes.io/docs/tutorials/kubernetes-basics/).&nbsp;  
+Kubernetes 1.7 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.7.0). To get started with Kubernetes, try one of the these [interactive tutorials](/docs/tutorials/kubernetes-basics/).&nbsp;  
 
 **Get Involved**  
 Join the community at [CloudNativeCon + KubeCon](http://events.linuxfoundation.org/events/cloudnativecon-and-kubecon-north-america) in Austin Dec. 6-8 for the largest Kubernetes gathering ever. [Speaking submissions](http://events.linuxfoundation.org/events/cloudnativecon-and-kubecon-north-america/program/cfp) are open till August 21 and [discounted registration](https://www.regonline.com/registration/Checkin.aspx?EventID=1903774&_ga=2.224109086.464556664.1498490094-1623727562.1496428006) ends October 6.  

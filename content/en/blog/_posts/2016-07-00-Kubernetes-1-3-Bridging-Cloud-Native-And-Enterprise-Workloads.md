@@ -39,7 +39,7 @@ We could not have achieved this milestone without the tireless effort of countle
 
 **Availability**
 
-Kubernetes 1.3 is available for download at [get.k8s.io](http://get.k8s.io/)&nbsp;and via the open source repository hosted on [GitHub](http://github.com/kubernetes/kubernetes). To get started with Kubernetes try our [Hello World app](http://kubernetes.io/docs/hellonode/).
+Kubernetes 1.3 is available for download at [get.k8s.io](http://get.k8s.io/)&nbsp;and via the open source repository hosted on [GitHub](http://github.com/kubernetes/kubernetes). To get started with Kubernetes try our [Hello World app](/docs/hellonode/).
 
 
 

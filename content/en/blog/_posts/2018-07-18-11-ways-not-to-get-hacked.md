@@ -34,7 +34,7 @@ The control plane is Kubernetes&#39; brain. It has an overall view of every cont
 
 > Note that some components and installation methods may enable local ports over HTTP and administrators should familiarize themselves with the settings of each component to identify potentially unsecured traffic.
 
-[Source](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/#use-transport-level-security-tls-for-all-api-traffic)
+[Source](/docs/tasks/administer-cluster/securing-a-cluster/#use-transport-level-security-tls-for-all-api-traffic)
 
 This network diagram by [Lucas Käldström](https://docs.google.com/presentation/d/1Gp-2blk5WExI_QR59EUZdwfO2BWLJqa626mK2ej-huo/edit#slide=id.g1e639c415b_0_56) demonstrates some of the places TLS should ideally be applied: between every component on the master, and between the Kubelet and API server. [Kelsey Hightower](https://twitter.com/kelseyhightower/)&#39;s canonical [Kubernetes The Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way/blob/1.9.0/docs/04-certificate-authority.md) provides detailed manual instructions, as does [etcd&#39;s security model](https://coreos.com/etcd/docs/latest/op-guide/security.html) documentation.
 
@@ -62,11 +62,11 @@ Or use this flag to disable it in GKE:
 --no-enable-legacy-authorization
 ```
 
-There are plenty of [good examples](https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/) of [RBAC policies for cluster services](https://github.com/uruddarraju/kubernetes-rbac-policies), as well as [the docs](https://kubernetes.io/docs/admin/authorization/rbac/#role-binding-examples). And it doesn&#39;t have to stop there - fine-grained RBAC policies can be extracted from audit logs with [audit2rbac](https://github.com/liggitt/audit2rbac).
+There are plenty of [good examples](https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/) of [RBAC policies for cluster services](https://github.com/uruddarraju/kubernetes-rbac-policies), as well as [the docs](/docs/admin/authorization/rbac/#role-binding-examples). And it doesn&#39;t have to stop there - fine-grained RBAC policies can be extracted from audit logs with [audit2rbac](https://github.com/liggitt/audit2rbac).
 
 Incorrect or excessively permissive RBAC policies are a security threat in case of a compromised pod. Maintaining least privilege, and continuously reviewing and improving RBAC rules, should be considered part of the "technical debt hygiene" that teams build into their development lifecycle.
 
-[Audit Logging](https://kubernetes.io/docs/tasks/debug-application-cluster/audit/) (beta in 1.10) provides customisable API logging at the payload (e.g. request and response), and also metadata levels. Log levels can be tuned to your organisation&#39;s security policy - [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/audit-logging#audit_policy) provides sane defaults to get you started.
+[Audit Logging](/docs/tasks/debug-application-cluster/audit/) (beta in 1.10) provides customisable API logging at the payload (e.g. request and response), and also metadata levels. Log levels can be tuned to your organisation&#39;s security policy - [GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/audit-logging#audit_policy) provides sane defaults to get you started.
 
 For read requests such as get, list, and watch, only the request object is saved in the audit logs; the response object is not. For requests involving sensitive data such as Secret and ConfigMap, only the metadata is exported. For all other requests, both request and response objects are saved in audit logs.
 
@@ -94,9 +94,9 @@ etcd should be configured with [peer and client TLS certificates](https://github
 
 **A security best practice is to regularly rotate encryption keys and certificates, in order to limit the &quot;blast radius&quot; of a key compromise.**
 
-Kubernetes will [rotate some certificates automatically](https://kubernetes.io/docs/tasks/tls/certificate-rotation/) (notably, the kubelet client and server certs) by creating new CSRs as its existing credentials expire.
+Kubernetes will [rotate some certificates automatically](/docs/tasks/tls/certificate-rotation/) (notably, the kubelet client and server certs) by creating new CSRs as its existing credentials expire.
 
-However, the [symmetric encryption keys](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) that the API server uses to encrypt etcd values are not automatically rotated - they must be [rotated manually](https://www.twistlock.com/2017/08/02/kubernetes-secrets-encryption/). Master access is required to do this, so managed services (such as GKE or AKS) abstract this problem from an operator.
+However, the [symmetric encryption keys](/docs/tasks/administer-cluster/encrypt-data/) that the API server uses to encrypt etcd values are not automatically rotated - they must be [rotated manually](https://www.twistlock.com/2017/08/02/kubernetes-secrets-encryption/). Master access is required to do this, so managed services (such as GKE or AKS) abstract this problem from an operator.
 
 
 # Part Two: Workloads
@@ -109,7 +109,7 @@ With minimum viable security on the control plane the cluster is able to operate
 
 Tools like [bane](https://github.com/genuinetools/bane) can help to generate AppArmor profiles, and [docker-slim](https://github.com/docker-slim/docker-slim#quick-seccomp-example) for seccomp profiles, but beware - a comprehensive test suite it required to exercise all code paths in your application when verifying the side effects of applying these policies.
 
-[PodSecurityPolicies](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) can be used to mandate the use of security extensions and other Kubernetes security directives. They provide a minimum contract that a pod must fulfil to be submitted to the API server - including security profiles, the privileged flag, and the sharing of host network, process, or IPC namespaces.
+[PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/) can be used to mandate the use of security extensions and other Kubernetes security directives. They provide a minimum contract that a pod must fulfil to be submitted to the API server - including security profiles, the privileged flag, and the sharing of host network, process, or IPC namespaces.
 
 These directives are important, as they help to prevent containerised processes from escaping their isolation boundaries, and [Tim Allclair](https://twitter.com/tallclair)&#39;s [example PodSecurityPolicy](https://gist.github.com/tallclair/11981031b6bfa829bb1fb9dcb7e026b0) is a comprehensive resource that you can customise to your use case.
 
@@ -135,7 +135,7 @@ Static analysis of YAML configuration can be used to establish a baseline for ru
     }, {
       "selector": "containers[] .securityContext .capabilities .drop",
       "reason": "Reducing kernel capabilities available to a container limits its attack surface",
-      "href": "https://kubernetes.io/docs/tasks/configure-pod-container/security-context/"
+      "href": "/docs/tasks/configure-pod-container/security-context/"
     }]
   }
 }
@@ -197,7 +197,7 @@ Having to run workloads as a non-root user is not going to change until user nam
 
 ## 9. Use Network Policies
 
-**By default, Kubernetes networking allows all pod to pod traffic; this can be restricted using a** [**Network Policy**](https://kubernetes.io/docs/concepts/services-networking/network-policies/) **.**
+**By default, Kubernetes networking allows all pod to pod traffic; this can be restricted using a** [**Network Policy**](/docs/concepts/services-networking/network-policies/) **.**
 
 <img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/kubernetes-networking.png" width="800" />
 
@@ -263,7 +263,7 @@ Cloud provider metadata APIs are a constant source of escalation (as the recent 
 
 **Web servers present an attack surface to the network they&#39;re attached to: scanning an image&#39;s installed files ensures the absence of known vulnerabilities that an attacker could exploit to gain remote access to the container. An IDS (Intrusion Detection System) detects them if they do.**
 
-Kubernetes permits pods into the cluster through a series of [admission controller](https://kubernetes.io/docs/admin/admission-controllers/) gates, which are applied to pods and other resources like deployments. These gates can validate each pod for admission or change its contents, and they now support backend webhooks.
+Kubernetes permits pods into the cluster through a series of [admission controller](/docs/admin/admission-controllers/) gates, which are applied to pods and other resources like deployments. These gates can validate each pod for admission or change its contents, and they now support backend webhooks.
 
 <img src="/images/blog/2018-06-05-11-ways-not-to-get-hacked/admission-controllers.png" width="800" />
 

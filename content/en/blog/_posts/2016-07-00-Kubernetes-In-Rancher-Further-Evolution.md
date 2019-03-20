@@ -168,7 +168,7 @@ When we launched Kubernetes support in Rancher we decided to maintain our own di
 - Rancher as a CredentialProvider (to support Rancher private registries).
 - Rancher Ingress controller to back up Kubernetes ingress resource.
 
-So we’ve decided to eliminate the need of Rancher Kubernetes distribution, and try to upstream all our changes to the Kubernetes repo. To do that, we will be reworking our networking integration, and support Rancher networking as a [CNI plugin for Kubernetes](http://kubernetes.io/docs/admin/network-plugins/#cni). More details on that will be shared as soon as the feature design is finalized, but expect it to come in the next 2-3 months. We will also continue investing in Rancher’s core capabilities integrated with Kubernetes, including, but not limited to:
+So we’ve decided to eliminate the need of Rancher Kubernetes distribution, and try to upstream all our changes to the Kubernetes repo. To do that, we will be reworking our networking integration, and support Rancher networking as a [CNI plugin for Kubernetes](/docs/admin/network-plugins/#cni). More details on that will be shared as soon as the feature design is finalized, but expect it to come in the next 2-3 months. We will also continue investing in Rancher’s core capabilities integrated with Kubernetes, including, but not limited to:
 
 - Access rights management via Rancher environment that represents Kubernetes cluster
 - Credential management and easy web-based access to standard kubectl cli
