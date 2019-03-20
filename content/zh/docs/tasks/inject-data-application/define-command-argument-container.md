@@ -49,7 +49,7 @@ content_template: templates/task
     kubectl get pods
     ```
 
-    查询结果显示在command-demo这个Pod下运行的容器已经启动完成
+   查询结果显示在command-demo这个Pod下运行的容器已经启动完成
 
 3. 如果要获取容器启动时执行命令的输出结果，可以通过Pod的日志进行查看
 
