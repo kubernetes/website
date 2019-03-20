@@ -191,7 +191,7 @@ To start using your cluster, you need to run (as a regular user):
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the addon options listed at:
-  http://kubernetes.io/docs/admin/addons/
+  /docs/admin/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
@@ -620,7 +620,3 @@ addressed in due course.
 ## トラブルシューティング {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
-
-
-
-
