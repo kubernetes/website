@@ -100,7 +100,7 @@ Right after `kubeadm init` there should not be any pods in these states.
   until you have deployed the network solution.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
   after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution that you installed is somehow broken. 
+  it's very likely that the Pod Network solution that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 - If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
@@ -130,7 +130,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -278,6 +278,6 @@ Alternativelly, you can try separating the `key=value` pairs like so:
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
 A known workaround is to use the kubeadm
-[configuration file](https://kubernetes.io/docs/setup/independent/control-plane-flags/#apiserver-flags).
+[configuration file](/docs/setup/independent/control-plane-flags/#apiserver-flags).
 
 {{% /capture %}}

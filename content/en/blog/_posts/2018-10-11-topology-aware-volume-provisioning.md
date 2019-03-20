@@ -67,7 +67,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: web
-spec:   
+spec:
   serviceName: "nginx"
   replicas: 2
   selector:
@@ -140,7 +140,7 @@ logs-web-1      us-central1-a
 ## How can I learn more?
 
 Official documentation on the topology-aware dynamic provisioning feature is available here:
-https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode
+/docs/concepts/storage/storage-classes/#volume-binding-mode
 
 Documentation for CSI drivers is available at https://kubernetes-csi.github.io/docs/
 

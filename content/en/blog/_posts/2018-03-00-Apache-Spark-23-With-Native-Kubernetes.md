@@ -24,12 +24,12 @@ Concretely, a native Spark Application in Kubernetes acts as a [custom controlle
 
 ![][12]
 
-To try this yourself on a Kubernetes cluster, simply download the binaries for the official [Apache Spark 2.3 release][13]. For example, below, we describe running a simple Spark application to compute the mathematical constant Pi across three Spark executors, each running in a separate pod. Please note that this requires a cluster running Kubernetes 1.7 or above, a [kubectl][14] client that is configured to access it, and the necessary [RBAC rules][9] for the default namespace and service account.  
+To try this yourself on a Kubernetes cluster, simply download the binaries for the official [Apache Spark 2.3 release][13]. For example, below, we describe running a simple Spark application to compute the mathematical constant Pi across three Spark executors, each running in a separate pod. Please note that this requires a cluster running Kubernetes 1.7 or above, a [kubectl][14] client that is configured to access it, and the necessary [RBAC rules][9] for the default namespace and service account.
 
 
 
 ```
-$ kubectl cluster-info  
+$ kubectl cluster-info
 
 Kubernetes master is running at https://xx.yy.zz.ww
 
@@ -87,26 +87,26 @@ In Spark 2.3, we're starting with support for Spark applications written in Java
 
 There's lots of exciting work to be done in the near future. We're actively working on features such as dynamic resource allocation, in-cluster staging of dependencies, support for PySpark & SparkR, support for Kerberized HDFS clusters, as well as client-mode and popular notebooks' interactive execution environments. For people who fell in love with the Kubernetes way of managing applications declaratively, we've also been working on a [Kubernetes Operator][16] for spark-submit, which allows users to declaratively specify and submit Spark Applications.
 
-And we're just getting started! We would love for you to get involved and help us evolve the project further.  
+And we're just getting started! We would love for you to get involved and help us evolve the project further.
 
 Huge thanks to the Apache Spark and Kubernetes contributors spread across multiple organizations who spent many hundreds of hours working on this effort. We look forward to seeing more of you contribute to the project and help it evolve further.
 
-Anirudh Ramanathan and Palak Bhatia  
+Anirudh Ramanathan and Palak Bhatia
 Google
 
-[1]: https://kubernetes.io/docs/concepts/api-extension/custom-resources/
-[2]: https://kubernetes.io/docs/concepts/api-extension/custom-resources/#custom-controllers
+[1]: /docs/concepts/api-extension/custom-resources/
+[2]: /docs/concepts/api-extension/custom-resources/#custom-controllers
 [3]: http://spark.apache.org/releases/spark-release-2-3-0.html
-[4]: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
-[5]: https://kubernetes.io/docs/concepts/policy/resource-quotas/
-[6]: https://kubernetes.io/docs/admin/authorization/
-[7]: https://kubernetes.io/docs/concepts/cluster-administration/logging/
+[4]: /docs/concepts/overview/working-with-objects/namespaces/
+[5]: /docs/concepts/policy/resource-quotas/
+[6]: /docs/admin/authorization/
+[7]: /docs/concepts/cluster-administration/logging/
 [8]: https://spark.apache.org/docs/latest/running-on-kubernetes.html#docker-images
 [9]: https://spark.apache.org/docs/latest/running-on-kubernetes.html#rbac
 [10]: https://kubernetes.io/blog/2016/03/using-Spark-and-Zeppelin-to-process-Big-Data-on-Kubernetes
 [11]: https://istio.io/
 [12]: https://1.bp.blogspot.com/-hl4pnOqiH4M/Wp4w9QmzghI/AAAAAAAAAL4/jcWoDOKEp3Y6lCzGxzTOlbvl2Mq1-2YeQCK4BGAYYCw/s1600/Screen%2BShot%2B2018-03-05%2Bat%2B10.10.14%2BPM.png
 [13]: https://spark.apache.org/downloads.html
-[14]: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+[14]: /docs/tasks/tools/install-kubectl/
 [15]: https://spark.apache.org/docs/latest/running-on-kubernetes.html
 [16]: https://coreos.com/operators/

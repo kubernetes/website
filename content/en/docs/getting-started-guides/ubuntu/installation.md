@@ -97,7 +97,7 @@ enter password: *******
 
 You can also just auto load credentials for popular clouds with the `juju autoload-credentials` command, which will auto import your credentials from the default files and environment variables for each cloud.
 
-Next we need to bootstrap a controller to manage the cluster. You need to define the cloud you want to bootstrap on, the region, and then any name for your controller node:   
+Next we need to bootstrap a controller to manage the cluster. You need to define the cloud you want to bootstrap on, the region, and then any name for your controller node:
 
 ```
 juju update-clouds # This command ensures all the latest regions are up to date on your client
@@ -142,11 +142,11 @@ Model                         Controller          Cloud/Region   Version  SLA
 conjure-canonical-kubern-f48  conjure-up-aws-650  aws/us-east-2  2.3.2    unsupported
 
 App                    Version  Status  Scale  Charm                  Store       Rev  OS      Notes
-easyrsa                3.0.1    active      1  easyrsa                jujucharms   27  ubuntu  
-etcd                   2.3.8    active      3  etcd                   jujucharms   63  ubuntu  
-flannel                0.9.1    active      4  flannel                jujucharms   40  ubuntu  
+easyrsa                3.0.1    active      1  easyrsa                jujucharms   27  ubuntu
+etcd                   2.3.8    active      3  etcd                   jujucharms   63  ubuntu
+flannel                0.9.1    active      4  flannel                jujucharms   40  ubuntu
 kubeapi-load-balancer  1.10.3   active      1  kubeapi-load-balancer  jujucharms   43  ubuntu  exposed
-kubernetes-master      1.9.3    active      1  kubernetes-master      jujucharms   13  ubuntu  
+kubernetes-master      1.9.3    active      1  kubernetes-master      jujucharms   13  ubuntu
 kubernetes-worker      1.9.3    active      3  kubernetes-worker      jujucharms   81  ubuntu  exposed
 
 Unit                      Workload  Agent  Machine  Public address  Ports           Message
@@ -176,19 +176,19 @@ Machine  State    DNS             Inst id              Series  AZ          Messa
 8        started  52.15.89.16     i-086852bf1bee63d4e  xenial  us-east-2c  running
 
 Relation provider                    Requirer                             Interface         Type         Message
-easyrsa:client                       etcd:certificates                    tls-certificates  regular      
-easyrsa:client                       kubeapi-load-balancer:certificates   tls-certificates  regular      
-easyrsa:client                       kubernetes-master:certificates       tls-certificates  regular      
-easyrsa:client                       kubernetes-worker:certificates       tls-certificates  regular      
-etcd:cluster                         etcd:cluster                         etcd              peer         
-etcd:db                              flannel:etcd                         etcd              regular      
-etcd:db                              kubernetes-master:etcd               etcd              regular      
-kubeapi-load-balancer:loadbalancer   kubernetes-master:loadbalancer       public-address    regular      
-kubeapi-load-balancer:website        kubernetes-worker:kube-api-endpoint  http              regular      
-kubernetes-master:cni                flannel:cni                          kubernetes-cni    subordinate  
-kubernetes-master:kube-api-endpoint  kubeapi-load-balancer:apiserver      http              regular      
-kubernetes-master:kube-control       kubernetes-worker:kube-control       kube-control      regular      
-kubernetes-worker:cni                flannel:cni                          kubernetes-cni    subordinate  
+easyrsa:client                       etcd:certificates                    tls-certificates  regular
+easyrsa:client                       kubeapi-load-balancer:certificates   tls-certificates  regular
+easyrsa:client                       kubernetes-master:certificates       tls-certificates  regular
+easyrsa:client                       kubernetes-worker:certificates       tls-certificates  regular
+etcd:cluster                         etcd:cluster                         etcd              peer
+etcd:db                              flannel:etcd                         etcd              regular
+etcd:db                              kubernetes-master:etcd               etcd              regular
+kubeapi-load-balancer:loadbalancer   kubernetes-master:loadbalancer       public-address    regular
+kubeapi-load-balancer:website        kubernetes-worker:kube-api-endpoint  http              regular
+kubernetes-master:cni                flannel:cni                          kubernetes-cni    subordinate
+kubernetes-master:kube-api-endpoint  kubeapi-load-balancer:apiserver      http              regular
+kubernetes-master:kube-control       kubernetes-worker:kube-control       kube-control      regular
+kubernetes-worker:cni                flannel:cni                          kubernetes-cni    subordinate
 ```
 
 ## Interacting with the cluster
@@ -208,9 +208,9 @@ Copy the kubeconfig file to the default location.
 juju scp kubernetes-master/0:/home/ubuntu/config ~/.kube/config
 ```
 
-The next step is to install the kubectl client on your local machine. The recommended way to do this on Ubuntu is using the kubectl snap ([https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu)).
+The next step is to install the kubectl client on your local machine. The recommended way to do this on Ubuntu is using the kubectl snap ([/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu)).
 
-The following command should be run on the machine you wish to use to control the kubernetes cluster: 
+The following command should be run on the machine you wish to use to control the kubernetes cluster:
 
 ```
 sudo snap install kubectl --classic
@@ -232,7 +232,7 @@ Grafana is running at https://52.15.104.227:443/api/v1/namespaces/kube-system/se
 InfluxDB is running at https://52.15.104.227:443/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
 
-Congratulations, you've now set up a Kubernetes cluster!  
+Congratulations, you've now set up a Kubernetes cluster!
 
 ## Scale up cluster
 
@@ -246,13 +246,13 @@ details.
 
 ## Scale out cluster
 
-Need more workers? We just add more units:    
+Need more workers? We just add more units:
 
 ```shell
 juju add-unit kubernetes-worker
 ```
 
-Or multiple units at one time:  
+Or multiple units at one time:
 
 ```shell
 juju add-unit -n3 kubernetes-worker
@@ -264,7 +264,7 @@ juju set-constraints kubernetes-worker instance-type=c4.large
 juju add-unit kubernetes-worker
 ```
 
-You can also scale the etcd charm for more fault tolerant key/value storage:  
+You can also scale the etcd charm for more fault tolerant key/value storage:
 
 ```shell
 juju add-unit -n3 etcd
@@ -288,7 +288,7 @@ This will shutdown and terminate all running instances on that cloud.
 The Ubuntu Kubernetes deployment uses open-source operations, or operations as code, known as charms. These charms are assembled from layers which keeps the code smaller and more focused on the operations of just Kubernetes and its components.
 
 The Kubernetes layer and bundles can be found in the `kubernetes`
-project on github.com:  
+project on github.com:
 
  - [Bundle location](https://git.k8s.io/kubernetes/cluster/juju/bundles)
  - [Kubernetes charm layer location](https://git.k8s.io/kubernetes/cluster/juju/layers)
@@ -297,5 +297,3 @@ project on github.com:
 
 Feature requests, bug reports, pull requests and feedback are appreciated.
 {{% /capture %}}
-
-

@@ -17,7 +17,7 @@ Let’s dive into the key features of this release:
 
 ## Simplified Kubernetes Cluster Management with kubeadm in GA
 
-Most people who have gotten hands-on with Kubernetes have at some point been hands-on with kubeadm. It's an essential tool for managing the cluster lifecycle, from creation to configuration to upgrade; and now kubeadm is officially GA. [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm/) handles the bootstrapping of production clusters on existing hardware and configuring the core Kubernetes components in a best-practice-manner to providing a secure yet easy joining flow for new nodes and supporting easy upgrades. What’s notable about this GA release are the now graduated advanced features, specifically around pluggability and configurability. The scope of kubeadm is to be a toolbox for both admins and automated, higher-level system and this release is a significant step in that direction.
+Most people who have gotten hands-on with Kubernetes have at some point been hands-on with kubeadm. It's an essential tool for managing the cluster lifecycle, from creation to configuration to upgrade; and now kubeadm is officially GA. [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) handles the bootstrapping of production clusters on existing hardware and configuring the core Kubernetes components in a best-practice-manner to providing a secure yet easy joining flow for new nodes and supporting easy upgrades. What’s notable about this GA release are the now graduated advanced features, specifically around pluggability and configurability. The scope of kubeadm is to be a toolbox for both admins and automated, higher-level system and this release is a significant step in that direction.
 
 ## Container Storage Interface (CSI) Goes GA
 
@@ -49,7 +49,7 @@ Each Special Interest Group (SIG) within the community continues to deliver the 
 
 ## Availability
 
-Kubernetes 1.13 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.13.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/). You can also easily install 1.13 using [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
+Kubernetes 1.13 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.13.0). To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/). You can also easily install 1.13 using [kubeadm](/docs/setup/independent/create-cluster-kubeadm/).
 
 ## Features Blog Series
 
@@ -88,7 +88,7 @@ Is Kubernetes helping your team? [Share your story](https://docs.google.com/a/go
 - CNCF expanded its certification offerings to include a Certified Kubernetes Application Developer exam. The CKAD exam certifies an individual's ability to design, build, configure, and expose cloud native applications for Kubernetes. More information can be found [here](https://www.cncf.io/blog/2018/03/16/cncf-announces-ckad-exam/).
 - CNCF added a new partner category, Kubernetes Training Partners (KTP). KTPs are a tier of vetted training providers who have deep experience in cloud native technology training. View partners and learn more [here](https://www.cncf.io/certification/training/).
 - CNCF also offers [online training](https://www.cncf.io/certification/training/) that teaches the skills needed to create and configure a real-world Kubernetes cluster.
-- Kubernetes documentation now features [user journeys](https://k8s.io/docs/home/): specific pathways for learning based on who readers are and what readers want to do. Learning Kubernetes is easier than ever for beginners, and more experienced users can find task journeys specific to cluster admins and application developers.  
+- Kubernetes documentation now features [user journeys](https://k8s.io/docs/home/): specific pathways for learning based on who readers are and what readers want to do. Learning Kubernetes is easier than ever for beginners, and more experienced users can find task journeys specific to cluster admins and application developers.
 
 ## KubeCon
 

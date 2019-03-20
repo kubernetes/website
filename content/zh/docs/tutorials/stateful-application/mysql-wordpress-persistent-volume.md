@@ -13,9 +13,9 @@ approvers:
 
 展示的 Kubernetes 概念：
 
-* [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) 定义持久化磁盘（磁盘生命周期不和 Pods 绑定）。
-* [Services](https://kubernetes.io/docs/concepts/services-networking/service/) 使得 Pods 能够找到其它 Pods。
-* [External Load Balancers](https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer) 对外暴露 Services。
+* [Persistent Volumes](/docs/concepts/storage/persistent-volumes/) 定义持久化磁盘（磁盘生命周期不和 Pods 绑定）。
+* [Services](/docs/concepts/services-networking/service/) 使得 Pods 能够找到其它 Pods。
+* [External Load Balancers](/docs/concepts/services-networking/service/#type-loadbalancer) 对外暴露 Services。
 * [Deployments](/docs/user-guide/deployments/) 确保 Pods 持续运行。
 * [Secrets](/docs/user-guide/secrets/) 保存敏感密码信息。
 
@@ -66,8 +66,8 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/examples/master/m
 Kubernetes本质是模块化的，可以在各种环境中运行。但并不是所有集群都相同。此处是本示例的一些要求：
 * 需要 1.2 版本以上的 Kubernetes，以使用更新的特性，例如 PV Claims 和 Deployments。运行 `kubectl version` 来查看你的集群版本。
 * [Cluster DNS](https://github.com/kubernetes/dns) 将被用于服务发现。
-* 一个 [external load balancer](https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer) 将被用于接入 WordPress。
-* 使用了 [Persistent Volume Claims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。你必须创建集群中需要的 Persistent Volumes。本示例将展示两种类型的 volume 的创建方法，但是任何类型的 volume 都是足够使用的。
+* 一个 [external load balancer](/docs/concepts/services-networking/service/#type-loadbalancer) 将被用于接入 WordPress。
+* 使用了 [Persistent Volume Claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。你必须创建集群中需要的 Persistent Volumes。本示例将展示两种类型的 volume 的创建方法，但是任何类型的 volume 都是足够使用的。
 
 
 查阅 [Getting Started Guide](/docs/getting-started-guides/)，搭建一个集群并安装 [kubectl](/docs/user-guide/prereqs/) 命令行工具。
@@ -76,8 +76,8 @@ Kubernetes本质是模块化的，可以在各种环境中运行。但并不是�
 ## 决定在哪里存储你的数据
 
 
-MySQL 和 WordPress 各自使用一个 [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) 来存储自己的数据。我们将使用一个 Persistent Volume Claim 来取得一个可用的持久化存储。本示例覆盖了 HostPath 和
-GCEPersistentDisk 卷类型。你可以从两者中选择一个，或者查看 [Persistent Volumes的类型](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes)。
+MySQL 和 WordPress 各自使用一个 [Persistent Volume](/docs/concepts/storage/persistent-volumes/) 来存储自己的数据。我们将使用一个 Persistent Volume Claim 来取得一个可用的持久化存储。本示例覆盖了 HostPath 和
+GCEPersistentDisk 卷类型。你可以从两者中选择一个，或者查看 [Persistent Volumes的类型](/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes)。
 
 
 ### Host Path

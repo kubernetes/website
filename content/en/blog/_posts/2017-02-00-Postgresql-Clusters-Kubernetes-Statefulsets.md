@@ -4,25 +4,25 @@ date: 2017-02-24
 slug: postgresql-clusters-kubernetes-statefulsets
 url: /blog/2017/02/Postgresql-Clusters-Kubernetes-Statefulsets
 ---
-_Editor’s note: Today’s guest post is by Jeff McCormick, a developer at Crunchy Data, showing how to build a PostgreSQL cluster using the new Kubernetes StatefulSet feature._  
+_Editor’s note: Today’s guest post is by Jeff McCormick, a developer at Crunchy Data, showing how to build a PostgreSQL cluster using the new Kubernetes StatefulSet feature._
 
-In an earlier [post](https://kubernetes.io/blog/2016/09/creating-postgresql-cluster-using-helm), I described how to deploy a PostgreSQL cluster using [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager. The following example provides the steps for building a PostgreSQL cluster using the new Kubernetes [StatefulSets](https://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/) feature.   
+In an earlier [post](https://kubernetes.io/blog/2016/09/creating-postgresql-cluster-using-helm), I described how to deploy a PostgreSQL cluster using [Helm](https://github.com/kubernetes/helm), a Kubernetes package manager. The following example provides the steps for building a PostgreSQL cluster using the new Kubernetes [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) feature.
 
-**StatefulSets Example**  
+**StatefulSets Example**
 
-**Step 1** - Create Kubernetes Environment  
+**Step 1** - Create Kubernetes Environment
 
-StatefulSets is a new feature implemented in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) (prior versions it was known as PetSets). As a result, running this example will require an environment based on Kubernetes 1.5.0 or above.    
+StatefulSets is a new feature implemented in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) (prior versions it was known as PetSets). As a result, running this example will require an environment based on Kubernetes 1.5.0 or above.
 
-The example in this blog deploys on Centos7 using [kubeadm](https://kubernetes.io/docs/admin/kubeadm/). Some instructions on what kubeadm provides and how to deploy a Kubernetes cluster is located [here](http://linoxide.com/containers/setup-kubernetes-kubeadm-centos).  
+The example in this blog deploys on Centos7 using [kubeadm](/docs/admin/kubeadm/). Some instructions on what kubeadm provides and how to deploy a Kubernetes cluster is located [here](http://linoxide.com/containers/setup-kubernetes-kubeadm-centos).
 
-**Step 2** - Install NFS  
+**Step 2** - Install NFS
 
-The example in this blog uses NFS for the Persistent Volumes, but any shared file system would also work (ex: ceph, gluster).    
+The example in this blog uses NFS for the Persistent Volumes, but any shared file system would also work (ex: ceph, gluster).
 
-The example script assumes your NFS server is running locally and your hostname resolves to a known IP address.   
+The example script assumes your NFS server is running locally and your hostname resolves to a known IP address.
 
-In summary, the steps used to get NFS working on a Centos 7 host are as follows:  
+In summary, the steps used to get NFS working on a Centos 7 host are as follows:
 
 
 
@@ -46,7 +46,7 @@ sudo exportfs -r
 
 
 
-The /etc/exports file should contain a line similar to this one except with the applicable IP address specified:  
+The /etc/exports file should contain a line similar to this one except with the applicable IP address specified:
 
 
 
@@ -173,11 +173,11 @@ The StatefulSets provided unique ordinal value always start with 0. During the i
 
 
 
-PostgreSQL replicas are configured to connect to the master database via a Service dedicated to the master database. In order to support this replication, the example creates a separate Service for each of the master role and the replica role. Once the replica has connected, the replica will begin replicating state from the master.  
+PostgreSQL replicas are configured to connect to the master database via a Service dedicated to the master database. In order to support this replication, the example creates a separate Service for each of the master role and the replica role. Once the replica has connected, the replica will begin replicating state from the master.
 
 
 
-During the container initialization, a master container will use a [Service Account](https://kubernetes.io/docs/user-guide/service-accounts/) (pgset-sa) to change it’s container label value to match the master Service selector.  Changing the label is important to enable traffic destined to the master database to reach the correct container within the Stateful Set.  All other pods in the set assume the replica Service label by default.
+During the container initialization, a master container will use a [Service Account](/docs/user-guide/service-accounts/) (pgset-sa) to change it’s container label value to match the master Service selector.  Changing the label is important to enable traffic destined to the master database to reach the correct container within the Stateful Set.  All other pods in the set assume the replica Service label by default.
 
 
 
@@ -287,11 +287,11 @@ drwx------ 20   26   26 4096 Jan 17 16:48 pgset-2
 
 
 
-Each container in the stateful set binds to the single NFS Persistent Volume Claim (pgset-pvc) created in the example script.  
+Each container in the stateful set binds to the single NFS Persistent Volume Claim (pgset-pvc) created in the example script.
 
 
 
-Since NFS and the PVC can be shared, each pod can write to this NFS path.  
+Since NFS and the PVC can be shared, each pod can write to this NFS path.
 
 
 
@@ -303,7 +303,7 @@ The container is designed to create a subdirectory on that path using the pod ho
 
 
 
-StatefulSets is an exciting feature added to Kubernetes for container builders that are implementing clustering. The ordinal values assigned to the set provide a very simple mechanism to make clustering decisions when deploying a PostgreSQL cluster.  
+StatefulSets is an exciting feature added to Kubernetes for container builders that are implementing clustering. The ordinal values assigned to the set provide a very simple mechanism to make clustering decisions when deploying a PostgreSQL cluster.
 
 
 

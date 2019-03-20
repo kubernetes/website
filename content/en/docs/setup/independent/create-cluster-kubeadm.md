@@ -8,11 +8,11 @@ weight: 30
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
-lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
+lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
 
-Because you can install kubeadm on various types of machine (e.g. laptop, server, 
-Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
+Because you can install kubeadm on various types of machine (e.g. laptop, server,
+Raspberry Pi, etc.), it's well suited for integration with provisioning systems
 such as Terraform or Ansible.
 
 kubeadm's simplicity means it can serve a wide range of use cases:
@@ -81,14 +81,14 @@ timeframe; which also applies to `kubeadm`.
 - 2 CPUs or more on the master
 - Full network connectivity among all machines in the cluster. A public or
    private network is fine.
- 
+
 {{% /capture %}}
 
 {{% capture steps %}}
 
 ## Objectives
 
-* Install a single master Kubernetes cluster or [high availability cluster](https://kubernetes.io/docs/setup/independent/high-availability/)
+* Install a single master Kubernetes cluster or [high availability cluster](/docs/setup/independent/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -103,7 +103,7 @@ If you have already installed kubeadm, run `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
-kubeadm to tell it what to do. This crashloop is expected and normal. 
+kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your master, the kubelet runs normally.
 {{< /note >}}
 
@@ -113,22 +113,22 @@ The master is the machine where the control plane components run, including
 etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
-1. Choose a pod network add-on, and verify whether it requires any arguments to 
+1. Choose a pod network add-on, and verify whether it requires any arguments to
 be passed to kubeadm initialization. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a pod network add-on](#pod-network).
-1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated 
-with the default gateway to advertise the master's IP. To use a different 
-network interface, specify the `--apiserver-advertise-address=<ip-address>` argument 
-to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you 
+1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated
+with the default gateway to advertise the master's IP. To use a different
+network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
+to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
-1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify 
-connectivity to gcr.io registries.   
+1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
+connectivity to gcr.io registries.
 
 Now run:
 
 ```bash
-kubeadm init <args> 
+kubeadm init <args>
 ```
 
 ### More information
@@ -147,7 +147,7 @@ components do not currently support multi-architecture.
 
 `kubeadm init` first runs a series of prechecks to ensure that the machine
 is ready to run Kubernetes. These prechecks expose warnings and exit on errors. `kubeadm init`
-then downloads and installs the cluster control plane components. This may take several minutes. 
+then downloads and installs the cluster control plane components. This may take several minutes.
 The output should look like:
 
 ```none
@@ -210,7 +210,7 @@ To start using your cluster, you need to run the following as a regular user:
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+  /docs/concepts/cluster-administration/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
@@ -255,8 +255,8 @@ each other.
 kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. 
-- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
+- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
 - [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9.
 
 Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/docs/reference/access-authn-authz/rbac/).
@@ -334,7 +334,7 @@ For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16
 
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Note that `flannel` works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` under Linux.
 Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
@@ -350,7 +350,7 @@ For more information about `flannel`, see [the CoreOS flannel repository on GitH
 {{% tab name="Kube-router" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router relies on kube-controller-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
@@ -362,7 +362,7 @@ For information on setting up Kubernetes cluster with Kube-router using kubeadm,
 {{% tab name="Romana" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -376,7 +376,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {{% tab name="Weave Net" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
@@ -663,7 +663,3 @@ addressed in due course.
 ## Troubleshooting {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
-
-
-
-

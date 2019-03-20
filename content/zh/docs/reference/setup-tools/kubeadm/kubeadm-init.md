@@ -79,7 +79,7 @@ following steps: -->
    themselves with the master in the future.  Optionally, the user can provide a
    token via `--token`, as described in the
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs. -->
-3. 生成令牌以便其它节点以后可以使用这个令牌向 master 节点注册它们自己。 可选的，用户可以通过 `--token` 提供一个令牌, 正如文档[kubeadm 的令牌](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 描述的那样。  
+3. 生成令牌以便其它节点以后可以使用这个令牌向 master 节点注册它们自己。 可选的，用户可以通过 `--token` 提供一个令牌, 正如文档[kubeadm 的令牌](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 描述的那样。
 
 <!-- 4. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
@@ -359,8 +359,8 @@ using an external CRI implementation. -->
 
 <!-- By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the  `--node-name`flag. -->
 默认情况下, `kubeadm` 基于机器的 host 地址分配一个节点名称。你可以使用 `--node-name` 参数覆盖这个设置。
-<!-- The flag passes the appropriate [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) to the kubelet. -->
-这个参数会向 kubelet 传递相应的 [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) 参数。
+<!-- The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) to the kubelet. -->
+这个参数会向 kubelet 传递相应的 [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) 参数。
 
 <!-- Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873). -->
 注意覆盖主机名称可能会 [干扰到云服务提供商](https://github.com/kubernetes/website/pull/8873)。
@@ -394,8 +394,8 @@ without manual intervention. This and other limitations are expected to be
 resolved before self-hosting graduates from alpha. -->
 1.8 版本中的 Self-hosting 功能有一些重要的限制。特别的, 一个 self-hosted 的集群如果不手动介入的话 _不能够从 master node 的重新启动中恢复_ 。 这个以及其它的一些限制被期望在 self-hosting 功能从 alpha 状态毕业前解决。
 
-<!-- By default, self-hosted control plane Pods rely on credentials loaded from [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) volumes. Except for initial creation, these credentials are not managed by kubeadm. You can use `--feature-gates=StoreCertsInSecrets=true` to enable an experimental mode where control plane credentials are loaded from Secrets instead. This requires very careful control over the authentication and authorization configuration for your cluster, and may not be appropriate for your environment. -->
-默认情况下, self-hosted control plane Pods 依赖位于 [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) 数据卷中的证书。除了初始化创建证书的过程, 这些证书不被 kubeadm 管理。你可以使用 `--feature-gates=StoreCertsInSecrets=true` 参数来启用一个试验性的模式，在这个模式中 control plane 证书从 Secrets 加载。 这要求对你的集群进行非常小心的对鉴权和授权配置的控制, 并且可能并不适合你的环境。
+<!-- By default, self-hosted control plane Pods rely on credentials loaded from [`hostPath`](/docs/concepts/storage/volumes/#hostpath) volumes. Except for initial creation, these credentials are not managed by kubeadm. You can use `--feature-gates=StoreCertsInSecrets=true` to enable an experimental mode where control plane credentials are loaded from Secrets instead. This requires very careful control over the authentication and authorization configuration for your cluster, and may not be appropriate for your environment. -->
+默认情况下, self-hosted control plane Pods 依赖位于 [`hostPath`](/docs/concepts/storage/volumes/#hostpath) 数据卷中的证书。除了初始化创建证书的过程, 这些证书不被 kubeadm 管理。你可以使用 `--feature-gates=StoreCertsInSecrets=true` 参数来启用一个试验性的模式，在这个模式中 control plane 证书从 Secrets 加载。 这要求对你的集群进行非常小心的对鉴权和授权配置的控制, 并且可能并不适合你的环境。
 
 {{< caution >}}
 <!-- **Caution:** `StoreCertsInSecrets` is an alpha feature. It is deprecated in 1.12

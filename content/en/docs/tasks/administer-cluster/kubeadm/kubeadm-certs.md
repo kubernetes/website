@@ -23,7 +23,7 @@ You should be familiar with [PKI certificates and requirements in Kubernetes](/d
 
 ## Renew certificates with the certificates API
 
-The Kubernetes certificates normally reach their expiration date after one year. 
+The Kubernetes certificates normally reach their expiration date after one year.
 
 Kubeadm can renew certificates with the `kubeadm alpha certs renew` commands; you should run these commands on control-plane nodes only.
 
@@ -36,9 +36,9 @@ With kubeadm, you can use this API by running `kubeadm alpha certs renew --use-a
 
 ## Set up a signer
 
-The Kubernetes Certificate Authority does not work out of the box. 
-You can configure an external signer such as [cert-manager][cert-manager-issuer], or you can use the build-in signer. 
-The built-in signer is part of [`kube-controller-manager`][kcm]. 
+The Kubernetes Certificate Authority does not work out of the box.
+You can configure an external signer such as [cert-manager][cert-manager-issuer], or you can use the build-in signer.
+The built-in signer is part of [`kube-controller-manager`][kcm].
 To activate the build-in signer, you pass the `--cluster-signing-cert-file` and `--cluster-signing-key-file` arguments.
 
 You pass these arguments in any of the following ways:
@@ -60,14 +60,14 @@ You pass these arguments in any of the following ways:
 * You can also upload a config file using [`kubeadm config upload from-files`][config-upload]
 
 [cert-manager-issuer]: https://cert-manager.readthedocs.io/en/latest/tutorials/ca/creating-ca-issuer.html
-[kcm]: https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
+[kcm]: /docs/reference/command-line-tools-reference/kube-controller-manager/
 [config]: https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1
-[config-upload]: https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-from-file
+[config-upload]: /docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-from-file
 
 ### Approve requests
 
 If you set up an external signer such as [cert-manager][cert-manager], certificate signing requests (CSRs) are automatically approved.
-Otherwise, you must manually approve certificates with the [`kubectl certificate`][certs] command. 
+Otherwise, you must manually approve certificates with the [`kubectl certificate`][certs] command.
 The following kubeadm command outputs the name of the certificate to approve, then blocks and waits for approval to occur:
 
 ```shell
@@ -85,34 +85,34 @@ certificatesigningrequest.certificates.k8s.io/kubeadm-cert-kube-apiserver-ld526 
 
 You can view a list of pending certificates with `kubectl get csr`.
 
-[manage-tls]: https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/
+[manage-tls]: /docs/tasks/tls/managing-tls-in-a-cluster/
 [cert-manager]: https://github.com/jetstack/cert-manager
-[certs]: https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#certificate
+[certs]: /docs/reference/generated/kubectl/kubectl-commands#certificate
 
 ## Certificate requests with kubeadm
 
-To better integrate with external CAs, kubeadm can also produce certificate signing requests (CSRs). 
-A CSR represents a request to a CA for a signed certificate for a client. 
+To better integrate with external CAs, kubeadm can also produce certificate signing requests (CSRs).
+A CSR represents a request to a CA for a signed certificate for a client.
 In kubeadm terms, any certificate that would normally be signed by an on-disk CA can be produced as a CSR instead. A CA, however, cannot be produced as a CSR.
 
 You can create an individual CSR with `kubeadm init phase certs apiserver --csr-only`.
 The `--csr-only` flag can be applied only to individual phases. After [all certificates are in place][certs], you can run `kubeadm init --external-ca`.
 
-You can pass in a directory with `--csr-dir` to output the CSRs to the specified location. 
+You can pass in a directory with `--csr-dir` to output the CSRs to the specified location.
 If `--csr-dir` is not specified, the default certificate directory (`/etc/kubernetes/pki`) is used.
 Both the CSR and the accompanying private key are given in the output. After a certificate is signed, the certificate and the private key must be copied to the PKI directory (by default `/etc/kubernetes/pki`).
 
 ### Renew certificates
 
 Certificates can be renewed with `kubeadm alpha certs renew --csr-only`.
-As with `kubeadm init`, an output directory can be specified with the `--csr-dir` flag. 
+As with `kubeadm init`, an output directory can be specified with the `--csr-dir` flag.
 To use the new certificates, copy the signed certificate and private key into the PKI directory (by default `/etc/kubernetes/pki`)
 
 ## Cert usage
 
-A CSR contains a certificate's name, domains, and IPs, but it does not specify usages. 
+A CSR contains a certificate's name, domains, and IPs, but it does not specify usages.
 It is the responsibility of the CA to specify [the correct cert usages][cert-table] when issuing a certificate.
- 
+
 * In `openssl` this is done with the [`openssl ca` command][openssl-ca].
 * In `cfssl` you specify [usages in the config file][cfssl-usages]
 
@@ -122,8 +122,8 @@ Kubeadm sets up [three CAs][cert-cas] by default. Make sure to sign the CSRs wit
 
 [openssl-ca]: https://superuser.com/questions/738612/openssl-ca-keyusage-extension
 [cfssl-usages]: https://github.com/cloudflare/cfssl/blob/master/doc/cmd/cfssl.txt#L170
-[certs]: https://kubernetes.io/docs/setup/certificates
-[cert-cas]: https://kubernetes.io/docs/setup/certificates/#single-root-ca
-[cert-table]: https://kubernetes.io/docs/setup/certificates/#all-certificates
+[certs]: /docs/setup/certificates
+[cert-cas]: /docs/setup/certificates/#single-root-ca
+[cert-table]: /docs/setup/certificates/#all-certificates
 
 {{% /capture %}}

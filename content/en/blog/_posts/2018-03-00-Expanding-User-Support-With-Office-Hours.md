@@ -31,7 +31,7 @@ Special thanks to Amazon, Bitnami, Giant Swarm, Heptio, Liquidweb, Northwestern 
 And thanks to Alan Pope, Joe Beda, and Charles Butler for technical support in making our livestream better.
 
 [1]: https://stackoverflow.com/questions/tagged/kubernetes
-[2]: https://kubernetes.io/docs/home
+[2]: /docs/home
 [3]: http://slack.k8s.io/
 [4]: https://groups.google.com/forum/#!forum/kubernetes-users
 [5]: https://github.com/ramitsurana/awesome-kubernetes

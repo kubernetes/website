@@ -7,20 +7,20 @@ notitle: true
 <!--
 kubectl controls the Kubernetes cluster manager
 -->
-kubectl ¿ÉÒÔ²Ù¿Ø Kubernetes ¼¯Èº¡£
+kubectl ï¿½ï¿½ï¿½Ô²Ù¿ï¿½ Kubernetes ï¿½ï¿½Èºï¿½ï¿½
 
 <!--
 ### Synopsis
 
-kubectl controls the Kubernetes cluster manager. 
+kubectl controls the Kubernetes cluster manager.
 
-Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+Find more information at: /docs/reference/kubectl/overview/
 -->
-### ¼ò½é
+### ï¿½ï¿½ï¿½
 
-kubectl ¿ÉÒÔ²Ù¿Ø Kubernetes ¼¯Èº¡£
+kubectl ï¿½ï¿½ï¿½Ô²Ù¿ï¿½ Kubernetes ï¿½ï¿½Èºï¿½ï¿½
 
-»ñÈ¡¸ü¶àĞÅÏ¢£¬Çë·ÃÎÊ£ºhttps://kubernetes.io/docs/reference/kubectl/overview/
+ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½/docs/s.io/docs/reference/kubectl/overview/
 
 ```
 kubectl [flags]
@@ -55,32 +55,32 @@ kubectl [flags]
       --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging
 ```
 -->
-### Ñ¡Ïî
+### Ñ¡ï¿½ï¿½
 ```
-      --alsologtostderr                  Í¬Ê±Êä³öÈÕÖ¾µ½±ê×¼´íÎó¿ØÖÆÌ¨ºÍÎÄ¼ş
-      --as string                        ÒÔÖ¸¶¨ÓÃ»§Ö´ĞĞ²Ù×÷
-	  --as-group stringArray             Ä£Äâ²Ù×÷µÄ×é£¬¿ÉÒÔÊ¹ÓÃÕâ¸ö±êÊ¶À´Ö¸¶¨¶à¸ö×é¡£
-      --cache-dir string                 Ä¬ÈÏ HTTP »º´æÄ¿Â¼£¨Ä¬ÈÏÖµ "/home/username/.kube/http-cache" £©
-      --certificate-authority string     ÓÃÓÚ½øĞĞÈÏÖ¤ÊÚÈ¨µÄ .cert ÎÄ¼şÂ·¾¶
-      --client-certificate string        TLS Ê¹ÓÃµÄ¿Í»§¶ËÖ¤ÊéÂ·¾¶
-      --client-key string                TLS Ê¹ÓÃµÄ¿Í»§¶ËÃÜÔ¿ÎÄ¼şÂ·¾¶
-      --cluster string                   Ö¸¶¨ÒªÊ¹ÓÃµÄ kubeconfig ÎÄ¼şÖĞ¼¯ÈºÃû
-      --context string                   Ö¸¶¨ÒªÊ¹ÓÃµÄ kubeconfig ÎÄ¼şÖĞÉÏÏÂÎÄ
-  -h, --help                             kubectl °ïÖú
-      --insecure-skip-tls-verify         ÖµÎª true£¬Ôò²»»á¼ì²é·şÎñÆ÷µÄÖ¤ÊéµÄÓĞĞ§ĞÔ¡£ Õâ½«Ê¹ÄúµÄHTTPSÁ¬½Ó²»°²È«
-      --kubeconfig string                CLI ÇëÇóÊ¹ÓÃµÄ kubeconfig ÅäÖÃÎÄ¼şÂ·¾¶¡£
-      --log-backtrace-at traceLocation   µ±ÈÕÖ¾³¤¶È³¬³ö¹æ¶¨µÄĞĞÊıÊ±£¬ºöÂÔ¶ÑÕ»ĞÅÏ¢£¨Ä¬ÈÏÖµ£º0£©
-      --log-dir string                   Èç¹û²»Îª¿Õ£¬Ôò½«ÈÕÖ¾ÎÄ¼şĞ´Èë´ËÄ¿Â¼
-      --logtostderr                      ÈÕÖ¾Êä³öµ½±ê×¼´íÎó¿ØÖÆÌ¨¶ø²»Êä³öµ½ÎÄ¼ş
-      --match-server-version             ÒªÇó¿Í»§¶Ë°æ±¾ºÍ·şÎñ¶Ë°æ±¾ÏàÆ¥Åä
-  -n, --namespace string                 Èç¹û´æÔÚ£¬CLI ÇëÇó½«Ê¹ÓÃ´ËÃüÃû¿Õ¼ä
-      --request-timeout string           ·ÅÆúÒ»¸ö¼òµ¥·şÎñÇëÇóÇ°µÄµÈ´ıÊ±¼ä£¬·ÇÁãÖµĞèÒª°üº¬ÏàÓ¦Ê±¼äµ¥Î»(ÀıÈç£º1s, 2m, 3h)¡£ÁãÖµÔòÈÏÎª²»×ö³¬Ê±ÇëÇó¡£ (Ä¬ÈÏÖµ "0")
-  -s, --server string                    Kubernetes API server µÄµØÖ·ºÍ¶Ë¿Ú
-      --stderrthreshold severity         µÈÓÚ»ò¸ßÓÚ´ËãĞÖµµÄÈÕÖ¾½«Êä³ö±ê×¼´íÎó¿ØÖÆÌ¨£¨Ä¬ÈÏÖµ2£©
-      --token string                     ÓÃÓÚ API server ½øĞĞÉí·İÈÏÖ¤µÄ³ĞÔØÁîÅÆ
-      --user string                      Ö¸¶¨Ê¹ÓÃµÄ kubeconfig ÅäÖÃÎÄ¼şÖĞµÄÓÃ»§Ãû
-  -v, --v Level                          Ö¸¶¨Êä³öÈÕÖ¾µÄÈÕÖ¾¼¶±ğ
-      --vmodule moduleSpec               Ö¸¶¨Êä³öÈÕÖ¾µÄÄ£¿é£¬¸ñÊ½ÈçÏÂ£ºpattern=N£¬Ê¹ÓÃ¶ººÅ·Ö¸ô
+      --alsologtostderr                  Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½Ä¼ï¿½
+      --as string                        ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ã»ï¿½Ö´ï¿½Ğ²ï¿½ï¿½ï¿½
+	  --as-group stringArray             Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¡£
+      --cache-dir string                 Ä¬ï¿½ï¿½ HTTP ï¿½ï¿½ï¿½ï¿½Ä¿Â¼ï¿½ï¿½Ä¬ï¿½ï¿½Öµ "/home/username/.kube/http-cache" ï¿½ï¿½
+      --certificate-authority string     ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½È¨ï¿½ï¿½ .cert ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+      --client-certificate string        TLS Ê¹ï¿½ÃµÄ¿Í»ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Â·ï¿½ï¿½
+      --client-key string                TLS Ê¹ï¿½ÃµÄ¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+      --cluster string                   Ö¸ï¿½ï¿½ÒªÊ¹ï¿½Ãµï¿½ kubeconfig ï¿½Ä¼ï¿½ï¿½Ğ¼ï¿½Èºï¿½ï¿½
+      --context string                   Ö¸ï¿½ï¿½ÒªÊ¹ï¿½Ãµï¿½ kubeconfig ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  -h, --help                             kubectl ï¿½ï¿½ï¿½ï¿½
+      --insecure-skip-tls-verify         ÖµÎª trueï¿½ï¿½ï¿½ò²»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ï¿½Ô¡ï¿½ ï¿½â½«Ê¹ï¿½ï¿½ï¿½ï¿½HTTPSï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½È«
+      --kubeconfig string                CLI ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½ kubeconfig ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½ï¿½ï¿½
+      --log-backtrace-at traceLocation   ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½È³ï¿½ï¿½ï¿½ï¿½æ¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Õ»ï¿½ï¿½Ï¢ï¿½ï¿½Ä¬ï¿½ï¿½Öµï¿½ï¿½0ï¿½ï¿½
+      --log-dir string                   ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½Ä¼ï¿½Ğ´ï¿½ï¿½ï¿½Ä¿Â¼
+      --logtostderr                      ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+      --match-server-version             Òªï¿½ï¿½Í»ï¿½ï¿½Ë°æ±¾ï¿½Í·ï¿½ï¿½ï¿½Ë°æ±¾ï¿½ï¿½Æ¥ï¿½ï¿½
+  -n, --namespace string                 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½CLI ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
+      --request-timeout string           ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½òµ¥·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ÄµÈ´ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦Ê±ï¿½äµ¥Î»(ï¿½ï¿½ï¿½ç£º1s, 2m, 3h)ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ (Ä¬ï¿½ï¿½Öµ "0")
+  -s, --server string                    Kubernetes API server ï¿½Äµï¿½Ö·ï¿½Í¶Ë¿ï¿½
+      --stderrthreshold severity         ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½Ä¬ï¿½ï¿½Öµ2ï¿½ï¿½
+      --token string                     ï¿½ï¿½ï¿½ï¿½ API server ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+      --user string                      Ö¸ï¿½ï¿½Ê¹ï¿½Ãµï¿½ kubeconfig ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ğµï¿½ï¿½Ã»ï¿½ï¿½ï¿½
+  -v, --v Level                          Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½
+      --vmodule moduleSpec               Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½Ä£ï¿½é£¬ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Â£ï¿½pattern=Nï¿½ï¿½Ê¹ï¿½Ã¶ï¿½ï¿½Å·Ö¸ï¿½
 ```
 <!--
 ### SEE ALSO
@@ -127,52 +127,51 @@ kubectl [flags]
 * [kubectl version](kubectl_version.md)	 - Print the client and server version information
 * [kubectl wait](kubectl_wait.md)	 - Experimental: Wait for one condition on one or many resources
 -->
-### ½ÓÏÂÀ´¿´
+### ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-* [kubectl alpha](kubectl_alpha.md)	 - alpha»·¾³ÉÏÃüÁîÊôĞÔ
-* [kubectl annotate](kubectl_annotate.md)	 - ¸üĞÂ×ÊÔ´ÉÏ×¢ÊÍ
-* [kubectl api-resources](kubectl_api-resources.md)	 - ÔÚ·şÎñÆ÷ÉÏ´òÓ¡Ö§³ÖµÄ API ×ÊÔ´
-* [kubectl api-versions](kubectl_api-versions.md)	 - ÒÔ "group/version" µÄĞÎÊ½ÔÚ·şÎñÆ÷ÉÏ´òÓ¡Ö§³ÖµÄ API °æ±¾
-* [kubectl apply](kubectl_apply.md)	 - Í¨¹ıÎÄ¼şÃû»ò±ê×¼ÊäÈë½«ÅäÖÃÌí¼Ó¸ø×ÊÔ´
-* [kubectl attach](kubectl_attach.md)	 - ¸½¼Óµ½ÕıÔÚÔËĞĞµÄÈİÆ÷
-* [kubectl auth](kubectl_auth.md)	 - ¼ì²éÊÚÈ¨
-* [kubectl autoscale](kubectl_autoscale.md)	 - ×Ô¶¯À©Õ¹ Deployment, ReplicaSet »ò ReplicationController
-* [kubectl certificate](kubectl_certificate.md)	 - ĞŞ¸ÄÖ¤Êé×ÊÔ´¡£
-* [kubectl cluster-info](kubectl_cluster-info.md)	 - Õ¹Ê¾¼¯ÈºĞÅÏ¢
-* [kubectl completion](kubectl_completion.md)	 - Îª¸ø¶¨µÄ shell Êä³öÍê³É´úÂë£¨ bash »ò zsh£©
-* [kubectl config](kubectl_config.md)	 - ĞŞ¸Ä kubeconfig ÅäÖÃÎÄ¼ş
-* [kubectl convert](kubectl_convert.md)	 - ÔÚ²»Í¬µÄ API °æ±¾Ö®¼ä×ª»»ÅäÖÃÎÄ¼ş
-* [kubectl cordon](kubectl_cordon.md)	 - ½« node ½Úµã±ê¼ÇÎª²»¿Éµ÷¶È
-* [kubectl cp](kubectl_cp.md)	 - ´ÓÈİÆ÷¸´ÖÆÎÄ¼şºÍÄ¿Â¼£¬Ò²¿É½«ÎÄ¼şºÍÄ¿Â¼¸´ÖÆµ½ÈİÆ÷¡£
-* [kubectl create](kubectl_create.md)	 - Í¨¹ıÎÄ¼şÃû»ò±ê×¼ÊäÈë´´½¨×ÊÔ´¡£
-* [kubectl delete](kubectl_delete.md)	 - Í¨¹ıÎÄ¼şÃû£¬±ê×¼ÊäÈë£¬×ÊÔ´ºÍÃû³Æ»ò×ÊÔ´ºÍ±êÇ©Ñ¡ÔñÆ÷É¾³ı×ÊÔ´
-* [kubectl describe](kubectl_describe.md)	 - ÏÔÊ¾ÌØ¶¨×ÊÔ´»ò×ÊÔ´×éµÄÏêÏ¸ĞÅÏ¢
-* [kubectl drain](kubectl_drain.md)	 - Îª±ãÓÚÎ¬»¤£¬ĞèÒªÌáÇ°ÇıÖğnode½Úµã
-* [kubectl edit](kubectl_edit.md)	 - ÔÚ·şÎñÆ÷±à¼­×ÊÔ´
-* [kubectl exec](kubectl_exec.md)	 - ÈİÆ÷ÄÚÍË³öÃüÁî
-* [kubectl explain](kubectl_explain.md)	 - ×ÊÔ´ÎÄµµ
-* [kubectl expose](kubectl_expose.md)	 - »ñÈ¡ replication controller, service, deployment »ò pod ×ÊÔ´£¬²¢×÷ÎªĞÂµÄ Kubernetes ·şÎñ±©Â¶
-* [kubectl get](kubectl_get.md)	 - Õ¹Ê¾Ò»¸ö»ò¶à¸ö×ÊÔ´
-* [kubectl label](kubectl_label.md)	 - Éı¼¶×ÊÔ´±êÇ©
-* [kubectl logs](kubectl_logs.md)	 - Îª pod ÖĞµÄÈİÆ÷´òÓ¡ÈÕÖ¾
-* [kubectl options](kubectl_options.md)	 - ´òÓ¡ËùÓĞÃüÁî¼Ì³ĞµÄ±êÊ¶ÁĞ±í
-* [kubectl patch](kubectl_patch.md)	 - Ê¹ÓÃÕ½ÂÔĞÔºÏ²¢²¹¶¡¸üĞÂ×ÊÔ´×Ö¶Î
-* [kubectl plugin](kubectl_plugin.md)	 - ÔËĞĞÃüÁîĞĞ²å¼ş
-* [kubectl port-forward](kubectl_port-forward.md)	 - ¸ø pod ¿ª·ÅÒ»¸ö»ò¶à¸ö±¾µØ¶Ë¿Ú
-* [kubectl proxy](kubectl_proxy.md)	 - Îª Kubernetes API server ÔËĞĞ´úÀí
-* [kubectl replace](kubectl_replace.md)	 - Í¨¹ıÎÄ¼ş»ò±ê×¼ÊäÈëÌæ»»×ÊÔ´
-* [kubectl rollout](kubectl_rollout.md)	 - ¹ÜÀí×ÊÔ´Õ¹Ê¾
-* [kubectl run](kubectl_run.md)	 - ÔÚ¼¯ÈºÉÏÔËĞĞÖ¸¶¨¾µÏñ
-* [kubectl scale](kubectl_scale.md)	 - ¸ø Deployment, ReplicaSet, Replication Controller »ò Job ÉèÖÃĞÂ¸±±¾¹æÄ£
-* [kubectl set](kubectl_set.md)	 - ¸ø¶ÔÏóÉèÖÃÌØ¶¨¹¦ÄÜ
-* [kubectl taint](kubectl_taint.md)	 - ¸üĞÂÒ»¸ö»ò¶à¸ö node ½ÚµãµÄÎÛµãĞÅÏ¢
-* [kubectl top](kubectl_top.md)	 - Õ¹Ê¾×ÊÔ´ (CPU/Memory/Storage) Ê¹ÓÃĞÅÏ¢¡£
-* [kubectl uncordon](kubectl_uncordon.md)	 - ±ê¼Ç node ½ÚµãÎª¿Éµ÷¶È
-* [kubectl version](kubectl_version.md)	 - ´òÓ¡¿Í»§¶ËºÍ·şÎñ¶Ë°æ±¾ĞÅÏ¢
-* [kubectl wait](kubectl_wait.md)	 - ÊÔÑé: ÔÚÒ»¸ö»ò¶à¸ö×ÊÔ´ÉÏµÈ´ıÌõ¼şÍê³É
+* [kubectl alpha](kubectl_alpha.md)	 - alphaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* [kubectl annotate](kubectl_annotate.md)	 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½×¢ï¿½ï¿½
+* [kubectl api-resources](kubectl_api-resources.md)	 - ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½Ó¡Ö§ï¿½Öµï¿½ API ï¿½ï¿½Ô´
+* [kubectl api-versions](kubectl_api-versions.md)	 - ï¿½ï¿½ "group/version" ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½Ó¡Ö§ï¿½Öµï¿½ API ï¿½æ±¾
+* [kubectl apply](kubectl_apply.md)	 - Í¨ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ë½«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½Ô´
+* [kubectl attach](kubectl_attach.md)	 - ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½
+* [kubectl auth](kubectl_auth.md)	 - ï¿½ï¿½ï¿½ï¿½ï¿½È¨
+* [kubectl autoscale](kubectl_autoscale.md)	 - ï¿½Ô¶ï¿½ï¿½ï¿½Õ¹ Deployment, ReplicaSet ï¿½ï¿½ ReplicationController
+* [kubectl certificate](kubectl_certificate.md)	 - ï¿½Ş¸ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½
+* [kubectl cluster-info](kubectl_cluster-info.md)	 - Õ¹Ê¾ï¿½ï¿½Èºï¿½ï¿½Ï¢
+* [kubectl completion](kubectl_completion.md)	 - Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ shell ï¿½ï¿½ï¿½ï¿½ï¿½É´ï¿½ï¿½ë£¨ bash ï¿½ï¿½ zshï¿½ï¿½
+* [kubectl config](kubectl_config.md)	 - ï¿½Ş¸ï¿½ kubeconfig ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+* [kubectl convert](kubectl_convert.md)	 - ï¿½Ú²ï¿½Í¬ï¿½ï¿½ API ï¿½æ±¾Ö®ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+* [kubectl cordon](kubectl_cordon.md)	 - ï¿½ï¿½ node ï¿½Úµï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½
+* [kubectl cp](kubectl_cp.md)	 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿Â¼ï¿½ï¿½Ò²ï¿½É½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿Â¼ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* [kubectl create](kubectl_create.md)	 - Í¨ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ë´´ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½
+* [kubectl delete](kubectl_delete.md)	 - Í¨ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½Ô´ï¿½Í±ï¿½Ç©Ñ¡ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ô´
+* [kubectl describe](kubectl_describe.md)	 - ï¿½ï¿½Ê¾ï¿½Ø¶ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ï¢
+* [kubectl drain](kubectl_drain.md)	 - Îªï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½nodeï¿½Úµï¿½
+* [kubectl edit](kubectl_edit.md)	 - ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à¼­ï¿½ï¿½Ô´
+* [kubectl exec](kubectl_exec.md)	 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½
+* [kubectl explain](kubectl_explain.md)	 - ï¿½ï¿½Ô´ï¿½Äµï¿½
+* [kubectl expose](kubectl_expose.md)	 - ï¿½ï¿½È¡ replication controller, service, deployment ï¿½ï¿½ pod ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Âµï¿½ Kubernetes ï¿½ï¿½ï¿½ï¿½Â¶
+* [kubectl get](kubectl_get.md)	 - Õ¹Ê¾Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
+* [kubectl label](kubectl_label.md)	 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½Ç©
+* [kubectl logs](kubectl_logs.md)	 - Îª pod ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½Ö¾
+* [kubectl options](kubectl_options.md)	 - ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ĞµÄ±ï¿½Ê¶ï¿½Ğ±ï¿½
+* [kubectl patch](kubectl_patch.md)	 - Ê¹ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ÔºÏ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ö¶ï¿½
+* [kubectl plugin](kubectl_plugin.md)	 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ²ï¿½ï¿½
+* [kubectl port-forward](kubectl_port-forward.md)	 - ï¿½ï¿½ pod ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶Ë¿ï¿½
+* [kubectl proxy](kubectl_proxy.md)	 - Îª Kubernetes API server ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½
+* [kubectl replace](kubectl_replace.md)	 - Í¨ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½æ»»ï¿½ï¿½Ô´
+* [kubectl rollout](kubectl_rollout.md)	 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Õ¹Ê¾
+* [kubectl run](kubectl_run.md)	 - ï¿½Ú¼ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* [kubectl scale](kubectl_scale.md)	 - ï¿½ï¿½ Deployment, ReplicaSet, Replication Controller ï¿½ï¿½ Job ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä£
+* [kubectl set](kubectl_set.md)	 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½
+* [kubectl taint](kubectl_taint.md)	 - ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ node ï¿½Úµï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½Ï¢
+* [kubectl top](kubectl_top.md)	 - Õ¹Ê¾ï¿½ï¿½Ô´ (CPU/Memory/Storage) Ê¹ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
+* [kubectl uncordon](kubectl_uncordon.md)	 - ï¿½ï¿½ï¿½ node ï¿½Úµï¿½Îªï¿½Éµï¿½ï¿½ï¿½
+* [kubectl version](kubectl_version.md)	 - ï¿½ï¿½Ó¡ï¿½Í»ï¿½ï¿½ËºÍ·ï¿½ï¿½ï¿½Ë°æ±¾ï¿½ï¿½Ï¢
+* [kubectl wait](kubectl_wait.md)	 - ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ÏµÈ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 <!--
 ###### Auto generated by spf13/cobra on 16-Jun-2018
 -->
-######2018Äê6ÔÂ16ÈÕ£¬Í¨¹ıspf13/cobra×Ô¶¯Éú³É
-
+######2018ï¿½ï¿½6ï¿½ï¿½16ï¿½Õ£ï¿½Í¨ï¿½ï¿½spf13/cobraï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½

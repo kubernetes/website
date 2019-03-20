@@ -4,7 +4,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This document with highlighting how to troubleshoot the deployment of a Kubernetes cluster, it will not cover debugging of workloads inside Kubernetes. 
+This document with highlighting how to troubleshoot the deployment of a Kubernetes cluster, it will not cover debugging of workloads inside Kubernetes.
 {{% /capture %}}
 {{% capture prerequisites %}}
 This page assumes you have a working Juju deployed cluster.
@@ -21,9 +21,9 @@ Model  Controller  Cloud/Region   Version
 kubes  work-multi  aws/us-east-2  2.0.2.1
 
 App                Version  Status  Scale  Charm              Store       Rev  OS      Notes
-easyrsa            3.0.1    active      1  easyrsa            jujucharms    3  ubuntu  
-etcd               2.2.5    active      1  etcd               jujucharms   17  ubuntu  
-flannel            0.6.1    active      2  flannel            jujucharms    6  ubuntu  
+easyrsa            3.0.1    active      1  easyrsa            jujucharms    3  ubuntu
+etcd               2.2.5    active      1  etcd               jujucharms   17  ubuntu
+flannel            0.6.1    active      2  flannel            jujucharms    6  ubuntu
 kubernetes-master  1.4.5    active      1  kubernetes-master  jujucharms    8  ubuntu  exposed
 kubernetes-worker  1.4.5    active      1  kubernetes-worker  jujucharms   11  ubuntu  exposed
 
@@ -37,13 +37,13 @@ kubernetes-worker/0*  active    idle   1        52.15.177.233   80/tcp,443/tcp  
 
 Machine  State    DNS            Inst id              Series  AZ
 0        started  52.15.47.228   i-0bb211a18be691473  xenial  us-east-2a
-0/lxd/0  started  10.0.0.55      juju-153b74-0-lxd-0  xenial  
+0/lxd/0  started  10.0.0.55      juju-153b74-0-lxd-0  xenial
 1        started  52.15.177.233  i-0502d7de733be31bb  xenial  us-east-2b
 ```
 
 In this example we can glean some information. The `Workload` column will show the status of a given service. The `Message` section will show you the health of a given service in the cluster. During deployment and maintenance these workload statuses will update to reflect what a given node is doing. For example the workload my say `maintenance` while message will describe this maintenance as `Installing docker`.
 
-During normal operation the Workload should read `active`, the Agent column (which reflects what the Juju agent is doing) should read `idle`, and the messages will either say `Ready` or another descriptive term. `juju status --color` will also return all green results when a cluster's deployment is healthy. 
+During normal operation the Workload should read `active`, the Agent column (which reflects what the Juju agent is doing) should read `idle`, and the messages will either say `Ready` or another descriptive term. `juju status --color` will also return all green results when a cluster's deployment is healthy.
 
 Status can become unwieldy for large clusters, it is then recommended to check status on individual services, for example to check the status on the workers only:
 
@@ -53,7 +53,7 @@ or just on the etcd cluster:
 
     juju status etcd
 
-Errors will have an obvious message, and will return a red result when used with `juju status --color`. Nodes that come up in this manner should be investigated.   
+Errors will have an obvious message, and will return a red result when used with `juju status --color`. Nodes that come up in this manner should be investigated.
 
 ## SSHing to units
 
@@ -63,9 +63,9 @@ You can ssh to individual units easily with the following convention, `juju ssh 
 
 Will automatically ssh you to the 3rd worker unit.
 
-    juju ssh easyrsa/0 
+    juju ssh easyrsa/0
 
-This will automatically ssh you to the easyrsa unit. 
+This will automatically ssh you to the easyrsa unit.
 
 ## Collecting debug information
 
@@ -79,9 +79,9 @@ Running the script will generate a tarball of system information and includes ba
 
 ### Load Balancer interfering with Helm
 
-This section assumes you have a working deployment of Kubernetes via Juju using a Load Balancer for the API, and that you are using Helm to deploy charts. 
+This section assumes you have a working deployment of Kubernetes via Juju using a Load Balancer for the API, and that you are using Helm to deploy charts.
 
-To deploy Helm you will have run: 
+To deploy Helm you will have run:
 
 ```
 helm init
@@ -90,7 +90,7 @@ Tiller (the helm server side component) has been installed into your Kubernetes 
 Happy Helming!
 ```
 
-Then when using helm you may see one of the following errors: 
+Then when using helm you may see one of the following errors:
 
 * Helm doesn't get the version from the Tiller server
 
@@ -107,7 +107,7 @@ helm install <chart> --debug
 Error: forwarding ports: error upgrading connection: Upgrade request required
 ```
 
-This is caused by the API load balancer not forwarding ports in the context of the helm client-server relationship. To deploy using helm, you will need to follow these steps: 
+This is caused by the API load balancer not forwarding ports in the context of the helm client-server relationship. To deploy using helm, you will need to follow these steps:
 
 1. Expose the Kubernetes Master service
 
@@ -175,7 +175,5 @@ This is caused by the API load balancer not forwarding ports in the context of t
 
 ## Logging and monitoring
 
-By default there is no log aggregation of the Kubernetes nodes, each node logs locally. Please read over the [logging](https://kubernetes.io/docs/getting-started-guides/ubuntu/logging/) page for more information.
+By default there is no log aggregation of the Kubernetes nodes, each node logs locally. Please read over the [logging](/docs/getting-started-guides/ubuntu/logging/) page for more information.
 {{% /capture %}}
-
-

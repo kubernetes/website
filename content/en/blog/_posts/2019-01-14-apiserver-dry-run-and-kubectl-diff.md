@@ -9,7 +9,7 @@ date: 2019-01-14
 Declarative configuration management, also known as configuration-as-code, is
 one of the key strengths of Kubernetes. It allows users to commit the desired state of
 the cluster, and to keep track of the different versions, improve auditing and
-automation through CI/CD pipelines. The [Apply working-group](https://groups.google.com/forum/#!forum/kubernetes-wg-apply) 
+automation through CI/CD pipelines. The [Apply working-group](https://groups.google.com/forum/#!forum/kubernetes-wg-apply)
 is working on fixing some of the gaps, and is happy to announce that Kubernetes
 1.13 promoted server-side dry-run and `kubectl diff` to beta. These
 two features are big improvements for the Kubernetes declarative model.
@@ -38,7 +38,7 @@ The working group has tried to address these problems.
 
 ## APIServer dry-run
 
-[APIServer dry-run](https://kubernetes.io/docs/reference/using-api/api-concepts/#dry-run) was implemented to address these two problems:
+[APIServer dry-run](/docs/reference/using-api/api-concepts/#dry-run) was implemented to address these two problems:
 
 - it allows individual requests to the apiserver to be marked as "dry-run",
 - the apiserver guarantees that dry-run requests won't be persisted to storage,
@@ -60,7 +60,7 @@ using `kube-apiserver --feature-gates DryRun=true`.
 If you have dynamic admission controllers, you might have to fix them to:
 
 - Remove any side-effects when the dry-run parameter is specified on the webhook request,
-- Specify in the [`sideEffects`](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration) 
+- Specify in the [`sideEffects`](/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration)
 field of the `admissionregistration.k8s.io/v1beta1.Webhook` object to indicate that the object doesn't
 have side-effects on dry-run (or at all).
 

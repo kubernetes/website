@@ -38,7 +38,7 @@ Kubernetes Version | Priority and Preemption State | Enabled by default
 {{< warning >}}In a cluster where not all users are trusted, a
 malicious user could create pods at the highest possible priorities, causing
 other pods to be evicted/not get scheduled. To resolve this issue,
-[ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is
+[ResourceQuota](/docs/concepts/policy/resource-quotas/) is
 augmented to support Pod priority. An admin can create ResourceQuota for users
 at specific priority levels, preventing them from creating pods at high
 priorities. This feature is in beta since Kubernetes 1.12.

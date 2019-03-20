@@ -4,7 +4,7 @@ date: 2016-08-31
 slug: security-best-practices-kubernetes-deployment
 url: /blog/2016/08/Security-Best-Practices-Kubernetes-Deployment
 ---
-_Note: some of the recommendations in this post are no longer current. Current cluster hardening options are described in this [documentation](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)._
+_Note: some of the recommendations in this post are no longer current. Current cluster hardening options are described in this [documentation](/docs/tasks/administer-cluster/securing-a-cluster/)._
 
 _Editor’s note: today’s post is by Amir Jerbi and Michael Cherny of Aqua Security, describing security best practices for Kubernetes deployments, based on data they’ve collected from various use-cases seen in both on-premises and cloud deployments._
 

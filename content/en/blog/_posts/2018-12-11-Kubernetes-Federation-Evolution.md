@@ -8,7 +8,7 @@ date: 2018-12-12
 
 Kubernetes provides great primitives for deploying applications to a cluster: it can be as simple as `kubectl create -f app.yaml`. Deploy apps across multiple clusters has never been that simple. How should app workloads be distributed? Should the app resources be replicated into all clusters, replicated into selected clusters, or partitioned into clusters? How is  access to the clusters managed? What happens if some of the resources that a user wants to distribute pre-exist, in some or all of the clusters, in some form?
 
-In SIG Multicluster, our journey has revealed that there are multiple possible models to solve these problems and there probably is no single best-fit, all-scenario solution. [Federation](https://kubernetes.io/docs/concepts/cluster-administration/federation/), however, is the single biggest Kubernetes open source sub-project, and has seen the maximum interest and contribution from the community in this problem space. The project initially reused the Kubernetes API to do away with any added usage complexity for an existing Kubernetes user. This approach was not viable, because of the problems summarised below:
+In SIG Multicluster, our journey has revealed that there are multiple possible models to solve these problems and there probably is no single best-fit, all-scenario solution. [Federation](/docs/concepts/cluster-administration/federation/), however, is the single biggest Kubernetes open source sub-project, and has seen the maximum interest and contribution from the community in this problem space. The project initially reused the Kubernetes API to do away with any added usage complexity for an existing Kubernetes user. This approach was not viable, because of the problems summarised below:
 
 * Difficulties in re-implementing the Kubernetes API at the cluster level, as federation-specific extensions were stored in annotations.
 * Limited flexibility in federated types, placement and reconciliation, due to 1:1 emulation of the Kubernetes API.
@@ -33,13 +33,13 @@ The ability to _'easily federate arbitrary Kubernetes resources'_, and a decoupl
 ## Federating resources: the details
 Fundamentally, federation must be configured with two types of information:
 
-* Which API types federation should handle 
-* Which clusters federation should target for distributing those resources. 
+* Which API types federation should handle
+* Which clusters federation should target for distributing those resources.
 
 For each API type that federation handles, different parts of the declared state live in different API resources:
 
-* A `Template` type holds the base specification of the resource - for example, a type called `FederatedReplicaSet` holds the base specification of a `ReplicaSet` that should be distributed to the targeted clusters 
-* A `Placement` type holds the specification of the clusters the resource should be distributed to - for example, a type called `FederatedReplicaSetPlacement` holds information about which clusters `FederatedReplicaSets` should be distributed to 
+* A `Template` type holds the base specification of the resource - for example, a type called `FederatedReplicaSet` holds the base specification of a `ReplicaSet` that should be distributed to the targeted clusters
+* A `Placement` type holds the specification of the clusters the resource should be distributed to - for example, a type called `FederatedReplicaSetPlacement` holds information about which clusters `FederatedReplicaSets` should be distributed to
 * An optional `Overrides` type holds the specification of how the `Template` resource should be varied in some clusters - for example, a type called `FederatedReplicaSetOverrides` holds information about how a `FederatedReplicaSet` should be varied in certain clusters.
 
 These types are all associated by name - meaning that for a particular Template resource with name `foo`, the Placement and Override information for that resource are contained by the Override and Placement resources with the name `foo` and in the same namespace as the Template.
@@ -48,7 +48,7 @@ These types are all associated by name - meaning that for a particular Template 
 The architecture of the v2 API allows higher-level APIs to be constructed using the mechanics provided by the core API types (`Template`, `Placement` and `Override`), and associated controllers, for a given resource. In the community we uncovered a few use cases and implemented the higher-level APIs and associated controllers useful for those cases. Some of these types described in further sections also provide an useful reference to anybody interested in solving more complex use cases, building on top of the mechanics already available with the v2 API.
 
 ### ReplicaSchedulingPreference
-`ReplicaSchedulingPreference` provides an automated mechanism of distributing and maintaining total number of replicas for Deployment or ReplicaSet-based federated workloads into federated clusters. This is based on high-level user preferences given by the user. These preferences include the semantics of _weighted distribution_ and _limits_ (min and max) for distributing the replicas. These also include semantics to allow redistribution of replicas dynamically in case some replica Pods remain unscheduled in some clusters, for example due to insufficient resources in that cluster. 
+`ReplicaSchedulingPreference` provides an automated mechanism of distributing and maintaining total number of replicas for Deployment or ReplicaSet-based federated workloads into federated clusters. This is based on high-level user preferences given by the user. These preferences include the semantics of _weighted distribution_ and _limits_ (min and max) for distributing the replicas. These also include semantics to allow redistribution of replicas dynamically in case some replica Pods remain unscheduled in some clusters, for example due to insufficient resources in that cluster.
 More details can be found at the [user guide for ReplicaSchedulingPreferences](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md#replicaschedulingpreference).
 
 ### Federated services & cross-cluster service discovery

@@ -52,7 +52,7 @@ Improvements that will allow the [Horizontal Pod Autoscaler to reach proper size
 
 ## Availability
 
-Kubernetes 1.12 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.12.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/). You can also install 1.12 using [Kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
+Kubernetes 1.12 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.12.0). To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/). You can also install 1.12 using [Kubeadm](/docs/setup/independent/create-cluster-kubeadm/).
 
 ## 5 Day Features Blog Series
 
@@ -92,7 +92,7 @@ Is Kubernetes helping your team? [Share your story](https://docs.google.com/a/go
 * CNCF expanded its certification offerings to include a Certified Kubernetes Application Developer exam. The CKAD exam certifies an individual's ability to design, build, configure, and expose cloud native applications for Kubernetes. More information can be found [here](https://www.cncf.io/blog/2018/03/16/cncf-announces-ckad-exam/).
 * CNCF added a new partner category, Kubernetes Training Partners (KTP). KTPs are a tier of vetted training providers who have deep experience in cloud native technology training. View partners and learn more [here](https://www.cncf.io/certification/training/).
 * CNCF also offers [online training](https://www.cncf.io/certification/training/) that teaches the skills needed to create and configure a real-world Kubernetes cluster.
-* Kubernetes documentation now features [user journeys](https://k8s.io/docs/home/): specific pathways for learning based on who readers are and what readers want to do. Learning Kubernetes is easier than ever for beginners, and more experienced users can find task journeys specific to cluster admins and application developers.  
+* Kubernetes documentation now features [user journeys](https://k8s.io/docs/home/): specific pathways for learning based on who readers are and what readers want to do. Learning Kubernetes is easier than ever for beginners, and more experienced users can find task journeys specific to cluster admins and application developers.
 
 ## KubeCon
 

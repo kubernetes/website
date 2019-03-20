@@ -30,25 +30,25 @@ Note: Each shard corresponds to a single MySQL instance. Currently, WQ-RDS suppo
  |
 
 
-All of the shards are built with Kubernetes Statefulset, Services, Storage Class, configmap, secrets and MySQL. WQ-RDS manages the entire lifecycle of the sharding cluster. Advantages of the sharding cluster are obvious:  
+All of the shards are built with Kubernetes Statefulset, Services, Storage Class, configmap, secrets and MySQL. WQ-RDS manages the entire lifecycle of the sharding cluster. Advantages of the sharding cluster are obvious:
 
 * Scale out queries per second (QPS) and transactions per second (TPS)
 * Scale out storage capacity: gain more storage by distributing data to multiple nodes
 
 ###  Create a MySQL Sharding Cluster
 
-Let's create a Kubernetes cluster with 8 shards.  
+Let's create a Kubernetes cluster with 8 shards.
 
 ```
  kubectl create -f mysqlshardingcluster.yaml
 ```
 
-Next, create a MySQL Sharding Cluster including 8 shards.  
+Next, create a MySQL Sharding Cluster including 8 shards.
 
 * TPR : MysqlCluster and MysqlDatabase
 
 ```
-[root@k8s-master ~]# kubectl get mysqlcluster  
+[root@k8s-master ~]# kubectl get mysqlcluster
 
 
 NAME             KIND
@@ -59,23 +59,23 @@ clustershard-c   MysqlCluster.v1.mysql.orain.com
 MysqlDatabase from clustershard-c0 to clustershard-c7 belongs to MysqlCluster clustershard-c.
 
 ```
-[root@k8s-master ~]# kubectl get mysqldatabase  
+[root@k8s-master ~]# kubectl get mysqldatabase
 
-NAME KIND  
+NAME KIND
 
-clustershard-c0 MysqlDatabase.v1.mysql.orain.com  
+clustershard-c0 MysqlDatabase.v1.mysql.orain.com
 
-clustershard-c1 MysqlDatabase.v1.mysql.orain.com  
+clustershard-c1 MysqlDatabase.v1.mysql.orain.com
 
-clustershard-c2 MysqlDatabase.v1.mysql.orain.com  
+clustershard-c2 MysqlDatabase.v1.mysql.orain.com
 
-clustershard-c3 MysqlDatabase.v1.mysql.orain.com  
+clustershard-c3 MysqlDatabase.v1.mysql.orain.com
 
-clustershard-c4 MysqlDatabase.v1.mysql.orain.com  
+clustershard-c4 MysqlDatabase.v1.mysql.orain.com
 
-clustershard-c5 MysqlDatabase.v1.mysql.orain.com  
+clustershard-c5 MysqlDatabase.v1.mysql.orain.com
 
-clustershard-c6 MysqlDatabase.v1.mysql.orain.com  
+clustershard-c6 MysqlDatabase.v1.mysql.orain.com
 
 clustershard-c7 MysqlDatabase.v1.mysql.orain.com
 ```
@@ -95,24 +95,24 @@ When killing clustershard-c0, WQ-RDS will detect that clustershard-c0 is unavail
 
 zero data loss at same time.
 
-![][3]  
+![][3]
 
 
 ###  Feature : RollingUpdate Strategy
 
 MySQL Sharding Cluster brings us not only strong scalability but also some level of maintenance complexity. For example, when updating a MySQL configuration like innodb_buffer_pool_size, a DBA has to perform a number of steps:
 
-1\. Apply change time.  
-2\. Disable client access to database proxies.  
+1\. Apply change time.
+2\. Disable client access to database proxies.
 3\. Start a rolling upgrade.
 
 
 Rolling upgrades need to proceed in order and are the most demanding step of the process. One cannot continue a rolling upgrade until and unless previous updates to MySQL instances are running and ready.
 
-4 Verify the cluster.  
+4 Verify the cluster.
 5\. Enable client access to database proxies.
 
-Possible problems with a rolling upgrade include:  
+Possible problems with a rolling upgrade include:
 
 * node reboot
 * MySQL instances restart
@@ -125,7 +125,7 @@ Kubernetes 1.7 includes a major feature that adds automated updates to StatefulS
 
 **Note:** For more information about [StatefulSet RollingUpdate][4], see the Kubernetes docs.
 
-Because TPR (currently CRD) does not support the rolling upgrade strategy, we needed to integrate the RollingUpdate strategy into WQ-RDS. Fortunately, the [Kubernetes repo][5] is a treasure for learning. In the process of implementation, there are some points to share:  
+Because TPR (currently CRD) does not support the rolling upgrade strategy, we needed to integrate the RollingUpdate strategy into WQ-RDS. Fortunately, the [Kubernetes repo][5] is a treasure for learning. In the process of implementation, there are some points to share:
 
 * **MySQL Sharding Cluster has ****changed**: Each StatefulSet has its corresponding ControllerRevision, which records all the revision data and order (like git). Whenever StatefulSet is syncing, StatefulSet Controller will firstly compare it's spec to the latest corresponding ControllerRevision data (similar to git diff). If changed, a new ControllerrRevision will be generated, and the revision number will be incremented by 1. WQ-RDS borrows the process, MySQL Sharding Cluster object will record all the revision and order in ControllerRevision.
 * **How to initialize MySQL Sharding Cluster to meet request ****replicas**: Statefulset supports two [Pod management policies][4]: Parallel and OrderedReady. Because MySQL Sharding Cluster doesn't require ordered creation for its initial processes, we use the Parallel policy to accelerate the initialization of the cluster.
@@ -226,7 +226,7 @@ The upgrade is in monotonically decreasing manner:
 
 ![][14]
 
-![][15] 
+![][15]
 
 ###  Conclusion
 
@@ -237,7 +237,7 @@ RollingUpgrade is meaningful to database administrators. It provides a more effe
 [1]: https://lh5.googleusercontent.com/4WiSkxX-XBqARVqQ0No-1tZ31op90LAUkTco3FdIO1mFScNOTVtMCgnjaO8SRUmms-6MAb46CzxlXDhLBqAAAmbx26atJnu4t1FTTALZx_CbUPqrCxjL746DW4TD42-03Ac9VB2c
 [2]: https://lh3.googleusercontent.com/sXqVqfTu6rMWn0mlHLgHHqATe_qsx1tNmMfX60HoTwyhd5HCL4A_ViFBQAZfOoVGioeXcI_XXbzVFUdq2hbKGwS0OXH6PFGqgpZshfBwrT088bz4KqeyTbHpQR2olyzE6eRo1fan
 [3]: https://lh6.googleusercontent.com/7xnN_sODa-3Ch3ScAUlggCTeYfnE3-wxRaCIHrljHCB7LnXgth8zeCv0gk_UU1jbSDBQuACQ2Mf1FO1-E7GvMWwGKjp7irenAKp4DkHlA5LR9OVuLXqubPFhhksA8kfBUh4Z4OuN
-[4]: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#rolling-updates
+[4]: /docs/concepts/workloads/controllers/statefulset/#rolling-updates
 [5]: https://github.com/kubernetes/kubernetes
 [6]: https://lh6.googleusercontent.com/B4ig8krCsXwvMeBy8NamQi1DrihUEzBcRTHCqhn9kUvlcpPrFoYUNAxn61qh8S2HXcdg31QpOhWSsYHP0jI4QxPkKpZ5oY-k9gFp1eK63qt6rwTMMWMiBs45DObY6rw2R7c0lNPu
 [7]: https://lh4.googleusercontent.com/LOxFDdojYxnPvSHDYwivVge6vGImK7uTdyvCsKrxCMF3rIlVkw7mHeNhJiNJwz1aGzVhZXpqrgzHC6pIbkPk3JPAtuSqX9ovAYBzK01BGfzwkXvMGZomAh4L0DahGyD3QB715B-Z

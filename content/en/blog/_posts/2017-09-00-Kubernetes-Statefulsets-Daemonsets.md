@@ -8,15 +8,15 @@ url: /blog/2017/09/Kubernetes-Statefulsets-Daemonsets
 Editor's note: today's post is by Janet Kuo and Kenneth Owens, Software Engineers at Google.
 
 
-This post talks about recent updates to the [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) and [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) API objects for Kubernetes. We explore these features using [Apache ZooKeeper](https://zookeeper.apache.org/) and [Apache Kafka](https://kafka.apache.org/) StatefulSets and a [Prometheus node exporter](https://github.com/prometheus/node_exporter) DaemonSet.
+This post talks about recent updates to the [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) and [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) API objects for Kubernetes. We explore these features using [Apache ZooKeeper](https://zookeeper.apache.org/) and [Apache Kafka](https://kafka.apache.org/) StatefulSets and a [Prometheus node exporter](https://github.com/prometheus/node_exporter) DaemonSet.
 
 
 
-In Kubernetes 1.6, we added the [RollingUpdate](https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/) update strategy to the DaemonSet API Object. Configuring your DaemonSets with the RollingUpdate strategy causes the DaemonSet controller to perform automated rolling updates to the Pods in your DaemonSets when their spec.template are updated.
+In Kubernetes 1.6, we added the [RollingUpdate](/docs/tasks/manage-daemon/update-daemon-set/) update strategy to the DaemonSet API Object. Configuring your DaemonSets with the RollingUpdate strategy causes the DaemonSet controller to perform automated rolling updates to the Pods in your DaemonSets when their spec.template are updated.
 
 
 
-In Kubernetes 1.7, we enhanced the DaemonSet controller to track a history of revisions to the PodTemplateSpecs of DaemonSets. This allows the DaemonSet controller to roll back an update. We also added the [RollingUpdate](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies) strategy to the [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) API Object, and implemented revision history tracking for the StatefulSet controller. Additionally, we added the [Parallel](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management) pod management policy to support stateful applications that require Pods with unique identities but not ordered Pod creation and termination.
+In Kubernetes 1.7, we enhanced the DaemonSet controller to track a history of revisions to the PodTemplateSpecs of DaemonSets. This allows the DaemonSet controller to roll back an update. We also added the [RollingUpdate](/docs/concepts/workloads/controllers/statefulset/#update-strategies) strategy to the [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) API Object, and implemented revision history tracking for the StatefulSet controller. Additionally, we added the [Parallel](/docs/concepts/workloads/controllers/statefulset/#parallel-pod-management) pod management policy to support stateful applications that require Pods with unique identities but not ordered Pod creation and termination.
 
 # StatefulSet rolling update and Pod management policy
 
@@ -40,7 +40,7 @@ When you apply the manifest, you will see output like the following.
 
 
 
-```  
+```
 $ kubectl apply -f zookeeper\_mini.yaml
 
 service "zk-hs" created
@@ -59,11 +59,11 @@ The manifest creates an ensemble of three ZooKeeper servers using a StatefulSet,
 
 
 
-If you use kubectl get to watch Pod creation in another terminal you will see that, in contrast to the [OrderedReady](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management) strategy (the default policy that implements the full version of the StatefulSet guarantees), all of the Pods in the zk StatefulSet are created in parallel.
+If you use kubectl get to watch Pod creation in another terminal you will see that, in contrast to the [OrderedReady](/docs/concepts/workloads/controllers/statefulset/#orderedready-pod-management) strategy (the default policy that implements the full version of the StatefulSet guarantees), all of the Pods in the zk StatefulSet are created in parallel.
 
 
 
-```  
+```
 $ kubectl get po -lapp=zk -w
 
 NAME           READY         STATUS        RESTARTS     AGE
@@ -122,22 +122,22 @@ This is because the zookeeper\_mini.yaml manifest sets the podManagementPolicy o
 
 
 
-```  
-apiVersion: apps/v1beta1  
-kind: StatefulSet  
-metadata:  
-   name: zk  
+```
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+   name: zk
 
-spec:  
-   serviceName: zk-hs  
+spec:
+   serviceName: zk-hs
 
-   replicas: 3  
+   replicas: 3
 
-   updateStrategy:  
+   updateStrategy:
 
-       type: RollingUpdate  
+       type: RollingUpdate
 
-   podManagementPolicy: Parallel  
+   podManagementPolicy: Parallel
 
  ...
  ```
@@ -162,7 +162,7 @@ To create a cluster, you only need to download and apply the [kafka\_mini.yaml](
 
 
 
-```  
+```
 $ kubectl apply -f kafka\_mini.yaml
 
 service "kafka-hs" created
@@ -183,7 +183,7 @@ If you watch Pod creation, you will notice that, like the ZooKeeper ensemble cre
 
 
 
-```  
+```
 $ kubectl get po -lapp=kafka -w
 
 NAME           READY         STATUS        RESTARTS     AGE
@@ -232,7 +232,7 @@ You can use kubectl run to execute the kafka-topics.sh script to create a topic 
 
 
 
-```  
+```
 $ kubectl run -ti --image=gcr.io/google\_containers/kubernetes-kafka:1.0-10.2.1 createtopic --restart=Never --rm -- kafka-topics.sh --create \
 
 \> --topic test \
@@ -251,7 +251,7 @@ Now you can use kubectl run to execute the kafka-console-consumer.sh command to 
 
 
 
-```  
+```
 $ kubectl run -ti --image=gcr.io/google\_containers/kubnetes-kafka:1.0-10.2.1 consume --restart=Never --rm -- kafka-console-consumer.sh --topic test --bootstrap-server kafka-0.kafka-hs.default.svc.cluster.local:9093
  ```
 
@@ -262,7 +262,7 @@ In another terminal, you can run the kafka-console-producer.sh command.
 
 
 
-```  
+```
 $kubectl run -ti --image=gcr.io/google\_containers/kubernetes-kafka:1.0-10.2.1 produce --restart=Never --rm \
 
 \>   -- kafka-console-producer.sh --topic test --broker-list kafka-0.kafka-hs.default.svc.cluster.local:9093,kafka-1.kafka-hs.default.svc.cluster.local:9093,kafka-2.kafka-hs.default.svc.cluster.local:9093
@@ -286,7 +286,7 @@ You can patch the kafka StatefulSet to reduce the CPU resource request to 250m.
 
 
 
-```  
+```
 $ kubectl patch sts kafka --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"250m"}]'
 
 statefulset "kafka" patched
@@ -299,7 +299,7 @@ If you watch the status of the Pods in the StatefulSet, you will see that each P
 
 
 
-```  
+```
 $kubectl get po -lapp=kafka -w
 
 NAME           READY         STATUS       RESTARTS     AGE
@@ -412,7 +412,7 @@ You can patch the kafka StatefulSet to add a partition to the RollingUpdate upda
 
 
 
-```  
+```
 $ kubectl patch sts kafka -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
 
 statefulset "kafka" patched
@@ -425,7 +425,7 @@ If you patch the StatefulSet to set the requested CPU to 0.3, you will notice th
 
 
 
-```  
+```
 $ kubectl patch sts kafka --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'
 
 statefulset "kafka" patched
@@ -438,7 +438,7 @@ Even if you delete a Pod and wait for the StatefulSet controller to recreate it,
 
 
 
-```  
+```
 $   kubectl delete po kafka-1
 
 
@@ -490,7 +490,7 @@ Often, we want to verify an image update or configuration change on a single ins
 
 
 
-```  
+```
 $ kubectl patch sts kafka -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
 
 statefulset "kafka" patched
@@ -503,7 +503,7 @@ You can watch the StatefulSet controller update the kafka-2 Pod and pause after 
 
 
 
-```  
+```
 $   kubectl get po -lapp=kafka -w
 
 
@@ -569,7 +569,7 @@ If you patch the kafka StatefulSet to set the partition to 1, the StatefulSet co
 
 
 
-```  
+```
 $ kubectl patch sts kafka -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":1}}}}'
 
 statefulset "kafka" patched
@@ -582,7 +582,7 @@ If you set it to 0, the StatefulSet controller updates the final broker and comp
 
 
 
-```  
+```
 $ kubectl patch sts kafka -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
 
 statefulset "kafka" patched
@@ -599,7 +599,7 @@ To delete the API Objects created above, you can use kubectl delete on the two m
 
 
 
-```  
+```
 $ kubectl delete -f kafka\_mini.yaml
 
 service "kafka-hs" deleted
@@ -627,7 +627,7 @@ By design, the StatefulSet controller does not delete any persistent volume clai
 
 # DaemonSet rolling update, history, and rollback
 
-In this section, we’re going to show you how to perform a rolling update on a DaemonSet, look at its history, and then perform a rollback after a bad rollout. We will use a DaemonSet to deploy a [Prometheus node exporter](https://github.com/prometheus/node_exporter) on each Kubernetes node in the cluster. These node exporters export node metrics to the Prometheus monitoring system. For the sake of simplicity, we’ve omitted the installation of the [Prometheus server](https://github.com/prometheus/prometheus) and the service for [communication with DaemonSet pods](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/#communicating-with-daemon-pods) from this blogpost.
+In this section, we’re going to show you how to perform a rolling update on a DaemonSet, look at its history, and then perform a rollback after a bad rollout. We will use a DaemonSet to deploy a [Prometheus node exporter](https://github.com/prometheus/node_exporter) on each Kubernetes node in the cluster. These node exporters export node metrics to the Prometheus monitoring system. For the sake of simplicity, we’ve omitted the installation of the [Prometheus server](https://github.com/prometheus/prometheus) and the service for [communication with DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/#communicating-with-daemon-pods) from this blogpost.
 
 ## Prerequisites
 
@@ -637,46 +637,46 @@ To follow along with this section of the blog, you need a working Kubernetes 1.7
 
 
 
-```  
+```
 $ cat \>\> node-exporter-v0.13.yaml \<\<EOF
 
-apiVersion: extensions/v1beta1  
-kind: DaemonSet  
-metadata:  
-   name: node-exporter  
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+   name: node-exporter
 
-spec:  
-   updateStrategy:  
+spec:
+   updateStrategy:
 
-       type: RollingUpdate  
+       type: RollingUpdate
 
-   template:  
+   template:
 
-       metadata:  
+       metadata:
 
-           labels:  
+           labels:
 
-               app: node-exporter  
+               app: node-exporter
 
-           name: node-exporter  
+           name: node-exporter
 
-       spec:  
+       spec:
 
-           containers:  
+           containers:
 
-           - image: prom/node-exporter:v0.13.0  
+           - image: prom/node-exporter:v0.13.0
 
-               name: node-exporter  
+               name: node-exporter
 
-               ports:  
+               ports:
 
-               - containerPort: 9100  
+               - containerPort: 9100
 
-                   hostPort: 9100  
+                   hostPort: 9100
 
-                   name: scrape  
+                   name: scrape
 
-           hostNetwork: true  
+           hostNetwork: true
 
            hostPID: true
 
@@ -695,7 +695,7 @@ Apply the manifest to create the node exporter DaemonSet:
 
 
 
-```  
+```
 $ kubectl apply -f node-exporter-v0.13.yaml --record
 
 daemonset "node-exporter" created
@@ -708,8 +708,8 @@ Wait for the first DaemonSet rollout to complete:
 
 
 
-```  
-$ kubectl rollout status ds node-exporter  
+```
+$ kubectl rollout status ds node-exporter
 daemon set "node-exporter" successfully rolled out
  ```
 
@@ -720,7 +720,7 @@ You should see each of your node runs one copy of the node exporter pod:
 
 
 
-```  
+```
 $ kubectl get pods -l app=node-exporter -o wide
  ```
 
@@ -731,7 +731,7 @@ To perform a rolling update on the node exporter DaemonSet, prepare a manifest t
 
 
 
-```  
+```
 $ cat node-exporter-v0.13.yaml ```  sed "s/v0.13.0/v0.14.0/g" \> node-exporter-v0.14.yaml
  ```
 
@@ -742,7 +742,7 @@ Then apply the v0.14 node exporter DaemonSet:
 
 
 
-```  
+```
 $ kubectl apply -f node-exporter-v0.14.yaml --record
 
 daemonset "node-exporter" configured
@@ -755,13 +755,13 @@ Wait for the DaemonSet rolling update to complete:
 
 
 
-```  
+```
 $ kubectl rollout status ds node-exporter
 
 ...
 
-Waiting for rollout to finish: 3 out of 4 new pods have been updated...  
-Waiting for rollout to finish: 3 of 4 updated pods are available...  
+Waiting for rollout to finish: 3 out of 4 new pods have been updated...
+Waiting for rollout to finish: 3 of 4 updated pods are available...
 daemon set "node-exporter" successfully rolled out
  ```
 
@@ -776,7 +776,7 @@ Now we’ll cause a rollout to fail by updating the image to an invalid value:
 
 
 
-```  
+```
 $ cat node-exporter-v0.13.yaml | sed "s/v0.13.0/bad/g" \> node-exporter-bad.yaml
 
 
@@ -792,9 +792,9 @@ Notice that the rollout never finishes:
 
 
 
-```  
-$ kubectl rollout status ds node-exporter   
-Waiting for rollout to finish: 0 out of 4 new pods have been updated...  
+```
+$ kubectl rollout status ds node-exporter
+Waiting for rollout to finish: 0 out of 4 new pods have been updated...
 Waiting for rollout to finish: 1 out of 4 new pods have been updated…
 
 # Use ^C to exit
@@ -807,7 +807,7 @@ This behavior is expected. We mentioned earlier that a DaemonSet rolling update 
 
 
 
-```  
+```
 $ kubectl get pods -l app=node-exporter
 
 NAME                                   READY         STATUS                 RESTARTS     AGE
@@ -821,8 +821,8 @@ node-exporter-f2n14     0/1             ErrImagePull     0                   3m
 
 # N = number of nodes
 
-$ kubectl get ds node-exporter  
-NAME                       DESIRED     CURRENT     READY         UP-TO-DATE     AVAILABLE     NODE SELECTOR     AGE  
+$ kubectl get ds node-exporter
+NAME                       DESIRED     CURRENT     READY         UP-TO-DATE     AVAILABLE     NODE SELECTOR     AGE
 
 node-exporter     N                 N                 N-1             1                       N                     \<none\>                   46m
 
@@ -838,12 +838,12 @@ Next,   perform a rollback. Take a look at the node exporter DaemonSet rollout h
 
 
 
-```  
-$ kubectl rollout history ds node-exporter   
-daemonsets "node-exporter"  
-REVISION               CHANGE-CAUSE  
+```
+$ kubectl rollout history ds node-exporter
+daemonsets "node-exporter"
+REVISION               CHANGE-CAUSE
 
-1                             kubectl apply --filename=node-exporter-v0.13.yaml --record=true  
+1                             kubectl apply --filename=node-exporter-v0.13.yaml --record=true
 
 2                             kubectl apply --filename=node-exporter-v0.14.yaml --record=true
 
@@ -859,23 +859,23 @@ Check the details of the revision you want to roll back to:
 
 
 
-```  
-$ kubectl rollout history ds node-exporter --revision=2  
-daemonsets "node-exporter" with revision #2  
-Pod Template:  
-   Labels:             app=node-exporter  
+```
+$ kubectl rollout history ds node-exporter --revision=2
+daemonsets "node-exporter" with revision #2
+Pod Template:
+   Labels:             app=node-exporter
 
-   Containers:  
+   Containers:
 
-     node-exporter:  
+     node-exporter:
 
-       Image:           prom/node-exporter:v0.14.0  
+       Image:           prom/node-exporter:v0.14.0
 
-       Port:             9100/TCP  
+       Port:             9100/TCP
 
-       Environment:               \<none\>  
+       Environment:               \<none\>
 
-       Mounts:         \<none\>  
+       Mounts:         \<none\>
 
    Volumes:           \<none\>
 
@@ -888,16 +888,16 @@ You can quickly roll back to any DaemonSet revision you found through kubectl ro
 
 
 
-```  
+```
 # Roll back to the last revision
 
-$ kubectl rollout undo ds node-exporter   
+$ kubectl rollout undo ds node-exporter
 daemonset "node-exporter" rolled back
 
 
 # Or use --to-revision to roll back to a specific revision
 
-$ kubectl rollout undo ds node-exporter --to-revision=2  
+$ kubectl rollout undo ds node-exporter --to-revision=2
 daemonset "node-exporter" rolled back
  ```
 
@@ -908,14 +908,14 @@ A DaemonSet rollback is done by rolling forward. Therefore, after the rollback, 
 
 
 
-```  
-$ kubectl rollout history ds node-exporter   
-daemonsets "node-exporter"  
-REVISION               CHANGE-CAUSE  
+```
+$ kubectl rollout history ds node-exporter
+daemonsets "node-exporter"
+REVISION               CHANGE-CAUSE
 
-1                             kubectl apply --filename=node-exporter-v0.13.yaml --record=true  
+1                             kubectl apply --filename=node-exporter-v0.13.yaml --record=true
 
-3                             kubectl apply --filename=node-exporter-bad.yaml --record=true  
+3                             kubectl apply --filename=node-exporter-bad.yaml --record=true
 
 4                             kubectl apply --filename=node-exporter-v0.14.yaml --record=true
 
@@ -928,8 +928,8 @@ The node exporter DaemonSet is now healthy again:
 
 
 
-```  
-$ kubectl rollout status ds node-exporter  
+```
+$ kubectl rollout status ds node-exporter
 daemon set "node-exporter" successfully rolled out
 
 
@@ -937,7 +937,7 @@ daemon set "node-exporter" successfully rolled out
 
 $ kubectl get ds node-exporter
 
-NAME                       DESIRED     CURRENT     READY         UP-TO-DATE     AVAILABLE     NODE SELECTOR     AGE  
+NAME                       DESIRED     CURRENT     READY         UP-TO-DATE     AVAILABLE     NODE SELECTOR     AGE
 
 node-exporter     N                 N                 N                 N                       N                     \<none\>                   46m
 
@@ -950,8 +950,8 @@ If current DaemonSet revision is specified while performing a rollback, the roll
 
 
 
-```  
-$ kubectl rollout undo ds node-exporter --to-revision=4  
+```
+$ kubectl rollout undo ds node-exporter --to-revision=4
 daemonset "node-exporter" skipped rollback (current template already matches revision 4)
  ```
 
@@ -962,8 +962,8 @@ You will see this complaint from kubectl if the DaemonSet revision is not found:
 
 
 
-```  
-$ kubectl rollout undo ds node-exporter --to-revision=10  
+```
+$ kubectl rollout undo ds node-exporter --to-revision=10
 error: unable to find specified revision 10 in history
  ```
 
@@ -974,7 +974,7 @@ Note that kubectl rollout history and kubectl rollout status support StatefulSet
 
 ## Cleaning up
 
-```  
+```
 $ kubectl delete ds node-exporter
  ```
 

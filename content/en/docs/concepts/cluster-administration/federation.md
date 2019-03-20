@@ -70,7 +70,7 @@ some caveats:
 
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (e.g. Google Cloud, AWS), and on-premises
-(e.g. on OpenStack). [Kubefed](https://kubernetes.io/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the recommended way to deploy federated clusters.
+(e.g. on OpenStack). [Kubefed](/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the recommended way to deploy federated clusters.
 
 Thereafter, your [API resources](#api-resources) can span different clusters
 and cloud providers.
@@ -184,6 +184,3 @@ clusters up to 5000 nodes. See [Building Large Clusters](/docs/setup/cluster-lar
 * See this [Kubecon2018 Europe Federation-v2 prototype presentation](https://youtu.be/q27rbaX5Jis?t=7m20s)
 * See this [Federation-v2 Userguide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
 {{% /capture %}}
-
-
-

@@ -25,7 +25,7 @@ In this release, [IPVS-based in-cluster service load balancing](https://github.c
 
 ## Dynamic Kubelet Configuration Moves to Beta
 
-This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster.  Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, [users can configure Kubelets in a live cluster](https://kubernetes.io/docs/tasks/administer-cluster/reconfigure-kubelet/) via the API server.
+This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster.  Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, [users can configure Kubelets in a live cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) via the API server.
 
 ## Custom Resource Definitions Can Now Define Multiple Versions
 
@@ -49,9 +49,9 @@ Each Special Interest Group (SIG) within the community continues to deliver the 
 
 ## Availability
 
-Kubernetes 1.11 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/).
+Kubernetes 1.11 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.11.0). To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/).
 
-You can also install 1.11 using Kubeadm. Version 1.11.0 will be available as Deb and RPM packages, installable using the [Kubeadm cluster installer](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) sometime on June 28th.
+You can also install 1.11 using Kubeadm. Version 1.11.0 will be available as Deb and RPM packages, installable using the [Kubeadm cluster installer](/docs/setup/independent/create-cluster-kubeadm/) sometime on June 28th.
 
 ## 4 Day Features Blog Series
 
@@ -88,7 +88,7 @@ Is Kubernetes helping your team? Share your story with the community.
 * The CNCF recently expanded its certification offerings to include a Certified Kubernetes Application Developer exam. The CKAD exam certifies an individual's ability to design, build, configure, and expose cloud native applications for Kubernetes. More information can be found [here](https://www.cncf.io/blog/2018/03/16/cncf-announces-ckad-exam/).
 * The CNCF recently added a new partner category, Kubernetes Training Partners (KTP). KTPs are a tier of vetted training providers who have deep experience in cloud native technology training. View partners and learn more [here](https://www.cncf.io/certification/training/).
 * CNCF also offers [online training](https://www.cncf.io/certification/training/) that teaches the skills needed to create and configure a real-world Kubernetes cluster.
-* Kubernetes documentation now features [user journeys](https://k8s.io/docs/home/): specific pathways for learning based on who readers are and what readers want to do. Learning Kubernetes is easier than ever for beginners, and more experienced users can find task journeys specific to cluster admins and application developers.  
+* Kubernetes documentation now features [user journeys](https://k8s.io/docs/home/): specific pathways for learning based on who readers are and what readers want to do. Learning Kubernetes is easier than ever for beginners, and more experienced users can find task journeys specific to cluster admins and application developers.
 
 ## KubeCon
 
