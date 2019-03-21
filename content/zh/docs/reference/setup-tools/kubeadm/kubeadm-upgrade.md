@@ -28,7 +28,7 @@ cluster if necessary.
 <!--
 ## kubeadm upgrade guidance
 -->
-## kubeadm 升级向导
+## kubeadm 升级指南
 
 <!--
 Every upgrade process might be a bit different, so we've documented each minor upgrade process individually.
