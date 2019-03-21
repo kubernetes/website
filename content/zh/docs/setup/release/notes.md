@@ -728,66 +728,101 @@ filename | sha256 hash
 
 ### 需执行的操作
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* 将卷动态配置计划移至 beta 版（需要采取措施：已删除 DynamicProvisioningScheduling alpha 功能门。此功能仍需要 VolumeScheduling beta 功能门 ([#67432](https://github.com/kubernetes/kubernetes/pull/67432), [@lichuqiang](https://github.com/lichuqiang))
+<!--
 * Move volume dynamic provisioning scheduling to beta (ACTION REQUIRED: The DynamicProvisioningScheduling alpha feature gate has been removed. The VolumeScheduling beta feature gate is still required for this feature) ([#67432](https://github.com/kubernetes/kubernetes/pull/67432), [@lichuqiang](https://github.com/lichuqiang))
+-->
 
+<!--
 ### Other notable changes
+-->
 
+### 其他值得主义的变化
+
+<!--
 * Not split nodes when searching for nodes but doing it all at once. ([#67555](https://github.com/kubernetes/kubernetes/pull/67555), [@wgliang](https://github.com/wgliang))
 * Deprecate kubectl run generators, except for run-pod/v1 ([#68132](https://github.com/kubernetes/kubernetes/pull/68132), [@soltysh](https://github.com/soltysh))
 * Using the Horizontal Pod Autoscaler with metrics from Heapster is now deprecated. ([#68089](https://github.com/kubernetes/kubernetes/pull/68089), [@DirectXMan12](https://github.com/DirectXMan12))
 * Support both directory and block device for local volume plugin FileSystem VolumeMode  ([#63011](https://github.com/kubernetes/kubernetes/pull/63011), [@NickrenREN](https://github.com/NickrenREN))
 * Add CSI volume attributes for kubectl describe pv. ([#65074](https://github.com/kubernetes/kubernetes/pull/65074), [@wgliang](https://github.com/wgliang))
 * `kubectl rollout status` now works for unlimited timeouts. ([#67817](https://github.com/kubernetes/kubernetes/pull/67817), [@tnozicka](https://github.com/tnozicka))
+-->
+* 搜索节点时不拆分节点，而是一次完成所有操作。 ([#67555](https://github.com/kubernetes/kubernetes/pull/67555), [@wgliang](https://github.com/wgliang))
+* 弃用 kubectl 运行生成器，run-pod/v1 除外 ([#68132](https://github.com/kubernetes/kubernetes/pull/68132), [@soltysh](https://github.com/soltysh))
+* 现在不推荐使用带有 Heapster 指标的 Horizontal Pod Autoscaler。 ([#68089](https://github.com/kubernetes/kubernetes/pull/68089), [@DirectXMan12](https://github.com/DirectXMan12))
+* 支持本地卷插件文件系统 VolumeMode 的目录和块设备  ([#63011](https://github.com/kubernetes/kubernetes/pull/63011), [@NickrenREN](https://github.com/NickrenREN))
+* 为 kubectl 添加 CSI 卷属性来描述 pv。 ([#65074](https://github.com/kubernetes/kubernetes/pull/65074), [@wgliang](https://github.com/wgliang))
+* `kubectl rollout status` 现在适用于无限超时。 ([#67817](https://github.com/kubernetes/kubernetes/pull/67817), [@tnozicka](https://github.com/tnozicka))
+
+<!--
 * Fix panic when processing Azure HTTP response. ([#68210](https://github.com/kubernetes/kubernetes/pull/68210), [@feiskyer](https://github.com/feiskyer))
 * add mixed protocol support for azure load balancer ([#67986](https://github.com/kubernetes/kubernetes/pull/67986), [@andyzhangx](https://github.com/andyzhangx))
 * Replace scale down forbidden window with scale down stabilization window. Rather than waiting a fixed period of time between scale downs HPA now scales down to the highest recommendation it during the scale down stabilization window. ([#68122](https://github.com/kubernetes/kubernetes/pull/68122), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
 * Adding validation to kube-scheduler at the API level ([#66799](https://github.com/kubernetes/kubernetes/pull/66799), [@noqcks](https://github.com/noqcks))
 * Improve performance of Pod affinity/anti-affinity in the scheduler ([#67788](https://github.com/kubernetes/kubernetes/pull/67788), [@ahmad-diaa](https://github.com/ahmad-diaa))
+-->
+
+* 修复 Azure HTTP 响应时恐慌。 ([#68210](https://github.com/kubernetes/kubernetes/pull/68210), [@feiskyer](https://github.com/feiskyer))
+* 为 azure 负载均衡器添加混合协议支持 ([#67986](https://github.com/kubernetes/kubernetes/pull/67986), [@andyzhangx](https://github.com/andyzhangx))
+* 将"按比例缩小禁止 window" 替换为"按比例缩小稳定 window"。而不是等待一段固定时间之间的规模下降 HPA 现在下降到最高的建议，它在规模下降稳定 window。([#68122](https://github.com/kubernetes/kubernetes/pull/68122), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
+* 在 API 级别向 kube-scheduler 添加验证 ([#66799](https://github.com/kubernetes/kubernetes/pull/66799), [@noqcks](https://github.com/noqcks))
+* 在调度程序中提高 Pod 亲和/反亲和的性能 ([#67788](https://github.com/kubernetes/kubernetes/pull/67788), [@ahmad-diaa](https://github.com/ahmad-diaa))
+
+<!--
 * kubeadm: fix air-gapped support and also allow some kubeadm commands to work without an available networking interface ([#67397](https://github.com/kubernetes/kubernetes/pull/67397), [@neolit123](https://github.com/neolit123))
 * Increase Horizontal Pod Autoscaler default update interval (30s -> 15s). It will improve HPA reaction time for metric changes. ([#68021](https://github.com/kubernetes/kubernetes/pull/68021), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
 * Increase scrape frequency of metrics-server to 30s ([#68127](https://github.com/kubernetes/kubernetes/pull/68127), [@serathius](https://github.com/serathius))
 * Add new `--server-dry-run` flag to `kubectl apply` so that the request will be sent to the server with the dry-run flag (alpha), which means that changes won't be persisted. ([#68069](https://github.com/kubernetes/kubernetes/pull/68069), [@apelisse](https://github.com/apelisse))
 * kubelet v1beta1 external ComponentConfig types are now available in the `k8s.io/kubelet` repo ([#67263](https://github.com/kubernetes/kubernetes/pull/67263), [@luxas](https://github.com/luxas))
 * Adds a kubelet parameter and config option to change CFS quota period from the default 100ms to some other value between 1µs and 1s. This was done to improve response latencies for workloads running in clusters with guaranteed and burstable QoS classes.   ([#63437](https://github.com/kubernetes/kubernetes/pull/63437), [@szuecs](https://github.com/szuecs))
+-->
+* kubeadm: 修复了 air-gapped 支持，并允许一些 kubeadm 命令在没有可用网络接口的情况下工作 ([#67397](https://github.com/kubernetes/kubernetes/pull/67397), [@neolit123](https://github.com/neolit123))
+* 增加水平 Pod 自动调度器的默认更新间隔（30 秒-> 15 秒)。它将改善 HPA 反应时间的度量变化。 ([#68021](https://github.com/kubernetes/kubernetes/pull/68021), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
+* 将 metrics-server 的 scrape frequency 频率增加到30秒 ([#68127](https://github.com/kubernetes/kubernetes/pull/68127), [@serathius](https://github.com/serathius))
+* 添加新的 `--server-dry-run` 参数到 `kubectl apply` 以便将请求发送到带有干运行参数（alpha）的服务器，这意味着更改将不会保留。 ([#68069](https://github.com/kubernetes/kubernetes/pull/68069), [@apelisse](https://github.com/apelisse))
+* kubelet v1beta1 外部 ComponentConfig 类型现在可在 `k8s.io/kubelet` 存储库中使用 ([#67263](https://github.com/kubernetes/kubernetes/pull/67263), [@luxas](https://github.com/luxas))
+* 添加 kubelet 参数和配置选项，将 CFS 配额周期从默认的 100ms 更改为 1μs 和 1s 之间的其他值。这样做是为了改善在具有保证和可突发 QoS 类的集群中运行的工作负载的响应延迟。 ([#63437](https://github.com/kubernetes/kubernetes/pull/63437), [@szuecs](https://github.com/szuecs))
+
+<!--
 * Enable secure serving on port 10258 to cloud-controller-manager (configurable via `--secure-port`). Delegated authentication and authorization have to be configured like for aggregated API servers. ([#67069](https://github.com/kubernetes/kubernetes/pull/67069), [@sttts](https://github.com/sttts))
 * Support extra `--prune-whitelist` resources in kube-addon-manager. ([#67743](https://github.com/kubernetes/kubernetes/pull/67743), [@Random-Liu](https://github.com/Random-Liu))
 * Upon receiving a LIST request with expired continue token, the apiserver now returns a continue token together with the 410 "the from parameter is too old " error. If the client does not care about getting a list from a consistent snapshot, the client can use this token to continue listing from the next key, but the returned chunk will be from the latest snapshot. ([#67284](https://github.com/kubernetes/kubernetes/pull/67284), [@caesarxuchao](https://github.com/caesarxuchao))
 * Role, ClusterRole and their bindings for cloud-provider is put under system namespace. Their addonmanager mode switches to EnsureExists. ([#67224](https://github.com/kubernetes/kubernetes/pull/67224), [@grayluck](https://github.com/grayluck))
+-->
+
+* 在端口 10258 上启用到云控制器管理器的安全服务（可配置通过 `--secure-port`）。必须为 aggregated API 服务器配置委派身份验证和授权。 ([#67069](https://github.com/kubernetes/kubernetes/pull/67069), [@sttts](https://github.com/sttts))
+* 支持 `--prune-whitelist` kube-addon-manager 中的额外资源。 ([#67743](https://github.com/kubernetes/kubernetes/pull/67743), [@Random-Liu](https://github.com/Random-Liu))
+* 当接收到带有过期持续令牌的列表请求时，apiserver 现在返回一个持续令牌和 410 "from 参数太旧"错误。如果客户端不关心从一致快照中获取列表，客户端可以使用这个令牌从下一个键继续列表，但是返回的块将来自最新快照。 ([#67284](https://github.com/kubernetes/kubernetes/pull/67284), [@caesarxuchao](https://github.com/caesarxuchao))
+* 角色，ClusterRole 及其对云提供程序的绑定放在系统命名空间下。他们的插件管理模式切换到 EnsureExists。 ([#67224](https://github.com/kubernetes/kubernetes/pull/67224), [@grayluck](https://github.com/grayluck))
+
+<!--
 * Mount propagation has promoted to GA. The `MountPropagation` feature gate is deprecated and will be removed in 1.13. ([#67255](https://github.com/kubernetes/kubernetes/pull/67255), [@bertinatto](https://github.com/bertinatto))
 * Introduce CSI Cluster Registration mechanism to ease CSI plugin discovery and allow CSI drivers to customize Kubernetes' interaction with them. ([#67803](https://github.com/kubernetes/kubernetes/pull/67803), [@saad-ali](https://github.com/saad-ali))
 * Adds the commands `kubeadm alpha phases renew <cert-name>` ([#67910](https://github.com/kubernetes/kubernetes/pull/67910), [@liztio](https://github.com/liztio))
 * ProcMount added to SecurityContext and AllowedProcMounts added to PodSecurityPolicy to allow paths in the container's /proc to not be masked. ([#64283](https://github.com/kubernetes/kubernetes/pull/64283), [@jessfraz](https://github.com/jessfraz))
 * support cross resource group for azure file ([#68117](https://github.com/kubernetes/kubernetes/pull/68117), [@andyzhangx](https://github.com/andyzhangx))
 * Port 31337 will be used by fluentd ([#68051](https://github.com/kubernetes/kubernetes/pull/68051), [@Szetty](https://github.com/Szetty))
+-->
+
+* 挂载传播已提升到 GA。 `MountPropagation` 特性门已被弃用，将在 1.13 中移除。 ([#67255](https://github.com/kubernetes/kubernetes/pull/67255), [@bertinatto](https://github.com/bertinatto))
+* 引入 CSI 集群注册机制以简化 CSI 插件发现，并允许 CSI 驱动程序自定义 Kubernetes 与它们的交互。 ([#67803](https://github.com/kubernetes/kubernetes/pull/67803), [@saad-ali](https://github.com/saad-ali))
+* 添加命令 `kubeadm alpha phases renew <cert-name>` ([#67910](https://github.com/kubernetes/kubernetes/pull/67910), [@liztio](https://github.com/liztio))
+* 将 ProcMount 添加到 SecurityContext 并将 AllowedProcMounts 添加到 PodSecurityPolicy，允许不屏蔽容器 /proc 中的路径。 ([#64283](https://github.com/kubernetes/kubernetes/pull/64283), [@jessfraz](https://github.com/jessfraz))
+* 支持 azure 文件的跨资源组 ([#68117](https://github.com/kubernetes/kubernetes/pull/68117), [@andyzhangx](https://github.com/andyzhangx))
+* 端口 31337 将被 fluentd 使用 ([#68051](https://github.com/kubernetes/kubernetes/pull/68051), [@Szetty](https://github.com/Szetty))
+
+<!--
 * Improve CPU sample sanitization in HPA by taking metric's freshness into account. ([#68068](https://github.com/kubernetes/kubernetes/pull/68068), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
 * CoreDNS is now v1.2.2 for Kubernetes 1.12 ([#68076](https://github.com/kubernetes/kubernetes/pull/68076), [@rajansandeep](https://github.com/rajansandeep))
 * Enable secure serving on port 10257 to kube-controller-manager (configurable via `--secure-port`). Delegated authentication and authorization have to be configured like for aggregated API servers. ([#64149](https://github.com/kubernetes/kubernetes/pull/64149), [@sttts](https://github.com/sttts))
 * Update metrics-server to v0.3.0. ([#68077](https://github.com/kubernetes/kubernetes/pull/68077), [@DirectXMan12](https://github.com/DirectXMan12))
+-->
+* 在 HPA 中，通过考虑 `taking metric's freshness` 来改进 CPU sanitization。 ([#68068](https://github.com/kubernetes/kubernetes/pull/68068), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
+* CoreDNS 现在为 Kubernetes 1.12 ([#68076](https://github.com/kubernetes/kubernetes/pull/68076), [@rajansandeep](https://github.com/rajansandeep))
+* 在端口 10257 上启用安全服务到 kube-controller-manager（可配置通道 `--secure-port`）。必须为 aggregated API 服务器配置委派身份验证和授权。 ([#64149](https://github.com/kubernetes/kubernetes/pull/64149), [@sttts](https://github.com/sttts))
+* 更新 metrics-server 为 v0.3.0. ([#68077](https://github.com/kubernetes/kubernetes/pull/68077), [@DirectXMan12](https://github.com/DirectXMan12))
+
+<!--
 * TokenRequest and TokenRequestProjection are now beta features. To enable these feature, the API server needs to be started with the following flags: ([#67349](https://github.com/kubernetes/kubernetes/pull/67349), [@mikedanese](https://github.com/mikedanese))
         * --service-account-issuer
         * --service-account-signing-key-file
@@ -797,6 +832,18 @@ filename | sha256 hash
 * Azure cloud provider now supports unmanaged nodes (such as on-prem) that are labeled with `kubernetes.azure.com/managed=false` and `alpha.service-controller.kubernetes.io/exclude-balancer=true` ([#67984](https://github.com/kubernetes/kubernetes/pull/67984), [@feiskyer](https://github.com/feiskyer))
 * `kubectl get apiservice` now shows the target service and whether the service is available ([#67747](https://github.com/kubernetes/kubernetes/pull/67747), [@smarterclayton](https://github.com/smarterclayton))
 * Openstack supports now node shutdown taint. Taint is added when instance is shutdown in openstack. ([#67982](https://github.com/kubernetes/kubernetes/pull/67982), [@zetaab](https://github.com/zetaab))
+-->
+* TokenRequest 和 TokenRequestProjection 现在都是 beta 版的特性。要启用这些功能，需要使用以下参数启动 API 服务器：([#67349](https://github.com/kubernetes/kubernetes/pull/67349), [@mikedanese](https://github.com/mikedanese))
+        * --service-account-issuer
+        * --service-account-signing-key-file
+        * --service-account-api-audiences
+* 如果集群中没有找到外部 apiserver-authentication configmap，则不要让 aggregated apiserver 启动失败。 ([#67836](https://github.com/kubernetes/kubernetes/pull/67836), [@sttts](https://github.com/sttts))
+* 将 AdvancedAuditing 推广到 GA，取代以前的（遗留）审计日志记录机制 ([#65862](https://github.com/kubernetes/kubernetes/pull/65862), [@loburm](https://github.com/loburm))
+* Azure 云供应商现在支持参数 `kubernetes.azure.com/managed=false` 和 `alpha.service-controller.kubernetes.io/exclude-balancer=true` ([#67984](https://github.com/kubernetes/kubernetes/pull/67984), [@feiskyer](https://github.com/feiskyer))
+* `kubectl get apiservice` 现在显示目标服务以及服务是否可用 ([#67747](https://github.com/kubernetes/kubernetes/pull/67747), [@smarterclayton](https://github.com/smarterclayton))
+* Openstack 现在支持节点关闭污点。在 openstack 中关闭实例时添加了污点。 ([#67982](https://github.com/kubernetes/kubernetes/pull/67982), [@zetaab](https://github.com/zetaab))
+
+<!--
 * Return apiserver panics as 500 errors instead terminating the apiserver process. ([#68001](https://github.com/kubernetes/kubernetes/pull/68001), [@sttts](https://github.com/sttts))
 * Fix VMWare VM freezing bug by reverting [#51066](https://github.com/kubernetes/kubernetes/pull/51066) ([#67825](https://github.com/kubernetes/kubernetes/pull/67825), [@nikopen](https://github.com/nikopen))
 * Make CoreDNS be the default DNS server in kube-up (instead of kube-dns formerly).  ([#67569](https://github.com/kubernetes/kubernetes/pull/67569), [@fturib](https://github.com/fturib))
@@ -804,6 +851,16 @@ filename | sha256 hash
 * Added support to restore a volume from a volume snapshot data source.  ([#67087](https://github.com/kubernetes/kubernetes/pull/67087), [@xing-yang](https://github.com/xing-yang))
 * fixes the errors/warnings in fluentd configuration ([#67947](https://github.com/kubernetes/kubernetes/pull/67947), [@saravanan30erd](https://github.com/saravanan30erd))
 * Stop counting soft-deleted pods for scaling purposes in HPA controller to avoid soft-deleted pods incorrectly affecting scale up replica count calculation. ([#67067](https://github.com/kubernetes/kubernetes/pull/67067), [@moonek](https://github.com/moonek))
+-->
+* 将 apiserver 恐慌返回为 500 错误，而不是终止 apiserver 进程。 ([#68001](https://github.com/kubernetes/kubernetes/pull/68001), [@sttts](https://github.com/sttts))
+* 修复 VMWare VM 通过恢复冻结的错误 [#51066](https://github.com/kubernetes/kubernetes/pull/51066) ([#67825](https://github.com/kubernetes/kubernetes/pull/67825), [@nikopen](https://github.com/nikopen))
+* 使 CoreDNS 成为 kube-up 中的默认 DNS 服务器（而不是以前的 kube-dns）。  ([#67569](https://github.com/kubernetes/kubernetes/pull/67569), [@fturib](https://github.com/fturib))
+    * 仍然可以通过设置 CLUSTER_DNS_CORE_DNS = false 来部署 kube-dns。
+* 添加了从卷快照数据源还原卷的支持。  ([#67087](https://github.com/kubernetes/kubernetes/pull/67087), [@xing-yang](https://github.com/xing-yang))
+* 修复 fluentd 配置中的错误/警告 ([#67947](https://github.com/kubernetes/kubernetes/pull/67947), [@saravanan30erd](https://github.com/saravanan30erd))
+* 在 HPA 控制器中停止按比例计算软删除 pod，以避免软删除 pod 不正确影响按比例计算副本数量。 ([#67067](https://github.com/kubernetes/kubernetes/pull/67067), [@moonek](https://github.com/moonek))
+
+<!--
 * delegated authn/z: optionally opt-out of mandatory authn/authz kubeconfig ([#67545](https://github.com/kubernetes/kubernetes/pull/67545), [@sttts](https://github.com/sttts))
 * kubeadm: Control plane images (etcd, kube-apiserver, kube-proxy, etc.) don't use arch suffixes. Arch suffixes are kept for kube-dns only. ([#66960](https://github.com/kubernetes/kubernetes/pull/66960), [@rosti](https://github.com/rosti))
 * Adds sample-cli-plugin staging repository ([#67938](https://github.com/kubernetes/kubernetes/pull/67938), [@soltysh](https://github.com/soltysh))
@@ -812,13 +869,62 @@ filename | sha256 hash
 * Always create configmaps/extensions-apiserver-authentication from kube-apiserver. ([#67694](https://github.com/kubernetes/kubernetes/pull/67694), [@sttts](https://github.com/sttts))
 * kube-proxy v1beta1 external ComponentConfig types are now available in the `k8s.io/kube-proxy` repo ([#67688](https://github.com/kubernetes/kubernetes/pull/67688), [@Lion-Wei](https://github.com/Lion-Wei))
 * Apply unreachable taint to a node when it lost network connection. ([#67734](https://github.com/kubernetes/kubernetes/pull/67734), [@Huang-Wei](https://github.com/Huang-Wei))
-* Allow ImageReview backend to return annotations to be added to the created pod. ([#64597](https://github.com/kubernetes/kubernetes/pull/64597), [@wteiken](https://github.com/wteiken))
+-->
+
+* 授权 authn/z：可选地选择不强制 authn/authz kubeconfig ([#67545](https://github.com/kubernetes/kubernetes/pull/67545), [@sttts](https://github.com/sttts))
+* kubeadm：控制平面镜像（etcd，kube-apiserver，kube-proxy 等）不使用 arch 后缀。多体系后缀仅用于 kube-dns。 ([#66960](https://github.com/kubernetes/kubernetes/pull/66960), [@rosti](https://github.com/rosti))
+* 添加 sample-cli-plugin staging 存储库 ([#67938](https://github.com/kubernetes/kubernetes/pull/67938), [@soltysh](https://github.com/soltysh))
+* 调整 apiserver 的 http/2 缓冲区大小，防止并发流之间的不足问题 ([#67902](https://github.com/kubernetes/kubernetes/pull/67902), [@liggitt](https://github.com/liggitt))
+* 现在，在 Pod，Service，Endpoint 和 NetworkPolicy 中支持 SCTP 作为 TCP 和 UDP 的附加协议（alpha）。   ([#64973](https://github.com/kubernetes/kubernetes/pull/64973), [@janosi](https://github.com/janosi))
+* 始终从 kube-apiserver 创建 configmaps/extensions-apiserver-authentication。 ([#67694](https://github.com/kubernetes/kubernetes/pull/67694), [@sttts](https://github.com/sttts))
+* kube-proxy v1beta1 外部组件配置类型现在可以在 `k8s.io/kube-proxy` 仓库中中使用。([#67688](https://github.com/kubernetes/kubernetes/pull/67688), [@Lion-Wei](https://github.com/Lion-Wei))
+* 丢失网络连接时，将无法访问的污点应用于节点。 ([#67734](https://github.com/kubernetes/kubernetes/pull/67734), [@Huang-Wei](https://github.com/Huang-Wei))
+
+<!--
+Allow ImageReview backend to return annotations to be added to the created pod.*  ([#64597](https://github.com/kubernetes/kubernetes/pull/64597), [@wteiken](https://github.com/wteiken))
 * Bump ip-masq-agent to v2.1.1 ([#67916](https://github.com/kubernetes/kubernetes/pull/67916), [@MrHohn](https://github.com/MrHohn))
     * - Update debian-iptables image for CVEs.
     * - Change chain name to IP-MASQ to be compatible with the
     * pre-injected masquerade rules.
 * AllowedTopologies field inside StorageClass is now validated against set and map semantics. Specifically, there cannot be duplicate TopologySelectorTerms, MatchLabelExpressions keys, and TopologySelectorLabelRequirement Values. ([#66843](https://github.com/kubernetes/kubernetes/pull/66843), [@verult](https://github.com/verult))
 * Introduces autoscaling/v2beta2 and custom_metrics/v1beta2, which implement metric selectors for Object and Pods metrics, as well as allowing AverageValue targets on Objects, similar to External metrics. ([#64097](https://github.com/kubernetes/kubernetes/pull/64097), [@damemi](https://github.com/damemi))
+-->
+* 允许 ImageReview 后端返回要添加到创建的 pod 中的注释。 ([#64597](https://github.com/kubernetes/kubernetes/pull/64597), [@wteiken](https://github.com/wteiken))
+* 将 ip-masq-agent 升级为 v2.1.1 ([#67916](https://github.com/kubernetes/kubernetes/pull/67916), [@MrHohn](https://github.com/MrHohn))
+    * - 更新 CVE 的 debian-iptables 镜像。
+    * - 将链名更改为 IP-MASQ 与之兼容
+    * pre-injected masquerade 规则
+* StorageClass 中的 AllowedTopologies 字段现在根据 set 和 map 语义进行验证。具体来说，不能有重复的 TopologySelectorTerms、matchlabelexpression 键和 TopologySelectorLabelRequirement 值。 ([#66843](https://github.com/kubernetes/kubernetes/pull/66843), [@verult](https://github.com/verult))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 * The cloudstack cloud provider now reports a `Hostname` address type for nodes based on the `local-hostname` metadata key. ([#67719](https://github.com/kubernetes/kubernetes/pull/67719), [@liggitt](https://github.com/liggitt))
 * kubeadm: --cri-socket now defaults to tcp://localhost:2375 when running on Windows ([#67447](https://github.com/kubernetes/kubernetes/pull/67447), [@benmoss](https://github.com/benmoss))
 * kubeadm: The kubeadm configuration now support definition of more than one control plane instances with their own APIEndpoint. The APIEndpoint for the "bootstrap" control plane instance should be defined using `InitConfiguration.APIEndpoint`, while the APIEndpoints for additional control plane instances should be added using `JoinConfiguration.APIEndpoint`.   ([#67832](https://github.com/kubernetes/kubernetes/pull/67832), [@fabriziopandini](https://github.com/fabriziopandini))
