@@ -86,7 +86,7 @@ timeframe; which also applies to `kubeadm`.
 
 ## 目的
 
-* Install a single master Kubernetes cluster or [high availability cluster](https://kubernetes.io/docs/setup/independent/high-availability/)
+* Install a single master Kubernetes cluster or [high availability cluster](/docs/setup/independent/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -191,7 +191,7 @@ To start using your cluster, you need to run (as a regular user):
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the addon options listed at:
-  http://kubernetes.io/docs/admin/addons/
+  /docs/admin/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
@@ -316,7 +316,7 @@ For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16
 
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Note that `flannel` works on `amd64`, `arm`, `arm64` and `ppc64le`.
 
@@ -331,7 +331,7 @@ For more information about `flannel`, see [the CoreOS flannel repository on GitH
 {{% tab name="Kube-router" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router relies on kube-controller-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
@@ -343,7 +343,7 @@ For information on setting up Kubernetes cluster with Kube-router using kubeadm,
 {{% tab name="Romana" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -357,7 +357,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {{% tab name="Weave Net" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
@@ -620,7 +620,3 @@ addressed in due course.
 ## トラブルシューティング {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
-
-
-
-

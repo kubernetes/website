@@ -131,7 +131,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 
 ## サービスIP経由でPodにアクセスすることができない
 
-- Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
