@@ -235,13 +235,13 @@ The following networking functionality is not supported on Windows nodes
 * Local NodePort access from the node itself will fail (works for other nodes or external clients)
 * Accessing service VIPs from nodes will be available with a future release of Windows Server 
 * Overlay networking support in kube-proxy is an alpha release. In addition, it requires [KB4482887](https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887) to be installed on Windows Server 2019
-* kubectl port-forward
+* `kubectl port-forward`
 * Local Traffic Policy and DSR mode
 * Outbound communication using the ICMP protocol via the win-overlay, win-bridge, and Azure-CNI plugin. Specifically, the Windows data plane ([VFP](https://www.microsoft.com/en-us/research/project/azure-virtual-filtering-platform/)) doesn't support ICMP packet transpositions. This means:
   * ICMP packets directed to destinations within the same network (e.g. pod to pod communication via ping) will work as expected and without any limitations
   * TCP/UDP packets will work as expected and without any limitations
   * ICMP packets directed to pass through a remote network (e.g. pod to external internet communication via ping) cannot be transposed and thus will not be routed back to their source
-  * Since TCP/UDP packets can still be transposed, one can substitute **ping <destination>** with **curl <destination>** to be able to debug connectivity to the outside world.
+  * Since TCP/UDP packets can still be transposed, one can substitute `ping <destination>` with `curl <destination>` to be able to debug connectivity to the outside world.
 
 ##### CNI Plugins
 
@@ -249,7 +249,7 @@ The following networking functionality is not supported on Windows nodes
 * The Flannel VXLAN CNI has the following limitations on Windows:
 
 1. Node-pod connectivity isn't possible by design. It's only possible for local pods with Flannel [PR 1096](https://github.com/coreos/flannel/pull/1096)
-2. We are restricted to using VNI 4096 and UDP port 4789. The VNI limitation is being worked on and will be overcome (open-source flannel changes). See official [Flannel VXLAN ](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)backend docs for more details on these parameters.
+2. We are restricted to using VNI 4096 and UDP port 4789. The VNI limitation is being worked on and will be overcome (open-source flannel changes). See the official [Flannel VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) backend docs for more details on these parameters.
 
 ##### DNS {#dns-limitations}
 
@@ -275,7 +275,7 @@ There are no differences in how most of the Kubernetes APIs work for Windows. Th
 
 At a high level, these OS concepts are different:
 
-* Identity - Linux uses userID (UID) and groupID (GID) which are represented as integer types. User and group names are not canonical - they are just an alias in /etc/groups or /etc/passwd back to UID+GID. Windows uses a larger binary security identifier (SID) which is stored in the Windows Security Access Manager (SAM) database. This database is not shared between the host and containers, or between containers.
+* Identity - Linux uses userID (UID) and groupID (GID) which are represented as integer types. User and group names are not canonical - they are just an alias in `/etc/groups` or `/etc/passwd` back to UID+GID. Windows uses a larger binary security identifier (SID) which is stored in the Windows Security Access Manager (SAM) database. This database is not shared between the host and containers, or between containers.
 * File permissions - Windows uses an access control list based on SIDs, rather than a bitmask of permissions and UID+GID
 * File paths - convention on Windows is to use **\** instead of **/**. The Go IO libraries typically accept both and just make it work, but when you're setting a path or command line that's interpreted inside a container, **\** may be needed.
 * Signals - Windows interactive apps handle termination differently, and can implement one or more of these:
@@ -306,7 +306,7 @@ Exit Codes follow the same convention where 0 is success, nonzero is failure. Th
 * V1.Pod.hostIPC, v1.pod.hostpid - host namespace sharing is not possible on Windows
 * V1.Pod.hostNetwork - There is no Windows OS support to share the host network
 * V1.Pod.dnsPolicy - ClusterFirstWithHostNet - is not supported because Host Networking is not supported on Windows.
-* V1.Pod.podSecurityContext - see [V1.PodSecurityContext](https://github.com/kubernetes/enhancements/blob/master/keps/sig-windows/20190103-windows-node-support.md#v1podsecuritycontext)
+* V1.Pod.podSecurityContext - see V1.PodSecurityContext below
 * V1.Pod.shareProcessNamespace - this is a beta feature, and depends on Linux namespaces which are not implemented on Windows. Windows cannot share process namespaces or the container's root filesystem. Only the network can be shared.
 * V1.Pod.terminationGracePeriodSeconds - this is not fully implemented in Docker on Windows, see: [reference](https://github.com/moby/moby/issues/25982). The behavior today is that the ENTRYPOINT process is sent CTRL_SHUTDOWN_EVENT, then Windows waits 5 seconds by default, and finally shuts down all processes using the normal Windows shutdown behavior. The 5 second default is actually in the Windows registry [inside the container](https://github.com/moby/moby/issues/25982#issuecomment-426441183), so it can be overridden when the container is built.
 * V1.Pod.volumeDevices - this is a beta feature, and is not implemented on Windows. Windows cannot attach raw block devices to pods.
