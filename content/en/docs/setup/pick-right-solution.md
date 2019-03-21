@@ -58,7 +58,7 @@ a Kubernetes cluster from scratch.
 
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) is an
 easy-to-install application for your Mac or Windows environment that enables you to
-start coding and deploying in containers in minutes on a single-node Kubernetes 
+start coding and deploying in containers in minutes on a single-node Kubernetes
 cluster.
 
 * [Minishift](https://docs.okd.io/latest/minishift/) installs the community version of the Kubernetes enterprise platform OpenShift for local development & testing.  It offers an all-in-one VM (`minishift start`) for Windows, macOS, and Linux. The container start is based on `oc cluster up` (Linux only). You can also install [the included add-ons](https://github.com/minishift/minishift-addons/tree/master/add-ons).
@@ -285,6 +285,7 @@ VMware vSphere       | any          | multi-support | multi-support     | [docs]
 VMware vSphere       | Juju         | Ubuntu | flannel/calico/canal     | [docs](/docs/getting-started-guides/ubuntu/)                    |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
 VMware Cloud PKS     |              | Photon OS | Canal | [docs](https://docs.vmware.com/en/VMware-Kubernetes-Engine/index.html) | Commercial
 VMware Enterprise PKS     | BOSH       | Ubuntu | VMware NSX-T/flannel | [docs](https://docs.vmware.com/en/VMware-Enterprise-PKS/) | Commercial
+VMware Essential PKS     | any       | multi-support | multi-support | [docs](https://cloud.vmware.com/vmware-essential-PKS) | Commercial
 
 ### Definition of columns
 
