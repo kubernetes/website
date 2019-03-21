@@ -110,7 +110,7 @@ URL for the topic, for example:
 
 选择一个标题，标题中包含了要通过搜索引擎要查找的关键字。创建一个文件名，使用标题中由连字符分隔的单词。例如，标题为[使用 HTTP 代理访问 Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/) 的主题的文件名为 `http-proxy-access-api.md`。你不需要在文件名中加上 "kubernetes"，因为 "kubernetes" 已经在主题的 URL 中了，例如：
 
-       http://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api/
+       /docs/tasks/access-kubernetes-api/http-proxy-access-api/
 
 <!--
 ## Adding the topic title to the front matter
@@ -344,5 +344,3 @@ image format is SVG.
 * 学习[展示你的修改](/docs/home/contribute/stage-documentation-changes/)。
 * 学习[创建一个拉取请求](/docs/home/contribute/create-pull-request/)。
 {{% /capture %}}
-
-

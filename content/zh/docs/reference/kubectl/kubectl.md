@@ -14,13 +14,13 @@ kubectl 用来控制 Kubernetes 集群管理器
 
 kubectl controls the Kubernetes cluster manager.
 
-Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+Find more information at: /docs/reference/kubectl/overview/
 -->
 ### 摘要
 
 kubectl 用来控制 Kubernetes 集群管理器。
 
-更多信息参见 https://kubernetes.io/docs/reference/kubectl/overview/
+更多信息参见 /docs/reference/kubectl/overview/
 
 ```
 kubectl [flags]

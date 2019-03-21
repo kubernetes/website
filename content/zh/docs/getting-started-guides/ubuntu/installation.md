@@ -358,7 +358,7 @@ mkdir -p ~/.kube
 juju scp kubernetes-master/0:config ~/.kube/config
 ```
 
-<!-- The next step is to install the kubectl client on your local machine. The recommended way to do this on Ubuntu is using the kubectl snap ([https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu)).
+<!-- The next step is to install the kubectl client on your local machine. The recommended way to do this on Ubuntu is using the kubectl snap ([/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu)).
 
 The following command should be run on the machine you wish to use to control the kubernetes cluster:
 
@@ -368,7 +368,7 @@ sudo snap install kubectl --classic
 
 This will install and deploy the kubectl binary. You may need to restart your terminal as your $PATH may have been updated. -->
 
-下一步是在本地机器上安装 kubectl 客户端。在 Ubuntu 上推荐的安装方式是使用 kubectl snap ([https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu))。
+下一步是在本地机器上安装 kubectl 客户端。在 Ubuntu 上推荐的安装方式是使用 kubectl snap ([/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu](/docs/tasks/tools/install-kubectl/#install-with-snap-on-ubuntu))。
 
 可以运行下面的命令便可以控制 kubernetes 集群了：
 

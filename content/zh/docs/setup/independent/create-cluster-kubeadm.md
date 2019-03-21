@@ -159,14 +159,14 @@ timeframe; which also applies to `kubeadm`.
 <!--
 ## Objectives
 
-* Install a single master Kubernetes cluster or [high availability cluster](https://kubernetes.io/docs/setup/independent/high-availability/)
+* Install a single master Kubernetes cluster or [high availability cluster](/docs/setup/independent/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 -->
 
 ## 目标
 
-* 安装只有一个主节点的集群或[高可用集群](https://kubernetes.io/docs/setup/independent/high-availability/)。
+* 安装只有一个主节点的集群或[高可用集群](/docs/setup/independent/high-availability/)。
 * 在集群上安装 Pod 网络，以便您的 Pod 可以相互通信。
 
 <!--
@@ -326,7 +326,7 @@ To start using your cluster, you need to run (as a regular user):
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the addon options listed at:
-  http://kubernetes.io/docs/admin/addons/
+  /docs/admin/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
@@ -496,7 +496,7 @@ kubectl create -f ./
 为了使 `flannel` 正常工作，你必须将选项 `--pod-network-cidr=10.244.0.0/16` 传递给 `kubeadm init`。
 
 通过执行 `sysctl net.bridge.bridge-nf-call-iptables=1` 命令，将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置为 `1` 
-以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
 
 注意 `flannel` 可以运行在 `amd64`、`arm`、`arm64`、`ppc64le`架构的机器上。
 
@@ -511,7 +511,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8
 
 {{% tab name="Kube-router" %}}
 通过执行 `sysctl net.bridge.bridge-nf-call-iptables=1` 命令，将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置为 `1` 
-以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
 
 Kube-router 依靠 kube-controller-manager 为节点分配 pod CIDR。 因此，执行`kubeadm init` 命令需要使用带 `-pod-network-cidr` 选项。
 
@@ -524,7 +524,7 @@ Kube-router 提供 pod 网络、网络策略和基于高性能 IP Virtual Server
 
 {{% tab name="Romana" %}}
 通过执行 `sysctl net.bridge.bridge-nf-call-iptables=1` 命令，将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置为 `1` 
-以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
 
 Romana 官方设置指南在[这里](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -538,7 +538,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 
 {{% tab name="Weave Net" %}}
 通过执行 `sysctl net.bridge.bridge-nf-call-iptables=1` 命令，将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置为 `1` 
-以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
 
 Weave Net 官方设置指南在[这里](https://www.weave.works/docs/net/latest/kube-addon/).
 
@@ -953,7 +953,3 @@ kubeadm 的 deb / rpm 包和二进制文件是为 amd64、arm（32位）、arm64
 ## 故障排除 {#troubleshooting}
 
 如果您遇到 kubeadm 上的困难，请参阅我们的[故障排除文档](/docs/setup/independent/troubleshooting-kubeadm/).
-
-
-
-

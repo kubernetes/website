@@ -29,9 +29,9 @@ content_template: templates/task
 <!-- To use this guide, you must have a working kubernetes cluster that was deployed using Canonical's juju. -->
 本文假设你有一个已经通过 Juju 部署、正在运行的集群。
 
-<!-- The full instructions for deploying Kubernetes with juju can be found at [https://kubernetes.io/docs/getting-started-guides/ubuntu/installation/](https://kubernetes.io/docs/getting-started-guides/ubuntu/installation/). -->
+<!-- The full instructions for deploying Kubernetes with juju can be found at [/docs/getting-started-guides/ubuntu/installation/](/docs/getting-started-guides/ubuntu/installation/). -->
 
-有关使用 juju 部署 Kubernetes 集群的完整指导，请参考 [https://kubernetes.io/docs/getting-started-guides/ubuntu/installation/](https://kubernetes.io/docs/getting-started-guides/ubuntu/installation/)。
+有关使用 juju 部署 Kubernetes 集群的完整指导，请参考 [/docs/getting-started-guides/ubuntu/installation/](/docs/getting-started-guides/ubuntu/installation/)。
 
 {{% /capture %}}
 

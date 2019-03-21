@@ -130,10 +130,10 @@ These files are published at
 
 以下文件发布在 [kubernetes.io/docs/reference](/docs/reference/)：
 
-* [Federation API v1 Operations](https://kubernetes.io/docs/reference/federation/v1/operations/)
-* [Federation API v1 Definitions](https://kubernetes.io/docs/reference/federation/v1/definitions/)
-* [Federation API extensions/v1beta1 Operations](https://kubernetes.io/docs/reference/federation/extensions/v1beta1/operations/)
-* [Federation API extensions/v1beta1 Definitions](https://kubernetes.io/docs/reference/federation/extensions/v1beta1/definitions/)
+* [Federation API v1 Operations](/docs/reference/federation/v1/operations/)
+* [Federation API v1 Definitions](/docs/reference/federation/v1/definitions/)
+* [Federation API extensions/v1beta1 Operations](/docs/reference/federation/extensions/v1beta1/operations/)
+* [Federation API extensions/v1beta1 Definitions](/docs/reference/federation/extensions/v1beta1/definitions/)
 
 {{% /capture %}}
 

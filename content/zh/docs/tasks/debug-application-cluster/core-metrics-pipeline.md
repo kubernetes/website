@@ -104,11 +104,11 @@ Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/
 
 <!--
 Metrics Server registered in the main API server through
-[Kubernetes aggregator](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/),
+[Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/),
 which was introduced in Kubernetes 1.7.
 -->
 
-度量服务器通过 [Kubernetes 聚合器](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/)在主 API 服务器中注册，该聚合器是在 Kubernetes 1.7 版本中引入的。
+度量服务器通过 [Kubernetes 聚合器](/docs/concepts/api-extension/apiserver-aggregation/)在主 API 服务器中注册，该聚合器是在 Kubernetes 1.7 版本中引入的。
 
 
 <!--

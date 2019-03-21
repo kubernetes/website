@@ -54,10 +54,10 @@ A number of tools support pure offline development including Minikube, Docker fo
 许多工具支持纯 offline 开发，包括 Minikube、Docker（Mac 版/Windows 版）、Minishift 以及下文中我们将详细讨论的几种。有时，比如说在一个微服务系统中，已经有若干微服务在运行，proxied 模式（通过转发把数据流传进传出集群）就非常合适，Telepresence 就是此类工具的一个实例。live 模式，本质上是您基于一个远程集群进行构建和部署。最后，纯 online 模式意味着您的开发环境和运行集群都是远程的，典型的例子是 [Eclipse Che](https://www.eclipse.org/che/docs/kubernetes-single-user.html) 或者 [Cloud 9](https://github.com/errordeveloper/k9c)。现在让我们仔细看看离线开发的基础：在本地运行 Kubernetes。
 
 <!--
-[Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) is a popular choice for those who prefer to run Kubernetes in a local VM. More recently Docker for [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) and [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) started shipping Kubernetes as an experimental package (in the “edge” channel). Some reasons why you may want to prefer using Minikube over the Docker desktop option are:
+[Minikube](/docs/getting-started-guides/minikube/) is a popular choice for those who prefer to run Kubernetes in a local VM. More recently Docker for [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) and [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) started shipping Kubernetes as an experimental package (in the “edge” channel). Some reasons why you may want to prefer using Minikube over the Docker desktop option are:
 -->
 
-[Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) 在更加喜欢于本地 VM 上运行 Kubernetes 的开发人员中，非常受欢迎。不久前，Docker 的 [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) 版和 [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) 版，都试验性地开始自带 Kubernetes（需要下载 “edge” 安装包）。在两者之间，以下原因也许会促使您选择 Minikube 而不是 Docker 桌面版：
+[Minikube](/docs/getting-started-guides/minikube/) 在更加喜欢于本地 VM 上运行 Kubernetes 的开发人员中，非常受欢迎。不久前，Docker 的 [Mac](https://docs.docker.com/docker-for-mac/kubernetes/) 版和 [Windows](https://docs.docker.com/docker-for-windows/kubernetes/) 版，都试验性地开始自带 Kubernetes（需要下载 “edge” 安装包）。在两者之间，以下原因也许会促使您选择 Minikube 而不是 Docker 桌面版：
 
 <!--
 * You already have Minikube installed and running
