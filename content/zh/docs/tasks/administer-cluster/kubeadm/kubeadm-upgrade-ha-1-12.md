@@ -25,7 +25,7 @@ content_template: templates/task
 <!--
 This page explains how to upgrade a highly available (HA) Kubernetes cluster created with `kubeadm` from version 1.11.x to version 1.12.x. In addition to upgrading, you must also follow the instructions in [Creating HA clusters with kubeadm](/docs/setup/independent/high-availability/).
 -->
-本页面解释如何从 1.11.x 版本升级使用 `kubeadm` 创建的高可用性（HA） Kubernetes 集群到版本 1.12.x。除了升级，您还必须遵循[使用 kubeadm 创建 HA 集群](/docs/setup/independent/high-availability/)。
+本页介绍了如何将基于 kubeadm 创建的 Kubernetes HA 集群从 1.11.x 版本升级到 1.12.x 版本。除了升级，您还必须遵守[使用 kubeadm 创建 HA 集群](/docs/setup/independent/high-availability/) 的相关说明。
 
 {{% /capture %}}
 
