@@ -15,7 +15,7 @@ reviewers:
 - luxas
 - timothysc
 - jbeda
-title: Upgrading kubeadm HA clusters from v1.11 to v1.12
+title: Upgrading kubeadm HA clusters from v1.11 to v1.12x
 content_template: templates/task
 ---
 -->
@@ -406,7 +406,7 @@ If the upgrade fails, see whether one of the following scenarios applies:
 
 - If `kubeadm upgrade apply` failed to upgrade the cluster, it will try to perform a rollback. If this is the case on the first master, the cluster is probably still intact.
 
-   You can run `kubeadm upgrade apply` again, because it is idempotent and should eventually make sure the actual state is the desired state you are declaring. You can run `kubeadm upgrade apply` to change a running cluster with `x.x.x --> x.x.x` with `--force` to recover from a bad state.
+   You can run `kubeadm upgrade apply` again, because it is idempotent and should eventually make sure the actual state is the desired state you are declaring. You can run `kubeadm upgrade apply` to change a running cluster with `x.x.x -> x.x.x` with `--force` to recover from a bad state.
 
 - If `kubeadm upgrade apply` on one of the secondary masters failed, the cluster is upgraded and working, but the secondary masters are in an undefined state. You need to investigate further and join the secondaries manually.
 -->
