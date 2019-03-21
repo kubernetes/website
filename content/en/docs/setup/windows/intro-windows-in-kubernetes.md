@@ -45,6 +45,9 @@ Let's start with the operating system version. Refer to the following table for 
 | *Kubernetes v1.14* | Not Supported | Not Supported| Supported for Windows Server containers Builds 17763.* with Docker EE-basic 18.09 |
 
 {{< note >}}
+We don't expect all Windows customers to update the operating system for their apps frequently. Upgrading your applications is what will dictate and necessitate upgrading or introducing new nodes to the cluster. For the customers that chose to upgrade their operating system for containers running on Kubernetes, we will offer guidance and step-by-step instructions when we add support for a new operating system version. This guidance will include recommended upgrade procedures for upgrading user applications together with cluster nodes. Windows nodes will adhere to Kubernetes [version-skew policy](https://kubernetes.io/docs/setup/version-skew-policy/) (node to control plane versioning) the same way as Linux nodes do today.
+{{< /note >}}
+{{< note >}}
 The Windows Server Host Operating System is subject to the [Windows Server ](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) licensing. The Windows Container images are subject to the [Supplemental License Terms for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula).
 {{< /note >}}
 {{< note >}}
@@ -190,12 +193,12 @@ A best practice to avoid over-provisioning is to configure the kubelet with a sy
 
 The behavior of the flags behave differently as described below:
 
-* --kubelet-reserve, --system-reserve , and --eviction-hard flags update Node Allocatable
-* Eviction by using --enforce-node-allocable is not implemented
-* Eviction by using --eviction-hard and --eviction-soft are not implemented
+* `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update Node Allocatable
+* Eviction by using `--enforce-node-allocable` is not implemented
+* Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
 * MemoryPressure Condition is not implemented
 * There are no OOM eviction actions taken by the kubelet
-* Kubelet running on the windows node does not have memory restrictions. --kubelet-reserve and --system-reserve do not set limits on kubelet or processes running the host. This means kubelet or a process on the host could cause memory resource starvation outside the node-allocatable and scheduler
+* Kubelet running on the windows node does not have memory restrictions. `--kubelet-reserve` and `--system-reserve` do not set limits on kubelet or processes running the host. This means kubelet or a process on the host could cause memory resource starvation outside the node-allocatable and scheduler
 
 #### Storage
 
@@ -218,6 +221,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * CSI plugins which require privileged containers
 * File system features like uui/guid, per-user Linux filesystem permissions
 * NFS based storage/volume support
+* Expanding the mounted volume (resizefs)
 
 #### Networking
 
@@ -231,6 +235,8 @@ The following networking functionality is not supported on Windows nodes
 * Local NodePort access from the node itself will fail (works for other nodes or external clients)
 * Accessing service VIPs from nodes will be available with a future release of Windows Server 
 * Overlay networking support in kube-proxy is an alpha release. In addition, it requires [KB4482887](https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887) to be installed on Windows Server 2019
+* kubectl port-forward
+* Local Traffic Policy and DSR mode
 * Outbound communication using the ICMP protocol via the win-overlay, win-bridge, and Azure-CNI plugin. Specifically, the Windows data plane ([VFP](https://www.microsoft.com/en-us/research/project/azure-virtual-filtering-platform/)) doesn't support ICMP packet transpositions. This means:
   * ICMP packets directed to destinations within the same network (e.g. pod to pod communication via ping) will work as expected and without any limitations
   * TCP/UDP packets will work as expected and without any limitations
@@ -492,11 +498,13 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
     Check that your pause image is compatible with your OS version. The [instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/deploying-resources) assume that both the OS and the containers are version 1803. If you have a later version of Windows, such as an Insider build, you will need to adjust the images accordingly. Please refer to the Microsoft's [Docker repository](https://hub.docker.com/u/microsoft/) for images. Regardless, both the pause image Dockerfile and the sample service will expect the image to be tagged as :latest.
     
-    With Kubernetes v1.14, Microsoft will release the pause infrastructure container at mcr.microsoft.com/k8s/core/pause:1.0.0. For more information search for "pause" in the "Guide for adding Windows Nodes in Kubernetes".
+    With Kubernetes v1.14, Microsoft will release the pause infrastructure container at `mcr.microsoft.com/k8s/core/pause:1.0.0`. For more information search for "pause" in the [Guide for adding Windows Nodes in Kubernetes](../user-guide-windows-nodes).
+
+1. DNS resolution is not properly working
+
+    Check the DNS limitations for Windows in this [section](#dns-limitations).
 
 ### Further investigation
-
-Check the DNS limitations for Windows in this [section](#dns-limitations).
 
 If these steps don't resolve your problem, you can get help running Windows containers on Windows nodes in Kubernetes through:
 
@@ -526,12 +534,40 @@ We have a lot of features in our roadmap. An abbreviated high level list is incl
 
 ContainerD is another OCI-compliant runtime that recently graduated as a CNCF project. It's currently tested on Linux, but 1.3 will bring support for Windows and Hyper-V. [[reference](https://blog.docker.com/2019/02/containerd-graduates-within-the-cncf/)]
 
-The CRI-ContainerD interface will be able to manage sandboxes based on Hyper-V. This provides a foundation where RuntimeClasses could be implemented for new use cases including:
+The CRI-ContainerD interface will be able to manage sandboxes based on Hyper-V. This provides a foundation where RuntimeClass could be implemented for new use cases including:
 
 * Hypervisor-based isolation between pods for additional security
 * Backwards compatibility allowing a node to run a newer Windows Server version without requiring containers to be rebuilt
 * Specific CPU/NUMA settings for a pod
 * Memory isolation and reservations
+
+### Hyper-V isolation
+
+The existing Hyper-V isolation support, an experimental feature as of v1.10, will be deprecated in the future in favor of the CRI-ContainerD and RuntimeClass features mentioned above. To use the current features and create a Hyper-V isolated container, the kubelet should be started with feature gates `HyperVContainer=true` and the Pod should include the annotation `experimental.windows.kubernetes.io/isolation-type=hyperv`. In the experiemental release, this feature is limited to 1 container per Pod.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iis
+spec:
+  selector:
+    matchLabels:
+      app: iis
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: iis
+      annotations:
+        experimental.windows.kubernetes.io/isolation-type: hyperv
+    spec:
+      containers:
+      - name: iis
+        image: microsoft/iis
+        ports:
+        - containerPort: 80
+```
 
 ### Deployment with kubeadm and cluster API
 
