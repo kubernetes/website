@@ -48,6 +48,10 @@ provides a set of stateless replicas. Controllers such as
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
 * StatefulSets do not provide any guarantees on the termination of pods when a StatefulSet is deleted. To achieve ordered and graceful termination of the pods in the StatefulSet, it is possible to scale the StatefulSet down to 0 prior to deletion.
+* When using [Rolling Updates](#rolling-updates) with the default
+  [Pod Management Policy](#pod-management-policies) (`OrderedReady`),
+  it's possible to get into a broken state that requires
+  [manual intervention to repair](#forced-rollback).
 
 ## Components
 The example below demonstrates the components of a StatefulSet.
@@ -240,6 +244,26 @@ StatefulSet's `.spec.updateStrategy.rollingUpdate.partition` is greater than its
 updates to its `.spec.template` will not be propagated to its Pods.
 In most cases you will not need to use a partition, but they are useful if you want to stage an
 update, roll out a canary, or perform a phased roll out.
+
+#### Forced Rollback
+
+When using [Rolling Updates](#rolling-updates) with the default
+[Pod Management Policy](#pod-management-policies) (`OrderedReady`),
+it's possible to get into a broken state that requires manual intervention to repair.
+
+If you update the Pod template to a configuration that never becomes Running and
+Ready (for example, due to a bad binary or application-level configuration error),
+StatefulSet will stop the rollout and wait.
+
+In this state, it's not enough to revert the Pod template to a good configuration.
+Due to a [known issue](https://github.com/kubernetes/kubernetes/issues/67250),
+StatefulSet will continue to wait for the broken Pod to become Ready
+(which never happens) before it will attempt to revert it back to the working
+configuration.
+
+After reverting the template, you must also delete any Pods that StatefulSet had
+already attempted to run with the bad configuration.
+StatefulSet will then begin to recreate the Pods using the reverted template.
 
 {{% /capture %}}
 {{% capture whatsnext %}}
