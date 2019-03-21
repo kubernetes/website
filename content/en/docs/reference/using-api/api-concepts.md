@@ -319,12 +319,12 @@ Some values of an object are typically generated before the object is persisted.
 
 ## Server Side Apply
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, The `PATCH` endpoint accepts the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, the `PATCH` endpoint accepts the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
 
 ### Enable the Server Side Apply alpha feature
 
 Server Side Apply is an alpha feature, so it is disabled by default. To turn this [feature gate](/docs/reference/command-line-tools-reference/feature-gates) on,
-you need to include in the `--feature-gates ServerSideApply=true` flag when starting `kube-apiserver`.
+you need to include the `--feature-gates ServerSideApply=true` flag when starting `kube-apiserver`.
 If you have multiple `kube-apiserver` replicas, all should have the same flag setting.
 
 ### Field Management
@@ -405,7 +405,7 @@ In this example, a second operation was run as an `Update` by the manager called
 
 ### Merge Strategy
 
-Through the merging strategy implemented with Server Side Apply, it is intended to provide a generally more stable object lifecycle.
+The merging strategy, implemented with Server Side Apply, provides a generally more stable object lifecycle.
 Server Side Apply tries to merge fields based on the fact who manages them instead of overruling just based on values.
 This way it is intended to make it easier and more stable for multiple actors updating the same object by causing less unexpected interference.
 
