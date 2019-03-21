@@ -413,9 +413,9 @@ If the upgrade fails, see whether one of the following scenarios applies:
 
 如果升级失败，请查看是否适用以下方案之一：
 
-- 如果 `kubeadm upgrade apply` 无法升级集群，它将尝试执行回滚。如果在第一个 主控节点上就是这种情况，则集群可能仍然完好无损。
+- 如果 `kubeadm upgrade apply` 无法升级集群，它将尝试执行回滚。如果在第一个主控节点上就是这种情况，则集群可能仍然完好无损。
 
-   您可以再次运行 `kubeadm upgrade apply`，因为它是幂等的，最终应该确保实际状态是您声明的期望状态。您可以运行 `kubeadm upgrade apply` 来使用 `x.x.x --> x.x.x` 更改正在运行的集群。`--force` 从错误状态恢复。
+   您可以再次运行 `kubeadm upgrade apply`，因为它是幂等的，最终应该确保实际状态是您声明的期望状态。您可以运行 `kubeadm upgrade apply` 并设置参数 `--force` 请求"更新"正在运行的集群（从 `x.x.x --> x.x.x` ），尝试从错误状态中恢复。
 
 - 如果其他节点上的 `kubeadm upgrade apply` 失败，则集群已经升级并运行，只是这些节点处于未定义的状态。您需要进一步调试并手动将其加入集群。
 
