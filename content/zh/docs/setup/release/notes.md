@@ -51,7 +51,7 @@ title: v1.12 Release Notes
     - [服务器二进制文件](#server-binaries-1)
     - [节点的二进制文件](#node-binaries-1)
   - [自 v1.12.0-beta.2 以来的更新日志](#changelog-since-v1120-beta2)
-    - [功能要求](#action-required)
+    - [需执行的操作](#action-required)
     - [其他值得注意的变化](#other-notable-changes-1)
 - [v1.12.0-beta.2](#v1120-beta2)
   - [下载 v1.12.0-beta.2](#downloads-for-v1120-beta2)
@@ -737,7 +737,23 @@ filename | sha256 hash
 ### Other notable changes
 -->
 
-### 其他值得主义的变化
+### 其他值得注意的变化
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--
 * Not split nodes when searching for nodes but doing it all at once. ([#67555](https://github.com/kubernetes/kubernetes/pull/67555), [@wgliang](https://github.com/wgliang))
