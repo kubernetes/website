@@ -43,7 +43,7 @@ Before proceeding:
 - Check the prerequisites for [Upgrading/downgrading kubeadm clusters between v1.11 to v1.12](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/).
 -->
 
-- 您需要 kubeadm 运行 1.11 或更高版本的高可用集群。
+- 您需要一个 1.11 或更高版本的 kubeadm 高可用集群。
 - 请务必仔细阅读[发行说明](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md)。
 - 确保备份所有重要组件，比如存储在数据库中的应用程序级状态。`kubeadm upgrade` 不涉及您的工作负载，只涉及 Kubernetes 内部的组件，但备份始终是最佳实践。
 - 检查[在 v1.11 到 v1.12 之间升级/降级 kubeadm 集群](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/) 的条件。
@@ -113,7 +113,7 @@ Modify `configmap/kubeadm-config` for this control plane node:
 
 ### 升级第一个控制平面节点
 
-修改 `configmap/kubeadm-config` 控制平面节点：
+为该控制平面节点修改 `configmap/kubeadm-config` 文件：
 
 ```shell
 kubectl get configmap -n kube-system kubeadm-config -o yaml > kubeadm-config-cm.yaml
@@ -138,19 +138,19 @@ Open the file in an editor and replace the following values:
 
 - `etcd.local.extraArgs.advertise-client-urls`
 
-    这应该更新为本地节点的 IP 地址。
+    此值应该更新为本地节点的 IP 地址。
 
 - `etcd.local.extraArgs.initial-advertise-peer-urls`
 
-    这应该更新为本地节点的 IP 地址。
+   此值应该更新为本地节点的 IP 地址。
 
 - `etcd.local.extraArgs.listen-client-urls`
 
-    这应该更新为本地节点的 IP 地址。
+    此值应该更新为本地节点的 IP 地址。
 
 - `etcd.local.extraArgs.listen-peer-urls`
 
-    这应该更新为本地节点的 IP 地址。
+    此值应该更新为本地节点的 IP 地址。
 
 - `etcd.local.extraArgs.initial-cluster`
 
@@ -198,7 +198,7 @@ Each additional control plane node requires modifications that are different fro
 
 ## 升级其他控制平面节点
 
-每个附加的控制平面节点都需要与第一个控制平面节点做不同的修改。运行：
+每个额外的控制平面节点都需要与第一个控制平面节点做不同的修改。运行：
 
 ```shell
 kubectl get configmap -n kube-system kubeadm-config -o yaml > kubeadm-config-cm.yaml
@@ -207,7 +207,7 @@ kubectl get configmap -n kube-system kubeadm-config -o yaml > kubeadm-config-cm.
 <!--
 Open the file in an editor and replace the following values for `ClusterConfiguration`:
 -->
-在编辑器中打开文件并替换以下值 `ClusterConfiguration`：
+在编辑器中打开文件并为 `ClusterConfiguration` 替换以下值：
 
 <!--
     This should be updated to the local node's IP address.
@@ -283,7 +283,7 @@ Get a copy of the kubeadm config used to create this cluster. The config should 
 
 ### 升级每个控制平面
 
-获取用于创建此群集的 kubeadm 配置的副本。每个节点的配置应该相同。在升级开始之前，配置必须存在于每个控制平面节点上。
+获取用于创建集群的 kubeadm 配置的副本。所有节点的配置应该相同。在升级开始之前，配置必须存在于每个控制平面节点上。
 
 <!--
 # on each control plane node
@@ -301,7 +301,7 @@ Now run the upgrade on each control plane node one at a time.
 -->
 在编辑器中打开文件并设置 `api.advertiseAddress` 为本地节点的 IP 地址。
 
-现在，一次在每个控制平面节点上运行升级。
+现在，逐个控制平面节点地运行升级。
 
 ```
 kubeadm upgrade apply v1.12.0 --config kubeadm-config.yaml
@@ -349,7 +349,7 @@ Upgrade the kubelet and kubectl by running the following on each node:
 
 ### 手动升级您的 CNI 提供商
 
-您的容器网络接口（CNI）提供程序可能有自己的升级说明。检查插件页面找到您的 CNI 提供商，看看是否需要采取其他升级步骤。
+您的容器网络接口（CNI）提供程序可能有自己的升级说明。检查[插件](/docs/concepts/cluster-administration/addons/)页面找到您的 CNI 提供商，看看是否需要采取其他升级步骤。
 
 ### 更新 kubelet 和 kubectl 包
 
@@ -362,7 +362,7 @@ Upgrade the kubelet and kubectl by running the following on each node:
 
 ```shell
 # 使用你的发行版软件包管理器，例如基于 Debian 系统上的 'apt-get' 
-# 对于版本，坚持 kubeadm 的输出(参见上文)
+# 对于版本，基于 kubeadm 的输出来设置(参见上文)
 apt-mark unhold kubelet kubectl && \
 apt-get update && \
 apt-get install kubelet=<NEW-K8S-VERSION> kubectl=<NEW-K8S-VERSION> && \
@@ -375,7 +375,7 @@ In this example a _deb_-based system is assumed and `apt-get` is used for instal
 
 Verify that the new version of the kubelet is running:
 -->
-在本例中，假设一个基于 _deb_-based 的系统，并使用 `apt-get` 安装升级后的软件。在基于rpm的系统上，该命令 `yum install <PACKAGE>=<NEW-K8S-VERSION>` 适用于所有包。
+本例假设使用一个基于 _deb_ 的系统，并使用 `apt-get` 安装升级后的软件。在基于 rpm 的系统上，对于所有软件包都使用 `yum install <PACKAGE>=<NEW-K8S-VERSION>` 命令。
 
 验证新版本的 `kubelet` 是否正在运行：
 
@@ -386,7 +386,7 @@ systemctl status kubelet
 <!--
 Verify that the upgraded node is available again by running the following command from wherever you run `kubectl`:
 -->
-通过从任何位置运行以下命令，验证已升级的节点是否可用 kubectl：
+通过从 kubectl 所处的任何位置运行以下命令，再次验证已升级的节点是否可用：
 
 ```shell
 kubectl get nodes
@@ -395,7 +395,7 @@ kubectl get nodes
 <!--
 If the `STATUS` column shows `Ready` for the upgraded host, you can continue. You might need to repeat the command until the node shows `Ready`.
 -->
-如果 `STATUS` 列显示 `Ready` 升级后的主机，则可以继续。否则您可能需要重复该命令，直到节点显示 `Ready`。
+如果对于升级后的主机其 `STATUS` 列显示 `Ready`，则可以继续；否则您可能需要重复该命令，直到节点显示 `Ready`。
 
 <!--
 ## If something goes wrong
@@ -413,11 +413,11 @@ If the upgrade fails, see whether one of the following scenarios applies:
 
 如果升级失败，请查看是否适用以下方案之一：
 
-- 如果 `kubeadm upgrade apply` 无法升级群集，它将尝试执行回滚。如果在第一个主服务器上就是这种情况，则集群可能仍然完好无损。
+- 如果 `kubeadm upgrade apply` 无法升级集群，它将尝试执行回滚。如果在第一个 主控节点上就是这种情况，则集群可能仍然完好无损。
 
    您可以再次运行 `kubeadm upgrade apply`，因为它是幂等的，最终应该确保实际状态是您声明的期望状态。您可以运行 `kubeadm upgrade apply` 来使用 `x.x.x --> x.x.x` 更改正在运行的集群。`--force` 从错误状态恢复。
 
-- 如果一个代理主机上的 `kubeadm upgrade apply` 失败，集群将升级并运行，但是代理主机处于未定义的状态。您需要进一步研究并手动加入集群。
+- 如果其他节点上的 `kubeadm upgrade apply` 失败，则集群已经升级并运行，只是这些节点处于未定义的状态。您需要进一步调试并手动将其加入集群。
 
 {{% /capture %}}
 
