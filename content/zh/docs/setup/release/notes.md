@@ -23,7 +23,7 @@ title: v1.12 Release Notes
     - [客户端二进制文件](#client-binaries)
     - [服务器二进制文件](#server-binaries)
     - [节点的二进制文件](#node-binaries)
-  - [自更新日志以来 v1.12.0-rc.1](#changelog-since-v1120-rc1)
+  - [自 v1.12.0-rc.1 以来的更新日志](#changelog-since-v1120-rc1)
     - [其他值得注意的变化](#other-notable-changes)
 
 <!--
@@ -50,7 +50,7 @@ title: v1.12 Release Notes
     - [客户端二进制文件](#client-binaries-1)
     - [服务器二进制文件](#server-binaries-1)
     - [节点的二进制文件](#node-binaries-1)
-  - [自更新日志以来 v1.12.0-beta.2](#changelog-since-v1120-beta2)
+  - [自 v1.12.0-beta.2 以来的更新日志](#changelog-since-v1120-beta2)
     - [功能要求](#action-required)
     - [其他值得注意的变化](#other-notable-changes-1)
 - [v1.12.0-beta.2](#v1120-beta2)
@@ -58,8 +58,8 @@ title: v1.12 Release Notes
     - [客户端二进制文件](#client-binaries-2)
     - [服务器二进制文件](#server-binaries-2)
     - [节点的二进制文件](#node-binaries-2)
-  - [自更新日志以来 v1.12.0-beta.1](#changelog-since-v1120-beta1)
-    - [功能要求](#action-required-1)
+  - [自 v1.12.0-beta.1 以来的更新日志](#changelog-since-v1120-beta1)
+    - [需执行的操作](#action-required-1)
     - [其他值得注意的变化](#other-notable-changes-2)
     
 <!--
@@ -86,16 +86,16 @@ title: v1.12 Release Notes
     - [客户端二进制文件](#client-binaries-3)
     - [服务器二进制文件](#server-binaries-3)
     - [节点的二进制文件](#node-binaries-3)
-  - [自更新日志以来 v1.12.0-alpha.1](#changelog-since-v1120-alpha1)
-    - [功能要求](#action-required-2)
+  - [自 v1.12.0-alpha.1 以来的更新日志](#changelog-since-v1120-alpha1)
+    - [需执行的操作](#action-required-2)
     - [其他值得注意的变化](#other-notable-changes-3)
 - [v1.12.0-alpha.1](#v1120-alpha1)
   - [下载 v1.12.0-alpha.1](#downloads-for-v1120-alpha1)
     - [客户端二进制文件](#client-binaries-4)
     - [服务器二进制文件](#server-binaries-4)
     - [节点的二进制文件](#node-binaries-4)
-  - [自更新日志以来 v1.11.0](#changelog-since-v1110)
-    - [功能要求](#action-required-3)
+  - [自 v1.11.0 以来的更新日志](#changelog-since-v1110)
+    - [需执行的操作](#action-required-3)
     - [其他值得注意的变化](#other-notable-changes-4)
 <!-- END MUNGE: GENERATED_TOC -->
 
@@ -107,7 +107,7 @@ title: v1.12 Release Notes
 <!--
 [Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
 -->
-[文件](https://docs.k8s.io) & [示例](https://releases.k8s.io/release-1.12/examples)
+[文档](https://docs.k8s.io) & [示例](https://releases.k8s.io/release-1.12/examples)
 
 <!--
 ## Downloads for v1.12.0-rc.2
@@ -189,7 +189,7 @@ filename | sha256 hash
 ### Other notable changes
 -->
 
-## 自更新日志以来 v1.12.0-rc.1
+## 自 v1.12.0-rc.1 以来的更新日志
 
 ### 其他值得注意的变化
 
@@ -202,9 +202,9 @@ filename | sha256 hash
 -->
 * 更新以使用 etcd 镜像的清单列表 ([#68896](https://github.com/kubernetes/kubernetes/pull/68896), [@ixdy](https://github.com/ixdy))
 * 修复 InstanceShutdownByProviderID() 的 Azure 节点的 power 状态 ([#68921](https://github.com/kubernetes/kubernetes/pull/68921), [@feiskyer](https://github.com/feiskyer))
-* 将 kube-dns 提升到 1.14.13 ([#68900](https://github.com/kubernetes/kubernetes/pull/68900), [@MrHohn](https://github.com/MrHohn))
+* 将 kube-dns 升级为 1.14.13 ([#68900](https://github.com/kubernetes/kubernetes/pull/68900), [@MrHohn](https://github.com/MrHohn))
     * - 将 Alpine 基本镜像更新为 3.8.1。
-    * - 正确构建多拱镜像。
+    * - 正确构建多体系结构。
 
 <!--    
 * kubelet: fix grpc timeout in the CRI client ([#67793](https://github.com/kubernetes/kubernetes/pull/67793), [@fisherxu](https://github.com/fisherxu))
@@ -214,9 +214,9 @@ filename | sha256 hash
     * See https://github.com/kubernetes/autoscaler/releases/tag/1.12.0 for CA release notes.
 -->
 * kubelet：修复 CRI 客户端中的 grpc 超时 ([#67793](https://github.com/kubernetes/kubernetes/pull/67793), [@fisherxu](https://github.com/fisherxu))
-* 更新到 golang 1.10.4 ([#68802](https://github.com/kubernetes/kubernetes/pull/68802), [@ixdy](https://github.com/ixdy))
+* golang 升级为 1.10.4 ([#68802](https://github.com/kubernetes/kubernetes/pull/68802), [@ixdy](https://github.com/ixdy))
 * kubeadm 现在对 kube-dns 镜像使用 fat 清单 ([#68830](https://github.com/kubernetes/kubernetes/pull/68830), [@rosti](https://github.com/rosti))
-* 将集群 Autoscaler 版本更新为 1.12.0。 ([#68739](https://github.com/kubernetes/kubernetes/pull/68739), [@losipiuk](https://github.com/losipiuk))
+* 将集群 Autoscaler 版本升级为 1.12.0。 ([#68739](https://github.com/kubernetes/kubernetes/pull/68739), [@losipiuk](https://github.com/losipiuk))
     * 有关 CA 发行说明请查看：https://github.com/kubernetes/autoscaler/releases/tag/1.12.0。
     
 <!--    
@@ -224,9 +224,9 @@ filename | sha256 hash
 * New kubeDNS image fixes an issue where SRV records were incorrectly being compressed. Added manifest file for multiple arch images. ([#68430](https://github.com/kubernetes/kubernetes/pull/68430), [@prameshj](https://github.com/prameshj))
 * Drain should delete terminal pods. ([#68767](https://github.com/kubernetes/kubernetes/pull/68767), [@ravisantoshgudimetla](https://github.com/ravisantoshgudimetla))
 -->
-* kube-proxy 在 ipvs 模式下运行时恢复 *filter 表。 ([#68786](https://github.com/kubernetes/kubernetes/pull/68786), [@alexjx](https://github.com/alexjx))
+* kube-proxy 在 ipvs 模式下运行时恢复 `*filter` 表。 ([#68786](https://github.com/kubernetes/kubernetes/pull/68786), [@alexjx](https://github.com/alexjx))
 * 新的 KubeDNS 镜像修复了 SRV 记录被错误压缩的问题。为多个 arch 镜像添加了清单文件。 ([#68430](https://github.com/kubernetes/kubernetes/pull/68430), [@prameshj](https://github.com/prameshj))
-* Drain 应删除终端 pod。 ([#68767](https://github.com/kubernetes/kubernetes/pull/68767), [@ravisantoshgudimetla](https://github.com/ravisantoshgudimetla))
+* 腾空操作应删除已终止的 Pods。 ([#68767](https://github.com/kubernetes/kubernetes/pull/68767), [@ravisantoshgudimetla](https://github.com/ravisantoshgudimetla))
 
 
 
@@ -315,9 +315,9 @@ filename | sha256 hash
 ### Action Required
 -->
 
-## 自更新日志以来 v1.12.0-beta.2
+## 自 v1.12.0-beta.2 以来的更新日志
 
-### 功能要求
+### 需执行的操作
 
 <!--
 * Service events are now added in azure-cloud-provider for easily identify the underground errors of Azure API. ([#68212](https://github.com/kubernetes/kubernetes/pull/68212), [@feiskyer](https://github.com/feiskyer))
@@ -422,10 +422,10 @@ filename | sha256 hash
 * Verify invalid secret/configmap/projected volumes before calling setup ([#68691](https://github.com/kubernetes/kubernetes/pull/68691), [@gnufied](https://github.com/gnufied))
 -->
 
-* 将 metrics-server 更新为v0.3.1 ([#68746](https://github.com/kubernetes/kubernetes/pull/68746), [@DirectXMan12](https://github.com/DirectXMan12))
+* 将 metrics-server 更新为 v0.3.1 ([#68746](https://github.com/kubernetes/kubernetes/pull/68746), [@DirectXMan12](https://github.com/DirectXMan12))
 * 升级 kubeadm 版本的 docker 支持 ([#68495](https://github.com/kubernetes/kubernetes/pull/68495), [@yuansisi](https://github.com/yuansisi))
 * 修复一个错误，因为 $NAMESPACE 没有被字符串 "{namespace}" 替换，所以生成了大量的 prometheus 指标。 ([#68530](https://github.com/kubernetes/kubernetes/pull/68530), [@wenjiaswe](https://github.com/wenjiaswe))
-* 特性 gates `ReadOnlyAPIDataVolumes` 和 `ServiceProxyAllowExternalIPs` 已经被删除，而且必须从命令行调用中删除任何引用。 ([#67951](https://github.com/kubernetes/kubernetes/pull/67951), [@liggitt](https://github.com/liggitt))
+* 特性门控 `ReadOnlyAPIDataVolumes` 和 `ServiceProxyAllowExternalIPs` 已经被删除，而且必须从命令行调用中删除任何引用。 ([#67951](https://github.com/kubernetes/kubernetes/pull/67951), [@liggitt](https://github.com/liggitt))
 * 在调用设置之前，验证无效的 secret/configmap/projected 卷 ([#68691](https://github.com/kubernetes/kubernetes/pull/68691), [@gnufied](https://github.com/gnufied))
 
 <!--
@@ -546,9 +546,9 @@ filename | sha256 hash
 ### Action Required
 -->
 
-## 自更新日志以来 v1.12.0-beta.1
+## 自 v1.12.0-beta.1 以来的更新日志
 
-### 功能要求
+### 需执行的操作
 
 <!--
 * Action required: The --storage-versions flag of kube-apiserver is deprecated. Please omit this flag to ensure the default storage versions are used. Otherwise the cluster is not safe to upgrade to a version newer than 1.12. This flag will be removed in 1.13. ([#68080](https://github.com/kubernetes/kubernetes/pull/68080), [@caesarxuchao](https://github.com/caesarxuchao))
@@ -724,9 +724,9 @@ filename | sha256 hash
 ### Action Required
 -->
 
-## 自更新日志以来 v1.12.0-beta.1
+## 自 v1.12.0-beta.1 以来的更新日志
 
-### 功能要求
+### 需执行的操作
 
 
 
