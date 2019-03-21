@@ -132,6 +132,11 @@ Open the file in an editor and replace the following values:
     This should be updated to the local node's IP address.       
 -->
 
+<!--
+    This should be updated to include the hostname and IP address pairs for each control plane node in the cluster. For example:
+-->
+
+
 - `api.advertiseAddress`
 
     应将其设置为本地节点的 IP 地址。
@@ -142,7 +147,7 @@ Open the file in an editor and replace the following values:
 
 - `etcd.local.extraArgs.initial-advertise-peer-urls`
 
-   此值应该更新为本地节点的 IP 地址。
+    此值应该更新为本地节点的 IP 地址。
 
 - `etcd.local.extraArgs.listen-client-urls`
 
@@ -154,9 +159,6 @@ Open the file in an editor and replace the following values:
 
 - `etcd.local.extraArgs.initial-cluster`
 
-<!--
-    This should be updated to include the hostname and IP address pairs for each control plane node in the cluster. For example:
--->
     应更新此项以包含群集中每个控制平面节点的主机名和 IP 地址对。例如：
 
         "ip-172-31-92-42=https://172.31.92.42:2380,ip-172-31-89-186=https://172.31.89.186:2380,ip-172-31-90-42=https://172.31.90.42:2380"
@@ -231,16 +233,16 @@ Open the file in an editor and replace the following values for `ClusterConfigur
 
 - `etcd.local.extraArgs.listen-peer-urls`
 
-    这应该更新为本地节点的 IP 地址。
+   这应该更新为本地节点的 IP 地址。
 
 <!--
 You must also modify the `ClusterStatus` to add a mapping for the current host under apiEndpoints.
 
 Add an annotation for the cri-socket to the current node, for example to use docker:
 -->
-您还必须修改 `ClusterStatus` 为 apiEndpoints 下的当前主机添加映射。
+您还必须修改 `ClusterStatus`， 为 apiEndpoints 下的当前主机添加映射。
 
-将 cri-socket 的注释添加到当前节点，例如使用 docker：
+将 cri-socket 的注解添加到当前节点，例如使用 docker：
 
 ```shell
 kubectl annotate node <nodename> kubeadm.alpha.kubernetes.io/cri-socket=/var/run/dockershim.sock
@@ -301,7 +303,7 @@ Now run the upgrade on each control plane node one at a time.
 -->
 在编辑器中打开文件并设置 `api.advertiseAddress` 为本地节点的 IP 地址。
 
-现在，逐个控制平面节点地运行升级。
+现在，在每个控制平面节点上分别执行升级命令。
 
 ```
 kubeadm upgrade apply v1.12.0 --config kubeadm-config.yaml
@@ -386,7 +388,7 @@ systemctl status kubelet
 <!--
 Verify that the upgraded node is available again by running the following command from wherever you run `kubectl`:
 -->
-通过从 kubectl 所处的任何位置运行以下命令，再次验证已升级的节点是否可用：
+无论当前路径在哪里，使用 `kubectl` 运行以下命令，再次验证已升级的节点是否可用：
 
 ```shell
 kubectl get nodes
@@ -411,7 +413,7 @@ If the upgrade fails, see whether one of the following scenarios applies:
 
 ## 如果出现问题
 
-如果升级失败，请查看是否适用以下方案之一：
+如果升级失败，请检查是否符合以下列出的可能场景：
 
 - 如果 `kubeadm upgrade apply` 无法升级集群，它将尝试执行回滚。如果在第一个主控节点上就是这种情况，则集群可能仍然完好无损。
 
