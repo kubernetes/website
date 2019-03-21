@@ -67,7 +67,7 @@ Horizontal Pod Autoscaler는 컨트롤러
 HorizontalPodAutoscaler는 보통 일련의 API 집합(`metrics.k8s.io`, 
 `custom.metrics.k8s.io`, `external.metrics.k8s.io`)에서 메트릭을 가져온다. `metrics.k8s.io` API는 대개 별도로 
 시작해야 하는 메트릭-서버에 의해 제공된다. 가이드는 
-[메트릭-서버](https://kubernetes.io/docs/tasks/debug-application-cluster/core-metrics-pipeline/#metrics-server)를 
+[메트릭-서버](/docs/tasks/debug-application-cluster/core-metrics-pipeline/#metrics-server)를 
 참조한다. HorizontalPodAutoscaler는 힙스터(Heapster)에서 직접 메트릭을 가져올 수도 있다.
 
 {{< note >}}
