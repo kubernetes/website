@@ -1,13 +1,9 @@
 ---
 title: Kubernetes End-to-end Testing for Everyone
-date: 2019-03-30
+date: 2019-03-22
 ---
 
-**Author:**
-Patrick Ohly (Intel)
-
-## Kubernetes E2E Testing for Everyone
-Author: Patrick Ohly (Intel)
+**Author:** Patrick Ohly (Intel)
 
 More and more components that used to be part of Kubernetes are now
 being developed outside of Kubernetes. For example, storage drivers
@@ -94,7 +90,7 @@ that gets implemented separately by each vendor package.
 The author of a E2E test suite decides which of these packages get
 imported into the test suite. The vendor support is then activated via
 the `--provider` command line flag. The Kubernetes e2e.test binary in
-1.13 and 1.14 still contains support for the same same providers as in
+1.13 and 1.14 still contains support for the same providers as in
 1.12. It is also okay to include no packages, which means that only
 the generic providers will be available:
 
