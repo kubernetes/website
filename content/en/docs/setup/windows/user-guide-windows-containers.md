@@ -87,7 +87,7 @@ Port mapping is also supported, but for simplicity in this example the container
     kubectl get pods -o wide -w
     ```
 
-    When the service is deployed correctly both Pods will be marked as Ready. To exit the watch command, press Ctrl+C.
+    When the service is deployed correctly both Pods are marked as Ready. To exit the watch command, press Ctrl+C.
 
 1. Check that the deployment succeeded. To verify:
 
@@ -110,7 +110,7 @@ Starting with Kubernetes v1.14, Windows container workloads can be configured to
 
 ## Taints and Tolerations
 
-Users today will need to use some combination of taints and node selectors in order to keep Linux and Windows workloads on their respective OS-specific nodes. This will likely impose a burden only on Windows users. The recommended approach is outlined below, with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
+Users today need to use some combination of taints and node selectors in order to keep Linux and Windows workloads on their respective OS-specific nodes. This likely imposes a burden only on Windows users. The recommended approach is outlined below, with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
 ### Ensuring OS-specific workloads land on the appropriate container host
 

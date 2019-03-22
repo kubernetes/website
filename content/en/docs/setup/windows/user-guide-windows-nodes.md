@@ -20,7 +20,7 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 
 ## Before you begin
 
-* Obtain a [Windows Server license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) in order to run the Windows node that will execute the Windows container. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
+* Obtain a [Windows Server license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) in order to configure the Windows node that hosts Windows containers. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
 * Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Getting Started from Scratch](/docs/setup/scratch/), [kubeadm](/docs/setup/independent/create-cluster-kubeadm/), [AKS Engine](/docs/setup/turnkey/azure/), [GCE](/docs/setup/turnkey/gce/), [AWS](/docs/setup/turnkey/aws/)).
 
 ## Getting Started: Adding a Windows Node to Your Cluster
@@ -29,19 +29,19 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 
 Kubernetes cluster management requires careful planning of your IP addresses so that you do not inadvertently cause network collision. This guide assumes that you are familiar with the [Kubernetes networking concepts](/docs/concepts/cluster-administration/networking/).
 
-In order to deploy your cluster you will need the following address spaces:
+In order to deploy your cluster you need the following address spaces:
 
 | Subnet / address range | Description | Default value |
 | --- | --- | --- |
 | Service Subnet | A non-routable, purely virtual subnet that is used by pods to uniformly access services without caring about the network topology. It is translated to/from routable address space by `kube-proxy` running on the nodes. | 10.96.0.0/12 |
 | Cluster Subnet | This is a global subnet that is used by all pods in the cluster. Each node is assigned a smaller /24 subnet from this for their pods to use. It must be large enough to accommodate all pods used in your cluster. To calculate *minimumsubnet* size: `(number of nodes) + (number of nodes * maximum pods per node that you configure)`. Example: for a 5 node cluster for 100 pods per node: `(5) + (5 * 100) = 505.` | 10.244.0.0/16 |
-| Kubernetes DNS Service IP | IP address of `kube-dns` service that will be used for DNS resolution & cluster service discovery. | 10.96.0.10 |
+| Kubernetes DNS Service IP | IP address of `kube-dns` service that is used for DNS resolution & cluster service discovery. | 10.96.0.10 |
 
 Review the networking options supported in 'Intro to Windows containers in Kubernetes: Supported Functionality: Networking' to determine how you need to allocate IP addresses for your cluster.
 
 ### Components that run on Windows
 
-While the Kubernetes control plane runs on your Linux node(s), the following components will be configured and run on your Windows node(s).
+While the Kubernetes control plane runs on your Linux node(s), the following components are configured and run on your Windows node(s).
 
 1. kubelet
 2. kube-proxy
@@ -225,7 +225,7 @@ wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/s
 ```
 
 {{< note >}}
-[start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1) references [install.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/install.ps1), which will download additional files such as the `flanneld` executable and the [Dockerfile for infrastructure pod](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) and install those for you. For overlay networking mode, the [firewall](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/helper.psm1#L111) will be opened for local UDP port 4789. There may be multiple powershell windows being opened/closed as well as a few seconds of network outage while the new external vSwitch for the pod network is being created the first time. Run the script using the arguments as specified below:
+[start.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1) references [install.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/install.ps1), which downloads additional files such as the `flanneld` executable and the [Dockerfile for infrastructure pod](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile) and install those for you. For overlay networking mode, the [firewall](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/helper.psm1#L111) is opened for local UDP port 4789. There may be multiple powershell windows being opened/closed as well as a few seconds of network outage while the new external vSwitch for the pod network is being created the first time. Run the script using the arguments as specified below:
 {{< /note >}}
 
 ```PowerShell
