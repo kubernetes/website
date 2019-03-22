@@ -135,8 +135,8 @@ The approach in v1.12 was to add all flags to the central
 [test/e2e/framework/test_context.go](https://github.com/kubernetes/kubernetes/blob/v1.12.0/test/e2e/framework/test_context.go),
 which does not work for tests developed independently from the
 framework.  Since [PR
-#69105](https://github.com/kubernetes/kubernetes/pull/69105) it has
-been clarified that each test can use the normal `flag` package to
+#69105](https://github.com/kubernetes/kubernetes/pull/69105) the
+recommendation has been to use the normal `flag` package to
 define its parameters, in its own source code. Flag names must be
 hierarchical with dots separating different levels, for example
 `my.test.parameter`, and must be unique. Uniqueness is enforced by the
@@ -154,6 +154,14 @@ To summarize, this is how parameters are handled now:
 * The init code of the test suite parses parameters and (optionally)
   the configuration file.
 * The tests run and now can use parameter values.
+
+However, recently it [was pointed
+out](https://github.com/kubernetes/kubernetes/pull/69105#discussion_r267960062)
+that it is desirable and was possible to not expose test settings as
+command line flags and only set them via a configuration file. There
+is an [open bug](https://github.com/kubernetes/kubernetes/issues/75590) and a
+[pending PR](https://github.com/kubernetes/kubernetes/pull/75593)
+about this.
 
 Viper support has been enhanced. Like the provider support, it is
 completely optional. It gets pulled into a e2e.test binary by
