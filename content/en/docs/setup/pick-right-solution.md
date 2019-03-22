@@ -107,7 +107,7 @@ cluster.
 
 * [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm) is a fully-managed, scalable, and highly available service that you can use to deploy your containerized applications to the cloud.
 
-* [Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or on any public cloud, and provides 24/7 health monitoring and alerting. (Kube2go, a web-UI driven Kubernetes cluster deployment service Platform9 released, has been integrated to Platform9 Sandbox.)
+* [Platform9](https://platform9.com/products/managed-kubernetes/) offers managed Kubernetes service that works on-premises or on any public cloud, with 99.9% SLA guarantee.
 
 * [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
@@ -143,6 +143,7 @@ few commands. These solutions are actively developed and have active community s
 * [Nutanix Karbon](https://www.nutanix.com/products/karbon/)
 * [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
+* [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Supergiant.io](https://supergiant.io/)
@@ -167,6 +168,7 @@ few commands.
 * [Nirmata](https://nirmata.com/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
+* [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/)
 * [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
@@ -206,6 +208,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [oVirt](/docs/setup/on-premises-vm/ovirt/)
+* [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/) works on any infrastructure: on-premises, bare metal, or private/hybrid cloud.
 * [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-PKS)
 * [VMware vSphere](https://github.com/kubernetes/cloud-provider-vsphere)
 * [VMware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
@@ -218,6 +221,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
+* [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/) works on any infrastructure: on-premises, bare metal, or private/hybrid cloud.
 * [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-PKS)
 
 ### Integrations
