@@ -1,3 +1,3 @@
-The topics in the [User Guide](/docs/user-guide/) section of the Kubernetes docs
-are being moved to the [Tasks](/docs/tasks/), [Tutorials](/docs/tutorials/), and
-[Concepts](/docs/concepts) sections. The content in this topic has moved to:
+Die Themene im [User Guide](/docs/user-guide/) Bereich der Kubernetes Dokumentation
+werden in die [Tasks](/docs/tasks/), [Tutorials](/docs/tutorials/), und
+[Konzepte](/docs/concepts) Bereiche verschoben. Der Inhalt dieses Themas wurde verschoben nach:

@@ -1,7 +1,4 @@
 ---
-reviewers:
-- bgrant0607
-- mikedanese
 title: Was ist Kubernetes?
 content_template: templates/concept
 weight: 10
