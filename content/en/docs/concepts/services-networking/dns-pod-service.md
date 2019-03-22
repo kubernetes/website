@@ -112,7 +112,7 @@ spec:
   hostname: busybox-1
   subdomain: default-subdomain
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
@@ -128,7 +128,7 @@ spec:
   hostname: busybox-2
   subdomain: default-subdomain
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
@@ -192,7 +192,7 @@ metadata:
   namespace: default
 spec:
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
