@@ -302,4 +302,20 @@ kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec":
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
 
+## The NodeRegistration.Taints field is omitted when marshalling kubeadm configuration
+
+*Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
+
+By default, kubeadm applies the `role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
+If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
+the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
+
+There are at least two workarounds:
+
+1. Use the `role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
+
+2. Remove the taint after kubeadm init exits:
+```bash
+kubectl taint nodes NODE_NAME role.kubernetes.io/master:NoSchedule-
+```
 {{% /capture %}}
