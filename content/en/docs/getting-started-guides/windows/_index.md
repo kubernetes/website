@@ -272,14 +272,14 @@ Use your preferred method to start Kubernetes cluster on Linux. Please note that
 
 ## Support for kubeadm join
 
-If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/),
+If your cluster has been created by [kubeadm](/docs/setup/independent/create-cluster-kubeadm/),
 and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the master with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux worker nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
 
 The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive. Adding a Windows node is not any different than adding a Linux node:
 
 `kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
 
-See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) for more details.
+See [joining-your-nodes](/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) for more details.
 
 ## Supported Features
 

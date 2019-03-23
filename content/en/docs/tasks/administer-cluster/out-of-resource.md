@@ -205,7 +205,7 @@ If `nodefs` filesystem has met eviction thresholds, `kubelet` frees up disk spac
 If the `kubelet` is unable to reclaim sufficient resource on the node, `kubelet` begins evicting Pods.
 
 The `kubelet` ranks Pods for eviction first by whether or not their usage of the starved resource exceeds requests,
-then by [Priority](https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/), and then by the consumption of the starved compute resource relative to the Pods' scheduling requests.
+then by [Priority](/docs/concepts/configuration/pod-priority-preemption/), and then by the consumption of the starved compute resource relative to the Pods' scheduling requests.
 
 As a result, `kubelet` ranks and evicts Pods in the following order:
 

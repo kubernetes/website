@@ -64,7 +64,7 @@ Support for Windows Server-based containers is in alpha release mode for Kuberne
 - **Runtime Operations** - the SIG will play a key part in defining the monitoring interface of the Container Runtime Interface (CRI), leveraging it to provide deep insight and monitoring for Windows Server-based containers
 **Get Started**  
 
-To get started with Kubernetes on Windows Server 2016, please visit the [GitHub guide](http://kubernetes.io/docs/getting-started-guides/windows/) for more details.  
+To get started with Kubernetes on Windows Server 2016, please visit the [GitHub guide](/docs/getting-started-guides/windows/) for more details.  
 If you want to help with Windows Server support, then please connect with the [Windows Server SIG](https://github.com/kubernetes/community/blob/master/sig-windows/README.md) or connect directly with Michael Michael, the SIG lead, on [GitHub](https://github.com/michmike).&nbsp;  
 
 _--[Michael Michael](https://twitter.com/michmike77), Senior Director of Product Management, Apprenda&nbsp;_  

@@ -393,6 +393,11 @@ body {
     text-decoration: none;
   }
 
+div a.button {
+  font-size: 16px;
+}
+
+
  a:link.button {
     color: #ffffff;
   }

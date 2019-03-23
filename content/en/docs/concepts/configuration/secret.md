@@ -623,10 +623,10 @@ start until all the pod's volumes are mounted.
 Create a secret containing some ssh keys:
 
 ```shell
-kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa 
+kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 ```
---from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
+secret "ssh-key-secret" created
 ```
 
 {{< caution >}}
@@ -676,10 +676,8 @@ credentials.
 Make the secrets:
 
 ```shell
-kubectl create secret generic prod-db-secret --from-literal=username=produser 
---from-literal=password=Y4nys7f11
+kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
 ```
-
 ```
 secret "prod-db-secret" created
 ```

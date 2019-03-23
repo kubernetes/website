@@ -973,7 +973,7 @@ to expose HTTP / HTTPS services.
 
 {{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
-If your cloud provider supports it (eg, [AWS](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#aws)),
+If your cloud provider supports it (eg, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
 you can use a Service in LoadBalancer mode to configure a load balancer outside
 of Kubernetes itself, that will forward connections prefixed with
 [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).

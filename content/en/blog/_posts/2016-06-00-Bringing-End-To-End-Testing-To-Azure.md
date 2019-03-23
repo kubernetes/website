@@ -17,11 +17,11 @@ In this blog post, we describe the journey we took to implement deployment scrip
 
 **BACKGROUND**
 
-While Kubernetes is designed to operate on any IaaS, and [solution guides](http://kubernetes.io/docs/getting-started-guides/#table-of-solutions) exist for many platforms including [Google Compute Engine](http://kubernetes.io/docs/getting-started-guides/gce/), [AWS](http://kubernetes.io/docs/getting-started-guides/aws/), [Azure](http://kubernetes.io/docs/getting-started-guides/coreos/azure/), and [Rackspace](http://kubernetes.io/docs/getting-started-guides/rackspace/), the Kubernetes project refers to these as “versioned distros,” as they are only tested against a particular binary release of Kubernetes. On the other hand, “development distros” are used daily by automated, e2e tests for the latest Kubernetes source code, and serve as gating checks to code submission.
+While Kubernetes is designed to operate on any IaaS, and [solution guides](/docs/getting-started-guides/#table-of-solutions) exist for many platforms including [Google Compute Engine](/docs/getting-started-guides/gce/), [AWS](/docs/getting-started-guides/aws/), [Azure](/docs/getting-started-guides/coreos/azure/), and [Rackspace](/docs/getting-started-guides/rackspace/), the Kubernetes project refers to these as “versioned distros,” as they are only tested against a particular binary release of Kubernetes. On the other hand, “development distros” are used daily by automated, e2e tests for the latest Kubernetes source code, and serve as gating checks to code submission.
 
 
 
-When we first surveyed existing support for Kubernetes on Azure, we found documentation for running Kubernetes on Azure using CoreOS and Weave. The documentation includes [scripts for deployment](http://kubernetes.io/docs/getting-started-guides/coreos/azure/), but the scripts do not conform to the cluster/kube-up.sh framework for automated cluster creation required by a “development distro.” Further, there did not exist a continuous integration job that utilized the scripts to validate Kubernetes using the end-to-end test scenarios (those found in test/e2e  in the Kubernetes repository).
+When we first surveyed existing support for Kubernetes on Azure, we found documentation for running Kubernetes on Azure using CoreOS and Weave. The documentation includes [scripts for deployment](/docs/getting-started-guides/coreos/azure/), but the scripts do not conform to the cluster/kube-up.sh framework for automated cluster creation required by a “development distro.” Further, there did not exist a continuous integration job that utilized the scripts to validate Kubernetes using the end-to-end test scenarios (those found in test/e2e  in the Kubernetes repository).
 
 
 

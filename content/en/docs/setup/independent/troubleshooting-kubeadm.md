@@ -130,7 +130,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -278,6 +278,6 @@ Alternativelly, you can try separating the `key=value` pairs like so:
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
 A known workaround is to use the kubeadm
-[configuration file](https://kubernetes.io/docs/setup/independent/control-plane-flags/#apiserver-flags).
+[configuration file](/docs/setup/independent/control-plane-flags/#apiserver-flags).
 
 {{% /capture %}}

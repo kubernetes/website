@@ -105,7 +105,7 @@ spec:
 ```
 
 
-If a Namespace does not have a Network spec, it will use the default Kubernetes network model instead, including the default kube-proxy. So if a user creates a Pod in a Namespace with an associated Network, Hypernetes will follow the [Kubernetes Network Plugin Model](http://kubernetes.io/docs/admin/network-plugins/) to set up a Neutron network for this Pod. Here is a high level example:
+If a Namespace does not have a Network spec, it will use the default Kubernetes network model instead, including the default kube-proxy. So if a user creates a Pod in a Namespace with an associated Network, Hypernetes will follow the [Kubernetes Network Plugin Model](/docs/admin/network-plugins/) to set up a Neutron network for this Pod. Here is a high level example:
 
 
 

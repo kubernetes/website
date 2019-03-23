@@ -94,7 +94,7 @@ sudo chmod +x /usr/local/bin/kubefed
 ### Install kubectl
 
 You can install a matching version of kubectl using the instructions on
-the  [kubectl install page](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+the  [kubectl install page](/docs/tasks/tools/install-kubectl/).
 
 ## Choosing a host cluster.
 

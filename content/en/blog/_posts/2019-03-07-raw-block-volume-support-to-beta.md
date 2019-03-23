@@ -104,13 +104,13 @@ Raw block support for CSI plugins is still alpha, but support can be added today
 
 Because block devices are actually devices, it’s possible to do low-level actions on them from inside containers that wouldn’t be possible with file system volumes. For example, block devices that are actually SCSI disks support sending SCSI commands to the device using Linux ioctls.
 
-By default, Linux won’t allow containers to send SCSI commands to disks from inside containers though. In order to do so, you must grant the `SYS_RAWIO` capability to the container security context to allow this. See documentation [here](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container).
+By default, Linux won’t allow containers to send SCSI commands to disks from inside containers though. In order to do so, you must grant the `SYS_RAWIO` capability to the container security context to allow this. See documentation [here](/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container).
 
 Also, while Kubernetes is guaranteed to deliver a block device to the container, there’s no guarantee that it’s actually a SCSI disk or any other kind of disk for that matter. The user must either ensure that the desired disk type is used with his pods, or only deploy applications that can handle a variety of block device types.
 
 ## How can I learn more?
 
-Check out additional documentation on the snapshot feature here: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#raw-block-volume-support
+Check out additional documentation on the snapshot feature here: /docs/concepts/storage/persistent-volumes/#raw-block-volume-support
 
 How do I get involved?
 

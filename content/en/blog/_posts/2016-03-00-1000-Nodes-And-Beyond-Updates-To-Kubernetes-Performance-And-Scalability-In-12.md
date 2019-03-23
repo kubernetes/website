@@ -26,7 +26,7 @@ We say Kubernetes scales to a certain number of nodes only if both of these SLOs
 
 
 ### API responsiveness for user-level abstractions[2](https://www.blogger.com/blogger.g?blogID=112706738355446097#2)&nbsp;
-Kubernetes offers high-level abstractions for users to represent their applications. For example, the ReplicationController is an abstraction representing a collection of [pods](http://kubernetes.io/docs/user-guide/pods/). Listing all ReplicationControllers or listing all pods from a given ReplicationController is a very common use case. On the other hand, there is little reason someone would want to list all pods in the system&nbsp;—&nbsp;for example, 30,000 pods (1000 nodes with 30 pods per node) represent ~150MB of data (~5kB/pod \* 30k pods). So this test uses ReplicationControllers.  
+Kubernetes offers high-level abstractions for users to represent their applications. For example, the ReplicationController is an abstraction representing a collection of [pods](/docs/user-guide/pods/). Listing all ReplicationControllers or listing all pods from a given ReplicationController is a very common use case. On the other hand, there is little reason someone would want to list all pods in the system&nbsp;—&nbsp;for example, 30,000 pods (1000 nodes with 30 pods per node) represent ~150MB of data (~5kB/pod \* 30k pods). So this test uses ReplicationControllers.  
 
 For this test (assuming N to be number of nodes in the cluster), we:  
 
