@@ -1,5 +1,5 @@
 ---
-title: Kubernetes Version and Version Skew Support Policy
+title: Kubernetesバージョンとバージョンスキューサポートポリシー
 content_template: templates/concept
 weight: 70
 ---
@@ -11,7 +11,7 @@ Specific cluster deployment tools may place additional restrictions on version s
 
 {{% capture body %}}
 
-## Supported versions
+## サポートされるバージョン
 
 Kubernetes versions are expressed as **x.y.z**,
 where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](http://semver.org/) terminology.
@@ -26,7 +26,7 @@ The patch release manager is a member of the [release team for each release](htt
 
 Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
 
-## Supported version skew
+## サポートされるバージョンスキュー
 
 ### kube-apiserver
 
@@ -55,7 +55,7 @@ Example:
 * `kube-apiserver` instances are at **1.13** and **1.12**
 * `kubelet` is supported at **1.12**, and **1.11** (**1.13** is not supported because that would be newer than the `kube-apiserver` instance at version **1.12**)
 
-### kube-controller-manager, kube-scheduler, and cloud-controller-manager
+### kube-controller-manager、kube-schedulerとcloud-controller-manager
 
 `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
 
@@ -92,7 +92,7 @@ Example:
 * `kube-apiserver` instances are at **1.13** and **1.12**
 * `kubectl` is supported at **1.13** and **1.12** (other versions would be more than one minor version skewed from one of the `kube-apiserver` components)
 
-## Supported component upgrade order
+## サポートされるコンポーネントのアップグレード順序
 
 The supported version skew between components has implications on the order in which components must be upgraded.
 This section describes the order in which components must be upgraded to transition an existing cluster from version **1.n** to version **1.(n+1)**.
@@ -117,7 +117,7 @@ Project policies for [API deprecation](https://kubernetes.io/docs/reference/usin
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}
 
-### kube-controller-manager, kube-scheduler, and cloud-controller-manager
+### kube-controller-manager、kube-schedulerとcloud-controller-manager
 
 Pre-requisites:
 
