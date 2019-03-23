@@ -237,6 +237,7 @@ The following networking functionality is not supported on Windows nodes
 * Overlay networking support in kube-proxy is an alpha release. In addition, it requires [KB4482887](https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887) to be installed on Windows Server 2019
 * `kubectl port-forward`
 * Local Traffic Policy and DSR mode
+* Windows containers connected to l2bridge, l2tunnel, or overlay networks do not support communicating over the IPv6 stack. There is outstanding Windows platform work required to enable these network drivers to consume IPv6 addresses and subsequent Kubernetes work in kubelet, kube-proxy, and CNI plugins.
 * Outbound communication using the ICMP protocol via the win-overlay, win-bridge, and Azure-CNI plugin. Specifically, the Windows data plane ([VFP](https://www.microsoft.com/en-us/research/project/azure-virtual-filtering-platform/)) doesn't support ICMP packet transpositions. This means:
   * ICMP packets directed to destinations within the same network (e.g. pod to pod communication via ping) work as expected and without any limitations
   * TCP/UDP packets work as expected and without any limitations
