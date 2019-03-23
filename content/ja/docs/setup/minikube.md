@@ -240,11 +240,11 @@ imagePullPolicyを常にオフにすることを忘れないでください: さ
 
 ### クラスターの起動
 
-`minikube start` コマンドはクラスタを起動することができます。
-このコマンドはシングルノードのKubernetesクラスタを実行する仮想マシンを作成・設定します。
-また、このクラスタと通信する [kubectl](/docs/user-guide/kubectl-overview/) のインストールも設定します。
+`minikube start` コマンドはクラスターを起動することができます。
+このコマンドはシングルノードのKubernetesクラスターを実行する仮想マシンを作成・設定します。
+また、このクラスターと通信する [kubectl](/docs/user-guide/kubectl-overview/) のインストールも設定します。
 
-もしWebプロキシを通している場合、そのプロキシ情報を `minikube start` コマンドに渡す必要があります:
+もしWebプロキシーを通している場合、そのプロキシー情報を `minikube start` コマンドに渡す必要があります:
 
 ```shell
 https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
@@ -294,12 +294,12 @@ Kubeletの `MaxPods` 設定を5に変更するには、このフラグを渡し�
 `apiserver` の `AuthorizationMode` を `RABC` に設定するには、このフラグを使います: `--extra-config=apiserver.authorization-mode=RBAC`.
 
 ### クラスターの停止
-`minikube stop` コマンドを使ってクラスタを停止することができます。
-このコマンドはMinikube仮想マシンをシャットダウンしますが、すべてのクラスタの状態とデータを保存します。
-クラスタを再起動すると、以前の状態に復元されます。
+`minikube stop` コマンドを使ってクラスターを停止することができます。
+このコマンドはMinikube仮想マシンをシャットダウンしますが、すべてのクラスターの状態とデータを保存します。
+クラスターを再起動すると、以前の状態に復元されます。
 
 ### クラスターの削除
-`minikube delete` コマンドを使ってクラスタを削除することができます。
+`minikube delete` コマンドを使ってクラスターを削除することができます。
 このコマンドはMinikube仮想マシンをシャットダウンして削除します。データや状態は保存されません。
 
 ## クラスターに触れてみよう
@@ -307,7 +307,7 @@ Kubeletの `MaxPods` 設定を5に変更するには、このフラグを渡し�
 ### Kubectl
 
 `minikube start` コマンドは "minikube" という[kubectl context](/docs/reference/generated/kubectl/kubectl-commands#-em-set-context-em-)を作成します。
-このコンテキストはMinikubeクラスタと通信するための設定が含まれています。
+このコンテキストはMinikubeクラスターと通信するための設定が含まれています。
 
 Minikubeはこのコンテキストを自動的にデフォルトに設定しますが、将来的に設定を切り戻す場合には次のコマンドを実行してください:
 
@@ -342,10 +342,10 @@ NodePort上では、NodePortタイプのどのサービスもそのIPアドレ�
 
 ## 永続化ボリューム
 Minikubeは `hostPath` タイプの[PersistentVolumes](/docs/concepts/storage/persistent-volumes/)をサポートします。
-このPersistentVolumesはMinikubeのVM内のディレクトリにマッピングされます。
+このPersistentVolumesはMinikubeのVM内のディレクトリーにマッピングされます。
 
-MinikubeのVMはtmpfsで起動するため、ほとんどのディレクトリは再起動しても持続しません (`minikube stop`)。
-しかし、Minikubeは以下のホストディレクトリに保存されているファイルを保持するように設定されています:
+MinikubeのVMはtmpfsで起動するため、ほとんどのディレクトリーは再起動しても持続しません (`minikube stop`)。
+しかし、Minikubeは以下のホストディレクトリーに保存されているファイルを保持するように設定されています:
 
 * `/data`
 * `/var/lib/minikube`
@@ -368,10 +368,10 @@ spec:
 ```
 
 ## ホストフォルダーのマウント
-一部のドライバはVM内にホストフォルダをマウントするため、VMとホストの間でファイルを簡単に共有できます。これらは現時点では設定可能ではなく、使用しているドライバとOSによって異なります。
+一部のドライバーはVM内にホストフォルダーをマウントするため、VMとホストの間でファイルを簡単に共有できます。これらは現時点では設定可能ではなく、使用しているドライバーとOSによって異なります。
 
 {{< note >}}
-ホストフォルダの共有はKVMドライバにはまだ実装されていません。
+ホストフォルダーの共有はKVMドライバーにはまだ実装されていません。
 {{< /note >}}
 
 | Driver | OS | HostFolder | VM |
@@ -399,7 +399,7 @@ Minikubeで起動したいアドオンを `~/.minikube/addons` ディレクト�
 MinikubeはKubernetesとDockerデーモンを含む仮想マシンを作成します。
 KubernetesがDockerを使用してコンテナをスケジュールしようとする際、Dockerデーモンはコンテナをプルするために外部ネットワークを必要とする場合があります。
 
-HTTPプロキシを通している場合には、プロキシ設定をDockerに提供する必要があります。
+HTTPプロキシーを通している場合には、プロキシー設定をDockerに提供する必要があります。
 これを行うには、`minikube start` に必要な環境変数をフラグとして渡します。
 
 例:
@@ -409,22 +409,22 @@ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
                --docker-env https_proxy=https://$YOURPROXY:PORT
 ```
 
-仮想マシンのアドレスが192.168.99.100の場合、プロキシの設定により `kubectl` が直接アクセスできない可能性があります。
-このIPアドレスのプロキシ設定を迂回するには、以下のようにno_proxy設定を変更する必要があります。
+仮想マシンのアドレスが192.168.99.100の場合、プロキシーの設定により `kubectl` が直接アクセスできない可能性があります。
+このIPアドレスのプロキシー設定を迂回するには、以下のようにno_proxy設定を変更する必要があります。
 
 ```shell
 export no_proxy=$no_proxy,$(minikube ip)
 ```
 
 ## 既知の問題
-* クラウドプロバイダを必要とする機能はMinikubeでは動作しません
-  * ロードバランサ
+* クラウドプロバイダーを必要とする機能はMinikubeでは動作しません
+  * ロードバランサー
 * 複数ノードを必要とする機能
   * 高度なスケジューリングポリシー
 
 ## 設計
 
-MinikubeはVMのプロビジョニングに[libmachine](https://github.com/docker/machine/tree/master/libmachine)を使用し、[kubeadm](https://github.com/kubernetes/kubeadm)をKubernetesクラスタのプロビジョニングに使用します。
+MinikubeはVMのプロビジョニングに[libmachine](https://github.com/docker/machine/tree/master/libmachine)を使用し、[kubeadm](https://github.com/kubernetes/kubeadm)をKubernetesクラスターのプロビジョニングに使用します。
 
 Minikubeの詳細については、[proposal](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md)を参照してください。
 
