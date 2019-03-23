@@ -29,7 +29,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 ## クイックスタート
 
 これはMinikubeの使い方の簡単なデモです。
-もしVMドライバを変更したい場合は、適切な `--vm-driver=xx` フラグを `minikube start` に設定してください。Minikubeは以下のドライバをサポートしています。
+もしVMドライバを変更したい場合は、適切な `--vm-driver=xxx` フラグを `minikube start` に設定してください。Minikubeは以下のドライバをサポートしています。
 
 * virtualbox
 * vmwarefusion
@@ -334,7 +334,7 @@ minikube service [-n NAMESPACE] [--url] NAME
 ## ネットワーク
 
 MinikubeのVMは `minikube ip`コマンドで取得できるホストオンリーIPアドレスを介してホストシステムに公開されます。
-NodePort上では、NodePortタイプのどのサービスもそのIPアドレスを介してアクセスできます。
+NodePort上では、 `NodePort` タイプのどのサービスもそのIPアドレスを介してアクセスできます。
 
 サービスのNodePortを決定するには、`kubectl` コマンドを次のように使用します:
 
