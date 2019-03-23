@@ -1,5 +1,5 @@
 ---
-title: Running Kubernetes on Multiple Clouds with IBM Cloud Private
+title: IBM Cloud Privateを使ってマルチクラウドでKubernetesを動かす
 ---
 
 IBM® Cloud Private is a turnkey cloud solution and an on-premises turnkey cloud solution. IBM Cloud Private delivers pure upstream Kubernetes with the typical management components that are required to run real enterprise workloads. These workloads include health management, log management, audit trails, and metering for tracking usage of workloads on the platform.
@@ -12,7 +12,7 @@ For more information, explore the following resources:
 * [Reference architecture for IBM Cloud Private](https://github.com/ibm-cloud-architecture/refarch-privatecloud)
 * [IBM Cloud Private documentation](https://www.ibm.com/support/knowledgecenter/SSBS6K/product_welcome_cloud_private.html)
 
-## IBM Cloud Private and Terraform
+## IBM Cloud PrivateとTerraform
 
 The following modules are available where you can deploy IBM Cloud Private by using Terraform:
 
@@ -23,7 +23,7 @@ The following modules are available where you can deploy IBM Cloud Private by us
 * Terraform module: [Deploy IBM Cloud Private on any supported infrastructure vendor](https://github.com/ibm-cloud-architecture/terraform-module-icp-deploy)
 * VMware: [Deploy IBM Cloud Private to VMware](https://github.com/ibm-cloud-architecture/terraform-icp-vmware)
 
-## IBM Cloud Private on AWS
+## AWS上でのIBM Cloud Private
 
 You can deploy an IBM Cloud Private cluster on Amazon Web Services (AWS) by using either AWS CloudFormation or Terraform.
 
@@ -33,11 +33,11 @@ This Quick Start is for users who want to explore application modernization and 
 
 IBM Cloud Private can also run on the AWS cloud platform by using Terraform. To deploy IBM Cloud Private in an AWS EC2 environment, see [Installing IBM Cloud Private on AWS](https://github.com/ibm-cloud-architecture/refarch-privatecloud/blob/master/Installing_ICp_on_aws.md).
 
-## IBM Cloud Private on Azure
+## Azure上でのIBM Cloud Private
 
 You can enable Microsoft Azure as a cloud provider for IBM Cloud Private deployment and take advantage of all the IBM Cloud Private features on the Azure public cloud. For more information, see [IBM Cloud Private on Azure](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.1.2/supported_environments/azure_overview.html).
 
-## IBM Cloud Private on Red Hat OpenShift
+## Red Hat OpenShift上でのIBM Cloud Private
 
 You can deploy IBM certified software containers that are running on IBM Cloud Private onto Red Hat OpenShift.
 
@@ -51,11 +51,11 @@ Integration capabilities:
 
 For more information see, [IBM Cloud Private on OpenShift](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.1.2/supported_environments/openshift/overview.html).
 
-## IBM Cloud Private on VirtualBox
+## VirtualBox上でのIBM Cloud Private
 
 To install IBM Cloud Private to a VirtualBox environment, see [Installing IBM Cloud Private on VirtualBox](https://github.com/ibm-cloud-architecture/refarch-privatecloud-virtualbox).
 
-## IBM Cloud Private on VMware
+## VMware上でのIBM Cloud Private
 
 You can install IBM Cloud Private on VMware with either Ubuntu or RHEL images. For details, see the following projects:
 
