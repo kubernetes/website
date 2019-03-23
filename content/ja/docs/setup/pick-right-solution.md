@@ -46,9 +46,9 @@ MacまたはWindows環境に簡単にインストールできるアプリケー�
 単一ノードのKubernetesクラスターを使用して、
 数分でコーディングとコンテナへのデプロイを開始できます。
 
-* [Minishift](https://docs.okd.io/latest/minishift/)は、ローカル開発およびテスト用にコミュニティーバージョンのKubernetesエンタープライズプラットフォームのOpenShiftをインストールします。Windows、MacOS、Linux用のオールインワンのVM (`minishift start`)を提供します。コンテナの起動は`oc cluster up`に基づいています (Linuxのみ)。[付属のアドン](https://github.com/minishift/minishift-addons/tree/master/add-ons)をインストールすることもできます。
+* [Minishift](https://docs.okd.io/latest/minishift/)は、ローカル開発およびテスト用にKubernetesエンタープライズプラットフォームのOpenShiftのコミュニティーバージョンをインストールします。Windows、MacOS、Linux用のオールインワンのVM (`minishift start`)を提供します。コンテナの起動は`oc cluster up`に基づいています (Linuxのみ)。[付属のアドオン](https://github.com/minishift/minishift-addons/tree/master/add-ons)をインストールすることもできます。
 
-* [MicroK8s](https://microk8s.io/)は、開発とテスト用にローカルマシンに最新リリースのKubernetesを単一コマンドでのインストールを可能にします。セットアップは素早く、速く(〜30秒)で、lstioを含む多くのプラグインを単一コマンドでサポートします。
+* [MicroK8s](https://microk8s.io/)は、開発とテスト用にローカルマシンに最新リリースのKubernetesを単一コマンドでのインストールを可能にします。セットアップは素早く、速く(〜30秒)て、lstioを含む多くのプラグインを単一コマンドでサポートします。
 
 * [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private)は、開発とテストシナリオ用に、あなたのマシンでVirtualBoxを使って1つ以上のVMにKubernetesをデプロイすることができます。フルマルチノードのクラスターに拡張します。
 
@@ -84,7 +84,7 @@ MacまたはWindows環境に簡単にインストールできるアプリケー�
 
 * [KubeSail](https://kubesail.com)は、簡単にKubernetesを試すことができる近道です。
 
-* [Madcore.Ai](https://madcore.ai)は、AWSにKubernetesインフラストラクチャーをデプロイするためのDevOpsにフォーカスしたCLIツールです。スポットインスタンス、ingress-ssl-lego、Heapster、およびGrafanaを使用したマスター、グループノードの自動スケーリング。
+* [Madcore.Ai](https://madcore.ai)は、AWSにKubernetesインフラストラクチャーをデプロイするためのDevOpsにフォーカスしたCLIツールです。マスター、スポットインスタンスを使ったオートスケーリンググループのノード、ingress-ssl-lego、Heapster、およびGrafana。
 
 * [Nutanix Karbon](https://www.nutanix.com/products/karbon/)は、Kubernetesのプロビジョニング、運用、ライフサイクル管理を簡素化する、マルチクラスターで可用性の高いKubernetes管理および運用プラットフォームです。
 
