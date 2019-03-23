@@ -319,12 +319,12 @@ Some values of an object are typically generated before the object is persisted.
 
 ## Server Side Apply
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, The `PATCH` endpoint accepts the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, the `PATCH` endpoint accepts the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
 
 ### Enable the Server Side Apply alpha feature
 
 Server Side Apply is an alpha feature, so it is disabled by default. To turn this [feature gate](/docs/reference/command-line-tools-reference/feature-gates) on,
-you need to include in the `--feature-gates ServerSideApply=true` flag when starting `kube-apiserver`.
+you need to include the `--feature-gates ServerSideApply=true` flag when starting `kube-apiserver`.
 If you have multiple `kube-apiserver` replicas, all should have the same flag setting.
 
 ### Field Management
@@ -362,6 +362,8 @@ data:
 The above object contains a single manager in `metadata.managedFields`. The manager consists of basic information about the managing entity itself, like operation type, api version, and the fields managed by it.
 
 {{< note >}} This field is managed by the apiserver and should not be changed by the user. {{< /note >}}
+
+Nevertheless it is possible to change `metadata.managedFields` through an `Update` operation. Doing so is highly discouraged, but might be a reasonable option to try if, for example, the `managedFields` get into an inconsistent state (which clearly should not happen).
 
 ### Operations
 
@@ -401,9 +403,13 @@ data:
 In this example, a second operation was run as an `Update` by the manager called `kube-controller-manager`. The update changed a value in the data field which caused the field's management to change to the `kube-controller-manager`.
 {{< note >}}If this update would have been an `Apply` operation, the operation would have failed due to conflicting ownership.{{< /note >}}
 
-### Merge Rules
+### Merge Strategy
 
-When a user sends a partially specified object to the Server Side Apply endpoint, the server merges it with the live object favoring the value in the applied config if it is specified twice. If the set of items present in the applied config is not a superset of the items applied by the same user last time, each missing item not managed by any other field manager is removed. For more information about how an object's schema is used to make decisions when merging, see [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
+The merging strategy, implemented with Server Side Apply, provides a generally more stable object lifecycle.
+Server Side Apply tries to merge fields based on the fact who manages them instead of overruling just based on values.
+This way it is intended to make it easier and more stable for multiple actors updating the same object by causing less unexpected interference.
+
+When a user sends a partially specified object to the Server Side Apply endpoint, the server merges it with the live object favoring the value in the applied config if it is specified in both places. If the set of items present in the applied config is not a superset of the items applied by the same user last time, each missing item not managed by any other field manager is removed. For more information about how an object's schema is used to make decisions when merging, see [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
 ### Conflicts
 
