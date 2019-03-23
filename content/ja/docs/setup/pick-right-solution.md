@@ -6,15 +6,15 @@ card:
   name: setup
   weight: 20
   anchors:
-  - anchor: "#hosted-solutions"
+  - anchor: "#ホスティングを使ったソリューション"
     title: ホスティングを使ったソリューション
-  - anchor: "#turnkey-cloud-solutions"
+  - anchor: "#すぐに利用できるクラウドを使ったソリューション"
     title: すぐに利用できるクラウドを使ったソリューション
-  - anchor: "#on-premises-turnkey-cloud-solutions"
+  - anchor: "#すぐに利用できるオンプレミスを使ったソリューション"
     title: すぐに利用できるオンプレミスを使ったソリューション
-  - anchor: "#custom-solution"
+  - anchor: "#カスタムソリューション"
     title: カスタムソリューション
-  - anchor: "#local-machine-solutions"
+  - anchor: "#ローカルマシンを使ったソリューション"
     title: ローカルマシンを使ったソリューション
 ---
 
