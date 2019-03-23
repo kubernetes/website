@@ -39,7 +39,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 * xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (非推奨)
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 注意: 以下のIPは動的であり、変更される可能性があります。IPは `minikube ip` で取得することができます。
-* なし (VMではなくホスト上でKubernetesコンポーネントを起動する。このドライバを使用するにはDocker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) とLinux環境を必要とします)
+* none (VMではなくホスト上でKubernetesコンポーネントを起動する。このドライバを使用するにはDocker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) とLinux環境を必要とします)
 
 ```shell
 minikube start
@@ -234,7 +234,7 @@ Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no 
 > fi
 ```
 
-imagePullPolicyを常にオフにすることを忘れないでください: さもなければKubernetesはローカルに構築したイメージを使用しません。
+imagePullPolicy:Alwaysをオフにすることを忘れないでください: さもなければKubernetesはローカルに構築したイメージを使用しません。
 
 ## クラスターの管理
 
@@ -258,7 +258,7 @@ Minikubeは "minikube" コンテキストも作成し、そのコンテキスト
 #### Kubernetesバージョンの指定
 
 `minikube start` コマンドに `--kubernetes-version` 文字列を追加することで、
-Minikubeに任意のバージョンのKubernetesを指定することができます。
+MinikubeにKubernetesの特定のバージョンを指定することができます。
 例えば、`v1.7.3` のバージョンを実行するには以下を実行します:
 
 ```
@@ -289,7 +289,7 @@ Minikubeにはユーザーが任意の値でKubenetesコンポーネントを設
 
 Kubeletの `MaxPods` 設定を5に変更するには、このフラグを渡します: `--extra-config=kubelet.MaxPods=5`
 
-この機能はネストした構造体もサポートします。スケジューラーの `LeaderElection.LeaderElect` 設定を `true` に設定するには、このフラグを渡します: `--extra-config=scheduler.LeaderElection.LeaderElect=true`
+この機能はネストした構造体もサポートします。スケジューラーの `LeaderElection.LeaderElect` を `true` に設定するには、このフラグを渡します: `--extra-config=scheduler.LeaderElection.LeaderElect=true`
 
 `apiserver` の `AuthorizationMode` を `RABC` に設定するには、このフラグを使います: `--extra-config=apiserver.authorization-mode=RBAC`.
 
