@@ -1,6 +1,4 @@
 ---
-reviewers:
-- bradtopol
 title: Running Kubernetes on Multiple Clouds with IBM Cloud Private
 ---
 
