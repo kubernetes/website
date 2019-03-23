@@ -1,11 +1,4 @@
 ---
-reviewers:
-- sig-api-machinery
-- sig-architecture
-- sig-cli
-- sig-cluster-lifecycle
-- sig-node
-- sig-release
 title: Kubernetes Version and Version Skew Support Policy
 content_template: templates/concept
 weight: 70
