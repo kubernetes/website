@@ -45,7 +45,7 @@ cd website
 ```
 
 {{< note >}}
-Contributors to `k/website` must [create a fork](https://kubernetes.io/docs/contribute/start/#improve-existing-content) from which to open pull requests. For localizations, we ask additionally that:
+Contributors to `k/website` must [create a fork](/docs/contribute/start/#improve-existing-content) from which to open pull requests. For localizations, we ask additionally that:
 
 1. Team approvers open development branches directly from https://github.com/kubernetes/website.
 2. Localization contributors work from forks, with branches based on the current development branch.
@@ -109,12 +109,12 @@ At a minimum, all localizations must include:
 
 Description | URLs
 -----|-----
-Home | [All heading and subheading URLs](https://kubernetes.io/docs/home/)
-Setup | [All heading and subheading URLs](https://kubernetes.io/docs/setup/)
-Tutorials | [Kubernetes Basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/), [Hello Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
+Home | [All heading and subheading URLs](/docs/home/)
+Setup | [All heading and subheading URLs](/docs/setup/)
+Tutorials | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
 Site strings | [All site strings in a new localized TOML file](https://github.com/kubernetes/website/tree/master/i18n)
 
-Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source:
+Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source:
 
 ```shell
 mkdir -p content/de/docs/tutorials

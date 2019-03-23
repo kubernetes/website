@@ -149,7 +149,7 @@ the version.
 
 {{< note >}}
 Webhook conversion is introduced in Kubernetes 1.13 as an alpha feature. To use it, the
-`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
 The above example has a None conversion between versions which only sets the `apiVersion` field

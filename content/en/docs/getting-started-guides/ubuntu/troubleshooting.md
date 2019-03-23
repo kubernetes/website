@@ -175,7 +175,5 @@ This is caused by the API load balancer not forwarding ports in the context of t
 
 ## Logging and monitoring
 
-By default there is no log aggregation of the Kubernetes nodes, each node logs locally. Please read over the [logging](https://kubernetes.io/docs/getting-started-guides/ubuntu/logging/) page for more information.
+By default there is no log aggregation of the Kubernetes nodes, each node logs locally. Please read over the [logging](/docs/getting-started-guides/ubuntu/logging/) page for more information.
 {{% /capture %}}
-
-

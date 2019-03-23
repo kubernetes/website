@@ -7,16 +7,16 @@ url: /blog/2017/05/Kubernetes-Monitoring-Guide
 _Today’s post is by Jean-Mathieu Saponaro, Research & Analytics Engineer at Datadog, discussing what Kubernetes changes for monitoring, and how you can prepare to properly monitor a containerized infrastructure orchestrated by Kubernetes._  
 
 
-Container technologies are taking the infrastructure world by storm. While containers solve or simplify infrastructure management processes, they also introduce significant complexity in terms of orchestration. That’s where Kubernetes comes to our rescue. Just like a conductor directs an orchestra, [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) oversees our ensemble of containers—starting, stopping, creating, and destroying them automatically to keep our applications humming along.  
+Container technologies are taking the infrastructure world by storm. While containers solve or simplify infrastructure management processes, they also introduce significant complexity in terms of orchestration. That’s where Kubernetes comes to our rescue. Just like a conductor directs an orchestra, [Kubernetes](/docs/concepts/overview/what-is-kubernetes/) oversees our ensemble of containers—starting, stopping, creating, and destroying them automatically to keep our applications humming along.  
 
-Kubernetes makes managing a containerized infrastructure much easier by creating levels of abstractions such as [pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/) and [services](https://kubernetes.io/docs/concepts/services-networking/service/). We no longer have to worry about where applications are running or if they have enough resources to work properly. But that doesn’t change the fact that, in order to ensure good performance, we need to monitor our applications, the containers running them, and Kubernetes itself.  
+Kubernetes makes managing a containerized infrastructure much easier by creating levels of abstractions such as [pods](/docs/concepts/workloads/pods/pod/) and [services](/docs/concepts/services-networking/service/). We no longer have to worry about where applications are running or if they have enough resources to work properly. But that doesn’t change the fact that, in order to ensure good performance, we need to monitor our applications, the containers running them, and Kubernetes itself.  
 
 **Rethinking monitoring for the Kubernetes era**  
 
 Just as containers have completely transformed how we think about running services on virtual machines, Kubernetes has changed the way we interact with containers. The good news is that with proper monitoring, the abstraction levels inherent to Kubernetes provide a comprehensive view of your infrastructure, even if the containers and applications are constantly moving. But Kubernetes monitoring requires us to rethink and reorient our strategies, since it differs from monitoring traditional hosts such as VMs or physical machines in several ways.  
 
 **Tags and labels become essential**  
-With containers and their orchestration completely managed by Kubernetes, labels are now the only way we have to interact with pods and containers. That’s why they are absolutely crucial for monitoring since all metrics and events will be sliced and diced using [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) across the different layers of your infrastructure. Defining your labels with a logical and easy-to-understand schema is essential so your metrics will be as useful as possible.  
+With containers and their orchestration completely managed by Kubernetes, labels are now the only way we have to interact with pods and containers. That’s why they are absolutely crucial for monitoring since all metrics and events will be sliced and diced using [labels](/docs/concepts/overview/working-with-objects/labels/) across the different layers of your infrastructure. Defining your labels with a logical and easy-to-understand schema is essential so your metrics will be as useful as possible.  
 
 **There are now more components to monitor**  
 
@@ -29,7 +29,7 @@ Kubernetes schedules applications dynamically based on scheduling policy, so you
 
 **Be prepared for distributed clusters**
 
-Kubernetes has the [ability](https://kubernetes.io/docs/tasks/federation/federation-service-discovery/#hybrid-cloud-capabilities) to distribute containerized applications across multiple data centers and potentially different cloud providers. That means metrics must be collected and aggregated among all these different sources.&nbsp;
+Kubernetes has the [ability](/docs/tasks/federation/federation-service-discovery/#hybrid-cloud-capabilities) to distribute containerized applications across multiple data centers and potentially different cloud providers. That means metrics must be collected and aggregated among all these different sources.&nbsp;
 
 &nbsp;
 

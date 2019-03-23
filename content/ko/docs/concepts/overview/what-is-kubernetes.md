@@ -2,6 +2,9 @@
 title: 쿠버네티스란 무엇인가?
 content_template: templates/concept
 weight: 10
+card:
+  name: concepts
+  weight: 10
 ---
 
 {{% capture overview %}}
@@ -104,7 +107,7 @@ A에서 C로 어떻게 갔는지는 상관이 없다. 중앙화된 제어도 필
 
 ![Why Containers?](/images/docs/why_containers.svg)
 
-애플리케이션을 배포하는 *구식의 방법* 은 운영 체제의 패키지 관리자를
+애플리케이션을 배포하는 *옛 방식* 은 운영 체제의 패키지 관리자를
 사용해서 애플리케이션을 호스트에 설치하는 것이었다. 이 방식은
 애플리케이션의 실행 파일, 설정, 라이브러리 서로 간의 라이프사이클과
 호스트 OS와 얽히게 된다는 단점이 있다. 예측 가능한 롤아웃과 롤백을

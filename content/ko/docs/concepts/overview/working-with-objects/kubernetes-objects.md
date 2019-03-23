@@ -2,6 +2,9 @@
 title: 쿠버네티스 오브젝트 이해하기
 content_template: templates/concept
 weight: 10
+card:
+  name: concepts
+  weight: 40
 ---
 
 {{% capture overview %}}
@@ -21,7 +24,7 @@ weight: 10
 
 생성이든, 수정이든, 또는 삭제든 쿠버네티스 오브젝트를 동작시키려면, [Kubernetes API](/docs/concepts/overview/kubernetes-api/)를 이용해야 한다. 예를 들어, `kubectl` 커맨드-라인 인터페이스를 이용할 때, CLI는 여러분 대신 필요한 쿠버네티스 API를 호출해 준다. 또한, 여러분은 [Client Libraries](/docs/reference/using-api/client-libraries/) 중 하나를 이용하여 여러분만의 프로그램에서 쿠버네티스 API를 직접 이용할 수도 있다.
 
-### 오브젝트 (spec)과 상태(status)
+### 오브젝트 스펙(spec)과 상태(status)
 
 모든 쿠버네티스 오브젝트는 오브젝트의 구성을 결정해주는 두 개의 중첩된 오브젝트 필드를 포함하는데 오브젝트 *spec* 과 오브젝트 *status* 가 그것이다. 필히 제공되어야만 하는 *spec* 은, 여러분이 오브젝트가 가졌으면 하고 원하는 특징, 즉 *의도한 상태* 를 기술한다. *status* 는 오브젝트의 *실제 상태* 를 기술하고, 쿠버네티스 시스템에 의해 제공되고 업데이트 된다. 주어진 임의의 시간에, 쿠버네티스 컨트롤 플레인은 오브젝트의 실제 상태를 여러분이 제시한 의도한 상태에 일치시키기 위해 능동적으로 관리한다.
 

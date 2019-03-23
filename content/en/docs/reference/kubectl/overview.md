@@ -101,48 +101,58 @@ Remember: For more about command operations, see the [kubectl](/docs/user-guide/
 
 ## Resource types
 
-The following table includes a list of all the supported resource types and their abbreviated aliases:
+The following table includes a list of all the supported resource types and their abbreviated aliases.
 
-Resource type    | Abbreviated alias
--------------------- | --------------------
-`apiservices` |
-`certificatesigningrequests` |`csr`
-`clusters` |
-`clusterrolebindings` |
-`clusterroles` |
-`componentstatuses` |`cs`
-`configmaps` |`cm`
-`controllerrevisions` |
-`cronjobs` |
-`customresourcedefinition` |`crd`
-`daemonsets` |`ds`
-`deployments` |`deploy`
-`endpoints` |`ep`
-`events` |`ev`
-`horizontalpodautoscalers` |`hpa`
-`ingresses` |`ing`
-`jobs` |
-`limitranges` |`limits`
-`namespaces` |`ns`
-`networkpolicies` |`netpol`
-`nodes` |`no`
-`persistentvolumeclaims` |`pvc`
-`persistentvolumes` |`pv`
-`poddisruptionbudget` |`pdb`
-`podpreset` |
-`pods` |`po`
-`podsecuritypolicies` |`psp`
-`podtemplates` |
-`replicasets` |`rs`
-`replicationcontrollers` |`rc`
-`resourcequotas` |`quota`
-`rolebindings` |
-`roles` |
-`secrets` |
-`serviceaccounts` |`sa`
-`services` |`svc`
-`statefulsets` |
-`storageclasses` |
+(This output can be retrieved from `kubectl api-resources`, and is accurate as of Kubernetes 1.13.3.)
+
+| Resource Name | Short Names | API Group | Namespaced | Resource Kind |
+|---|---|---|---|---|
+| `componentstatuses` | `cs` | | false | ComponentStatus |
+| `configmaps` | `cm` | | true | ConfigMap |
+| `endpoints` | `ep` | | true | Endpoints |
+| `limitranges` | `limits` | | true | LimitRange |
+| `namespaces` | `ns` | | false | Namespace |
+| `nodes` | `no` | | false | Node |
+| `persistentvolumeclaims` | `pvc` | | true | PersistentVolumeClaim |
+| `persistentvolumes` | `pv` | | false | PersistentVolume |
+| `pods` | `po` | | true | Pod |
+| `podtemplates` | | | true | PodTemplate |
+| `replicationcontrollers` | `rc` | | true| ReplicationController |
+| `resourcequotas` | `quota` | | true | ResourceQuota |
+| `secrets` | | | true | Secret |
+| `serviceaccounts` | `sa` | | true | ServiceAccount |
+| `services` | `svc` | | true | Service |
+| `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
+| `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
+| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
+| `apiservices` | | apiregistration.k8s.io | false | APIService |
+| `controllerrevisions` | | apps | true | ControllerRevision |
+| `daemonsets` | `ds` | apps | true | DaemonSet |
+| `deployments` | `deploy` | apps | true | Deployment |
+| `replicasets` | `rs` | apps | true | ReplicaSet |
+| `statefulsets` | `sts` | apps | true | StatefulSet |
+| `tokenreviews` | | authentication.k8s.io | false | TokenReview |
+| `localsubjectaccessreviews` | | authorization.k8s.io | true | LocalSubjectAccessReview |
+| `selfsubjectaccessreviews` | | authorization.k8s.io | false | SelfSubjectAccessReview |
+| `selfsubjectrulesreviews` | | authorization.k8s.io | false | SelfSubjectRulesReview |
+| `subjectaccessreviews` | | authorization.k8s.io | false | SubjectAccessReview |
+| `horizontalpodautoscalers` | `hpa` | autoscaling | true | HorizontalPodAutoscaler |
+| `cronjobs` | `cj` | batch | true | CronJob |
+| `jobs` | | batch | true | Job |
+| `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
+| `leases` | | coordination.k8s.io | true | Lease |
+| `events` | `ev` | events.k8s.io | true | Event |
+| `ingresses` | `ing` | extensions | true | Ingress |
+| `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
+| `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
+| `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
+| `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
+| `clusterroles` | | rbac.authorization.k8s.io | false | ClusterRole |
+| `rolebindings` | | rbac.authorization.k8s.io | true | RoleBinding |
+| `roles` | | rbac.authorization.k8s.io | true | Role |
+| `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
+| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
+| `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 ## Output options
 

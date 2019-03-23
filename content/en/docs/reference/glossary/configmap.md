@@ -14,5 +14,4 @@ tags:
 
 <!--more--> 
 
-Allows you to decouple environment-specific configuration from your {{< glossary_tooltip text="container images" term_id="container" >}}, so that your applications are easily portable. When storing confidential data use a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/).
-
+Allows you to decouple environment-specific configuration from your {{< glossary_tooltip text="container images" term_id="container" >}}, so that your applications are easily portable. When storing confidential data use a [Secret](/docs/concepts/configuration/secret/).

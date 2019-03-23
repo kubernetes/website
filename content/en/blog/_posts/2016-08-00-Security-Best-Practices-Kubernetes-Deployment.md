@@ -4,7 +4,7 @@ date: 2016-08-31
 slug: security-best-practices-kubernetes-deployment
 url: /blog/2016/08/Security-Best-Practices-Kubernetes-Deployment
 ---
-_Note: some of the recommendations in this post are no longer current. Current cluster hardening options are described in this [documentation](https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/)._
+_Note: some of the recommendations in this post are no longer current. Current cluster hardening options are described in this [documentation](/docs/tasks/administer-cluster/securing-a-cluster/)._
 
 _Editor’s note: today’s post is by Amir Jerbi and Michael Cherny of Aqua Security, describing security best practices for Kubernetes deployments, based on data they’ve collected from various use-cases seen in both on-premises and cloud deployments._  
 
@@ -32,7 +32,7 @@ There is work in progress being done in Kubernetes for image authorization plugi
 **Limit Direct Access to Kubernetes Nodes**  
 You should limit SSH access to Kubernetes nodes, reducing the risk for unauthorized access to host resource. Instead you should ask users to use "kubectl exec", which will provide direct access to the container environment without the ability to access the host.  
 
-You can use Kubernetes [Authorization Plugins](http://kubernetes.io/docs/reference/access-authn-authz/authorization/) to further control user access to resources. This allows defining fine-grained-access control rules for specific namespace, containers and operations.
+You can use Kubernetes [Authorization Plugins](/docs/reference/access-authn-authz/authorization/) to further control user access to resources. This allows defining fine-grained-access control rules for specific namespace, containers and operations.
 
 **Create Administrative Boundaries between Resources**  
 Limiting the scope of user permissions can reduce the impact of mistakes or malicious activities. A Kubernetes namespace allows you to partition created resources into logically named groups. Resources created in one namespace can be hidden from other namespaces. By default, each resource created by a user in Kubernetes cluster runs in a default namespace, called default. You can create additional namespaces and attach resources and users to them. You can use Kubernetes Authorization plugins to create policies that segregate access to namespace resources between different users.  
@@ -203,11 +203,11 @@ spec:
 
 
 
-Reference [here](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_podsecuritycontext).
+Reference [here](/docs/api-reference/v1/definitions/#_v1_podsecuritycontext).
 
 
 
-In case you are running containers with elevated privileges (--privileged) you should consider using the “DenyEscalatingExec” admission control. This control denies exec and attach commands to pods that run with escalated privileges that allow host access. This includes pods that run as privileged, have access to the host IPC namespace, and have access to the host PID namespace. For more details on admission controls, see the Kubernetes [documentation](http://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/).
+In case you are running containers with elevated privileges (--privileged) you should consider using the “DenyEscalatingExec” admission control. This control denies exec and attach commands to pods that run with escalated privileges that allow host access. This includes pods that run as privileged, have access to the host IPC namespace, and have access to the host PID namespace. For more details on admission controls, see the Kubernetes [documentation](/docs/reference/access-authn-authz/admission-controllers/).
 
 
 

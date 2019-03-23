@@ -2,6 +2,9 @@
 title: 쿠버네티스 컴포넌트
 content_template: templates/concept
 weight: 20
+card:
+  name: concepts
+  weight: 20
 ---
 
 {{% capture overview %}}
