@@ -55,7 +55,7 @@ Example:
 * `kube-apiserver` instances are at **1.13** and **1.12**
 * `kubelet` is supported at **1.12**, and **1.11** (**1.13** is not supported because that would be newer than the `kube-apiserver` instance at version **1.12**)
 
-### kube-controller-manager、kube-schedulerとcloud-controller-manager
+### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
 
 `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
 
@@ -117,7 +117,7 @@ Project policies for [API deprecation](https://kubernetes.io/docs/reference/usin
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}
 
-### kube-controller-manager、kube-schedulerとcloud-controller-manager
+### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
 
 Pre-requisites:
 
