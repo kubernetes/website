@@ -14,7 +14,7 @@ This page explains the certificates that your cluster requires.
 
 {{% capture body %}}
 
-## あなたのクラスタではどのように証明書が使われているのか
+## クラスタではどのように証明書が使われているのか
 
 Kubernetes requires PKI for the following operations:
 
@@ -43,7 +43,7 @@ If you don't want kubeadm to generate the required certificates, you can create 
 
 ### 単一ルート認証局
 
-You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself. 
+You can create a single root CA, controlled by an administrator. This root CA can then create multiple intermediate CAs, and delegate all further creation to Kubernetes itself.
 
 Required CAs:
 
@@ -55,7 +55,7 @@ Required CAs:
 
 ### 全ての証明書
 
-If you don't wish to copy these private keys to your API servers, you can generate all certificates yourself. 
+If you don't wish to copy these private keys to your API servers, you can generate all certificates yourself.
 
 Required certificates:
 
@@ -101,7 +101,7 @@ Certificates should be placed in a recommended path (as used by [kubeadm][kubead
 
 ## ユーザアカウント用に証明書を設定する
 
-You must manually configure these administrator account and service accounts: 
+You must manually configure these administrator account and service accounts:
 
 | filename                | credential name            | Default CN                     | O (in Subject) |
 |-------------------------|----------------------------|--------------------------------|----------------|
@@ -112,7 +112,7 @@ You must manually configure these administrator account and service accounts:
 
 1. For each config, generate an x509 cert/key pair with the given CN and O.
 
-1. Run `kubectl` as follows for each config:
+2. Run `kubectl` as follows for each config:
 
 ```shell
 KUBECONFIG=<filename> kubectl config set-cluster default-cluster --server=https://<host ip>:6443 --certificate-authority <path-to-kubernetes-ca> --embed-certs
