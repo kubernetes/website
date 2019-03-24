@@ -50,7 +50,7 @@ MacまたはWindows環境に簡単にインストールできるアプリケー�
 
 * [MicroK8s](https://microk8s.io/)は、開発とテスト用にローカルマシンに最新リリースのKubernetesを単一コマンドでのインストールを可能にします。セットアップは素早く、速く(〜30秒)て、lstioを含む多くのプラグインを単一コマンドでサポートします。
 
-* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private)は、開発とテストシナリオ用に、あなたのマシンでVirtualBoxを使って1つ以上のVMにKubernetesをデプロイすることができます。フルマルチノードのクラスターに拡張します。
+* [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private)は、開発とテストシナリオ用に、ご自身のマシンでVirtualBoxを使って1つ以上のVMにKubernetesをデプロイすることができます。フルマルチノードのクラスターに拡張します。
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)は、Linuxホスト上に7ノード(1ブート、1マスター、1マネジメント、1プロキシー、3ワーカー)のLXDクラスターを作成するためのTerraform/Packer/BASHベースのInfrastructure as Code（IaC）のスクリプトです。
 
