@@ -39,7 +39,7 @@ cards:
   button_path: "/ja/docs/tasks"
 - name: reference
   title: 参考情報を探す
-  description: 用語、コマンドラインツの構文、APIのリソースタイプ、およびセットアップツールのドキュメントを参照します。
+  description: 用語、コマンドラインの構文、APIのリソースタイプ、およびセットアップツールのドキュメントを参照します。
   button: View Reference
   button_path: /ja/docs/reference
 - name: contribute
