@@ -104,7 +104,7 @@ Generate a CSR yaml blob and send it to the apiserver by running the following
 command:
 
 ```shell
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: certificates.k8s.io/v1beta1
 kind: CertificateSigningRequest
 metadata:

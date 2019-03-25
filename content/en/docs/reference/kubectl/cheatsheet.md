@@ -75,21 +75,24 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
 kubectl config unset users.foo                       # delete user foo
 ```
 
+## Apply
+`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
+
 ## Creating Objects
 
 Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl create -f ./my-manifest.yaml           # create resource(s)
-kubectl create -f ./my1.yaml -f ./my2.yaml     # create from multiple files
-kubectl create -f ./dir                        # create resource(s) in all manifest files in dir
-kubectl create -f https://git.io/vPieo         # create resource(s) from url
+kubectl apply -f ./my-manifest.yaml           # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml     # create from multiple files
+kubectl apply -f ./dir                        # create resource(s) in all manifest files in dir
+kubectl apply -f https://git.io/vPieo         # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 kubectl explain pods,svc                       # get the documentation for pod and svc manifests
 
 # Create multiple YAML objects from stdin
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -116,7 +119,7 @@ spec:
 EOF
 
 # Create a secret with several keys
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:

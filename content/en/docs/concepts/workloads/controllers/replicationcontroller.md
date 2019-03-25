@@ -55,7 +55,7 @@ This example ReplicationController config runs three copies of the nginx web ser
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/replication.yaml
+kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
 ```
 ```
 replicationcontroller/nginx created
