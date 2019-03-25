@@ -34,7 +34,7 @@ The new kubectl logo and mascot (pronounced _kubee-cuddle_) are shown on the new
 
 **Kustomize Integration**
 
-The declarative Resource Config authoring capabilities of [kustomize](https://github.com/kubernetes-sigs/kustomize) are now available in kubectl through the `-k` flag (e.g. for commands like `apply, get`) and the `kustomize` subcommand.  Kustomize helps users author and reuse Resource Config using Kubernetes native concepts. Users can now apply directories with `kustomization.yaml` to a cluster using `kubectl apply -k dir/`. Users can also emit customized Resource Config to stdout without applying them via `kubectl kustomize dir/`. The new capabilities are documented in the new docs at https://kubect.docs.kubernetes.io
+The declarative Resource Config authoring capabilities of [kustomize](https://github.com/kubernetes-sigs/kustomize) are now available in kubectl through the `-k` flag (e.g. for commands like `apply, get`) and the `kustomize` subcommand.  Kustomize helps users author and reuse Resource Config using Kubernetes native concepts. Users can now apply directories with `kustomization.yaml` to a cluster using `kubectl apply -k dir/`. Users can also emit customized Resource Config to stdout without applying them via `kubectl kustomize dir/`. The new capabilities are documented in the new docs at https://kubectl.docs.kubernetes.io
 
 The kustomize subcommand will continue to be developed in the Kubernetes owned [kustomize](https://github.com/kubernetes-sigs/kustomize) repo. The latest kustomize features will be available from a standalone kustomize binary (published to the kustomize repo) at a frequent release cadence, and will be updated in kubectl prior to each Kubernetes releases.
 
