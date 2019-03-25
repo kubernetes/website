@@ -278,7 +278,7 @@ At a high level, these OS concepts are different:
 
 * Identity - Linux uses userID (UID) and groupID (GID) which are represented as integer types. User and group names are not canonical - they are just an alias in `/etc/groups` or `/etc/passwd` back to UID+GID. Windows uses a larger binary security identifier (SID) which is stored in the Windows Security Access Manager (SAM) database. This database is not shared between the host and containers, or between containers.
 * File permissions - Windows uses an access control list based on SIDs, rather than a bitmask of permissions and UID+GID
-* File paths - convention on Windows is to use **\** instead of **/**. The Go IO libraries typically accept both and just make it work, but when you're setting a path or command line that's interpreted inside a container, **\** may be needed.
+* File paths - convention on Windows is to use `\` instead of `/`. The Go IO libraries typically accept both and just make it work, but when you're setting a path or command line that's interpreted inside a container, `\` may be needed.
 * Signals - Windows interactive apps handle termination differently, and can implement one or more of these:
   * A UI thread handles well-defined messages including WM_CLOSE
   * Console apps handle ctrl-c or ctrl-break using a Control Handler
