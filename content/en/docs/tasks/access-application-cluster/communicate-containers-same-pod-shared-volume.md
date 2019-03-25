@@ -44,7 +44,7 @@ directory of the nginx server.
 
 Create the Pod and the two Containers:
 
-    kubectl create -f https://k8s.io/examples/pods/two-container-pod.yaml
+    kubectl apply -f https://k8s.io/examples/pods/two-container-pod.yaml
 
 View information about the Pod and the Containers:
 

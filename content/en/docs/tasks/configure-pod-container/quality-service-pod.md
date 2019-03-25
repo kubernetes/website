@@ -55,7 +55,7 @@ memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU r
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod.yaml --namespace=qos-example
+kubectl apply -f https://k8s.io/examples/pods/qos/qos-pod.yaml --namespace=qos-example
 ```
 
 View detailed information about the Pod:
@@ -111,7 +111,7 @@ and a memory request of 100 MiB.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod-2.yaml --namespace=qos-example
+kubectl apply -f https://k8s.io/examples/pods/qos/qos-pod-2.yaml --namespace=qos-example
 ```
 
 View detailed information about the Pod:
@@ -156,7 +156,7 @@ limits or requests:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod-3.yaml --namespace=qos-example
+kubectl apply -f https://k8s.io/examples/pods/qos/qos-pod-3.yaml --namespace=qos-example
 ```
 
 View detailed information about the Pod:
@@ -195,7 +195,7 @@ criteria for QoS class Guaranteed, and one of its Containers has a memory reques
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/qos/qos-pod-4.yaml --namespace=qos-example
+kubectl apply -f https://k8s.io/examples/pods/qos/qos-pod-4.yaml --namespace=qos-example
 ```
 
 View detailed information about the Pod:

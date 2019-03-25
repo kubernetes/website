@@ -268,17 +268,17 @@ kubectl get pods --sort-by=.metadata.name
 
 Use the following set of examples to help you familiarize yourself with running the commonly used `kubectl` operations:
 
-`kubectl create` - Create a resource from a file or stdin.
+`kubectl apply` - Apply or Update a resource from a file or stdin.
 
 ```shell
 # Create a service using the definition in example-service.yaml.
-kubectl create -f example-service.yaml
+kubectl apply -f example-service.yaml
 
 # Create a replication controller using the definition in example-controller.yaml.
-kubectl create -f example-controller.yaml
+kubectl apply -f example-controller.yaml
 
 # Create the objects that are defined in any .yaml, .yml, or .json file within the <directory> directory.
-kubectl create -f <directory>
+kubectl apply -f <directory>
 ```
 
 `kubectl get` - List one or more resources.

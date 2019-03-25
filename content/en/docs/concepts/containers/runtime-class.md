@@ -9,9 +9,15 @@ weight: 20
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
 This page describes the RuntimeClass resource and runtime selection mechanism.
+
+{{< warning >}}
+RuntimeClass includes *breaking* changes in the beta upgrade in v1.14. If you were using
+RuntimeClass prior to v1.14, see [Upgrading RuntimeClass from Alpha to
+Beta](#upgrading-runtimeclass-from-alpha-to-beta).
+{{< /warning >}}
 
 {{% /capture %}}
 
@@ -20,71 +26,50 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 
 ## Runtime Class
 
-RuntimeClass is an alpha feature for selecting the container runtime configuration to use to run a
-pod's containers.
+RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
+configuration is used to run a Pod's containers.
 
 ### Set Up
 
-As an early alpha feature, there are some additional setup steps that must be taken in order to use
-the RuntimeClass feature:
+Ensure the RuntimeClass feature gate is enabled (it is by default). See [Feature
+Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling
+feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _and_ kubelets.
 
-1. Enable the RuntimeClass feature gate (on apiservers & kubelets, requires version 1.12+)
-2. Install the RuntimeClass CRD
-3. Configure the CRI implementation on nodes (runtime dependent)
-4. Create the corresponding RuntimeClass resources
+1. Configure the CRI implementation on nodes (runtime dependent)
+2. Create the corresponding RuntimeClass resources
 
-#### 1. Enable the RuntimeClass feature gate
+#### 1. Configure the CRI implementation on nodes
 
-See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation
-of enabling feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _and_
-kubelets.
-
-#### 2. Install the RuntimeClass CRD
-
-The RuntimeClass [CustomResourceDefinition][] (CRD) can be found in the addons directory of the
-Kubernetes git repo: [kubernetes/cluster/addons/runtimeclass/runtimeclass_crd.yaml][runtimeclass_crd]
-
-Install the CRD with `kubectl apply -f runtimeclass_crd.yaml`.
-
-[CustomResourceDefinition]: /docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/
-[runtimeclass_crd]: https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/runtimeclass/runtimeclass_crd.yaml
-
-
-#### 3. Configure the CRI implementation on nodes
-
-The configurations to select between with RuntimeClass are CRI implementation dependent. See the
-corresponding documentation for your CRI implementation for how to configure. As this is an alpha
-feature, not all CRIs support multiple RuntimeClasses yet.
+The configurations available through RuntimeClass are Container Runtime Interface (CRI)
+implementation dependent. See the corresponding documentation ([below](#cri-documentation)) for your
+CRI implementation for how to configure.
 
 {{< note >}}
-RuntimeClass currently assumes a homogeneous node configuration across the cluster
-(which means that all nodes are configured the same way with respect to container runtimes). Any heterogeneity (varying configurations) must be
-managed independently of RuntimeClass through scheduling features (see [Assigning Pods to
-Nodes](/docs/concepts/configuration/assign-pod-node/)).
+RuntimeClass currently assumes a homogeneous node configuration across the cluster (which means that
+all nodes are configured the same way with respect to container runtimes). Any heterogeneity
+(varying configurations) must be managed independently of RuntimeClass through scheduling features
+(see [Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/)).
 {{< /note >}}
 
-The configurations have a corresponding `RuntimeHandler` name, referenced by the RuntimeClass. The
-RuntimeHandler must be a valid DNS 1123 subdomain (alpha-numeric + `-` and `.` characters).
+The configurations have a corresponding `handler` name, referenced by the RuntimeClass. The
+handler must be a valid DNS 1123 label (alpha-numeric + `-` characters).
 
-#### 4. Create the corresponding RuntimeClass resources
+#### 2. Create the corresponding RuntimeClass resources
 
-The configurations setup in step 3 should each have an associated `RuntimeHandler` name, which
-identifies the configuration. For each RuntimeHandler (and optionally the empty `""` handler),
-create a corresponding RuntimeClass object.
+The configurations setup in step 1 should each have an associated `handler` name, which identifies
+the configuration. For each handler, create a corresponding RuntimeClass object.
 
 The RuntimeClass resource currently only has 2 significant fields: the RuntimeClass name
-(`metadata.name`) and the RuntimeHandler (`spec.runtimeHandler`). The object definition looks like this:
+(`metadata.name`) and the handler (`handler`). The object definition looks like this:
 
 ```yaml
-apiVersion: node.k8s.io/v1alpha1  # RuntimeClass is defined in the node.k8s.io API group
+apiVersion: node.k8s.io/v1beta1  # RuntimeClass is defined in the node.k8s.io API group
 kind: RuntimeClass
 metadata:
   name: myclass  # The name the RuntimeClass will be referenced by
   # RuntimeClass is a non-namespaced resource
-spec:
-  runtimeHandler: myconfiguration  # The name of the corresponding CRI configuration
+handler: myconfiguration  # The name of the corresponding CRI configuration
 ```
-
 
 {{< note >}}
 It is recommended that RuntimeClass write operations (create/update/patch/delete) be
@@ -115,5 +100,67 @@ error message.
 
 If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
 to the behavior when the RuntimeClass feature is disabled.
+
+### CRI Configuration
+
+For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/cri/).
+
+#### dockershim
+
+Kubernetes built-in dockershim CRI does not support runtime handlers.
+
+#### [containerd](https://containerd.io/)
+
+Runtime handlers are configured through containerd's configuration at
+`/etc/containerd/config.toml`. Valid handlers are configured under the runtimes section:
+
+```
+[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
+```
+
+See containerd's config documentation for more details:
+https://github.com/containerd/cri/blob/master/docs/config.md
+
+#### [cri-o](https://cri-o.io/)
+
+Runtime handlers are configured through cri-o's configuration at `/etc/crio/crio.conf`. Valid
+handlers are configured under the [crio.runtime
+table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
+
+```
+[crio.runtime.runtimes.${HANDLER_NAME}]
+  runtime_path = "${PATH_TO_BINARY}"
+```
+
+See cri-o's config documentation for more details:
+https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
+
+
+### Upgrading RuntimeClass from Alpha to Beta
+
+The RuntimeClass Beta feature includes the following changes:
+
+- The `node.k8s.io` API group and `runtimeclasses.node.k8s.io` resource have been migrated to a
+  built-in API from a CustomResourceDefinition.
+- The `spec` has been inlined in the RuntimeClass definition (i.e. there is no more
+  RuntimeClassSpec).
+- The `runtimeHandler` field has been renamed `handler`.
+- The `handler` field is now required in all API versions. This means the `runtimeHandler` field in
+  the Alpha API is also required.
+- The `handler` field must be a valid DNS label ([RFC 1123](https://tools.ietf.org/html/rfc1123)),
+  meaning it can no longer contain `.` characters (in all versions). Valid handlers match the
+  following regular expression: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`.
+
+**Action Required:** The following actions are required to upgrade from the alpha version of the
+RuntimeClass feature to the beta version:
+
+- RuntimeClass resources must be recreated *after* upgrading to v1.14, and the
+  `runtimeclasses.node.k8s.io` CRD should be manually deleted:
+  ```
+  kubectl delete customresourcedefinitions.apiextensions.k8s.io runtimeclasses.node.k8s.io
+  ```
+- Alpha RuntimeClasses with an unspecified or empty `runtimeHandler` or those using a `.` character
+  in the handler are no longer valid, and must be migrated to a valid handler configuration (see
+  above).
 
 {{% /capture %}}

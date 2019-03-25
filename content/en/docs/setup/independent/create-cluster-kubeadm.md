@@ -117,6 +117,10 @@ communicates with).
 be passed to kubeadm initialization. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a pod network add-on](#pod-network).
+1. (Optional) Since version 1.14, kubeadm will try to detect the container runtime on Linux
+by using a list of well known domain socket paths. To use different container runtime or
+if there are more than one installed on the provisioned node, specify the `--cri-socket`
+argument to `kubeadm init`. See [Installing runtime](/docs/setup/independent/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated 
 with the default gateway to advertise the master's IP. To use a different 
 network interface, specify the `--apiserver-advertise-address=<ip-address>` argument 

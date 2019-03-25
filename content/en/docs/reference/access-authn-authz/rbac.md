@@ -26,7 +26,7 @@ To enable RBAC, start the apiserver with `--authorization-mode=RBAC`.
 The RBAC API declares four top-level types which will be covered in this
 section. Users can interact with these resources as they would with any other
 API resource (via `kubectl`, API calls, etc.). For instance,
-`kubectl create -f (resource).yml` can be used with any of these examples,
+`kubectl apply -f (resource).yml` can be used with any of these examples,
 though readers who wish to follow along should review the section on
 bootstrapping first.
 
@@ -489,13 +489,18 @@ NOTE: editing the role is not recommended as changes will be overwritten on API 
 </tr>
 <tr>
 <td><b>system:basic-user</b></td>
-<td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
-<td>Allows a user read-only access to basic information about themselves.</td>
+<td><b>system:authenticated</b> group</td>
+<td>Allows a user read-only access to basic information about themselves. Prior to 1.14, this role was also bound to `system:unauthenticated` by default.</td>
 </tr>
 <tr>
 <td><b>system:discovery</b></td>
+<td><b>system:authenticated</b> group</td>
+<td>Allows read-only access to API discovery endpoints needed to discover and negotiate an API level. Prior to 1.14, this role was also bound to `system:unauthenticated` by default.</td>
+</tr>
+<tr>
+<td><b>system:public-info-viewer</b></td>
 <td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
-<td>Allows read-only access to API discovery endpoints needed to discover and negotiate an API level.</td>
+<td>Allows read-only access to non-sensitive information about the cluster. Introduced in 1.14.</td>
 </tr>
 </table>
 

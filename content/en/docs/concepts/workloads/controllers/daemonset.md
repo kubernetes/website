@@ -42,7 +42,7 @@ You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` f
 
 * Create a DaemonSet based on the YAML file:
 ```
-kubectl create -f https://k8s.io/examples/controllers/daemonset.yaml
+kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
 
 ### Required Fields

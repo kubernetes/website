@@ -429,9 +429,9 @@ This label prefix is reserved for administrators to label their `Node` objects f
 and kubelets will not be allowed to modify labels with that prefix.
 * **Allows** kubelets to add/remove/update these labels and label prefixes:
   * `kubernetes.io/hostname`
-  * `beta.kubernetes.io/arch`
+  * `kubernetes.io/arch`
+  * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
-  * `beta.kubernetes.io/os`
   * `failure-domain.beta.kubernetes.io/region`
   * `failure-domain.beta.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
