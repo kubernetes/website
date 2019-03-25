@@ -1,209 +1,190 @@
 ---
 reviewers:
-title: Pods
+title: Pod
 content_template: templates/concept
 weight: 20
 ---
 
 {{% capture overview %}}
 
-_Pods_ are the smallest deployable units of computing that can be created and
-managed in Kubernetes.
+_Pod_ は、Kubernetesで作成および管理できる、デプロイ可能な最小のコンピューティング単位です。
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-## What is a Pod?
+## Podとは
 
-A _pod_ (as in a pod of whales or pea pod) is a group of one or more containers
-(such as Docker containers), with shared storage/network, and a specification
-for how to run the containers.  A pod's contents are always co-located and
-co-scheduled, and run in a shared context.  A pod models an
-application-specific "logical host" - it contains one or more application
-containers which are relatively tightly coupled &mdash; in a pre-container
-world, being executed on the same physical or virtual machine would mean being
-executed on the same logical host.
+_Pod_ は（クジラの小群やエンドウ豆のさやのように）、共有のストレージ/ネットワークを持つ1つ以上のコンテナ（例えばDockerコンテナ）、およびコンテナを実行する方法についての仕様です。Pod内のコンテナ群は常に同じ場所に配置され、協調してスケジューリングされ、共通のコンテキストで実行されます。Podは、アプリケーション固有の「論理ホスト」――やや密に結合した1つ以上のアプリケーション・コンテナを含むもの――をモデル化します。コンテナ以前の世界では、同じ物理または仮想マシン上で実行されることが、同じ論理ホスト上で実行されることを意味するでしょう。
 
-While Kubernetes supports more container runtimes than just Docker, Docker is
-the most commonly known runtime, and it helps to describe pods in Docker terms.
+Kubernetesは、Dockerだけでなくより多くのコンテナ・ランタイムをサポートしていますが、Dockerは最もよく知られているランタイムであり、Dockerの用語を使ってPodを説明することが可能です。
 
-The shared context of a pod is a set of Linux namespaces, cgroups, and
-potentially other facets of isolation - the same things that isolate a Docker
-container.  Within a pod's context, the individual applications may have
-further sub-isolations applied.
+Pod内では、Linux namespaceやcgroupなどのDockerコンテナを分離する一連の要素と同じものがコンテキストとして共有されます。
+Podのコンテキスト内で、個々のアプリケーションに更なる分離が適用されることがあります。
 
-Containers within a pod share an IP address and port space, and
-can find each other via `localhost`. They can also communicate with each
-other using standard inter-process communications like SystemV semaphores or
-POSIX shared memory.  Containers in different pods have distinct IP addresses
-and can not communicate by IPC without
-[special configuration](/docs/concepts/policy/pod-security-policy/).
-These containers usually communicate with each other via Pod IP addresses.
+Pod内のコンテナはIPアドレスとポートの空間を共有し、 `localhost` を通じてお互いを見つけることができます 。
+また、SystemVセマフォやPOSIX共有メモリなどの標準のプロセス間通信（IPC）を使用して互いに通信することもできます。
+異なるPodのコンテナは異なるIPアドレスを持ち、[特別な設定](/docs/concepts/policy/pod-security-policy/)がなければIPCでは通信できません。
+これらのコンテナは通常、Pod IPアドレスを介して互いに通信します。
 
-Applications within a pod also have access to shared volumes, which are defined
-as part of a pod and are made available to be mounted into each application's
-filesystem.
+Pod内のアプリケーションからアクセスできる共有ボリュームを、Podの一部として定義できます。
+このボリュームは個々のアプリケーションのファイルシステムにマウント可能です。
 
-In terms of [Docker](https://www.docker.com/) constructs, a pod is modelled as
-a group of Docker containers with shared namespaces and shared
-[volumes](/docs/concepts/storage/volumes/).
+[Docker](https://www.docker.com/)の用語でいえば、Podは共有namespaceと共有[ボリューム](/docs/concepts/storage/volumes/)を持つDockerコンテナのグループとしてモデル化されています。
 
-Like individual application containers, pods are considered to be relatively
-ephemeral (rather than durable) entities. As discussed in [life of a
-pod](/docs/concepts/workloads/pods/pod-lifecycle/), pods are created, assigned a unique ID (UID), and
-scheduled to nodes where they remain until termination (according to restart
-policy) or deletion. If a node dies, the pods scheduled to that node are
-scheduled for deletion, after a timeout period. A given pod (as defined by a UID) is not
-"rescheduled" to a new node; instead, it can be replaced by an identical pod,
-with even the same name if desired, but with a new UID (see [replication
-controller](/docs/concepts/workloads/controllers/replicationcontroller/) for more details).
+個々のアプリケーションコンテナと同様に、Podは（永続的ではなく）比較的短期間の存在と捉えられます。
+[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)で説明しているように、Podが作成されると、一意のID（UID）が割り当てられ、（再起動ポリシーに従って）終了または削除されるまでNodeで実行されるようにスケジュールされます。
+Nodeが停止した場合、そのNodeにスケジュールされたPodは、タイムアウト時間の経過後に削除されます。
+特定のPod（UIDで定義）は新しいNodeに「再スケジュール」されません。
+代わりに、必要に応じて同じ名前で、新しいUIDを持つ同一のPodに置き換えることができます（詳細については[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)を参照してください）。
 
-When something is said to have the same lifetime as a pod, such as a volume,
-that means that it exists as long as that pod (with that UID) exists. If that
-pod is deleted for any reason, even if an identical replacement is created, the
-related thing (e.g. volume) is also destroyed and created anew.
+ボリュームなど、Podと同じ存続期間を持つものがあると言われる場合、それは（そのUIDを持つ）Podが存在する限り存在することを意味します。
+そのPodが何らかの理由で削除された場合、たとえ同じ代替物が作成されたとしても、関連するもの（例えばボリューム）も同様に破壊されて再作成されます。
 
-{{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" title="Podの図" width="50%" >}}
 
-*A multi-container pod that contains a file puller and a
-web server that uses a persistent volume for shared storage between the containers.*
+*file puller（ファイル取得コンテナ）とWebサーバーを含むマルチコンテナのPod。コンテナ間の共有ストレージとして永続化ボリュームを使用している。*
 
-## Motivation for pods
+## Podを用いる動機
 
-### Management
+### 管理
 
-Pods are a model of the pattern of multiple cooperating processes which form a
-cohesive unit of service.  They simplify application deployment and management
-by providing a higher-level abstraction than the set of their constituent
-applications. Pods serve as unit of deployment, horizontal scaling, and
-replication. Colocation (co-scheduling), shared fate (e.g. termination),
-coordinated replication, resource sharing, and dependency management are
-handled automatically for containers in a pod.
+Podは、まとまったサービスの単位を形成する複数の協調プロセスのパターンをモデル化したものです。
+構成要素であるアプリケーションの集まりよりも高いレベルの抽象化を提供することによって、アプリケーションのデプロイと管理を単純化します。
+Podは、デプロイや水平スケーリング、レプリケーションの単位として機能します。
+Pod内のコンテナに対しては、同じ場所への配置（共同スケジューリング）、命運の共有（つまり停止）、協調レプリケーション、リソース共有や依存関係の管理が自動的に取り扱われます。
 
-### Resource sharing and communication
+### リソース共有と通信
 
-Pods enable data sharing and communication among their constituents.
+Podは、構成要素間でのデータ共有および通信を可能にします。
 
-The applications in a pod all use the same network namespace (same IP and port
-space), and can thus "find" each other and communicate using `localhost`.
-Because of this, applications in a pod must coordinate their usage of ports.
-Each pod has an IP address in a flat shared networking space that has full
-communication with other physical computers and pods across the network.
+Pod内のアプリケーションはすべて同じネットワーク名前空間（同じIPおよびポートスペース）を使用するため、 `localhost` としてお互いを「見つけて」通信できます。
+このため、Pod内のアプリケーションはそれぞれ使用するポートを調整する必要があります。
+各Podは、他の物理コンピュータやPodと自由に通信するためのフラットな共有ネットワーク空間上にIPアドレスを持ちます。
 
-The hostname is set to the pod's Name for the application containers within the
-pod. [More details on networking](/docs/concepts/cluster-administration/networking/).
+Pod内のアプリケーションコンテナのホスト名には、Podの名前が設定されます。
+詳細は[クラスターネットワーク](/docs/concepts/cluster-administration/networking/)をご覧ください。
 
-In addition to defining the application containers that run in the pod, the pod
-specifies a set of shared storage volumes. Volumes enable data to survive
-container restarts and to be shared among the applications within the pod.
+Podで実行されるアプリケーションコンテナの定義に加えて、Podによって共有ストレージであるボリュームを複数設定することも可能です。
+ボリュームを使用すると、データはコンテナの再起動後も存続し、Pod内のアプリケーション間で共有できます。
 
-## Uses of pods
+## Podの用途
 
-Pods can be used to host vertically integrated application stacks (e.g. LAMP),
-but their primary motivation is to support co-located, co-managed helper
-programs, such as:
+Podは、垂直に統合されたアプリケーションスタック（例：LAMP）をホストするために使用できます。
+しかし、Podを使う主な動機は、次のように同じ場所に配置され、共に管理されるヘルパープログラムをサポートすることです。
 
-* content management systems, file and data loaders, local cache managers, etc.
-* log and checkpoint backup, compression, rotation, snapshotting, etc.
-* data change watchers, log tailers, logging and monitoring adapters, event publishers, etc.
-* proxies, bridges, and adapters
-* controllers, managers, configurators, and updaters
+* コンテンツ管理システム(CMS)、ファイルやデータのローダー、ローカルのキャッシュマネージャーなど
+* ログとチェックポイントのバックアップ、圧縮、ローテーション、スナップショットなど
+* データの変更を監視するもの、ログをtailするもの、ロギングおよび監視の補助プログラム、イベントを発行するものなど
+* プロキシ、ブリッジ、およびアダプタ
+* コントローラー、マネージャー、コンフィギュレータ、およびアップデータ
 
-Individual pods are not intended to run multiple instances of the same
-application, in general.
+個々のPodは、一般に、同じアプリケーションの複数のインスタンスを実行することを目的としていません。
 
-For a longer explanation, see [The Distributed System ToolKit: Patterns for
-Composite
-Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
+詳細については、[The Distributed System ToolKit: Patterns for
+Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)（分散システムツールキット：複合コンテナのパターン）を参照してください。
 
-## Alternatives considered
+## 考えられる代替案
 
-_Why not just run multiple programs in a single (Docker) container?_
+_単一の（Docker）コンテナで複数のプログラムを実行しないのはなぜですか？_
 
-1. Transparency. Making the containers within the pod visible to the
-   infrastructure enables the infrastructure to provide services to those
-   containers, such as process management and resource monitoring. This
-   facilitates a number of conveniences for users.
-1. Decoupling software dependencies. The individual containers may be
-   versioned, rebuilt and redeployed independently. Kubernetes may even support
-   live updates of individual containers someday.
-1. Ease of use. Users don't need to run their own process managers, worry about
-   signal and exit-code propagation, etc.
-1. Efficiency. Because the infrastructure takes on more responsibility,
-   containers can be lighter weight.
+1. 透明性のため。Pod内のコンテナをインフラストラクチャから見えるようにすることで、インフラストラクチャはプロセス管理やリソース監視などのサービスをコンテナに提供できます。
+これは、ユーザーに多くの便益を提供します。
+1. ソフトウェアの依存関係を減らすため。
+個々のコンテナは、独立してバージョン管理、再構築、および再デプロイできます。
+Kubernetesはいつか個々のコンテナのライブアップデートをサポートするかもしれません。
+1. 使いやすさのため。ユーザーは独自のプロセスマネージャーを実行する必要はありません。シグナルや終了コードの伝播などについて心配する必要はありません。
+1. 効率のため。インフラストラクチャがより責任を負うため、コンテナはより軽量になります。
 
-_Why not support affinity-based co-scheduling of containers?_
+_アフィニティ（結合性、親和性）ベースのコンテナの共同スケジューリングをサポートしないのはなぜですか？_
 
-That approach would provide co-location, but would not provide most of the
-benefits of pods, such as resource sharing, IPC, guaranteed fate sharing, and
-simplified management.
+このアプローチによって、コンテナの共同配置は提供されるでしょう。
+しかし、リソース共有やIPC、保証された命運の共有、および簡素化された管理といったPodの利点のほとんどは提供されないでしょう。
 
-## Durability of pods (or lack thereof)
 
-Pods aren't intended to be treated as durable entities. They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
+## Podの耐久性（またはその欠如）
 
-In general, users shouldn't need to create pods directly. They should almost
-always use controllers even for singletons, for example,
-[Deployments](/docs/concepts/workloads/controllers/deployment/).
-Controllers provide self-healing with a cluster scope, as well as replication
-and rollout management.
-Controllers like [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)
-can also provide support to stateful pods.
+Podは、耐久性のある存在として扱われることを意図していません。
+スケジューリングの失敗や、Nodeの故障には耐えられません。
+リソースの不足やNodeのメンテナンスといった場合に、追い出されて停止することもあり得ます。
 
-The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), and [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
+一般に、ユーザーはPodを直接作成する必要はありません。
+ほとんどの場合、対象がシングルトンであったとしても、[Deployments](/docs/concepts/workloads/controllers/deployment/)などのコントローラーを使用するべきです。
+コントローラーは、レプリケーションとロールアウト管理だけでなく、クラスターレベルの自己修復機能も提供します。
+[StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)ようなコントローラーもステートフルなPodをサポートします。
 
-Pod is exposed as a primitive in order to facilitate:
+主要なユーザー向けのプリミティブとして集合APIを使用することは、[Borg](https://research.google.com/pubs/pub43438.html)、 [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)、[Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)、[Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)などのクラスタースケジューリングシステムで比較的一般的です。
 
-* scheduler and controller pluggability
-* support for pod-level operations without the need to "proxy" them via controller APIs
-* decoupling of pod lifetime from controller lifetime, such as for bootstrapping
-* decoupling of controllers and services &mdash; the endpoint controller just watches pods
-* clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
-* high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions or image prefetching.
+Podは、以下のことを容易にするためにプリミティブとして公開されています。
 
-## Termination of Pods
+* スケジューラーとコントローラーをプラガブルにする
+* コントローラーAPIを介して「プロキシ」の必要なしに、Podレベルの操作をサポートする
+* ブートストラップなどのために、コントローラーの寿命からPodの寿命を切り離す
+* コントローラーとサービスを分離する――エンドポイントコントローラーはPodのみを監視する
+* Kubeletレベルの機能とクラスターレベルの機能をきれいに組み合わせる――Kubeletは事実上「Podコントローラー」となる
+* アプリケーションの可用性を高める。
+即ち、計画的な追い出しやイメージのプリフェッチなどの場合に、Podが停止し削除される前に、必ず事前に入れ換えられることを期待する
 
-Because pods represent running processes on nodes in the cluster, it is important to allow those processes to gracefully terminate when they are no longer needed (vs being violently killed with a KILL signal and having no chance to clean up). Users should be able to request deletion and know when processes terminate, but also be able to ensure that deletes eventually complete. When a user requests deletion of a pod, the system records the intended grace period before the pod is allowed to be forcefully killed, and a TERM signal is sent to the main process in each container. Once the grace period has expired, the KILL signal is sent to those processes, and the pod is then deleted from the API server. If the Kubelet or the container manager is restarted while waiting for processes to terminate, the termination will be retried with the full grace period.
+## Podの終了
 
-An example flow:
+Podは、クラスター内のNodeで実行中のプロセスを表すため、不要になったときにそれらのプロセスを正常に終了できるようにすることが重要です（対照的なケースは、KILLシグナルで強制終了され、クリーンアップする機会がない場合）。
+ユーザーは削除を要求可能であるべきで、プロセスがいつ終了するかを知ることができなければなりませんが、削除が最終的に完了することも保証できるべきです。
+ユーザーがPodの削除を要求すると、システムはPodが強制終了される前に意図された猶予期間を記録し、各コンテナのメインプロセスにTERMシグナルが送信されます。
+猶予期間が終了すると、プロセスにKILLシグナルが送信され、PodはAPIサーバーから削除されます。
+プロセスの終了を待っている間にKubeletかコンテナマネージャーが再起動されると、終了処理は猶予期間の後にリトライされます。
 
-1. User sends command to delete Pod, with default grace period (30s)
-1. The Pod in the API server is updated with the time beyond which the Pod is considered "dead" along with the grace period.
-1. Pod shows up as "Terminating" when listed in client commands
-1. (simultaneous with 3) When the Kubelet sees that a Pod has been marked as terminating because the time in 2 has been set, it begins the pod shutdown process.
-    1. If one of the Pod's containers has defined a [preStop hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), it is invoked inside of the container. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
-    1. The container is sent the TERM signal. Note that not all containers in the Pod will receive the TERM signal at the same time and may each require a `preStop` hook if the order in which they shut down matters.
-1. (simultaneous with 3) Pod is removed from endpoints list for service, and are no longer considered part of the set of running pods for replication controllers. Pods that shutdown slowly cannot continue to serve traffic as load balancers (like the service proxy) remove them from their rotations.
-1. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
-1. The Kubelet will finish deleting the Pod on the API server by setting grace period 0 (immediate deletion). The Pod disappears from the API and is no longer visible from the client.
+フローの例は下のようになります。
 
-By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` [force deletes](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) the pod. In kubectl version >= 1.5, you must specify an additional flag `--force` along with `--grace-period=0` in order to perform force deletions.
+1. ユーザーがデフォルトの猶予期間（30秒）でPodを削除するコマンドを送信する
+1. APIサーバー内のPodは、猶予期間を越えるとPodが「死んでいる」と見なされるように更新される
+1. クライアントのコマンドに表示されたとき、Podは「終了中」と表示される
+1. （3と同時に）Kubeletは、2の期間が設定されたためにPodが終了中となったことを認識すると、Podのシャットダウン処理を開始する
+    1. Pod内のコンテナの1つが[preStopフック](/docs/concepts/containers/container-lifecycle-hooks/#hook-details)を定義している場合は、コンテナの内側で呼び出される。
+    猶予期間が終了した後も `preStop` フックがまだ実行されている場合は、次に、短い延長された猶予期間（2秒）でステップ2が呼び出される
+    1. コンテナにTERMシグナルが送信される。Pod内のすべてのコンテナが同時にTERMシグナルを受信するわけではなく、シャットダウンの順序が問題になる場合はそれぞれに `preStop` フックが必要になることがある
+1. （3と同時に）Podはサービスを提供するエンドポイントのリストから削除され、ReplicationControllerの実行中のPodの一部とは見なされなくなる。
+ゆっくりとシャットダウンするPodは、（サービスプロキシのような）ロードバランサーがローテーションからそれらを削除するので、トラフィックを処理し続けることはできない
+1. 猶予期間が終了すると、Pod内でまだ実行中のプロセスはSIGKILLで強制終了される
+1. Kubeletは猶予期間を0（即時削除）に設定することでAPIサーバー上のPodの削除を終了する。
+PodはAPIから消え、クライアントからは見えなくなる
 
-### Force deletion of pods
+デフォルトでは、すべての削除は30秒以内に正常に行われます。
+`kubectl delete` コマンドは、ユーザーがデフォルト値を上書きして独自の値を指定できるようにする `--grace-period=<seconds>` オプションをサポートします。
+値 `0` はPodを[強制的に削除](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)します。
+kubectlのバージョン1.5以降では、強制削除を実行するために `--grace-period=0` と共に `--force` というフラグを追加で指定する必要があります。
 
-Force deletion of a pod is defined as deletion of a pod from the cluster state and etcd immediately. When a force deletion is performed, the apiserver does not wait for confirmation from the kubelet that the pod has been terminated on the node it was running on. It removes the pod in the API immediately so a new pod can be created with the same name. On the node, pods that are set to terminate immediately will still be given a small grace period before being force killed.
+### Podの強制削除
 
-Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to the task documentation for [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+Podの強制削除は、クラスターの状態やetcdからPodを直ちに削除することと定義されます。
+強制削除が実行されると、apiserverは、Podが実行されていたNode上でPodが停止されたというkubeletからの確認を待ちません。
+API内のPodは直ちに削除されるため、新しいPodを同じ名前で作成できるようになります。
+Node上では、すぐに終了するように設定されるPodは、強制終了される前にわずかな猶予期間が与えられます。
 
-## Privileged mode for pod containers
+強制削除は、Podによっては潜在的に危険な場合があるため、慎重に実行する必要があります。
+StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
-From Kubernetes v1.1, any container in a pod can enable privileged mode, using the `privileged` flag on the `SecurityContext` of the container spec. This is useful for containers that want to use linux capabilities like manipulating the network stack and accessing devices. Processes within the container get almost the same privileges that are available to processes outside a container. With privileged mode, it should be easier to write network and volume plugins as separate pods that don't need to be compiled into the kubelet.
+## Podコンテナの特権モード
 
-If the master is running Kubernetes v1.1 or higher, and the nodes are running a version lower than v1.1, then new privileged pods will be accepted by api-server, but will not be launched. They will be in pending state.
-If user calls `kubectl describe pod FooPodName`, user can see the reason why the pod is in pending state. The events table in the describe command output will say:
+Kubernetes v1.1以降、Pod内のどのコンテナでも、コンテナ仕様の `SecurityContext` の `privileged ` フラグを使用して特権モードを有効にできます。
+これは、ネットワークスタックの操作やデバイスへのアクセスなど、Linuxの機能を使用したいコンテナにとって役立ちます。
+コンテナ内のプロセスは、コンテナ外のプロセスで利用できるものとほぼ同じ特権を獲得します。
+特権モードでは、ネットワークプラグインとボリュームプラグインを別々のPodとして作成する方が簡単なはずです。それらをkubeletにコンパイルする必要はありません。
+
+マスターがKubernetes v1.1以降を実行しており、Nodeがv1.1より前のバージョンを実行している場合、新しい特権付きのPodはAPIサーバーに受け入れられますが、起動されません。
+それらは保留状態になります。
+ユーザーが `kubectl describe pod FooPodName` を実行すると、Podが保留状態になっている理由を確認できます。
+describeコマンド出力のイベントテーブルには、次のように表示されます。
 `Error validating pod "FooPodName"."FooPodNamespace" from api, ignoring: spec.containers[0].securityContext.privileged: forbidden '<*>(0xc2089d3248)true'`
 
-
-If the master is running a version lower than v1.1, then privileged pods cannot be created. If user attempts to create a pod, that has a privileged container, the user will get the following error:
+マスターがv1.1より前のバージョンを実行している場合、特権を持つPodは作成できません。
+ユーザーが特権付きのコンテナを含むPodを作成しようとすると、次のエラーを受け取ります。 
 `The Pod "FooPodName" is invalid.
 spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'`
 
-## API Object
+## APIオブジェクト
 
-Pod is a top-level resource in the Kubernetes REST API. More details about the
-API object can be found at:
-[Pod API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+PodはKubernetes REST APIのトップレベルのリソースです。
+APIオブジェクトの詳細については、[Pod APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)を参照してください 。
 
 {{% /capture %}}
