@@ -74,12 +74,6 @@ Kubernetes:
 * Verteilt keinen Quellcode und entwickelt Ihre Anwendung nicht. 
   Kontinuierliche Integrations-, Liefer- und Bereitstellungs-Workflows (CI/CD) werden durch 
   Unternehmenskulturen und -präferenzen sowie technische Anforderungen bestimmt.
-* Does not provide application-level services, such as middleware
-  (e.g., message buses), data-processing frameworks (for example,
-  Spark), databases (e.g., mysql), caches, nor cluster storage systems (e.g.,
-  Ceph) as built-in services. Such components can run on Kubernetes, and/or
-  can be accessed by applications running on Kubernetes through portable
-  mechanisms, such as the Open Service Broker.
 * Bietet keine Dienste auf Anwendungsebene, wie Middleware (z.B. Nachrichtenbusse), 
   Datenverarbeitungs-Frameworks (z.B. Spark), Datenbanken (z.B. mysql), Caches oder 
   Cluster-Speichersysteme (z.B. Ceph) als eingebaute Dienste. Solche Komponenten können 
