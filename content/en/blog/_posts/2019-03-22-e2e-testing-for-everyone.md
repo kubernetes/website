@@ -320,7 +320,7 @@ to be included in other projects and does not define its dependencies
 in a way that is understood by tools like `dep`. The other `k8s.io`
 packages are meant to be included, but [don’t follow semantic
 versioning
-yet]([https://github.com/kubernetes/kubernetes/issues/72638) or don’t
+yet](https://github.com/kubernetes/kubernetes/issues/72638) or don’t
 tag any releases (`k8s.io/kube-openapi`, `k8s.io/utils`).
 
 PMEM-CSI uses [dep](https://golang.github.io/dep/). It’s
