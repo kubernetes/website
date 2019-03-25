@@ -7,7 +7,8 @@ weight: 10
 {{% capture overview %}}
 The `kubectl` command-line tool supports several different ways to create and manage
 Kubernetes objects. This document provides an overview of the different
-approaches.
+approaches. Read the [Kubectl book](https://kubectl.docs.kubernetes.io) for
+details of managing objects by Kubectl.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -179,6 +180,7 @@ Disadvantages compared to imperative object configuration:
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
+- [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 {{< comment >}}

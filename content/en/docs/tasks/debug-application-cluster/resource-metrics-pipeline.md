@@ -2,7 +2,7 @@
 reviewers:
 - fgrzadkowski
 - piosz
-title: Core metrics pipeline
+title: Resource metrics pipeline
 content_template: templates/concept
 ---
 

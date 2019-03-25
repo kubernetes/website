@@ -83,10 +83,28 @@ The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
-## Installing runtime
+## Installing runtime {#installing-runtime}
 
 Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
-The container runtime used by default is Docker, which is enabled through the built-in
+
+Since v1.14.0, kubeadm will try to automatically detect the container runtime on Linux nodes
+by scanning through a list of well known domain sockets. The detectable runtimes and the
+socket paths, that are used, can be found in the table below.
+
+| Runtime    | Domain Socket                    |
+|------------|----------------------------------|
+| Docker     | /var/run/docker.sock             |
+| containerd | /run/containerd/containerd.sock  |
+| CRI-O      | /var/run/crio/crio.sock          |
+
+If both Docker and containerd are detected together, Docker takes precedence. This is
+needed, because Docker 18.09 ships with containerd and both are detectable.
+If any other two or more runtimes are detected, kubeadm will exit with an appropriate
+error message.
+
+On non-Linux nodes the container runtime used by default is Docker.
+
+If the container runtime of choice is Docker, it is used through the built-in
 `dockershim` CRI implementation inside of the `kubelet`.
 
 Other CRI-based runtimes include:

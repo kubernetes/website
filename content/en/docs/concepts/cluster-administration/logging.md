@@ -35,7 +35,7 @@ a container that writes some text to standard output once per second.
 To run this pod, use the following command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
 pod/counter created
 ```
 

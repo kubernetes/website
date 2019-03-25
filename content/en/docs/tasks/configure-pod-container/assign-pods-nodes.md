@@ -71,7 +71,7 @@ a `disktype=ssd` label.
    chosen node:
     
     ```shell
-    kubectl create -f https://k8s.io/examples/pods/pod-nginx.yaml
+    kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml
     ```
 
 1. Verify that the pod is running on your chosen node:
