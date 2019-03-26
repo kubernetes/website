@@ -235,7 +235,7 @@ spec:
       url: "https://audit.app"
 ```
 
-For the complete API definition, see [AuditSink](/docs/reference/generated/kubernetes-api/v1.13/#auditsink-v1alpha1-auditregistration-k8s-io). Multiple objects will exist as independent solutions.
+For the complete API definition, see [AuditSink](/docs/reference/generated/kubernetes-api/v1.13/#auditsink-v1alpha1-auditregistration). Multiple objects will exist as independent solutions.
 
 Existing static backends that you configure with runtime flags are not affected by this feature. However, the dynamic backends share the truncate options of the static webhook. If webhook truncate options are set with runtime flags, they are applied to all dynamic backends.
 
