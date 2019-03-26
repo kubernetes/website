@@ -8,7 +8,15 @@ weight: 80
 
 _CronJob_ は時刻ベースのスケジュールによる[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)を作成します。
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみられる一行のようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
+=======
+_CronJob_ オブジェクトとは _crontab_ (cron table)ファイルのようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
+>>>>>>> f9a579db9... Translate cron-jobs.md in Japanese (#13392)
+=======
+_CronJob_ オブジェクトとは _crontab_ (cron table)ファイルのようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
+>>>>>>> 57ddfa749... Translate /content/ja/docs/concepts/workloads/controllers/cron-jobs.md in Japanese
 スケジュールでは[Cron](https://en.wikipedia.org/wiki/Cron)形式で記述されます。
 
 {{< note >}}
@@ -23,7 +31,15 @@ cronジョブを作成し、実行するインストラクション、または�
 
 ## CronJobの制限
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 cronジョブは一度のスケジュール実行につき、 _おおよそ_ 1つのジョブオブジェクトを作成します。ここで _おおよそ_ と言っているのは、ある状況下では2つのジョブが作成される、もしくは1つも作成されない場合があるためです。通常、このようなことが起こらないようになっていますが、完全に防ぐことはできません。したがって、ジョブは _冪等_ であるべきです。
+=======
+cronジョブは一度のスケジュール実行につき、 _おおよそ_ 1つのジョブオブジェクトを作成します。ここで _おおよそ_ と言っているのは、ある状況下では2つのジョブが作成される、もしくは1つも作成されない場合があるためです。通常、このようなことが起こらないようになっていますが、完全に防ぐことはできません。したがって、ジョブは _冪等_ であるべきです。
+>>>>>>> f9a579db9... Translate cron-jobs.md in Japanese (#13392)
+=======
+cronジョブは一度のスケジュール実行につき、 _おおよそ_ 1つのジョブオブジェクトを作成します。ここで _おおよそ_ と言っているのは、ある状況下では2つのジョブが作成される、もしくは1つも作成されない場合があるためです。通常、このようなことが起こらないようになっていますが、完全に防ぐことはできません。したがって、ジョブは _冪等_ であるべきです。
+>>>>>>> 57ddfa749... Translate /content/ja/docs/concepts/workloads/controllers/cron-jobs.md in Japanese
 
 `startingDeadlineSeconds`が大きな値、もしくは設定されていない(デフォルト)、そして、`concurrencyPolicy`を`Allow`に設定している場合には、少なくとも一度、ジョブが実行されることを保証します。
 
@@ -37,10 +53,26 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 スケジュールされた時間にCronJobが作成できないと、失敗したとみなされます。たとえば、`concurrencyPolicy`が`Forbid`に設定されている場合、前回のスケジュールがまだ実行中にCronJobをスケジュールしようとすると、CronJobは作成されません。
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 例として、CronJobが`08:30:00`を開始時刻として1分ごとに新しいJobをスケジュールするように設定され、`startingDeadlineSeconds`フィールドが設定されていない場合を想定します。`startingDeadlineSeconds`のデフォルト値は`100`秒です。CronJobコントローラーが`08:29:00` から`10:21:00`の間にダウンしていた場合、スケジューリングを逃したジョブの数が100を超えているため、ジョブは開始されません。
+=======
+例として、CronJobが`08:30:00`を開始時刻として1分ごとに新しいJobをスケジュールするように設定され、`startingDeadlineSeconds`フィールドが設定されていない場合を想定します。`startingDeadlineSeconds`のデフォルト値は`100`秒です。CronJobコントローラーが`08:29:00` から`10:21:00`の間にダウンしていた場合、スケジューリングを逃したジョブの数が100を超えているため、ジョブは開始されません。
+>>>>>>> f9a579db9... Translate cron-jobs.md in Japanese (#13392)
+=======
+例として、CronJobが`08:30:00`を開始時刻として1分ごとに新しいJobをスケジュールするように設定され、`startingDeadlineSeconds`フィールドが設定されていない場合を想定します。`startingDeadlineSeconds`のデフォルト値は`100`秒です。CronJobコントローラーが`08:29:00` から`10:21:00`の間にダウンしていた場合、スケジューリングを逃したジョブの数が100を超えているため、ジョブは開始されません。
+>>>>>>> 57ddfa749... Translate /content/ja/docs/concepts/workloads/controllers/cron-jobs.md in Japanese
 
 このコンセプトを更に掘り下げるために、CronJobが`08:30:00`から1分ごとに新しいJobを作成し、`startingDeadlineSeconds`が200秒に設定されている場合を想定します。CronJobコントローラーが前回の例と同じ期間(`08:29:00` から`10:21:00`まで)にダウンしている場合でも、10:22:00時点でJobはまだ動作しています。このようなことは、過去200秒間(言い換えると、3回の失敗)に何回スケジュールが間に合わなかったをコントローラーが確認するときに発生します。これは最後にスケジュールされた時間から今までのものではありません。
 
 CronJobはスケジュールに一致するJobの作成にのみ関与するのに対して、JobはCronJobが示すPod管理を担います。
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 {{% /capture %}}
+=======
+{{% /capture %}}
+>>>>>>> f9a579db9... Translate cron-jobs.md in Japanese (#13392)
+=======
+{{% /capture %}}
+>>>>>>> 57ddfa749... Translate /content/ja/docs/concepts/workloads/controllers/cron-jobs.md in Japanese
