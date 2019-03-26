@@ -280,4 +280,26 @@ but this will result in the key `enable-admission-plugins` only having the value
 A known workaround is to use the kubeadm
 [configuration file](/docs/setup/independent/control-plane-flags/#apiserver-flags).
 
+## kube-proxy scheduled before node is initialized by cloud-controller-manager
+
+In cloud provider scenarios, kube-proxy can end up being scheduled on new worker nodes before
+the cloud-controller-manager has initialized the node addresses. This causes kube-proxy to fail
+to pick up the node's IP address properly and has knock-on effects to the proxy function managing
+load balancers.
+
+The following error can be seen in kube-proxy Pods:
+```
+server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
+proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
+```
+
+A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on control-plane
+nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
+conditions abate:
+```
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+```
+
+The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
+
 {{% /capture %}}
