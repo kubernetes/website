@@ -444,9 +444,9 @@ New "APPLY" value for the "verb" metric label which indicates a PATCH with "Cont
 
 ### Windows
 
-Support for Windows nodes and Windows containers went going stable.
+Support for Windows nodes and Windows containers graduated to stable.
 
-Support for Group Managed Service Accounts (GMSA) for Windows containers in Kubernetes. GMSA are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers.
+Support for Group Managed Service Accounts (GMSA) for Windows containers in Kubernetes is alpha. GMSA are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers.
 
 - Fixed smb remount and unmount issues on Windows ([#73661](https://github.com/kubernetes/kubernetes/pull/73661), [@andyzhangx](https://github.com/andyzhangx), [#75087](https://github.com/kubernetes/kubernetes/pull/75087), [@andyzhangx](https://github.com/andyzhangx))
 - Added network stats for Windows nodes and containers ([#74788](https://github.com/kubernetes/kubernetes/pull/74788), [@feiskyer](https://github.com/feiskyer))
