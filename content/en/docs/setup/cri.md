@@ -9,7 +9,7 @@ weight: 100
 {{% capture overview %}}
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 To run containers in Pods, Kubernetes uses a container runtime. Here are
-the installation instruction for various runtimes.
+the installation instructions for various runtimes.
 
 {{% /capture %}}
 
@@ -18,10 +18,10 @@ the installation instruction for various runtimes.
 
 {{< caution >}}
 A flaw was found in the way runc handled system file descriptors when running containers.
-A malicious container could use this flaw to overwrite contents of the runc binary and 
+A malicious container could use this flaw to overwrite contents of the runc binary and
 consequently run arbitrary commands on the container host system.
 
-Please refer to this link for more information about this issue 
+Please refer to this link for more information about this issue
 [cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
 {{< /caution >}}
 
@@ -65,22 +65,19 @@ Use the following commands to install Docker on your system:
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
 # Install Docker CE
 ## Set up the repository:
-### Update the apt package index
-    apt-get update
-
 ### Install packages to allow apt to use a repository over HTTPS
-    apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
 ### Add Docker’s official GPG key
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-### Add docker apt repository.
-    add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
+### Add Docker apt repository.
+add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) \
+  stable"
 
-## Install docker ce.
+## Install Docker CE.
 apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 # Setup daemon.
@@ -106,14 +103,14 @@ systemctl restart docker
 # Install Docker CE
 ## Set up the repository
 ### Install required packages.
-    yum install yum-utils device-mapper-persistent-data lvm2
+yum install yum-utils device-mapper-persistent-data lvm2
 
-### Add docker repository.
+### Add Docker repository.
 yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
+  --add-repo \
+  https://download.docker.com/linux/centos/docker-ce.repo
 
-## Install docker ce.
+## Install Docker CE.
 yum update && yum install docker-ce-18.06.2.ce
 
 ## Create /etc/docker directory.
@@ -136,7 +133,7 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
-# Restart docker.
+# Restart Docker
 systemctl daemon-reload
 systemctl restart docker
 {{< /tab >}}
@@ -223,36 +220,63 @@ EOF
 sysctl --system
 ```
 
+### Install containerd
+
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
-apt-get install -y libseccomp2
+{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+# Install containerd
+## Set up the repository
+### Install packages to allow apt to use a repository over HTTPS
+apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+
+### Add Docker’s official GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+### Add Docker apt repository.
+add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
+
+## Install containerd
+apt-get update && apt-get install -y containerd.io
+
+# Configure containerd
+mkdir -p /etc/containerd
+containerd config default > /etc/containerd/config.toml
+
+# Restart containerd
+systemctl restart containerd
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
-yum install -y libseccomp
+# Install containerd
+## Set up the repository
+### Install required packages
+yum install yum-utils device-mapper-persistent-data lvm2
+
+### Add docker repository
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+## Install containerd
+yum update && yum install containerd.io
+
+# Configure containerd
+mkdir -p /etc/containerd
+containerd config default > /etc/containerd/config.toml
+
+# Restart containerd
+systemctl restart containerd
 {{< /tab >}}
 {{< /tabs >}}
 
-### Install containerd
+### systemd
 
-[Containerd releases](https://github.com/containerd/containerd/releases) are published regularly, the values below are hardcoded to the latest version available at the time of writing. Please check for newer versions and hashes [here](https://storage.googleapis.com/cri-containerd-release).
-
-```shell
-# Export required environment variables.
-export CONTAINERD_VERSION="1.1.2"
-export CONTAINERD_SHA256="d4ed54891e90a5d1a45e3e96464e2e8a4770cd380c21285ef5c9895c40549218"
-
-# Download containerd tar.
-wget https://storage.googleapis.com/cri-containerd-release/cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
-
-# Check hash.
-echo "${CONTAINERD_SHA256} cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz" | sha256sum --check -
-
-# Unpack.
-tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
-
-# Start containerd.
-systemctl start containerd
-```
+To use the `systemd` cgroup driver, set `plugins.cri.systemd_cgroup = true` in `/etc/containerd/config.toml`.
+When using kubeadm, manually configure the
+[cgroup driver for kubelet](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+as well.
 
 ## Other CRI runtimes: frakti
 
