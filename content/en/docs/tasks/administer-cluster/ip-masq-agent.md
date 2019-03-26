@@ -61,7 +61,7 @@ By default, in GCE/Google Kubernetes Engine starting with Kubernetes version 1.7
 To create an ip-masq-agent, run the following kubectl command:
 
 `
-kubectl create -f https://raw.githubusercontent.com/kubernetes-incubator/ip-masq-agent/master/ip-masq-agent.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-incubator/ip-masq-agent/master/ip-masq-agent.yaml
 `
 
 You must also apply the appropriate node label to any nodes in your cluster that you want the agent to run on.

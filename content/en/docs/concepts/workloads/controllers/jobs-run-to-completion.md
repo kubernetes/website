@@ -39,7 +39,7 @@ It takes around 10s to complete.
 You can run the example with this command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/job.yaml
+kubectl apply -f https://k8s.io/examples/controllers/job.yaml
 ```
 ```
 job "pi" created

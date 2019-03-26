@@ -77,7 +77,7 @@ The `-cpus "2"` argument tells the Container to attempt to use 2 CPUs.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --namespace=cpu-example
+kubectl apply -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --namespace=cpu-example
 ```
 
 Verify that the Pod Container is running:
@@ -168,7 +168,7 @@ capacity of any Node in your cluster.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/cpu-request-limit-2.yaml --namespace=cpu-example
+kubectl apply -f https://k8s.io/examples/pods/resource/cpu-request-limit-2.yaml --namespace=cpu-example
 ```
 
 View the Pod status:

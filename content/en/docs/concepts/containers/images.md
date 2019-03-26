@@ -205,7 +205,7 @@ example, run these on your desktop/laptop:
 Verify by creating a pod that uses a private image, e.g.:
 
 ```yaml
-kubectl create -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -279,8 +279,19 @@ Kubernetes supports specifying registry keys on a pod.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
-kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
-secret/myregistrykey created.
+cat <<EOF > ./kustomization.yaml
+secretGenerator:
+- name: myregistrykey
+  type: docker-registry
+  literals:
+  - docker-server=DOCKER_REGISTRY_SERVER
+  - docker-username=DOCKER_USER
+  - docker-password=DOCKER_PASSWORD
+  - docker-email=DOCKER_EMAIL
+EOF
+
+kubectl apply -k .
+secret/myregistrykey-66h7d4d986 created
 ```
 
 If you already have a Docker credentials file then, rather than using the above
@@ -300,7 +311,8 @@ so this process needs to be done one time per namespace.
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
 section to a pod definition.
 
-```yaml
+```shell
+cat <<EOF > pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -312,6 +324,12 @@ spec:
       image: janedoe/awesomeapp:v1
   imagePullSecrets:
     - name: myregistrykey
+EOF
+
+cat <<EOF >> ./kustomization.yaml
+resources:
+- pod.yaml
+EOF
 ```
 
 This needs to be done for each pod that is using a private registry.

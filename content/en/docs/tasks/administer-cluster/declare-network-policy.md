@@ -110,7 +110,7 @@ spec:
 Use kubectl to create a NetworkPolicy from the above nginx-policy.yaml file:
 
 ```console
-kubectl create -f nginx-policy.yaml
+kubectl apply -f nginx-policy.yaml
 ```
 
 ```none

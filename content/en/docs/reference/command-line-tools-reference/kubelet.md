@@ -707,7 +707,7 @@ kubelet [flags]
        <td colspan="2">--kube-reserved mapStringString</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi) pairs that describe resources reserved for kubernetes system components. Currently cpu, memory and local ephemeral storage for root file system are supported. See /docs/user-guide/compute-resources for more detail. [default=none]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid=1000) pairs that describe resources reserved for kubernetes system components. Currently cpu, memory, pid, and local ephemeral storage for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]</td>
     </tr>
 
      <tr>
@@ -1092,7 +1092,7 @@ kubelet [flags]
        <td colspan="2">--system-reserved mapStringString</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi) pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See /docs/user-guide/compute-resources for more detail. [default=none]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid=1000) pairs that describe resources reserved for non-kubernetes components. Currently only cpu, memory, and pid are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]</td>
     </tr>
 
      <tr>

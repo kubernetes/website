@@ -178,7 +178,7 @@ cat job.yaml.jinja2 | render_template > jobs.yaml
 Or sent directly to kubectl, like this:
 
 ```shell
-cat job.yaml.jinja2 | render_template | kubectl create -f -
+cat job.yaml.jinja2 | render_template | kubectl apply -f -
 ```
 
 ## Alternatives

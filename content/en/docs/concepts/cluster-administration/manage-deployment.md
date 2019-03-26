@@ -26,7 +26,7 @@ Many applications require multiple resources to be created, such as a Deployment
 Multiple resources can be created the same way as a single resource:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/nginx-app.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx-app.yaml
 ```
 
 ```shell
@@ -36,16 +36,16 @@ deployment.apps/my-nginx created
 
 The resources will be created in the order they appear in the file. Therefore, it's best to specify the service first, since that will ensure the scheduler can spread the pods associated with the service as they are created by the controller(s), such as Deployment.
 
-`kubectl create` also accepts multiple `-f` arguments:
+`kubectl apply` also accepts multiple `-f` arguments:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
 
 And a directory can be specified rather than or in addition to individual files:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/nginx/
+kubectl apply -f https://k8s.io/examples/application/nginx/
 ```
 
 `kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
@@ -55,7 +55,7 @@ It is a recommended practice to put resources related to the same microservice o
 A URL can also be specified as a configuration source, which is handy for deploying directly from configuration files checked into github:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
 ```
 
 ```shell
@@ -123,7 +123,7 @@ project/k8s/development
 By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we had tried to create the resources in this directory using the following command, we would have encountered an error:
 
 ```shell
-kubectl create -f project/k8s/development
+kubectl apply -f project/k8s/development
 ```
 
 ```shell
@@ -133,7 +133,7 @@ error: you must provide one or more resources by argument or filename (.json|.ya
 Instead, specify the `--recursive` or `-R` flag with the `--filename,-f` flag as such:
 
 ```shell
-kubectl create -f project/k8s/development --recursive
+kubectl apply -f project/k8s/development --recursive
 ```
 
 ```shell
@@ -147,7 +147,7 @@ The `--recursive` flag works with any operation that accepts the `--filename,-f`
 The `--recursive` flag also works when multiple `-f` arguments are provided:
 
 ```shell
-kubectl create -f project/k8s/namespaces -f project/k8s/development --recursive
+kubectl apply -f project/k8s/namespaces -f project/k8s/development --recursive
 ```
 
 ```shell
@@ -193,7 +193,7 @@ and
 The labels allow us to slice and dice our resources along any dimension specified by a label:
 
 ```shell
-kubectl create -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
+kubectl apply -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
 kubectl get pods -Lapp -Ltier -Lrole
 ```
 
@@ -366,7 +366,6 @@ This command will compare the version of the configuration that you're pushing w
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```
 ```shell
 deployment.apps/my-nginx configured
 ```
@@ -376,10 +375,6 @@ Note that `kubectl apply` attaches an annotation to the resource in order to det
 Currently, resources are created without this annotation, so the first invocation of `kubectl apply` will fall back to a two-way diff between the provided input and the current configuration of the resource. During this first invocation, it cannot detect the deletion of properties set when the resource was created. For this reason, it will not remove them.
 
 All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
-
-{{< note >}}
-To use apply, always create resource initially with either `kubectl apply` or `kubectl create --save-config`.
-{{< /note >}}
 
 ### kubectl edit
 
@@ -430,8 +425,7 @@ deployment.apps/my-nginx replaced
 
 At some point, you'll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
 
-We'll guide you through how to create and update applications with Deployments. If your deployed application is managed by Replication Controllers,
-you should read [how to use `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/) instead.
+We'll guide you through how to create and update applications with Deployments.
 
 Let's say you were running version 1.7.9 of nginx:
 

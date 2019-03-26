@@ -180,7 +180,7 @@ spec:
 This Pod can be started and debugged with the following commands:
 
 ```shell
-kubectl create -f myapp.yaml
+kubectl apply -f myapp.yaml
 ```
 ```
 pod/myapp-pod created
@@ -240,7 +240,7 @@ Once we start the `mydb` and `myservice` services, we can see the Init Container
 complete and the `myapp-pod` is created:
 
 ```shell
-kubectl create -f services.yaml
+kubectl apply -f services.yaml
 ```
 ```
 service/myservice created

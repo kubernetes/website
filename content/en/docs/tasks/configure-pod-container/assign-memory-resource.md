@@ -76,7 +76,7 @@ The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 1
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
+kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit.yaml --namespace=mem-example
 ```
 
 Verify that the Pod Container is running:
@@ -146,7 +146,7 @@ will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limi
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-2.yaml --namespace=mem-example
+kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit-2.yaml --namespace=mem-example
 ```
 
 View detailed information about the Pod:
@@ -252,7 +252,7 @@ of any Node in your cluster.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
+kubectl apply -f https://k8s.io/examples/pods/resource/memory-request-limit-3.yaml --namespace=mem-example
 ```
 
 View the Pod status:

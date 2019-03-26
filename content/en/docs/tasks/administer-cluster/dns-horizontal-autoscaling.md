@@ -98,7 +98,7 @@ In the file, replace `<SCALE_TARGET>` with your scale target.
 Go to the directory that contains your configuration file, and enter this
 command to create the Deployment:
 
-    kubectl create -f dns-horizontal-autoscaler.yaml
+    kubectl apply -f dns-horizontal-autoscaler.yaml
 
 The output of a successful command is:
 
