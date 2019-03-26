@@ -322,13 +322,7 @@ div.post-footer {
   line-height: 1.5;
 }
 
-body {
-  min-width: 1200px;
-}
-.content-outer, .content-fauxcolumn-outer, .region-inner {
-  min-width: 1200px;
-  max-width: 1200px;
-  _width: 1200px;
+body .content-outer, .content-fauxcolumn-outer, .region-inner {
   padding-left: 15px;
 }
 .main-inner .columns {
