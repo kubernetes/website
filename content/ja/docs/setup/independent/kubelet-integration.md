@@ -182,7 +182,7 @@ This file specifies the default locations for all of the files managed by kubead
 - The file containing the kubelet's ComponentConfig is `/var/lib/kubelet/config.yaml`.
 - The dynamic environment file that contains `KUBELET_KUBEADM_ARGS` is sourced from `/var/lib/kubelet/kubeadm-flags.env`.
 - The file that can contain user-specified flag overrides with `KUBELET_EXTRA_ARGS` is sourced from
-  `/etc/default/kubelet` (for DEBs), or `/etc/systconfig/kubelet` (for RPMs). `KUBELET_EXTRA_ARGS`
+  `/etc/default/kubelet` (for DEBs), or `/etc/sysconfig/kubelet` (for RPMs). `KUBELET_EXTRA_ARGS`
   is last in the flag chain and has the highest priority in the event of conflicting settings.
 
 ## Kubernetesバイナリとパッケージの内容
@@ -191,10 +191,10 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 
 | Package name | Description |
 |--------------|-------------|
-| `kubeadm`    | Installs the `/usr/bin/kubeadm` CLI tool and [The kubelet drop-in file(#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
+| `kubeadm`    | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
 | `kubelet`    | Installs the `/usr/bin/kubelet` binary. |
 | `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
 | `kubernetes-cni` | Installs the official CNI binaries into the `/opt/cni/bin` directory. |
-| `cri-tools` | Installs the `/usr/bin/crictl` binary from [https://github.com/kubernetes-incubator/cri-tools](https://github.com/kubernetes-incubator/cri-tools). |
+| `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-incubator/cri-tools). |
 
 {{% /capture %}}
