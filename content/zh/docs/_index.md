@@ -1,4 +1,3 @@
 ---
-title: Home
-weight: 5
+title: 文档
 ---

@@ -48,7 +48,7 @@ empty string or undefined the code will attempt to find the default network
 adapter similar to the following command:
 
 ```bash
-$ route | grep default | head -n 1 | awk {'print $8'}
+route | grep default | head -n 1 | awk {'print $8'}
 ```
 
 **cidr** The network range to configure the flannel or canal SDN to declare when

@@ -5,6 +5,9 @@ reviewers:
 - jbeda
 title: Overview of kubeadm
 weight: 10
+card:
+  name: reference
+  weight: 40
 ---
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">Kubeadm is a tool built to provide `kubeadm init` and `kubeadm join` as best-practice “fast paths” for creating Kubernetes clusters.
 

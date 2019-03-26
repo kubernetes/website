@@ -52,7 +52,7 @@ Kubernetes clusters are built on top of disks created in Azure. In a typical con
 
 ![](/images/blog/2018-10-08-support-for-azure-vmss/cloud-provider-components.png)
 
-Kubernetes cloud provider interface provides interactions with clouds for managing cloud-specific resources, e.g. public IPs and routes. A good overview of these components is given in [[2]](https://kubernetes.io/docs/concepts/architecture/cloud-controller/). In case of Azure Kubernetes cluster, the Kubernetes interactions go through the Azure cloud provider layer and contact the various services running in the cloud.
+Kubernetes cloud provider interface provides interactions with clouds for managing cloud-specific resources, e.g. public IPs and routes. A good overview of these components is given in [[2]](/docs/concepts/architecture/cloud-controller/). In case of Azure Kubernetes cluster, the Kubernetes interactions go through the Azure cloud provider layer and contact the various services running in the cloud.
 
 The cloud provider implementation of K8s can be largely divided into the following component interfaces which we need to implement:
 
@@ -142,7 +142,7 @@ In future there will be support for the following:
 
 ## Cluster Autoscaler
 
-A Kubernetes cluster consists of nodes. These nodes can be virtual machines, bare metal servers or could be even virtual node (virtual kubelet). To avoid getting lost in permutations and combinations of Kubernetes ecosystem ;-), let's consider that the cluster we are discussing consists of virtual machines, which are hosted in a cloud (eg: Azure, Google or AWS). What this effectively means is that you have access to virtual machines which run Kubernetes agents and a master node which runs k8s services like API server. A detailed version of k8s architecture can be found here [[11]](https://kubernetes.io/docs/concepts/architecture/).
+A Kubernetes cluster consists of nodes. These nodes can be virtual machines, bare metal servers or could be even virtual node (virtual kubelet). To avoid getting lost in permutations and combinations of Kubernetes ecosystem ;-), let's consider that the cluster we are discussing consists of virtual machines, which are hosted in a cloud (eg: Azure, Google or AWS). What this effectively means is that you have access to virtual machines which run Kubernetes agents and a master node which runs k8s services like API server. A detailed version of k8s architecture can be found here [[11]](/docs/concepts/architecture/).
 
 The number of nodes which are required on a cluster depends on the workload on the cluster. When the load goes up there is a need to increase the nodes and when it subsides, there is a need to reduce the nodes and clean up the resources which are no longer in use. One way this can be taken care of is to manually scale up the nodes which are part of the Kubernetes cluster and manually scale down when the demand reduces. But shouldn’t this be done automatically ? Answer to this question is the Cluster Autoscaler (CA).
 
@@ -309,7 +309,7 @@ For the acs-engine (the unmanaged variety) on Azure docs can be found here: [[9]
 
 1) https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview
 
-2) https://kubernetes.io/docs/concepts/architecture/cloud-controller/
+2) /docs/concepts/architecture/cloud-controller/
 
 3)  https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/azure/azure_vmss.go
 
@@ -327,7 +327,7 @@ For the acs-engine (the unmanaged variety) on Azure docs can be found here: [[9]
 
 10) https://github.com/kubernetes/client-go
 
-11) https://kubernetes.io/docs/concepts/architecture/
+11) /docs/concepts/architecture/
 
 12) https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview
 

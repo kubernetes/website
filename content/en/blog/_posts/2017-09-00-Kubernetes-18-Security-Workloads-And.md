@@ -12,10 +12,10 @@ We’re pleased to announce the delivery of Kubernetes 1.8, our third release th
 
 ## Spotlight on security
 
-Kubernetes 1.8 graduates support for [role based access control](https://en.wikipedia.org/wiki/Role-based_access_control) (RBAC) to stable. RBAC allows cluster administrators to [dynamically define roles](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) to enforce access policies through the Kubernetes API. Beta support for filtering outbound traffic through [network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) augments existing support for filtering inbound traffic to a pod. RBAC and Network Policies are two powerful tools for enforcing organizational and regulatory security requirements within Kubernetes.  
+Kubernetes 1.8 graduates support for [role based access control](https://en.wikipedia.org/wiki/Role-based_access_control) (RBAC) to stable. RBAC allows cluster administrators to [dynamically define roles](/docs/reference/access-authn-authz/rbac/) to enforce access policies through the Kubernetes API. Beta support for filtering outbound traffic through [network policies](/docs/concepts/services-networking/network-policies/) augments existing support for filtering inbound traffic to a pod. RBAC and Network Policies are two powerful tools for enforcing organizational and regulatory security requirements within Kubernetes.  
 
 
-Transport Layer Security (TLS) [certificate rotation](https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/) for the Kubelet graduates to beta. Automatic certificate rotation eases secure cluster operation.  
+Transport Layer Security (TLS) [certificate rotation](/docs/admin/kubelet-tls-bootstrapping/) for the Kubelet graduates to beta. Automatic certificate rotation eases secure cluster operation.  
 
 
 ## Spotlight on workload support
@@ -24,9 +24,9 @@ Kubernetes 1.8 promotes the core Workload APIs to beta with the apps/v1beta2 gro
 
 For those considering running Big Data workloads on Kubernetes, the Workloads API now enables [native Kubernetes support](https://apache-spark-on-k8s.github.io/userdocs/) in Apache Spark.  
 
-Batch workloads, such as nightly ETL jobs, will benefit from the graduation of [CronJobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) to beta.  
+Batch workloads, such as nightly ETL jobs, will benefit from the graduation of [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/) to beta.  
 
-[Custom Resource Definitions](https://kubernetes.io/docs/concepts/api-extension/custom-resources/) (CRDs) remain in beta for Kubernetes 1.8. A CRD provides a powerful mechanism to extend Kubernetes with user-defined API objects. One use case for CRDs is the automation of complex stateful applications such as [key-value stores](https://github.com/coreos/etcd-operator), databases and [storage engines](https://rook.io/) through the Operator Pattern. Expect continued enhancements to CRDs such as [validation](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) as stabilization continues.  
+[Custom Resource Definitions](/docs/concepts/api-extension/custom-resources/) (CRDs) remain in beta for Kubernetes 1.8. A CRD provides a powerful mechanism to extend Kubernetes with user-defined API objects. One use case for CRDs is the automation of complex stateful applications such as [key-value stores](https://github.com/coreos/etcd-operator), databases and [storage engines](https://rook.io/) through the Operator Pattern. Expect continued enhancements to CRDs such as [validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) as stabilization continues.  
 
 
 ## Spoilers ahead
@@ -40,7 +40,7 @@ Each Special Interest Group (SIG) in the community continues to deliver the most
 
 #### Availability
 
-Kubernetes 1.8 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.8.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/kubernetes-basics/).  
+Kubernetes 1.8 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.8.0). To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/kubernetes-basics/).  
 
 
 ## Release team

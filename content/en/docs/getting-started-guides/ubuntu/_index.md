@@ -51,7 +51,7 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
   - [Decommissioning](/docs/getting-started-guides/ubuntu/decommissioning/)
   - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations/)
   - [Glossary](/docs/getting-started-guides/ubuntu/glossary/)
-
+  - [Authenticating with LDAP](https://www.ubuntu.com/kubernetes/docs/ldap)
 
 ## Third-party Product Integrations
 
@@ -73,5 +73,3 @@ We're normally following the following Slack channels:
 
 and we monitor the Kubernetes mailing lists.
 {{% /capture %}}
-
-

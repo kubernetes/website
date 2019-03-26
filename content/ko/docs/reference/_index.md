@@ -23,8 +23,6 @@ content_template: templates/concept
   * [1.11](/docs/reference/generated/kubernetes-api/v1.11/)
   * [1.10](https://v1-10.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/)
   * [1.9](https://v1-9.docs.kubernetes.io/docs/api-reference/v1.9/)
-  * [1.8](https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/)
-  * [1.7](https://v1-7.docs.kubernetes.io/docs/api-reference/v1.7/)
 
 ## API 클라이언트 라이브러리
 

@@ -39,7 +39,7 @@ If you create the ReplicaSet and then view the Pod metadata, you can see
 OwnerReferences field:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/replicaset.yaml
+kubectl apply -f https://k8s.io/examples/controllers/replicaset.yaml
 kubectl get pods --output=yaml
 ```
 
@@ -59,6 +59,14 @@ metadata:
     uid: d9607e19-f88f-11e6-a518-42010a800195
   ...
 ```
+
+{{< note >}}
+Cross-namespace owner references is disallowed by design. This means: 
+1) Namespace-scoped dependents can only specify owners in the same namespace,
+and owners that are cluster-scoped.
+2) Cluster-scoped dependents can only specify cluster-scoped owners, but not
+namespace-scoped owners.
+{{< /note >}}
 
 ## Controlling how the garbage collector deletes dependents
 

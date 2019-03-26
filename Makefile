@@ -1,5 +1,5 @@
 DOCKER       = docker
-HUGO_VERSION = 0.52
+HUGO_VERSION = 0.53
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(CURDIR):/src
 NODE_BIN     = node_modules/.bin
@@ -37,7 +37,7 @@ sass-develop:
 	scripts/sass.sh develop
 
 serve: ## Boot the development server.
-	hugo server --ignoreCache --buildFuture
+	hugo server --buildFuture
 
 docker-image:
 	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)

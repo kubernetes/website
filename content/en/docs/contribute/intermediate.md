@@ -3,6 +3,9 @@ title: Intermediate contributing
 slug: intermediate
 content_template: templates/concept
 weight: 20
+card:
+  name: contribute
+  weight: 50
 ---
 
 {{% capture overview %}}
@@ -67,7 +70,7 @@ and the [code of conduct](/community/code-of-conduct/)
 To see all open PRs, go to the **Pull Requests** tab in the Github repository.
 A PR is eligible for review when it meets all of the following criteria:
 
-- Has the `cnf-cla:yes` tag
+- Has the `cncf-cla:yes` tag
 - Does not have WIP in the description
 - Does not a have tag including the phrase `do-not-merge`
 - Has no merge conflicts

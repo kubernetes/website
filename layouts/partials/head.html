@@ -10,7 +10,7 @@
   gtag('config', 'UA-36037335-10');
 </script>
 <meta charset="utf-8">
-<title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
+<title>{{ if .Title }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
 {{ partial "css.html" . }}
@@ -23,7 +23,7 @@
 <meta property="og:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
 <meta name="twitter:title" content="{{ if .Params.title }}{{ .Title }}{{ else }}{{ .Summary | truncate 10 }}{{ end }}">
 <!-- Alt text for the site image -->
-<meta name="twitter:image:alt"   content="{{ .Site.Title }}">
+<meta name="twitter:image:alt"   content="{{ site.Title }}">
 {{ if $isBlogPost }}
 {{ with findRE "<img.*?>" .Content 1 }}
 <meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">

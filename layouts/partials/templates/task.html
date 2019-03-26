@@ -2,10 +2,10 @@
 {{ partial "templates/block" (dict "page" .page "block" "overview" "purpose" "states, in one or two sentences, the purpose of this document") }}
 
 {{ .ctx.Scratch.Set "blocks" slice }}
-{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "prerequisites" "heading" "Before you begin" "purpose" "lists action prerequisites and knowledge prerequisites.")  }}
+{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "prerequisites" "heading" (i18n "prerequisites_heading") "purpose" "lists action prerequisites and knowledge prerequisites.")  }}
 {{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "steps" "purpose" "lists a sequence of numbered steps that accomplish the task.'")  }}
 {{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "discussion" "optional" true )  }}
 {{ .ctx.Scratch.Add "blocks" (dict "content" .page.Content) }}
-{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "whatsnext" "heading" "What's next" "optional" true )  }}
+{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "whatsnext" "heading" (i18n "whatsnext_heading") "optional" true )  }}
 
 {{ partial "templates/blocks" . }}

@@ -1,0 +1,62 @@
+---
+title: "Production-Grade Container Orchestration"
+abstract: "自動化されたコンテナのデプロイ・スケール・管理"
+cid: home
+---
+
+{{< deprecationwarning >}}
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}})は、デプロイやスケーリングを自動化したり、コンテナ化されたアプリケーションを管理したりするための、オープンソースのシステムです。
+
+管理や検出を容易にするため、アプリケーションを論理的な単位に分割し、コンテナをグルーピングします。Kubernetesは[Googleでの15年にわたる経験](http://queue.acm.org/detail.cfm?id=2898444)を基に構築されており、コミュニティのアイディアや慣習との最善の組み合わせを取っています。
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### 惑星規模のスケーリング
+
+Googleが週に何十億ものコンテナを実行することを可能としているのと同じ原則に沿ってデザインされているため、Kubernetesは運用チームの人数を増やさずに規模を拡大することができます。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### いつまでも使える
+
+ローカルのテストであろうとグローバル企業での開発であろうと、Kubernetesの柔軟性はあなたの要求がどれだけ複雑になろうとも問題なく、矛盾無く、簡単にアプリケーションを提供できます。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### どこでも実行できる
+
+Kubernetesはオープンソースなので、オンプレミスやパブリッククラウド、それらのハイブリッドなどの利点を自由に得ることができ、簡単に移行することができます。
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>150以上のマイクロサービスアプリケーションをKubernetes上に移行する挑戦</h2>
+        <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">ビデオを見る</button>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2019" button id="desktopKCButton">2019年5月のKubeCon バルセロナに参加する</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2019" button id="desktopKCButton">2019年6月のKubeCon 上海に参加する</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

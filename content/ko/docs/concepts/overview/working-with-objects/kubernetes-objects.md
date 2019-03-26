@@ -2,6 +2,9 @@
 title: 쿠버네티스 오브젝트 이해하기
 content_template: templates/concept
 weight: 10
+card:
+  name: concepts
+  weight: 40
 ---
 
 {{% capture overview %}}
@@ -21,14 +24,14 @@ weight: 10
 
 생성이든, 수정이든, 또는 삭제든 쿠버네티스 오브젝트를 동작시키려면, [Kubernetes API](/docs/concepts/overview/kubernetes-api/)를 이용해야 한다. 예를 들어, `kubectl` 커맨드-라인 인터페이스를 이용할 때, CLI는 여러분 대신 필요한 쿠버네티스 API를 호출해 준다. 또한, 여러분은 [Client Libraries](/docs/reference/using-api/client-libraries/) 중 하나를 이용하여 여러분만의 프로그램에서 쿠버네티스 API를 직접 이용할 수도 있다.
 
-### 오브젝트 (spec)과 상태(status)
+### 오브젝트 스펙(spec)과 상태(status)
 
 모든 쿠버네티스 오브젝트는 오브젝트의 구성을 결정해주는 두 개의 중첩된 오브젝트 필드를 포함하는데 오브젝트 *spec* 과 오브젝트 *status* 가 그것이다. 필히 제공되어야만 하는 *spec* 은, 여러분이 오브젝트가 가졌으면 하고 원하는 특징, 즉 *의도한 상태* 를 기술한다. *status* 는 오브젝트의 *실제 상태* 를 기술하고, 쿠버네티스 시스템에 의해 제공되고 업데이트 된다. 주어진 임의의 시간에, 쿠버네티스 컨트롤 플레인은 오브젝트의 실제 상태를 여러분이 제시한 의도한 상태에 일치시키기 위해 능동적으로 관리한다.
 
 
 예를 들어, 쿠버네티스 디플로이먼트는 클러스터에서 동작하는 애플리케이션을 표현해 줄 수 있는 오브젝트이다. 디플로이먼트를 생성할 때, 디플로이먼트 spec에 3개의 애플리케이션 레플리카가 동작되도록 설정할 수 있다. 쿠버네티스 시스템은 그 디플로이먼트 spec을 읽어 spec에 일치되도록 상태를 업데이트하여 3개의 의도한 애플리케이션 인스턴스를 구동시킨다. 만약, 그 인스턴스들 중 어느 하나가 (상태 변경에) 실패가 난다면, 쿠버네티스 시스템은 보정을 통해, 이 경우에는 인스턴스 대체를 착수하여, spec과 status 간의 차이에 대응한다.
 
-오브젝트 spec, staus, 그리고 metadata에 대한 추가 정보는, [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md) 를 참조한다.
+오브젝트 spec, staus, 그리고 metadata에 대한 추가 정보는, [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md) 를 참조한다.
 
 ### 쿠버네티스 오브젝트 기술하기
 
