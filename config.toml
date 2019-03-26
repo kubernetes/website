@@ -200,3 +200,15 @@ contentDir = "content/no"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+
+[languages.de]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Deutsch"
+weight = 8
+contentDir = "content/de"
+
+[languages.de.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
