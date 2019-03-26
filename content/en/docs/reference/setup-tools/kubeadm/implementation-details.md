@@ -14,7 +14,7 @@ weight: 100
 `kubeadm init` and `kubeadm join` together provides a nice user experience for creating a best-practice but bare Kubernetes cluster from scratch.
 However, it might not be obvious _how_ kubeadm does that.
 
-This document provide additional details on what happen under the hood, with the aim of sharing knowledge on Kubernetes cluster best practices.
+This document provides additional details on what happen under the hood, with the aim of sharing knowledge on Kubernetes cluster best practices.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -130,7 +130,7 @@ Kubeadm generates certificate and private key pairs for different purposes:
 
  - A self signed certificate authority for the Kubernetes cluster saved into `ca.crt` file and `ca.key` private key file
  - A serving certificate for the API server, generated using `ca.crt` as the CA, and saved into `apiserver.crt` file with
-   its private key `apiserver.key`. This certificate should contains following alternative names:
+   its private key `apiserver.key`. This certificate should contain following alternative names:
      - The Kubernetes service's internal clusterIP (the first address in the services CIDR, e.g. `10.96.0.1` if service subnet is `10.96.0.0/12`)
      - Kubernetes DNS names, e.g.  `kubernetes.default.svc.cluster.local` if `--service-dns-domain` flag value is `cluster.local`, plus default DNS names `kubernetes.default.svc`, `kubernetes.default`, `kubernetes`
      - The node-name
@@ -332,7 +332,7 @@ if `localhost:10255/healthz` (kubelet liveness) or `localhost:10255/healthz/sync
 respectively after 40 and 60 second.
 
 kubeadm relies on the kubelet to pull the control plane images and run them properly as static Pods.
-After the control plane is up, kubeadm completes a the tasks described in following paragraphs.
+After the control plane is up, kubeadm completes the tasks described in following paragraphs.
 
 ### (optional and alpha in v1.9) Write base kubelet configuration
 
@@ -353,7 +353,7 @@ state and make new decisions based on that data.
 
 Please note that:
 
-1. Before uploading, sensitive information like e.g. the token are stripped from the configuration
+1. Before uploading, sensitive information like e.g. the token is stripped from the configuration
 2. Upload of master configuration can be invoked individually with the [`kubeadm init phase upload-config`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-upload-config) command
 3. If you initialized your cluster using kubeadm v1.7.x or lower, you must create manually the master configuration ConfigMap
    before `kubeadm upgrade` to v1.8 . In order to facilitate this task, the [`kubeadm config upload (from-flags|from-file)`](/docs/reference/setup-tools/kubeadm/kubeadm-config/)
@@ -396,7 +396,7 @@ Please note that:
 
 #### Allow joining nodes to call CSR API
 
-Kubeadm ensure that users in  `system:bootstrappers:kubeadm:default-node-token` group are able to access the certificate signing API.
+Kubeadm ensures that users in  `system:bootstrappers:kubeadm:default-node-token` group are able to access the certificate signing API.
 
 This is implemented by creating a ClusterRoleBinding named `kubeadm:kubelet-bootstrap` between the group above and the default
 RBAC role `system:node-bootstrapper`.
@@ -468,7 +468,7 @@ Deploy the `kube-dns` Deployment and Service:
 
 ### Optional self-hosting
 
-To enable self hosting on a existing static Pod control-plane use `kubeadm alpha selfhosting pivot`.
+To enable self hosting on an existing static Pod control-plane use `kubeadm alpha selfhosting pivot`.
 
 Self hosting basically replaces static Pods for control plane components with DaemonSets; this is achieved by executing
 following procedure for API server, scheduler and controller manager static Pods:
