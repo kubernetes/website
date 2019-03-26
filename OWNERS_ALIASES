@@ -18,6 +18,12 @@ aliases:
     - chuckha
     - detiber
     - dixudx
+  sig-docs-de-owners: # Admins for German content
+    - bene2k1
+    - rlenferink
+  sig-docs-de-reviews: # PR reviews for German content
+    - bene2k1
+    - rlenferink
   sig-docs-en-owners: # Admins for English content
     - bradamant3
     - bradtopol
