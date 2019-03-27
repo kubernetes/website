@@ -123,10 +123,10 @@ The output is similar to this:
 
 Using `jsonpath` approach:
 
-```
-$ APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-$ TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
-$ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+```shell
+APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
+curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
   "versions": [

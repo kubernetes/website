@@ -121,7 +121,7 @@ mind:
       `Numbered` above.**
 
       ```bash
-      $ ls -l
+      ls -l
       ```
 
     - And a sub-list after some block-level content. This is at the same
@@ -146,7 +146,7 @@ Tabs may also nest formatting styles.
 1. Lists
 
 ```bash
-$ echo 'Tab lists may contain code blocks!'
+echo 'Tab lists may contain code blocks!'
 ```
 
 {{% /tab %}}
