@@ -50,7 +50,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 <!--
 ## Add the service-catalog Helm repository
 -->
-## 添加服务目录 Helm 存储库
+## 添加服务目录 Helm 仓库
 
 <!--
 Once Helm is installed, add the *service-catalog* Helm repository to your local machine by executing the following command:
