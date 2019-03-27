@@ -79,7 +79,7 @@ about working with config files, see
 [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 and [Object Management](/docs/concepts/overview/object-management-kubectl/overview/).
 
-__spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
+__spec__: `NetworkPolicy` [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
 
 __podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the policy applies. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
 
