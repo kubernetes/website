@@ -23,7 +23,7 @@ Kubernetes 允许开发人员根据当前的流量和负载自动调整集群大
 <!--
 Enjoyed this talk? Join us for more exciting sessions on scaling and automating your Kubernetes clusters at KubeCon in Austin on December 6-8. [Register Now](https://www.eventbrite.com/e/kubecon-cloudnativecon-north-america-registration-37824050754?_ga=2.9666039.317115486.1510003873-1623727562.1496428006)  
 -->
-喜欢这个演讲吗？ 12月6日至8日，在 Austin 参加 KubeCon 关于扩展和自动化您的 Kubernetes 集群的更令人兴奋的会议。[现在注册](https://www.eventbrite.com/e/kubecon-cloudnativecon-north-america-registration-37824050754?_ga=2.9666039.317115486.1510003873-1623727562.1496428006)。
+喜欢这个演讲吗？ 12 月 6 日至 8 日，在 Austin 参加 KubeCon 关于扩展和自动化您的 Kubernetes 集群的更令人兴奋的会议。[现在注册](https://www.eventbrite.com/e/kubecon-cloudnativecon-north-america-registration-37824050754?_ga=2.9666039.317115486.1510003873-1623727562.1496428006)。
 
 <!--
 Be sure to check out [Automating and Testing Production Ready Kubernetes Clusters in the Public Cloud](http://sched.co/CU64) by Ron Lipke, Senior Developer, Platform as a Service, Gannet/USA Today Network.
