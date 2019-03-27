@@ -180,7 +180,8 @@
 /docs/getting-started-guides/ubuntu/calico/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/vagrant/     /docs/getting-started-guides/alternatives/ 301
 /docs/getting-started-guides/vsphere/     https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/ 301
-/docs/getting-started-guides/windows/While/     /docs/getting-started-guides/windows/ 301
+/docs/getting-started-guides/windows/While/     /docs/setup/windows/ 301
+/docs/getting-started-guides/windows/     /docs/setup/windows/ 301
 /docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
 /docs/getting-started-guides/alibaba-cloud/ /docs/setup/turnkey/alibaba-cloud/ 301
 /docs/getting-started-guides/aws/ /docs/setup/turnkey/aws/ 301
