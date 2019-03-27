@@ -1,5 +1,5 @@
 ---
-title: 使用 Helm 安装服务目录
+title: 使用 Helm 安装 Service Catalog
 content_template: templates/task
 ---
 <!--
@@ -17,7 +17,7 @@ content_template: templates/task
 <!--
 Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster. Up to date information on this process can be found at the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/docs/install.md) repo.
 -->
-使用 [Helm](https://helm.sh/) 在 Kubernetes 集群上安装服务目录。
+使用 [Helm](https://helm.sh/) 在 Kubernetes 集群上安装 Service Catalog。
 要获取有关此过程的最新信息，请浏览 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/docs/install.md) 仓库。
 
 {{% /capture %}}
@@ -34,8 +34,8 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
     * Follow the [Helm install instructions](https://github.com/kubernetes/helm/blob/master/docs/install.md).
     * If you already have an appropriate version of Helm installed, execute `helm init` to install Tiller, the server-side component of Helm.
 -->
-* 理解[服务目录](/docs/concepts/service-catalog/)的关键概念。
-* 服务目录需要 Kubernetes 集群版本在 1.7 或更高版本。
+* 理解 [Service Catalog](/docs/concepts/service-catalog/) 的关键概念。
+* Service Catalog 需要 Kubernetes 集群版本在 1.7 或更高版本。
 * 您必须启用 Kubernetes 集群的 DNS 功能。
     * 如果使用基于云的 Kubernetes 集群或 {{< glossary_tooltip text="Minikube" term_id="minikube" >}}，则可能已经启用了集群 DNS。
     * 如果您正在使用 `hack/local-up-cluster.sh`，请确保设置了 `KUBE_ENABLE_CLUSTER_DNS` 环境变量，然后运行安装脚本。
@@ -50,7 +50,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 <!--
 ## Add the service-catalog Helm repository
 -->
-## 添加服务目录 Helm 仓库
+## 添加 service-catalog Helm 仓库
 
 <!--
 Once Helm is installed, add the *service-catalog* Helm repository to your local machine by executing the following command:
@@ -134,12 +134,12 @@ kubectl create clusterrolebinding tiller-cluster-admin \
 <!--
 ## Install Service Catalog in your Kubernetes cluster
 -->
-## 在 Kubernetes 集群中安装服务目录
+## 在 Kubernetes 集群中安装 Service Catalog
 
 <!--
 Install Service Catalog from the root of the Helm repository using the following command:
 -->
-使用以下命令从 Helm 存储库的根目录安装服务目录：
+使用以下命令从 Helm 存储库的根目录安装 Service Catalog：
 
 ```shell
 helm install svc-cat/catalog \
