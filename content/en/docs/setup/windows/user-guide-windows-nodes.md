@@ -88,9 +88,8 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
         }
     ```
 
-    {{< note >}}
-    The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See the VXLAN documentation at https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan for an explanation of these fields.
-    {{< /note >}} 
+    {{< note >}}The VNI must be set to 4096 and port 4789 for Flannel on Linux to interoperate with Flannel on Windows. Support for other VNIs is coming soon. See the [VXLAN documentation](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)
+    for an explanation of these fields.{{< /note >}}
 
 1. In the `net-conf.json` section of your `kube-flannel.yml`, double-check:
     1. The cluster subnet (e.g. "10.244.0.0/16") is set as per your IP plan.
