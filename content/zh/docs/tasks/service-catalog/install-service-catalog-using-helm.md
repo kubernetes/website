@@ -18,7 +18,7 @@ content_template: templates/task
 Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster. Up to date information on this process can be found at the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/docs/install.md) repo.
 -->
 使用 [Helm](https://helm.sh/) 在 Kubernetes 集群上安装服务目录。
-要获取有关此过程的最新信息，请浏览 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/docs/install.md) 存储库。
+要获取有关此过程的最新信息，请浏览 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/docs/install.md) 仓库。
 
 {{% /capture %}}
 
