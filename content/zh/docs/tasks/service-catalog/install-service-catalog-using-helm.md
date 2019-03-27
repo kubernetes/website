@@ -1,5 +1,5 @@
 ---
-title: 使用 Helm 安装服务目录（Service Catalog）
+title: 使用 Helm 安装服务目录
 content_template: templates/task
 ---
 <!--
