@@ -45,7 +45,7 @@ card:
 
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/deployment.yaml --record
+kubectl create -f https://k8s.io/examples/application/deployment.yaml --record
 ```
 
 그 출력 내용은 다음과 유사하다.

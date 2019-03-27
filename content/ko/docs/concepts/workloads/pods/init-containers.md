@@ -106,19 +106,19 @@ metadata:
     pod.beta.kubernetes.io/init-containers: '[
         {
             "name": "init-myservice",
-            "image": "busybox",
+            "image": "busybox:1.28",
             "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]
         },
         {
             "name": "init-mydb",
-            "image": "busybox",
+            "image": "busybox:1.28",
             "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]
         }
     ]'
 spec:
   containers:
   - name: myapp-container
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
@@ -135,14 +135,14 @@ metadata:
 spec:
   containers:
   - name: myapp-container
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
   initContainers:
   - name: init-myservice
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
   - name: init-mydb
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
 ```
 
@@ -176,12 +176,24 @@ spec:
 다음 커맨드들을 이용하여 파드를 시작하거나 디버깅할 수 있다.
 
 ```shell
-$ kubectl create -f myapp.yaml
+kubectl create -f myapp.yaml
+```
+```
 pod/myapp-pod created
-$ kubectl get -f myapp.yaml
+```
+
+```shell
+kubectl get -f myapp.yaml
+```
+```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
-$ kubectl describe -f myapp.yaml
+```
+
+```shell
+kubectl describe -f myapp.yaml
+```
+```
 Name:          myapp-pod
 Namespace:     default
 [...]
@@ -214,18 +226,25 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulled        Successfully pulled image "busybox"
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created       Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started       Started container with docker id 5ced34a04634
-$ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
-$ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
+```
+```shell
+kubectl logs myapp-pod -c init-myservice # Inspect the first init container
+kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
 `mydb` 및 `myservice` 서비스를 시작하고 나면, 초기화 컨테이너가 완료되고 
 `myapp-pod`가 생성된 것을 볼 수 있다.
 
 ```shell
-$ kubectl create -f services.yaml
+kubectl create -f services.yaml
+```
+```
 service/myservice created
 service/mydb created
-$ kubectl get -f myapp.yaml
+```
+
+```shell
+kubectl get -f myapp.yaml
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
