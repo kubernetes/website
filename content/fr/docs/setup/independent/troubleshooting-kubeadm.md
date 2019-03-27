@@ -143,7 +143,7 @@ Si votre fournisseur de réseau ne prend pas en charge le plug-in portmap CNI, v
 ## Les pods ne sont pas accessibles via leur IP de service
 
 - De nombreux add-ons réseau ne permettent pas encore 
-[hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+[hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
   qui permet aux pods d’accéder à eux-mêmes via leur IP de service. Ceci est un problème lié 
   au [CNI](https://github.com/containernetworking/cni/issues/476). S'il vous plaît contacter 
   le fournisseur d'add-on réseau afin d'obtenir des informations en matière de prise en charge du mode hairpin.
