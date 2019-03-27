@@ -84,8 +84,9 @@ number that pods expose in the next version of your backend software, without
 breaking clients.
 
 `TCP` is the default protocol for services, and you can also use any other
-[supported protocol](#protocol-support). At the moment, you can only set a
-single `port` and `protocol` for a Service.
+[supported protocol](#protocol-support). As many Services need to expose more than
+one port, Kubernetes supports multiple port definitions on a `Service` object.
+Each port definition can have the same or a different `protocol`.
 
 ### Services without selectors
 
