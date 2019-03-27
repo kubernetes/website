@@ -1,10 +1,10 @@
 
-Run master pre-flight checks
+Run pre-flight checks
 
 ### Synopsis
 
 
-Run master pre-flight checks, functionally equivalent to what implemented by kubeadm init.
+Run pre-flight checks for kubeadm init.
 
 ```
 kubeadm init phase preflight [flags]
@@ -13,7 +13,7 @@ kubeadm init phase preflight [flags]
 ### Examples
 
 ```
-  # Run master pre-flight checks using a config file.
+  # Run pre-flight checks for kubeadm init using a config file.
   kubeadm init phase preflight --config kubeadm-config.yml
 ```
 
@@ -30,7 +30,7 @@ kubeadm init phase preflight [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
     </tr>
 
     <tr>

@@ -29,7 +29,7 @@ kubeadm init phase certs apiserver [flags]
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address the API Server will advertise it's listening on. Specify '0.0.0.0' to use the address of the default network interface.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</td>
     </tr>
 
     <tr>
@@ -50,7 +50,7 @@ kubeadm init phase certs apiserver [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
     </tr>
 
     <tr>
