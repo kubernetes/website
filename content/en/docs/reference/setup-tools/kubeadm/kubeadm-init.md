@@ -38,7 +38,7 @@ following steps:
 
 1. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
-   an additional static Pod manifest are generated for etcd.
+   an additional static Pod manifest is generated for etcd.
 
    Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet
    watches this directory for Pods to create on startup.
