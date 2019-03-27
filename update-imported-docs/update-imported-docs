@@ -104,7 +104,7 @@ def main():
     os.chdir(rootDir)
     workDir = "/tmp/update_docs"
     shutil.rmtree(workDir, True)
-    os.mkdir(workDir, 0750)
+    os.mkdir(workDir, 0o750)
 
     for repo in configData["repos"]:
         if "name" not in repo:
