@@ -9,9 +9,9 @@ kubectl contrôle le manager d'un cluster Kubernetes
 ### Synopsis
 
 
-kubectl contrôle le manager d'un cluster Kubernetes. 
+kubectl contrôle le manager d'un cluster Kubernetes.
 
-Vous trouverez plus d'informations ici : /docs/reference/kubectl/overview/
+Vous trouverez plus d'informations ici : https://kubernetes.io/fr/docs/reference/kubectl/overview/
 
 ```
 kubectl [flags]
