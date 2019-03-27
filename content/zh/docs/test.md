@@ -11,7 +11,7 @@ main_menu: false
 <!--
 This page serves two purposes:
 -->
-此页面有两个用途：
+此文档有两个用途：
 
 <!--
 - Demonstrate how the Kubernetes documentation uses Markdown
