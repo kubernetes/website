@@ -78,7 +78,7 @@ Pod utilise un conteneur basé sur l'image Docker fournie.
 2. Affichez le déploiement :
 
     ```shell
-    Déploiements de kubectl
+    kubectl get deployments
     ```
 
     Sortie :
