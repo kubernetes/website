@@ -150,7 +150,7 @@ Kubernetes 仅在 Pod 是 *terminated* 时发送 preStop 事件。这意味着�
 -->
 
 * 进一步了解 [容器生命周期钩子](/docs/concepts/containers/container-lifecycle-hooks/).
-* 进一步了解 [Pod 的生命周期](/docs/concepts/workloads/pods/pod-lifecycle/).
+* 进一步了解 [Pod 的生命周期](/zh/docs/concepts/workloads/pods/pod-lifecycle/).
 
 <!--
 ### Reference

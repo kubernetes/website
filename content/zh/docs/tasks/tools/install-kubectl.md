@@ -521,7 +521,7 @@ By default, kubectl configuration is located at `~/.kube/config`.
 -->
 ## 配置 kubectl 
 
-kubectl 需要一个 [kubeconfig 配置文件](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)使其找到并访问 Kubernetes 集群。当您使用 kube-up.sh 脚本创建 Kubernetes 集群或者部署 Minikube 集群时，会自动生成 kubeconfig 配置文件。请参阅[入门指南](/docs/setup/)以了解更多创建集群相关的信息。如果您需要访问一个并非由您创建的集群，请参阅[如何共享集群的访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。默认情况下，kubectl 配置文件位于 `~/.kube/config`。
+kubectl 需要一个 [kubeconfig 配置文件](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)使其找到并访问 Kubernetes 集群。当您使用 kube-up.sh 脚本创建 Kubernetes 集群或者部署 Minikube 集群时，会自动生成 kubeconfig 配置文件。请参阅[入门指南](/docs/setup/)以了解更多创建集群相关的信息。如果您需要访问一个并非由您创建的集群，请参阅[如何共享集群的访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。默认情况下，kubectl 配置文件位于 `~/.kube/config`。
 
 <!--
 ## Check the kubectl configuration
@@ -698,6 +698,6 @@ plugins=(kubectl)
 <!--
 [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 -->
-[了解如何启动并对外暴露您的应用程序](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+[了解如何启动并对外暴露您的应用程序](/zh/docs/tasks/access-application-cluster/service-access-application-cluster/)
 {{% /capture %}}
 

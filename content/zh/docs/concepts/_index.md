@@ -39,7 +39,7 @@ weight: 40
   * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node. -->
 
-*  **Kubernetes 主控组件（Master）** 包含三个进程，都运行在集群中的某个节上，通常这个节点被称为 master 节点。这些进程包括：[kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/) 和 [kube-scheduler](/docs/admin/kube-scheduler/)。
+*  **Kubernetes 主控组件（Master）** 包含三个进程，都运行在集群中的某个节上，通常这个节点被称为 master 节点。这些进程包括：[kube-apiserver](/zh/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/) 和 [kube-scheduler](/docs/admin/kube-scheduler/)。
 * 集群中的每个非 master 节点都运行两个进程：
   * **[kubelet](/docs/admin/kubelet/)**，和 master 节点进行通信。
   * **[kube-proxy](/docs/admin/kube-proxy/)**，一种网络代理，将 Kubernetes 的网络服务代理到每个节点上。
@@ -57,7 +57,7 @@ Kubernetes 包含若干抽象用来表示系统状态，包括：已部署的容
 基本的 Kubernetes 对象包括：
 
 * [Pod](/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/docs/concepts/services-networking/service/)
+* [Service](/zh/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
@@ -66,9 +66,9 @@ Kubernetes 包含若干抽象用来表示系统状态，包括：已部署的容
 另外，Kubernetes 包含大量的被称作*控制器（controllers）*的高级抽象。控制器基于基本对象构建并提供额外的功能和方便使用的特性。具体包括：
 
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
+* [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)
 * [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/)
 * [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 <!-- ## Kubernetes Control Plane -->

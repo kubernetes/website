@@ -53,7 +53,7 @@ Namespaces provide a scope for names.
 Names of resources need to be unique within a namespace, but not across namespaces.
 -->
 
-命名空间是在多个用户之间划分集群资源的一种方法（通过[资源配额](/docs/concepts/policy/resource-quotas/)）。
+命名空间是在多个用户之间划分集群资源的一种方法（通过[资源配额](/zh/docs/concepts/policy/resource-quotas/)）。
 <!--
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 -->
@@ -161,7 +161,7 @@ $ kubectl config view | grep namespace:
 ## Namespaces and DNS
 -->
 
-当您创建一个[服务](/docs/user-guide/services)时，Kubernetes 会创建一个相应的[DNS 条目](/docs/concepts/services-networking/dns-pod-service/)。
+当您创建一个[服务](/docs/user-guide/services)时，Kubernetes 会创建一个相应的[DNS 条目](/zh/docs/concepts/services-networking/dns-pod-service/)。
 <!--
 When you create a [Service](/docs/user-guide/services), it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
 -->

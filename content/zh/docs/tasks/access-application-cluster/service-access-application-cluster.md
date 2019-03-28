@@ -67,7 +67,7 @@ provides load balancing for an application that has two running instances.
     [Pods](/docs/concepts/workloads/pods/pod/),
     each of which runs the Hello World application.
 -->
-    上面的命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 对象。这个 ReplicaSet 有两个 [Pod](/docs/concepts/workloads/pods/pod/)，每个 Pod 都运行着 Hello World 应用。
+    上面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 对象。这个 ReplicaSet 有两个 [Pod](/docs/concepts/workloads/pods/pod/)，每个 Pod 都运行着 Hello World 应用。
 
 <!--
 1. Display information about the Deployment:
@@ -191,7 +191,7 @@ to create a Service.
 -->
 ## 使用服务配置文件
 
-作为 `kubectl expose` 的替代方法，您可以使用 [服务配置文件](/docs/concepts/services-networking/service/) 来创建服务。
+作为 `kubectl expose` 的替代方法，您可以使用 [服务配置文件](/zh/docs/concepts/services-networking/service/) 来创建服务。
 
 {{% /capture %}}
 
@@ -222,5 +222,5 @@ the Hello World application, enter this command:
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
-学习更多关于如何 [通过服务连接应用](/docs/concepts/services-networking/connect-applications-service/)。
+学习更多关于如何 [通过服务连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)。
 {{% /capture %}}

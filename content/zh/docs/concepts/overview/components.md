@@ -17,11 +17,11 @@ content_template: templates/concept
 
 Master 组件提供的集群控制。Master 组件对集群做出全局性决策(例如：调度)，以及检测和响应集群事件(副本控制器的`replicas`字段不满足时,启动新的副本)。
 
-Master 组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会启动同一个虚拟机上所有 Master 组件，并且不会在此虚拟机上运行用户容器。请参阅[构建高可用性群集](/docs/admin/high-availability)示例对于多主机 VM 的设置。
+Master 组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会启动同一个虚拟机上所有 Master 组件，并且不会在此虚拟机上运行用户容器。请参阅[构建高可用性群集](/zh/docs/admin/high-availability)示例对于多主机 VM 的设置。
 
 ### API服务器
 
-[kube-apiserver](/docs/admin/kube-apiserver)对外暴露了Kubernetes API。它是的 Kubernetes 前端控制层。它被设计为水平扩展，即通过部署更多实例来缩放。请参阅[构建高可用性群集](/docs/admin/high-availability).
+[kube-apiserver](/zh/docs/admin/kube-apiserver)对外暴露了Kubernetes API。它是的 Kubernetes 前端控制层。它被设计为水平扩展，即通过部署更多实例来缩放。请参阅[构建高可用性群集](/zh/docs/admin/high-availability).
 
 ### etcd
 
@@ -65,7 +65,7 @@ Addon 管理器用于创建和维护附加资源. 有关详细信息，请参阅
 
 #### DNS
 
-虽然其他插件并不是必需的，但所有 Kubernetes 集群都应该具有[Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)，许多示例依赖于它。
+虽然其他插件并不是必需的，但所有 Kubernetes 集群都应该具有[Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)，许多示例依赖于它。
 
 Cluster DNS 是一个 DNS 服务器，和您部署环境中的其他 DNS 服务器一起工作，为 Kubernetes 服务提供DNS记录。
 

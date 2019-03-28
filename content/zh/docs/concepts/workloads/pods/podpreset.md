@@ -147,5 +147,5 @@ In order to use Pod Presets in your cluster you must ensure the following:
 <!--
 * [Injecting data into a Pod using PodPreset](/docs/tasks/inject-data-application/podpreset/)
 -->
-* [使用 PodPreset 将信息注入 Pod](/docs/tasks/inject-data-application/podpreset/)
+* [使用 PodPreset 将信息注入 Pod](/zh/docs/tasks/inject-data-application/podpreset/)
 {{% /capture %}}

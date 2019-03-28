@@ -120,7 +120,7 @@ To subdivide access to the kubelet API, delegate authorization to the API server
 <!--
 The kubelet authorizes API requests using the same [request attributes](/docs/reference/access-authn-authz/authorization/#review-your-request-attributes) approach as the apiserver.
 -->
-kubelet 使用与 apiserver 相同的[请求属性](/docs/reference/access-authn-authz/authorization/#review-your-request-attributes)方法为 API 请求授权。
+kubelet 使用与 apiserver 相同的[请求属性](/zh/docs/reference/access-authn-authz/authorization/#review-your-request-attributes)方法为 API 请求授权。
 
 <!--
 The verb is determined from the incoming request's HTTP verb:

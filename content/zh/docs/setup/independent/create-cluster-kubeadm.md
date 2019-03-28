@@ -190,7 +190,7 @@ After you initialize your master, the kubelet runs normally.
 
 ### 在主机上安装 kubeadm
 
-详见["安装 kubeadm"](/docs/setup/independent/install-kubeadm/).
+详见["安装 kubeadm"](/zh/docs/setup/independent/install-kubeadm/).
 
 {{< note >}}
 **注意:** 如果您已经安装了 kubeadm，请运行 `apt-get update && apt-get upgrade`
@@ -268,9 +268,9 @@ The output should look like:
 
 ### 更多信息
 
-更多关于 `kubeadm init` 的参数信息，详见 [kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm/)。
+更多关于 `kubeadm init` 的参数信息，详见 [kubeadm 参考指南](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)。
 
-有关配置选项的完整列表，请参阅 [配置文件文档](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)。
+有关配置选项的完整列表，请参阅 [配置文件文档](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)。
 
 要自定义控制平面组件，包括可选的 IPv6 分配到控制平面组件和 etcd 服务器的活动探测器，请为[自定义参数](/docs/admin/kubeadm#custom-args)中记录的每个组件提供额外的参数。
 
@@ -363,7 +363,7 @@ created, and deleted with the `kubeadm token` command. See the
 
 令牌（token）用于主节点和待加入节点之间的相互认证。
 请将这里包含的令牌视为机密数据，保证其安全，因为任何人都可以通过令牌将经过身份验证的节点添加到集群中。
-可以使用 `kubeadm token` 命令列出，创建和删除这些令牌。 参见 [kubeadm 参考指南](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
+可以使用 `kubeadm token` 命令列出，创建和删除这些令牌。 参见 [kubeadm 参考指南](/zh/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 
 <!--
 ### Installing a pod network add-on {#pod-network}
@@ -405,8 +405,8 @@ kubectl apply -f <add-on.yaml>
 
 **您必须在开启任何应用程序之前部署网络。 此外，CoreDNS 将不会在安装网络之前启动。kubeadm 仅支持基于容器网络接口（CNI）的网络(并且不支持 kubenet )**
 
-有几个项目使用 CNI 提供 Kubernetes pod 网络，其中一些还支持[网络策略](/docs/concepts/services-networking/networkpolicies/)。
-有关可用网络加载项的完整列表，请参阅[插件项页面](/docs/concepts/cluster-administration/addons/)。
+有几个项目使用 CNI 提供 Kubernetes pod 网络，其中一些还支持[网络策略](/zh/docs/concepts/services-networking/networkpolicies/)。
+有关可用网络加载项的完整列表，请参阅[插件项页面](/zh/docs/concepts/cluster-administration/addons/)。
 
 - IPv6 的支持被加入到了 [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
 - [CNI 网桥](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) 和 [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) 是 Kubernetes 1.9 版本中唯一受支持的 IPv6 
@@ -496,7 +496,7 @@ kubectl create -f ./
 为了使 `flannel` 正常工作，你必须将选项 `--pod-network-cidr=10.244.0.0/16` 传递给 `kubeadm init`。
 
 通过执行 `sysctl net.bridge.bridge-nf-call-iptables=1` 命令，将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置为 `1` 
-以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/zh/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
 
 注意 `flannel` 可以运行在 `amd64`、`arm`、`arm64`、`ppc64le`架构的机器上。
 
@@ -511,7 +511,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8
 
 {{% tab name="Kube-router" %}}
 通过执行 `sysctl net.bridge.bridge-nf-call-iptables=1` 命令，将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置为 `1` 
-以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/zh/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
 
 Kube-router 依靠 kube-controller-manager 为节点分配 pod CIDR。 因此，执行`kubeadm init` 命令需要使用带 `-pod-network-cidr` 选项。
 
@@ -524,7 +524,7 @@ Kube-router 提供 pod 网络、网络策略和基于高性能 IP Virtual Server
 
 {{% tab name="Romana" %}}
 通过执行 `sysctl net.bridge.bridge-nf-call-iptables=1` 命令，将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置为 `1` 
-以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/zh/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
 
 Romana 官方设置指南在[这里](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -538,7 +538,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 
 {{% tab name="Weave Net" %}}
 通过执行 `sysctl net.bridge.bridge-nf-call-iptables=1` 命令，将 `/proc/sys/net/bridge/bridge-nf-call-iptables` 设置为 `1` 
-以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
+以便将桥接的 IPv4 流量传递给 iptables 的链。 这是一些 CNI 插件工作的要求，有关详细信息，请参阅[此处](/zh/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements)。
 
 Weave Net 官方设置指南在[这里](https://www.weave.works/docs/net/latest/kube-addon/).
 
@@ -818,7 +818,7 @@ kubeadm reset
 如果你想重新开始，只需使用适当的参数运行 `kubeadm init` 或 `kubeadm join`。
 
 有关的更多选项和信息，参见
-[`kubeadm reset 命令`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
+[`kubeadm reset 命令`](/zh/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
 
 ## 维护集群 {#lifecycle}
 
@@ -826,14 +826,14 @@ kubeadm reset
 
 ## 探索其他附加组件 {#other-addons}
 
-请参阅[附加组件列表](/docs/concepts/cluster-administration/addons/) 以探索其他附加组件，
+请参阅[附加组件列表](/zh/docs/concepts/cluster-administration/addons/) 以探索其他附加组件，
 包括用于记录、监控、网络策略、可视化和控制 Kubernetes 集群的工具。
 
 ## 下一步是什么 {#whats-next}
 
 * 使用 [Sonobuoy](https://github.com/heptio/sonobuoy) 验证集群是否正常运行。
-* 在 [kubeadm 参考文档](/docs/reference/setup-tools/kubeadm/kubeadm)中了解 kubeadm 的高级用法。
-* 了解有关 Kubernetes [concepts](/docs/concepts/) 和 [`kubectl`](/docs/user-guide/kubectl-overview/) 的更多信息。
+* 在 [kubeadm 参考文档](/zh/docs/reference/setup-tools/kubeadm/kubeadm)中了解 kubeadm 的高级用法。
+* 了解有关 Kubernetes [concepts](/zh/docs/concepts/) 和 [`kubectl`](/zh/docs/user-guide/kubectl-overview/) 的更多信息。
 * 配置日志轮换。您可以使用 **logrotate**。使用 Docker 时，可以为 Docker 守护程序指定日志轮换选项，例如 `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`。有关详细信息，请参阅[配置 Docker 守护程序并对其进行故障排除](https://docs.docker.com/engine/admin/)。
 
 ## Feedback {#feedback}
@@ -929,7 +929,7 @@ kubeadm CLI vX.Y 还可以升级现有的 kubeadm 创建的 vX 版本集群（Y-
 
 示例：kubeadm v1.8 可以部署 v1.7 和 v1.8 集群，并将v1.7 kubeadm 创建的集群升级到 v1.8。
 
-另请查看我们的[安装指南](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+另请查看我们的[安装指南](/zh/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 以获取有关 kubelet 和控制平面之间的版本偏差的更多信息。
 
 ## kubeadm 适用于多个平台 {#multi-platform}

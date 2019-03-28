@@ -13,7 +13,7 @@ content_template: templates/concept
 
 用户在使用 Kubernetes 的过程中可能遇到几种不同的代理（proxy）：
 
-  1. [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api)：
+  1. [kubectl proxy](/zh/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api)：
 
     - 运行在用户的桌面或 pod 中
     - 从本机地址到 Kubernetes apiserver 的代理
@@ -22,7 +22,7 @@ content_template: templates/concept
     - 指向 apiserver
     - 添加认证头信息
 
-  1. [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services)：
+  1. [apiserver proxy](/zh/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services)：
 
     - 是一个建立在 apiserver 内部的“堡垒”
     - 将集群外部的用户与群集 IP 相连接，这些IP是无法通过其他方式访问的
@@ -32,7 +32,7 @@ content_template: templates/concept
     - 可以用来访问 Node、 Pod 或 Service
     - 当用来访问 Service 时，会进行负载均衡
 
-  1. [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips)：
+  1. [kube proxy](/zh/docs/concepts/services-networking/service/#ips-and-vips)：
 
     - 在每个节点上运行
     - 代理 UDP 和 TCP

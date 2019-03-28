@@ -796,7 +796,7 @@ can create multiple Deployments, one for each release, following the canary patt
 
 As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and `metadata` fields.
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
-configuring containers, and [using kubectl to manage resources](/docs/tutorials/object-management-kubectl/object-management/) documents.
+configuring containers, and [using kubectl to manage resources](/zh/docs/tutorials/object-management-kubectl/object-management/) documents.
 
 A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
@@ -810,7 +810,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overv
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
 labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector)).
 
-Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is
+Only a [`.spec.template.spec.restartPolicy`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is
 allowed, which is the default if not specified.
 
 ### Replicas
@@ -851,7 +851,7 @@ All existing Pods are killed before new ones are created when `.spec.strategy.ty
 
 #### Rolling Update Deployment
 
-The Deployment updates Pods in a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/)
+The Deployment updates Pods in a [rolling update](/zh/docs/tasks/run-application/rolling-update-replication-controller/)
 fashion when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
 
@@ -895,7 +895,7 @@ If specified, this field needs to be greater than `.spec.minReadySeconds`.
 `.spec.minReadySeconds` is an optional field that specifies the minimum number of seconds for which a newly
 created Pod should be ready without any of its containers crashing, for it to be considered available.
 This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
-a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+a Pod is considered ready, see [Container Probes](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 ### Rollback To
 

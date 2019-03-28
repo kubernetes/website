@@ -38,7 +38,7 @@ reference page, see
 [Generating Reference Pages for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/).
 -->
 
-本主题没有展示如何生成 [kubectl](/docs/reference/generated/kubectl/kubectl/) 组件的参考页面。相关说明请参见[为 Kubernetes 组件和工具生成参考页面](/docs/home/contribute/generated-reference/kubernetes-components/)。
+本主题没有展示如何生成 [kubectl](/docs/reference/generated/kubectl/kubectl/) 组件的参考页面。相关说明请参见[为 Kubernetes 组件和工具生成参考页面](/zh/docs/home/contribute/generated-reference/kubernetes-components/)。
 {{< /note >}}
 
 {{% /capture %}}
@@ -77,7 +77,7 @@ information, see
 [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 -->
 
-* 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的一个分支。想了解更多信息，请参见[创建一个文档 PR](/docs/home/contribute/create-pull-request/) 和 [GitHub 标准 Fork&PR 工作流](https://gist.github.com/Chaser324/ce0505fbed06b947d962)。
+* 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的一个分支。想了解更多信息，请参见[创建一个文档 PR](/zh/docs/home/contribute/create-pull-request/) 和 [GitHub 标准 Fork&PR 工作流](https://gist.github.com/Chaser324/ce0505fbed06b947d962)。
 
 {{% /capture %}}
 
@@ -450,7 +450,7 @@ topics will be visible in the
 [published documentation](/docs/home).
 -->
 
-在 PR 合入的几分钟后，你更新的参考主题将出现在[已发布文档](/docs/home/)中。
+在 PR 合入的几分钟后，你更新的参考主题将出现在[已发布文档](/zh/docs/home/)中。
 
 
 {{% /capture %}}
@@ -463,9 +463,9 @@ topics will be visible in the
 * [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
 -->
 
-* [为 Kubernetes 组件和工具生成参考文档](/docs/home/contribute/generated-reference/kubernetes-components/)
-* [为 Kubernetes API 生成参考文档](/docs/home/contribute/generated-reference/kubernetes-api/)
-* [为 Kubernetes 联邦 API 生成参考文档](/docs/home/contribute/generated-reference/federation-api/)
+* [为 Kubernetes 组件和工具生成参考文档](/zh/docs/home/contribute/generated-reference/kubernetes-components/)
+* [为 Kubernetes API 生成参考文档](/zh/docs/home/contribute/generated-reference/kubernetes-api/)
+* [为 Kubernetes 联邦 API 生成参考文档](/zh/docs/home/contribute/generated-reference/federation-api/)
 
 {{% /capture %}}
 

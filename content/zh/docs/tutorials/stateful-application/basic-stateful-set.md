@@ -20,8 +20,8 @@ content_template: templates/tutorial
 在开始本教程之前，你应该熟悉以下 Kubernetes 的概念：
 
 * [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+* [Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
+* [Headless Services](/zh/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{< param "githubbranch" >}}/examples/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)

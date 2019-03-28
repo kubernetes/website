@@ -253,7 +253,7 @@ docker push <username>/job-wq-2
 You need to push to a public repository or [configure your cluster to be able to access
 your private repository](/docs/concepts/containers/images/).
 -->
-您需要将镜像 push 到一个公共仓库或者 [配置集群访问您的私有仓库](/docs/concepts/containers/images/)。
+您需要将镜像 push 到一个公共仓库或者 [配置集群访问您的私有仓库](/zh/docs/concepts/containers/images/)。
 
 <!--
 If you are using [Google Container

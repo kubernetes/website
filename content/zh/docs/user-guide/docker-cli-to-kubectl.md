@@ -41,7 +41,7 @@ $ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
 
-在 kubectl 命令中，我们创建了一个 [Deployment](/docs/concepts/workloads/controllers/deployment/)，这将保证有 N 个运行 nginx 的 pod（N 代表 spec 中声明的 replica 数，默认为 1）。我们还创建了一个 [service](/docs/user-guide/services)，使用  selector 匹配具有相应的 selector 的 Deployment。查看 [快速开始](/docs/user-guide/quick-start) 获取更多信息。
+在 kubectl 命令中，我们创建了一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)，这将保证有 N 个运行 nginx 的 pod（N 代表 spec 中声明的 replica 数，默认为 1）。我们还创建了一个 [service](/docs/user-guide/services)，使用  selector 匹配具有相应的 selector 的 Deployment。查看 [快速开始](/docs/user-guide/quick-start) 获取更多信息。
 
 默认情况下镜像会在后台运行，与`docker run -d ...` 类似，如果您想在前台运行，使用：
 
@@ -205,7 +205,7 @@ $ kubectl get po -l run=nginx-app
 
 #### docker login
 
-在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅 [使用私有镜像仓库](/docs/concepts/containers/images/#using-a-private-registry)。
+在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅 [使用私有镜像仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)。
 
 #### docker version
 

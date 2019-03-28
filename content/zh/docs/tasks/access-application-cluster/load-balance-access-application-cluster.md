@@ -172,7 +172,7 @@ to create a Service.
 -->
 ## 使用服务配置文件
 
-作为 `kubectl expose` 的替代方法，您可以使用 [服务配置文件](/docs/concepts/services-networking/service/) 来创建服务。
+作为 `kubectl expose` 的替代方法，您可以使用 [服务配置文件](/zh/docs/concepts/services-networking/service/) 来创建服务。
 
 
 {{% /capture %}}
@@ -184,7 +184,7 @@ to create a Service.
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
-学习更多关于如何 [通过服务连接应用](/docs/concepts/services-networking/connect-applications-service/)。
+学习更多关于如何 [通过服务连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)。
 {{% /capture %}}
 
 

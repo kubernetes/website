@@ -223,7 +223,7 @@ Events:
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 -->
 
-* 了解更多关于[容器环境](/docs/concepts/containers/container-environment-variables/)。
+* 了解更多关于[容器环境](/zh/docs/concepts/containers/container-environment-variables/)。
 * 获取实践经验[将处理程序附加到容器生命周期事件](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
 
 {{% /capture %}}

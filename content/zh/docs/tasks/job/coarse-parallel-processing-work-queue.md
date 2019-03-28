@@ -469,9 +469,9 @@ A [different example](/docs/tasks/job/fine-parallel-processing-work-queue/), sho
 communicate with the work queue using a client library.
 -->
 
-本文所述的方法为每个工作项创建了一个 Pod。如果你的工作项仅需数秒钟，为每个工作项创建 Pod会增加很多的常规消耗。可以考虑另外的方案请参考[示例](/docs/tasks/job/fine-parallel-processing-work-queue/)，这种方案可以实现每个 Pod 执行多个工作项。
+本文所述的方法为每个工作项创建了一个 Pod。如果你的工作项仅需数秒钟，为每个工作项创建 Pod会增加很多的常规消耗。可以考虑另外的方案请参考[示例](/zh/docs/tasks/job/fine-parallel-processing-work-queue/)，这种方案可以实现每个 Pod 执行多个工作项。
 
-示例中，我们使用 `amqp-consume` 从消息队列读取消息并执行我们真正的程序。这样的好处是你不需要修改你的程序使其知道队列的存在。要了解怎样使用客户端库和工作队列通信，请参考[不同的示例](/docs/tasks/job/fine-parallel-processing-work-queue/)。
+示例中，我们使用 `amqp-consume` 从消息队列读取消息并执行我们真正的程序。这样的好处是你不需要修改你的程序使其知道队列的存在。要了解怎样使用客户端库和工作队列通信，请参考[不同的示例](/zh/docs/tasks/job/fine-parallel-processing-work-queue/)。
 
 <!--
 ## Caveats

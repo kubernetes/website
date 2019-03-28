@@ -24,7 +24,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Cilium](https://github.com/cilium/cilium) 是一个 L3 网络和网络策略插件， 能够透明的实施  HTTP/API/L7 策略。 同时支持路由（routing）和叠加/封装（ overlay/encapsulation）模式。
 * [Contiv](http://contiv.github.io) 为多种用例提供可配置网络（使用 BGP 的原生 L3，使用 vxlan 的 overlay，经典 L2 和  Cisco-SDN/ACI）和丰富的策略框架。Contiv 项目完全[开源](http://github.com/contiv)。[安装工具](http://github.com/contiv/install)同时提供基于和不基于 kubeadm 的安装选项。
 * [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml) 是一个可以用于 Kubernetes 的 overlay 网络提供者。
-* [Romana](http://romana.io) 是一个 pod 网络的层 3 解决方案，并且支持  [NetworkPolicy API](/docs/concepts/services-networking/network-policies/)。Kubeadm add-on 安装细节可以在[这里](https://github.com/romana/romana/tree/master/containerize)找到。
+* [Romana](http://romana.io) 是一个 pod 网络的层 3 解决方案，并且支持  [NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/)。Kubeadm add-on 安装细节可以在[这里](https://github.com/romana/romana/tree/master/containerize)找到。
 * [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/)  提供了在网络分组两端参与工作的网络和网络策略，并且不需要额外的数据库。
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)  使 Kubernetes 无缝连接到一种 CNI 插件，例如：Flannel、Calico、Canal、Romana 或者 Weave。
 

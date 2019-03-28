@@ -4,7 +4,7 @@
 
 [API参考文档](/docs/reference)描述了API整体规范。
 
-[访问文档](/docs/admin/accessing-the-api)讨论了通过远程访问API的相关问题。
+[访问文档](/zh/docs/admin/accessing-the-api)讨论了通过远程访问API的相关问题。
 
 Kubernetes API是系统描述性配置的基础。 [Kubectl](/docs/user-guide/kubectl/) 命令行工具被用于创建、更新、删除、获取API对象。
 

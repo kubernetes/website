@@ -16,7 +16,7 @@ kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 ## 接下可以做什么
 
 <!-- * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) to bootstrap a Kubernetes master node -->
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) 启动一个 Kubernetes 主节点
+* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init) 启动一个 Kubernetes 主节点
 <!-- * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) to bootstrap a Kubernetes worker node and join it to the cluster -->
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) 启动一个 Kubernetes 工作节点并且将其加入到集群
 <!-- * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) to upgrade a Kubernetes cluster to a newer version -->

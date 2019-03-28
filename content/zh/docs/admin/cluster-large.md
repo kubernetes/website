@@ -109,7 +109,7 @@ AWS使用的规格为：
 Heapster的资源限制是基于集群的初始规模动态设置的 (参考 [#16185](http://issue.k8s.io/16185)
 和 [#22940](http://issue.k8s.io/22940))。 当发现Heapster资源耗尽，应考虑调整计算Heapster内存请求的公式 (参考上述PR)。
 
-关于如何检测插件是否达到资源上限 参考 [计算资源的故障排除章节](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting)。
+关于如何检测插件是否达到资源上限 参考 [计算资源的故障排除章节](/zh/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting)。
 
 [将来](http://issue.k8s.io/13048)，我们期望基于集群规模来设置集群插件的资源限制，并且在集群规模增长或缩小时能够动态调整。
 欢迎提出PR来实现这些特性。

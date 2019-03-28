@@ -48,7 +48,7 @@ their ReplicaSets.
 
 大多数支持 Replication Controllers 的[`kubectl`](/docs/user-guide/kubectl/)命令也支持 ReplicaSets。但[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是个例外。如果您想要滚动更新功能请考虑使用 Deployment。[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是必需的，而 Deployment 是声明性的，因此我们建议通过 [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)命令使用 Deployment。
 
-虽然 ReplicaSets 可以独立使用，但今天它主要被[Deployments](/docs/concepts/workloads/controllers/deployment/) 用作协调 Pod 创建、删除和更新的机制。
+虽然 ReplicaSets 可以独立使用，但今天它主要被[Deployments](/zh/docs/concepts/workloads/controllers/deployment/) 用作协调 Pod 创建、删除和更新的机制。
 当您使用 Deployment 时，您不必担心还要管理它们创建的 ReplicaSet。Deployment 会拥有并管理它们的 ReplicaSet。
 
 <!--
@@ -166,7 +166,7 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 
 对于标签，请确保不要与其他控制器重叠。更多信息请参考 [Pod 选择器](#pod-selector)。
 
-对于 [重启策略](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)，`.spec.template.spec.restartPolicy` 唯一允许的取值是 `Always`，这也是默认值.
+对于 [重启策略](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)，`.spec.template.spec.restartPolicy` 唯一允许的取值是 `Always`，这也是默认值.
 
 对于本地容器重新启动，ReplicaSet 委托给了节点上的代理去执行，例如[Kubelet](/docs/admin/kubelet/) 或 Docker 去执行。
 
@@ -244,7 +244,7 @@ When using the REST API or the `client-go` library, you must set `propagationPol
 ### 删除 ReplicaSet 和它的 Pod
 
 要删除 ReplicaSet 和它的所有 Pod，使用[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 命令。
-默认情况下，[垃圾收集器](/docs/concepts/workloads/controllers/garbage-collection/) 自动删除所有依赖的 Pod。
+默认情况下，[垃圾收集器](/zh/docs/concepts/workloads/controllers/garbage-collection/) 自动删除所有依赖的 Pod。
 
 当使用 REST API 或 `client-go` 库时，您必须在删除选项中将 `propagationPolicy` 设置为 `Background` 或 `Foreground`。例如：
 
@@ -370,9 +370,9 @@ application using a Deployment, please read [Run a Stateless Application Using a
 
 ### Deployment （推荐）
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) 是一个高级 API 对象，它以 `kubectl rolling-update` 的方式更新其底层副本集及其Pod。
+[`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 是一个高级 API 对象，它以 `kubectl rolling-update` 的方式更新其底层副本集及其Pod。
 如果您需要滚动更新功能，建议使用 Deployment，因为 Deployment 与 `kubectl rolling-update` 不同的是：它是声明式的、服务器端的、并且具有其他特性。
-有关使用 Deployment 来运行无状态应用的更多信息，请参阅 [使用 Deployment 运行无状态应用](/docs/tasks/run-application/run-stateless-application-deployment/)。
+有关使用 Deployment 来运行无状态应用的更多信息，请参阅 [使用 Deployment 运行无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
 
 <!--
 ### Bare Pods
@@ -409,7 +409,7 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 ### DaemonSet
 
-对于管理那些提供主机级别功能（如主机监控和主机日志）的容器，就要用[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) 而不用 ReplicaSet。
+对于管理那些提供主机级别功能（如主机监控和主机日志）的容器，就要用[`DaemonSet`](/zh/docs/concepts/workloads/controllers/daemonset/) 而不用 ReplicaSet。
 这些 Pod 的寿命与主机寿命有关：这些 Pod 需要先于主机上的其他 Pod 运行，并且在机器准备重新启动/关闭时安全地终止。
 
 {{% /capture %}}

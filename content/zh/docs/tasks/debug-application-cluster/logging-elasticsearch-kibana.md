@@ -123,7 +123,7 @@ The `kibana-logging` pod provides a web UI for reading the logs stored in
 Elasticsearch, and is part of a service named `kibana-logging`.
 -->
 
-`fluentd-elasticsearch` pod 从每个节点收集日志并将其发送到 `elasticsearch-logging` pods，该 pod 是名为 `elasticsearch-logging` 的[服务](/docs/concepts/services-networking/service/)的一部分。
+`fluentd-elasticsearch` pod 从每个节点收集日志并将其发送到 `elasticsearch-logging` pods，该 pod 是名为 `elasticsearch-logging` 的[服务](/zh/docs/concepts/services-networking/service/)的一部分。
 这些 ElasticSearch pod 存储日志，并通过 REST API 将其公开。
 `kibana-logging` pod 提供了一个用于读取 ElasticSearch 中存储的日志的 Web UI，它是名为 `kibana-logging` 的服务的一部分。
 

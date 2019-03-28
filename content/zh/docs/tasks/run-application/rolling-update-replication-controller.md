@@ -18,7 +18,7 @@ weight: 80
 ## 概述
 
 **注**: 创建副本应用的首选方法是使用[Deployment](/docs/api-reference/{{< param "version" >}}/#deployment-v1beta1-apps)，Deployment使用[ReplicaSet](/docs/api-reference/{{< param "version" >}}/#replicaset-v1beta1-extensions)来进行副本控制。
-更多信息, 查看[使用Deployment运行一个无状态应用](/docs/tasks/run-application/run-stateless-application-deployment/)。
+更多信息, 查看[使用Deployment运行一个无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
 
 <!-- 
 {{< note >}}
@@ -31,12 +31,12 @@ For more information, see
 {{< /note >}}
 -->
 
-为了在更新服务的同时不中断业务， `kubectl` 支持['滚动更新'](/docs/user-guide/kubectl/v1.6/#rolling-update)，它一次更新一个pod，而不是同时停止整个服务。 有关更多信息，请参阅 [滚动更新设计文档](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) 和 [滚动更新示例](/docs/tasks/run-application/rolling-update-replication-controller/)。
+为了在更新服务的同时不中断业务， `kubectl` 支持['滚动更新'](/docs/user-guide/kubectl/v1.6/#rolling-update)，它一次更新一个pod，而不是同时停止整个服务。 有关更多信息，请参阅 [滚动更新设计文档](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) 和 [滚动更新示例](/zh/docs/tasks/run-application/rolling-update-replication-controller/)。
 <!-- 
 To update a service without an outage, `kubectl` supports what is called [rolling update](/docs/reference/generated/kubectl/kubectl-commands/#rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://git.k8s.io/community/contributors/design-proposals/cli/simple-rolling-update.md) for more information.
 -->
 
-请注意， `kubectl rolling-update` 仅支持Replication Controllers。 但是，如果使用Replication Controllers部署应用，请考虑将其切换到[Deployments](/docs/concepts/workloads/controllers/deployment/). Deployment是一种被推荐使用的更高级别的控制器，它可以对应用进行声明性的自动滚动更新。 如果您仍然希望保留您的Replication Controllers并使用 `kubectl rolling-update`进行滚动更新， 请继续往下阅读：
+请注意， `kubectl rolling-update` 仅支持Replication Controllers。 但是，如果使用Replication Controllers部署应用，请考虑将其切换到[Deployments](/zh/docs/concepts/workloads/controllers/deployment/). Deployment是一种被推荐使用的更高级别的控制器，它可以对应用进行声明性的自动滚动更新。 如果您仍然希望保留您的Replication Controllers并使用 `kubectl rolling-update`进行滚动更新， 请继续往下阅读：
 <!-- 
 Note that `kubectl rolling-update` only supports Replication Controllers. However, if you deploy applications with Replication Controllers,
 consider switching them to [Deployments](/docs/concepts/workloads/controllers/deployment/). A Deployment is a higher-level controller that automates rolling updates

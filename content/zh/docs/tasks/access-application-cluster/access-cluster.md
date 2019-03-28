@@ -71,7 +71,7 @@ curl or wget, or a browser, there are several ways to locate and authenticate:
     - Works with some types of client code that are confused by using a proxy.
     - Need to import a root cert into your browser to protect against MITM.
 -->
-有许多 [例子](/docs/user-guide/kubectl-cheatsheet) 介绍了如何使用 kubectl，可以在 [kubectl手册](/docs/user-guide/kubectl-overview) 中找到更完整的文档。
+有许多 [例子](/docs/user-guide/kubectl-cheatsheet) 介绍了如何使用 kubectl，可以在 [kubectl手册](/zh/docs/user-guide/kubectl-overview) 中找到更完整的文档。
 
 ## 直接访问 REST API
 Kubectl 处理 apiserver 的定位和身份验证。
@@ -168,7 +168,7 @@ with future high-availability support.
 -->
 上面的例子使用了 `--insecure` 参数，这使得它很容易受到 MITM 攻击。当 kubectl 访问集群时，它使用存储的根证书和客户端证书来访问服务器（这些安装在 `~/.kube` 目录中）。由于集群证书通常是自签名的，因此可能需要特殊配置才能让您的 http 客户端使用根证书。
 
-在一些集群中，apiserver 不需要身份验证；它可能只服务于 localhost，或者被防火墙保护，这个没有一定的标准。 [配置对 API 的访问](/docs/admin/accessing-the-api) 描述了集群管理员如何进行配置。此类方法可能与未来的高可用性支持相冲突。
+在一些集群中，apiserver 不需要身份验证；它可能只服务于 localhost，或者被防火墙保护，这个没有一定的标准。 [配置对 API 的访问](/zh/docs/admin/accessing-the-api) 描述了集群管理员如何进行配置。此类方法可能与未来的高可用性支持相冲突。
 
 <!--
 ## Programmatic access to the API
@@ -530,7 +530,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - provides load balancing
     - is just used to reach services
 -->
-1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips)：
+1.  [kube proxy](/zh/docs/concepts/services-networking/service/#ips-and-vips)：
   
     - 运行在每个节点上
     - 代理 UDP 和 TCP

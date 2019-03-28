@@ -22,7 +22,7 @@ title: Master 节点通信
 所有从集群到 master 的通信路径都终止于 apiserver（其它 master 组件没有被设计为可暴露远程服务）。在一个典型的部署中，apiserver 被配置为在一个安全的 HTTPS 端口（443）上监听远程连接并启用一种或多种形式的客户端[身份认证](/docs/admin/authentication/)机制。一种或多种客户端[身份认证](/docs/admin/authentication/)机制应该被启用，特别是在允许使用 [匿名请求](/docs/admin/authentication/#anonymous-requests) 或 [service account tokens](/docs/admin/authentication/#service-account-tokens) 的时候。
 
 
-应该使用集群的公共根证书开通节点，如此它们就能够基于有效的客户端凭据安全的连接 apiserver。例如：在一个默认的 GCE 部署中，客户端凭据以客户端证书的形式提供给 kubelet。请查看 [kubelet TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) 获取如何自动提供 kubelet 客户端证书。
+应该使用集群的公共根证书开通节点，如此它们就能够基于有效的客户端凭据安全的连接 apiserver。例如：在一个默认的 GCE 部署中，客户端凭据以客户端证书的形式提供给 kubelet。请查看 [kubelet TLS bootstrapping](/zh/docs/admin/kubelet-tls-bootstrapping/) 获取如何自动提供 kubelet 客户端证书。
 
 
 想要连接到 apiserver 的 Pods 可以使用一个 service account 安全的进行连接。这种情况下，当 Pods 被实例化时 Kubernetes 将自动的把公共根证书和一个有效的不记名令牌注入到 pod 里。`kubernetes` service （所有 namespaces 中）都配置了一个虚拟 IP 地址，用于转发（通过 kube-proxy）请求到 apiserver 的 HTTPS endpoint。
@@ -52,10 +52,10 @@ Master 组件通过非安全（没有加密或认证）端口和集群的 apiser
 为了对这个连接进行认证，请使用 `--kubelet-certificate-authority` 标记给 apiserver 提供一个根证书捆绑，用于 kubelet 的服务证书。
 
 
-如果这样不可能，又要求避免在不可信的或公共的网络上进行连接，请在 apiserver 和 kubelet 之间使用 [SSH 隧道](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)。
+如果这样不可能，又要求避免在不可信的或公共的网络上进行连接，请在 apiserver 和 kubelet 之间使用 [SSH 隧道](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)。
 
 
-最后，应该启用[Kubelet 用户认证和/或权限认证](/docs/admin/kubelet-authentication-authorization/)来保护 kubelet API。
+最后，应该启用[Kubelet 用户认证和/或权限认证](/zh/docs/admin/kubelet-authentication-authorization/)来保护 kubelet API。
 
 
 ## apiserver -> nodes, pods, and services

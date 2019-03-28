@@ -37,7 +37,7 @@ title: 调试Pods和Replication Controllers
       kubectl get nodes -o yaml | grep '\sname\|cpu\|memory'
       kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
 
-  可以考虑配置[资源配额](/docs/concepts/policy/resource-quotas/)来限制可耗用的资源总量。如果与命名空间一起使用，它可以防止一个团队吞噬所有的资源。
+  可以考虑配置[资源配额](/zh/docs/concepts/policy/resource-quotas/)来限制可耗用的资源总量。如果与命名空间一起使用，它可以防止一个团队吞噬所有的资源。
 
 #### 使用hostPort
 

@@ -22,7 +22,7 @@ The following resources are used in the demonstration: [ResourceQuota](/docs/con
 [LimitRange](/docs/tasks/administer-cluster/memory-default-namespace/),
 and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 -->
-演示中用到了以下资源：[ResourceQuota](/docs/concepts/policy/resource-quotas/)，[LimitRange](/docs/tasks/administer-cluster/memory-default-namespace/) 和 [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/)。
+演示中用到了以下资源：[ResourceQuota](/zh/docs/concepts/policy/resource-quotas/)，[LimitRange](/docs/tasks/administer-cluster/memory-default-namespace/) 和 [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/)。
 
 {{% /capture %}}
 

@@ -20,7 +20,7 @@ content_template: templates/task
 
 <!-- The purpose of using [LXD](https://linuxcontainers.org/lxd/) on a local machine is to emulate the same deployment that a user would use in a cloud or bare metal. Each node is treated as a machine, with the same characteristics as production. Each node is a separate container, which runs Docker containers and `kubectl` inside (see [Cluster Intro](/docs/tutorials/kubernetes-basics/cluster-intro/) for more info). -->
 
-在本地机器上使用 [LXD](https://linuxcontainers.org/lxd/) 的目的是为了模拟用户在云或裸机中部署的环境。每个节点都被视为一台机器，具有与生产环境相同的特性。 每个节点都是一个单独的容器，它在里面运行 Docker 容器和 `kubectl`（更多信息请参阅 [集群简介](/docs/tutorials/kubernetes-basics/cluster-intro/)）。
+在本地机器上使用 [LXD](https://linuxcontainers.org/lxd/) 的目的是为了模拟用户在云或裸机中部署的环境。每个节点都被视为一台机器，具有与生产环境相同的特性。 每个节点都是一个单独的容器，它在里面运行 Docker 容器和 `kubectl`（更多信息请参阅 [集群简介](/zh/docs/tutorials/kubernetes-basics/cluster-intro/)）。
 
 {{% capture prerequisites %}}
 

@@ -559,7 +559,7 @@ Use your preferred method to start Kubernetes cluster on Linux. Please note that
 ## Support for kubeadm join
 -->
 
-如果您的群集是由[kubeadm](/docs/setup/independent/create-cluster-kubeadm/)，创建的
+如果您的群集是由[kubeadm](/zh/docs/setup/independent/create-cluster-kubeadm/)，创建的
 使用上面列出的方法之一正确地设置网络(网络是在 kubeadm 之外设置的)，您可以使用 kubeadm 向集群添加 Windows 节点。在较高的级别上，首先必须使用 kubeadm(Linux) 初始化主节点，然后设置基于 CNI 的网络(在 kubeadm 之外)，最后开始将 Windows 或 Linux 工作节点连接到集群。如需其他文件和参考资料，请访问上文的 kubeadm 链接。
 
 <!--
@@ -575,7 +575,7 @@ The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kube
 
 `kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
 
-有关更多详细信息请参阅[加入您的节点](/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes)。
+有关更多详细信息请参阅[加入您的节点](/zh/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes)。
 <!--
 See [joining-your-nodes](/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) for more details.
 -->

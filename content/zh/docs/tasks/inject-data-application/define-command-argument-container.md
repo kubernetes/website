@@ -35,7 +35,7 @@ content_template: templates/task
 
 1. 基于YAML文件创建一个Pod：
 
-       kubectl create -f https://k8s.io/docs/tasks/inject-data-application/commands.yaml
+       kubectl create -f https://k8s.io/zh/docs/tasks/inject-data-application/commands.yaml
 
 1. 获取一下当前正在运行的Pods信息：
 
@@ -64,9 +64,9 @@ content_template: templates/task
     args: ["$(MESSAGE)"]
 
 这样一来，我们就可以将那些用来设置环境变量的方法应用于设置命令的入参，其
-中包括了[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+中包括了[ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
 与
-[Secrets](/docs/concepts/configuration/secret/).
+[Secrets](/zh/docs/concepts/configuration/secret/).
 
 {{< note >}}
 **注意：** 环境变量需要加上括号，类似于`"$(VAR)"`。这是在`command` 
@@ -120,8 +120,8 @@ content_template: templates/task
 {{% capture whatsnext %}}
 
 * 获取更多资讯可参考 [containers and commands](/docs/user-guide/containers/).
-* 获取更多资讯可参考 [configuring pods and containers](/docs/tasks/).
-* 获取更多资讯可参考 [running commands in a container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+* 获取更多资讯可参考 [configuring pods and containers](/zh/docs/tasks/).
+* 获取更多资讯可参考 [running commands in a container](/zh/docs/tasks/debug-application-cluster/get-shell-running-container/).
 * 参考 [Container](/docs/api-reference/{{< param "version" >}}/#container-v1-core).
 
 {{% /capture %}}

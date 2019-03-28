@@ -138,7 +138,7 @@ options ndots:5
 ### 先检查本地的 DNS 配置
 
 查看 resolv.conf 文件的内容
-(阅读下面的 [从节点继承 DNS 配置](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) 和
+(阅读下面的 [从节点继承 DNS 配置](/zh/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) 和
 [已知问题](#known-issues) ，获取更多信息)
 
 ```shell
@@ -570,7 +570,7 @@ for more details on Cluster Federation and multi-site support.
 
 ## Kubernetes Federation (支持多区域部署)
 
-自从 1.3 版本支持了多个 Kubernetes 的联邦集群后，集群 DNS 服务在处理 DNS 请求时需要有一些微弱的调整 (这是向下兼容的)，从而可以使用跨越多个 Kubernetes 集群的联邦服务。请看 [联邦集群管理向导](/docs/concepts/cluster-administration/federation/) 获取更多关于联邦集群和多点支持的信息。
+自从 1.3 版本支持了多个 Kubernetes 的联邦集群后，集群 DNS 服务在处理 DNS 请求时需要有一些微弱的调整 (这是向下兼容的)，从而可以使用跨越多个 Kubernetes 集群的联邦服务。请看 [联邦集群管理向导](/zh/docs/concepts/cluster-administration/federation/) 获取更多关于联邦集群和多点支持的信息。
 
 <!--
 
@@ -588,7 +588,7 @@ for more details on Cluster Federation and multi-site support.
 
 ## 参考
 
-- [Services 和 Pods 的 DNS 指南](/docs/concepts/services-networking/dns-pod-service/)
+- [Services 和 Pods 的 DNS 指南](/zh/docs/concepts/services-networking/dns-pod-service/)
 - [kube-dns DNS 插件文档](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md)
 
 ## 接下来

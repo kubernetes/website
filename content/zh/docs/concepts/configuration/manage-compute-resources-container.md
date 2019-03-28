@@ -55,7 +55,7 @@ through the Kubernetes API server.
 
 *CPU* 和*内存*都是*资源类型*。资源类型具有基本单位。CPU 的单位是核心数，内存的单位是字节。
 
-CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/docs/concepts/overview/kubernetes-api/) 不同。 API 资源（如 Pod 和 [Service](/docs/concepts/services-networking/service/)）是可通过 Kubernetes API server 读取和修改的对象。
+CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/zh/docs/concepts/overview/kubernetes-api/) 不同。 API 资源（如 Pod 和 [Service](/zh/docs/concepts/services-networking/service/)）是可通过 Kubernetes API server 读取和修改的对象。
 
 <!--
 ## Resource requests and limits of Pod and Container
@@ -359,7 +359,7 @@ with namespaces, it can prevent one team from hogging all the resources.
 
 Pod 可用的资源量小于节点容量，因为系统守护程序使用一部分可用资源。 [NodeStatus](/docs/resources-reference/{{< param "version" >}}/#nodestatus-v1-core)  的 `allocatable` 字段给出了可用于 Pod 的资源量。有关更多信息，请参阅 [节点可分配资源](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md)。
 
-可以将 [资源配额](/docs/concepts/policy/resource-quotas/) 功能配置为限制可以使用的资源总量。如果与 namespace 配合一起使用，就可以防止一个团队占用所有资源。
+可以将 [资源配额](/zh/docs/concepts/policy/resource-quotas/) 功能配置为限制可以使用的资源总量。如果与 namespace 配合一起使用，就可以防止一个团队占用所有资源。
 
 <!--
 ### My Container is terminated

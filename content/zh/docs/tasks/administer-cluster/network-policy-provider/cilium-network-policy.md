@@ -124,7 +124,7 @@ configuration because it automatically connects to the minikube's etcd instance.
 to try out Kubernetes NetworkPolicy with Cilium.
 Have fun, and if you have questions, contact us using the
 [Cilium Slack Channel](https://cilium.herokuapp.com/). -->
-群集运行后，您可以按照[声明网络策略](/docs/tasks/administer-cluster/declare-network-policy/)
+群集运行后，您可以按照[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
 用 Cilium 试用 Kubernetes NetworkPolicy。
 玩得开心，如果您有任何疑问，请联系我们
 [Cilium Slack Channel](https://cilium.herokuapp.com/)。

@@ -589,7 +589,7 @@ At some point, you'll eventually need to update your deployed application, typic
 We'll guide you through how to create and update applications with Deployments. If your deployed application is managed by Replication Controllers,
 you should read [how to use `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/) instead.
  -->
-我们将指导您通过 Deployment 如何创建和更新应用。如果部署的应用由 `ReplicationController` 管理，那么您应该阅读 [怎么样使用 `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/)。
+我们将指导您通过 Deployment 如何创建和更新应用。如果部署的应用由 `ReplicationController` 管理，那么您应该阅读 [怎么样使用 `kubectl rolling-update`](/zh/docs/tasks/run-application/rolling-update-replication-controller/)。
 
 <!--
 Let's say you were running version 1.7.9 of nginx:
@@ -613,7 +613,7 @@ $ kubectl edit deployment/my-nginx
 <!--
 That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
  -->
-没错，就是这样！Deployment 将在后台逐步更新已经部署的 nginx 应用。它确保在更新过程中，只有一定数量的旧副本被开闭，并且只有一定基于所需 pod 数量的新副本被创建。想要了解更多细节，请参考 [Deployment](/docs/concepts/workloads/controllers/deployment/)。
+没错，就是这样！Deployment 将在后台逐步更新已经部署的 nginx 应用。它确保在更新过程中，只有一定数量的旧副本被开闭，并且只有一定基于所需 pod 数量的新副本被创建。想要了解更多细节，请参考 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)。
 
 {{% /capture %}}
 

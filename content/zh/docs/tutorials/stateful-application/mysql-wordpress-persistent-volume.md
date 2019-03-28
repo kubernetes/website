@@ -14,8 +14,8 @@ approvers:
 展示的 Kubernetes 概念：
 
 * [Persistent Volumes](/docs/concepts/storage/persistent-volumes/) 定义持久化磁盘（磁盘生命周期不和 Pods 绑定）。
-* [Services](/docs/concepts/services-networking/service/) 使得 Pods 能够找到其它 Pods。
-* [External Load Balancers](/docs/concepts/services-networking/service/#type-loadbalancer) 对外暴露 Services。
+* [Services](/zh/docs/concepts/services-networking/service/) 使得 Pods 能够找到其它 Pods。
+* [External Load Balancers](/zh/docs/concepts/services-networking/service/#type-loadbalancer) 对外暴露 Services。
 * [Deployments](/docs/user-guide/deployments/) 确保 Pods 持续运行。
 * [Secrets](/docs/user-guide/secrets/) 保存敏感密码信息。
 
@@ -66,11 +66,11 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/examples/master/m
 Kubernetes本质是模块化的，可以在各种环境中运行。但并不是所有集群都相同。此处是本示例的一些要求：
 * 需要 1.2 版本以上的 Kubernetes，以使用更新的特性，例如 PV Claims 和 Deployments。运行 `kubectl version` 来查看你的集群版本。
 * [Cluster DNS](https://github.com/kubernetes/dns) 将被用于服务发现。
-* 一个 [external load balancer](/docs/concepts/services-networking/service/#type-loadbalancer) 将被用于接入 WordPress。
+* 一个 [external load balancer](/zh/docs/concepts/services-networking/service/#type-loadbalancer) 将被用于接入 WordPress。
 * 使用了 [Persistent Volume Claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。你必须创建集群中需要的 Persistent Volumes。本示例将展示两种类型的 volume 的创建方法，但是任何类型的 volume 都是足够使用的。
 
 
-查阅 [Getting Started Guide](/docs/getting-started-guides/)，搭建一个集群并安装 [kubectl](/docs/user-guide/prereqs/) 命令行工具。
+查阅 [Getting Started Guide](/zh/docs/getting-started-guides/)，搭建一个集群并安装 [kubectl](/docs/user-guide/prereqs/) 命令行工具。
 
 
 ## 决定在哪里存储你的数据
@@ -112,7 +112,7 @@ kubectl create -f $KUBE_REPO/mysql-wordpress-pd/local-volumes.yaml
 ### GCE Persistent Disk
 
 
-如果在 [Google Compute Engine](/docs/getting-started-guides/gce/) 上运行集群，你可以使用这个存储选项。
+如果在 [Google Compute Engine](/zh/docs/getting-started-guides/gce/) 上运行集群，你可以使用这个存储选项。
 
 
 创建两个永久磁盘。你需要在和 Kubernetes 集群相同的 [GCE zone](https://cloud.google.com/compute/docs/zones) 中创建这些磁盘。默认的安装脚本将在 `us-central1-b` zone 中创建集群，就像你在 [config-default.sh](https://git.k8s.io/kubernetes/cluster/gce/config-default.sh) 文件中看到的。替换下面的 `<zone>` 为合适的 zone。`wordpress-1` 和 `wordpress-2` 的名字必须和 [gce-volumes.yaml](https://git.k8s.io/examples/mysql-wordpress-pd/gce-volumes.yaml) 指定的 `pdName` 字段匹配。

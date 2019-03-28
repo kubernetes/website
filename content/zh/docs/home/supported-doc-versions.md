@@ -14,7 +14,7 @@ content_template: templates/concept
 ## 当前版本
 
 当前版本是
-[{{< param "version" >}}](/)。
+[{{< param "version" >}}](/zh/)。
 
 ## 之前的版本
 

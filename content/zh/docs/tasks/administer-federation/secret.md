@@ -28,7 +28,7 @@ across all the clusters in federation.
 
 本指南解释了怎样使用联邦控制平面中的 secret。
 
-联邦控制平面中的 secret (请参考本文的 "联邦 secrets" 章节) 和传统的[Kubernetes Secrets](/docs/concepts/configuration/secret/)非常类似并提供相同的功能。
+联邦控制平面中的 secret (请参考本文的 "联邦 secrets" 章节) 和传统的[Kubernetes Secrets](/zh/docs/concepts/configuration/secret/)非常类似并提供相同的功能。
 在联邦控制平面中创建它们可以确保它们在联邦中的所有集群之间同步。
 
 {{% /capture %}}
@@ -59,7 +59,7 @@ You are also expected to have a basic
 general and [Secrets](/docs/concepts/configuration/secret/) in particular.
 -->
 
-也希望您大概了解一些基本的 [Kubernetes 知识](/docs/setup/) 特别是和 [Secrets](/docs/concepts/configuration/secret/) 相关的知识。
+也希望您大概了解一些基本的 [Kubernetes 知识](/docs/setup/) 特别是和 [Secrets](/zh/docs/concepts/configuration/secret/) 相关的知识。
 
 <!--
 ## Creating a Federated Secret

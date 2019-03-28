@@ -109,7 +109,7 @@ controllerManagerExtraArgs:
 <!--
 For details, see the [reference documentation for kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 -->
-有关详细信息，请参阅 [kube-scheduler 参考文档](/docs/reference/command-line-tools-reference/kube-scheduler/)。
+有关详细信息，请参阅 [kube-scheduler 参考文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)。
 
 <!--
 Example usage:

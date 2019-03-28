@@ -32,7 +32,7 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 * 集群：互联网防火墙保护下的一组节点，它们是 Kubernetes 管理的主要计算资源。
 * 边缘路由器：为集群强制执行防火墙策略的路由器。这可以是由云提供商管理的网关或物理硬件。
 * 集群网络：一组逻辑或物理的链接，根据 [Kubernetes 网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。集群网络的例子包括 覆盖网络，例如 [flannel](https://github.com/coreos/flannel#flannel)；或者SDN，例如 [OVS](https://www.openvswitch.org/)。
-* 服务：Kubernetes [服务](/docs/concepts/services-networking/service/) 使用标签选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
+* 服务：Kubernetes [服务](/zh/docs/concepts/services-networking/service/) 使用标签选择器标识一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
 
 <!--
 ## What is Ingress?
@@ -136,7 +136,7 @@ __Lines 7-9__: Ingress [spec](https://git.k8s.io/community/contributors/devel/ap
 
 __1-6 行__: 与其他 Kubernetes 对象配置一样，Ingress 需要 `apiVersion`、`kind`、和 `metadata` 字段。
 有关使用配置文件的一般信息，请参见 
-[部署应用](/docs/tasks/run-application/run-stateless-application-deployment/)、
+[部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)、
 [配置容器](/docs/tasks/configure-pod-container/configure-pod-configmap/)、
 [管理资源](/docs/concepts/cluster-administration/manage-deployment/) 
 和 [ingress 配置重写](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)。
@@ -356,7 +356,7 @@ Ingress 控制器将提供实现特定的负载均衡器来满足 Ingress，只�
 
 {{< note >}}
 <!--**Note:** You need to create a default-http-backend [Service](/docs/concepts/services-networking/service/) if necessary.-->
-**注意:** 如果需要，你需要创建一个默认的 HTTP 后端 [Service](/docs/concepts/services-networking/service/)。
+**注意:** 如果需要，你需要创建一个默认的 HTTP 后端 [Service](/zh/docs/concepts/services-networking/service/)。
 {{< /note >}}
 
 
@@ -432,7 +432,7 @@ and private key to use for TLS, e.g.:
 
 ### TLS
 
-您可以通过指定包含TLS私钥和证书的 [secret](/docs/concepts/configuration/secret) 来加密 Ingress。
+您可以通过指定包含TLS私钥和证书的 [secret](/zh/docs/concepts/configuration/secret) 来加密 Ingress。
 目前，Ingress 只支持单个 TLS 端口，443，并假定 TLS 终止。
 如果 Ingress 中的 TLS 配置部分指定了不同的主机，那么它们将根据通过 SNI TLS 扩展指定的主机名（如果 Ingress 控制器支持 SNI）在同一端口上进行复用。
 TLS Secret 必须包含名为 `tls.crt` 和 `tls.key` 的密钥，这些密钥包含用于 TLS 的证书和私钥，例如：
@@ -625,7 +625,7 @@ Techniques for spreading traffic across failure domains differs between cloud pr
 ## 跨可用区失败
 
 用于跨故障域传播流量的技术在云提供商之间是不同的。详情请查阅相关 Ingress 控制器的文档。
-有关在联邦集群中部署 Ingress 的详细信息，请参阅联邦 [文档](/docs/concepts/cluster-administration/federation/)。 
+有关在联邦集群中部署 Ingress 的详细信息，请参阅联邦 [文档](/zh/docs/concepts/cluster-administration/federation/)。 
 
 
 <!--
@@ -662,8 +662,8 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 不直接使用 Ingress 资源，也有多种方法暴露 Service：
 
-* 使用 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* 使用 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* 使用 [Service.Type=LoadBalancer](/zh/docs/concepts/services-networking/service/#loadbalancer)
+* 使用 [Service.Type=NodePort](/zh/docs/concepts/services-networking/service/#nodeport)
 * 使用 [端口代理](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
 {{% /capture %}}

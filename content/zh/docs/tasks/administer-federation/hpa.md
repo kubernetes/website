@@ -219,7 +219,7 @@ kubectl --context=federation-cluster delete HPA php-apache
 您可以像删除 Kubernetes HPA 一样删除联邦 HPA；但是，对于联邦 HPA， 您必须将请求发送给联邦 API server 而不是发送到一个特定的 Kubernetes 集群。
 
 {{< note >}}
-如果要删除所有基础集群中的联邦资源，应该使用 [级联删除](/docs/concepts/cluster-administration/federation/#cascading-deletion)。
+如果要删除所有基础集群中的联邦资源，应该使用 [级联删除](/zh/docs/concepts/cluster-administration/federation/#cascading-deletion)。
 {{< /note >}}
 
 例如，您可以使用 `kubectl` 运行命令：

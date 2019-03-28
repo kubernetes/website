@@ -143,7 +143,7 @@ After deciding which cloud to deploy to, follow the [cloud setup page](https://j
 Load your [cloud credentials](https://jujucharms.com/docs/2.3/credentials) for each
 cloud provider you would like to use. -->
 
-有关所有解决方案的支持级别信息，请参见[解决方案表](/docs/getting-started-guides/#table-of-solutions)。
+有关所有解决方案的支持级别信息，请参见[解决方案表](/zh/docs/getting-started-guides/#table-of-solutions)。
 
 ## 安装选项
 

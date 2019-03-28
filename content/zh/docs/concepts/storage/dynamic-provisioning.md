@@ -181,7 +181,7 @@ can enable this behavior by:
   is enabled on the API server.
 -->
 - 标记一个 `StorageClass` 为 *默认*；
-- 确保 [`DefaultStorageClass` 准入控制器](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在 API 服务端被启用。
+- 确保 [`DefaultStorageClass` 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在 API 服务端被启用。
 
 <!--
 An administrator can mark a specific `StorageClass` as default by adding the

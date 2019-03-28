@@ -12,7 +12,7 @@ content_template: templates/concept
 本节介绍在 Amazon Web Services 上运行 Kubernetes 时可以使用的所有配置。
 
 ## 负载均衡器
-用户可以通过配置注解（annotations）来设置 [外部负载均衡器](/docs/tasks/access-application-cluster/create-external-load-balancer/)，以在 AWS 中使用特定功能，如下所示：
+用户可以通过配置注解（annotations）来设置 [外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，以在 AWS 中使用特定功能，如下所示：
 
 ```yaml
 apiVersion: v1

@@ -32,7 +32,7 @@ Kubernetes cluster.
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* 确保 [DNS 特性](/docs/concepts/services-networking/dns-pod-service/)是启用的。
+* 确保 [DNS 特性](/zh/docs/concepts/services-networking/dns-pod-service/)是启用的。
 
 * 推荐使用 Kubernetes 1.4.0 或更高版本。
 

@@ -140,7 +140,7 @@ kubectl apply -R -f configs/
  {{% /capture %}}
 
  {{% capture whatsnext %}}
- -  [使用命令式的命令管理 Kubernetes 对象](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
+ -  [使用命令式的命令管理 Kubernetes 对象](/zh/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
  -  [使用对象配置管理 Kubernetes 对象(必要)](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
  -  [使用对象配置(声明式)管理 Kubernetes 对象](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
  -  [Kubectl 命令参考](/docs/user-guide/kubectl/v1.6/)

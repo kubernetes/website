@@ -80,7 +80,7 @@ Kubernetes的授权要求使用通用的REST属性与现有的组织或云服务
 
 Kubernetes 支持多种授权模块，例如ABAC模式，RBAC模式和 Webhook模式。 管理员创建集群时，会配置API服务器应用的授权模块。 如果多种授权模式同时被启用，Kubernetes将检查所有模块，如果其中一种通过授权，则请求授权通过。 如果所有的模块全部拒绝，则请求被拒绝(HTTP状态码403)。
 
-要了解更多的Kubernetes授权相关信息，包括使用授权模块创建策略的具体说明等，可参考[授权概述](/docs/admin/authorization)。
+要了解更多的Kubernetes授权相关信息，包括使用授权模块创建策略的具体说明等，可参考[授权概述](/zh/docs/admin/authorization)。
 
 
 ## 准入控制

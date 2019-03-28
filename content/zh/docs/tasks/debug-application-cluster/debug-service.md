@@ -792,7 +792,7 @@ hostnames-632524106-ly40y   1/1       Running   0          2m
 hostnames-632524106-tlaok   1/1       Running   0          2m
 ```
 
-如果重新启动计数很高，请查阅有关如何[调试 pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods) 获取更多信息。
+如果重新启动计数很高，请查阅有关如何[调试 pods](/zh/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods) 获取更多信息。
 
 <!--
 ## Is the kube-proxy working?

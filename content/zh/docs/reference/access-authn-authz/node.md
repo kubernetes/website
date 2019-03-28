@@ -98,7 +98,7 @@ This group and user name format match the identity created for each kubelet as p
 To enable the Node authorizer, start the apiserver with `--authorization-mode=Node`. 
 -->
 
-要限制 kubelet 具有写入权限的 API 对象，请使用 `--enable-admission-plugins=...,NodeRestriction,...` 启动 apiserver，从而启用 [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) 准入插件。
+要限制 kubelet 具有写入权限的 API 对象，请使用 `--enable-admission-plugins=...,NodeRestriction,...` 启动 apiserver，从而启用 [NodeRestriction](/zh/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) 准入插件。
 <!-- 
 To limit the API objects kubelets are able to write, enable the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) admission plugin by starting the apiserver with `--enable-admission-plugins=...,NodeRestriction,...`
  -->

@@ -252,7 +252,7 @@ kubectl delete namespace quota-object-example
 
 * [为命名空间配置 CPU 和内存配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-* [为命名空间配置 Pod 配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [为命名空间配置 Pod 配额](/zh/docs/tasks/administer-cluster/quota-pod-namespace/)
 
 <!--
 ### For app developers

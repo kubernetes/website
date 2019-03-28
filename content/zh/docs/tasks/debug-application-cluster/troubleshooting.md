@@ -30,8 +30,8 @@ two sections:
    * [Troubleshooting your cluster](/docs/tasks/debug-application-cluster/debug-cluster/) - Useful for cluster administrators and people whose Kubernetes cluster is unhappy.
 -->
 
-   * [应用排错](/docs/tasks/debug-application-cluster/debug-application/) - 用于部署代码到 Kubernetes 并想知道代码为什么不能正常运行的用户。
-   * [集群排错](/docs/tasks/debug-application-cluster/debug-cluster/) - 用于集群管理员以及 Kubernetes 集群表现异常的用户。
+   * [应用排错](/zh/docs/tasks/debug-application-cluster/debug-application/) - 用于部署代码到 Kubernetes 并想知道代码为什么不能正常运行的用户。
+   * [集群排错](/zh/docs/tasks/debug-application-cluster/debug-cluster/) - 用于集群管理员以及 Kubernetes 集群表现异常的用户。
 
 <!--
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
@@ -73,9 +73,9 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/user-guide/kubectl
 ### 提问
 
 网站上的文档针对回答各类问题进行了结构化组织和分类。
-[概念](/docs/concepts/)部分解释了 Kubernetes 体系结构以及每个组件的工作方式，[安装](/docs/setup/)部分提供了入门的实用说明。
-[任务](/docs/tasks/)部分展示了如何完成常用任务，[入门](/docs/tutorials/)部分则是对现实世界、特定行业或端到端开发场景的更全面的演练。
-[参考](/docs/reference/)部分提供了详细的 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 文档和命令行 (CLI) 接口，例如[`kubectl`](/docs/user-guide/kubectl-overview/)。
+[概念](/zh/docs/concepts/)部分解释了 Kubernetes 体系结构以及每个组件的工作方式，[安装](/docs/setup/)部分提供了入门的实用说明。
+[任务](/zh/docs/tasks/)部分展示了如何完成常用任务，[入门](/zh/docs/tutorials/)部分则是对现实世界、特定行业或端到端开发场景的更全面的演练。
+[参考](/docs/reference/)部分提供了详细的 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 文档和命令行 (CLI) 接口，例如[`kubectl`](/zh/docs/user-guide/kubectl-overview/)。
 
 <!--
 You may also find the Stack Overflow topics relevant:

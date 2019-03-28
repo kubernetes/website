@@ -20,7 +20,7 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
  -->
  <img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">
  本文会告诉您如何安装 `kubeadm` 工具。
- 完成本文提到的安装步骤后，您可以阅读[使用 kubeadm 来创建集群](/docs/setup/independent/create-cluster-kubeadm/)，
+ 完成本文提到的安装步骤后，您可以阅读[使用 kubeadm 来创建集群](/zh/docs/setup/independent/create-cluster-kubeadm/)，
  了解如何使用 kubeadm 来创建集群。
 
 {{% /capture %}}
@@ -135,7 +135,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 ** Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
 -->
 
-** [NodePort 服务](/docs/concepts/services-networking/service/)的默认端口范围。
+** [NodePort 服务](/zh/docs/concepts/services-networking/service/)的默认端口范围。
 
 <!-- 
 Any port numbers marked with * are overridable, so you will need to ensure any
@@ -241,7 +241,7 @@ For more information on version skews, please read our
 [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy). 
 -->
 
-更多关于版本冲突的信息，请参阅[版本冲突政策](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)。
+更多关于版本冲突的信息，请参阅[版本冲突政策](/zh/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)。
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}} 
@@ -421,6 +421,6 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 <!-- 
 * [Using kubeadm to Create a Cluster](/docs/setup/independent/create-cluster-kubeadm/)
 -->
-* [使用 kubeadm 来创建集群](/docs/setup/independent/create-cluster-kubeadm/) 
+* [使用 kubeadm 来创建集群](/zh/docs/setup/independent/create-cluster-kubeadm/) 
 
 {{% /capture %}}

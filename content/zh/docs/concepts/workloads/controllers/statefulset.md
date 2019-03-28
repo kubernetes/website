@@ -72,7 +72,7 @@ StatefulSets 对于需要满足以下一个或多个需求的应用程序很有�
 * 有序的、优雅的部署和缩放。
 * 有序的、自动的滚动更新。
 
-在上面，稳定意味着 Pod 调度或重调度的整个过程是有持久性的。如果应用程序不需要任何稳定的标识符或有序的部署、删除或伸缩，则应该使用一组无状态的副本控制器来部署应用程序，比如 [Deployment](/docs/concepts/workloads/controllers/deployment/) 或者 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 可能更适用于您的无状态需要。
+在上面，稳定意味着 Pod 调度或重调度的整个过程是有持久性的。如果应用程序不需要任何稳定的标识符或有序的部署、删除或伸缩，则应该使用一组无状态的副本控制器来部署应用程序，比如 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 或者 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 可能更适用于您的无状态需要。
 
 <!--
 ## Limitations
@@ -89,7 +89,7 @@ StatefulSets 对于需要满足以下一个或多个需求的应用程序很有�
 * StatefulSet 在 1.9 版本之前属于 beta 资源，在 1.5 版本之前的任何 Kubernetes 版本中都不可用。
 * 给定 Pod 的存储必须由 [PersistentVolume 驱动](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) 基于所请求的 `storage class` 来提供，或者由管理员预先提供。
 * 删除和／或收缩 StatefulSet 并*不会*删除它关联的存储卷。这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
-* StatefulSet 当前需要 [无头服务](/docs/concepts/services-networking/service/#headless-services) 来负责Pod 的网络标识。您需要负责创建此服务。
+* StatefulSet 当前需要 [无头服务](/zh/docs/concepts/services-networking/service/#headless-services) 来负责Pod 的网络标识。您需要负责创建此服务。
 * 当删除 StatefulSets 时，StatefulSet 不提供任何终止 Pod 的保证。为了实现 StatefulSet 中的 Pod 可以有序和优雅的终止，可以在删除之前将 StatefulSet 缩放为0。
 
 <!--
@@ -209,7 +209,7 @@ by the `serviceName` field on the StatefulSet.
 ### 稳定的网络 ID
 
 StatefulSet 中的每个 Pod 根据 StatefulSet 的名称和 Pod 的序号派生出它的主机名。组合主机名的格式为  `$(statefulset name)-$(ordinal)`。上例将会创建三个名称为  `web-0,web-1,web-2` 的三个 Pod。
-StatefulSet 可以使用 [无头服务](/docs/concepts/services-networking/service/#headless-services) 控制它的 Pod 的网络域。管理域的这个服务的格式为：
+StatefulSet 可以使用 [无头服务](/zh/docs/concepts/services-networking/service/#headless-services) 控制它的 Pod 的网络域。管理域的这个服务的格式为：
 `$(service name).$(namespace).svc.cluster.local`, 其中 "cluster.local" 是集群域。
  一旦每个 Pod 创建成功，就会得到一个匹配的 DNS 子域，格式为：`$(podname).$(governing service domain)`，其中管理服务由 StatefulSet 的 `serviceName` 域来定义。
 
@@ -232,7 +232,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
 **Note:** Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 -->
-**注意** 集群域会被设置为 `cluster.local` 除非有[其他配置](/docs/concepts/services-networking/dns-pod-service/#how-it-works)。
+**注意** 集群域会被设置为 `cluster.local` 除非有[其他配置](/zh/docs/concepts/services-networking/dns-pod-service/#how-it-works)。
 {{< /note >}}
 
 <!--
@@ -409,8 +409,8 @@ update, roll out a canary, or perform a phased roll out.
 * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
 -->
 
-* 示例一： [部署有状态应用](/docs/tutorials/stateful-application/basic-stateful-set/)。
-* 示例二： [使用 StatefulSet 部署 Cassandra](/docs/tutorials/stateful-application/cassandra/)。
+* 示例一： [部署有状态应用](/zh/docs/tutorials/stateful-application/basic-stateful-set/)。
+* 示例二： [使用 StatefulSet 部署 Cassandra](/zh/docs/tutorials/stateful-application/cassandra/)。
 
 
 {{% /capture %}}

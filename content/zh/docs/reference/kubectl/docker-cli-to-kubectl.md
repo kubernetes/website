@@ -85,9 +85,9 @@ service "nginx-http" exposed
 <!--
 By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 -->
-通过使用 kubectl，您可以创建一个[Deployment](/docs/concepts/workloads/controllers/deployment/) 来确保 N 个 Pod 运行 nginx，其中 N 是声明中规定的副本数，默认值为 1。
-您还可以使用与 Pod 标签匹配的选择器创建 [服务](/docs/concepts/services-networking/service/)。
-有关详细信息，请参阅[使用服务访问群集中的应用](/docs/tasks/access-application-cluster/service-access-application-cluster)。
+通过使用 kubectl，您可以创建一个[Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 来确保 N 个 Pod 运行 nginx，其中 N 是声明中规定的副本数，默认值为 1。
+您还可以使用与 Pod 标签匹配的选择器创建 [服务](/zh/docs/concepts/services-networking/service/)。
+有关详细信息，请参阅[使用服务访问群集中的应用](/zh/docs/tasks/access-application-cluster/service-access-application-cluster)。
 
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use:
@@ -351,7 +351,7 @@ When you use kubectl, you don't delete the pod directly.You have to first delete
 There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 -->
 
-在 kubectl 中没有与 docker login 直接对应的操作。如果您有兴趣在 Kubernetes 中使用私有仓库，请参考 [使用私有仓库](/docs/concepts/containers/images/#using-a-private-registry)。
+在 kubectl 中没有与 docker login 直接对应的操作。如果您有兴趣在 Kubernetes 中使用私有仓库，请参考 [使用私有仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)。
 
 ## docker version
 

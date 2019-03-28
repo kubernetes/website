@@ -153,6 +153,6 @@ Always perform force deletion of StatefulSet Pods carefully and with complete kn
 <!--
 Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
 --->
-进一步了解[调试 StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/)。
+进一步了解[调试 StatefulSet](/zh/docs/tasks/debug-application-cluster/debug-stateful-set/)。
 
 {{% /capture %}}

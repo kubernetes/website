@@ -40,7 +40,7 @@ external IP address.
  * 安装 [kubectl](/docs/tasks/tools/install-kubectl/).
 
  * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 群集。
- 本教程创建了一个[外部负载均衡器](/docs/tasks/access-application-cluster/create-external-load-balancer/)，需要云供应商。
+ 本教程创建了一个[外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，需要云供应商。
 
  * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
@@ -86,7 +86,7 @@ external IP address.
     [Pods](/docs/concepts/workloads/pods/pod/),
     each of which runs the Hello World application.
 -->
-    前面的命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 
+    前面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 
     对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)对象。
     ReplicaSet 有五个 [Pod](/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
 
@@ -252,6 +252,6 @@ Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
 
-了解更多关于[将应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)。
+了解更多关于[将应用程序与服务连接](/zh/docs/concepts/services-networking/connect-applications-service/)。
 
 {{% /capture %}}

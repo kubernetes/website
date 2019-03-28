@@ -74,7 +74,7 @@ as part of a pod and are made available to be mounted into each application's
 filesystem.
 -->
 
-Pod 中的所有容器共享一个 IP 地址和端口空间，并且可以通过 `localhost` 互相发现。他们也能通过标准的进程间通信（如 SystemV 信号量或 POSIX 共享内存）方式进行互相通信。不同 Pod 中的容器的 IP 地址互不相同，没有 [特殊配置](/docs/concepts/policy/pod-security-policy/) 就不能使用 IPC 进行通信。这些容器之间经常通过 Pod IP 地址进行通信。
+Pod 中的所有容器共享一个 IP 地址和端口空间，并且可以通过 `localhost` 互相发现。他们也能通过标准的进程间通信（如 SystemV 信号量或 POSIX 共享内存）方式进行互相通信。不同 Pod 中的容器的 IP 地址互不相同，没有 [特殊配置](/zh/docs/concepts/policy/pod-security-policy/) 就不能使用 IPC 进行通信。这些容器之间经常通过 Pod IP 地址进行通信。
 
 Pod 中的应用也能访问共享卷，共享卷是 Pod 定义的一部分，可被用来挂载到每个应用的文件系统上。
 
@@ -96,7 +96,7 @@ controller](/docs/concepts/workloads/controllers/replicationcontroller/) for mor
 
 在 [Docker](https://www.docker.com/) 体系的术语中，Pod 被建模为一组具有共享命名空间和共享 [卷](/docs/concepts/storage/volumes/) 的 Docker 容器。
 
-与单个应用程序容器一样，Pod被认为是相对短暂的（而不是持久的）实体。如 [Pod 的生命](/docs/concepts/workloads/pods/pod-lifecycle/) 所讨论的那样：Pod 被创建、给它指定一个唯一 ID （UID）、被调度到节点、在节点上存续直到终止（取决于重启策略）或被删除。如果节点宕机，调度到该节点上的 Pod 会在一个超时周期后被安排删除。给定 Pod （由 UID 定义）不会重新调度到新节点；相反，它会被一个完全相同的 Pod 替换掉，如果需要甚至连 Pod 名称都可以一样，除了 UID 是新的(更多信息请查阅 [副本控制器（replication
+与单个应用程序容器一样，Pod被认为是相对短暂的（而不是持久的）实体。如 [Pod 的生命](/zh/docs/concepts/workloads/pods/pod-lifecycle/) 所讨论的那样：Pod 被创建、给它指定一个唯一 ID （UID）、被调度到节点、在节点上存续直到终止（取决于重启策略）或被删除。如果节点宕机，调度到该节点上的 Pod 会在一个超时周期后被安排删除。给定 Pod （由 UID 定义）不会重新调度到新节点；相反，它会被一个完全相同的 Pod 替换掉，如果需要甚至连 Pod 名称都可以一样，除了 UID 是新的(更多信息请查阅 [副本控制器（replication
 controller）](/docs/concepts/workloads/controllers/replicationcontroller/))。
 
 <!--
@@ -267,7 +267,7 @@ can also provide support to stateful pods.
 
 Pod 并没想被视为持久的实体。它们无法在调度失败、节点故障或其他驱逐策略（例如由于缺乏资源或在节点维护的情况下）中生存。
 
-一般来说，用户不需要直接创建 Pod。他们几乎都是使用控制器进行创建，即使对于单例的创建也一样使用控制器，例如 [Deployments](/docs/concepts/workloads/controllers/deployment/)。
+一般来说，用户不需要直接创建 Pod。他们几乎都是使用控制器进行创建，即使对于单例的创建也一样使用控制器，例如 [Deployments](/zh/docs/concepts/workloads/controllers/deployment/)。
 控制器提供集群范围的自修复以及复制和滚动管理。
 像 [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md) 这样的控制器还可以提供支持有状态的 Pod。
 

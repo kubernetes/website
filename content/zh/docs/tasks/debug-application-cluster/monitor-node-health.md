@@ -14,7 +14,7 @@ title: Monitor Node Health
 
 {{% capture overview %}}
 
-*节点问题探测器* 是一个 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 用来监控节点健康。它从各种守护进程收集节点问题，并以[NodeCondition](/docs/concepts/architecture/nodes/#condition) 和 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core) 的形式报告给 apiserver 。 
+*节点问题探测器* 是一个 [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) 用来监控节点健康。它从各种守护进程收集节点问题，并以[NodeCondition](/zh/docs/concepts/architecture/nodes/#condition) 和 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core) 的形式报告给 apiserver 。 
 <!-- 
 *Node problem detector* is a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) monitoring the
 node health. It collects node problems from various daemons and reports them

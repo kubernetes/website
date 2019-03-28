@@ -27,5 +27,5 @@ Kube-router 插件自带一个Network Policy 控制器，监视来自于Kubernet
 
 {{% capture whatsnext %}}
 <!-- Once you have installed the Kube-router addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy. -->
-在您安装 Kube-router 插件后，可以根据 [声明 Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) 去尝试使用 Kubernetes NetworkPolicy。
+在您安装 Kube-router 插件后，可以根据 [声明 Network Policy](/zh/docs/tasks/administer-cluster/declare-network-policy/) 去尝试使用 Kubernetes NetworkPolicy。
 {{% /capture %}}

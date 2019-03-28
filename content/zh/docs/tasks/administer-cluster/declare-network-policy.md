@@ -9,7 +9,7 @@ content_template: templates/task
 {{% capture overview %}}
 
 
-本文可以帮助您开始使用 Kubernetes 的 [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) 声明网络策略去管理 Pod 之间的通信
+本文可以帮助您开始使用 Kubernetes 的 [NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/) 声明网络策略去管理 Pod 之间的通信
 
 {{% /capture %}}
 

@@ -16,7 +16,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Kubernetes 文档的这一部分包含教程。一个教程展示了如何完成一个比单个[任务](/docs/tasks/)更大的目标。
+Kubernetes 文档的这一部分包含教程。一个教程展示了如何完成一个比单个[任务](/zh/docs/tasks/)更大的目标。
 通常，通常一个教程有几个部分，每个部分都有一系列步骤。在浏览每个教程之前，
 您可能希望将[标准化术语表](/docs/reference/glossary/)页面添加到书签，供以后参考。
 
@@ -39,7 +39,7 @@ Before walking through each tutorial, you may want to bookmark the
 ## Basics
 -->
 
-* [Kubernetes 基础知识](/docs/tutorials/Kubernetes-Basics/)是一个深入的交互式教程，帮助您理解 Kubernetes 系统，并尝试一些基本的 Kubernetes 特性。
+* [Kubernetes 基础知识](/zh/docs/tutorials/Kubernetes-Basics/)是一个深入的交互式教程，帮助您理解 Kubernetes 系统，并尝试一些基本的 Kubernetes 特性。
 
 <!--
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
@@ -69,7 +69,7 @@ Before walking through each tutorial, you may want to bookmark the
 ## Configuration
 -->
 
-* [使用一个 ConfigMap 配置 Redis](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [使用一个 ConfigMap 配置 Redis](/zh/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 <!--
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
@@ -99,25 +99,25 @@ Before walking through each tutorial, you may want to bookmark the
 ## Stateful Applications
 -->
 
-* [StatefulSet 基础](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [StatefulSet 基础](/zh/docs/tutorials/stateful-application/basic-stateful-set/)
 
 <!--
 * [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
 -->
 
-* [示例：WordPress 和 MySQL 使用持久卷](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [示例：WordPress 和 MySQL 使用持久卷](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
 <!--
 * [Example: WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 -->
 
-* [示例：使用有状态集部署 Cassandra](/docs/tutorials/stateful-application/cassandra/)
+* [示例：使用有状态集部署 Cassandra](/zh/docs/tutorials/stateful-application/cassandra/)
 
 <!--
 * [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
 -->
 
-* [运行 ZooKeeper，CP 分布式系统](/docs/tutorials/stateful-application/zookeeper/)
+* [运行 ZooKeeper，CP 分布式系统](/zh/docs/tutorials/stateful-application/zookeeper/)
 
 <!--
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
@@ -165,7 +165,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## 服务
 
-* [使用源 IP](/docs/tutorials/services/source-ip/)
+* [使用源 IP](/zh/docs/tutorials/services/source-ip/)
 
 <!--
 ## Services

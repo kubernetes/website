@@ -19,7 +19,7 @@ If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kub
 You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.
 This page explains the certificates that your cluster requires. 
 -->
-Kubernetes 需要 PKI 证书才能通过 TLS 进行身份验证。如果使用 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) 安装 Kubernetes，集群所需的证书会被自动生成。
+Kubernetes 需要 PKI 证书才能通过 TLS 进行身份验证。如果使用 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/) 安装 Kubernetes，集群所需的证书会被自动生成。
 您还可以生成自己的证书——例如，通过不将私钥保存在 API 服务器上，来更安全地保护它们。。
 此页面说明了集群所需的证书。
 
@@ -60,7 +60,7 @@ Kubernetes 在执行以下操作时需要相应的证书：
 <!-- 
 `front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/). 
 -->
-仅在您使用 kube-proxy 来支持 [一个扩展 API 服务器](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 时才需要 `front-proxy` 证书。
+仅在您使用 kube-proxy 来支持 [一个扩展 API 服务器](/zh/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 时才需要 `front-proxy` 证书。
 {{< /note >}}
 
 <!-- 
@@ -278,7 +278,7 @@ These files are used as follows:
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage 
 -->
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
-[kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
+[kubeadm]: /zh/docs/reference/setup-tools/kubeadm/kubeadm/
 [proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
 
 {{% /capture %}}

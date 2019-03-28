@@ -10,7 +10,7 @@ weight: 60
 ---
 -->
 
-字段选择器允许您根据一个或多个资源字段的值[筛选 Kubernetes 资源](/docs/concepts/overview/working-with-objects/kubernetes-objects)。
+字段选择器允许您根据一个或多个资源字段的值[筛选 Kubernetes 资源](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects)。
 下面是一些使用字段选择器查询的例子：
 <!--
 _Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some example field selector queries:
@@ -20,7 +20,7 @@ _Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/
 * `metadata.namespace!=default`
 * `status.phase=Pending`
 
-下面这个 `kubectl` 命令将筛选出[`status.phase`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)字段值为 `Running` 的所有 Pod：
+下面这个 `kubectl` 命令将筛选出[`status.phase`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)字段值为 `Running` 的所有 Pod：
 <!--
 This `kubectl` command selects all Pods for which the value of the [`status.phase`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 -->

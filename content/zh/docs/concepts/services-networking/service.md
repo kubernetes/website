@@ -571,7 +571,7 @@ Kubernetes 也支持对端口名称的 DNS SRV（Service）记录。
 
 
 Kubernetes DNS 服务器是唯一的一种能够访问 `ExternalName` 类型的 Service 的方式。
-更多信息可以查看[DNS Pod 和 Service](/docs/concepts/services-networking/dns-pod-service/)。
+更多信息可以查看[DNS Pod 和 Service](/zh/docs/concepts/services-networking/dns-pod-service/)。
 
 <!--
 ## Headless services

@@ -15,7 +15,7 @@ title: 集群管理
 ## 创建和配置集群
 
 
-要在一组机器上安装 Kubernetes， 请根据您的环境，查阅现有的 [入门指南](/docs/getting-started-guides/) 
+要在一组机器上安装 Kubernetes， 请根据您的环境，查阅现有的 [入门指南](/zh/docs/getting-started-guides/) 
 
 
 ## 升级集群
@@ -98,7 +98,7 @@ gcloud compute instance-groups managed resize kubernetes-minion-group --size 42 
 如果正在使用 GCE 或者 Google Kubernetes Engine，您可以配置您的集群，使其能够基于 pod 需求自动重新调整大小。
 
 
-如  [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/) 所述，用户可以控制预留多少 CPU 和内存来分配给 pod。这个信息被 Kubernetes scheduler 用来寻找一个运行 pod 的地方。如果没有一个节点有足够的空闲容量（或者不能满足其他 pod 的需求），这个 pod 就需要等待某些 pod 结束，或者一个新的节点被添加。
+如  [Compute Resource](/zh/docs/concepts/configuration/manage-compute-resources-container/) 所述，用户可以控制预留多少 CPU 和内存来分配给 pod。这个信息被 Kubernetes scheduler 用来寻找一个运行 pod 的地方。如果没有一个节点有足够的空闲容量（或者不能满足其他 pod 的需求），这个 pod 就需要等待某些 pod 结束，或者一个新的节点被添加。
 
 
 集群 autoscaler 查找不能被调度的 pod 并检查添加一个新节点（和集群中其它节点类似的）是否有帮助。如果是的话，它将调整集群的大小以容纳等待调度的 pod。

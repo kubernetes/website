@@ -50,7 +50,7 @@ See the [etcd documentation](https://github.com/coreos/etcd/tree/master/etcdctl)
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 -->
 
-* 参考 [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 来初始化 Kubernetes 主节点。
+* 参考 [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 来初始化 Kubernetes 主节点。
 * 参考 [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 来初始化 Kubernetes 工作节点并加入集群。
 
 {{% /capture %}}

@@ -143,8 +143,8 @@ kubectl [command] [TYPE] [NAME] -o=<output_format>
 `-o=custom-columns=<spec>` | 输入使用逗号分隔的列表打印表格 [custom columns](#custom-columns)。
 `-o=custom-columns-file=<filename>` | 使用文件中的[自定义列模板](#custom-columns)打印表`<filename>`。
 `-o=json`     | 输出JSON格式的API对象。
-`-o=jsonpath=<template>` | 打印在[jsonpath](/docs/user-guide/jsonpath)表达式中定义的字段
-`-o=jsonpath-file=<filename>` | 打印由文件中的[jsonpath](/docs/user-guide/jsonpath)表达式定义的字段`<filename>`。
+`-o=jsonpath=<template>` | 打印在[jsonpath](/zh/docs/user-guide/jsonpath)表达式中定义的字段
+`-o=jsonpath-file=<filename>` | 打印由文件中的[jsonpath](/zh/docs/user-guide/jsonpath)表达式定义的字段`<filename>`。
 `-o=name`     | 仅打印资源名称，没有其他的。
 `-o=wide`     | 以纯文本格式输出任何附加信息。对于pod，包括节点名称。
 `-o=yaml`     | 输出YAML格式的API对象。
@@ -188,7 +188,7 @@ submit-queue   610995
 ```
 
 ### 排序列表对象
-要将对象输出到终端窗口中的排序列表，可以将该`--sort-by`标志添加到支持的`kubectl`命令中。通过使用`--sort-by`标志指定任何数字或字符串字段来对对象进行排序。要指定一个字段，请使用[jsonpath](/docs/user-guide/jsonpath)表达式。
+要将对象输出到终端窗口中的排序列表，可以将该`--sort-by`标志添加到支持的`kubectl`命令中。通过使用`--sort-by`标志指定任何数字或字符串字段来对对象进行排序。要指定一个字段，请使用[jsonpath](/zh/docs/user-guide/jsonpath)表达式。
 
 #### 语法
 

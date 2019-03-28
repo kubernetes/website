@@ -74,7 +74,7 @@ To enable the rolling update feature of a DaemonSet, you must set its
 You may want to set [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) (default
 to 1) and [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (default to 0) as well.
 --->
-您可能想设置[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) (默认为 1) 和[`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (默认为 0)。 
+您可能想设置[`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/zh/docs/concepts/workloads/controllers/deployment/#max-unavailable) (默认为 1) 和[`.spec.minReadySeconds`](/zh/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (默认为 0)。 
 
 <!--
 ### Step 1: Checking DaemonSet `RollingUpdate` update strategy
@@ -327,7 +327,7 @@ progress.
   DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
 * See [Concepts: Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 --->
-* 查看[任务: 在 DaemonSet 上执行回滚](/docs/tasks/manage-daemon/rollback-daemon-set/)
-* 查看[概念: 创建 DaemonSet 以适应现有的 DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
+* 查看[任务: 在 DaemonSet 上执行回滚](/zh/docs/tasks/manage-daemon/rollback-daemon-set/)
+* 查看[概念: 创建 DaemonSet 以适应现有的 DaemonSet pods](/zh/docs/concepts/workloads/controllers/daemonset/)
 
 {{% /capture %}}

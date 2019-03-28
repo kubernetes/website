@@ -189,7 +189,7 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 
 ## 投射密钥到指定路径并且指定文件权限
 
-你可以将密钥投射到指定路径并且指定每个文件的访问权限。更多信息，请参阅[Secrets](/docs/concepts/configuration/secret/).
+你可以将密钥投射到指定路径并且指定每个文件的访问权限。更多信息，请参阅[Secrets](/zh/docs/concepts/configuration/secret/).
 
 ## Downward API的动机
 

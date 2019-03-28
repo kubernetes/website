@@ -431,7 +431,7 @@ kubectl delete namespace constraints-cpu-example
 
 * [为命名空间配置内存和 CPU 配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-* [为命名空间配置 Pod 配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [为命名空间配置 Pod 配额](/zh/docs/tasks/administer-cluster/quota-pod-namespace/)
 
 * [为 API 对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
 

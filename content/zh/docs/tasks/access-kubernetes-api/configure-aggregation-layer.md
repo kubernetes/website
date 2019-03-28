@@ -87,7 +87,7 @@ If you are not running kube-proxy on a host running the API server, then you mus
 
 {{% capture whatsnext %}}
 
-* [安装一个扩展的 api-server ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 以使用聚合层。
+* [安装一个扩展的 api-server ](/zh/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 以使用聚合层。
 * 有关高级概述，请参阅[使用聚合层扩展 Kubernetes API ](/docs/concepts/api-extension/apiserver-aggregation/)。
 * 了解如何[使用自定义资源扩展 Kubernetes API ](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
 

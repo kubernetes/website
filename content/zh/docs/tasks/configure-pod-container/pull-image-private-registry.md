@@ -277,8 +277,8 @@ kubectl get pod private-reg
 * See the `imagePullSecrets` field of [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 
-* 进一步了解 [Secrets](/docs/concepts/configuration/secret/)。
-* 进一步了解 [使用私有仓库](/docs/concepts/containers/images/#using-a-private-registry)。
+* 进一步了解 [Secrets](/zh/docs/concepts/configuration/secret/)。
+* 进一步了解 [使用私有仓库](/zh/docs/concepts/containers/images/#using-a-private-registry)。
 * 参考 [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-)。
 * 参考 [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)。
 * 参考 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中的 `imagePullSecrets` 字段 。

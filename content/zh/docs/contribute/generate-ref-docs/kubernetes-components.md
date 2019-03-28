@@ -66,7 +66,7 @@ information, see
 [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 -->
 
-* 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的一个分支。想了解更多信息，请参见[创建一个文档 PR](/docs/home/contribute/create-pull-request/)。
+* 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的一个分支。想了解更多信息，请参见[创建一个文档 PR](/zh/docs/home/contribute/create-pull-request/)。
 
 {{% /capture %}}
 
@@ -240,7 +240,7 @@ repository, you can submit them in a
 to `kubernetes/website`.
 -->
 
-当 Markdown 文件放入 `kubernetes/website` 仓库的本地目录中后，你就可以创建 [PR](/docs/home/contribute/create-pull-request/) 将它们提交到 `kubernetes/website`。
+当 Markdown 文件放入 `kubernetes/website` 仓库的本地目录中后，你就可以创建 [PR](/zh/docs/home/contribute/create-pull-request/) 将它们提交到 `kubernetes/website`。
 
 <!--
 ## Customizing the config file
@@ -393,7 +393,7 @@ topics will be visible in the
 [published documentation](/docs/home/).
 -->
 
-在 PR 合入的几分钟后，你更新的参考主题将出现在[已发布文档](/docs/home/)中。
+在 PR 合入的几分钟后，你更新的参考主题将出现在[已发布文档](/zh/docs/home/)中。
 
 {{% /capture %}}
 
@@ -405,8 +405,8 @@ topics will be visible in the
 * [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
 -->
 
-* [为 kubectl 命令集生成参考文档](/docs/home/contribute/generated-reference/kubectl/) 
-* [为 Kubernetes API 生成参考文档](/docs/home/contribute/generated-reference/kubernetes-api/)
-* [为 Kubernetes 联邦 API 生成参考文档](/docs/home/contribute/generated-reference/federation-api/)
+* [为 kubectl 命令集生成参考文档](/zh/docs/home/contribute/generated-reference/kubectl/) 
+* [为 Kubernetes API 生成参考文档](/zh/docs/home/contribute/generated-reference/kubernetes-api/)
+* [为 Kubernetes 联邦 API 生成参考文档](/zh/docs/home/contribute/generated-reference/federation-api/)
 
 {{% /capture %}}

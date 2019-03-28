@@ -192,9 +192,9 @@ In general, Controllers use a Pod Template that you provide to create the Pods f
 
 包含一个或多个 Pod 的控制器一些示例包括：
 
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
+* [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)
 * [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/)
 
 控制器通常使用您提供的 Pod 模板来创建它所负责的 Pod。
 
@@ -212,7 +212,7 @@ a message.
 
 Pod 模板是包含在其他对象中的 Pod 规范，例如
 [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/)、 [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/)、和
-[DaemonSets](/docs/concepts/workloads/controllers/daemonset/)。
+[DaemonSets](/zh/docs/concepts/workloads/controllers/daemonset/)。
 控制器使用 Pod 模板来制作实际使用的 Pod。
 下面的示例是一个简单的 Pod 清单，它包含一个打印消息的容器。
 

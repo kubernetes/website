@@ -57,7 +57,7 @@ and run the corresponding device plugin from the GPU vendor
 
 ## 从 v1.8 起
 
-**从 1.8 版本开始，我们推荐通过 [设备插件](/docs/concepts/cluster-administration/device-plugins) 的方式来使用 GPU。**
+**从 1.8 版本开始，我们推荐通过 [设备插件](/zh/docs/concepts/cluster-administration/device-plugins) 的方式来使用 GPU。**
 
 在 1.10 版本之前，为了通过设备插件开启 GPU 的支持，我们需要在系统中将 `DevicePlugins` 这一特性门控显式地设置为 true：`--feature-gates="DevicePlugins=true"`。不过，从 1.10 版本开始，我们就不需要这一步骤了。
 
@@ -284,7 +284,7 @@ Specify the GPU type in the pod spec:
 
 ## 集群内存在不同类型的 NVIDIA GPU
 
-如果集群内部的不同节点上有不同类型的 NVIDIA GPU，那么你可以使用 [Node Label 和 Node Selecter](/docs/tasks/configure-pod-container/assign-pods-nodes/) 来将pod调度到合适的节点上。
+如果集群内部的不同节点上有不同类型的 NVIDIA GPU，那么你可以使用 [Node Label 和 Node Selecter](/zh/docs/tasks/configure-pod-container/assign-pods-nodes/) 来将pod调度到合适的节点上。
 
 举一个例子：
 

@@ -367,7 +367,7 @@ receive Downward API updates.-->
 <!--
 See the [`downwardAPI` volume example](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)  for more details.
 -->
-更多详细信息请参考 [`downwardAPI` 卷示例](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)。
+更多详细信息请参考 [`downwardAPI` 卷示例](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)。
 
 ### emptyDir {#emptydir}
 

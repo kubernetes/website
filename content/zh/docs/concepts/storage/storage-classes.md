@@ -219,10 +219,10 @@ and [taints and tolerations](/docs/concepts/configuration/taint-and-toleration).
 -->
 集群管理员可以通过指定 `WaitForFirstConsumer` 模式来解决此问题。
 该模式将延迟 PersistentVolume 的绑定和分配，直到使用该 PersistentVolumeClaim 的 Pod 被创建。
-PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或分配。这些包括但不限于 [资源需求](/docs/concepts/configuration/manage-compute-resources-container)，
+PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或分配。这些包括但不限于 [资源需求](/zh/docs/concepts/configuration/manage-compute-resources-container)，
 [节点筛选器](/docs/concepts/configuration/assign-pod-node/#nodeselector)，
 [pod 亲和性和互斥性](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
-以及 [污点和容忍度](/docs/concepts/configuration/taint-and-toleration).
+以及 [污点和容忍度](/zh/docs/concepts/configuration/taint-and-toleration).
 
 <!--
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:

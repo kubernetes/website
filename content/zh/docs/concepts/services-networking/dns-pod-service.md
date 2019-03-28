@@ -53,7 +53,7 @@ Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通�
 #### SRV 记录
 
 命名端口需要创建 SRV 记录，这些端口是正常 Service或 [Headless
-Services](/docs/concepts/services-networking/service/#headless-services) 的一部分。
+Services](/zh/docs/concepts/services-networking/service/#headless-services) 的一部分。
 对每个命名端口，SRV 记录具有 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local` 这种形式。
 对普通 Service，这会被解析成端口号和 CNAME：`my-svc.my-namespace.svc.cluster.local`。
 对 Headless Service，这会被解析成多个结果，Service 对应的每个 backend Pod 各一个，包含 `auto-generated-name.my-svc.my-namespace.svc.cluster.local` 这种形式 Pod 的端口号和 CNAME。
@@ -374,7 +374,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 
 ## Kubernetes Federation（多 Zone 支持)
 
-在1.3 发行版本中，为多站点 Kubernetes 安装引入了集群 Federation 支持。这需要对 Kubernetes 集群 DNS 服务器处理 DNS 查询的方式，做出一些微小（后向兼容）改变，从而便利了对联合 Service 的查询（跨多个 Kubernetes 集群）。参考 [集群 Federation 管理员指南](/docs/concepts/cluster-administration/federation/) 获取更多关于集群 Federation 和多站点支持的细节。
+在1.3 发行版本中，为多站点 Kubernetes 安装引入了集群 Federation 支持。这需要对 Kubernetes 集群 DNS 服务器处理 DNS 查询的方式，做出一些微小（后向兼容）改变，从而便利了对联合 Service 的查询（跨多个 Kubernetes 集群）。参考 [集群 Federation 管理员指南](/zh/docs/concepts/cluster-administration/federation/) 获取更多关于集群 Federation 和多站点支持的细节。
 
 
 

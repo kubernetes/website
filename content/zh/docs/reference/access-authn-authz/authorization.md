@@ -85,12 +85,12 @@ Kubernetes 仅审查以下 API 请求属性：
  * **extra** - 由身份验证层提供的任意字符串键到字符串值的映射。
  * **API** - 指示请求是否针对 API 资源。
  * **Request path** - 各种非资源端点的路径，如 `/api` 或 `/healthz`。
- * **API request verb** - API 动词 `get`，`list`，`create`，`update`，`patch`，`watch`，`proxy`，`redirect`，`delete` 和 `deletecollection` 用于资源请求。要确定资源 API 端点的请求动词，请参阅[确定请求动词](/docs/reference/access-authn-authz/authorization/#determine-whether-a-request-is-allowed-or-denied)。
+ * **API request verb** - API 动词 `get`，`list`，`create`，`update`，`patch`，`watch`，`proxy`，`redirect`，`delete` 和 `deletecollection` 用于资源请求。要确定资源 API 端点的请求动词，请参阅[确定请求动词](/zh/docs/reference/access-authn-authz/authorization/#determine-whether-a-request-is-allowed-or-denied)。
  * **HTTP request verb** - HTTP 动词 `get`，`post`，`put` 和 `delete` 用于非资源请求。
  * **Resource** - 正在访问的资源的 ID 或名称（仅限资源请求） - 对于使用 `get`，`update`，`patch` 和 `delete` 动词的资源请求，您必须提供资源名称。
  * **Subresource** - 正在访问的子资源（仅限资源请求）。
  * **Namespace** - 正在访问的对象的名称空间（仅适用于命名空间资源请求）。
- * **API group** - 正在访问的 API 组（仅限资源请求）。空字符串表示[核心 API 组](/docs/concepts/overview/kubernetes-api/)。
+ * **API group** - 正在访问的 API 组（仅限资源请求）。空字符串表示[核心 API 组](/zh/docs/concepts/overview/kubernetes-api/)。
 
 <!--
 ## Determine the Request Verb
@@ -128,7 +128,7 @@ DELETE    | delete (单个资源)，deletecollection (资源集合)
 
 Kubernetes 有时使用专门的动词检查授权以获得额外的权限。例如：
 
-* [Pod 安全策略](/docs/concepts/policy/pod-security-policy/) 检查 `policy` API 组中 `podsecuritypolicies` 资源的 `use` 动词的授权。
+* [Pod 安全策略](/zh/docs/concepts/policy/pod-security-policy/) 检查 `policy` API 组中 `podsecuritypolicies` 资源的 `use` 动词的授权。
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping) 检查 `rbac.authorization.k8s.io` API 组中 `roles` 和 `clusterroles` 资源的 `bind` 动词的授权。
 * [认证](/docs/reference/access-authn-authz/authentication/) layer 检查核心 API 组中 `users`，`groups` 和 `serviceaccounts` 的 `impersonate` 动词的授权，以及 `authentication.k8s.io` API 组中的 `userextras`。
 
@@ -300,5 +300,5 @@ mode.
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
 -->
 * 要了解有关身份验证的更多信息，请参阅 **身份验证** [控制对 Kubernetes API 的访问](/docs/reference/access-authn-authz/controlling-access/)。
-* 要了解有关准入控制的更多信息，请参阅 [使用准入控制器](/docs/reference/access-authn-authz/admission-controllers/)。
+* 要了解有关准入控制的更多信息，请参阅 [使用准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)。
 {{% /capture %}}

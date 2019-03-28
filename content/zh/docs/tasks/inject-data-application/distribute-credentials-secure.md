@@ -153,7 +153,7 @@ base-64 形式的密码为 `Mzk1MjgkdmRnN0pi`。
 
 {{% capture whatsnext %}}
 
-* 了解更多关于 [Secrets](/docs/concepts/configuration/secret/)。
+* 了解更多关于 [Secrets](/zh/docs/concepts/configuration/secret/)。
 * 了解 [Volumes](/docs/concepts/storage/volumes/)。
 
 ### 参考

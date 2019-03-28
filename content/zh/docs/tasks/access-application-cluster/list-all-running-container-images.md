@@ -56,7 +56,7 @@ of Containers for each.
 - 使用 `kubectl get pods --all-namespaces` 获取所有命名空间下的所有 Pod
 - 使用 `-o jsonpath={..image}` 来格式化输出，以仅包含容器镜像名称。
   这将以递归方式从返回的 json 中解析出 `image` 字段。
-  - 参阅 [jsonpath reference](/docs/user-guide/jsonpath/) 来获取更多关于如何使用 jsonpath 的信息。
+  - 参阅 [jsonpath reference](/zh/docs/user-guide/jsonpath/) 来获取更多关于如何使用 jsonpath 的信息。
 - 使用标准化工具来格式化输出：`tr`, `sort`, `uniq`
   - 使用 `tr` 以用换行符替换空格
   - 使用 `sort` 来对结果进行排序
@@ -186,7 +186,7 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 -->
 ### 参考
 
-* [Jsonpath](/docs/user-guide/jsonpath/) 参考指南
+* [Jsonpath](/zh/docs/user-guide/jsonpath/) 参考指南
 * [Go template](https://golang.org/pkg/text/template/) 参考指南
 
 {{% /capture %}}

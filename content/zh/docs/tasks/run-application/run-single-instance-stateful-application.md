@@ -63,7 +63,7 @@ kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
 
 
 注意: 在配置的yaml文件中定义密码的做法是不安全的. 具体安全解决方案请参考
-[Kubernetes Secrets](/docs/concepts/configuration/secret/).
+[Kubernetes Secrets](/zh/docs/concepts/configuration/secret/).
 
 {{< code file="mysql-deployment.yaml" >}}
 
@@ -214,7 +214,7 @@ gcloud compute disks delete mysql-disk
 
 {{% capture whatsnext %}}
 
-* 了解更多Deployment对象请参考 [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+* 了解更多Deployment对象请参考 [Deployment objects](/zh/docs/concepts/workloads/controllers/deployment/).
 
 * 了解更多Deployment应用请参考 [Deploying applications](/docs/user-guide/deploying-applications/)
 

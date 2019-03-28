@@ -347,7 +347,7 @@ objects in your Kubernetes deployment, you MUST use this plug-in to enforce quot
 <!--
 See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 -->
-请查看 [resourceQuota 设计文档](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) 和 [Resource Quota 例子](/docs/concepts/policy/resource-quotas/) 了解更多细节。
+请查看 [resourceQuota 设计文档](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) 和 [Resource Quota 例子](/zh/docs/concepts/policy/resource-quotas/) 了解更多细节。
 
 <!--
 It is strongly encouraged that this plug-in is configured last in the sequence of admission control plug-ins.  This is
@@ -504,7 +504,7 @@ extensions group (`--runtime-config=extensions/v1beta1/podsecuritypolicy=true`).
 See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
 for more information.
 -->
-查看 [Pod 安全策略文档](/docs/concepts/policy/pod-security-policy/) 了解更多细节。
+查看 [Pod 安全策略文档](/zh/docs/concepts/policy/pod-security-policy/) 了解更多细节。
 
 ### NodeRestriction
 

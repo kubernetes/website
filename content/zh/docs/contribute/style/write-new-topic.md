@@ -226,7 +226,7 @@ following cases (not an exhaustive list):
 
 - 代码显示来自命令的输出，例如 `kubectl get deploy mydeployment -o json | jq '.status'`。
 - 代码不够通用，用户无法验证。例如，你可以嵌入 YAML 文件来创建一个依赖于特定 [Flexvolume](/docs/concepts/storage/volumes#flexvolume)实现的 Pod。
-- 该代码是一个不完整的示例，因为它的目的是高亮显示大文件的部分内容。例如，在描述自定义 [PodSecurityPolicy](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)的方法时，出于某些原因，你可以直接在主题文件中提供一个简短的片段。
+- 该代码是一个不完整的示例，因为它的目的是高亮显示大文件的部分内容。例如，在描述自定义 [PodSecurityPolicy](/zh/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)的方法时，出于某些原因，你可以直接在主题文件中提供一个简短的片段。
 - 由于其他原因，该代码不适合用户验证。例如，当使用 `kubectl edit` 命令描述如何将新属性添加到资源时，你可以提供一个仅包含要添加的属性的简短示例。
 
 <!--

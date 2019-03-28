@@ -251,7 +251,7 @@ to schedule those pods onto the right nodes.
 --->
 设置了 _非安全的_ sysctl 参数的 pod，在禁用了以下两种 _非安全的_ sysctl 参数配置的节点上启动都会失败。与 _节点级别的_ sysctl 一样，建议开启
 [_taints 和 toleration_  特性](/docs/reference/generated/kubectl/kubectl-commands/#taint) 或
-[taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
+[taints on nodes](/zh/docs/concepts/configuration/taint-and-toleration/)
 以便将 Pod 调度到正确的节点之上。
 
 ## PodSecurityPolicy

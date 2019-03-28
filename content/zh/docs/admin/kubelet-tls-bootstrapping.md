@@ -24,7 +24,7 @@ controller. As this feature matures, you should ensure tokens are bound to a Rol
 
 While any authentication strategy can be used for the kubelet's initial bootstrap credentials, the following two authenticators are recommended for ease of provisioning.
 
-1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) - __alpha__
+1. [Bootstrap Tokens](/zh/docs/admin/bootstrap-tokens/) - __alpha__
 2. [Token authentication file](###token-authentication-file)
 
 Using bootstrap tokens is currently __alpha__ and will simplify the management of bootstrap token management especially in a HA scenario. 
@@ -72,7 +72,7 @@ The kube-controller-manager flags are:
 
 In 1.7 the experimental "group auto approver" controller is dropped in favor of the new `csrapproving` controller
 that ships as part of [kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled by default.
-The controller uses the [`SubjectAccessReview` API](/docs/admin/authorization/#checking-api-access) to determine
+The controller uses the [`SubjectAccessReview` API](/zh/docs/admin/authorization/#checking-api-access) to determine
 if a given user is authorized to request a CSR, then approves based on the authorization outcome. To prevent
 conflicts with other approvers, the builtin approver doesn't explicitly deny CSRs, only ignoring unauthorized requests.
 

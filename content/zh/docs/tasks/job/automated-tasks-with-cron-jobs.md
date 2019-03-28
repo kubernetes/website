@@ -27,7 +27,7 @@ Cron jobs are useful for creating periodic and recurring tasks, like running bac
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 -->
 
-你可以利用 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
+你可以利用 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
 
 CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
 
@@ -51,7 +51,7 @@ For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-j
 CronJobs 有一些限制和特点。
 例如，在特定状况下，同一个 CronJob 可以创建多个任务。
 因此，任务应该是幂等的。
-查看更多限制，请参考 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs)。
+查看更多限制，请参考 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs)。
 
 {{% /capture %}}
 
@@ -191,7 +191,7 @@ Deleting the cron job removes all the jobs and pods it created and stops it from
 You can read more about removing jobs in [garbage collection](/docs/concepts/workloads/controllers/garbage-collection/).
 -->
 
-删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。你可以查阅 [垃圾收集](/docs/concepts/workloads/controllers/garbage-collection/)。
+删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。你可以查阅 [垃圾收集](/zh/docs/concepts/workloads/controllers/garbage-collection/)。
 
 <!--
 ## Writing a Cron Job Spec

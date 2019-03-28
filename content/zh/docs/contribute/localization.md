@@ -276,14 +276,14 @@ Site strings | [All site strings in a new localized TOML file](https://github.co
 -----|-----
 主页 | [所有标题和副标题网址](/docs/home/)
 安装 | [所有标题和副标题网址](/docs/setup/)
-教程 | [Kubernetes 基础](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
+教程 | [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
 网站字符串 | [新的本地化 TOML 文件中的所有网站字符串](https://github.com/kubernetes/website/tree/master/i18n)
 
 <!--
 Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source:
 -->
 
-翻译后的文档必须保存在自己的 `content/**/` 子目录中，否则将遵循与英文源相同的 URL 路径。例如，要准备将 [Kubernetes 基础](/docs/tutorials/kubernetes-basics/) 教程翻译为德语，请在 `content/de/` 文件夹下创建一个子文件夹并复制英文源：
+翻译后的文档必须保存在自己的 `content/**/` 子目录中，否则将遵循与英文源相同的 URL 路径。例如，要准备将 [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/) 教程翻译为德语，请在 `content/de/` 文件夹下创建一个子文件夹并复制英文源：
 
 ```shell
 mkdir -p content/de/docs/tutorials

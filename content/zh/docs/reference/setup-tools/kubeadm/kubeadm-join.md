@@ -50,7 +50,7 @@ This action consists of the following steps:
 
 1. 如果调用 kubeadm 时启用了 `--feature-gates=DynamicKubeletConfig`，它首先从主机上检索 kubelet 初始化配置并将其写入磁盘。
    当 kubelet 启动时，kubeadm 更新节点的 `Node.spec.configSource` 属性。
-   进一步了解动态 kubelet 配置 请参考 [使用配置文件设置 Kubelet 参数](/docs/tasks/administer-cluster/kubelet-config-file/) 和 [重新配置集群中节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/)。
+   进一步了解动态 kubelet 配置 请参考 [使用配置文件设置 Kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file/) 和 [重新配置集群中节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/)。
 
 <!--
 1. Once the cluster information is known, kubelet can start the TLS bootstrapping
@@ -396,7 +396,7 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 初始化 Kubernetes 主节点
+* [kubeadm init](/zh/docs/reference/setup-tools/kubeadm/kubeadm-init/) 初始化 Kubernetes 主节点
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 管理 `kubeadm join` 的令牌
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态
 {{% /capture %}}

@@ -109,7 +109,7 @@ called an [Admission Controller](/docs/reference/access-authn-authz/admission-co
 It acts synchronously to modify pods as they are created or updated. When this plugin is active
 (and it is by default on most distributions), then it does the following when a pod is created or modified:
 -->
-pod 的修改是通过一个名为[准入控制器](/docs/reference/access-authn-authz/admission-controllers/)的插件实现的。它是 apiserver 的一部分。它可以同步操作，以便在创建或更新 pod 时对其进行修改。
+pod 的修改是通过一个名为[准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/)的插件实现的。它是 apiserver 的一部分。它可以同步操作，以便在创建或更新 pod 时对其进行修改。
 当此插件处于活动状态时（默认情况下在大多数发行版中），则在创建或修改 pod 时执行以下操作：
 
 <!--

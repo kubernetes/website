@@ -351,7 +351,7 @@ To upgrade the cluster with CoreDNS as the default internal DNS, invoke `kubeadm
 4. 手动升级定义网络（SDN）的软件
 
    容器网络接口（CNI）提供者具有升级说明指导。
-   检查这个[插件](/docs/concepts/cluster-administration/addons/)页面来找到 CNI 提供者和查看是否需要额外的升级步骤。
+   检查这个[插件](/zh/docs/concepts/cluster-administration/addons/)页面来找到 CNI 提供者和查看是否需要额外的升级步骤。
                                                      
 <!--
 

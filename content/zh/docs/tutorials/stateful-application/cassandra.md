@@ -38,7 +38,7 @@ title: “示例：使用 Stateful Sets 部署 Cassandra”
 ## 准备工作
 
 
-本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](/docs/getting-started-guides/) 获取关于你的平台的安装说明。
+本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](/zh/docs/getting-started-guides/) 获取关于你的平台的安装说明。
 
 
 本示例还需要一些代码和配置文件。为了避免手动输入，你可以 `git clone` Kubernetes 源到你本地。

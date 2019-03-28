@@ -99,5 +99,5 @@ spec:
 
 ## 下一步呢？
 
-- 查看 [声明网络策略](/docs/tasks/administer-cluster/declare-network-policy/)
+- 查看 [声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
   来进行更多的示例演练

@@ -22,8 +22,8 @@ content_template: templates/tutorial
 在开始本教程前，你应该熟悉以下 Kubernetes 概念。
 
 * [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
+* [Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
+* [Headless Services](/zh/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{< param "githubbranch" >}}/examples/persistent-volume-provisioning/)
 * [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
@@ -182,7 +182,7 @@ zk-2.zk-headless.default.svc.cluster.local
 ```
 
 
-[Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) 中的 A 记录将 FQDNs 解析成为 Pods 的 IP 地址。如果 Pods 被调度，这个 A 记录将会使用 Pods 的新 IP 地址更新，但 A 记录的名称不会改变。
+[Kubernetes DNS](/zh/docs/concepts/services-networking/dns-pod-service/) 中的 A 记录将 FQDNs 解析成为 Pods 的 IP 地址。如果 Pods 被调度，这个 A 记录将会使用 Pods 的新 IP 地址更新，但 A 记录的名称不会改变。
 
 
 ZooKeeper 在一个名为 `zoo.cfg` 的文件中保存它的应用配置。使用 `kubectl exec` 在  `zk-0` Pod 中查看 `zoo.cfg` 文件的内容。

@@ -137,7 +137,7 @@ content_template: templates/tutorial
 
 {{% capture whatsnext %}}
 
-* 了解更多 [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+* 了解更多 [Deployment objects](/zh/docs/concepts/workloads/controllers/deployment/).
 
 {{% /capture %}}
 

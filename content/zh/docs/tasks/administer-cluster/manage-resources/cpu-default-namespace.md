@@ -249,7 +249,7 @@ If a Container does not specify its own CPU limit, it is given the default limit
 it can be allowed to run in a namespace that is restricted by a quota.
 -->
 
-如果你的命名空间有一个[资源配额](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/),那么有一个默认的 CPU 限制是有帮助的。这里有两条资源配额强加给命名空间的限制：
+如果你的命名空间有一个[资源配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/),那么有一个默认的 CPU 限制是有帮助的。这里有两条资源配额强加给命名空间的限制：
 
 * 命名空间中运行的每个容器必须有自己的 CPU 限制。
 * 命名空间中所有容器使用的 CPU 总和不能超过一个声明值。
@@ -288,7 +288,7 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 * [为命名空间配置内存和 CPU 配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-* [为命名空间配置 Pod 配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [为命名空间配置 Pod 配额](/zh/docs/tasks/administer-cluster/quota-pod-namespace/)
 
 * [为 API 对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
 

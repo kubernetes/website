@@ -54,7 +54,7 @@ See the [building high-availability clusters](/docs/admin/high-availability)
 section of the documentation for more information. -->
 
 这将会在控制平面中添加一个新的主节点。
-参见[构建高可用集群](/docs/admin/high-availability)文档，获取更多信息。
+参见[构建高可用集群](/zh/docs/admin/high-availability)文档，获取更多信息。
 
 <!-- ## Kubernetes workers -->
 

@@ -239,7 +239,7 @@ This page explains how to upgrade a Kubernetes cluster created with `kubeadm` fr
 1.  手动升级软件定义网络（SDN）。
 
     您的容器网络接口（CNI）应该提供了程序自身的升级说明。
-    检查 [addons](/docs/concepts/cluster-administration/addons/) 页面以
+    检查 [addons](/zh/docs/concepts/cluster-administration/addons/) 页面以
     查找您 CNI 所提供的程序，并查看是否需要其他升级步骤。
 
 <!--

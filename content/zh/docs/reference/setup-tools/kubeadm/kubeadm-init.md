@@ -47,7 +47,7 @@ following steps: -->
    This functionality is now by default disabled as it is behind a feature gate, but is expected to be a default in future versions. -->
 4. 如果 kubeadm 被调用时附带了 `--feature-gates=DynamicKubeletConfig` 参数,
    它会将 kubelet 的初始化配置写入 `/var/lib/kubelet/config/init/kubelet` 文件中。
-   参阅 [通过配置文件设置 Kubelet 参数](/docs/tasks/administer-cluster/kubelet-config-file/)以及 [在一个现有的集群中重新配置节点的 Kubelet 设置](/docs/tasks/administer-cluster/reconfigure-kubelet/)来获取更多关于动态配置 Kubelet 的信息。
+   参阅 [通过配置文件设置 Kubelet 参数](/zh/docs/tasks/administer-cluster/kubelet-config-file/)以及 [在一个现有的集群中重新配置节点的 Kubelet 设置](/docs/tasks/administer-cluster/reconfigure-kubelet/)来获取更多关于动态配置 Kubelet 的信息。
    这个功能现在是默认关闭的，正如你所见它通过一个功能开关控制开闭, 但是在未来的版本中很有可能会默认启用。
 
 <!-- 5. Generates static Pod manifests for the API server,
@@ -360,7 +360,7 @@ using an external CRI implementation. -->
 <!-- By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the  `--node-name`flag. -->
 默认情况下, `kubeadm` 基于机器的 host 地址分配一个节点名称。你可以使用 `--node-name` 参数覆盖这个设置。
 <!-- The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) to the kubelet. -->
-这个参数会向 kubelet 传递相应的 [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) 参数。
+这个参数会向 kubelet 传递相应的 [`--hostname-override`](/zh/docs/reference/command-line-tools-reference/kubelet/#options) 参数。
 
 <!-- Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873). -->
 注意覆盖主机名称可能会 [干扰到云服务提供商](https://github.com/kubernetes/website/pull/8873)。
@@ -369,7 +369,7 @@ using an external CRI implementation. -->
 ### 自托管的 Kubernetes 控制平面 {#self-hosting}
 
 <!-- As of 1.8, you can experimentally create a _self-hosted_ Kubernetes control plane. This means that key components such as the API server, controller manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/) configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/) configured in the kubelet via static files. -->
-从1.8开始, 你可以试验性地创建一个 _self-hosted_ Kubernetes 控制平面。 这意味着诸如 API 服务器、控制器管理器、 以及调度器这些关键组件将作为通过 Kubernetes API 配置的 [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/) 运行，而不是在 kubelet 中通过静态文件配置的 [static pods](/docs/tasks/administer-cluster/static-pod/)。
+从1.8开始, 你可以试验性地创建一个 _self-hosted_ Kubernetes 控制平面。 这意味着诸如 API 服务器、控制器管理器、 以及调度器这些关键组件将作为通过 Kubernetes API 配置的 [DaemonSet pods](/zh/docs/concepts/workloads/controllers/daemonset/) 运行，而不是在 kubelet 中通过静态文件配置的 [static pods](/zh/docs/tasks/administer-cluster/static-pod/)。
 
 <!-- To create a self-hosted cluster, pass the flag `--feature-gates=SelfHosting=true` to `kubeadm init`. -->
 若要创建一个 self-hosted 的集群, 向 `kubeadm init` 命令传递 `--feature-gates=SelfHosting=true` 参数。
@@ -485,7 +485,7 @@ kubeadm config images pull
 ### kubeadm 自动化
 
 <!-- Rather than copying the token you obtained from `kubeadm init` to each node, as in the [basic kubeadm tutorial](/docs/setup/independent/create-cluster-kubeadm/), you can parallelize the token distribution for easier automation. To implement this automation, you must know the IP address that the master will have after it is started. -->
-与其如文档 [kubeadm 基础教程](/docs/setup/independent/create-cluster-kubeadm/) 所述，将从 `kubeadm init` 取得的令牌拷贝到每一个节点, 倒不如你可以使用更加简单的自动化的方式将令牌并行地分发出去。如果要实现这个自动化，你必须要知道主节点启动后的 IP 地址。
+与其如文档 [kubeadm 基础教程](/zh/docs/setup/independent/create-cluster-kubeadm/) 所述，将从 `kubeadm init` 取得的令牌拷贝到每一个节点, 倒不如你可以使用更加简单的自动化的方式将令牌并行地分发出去。如果要实现这个自动化，你必须要知道主节点启动后的 IP 地址。
 
 <!-- 1.  Generate a token. This token must have the form  `<6 character string>.<16
     character string>`.  More formally, it must match the regex:

@@ -174,7 +174,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    For an example of setting the `KUBECONFIG` environment variable, see
    [Setting the KUBECONFIG environment variable](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
 --->
-   有关设置 `KUBECONFIG` 环境变量的示例，请参阅[设置 KUBECONFIG 环境变量](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable)。
+   有关设置 `KUBECONFIG` 环境变量的示例，请参阅[设置 KUBECONFIG 环境变量](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable)。
 
 <!--
    Otherwise, use the default kubeconfig file, `$HOME/.kube/config`, with no merging.
@@ -273,7 +273,7 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 --->
-* [配置对多集群的访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [配置对多集群的访问](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 {{% /capture %}}
 

@@ -52,7 +52,7 @@ To create an external load balancer, add the following line to your
 -->
 ## 配置文件
 
-要创建外部负载均衡器，请将以下内容添加到 [服务配置文件](/docs/concepts/services-networking/service/#type-loadbalancer)：
+要创建外部负载均衡器，请将以下内容添加到 [服务配置文件](/zh/docs/concepts/services-networking/service/#type-loadbalancer)：
 
 ```json
     "type": "LoadBalancer"

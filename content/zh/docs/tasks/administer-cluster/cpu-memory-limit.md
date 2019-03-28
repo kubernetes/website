@@ -107,7 +107,7 @@ Container   memory        3Mi      1Gi      100Mi                200Mi          
 
 如果资源（CPU 或内存）被设置限额，用户将在创建时得到一个错误，并指出了错误的原因。
 
-首先让我们启动一个 [Deployment](/docs/concepts/workloads/controllers/deployment/)，它创建一个单容器 Pod，演示了如何将默认值应用到每个 Pod 上：
+首先让我们启动一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)，它创建一个单容器 Pod，演示了如何将默认值应用到每个 Pod 上：
 
 ```shell
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=limit-example
@@ -252,7 +252,7 @@ default         Active        12m
 
 
 * 查看 [LimitRange 设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/admission_control_limit_range.md) 获取更多信息。
-* 查看 [资源](/docs/concepts/configuration/manage-compute-resources-container/) 获取关于 Kubernetes 资源模型的详细描述。
+* 查看 [资源](/zh/docs/concepts/configuration/manage-compute-resources-container/) 获取关于 Kubernetes 资源模型的详细描述。
 
 {{% /capture %}}
 

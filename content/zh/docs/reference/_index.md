@@ -81,8 +81,8 @@ client libraries:
 
 ## CLI 参考
 
-* [kubectl](/docs/user-guide/kubectl-overview) - 主要的 CLI 工具，用于运行命令和管理 Kubernetes 集群。
-    * [JSONPath](/docs/user-guide/jsonpath/) - 通过 kubectl 使用 [JSONPath 表达式](http://goessner.net/articles/JsonPath/) 的语法指南。
+* [kubectl](/zh/docs/user-guide/kubectl-overview) - 主要的 CLI 工具，用于运行命令和管理 Kubernetes 集群。
+    * [JSONPath](/zh/docs/user-guide/jsonpath/) - 通过 kubectl 使用 [JSONPath 表达式](http://goessner.net/articles/JsonPath/) 的语法指南。
 * [kubeadm](/docs/admin/kubeadm/) - 此 CLI 工具可轻松配置安全的 Kubernetes 集群。
 * [kubefed](/docs/admin/kubefed/) - 此 CLI 工具可帮助您管理集群联邦。
 
@@ -98,7 +98,7 @@ client libraries:
 ## 配置参考
 
 * [kubelet](/docs/admin/kubelet/) - 在每个节点上运行的主 *节点代理* 。kubelet 采用一组 PodSpecs 并确保所描述的容器健康地运行。
-* [kube-apiserver](/docs/admin/kube-apiserver/) - REST API，用于验证和配置 API 对象（如 pod，服务，副本控制器）的数据。
+* [kube-apiserver](/zh/docs/admin/kube-apiserver/) - REST API，用于验证和配置 API 对象（如 pod，服务，副本控制器）的数据。
 * [kube-controller-manager](/docs/admin/kube-controller-manager/) - 一个守护进程，它嵌入到了 Kubernetes 的附带的核心控制循环。
 * [kube-proxy](/docs/admin/kube-proxy/) - 可以跨一组后端进行简单的 TCP/UDP 流转发或循环 TCP/UDP 转发。
 * [kube-scheduler](/docs/admin/kube-scheduler/) - 一个调度程序，用于管理可用性、性能和容量。

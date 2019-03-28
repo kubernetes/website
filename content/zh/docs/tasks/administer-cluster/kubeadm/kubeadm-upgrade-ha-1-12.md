@@ -351,7 +351,7 @@ Upgrade the kubelet and kubectl by running the following on each node:
 
 ### 手动升级您的 CNI 提供商
 
-您的容器网络接口（CNI）提供程序可能有自己的升级说明。检查[插件](/docs/concepts/cluster-administration/addons/)页面找到您的 CNI 提供商，看看是否需要采取其他升级步骤。
+您的容器网络接口（CNI）提供程序可能有自己的升级说明。检查[插件](/zh/docs/concepts/cluster-administration/addons/)页面找到您的 CNI 提供商，看看是否需要采取其他升级步骤。
 
 ### 更新 kubelet 和 kubectl 包
 

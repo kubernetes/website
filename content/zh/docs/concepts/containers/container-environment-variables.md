@@ -20,7 +20,7 @@ content_template: templates/concept
 
 Kubernetes 容器环境为容器提供了几类重要的资源：
 
-* 一个文件系统，其中包含一个[镜像](/docs/concepts/containers/images/)和一个或多个[卷](/docs/concepts/storage/volumes/)。
+* 一个文件系统，其中包含一个[镜像](/zh/docs/concepts/containers/images/)和一个或多个[卷](/docs/concepts/storage/volumes/)。
 * 容器本身相关的信息。
 * 集群中其他对象相关的信息。
 
@@ -31,7 +31,7 @@ Kubernetes 容器环境为容器提供了几类重要的资源：
 函数来获取。
 
 Pod 名称和名字空间可以通过
-[downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) 以环境变量方式访问。
+[downward API](/zh/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) 以环境变量方式访问。
 
 与 Docker 镜像中静态指定的环境变量一样，Pod 中用户定义的环境变量也可用于容器。
 

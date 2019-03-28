@@ -25,7 +25,7 @@ DaemonSets in the federation control plane ("Federated Daemonsets" in
 this guide) are very similar to the traditional Kubernetes
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/) and provide the same functionality.
 -->
-联邦控制平面中的 DaemonSet （即本指南中的联邦 DaemonSet）与传统的 Kubernetes [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 非常相似，并提供相同的功能。
+联邦控制平面中的 DaemonSet （即本指南中的联邦 DaemonSet）与传统的 Kubernetes [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) 非常相似，并提供相同的功能。
 
 <!--
 Creating them in the federation control plane ensures that they are synchronized
@@ -44,7 +44,7 @@ across all the clusters in federation.
 general and [DaemonSets](/docs/concepts/workloads/controllers/daemonset/) in particular.
 * -->
 * {{< include "federated-task-tutorial-prereqs.md" >}}
-* 您还需要具备基本的 [Kubernetes 工作知识](/docs/setup/pick-right-solution/)，特别是关于 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)。
+* 您还需要具备基本的 [Kubernetes 工作知识](/docs/setup/pick-right-solution/)，特别是关于 [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/)。
 
 {{% /capture %}}
 

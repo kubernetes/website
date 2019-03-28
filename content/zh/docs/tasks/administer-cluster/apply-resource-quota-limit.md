@@ -18,7 +18,7 @@ content_template: templates/task
 本示例展示了在一个 namespace 中控制资源用量的典型设置。
 
 
-本文展示了以下资源的使用： [Namespace](/docs/admin/namespaces), [ResourceQuota](/docs/concepts/policy/resource-quotas/) 和  [LimitRange](/docs/tasks/configure-pod-container/limit-range/)。
+本文展示了以下资源的使用： [Namespace](/docs/admin/namespaces), [ResourceQuota](/zh/docs/concepts/policy/resource-quotas/) 和  [LimitRange](/docs/tasks/configure-pod-container/limit-range/)。
 
 {{% /capture %}}
 

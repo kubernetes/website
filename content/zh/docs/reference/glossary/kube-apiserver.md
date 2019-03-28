@@ -40,5 +40,5 @@ It is designed to scale horizontally - that is, it scales by deploying more inst
 
 kube-apiserver 在设计上考虑了水平扩缩的需要。
 换言之，通过部署多个实例可以实现扩缩。
-参见[构造高可用集群](/docs/admin/high-availability/)。
+参见[构造高可用集群](/zh/docs/admin/high-availability/)。
 

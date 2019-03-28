@@ -53,7 +53,7 @@ Pod 有一个 PodStatus 对象，其中包含一个 [PodCondition](/docs/resourc
 
 Kubelet 可以选择是否执行在容器上运行的两种探针执行和做出反应：
 
-- `livenessProbe`：指示容器是否正在运行。如果存活探测失败，则 kubelet 会杀死容器，并且容器将受到其 [重启策略](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 的影响。如果容器不提供存活探针，则默认状态为 `Success`。
+- `livenessProbe`：指示容器是否正在运行。如果存活探测失败，则 kubelet 会杀死容器，并且容器将受到其 [重启策略](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 的影响。如果容器不提供存活探针，则默认状态为 `Success`。
 - `readinessProbe`：指示容器是否准备好服务请求。如果就绪探测失败，端点控制器将从与 Pod 匹配的所有 Service 的端点中删除该 Pod 的 IP 地址。初始延迟之前的就绪状态默认为 `Failure`。如果容器不提供就绪探针，则默认状态为 `Success`。
 
 ### 该什么时候使用存活（liveness）和就绪（readiness）探针?
@@ -85,8 +85,8 @@ PodSpec 中有一个 `restartPolicy` 字段，可能的值为 Always、OnFailure
 - 使用 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) 运行预期会终止的 Pod，例如批量计算。Job 仅适用于重启策略为 `OnFailure` 或 `Never` 的 Pod。
 
 
-- 对预期不会终止的 Pod 使用 [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 和 [Deployment](/docs/concepts/workloads/controllers/deployment/) ，例如 Web 服务器。 ReplicationController 仅适用于具有 `restartPolicy` 为 Always 的 Pod。
-- 提供特定于机器的系统服务，使用 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 为每台机器运行一个 Pod 。
+- 对预期不会终止的 Pod 使用 [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 和 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/) ，例如 Web 服务器。 ReplicationController 仅适用于具有 `restartPolicy` 为 Always 的 Pod。
+- 提供特定于机器的系统服务，使用 [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) 为每台机器运行一个 Pod 。
 
 所有这三种类型的控制器都包含一个 PodTemplate。建议创建适当的控制器，让它们来创建 Pod，而不是直接自己创建 Pod。这是因为单独的 Pod 在机器故障的情况下没有办法自动复原，而控制器却可以。
 

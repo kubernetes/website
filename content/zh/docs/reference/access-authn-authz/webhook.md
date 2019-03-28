@@ -45,7 +45,7 @@ The configuration file uses the [kubeconfig](/docs/tasks/access-application-clus
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service. 
 -->
-配置文件使用 [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文件格式。在文件中，"users" 对应 API 服务器 webhook，"clusters" 指远程服务。
+配置文件使用 [kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文件格式。在文件中，"users" 对应 API 服务器 webhook，"clusters" 指远程服务。
 
 <!-- 
 A configuration example which uses HTTPS client auth: 
@@ -133,7 +133,7 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`). 
 -->
-请注意，webhook API 对象和其它 Kubernetes API 对象一样遵循[版本兼容性规则](/docs/concepts/overview/kubernetes-api/)。
+请注意，webhook API 对象和其它 Kubernetes API 对象一样遵循[版本兼容性规则](/zh/docs/concepts/overview/kubernetes-api/)。
 实现者应当注意 beta 版本对象的兼容性承诺是相当宽松的，并检查请求的 "apiVersion" 字段来保证正确的反序列化。此外，API服务器必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
 <!-- 

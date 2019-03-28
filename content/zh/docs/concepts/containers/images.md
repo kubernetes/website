@@ -108,7 +108,7 @@ Kubelet会获取并且定期刷新ECR的凭证。它需要以下权限
    * `DOCKER_EMAIL`: `${some-email-address}`
 
 填写以上变量后，就可以
-[configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)。
+[configure a Kubernetes Secret and use it to deploy a Pod](/zh/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)。
 
 
 ### 配置Nodes对私有仓库认证

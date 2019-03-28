@@ -608,9 +608,9 @@ The default `kompose` transformation will generate Kubernetes [Deployments](/doc
 
 ## 其他转换方式
 
-默认的 `kompose` 转换会生成 yaml 格式的 Kubernetes [Deployment](/docs/concepts/workloads/controllers/deployment/) 和 [Service](/docs/concepts/services-networking/service/) 对象。
+默认的 `kompose` 转换会生成 yaml 格式的 Kubernetes [Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 和 [Service](/zh/docs/concepts/services-networking/service/) 对象。
 您可以选择通过 `-j` 参数生成 json 格式的对象。
-您也可以替换生成 [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) 对象、[Daemon Sets](/docs/concepts/workloads/controllers/daemonset/) 或 [Helm](https://github.com/helm/helm) charts。
+您也可以替换生成 [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/) 对象、[Daemon Sets](/zh/docs/concepts/workloads/controllers/daemonset/) 或 [Helm](https://github.com/helm/helm) charts。
 
 ```sh
 $ kompose convert -j

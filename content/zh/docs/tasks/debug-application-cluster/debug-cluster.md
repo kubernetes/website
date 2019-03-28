@@ -91,7 +91,7 @@ kubectl get nodes
 - 措施: 对于具有apiserver+etcd的VM，使用IaaS提供的可靠的存储（例如GCE PD或者AWS EBS卷）
   - 缓解：Apiserver后端存储的丢失
 
-- 措施：使用（实验）[高可用性](/docs/admin/high-availability)的配置
+- 措施：使用（实验）[高可用性](/zh/docs/admin/high-availability)的配置
   - 缓解：master VM关机或者master组件(scheduler, API server, controller-managing)崩馈
     - 将容许一个或多个节点或组件同时出现故障
   - 缓解：apiserver后端存储(例如etcd的数据目录)丢失

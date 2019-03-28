@@ -44,7 +44,7 @@ service Registration {
 
 然后，开发者可以在 [容器](/docs/api-reference/{{< param "version" >}}/#container-v1-core)
 规格中通过使用与
-[不透明整数型资源](/docs/tasks/configure-pod-container/opaque-integer-resource/)
+[不透明整数型资源](/zh/docs/tasks/configure-pod-container/opaque-integer-resource/)
 中同样的流程来请求使用设备。
 在1.8版本中， 扩展资源仅支持整型的资源，且容器规格中声明的 `limit` 与 `request` 必须相等。
 

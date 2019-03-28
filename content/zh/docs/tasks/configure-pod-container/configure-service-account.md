@@ -96,7 +96,7 @@ In version 1.6+, you can opt out of automounting API credentials for a service a
 -->
 
 您可以使用自动挂载给 Pod 的服务账户凭据访问 API，[访问集群](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod) 中有相关描述。
-服务账户的 API 许可取决于您所使用的[授权插件和策略](/docs/reference/access-authn-authz/authorization/#authorization-modules)。
+服务账户的 API 许可取决于您所使用的[授权插件和策略](/zh/docs/reference/access-authn-authz/authorization/#authorization-modules)。
 
 在 1.6 以上版本中，您可以通过在服务账户上设置 `automountServiceAccountToken: false` 来实现不给服务账号自动挂载 API 凭据：
 
@@ -286,7 +286,7 @@ Next, verify it has been created.  For example:
 
 ## 为服务账户添加 ImagePullSecrets
 
-首先，创建一个 ImagePullSecrets，可以参考[这里](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 的描述。
+首先，创建一个 ImagePullSecrets，可以参考[这里](/zh/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 的描述。
 然后，确认创建是否成功。例如：
 
 ```shell

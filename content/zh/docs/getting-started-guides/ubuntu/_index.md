@@ -89,7 +89,7 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
   - [日志](/docs/getting-started-guides/ubuntu/logging/)
   - [监控](/docs/getting-started-guides/ubuntu/monitoring/)
   - [网络](/docs/getting-started-guides/ubuntu/networking/)
-  - [安全](/docs/getting-started-guides/ubuntu/security/)
+  - [安全](/zh/docs/getting-started-guides/ubuntu/security/)
   - [存储](/docs/getting-started-guides/ubuntu/storage/)
   - [故障排除](/docs/getting-started-guides/ubuntu/troubleshooting/)
   - [退役](/docs/getting-started-guides/ubuntu/decommissioning/)

@@ -138,7 +138,7 @@ The deploy wizard expects that you provide the following information:
 <!--
 - **Container image** (mandatory): The URL of a public Docker [container image](/docs/concepts/containers/images/) on any registry, or a private image (commonly hosted on the Google Container Registry or Docker Hub). The container image specification must end with a colon.
  -->
-- **容器镜像**（必填）：公共镜像仓库上的 Docker [容器镜像](/docs/concepts/containers/images/) 或者私有镜像仓库（通常是 Google Container Registery 或者 Docker Hub）的 URL。容器镜像参数说明必须以冒号结尾。
+- **容器镜像**（必填）：公共镜像仓库上的 Docker [容器镜像](/zh/docs/concepts/containers/images/) 或者私有镜像仓库（通常是 Google Container Registery 或者 Docker Hub）的 URL。容器镜像参数说明必须以冒号结尾。
 
 <!--
 - **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in. The value must be a positive integer.
@@ -147,12 +147,12 @@ The deploy wizard expects that you provide the following information:
  -->
 - **pod 的数量**（必填）：您希望应用程序部署的 Pod 的数量。值必须为正整数。
 
-  系统会创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 用于保证集群中运行了期望的 Pod 数量。
+  系统会创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 用于保证集群中运行了期望的 Pod 数量。
 
 <!--
 - **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
  -->
-- **服务**（可选）：对于部分应用（比如前端），您可能想对外暴露一个 [Service](/docs/concepts/services-networking/service/) ，这个 Service（外部 Service）可能用的是集群之外的公网 IP 地址。对于外部 Service 的情况，需要开放一个或者多个端口来满足。更多信息请参考 [这里](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/。
+- **服务**（可选）：对于部分应用（比如前端），您可能想对外暴露一个 [Service](/zh/docs/concepts/services-networking/service/) ，这个 Service（外部 Service）可能用的是集群之外的公网 IP 地址。对于外部 Service 的情况，需要开放一个或者多个端口来满足。更多信息请参考 [这里](/zh/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/。
 
 <!--
   Other Services that are only visible from inside the cluster are called internal Services.
@@ -211,9 +211,9 @@ If needed, you can expand the **Advanced options** section where you can specify
 
   In case the creation of the image pull secret is successful, it is selected by default. If the creation fails, no secret is applied.
  -->
-- **镜像拉取 Secret**：如果要使用私有的 Docker 容器镜像，需要拉取 [secret](/docs/concepts/configuration/secret/) 凭证。
+- **镜像拉取 Secret**：如果要使用私有的 Docker 容器镜像，需要拉取 [secret](/zh/docs/concepts/configuration/secret/) 凭证。
 
-  Dashboard 通过下拉菜单提供所有可用的 secret，并允许您创建新的 secret。secret 名称必须遵循 DNS 域名语法，比如 `new.image-pull.secret`。secret 的内容必须是 base64 编码的，并且在一个 [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 文件中声明。secret 名称最大可以包含 253 个字符。
+  Dashboard 通过下拉菜单提供所有可用的 secret，并允许您创建新的 secret。secret 名称必须遵循 DNS 域名语法，比如 `new.image-pull.secret`。secret 的内容必须是 base64 编码的，并且在一个 [`.dockercfg`](/zh/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 文件中声明。secret 名称最大可以包含 253 个字符。
 
   在镜像拉取 secret 创建成功的情况下，默认会使用新创建的 secret。如果创建失败，则不会使用任何 secret。
 
@@ -235,7 +235,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 <!--
 - **Environment variables**: Kubernetes exposes Services through [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/). You can compose environment variable or pass arguments to your commands using the values of environment variables. They can be used in applications to find a Service. Values can reference other variables using the `$(VAR_NAME)` syntax.
  -->
-- **环境变量**：Kubernetes 通过 [环境变量](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/) 暴露 Service。您可以构建环境变量，或者将环境变量的值作为参数传递给您的命令。它们可以被应用用于查找 Service。值可以通过  `$(VAR_NAME)` 语法关联其他变量。
+- **环境变量**：Kubernetes 通过 [环境变量](/zh/docs/tasks/inject-data-application/environment-variable-expose-pod-information/) 暴露 Service。您可以构建环境变量，或者将环境变量的值作为参数传递给您的命令。它们可以被应用用于查找 Service。值可以通过  `$(VAR_NAME)` 语法关联其他变量。
 
 <!--
 ### Uploading a YAML or JSON file
@@ -246,7 +246,7 @@ As an alternative to specifying application details in the deploy wizard, you ca
  -->
 ### 上传 YAML 或者 JSON 文件
 
-Kubernetes 支持声明式配置。所有的配置都存储在遵循 Kubernetes [API](/docs/concepts/overview/kubernetes-api/) 架构的 YAML 或者 JSON 配置文件中。
+Kubernetes 支持声明式配置。所有的配置都存储在遵循 Kubernetes [API](/zh/docs/concepts/overview/kubernetes-api/) 架构的 YAML 或者 JSON 配置文件中。
 
 作为一种替代在部署向导中指定应用详情的方式，您可以在 YAML 或者 JSON 文件中定义应用，并且使用 Dashboard 上传文件：
 

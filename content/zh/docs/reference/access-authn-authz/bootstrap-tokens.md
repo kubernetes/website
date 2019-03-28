@@ -24,7 +24,7 @@ for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the [Kubelet TLS
 Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system. 
 -->
-Bootstrap token 是一种简单的 bearer token，用于创建新集群或将新节点连接到现有集群。它被用来支持 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)，但是对于那些希望在没有 `kubeadm` 的情况下创建集群的用户，也可以在其他环境中使用。它也可以通过 RBAC 策略用于 [Kubelet TLS
+Bootstrap token 是一种简单的 bearer token，用于创建新集群或将新节点连接到现有集群。它被用来支持 [kubeadm](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)，但是对于那些希望在没有 `kubeadm` 的情况下创建集群的用户，也可以在其他环境中使用。它也可以通过 RBAC 策略用于 [Kubelet TLS
 Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) 系统。
 {{% /capture %}}
 
