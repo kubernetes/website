@@ -34,7 +34,7 @@ content_template: templates/task
 ## 创建配置文件
 
 
-`KubeletConfiguration` 结构体定义了可以通过文件配置的 Kubelet 配置子集，该结构体在 [这里（v1alpha1）](https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/kubeletconfig/v1alpha1/types.go) 可以找到。配置文件必须是这个结构体中参数的 JSON 或 YAML 表现形式。请注意，这个结构体及配置文件 API 仍然为 alpha 版本，对其稳定性不作保证。
+`KubeletConfiguration` 结构体定义了可以通过文件配置的 Kubelet 配置子集，该结构体在 [这里（v1beta1）](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go) 可以找到。配置文件必须是这个结构体中参数的 JSON 或 YAML 表现形式。
 
 
 在单独的文件夹中创建一个名为 `kubelet` 的文件，并保证 Kubelet 可以读取该文件夹及文件。您应该在这个 `kubelet` 文件中编写 Kubelet 配置。
