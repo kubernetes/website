@@ -1,5 +1,5 @@
 ---
-title: Kubernetes Dookumentation
+title: Kubernetes Dokumentation
 noedit: true
 cid: docsHome
 layout: docsportal_home
