@@ -202,7 +202,7 @@ provisioner: kubernetes.io/aws-ebs
 parameters:
   type: io1
   iopsPerGB: "10"
-  fsType: ext4
+  fstype: ext4
 ```
 
 * `type`: `io1`, `gp2`, `sc1`, `st1`. See
@@ -220,7 +220,7 @@ parameters:
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
   [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
   A string is expected here, i.e. `"10"`, not `10`.
-* `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
+* `fstype`: fstype that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.
   Valid values are `"true"` or `"false"`. A string is expected here,
   i.e. `"true"`, not `true`.
