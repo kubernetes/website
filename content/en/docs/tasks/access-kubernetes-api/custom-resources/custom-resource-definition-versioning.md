@@ -87,10 +87,10 @@ spec:
 ```
 
 You can save the CustomResourceDefinition in a YAML file, then use
-`kubectl create` to create it.
+`kubectl apply` to create it.
 
 ```shell
-kubectl create -f my-versioned-crontab.yaml
+kubectl apply -f my-versioned-crontab.yaml
 ```
 
 After creation, the API server starts to serve each enabled version at an HTTP

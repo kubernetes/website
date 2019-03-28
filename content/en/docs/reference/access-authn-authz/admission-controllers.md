@@ -429,9 +429,9 @@ This label prefix is reserved for administrators to label their `Node` objects f
 and kubelets will not be allowed to modify labels with that prefix.
 * **Allows** kubelets to add/remove/update these labels and label prefixes:
   * `kubernetes.io/hostname`
-  * `beta.kubernetes.io/arch`
+  * `kubernetes.io/arch`
+  * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
-  * `beta.kubernetes.io/os`
   * `failure-domain.beta.kubernetes.io/region`
   * `failure-domain.beta.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
@@ -606,7 +606,7 @@ This admission controller will deny any pod that attempts to set certain escalat
 This admission controller implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
 
-### Storage Object in Use Protection
+### StorageObjectInUseProtection
 
 The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
 

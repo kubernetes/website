@@ -70,6 +70,7 @@ Kubernetes supports several types of Volumes:
    * [azureDisk](#azuredisk)
    * [azureFile](#azurefile)
    * [cephfs](#cephfs)
+   * [cinder](#cinder)
    * [configMap](#configmap)
    * [csi](#csi)
    * [downwardAPI](#downwardapi)
@@ -148,6 +149,17 @@ spec:
       fsType: ext4
 ```
 
+#### CSI Migration 
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature for awsElasticBlockStore, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `ebs.csi.aws.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [AWS EBS CSI
+Driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAWS`
+Alpha features must be enabled.
+
 ### azureDisk {#azuredisk}
 
 A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
@@ -175,6 +187,48 @@ You must have your own Ceph server running with the share exported before you ca
 {{< /caution >}}
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/cephfs/) for more details.
+
+### cinder {#cinder}
+
+{{< note >}}
+Prerequisite: Kubernetes with OpenStack Cloud Provider configured. For cloudprovider
+configuration please refer [cloud provider openstack](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#openstack).
+{{< /note >}}
+
+`cinder` is used to mount OpenStack Cinder Volume into your Pod.
+
+#### Cinder Volume Example configuration
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-cinder
+spec:
+  containers:
+  - image: k8s.gcr.io/test-webserver
+    name: test-cinder-container
+    volumeMounts:
+    - mountPath: /test-cinder
+      name: test-volume
+  volumes:
+  - name: test-volume
+    # This OpenStack volume must already exist.
+    cinder:
+      volumeID: <volume-id>
+      fsType: ext4
+```
+
+#### CSI Migration 
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature for Cinder, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
+Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
+Alpha features must be enabled.
 
 ### configMap {#configmap}
 
@@ -401,6 +455,17 @@ spec:
     fsType: ext4
 ```
 
+#### CSI Migration
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature for GCE PD, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `pd.csi.storage.gke.io` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [GCE PD CSI
+Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationGCE`
+Alpha features must be enabled.
+
 ### gitRepo (deprecated) {#gitrepo}
 
 {{< warning >}}
@@ -535,14 +600,7 @@ See the [iSCSI example](https://github.com/kubernetes/examples/tree/{{< param "g
 
 ### local {#local}
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
-{{< note >}}
-The alpha PersistentVolume NodeAffinity annotation has been deprecated
-and will be removed in a future release. Existing PersistentVolumes using this
-annotation must be updated by the user to use the new PersistentVolume
-`NodeAffinity` field.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
@@ -608,7 +666,8 @@ selectors, Pod affinity, and Pod anti-affinity.
 An external static provisioner can be run separately for improved management of
 the local volume lifecycle. Note that this provisioner does not support dynamic
 provisioning yet. For an example on how to run an external local provisioner,
-see the [local volume provisioner user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume).
+see the [local volume provisioner user
+guide](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 
 {{< note >}}
 The local PersistentVolume requires manual cleanup and deletion by the
@@ -1073,13 +1132,14 @@ spec:
 
 ### Using subPath with expanded environment variables
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
 
 
-`subPath` directory names can also be constructed from Downward API environment variables.
+Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.
 Before you use this feature, you must enable the `VolumeSubpathEnvExpansion` feature gate.
+The `subPath` and `subPathExpr` properties are mutually exclusive.
 
-In this example, a Pod uses `subPath` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
+In this example, a Pod uses `subPathExpr` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
 
 ```yaml
 apiVersion: v1
@@ -1100,7 +1160,7 @@ spec:
     volumeMounts:
     - name: workdir1
       mountPath: /logs
-      subPath: $(POD_NAME)
+      subPathExpr: $(POD_NAME)
   restartPolicy: Never
   volumes:
   - name: workdir1
@@ -1217,27 +1277,77 @@ persistent volume:
 
 #### CSI raw block volume support
 
-{{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
 Starting with version 1.11, CSI introduced support for raw block volumes, which
 relies on the raw block volume feature that was introduced in a previous version of
 Kubernetes.  This feature will make it possible for vendors with external CSI drivers to
 implement raw block volumes support in Kubernetes workloads.
 
-CSI block volume support is feature-gated and turned off by default.  To run CSI with
-block volume support enabled, a cluster administrator must enable the feature for each
-Kubernetes component using the following feature gate flags:
-
-```
---feature-gates=BlockVolume=true,CSIBlockVolume=true
-```
+CSI block volume support is feature-gated, but enabled by default. The two
+feature gates which must be enabled for this feature are `BlockVolume` and
+`CSIBlockVolume`.
 
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
-#### Developer resources
+#### CSI ephemeral volumes
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
+
+Example:
+
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: my-csi-app
+spec:
+  containers:
+    - name: my-frontend
+      image: busybox
+      volumeMounts:
+      - mountPath: "/data"
+        name: my-csi-inline-vol
+      command: [ "sleep", "1000000" ]
+  volumes:
+    - name: my-csi-inline-vol
+      csi:
+        driver: inline.storage.kubernetes.io
+        volumeAttributes:
+              foo: bar
+```
+
+This feature requires CSIInlineVolume feature gate to be enabled:
+
+```
+--feature-gates=CSIInlineVolume=true
+```
+
+CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
+
+# Developer resources
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
+
+#### Migrating to CSI drivers from in-tree plugins
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+The CSI Migration feature, when enabled, directs operations against existing in-tree
+plugins to corresponding CSI plugins (which are expected to be installed and configured). 
+The feature implements the necessary translation logic and shims to re-route the 
+operations in a seamless fashion. As a result, operators do not have to make any 
+configuration changes to existing Storage Classes, PVs or PVCs (referring to 
+in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
+
+In the alpha state, the operations and features that are supported include 
+provisioning/delete, attach/detach and mount/unmount of volumes with `volumeMode` set to `filesystem`
+
+In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented 
+are listed in the "Types of Volumes" section above.
 
 ### Flexvolume {#flexVolume}
 

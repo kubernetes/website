@@ -73,7 +73,7 @@ In this example:
 To create this Deployment, run the following command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
@@ -455,7 +455,7 @@ kubectl rollout history deployment.v1.apps/nginx-deployment
 ```
 deployments "nginx-deployment"
 REVISION    CHANGE-CAUSE
-1           kubectl create --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
+1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
 2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
 3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
 ```

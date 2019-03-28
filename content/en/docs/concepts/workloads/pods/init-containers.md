@@ -112,19 +112,19 @@ metadata:
     pod.beta.kubernetes.io/init-containers: '[
         {
             "name": "init-myservice",
-            "image": "busybox",
+            "image": "busybox:1.28",
             "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]
         },
         {
             "name": "init-mydb",
-            "image": "busybox",
+            "image": "busybox:1.28",
             "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]
         }
     ]'
 spec:
   containers:
   - name: myapp-container
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
@@ -140,14 +140,14 @@ metadata:
 spec:
   containers:
   - name: myapp-container
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
   initContainers:
   - name: init-myservice
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
   - name: init-mydb
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
 ```
 
@@ -180,7 +180,7 @@ spec:
 This Pod can be started and debugged with the following commands:
 
 ```shell
-kubectl create -f myapp.yaml
+kubectl apply -f myapp.yaml
 ```
 ```
 pod/myapp-pod created
@@ -240,7 +240,7 @@ Once we start the `mydb` and `myservice` services, we can see the Init Container
 complete and the `myapp-pod` is created:
 
 ```shell
-kubectl create -f services.yaml
+kubectl apply -f services.yaml
 ```
 ```
 service/myservice created
