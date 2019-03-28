@@ -53,6 +53,8 @@ priorities. This feature is in beta since Kubernetes 1.12.
 
 To use priority and preemption in Kubernetes 1.11 and later, follow these steps:
 
+1.  Add `Priority` to kube-apiserver cmdline arguments `--admission-control` or `--admission-control-config-file`
+
 1.  Add one or more [PriorityClasses](#priorityclass).
 
 1.  Create Pods with[`priorityClassName`](#pod-priority) set to one of the added
