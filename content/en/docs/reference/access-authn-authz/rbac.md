@@ -285,7 +285,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-#### Role Examples
+#### Rule Examples
 
 Only the `rules` section is shown in the following examples.
 
