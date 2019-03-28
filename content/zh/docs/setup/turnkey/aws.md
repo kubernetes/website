@@ -130,7 +130,7 @@ For more complete applications, please look in the [examples directory](https://
 ## Scaling the cluster
 -->
 
-## 扩展的集群
+## 扩展集群
 
 <!--
 Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes manually through adjustments of the 'Desired' and 'Max' properties within the [Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html), which was created during the installation.
@@ -147,7 +147,7 @@ Adding and removing nodes through `kubectl` is not supported. You can still scal
 Make sure the environment variables you used to provision your cluster are still exported, then call the following script inside the
 `kubernetes` directory:
 -->
-确保用于提供集群的环境变量在导出，然后在 `kubernetes` 目录中调用以下脚本：
+确保用于提供集群的环境变量已经导出，然后在 `kubernetes` 目录中调用以下脚本：
 
 ```shell
 cluster/kube-down.sh
