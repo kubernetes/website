@@ -1,5 +1,5 @@
 ---                                           
-title: Running Kubernetes locally on Linux with Minikube - now with Kubernetes 1.14 support                                                           
+title: 'Running Kubernetes locally on Linux with Minikube - now with Kubernetes 1.14 support'                                                           
 date: 2019-03-28                                  
 ---
 **Author**: [Ihor Dvoretskyi](https://twitter.com/idvoretskyi), Developer Advocate, Cloud Native Computing Foundation
