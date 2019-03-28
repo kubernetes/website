@@ -124,7 +124,7 @@ Résumé des bénéfices des conteneurs :
 - **Utilisation des ressources**:
   Haute efficacité et densité.
 
-## Qu'est-ce-que Kubenetes signifie ? K8s ?
+## Qu'est-ce-que Kubernetes signifie ? K8s ?
 
 Le nom **Kubernetes** tire son origine du grec ancien, signifiant _capitaine_ ou _pilôte_ et est la racine de _gouverneur_ et [cybernetic](http://www.etymonline.com/index.php?term=cybernetics). _K8s_ est l'abréviation dérivée par le remplacement des 8 lettres "ubernete" par "8".
 
