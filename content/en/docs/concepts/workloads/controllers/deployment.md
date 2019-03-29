@@ -462,7 +462,7 @@ REVISION    CHANGE-CAUSE
 `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You could specify the`CHANGE-CAUSE` message by:
 
 * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`
-* Append the `--record` flag to save the `kubectl` command that is making changes to the resource.
+* Append the `--record` flag to save the `kubectl` command that is making changes to the resource annotation.
 * Manually editing the manifest of the resource.
 
 To further see the details of each revision, run:
