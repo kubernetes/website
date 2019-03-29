@@ -10,6 +10,7 @@ _CronJob_ は時刻ベースのスケジュールによる[Job](/docs/concepts/w
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみられる一行のようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
 =======
 _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルのようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
@@ -17,6 +18,9 @@ _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルのよう�
 =======
 _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルのようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
 >>>>>>> 57ddfa749... Translate /content/ja/docs/concepts/workloads/controllers/cron-jobs.md in Japanese
+=======
+_CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみられる一行のようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
+>>>>>>> ad2592e4c... Fix translation (#13392)
 スケジュールでは[Cron](https://en.wikipedia.org/wiki/Cron)形式で記述されます。
 
 {{< note >}}
