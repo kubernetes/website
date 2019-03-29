@@ -129,7 +129,7 @@ Please see the[kube-scheduler documentation](/docs/admin/kube-scheduler/) for de
 <!--
 In order to run your scheduler in a Kubernetes cluster, just create the deployment specified in the config above in a Kubernetes cluster:
 -->
-为了在 Kubernetes 集群中运行调度器，本示例中只需在 Kubernetes 集群中创建上面配置中指定的 Deployment：
+为了在 Kubernetes 集群中运行我们的第二个调度器，只需在 Kubernetes 集群中创建上面配置中指定的 Deployment：
 
 ```shell
 kubectl create -f my-scheduler.yaml
