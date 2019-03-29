@@ -108,8 +108,8 @@ Now that we have our scheduler in a container image, we can just create a pod co
 <!--
 An important thing to note here is that the name of the scheduler specified as an argument to the scheduler command in the container spec should be unique. This is the name that is matched against the value of the optional `spec.schedulerName` on pods, to determine whether this scheduler is responsible for scheduling a particular pod.
 -->
-这里需要注意的一件重要事情是，作为容器 spec 中 scheduler 命令的参数指定的调度器的名称应该是惟一的。
-这是与 pods 上可选的 `spec.schedulerName` 参数的值匹配的名称，请确定此调度器是否负责调度特定的 pod。
+这里需要注意的是，在该部署文件中 Container 的 spec 配置的调度器启动命令参数（--scheduler-name）指定的调度器名称应该是惟一的。
+这个名称应该与 pods 上的可选参数 `spec.schedulerName` 的值相匹配，也就是说调度器名称的匹配关系决定了 pods 的调度任务由哪个调度器负责。
 
 <!--
 Note also that we created a dedicated service account `my-scheduler` and bind the cluster role`system:kube-scheduler` to it so that it can acquire the same privileges as `kube-scheduler`.
@@ -129,7 +129,7 @@ Please see the[kube-scheduler documentation](/docs/admin/kube-scheduler/) for de
 <!--
 In order to run your scheduler in a Kubernetes cluster, just create the deployment specified in the config above in a Kubernetes cluster:
 -->
-为了在 Kubernetes 集群中运行调度器，只需在 Kubernetes 集群中创建上面配置中指定的 Deployment：
+为了在 Kubernetes 集群中运行调度器，本示例中只需在 Kubernetes 集群中创建上面配置中指定的 Deployment：
 
 ```shell
 kubectl create -f my-scheduler.yaml
@@ -161,7 +161,7 @@ To run multiple-scheduler with leader election enabled, you must do the followin
 <!--
 First, update the following fields in your YAML file:
 -->
-首先，更新 YAML 文件中的以下字段：
+首先，更新上述 Deployment YAML（my-scheduler.yaml）文件中的以下字段：
 
 * `--leader-elect=true`
 * `--lock-object-namespace=lock-object-namespace`
