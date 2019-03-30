@@ -313,7 +313,7 @@ Exit Codes follow the same convention where 0 is success, nonzero is failure. Th
 * V1.Pod.volumeDevices - this is a beta feature, and is not implemented on Windows. Windows cannot attach raw block devices to pods.
 * V1.Pod.volumes - EmptyDir, Secret, ConfigMap, HostPath - all work and have tests in TestGrid
   * V1.emptyDirVolumeSource - the Node default medium is disk on Windows. Memory is not supported, as Windows does not have a built-in RAM disk.
-* V1.VolumeMount.mountPropagation - only MountPropagationHostToContainer is available. Windows cannot create mounts within a pod or project them back to the node.
+* V1.VolumeMount.mountPropagation - mount propagation is not supported on Windows.
 
 ##### V1.PodSecurityContext
 
