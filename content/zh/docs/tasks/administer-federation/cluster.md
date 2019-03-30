@@ -25,7 +25,7 @@ federation api-server.
 -->
 本指南介绍了如何在联邦控制平面中使用集群 API 资源。
 
-与 Deployment、Service 和 ConfigMap 等 Kubernetes 资源不同，集群只存在于联邦上下文中，即这些请求必须提交给联邦 api-server。
+与 Deployment、Service 和 ConfigMap 等 Kubernetes 资源不同，cluster 只存在于联邦上下文中，即这些请求必须提交给联邦 api-server。
 
 {{% /capture %}}
 
@@ -37,9 +37,6 @@ federation api-server.
 * You should also have a basic [working knowledge of Kubernetes](/docs/setup/pick-right-solution/) in
 general.
 -->
-
-* You should also have a basic [working knowledge of Kubernetes](/docs/setup/pick-right-solution/) in
-general.
 
 * 你需要具备基本的 [Kubernetes 工作知识](/docs/setup/pick-right-solution/)。
 
@@ -58,7 +55,7 @@ To list the clusters available in your federation, you can use [kubectl](/docs/u
 running:
 -->
 
-要列出联邦中可用的集群，可以使用 [kubectl](/docs/user-guide/kubectl/)
+要列出联邦中可用的 cluster，可以使用 [kubectl](/docs/user-guide/kubectl/)
 运行:
 
 ``` shell
@@ -166,10 +163,10 @@ The annotation value must be JSON formatted and must be parsable into the [Clust
 Here is an example ClusterSelector annotation, which will only select clusters WITH the label `pci=true` and WITHOUT the label `environment=test`:
 -->
 
-从 Kubernetes 1.7 开始，alpha 支持使用注解在联邦集群中引导对象 `federation.alpha.kubernetes.io/cluster-selector`。
+从 Kubernetes 1.7 开始，alpha 支持通过注解 `federation.alpha.kubernetes.io/cluster-selector` 在联邦集群中引导对象。。
 *ClusterSelector* 在概念上类似于 `nodeSelector`，但是它不是针对节点上的标签进行选择，而是针对联邦集群上的标签进行选择。
 
-注解值值必须是 JSON 格式并且必须可解析为 [ClusterSelector API 类型](/docs/reference/federation/v1beta1/definitions/#_v1beta1_clusterselector)。
+注解值必须是 JSON 格式并且必须可解析为 [ClusterSelector API 类型](/docs/reference/federation/v1beta1/definitions/#_v1beta1_clusterselector)。
 例如：`[{"key": "load", "operator": "Lt", "values": ["10"]}]`，不能正确解析的内容将抛出一个错误，并阻止将对象分发到任何联邦集群。alpha 实现包含 ConfigMap、Secret、Daemonset、Service 和 Ingress 类型的对象。
 
 下面是一个 ClusterSelector 注释示例，它只会选择带有标签 `pci=true` 不选择标签为 `environment=test` 的集群：
