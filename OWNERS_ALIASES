@@ -54,6 +54,7 @@ aliases:
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
     - alexbrand
+    - glo-pena
   sig-docs-fr-owners: # Admins for French content
     - sieben
     - perriea
