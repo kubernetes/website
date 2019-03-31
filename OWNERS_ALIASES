@@ -50,8 +50,10 @@ aliases:
     - zhangxiaoyu-zidif
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
+    - alexbrand
   sig-docs-es-reviews: # PR reviews for Spanish content
     - raelga
+    - alexbrand
   sig-docs-fr-owners: # Admins for French content
     - sieben
     - perriea
