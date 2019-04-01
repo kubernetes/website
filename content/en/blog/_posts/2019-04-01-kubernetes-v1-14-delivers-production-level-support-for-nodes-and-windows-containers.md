@@ -63,12 +63,19 @@ We welcome you to get involved and join our community to share feedback and depl
 Thank you and feel free to reach us individually if you have any questions.
 
 Michael Michael
+<br>
 SIG-Windows Chair
+<br>
 Director of Product Management, VMware
+<br>
 @michmike77 on Twitter
+<br>
 @m2 on Slack
 
 Patrick Lang
+<br>
 SIG-Windows Chair
+<br>
 Senior Software Engineer, Microsoft
+<br>
 @PatrickLang on Slack
