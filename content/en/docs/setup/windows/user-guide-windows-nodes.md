@@ -11,7 +11,7 @@ weight: 70
 
 The Kubernetes platform can now be used to run both Linux and Windows containers. One or more Windows nodes can be registered to a cluster. This guide shows how to:
 
-* Register a Windows node to the cluster
+* Register a Windows Server 2019 (or later) node to the cluster
 * Configure networking so pods on Linux and Windows can communicate
 
 {{% /capture %}}
@@ -130,7 +130,7 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
     kubectl apply -f kube-flannel.yml
     ```
 
-    Next, since the Flannel pods are Linux-based, apply a NodeSelector patch, which can be found [here](https://github.com/Microsoft/SDN/blob/1d5c055bb195fecba07ad094d2d7c18c188f9d2d/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml), to the Flannel DaemonSet pod:
+    Next, since the Flannel pods are Linux-based, apply a NodeSelector patch, which can be found [here](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml), to the Flannel DaemonSet pod:
 
     ```bash
     kubectl patch ds/kube-flannel-ds-amd64 --patch "$(cat node-selector-patch.yml)" -n=kube-system
@@ -157,8 +157,9 @@ Once you have a Linux-based Kubernetes master node you are ready to choose a net
 In this section we'll cover configuring a Windows node from scratch to join a cluster on-prem. If your cluster is on a cloud you'll likely want to follow the cloud specific guides in the next section.
 
 #### Preparing a Windows Node
+
 {{< note >}}
-All code snippets in Windows sections are to be run in a PowerShell environment with elevated permissions (Admin).
+All code snippets in Windows sections are to be run in a PowerShell environment with elevated permissions (Admin). Windows Server 2019 (or later) is required. Windows 10 is not supported in v1.14.
 {{< /note >}}
 
 1. Install Docker (requires a system reboot)
@@ -166,7 +167,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     Kubernetes uses [Docker](https://www.docker.com/) as its container engine, so we need to install it. You can follow the [official Docs instructions](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/configure-docker-daemon#install-docker), the [Docker instructions](https://store.docker.com/editions/enterprise/docker-ee-server-windows), or try the following *recommended* steps:
 
     ```PowerShell
-    Enable-WindowsOptionalFeature -FeatureName Containers
+    Add-WindowsFeature -FeatureName Containers
     Restart-Computer -Force
     Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
     Install-Package -Name Docker -ProviderName DockerMsftProvider
@@ -188,7 +189,7 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
     ```
 
     {{< note >}}
-    The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using "docker pull mcr.microsoft.com/k8s/core/pause:1.0.0". The DOCKERFILE is available at https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile.
+The "pause" (infrastructure) image is hosted on Microsoft Container Registry (MCR). You can access it using "docker pull mcr.microsoft.com/k8s/core/pause:1.0.0". The DOCKERFILE is available at https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/Dockerfile.
     {{< /note >}}
     
 1. Prepare a Windows directory for Kubernetes
@@ -201,15 +202,17 @@ All code snippets in Windows sections are to be run in a PowerShell environment 
 
 1. Copy Kubernetes certificate
 
-    Copy the Kubernetes certificate file `$HOME/.kube/config` [from the Linux controller](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information) to this new `C:\k` directory on your Windows node.
+    Copy a Kubernetes config, including the TLS certificates, from `/etc/kubernetes/admin.config` or `$HOME/.kube/config` [on the Linux controller](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/creating-a-linux-master#collect-cluster-information) to this new `C:\k` directory on your Windows node.
 
-    Tip: You can use tools such as [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy), [WinSCP](https://winscp.net/eng/download.php), or this [PowerShell wrapper for WinSCP](https://www.powershellgallery.com/packages/WinSCP/5.13.2.0) to transfer the config file between nodes.
+    Tip: You can use tools such as [scp.exe](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_overview) included with recent Windows versions, [xcopy](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy), [WinSCP](https://winscp.net/eng/download.php), or this [PowerShell wrapper for WinSCP](https://www.powershellgallery.com/packages/WinSCP/5.13.2.0) to transfer the config file between nodes.
 
 1. Download Kubernetes binaries
 
-    To be able to run Kubernetes, you first need to download the `kubelet` and `kube-proxy` binaries. You download these from the Node Binaries links in the CHANGELOG.md file of the [latest releases](https://github.com/kubernetes/kubernetes/releases/). For example 'kubernetes-node-windows-amd64.tar.gz'. You may also optionally download `kubectl` to run on Windows which you can find under Client Binaries.
+    To be able to run Kubernetes, you first need to download the `kubelet` and `kube-proxy` binaries. You download these from the Node Binaries links in the CHANGELOG.md file of the [latest releases](https://github.com/kubernetes/kubernetes/releases/). For example 'kubernetes-node-windows-amd64.tar.gz'. This also includes `kubectl` and `kubeadm` built for Windows.
 
-    Use the [Expand-Archive](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) PowerShell command to extract the archive and place the binaries into `C:\k`.
+1. Extract Kubernetes binaries
+
+    Use tar.exe, included with recent versions of Windows to extract the archive. For example: `tar.exe xvzf .\kubernetes-node-windows-amd64.tar.gz`. Then move the files from `kubernetes\node` to `c:\k`
 
 #### Join the Windows node to the Flannel cluster
 
@@ -220,7 +223,7 @@ Download the [Flannel start.ps1](https://github.com/Microsoft/SDN/blob/master/Ku
 ```PowerShell
 cd c:\k
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/start.ps1 -o c:\k\start.ps1
+Invoke-WebRequest https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/start.ps1 -o c:\k\start.ps1
 ```
 
 {{< note >}}
@@ -228,18 +231,33 @@ wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/s
 {{< /note >}}
 
 ```PowerShell
-.\start.ps1 -ManagementIP <Windows Node IP> -NetworkMode overlay  -ClusterCIDR <Cluster CIDR> -ServiceCIDR <Service CIDR> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Log directory>
+.\start.ps1 -ManagementIP <Windows Node IP> -NetworkMode overlay -ClusterCIDR <Cluster CIDR> -ServiceCIDR <Service CIDR> -KubeDnsServiceIP <Kube-dns Service IP> -LogDir <Log directory>
 ```
 
 | Parameter | Default Value | Notes |
 | --- | --- | --- |
 | -ManagementIP | N/A (required) | The IP address assigned to the Windows node. You can use `ipconfig` to find this. |
-| -NetworkMode | l2bridge | We're using `overlay` here |
+| -NetworkMode | l2bridge | We're using `overlay` here. Use `l2bridge` if you have flannel configured with `host-gw` networking |
 | -ClusterCIDR | 10.244.0.0/16 | Refer to your cluster IP plan |
 | -ServiceCIDR | 10.96.0.0/12 | Refer to your cluster IP plan |
 | -KubeDnsServiceIP | 10.96.0.10 | |
 | -InterfaceName | Ethernet | The name of the network interface of the Windows host. You can use <code>ipconfig</code> to find this. |
 | -LogDir | C:\k | The directory where kubelet and kube-proxy logs are redirected into their respective output files. |
+
+If you're not sure what the values are, you can get them with these commands from a Linux node with a working config with a few commands.
+
+```bash
+kubectl cluster-info dump | grep -E "(--.*ip-range)|(--.*cidr)"
+```
+
+* `--service-cluster-ip-range` corresponds to `start.ps1 -ClusterCIDR`
+* `--cluster-cidr` corresponds to `start.ps1 -ClusterCIDR`
+
+```bash
+kubectl get svc kube-dns --namespace=kube-system
+```
+
+* Find the row with `kube-dns`. The `CLUSTER-IP` in that row corresponds to `start.ps1 -KubeDnsServiceIp`
 
 Now you can view the Windows nodes in your cluster by running the following:
 
