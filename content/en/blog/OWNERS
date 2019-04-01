@@ -6,6 +6,5 @@ options:
 reviewers:
   - kbarnard10
 approvers:
-  - bobsky
   - natekartchner
   - sarahkconway
