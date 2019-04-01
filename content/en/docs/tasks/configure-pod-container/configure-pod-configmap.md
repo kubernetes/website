@@ -555,8 +555,8 @@ kubectl create -f https://k8s.io/examples/pods/pod-configmap-volume.yaml
 When the pod runs, the command `ls /etc/config/` produces the output below:
 
 ```shell
-special.level
-special.type
+SPECIAL_LEVEL
+SPECIAL_TYPE
 ```
 
 {{< caution >}}
@@ -566,7 +566,7 @@ If there are some files in the `/etc/config/` directory, they will be deleted.
 ### Add ConfigMap data to a specific path in the Volume
 
 Use the `path` field to specify the desired file path for specific ConfigMap items. 
-In this case, the `special.level` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
+In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
 
 {{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
 
