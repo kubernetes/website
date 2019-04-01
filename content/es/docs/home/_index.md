@@ -15,7 +15,7 @@ menu:
     post: >
       <p>Aprenda a usar Kubernetes con documentación conceptual, tutoriales y manuales de referencia. ¡Incluso puedes <a href="/editdocs/" data-auto-burger-exclude> contribuir con la documentación</a>! </p>
 overview: >
-  Kubernetes es orquestrador de contenedores de código abierto para automatizar la implementación, el escalado y la administración de aplicaciones en contenedores. El proyecto de código abierto está alojado por la Cloud Native Computing Foundation.(<a href="https://www.cncf.io/about">CNCF</a>).
+  Kubernetes es un orquestador de contenedores de código abierto que permite automatizar la implementación, el escalado y la administración de aplicaciones en contenedores. El proyecto de código abierto está alojado por la Cloud Native Computing Foundation. (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
 - name: concepts
   title: "Entender lo básico"
