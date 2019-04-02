@@ -143,7 +143,6 @@ aliases:
   sig-docs-pt-BR-owners: # Admins for Portuguese Brazil content
     - jcjesus
     - femrtnz
-
   sig-docs-pt-BR-reviews: # PR reviews for Portuguese Brazil content
     - jcjesus
     - femrtnz
