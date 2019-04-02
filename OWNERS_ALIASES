@@ -82,12 +82,12 @@ aliases:
     - rlenferink
     - lledru
     - micheleberardi
-  sig-docs-ja-owners: # Admins for Japanese content 
+  sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - nasa9084
     - tnir
     - zacharysarah
-  sig-docs-ja-reviews: # PR reviews for Italian content 
+  sig-docs-ja-reviews: # PR reviews for Italian content
     - cstoku
     - makocchi-git
     - MasayaAoyama
@@ -140,4 +140,10 @@ aliases:
     - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
-  
+  sig-docs-pt-BR-owners: # Admins for Portuguese Brazil content
+    - jcjesus
+    - femrtnz
+
+  sig-docs-pt-BR-reviews: # PR reviews for Portuguese Brazil content
+    - jcjesus
+    - femrtnz
