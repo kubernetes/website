@@ -20,7 +20,7 @@ Los mantenedores de proyectos tienen el derecho y la responsabilidad de eliminar
 
 Este Código de Conducta se aplica tanto dentro de los espacios relacionados con el proyecto como en espacios públicos y siempre que un individuo esté representando al proyecto o su comunidad.
 
-Los casos de comportamiento abusivo, acosador o de cualquier otro modo inaceptable podrán ser denunciados poniéndose en contacto con [Comité del Código de Conducta de Kubernetes](https://git.k8s.io/community/committee-code-of-conduct) al email <conduct@kubernetes.io>. Para otros proyectos, comuníquese con un mantenedor de proyectos de CNCF o con nuestra mediadora, Mishi Choudhary <mishi@linux.com>.
+Los casos de comportamiento abusivo, acosador o de cualquier otro modo inaceptable podrán ser denunciados poniéndose en contacto con el [Comité del Código de Conducta de Kubernetes](https://git.k8s.io/community/committee-code-of-conduct) en <conduct@kubernetes.io>. Para otros proyectos, comuníquese con un mantenedor de proyectos de CNCF o con nuestra mediadora, Mishi Choudhary <mishi@linux.com>.
 
 Este Código de Conducta está adaptado del Compromiso de Colaboradores (http://contributor-covenant.org), versión 1.2.0, disponible en http://contributor-covenant.org/version/1/2/0/
 
