@@ -103,12 +103,13 @@ function selectDropDown(type,tag)
 }
 </style>
 
-Click tags or use the drop downs to filter. Click table headers to sort or reverse sort.
+Haga clic en las etiquetas o utilice los menús desplegables para filtrar.
+Haga clic en los encabezados de tabla para ordenar o invertir ordenación.
 
 <p id="filters">
-Filter by Concept: <span id="conceptFilter" /><br/>
-Filter by Object: <span id="objectFilter" /><br/>
-Filter by Command: <span id="commandFilter" />
+Filtrar por concepto: <span id="conceptFilter" /><br/>
+Filtrar por objeto: <span id="objectFilter" /><br/>
+Filtrar por comando: <span id="commandFilter" />
 </p>
 
 <div id="output" />
