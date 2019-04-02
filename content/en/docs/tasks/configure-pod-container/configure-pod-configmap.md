@@ -183,7 +183,7 @@ Use the option `--from-env-file` to create a ConfigMap from an env-file, for exa
 #   Each line in an env file has to be in VAR=VAL format.
 #   Lines beginning with # (i.e. comments) are ignored.
 #   Blank lines are ignored.
-#   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value)).
+#   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value).
 
 # Download the sample files into `configure-pod-container/configmap/` directory
 wget https://k8s.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
