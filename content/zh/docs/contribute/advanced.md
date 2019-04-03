@@ -24,7 +24,7 @@ to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
 -->
 
-如果你已经阅读并掌握 [开始贡献](/docs/contribute/start/)和 [中级贡献](/docs/contribute/intermediate/)，并准备了解更多贡献的途径，请阅读此文。
+如果你已经阅读并掌握[开始贡献](/docs/contribute/start/)和[中级贡献](/docs/contribute/intermediate/)，并准备了解更多贡献的途径，请阅读此文。
 您需要使用 Git 命令行工具和其他工具做这些工作。
 
 {{% /capture %}}
@@ -72,7 +72,7 @@ PR 管理者的工作职责包括：
     PR 提交人在签署 CLA 之后可以重启 PR，所以 PR 管理者需要保证这段时间内相关文件没有合入。
   - 对改进建议的更新提供反馈信息，包括促成其他 SIG 成员的技术性评审。
   - 合入符合要求的 PR，关闭不符合要求的 PR。
-- 每天筛选和标记新增的 issue。参见 [中级贡献](/docs/contribute/intermediate/)中有关 SIG Docs 成员使用 metadata 的指南。
+- 每天筛选和标记新增的 issue。参见[中级贡献](/docs/contribute/intermediate/)中有关 SIG Docs 成员使用 metadata 的指南。
 
 <!--
 ## Propose improvements
