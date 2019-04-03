@@ -6,7 +6,9 @@ weight: 80
 
 {{% capture overview %}}
 
-{{< include "federation-current-state.md" >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 이 페이지는 여러 쿠버네티스 클러스터를 페더레이션을 통해서 관리해야 하는 이유와 방법을 
 설명한다.
@@ -69,7 +71,6 @@ weight: 80
 쿠버네티스 클러스터의 페더레이션은 다른 클라우드 제공자(예를 들어, Google 클라우드, AWS), 
 그리고 온-프레미스(예를 들어, OpenStack)에서 동작 중인 클러스터를 포함할 수 
 있다. [Kubefed](/docs/tasks/federation/set-up-cluster-federation-kubefed/)는 연합된 클러스터 배치에 권장되는 방법이다. 
-
 그 후에, [API 리소스](#api-리소스)는 서로 다른 클러스터와 클라우드 
 제공자에 걸쳐 확장될 수 있다. 
 
