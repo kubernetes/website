@@ -6,11 +6,11 @@ approvers:
 title: Docker 用户使用 kubectl 命令指南
 ---
 
-在本文中，我们将向 docker-cli 用户介绍 Kubernetes 命令行如何与 api 进行交互。该命令行工具——kubectl，被设计成 docker-cli 用户所熟悉的样子，但是它们之间又存在一些必要的差异。该文档将向您展示每个 docker 子命令和 kubectl 与其等效的命令。
+在本文中，我们将向 docker-cli 用户介绍 Kubernetes 命令行如何与 api 进行交互。该命令行工具 —— kubectl，被设计成 docker-cli 用户所熟悉的样子，但是它们之间又存在一些必要的差异。该文档将向您展示每个 docker 子命令和 kubectl 与其等效的命令。
 
 {{< toc >}}
 
-#### docker run
+## docker run
 
 如何运行一个 nginx Deployment 并将其暴露出来？ 查看 [kubectl run](/docs/user-guide/kubectl/{{< param "version" >}}/#run) 。
 
@@ -43,7 +43,7 @@ service "nginx-http" exposed
 
 在 kubectl 命令中，我们创建了一个 [Deployment](/docs/concepts/workloads/controllers/deployment/)，这将保证有 N 个运行 nginx 的 pod（N 代表 spec 中声明的 replica 数，默认为 1）。我们还创建了一个 [service](/docs/user-guide/services)，使用  selector 匹配具有相应的 selector 的 Deployment。查看 [快速开始](/docs/user-guide/quick-start) 获取更多信息。
 
-默认情况下镜像会在后台运行，与`docker run -d ...` 类似，如果您想在前台运行，使用：
+默认情况下镜像会在后台运行，与 `docker run -d ...` 类似，如果您想在前台运行，使用：
 
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
@@ -54,7 +54,7 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 因为我们使用 Deployment 启动了容器，如果您终止了连接到的进程（例如 `ctrl-c`），容器将会重启，这跟 `docker run -it` 不同。
 如果想销毁该 Deployment（和它的 pod），您需要运行 `kubectl delete deployment <name>`。
 
-#### docker ps
+## docker ps
 
 如何列出哪些正在运行？查看 [kubectl get](/docs/user-guide/kubectl/{{< param "version" >}}/#get)。
 
@@ -74,7 +74,7 @@ NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          1h
 ```
 
-#### docker attach
+## docker attach
 
 如何连接到已经运行在容器中的进程？查看 [kubectl attach](/docs/user-guide/kubectl/{{< param "version" >}}/#attach)。
 
@@ -98,7 +98,7 @@ $ kubectl attach -it nginx-app-5jyvm
 ...
 ```
 
-#### docker exec
+## docker exec
 
 如何在容器中执行命令？查看 [kubectl exec](/docs/user-guide/kubectl/{{< param "version" >}}/#exec)。
 
@@ -140,7 +140,7 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 
 更多信息请查看 [获取运行中容器的 Shell 环境](/docs/tasks/kubectl/get-shell-running-container/)。
 
-#### docker logs
+## docker logs
 
 如何查看运行中进程的 stdout/stderr？查看 [kubectl logs](/docs/user-guide/kubectl/{{< param "version" >}}/#logs)。
 
@@ -170,7 +170,7 @@ $ kubectl logs --previous nginx-app-zibvs
 
 查看 [记录和监控集群活动](/docs/concepts/cluster-administration/logging/) 获取更多信息。
 
-#### docker stop 和 docker rm
+## docker stop 和 docker rm
 
 如何停止和删除运行中的进程？查看 [kubectl delete](/docs/user-guide/kubectl/{{< param "version" >}}/#delete)。
 
@@ -203,7 +203,7 @@ $ kubectl get po -l run=nginx-app
 
 请注意，我们不直接删除 pod。使用 kubectl 命令，我们要删除拥有该 pod 的 Deployment。如果我们直接删除pod，Deployment 将会重新创建该 pod。
 
-#### docker login
+## docker login
 
 在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅 [使用私有镜像仓库](/docs/concepts/containers/images/#using-a-private-registry)。
 
@@ -235,7 +235,7 @@ Client Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4335", GitCommit:"9b77fed11a9843ce3780f70dd251e92901c43072", GitTreeState:"dirty", BuildDate:"2017-08-29T20:32:58Z", OpenPaasKubernetesVersion:"v1.03.02", GoVersion:"go1.7.5", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
-#### docker info
+## docker info
 
 如何获取有关环境和配置的各种信息？查看  [kubectl cluster-info](/docs/user-guide/kubectl/{{< param "version" >}}/#cluster-info)。
 
