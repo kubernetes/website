@@ -245,17 +245,25 @@ You can use a {{</* note */>}} in a list:
     {{</* note */>}}
     Testing a note with a link: [writing a new topic](/docs/contribute/style/write-new-topic/)
     {{</* /note */>}}
+
+1. A third item in a list
+
+1. A fourth item in a list
 ```
 
 The output is:
 
-1. Item 1: Use the note shortcode in a list
+1. Use the note shortcode in a list
 
-1. Item 2: A second item with an embedded note
+1. A second item with an embedded note
 
     {{< note >}}
     Testing a note with a link: [writing a new topic](/docs/contribute/style/write-new-topic/)
     {{< /note >}}
+
+1. A third item in a list
+
+1. A fourth item in a list
 
 ### Caution
 
