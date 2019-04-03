@@ -338,7 +338,7 @@ Kubernetes network plugin and should appear in the `[Router]` section of the
   the default router for the node network).  This value is required to use [kubenet]
   on OpenStack.
 
-[kubenet]: https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#kubenet
+[kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
 {{% /capture %}}
 

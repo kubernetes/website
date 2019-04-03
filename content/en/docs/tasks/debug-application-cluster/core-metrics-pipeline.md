@@ -48,7 +48,7 @@ It's supported in Kubernetes 1.7+ (see details below).
 Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/admin/kubelet/) on each node.
 
 Metrics Server registered in the main API server through
-[Kubernetes aggregator](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/),
+[Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/),
 which was introduced in Kubernetes 1.7.
 
 Learn more about the metrics server in [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).

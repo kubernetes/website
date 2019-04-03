@@ -19,7 +19,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 * You must have a Kubernetes cluster with cluster DNS enabled.
     * If you are using a cloud-based Kubernetes cluster or {{< glossary_tooltip text="Minikube" term_id="minikube" >}}, you may already have cluster DNS enabled.
     * If you are using `hack/local-up-cluster.sh`, ensure that the `KUBE_ENABLE_CLUSTER_DNS` environment variable is set, then run the install script.
-* [Install and setup kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
+* [Install and setup kubectl](/docs/tasks/tools/install-kubectl/) v1.7 or higher. Make sure it is configured to connect to the Kubernetes cluster.
 * Install [Helm](http://helm.sh/) v2.7.0 or newer.
     * Follow the [Helm install instructions](https://github.com/kubernetes/helm/blob/master/docs/install.md).
     * If you already have an appropriate version of Helm installed, execute `helm init` to install Tiller, the server-side component of Helm.
@@ -105,6 +105,3 @@ helm install svc-cat/catalog \
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
 
 {{% /capture %}}
-
-
-

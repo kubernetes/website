@@ -71,7 +71,7 @@ or the custom metrics API (for all other metrics).
 The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
 `custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  The `metrics.k8s.io` API is usually provided by
 metrics-server, which needs to be launched separately. See
-[metrics-server](https://kubernetes.io/docs/tasks/debug-application-cluster/core-metrics-pipeline/#metrics-server)
+[metrics-server](/docs/tasks/debug-application-cluster/core-metrics-pipeline/#metrics-server)
 for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
 
 {{< note >}}

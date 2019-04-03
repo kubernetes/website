@@ -183,6 +183,3 @@ zone)](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availabi
 * [Kubecon2018 유럽 Federation-v2 프로토타입 발표](https://youtu.be/q27rbaX5Jis?t=7m20s) 보기
 * [Federation-v2 사용자 가이드](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md) 보기
 {{% /capture %}}
-
-
-
