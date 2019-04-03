@@ -52,7 +52,6 @@ aliases:
     - sieben
     - perriea
     - rekcah78
-    - lledru
     - yastij
     - smana
     - rbenzair
@@ -65,7 +64,6 @@ aliases:
     - sieben
     - perriea
     - rekcah78
-    - lledru
     - yastij
     - smana
     - rbenzair
@@ -76,11 +74,9 @@ aliases:
     - oussemos
   sig-docs-it-owners: # Admins for Italian content
     - rlenferink
-    - lledru
     - micheleberardi
   sig-docs-it-reviews: # PR reviews for Italian content
     - rlenferink
-    - lledru
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content 
     - cstoku
