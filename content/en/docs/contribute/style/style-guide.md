@@ -211,7 +211,6 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
     {{</* /note */>}}
     ```
 
-
 The output is:
 
 {{< note >}}
@@ -235,6 +234,28 @@ The output is:
 {{< note >}}
 You can _still_ use Markdown inside these callouts.
 {{< /note >}}
+
+You can use a {{</* note */>}} in a list:
+
+```
+1. Use the note shortcode in a list
+
+1. A second item in an unordered list
+
+    {{</* note */>}}
+    Testing a note with a link: [writing a new topic](/docs/contribute/style/write-new-topic/)
+    {{</* /note */>}}
+```
+
+The output is:
+
+1. Item 1: Use the note shortcode in a list
+
+1. Item 2: A second item with an embedded note
+
+    {{< note >}}
+    Testing a note with a link: [writing a new topic](/docs/contribute/style/write-new-topic/)
+    {{< /note >}}
 
 ### Caution
 
@@ -432,9 +453,9 @@ considered new in a few months.
 
 {{% capture whatsnext %}}
 
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+* Learn about [using page templates](/docs/contribute/style/page-templates/).
+* Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
+* Learn about [creating a pull request](/docs/contribute/start/#submit-a-pull-request/).
 
 {{% /capture %}}
