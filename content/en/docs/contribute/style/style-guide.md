@@ -240,7 +240,7 @@ You can use a {{</* note */>}} in a list:
 ```
 1. Use the note shortcode in a list
 
-1. A second item in an unordered list
+1. A second item with an embedded note
 
     {{</* note */>}}
     Testing a note with a link: [writing a new topic](/docs/contribute/style/write-new-topic/)
@@ -294,7 +294,6 @@ For example:
 Beware.
 {{</* /warning */>}}
 ```
-
 
 The output is:
 
