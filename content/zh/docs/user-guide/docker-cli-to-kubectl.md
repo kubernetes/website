@@ -207,7 +207,7 @@ $ kubectl get po -l run=nginx-app
 
 在 kubectl 中没有对 `docker login` 的直接模拟。如果您有兴趣在私有镜像仓库中使用 Kubernetes，请参阅 [使用私有镜像仓库](/docs/concepts/containers/images/#using-a-private-registry)。
 
-#### docker version
+## docker version
 
 如何查看客户端和服务端的版本？查看  [kubectl version](/docs/user-guide/kubectl/{{< param "version" >}}/#version)。
 
