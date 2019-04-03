@@ -1,0 +1,55 @@
+Enterprises are rapidly embracing a cloud first strategy and microservices play a pivotal role in this journey. 
+But, enterprises are achieving various levels of success. Success is determined by many factors such as maturity of DevOps 
+in the enterprise, ability to identify the right candidates for microservices, selecting the appropriate container management platform, 
+adequate tooling and finally, the key aspect of cultural shift in design thinking. 
+As there is plenty of material around microservices adoption and strategy this article focusses on the container management ecosystem 
+which plays a critical role in the success of microservices adoption. Today, Kubernetes has become the De-facto platform for container 
+orchestration. Most of the public cloud providers offer Kubernetes as a service in some form to abstract the complexities of managing 
+Kubernetes as a platform. 
+Currently, we see 3 broad patterns of how enterprises are adopting Kubernetes within their organizations.
+Pattern 1: Kubernetes as a managed service – 
+While Kubernetes makes the life of container management a breeze, it is still a complex beast to understand and manage as a platform. 
+Enterprises who have already embarked on a cloud strategy find it easy to test the unchartered waters of Kubernetes by leveraging
+Kubernetes-as-a-service provided by their cloud providers. It enables them to understand the impact of Kubernetes on their 
+respective application architecture strategy and identify the gaps in their systems (such as the maturity of DevOps management, 
+security management, release management) as well as their monitoring capabilities. 
+
+Pattern 2: Kubernetes as a turnkey solution – 
+Another set of enterprises which are driven by Industry regulations while being technology focused (with considerable experience in 
+other container technology solutions) have shown interest in setting up Kubernetes as part of a private cloud or on–premise with a 
+view to avoid vendor lock-in and limited control associated with managed Kubernetes. There are many such turnkey solutions out there 
+to choose from.
+
+Pattern 3: Self hosted Kubernetes platform – 
+This category is small compared to the other 2 categories. However, there are a few enterprises that fully embrace the open source 
+software development model and contribute to Kubernetes community. There are tools and frameworks which can enable the enterprises 
+to setup and manage Kubernetes on their own.
+There are advantages and constraints in adopting any of the above approaches and the decision to choose an appropriate strategy 
+depends on the maturity of the enterprise and their business strategy.
+
+Challenges in Kubernetes adoption
+Some of the key challenges to be considered, irrespective of the adoption pattern selected are highlighted below:
+1.	Namespace management – Namespaces play a key role in managing the isolation across application domains, environments, providing controlled management of resources and user management. Bounded contexts can be linked with namespace definitions and standards. It is important to define proper naming guidelines to drive namespace management across clusters.
+
+2.	Resource management – It is necessary to define resource utilization (resource quota) guidelines to ensure the containerized applications co-exist without being eliminated due to resource violations at runtime.
+
+3.	Policy management – It is critical to define appropriate policies including cluster access controls, service access controls, resource utilization controls, secret access controls. 
+
+4.	Audit and compliance – It is important to audit the platform for patch levels, secret stores, compliance against the security vulnerabilities, encryption of secret stores, storage volumes, cluster policies, role binding policies, user management controls.
+
+5.	Chaos testing your platform – It is necessary to subject the platform to chaos testing to ensure the robustness of the cluster. It also helps to test the stability of the containerized applications and the impact of crashing these containers. It will also provide vital information about how the platform behaves during high loads or when resources are unavailable for the platform.
+
+6.	Managing the deployment manifests – Kubernetes follows declaration based management, which means that every object or resource instruction is described through declarative manifests. This leads to versioning complexities, prone to human errors and data corruptions. It is necessary to leverage tools or create custom utilities to manage these manifests.
+
+7.	Observability of the platform – While Kubernetes provides various mechanisms to monitor its own internal components, it does not recommend a standard monitoring approach. It is necessary to introduce well defined health management standards while designing the microservices. Ensure to include appropriate liveness and readiness probes in every containerized application deployed on Kubernetes cluster. Integrate the probe generated metrics and platform generated metrics with an external monitoring platform to have comprehensive observability of the cluster.
+
+8.	Continuous deployment of services – It is not recommended to use kubectl based deployments in large scale production setup. It is encouraged to use some of the established open source frameworks specifically built for Kubernetes (such as Helm or JenkinsX) to manage seamless deployments.
+
+9.	Archiving and backup – Kubernetes uses etcd as its internal metadata management store to manage the objects across clusters. It is necessary to define a backup strategy for etcd and any other dependent persistent stores used within the Kubernetes clusters.
+
+10.	Container Security management – Kubernetes deploys the applications by downloading the respective images from a pre-defined image repository. It is the responsibility of repository ecosystem to ensure the image provenance of the images being deployed. It is necessary to include continuous security as part of DevOps pipeline to ensure containers are well managed.
+
+11.	Service Mesh support – Service mesh plays a critical role in streamlining the service to service communication. It abstracts the service level access controls and security management between services through externalized policies. It also provides routing and load balancing features. It is necessary to choose appropriate service mesh which is compatible with the Kubernetes cluster as well as the underlying infrastructure.
+
+Conclusion:  Kubernetes makes the container operational aspects simpler but it requires a methodical approach and best practices to ensure smooth maintainability as well as seamless developer interaction. For any enterprise which are in a transition journey towards adopting Kubernetes, it is imperative to have a strategy for Kubernetes adoption to ensure success.
+
