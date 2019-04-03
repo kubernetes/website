@@ -12,8 +12,8 @@ Algunos ejemplos de conducta inaceptable imputable a los participantes pueden se
 -	El uso de palabras o imágenes sesgadas de contenido sexual.
 -	Ataques personales
 -	Comentarios provocadores, insultantes o despectivos
--	Hostigamiento público o privado
--	Publicar información ajena privada, como ser domicilios particulares o electrónicos, sin contar con permiso explícito para hacerlo
+-	Acoso público o privado
+-	Publicar información privada ajena, como pueden ser domicilios particulares o direcciones electrónicas, sin contar con permiso explícito para hacerlo
 -	Cualquier otra conducta reñida con la ética o el profesionalismo.
 
 Los mantenedores de proyectos tienen el derecho y la responsabilidad de eliminar, editar o rechazar los comentarios, consignas, códigos, correcciones colaborativas (del tipo “wiki edits”), ediciones y demás contribuciones que no estuvieren en consonancia con los principios establecidos en el presente Código de Conducta. Al adoptar este Código de Conducta, los mantenedores de proyectos se comprometen a aplicar estos principios de manera justa y uniforme a todos los aspectos que hacen a la gestión de este proyecto. Los mantenedores de proyectos que no cumplan ni hagan cumplir este Código de Conducta podrían quedar desafectados en forma permanente del equipo encargado del proyecto.
