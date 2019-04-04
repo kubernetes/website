@@ -161,7 +161,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 
 필요에 맞는 가이드를 아래에서 찾았다면, 그것을 사용하자. 약간 구식일 수도 있지만, 처음부터 시작하는 것보다 더 쉬울 것이다. 
 특별한 요구사항이 있기 때문에, 또는 단지 쿠버네티스 클러스터의 아래에 무엇이 있는지를 이해하기 원하기 때문에 
-처음부터 시작하기를 원한다면, [맨 처음부터 시작하기](/docs/setup/scratch/) 가이드를 시도하라. 
+처음부터 시작하기를 원한다면, [맨 처음부터 시작하기](/docs/setup/release/building-from-source/) 가이드를 시도하라. 
 
 ### 일반
 
@@ -255,7 +255,7 @@ AWS                  | Saltstack    | Debian | AWS         | [docs](/docs/setup/
 AWS                  | kops         | Debian | AWS         | [docs](https://github.com/kubernetes/kops/)                                  |  Community ([@justinsb](https://github.com/justinsb))
 Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
 oVirt                |              |        |             | [docs](/docs/setup/on-premises-vm/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
-any                  | any          | any    | any         | [docs](/docs/setup/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
+any                  | any          | any    | any         | [docs](/docs/setup/release/building-from-source/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
 any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
