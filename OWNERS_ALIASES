@@ -48,6 +48,14 @@ aliases:
     - stewart-yu
     - xiangpengzhao
     - zhangxiaoyu-zidif
+  sig-docs-es-owners: # Admins for Spanish content
+    - raelga
+    - alexbrand
+  sig-docs-es-reviews: # PR reviews for Spanish content
+    - raelga
+    - alexbrand
+    - glo-pena
+    - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
     - sieben
     - perriea
@@ -136,4 +144,3 @@ aliases:
     - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
-  
