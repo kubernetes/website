@@ -127,7 +127,7 @@ base operating systems.
 If you can find a guide below that matches your needs, use it. It may be a little out of date, but
 it will be easier than starting from scratch. If you do want to start from scratch, either because you
 have special requirements, or just because you want to understand what is underneath a Kubernetes
-cluster, try the [Getting Started from Scratch](/docs/setup/scratch/) guide.
+cluster, try the [Getting Started from Scratch](/docs/setup/release/building-from-source/) guide.
 
 If you are interested in supporting Kubernetes on a new platform, see
 [Writing a Getting Started Guide](https://git.k8s.io/community/contributors/devel/writing-a-getting-started-guide.md).
@@ -217,7 +217,7 @@ AWS                  | Saltstack    | Debian | AWS         | [docs](/docs/setup/
 AWS                  | kops         | Debian | AWS         | [docs](https://github.com/kubernetes/kops/)                                  |  Community ([@justinsb](https://github.com/justinsb))
 Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                 |  Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
 oVirt                |              |        |             | [docs](/docs/setup/on-premises-vm/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
-any                  | any          | any    | any         | [docs](/docs/setup/scratch/)                                |  Community ([@erictune](https://github.com/erictune))
+any                  | any          | any    | any         | [docs](/docs/setup/release/building-from-source/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
 any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
