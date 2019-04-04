@@ -136,6 +136,6 @@ Hello Worldアプリケーションが稼働しているDeployment、ReplicaSet�
 
 {{% capture whatsnext %}}
 
-Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
+次は
+[こちら](/docs/concepts/services-networking/connect-applications-service/).
 {{% /capture %}}
