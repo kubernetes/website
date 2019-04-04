@@ -200,7 +200,7 @@ attend a weekly SIG Docs meeting to get clarity.
 Follow these steps to submit a pull request to improve the Kubernetes
 documentation.
 
-1.  On the page where you see the issue, click the pencil icon at the top left.
+1.  On the page where you see the issue, click the pencil icon at the top right.
     A new page appears, with some help text.
 2.  Click the first blue button, which has the text **Edit &lt;page name&gt;**.
     
