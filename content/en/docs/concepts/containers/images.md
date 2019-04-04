@@ -360,7 +360,7 @@ common use cases and suggested solutions.
    - Or, when on GCE/Google Kubernetes Engine, use the project's Google Container Registry.
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
-1. Cluster with a proprietary images, a few of which require stricter access control.
+1. Cluster with proprietary images, a few of which require stricter access control.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 1. A multi-tenant cluster where each tenant needs own private registry.
