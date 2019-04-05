@@ -1,52 +1,52 @@
 ---
-title: Install Minikube
+title: Instalar Minikube
 ---
 
 {% capture overview %}
 
-This page shows how to use install Minikube.
+Esta página muestra cómo instalar Minikube.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
-VT-x or AMD-v virtualization must be enabled in your computer's BIOS.
+La virtualización VT-x o AMD-v debe estar habilitada en la BIOS de tu ordenador.
 
 {% endcapture %}
 
 {% capture steps %}
 
-## Install a Hypervisor
+## Instalar un Hypervisor
 
-If you do not already have a hypervisor installed, install one now.
+Si no tienes ya instalado un "hypervisor", instala uno ahora.
 
-* For OS X, install
+* Para OS X, instala
 [xhyve driver](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver),
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads), or
+[VirtualBox](https://www.virtualbox.org/wiki/Downloads), o
 [VMware Fusion](https://www.vmware.com/products/fusion).
 
-* For Linux, install
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
+* Para Linux, instala
+[VirtualBox](https://www.virtualbox.org/wiki/Downloads) o
 [KVM](http://www.linux-kvm.org/).
 
-* For Windows, install
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
+* Para Windows, instala
+[VirtualBox](https://www.virtualbox.org/wiki/Downloads) o
 [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install).
 
-## Install kubectl
+## Instalar kubectl
 
-* [Install kubectl](/docs/tasks/tools/install-kubectl/).
+* [Instalar kubectl](/docs/tasks/tools/install-kubectl/).
 
-## Install Minikube
+## Instalar Minikube
 
-* Install Minikube according to the instructions for the
-[latest release](https://github.com/kubernetes/minikube/releases).
+* Instalar Minikube según las instrucciones para la
+[última entrega](https://github.com/kubernetes/minikube/releases).
 
 {% endcapture %}
 
 {% capture whatsnext %}
 
-* [Running Kubernetes Locally via Minikube](/docs/getting-started-guides/minikube/)
+* [Ejecutar Kubernetes Localment via Minikube](/docs/getting-started-guides/minikube/)
 
 {% endcapture %}
 
