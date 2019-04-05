@@ -18,8 +18,8 @@ Minikube ist ein Tool, mit dem Kubernetes lokal einfach ausgeführt werden kann.
   * NodePorts
   * ConfigMaps and Secrets
   * Dashboards
-  * Container Laufzeit: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) and [containerd](https://github.com/containerd/containerd)
-  * Aktivierung von CNI (Container Network Interface)
+  * Container Laufzeiumgebungen: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) und [containerd](https://github.com/containerd/containerd)
+  * Unterstützung von CNI (Container Network Interface)
   * Ingress
 
 ## Installation
