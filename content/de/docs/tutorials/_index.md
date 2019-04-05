@@ -32,29 +32,29 @@ Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise e
 
 ## Stateless Anwendungen
 
-* [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [Freigeben einer externen IP-Adresse für den Zugriff auf eine Anwendung in einem Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
-* [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
+* [Beispiel: Bereitstellung der PHP-Gästebuchanwendung mit Redis](/docs/tutorials/stateless-application/guestbook/)
 
 ## Stateful Anwendungen
 
-* [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [StatefulSet Grundlagen](/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [Example: WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [Beispiel: WordPress und MySQL mit persistenten Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
-* [Example: Deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/)
+* [Beispiel: Bereitstellen von Cassandra mit Stateful-Sets](/docs/tutorials/stateful-application/cassandra/)
 
-* [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
+* [ZooKeeper, ein verteiltes CP-System](/docs/tutorials/stateful-application/zookeeper/)
 
 ## CI/CD Pipeline
 
-* [Set Up a CI/CD Pipeline with Kubernetes Part 1: Overview](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
+* [Einrichten einer CI/CD-Pipeline mit Kubernetes Teil 1: Übersicht](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
 
-* [Set Up a CI/CD Pipeline with a Jenkins Pod in Kubernetes (Part 2)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
+* [Einrichten einer CI/CD-Pipeline mit einem Jenkins-Pod in Kubernetes (Teil 2)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
 
-* [Run and Scale a Distributed Crossword Puzzle App with CI/CD on Kubernetes (Part 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
+* [Ausführen und Skalieren einer verteilten Kreuzworträtsel-App mit CI/CD auf Kubernetes (Teil 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
 
-* [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
+* [CI/CD für eine verteilte Kreuzworträtsel-App auf Kubernetes einrichten (Teil 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
 
 ## Clusters
 
@@ -62,7 +62,7 @@ Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise e
 
 ## Services
 
-* [Using Source IP](/docs/tutorials/services/source-ip/)
+* [Source IP verwenden](/docs/tutorials/services/source-ip/)
 
 {{% /capture %}}
 

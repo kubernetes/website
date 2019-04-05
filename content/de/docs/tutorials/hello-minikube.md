@@ -1,5 +1,5 @@
 ---
-title: Hello Minikube
+title: Hallo Minikube
 content_template: templates/tutorial
 weight: 5
 menu:
@@ -7,7 +7,7 @@ menu:
     title: "Loslegen"
     weight: 10
     post: >
-      <p>Sind Sie bereit, Ihre Hände schmutzig zu machen? Erstellen Sie einen einfachen Kubernetes-Cluster, auf dem "Hello World" für Node.js ausgeführt wird.</p>
+      <p>Sind Sie bereit, Ihre Hände schmutzig zu machen? Erstellen Sie einen einfachen Kubernetes-Cluster, auf dem "Hallo Welt" für Node.js ausgeführt wird.</p>
 card: 
   name: tutorials
   weight: 10
@@ -15,7 +15,7 @@ card:
 
 {{% capture overview %}}
 
-Dieses Tutorial zeigt Ihnen, wie Sie eine einfache Hello World Node.js-Anwendung auf Kubernetes mit [Minikube](/docs/getting-started-guides/minikube) und Katacoda ausführen.
+Dieses Tutorial zeigt Ihnen, wie Sie eine einfache "Hallo Welt" Node.js-Anwendung auf Kubernetes mit [Minikube](/docs/getting-started-guides/minikube) und Katacoda ausführen.
 Katacoda bietet eine kostenlose Kubernetes-Umgebung im Browser.
 
 {{< note >}}
@@ -158,7 +158,7 @@ Um den "Hallo-Welt"-Container außerhalb des virtuellen Netzwerks von Kubernetes
 
 5. In einer Katacoda-Umgebung: Geben Sie "30369" ein (siehe Port gegenüber "8080" in der service ausgabe), und klicken Sie dann auf
 
-    Daraufhin wird ein Browserfenster geöffnet, in dem Ihre App ausgeführt wird und die Meldung "Hello World" angezeigt wird.
+    Daraufhin wird ein Browserfenster geöffnet, in dem Ihre App ausgeführt wird und die Meldung "Hello World" (Hallo Welt) angezeigt wird.
 
 ## Addons aktivieren 
 
@@ -208,7 +208,7 @@ Minikube verfügt über eine Reihe von integrierten Add-Ons, die in der lokalen 
     kubectl get pod,svc -n kube-system
     ```
 
-    Output:
+    Ausgabe:
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
@@ -264,8 +264,8 @@ minikube delete
 
 {{% capture whatsnext %}}
 
-* Lernen Sie mehr über [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
-* Lernen Sie mehr über [Deploying applications](/docs/user-guide/deploying-applications/).
-* Lernen Sie mehr über [Service objects](/docs/concepts/services-networking/service/).
+* Lernen Sie mehr über [Bereitstellungsobjekte](/docs/concepts/workloads/controllers/deployment/).
+* Lernen Sie mehr über [Anwendungen bereitstellen](/docs/user-guide/deploying-applications/).
+* Lernen Sie mehr über [Serviceobjekte](/docs/concepts/services-networking/service/).
 
 {{% /capture %}}
