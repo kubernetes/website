@@ -12,7 +12,7 @@ card:
 ---
 
 {{% capture overview %}}
-Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.
+The Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), allows you to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -22,7 +22,7 @@ You must use a kubectl version that is within one minor version difference of yo
 
 {{% capture steps %}}
 
-## Install kubectl binary using curl
+## Install kubectl binary with curl
 
 {{< tabs name="kubectl_install_curl" >}}
 {{% tab name="Linux" %}}
@@ -95,7 +95,7 @@ You must use a kubectl version that is within one minor version difference of yo
 {{% /tab %}}
 {{< /tabs >}}
 
-## Install kubectl on Linux distros
+## Install kubectl on Linux
 
 ### Install using native package management
 
@@ -121,9 +121,9 @@ yum install -y kubectl
 {{< /tabs >}}
 
 
-### Install with snap on Ubuntu
+### Install with snap
 
-If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or another Linux distribution that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
 
 1. Switch to the snap user and run the installation command:
 
@@ -131,7 +131,7 @@ If you are on Ubuntu or one of other Linux distributions that support [snap](htt
     sudo snap install kubectl --classic
     ```
 
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
@@ -149,7 +149,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
     brew install kubernetes-cli
     ```
 
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
@@ -166,7 +166,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     sudo port install kubectl
     ```
     
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
@@ -189,7 +189,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     
     The installer creates `$HOME/.kube` and instructs it to create a config file
 
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
@@ -197,9 +197,9 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
 
     {{< note >}}Updating the installation is performed by rerunning the two commands listed in step 1.{{< /note >}}
 
-### Install on Windows using Chocolatey or scoop
+### Install on Windows using Chocolatey or Scoop
 
-To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [scoop](https://scoop.sh) command-line installer.
+To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
 {{< tabs name="kubectl_win_install" >}}
 {{% tab name="choco" %}}
 
@@ -212,7 +212,7 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
 
 {{% /tab %}}
 {{< /tabs >}}
-2. Test to ensure the version you installed is sufficiently up-to-date:
+2. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
@@ -243,9 +243,7 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
     
     {{< note >}}Edit the config file with a text editor of your choice, such as Notepad.{{< /note >}}
 
-## Additional install methods
-
-### Download as part of the Google Cloud SDK
+## Download as part of the Google Cloud SDK
 
 You can install kubectl as part of the Google Cloud SDK.
 
@@ -256,18 +254,16 @@ You can install kubectl as part of the Google Cloud SDK.
     gcloud components install kubectl
     ```
     
-3. Test to ensure the version you installed is sufficiently up-to-date:
+3. Test to ensure the version you installed is up-to-date:
 
     ```
     kubectl version
     ```
 
-## Configure kubectl
+## Verifying kubectl configuration 
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/setup/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
-By default, kubectl configuration is located at `~/.kube/config`.
+In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
 
-### Check the kubectl configuration
 Check that kubectl is properly configured by getting the cluster state:
 
 ```shell
@@ -281,7 +277,7 @@ If you see a message similar to the following, kubectl is not correctly configur
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like minikube to be installed first and then re-run the commands stated above.
+For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like Minikube to be installed first and then re-run the commands stated above.
 
 If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
 
@@ -429,5 +425,8 @@ compinit
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-[Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* See the [getting started guides](/docs/setup/) for more about creating clusters. 
+* [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
 {{% /capture %}}
