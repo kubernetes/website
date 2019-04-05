@@ -12,7 +12,7 @@ In diesem Dokument werden die verschiedenen binären Komponenten beschrieben, di
 {{% /capture %}}
 
 {{% capture body %}}
-## Master Components
+## Master-Komponenten
 
 Master-Komponenten stellen die Steuerungsebene des Clusters bereit. Master-Komponenten treffen globale Entscheidungen über den Cluster (z. B. Zeitplanung) und das Erkennen und Reagieren auf Clusterereignisse (Starten eines neuen Pods, wenn das `replicas`-Feld eines Replikationscontrollers nicht zufriedenstellend ist).
 
@@ -61,7 +61,7 @@ Die folgenden Controller haben Abhängigkeiten von Cloud-Anbietern:
   * Service Controller: Zum Erstellen, Aktualisieren und Löschen von Lastverteilern von Cloud-Anbietern
   * Volume Controller: Zum Erstellen, Verbinden und Bereitstellen von Volumes und zur Interaktion mit dem Cloud-Provider zum Orchestrieren von Volumes
 
-## Node Components
+## Node-Komponenten
 
 Node Komponenten werden auf jedem Knoten ausgeführt, halten laufende Pods aufrecht und stellen die Kubernetes-Laufzeitumgebung bereit.
 
