@@ -88,7 +88,7 @@ _Labels_ are key/value pairs. Valid label keys have two segments: an optional pr
 If the prefix is omitted, the label Key is presumed to be private to the user. Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl`, or other third-party automation) which add labels to end-user objects must specify a prefix.  The `kubernetes.io/` prefix is reserved for Kubernetes core components.
 -->
 _标签_ 是键值对。有效的标签键有两个段：可选的前缀和名称，用斜杠（`/`）分隔。名称段是必需的，必须小于等于 63 个字符，以字母数字字符（`[a-z0-9A-Z]`）开头和结尾，带有破折号（`-`），下划线（`_`），点（ `.`）和之间的字母数字。前缀是可选的。如果指定，前缀必须是 DNS 子域：由点（`.`）分隔的一系列 DNS 标签，总共不超过 253 个字符，后跟斜杠（`/`）。
-如果省略前缀，则假定标签键对用户是私有的。 向最终用户对象添加标签的自动系统组件（例如`kube-scheduler`，`kube-controller-manager`，`kube-apiserver`，`kubectl`或其他第三方自动化）必须指定前缀。 `kubernetes.io /`前缀是为Kubernetes核心组件保留的。
+如果省略前缀，则假定标签键对用户是私有的。 向最终用户对象添加标签的自动系统组件（例如 `kube-scheduler`，`kube-controller-manager`，`kube-apiserver`，`kubectl` 或其他第三方自动化）必须指定前缀。`kubernetes.io/` 前缀是为 Kubernetes 核心组件保留的。
 
 <!--
 Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
@@ -103,7 +103,7 @@ Valid label values must be 63 characters or less and must be empty or begin and 
 <!--
 Unlike [names and UIDs](/docs/user-guide/identifiers), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
 -->
-与 [名称和UID](/docs/user-guide/identifiers) 不同，标签不提供唯一性。通常，我们希望许多对象携带相同的标签。
+与 [名称和 UID](/docs/user-guide/identifiers) 不同，标签不提供唯一性。通常，我们希望许多对象携带相同的标签。
 
 <!--
 Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
@@ -114,7 +114,7 @@ Via a _label selector_, the client/user can identify a set of objects. The label
 The API currently supports two types of selectors: _equality-based_ and _set-based_.
 A label selector can be made of multiple _requirements_ which are comma-separated. In the case of multiple requirements, all must be satisfied so the comma separator acts as a logical _AND_ (`&&`) operator.
 -->
-API 目前支持两种类型的选择器：_基于相等的_ 和 _基于集合的_。
+API 目前支持两种类型的选择器：_基于相等性的_ 和 _基于集合的_。
 标签选择器可以由逗号分隔的多个 _需求_ 组成。在多个需求的情况下，必须满足所有要求，因此逗号分隔符充当逻辑 _与_（`&&`）运算符。
 
 <!--
@@ -130,20 +130,20 @@ null 值的标签选择器（仅可用于可选选择器字段）不选择任何
 <!--
 **Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other.
 -->
-**注意**：两个控制器的标签选择器不得在命名空间内重叠，否则它们将互相争斗。
+**注意**：两个控制器的标签选择器不得在命名空间内重叠，否则它们将互相冲突。
 {{< /note >}}
 
 <!--
 ### _Equality-based_ requirement
 -->
-### _基于相等的_ 需求
+### _基于相等性的_ 需求
 
 
 <!--
 _Equality-_ or _inequality-based_ requirements allow filtering by label keys and values. Matching objects must satisfy all of the specified label constraints, though they may have additional labels as well.
 Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are simply synonyms), while the latter represents _inequality_. For example:
 -->
-_基于相等_ 或 _不相等_ 的需求允许按标签键和值进行过滤。匹配对象必须满足所有指定的标签约束，尽管它们也可能具有其他标签。
+_基于相等性_ 或 _不相等_ 的需求允许按标签键和值进行过滤。匹配对象必须满足所有指定的标签约束，尽管它们也可能具有其他标签。
 可接受的运算符有`=`、`==` 和 `！=` 三种。 前两个表示 _相等_（并且只是同义词），而后者表示 _不相等_。 例如：
 
 ```
@@ -165,7 +165,7 @@ One usage scenario for equality-based label requirement is for Pods to specify
 node selection criteria. For example, the sample Pod below selects nodes with
 the label "`accelerator=nvidia-tesla-p100`".
 -->
-基于相等的标签要求的一种使用场景是 Pods 要指定节点选择标准。例如，下面的示例 Pod 选择带有标签 "`accelerator=nvidia-tesla-p100`"。
+基于相等性的标签要求的一种使用场景是 Pods 要指定节点选择标准。例如，下面的示例 Pod 选择带有标签 "`accelerator=nvidia-tesla-p100`"。
 
 ```yaml
 apiVersion: v1
@@ -227,7 +227,7 @@ The fourth example selects all resources without a label with key `partition`; n
 <!--
 Similarly the comma separator acts as an _AND_ operator. So filtering resources with a `partition` key (no matter the value) and with `environment` different than  `qa` can be achieved using `partition,environment notin (qa)`.
 -->
-类似地，逗号分隔符充当 _AND_ 运算符。因此，使用 `partition` 键（无论值）和 `environment` 不同于 `qa` 来过滤资源可以使用 `partition，environment notin（qa)` 来实现。
+类似地，逗号分隔符充当 _AND_ 运算符。因此，使用 `partition` 键（无论为何值）和 `environment` 不同于 `qa` 来过滤资源可以使用 `partition，environment notin（qa)` 来实现。
 
 <!--
 The _set-based_ label selector is a general form of equality since `environment=production` is equivalent to `environment in (production)`; similarly for `!=` and `notin`.
@@ -256,13 +256,13 @@ LIST and WATCH 操作可以使用查询参数指定标签选择器过滤一组�
   * _equality-based_ requirements: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
   * _set-based_ requirements: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 -->
-  * _基于相等_ 的需求: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
+  * _基于相等性_ 的需求: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
   * _基于集合_ 的需求: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 
 <!--
 Both label selector styles can be used to list or watch resources via a REST client. For example, targeting `apiserver` with `kubectl` and using _equality-based_ one may write:
 -->
-两种标签选择器都可以通过 REST 客户端用于 list 或者 watch 资源。例如，使用 `kubectl` 定位 `apiserver`，可以使用 _基于相等_ 的标签选择器可以这么写：
+两种标签选择器都可以通过 REST 客户端用于 list 或者 watch 资源。例如，使用 `kubectl` 定位 `apiserver`，可以使用 _基于相等性_ 的标签选择器可以这么写：
 
 
 ```shell
@@ -316,7 +316,7 @@ Labels selectors for both objects are defined in `json` or `yaml` files using ma
 
 一个 `Service` 指向的一组 pods 是由标签选择器定义的。同样，一个 `ReplicationController` 应该管理的 pods 的数量也是由标签选择器定义的。
 
-两个对象的标签选择器都是在 `json` 或者 `yaml` 文件中使用映射定义的，并且只支持 _基于相等_ 需求的选择器：
+两个对象的标签选择器都是在 `json` 或者 `yaml` 文件中使用映射定义的，并且只支持 _基于相等性_ 需求的选择器：
 
 ```json
 "selector": {
@@ -366,13 +366,13 @@ selector:
 <!--
 #### Selecting sets of nodes
 -->
-#### 选择一组节点
+#### 选择节点集
 
 <!--
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
 See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.
 -->
-使用标签来进行选择的一个用例是约束 pod 可以调度到哪些节点上。
+通过标签进行选择的一个用例是确定节点集，方便 pod 调度。
 有关更多信息，请参阅 [选择节点](/docs/concepts/configuration/assign-pod-node/) 上的文档。
 
 {{% /capture %}}
