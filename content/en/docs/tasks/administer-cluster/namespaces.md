@@ -7,7 +7,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows how to view, work in, and delete {{< glossary_tooltip text="namespaces" term_id="namespace" >}}. The page also shows how to use Kubernetes namespaces to subdivide your cluster.
+This page shows how to view, work in, and delete {{< glossary_tooltip text="namespaces" term_id="namespace" >}}. The page also demonstrates how to use Kubernetes namespaces to subdivide your cluster.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -340,9 +340,9 @@ Each user community wants to be able to work in isolation from other communities
 
 Each user community has its own:
 
-1. resources (pods, services, replication controllers, etc.)
-2. policies (who can or cannot perform actions in their community)
-3. constraints (this community is allowed this much quota, etc.)
+1. Resources (pods, services, replication controllers, etc.)
+2. Policies (who can or cannot perform actions in their community)
+3. Constraints (this community is allowed this much quota, etc.)
 
 A cluster operator may create a Namespace for each unique user community.
 
