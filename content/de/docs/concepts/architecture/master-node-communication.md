@@ -16,9 +16,9 @@ Die Absicht besteht darin, Benutzern die Möglichkeit zu geben, ihre Installatio
 
 ## Cluster zum Master
 
-All communication paths from the cluster to the master terminate at the apiserver (none of the other master components are designed to expose remote services). 
+Alle Kommunikationspfade vom Cluster zum Master enden beim Apiserver (keine der anderen Master-Komponenten ist dafür ausgelegt, Remote-Services verfügbar zu machen).
 In einem typischen Setup ist der Apiserver so konfiguriert, dass er Remote-Verbindungen an einem sicheren HTTPS-Port (443) mit einer oder mehreren Formen der [Clientauthentifizierung](/docs/reference/access-authn-authz/authentication/) überwacht.
-Eine oder mehrere Formene von [Autorisierung](/docs/reference/access-authn-authz/authorization/) sollte aktiviert sein, insbesondere wenn [anonyme Requests](/docs/reference/access-authn-authz/authentication/#anonymous-requests) oder [Service Account Tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens) aktiviert sind.
+Eine oder mehrere Formene von [Autorisierung](/docs/reference/access-authn-authz/authorization/) sollte aktiviert sein, insbesondere wenn [anonyme Anfragen](/docs/reference/access-authn-authz/authentication/#anonymous-requests) oder [Service Account Tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens) aktiviert sind.
 
 Nodes sollten mit dem öffentlichen Stammzertifikat für den Cluster konfigurirert werden, sodass sie eine sichere Verbindung zum Apiserver mit gültigen Client-Anmeldeinformationen herstellen können.
 Beispielsweise bei einer gewöhnlichen GKE-Konfiguration enstprechen die dem kubelet zur Verfügung gestellten Client-Anmeldeinformationen eines Client-Zertifikats.
@@ -57,9 +57,9 @@ Ausserdem sollte, [Kubelet Authentifizierung und/oder Autorisierung](/docs/admin
 
 ### Apiserver zu Nodes, Pods und Services
 
-Die Verbindungen vom Apiserver zu einem Knoten, Pod oder Dienst verwenden standardmäßig einfache HTTP-Verbindungen und werden daher weder authentifiziert noch verschlüsselt.
+Die Verbindungen vom Apiserver zu einem Node, Pod oder Dienst verwenden standardmäßig einfache HTTP-Verbindungen und werden daher weder authentifiziert noch verschlüsselt.
 Sie können über eine sichere HTTPS-Verbindung ausgeführt werden, indem dem Node, dem Pod oder dem Servicenamen in der API-URL "https:" vorangestellt wird. Das vom HTTPS-Endpunkt bereitgestellte Zertifikat wird jedoch nicht überprüft, und es werden keine Clientanmeldeinformationen bereitgestellt. Die Verbindung wird zwar verschlüsselt, garantiert jedoch keine Integrität.
-Diese Verbindungen **sind derzeit nicht sicher** innerhalb von nicht vertrauenswürdigen und/oder öffentlichen Netze.
+Diese Verbindungen **sind derzeit nicht sicher** innerhalb von nicht vertrauenswürdigen und/oder öffentlichen Netzen.
 
 ### SSH Tunnels
 
@@ -67,6 +67,6 @@ Kubernetes unterstützt SSH-Tunnel zum Schutz der Kommunikationspfade von Master
 In dieser Konfiguration initiiert der Apiserver einen SSH-Tunnel zu jedem Nodem im Cluster (Verbindung mit dem SSH-Server, der Port 22 läuft), und leitet den gesamten Datenverkehr für ein kubelet, einen Node, einen Pod oder einen Dienst durch den Tunnel.
 Dieser Tunnel stellt sicher, dass der Datenverkehr nicht außerhalb des Netzwerks sichtbar ist, in dem die Knoten ausgeführt werden.
 
-SSH-Tunnel sind derzeit veraltet. Sie sollten sie also nicht verwenden, es sei denn, Sie wissen, was Sie tun. Ein Ersatz für diesen Kommunikationskanal wird entwickelt.
+SSH-Tunnel sind derzeit nicht mehr unterstützt. Sie sollten sie also nicht verwenden, es sei denn, Sie wissen, was Sie tun. Ein Ersatz für diesen Kommunikationskanal wird entwickelt.
 
 {{% /capture %}}

@@ -46,7 +46,7 @@ Darüber hinaus enthält Kubernetes eine Reihe von Abstraktionen auf höherer Eb
 
 ## Kubernetes Control Plane
 
-Die verschiedenen Teile der Kubernetes-Steuerungsebene, wie der Kubernetes Master- und der Kubelet-Prozess, bestimmen, wie Kubernetes mit Ihrem Cluster kommuniziert. Das Control Plane führt ein Inventar aller Kubernetes-Objekte im System und führt fortlaufende Steuerkreise aus, um den Status dieser Objekte zu verwalten. Zu jeder Zeit reagieren die Steuerkreise des Control Plane auf Änderungen im Cluster und arbeiten daran, dass der tatsächliche Status aller Objekte im System mit dem gewünschten Status, den Sie definiert haben, übereinstimmt.
+Die verschiedenen Teile der Kubernetes-Steuerungsebene (Control Plane), wie der Kubernetes Master- und der Kubelet-Prozess, bestimmen, wie Kubernetes mit Ihrem Cluster kommuniziert. Das Control Plane führt ein Inventar aller Kubernetes-Objekte im System und führt fortlaufende Steuerkreise aus, um den Status dieser Objekte zu verwalten. Zu jeder Zeit reagieren die Steuerkreise des Control Plane auf Änderungen im Cluster und arbeiten daran, dass der tatsächliche Status aller Objekte im System mit dem gewünschten Status, den Sie definiert haben, übereinstimmt.
 
 Wenn Sie beispielsweise mit der Kubernetes-API ein Deployment-Objekt erstellen, geben Sie einen neuen gewünschten Status für das System an. Das Kubernetes Control Plane zeichnet die Objekterstellung auf und führt Ihre Anweisungen aus, indem es die erforderlichen Anwendungen startet und sie für auf den Cluster-Nodes plant--Dadurch wird der tatsächliche Status des Clusters an den gewünschten Status angepasst.
 
@@ -60,7 +60,7 @@ Der Kubernetes-Master ist für die Aufrechterhaltung des gewünschten Status fü
 
 Die Nodes in einem Cluster sind die Maschinen (VMs, physische Server usw.), auf denen Ihre Anwendungen und Cloud-Workflows ausgeführt werden. Der Kubernetes-Master steuert jeden Master. Sie werden selten direkt mit Nodes interagieren.
 
-#### Object Metadata
+#### Objekt Metadata
 
 
 * [Anmerkungen](/docs/concepts/overview/working-with-objects/annotations/)
