@@ -1,10 +1,10 @@
 ---
-título: Instalar Minikube
-plantilla_contenido: templates/task
-peso: 20
-tarjeta:
-  nombre: tareas
-  peso: 10
+title: Instalar Minikube
+content_template: templates/task
+weight: 20
+card:
+  name: tasks
+  weight: 10
 ---
 
 {{% capture overview %}}
