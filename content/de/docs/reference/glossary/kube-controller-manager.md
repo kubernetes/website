@@ -4,16 +4,16 @@ id: kube-controller-manager
 date: 2018-04-12
 full_link: /docs/reference/generated/kube-controller-manager/
 short_description: >
-  Component on the master that runs controllers.
+  Komponente auf dem Master, auf dem Controller ausgeführt werden.
 
 aka: 
 tags:
 - architecture
 - fundamental
 ---
- Component on the master that runs {{< glossary_tooltip text="controllers" term_id="controller" >}}.
+ Komponente auf dem Master, auf dem {{< glossary_tooltip text="controllers" term_id="controller" >}} ausgeführt werden.
 
 <!--more--> 
 
-Logically, each {{< glossary_tooltip text="controller" term_id="controller" >}} is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.
+Logisch gesehen ist jeder {{< glossary_tooltip text="controller" term_id="controller" >}} ein separater Prozess, aber zur Vereinfachung der Komplexität werden sie alle zu einer einzigen Binärdatei zusammengefasst und in einem einzigen Prozess ausgeführt.
 

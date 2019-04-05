@@ -4,16 +4,16 @@ id: etcd
 date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
+  Konsistenter und hochverfügbarer Key-Value Speicher, der als Backupspeicher von Kubernetes für alle Clusterdaten verwendet wird.
 
 aka: 
 tags:
 - architecture
 - storage
 ---
- Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
+ Konsistenter und hochverfügbarer Key-Value Speicher, der als Backupspeicher von Kubernetes für alle Clusterdaten verwendet wird.
 
 <!--more--> 
 
-Always have a backup plan for etcd's data for your Kubernetes cluster. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
+Halten Sie immer einen Sicherungsplan für etcds Daten für Ihren Kubernetes-Cluster bereit. Ausführliche Informationen zu etcd finden Sie in der [etcd Dokumentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
 
