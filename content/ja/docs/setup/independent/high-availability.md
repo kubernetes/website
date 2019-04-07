@@ -8,19 +8,19 @@ weight: 60
 
 このページでは、kubeadmを使用して、高可用性クラスターを作成する、2つの異なるアプローチを説明します:
 
-- 積み重なったコントロールプレーンノードを使う。こちらのアプローチは、必要なインフラストラクチャーが少ないです。etcdのメンバーと、コントロールプレーンノードは同じ場所に置かれます
-- 外部のetcdクラスターを使う。こちらのアプローチには、より多くのインフラストラクチャーが必要です。コントロールプレーンノードと、etcdのメンバーは分離されます。
+- 積み重なったコントロールプレーンノードを使う方法。こちらのアプローチは、必要なインフラストラクチャーが少ないです。etcdのメンバーと、コントロールプレーンノードは同じ場所に置かれます。
+- 外部のetcdクラスターを使う方法。こちらのアプローチには、より多くのインフラストラクチャーが必要です。コントロールプレーンノードと、etcdのメンバーは分離されます。
 
 先へ進む前に、どちらのアプローチがアプリケーションの要件と、環境に適合するか、慎重に検討してください。[こちらの比較](/docs/setup/independent/ha-topology/)が、それぞれの利点/欠点について概説しています。
 
 クラスターではKubernetesのバージョン1.12以降を使用する必要があります。また、kubeadmを使用した高可用性クラスターはまだ実験的な段階であり、将来のバージョンではもっとシンプルになることに注意してください。たとえば、クラスターのアップグレードに際し問題に遭遇するかもしれません。両方のアプローチを試し、kueadmの[issue tracker](https://github.com/kubernetes/kubeadm/issues/new)で我々にフィードバックを提供してくれることを推奨します。
 
-alpha feature gate `HighAvailability`はv1.12で非推奨となり、v1.13で削除されたことに留意してください。
+alpha feature gateである`HighAvailability`はv1.12で非推奨となり、v1.13で削除されたことに留意してください。
 
 [高可用性クラスターのアップグレード](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13)も参照してください。
 
 {{< caution >}}
-このページはクラウド上でクラスターを構築することには対応していません。ここで説明されているどちらのアプローチも、クラウド上で、LoadBalancerタイプのサービスオブジェクトや、ダイナミックPersistentVolumeを利用して動かすことはできません。
+このページはクラウド上でクラスターを構築することには対応していません。ここで説明されているどちらのアプローチも、クラウド上で、LoadBalancerタイプのServiceオブジェクトや、動的なPersistentVolumeを利用して動かすことはできません。
 {{< /caution >}}
 
 {{% /capture %}}
@@ -29,19 +29,19 @@ alpha feature gate `HighAvailability`はv1.12で非推奨となり、v1.13で削
 
 どちらの方法でも、以下のインフラストラクチャーが必要です:
 
-- master用に、[kubeadmの最小要件](/ja/docs/setup/independent/install-kubeadm/#before-you-begin)を満たす、3台のマシン
+- master用に、[kubeadmの最小要件](/ja/docs/setup/independent/install-kubeadm/#before-you-begin)を満たす3台のマシン
 - worker用に、[kubeadmの最小要件](/ja/docs/setup/independent/install-kubeadm/#before-you-begin)を満たす3台のマシン
-- クラスター内のすべてのマシン間がフルにネットワーク接続可能であること(パブリック、もしくは、プライベートネットワーク)
+- クラスター内のすべてのマシン間がフルにネットワーク接続可能であること(パブリック、もしくはプライベートネットワーク)
 - すべてのマシンにおいて、sudo権限
-- あるデバイスから、システム内のすべてのノードに対し、SSH接続できること
+- あるデバイスから、システム内のすべてのノードに対しSSH接続できること
 - `kubeadm`と`kubelet`がすべてのマシンにインストールされていること。 `kubectl`は任意です。
 
 外部etcdクラスターには、以下も必要です:
 
-- etcdメンバー用に、追加で、3台のマシン
+- etcdメンバー用に、追加で3台のマシン
 
 {{< note >}}
-以下の例では、CalicoをPodネットワーキングプロバイダーとして使用します。別のネットワーキングプロバイダーを使用する場合、必ず、必要に応じてデフォルトの値を変更してください。
+以下の例では、CalicoをPodネットワーキングプロバイダーとして使用します。別のネットワーキングプロバイダーを使用する場合、必要に応じてデフォルトの値を変更してください。
 {{< /note >}}
 
 {{% /capture %}}
@@ -54,7 +54,7 @@ alpha feature gate `HighAvailability`はv1.12で非推奨となり、v1.13で削
 コントロールプレーンや、etcdノードでのコマンドはすべてrootとして実行してください。
 {{< /note >}}
 
-- Calicoなどの、いくつかのCNIネットワークプラグインはr`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。
+- CalicoなどのいくつかのCNIネットワークプラグインはr`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。
 
 ### kube-apiserver用にロードバランサーを作成
 
@@ -128,7 +128,7 @@ alpha feature gate `HighAvailability`はv1.12で非推奨となり、v1.13で削
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
 
     - `kubernetesVersion`には使用するKubernetesのバージョンを設定します。この例では`stable`を使用しています。
-    - `controlPlaneEndpoint` はロードバランサーのアドレス、もしくは、DNSと、ポートに一致する必要があります。
+    - `controlPlaneEndpoint` はロードバランサーのアドレスかDNSと、ポートに一致する必要があります。
     - kubeadm、kubelet、kubectlとKubernetesのバージョンを一致させることが推奨されます。
 
 1.  ノードがきれいな状態であることを確認します:
@@ -155,7 +155,7 @@ alpha feature gate `HighAvailability`はv1.12で非推奨となり、v1.13で削
     kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
     ```
 
-1.  以下のコマンドをタイプし、コンポーネントのPodが起動するのを確認します:
+1.  以下のコマンドを入力し、コンポーネントのPodが起動するのを確認します:
 
     ```sh
     kubectl get pod -n kube-system -w
@@ -206,7 +206,7 @@ alpha feature gate `HighAvailability`はv1.12で非推奨となり、v1.13で削
 
     この手順で、`/etc/kubernetes`フォルダーに必要な全てのファイルが書き込まれます。
 
-1.  `kubeadm init`を最初のノードで実行した際に取得したjoinコマンドを使って、このノードで`kubeadm join`を開始します。コマンドは、このような感じのものです:
+1.  `kubeadm init`を最初のノードで実行した際に取得したjoinコマンドを使って、このノードで`kubeadm join`を開始します。このようなコマンドになるはずです:
 
     ```sh
     sudo kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f --experimental-control-plane
@@ -259,7 +259,7 @@ alpha feature gate `HighAvailability`はv1.12で非推奨となり、v1.13で削
                 certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
-    - ここでの、積み重なったetcdと、外部etcdの違いは、kubeadmコンフィグの`etcd`に`external`フィールドを使用していることです。積み重なったetcdトポロジーの場合、これは自動で管理されます。
+    - ここで、積み重なったetcdと外部etcdの違いは、kubeadmコンフィグの`etcd`に`external`フィールドを使用していることです。積み重なったetcdトポロジーの場合、これは自動で管理されます。
 
     -  テンプレート内の以下の変数を、クラスターに合わせて適切な値に置き換えます:
 
