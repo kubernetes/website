@@ -52,7 +52,7 @@ La forma más fácil de instalar Minikube en macOS es usar [Homebrew](https://br
 brew cask install minikube
 ```
 
-También puedes instalarlo en macOS descargando un fichero binario estático:
+También puedes instalarlo en macOS descargando un archivo binario estático:
 
 ```shell
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 \
@@ -68,10 +68,10 @@ sudo mv minikube /usr/local/bin
 ### Linux
 
 {{< note >}}
-Este documento muestra cómo instalar Minikube en Linux usando un fichero binario estático. Para métodos alternativos de instalación en Linux, ver [Otros métodos de Instalación](https://github.com/kubernetes/minikube#other-ways-to-install) en el repositorio GitHub oficial de Minikube.
+Este documento muestra cómo instalar Minikube en Linux usando un archivo binario estático. Para métodos alternativos de instalación en Linux, ver [Otros métodos de Instalación](https://github.com/kubernetes/minikube#other-ways-to-install) en el repositorio GitHub oficial de Minikube.
 {{< /note >}}
 
-Puedes instalar Minikube en Linux descargando un fichero binario estático:
+Puedes instalar Minikube en Linux descargando un archivo binario estático:
 
 ```shell
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
@@ -126,7 +126,7 @@ Y dicho comando devuelve un error:
 machine does not exist
 ```
 
-Necesitas eliminar permanentemente los siguientes ficheros de configuración:
+Necesitas eliminar permanentemente los siguientes archivos de configuración:
 ```shell
 rm -rf ~/.minikube
 ```
