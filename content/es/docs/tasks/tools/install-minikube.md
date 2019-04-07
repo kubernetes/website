@@ -96,7 +96,7 @@ La forma más fácil de instalar Minikube en Windows es usando [Chocolatey](http
 choco install minikube kubernetes-cli
 ```
 
-Una vez Minikube ha terminado de instalarse, cierra la sesión cliente actual y reiniciar. Minikube debería haberse añadido a tu ruta automáticamente.
+Una vez Minikube ha terminado de instalarse, cierra la sesión cliente actual y reinicia. Minikube debería haberse añadido a tu ruta automáticamente.
 
 #### Instalación manual en Windows
 
