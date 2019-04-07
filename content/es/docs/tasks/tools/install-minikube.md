@@ -87,7 +87,7 @@ sudo cp minikube /usr/local/bin && rm minikube
 ### Windows
 
 {{< note >}}
-Para ejecutar Minikube en Windows, necesitas instalar [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) primero, que puede ejecutarse en tres versiones de Windows 10: Windows 10 Enterprise, Windows 10 Professional, y Windows 10 Education.
+Para ejecutar Minikube en Windows, necesitas instalar [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) primero, que puede ejecutarse en las tres versiones de Windows 10: Windows 10 Enterprise, Windows 10 Professional, y Windows 10 Education.
 {{< /note >}}
 
 La forma más fácil de instalar Minikube en Windows es usando [Chocolatey](https://chocolatey.org/) (ejecutar como administrador):
