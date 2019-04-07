@@ -3,6 +3,9 @@
 [deprecation_warning]
 other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
 
+[deprecation_file_warning]
+other = "廃止予定"
+
 [objectives_heading]
 other = "目標"
 
