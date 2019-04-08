@@ -47,7 +47,7 @@ It is important to note that if the `startingDeadlineSeconds` field is set (not 
 A CronJob is counted as missed if it has failed to be created at its scheduled time. For example, If `concurrencyPolicy` is set to `Forbid` and a CronJob was attempted to be scheduled when there was a previous schedule still running, then it would count as missed.
 
 For example, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
-`startingDeadlineSeconds` field is not set. The default for this field is `100` seconds. If the CronJob controller happens to
+`startingDeadlineSeconds` field is not set. If the CronJob controller happens to
 be down from `08:29:00` to `10:21:00`, the job will not start as the number of missed jobs which missed their schedule is greater than 100.
 
 To illustrate this concept further, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
