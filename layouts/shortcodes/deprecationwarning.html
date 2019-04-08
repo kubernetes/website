@@ -3,9 +3,9 @@
   <main>
     <div class="content deprecation-warning">
       <h3>
-	 Kubernetes {{ .Param "version" }}
+	 Kubernetes {{ .Page.Param "version" }}
 	 {{ T "deprecation_warning" }}
-	 <a href="{{ site.Params.currentUrl }}">{{ T "latest_version" }}</a>
+	 <a href="{{ .Site.Params.currentUrl }}">{{ T "latest_version" }}</a>
       </h3>
     </div>
   </main>
