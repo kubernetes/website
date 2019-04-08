@@ -20,14 +20,16 @@ weight: 30
 * 명령형 오브젝트 구성
 * 선언형 오브젝트 구성
 
-각 종류별 오브젝트 관리의 장점과 단점에 대한 논의는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/object-management-kubectl/overview/)를 참고한다.
+각 종류별 오브젝트 관리의 장점과 단점에 대한 논의는
+[쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/object-management-kubectl/overview/)를 참고한다.
 
 ## 오브젝트 생성 방법
 
 구성파일로부터 오브젝트를 생성하기 위해 `kubectl create -f`를 사용할 수 있다.
-보다 상세한 정보는 [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)를 참조한다.
+보다 상세한 정보는 [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)를
+참조한다.
 
-- `kubectl create -f <filename|url>`
+- `kubectl create -f <파일명|url>`
 
 ## 오브젝트 업데이트 방법
 
@@ -44,21 +46,21 @@ weight: 30
 구성파일에 따라 활성 오브젝트를 업데이트하기 위해 `kubectl replace -f`
 를 사용할 수 있다.
 
-- `kubectl replace -f <filename|url>`
+- `kubectl replace -f <파일명|url>`
 
 ## 오브젝트 삭제 방법
 
 구성파일에 정의한 오브젝트를 삭제하기 위해 `kubectl delete -f`를
 사용할 수 있다.
 
-- `kubectl delete -f <filename|url>`
+- `kubectl delete -f <파일명|url>`
 
 ## 오브젝트 삭제 방법
 
 구성파일에 정의한 오브젝트에 관한 정보 확인을 위해 `kubectl get -f`
 명령을 사용할 수 있다.
 
-- `kubectl get -f <filename|url> -o yaml`
+- `kubectl get -f <파일명|url> -o yaml`
 
 `-o yaml` 플래그는 전체 오브젝트 구성이 출력되도록 정의한다. 옵션의 리스트를 확인하기
 위해서는 `kubectl get -h`를 사용한다.
@@ -70,7 +72,7 @@ weight: 30
 그러나 활성 오브젝트가 업데이트 되고, 구성파일 안에 병합되지 않으면,
 업데이트 내용은 다음번 `replace`가 실행될 때 삭제될 것이다.
 이는 HorizontalPodAutoscaler와 같은 컨트롤러가
-활성 오브젝트를 직접적으로 업데이트 하도록 할 경우 발생한다.
+활성 오브젝트를 직접적으로 업데이트하도록 할 경우 발생한다.
 여기 예시가 있다.
 
 1. 구성파일로부터 오브젝트를 생성할 경우
@@ -99,21 +101,21 @@ kubectl create -f <url> --edit
 
 1. 다음과 같이 활성 오브젝트를 로컬 오브젝트 구성파일로 내보낸다.
 ```sh
-kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+kubectl get <종류>/<이름> -o yaml --export > <종류>_<이름>.yaml
 ```
 
 1. 수동으로 오브젝트 구성파일에서 상태 필드를 제거한다.
 
 1. 이후 오브젝트 관리를 위해, `replace`만 사용한다.
 ```sh
-kubectl replace -f <kind>_<name>.yaml
+kubectl replace -f <종류>_<이름>.yaml
 ```
 
 
 ## 컨트롤러 셀렉터와 PodTemplate 레이블 삭제하기
 
 {{< warning >}}
-컨트롤러에서 셀렉터를 업데이트 하지 않도록 강력하게 권고한다.
+컨트롤러에서 셀렉터를 업데이트하지 않도록 강력하게 권고한다.
 {{< /warning >}}
 
 권고되는 접근방법은 다른 의미론적 의미가 없는 컨트롤러 셀렉터의 의해서만
