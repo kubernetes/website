@@ -46,7 +46,7 @@ other = "バージョンを確認するには次のコマンドを実行して�
 other = "注意:"
 
 [note]
-other = "注記:"
+other = "備考:"
 
 [warning]
 other = "警告:"
