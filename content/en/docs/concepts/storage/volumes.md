@@ -619,7 +619,7 @@ be able to run. Applications using local volumes must be able to tolerate this
 reduced availability, as well as potential data loss, depending on the
 durability characteristics of the underlying disk.
 
-The following is an example PersistentVolume spec using a `local` volume and
+The following is an example of PersistentVolume spec using a `local` volume and
 `nodeAffinity`:
 
 ```yaml
@@ -931,7 +931,7 @@ You must have an existing ScaleIO cluster already setup and
 running with the volumes created before you can use them.
 {{< /caution >}}
 
-The following is an example Pod configuration with ScaleIO:
+The following is an example of Pod configuration with ScaleIO:
 
 ```yaml
 apiVersion: v1
