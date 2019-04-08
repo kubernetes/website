@@ -168,13 +168,13 @@ PersistentVolumeを手動でプロビジョニングした場合は、Persistent
 
 {{% capture whatsnext %}}
 
-* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)についてもっと学ぶ
 
-* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
+* [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)についてもっと学ぶ
 
-* [kubectl run documentation](/docs/reference/generated/kubectl/kubectl-commands/#run)
+* [kubectl runのドキュメント](/docs/reference/generated/kubectl/kubectl-commands/#run)
 
-* [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
+* [Volumes](/docs/concepts/storage/volumes/)と[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 
 {{% /capture %}}
 
