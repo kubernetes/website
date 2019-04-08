@@ -80,7 +80,7 @@ Kubernetesのリリースノートにある、Dockerの動作確認済み最新�
 ## docker ceをインストール
 apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
-# デーモンをセットアップします。
+# デーモンをセットアップ
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -94,7 +94,7 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
-# dockerを再起動します。
+# dockerを再起動
 systemctl daemon-reload
 systemctl restart docker
 {{< /tab >}}
@@ -105,7 +105,7 @@ systemctl restart docker
 ### 必要なパッケージのインストール
     yum install yum-utils device-mapper-persistent-data lvm2
 
-### dockerパッケージ用のyumリポジトリを追加します。
+### dockerパッケージ用のyumリポジトリを追加
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
@@ -113,10 +113,10 @@ yum-config-manager \
 ## docker ceをインストール
 yum update && yum install docker-ce-18.06.2.ce
 
-## /etc/docker ディレクトリを作成します。
+## /etc/docker ディレクトリを作成
 mkdir /etc/docker
 
-# デーモンをセットアップします。
+# デーモンをセットアップ
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -133,7 +133,7 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
-# dockerを再起動します。
+# dockerを再起動
 systemctl daemon-reload
 systemctl restart docker
 {{< /tab >}}
