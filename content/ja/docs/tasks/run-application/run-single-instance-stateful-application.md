@@ -1,12 +1,12 @@
 ---
-title: シングルインスタンスのステートフルアプリケーションを実行する
+title: 単一レプリカのステートフルアプリケーションを実行する
 content_template: templates/tutorial
 weight: 20
 ---
 
 {{% capture overview %}}
 
-このページでは、PersistentVolumeとDeploymentを使用して、Kubernetesでシングルインスタンスのステートフルアプリケーションを実行する方法を説明します。アプリケーションはMySQLです。
+このページでは、PersistentVolumeとDeploymentを使用して、Kubernetesで単一レプリカのステートフルアプリケーションを実行する方法を説明します。アプリケーションはMySQLです。
 
 {{% /capture %}}
 
@@ -33,12 +33,12 @@ weight: 20
 
 ## MySQLをデプロイする
 
-Kubernetes Deploymentを作成し、PersistentVolumeClaimを使用してそれを既存のPersistentVolumeに接続することで、ステートフルアプリケーションを実行できます。
+Kubernetes Deploymentを作成し、PersistentVolumeClaimを使用して既存のPersistentVolumeに接続することで、ステートフルアプリケーションを実行できます。
 たとえば、以下のYAMLファイルはMySQLを実行し、PersistentVolumeClaimを参照するDeploymentを記述しています。
 このファイルは/var/lib/mysqlのボリュームマウントを定義してから、20Gのボリュームを要求するPersistentVolumeClaimを作成します。
 この要求は、要件を満たす既存のボリューム、または動的プロビジョナーによって満たされます。
 
-注：パスワードはconfig yamlで定義されており、これは安全ではありません。安全な解決策については[Kubernetes Secret](/docs/concepts/configuration/secret/)を参照してください 。
+注：パスワードはYAMLファイル内に定義されており、これは安全ではありません。安全な解決策については[Kubernetes Secret](/docs/concepts/configuration/secret/)を参照してください 。
 
 {{< codenew file="application/mysql/mysql-deployment.yaml" >}}
 {{< codenew file="application/mysql/mysql-pv.yaml" >}}
@@ -118,7 +118,7 @@ Kubernetes Deploymentを作成し、PersistentVolumeClaimを使用してそれ�
 
 前述のYAMLファイルは、クラスター内の他のPodがデータベースにアクセスできるようにするServiceを作成します。
 Serviceのオプションで`clusterIP: None`を指定すると、ServiceのDNS名がPodのIPアドレスに直接解決されます。
-このオプションは、Serviceの背後のPodが1つのみであり、Podの数を増やす予定がない場合に適しています。
+このオプションは、ServiceのバックエンドのPodが1つのみであり、Podの数を増やす予定がない場合に適しています。
 
 MySQLクライアントを実行してサーバーに接続します。
 
@@ -141,7 +141,7 @@ mysql>
 イメージまたはDeploymentの他の部分は、`kubectl apply`コマンドを使用して通常どおりに更新できます。
 ステートフルアプリケーションに固有のいくつかの注意事項を以下に記載します。
 
-* アプリケーションをスケールしないでください。このセットアップはシングルインスタンスのアプリケーション専用です。
+* アプリケーションをスケールしないでください。このセットアップは単一レプリカのアプリケーション専用です。
   下層にあるPersistentVolumeは1つのPodにしかマウントできません。
   クラスター化されたステートフルアプリケーションについては、[StatefulSetのドキュメント](/docs/concepts/workloads/controllers/statefulset/)を参照してください。
 * Deploymentを定義するYAMLファイルでは`strategy: type: Recreate`を使用して下さい。
