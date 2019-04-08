@@ -69,7 +69,7 @@ To make it easier to eliminate fields or restructure resource representations, K
 multiple API versions, each at a different API path, such as `/api/v1` or
 `/apis/extensions/v1beta1`.
 
-We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes - all descriptions below cover both formats.
+We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-life and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes - all descriptions below cover both formats.
 
 Note that API versioning and Software versioning are only indirectly related.  The [API and release
 versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and
