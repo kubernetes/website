@@ -185,7 +185,7 @@ kubectl apply -k ./
       ```
 
       {{< note >}}
-      Minikube에서는 서비스를 `NodePort`으로만 노출할 수 있다. EXTERNAL-IP는 항상 펜딩상태이다.
+      Minikube에서는 서비스를 `NodePort`으로만 노출할 수 있다. EXTERNAL-IP는 항상 Pending 상태이다.
       {{< /note >}}
 
 5. 다음 명령어를 실행하여 WordPress 서비스의 IP 주소를 얻어온다.
@@ -227,7 +227,7 @@ kubectl apply -k ./
 * [인트로스펙션과 디버깅](/docs/tasks/debug-application-cluster/debug-application-introspection/)를 알아보자.
 * [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)를 알아보자.
 * [포트 포워딩](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 알아보자.
-* 어떻게 [컨테이너에서 쉘을 사용하는지](/docs/tasks/debug-application-cluster/get-shell-running-container/)를 알아보자.
+* 어떻게 [컨테이너에서 셸을 사용하는지](/docs/tasks/debug-application-cluster/get-shell-running-container/)를 알아보자.
 
 {{% /capture %}}
 
