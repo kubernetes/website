@@ -477,7 +477,7 @@ mounts an empty directory and clones a git repository into it for your Pod to
 use.  In the future, such volumes may be moved to an even more decoupled model,
 rather than extending the Kubernetes API for every such use case.
 
-Here is an example for gitRepo volume:
+Here is an example of gitRepo volume:
 
 ```yaml
 apiVersion: v1
