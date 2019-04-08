@@ -113,7 +113,7 @@ Right after `kubeadm init` there should not be any pods in these states.
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
 should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
-before CoreDNS may deployed fully. Hence the `Pending` state before the network is set up.
+before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
 
 ## `HostPort` services do not work
 
