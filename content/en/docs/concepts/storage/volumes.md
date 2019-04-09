@@ -958,7 +958,7 @@ spec:
       fsType: xfs
 ```
 
-For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
+For further detail, please see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
 
 ### secret {#secret}
 
