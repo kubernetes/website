@@ -11,7 +11,7 @@ tags:
 - fundamental
 - core-object
 ---
- {{< glossary_tooltip text="Pods" term_id="pod" >}}의 집합과 같은 애플리케이션에 엑세스하는 방법을 기술하는 API 오브젝트이며, 포트와 로드밸런서를 기술할 수 있다.
+ {{< glossary_tooltip text="파드" term_id="pod" >}}의 집합과 같은 애플리케이션에 엑세스하는 방법을 기술하는 API 오브젝트이며, 포트와 로드밸런서를 기술할 수 있다.
 
 <!--more--> 
 
