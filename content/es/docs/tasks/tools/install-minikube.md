@@ -9,13 +9,13 @@ card:
 
 {{% capture overview %}}
 
-Esta página te muestra cómo instalar [Minikube](/docs/tutorials/hello-minikube), una herramienta que ejecuta un clúster de Kubernetes con un único nodo en una máquina virtual en tu portátil.
+Esta página te muestra cómo instalar [Minikube](/docs/tutorials/hello-minikube), una herramienta que despliega un clúster de Kubernetes con un único nodo en una máquina virtual.
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-La virtualización VT-x o AMD-v debe estar habilitada en la BIOS de tu ordenador.  Para comprobar esto en Linux, ejecuta lo siguiente y valida que la salida no es vacía:
+La virtualización VT-x o AMD-v debe estar habilitada en la BIOS de tu ordenador. En Linux, puedes comprobar si la tienes habilitada buscando 'vmx' o 'svm' en el fichero `/proc/cpuinfo`:
 ```shell
 egrep --color 'vmx|svm' /proc/cpuinfo
 ```
@@ -24,23 +24,23 @@ egrep --color 'vmx|svm' /proc/cpuinfo
 
 {{% capture steps %}}
 
-## Instalar un "Hypervisor"
+## Instalar un Hipervisori
 
-Si todavía no tienes un "hypervisor" instalado, instala uno para tu SO ahora:
+Si todavía no tienes un hipervisor instalado, puedes instalar uno de los siguientes:
 
-Sistema Operativo | "Hypervisors" soportados
+Sistema Operativo | Hipervisores soportados
 :-----------------|:------------------------
 macOS | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [VMware Fusion](https://www.vmware.com/products/fusion), [HyperKit](https://github.com/moby/hyperkit)
 Linux | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [KVM](http://www.linux-kvm.org/)
 Windows | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
 
 {{< note >}}
-Minikube también soporta una opción `--vm-driver=none` que ejecuta los componentes de Kubernetes directamente en el servidor y no en una máquina virtual (MV). Para usar este modo, se requiere Docker y un entorno Linux, pero no un "hypervisor".
+Minikube también soporta una opción `--vm-driver=none` que ejecuta los componentes de Kubernetes directamente en el servidor y no en una máquina virtual (MV). Para usar este modo, se requiere Docker y un entorno Linux, pero no es necesario tener un hipervisor.
 {{< /note >}}
 
 ## Instalar kubectl
 
-* Instala kubectl según las instrucciones en [Instalar y Configurar kubectl](/docs/tasks/tools/install-kubectl/).
+* Instala kubectl siguiendo las instrucciones disponibles en [Instalar y Configurar kubectl](/docs/tasks/tools/install-kubectl/).
 
 ## Instalar Minikube
 
@@ -52,14 +52,14 @@ La forma más fácil de instalar Minikube en macOS es usar [Homebrew](https://br
 brew cask install minikube
 ```
 
-También puedes instalarlo en macOS descargando un archivo binario estático:
+También puedes instalarlo en macOS descargando un ejecutable autocontenido:
 
 ```shell
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 \
   && chmod +x minikube
 ```
 
-Aquí tienes una forma sencilla de añadir el ejecutable de Minikube a tu ruta:
+Para tener disponible en la consola el comando `minikube`, puedes añadir el comando al $PATH o moverlo por ejemplo a `/usr/local/bin`:
 
 ```shell
 sudo mv minikube /usr/local/bin
@@ -68,17 +68,17 @@ sudo mv minikube /usr/local/bin
 ### Linux
 
 {{< note >}}
-Este documento muestra cómo instalar Minikube en Linux usando un archivo binario estático. Para métodos alternativos de instalación en Linux, ver [Otros métodos de Instalación](https://github.com/kubernetes/minikube#other-ways-to-install) en el repositorio GitHub oficial de Minikube.
+Este documento muestra cómo instalar Minikube en Linux usando un ejecutable autocontenido. Para métodos alternativos de instalación en Linux, ver [Otros métodos de Instalación](https://github.com/kubernetes/minikube#other-ways-to-install) en el repositorio GitHub oficial de Minikube.
 {{< /note >}}
 
-Puedes instalar Minikube en Linux descargando un archivo binario estático:
+Puedes instalar Minikube en Linux descargando un ejecutable autocontenido:
 
 ```shell
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
   && chmod +x minikube
 ```
 
-Aquí tienes una forma sencilla de añadir el ejecutable de Minikube a tu ruta:
+Para tener disponible en la consola el comando `minikube`, puedes añadir el comando al $PATH o moverlo por ejemplo a `/usr/local/bin`:
 
 ```shell
 sudo cp minikube /usr/local/bin && rm minikube
