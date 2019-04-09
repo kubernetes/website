@@ -222,7 +222,7 @@ on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone
 such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
 value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
 rule says that the pod prefers not to be scheduled onto a node if that node is already running a pod with label
-having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
+having key "security" and value "S2". (If the `topologyKey` were `kubernetes.io/hostname` then
 it would mean that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the
 [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
