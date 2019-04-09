@@ -1043,7 +1043,7 @@ A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The con
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
 
 {{< caution >}}
-You must create VMDK using one of the following method before using with Pod.
+You must create VMDK using one of the following methods before using with Pod.
 {{< /caution >}}
 
 #### Creating a VMDK volume
