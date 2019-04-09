@@ -235,7 +235,7 @@ in mind:
  -->
     例如，“修复安全文档”就是一个不可执行的问题，但 “为'限制网络访问'主题添加详细信息”就是可执行的。
 - 如果问题与另一个问题或者拉取请求（PR）有关，您可以通过问题的完整 URL 或者 PR 的序号（以 `#` 为前缀）进行关联。例如 `源于 #987654`。
-- 保持尊重，避免发泄。例如，"这问题就是个垃圾"就是无用且不可执行的反馈。[编码倡议](/community/code-of-conduct/) 也适用于 Kubernetes Github 仓库的交流。
+- 保持尊重，避免发泄。例如，"这问题就是个垃圾"就是无用且不可执行的反馈。[行为准测](/community/code-of-conduct/) 也适用于 Kubernetes Github 仓库的交流。
 
 <!--
 ## Participate in SIG Docs discussions
