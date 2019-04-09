@@ -184,20 +184,41 @@ Vous trouverez ci-dessous les propriétés qu'un utilisateur peut spécifier dan
 
 Voici un exemple de Pod avec des configurations DNS personnalisées :
 
-{{< codenew file="service/networking/custom-dns.yaml" >}}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: default
+  name: exemple-dns
+spec:
+  containers:
+    - name: test
+      image: nginx
+  dnsPolicy: "None"
+  dnsConfig:
+    nameservers:
+      - 1.2.3.4
+    searches:
+      - ns1.svc.cluster.local
+      - mon.dns.search.suffix
+    options:
+      - name: ndots
+        value: "2"
+      - name: edns0
+```
 
 Lorsque le Pod ci-dessus est créé, le conteneur `test` obtient le contenu suivant dans son fichier `/etc/resolv.conf` :
 
 ```
 nameserver 1.2.3.4
-search ns1.svc.cluster.local my.dns.search.suffix
+search ns1.svc.cluster.local mon.dns.search.suffix
 options ndots:2 edns0
 ```
 
 Pour la configuration IPv6, le chemin de recherche et le serveur de noms doivent être configurés comme suit :
 
 ```
-$ kubectl exec -it dns-example -- cat /etc/resolv.conf
+$ kubectl exec -it exemple-dns -- cat /etc/resolv.conf
 nameserver fd00:79:30::a
 search default.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
