@@ -62,6 +62,7 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # get a list of users
+kubectl config get-contexts                          # display list of contexts 
 kubectl config current-context			               # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
