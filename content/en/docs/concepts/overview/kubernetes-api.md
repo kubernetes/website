@@ -11,7 +11,7 @@ card:
 
 {{% capture overview %}}
 
-Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/api-conventions.md).
+Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
 API endpoints, resource types and samples are described in [API Reference](/docs/reference).
 
