@@ -576,7 +576,7 @@ as the string `Default`.
 
 The only other ProcMountType is `UnmaskedProcMount`, which bypasses the
 default masking behavior of the container runtime and ensures the newly
-created /proc the container stays in tact with no modifications. This is
+created /proc the container stays intact with no modifications. This is
 denoted as the string `Unmasked`.
 
 ### AppArmor
