@@ -808,7 +808,7 @@ will be routed to one of the service endpoints. `externalIPs` are not managed by
 of the cluster administrator.
 
 In the `ServiceSpec`, `externalIPs` can be specified along with any of the `ServiceTypes`.
-In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10:80`"" (`externalIP:port`)
+In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10:80`" (`externalIP:port`)
 
 ```yaml
 kind: Service

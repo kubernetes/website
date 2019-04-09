@@ -46,7 +46,7 @@ for namespaces](/docs/admin/namespaces).
 You can list the current namespaces in a cluster using:
 
 ```shell
-kubectl get namespaces
+kubectl get namespace
 ```
 ```
 NAME          STATUS    AGE

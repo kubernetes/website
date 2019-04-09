@@ -21,7 +21,7 @@ The Kubernetes platform can now be used to run both Linux and Windows containers
 ## Before you begin
 
 * Obtain a [Windows Server license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) in order to configure the Windows node that hosts Windows containers. You can use your organization's licenses for the cluster, or acquire one from Microsoft, a reseller, or via the major cloud providers such as GCP, AWS, and Azure by provisioning a virtual machine running Windows Server through their marketplaces. A [time-limited trial](https://www.microsoft.com/en-us/cloud-platform/windows-server-trial) is also available.
-* Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Getting Started from Scratch](/docs/setup/scratch/), [kubeadm](/docs/setup/independent/create-cluster-kubeadm/), [AKS Engine](/docs/setup/turnkey/azure/), [GCE](/docs/setup/turnkey/gce/), [AWS](/docs/setup/turnkey/aws/)).
+* Build a Linux-based Kubernetes cluster in which you have access to the control plane (some examples include [Getting Started from Scratch](/docs/setup/release/building-from-source/), [kubeadm](/docs/setup/independent/create-cluster-kubeadm/), [AKS Engine](/docs/setup/turnkey/azure/), [GCE](/docs/setup/turnkey/gce/), [AWS](/docs/setup/turnkey/aws/)).
 
 ## Getting Started: Adding a Windows Node to Your Cluster
 
