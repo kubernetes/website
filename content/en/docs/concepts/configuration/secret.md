@@ -306,7 +306,7 @@ username.txt:    5 bytes
 ```
 
 For example, to generate a Secret from literals `username=admin` and `password=secret`,
-you can specify the secret generator in `kusotmization.yaml` as
+you can specify the secret generator in `kustomization.yaml` as
 ```shell
 # Create a kustomization.yaml file with SecretGenerator
 $ cat <<EOF >./kustomization.yaml

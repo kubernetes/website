@@ -1,6 +1,10 @@
 ---
 title: Construire une release
 content_template: templates/concept
+card:
+  name: download
+  weight: 20
+  title: Construire une release
 ---
 {{% capture overview %}}
 Vous pouvez soit compiler une version à partir des sources, soit télécharger une version pré-compilée.  Si vous ne 

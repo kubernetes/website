@@ -276,7 +276,7 @@ Beware.
 ### Katacoda Embedded Live Environment
 
 This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel). 
-It lowers the barier of entry by allowing users to use Minikube with one click instead of going through the complete 
+It lowers the barrier of entry by allowing users to use Minikube with one click instead of going through the complete 
 Minikube and Kubectl installation process locally.
 
 The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window 

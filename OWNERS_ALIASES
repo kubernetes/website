@@ -18,6 +18,12 @@ aliases:
     - chuckha
     - detiber
     - dixudx
+  sig-docs-de-owners: # Admins for German content
+    - bene2k1
+    - rlenferink
+  sig-docs-de-reviews: # PR reviews for German content
+    - bene2k1
+    - rlenferink
   sig-docs-en-owners: # Admins for English content
     - bradamant3
     - bradtopol
@@ -42,11 +48,18 @@ aliases:
     - stewart-yu
     - xiangpengzhao
     - zhangxiaoyu-zidif
+  sig-docs-es-owners: # Admins for Spanish content
+    - raelga
+    - alexbrand
+  sig-docs-es-reviews: # PR reviews for Spanish content
+    - raelga
+    - alexbrand
+    - glo-pena
+    - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
-    - sieben
+    - remyleone
     - perriea
     - rekcah78
-    - lledru
     - yastij
     - smana
     - rbenzair
@@ -56,10 +69,9 @@ aliases:
     - awkif
     - oussemos
   sig-docs-fr-reviews: # PR reviews for French content
-    - sieben
+    - remyleone
     - perriea
     - rekcah78
-    - lledru
     - yastij
     - smana
     - rbenzair
@@ -70,11 +82,9 @@ aliases:
     - oussemos
   sig-docs-it-owners: # Admins for Italian content
     - rlenferink
-    - lledru
     - micheleberardi
   sig-docs-it-reviews: # PR reviews for Italian content
     - rlenferink
-    - lledru
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content 
     - cstoku
@@ -134,4 +144,3 @@ aliases:
     - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
-  
