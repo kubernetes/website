@@ -57,7 +57,7 @@ aliases:
     - glo-pena
     - electrocucaracha
   sig-docs-fr-owners: # Admins for French content
-    - sieben
+    - remyleone
     - perriea
     - rekcah78
     - yastij
@@ -69,7 +69,7 @@ aliases:
     - awkif
     - oussemos
   sig-docs-fr-reviews: # PR reviews for French content
-    - sieben
+    - remyleone
     - perriea
     - rekcah78
     - yastij
