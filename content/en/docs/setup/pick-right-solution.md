@@ -163,7 +163,7 @@ few commands.
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
-* [Kublr](www.kublr.com/kubernetes.io/setup-hosted-solution)
+* [Kublr](https://kublr.com/)
 * [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)
 * [Nirmata](https://nirmata.com/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
@@ -194,7 +194,7 @@ These solutions are combinations of cloud providers and operating systems not co
 
 * [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [Gardener](https://gardener.cloud/)
-* [Kublr](www.kublr.com/kubernetes.io/setup-hosted-solution)
+* [Kublr](https://kublr.com/)
 * [Kubernetes on Ubuntu](https://www.ubuntu.com/kubernetes/docs/quickstart)
 * [Kubespray](/docs/setup/custom-cloud/kubespray/)
 * [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
