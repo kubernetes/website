@@ -19,8 +19,7 @@ les kubelets pour indiquer à chaque conteneur d'utiliser l'adresse IP du servic
 
 ### Quels composants obtiennent des noms DNS?
 
-Chaque service défini dans le cluster (y compris le serveur DNS lui-même) a nom DNS. Par défaut, la liste de recherche DNS du client d'un pod
-inclura le namespace (espace de nommage) du pod et le domaine par défaut du cluster. C'est mieux
+Chaque service défini dans le cluster (y compris le serveur DNS lui-même) a un nom DNS. Par défaut, la liste de recherche DNS du client d'un pod inclura le namespace (espace de nommage) du pod et le domaine par défaut du cluster. C'est mieux
 illustré par un exemple :
 
 Supposons un service nommé `foo` dans le namespace Kubernetes `bar`. Un pod en cours d'exécution dans le namespace `bar` peut rechercher ce service en faisant simplement une requête DNS "foo". Un pod qui tourne dans le namespace `quux` peut rechercher ce service en effectuant une requête DNS `foo.bar`.
@@ -34,9 +33,9 @@ Pour une spécification plus à jour, voir
 
 ### Enregistrement A
 
-Les services "normaux" (pas sans en-tête) se voient attribuer un enregistrement DNS A, et a un nom sous forme : `mon-service.mon-namespace.svc.cluster.local`. La résolution de ce nom donne l'adresse `ClusterIP` du service.
+Les services "normaux" (pas sans en-tête) se voient attribuer un enregistrement DNS A, et ont un nom sous la forme : `mon-service.mon-namespace.svc.cluster.local`. La résolution de ce nom donne l'adresse `ClusterIP` du service.
 
-Les Services "Headless" (ou sans en-tête, c'est à dire sans ClusterIP) aura également un enregistrement type A, donc un nom sous la forme : `mon-service.mon-namespace.svc.cluster.local`. Contrairement aux Services Normaux, cela résout l'ensemble des adresses IP des pods sélectionnés par le Service.
+Les Services "Headless" (ou sans en-tête, c'est à dire sans ClusterIP) auront également un enregistrement type A, donc un nom sous la forme : `mon-service.mon-namespace.svc.cluster.local`. Contrairement aux Services Normaux, cela résout l'ensemble des adresses IP des pods sélectionnés par le Service.
 On s'attend à ce que les clients consomment l'ensemble ou utilisent le standard de sélection round-robin de l'ensemble.
 
 ### Enregistrement SRV
@@ -60,11 +59,11 @@ Par exemple, un pod avec l’IP `1.2.3.4` dans le namespace (espace de nommage) 
 
 Actuellement, lorsqu'un pod est créé, son nom d'hôte a la valeur `metadata.name` du pod.
 
-La spécification du pod a un champ optionnel `hostname`, qui peut être utiliser pour spécifier la valeur du nom d'hôte du pod. Quand c'est spécifié, ce dernier a la priorité sur le nom du pod. Par exemple, si un pod avec un `hostname` qui a comme valeur "`mon-hôte`", son nom d'hôte sera "`mon-hôte`".
+La spécification du pod a un champ optionnel `hostname`, qui peut être utilisé pour spécifier la valeur du nom d'hôte du pod. Quand c'est spécifié, ce dernier a la priorité sur le nom du pod. Par exemple, si un pod a un `hostname` ayant la valeur "`mon-hote`", son nom d'hôte sera "`mon-hote`".
 
-La spécification du pod a également un champ optionnel `subdomain` qui peut être utiliser pour spécifier son sous-domaine. Par exemple, un pod avec une valeur "`foo`" du champ `hostname` et une valeur "` bar`" du champ `subdomain`, dans le namespace "`mon-namespace`", aura un nom de domaine (FQDN) "`foo.bar.mon-namespace.svc.cluster.local`".
+La spécification du pod a également un champ optionnel `subdomain` qui peut être utilisé pour spécifier son sous-domaine. Par exemple, un pod avec une valeur "`foo`" du champ `hostname` et une valeur "`bar`" du champ `subdomain`, dans le namespace "`mon-namespace`", aura un nom de domaine (FQDN) "`foo.bar.mon-namespace.svc.cluster.local`".
 
-Example:
+Exemple : 
 
 ```yaml
 apiVersion: v1
