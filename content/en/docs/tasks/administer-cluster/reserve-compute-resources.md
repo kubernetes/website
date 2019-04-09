@@ -196,7 +196,7 @@ recommendation is to enforce `system-reserved` only if a user has profiled their
 nodes exhaustively to come up with precise estimates and is confident in their
 ability to recover if any process in that group is oom_killed.
 
-* To begin with enforce `Allocatable` on `pods`.
+* To begin with enforcing `Allocatable` on `pods`.
 * Once adequate monitoring and alerting is in place to track kube system
   daemons, attempt to enforce `kube-reserved` based on usage heuristics.
 * If absolutely necessary, enforce `system-reserved` over time.
