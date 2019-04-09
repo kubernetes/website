@@ -1,5 +1,5 @@
 ---
-title: 参与贡献
+title: 开始贡献
 slug: start
 content_template: templates/concept
 weight: 10
@@ -7,6 +7,18 @@ card:
   name: contribute
   weight: 10
 ---
+
+<!--
+---
+title: start contributing
+slug: start
+content_template: templates/concept
+weight: 10
+card:
+  name: contribute
+  weight: 10
+---
+-->
 
 {{% capture overview %}}
 
@@ -53,7 +65,7 @@ Not all tasks can be done in the Github UI, but these are discussed in the
 [intermediate](/docs/contribute/intermediate/) and
 [advanced](/docs/contribute/advanced/) docs contribution guides.
  -->
-并非所有的任务都可以通过 Github UI 完成，这些任务会在 [中级](/docs/contribute/intermediate/) 和 [高级](/docs/contribute/advanced/) 文档贡献指南中讨论。
+并非所有的任务都可以通过 Github UI 完成，这些任务会在[中级](/docs/contribute/intermediate/)和[高级](/docs/contribute/advanced/)文档贡献指南中讨论。
 
 <!--
 ### Participating in SIG Docs
@@ -67,7 +79,7 @@ weekly video meetings. New participants are welcome. For more information, see
 [Participating in SIG Docs](/docs/contribute/participating/).
  -->
 Kubernetes 文档是由特别兴趣小组（SIG）维护的，该小组名为 SIG Docs。我们通过 Slack 频道、邮件列表和网络视频周会进行交流。
-欢迎新的参与者加入。更多信息，请参考[参与 SIG Docs](/docs/contribute/participating/。
+欢迎新的参与者加入。更多信息，请参考[参与 SIG Docs](/docs/contribute/participating/)。
 
 <!--
 ### Style guidelines
@@ -89,8 +101,8 @@ or addition, [add it to the agenda](https://docs.google.com/document/d/1Ds87eRiN
 discussion. See the [advanced contribution](/docs/contribute/advanced/) topic for more
 information.
  -->
-风格的变化是由 SIG Docs 组共同决定的。如您想提交变更或增加内容，请将内容 [添加到议题](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#) 并参与会议讨论。
-更多信息，参见 [进阶贡献](/docs/contribute/advanced/) 主题。
+风格的变化是由 SIG Docs 组共同决定的。如您想提交变更或增加内容，请将内容[添加到议题](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#)并参与会议讨论。
+更多信息，参见[进阶贡献](/docs/contribute/advanced/)主题。
 
 <!--
 ### Page templates
@@ -102,7 +114,7 @@ We use page templates to control the presentation of our documentation pages.
 Be sure to understand how these templates work by reviewing
 [Using page templates](/docs/contribute/style/page-templates/).
  -->
-我们使用页面模板来控制文档页面。需要确保您理解这些模版是如何工作的，请阅读 [使用页面模板](/docs/contribute/style/page-templates/)。
+我们使用页面模板来控制文档页面。需要确保您理解这些模版是如何工作的，请阅读[使用页面模板](/docs/contribute/style/page-templates/)。
 
 <!--
 ### Hugo shortcodes
@@ -116,7 +128,7 @@ the Kubernetes documentation. See [Custom Hugo shortcodes](/docs/contribute/styl
 information about how to use them.
  -->
 Kubernetes 文档使用 Hugo 将 Markdown 转换成 HTML。我们使用标准的 Hugo 短代码，同时也会有部分为 Kubernetes 定制化的代码。
-有关如何使用短代码的信息，请参见 [自定义 Hugo 短代码](/docs/contribute/style/hugo-shortcodes/)。
+有关如何使用短代码的信息，请参见[自定义 Hugo 短代码](/docs/contribute/style/hugo-shortcodes/)。
 
 <!--
 ### Multiple languages
@@ -131,12 +143,12 @@ Documentation source is available in multiple languages in `/content/`. Each lan
 <!--
 For more information about contributing to documentation in multiple languages, see ["Localize content"](/docs/contribute/intermediate#localize-content) in the intermediate contributing guide.
  -->
-更多关于对多语言文档做贡献的信息，请参考中级贡献指南中的 ["本地化内容"](/docs/contribute/intermediate#localize-content)。
+更多关于对多语言文档做贡献的信息，请参考中级贡献指南中的["本地化内容"](/docs/contribute/intermediate#localize-content)。
 
 <!--
 If you're interested in starting a new localization, see ["Localization"](/docs/contribute/localization/).
  -->
-如果您有兴趣开始一个新的本地化语言项目，请参考 ["本地化"](/docs/contribute/localization/)。
+如果您有兴趣开始一个新的本地化语言项目，请参考["本地化"](/docs/contribute/localization/)。
 
 <!--
 ## File actionable issues
@@ -151,9 +163,9 @@ rule is a tiny bug like a typo that you intend to fix yourself. In that case,
 you can instead [fix it](#improve-existing-content) without filing a bug first.
  -->
 任何用于 Github 账号的人都能对于 Kubernetes 文档登记一个问题（或者 bug 报告）。
-如果看到有东西坏了，即便您不知道如何修复它，请 [登记一个问题](#how-to-file-an-issue)。
+如果看到有东西坏了，即便您不知道如何修复它，请[登记一个问题](#how-to-file-an-issue)。
 除了您发现微小的错误的情况，例如发现了一个拼写错误，您想自己进行修复。在这种情况下，
-您可以 [修复它](#improve-existing-content)，而不用先登记一个 bug。
+您可以[修复它](#improve-existing-content)，而不用先登记一个 bug。
 
 <!--
 ### How to file an issue
@@ -171,7 +183,7 @@ you can instead [fix it](#improve-existing-content) without filing a bug first.
     you are not currently logged in to Github, log in. A Github issue form
     appears with some pre-populated content.
  -->
-    如果您在已有的 [Kubernetes 文档](/docs/) 页面，在页面底部直接点击 **创建问题** 按钮。
+    如果您在已有的 [Kubernetes 文档](/docs/)页面，在页面底部直接点击 **创建问题** 按钮。
     如果您当前未登录 Github，那么请登录。Github 文档表单会带着预填的信息出现。
 
 <!--
@@ -282,10 +294,10 @@ because you can do everything using your web browser. When you continue to the
 [intermediate docs contributor guide](/docs/contribute/intermediate/), you will
 need more background in Git terminology.
  -->
-要改进现有的内容，您可以在创建 _fork_ 之后起草一个 _拉取请求（PR）_。
+要改进现有的内容，您可以在创建 _fork_ 之后起草一个 _拉取请求（PR）_ 。
 这两个术语是 [Github 专用的](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/)。
 出于本主题的目的，您无需了解有关它们的所有信息，因为您可以通过浏览器做所有的事情。
-当您继续阅读 [贡献者中级指南](/docs/contribute/intermediate/)，您会需要更多 Git 术语的背景知识。
+当您继续阅读[贡献者中级指南](/docs/contribute/intermediate/)，您会需要更多 Git 术语的背景知识。
 
 <!--
 {{< note >}}
@@ -297,7 +309,7 @@ process guidelines and information about deadlines.
  -->
 {{< note >}}
 **Kubernetes 代码开发者**: 如果您在撰写 Kubernetes 新版本的新功能文档，流程会稍有不同。
-关于流程指南和最后期限的信息，请参阅 [编写功能文档](/docs/contribute/intermediate/#sig-members-documenting-new-features)。
+关于流程指南和最后期限的信息，请参阅[编写功能文档](/docs/contribute/intermediate/#sig-members-documenting-new-features)。
 {{< /note >}}
 
 <!--
@@ -311,8 +323,8 @@ the [Contributor guide](https://github.com/kubernetes/community/blob/master/cont
 [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 Don't worry -- this doesn't take long!
  -->
-在贡献 Kubernetes 的代码或文档前，您 **必须** 阅读 [贡献者指南](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)，
-并 [签署贡献者许可协议（CLA）](https://github.com/kubernetes/community/blob/master/CLA.md)。
+在贡献 Kubernetes 的代码或文档前，您 **必须** 阅读[贡献者指南](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)，
+并[签署贡献者许可协议（CLA）](https://github.com/kubernetes/community/blob/master/CLA.md)。
 别担心 -- 不需要太多时间！
 
 <!--
@@ -325,7 +337,7 @@ If you see something you want to fix right away, just follow the instructions
 below. You don't need to [file an issue](#file-actionable-issues) (although you
 certainly can).
  -->
-如果您发现了一些想要马上修复的东西，只需要遵循如下指南。您不需要 [记录一个问题](#file-actionable-issues)（尽管你当然可以这么做）。
+如果您发现了一些想要马上修复的东西，只需要遵循如下指南。您不需要[记录一个问题](#file-actionable-issues)（尽管你当然可以这么做）。
 
 <!--
 If you want to start by finding an existing issue to work on, go to
@@ -337,7 +349,7 @@ working on the issue recently (3 days is a good rule). Leave a comment saying
 that you would like to work on the issue.
  -->
 如果您想从处理现有的问题开始，前往 [https://github.com/kubernetes/website/issues](https://github.com/kubernetes/website/issues)
-找一些有 `good first issue` 标签的问题（您可以使用 [这个](https://github.com/kubernetes/website/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) 捷径)。
+找一些有 `good first issue` 标签的问题（您可以使用[这个](https://github.com/kubernetes/website/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) 捷径)。
 阅读评论，确保针对此问题没有打开的 PR，并且没有人留言说他们最近正在解决这个问题（3天是个很好的规则）。留言说您会去解决这个问题。
 
 <!--
@@ -475,7 +487,7 @@ Github 网站会检查到您推送了一个新分支到 fork，并提示创建 P
     Congratulations! Your pull request is available in
     [Pull requests](https://github.com/kubernetes/website/pulls).
  -->
-    祝贺您！您的 PR 就出现在了 [拉取请求](https://github.com/kubernetes/website/pulls) 中。
+    祝贺您！您的 PR 就出现在了[拉取请求](https://github.com/kubernetes/website/pulls) 中。
 
 <!--
     After a few minutes, you can preview the website with your PR's changes
@@ -512,7 +524,7 @@ client are discussed in the [intermediate](/docs/contribute/intermediate/) docs
 contribution guide.
  -->
 这是提交 PR 的唯一方式。如果您已经是一名 Git 和 Github 的高级用户，您也可以使用本地 GUI 或者
-Git 命令行。关于使用 Git 客户端的基础会在 [中级](/docs/contribute/intermediate/) 贡献者指南中讨论。
+Git 命令行。关于使用 Git 客户端的基础会在[中级](/docs/contribute/intermediate/) 贡献者指南中讨论。
 
 <!--
 ## Review docs pull requests
@@ -551,7 +563,8 @@ conventions and etiquette and get used to the workflow.
 2.  默认情况下，使用的筛选器是 `open`，所以您不会看见已经关闭或合并的 PR。
     最好使用 `cncf-cla: yes` 筛选器，并且对于第一次复审来说，最好加上 `size/S`
     或者 `size/XS`。`size` 标签会根据 PR 修改的代码行数自动生成。
-    您可以通过页面顶端的选择框应用筛选器，或者使用 [这个捷径](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+yes%22+label%3Asize%2FS)
+    您可以通过页面顶端的选择框应用筛选器，或者使用
+    [这个捷径](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+yes%22+label%3Asize%2FS)
     来查找所有小型 PR。所有筛选条件都是 `与` 的，所以您不能在一次查询中同时查找 `size/XS` 和 `size/S` 的结果。
 
 <!--
@@ -626,7 +639,7 @@ or follow the steps below.
     scheduled for publication.
  -->
 1.  [签署 CLA](#sign-the-cla)，如果您还未签署的话。
-2.  查看现有博客文章的 Markdown 格式，位于 [网站代码仓库](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts)。
+2.  查看现有博客文章的 Markdown 格式，位于[网站代码仓库](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts)。
 3.  在您选择的文本编辑器中写下您的博客文章。
 4.  在步骤 2 的相同链接中，点击 **Create new file（创建新文件）** 按钮。
     将您的内容粘贴到编辑器中。将文件命名为与博客文章的标题的名称，
@@ -653,7 +666,7 @@ Have a look at the source for the
 Use the [Kubernetes case study submission form](https://www.cncf.io/people/end-user-community/)
 to submit your proposal.
  -->
-看一下 [现有案例研究](https://github.com/kubernetes/website/tree/master/content/en/case-studies) 的源码。
+看一下[现有案例研究](https://github.com/kubernetes/website/tree/master/content/en/case-studies) 的源码。
 使用 [Kubernetes 案例研究提交表](https://www.cncf.io/people/end-user-community/) 提交您的提案。
 
 {{% /capture %}}
@@ -666,6 +679,6 @@ want to engage with the Kubernetes docs team in deeper ways, read the
 [intermediate docs contribution guide](/docs/contribute/intermediate/).
  -->
 当您对本主题中讨论的所有任务感到满意，并且您希望以更深入的方式与 Kubernetes 文档团队合作，
-请阅读 [中级贡献者指南](/docs/contribute/intermediate/)。
+请阅读[中级贡献者指南](/docs/contribute/intermediate/)。
 
 {{% /capture %}}
