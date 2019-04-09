@@ -12,7 +12,7 @@ card:
 ---
 
 {{% capture overview %}}
-Usa la herramienta de línea de comandos de Kubernetes, [kubectl](/docs/user-guide/kubectl/), para desplegar y gestionar aplicaciones en Kubernetes. Usando kubectl, puedes inspeccionar recursos del clúster; crear, eliminar, y actualizar componentes; mirar tu nuevo clúster; y arrancar aplicaciones de ejemplo.
+Usa la herramienta de línea de comandos de Kubernetes, [kubectl](/docs/user-guide/kubectl/), para desplegar y gestionar aplicaciones en Kubernetes. Usando kubectl, puedes inspeccionar recursos del clúster; crear, eliminar, y actualizar componentes; explorar tu nuevo clúster; y arrancar aplicaciones de ejemplo.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -24,7 +24,7 @@ Debes usar una versión de kubectl que esté a menos de una versión menor de di
 
 ## Instalar kubectl
 
-Aquí hay unos pocos métodos para instalar kubectl.
+Estos son algunos métodos para instalar kubectl.
 
 ## Instalar el binario de kubectl usando gestión nativa de paquetes
 
@@ -52,7 +52,7 @@ yum install -y kubectl
 
 ## Instalar con snap en Ubuntu
 
-Si estás en Ubuntu o alguna de las otras distribuciones de Linux que soportan el gestor de paquetes [snap](https://snapcraft.io/docs/core/install), kubectl está disponible como una aplicación [snap](https://snapcraft.io/).
+Si usas Ubuntu o alguna de las otras distribuciones de Linux que soportan el gestor de paquetes [snap](https://snapcraft.io/docs/core/install), kubectl está disponible como una aplicación [snap](https://snapcraft.io/).
 
 1. Cambia al usuario de snap y ejecuta el comando de instalación:
 
@@ -60,7 +60,7 @@ Si estás en Ubuntu o alguna de las otras distribuciones de Linux que soportan e
     sudo snap install kubectl --classic
     ```
 
-2. Prueba para asegurar que la versión que has instalado está suficientemente actualizada (puesta al día):
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
     ```
     kubectl version
@@ -68,7 +68,7 @@ Si estás en Ubuntu o alguna de las otras distribuciones de Linux que soportan e
 
 ## Instalar con Homebrew en macOS
 
-Si estás en macOS y usando el gestor de paquetes [Homebrew](https://brew.sh/), puedes instalar kubectl con Homebrew.
+Si estás usando macOS y el gestor de paquetes es [Homebrew](https://brew.sh/), puedes instalar kubectl con Homebrew.
 
 1. Ejecuta el comando de instalación:
 
@@ -76,7 +76,7 @@ Si estás en macOS y usando el gestor de paquetes [Homebrew](https://brew.sh/), 
     brew install kubernetes-cli
     ```
 
-2. Prueba para asegurar que la versión que has instalado está suficientemente actualizada (puesta al día):
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
     ```
     kubectl version
@@ -93,7 +93,7 @@ Si estás en macOS y usando el gestor de paquetes [Macports](https://macports.or
     sudo port install kubectl
     ```
     
-2. Prueba para asegurar que la versión que has instalado está suficientemente actualizada (puesta al día):
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
     ```
     kubectl version
@@ -110,11 +110,11 @@ Si estás en Windows y usando el gestor de paquetes [Powershell Gallery](https:/
     install-kubectl.ps1 [-DownloadLocation <path>]
     ```
     
-    {{< note >}}Si no especificas una `DownloadLocation`, `kubectl` se instalará en el dicrectorio temporal del usuario.{{< /note >}}
+    {{< note >}}Si no especificas una `DownloadLocation`, `kubectl` se instalará en el directorio temporal del usuario.{{< /note >}}
     
-    El instalador crea `$HOME/.kube` e instruye a crear un fichero de configuración
+    El instalador crea `$HOME/.kube` y crea un archivo de configuración
 
-2. Prueba para asegurar que la versión que has instalado está suficientemente actualizada (puesta al día):
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
     ```
     kubectl version
@@ -137,7 +137,7 @@ Para instalar kubectl en Windows puedes usar bien el gestor de paquetes [Chocola
 
 {{% /tab %}}
 {{< /tabs >}}
-2. Prueba para asegurar que la versión que has instalado está suficientemente actualizada (puesta al día):
+2. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
     ```
     kubectl version
@@ -179,7 +179,7 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
     gcloud components install kubectl
     ```
     
-3. Prueba para asegurar que la versión que has instalado está suficientemente actualizada (puesta al día):
+3. Para asegurar que la versión utilizada sea la más actual puedes probar:
 
     ```
     kubectl version
@@ -195,7 +195,7 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
     ```
 
-    Para descargar una versión específica, remplaza el trozo del comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
+    Para descargar una versión específica, remplaza el comando `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` con la versión específica.
 
     Por ejemplo, para descargar la versión {{< param "fullversion" >}} en macOS, teclea:
 		  
@@ -262,7 +262,7 @@ Puedes instalar kubectl como parte del Google Cloud SDK.
 
 ## Configurar kubectl
 
-Para que kubectl pueda encontrar y acceder a un clúster de Kubernetes, necesita un [fichero kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), que se crea de forma automática cuando creas un clúster usando kube-up.sh o despliegas de forma satisfactoria un clúster de Minikube. Mira las [guías para comenzar](/docs/setup/) para más información acerca de crear clústers. Si necesitas acceso a un clúster que no has creado, ver el [documento de Compartir Acceso a un Clúster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+Para que kubectl pueda encontrar y acceder a un clúster de Kubernetes, necesita un [fichero kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), que se crea de forma automática cuando creas un clúster usando kube-up.sh o despliegas de forma satisfactoria un clúster de Minikube. Revisa las [guías para comenzar](/docs/setup/) para más información acerca de crear clústers. Si necesitas acceso a un clúster que no has creado, ver el [documento de Compartir Acceso a un Clúster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 Por defecto, la configuración de kubectl se encuentra en `~/.kube/config`.
 
 ## Comprobar la configuración kubectl
