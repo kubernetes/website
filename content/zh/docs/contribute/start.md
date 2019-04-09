@@ -666,8 +666,8 @@ Have a look at the source for the
 Use the [Kubernetes case study submission form](https://www.cncf.io/people/end-user-community/)
 to submit your proposal.
  -->
-看一下[现有案例研究](https://github.com/kubernetes/website/tree/master/content/en/case-studies) 的源码。
-使用 [Kubernetes 案例研究提交表](https://www.cncf.io/people/end-user-community/) 提交您的提案。
+看一下[现有案例研究](https://github.com/kubernetes/website/tree/master/content/en/case-studies)的源码。
+使用 [Kubernetes 案例研究提交表](https://www.cncf.io/people/end-user-community/)提交您的提案。
 
 {{% /capture %}}
 
