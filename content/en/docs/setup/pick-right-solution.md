@@ -137,6 +137,7 @@ few commands. These solutions are actively developed and have active community s
 * [Giant Swarm](https://giantswarm.io)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
+* [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://cloud.kubermatic.io)
 * [Kublr](https://kublr.com/)
