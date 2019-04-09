@@ -69,6 +69,8 @@ cluster.
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) is a Terraform/Packer/BASH based Infrastructure as Code (IaC) scripts to create a seven node (1 Boot, 1 Master, 1 Management, 1 Proxy and 3 Workers) LXD cluster on  Linux Host.
 
+* [k3s](https://k3s.io) is a lightweight production-grade kubernetes distribution.  With a super-simple installation process and a binary foot print around 40MB, it is ideal for local-machine developent.
+
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
 ## Hosted Solutions
@@ -161,6 +163,7 @@ few commands.
 * [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
 * [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
+* [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
 * [Kublr](www.kublr.com/kubernetes.io/setup-hosted-solution)
@@ -219,6 +222,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
+* [k3s](https://k3s.io)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/) works on any infrastructure: on-premises, bare metal, or private/hybrid cloud.
@@ -282,6 +286,7 @@ Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) |             
 oVirt                |              |        |             | [docs](/docs/setup/on-premises-vm/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
 Platform9            |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
 Rackspace            | custom       | CoreOS | flannel/calico/canal     | [docs](https://developer.rackspace.com/docs/rkaas/latest/)      |  [Commercial](https://www.rackspace.com/managed-kubernetes)
+Rancher
 Red Hat OpenShift    | Ansible & CoreOS | RHEL & CoreOS   | [multi-support](https://docs.openshift.com/container-platform/3.11/architecture/networking/network_plugins.html) | [docs](https://docs.openshift.com/container-platform/3.11/welcome/index.html) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
