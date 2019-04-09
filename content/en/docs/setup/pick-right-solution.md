@@ -69,7 +69,7 @@ cluster.
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) is a Terraform/Packer/BASH based Infrastructure as Code (IaC) scripts to create a seven node (1 Boot, 1 Master, 1 Management, 1 Proxy and 3 Workers) LXD cluster on  Linux Host.
 
-* [k3s](https://k3s.io) is a lightweight production-grade kubernetes distribution.  With a super-simple installation process and a binary foot print around 40MB, it is ideal for local-machine developent.
+* [k3s](https://k3s.io) is a lightweight production-grade Kubernetes distribution.  With a super-simple installation process and a binary foot print around 40MB, it is ideal for local-machine development.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
@@ -287,7 +287,6 @@ Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) |             
 oVirt                |              |        |             | [docs](/docs/setup/on-premises-vm/ovirt/)                                  |  Community ([@simon3z](https://github.com/simon3z))
 Platform9            |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
 Rackspace            | custom       | CoreOS | flannel/calico/canal     | [docs](https://developer.rackspace.com/docs/rkaas/latest/)      |  [Commercial](https://www.rackspace.com/managed-kubernetes)
-Rancher
 Red Hat OpenShift    | Ansible & CoreOS | RHEL & CoreOS   | [multi-support](https://docs.openshift.com/container-platform/3.11/architecture/networking/network_plugins.html) | [docs](https://docs.openshift.com/container-platform/3.11/welcome/index.html) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
