@@ -17,7 +17,7 @@ content_template: templates/task
 <!--
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).
 -->
-Kubernetes 附带了一个默认调度器，其详细描述请查阅[这里](zh/docs/reference/command-line-tools-reference/kube-scheduler/)。
+Kubernetes 自带了一个默认调度器，其详细描述请查阅[这里](/docs/reference/command-line-tools-reference/kube-scheduler/)。
 <!--
 If the default scheduler does not suit your needs you can implement your own scheduler.
 -->
