@@ -100,7 +100,7 @@ Now that we have our scheduler in a container image, we can just create a pod co
 -->
 现在我们将调度器放在容器镜像中，我们可以为它创建一个 pod 配置，并在我们的 Kubernetes 集群中运行它。
 但是与其在集群中直接创建一个 pod，不如使用 [Deployment](/docs/concepts/workloads/controllers/deployment/)。
-[Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 管理一个 [Replica Set](/zh/docs/concepts/workloads/controllers/replicaset/)，Replica Set 再管理 pod，从而使调度器能够适应故障。
+[Deployment](/docs/concepts/workloads/controllers/deployment/) 管理一个 [Replica Set](/docs/concepts/workloads/controllers/replicaset/)，Replica Set 再管理 pod，从而使调度器能够适应故障。
 以下是 Deployment 配置，被保存为 `my-scheduler.yaml`：
 
 {{< codenew file="admin/sched/my-scheduler.yaml" >}}
