@@ -52,7 +52,7 @@ The `Retain` policy allows for manual reclamation of the resource. If a `VolumeS
 
 ### Delete
 
-A `Delete` policy enables automatic deletion of the bound `VolumeSnapshotContent` object from Kubernetes and the associated storage asset in the external infrastructure (such as an AWS EBS snapshot or GCE PD snapshot, etc.). Snapshots that are dynamically provisioned inherit the deletion policy of their [`VolumeSnapshotClass`](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/), which defaults to `Delete`. The administrator should configure the `VolumeSnapshotClass` with the desired retention policy. The policy may be changed for individual `VolumeSnapshotContent` after it is created by patching the object.
+A `Delete` policy enables automatic deletion of the bound `VolumeSnapshotContent` object from Kubernetes and the associated storage asset in the external infrastructure (such as an AWS EBS snapshot or GCE PD snapshot, etc.). Snapshots that are dynamically provisioned inherit the deletion policy of their [`VolumeSnapshotClass`](/docs/concepts/storage/volume-snapshot-classes/), which defaults to `Delete`. The administrator should configure the `VolumeSnapshotClass` with the desired retention policy. The policy may be changed for individual `VolumeSnapshotContent` after it is created by patching the object.
 
 The following example demonstrates how to check the deletion policy of a dynamically provisioned `VolumeSnapshotContent`.
 

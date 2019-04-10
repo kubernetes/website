@@ -39,7 +39,7 @@ It takes around 10s to complete.
 You can run the example with this command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/job.yaml
+kubectl apply -f https://k8s.io/examples/controllers/job.yaml
 ```
 ```
 job "pi" created
@@ -108,7 +108,7 @@ $ kubectl logs $pods
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
 
-A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
@@ -249,7 +249,7 @@ spec:
       restartPolicy: Never
 ```
 
-Note that both the Job spec and the [Pod template spec](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
+Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
 
 ## Clean Up Finished Jobs Automatically
 

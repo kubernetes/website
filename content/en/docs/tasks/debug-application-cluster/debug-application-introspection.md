@@ -26,7 +26,7 @@ For this example we'll use a Deployment to create two pods, similar to the earli
 Create deployment by running following command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/nginx-with-request.yaml
+kubectl apply -f https://k8s.io/examples/application/nginx-with-request.yaml
 ```
 
 ```none
@@ -293,8 +293,8 @@ kubectl describe node kubernetes-node-861h
 ```none
 Name:			kubernetes-node-861h
 Role
-Labels:		 beta.kubernetes.io/arch=amd64
-           beta.kubernetes.io/os=linux
+Labels:		 kubernetes.io/arch=amd64
+           kubernetes.io/os=linux
            kubernetes.io/hostname=kubernetes-node-861h
 Annotations:        node.alpha.kubernetes.io/ttl=0
                     volumes.kubernetes.io/controller-managed-attach-detach=true

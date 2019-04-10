@@ -70,7 +70,7 @@ and the [code of conduct](/community/code-of-conduct/)
 To see all open PRs, go to the **Pull Requests** tab in the Github repository.
 A PR is eligible for review when it meets all of the following criteria:
 
-- Has the `cnf-cla:yes` tag
+- Has the `cncf-cla:yes` tag
 - Does not have WIP in the description
 - Does not a have tag including the phrase `do-not-merge`
 - Has no merge conflicts
@@ -348,7 +348,7 @@ After you decide which branch to start your work (or _base it on_, in Git
 terminology), use the following workflow to be sure your work is based on the
 most up-to-date version of that branch.
 
-1.  Fetch both the `upstream` and `origin` branches. This updates your local
+1.  Fetch both the `upstream` and `origin` remotes. This updates your local
     notion of what those branches contain, but does not change your local
     branches at all.
 

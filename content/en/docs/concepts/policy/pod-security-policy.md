@@ -156,7 +156,7 @@ Roles](/docs/reference/access-authn-authz/rbac/#controller-roles).
 In addition to restricting pod creation and update, pod security policies can
 also be used to provide default values for many of the fields that it
 controls. When multiple policies are available, the pod security policy
-controller selects policies in the following order:
+controller selects policies according to the following criteria:
 
 1. If any policies successfully validate the pod without altering it, they are
    used.
@@ -464,7 +464,7 @@ Please make sure [`volumes`](#volumes-and-file-systems) field contains the
 For example:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: allow-flex-volumes
@@ -576,7 +576,7 @@ as the string `Default`.
 
 The only other ProcMountType is `UnmaskedProcMount`, which bypasses the
 default masking behavior of the container runtime and ensures the newly
-created /proc the container stays in tact with no modifications. This is
+created /proc the container stays intact with no modifications. This is
 denoted as the string `Unmasked`.
 
 ### AppArmor
@@ -609,6 +609,6 @@ default cannot be changed.
 ### Sysctl
 
 Controlled via annotations on the PodSecurityPolicy. Refer to the [Sysctl documentation](
-/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy-annotations).
+/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
 {{% /capture %}}

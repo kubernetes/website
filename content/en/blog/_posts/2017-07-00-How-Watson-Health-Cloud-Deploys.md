@@ -47,7 +47,7 @@ Our clusters consist of one or more physical or virtual machines, also known as 
 
 
 
-A user makes a request to Kubernetes to deploy the containers, specifying the number of replicas required for high availability. The Kubernetes scheduler decides where the [pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/) (groups of one or more containers) will be scheduled and which worker nodes they will be deployed on, storing this information internally in Kubernetes and [etcd](https://github.com/coreos/etcd#etcd). The deployment of pods in worker nodes is updated based on load at runtime, optimizing the placement of pods in the cluster.
+A user makes a request to Kubernetes to deploy the containers, specifying the number of replicas required for high availability. The Kubernetes scheduler decides where the [pods](/docs/concepts/workloads/pods/pod/) (groups of one or more containers) will be scheduled and which worker nodes they will be deployed on, storing this information internally in Kubernetes and [etcd](https://github.com/coreos/etcd#etcd). The deployment of pods in worker nodes is updated based on load at runtime, optimizing the placement of pods in the cluster.
 
 
 
@@ -111,7 +111,7 @@ Deploying the application in IBM Cloud Kubernetes Service:
 
 
 
-Provision a cluster in IBM Cloud Kubernetes Service with \<x\> worker nodes. Create Kubernetes controllers for deploying the containers in worker nodes, the IBM Cloud Kubernetes Service infrastructure pulls the Docker images from IBM Cloud Container Registry to create containers. We tried deploying an application container and running a logmet agent (see Reading and displaying logs using logmet container, below) inside the containers that forwards the application logs to an IBM Cloud logging service. As part of the process, YAML files are used to create a controller resource for the UrbanCode Deploy (UCD). UCD agent is deployed as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) controller, which is used to connect to the UCD server. The whole process of deployment of application happens in UCD. To support the application for public access, we created a service resource to interact between pods and access container services. For storage support, we created persistent volume claims and mounted the volume for the containers.
+Provision a cluster in IBM Cloud Kubernetes Service with \<x\> worker nodes. Create Kubernetes controllers for deploying the containers in worker nodes, the IBM Cloud Kubernetes Service infrastructure pulls the Docker images from IBM Cloud Container Registry to create containers. We tried deploying an application container and running a logmet agent (see Reading and displaying logs using logmet container, below) inside the containers that forwards the application logs to an IBM Cloud logging service. As part of the process, YAML files are used to create a controller resource for the UrbanCode Deploy (UCD). UCD agent is deployed as a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) controller, which is used to connect to the UCD server. The whole process of deployment of application happens in UCD. To support the application for public access, we created a service resource to interact between pods and access container services. For storage support, we created persistent volume claims and mounted the volume for the containers.
 
 
 
@@ -138,7 +138,7 @@ Exposing services with Ingress:
 
 
 
-[Ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-controllers) are reverse proxies that expose services outside cluster through URLs. They act as an external HTTP load balancer that uses a unique public entry point to route requests to the application.
+[Ingress controllers](/docs/concepts/services-networking/ingress/#ingress-controllers) are reverse proxies that expose services outside cluster through URLs. They act as an external HTTP load balancer that uses a unique public entry point to route requests to the application.
 
 
 

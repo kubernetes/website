@@ -5,7 +5,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/) and running your tools inside the remote shell.
+Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](/docs/tasks/debug-application-cluster/get-shell-running-container/) and running your tools inside the remote shell.
 
 `telepresence` is a tool to ease the process of developing and debugging services locally, while proxying the service to a remote Kubernetes cluster. Using `telepresence` allows you to use custom tools, such as a debugger and IDE, for a local service and provides the service full access to ConfigMap, secrets, and the services running on the remote cluster.
 
@@ -57,5 +57,3 @@ Telepresence has [numerous proxying options](https://www.telepresence.io/referen
 For further reading, visit the [Telepresence website](https://www.telepresence.io).
 
 {{% /capture %}}
-
-

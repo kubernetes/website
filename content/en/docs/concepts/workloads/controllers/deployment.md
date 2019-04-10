@@ -40,7 +40,6 @@ The following are typical use cases for Deployments:
 * [Use the status of the Deployment](#deployment-status) as an indicator that a rollout has stuck.
 * [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore.
 
-
 ## Creating a Deployment
 
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
@@ -74,7 +73,7 @@ In this example:
 To create this Deployment, run the following command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/nginx-deployment.yaml
+kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
@@ -172,10 +171,9 @@ Suppose that you now want to update the nginx Pods to use the `nginx:1.9.1` imag
 instead of the `nginx:1.7.9` image.
 
 ```shell
-kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment 
+kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
 ```
 ```
-nginx=nginx:1.9.1 
 image updated
 ```
 
@@ -457,7 +455,7 @@ kubectl rollout history deployment.v1.apps/nginx-deployment
 ```
 deployments "nginx-deployment"
 REVISION    CHANGE-CAUSE
-1           kubectl create --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
+1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
 2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
 3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
 ```
@@ -732,11 +730,15 @@ Eventually, resume the Deployment and observe a new ReplicaSet coming up with al
 ```shell
 kubectl rollout resume deployment.v1.apps/nginx-deployment
 ```
+
+```
 deployment.apps/nginx-deployment resumed
 ```
+
 ```shell
 kubectl get rs -w
 ```
+
 ```
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   2         2         2         2m

@@ -58,19 +58,29 @@ kubectl config view # Show Merged kubeconfig settings.
 # use multiple kubeconfig files at the same time and view merged config
 KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
 
-# Get the password for the e2e user
+# get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config current-context              # Display the current-context
-kubectl config use-context my-cluster-name  # set the default context to my-cluster-name
+kubectl config view -o jsonpath='{.users[].name}'    # get a list of users
+kubectl config get-contexts                          # display list of contexts 
+kubectl config current-context			               # display the current-context
+kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new cluster to your kubeconf that supports basic auth
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
+# permanently save the namespace for all subsequent kubectl commands in that context.
+kubectl config set-context --current --namespace=ggckad-s2
+
 # set a context utilizing a specific username and namespace.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
+ 
+kubectl config unset users.foo                       # delete user foo
 ```
+
+## Apply
+`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
 ## Creating Objects
 
@@ -78,15 +88,15 @@ Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl create -f ./my-manifest.yaml           # create resource(s)
-kubectl create -f ./my1.yaml -f ./my2.yaml     # create from multiple files
-kubectl create -f ./dir                        # create resource(s) in all manifest files in dir
-kubectl create -f https://git.io/vPieo         # create resource(s) from url
+kubectl apply -f ./my-manifest.yaml           # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml     # create from multiple files
+kubectl apply -f ./dir                        # create resource(s) in all manifest files in dir
+kubectl apply -f https://git.io/vPieo         # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 kubectl explain pods,svc                       # get the documentation for pod and svc manifests
 
 # Create multiple YAML objects from stdin
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -113,7 +123,7 @@ spec:
 EOF
 
 # Create a secret with several keys
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -135,6 +145,8 @@ kubectl get pods --all-namespaces             # List all pods in all namespaces
 kubectl get pods -o wide                      # List all pods in the namespace, with more details
 kubectl get deployment my-dep                 # List a particular deployment
 kubectl get pods --include-uninitialized      # List all pods in the namespace, including uninitialized ones
+kubectl get pod my-pod -o yaml                # Get a pod's YAML
+kubectl get pod my-pod -o yaml --export       # Get a pod's YAML without cluster specific information
 
 # Describe commands with verbose output
 kubectl describe nodes my-node

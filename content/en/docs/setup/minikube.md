@@ -58,6 +58,7 @@ Starting local Kubernetes cluster...
 ```shell
 kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
 ```
+```
 deployment.apps/hello-minikube created
 ```
 
@@ -301,7 +302,7 @@ To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--ext
 ### Stopping a Cluster
 The `minikube stop` command can be used to stop your cluster.
 This command shuts down the Minikube Virtual Machine, but preserves all cluster state and data.
-Starting the cluster again will restore it to it's previous state.
+Starting the cluster again will restore it to its previous state.
 
 ### Deleting a Cluster
 The `minikube delete` command can be used to delete your cluster.

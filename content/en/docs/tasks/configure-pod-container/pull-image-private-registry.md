@@ -196,7 +196,7 @@ The `imagePullSecrets` field in the configuration file specifies that Kubernetes
 Create a Pod that uses your Secret, and verify that the Pod is running:
 
 ```shell
-kubectl create -f my-private-reg-pod.yaml
+kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 

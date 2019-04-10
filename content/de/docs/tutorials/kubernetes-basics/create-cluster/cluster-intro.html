@@ -1,0 +1,108 @@
+---
+title: Minikube zum Erstellen eines Clusters verwenden
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="de">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <h3>Ziele</h3>
+                <ul>
+                    <li>Erfahren Sie, was ein Kubernetes-Cluster ist.</li>
+                    <li>Erfahren Sie, was Minikube ist.</li>
+                    <li>Starten Sie einen Kubernetes-Cluster mit einem Online-Terminal.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Kubernetes Clusters</h3>
+                <p>
+                <b>Kubernetes koordiniert hochverfügbare Cluster von Computern, die miteinander verbunden sind, um als eine Einheit zu arbeiten.</b> Die Abstraktionen in Kubernetes ermöglichen es Ihnen, containerisierte Anwendungen in einem Cluster bereitzustellen, ohne sie spezifisch an einzelne Maschinen zu binden. Um dieses neue Bereitstellungsmodell nutzen zu können, müssen Anwendungen so gebündelt werden, dass sie von einzelnen Hosts entkoppelt werden: Sie müssen in Container verpackt werden. Containerisierte Anwendungen sind flexibler und verfügbarer als in früheren Bereitstellungsmodellen, bei denen Anwendungen direkt auf bestimmten Computern als tief in den Host integrierte Pakete installiert wurden. <b>Kubernetes automatisiert die Verteilung und Planung von Anwendungscontainern über einen Cluster hinweg auf effizientere Weise.</b> Kubernetes ist eine Open-Source-Plattform und produktionsreif.
+                </p>
+                <p>Ein Kubernetes-Cluster besteht aus zwei Arten von Ressourcen:
+                    <ul>
+                        <li>Der <b>Master</b> koordiniert den Cluster</li>
+                        <li><b>Nodes</ b> sind die Arbeiter, die Anwendungen ausführen</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Zusammenfassung:</h3>
+                    <ul>
+                        <li>Kubernetes-Cluster</li>
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>
+                        Kubernetes ist eine produktionsreife Open-Source-Plattform, die die Bereitstellung (scheduling) und Ausführung von Anwendungscontainern innerhalb und zwischen Computerclustern koordiniert.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Cluster-Diagramm</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><b>Der Master ist für die Verwaltung des Clusters verantwortlich.</b> Der Master koordiniert alle Aktivitäten in Ihrem Cluster, z. B. das Planen von Anwendungen, das Verwalten des gewünschten Status der Anwendungen, das Skalieren von Anwendungen und das Rollout neuer Updates.</p>
+                <p><b>Ein Node ist eine VM oder ein physischer Computer, der als Arbeitsmaschine in einem Kubernetes-Cluster dient.</b> Jeder Node verfügt über ein Kubelet, einen Agenten zur Verwaltung des Node und zur Kommunikation mit dem Kubernetes-Master. Der Node sollte auch über Werkzeuge zur Abwicklung von Containeroperationen verfügen, z. B. Docker oder rkt. Ein Kubernetes-Cluster, das den Produktionsverkehr abwickelt, sollte aus mindestens drei Nodes bestehen.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Master verwalten den Cluster und die Nodes werden zum Hosten der laufenden Anwendungen verwendet.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Wenn Sie Anwendungen auf Kubernetes bereitstellen, weisen Sie den Master an, die Anwendungscontainer zu starten. Der Master plant die Ausführung der Container auf den Nodes des Clusters. <b>Die Nodes kommunizieren über die Kubernetes-API mit dem Master</b>, die der Master bereitstellt. Endbenutzer können die Kubernetes-API auch direkt verwenden, um mit dem Cluster zu interagieren.</p>
+
+                <p>Ein Kubernetes-Cluster kann auf physischen oder virtuellen Maschinen bereitgestellt werden. Um mit der Entwicklung von Kubernetes zu beginnen, können Sie Minikube verwenden.  Minikube ist eine einfache Kubernetes-Implementierung, die eine VM auf Ihrem lokalen Computer erstellt und einen einfachen Cluster mit nur einem Knoten bereitstellt. Minikube ist für Linux-, MacOS- und Windows-Systeme verfügbar. Die Minikube-CLI bietet grundlegende Bootstrapping-Vorgänge für die Arbeit mit Ihrem Cluster, einschließlich Start, Stopp, Status und Löschen. Für dieses Lernprogramm verwenden Sie jedoch ein bereitgestelltes Online-Terminal mit vorinstalliertem Minikube.</p>
+
+                <p>Nun, da Sie wissen, was Kubernetes ist, schreiten wir zum Online-Tutorial und starten unseren ersten Cluster!</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/de/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Interaktives Lernprogramm starten <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

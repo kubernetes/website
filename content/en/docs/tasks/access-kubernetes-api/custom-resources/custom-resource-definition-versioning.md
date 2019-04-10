@@ -87,10 +87,10 @@ spec:
 ```
 
 You can save the CustomResourceDefinition in a YAML file, then use
-`kubectl create` to create it.
+`kubectl apply` to create it.
 
 ```shell
-kubectl create -f my-versioned-crontab.yaml
+kubectl apply -f my-versioned-crontab.yaml
 ```
 
 After creation, the API server starts to serve each enabled version at an HTTP
@@ -149,7 +149,7 @@ the version.
 
 {{< note >}}
 Webhook conversion is introduced in Kubernetes 1.13 as an alpha feature. To use it, the
-`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
 The above example has a None conversion between versions which only sets the `apiVersion` field
