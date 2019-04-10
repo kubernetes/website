@@ -198,7 +198,7 @@ The behavior of the flags behave differently as described below:
 * Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
 * MemoryPressure Condition is not implemented
 * There are no OOM eviction actions taken by the kubelet
-* Kubelet running on the windows node does not have memory restrictions. `--kubelet-reserve` and `--system-reserve` do not set limits on kubelet or processes running the host. This means kubelet or a process on the host could cause memory resource starvation outside the node-allocatable and scheduler
+* Kubelet running on the windows node does not have memory restrictions. `--kubelet-reserve` and `--system-reserve` do not set limits on kubelet or processes running on the host. This means kubelet or a process on the host could cause memory resource starvation outside the node-allocatable and scheduler
 
 #### Storage
 
