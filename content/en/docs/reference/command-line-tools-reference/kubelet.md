@@ -977,6 +977,13 @@ kubelet [flags]
     </tr>
 
      <tr>
+       <td colspan="2">--rotate-server-certificates</td> 
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Beta feature> Auto-request and rotate the kubelet serving certificates by requesting new certificates from the kube-apiserver when the certificate expiration approaches. Requires the RotateKubeletServerCertificate feature gate to be enabled, and approval of the submitted CertificateSigningRequest objects.</td>
+    </tr>
+    
+     <tr>
        <td colspan="2">--runonce</td> 
     </tr>
     <tr>

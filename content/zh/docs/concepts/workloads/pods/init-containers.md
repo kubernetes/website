@@ -41,7 +41,7 @@ Init 容器与普通的容器非常像，除了如下两点：
 
 如果 Pod 的 Init 容器失败，Kubernetes 会不断地重启该 Pod，直到 Init 容器成功为止。然而，如果 Pod 对应的 `restartPolicy` 值为 Never，它不会重新启动。
 
-指定容器为 Init 容器，需要在 PodSpec 中添加 `initContainers` 字段，以 [v1.Container](/docs/api-reference/v1.6/#container-v1-core) 类型对象的 JSON 数组的形式，还有 app 的 `containers` 数组。
+指定容器为 Init 容器，需要在 PodSpec 中添加 `initContainers` 字段，以 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) 类型对象的 JSON 数组的形式，还有 app 的 `containers` 数组。
 Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态数组的格式返回（类似 `status.containerStatuses` 字段）。
 
 
@@ -49,7 +49,7 @@ Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态�
 ### 与普通容器的不同之处
 
 Init 容器支持应用容器的全部字段和特性，包括资源限制、数据卷和安全设置。
-然而，Init 容器对资源请求和限制的处理稍有不同，在下面 [资源](#resources) 处有说明。
+然而，Init 容器对资源请求和限制的处理稍有不同，在下面 [资源](#资源) 处有说明。
 而且 Init 容器不支持 Readiness Probe，因为它们必须在 Pod 就绪之前运行完成。
 
 如果为一个 Pod 指定了多个 Init 容器，那些容器会按顺序一次运行一个。
@@ -62,8 +62,8 @@ Init 容器支持应用容器的全部字段和特性，包括资源限制、数
 
 因为 Init 容器具有与应用容器分离的单独镜像，它们的启动相关代码具有如下优势：
 
-* 它们可以包含并运行实用工具，处于安全考虑，是不建议在应用容器镜像中包含这些实用工具的。
-* 它们可以包含使用工具和定制化代码来安装，但是不能出现在应用镜像中。例如，创建镜像没必要 `FROM` 另一个镜像，只需要在安装过程中使用类似 `sed`、 `awk`、 `python` 或 `dig` 这样的工具。
+* 它们可以包含并运行实用工具，出于安全考虑，是不建议在应用容器镜像中包含这些实用工具的。
+* 它们可以包含用于安装的工具和定制化代码，这些都是在应用镜像中没有的。例如，创建镜像没必要 `FROM` 另一个镜像，只需要在安装过程中使用类似 `sed`、 `awk`、 `python` 或 `dig` 这样的工具。
 * 应用镜像可以分离出创建和部署的角色，而没有必要联合它们构建一个单独的镜像。
 * 它们使用 Linux Namespace，所以对应用容器具有不同的文件系统视图。因此，它们能够具有访问 Secret 的权限，而应用容器不能够访问。
 * 它们在应用容器启动之前运行完成，然而应用容器并行运行，所以 Init 容器提供了一种简单的方式来阻塞或延迟应用容器的启动，直到满足了一组先决条件。

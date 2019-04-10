@@ -59,8 +59,6 @@ Consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code
 
 {{< note >}}
 These instructions use the [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) language code for German (`de`) as an example.
-
-There's currently no Kubernetes localization for German, but you're welcome to create one!
 {{< /note >}}
 
 ### Modify the site configuration

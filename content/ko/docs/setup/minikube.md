@@ -42,30 +42,50 @@ VM 드라이버를 바꾸기 원하면 적절한 `--vm-driver=xxx` 플래그를 
 * none (쿠버네티스 구성요소는 VM이 아닌 호스트상에서 동작한다. 이 드라이버를 사용하기 위해서는 Docker ([docker 설치](https://docs.docker.com/install/linux/docker-ce/ubuntu/))와 리눅스 환경)이 필요하다.
 
 ```shell
-$ minikube start
+minikube start
+```
+```
 Starting local Kubernetes cluster...
 Running pre-create checks...
 Creating machine...
 Starting local Kubernetes cluster...
-
-$ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+```
+```shell
+kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+```
+```
 deployment.apps/hello-minikube created
-$ kubectl expose deployment hello-minikube --type=NodePort
-service/hello-minikube exposed
+```
 
+```shell
+kubectl expose deployment hello-minikube --type=NodePort
+```
+```
+service/hello-minikube exposed
+```
+```
 # We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
 # via the exposed service.
 # To check whether the pod is up and running we can use the following:
-$ kubectl get pod
+kubectl get pod
+```
+```
 NAME                              READY     STATUS              RESTARTS   AGE
 hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+```
+```
 # We can see that the pod is still being created from the ContainerCreating status
-$ kubectl get pod
+kubectl get pod
+```
+```
 NAME                              READY     STATUS    RESTARTS   AGE
 hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+```
+```
 # We can see that the pod is now Running and we will now be able to curl it:
-$ curl $(minikube service hello-minikube --url)
-
+curl $(minikube service hello-minikube --url)
+```
+```
 
 Hostname: hello-minikube-7c77b68cff-8wdzq
 
@@ -91,13 +111,26 @@ Request Headers:
 
 Request Body:
 	-no body in request-
+```
 
-
-$ kubectl delete services hello-minikube
+```shell
+kubectl delete services hello-minikube
+```
+```
 service "hello-minikube" deleted
-$ kubectl delete deployment hello-minikube
+```
+
+```shell
+kubectl delete deployment hello-minikube
+```
+```
 deployment.extensions "hello-minikube" deleted
-$ minikube stop
+```
+
+```shell
+minikube stop
+```
+```
 Stopping local Kubernetes cluster...
 Stopping "minikube"...
 ```
@@ -109,7 +142,7 @@ Stopping "minikube"...
 [containerd](https://github.com/containerd/containerd)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
 
 ```bash
-$ minikube start \
+minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --container-runtime=containerd \
@@ -119,7 +152,7 @@ $ minikube start \
 혹은 확장 버전을 사용할 수 있다.
 
 ```bash
-$ minikube start \
+minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
@@ -133,7 +166,7 @@ $ minikube start \
 [CRI-O](https://github.com/kubernetes-incubator/cri-o)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
 
 ```bash
-$ minikube start \
+minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --container-runtime=cri-o \
@@ -143,7 +176,7 @@ $ minikube start \
 혹은 확장 버전을 사용할 수 있다.
 
 ```bash
-$ minikube start \
+minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --extra-config=kubelet.container-runtime=remote \
@@ -157,7 +190,7 @@ $ minikube start \
 [rkt](https://github.com/rkt/rkt)를 컨테이너 런타임으로 사용하려면, 다음을 실행한다.
 
 ```shell
-$ minikube start \
+minikube start \
     --network-plugin=cni \
     --enable-default-cni \
     --container-runtime=rkt
@@ -373,7 +406,7 @@ HTTP 프록시 내부라면, Docker에서 프록시 설정을 해야 한다.
 예를 들어:
 
 ```shell
-$ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
+minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
                  --docker-env https_proxy=https://$YOURPROXY:PORT
 ```
 
@@ -381,7 +414,7 @@ $ minikube start --docker-env http_proxy=http://$YOURPROXY:PORT \
 이 IP 주소에 대해 프록시 설정을 지나치게 하려면 no_proxy 설정을 수정해야 한다. 다음과 같이 할 수 있다.
 
 ```shell
-$ export no_proxy=$no_proxy,$(minikube ip)
+export no_proxy=$no_proxy,$(minikube ip)
 ```
 
 ## 알려진 이슈

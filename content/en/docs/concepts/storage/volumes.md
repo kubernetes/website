@@ -477,7 +477,7 @@ mounts an empty directory and clones a git repository into it for your Pod to
 use.  In the future, such volumes may be moved to an even more decoupled model,
 rather than extending the Kubernetes API for every such use case.
 
-Here is an example for gitRepo volume:
+Here is an example of gitRepo volume:
 
 ```yaml
 apiVersion: v1
@@ -619,7 +619,7 @@ be able to run. Applications using local volumes must be able to tolerate this
 reduced availability, as well as potential data loss, depending on the
 durability characteristics of the underlying disk.
 
-The following is an example PersistentVolume spec using a `local` volume and
+The following is an example of PersistentVolume spec using a `local` volume and
 `nodeAffinity`:
 
 ```yaml
@@ -931,7 +931,7 @@ You must have an existing ScaleIO cluster already setup and
 running with the volumes created before you can use them.
 {{< /caution >}}
 
-The following is an example Pod configuration with ScaleIO:
+The following is an example of Pod configuration with ScaleIO:
 
 ```yaml
 apiVersion: v1
@@ -958,7 +958,7 @@ spec:
       fsType: xfs
 ```
 
-For further detail, please the see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
+For further detail, please see the [ScaleIO examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/scaleio).
 
 ### secret {#secret}
 
@@ -1043,7 +1043,7 @@ A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The con
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
 
 {{< caution >}}
-You must create VMDK using one of the following method before using with Pod.
+You must create VMDK using one of the following methods before using with Pod.
 {{< /caution >}}
 
 #### Creating a VMDK volume
@@ -1290,43 +1290,6 @@ feature gates which must be enabled for this feature are `BlockVolume` and
 
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
-
-#### CSI ephemeral volumes
-
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
-
-This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
-
-Example:
-
-```yaml
-kind: Pod
-apiVersion: v1
-metadata:
-  name: my-csi-app
-spec:
-  containers:
-    - name: my-frontend
-      image: busybox
-      volumeMounts:
-      - mountPath: "/data"
-        name: my-csi-inline-vol
-      command: [ "sleep", "1000000" ]
-  volumes:
-    - name: my-csi-inline-vol
-      csi:
-        driver: inline.storage.kubernetes.io
-        volumeAttributes:
-              foo: bar
-```
-
-This feature requires CSIInlineVolume feature gate to be enabled:
-
-```
---feature-gates=CSIInlineVolume=true
-```
-
-CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
 
 # Developer resources
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
