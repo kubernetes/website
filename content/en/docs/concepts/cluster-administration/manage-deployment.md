@@ -366,7 +366,6 @@ This command will compare the version of the configuration that you're pushing w
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
-```shell
 deployment.apps/my-nginx configured
 ```
 
