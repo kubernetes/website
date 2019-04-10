@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-Esta página te muestra cómo instalar [Minikube](/docs/tutorials/hello-minikube), una herramienta que despliega un clúster de Kubernetes con un único nodo en una máquina virtual.
+Esta página muestra cómo instalar [Minikube](/docs/tutorials/hello-minikube), una herramienta que despliega un clúster de Kubernetes con un único nodo en una máquina virtual.
 
 {{% /capture %}}
 
@@ -24,7 +24,7 @@ egrep --color 'vmx|svm' /proc/cpuinfo
 
 {{% capture steps %}}
 
-## Instalar un Hipervisori
+## Instalar un Hipervisor
 
 Si todavía no tienes un hipervisor instalado, puedes instalar uno de los siguientes:
 
@@ -96,11 +96,11 @@ La forma más fácil de instalar Minikube en Windows es usando [Chocolatey](http
 choco install minikube kubernetes-cli
 ```
 
-Una vez Minikube ha terminado de instalarse, cierra la sesión cliente actual y reinicia. Minikube debería haberse añadido a tu ruta automáticamente.
+Una vez Minikube ha terminado de instalarse, cierra la sesión cliente actual y reinicia. Minikube debería haberse añadido a tu $PATH automáticamente.
 
 #### Instalación manual en Windows
 
-Para instalar Minikube manualmente en Windows, descarga [`minikube-windows-amd64`](https://github.com/kubernetes/minikube/releases/latest), renómbralo a `minikube.exe`, y añádelo a tu ruta.
+Para instalar Minikube manualmente en Windows, descarga [`minikube-windows-amd64`](https://github.com/kubernetes/minikube/releases/latest), renómbralo a `minikube.exe`, y añádelo a tu PATH.
 
 #### Instalador de Windows
 
