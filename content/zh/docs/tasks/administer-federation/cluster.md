@@ -76,6 +76,7 @@ cluster. If you submit it to a k8s cluster, you will receive an error saying
 <!--
 If you passed the correct Federation context but received a message error saying
 -->
+
 如果您传递了正确的联邦上下文，但是收到了一条消息错误
 
 ```No resources found.```
@@ -143,7 +144,7 @@ You can find more details on unjoin in the
 <!--
 You can label clusters the same way as any other Kubernetes object, which can help with grouping clusters and can also be leveraged by the ClusterSelector.
 -->
-您可以使用与其他任何 Kubernetes 对象相同的方法标记集群，这有助于对集群进行分组，也可以由 ClusterSelector 使用。
+您可以使用与其他任何 Kubernetes 对象相同的方法标记集群，这有助于对集群进行分组，也可以配合使用 ClusterSelector。
 
 ``` shell
 kubectl --context=rivendell label cluster gondor key1=value1 key2=value2
@@ -199,7 +200,7 @@ Currently, only integers are supported with `Gt` or `Lt`.
 
 *values* 字段在指定 `Exists` 或 `DoesNotExist` 时为空，在使用 `In` 或 `NotIn` 时可能包含多个字符串。
 
-Currently, 目前，只有整数支持 `Gt` 或 `Lt`。
+目前，`Gt` 和 `Lt` 操作符只支持整数。
 
 <!--
 ## Clusters API reference
