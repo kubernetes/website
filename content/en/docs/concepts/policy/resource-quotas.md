@@ -201,11 +201,6 @@ field in the quota spec.
 
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 
-{{< note >}}
-You need to enable the feature gate `ResourceQuotaScopeSelectors`before using resource quotas
-per PriorityClass.
-{{< /note >}}
-
 This example creates a quota object and matches it with pods at specific priorities. The example
 works as follows:
 
