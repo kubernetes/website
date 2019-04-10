@@ -162,7 +162,7 @@ how to fix it, [file an issue](#how-to-file-an-issue). The exception to this
 rule is a tiny bug like a typo that you intend to fix yourself. In that case,
 you can instead [fix it](#improve-existing-content) without filing a bug first.
  -->
-任何用于 Github 账号的人都能对于 Kubernetes 文档登记一个问题（或者 bug 报告）。
+任何拥有 Github 账号的人都能对于 Kubernetes 文档登记一个问题（或者 bug 报告）。
 如果看到有东西坏了，即便您不知道如何修复它，请[登记一个问题](#how-to-file-an-issue)。
 除了您发现微小的错误的情况，例如发现了一个拼写错误，您想自己进行修复。在这种情况下，
 您可以[修复它](#improve-existing-content)，而不用先登记一个 bug。
