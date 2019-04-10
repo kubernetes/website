@@ -1,5 +1,5 @@
 title: Cluster Registry
- id: federation
+ id: cluster-registry
  full-link: /docs/concepts/workloads/pods/cluster_registry/
  tags:
   - extension
