@@ -119,7 +119,7 @@ Note also that we created a dedicated service account `my-scheduler` and bind th
 <!--
 Please see the[kube-scheduler documentation](/docs/admin/kube-scheduler/) for detailed description of other command line arguments.
 -->
-请参阅 [kube-scheduler 文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)以获取其他命令行参数的详细说明。
+请参阅 [kube-scheduler 文档](/docs/reference/command-line-tools-reference/kube-scheduler/)以获取其他命令行参数的详细说明。
 
 <!--
 ## Run the second scheduler in the cluster
