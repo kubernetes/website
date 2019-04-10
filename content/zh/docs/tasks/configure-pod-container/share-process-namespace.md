@@ -1,5 +1,5 @@
 ---
-title: 在 Pod 中的容器之间共享进程名称空间
+title: 在 Pod 中的容器之间共享进程命名空间
 min-kubernetes-server-version: v1.10
 content_template: templates/task
 weight: 160
