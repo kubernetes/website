@@ -36,7 +36,7 @@ If you're looking for information on how to start contributing to Kubernetes
 code repositories, refer to
 [the Kubernetes community guidelines](https://github.com/kubernetes/community/blob/master/governance.md).
  -->
-如您在寻找关于如何贡献给 Kubernetes 代码参考的文档，请参考 [Kubernetes 社区指南](https://github.com/kubernetes/community/blob/master/governance.md)。
+如果您在寻找有关如何开始向 Kubernetes 仓库贡献代码的信息，请参考 [Kubernetes 社区指南](https://github.com/kubernetes/community/blob/master/governance.md)。
 
 {{% /capture %}}
 
