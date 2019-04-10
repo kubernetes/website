@@ -1,7 +1,8 @@
 ---
 reviewers:
-- davidopp
-- thockin
+- remyleone
+- feloy
+- rekcah78
 title: DNS pour les services et les pods
 content_template: templates/concept
 weight: 20
@@ -63,7 +64,7 @@ La spécification du pod a un champ optionnel `hostname`, qui peut être utilis�
 
 La spécification du pod a également un champ optionnel `subdomain` qui peut être utilisé pour spécifier son sous-domaine. Par exemple, un pod avec une valeur "`foo`" du champ `hostname` et une valeur "`bar`" du champ `subdomain`, dans le namespace "`mon-namespace`", aura un nom de domaine (FQDN) "`foo.bar.mon-namespace.svc.cluster.local`".
 
-Exemple : 
+Exemple :
 
 ```yaml
 apiVersion: v1
