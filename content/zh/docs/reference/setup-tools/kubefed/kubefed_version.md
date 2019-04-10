@@ -133,7 +133,7 @@ kubefed version [flags]
       --ir-percentile int                            在估算资源时，InitialResoruces 要使用的样本百分比。仅用于实验目的。默认值为 90。 
       --ir-user string                               用于连接到 InfluxDB 的用户（默认 "root"）
       --kubeconfig string                            用于 CLI 请求的 kubeconfig 文件的路径。
-      --log-backtrace-at traceLocation               当日志机制遇到文件行 file:N 时，打印堆栈轨迹；默认值为 ”:0“
+      --log-backtrace-at traceLocation               当日志机制遇到文件行 file:N 时，打印堆栈轨迹；默认值为 “:0”。
       --log-dir string                               如果非空，在此目录中写入日志文件
       --log-flush-frequency duration                 日志刷新的最大秒数（默认 5s）
       --logtostderr                                  记录日志到标准错误输出（stderr）而不是文件中；默认值为 true
