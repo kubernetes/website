@@ -71,7 +71,7 @@ array has six possible fields:
   * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
     have started successfully;
   * `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
-    due to lacking of resources or other constraints;
+    due to lack of resources or other constraints;
   * `ContainersReady`: all containers in the Pod are ready.
 
 

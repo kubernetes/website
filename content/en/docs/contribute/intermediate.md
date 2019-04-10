@@ -348,7 +348,7 @@ After you decide which branch to start your work (or _base it on_, in Git
 terminology), use the following workflow to be sure your work is based on the
 most up-to-date version of that branch.
 
-1.  Fetch both the `upstream` and `origin` branches. This updates your local
+1.  Fetch both the `upstream` and `origin` remotes. This updates your local
     notion of what those branches contain, but does not change your local
     branches at all.
 
