@@ -162,7 +162,7 @@ data:
 ```
 In Kubernetes version 1.10 and later, kubeadm supports automatic translation of the CoreDNS ConfigMap from the kube-dns ConfigMap.
 ***Note: While kube-dns accepts an FQDN for stubdomain and nameserver (eg: ns.foo.com), CoreDNS does not support this feature. 
-During translation, if a service name is detected, it will be omitted while translating to the equivalent CoreDNS config.***
+During translation, all FQDN nameservers will be omitted from the CoreDNS config.***
 
 ## Kube-dns
 
