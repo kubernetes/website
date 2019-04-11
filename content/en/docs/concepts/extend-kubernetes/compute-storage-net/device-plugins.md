@@ -157,7 +157,7 @@ service PodResources {
 
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`. 
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet. 
-The cannonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring 
+The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring 
 agents must run in a privileged security context.  If a device monitoring agent is running as a 
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a 
 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)

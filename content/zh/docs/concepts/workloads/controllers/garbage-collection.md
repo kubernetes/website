@@ -99,7 +99,7 @@ Kubernetes 中有两种 *级联删除* 的模式：*background* 模式和 *foreg
 
 
 
-注意，在 “foreground 删除” 模式下，只有设置了 `ownerReference.blockOwnerDeletion` 值得 Dependent 才能阻止删除 Owner 对象。
+注意，在 “foreground 删除” 模式下，只有设置了 `ownerReference.blockOwnerDeletion` 值的 Dependent 才能阻止删除 Owner 对象。
 在 Kubernetes 1.7 版本中将增加许可控制器（Admission Controller），基于 Owner 对象上的删除权限来控制用户去设置 `blockOwnerDeletion` 的值为 true，所以未授权的 Dependent 不能够延迟 Owner 对象的删除。
 
 如果一个对象的 `ownerReferences` 字段被一个 Controller（例如 Deployment 或 ReplicaSet）设置，`blockOwnerDeletion` 会被自动设置，不需要手动修改这个字段。

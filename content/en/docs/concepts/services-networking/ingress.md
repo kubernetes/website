@@ -106,7 +106,7 @@ for directing HTTP traffic.
 Each http rule contains the following information:
 
 * An optional host. In this example, no host is specified, so the rule applies to all inbound
-  HTTP traffic through the IP address is specified. If a host is provided (for example,
+  HTTP traffic through the IP address specified. If a host is provided (for example,
   foo.bar.com), the rules apply to that host.
 * a list of paths (for example, /testpath), each of which has an associated backend defined with a `serviceName`
   and `servicePort`. Both the host and path must match the content of an incoming request before the

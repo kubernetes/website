@@ -144,7 +144,7 @@ Riepilogo dei vantaggi del contenitore:
 ## Cosa significa Kubernetes? K8S?
 
 Il nome **Kubernetes** deriva dal greco, che significa *timoniere* o *pilota*, ed è la radice del *governatore*
-e del [cibernetico] (http://www.etymonline.com/index.php?term=cybernetics). *K8s*
+e del [cibernetico](http://www.etymonline.com/index.php?term=cybernetics). *K8s*
 è un'abbreviazione derivata sostituendo le 8 lettere "ubernete" con "8".
 
 {{% /capture %}}

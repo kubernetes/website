@@ -156,7 +156,7 @@ Roles](/docs/reference/access-authn-authz/rbac/#controller-roles).
 In addition to restricting pod creation and update, pod security policies can
 also be used to provide default values for many of the fields that it
 controls. When multiple policies are available, the pod security policy
-controller selects policies in the following order:
+controller selects policies according to the following criteria:
 
 1. If any policies successfully validate the pod without altering it, they are
    used.
@@ -576,7 +576,7 @@ as the string `Default`.
 
 The only other ProcMountType is `UnmaskedProcMount`, which bypasses the
 default masking behavior of the container runtime and ensures the newly
-created /proc the container stays in tact with no modifications. This is
+created /proc the container stays intact with no modifications. This is
 denoted as the string `Unmasked`.
 
 ### AppArmor

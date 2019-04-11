@@ -211,7 +211,6 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
     {{</* /note */>}}
     ```
 
-
 The output is:
 
 {{< note >}}
@@ -235,6 +234,36 @@ The output is:
 {{< note >}}
 You can _still_ use Markdown inside these callouts.
 {{< /note >}}
+
+You can use a {{</* note */>}} in a list:
+
+```
+1. Use the note shortcode in a list
+
+1. A second item with an embedded note
+
+   {{</* note */>}}
+   Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
+   {{</* /note */>}}
+
+1. A third item in a list
+
+1. A fourth item in a list
+```
+
+The output is:
+
+1. Use the note shortcode in a list
+
+1. A second item with an embedded note
+
+    {{< note >}}
+    Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
+    {{< /note >}}
+
+1. A third item in a list
+
+1. A fourth item in a list
 
 ### Caution
 
@@ -265,7 +294,6 @@ For example:
 Beware.
 {{</* /warning */>}}
 ```
-
 
 The output is:
 
@@ -307,7 +335,7 @@ For example:
     1. Preheat oven to 350˚F
 
     1. Prepare the batter, and pour into springform pan.
-       {{</* note */>}}**Note:** Grease the pan for best results.{{</* /note */>}}
+       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
 
     1. Bake for 20-25 minutes or until set.
 
@@ -432,9 +460,9 @@ considered new in a few months.
 
 {{% capture whatsnext %}}
 
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+* Learn about [using page templates](/docs/contribute/style/page-templates/).
+* Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
+* Learn about [creating a pull request](/docs/contribute/start/#submit-a-pull-request/).
 
 {{% /capture %}}

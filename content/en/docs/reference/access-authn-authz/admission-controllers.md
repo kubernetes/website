@@ -89,10 +89,10 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.13, they are:
+In 1.14, they are:
  
 ```shell
-NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeClaimResize,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
+NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
 ```
 
 ## What does each admission controller do?
