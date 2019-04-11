@@ -136,7 +136,7 @@ subjectaccessreview "" created
  - `--authorization-mode=AlwaysDeny` 此标志阻止所有请求 . 仅使用此标志进行测试。
  - `--authorization-mode=AlwaysAllow` 此标志允许所有请求 . 只有在您不需要 API 请求授权的情况下才能使用此标志。
 
-您可以选择多个授权模块 . 如果其中一种模式为 `AlwaysAllow`，则覆盖其他模式，并允许所有 API 请求。
+您可以选择多个授权模块，如果其中一种模式为 `AlwaysAllow`，则覆盖其他模式，并允许所有 API 请求。
 
 ## 版本控制
 
