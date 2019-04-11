@@ -33,13 +33,12 @@ Kubernetes 仅查看以下 API 请求属性 :
 
 * **user**  - 验证期间提供的 `user` 字符串
 * **group**  - 认证用户所属的组名列表
-* **“ extra"**  - 由认证层提供的任意字符串键到字符串值的映射
+* **extra**  - 由认证层提供的任意字符串键到字符串值的映射
 * **API**  - 指示请求是否用于 API 资源
 * **Request path**  - 诸如 `/api` 或 `/healthz` 的其他非资源端点的路径 ( 请参阅[kubectl](#kubectl)).
 * **API request verb**  -  API 动词 `get`，`list`，`create`，`update`，`patch`，`watch`，`proxy`，`redirect`，`delete` 和 `deletecollection` 用于资源请求。要确定资源 API 端点的请求动词，请参阅**确定下面的请求动词**.
 * **HTTP request verb**  -  HTTP 动词 `get`，`post`，`put` 和 `delete` 用于非资源请求
-* **Resource**  - 正在访问的资源的 ID 或名称 ( 仅适用于资源请求 )
- --* 对于使用 `get`, `update`, `patch`, 和 `delete` 动词的资源请求，您必须提供资源名称。
+* **Resource**  - 正在访问的资源的 ID 或名称 ( 仅适用于资源请求 )，对于使用 `get`, `update`, `patch`, 和 `delete` 动词的资源请求，您必须提供资源名称。
 * **Subresource**  - 正在访问的子资源 ( 仅用于资源请求 )
 * **Namespace**  - 正在被访问的对象的命名空间 ( 仅针对命名空间的资源请求 )
 * **API group**  - 正在访问的 API 组 ( 仅用于资源请求 ). 一个空字符串指定[核心 API 组](/docs/api/).
