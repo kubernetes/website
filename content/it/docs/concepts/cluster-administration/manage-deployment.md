@@ -6,7 +6,10 @@ weight: 40
 
 {{% capture overview %}}
 
-Hai distribuito la tua applicazione e l'hai esposta tramite un servizio. Ora cosa? Kubernetes fornisce una serie di strumenti per aiutarti a gestire la distribuzione delle applicazioni, compreso il ridimensionamento e l'aggiornamento. Tra le caratteristiche che discuteremo in modo più approfondito ci sono [file di configurazione] (/docs/concepts/configuration/overview/) e [labels] (/docs/concepts/overview/working-with-objects/labels/).
+Hai distribuito la tua applicazione e l'hai esposta tramite un servizio. Ora cosa? Kubernetes fornisce una serie di 
+strumenti per aiutarti a gestire la distribuzione delle applicazioni, compreso il ridimensionamento e l'aggiornamento. 
+Tra le caratteristiche che discuteremo in modo più approfondito ci sono [file di configurazione](/docs/concepts/configuration/overview/) 
+e [labels](/docs/concepts/overview/working-with-objects/labels/).
 
 {{% /capture %}}
 
@@ -130,13 +133,14 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-Se sei interessato a saperne di più su `kubectl`, vai avanti e leggi [Panoramica di kubectl] (/docs/reference/kubectl/overview/).
+Se sei interessato a saperne di più su `kubectl`, vai avanti e leggi [Panoramica di kubectl](/docs/reference/kubectl/overview/).
 
 ## Usare le etichette in modo efficace
 
 Gli esempi che abbiamo utilizzato fino ad ora si applicano al massimo una singola etichetta a qualsiasi risorsa. Esistono molti scenari in cui è necessario utilizzare più etichette per distinguere i set l'uno dall'altro.
 
-Ad esempio, diverse applicazioni utilizzerebbero valori diversi per l'etichetta `app`, ma un'applicazione multilivello, come l'esempio [guestbook] (https://github.com/kubernetes/examples/tree/ {{<param"). githubbranch ">}} / guestbook /), avrebbe inoltre bisogno di distinguere ogni livello. Il frontend potrebbe contenere le seguenti etichette:
+Ad esempio, diverse applicazioni utilizzerebbero valori diversi per l'etichetta `app`, ma un'applicazione multilivello, come l'esempio [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/), avrebbe inoltre bisogno di distinguere ogni livello. Il frontend potrebbe contenere le seguenti etichette:
+
 ```yaml
      labels:
         app: guestbook
@@ -183,7 +187,10 @@ guestbook-redis-slave-qgazl   1/1       Running   0          3m
 
 ## Distribuzioni canarie
 
-Un altro scenario in cui sono necessarie più etichette è quello di distinguere distribuzioni di diverse versioni o configurazioni dello stesso componente. È prassi comune distribuire un * canarino * di una nuova versione dell'applicazione (specificata tramite il tag immagine nel modello pod) parallelamente alla versione precedente in modo che la nuova versione possa ricevere il traffico di produzione in tempo reale prima di distribuirlo completamente.
+Un altro scenario in cui sono necessarie più etichette è quello di distinguere distribuzioni di diverse versioni o 
+configurazioni dello stesso componente. È prassi comune distribuire un * canarino * di una nuova versione 
+dell'applicazione (specificata tramite il tag immagine nel modello pod) parallelamente alla versione precedente in 
+modo che la nuova versione possa ricevere il traffico di produzione in tempo reale prima di distribuirlo completamente.
 
 Ad esempio, puoi usare un'etichetta `track` per differenziare le diverse versioni.
 
@@ -201,7 +208,8 @@ La versione stabile e primaria avrebbe un'etichetta `track` con valore come` sta
      image: gb-frontend:v3
 ```
 
-e quindi puoi creare una nuova versione del frontend del guestbook che porta l'etichetta `track` con un valore diverso (ad esempio` canary`), in modo che due gruppi di pod non si sovrappongano:
+e quindi puoi creare una nuova versione del frontend del guestbook che porta l'etichetta `track` con un valore diverso 
+(ad esempio` canary`), in modo che due gruppi di pod non si sovrappongano:
 
 ```yaml
      name: frontend-canary
@@ -215,8 +223,9 @@ e quindi puoi creare una nuova versione del frontend del guestbook che porta l'e
      image: gb-frontend:v4
 ```
 
-
-Il servizio di frontend coprirebbe entrambe le serie di repliche selezionando il sottoinsieme comune delle loro etichette (ad esempio omettendo l'etichetta `track`), in modo che il traffico venga reindirizzato ad entrambe le applicazioni:
+Il servizio di frontend coprirebbe entrambe le serie di repliche selezionando il sottoinsieme comune delle loro 
+etichette (ad esempio omettendo l'etichetta `track`), in modo che il traffico venga reindirizzato ad entrambe le 
+applicazioni:
 
 ```yaml
   selector:
@@ -225,15 +234,17 @@ Il servizio di frontend coprirebbe entrambe le serie di repliche selezionando il
 ```
 
 452/5000
-È possibile modificare il numero di repliche delle versioni stable e canary per determinare il rapporto tra ciascuna versione che riceverà il traffico di produzione live (in questo caso, 3: 1).
-Una volta che sei sicuro, puoi aggiornare la traccia stabile alla nuova versione dell'applicazione e rimuovere quella canarino.
+È possibile modificare il numero di repliche delle versioni stable e canary per determinare il rapporto tra ciascuna 
+versione che riceverà il traffico di produzione live (in questo caso, 3: 1). Una volta che sei sicuro, puoi aggiornare 
+la traccia stabile alla nuova versione dell'applicazione e rimuovere quella canarino.
 
-Per un esempio più concreto, controlla il [tutorial di distribuzione di Ghost] (https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
+Per un esempio più concreto, controlla il [tutorial di distribuzione di Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
 
 ## Updating labels
 
-A volte i pod esistenti e altre risorse devono essere rinominati prima di creare nuove risorse. Questo può essere fatto con l'etichetta `kubectl`.
-Ad esempio, se desideri etichettare tutti i tuoi pod nginx come livello frontend, esegui semplicemente:
+A volte i pod esistenti e altre risorse devono essere rinominati prima di creare nuove risorse. Questo può essere fatto 
+con l'etichetta `kubectl`. Ad esempio, se desideri etichettare tutti i tuoi pod nginx come livello frontend, esegui 
+semplicemente:
 
 ```shell
 $ kubectl label pods -l app=nginx tier=fe
@@ -242,8 +253,8 @@ pod/my-nginx-2035384211-u2c7e labeled
 pod/my-nginx-2035384211-u3t6x labeled
 ```
 
-Questo prima filtra tutti i pod con l'etichetta "app = nginx", quindi li etichetta con il "tier = fe".
-Per vedere i pod appena etichettati, esegui:
+Questo prima filtra tutti i pod con l'etichetta "app = nginx", quindi li etichetta con il "tier = fe". Per vedere i pod 
+appena etichettati, esegui:
 
 ```shell
 $ kubectl get pods -l app=nginx -L tier
@@ -253,13 +264,17 @@ my-nginx-2035384211-u2c7e   1/1       Running   0          23m       fe
 my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 ```
 
-questo produce tutti i pod "app = nginx", con un'ulteriore colonna di etichette del livello dei pod (specificata con `-L` o` --label-columns`).
+questo produce tutti i pod "app = nginx", con un'ulteriore colonna di etichette del livello dei pod (specificata
+con `-L` o` --label-columns`).
 
-Per ulteriori informazioni, consultare [labels] (/docs/concepts/overview/working-with-objects/labels/) e [kubectl label] (/docs/reference/generated/kubectl/kubectl-commands/ # label).
+Per ulteriori informazioni, consultare [labels](/docs/concepts/overview/working-with-objects/labels/) e 
+[kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
 
 ## Aggiornare annotazioni
 
-A volte vorresti allegare annotazioni alle risorse. Le annotazioni sono metadati arbitrari non identificativi per il recupero da parte di client API come strumenti, librerie, ecc. Questo può essere fatto con `kubectl annotate`. Per esempio:
+A volte vorresti allegare annotazioni alle risorse. Le annotazioni sono metadati arbitrari non identificativi per il 
+recupero da parte di client API come strumenti, librerie, ecc. Questo può essere fatto con `kubectl annotate`. Per 
+esempio:
 
 ```shell
 $ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
@@ -272,11 +287,13 @@ metadata:
 ...
 ```
 
-Per ulteriori informazioni, consultare il documento [annotazioni] (/docs/concepts/overview/working-with-objects/annotations/) e [kubectl annotate] (/docs/reference/generated/kubectl/kubectl-commands/ # annotate).
+Per ulteriori informazioni, consultare il documento [annotazioni](/docs/concepts/overview/working-with-objects/annotations/) 
+e [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate).
 
 ## Ridimensionamento dell'applicazione
 
-Quando si carica o si riduce la richiesta, è facile ridimensionare con `kubectl`. Ad esempio, per ridurre il numero di repliche nginx da 3 a 1, fare:
+Quando si carica o si riduce la richiesta, è facile ridimensionare con `kubectl`. Ad esempio, per ridurre il numero di 
+repliche nginx da 3 a 1, fare:
 
 ```shell
 $ kubectl scale deployment/my-nginx --replicas=1
@@ -284,7 +301,6 @@ deployment.extensions/my-nginx scaled
 ```
 
 Ora hai solo un pod gestito dalla distribuzione
-
 
 ```shell
 $ kubectl get pods -l app=nginx
@@ -301,7 +317,9 @@ horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 
 Ora le repliche di nginx verranno ridimensionate automaticamente in base alle esigenze.
 
-Per maggiori informazioni, vedi [scala kubectl] (/docs/reference/generated/kubectl/kubectl-commands/#scale), [kubectl autoscale] (/docs/reference/generated/kubectl/kubectl-commands/#autoscale) e documento [orizzontale pod autoscaler] (/docs/tasks/run-application/horizontal-pod-autoscale/).
+Per maggiori informazioni, vedi [scala kubectl](/docs/reference/generated/kubectl/kubectl-commands/#scale),
+[kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) e documento 
+[orizzontale pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 ## Aggiornamenti sul posto delle risorse
 
@@ -309,22 +327,33 @@ A volte è necessario apportare aggiornamenti stretti e senza interruzioni alle 
 
 ### kubectl apply
 
-Si consiglia di mantenere un set di file di configurazione nel controllo del codice sorgente (vedere [configurazione come codice] (http://martinfowler.com/bliki/InfrastructureAsCode.html)),
-in modo che possano essere mantenuti e versionati insieme al codice per le risorse che configurano.
-Quindi, puoi usare [`kubectl apply`] (/docs/reference/generated/kubectl/kubectl-commands/#apply) per inviare le modifiche alla configurazione nel cluster.
+Si consiglia di mantenere un set di file di configurazione nel controllo del codice sorgente (vedere 
+[configurazione come codice](http://martinfowler.com/bliki/InfrastructureAsCode.html)), in modo che possano essere 
+mantenuti e versionati insieme al codice per le risorse che configurano. Quindi, puoi usare 
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) per inviare le modifiche alla configurazione
+nel cluster.
 
-Questo comando confronterà la versione della configurazione che stai spingendo con la versione precedente e applicherà le modifiche che hai apportato, senza sovrascrivere le modifiche automatiche alle proprietà che non hai specificato.
+Questo comando confronterà la versione della configurazione che stai spingendo con la versione precedente e applicherà 
+le modifiche che hai apportato, senza sovrascrivere le modifiche automatiche alle proprietà che non hai specificato.
 
 ```shell
 $ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 deployment.apps/my-nginx configured
 ```
 
-Si noti che `kubectl apply` allega un'annotazione alla risorsa per determinare le modifiche alla configurazione dall'invocazione precedente. Quando viene invocato, `kubectl apply` fa una differenza a tre tra la configurazione precedente, l'input fornito e la configurazione corrente della risorsa, al fine di determinare come modificare la risorsa.
+Si noti che `kubectl apply` allega un'annotazione alla risorsa per determinare le modifiche alla configurazione 
+dall'invocazione precedente. Quando viene invocato, `kubectl apply` fa una differenza a tre tra la configurazione 
+precedente, l'input fornito e la configurazione corrente della risorsa, al fine di determinare come modificare la 
+risorsa.
 
-Attualmente, le risorse vengono create senza questa annotazione, quindi la prima chiamata di `kubectl apply` ricadrà su una differenza a due vie tra l'input fornito e la configurazione corrente della risorsa. Durante questa prima chiamata, non è in grado di rilevare l'eliminazione delle proprietà impostate al momento della creazione della risorsa. Per questo motivo, non li rimuoverà.
+Attualmente, le risorse vengono create senza questa annotazione, quindi la prima chiamata di `kubectl apply` ricadrà su 
+una differenza a due vie tra l'input fornito e la configurazione corrente della risorsa. Durante questa prima chiamata, 
+non è in grado di rilevare l'eliminazione delle proprietà impostate al momento della creazione della risorsa. Per questo 
+motivo, non li rimuoverà.
 
-Tutte le chiamate successive a `kubectl apply`, e altri comandi che modificano la configurazione, come` kubectl replace` e `kubectl edit`, aggiorneranno l'annotazione, consentendo le successive chiamate a` kubectl apply` per rilevare ed eseguire cancellazioni usando un tre via diff.
+Tutte le chiamate successive a `kubectl apply`, e altri comandi che modificano la configurazione, come `kubectl replace` 
+e `kubectl edit`, aggiorneranno l'annotazione, consentendo le successive chiamate a` kubectl apply` per rilevare ed 
+eseguire cancellazioni usando un tre via diff.
 
 {{< note >}}
 To use apply, always create resource initially with either `kubectl apply` or `kubectl create --save-config`.
@@ -338,7 +367,8 @@ In alternativa, puoi anche aggiornare le risorse con `kubectl edit`:
 $ kubectl edit deployment/my-nginx
 ```
 
-Questo equivale a prima "get` la risorsa, modificarla nell'editor di testo e quindi" applicare "la risorsa con la versione aggiornata:
+Questo equivale a prima "get` la risorsa, modificarla nell'editor di testo e quindi" applicare "la risorsa con la 
+versione aggiornata:
 
 ```shell
 $ kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
@@ -349,9 +379,10 @@ deployment.apps/my-nginx configured
 $ rm /tmp/nginx.yaml
 ```
 
-Questo ti permette di fare più cambiamenti significativi più facilmente. Nota che puoi specificare l'editor con le variabili di ambiente `EDITOR` o` KUBE_EDITOR`.
+Questo ti permette di fare più cambiamenti significativi più facilmente. Nota che puoi specificare l'editor con le 
+variabili di ambiente `EDITOR` o` KUBE_EDITOR`.
 
-Per ulteriori informazioni, consultare il documento [kubectl edit] (/docs/reference/generated/kubectl/kubectl-commands/#edit).
+Per ulteriori informazioni, consultare il documento [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit).
 
 ### kubectl patch
 
@@ -364,9 +395,11 @@ and
 
 ## Disruptive updates
 
-
 375/5000
-In alcuni casi, potrebbe essere necessario aggiornare i campi di risorse che non possono essere aggiornati una volta inizializzati, oppure si può semplicemente voler fare immediatamente una modifica ricorsiva, come per esempio correggere i pod spezzati creati da una distribuzione. Per cambiare tali campi, usa `replace --force`, che elimina e ricrea la risorsa. In questo caso, puoi semplicemente modificare il tuo file di configurazione originale:
+In alcuni casi, potrebbe essere necessario aggiornare i campi di risorse che non possono essere aggiornati una volta 
+inizializzati, oppure si può semplicemente voler fare immediatamente una modifica ricorsiva, come per esempio correggere 
+i pod spezzati creati da una distribuzione. Per cambiare tali campi, usa `replace --force`, che elimina e ricrea la 
+risorsa. In questo caso, puoi semplicemente modificare il tuo file di configurazione originale:
 
 ```shell
 $ kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
@@ -376,10 +409,13 @@ deployment.apps/my-nginx replaced
 
 ## Aggiornamento dell'applicazione senza un'interruzione del servizio
 
-A un certo punto, alla fine sarà necessario aggiornare l'applicazione distribuita, in genere specificando una nuova immagine o un tag immagine, come nello scenario di distribuzione canarino precedente. `kubectl` supporta diverse operazioni di aggiornamento, ognuna delle quali è applicabile a diversi scenari.
+A un certo punto, alla fine sarà necessario aggiornare l'applicazione distribuita, in genere specificando una nuova 
+immagine o un tag immagine, come nello scenario di distribuzione canarino precedente. `kubectl` supporta diverse 
+operazioni di aggiornamento, ognuna delle quali è applicabile a diversi scenari.
 
-Ti guideremo attraverso come creare e aggiornare le applicazioni con le distribuzioni. Se l'applicazione distribuita è gestita dai controller di replica,
-dovresti leggere [come usare `kubectl rolling-update`] (/docs/tasks/run-application/rolling-update-replication-controller/).
+Ti guideremo attraverso come creare e aggiornare le applicazioni con le distribuzioni. Se l'applicazione distribuita è 
+gestita dai controller di replica, dovresti leggere 
+[come usare `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/).
 
 Diciamo che stavi usando la versione 1.7.9 di nginx:
 
@@ -388,19 +424,23 @@ $ kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
 deployment.apps/my-nginx created
 ```
 
-Per aggiornare alla versione 1.9.1, cambia semplicemente `.spec.template.spec.containers [0] .image` da` nginx: 1.7.9` a `nginx: 1.9.1`, con i comandi kubectl che abbiamo imparato sopra.
+Per aggiornare alla versione 1.9.1, cambia semplicemente `.spec.template.spec.containers [0] .image` da `nginx: 1.7.9` 
+a `nginx: 1.9.1`, con i comandi kubectl che abbiamo imparato sopra.
 
 ```shell
 $ kubectl edit deployment/my-nginx
 ```
 
-Questo è tutto! La distribuzione aggiornerà in modo dichiarativo l'applicazione nginx distribuita progressivamente dietro la scena. Garantisce che solo un certo numero di vecchie repliche potrebbe essere inattivo mentre vengono aggiornate e solo un certo numero di nuove repliche può essere creato sopra il numero desiderato di pod. Per ulteriori informazioni su di esso, visitare [Pagina di distribuzione] (/ docs / concepts / workloads / controller / deployment /).
+Questo è tutto! La distribuzione aggiornerà in modo dichiarativo l'applicazione nginx distribuita progressivamente 
+dietro la scena. Garantisce che solo un certo numero di vecchie repliche potrebbe essere inattivo mentre vengono 
+aggiornate e solo un certo numero di nuove repliche può essere creato sopra il numero desiderato di pod. Per ulteriori 
+informazioni su di esso, visitare [Pagina di distribuzione](/docs/concepts/workloads/controller/deployment/).
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-- [[Scopri come usare `kubectl` per l'introspezione e il debug delle applicazioni.] (/Docs/tasks/debug-application-cluster/debug-application-introspection/)
-- [Best practice e suggerimenti sulla configurazione] (/docs/concepts/configuration/overview/)
+- [[Scopri come usare `kubectl` per l'introspezione e il debug delle applicazioni.](/Docs/tasks/debug-application-cluster/debug-application-introspection/)
+- [Best practice e suggerimenti sulla configurazione](/docs/concepts/configuration/overview/)
 
 {{% /capture %}}
