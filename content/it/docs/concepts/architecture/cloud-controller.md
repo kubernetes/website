@@ -111,7 +111,7 @@ Il controller Persistent Volume Labels sposta la funzionalità dipendente dal cl
 
 ## Plugin mechanism
 
-Il gestore del controller cloud utilizza le interfacce Go per consentire l'implementazione di implementazioni da qualsiasi cloud. In particolare, utilizza l'interfaccia CloudProvider definita [qui] (https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud. go # L42-L62).
+Il gestore del controller cloud utilizza le interfacce Go per consentire l'implementazione di implementazioni da qualsiasi cloud. In particolare, utilizza l'interfaccia CloudProvider definita [qui](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62).
 
 L'implementazione dei quattro controller condivisi evidenziati sopra e alcuni scaffolding con l'interfaccia cloudprovider condivisa rimarranno nel core di Kubernetes. Le implementazioni specifiche per i fornitori di cloud saranno costruite al di fuori del core e implementeranno le interfacce definite nel core.
 
