@@ -64,7 +64,7 @@ Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
 share their network namespaces - including their IP address.  This means that
 containers within a `Pod` can all reach each other's ports on `localhost`. This
 also means that containers within a `Pod` must coordinate port usage, but this
-is no different than processes in a VM.  This is called the "IP-per-pod" model.
+is no different from processes in a VM.  This is called the "IP-per-pod" model.
 
 How this is implemented is a detail of the particular container runtime in use.
 
