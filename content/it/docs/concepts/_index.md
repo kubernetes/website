@@ -19,7 +19,7 @@ Per lavorare con Kubernetes, usi *gli oggetti API Kubernetes* per descrivere lo 
 
 Una volta impostato lo stato desiderato, il *Kubernetes Control Plane* funziona per fare in modo che lo stato corrente del cluster corrisponda allo stato desiderato. Per fare ciò, Kubernetes esegue automaticamente una serie di attività, come l'avvio o il riavvio dei contenitori, il ridimensionamento del numero di repliche di una determinata applicazione e altro ancora. Il piano di controllo di Kubernetes è costituito da una raccolta di processi in esecuzione sul cluster:
 
-* Il **Kubernetes Master** è una raccolta di tre processi che vengono eseguiti su un singolo nodo nel cluster, che è designato come nodo principale. Questi processi sono: [kube-apiserver] (/docs/admin/kube-apiserver/), [kube-controller-manager] (/docs/admin/kube-controller-manager/) e [kube-scheduler] (/docs/admin/kube-scheduler/).
+* Il **Kubernetes Master** è una raccolta di tre processi che vengono eseguiti su un singolo nodo nel cluster, che è designato come nodo principale. Questi processi sono: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) e [kube-scheduler](/docs/admin/kube-scheduler/).
 * Ogni singolo nodo non principale nel cluster esegue due processi:
   * **[kubelet](/docs/admin/kubelet/)**, che comunica con il master di Kubernetes.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, un proxy di rete che riflette i servizi di rete di Kubernetes su ciascun nodo.
@@ -71,7 +71,7 @@ I nodi di un cluster sono le macchine (VM, server fisici, ecc.) Che eseguono i f
 {{% capture whatsnext %}}
 
 Se vuoi scrivere una pagina concettuale, vedi
-[Uso dei modelli di pagina] (/docs/home/contribute/page-templates/)
+[Uso dei modelli di pagina](/docs/home/contribute/page-templates/)
 per informazioni sul tipo di pagina di concetto e il modello di concetto.
 
 {{% /capture %}}

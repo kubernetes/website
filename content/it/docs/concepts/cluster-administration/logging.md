@@ -24,7 +24,7 @@ la descrizione di come i registri sono memorizzati e gestiti sul nodo per essere
 
 In questa sezione, puoi vedere un esempio di registrazione di base in Kubernetes
 emette i dati sul flusso di output standard. Utilizza questa dimostrazione
-una [specifica pod] (/esempi/debug/counter-pod.yaml) con
+una [specifica pod](/esempi/debug/counter-pod.yaml) con
 un contenitore che scrive del testo sullo standard output una volta al secondo.
 
 {{< codenew file="debug/counter-pod.yaml" >}}
@@ -46,13 +46,13 @@ $ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logsPuoi usare `kubectl logs` per recuperare i log da una precedente istanziazione di un contenitore con il flag` --previous`, nel caso in cui il contenitore si sia arrestato in modo anomalo. Se il pod ha più contenitori, è necessario specificare i registri del contenitore a cui si desidera accedere aggiungendo un nome contenitore al comando. Vedi la documentazione [`kubectl logs`] (/docs/reference/generated/kubectl/kubectl-commands # logs) per maggiori dettagli. from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+You can use `kubectl logs` to retrieve logsPuoi usare `kubectl logs` per recuperare i log da una precedente istanziazione di un contenitore con il flag` --previous`, nel caso in cui il contenitore si sia arrestato in modo anomalo. Se il pod ha più contenitori, è necessario specificare i registri del contenitore a cui si desidera accedere aggiungendo un nome contenitore al comando. Vedi la documentazione [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) per maggiori dettagli. from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
 
 ## Logging at the node level
 
-! [Node level logging] (/images/docs/user-guide/logging/logging-node-level.png)
+! [Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
 
-Tutto ciò che una applicazione containerizzata scrive su `stdout` e` stderr` viene gestito e reindirizzato da qualche parte da un motore contenitore. Ad esempio, il motore del contenitore Docker reindirizza questi due flussi a [un driver di registrazione] (https://docs.docker.com/engine/admin/logging/overview), che è configurato in Kubernetes per scrivere su un file in formato json .
+Tutto ciò che una applicazione containerizzata scrive su `stdout` e` stderr` viene gestito e reindirizzato da qualche parte da un motore contenitore. Ad esempio, il motore del contenitore Docker reindirizza questi due flussi a [un driver di registrazione](https://docs.docker.com/engine/admin/logging/overview), che è configurato in Kubernetes per scrivere su un file in formato json .
 
 {{<note>}}
 Il driver di registrazione di Docker json considera ogni riga come un messaggio separato. Quando si utilizza il driver di registrazione di Docker, non esiste un supporto diretto per i messaggi su più righe. È necessario gestire i messaggi multilinea a livello di agente di registrazione o superiore.
@@ -65,7 +65,7 @@ in modo che i registri non consumino tutta la memoria disponibile sul nodo. kube
 al momento non è responsabile della rotazione dei registri, ma piuttosto di uno strumento di distribuzione
 dovrebbe creare una soluzione per affrontarlo.
 Ad esempio, nei cluster di Kubernetes, implementato dallo script `kube-up.sh`,
-c'è un [`logrotate`] (https://linux.die.net/man/8/logrotate)
+c'è un [`logrotate`](https://linux.die.net/man/8/logrotate)
 strumento configurato per funzionare ogni ora. È anche possibile impostare un runtime del contenitore su
 ruotare automaticamente i registri dell'applicazione, ad es. usando il `log-opt` di Docker.
 Nello script `kube-up.sh`, quest'ultimo approccio viene utilizzato per l'immagine COS su GCP,
@@ -75,7 +75,7 @@ la rotazione predefinita è configurata per essere eseguita quando il file di re
 Ad esempio, puoi trovare informazioni dettagliate su come `kube-up.sh` imposta
 up logging per l'immagine COS su GCP nello [script] [cosConfigureHelper] corrispondente.
 
-Quando esegui [`kubectl logs`] (/docs/reference/generated/kubectl/kubectl-commands#logs) come in
+Quando esegui [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) come in
 l'esempio di registrazione di base, il kubelet sul nodo gestisce la richiesta e
 legge direttamente dal file di log, restituendo il contenuto nella risposta.
 
@@ -223,17 +223,17 @@ quei log usando il comando `kubectl logs`, perché non sono controllati
 dal kubelet.
 {{</ note>}}
 
-Ad esempio, è possibile utilizzare [Stackdriver] (/docs/tasks/debug-application-cluster/logging-stackdriver/),
+Ad esempio, è possibile utilizzare [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
 che utilizza fluentd come agente di registrazione. Qui ci sono due file di configurazione
 puoi usare per implementare questo approccio. Il primo file contiene
-a [ConfigMap] (/docs/tasks/configure-pod-container/configure-pod-configmap/) per configurare fluentd.
+a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) per configurare fluentd.
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 
 {{< note >}}
 La configurazione di fluentd esula dallo scopo di questo articolo. Per
 informazioni sulla configurazione di fluentd, vedere il
-[documentazione fluentd ufficiale] (http://docs.fluentd.org/).
+[documentazione fluentd ufficiale](http://docs.fluentd.org/).
 {{< /note >}}
 
 Il secondo file descrive un pod con un contenitore sidecar in esecuzione fluentd.

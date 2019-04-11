@@ -42,8 +42,8 @@ perché potresti volere che più cluster siano:
   cluster in diverse zone di disponibilità di un provider cloud).
 * Scalabilità: esistono limiti di scalabilità per un singolo cluster di kubernetes (questo
   non dovrebbe essere il caso per la maggior parte degli utenti. Per ulteriori dettagli:
-  [Scaling di Kubernetes e obiettivi di rendimento] (https://git.k8s.io/community/sig-scalability/goals.md)).
-* [Hybrid cloud] (# hybrid-cloud-capabilities): è possibile avere più cluster su diversi provider cloud o
+  [Scaling di Kubernetes e obiettivi di rendimento](https://git.k8s.io/community/sig-scalability/goals.md)).
+* [Hybrid cloud](#hybrid-cloud-capabilities): è possibile avere più cluster su diversi provider cloud o
   data center locali.
 
 ### Caveats
@@ -62,7 +62,7 @@ alcuni avvertimenti:
   dal lato della sicurezza ed evitare l'interruzione del multi-cluster.
 * Maturità: il progetto di federazione è relativamente nuovo e non è molto maturo.
   Non tutte le risorse sono disponibili e molte sono ancora alfa. [Problema
-  88] (https://github.com/kubernetes/federation/issues/88) enumera
+  88](https://github.com/kubernetes/federation/issues/88) enumera
   problemi noti con il sistema che il team è impegnato a risolvere.
 
 ### Hybrid cloud capabilities
@@ -78,7 +78,7 @@ e fornitori di cloud.
 
 Per poter federare più cluster, è necessario prima impostare una federazione
 piano di controllo.
-Seguire la [guida di installazione] (/docs/tutorial/federazione/set-up-cluster-federation-kubefed/) per configurare il
+Seguire la [guida di installazione](/docs/tutorial/federazione/set-up-cluster-federation-kubefed/) per configurare il
 piano di controllo della federazione.
 
 ## API resources
@@ -100,7 +100,7 @@ Le seguenti guide illustrano alcune delle risorse in dettaglio:
 * [Secrets](/docs/tasks/administer-federation/secret/)
 * [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
 
-I [documenti di riferimento API] (/docs/reference/federation/) elencano tutti i
+I [documenti di riferimento API](/docs/reference/federation/) elencano tutti i
 risorse supportate da apiserver della federazione.
 ## Cascading deletion
 
@@ -121,8 +121,8 @@ risorse federative.
 ## Ambito di un singolo cluster
 
 Sui provider IaaS come Google Compute Engine o Amazon Web Services, esiste una VM in a
-[zona] (https://cloud.google.com/compute/docs/zones) o [disponibilità
-zona] (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html).
+[zona](https://cloud.google.com/compute/docs/zones) o [disponibilità
+zona](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html).
 Suggeriamo che tutte le VM in un cluster Kubernetes debbano essere nella stessa zona di disponibilità, perché:
 
   - Rispetto ad un singolo cluster globale di Kubernetes, ci sono meno punti singoli di errore.
@@ -167,20 +167,16 @@ utenti in caso di guasto di un cluster), quindi è necessario disporre di cluste
 
 Infine, se uno qualsiasi dei tuoi cluster richiederebbe più del numero massimo consigliato di nodi per un cluster Kubernetes, allora
 potresti aver bisogno di più cluster. Kubernetes v1.3 supporta cluster di dimensioni fino a 1000 nodi. Supporta Kubernetes v1.8
-cluster fino a 5000 nodi. Vedi [Costruire cluster di grandi dimensioni] (/docs/setup/cluster-large/) per maggiori informazioni.
+cluster fino a 5000 nodi. Vedi [Costruire cluster di grandi dimensioni](/docs/setup/cluster-large/) per maggiori informazioni.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Ulteriori informazioni sulla [Federazione
-   proposta] (https://github.com/kubernetes/community/blob/{{<param "githubbranch">}}/contributors/design-proposal/multicluster/federation.md).
-* Vedi questo [guida alla configurazione] (/ docs / tutorial / federazione / set-up-cluster-federation-kubefed /) per la federazione dei cluster.
-* Vedi questo [Kubecon2016 talk on federation] (https://www.youtube.com/watch?v=pq9lbkmxpS8)
-* Vedi questo [Kubecon2017 aggiornamento Europa sulla federazione] (https://www.youtube.com/watch?v=kwOvOLnFYck)
-* Vedi questo [Kubecon2018 aggiornamento Europa su sig-multicluster] (https://www.youtube.com/watch?v=vGZo5DaThQU)
-* Vedi questo [Kubecon2018 Europe Federation-v2 presentazione prototipo] (https://youtu.be/q27rbaX5Jis?t=7m20s)
-* Vedi questo [Federation-v2 Userguide] (https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
+* Ulteriori informazioni sulla [Federazione proposta](https://github.com/kubernetes/community/blob/{{<param "githubbranch">}}/contributors/design-proposal/multicluster/federation.md).
+* Vedi questo [guida alla configurazione](/docs/tutorial/federazione/set-up-cluster-federation-kubefed/) per la federazione dei cluster.
+* Vedi questo [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
+* Vedi questo [Kubecon2017 aggiornamento Europa sulla federazione](https://www.youtube.com/watch?v=kwOvOLnFYck)
+* Vedi questo [Kubecon2018 aggiornamento Europa su sig-multicluster](https://www.youtube.com/watch?v=vGZo5DaThQU)
+* Vedi questo [Kubecon2018 Europe Federation-v2 presentazione prototipo](https://youtu.be/q27rbaX5Jis?t=7m20s)
+* Vedi questo [Federation-v2 Userguide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
 {{% /capture %}}
-
-
-

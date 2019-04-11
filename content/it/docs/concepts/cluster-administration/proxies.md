@@ -15,7 +15,7 @@ Questa pagina spiega i proxy utilizzati con Kubernetes.
 
 Esistono diversi proxy che puoi incontrare quando usi Kubernetes:
 
-1. Il [proxy kubectl] (/docs/tasks/access-application-cluster/access-cluster/#direct-accessing-the-rest-api):
+1. Il [proxy kubectl](/docs/tasks/access-application-cluster/access-cluster/#direct-accessing-the-rest-api):
 
     - Funziona sul desktop di un utente o in un pod
     - proxy da un indirizzo localhost all'apiserver di Kubernetes
@@ -24,7 +24,7 @@ Esistono diversi proxy che puoi incontrare quando usi Kubernetes:
     - individua l'apiserver
     - Aggiunge le intestazioni di autenticazione
 
-1. Il [proxy apiserver] (/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1. Il [proxy apiserver](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
 
     - è un bastione costruito nell'apiserver
     - collega un utente al di fuori del cluster agli IP del cluster che altrimenti potrebbero non essere raggiungibili
@@ -34,7 +34,7 @@ Esistono diversi proxy che puoi incontrare quando usi Kubernetes:
     - può essere utilizzato per raggiungere un nodo, un pod o un servizio
     - esegue il bilanciamento del carico quando viene utilizzato per raggiungere un servizio
 
-1. Il [kube proxy] (/docs/concepts/services-networking/service/#ips-and-vips):
+1. Il [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
     - Funziona su ciascun nodo
     - proxy UDP, TCP e SCTP
