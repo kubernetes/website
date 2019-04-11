@@ -24,7 +24,7 @@ kube-apiserver
 
       --advertise-address ip                                    向集群成员通知 apiserver 消息的 IP 地址。这个地址必须能够被集群中其他成员访问。如果 IP 地址为空，将会使用 --bind-address，如果未指定 --bind-address，将会使用主机的默认接口地址。
 
-      --allow-privileged                                        如果为 true, 将允许特权容器 .
+      --allow-privileged                                        如果为 true, 将允许特权容器。
 
       --anonymous-auth                                          启用到 API server 的安全端口的匿名请求。未被其他认证方法拒绝的请求被当做匿名请求。匿名请求的用户名为 system:anonymous，用户组名为 system:unauthenticated。（默认值 true）
 
