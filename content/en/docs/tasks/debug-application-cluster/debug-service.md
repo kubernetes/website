@@ -48,10 +48,10 @@ OUTPUT
 ## Running commands in a Pod
 
 For many steps here you will want to see what a `Pod` running in the cluster
-sees.  The simplest way to do this is to run an interactive busybox `Pod`:
+sees.  The simplest way to do this is to run an interactive alpine `Pod`:
 
 ```none
-kubectl run -it --rm --restart=Never busybox --image=busybox sh
+kubectl run -it --rm --restart=Never alpine --image=alpine sh
 / #
 ```
 {{< note >}}

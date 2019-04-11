@@ -201,10 +201,8 @@ Follow these steps to submit a pull request to improve the Kubernetes
 documentation.
 
 1.  On the page where you see the issue, click the pencil icon at the top right.
-    A new page appears, with some help text.
-2.  Click the first blue button, which has the text **Edit &lt;page name&gt;**.
-    
-    If you have never created a fork of the Kubernetes documentation
+    A new Github page appears, with some help text.
+2.  If you have never created a fork of the Kubernetes documentation
     repository, you are prompted to do so. Create the fork under your Github
     username, rather than another organization you may be a member of. The
     fork usually has a URL such as `https://github.com/<username>/website`,

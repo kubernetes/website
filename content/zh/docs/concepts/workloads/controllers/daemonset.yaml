@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: fluentd-elasticsearch
@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: fluentd-elasticsearch
-        image: k8s.gcr.io/fluentd-elasticsearch:1.20
+        image: gcr.io/fluentd-elasticsearch/fluentd:v2.5.1
         resources:
           limits:
             memory: 200Mi
