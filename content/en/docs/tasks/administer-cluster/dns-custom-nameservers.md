@@ -78,7 +78,6 @@ data:
         health
         kubernetes cluster.local in-addr.arpa ip6.arpa {
            pods insecure
-           upstream
            fallthrough in-addr.arpa ip6.arpa
         }
         prometheus :9153
@@ -96,8 +95,6 @@ The Corefile configuration includes the following [plugins](https://coredns.io/p
 * [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries based on IP of the services and pods of Kubernetes. You can find more details [here](https://coredns.io/plugins/kubernetes/). 
 
 > The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pods verified` option, which returns an A record only if there exists a pod in same namespace with matching IP. The `pods disabled` option can be used if you don't use pod records.
-
-> `Upstream` is used for resolving services that point to external hosts (External Services).
 
 * [prometheus](https://coredns.io/plugins/prometheus/): Metrics of CoreDNS are available at http://localhost:9153/metrics in [Prometheus](https://prometheus.io/) format.
 * [forward](https://coredns.io/plugins/forward/): Any queries that are not within the cluster domain of Kubernetes will be forwarded to predefined resolvers (/etc/resolv.conf).
@@ -144,7 +141,6 @@ data:
         health
         kubernetes cluster.local in-addr.arpa ip6.arpa {
            pods insecure
-           upstream
            fallthrough in-addr.arpa ip6.arpa
         }
         prometheus :9153
@@ -356,7 +352,6 @@ The complete Corefile with the default plugins:
         errors
         health
         kubernetes cluster.local in-addr.arpa ip6.arpa {
-           upstream
            pods insecure
            fallthrough in-addr.arpa ip6.arpa
         }
