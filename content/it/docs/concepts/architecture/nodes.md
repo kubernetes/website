@@ -63,9 +63,9 @@ La condizione del nodo è rappresentata come un oggetto JSON. Ad esempio, la seg
 ]
 ```
 
-Se lo stato della condizione Ready rimane `Unknown` o` False` per un tempo superiore a `pod-eviction-timeout`, viene passato un argomento al [gestore-kube-controller] (/ docs / admin / kube-controller- manager /) e tutti i pod sul nodo sono programmati per la cancellazione dal controller del nodo. La durata predefinita del timeout di sfratto è di ** cinque minuti **. In alcuni casi, quando il nodo non è raggiungibile, l'apiserver non è in grado di comunicare con kubelet sul nodo. La decisione di eliminare i pod non può essere comunicata al kubelet fino a quando non viene ristabilita la comunicazione con l'apiserver. Nel frattempo, i pod che sono programmati per la cancellazione possono continuare a funzionare sul nodo partizionato.
+Se lo stato della condizione Ready rimane `Unknown` o` False` per un tempo superiore a `pod-eviction-timeout`, viene passato un argomento al [gestore-kube-controller](/docs/admin/kube-controller-manager/) e tutti i pod sul nodo sono programmati per la cancellazione dal controller del nodo. La durata predefinita del timeout di sfratto è di ** cinque minuti **. In alcuni casi, quando il nodo non è raggiungibile, l'apiserver non è in grado di comunicare con kubelet sul nodo. La decisione di eliminare i pod non può essere comunicata al kubelet fino a quando non viene ristabilita la comunicazione con l'apiserver. Nel frattempo, i pod che sono programmati per la cancellazione possono continuare a funzionare sul nodo partizionato.
 
-Nelle versioni di Kubernetes precedenti alla 1.5, il controllore del nodo [forzerebbe la cancellazione] (/ docs/concepts/workloads/pods/pod/ # force-deletion-of-pods)
+Nelle versioni di Kubernetes precedenti alla 1.5, il controllore del nodo [forzerebbe la cancellazione](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)
 questi pod non raggiungibili dall'apiserver. Tuttavia, in 1.5 e versioni successive, il controller del nodo non impone l'eliminazione dei pod finché non lo è
 confermato che hanno smesso di funzionare nel cluster. Puoi vedere i pod che potrebbero essere in esecuzione su un nodo irraggiungibile
 lo stato `Terminating` o` Unknown`. Nei casi in cui Kubernetes non può dedurre dall'infrastruttura sottostante se ha un nodo
@@ -74,7 +74,7 @@ Kubernetes fa sì che tutti gli oggetti Pod in esecuzione sul nodo vengano elimi
 
 
 Nella versione 1.12, la funzione `TaintNodesByCondition` è promossa in versione beta, quindi il controller del ciclo di vita del nodo crea automaticamente
-[taints] (/ docs / concepts / configuration / taint-and-toleration /) che rappresentano le condizioni.
+[taints](/docs/concepts/configuration/taint-and-toleration/) che rappresentano le condizioni.
 Allo stesso modo lo schedulatore ignora le condizioni quando si considera un nodo; anziché
 guarda le tinte del Nodo e le tolleranze di un Pod.
 
@@ -161,7 +161,7 @@ controlla lo stato di ogni nodo ogni `--node-monitor-period` secondi.
 Nelle versioni di Kubernetes precedenti alla 1.13, NodeStatus è l'heartbeat di
 nodo. A partire da Kubernetes 1.13, la funzionalità di lease del nodo viene introdotta come un
 funzione alfa (porta caratteristica `NodeLease`,
-[KEP-0009] (https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 Quando la funzione di lease del nodo è abilitata, ogni nodo ha un oggetto `Lease` associato in
 spazio dei nomi `kube-node-lease` che viene rinnovato periodicamente dal nodo ed entrambi
 NodeStatus e lease del nodo vengono considerati heartbeat dal nodo. Locazioni di nodi
@@ -208,7 +208,7 @@ A partire da Kubernetes 1.6, il NodeController è anche responsabile della rimoz
 i pod che sono in esecuzione sui nodi con `NoExecute`, quando i pod non tollerano
 i taints. Inoltre, come caratteristica alfa che è disabilitata per impostazione predefinita, il
 NodeController è responsabile per l'aggiunta di taints corrispondenti ai problemi del nodo come
-nodo irraggiungibile o non pronto. Vedi [questa documentazione] (/docs/concepts/configuration/taint-and-toleration/)
+nodo irraggiungibile o non pronto. Vedi [questa documentazione](/docs/concepts/configuration/taint-and-toleration/)
 per i dettagli su `NoExecute` taints e la funzione alpha.
 
 partire dalla versione 1.8, il controller del nodo può essere reso responsabile della creazione di taints che rappresentano le condizioni del nodo. 
@@ -226,7 +226,7 @@ Per l'autoregistrazione, il kubelet viene avviato con le seguenti opzioni:
   - `--register-node` - Si registra automaticamente con il server API.
   - `--register-with-taints` - Registra il nodo con la lista data di taints (separati da virgola` <chiave> = <valore>: <effetto> `). No-op se `register-node` è falso.
   - `--node-ip` - Indirizzo IP del nodo.
-  - `--node-labels` - Etichette da aggiungere quando si registra il nodo nel cluster (vedere le restrizioni dell'etichetta applicate dal [plugin di accesso NodeRestriction] (/ docs / reference / access-authn-authz / admission-controller / # noderestriction) in 1.13+).
+  - `--node-labels` - Etichette da aggiungere quando si registra il nodo nel cluster (vedere le restrizioni dell'etichetta applicate dal [plugin di accesso NodeRestriction](/docs/reference/access-authn-authz/admission-controller/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifica la frequenza con cui kubelet invia lo stato del nodo al master
 
 Quando [Node authorization mode](/docs/reference/access-authn-authz/node/) e 
@@ -265,15 +265,15 @@ la macchina anche se viene scaricata dalle applicazioni mentre si prepara per un
 
 La capacità del nodo (numero di cpu e quantità di memoria) è parte dell'oggetto nodo.
 Normalmente, i nodi si registrano e segnalano la loro capacità durante la creazione dell'oggetto nodo. Se
-stai facendo [amministrazione manuale del nodo] (# manual-node-administration), quindi devi impostare il nodo
+stai facendo [amministrazione manuale del nodo](#manual-node-administration), quindi devi impostare il nodo
 capacità quando si aggiunge un nodo.
 
 Lo scheduler di Kubernetes garantisce che ci siano risorse sufficienti per tutti i pod su un nodo. esso
 controlla che la somma delle richieste di container sul nodo non sia maggiore della capacità del nodo. esso
-include tutti i contenitori avviati da kubelet, ma non i contenitori avviati direttamente dal [contenitore runtime] (/docs/concepts/overview/components/ # node-components) né qualsiasi processo eseguito all'esterno dei contenitori.
+include tutti i contenitori avviati da kubelet, ma non i contenitori avviati direttamente dal [contenitore runtime](/docs/concepts/overview/components/#node-components) né qualsiasi processo eseguito all'esterno dei contenitori.
 
 Se si desidera riservare esplicitamente risorse per processi non Pod, seguire questo tutorial su
-[riserva risorse per i demoni di sistema] (/docs/tasks/administration-cluster/reserve-compute-resources/ # system-reserved).
+[riserva risorse per i demoni di sistema](/docs/tasks/administration-cluster/reserve-compute-resources/#system-reserved).
 
 
 ## API Object
