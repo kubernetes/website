@@ -215,7 +215,7 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
       
       --tls-private-key-file string                             包含匹配 --tls-cert-file 的 x509 证书私钥的文件。
       
-      --tls-sni-cert-key namedCertKey                           一对 x509 证书和私钥的文件路径 , 可以使用符合正式域名的域形式作为后缀。 如果没有提供域形式后缀 , 则将提取证书名。 非通配符版本优先于通配符版本 , 显示的域形式优先于证书中提取的名字。 对于多个密钥 / 证书对 , 请多次使用 --tls-sni-cert-key。例如 : "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com". （默认值[])
+      --tls-sni-cert-key namedCertKey                           一对 x509 证书和私钥的文件路径 , 可以使用符合正式域名的域形式作为后缀。 如果没有提供域形式后缀 , 则将提取证书名。 非通配符版本优先于通配符版本 , 显示的域形式优先于证书中提取的名字。 对于多个密钥 / 证书对, 请多次使用 --tls-sni-cert-key。例如 : "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com". （默认值[])
       
       --token-auth-file string                                  如果设置该值，这个文件将被用于通过令牌认证来保护 API 服务的安全端口。
       
