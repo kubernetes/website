@@ -1,47 +1,48 @@
 ---
-title: Recommended Labels
+title: Etiquetas recomendadas
 content_template: templates/concept
 ---
 
 {{% capture overview %}}
-You can visualize and manage Kubernetes objects with more tools than kubectl and
-the dashboard. A common set of labels allows tools to work interoperably, describing
-objects in a common manner that all tools can understand.
+Puedes visualizar y gestionar los objetos de Kubernetes objects con herramientas adicionales a kubectl
+y el propio tablero de control. Un conjunto común de etiquetas permite a dichas herramientas 
+trabajar de forma interoperable, describiendo los objetos de una forma común que todas las
+herramientas puedan entender.
 
-In addition to supporting tooling, the recommended labels describe applications
-in a way that can be queried.
+Además del soporte a herramientas, las etiquetas recomendadas describen las aplicaciones
+de forma que puedan ser interrogadas.
 {{% /capture %}}
 
 {{% capture body %}}
-The metadata is organized around the concept of an _application_. Kubernetes is not
-a platform as a service (PaaS) and doesn't have or enforce a formal notion of an application.
-Instead, applications are informal and described with metadata. The definition of
-what an application contains is loose.
+Los metadatos se organizan en torno al concepto de una _aplicación_. Kubernetes no es
+una plataforma como servicio (PaaS) y ni tiene ni restringe la definición formal de una aplicación.
+Al contrario, las aplicaciones son informales y se describen mediante el uso de los metadatos.
+La definición de lo que contiene una aplicación es imprecisa.
 
 {{< note >}}
-These are recommended labels. They make it easier to manage applications
-but aren't required for any core tooling.
+Estas son las etiquetas recomendadas. Estas facilitan la gestión de aplicaciones,
+pero no son obligatorias para las herramientas en general.
 {{< /note >}}
 
-Shared labels and annotations share a common prefix: `app.kubernetes.io`. Labels
-without a prefix are private to users. The shared prefix ensures that shared labels
-do not interfere with custom user labels.
+Las etiquetas compartidas y las anotaciones comparten un prefijo común: `app.kubernetes.io`. 
+Las etiquetas sin un prefijo son privadas para los usuarios. El prefijo compartido
+garantiza que las etiquetas compartidas no entran en conflicto con las etiquetas
+personalizadas de usuario.
 
-## Labels
+## Etiquetas
 
-In order to take full advantage of using these labels, they should be applied
-on every resource object.
+Para beneficiarse al máximo del uso de estas etiquetas, estas deberían aplicarse a cada objeto de recurso.
 
-| Key                                 | Description           | Example  | Type |
+| Clave                               | Descripción           | Ejemplo  | Tipo |
 | ----------------------------------- | --------------------- | -------- | ---- |
-| `app.kubernetes.io/name`            | The name of the application | `mysql` | string |
-| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `wordpress-abcxzy` | string |
-| `app.kubernetes.io/version`         | The current version of the application (e.g., a semantic version, revision hash, etc.) | `5.7.21` | string |
-| `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
-| `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
-| `app.kubernetes.io/managed-by`  | The tool being used to manage the operation of an application | `helm` | string |
+| `app.kubernetes.io/name`            | El nombre de la apliación | `mysql` | string |
+| `app.kubernetes.io/instance`        | Un nombre único que identifique la instancia de la aplicación | `wordpress-abcxzy` | string |
+| `app.kubernetes.io/version`         | La versión actual de la aplicación (ej., la versión semántica, cadena hash de revisión, etc.) | `5.7.21` | string |
+| `app.kubernetes.io/component`       | El componente dentro de la arquitectura | `database` | string |
+| `app.kubernetes.io/part-of`         | El nombre de una aplicación de nivel superior de la cual es parte esta aplicación | `wordpress` | string |
+| `app.kubernetes.io/managed-by`  | La herramienta usada para gestionar la operativa de una aplicación | `helm` | string |
 
-To illustrate these labels in action, consider the following StatefulSet object:
+Para ilustrar estas etiquetas en acción, consideremos el siguiente objeto StatefulSet:
 
 ```yaml
 apiVersion: apps/v1
@@ -56,27 +57,27 @@ metadata:
     app.kubernetes.io/managed-by: helm
 ```
 
-## Applications And Instances Of Applications
+## Aplicaciones e Instancias de Aplicaciones
 
-An application can be installed one or more times into a Kubernetes cluster and,
-in some cases, the same namespace. For example, wordpress can be installed more
-than once where different websites are different installations of wordpress.
+Una misma aplicación puede desplegarse una o más veces en un clúster de Kubernetes e,
+incluso, el mismo espacio de nombres. Por ejemplo, wordpress puede instalarse más de una
+vez de forma que sitios web diferentes sean instalaciones diferentes de wordpress.
 
-The name of an application and the instance name are recorded separately. For
-example, WordPress has a `app.kubernetes.io/name` of `wordpress` while it has
-an instance name, represented as `app.kubernetes.io/instance` with a value of
-`wordpress-abcxzy`. This enables the application and instance of the application
-to be identifiable. Every instance of an application must have a unique name.
+El nombre de una aplicación y el nombre de la instancia se almacenan de forma separada. 
+Por ejemplo, WordPress tiene un `app.kubernetes.io/name` igual a `wordpress` mientras que 
+tiene un nombre de instancia, representado como `app.kubernetes.io/instance` con un valor de 
+`wordpress-abcxzy`. Esto permite identificar tanto a la aplicación como a sus instancias. 
+Cada instancia de una aplicación tiene su propio nombre único.
 
-## Examples
+## Ejemplos
 
-To illustrate different ways to use these labels the following examples have varying complexity.
+Para ilustrar las diferentes formas en que se puede utilizar las etiquetas, los siguientes ejemplos presentan distintas complejidades.
 
-### A Simple Stateless Service
+### Un Servicio Simple sin Estado
 
-Consider the case for a simple stateless service deployed using `Deployment` and `Service` objects. The following two snippets represent how the labels could be used in their simplest form.
+Considera el caso de un servicio simple sin estado desplegado mediante el uso de un objeto `Deployment` y `Service`. Los dos siguientes extractos de código representan cómo usar las etiquetas de la forma más sencilla.
 
-The `Deployment` is used to oversee the pods running the application itself.
+El objeto `Deployment` se utiliza para supervisar los pods que ejecutan la propia aplicación.
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -87,7 +88,7 @@ metadata:
 ...
 ```
 
-The `Service` is used to expose the application.
+El objeto `Service` se utiliza para exponer la aplicación.
 ```yaml
 apiVersion: v1
 kind: Service
@@ -98,13 +99,13 @@ metadata:
 ...
 ```
 
-### Web Application With A Database
+### Aplicación Web con una Base de Datos
 
-Consider a slightly more complicated application: a web application (WordPress)
-using a database (MySQL), installed using Helm. The following snippets illustrate
-the start of objects used to deploy this application.
+Considera una aplicación un poco más complicada: una aplicación web (WordPress)
+que utiliza una base de datos (MySQL), instalada utilizando Helm. Los siguientes extractos
+de código ilustran la parte inicial de los objetos utilizados para desplegar esta aplicación.
 
-The start to the following `Deployment` is used for WordPress:
+El comienzo del objeto `Deployment` siguiente se utiliza para WordPress:
 
 ```yaml
 apiVersion: apps/v1
@@ -120,7 +121,7 @@ metadata:
 ...
 ```
 
-The `Service` is used to expose WordPress:
+El objeto `Service` se emplea para exponer WordPress:
 
 ```yaml
 apiVersion: v1
@@ -136,7 +137,7 @@ metadata:
 ...
 ```
 
-MySQL is exposed as a `StatefulSet` with metadata for both it and the larger application it belongs to:
+MySQL se expone como un objeto `StatefulSet` con metadatos tanto para sí mismo como para la aplicación global que lo contiene:
 
 ```yaml
 apiVersion: apps/v1
@@ -152,7 +153,7 @@ metadata:
 ...
 ```
 
-The `Service` is used to expose MySQL as part of WordPress:
+El objeto `Service` se usa para exponer MySQL como parte de WordPress:
 
 ```yaml
 apiVersion: v1
@@ -168,6 +169,6 @@ metadata:
 ...
 ```
 
-With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and Wordpress, the broader application, are included.
+Con los objetos `StatefulSet` y `Service` de MySQL te darás cuenta que se incluye la información acerca de MySQL y Wordpress, la aplicación global.
 
 {{% /capture %}}
