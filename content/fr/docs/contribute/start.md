@@ -1,5 +1,6 @@
 ---
 title: Commencez à contribuer
+description: Démarrage contribution Kubernetes
 slug: start
 content_template: templates/concept
 weight: 10

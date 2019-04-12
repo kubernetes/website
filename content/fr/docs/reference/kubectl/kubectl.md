@@ -1,5 +1,6 @@
 ---
 title: kubectl
+description: Reference kubectl
 notitle: true
 ---
 ## kubectl

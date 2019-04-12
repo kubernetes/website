@@ -1,5 +1,6 @@
 ---
 title: Configuration des kubelet de votre cluster avec kubeadm
+description: Configuration kubelet Kubernetes cluster kubeadm
 content_template: templates/concept
 weight: 80
 ---

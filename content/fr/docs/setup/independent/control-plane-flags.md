@@ -1,5 +1,6 @@
 ---
 title: Personnalisation de la configuration du control plane avec kubeadm
+description: kubeadm kubernetes control plan configuration
 content_template: templates/concept
 weight: 40
 ---
