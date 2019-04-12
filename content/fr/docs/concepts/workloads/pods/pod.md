@@ -23,7 +23,7 @@ sur la manière d'exécuter ces conteneurs. Les éléments d'un pod sont toujour
 et co-ordonnancés, et s'exécutent dans un contexte partagé. Un pod modélise un
 "hôte logique" spécifique à une application - il contient un ou plusieurs conteneurs applicatifs
 qui sont étroitement liés &mdash; dans un monde pré-conteneurs, être exécuté sur la même machine 
-physique ou virtuelle signiefierait être exécuté sur le même hôte logique.
+physique ou virtuelle signifierait être exécuté sur le même hôte logique.
 
 Bien que Kubernetes prenne en charge d'autres runtimes de conteneurs que Docker, Docker est le runtime
 le plus connu, et cela aide à décrire des pods en termes Docker.
@@ -39,14 +39,14 @@ distinctes et ne peuvent pas communiquer par IPC sans [configuration spécifique
 
 Les applications à l'intérieur d'un pod ont aussi accès à des volumes partagés, 
 qui sont définis dans le cadre d'un pod et sont mis à disposition pour être montés
-dans les systèmes de fichiers de chaque application.
+dans le système de fichiers de chaque application.
 
-En terme de constructions [Docker](https://www.docker.com/), un pod est modélisé par un groupe de conteneurs Docker
+En terme de concepts [Docker](https://www.docker.com/), un pod est modélisé par un groupe de conteneurs Docker
 ayant des namespaces et des [volumes](/docs/concepts/storage/volumes/) partagés.
 
-Tout comme des conteneurs applicatifs individuels, les pods sont considérés être des entités relativement éphémères (plutôt que durables).
+Tout comme des conteneurs applicatifs individuels, les pods sont considérés comme des entités relativement éphémères (plutôt que durables).
 Comme discuté dans [Cycle de vie d'un pod](/docs/concepts/workloads/pods/pod-lifecycle/), les pods sont créés, des ID uniques (UID) leurs sont assignés,
-et ils sont ordonnancés sur des nœuds où il restent jusqu'à leur terminaison (selon la politique de redémarrage) ou suppression.
+et ils sont ordonnancés sur des nœuds où il restent jusqu'à leur arrêt (selon la politique de redémarrage) ou suppression.
 Si un nœud meurt, les pods ordonnancés sur ce nœud sont programmés pour être terminés, après un délai d'attente. Un pod donné (défini par un UID)
 n'est pas "re-ordonnancé" sur un nouveau nœud ; par contre, il peut être remplacé par un pod identique,
 ayant le même nom si désiré, mais avec un nouvel UID (voir [replication
@@ -65,11 +65,11 @@ utilisant un volume persistant comme espace de stockage partagé entre les conte
 
 ### Gestion
 
-Les pods sont un modèle du motif de plusieurs processus coopérants qui forment
-une unité de service cohésive. Ils simplifient le déploiement et la gestion d'applications 
+Les pods fournissent une unité de service cohérente afin d'avoir un modèle coopératif entre plusieurs processus.
+Ils simplifient le déploiement et la gestion d'applications 
 en fournissant une abstraction de plus haut niveau que l'ensemble des applications les constituant.
 Les pods servent d'unité de déploiement, de mise à l'échelle horizontale, et de réplication.
-La co-localisation (co-ordonnancement), la fin partagée (par ex. la terminaison), 
+La co-localisation (co-ordonnancement), la fin partagée (par ex. l'arrêt), 
 la réplication coordonnée, le partage de ressources et la gestion des dépendances sont 
 traités automatiquement pour les conteneurs dans un pod.
 
@@ -81,7 +81,7 @@ Les applications dans un pod utilisent toutes le même réseau (même adresse IP
 et peuvent donc "se trouver" entre elles et communiquer en utilisant `localhost`.
 À cause de cela, les applications dans un pod doivent coordonner leurs usages de ports.
 Chaque pod a une adresse IP dans un réseau plat partagé ayant un accès complet 
-aux autres ordinateurs physiques et pods à travers le réseau.
+aux autres hôtes et pods à travers le réseau.
 
 Le nom d'hôte est défini avec le nom du pod pour les conteneurs applicatifs à l'intérieur du pod.
 [Plus de détails sur le réseau](/docs/concepts/cluster-administration/networking/).
@@ -125,7 +125,7 @@ _Pourquoi ne pas simplement exécuter plusieurs programmes dans un unique conten
 _Pourquoi ne pas prendre en charge le co-ordonnancement de conteneurs basé sur les affinités ?_
 
 Cette approche pourrait fournir la co-localisation, mais ne fournirait pas la plupart 
-des bénéfices des pods, comme le partage de ressources, IPC, la garantie d'une fin partagée et une gestion silplifiée.
+des bénéfices des pods, comme le partage de ressources, IPC, la garantie d'une fin partagée et une gestion simplifiée.
 
 ## Durabilité des pods (ou manque de)
 
@@ -138,7 +138,7 @@ Les contrôleurs fournissent l'auto-guérison à l'échelle du cluster, ainsi qu
 Les contrôleurs comme [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)
 peuvent aussi prendre en charge des pods avec état (stateful).
 
-L'utilisation d'APIs collectives comme primitive primaire exposée à l'utilisateur est courante dans les systèmes d'ordonnancement de clusters, comme [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), et [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
+L'utilisation d'APIs collectives comme principale primitive exposée à l'utilisateur est courante dans les systèmes d'ordonnancement de clusters, comme [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), et [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
 Un Pod est exposé en tant que primitive afin de faciliter :
 
@@ -147,16 +147,16 @@ Un Pod est exposé en tant que primitive afin de faciliter :
 * le découplage du cycle de fin d'un pod de celui d'un contrôleur, comme pour l'amorçage (bootstrapping)
 * le découplage des contrôleurs et des services &mdash; le contrôleur d'endpoints examine uniquement des pods
 * la composition claire des fonctionnalités niveau Kubelet et des fonctionnalités niveau cluster &mdash; concrètement, Kubelet est le "contrôleur de pods"
-* les applications hautement disponibles, qui attendront que les pods soient remplacés avant leur terminaison et au moins avant leur suppression, comme dans les cas d'éviction programmée ou de pré-chargement d'image.
+* les applications hautement disponibles, qui attendront que les pods soient remplacés avant leur arrêt et au moins avant leur suppression, comme dans les cas d'éviction programmée ou de pré-chargement d'image.
 
-## Terminaison de pods
+## Arrêt de pods
 
 Les pods représentant des processus s'exécutant sur des nœuds d'un cluster, il est important de permettre à ces processus de se terminer proprement
 lorsqu'ils ne sont plus nécessaires (plutôt que d'être violemment tués avec un signal KILL et n'avoir aucune chance de libérer ses ressources). Les 
 utilisateurs doivent pouvoir demander une suppression et savoir quand les processus se terminent, mais aussi être capable de s'assurer que la suppression
 est réellement effective. Lorsqu'un utilisateur demande la suppression d'un pod, le système enregistre le délai de grâce prévu avant que le pod puisse
 être tué de force, et qu'un signal TERM soit envoyé au processus principal de chaque conteneur. Une fois la période de grâce expirée, le signal KILL
-est envoyé à ces processus, et le pod est alors supprimé de l'API server. Si Kubelet ou le gestionnaire de conteneurs est redémarré lors de l'attente de terminaison des processus, la terminaison sera réessayée avec la période de grâce complète.
+est envoyé à ces processus, et le pod est alors supprimé de l'API server. Si Kubelet ou le gestionnaire de conteneurs est redémarré lors de l'attente de l'arrêt des processus, l'arrêt sera réessayé avec la période de grâce complète.
 
 Un exemple de déroulement :
 
