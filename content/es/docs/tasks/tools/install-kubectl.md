@@ -319,7 +319,7 @@ recarga tu intérprete de comandos y verifica que bash-completion está correcta
 
 ### Habilitar el auto-completado de kubectl
 
-Debes asegurarte que la secuencia de comandos de completado de kubectl corre en todas tus sesiones de tu intérprete de comenados. Hay dos formas en que puedes hacer esto:
+Debes asegurarte que la secuencia de comandos de completado de kubectl corre en todas tus sesiones de tu intérprete de comandos. Hay dos formas en que puedes hacer esto:
 
 - Corre la secuencia de comandos de completado en tu `~/.bashrc`:
 
