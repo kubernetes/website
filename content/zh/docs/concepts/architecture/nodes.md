@@ -61,8 +61,8 @@ redirect_from:
 | ---------------- | ---------------------------------------- |
 | `OutOfDisk`      | `True` 表示 node 的空闲空间不足以用于添加新 pods, 否则为 `False` |
 | `Ready`          | `True` 表示 node 是健康的并已经准备好接受 pods；`False` 表示 node 不健康而且不能接受 pods；`Unknown` 表示 node 控制器在最近 40 秒内没有收到 node 的消息 |
-| `MemoryPressure` | `True` 表示 node 不存在内存压力 -- 即 node 内存用量低, 否则为 `False`       |
-| `DiskPressure`   | `True` 表示 node 不存在磁盘压力 -- 即磁盘用量低, 否则为 `False`       |
+| `MemoryPressure` | `True` 表示 node 不存在内存压力 -- 即 node 内存用量低，否则为 `False`       |
+| `DiskPressure`   | `True` 表示 node 不存在磁盘压力 -- 即磁盘用量低，否则为 `False`       |
 
 
 Node 条件使用一个 JSON 对象表示。例如，下面的响应描述了一个健康的 node。
@@ -77,10 +77,10 @@ Node 条件使用一个 JSON 对象表示。例如，下面的响应描述了一
 ```
 
 
-如果 Ready 条件处于状态 "Unknown" 或者 "False" 的时间超过了 `pod-eviction-timeout`(一个传递给 [kube-controller-manager](/docs/admin/kube-controller-manager/) 的参数)，node 上的所有 Pods 都会被 Node 控制器计划删除。默认的删除超时时长为**5分钟**。某些情况下，当 node 不可访问时，apiserver 不能和其上的 kubelet 通信。删除 pods 的决定不能传达给 kubelet，直到它重新建立和 apiserver 的连接为止。与此同时，被计划删除的 pods 可能会继续在分区 node 上运行。
+如果 Ready 条件处于状态 "Unknown" 或者 "False" 的时间超过了 `pod-eviction-timeout`（一个传递给 [kube-controller-manager](/docs/admin/kube-controller-manager/) 的参数），node 上的所有 Pods 都会被 Node 控制器计划删除。默认的删除超时时长为**5 分钟**。某些情况下，当 node 不可访问时，apiserver 不能和其上的 kubelet 通信。删除 pods 的决定不能传达给 kubelet，直到它重新建立和 apiserver 的连接为止。与此同时，被计划删除的 pods 可能会继续在分区 node 上运行。
 
 
-在 1.5 版本之前的 Kubernetes 里，node 控制器会将不能访问的 pods 从 apiserver 中[强制删除](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)。但在 1.5 或更高的版本里，在node 控制器确认这些 pods 已经在集群里停运行前不会强制删除它们。你可以看到这些处于 "Terminating" 或者 "Unknown" 状态的 pods 可能在无法访问的 node 上运行。为了防止 kubernetes 不能从底层基础设施中推断出一个 node 是否已经永久的离开了集群，集群管理员可能需要手动删除这个 node 对象。从 Kubernetes 删除 node 对象将导致 apiserver 删除 node 上所有运行的 Pod 对象并释放它们的名字。
+在 1.5 版本之前的 Kubernetes 里，node 控制器会将不能访问的 pods 从 apiserver 中[强制删除](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)。但在 1.5 或更高的版本里，在 node 控制器确认这些 pods 已经在集群里停运行前不会强制删除它们。你可以看到这些处于 "Terminating" 或者 "Unknown" 状态的 pods 可能在无法访问的 node 上运行。为了防止 kubernetes 不能从底层基础设施中推断出一个 node 是否已经永久的离开了集群，集群管理员可能需要手动删除这个 node 对象。从 Kubernetes 删除 node 对象将导致 apiserver 删除 node 上所有运行的 Pod 对象并释放它们的名字。
 
 
 ### 容量
@@ -117,7 +117,7 @@ Node 条件使用一个 JSON 对象表示。例如，下面的响应描述了一
 Kubernetes 会在内部创一个 node 对象（象征 node），并基于  `metadata.name` 字段（我们假设 `metadata.name` 能够被解析）通过健康检查来验证 node。如果 node 可用，意即所有必要服务都已运行，它就符合了运行一个 pod 的条件；否则它将被所有的集群动作忽略直到变为可用。请注意，Kubernetes 将保存不可用 node 的对象，除非它被客户端显式的删除。Kubernetes 将持续检查 node 是否变的可用。
 
 
-当前，有3个组件同 Kubernetes node 接口交互：node 控制器、kubelet 和 kubectl。
+当前，有 3 个组件同 Kubernetes node 接口交互：node 控制器、kubelet 和 kubectl。
 
 
 ### Node 控制器
@@ -141,13 +141,13 @@ Node 控制器在 node 的生命周期中扮演了多个角色。第一个是当
 大部分情况下， node 控制器把删除频率限制在每秒 `--node-eviction-rate` 个（默认为 0.1）。这表示它在 10 秒钟内不会从超过一个 node 上删除 pods。
 
 
-当一个 availability zone 中的 node 变为不健康时，它的删除行为将发生改变。Node 控制器会同时检查 zone 中不健康（NodeReady  状态为 ConditionUnknown 或 ConditionFalse）的 nodes 的百分比。如果不健康 nodes 的部分超过 `--unhealthy-zone-threshold` （默认为 0.55），删除速率将会减小：如果集群较小（意即小于等于 `--large-cluster-size-threshold` 个 nodes - 默认为50），删除将会停止，否则删除速率将降为每秒 `--secondary-node-eviction-rate` 个（默认为 0.01）。在单个 availability zone 实施这些策略的原因是当一个 availability zone 可能从 master 分区时其它的仍然保持连接。如果你的集群没有跨越云服务商的多个 availability zones，那就只有一个 availability zone（整个集群）。
+当一个 availability zone 中的 node 变为不健康时，它的删除行为将发生改变。Node 控制器会同时检查 zone 中不健康（NodeReady  状态为 ConditionUnknown 或 ConditionFalse）的 nodes 的百分比。如果不健康 nodes 的部分超过 `--unhealthy-zone-threshold` （默认为 0.55），删除速率将会减小：如果集群较小（意即小于等于 `--large-cluster-size-threshold` 个 nodes - 默认为 50），删除将会停止，否则删除速率将降为每秒 `--secondary-node-eviction-rate` 个（默认为 0.01）。在单个 availability zone 实施这些策略的原因是当一个 availability zone 可能从 master 分区时其它的仍然保持连接。如果你的集群没有跨越云服务商的多个 availability zones，那就只有一个 availability zone（整个集群）。
 
 
 在多个 availability zones 分布你的 nodes 的一个关键原因是当整个 zone 故障时，工作负载可以转移到健康的 zones。因此，如果一个 zone 中的所有 nodes 都不健康时，node 控制器会以正常的速率 `--node-eviction-rate` 删除。在所有的 zones 都不健康（也即集群中没有健康 node）的极端情况下，node 控制器将假设 master 的连接出了某些问题，它将停止所有删除动作直到一些连接恢复。
 
 
-从 Kubernetes 1.6 开始，NodeController 还负责删除运行在拥有 `NoExecute` taints 的 nodes 上的 pods，如果这些 pods 没有 tolerate 这些 taints。此外，作为一个默认禁用的 alpha 特性，NodeController 还负责根据 node 故障（例如 node 不可访问或没有 ready）添加 taints。请查看 [这个文档](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature)了解关于 `NoExecute` taints 和这个 alpha 特性。
+从 Kubernetes 1.6 开始，NodeController 还负责删除运行在拥有 `NoExecute` taints 的 nodes 上的 pods，如果这些 pods 没有 tolerate 这些 taints。此外，作为一个默认禁用的 alpha 特性，NodeController 还负责根据 node 故障（例如 node 不可访问或没有 ready）添加 taints。请查看[这个文档](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature)了解关于 `NoExecute` taints 和这个 alpha 特性。
 
 
 ### Nodes 自注册
@@ -180,7 +180,7 @@ Node 控制器在 node 的生命周期中扮演了多个角色。第一个是当
 如果管理员希望手动创建 node 对象，请设置 kubelet 标记 `--register-node=false`。
 
 
-管理员可以修改 node 资源（忽略 `--register-node` 设置）。修改包括在 node 上设置 labels及标记它为不可调度。
+管理员可以修改 node 资源（忽略 `--register-node` 设置）。修改包括在 node 上设置 labels 及标记它为不可调度。
 
 
 Nodes 上的 labels 可以和 pods 的 node selectors 一起使用来控制调度，例如限制一个 pod 只能在一个符合要求的 nodes 子集上运行。

@@ -55,13 +55,13 @@ Master 组件通过非安全（没有加密或认证）端口和集群的 apiser
 如果这样不可能，又要求避免在不可信的或公共的网络上进行连接，请在 apiserver 和 kubelet 之间使用 [SSH 隧道](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)。
 
 
-最后，应该启用[Kubelet 用户认证和/或权限认证](/docs/admin/kubelet-authentication-authorization/)来保护 kubelet API。
+最后，应该启用 [Kubelet 用户认证和/或权限认证](/docs/admin/kubelet-authentication-authorization/)来保护 kubelet API。
 
 
 ## apiserver -> nodes, pods, and services
 
 
-从 apiserver 到 node、pod或者service 的连接默认为纯 HTTP 方式，因此既没有认证，也没有加密。他们能够通过给API URL 中的 node、pod 或 service 名称添加前缀 `https:` 来运行在安全的 HTTPS 连接上。但他们即不会认证 HTTPS endpoint 提供的证书，也不会提供客户端证书。这样虽然连接是加密的，但它不会提供任何完整性保证。这些连接**目前还不能安全的**在不可信的或公共的网络上运行。
+从 apiserver 到 node、pod 或者 service 的连接默认为纯 HTTP 方式，因此既没有认证，也没有加密。他们能够通过给 API URL 中的 node、pod 或 service 名称添加前缀 `https:` 来运行在安全的 HTTPS 连接上。但他们即不会认证 HTTPS endpoint 提供的证书，也不会提供客户端证书。这样虽然连接是加密的，但它不会提供任何完整性保证。这些连接**目前还不能安全的**在不可信的或公共的网络上运行。
 
 
 ## SSH 隧道
