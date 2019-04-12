@@ -271,7 +271,7 @@ kubectl -n my-ns delete po,svc --all                                      # Dele
 
 ```bash
 kubectl logs my-pod                                 # dump pod logs (stdout)
-kubectl logs -l name=myLabel                         # dump pod logs, with label name=myLabel (stdout)
+kubectl logs -l name=myLabel                        # dump pod logs, with label name=myLabel (stdout)
 kubectl logs my-pod --previous                      # dump pod logs (stdout) for a previous instantiation of a container
 kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
 kubectl logs -l name=myLabel -c my-container        # dump pod logs, with label name=myLabel (stdout)
