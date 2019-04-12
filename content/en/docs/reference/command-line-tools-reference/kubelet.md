@@ -29,6 +29,16 @@ is checked every 20 seconds (also configurable with a flag).
 HTTP server: The kubelet can also listen for HTTP and respond to a simple API
 (underspec'd currently) to submit a new manifest.
 
+#### Pod Lifecycle Event Generator (PLEG)
+
+The Pod Lifecycle Event Generator is a function of the kubelet that creates a list of 
+the states for all containers and pods then compares it to the previous states of the
+containers and pods in a process called Relisting. This allows the PLEG to know which 
+pods and containers need to be synced. In versions prior to 1.2, this was accomplished 
+by polling and was CPU intensive. By changing to this method, this significantly reduced
+resource utilization allowing for better container density. 
+
+
 ```
 kubelet [flags]
 ```
