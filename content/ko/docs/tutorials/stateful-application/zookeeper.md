@@ -7,13 +7,13 @@ reviewers:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: 분산 시스템 코디네이터 주키퍼 실행하기
+title: 분산 시스템 코디네이터 ZooKeeper 실행하기
 content_template: templates/tutorial
 weight: 40
 ---
 
 {{% capture overview %}}
-이 튜토리얼은 [아파치 주키퍼](https://zookeeper.apache.org)
+이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)
 쿠버네티스에서 [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)과
 [파드디스룹선버짓(PodDisruptionBudget)](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
 과 [파드안티어피피니티(PodAntiAffinity)](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)를 이용하여 실행하는 시연한다.
@@ -46,29 +46,29 @@ weight: 40
 {{% capture objectives %}}
 이 튜토리얼을 마치면 다음에 대해 알게 된다.
 
--   어떻게 스테이트풀셋을 이용하여 주키퍼 앙상블을 배포하는가.
+-   어떻게 스테이트풀셋을 이용하여 ZooKeeper 앙상블을 배포하는가.
 -   어떻게 지속적으로 컨피그맵을 이용해서 앙상블을 설정하는가.
--   어떻게 주키퍼 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
+-   어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
 -   어떻게 파드디스룹션버짓을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
     {{% /capture %}}
 
 {{% capture lessoncontent %}}
 
-### 주키퍼 기본 {#zookeeper-basics}
+### ZooKeeper 기본 {#zookeeper-basics}
 
-[아파치 주키퍼](https://zookeeper.apache.org/doc/current/)는
+[아파치 ZooKeeper](https://zookeeper.apache.org/doc/current/)는
 분산 애플리케이션을 위한 분산 오픈 소스 코디네이션 서비스이다.
-주키퍼는 데이터를 읽고 쓰고 갱신을 지켜보도록 한다. 데이터는
-파일시스템처럼 계층적으로 관리되고 앙상블(주키퍼 서버의 집합) 내에 모든 주키퍼서버에 복제된다.
-데이터에 모든 연산은 원자적이고 순처적으로 일관된다. 주키퍼는
+ZooKeeper는 데이터를 읽고 쓰고 갱신을 지켜보도록 한다. 데이터는
+파일시스템처럼 계층적으로 관리되고 앙상블(ZooKeeper 서버의 집합) 내에 모든 ZooKeeper서버에 복제된다.
+데이터에 모든 연산은 원자적이고 순처적으로 일관된다. ZooKeeper는
 [Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf) 합의 프로토콜을
 이용하여 앙상블 내에 모든 서버에 걸쳐 상태 머신을 복제하여 이를 보장한다.
 
 앙상블은 리더 선출을 위해 Zab 프로토콜을 사용하고 리더 선출과 선거가 완료되기 전까지 앙상블은 데이터를 쓸 수 없다. 완료되면 앙상블은 Zab을 이용하여 확인하고 클라이언트에 보여지도록 모든 쓰기를 쿼럼에 복제한다. 가중치있는 쿼럼없이 쿼럼은 현재 리더를 포함하는 앙상블의 메이저 컴포넌트이다. 예를 들어 앙상블이 3개 서버인 경우 리더와 다른 서버로 쿼럼을 구성한다. 앙상블이 쿼럼을 달성할 수 없다면 앙상블은 데이터를 쓸 수 없다.
 
-주키퍼는 전체 상태 머신을 메모리에 보존하고 모든 돌연변이를 저장 미디어의 내구성 있는 WAL(Write Ahead Log)에 기록한다. 서버 장애시 WAL을 재생하여 이전 상태를 복원할 수 있다. WAL이 무제한으로 커지는 것을 방지하기 위해 주키퍼는 주기적으로 저장 미디어에 메모리 상태의 스냅샷을 저장한다. 이 스냅샷은 메모리에 직접 적재할 수 있고 스냅샷 이전의 모든 WAL 항목은 삭제될 수 있다.
+ZooKeeper는 전체 상태 머신을 메모리에 보존하고 모든 돌연변이를 저장 미디어의 내구성 있는 WAL(Write Ahead Log)에 기록한다. 서버 장애시 WAL을 재생하여 이전 상태를 복원할 수 있다. WAL이 무제한으로 커지는 것을 방지하기 위해 ZooKeeper는 주기적으로 저장 미디어에 메모리 상태의 스냅샷을 저장한다. 이 스냅샷은 메모리에 직접 적재할 수 있고 스냅샷 이전의 모든 WAL 항목은 삭제될 수 있다.
 
-## 주키퍼 앙상블 생성하기
+## ZooKeeper 앙상블 생성하기
 
 아래 메니페스트에는
 [헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services),
@@ -125,7 +125,7 @@ zk-2      1/1       Running   0         40s
 ```
 
 스테이트풀셋 컨트롤러는 3개 파드를 생성했고, 각 파드는
-[주키퍼](http://www-us.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
+[ZooKeeper](http://www-us.apache.org/dist/zookeeper/stable/) 서버를 포함한 컨테이너를 가진다.
 
 
 ### 리더 선출 촉진 {#facilitating-leader-election}
@@ -149,7 +149,7 @@ zk-1
 zk-2
 ```
 
-주키퍼 앙상블에 서버들은 고유 식별자로서 자연수를 이용하고 서버 데이터 디렉터리에 `my` 라는 파일로 서버 식별자를 저장한다.
+ZooKeeper 앙상블에 서버들은 고유 식별자로서 자연수를 이용하고 서버 데이터 디렉터리에 `my` 라는 파일로 서버 식별자를 저장한다.
 
 각 서버에서 다음 명령어를 이용하여 `myid` 파일의 내용을 확인하자.
 
@@ -184,14 +184,14 @@ zk-2.zk-hs.default.svc.cluster.local
 
 [쿠버네티스 DNS](/docs/concepts/services-networking/dns-pod-service/)의 A 레코드는 FQDN을 파드의 IP 주소로 풀어낸다. 쿠버네티스가 파드르 재스케줄하면 파드의 새 IP 주소로 A 레코드를 갱신하나 A 레코드의 이름은 바뀌지 않는다.
 
-주키퍼는 그것의 애플리케이션 환경설정을 `zoo.cfg` 파일에 저장한다. `kubectl exec`를 이용하여 `zk-0` 파드의 `zoo.cfg` 내용을 보자.
+ZooKeeper는 그것의 애플리케이션 환경설정을 `zoo.cfg` 파일에 저장한다. `kubectl exec`를 이용하여 `zk-0` 파드의 `zoo.cfg` 내용을 보자.
 
 ```shell
 kubectl exec zk-0 -- cat /opt/zookeeper/conf/zoo.cfg
 ```
 
 아래 파일의  `server.1`, `server.2`, `server.3` 프로퍼티에서 
-`1`, `2`, `3`은 주키퍼 서버의 `myid` 파일에 구분자와 
+`1`, `2`, `3`은 ZooKeeper 서버의 `myid` 파일에 구분자와 
 연관된다. 
 이들은 `zk` 스테이트풀셋의 파드의 FQDNS을 설정한다.
 
@@ -214,9 +214,9 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 
 ### 합의 달성 {#achieving-consensus}
 
-합의 프로토콜에서 각 참가자의 식별자는 유일해야 한다. Zab 프로토콜에서 동일한 고유 식별자를 요청하는 참가자는 없다. 이는 시스템 프로세스가 어떤 프로세스가 어떤 데이터를 커밋했는지 동의하게 하는데 필요하다. 2개 파드를 동일 순번으로 시작하였다면 두 대의 주키퍼 서버는 둘 다 스스로를 동일 서버로 식별한다.
+합의 프로토콜에서 각 참가자의 식별자는 유일해야 한다. Zab 프로토콜에서 동일한 고유 식별자를 요청하는 참가자는 없다. 이는 시스템 프로세스가 어떤 프로세스가 어떤 데이터를 커밋했는지 동의하게 하는데 필요하다. 2개 파드를 동일 순번으로 시작하였다면 두 대의 ZooKeeper 서버는 둘 다 스스로를 동일 서버로 식별한다.
 
-합의 프로토콜에서 각 참여자의 식별자는 고유해야 한다. Zab 프로토콜에 두 참여자가 동일한 고유 식별자로 요청해서는 안된다. 이는 시스템 프로세스가 어떤 프로세스가 어떤 데이터를 커밋했는지 동의하도록 하기 위해 필수적이다. 동일 순번으로 두 개의 파드가 실행했다면 두 주키퍼 서버는 모두 동일한 서버로 식별된다.
+합의 프로토콜에서 각 참여자의 식별자는 고유해야 한다. Zab 프로토콜에 두 참여자가 동일한 고유 식별자로 요청해서는 안된다. 이는 시스템 프로세스가 어떤 프로세스가 어떤 데이터를 커밋했는지 동의하도록 하기 위해 필수적이다. 동일 순번으로 두 개의 파드가 실행했다면 두 ZooKeeper 서버는 모두 동일한 서버로 식별된다.
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -240,9 +240,9 @@ zk-2      1/1       Running   0         40s
 ```
 
 각 파드의 A 레코드는 파드가 Ready 상태가 되면 입력된다. 따라서
-주키퍼 서버의 FQDN은 단일 엔드포인트로 확인되고
+ZooKeeper 서버의 FQDN은 단일 엔드포인트로 확인되고
 해당 엔드포인트는 `myid` 파일에 구성된 식별자를 가진
-고유한 주키퍼 서버가 된다.
+고유한 ZooKeeper 서버가 된다.
 
 
 ```shell
@@ -251,7 +251,7 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-이것은 주키퍼의 `zoo.cfg` 파일에 `servers` 속성이 정확히 구성된 앙상블로 나타나는 것을 보증한다.
+이것은 ZooKeeper의 `zoo.cfg` 파일에 `servers` 속성이 정확히 구성된 앙상블로 나타나는 것을 보증한다.
 
 ```shell
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
@@ -263,7 +263,7 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 
 ### 앙상블 무결성 테스트 {#sanity-testing-the-ensemble}
 
-가장 기본적인 테스트는 한 주키퍼 서버에 데이터를 쓰고 다른 주키퍼 서버에서 데이터를 읽는 것이다.
+가장 기본적인 테스트는 한 ZooKeeper 서버에 데이터를 쓰고 다른 ZooKeeper 서버에서 데이터를 읽는 것이다.
 
 아래 명령어는 앙상블 내에 `zk-0` 파드에서 `/hello` 라는 경로로 `world`를 쓰는 스크립트인 `zkCli.sh` 실행한다.
 
@@ -305,8 +305,8 @@ numChildren = 0
 
 ### 내구성있는 저장소 제공
 
-[주키퍼 기본](#zookeeper-basics) 섹션에서 언급했듯이
-주키퍼는 모든 항목을 내구성있는 WAL에 커밋하고 메모리 상태의 스냅샷을 저장 미디에에 주기적으로 저장한다.
+[ZooKeeper 기본](#zookeeper-basics) 섹션에서 언급했듯이
+ZooKeeper는 모든 항목을 내구성있는 WAL에 커밋하고 메모리 상태의 스냅샷을 저장 미디에에 주기적으로 저장한다.
 내구성을 제공하기 위해 WAL을 이용하는 것은
 복제된 상태 머신을 이루는 합의 프로토콜에서
 이용하는 일반적인 기법이다.
@@ -438,7 +438,7 @@ datadir-zk-1   Bound     pvc-bedd27d2-bcb1-11e6-994f-42010a800002   20Gi       R
 datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       RWO           1h
 ```
 
-`스테이트풀셋`의 컨테이너 `template`의 `volumeMounts` 부분이 주키퍼 서버의 데이터 디렉터리에 퍼시스턴트볼륨 마운트하는 내용이다.
+`스테이트풀셋`의 컨테이너 `template`의 `volumeMounts` 부분이 ZooKeeper 서버의 데이터 디렉터리에 퍼시스턴트볼륨 마운트하는 내용이다.
 
 
 ```shell
@@ -448,8 +448,8 @@ volumeMounts:
 ```
 
 `zk` 스테이트풀셋이 (재)스케쥴링될 때 항상 동일한 `퍼시스턴트볼륨`을
-주키퍼의 서버 디렉터리에 마운트한다.
-파드를 재스케쥴할 때에도 주키퍼의 WAL을 통해 이뤄진 모든 쓰기와
+ZooKeeper의 서버 디렉터리에 마운트한다.
+파드를 재스케쥴할 때에도 ZooKeeper의 WAL을 통해 이뤄진 모든 쓰기와
 모든 그 스냅샷도 내구성을 유지한다.
 
 ## 일관된 구성 보장하기
@@ -464,7 +464,7 @@ the manifest.
 
 [리더 선출 촉진](#facilitating-leader-election)과
 [합의 달성](#achieving-consensus) 섹션에서 알렸듯이,
-주키퍼 앙상블에 서버는 리더 선출과 쿼럼을 구성하기 위한 일관된 설정이 필요하다.
+ZooKeeper 앙상블에 서버는 리더 선출과 쿼럼을 구성하기 위한 일관된 설정이 필요하다.
 또한 Zab 프로토콜의 일관된 설정도 네트워크에 걸쳐 올바르게 동작하기 위해서
 필요하다. 이 예시에서는 메니페스트에 구성을 직접 포함시켜서 일관된 구성을
 달성한다.
@@ -498,12 +498,12 @@ command:
 …
 ```
 
-주키퍼 서버를 시작하는데 사용한 명령어는 커맨드라인 파라미터로 환경 구성을 전달했다. 환경 변수를 이용하여서도 앙상블에 환경 구성을 전달할 수 있다.
+ZooKeeper 서버를 시작하는데 사용한 명령어는 커맨드라인 파라미터로 환경 구성을 전달했다. 환경 변수를 이용하여서도 앙상블에 환경 구성을 전달할 수 있다.
 
 ### 로깅 설정하기
 
-`zkGenConfig.sh` 스크립트로 생성된 파일 중 하나는 주키퍼의 로깅을 제어한다.
-주키퍼는 [Log4j](http://logging.apache.org/log4j/2.x/)를 이용하며
+`zkGenConfig.sh` 스크립트로 생성된 파일 중 하나는 ZooKeeper의 로깅을 제어한다.
+ZooKeeper는 [Log4j](http://logging.apache.org/log4j/2.x/)를 이용하며
 기본 로깅 구성으로는 시간과 파일 크기 기준의 롤링 파일 어펜더를 사용한다.
 
  `zk` `스테이트풀셋`의 한 파드에서 로깅 설정을 살펴보는 아래 명령어를 이용하자.
@@ -512,7 +512,7 @@ command:
 kubectl exec zk-0 cat /usr/etc/zookeeper/log4j.properties
 ```
 
-아래 로깅 구성은 주키퍼가 모든 로그를 표준 출력 스트림으로 처리하게 한다.
+아래 로깅 구성은 ZooKeeper가 모든 로그를 표준 출력 스트림으로 처리하게 한다.
 
 ```shell
 zookeeper.root.logger=CONSOLE
@@ -579,7 +579,7 @@ securityContext:
   fsGroup: 1000
 ```
 
-파드 컨테이너에서 UID 1000 은 주키퍼 사용자요, GID 1000은 주키퍼의 그룹에 해당한다.
+파드 컨테이너에서 UID 1000 은 ZooKeeper 사용자요, GID 1000은 ZooKeeper의 그룹에 해당한다.
 
 `zk-0` 파드에서 프로세스 정보를 얻어오자.
 
@@ -588,7 +588,7 @@ kubectl exec zk-0 -- ps -elf
 ```
 
 `securityContext` 오브젝트의 `runAsUser` 필드 값이 1000 이므로
-루트 사용자로 실행하는 대신 주키퍼 프로세스는 주키퍼 사용자로 실행된다.
+루트 사용자로 실행하는 대신 ZooKeeper 프로세스는 ZooKeeper 사용자로 실행된다.
 
 
 ```shell
@@ -597,24 +597,24 @@ F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 0 S zookeep+    27     1  0  80   0 - 1155556 -    20:46 ?        00:00:19 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dzookeeper.log.dir=/var/log/zookeeper -Dzookeeper.root.logger=INFO,CONSOLE -cp /usr/bin/../build/classes:/usr/bin/../build/lib/*.jar:/usr/bin/../share/zookeeper/zookeeper-3.4.9.jar:/usr/bin/../share/zookeeper/slf4j-log4j12-1.6.1.jar:/usr/bin/../share/zookeeper/slf4j-api-1.6.1.jar:/usr/bin/../share/zookeeper/netty-3.10.5.Final.jar:/usr/bin/../share/zookeeper/log4j-1.2.16.jar:/usr/bin/../share/zookeeper/jline-0.9.94.jar:/usr/bin/../src/java/lib/*.jar:/usr/bin/../etc/zookeeper: -Xmx2G -Xms2G -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false org.apache.zookeeper.server.quorum.QuorumPeerMain /usr/bin/../etc/zookeeper/zoo.cfg
 ```
 
-기본적으로 파드의 퍼시스턴트볼륨은 주키퍼 서버의 데이터 디렉터리에 마운트되고 루트 사용자만이 접근 가능하다. 이 구성은 주키퍼 프로세스가 WAL에 기록하고 스냅샷을 저장하는 것을 방지한다.
+기본적으로 파드의 퍼시스턴트볼륨은 ZooKeeper 서버의 데이터 디렉터리에 마운트되고 루트 사용자만이 접근 가능하다. 이 구성은 ZooKeeper 프로세스가 WAL에 기록하고 스냅샷을 저장하는 것을 방지한다.
 
-`zk-0` 파드의 주키퍼 데이터 디렉터리의 퍼미션을 얻어오는 아래 명령어를 이용하자.
+`zk-0` 파드의 ZooKeeper 데이터 디렉터리의 퍼미션을 얻어오는 아래 명령어를 이용하자.
 
 ```shell
 kubectl exec -ti zk-0 -- ls -ld /var/lib/zookeeper/data
 ```
 
-`securityContext` 오브젝트의 `fsGroup` 필드 값이 1000 이므로 파드의 퍼시스턴트 볼륨의 소유권은 주키퍼 그룹으로 지정되어 주키퍼 프로세스에서 읽고 쓸 수 있다.
+`securityContext` 오브젝트의 `fsGroup` 필드 값이 1000 이므로 파드의 퍼시스턴트 볼륨의 소유권은 ZooKeeper 그룹으로 지정되어 ZooKeeper 프로세스에서 읽고 쓸 수 있다.
 
 ```shell
 drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ```
 
-## 주키퍼 프로세스 관리하기
+## ZooKeeper 프로세스 관리하기
 
-[주키퍼 문서](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision)에는
-"주키퍼의 서버 프로세스(JVM)을 관리할
+[ZooKeeper 문서](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision)에는
+"ZooKeeper의 서버 프로세스(JVM)을 관리할
 감독 프로세스를 필요할 것이다." 언급한다.
 와치독(감독 프로세스)를 활용하여 실패한 프로세스를 재지작하는 것은 분산시스템에서
 일반적인 방식이다. 쿠버네티스에서 애플리케이션을 배포할 때에
@@ -679,14 +679,14 @@ statefulset.apps/zk rolled back
 이것이 기본 값이다. 상태가 유지되는 애플리케이션을 위해
 기본 정책을 **절대로** 변경하지 말자.
 
-`zk-0` 파드에서 실행중인 주키퍼 서버에서 프로세스 트리를 살펴보기 위해 다음 명령어를 이용하자.
+`zk-0` 파드에서 실행중인 ZooKeeper 서버에서 프로세스 트리를 살펴보기 위해 다음 명령어를 이용하자.
 
 ```shell
 kubectl exec zk-0 -- ps -ef
 ```
 
 컨테이너의 엔트리 포인트로 PID 1 인 명령이 사용되엇으며
-주키퍼 프로세스는 엔트리 포인트의 자식 프로세스로 PID 27 이다.
+ZooKeeper 프로세스는 엔트리 포인트의 자식 프로세스로 PID 27 이다.
 
 
 ```shell
@@ -701,13 +701,13 @@ zookeep+    27     1  0 15:03 ?        00:00:03 /usr/lib/jvm/java-8-openjdk-amd6
 kubectl get pod -w -l app=zk
 ```
 
-또 다른 터미널에서 다음 명령어로 `zk-0` 파드의 주키퍼 프로세스를 종료시키자.
+또 다른 터미널에서 다음 명령어로 `zk-0` 파드의 ZooKeeper 프로세스를 종료시키자.
 
 ```shell
 kubectl exec zk-0 -- pkill java
 ```
 
-주키퍼 프로세스의 종료는 부모 프로세스의 종료를 유발했다. 컨테이너 `재시작정책`이 Always이기 때문에 부모 프로세스를 재시작했다.
+ZooKeeper 프로세스의 종료는 부모 프로세스의 종료를 유발했다. 컨테이너 `재시작정책`이 Always이기 때문에 부모 프로세스를 재시작했다.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -747,7 +747,7 @@ zk-0      1/1       Running   1         29m
           timeoutSeconds: 5
 ```
 
-프르부는 주키퍼의 `ruok` 4 글자 단어를 이용해서 서버의 건강을 테스트하는
+프르부는 ZooKeeper의 `ruok` 4 글자 단어를 이용해서 서버의 건강을 테스트하는
 배쉬 스크립트를 호출한다.
 
 ```bash
@@ -771,7 +771,7 @@ kubectl get pod -w -l app=zk
 kubectl exec zk-0 -- rm /usr/bin/zookeeper-ready
 ```
 
-주키퍼의 활성도검사에 실패하면 쿠버네티스는
+ZooKeeper의 활성도검사에 실패하면 쿠버네티스는
 자동으로 프로세스를 재시작하여 앙상블에 건강하지 않은 프로세스를
 재시작하는 것을 보증한다.
 
@@ -799,7 +799,7 @@ zk-0      1/1       Running   1         1h
 준비도검사를 지정하면 쿠버네티스는 준비도가 통과할 때까지
 애플리케이션 프로세스가 네트워크 트래픽을 수신하지 않게 한다.
 
-주키퍼 서버에서는 준비도가 활성도를 내포한다. 그러므로 `zookeeper.yaml` 메니페스트에서
+ZooKeeper 서버에서는 준비도가 활성도를 내포한다. 그러므로 `zookeeper.yaml` 메니페스트에서
 준비도검사는 활성도검사와 동일하다.
 
 ```yaml
@@ -814,22 +814,22 @@ zk-0      1/1       Running   1         1h
 ```
 
 활성도와 준비도검사가 동일함에도 둘 다 지정하는 것은 중요하다.
-이는 주키퍼 앙상블에 건강한 서버만 아니라
+이는 ZooKeeper 앙상블에 건강한 서버만 아니라
 네트워크 트래픽을 수신하는 것을 보장한다.
 
 ## 노드 실패 방지
 
-주키퍼는 변조된 데이터를 성공적으로 커밋하기 위한 서버의 쿼럼이 필요하다.
+ZooKeeper는 변조된 데이터를 성공적으로 커밋하기 위한 서버의 쿼럼이 필요하다.
 3개의 서버 앙상블에서 성공적으로 저장하려면 2개 서버는 반드시 건강해야 한다.
 쿼럼 기반 시스템에서 맴버는 가용성을 보장하는 실패 영역에 걸쳐 배포된다.
 중단을 방지하기 위해 개별 시스템의 손실로 인해 모범 사례에서는 동일한 시스템에
 여러 인스턴스의 응용 프로그램을 함께 배치하는 것을 배제한다.
 
-기본적으로 쿠버네티스는 동일 노드상의 `스테이트풀셋`의 파드를 위치시킬 수 있다. 생성한 3 개의 서버 앙상블에서 2개의 서버가 같은 노드에 있다면 그 노드는 실패하고 주키퍼 서비스 클라이언트는 그 파드들의 최소 하나가 재스케쥴링될 때까지 작동 중단을 경험할 것이다.
+기본적으로 쿠버네티스는 동일 노드상의 `스테이트풀셋`의 파드를 위치시킬 수 있다. 생성한 3 개의 서버 앙상블에서 2개의 서버가 같은 노드에 있다면 그 노드는 실패하고 ZooKeeper 서비스 클라이언트는 그 파드들의 최소 하나가 재스케쥴링될 때까지 작동 중단을 경험할 것이다.
 
 노드 실패하는 사건 중에도 중요 시스템의 프로세스가 재스케줄될 수 있게
 항상 추가적인 용량을 프로비전해야 한다. 그렇게 하면 쿠버네티스 스케줄러가
-주키퍼 서버 하나를 다시 스케줄하는 동안까지만 작동 중단될 것이다.
+ZooKeeper 서버 하나를 다시 스케줄하는 동안까지만 작동 중단될 것이다.
 그러나 귀하의 서비스에서 노드 실패로 인한 다운타임을 방지하려 한다면
 `파드안티어피니티`를 설정해야 한다.
 
