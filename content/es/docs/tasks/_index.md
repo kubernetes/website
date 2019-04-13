@@ -1,5 +1,5 @@
 ---
-title: Tasks
+title: Tareas
 main_menu: true
 weight: 50
 content_template: templates/concept
@@ -9,79 +9,79 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-This section of the Kubernetes documentation contains pages that
-show how to do individual tasks. A task page shows how to do a
-single thing, typically by giving a short sequence of steps.
+Esta sección de la documentación de Kubernetes contiene páginas que
+muestran cómo acometer tareas individuales. Cada página de tarea muestra cómo
+realizar una única cosa, típicamente proporcionando una pequeña secuencia de comandos.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Web UI (Dashboard)
+## Interfaz Web de Usuario (Tablero de Control)
 
-Deploy and access the Dashboard web user interface to help you manage and monitor containerized applications in a Kubernetes cluster.
+Despliega y accede al interfaz web de usuario del Tablero de Control para ayudarte en la gestión y monitorización de las aplicaciones en contenedores de tu clúster de Kubenertes.
 
-## Using the kubectl Command-line
+## Usar la línea de comandos con kubectl
 
-Install and setup the `kubectl` command-line tool used to directly manage Kubernetes clusters.
+Instala y configura la herramienta de línea de comandos `kubectl` para gestionar de forma directa tus clústers de Kubernetes.
 
-## Configuring Pods and Containers
+## Configurar Pods y Contenedores
 
-Perform common configuration tasks for Pods and Containers.
+Realiza tareas comunes de configuración para tus Pods y Contenedores.
 
-## Running Applications
+## Ejecutar Aplicaciones
 
-Perform common application management tasks, such as rolling updates, injecting information into pods, and horizontal Pod autoscaling.
+Realiza tareas comunes de gestión de aplicaciones, como actualizaciones de lanzamiento, inyectar información en los pods, y auto-escalado horizontal de pods.
 
-## Running Jobs
+## Ejecutar Jobs
 
-Run Jobs using parallel processing.
+Ejecuta Jobs usando procesado paralelo.
 
-## Accessing Applications in a Cluster
+## Acceder a las Aplicaciones de un Clúster
 
-Configure load balancing, port forwarding, or setup firewall or DNS configurations to access applications in a cluster.
+Configura el balanceo de carga, re-envío de puertos, o configura el cortafuegos o las configuraciones de DNS para acceder a las aplicaciones en un clúster.
 
-## Monitoring, Logging, and Debugging
+## Monitorización, Trazas, y Depuración
 
-Setup monitoring and logging to troubleshoot a cluster or debug a containerized application.
+Configura la monitorización y las trazas para identificar problemas en un clúster o depurar una aplicación en un contenedor.
 
-## Accessing the Kubernetes API
+## Acceder a la API de Kubernetes
 
-Learn various methods to directly access the Kubernetes API.
+Aprende varios métodos para acceder directamente a la API de Kubernetes.
 
-## Using TLS
+## Usar TLS
 
-Configure your application to trust and use the cluster root Certificate Authority (CA).
+Configura tu aplicación para que confíe y use el Certificado de Autoridad (CA) raíz de tu clúster.
 
-## Administering a Cluster
+## Administrar un Clúster
 
-Learn common tasks for administering a cluster.
+Aprende tareas comunes de administración de un clúster.
 
-## Administering Federation
+## Administrar la Federación
 
-Configure components in a cluster federation.
+Configura componentes en una federación de clústers.
 
-## Managing Stateful Applications
+## Gestionar Aplicaciones con Estado
 
-Perform common tasks for managing Stateful applications, including scaling, deleting, and debugging StatefulSets.
+Realiza tareas comunes de gestión de aplicaciones con estado, incluyendo escalado, borrado y depuración de StatefulSets.
 
-## Cluster Daemons
+## Demonios del Clúster
 
-Perform common tasks for managing a DaemonSet, such as performing a rolling update.
+Realiza tareas comunes de gestión de un DaemonSet, como llevar a cabo una actualización de lanzamiento.
 
-## Managing GPUs
+## Gestionar GPUs
 
-Configure and schedule NVIDIA GPUs for use as a resource by nodes in a cluster.
+COnfigura y planifica GPUs de NVIDIA para hacerlas disponibles como recursos a los nodos de un clúster.
 
-## Managing HugePages
+## Gestionar HugePages
 
-Configure and schedule huge pages as a schedulable resource in a cluster.
+Configura y planifica HugePages como un recurso planificado en un clúster.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-If you would like to write a task page, see
-[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
+Si quisieras escribir una página de Tareas, echa un vistazo a
+[Crear una Petición de Subida de Documentación](/docs/home/contribute/create-pull-request/).
 
 {{% /capture %}}
