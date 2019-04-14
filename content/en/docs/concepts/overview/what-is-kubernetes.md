@@ -42,7 +42,7 @@ Platform as a Service (PaaS) with the flexibility of Infrastructure as
 a Service (IaaS), and enables portability across infrastructure
 providers.
 
-## How is Kubernetes a platform?
+## How Kubernetes is a platform?
 
 Even though Kubernetes provides a lot of functionality, there are
 always new scenarios that would benefit from new
