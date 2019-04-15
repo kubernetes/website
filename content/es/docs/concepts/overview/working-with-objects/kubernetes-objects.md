@@ -1,5 +1,5 @@
 ---
-title: Understanding Kubernetes Objects
+title: Entender los Objetos de Kubernetes
 content_template: templates/concept
 weight: 10
 card: 
@@ -8,23 +8,23 @@ card:
 ---
 
 {{% capture overview %}}
-This page explains how Kubernetes objects are represented in the Kubernetes API, and how you can express them in `.yaml` format.
+Esta página explica cómo se representan los objetos de Kubernetes en la API de Kubernetes, y cómo puedes definirlos en formato `.yaml`.
 {{% /capture %}}
 
 {{% capture body %}}
-## Understanding Kubernetes Objects
+## Entender los Objetos de Kubernetes
 
-*Kubernetes Objects* are persistent entities in the Kubernetes system. Kubernetes uses these entities to represent the state of your cluster. Specifically, they can describe:
+Los *Objetos de Kubernetes* son entidades persistentes dentro del sistema de Kubernetes. Kubernetes utiliza estas entidades para representar el estado de tu clúster. Específicamente, pueden describir:
 
-* What containerized applications are running (and on which nodes)
-* The resources available to those applications
-* The policies around how those applications behave, such as restart policies, upgrades, and fault-tolerance
+* Qué aplicaciones corren en contenedores (y en qué nodos)
+* Los recursos disponibles para dichas aplicaciones
+* Las políticas acerca de cómo dichas aplicaciones se comportan, como las políticas de reinicio, actualización, y tolerancia a fallos
 
-A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system will constantly work to ensure that object exists. By creating an object, you're effectively telling the Kubernetes system what you want your cluster's workload to look like; this is your cluster's **desired state**.
+Un objeto de Kubernetes es un "registro de intención" -- una vez que has creado el objeto, el sistema de Kubernetes se pondrá en marcha para asegurar que el objeto existe. Al crear un objeto, en realidad le estás diciendo al sistema de Kubernetes cómo quieres que sea la carga de trabajo de tu clúster; esto es, el **estado deseado** de tu clúster.
 
-To work with Kubernetes objects--whether to create, modify, or delete them--you'll need to use the [Kubernetes API](/docs/concepts/overview/kubernetes-api/). When you use the `kubectl` command-line interface, for example, the CLI makes the necessary Kubernetes API calls for you. You can also use the Kubernetes API directly in your own programs using one of the [Client Libraries](/docs/reference/using-api/client-libraries/).
+Para trabajar con los objetos de Kubernetes -- sea para crearlos, modificarlos, o borrarlos -- necesitarás usar la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/). Cuando utilizas el interfaz de línea de comandos `kubectl`, por ejemplo, este realiza las llamadas necesarias a la API de Kubernetes en tu lugar. También puedes usar la API de Kubernetes directamente desde tus programas utilizando alguna de las [Librerías de Cliente](/docs/reference/using-api/client-libraries/).
 
-### Object Spec and Status
+### Alcance y Status de un Objeto
 
 Every Kubernetes object includes two nested object fields that govern the object's configuration: the object *spec* and the object *status*. The *spec*, which you must provide, describes your *desired state* for the object--the characteristics that you want the object to have. The *status* describes the *actual state* of the object, and is supplied and updated by the Kubernetes system. At any given time, the Kubernetes Control Plane actively manages an object's actual state to match the desired state you supplied.
 
