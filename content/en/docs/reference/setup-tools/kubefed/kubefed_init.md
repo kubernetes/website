@@ -5,7 +5,11 @@ title: kubefed init
 content_template: templates/concept
 weight: 40
 ---
+{{% capture overview %}}
+This command initializes a federation control plane.
+{{% /capture %}}
 
+{{% capture body %}}
 ## kubefed init
 
 Initialize a federation control plane
@@ -102,7 +106,7 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT [flags]
   -v, --v Level                                      log level for V logs
       --vmodule moduleSpec                           comma-separated list of pattern=N settings for file-filtered logging
 ```
-
+{{% /capture %}}
 {{% capture whatsnext %}}
 * [kubefed](kubefed.md)	 - kubefed controls a Kubernetes Cluster Federation
 {{% /capture %}}
