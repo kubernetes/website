@@ -160,7 +160,7 @@ few commands.
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
-* [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
+* [IBM Cloud Private](https://www.ibm.com/cloud/private)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
 * [Kublr](https://kublr.com/)
