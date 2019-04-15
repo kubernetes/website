@@ -13,7 +13,9 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Certified Kubernetes Administrator Preparation Course (Linux Academy)](https://linuxacademy.com/linux/training/course/name/certified-kubernetes-administrator-preparation-course)
 
-* [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud.com)](https://kodekloud.com/p/kubernetes-certification-course)
+* [Certified Kubernetes Administrator Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/certified-kubernetes-administrator-with-practice-tests)
+
+* [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/kubernetes-certification-course)
 
 * [Getting Started with Google Kubernetes Engine (Coursera)](https://www.coursera.org/learn/google-kubernetes-engine)
 
@@ -31,7 +33,7 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Kubernetes Essentials (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-essentials)
 
-* [Kubernetes for the Absolute Beginners with Hands-on Labs (KodeKloud.com)](https://kodekloud.com/p/kubernetes-for-the-absolute-beginners-hands-on)
+* [Kubernetes for the Absolute Beginners with Hands-on Labs (KodeKloud)](https://kodekloud.com/p/kubernetes-for-the-absolute-beginners-hands-on)
 
 * [Kubernetes Quick Start (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-quick-start)
 
