@@ -9,13 +9,13 @@ Have you ever seen someone take more than their fair share of the cookies? The o
 
 In some rare workloads, a similar occurrence was taking place inside Kubernetes clusters. With each Pod and Node, there comes a finite number of possible process IDs (PIDs) for all applications to share. While it is rare for any one process or pod to reach in and grab all the PIDs, some users were experiencing resource starvation due to this type of behavior.
 
-##Can You Spare Some PIDs?
+## Can You Spare Some PIDs?
 
 It’s awful to think of someone starving to death because of lack of cookies, and the greed of another human, but here, we’re only talking about the greed of certain containers. Outside the ideal though they may be, such runaway processes do occur from time to time, particularly in clusters where testing is taking place, and thus, wildly non-production-ready activity is happening. 
 
 In such a scenario, it’s possible for something akin to a fork bomb taking place inside a node. As resources slowly erode, being taken over by some zombie process that continually spawns children, other legitimate workloads begin to get bumped in favor of this inflating balloon of wasted processing power. This would result in other processes on the same pod being starved of their needed PIDs.  It could also lead to interesting side effects as a node would fail and a replica of that pod is scheduled to a new machine where the process repeats across your entire cluster.
 
-##Fixing the Problem
+## Fixing the Problem
 
 Thus, in Kubernetes 1.14, we have added a feature that allows for the configuration of a kubelet to limit the number of PIDs a given pod can consume. If that machine supports 32,768 PIDs and 100 pods, one can give each pod a budget of 300 PIDs to prevent total exhaustion of PIDs.  If the admin wants to overcommit PIDs similar to cpu or memory, they may do so as well with some additional risks.  Either way, no one pod can bring the whole machine down. This will generally prevent against simple fork bombs from taking over your cluster.
 
