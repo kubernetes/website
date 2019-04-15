@@ -6,7 +6,7 @@ title: Logging and Monitoring using the Elastic Stack (ELK) and Beats
 
 {{% capture overview %}}
 
-## Overview
+# Overview
 There are several ways to view logs and metrics from Kubernetes clusters, these range from
 `kubectl logs` and `kubectl top` to aggregating your logs and metrics in services such as
 [Stackdriver logging](https://cloud.google.com/logging/) and [Prometheus](https://prometheus.io/)
@@ -30,13 +30,24 @@ This diagram describes what will be deployed by following this article.  Notes r
 
 {{% capture body %}}
 
-## Deploy Elasticsearch and Kibana
-### Deploy Elasticsearch and Kibana using Elastic Helm Charts
+# Deploy Elasticsearch and Kibana
+
+Choose one method from the three options presented:
+
+1. Deploy Elasticsearch and Kibana using Elastic Helm Charts
+1. Deploy Elasticsearch Service in Elastic Cloud
+1. Deploy self managed Elasticsearch and Kibana outside of your Kubernetes cluster
+
+## Deploy Elasticsearch and Kibana using Elastic Helm Charts
 {{< note >}}
 At the time of writing the [Elastic Helm Charts](https://github.com/elastic/helm-charts) are in alpha status,
 and at this stage they are not recommended for production use. For this reason the solution described in this
 article will also discuss using either the managed Elasticsearch Service in Elastic Cloud, or self managed
 Elasticsearch and Kibana outside of your Kubernetes cluster.
+{{< /note >}}
+
+{{< note >}}
+This is one of the methods to deploy Elasticsearch and Kibana.  You can use any of the three options.
 {{< /note >}}
 
 There are detailed instructions and a sample values.yaml file for the [Elasticsearch Helm Chart](https://github.com/elastic/helm-charts/tree/master/elasticsearch) and [Kibana Helm Chart](https://github.com/elastic/helm-charts/tree/master/kibana) in GitHub, here is the general workflow.
@@ -46,12 +57,12 @@ If you are using Minikube, you may want to consider the amount of CPU and memory
 `minikube start --cpus 6 --memory 10240`
 {{< /note >}}
 
-#### Add the Elastic Helm repo
+### Add the Elastic Helm repo
 
 ```shell
 helm repo add elastic https://helm.elastic.co
 ```
-#### List the Chart versions
+### List the Chart versions
 
 ```shell
 helm search elastic/elasticsearch -l
@@ -73,7 +84,7 @@ elastic/elasticsearch	6.4.2        	6.4.2      	Elasticsearch
 
 Choose a version, and use it when you install both the Elasticsearch Helm Chart and Kibana Helm Chart.
 
-#### Install the Elasticsearch Helm Chart
+### Install the Elasticsearch Helm Chart
 
 {{< note >}}
 Substitute the Chart version you want to use in the below command
@@ -87,36 +98,52 @@ If you are deploying into Minikube use the [values.yaml](https://github.com/elas
 helm install --name elasticsearch elastic/elasticsearch --version <Chart version> [-f values.yaml]
 ```
 
-### Deploy Elasticsearch Service in Elastic Cloud
-foo
+### Install the Kibana Helm Chart
+{{< note >}}
+In general, you should use the same version of Kibana and Elasticsearch unless you have a specific reason to have mismatched versions.
+{{< /note >}}
+
 ```shell
-KUBE_LOGGING_DESTINATION=elasticsearch
+helm install --name kibana elastic/kibana --version <Chart version>
 ```
-### Deploy self managed Elasticsearch and Kibana outside of your Kubernetes cluster
+
+## Deploy Elasticsearch Service in Elastic Cloud
+{{< note >}}
+This is one of the methods to deploy Elasticsearch and Kibana.  You can use any of the three options.
+{{< /note >}}
+
+The [Elasticsearch Service](https://www.elastic.co/cloud/elasticsearch-service/signup) in Elastic Cloud is a managed service.  You can sign up for a free trial and create a deployment.  When you create the deployment you will be presented with a password for the `elastic` account and a Cloud ID.  These will be used to configure Filebeat and Metricbeat to send data to your Elasticsearch Service deployment.
+
+Save the password and Cloud ID from this panel so that you can add them in a Kubernetes secret:
+![Elasticsearch Service credentials](/images/docs/elasticsearch-service-credentials.png)
+
+## Deploy self managed Elasticsearch and Kibana outside of your Kubernetes cluster
+{{< note >}}
+This is one of the methods to deploy Elasticsearch and Kibana.  You can use any of the three options.
+{{< /note >}}
+
+You can follow the instructions in the [Getting Started with the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html)
+ guide.  Just deploy Elasticsearch and Kibana and then come back, the step by step details for deploying Beats in a Kubernetes cluster are in this document.
+
+# Deploy Beats to collect logs and metrics
 foo
 ```shell
 KUBE_LOGGING_DESTINATION=elasticsearch
 ```
 
-## Deploy Beats to collect logs and metrics
+# Deploy a sample application in your Kubernetes cluster
 foo
 ```shell
 KUBE_LOGGING_DESTINATION=elasticsearch
 ```
 
-## Deploy a sample application in your Kubernetes cluster
+# View logs and metrics in Kibana
 foo
 ```shell
 KUBE_LOGGING_DESTINATION=elasticsearch
 ```
 
-## View logs and metrics in Kibana
-foo
-```shell
-KUBE_LOGGING_DESTINATION=elasticsearch
-```
-
-## Apply these techniques to your applications
+# Apply these techniques to your applications
 foo
 ```shell
 KUBE_LOGGING_DESTINATION=elasticsearch
