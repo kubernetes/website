@@ -174,7 +174,7 @@
 /docs/getting-started-guides/network-policy/weave/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/getting-started-guides/rackspace/     /docs/setup/pick-right-solution/ 301
 /docs/getting-started-guides/running-cloud-controller/     /docs/tasks/administer-cluster/running-cloud-controller/ 301
-/docs/getting-started-guides/scratch/     /docs/setup/scratch/ 301
+/docs/getting-started-guides/scratch/     /docs/setup/release/building-from-source/ 301
 /docs/getting-started-guides/ubuntu-calico/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/ubuntu/automated/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/ubuntu/calico/     /docs/getting-started-guides/ubuntu/ 301

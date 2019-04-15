@@ -115,4 +115,19 @@ Windows에 Minikube를 수동으로 설치하려면, [`minikube-windows-amd64`](
 
 {{% /capture %}}
 
+## 새롭게 시작하기 위해 모두 정리하기
 
+이전에 minikube를 설치한 적이 있다면, 실행한다.
+```shell
+minikube start
+```
+
+이 커맨드는 에러를 리턴한다.
+```shell
+machine does not exist
+```
+
+구성 파일을 삭제해야 한다.
+```shell
+rm -rf ~/.minikube
+```

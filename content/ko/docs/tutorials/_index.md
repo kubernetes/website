@@ -40,7 +40,7 @@ content_template: templates/concept
 
 ## 상태 유지가 필요한(stateful) 애플리케이션
 
-* [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [스테이트풀셋 기본](/docs/tutorials/stateful-application/basic-stateful-set/)
 
 * [Example: WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 

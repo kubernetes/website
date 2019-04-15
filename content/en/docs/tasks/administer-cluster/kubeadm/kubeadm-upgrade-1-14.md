@@ -260,7 +260,7 @@ sudo kubeadm upgrade apply
 
 Also `sudo kubeadm upgrade plan` is not needed.
 
-## Ugrade worker nodes
+## Upgrade worker nodes
 
 The upgrade procedure on worker nodes should be executed one node at a time or few nodes at a time,
 without compromising the minimum required capacity for running your workloads.

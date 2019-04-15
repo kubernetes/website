@@ -1,5 +1,5 @@
 ---
-title: Images
+title: 이미지
 content_template: templates/concept
 weight: 10
 ---

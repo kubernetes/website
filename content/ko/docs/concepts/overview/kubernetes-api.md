@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-전체 API 관례는 [API conventions doc](https://git.k8s.io/community/contributors/devel/api-conventions.md)에 기술되어 있다.
+전체 API 관례는 [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)에 기술되어 있다.
 
 API 엔드포인트, 리소스 타입과 샘플은 [API Reference](/docs/reference)에 기술되어 있다.
 
