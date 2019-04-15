@@ -23,6 +23,7 @@ Different than other Kubernetes resources, such as Deployments, Services and Con
 clusters only exist in the federation context, i.e. those requests must be submitted to the
 federation api-server.
 -->
+
 本指南介绍了如何在联邦控制平面中使用集群 API 资源。
 
 与 Deployment、Service 和 ConfigMap 等 Kubernetes 资源不同，cluster 只存在于联邦上下文中，即这些请求必须提交给联邦 api-server。
@@ -58,7 +59,7 @@ running:
 要列出联邦中可用的 cluster，可以使用 [kubectl](/docs/user-guide/kubectl/)
 运行:
 
-``` shell
+```shell
 kubectl --context=federation get clusters
 ```
 
@@ -67,11 +68,14 @@ The `--context=federation` flag tells kubectl to submit the
 request to the Federation apiserver instead of sending it to a Kubernetes
 cluster. If you submit it to a k8s cluster, you will receive an error saying
 -->
+
 `--context=federation` 参数告诉 kubectl 将请求提交给联邦 apiserver，
 而不是将其发送给 Kubernetes 集群。如果您将其提交给 k8s 集群，则会收到错误消息
 
 
-```the server doesn't have a resource type "clusters"```
+```
+the server doesn't have a resource type "clusters"
+```
 
 <!--
 If you passed the correct Federation context but received a message error saying
@@ -79,7 +83,9 @@ If you passed the correct Federation context but received a message error saying
 
 如果您传递了正确的联邦上下文，但是收到了一条消息错误
 
-```No resources found.```
+```
+No resources found.
+```
 
 <!--
 it means that you haven't
@@ -103,7 +109,7 @@ the cluster `gondor` to the federation running on host cluster `rivendell`:
 并说明与承载联邦的集群相对应的上下文的名称。下面的示例命令将集群 `gondor` 添加到运行在主机集群 `rivendell` 上的联邦：
 
 
-``` shell
+```shell
 kubefed join gondor --host-cluster-context=rivendell
 ```
 
@@ -125,7 +131,7 @@ federation. This can be done with `kubefed unjoin` command. To remove the `gondo
 -->
 与创建集群相反，删除集群意味着从联邦中取消加入这个集群。这可以通过 `kubefed unjoin` 命令完成。要删除 `gondor` 群集，需要执行以下操作：
 
-``` shell
+```shell
 kubefed unjoin gondor --host-cluster-context=rivendell
 ```
 
@@ -172,7 +178,7 @@ Here is an example ClusterSelector annotation, which will only select clusters W
 
 下面是一个 ClusterSelector 注释示例，它只会选择带有标签 `pci=true` 不选择标签为 `environment=test` 的集群：
 
-``` yaml
+```yaml
   metadata:
     annotations:
       federation.alpha.kubernetes.io/cluster-selector: '[{"key": "pci", "operator":
