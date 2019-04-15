@@ -1,8 +1,8 @@
 ---
 name: Bug Report
 about: Report a bug encountered with Kubernetes Website
-labels: kind/bug
-
+labels:
+- kind/bug
 ---
 **This is a Bug Report**
 
@@ -12,9 +12,7 @@ labels: kind/bug
 <!--Required Information-->
 **Problem:**
 
-
 **Proposed Solution:**
-
 
 **Page to Update:**
 https://kubernetes.io/...

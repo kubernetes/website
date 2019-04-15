@@ -1,8 +1,8 @@
 ---
 name: Feature Request
 about: Suggest a/an feature/enhancement to the Kubernetes Website project
-labels: kind/feature
-
+labels:
+- kind/feature
 ---
 **This is a Feature Request**
 
