@@ -187,47 +187,8 @@ The kubeadm package ships with configuration for how the kubelet should
 be run. Note that the `kubeadm` CLI command never touches this drop-in file.
 This drop-in file belongs to the kubeadm deb/rpm package.
 
-This is what it looks like:
-
-
-```
-[Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
-Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manifests --allow-privileged=true"
-Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
-Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
-Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
-Environment="KUBELET_CADVISOR_ARGS="
-Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
-ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
-```
-
-Here's a breakdown of what/why:
-
-* `--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf` path to a kubeconfig
-   file that is used to get client certificates for kubelet during node join.
-   On success, a kubeconfig file is written to the path specified by `--kubeconfig`.
-* `--kubeconfig=/etc/kubernetes/kubelet.conf` points to the kubeconfig file that
-   tells the kubelet where the API server is. This file also has the kubelet's
-   credentials.
-* `--pod-manifest-path=/etc/kubernetes/manifests` specifies from where to read
-   static Pod manifests used for starting the control plane.
-* `--allow-privileged=true` allows this kubelet to run privileged Pods.
-* `--network-plugin=cni` uses CNI networking.
-* `--cni-conf-dir=/etc/cni/net.d` specifies where to look for the
-   [CNI spec file(s)](https://github.com/containernetworking/cni/blob/master/SPEC.md).
-* `--cni-bin-dir=/opt/cni/bin` specifies where to look for the actual CNI binaries.
-* `--cluster-dns=10.96.0.10` use this cluster-internal DNS server for `nameserver`
-   entries in Pods' `/etc/resolv.conf`.
-* `--cluster-domain=cluster.local` uses this cluster-internal DNS domain for
-   `search` entries in Pods' `/etc/resolv.conf`.
-* `--client-ca-file=/etc/kubernetes/pki/ca.crt` authenticates requests to the Kubelet
-   API using this CA certificate.
-* `--authorization-mode=Webhook` authorizes requests to the Kubelet API by `POST`-ing
-   a `SubjectAccessReview` to the API server.
-* `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
-   certificates from the `kube-apiserver` when the certificate expiration approaches.
-* `--cert-dir`the directory where the TLS certs are located.
+To find out more about how kubeadm manages the kubelet have a look at
+[this page](/docs/setup/independent/kubelet-integration).
 
 ### Use kubeadm with CRI runtimes
 
