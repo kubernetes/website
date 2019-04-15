@@ -75,7 +75,7 @@ deployment.apps/php-apache created
 ## Create Horizontal Pod Autoscaler
 
 Now that the server is running, we will create the autoscaler using
-[kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_autoscale.md).
+[kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands#autoscale).
 The following command will create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods
 controlled by the php-apache deployment we created in the first step of these instructions.
 Roughly speaking, HPA will increase and decrease the number of replicas
