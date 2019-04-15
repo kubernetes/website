@@ -26,7 +26,7 @@ You must use a kubectl version that is within one minor version difference of yo
 
 Here are a few methods to install kubectl.
 
-## Install kubectl binary using native package management
+### Install kubectl binary using native package management
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
@@ -50,7 +50,7 @@ yum install -y kubectl
 {{< /tabs >}}
 
 
-## Install with snap on Ubuntu
+### Install with snap on Ubuntu
 
 If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
 
@@ -66,7 +66,7 @@ If you are on Ubuntu or one of other Linux distributions that support [snap](htt
     kubectl version
     ```
 
-## Install with Homebrew on macOS
+### Install with Homebrew on macOS
 
 If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install kubectl with Homebrew.
 
@@ -82,7 +82,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
     kubectl version
     ```
 
-## Install with Macports on macOS
+### Install with Macports on macOS
 
 If you are on macOS and using [Macports](https://macports.org/) package manager, you can install kubectl with Macports.
 
@@ -99,7 +99,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     kubectl version
     ```
 
-## Install with Powershell from PSGallery
+### Install with Powershell from PSGallery
 
 If you are on Windows and using [Powershell Gallery](https://www.powershellgallery.com/) package manager, you can install and update kubectl with Powershell.
 
@@ -122,7 +122,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
 
     {{< note >}}Updating the installation is performed by rerunning the two commands listed in step 1.{{< /note >}}
 
-## Install on Windows using Chocolatey or scoop
+### Install on Windows using Chocolatey or scoop
 
 To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [scoop](https://scoop.sh) command-line installer.
 {{< tabs name="kubectl_win_install" >}}
@@ -168,7 +168,7 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
     
     {{< note >}}Edit the config file with a text editor of your choice, such as Notepad.{{< /note >}}
 
-## Download as part of the Google Cloud SDK
+### Download as part of the Google Cloud SDK
 
 You can install kubectl as part of the Google Cloud SDK.
 
@@ -185,7 +185,7 @@ You can install kubectl as part of the Google Cloud SDK.
     kubectl version
     ```
 
-## Install kubectl binary using curl
+### Install kubectl binary using curl
 
 {{< tabs name="kubectl_install_curl" >}}
 {{% tab name="macOS" %}}
@@ -265,7 +265,7 @@ You can install kubectl as part of the Google Cloud SDK.
 In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/setup/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 By default, kubectl configuration is located at `~/.kube/config`.
 
-## Check the kubectl configuration
+### Check the kubectl configuration
 Check that kubectl is properly configured by getting the cluster state:
 
 ```shell
@@ -287,7 +287,7 @@ If kubectl cluster-info returns the url response but you can't access your clust
 kubectl cluster-info dump
 ```
 
-## Enabling shell autocompletion
+### Enabling shell autocompletion
 
 kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing!
 
@@ -297,13 +297,13 @@ Below are the procedures to set up autocompletion for Bash (including the differ
 
 {{% tab name="Bash on Linux" %}}
 
-### Introduction
+#### Introduction
 
 The kubectl completion script for Bash can be generated with the command `kubectl completion bash`. Sourcing the completion script in your shell enables kubectl autocompletion.
 
 However, the completion script depends on [**bash-completion**](https://github.com/scop/bash-completion), which means that you have to install this software first (you can test if you have bash-completion already installed by running `type _init_completion`).
 
-### Install bash-completion
+#### Install bash-completion
 
 bash-completion is provided by many package managers (see [here](https://github.com/scop/bash-completion#installation)). You can install it with `apt-get install bash-completion` or `yum install bash-completion`, etc.
 
@@ -317,7 +317,7 @@ source /usr/share/bash-completion/bash_completion
 
 Reload your shell and verify that bash-completion is correctly installed by typing `type _init_completion`.
 
-### Enable kubectl autocompletion
+#### Enable kubectl autocompletion
 
 You now need to ensure that the kubectl completion script gets sourced in all your shell sessions. There are two ways in which you can do this:
 
@@ -348,13 +348,13 @@ Both approaches are equivalent. After reloading your shell, kubectl autocompleti
 macOS includes Bash 3.2 by default. The kubectl completion script requires Bash 4.1+ and doesn't work with Bash 3.2. A possible way around this is to install a newer version of Bash on macOS (see instructions [here](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The below instructions only work if you are using Bash 4.1+.
 {{< /warning >}}
 
-### Introduction
+#### Introduction
 
 The kubectl completion script for Bash can be generated with the command `kubectl completion bash`. Sourcing the completion script in your shell enables kubectl autocompletion.
 
 However, the completion script depends on [**bash-completion**](https://github.com/scop/bash-completion), which means that you have to install this software first (you can test if you have bash-completion already installed by running `type _init_completion`).
 
-### Install bash-completion
+#### Install bash-completion
 
 You can install bash-completion with Homebrew:
 
@@ -375,7 +375,7 @@ export BASH_COMPLETION_COMPAT_DIR=/usr/local/etc/bash_completion.d
 
 Reload your shell and verify that bash-completion is correctly installed by typing `type _init_completion`.
 
-### Enable kubectl autocompletion
+#### Enable kubectl autocompletion
 
 You now need to ensure that the kubectl completion script gets sourced in all your shell sessions. There are multiple ways in which you can do this:
 
