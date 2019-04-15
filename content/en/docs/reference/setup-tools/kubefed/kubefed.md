@@ -1,9 +1,16 @@
-## kubefed
-
+---
+reviewers:
+title: Overview of kubefed
+content_template: templates/concept
+weight: 40
+---
+{{% capture overview %}}
 kubefed controls a Kubernetes Cluster Federation
+{{% /capture %}}
 
-### Synopsis
+{{% capture body %}}
 
+## Synopsis
 
 kubefed controls a Kubernetes Cluster Federation. 
 
@@ -56,11 +63,12 @@ kubefed [flags]
       --vmodule moduleSpec                           comma-separated list of pattern=N settings for file-filtered logging
 ```
 
-### SEE ALSO
+{{% /capture %}}
+{{% capture whatsnext %}}
 * [kubefed init](kubefed_init.md)	 - Initialize a federation control plane
 * [kubefed join](kubefed_join.md)	 - Join a cluster to a federation
 * [kubefed options](kubefed_options.md)	 - Print the list of flags inherited by all commands
 * [kubefed unjoin](kubefed_unjoin.md)	 - Unjoin a cluster from a federation
 * [kubefed version](kubefed_version.md)	 - Print the client and server version information
-
+{{% /capture %}}
 
