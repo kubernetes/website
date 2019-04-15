@@ -47,10 +47,10 @@ Minikube 是一个可以在本地轻松运行 Kubernetes 的工具。Minikube �
 * Minikube 支持的 Kubernetes 特性如下：
   * DNS
   * NodePorts
-  * ConfigMaps and Secrets
+  * ConfigMaps 和 Secrets
   * Dashboards
-  * Container Runtime: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) and [containerd](https://github.com/containerd/containerd)
-  * Enabling CNI (Container Network Interface)
+  * 容器运行时: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) 和 [containerd](https://github.com/containerd/containerd)
+  * 启用 CNI (Container Network Interface)
   * Ingress
 
 <!--
@@ -86,7 +86,7 @@ the following drivers:
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 -->
 
-注意下面的 IP 是动态可以变的。它可以通过 `minikube ip` 获取。
+注意下面的 IP 是动态的、可能不同的。它可以通过 `minikube ip` 获取。
 
 ```shell
 $ minikube start
@@ -173,7 +173,7 @@ $ minikube start \
 <!--
 Or you can use the extended version:
 -->
-或者您可以使用扩展版本：
+或者您可以使用命令的扩展版本：
 
 ```bash
 $ minikube start \
@@ -201,7 +201,7 @@ $ minikube start \
 <!--
 Or you can use the extended version:
 -->
-或者您可以使用扩展版本：
+或者您可以使用命令的扩展版本：
 
 ```bash
 $ minikube start \
@@ -248,7 +248,7 @@ plugins, if required.
 <!--
 When using a single VM of Kubernetes, it's really handy to reuse the Minikube's built-in Docker daemon; as this means you don't have to build a docker registry on your host machine and push the image into it - you can just build inside the same docker daemon as minikube which speeds up local experiments. Just make sure you tag your Docker image with something other than 'latest' and use that tag while you pull the image. Otherwise, if you do not specify version of your image, it will be assumed as `:latest`, with pull image policy of `Always` correspondingly, which may eventually result in `ErrImagePull` as you may not have any versions of your Docker image out there in the default docker registry (usually DockerHub) yet.
 -->
-当使用只有单个 VM 的 Kubernetes 集群时，重用 Minikube 的内置 Docker daemon 非常方便; 因为这意味着您不必在宿主机上构建 docker regitstry 并将镜像 push 进去 - 您可以在与 minikube 相同的 docker daemon 内部构建，从而加速本地实验。只需确保使用 "最新" 之外的其他标签标记 Docker 镜像，并在拉取镜像时使用该标签。否则，如果你没有指定镜像的版本，它将被假定为`：latest`，相应的拉取镜像策略为 `Always`，最终可能导致 `ErrImagePull`，因为您可能在默认的 docker registry（通常是 DockerHub ） 中还没有任何版本的镜像。
+当使用只有单个 VM 的 Kubernetes 集群时，重用 Minikube 的内置 Docker daemon 非常方便; 因为这意味着您不必在宿主机上构建 docker regitstry 并将镜像 push 进去 - 您可以在与 minikube 相同的 docker daemon 内部构建，从而加速本地实验。只需确保使用 'latest' 之外的其他标签标记 Docker 镜像，并在拉取镜像时使用该标签。否则，如果你没有指定镜像的版本，它将被假定为`：latest`，相应的拉取镜像策略为 `Always`，最终可能导致 `ErrImagePull`，因为您可能在默认的 docker registry（通常是 DockerHub ）中还没有任何版本的镜像。
 
 
 <!--
@@ -326,7 +326,7 @@ Unfortunately just setting the environment variables will not work.
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
 -->
-不幸的是，只是设置了环境变量并不会生效。
+不幸的是，仅仅设置环境变量是不够的。
 
 Minikube 也会创建 "minikube" context，并且在 kubectl 把它设置为默认值。
 运行这个命令 `kubectl config use-context minikube` 可以再切换到这个 context。
@@ -364,7 +364,7 @@ configuration struct and `value` is the value to set.
 Valid keys can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
 Here is the documentation for each supported configuration:
 -->
-Minikube 有一个 "配置器" 特性，能够让用户把 Kubernetes 的组件配置为任意值。要使用这个特性，您可以在使用 `minikube start` 时加上 `--extra-config` 参数。
+Minikube 有一个 "配置器" 特性，允许用户为 Kubernetes 组件配置任意值。要使用这个特性，您可以在使用 `minikube start` 时加上 `--extra-config` 参数。
 
 这个参数是可以重复的，所以您可以多次使用不同的值设置不同的选项。
 
@@ -392,7 +392,7 @@ To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--ext
 -->
 #### 示例
 
-要在 Kubelet 上将 `MaxPods` 设置更改为 5，请传递此参数：`--extra-config = kubelet.MaxPods = 5`。
+要在 Kubelet 上将 `MaxPods` 设置更改为 5，请传递此参数：`--extra-config=kubelet.MaxPods=5`。
 
 这个特性也支持嵌套结构。要把调度器的 `LeaderElection.LeaderElect` 设置为 `true`，传递这个参数 `--extra-config=scheduler.LeaderElection.LeaderElect=true`。
 
