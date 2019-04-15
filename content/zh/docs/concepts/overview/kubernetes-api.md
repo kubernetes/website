@@ -1,6 +1,6 @@
 # Kubernetes API 概述
 
-[API协议文档](https://git.k8s.io/community/contributors/devel/api-conventions.md)描述了主系统和API概念。
+[API协议文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)描述了主系统和API概念。
 
 [API参考文档](https://kubernetes.io/docs/reference)描述了API整体规范。
 

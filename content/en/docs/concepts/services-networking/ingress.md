@@ -96,7 +96,7 @@ spec:
  Different [Ingress controller](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 
-The Ingress [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)
+The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to configure a loadbalancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP traffic.
