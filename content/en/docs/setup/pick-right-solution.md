@@ -71,7 +71,7 @@ cluster.
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) is a Terraform/Packer/BASH based Infrastructure as Code (IaC) scripts to create a seven node (1 Boot, 1 Master, 1 Management, 1 Proxy and 3 Workers) LXD cluster on  Linux Host.
 
-* [k3s](https://k3s.io) is a lightweight production-grade Kubernetes distribution.  With a super-simple installation process and a binary foot print around 40MB, it is ideal for local-machine development.
+* [k3s](https://k3s.io) is a lightweight production-grade Kubernetes distribution.  With a super-simple installation process and a binary footprint around 40MB, it is ideal for local-machine development.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
