@@ -1,5 +1,6 @@
 ---
 title: 'The Future of Cloud Providers in Kubernetes'
+date: 2019-04-17
 ---
 
 **Authors:** Andrew Sy Kim (VMware), Mike Crute (AWS), Walter Fender (Google)
