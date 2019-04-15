@@ -1,6 +1,6 @@
 ---
 title: Configurer un cluster etcd en haute disponibilité avec kubeadm
-description: Configuration cluster etcd haute disponibilité kubeadm
+description: Configuration d'un cluster etcd en haute disponibilité avec kubeadm
 content_template: templates/task
 weight: 70
 ---

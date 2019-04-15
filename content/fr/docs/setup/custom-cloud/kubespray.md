@@ -1,6 +1,6 @@
 ---
 title: Installer Kubernetes avec Kubespray (on-premises et fournisseurs de cloud)
-description: Installation Kubernetes Kubesray
+description: Installation de Kubernetes avec Kubespray
 content_template: templates/concept
 ---
 

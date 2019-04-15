@@ -1,6 +1,6 @@
 ---
 title: Création d'un Cluster a master unique avec kubeadm
-description: Cluster Kubernetes creation kubeadm
+description: Création d'un Cluster a master unique avec kubeadm
 content_template: templates/task
 weight: 30
 ---
