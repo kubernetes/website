@@ -21,5 +21,7 @@ Thus, in Kubernetes 1.14, we have added a feature that allows for the configurat
 
 This change allows administrators to protect one pod from another, but does not ensure if all pods on the machine can protect the node, and the node agents themselves from falling over. Thus, we’ve introduced a feature in this release in alpha form that provides isolation of PIDs from end user workloads on a pod from the node agents (kubelet, runtime, etc.). The admin is able to reserve a specific number of PIDs--similar to how one reserves CPU or memory today--and ensure they are never consumed by pods on that machine. Once that graduates from alpha, to beta, then stable in future releases of Kubernetes, we’ll have total protection against an easily starved Linux resource.
 
+## Get Involved 
 
+If you have feedback for this feature or are interested in getting involved with the design and development, join the [Node Special Interest Group](https://github.com/kubernetes/community/tree/master/sig-node).
 
