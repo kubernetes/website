@@ -1,10 +1,11 @@
 ---
 name: Support Request
 about: Support request or question relating to Kubernetes Dashboard project
-labels: triage/support
-
+labels:
+- triage/support
 ---
 **This is Support**
+
 <!--
 STOP -- PLEASE READ!
 
