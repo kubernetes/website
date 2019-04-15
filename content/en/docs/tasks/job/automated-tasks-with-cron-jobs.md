@@ -145,7 +145,7 @@ As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and
 information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
 and [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
-A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 {{< note >}}
 All modifications to a cron job, especially its `.spec`, are applied only to the following runs.

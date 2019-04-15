@@ -51,7 +51,7 @@ As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
 [configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/) documents.
 
-A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
+A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) section.
 
 ### Pod Template
 

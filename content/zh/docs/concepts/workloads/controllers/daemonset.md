@@ -38,7 +38,7 @@ redirect_from:
 和其它所有 Kubernetes 配置一样，DaemonSet 需要 `apiVersion`、`kind` 和 `metadata` 字段。
 有关配置文件的基本信息，详见文档 [deploying applications](/docs/user-guide/deploying-applications/)、[配置容器](/docs/user-guide/configuring-containers/) 和 [资源管理](/docs/concepts/tools/kubectl/object-management-overview/) 。
 
-DaemonSet 也需要一个 [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) 配置段。
+DaemonSet 也需要一个 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 配置段。
 
 
 
