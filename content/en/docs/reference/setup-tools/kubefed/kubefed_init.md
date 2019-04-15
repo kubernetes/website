@@ -10,12 +10,8 @@ This command initializes a federation control plane.
 {{% /capture %}}
 
 {{% capture body %}}
-## kubefed init
 
-Initialize a federation control plane
-
-### Synopsis
-
+## Synopsis
 
 Init initializes a federation control plane. 
 
