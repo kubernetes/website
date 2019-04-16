@@ -1,49 +1,48 @@
 ---
-reviewers:
-- derekwaynecarr
-- mikedanese
-- thockin
-title: Namespaces
+title: Espacios de nombres
 content_template: templates/concept
 weight: 30
 ---
 
 {{% capture overview %}}
 
-Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-These virtual clusters are called namespaces.
+Kubernetes soporta múltiples clústeres virtuales respaldados por el mismo clúster físico.
+Estos clústeres virtuales se denominan espacios de nombres (namespaces).
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-## When to Use Multiple Namespaces
+## Cuándo Usar Múltiple Espacios de Nombre
 
-Namespaces are intended for use in environments with many users spread across multiple
-teams, or projects.  For clusters with a few to tens of users, you should not
-need to create or think about namespaces at all.  Start using namespaces when you
-need the features they provide.
+Los espacios de nombres están pensandos para utilizarse en entornos con muchos usuarios
+distribuidos entre múltiples equipos, o proyectos. Para aquellos clústeres con 
+unas pocas decenas de usuarios, no deberías necesitar crear o pensar en espacios de 
+nombres en absoluto. Empieza a usarlos solamente si necesitas las características
+que proporcionan.
 
-Namespaces provide a scope for names.  Names of resources need to be unique within a namespace, but not across namespaces.
+Los espacios de nombres proporcionan un campo de acción para los nombres.  Los nombres de los recursos
+tienen que ser únicos dentro de cada espacio de nombres, pero no entre dichos espacios de nombres.
 
-Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
+Los espacios de nombres son una forma de dividir los recursos del clúster
+entre múltiples usuarios (via [cuotas de recursos](/docs/concepts/policy/resource-quotas/)).
 
-In future versions of Kubernetes, objects in the same namespace will have the same
-access control policies by default.
+En futuras versiones de Kubernetes, los objetos de un mismo espacio de nombres
+tendrán las mismas políticas de control de acceso por defecto.
 
-It is not necessary to use multiple namespaces just to separate slightly different
-resources, such as different versions of the same software: use [labels](/docs/user-guide/labels) to distinguish
-resources within the same namespace.
+No es necesario usar múltiples espacios de nombres sólo para separar recursos 
+ligeramente diferentes, como versiones diferentes de la misma aplicación: para ello
+utiliza [etiquetas](/docs/user-guide/labels) para distinguir tus recursos dentro
+del mismo espacio de nombres.
 
-## Working with Namespaces
+## Trabajar con Espacios de Nombres
 
-Creation and deletion of namespaces are described in the [Admin Guide documentation
-for namespaces](/docs/admin/namespaces).
+La creación y borrado de espacios de nombres se describe en la [documentación de la Guía de Administración para espacios de nombres](/docs/admin/namespaces).
 
-### Viewing namespaces
+### Ver espacios de nombre
 
-You can list the current namespaces in a cluster using:
+Puedes listar los espacios de nombres actuales dentro de un clúster mediante:
 
 ```shell
 kubectl get namespaces
@@ -55,27 +54,29 @@ kube-system   Active    1d
 kube-public   Active    1d
 ```
 
-Kubernetes starts with three initial namespaces:
+Kubernetes arranca con tres espacios de nombres inicialmente:
 
-   * `default` The default namespace for objects with no other namespace
-   * `kube-system` The namespace for objects created by the Kubernetes system
-   * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
+   * `default` El espacio de nombres por defecto para aquellos objetos que no especifican ningún espacio de nombres
+   * `kube-system` El espacio de nombres para aquellos objetos creados por el sistema de Kubernetes
+   * `kube-public` Este espacio de nombres se crea de forma automática y es ligible por todos los usuarios (incluyendo aquellos no autenticados). 
+   Este espacio de nombres se reserva principalmente para uso interno del clúster, en caso de que algunos recursos necesiten ser visibles y legibles de forma pública para todo el clúster. 
+   La naturaleza pública de este espacio de nombres es simplemente por convención, no es un requisito.
 
-### Setting the namespace for a request
+### Establecer el espacio de nombres para una petición
 
-To temporarily set the namespace for a request, use the `--namespace` flag.
+Para indicar de forma temporal el espacio de nombres para una petición, usa la opción `--namespace`.
 
-For example:
+Por ejemplo:
 
 ```shell
 kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
 kubectl --namespace=<insert-namespace-name-here> get pods
 ```
 
-### Setting the namespace preference
+### Establecer la preferencia de espacio de nombres
 
-You can permanently save the namespace for all subsequent kubectl commands in that
-context.
+Puedes indicar de forma permanente el espacio de nombres para todas las llamadas futuras a comandos kubectl
+en dicho contexto.
 
 ```shell
 kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
@@ -83,23 +84,25 @@ kubectl config set-context $(kubectl config current-context) --namespace=<insert
 kubectl config view | grep namespace:
 ```
 
-## Namespaces and DNS
+## Espacios de nombres y DNS
 
-When you create a [Service](/docs/user-guide/services), it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
-This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>`, it will resolve to the service which
-is local to a namespace.  This is useful for using the same configuration across
-multiple namespaces such as Development, Staging and Production.  If you want to reach
-across namespaces, you need to use the fully qualified domain name (FQDN).
+Cuando creas un [Servicio](/docs/user-guide/services), se crea una [entrada DNS](/docs/concepts/services-networking/dns-pod-service/) correspondiente.
+Esta entrada tiene la forma `<service-name>.<namespace-name>.svc.cluster.local`, que significa
+que si un contenedor simplemente usa `<service-name>`, se resolverá al servicio
+que sea local al espacio de nombres. Esto es de utilidad para poder emplear la misma
+configuración entre múltiples espacios de nombres como Development, Staging y Production.
+Si quieres referenciar recursos entre distintos espacios de nombres, entonces
+debes utilizar el nombre cualificado completo de dominio (FQDN).
 
-## Not All Objects are in a Namespace
+## No Todos los Objetos están en un Espacio de nombres
 
-Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
-in some namespaces.  However namespace resources are not themselves in a namespace.
-And low-level resources, such as [nodes](/docs/admin/node) and
-persistentVolumes, are not in any namespace.
+La mayoría de los recursos de Kubernetes (ej. pods, services, replication controllers, y otros) están
+en algunos espacios de nombres.  Sin embargo, los recursos que representan a los propios
+ espacios de nombres no están a su vez en espacios de nombres.
+De forma similar, los recursos de bajo nivel, como los nodos [nodos](/docs/admin/node) y
+los volúmenes persistentes, no están en ningún espacio de nombres.
 
-To see which Kubernetes resources are and aren't in a namespace:
+Para comprobar qué recursos de Kubernetes están y no están en un espacio de nombres:
 
 ```shell
 # In a namespace

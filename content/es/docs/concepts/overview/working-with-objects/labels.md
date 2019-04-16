@@ -128,62 +128,62 @@ Los requisitos _basados en conjunto_ pueden alternarse con aquellos _basados en 
 
 ### Filtro con LIST y WATCH
 
-LIST and WATCH operations may specify label selectors to filter the sets of objects returned using a query parameter. Both requirements are permitted (presented here as they would appear in a URL query string):
+Las operaciones LIST y WATCH pueden especificar selectores de etiqueta para filtrar el conjunto de objetos devueltos usando un parámetro de consulta. Ambos requisitos están permitidos (se presentan aquí como aparecerían en la cadena URL de consulta):
 
-  * _equality-based_ requirements: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
-  * _set-based_ requirements: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
+  * requisitios _basados en igualdad_: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
+  * requisitios _basados en conjunto_: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 
-Both label selector styles can be used to list or watch resources via a REST client. For example, targeting `apiserver` with `kubectl` and using _equality-based_ one may write:
+Es posible utilizar ambos estilos de selección de etiquetas para mostrar u observar recursos con un cliente REST. Por ejemplo, para enfocarse en `apiserver` con `kubectl` usando el estilo _basado en igualdad_ se puede ejecutar:
 
 ```shell
 kubectl get pods -l environment=production,tier=frontend
 ```
 
-or using _set-based_ requirements:
+o usando requisitos _basados en conjunto_:
 
 ```shell
 kubectl get pods -l 'environment in (production),tier in (frontend)'
 ```
 
-As already mentioned _set-based_ requirements are more expressive.  For instance, they can implement the _OR_ operator on values:
+Como ya se ha comentado, los requisitos _basados en conjunto_ son más expresivos.  Por ejemplo, se puede implementar el operador _OR_ sobre valores:
 
 ```shell
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-or restricting negative matching via _exists_ operator:
+o restringir la coincidencia negativa mediante el operador _exists_:
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
-### Set references in API objects
+### Establecer referencias en los objetos de la API
 
-Some Kubernetes objects, such as [`services`](/docs/user-guide/services) and [`replicationcontrollers`](/docs/user-guide/replication-controller), also use label selectors to specify sets of other resources, such as [pods](/docs/user-guide/pods).
+Algunos objetos de Kubernetes, como los [`services`](/docs/user-guide/services) y los [`replicationcontrollers`](/docs/user-guide/replication-controller), también hacen uso de los selectores de etiqueta para referirse a otros conjuntos de objetos, como los [pods](/docs/user-guide/pods).
 
-#### Service and ReplicationController
+#### Service y ReplicationController
 
-The set of pods that a `service` targets is defined with a label selector. Similarly, the population of pods that a `replicationcontroller` should manage is also defined with a label selector.
+El conjunto de pods que un `service` expone se define con un selector de etiqueta. De forma similar, el conjunto de pods que un `replicationcontroller` debería gestionar se define con un selector de etiqueta.
 
-Labels selectors for both objects are defined in `json` or `yaml` files using maps, and only _equality-based_ requirement selectors are supported:
+Los selectores de etiqueta para ambos objetos se definen en los archivos `json` o `yaml` usando mapas, y únicamente se permite los selectores _basados en igualad_:
 
 ```json
 "selector": {
     "component" : "redis",
 }
 ```
-or
+ó
 
 ```yaml
 selector:
     component: redis
 ```
 
-this selector (respectively in `json` or `yaml` format) is equivalent to `component=redis` or `component in (redis)`.
+este selector (respectivamente en formato `json` o `yaml`) es equivalente a `component=redis` o `component in (redis)`.
 
-#### Resources that support set-based requirements
+#### Recursos que soportan requisitos basados en conjunto
 
-Newer resources, such as [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`Replica Set`](/docs/concepts/workloads/controllers/replicaset/), and [`Daemon Set`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
+Algunos recursos más recientes, como el [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/), el [`Deployment`](/docs/concepts/workloads/controllers/deployment/), el [`Replica Set`](/docs/concepts/workloads/controllers/replicaset/), y el [`Daemon Set`](/docs/concepts/workloads/controllers/daemonset/), sí permiten requisitos _basados en conjunto_.
 
 ```yaml
 selector:
@@ -194,11 +194,11 @@ selector:
     - {key: environment, operator: NotIn, values: [dev]}
 ```
 
-`matchLabels` is a map of `{key,value}` pairs. A single `{key,value}` in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose `key` field is "key", the `operator` is "In", and the `values` array contains only "value". `matchExpressions` is a list of pod selector requirements. Valid operators include In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of In and NotIn. All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together -- they must all be satisfied in order to match.
+`matchLabels` es un mapa de pares `{key,value}`. Una única combinación de `{key,value}` en el mapa `matchLabels` es equivalente a un elemento en `matchExpressions` donde el campo `key` es "key", el `operator` es "In", y la matriz `values` contiene únicamente "value". `matchExpressions` es una lista de requisitos de selección de pod. Los operadores permitidos son In, NotIn, Exists, y DoesNotExist. El conjunto de valores no puede ser vacío en el caso particular de In y NotIn. Todos los requisitos, tanto de `matchLabels` como de `matchExpressions` se combinan entre sí con el operador AND -- todos ellos deben ser satisfechos.
 
-#### Selecting sets of nodes
+#### Seleccionar conjuntos de objetos
 
-One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.
+Un caso de uso de selección basada en etiquetas es la posibilidad de limitar los nodos en los que un pod puede desplegarse.
+Ver la documentación sobre [selección de nodo](/docs/concepts/configuration/assign-pod-node/) para más información.
 
 {{% /capture %}}

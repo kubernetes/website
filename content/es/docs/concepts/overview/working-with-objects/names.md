@@ -1,30 +1,27 @@
 ---
-reviewers:
-- mikedanese
-- thockin
-title: Names
+title: Nombres
 content_template: templates/concept
 weight: 20
 ---
 
 {{% capture overview %}}
 
-All objects in the Kubernetes REST API are unambiguously identified by a Name and a UID.
+Todos los objetos de la API REST de Kubernetes se identifica de forma inequívoca mediante un Nombre y un UID.
 
-For non-unique user-provided attributes, Kubernetes provides [labels](/docs/user-guide/labels) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
+Para aquellos atributos provistos por el usuario que no son únicos, Kubernetes provee de [etiquetas](/docs/user-guide/labels) y [anotaciones](/docs/concepts/overview/working-with-objects/annotations/).
 
-See the [identifiers design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) for the precise syntax rules for Names and UIDs.
+Echa un vistazo al [documento de diseño de identificadores](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) para información precisa acerca de las reglas sintácticas de los Nombres y UIDs.
 
 {{% /capture %}}
 
 
 {{% capture body %}}
 
-## Names
+## Nombres
 
 {{< glossary_definition term_id="name" length="all" >}}
 
-By convention, the names of Kubernetes resources should be up to maximum length of 253 characters and consist of lower case alphanumeric characters, `-`, and `.`, but certain resources have more specific restrictions.
+Por regla general, los nombres de los recursos de Kubernetes no deben sobrepasar la longitud máxima de 253 caracteres y deben incluir caracteres alfanuméricos en minúscula, `-`, y `.`; aunque algunos recursos tienen restricciones más específicas.
 
 ## UIDs
 
