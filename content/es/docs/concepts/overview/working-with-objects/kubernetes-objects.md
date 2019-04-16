@@ -24,55 +24,55 @@ Un objeto de Kubernetes es un "registro de intención" -- una vez que has creado
 
 Para trabajar con los objetos de Kubernetes -- sea para crearlos, modificarlos, o borrarlos -- necesitarás usar la [API de Kubernetes](/docs/concepts/overview/kubernetes-api/). Cuando utilizas el interfaz de línea de comandos `kubectl`, por ejemplo, este realiza las llamadas necesarias a la API de Kubernetes en tu lugar. También puedes usar la API de Kubernetes directamente desde tus programas utilizando alguna de las [Librerías de Cliente](/docs/reference/using-api/client-libraries/).
 
-### Alcance y Status de un Objeto
+### Alcance y Estado de un Objeto
 
-Every Kubernetes object includes two nested object fields that govern the object's configuration: the object *spec* and the object *status*. The *spec*, which you must provide, describes your *desired state* for the object--the characteristics that you want the object to have. The *status* describes the *actual state* of the object, and is supplied and updated by the Kubernetes system. At any given time, the Kubernetes Control Plane actively manages an object's actual state to match the desired state you supplied.
+Cada objeto de Kubernetes incluye dos campos como objetos anidados que determinan la configuración del objeto: el campo de objeto *spec* y el campo de objeto *status*. El campo *spec*, que es obligatorio, describe el *estado deseado* del objeto -- las características que quieres que tenga el objeto. El campo *status* describe el *estado actual* del objeto, y se suministra y actualiza directamente por el sistema de Kubernetes. En cualquier momento, el Plano de Control de Kubernetes gestiona de forma activa el estado actual del objeto para que coincida con el estado deseado requerido.
 
 
-For example, a Kubernetes Deployment is an object that can represent an application running on your cluster. When you create the Deployment, you might set the Deployment spec to specify that you want three replicas of the application to be running. The Kubernetes system reads the Deployment spec and starts three instances of your desired application--updating the status to match your spec. If any of those instances should fail (a status change), the Kubernetes system responds to the difference between spec and status by making a correction--in this case, starting a replacement instance.
+Por ejemplo, un Deployment de Kubernetes es un objeto que puede representar una aplicación de tu clúster. Cuando creas el Deployment, puedes especificar en el spec del Deployment spec que quieres correr tres réplicas de la aplicación. El sistema de Kubernetes lee el spec del Deployment y comienza a instanciar réplicas de tu aplicación -- actualizando el estado para conciliarlo con tu spec. Si cualquier de las instancias falla (un cambio de estado), el sistema de the Kubernetes soluciona la diferencia entre la spec y el estado llevando a cabo una correción -- en este caso, arrancando otra instancia de remplazo.
 
-For more information on the object spec, status, and metadata, see the [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
+Para obtener más información acerca de la spec, el status, y los metadatos de los objetos, echa un vistazo a las [Normas de la API de Kubernetes](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
-### Describing a Kubernetes Object
+### Describir un Objeto de Kubernetes
 
-When you create an object in Kubernetes, you must provide the object spec that describes its desired state, as well as some basic information about the object (such as a name). When you use the Kubernetes API to create the object (either directly or via `kubectl`), that API request must include that information as JSON in the request body. **Most often, you provide the information to `kubectl` in a .yaml file.** `kubectl` converts the information to JSON when making the API request.
+Cuando creas un objeto en Kubernetes, debes especificar la spec del objeto que describe su estado deseado, así como información básica del mismo (como el nombre). Cuando usas la API de Kubernetes para crear el objeto (bien de forma directa o usando `kubectl`), dicha petición a la API debe incluir toda la información en formato JSON en el cuerpo de la petición. **A menudo, le proporcionas la información a `kubectl` como un archivo .yaml.** `kubectl` convierte esa información a JSON cuando realiza la llamada a la API.
 
-Here's an example `.yaml` file that shows the required fields and object spec for a Kubernetes Deployment:
+Aquí hay un ejemplo de un archivo `.yaml` que muestra los campos requeridos y la spec del objeto Deployment de Kubernetes:
 
 {{< codenew file="application/deployment.yaml" >}}
 
-One way to create a Deployment using a `.yaml` file like the one above is to use the
-[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) command
-in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
+Una forma de crear un Deployment utilizando un archivo `.yaml` como el indicado arriba sería ejecutar el comando
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 
+en el interfaz de línea de comandos, pasándole el archivo `.yaml` como argumento. Aquí tienes un ejemplo de cómo hacerlo:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
 ```
 
-The output is similar to this:
+La salida del comando sería algo parecido a esto:
 
 ```shell
 deployment.apps/nginx-deployment created
 ```
 
-### Required Fields
+### Campos requeridos
 
-In the `.yaml` file for the Kubernetes object you want to create, you'll need to set values for the following fields:
+En el archivo `.yaml` del objeto de Kubernetes que quieras crear, tendrás que obligatoriamente indicar los valores de los siguientes campos (como mínimo):
 
-* `apiVersion` - Which version of the Kubernetes API you're using to create this object
-* `kind` - What kind of object you want to create
-* `metadata` - Data that helps uniquely identify the object, including a `name` string, UID, and optional `namespace`
+* `apiVersion` - Qué versión de la API de Kubernetes estás usando para crear este objeto
+* `kind` - Qué clase de objeto quieres crear
+* `metadata` - Datos que permiten identificar unívocamente al objeto, incluyendo una cadena de texto para el `name`, UID, y opcionalmente el `namespace`
 
-You'll also need to provide the object `spec` field. The precise format of the object `spec` is different for every Kubernetes object, and contains nested fields specific to that object. The [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) can help you find the spec format for all of the objects you can create using Kubernetes.
-For example, the `spec` format for a `Pod` object can be found
-[here](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core),
-and the `spec` format for a `Deployment` object can be found
-[here](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
+También deberás indicar el campo `spec` del objeto. El formato del campo `spec` es diferente según el tipo de objeto de Kubernetes, y contiene campos anidados específicos de cada objeto. La [Referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) puede servirte de ayuda para encontrar el formato de la spec para cada uno de los objetos que puedes crear usando Kubernetes.
+Por ejemplo, el formato de la `spec` para un objeto de tipo `Pod` lo puedes encontrar 
+[aquí](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core),
+y el formato de la `spec` para un objeto de tipo `Deployment` lo puedes encontrar
+[aquí](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
+* Aprender más acerca de los objetos básicos más importantes de Kubernetes, como el [Pod](/docs/concepts/workloads/pods/pod-overview/).
 {{% /capture %}}
 
 
