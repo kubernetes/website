@@ -13,10 +13,6 @@ for f in $FILES; do
     TEST_EXAMPLES=Yes
     break
   fi
-  if [[ $f =~ ".travis.yml" ]]; then
-    TEST_EXAMPLES=Yes
-    break
-  fi
 done
 
 function install() {

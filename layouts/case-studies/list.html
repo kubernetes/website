@@ -48,10 +48,10 @@
 			{{ $logo := .Resources.GetMatch "**logo*.png" }}
 			{{ $p := . }}
 			<a target="_blank" href="{{ with $p.Params.content_url }}{{ . | safeURL }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ $p.LinkTitle }}">{{ else }}
-				{{ errorf "Case Studies: Missing logo for %s. Put a PNG with the word 'logo' in the filename into %q" $p.LinkTitle $p.Dir }}
+				{{ errorf "Case Studies: Missing logo for %s. Put a PNG with the word 'logo' in the filename into %q" $p.LinkTitle $p.File.Dir }}
 			{{ end }}</a>
 			{{ end }}
-			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img src="/images/case_studies/story.png" alt="Tell your story"></a>
+			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img src="/images/case_studies/story.png" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
 		</div>
 	</main>
 </section>

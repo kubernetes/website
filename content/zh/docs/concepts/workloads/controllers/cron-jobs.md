@@ -162,7 +162,7 @@ Job 根据它所创建的 Pod 的并行度，负责重试创建 Pod，并就决�
 [配置容器](/docs/user-guide/configuring-containers) 和 
 [使用 kubectl 管理资源](/docs/user-guide/working-with-resources)。
 
-Cron Job 也需要 [`.spec` 段](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)。
+Cron Job 也需要 [`.spec` 段](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 **注意：** 对一个 Cron Job 的所有修改，尤其是对其 `.spec` 的修改，仅会在下一次运行的时候生效。
 

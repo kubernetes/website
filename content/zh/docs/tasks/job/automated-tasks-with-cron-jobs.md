@@ -200,14 +200,14 @@ As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and
 information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
 and [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
-A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
 
 ## 编写 CronJob 声明信息
 
 像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、 `kind`、 和 `metadata` 域。配置文件的一般信息，请参考 [部署应用](/docs/user-guide/deploying-applications) 和 [使用 kubectl 管理资源](/docs/user-guide/working-with-resources).
 
-CronJob 配置也需要包括[`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+CronJob 配置也需要包括[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 {{< note >}} 
 <!--

@@ -7,35 +7,36 @@ weight: 40
 
 {{% capture overview %}}
 
-La sección de Conceptos te ayuda a entender las distintas partes de Kubernetes, así como las abstracciones que Kubernetes utiliza para representar tu clúster, permitiéndote obtener un conocimiento profundo de cómo funciona Kubernetes.
+La sección de conceptos te ayudará a conocer los componentes de Kubernetes así como las abstracciones que utiliza para representar tu cluster. Además, te ayudará a obtener un conocimiento más profundo sobre cómo funciona Kubernetes.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Resumen
+## Introducción
 
-Cuando trabajas con Kubernetes, se utilizan los *objetos de la API de Kubernetes* para describir lo que se conoce como el *estado deseado*, esto es, qué aplicaciones u otro tipo de procesos quieres ejecutar, qué imágenes de contenedor utilizan, el número de réplicas, qué recursos de red y disco hay disponibles, y más. Para indicar tu estado deseado, deberás crear objetos en la API de Kubernetes, típicamente mediante el interfaz de línea de comandos, `kubectl`. También puedes usar directamente la API de Kubernetes para interactuar con el clúster e indicar o modificar el estado deseado. 
+En Kubernetes se utilizan objetos *objetos de la API de Kubernetes* para describir el *estado deseado* del clúster: qué aplicaciones u otras cargas de trabajo se quieren ejecutar, qué imagenes de contendores usan, el número de replicas, qué red y qué recursos de almacenamiento quieres que tengan disponibles, etc. Se especifica el estado deseado del clúster mediante la creación de objetos usando la API de Kubernetes, típicamente mediante la interfaz de línea de comandos, `kubectl`. También se puede usar la API de Kubernetes directamente para interactuar con el clúster y especificar o modificar tu estado deseado.
 
-Una vez has establecido el estado deseado, el *Plano de Control de Kubernetes* hace que el estado actual del clúster coincida con dicho estado deseado. Para ello, Kubernetes realiza varias tareas de forma automática -- como arrancar contenedores, escalar el número de réplicas de una aplicación determinada, y más. El Plano de Control de Kubernetes consiste en una colección de procesos que corren en tu clúster: 
+Una vez que se especifica el estado deseado, el *Plano de Control de Kubernetes* realizará las acciones necesarias para que el estado actual del clúster coincida con el estado deseado. Para ello, Kubernetes realiza diferentes tareas de forma automática, como pueden ser: parar o arrancar contenedores, escalar el número de réplicas de una aplicación dada, etc. El Plano de Control de Kubernetes consiste en un grupo de procesos que corren en tu clúster:
 
-* El **Máster de Kubernetes** es una colección de tres procesos que corren en un único nodo de tu clúster, el cual se designa como el nodo máster. Los procesos son: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) y [kube-scheduler](/docs/admin/kube-scheduler/).
-* Por contra, cada nodo que no es máster, corre dos procesos:
-  * **[kubelet](/docs/admin/kubelet/)**, que se comunica con el Máster de Kubernetes.
-  * **[kube-proxy](/docs/admin/kube-proxy/)**, una delegación a nivel de red que gestiona los servicios de red en cada nodo.
+* El **Master de Kubernetes** es un conjunto de tres procesos que se ejecutan en un único nodo del clúster, que se denomina nodo master. Estos procesos son: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) y [kube-scheduler](/docs/admin/kube-scheduler/).
+
+* Los restantes nodos no master contenidos en tu clúster, ejecutan los siguientes dos procesos:
+  * **[kubelet](/docs/admin/kubelet/)**, el cual se comunica con el Master de Kubernetes.
+  * **[kube-proxy](/docs/admin/kube-proxy/)**, un proxy de red que implementa los servicios de red de Kubernetes en cada nodo.
 
 ## Objetos de Kubernetes
 
-Kubernetes contiene una serie de abstracciones que representan el estado de tu clúster, esto es, las aplicaciones y procesos desplegados como contenedores, sus recursos de red y disco asociados, y cualquier otra información acerca de lo que tu clúster está haciendo en cada momento. Estas abstracciones se representan en forma de objetos en la API de Kubernetes; ver el [resumen de los Objectos de Kubernetes](/docs/concepts/abstractions/overview/) para más información. 
+Kubernetes tiene diferentes abstracciones que representan el estado de tu sistema: aplicaciones contenerizadas desplegadas y cargas de trabajo, sus recursos de red y almacenamiento asociados e información adicional acerca de lo que el clúster está haciendo en un momento dado. Estas abstracciones están representadas por objetos de la API de Kubernetes. Puedes revisar [Entendiendo los Objetos de Kubernetes] (/docs/concepts/overview/working-with-objects/kubernetes-objects/) para obtener más detalles.
 
-Los objetos básicos de Kubernetes son:
+Los objetos básicos de Kubernetes incluyen:
 
 * [Pod](/docs/concepts/workloads/pods/pod-overview/)
 * [Service](/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
-Además, Kubernetes contiene una serie de abstracciones de alto nivel denominadas Controllers. Dichos Controllers se construyen a partir de los objetos básicos y proveen de funcionalidad añadida y características convenientes. Estamos hablando de:
+Además, Kubernetes contiene abstracciónes de nivel superior llamadas Controladores. Los Controladores se basan en los objetos básicos y proporcionan funcionalidades adicionales sobre ellos. Incluyen:
 
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
@@ -43,33 +44,34 @@ Además, Kubernetes contiene una serie de abstracciones de alto nivel denominada
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
 * [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
+
 ## Plano de Control de Kubernetes
 
-Las distintas partes del Plano de Control de Kubernetes, como el Máster de Kubernetes y los procesos kubelet, gobiernan la forma en que Kubernetes se comunica con tu clúster. El Plano de Control mantiene un registro de todos los objetos de Kubernetes en el sistema, ejecutando ciclos continuos de control para gestionar el estado de dichos objetos. Así, en cualquier momento, dichos ciclos de control del Plano de Control responderán a los cambios en el clúster haciendo que el estado actual de todos los objetos en el sistema coincida con el estado deseado que indicaste.
+Los distintos componentes del Plano de Control de Kubernetes, tales como el Master de Kubernetes y el proceso kubelet, gobiernan cómo Kubernetes se comunica con el clúster. El Plano de Control mantiene un registro de todos los Objetos de Kubernetes presentes en el sistema y ejecuta continuos bucles de control para gestionar el estado de los mismos. En un momento dado, los bucles del Plano de Control responderán a los cambios que se realicen en el clúster y ejecutarán las acciones necesarias para hacer que el estado actual de todos los objetos del sistema converjan hacia el estado deseado que has proporcionado.
 
-Por ejemplo, cuando utilizas la API de Kubernetes para crear un objeto Deployment, estableces un nuevo estado deseado para el sistema. El Plano de Control de Kubernetes registra la creación de ese objeto y, seguidamente, lleva a cabo tus instrucciones arrancando las aplicaciones que sea necesario, así como planificando su despliegue en los nodos del clúster -- por consiguiente, haciendo coincidir el estado actual del clúster con el estado deseado.
+Por ejemplo, cuando usas la API de Kubernetes para crear un Deployment, estás proporcionando un nuevo estado deseado para el sistema. El Plano de Control de Kubernetes registra la creación del objeto y lleva a cabo tus instrucciones ejecutando las aplicaciones requeridas en los nodos del clúster, haciendo de esta manera que el estado actual coincida con el estado deseado.
 
-### Máster de Kubernetes
+### El Master de Kubernetes
 
-El máster de Kubernetes es el responsable de mantener el estado deseado de tu clúster. Cuando interactúas con Kubernetes, por ejemplo utilizando el interfaz de línea de comandos `kubectl`, te comunicas con el máster de tu clúster de Kubernetes.
+El Master de Kubernetes es el responsable de mantener el estado deseado de tu clúster. Cuando interactuas con Kubernetes, como por ejemplo cuando utilizas la interfaz de línea de comandos `kubectl`, te estás comunicando con el master de tu clúster de Kubernetes.
 
-> El "máster" se refiere a la colección de procesos que gestionan el estado del clúster. Típicamente, dichos procesos corren todos en un único nodo del clúster, y nos referimos a dicho nodo igualmente como máster. El máster puede estar replicado para garantizar la disponibilidad y la redundancia.
+> Por "master" entendemos la colección de procesos que gestionan el estado del clúster. Típicamente, estos procesos se ejecutan todos en un único nodo del clúster, y este nodo recibe por tanto la denominación de master. El master puede estar replicado por motivos de disponibilidad y redundancia.
 
-### Nodos de Kubernetes
+### Kubernetes Nodes
 
-Los nodos de un clúster son las máquinas (MVs, servidores físicos, etc.) que ejecutan tus aplicaciones y procesos. El máster de Kubernetes controla cada nodo; de hecho, raramente tendrás que interactuar directamente con un nodo no máster.
+En un clúster de Kubernetes, los nodos son las máquinas (máquinas virtuales, servidores físicos, etc) que ejecutan tus aplicaciones y flujos de trabajo en la nube. El master de Kubernetes controla cada nodo, por lo que en raras ocasiones interactuarás con los nodos directamente.
 
-#### Metadatos de Objeto
+#### Metadatos de los Objectos
 
 
-* [Anotaciones](/docs/concepts/overview/working-with-objects/annotations/)
+* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-Si quisieras escribir una página de concepto, echa un vistazo a
-[Usando Plantillas de Página](/docs/home/contribute/page-templates/)
-para información acerca del tipo de página de concepto y su plantilla asociada.
+Si estás interesado en escribir una página sobre conceptos,
+revisa [Usando Templates de Páginas](/docs/home/contribute/page-templates/)
+para obtener información sobre el tipo de página conceptos y la plantilla conceptos.
 
 {{% /capture %}}

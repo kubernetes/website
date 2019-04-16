@@ -34,10 +34,20 @@ content_template: templates/task
 ## 创建配置文件
 
 
-`KubeletConfiguration` 结构体定义了可以通过文件配置的 Kubelet 配置子集，该结构体在 [这里（v1alpha1）](https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/apis/kubeletconfig/v1alpha1/types.go) 可以找到。配置文件必须是这个结构体中参数的 JSON 或 YAML 表现形式。请注意，这个结构体及配置文件 API 仍然为 alpha 版本，对其稳定性不作保证。
+`KubeletConfiguration` 结构体定义了可以通过文件配置的 Kubelet 配置子集，该结构体在 [这里（v1beta1）](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go) 可以找到, 配置文件必须是这个结构体中参数的 JSON 或 YAML 表现形式。
 
 
 在单独的文件夹中创建一个名为 `kubelet` 的文件，并保证 Kubelet 可以读取该文件夹及文件。您应该在这个 `kubelet` 文件中编写 Kubelet 配置。
+
+这是一个 Kubelet 配置文件示例：
+
+```
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+evictionHard:
+    memory.available:  "200Mi"
+```
+在这个示例中, 当可用内存低于200Mi 时, Kubelet 将会开始驱逐 Pods。 没有声明的其余配置项都将使用默认值, 命令行中的 flags 将会覆盖配置文件中的对应值。
 
 
 作为一个小技巧，您可以从活动节点生成配置文件，相关方法请查看 [重新配置活动集群节点的 Kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet)。

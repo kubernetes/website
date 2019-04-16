@@ -1,5 +1,4 @@
 ---
-title: "Trabajando con los Objetos de Kubernetes"
+title: "Objetos de Kubernetes"
 weight: 40
 ---
-

@@ -1,9 +1,6 @@
 ---
-reviewers:
-  - jygastaud
-  - lledru
-  - sieben
 title: Qu'est-ce-que Kubernetes ?
+description: Description de Kubernetes
 content_template: templates/concept
 weight: 10
 card:
