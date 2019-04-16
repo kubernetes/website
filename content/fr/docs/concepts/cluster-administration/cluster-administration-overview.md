@@ -1,6 +1,7 @@
 ---
 title: Vue d'ensemble de l'administration d'un cluster
 content_template: templates/concept
+description: Administration cluster Kubernetes
 weight: 10
 ---
 

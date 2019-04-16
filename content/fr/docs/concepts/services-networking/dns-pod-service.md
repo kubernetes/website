@@ -1,9 +1,6 @@
 ---
-reviewers:
-- remyleone
-- feloy
-- rekcah78
 title: DNS pour les services et les pods
+description: DNS services pods Kubernetes
 content_template: templates/concept
 weight: 20
 ---

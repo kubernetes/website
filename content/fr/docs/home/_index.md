@@ -2,6 +2,7 @@
 approvers:
 - chenopis
 title: Documentation de Kubernetes
+description: Documentation francophone de Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home

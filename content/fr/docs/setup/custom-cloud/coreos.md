@@ -1,12 +1,6 @@
 ---
 title: CoreOS sur AWS ou GCE
-reviewers:
-- sieben
-- perriea
-- lledru
-- awkif
-- yastij
-- rbenzair
+description: Installation Kubernetes CoreOS sur AWS GCE 
 content_template: templates/concept
 ---
 
