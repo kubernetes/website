@@ -150,3 +150,9 @@ aliases:
     - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
+  sig-docs-pt-owners: # Admins for Portuguese content
+    - femrtnz
+    - jcjesus
+  sig-docs-pt-reviews: # PR reviews for Portugese content
+    - femrtnz
+    - jcjesus
