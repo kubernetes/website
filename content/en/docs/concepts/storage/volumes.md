@@ -1132,7 +1132,7 @@ spec:
 
 ### Using subPath with expanded environment variables
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
 
 Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.
