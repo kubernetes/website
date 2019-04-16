@@ -237,7 +237,7 @@ filename | sha256 hash
 
 ## Downloads for v1.12.0-rc.1
 -->
-[文档](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+[文档](https://docs.k8s.io) & [例子](https://releases.k8s.io/release-1.12/examples)
 
 ## 下载 v1.12.0-rc.1
 
@@ -467,19 +467,20 @@ filename | sha256 hash
 
 <!
 [Documentation](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+-->
+[文档](https://docs.k8s.io) & [例子](https://releases.k8s.io/release-1.12/examples)
+
+<!--
 
 ## Downloads for v1.12.0-beta.2
--->
 
-[文档](https://docs.k8s.io) & [例子](https://releases.k8s.io/release-1.12/examples)
+-->
 
 ## 下载 v1.12.0-beta.2
 
 <!--
 filename | sha256 hash
 -->
-
-
 
 文件名    | sha256 哈希值
 -------- | -----------
@@ -651,7 +652,7 @@ filename | sha256 hash
 
 # v1.12.0-beta.1
 
-[文档](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+[文档](https://docs.k8s.io) & [例子](https://releases.k8s.io/release-1.12/examples)
 
 ## 下载 v1.12.0-beta.1
 
