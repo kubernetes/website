@@ -2,6 +2,7 @@
 reviewers:
 - sieben
 title: Noeuds
+description: Concept Noeud Kubernetes
 content_template: templates/concept
 weight: 10
 ---
