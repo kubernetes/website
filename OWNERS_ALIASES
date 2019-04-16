@@ -80,6 +80,12 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
+  sig-docs-id-owners: # Admins for Indonesian content
+    - girikuncoro
+    - irfiva
+  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - girikuncoro
+    - irfiva
   sig-docs-it-owners: # Admins for Italian content
     - rlenferink
     - micheleberardi
