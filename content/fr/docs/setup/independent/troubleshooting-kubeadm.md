@@ -1,5 +1,6 @@
 ---
 title: Dépanner kubeadm
+description: Diagnostic pannes kubeadm debug
 content_template: templates/concept
 weight: 90
 ---

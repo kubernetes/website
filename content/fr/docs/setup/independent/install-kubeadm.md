@@ -1,5 +1,6 @@
 ---
 title: Installer kubeadm
+description: kubeadm installation Kubernetes
 content_template: templates/task
 weight: 20
 ---
