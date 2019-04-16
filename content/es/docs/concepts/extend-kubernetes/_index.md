@@ -1,4 +1,4 @@
 ---
-title: Extendiendo en Kubernetes
+title: Extendiendo Kubernetes
 weight: 110
 ---

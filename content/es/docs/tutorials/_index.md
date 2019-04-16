@@ -12,7 +12,7 @@ Esta sección de la documentación de Kubernetes contiene tutoriales.
 Un tutorial muestra cómo lograr una meta que es más grande que una sola
 [tarea](/docs/tasks/). Típicamente un tutorial tiene varias secciones y cada
 una de ellas contiene un procedimiento.
-Antes de recorrer cada tutorial, le recomendamos que añada un marcador a
+Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 [Glosario de términos](/docs/reference/glossary/) para poder consultarlo fácilmente.
 
 {{% /capture %}}

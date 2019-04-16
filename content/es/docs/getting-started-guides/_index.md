@@ -1,4 +1,4 @@
 ---
-title: Guias de inicio
+title: Guías de iniciación
 weight: 50
 ---

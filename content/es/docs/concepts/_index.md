@@ -15,9 +15,9 @@ La sección de conceptos te ayudará a conocer los componentes de Kubernetes as�
 
 ## Introducción
 
-Para trabajar con Kubernetes utilizarás *objetos de la API de Kubernetes* para describir el *estado deseado* de tu clúster: qué aplicaciones u otras cargas de trabajo quieres ejecutar, qué imagenes de contendores usan, el número de replicas, qué red y qué recursos de almacenamiento quieres que tengan disponibles, etc. Especificas el estado deseado de tu clúster mediante la creación de objetos usando la API de Kubernetes, típicamente mediante la interfaz de línea de comandos, `kubectl`. También puedes usar la API de Kubernets directamente para interactuar con el clúster y especificar o modificar tu estado deseado.
+En Kubernetes se utilizan objetos *objetos de la API de Kubernetes* para describir el *estado deseado* del clúster: qué aplicaciones u otras cargas de trabajo se quieren ejecutar, qué imagenes de contendores usan, el número de replicas, qué red y qué recursos de almacenamiento quieres que tengan disponibles, etc. Se especifica el estado deseado del clúster mediante la creación de objetos usando la API de Kubernetes, típicamente mediante la interfaz de línea de comandos, `kubectl`. También se puede usar la API de Kubernetes directamente para interactuar con el clúster y especificar o modificar tu estado deseado.
 
-Una vez que has especificado tu estado deseado, el *Plano de Control de Kubernetes* realizará las acciones necesarias para que el estado actual del clúster coincida con el estado deseado. Para ello, Kubernetes realiza diferentes tareas de forma automática, como pueden ser: parar o arrancar contenedores, escalar el número de réplicas de una aplicación dada, etc. El Plano de Control de Kubernetes consiste en un grupo de procesos que corren en tu clúster:
+Una vez que se especifica el estado deseado, el *Plano de Control de Kubernetes* realizará las acciones necesarias para que el estado actual del clúster coincida con el estado deseado. Para ello, Kubernetes realiza diferentes tareas de forma automática, como pueden ser: parar o arrancar contenedores, escalar el número de réplicas de una aplicación dada, etc. El Plano de Control de Kubernetes consiste en un grupo de procesos que corren en tu clúster:
 
 * El **Master de Kubernetes** es un conjunto de tres procesos que se ejecutan en un único nodo del clúster, que se denomina nodo master. Estos procesos son: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) y [kube-scheduler](/docs/admin/kube-scheduler/).
 
@@ -27,7 +27,7 @@ Una vez que has especificado tu estado deseado, el *Plano de Control de Kubernet
 
 ## Objetos de Kubernetes
 
-Kubernetes tiene diferentes abstacciones que representan el estado de tu sistema: aplicaciones contenerizadas desplegadas y cargas de trabajo, sus recursos de red y almacenamiento asociados e información adicional acerca de lo que el clúster está haciendo en un momento dado. Estas abstracciones están representadas por objetos de la API de Kubernetes. Puedes revisar [Entendiendo los Objetos de Kubernetes] (/docs/concepts/overview/working-with-objects/kubernetes-objects/) para obtener más detalles.
+Kubernetes tiene diferentes abstracciones que representan el estado de tu sistema: aplicaciones contenerizadas desplegadas y cargas de trabajo, sus recursos de red y almacenamiento asociados e información adicional acerca de lo que el clúster está haciendo en un momento dado. Estas abstracciones están representadas por objetos de la API de Kubernetes. Puedes revisar [Entendiendo los Objetos de Kubernetes] (/docs/concepts/overview/working-with-objects/kubernetes-objects/) para obtener más detalles.
 
 Los objetos básicos de Kubernetes incluyen:
 
@@ -47,9 +47,9 @@ Además, Kubernetes contiene abstracciónes de nivel superior llamadas Controlad
 
 ## Plano de Control de Kubernetes
 
-Los distintos componentes del Plano de Control de Kubernetes, tales como el Master de Kubernetes y el proceso kubelet, gobiernan cómo Kubernetes se comunica con tu clúster. El Plano de Control mantiene un registro de todos los Objetos de Kubernetes presentes en el sistema y ejecuta continuos bucles de control para gestionar el estado de los mismos. En un momento dado, los bucles del Plano de Control responderán a los cambios que se realicen en el clúster y ejecutarán las acciones necesarias para hacer que el estado actual de todos los objetos del sistema converjan hacia el estado deseado que has proporcionado.
+Los distintos componentes del Plano de Control de Kubernetes, tales como el Master de Kubernetes y el proceso kubelet, gobiernan cómo Kubernetes se comunica con el clúster. El Plano de Control mantiene un registro de todos los Objetos de Kubernetes presentes en el sistema y ejecuta continuos bucles de control para gestionar el estado de los mismos. En un momento dado, los bucles del Plano de Control responderán a los cambios que se realicen en el clúster y ejecutarán las acciones necesarias para hacer que el estado actual de todos los objetos del sistema converjan hacia el estado deseado que has proporcionado.
 
-Por ejemplo, cuando usas la API de Kubernetes para crear un Deployment, estás proporcionando un nuevo estado deseado para el sistema. El Plano de Control de Kubernetes registra la creación del objeto y lleva a cabo tus instrucciones ejecutando las aplicaciónes requeridas en los nodos del clúster, haciendo de esta manera que el estado actual coincida con el estado deseado.
+Por ejemplo, cuando usas la API de Kubernetes para crear un Deployment, estás proporcionando un nuevo estado deseado para el sistema. El Plano de Control de Kubernetes registra la creación del objeto y lleva a cabo tus instrucciones ejecutando las aplicaciones requeridas en los nodos del clúster, haciendo de esta manera que el estado actual coincida con el estado deseado.
 
 ### El Master de Kubernetes
 

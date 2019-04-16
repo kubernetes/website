@@ -13,7 +13,7 @@ menu:
     title: "Documentación"
     weight: 20
     post: >
-      <p>Aprenda cómo usar Kubernetes con la documentación, los tutoriales y revisando la información de referencia. Tamibén puedes <a href="/editdocs/" data-auto-burger-exclude>contribuir con la documentación</a>!</p>
+      <p>Aprenda cómo usar Kubernetes con la documentación, los tutoriales y revisando la información de referencia. También puedes <a href="/editdocs/" data-auto-burger-exclude>contribuir con la documentación</a>!</p>
 overview: >
   Kubernetes es una plataforma de código abierto para automatizar la implementación, el escalado y la administración de aplicaciones en contenedores.
   El proyecto está amparado por la Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
@@ -25,7 +25,7 @@ cards:
   button_path: "/docs/concepts"
 - name: tutorials
   title: Prueba Kubernetes
-  description: Siga los tutoriales para aprender a implementar aplicaciones en Kubernetes.
+  description: Sigue los tutoriales para aprender a implementar aplicaciones en Kubernetes.
   button: Ver tutoriales
   button_path: "/docs/tutorials"
 - name: setup
@@ -34,12 +34,12 @@ cards:
   button: Configurar Kubernetes
   button_path: "/docs/setup"
 - name: tasks
-  title: Aprende a usar Kubernetes
-  description: Busque tareas comunes y aprenda cómo llevarlas a cabo siguiendo un procedimiento.
+  title: Aprenda a usar Kubernetes
+  description: Busca tareas comunes y aprende cómo llevarlas a cabo siguiendo un procedimiento.
   button: Ver tareas
   button_path: "/docs/tasks"
 - name: reference
-  title: Busca información de referencia
+  title: Busque información de referencia
   description: Examine la terminología, la sintaxis de la línea de comandos, los tipos de recursos API y la documentación de las herramientas de configuración.
   button: Ver información de referencia
   button_path: /docs/reference
