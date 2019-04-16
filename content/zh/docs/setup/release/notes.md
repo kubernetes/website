@@ -739,22 +739,6 @@ filename | sha256 hash
 
 ### 其他值得注意的变化
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!--
 * Not split nodes when searching for nodes but doing it all at once. ([#67555](https://github.com/kubernetes/kubernetes/pull/67555), [@wgliang](https://github.com/wgliang))
 * Deprecate kubectl run generators, except for run-pod/v1 ([#68132](https://github.com/kubernetes/kubernetes/pull/68132), [@soltysh](https://github.com/soltysh))
@@ -896,6 +880,14 @@ filename | sha256 hash
 * kube-proxy v1beta1 外部组件配置类型现在可以在 `k8s.io/kube-proxy` 仓库中中使用。([#67688](https://github.com/kubernetes/kubernetes/pull/67688), [@Lion-Wei](https://github.com/Lion-Wei))
 * 丢失网络连接时，将无法访问的污点应用于节点。 ([#67734](https://github.com/kubernetes/kubernetes/pull/67734), [@Huang-Wei](https://github.com/Huang-Wei))
 
+
+
+-------------
+-------------
+-------------
+
+
+
 <!--
 Allow ImageReview backend to return annotations to be added to the created pod.*  ([#64597](https://github.com/kubernetes/kubernetes/pull/64597), [@wteiken](https://github.com/wteiken))
 * Bump ip-masq-agent to v2.1.1 ([#67916](https://github.com/kubernetes/kubernetes/pull/67916), [@MrHohn](https://github.com/MrHohn))
@@ -911,41 +903,22 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
     * - 将链名更改为 IP-MASQ 与之兼容
     * pre-injected masquerade 规则
 * StorageClass 中的 AllowedTopologies 字段现在根据 set 和 map 语义进行验证。具体来说，不能有重复的 TopologySelectorTerms、matchlabelexpression 键和 TopologySelectorLabelRequirement 值。 ([#66843](https://github.com/kubernetes/kubernetes/pull/66843), [@verult](https://github.com/verult))
+* 介绍了 autoscaling/v2beta2 和 custom_metrics/v1beta2，它们为对象和 Pod 指标实现了指标选择器，以及允许对象上的 AverageValue 目标，类似于外部指标。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--
 * The cloudstack cloud provider now reports a `Hostname` address type for nodes based on the `local-hostname` metadata key. ([#67719](https://github.com/kubernetes/kubernetes/pull/67719), [@liggitt](https://github.com/liggitt))
 * kubeadm: --cri-socket now defaults to tcp://localhost:2375 when running on Windows ([#67447](https://github.com/kubernetes/kubernetes/pull/67447), [@benmoss](https://github.com/benmoss))
 * kubeadm: The kubeadm configuration now support definition of more than one control plane instances with their own APIEndpoint. The APIEndpoint for the "bootstrap" control plane instance should be defined using `InitConfiguration.APIEndpoint`, while the APIEndpoints for additional control plane instances should be added using `JoinConfiguration.APIEndpoint`.   ([#67832](https://github.com/kubernetes/kubernetes/pull/67832), [@fabriziopandini](https://github.com/fabriziopandini))
 * Enable dynamic azure disk volume limits ([#67772](https://github.com/kubernetes/kubernetes/pull/67772), [@andyzhangx](https://github.com/andyzhangx))
 * kubelet: Users can now enable the alpha NodeLease feature gate to have the Kubelet create and periodically renew a Lease in the kube-node-lease namespace. The lease duration defaults to 40s, and can be configured via the kubelet.config.k8s.io/v1beta1.KubeletConfiguration's NodeLeaseDurationSeconds field. ([#66257](https://github.com/kubernetes/kubernetes/pull/66257), [@mtaufen](https://github.com/mtaufen))
+-->
+* cloudstack 云供应商根据 `local-hostname` 元数据键报告节点的 `Hostname` 地址类型。([#67719](https://github.com/kubernetes/kubernetes/pull/67719), [@liggitt](https://github.com/liggitt))
+* kubeadm：Windows 上运行时，--cri-socket 现在默认为 tcp://localhost:2375。([#67447](https://github.com/kubernetes/kubernetes/pull/67447), [@benmoss](https://github.com/benmoss))
+* kubeadm：配置现在支持使用自己的 api 端点定义多个控制平面实例。 `引导`控制平面实例 APIEndpoint 应该使用 `InitConfiguration` 定义。而额外控制平面实例的 APIEndpoint 应该使用 `JoinConfiguration.APIEndpoint` 添加。([#67832](https://github.com/kubernetes/kubernetes/pull/67832), [@fabriziopandini](https://github.com/fabriziopandini))
+* 启用动态 azure 磁盘容量限制。([#67772](https://github.com/kubernetes/kubernetes/pull/67772), [@andyzhangx](https://github.com/andyzhangx))
+* kubelet：用户现在可以启用 alpha NodeLease 特性门，让 Kubelet 在 kube-node-lease 命名空间中创建并定期更新租约。租期默认为 40s，可以通过kubelet.config.k8s.io/v1beta1.KubeletConfiguration's NodeLeaseDurationSeconds 字段。([#66257](https://github.com/kubernetes/kubernetes/pull/66257), [@mtaufen](https://github.com/mtaufen))
+
+<!--
 * latent controller caches no longer cause repeating deletion messages for deleted pods ([#67826](https://github.com/kubernetes/kubernetes/pull/67826), [@deads2k](https://github.com/deads2k))
 * API paging is now enabled for custom resource definitions, custom resources and APIService objects ([#67861](https://github.com/kubernetes/kubernetes/pull/67861), [@liggitt](https://github.com/liggitt))
 * kubeadm: ControlPlaneEndpoint was moved from the API config struct to ClusterConfiguration ([#67830](https://github.com/kubernetes/kubernetes/pull/67830), [@fabriziopandini](https://github.com/fabriziopandini))
@@ -953,6 +926,16 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * Replace scale up forbidden window with disregarding CPU samples collected when pod was initializing. ([#67252](https://github.com/kubernetes/kubernetes/pull/67252), [@jbartosik](https://github.com/jbartosik))
 * Moving KubeSchedulerConfiguration from ComponentConfig API types to staging repos ([#66916](https://github.com/kubernetes/kubernetes/pull/66916), [@dixudx](https://github.com/dixudx))
 * Improved error message when checking the rollout status of StatefulSet with OnDelete strategy type ([#66983](https://github.com/kubernetes/kubernetes/pull/66983), [@mortent](https://github.com/mortent))
+-->
+* 潜在的控制器缓存不再导致删除的 pod 重复删除消息。([#67826](https://github.com/kubernetes/kubernetes/pull/67826), [@deads2k](https://github.com/deads2k))
+* 现在，可以为自定义资源定义、自定义资源和 APIService 对象启用了 API 分页。([#67861](https://github.com/kubernetes/kubernetes/pull/67861), [@liggitt](https://github.com/liggitt))
+* kubeadm：ControlPlaneEndpoint 从 API 配置结构移动到 ClusterConfiguration ([#67830](https://github.com/kubernetes/kubernetes/pull/67830), [@fabriziopandini](https://github.com/fabriziopandini))
+* kubeadm - feature-gates HighAvailability、SelfHosting、CertsInSecrets 现在被弃用，不能再用于新的集群。不支持使用上述特性门参数更新集群。([#67786](https://github.com/kubernetes/kubernetes/pull/67786), [@fabriziopandini](https://github.com/fabriziopandini))
+* 当 pod 初始化时，不考虑收集 CPU 样本，
+* 将 KubeSchedulerConfiguration 从 ComponentConfig API 类型转移到  staging 存储库([#66916](https://github.com/kubernetes/kubernetes/pull/66916), [@dixudx](https://github.com/dixudx))
+* 使用 OnDelete 策略类型检查 StatefulSet 的 rollout 状态时改进的错误消息 ([#66983](https://github.com/kubernetes/kubernetes/pull/66983)，[@mortent](https://github.com/mortent))
+
+<!--
 * RuntimeClass is a new API resource for defining different classes of runtimes that may be used to run containers in the cluster. Pods can select a RunitmeClass to use via the RuntimeClassName field. This feature is in alpha, and the RuntimeClass feature gate must be enabled in order to use it. ([#67737](https://github.com/kubernetes/kubernetes/pull/67737), [@tallclair](https://github.com/tallclair))
 * Remove rescheduler since scheduling DS pods by default scheduler is moving to beta. ([#67687](https://github.com/kubernetes/kubernetes/pull/67687), [@Lion-Wei](https://github.com/Lion-Wei))
 * Turn on PodReadinessGate by default ([#67406](https://github.com/kubernetes/kubernetes/pull/67406), [@freehan](https://github.com/freehan))
@@ -960,6 +943,16 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * The OpenStack cloud provider now reports a `Hostname` address type for nodes ([#67748](https://github.com/kubernetes/kubernetes/pull/67748), [@FengyunPan2](https://github.com/FengyunPan2))
 * The aws cloud provider now reports a `Hostname` address type for nodes based on the `local-hostname` metadata key. ([#67715](https://github.com/kubernetes/kubernetes/pull/67715), [@liggitt](https://github.com/liggitt))
 * Azure cloud provider now supports cross resource group nodes that are labeled with `kubernetes.azure.com/resource-group=<rg-name>` and `alpha.service-controller.kubernetes.io/exclude-balancer=true` ([#67604](https://github.com/kubernetes/kubernetes/pull/67604), [@feiskyer](https://github.com/feiskyer))
+-->
+* RuntimeClass 是一个新的 API 资源，用于定义可用于在集群中运行容器的不同运行时类。Pod 可以通过 RuntimeClassName 字段选择要使用的 RunitmeClass。这个特性在 alpha 中，必须启用 RuntimeClass 特性门才能使用它 ([#67737](https://github.com/kubernetes/kubernetes/pull/67737)，[@tallclair](https://github.com/tallclair))
+* 删除重调度程序，因为在默认情况下调度 DS pod 正在迁移到 beta 版 ([#67687](https://github.com/kubernetes/kubernetes/pull/67687)，[@Lion-Wei](https://github.com/Lion-Wei))
+* 默认打开 PodReadinessGate ([#67406](https://github.com/kubernetes/kubernetes/pull/67406), [@freehan](https://github.com/freehan))
+* 当 kubelet 看到它有 CIDR 时，立即执行运行时和节点状态更新，从而加快 kubelet 的启动时间 ([#67031](https://github.com/kubernetes/kubernetes/pull/67031), [@krzysztof-jastrzebski](https://github.com/krzysztof-jastrzebski))
+* OpenStack 云供应商x现在报告 `Hostname` 节点的地址类型。([#67748](https://github.com/kubernetes/kubernetes/pull/67748)，[@FengyunPan2](https://github.com/FengyunPan2))
+* aws 云供应商现在根据 `local-hostname` 元数据键报告节点的 `Hostname` 地址类型 ([#67715](https://github.com/kubernetes/kubernetes/pull/67715)，[@liggitt](https://github.com/liggitt))
+* Azure 云供应商现在支持使用 `kubernetes.azure.com/resource-group=<rg-name>` 和 `alpha.service-controller.kubernetes.io/exclude-balancer=true` 参数的跨资源组节点 ([#67604](https://github.com/kubernetes/kubernetes/pull/67604)，[@feiskyer](https://github.com/feiskyer))
+
+<!--
 * Reduce API calls for Azure instance metadata. ([#67478](https://github.com/kubernetes/kubernetes/pull/67478), [@feiskyer](https://github.com/feiskyer))
 * `kubectl create secret tls` can now read certificate and key files from process substitution arguments ([#67713](https://github.com/kubernetes/kubernetes/pull/67713), [@liggitt](https://github.com/liggitt))
 * change default value of kind for azure disk ([#67483](https://github.com/kubernetes/kubernetes/pull/67483), [@andyzhangx](https://github.com/andyzhangx))
@@ -968,6 +961,17 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * kubeadm: InitConfiguration now consists of two structs: InitConfiguration and ClusterConfiguration ([#67441](https://github.com/kubernetes/kubernetes/pull/67441), [@rosti](https://github.com/rosti))
 * Updated Cluster Autoscaler version to 1.3.2-beta.2. Release notes: https://github.com/kubernetes/autoscaler/releases/tag/cluster-autoscaler-1.3.2-beta.2 ([#67697](https://github.com/kubernetes/kubernetes/pull/67697), [@aleksandra-malinowska](https://github.com/aleksandra-malinowska))
 * cpumanager: rollback state if updateContainerCPUSet failed ([#67430](https://github.com/kubernetes/kubernetes/pull/67430), [@choury](https://github.com/choury))
+-->
+* 减少对 Azure 实例元数据的 API 调用 ([#67478](https://github.com/kubernetes/kubernetes/pull/67478)，[@feiskyer](https://github.com/feiskyer))
+* `kubectl create secret tls` 现在可以从进程替换参数中读取证书和密钥文件 ([#67713](https://github.com/kubernetes/kubernetes/pull/67713)，[@liggitt](https://github.com/liggitt))
+* 更改 azure 磁盘的默认值类型 ([#67483](https://github.com/kubernetes/kubernetes/pull/67483)，[@andyzhangx](https://github.com/andyzhangx))
+* 为了解决 dry-run 请求压倒性准入的可能性，webhooks 依赖于副作用和和解机制，一个新的字段被添加到 admissionregistration.k8s.io/v1beta1.ValidatingWebhookConfiguration 和 admissionregistration.k8s.io/v1beta1.MutatingWebhookConfiguration 中，这样 webhook 就可以显式地注册为具有 dry-run 支持。如果在触发支持 webhook 的非预运行资源上发出预运行请求，则该请求将被完全拒绝，并返回 "400: Bad Request"。此外，在 admission.k8s.io/v1beta1.AdmissionReview API 对象中添加了一个新字段，公开 webhook，不管正在审查的请求是否处于 dry-run ([#66936](https://github.com/kubernetes/kubernetes/pull/66936), [@jennybuckley](https://github.com/jennybuckley))
+* Kubeadm ha 升级([#66973](https://github.com/kubernetes/kubernetes/pull/66973)，[@fabriziopandini](https://github.com/fabriziopandini))
+* kubeadm：InitConfiguration 现在包含两个结构：InitConfiguration 和 ClusterConfiguration ([#67441](https://github.com/kubernetes/kubernetes/pull/67441)，[@rosti](https://github.com/rosti))
+* 将 Cluster Autoscaler 版本更新为 1.3.2-beta.2。发行说明：https://github.com/kubernetes/autoscaler/releases/tag/cluster-autoscaler-1.3.2-beta.2 ([#67697](https://github.com/kubernetes/kubernetes/pull/67697), [@aleksandra-malinowska](https://github.com/aleksandra-malinowska))
+* cpumanager：如果 updateContainerCPUSet 失败则回滚状态 ([#67430](https://github.com/kubernetes/kubernetes/pull/67430)，[@choury](https://github.com/choury))
+
+<!--
 * [CRI] Adds a "runtime_handler" field to RunPodSandboxRequest, for selecting the runtime configuration to run the sandbox with (alpha feature). ([#67518](https://github.com/kubernetes/kubernetes/pull/67518), [@tallclair](https://github.com/tallclair))
 * Create cli-runtime staging repository ([#67658](https://github.com/kubernetes/kubernetes/pull/67658), [@soltysh](https://github.com/soltysh))
 * Headless Services with no ports defined will now create Endpoints correctly, and appear in DNS. ([#67622](https://github.com/kubernetes/kubernetes/pull/67622), [@thockin](https://github.com/thockin))
@@ -976,12 +980,32 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * Prevent `resourceVersion` updates for custom resources on no-op writes. ([#67562](https://github.com/kubernetes/kubernetes/pull/67562), [@nikhita](https://github.com/nikhita))
 * Fail container start if its requested device plugin resource hasn't registered after Kubelet restart. ([#67145](https://github.com/kubernetes/kubernetes/pull/67145), [@jiayingz](https://github.com/jiayingz))
 * Use sync.map to scale ecache better ([#66862](https://github.com/kubernetes/kubernetes/pull/66862), [@resouer](https://github.com/resouer))
+-->
+* [CRI] 向 RunPodSandboxRequest 添加一个 "runtime_handler" 字段，用于选择运行带有（alpha 特性）沙箱的运行时配置（alpha feature） ([#67518](https://github.com/kubernetes/kubernetes/pull/67518)，[@tallclair](https://github.com/tallclair))
+* 创建 cli-runtime staging 仓库([#67658](https://github.com/kubernetes/kubernetes/pull/67658), [@soltysh](https://github.com/soltysh))
+* 没有定义端口的无头服务现在将正确创建端点，并显示在 DNS 中 ([#67622](https://github.com/kubernetes/kubernetes/pull/67622)，[@thockin](https://github.com/thockin))
+* Kubernetes juju charms 现在将使用 CSI 作为 ceph ([#66523](https://github.com/kubernetes/kubernetes/pull/66523)，[@hyperbolic2346](https://github.com/hyperbolic2346))
+* kubeadm：当节点注释为空时修复恐慌 ([#67648](https://github.com/kubernetes/kubernetes/pull/67648)，[@xlgao-zju](https://github.com/xlgao-zju))
+* 禁止 `resourceVersion` 在无操作写入时更新自定义资源 ([#67562](https://github.com/kubernetes/kubernetes/pull/67562)，[@nikhita](https://github.com/nikhita))
+* 如果 Kubelet 重启后请求的设备插件资源没有注册，则容器启动失败 ([#67145](https://github.com/kubernetes/kubernetes/pull/67145)，[@jiayingz](https://github.com/jiayingz))
+* 使用 sync.map 更好地扩展 ecache ([#66862](https://github.com/kubernetes/kubernetes/pull/66862)，[@resouer](https://github.com/resouer))
+
+<!--
 * DaemonSet: Fix bug- daemonset didn't create pod after node have enough resource ([#67337](https://github.com/kubernetes/kubernetes/pull/67337), [@linyouchong](https://github.com/linyouchong))
 * updates kibana to 6.3.2  ([#67582](https://github.com/kubernetes/kubernetes/pull/67582), [@monotek](https://github.com/monotek))
 * fixes json logging in fluentd-elasticsearch image by downgrading fluent-plugin-kubernetes_metadata_filter plugin to version 2.0.0 ([#67544](https://github.com/kubernetes/kubernetes/pull/67544), [@monotek](https://github.com/monotek))
 * add --dns-loop-detect option to dnsmasq run by kube-dns ([#67302](https://github.com/kubernetes/kubernetes/pull/67302), [@dixudx](https://github.com/dixudx))
 * Switched certificate data replacement from "REDACTED" to "DATA+OMITTED" ([#66023](https://github.com/kubernetes/kubernetes/pull/66023), [@ibrasho](https://github.com/ibrasho))
 * improve performance of anti-affinity predicate of default scheduler. ([#66948](https://github.com/kubernetes/kubernetes/pull/66948), [@mohamed-mehany](https://github.com/mohamed-mehany))
+-->
+* DaemonSet：修复 bug-daemonset 在节点有足够资源后没有创建 pod ([#67337](https://github.com/kubernetes/kubernetes/pull/67337)，[@linyouchong](https://github.com/linyouchong))
+* kibana 更新为 6.3.2 ([#67582](https://github.com/kubernetes/kubernetes/pull/67582)，[@monotek](https://github.com/monotek))
+* 通过将 fluent-plugin-kubernetes_metadata_filter 插件降级到 2.0.0 版本，修复了 fluentd-elasticsearch 镜像中的 json 日志记录
+* 添加 --dns-loop-detect 选项到 kube-dns 运行的 dnsmasq ([#67302](https://github.com/kubernetes/kubernetes/pull/67302)，[@dixudx](https://github.com/dixudx))
+* 将证书数据替换从 "REDACTED" 转换为 "DATA+OMITTED" ([#66023](https://github.com/kubernetes/kubernetes/pull/66023)，[@ibrasho](https://github.com/ibrasho))
+* 改进默认调度程序的反关联谓词的性能 ([#66948](https://github.com/kubernetes/kubernetes/pull/66948)，[@mohamed-mehany](https://github.com/mohamed-mehany))
+
+<!--
 * Fixed a bug that was blocking extensible error handling when serializing API responses error out. Previously, serialization failures always resulted in the status code of the original response being returned. Now, the following behavior occurs: ([#67041](https://github.com/kubernetes/kubernetes/pull/67041), [@tristanburgess](https://github.com/tristanburgess))
     *    - If the serialization type is application/vnd.kubernetes.protobuf, and protobuf marshaling is not implemented for the requested API resource type, a '406 Not Acceptable is returned'.
     *    - If the serialization type is 'application/json':
@@ -991,6 +1015,18 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * kube-controller-manager can now start the quota controller when discovery results can only be partially determined. ([#67433](https://github.com/kubernetes/kubernetes/pull/67433), [@deads2k](https://github.com/deads2k))
 * The plugin mechanism functionality now closely follows the git plugin design ([#66876](https://github.com/kubernetes/kubernetes/pull/66876), [@juanvallejo](https://github.com/juanvallejo))
 * GCE: decrease cpu requests on master node, to allow more components to fit on one core machine. ([#67504](https://github.com/kubernetes/kubernetes/pull/67504), [@loburm](https://github.com/loburm))
+-->
+* 修复了在序列化 API 响应错误时阻塞可扩展错误处理的错误。以前，序列化失败总是导致返回原始响应的状态代码。现在，发生了以下行为: ([#67041](https://github.com/kubernetes/kubernetes/pull/67041)，[@tristanburgess](https://github.com/tristanburgess))
+    *    - 如果序列化类型为 application/vnd.kubernetes.protobuf，并且未针对请求的 API 资源类型实现 protobuf 编组，则返回 '406 Not Acceptable'
+    *    - 如果序列化类型是 'application/json'：
+    *         - 如果序列化失败，并且原始状态代码失败（例如 4xx 或 5xx），将返回原始状态代码
+    *         - 如果序列化失败，并且原始状态代码不是失败（例如 2xx），则将返回序列化失败的状态代码。默认情况下，这是 '500 Internal Server Error'，因为 JSON 序列化是我们的默认值，不应该在逐类型的基础上实现
+* 向调度程序添加一个特性，使其在每个调度周期中得分少于所有节点。这可以提高大型集群中的调度程序的性能 ([#66733](https://github.com/kubernetes/kubernetes/pull/66733)，[@bsalamat](https://github.com/bsalamat))
+* 当发现结果只能部分确定时，kube-controller-manager 现在可以启动配额控制器 ([#67433](https://github.com/kubernetes/kubernetes/pull/67433)，[@deads2k](https://github.com/deads2k))
+* 插件机制的功能现在紧跟 git 插件的设计 ([#66876](https://github.com/kubernetes/kubernetes/pull/66876)，[@juanvallejo](https://github.com/juanvallejo))
+* GCE：减少主节点上的 cpu 请求，以便在一台核心计算机上安装更多组件 ([#67504](https://github.com/kubernetes/kubernetes/pull/67504)， [@loburm](https://github.com/loburm))
+
+<!--
 * PVC may not be synced to controller local cache in time if PV is bound by external PV binder (e.g. kube-scheduler), double check if PVC is not found to prevent reclaiming PV wrongly. ([#67062](https://github.com/kubernetes/kubernetes/pull/67062), [@cofyc](https://github.com/cofyc))
 * add more storage account sku support for azure disk ([#67528](https://github.com/kubernetes/kubernetes/pull/67528), [@andyzhangx](https://github.com/andyzhangx))
 * updates es-image to elasticsearch 6.3.2 ([#67484](https://github.com/kubernetes/kubernetes/pull/67484), [@monotek](https://github.com/monotek))
@@ -1000,6 +1036,18 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * Defaults for file audit logging backend in batch mode changed: ([#67223](https://github.com/kubernetes/kubernetes/pull/67223), [@tallclair](https://github.com/tallclair))
     * - Logs are written 1 at a time (no batching)
     * - Only a single writer process (lock contention)
+-->
+*  如果 PV 受到外部 PV 绑定器（例如 kube-scheduler）的约束，PVC 可能无法及时同步到控制器本地缓存，请仔细检查是否找不到 PVC 以防止错误回收 PV ([#67062](https://github.com/kubernetes/kubernetes/pull/67062), [@cofyc](https://github.com/cofyc))
+* 为 azure 磁盘添加更多存储帐户 sku 支持 ([#67528](https://github.com/kubernetes/kubernetes/pull/67528), [@andyzhangx](https://github.com/andyzhangx))
+* 更新 es-image 到 elasticsearch 6.3.2 ([#67484](https://github.com/kubernetes/kubernetes/pull/67484), [@monotek](https://github.com/monotek))
+* Bump GLBC 版本 1.2.3。([#66793](https://github.com/kubernetes/kubernetes/pull/66793), [@freehan](https://github.com/freehan))
+* kube-apiserver：修复了同时启动多个 apiservers 时创建系统优先级的错误 ([#67372](https://github.com/kubernetes/kubernetes/pull/67372), [@tanshanshan](https://github.com/tanshanshan))
+* kubectl 补丁现在关注 - 本地 ([#67399](https://github.com/kubernetes/kubernetes/pull/67399), [@deads2k](https://github.com/deads2k))
+* 更改定量处理模式下文件审核日志后端的默认值：([#67223](https://github.com/kubernetes/kubernetes/pull/67223), [@tallclair](https://github.com/tallclair))
+    * - 日志一次写入 1 个（没有定量处理）
+    * - 只有一个写入器进程（锁争用）
+
+<!--
 * Forget rate limit when CRD establish controller successfully updated CRD condition ([#67370](https://github.com/kubernetes/kubernetes/pull/67370), [@yue9944882](https://github.com/yue9944882))
 * updates fluentd in fluentd-elasticsearch to version 1.2.4 ([#67434](https://github.com/kubernetes/kubernetes/pull/67434), [@monotek](https://github.com/monotek))
         * also updates activesupport, fluent-plugin-elasticsearch & oj gems
@@ -1008,6 +1056,17 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * Fix an issue that pods using hostNetwork keep increasing. ([#67456](https://github.com/kubernetes/kubernetes/pull/67456), [@Huang-Wei](https://github.com/Huang-Wei))
 * DaemonSet controller is now using backoff algorithm to avoid hot loops fighting with kubelet on pod recreation when a particular DaemonSet is misconfigured. ([#65309](https://github.com/kubernetes/kubernetes/pull/65309), [@tnozicka](https://github.com/tnozicka))
 * Add node affinity for Azure unzoned managed disks ([#67229](https://github.com/kubernetes/kubernetes/pull/67229), [@feiskyer](https://github.com/feiskyer))
+-->
+* 当 CRD 建立控制器成功更新 CRD 条件时，忘记速率限制 ([#67370](https://github.com/kubernetes/kubernetes/pull/67370)，[@yue9944882](https://github.com/yue9944882))
+* fluentd-elasticsearch 中的 fluentd 更新到 1.2.4 版本 ([#67434](https://github.com/kubernetes/kubernetes/pull/67434)，[@monotek](https://github.com/monotek))
+        * 还更新 activesupport、fluent-plugin-elasticsearch & oj gems
+* dockershim 现在设置 "bandwidth" and "ipRanges" CNI 功能（动态参数）。插件作者和管理员现在可以通过更新他们的 CNI 配置文件来利用这一点。更多信息，请参阅 [CNI 文档](https://github.com/containernetworking/cni/blob/master/CONVENTIONS.md#dynamic-plugin-specific-fields-capabilities--runtime-configuration) ([#64445](https://github.com/kubernetes/kubernetes/pull/64445)，[@squeed](https://github.com/squeed))
+* 公开 `/debug/flags/v` 允许 kubelet 动态设置 glog 日志记录级别。如果想将 glog 级别更改为3，则只需发送 PUT 请求即可 `curl -X PUT http://127.0.0.1:8080/debug/flags/v -d "3"` ([#64601](https://github.com/kubernetes/kubernetes/pull/64601)，[@hzxuzhonghu](https://github.com/hzxuzhonghu))
+* 修复了使用 hostNetwork 的 pod 不断增加的问题 ([#67456](https://github.com/kubernetes/kubernetes/pull/67456)，[@Huang-Wei](https://github.com/Huang-Wei))
+* 当一个特定的 DaemonSet 被错误配置时，DaemonSet 控制器现在使用后退算法来避免在 pod 重新创建时与 kubelet 发生热循环冲突 ([#65309](https://github.com/kubernetes/kubernetes/pull/65309)，[@tnozicka](https://github.com/tnozicka))
+* 为 Azure 未分区的托管磁盘添加节点关联 ([#67229](https://github.com/kubernetes/kubernetes/pull/67229), [@feiskyer](https://github.com/feiskyer))
+
+<!--
 * Attacher/Detacher refactor for local storage ([#66884](https://github.com/kubernetes/kubernetes/pull/66884), [@NickrenREN](https://github.com/NickrenREN))
 * Update debian-iptables and hyperkube-base images to include CVE fixes. ([#67365](https://github.com/kubernetes/kubernetes/pull/67365), [@ixdy](https://github.com/ixdy))
 * Fix an issue where filesystems are not unmounted when a backend is not reachable and returns EIO. ([#67097](https://github.com/kubernetes/kubernetes/pull/67097), [@chakri-nelluri](https://github.com/chakri-nelluri))
@@ -1015,6 +1074,16 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * Remove unused binary and container image for kube-aggregator. The functionality is already integrated into the kube-apiserver. ([#67157](https://github.com/kubernetes/kubernetes/pull/67157), [@dims](https://github.com/dims))
 * Avoid creating new controller revisions for statefulsets when cache is stale ([#67039](https://github.com/kubernetes/kubernetes/pull/67039), [@mortent](https://github.com/mortent))
 * Revert [#63905](https://github.com/kubernetes/kubernetes/pull/63905): Setup dns servers and search domains for Windows Pods. DNS for Windows containers will be set by CNI plugins. ([#66587](https://github.com/kubernetes/kubernetes/pull/66587), [@feiskyer](https://github.com/feiskyer))
+-->
+* 用于本地存储的 Attacher/Detacher 重构器 ([#66884](https://github.com/kubernetes/kubernetes/pull/66884)，[@NickrenREN](https://github.com/NickrenREN))
+* 更新 debian-iptables 和 hyperkube-base 镜像包含 CVE 修复程序。 ([#67365](https://github.com/kubernetes/kubernetes/pull/67365)，[@ixdy](https://github.com/ixdy))
+* 修复了当后端无法访问并返回 EIO 时未卸载文件系统的问题 ([#67097](https://github.com/kubernetes/kubernetes/pull/67097)，[@chakri-nelluri](https://github.com/chakri-nelluri))
+* 将集群 Autoscaler 版本更新到 1.3.2-beta.1。版本说明：https://github.com/kubernetes/autoscaler/releases/tag/cluster-autoscaler-1.3.2-beta.1 ([#67396](https://github.com/kubernetes/kubernetes/pull/67396)，[@aleksandra-malinowska](https://github.com/aleksandra-malinowska))
+* 删除 kube-aggregator 的未使用的二进制和容器镜像。该功能已集成到 kube-apiserver 中 ([#67157](https://github.com/kubernetes/kubernetes/pull/67157)，[@dims](https://github.com/dims))
+* 避免在缓存过期时为状态集创建新的控制器修订版 ([#67039](https://github.com/kubernetes/kubernetes/pull/67039)，[@mortent](https://github.com/mortent))
+* 还原 [#63905](https://github.com/kubernetes/kubernetes/pull/63905)： 为 Windows Pod 设置 DNS 服务器和搜索域。Windows 容器的 DNS 将由 CNI 插件设置 ([#66587](https://github.com/kubernetes/kubernetes/pull/66587)，[@feiskyer](https://github.com/feiskyer))
+
+<!--
 * attachdetach controller attaches volumes immediately when Pod's PVCs are bound ([#66863](https://github.com/kubernetes/kubernetes/pull/66863), [@cofyc](https://github.com/cofyc))
 * The check for unsupported plugins during volume resize has been moved from the admission controller to the two controllers that handle volume resize. ([#66780](https://github.com/kubernetes/kubernetes/pull/66780), [@kangarlou](https://github.com/kangarlou))
 * Fix kubelet to not leak goroutines/intofiy watchers on an inactive connection if it's closed ([#67285](https://github.com/kubernetes/kubernetes/pull/67285), [@yujuhong](https://github.com/yujuhong))
@@ -1023,12 +1092,39 @@ Allow ImageReview backend to return annotations to be added to the created pod.*
 * Dynamic provisions that create iSCSI PVs can ensure that multipath is used by specifying 2 or more target portals in the PV, which will cause kubelet to wait up to 10 seconds for the multipath device. PVs with just one portal continue to work as before, with kubelet not waiting for the multipath device and just using the first disk it finds. ([#67140](https://github.com/kubernetes/kubernetes/pull/67140), [@bswartz](https://github.com/bswartz))
 * kubectl: recreating resources for immutable fields when force is applied ([#66602](https://github.com/kubernetes/kubernetes/pull/66602), [@dixudx](https://github.com/dixudx))
 * Remove deprecated --interactive flag from kubectl logs. ([#65420](https://github.com/kubernetes/kubernetes/pull/65420), [@jsoref](https://github.com/jsoref))
+-->
+* attachdetach 控制器在绑定 Pod 的 pvc 时立即附加卷 ([#66863](https://github.com/kubernetes/kubernetes/pull/66863)，[@cofyc](https://github.com/cofyc))
+* 在调整卷大小期间不支持的插件检查已从准入控制器移到处理调整卷大小的两个控制器 ([#66780](https://github.com/kubernetes/kubernetes/pull/66780)，[@kangarlou](https://github.com/kangarlou))
+* 修复 kubelet，以便在非活动连接关闭时不会泄漏 goroutines/intofiy 观察者 ([#67285](https://github.com/kubernetes/kubernetes/pull/67285), [@yujuhong](https://github.com/yujuhong))
+* 修复由于 sdk 升级导致的 azure 磁盘创建失败 ([#67236](https://github.com/kubernetes/kubernetes/pull/67236)，[@andyzhangx](https://github.com/andyzhangx))
+* Kubeadm join --控制平面主要工作流程 ([#66873](https://github.com/kubernetes/kubernetes/pull/66873)，[@fabriziopandini](https://github.com/fabriziopandini))
+* 创建 iSCSI PV 的动态规定可以通过在 PV 中指定 2 个或多个目标门户来确保使用多路径，导致 kubelet 为多路径设备等待 10 秒。只有一个门户的 pv 继续像以前一样工作，kubelet 不等待多路径设备，只使用它找到的第一个磁盘 ([#67140](https://github.com/kubernetes/kubernetes/pull/67140)，[@bswartz](https://github.com/bswartz))
+* kubectl：在应用强制时为不可变字段重新创建资源 ([#66602](https://github.com/kubernetes/kubernetes/pull/66602)，[@dixudx](https://github.com/dixudx))
+* 从 kubectl 日志中删除已弃用的 --interactive 参数 ([#65420](https://github.com/kubernetes/kubernetes/pull/65420)，[@jsoref](https://github.com/jsoref))
+
+<!--
 * kubeadm uses audit policy v1 instead of v1beta1 ([#67176](https://github.com/kubernetes/kubernetes/pull/67176), [@charrywanganthony](https://github.com/charrywanganthony))
 * kubeadm: make sure pre-pulled kube-proxy image and the one specified in its daemon set manifest are the same ([#67131](https://github.com/kubernetes/kubernetes/pull/67131), [@rosti](https://github.com/rosti))
 * Graduate Resource Quota ScopeSelectors to beta, and enable it by default. ([#67077](https://github.com/kubernetes/kubernetes/pull/67077), [@vikaschoudhary16](https://github.com/vikaschoudhary16))
 * Decrease the amount of time it takes to modify kubeconfig files with large amounts of contexts ([#67093](https://github.com/kubernetes/kubernetes/pull/67093), [@juanvallejo](https://github.com/juanvallejo))
 * Fixes issue when updating a DaemonSet causes a hash collision. ([#66476](https://github.com/kubernetes/kubernetes/pull/66476), [@mortent](https://github.com/mortent))
 * fix cluster-info dump error ([#66652](https://github.com/kubernetes/kubernetes/pull/66652), [@charrywanganthony](https://github.com/charrywanganthony))
+-->
+* kubeadm 使用审计策略 v1 而不是 v1beta1 ([#67176](https://github.com/kubernetes/kubernetes/pull/67176)，[@charrywanganthony](https://github.com/charrywanganthony))
+* kubeadm：确保预先拉取的 kube-proxy 镜像和它的守护进程集清单中指定的镜像是相同的 ([#67131](https://github.com/kubernetes/kubernetes/pull/67131)，[@rosti](https://github.com/rosti))
+* Graduate 资源配额范围选择器测试版，并默认启用它 ([#67077](https://github.com/kubernetes/kubernetes/pull/67077)，[@vikaschoudhary16](https://github.com/vikaschoudhary16))
+* 减少修改具有大量上下文的 kubeconfig 文件所需的时间 ([#67093](https://github.com/kubernetes/kubernetes/pull/67093)，[@juanvallejo](https://github.com/juanvallejo))
+* 修复了更新 DaemonSet 时引发散列冲突的问题 ([#66476](https://github.com/kubernetes/kubernetes/pull/66476)，[@mortent](https://github.com/mortent))
+* 修复 cluster-info dump 错误 ([#66652](https://github.com/kubernetes/kubernetes/pull/66652)，[@charrywanganthony](https://github.com/charrywanganthony))
+
+
+
+-------------
+-------------
+-------------
+
+
+
 * The PodShareProcessNamespace feature to configure PID namespace sharing within a pod has been promoted to beta. ([#66507](https://github.com/kubernetes/kubernetes/pull/66507), [@verb](https://github.com/verb))
 * `kubectl create {clusterrole,role}`'s `--resources` flag supports asterisk to specify all resources. ([#62945](https://github.com/kubernetes/kubernetes/pull/62945), [@nak3](https://github.com/nak3))
 * Bump up version number of debian-base, debian-hyperkube-base and debian-iptables.  ([#67026](https://github.com/kubernetes/kubernetes/pull/67026), [@satyasm](https://github.com/satyasm))
