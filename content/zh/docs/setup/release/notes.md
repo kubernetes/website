@@ -471,7 +471,7 @@ filename | sha256 hash
 ## Downloads for v1.12.0-beta.2
 -->
 
-[文档](https://docs.k8s.io) & [Examples](https://releases.k8s.io/release-1.12/examples)
+[文档](https://docs.k8s.io) & [例子](https://releases.k8s.io/release-1.12/examples)
 
 ## 下载 v1.12.0-beta.2
 
