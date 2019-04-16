@@ -74,7 +74,7 @@ typically created indirectly as part of a
 [Deployment](/docs/concepts/workloads/controllers/deployment/),
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), or other
 templated controller via the controller manager. Granting the controller access
-to the policy would grant access for *all* pods created by that the controller,
+to the policy would grant access for *all* pods created by that controller,
 so the preferred method for authorizing policies is to grant access to the
 pod's service account (see [example](#run-another-pod)).
 
