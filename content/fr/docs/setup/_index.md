@@ -7,6 +7,7 @@ reviewers:
 - yastij
 no_issue: true
 title: Setup
+description: Panorama de solution Kubernetes
 main_menu: true
 weight: 30
 content_template: templates/concept

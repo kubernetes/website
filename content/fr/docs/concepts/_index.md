@@ -1,6 +1,7 @@
 ---
 title: Concepts
 main_menu: true
+description: Concepts Kubernetes
 content_template: templates/concept
 weight: 40
 ---

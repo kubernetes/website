@@ -1,5 +1,6 @@
 ---
 title: Aperçu du Pod
+description: Pod Concept Kubernetes
 content_template: templates/concept
 weight: 10
 card: 
@@ -11,8 +12,8 @@ card:
 Cette page fournit un aperçu du `Pod`, l'objet déployable le plus petit dans le modèle d'objets Kubernetes.
 {{% /capture %}}
 
-
 {{% capture body %}}
+
 ## Comprendre les Pods
 
 Un *Pod* est le bloc de construction de base de Kubernetes--l'unité la plus petite et la plus simple dans le modèle d'objets de Kubernetes--que vous créez ou déployez. Un Pod représente un process en cours d'exécution dans votre cluster.
