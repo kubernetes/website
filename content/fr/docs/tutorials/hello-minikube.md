@@ -2,6 +2,7 @@
 title: Hello Minikube
 content_template: templates/tutorial
 weight: 5
+description: Tutoriel Minikube
 menu:
   main:
     title: "Démarrer"

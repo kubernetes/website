@@ -1,13 +1,6 @@
 ---
-reviewers:
-- sieben
-- perriea
-- lledru
-- awkif
-- yastij
-- rbenzair
-- oussemos
 title: Classe d'exécution (Runtime Class)
+description: Classe d'execution conteneur pour Kubernetes
 content_template: templates/concept
 weight: 20
 ---

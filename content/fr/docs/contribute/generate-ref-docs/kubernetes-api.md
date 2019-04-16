@@ -1,5 +1,6 @@
 ---
 title: Génération de documentation de référence pour l'API Kubernetes
+description: Génération documentation référence API Kubernetes
 content_template: templates/task
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: Aperçu du style de documentation
+description: Style de la documentation francophone
 main_menu: true
 weight: 80
 ---
