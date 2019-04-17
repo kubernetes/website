@@ -1,12 +1,12 @@
 <div class="PageNavigation">
 	 {{ if .PrevInSection }}
     <div class="pagerButton left">
-        <h4><a class=" button" href="{{ .PrevInSection.RelPermalink }}"> « Prev </a></h4>
+        <h4><a class=" button" href="{{ .PrevInSection.RelPermalink }}"> {{ T "layouts_blog_pager_next" }} </a></h4>
     </div>
     {{ end }}
     {{ if .NextInSection }}
     <div class="pagerButton right">
-        <h4><a class=" button" href="{{ .NextInSection.RelPermalink }}"> Next >></a></h4>
+        <h4><a class=" button" href="{{ .NextInSection.RelPermalink }}"> {{ T "layouts_blog_pager_next" }} </a></h4>
     </div>
     {{ end }}
  </div>
