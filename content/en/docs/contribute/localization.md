@@ -128,7 +128,7 @@ Localizations must use English files from the most recent release as their sourc
 To find source files for the most recent release:
 
 1. Navigate to the Kubernetes website repository at https://github.com/kubernetes/website.
-2. Select the `release-1.X` branch for the most recent version.
+2. Select the most recent localization development branch or open it. Usually a team member of [@kubernetes/sig-docs-l10n-admins] opens the development branch from `master` branch on https://github.com/kubernetes/website. The `master` branch will be merged onto the most recent release branch eventually. See the [branching strategy](#branching-strategy) for more information.
 
 The latest version is **{{< latest-version >}}**, so the most recent release branch is [`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}}).
 
@@ -169,7 +169,7 @@ Because localization projects are highly collaborative efforts, we encourage tea
 
 To collaborate on a development branch:
 
-1. A team member opens a development branch, usually by opening a new pull request against a source branch on https://github.com/kubernetes/website.
+1. A team member of [@kubernetes/sig-docs-l10n-admins](https://github.com/orgs/kubernetes/teams/sig-docs-l10n-admins) opens a development branch from a source branch on https://github.com/kubernetes/website.
 
     We recommend the following branch naming scheme:
 
@@ -183,7 +183,7 @@ To collaborate on a development branch:
 
 3. Approvers review and merge feature branches into the development branch.
 
-4. Periodically, an approver merges the development branch to its source branch.
+4. Periodically, an approver merges the development branch to its source branch, usually by opening and approving a new pull request. We recommend to squash the commits in [a single commit with multiple authors](https://help.github.com/en/articles/creating-a-commit-with-multiple-authors) before approving the pull request.
 
 Repeat steps 1-4 as needed until the localization is complete. For example, subsequent German development branches would be: `dev-1.12-de.2`, `dev-1.12-de.3`, etc.
 
@@ -191,7 +191,9 @@ Teams must merge localized content into the same release branch from which the c
 
 An approver must maintain a development branch by keeping it current with its source branch and resolving merge conflicts. The longer a development branch stays open, the more maintenance it typically requires. Consider periodically merging development branches and opening new ones, rather than maintaining one extremely long-running development branch.
 
-While only approvers can merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required.
+On the beginning of every team milestone, a team member usually opens an issue to update outdated contents by comparing upstream changes between the previous development branch and the current development branch.
+
+While only approvers can open a new development branch and merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required.
 
 For more information about working from forks or directly from the repository, see ["fork and clone the repo"](#fork-and-clone-the-repo).
 
