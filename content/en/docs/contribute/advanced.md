@@ -110,6 +110,25 @@ The SIG Docs representative for a given release coordinates the following tasks:
 Coordinating a release is typically a 3-4 month commitment, and the duty is
 rotated among SIG Docs approvers.
 
+## Serve as a New Contributor Ambassador
+
+SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve as
+New Contributor Ambassadors. 
+
+New Contributor Ambassadors work together to welcome new contributors to SIG-Docs, 
+suggest PRs to new contributors, and mentor new contributors through their first
+few PR submissions.  
+
+Responsibilities for New Contributor Ambassadors include: 
+
+- Being available on the [Kubernetes #sig-docs channel](https://kubernetes.slack.com) to answer questions from new contributors.
+- Working with PR wranglers to identify good first issues for new contributors. 
+- Mentoring new contributors through their first few PRs to the docs repo. 
+- Helping new contributors create the more complex PRs they need to become Kubernetes members.
+- [Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members. 
+
+Current New Contributor Ambassadors are announced at each SIG-Docs meeting, and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com). 
+
 ## Sponsor a new contributor
 
 SIG Docs [reviewers](/docs/contribute/participating/#reviewers) can sponsor
