@@ -541,3 +541,34 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 
 /docs/admin/high-availability/building/     /docs/setup/independent/high-availability/ 301
 /code-of-conduct/     /community/code-of-conduct/   301
+
+# redirect go package vanity import URLs (k8s.io/xxx) to their corresponding godoc.org page
+/api                        https://godoc.org/k8s.io/api                        301
+/apiextensions-apiserver    https://godoc.org/k8s.io/apiextensions-apiserver    301
+/apimachinery               https://godoc.org/k8s.io/apimachinery               301
+/apiserver                  https://godoc.org/k8s.io/apiserver                  301
+/autoscaler                 https://godoc.org/k8s.io/autoscaler                 301
+/cli-runtime                https://godoc.org/k8s.io/cli-runtime                301
+/client-go                  https://godoc.org/k8s.io/client-go                  301
+/cluster-bootstrap          https://godoc.org/k8s.io/cluster-bootstrap          301
+/cluster-registry           https://godoc.org/k8s.io/cluster-registry           301
+/code-generator             https://godoc.org/k8s.io/code-generator             301
+/component-base             https://godoc.org/k8s.io/component-base             301
+/cri-api                    https://godoc.org/k8s.io/cri-api                    301
+/csi-api                    https://godoc.org/k8s.io/csi-api                    301
+/dns                        https://godoc.org/k8s.io/dns                        301
+/gengo                      https://godoc.org/k8s.io/gengo                      301
+/klog                       https://godoc.org/k8s.io/klog                       301
+/kube-aggregator            https://godoc.org/k8s.io/kube-aggregator            301
+/kube-deploy                https://godoc.org/k8s.io/kube-deploy                301
+/kube-openapi               https://godoc.org/k8s.io/kube-openapi               301
+/kube-proxy                 https://godoc.org/k8s.io/kube-proxy                 301
+/kube-scheduler             https://godoc.org/k8s.io/kube-scheduler             301
+/kubectl                    https://godoc.org/k8s.io/kubectl                    301
+/kubelet                    https://godoc.org/k8s.io/kubelet                    301
+/metrics                    https://godoc.org/k8s.io/metrics                    301
+/node-api                   https://godoc.org/k8s.io/node-api                   301
+/perf-tests                 https://godoc.org/k8s.io/perf-tests                 301
+/sample-apiserver           https://godoc.org/k8s.io/sample-apiserver           301
+/sample-controller          https://godoc.org/k8s.io/sample-controller          301
+/utils                      https://godoc.org/k8s.io/utils                      301
