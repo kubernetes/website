@@ -340,7 +340,7 @@ NodePort上では、 `NodePort` タイプのどのサービスもそのIPアド�
 
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
-## 永続化ボリューム
+## 永続ボリューム
 Minikubeは `hostPath` タイプの[PersistentVolumes](/docs/concepts/storage/persistent-volumes/)をサポートします。
 このPersistentVolumesはMinikubeのVM内のディレクトリーにマッピングされます。
 
