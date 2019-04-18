@@ -309,7 +309,8 @@ Here's one scenario where you would set it. Suppose the Container listens on 127
 and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
 to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
-Also, you can not use service name as `host` param since `kubelet` run probe on the node.
+kubelet will make the probe connection at the node but not in pod. If you use the service
+name in the `host` parameter, kubelet will be unable to resolve it and the probe will fail.
 
 {{% /capture %}}
 
