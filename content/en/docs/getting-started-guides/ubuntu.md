@@ -19,7 +19,7 @@ which makes it fast and easy to deploy. It supports various public
 and private clouds including AWS, GCE, Azure, Joyent, OpenStack, VMware, Bare Metal
 and localhost deployments.
 
-See the [Official documentation](https://www.ubuntu.com/cloud/kubernetes/docs) for
+See the [Official documentation](https://www.ubuntu.com/kubernetes/docs) for
 more information.
 
 ## MicroK8s

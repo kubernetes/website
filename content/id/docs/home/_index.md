@@ -39,17 +39,17 @@ cards:
   button_path: "/docs/tasks"
 - name: reference
   title: Lihat referensi
-  description: Lihat-lihat istilah, sintaks command line, ragam API, dan dokumentasi tool.
+  description: Lihat-lihat istilah, sintaks command line, ragam API, dan perkakas dokumentasi.
   button: Lihat referensi
   button_path: /docs/reference
 - name: contribute
   title: Kontribusi ke dokumentasi
-  description: Siapapun bisa kontribusi, buat kamu yang baru di proyek ini maupun sudah lama.
+  description: Siapapun bisa kontribusi, buat kamu yang baru atau sudah lama di proyek ini.
   button: Kontribusi ke dokumentasi
   button_path: /docs/contribute
 - name: download
   title: Unduh Kubernetes
-  description: Untuk instalasi atau pembaharuan Kubernetes ke versi paling baru, lihat catatan rilis saat ini.
+  description: Untuk instalasi atau pembaharuan Kubernetes ke versi terbaru, lihat catatan rilis saat ini.
 - name: about
   title: Tentang dokumentasi
   description: Situs ini merupakan dokumentasi dari Kubernetes versi saat ini dan 4 versi sebelumnya.

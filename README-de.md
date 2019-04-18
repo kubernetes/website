@@ -9,7 +9,7 @@ Herzlich willkommen! Dieses Repository enthält alle Assets, die zur Erstellung 
 
 Sie können auf die Schaltfläche **Fork** im oberen rechten Bereich des Bildschirms klicken, um eine Kopie dieses Repositorys in Ihrem GitHub-Konto zu erstellen. Diese Kopie wird als *Fork* bezeichnet. Nehmen Sie die gewünschten Änderungen an Ihrem Fork vor. Wenn Sie bereit sind, diese Änderungen an uns zu senden, gehen Sie zu Ihrem Fork und erstellen Sie eine neue Pull-Anforderung, um uns darüber zu informieren.
 
-Sobald Ihre Pull-Anfrage erstellt wurde, übernimmt ein Rezensent von Kubernetes die Verantwortung für klares, umsetzbares Feedback. Als Eigentümer des Pull-Request **liegt es in Ihrer Verantwortung Ihren Pull-Reqest enstsprechend des Feedbacks, dass Sie vom Kubernetes-Reviewer erhalten haben abzuändern.** Beachten Sie auch, dass Sie am Ende mehr als einen Rezensenten von Kubernetes erhalten, der Ihnen Feedback gibt, oder dass Sie Rückmeldungen von einem Rezensenten von Kubernetes erhalten, der sich von demjenigen unterscheidet, der ursprünglich für das Feedback zugewiesen wurde. In einigen Fällen kann es vorkommen, dass einer Ihrer Prüfer bei Bedarf eine technische Überprüfung von einem [Kubernetes Techn-Reviewer] (https://github.com/kubernetes/website/wiki/tech-reviewers) anfordert. Reviewer geben ihr Bestes, um zeitnah Feedback zu geben, die Antwortzeiten können jedoch je nach den Umständen variieren.
+Sobald Ihre Pull-Anfrage erstellt wurde, übernimmt ein Rezensent von Kubernetes die Verantwortung für klares, umsetzbares Feedback. Als Eigentümer des Pull-Request **liegt es in Ihrer Verantwortung Ihren Pull-Reqest enstsprechend des Feedbacks, dass Sie vom Kubernetes-Reviewer erhalten haben abzuändern.** Beachten Sie auch, dass Sie am Ende mehr als einen Rezensenten von Kubernetes erhalten, der Ihnen Feedback gibt, oder dass Sie Rückmeldungen von einem Rezensenten von Kubernetes erhalten, der sich von demjenigen unterscheidet, der ursprünglich für das Feedback zugewiesen wurde. In einigen Fällen kann es vorkommen, dass einer Ihrer Prüfer bei Bedarf eine technische Überprüfung von einem [Kubernetes Tech-Reviewer](https://github.com/kubernetes/website/wiki/tech-reviewers) anfordert. Reviewer geben ihr Bestes, um zeitnah Feedback zu geben, die Antwortzeiten können jedoch je nach den Umständen variieren.
 
 Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 
@@ -23,7 +23,7 @@ Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 
 ### Koreanisch
 
-Lesen Sie die Übersetzung von `README.md` und detailliertere Anleitungen für koreanische Mitwirkende auf der Seite [Koreanischen README] (README-ko.md).
+Lesen Sie die Übersetzung von `README.md` und detailliertere Anleitungen für koreanische Mitwirkende auf der Seite [Koreanischen README](README-ko.md).
 
 Sie können die Betreuer der koreanischen Lokalisierung erreichen unter:
 
@@ -76,7 +76,7 @@ Sie können die Betreuer dieses Projekts unter folgender Adresse erreichen:
 
 ### Verhaltensregeln
 
-Die Teilnahme an der Kubernetes-Community unterliegt dem [Kubernetes-Verhaltenskodex] (code-of-conduct.md).
+Die Teilnahme an der Kubernetes-Community unterliegt dem [Kubernetes-Verhaltenskodex](code-of-conduct.md).
 
 ## Vielen Dank!
 
