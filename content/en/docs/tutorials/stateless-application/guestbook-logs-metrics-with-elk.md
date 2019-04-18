@@ -10,10 +10,10 @@ card:
 ---
 
 {{% capture overview %}}
-This tutorial builds upon .... This example consists of the following components:
+This tutorial builds upon the [PHP Guestbook with Redis](../guestbook) tutorial. Lightweight log, metric, and network data open source shippers, or *Beats*, from Elastic are deployed in the same Kubernetes cluster as the guestbook. The Beats collect, parse, and index the data into Elasticsearch so that you can view and analyze the resulting operational information in Kibana. This example consists of the following components:
 
-* A running instance of the [PHP Guestbook with Redis example](../guestbook)
-* [Elasticsearch and Kibana](https://elastic.co/start)
+* A running instance of the [PHP Guestbook with Redis tutorial](../guestbook)
+* Elasticsearch and Kibana
 * Filebeat
 * Metricbeat
 * Packetbeat
@@ -21,7 +21,7 @@ This tutorial builds upon .... This example consists of the following components
 {{% /capture %}}
 
 {{% capture objectives %}}
-* Start up the  PHP Guestbook with Redis.
+* Start up the PHP Guestbook with Redis.
 * Install kube-state-metrics.
 * Create a Kubernetes secret.
 * Deploy the Beats.
@@ -34,6 +34,11 @@ This tutorial builds upon .... This example consists of the following components
 
 {{< include "task-tutorial-prereqs.md" >}}
 
+Additionally you need:
+
+* A running deployment of the [PHP Guestbook with Redis](../guestbook) tutorial.
+
+* A running Elasticsearch and Kibana deployment.  You can use [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co), run the [download files](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) on your workstation or servers, or the [Elastic Helm Charts](https://github.com/elastic/helm-charts).  
 {{< version-check >}}
 
 {{% /capture %}}
@@ -41,10 +46,11 @@ This tutorial builds upon .... This example consists of the following components
 {{% capture lessoncontent %}}
 
 ## Start up the  PHP Guestbook with Redis
+This tutorial builds on the [PHP Guestbook with Redis](../guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
 
 ## Install kube-state-metrics
 
-Kubernetes [*kube-state-metrics*](https://github.com/kubernetes/kube-state-metrics) is a simple service that listens to the Kubernetes API server and generates metrics about the state of the objects.  Metricbeat reports these metrics.
+Kubernetes [*kube-state-metrics*](https://github.com/kubernetes/kube-state-metrics) is a simple service that listens to the Kubernetes API server and generates metrics about the state of the objects.  Metricbeat reports these metrics.  Add kube-state-metrics to the Kubernetes cluster that the guestbook is running in.
 
 ### Check to see if kube-state-metrics is running
 ```
@@ -194,8 +200,55 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
       --namespace=kube-system
 
 ## Deploy the Beats
-### Install Filebeat, Metricbeat, and Packetbeat
 
+### Deploy Filebeat
+```
+kubectl create -f filebeat-kubernetes.yaml
+```
+
+### Deploy Metricbeat
+```
+kubectl create -f metricbeat-kubernetes.yaml
+```
+
+### Deploy Packetbeat
+```
+kubectl create -f packetbeat-kubernetes.yaml
+```
+## View in Kibana
+
+Open Kibana in your browser and then open the **Dashboard** application.  In the search bar type Kubernetes and click on the Metricbeat dashboard for Kubernetes.  This dashboard reports on the state of your Nodes, deployments, etc.
+
+
+## Scale your deployments and see new pods being monitored
+List the existing deployments:
+```
+kubectl get deployments
+
+NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+frontend       3         3         3            3           3m
+redis-master   1         1         1            1           3m
+redis-slave    2         2         2            2           3m
+```
+
+Scale the frontend down to two pods:
+```
+kubectl scale --replicas=2 deployment/frontend
+
+deployment "frontend" scaled
+```
+
+Check the frontend deployment:
+```
+kubectl get deployment frontend
+
+NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+frontend   2         2         2            2           5m
+```
+
+# View the changes in Kibana
+See the screenshot, add the indicated filters and then add the columns to the view.  You can see the ScalingReplicaSet entry that is marked, following from there to the top of the list of events shows the image being pulled, the volumes mounted, the pod starting, etc.
+![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/MonitoringKubernetes/scaling-discover.png)
 ## View dashboards of your logs and metrics
 
 ## Understand how to gather logs and metrics from other applications
