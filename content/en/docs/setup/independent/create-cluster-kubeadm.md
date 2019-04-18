@@ -44,7 +44,6 @@ but you may also build them from source for other OSes.
 | kubeadm alpha subcommands | alpha          |
 | High availability         | alpha          |
 | DynamicKubeletConfig      | alpha          |
-| Self-hosting              | alpha          |
 
 
 kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
@@ -593,13 +592,6 @@ appropriate arguments.
 
 More options and information about the
 [`kubeadm reset command`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
-
-## Self-hosting the control plane of a cluster
-
-Self-hosting the control plane is no longer a supported configuration. While kubeadm will still pivot your cluster
-to an self hosted one, the cluster becomes un-supported by kubeadm.
-
-documentation can be found [here.](/docs/reference/setup/independent/self-hosting)
 
 ## Maintaining a cluster {#lifecycle}
 

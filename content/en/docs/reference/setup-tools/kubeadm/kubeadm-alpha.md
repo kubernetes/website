@@ -53,6 +53,8 @@ to enable the DynamicKubeletConfiguration feature.
 
 The subcommand `pivot` can be used to conver a static Pod-hosted control plane into a self-hosted one.
 
+To find more about self-hosting see [this page.](/docs/setup/independent/self-hosting)
+
 {{< tabs name="selfhosting" >}}
 {{< tab name="selfhosting" include="generated/kubeadm_alpha_selfhosting.md" />}}
 {{< tab name="pivot" include="generated/kubeadm_alpha_selfhosting_pivot.md" />}}
