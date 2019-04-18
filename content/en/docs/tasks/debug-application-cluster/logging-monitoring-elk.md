@@ -127,6 +127,172 @@ This is one of the methods to deploy Elasticsearch and Kibana.  You can use any 
 You can follow the instructions in the [Getting Started with the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html)
  guide.  Just deploy Elasticsearch and Kibana and then come back to this article, the step by step details for deploying Beats in a Kubernetes cluster are in this document.
 
+# Kubernetes Setup
+There are a few things to be done before deploying Beats:
+
+1. Setup a clusterrolebinding
+1. Download example manifests
+1. Install kube-state-metrics
+1. Create a Kubernetes secret with connection and authentication information for Elasticsearch and Kibana
+
+## Cluster role binding
+Create a cluster level role binding so that you can deploy kube-state-metrics and the Beats and allow them to collect logs and metrics across the entire cluster.
+
+```
+kubectl create clusterrolebinding cluster-admin-binding \
+ --clusterrole=cluster-admin --user=<your email associated with the k8s provider account>
+```
+
+## Clone the YAML files
+Either clone the entire Elastic examples repo or use the wget commands in download.txt:
+
+```
+mkdir beats-k8s-send-anywhere
+cd beats-k8s-send-anywhere
+wget https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/download.txt
+sh download.txt
+```
+
+OR
+
+```
+git clone https://github.com/elastic/examples.git
+cd examples/beats-k8s-send-anywhere
+```
+## Check to see if kube-state-metrics is running
+```
+kubectl get pods --namespace=kube-system | grep kube-state
+```
+and create it if needed (by default it will not be there)
+
+```
+git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
+kubectl create -f kube-state-metrics/kubernetes
+kubectl get pods --namespace=kube-system | grep kube-state
+```
+## Deploy a Kubernetes secret
+There are two choices below:
+
+1. Managed service: pick the managed service choice if you are connecting to a deployment of Elasticsearch Service in Elastic Cloud
+1. Self managed: pick self managed if you are using the Elastic Helm Charts or you have installed Elasticsearch and Kibana yourself
+
+### Managed service
+
+#### Set the credentials
+There are two files to edit to create a k8s secret when you are connecting to the managed Elasticsearch Service in Elastic Cloud.  The files are:
+
+1. ELASTIC_CLOUD_AUTH
+1. ELASTIC_CLOUD_ID
+
+Set these with the information provided to you from the Elasticsearch Service console when you created the deployment.  Here are some examples:
+
+#### ELASTIC_CLOUD_ID
+```
+devk8s:ABC123def456ghi789jkl123mno456pqr789stu123vwx456yza789bcd012efg345hijj678klm901nop345zEwOTJjMTc5YWQ0YzQ5OThlN2U5MjAwYTg4NTIzZQ==
+```
+Edit:
+```
+vi ELASTIC_CLOUD_ID
+```
+
+#### ELASTIC_CLOUD_AUTH
+Just the username, a colon (`:`), and the password, no whitespace or quotes:
+```
+elastic:VFxJJf9Tjwer90wnfTghsn8w
+```
+Edit:
+```
+vi ELASTIC_CLOUD_AUTH
+```
+
+#### Create a Kubernetes secret
+This command creates a secret in the Kubernetes system level namespace (kube-system) based on the files you just edited:
+
+    kubectl create secret generic dynamic-logging \
+      --from-file=./ELASTIC_CLOUD_ID \
+      --from-file=./ELASTIC_CLOUD_AUTH \
+      --namespace=kube-system
+
+
+### Self managed
+#### Set the credentials
+There are four files to edit to create a k8s secret when you are connectign to self managed Elasticsearch and Kibana (self managed is effectively anything other than the managed Elasticsearch Service in Elastic Cloud).  The files are:
+
+1. ELASTICSEARCH_HOSTS
+1. ELASTICSEARCH_PASSWORD
+1. ELASTICSEARCH_USERNAME
+1. KIBANA_HOST
+
+Set these with the information for your Elasticsearch cluster and your Kibana host.  Here are some examples
+
+#### ELASTICSEARCH_HOSTS
+1. A nodeGroup from the Elastic Elasticseach Helm Chart:
+    ```
+    ["http://elasticsearch-master.default.svc.cluster.local:9200"]
+    ```
+1. A single Elasticsearch node running on a Mac where your Beats are running in Docker for Mac:
+    ```
+    ["http://host.docker.internal:9200"]
+    ```
+1. Two Elasticsearch nodes running in VMs or on physical hardware:
+    ```
+    ["http://host1.example.com:9200", "http://host2.example.com:9200"]
+    ```
+    
+Edit:
+```
+vi ELASTICSEARCH_HOSTS
+```
+
+#### ELASTICSEARCH_PASSWORD
+Just the password, no whitespace or quotes:
+```
+changeme
+```
+Edit:
+```
+vi ELASTICSEARCH_PASSWORD
+```
+
+#### ELASTICSEARCH_USERNAME
+Just the username, no whitespace or quotes:
+```
+elastic
+```
+Edit:
+```
+vi ELASTICSEARCH_USERNAME
+```
+
+#### KIBANA_HOST
+
+1. The Kibana instance from the Elastic Kibana Helm Chart.  The subdomain `default` refers to the default namespace.  If you have deployed the Helm Chart using a different namespace, then your subdomain will be different:
+    ```
+    "kibana-kibana.default.svc.cluster.local:5601"
+    ```
+1. A Kibana instance running on a Mac where your Beats are running in Docker for Mac:
+    ```
+    "host.docker.internal:5601"
+    ```
+1. Two Elasticsearch nodes running in VMs or on physical hardware:
+    ```
+    "host1.example.com:5601"
+    ```
+
+Edit:
+```
+vi KIBANA_HOST
+```
+
+#### Create a Kubernetes secret
+This command creates a secret in the Kubernetes system level namespace (kube-system) based on the files you just edited:
+
+    kubectl create secret generic dynamic-logging \
+      --from-file=./ELASTICSEARCH_HOSTS \
+      --from-file=./ELASTICSEARCH_PASSWORD \
+      --from-file=./ELASTICSEARCH_USERNAME \
+      --from-file=./KIBANA_HOST \
+      --namespace=kube-system
 
 # Deploy Beats to collect logs and metrics
 foo
