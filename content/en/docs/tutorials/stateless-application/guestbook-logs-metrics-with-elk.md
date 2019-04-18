@@ -33,13 +33,13 @@ This tutorial builds upon the [PHP Guestbook with Redis](../guestbook) tutorial.
 {{% capture prerequisites %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
+{{< version-check >}}
 
 Additionally you need:
 
 * A running deployment of the [PHP Guestbook with Redis](../guestbook) tutorial.
 
 * A running Elasticsearch and Kibana deployment.  You can use [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co), run the [download files](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) on your workstation or servers, or the [Elastic Helm Charts](https://github.com/elastic/helm-charts).  
-{{< version-check >}}
 
 {{% /capture %}}
 
@@ -47,6 +47,8 @@ Additionally you need:
 
 ## Start up the  PHP Guestbook with Redis
 This tutorial builds on the [PHP Guestbook with Redis](../guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
+
+## Add a Cluster role binding
 
 ## Install kube-state-metrics
 
@@ -75,8 +77,10 @@ kube-state-metrics-89d656bf8-vdthm   2/2     Running     0          21s
 ```
 
 ## Create a Kubernetes secret
+A [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in an image; putting it in a Secret object allows for more control over how it is used, and reduces the risk of accidental exposure.
+
 {{< note >}}
-There are two sets of steps here, one for *self managed* Elasticsearch and Kibana, and a second separate set for the *managed service* Elasticsearch Service in Elastic Cloud.  Only create the secret for the type of Elasticsearch and Kibana system that you will use for this tutorial.
+There are two sets of steps here, one for *self managed* Elasticsearch and Kibana (running on your servers or using the Elastic Helm Charts), and a second separate set for the *managed service* Elasticsearch Service in Elastic Cloud.  Only create the secret for the type of Elasticsearch and Kibana system that you will use for this tutorial.
 {{< /note >}}
 
 ### Self managed
@@ -166,7 +170,7 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
       --namespace=kube-system
 
 ## Managed service
-This section is for Elasticsearch Service in Elastic Cloud only, if you have already created a secret for a self managed Elasticsearch and Kibana deployment, then skip this section.
+This section is for Elasticsearch Service in Elastic Cloud only, if you have already created a secret for a self managed Elasticsearch and Kibana deployment, then skip this section and continue with [Deploy the Beats](#deploy-the-beats).
 ### Set the credentials
 There are two files to edit to create a k8s secret when you are connecting to the managed Elasticsearch Service in Elastic Cloud.  The files are:
 
@@ -200,21 +204,58 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
       --namespace=kube-system
 
 ## Deploy the Beats
+Manifest files are provided for each Beat.  These manifest files use the secret created earlier to configure the Beats to connect to your Elasticsearch and Kibana servers.
 
-### Deploy Filebeat
+### About Filebeat
+Filebeat will collect logs from the Kubernetes nodes and the containers running in each pod running on those nodes.  Filebeat is deployed as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/).  Filebeat can autodiscover applications running in your Kubernetes cluster. At startup Filebeat scans existing containers and launches the proper configurations for them, then it will watch for new start/stop events.
+
+Here is the autodiscover configuration that enables Filebeat to locate and parse Redis logs from the Redis containers deployed with the guestbook application:
+
+```
+- condition.contains:
+    kubernetes.labels.app: redis
+  config:
+    - module: redis
+      log:
+        input:
+          type: docker
+          containers.ids:
+            - ${data.kubernetes.container.id}
+      slowlog:
+        enabled: true
+        var.hosts: ["${data.host}:${data.port}"]
+```
+This configures Filebeat to apply the Filebeat module `redis` when a container is detected with a label `app` containing the string `redis`.  The redis module has the ability to collect the `log` stream from the container by using the docker input type (reading the file on the Kubernetes node associated with the STDOUT stream from this Redis container).  Additionally, the module has the ability to collect Redis `slowlog` entries by connecting to the proper pod host and port, which is provided in the container metadata.
+
+### Deploy Filebeat:
 ```
 kubectl create -f filebeat-kubernetes.yaml
+```
+
+### Verify
+```
+kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
 
 ### Deploy Metricbeat
 ```
 kubectl create -f metricbeat-kubernetes.yaml
 ```
+### Verify
+```
+kubectl get pods -n kube-system -l k8s-app=metricbeat
+```
 
 ### Deploy Packetbeat
 ```
 kubectl create -f packetbeat-kubernetes.yaml
 ```
+
+### Verify
+```
+kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
+```
+
 ## View in Kibana
 
 Open Kibana in your browser and then open the **Dashboard** application.  In the search bar type Kubernetes and click on the Metricbeat dashboard for Kubernetes.  This dashboard reports on the state of your Nodes, deployments, etc.
