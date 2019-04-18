@@ -5,7 +5,6 @@ options:
   no_parent_owners: true
 # reviewers: // List any reviewers here
 approvers:
-  - bobsky
   - kbarnard10
   - natekartchner
   - sarahkconway
