@@ -19,7 +19,7 @@ Informationen zum Handbuch zur Dokumentation von Kubernetes finden Sie im [Gesta
 
 ## Arten von Mitwirkenden
 
-- Ein _Member_der Kubernetes Organisation, hat die [CLA unterzeichnet](/docs/contribute/start#sign-the-cla)
+- Ein _Member_ der Kubernetes Organisation, hat die [CLA unterzeichnet](/docs/contribute/start#sign-the-cla)
   und etwas Zeit und Mühe zum Projekt beigetragen. 
   Siehe [Community-Mitgliedschaft](https://github.com/kubernetes/community/blob/master/community-membership.md) für spezifische Kriterien bezüglich der Mitgliedschaft. 
 - Ein SIG Docs _Reviewer_ ist ein Mitglied der Kubernetes-Organisation, das Interesse an der Überprüfung von 
