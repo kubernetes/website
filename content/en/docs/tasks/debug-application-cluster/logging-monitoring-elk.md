@@ -17,14 +17,17 @@ This article describes how to set up an Elasticsearch cluster to ingest logs and
 them using [Kibana](https://www.elastic.co/products/kibana), as a combined
 solution that can be used with any Kubernetes provider from Minikube to your favorite cloud provider.
 
-This diagram describes what will be deployed by following this article.  Notes regarding this diagram:
+### This diagram describes what will be deployed by following this article.  
+
+![Elasticsearch Status](/images/docs/k8s-nodes-elastic.png)
+
+{{< note >}}
+Notes regarding this diagram:
 
 1. You may have one Kubernetes node, or you may have more than one.  The number of nodes shown in the diagram is just an example.
 1. The application pods can be the example pods described later in this article, or your own application.
 1. Beats, specifically in this diagram Filebeat and Metricbeat, are deployed as DaemonSets, and therefore there will be one Filebeat and one Metricbeat pod per node.
-1. The Elasticsearch cluster and Kibana can be running on your laptop, deployed in a Kubernetes cluster, deployed on servers or virtual machines, or be a managed Elasticsearch Service in Elastic Cloud.
-
-![Elasticsearch Status](/images/docs/k8s-nodes-elastic.png)
+1. The Elasticsearch cluster and Kibana can be running on your laptop, deployed in a Kubernetes cluster, deployed on servers or virtual machines, or be a managed Elasticsearch Service in Elastic Cloud.{{< /note >}}
 
 {{% /capture %}}
 
@@ -34,11 +37,11 @@ This diagram describes what will be deployed by following this article.  Notes r
 
 Choose one method from the three options presented:
 
-1. Deploy Elasticsearch and Kibana using Elastic Helm Charts
-1. Deploy Elasticsearch Service in Elastic Cloud
-1. Deploy self managed Elasticsearch and Kibana outside of your Kubernetes cluster
+1. Deploy Elasticsearch and Kibana using [Elastic Helm Charts](https://github.com/elastic/helm-charts)
+1. Deploy [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co/)
+1. Deploy [self managed Elasticsearch](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) and Kibana outside of your Kubernetes cluster
 
-## Deploy Elasticsearch and Kibana using Elastic Helm Charts
+## Option 1: Deploy Elasticsearch and Kibana using Elastic Helm Charts
 {{< note >}}
 At the time of writing the [Elastic Helm Charts](https://github.com/elastic/helm-charts) are in alpha status,
 and at this stage they are not recommended for production use. For this reason the solution described in this
@@ -53,8 +56,7 @@ This is one of the methods to deploy Elasticsearch and Kibana.  You can use any 
 There are detailed instructions and a sample values.yaml file for the [Elasticsearch Helm Chart](https://github.com/elastic/helm-charts/tree/master/elasticsearch) and [Kibana Helm Chart](https://github.com/elastic/helm-charts/tree/master/kibana) in GitHub, here is the general workflow.
 
 {{< note >}}
-If you are using Minikube, you may want to consider the amount of CPU and memory avaialble to your Minikube cluster.  We would recommend using the Minikube example [values.yaml](https://github.com/elastic/helm-charts/blob/master/elasticsearch/examples/minikube/values.yaml) and resources similar to:
-`minikube start --cpus 6 --memory 10240`
+If you are using Minikube allocate extra CPU and memory, for example: `minikube start --cpus 6 --memory 10240`
 {{< /note >}}
 
 ### Add the Elastic Helm repo
@@ -91,7 +93,7 @@ Substitute the Chart version you want to use in the below command
 {{< /note >}}
 
 {{< note >}}
-If you are deploying into Minikube use the [values.yaml](https://github.com/elastic/helm-charts/blob/master/elasticsearch/examples/minikube/values.yaml) file for Minikube (this relaxes the `antiAffinity` setting and reduces the CPU and memory resources).
+If you are deploying into Minikube use the [`values.yaml`](https://github.com/elastic/helm-charts/blob/master/elasticsearch/examples/minikube/values.yaml) file for Minikube (this relaxes the antiAffinity setting and reduces the CPU and memory resources).
 {{< /note >}}
 
 ```shell
@@ -107,7 +109,7 @@ In general, you should use the same version of Kibana and Elasticsearch unless y
 helm install --name kibana elastic/kibana --version <Chart version>
 ```
 
-## Deploy Elasticsearch Service in Elastic Cloud
+## Option 2: Deploy Elasticsearch Service in Elastic Cloud
 {{< note >}}
 This is one of the methods to deploy Elasticsearch and Kibana.  You can use any of the three options.
 {{< /note >}}
@@ -117,13 +119,14 @@ The [Elasticsearch Service](https://www.elastic.co/cloud/elasticsearch-service/s
 Save the password and Cloud ID from this panel so that you can add them in a Kubernetes secret:
 ![Elasticsearch Service credentials](/images/docs/elasticsearch-service-credentials.png)
 
-## Deploy self managed Elasticsearch and Kibana outside of your Kubernetes cluster
+## Option 3: Deploy self managed Elasticsearch and Kibana outside of your Kubernetes cluster
 {{< note >}}
 This is one of the methods to deploy Elasticsearch and Kibana.  You can use any of the three options.
 {{< /note >}}
 
 You can follow the instructions in the [Getting Started with the Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html)
- guide.  Just deploy Elasticsearch and Kibana and then come back, the step by step details for deploying Beats in a Kubernetes cluster are in this document.
+ guide.  Just deploy Elasticsearch and Kibana and then come back to this article, the step by step details for deploying Beats in a Kubernetes cluster are in this document.
+
 
 # Deploy Beats to collect logs and metrics
 foo
