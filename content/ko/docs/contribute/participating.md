@@ -9,7 +9,7 @@ card:
 {{% capture overview %}}
 
 SIG Docs는 쿠버네티스 프로젝트의 
-[분과회(special interst group)](https://github.com/kubernetes/community/blob/master/sig-list.md)
+[분과회(special interest group)](https://github.com/kubernetes/community/blob/master/sig-list.md)
 중 하나로, 쿠버네티스 전반에 대한 문서를 작성하고, 업데이트하며 유지보수하는 일을 주로 수행한다. 
 분과회에 대한 보다 자세한 정보는 
 [커뮤니티 GitHub 저장소 내 SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs)
@@ -60,7 +60,7 @@ CLA에 서명한 누구나 풀 리퀘스트를 제출할 수 있다. CLA에 서�
 ### 멤버
 
 [쿠버네티스 조직](https://github.com/kubernetes)의 모든 멤버가 풀 리퀘스트를 리뷰할 수 있고,
-SIG Docs 팀 멤버는 기술적으로 정확도를 기하기 위해 다른 분과회 멤버의 리뷰를 요청하는 일도 자주
+기술적 정확도를 기하기 위해 SIG Docs 팀 멤버가 다른 분과회 멤버의 리뷰를 요청하는 일도 자주
 발생한다.
 SIG Docs는 쿠버네티스 조직의 멤버십 상태와 상관없이 보내주는 리뷰와 피드백 또한 환영한다. 
 풀 리퀘스트에 `/lgtm` 코멘트를 달아서 찬성 의사를 표시할 수 있다. 쿠버네티스 조직의 멤버가 아니라면,
@@ -162,7 +162,7 @@ SIG Docs 승인자가 되는 방법과 수반되는 책임과 시간 할애에 �
 
 #### 승인자 되기
 
-[요간](https://github.com/kubernetes/community/blob/master/community-membership.md#approver)을
+[요건](https://github.com/kubernetes/community/blob/master/community-membership.md#approver)을
 충족하면, SIG Docs 승인자가 될 수 있다. 다른 SIG의 승인자는 SIG Docs의 승인자 자격에 
 반드시 별도로 지원해야 한다. 
 
@@ -192,9 +192,9 @@ GitGub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-adm
 #### PR Wrangler
 
 SIG Docs 승인자는 
-[PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)에
+[PR Wrangler 로테이션 스케줄러](https://github.com/kubernetes/website/wiki/PR-Wranglers)에
 올라서 주 단위로 돌아가며 역할을 수행한다. 모든 SIG Docs 승인자는 이 로테이션에 참여하게 된다. 보다 자세한 내용은
-[Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) 
+[일주일 간 PR Wrangler 되기](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 문서를 참고한다.
 
 #### SIG Docs chairperson
@@ -225,7 +225,7 @@ GitHub의 SIG Docs 그룹은 두 팀을 정의한다.
 ### OWNERS 파일과 전문(front-matter)
 
 쿠버네티스 프로젝트는 GitHub 이슈와 풀 리퀘스트 자동화와 관련해서 prow라고 부르는 자동화 툴을 사용한다.
-[Kubernetes 웹사이트 리포지터리](https://github.com/kubernetes/website)는 다음의 두 
+[쿠버네티스 웹사이트 리포지터리](https://github.com/kubernetes/website)는 다음의 두
 [prow 플러그인](https://github.com/kubernetes/test-infra/blob/master/prow/plugins.yaml#L210)을
 사용한다.
 
@@ -238,7 +238,7 @@ GitHub의 SIG Docs 그룹은 두 팀을 정의한다.
 파일을 사용해서 해당 리포지터리에 대해 prow가 작동하는 방식을 제어한다. 
 
 OWNERS 파일은 SIG Docs 리뷰어와 승인자의 목록을 포함한다. OWNERS 파일은 하위 디렉터리에 있을 수
-있고, 해당 하위 디렉터리와 그 이하의 파일에 대해 리뷰어와 승인자 역할을 수행할 새로 지정할 수 있다.
+있고, 해당 하위 디렉터리와 그 이하의 파일에 대해 리뷰어와 승인자 역할을 수행할 사람을 새로 지정할 수 있다.
 일반적인 OWNERS 파일에 대한 보다 많은 정보는 
 [OWNERS](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md)
 문서를 참고한다.
@@ -255,8 +255,8 @@ PR 소유자에게 조언하는데 활용된다.
 
 쿠버네티스 문서화에 기여하는 일에 대한 보다 많은 정보는 다음 문서를 참고한다.
 
-- [Start contributing](/docs/contribute/start/)
-- [Documentation style](/docs/contribute/style/)
+- [기여 시작하기](/docs/contribute/start/)
+- [문서 스타일](/docs/contribute/style/)
 
 {{% /capture %}}
 
