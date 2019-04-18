@@ -4,7 +4,7 @@ content_template: templates/concept
 ---
 
 {{% capture overview %}}
-Puedes visualizar y gestionar los objetos de Kubernetes objects con herramientas adicionales a kubectl
+Puedes visualizar y gestionar los objetos de Kubernetes con herramientas adicionales a kubectl
 y el propio tablero de control. Un conjunto común de etiquetas permite a dichas herramientas 
 trabajar de forma interoperable, describiendo los objetos de una forma común que todas las
 herramientas puedan entender.
@@ -35,7 +35,7 @@ Para beneficiarse al máximo del uso de estas etiquetas, estas deberían aplicar
 
 | Clave                               | Descripción           | Ejemplo  | Tipo |
 | ----------------------------------- | --------------------- | -------- | ---- |
-| `app.kubernetes.io/name`            | El nombre de la apliación | `mysql` | string |
+| `app.kubernetes.io/name`            | El nombre de la aplicación | `mysql` | string |
 | `app.kubernetes.io/instance`        | Un nombre único que identifique la instancia de la aplicación | `wordpress-abcxzy` | string |
 | `app.kubernetes.io/version`         | La versión actual de la aplicación (ej., la versión semántica, cadena hash de revisión, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | El componente dentro de la arquitectura | `database` | string |

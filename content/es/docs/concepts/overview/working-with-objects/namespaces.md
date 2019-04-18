@@ -16,7 +16,7 @@ Estos clústeres virtuales se denominan espacios de nombres (namespaces).
 
 ## Cuándo Usar Múltiple Espacios de Nombre
 
-Los espacios de nombres están pensandos para utilizarse en entornos con muchos usuarios
+Los espacios de nombres están pensados para utilizarse en entornos con muchos usuarios
 distribuidos entre múltiples equipos, o proyectos. Para aquellos clústeres con 
 unas pocas decenas de usuarios, no deberías necesitar crear o pensar en espacios de 
 nombres en absoluto. Empieza a usarlos solamente si necesitas las características
@@ -58,7 +58,7 @@ Kubernetes arranca con tres espacios de nombres inicialmente:
 
    * `default` El espacio de nombres por defecto para aquellos objetos que no especifican ningún espacio de nombres
    * `kube-system` El espacio de nombres para aquellos objetos creados por el sistema de Kubernetes
-   * `kube-public` Este espacio de nombres se crea de forma automática y es ligible por todos los usuarios (incluyendo aquellos no autenticados). 
+   * `kube-public` Este espacio de nombres se crea de forma automática y es legible por todos los usuarios (incluyendo aquellos no autenticados). 
    Este espacio de nombres se reserva principalmente para uso interno del clúster, en caso de que algunos recursos necesiten ser visibles y legibles de forma pública para todo el clúster. 
    La naturaleza pública de este espacio de nombres es simplemente por convención, no es un requisito.
 
