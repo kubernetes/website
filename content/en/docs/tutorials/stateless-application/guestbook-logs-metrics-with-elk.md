@@ -232,7 +232,7 @@ This configures Filebeat to apply the Filebeat module `redis` when a container i
 kubectl create -f filebeat-kubernetes.yaml
 ```
 
-### Verify
+#### Verify
 ```
 kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
@@ -241,7 +241,7 @@ kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
 kubectl create -f metricbeat-kubernetes.yaml
 ```
-### Verify
+#### Verify
 ```
 kubectl get pods -n kube-system -l k8s-app=metricbeat
 ```
@@ -251,7 +251,7 @@ kubectl get pods -n kube-system -l k8s-app=metricbeat
 kubectl create -f packetbeat-kubernetes.yaml
 ```
 
-### Verify
+#### Verify
 ```
 kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
 ```
