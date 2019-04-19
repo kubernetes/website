@@ -183,7 +183,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 두 가지
 
 ## 파드의 준비성 게이트(readiness gate)
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 파드의 준비성에 대한 확장성을 추가하기 위해서 
 추가적인 피드백이나 신호를 `PodStatus`에 주입하는 방법인, 

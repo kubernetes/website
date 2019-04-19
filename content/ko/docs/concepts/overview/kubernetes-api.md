@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-전체 API 관례는 [API conventions doc](https://git.k8s.io/community/contributors/devel/api-conventions.md)에 기술되어 있다.
+전체 API 관례는 [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)에 기술되어 있다.
 
 API 엔드포인트, 리소스 타입과 샘플은 [API Reference](/docs/reference)에 기술되어 있다.
 
@@ -32,7 +32,7 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 경험에 따르면, 성공적인 시스템은 새로운 유스케이스의 등장과 기존의 유스케이스의 변경에 맞춰 성장하고 변경될 필요가 있다. 그래서, 쿠버네티스 API가 지속적으로 변경되고 성장하기를 바란다. 그러나, 일정 기간 동안은 현존하는 클라이언트와의 호환성을 깨지 않으려고 한다. 일반적으로, 새로운 API 리소스와 새로운 리소스 필드가 주기적으로 추가될 것이다. 리소스나 필드를 없애는 일은 다음의 [API deprecation policy](/docs/reference/using-api/deprecation-policy/)를 따른다.
 
-호환되는 변경에 어떤 내용이 포함되는지, 어떻게 API를 변경하는지에 대한 자세한 내용은 [API change document](https://git.k8s.io/community/contributors/devel/api_changes.md)에 있다.
+호환되는 변경에 어떤 내용이 포함되는지, 어떻게 API를 변경하는지에 대한 자세한 내용은 [API change document](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md)에 있다.
 
 ## OpenAPI 및 Swagger 정의
 
@@ -67,12 +67,12 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 필드를 없애거나 리소스 표현을 재구성하기 쉽도록, 쿠버네티스는 `/api/v1`이나 
 `/apis/extensions/v1beta1`과 같이 각각 다른 API 경로에서 복수의 API 버전을 지원한다.
 
-리소스나 필드 수준보다는 API 수준에서 버전을 선택했는데, API가 명료하고, 시스템 리소스와 행위 관점에서 일관성있으며, 더 이상 사용하지 않는 API나 실험적인 API에 접근을 제어할 수 있도록 하기 위함이다. 스키마 변경에 대해서 JSON과 Protobuf 직렬화 스키마 모두 동일한 가이드라인을 따른다. 다음에 이어지는 설명 모두는 이 두 가지 형식에 모두 해당한다.
+리소스나 필드 수준보다는 API 수준에서 버전을 선택했는데, API가 명료하고, 시스템 리소스와 행위 관점에서 일관성있으며, 더 이상 사용되지 않는 API나 실험적인 API에 접근을 제어할 수 있도록 하기 위함이다. 스키마 변경에 대해서 JSON과 Protobuf 직렬화 스키마 모두 동일한 가이드라인을 따른다. 다음에 이어지는 설명 모두는 이 두 가지 형식에 모두 해당한다.
 
 API 버전 규칙과 소프트웨어 버전 규칙은 간접적으로 연관되어 있음을 알아두자. [API and release versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)에는 API 버전 규칙과 소프트웨어 버전 규칙 간의 관계가 기술되어 있다.
 
 
-API 버전이 다른 경우는 안정성이나 기술 지원의 수준이 다르다는 것을 암시한다. 각각의 수준에 대한 조건은 [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)에서 상세히 다룬다. 요약하자면 다음과 같다.
+API 버전이 다른 경우는 안정성이나 기술 지원의 수준이 다르다는 것을 암시한다. 각각의 수준에 대한 조건은 [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)에서 상세히 다룬다. 요약하자면 다음과 같다.
 
 - 알파(Alpha) 수준:
   - 버전 이름에 `alpha`가 포함된다. (예: `v1alpha1`)
