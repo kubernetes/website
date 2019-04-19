@@ -42,7 +42,7 @@ Platform as a Service (PaaS) with the flexibility of Infrastructure as
 a Service (IaaS), and enables portability across infrastructure
 providers.
 
-## How is Kubernetes a platform?
+## How Kubernetes is a platform
 
 Even though Kubernetes provides a lot of functionality, there are
 always new scenarios that would benefit from new
@@ -122,7 +122,7 @@ shouldn't matter how you get from A to C. Centralized control is also
 not required. This results in a system that is easier to use and more
 powerful, robust, resilient, and extensible.
 
-## Why containers?
+## Why containers
 
 Looking for reasons why you should be using containers?
 
@@ -192,7 +192,7 @@ Summary of container benefits:
 * **Resource utilization**:
     High efficiency and density.
 
-## What does Kubernetes mean? K8s?
+## What Kubernetes and K8s mean
 
 The name **Kubernetes** originates from Greek, meaning *helmsman* or
 *pilot*, and is the root of *governor* and
