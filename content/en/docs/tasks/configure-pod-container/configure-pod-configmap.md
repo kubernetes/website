@@ -449,7 +449,7 @@ configmap/special-config-2-c92b5mmcf2 created
  kubectl create -f https://k8s.io/examples/pods/pod-single-configmap-env-variable.yaml
  ```
    
-   Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
+   Now, the Pod's output includes environment variable `SPECIAL_LEVEL_KEY=very`. 
  
 ### Define container environment variables with data from multiple ConfigMaps
  
@@ -473,7 +473,7 @@ configmap/special-config-2-c92b5mmcf2 created
  kubectl create -f https://k8s.io/examples/pods/pod-multiple-configmap-env-variable.yaml
  ```
 
-  Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`. 
+  Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`. 
 
 ## Configure all key-value pairs in a ConfigMap as container environment variables 
 
@@ -501,7 +501,7 @@ This functionality is available in Kubernetes v1.6 and later.
  kubectl create -f https://k8s.io/examples/pods/pod-configmap-envFrom.yaml
  ```
 
- Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
+ Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
 
 
 ## Use ConfigMap-defined environment variables in Pod commands  
