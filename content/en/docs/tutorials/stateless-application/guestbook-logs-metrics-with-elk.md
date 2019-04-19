@@ -26,7 +26,6 @@ This tutorial builds upon the [PHP Guestbook with Redis](../guestbook) tutorial.
 * Create a Kubernetes secret.
 * Deploy the Beats.
 * View dashboards of your logs and metrics.
-* Understand how to gather logs and metrics from other applications.
 * Clean up.
 {{% /capture %}}
 
@@ -321,6 +320,8 @@ kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
 
 Open Kibana in your browser and then open the **Dashboard** application.  In the search bar type Kubernetes and click on the Metricbeat dashboard for Kubernetes.  This dashboard reports on the state of your Nodes, deployments, etc.
 
+Search for Packetbeat on the Dashboard page, and view the Packetbeat overview.
+
 Similarly, view dashboards for Apache and Redis.  You will see dashboards for logs and metrics for each.  The Apache Metricbeat dashboard will be blank.  Look at the Apache Filebeat dashboard and scroll to the bottom to view the Apache error logs.  This will tell you why there are no metrics available for Apache.
 
 To enable Metricbeat to retrieve the Apache metrics, enable server-status by adding a ConfigMap including a mod-status configuration file and re-deploy the guestbook.
@@ -351,9 +352,7 @@ deployment.extensions/frontend scaled
 
 ## View the changes in Kibana
 See the screenshot, add the indicated filters and then add the columns to the view.  You can see the ScalingReplicaSet entry that is marked, following from there to the top of the list of events shows the image being pulled, the volumes mounted, the pod starting, etc.
-![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/MonitoringKubernetes/scaling-discover.png)
-
-## Understand how to gather logs and metrics from other applications
+![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-discover.png)
 
 {{% /capture %}}
 
@@ -367,6 +366,9 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       kubectl delete service -l app=redis
       kubectl delete deployment -l app=guestbook
       kubectl delete service -l app=guestbook
+      kubectl delete -f filebeat-kubernetes.yaml
+      kubectl delete -f metricbeat-kubernetes.yaml
+      kubectl delete -f packetbeat-kubernetes.yaml
       ```
 
       The responses should be:
@@ -378,6 +380,27 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       service "redis-slave" deleted
       deployment.apps "frontend" deleted    
       service "frontend" deleted
+      configmap "filebeat-dynamic-config" deleted
+      daemonset.extensions "filebeat-dynamic" deleted
+      clusterrolebinding.rbac.authorization.k8s.io "filebeat-dynamic" deleted
+      clusterrole.rbac.authorization.k8s.io "filebeat-dynamic" deleted
+      serviceaccount "filebeat-dynamic" deleted
+      configmap "metricbeat-setup-config" deleted
+      job.batch "metricbeat-setup" deleted
+      configmap "metricbeat-daemonset-config" deleted
+      configmap "metricbeat-daemonset-modules" deleted
+      daemonset.extensions "metricbeat" deleted
+      configmap "metricbeat-deployment-config" deleted
+      configmap "metricbeat-deployment-modules" deleted
+      deployment.apps "metricbeat" deleted
+      clusterrolebinding.rbac.authorization.k8s.io "metricbeat" deleted
+      clusterrole.rbac.authorization.k8s.io "metricbeat" deleted
+      serviceaccount "metricbeat" deleted
+      configmap "packetbeat-dynamic-config" deleted
+      daemonset.extensions "packetbeat-dynamic" deleted
+      clusterrolebinding.rbac.authorization.k8s.io "packetbeat-dynamic" deleted
+      clusterrole.rbac.authorization.k8s.io "packetbeat-dynamic" deleted
+      serviceaccount "packetbeat-dynamic" deleted
       ```
 
 1. Query the list of Pods to verify that no Pods are running:
