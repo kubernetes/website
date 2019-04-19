@@ -33,19 +33,15 @@ dapat dilihat di modul [Membangun Highly-Available Kluster] (/docs/admin/high-av
 
 ### kube-apiserver
 
-{{< glossary_definition term_id="kube-apiserver" length="all" >}}
 
 ### etcd
 
-{{< glossary_definition term_id="etcd" length="all" >}}
 
 ### kube-scheduler
 
-{{< glossary_definition term_id="kube-scheduler" length="all" >}}
 
 ### kube-controller-manager
 
-{{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
 Kontroler-kontroler ini meliputi:
 
@@ -88,7 +84,6 @@ Komponan ini ada pada setiap <i> node </i>, fungsinya adalah melakukan pemelihar
 
 ### kubelet
 
-{{< glossary_definition term_id="kubelet" length="all" >}}
 
 ### kube-proxy
 
