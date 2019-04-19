@@ -1,7 +1,7 @@
 # A documentação do Kubernetes
 
-[! [Build Status] (https://api.travis-ci.org/kubernetes/website.svg?branch=master)] (https://travis-ci.org/kubernetes/website)
-[! [GitHub Release] (https://img.shields.io/github/release/kubernetes/website.svg)] (https://github.com/kubernetes/website/releases/latest)
+[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
+[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 Bem vindos! Este repositório abriga todos os recursos necessários para criar o [site e documentação do Kubernetes] (https://kubernetes.io/). Estamos muito satisfeitos por você querer contribuir!
 
