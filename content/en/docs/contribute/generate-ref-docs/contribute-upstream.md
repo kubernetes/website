@@ -10,8 +10,7 @@ to fix bugs found in the Kubernetes API documentation or the `kube-*`
 components such as `kube-apiserver`, `kube-controller-manager`, etc.
 
 If you instead want to regenerate the reference documentation for the Kubernetes
-API or the `kube-*` components from the upstream code, please follow the following
-instructions respectivly:
+API or the `kube-*` components from the upstream code, see the following instructions:
 
 - [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 - [Generating Reference Documentation for the Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
@@ -80,8 +79,8 @@ an OpenAPI spec, which is generated from the Kubernetes source code. If you
 want to change the API reference documentation, the first step is to change one
 or more comments in the Kubernetes source code.
 
-The documentations for the `kube-*` components are generated from the upstream
-source code as well. You will have to change the code related to the component
+The documentation for the `kube-*` components is also generated from the upstream
+source code. You must change the code related to the component
 you want to fix in order to fix the generated documentation.
 
 ### Making changes to the upstream source code
@@ -154,11 +153,11 @@ On branch master
 
 View the contents of `api/openapi-spec/swagger.json` to make sure the typo is fixed.
 For example, you could run `git diff -a api/openapi-spec/swagger.json`.
-This is important, because `swagger.json` will be the input to the second stage of
+This is important, because `swagger.json` is the input to the second stage of
 the doc generation process.
 
 Run `git add` and `git commit` to commit your changes. Now you have two commits:
-one that has the edited `types.go` file, and one that has the generated OpenAPI spec
+one that contains the edited `types.go` file, and one that contains the generated OpenAPI spec
 and related files. Keep these two commits separate. That is, do not squash your commits.
 
 Submit your changes as a
@@ -166,19 +165,19 @@ Submit your changes as a
 master branch of the
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
 Monitor your pull request, and respond to reviewer comments as needed. Continue
-to monitor your pull request until it has been merged.
+to monitor your pull request until it is merged.
 
 [PR 57758](https://github.com/kubernetes/kubernetes/pull/57758)
 is an example of a pull request that fixes a typo in the Kubernetes source code.
 
 {{< note >}}
 It can be tricky to determine the correct source file to be changed. In the
-preceding example, the authoritative source file is under the `staging` directory
+preceding example, the authoritative source file is in the `staging` directory
 in the `kubernetes/kubernetes` repository. But in your situation,the `staging` directory
 might not be the place to find the authoritative source. For guidance, check the
 `README` files in
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes/tree/master/staging)
-repository and in related repositories like
+repository and in related repositories, such as
 [kubernetes/apiserver](https://github.com/kubernetes/apiserver/blob/master/README.md).
 {{< /note >}}
 
