@@ -56,6 +56,8 @@ a Kubernetes cluster from scratch.
 
 ### Ecosystem Tools
 
+* [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) supports a nine-instance deployment on localhost with LXD containers.
+
 * [Docker Desktop](https://www.docker.com/products/docker-desktop) is an
 easy-to-install application for your Mac or Windows environment that enables you to
 start coding and deploying in containers in minutes on a single-node Kubernetes
@@ -69,7 +71,9 @@ cluster.
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers) is a Terraform/Packer/BASH based Infrastructure as Code (IaC) scripts to create a seven node (1 Boot, 1 Master, 1 Management, 1 Proxy and 3 Workers) LXD cluster on  Linux Host.
 
-* [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) supports a nine-instance deployment on localhost with LXD containers.
+* [k3s](https://k3s.io) is a lightweight production-grade Kubernetes distribution.  With a super-simple installation process and a binary footprint around 40MB, it is ideal for local-machine development.
+
+* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/) supports a nine-instance deployment on localhost.
 
 ## Hosted Solutions
 
@@ -135,6 +139,7 @@ few commands. These solutions are actively developed and have active community s
 * [Giant Swarm](https://giantswarm.io)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
+* [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://cloud.kubermatic.io)
 * [Kublr](https://kublr.com/)
@@ -144,7 +149,7 @@ few commands. These solutions are actively developed and have active community s
 * [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/)
-* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [Rancher](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Supergiant.io](https://supergiant.io/)
 * [VEXXHOST](https://vexxhost.com/private-cloud/)
@@ -160,7 +165,12 @@ few commands.
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
+<<<<<<< HEAD
+* [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
+* [k3s](https://k3s.io)
+=======
 * [IBM Cloud Private](https://www.ibm.com/cloud/private)
+>>>>>>> upstream/master
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
 * [Kublr](https://kublr.com/)
@@ -169,7 +179,7 @@ few commands.
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/)
-* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [Rancher](https://rancher.com/docs/rancher/v2.x/en/)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
 * [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)
@@ -219,6 +229,8 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
+* [k3s](https://k3s.io)
+* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubernetes on Ubuntu](https://www.ubuntu.com/kubernetes/docs/quickstart)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/) works on any infrastructure: on-premises, bare metal, or private/hybrid cloud.
