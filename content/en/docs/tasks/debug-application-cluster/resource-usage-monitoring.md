@@ -77,10 +77,10 @@ data source for [Grafana](https://prometheus.io/docs/visualization/grafana/).
 
 ### Sysdig
 [Sysdig](http://sysdig.com) provides full spectrum container and platform intelligence, and is a
-true container native solution. Sysdig pulls together data from system calls, kubernetes events,
-prometheus metrics, statsD, JMX and more into a single pane that gives you a comprehensive picture 
+true container native solution. Sysdig pulls together data from system calls, Kubernetes events,
+Prometheus metrics, statsD, JMX, and more into a single pane that gives you a comprehensive picture 
 of your environment. Sysdig also provides an API to query for providing robust and customizable 
-solutions. Sysdig is built on opensource, [Sysdig and Sysdig Inspect](https://sysdig.com/opensource/inspect/) give you the 
+solutions. Sysdig is built on Open Source. [Sysdig and Sysdig Inspect](https://sysdig.com/opensource/inspect/) give you the 
 ability to freely perform troubleshooting, performance analyis and forensics. 
 
 ### Google Cloud Monitoring
