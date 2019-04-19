@@ -65,36 +65,36 @@ Process Namespace Sharing is enabled using the `ShareProcessNamespace` field of
        21 root      0:00 ps ax
     ```
 
-    You can signal processes in other containers. For example, send `SIGHUP` to
-    nginx to restart the worker process. This requires the `SYS_PTRACE` capability.
+You can signal processes in other containers. For example, send `SIGHUP` to
+nginx to restart the worker process. This requires the `SYS_PTRACE` capability.
 
-    ```
-    / # kill -HUP 8
-    / # ps ax
-    PID   USER     TIME  COMMAND
-        1 root      0:00 /pause
-        8 root      0:00 nginx: master process nginx -g daemon off;
-       15 root      0:00 sh
-       22 101       0:00 nginx: worker process
-       23 root      0:00 ps ax
-    ```
+```
+/ # kill -HUP 8
+/ # ps ax
+PID   USER     TIME  COMMAND
+    1 root      0:00 /pause
+    8 root      0:00 nginx: master process nginx -g daemon off;
+   15 root      0:00 sh
+   22 101       0:00 nginx: worker process
+   23 root      0:00 ps ax
+```
 
-    It's even possible to access another container image using the
-    `/proc/$pid/root` link.
+It's even possible to access another container image using the
+`/proc/$pid/root` link.
 
-    ```
-    / # head /proc/8/root/etc/nginx/nginx.conf
-    
-    user  nginx;
-    worker_processes  1;
-    
-    error_log  /var/log/nginx/error.log warn;
-    pid        /var/run/nginx.pid;
-    
-    
-    events {
-        worker_connections  1024;
-    ```
+```
+/ # head /proc/8/root/etc/nginx/nginx.conf
+
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+```
 
 {{% /capture %}}
 
