@@ -5,7 +5,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-This page shows how to update the automatically generated reference docs for the
+This page shows how to update the generated reference docs for the
 Kubernetes API.
 
 {{% /capture %}}
@@ -33,7 +33,7 @@ information, see
 
 ## The big picture
 
-The reference documentation for the Kubernetes API is generated from two stages:
+The reference documentation for the Kubernetes API is generated in two separate stages:
 
 1. Generate an OpenAPI spec from the Kubernetes source code. The tools for
 this stage are at [kubernetes/kubernetes/hack](https://github.com/kubernetes/kubernetes/tree/master/hack).
@@ -41,10 +41,11 @@ this stage are at [kubernetes/kubernetes/hack](https://github.com/kubernetes/kub
 1. Generate an HTML file from the OpenAPI spec. The tools for this stage are at
 [kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).
 
-When you find bugs in the documentation generated, you will consider
-[Fixing it in the Upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
-When you instead want to regenerate the reference documentation from the OpenAPI
-spec, continue reading.
+If you find bugs in the generated documentation generated, you need to 
+[fix them upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
+
+If you need only to regenerate the reference documentation from the OpenAPI
+spec, continue reading this page.
 
 ## Getting three repositories
 
