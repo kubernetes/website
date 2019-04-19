@@ -277,7 +277,37 @@ kubectl create -f metricbeat-kubernetes.yaml
 kubectl get pods -n kube-system -l k8s-app=metricbeat
 ```
 
-### Deploy Packetbeat
+### About Packetbeat
+Packetbeat configuration is different than Filebeat and Metricbeat.  Rather than specify patterns to match against container labels the configuration is based on the protocols and port numbers involved.  Shown below is a subset of the port numbers.
+
+{{< note >}}
+If you are running a service on a non-standard port add that port number to the appropriate type in `filebeat.yaml` and delete / create the Packetbeat DaemonSet.
+{{< /note >}}
+
+```
+packetbeat.interfaces.device: any
+
+packetbeat.protocols:
+- type: dns
+  ports: [53]
+  include_authorities: true
+  include_additionals: true
+
+- type: http
+  ports: [80, 8000, 8080, 9200]
+
+- type: mysql
+  ports: [3306]
+
+- type: redis
+  ports: [6379]
+
+packetbeat.flows:
+  timeout: 30s
+  period: 10s
+```
+
+#### Deploy Packetbeat
 ```
 kubectl create -f packetbeat-kubernetes.yaml
 ```
@@ -291,321 +321,39 @@ kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
 
 Open Kibana in your browser and then open the **Dashboard** application.  In the search bar type Kubernetes and click on the Metricbeat dashboard for Kubernetes.  This dashboard reports on the state of your Nodes, deployments, etc.
 
+Similarly, view dashboards for Apache and Redis.  You will see dashboards for logs and metrics for each.  The Apache Metricbeat dashboard will be blank.  Look at the Apache Filebeat dashboard and scroll to the bottom to view the Apache error logs.  This will tell you why there are no metrics available for Apache.
+
+To enable Metricbeat to retrieve the Apache metrics, enable server-status by adding a ConfigMap including a mod-status configuration file and re-deploy the guestbook.
+
 
 ## Scale your deployments and see new pods being monitored
 List the existing deployments:
 ```
 kubectl get deployments
+```
 
-NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-frontend       3         3         3            3           3m
-redis-master   1         1         1            1           3m
-redis-slave    2         2         2            2           3m
+The output:
+```
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+frontend        3/3     3            3           3h27m
+redis-master    1/1     1            1           3h27m
+redis-slave     2/2     2            2           3h27m
 ```
 
 Scale the frontend down to two pods:
 ```
 kubectl scale --replicas=2 deployment/frontend
-
-deployment "frontend" scaled
+```
+The output:
+```
+deployment.extensions/frontend scaled
 ```
 
-Check the frontend deployment:
-```
-kubectl get deployment frontend
-
-NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-frontend   2         2         2            2           5m
-```
-
-# View the changes in Kibana
+## View the changes in Kibana
 See the screenshot, add the indicated filters and then add the columns to the view.  You can see the ScalingReplicaSet entry that is marked, following from there to the top of the list of events shows the image being pulled, the volumes mounted, the pod starting, etc.
 ![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/MonitoringKubernetes/scaling-discover.png)
-## View dashboards of your logs and metrics
 
 ## Understand how to gather logs and metrics from other applications
-
-The guestbook application uses Redis to store its data. It writes its data to a Redis master instance and reads data from multiple Redis slave instances.
-
-### Creating the Redis Master Deployment
-
-The manifest file, included below, specifies a Deployment controller that runs a single replica Redis master Pod.
-
-{{< codenew file="application/nginx-app.yaml" >}}
-
-1. Launch a terminal window in the directory you downloaded the manifest files.
-1. Apply the Redis Master Deployment from the `redis-master-deployment.yaml` file:
-
-      ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
-      ```
-
-1. Query the list of Pods to verify that the Redis Master Pod is running:
-
-      ```shell
-      kubectl get pods
-      ```
-
-      The response should be similar to this:
-
-      ```shell
-      NAME                            READY     STATUS    RESTARTS   AGE
-      redis-master-1068406935-3lswp   1/1       Running   0          28s
-      ```
-
-1. Run the following command to view the logs from the Redis Master Pod:
-
-     ```shell
-     kubectl logs -f POD-NAME
-     ```
-
-{{< note >}}
-Replace POD-NAME with the name of your Pod.
-{{< /note >}}
-
-### Creating the Redis Master Service
-
-The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
-
-{{< codenew file="application/guestbook/redis-master-service.yaml" >}}
-
-1. Apply the Redis Master Service from the following `redis-master-service.yaml` file:
-
-      ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
-      ```
-
-1. Query the list of Services to verify that the Redis Master Service is running:
-
-      ```shell
-      kubectl get service
-      ```
-
-      The response should be similar to this:
-
-      ```shell
-      NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-      kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   8s
-      ```
-
-{{< note >}}
-This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.   
-{{< /note >}}
-
-
-### Start up the Redis Slaves
-
-Although the Redis master is a single pod, you can make it highly available to meet traffic demands by adding replica Redis slaves.
-
-### Creating the Redis Slave Deployment
-
-Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas.
-
-If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas are running, it would scale down until two replicas are running.
-
-{{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
-
-1. Apply the Redis Slave Deployment from the `redis-slave-deployment.yaml` file:
-
-      ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-deployment.yaml
-      ```
-
-1. Query the list of Pods to verify that the Redis Slave Pods are running:
-
-      ```shell
-      kubectl get pods
-      ```
-
-      The response should be similar to this:
-
-      ```shell
-      NAME                            READY     STATUS              RESTARTS   AGE
-      redis-master-1068406935-3lswp   1/1       Running             0          1m
-      redis-slave-2005841000-fpvqc    0/1       ContainerCreating   0          6s
-      redis-slave-2005841000-phfv9    0/1       ContainerCreating   0          6s
-      ```
-
-### Creating the Redis Slave Service
-
-The guestbook application needs to communicate to Redis slaves to read data. To make the Redis slaves discoverable, you need to set up a Service. A Service provides transparent load balancing to a set of Pods.
-
-{{< codenew file="application/guestbook/redis-slave-service.yaml" >}}
-
-1. Apply the Redis Slave Service from the following `redis-slave-service.yaml` file:
-
-      ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-service.yaml
-      ```
-
-1. Query the list of Services to verify that the Redis slave service is running:
-
-      ```shell
-      kubectl get services
-      ```
-
-      The response should be similar to this:
-
-      ```
-      NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-      kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    2m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   1m
-      redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP   6s
-      ```
-
-### Set up and Expose the Guestbook Frontend
-
-The guestbook application has a web frontend serving the HTTP requests written in PHP. It is configured to connect to the `redis-master` Service for write requests and the `redis-slave` service for Read requests.
-
-### Creating the Guestbook Frontend Deployment
-
-{{< codenew file="application/guestbook/frontend-deployment.yaml" >}}
-
-1. Apply the frontend Deployment from the `frontend-deployment.yaml` file:
-
-      ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
-      ```
-
-1. Query the list of Pods to verify that the three frontend replicas are running:
-
-      ```shell
-      kubectl get pods -l app=guestbook -l tier=frontend
-      ```
-
-      The response should be similar to this:
-
-      ```
-      NAME                        READY     STATUS    RESTARTS   AGE
-      frontend-3823415956-dsvc5   1/1       Running   0          54s
-      frontend-3823415956-k22zn   1/1       Running   0          54s
-      frontend-3823415956-w9gbt   1/1       Running   0          54s
-      ```
-
-### Creating the Frontend Service
-
-The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
-
-If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.  
-
-{{< note >}}
-Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`.
-{{< /note >}}
-
-
-
-1. Apply the frontend Service from the `frontend-service.yaml` file:
-
-      ```shell
-      kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml
-      ```
-
-1. Query the list of Services to verify that the frontend Service is running:
-
-      ```shell
-      kubectl get services
-      ```
-
-      The response should be similar to this:
-
-      ```
-      NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       NodePort    10.0.0.112   <none>       80:31323/TCP   6s
-      kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
-      redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP       2m
-      redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP       1m
-      ```
-
-### Viewing the Frontend Service via `NodePort`
-
-If you deployed this application to Minikube or a local cluster, you need to find the IP address to view your Guestbook.
-
-1. Run the following command to get the IP address for the frontend Service.
-
-      ```shell
-      minikube service frontend --url
-      ```
-
-      The response should be similar to this:
-
-      ```
-      http://192.168.99.100:31323
-      ```
-
-1. Copy the IP address, and load the page in your browser to view your guestbook.
-
-### Viewing the Frontend Service via `LoadBalancer`
-
-If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` you need to find the IP address to view your Guestbook.
-
-1. Run the following command to get the IP address for the frontend Service.
-
-      ```shell
-      kubectl get service frontend
-      ```
-
-      The response should be similar to this:
-
-      ```
-      NAME       TYPE        CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
-      frontend   ClusterIP   10.51.242.136   109.197.92.229     80:32372/TCP   1m
-      ```
-
-1. Copy the external IP address, and load the page in your browser to view your guestbook.
-
-### Scale the Web Frontend
-
-Scaling up or down is easy because your servers are defined as a Service that uses a Deployment controller.
-
-1. Run the following command to scale up the number of frontend Pods:
-
-      ```shell
-      kubectl scale deployment frontend --replicas=5
-      ```
-
-1. Query the list of Pods to verify the number of frontend Pods running:
-
-      ```shell
-      kubectl get pods
-      ```
-
-      The response should look similar to this:
-
-      ```
-      NAME                            READY     STATUS    RESTARTS   AGE
-      frontend-3823415956-70qj5       1/1       Running   0          5s
-      frontend-3823415956-dsvc5       1/1       Running   0          54m
-      frontend-3823415956-k22zn       1/1       Running   0          54m
-      frontend-3823415956-w9gbt       1/1       Running   0          54m
-      frontend-3823415956-x2pld       1/1       Running   0          5s
-      redis-master-1068406935-3lswp   1/1       Running   0          56m
-      redis-slave-2005841000-fpvqc    1/1       Running   0          55m
-      redis-slave-2005841000-phfv9    1/1       Running   0          55m
-      ```
-
-1. Run the following command to scale down the number of frontend Pods:
-
-      ```shell
-      kubectl scale deployment frontend --replicas=2
-      ```
-
-1. Query the list of Pods to verify the number of frontend Pods running:
-
-      ```shell
-      kubectl get pods
-      ```
-
-      The response should look similar to this:
-
-      ```
-      NAME                            READY     STATUS    RESTARTS   AGE
-      frontend-3823415956-k22zn       1/1       Running   0          1h
-      frontend-3823415956-w9gbt       1/1       Running   0          1h
-      redis-master-1068406935-3lswp   1/1       Running   0          1h
-      redis-slave-2005841000-fpvqc    1/1       Running   0          1h
-      redis-slave-2005841000-phfv9    1/1       Running   0          1h
-      ```
 
 {{% /capture %}}
 
