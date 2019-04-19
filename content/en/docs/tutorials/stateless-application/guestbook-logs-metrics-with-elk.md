@@ -49,6 +49,13 @@ Additionally you need:
 This tutorial builds on the [PHP Guestbook with Redis](../guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
 
 ## Add a Cluster role binding
+Create a cluster level role binding so that you can deploy kube-state-metrics and the Beats at the cluster level (in kube-system).
+
+```
+kubectl create clusterrolebinding cluster-admin-binding \
+ --clusterrole=cluster-admin --user=<your email associated with the k8s provider account>
+```
+
 
 ## Install kube-state-metrics
 
@@ -74,6 +81,15 @@ Output:
 ```
 NAME                                 READY   STATUS    RESTARTS   AGE
 kube-state-metrics-89d656bf8-vdthm   2/2     Running     0          21s
+```
+## Clone the Elastic examples GitHub repo
+```
+git clone https://github.com/elastic/examples.git
+```
+
+The rest of the commands will reference files in the `examples/beats-k8s-send-anywhere` directory, so change dir there:
+```
+cd examples/beats-k8s-send-anywhere
 ```
 
 ## Create a Kubernetes secret
@@ -209,7 +225,7 @@ Manifest files are provided for each Beat.  These manifest files use the secret 
 ### About Filebeat
 Filebeat will collect logs from the Kubernetes nodes and the containers running in each pod running on those nodes.  Filebeat is deployed as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/).  Filebeat can autodiscover applications running in your Kubernetes cluster. At startup Filebeat scans existing containers and launches the proper configurations for them, then it will watch for new start/stop events.
 
-Here is the autodiscover configuration that enables Filebeat to locate and parse Redis logs from the Redis containers deployed with the guestbook application:
+Here is the autodiscover configuration that enables Filebeat to locate and parse Redis logs from the Redis containers deployed with the guestbook application.  This configuration is in the file `filebeat-kubernetes.yaml`:
 
 ```
 - condition.contains:
@@ -236,6 +252,21 @@ kubectl create -f filebeat-kubernetes.yaml
 ```
 kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
+
+### About Metricbeat
+Metricbeat autodiscover is configured in the same way as Filebeat.  Here is the Metricbeat autodiscover configuration for the Apache containers.  This configuration is in the file `metricbeat-kubernetes.yaml`:
+```
+- condition.equals:
+    kubernetes.labels.tier: frontend
+  config:
+    - module: apache
+      metricsets: ["status"]
+      period: 10s
+
+      # Apache hosts
+      hosts: ["http://${data.host}:${data.port}"]
+```
+This configures Metricbeat to apply the Metricbet module `apache` when a container is detected with a label `tier` equal to the string `frontend`.  The apache module has the ability to collect the `server-status` metrics from the container by connecting to the proper pod host and port, which is provided in the container metadata.
 
 ### Deploy Metricbeat
 ```
