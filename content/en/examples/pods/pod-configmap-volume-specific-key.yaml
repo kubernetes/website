@@ -15,6 +15,6 @@ spec:
       configMap:
         name: special-config
         items:
-        - key: special.level
+        - key: SPECIAL_LEVEL
           path: keys
   restartPolicy: Never
