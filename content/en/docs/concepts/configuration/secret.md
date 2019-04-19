@@ -715,8 +715,8 @@ Now we can create a pod which references the secret with the ssh key and
 consumes it in a volume:
 
 ```yaml
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: secret-test-pod
   labels:
@@ -851,8 +851,8 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 `test-user` with the `test-db-secret`.  Then, the pod spec can be shortened to, for example:
 
 ```yaml
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: prod-db-client-pod
   labels:
@@ -870,15 +870,15 @@ In order to make piece of data 'hidden' (i.e., in a file whose name begins with 
 make that key begin with a dot.  For example, when the following secret is mounted into a volume:
 
 ```yaml
-kind: Secret
 apiVersion: v1
+kind: Secret
 metadata:
   name: dotfile-secret
 data:
   .secret-file: dmFsdWUtMg0KDQo=
 ---
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: secret-dotfiles-pod
 spec:

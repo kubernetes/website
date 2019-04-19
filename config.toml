@@ -225,6 +225,18 @@ time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
 
+[languages.pt]
+title = "Kubernetes"
+description = "Orquestração de contêineres em nível de produção"
+languageName ="Português"
+weight = 9
+contentDir = "content/pt"
+
+[languages.pt.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
 [languages.id]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
