@@ -254,19 +254,19 @@ kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
 
 ### About Metricbeat
-Metricbeat autodiscover is configured in the same way as Filebeat.  Here is the Metricbeat autodiscover configuration for the Apache containers.  This configuration is in the file `metricbeat-kubernetes.yaml`:
+Metricbeat autodiscover is configured in the same way as Filebeat.  Here is the Metricbeat autodiscover configuration for the Redis containers.  This configuration is in the file `metricbeat-kubernetes.yaml`:
 ```
 - condition.equals:
-    kubernetes.labels.tier: frontend
+    kubernetes.labels.tier: backend
   config:
-    - module: apache
-      metricsets: ["status"]
+    - module: redis
+      metricsets: ["info", "keyspace"]
       period: 10s
 
-      # Apache hosts
-      hosts: ["http://${data.host}:${data.port}"]
+      # Redis hosts
+      hosts: ["${data.host}:${data.port}"]
 ```
-This configures Metricbeat to apply the Metricbet module `apache` when a container is detected with a label `tier` equal to the string `frontend`.  The apache module has the ability to collect the `server-status` metrics from the container by connecting to the proper pod host and port, which is provided in the container metadata.
+This configures Metricbeat to apply the Metricbet module `redis` when a container is detected with a label `tier` equal to the string `backend`.  The `redis` module has the ability to collect the `info` and `keyspace` metrics from the container by connecting to the proper pod host and port, which is provided in the container metadata.
 
 ### Deploy Metricbeat
 ```
