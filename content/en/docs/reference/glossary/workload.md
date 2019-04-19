@@ -16,9 +16,9 @@ tags:
 
 <!--more--> 
 
-Workloads are objects you use to manage and run your containers on the cluster. Kubernetes performs the 
+Kubernetes performs the 
 deployment and updates the workload with the current state of the application.
-Workloads include the DaemonSet, Deployments, Jobs, Pods, ReplicaSet, ReplicationController, StatefulSet.
+Workloads include the DaemonSet, Deployments, Jobs, Pods, ReplicaSet, ReplicationController, and StatefulSet objects.
 
 For example, a workload that has a web element and a database element might run the
 database in one {{< glossary_tooltip term_id="StatefulSet" >}} of
