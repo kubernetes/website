@@ -33,7 +33,7 @@ Semua yang mengakses alamat IP ini akan dialihkan (melalui kube-proxy) menuju <i
 
 Komponen-komponen master juga berkomunikasi dengan apiserver melalui port yang aman di dalam kluster.
 Akibatnya, untuk konfigurasi yang umum dan standar, semua koneksi dari kluster (node-node dan pod-pod yang berjalan di atas node tersebut) menuju master sudah terhubung dengan aman.
-Dan juga, kluster dan master bisa terhubung melalui jaringan public dan/atau yang tak terpercaya (<i>untrusted</i>).
+Dan juga, kluster dan master bisa terhubung melalui jaringan publik dan/atau yang tak terpercaya (<i>untrusted</i>).
 
 ## Master menuju Kluster
 
