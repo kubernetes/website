@@ -248,3 +248,10 @@ contentDir = "content/id"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+
+[languages.hi]
+title = "Kubernetes"
+description = "Production-Grade Container Orchestration"
+languageName ="Hindi"
+weight = 11
+contentDir = "content/hi"
