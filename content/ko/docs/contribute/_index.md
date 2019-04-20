@@ -25,8 +25,8 @@ weight: 80
   프로젝트에 어느 정도 시간과 노력을 바친 사람이다.
   멤버십 자격에 대한 구체적인 기준은 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)을
   참고하라.
-- SIG Docs _리뷰어_ 는 문서 풀 리퀘스트(pull request) 리뷰하는 일에 관심을 보여서 
-  SIG Docs 승안자가 적합한 
+- SIG Docs _리뷰어_ 는 문서 풀 리퀘스트(pull request)를 리뷰하는 일에 관심을 보여서 
+  SIG Docs 승인자가 적합한 
   Github 그룹 및 저장소 내 그룹과 `OWNERS` 파일에 등록한
   쿠버네티스 조직의 멤버이다. 
 - SIG Docs _승인자_ 는 지속적으로 프로젝트에 기여를 해온 좋은 입지를 가진 멤버이다.
