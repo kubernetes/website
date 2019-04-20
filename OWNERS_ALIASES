@@ -80,6 +80,14 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
+  sig-docs-hi-owners: # Admins for Hindi content
+    - daminisatya
+    - mittalyashu
+    - Rajakavitha1
+  sig-docs-hi-reviews: # PR reviews for Hindi content
+    - daminisatya
+    - mittalyashu
+    - Rajakavitha1
   sig-docs-id-owners: # Admins for Indonesian content
     - girikuncoro
     - irfiva
