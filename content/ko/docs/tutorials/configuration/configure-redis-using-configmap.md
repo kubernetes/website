@@ -68,7 +68,7 @@ EOF
 kubectl apply -k .
 ```
 
-생성된 오브젝트르 확인한다.
+생성된 오브젝트를 확인한다.
 ```shell
 > kubectl get -k .
 NAME                                        DATA   AGE
