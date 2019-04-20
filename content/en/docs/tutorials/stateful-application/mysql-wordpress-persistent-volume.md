@@ -119,7 +119,7 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 The `kustomization.yaml` contains all the resources for deploying a WordPress site and a 
 MySQL database. You can apply the directory by
 ```shell
-kubectl apply -k ./
+kubectl apply -f ./
 ```
 
 Now you can verify that all objects exist.
@@ -218,7 +218,7 @@ Do not leave your WordPress installation on this page. If another user finds it,
 1. Run the following command to delete your Secret, Deployments, Services and PersistentVolumeClaims:
 
       ```shell
-      kubectl delete -k ./
+      kubectl delete -f ./
       ```
 
 {{% /capture %}}
