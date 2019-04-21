@@ -35,6 +35,7 @@ dapat dilihat di modul [Membangun Kluster HA] (/docs/admin/high-availability/).
 
 ### etcd
 
+{{< glossary_definition term_id="etcd" length="all" >}}
 
 ### kube-scheduler
 
@@ -85,6 +86,7 @@ Komponen ini ada pada setiap <i>node</i>, fungsinya adalah melakukan pemeliharaa
 
 ### kubelet
 
+{{< glossary_definition term_id="kubelet" length="all" >}}
 
 ### kube-proxy
 
