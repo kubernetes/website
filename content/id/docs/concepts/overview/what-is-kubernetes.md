@@ -35,8 +35,6 @@ Kubernetes melakukan orkestrasi terhadap <i>computing</i>, <i>networking</i>,
 dan inftrastruktur penyimpanan. Fitur inilah yang kemudian membuat konsep Platform as a Service (PaaS) 
 menjadi lebih sederhana dilengkapi dengan fleksibilitas yang dimiliki oleh Infrastructure as a Service (IaaS).
 
-Kubernetes menyediakan manajemen <i>environment</i> yang terpusat pada kontainer. 
-Hal ini menyediakan 
 
 ## Lalu apa yang menyebabkan Kubernetes disebut sebagai sebuah platform? 
 
