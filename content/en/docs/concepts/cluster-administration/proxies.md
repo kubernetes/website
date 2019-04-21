@@ -1,67 +1,65 @@
 ---
-title: Proxies in Kubernetes
+title: Berbagai Proxy di Kubernetes
 content_template: templates/concept
 weight: 90
 ---
 
 {{% capture overview %}}
-This page explains proxies used with Kubernetes.
+Laman ini menjelaskan berbagai <i>proxy</i> yang ada di dalam Kubernetes.
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Proxies
+## Berbagai Jenis <i>Proxy</i>
 
-There are several different proxies you may encounter when using Kubernetes:
+Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes:
 
-1.  The [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
+1.  [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
 
-    - runs on a user's desktop or in a pod
-    - proxies from a localhost address to the Kubernetes apiserver
-    - client to proxy uses HTTP
-    - proxy to apiserver uses HTTPS
-    - locates apiserver
-    - adds authentication headers
+    - dijalankan pada <i>desktop</i> pengguna atau di dalam sebuah pod
+    - melakukan <i>proxy</i> dari alamat localhost ke apiserver Kubernetes
+    - dari <i>client</i> menuju <i>proxy</i> menggunakan HTTP
+    - dari <i>proxy</i> menuju apiserver menggunakan HTTPS
+    - mencari lokasi apiserver
+    - menambahkan <i>header</i> autentikasi
 
-1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1.  [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
 
-    - is a bastion built into the apiserver
-    - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
-    - runs in the apiserver processes
-    - client to proxy uses HTTPS (or http if apiserver so configured)
-    - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
-    - can be used to reach a Node, Pod, or Service
-    - does load balancing when used to reach a Service
+    - merupakan sebuah <i>bastion</i> yang ada di dalam apiserver
+    - menghubungkan pengguna di luar kluster ke alamat-alamat IP di dalam kluster yang tidak bisa terjangkau
+    - dijalankan bersama <i>process-process</i> apiserver
+    - dari <i>client</i> menuju <i>proxy</i> menggunakan HTTPS (atau http jika dikonfigurasi pada apiserver)
+    - dari <i>proxy</i> menuju target menggunakan HTTP atau HTTPS, tergantung pilihan yang diambil oleh <i>proxy</i> melalui informasi yang ada
+    - dapat digunakan untuk menghubungi Node, Pod, atau Service
+    - melakukan <i>load balancing</i> saat digunakan untuk menjangkau sebuah Service
 
-1.  The [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
 
-    - runs on each node
-    - proxies UDP, TCP and SCTP
-    - does not understand HTTP
-    - provides load balancing
-    - is just used to reach services
+    - dijalankan pada setiap Node
+    - melakukan <i>proxy</i> untuk UDP, TCP dan SCTP
+    - tidak mengerti HTTP
+    - menyediakan <i>load balancing</i>
+    - hanya digunakan untuk menjangkau berbagai Service
 
-1.  A Proxy/Load-balancer in front of apiserver(s):
+1.  Sebuah <i>Proxy/Load-balancer</i> di depan satu atau banyak apiserver:
 
-    - existence and implementation varies from cluster to cluster (e.g. nginx)
-    - sits between all clients and one or more apiservers
-    - acts as load balancer if there are several apiservers.
+    - keberadaan dan implementasinya bervariasi tergantung pada kluster (contohnya nginx)
+    - ada di antara seluruh <i>client</i> dan satu/banyak apiserver
+    - jika ada beberapa apiserver, berfungsi sebagai <i>load balancer</i>
 
-1.  Cloud Load Balancers on external services:
+1.  <i>Cloud Load Balancer</i> pada servis eksternal:
 
-    - are provided by some cloud providers (e.g. AWS ELB, Google Cloud Load Balancer)
-    - are created automatically when the Kubernetes service has type `LoadBalancer`
-    - usually supports UDP/TCP only
-    - SCTP support is up to the load balancer implementation of the cloud provider
-    - implementation varies by cloud provider.
+    - disediakan oleh beberapa penyedia layanan cloud, seperti AWS ELB, Google Cloud Load Balancer
+    - dibuat secara otomatis ketika Service dari Kubernetes punya <i>type</i> `LoadBalancer`
+    - biasanya hanya tersedia untuk UDP/TCP
+    - <i>support</i> untuk SCTP tergantung pada <i>load balancer</i> yang diimplementasikan oleh penyedia cloud
+    - implementasi bervariasi tergantung pada penyedia cloud
 
-Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
-will typically ensure that the latter types are setup correctly.
+Pengguna Kubernetes biasanya hanya cukup perlu tahu tentang kubectl <i>proxy</i> dan apiserver <i>proxy</i>. 
+Untuk <i>proxy-proxy</i> lain di luar ini, admin kluster biasanya akan memastikan konfigurasinya dengan benar.
 
-## Requesting redirects
+## Melakukan <i>request redirect</i>
 
-Proxies have replaced redirect capabilities.  Redirects have been deprecated.
+<i>Proxy</i> telah menggantikan fungsi <i>redirect</i>. <i>Redirect</i> telah terdeprekasi.
 
 {{% /capture %}}
-
-
