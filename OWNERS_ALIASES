@@ -97,7 +97,7 @@ aliases:
     - nasa9084
     - tnir
     - zacharysarah
-  sig-docs-ja-reviews: # PR reviews for Italian content 
+  sig-docs-ja-reviews: # PR reviews for Japanese content 
     - cstoku
     - makocchi-git
     - MasayaAoyama
