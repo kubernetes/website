@@ -66,3 +66,10 @@ given command or a short script to generate the docs from within a repo.
 To fix relative links within your imported files, set the repo config's
 `gen-absolute-links` property to `true`. You can find an example of this in
 [`release.yml`](release.yml).
+
+
+### See translation of this README.md and more details on [Hindi README](https://github.com/kubernetes/website/blob/master/update-imported-docs/README-hi.md) page.
+### You can reach the maintainers of Hindi localization at:
+
+    [Chirag Shah](https://github.com/avidLearnerInProgress)
+    [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-hi)
