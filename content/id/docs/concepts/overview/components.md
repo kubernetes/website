@@ -31,15 +31,18 @@ dapat dilihat di modul [Membangun Kluster HA] (/docs/admin/high-availability/).
 
 ### kube-apiserver
 
+{{< glossary_definition term_id="kube-apiserver" length="all" >}}
 
 ### etcd
 
 
 ### kube-scheduler
 
+{{< glossary_definition term_id="kube-scheduler" length="all" >}}
 
 ### kube-controller-manager
 
+{{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
 Kontroler-kontroler ini meliputi:
 
