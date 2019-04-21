@@ -29,17 +29,21 @@ biasanya memulai komponen master pada mesin yang sama, serta tidak menjalankan
 kontainer bagi pengguna di mesin ini. Contoh konfigurasi <i>multi-master VM</i> 
 dapat dilihat di modul [Membangun Kluster HA] (/docs/admin/high-availability/).
 
+
 ### kube-apiserver
 
 {{< glossary_definition term_id="kube-apiserver" length="all" >}}
+
 
 ### etcd
 
 {{< glossary_definition term_id="etcd" length="all" >}}
 
+
 ### kube-scheduler
 
 {{< glossary_definition term_id="kube-scheduler" length="all" >}}
+
 
 ### kube-controller-manager
 
@@ -55,6 +59,7 @@ Kontroler-kontroler ini meliputi:
     (yang merupakan gabungan <i>Pods</i> dan <i>Services</i>).
   * Kontroler <i>Service Account & Token</i>: Membuat akun dan 
     akses token API standar untuk setiap <i>namespaces</i> yang dibuat.
+
 
 ### cloud-controller-manager
 
@@ -80,28 +85,34 @@ Kontroler berikut ini memiliki keterkaitan dengan penyedia layanan <i>cloud</i>:
   * Kontroler Service : Untuk membuat, memperbaharui, menghapus <i>load balancer</i> yang disediakan oleh penyedia layanan <i>cloud</i>
   * Kontroler Volume : Untuk membuat, meng-attach, dan melakukan <i>mount volume</i> serta melakukan inetraksi dengan penyedia layanan <i>cloud</i> untuk melakukan orkestrasi <i>volume</i>
  
+ 
 ## Komponen <i>Node</i>
 
 Komponen ini ada pada setiap <i>node</i>, fungsinya adalah melakukan pemeliharaan terhadap <i>pod</i> serta menyediakan <i>environment runtime</i> bagi Kubernetes. 
+
 
 ### kubelet
 
 {{< glossary_definition term_id="kubelet" length="all" >}}
 
+
 ### kube-proxy
 
 [kube-proxy](/docs/admin/kube-proxy/) membantu abstraksi service Kubernetes melakukan tugasnya. Hal ini terjadi dengan cara memelihara aturan-aturan jaringan (network rules) serta meneruskan koneksi yang ditujukan pada suatu host.
+
 
 ### <i>Container Runtime</i>
 
 <i>Container runtime</i> adalah perangkat lunak yang bertanggung jawab dalam menjalankan kontainer. 
 Kubernetes mendukung beberapa <i>runtime</i>, diantaranya adalah: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) dan semua implementasi [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
 
+
 ## <i>Addons</i>
 
 <i>Addons</i> merupakan pod dan service yang mengimplementasikan fitur-fitur yang diperlukan kluster.
 
 Beberapa <i>addons</i> akan dijelaskan selanjutnya.
+
 
 ### DNS
 
@@ -115,17 +126,20 @@ lainnya.
 Kontainer yang dimulai oleh kubernetes secara otomatis akan memasukkan server DNS ini 
 ke dalam mekanisme pencarian DNS yang dimilikinya.
 
+
 ### <i>Web UI</i> (Dasbor)
 
 [Dasbor](/en/docs/tasks/access-application-cluster/web-ui-dashboard/) adalah antar muka berbasis web multifungsi yang ada pada kluster Kubernetes.
 Dasbor ini memungkinkan user melakukan manajemen dan <i>troubleshooting</i> kluster maupun 
 aplikasi yang ada pada kluster itu sendiri.
 
+
 ### <i>Container Resource Monitoring</i>
 
 [Container Resource Monitoring](/en/docs/tasks/debug-application-cluster/resource-usage-monitoring/) mencatat metrik <i>time-series</i> yang diperoleh 
 dari kontainer ke dalam basis data serta menyediakan antar muka yang dapat digunakan
 untuk melakukan pencarian data yang dibutuhkan.
+
 
 ### <i>Cluster-level Logging</i>
 

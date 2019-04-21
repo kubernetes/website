@@ -14,5 +14,5 @@ tags:
 
 <!--more--> 
 
-Faktor-faktor yang diperhatikan dalam proses ini adalah kebutuhan <i> resource <i/> secara individual dan kolektif, konstrain perangkat keras/perangkat lunak/peraturan, spesifikasi afinitas dan non-afinitas, lokalisasi data, interferensi <i>inter-workload</i> dan <i>deadlines</i>.
+Faktor-faktor yang diperhatikan dalam proses ini adalah kebutuhan <i>resource</i> secara individual dan kolektif, konstrain perangkat keras/perangkat lunak/peraturan, spesifikasi afinitas dan non-afinitas, lokalisasi data, interferensi <i>inter-workload</i> dan <i>deadlines</i>.
 
