@@ -8,7 +8,7 @@ weight: 80
 
 _CronJob_ は時刻ベースのスケジュールによる[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)を作成します。
 
-_CronJob_ オブジェクトとは _crontab_ (cron table)ファイルのようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
+_CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみられる一行のようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
 スケジュールでは[Cron](https://en.wikipedia.org/wiki/Cron)形式で記述されます。
 
 {{< note >}}
