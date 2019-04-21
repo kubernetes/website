@@ -6,7 +6,7 @@ weight: 20
 
 {{% capture overview %}}
 
-Dokumen ini menjelaskan tentang jalur-jalur komunikasi di antara kluster Kubernetes dan master, yang sebenarnya hanya berhubungan dengan apiserver saja.
+Dokumen ini menjelaskan tentang jalur-jalur komunikasi di antara kluster Kubernetes dan master yang sebenarnya hanya berhubungan dengan apiserver saja.
 Kenapa ada dokumen ini? Supaya kamu, para pengguna Kubernetes, punya gambaran bagaimana mengatur instalasi untuk memperketat konfigurasi jaringan di dalam kluster.
 Hal ini cukup penting, karena kluster bisa saja berjalan pada jaringan tak terpercaya (<i>untrusted network</i>), ataupun melalui alamat-alamat IP publik pada penyedia cloud.
 
@@ -20,7 +20,7 @@ Hal ini cukup penting, karena kluster bisa saja berjalan pada jaringan tak terpe
 Semua jalur komunikasi dari kluster menuju master diterminasi pada apiserver. 
 Tidak ada komponen apapun di dalam master, selain apiserver, yang terekspos ke luar untuk diakses dari servis <i>remote</i>.
 Untuk instalasi kluster pada umumnya, apiserver diatur untuk <i>listen</i> ke koneksi <i>remote</i> melalui port HTTPS (443) yang aman, dengan satu atau beberapa metode [autentikasi](/docs/reference/access-authn-authz/authentication/) <i>client</i> yang telah terpasang.
-Sebaiknya, satu atau beberapa metode [autorisasi](/docs/reference/access-authn-authz/authorization/) juga dipasang, terutama jika kamu memperbolehkan [permintaan anonim (<i>anonymous request</i>)](/docs/reference/access-authn-authz/authentication/#anonymous-requests) ataupun [service account token](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
+Sebaiknya, satu atau beberapa metode [otorisasi](/docs/reference/access-authn-authz/authorization/) juga dipasang, terutama jika kamu memperbolehkan [permintaan anonim (<i>anonymous request</i>)](/docs/reference/access-authn-authz/authentication/#anonymous-requests) ataupun [service account token](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 
 Node-node seharusnya disediakan dengan <i>public root certificate</i> untuk kluster, sehingga node-node tersebut bisa terhubung secara aman ke apiserver dengan kredensial <i>client</i> yang valid.
 Contohnya, untuk instalasi GKE dengan standar konfigurasi, kredensial <i>client</i> harus diberikan kepada kubelet dalam bentuk <i>client certificate</i>.
@@ -56,7 +56,7 @@ Untuk melakukan verifikasi koneksi ini, berikan <i>root certificate</i> pada api
 
 Cara lainnya, gunakan [tunnel SSH](/docs/concepts/architecture/master-node-communication/#ssh-tunnels) antara apiserver dan kubelet jika diperlukan, untuk menghindari komunikasi melalui jaringan tak terpercaya (<i>untrusted</i>) atau publik.
 
-Terakhir, yang terpenting, aktifkan [autentikasi dan/atau autorisasi Kubelet](/docs/admin/kubelet-authentication-authorization/) untuk mengamankan API kubelet.
+Terakhir, yang terpenting, aktifkan [autentikasi dan/atau otorisasi Kubelet](/docs/admin/kubelet-authentication-authorization/) untuk mengamankan API kubelet.
 
 ### Apiserver menuju Node, Pod, dan Service
 
