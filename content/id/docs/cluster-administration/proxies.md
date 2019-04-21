@@ -16,9 +16,9 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
 
 1.  [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
 
-    - dijalankan pada <i>desktop</i> pengguna atau di dalam sebuah pod
+    - dijalankan pada <i>desktop</i> pengguna atau di dalam sebuah Pod
     - melakukan <i>proxy</i> dari alamat localhost ke apiserver Kubernetes
-    - dari <i>client</i> menuju <i>proxy</i> menggunakan HTTP
+    - dari klien menuju <i>proxy</i> menggunakan HTTP
     - dari <i>proxy</i> menuju apiserver menggunakan HTTPS
     - mencari lokasi apiserver
     - menambahkan <i>header</i> autentikasi
@@ -28,7 +28,7 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
     - merupakan sebuah <i>bastion</i> yang ada di dalam apiserver
     - menghubungkan pengguna di luar kluster ke alamat-alamat IP di dalam kluster yang tidak bisa terjangkau
     - dijalankan bersama <i>process-process</i> apiserver
-    - dari <i>client</i> menuju <i>proxy</i> menggunakan HTTPS (atau http jika dikonfigurasi pada apiserver)
+    - dari klien menuju <i>proxy</i> menggunakan HTTPS (atau http jika dikonfigurasi pada apiserver)
     - dari <i>proxy</i> menuju target menggunakan HTTP atau HTTPS, tergantung pilihan yang diambil oleh <i>proxy</i> melalui informasi yang ada
     - dapat digunakan untuk menghubungi Node, Pod, atau Service
     - melakukan <i>load balancing</i> saat digunakan untuk menjangkau sebuah Service
@@ -44,13 +44,13 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
 1.  Sebuah <i>Proxy/Load-balancer</i> di depan satu atau banyak apiserver:
 
     - keberadaan dan implementasinya bervariasi tergantung pada kluster (contohnya nginx)
-    - ada di antara seluruh <i>client</i> dan satu/banyak apiserver
+    - ada di antara seluruh klien dan satu/banyak apiserver
     - jika ada beberapa apiserver, berfungsi sebagai <i>load balancer</i>
 
 1.  <i>Cloud Load Balancer</i> pada servis eksternal:
 
     - disediakan oleh beberapa penyedia layanan cloud, seperti AWS ELB, Google Cloud Load Balancer
-    - dibuat secara otomatis ketika Service dari Kubernetes punya <i>type</i> `LoadBalancer`
+    - dibuat secara otomatis ketika Service dari Kubernetes dengan tipe `LoadBalancer`
     - biasanya hanya tersedia untuk UDP/TCP
     - <i>support</i> untuk SCTP tergantung pada <i>load balancer</i> yang diimplementasikan oleh penyedia cloud
     - implementasi bervariasi tergantung pada penyedia cloud
