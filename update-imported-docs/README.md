@@ -1,3 +1,4 @@
+
 # Update imported docs
 
 This script updates the docs files that are generated from other repos.
@@ -68,8 +69,9 @@ To fix relative links within your imported files, set the repo config's
 [`release.yml`](release.yml).
 
 
-### See translation of this README.md and more details on [Hindi README](https://github.com/kubernetes/website/blob/master/update-imported-docs/README-hi.md) page.
-### You can reach the maintainers of Hindi localization at:
+## Footnotes: 
+See Hindi localization of this README and more details on [Hindi README](https://github.com/kubernetes/website/blob/master/update-imported-docs/README-hi.md) page.
 
-    [Chirag Shah](https://github.com/avidLearnerInProgress)
-    [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-hi)
+You can reach the maintainers of Hindi localization at:
+   - [Chirag Shah](https://github.com/avidLearnerInProgress)  
+   - [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-hi)
