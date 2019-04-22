@@ -117,7 +117,7 @@ cluster.
 
 * [SysEleven MetaKube](https://www.syseleven.io/products-services/managed-kubernetes/) offers managed Kubernetes as a service powered on our OpenStack public cloud. It includes lifecycle management, administration dashboards, monitoring, autoscaling and much more.
 
-* [VEXXHOST](https://vexxhost.com/public-cloud/container-services/kubernetes/) VEXXHOST proudly offers Certified Kubernetes on our public cloud, which also happens to be the largest OpenStack public cloud in Canada.
+* [VEXXHOST](https://vexxhost.com/public-cloud/container-services/kubernetes/) VEXXHOST proudly offers Certified Kubernetes on their public cloud, which also happens to be the largest OpenStack public cloud in Canada.
 
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks) is an enterprise Kubernetes-as-a-Service offering in the VMware Cloud Services portfolio that provides easy to use, secure by default, cost effective, SaaS-based Kubernetes clusters.
 
@@ -165,8 +165,8 @@ few commands.
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
-* [k3s](https://k3s.io)
 * [IBM Cloud Private](https://www.ibm.com/cloud/private)
+* [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
 * [Kublr](https://kublr.com/)
