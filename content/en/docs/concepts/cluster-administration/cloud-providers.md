@@ -240,7 +240,7 @@ file:
   respective network to get its subnets.
 * `floating-network-id` (Optional): If specified, will create a floating IP for
   the load balancer.
-* `lb-method` (Optional): Used to specify algorithm by which load will be
+* `lb-method` (Optional): Used to specify an algorithm by which load will be
   distributed amongst members of the load balancer pool. The value can be
   `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP`. The default behavior if
   none is specified is `ROUND_ROBIN`.
@@ -338,7 +338,7 @@ Kubernetes network plugin and should appear in the `[Router]` section of the
   the default router for the node network).  This value is required to use [kubenet]
   on OpenStack.
 
-[kubenet]: https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#kubenet
+[kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
 {{% /capture %}}
 

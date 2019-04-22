@@ -1,13 +1,17 @@
 ---
-titre : Hello Minikube
-content_template : templates/tutorial
-poids : 5
-menu :
-  principal :
-    titre : "Démarrer"
-    poids : 10
-    poste : >
+title: Hello Minikube
+content_template: templates/tutorial
+weight: 5
+description: Tutoriel Minikube
+menu:
+  main:
+    title: "Démarrer"
+    weight: 10
+    post: >
       <p>Prêt à vous salir les mains ? Créez un cluster Kubernetes simple qui exécute "Hello World" pour Node.js.</p>>.
+card: 
+  name: tutoriels
+  weight: 10
 ---
 
 {{% capture overview %}}
@@ -78,7 +82,7 @@ Pod utilise un conteneur basé sur l'image Docker fournie.
 2. Affichez le déploiement :
 
     ```shell
-    Déploiements de kubectl
+    kubectl get deployments
     ```
 
     Sortie :

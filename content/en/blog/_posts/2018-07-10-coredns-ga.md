@@ -42,7 +42,7 @@ primary configuration file that CoreDNS uses for configuration of all of its fea
 Kubernetes related.
 
 When upgrading from kube-dns to CoreDNS using `kubeadm`, your existing ConfigMap will be used to generate the
-customized Corefile for you, including all of the configuration for stub domains, federation, and upstream nameservers. See [Using CoreDNS for Service Discovery](https://kubernetes.io/docs/tasks/administer-cluster/coredns/) for more details.
+customized Corefile for you, including all of the configuration for stub domains, federation, and upstream nameservers. See [Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns/) for more details.
 
 
 ## Bug fixes and enhancements

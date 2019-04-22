@@ -88,7 +88,7 @@ be configured to use the `systemd` cgroup driver.
 
 ### Kube Reserved
 
-- **Kubelet Flag**: `--kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi]`
+- **Kubelet Flag**: `--kube-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi][,][pid=1000]`
 - **Kubelet Flag**: `--kube-reserved-cgroup=`
 
 `kube-reserved` is meant to capture resource reservation for kubernetes system
@@ -101,6 +101,10 @@ pod density. [This blog
 post](https://kubernetes.io/blog/2016/11/visualize-kubelet-performance-with-node-dashboard)
 explains how the dashboard can be interpreted to come up with a suitable
 `kube-reserved` reservation.
+
+In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
+specified to reserve the specified number of process IDs for
+kubernetes system daemons.
 
 To optionally enforce `kube-reserved` on system daemons, specify the parent
 control group for kube daemons as the value for `--kube-reserved-cgroup` kubelet
@@ -118,7 +122,7 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 
 ### System Reserved
 
-- **Kubelet Flag**: `--system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi]`
+- **Kubelet Flag**: `--system-reserved=[cpu=100m][,][memory=100Mi][,][ephemeral-storage=1Gi][,][pid=1000]`
 - **Kubelet Flag**: `--system-reserved-cgroup=`
 
 
@@ -127,6 +131,10 @@ like `sshd`, `udev`, etc. `system-reserved` should reserve `memory` for the
 `kernel` too since `kernel` memory is not accounted to pods in Kubernetes at this time.
 Reserving resources for user login sessions is also recommended (`user.slice` in
 systemd world).
+
+In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
+specified to reserve the specified number of process IDs for OS system
+daemons.
 
 To optionally enforce `system-reserved` on system daemons, specify the parent
 control group for OS system daemons as the value for `--system-reserved-cgroup`
@@ -182,7 +190,8 @@ container runtime. However, Kubelet cannot burst and use up all available Node
 resources if `kube-reserved` is enforced.
 
 Be extra careful while enforcing `system-reserved` reservation since it can lead
-to critical system services being CPU starved or OOM killed on the node. The
+to critical system services being CPU starved, OOM killed, or unable
+to fork on the node. The
 recommendation is to enforce `system-reserved` only if a user has profiled their
 nodes exhaustively to come up with precise estimates and is confident in their
 ability to recover if any process in that group is oom_killed.
@@ -211,7 +220,7 @@ Here is an example to illustrate Node Allocatable computation:
 * `--eviction-hard` is set to `memory.available<500Mi,nodefs.available<10%`
 
 Under this scenario, `Allocatable` will be `14.5 CPUs`, `28.5Gi` of memory and
-`98Gi` of local storage.
+`88Gi` of local storage.
 Scheduler ensures that the total memory `requests` across all pods on this node does
 not exceed `28.5Gi` and storage doesn't exceed `88Gi`.
 Kubelet evicts pods whenever the overall memory usage across pods exceeds `28.5Gi`,

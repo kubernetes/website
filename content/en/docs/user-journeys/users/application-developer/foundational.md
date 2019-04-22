@@ -226,7 +226,7 @@ All of these controllers implement a *control loop*. For simplicity, you can thi
    or scaling the number of replicas of a given application. Return to 1.
 {{< /note >}}
 
-By continuously looping, these controllers ensure the cluster can pick up new updates and avoid drifting from the desired state. These ideas are covered in more detail {{< link text="here" url="https://kubernetes.io/docs/concepts/" >}}.
+By continuously looping, these controllers ensure the cluster can pick up new updates and avoid drifting from the desired state. These ideas are covered in more detail {{< link text="here" url="/docs/concepts/" >}}.
 
 ## Additional resources
 

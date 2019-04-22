@@ -52,7 +52,7 @@ Improvements that will allow the [Horizontal Pod Autoscaler to reach proper size
 
 ## Availability
 
-Kubernetes 1.12 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.12.0). To get started with Kubernetes, check out these [interactive tutorials](https://kubernetes.io/docs/tutorials/). You can also install 1.12 using [Kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/).
+Kubernetes 1.12 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.12.0). To get started with Kubernetes, check out these [interactive tutorials](/docs/tutorials/). You can also install 1.12 using [Kubeadm](/docs/setup/independent/create-cluster-kubeadm/).
 
 ## 5 Day Features Blog Series
 

@@ -33,27 +33,27 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
       ```shell
-      $ kubectl get pod pod1
-      $ kubectl get pods pod1
-      $ kubectl get po pod1
+      kubectl get pod pod1
+      kubectl get pods pod1
+      kubectl get po pod1
       ```
 
-* `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
+* `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
 
    * To specify resources by type and name:
 
       * To group resources if they are all the same type:  `TYPE1 name1 name2 name<#>`.<br/>
-      Example: `$ kubectl get pod example-pod1 example-pod2`
+      Example: `kubectl get pod example-pod1 example-pod2`
 
       * To specify multiple resource types individually:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
-      Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
+      Example: `kubectl get pod/example-pod1 replicationcontroller/example-rc1`
 
    * To specify resources with one or more files:  `-f file1 -f file2 -f file<#>`
 
       * [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-configuration-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
-     Example: `$ kubectl get pod -f ./pod.yaml`
+     Example: `kubectl get pod -f ./pod.yaml`
 
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
 
@@ -101,48 +101,58 @@ Remember: For more about command operations, see the [kubectl](/docs/user-guide/
 
 ## Resource types
 
-The following table includes a list of all the supported resource types and their abbreviated aliases:
+The following table includes a list of all the supported resource types and their abbreviated aliases.
 
-Resource type    | Abbreviated alias
--------------------- | --------------------
-`apiservices` |
-`certificatesigningrequests` |`csr`
-`clusters` |
-`clusterrolebindings` |
-`clusterroles` |
-`componentstatuses` |`cs`
-`configmaps` |`cm`
-`controllerrevisions` |
-`cronjobs` |
-`customresourcedefinition` |`crd`
-`daemonsets` |`ds`
-`deployments` |`deploy`
-`endpoints` |`ep`
-`events` |`ev`
-`horizontalpodautoscalers` |`hpa`
-`ingresses` |`ing`
-`jobs` |
-`limitranges` |`limits`
-`namespaces` |`ns`
-`networkpolicies` |`netpol`
-`nodes` |`no`
-`persistentvolumeclaims` |`pvc`
-`persistentvolumes` |`pv`
-`poddisruptionbudget` |`pdb`
-`podpreset` |
-`pods` |`po`
-`podsecuritypolicies` |`psp`
-`podtemplates` |
-`replicasets` |`rs`
-`replicationcontrollers` |`rc`
-`resourcequotas` |`quota`
-`rolebindings` |
-`roles` |
-`secrets` |
-`serviceaccounts` |`sa`
-`services` |`svc`
-`statefulsets` |
-`storageclasses` |
+(This output can be retrieved from `kubectl api-resources`, and is accurate as of Kubernetes 1.13.3.)
+
+| Resource Name | Short Names | API Group | Namespaced | Resource Kind |
+|---|---|---|---|---|
+| `componentstatuses` | `cs` | | false | ComponentStatus |
+| `configmaps` | `cm` | | true | ConfigMap |
+| `endpoints` | `ep` | | true | Endpoints |
+| `limitranges` | `limits` | | true | LimitRange |
+| `namespaces` | `ns` | | false | Namespace |
+| `nodes` | `no` | | false | Node |
+| `persistentvolumeclaims` | `pvc` | | true | PersistentVolumeClaim |
+| `persistentvolumes` | `pv` | | false | PersistentVolume |
+| `pods` | `po` | | true | Pod |
+| `podtemplates` | | | true | PodTemplate |
+| `replicationcontrollers` | `rc` | | true| ReplicationController |
+| `resourcequotas` | `quota` | | true | ResourceQuota |
+| `secrets` | | | true | Secret |
+| `serviceaccounts` | `sa` | | true | ServiceAccount |
+| `services` | `svc` | | true | Service |
+| `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
+| `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
+| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
+| `apiservices` | | apiregistration.k8s.io | false | APIService |
+| `controllerrevisions` | | apps | true | ControllerRevision |
+| `daemonsets` | `ds` | apps | true | DaemonSet |
+| `deployments` | `deploy` | apps | true | Deployment |
+| `replicasets` | `rs` | apps | true | ReplicaSet |
+| `statefulsets` | `sts` | apps | true | StatefulSet |
+| `tokenreviews` | | authentication.k8s.io | false | TokenReview |
+| `localsubjectaccessreviews` | | authorization.k8s.io | true | LocalSubjectAccessReview |
+| `selfsubjectaccessreviews` | | authorization.k8s.io | false | SelfSubjectAccessReview |
+| `selfsubjectrulesreviews` | | authorization.k8s.io | false | SelfSubjectRulesReview |
+| `subjectaccessreviews` | | authorization.k8s.io | false | SubjectAccessReview |
+| `horizontalpodautoscalers` | `hpa` | autoscaling | true | HorizontalPodAutoscaler |
+| `cronjobs` | `cj` | batch | true | CronJob |
+| `jobs` | | batch | true | Job |
+| `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
+| `leases` | | coordination.k8s.io | true | Lease |
+| `events` | `ev` | events.k8s.io | true | Event |
+| `ingresses` | `ing` | extensions | true | Ingress |
+| `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
+| `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
+| `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
+| `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
+| `clusterroles` | | rbac.authorization.k8s.io | false | ClusterRole |
+| `rolebindings` | | rbac.authorization.k8s.io | true | RoleBinding |
+| `roles` | | rbac.authorization.k8s.io | true | Role |
+| `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
+| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
+| `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
 ## Output options
 
@@ -176,7 +186,7 @@ Output format | Description
 In this example, the following command outputs the details for a single pod as a YAML formatted object:
 
 ```shell
-$ kubectl get pod web-pod-13je7 -o=yaml
+kubectl get pod web-pod-13je7 -o=yaml
 ```
 
 Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
@@ -190,13 +200,13 @@ To define custom columns and output only the details that you want into a table,
 Inline:
 
 ```shell
-$ kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
+kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
 ```
 
 Template file:
 
 ```shell
-$ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
+kubectl get pods <pod-name> -o=custom-columns-file=template.txt
 ```
 
 where the `template.txt` file contains:
@@ -251,63 +261,63 @@ kubectl [command] [TYPE] [NAME] --sort-by=<jsonpath_exp>
 To print a list of pods sorted by name, you run:
 
 ```shell
-$ kubectl get pods --sort-by=.metadata.name
+kubectl get pods --sort-by=.metadata.name
 ```
 
 ## Examples: Common operations
 
 Use the following set of examples to help you familiarize yourself with running the commonly used `kubectl` operations:
 
-`kubectl create` - Create a resource from a file or stdin.
+`kubectl apply` - Apply or Update a resource from a file or stdin.
 
 ```shell
 # Create a service using the definition in example-service.yaml.
-$ kubectl create -f example-service.yaml
+kubectl apply -f example-service.yaml
 
 # Create a replication controller using the definition in example-controller.yaml.
-$ kubectl create -f example-controller.yaml
+kubectl apply -f example-controller.yaml
 
 # Create the objects that are defined in any .yaml, .yml, or .json file within the <directory> directory.
-$ kubectl create -f <directory>
+kubectl apply -f <directory>
 ```
 
 `kubectl get` - List one or more resources.
 
 ```shell
 # List all pods in plain-text output format.
-$ kubectl get pods
+kubectl get pods
 
 # List all pods in plain-text output format and include additional information (such as node name).
-$ kubectl get pods -o wide
+kubectl get pods -o wide
 
 # List the replication controller with the specified name in plain-text output format. Tip: You can shorten and replace the 'replicationcontroller' resource type with the alias 'rc'.
-$ kubectl get replicationcontroller <rc-name>
+kubectl get replicationcontroller <rc-name>
 
 # List all replication controllers and services together in plain-text output format.
-$ kubectl get rc,services
+kubectl get rc,services
 
 # List all daemon sets, including uninitialized ones, in plain-text output format.
-$ kubectl get ds --include-uninitialized
+kubectl get ds --include-uninitialized
 
 # List all pods running on node server01
-$ kubectl get pods --field-selector=spec.nodeName=server01
+kubectl get pods --field-selector=spec.nodeName=server01
 ```
 
 `kubectl describe` - Display detailed state of one or more resources, including the uninitialized ones by default.
 
 ```shell
 # Display the details of the node with name <node-name>.
-$ kubectl describe nodes <node-name>
+kubectl describe nodes <node-name>
 
 # Display the details of the pod with name <pod-name>.
-$ kubectl describe pods/<pod-name>
+kubectl describe pods/<pod-name>
 
 # Display the details of all the pods that are managed by the replication controller named <rc-name>.
 # Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
-$ kubectl describe pods <rc-name>
+kubectl describe pods <rc-name>
 
 # Describe all pods, not including uninitialized ones
-$ kubectl describe pods --include-uninitialized=false
+kubectl describe pods --include-uninitialized=false
 ```
 
 {{< note >}}
@@ -326,39 +336,39 @@ the pods running on it, the events generated for the node etc.
 
 ```shell
 # Delete a pod using the type and name specified in the pod.yaml file.
-$ kubectl delete -f pod.yaml
+kubectl delete -f pod.yaml
 
 # Delete all the pods and services that have the label name=<label-name>.
-$ kubectl delete pods,services -l name=<label-name>
+kubectl delete pods,services -l name=<label-name>
 
 # Delete all the pods and services that have the label name=<label-name>, including uninitialized ones.
-$ kubectl delete pods,services -l name=<label-name> --include-uninitialized
+kubectl delete pods,services -l name=<label-name> --include-uninitialized
 
 # Delete all pods, including uninitialized ones.
-$ kubectl delete pods --all
+kubectl delete pods --all
 ```
 
 `kubectl exec` - Execute a command against a container in a pod.
 
 ```shell
 # Get output from running 'date' from pod <pod-name>. By default, output is from the first container.
-$ kubectl exec <pod-name> date
+kubectl exec <pod-name> date
 
 # Get output from running 'date' in container <container-name> of pod <pod-name>.
-$ kubectl exec <pod-name> -c <container-name> date
+kubectl exec <pod-name> -c <container-name> date
 
 # Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
-$ kubectl exec -ti <pod-name> /bin/bash
+kubectl exec -ti <pod-name> /bin/bash
 ```
 
 `kubectl logs` - Print the logs for a container in a pod.
 
 ```shell
 # Return a snapshot of the logs from pod <pod-name>.
-$ kubectl logs <pod-name>
+kubectl logs <pod-name>
 
 # Start streaming the logs from pod <pod-name>. This is similar to the 'tail -f' Linux command.
-$ kubectl logs -f <pod-name>
+kubectl logs -f <pod-name>
 ```
 
 ## Examples: Creating and using plugins
@@ -368,43 +378,52 @@ Use the following set of examples to help you familiarize yourself with writing 
 ```shell
 # create a simple plugin in any language and name the resulting executable file
 # so that it begins with the prefix "kubectl-"
-$ cat ./kubectl-hello
+cat ./kubectl-hello
 #!/bin/bash
 
 # this plugin prints the words "hello world"
 echo "hello world"
 
 # with our plugin written, let's make it executable
-$ sudo chmod +x ./kubectl-hello
+sudo chmod +x ./kubectl-hello
 
 # and move it to a location in our PATH
-$ sudo mv ./kubectl-hello /usr/local/bin
+sudo mv ./kubectl-hello /usr/local/bin
 
 # we have now created and "installed" a kubectl plugin.
 # we can begin using our plugin by invoking it from kubectl as if it were a regular command
-$ kubectl hello
+kubectl hello
+```
+```
 hello world
+```
 
+```
 # we can "uninstall" a plugin, by simply removing it from our PATH
-$ sudo rm /usr/local/bin/kubectl-hello
+sudo rm /usr/local/bin/kubectl-hello
 ```
 
 In order to view all of the plugins that are available to `kubectl`, we can use
 the `kubectl plugin list` subcommand:
 
 ```shell
-$ kubectl plugin list
+kubectl plugin list
+```
+```
 The following kubectl-compatible plugins are available:
 
 /usr/local/bin/kubectl-hello
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
-
+```
+```
 # this command can also warn us about plugins that are
 # not executable, or that are overshadowed by other
 # plugins, for example
-$ sudo chmod -x /usr/local/bin/kubectl-foo
-$ kubectl plugin list
+sudo chmod -x /usr/local/bin/kubectl-foo
+kubectl plugin list
+```
+```
 The following kubectl-compatible plugins are available:
 
 /usr/local/bin/kubectl-hello
@@ -419,7 +438,7 @@ We can think of plugins as a means to build more complex functionality on top
 of the existing kubectl commands:
 
 ```shell
-$ cat ./kubectl-whoami
+cat ./kubectl-whoami
 #!/bin/bash
 
 # this plugin makes use of the `kubectl config` command in order to output
@@ -432,12 +451,12 @@ context in our KUBECONFIG file:
 
 ```shell
 # make the file executable
-$ sudo chmod +x ./kubectl-whoami
+sudo chmod +x ./kubectl-whoami
 
 # and move it into our PATH
-$ sudo mv ./kubectl-whoami /usr/local/bin
+sudo mv ./kubectl-whoami /usr/local/bin
 
-$ kubectl whoami
+kubectl whoami
 Current user: plugins-user
 ```
 

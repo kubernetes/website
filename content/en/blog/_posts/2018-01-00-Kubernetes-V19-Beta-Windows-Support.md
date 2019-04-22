@@ -29,7 +29,7 @@ The crown jewels of Kubernetes 1.9 Windows support, however, are the networking 
 1. Upstream L3 Routing - IP routes configured in upstream ToR
 2. Host-Gateway - IP routes configured on each host
 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay - Supports STT and Geneve tunneling types
-You can read more about each of their [configuration, setup, and runtime capabilities](https://kubernetes.io/docs/getting-started-guides/windows/) to make an informed selection for your networking stack in Kubernetes.  
+You can read more about each of their [configuration, setup, and runtime capabilities](/docs/getting-started-guides/windows/) to make an informed selection for your networking stack in Kubernetes.  
 
 Even though you have to continue running the Kubernetes Control Plane and Master Components in Linux, you are now able to introduce Windows Server as a Node in Kubernetes. As a community, this is a huge milestone and achievement. We will now start seeing .NET, .NET Core, ASP.NET, IIS, Windows Services, Windows executables and many more windows-based applications in Kubernetes.  
 
@@ -53,7 +53,7 @@ Even though we have not committed to a timeline for GA, SIG-Windows estimates a 
 ### Get Involved
 As we continue to make progress towards General Availability of this feature in Kubernetes, we welcome you to get involved, contribute code, provide feedback, deploy Windows Server containers to your Kubernetes cluster, or simply join our community.  
 
-- If you want to get started on deploying Windows Server containers in Kubernetes, read our getting started guide at [https://kubernetes.io/docs/getting-started-guides/windows/](https://kubernetes.io/docs/getting-started-guides/windows/)
+- If you want to get started on deploying Windows Server containers in Kubernetes, read our getting started guide at [/docs/getting-started-guides/windows/](/docs/getting-started-guides/windows/)
 - We meet every other Tuesday at 12:30 Eastern Standard Time (EST) at [https://zoom.us/my/sigwindows](https://zoom.us/my/sigwindows). All our meetings are recorded on youtube and referenced at [https://www.youtube.com/playlist?list=PL69nYSiGNLP2OH9InCcNkWNu2bl-gmIU4](https://www.youtube.com/playlist?list=PL69nYSiGNLP2OH9InCcNkWNu2bl-gmIU4)
 - Chat with us on Slack at [https://kubernetes.slack.com/messages/sig-windows](https://kubernetes.slack.com/messages/sig-windows)
 - Find us on GitHub at [https://github.com/kubernetes/community/tree/master/sig-windows](https://github.com/kubernetes/community/tree/master/sig-windows)

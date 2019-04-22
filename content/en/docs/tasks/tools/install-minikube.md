@@ -87,7 +87,7 @@ sudo cp minikube /usr/local/bin && rm minikube
 ### Windows
 
 {{< note >}}
-To run Minikube on Windows, you need to install [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) first, which can be run on three versions of Windows 10: Windows 10 Enterprise, Windows 10 Professional, and Windows 10 Education.
+To run Minikube on Windows, you first need to install [VirtualBox](https://www.virtualbox.org/) or [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v). Hyper-V can be run on three versions of Windows 10: Windows 10 Enterprise, Windows 10 Professional, and Windows 10 Education. See the official Minikube GitHub repository for additional [installation information](https://github.com/kubernetes/minikube/#installation).
 {{< /note >}}
 
 The easiest way to install Minikube on Windows is using [Chocolatey](https://chocolatey.org/) (run as an administrator):
@@ -114,4 +114,19 @@ To install Minikube manually on windows using [Windows Installer](https://docs.m
 
 {{% /capture %}}
 
+## Cleanup everything to start fresh
 
+If you have previously installed minikube, and run:
+```shell
+minikube start
+```
+
+And this command returns an error:
+```shell
+machine does not exist
+```
+
+You need to wipe the configuration files:
+```shell
+rm -rf ~/.minikube
+```

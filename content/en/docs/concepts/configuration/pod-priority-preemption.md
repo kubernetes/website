@@ -9,7 +9,7 @@ weight: 70
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.11" state="beta" >}}
+{{< feature-state for_k8s_version="1.14" state="stable" >}}
 
 [Pods](/docs/user-guide/pods) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
@@ -19,8 +19,8 @@ pending Pod possible.
 In Kubernetes 1.9 and later, Priority also affects scheduling order of Pods and
 out-of-resource eviction ordering on the Node.
 
-Pod priority and preemption are moved to beta since Kubernetes 1.11 and are
-enabled by default in this release and later.
+Pod priority and preemption graduated to beta in Kubernetes 1.11 and to GA in
+Kubernetes 1.14. They have been enabled by default since 1.11.
 
 In Kubernetes versions where Pod priority and preemption is still an alpha-level
 feature, you need to explicitly enable it. To use these features in the older
@@ -34,11 +34,12 @@ Kubernetes Version | Priority and Preemption State | Enabled by default
 1.9                | alpha                         | no
 1.10               | alpha                         | no
 1.11               | beta                          | yes
+1.14               | stable                        | yes
 
 {{< warning >}}In a cluster where not all users are trusted, a
 malicious user could create pods at the highest possible priorities, causing
 other pods to be evicted/not get scheduled. To resolve this issue,
-[ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/) is
+[ResourceQuota](/docs/concepts/policy/resource-quotas/) is
 augmented to support Pod priority. An admin can create ResourceQuota for users
 at specific priority levels, preventing them from creating pods at high
 priorities. This feature is in beta since Kubernetes 1.12.
@@ -71,15 +72,15 @@ Pods.
 ## How to disable preemption
 
 {{< note >}}
-In Kubernetes 1.11, critical pods (except DaemonSet pods, which are
-still scheduled by the DaemonSet controller) rely on scheduler preemption to be
-scheduled when a cluster is under resource pressure. For this reason, you will
-need to run an older version of Rescheduler if you decide to disable preemption.
-More on this is provided below.
+In Kubernetes 1.12+, critical pods rely on scheduler preemption to be scheduled
+when a cluster is under resource pressure. For this reason, it is not
+recommended to disable preemption.
 {{< /note >}}
 
 In Kubernetes 1.11 and later, preemption is controlled by a kube-scheduler flag
 `disablePreemption`, which is set to `false` by default.
+If you want to disable preemption despite the above note, you can set
+`disablePreemption` to `true`.
 
 This option is available in component configs only and is not available in
 old-style command line options. Below is a sample component config to disable
@@ -95,20 +96,6 @@ algorithmSource:
 
 disablePreemption: true
 ```
-
-### Start an older version of Rescheduler in the cluster
-
-When priority or preemption is disabled, we must run Rescheduler v0.3.1 (instead
-of v0.4.0) to ensure that critical Pods are scheduled when nodes or cluster are
-under resource pressure. Since critical Pod annotation is still supported in
-this release, running Rescheduler should be enough and no other changes to the
-configuration of Pods should be needed.
-
-Rescheduler images can be found at:
-[gcr.io/k8s-image-staging/rescheduler](http://gcr.io/k8s-image-staging/rescheduler).
-
-In the code, changing the Rescheduler version back to v.0.3.1 is the reverse of
-[this PR](https://github.com/kubernetes/kubernetes/pull/65454).
 
 ## PriorityClass
 
@@ -149,7 +136,7 @@ cluster when they should use this PriorityClass.
 ### Example PriorityClass
 
 ```yaml
-apiVersion: scheduling.k8s.io/v1beta1
+apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
   name: high-priority
@@ -291,9 +278,8 @@ preempted. Here's an example:
 If Pod Q were removed from its Node, the Pod anti-affinity violation would be
 gone, and Pod P could possibly be scheduled on Node N.
 
-We may consider adding cross Node preemption in future versions if we find an
-algorithm with reasonable performance. We cannot promise anything at this point,
-and cross Node preemption will not be considered a blocker for Beta or GA.
+We may consider adding cross Node preemption in future versions if there is
+enough demand and if we find an algorithm with reasonable performance.
 
 ## Debugging Pod Priority and Preemption
 
@@ -322,7 +308,7 @@ When a Pod is preempted, there will be events recorded for the preempted Pod.
 Preemption should happen only when a cluster does not have enough resources for
 a Pod. In such cases, preemption happens only when the priority of the pending
 Pod (preemptor) is higher than the victim Pods. Preemption must not happen when
-there is no pending Pod, or when the pending Pods have equal or higher priority
+there is no pending Pod, or when the pending Pods have equal or lower priority
 than the victims. If preemption happens in such scenarios, please file an issue.
 
 #### Pods are preempted, but the preemptor is not scheduled

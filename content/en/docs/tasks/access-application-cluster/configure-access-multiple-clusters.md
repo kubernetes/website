@@ -85,6 +85,10 @@ kubectl config --kubeconfig=config-demo set-credentials developer --client-certi
 kubectl config --kubeconfig=config-demo set-credentials experimenter --username=exp --password=some-password
 ```
 
+{{< note >}}
+To delete a user you can run `kubectl config unset users.<name>`
+{{< /note >}}
+
 Add context details to your configuration file:
 
 ```shell
@@ -277,7 +281,7 @@ export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
 ### Windows PowerShell
 ```shell
-$Env:KUBECONFIG_SAVED=(config-demo;config-demo-2)
+$Env:KUBECONFIG=("config-demo;config-demo-2")
 ```
 
 In your `config-exercise` directory, enter this command:

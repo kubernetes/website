@@ -96,7 +96,7 @@ spec:
  Different [Ingress controller](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 
-The Ingress [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)
+The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to configure a loadbalancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP traffic.
@@ -106,7 +106,7 @@ for directing HTTP traffic.
 Each http rule contains the following information:
 
 * An optional host. In this example, no host is specified, so the rule applies to all inbound
-  HTTP traffic through the IP address is specified. If a host is provided (for example,
+  HTTP traffic through the IP address specified. If a host is provided (for example,
   foo.bar.com), the rules apply to that host.
 * a list of paths (for example, /testpath), each of which has an associated backend defined with a `serviceName`
   and `servicePort`. Both the host and path must match the content of an incoming request before the
@@ -136,7 +136,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 
 {{< codenew file="service/networking/ingress.yaml" >}}
 
-If you create it using `kubectl create -f` you should see:
+If you create it using `kubectl apply -f` you should see:
 
 ```shell
 kubectl get ingress test-ingress
@@ -190,7 +190,7 @@ spec:
           servicePort: 8080
 ```
 
-When you create the Ingress with `kubectl create -f`:
+When you create the ingress with `kubectl apply -f`:
 
 ```shell
 kubectl describe ingress simple-fanout-example

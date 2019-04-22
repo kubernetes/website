@@ -84,8 +84,9 @@ number that pods expose in the next version of your backend software, without
 breaking clients.
 
 `TCP` is the default protocol for services, and you can also use any other
-[supported protocol](#protocol-support). At the moment, you can only set a
-single `port` and `protocol` for a Service.
+[supported protocol](#protocol-support). As many Services need to expose more than
+one port, Kubernetes supports multiple port definitions on a `Service` object.
+Each port definition can have the same or a different `protocol`.
 
 ### Services without selectors
 
@@ -807,7 +808,7 @@ will be routed to one of the service endpoints. `externalIPs` are not managed by
 of the cluster administrator.
 
 In the `ServiceSpec`, `externalIPs` can be specified along with any of the `ServiceTypes`.
-In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10:80`"" (`externalIP:port`)
+In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10:80`" (`externalIP:port`)
 
 ```yaml
 kind: Service
@@ -973,7 +974,7 @@ to expose HTTP / HTTPS services.
 
 {{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
-If your cloud provider supports it (eg, [AWS](https://kubernetes.io/docs/concepts/cluster-administration/cloud-providers/#aws)),
+If your cloud provider supports it (eg, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
 you can use a Service in LoadBalancer mode to configure a load balancer outside
 of Kubernetes itself, that will forward connections prefixed with
 [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).

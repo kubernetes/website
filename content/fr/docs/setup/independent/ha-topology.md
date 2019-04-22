@@ -1,5 +1,6 @@
 ---
 title: Options pour la topologie en haute disponibilité
+description: Topologie haute-disponibilité Kubernetes
 content_template: templates/concept
 weight: 50
 ---
