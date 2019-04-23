@@ -64,7 +64,7 @@ Kubernetes [*kube-state-metrics*](https://github.com/kubernetes/kube-state-metri
 ```shell
 kubectl get pods --namespace=kube-system | grep kube-state
 ```
-### Install it if needed (by default it will not be there)
+### Install kube-state-metrics if needed
 
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
@@ -231,7 +231,7 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
 Manifest files are provided for each Beat.  These manifest files use the secret created earlier to configure the Beats to connect to your Elasticsearch and Kibana servers.
 
 ### About Filebeat
-Filebeat will collect logs from the Kubernetes nodes and the containers running in each pod running on those nodes.  Filebeat is deployed as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/).  Filebeat can autodiscover applications running in your Kubernetes cluster. At startup Filebeat scans existing containers and launches the proper configurations for them, then it will watch for new start/stop events.
+Filebeat will collect logs from the Kubernetes nodes and the containers running in each pod running on those nodes.  Filebeat is deployed as a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}.  Filebeat can autodiscover applications running in your Kubernetes cluster. At startup Filebeat scans existing containers and launches the proper configurations for them, then it will watch for new start/stop events.
 
 Here is the autodiscover configuration that enables Filebeat to locate and parse Redis logs from the Redis containers deployed with the guestbook application.  This configuration is in the file `filebeat-kubernetes.yaml`:
 
