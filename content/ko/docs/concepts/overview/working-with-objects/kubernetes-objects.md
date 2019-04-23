@@ -41,7 +41,7 @@ card:
 
 {{< codenew file="application/deployment.yaml" >}}
 
-위 예시와 같이 .yaml 파일을 이용하여 디플로이먼트를 생성하기 위한 하나의 방식으로는 `kubectl` 커맨드-라인 인터페이스에 인자값으로 `.yaml` 파일를 건네 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 명령을 이용하는 것이다. 다음 예시와 같다.
+위 예시와 같이 .yaml 파일을 이용하여 디플로이먼트를 생성하기 위한 하나의 방식으로는 `kubectl` 커맨드-라인 인터페이스에 인자값으로 `.yaml` 파일를 건네 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 커맨드를 이용하는 것이다. 다음 예시와 같다.
 
 
 ```shell
