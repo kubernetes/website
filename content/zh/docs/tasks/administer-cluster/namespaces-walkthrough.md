@@ -29,7 +29,7 @@ Kubernetes _命名空间_ 帮助不同的项目、团队或客户去共享 Kuber
 
 <!-- Use of multiple namespaces is optional. -->
 
-使用多个名称空间是可选的。
+使用多个命名空间是可选的。
 
 <!-- This example demonstrates how to use Kubernetes namespaces to subdivide your cluster. -->
 
@@ -104,7 +104,7 @@ Pods, Services, and Deployments that run the production site. -->
 
 <!-- One pattern this organization could follow is to partition the Kubernetes cluster into two namespaces: development and production. -->
 
-该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个名称空间：开发和生产。
+该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个命名空间：开发和生产。
 
 <!-- Let's create two new namespaces to hold our work. -->
 
