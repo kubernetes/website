@@ -19,7 +19,7 @@ Sebuah *Pod* adalah unit dasar di Kubernetes--unit terkecil dan paling sederhana
 
 *Pod* membungkus sebuah kontainer (atau, di beberapa kasus, beberapa kontainer), sumber penyimpanan, alamat jaringan *IP* yang unik, dan opsi yang mengatur bagaimana kontainer harus dijalankan. *Pod* merupakan representasi dari unit *deployment*: *sebuah instance aplikasi didalam Kubernetes*, yang mungkin terdiri dari satu kontainer atau sekumpulan kontainer yang berbagi sumber daya.
 
-> [Docker](https://www.docker.com) adalah salah satu kontainer *runtime* yang paling umum digunakan di Kubernetes *Pod*, tetapi *Pod* mendukung kontainer *runtime* lainnya.
+[Docker](https://www.docker.com) adalah salah satu kontainer *runtime* yang paling umum digunakan di Kubernetes *Pod*, tetapi *Pod* mendukung kontainer *runtime* lainnya.
 
 *Pod* di Kubernetes kluster dapat digunakan dengan dua cara:
 
@@ -36,7 +36,7 @@ Setiap *Pod* dimaksudkan untuk menjalankan satu *instance* aplikasi. Jika anda i
 ### Bagaimana *Pod* mengelola beberapa Kontainer
 *Pod* didesain untuk mendukung banyak proses (sebagai kontainer) yang membentuk sebuah layanan. Kontainer didalam sebuah *Pod* akan otomatis ditempatkan bersama didalam satu mesin fisik atau mesin *virtual* didalam kluster. Kontainer tersebut dapat berbagi sumber daya dan dependensi, berkomunikasi satu sama lain, dan berkoordinasi kapan dan bagaimana mereka diterminasi.
 
-Perhatikan bahwa mengelompokan kontainer didalam satu *Pod* merupakan kasus lanjutan. Anda dapat menggunakan pola ini hanya dalam kasus tertentu. Sebagai contoh, anda memiliki kontainer yang bertindak sebagai *web server* yang menyajikan berkas dari sumber daya penyimpanan bersama, dan kontainer *sidecar* melakukan pembaharuan terhadap berkas tersebut dari sumber lain, seperti dalam diagram berikut:
+Perhatikan bahwa mengelompokan kontainer didalam satu *Pod* merupakan kasus lanjutan. Anda dapat menggunakan pola ini hanya dalam kasus tertentu. Sebagai contoh, anda memiliki kontainer yang bertindak sebagai *web server* yang menyajikan berkas dari sumber daya penyimpanan bersama, dan kontainer *sidecar* melakukan pembaharuan terhadap berkas tersebut dari sumber lain, seperti dalam diagram berikut: <br /><br />
 
 {{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
 
@@ -55,9 +55,9 @@ Setiap *Pod* diberikan sebuah alamat *IP* unik. Setiap kontainer didalam *Pod* b
 
 Anda akan jarang membuat *Pod* secara langsung di Kubernetes. Ini karena *Pod* dirancang sebagai entitas sesaat. Saat *Pod* dibuat (baik oleh anda, atau secara tidak langsung oleh *Controller*), *Pod* ditempatkan dan dijankan di sebuah *Node* didalam kluster. *Pod akan tetap di *Node* tersebut sampai proses dihentikan, Objek *Pod* dihapus, *Pod* dihentikan karena kekurangan sumber daya, atau *Node* tersebut berhenti berjalan.
 
-{{< Catatan >}}
-Tidak perlu bingung untuk membedakan antara menjalankan ulang sebuah kontainer didalam *Pod* dan menjalankan ulang *Pod*. *Pod* itu sendiri tidak berjalan, tetapi *Pod* adalah lingkungkan kontainer itu berjalan dan akan tetapi ada sampai dihapus.
-{{< /Catatan >}}
+{{< note >}}
+Tidak perlu bingung untuk membedakan antara menjalankan ulang sebuah kontainer didalam *Pod* dan menjalankan ulang *Pod*. *Pod* itu sendiri tidak berjalan, tetapi *Pod* adalah lingkungan kontainer itu berjalan dan akan tetapi ada sampai dihapus.
+{{< /note >}}
 
 *Pod* tidak melakukan mekanisme penyembuhan diri sendiri. Jika *Pod* ditempatkan disebuah *Node* yang gagal, atau proses penempatan *Pod* itu sendiri gagal, *Pod* akan dihapus; demikian juga, *Pod* tidak akan bertahan jika *Node* tersebut kehabisan sumber daya atau sedang dalam tahap pemeliharaan. Kubernetes menggunakan abstraksi yang disebut *Controller*, yang menangani dan mengelola *Pod*. Jadi, meskipun *Pod* dapat dipakai secara langsung di Kubernetes, *Controller* merupakan cara umum yang digunakan untuk mengelola *Pod*. Lihat [Pod dan Controller](#pod-dan-controller) untuk informasi lebih lanjut bagaimana Kubernetes mengguanakan *Controller* untuk mengimpelentasikan mekanisme penyembuhan diri sendiri dan replikasi pada *Pod*.
 
