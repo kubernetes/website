@@ -92,7 +92,7 @@ cd examples/beats-k8s-send-anywhere
 ```
 
 ## Create a Kubernetes secret
-A [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in an image; putting it in a Secret object allows for more control over how it is used, and reduces the risk of accidental exposure.
+A Kubernetes {{< glossary_tooltip text="Secret" term_id="secret" >}} is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in an image; putting it in a Secret object allows for more control over how it is used, and reduces the risk of accidental exposure.
 
 {{< note >}}
 There are two sets of steps here, one for *self managed* Elasticsearch and Kibana (running on your servers or using the Elastic Helm Charts), and a second separate set for the *managed service* Elasticsearch Service in Elastic Cloud.  Only create the secret for the type of Elasticsearch and Kibana system that you will use for this tutorial.
