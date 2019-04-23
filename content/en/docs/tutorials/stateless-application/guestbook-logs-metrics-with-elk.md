@@ -378,6 +378,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       kubectl delete -f filebeat-kubernetes.yaml
       kubectl delete -f metricbeat-kubernetes.yaml
       kubectl delete -f packetbeat-kubernetes.yaml
+      kubectl delete secret dynamic-logging -n kube-system
       ```
 
       The responses should be:
@@ -410,6 +411,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       clusterrolebinding.rbac.authorization.k8s.io "packetbeat-dynamic" deleted
       clusterrole.rbac.authorization.k8s.io "packetbeat-dynamic" deleted
       serviceaccount "packetbeat-dynamic" deleted
+      secret "dynamic-logging" deleted
       ```
 
 1. Query the list of Pods to verify that no Pods are running:
