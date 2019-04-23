@@ -98,8 +98,11 @@ A Kubernetes {{< glossary_tooltip text="Secret" term_id="secret" >}} is an objec
 There are two sets of steps here, one for *self managed* Elasticsearch and Kibana (running on your servers or using the Elastic Helm Charts), and a second separate set for the *managed service* Elasticsearch Service in Elastic Cloud.  Only create the secret for the type of Elasticsearch and Kibana system that you will use for this tutorial.
 {{< /note >}}
 
+{{< tabs name="tab_with_md" >}}
+{{% tab name="Self Managed" %}}
+
 ### Self managed
-Skip to the [**Managed service**](#managed-service) section if you are connecting to Elasticsearch Service in Elastic Cloud.
+Switch to the **Managed service** tab if you are connecting to Elasticsearch Service in Elastic Cloud.
 
 ### Set the credentials
 There are four files to edit to create a k8s secret when you are connecting to self managed Elasticsearch and Kibana (self managed is effectively anything other than the managed Elasticsearch Service in Elastic Cloud).  The files are:
@@ -184,8 +187,11 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
       --from-file=./KIBANA_HOST \
       --namespace=kube-system
 
+{{% /tab %}}
+{{% tab name="Managed service" %}}
+
 ## Managed service
-This section is for Elasticsearch Service in Elastic Cloud only, if you have already created a secret for a self managed Elasticsearch and Kibana deployment, then skip this section and continue with [Deploy the Beats](#deploy-the-beats).
+This tab is for Elasticsearch Service in Elastic Cloud only, if you have already created a secret for a self managed Elasticsearch and Kibana deployment, then skip this continue with [Deploy the Beats](#deploy-the-beats).
 ### Set the credentials
 There are two files to edit to create a k8s secret when you are connecting to the managed Elasticsearch Service in Elastic Cloud.  The files are:
 
@@ -217,6 +223,9 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
       --from-file=./ELASTIC_CLOUD_ID \
       --from-file=./ELASTIC_CLOUD_AUTH \
       --namespace=kube-system
+
+  {{% /tab %}}
+{{< /tabs >}}
 
 ## Deploy the Beats
 Manifest files are provided for each Beat.  These manifest files use the secret created earlier to configure the Beats to connect to your Elasticsearch and Kibana servers.
