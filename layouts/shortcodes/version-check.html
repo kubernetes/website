@@ -1,6 +1,12 @@
 {{ $minVersion := .Page.Param "min-kubernetes-server-version" }}
 {{ if eq $minVersion (.Page.Param "version")  }}
 Your Kubernetes server must be version {{ $minVersion }}.
+<!-- Your Kubernetes server must be version {{ $minVersion }}. -->
+您的 Kubernetes 服务器版本必须为 {{ $minVersion }}。
 {{ else if $minVersion}}
 Your Kubernetes server must be version {{ $minVersion }} or later.
 {{ end }} To check the version, enter <code>kubectl version</code>.
+<!-- Your Kubernetes server must be version {{ $minVersion }} or later. -->
+您的 Kubernetes 服务器版本必须为 {{ $minVersion }} 或更新。
+{{ end }} <!-- To check the version, enter <code>kubectl version</code>. -->
+要检查当前版本，请输入 <code>kubectl version</code>。
