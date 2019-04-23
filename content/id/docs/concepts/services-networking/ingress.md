@@ -23,7 +23,7 @@ Untuk memudahkan, di awal akan dijelaskan beberapa terminologi yang sering dipak
 
 Ingress ditambahkan sejak Kubernetes v1.1, mengekspos rute HTTP dan HTTPS ke berbagai service 
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} di dalam kluster.
-Mekanisme *routing* trafik dikendalikan oleh peraturan yang didefinisikan pada *Ingress*.
+Mekanisme *routing* trafik dikendalikan oleh aturan-aturan yang didefinisikan pada *Ingress*.
 
 ```none
     internet
@@ -51,7 +51,7 @@ Kamu harus terlebih dahulu memiliki [kontroler Ingress](/docs/concepts/services-
 {{< /note >}}
 
 GCE/Google Kubernetes Engine melakukan deploy kontroler *Ingress* pada *master*. Perhatikan laman berikut
-[limitasi beta](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations)
+[keterbatasan versi beta](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations)
 kontroler ini jika kamu menggunakan GCE/GKE.
 
 Jika kamu menggunakan *environment* selain GCE/Google Kubernetes Engine, kemungkinan besar kamu harus 
