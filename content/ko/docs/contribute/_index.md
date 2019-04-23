@@ -47,7 +47,7 @@ weight: 80
 시작하는 데에 도움이 될 것이다.
 
 - [누구나](/docs/contribute/start/)
-  - 조치 가능한 버그 리포트 제출
+  - 조치 가능한 이슈 열기
 - [멤버](/docs/contribute/start/)
   - 기존 문서 개선
   - [Slack](http://slack.k8s.io/) 또는 [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에서 개선을 위한 아이디어 제시
