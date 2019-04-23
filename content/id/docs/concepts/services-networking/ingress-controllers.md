@@ -1,5 +1,5 @@
 ---
-title: Kontroler *Ingress*
+title: Kontroler Ingress
 content_template: templates/concept
 weight: 40
 ---
