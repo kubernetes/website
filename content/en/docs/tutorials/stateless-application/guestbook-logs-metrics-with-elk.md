@@ -191,7 +191,7 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
 {{% tab name="Managed service" %}}
 
 ## Managed service
-This tab is for Elasticsearch Service in Elastic Cloud only, if you have already created a secret for a self managed Elasticsearch and Kibana deployment, then skip this continue with [Deploy the Beats](#deploy-the-beats).
+This tab is for Elasticsearch Service in Elastic Cloud only, if you have already created a secret for a self managed Elasticsearch and Kibana deployment, then continue with [Deploy the Beats](#deploy-the-beats).
 ### Set the credentials
 There are two files to edit to create a k8s secret when you are connecting to the managed Elasticsearch Service in Elastic Cloud.  The files are:
 
