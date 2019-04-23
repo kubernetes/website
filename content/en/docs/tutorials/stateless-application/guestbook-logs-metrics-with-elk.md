@@ -1,12 +1,12 @@
 ---
-title: "Example: Add logging and monitoring to the sample PHP / Redis Guestbook application with ELK"
+title: "Example: Add ELK logging and monitoring to Deploying PHP Guestbook application with Redis"
 reviewers:
 content_template: templates/tutorial
 weight: 21
 card:
   name: tutorials
   weight: 31
-  title: "Logging and Monitoring Example: PHP / Redis Guestbook with ELK"
+  title: "Example: Add ELK logging and monitoring to Deploying PHP Guestbook application with Redis"
 ---
 
 {{% capture overview %}}
@@ -54,7 +54,6 @@ Create a [cluster level role binding](https://kubernetes.io/docs/reference/acces
 kubectl create clusterrolebinding cluster-admin-binding \
  --clusterrole=cluster-admin --user=<your email associated with the k8s provider account>
 ```
-
 
 ## Install kube-state-metrics
 
