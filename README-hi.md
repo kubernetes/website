@@ -73,9 +73,9 @@ make serve
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-## आचार संहिता
+## कोड ओफ़ कंडक्ट
 
-कुबरनेट्स समुदाय में भागीदारी [कुबरनेट्स आचार संहिता](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/hi.md) द्वारा शासित है.
+कुबरनेट्स समुदाय में भागीदारी [कुबरनेट्स कोड ओफ़ कंडक्ट](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/hi.md) द्वारा शासित है.
 
 ## धन्यवाद!
 
