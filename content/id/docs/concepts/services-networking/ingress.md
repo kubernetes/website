@@ -16,13 +16,13 @@ Untuk memudahkan, di awal akan dijelaskan beberapa terminologi yang sering dipak
 * Node: Sebuah mesin fisik atau virtual yang berada di dalam kluster Kubernetes. 
 * Kluster: Sekelompok node yang merupakan *resource* komputasi primer yang diatur oleh Kubernetes, biasanya diproteksi dari internet dengan menggunakan *firewall*. 
 * *Edge router*: Sebuah *router* mengatur *policy firewall* pada kluster kamu. *Router* ini bisa saja berupa *gateway* yang diatur oleh penyedia layanan *cloud* maupun perangkat keras.
-* Jaringan kluster: Seperangkat *links* baik logis maupus fisik, yang memfasilitasi komunikasi di dalam kluster berdasarkan [model jaringan Kubernetes](/en/docs/concepts/cluster-administration/networking/).
-* *Service*: Sebuah [Service](/en/docs/concepts/services-networking/service/) yang mengidentifikasi beberapa *Pod* dengan menggunakan *selector label*. Secara umum, *Services* diasumsikan hanya memiliki IP virtual yang hanya dapat diakses dari dalam jaringan kluster. 
+* Jaringan kluster: Seperangkat *links* baik logis maupus fisik, yang memfasilitasi komunikasi di dalam kluster berdasarkan [model jaringan Kubernetes](/docs/concepts/cluster-administration/networking/).
+* *Service*: Sebuah [*Service*](/docs/concepts/services-networking/service/) yang mengidentifikasi beberapa *Pod* dengan menggunakan *selector label*. Secara umum, semua *Service* diasumsikan hanya memiliki IP virtual yang hanya dapat diakses dari dalam jaringan kluster. 
 
 ## Apakah *Ingress* itu?
 
-Ingress ditambahkan sejak Kubernetes v1.1, mengekspos rute HTTP dan HTTPS dari luar kluster ke 
-{{< link text="services" url="/en/docs/concepts/services-networking/service/" >}} didalam kluster.
+Ingress ditambahkan sejak Kubernetes v1.1, mengekspos rute HTTP dan HTTPS ke berbagai service 
+{{< link text="services" url="/docs/concepts/services-networking/service/" >}} di dalam kluster.
 Mekanisme *routing* trafik dikendalikan oleh peraturan yang didefinisikan pada *Ingress*.
 
 ```none
@@ -33,10 +33,10 @@ Mekanisme *routing* trafik dikendalikan oleh peraturan yang didefinisikan pada *
    [ Services ]
 ```
 
-Sebuah *Ingress* dapat dikonfigurasi agar *services* memiliki URL yang dapat diakses dari eksternal (luar kluster), melakukan *load balance* pada trafik, terminasi SSL, serta *name-based virtual hosting*. 
-Sebuah [Ingress controller](/en/docs/concepts/services-networking/ingress-controllers) bertanggung jawab untuk menjalankan fungsi Ingress yaitu sebagai *loadbalancer*, meskipun dapat juga digunakan untuk mengatur *edge router* atau *frontends* tambahan untuk menerima trafik.
+Sebuah *Ingress* dapat dikonfigurasi agar berbagai *Service* memiliki URL yang dapat diakses dari eksternal (luar kluster), melakukan *load balance* pada trafik, terminasi SSL, serta Virtual Host berbasis Nama. 
+Sebuah [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) bertanggung jawab untuk menjalankan fungsi Ingress yaitu sebagai *loadbalancer*, meskipun dapat juga digunakan untuk mengatur *edge router* atau *frontend* tambahan untuk menerima trafik.
 
-Sebuah *Ingress* tidak mengekspos sembarang *ports* atau protokol. Mengekspos *services* untuk protokol selain HTTP ke HTTPS internet biasanya dilakukan dengan menggunakan 
+Sebuah *Ingress* tidak mengekspos sembarang *port* atau protokol. Mengekspos *Service* untuk protokol selain HTTP ke HTTPS internet biasanya dilakukan dengan menggunakan 
 *service* dengan tipe [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) atau
 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
@@ -47,20 +47,20 @@ Sebuah *Ingress* tidak mengekspos sembarang *ports* atau protokol. Mengekspos *s
 Sebelum kamu mulai menggunakan *Ingress*, ada beberapa hal yang perlu kamu ketahui sebelumnya. *Ingress* merupakan *resource* dengan tipe beta. 
 
 {{< note >}}
-Kamu harus terlebih dahulu memiliki [kontroler Ingress](/en/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
+Kamu harus terlebih dahulu memiliki [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) untuk dapat memenuhi *Ingress*. Membuat sebuah *Ingress* tanpa adanya kontroler *Ingres* tidak akan berdampak apa pun. 
 {{< /note >}}
 
 GCE/Google Kubernetes Engine melakukan deploy kontroler *Ingress* pada *master*. Perhatikan laman berikut
 [limitasi beta](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations)
 kontroler ini jika kamu menggunakan GCE/GKE.
 
-Jika kamu menggunakan environment selain GCE/Google Kubernetes Engine, kemmungkinan besar kamu
+Jika kamu menggunakan *environment* selain GCE/Google Kubernetes Engine, kemungkinan besar kamu harus 
 [melakukan proses deploy kontroler ingress kamu sendiri](https://kubernetes.github.io/ingress-nginx/deploy/). Terdapat beberapa jenis 
 [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) yang bisa kamu pilih.
 
 ### Sebelum kamu memulai
 
-Secara ideal, semua kontroler Ingress charus memenuhi spesifikasi ini, tetapi beberapa 
+Secara ideal, semua kontroler Ingress harus memenuhi spesifikasi ini, tetapi beberapa 
 kontroler beroperasi sedikit berbeda satu sama lain. 
 
 {{< note >}}
@@ -69,7 +69,7 @@ Pastikan kamu sudah terlebih dahulu memahami dokumentasi kontroler Ingress yang 
 
 ## *Resource* Ingress
 
-Berikut ini merupakan salah satu contoh konfigurasi Ingress yang minimalis:
+Berikut ini merupakan salah satu contoh konfigurasi Ingress yang minimum:
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -89,13 +89,13 @@ spec:
 ```
 
  Seperti layaknya *resource* Kubernetes yang lain, sebuah Ingress membutuhkan *field* `apiVersion`, `kind`, dan `metadata`.  
- Untuk informasi umum soal bagaimana cara bekerja dengan menggunakan file konfigurasi, silakan merujuk pada [melakukan deploy aplikasi](/en/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
- Ingress seringkali menggunakan anotasi untuk melakukan konfigurasi beberapa opsi yang ada bergantung pada kontroler Ingress yang digunakan, sebagai congtohnya
+ Untuk informasi umum soal bagaimana cara bekerja dengan menggunakan file konfigurasi, silahkan merujuk pada [melakukan deploy aplikasi](/docs/tasks/run-application/run-stateless-application-deployment/), [konfigurasi kontainer](/docs/tasks/configure-pod-container/configure-pod-configmap/), [mengatur *resource*](/docs/concepts/cluster-administration/manage-deployment/).
+ Ingress seringkali menggunakan anotasi untuk melakukan konfigurasi beberapa opsi yang ada bergantung pada kontroler Ingress yang digunakan, sebagai contohnya
  adalah [anotasi rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
- [Kontroler Ingress](/en/docs/concepts/services-networking/ingress-controllers) yang berbeda memiliki jenis anotasi yang berbeda. Pastikan kamu sudah terlebih dahulu memahami dokumentasi 
+ [Kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) yang berbeda memiliki jenis anotasi yang berbeda. Pastikan kamu sudah terlebih dahulu memahami dokumentasi 
  kontroler Ingress yang akan kamu pakai untuk mengetahui jenis anotasi apa sajakah yang disediakan. 
 
-[Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) Ingress
+[Spesifikasi](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) Ingress
 memiliki segala informasi yang dibutuhkan untuk melakukan proses konfigurasi *loadbalancer* atau server proxy. Hal yang terpenting adalah 
 bagian inilah yang mengandung semua *rules* yang nantinya akan digunakan untuk menyesuaikan trafik yang masuk. *Resource* Ingress hanya menyediakan 
 fitur *rules* untuk mengarahkan trafik dengan protokol HTTP.
@@ -107,22 +107,22 @@ Setiap *rule* HTTP mengandung informasi berikut:
 * *Host* opsional. Di dalam contoh ini, tidak ada *host* yang diberikan, dengan kata lain, semua *rules* berlaku untuk *inbound*.
   trafik HTTP bagi alamat IP yang dispesifikasikan. JIka sebuah *host* dispesifikasikan (misalnya saja,
   foo.bar.com), maka *rules* yang ada akan berlaku bagi *host* tersebut.
-* Sederetan *path*(misalnya, /testpath), setiap *path* ini akan memiliki pasangan berupa sebuah *backend* yang didefinisikan dengan `serviceName`
+* Sederetan *path* (misalnya, /testpath), setiap *path* ini akan memiliki pasangan berupa sebuah *backend* yang didefinisikan dengan `serviceName`
   dan `servicePort`. Baik *host* dan *path* harus sesuai dengan konten dari *request* yang masuk sebelum 
   *loadbalancer* akan mengarahkan trafik pada *service* yang sesuai. 
-* Sebuah *backend* adalah kombinasi *service* dan *port* seperti yang dideskripsikan di
-  [dokumentasi Services](/en/docs/concepts/services-networking/service/). Request HTTP (dan HTTPS) yang sesuai dengan 
+* Suatu *backend* adalah kombinasi *service* dan *port* seperti yang dideskripsikan di
+  [dokumentasi *Service*](/docs/concepts/services-networking/service/). *Request* HTTP (dan HTTPS) yang sesuai dengan 
   *host* dan *path* yang ada pada *rule* akan diteruskan pada *backend* terkait.
 
-*Backend default* seringkali dikonfigurasi pada kontroler Ingress controller, tugas *backend default* ini adalah 
+*Backend default* seringkali dikonfigurasi pada kontroler kontroler Ingress, tugas *backend default* ini adalah 
  mengarahkan *request* yang tidak sesuai dengan *path* yang tersedia pada spesifikasi. 
 
 ### *Backend Default*
 
 Sebuah Ingress yang tidak memiliki *rules* akan mengarahkan semua trafik pada sebuag *backend default*. *Backend default* inilah yang 
-biasanya bisa dimasukkan sebagai salah satu opsi konfigurasi dari [kontroler Ingress](/en/docs/concepts/services-networking/ingress-controllers) dan tidak dispesifikasi di dalam *resource* Ingress.
+biasanya bisa dimasukkan sebagai salah satu opsi konfigurasi dari [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) dan tidak dimasukkan dalam spesifikasi *resource* Ingress.
 
-Jika tidak ada *hosts* atau *paths* yang sesuai dengan *request* HTTP pada obyek Ingress, maka trafik tersebut 
+Jika tidak ada *host* atau *path* yang sesuai dengan *request* HTTP pada obyek Ingress, maka trafik tersebut 
 akan diarahkan pada *backend default*.
 
 ## Jenis Ingress
@@ -130,8 +130,7 @@ akan diarahkan pada *backend default*.
 ### Ingress dengan satu Service
 
 Terdapat konsep Kubernetes yang memungkinkan kamu untuk mengekspos sebuah Service.
-(see [alternatives](#alternatives)). Kamu juga bisa membuat spesifikasi Ingress dengan  
-*backend default* yang tidak memiliki *rules*.
+(see [alternatives](#alternatives)). Kamu juga bisa membuat spesifikasi Ingress dengan  *backend default* yang tidak memiliki *rules*.
 
 {{< codenew file="service/networking/ingress.yaml" >}}
 
@@ -150,13 +149,13 @@ Dimana `107.178.254.228` merupakan alamat IP yang dialokasikan oleh kontroler In
 memenuhi Ingress ini.
 
 {{< note >}}
-Kontroler Ingress dan *load balancers* membutuhkan waktu sekitar satu hingga dua menit untuk mengalokasikan alamat IP.  
+Kontroler Ingress dan *load balancer* membutuhkan waktu sekitar satu hingga dua menit untuk mengalokasikan alamat IP.  
 Hingga alamat IP berhasil dialokasikan, kamu akan melihat tampilan kolom `ADDRESS` sebagai `<pending>`.
 {{< /note >}}
 
 ### *Fanout* sederhana
 
-Sebuah konfigurasi fanout akan melakukan *route* trafik dari sebbuah alamat IP ke lebih dari sebuah Service, 
+Sebuah konfigurasi fanout akan melakukan *route* trafik dari sebuah alamat IP ke lebih dari sebuah Service, 
 berdasarkan URI HTTP yang diberikan. Sebuah Ingress memungkinkan kamu untuk memiliki jumlah *loadbalancer* minimum. 
 Contohnya, konfigurasi seperti dibawah ini:
 
@@ -214,19 +213,18 @@ Events:
   Normal   ADD     22s                loadbalancer-controller  default/test
 ```
 
-Kontroler Ingress akan melakukan *provision* implementasi spesifik *loadbalancers*
-yang sesuai dengan *Ingress*, selama *service-service* yang didefinisikan (`s1`, `s2`) ada.
-Apabila *Ingress* selesai dibuat, maka kamu dapat melihat alamat IP dari *loadbalancers* 
+Kontroler Ingress akan menyediakan *loadbalancer* (implementasinya tergantung dari jenis Ingress yang digunakan), selama *service-service* yang didefinisikan (`s1`, `s2`) ada.
+Apabila *Ingress* selesai dibuat, maka kamu dapat melihat alamat IP dari berbagai *loadbalancer* 
 pada kolom `address`.
 
 {{< note >}}
-Kamu mungkin saja membutuhkan konfigurasi default-http-backend [Service](/en/docs/concepts/services-networking/service/) 
-bergantung pada [Ingress controller](/en/docs/concepts/services-networking/ingress-controllers) yang kamu pakai.
+Kamu mungkin saja membutuhkan konfigurasi default-http-backend [Service](/docs/concepts/services-networking/service/) 
+bergantung pada [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) yang kamu pakai.
 {{< /note >}}
 
-### *Name based virtual hosting*
+### Virtual Host berbasis Nama
 
-*Name-based virtual hosts* memungkinkan mekanisme *routing* berdasarkan trafik HTTP ke beberapa *host name* dengan alamat IP yang sama. 
+Virtual Host berbasis Nama memungkinkan mekanisme *routing* berdasarkan trafik HTTP ke beberapa *host name* dengan alamat IP yang sama. 
 
 ```none
 foo.bar.com --|                 |-> foo.bar.com s1:80
@@ -293,12 +291,12 @@ spec:
 
 ### TLS
 
-Kamu dapat mengamankan *Ingress* yang kamu punya dengan memberikan spesifikasi [secret](/en/docs/concepts/configuration/secret)
+Kamu dapat mengamankan *Ingress* yang kamu punya dengan memberikan spesifikasi [secret](/docs/concepts/configuration/secret)
 yang mengandung *private key* dan sertifikat TLS. Saat ini, Ingress hanya 
 memiliki fitur untuk melakukan konfigurasi *single TLS port*, yaitu 443, serta melakukan terminasi TLS. 
 Jika *section* TLS pada Ingress memiliki spesifikasi *host* yang berbeda,
-*rules* yang ada akan dimultipleksikan pada *port* yang sama berdasarkan 
-*hostname* yang dispesifikasin melalui ekstensi TLS SNI. *Secret* TLS harus memiliki 
+*rules* yang ada akan dimultiplekskan pada *port* yang sama berdasarkan 
+*hostname* yang dispesifikasan melalui ekstensi TLS SNI. *Secret* TLS harus memiliki 
 `key` bernama `tls.crt` dan `tls.key` yang mengandung *private key* dan sertifikat TLS, contohnya:
 
 ```yaml
@@ -339,12 +337,12 @@ spec:
 ```
 
 {{< note >}}
-Terdapat kesenjangan diantara beberapa fitur TLS 
+Terdapat perbedaan diantara beberapa fitur TLS 
 yang disediakan oleh berbagai kontroler Ingress. Perhatikan dokumentasi 
 [nginx](https://git.k8s.io/ingress-nginx/README.md#https),
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), atau Ingress
-kontroler spesifik *platform* lainnya untuk memahami cara kerja *environment* 
-pada *environment*.
+kontroler spesifik *platform* lainnya untuk memahami cara kerja **environment** 
+pada **environment**.
 {{< /note >}}
 
 ### *Loadbalancing*
@@ -352,21 +350,21 @@ pada *environment*.
 Sebuah kontroler Ingress sudah dibekali dengan beberapa *policy* terkait mekanisme *load balance* 
 yang nantinya akan diterapkan pada semua Ingress, misalnya saja algoritma *load balancing*, *backend
 weight scheme*, dan lain sebagainya. Beberapa konsep *load balance* yang lebih *advance* 
-(misalnya saja *persistent sessions*, *dynamic weights*) belum diekspos melalui Ingress 
+(misalnya saja *persistent sessions*, *dynamic weights*) belum diekspos melalui Ingress. 
 Meskipun begitu, kamu masih bisa menggunakan fitur ini melalui 
 [loadbalancer service](https://github.com/kubernetes/ingress-nginx).
 
 Perlu diketahui bahwa meskipun *health check* tidak diekspos secara langsung 
 melalui Ingress, terdapat beberapa konsep di Kubernetes yang sejalan dengan hal ini, misalnya 
 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
-yang memungkinkan kamu untuk memperoleh hasil yang sama. Silakan pelajari lebih lanjut dokumentasi 
+yang memungkinkan kamu untuk memperoleh hasil yang sama. Silahkan pelajari lebih lanjut dokumentasi 
 kontroler yang kamu pakai untuk mengetahui bagaimana implementasi *health checks* pada kontroler yang kamu pilih (
 [nginx](https://git.k8s.io/ingress-nginx/README.md),
 [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 
 ## Mengubah Ingress
 
-Untuk mengubah Ingress yang sudah ada dan menambahkan *host* baru, kamu dapat mnegubahnya dengan mode *edit*:
+Untuk mengubah Ingress yang sudah ada dan menambahkan *host* baru, kamu dapat mengubahnya dengan mode *edit*:
 
 ```shell
 kubectl describe ingress test
@@ -395,7 +393,7 @@ kubectl edit ingress test
 ```
 
 Sebuah editor akan muncul dan menampilkan konfigurasi Ingress kamu 
-dalam format YAML apabila kamu telah emnjalankan perintah di atas. 
+dalam format YAML apabila kamu telah menjalankan perintah di atas. 
 Ubah untuk menambahkan *host*: 
 
 ```yaml
@@ -451,13 +449,13 @@ Ingress yang ingin diubah.
 ## Mekanisme *failing* pada beberapa zona *availability*
 
 Teknik untuk menyeimbangkan persebaran trafik pada *failure domain* berbeda antar penyedia layanan *cloud*.
-Kamu dapat mempelajari dokumentasi yang relevan bagi [kontoler Ingress](/en/docs/concepts/services-networking/ingress-controllers) 
-untuk informasi yang lebih detail. Kamu juga dapat mempelajari [dokumentasi federasi](/en/docs/concepts/cluster-administration/federation/)
+Kamu dapat mempelajari dokumentasi yang relevan bagi [kontoler Ingress](/docs/concepts/services-networking/ingress-controllers) 
+untuk informasi yang lebih detail. Kamu juga dapat mempelajari [dokumentasi federasi](/docs/concepts/cluster-administration/federation/)
 untuk informasi lebih detail soal bagaimana melakukan *deploy* untuk federasi kluster. 
 
-## Future Work
+## Pengembangan selanjutnya
 
-Silakan amati [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)
+Silahkan amati [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)
 untuk detail lebih lanjut mengenai perubahan Ingress dan *resource* terkait lainnya. Kamu juga bisa melihat 
 [repositori Ingress](https://github.com/kubernetes/ingress/tree/master) untuk informasi  yang lebih detail 
 soal perubahan berbagai kontroler.
@@ -466,12 +464,12 @@ soal perubahan berbagai kontroler.
 
 Kamu dapat mengekspos sebuah *Service* dalam berbagai cara, tanpa harus menggunakan *resource* Ingress, dengan menggunakan:
 
-* [Service.Type=LoadBalancer](/en/docs/concepts/services-networking/service/#loadbalancer)
-* [Service.Type=NodePort](/en/docs/concepts/services-networking/service/#nodeport)
+* [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+* [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 * [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [Melakukan konfigurasi Ingress pada Minikube dengan kontroler  NGINX](/en/docs/tasks/access-application-cluster/ingress-minikube)
+* [Melakukan konfigurasi Ingress pada Minikube dengan kontroler NGINX](/docs/tasks/access-application-cluster/ingress-minikube)
 {{% /capture %}}
