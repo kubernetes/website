@@ -1,6 +1,7 @@
 ---
 title: "Example: Add ELK logging and monitoring to Deploying PHP Guestbook application with Redis"
 reviewers:
+- sftim
 content_template: templates/tutorial
 weight: 21
 card:
