@@ -20,8 +20,10 @@ To create a self-hosted cluster see the `kubeadm alpha selfhosting pivot` comman
 
 #### Caveats
 
-1. This feature pivots your cluster into a unsupported state, rending kubeadm unable
-  to manage you cluster anylonger. This includes `kubeadm upagrade`.
+{{< caution >}}
+This feature pivots your cluster into a unsupported state, rendering kubeadm unable
+to manage you cluster any longer. This includes `kubeadm upagrade`.
+{{< /caution >}}
 
 1. Self-hosting in 1.8 and later has some important limitations. In particular, a
   self-hosted cluster _cannot recover from a reboot of the control-plane node_
