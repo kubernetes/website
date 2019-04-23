@@ -50,7 +50,7 @@ This tutorial builds on the [PHP Guestbook with Redis](../guestbook) tutorial.  
 ## Add a Cluster role binding
 Create a cluster level role binding so that you can deploy kube-state-metrics and the Beats at the cluster level (in kube-system).
 
-```
+```shell
 kubectl create clusterrolebinding cluster-admin-binding \
  --clusterrole=cluster-admin --user=<your email associated with the k8s provider account>
 ```
@@ -61,33 +61,33 @@ kubectl create clusterrolebinding cluster-admin-binding \
 Kubernetes [*kube-state-metrics*](https://github.com/kubernetes/kube-state-metrics) is a simple service that listens to the Kubernetes API server and generates metrics about the state of the objects.  Metricbeat reports these metrics.  Add kube-state-metrics to the Kubernetes cluster that the guestbook is running in.
 
 ### Check to see if kube-state-metrics is running
-```
+```shell
 kubectl get pods --namespace=kube-system | grep kube-state
 ```
 ### Install it if needed (by default it will not be there)
 
-```
+```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
 kubectl create -f kube-state-metrics/kubernetes
 kubectl get pods --namespace=kube-system | grep kube-state
 ```
 Verify that kube-state-metrics is running and ready
-```
+```shell
 kubectl get pods -n kube-system -l k8s-app=kube-state-metrics
 ```
 
 Output:
-```
+```shell
 NAME                                 READY   STATUS    RESTARTS   AGE
 kube-state-metrics-89d656bf8-vdthm   2/2     Running     0          21s
 ```
 ## Clone the Elastic examples GitHub repo
-```
+```shell
 git clone https://github.com/elastic/examples.git
 ```
 
 The rest of the commands will reference files in the `examples/beats-k8s-send-anywhere` directory, so change dir there:
-```
+```shell
 cd examples/beats-k8s-send-anywhere
 ```
 
@@ -114,21 +114,21 @@ Set these with the information for your Elasticsearch cluster and your Kibana ho
 #### `ELASTICSEARCH_HOSTS`
 1. A nodeGroup from the Elastic Elasticseach Helm Chart:
 
-    ```
+    ```shell
     ["http://elasticsearch-master.default.svc.cluster.local:9200"]
     ```
 1. A single Elasticsearch node running on a Mac where your Beats are running in Docker for Mac:
 
-    ```
+    ```shell
     ["http://host.docker.internal:9200"]
     ```
 1. Two Elasticsearch nodes running in VMs or on physical hardware:
 
-    ```
+    ```shell
     ["http://host1.example.com:9200", "http://host2.example.com:9200"]
     ```
 Edit `ELASTICSEARCH_HOSTS`
-```
+```shell
 vi ELASTICSEARCH_HOSTS
 ```
 
@@ -138,7 +138,7 @@ Just the password, no whitespace or quotes:
     changeme
 
 Edit `ELASTICSEARCH_PASSWORD`
-```
+```shell
 vi ELASTICSEARCH_PASSWORD
 ```
 
@@ -148,7 +148,7 @@ Just the username, no whitespace or quotes:
     elastic
 
 Edit `ELASTICSEARCH_USERNAME`
-```
+```shell
 vi ELASTICSEARCH_USERNAME
 ```
 
@@ -156,21 +156,21 @@ vi ELASTICSEARCH_USERNAME
 
 1. The Kibana instance from the Elastic Kibana Helm Chart.  The subdomain `default` refers to the default namespace.  If you have deployed the Helm Chart using a different namespace, then your subdomain will be different:
 
-    ```
+    ```shell
     "kibana-kibana.default.svc.cluster.local:5601"
     ```
 1. A Kibana instance running on a Mac where your Beats are running in Docker for Mac:
 
-    ```
+    ```shell
     "host.docker.internal:5601"
     ```
 1. Two Elasticsearch nodes running in VMs or on physical hardware:
 
-    ```
+    ```shell
     "host1.example.com:5601"
     ```
 Edit `KIBANA_HOST`
-```
+```shell
 vi KIBANA_HOST
 ```
 
@@ -195,18 +195,18 @@ There are two files to edit to create a k8s secret when you are connecting to th
 Set these with the information provided to you from the Elasticsearch Service console when you created the deployment.  Here are some examples:
 
 #### ELASTIC_CLOUD_ID
-```
+```shell
 devk8s:ABC123def456ghi789jkl123mno456pqr789stu123vwx456yza789bcd012efg345hijj678klm901nop345zEwOTJjMTc5YWQ0YzQ5OThlN2U5MjAwYTg4NTIzZQ==
 ```
 
 #### ELASTIC_CLOUD_AUTH
 Just the username, a colon (`:`), and the password, no whitespace or quotes:
-```
+```shell
 elastic:VFxJJf9Tjwer90wnfTghsn8w
 ```
 
 ### Edit the required files:
-```
+```shell
 vi ELASTIC_CLOUD_ID
 vi ELASTIC_CLOUD_AUTH
 ```
@@ -226,7 +226,7 @@ Filebeat will collect logs from the Kubernetes nodes and the containers running 
 
 Here is the autodiscover configuration that enables Filebeat to locate and parse Redis logs from the Redis containers deployed with the guestbook application.  This configuration is in the file `filebeat-kubernetes.yaml`:
 
-```
+```yaml
 - condition.contains:
     kubernetes.labels.app: redis
   config:
@@ -243,18 +243,18 @@ Here is the autodiscover configuration that enables Filebeat to locate and parse
 This configures Filebeat to apply the Filebeat module `redis` when a container is detected with a label `app` containing the string `redis`.  The redis module has the ability to collect the `log` stream from the container by using the docker input type (reading the file on the Kubernetes node associated with the STDOUT stream from this Redis container).  Additionally, the module has the ability to collect Redis `slowlog` entries by connecting to the proper pod host and port, which is provided in the container metadata.
 
 ### Deploy Filebeat:
-```
+```shell
 kubectl create -f filebeat-kubernetes.yaml
 ```
 
 #### Verify
-```
+```shell
 kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
 
 ### About Metricbeat
 Metricbeat autodiscover is configured in the same way as Filebeat.  Here is the Metricbeat autodiscover configuration for the Redis containers.  This configuration is in the file `metricbeat-kubernetes.yaml`:
-```
+```yaml
 - condition.equals:
     kubernetes.labels.tier: backend
   config:
@@ -268,11 +268,11 @@ Metricbeat autodiscover is configured in the same way as Filebeat.  Here is the 
 This configures Metricbeat to apply the Metricbet module `redis` when a container is detected with a label `tier` equal to the string `backend`.  The `redis` module has the ability to collect the `info` and `keyspace` metrics from the container by connecting to the proper pod host and port, which is provided in the container metadata.
 
 ### Deploy Metricbeat
-```
+```shell
 kubectl create -f metricbeat-kubernetes.yaml
 ```
 #### Verify
-```
+```shell
 kubectl get pods -n kube-system -l k8s-app=metricbeat
 ```
 
@@ -283,7 +283,7 @@ Packetbeat configuration is different than Filebeat and Metricbeat.  Rather than
 If you are running a service on a non-standard port add that port number to the appropriate type in `filebeat.yaml` and delete / create the Packetbeat DaemonSet.
 {{< /note >}}
 
-```
+```yaml
 packetbeat.interfaces.device: any
 
 packetbeat.protocols:
@@ -307,12 +307,12 @@ packetbeat.flows:
 ```
 
 #### Deploy Packetbeat
-```
+```shell
 kubectl create -f packetbeat-kubernetes.yaml
 ```
 
 #### Verify
-```
+```shell
 kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
 ```
 
@@ -329,12 +329,12 @@ To enable Metricbeat to retrieve the Apache metrics, enable server-status by add
 
 ## Scale your deployments and see new pods being monitored
 List the existing deployments:
-```
+```shell
 kubectl get deployments
 ```
 
 The output:
-```
+```shell
 NAME            READY   UP-TO-DATE   AVAILABLE   AGE
 frontend        3/3     3            3           3h27m
 redis-master    1/1     1            1           3h27m
@@ -342,11 +342,11 @@ redis-slave     2/2     2            2           3h27m
 ```
 
 Scale the frontend down to two pods:
-```
+```shell
 kubectl scale --replicas=2 deployment/frontend
 ```
 The output:
-```
+```shell
 deployment.extensions/frontend scaled
 ```
 
