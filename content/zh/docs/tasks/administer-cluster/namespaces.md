@@ -51,7 +51,7 @@ kube-public   Active    11d
 
 <!-- Kubernetes starts with three initial namespaces: -->
 
-Kubernetes 以三个初始名称空间开头：
+Kubernetes 以三个初始命名空间开头：
 
 <!--    * `default` The default namespace for objects with no other namespace
    * `kube-system` The namespace for objects created by the Kubernetes system
@@ -224,7 +224,7 @@ Pods, Services, and Deployments that run the production site. -->
 
 <!-- One pattern this organization could follow is to partition the Kubernetes cluster into two namespaces: development and production. -->
 
-该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个名称空间：开发和生产。
+该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个命名空间：开发和生产。
 
 <!-- Let's create two new namespaces to hold our work. -->
 
@@ -397,7 +397,7 @@ $ kubectl get pods
 
 <!-- Production likes to run cattle, so let's create some cattle pods. -->
 
-生产就如同放牛，让我们创建一些牛荚。
+生产环境需要运行 cattle，就让我们创建一些 cattle pods。
 
 ```shell
 $ kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
@@ -452,7 +452,7 @@ Kubernetes _命名空间_ 帮助不同的项目、团队或客户去共享 Kuber
 
 <!-- Use of multiple namespaces is optional. -->
 
-使用多个名称空间是可选的。
+使用多个命名空间是可选的。
 
 <!-- Each user community wants to be able to work in isolation from other communities. -->
 
@@ -514,7 +514,7 @@ is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN). -->
 
-当您创建 [服务](/docs/concepts/services-networking/service/) 时，它会创建相应的 [DNS 条目](/docs/concepts/services-networking/dns-pod-service/)。此条目的格式为`<service-name>。<namespace-name> .svc.cluster.local`，这意味着如果容器只使用`<service-name>`，它将解析为本地服务到命名空间。 这对于在多个名称空间（如开发，分段和生产）中使用相同的配置非常有用。 如果要跨命名空间访问，则需要使用完全限定的域名（FQDN）。
+当您创建 [服务](/docs/concepts/services-networking/service/) 时，它会创建相应的 [DNS 条目](/docs/concepts/services-networking/dns-pod-service/)。此条目的格式为`<service-name>。<namespace-name> .svc.cluster.local`，这意味着如果容器只使用`<service-name>`，它将解析为本地服务到命名空间。 这对于在多个命名空间（如开发，分段和生产）中使用相同的配置非常有用。 如果要跨命名空间访问，则需要使用完全限定的域名（FQDN）。
 
 {{% /capture %}}
 
