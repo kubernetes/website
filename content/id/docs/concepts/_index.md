@@ -20,7 +20,7 @@ kamu belajar lebih dalam bagaimana cara kerja Kubernetes.
 Untuk menggunakan Kubernetes, kamu menggunakan obyek-obyek *Kubernetes API* untuk merepresentasikan 
 *state* yang diinginkan: apa yang aplikasi atau *workload* lain yang ingin kamu 
 jalankan, *image* kontainer yang digunakan, jaringan atau *resource disk* apa yang ingin 
-kamu sediakan, dan lain sebagainya. Kemu membuat *state* yang diinginkan dengan cara membuat 
+kamu sediakan, dan lain sebagainya. Kamu membuat *state* yang diinginkan dengan cara membuat 
 obyek dengan menggunakan API Kubernetes, dan biasanya menggunakan `command-line interface`, yaitu `kubectl`.
 Kamu juga dapat secara langsung berinteraksi dengan kluster untuk membuat atau mengubah 
 *state* yang kamu inginkan.
