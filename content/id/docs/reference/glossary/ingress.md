@@ -12,7 +12,7 @@ tags:
 - architecture
 - extension
 ---
- Sebuah obyek API yang mengatur akses eksternal terhadap Sservice* yang ada di dalam kluster, biasanya dalam bentuk *request* HTTP.
+ Sebuah obyek API yang mengatur akses eksternal terhadap *Service* yang ada di dalam kluster, biasanya dalam bentuk *request* HTTP.
 
 <!--more--> 
 

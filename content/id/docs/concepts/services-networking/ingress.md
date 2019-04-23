@@ -21,7 +21,7 @@ Untuk memudahkan, di awal akan dijelaskan beberapa terminologi yang sering dipak
 
 ## Apakah *Ingress* itu?
 
-Ingress ditambahkan sejak Kubernetes v1.1, mengekspos rute HTTP dan HTTPS ke berbagai service 
+Ingress ditambahkan sejak Kubernetes v1.1, mengekspos rute HTTP dan HTTPS ke berbagai 
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} di dalam kluster.
 Mekanisme *routing* trafik dikendalikan oleh aturan-aturan yang didefinisikan pada *Ingress*.
 
@@ -64,7 +64,7 @@ Secara ideal, semua kontroler Ingress harus memenuhi spesifikasi ini, tetapi beb
 kontroler beroperasi sedikit berbeda satu sama lain. 
 
 {{< note >}}
-Pastikan kamu sudah terlebih dahulu memahami dokumentasi kontroler Ingress yang akan kamu bakai sebelum memutuskan untuk memakai kontroler tersebut. 
+Pastikan kamu sudah terlebih dahulu memahami dokumentasi kontroler Ingress yang akan kamu pakai sebelum memutuskan untuk memakai kontroler tersebut. 
 {{< /note >}}
 
 ## *Resource* Ingress
@@ -100,7 +100,7 @@ memiliki segala informasi yang dibutuhkan untuk melakukan proses konfigurasi *lo
 bagian inilah yang mengandung semua *rules* yang nantinya akan digunakan untuk menyesuaikan trafik yang masuk. *Resource* Ingress hanya menyediakan 
 fitur *rules* untuk mengarahkan trafik dengan protokol HTTP.
 
-### *Rules* Ingress
+### *Rule* Ingress
 
 Setiap *rule* HTTP mengandung informasi berikut:
 
@@ -119,7 +119,7 @@ Setiap *rule* HTTP mengandung informasi berikut:
 
 ### *Backend Default*
 
-Sebuah Ingress yang tidak memiliki *rules* akan mengarahkan semua trafik pada sebuag *backend default*. *Backend default* inilah yang 
+Sebuah Ingress yang tidak memiliki *rules* akan mengarahkan semua trafik pada sebuah *backend default*. *Backend default* inilah yang 
 biasanya bisa dimasukkan sebagai salah satu opsi konfigurasi dari [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) dan tidak dimasukkan dalam spesifikasi *resource* Ingress.
 
 Jika tidak ada *host* atau *path* yang sesuai dengan *request* HTTP pada obyek Ingress, maka trafik tersebut 
@@ -129,8 +129,8 @@ akan diarahkan pada *backend default*.
 
 ### Ingress dengan satu Service
 
-Terdapat konsep Kubernetes yang memungkinkan kamu untuk mengekspos sebuah Service.
-(see [alternatives](#alternatives)). Kamu juga bisa membuat spesifikasi Ingress dengan  *backend default* yang tidak memiliki *rules*.
+Terdapat konsep Kubernetes yang memungkinkan kamu untuk mengekspos sebuah Service, lihat [alternatif lain](#alternatif-lain). 
+Kamu juga bisa membuat spesifikasi Ingress dengan  *backend default* yang tidak memiliki *rules*.
 
 {{< codenew file="service/networking/ingress.yaml" >}}
 
@@ -155,9 +155,9 @@ Hingga alamat IP berhasil dialokasikan, kamu akan melihat tampilan kolom `ADDRES
 
 ### *Fanout* sederhana
 
-Sebuah konfigurasi fanout akan melakukan *route* trafik dari sebuah alamat IP ke lebih dari sebuah Service, 
+Sebuah konfigurasi fanout akan melakukan *route* trafik dari sebuah alamat IP ke banyak Service, 
 berdasarkan URI HTTP yang diberikan. Sebuah Ingress memungkinkan kamu untuk memiliki jumlah *loadbalancer* minimum. 
-Contohnya, konfigurasi seperti dibawah ini:
+Contohnya, konfigurasi seperti di bawah ini:
 
 ```shell
 foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
@@ -291,12 +291,12 @@ spec:
 
 ### TLS
 
-Kamu dapat mengamankan *Ingress* yang kamu punya dengan memberikan spesifikasi [secret](/docs/concepts/configuration/secret)
+Kamu dapat mengamankan *Ingress* yang kamu miliki dengan memberikan spesifikasi [secret](/docs/concepts/configuration/secret)
 yang mengandung *private key* dan sertifikat TLS. Saat ini, Ingress hanya 
 memiliki fitur untuk melakukan konfigurasi *single TLS port*, yaitu 443, serta melakukan terminasi TLS. 
 Jika *section* TLS pada Ingress memiliki spesifikasi *host* yang berbeda,
 *rules* yang ada akan dimultiplekskan pada *port* yang sama berdasarkan 
-*hostname* yang dispesifikasan melalui ekstensi TLS SNI. *Secret* TLS harus memiliki 
+*hostname* yang dispesifikasikan melalui ekstensi TLS SNI. *Secret* TLS harus memiliki 
 `key` bernama `tls.crt` dan `tls.key` yang mengandung *private key* dan sertifikat TLS, contohnya:
 
 ```yaml
@@ -311,9 +311,9 @@ metadata:
 type: kubernetes.io/tls
 ```
 
-Menambahkan *secret* ini pada akan membuat Ingress kontroler Ingress untuk 
-memproteksi *channel* dari klien *loadbalancer* menggunakan TLS. 
-Kamu harus memastikan *secret* TLS yang digunakan dibaut dari sertifikat yang mengandung 
+Ketika kamu menambahkan *secret* pada Ingress maka kontroler Ingress akan memberikan perintah untuk 
+memproteksi *channel* dari klien ke *loadbalancer* menggunakan TLS. 
+Kamu harus memastikan *secret* TLS yang digunakan memiliki sertifikat yang mengandung 
 CN untuk `sslexample.foo.com`.
 
 ```yaml
@@ -337,12 +337,12 @@ spec:
 ```
 
 {{< note >}}
-Terdapat perbedaan diantara beberapa fitur TLS 
+Terdapat perbedaan di antara beberapa fitur TLS 
 yang disediakan oleh berbagai kontroler Ingress. Perhatikan dokumentasi 
 [nginx](https://git.k8s.io/ingress-nginx/README.md#https),
-[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), atau Ingress
-kontroler spesifik *platform* lainnya untuk memahami cara kerja **environment** 
-pada **environment**.
+[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), atau 
+kontroler Ingress spesifik *platform* lainnya untuk memahami cara kerja TLS 
+pada **environment** yang kamu miliki.
 {{< /note >}}
 
 ### *Loadbalancing*
@@ -358,8 +358,7 @@ Perlu diketahui bahwa meskipun *health check* tidak diekspos secara langsung
 melalui Ingress, terdapat beberapa konsep di Kubernetes yang sejalan dengan hal ini, misalnya 
 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
 yang memungkinkan kamu untuk memperoleh hasil yang sama. Silahkan pelajari lebih lanjut dokumentasi 
-kontroler yang kamu pakai untuk mengetahui bagaimana implementasi *health checks* pada kontroler yang kamu pilih (
-[nginx](https://git.k8s.io/ingress-nginx/README.md),
+kontroler yang kamu pakai untuk mengetahui bagaimana implementasi *health checks* pada kontroler yang kamu pilih ([nginx](https://git.k8s.io/ingress-nginx/README.md),
 [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 
 ## Mengubah Ingress
