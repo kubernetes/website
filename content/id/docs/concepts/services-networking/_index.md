@@ -1,5 +1,5 @@
 ---
-title: "<i>Services</i>, <i>Load Balancing</i>, dan Jaringan"
+title: "*Services*, *Load Balancing*, dan Jaringan"
 weight: 60
 ---
 
