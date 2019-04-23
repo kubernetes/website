@@ -27,7 +27,7 @@ content_template: templates/task
 * Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_. -->
 
 * 拥有一个 [已配置好的 Kubernetes 集群](/docs/setup/)。
-* 已对 Kubernetes 的 _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_ 已有基本理解。
+* 已对 Kubernetes 的 _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_ 有基本理解。
 
 {{% /capture %}}
 
@@ -272,7 +272,7 @@ production    Active    23s       name=production
 
 Users interacting with one namespace do not see the content in another namespace.-->
 
-Kubernetes 命名空间为集群中的 Pod，服务和部署提供了边界。
+Kubernetes 命名空间为集群中的 Pods, Services, 和 Deployments 提供了边界。
 
 与一个命名空间交互的用户不会在另一个命名空间中看到该内容。
 
@@ -331,7 +331,7 @@ wish to work against. -->
 
 <!-- Let's switch to operate in the development namespace. -->
 
-让我们切换到开发命名空间操作。
+让我们切换到开发命名空间进行操作。
 
 ```shell
 $ kubectl config use-context dev
@@ -397,7 +397,7 @@ $ kubectl get pods
 
 <!-- Production likes to run cattle, so let's create some cattle pods. -->
 
-生产就如同养牛，让我们创建一些牛荚。
+生产就如同放牛，让我们创建一些牛荚。
 
 ```shell
 $ kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
@@ -417,7 +417,7 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 
 <!-- At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace. -->
 
-此时，应该清楚的是，用户在一个命名空间中创建的资源对另一个命名空间是隐藏的。
+此时，应该很清楚的展示了用户在一个命名空间中创建的资源对另一个命名空间是隐藏的。
 
 <!-- As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
 authorization rules for each namespace. -->
