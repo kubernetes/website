@@ -104,7 +104,7 @@ fitur *rules* untuk mengarahkan trafik dengan protokol HTTP.
 
 Setiap *rule* HTTP mengandung informasi berikut:
 
-* *Host* opsional. Di dalam contoh ini, tidak ada *host* yang diberikan, dengan kata lain, semua *rules* berlaku untuk *inbound*.
+* *Host* opsional. Di dalam contoh ini, tidak ada *host* yang diberikan, dengan kata lain, semua *rules* berlaku untuk *inbound* 
   trafik HTTP bagi alamat IP yang dispesifikasikan. JIka sebuah *host* dispesifikasikan (misalnya saja,
   foo.bar.com), maka *rules* yang ada akan berlaku bagi *host* tersebut.
 * Sederetan *path* (misalnya, /testpath), setiap *path* ini akan memiliki pasangan berupa sebuah *backend* yang didefinisikan dengan `serviceName`
