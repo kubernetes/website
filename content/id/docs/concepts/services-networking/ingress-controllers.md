@@ -1,5 +1,5 @@
 ---
-title: Kontroler <i>Ingress</i>
+title: Kontroler *Ingress*
 content_template: templates/concept
 weight: 40
 ---
@@ -10,7 +10,7 @@ Agar Ingress dapat bekerja sebaagaimana mestinya,
 sebuah kluster harus memiliki sebuah kontroler Ingress.
 
 Berbeda dengan kontroler-kontroler lainnya yang dijalankan 
-sebagai bagian dari <i>binary</i> `kube-controller-manager`, kontroler Ingress  
+sebagai bagian dari *binary* `kube-controller-manager`, kontroler Ingress  
 tidak secara otomatis dijalankan di dalam kluster. Kamu bisa menggunakan 
 laman ini untuk memilih implementasi kontroler Ingress yang kamu pikir 
 paling sesuai dengan kebutuhan kamu. 
@@ -24,41 +24,41 @@ Kubernetes sebagai sebuah proyek, saat ini, mendukung dan memaintain kontroler-k
 
 ## Kontroler-kontroler lainnya
 
-* [Ambassador](https://www.getambassador.io/) <i>API Gateway</i> merupakan ingress berbasis [Envoy](https://www.envoyproxy.io) 
+* [Ambassador](https://www.getambassador.io/) *API Gateway* merupakan ingress berbasis [Envoy](https://www.envoyproxy.io) 
   kontroler dengan dukungan [komunitas](https://www.getambassador.io/docs) atau 
   [komersial](https://www.getambassador.io/pro/) dari [Datawire](https://www.datawire.io/).
-* [AppsCode Inc.](https://appscode.com) menawarkan dukungan dan <i>maintenance</i> untuk ingress berbasis [HAProxy](http://www.haproxy.org/), [Voyager](https://appscode.com/products/voyager).  
+* [AppsCode Inc.](https://appscode.com) menawarkan dukungan dan *maintenance* untuk ingress berbasis [HAProxy](http://www.haproxy.org/), [Voyager](https://appscode.com/products/voyager).  
 * [Contour](https://github.com/heptio/contour) merupakan ingress berbasis [Envoy](https://www.envoyproxy.io) 
   yang disediakan dan didukung oleh Heptio.
 * Citrix menyediakan sebuah [kontroler Ingress](https://github.com/citrix/citrix-k8s-ingress-controller) untuk perangkat keras (MPX), virtualisasi (VPX) and [kontainerisasi cuma-cuma (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) for [baremetal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) and [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
 * F5 Networks menyediakan [dukungan dan maintenance](https://support.f5.com/csp/article/K86859508)
   untuk [kontroler F5 BIG-IP Controller bagi Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest).
-* [Gloo](https://gloo.solo.io) adalah sebuah proyek kontroler Ingress <i>open source</i> berbasis [Envoy](https://www.envoyproxy.io) yang menawarkan fungsionalitas <i>API Gateway</i> dengan dukungan <i>enterprise</i> dari [solo.io](https://www.solo.io).  
+* [Gloo](https://gloo.solo.io) adalah sebuah proyek kontroler Ingress *open source* berbasis [Envoy](https://www.envoyproxy.io) yang menawarkan fungsionalitas *API Gateway* dengan dukungan *enterprise* dari [solo.io](https://www.solo.io).  
 * Kontroler Ingress berbasis [HAProxy](http://www.haproxy.org/)
-  [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) yang disebutkan di dalam <i>blog post</i> 
+  [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) yang disebutkan di dalam *blog post* 
   [HAProxy Ingress Controller for Kubernetes](https://www.haproxy.com/blog/haproxy_ingress_controller_for_kubernetes/).
-  [HAProxy Technologies](https://www.haproxy.com/) menawarkan dukungan dan <i>maintenance</i> bagi HAProxy Enterprise dan
+  [HAProxy Technologies](https://www.haproxy.com/) menawarkan dukungan dan *maintenance* bagi HAProxy Enterprise dan
   Ingress kontroler [jcmoraisjr/haproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress).
 * Kontroler Ingress berbasis [Istio](https://istio.io/) 
   [Control Ingress Traffic](https://istio.io/docs/tasks/traffic-management/ingress/).
-* [Kong](https://konghq.com/) menawarkan dukungan dan <i>maintenance</i> [komunitas](https://discuss.konghq.com/c/kubernetes) atau
+* [Kong](https://konghq.com/) menawarkan dukungan dan *maintenance* [komunitas](https://discuss.konghq.com/c/kubernetes) atau
   [komersial](https://konghq.com/kong-enterprise/) 
   [Kontroler Ingress untuk Kubernetes](https://github.com/Kong/kubernetes-ingress-controller).
-* [NGINX, Inc.](https://www.nginx.com/) menawarkan dukungan dan <i>maintenance</i>  
+* [NGINX, Inc.](https://www.nginx.com/) menawarkan dukungan dan *maintenance*  
   [Kontroler Ingress NGINX untuk Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller).
-* [Traefik](https://github.com/containous/traefik) adalah sebuah <i>fully featured</i> kontroler Ingress 
-  ([Let's Encrypt](https://letsencrypt.org), <i>secrets</i>, <i>http2</i>, <i>websocket</i>), dengan tambahan dukungan 
+* [Traefik](https://github.com/containous/traefik) adalah sebuah *fully featured* kontroler Ingress 
+  ([Let's Encrypt](https://letsencrypt.org), *secrets*, *http2*, *websocket*), dengan tambahan dukungan 
   komersial oleh [Containous](https://containo.us/services).
 
 ## Menggunakan beberapa jenis kontroler Ingress sekaligus
 
-Kamu dapat melakukan <i>deploy</i> [berapa pun banyaknya kontroler Ingress](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) 
+Kamu dapat melakukan *deploy* [berapa pun banyaknya kontroler Ingress](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) 
 dalam sebuah kluster. Jika kamu ingin membuat Ingress, kamu tinggal memberikan anotasi setiap Ingress sesuai dengan 
 [`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster) 
 yang sesuai untuk menandai kontroler Ingress mana yang digunakan jika terdapat lebih dari satu kontroler Ingress yang ada di 
 kluster kamu.
 
-Apabila kamu tidak mendefinisikan `class` yang dipakai, provider layanan <i>cloud</i> kamu akan menggunakan kontroler Ingress <i>default</i> yang mereka miliki.
+Apabila kamu tidak mendefinisikan `class` yang dipakai, provider layanan *cloud* kamu akan menggunakan kontroler Ingress *default* yang mereka miliki.
 
 Idealnya, semua ingress harus memenuhi spesifikasi ini, tetapi berbagai jenis 
 kontroler Ingress bisa saja memiliki sedikit perbedaan cara kerja. 
