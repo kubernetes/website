@@ -13,73 +13,72 @@ Halaman ini menyajikan ikhtisar dari `Pod`, objek terkecil yang dapat di *deploy
 
 
 {{% capture body %}}
-## Memahami Pods
+## Memahami Pod
 
 Sebuah *Pod* adalah unit dasar di Kubernetes--unit terkecil dan paling sederhana didalam objek model Kubernetes yang dapat dibuat dan di *deploy*. Sebuah *Pod* merepresentasikan suatu proses yang berjalan didalam kluster.
 
-*Pod* membungkus sebuah aplikasi kontainer (atau, di beberapa kasus, beberapa kontainer), sumber penyimpanan, alamat jaringan *IP* yang unik, dan opsi yang mengatur bagaimana kontainer harus dijalankan. *Pod* merupakan representasi dari unit *deployment*: *sebuah instance aplikasi didalam Kubernetes*, yang mungkin terdiri dari satu kontainer atau sekumpulan kontainer yang berbagi sumber daya.
+*Pod* membungkus sebuah kontainer (atau, di beberapa kasus, beberapa kontainer), sumber penyimpanan, alamat jaringan *IP* yang unik, dan opsi yang mengatur bagaimana kontainer harus dijalankan. *Pod* merupakan representasi dari unit *deployment*: *sebuah instance aplikasi didalam Kubernetes*, yang mungkin terdiri dari satu kontainer atau sekumpulan kontainer yang berbagi sumber daya.
 
-> [Docker](https://www.docker.com) adalah salah satu kontainer *runtime* yang paling umum digunakan di Kubernetes *Pod*, tetapi *Pods* mendukung kontainer *runtime* lainnya.
+> [Docker](https://www.docker.com) adalah salah satu kontainer *runtime* yang paling umum digunakan di Kubernetes *Pod*, tetapi *Pod* mendukung kontainer *runtime* lainnya.
 
-*Pods* di Kubernetes kluster dapat digunakan dengan dua cara:
+*Pod* di Kubernetes kluster dapat digunakan dengan dua cara:
 
-* **Pods that run a single container**. The "one-container-per-Pod" model is the most common Kubernetes use case; in this case, you can think of a Pod as a wrapper around a single container, and Kubernetes manages the Pods rather than the containers directly.
-* **Pods that run multiple containers that need to work together**. A Pod might encapsulate an application composed of multiple co-located containers that are tightly coupled and need to share resources. These co-located containers might form a single cohesive unit of service--one container serving files from a shared volume to the public, while a separate "sidecar" container refreshes or updates those files. The Pod wraps these containers and storage resources together as a single manageable entity.
+* **Pod menjalankan satu kontainer**. Model satu kontainer per *Pod* adalah model yang umum digunakan di Kubernetes; Anda dapat membayangkan sebuah *Pod* sebagai pembungkus kontainer tersebut, dan Kubernetes tidak mengelola kontainer secara langsung tetapi mengelola *Pod* tersebut.
+* **Pod menjalankan beberapa kontainer yang perlu berjalan bersamaan**. Sebuah *Pod* dapat membungkus sebuah aplikasi yang terdiri dari beberapa kontainer yang perlu berbagi sumber daya. Kontainer yang ditempatkan didalam satu *Pod* ini membentuk sebuah layanan. sebuah kontainer menyajikan berkas dari sumber penyimpanan ke publik, sedangkan kontainer *sidecar* yang lain melakukan pembaharuan terhadap berkas tersebut. *Pod* membungkus semua kontainer dan sumber daya penyimpanan sebagai satu kesatuan yang dapat dikelola.
 
-The [Kubernetes Blog](http://kubernetes.io/blog) has some additional information on Pod use cases. For more information, see:
+[Kubernetes Blog](http://kubernetes.io/blog) menyediakan beberapa informasi tambahan terkait penggunaan *Pod*. Informasi selengkapnya, kunjungi:
 
 * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
 * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
-Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
+Setiap *Pod* dimaksudkan untuk menjalankan satu *instance* aplikasi. Jika anda ingin mengembangkan aplikasi secara horisontal (contoh, banyak *instance* sekaligus), anda dapat menggunakan banyak *pod*, satu untuk setiap *instance*. Di Kubernetes, konsep ini umumnya disebut dengan replikasi. *Pod* yang direplikasi biasanya dibuat dan dikelola sebagai grup oleh objek abstraksi yang disebut *Controller*. Lihat [Pod dan Controller](#pod-dan-controller) untuk informasi selengkapnya.
 
-### How Pods manage multiple Containers
+### Bagaimana *Pod* mengelola beberapa Kontainer
+*Pod* didesain untuk mendukung banyak proses (sebagai kontainer) yang membentuk sebuah layanan. Kontainer didalam sebuah *Pod* akan otomatis ditempatkan bersama didalam satu mesin fisik atau mesin *virtual* didalam kluster. Kontainer tersebut dapat berbagi sumber daya dan dependensi, berkomunikasi satu sama lain, dan berkoordinasi kapan dan bagaimana mereka diterminasi.
 
-Pods are designed to support multiple cooperating processes (as containers) that form a cohesive unit of service. The containers in a Pod are automatically co-located and co-scheduled on the same physical or virtual machine in the cluster. The containers can share resources and dependencies, communicate with one another, and coordinate when and how they are terminated.
-
-Note that grouping multiple co-located and co-managed containers in a single Pod is a relatively advanced use case. You should use this pattern only in specific instances in which your containers are tightly coupled. For example, you might have a container that acts as a web server for files in a shared volume, and a separate "sidecar" container that updates those files from a remote source, as in the following diagram:
+Perhatikan bahwa mengelompokan kontainer didalam satu *Pod* merupakan kasus lanjutan. Anda dapat menggunakan pola ini hanya dalam kasus tertentu. Sebagai contoh, anda memiliki kontainer yang bertindak sebagai *web server* yang menyajikan berkas dari sumber daya penyimpanan bersama, dan kontainer *sidecar* melakukan pembaharuan terhadap berkas tersebut dari sumber lain, seperti dalam diagram berikut:
 
 {{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
 
-Pods provide two kinds of shared resources for their constituent containers: *networking* and *storage*.
+*Pod* menyediakan dua jenis sumber daya sebagai penyusun dari kontainer: *jaringan* dan *penyimpanan*.
 
-#### Networking
+#### Jaringan
 
-Each Pod is assigned a unique IP address. Every container in a Pod shares the network namespace, including the IP address and network ports. Containers *inside a Pod* can communicate with one another using `localhost`. When containers in a Pod communicate with entities *outside the Pod*, they must coordinate how they use the shared network resources (such as ports).
+Setiap *Pod* diberikan sebuah alamat *IP* unik. Setiap kontainer didalam *Pod* berbagi *network namespace*, termasuk alamat *IP* dan *port* jaringan. Setiap kontainer didalam *Pod* dapat berkomunikasi satu sama lain menggunakan *`localhost`*. Saat para kontainer didalam *Pod* berkomunikasi dengan entitas lain diluar *Pod*, mereka harus berkoordinasi satu sama lain bagaimana mereka menggunakan sumber daya jaringan (seperti *Port*).
 
-#### Storage
+#### Penyimpanan
 
-A Pod can specify a set of shared storage *volumes*. All containers in the Pod can access the shared volumes, allowing those containers to share data. Volumes also allow persistent data in a Pod to survive in case one of the containers within needs to be restarted. See [Volumes](/docs/concepts/storage/volumes/) for more information on how Kubernetes implements shared storage in a Pod.
+*Pod* dapat menentukan penyimpanan bersama yaitu *volumes*. Semua kontainer didalam *pod* dapat mengakses *volumes* ini, mengizinkan kontainer untuk berbagi data. *Volumes* juga memungkinkan data di *Pod* untuk bertahan jika salah satu kontainer perlu melakukan proses *restart*. Lihat *[Volumes](/docs/concepts/storage/volumes/)* untuk informasi lebih lanjut bagaimana Kubernetes mengimplementasikan penyimpanan didalam *Pod*.
 
-## Working with Pods
 
-You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a Node in your cluster. The Pod remains on that Node until the process is terminated, the pod object is deleted, the pod is *evicted* for lack of resources, or the Node fails.
+## Bekerja dengan Pod
 
-{{< note >}}
-Restarting a container in a Pod should not be confused with restarting the Pod. The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
-{{< /note >}}
+Anda akan jarang membuat *Pod* secara langsung di Kubernetes. Ini karena *Pod* dirancang sebagai entitas sesaat. Saat *Pod* dibuat (baik oleh anda, atau secara tidak langsung oleh *Controller*), *Pod* ditempatkan dan dijankan di sebuah *Node* didalam kluster. *Pod akan tetap di *Node* tersebut sampai proses dihentikan, Objek *Pod* dihapus, *Pod* dihentikan karena kekurangan sumber daya, atau *Node* tersebut berhenti berjalan.
 
-Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fails, or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a higher-level abstraction, called a *Controller*, that handles the work of managing the relatively disposable Pod instances. Thus, while it is possible to use Pod directly, it's far more common in Kubernetes to manage your pods using a Controller. See [Pods and Controllers](#pods-and-controllers) for more information on how Kubernetes uses Controllers to implement Pod scaling and healing.
+{{< Catatan >}}
+Tidak perlu bingung untuk membedakan antara menjalankan ulang sebuah kontainer didalam *Pod* dan menjalankan ulang *Pod*. *Pod* itu sendiri tidak berjalan, tetapi *Pod* adalah lingkungkan kontainer itu berjalan dan akan tetapi ada sampai dihapus.
+{{< /Catatan >}}
 
-### Pods and Controllers
+*Pod* tidak melakukan mekanisme penyembuhan diri sendiri. Jika *Pod* ditempatkan disebuah *Node* yang gagal, atau proses penempatan *Pod* itu sendiri gagal, *Pod* akan dihapus; demikian juga, *Pod* tidak akan bertahan jika *Node* tersebut kehabisan sumber daya atau sedang dalam tahap pemeliharaan. Kubernetes menggunakan abstraksi yang disebut *Controller*, yang menangani dan mengelola *Pod*. Jadi, meskipun *Pod* dapat dipakai secara langsung di Kubernetes, *Controller* merupakan cara umum yang digunakan untuk mengelola *Pod*. Lihat [Pod dan Controller](#pod-dan-controller) untuk informasi lebih lanjut bagaimana Kubernetes mengguanakan *Controller* untuk mengimpelentasikan mekanisme penyembuhan diri sendiri dan replikasi pada *Pod*.
 
-A Controller can create and manage multiple Pods for you, handling replication and rollout and providing self-healing capabilities at cluster scope. For example, if a Node fails, the Controller might automatically replace the Pod by scheduling an identical replacement on a different Node.
+### Pod dan Controller
 
-Some examples of Controllers that contain one or more pods include:
+*Controller* dapat membuat dan mengelola banyak *Pod* untuk anda, menangani replikasi dan menyediakan kemampuan penyembuhan diri sendiri pada lingkup kluster. Sebagai contoh, jika sebuah *Node* gagal, *Controller* akan otomatis mengganti *Pod* tersebut dengan menempatkan *Pod* yang identik di *Node* yang lain.
+
+Beberapa contoh *Controller* yang berisi satu atau lebih *Pod* meliputi:
 
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
 * [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
 
-In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.
+Secara umum, *Controller* menggunakan templat *Pod* yang anda sediakan untuk membuat *Pod*.
 
-## Pod Templates
+## Templat Pod
 
-Pod templates are pod specifications which are included in other objects, such as
-[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
-[DaemonSets](/docs/concepts/workloads/controllers/daemonset/).  Controllers use Pod Templates to make actual pods.
-The sample below is a simple manifest for a Pod which contains a container that prints
-a message.
+Templat *Pod* adalah spesifikasi dari *Pod* yang termasuk didalam objek lain seperti
+[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), dan [DaemonSets](/docs/concepts/workloads/controllers/daemonset/). *Controller* menggunakan templat *Pod* untuk membuat *Pod*.
+
+Contoh dibawah merupakan manifes sederhana untuk *Pod* yang berisi kontainer yang membuat sebuah pesan.
 
 ```yaml
 apiVersion: v1
@@ -95,12 +94,14 @@ spec:
     command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 3600']
 ```
 
-Rather than specifying the current desired state of all replicas, pod templates are like cookie cutters. Once a cookie has been cut, the cookie has no relationship to the cutter. There is no "quantum entanglement". Subsequent changes to the template or even switching to a new template has no direct effect on the pods already created. Similarly, pods created by a replication controller may subsequently be updated directly. This is in deliberate contrast to pods, which do specify the current desired state of all containers belonging to the pod. This approach radically simplifies system semantics and increases the flexibility of the primitive.
+
+Perubahan yang terjadi pada templat atau berganti ke templat yang baru tidak memiliki efek langsung pada *Pod* yang sudah dibuat. *Pod* yang dibuat oleh *replication controller* dapat diperbarui secara langsung.
+
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn more about Pod behavior:
+* Pelajari lebih lanjut tentang perilaku *Pod*:
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/)
 {{% /capture %}}
