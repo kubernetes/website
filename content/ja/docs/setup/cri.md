@@ -22,7 +22,7 @@ Podのコンテナを実行するために、Kubernetesはコンテナランタ�
 [cve-2019-5736 : runc vulnerability](https://access.redhat.com/security/cve/cve-2019-5736)
 {{< /caution >}}
 
-### 適用生
+### 適用性
 
 {{< note >}}
 このドキュメントはLinuxにCRIをインストールするユーザーの為に書かれています。
