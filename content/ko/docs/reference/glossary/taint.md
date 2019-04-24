@@ -4,14 +4,14 @@ id: taint
 date: 2019-01-11
 full_link: /docs/concepts/configuration/taint-and-toleration/
 short_description: >
-  파드가 노드나 노드 그룹에 스케줄링되는 것을 방지하는 키-값 쌍 및 효과이다.
+  세 가지 필수 속성: 키(key), 값(value), 효과(effect)로 구성된 코어 오브젝트. 테인트는 파드가 노드나 노드 그룹에 스케줄링되는 것을 방지한다.
 
 aka:
 tags:
 - core-object
 - fundamental
 ---
- 파드가 노드나 노드 그룹에 스케줄링되는 것을 방지하는 키-값 쌍 및 효과이다.
+ 세 가지 필수 속성: 키(key), 값(value), 효과(effect)로 구성된 코어 오브젝트. 테인트는 파드가 노드나 노드 그룹에 스케줄링되는 것을 방지한다.
 
 <!--more-->
 
