@@ -10,12 +10,12 @@ trabajar de forma interoperable, describiendo los objetos de una forma común qu
 herramientas puedan entender.
 
 Además del soporte a herramientas, las etiquetas recomendadas describen las aplicaciones
-de forma que puedan ser interrogadas.
+de forma que puedan ser consultadas.
 {{% /capture %}}
 
 {{% capture body %}}
 Los metadatos se organizan en torno al concepto de una _aplicación_. Kubernetes no es
-una plataforma como servicio (PaaS) y ni tiene ni restringe la definición formal de una aplicación.
+una plataforma como servicio (PaaS) y ni tiene o restringe la definición formal de una aplicación.
 Al contrario, las aplicaciones son informales y se describen mediante el uso de los metadatos.
 La definición de lo que contiene una aplicación es imprecisa.
 

@@ -29,7 +29,7 @@ Para trabajar con los objetos de Kubernetes -- sea para crearlos, modificarlos, 
 Cada objeto de Kubernetes incluye dos campos como objetos anidados que determinan la configuración del objeto: el campo de objeto *spec* y el campo de objeto *status*. El campo *spec*, que es obligatorio, describe el *estado deseado* del objeto -- las características que quieres que tenga el objeto. El campo *status* describe el *estado actual* del objeto, y se suministra y actualiza directamente por el sistema de Kubernetes. En cualquier momento, el Plano de Control de Kubernetes gestiona de forma activa el estado actual del objeto para que coincida con el estado deseado requerido.
 
 
-Por ejemplo, un Deployment de Kubernetes es un objeto que puede representar una aplicación de tu clúster. Cuando creas el Deployment, puedes especificar en el spec del Deployment que quieres correr tres réplicas de la aplicación. El sistema de Kubernetes lee el spec del Deployment y comienza a instanciar réplicas de tu aplicación -- actualizando el estado para conciliarlo con tu spec. Si cualquiera de las instancias falla (un cambio de estado), el sistema de Kubernetes soluciona la diferencia entre la spec y el estado llevando a cabo una correción -- en este caso, arrancando otra instancia de reemplazo.
+Por ejemplo, un Deployment de Kubernetes es un objeto que puede representar una aplicación de tu clúster. Cuando creas el Deployment, puedes especificar en el spec del Deployment que quieres correr tres réplicas de la aplicación. El sistema de Kubernetes lee el spec del Deployment y comienza a instanciar réplicas de tu aplicación -- actualizando el estado para conciliarlo con tu spec. Si cualquiera de las instancias falla (un cambio de estado), el sistema de Kubernetes soluciona la diferencia entre la spec y el estado llevando a cabo una correción -- en este caso, iniciando otra instancia de reemplazo.
 
 Para obtener más información acerca de la spec, el status, y los metadatos de los objetos, echa un vistazo a las [Normas de la API de Kubernetes](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
@@ -57,7 +57,7 @@ deployment.apps/nginx-deployment created
 
 ### Campos requeridos
 
-En el archivo `.yaml` del objeto de Kubernetes que quieras crear, tendrás que obligatoriamente indicar los valores de los siguientes campos (como mínimo):
+En el archivo `.yaml` del objeto de Kubernetes que quieras crear, obligatoriamente tendrás que indicar los valores de los siguientes campos (como mínimo):
 
 * `apiVersion` - Qué versión de la API de Kubernetes estás usando para crear este objeto
 * `kind` - Qué clase de objeto quieres crear

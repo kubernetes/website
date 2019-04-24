@@ -21,7 +21,7 @@ Echa un vistazo al [documento de diseño de identificadores](https://git.k8s.io/
 
 {{< glossary_definition term_id="name" length="all" >}}
 
-Por regla general, los nombres de los recursos de Kubernetes no deben sobrepasar la longitud máxima de 253 caracteres y deben incluir caracteres alfanuméricos en minúscula, `-`, y `.`; aunque algunos recursos tienen restricciones más específicas.
+Por regla general, los nombres de los recursos de Kubernetes no deben exceder la longitud máxima de 253 caracteres y deben incluir caracteres alfanuméricos en minúscula, `-`, y `.`; aunque algunos recursos tienen restricciones más específicas.
 
 ## UIDs
 
