@@ -88,13 +88,186 @@ spec:
 ```
 
 Comme pour toutes les autres ressources Kubernetes, un ingress (une entrée) a besoin des champs `apiVersion`,` kind` et `metadata`.
- Pour des informations générales sur l'utilisation des fichiers de configuration, voir [déployer des applications] (/ docs / tasks / run-application / run-stateless-application-deployment /), [configurer des conteneurs] (/ docs / tasks / configure-pod-container / configure-pod-configmap /), [gestion des ressources] (/ docs / concepts / cluster-administration / manage-deployment /).
+ Pour des informations générales sur l'utilisation des fichiers de configuration, voir [déployer des applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configurer des conteneurs](/docs/tasks/configure-pod-container/configure-pod-configmap/), [gestion des ressources](/docs/ concepts/cluster-administration/manage-deployment/).
  Ingress utilise fréquemment des annotations pour configurer certaines options en fonction du contrôleur Ingress, dont un exemple
- est l'annotation [rewrite-target] (https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
- Différents [Ingress controller] (/ docs / concepts / services-networking / ingress-controllers) prennent en charge différentes annotations. Consultez la documentation de
- votre choix de contrôleur Ingress pour savoir quelles annotations sont prises en charge.
+ est l'annotation [rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
+ Différents [Ingress controller](/docs/concepts/services-networking/ingress-controllers) prennent en charge différentes annotations. Consultez la documentation de votre choix de contrôleur Ingress pour savoir quelles annotations sont prises en charge.
 
-The Ingress [spec] (https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)
-dispose de toutes les informations nécessaires pour configurer un loadbalancer ou un serveur proxy. Plus important encore, il
-contient une liste de règles appariées à toutes les demandes entrantes. La ressource ingress ne supporte que les règles
-pour diriger le trafic HTTP.
+L'Ingress [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) dispose de toutes les informations nécessaires pour configurer un loadbalancer ou un serveur proxy. Plus important encore, il
+contient une liste de règles appariées à toutes les demandes entrantes. La ressource ingress ne supporte que les règles pour diriger le trafic HTTP.
+
+
+### Ingress rules
+
+Chaque règle http contient les informations suivantes :
+
+* Un hôte optionnel. Dans cet exemple, aucun hôte n'est spécifié. La règle s'applique donc à tous les appels entrants.
+  Le trafic HTTP via l'adresse IP est spécifié. Si un hôte est fourni (par exemple,
+  foo.bar.com), les règles s’appliquent à cet hôte.
+* une liste de chemins (par exemple, /testpath), chacun étant associé à un backend associé défini par un `serviceName` et `servicePort`. L’hôte et le chemin doivent correspondre au contenu d’une demande entrante avant que l'équilibreur de charge dirigera le trafic vers le service référencé.
+* Un backend est une combinaison de noms de services et de ports, comme décrit dans
+  [services doc](/docs/concepts/services-networking/service/). Les requêtes HTTP (et HTTPS) envoyées à l'Ingress correspondant aux hôtes et au chemin de la règle seront envoyées au backend indiqué.
+
+Un backend par défaut est souvent configuré dans un contrôleur d’Ingress qui traite toutes les demandes qui ne corresponds à aucun chemin dans la spécification.
+
+### Backend par défaut
+
+Un Ingress sans règles envoie tout le trafic à un seul backend par défaut. Le backend par défault est généralement une option de configuration du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) et n'est pas spécifié dans vos ressources Ingress.
+
+Si aucun des hôtes ou chemins ne correspond à la demande HTTP dans les objets Ingress, le trafic est routé vers votre backend par défaut.
+
+## Types d'Ingress
+
+### Ingress pour service unique
+
+Il existe des concepts Kubernetes qui vous permettent d’exposer un seul service.
+(voir [alternatives](# alternatives)). Vous pouvez également le faire avec un ingress en spécifiant un *backend par défaut* sans règles.
+
+{{< codenew file="service/networking/ingress.yaml" >}}
+
+Si vous le créez en utilisant `kubectl create -f`, vous devriez voir :
+
+```shell
+kubectl get ingress test-ingress
+```
+
+```shell
+NAME           HOSTS     ADDRESS           PORTS     AGE
+test-ingress   *         107.178.254.228   80        59s
+```
+
+Où `107.178.254.228` est l’adresse IP allouée par le contrôleur d’Ingress pour satisfaire cette entrée.
+
+{{< note >}}
+Les contrôleurs d'Ingress et les équilibreurs de charge peuvent prendre une minute ou deux pour allouer une adresse IP.
+Jusque-là, vous verrez souvent l’adresse listée sous la forme `<pending>` (en attente).
+{{</ note >}}
+
+### Fanout simple
+
+Une configuration d'un fanout achemine le trafic d'une adresse IP unique vers plusieurs services, en se basant sur l'URI HTTP demandé. Une entrée vous permet de garder le nombre de loadbalancers au minimum. Par exemple, une configuration comme :
+
+```shell
+foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
+                                 / bar    service2:8080
+```
+
+ceci nécessitera un ingress défini comme suit :
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: simple-fanout-example
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /foo
+        backend:
+          serviceName: service1
+          servicePort: 4200
+      - path: /bar
+        backend:
+          serviceName: service2
+          servicePort: 8080
+```
+
+Lorsque vous créez l'ingress avec `kubectl create -f`:
+
+```shell
+kubectl describe ingress simple-fanout-example
+```
+
+```shell
+Name:             simple-fanout-example
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
+Rules:
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   service1:4200 (10.8.0.90:4200)
+               /bar   service2:8080 (10.8.0.91:8080)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     22s                loadbalancer-controller  default/test
+```
+
+Le contrôleur d’Ingress fournit une implémentation spécifique équilibreur de charge qui satisfait l'ingress, tant que les services (`s1`,` s2`) existent.
+Lorsque cela est fait, vous pouvez voir l’adresse de l’équilibreur de charge sur le
+Champ d'adresse.
+
+{{< note >}}
+En fonction du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) vous utilisez, vous devrez peut-être
+créer un backend http par défaut [Service](/docs/concepts/services-networking/service/).
+{{< /note >}}
+
+### Hébergement virtuel basé sur le nom
+
+Les hôtes virtuels basés sur des noms prennent en charge le routage du trafic HTTP vers plusieurs noms d'hôte à la même adresse IP.
+
+```none
+foo.bar.com --|                 |-> foo.bar.com s1:80
+              | 178.91.123.132  |
+bar.foo.com --|                 |-> bar.foo.com s2:80
+```
+
+L’ingress suivant indique à l’équilibreur de charge de router les requêtes en fonction de [En-tête du hôte](https://tools.ietf.org/html/rfc7230#section-5.4).
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - backend:
+          serviceName: service1
+          servicePort: 80
+  - host: bar.foo.com
+    http:
+      paths:
+      - backend:
+          serviceName: service2
+          servicePort: 80
+```
+
+Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, alors tout
+le trafic Web vers l'adresse IP de votre contrôleur Ingress peut être mis en correspondance sans nom hôte virtuel étant requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1` `second.foo.com` au `service2`, et à tout trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress
+spec:
+  rules:
+  - host: first.bar.com
+    http:
+      paths:
+      - backend:
+          serviceName: service1
+          servicePort: 80
+  - host: second.foo.com
+    http:
+      paths:
+      - backend:
+          serviceName: service2
+          servicePort: 80
+  - http:
+      paths:
+      - backend:
+          serviceName: service3
+          servicePort: 80
+```
