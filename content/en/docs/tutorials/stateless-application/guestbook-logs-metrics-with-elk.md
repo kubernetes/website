@@ -1,5 +1,5 @@
 ---
-title: "Example: Add ELK logging and monitoring to Deploying PHP Guestbook application with Redis"
+title: "Example: Add logging and metrics to the PHP / Redis Guestbook example"
 reviewers:
 - sftim
 content_template: templates/tutorial
@@ -7,7 +7,7 @@ weight: 21
 card:
   name: tutorials
   weight: 31
-  title: "Example: Add ELK logging and monitoring to Deploying PHP Guestbook application with Redis"
+  title: "Example: Add logging and metrics to the PHP / Redis Guestbook example"
 ---
 
 {{% capture overview %}}
@@ -27,7 +27,6 @@ This tutorial builds upon the [PHP Guestbook with Redis](../guestbook) tutorial.
 * Create a Kubernetes secret.
 * Deploy the Beats.
 * View dashboards of your logs and metrics.
-* Clean up.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -274,7 +273,7 @@ Metricbeat autodiscover is configured in the same way as Filebeat.  Here is the 
       # Redis hosts
       hosts: ["${data.host}:${data.port}"]
 ```
-This configures Metricbeat to apply the Metricbet module `redis` when a container is detected with a label `tier` equal to the string `backend`.  The `redis` module has the ability to collect the `info` and `keyspace` metrics from the container by connecting to the proper pod host and port, which is provided in the container metadata.
+This configures Metricbeat to apply the Metricbeat module `redis` when a container is detected with a label `tier` equal to the string `backend`.  The `redis` module has the ability to collect the `info` and `keyspace` metrics from the container by connecting to the proper pod host and port, which is provided in the container metadata.
 
 ### Deploy Metricbeat
 ```shell
@@ -381,39 +380,6 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       kubectl delete secret dynamic-logging -n kube-system
       ```
 
-      The responses should be:
-
-      ```
-      deployment.apps "redis-master" deleted
-      deployment.apps "redis-slave" deleted
-      service "redis-master" deleted
-      service "redis-slave" deleted
-      deployment.apps "frontend" deleted    
-      service "frontend" deleted
-      configmap "filebeat-dynamic-config" deleted
-      daemonset.extensions "filebeat-dynamic" deleted
-      clusterrolebinding.rbac.authorization.k8s.io "filebeat-dynamic" deleted
-      clusterrole.rbac.authorization.k8s.io "filebeat-dynamic" deleted
-      serviceaccount "filebeat-dynamic" deleted
-      configmap "metricbeat-setup-config" deleted
-      job.batch "metricbeat-setup" deleted
-      configmap "metricbeat-daemonset-config" deleted
-      configmap "metricbeat-daemonset-modules" deleted
-      daemonset.extensions "metricbeat" deleted
-      configmap "metricbeat-deployment-config" deleted
-      configmap "metricbeat-deployment-modules" deleted
-      deployment.apps "metricbeat" deleted
-      clusterrolebinding.rbac.authorization.k8s.io "metricbeat" deleted
-      clusterrole.rbac.authorization.k8s.io "metricbeat" deleted
-      serviceaccount "metricbeat" deleted
-      configmap "packetbeat-dynamic-config" deleted
-      daemonset.extensions "packetbeat-dynamic" deleted
-      clusterrolebinding.rbac.authorization.k8s.io "packetbeat-dynamic" deleted
-      clusterrole.rbac.authorization.k8s.io "packetbeat-dynamic" deleted
-      serviceaccount "packetbeat-dynamic" deleted
-      secret "dynamic-logging" deleted
-      ```
-
 1. Query the list of Pods to verify that no Pods are running:
 
       ```shell
@@ -429,8 +395,8 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
-* Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
-* Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* Learn about [tools for monitoring resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+* Read more about [logging architecture](/docs/concepts/cluster-administration/logging/)
+* Read more about [application introspection and debugging](/docs/tasks/debug-application-cluster/)
+* Read more about [troubleshoot applications](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
 {{% /capture %}}
