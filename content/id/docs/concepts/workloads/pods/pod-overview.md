@@ -31,19 +31,19 @@ Sebuah *Pod* adalah unit dasar di Kubernetes--unit terkecil dan paling sederhana
 * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
 * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
-Setiap *Pod* dimaksudkan untuk menjalankan satu *instance* aplikasi. Jika kamu ingin mengembangkan aplikasi secara horisontal (contoh, banyak *instance* sekaligus), kamu dapat menggunakan banyak *Pod*, satu untuk setiap *instance*. Di Kubernetes, konsep ini umumnya disebut dengan replikasi. *Pod* yang direplikasi biasanya dibuat dan dikelola sebagai grup oleh objek abstraksi yang disebut  kontroler. Lihat [Pod dan Kontroler](#pod-dan-kontroler) untuk informasi selengkapnya.
+Setiap *Pod* dimaksudkan untuk menjalankan satu *instance* aplikasi. Jika kamu ingin mengembangkan aplikasi secara horizontal (contoh, banyak *instance* sekaligus), kamu dapat menggunakan banyak *Pod*, satu untuk setiap *instance*. Di Kubernetes, konsep ini umumnya disebut dengan replikasi. *Pod* yang direplikasi biasanya dibuat dan dikelola sebagai grup oleh objek abstraksi yang disebut  kontroler. Lihat [Pod dan Kontroler](#pod-dan-kontroler) untuk informasi selengkapnya.
 
 ### Bagaimana *Pod* mengelola beberapa Kontainer
 *Pod* didesain untuk mendukung banyak proses (sebagai kontainer) yang membentuk sebuah layanan. Kontainer di dalam sebuah *Pod* akan otomatis ditempatkan bersama di dalam satu mesin fisik atau mesin *virtual* di dalam kluster. Kontainer tersebut dapat berbagi *resource* dan dependensi, berkomunikasi satu sama lain, dan berkoordinasi kapan dan bagaimana mereka diterminasi.
 
-Perhatikan bahwa mengelompokan kontainer di dalam satu *Pod* merupakan kasus lanjutan. kamu dapat menggunakan pola ini hanya dalam kasus tertentu. Sebagai contoh, kamu memiliki kontainer yang bertindak sebagai *web server* yang menyajikan berkas dari *resource* penyimpanan bersama, dan kontainer *sidecar* melakukan pembaharuan terhadap berkas tersebut dari sumber lain, seperti dalam diagram berikut: 
+Perhatikan bahwa mengelompokan kontainer di dalam satu *Pod* merupakan kasus lanjutan. kamu dapat menggunakan pola ini hanya dalam kasus tertentu. Sebagai contoh, kamu memiliki kontainer yang bertindak sebagai *web server* yang menyajikan berkas dari *resource* penyimpanan bersama, dan kontainer *sidecar* melakukan pembaharuan terhadap berkas tersebut dari sumber lain, seperti dalam diagram *Pod* berikut: 
 {{< figure src="/images/docs/pod.svg" title="Pod diagram" width="50%" >}}
 
 *Pod* menyediakan dua jenis *resource* sebagai penyusun dari kontainer: *jaringan* dan *penyimpanan*.
 
 #### Jaringan
 
-Setiap *Pod* diberikan sebuah alamat *IP* unik. Setiap kontainer di dalam *Pod* berbagi *network namespace*, termasuk alamat *IP* dan *port* jaringan. Setiap kontainer di dalam *Pod* dapat berkomunikasi satu sama lain menggunakan *`localhost`*. Saat para kontainer di dalam *Pod* berkomunikasi dengan entitas lain diluar *Pod*, mereka harus berkoordinasi satu sama lain bagaimana mereka menggunakan *resource* jaringan (seperti *Port*).
+Setiap *Pod* diberikan sebuah alamat *IP* unik. Setiap kontainer di dalam *Pod* berbagi *network namespace*, termasuk alamat *IP* dan *port* jaringan. Setiap kontainer di dalam *Pod* dapat berkomunikasi satu sama lain menggunakan *localhost*. Saat para kontainer di dalam *Pod* berkomunikasi dengan entitas lain di luar *Pod*, mereka harus berkoordinasi satu sama lain bagaimana mereka menggunakan *resource* jaringan (seperti *Port*).
 
 #### Penyimpanan
 
@@ -52,13 +52,13 @@ Setiap *Pod* diberikan sebuah alamat *IP* unik. Setiap kontainer di dalam *Pod* 
 
 ## Bekerja dengan Pod
 
-kamu akan jarang membuat *Pod* secara langsung di Kubernetes. Ini karena *Pod* dirancang sebagai entitas sesaat. Saat *Pod* dibuat (baik oleh kamu, atau secara tidak langsung oleh  kontroler), *Pod* ditempatkan dan dijankan di sebuah *Node* di dalam kluster. *Pod akan tetap di *Node* tersebut sampai proses dihentikan, Objek *Pod* dihapus, *Pod* dihentikan karena kekurangan *resource*, atau *Node* tersebut berhenti berjalan.
+kamu akan jarang membuat *Pod* secara langsung di Kubernetes. Ini karena *Pod* dirancang sebagai entitas sesaat. Saat *Pod* dibuat (baik oleh kamu, atau secara tidak langsung oleh  kontroler), *Pod* ditempatkan dan dijalankan di sebuah *Node* di dalam kluster. *Pod* akan tetap di *Node* tersebut sampai proses dihentikan, Objek *Pod* dihapus, *Pod* dihentikan karena kekurangan *resource*, atau *Node* tersebut berhenti berjalan.
 
 {{< note >}}
 Tidak perlu bingung untuk membedakan antara menjalankan ulang sebuah kontainer di dalam *Pod* dan menjalankan ulang *Pod*. *Pod* itu sendiri tidak berjalan, tetapi *Pod* adalah lingkungan kontainer itu berjalan dan akan tetapi ada sampai dihapus.
 {{< /note >}}
 
-*Pod* tidak melakukan mekanisme penyembuhan diri sendiri. Jika *Pod* ditempatkan disebuah *Node* yang gagal, atau proses penempatan *Pod* itu sendiri gagal, *Pod* akan dihapus; demikian juga, *Pod* tidak akan bertahan jika *Node* tersebut kehabisan *resource* atau sedang dalam tahap pemeliharaan. Kubernetes menggunakan abstraksi yang disebut  kontroler, yang menangani dan mengelola *Pod*. Jadi, meskipun *Pod* dapat dipakai secara langsung di Kubernetes,  kontroler merupakan cara umum yang digunakan untuk mengelola *Pod*. Lihat [Pod dan kontroler](#pod-dan-kontroler) untuk informasi lebih lanjut bagaimana Kubernetes mengguanakan  kontroler untuk mengimpelentasikan mekanisme penyembuhan diri sendiri dan replikasi pada *Pod*.
+*Pod* tidak melakukan mekanisme penyembuhan diri sendiri. Jika *Pod* ditempatkan disebuah *Node* yang gagal, atau proses penempatan *Pod* itu sendiri gagal, *Pod* akan dihapus; demikian juga, *Pod* tidak akan bertahan jika *Node* tersebut kehabisan *resource* atau sedang dalam tahap pemeliharaan. Kubernetes menggunakan abstraksi yang disebut  kontroler, yang menangani dan mengelola *Pod*. Jadi, meskipun *Pod* dapat dipakai secara langsung di Kubernetes,  kontroler merupakan cara umum yang digunakan untuk mengelola *Pod*. Lihat [Pod dan kontroler](#pod-dan-kontroler) untuk informasi lebih lanjut bagaimana Kubernetes menggunakan  kontroler untuk mengimpelentasikan mekanisme penyembuhan diri sendiri dan replikasi pada *Pod*.
 
 ### Pod dan Kontroler
 
