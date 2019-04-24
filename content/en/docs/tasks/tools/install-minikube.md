@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a tool that runs a single-node Kubernetes cluster in a virtual machine on your laptop.
+This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a tool that runs a single-node Kubernetes cluster in a virtual machine on your personal computer.
 
 {{% /capture %}}
 
