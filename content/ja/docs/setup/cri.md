@@ -5,7 +5,7 @@ weight: 100
 ---
 {{% capture overview %}}
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
-Podのコンテナを実行する為に、Kubernetesはコンテナランタイムを使用します。
+Podのコンテナを実行するために、Kubernetesはコンテナランタイムを使用します。
 様々なランタイムのインストール手順は次のとおりです。
 
 {{% /capture %}}
