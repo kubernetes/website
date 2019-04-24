@@ -5,14 +5,14 @@ weight: 40
 ---
 
 {{% capture overview %}}
-Objek-objek Kubernetes dapat dibuat, diperbarui, dan dihapus dengan mengggunakan file-file konfigurasi objek yang disimpan dalam sebuah direktori dan menjalankan perintah `kubectl apply` untuk membuat dan memperbarui objek-objek tersebut secara rekursif sesuai dengan kebutuhan. Perintah `kubectl diff` bisa digunakan untuk menampilkan pratinjau tentang perubahan apa saja yang akan dibuat oleh perintah `kubectil apply`.
+Objek-objek Kubernetes dapat dibuat, diperbarui, dan dihapus dengan menjalankan perintah `kubectl apply` terhadap file-file konfigurasi objek yang disimpan dalam sebuah direktori secara rekursif sesuai dengan kebutuhan. Perintah `kubectl diff` bisa digunakan untuk menampilkan pratinjau tentang perubahan apa saja yang akan dibuat oleh perintah `kubectil apply`.
 {{% /capture %}}
 
 {{% capture body %}}
 
 ## Kelebihan dan kekurangan
 
-Perintah `kubectl` mengakomodasi tiga cara untuk mengelola objek:
+Perintah `kubectl` memungkinkan tiga cara untuk mengelola objek:
 
 * Perintah imperatif
 * Konfigurasi objek imperatif
@@ -32,22 +32,19 @@ Berikut adalah beberapa defnisi dari istilah-istilah yang digunakan
 dalam dokumen ini:
 
 - *objek file konfigurasi / file konfigurasi*: Sebuah *file* yang
-mentapkan konfigurasi untuk sebuah objek Kubernetes. Dokumen ini akan
-memperlihatkan cara menggunakan *file* konfigurasi dengan perintah
-`kubectl apply`. *File-file* konfigurasi biasanya disimpan di sebuah
-*source control* semacam Git.
-- *konfigurasi objek live / konfigurasi live*: nilai konfigurasi *live* dari sebuah objek, sebagaimana yang diamati oleh kluster Kubernetes. Nilai-nilai ini disimpan di *storage* kluster Kubernetes, biasanya etcd.
+mendefinisikan konfigurasi untuk sebuah objek Kubernetes. Dokumen ini akan memperlihatkan cara menggunakan *file* konfigurasi dengan perintah `kubectl apply`. *File-file* konfigurasi biasanya disimpan di sebuah *source control* seperti Git.
+- *konfigurasi objek live / konfigurasi live*: nilai konfigurasi *live* dari sebuah objek, sebagaimana yang tersimpan di kluster Kubernetes. Nilai-nilai ini disimpan di *storage* kluster Kubernetes, biasanya etcd.
 - *writer konfigurasi deklaratif / writer deklaratif*: Seseorang atau sebuah komponen perangkat lunak yang membuat pembaruan ke objek *live*. *Live writer* yang disebut pada dokumen ini adalah *writer* yang membuat perubahan terhadap *file* konfigurasi objek dan menjalankan perintah `kubectl apply` untuk menulis perubahan-perubahan tersebut.
 
 ## Cara membuat objek
 
-Gunakan perintah `kubectl apply` untuk membuat semua objek, kecuali objek-objek yang sudah ada sebelumnya, yang didefinisikan di file-file konfigurasi dalam direktori yang ditentukan:
+Gunakan perintah `kubectl apply` untuk membuat semua objek, kecuali objek-objek yang sudah ada sebelumnya, yang didefinisikan di *file-file* konfigurasi dalam direktori yang ditentukan:
 
 ```shell
 kubectl apply -f <directory>/
 ```
 
-Perintah di atas akan memberi anotasi `kubectl.kubernetes.io/last-applied-configuration: '{...}'` pada setiap objek yang dibuat. Anotasi ini berisi konten dari file konfigurasi objek yang digunaan untuk membuat objek tersebut.
+Perintah di atas akan memberi anotasi `kubectl.kubernetes.io/last-applied-configuration: '{...}'` pada setiap objek yang dibuat. Anotasi ini berisi konten dari *file* konfigurasi objek yang digunaan untuk membuat objek tersebut.
 
 {{< note >}}
 Tambahkan parameter `-R` untuk memproses seluruh direktori secara rekursif.
@@ -124,8 +121,8 @@ spec:
 
 Kamu juga bisa menggunakan `kubectl apply` untuk memperbarui semua objek yang didefinisikan dalam sebuah direktori, termasuk objek-objek yang sudah ada sebelumnya. Cara ini akan melakukan hal-hal berikut:
 
-1. Sets fields that appear in the configuration file in the live configuration.
-2. Clears fields removed from the configuration file in the live configuration.
+1. Menyimpan nilai *field-field* yang ada di *file* konfigurasi ke konfigurasi *live*.
+2. Menghapus *field-field* yang dihapus di *file* konfigurasi dari konfigurasi *live*.
 
 ```shell
 kubectl diff -f <directory>/
@@ -316,7 +313,7 @@ spec:
 ```
 
 {{< warning >}}
-Mencampur perintah `kubectl apply` dengan perintah imperatif untuk konfigurasi objek seperti `create` dan `replace` tidak dimungkinkan. Hal ini karena `create` dan `replace` tidak menjaga `kubectl.kubernetes.io/last-applied-configuration` yang diperlukan oleh `kubectl aplly` untuk melakukan pembaruan.
+Mencampur perintah `kubectl apply` dengan perintah imperatif untuk konfigurasi objek seperti `create` dan `replace` tidak dimungkinkan. Hal ini karena `create` dan `replace` tidak menyimpan anotasi `kubectl.kubernetes.io/last-applied-configuration` yang diperlukan oleh `kubectl aplly` untuk melakukan pembaruan.
 {{< /warning >}}
 
 ## Cara menghapus objek
@@ -343,7 +340,7 @@ Perintah `kubectl apply --prune` masih dalam versi alpha dan perubahan-perubahan
 Kamu harus berhati-hati ketika menggunakan perintah ini agar kamu tidak menghapus objek-objek lain secara tak sengaja.
 {{< /warning >}}
 
-Sebagai alternatif dari `kubectl delete`, kamu bisa menggunakan `kubectl apply` untuk mengidentifikasi objek-objek yang hendak dihapus setelah file konfigurasi objek-objek tersebut dihapus dari direktori. Ketika dijalankan dengan argumen `--prune`, perintah `kubectl apply` akan melakukan *query* ke API server untuk mencari semua objek yang sesuai dengan himpunan label-label tertentu, dan berusaha untuk mencocokkan kofigurasi objek *live* yg diperoleh terhadap *file* konfigurasi objek. Jika sebuah objek cocok dengan *query* yang dikalkukan, dan objek tersebut tidak memiliki *file* konfigurasi di direktori serta tidak memiliki anotasi `last-applied-configuration`, objek tersebut akan dihapus.
+Sebagai alternatif dari `kubectl delete`, kamu bisa menggunakan `kubectl apply` untuk mengidentifikasi objek-objek yang hendak dihapus setelah file konfigurasi objek-objek tersebut dihapus dari direktori. Ketika dijalankan dengan argumen `--prune`, perintah `kubectl apply` akan melakukan *query* ke *API server* untuk mencari semua objek yang sesuai dengan himpunan label-label tertentu, dan berusaha untuk mencocokkan kofigurasi objek *live* yg diperoleh terhadap *file* konfigurasi objek. Jika sebuah objek cocok dengan *query* yang dilakukan, dan objek tersebut tidak memiliki *file* konfigurasi di direktori serta tidak memiliki anotasi `last-applied-configuration`, objek tersebut akan dihapus.
 
 {{< comment >}}
 TODO(pwittrock): Kita perlu mengubah cara kerja perintah ini untuk mencegah pengguna menjalankan apply ke sub direktori secara tidak disengaja.
@@ -354,7 +351,7 @@ kubectl apply -f <directory/> --prune -l <labels>
 ```
 
 {{< warning >}}
-Perintah `kube-ctl aplly` dengan argumen `--prune` sebaiknya hanya dijalankan terhadap direktori pangkal yang berisi *file-file* konfigurasi objek. Menjalankan perintah tadi terhadap sub direktori bisa menyebabkan terhapusnya objek-objek lain secara tidak disengaja jika objek-objek tersebut memenuhi kriteria selektor label yang dispesifikasikan oleh argumen `-l <label>` dan tidak muncul di sub direktori.
+Perintah `kube-ctl aplly` dengan argumen `--prune` sebaiknya hanya dijalankan terhadap direktori *root* yang berisi *file-file* konfigurasi objek. Menjalankan perintah tadi terhadap sub direktori bisa menyebabkan terhapusnya objek-objek lain secara tidak disengaja jika objek-objek tersebut memenuhi kriteria selektor label yang dispesifikasikan oleh argumen `-l <label>` dan tidak muncul di sub direktori.
 {{< /warning >}}
 
 ## Cara melihat objek
@@ -368,7 +365,7 @@ kubectl get -f <filename|url> -o yaml
 ## Cara `kubectl apply` menghitung perbedaan dan menggabungkan perubahan
 
 {{< caution >}}
-*Patch* adalah operasi update yang lingkupnya spesifik terhadap sejumlah *field* dari sebuah objek alih-alih terhadap keseluruhan objek. *Patch* memungkinkan pembaruan terhadap himpunan *field* yang spesifik tanpa harus membaca keseluruhan objek terlebih dulu.
+*Patch* adalah operasi pembaruan yang lingkupnya spesifik terhadap sejumlah *field* dari sebuah objek alih-alih terhadap keseluruhan objek. *Patch* memungkinkan pembaruan terhadap himpunan *field* yang spesifik tanpa harus membaca keseluruhan objek terlebih dulu.
 {{< /caution >}}
 
 Ketika memperbarui konfigurasi *live* dari sebuah objek, `kubectl apply` melakukannya dengan mengirimkan *request* untuk melakukan *patch* ke *API server*. *Patch* mendefinisikan pembaruan-pembaruan yang likungpnya sepsifik terhadap sejumlah *field* dari objek konfigurasi *live*. Perintah `kubectl apply` menghitung *patch request* ini menggunakan *file* konfigurasi, konfigurasi *live*, dan anotasi `last-applied-configuration` yang tersimpan di konfigurasi *live*.
@@ -378,7 +375,7 @@ Ketika memperbarui konfigurasi *live* dari sebuah objek, `kubectl apply` melakuk
 Perintah `kubectl apply` menulis konten dari file konfigurasi ke anotasi `kubectl.kubernetes.io/last-applied-configuration`. Ini digunakan untuk mengidentifikasi *field* apa saja yang telah dihapus dari *file* konfigurasi dan perlu dihapus dari konfigurasi *live*. Berikut adalah langkah-langkah yang digunakan untuk menghitung *field* apa saja yang harus dihapus atau diubah:
 
 1. Hitung *field-field* yang perlu dihapus. Ini mencakup *field-field* yang ada di `last-applied-configuration` tapi tidak ada di *file* konfigurasi.
-2. Hitung *field-field* yang perlu ditambah atau diubah. Ini mencakup *field-field* yang ada di *file* konfigurasi yang nilainya tidak cocok dengan konfigurasi *live*.
+2. Hitung *field-field* yang perlu ditambah atau diubah. Ini mencakup *field-field* yang ada di *file* konfigurasi yang nilainya tidak sama dengan konfigurasi *live*.
 
 Agar lebih jelas, simak contoh berikut. Misalkan, berikut adalah *file* konfigurasi untuk sebuah objek Deployment:
 
@@ -426,7 +423,7 @@ spec:
 
 Berikut merupakan perhitungan penggabungan yang akan dilakukan oleh perintah `kubectl apply`:
 
-1. Hitung semua *field* yang akan dihapus dengan membaca nilai dari `last-applied-configuration` dan membandingkannya dengan nilai yang ada di *file* konfigurasi. Hapus semua *field* yang nilainya secara eksplisit diubah menjadi null pada *file* konfigurasi objek lokal terlepas dari apakah *field-field* tersebut terdapat di anotasi `last-applied-configuration`. Pada contoh ini, `minReadySeconds` muncul di anotasi `last-applied-configuration`, tapi tidak ada di *file* konfigurasi. **Aksi:** Hapus `minReadySeconds` dari konfigurasi *live*.
+1. Hitung semua *field* yang akan dihapus dengan membaca nilai dari `last-applied-configuration` dan membandingkannya dengan nilai yang ada di *file* konfigurasi. Hapus semua *field* yang nilainya secara eksplisit diubah menjadi null pada *file* konfigurasi objek lokal terlepas dari apakah *field-field* tersebut ada di anotasi `last-applied-configuration` atau tidak. Pada contoh di atas, *field* `minReadySeconds` muncul pada anotasi `last-applied-configuration`, tapi tidak ada di *file* konfigurasi. **Aksi:** Hapus `minReadySeconds` dari konfigurasi *live*.
 2. Hitung semua *field* yang akan diubah dengan membaca nilai-nilai dari *file* konfigurasi dan membandingkannya dengan nilai-nilai yang ada di konfigurasi *live*. Pada contoh ini, nilai dari *field* `image` di *file* konfigurasi tidak sama dengan nilai dari konfigurasi *live*. **Aksi:** Ubah nilai `image` pada konfigurasi *live*.
 3. Ubah anotasi `last-applied-configuration` agar sesuai dengan nilai yang ada di *file* konfigurasi.
 4. Gabungkan hasil-hasil dari langkah 1, 2, dan 3 ke dalam satu *patch request* ke *API server*.
@@ -476,15 +473,15 @@ spec:
 
 ### Cara penggabungan tipe-tipe *field* yang berbeda
 
-Cara sebuah *field* terentu dalam sebuah *file* konfigurasi digabungkan dengan konfigurasi *life* bergantung pada tipe dari *field* tersebut. Ada beberapa tipe *field*:
+Cara sebuah *field* terentu dalam sebuah *file* konfigurasi digabungkan dengan konfigurasi *live* bergantung pada tipe *field* tersebut. Ada beberapa tipe *field*:
 
 - *primitif*: *field* yang bertipe string, integer, atau boolean. Sebagai contoh, `image` dan `replicas` termasuk sebagai *field* primitif. **Aksi:** *Replace*.
 
-- *map*, atau *objek*: *field* yang bertipe *map* atau tipe kompleks yang mengandung *subfield*. Sebagai contoh, `labels`, `annotations`, `spec`, dan `metadata` termasuk sebagai map. **Aksi**: Lakukan penggabungan tiap-tiap elemen atau *subfield*.
+- *map*, atau *objek*: *field* yang bertipe *map* atau tipe kompleks yang mengandung sub *field*. Sebagai contoh, `labels`, `annotations`, `spec`, dan `metadata` termasuk sebagai map. **Aksi**: Lakukan penggabungan tiap-tiap elemen atau sub *field*.
 
 - *list*: *field* yang berisi sejumlah item yang tiap itemnya bisa berupa tipe primitif maupun map. Sebagai contoh, `containers`, `ports`, dan `args` termasuk sebagai *list*. **Aksi:** Bervariasi.
 
-Ketika digunakan untuk memperbarui sebuah *field* bertipe *map* atau *list*, perintah `kubectl apply` memperbarui nilai tiap-tiap sub elemen ketimbang mengganti nilai semua *field*. Misalnya, ketika menggabungkan *field* `spec` pada sebuah Deployment, bukan keseluruhan *field* `spec` yang diubah nilainya. Alih-alih, *subfield* dari `spec` seperti `replicas` yang kemudian dibandingkan nilainya dan digabungkan.
+Ketika digunakan untuk memperbarui sebuah *field* bertipe *map* atau *list*, perintah `kubectl apply` memperbarui nilai tiap-tiap sub elemen ketimbang mengganti nilai semua *field*. Misalnya, ketika menggabungkan *field* `spec` pada sebuah Deployment, bukan keseluruhan *field* `spec` yang diubah nilainya. Alih-alih, sub *field* dari `spec` seperti `replicas` yang kemudian dibandingkan nilainya dan digabungkan.
 
 ### Menggabungkan perubahan pada *field* primitif
 
@@ -509,7 +506,7 @@ Ketika digunakan untuk memperbarui sebuah *field* bertipe *map* atau *list*, per
 `-` digunakan untuk menandai sebuah nilai "*not applicable*" karena nilai tersebut tidak digunakan.
 {{< /note >}}
 
-| *Key* pada *file* konfigurasi objek    | *Key* pada objek konfigurasi *liv*   | *Field* pada *last-applied-configuration* | Aksi                           |
+| *Key* pada *file* konfigurasi objek    | *Key* pada objek konfigurasi *live*   | *Field* pada *last-applied-configuration* | Aksi                           |
 |-------------------------------------|------------------------------------|-------------------------------------|----------------------------------|
 | Ya                                 | Ya                                | -                                   | Bandingkan nilai tiap sub *field*.        |
 | Ya                                 | Tidak                                 | -                                   | Ubah nilai pada konfigurasi *live* mengikuti nilai pada konfigurasi lokal.  |
@@ -550,9 +547,9 @@ Perlakukan *list* sama dengan *field* primitif. Ganti atau hapus keseluruhan lis
 
 #### Menggabungkan tiap-tiap elemen dari sebuah *list* dengan elemen kompleks:
 
-Perlakukan *list* selayaknya sebuah *map*, perlakukan *field* spesifik dari tiap element sebagai sebuah *key*. Tambah, hapus, atau perbarui tiap-tiap elemen. Operasi ini tidak mempertahankan urutan tiap elemen di dalam *list*.
+Perlakukan *list* selayaknya sebuah *map*, perlakukan *field* spesifik dari tiap element sebagai sebuah *key*. Tambah, hapus, atau perbarui tiap-tiap elemen. Operasi ini tidak mempertahankan urutan elemen di dalam *list*.
 
-Strategi penggabungan ini menggunakan *tag* khusus `patchMergeKey` pada tiap *field*. *Tag* `patchMergeKey` didefinisikan untuk tiap *field* pada *source code* Kubernetes: [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2747). Ketika menggabungkan sebuah *list* yang berisi *map*, *field* yang dispesifikasikan sebagai `patchMergeKey` untuk tiap elemen digunakan selayaknya *map key* untuk elemen tersebut.
+Strategi penggabungan ini menggunakan *tag* khusus `patchMergeKey` pada tiap *field*. *Tag* `patchMergeKey` didefinisikan untuk tiap *field* pada *source code* Kubernetes: [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2747). Ketika menggabungkan sebuah *list* yang berisi *map*, *field* yang dispesifikasikan sebagai `patchMergeKey` untuk tiap elemen digunakan sebagai *map key* untuk elemen tersebut.
 
 **Contoh:** Gunakan `kubectl apply` untuk memperbarui *field* `containers` pada sebuah PodSpec. Perintah ini akan menggabungkan *list* `containers` seolah-olah *list* tersebut adalah sebuah *map* dan tiap elemennya menggunakan `name` sebagai *key*.
 
@@ -613,7 +610,7 @@ Strategi penggabungan ini menggunakan *tag* khusus `patchMergeKey` pada tiap *fi
 Pada versi Kubernetes 1.5, penggabungan list dengan elemen-elemen primitif tidak lagi didukung.
 
 {{< note >}}
-Strategi mana yang dipilih untuk sembatang *field* dikendalikan oleh *tag* `patchStrategy` pada [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2748). Jika `patchStrategy` tidak ditentukan untuk sebuah *field* yang bertipe *list*, maka *list* tersebut akan diubah nilainya secara keseluruhan.
+Strategi mana yang dipilih untuk sembarang *field* ditentukan oleh *tag* `patchStrategy` pada [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2748). Jika `patchStrategy` tidak ditentukan untuk sebuah *field* yang bertipe *list*, maka *list* tersebut akan diubah nilainya secara keseluruhan.
 {{< /note >}}
 
 {{< comment >}}
@@ -683,7 +680,7 @@ spec:
 # ...
 ```
 
-Dalam sebuah *patch request*, *field-field* dengan nilai *default* tidak diisi kembali dengan nilai *default* kecuali secara eksplisit nilainya dihapuskan sebagai bagian dari *patch request*. Ini bisa menimbulkan hasil yang tak terduga jika sebagian *field* diisi dengan nilai *default* berdasarkan nilai dari *field* lainnya. Ketika *field* lain tersebut nilainya diubah, *field-field* yang diisi dengan nilai *default* berdasarkan *field* yang berubah tadi tidak akan diperbarui kecuali secara eksplisit dihapus.
+Dalam sebuah *patch request*, *field-field* dengan nilai *default* tidak diisi kembali dengan nilai *default* kecuali secara eksplisit nilainya dihapuskan sebagai bagian dari *patch request*. Ini bisa menimbulkan hasil yang tak terduga jika sebagian *field* diisi dengan nilai *default* yang diturunkan dari nilai *field* lainnya. Ketika *field* lain tersebut nilainya diubah, *field-field* yang diisi dengan nilai *default* berdasarkan *field* yang berubah tadi tidak akan diperbarui kecuali secara eksplisit dihapus.
 
 Oleh karena itu, beberapa *field* yang nilainya diisi secara *default* oleh *server* perlu didefinisikan secara eksplisit di *file* konfigurasi, meskipun nilai yang diinginkan sudah sesuai dengan nilai *default* dari server. Ini untuk mempermudah mengenali nilai-nilai yang berselisih yang tidak akan diisi dengan nilai *default* oleh *server*.
 
@@ -757,9 +754,9 @@ spec:
 
 **Penjelasan:**
 
-1. Pengguna membuat sebuah Deployment tanpa mendefinisikan `strategy.type`.
-2. Server mengisi `strategy.type` dengan nilai *default* `RollingUpdate` dan mengisi `strategy.rollingUpdate` dengan nilai *default*.
-3. Pengguna mengubah nilai *field* `strategy.type` menjadi `Recreate`. Nilai `strategy.rollingUpdate` tidak berubah dari nilai *default*, meskipun server sekarang berekspektasi nilai tersebut dihapus. Jika nilai `strategy.rollingUpdate` didefinisikan di awal pada *file* konfiguras, akan jelas bagi *server* bahwa *field* tersebut perlu dihapus.
+1. Pengguna sebelumnya sudah membuat sebuah Deployment tanpa mendefinisikan `strategy.type` (seperti yang bisa dilihat pada `last-applied-configuration`).
+2. Server mengisi `strategy.type` dengan nilai *default* `RollingUpdate` dan mengisi `strategy.rollingUpdate` dengan nilai *default* pada konfigurasi *live*.
+3. Pengguna mengubah nilai *field* `strategy.type` menjadi `Recreate` pada *file* konfigurasi. Nilai `strategy.rollingUpdate` tidak berubah dari nilai *default*, meskipun server sekarang berekspektasi nilai tersebut dihapus. Jika nilai `strategy.rollingUpdate` didefinisikan di awal pada *file* konfigurasi, akan jelas bagi *server* bahwa *field* tersebut perlu dihapus.
 4. Perintah `kubect apply` gagal karena `strategy.rollingUpdate` tidak dihapus. *Field* `strategy.rollingUpdate` tidak bisa didefinisikan jika *field* `strategy.type` berisi `Recreate`.
 
 Rekomendasi: *Field-field* ini harus didefinisikan secara eksplisit di *file* konfigurasi objek:
@@ -776,11 +773,11 @@ Rekomendasi: *Field-field* ini harus didefinisikan secara eksplisit di *file* ko
 Hanya metode-metode berikut yang bisa kamu gunakan untuk mengubah satu *field* objek:
 
 - Gunakan `kubectl apply`.
-- Tulis secara langsung ke konfigurasi *live* tanpa memodifikasi *file konfigurasi: misalnya, dengan perintah `kubectl scale`.
+- Tulis secara langsung ke konfigurasi *live* tanpa memodifikasi *file* konfigurasi: misalnya, dengan perintah `kubectl scale`.
 
 ### Mengubah kepemilikan dari *writer* imperatif ke *file* konfigurasi
 
-Tambahkan field ke *file* konfigurasi. Hentikan pembaruan secara langsung ke konfigurasi *live* tanpa melalui *kubectl apply*.
+Tambahkan *field* ke *file* konfigurasi. Hentikan pembaruan secara langsung ke konfigurasi *live* tanpa melalui `kubectl apply`.
 
 ### Mengubah kepemilikan dari *file* konfigurasi ke *writer* imperatif
 
