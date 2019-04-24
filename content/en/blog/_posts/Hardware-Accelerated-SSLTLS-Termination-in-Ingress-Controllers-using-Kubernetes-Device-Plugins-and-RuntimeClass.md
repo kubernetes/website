@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Hardware Accelerated SSL/TLS Termination in Ingress Controllers using Kubernetes Device Plugins and RuntimeClass'
-date: 2019-04-23
+date: 2019-04-24
 ---
 
 **Authors:** Mikko Ylinen (Intel)
