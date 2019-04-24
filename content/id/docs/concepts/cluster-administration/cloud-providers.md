@@ -179,7 +179,7 @@ Konfigurasi untuk penyedia layanan OpenStack berikut ini akan membahas bagian ko
 * `username` (Wajib): Merujuk pada username yang dikelola keystone.
 * `password` (Wajib): Merujuk pada kata sandi yang dikelola keystone.
 * `tenant-id` (Wajib): Digunakan untuk menentukan id dari project tempat Anda membuat resources.
-* `tenant-name` (Opsional): DIgunakan untuk menentukan nama dari project tempat Anda ingin membuat resources.
+* `tenant-name` (Opsional): Digunakan untuk menentukan nama dari project tempat Anda ingin membuat resources.
 * `trust-id` (Opsional): Digunakan untuk menentukan identifier of the trust untuk digunakan
   sebagai otorisasi. Suatu trust merepresentasikan otorisasi dari suatu pengguna (the trustor) untuk didelegasikan
   pada pengguna lain (the trustee), dan dapat digunakan oleh trustee
@@ -202,49 +202,44 @@ Konfigurasi berikut ini digunakan untuk mengatur load
 balancer dan harus berada pada bagian `[LoadBalancer]` dari file `cloud.conf`:
 
 * `lb-version` (Opsional): Digunakan untuk menimpa pendeteksian versi otomatis. Nilai
-  yang valid yaitu `v1` atau `v2`. Saat tidak ada nilai yang diberikan, pendeteksian otomatis akan
+  yang valid yaitu `v1` atau `v2`. Jika tidak ditentukan, maka pendeteksian otomatis akan
   memilih versi tertinggi yang didukung dari underlying OpenStack
   cloud.
-* `use-octavia` (Opsional): Digunakan untuk Used to determine whether to look for and use an
-  Octavia LBaaS V2 service catalog endpoint. Valid values are `true` or `false`.
-  Where `true` is specified and an Octaiva LBaaS V2 entry can not be found, the
-  provider will fall back and attempt to find a Neutron LBaaS V2 endpoint
-  instead. The default value is `false`.
-* `subnet-id` (Opsional): Used to specify the id of the subnet you want to
-  create your loadbalancer on. Can be found at Network > Networks. Click on the
-  respective network to get its subnets.
-* `floating-network-id` (Opsional): If specified, will create a floating IP for
-  the load balancer.
-* `lb-method` (Opsional): Used to specify an algorithm by which load will be
-  distributed amongst members of the load balancer pool. The value can be
-  `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP`. The default behavior if
-  none is specified is `ROUND_ROBIN`.
-* `lb-provider` (Opsional): Used to specify the provider of the load balancer.
-  If not specified, the default provider service configured in neutron will be
-  used.
-* `create-monitor` (Opsional): Indicates whether or not to create a health
-  monitor for the Neutron load balancer. Valid values are `true` and `false`.
-  The default is `false`. When `true` is specified then `monitor-delay`,
-  `monitor-timeout`, and `monitor-max-retries` must also be set.
-* `monitor-delay` (Opsional): The time between sending probes to
-  members of the load balancer. Ensure that you specify a valid time unit. The valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
-* `monitor-timeout` (Opsional): Maximum time for a monitor to wait
-  for a ping reply before it times out. The value must be less than the delay
-  value. Ensure that you specify a valid time unit. The valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
-* `monitor-max-retries` (Opsional): Number of permissible ping failures before
-  changing the load balancer member's status to INACTIVE. Must be a number
-  between 1 and 10.
-* `manage-security-groups` (Opsional): Determines whether or not the load
-  balancer should automatically manage the security group rules. Valid values
-  are `true` and `false`. The default is `false`. When `true` is specified
-  `node-security-group` must also be supplied.
-* `node-security-group` (Opsional): ID of the security group to manage.
+* `use-octavia` (Opsional): Digunakan untuk menentukan apakah akan menggunakan endpoint dari layanan Octavia LBaaS. Nilai yang valid yaitu `true` atau `false`. Jika diset nilai `true` namun Octavia LBaaS V2 tidak dapat ditemukan, maka load balancer akan kembali menggunakan endpoint dari Neutron LBaaS V2. Nilai default adalah `false`.
+* `subnet-id` (Opsional): Digunakan untuk menentukan id dari subnet yang ingin Anda
+  buat load balancer di dalamnya. Nilai id ini dapat dilihat pada Network > Networks. Klik pada
+  network yang sesuai untuk melihat subnet di dalamnya.
+* `floating-network-id` (Opsional): Jika diset, maka akan membuat floating IP
+  untuk load balancer.
+* `lb-method` (Opsional): Digunakan untuk menentukan algoritma pendistribusian
+  yang akan digunakan. Nilai yang valid yaitu
+  `ROUND_ROBIN`, `LEAST_CONNECTIONS`, atau `SOURCE_IP`. Jika tidak diset, maka akan
+  menggunakan algoritma default yaitu `ROUND_ROBIN`.
+* `lb-provider` (Opsional): Digunakan untuk menentukan penyedia dari load balancer.
+  Jika tidak ditentukan, maka akan menggunakan penyedia default yang ditentukan pada neutron.
+* `create-monitor` (Opsional): Digunakan untuk menentukan apakah akan membuat atau tidak monitor kesehatan
+  untuk Neutron load balancer. Nilai yang valid yaitu `true` dan `false`.
+  Nilai default adalah `false`. Jika diset nilai `true` maka `monitor-delay`,
+  `monitor-timeout`, dan `monitor-max-retries` juga harus diset.
+* `monitor-delay` (Opsional): Waktu antara pengiriman probes ke
+  anggota dari load balancer. Mohon pastikan Anda memasukkan waktu yang valid. Nilai waktu yang valid yaitu "ns", "us" (atau "µs"), "ms", "s", "m", "h"
+* `monitor-timeout` (Opsional): Waktu maksimum dari monitor untuk menunggu
+  balasan ping sebelum timeout. Nilai ini harus lebih kecil dari nilai delay.
+  Mohon pastikan Anda memasukkan waktu yang valid. Nilai waktu yang valid yaitu "ns", "us" (atau "µs"), "ms", "s", "m", "h"
+* `monitor-max-retries` (Opsional): Jumlah gagal ping yang diizinkan sebelum
+  mengubah status anggota load balancer menjadi INACTIVE. Harus berupa angka
+  antara 1 dan 10.
+* `manage-security-groups` (Opsional): Digunakan untuk menentukan apakah load balancer
+  akan mengelola aturan grup keamanan sendiri atau tidak. Nilai yang valid
+  adalah `true` dan `false`. Nilai default adala `false`. Saat diset ke `true` maka
+  nilai `node-security-group` juga harus ditentukan.
+* `node-security-group` (Opsional): ID dari grup keamanan yang akan dikelola.
 
 ##### Block Storage
-These configuration options for the OpenStack provider pertain to block storage
-and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
+Konfigurasi untuk penyedia layanan OpenStack berikut ini digunakan untuk mengatur block storage
+dan harus berada pada bagian `[BlockStorage]` dari file `cloud.conf`:
 
-* `bs-version` (Optional): Used to override automatic version detection. Valid
+* `bs-version` (Opsional): Digunakan untuk Used to override automatic version detection. Valid
   values are `v1`, `v2`, `v3` and `auto`. When `auto` is specified automatic
   detection will select the highest supported version exposed by the underlying
   OpenStack cloud. The default value if none is provided is `auto`.
