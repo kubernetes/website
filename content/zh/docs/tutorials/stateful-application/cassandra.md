@@ -48,7 +48,7 @@ title: "Example: Deploying Cassandra with Stateful Sets"
 ## Cassandra Docker 镜像
 
 
-Pod 使用来自 Google [容器注册表](https://cloud.google.com/container-registry/docs/) 的 [```gcr.io/google-samples/cassandra:v12```](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 镜像。这个 docker 镜像基于 `debian:jessie` 并包含 OpenJDK 8。该镜像包含一个从 Apache Debian 源中安装的标准 Cassandra。你可以通过使用环境变量改变插入到 `cassandra.yaml` 文件中的参数值。
+Pod 使用来自 Google [容器仓库](https://cloud.google.com/container-registry/docs/) 的 [```gcr.io/google-samples/cassandra:v12```](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile) 镜像。这个 docker 镜像基于 `debian:jessie` 并包含 OpenJDK 8。该镜像包含一个从 Apache Debian 源中安装的标准 Cassandra。你可以通过使用环境变量改变插入到 `cassandra.yaml` 文件中的参数值。
 
 | ENV VAR                | DEFAULT VALUE  |
 | ---------------------- | :------------: |
@@ -79,13 +79,13 @@ Pod 使用来自 Google [容器注册表](https://cloud.google.com/container-reg
 git clone https://github.com/kubernetes/examples
 cd examples
 
-# 创建服务来跟踪所有 cassandra 状态集节点
+# 创建服务来跟踪所有 cassandra statefulset 节点
 kubectl create -f cassandra/cassandra-service.yaml
 
 # 创建 statefulset
 kubectl create -f cassandra/cassandra-statefulset.yaml
 
-# 验证Cassandra集群。替换一个 pod 的名称。
+# 验证 Cassandra 集群。替换一个 pod 的名称。
 kubectl exec -ti cassandra-0 -- nodetool status
 
 # 清理
@@ -99,7 +99,7 @@ grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSec
 # 资源控制器示例
 #
 
-# 创建一个复制控制器来复制 cassandra 节点
+# 创建一个副本控制器来复制 cassandra 节点
 kubectl create -f cassandra/cassandra-controller.yaml
 
 # 验证 Cassandra 集群。替换一个 pod 的名称。
@@ -108,7 +108,7 @@ kubectl exec -ti cassandra-xxxxx -- nodetool status
 # 扩大 Cassandra 集群
 kubectl scale rc cassandra --replicas=4
 
-# 删除复制控制器
+# 删除副本控制器
 kubectl delete rc cassandra
 
 #
@@ -137,7 +137,7 @@ kubectl delete daemonset cassandra
 
 Kubernetes _[Service](/docs/user-guide/services)_ 描述一组执行同样任务的 [_Pod_](/docs/user-guide/pods)。在 Kubernetes 中，一个应用的原子调度单位是一个 Pod：一个或多个_必须_调度到相同主机上的容器。
 
-这个 Service 用于在 Kubernetes 集群内部进行 Cassandra 客户端和 Cassandra Pod之间的 DNS 查找。
+这个 Service 用于在 Kubernetes 集群内部进行 Cassandra 客户端和 Cassandra Pod 之间的 DNS 查找。
 
 以下为这个 service 的描述：
 
@@ -185,7 +185,7 @@ cassandra   None         <none>        9042/TCP   45s
 
 如果返回错误则表示 service 创建失败。
 
-## 步骤 2：使用 StatefulSet 创建  Cassandra Ring环
+## 步骤 2：使用 StatefulSet 创建 Cassandra Ring环
 
 StatefulSets（以前叫做 PetSets）特性在 Kubernetes 1.5 中升级为一个 <i>Beta</i> 组件。在集群环境中部署类似于 Cassandra 的有状态分布式应用是一项具有挑战性的工作。我们实现了 StatefulSet，极大的简化了这个过程。本示例使用了 StatefulSet 的多个特性，但其本身超出了本文的范围。[请参考 StatefulSet 文档](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)。
 
@@ -415,7 +415,7 @@ cassandra   4         4         36m
 ```
 
 
-对于 Kubernetes 1.5 发布版，beta StatefulSet 资源没有像 Deployment, ReplicaSet, Replication Controller 或者 Job一样，包含 `kubectl scale` 功能，
+对于 Kubernetes 1.5 发布版，beta StatefulSet 资源没有像 Deployment, ReplicaSet, Replication Controller 或者 Job 一样，包含 `kubectl scale` 功能，
 
 
 ## 步骤 4：删除 Cassandra StatefulSet
@@ -542,7 +542,7 @@ cassandra-q6sz7   1/1       Running   0          1m        kubernetes-minion-9ye
 ```
 
 
-因为这些 pod 拥有 `app=cassandra` 标签，它们被映射给了我们在步骤1中创建的 service。
+因为这些 pod 拥有 `app=cassandra` 标签，它们被映射给了我们在步骤 1 中创建的 service。
 
 你可以使用下面的 service endpoint 查询命令来检查 Pod 是否对 Service 可用。
 
