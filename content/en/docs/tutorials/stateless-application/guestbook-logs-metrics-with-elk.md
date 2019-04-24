@@ -136,9 +136,9 @@ vi ELASTICSEARCH_HOSTS
 ```
 
 #### `ELASTICSEARCH_PASSWORD`
-Just the password, no whitespace or quotes:
+Just the password; no whitespace, quotes, or <>:
 
-    changeme
+    <yoursecretpassword>
 
 Edit `ELASTICSEARCH_PASSWORD`
 ```shell
@@ -146,9 +146,9 @@ vi ELASTICSEARCH_PASSWORD
 ```
 
 #### `ELASTICSEARCH_USERNAME`
-Just the username, no whitespace or quotes:
+Just the username; no whitespace, quotes, or <>:
 
-    elastic
+    <your ingest username for Elasticsearch>
 
 Edit `ELASTICSEARCH_USERNAME`
 ```shell
