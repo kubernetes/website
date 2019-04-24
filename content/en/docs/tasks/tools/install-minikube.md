@@ -64,8 +64,9 @@ Make sure you have kubectl installed. You can install kubectl according to the i
 
 If you do not already have a hypervisor installed, install one of these now:
 
-- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-- [KVM](http://www.linux-kvm.org/) (also uses QEMU)
+• [KVM](https://www.linux-kvm.org/), which also uses QEMU
+
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor.
@@ -104,11 +105,16 @@ Make sure you have kubectl installed. You can install kubectl according to the i
 
 If you do not already have a hypervisor installed, install one of these now:
 
-- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-- [VMware Fusion](https://www.vmware.com/products/fusion)
-- [HyperKit](https://github.com/moby/hyperkit)
+• [HyperKit](https://github.com/moby/hyperkit)
 
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
+• [VMware Fusion](https://www.vmware.com/products/fusion)
+
+
+{{< note >}}
 If you have a different hypervisor installed, you _may_ need to disable or remove it first.
+{{< /note >}}
 
 ### Install Minikube
 The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
@@ -139,8 +145,10 @@ Make sure you have kubectl installed. You can install kubectl according to the i
 ### Install a Hypervisor
 
 If you do not already have a hypervisor installed, install one of these now:
-- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-- [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+
+• [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install)
+
+• [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 {{< note >}}
 Hyper-V can run on three versions of Windows 10: Windows 10 Enterprise, Windows 10 Professional, and Windows 10 Education.
