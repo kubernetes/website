@@ -57,6 +57,64 @@ O Kubernetes é Open Source, o que te oferece a liberdade de utilizá-lo em seu 
 </div>
 {{< /blocks/section >}}
 
-{{< blocks/kubernetes-features >}}
+{{< blocks/kubernetes-features id="features" >}}
+<main>
+    <h3 class="center">Recursos do Kubernetes</h3>
+    <div class="feature-box">
+        <div>
+            <h4><a href="/docs/concepts/services-networking/service/">Descoberta de serviço e balanceamento de carga</a></h4>Não
+            precisa modificar seu aplicativo para usar um mecanismo de descoberta de serviço desconhecido. O Kubernetes já
+            contém seus próprios endereços IPs e um único nome de DNS para um conjunto de contêineres e pode balancear a carga
+            deles.
+        </div>
+        <div>
+            <h4><a href="/docs/concepts/configuration/manage-compute-resources-container/">Embalagem automática</a>
+            </h4>Coloca automaticamente os contêineres com base em seus requisitos de recursos e outras restrições, embora não
+            sacrificando a disponibilidade. Combinando cargas de trabalho críticas e de melhor esforço para aumentar a utilização e salvar
+            ainda mais recursos.
+        </div>
+    </div>
+    <div class="feature-box">
+        <div>
+            <h4><a href="/docs/concepts/storage/persistent-volumes/">Orquestração de armazenamento</a></h4>Montar automaticamente
+            o sistema de armazenamento de sua escolha, seja de armazenamento local, um provedor de nuvem pública, como <a
+                href="https://cloud.google.com/storage/">GCP</a> ou <a
+                href="https://aws.amazon.com/products/storage/">AWS</a>, ou um sistema de armazenamento de rede, como NFS, iSCSI,
+            Gluster, Ceph, Cinder, ou Flocker.
+        </div>
+        <div>
+            <h4><a
+                    href="/docs/concepts/workloads/controllers/replicationcontroller/#how-a-replicationcontroller-works">Auto Controle</a>
+            </h4>Reinicia os contêineres que falham, substituem e reprogramam contêineres quando os nós morrem, mata os contêineres
+            que não respondem à sua verificação de saúde definida pelo usuário e não as anuncia aos clientes até que eles estejam
+            pronto para servir.
+        </div>
+    </div>
+    <div class="feature-box">
+        <div>
+            <h4><a href="/docs/concepts/workloads/controllers/deployment/">Deploy e Rollback automatizados</a></h4>
+            O Kubernetes implementa progressivamente alterações em seu aplicativo ou em sua configuração, enquanto monitora
+            a integridade do aplicativo para garantir que ele não mate todas as suas instâncias ao mesmo tempo. Se algo der errado,
+            O Kubernetes irá reverter a mudança para você. Aproveite o crescente ecossistema de soluções de implantação.
+        </div>
+        <div>
+            <h4><a href="/docs/concepts/configuration/secret/">Gerenciamento secreto e de configuração</a></h4>Implantar e
+            atualizar segredos e configurações de aplicativos sem recriar sua imagem e sem expor segredos em
+            sua configuração de pilha.
+        </div>
+    </div>
+    <div class="feature-box">
+        <div>
+            <h4><a href="/docs/concepts/workloads/controllers/jobs-run-to-completion/">Execução em lote</a></h4>Além dos serviços, o Kubernetes pode gerenciar suas cargas de trabalho de lote e de CI, substituindo os recipientes que falham, se
+            desejado.
+        </div>
+        <div>
+            <h4><a href="/docs/tasks/run-application/horizontal-pod-autoscale/">Escala Horizontal</a></h4>Escale seu
+            aplicativo para cima e para baixo com um comando simples, com uma interface do usuário ou automaticamente com base no uso da CPU.
+        </div>
+    </div>
+</main>
+{{< /blocks/kubernetes-features >}}
 
 {{< blocks/case-studies >}}
+{{< /blocks/case-studies >}}
