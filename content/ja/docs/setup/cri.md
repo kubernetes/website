@@ -60,7 +60,7 @@ Kubernetesのリリースノートにある、Dockerの動作確認済み最新�
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# Docker CEをインストール
+# Docker CEのインストール
 ## リポジトリをセットアップ
 ### aptパッケージインデックスを更新
     apt-get update
@@ -77,7 +77,7 @@ Kubernetesのリリースノートにある、Dockerの動作確認済み最新�
     $(lsb_release -cs) \
     stable"
 
-## docker ceをインストール
+## docker ceのインストール
 apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 # デーモンをセットアップ
@@ -100,7 +100,7 @@ systemctl restart docker
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# Docker CEをインストール
+# Docker CEのインストール
 ## リポジトリをセットアップ
 ### 必要なパッケージのインストール
     yum install yum-utils device-mapper-persistent-data lvm2
@@ -110,7 +110,7 @@ yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-## docker ceをインストール
+## docker ceのインストール
 yum update && yum install docker-ce-18.06.2.ce
 
 ## /etc/docker ディレクトリを作成
