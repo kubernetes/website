@@ -25,7 +25,7 @@ Laman ini menjelaskan berbagai *resource* yang tersedia di dalam Kontainer pada 
 
 *Hostname* sebuah Kontainer merupakan nama dari Pod dimana Kontainer dijalankan.
 Informasi ini tersedia melalui perintah `hostname` atau panggilan (*function call*) 
-[`gethostname`](http://man7.org/linux/man-pages/man2/gethostname.2.html) pada libc.
+[`gethostname`](http://man7.org/linux/man-pages/man2/gethostname.2.html) pada `libc`.
 
 Nama Pod dan *namespace* tersedia sebagai variabel *environment* melalui [API *downward*](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
 
@@ -45,8 +45,8 @@ FOO_SERVICE_HOST=<host dimana service dijalankan>
 FOO_SERVICE_PORT=<port dimana service dijalankan>
 ```
 
-Semua *Service* memiliki alamat-alamat IP bisa didapatkan di dalam Kontainer melalui DNS,
-jika [DNS *addon*](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) diaktifkan. 
+Semua *Service* memiliki alamat-alamat IP yang bisa didapatkan di dalam Kontainer melalui DNS,
+jika [*addon* DNS](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) diaktifkan. 
 
 {{% /capture %}}
 
