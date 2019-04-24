@@ -67,7 +67,7 @@ metadata:
   labels:
     run: example
   annotations:
-     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:xx-xxxx-x:xxxxxxxxx:xxxxxxx/xxxxx-xxxx-xxxx-xxxx-xxxxxxxxx #replace this value
+     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:xx-xxxx-x:xxxxxxxxx:xxxxxxx/xxxxx-xxxx-xxxx-xxxx-xxxxxxxxx #ganti nilai ini
      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
 spec:
   type: LoadBalancer
