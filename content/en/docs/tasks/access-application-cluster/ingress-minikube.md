@@ -182,7 +182,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Add the following line to the bottom of the `/etc/hosts` file. 
 
     ```
-    172.17.0.15 hello-world.info
+    <minikube-IP> hello-world.info
     ```
 
     This sends requests from hello-world.info to Minikube.
