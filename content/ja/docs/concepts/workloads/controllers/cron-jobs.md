@@ -6,10 +6,10 @@ weight: 80
 
 {{% capture overview %}}
 
-_CronJob_ は時刻ベースのスケジュールによる[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)を作成します。
+_CronJob_ は時刻ベースのスケジュールによって[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)を作成します。
 
 _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみられる一行のようなものです。指定のスケジュールの基づき、定期的にジョブが実行されます。
-スケジュールでは[Cron](https://en.wikipedia.org/wiki/Cron)形式で記述されます。
+[Cron](https://ja.wikipedia.org/wiki/Cron)形式で記述された指定のスケジュールの基づき、定期的にジョブが実行されます。
 
 {{< note >}}
 すべての**CronJob**`スケジュール`: 時刻はジョブが開始されたマスタータイムゾーンに基づいています。
@@ -41,6 +41,6 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 このコンセプトを更に掘り下げるために、CronJobが`08:30:00`から1分ごとに新しいJobを作成し、`startingDeadlineSeconds`が200秒に設定されている場合を想定します。CronJobコントローラーが前回の例と同じ期間(`08:29:00` から`10:21:00`まで)にダウンしている場合でも、10:22:00時点でJobはまだ動作しています。このようなことは、過去200秒間(言い換えると、3回の失敗)に何回スケジュールが間に合わなかったをコントローラーが確認するときに発生します。これは最後にスケジュールされた時間から今までのものではありません。
 
-CronJobはスケジュールに一致するJobの作成にのみ関与するのに対して、JobはCronJobが示すPod管理を担います。
+CronJobはスケジュールに一致するJobの作成にのみ関与するのに対して、JobはJobが示すPod管理を担います。
 
 {{% /capture %}}
