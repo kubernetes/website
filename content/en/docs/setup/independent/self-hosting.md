@@ -21,7 +21,7 @@ To create a self-hosted cluster see the `kubeadm alpha selfhosting pivot` comman
 #### Caveats
 
 {{< caution >}}
-This feature pivots your cluster into a unsupported state, rendering kubeadm unable
+This feature pivots your cluster into an unsupported state, rendering kubeadm unable
 to manage you cluster any longer. This includes `kubeadm upagrade`.
 {{< /caution >}}
 
