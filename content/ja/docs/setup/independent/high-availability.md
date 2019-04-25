@@ -54,7 +54,7 @@ alpha feature gateである`HighAvailability`はv1.12で非推奨となり、v1.
 コントロールプレーンや、etcdノードでのコマンドはすべてrootとして実行してください。
 {{< /note >}}
 
-- CalicoなどのいくつかのCNIネットワークプラグインはr`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。
+- CalicoなどのいくつかのCNIネットワークプラグインは`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。
 
 ### kube-apiserver用にロードバランサーを作成
 
