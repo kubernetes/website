@@ -15,23 +15,23 @@ This page is an overview of Kubernetes.
 {{% /capture %}}
 
 {{% capture body %}}
-Kubernetes is a cloud infrastructure that provides for the deployment and
+Kubernetes is a cloud platform that provides for the deployment and
 orchestration of containerized applications.    
 It is a portable and extensible open-source platform that is capable of 
 managing both containerized workloads and services. Kubernetes
 provides key features such as a declarative configuration and deployment model,
 built in support for application replicas and autoscaling of applications, and
-also provides support for deploying multiple versions of an application.  
+also support for deploying multiple versions of an application.  
 In addition, Kubernetes has built in health-checking support for its applications,
-and networking and volume support as well. 
+and networking and volume support. 
 
 Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon
 a [decade and a half of experience that Google has with running
 production workloads at
 scale](https://research.google.com/pubs/pub43438.html), combined with
 best-of-breed ideas and practices from the community.  Kubernetes has a large 
-and rapidly growing ecosystem. Kubernetes is now available as a hosted managed 
-service from all major public cloud providers, and there are several distribution 
+and rapidly growing ecosystem. All major public cloud providers offer Kubernetes 
+as a hosted managed service, and there are several distribution 
 options available for running Kubernetes as an on-premises private cloud as well.
 Furthermore, Kubernetes services, support, and tools are widely available.
 
