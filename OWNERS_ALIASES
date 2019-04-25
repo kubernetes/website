@@ -82,10 +82,10 @@ aliases:
     - oussemos
   sig-docs-id-owners: # Admins for Indonesian content
     - girikuncoro
-    - irfiva
+    - irvifa
   sig-docs-id-reviews: # PR reviews for Indonesian content
     - girikuncoro
-    - irfiva
+    - irvifa
   sig-docs-it-owners: # Admins for Italian content
     - rlenferink
     - micheleberardi
