@@ -122,7 +122,7 @@ Setiap *rule* HTTP mengandung informasi berikut:
 Sebuah Ingress yang tidak memiliki *rules* akan mengarahkan semua trafik pada sebuah *backend default*. *Backend default* inilah yang 
 biasanya bisa dimasukkan sebagai salah satu opsi konfigurasi dari [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) dan tidak dimasukkan dalam spesifikasi *resource* Ingress.
 
-Jika tidak ada *host* atau *path* yang sesuai dengan *request* HTTP pada obyek Ingress, maka trafik tersebut 
+Jika tidak ada *host* atau *path* yang sesuai dengan *request* HTTP pada objek Ingress, maka trafik tersebut 
 akan diarahkan pada *backend default*.
 
 ## Jenis Ingress
