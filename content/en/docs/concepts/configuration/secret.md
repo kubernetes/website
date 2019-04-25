@@ -359,7 +359,7 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
-### Using Secrets
+## Using Secrets
 
 Secrets can be mounted as data volumes or be exposed as
 {{< glossary_tooltip text="environment variables" term_id="container-env-variables" >}}
@@ -368,7 +368,7 @@ system, without being directly exposed to the pod.  For example, they can hold
 credentials that other parts of the system should use to interact with external
 systems on your behalf.
 
-#### Using Secrets as Files from a Pod
+### Using Secrets as Files from a Pod
 
 To consume a Secret in a volume in a Pod:
 
@@ -560,7 +560,7 @@ A container using a Secret as a
 Secret updates.
 {{< /note >}}
 
-#### Using Secrets as Environment Variables
+### Using Secrets as Environment Variables
 
 To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
 in a pod:
@@ -613,7 +613,7 @@ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
 
-#### Using imagePullSecrets
+### Using imagePullSecrets
 
 An imagePullSecret is a way to pass a secret that contains a Docker (or other) image registry
 password to the Kubelet so it can pull a private image on behalf of your Pod.
