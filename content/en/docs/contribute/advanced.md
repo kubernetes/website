@@ -38,7 +38,7 @@ for weekly rotations. The PR wrangler's duties include:
   [Intermediate contributing](/docs/contribute/intermediate/) for guidelines
   about how SIG Docs uses metadata.
 
-### Helpful Github queries for wranglers
+### Helpful GitHub queries for wranglers
 
 The following queries are helpful when wrangling. After working through these three queries, the remaining list of PRs to be
 reviewed is usually small. These queries specifically exclude localization PRs, and only include the `master` branch (except for the last one).
