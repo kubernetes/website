@@ -625,7 +625,7 @@ et le contrôle de votre cluster Kubernetes.
 
 ## Feedback {#feedback}
 
-* Pour les bugs, visitez [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* Pour les bugs, visitez [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * Pour le support, rendez vous sur le Channel Slack kubeadm:
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * Le Channel Slack: General SIG Cluster Lifecycle Development:

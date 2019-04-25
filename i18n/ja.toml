@@ -11,7 +11,7 @@ other = "続きを読む"
 other = "Kubernetesのコードを編集することに興味がありますか？"
 
 [main_github_view_on]
-other = "Githubで参照する"
+other = "GitHubで参照する"
 
 [main_github_create_an_issue]
 other = "Issue作成"

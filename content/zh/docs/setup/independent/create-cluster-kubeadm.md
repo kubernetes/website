@@ -1013,7 +1013,7 @@ control of your Kubernetes cluster. -->
 
 ## Feedback {#feedback}
 
-* For bugs, visit [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* For bugs, visit [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * For support, visit kubeadm Slack Channel:
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * General SIG Cluster Lifecycle Development Slack Channel:
@@ -1032,7 +1032,7 @@ control of your Kubernetes cluster. -->
 
 ## 反馈 {#feedback}
 
-* 如果发现故障，请访问 [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* 如果发现故障，请访问 [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * 如果需要支持，请访问 kubeadm 的 Slack 频道：[#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * 访问 SIG cluster-lifecycle 开发者所使用的 Slack 频道：
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)

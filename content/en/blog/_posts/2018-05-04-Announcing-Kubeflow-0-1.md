@@ -86,14 +86,14 @@ It’d be impossible to have gotten where we are without enormous help from ever
 * [PyTorch operator](https://github.com/kubeflow/pytorch-operator) for running PyTorch jobs
 * [Seldon Core](https://github.com/kubeflow/kubeflow/tree/master/kubeflow/seldon) for running complex model deployments and non-TensorFlow serving
 
-It’s difficult to overstate how much the community has helped bring all these projects (and more) to fruition. Just a few of the contributing companies include: Alibaba Cloud, Ant Financial, Caicloud, Canonical, Cisco, Datawire, Dell, Github, Google, Heptio, Huawei, Intel, Microsoft, Momenta, One Convergence, Pachyderm, Project Jupyter, Red Hat, Seldon, Uber and Weaveworks.
+It’s difficult to overstate how much the community has helped bring all these projects (and more) to fruition. Just a few of the contributing companies include: Alibaba Cloud, Ant Financial, Caicloud, Canonical, Cisco, Datawire, Dell, GitHub, Google, Heptio, Huawei, Intel, Microsoft, Momenta, One Convergence, Pachyderm, Project Jupyter, Red Hat, Seldon, Uber and Weaveworks.
 
 # Learning More
 
 If you’d like to try out Kubeflow, we have a number of options for you:
 
 1. You can use sample walkthroughs hosted on [Katacoda](https://www.katacoda.com/kubeflow)
-2. You can follow a guided tutorial with existing models from the [examples repository](https://github.com/kubeflow/examples). These include the [Github Issue Summarization](https://github.com/kubeflow/examples/tree/master/github_issue_summarization), [MNIST](https://github.com/kubeflow/examples/tree/master/mnist) and [Reinforcement Learning with Agents](https://github.com/kubeflow/examples/tree/master/agents).
+2. You can follow a guided tutorial with existing models from the [examples repository](https://github.com/kubeflow/examples). These include the [GitHub Issue Summarization](https://github.com/kubeflow/examples/tree/master/github_issue_summarization), [MNIST](https://github.com/kubeflow/examples/tree/master/mnist) and [Reinforcement Learning with Agents](https://github.com/kubeflow/examples/tree/master/agents).
 3. You can start a cluster on your own and try your own model. Any Kubernetes conformant cluster will support Kubeflow including those from contributors [Caicloud](https://www.prnewswire.com/news-releases/caicloud-releases-its-kubernetes-based-cluster-as-a-service-product-claas-20-and-the-first-tensorflow-as-a-service-taas-11-while-closing-6m-series-a-funding-300418071.html), [Canonical](https://jujucharms.com/canonical-kubernetes/), [Google](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-container-cluster), [Heptio](https://heptio.com/products/kubernetes-subscription/), [Mesosphere](https://github.com/mesosphere/dcos-kubernetes-quickstart), [Microsoft](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough), [IBM](https://cloud.ibm.com/docs/containers?topic=containers-cs_cluster_tutorial#cs_cluster_tutorial), [Red Hat/Openshift ](https://docs.openshift.com/container-platform/3.3/install_config/install/quick_install.html#install-config-install-quick-install)and [Weaveworks](https://www.weave.works/product/cloud/).
 
 There were also a number of sessions at KubeCon + CloudNativeCon  EU 2018 covering Kubeflow. The links to the talks are here; the associated videos will be posted in the coming days. 
