@@ -26,7 +26,7 @@ For information on the Kubernetes documentation style guide, see the [style guid
   for specific criteria for membership.
 - A SIG Docs _reviewer_ is a member of the Kubernetes organization who has
   expressed interest in reviewing documentation pull requests and who has been
-  added to the appropriate Github group and `OWNERS` files in the Github
+  added to the appropriate GitHub group and `OWNERS` files in the GitHub
   repository, by a SIG Docs Approver.
 - A SIG Docs _approver_ is a member in good standing who has shown a continued
   commitment to the project. An approver can merge pull requests

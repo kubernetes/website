@@ -22,7 +22,7 @@ Pour plus d'informations sur le guide de style de la documentation Kubernetes, r
 - Un _membre_ de l'organisation Kubernetes qui a [signé le CLA](/docs/contribute/start#sign-the-cla) et contribué un peu de temps et d'efforts au projet.
   Voir [Adhésion à la communauté](https://github.com/kubernetes/community/blob/master/community-membership.md) pour des critères spécifiques d'adhésion.
 - Un SIG Docs _relecteur_ est un membre de l'organisation Kubernetes qui
-  a exprimé son intérêt pour l'examen des Pull Requests de la documentation et qui a été ajouté au groupe Github approprié et aux fichiers `OWNERS` dans le Github référentiel, par un approbateur SIG Docs.
+  a exprimé son intérêt pour l'examen des Pull Requests de la documentation et qui a été ajouté au groupe GitHub approprié et aux fichiers `OWNERS` dans le GitHub référentiel, par un approbateur SIG Docs.
 - Un SIG Docs _approbateur_ est un membre en règle qui a démontré un engagement continu envers le projet.
   Un approbateur peut fusionner des Pull Requests et publier du contenu au nom de l'organisation Kubernetes.
   Les approbateurs peuvent également représenter les documents SIG dans la communauté plus large de Kubernetes.

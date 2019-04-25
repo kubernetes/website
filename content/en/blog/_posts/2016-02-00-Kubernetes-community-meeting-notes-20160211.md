@@ -22,7 +22,7 @@ Note taker: Rob Hirschfeld
   * *SIG Report:*
     * Release Automation and an introduction to David McMahon
     * Docs and k8s website redesign proposal and an introduction to John Mulhausen
-    * This will allow the system to build docs correctly from Github w/ minimal effort
+    * This will allow the system to build docs correctly from GitHub w/ minimal effort
     * Will be check-in triggered
     * Getting website style updates
     * Want to keep authoring really light
@@ -33,7 +33,7 @@ Note taker: Rob Hirschfeld
     * discussion about release criteria: we will hold release date for bugs
 * Testing flake surge is over (one time event and then maintain test stability)
 * 1.3 Planning (time +40 minutes)
-    * working to cleanup the Github milestones — they should be a source of truth.  you can use Github for bug reporting
+    * working to cleanup the GitHub milestones — they should be a source of truth.  you can use GitHub for bug reporting
     * push off discussion while 1.2 crunch is under
     * Framework
         * dates

@@ -13,7 +13,7 @@ card:
 
 Si vous souhaitez commencer à contribuer à la documentation de Kubernetes, cette page et les rubriques associées peuvent vous aider à démarrer.
 Vous n'avez pas besoin d'être un développeur ou un rédacteur technique pour avoir un impact important sur la documentation et l'expérience utilisateur de Kubernetes !
-Tout ce dont vous avez besoin pour les sujets de cette page est un compte [Github](https://github.com/join) et un navigateur web.
+Tout ce dont vous avez besoin pour les sujets de cette page est un compte [GitHub](https://github.com/join) et un navigateur web.
 
 Si vous recherchez des informations sur la façon de commencer à contribuer aux référentiels de code Kubernetes, reportez-vous à la section sur [les directives de la communauté Kubernetes](https://github.com/kubernetes/community/blob/master/governance.md).
 
@@ -24,14 +24,14 @@ Si vous recherchez des informations sur la façon de commencer à contribuer aux
 ## Les bases de notre documentation
 
 La documentation de Kubernetes est écrite en Markdown puis traitée et déployée à l’aide de Hugo.
-Le code source est sur Github: [https://github.com/kubernetes/website](https://github.com/kubernetes/website).
+Le code source est sur GitHub: [https://github.com/kubernetes/website](https://github.com/kubernetes/website).
 La majeure partie de la documentation anglaise est stockée dans `/content/en/docs/`.
 Une partie de la documentation de référence est automatiquement générée à partir de scripts du répertoire `update-imported-docs/`.
 
-Vous pouvez trier les issues, modifier le contenu et passer en revue les modifications des autres, le tout à partir du site Web de Github.
-Vous pouvez également utiliser l'historique intégré et les outils de recherche de Github.
+Vous pouvez trier les issues, modifier le contenu et passer en revue les modifications des autres, le tout à partir du site Web de GitHub.
+Vous pouvez également utiliser l'historique intégré et les outils de recherche de GitHub.
 
-Toutes les tâches ne peuvent pas être effectuées dans l’interface utilisateur Github, mais elles sont décrites dans les guides de contribution [intermédiaire](/docs/contribute/intermediate/) et [avancé](/docs/contribute/advanced/).
+Toutes les tâches ne peuvent pas être effectuées dans l’interface utilisateur GitHub, mais elles sont décrites dans les guides de contribution [intermédiaire](/docs/contribute/intermediate/) et [avancé](/docs/contribute/advanced/).
 
 ### Participer à SIG Docs
 
@@ -72,7 +72,7 @@ Si vous souhaitez démarrer une nouvelle traduction, voir ["Traduction"](/docs/c
 
 ## Déposer les problèmes pouvant faire l'objet d'une action
 
-Toute personne possédant un compte Github peut soumettre un problème (rapport de bogue) à la documentation de Kubernetes.
+Toute personne possédant un compte GitHub peut soumettre un problème (rapport de bogue) à la documentation de Kubernetes.
 Si vous voyez quelque chose qui ne va pas, même si vous ne savez pas comment le réparer, [ouvrez un ticket](#how-to-file-an-issue).
 L'exception à cette règle est un petit bug, comme une faute de frappe, que vous souhaitez réparer vous-même.
 Dans ce cas, vous pouvez plutôt [le réparer](#improve-existing-content) sans déposer un bogue d'abord.
@@ -82,8 +82,8 @@ Dans ce cas, vous pouvez plutôt [le réparer](#improve-existing-content) sans d
 - **Sur une page existante**
 
     Si vous voyez un problème dans une page existante de [la documentation Kubernetes](/docs/), allez au bas de la page et cliquez sur le bouton **Create an Issue**.
-    Si vous n'êtes pas actuellement connecté à Github, connectez-vous.
-    Un formulaire de ticket Github apparaît avec du contenu pré-rempli.
+    Si vous n'êtes pas actuellement connecté à GitHub, connectez-vous.
+    Un formulaire de ticket GitHub apparaît avec du contenu pré-rempli.
 
     À l’aide de Markdown, renseignez autant de détails que possible.
     Aux endroits où vous voyez des crochets vides (`[ ]`), mettre un `x` entre les crochets qui représente le choix approprié.
@@ -108,7 +108,7 @@ Pour nous assurer que nous comprenons votre problème et pouvons y donner suite,
   Par exemple, `Introduced by #987654`.
 - Soyez respectueux et restez constructif.
   Par exemple, "La documentation sur X est nulle" n'est pas utile ou avec des commentaires exploitables.
-  Le [Code de conduite](/community/code-of-conduct/) s'applique également aux interactions sur les référentiels Kubernetes Github.
+  Le [Code de conduite](/community/code-of-conduct/) s'applique également aux interactions sur les référentiels Kubernetes GitHub.
 
 ## Participer aux discussions SIG Docs
 
@@ -129,7 +129,7 @@ Vous pouvez également consulter la réunion hebdomadaire de SIG Docs sur [Calen
 ## Améliorer le contenu existant
 
 Pour améliorer le contenu existant, vous déposez une _pull request (PR)_ après avoir créé un _fork_.
-Ces deux termes sont [spécifiques à Github](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
+Ces deux termes sont [spécifiques à GitHub](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
 Pour les besoins de cette rubrique, vous n'avez pas besoin de tout savoir à leur sujet, car vous pouvez tout faire à l'aide de votre navigateur Web.
 Quand vous passerez au [Guide des contributeurs docs intermédiaires](/docs/contribute/intermediate/), vous aurez besoin de plus de connaissances en terminologie Git.
 
@@ -172,19 +172,19 @@ Suivez ces étapes pour soumettre une demande d'extraction afin d'améliorer la 
 2.  Cliquez sur le premier bouton bleu, qui a le texte **Edit &lt;page name&gt;**.
 
     Si vous n'avez jamais créé de fork du référentiel de documentation Kubernetes, vous êtes invité à le faire.
-    Créez le fork sous votre nom d'utilisateur Github, plutôt que celui d'une autre organisation dont vous pourriez être membre.
+    Créez le fork sous votre nom d'utilisateur GitHub, plutôt que celui d'une autre organisation dont vous pourriez être membre.
     Le fork a généralement une URL telle que `https://github.com/<nom d'utilisateur>/website`, à moins que vous n'ayez déjà un dépôt avec un nom en conflit (website).
 
     La raison pour laquelle vous êtes invité à créer un fork est que vous n'avez pas le droit de pousser une branche directement dans le référentiel définitif de Kubernetes.
 
-3.  L'éditeur Github Markdown apparaît avec le fichier source Markdown chargé.
+3.  L'éditeur GitHub Markdown apparaît avec le fichier source Markdown chargé.
     Faites vos changements.
     Sous l'éditeur, remplissez le formulaire **Propose file change**.
     Le premier champ est le résumé de votre message de validation et ne doit pas dépasser 50 caractères.
     Le deuxième champ est facultatif, mais peut inclure plus de détails si nécessaire.
 
     {{< note >}}
-    Ne pas inclure de références à d’autres Github issues ou pull requests dans votre message de commit.
+    Ne pas inclure de références à d’autres GitHub issues ou pull requests dans votre message de commit.
     Vous pouvez les ajouter ultérieurement à la description de la demande d'extraction.
     {{< /note >}}
 
@@ -197,7 +197,7 @@ Suivez ces étapes pour soumettre une demande d'extraction afin d'améliorer la 
 
     {{< note >}}
     Si vous ne voulez pas créer la pull request maintenant, vous pouvez le faire plus tard, en accédant à l'URL principale du référentiel de site Web Kubernetes ou du référentiel de votre fork.
-    Le site Web Github vous invitera à créer la pull request s'il détecte que vous avez poussé une nouvelle branche vers votre fork.
+    Le site Web GitHub vous invitera à créer la pull request s'il détecte que vous avez poussé une nouvelle branche vers votre fork.
     {{< /note >}}
 
 5.  L'écran **Open a pull request** apparait.
@@ -222,7 +222,7 @@ Suivez ces étapes pour soumettre une demande d'extraction afin d'améliorer la 
 7.  Si votre modification est acceptée, un relecteur merge votre pull request, et le changement est en direct sur le site Web de Kubernetes quelques minutes plus tard.
 
 Ce n’est qu’un moyen de soumettre une pull request.
-Si vous êtes déjà un utilisateur expérimenté de Git et Github, vous pouvez utiliser une interface graphique locale ou un client Git en ligne de commande au lieu d'utiliser l'interface utilisateur de Github.
+Si vous êtes déjà un utilisateur expérimenté de Git et GitHub, vous pouvez utiliser une interface graphique locale ou un client Git en ligne de commande au lieu d'utiliser l'interface utilisateur de GitHub.
 Quelques notions de base sur l’utilisation du client Git en ligne de commande sont abordées dans la section [intermédiaire](/docs/contribute/intermediate/) du guide des contributeurs.
 
 ## Relecture des pull requests de documentation
@@ -270,7 +270,7 @@ Pour soumettre un article de blog, vous pouvez soit le soumettre en utilisant le
     Collez votre contenu dans l'éditeur.
     Nommez le fichier pour qu'il corresponde au titre proposé de l'article de blog, mais ne mettez pas la date dans le nom du fichier.
     Les réviseurs de blog travailleront avec vous sur le nom de fichier final et la date de publication du blog.
-1.  Lorsque vous enregistrez le fichier, Github vous guidera à travers le processus d'une pull request.
+1.  Lorsque vous enregistrez le fichier, GitHub vous guidera à travers le processus d'une pull request.
 1.  Un critique de publication de blog examinera votre soumission et travaillera avec vous sur les commentaires et les détails finaux.
     Lorsque l'article du blog est approuvé, la publication du blog est planifiée.
 

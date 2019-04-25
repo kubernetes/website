@@ -90,7 +90,7 @@ The Kubernetes Official Forum [discuss.kubernetes.io](https://discuss.kubernetes
 ### Bugs and Feature requests
 
 If you have what looks like a bug, or you would like to make a feature request,
-please use the [Github issue tracking system](https://github.com/kubernetes/kubernetes/issues).
+please use the [GitHub issue tracking system](https://github.com/kubernetes/kubernetes/issues).
 
 Before you file an issue, please search existing issues to see if your issue is
 already covered.
