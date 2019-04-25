@@ -265,6 +265,8 @@ kubectl delete pod,service baz foo                                        # Dele
 kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
 kubectl delete pods,services -l name=myLabel --include-uninitialized      # Delete pods and services, including uninitialized ones, with label name=myLabel
 kubectl -n my-ns delete po,svc --all                                      # Delete all pods and services, including uninitialized ones, in namespace my-ns,
+# Delete all pods matching the awk pattern1 or pattern2
+kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
 ## Interacting with running Pods
