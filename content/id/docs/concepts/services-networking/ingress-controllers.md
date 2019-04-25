@@ -44,8 +44,7 @@ Kubernetes sebagai sebuah proyek, saat ini, mendukung dan memaintain kontroler-k
 * [Kong](https://konghq.com/) menawarkan dukungan dan pemeliharaan [komunitas](https://discuss.konghq.com/c/kubernetes) atau
   [komersial](https://konghq.com/kong-enterprise/) 
   [Kontroler Ingress untuk Kubernetes](https://github.com/Kong/kubernetes-ingress-controller).
-* [NGINX, Inc.](https://www.nginx.com/) menawarkan dukungan dan pemeliharaan  
-  [Kontroler Ingress NGINX untuk Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller).
+* [NGINX, Inc.](https://www.nginx.com/) menawarkan dukungan dan pemeliharaan [Kontroler Ingress NGINX untuk Kubernetes](https://www.nginx.com/products/nginx/kubernetes-ingress-controller).
 * [Traefik](https://github.com/containous/traefik) adalah sebuah kontroler Ingress yang menyediakan semua fitur secara lengkap (fully featured) 
   ([Let's Encrypt](https://letsencrypt.org), *secrets*, *http2*, *websocket*), dengan tambahan dukungan 
   komersial oleh [Containous](https://containo.us/services).
@@ -55,7 +54,7 @@ Kubernetes sebagai sebuah proyek, saat ini, mendukung dan memaintain kontroler-k
 Kamu dapat melakukan *deploy* [berapa pun banyaknya kontroler Ingress](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers) 
 dalam sebuah kluster. Jika kamu ingin membuat Ingress, kamu tinggal memberikan anotasi setiap Ingress sesuai dengan 
 [`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster) 
-yang sesuai untuk mendanai kontroler Ingress mana yang digunakan jika terdapat lebih dari satu kontroler Ingress yang ada di 
+yang sesuai untuk menandai kontroler Ingress mana yang digunakan jika terdapat lebih dari satu kontroler Ingress yang ada di 
 kluster kamu.
 
 Apabila kamu tidak mendefinisikan `class` yang dipakai, penyedia layanan *cloud* kamu akan menggunakan kontroler Ingress *default* yang mereka miliki.
