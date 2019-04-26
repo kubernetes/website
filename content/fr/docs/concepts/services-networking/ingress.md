@@ -49,9 +49,9 @@ Un Ingress n'expose pas de ports ni de protocoles arbitraires. Exposer des servi
 
 Avant de commencer à utiliser un Ingress, vous devez comprendre certaines choses. Un Ingress est une ressource bêta.
 
-{{<note>}}
+{{< note >}}
 Vous devez avoir un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) pour lancer un Ingress. Seule la création d'une ressource Ingress n'a aucun effet.
-{{</note>}}
+{{< /note >}}
 
 GCE/GKE (Google Cloud Engine / Google Kubernetes Engine) déploie un contrôleur d’Ingress sur le master (le maître de kubernetes). Revoir le [limitations bêta](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations) de ce contrôleur si vous utilisez GCE/GKE.
 
@@ -62,9 +62,9 @@ Dans les environnements autres que GCE/GKE, vous devrez peut-être [déployer un
 
 Dans l’idéal, tous les contrôleurs d’Ingress devraient correspondre à cette spécification, mais les diverses contrôleurs sont légèrement différents.
 
-{{<note>}}
+{{< note >}}
 Assurez-vous de consulter la documentation de votre contrôleur d’Ingress pour bien comprendre les mises en garde qu’il ya à faire pour le choisir.
-{{</ note>}}
+{{< /note >}}
 
 ## La ressource Ingress
 
@@ -281,3 +281,160 @@ spec:
           serviceName: service3
           servicePort: 80
 ```
+
+### TLS
+
+Vous pouvez sécuriser un ingress en définissant un [secret](/docs/concepts/configuration/secret) qui contient une clé privée et un certificat TLS. Actuellement, l'ingress prend seulement en charge un seul port TLS, 443, et suppose une terminaison TLS. Si la section de configuration TLS dans un ingress spécifie différents hôtes, ils seront
+multiplexé sur le même port en fonction du nom d’hôte spécifié via l'extension SNI TLS (à condition que le contrôleur d’Ingress prenne en charge SNI). Le secret de TLS doit contenir les clés `tls.crt` et` tls.key` contenant le certificat et clé privée à utiliser pour TLS, par exemple :
+
+```yaml
+apiVersion: v1
+data:
+  tls.crt: base64 encoded cert
+  tls.key: base64 encoded key
+kind: Secret
+metadata:
+  name: testsecret-tls
+  namespace: default
+type: kubernetes.io/tls
+```
+
+Référencer ce secret dans un ingress indiquera au contrôleur d'ingress de sécuriser le canal du client à l'équilibreur de charge à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un CN pour `sslexample.foo.com`.
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tls-example-ingress
+spec:
+  tls:
+  - hosts:
+    - sslexample.foo.com
+    secretName: testsecret-tls
+  rules:
+    - host: sslexample.foo.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: service1
+            servicePort: 80
+```
+
+{{< note >}}
+Il existe un écart entre les fonctionnalités TLS prises en charge par divers contrôleurs. Veuillez vous référer à la documentation sur
+[nginx](https://git.k8s.io/ingress-nginx/README.md#https),
+[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https),
+ou tout autre contrôleur d’Ingress spécifique à la plate-forme pour comprendre le fonctionnement de TLS dans votre environnement.
+{{< /note >}}
+
+### L'équilibrage de charge
+
+Un contrôleur d’Ingress est démarré avec certains paramètres de politique d’équilibrage de charge
+qui s'applique à toutes les entrées, telles que l'algorithme d'équilibrage de la charge, régime de pondérations des backends, et d'autres.
+Les concepts un peu plus avancés d'équilibrage de charge  (p. ex. sessions persistantes, pondérations dynamiques) ne sont pas encore exposés pour l'ingress. Vous pouvez toujours obtenir ces fonctionnalités via le [service loadbalancer](https://github.com/kubernetes/ingress-nginx).
+
+Il est également intéressant de noter que même si les health checks (contrôles de santé) ne sont pas exposés directement via l'Ingress, il existe des concepts parallèles dans Kubernetes, tels que [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) qui vous permettent d'obtenir le même résultat final. Veuillez consulter les documents spécifiques au contrôleur pour voir comment ils gèrent les health checks. ([nginx](https://git.k8s.io/ingress-nginx/README.md),[GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
+
+## Mise à jour d'un ingress
+
+Pour mettre à jour un ingress existant afin d'ajouter un nouvel hôte, vous pouvez le mettre à jour en modifiant la ressource :
+
+```shell
+kubectl describe ingress test
+```
+
+```shell
+Name:             test
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
+Rules:
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   s1:80 (10.8.0.90:80)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     35s                loadbalancer-controller  default/test
+```
+
+```shell
+kubectl edit ingress test
+```
+
+Cela devrait faire apparaître un éditeur avec le yaml existant, modifiez-le pour inclure le nouvel hôte :
+
+```yaml
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - backend:
+          serviceName: s1
+          servicePort: 80
+        path: /foo
+  - host: bar.baz.com
+    http:
+      paths:
+      - backend:
+          serviceName: s2
+          servicePort: 80
+        path: /foo
+..
+```
+
+L'enregistrement du yaml mettra à jour la ressource dans le serveur d'API, ce qui devrait indiquer au contrôleur d'ingress de reconfigurer l'équilibreur de charge.
+
+```shell
+kubectl describe ingress test
+```
+
+```shell
+Name:             test
+Namespace:        default
+Address:          178.91.123.132
+Default backend:  default-http-backend:80 (10.8.2.3:8080)
+Rules:
+  Host         Path  Backends
+  ----         ----  --------
+  foo.bar.com
+               /foo   s1:80 (10.8.0.90:80)
+  bar.baz.com
+               /foo   s2:80 (10.8.0.91:80)
+Annotations:
+  nginx.ingress.kubernetes.io/rewrite-target:  /
+Events:
+  Type     Reason  Age                From                     Message
+  ----     ------  ----               ----                     -------
+  Normal   ADD     45s                loadbalancer-controller  default/test
+```
+
+Vous pouvez obtenir le même résultat en appelant `kubectl replace -f` sur un fichier Ingress yaml modifié.
+
+## Échec dans les zones de disponibilité
+
+Les techniques permettant de répartir le trafic sur plusieurs domaines de défaillance qui diffère d'un fournisseur de cloud à l'autre.
+Veuillez consulter la documentation du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) pour plus de détails. Vous pouvez également vous référer à la [documentation de la fédération](/docs/concepts/cluster-administration/federation/) pour plus d'informations sur le déploiement d'Ingress dans un cluster fédéré.
+
+## Travail futur
+
+Suivre [réseau SIG](https://github.com/kubernetes/community/tree/master/sig-network) pour plus de détails sur l'évolution de l'entrée et des ressources associées. Vous pouvez également suivre le [Dépôt Ingress](https://github.com/kubernetes/ingress/tree/master) pour plus de détails sur l'évolution des différents contrôleurs d’ingress.
+
+## Alternatives
+
+Vous pouvez exposer un service de plusieurs manières sans impliquer directement la ressource Ingress :
+
+* Utilisez [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
+* Utilisez [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* Utilisez un [Proxy du port](https://git.k8s.io/contrib/for-demos/proxy-to-service)
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+* [Configurer Ingress sur Minikube avec le contrôleur NGINX](/docs/tasks/access-application-cluster/ingress-minikube)
+{{% /capture %}}
