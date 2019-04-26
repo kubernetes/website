@@ -3,6 +3,10 @@
   font-size:13pt !important;
 }
 
+#section.talkToUs {
+  display:none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
