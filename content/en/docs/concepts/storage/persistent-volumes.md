@@ -252,7 +252,7 @@ uses the PVC before the expansion can complete.
 Expanding in-use PVCs for FlexVolumes is added in release 1.13. To enable this feature use  `ExpandInUsePersistentVolumes` and `ExpandPersistentVolumes` feature gates. The `ExpandPersistentVolumes` feature gate is already enabled by default. If the `ExpandInUsePersistentVolumes` is set, FlexVolume can be resized online without pod restart. 
  
 {{< note >}}
-**Note:** FlexVolume resize is possible only when the underlying driver supports resize.
+FlexVolume resize is possible only when the underlying driver supports resize.
 {{< /note >}}
 
 {{< note >}}
