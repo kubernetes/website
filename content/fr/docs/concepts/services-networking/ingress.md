@@ -123,7 +123,17 @@ Si aucun des hôtes ou chemins ne correspond à la demande HTTP dans les objets 
 Il existe des concepts Kubernetes qui vous permettent d’exposer un seul service.
 (voir [alternatives](# alternatives)). Vous pouvez également le faire avec un ingress en spécifiant un *backend par défaut* sans règles.
 
-{{< codenew file="service/networking/ingress.yaml" >}}
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+spec:
+  backend:
+    serviceName: testsvc
+    servicePort: 80
+```
 
 Si vous le créez en utilisant `kubectl create -f`, vous devriez voir :
 
