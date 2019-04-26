@@ -26,9 +26,9 @@ egrep --color 'vmx|svm' /proc/cpuinfo
 
 ## Einen Hypervisor installieren
 
-If you do not already have a hypervisor installed, install one for your OS now:
+Wenn noch kein Hypervisor installiert ist, installieren Sie jetzt einen für Ihr Betriebssystem:
 
-Operating system | Supported hypervisors
+Betriebssystem | Unterstützte Hypervisoren
 :----------------|:---------------------
 macOS | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [VMware Fusion](https://www.vmware.com/products/fusion), [HyperKit](https://github.com/moby/hyperkit)
 Linux | [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [KVM](http://www.linux-kvm.org/)
