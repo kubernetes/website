@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'How You Can Help Localize Kubernetes Docs'
-date: 2019-04-22
+date: 2019-04-25
 ---
 
 **Author: Zach Corleissen (Linux Foundation)**
