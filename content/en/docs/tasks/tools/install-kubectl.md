@@ -21,10 +21,9 @@ You must use a kubectl version that is within one minor version difference of yo
 
 {{% capture steps %}}
 
-## Install kubectl binary with curl
+## Install kubectl on Linux
 
-{{< tabs name="kubectl_install_curl" >}}
-{{% tab name="Linux" %}}
+### Install kubectl binary with curl on Linux
 
 1. Download the latest release with the command:
 
@@ -51,50 +50,6 @@ You must use a kubectl version that is within one minor version difference of yo
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
-{{% /tab %}}
-{{% tab name="macOS" %}}
-1. Download the latest release:
-
-    ```		 
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
-    ```
-
-    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
-
-    For example, to download version {{< param "fullversion" >}} on macOS, type:
-		  
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
-    ```
-
-2. Make the kubectl binary executable.
-
-    ```
-    chmod +x ./kubectl
-    ```
-
-3. Move the binary in to your PATH.
-
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-{{% /tab %}}
-{{% tab name="Windows" %}}
-1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
-
-    Or if you have `curl` installed, use this command:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
-    ```
-
-    To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
-
-2. Add the binary in to your PATH.
-{{% /tab %}}
-{{< /tabs >}}
-
-## Install kubectl on Linux
 
 ### Install using native package management
 
@@ -138,6 +93,34 @@ If you are on Ubuntu or another Linux distribution that support [snap](https://s
 
 ## Install kubectl on macOS
 
+### Install kubectl binary with curl on macOS
+
+1. Download the latest release:
+
+    ```		 
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+    ```
+
+    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+
+    For example, to download version {{< param "fullversion" >}} on macOS, type:
+		  
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    ```
+
+2. Make the kubectl binary executable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Move the binary in to your PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+
 ### Install with Homebrew on macOS
 
 If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install kubectl with Homebrew.
@@ -172,6 +155,20 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     ```
 
 ## Install kubectl on Windows
+
+### Install kubectl binary with curl on Windows
+
+1. Download the latest release {{< param "fullversion" >}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+
+    Or if you have `curl` installed, use this command:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    ```
+
+    To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+
+2. Add the binary in to your PATH.
 
 ### Install with Powershell from PSGallery
 
@@ -270,7 +267,7 @@ kubectl cluster-info
 ```
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
-If you see a message similar to the following, kubectl is not correctly configured or not able to connect to a Kubernetes cluster.
+If you see a message similar to the following, kubectl is not configured correctly or is not able to connect to a Kubernetes cluster.
 
 ```shell
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
@@ -288,7 +285,7 @@ kubectl cluster-info dump
 
 ### Enabling shell autocompletion
 
-kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing!
+kubectl provides autocompletion support for Bash and Zsh, which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash (including the difference between Linux and macOS) and Zsh.
 
