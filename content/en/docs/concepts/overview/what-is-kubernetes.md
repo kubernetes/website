@@ -2,7 +2,7 @@
 reviewers:
 - bgrant0607
 - mikedanese
-title: What is Kubernetes?
+title: What is Kubernetes
 content_template: templates/concept
 weight: 10
 card: 
@@ -26,7 +26,7 @@ production workloads at
 scale](https://research.google.com/pubs/pub43438.html), combined with
 best-of-breed ideas and practices from the community.
 
-## Why do I need Kubernetes and what can it do?
+## Why do I need Kubernetes and what can it do
 
 Kubernetes has a number of features. It can be thought of as:
 
