@@ -109,11 +109,6 @@ If you do not already have a hypervisor installed, install one of these now:
 
 • [VMware Fusion](https://www.vmware.com/products/fusion)
 
-
-{{< note >}}
-If you have a different hypervisor installed, you _may_ need to disable or remove it first.
-{{< /note >}}
-
 ### Install Minikube
 The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
 
