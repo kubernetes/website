@@ -118,63 +118,7 @@ other = "उपयोगकर्ता"
 [docs_label_i_am]
 other = "मैं हूँ..."
 
-# layouts > blog > pager
 
-[layouts_blog_pager_prev]
-other = "<< पिछला"
-
-[layouts_blog_pager_next]
-other = "अगला >>"
-
-# layouts > blog > list
-
-[layouts_case_studies_list_tell]
-other = "अपनी कहानी बताओ"
-
-# layouts > docs > glossary
-
-[layouts_docs_glossary_description]
-other = "इस शब्दावली का उद्देश्य कुबरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची है। इसमें तकनीकी शब्द शामिल हैं जो K8s के लिए विशिष्ट हैं, साथ ही अधिक सामान्य शब्द हैं जो उपयोगी संदर्भ प्रदान करते हैं।"
-
-[layouts_docs_glossary_filter]
-other = "उनके टैग के अनुसार शब्दों को फ़िल्टर करें"
-
-[layouts_docs_glossary_select_all]
-other = "सभी को चिन्हित करे"
-
-[layouts_docs_glossary_deselect_all]
-other = "सभी को अचिन्हिंत करें"
-
-[layouts_docs_glossary_aka]
-other = "के रूप में भी जाना जाता है"
-
-[layouts_docs_glossary_click_details_before]
-other = "पर क्लिक करें"
-
-[layouts_docs_glossary_click_details_after]
-other = "किसी विशेष पद के लिए लंबा विवरण प्राप्त करने के लिए नीचे दिए गए संकेतक।"
-
-# layouts > docs > search
-
-[layouts_docs_search_fetching]
-other = "परिणाम प्राप्त कर रहा है.."
-
-# layouts > partial > feedback
-
-[layouts_docs_partials_feedback_thanks]
-other = "प्रतिक्रिया के लिए धन्यवाद। यदि आपके पास कुबेरनेट्स का उपयोग करने का एक विशिष्ट, उत्तर देने योग्य प्रश्न है, तो इस पर पूछें"
-
-[layouts_docs_partials_feedback_issue]
-other = "यदि आप चाहते हैं तो GitHub रेपो में एक समस्या खोलें"
-
-[layouts_docs_partials_feedback_problem]
-other = "समस्या के बारे में बताएं"
-
-[layouts_docs_partials_feedback_or]
-other = "या"
-
-[layouts_docs_partials_feedback_improvement]
-other = "सुधार का सुझाव दें"
 
 # Community links
 [community_twitter_name]
