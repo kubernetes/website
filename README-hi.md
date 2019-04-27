@@ -16,7 +16,7 @@
 कुबरनेट्स प्रलेखन में योगदान देने के बारे में अधिक जानकारी के लिए, देखें:
 
 * [योगदान देना शुरू करें](https://kubernetes.io/docs/contribute/start/)
-* [Staging Your Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [परिवर्तनों को अंतिम चरण में लेजाएं](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
 * [पेज टेम्पलेट](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [प्रलेखन शैली गाइड](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [स्थानीयकरण कुबरनेट्स प्रलेखन](https://kubernetes.io/docs/contribute/localization/)
