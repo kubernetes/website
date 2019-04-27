@@ -81,10 +81,12 @@ aliases:
     - awkif
     - oussemos
   sig-docs-hi-owners: # Admins for Hindi content
+    - avidLearnerInProgress
     - daminisatya
     - mittalyashu
     - Rajakavitha1
   sig-docs-hi-reviews: # PR reviews for Hindi content
+    - avidLearnerInProgress
     - daminisatya
     - mittalyashu
     - Rajakavitha1
