@@ -271,11 +271,14 @@ kubectl -n my-ns delete po,svc --all                                      # 초�
 
 ```bash
 kubectl logs my-pod                                 # 파드 로그(stdout) 덤프
+kubectl logs -l name=myLabel                        # name이 myLabel인 파드 로그 덤프 (stdout)
 kubectl logs my-pod --previous                      # 컨테이너의 이전 인스턴스 생성에 대한 파드 로그(stdout) 덤프
 kubectl logs my-pod -c my-container                 # 파드 로그(stdout, 멀티-컨테이너 경우) 덤프
+kubectl logs -l name=myLabel -c my-container        # name이 myLabel인 파드 로그 덤프 (stdout)
 kubectl logs my-pod -c my-container --previous      # 컨테이너의 이전 인스턴스 생성에 대한 파드 로그(stdout, 멀티-컨테이너 경우) 덤프
 kubectl logs -f my-pod                              # 실시간 스트림 파드 로그(stdout)
 kubectl logs -f my-pod -c my-container              # 실시간 스트림 파드 로그(stdout, 멀티-컨테이너 경우)
+kubectl logs -f -l name=myLabel --all-containers    # name이 myLabel인 모든 파드의 로그 스트리밍 (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # 대화형 셸로 파드를 실행
 kubectl attach my-pod -i                            # 실행중인 컨테이너에 연결
 kubectl port-forward my-pod 5000:6000               # 로컬 머신의 5000번 포트를 리스닝하고, my-pod의 6000번 포트로 전달
