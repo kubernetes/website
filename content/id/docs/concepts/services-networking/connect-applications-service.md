@@ -1,5 +1,5 @@
 ---
-title: Menghubungkan aplikasi dengan service
+title: Menghubungkan aplikasi dengan Services
 content_template: templates/concept
 weight: 30
 ---
