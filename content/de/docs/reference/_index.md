@@ -1,8 +1,8 @@
 ---
-title: Referenzen
+title: Referenz
 approvers:
 - chenopis
-linkTitle: "Referenzen"
+linkTitle: "Referenz"
 main_menu: true
 weight: 70
 content_template: templates/concept
