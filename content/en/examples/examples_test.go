@@ -337,6 +337,15 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"quota-objects-pvc-2":      {&api.PersistentVolumeClaim{}},
 			"quota-pod":                {&api.ResourceQuota{}},
 			"quota-pod-deployment":     {&apps.Deployment{}},
+			"pvc-limit-lower":          {&api.PersistentVolumeClaim{}},
+			"pvc-limit-greater":        {&api.PersistentVolumeClaim{}},
+			"limit-mem-cpu-container":  {&api.LimitRange{}},
+			"limit-mem-cpu-pod":        {&api.LimitRange{}},
+			"limit-memory-ratio-pod":   {&api.LimitRange{}},
+			"storagelimits":            {&api.LimitRange{}},
+			"limit-range-pod-1":        {&api.Pod{}},
+			"limit-range-pod-2":        {&api.Pod{}},
+			"limit-range-pod-3":        {&api.Pod{}},
 		},
 		"admin/sched": {
 			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
@@ -405,8 +414,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
 		"configmap": {
-			"configmaps":            {&api.ConfigMap{}, &api.ConfigMap{}},
-			"configmap-multikeys":   {&api.ConfigMap{}},
+			"configmaps":          {&api.ConfigMap{}, &api.ConfigMap{}},
+			"configmap-multikeys": {&api.ConfigMap{}},
 		},
 		"controllers": {
 			"daemonset":        {&apps.DaemonSet{}},
