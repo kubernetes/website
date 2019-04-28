@@ -176,7 +176,7 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
    ...
    ```   
        
-* `Terminated`:  Indicates that the container completed its execution and has stopped running.A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
+* `Terminated`:  Indicates that the container completed its execution and has stopped running. A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
   
    ```yaml
    ...
