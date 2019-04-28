@@ -150,7 +150,7 @@ for these devices:
 ```gRPC
 // PodResources is a service provided by the kubelet that provides information about the
 // node resources consumed by pods and containers on the node
-service PodResources {
+service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
 }
 ```
