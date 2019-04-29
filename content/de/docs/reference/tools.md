@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Tools
 content_template: templates/concept
 ---
