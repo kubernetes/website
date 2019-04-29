@@ -23,7 +23,6 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) take regular tur
 
 The PR wrangler’s duties include:
 
-
 - Review [open pull requests](https://https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [style guide](/docs/contribute/style/style-guide/).
     - Start with XS PRs and head towards XXL PRs (in terms of the PR size).
     - Review as many PRs as you can.
