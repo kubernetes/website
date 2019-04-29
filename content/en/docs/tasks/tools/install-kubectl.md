@@ -50,6 +50,11 @@ You must use a kubectl version that is within one minor version difference of yo
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
+4. Test to ensure the version you installed is up-to-date:
+
+    ```
+    kubectl version
+    ```
 
 ### Install using native package management
 
@@ -120,6 +125,11 @@ If you are on Ubuntu or another Linux distribution that support [snap](https://s
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
+4. Test to ensure the version you installed is up-to-date:
+
+    ```
+    kubectl version
+    ```
 
 ### Install with Homebrew on macOS
 
@@ -169,6 +179,11 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
 
 2. Add the binary in to your PATH.
+3. Test to ensure the version you installed is up-to-date:
+
+    ```
+    kubectl version
+    ```
 
 ### Install with Powershell from PSGallery
 
