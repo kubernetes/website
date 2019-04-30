@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: redis
-    image: kubernetes/redis:v1
+    image: redis:5
     env:
     - name: MASTER
       value: "true"
@@ -15,10 +15,12 @@ spec:
       limits:
         cpu: "0.1"
     volumeMounts:
-    - mountPath: /redis-master-data
+    - mountPath: /data
       name: data
-    - mountPath: /redis-master
+    - mountPath: /usr/local/etc/redis
       name: config
+    args:
+    - /usr/loca/etc/redis/redis.conf
   volumes:
     - name: data
       emptyDir: {}
