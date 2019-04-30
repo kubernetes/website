@@ -19,24 +19,29 @@ client and other tools for some of these tasks.
 
 ## Be the PR Wrangler for a week
 
-SIG Docs [approvers](/docs/contribute/participating/#approvers) can be PR
-wranglers.
+SIG Docs [approvers](/docs/contribute/participating/#approvers) take regular turns as the PR wrangler for the repository and are added to the [PR Wrangler rotation scheduler](https://https://github.com/kubernetes/website/wiki/PR-Wranglers#2019-schedule-q1q2) for weekly rotations. 
 
-SIG Docs approvers are added to the
-[PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-for weekly rotations. The PR wrangler's duties include:
+The PR wrangler’s duties include:
 
-- Review incoming pull requests daily.
-  - Help new contributors sign the CLA, and close any PR where the CLA hasn't
-    been signed for two weeks. PR authors can reopen the PR after signing the
-    CLA, so this is a low-risk way to make sure nothing gets merged without a
-    signed CLA.
-  - Provide feedback on proposed changes, including helping facilitate technical
-    review from members of other SIGs.
-  - Merge PRs when they are ready, or close PRs that shouldn't be accepted.
-- Triage and tag incoming issues daily. See
-  [Intermediate contributing](/docs/contribute/intermediate/) for guidelines
-  about how SIG Docs uses metadata.
+- Review [open pull requests](https://https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [style guide](/docs/contribute/style/style-guide/).
+    - Review the smallest PRs (`size/XS`) first, then iterate towards the largest (`size/XXL`).
+    - Review as many PRs as you can.
+- Ensure that the CLA is signed by each contributor.
+    - Help new contributors sign the [CLA](https://https://github.com/kubernetes/community/blob/master/CLA.md).
+    - Use [this](https://https://github.com/zparnold/k8s-docs-pr-botherer) script to automatically remind contributors that haven’t signed the CLA to sign the CLA.
+    - Close any PR where the CLA hasn’t been signed for two weeks. 
+    PR authors can reopen the PR after signing the CLA, so this is a low-risk way to make sure nothing gets merged without a signed CLA.
+- Provide feedback on proposed changes and help facilitate technical reviews from members of other SIGs.
+    - Provide inline suggestions on the PR for the proposed content changes.
+    - If you need to verify content, comment on the PR and request more details.
+    - Assign relevant `sig/` label(s).
+    - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
+    - Assign `Docs Review` and `Tech Review` labels to indicate the PR's review status.
+    - Assign`Needs Doc Review` or `Needs Tech Review` for PRs that haven't yet been reviewed.
+    - Assign `Doc Review: Open Issues` or `Tech Review: Open Issues` for PRs that have been reviewed and require further input or action before merging.
+    - Assign `/lgtm` and `/approve` labels to PRs that can be merged. 
+- Merge PRs when they are ready, or close PRs that shouldn’t be accepted.
+- Triage and tag incoming issues daily. See [Intermediate contributing](/docs/contribute/intermediate/) for guidelines on how SIG Docs uses metadata.
 
 ### Helpful GitHub queries for wranglers
 
@@ -44,17 +49,15 @@ The following queries are helpful when wrangling. After working through these th
 reviewed is usually small. These queries specifically exclude localization PRs, and only include the `master` branch (except for the last one).
 
 - [No CLA, not eligible to merge](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fen):
-  Remind the contributor to sign the CLA. If they've already been reminded by both the bot and a human, close
+  Remind the contributor to sign the CLA. If they have already been reminded by both the bot and a human, close
   the PR and remind them that they can open it after signing the CLA.
-  **We can't even review PRs whose authors have not signed the CLA!**
+  **Do not review PRs whose authors have not signed the CLA!**
 - [Needs LGTM](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-label%3Algtm+):
   If it needs technical review, loop in one of the reviewers suggested by the bot. If it needs docs review
   or copy-editing, either suggest changes or add a copyedit commit to the PR to move it along.
 - [Has LGTM, needs docs approval](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
-  See if you can figure out what needs to happen for the PR to be merged.
-- [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): If it's against a `dev-` branch, it's for an upcoming release.
-  Make sure the [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) knows about it.
-  If it's against an old branch, help the PR author figure out whether it's targeted against the best branch.
+  Determine whether any additional changes or updates need to be made for the PR to be merged. If you think the PR is ready to be merged, comment `/approve`.
+- [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): If it's against a `dev-` branch, it's for an upcoming release. Make sure the [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) knows about it by adding a comment with `/assign @<meister's_github-username>`. If it's against an old branch, help the PR author figure out whether it's targeted against the best branch.
 
 ## Propose improvements
 
