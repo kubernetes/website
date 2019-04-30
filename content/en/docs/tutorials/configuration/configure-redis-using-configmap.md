@@ -81,9 +81,9 @@ NAME        READY   STATUS    RESTARTS   AGE
 pod/redis   1/1     Running   0          52s
 ```
 
-In the example, the config volume is mounted at `/redis-master`.
+In the example, the config volume is mounted at `/usr/local/etc/redis`.
 It uses `path` to add the `redis-config` key to a file named `redis.conf`.
-The file path for the redis config, therefore, is `/redis-master/redis.conf`.
+The file path for the redis config, therefore, is `/usr/local/etc/redis/redis.conf`.
 This is where the image will look for the config file for the redis master.
 
 Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that
