@@ -111,12 +111,12 @@ Kamu sekarang dapat melakukan *curl* kedalam *nginx Service* di `<CLUSTER-IP>:<P
 
 ## Mengakses Service
 
-Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - *environment variables* dan *DNS*. 
+Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - variabel *Environment* dan *DNS*. 
 *DNS* membutuhkan [tambahan CoreDNS didalam kluster](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
 
-### Environment Variables
+### Variabel Environment
 
-Saat sebuah *Pod* berjalan di *Node*, *kubelet* akan menambahkan *environment variables* untuk setiap *Service* yang aktif kedalam *Pod*. Ini menimbulkan beberapa masalah. Untuk melihatnya, periksa *environment* dari *Pod nginx* yang telah kamu buat (nama *Pod*mu akan berbeda-beda):
+Saat sebuah *Pod* berjalan di *Node*, *kubelet* akan menambahkan variabel *Environment* untuk setiap *Service* yang aktif kedalam *Pod*. Ini menimbulkan beberapa masalah. Untuk melihatnya, periksa *environment* dari *Pod nginx* yang telah kamu buat (nama *Pod*mu akan berbeda-beda):
 
 ```shell
 kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
@@ -127,7 +127,7 @@ KUBERNETES_SERVICE_PORT=443
 KUBERNETES_SERVICE_PORT_HTTPS=443
 ```
 
-Perlu dicatat tidak ada variabel yang menunjukan *Service* yang kamu buat. Ini terjadi karena kamu membuat replika terlebih dahulu sebelum membuat *Service*. Kerugian lain ditimbulkan adalah bahwa komponen *scheduler* mungkin saja bisa menempatkan semua *Pod* didalam satu *Node*, yang akan membuat keseluruhan *Service* mati jika *Node* tersebut mati. Kita dapat menyelesaikan masalah ini dengan menghapus 2 *Pod* tersebut dan menunggu *Deployment* untuk membuat *Pod* kembali. Kali ini *Service* ada sebelum replika *Pod* tersebut ada. Ini akan memberikan kamu *scheduler-level Service* (jika semua *Node* kamu mempunyai kapasitas yang sama), serta *environment variables* yang benar:
+Perlu dicatat tidak ada variabel *Environment* yang menunjukan *Service* yang kamu buat. Ini terjadi karena kamu membuat replika terlebih dahulu sebelum membuat *Service*. Kerugian lain ditimbulkan adalah bahwa komponen *scheduler* mungkin saja bisa menempatkan semua *Pod* didalam satu *Node*, yang akan membuat keseluruhan *Service* mati jika *Node* tersebut mati. Kita dapat menyelesaikan masalah ini dengan menghapus 2 *Pod* tersebut dan menunggu *Deployment* untuk membuat *Pod* kembali. Kali ini *Service* ada sebelum replika *Pod* tersebut ada. Ini akan memberikan kamu *scheduler-level Service* (jika semua *Node* kamu mempunyai kapasitas yang sama), serta variabel *Environment* yang benar:
 
 ```shell
 kubectl scale deployment my-nginx --replicas=0; kubectl scale deployment my-nginx --replicas=2;
