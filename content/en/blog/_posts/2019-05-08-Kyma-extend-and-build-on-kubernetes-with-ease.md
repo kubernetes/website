@@ -12,6 +12,10 @@ date: 2019-05-08
 
 Now, once you understand Kubernetes, your teams are trained, start building apps on top. You face another difficulty. Cloud Native is not just PaaS solution. Writing an application is the easiest part really, but what about logging? monitoring? tracing? alerting? service mesh? storage?. These are all the questions you need to answer, and you need to perform a proper investigation that takes time. CNCFs helps here a lot by providing a [landscape](https://landscape.cncf.io/) of all the cloud native technologies, but the list is huge and overwhelming. 
 
+Kyma simplifies you life here. Kyma mission statement is to enable flexible and easy way of extending applications. It may sound pretty generic, but we know what hides behind such a statement, we know what you need, to be able to write a production ready solution from end to end. Kyma is donated to open source community by [SAP](https://www.sap.com), by people with experience in writing production grade clound native applications. Most important is that Kyma 1.0 release is already out there https://twitter.com/kymaproject/status/1121426458243678209
+
+## How Kyma helps 
+
 Kyma solves that issue, provides all tools glued together with 3 core concepts
 
 The best thing is that there is a big player behind the project and gives it to their customers. Thanks to that we made sure it is stable and available with major 1.0 release
