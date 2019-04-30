@@ -1,0 +1,10 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+reviewers:
+- sig-docs-l10n-owners
+
+approvers:
+- sig-docs-l10n-owners
+
+labels:
+- sig/docs
