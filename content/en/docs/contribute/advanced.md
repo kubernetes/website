@@ -24,7 +24,7 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) take regular tur
 The PR wrangler’s duties include:
 
 - Review [open pull requests](https://https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [style guide](/docs/contribute/style/style-guide/).
-    - Start with XS PRs and head towards XXL PRs (in terms of the PR size).
+    - Review the smallest PRs (`size/XS`) first, then iterate towards the largest (`size/XXL`).
     - Review as many PRs as you can.
 - Ensure that the CLA is signed by each contributor.
     - Help new contributors sign the [CLA](https://https://github.com/kubernetes/community/blob/master/CLA.md).
@@ -56,10 +56,8 @@ reviewed is usually small. These queries specifically exclude localization PRs, 
   If it needs technical review, loop in one of the reviewers suggested by the bot. If it needs docs review
   or copy-editing, either suggest changes or add a copyedit commit to the PR to move it along.
 - [Has LGTM, needs docs approval](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
-  Find out if any additional changes or updates need to be made for the PR to be merged. If you think the PR is ready to be merged, comment `/approve`.
-- [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): If it's against a `dev-` branch, it's for an upcoming release.
-  Make sure the [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) knows about it.
-  You can let them know by adding a comment with `/assign @<meister's_github-username>`. If it's against an old branch, help the PR author figure out whether it's targeted against the best branch.
+  Determine whether any additional changes or updates need to be made for the PR to be merged. If you think the PR is ready to be merged, comment `/approve`.
+- [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): If it's against a `dev-` branch, it's for an upcoming release. Make sure the [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) knows about it by adding a comment with `/assign @<meister's_github-username>`. If it's against an old branch, help the PR author figure out whether it's targeted against the best branch.
 
 ## Propose improvements
 
