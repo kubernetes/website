@@ -44,7 +44,7 @@ Gunakan perintah `kubectl apply` untuk membuat semua objek, kecuali objek-objek 
 kubectl apply -f <directory>/
 ```
 
-Perintah di atas akan memberi anotasi `kubectl.kubernetes.io/last-applied-configuration: '{...}'` pada setiap objek yang dibuat. Anotasi ini berisi konten dari *file* konfigurasi objek yang digunaan untuk membuat objek tersebut.
+Perintah di atas akan memberi anotasi `kubectl.kubernetes.io/last-applied-configuration: '{...}'` pada setiap objek yang dibuat. Anotasi ini berisi konten dari *file* konfigurasi objek yang digunakan untuk membuat objek tersebut.
 
 {{< note >}}
 Tambahkan parameter `-R` untuk memproses seluruh direktori secara rekursif.
@@ -153,7 +153,7 @@ Tampilkan konfigurasi *live* dengan perintah `kubectl get`:
 kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
-Keluaran perintah di atas akan menunjukkan bawha anotasi `kubectl.kubernetes.io/last-applied-configuration` sudah dituliskan ke konfigurasi *live*, dan anotasi tersebut sesuai dengan *file* konfigurasi:
+Keluaran perintah di atas akan menunjukkan bahwa anotasi `kubectl.kubernetes.io/last-applied-configuration` sudah dituliskan ke konfigurasi *live*, dan anotasi tersebut sesuai dengan *file* konfigurasi:
 
 ```yaml
 kind: Deployment
@@ -351,7 +351,7 @@ kubectl apply -f <directory/> --prune -l <labels>
 ```
 
 {{< warning >}}
-Perintah `kube-ctl aplly` dengan argumen `--prune` sebaiknya hanya dijalankan terhadap direktori *root* yang berisi *file-file* konfigurasi objek. Menjalankan perintah tadi terhadap sub direktori bisa menyebabkan terhapusnya objek-objek lain secara tidak disengaja jika objek-objek tersebut memenuhi kriteria selektor label yang dispesifikasikan oleh argumen `-l <label>` dan tidak muncul di sub direktori.
+Perintah `kubectl apply` dengan argumen `--prune` sebaiknya hanya dijalankan terhadap direktori *root* yang berisi *file-file* konfigurasi objek. Menjalankan perintah tadi terhadap sub direktori bisa menyebabkan terhapusnya objek-objek lain secara tidak disengaja jika objek-objek tersebut memenuhi kriteria selektor label yang dispesifikasikan oleh argumen `-l <label>` dan tidak muncul di sub direktori.
 {{< /warning >}}
 
 ## Cara melihat objek
