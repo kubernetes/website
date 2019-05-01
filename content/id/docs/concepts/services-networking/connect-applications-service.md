@@ -1,5 +1,5 @@
 ---
-title: Menghubungkan aplikasi dengan Services
+title: Menghubungkan aplikasi dengan Service
 content_template: templates/concept
 weight: 30
 ---
@@ -9,11 +9,11 @@ weight: 30
 
 ## Model Kubernetes untuk menghubungkan kontainer
 
-Sekarang kamu memiliki aplikasi yang telah direplikasi, kamu dapat mengeksposnya di jaringan. Sebelum membahas pendekatan jaringan di Kubernetes, akan lebih baik jika kamu paham bagaimana jaringan bekerja didalam *Docker*.
+Sekarang kamu memiliki aplikasi yang telah direplikasi, kamu dapat mengeksposnya di jaringan. Sebelum membahas pendekatan jaringan di Kubernetes, akan lebih baik jika kamu paham bagaimana jaringan bekerja di dalam *Docker*.
 
-Secara *default*, *Docker* menggunakan jaringan *host*, jadi kontainer dapat berkomunikasi dengan kontainer lainnya jika mereka berada didalam *node* yang sama. Agar kontainer *Docker* dapat berkomunikasi antar *node*, masing-masing kontainer tersebut harus diberikan *port* yang berbeda di alamat *IP node* tersebut, yang akan diteruskan atau di*proxy*kan kedalam kontainer. Artinya adalah para kontainer didalam sebuah *node* harus berkoordinasi *port* mana yang akan digunakan atau dialokasikan secara otomatis.
+Secara *default*, *Docker* menggunakan jaringan *host*, jadi kontainer dapat berkomunikasi dengan kontainer lainnya jika mereka berada di dalam *node* yang sama. Agar kontainer *Docker* dapat berkomunikasi antar *node*, masing-masing kontainer tersebut harus diberikan *port* yang berbeda di alamat IP *node* tersebut, yang akan diteruskan (*proxied*) ke dalam kontainer. Artinya adalah para kontainer di dalam sebuah *node* harus berkoordinasi *port* mana yang akan digunakan atau dialokasikan secara otomatis.
 
-Akan sulit untuk mengkoordinasikan *port* yang digunakan oleh banyak pengembang. Kubernetes mengansumsikan bahwa *Pod* dapat berkomunikasi dengan *Pod* lain, terlepas di *Node* mana *Pod* tersebut di *deploy*. Kubernetes memberikan setiap *Pod* alamat *Cluster IP* sehingga kamu tidak perlu secara explisit membuat jalur antara *Pod* ataupun memetakan *port* kontainer kedalam *port* didalam *Node* tersebut. Ini berarti kontainer didalam sebuah *Pod* dapat berkomunikasi dengan *localhost* via *port*, dan setiap *Pod* didalam kluster dapat berkomunikasi tanpa *NAT*. Panduan ini akan membahas bagaimana kamu dapat menjalankan sebuah layanan atau aplikasi didalam model jaringan diatas.
+Akan sulit untuk mengkoordinasikan *port* yang digunakan oleh banyak pengembang. Kubernetes mengansumsikan bahwa *Pod* dapat berkomunikasi dengan *Pod* lain, terlepas di *Node* mana *Pod* tersebut di *deploy*. Kubernetes memberikan setiap *Pod* alamat *ClusterIP* sehingga kamu tidak perlu secara explisit membuat jalur antara *Pod* ataupun memetakan *port* kontainer ke dalam *port* di dalam *Node* tersebut. Ini berarti kontainer di dalam sebuah *Pod* dapat berkomunikasi dengan *localhost* via *port*, dan setiap *Pod* di dalam kluster dapat berkomunikasi tanpa *NAT*. Panduan ini akan membahas bagaimana kamu dapat menjalankan sebuah layanan atau aplikasi di dalam model jaringan diatas.
 
 Panduan ini menggunakan server *nginx* sederhana untuk mendemonstrasikan konsepnya. Konsep yang sama juga ditulis lebih lengkap di [Aplikasi Jenkins CI](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes).
 
@@ -21,13 +21,13 @@ Panduan ini menggunakan server *nginx* sederhana untuk mendemonstrasikan konsepn
 
 {{% capture body %}}
 
-## Mengekspos Pod kedalam kluster
+## Mengekspos Pod ke dalam kluster
 
 Kita melakukan ini dibeberapa contoh sebelumnya, tetapi mari kita lakukan sekali lagi dan berfokus pada prespektif jaringannya. Buat sebuah *nginx Pod*, dan perhatikan bahwa templat tersebut mempunyai spesifikasi *port* kontainer:
 
 {{< codenew file="service/networking/run-my-nginx.yaml" >}}
 
-Ini membuat aplikasi tersebut dapat diakses dari *node* manapun didalam kluster kamu. Cek lokasi *node* dimana *Pod* tersebut berjalan:
+Ini membuat aplikasi tersebut dapat diakses dari *node* manapun di dalam kluster kamu. Cek lokasi *node* dimana *Pod* tersebut berjalan:
 ```shell
 kubectl apply -f ./run-my-nginx.yaml
 kubectl get pods -l run=my-nginx -o wide
@@ -37,7 +37,7 @@ NAME                        READY     STATUS    RESTARTS   AGE       IP         
 my-nginx-3800858182-jr4a2   1/1       Running   0          13s       10.244.3.4    kubernetes-minion-905m
 my-nginx-3800858182-kna2y   1/1       Running   0          13s       10.244.2.5    kubernetes-minion-ljyd
 ```
-Cek *IP* dari *Pod* kamu:
+Cek IP dari *Pod* kamu:
 
 ```shell
 kubectl get pods -l run=my-nginx -o yaml | grep podIP
@@ -45,15 +45,15 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
     podIP: 10.244.2.5
 ```
 
-Kamu dapat melakukan akses dengan *ssh* kedalam *node* didalam kluster dan mengakses *IP Pod* tersebut menggunakan *curl*. Perlu dicatat bahwa kontainer tersebut tidak menggunakan *port* 80 didalam *node*, atau aturan *NAT* khusus untuk merutekan trafik kedalam *Pod*. Ini berarti kamu dapat menjalankan banyak *nginx Pod* di *node* yang sama dimana setiap *Pod* dapat menggunakan *containerPort* yang sama, kamu dapat mengakses semua itu dari *Pod* lain ataupun dari *node* didalam kluster menggunakan *IP*. Seperti *Docker*, *port* masih dapat di publikasi kedalam * interface node*, tetapi kebutuhan seperti ini sudah berkurang karena model jaringannya.
+Kamu dapat melakukan akses dengan *ssh* ke dalam *node* di dalam kluster dan mengakses IP *Pod* tersebut menggunakan *curl*. Perlu dicatat bahwa kontainer tersebut tidak menggunakan *port* 80 di dalam *node*, atau aturan *NAT* khusus untuk merutekan trafik ke dalam *Pod*. Ini berarti kamu dapat menjalankan banyak *nginx Pod* di *node* yang sama dimana setiap *Pod* dapat menggunakan *containerPort* yang sama, kamu dapat mengakses semua itu dari *Pod* lain ataupun dari *node* di dalam kluster menggunakan IP. Seperti *Docker*, *port* masih dapat di publikasi ke dalam * interface node*, tetapi kebutuhan seperti ini sudah berkurang karena model jaringannya.
 
 Kamu dapat membaca lebih detail [bagaimana kita melakukan ini](/docs/concepts/cluster-administration/networking/#how-to-achieve-this) jika kamu penasaran.
 
 ## Membuat Service
 
-kita mempunyai *Pod* yang menjalankan *nginx* didalam kluster. Teorinya, kamu dapat berkomikasi ke *Pod* tersebut secara langsung, tapi apa yang terjadi jika sebuah *node* mati? *Pod* didalam *node* tersebut ikut mati, dan *Deployment* akan membuat *Pod* baru, dengan *IP* yang berbeda. Ini adalah masalah yang *Service* selesaikan.
+kita mempunyai *Pod* yang menjalankan *nginx* di dalam kluster. Teorinya, kamu dapat berkomikasi ke *Pod* tersebut secara langsung, tapi apa yang terjadi jika sebuah *node* mati? *Pod* di dalam *node* tersebut ikut mati, dan *Deployment* akan membuat *Pod* baru, dengan IP yang berbeda. Ini adalah masalah yang *Service* selesaikan.
 
-*Service* Kubernetes adalah sebuah abstraksi yang mendefinisikan sekumpulan *Pod* yang menyediakan fungsi yang sama dan berjalan di dalam kluster. Saat dibuat, setiap *Service* diberikan sebuah alamat *IP* (disebut juga *ClusterIP*). Alamat ini akan terus ada, dan tidak akan pernah berubah selama *Service* hidup. *Pod* dapat berkomunikasi dengan *Service* dan trafik yang menuju *Service* tersebut akan otomatis dilakukan mekanisme *load balancing* ke *Pod* yang merupakan anggota dari *Service* tersebut.
+*Service* Kubernetes adalah sebuah abstraksi yang mendefinisikan sekumpulan *Pod* yang menyediakan fungsi yang sama dan berjalan di dalam kluster. Saat dibuat, setiap *Service* diberikan sebuah alamat IP (disebut juga *ClusterIP*). Alamat ini akan terus ada, dan tidak akan pernah berubah selama *Service* hidup. *Pod* dapat berkomunikasi dengan *Service* dan trafik yang menuju *Service* tersebut akan otomatis dilakukan mekanisme *load balancing* ke *Pod* yang merupakan anggota dari *Service* tersebut.
 
 Kamu dapat membuat *Service* untuk replika 2 *nginx* dengan `kubectl explose`:
 
@@ -68,7 +68,7 @@ Perintah diatas sama dengan `kubectl apply -f` dengan *yaml* sebagai berikut:
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
 
-Spesifikasi ini akan membuat *Service* yang membuka *TCP port 80* disetiap *Pod* dengan label `run: my-nginx` dan mengeksposnya kedalam *port Service* (`targetPort`: adalah port kontainer yang menerima trafik, `port` adalah *service port* yang dapat berupa *port* apapun yang digunakan *Pod* lain untuk mengakses *Service*).
+Spesifikasi ini akan membuat *Service* yang membuka *TCP port 80* disetiap *Pod* dengan label `run: my-nginx` dan mengeksposnya ke dalam *port Service* (`targetPort`: adalah port kontainer yang menerima trafik, `port` adalah *service port* yang dapat berupa *port* apapun yang digunakan *Pod* lain untuk mengakses *Service*).
 
 Lihat [Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
 API object untuk melihat daftar *field* apa saja yang didukung di *service definition*. Cek *Service* kamu:
@@ -81,7 +81,7 @@ NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 ```
 
-Seperti yang disebutkan sebelumnya, sebuah *Service* berisi grup *Pod*. *Pod* diekspos melalui `endpoints`. *Service selector* akan mengecek *Pod* secara terus-menerus dan hasilkan akan dikirim (*POSTed*) ke objek *endpoint* yang bernama `my-nginx`. Saat sebuah *Pod* mati, *IP Pod* didalam *endpoint* tersebut akan otomatis dihapus, dan *Pod* baru yang sesuai dengan *Service selector* akan otomatis ditambahkan kedalam *endpoint*. Cek *endpoint* dan perhatikan bahwa *IP* sama dengan *Pod* yang dibuat di langkah pertama: 
+Seperti yang disebutkan sebelumnya, sebuah *Service* berisi grup *Pod*. *Pod* diekspos melalui `endpoints`. *Service selector* akan mengecek *Pod* secara terus-menerus dan hasilkan akan dikirim (*POSTed*) ke objek *endpoint* yang bernama `my-nginx`. Saat sebuah *Pod* mati, *IP Pod* di dalam *endpoint* tersebut akan otomatis dihapus, dan *Pod* baru yang sesuai dengan *Service selector* akan otomatis ditambahkan ke dalam *endpoint*. Cek *endpoint* dan perhatikan bahwa IP sama dengan *Pod* yang dibuat di langkah pertama: 
 
 ```shell
 kubectl describe svc my-nginx
@@ -107,16 +107,16 @@ NAME       ENDPOINTS                     AGE
 my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 ```
 
-Kamu sekarang dapat melakukan *curl* kedalam *nginx Service* di `<CLUSTER-IP>:<PORT>` dari *node* manapun di kluster. Perlu dicatat bahwa *Service IP* adalah *IP virtual*, *IP* tersebut tidak pernah ada di *interface node* manapun. Jika kamu penasaran bagaimana konsep ini bekerja, kamu dapat membaca lebih lanjut tentang [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<PORT>` dari *node* manapun di kluster. Perlu dicatat bahwa *Service IP* adalah IP *virtual*, IP tersebut tidak pernah ada di *interface node* manapun. Jika kamu penasaran bagaimana konsep ini bekerja, kamu dapat membaca lebih lanjut tentang [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
 
 ## Mengakses Service
 
-Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - variabel *Environment* dan *DNS*. 
-*DNS* membutuhkan [tambahan CoreDNS didalam kluster](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
+Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - variabel *environment* dan *DNS*. 
+*DNS* membutuhkan [tambahan CoreDNS di dalam kluster](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns).
 
 ### Variabel Environment
 
-Saat sebuah *Pod* berjalan di *Node*, *kubelet* akan menambahkan variabel *Environment* untuk setiap *Service* yang aktif kedalam *Pod*. Ini menimbulkan beberapa masalah. Untuk melihatnya, periksa *environment* dari *Pod nginx* yang telah kamu buat (nama *Pod*mu akan berbeda-beda):
+Saat sebuah *Pod* berjalan di *Node*, *kubelet* akan menambahkan variabel *environment* untuk setiap *Service* yang aktif ke dalam *Pod*. Ini menimbulkan beberapa masalah. Untuk melihatnya, periksa *environment* dari *Pod nginx* yang telah kamu buat (nama *Pod*mu akan berbeda-beda):
 
 ```shell
 kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
@@ -127,7 +127,7 @@ KUBERNETES_SERVICE_PORT=443
 KUBERNETES_SERVICE_PORT_HTTPS=443
 ```
 
-Perlu dicatat tidak ada variabel *Environment* yang menunjukan *Service* yang kamu buat. Ini terjadi karena kamu membuat replika terlebih dahulu sebelum membuat *Service*. Kerugian lain ditimbulkan adalah bahwa komponen *scheduler* mungkin saja bisa menempatkan semua *Pod* didalam satu *Node*, yang akan membuat keseluruhan *Service* mati jika *Node* tersebut mati. Kita dapat menyelesaikan masalah ini dengan menghapus 2 *Pod* tersebut dan menunggu *Deployment* untuk membuat *Pod* kembali. Kali ini *Service* ada sebelum replika *Pod* tersebut ada. Ini akan memberikan kamu *scheduler-level Service* (jika semua *Node* kamu mempunyai kapasitas yang sama), serta variabel *Environment* yang benar:
+Perlu dicatat tidak ada variabel *environment* yang menunjukan *Service* yang kamu buat. Ini terjadi karena kamu membuat replika terlebih dahulu sebelum membuat *Service*. Kerugian lain ditimbulkan adalah bahwa komponen *scheduler* mungkin saja bisa menempatkan semua *Pod* di dalam satu *Node*, yang akan membuat keseluruhan *Service* mati jika *Node* tersebut mati. Kita dapat menyelesaikan masalah ini dengan menghapus 2 *Pod* tersebut dan menunggu *Deployment* untuk membuat *Pod* kembali. Kali ini *Service* ada sebelum replika *Pod* tersebut ada. Ini akan memberikan kamu *scheduler-level Service* (jika semua *Node* kamu mempunyai kapasitas yang sama), serta variabel *environment* yang benar:
 
 ```shell
 kubectl scale deployment my-nginx --replicas=0; kubectl scale deployment my-nginx --replicas=2;
@@ -140,7 +140,7 @@ my-nginx-3800858182-e9ihh   1/1       Running   0          5s      10.244.2.7   
 my-nginx-3800858182-j4rm4   1/1       Running   0          5s      10.244.3.8    kubernetes-minion-905m
 ```
 
-Kamu melihat *Pod* memiliki nama yang berbeda, karena mereka dihapus dan dibuat ulang.
+Kamu mungkin saja melihat *Pod* dengan nama yang berbeda, hal ini terjadi karena *Pod-Pod* itu dihapus dan dibuat ulang.
 
 ```shell
 kubectl exec my-nginx-3800858182-e9ihh -- printenv | grep SERVICE
@@ -155,7 +155,7 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 
 ### DNS
 
-Kubernetes menawarkan sebuah layanan *DNS* kluster tambahan yang secara otomatis memberikan sebuah nama *dns* pada *Service*. Kamu dapat mengecek jika *DNS* berjalan didalam kluster Kubernetes:
+Kubernetes menawarkan sebuah layanan *DNS* kluster tambahan yang secara otomatis memberikan sebuah nama *dns* pada *Service*. Kamu dapat mengecek jika *DNS* berjalan di dalam kluster Kubernetes:
 
 ```shell
 kubectl get services kube-dns --namespace=kube-system
@@ -167,7 +167,7 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 
 Jika *DNS* belum berjalan, kamu dapat [mengaktifkannya](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it).
 
-Sisa panduan ini mengansumsikan kamu mempunyai *Service* dengan *IP* (my-nginx), dan sebuah server *DNS*  yang memberikan nama kedalam *IP* tersebut (CoreDNS kluster),jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain didalam kluster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
+Sisa panduan ini mengansumsikan kamu mempunyai *Service* dengan IP (my-nginx), dan sebuah server *DNS*  yang memberikan nama ke dalam IP tersebut (CoreDNS kluster),jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain di dalam kluster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
@@ -220,11 +220,11 @@ Berikut ini adalah langkah-langkah manual yang harus diikuti jika kamu mengalami
 ```shell
 #membuat sebuah pasangan kunci public private
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
-#rubah kunci tersebut kedalam pengkodean base64
+#rubah kunci tersebut ke dalam pengkodean base64
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```
-Gunakan hasil keluaran dari perintah sebelumnya untuk membuat sebuah file *yaml* seperti berikut. nilai yang dikodekan *base64* harus berada didalam satu baris.
+Gunakan hasil keluaran dari perintah sebelumnya untuk membuat sebuah file *yaml* seperti berikut. nilai yang dikodekan *base64* harus berada di dalam satu baris.
 
 ```yaml
 apiVersion: "v1"
@@ -247,13 +247,13 @@ default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           Opaque                                2         1m
 ```
 
-Sekarang modifikasi replika *nginx* untuk menjalankan server *https* menggunakan sertifikat didalam *secret* dan *Service* untuk mengekspos semua *port* (80 dan 443):
+Sekarang modifikasi replika *nginx* untuk menjalankan server *https* menggunakan sertifikat di dalam *secret* dan *Service* untuk mengekspos semua *port* (80 dan 443):
 
 {{< codenew file="service/networking/nginx-secure-app.yaml" >}}
 
 Berikut catatan penting tentang manifes *nginx-secure-app*:
 
-- Didalam file tersebut, ada spesifikasi *Deployment* dan *Service*
+- di dalam file tersebut, ada spesifikasi *Deployment* dan *Service*
 - ada [server nginx](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/default.conf) yang melayani trafik *HTTP* di *port* 80 dan trafik *HTTPS* di *port* 443, dan *Service nginx* yang mengekspos kedua *port* tersebut.
 - Setiap kontainer mempunyai akses ke *key* melalui *volume* yang di *mount* pada `/etc/nginx/ssl`. Ini adalah konfigurasi sebelum server *nginx* dijalankan.
 
@@ -261,7 +261,7 @@ Berikut catatan penting tentang manifes *nginx-secure-app*:
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
 ```
 
-Pada titik ini, kamu dapat berkomunikasi dengan server *nginx* dari *node* manapun.
+Pada tahapan ini, kamu dapat berkomunikasi dengan server *nginx* dari *node* manapun.
 
 ```shell
 kubectl get pods -o yaml | grep -i podip
@@ -292,7 +292,7 @@ kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert 
 
 ## Mengekspos Service
 
-Kamu mungkin ingin mengekspos *Service* ke alamat *IP* eksternal. Kubernetes mendukung dua cara untuk melakukan ini: *NodePorts* dan *LoadBalancers*. *Service* yang dibuat tadi sudah menggunakan `NodePort`, jadi replika *nginx* sudah siap untuk menerima trafik dari internet jika *Node* kamu mempunyai *IP* publik.
+Kamu mungkin ingin mengekspos *Service* ke alamat IP eksternal. Kubernetes mendukung dua cara untuk melakukan ini: *NodePort* dan *LoadBalancer*. *Service* yang dibuat tadi sudah menggunakan `NodePort`, jadi replika *nginx* sudah siap untuk menerima trafik dari internet jika *Node* kamu mempunyai IP publik.
 
 
 ```shell
@@ -330,7 +330,7 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 <h1>Welcome to nginx!</h1>
 ```
 
-Mari coba membuat ulang *Service* menggunakan *cloud load balancer*, ubah saja `type`*Service* `my-nginx`  dari `NodePort` ke `LoadBalancer`:
+Mari coba membuat ulang *Service* menggunakan *cloud load balancer*, ubah saja `type` *Service* `my-nginx`  dari `NodePort` ke `LoadBalancer`:
 
 ```shell
 kubectl edit svc my-nginx
@@ -346,9 +346,9 @@ curl https://<EXTERNAL-IP> -k
 <title>Welcome to nginx!</title>
 ```
 
-IP address pada kolom `EXTERNAL-IP` menujukan *IP* yang tersedia di internet. Sedangkan kolom `CLUSTER-IP* merupakan *IP* yang hanya tersedia didalam kluster kamu (*IP private*).
+IP address pada kolom `EXTERNAL-IP` menunjukan IP yang tersedia di internet. Sedangkan kolom `CLUSTER-IP` merupakan IP yang hanya tersedia di dalam kluster kamu (*IP private*).
 
-Perhatikan pada *AWS*, tipe `LoadBalancer` membuat sebuah *ELB*, yang menggunakan *hostname* yang panjang, bukan *IP*. Karena tidak semua keluar pada standar keluaran `kubectl get svc`. Jadi kamu harus menggunakan `kubectl describe service my-nginx` untuk melihatnya. Kamu akan melihat seperti ini:
+Perhatikan pada *AWS*, tipe `LoadBalancer` membuat sebuah *ELB*, yang menggunakan *hostname* yang panjang, bukan IP. Karena tidak semua keluar pada standar keluaran `kubectl get svc`. Jadi kamu harus menggunakan `kubectl describe service my-nginx` untuk melihatnya. Kamu akan melihat seperti ini:
 
 ```shell
 kubectl describe service my-nginx
@@ -361,6 +361,6 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 
 {{% capture whatsnext %}}
 
-Kubernetes juga mendukung *Federated Services*, yang bisa mempengaruhi banyak kluster dan penyedia layanan *cloud*, untuk meningkatkan ketersediaan, peningkatan toleransi kesalahan, dan pengembangan dari *Service* kamu. Lihat [Panduan Federated Services](/docs/concepts/cluster-administration/federation-service-discovery/) untuk informasi lebih lanjut.
+Kubernetes juga mendukung *Federated Service*, yang bisa mempengaruhi banyak kluster dan penyedia layanan *cloud*, untuk meningkatkan ketersediaan, peningkatan toleransi kesalahan, dan pengembangan dari *Service* kamu. Lihat [Panduan Federated Service](/docs/concepts/cluster-administration/federation-service-discovery/) untuk informasi lebih lanjut.
 
 {{% /capture %}}
