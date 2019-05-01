@@ -17,7 +17,7 @@ untuk menjalankan kode yang di-*trigger* oleh *event* selama *lifecycle* berlang
 ## Ikhtisar
 
 Kubernetes menyediakan *hook* untuk *lifecycle* Kontainer. Hal ini sejalan dengan *framework* bahasa 
-pemrograman kebanyakan yang memiliki *hook* untuk *lifecycle* komponen, seperti Angular contohnya.
+pemrograman pada umumnya yang memiliki *hook* untuk *lifecycle* komponen, seperti Angular contohnya.
 *Hook* tersebut digunakan Kontainer untuk selalu siap menerima *event* selama *lifecycle* dan
 menjalankan kode yang diimplementasi pada suatu *handler*, ketika *hook lifecycle* terkait telah dieksekusi.
 
@@ -36,7 +36,7 @@ Tidak ada parameter yang diberikan pada *handler*.
 *Hook* ini akan dipanggil sesaat sebelum kontainer dimatikan, karena suatu *request* API atau *event* pengaturan,
 contohnya kegagalan pada *liveness probe*, *preemption*, perebutan *resource*, dan lainnya.
 Sebuah panggilan untuk *hook* `PreStop` akan gagal jika kontainer tersebut telah ada pada *state terminate* atau *complete*.
-Hal ini bersifat *blocking*, yang artinya *synchronous*, harus menunggu eksekusi selesai, sebelum melakukan panggilan
+Hal ini bersifat *blocking*, yang artinya panggilan bersifat sinkron (*synchronous*), harus menunggu eksekusi selesai, sebelum melakukan panggilan
 untuk menghapus kontainer tersebut.
 Tidak ada parameter yang diberikan pada *handler*.
 
@@ -44,11 +44,10 @@ Penjelasan yang lebih rinci tentang proses terminasi dapat dilihat pada [Termina
 
 ### Implementasi *handler* untuk *hook*
 
-Kontainer dapat mengakses sebuah *hook* dengan implementasi dan registrasi sebuah *handler* untuk *hook* tersebut.
+Kontainer dapat mengakses sebuah *hook* melalui implementasi dan registrasi sebuah *handler* untuk *hook* tersebut.
 Ada dua jenis *handler* untuk *hook* yang dapat diimplementasikan untuk Kontainer:
 
-* Exec - Mengeksekusi sebuah perintah tertentu, contohnya `pre-stop.sh`, di dalam cgroups dan *namespace* suatu Kontainer.
-*Resource* yang dikonsumsi oleh perintah tersebut dianggap sebagai bagian dari Kontainer.
+* Exec - Mengeksekusi sebuah perintah tertentu, contohnya `pre-stop.sh`, di dalam cgroups dan *namespace* suatu Kontainer. *Resource* yang dikonsumsi oleh perintah tersebut dianggap sebagai bagian dari Kontainer.
 * HTTP - Mengeksekusi sebuah *request* HTTP untuk *endpoint* tertentu pada Kontainer tersebut.
 
 ### Eksekusi *handler* untuk *hook*
