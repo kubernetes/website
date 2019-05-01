@@ -13,7 +13,7 @@ Sekarang kamu memiliki aplikasi yang telah direplikasi, kamu dapat mengeksposnya
 
 Secara *default*, *Docker* menggunakan jaringan *host*, jadi kontainer dapat berkomunikasi dengan kontainer lainnya jika mereka berada di dalam *node* yang sama. Agar kontainer *Docker* dapat berkomunikasi antar *node*, masing-masing kontainer tersebut harus diberikan *port* yang berbeda di alamat IP *node* tersebut, yang akan diteruskan (*proxied*) ke dalam kontainer. Artinya adalah para kontainer di dalam sebuah *node* harus berkoordinasi *port* mana yang akan digunakan atau dialokasikan secara otomatis.
 
-Akan sulit untuk mengkoordinasikan *port* yang digunakan oleh banyak pengembang. Kubernetes mengansumsikan bahwa *Pod* dapat berkomunikasi dengan *Pod* lain, terlepas di *Node* mana *Pod* tersebut di *deploy*. Kubernetes memberikan setiap *Pod* alamat *ClusterIP* sehingga kamu tidak perlu secara explisit membuat jalur antara *Pod* ataupun memetakan *port* kontainer ke dalam *port* di dalam *Node* tersebut. Ini berarti kontainer di dalam sebuah *Pod* dapat berkomunikasi dengan *localhost* via *port*, dan setiap *Pod* di dalam kluster dapat berkomunikasi tanpa *NAT*. Panduan ini akan membahas bagaimana kamu dapat menjalankan sebuah layanan atau aplikasi di dalam model jaringan diatas.
+Akan sulit untuk mengkoordinasikan *port* yang digunakan oleh banyak pengembang. Kubernetes mengasumsikan bahwa *Pod* dapat berkomunikasi dengan *Pod* lain, terlepas di *Node* mana *Pod* tersebut di *deploy*. Kubernetes memberikan setiap *Pod* alamat *ClusterIP* sehingga kamu tidak perlu secara explisit membuat jalur antara *Pod* ataupun memetakan *port* kontainer ke dalam *port* di dalam *Node* tersebut. Ini berarti kontainer di dalam sebuah *Pod* dapat berkomunikasi dengan *localhost* via *port*, dan setiap *Pod* di dalam kluster dapat berkomunikasi tanpa *NAT*. Panduan ini akan membahas bagaimana kamu dapat menjalankan sebuah layanan atau aplikasi di dalam model jaringan di atas.
 
 Panduan ini menggunakan server *nginx* sederhana untuk mendemonstrasikan konsepnya. Konsep yang sama juga ditulis lebih lengkap di [Aplikasi Jenkins CI](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes).
 
@@ -23,7 +23,7 @@ Panduan ini menggunakan server *nginx* sederhana untuk mendemonstrasikan konsepn
 
 ## Mengekspos Pod ke dalam kluster
 
-Kita melakukan ini dibeberapa contoh sebelumnya, tetapi mari kita lakukan sekali lagi dan berfokus pada prespektif jaringannya. Buat sebuah *nginx Pod*, dan perhatikan bahwa templat tersebut mempunyai spesifikasi *port* kontainer:
+Kita melakukan ini di beberapa contoh sebelumnya, tetapi mari kita lakukan sekali lagi dan berfokus pada prespektif jaringannya. Buat sebuah *nginx Pod*, dan perhatikan bahwa templat tersebut mempunyai spesifikasi *port* kontainer:
 
 {{< codenew file="service/networking/run-my-nginx.yaml" >}}
 
@@ -51,7 +51,7 @@ Kamu dapat membaca lebih detail [bagaimana kita melakukan ini](/docs/concepts/cl
 
 ## Membuat Service
 
-kita mempunyai *Pod* yang menjalankan *nginx* di dalam kluster. Teorinya, kamu dapat berkomikasi ke *Pod* tersebut secara langsung, tapi apa yang terjadi jika sebuah *node* mati? *Pod* di dalam *node* tersebut ikut mati, dan *Deployment* akan membuat *Pod* baru, dengan IP yang berbeda. Ini adalah masalah yang *Service* selesaikan.
+Kita mempunyai *Pod* yang menjalankan *nginx* di dalam kluster. Teorinya, kamu dapat berkomunikasi ke *Pod* tersebut secara langsung, tapi apa yang terjadi jika sebuah *node* mati? *Pod* di dalam *node* tersebut ikut mati, dan *Deployment* akan membuat *Pod* baru, dengan IP yang berbeda. Ini adalah masalah yang *Service* selesaikan.
 
 *Service* Kubernetes adalah sebuah abstraksi yang mendefinisikan sekumpulan *Pod* yang menyediakan fungsi yang sama dan berjalan di dalam kluster. Saat dibuat, setiap *Service* diberikan sebuah alamat IP (disebut juga *ClusterIP*). Alamat ini akan terus ada, dan tidak akan pernah berubah selama *Service* hidup. *Pod* dapat berkomunikasi dengan *Service* dan trafik yang menuju *Service* tersebut akan otomatis dilakukan mekanisme *load balancing* ke *Pod* yang merupakan anggota dari *Service* tersebut.
 
@@ -64,14 +64,14 @@ kubectl expose deployment/my-nginx
 service/my-nginx exposed
 ```
 
-Perintah diatas sama dengan `kubectl apply -f` dengan *yaml* sebagai berikut:
+Perintah di atas sama dengan `kubectl apply -f` dengan *yaml* sebagai berikut:
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
 
-Spesifikasi ini akan membuat *Service* yang membuka *TCP port 80* disetiap *Pod* dengan label `run: my-nginx` dan mengeksposnya ke dalam *port Service* (`targetPort`: adalah port kontainer yang menerima trafik, `port` adalah *service port* yang dapat berupa *port* apapun yang digunakan *Pod* lain untuk mengakses *Service*).
+Spesifikasi ini akan membuat *Service* yang membuka *TCP port 80* di setiap *Pod* dengan label `run: my-nginx` dan mengeksposnya ke dalam *port Service* (`targetPort`: adalah port kontainer yang menerima trafik, `port` adalah *service port* yang dapat berupa *port* apapun yang digunakan *Pod* lain untuk mengakses *Service*).
 
 Lihat [Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
-API object untuk melihat daftar *field* apa saja yang didukung di *service definition*. Cek *Service* kamu:
+objek *API* untuk melihat daftar *field* apa saja yang didukung di definisi *Service*. Cek *Service* kamu:
 
 ```shell
 kubectl get svc my-nginx
@@ -81,7 +81,7 @@ NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 ```
 
-Seperti yang disebutkan sebelumnya, sebuah *Service* berisi grup *Pod*. *Pod* diekspos melalui `endpoints`. *Service selector* akan mengecek *Pod* secara terus-menerus dan hasilkan akan dikirim (*POSTed*) ke objek *endpoint* yang bernama `my-nginx`. Saat sebuah *Pod* mati, *IP Pod* di dalam *endpoint* tersebut akan otomatis dihapus, dan *Pod* baru yang sesuai dengan *Service selector* akan otomatis ditambahkan ke dalam *endpoint*. Cek *endpoint* dan perhatikan bahwa IP sama dengan *Pod* yang dibuat di langkah pertama: 
+Seperti yang disebutkan sebelumnya, sebuah *Service* berisi sekumpulan *Pod*. *Pod* diekspos melalui `endpoints`. *Service selector* akan mengecek *Pod* secara terus-menerus dan hasilnya akan dikirim (*POSTed*) ke objek *endpoint* yang bernama `my-nginx`. Saat sebuah *Pod* mati, *IP Pod* di dalam *endpoint* tersebut akan otomatis dihapus, dan *Pod* baru yang sesuai dengan *Service selector* akan otomatis ditambahkan ke dalam *endpoint*. Cek *endpoint* dan perhatikan bahwa IP sama dengan *Pod* yang dibuat di langkah pertama: 
 
 ```shell
 kubectl describe svc my-nginx
@@ -107,7 +107,7 @@ NAME       ENDPOINTS                     AGE
 my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 ```
 
-Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<PORT>` dari *node* manapun di kluster. Perlu dicatat bahwa *Service IP* adalah IP *virtual*, IP tersebut tidak pernah ada di *interface node* manapun. Jika kamu penasaran bagaimana konsep ini bekerja, kamu dapat membaca lebih lanjut tentang [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<PORT>` dari *node* manapun di kluster. Perlu dicatat bahwa *Service IP* adalah IP virtual, IP tersebut tidak pernah ada di *interface node* manapun. Jika kamu penasaran bagaimana konsep ini bekerja, kamu dapat membaca lebih lanjut tentang [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
 
 ## Mengakses Service
 
@@ -116,7 +116,7 @@ Kubernetes mendukung 2 mode utama untuk menemukan sebuah *Service* - variabel *e
 
 ### Variabel Environment
 
-Saat sebuah *Pod* berjalan di *Node*, *kubelet* akan menambahkan variabel *environment* untuk setiap *Service* yang aktif ke dalam *Pod*. Ini menimbulkan beberapa masalah. Untuk melihatnya, periksa *environment* dari *Pod nginx* yang telah kamu buat (nama *Pod*mu akan berbeda-beda):
+Saat sebuah *Pod* berjalan di *Node*, *kubelet* akan menambahkan variabel *environment* untuk setiap *Service* yang aktif ke dalam *Pod*. Ini menimbulkan beberapa masalah. Untuk melihatnya, periksa *environment* dari *Pod nginx* yang telah kamu buat (nama *Pod*-mu akan berbeda-beda):
 
 ```shell
 kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
@@ -167,7 +167,7 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 
 Jika *DNS* belum berjalan, kamu dapat [mengaktifkannya](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it).
 
-Sisa panduan ini mengansumsikan kamu mempunyai *Service* dengan IP (my-nginx), dan sebuah server *DNS*  yang memberikan nama ke dalam IP tersebut (CoreDNS kluster),jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain di dalam kluster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
+Sisa panduan ini mengasumsikan kamu mempunyai *Service* dengan IP (my-nginx), dan sebuah server *DNS*  yang memberikan nama ke dalam IP tersebut (CoreDNS kluster), jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain di dalam kluster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
@@ -190,10 +190,10 @@ Address 1: 10.0.162.149
 
 ## Mengamankan Service
 
-HIngga sekarang kita hanya mengakses *nginx* server dari dalam kluster. Sebelum mengekspos *Service* ke internet, kamu harus memastikan bahwa kanal komunikasi aman. Untuk melakukan hal tersebut, kamu membutuhkan:
+Hingga sekarang kita hanya mengakses *nginx* server dari dalam kluster. Sebelum mengekspos *Service* ke internet, kamu harus memastikan bahwa kanal komunikasi aman. Untuk melakukan hal tersebut, kamu membutuhkan:
 
-* Self signed certificates* untuk *https* (kecuali jika kamu sudah mempunyai *identity certificate*)
-* Sebuah server *nginx* yang terkonfigurasi untuk menggunakan sertifikat tersebut
+* *Self signed certificates* untuk *https* (kecuali jika kamu sudah mempunyai *identity certificate*)
+* Sebuah server *nginx* yang terkonfigurasi untuk menggunakan *certificate* tersebut
 * Sebuah [secret](/docs/concepts/configuration/secret/) yang membuat setifikat tersebut dapat diakses oleh *pod*
 
 
@@ -218,13 +218,13 @@ nginxsecret           Opaque                                2         1m
 Berikut ini adalah langkah-langkah manual yang harus diikuti jika kamu mengalami masalah menjalankan *make* (pada windows contohnya): 
 
 ```shell
-#membuat sebuah pasangan kunci public private
+#membuat sebuah key-pair public private
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
-#rubah kunci tersebut ke dalam pengkodean base64
+#rubah key tersebut ke dalam pengkodean base64
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```
-Gunakan hasil keluaran dari perintah sebelumnya untuk membuat sebuah file *yaml* seperti berikut. nilai yang dikodekan *base64* harus berada di dalam satu baris.
+Gunakan hasil keluaran dari perintah sebelumnya untuk membuat sebuah file *yaml* seperti berikut. Nilai yang dikodekan *base64* harus berada di dalam satu baris.
 
 ```yaml
 apiVersion: "v1"
@@ -247,7 +247,7 @@ default-token-il9rc   kubernetes.io/service-account-token   1         1d
 nginxsecret           Opaque                                2         1m
 ```
 
-Sekarang modifikasi replika *nginx* untuk menjalankan server *https* menggunakan sertifikat di dalam *secret* dan *Service* untuk mengekspos semua *port* (80 dan 443):
+Sekarang modifikasi replika *nginx* untuk menjalankan server *https* menggunakan *certificate* di dalam *secret* dan *Service* untuk mengekspos semua *port* (80 dan 443):
 
 {{< codenew file="service/networking/nginx-secure-app.yaml" >}}
 
@@ -271,7 +271,7 @@ node $ curl -k https://10.244.3.5
 <h1>Welcome to nginx!</h1>
 ```
 
-Perlu dicatat bahwa kita menggunakan parameter `-k` saat menggunakan *curl*, ini karena kita tidak tau apapun tentang *Pod* yang menjalankan *nginx* saat pembuatan seritifikat, jadi kita harus memberitahu *curl* untuk mengabaikan ketidakcocokan *CName*. Dengan membuat *Service*, kita menghubungkan *CName* yang digunakan pada sertifikat dengan nama pada *DNS* yang digunakan *Pod*. Lakukan pengujian dari sebuah *Pod* (*secret* yang sama digunakan untuk agar mudah, *Pod* tersebut hanya membutuhkan *nginx.crt* untuk mengakses *Service*)
+Perlu dicatat bahwa kita menggunakan parameter `-k` saat menggunakan *curl*, ini karena kita tidak tau apapun tentang *Pod* yang menjalankan *nginx* saat pembuatan seritifikat, jadi kita harus memberitahu *curl* untuk mengabaikan ketidakcocokan *CName*. Dengan membuat *Service*, kita menghubungkan *CName* yang digunakan pada *certificate* dengan nama pada *DNS* yang digunakan *Pod*. Lakukan pengujian dari sebuah *Pod* (*secret* yang sama digunakan untuk agar mudah, *Pod* tersebut hanya membutuhkan *nginx.crt* untuk mengakses *Service*)
 
 {{< codenew file="service/networking/curlpod.yaml" >}}
 
