@@ -359,6 +359,16 @@ Shortcodes inside include statements will break the build. You must insert them 
 {{</* /note */>}}
 ```
 
+### Links
+```
+Prefer using reference style links over inline style links.
+When linking within the same directory, use a relative link.
+When linking to a document outside of the current directory, use the absolute path from the root of the repository.
+When linking to a file in another Kubernetes github repository, use the k8s.io url shortener.
+git.k8s.io -> github.com/kubernetes
+sigs.k8s.io -> github.com/kubernetes-sigs
+```
+
 ## Content best practices
 
 This section contains suggested best practices for clear, concise, and consistent content.
