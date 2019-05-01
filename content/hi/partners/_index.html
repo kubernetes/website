@@ -43,11 +43,9 @@ cid: सहभागी
         </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-
 			var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
 			var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
       var secondLink = "https://landscape.cncf.io/category=kubernetes-training-partner&format=card-mode&grouping=category&embed=yes";
-
       function updateSrc(buttonId) {
       	if (buttonId == "kcsp") {
         		$("#landscape").attr("src",defaultLink);
@@ -62,7 +60,6 @@ cid: सहभागी
             window.location.hash = "#ktp";
         }
       }
-
       // Automatically load the correct iframe based on the URL fragment
       document.addEventListener('DOMContentLoaded', function() {
         var showContent = "kcsp";
