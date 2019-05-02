@@ -19,6 +19,8 @@ This page describes Kubernetes security and disclosure information.
 
 Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) group for emails about security and major API announcements.
 
+You can also subscribe to an RSS feed of the above using [this link](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50).
+
 ## Report a Vulnerability
 
 We’re extremely grateful for security researchers and users that report vulnerabilities to the Kubernetes Open Source Community. All reports are thoroughly investigated by a set of community volunteers.
