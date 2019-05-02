@@ -20,7 +20,7 @@ spec:
     - mountPath: /usr/local/etc/redis
       name: config
     args:
-    - /usr/loca/etc/redis/redis.conf
+    - /usr/local/etc/redis/redis.conf
   volumes:
     - name: data
       emptyDir: {}
