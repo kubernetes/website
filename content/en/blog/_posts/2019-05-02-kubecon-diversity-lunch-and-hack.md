@@ -1,6 +1,6 @@
 ---
 title: "Join us for the 2019 KubeCon Diversity Lunch & Hack"
-date: 2019-04-29
+date: 2019-05-02
 slug: kubecon-diversity-lunch-and-hack
 ---
 
@@ -8,7 +8,7 @@ slug: kubecon-diversity-lunch-and-hack
 
 Join us for the 2019 KubeCon Diversity Lunch & Hack: Building Tech Skills & An Inclusive Community - Sponsored by Google Cloud and VMware
 
-Registration for the Diversity Lunch opens in two weeks, beginning on May 2nd, 2019. To register, go to the main <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2019/schedule/">KubeCon + CloudNativeCon EU schedule</a>, then log in to your Sched account, and confirm your attendance to the Diversity Lunch. Please sign up ASAP once the link is live, as spaces will fill quickly. We filled the event in just a few days last year, and anticipate doing so again this year.
+Registration for the Diversity Lunch opens today, May 2nd, 2019. To register, go to the main <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2019/schedule/">KubeCon + CloudNativeCon EU schedule</a>, then log in to your Sched account, and confirm your attendance to the Diversity Lunch. Please sign up ASAP once the link is live, as spaces will fill quickly. We filled the event in just a few days last year, and anticipate doing so again this year.
 
 The 2019 KubeCon Diversity Lunch & Hack will be held at the Fira Gran Via Barcelona Hall 8.0 Room F1 on May 22nd, 2019 from 12:30-14:00.
 
@@ -18,11 +18,11 @@ First things first, let’s establish some ground rules:
 
 This is a safe space. What does that mean? Simple:
 
-### 1. Asking for and using people’s pronouns
-### 2. Absolutely no photography
-### 3. Awareness of your actions towards others. Do your best to ensure that you contribute towards making this environment welcoming, safe, and inclusive for all.
-### 4. Please avoid tech-heavy arbitrary community slang/jargon [keep in mind that not all of us are developers, many are tech-adjacent and/or new to the community]
-### 5. Act with care and empathy towards your fellow community members at all times.
+1. Asking for and using people’s pronouns
+2. Absolutely no photography
+3. Awareness of your actions towards others. Do your best to ensure that you contribute towards making this environment welcoming, safe, and inclusive for all.
+4. Please avoid tech-heavy arbitrary community slang/jargon [keep in mind that not all of us are developers, many are tech-adjacent and/or new to the community]
+5. Act with care and empathy towards your fellow community members at all times.
 
 This event also follows the <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2019/attend/code-of-conduct/">Code of Conduct</a> for all CNCF events.
 
@@ -36,4 +36,4 @@ To make this all possible, we need you. Yes, you, to register. As much as we lov
 
 We look forward to seeing you!
 
-_Special thanks to [Leah Petersen](https://www.linkedin.com/in/leahstunts/), Sarah Conway (https://www.linkedin.com/in/sarah-conway-6166151/) and Paris Pittman (https://www.linkedin.com/in/parispittman/) for their help in editing this post._ 
+_Special thanks to [Leah Petersen](https://www.linkedin.com/in/leahstunts/), [Sarah Conway](https://www.linkedin.com/in/sarah-conway-6166151/) and [Paris Pittman](https://www.linkedin.com/in/parispittman/) for their help in editing this post._ 
