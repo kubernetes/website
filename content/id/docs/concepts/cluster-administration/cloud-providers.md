@@ -1,18 +1,18 @@
 ---
-title: Cloud Providers
+title: Penyedia Layanan Cloud
 content_template: templates/concept
 weight: 30
 ---
 
 {{% capture overview %}}
-Halaman ini akan menjelaskan bagaimana cara mengelola Kubernetes yang berjalan pada penyedia layanan cloud tertentu.
+Laman ini akan menjelaskan bagaimana cara mengelola Kubernetes yang berjalan pada penyedia layanan cloud tertentu.
 {{% /capture %}}
 
 
 {{% capture body %}}
-### kubeadm
-[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) merupakan salah satu cara yang banyak digunakan untuk membuat kluster Kubernetes.
-kubeadm memiliki beragam opsi untuk mengatur konfigurasi spesifik untuk penyedia layanan cloud. Salah satu contoh yang biasa digunakan pada penyedia cloud *in-tree* yang dapat diatur dengan kubeadm sebagai berikut:
+### Kubeadm
+[Kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) merupakan salah satu cara yang banyak digunakan untuk membuat kluster Kubernetes.
+Kubeadm memiliki beragam opsi untuk mengatur konfigurasi spesifik untuk penyedia layanan cloud. Salah satu contoh yang biasa digunakan pada penyedia cloud *in-tree* yang dapat diatur dengan kubeadm adalah sebagai berikut:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta1
@@ -53,10 +53,10 @@ Bagian ini akan menjelaskan semua konfigurasi yang dapat diatur saat menjalankan
 
 ### Nama Node
 
-Penyedia layanan cloud AWS menggunakan nama DNS private dari instance AWS sebagai nama dari obyek Kubernetes Node.
+Penyedia layanan cloud AWS menggunakan nama DNS privat dari instance AWS sebagai nama dari objek Kubernetes Node.
 
 ### Load Balancers
-Anda dapat mengatur [load balancers eksternal](/docs/tasks/access-application-cluster/create-external-load-balancer/) sehingga dapat menggunakan fitur khusus AWS dengan mengatur anotasi seperti di bawah ini.
+Kamu dapat mengatur [load balancers eksternal](/docs/tasks/access-application-cluster/create-external-load-balancer/) sehingga dapat menggunakan fitur khusus AWS dengan mengatur anotasi seperti di bawah ini.
 
 ```yaml
 apiVersion: v1
@@ -79,7 +79,7 @@ spec:
     app: example
 ```
 
-Pengaturan lainnya juga dapat diaplikasikan pada layanan *load balancer* di AWS dengan menggunakan _annotations_. Berikut ini akan dijelaskan anotasi yang didukung oleh AWS ELB:
+Pengaturan lainnya juga dapat diaplikasikan pada layanan *load balancer* di AWS dengan menggunakan anotasi-anotasi. Berikut ini akan dijelaskan anotasi yang didukung oleh AWS ELB:
 
 * `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval`: Digunakan untuk menentukan interval pengeluaran log akses.
 * `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled`: Digunakan untuk mengaktifkan atau menonaktifkan log akses.
@@ -94,7 +94,7 @@ Pengaturan lainnya juga dapat diaplikasikan pada layanan *load balancer* di AWS 
 * `service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled`: Digunakan untuk mengaktifkan atau menonaktifkan *cross-zone load balancing*.
 * `service.beta.kubernetes.io/aws-load-balancer-extra-security-groups`: Digunakan untuk menentukan grup keamanan yang akan ditambahkan pada ELB yang dibuat.
 * `service.beta.kubernetes.io/aws-load-balancer-internal`: Digunakan sebagai indikasi untuk menggunakan internal ELB.
-* `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: Digunakan untuk mengaktifkan proxy protocol pada ELB. Saat ini hanya dapat menerima nilai `*` yang berarti mengaktifkan proxy protocol pada semua ELB *backends*. Di masa mendatang Anda juga dapat mengatur agar proxy protocol hanya aktif pada *backends* tertentu..
+* `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: Digunakan untuk mengaktifkan proxy protocol pada ELB. Saat ini hanya dapat menerima nilai `*` yang berarti mengaktifkan proxy protocol pada semua ELB *backends*. Di masa mendatang kamu juga dapat mengatur agar proxy protocol hanya aktif pada *backends* tertentu..
 * `service.beta.kubernetes.io/aws-load-balancer-ssl-ports`: Digunakan untuk menentukan daftar port--yang dipisahkan koma-- yang akan menggunakan SSL/HTTPS *listeners*. Nilai *default* yaitu `*` (semua).
 
 Informasi anotasi untuk AWS di atas diperoleh dari komentar pada [aws.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/aws/aws.go)
@@ -103,21 +103,21 @@ Informasi anotasi untuk AWS di atas diperoleh dari komentar pada [aws.go](https:
 
 ### Nama Node
 
-Penyedia layanan cloud Azure menggunakan *hostname* dari *node* (yang ditentukan oleh kubelet atau menggunakan `--hostname-override`) sebagai nama dari obyek Kubernetes Node.
+Penyedia layanan cloud Azure menggunakan *hostname* dari *node* (yang ditentukan oleh kubelet atau menggunakan `--hostname-override`) sebagai nama dari objek Kubernetes Node.
 Perlu diperhatikan bahwa nama Kubernetes Node harus sesuai dengan nama Azure VM.
 
 ## CloudStack
 
 ### Nama Node
 
-Penyedia layanan cloud CloudStack menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari obyek Kubernetes Node.
+Penyedia layanan cloud CloudStack menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari objek Kubernetes Node.
 Perlu diperhatikan bahwa nama Kubernetes Node harus sesuai dengan nama Cloudstack VM.
 
 ## GCE
 
 ### Nama Node
 
-Penyedia layanan cloud GCE menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari obyek Kubernetes Node.
+Penyedia layanan cloud GCE menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari objek Kubernetes Node.
 Perlu diperhatikan bahwa segmen pertama dari nama Kubernetes Node harus sesuai dengan nama *instance* GCE (cth. sebuah *node* dengan nama `kubernetes-node-2.c.my-proj.internal` harus sesuai dengan *instance* yang memiliki nama `kubernetes-node-2`).
 
 ## OpenStack
@@ -125,8 +125,8 @@ Bagian ini akan menjelaskan semua konfigurasi yang dapat diatur saat menggunakan
 
 ### Nama Node
 
-Penyedia layanan cloud OpenStack menggunakan nama *instance* (yang diperoleh dari metadata OpenStack) sebagai nama obyek Kubernetes Node.
-Perli diperhatikan bahwa nama *instance* harus berupa nama Kubernetes Node yang valid agar kubelet dapat mendaftarkan obyek Node-nya.
+Penyedia layanan cloud OpenStack menggunakan nama *instance* (yang diperoleh dari metadata OpenStack) sebagai nama objek Kubernetes Node.
+Perli diperhatikan bahwa nama *instance* harus berupa nama Kubernetes Node yang valid agar kubelet dapat mendaftarkan objek Node-nya.
 
 ### Layanan
 
@@ -155,7 +155,7 @@ penyedia layanan. Penyedia layanan akan menurunkan fungsionalitas secara perlaha
 
 ### cloud.conf
 Kubernetes berinteraksi dengan OpenStack melalui file cloud.conf. File ini akan menyuplai Kubernetes dengan kredensial dan lokasi dari Openstack *auth endpoint*.
-Anda dapat membuat file cloud.conf dengan menambahkan rincian berikut ini di dalam file:
+Kamu dapat membuat file cloud.conf dengan menambahkan rincian berikut ini di dalam file:
 
 #### Konfigurasi pada umumnya
 Berikut ini merupakan contoh dan konfigurasi yang biasa digunakan dan akan mencakup semua pilihan yang paling sering dibutuhkan. File ini akan merujuk pada *endpoint* dari Keystone OpenStack, serta menyediakan rincian bagaimana cara mengotentikasi dengannya, termasuk cara mengatur *load balancer*:
@@ -175,18 +175,18 @@ subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a
 ##### Global
 Konfigurasi untuk penyedia layanan OpenStack berikut ini akan membahas bagian konfigurasi global sehingga harus berada pada bagian `[Global]` dari file `cloud.conf`:
 
-* `auth-url` (Wajib): URL dari API keystone digunakan untuk otentikasi. ULR ini dapat ditemukan pada bagian Access dan Security > API Access > Credentials di halaman panel kontrol OpenStack.
+* `auth-url` (Wajib): URL dari API keystone digunakan untuk otentikasi. ULR ini dapat ditemukan pada bagian Access dan Security > API Access > Credentials di laman panel kontrol OpenStack.
 * `username` (Wajib): Merujuk pada username yang dikelola keystone.
 * `password` (Wajib): Merujuk pada kata sandi yang dikelola keystone.
-* `tenant-id` (Wajib): Digunakan untuk menentukan id dari project tempat Anda membuat *resources*.
-* `tenant-name` (Opsional): Digunakan untuk menentukan nama dari project tempat Anda ingin membuat *resources*.
+* `tenant-id` (Wajib): Digunakan untuk menentukan id dari project tempat kamu membuat *resources*.
+* `tenant-name` (Opsional): Digunakan untuk menentukan nama dari project tempat kamu ingin membuat *resources*.
 * `trust-id` (Opsional): Digunakan untuk menentukan *identifier of the trust* untuk digunakan
   sebagai otorisasi. Suatu trust merepresentasikan otorisasi dari suatu pengguna (*the trustor*) untuk didelegasikan
   pada pengguna lain (*the trustee*), dan dapat digunakan oleh *trustee*
   berperan sebagai *the trustor*. *Trust* yang tersedia dapat ditemukan pada *endpoint*
   `/v3/OS-TRUST/trusts` dari Keystone API.
-* `domain-id` (Opsional): Digunakan untuk menentukan id dari domain tempat user Anda berada.
-* `domain-name` (Opsional): Digunakan untuk menentukan nama dari domain tempat user Anda berada.
+* `domain-id` (Opsional): Digunakan untuk menentukan id dari domain tempat user kamu berada.
+* `domain-name` (Opsional): Digunakan untuk menentukan nama dari domain tempat user kamu berada.
 * `region` (Opsional): Digunakan untuk menentukan *identifier* dari region saat digunakan pada
   multi-region OpenStack cloud. Sebuah region merupakan pembagian secara umum dari *deployment* OpenStack. Meskipun region tidak wajib berkorelasi secara geografis, suatu deployment dapat menggunakan nama geografis sebagai region *identifier* seperti
   `us-east`. Daftar region yang tersedia dapat ditemukan pada *endpoint* `/v3/regions`
@@ -205,9 +205,9 @@ balancer* dan harus berada pada bagian `[LoadBalancer]` dari file `cloud.conf`:
   memilih versi tertinggi yang didukung dari *underlying* OpenStack
   cloud.
 * `use-octavia` (Opsional): Digunakan untuk menentukan apakah akan menggunakan *endpoint* dari layanan Octavia LBaaS. Nilai yang valid yaitu `true` atau `false`. Jika diset nilai `true` namun Octavia LBaaS V2 tidak dapat ditemukan, maka *load balancer* akan kembali menggunakan *endpoint* dari Neutron LBaaS V2. Nilai *default* adalah `false`.
-* `subnet-id` (Opsional): Digunakan untuk menentukan id dari subnet yang ingin Anda
+* `subnet-id` (Opsional): Digunakan untuk menentukan id dari subnet yang ingin kamu
   buat *load balancer* di dalamnya. Nilai id ini dapat dilihat pada Network > Networks. Klik pada
-  network yang sesuai untuk melihat subnet di dalamnya.
+  jaringan yang sesuai untuk melihat subnet di dalamnya.
 * `floating-network-id` (Opsional): Jika diset, maka akan membuat *floating* IP
   untuk *load balancer*.
 * `lb-method` (Opsional): Digunakan untuk menentukan algoritma pendistribusian
@@ -221,10 +221,10 @@ balancer* dan harus berada pada bagian `[LoadBalancer]` dari file `cloud.conf`:
   Nilai *default* adalah `false`. Jika diset nilai `true` maka `monitor-delay`,
   `monitor-timeout`, dan `monitor-max-retries` juga harus diset.
 * `monitor-delay` (Opsional): Waktu antara pengiriman *probes* ke
-  anggota dari *load balancer*. Mohon pastikan Anda memasukkan waktu yang valid. Nilai waktu yang valid yaitu "ns", "us" (atau "µs"), "ms", "s", "m", "h"
+  anggota dari *load balancer*. Mohon pastikan kamu memasukkan waktu yang valid. Nilai waktu yang valid yaitu "ns", "us" (atau "µs"), "ms", "s", "m", "h"
 * `monitor-timeout` (Opsional): Waktu maksimum dari monitor untuk menunggu
   balasan ping sebelum *timeout*. Nilai ini harus lebih kecil dari nilai *delay*.
-  Mohon pastikan Anda memasukkan waktu yang valid. Nilai waktu yang valid yaitu "ns", "us" (atau "µs"), "ms", "s", "m", "h"
+  Mohon pastikan kamu memasukkan waktu yang valid. Nilai waktu yang valid yaitu "ns", "us" (atau "µs"), "ms", "s", "m", "h"
 * `monitor-max-retries` (Opsional): Jumlah gagal ping yang diizinkan sebelum
   mengubah status anggota *load balancer* menjadi INACTIVE. Harus berupa angka
   antara 1 dan 10.
@@ -235,7 +235,7 @@ balancer* dan harus berada pada bagian `[LoadBalancer]` dari file `cloud.conf`:
 * `node-security-group` (Opsional): ID dari grup keamanan yang akan dikelola.
 
 ##### Block Storage
-Konfigurasi untuk penyedia layanan OpenStack berikut ini digunakan untuk mengatur *block storage*
+Konfigurasi untuk penyedia layanan OpenStack berikut ini digunakan untuk mengatur penyimpanan blok atau *block storage*
 dan harus berada pada bagian `[BlockStorage]` dari file `cloud.conf`:
 
 * `bs-version` (Opsional): Digunakan untuk menonaktifkan fitur deteksi versi otomatis. Nilai
@@ -261,8 +261,7 @@ secara eksplisit mengatur parameter `bs-version`. Contoh *endpoint* yang berdasa
 `http://foo.bar/volume` sedangkan endpoint yang berdasarkan port memiliki bentuk seperti ini
 `http://foo.bar:xxx`.
 
-Pada lingkungan yang menggunakan *endpoint* berdasarkan *path* dan Kubernetes menggunakan logika deteksi-otomatis yang lama maka
-*error* `BS API version autodetection failed.` akan muncul saat mencoba
+Pada lingkungan yang menggunakan *endpoint* berdasarkan *path* dan Kubernetes menggunakan logika deteksi-otomatis yang lama, maka *error* `BS API version autodetection failed.` akan muncul saat mencoba
 melepaskan volume. Untuk mengatasi isu ini, dimungkinkan
 untuk memaksa penggunaan Cinder API versi 2 dengan menambahkan baris berikut ini pada konfigurasi penyedia cloud:
 
@@ -293,14 +292,14 @@ harus berada pada bagian `[Metadata]` dari file `cloud.conf`:
 
 ##### Router
 
-Konfigurasi untuk Openstack berikut ini digunakan untuk mengatur plugin Kubernetes network [kubenet]
+Konfigurasi untuk Openstack berikut ini digunakan untuk mengatur plugin jaringan Kubernetes [kubenet]
 dan harus berada pada bagian `[Router]` dari file `cloud.conf`:
 
 * `router-id` (Opsional): Jika Neutron pada *underlying cloud* mendukung ekstensi
   `extraroutes` maka gunakan `router-id` untuk menentukan router mana yang akan ditambahkan rute di dalamnya.
-  Router yang dipilih harus menjangkau network *private* tempat node kluster berada
-  (biasanya hanya ada satu *node network*, dan nilai ini harus nilai dari *default* router
-  pada *node network*).  Nilai ini dibutuhkan untuk dapat menggunakan [kubenet] pada OpenStack.
+  Router yang dipilih harus menjangkau jaringan privat tempat node kluster berada
+  (biasanya hanya ada satu jaringan *node*, dan nilai ini harus nilai dari *default* router
+  pada jaringan *node*).  Nilai ini dibutuhkan untuk dapat menggunakan [kubenet] pada OpenStack.
 
 [kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
@@ -310,42 +309,42 @@ dan harus berada pada bagian `[Router]` dari file `cloud.conf`:
 
 ### Nama Node
 
-Penyedia layanan cloud OVirt menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari obyek Kubernetes Node.
+Penyedia layanan cloud OVirt menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari objek Kubernetes Node.
 Perlu diperhatikan bahwa nama Kubernetes Node harus sesuai dengan VM FQDN (yang ditampilkan oleh OVirt di bawah `<vm><guest_info><fqdn>...</fqdn></guest_info></vm>`)
 
 ## Photon
 
 ### Nama Node
 
-Penyedia layanan cloud Photon menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari obyek Kubernetes Node.
+Penyedia layanan cloud Photon menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari objek Kubernetes Node.
 Perlu diperhatikan bahwa nama Kubernetes Node name harus sesuai dengan nama Photon VM (atau jika `overrideIP` diset ke true pada `--cloud-config`, nama Kubernetes Node harus sesuai dengan alamat IP Photon VM).
 
 ## VSphere
 
 ### Nama Node
 
-Penyedia layanan cloud VSphere menggunakan *hostname* yang terdeteksi dari *node* (yang ditentukan oleh kubelet) sebagai nama dari obyek Kubernetes Node.
+Penyedia layanan cloud VSphere menggunakan *hostname* yang terdeteksi dari *node* (yang ditentukan oleh kubelet) sebagai nama dari objek Kubernetes Node.
 
 Parameter `--hostname-override` diabaikan oleh penyedia layanan cloud VSphere.
 
 ## IBM Cloud Kubernetes Service
 
-### Compute nodes
-Saat menggunakan layanan IBM Cloud Kubernetes Service, Anda dapat membuat kluster yang terdiri dari campuran antara mesin virtual dan fisik (*bare metal*) sebagai *node* di *single zone* atau *multiple zones* pada satu region. Untuk informasi lebih lanjut, lihat [Planning your cluster and worker node setup](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters#plan_clusters).
+### Node Komputasi
+Saat menggunakan layanan IBM Cloud Kubernetes Service, kamu dapat membuat kluster yang terdiri dari campuran antara mesin virtual dan fisik (*bare metal*) sebagai *node* di *single zone* atau *multiple zones* pada satu region. Untuk informasi lebih lanjut, lihat [Perencanaan kluster dan pengaturan worker node](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters#plan_clusters).
 
-Nama dari obyek Kubernetes Node yaitu alamat IP *private* dari IBM Cloud Kubernetes Service *worker node instance*.
+Nama dari objek Kubernetes Node yaitu alamat IP privat dari IBM Cloud Kubernetes Service *worker node instance*.
 
-### Networking
-Penyedia layanan IBM Cloud Kubernetes Service menyediakan VLAN untuk membuat network node yang terisolasi dengan kinerja tinggi. Anda juga dapat membuat *custom firewall* dan kebijakan jaringan Calico untuk menambah lapisan perlindungan ekstra bagi kluster Anda, atau hubungkan kluster Anda dengan *on-prem* data center via VPN. Untuk informasi lebih lanjut, lihat [Planning in-cluster and private networking](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster).
+### Jaringan
+Penyedia layanan IBM Cloud Kubernetes Service menyediakan VLAN untuk membuat jaringan node yang terisolasi dengan kinerja tinggi. Kamu juga dapat membuat *custom firewall* dan *policy* jaringan Calico untuk menambah lapisan perlindungan ekstra bagi kluster kamu, atau hubungkan kluster kamu dengan *on-prem* data center via VPN. Untuk informasi lebih lanjut, lihat [Perencanaan jaringan privat dan in-cluster](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster).
 
-Untuk membuka aplikasi ke publik atau di dalam kluster, Anda dapat menggunakan NodePort, LoadBalancer, atau Ingress. Anda juga dapat menyesuaikan aplikasi *load balancer* Ingress dengan anotasi. Untuk informasi lebih lanjut, lihat [Planning to expose your apps with external networking](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
+Untuk membuka aplikasi ke publik atau di dalam kluster, kamu dapat menggunakan NodePort, LoadBalancer, atau Ingress. Kamu juga dapat menyesuaikan aplikasi *load balancer* Ingress dengan anotasi. Untuk informasi lebih lanjut, lihat [Perencanaan untuk membuka aplikasi dengan jaringan eksternal](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
 
-### Storage
-Penyedia layanan IBM Cloud Kubernetes Service memanfaatkan Kubernetes-native *persistent volumes* agar pengguna dapat melakukan  *mount* file, block, dan cloud object storage ke aplikasi mereka. Anda juga dapat menggunakan database-as-a-service dan *add-ons* pihak ketiga sebagai persistent storage untuk data Anda. Untuk informasi lebih lanjut, lihat [Planning highly available persistent storage](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).
+### Penyimpanan
+Penyedia layanan IBM Cloud Kubernetes Service memanfaatkan Kubernetes-native *persistent volumes* agar pengguna dapat melakukan  *mount* file, block, dan penyimpanan objek cloud ke aplikasi mereka. Kamu juga dapat menggunakan database-as-a-service dan *add-ons* pihak ketiga sebagai penyimpanan *persistent* untuk data kamu. Untuk informasi lebih lanjut, lihat [Perencanaan penyimpanan persistent yang selalu tersedia (*highly available*)](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).
 
 ## Baidu Cloud Container Engine
 
 ### Nama Node
 
-Penyedia layanan cloud Baidu menggunakan alamat IP private dari *node* (yang ditentukan oleh kubelet atau menggunakan `--hostname-override`) sebagai nama dari obyek Kubernetes Node.
-Perlu diperhatikan bahwa nama Kubernetes Node harus sesuai dengan alamat IP private dari Baidu VM.
+Penyedia layanan cloud Baidu menggunakan alamat IP privat dari *node* (yang ditentukan oleh kubelet atau menggunakan `--hostname-override`) sebagai nama dari objek Kubernetes Node.
+Perlu diperhatikan bahwa nama Kubernetes Node harus sesuai dengan alamat IP privat dari Baidu VM.
