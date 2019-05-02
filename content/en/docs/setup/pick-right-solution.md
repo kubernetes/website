@@ -95,7 +95,7 @@ cluster.
 
 * [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
 
-* [Kubermatic](https://www.loodse.com) runs Kuberntes in Kubernetes to provide managed Kubernetes clusters for any public cloud, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
+* [Kubermatic](https://www.loodse.com) runs Kubernetes in Kubernetes to provide managed Kubernetes clusters for any public cloud, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
 
 * [Kublr](https://kublr.com) offers enterprise-grade secure, scalable, highly reliable Kubernetes clusters on AWS, Azure, GCP, and on-premise. It includes out-of-the-box backup and disaster recovery, multi-cluster centralized logging and monitoring, and built-in alerting.
 
