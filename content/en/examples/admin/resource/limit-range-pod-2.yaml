@@ -23,13 +23,11 @@ spec:
       requests:
         memory: "100Mi"
         cpu: "100m"
-      #I do not have limits set
   - name: busybox-cnt03
     image: busybox
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello from cnt03; sleep 10;done"]
     resources:
-       # I do not have requests set
       limits:
         memory: "200Mi"
         cpu: "500m"
