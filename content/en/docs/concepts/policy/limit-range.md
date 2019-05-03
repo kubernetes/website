@@ -1,6 +1,5 @@
 ---
 reviewers:
-- sftim
 title: Limit Ranges
 content_template: templates/concept
 weight: 10
