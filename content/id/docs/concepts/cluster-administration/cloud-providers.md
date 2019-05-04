@@ -43,7 +43,7 @@ controllerManager:
     mountPath: "/etc/kubernetes/cloud.conf"
 ```
 
-Penyedia layanan cloud *in-tree* biasanya membutuhkan `--cloud-provider` dan `--cloud-config` untuk ditentukan sebelumnya pada *command lines* untuk [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) dan
+Penyedia layanan cloud *in-tree* biasanya membutuhkan `--cloud-provider` dan `--cloud-config` yang ditentukan sebelumnya pada *command lines* untuk [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) dan
 [kubelet](/docs/admin/kubelet/). Konten dari *file* yang ditentukan pada `--cloud-config` untuk setiap provider akan dijabarkan di bawah ini.
 
 Untuk semua penyedia layanan cloud eksternal, silakan ikuti instruksi pada repositori masing-masing penyedia layanan.
@@ -84,8 +84,8 @@ Pengaturan lainnya juga dapat diaplikasikan pada layanan *load balancer* di AWS 
 * `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval`: Digunakan untuk menentukan interval pengeluaran log akses.
 * `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled`: Digunakan untuk mengaktifkan atau menonaktifkan log akses.
 * `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name`: Digunakan untuk menentukan nama *bucket* S3 log akses.
-* `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`: Digunakan untuk menentukan prefix *bucket* S3 log akese.
-* `service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags`: Digunakan untuk menentukan daftar tag tambahan pada ELB dengan menggunakan parameter key-value. Contoh: `"Key1=Val1,Key2=Val2,KeyNoVal1=,KeyNoVal2"`.
+* `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`: Digunakan untuk menentukan prefix *bucket* S3 log akses.
+* `service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags`: Digunakan untuk menentukan daftar tag tambahan pada ELB dengan menggunakan parameter *key-value*. Contoh: `"Key1=Val1,Key2=Val2,KeyNoVal1=,KeyNoVal2"`.
 * `service.beta.kubernetes.io/aws-load-balancer-backend-protocol`: Digunakan untuk menentukan protokol yang digunakan oleh *backend* (pod) di belakang *listener*. Jika diset ke `http` (default) atau `https`, maka akan dibuat HTTPS *listener* yang akan mengakhiri koneksi dan meneruskan *header*. Jika diset ke `ssl` atau `tcp`, maka akan digunakan "raw" SSL *listener*. Jika diset ke `http` dan `aws-load-balancer-ssl-cert` tidak digunakan, maka akan digunakan HTTP *listener*.
 * `service.beta.kubernetes.io/aws-load-balancer-ssl-cert`: Digunakan untuk meminta *secure* *listener*. Nilai yang dimasukkan adalah sertifikat ARN yang valid. Info lebih lanjut lihat [ELB Listener Config](http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/elb-listener-config.html) CertARN merupakan IAM atau CM certificate ARN, contoh: `arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012`.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled`: Digunakan untuk mengaktifkan atau menonaktfkan *connection draining*.
@@ -94,7 +94,7 @@ Pengaturan lainnya juga dapat diaplikasikan pada layanan *load balancer* di AWS 
 * `service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled`: Digunakan untuk mengaktifkan atau menonaktifkan *cross-zone load balancing*.
 * `service.beta.kubernetes.io/aws-load-balancer-extra-security-groups`: Digunakan untuk menentukan grup keamanan yang akan ditambahkan pada ELB yang dibuat.
 * `service.beta.kubernetes.io/aws-load-balancer-internal`: Digunakan sebagai indikasi untuk menggunakan internal ELB.
-* `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: Digunakan untuk mengaktifkan proxy protocol pada ELB. Saat ini hanya dapat menerima nilai `*` yang berarti mengaktifkan proxy protocol pada semua ELB *backends*. Di masa mendatang kamu juga dapat mengatur agar proxy protocol hanya aktif pada *backends* tertentu..
+* `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: Digunakan untuk mengaktifkan *proxy protocol* pada ELB. Saat ini hanya dapat menerima nilai `*` yang berarti mengaktifkan *proxy protocol* pada semua ELB *backends*. Di masa mendatang kamu juga dapat mengatur agar *proxy protocol* hanya aktif pada *backends* tertentu..
 * `service.beta.kubernetes.io/aws-load-balancer-ssl-ports`: Digunakan untuk menentukan daftar port--yang dipisahkan koma-- yang akan menggunakan SSL/HTTPS *listeners*. Nilai *default* yaitu `*` (semua).
 
 Informasi anotasi untuk AWS di atas diperoleh dari komentar pada [aws.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/aws/aws.go)
@@ -149,7 +149,7 @@ Identity V2 API.
 
 § Dukungan Load Balancing V1 API telah dihapus pada Kubernetes 1.9.
 
-*Service discovery* dilakukan dengan menggunakan layanan katalog yang diatur oleh
+*Service discovery* dilakukan dengan menggunakan katalog layanan/servis (*service catalog*) yang diatur oleh
 OpenStack Identity (Keystone) menggunakan `auth-url` yang ditentukan pada konfigurasi
 penyedia layanan. Penyedia layanan akan menurunkan fungsionalitas secara perlahan saat layanan OpenStack selain Keystone tidak tersedia dan akan menolak dukungan fitur yang terdampak. Beberapa fitur tertentu dapat diaktifkan atau dinonaktfikan tergantung dari ekstensi yang diekspos oleh Neutron pada *underlying cloud*.
 
@@ -287,12 +287,12 @@ harus berada pada bagian `[Metadata]` dari *file* `cloud.conf`:
   * `metadataService,configDrive` - Mengambil metadata *instance* dari layanan metadata terlebih
     dahulu jika tersedia, jika tidak maka akan mengambil dari *config drive*.
 
-  Pengaturan ini memang sebaiknya dilakukan sebab metadata pada *config drive* bisa saja lambat laun akan kedaluarsa,sedangkan layanan metadata akan selalu menyediakan metadata yang paling mutakhir. Tidak semua penyedia layanan cloud OpenStack menyediakan kedua layanan *config drive* dan layanan metadata dan mungkin hanya salah satu saja
+  Pengaturan ini memang sebaiknya dilakukan sebab metadata pada *config drive* bisa saja lambat laun akan kedaluwarsa, sedangkan layanan metadata akan selalu menyediakan metadata yang paling mutakhir. Tidak semua penyedia layanan cloud OpenStack menyediakan kedua layanan *config drive* dan layanan metadata dan mungkin hanya salah satu saja
   yang tersedia. Oleh sebab itu nilai *default* diatur agar dapat memeriksa keduanya.
 
 ##### Router
 
-Konfigurasi untuk Openstack berikut ini digunakan untuk mengatur plugin jaringan Kubernetes [kubenet]
+Konfigurasi untuk Openstack berikut ini digunakan untuk mengatur *plugin* jaringan Kubernetes [kubenet]
 dan harus berada pada bagian `[Router]` dari *file* `cloud.conf`:
 
 * `router-id` (Opsional): Jika Neutron pada *underlying cloud* mendukung ekstensi
