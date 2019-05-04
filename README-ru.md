@@ -30,16 +30,6 @@ You can reach the maintainers of Korean localization at:
 * June Yi ([GitHub - @gochist](https://github.com/gochist))
 * [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
 
-
-### Russian
-
-See translation of `README.md` and more detail guidance for Russian contributors on the [Russian README](README-ru.md) page.
-
-You can reach the maintainers of Russian localization at:
-
-* Mikhail Sheldyakov ([GitHub - @msheldyakov](https://github.com/msheldyakov))
-* [Telegram channel](https://t.me/joinchat/B6uZqxMjcT7Hif0KWHLCYQ)
-
 ## Running the site locally using Docker
 
 The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com) image that includes the [Hugo](https://gohugo.io) static site generator.
