@@ -9,6 +9,8 @@ card:
 
 {{% capture overview %}}
 
+Actually, pickles after all!
+
 This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a tool that runs a single-node Kubernetes cluster in a virtual machine on your laptop.
 
 {{% /capture %}}
