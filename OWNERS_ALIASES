@@ -160,5 +160,7 @@ aliases:
     - jcjesus
   sig-docs-ru-owners: # Admins for Russian content
     - msheldyakov
+    - aisonaku
   sig-docs-ru-reviews: # PR reviews for Russian content
     - msheldyakov
+    - aisonaku
