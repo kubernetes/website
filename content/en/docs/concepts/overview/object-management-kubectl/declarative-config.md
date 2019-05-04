@@ -585,13 +585,13 @@ Fields that represent maps are merged by comparing each of the subfields or elem
 
 Merging changes to a list uses one of three strategies:
 
-* Replace the list.
+* Replace the list if all its elements are primitives.
 * Merge individual elements in a list of complex elements.
 * Merge a list of primitive elements.
 
 The choice of strategy is made on a per-field basis.
 
-#### Replace the list
+#### Replace the list if all its elements are primitives
 
 Treat the list the same as a primitive field. Replace or delete the
 entire list. This preserves ordering.
