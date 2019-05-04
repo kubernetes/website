@@ -20,9 +20,11 @@ aliases:
     - dixudx
   sig-docs-de-owners: # Admins for German content
     - bene2k1
+    - mkorbi
     - rlenferink
   sig-docs-de-reviews: # PR reviews for German content
     - bene2k1
+    - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
     - bradamant3
@@ -82,10 +84,10 @@ aliases:
     - oussemos
   sig-docs-id-owners: # Admins for Indonesian content
     - girikuncoro
-    - irfiva
+    - irvifa
   sig-docs-id-reviews: # PR reviews for Indonesian content
     - girikuncoro
-    - irfiva
+    - irvifa
   sig-docs-it-owners: # Admins for Italian content
     - rlenferink
     - micheleberardi
