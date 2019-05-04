@@ -44,7 +44,7 @@ controllerManager:
 ```
 
 Penyedia layanan cloud *in-tree* biasanya membutuhkan `--cloud-provider` dan `--cloud-config` untuk ditentukan sebelumnya pada *command lines* untuk [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) dan
-[kubelet](/docs/admin/kubelet/). Konten dari file yang ditentukan pada `--cloud-config` untuk setiap provider akan dijabarkan di bawah ini.
+[kubelet](/docs/admin/kubelet/). Konten dari *file* yang ditentukan pada `--cloud-config` untuk setiap provider akan dijabarkan di bawah ini.
 
 Untuk semua penyedia layanan cloud eksternal, silakan ikuti instruksi pada repositori masing-masing penyedia layanan.
 
@@ -53,9 +53,9 @@ Bagian ini akan menjelaskan semua konfigurasi yang dapat diatur saat menjalankan
 
 ### Nama Node
 
-Penyedia layanan cloud AWS menggunakan nama DNS privat dari instance AWS sebagai nama dari objek Kubernetes Node.
+Penyedia layanan cloud AWS menggunakan nama DNS privat dari *instance* AWS sebagai nama dari objek Kubernetes Node.
 
-### Load Balancers
+### *Load Balancer*
 Kamu dapat mengatur [load balancers eksternal](/docs/tasks/access-application-cluster/create-external-load-balancer/) sehingga dapat menggunakan fitur khusus AWS dengan mengatur anotasi seperti di bawah ini.
 
 ```yaml
@@ -87,7 +87,7 @@ Pengaturan lainnya juga dapat diaplikasikan pada layanan *load balancer* di AWS 
 * `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`: Digunakan untuk menentukan prefix *bucket* S3 log akese.
 * `service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags`: Digunakan untuk menentukan daftar tag tambahan pada ELB dengan menggunakan parameter key-value. Contoh: `"Key1=Val1,Key2=Val2,KeyNoVal1=,KeyNoVal2"`.
 * `service.beta.kubernetes.io/aws-load-balancer-backend-protocol`: Digunakan untuk menentukan protokol yang digunakan oleh *backend* (pod) di belakang *listener*. Jika diset ke `http` (default) atau `https`, maka akan dibuat HTTPS *listener* yang akan mengakhiri koneksi dan meneruskan *header*. Jika diset ke `ssl` atau `tcp`, maka akan digunakan "raw" SSL *listener*. Jika diset ke `http` dan `aws-load-balancer-ssl-cert` tidak digunakan, maka akan digunakan HTTP *listener*.
-* `service.beta.kubernetes.io/aws-load-balancer-ssl-cert`: Digunakan untuk meminta *secure* *listener*. Nilai yang dimasukkan adalah sertifikat ARN yang valid. Info lebih lanjut lihat [ELB Listener Config](http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/elb-listener-config.html) CertARN merupakan IAM atau CM certificate ARN, cth. `arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012`.
+* `service.beta.kubernetes.io/aws-load-balancer-ssl-cert`: Digunakan untuk meminta *secure* *listener*. Nilai yang dimasukkan adalah sertifikat ARN yang valid. Info lebih lanjut lihat [ELB Listener Config](http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/elb-listener-config.html) CertARN merupakan IAM atau CM certificate ARN, contoh: `arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012`.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled`: Digunakan untuk mengaktifkan atau menonaktfkan *connection draining*.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout`: Digunakan untuk menentukan *connection draining timeout*.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout`: Digunakan untuk menentukan *idle connection timeout*.
@@ -118,7 +118,7 @@ Perlu diperhatikan bahwa nama Kubernetes Node harus sesuai dengan nama Cloudstac
 ### Nama Node
 
 Penyedia layanan cloud GCE menggunakan *hostname* dari *node* (yang ditentukan kubelet atau menggunakan `--hostname-override`) sebagai nama dari objek Kubernetes Node.
-Perlu diperhatikan bahwa segmen pertama dari nama Kubernetes Node harus sesuai dengan nama *instance* GCE (cth. sebuah *node* dengan nama `kubernetes-node-2.c.my-proj.internal` harus sesuai dengan *instance* yang memiliki nama `kubernetes-node-2`).
+Perlu diperhatikan bahwa segmen pertama dari nama Kubernetes Node harus sesuai dengan nama *instance* GCE (contoh: sebuah *node* dengan nama `kubernetes-node-2.c.my-proj.internal` harus sesuai dengan *instance* yang memiliki nama `kubernetes-node-2`).
 
 ## OpenStack
 Bagian ini akan menjelaskan semua konfigurasi yang dapat diatur saat menggunakan OpenStack dengan Kubernetes.
@@ -126,7 +126,7 @@ Bagian ini akan menjelaskan semua konfigurasi yang dapat diatur saat menggunakan
 ### Nama Node
 
 Penyedia layanan cloud OpenStack menggunakan nama *instance* (yang diperoleh dari metadata OpenStack) sebagai nama objek Kubernetes Node.
-Perli diperhatikan bahwa nama *instance* harus berupa nama Kubernetes Node yang valid agar kubelet dapat mendaftarkan objek Node-nya.
+Perlu diperhatikan bahwa nama *instance* harus berupa nama Kubernetes Node yang valid agar kubelet dapat mendaftarkan objek Node-nya.
 
 ### Layanan
 
@@ -154,11 +154,11 @@ OpenStack Identity (Keystone) menggunakan `auth-url` yang ditentukan pada konfig
 penyedia layanan. Penyedia layanan akan menurunkan fungsionalitas secara perlahan saat layanan OpenStack selain Keystone tidak tersedia dan akan menolak dukungan fitur yang terdampak. Beberapa fitur tertentu dapat diaktifkan atau dinonaktfikan tergantung dari ekstensi yang diekspos oleh Neutron pada *underlying cloud*.
 
 ### cloud.conf
-Kubernetes berinteraksi dengan OpenStack melalui file cloud.conf. File ini akan menyuplai Kubernetes dengan kredensial dan lokasi dari Openstack *auth endpoint*.
-Kamu dapat membuat file cloud.conf dengan menambahkan rincian berikut ini di dalam file:
+Kubernetes berinteraksi dengan OpenStack melalui *file* cloud.conf. *File* ini akan menyuplai Kubernetes dengan kredensial dan lokasi dari Openstack *auth endpoint*.
+Kamu dapat membuat *file* cloud.conf dengan menambahkan rincian berikut ini di dalam *file*:
 
 #### Konfigurasi pada umumnya
-Berikut ini merupakan contoh dan konfigurasi yang biasa digunakan dan akan mencakup semua pilihan yang paling sering dibutuhkan. File ini akan merujuk pada *endpoint* dari Keystone OpenStack, serta menyediakan rincian bagaimana cara mengotentikasi dengannya, termasuk cara mengatur *load balancer*:
+Berikut ini merupakan contoh dan konfigurasi yang biasa digunakan dan akan mencakup semua pilihan yang paling sering dibutuhkan. *File* ini akan merujuk pada *endpoint* dari Keystone OpenStack, serta menyediakan rincian bagaimana cara mengautentikasi dengannya, termasuk cara mengatur *load balancer*:
 
 ```yaml
 [Global]
@@ -173,32 +173,32 @@ subnet-id=6937f8fa-858d-4bc9-a3a5-18d2c957166a
 ```
 
 ##### Global
-Konfigurasi untuk penyedia layanan OpenStack berikut ini akan membahas bagian konfigurasi global sehingga harus berada pada bagian `[Global]` dari file `cloud.conf`:
+Konfigurasi untuk penyedia layanan OpenStack berikut ini akan membahas bagian konfigurasi global sehingga harus berada pada bagian `[Global]` dari *file* `cloud.conf`:
 
-* `auth-url` (Wajib): URL dari API keystone digunakan untuk otentikasi. ULR ini dapat ditemukan pada bagian Access dan Security > API Access > Credentials di laman panel kontrol OpenStack.
+* `auth-url` (Wajib): URL dari API keystone digunakan untuk autentikasi. ULR ini dapat ditemukan pada bagian Access dan Security > API Access > Credentials di laman panel kontrol OpenStack.
 * `username` (Wajib): Merujuk pada username yang dikelola keystone.
 * `password` (Wajib): Merujuk pada kata sandi yang dikelola keystone.
-* `tenant-id` (Wajib): Digunakan untuk menentukan id dari project tempat kamu membuat *resources*.
-* `tenant-name` (Opsional): Digunakan untuk menentukan nama dari project tempat kamu ingin membuat *resources*.
+* `tenant-id` (Wajib): Digunakan untuk menentukan id dari *project* tempat kamu membuat *resources*.
+* `tenant-name` (Opsional): Digunakan untuk menentukan nama dari *project* tempat kamu ingin membuat *resources*.
 * `trust-id` (Opsional): Digunakan untuk menentukan *identifier of the trust* untuk digunakan
-  sebagai otorisasi. Suatu trust merepresentasikan otorisasi dari suatu pengguna (*the trustor*) untuk didelegasikan
+  sebagai otorisasi. Suatu *trust* merepresentasikan otorisasi dari suatu pengguna (*the trustor*) untuk didelegasikan
   pada pengguna lain (*the trustee*), dan dapat digunakan oleh *trustee*
   berperan sebagai *the trustor*. *Trust* yang tersedia dapat ditemukan pada *endpoint*
   `/v3/OS-TRUST/trusts` dari Keystone API.
-* `domain-id` (Opsional): Digunakan untuk menentukan id dari domain tempat user kamu berada.
-* `domain-name` (Opsional): Digunakan untuk menentukan nama dari domain tempat user kamu berada.
+* `domain-id` (Opsional): Digunakan untuk menentukan id dari domain tempat *user* kamu berada.
+* `domain-name` (Opsional): Digunakan untuk menentukan nama dari domain tempat *user* kamu berada.
 * `region` (Opsional): Digunakan untuk menentukan *identifier* dari region saat digunakan pada
-  multi-region OpenStack cloud. Sebuah region merupakan pembagian secara umum dari *deployment* OpenStack. Meskipun region tidak wajib berkorelasi secara geografis, suatu deployment dapat menggunakan nama geografis sebagai region *identifier* seperti
+  multi-region OpenStack cloud. Sebuah region merupakan pembagian secara umum dari *deployment* OpenStack. Meskipun region tidak wajib berkorelasi secara geografis, suatu *deployment* dapat menggunakan nama geografis sebagai region *identifier* seperti
   `us-east`. Daftar region yang tersedia dapat ditemukan pada *endpoint* `/v3/regions`
   dari Keystone API.
-* `ca-file` (Optional): Digunakan untuk menentukan path dari file *custom* CA.
+* `ca-file` (Optional): Digunakan untuk menentukan path dari *file* *custom* CA.
 
 Saat menggunakan Keystone V3 - yang mengganti istilah *tenant* menjadi *project* - nilai `tenant-id`
 akan secara otomatis dipetakan pada *project* yang sesuai di API.
 
-#####  Load Balancer
+#####  *Load Balancer*
 Konfigurasi berikut ini digunakan untuk mengatur *load
-balancer* dan harus berada pada bagian `[LoadBalancer]` dari file `cloud.conf`:
+balancer* dan harus berada pada bagian `[LoadBalancer]` dari *file* `cloud.conf`:
 
 * `lb-version` (Opsional): Digunakan untuk menonaktifkan pendeteksian versi otomatis. Nilai
   yang valid yaitu `v1` atau `v2`. Jika tidak ditentukan, maka pendeteksian otomatis akan
@@ -234,16 +234,16 @@ balancer* dan harus berada pada bagian `[LoadBalancer]` dari file `cloud.conf`:
   nilai `node-security-group` juga harus ditentukan.
 * `node-security-group` (Opsional): ID dari grup keamanan yang akan dikelola.
 
-##### Block Storage
+##### *Block Storage*
 Konfigurasi untuk penyedia layanan OpenStack berikut ini digunakan untuk mengatur penyimpanan blok atau *block storage*
-dan harus berada pada bagian `[BlockStorage]` dari file `cloud.conf`:
+dan harus berada pada bagian `[BlockStorage]` dari *file* `cloud.conf`:
 
 * `bs-version` (Opsional): Digunakan untuk menonaktifkan fitur deteksi versi otomatis. Nilai
   yang valid yaitu `v1`, `v2`, `v3` dan `auto`. Jika diset ke `auto` maka pendeteksian versi
   otomatis akan memilih versi tertinggi yang didukung oleh *underlying*
   OpenStack cloud. Nilai *default* jika tidak diset adalah `auto`.
 * `trust-device-path` (Opsional): Pada umumnya nama *block device* yang ditentukan
-  oleh Cinder (cth. `/dev/vda`) tidak dapat diandalkan. Opsi ini dapat mengatur hal
+  oleh Cinder (contoh: `/dev/vda`) tidak dapat diandalkan. Opsi ini dapat mengatur hal
   tersebut. Jika diset ke `true` maka akan menggunakan nama *block device* yang ditentukan
   oleh Cinder. Nilai *default* adalah `false` yang berarti *path* dari *device* akan ditentukan
   oleh nomor serialnya serta pemetaan dari `/dev/disk/by-id`, dan ini merupakan
@@ -273,16 +273,16 @@ bs-version=v2
 ##### Metadata
 
 Konfigurasi untuk OpenStack berikut ini digunakan untuk mengatur metadata dan
-harus berada pada bagian `[Metadata]` dari file `cloud.conf`:
+harus berada pada bagian `[Metadata]` dari *file* `cloud.conf`:
 
 * `search-order` (Opsional): Konfigurasi berikut ini digunakan untuk mengatur bagaimana
   cara provider mengambil metadata terkait dengan *instance* yang dijalankannya. Nilai
   *default* yaitu `configDrive,metadataService` yang berarti provider akan mengambil
   metadata terkait *instance* dari *config drive* terlebih dahulu jika tersedia, namun
   jika tidak maka akan menggunakan layanan metadata. Nilai alternatif lainnya yaitu:
-  * `configDrive` - Hanya mengambil metadata instance dari *config
+  * `configDrive` - Hanya mengambil metadata *instance* dari *config
     drive*.
-  * `metadataService` - Hanya mengambil data instance dari layanan
+  * `metadataService` - Hanya mengambil data *instance* dari layanan
     metadata.
   * `metadataService,configDrive` - Mengambil metadata *instance* dari layanan metadata terlebih
     dahulu jika tersedia, jika tidak maka akan mengambil dari *config drive*.
@@ -293,11 +293,11 @@ harus berada pada bagian `[Metadata]` dari file `cloud.conf`:
 ##### Router
 
 Konfigurasi untuk Openstack berikut ini digunakan untuk mengatur plugin jaringan Kubernetes [kubenet]
-dan harus berada pada bagian `[Router]` dari file `cloud.conf`:
+dan harus berada pada bagian `[Router]` dari *file* `cloud.conf`:
 
 * `router-id` (Opsional): Jika Neutron pada *underlying cloud* mendukung ekstensi
   `extraroutes` maka gunakan `router-id` untuk menentukan router mana yang akan ditambahkan rute di dalamnya.
-  Router yang dipilih harus menjangkau jaringan privat tempat node kluster berada
+  Router yang dipilih harus menjangkau jaringan privat tempat *node* kluster berada
   (biasanya hanya ada satu jaringan *node*, dan nilai ini harus nilai dari *default* router
   pada jaringan *node*).  Nilai ini dibutuhkan untuk dapat menggunakan [kubenet] pada OpenStack.
 
@@ -340,7 +340,7 @@ Penyedia layanan IBM Cloud Kubernetes Service menyediakan VLAN untuk membuat jar
 Untuk membuka aplikasi ke publik atau di dalam kluster, kamu dapat menggunakan NodePort, LoadBalancer, atau Ingress. Kamu juga dapat menyesuaikan aplikasi *load balancer* Ingress dengan anotasi. Untuk informasi lebih lanjut, lihat [Perencanaan untuk membuka aplikasi dengan jaringan eksternal](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
 
 ### Penyimpanan
-Penyedia layanan IBM Cloud Kubernetes Service memanfaatkan Kubernetes-native *persistent volumes* agar pengguna dapat melakukan  *mount* file, block, dan penyimpanan objek cloud ke aplikasi mereka. Kamu juga dapat menggunakan database-as-a-service dan *add-ons* pihak ketiga sebagai penyimpanan *persistent* untuk data kamu. Untuk informasi lebih lanjut, lihat [Perencanaan penyimpanan persistent yang selalu tersedia (*highly available*)](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).
+Penyedia layanan IBM Cloud Kubernetes Service memanfaatkan Kubernetes-native *persistent volumes* agar pengguna dapat melakukan  *mount* *file*, block, dan penyimpanan objek cloud ke aplikasi mereka. Kamu juga dapat menggunakan *database-as-a-service* dan *add-ons* pihak ketiga sebagai penyimpanan *persistent* untuk data kamu. Untuk informasi lebih lanjut, lihat [Perencanaan penyimpanan persistent yang selalu tersedia (*highly available*)](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).
 
 ## Baidu Cloud Container Engine
 
