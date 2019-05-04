@@ -252,7 +252,7 @@ language_alternatives = ["en"]
 [languages.ru]
 title = "Kubernetes"
 description = "Production-Grade Container Orchestration"
-languageName = "Russian"
+languageName = "Русский"
 weight = 11
 contentDir = "content/ru"
 
