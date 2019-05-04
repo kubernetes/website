@@ -1,28 +1,28 @@
-# i18n strings for the English (main) site.
+# i18n strings for the Russian translation.
 
 [deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see "
+other = " документация больше не поддерживается. Версия, которую вы сейчас просматриваете, является статическим снимком. Для получения актуальной документации смотри "
 
 [deprecation_file_warning]
-other = "Deprecated"
+other = "Устаревший"
 
 [objectives_heading]
-other = "Objectives"
+other = "Цели"
 
 [cleanup_heading]
-other = "Cleaning up"
+other = "Очистка"
 
 [prerequisites_heading]
-other = "Before you begin"
+other = "Прежде чем вы начнете"
 
 [whatsnext_heading]
-other = "What's next"
+other = "Что дальше"
 
 [feedback_heading]
-other = "Feedback"
+other = "Обратная связь"
 
 [feedback_question]
-other = "Was this page helpful?"
+other = "Была ли эта страница полезной?"
 
 [feedback_yes]
 other = "Да"
@@ -34,16 +34,16 @@ other = "Нет"
 other = "последняя версия."
 
 [version_check_mustbe]
-other = "Your Kubernetes server must be version "
+other = "Ваш сервер Kubernetes должен быть версии "
 
 [version_check_mustbeorlater]
-other = "Your Kubernetes server must be at or later than version "
+other = "Ваш сервер Kubernetes должен быть версии или позже, чем версия "
 
 [version_check_tocheck]
-other = "To check the version, enter "
+other = "Чтобы проверить версию, введите "
 
 [caution]
-other = "Caution:"
+other = "Внимание:"
 
 [note]
 other = "Заметка:"
@@ -52,22 +52,22 @@ other = "Заметка:"
 other = "Предупрежение:"
 
 [main_read_about]
-other = "Read about"
+other = "Прочитать о"
 
 [main_read_more]
-other = "Read more"
+other = "Прочитать больше"
 
 [main_github_invite]
 other = "Interested in hacking on the core Kubernetes code base?"
 
 [main_github_view_on]
-other = "View On GitHub"
+other = "Посмотреть на GitHub"
 
 [main_github_create_an_issue]
 other = "Create an Issue"
 
 [main_community_explore]
-other = "Explore the community"
+other = "Исследуйте сообщество"
 
 [main_kubernetes_features]
 other = "Kubernetes Features"
@@ -82,16 +82,16 @@ other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWee
 other = "View past newsletters"
 
 [main_kubeweekly_signup]
-other = "Subscribe"
+other = "Подписаться"
 
 [main_contribute]
-other = "Contribute"
+other = "Сделать вклад"
 
 [main_edit_this_page]
-other = "Edit This Page"
+other = "Редактировать Эту Cтраницу"
 
 [main_page_history]
-other ="Page History"
+other ="История Страницы"
 
 [main_page_last_modified_on]
 other = "Page last modified on"
@@ -113,7 +113,7 @@ other = "Browse Docs"
 other = "Contributors"
 
 [docs_label_users]
-other = "Users"
+other = "Пользователя"
 
 [docs_label_i_am]
 other = "I AM..."
@@ -121,10 +121,10 @@ other = "I AM..."
 # layouts > blog > pager
 
 [layouts_blog_pager_prev]
-other = "<< Prev"
+other = "<< Назад"
 
 [layouts_blog_pager_next]
-other = "Next >>"
+other = "Вперед >>"
 
 # layouts > blog > list
 
@@ -140,7 +140,7 @@ other = "This glossary is intended to be a comprehensive, standardized list of K
 other = "Filter terms according to their tags"
 
 [layouts_docs_glossary_select_all]
-other = "Select all"
+other = "Выделить все"
 
 [layouts_docs_glossary_deselect_all]
 other = "Deselect all"
@@ -157,7 +157,7 @@ other = "indicators below to get a longer explanation for any particular term."
 # layouts > docs > search
 
 [layouts_docs_search_fetching]
-other = "Fetching results.."
+other = "Получение результатов.."
 
 # layouts > partial > feedback
 
