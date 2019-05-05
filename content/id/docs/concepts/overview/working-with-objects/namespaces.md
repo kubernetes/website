@@ -6,7 +6,7 @@ weight: 30
 
 {{% capture overview %}}
 
-Kubernetes mendukung banyak kluster virtual di dalam satu kluster fisik. kluster virtual tersebut disebut dengan *namespace*.
+Kubernetes mendukung banyak kluster virtual di dalam satu kluster fisik. Kluster virtual tersebut disebut dengan *namespace*.
 
 {{% /capture %}}
 
@@ -23,7 +23,7 @@ Kubernetes mendukung banyak kluster virtual di dalam satu kluster fisik. kluster
 
 Dalam versi Kubernetes yang akan datang, objek di dalam satu *namespace* akan mempunyai *access control policies* yang sama secara *default*.
 
-Tidak perlu menggunakan banyak *namespace* hanya untuk memisahkan sedikit perbedaan pada *resource*, seperti perbedaan versi dari perangkat lunak yang sama: gunakan [labels](/docs/user-guide/labels) untuk membedakan *resource* di dalam *namespace* yang sama.
+Tidak perlu menggunakan banyak *namespace* hanya untuk memisahkan sedikit perbedaan pada *resource*, seperti perbedaan versi dari perangkat lunak yang sama: gunakan [label](/docs/user-guide/labels) untuk membedakan *resource* di dalam *namespace* yang sama.
 
 ## Bekerja dengan Namespace
 
@@ -48,7 +48,7 @@ Kubernetes berjalan dengan tiga *namespace* awal:
 
 * `default`, *namespace default* untuk objek yang dibuat tanpa mencantumkan *namespace* pada spesifikasinya.
 * `kube-system`, *namespace* yang digunakan untuk objek yang dibuat oleh sistem Kubernetes.
-* `kube-public`, *namespace* ini dibuat secara otomatis dan dapat diakses oleh semua pengguna (termasuk yang tidak diutentikasi). *Namespace* ini disediakan untuk penggunaan kluster, jika beberapa *resouce* harus terlihat dan dapat dibaca secara publik di seluruh kluster. Aspek publik dari *namespace* ini hanya sebuah konvensi, bukan persyaratan.
+* `kube-public`, *namespace* ini dibuat secara otomatis dan dapat diakses oleh semua pengguna (termasuk yang tidak diautentikasi). *Namespace* ini disediakan untuk penggunaan kluster, jika beberapa *resouce* harus terlihat dan dapat dibaca secara publik di seluruh kluster. Aspek publik dari *namespace* ini hanya sebuah konvensi, bukan persyaratan.
 
 
 ### Mengkonfigurasi namespace untuk request
@@ -64,7 +64,7 @@ kubectl --namespace=<insert-namespace-name-here> get pods
 
 ### Mengkonfigurasi preferensi namespace 
 
-Kamu dapat menyimpan konfigurasi *namespace* untuk semua perintah *kubectl* dengan perintah:
+Kamu dapat menyimpan konfigurasi *namespace* untuk semua perintah `kubectl` dengan perintah:
 
 ```shell
 kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
