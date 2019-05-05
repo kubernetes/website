@@ -20,11 +20,11 @@ Lihat panduan di [Memilih Solusi yang Tepat](/docs/setup/pick-right-solution/) u
 Sebelum memilih panduan, berikut adalah beberapa hal yang perlu dipertimbangkan:
 
  - Apakah kamu hanya ingin mencoba Kubernetes pada komputermu, atau kamu ingin membuat sebuah kluster dengan *high-availability*, *multi-node*? Pilihlah distro yang paling sesuai dengan kebutuhanmu.
- - **Jika kamu merencanakan kluster dengan *high-availability***, pelajari bagaimana cara mengonfigurasi [kluster pada *multiple zone*](/docs/concepts/cluster-administration/federation/).
- - Apakah kamu akan menggunakan **Kubernetes kluster di *hosting***, seperti [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), atau ***hosting* sendiri klustermu**?
- - Apakah klustermu berada pada ***on-premises***, atau **di cloud (IaaS)**? Kubernetes belum mendukung secara langsung kluster hibrid. Sebagai gantinya, kamu dapat membuat beberapa kluster.
- - **Jika kamu ingin mengonfigurasi Kubernetes *on-premises***, pertimbangkan [model jaringan](/docs/concepts/cluster-administration/networking/) yang paling sesuai.
- - Apakah kamu ingin menjalankan Kubernetes pada **"bare metal" *hardware*** atau pada ***virtual machines* (VMs)**?
+ - **Jika kamu merencanakan kluster dengan _high-availability_**, pelajari bagaimana cara mengonfigurasi [kluster pada *multiple zone*](/docs/concepts/cluster-administration/federation/).
+ - Apakah kamu akan menggunakan **Kubernetes kluster di _hosting_**, seperti [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), atau **_hosting_ sendiri klustermu**?
+ - Apakah klustermu berada pada **_on-premises_**, atau **di cloud (IaaS)**? Kubernetes belum mendukung secara langsung kluster hibrid. Sebagai gantinya, kamu dapat membuat beberapa kluster.
+ - **Jika kamu ingin mengonfigurasi Kubernetes _on-premises_**, pertimbangkan [model jaringan](/docs/concepts/cluster-administration/networking/) yang paling sesuai.
+ - Apakah kamu ingin menjalankan Kubernetes pada **"bare metal" _hardware_** atau pada **_virtual machines_ (VM)**?
  - Apakah kamu **hanya ingin mencoba kluster Kubernetes**, atau kamu ingin ikut aktif melakukan **pengembangan kode dari proyek Kubernetes**? Jika jawabannya yang terakhir, pilihlah distro yang aktif dikembangkan. Beberapa distro hanya menggunakan rilis *binary*, namun menawarkan lebih banyak variasi pilihan.
  - Pastikan kamu paham dan terbiasa dengan beberapa [komponen](/docs/admin/cluster-components/) yang dibutuhkan untuk menjalankan sebuah kluster.
 
@@ -36,7 +36,7 @@ Catatan: Tidak semua distro aktif dikelola. Pilihlah distro yang telah diuji den
 
 * Pelajari bagaimana cara [mengatur *node*](/docs/concepts/nodes/node/).
 
-* Pelajari bagaimana cara membuat dan mengatur [kuota *resource*](/docs/concepts/policy/resource-quotas/) untuk *shared* kluster.
+* Pelajari bagaimana cara membuat dan mengatur kuota resource [(*resource quota*)](/docs/concepts/policy/resource-quotas/) untuk *shared* kluster.
 
 ## Mengamankan Kluster
 
@@ -44,13 +44,13 @@ Catatan: Tidak semua distro aktif dikelola. Pilihlah distro yang telah diuji den
 
 * [Kubernetes *Container Environment*](/docs/concepts/containers/container-environment-variables/) akan menjelaskan *environment* untuk kontainer yang dikelola oleh Kubelet pada Kubernetes *node*.
 
-* [Mengontrol Akses ke Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) akan menjabarkan bagaimana cara mengatur *permission* untuk pengguna dan *service account*.
+* [Mengontrol Akses ke Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) akan menjabarkan bagaimana cara mengatur izin (*permission*) untuk akun pengguna dan *service account*.
 
 * [Autentikasi](/docs/reference/access-authn-authz/authentication/) akan menjelaskan autentikasi di Kubernetes, termasuk ragam pilihan autentikasi.
 
 * [Otorisasi](/docs/reference/access-authn-authz/authorization/) dibedakan dari autentikasi, digunakan untuk mengontrol bagaimana *HTTP call* ditangani.
 
-* [Menggunakan *Admission Controllers*](/docs/reference/access-authn-authz/admission-controllers/) akan menjelaskan *plug-in* yang akan mengintersep permintaan ke server Kubernetes API setelah autentikasi dan otorisasi dilakukan.
+* [Menggunakan *Admission Controllers*](/docs/reference/access-authn-authz/admission-controllers/) akan menjelaskan *plug-in* yang akan melakukan *intercept* atau cegatan permintaan sebelum menuju ke server Kubernetes API setelah autentikasi dan otorisasi dilakukan.
 
 * [Menggunakan Sysctls pada Kluster Kubernetes](/docs/concepts/cluster-administration/sysctl-cluster/) akan menjabarkan tentang cara menggunakan perintah `sysctl` pada *command-line* untuk mengatur parameter kernel.
 
@@ -61,7 +61,7 @@ Catatan: Tidak semua distro aktif dikelola. Pilihlah distro yang telah diuji den
   * [TLS *bootstrapping*](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
   * [Autentikasi/Otorisasi Kubelet](/docs/admin/kubelet-authentication-authorization/)
 
-## Opsi *Cluster Service*
+## Layanan Tambahan Kluster
 
 * [Integrasi DNS](/docs/concepts/services-networking/dns-pod-service/) akan menjelaskan bagaimana cara *resolve* suatu nama DNS langsung pada *service* Kubernetes.
 
