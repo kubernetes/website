@@ -15,10 +15,37 @@ This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a
 
 {{% capture prerequisites %}}
 
-VT-x or AMD-v virtualization must be enabled in your computer's BIOS.  To check this on Linux run the following and verify the output is non-empty:
-```shell
+VT-x or AMD-v virtualization must be enabled in your computer's BIOS. 
+
+{{< tabs name="minikube_before_you_begin" >}}
+{{% tab name="Linux" %}}
+To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
+```
 egrep --color 'vmx|svm' /proc/cpuinfo
 ```
+{{% /tab %}}
+{{% tab name="macOS" %}}
+To check if virtualization is supported on macOS, run the following command on your terminal.
+```
+sysctl -a | grep machdep.cpu.features
+```
+If you see `VMX` in the output, the VT-x feature is supported on your OS.
+{{% /tab %}}
+{{% tab name="Windows" %}}
+To check if virtualization is supported on Windows 8 and above, run the following command on your Windows terminal or command prompt. 
+```
+systeminfo
+```
+If you see the following output, virtualization is supported on Windows.
+```
+Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
+                          Virtualization Enabled In Firmware: Yes
+                          Second Level Address Translation: Yes
+                          Data Execution Prevention Available: Yes
+```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 {{% /capture %}}
 
