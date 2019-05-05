@@ -16,7 +16,14 @@ can specify on different Kubernetes components.
 Feature gates are a set of key=value pairs that describe alpha or experimental
 features.
 An administrator can use the `--feature-gates` command line flag on each component
-to turn a feature on or off.
+to turn a feature on or off. Each component supports a set of feature gates unique to that component.
+Use `-h` flag to see a full set of feature gates for all components.  
+To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
+
+```shell
+--feature-gates="...,DynamicKubeletConfig=true"
+```
+
 The following table is a summary of the feature gates that you can set on
 different Kubernetes components.
 
@@ -41,24 +48,38 @@ different Kubernetes components.
 | `AttachVolumeLimit` | `true` | Alpha | 1.11 | 1.11 |
 | `AttachVolumeLimit` | `true` | Beta | 1.12 | |
 | `BlockVolume` | `false` | Alpha | 1.9 | |
+| `BlockVolume` | `true` | Beta | 1.13 | - |
+| `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
 | `CPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
 | `CRIContainerLogRotation` | `true` | Beta| 1.11 | |
-| `CSIBlockVolume` | `false` | Alpha | 1.11 | |
-| `CSIDriverRegistry` | `false` | Alpha | 1.12 | |
-| `CSINodeInfo` | `false` | Alpha | 1.12 | |
+| `CSIBlockVolume` | `false` | Alpha | 1.11 | 1.13 |
+| `CSIBlockVolume` | `true` | Beta | 1.14 | |
+| `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
+| `CSIDriverRegistry` | `true` | Beta | 1.14 | |
+| `CSIInlineVolume` | `false` | Alpha | 1.14 | - |
+| `CSIMigration` | `false` | Alpha | 1.14 | |
+| `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
+| `CSIMigrationGCE` | `false` | Alpha | 1.14 | |
+| `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
+| `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
+| `CSINodeInfo` | `true` | Beta | 1.14 | |
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
-| `CSIPersistentVolume` | `true` | Beta | 1.10 | |
+| `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
+| `CSIPersistentVolume` | `true` | GA | 1.13 | - |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | |
-| `CustomResourceSubresources` | `false` | Alpha | 1.10 | |
+| `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.11 |
+| `CustomResourceSubresources` | `true` | Beta | 1.11 | - |
 | `CustomResourceValidation` | `false` | Alpha | 1.8 | 1.8 |
 | `CustomResourceValidation` | `true` | Beta | 1.9 | |
+| `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | |
 | `DebugContainers` | `false` | Alpha | 1.10 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
+| `DryRun` | `true` | Beta | 1.13 | |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
 | `DynamicKubeletConfig` | `true` | Beta | 1.11 | |
@@ -66,19 +87,23 @@ different Kubernetes components.
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
 | `DynamicVolumeProvisioning` | `true` | GA | 1.8 | |
 | `EnableEquivalenceClassCache` | `false` | Alpha | 1.8 | |
-| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | |
+| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | | |
+| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.13 | |
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | |
+| `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
+| `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `Initializers` | `false` | Alpha | 1.7 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
-| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | |
+| `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
+| `KubeletPluginsWatcher` | `true` | GA | 1.13 | - |
+| `KubeletPodResources` | `false` | Alpha | 1.13 | |
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta| 1.10 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
@@ -87,8 +112,10 @@ different Kubernetes components.
 | `MountPropagation` | `true` | GA | 1.12 | |
 | `NodeLease` | `false` | Alpha | 1.12 | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
-| `PersistentLocalVolumes` | `true` | Beta | 1.10 | |
-| `PodPriority` | `false` | Alpha | 1.8 | |
+| `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
+| `PersistentLocalVolumes` | `true` | GA | 1.14 | |
+| `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
+| `PodPriority` | `true` | Beta | 1.11 | |
 | `PodReadinessGates` | `false` | Alpha | 1.11 | |
 | `PodReadinessGates` | `true` | Beta | 1.12 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
@@ -101,9 +128,10 @@ different Kubernetes components.
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
-| `RunAsGroup` | `false` | Alpha | 1.10 | |
-| `RuntimeClass` | `false` | Alpha | 1.12 | |
+| `RunAsGroup` | `true` | Beta | 1.14 | |
+| `RuntimeClass` | `true` | Beta | 1.14 | |
 | `SCTPSupport` | `false` | Alpha | 1.12 | |
+| `ServerSideApply` | `false` | Alpha | 1.14 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | |
@@ -114,19 +142,23 @@ different Kubernetes components.
 | `SupportIPVSProxyMode` | `true` | GA | 1.11 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
-| `TaintBasedEvictions` | `false` | Alpha | 1.6 | |
-| `TaintNodesByCondition` | `false` | Alpha | 1.8 | |
+| `TaintBasedEvictions` | `false` | Alpha | 1.6 | 1.12 |
+| `TaintBasedEvictions` | `true` | Beta | 1.13 | |
+| `TaintNodesByCondition` | `false` | Alpha | 1.8 | 1.11 |
 | `TaintNodesByCondition` | `true` | Beta | 1.12 | |
 | `TokenRequest` | `false` | Alpha | 1.10 | 1.11 |
-| `TokenRequest` | `True` | Beta | 1.12 | |
+| `TokenRequest` | `true` | Beta | 1.12 | |
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
-| `TokenRequestProjection` | `True` | Beta | 1.12 | |
+| `TokenRequestProjection` | `true` | Beta | 1.12 | |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | |
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
-| `VolumeScheduling` | `true` | Beta | 1.10 | |
-| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.11 | |
-| `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | |
+| `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
+| `VolumeScheduling` | `true` | GA | 1.13 | |
+| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | |
+| `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
+| `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
+| `WindowsGMSA` | `false` | Alpha | 1.14 | |
 
 ## Using a Feature
 
@@ -184,16 +216,25 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `BlockVolume`: Enable the definition and consumption of raw block devices in Pods.
    See [Raw Block Volume Support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
    for more details.
+- `BoundServiceAccountTokenVolume`: Migrate ServiceAccount volumes to use a projected volume consisting of a
+   ServiceAccountTokenVolumeProjection.
+   Check [Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)
+   for more details.
 - `CPUCFSQuotaPeriod`: Enable nodes to change CPUCFSQuotaPeriod.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
 - `CSIBlockVolume`: Enable external CSI volume drivers to support block storage. See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support) documentation for more details.
 - `CSIDriverRegistry`: Enable all logic related to the CSIDriver API object in csi.storage.k8s.io.
+- `CSIMigration`: Enables shims and translation logic to route volume operations from in-tree plugins to corresponding pre-installed CSI plugins
+- `CSIMigrationAWS`: Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin
+- `CSIMigrationGCE`: Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin
+- `CSIMigrationOpenStack`: Enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.
 - `CSIPersistentVolume`: Enable discovering and mounting volumes provisioned through a
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
+- `CSIInlineVolume`: Enable CSI volumes to be directly embedded in Pod specifications instead of a PersistentVolume.
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
@@ -201,10 +242,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `CustomResourceValidation`: Enable schema based validation on resources created from
   [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
+- `CustomResourceWebhookConversion`: Enable webhook-based conversion
+  on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
 - `DebugContainers`: Enable running a "debugging" container in a Pod's namespace to
   troubleshoot a running Pod.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
+- `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests.
 - `DynamicAuditing`: Enable [dynamic auditing](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of volume topology and handle PV provisioning.
@@ -229,6 +273,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/) for more details.
 - `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
+- `KubeletPodResources`: Enable the kubelet's pod resources grpc endpoint.
+   See [Support Device Monitoring](https://git.k8s.io/community/keps/sig-node/compute-device-assignment.md) for more details.
 - `LocalStorageCapacityIsolation`: Enable the consumption of [local ephemeral storage](/docs/concepts/configuration/manage-compute-resources-container/) and also the `sizeLimit` property of an [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
 - `MountContainers`: Enable using utility containers on host as the volume mounter.
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
@@ -257,6 +303,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `RuntimeClass`: Enable the [RuntimeClass](/docs/concepts/containers/runtime-class/) feature for selecting container runtime configurations.
 - `ScheduleDaemonSetPods`: Enable DaemonSet Pods to be scheduled by the default scheduler instead of the DaemonSet controller.
 - `SCTPSupport`: Enables the usage of SCTP as `protocol` value in `Service`, `Endpoint`, `NetworkPolicy` and `Pod` definitions
+- `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/api-concepts/#server-side-apply) path at the API Server.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if annotated with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key.
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
@@ -281,5 +328,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   enables the usage of [`local`](/docs/concepts/storage/volumes/#local) volume
   type when used together with the `PersistentLocalVolumes` feature gate.
 - `VolumeSnapshotDataSource`: Enable volume snapshot data source support.
+- `VolumeSubpathEnvExpansion`: Enable `subPathExpr` field for expanding environment variables into a `subPath`.
+- `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
 
 {{% /capture %}}

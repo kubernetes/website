@@ -62,7 +62,7 @@ code. After 30 seconds, `cat /tmp/healthy` returns a failure code.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
 ```
 
 Within 30 seconds, view the Pod events:
@@ -163,7 +163,7 @@ checks will fail, and the kubelet will kill and restart the Container.
 To try the HTTP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/http-liveness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/http-liveness.yaml
 ```
 
 After 10 seconds, view Pod events to verify that liveness probes have failed and
@@ -172,6 +172,12 @@ the Container has been restarted:
 ```shell
 kubectl describe pod liveness-http
 ```
+
+In releases prior to v1.13 (including v1.13), if the environment variable
+`http_proxy` (or `HTTP_PROXY`) is set on the node where a pod is running,
+the HTTP liveness probe uses that proxy.
+In releases after v1.13, local HTTP proxy environment variable settings do not
+affect the HTTP liveness probe.
 
 ## Define a TCP liveness probe
 
@@ -198,7 +204,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
 ```
 
 After 15 seconds, view Pod events to verify that liveness probes:
@@ -229,11 +235,16 @@ livenessProbe:
 
 Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
-files during startup. In such cases, you don't want to kill the application,
+files during startup, or depend on external services after startup.
+In such cases, you don't want to kill the application,
 but you don’t want to send it requests either. Kubernetes provides
 readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
+
+{{< note >}}
+Readiness probes runs on the container during its whole lifecycle.
+{{< /note >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.

@@ -38,6 +38,24 @@ for weekly rotations. The PR wrangler's duties include:
   [Intermediate contributing](/docs/contribute/intermediate/) for guidelines
   about how SIG Docs uses metadata.
 
+### Helpful Github queries for wranglers
+
+The following queries are helpful when wrangling. After working through these three queries, the remaining list of PRs to be
+reviewed is usually small. These queries specifically exclude localization PRs, and only include the `master` branch (except for the last one).
+
+- [No CLA, not eligible to merge](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fen):
+  Remind the contributor to sign the CLA. If they've already been reminded by both the bot and a human, close
+  the PR and remind them that they can open it after signing the CLA.
+  **We can't even review PRs whose authors have not signed the CLA!**
+- [Needs LGTM](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-label%3Algtm+):
+  If it needs technical review, loop in one of the reviewers suggested by the bot. If it needs docs review
+  or copy-editing, either suggest changes or add a copyedit commit to the PR to move it along.
+- [Has LGTM, needs docs approval](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
+  See if you can figure out what needs to happen for the PR to be merged.
+- [Not against master](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): If it's against a `dev-` branch, it's for an upcoming release.
+  Make sure the [release meister](https://github.com/kubernetes/sig-release/tree/master/release-team) knows about it.
+  If it's against an old branch, help the PR author figure out whether it's targeted against the best branch.
+
 ## Propose improvements
 
 SIG Docs

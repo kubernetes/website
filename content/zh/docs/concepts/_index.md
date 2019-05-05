@@ -63,7 +63,7 @@ Kubernetes 包含若干抽象用来表示系统状态，包括：已部署的容
 
 <!-- In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include: -->
 
-另外，Kubernetes 包含大量的被称作*控制器（controllers）*的高级抽象。控制器基于基本对象构建并提供额外的功能和方便使用的特性。具体包括：
+另外，Kubernetes 包含大量的被称作*控制器（controllers）* 的高级抽象。控制器基于基本对象构建并提供额外的功能和方便使用的特性。具体包括：
 
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)

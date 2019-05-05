@@ -30,7 +30,7 @@ kubeadm upgrade diff [version] [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file (WARNING: Usage of a configuration file is experimental)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
     </tr>
 
     <tr>

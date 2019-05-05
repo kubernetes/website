@@ -35,7 +35,7 @@ kubectl [command] [TYPE] [NAME] [flags]
         * 要分别指定多种资源类型:  `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`.<br/>
         例: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
 
-     使用一个或多个文件指定资源： `-f file1 -f file2 -f file<#>` 使用[YAML而不是JSON](/docs/concepts/configuration/overview/#general-config-tips)，因为YAML往往更加用户友好，特别是对于配置文件。<br/>
+     使用一个或多个文件指定资源： `-f file1 -f file2 -f file<#>` 使用[YAML而不是JSON](/docs/concepts/configuration/overview/#general-configuration-tips)，因为YAML往往更加用户友好，特别是对于配置文件。<br/>
      例：$ kubectl get pod -f ./pod.yaml
 
 * flags：指定可选标志。例如，您可以使用`-s`或`--serverflags`来指定Kubernetes API服务器的地址和端口。

@@ -4,6 +4,9 @@ reviewers:
 title: Pod Overview
 content_template: templates/concept
 weight: 10
+card: 
+  name: concepts
+  weight: 60
 ---
 
 {{% capture overview %}}
@@ -101,5 +104,5 @@ Rather than specifying the current desired state of all replicas, pod templates 
 {{% capture whatsnext %}}
 * Learn more about Pod behavior:
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
-  * Other Pod Topics
+  * [Pod Lifecycle](../pod-lifecycle)
 {{% /capture %}}

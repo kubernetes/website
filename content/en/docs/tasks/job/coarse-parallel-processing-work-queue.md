@@ -46,9 +46,16 @@ cluster and reuse it for many jobs, as well as for long-running services.
 Start RabbitMQ as follows:
 
 ```shell
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+```
+```
 service "rabbitmq-service" created
-$ kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+```
+
+```shell
+kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+```
+```
 replicationcontroller "rabbitmq-controller" created
 ```
 
@@ -64,7 +71,9 @@ First create a temporary interactive Pod.
 
 ```shell
 # Create a temporary interactive container
-$ kubectl run -i --tty temp --image ubuntu:14.04
+kubectl run -i --tty temp --image ubuntu:18.04
+```
+```
 Waiting for pod default/temp-loe07 to be running, status is Pending, pod ready: false
 ... [ previous line repeats several times .. hit return when it stops ] ...
 ```
@@ -141,7 +150,7 @@ return so the example is readable.
 
 ## Filling the Queue with tasks
 
-Now lets fill the queue with some "tasks".  In our example, our tasks are just strings to be
+Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
 printed.
 
 In a practice, the content of the messages might be:
@@ -161,9 +170,11 @@ For our example, we will create the queue and fill it using the amqp command lin
 In practice, you might write a program to fill the queue using an amqp client library.
 
 ```shell
-$ /usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
+/usr/bin/amqp-declare-queue --url=$BROKER_URL -q job1  -d
 job1
-$ for f in apple banana cherry date fig grape lemon melon
+```
+```shell
+for f in apple banana cherry date fig grape lemon melon
 do
   /usr/bin/amqp-publish --url=$BROKER_URL -r job1 -p -b $f
 done
@@ -181,6 +192,12 @@ example program:
 
 {{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
 
+Give the script execution permission:
+
+```shell
+chmod +x worker.py
+```
+
 Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.
 Otherwise, make a temporary directory, change to it,
@@ -189,7 +206,7 @@ and [worker.py](/examples/application/job/rabbitmq/worker.py).  In either case,
 build the image with this command:
 
 ```shell
-$ docker build -t job-wq-1 .
+docker build -t job-wq-1 .
 ```
 
 For the [Docker Hub](https://hub.docker.com/), tag your app image with
@@ -228,13 +245,15 @@ done.  So we set, `.spec.completions: 8` for the example, since we put 8 items i
 So, now run the Job:
 
 ```shell
-kubectl create -f ./job.yaml
+kubectl apply -f ./job.yaml
 ```
 
 Now wait a bit, then check on the job.
 
 ```shell
-$ kubectl describe jobs/job-wq-1
+kubectl describe jobs/job-wq-1
+```
+```
 Name:             job-wq-1
 Namespace:        default
 Selector:         controller-uid=41d75705-92df-11e7-b85e-fa163ee3c11f
@@ -289,7 +308,7 @@ This approach creates a pod for every work item.  If your work items only take a
 though, creating a Pod for every work item may add a lot of overhead.  Consider another
 [example](/docs/tasks/job/fine-parallel-processing-work-queue/), that executes multiple work items per Pod.
 
-In this example, we used use the `amqp-consume` utility to read the message
+In this example, we use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  This has the advantage that you
 do not need to modify your program to be aware of the queue.
 A [different example](/docs/tasks/job/fine-parallel-processing-work-queue/), shows how to

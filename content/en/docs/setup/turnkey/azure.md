@@ -14,20 +14,18 @@ For an example of deploying a Kubernetes cluster onto Azure via the Azure Kubern
 
 **[Microsoft Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)**
 
-## Custom Deployments: ACS-Engine
+## Custom Deployments: AKS-Engine
 
 The core of the Azure Kubernetes Service is **open source** and available on GitHub for the community
-to use and contribute to: **[ACS-Engine](https://github.com/Azure/acs-engine)**.
+to use and contribute to: **[AKS-Engine](https://github.com/Azure/aks-engine)**. The legacy [ACS-Engine](https://github.com/Azure/acs-engine) codebase has been deprecated in favor of AKS-engine.
 
-ACS-Engine is a good choice if you need to make customizations to the deployment beyond what the Azure Kubernetes
+AKS-Engine is a good choice if you need to make customizations to the deployment beyond what the Azure Kubernetes
 Service officially supports. These customizations include deploying into existing virtual networks, utilizing multiple
-agent pools, and more. Some community contributions to ACS-Engine may even become features of the Azure Kubernetes Service.
+agent pools, and more. Some community contributions to AKS-Engine may even become features of the Azure Kubernetes Service.
 
-The input to ACS-Engine is similar to the ARM template syntax used to deploy a cluster directly with the Azure Kubernetes Service.
-The resulting output is an Azure Resource Manager Template that can then be checked into source control and can then be used
-to deploy Kubernetes clusters into Azure.
+The input to AKS-Engine is an apimodel JSON file describing the Kubernetes cluster. It is similar to the Azure Resource Manager (ARM) template syntax used to deploy a cluster directly with the Azure Kubernetes Service. The resulting output is an ARM template that can be checked into source control and used to deploy Kubernetes clusters to Azure.
 
-You can get started quickly by following the **[ACS-Engine Kubernetes Walkthrough](https://github.com/Azure/acs-engine/blob/master/docs/kubernetes.md)**.
+You can get started by following the **[AKS-Engine Kubernetes Tutorial](https://github.com/Azure/aks-engine/blob/master/docs/tutorials/README.md)**.
 
 ## CoreOS Tectonic for Azure
 

@@ -136,6 +136,36 @@ a Kubernetes release with a newer device plugin API version, upgrade your device
 to support both versions before upgrading these nodes to
 ensure the continuous functioning of the device allocations during the upgrade.
 
+## Monitoring Device Plugin Resources
+
+In order to monitor resources provided by device plugins, monitoring agents need to be able to 
+discover the set of devices that are in-use on the node and obtain metadata to describe which 
+container the metric should be associated with.  Prometheus metrics exposed by device monitoring 
+agents should follow the 
+[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/instrumentation.md), 
+which requires identifying containers using `pod`, `namespace`, and `container` prometheus labels.  
+The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata 
+for these devices:
+
+```gRPC
+// PodResources is a service provided by the kubelet that provides information about the
+// node resources consumed by pods and containers on the node
+service PodResources {
+    rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
+}
+```
+
+The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`. 
+Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet. 
+The cannonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring 
+agents must run in a privileged security context.  If a device monitoring agent is running as a 
+DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a 
+[Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
+in the plugin's
+[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+
+Support for the "PodResources service" is still in alpha.
+
 ## Examples
 
 For examples of device plugin implementations, see:

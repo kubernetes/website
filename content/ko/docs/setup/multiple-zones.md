@@ -1,7 +1,16 @@
 ---
 title: 여러 영역에서 구동
 weight: 90
+content_template: templates/concept
 ---
+
+{{% capture overview %}}
+
+이 페이지는 여러 영역에서 어떻게 클러스터를 구동하는지 설명한다. 
+
+{{% /capture %}}
+
+{{% capture body %}}
 
 ## 소개
 
@@ -22,8 +31,6 @@ GCE and AWS are currently supported automatically (though it is easy to
 add similar support for other clouds or even bare metal, by simply arranging
 for the appropriate labels to be added to nodes and volumes).
 
-
-{{< toc >}}
 
 ## 기능
 
@@ -54,7 +61,7 @@ There are some important limitations of the multizone support:
 
 * We assume that the different zones are located close to each other in the
 network, so we don't perform any zone-aware routing.  In particular, traffic
-that goes via services might cross zones (even if pods in some pods backing that service
+that goes via services might cross zones (even if some pods backing that service
 exist in the same zone as the client), and this may incur additional latency and cost.
 
 * Volume zone-affinity will only work with a `PersistentVolume`, and will not
@@ -118,14 +125,17 @@ labels are `failure-domain.beta.kubernetes.io/region` for the region,
 and `failure-domain.beta.kubernetes.io/zone` for the zone:
 
 ```shell
-> kubectl get nodes --show-labels
+kubectl get nodes --show-labels
+```
 
+The output is similar to this:
 
+```shell
 NAME                     STATUS                     ROLES    AGE   VERSION          LABELS
-kubernetes-master        Ready,SchedulingDisabled   <none>   6m    v1.11.1          beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
-kubernetes-minion-87j9   Ready                      <none>   6m    v1.11.1          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
-kubernetes-minion-9vlv   Ready                      <none>   6m    v1.11.1          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-a12q   Ready                      <none>   6m    v1.11.1          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
+kubernetes-master        Ready,SchedulingDisabled   <none>   6m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
+kubernetes-minion-87j9   Ready                      <none>   6m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
+kubernetes-minion-9vlv   Ready                      <none>   6m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
+kubernetes-minion-a12q   Ready                      <none>   6m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
 ```
 
 ### 두번째 영역에 더 많은 노드 추가하기
@@ -154,16 +164,20 @@ View the nodes again; 3 more nodes should have launched and be tagged
 in us-central1-b:
 
 ```shell
-> kubectl get nodes --show-labels
+kubectl get nodes --show-labels
+```
 
+The output is similar to this:
+
+```shell
 NAME                     STATUS                     ROLES    AGE   VERSION           LABELS
-kubernetes-master        Ready,SchedulingDisabled   <none>   16m   v1.11.1           beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
-kubernetes-minion-281d   Ready                      <none>   2m    v1.11.1           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
-kubernetes-minion-87j9   Ready                      <none>   16m   v1.11.1           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
-kubernetes-minion-9vlv   Ready                      <none>   16m   v1.11.1           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-a12q   Ready                      <none>   17m   v1.11.1           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
-kubernetes-minion-pp2f   Ready                      <none>   2m    v1.11.1           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-pp2f
-kubernetes-minion-wf8i   Ready                      <none>   2m    v1.11.1           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-wf8i
+kubernetes-master        Ready,SchedulingDisabled   <none>   16m   v1.13.0           beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
+kubernetes-minion-281d   Ready                      <none>   2m    v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
+kubernetes-minion-87j9   Ready                      <none>   16m   v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
+kubernetes-minion-9vlv   Ready                      <none>   16m   v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
+kubernetes-minion-a12q   Ready                      <none>   17m   v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
+kubernetes-minion-pp2f   Ready                      <none>   2m    v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-pp2f
+kubernetes-minion-wf8i   Ready                      <none>   2m    v1.13.0           beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-wf8i
 ```
 
 ### 볼륨 어피니티
@@ -207,7 +221,12 @@ was addressed in 1.3+.
 Now let's validate that Kubernetes automatically labeled the zone & region the PV was created in.
 
 ```shell
-> kubectl get pv --show-labels
+kubectl get pv --show-labels
+```
+
+The output is similar to this:
+
+```shell
 NAME           CAPACITY   ACCESSMODES   RECLAIM POLICY   STATUS    CLAIM            STORAGECLASS    REASON    AGE       LABELS
 pv-gce-mj4gm   5Gi        RWO           Retain           Bound     default/claim1   manual                    46s       failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a
 ```
@@ -240,9 +259,20 @@ Note that the pod was automatically created in the same zone as the volume, as
 cross-zone attachments are not generally permitted by cloud providers:
 
 ```shell
-> kubectl describe pod mypod | grep Node
+kubectl describe pod mypod | grep Node
+```
+
+```shell
 Node:        kubernetes-minion-9vlv/10.240.0.5
-> kubectl get node kubernetes-minion-9vlv --show-labels
+```
+
+And check node labels:
+
+```shell
+kubectl get node kubernetes-minion-9vlv --show-labels
+```
+
+```shell
 NAME                     STATUS    AGE    VERSION          LABELS
 kubernetes-minion-9vlv   Ready     22m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
 ```
@@ -279,16 +309,24 @@ find kubernetes/examples/guestbook-go/ -name '*.json' | xargs -I {} kubectl crea
 The pods should be spread across all 3 zones:
 
 ```shell
->  kubectl describe pod -l app=guestbook | grep Node
+kubectl describe pod -l app=guestbook | grep Node
+```
+
+```shell
 Node:        kubernetes-minion-9vlv/10.240.0.5
 Node:        kubernetes-minion-281d/10.240.0.8
 Node:        kubernetes-minion-olsh/10.240.0.11
+```
 
- > kubectl get node kubernetes-minion-9vlv kubernetes-minion-281d kubernetes-minion-olsh --show-labels
+```shell
+kubectl get node kubernetes-minion-9vlv kubernetes-minion-281d kubernetes-minion-olsh --show-labels
+```
+
+```shell
 NAME                     STATUS    ROLES    AGE    VERSION          LABELS
-kubernetes-minion-9vlv   Ready     <none>   34m    v1.11.1          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-281d   Ready     <none>   20m    v1.11.1          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
-kubernetes-minion-olsh   Ready     <none>   3m     v1.11.1          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-f,kubernetes.io/hostname=kubernetes-minion-olsh
+kubernetes-minion-9vlv   Ready     <none>   34m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
+kubernetes-minion-281d   Ready     <none>   20m    v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
+kubernetes-minion-olsh   Ready     <none>   3m     v1.13.0          beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-f,kubernetes.io/hostname=kubernetes-minion-olsh
 ```
 
 
@@ -296,15 +334,42 @@ Load-balancers span all zones in a cluster; the guestbook-go example
 includes an example load-balanced service:
 
 ```shell
-> kubectl describe service guestbook | grep LoadBalancer.Ingress
+kubectl describe service guestbook | grep LoadBalancer.Ingress
+```
+
+The output is similar to this:
+
+```shell
 LoadBalancer Ingress:   130.211.126.21
+```
 
-> ip=130.211.126.21
+Set the above IP:
 
-> curl -s http://${ip}:3000/env | grep HOSTNAME
+```shell
+export IP=130.211.126.21
+```
+
+Explore with curl via IP:
+
+```shell
+curl -s http://${IP}:3000/env | grep HOSTNAME
+```
+
+The output is similar to this:
+
+```shell
   "HOSTNAME": "guestbook-44sep",
+```
 
-> (for i in `seq 20`; do curl -s http://${ip}:3000/env | grep HOSTNAME; done)  | sort | uniq
+Again, explore multiple times:
+
+```shell
+(for i in `seq 20`; do curl -s http://${IP}:3000/env | grep HOSTNAME; done)  | sort | uniq
+```
+
+The output is similar to this:
+
+```shell
   "HOSTNAME": "guestbook-44sep",
   "HOSTNAME": "guestbook-hum5n",
   "HOSTNAME": "guestbook-ppm40",
@@ -331,3 +396,5 @@ KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2c k
 KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2b kubernetes/cluster/kube-down.sh
 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a kubernetes/cluster/kube-down.sh
 ```
+
+{{% /capture %}}

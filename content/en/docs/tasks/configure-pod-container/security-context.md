@@ -52,15 +52,16 @@ Here is a configuration file for a Pod that has a `securityContext` and an `empt
 {{< codenew file="pods/security/security-context.yaml" >}}
 
 In the configuration file, the `runAsUser` field specifies that for any Containers in
-the Pod, the first process runs with user ID 1000. The `fsGroup` field specifies that
-group ID 2000 is associated with all Containers in the Pod. Group ID 2000 is also
-associated with the volume mounted at `/data/demo` and with any files created in that
-volume.
+the Pod, all processes run with user ID 1000. The `runAsGroup` field specifies the primary group ID of 3000 for 
+all processes within any containers of the Pod. If this field is ommitted, the primary group ID of the containers 
+will be root(0). Any files created will also be owned by user 1000 and group 3000 when `runAsGroup` is specified. 
+Since `fsGroup` field is specified, all processes of the container are also part of the supplementary group ID 2000. 
+The owner for volume `/data/demo` and any files created in that volume will be Group ID 2000. 
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/security/security-context.yaml
+kubectl apply -f https://k8s.io/examples/pods/security/security-context.yaml
 ```
 
 Verify that the Pod's Container is running:
@@ -123,6 +124,16 @@ The output shows that `testfile` has group ID 2000, which is the value of `fsGro
 -rw-r--r-- 1 1000 2000 6 Jun  6 20:08 testfile
 ```
 
+Run the following command:
+
+```shell
+$ id
+uid=1000 gid=3000 groups=2000
+```
+You will see that gid is 3000 which is same as `runAsGroup` field. If the `runAsGroup` was ommitted the gid would
+remain as 0(root) and the process will be able to interact with files that are owned by root(0) group and that have 
+the required group permissions for root(0) group.
+
 Exit your shell:
 
 ```shell
@@ -146,7 +157,7 @@ and the Container have a `securityContext` field:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/security/security-context-2.yaml
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-2.yaml
 ```
 
 Verify that the Pod's Container is running:
@@ -199,7 +210,7 @@ Here is configuration file that does not add or remove any Container capabilitie
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/security/security-context-3.yaml
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-3.yaml
 ```
 
 Verify that the Pod's Container is running:
@@ -261,7 +272,7 @@ adds the `CAP_NET_ADMIN` and `CAP_SYS_TIME` capabilities:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/security/security-context-4.yaml
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-4.yaml
 ```
 
 Get a shell into the running Container:
@@ -357,5 +368,3 @@ After you specify an MCS label for a Pod, all Pods with the same label can acces
 
 
 {{% /capture %}}
-
-

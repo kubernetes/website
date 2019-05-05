@@ -5,29 +5,25 @@ approvers:
 - chenopis
 - zacharysarah
 - zparnold
+card:
+  name: contribute
+  weight: 30
+  title: Translating the docs
 ---
 
 {{% capture overview %}}
 
-Documentation for Kubernetes is available in multiple languages:
-
-- English
-- Chinese
-- Japanese
-- Korean
-
-We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)!
+Documentation for Kubernetes is available in multiple languages. We encourage you to add new  [localizations](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)!
 
 {{% /capture %}}
-
 
 {{% capture body %}}
 
 ## Getting started
 
-Localizations must meet some requirements for workflow (*how* to localize) and output (*what* to localize).
+Localizations must meet some requirements for workflow (*how* to localize) and output (*what* to localize) before publishing.
 
-To add a new localization of the Kubernetes documentation, you'll need to update the website by modifying the  [site configuration](#modify-the-site-configuration) and [directory structure](#add-a-new-localization-directory). Then you can start [translating documents](#translating-documents)!
+To add a new localization of the Kubernetes documentation, you'll need to update the website by modifying the [site configuration](#modify-the-site-configuration) and [directory structure](#add-a-new-localization-directory). Then you can start [translating documents](#translating-documents)!
 
 {{< note >}}
 For an example localization-related [pull request](../create-pull-request), see [this pull request](https://github.com/kubernetes/website/pull/8636) to the [Kubernetes website repo](https://github.com/kubernetes/website) adding Korean localization to the Kubernetes docs.
@@ -49,7 +45,7 @@ cd website
 ```
 
 {{< note >}}
-Contributors to `k/website` must [create a fork](https://kubernetes.io/docs/contribute/start/#improve-existing-content) from which to open pull requests. For localizations, we ask additionally that:
+Contributors to `k/website` must [create a fork](/docs/contribute/start/#improve-existing-content) from which to open pull requests. For localizations, we ask additionally that:
 
 1. Team approvers open development branches directly from https://github.com/kubernetes/website.
 2. Localization contributors work from forks, with branches based on the current development branch.
@@ -113,12 +109,12 @@ At a minimum, all localizations must include:
 
 Description | URLs
 -----|-----
-Home | [All heading and subheading URLs](https://kubernetes.io/docs/home/)
-Setup | [All heading and subheading URLs](https://kubernetes.io/docs/setup/)
-Tutorials | [Kubernetes Basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/), [Hello Minikube](https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/)
+Home | [All heading and subheading URLs](/docs/home/)
+Setup | [All heading and subheading URLs](/docs/setup/)
+Tutorials | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/), [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
 Site strings | [All site strings in a new localized TOML file](https://github.com/kubernetes/website/tree/master/i18n)
 
-Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source:
+Translated documents must reside in their own `content/**/` subdirectory, but otherwise follow the same URL path as the English source. For example, to prepare the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial for translation into German, create a subfolder under the `content/de/` folder and copy the English source:
 
 ```shell
 mkdir -p content/de/docs/tutorials
@@ -209,7 +205,7 @@ SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/inte
 
 {{% capture whatsnext %}}
 
-Once a l10n meets requirements for workflow and minimum output, SIG docs will:
+Once a localization meets requirements for workflow and minimum output, SIG docs will:
 
 - Enable language selection on the website
 - Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).

@@ -65,7 +65,6 @@ see the [Using kubeadm to Create a Cluster](/docs/setup/independent/create-clust
 <!-- 
 ## Verify the MAC address and product_uuid are unique for every node 
 -->
-
 ## 确保每个节点上 MAC 地址和 product_uuid 的唯一性。
 
 <!--
@@ -111,7 +110,6 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 -->
 
 ### Master 节点
-
 | 规则     | 方向       | 端口范围   | 作用                     | 使用者                    |
 |----------|-----------|------------|-------------------------|---------------------------|
 | TCP      | Inbound   | 6443*      | Kubernetes API server   | All                       |
@@ -119,7 +117,6 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 | TCP      | Inbound   | 10250      | Kubelet API             | Self, Control plane       |
 | TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
 | TCP      | Inbound   | 10252      | kube-controller-manager | Self                      |
-
 <!--
 ### Worker node(s)
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
@@ -178,7 +175,6 @@ Other CRI-based runtimes include:
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet) 
 -->
-
 其他的容器运行时有：
 
 - [containerd](https://github.com/containerd/cri) (containerd 的内置 CRI 插件)
@@ -262,7 +258,6 @@ apt-mark hold kubelet kubeadm kubectl
 
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
-
 ```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]

@@ -179,8 +179,8 @@ However, the particular path specified in the custom recycler pod template in th
 
 ### Expanding Persistent Volumes Claims
 
-{{< feature-state for_k8s_version="v1.8" state="alpha" >}}
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
+
 Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default. You can expand
 the following types of volumes:
 
@@ -192,6 +192,8 @@ the following types of volumes:
 * Azure File
 * Azure Disk
 * Portworx
+* FlexVolumes
+* CSI
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
@@ -213,6 +215,13 @@ To request a larger volume for a PVC, edit the PVC object and specify a larger
 size. This triggers expansion of the volume that backs the underlying `PersistentVolume`. A
 new `PersistentVolume` is never created to satisfy the claim. Instead, an existing volume is resized.
 
+#### CSI Volume expansion
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+CSI volume expansion requires enabling `ExpandCSIVolumes` feature gate and also requires specific CSI driver to support volume expansion. Please refer to documentation of specific CSI driver for more information.
+
+
 #### Resizing a volume containing a file system
 
 You can only resize volumes containing a file system if the file system is XFS, Ext3, or Ext4.
@@ -227,15 +236,24 @@ kubectl describe pvc <pvc_name>
 
 If the `PersistentVolumeClaim` has the status `FileSystemResizePending`, it is safe to recreate the pod using the PersistentVolumeClaim.
 
-#### Resizing an in-use PersistentVolumeClaim
+FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to true. 
+The FlexVolume can be resized on pod restart. 
 
 {{< feature-state for_k8s_version="v1.11" state="alpha" >}}
+
+#### Resizing an in-use PersistentVolumeClaim
 
 Expanding in-use PVCs is an alpha feature. To use it, enable the `ExpandInUsePersistentVolumes` feature gate.
 In this case, you don't need to delete and recreate a Pod or deployment that is using an existing PVC.
 Any in-use PVC automatically becomes available to its Pod as soon as its file system has been expanded.
 This feature has no effect on PVCs that are not in use by a Pod or deployment. You must create a Pod which
 uses the PVC before the expansion can complete.
+
+Expanding in-use PVCs for FlexVolumes is added in release 1.13. To enable this feature use  `ExpandInUsePersistentVolumes` and `ExpandPersistentVolumes` feature gates. The `ExpandPersistentVolumes` feature gate is already enabled by default. If the `ExpandInUsePersistentVolumes` is set, FlexVolume can be resized online without pod restart. 
+ 
+{{< note >}}
+**Note:** FlexVolume resize is possible only when the underlying driver supports resize.
+{{< /note >}}
 
 {{< note >}}
 Expanding EBS volumes is a time consuming operation. Also, there is a per-volume quota of one modification every 6 hours.
@@ -299,12 +317,10 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Volume Mode
 
-{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
-
-To enable this feature, enable the `BlockVolume` feature gate on the apiserver, controller-manager and the kubelet.
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 Prior to Kubernetes 1.9, all volume plugins created a filesystem on the persistent volume.
-Now, you can set the value of `volumeMode` to `raw` to use a raw block device, or `filesystem`
+Now, you can set the value of `volumeMode` to `block` to use a raw block device, or `filesystem`
 to use a filesystem. `filesystem` is the default if the value is omitted. This is an optional API
 parameter.
 
@@ -451,7 +467,7 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Volume Modes
 
-Claims use the same convention as volumes to indicates the consumption of the volume as either a filesystem or block device.
+Claims use the same convention as volumes to indicate the consumption of the volume as either a filesystem or block device.
 
 ### Resources
 
@@ -538,10 +554,7 @@ spec:
 
 ## Raw Block Volume Support
 
-{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
-
-To enable support for raw block volumes, enable the `BlockVolume` feature gate on the
-apiserver, controller-manager and the kubelet.
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 The following volume plugins support raw block volumes, including dynamic provisioning where
 applicable.
@@ -553,6 +566,7 @@ applicable.
 * iSCSI
 * Local volume
 * RBD (Ceph Block Device)
+* VsphereVolume (alpha)
 
 {{< note >}}
 Only FC and iSCSI volumes supported raw block volumes in Kubernetes 1.9.

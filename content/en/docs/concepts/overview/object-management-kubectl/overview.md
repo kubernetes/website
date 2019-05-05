@@ -7,7 +7,8 @@ weight: 10
 {{% capture overview %}}
 The `kubectl` command-line tool supports several different ways to create and manage
 Kubernetes objects. This document provides an overview of the different
-approaches.
+approaches. Read the [Kubectl book](https://kubectl.docs.kubernetes.io) for
+details of managing objects by Kubectl.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -144,16 +145,19 @@ API operation to replace the entire object configuration.
 
 ### Examples
 
-Process all object configuration files in the `configs` directory, and
-create or patch the live objects:
+Process all object configuration files in the `configs` directory, and create or
+patch the live objects. You can first `diff` to see what changes are going to be
+made, and then apply:
 
 ```sh
+kubectl diff -f configs/
 kubectl apply -f configs/
 ```
 
 Recursively process directories:
 
 ```sh
+kubectl diff -R -f configs/
 kubectl apply -R -f configs/
 ```
 
@@ -176,10 +180,9 @@ Disadvantages compared to imperative object configuration:
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
+- [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 {{< comment >}}
 {{< /comment >}}
 {{% /capture %}}
-
-

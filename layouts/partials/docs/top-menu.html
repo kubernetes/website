@@ -1,6 +1,6 @@
 {{ $p := . }}
-{{ $home := .Site.Home }}
-{{ $docs := .Site.GetPage "section" "docs" }}
+{{ $home := site.Home }}
+{{ $docs := site.GetPage "section" "docs" }}
 {{ $menuSections := (where $docs.Sections ".Params.main_menu" true) }}
 {{ range $menuSections }}
 {{ if $p.IsDescendant . }}

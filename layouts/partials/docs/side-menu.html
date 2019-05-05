@@ -6,7 +6,7 @@
         {{ $p := . }}
         {{ .Scratch.Set "section" .CurrentSection }}
         {{ .Scratch.Set "sectionFound" false }}
-        {{ $docs := .Site.GetPage "section" "docs" }}
+        {{ $docs := site.GetPage "section" "docs" }}
         {{ if ne .CurrentSection $docs }}
          {{ range $docs.Sections }}
              {{ if not ($.Scratch.Get "sectionFound") }}

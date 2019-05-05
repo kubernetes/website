@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Set up a High Availability etcd cluster with kubeadm
 content_template: templates/task
-weight: 60
+weight: 70
 ---
 
 {{% capture overview %}}
@@ -46,9 +46,8 @@ this example.
 
 1. Configure the kubelet to be a service manager for etcd.
 
-    Running etcd is simpler than running kubernetes so you must override the
-    kubeadm-provided kubelet unit file by creating a new one with a higher
-    precedence.
+    Since etcd was created first, you must override the service priority by creating a new unit file
+    that has higher precedence than the kubeadm-provided kubelet unit file.
 
     ```sh
     cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
@@ -83,7 +82,7 @@ this example.
     HOST=${ETCDHOSTS[$i]}
     NAME=${NAMES[$i]}
     cat << EOF > /tmp/${HOST}/kubeadmcfg.yaml
-    apiVersion: "kubeadm.k8s.io/v1alpha3"
+    apiVersion: "kubeadm.k8s.io/v1beta1"
     kind: ClusterConfiguration
     etcd:
         local:
@@ -92,7 +91,7 @@ this example.
             peerCertSANs:
             - "${HOST}"
             extraArgs:
-                initial-cluster: infra0=https://${ETCDHOSTS[0]}:2380,infra1=https://${ETCDHOSTS[1]}:2380,infra2=https://${ETCDHOSTS[2]}:2380
+                initial-cluster: ${NAMES[0]}=https://${ETCDHOSTS[0]}:2380,${NAMES[1]}=https://${ETCDHOSTS[1]}:2380,${NAMES[2]}=https://${ETCDHOSTS[2]}:2380
                 initial-cluster-state: new
                 name: ${NAME}
                 listen-peer-urls: https://${HOST}:2380
@@ -114,7 +113,7 @@ this example.
     generated the configuration files for kubeadm).
 
     ```
-    kubeadm alpha phase certs etcd-ca
+    kubeadm init phase certs etcd-ca
     ```
 
     This creates two files
@@ -125,25 +124,25 @@ this example.
 1. Create certificates for each member
 
     ```sh
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST2}/
     # cleanup non-reusable certificates
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST1}/
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
     # No need to move the certs because they are for HOST0
 
     # clean up certs that should not be copied off this host
@@ -233,9 +232,9 @@ this example.
     for etcd.
 
     ```sh
-    root@HOST0 $ kubeadm alpha phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    root@HOST1 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
-    root@HOST2 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+    root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    root@HOST1 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+    root@HOST2 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
     ```
 
 1. Optional: Check the cluster health
@@ -243,7 +242,7 @@ this example.
     ```sh
     docker run --rm -it \
     --net host \
-    -v /etc/kubernetes:/etc/kubernetes quay.io/coreos/etcd:v3.2.18 etcdctl \
+    -v /etc/kubernetes:/etc/kubernetes quay.io/coreos/etcd:${ETCD_TAG} etcdctl \
     --cert-file /etc/kubernetes/pki/etcd/peer.crt \
     --key-file /etc/kubernetes/pki/etcd/peer.key \
     --ca-file /etc/kubernetes/pki/etcd/ca.crt \
@@ -251,12 +250,14 @@ this example.
     ...
     cluster is healthy
     ```
+    - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `v3.2.24`.
+    - Set `${HOST0}`to the IP address of the host you are testing.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-Once your have a working 3 member etcd cluster, you can continue setting up a
+Once you have a working 3 member etcd cluster, you can continue setting up a
 highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/independent/high-availability/).
 

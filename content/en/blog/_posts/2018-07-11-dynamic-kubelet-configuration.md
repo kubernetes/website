@@ -18,7 +18,7 @@ Dynamic Kubelet configuration gives cluster administrators and service providers
 
 ## What is Dynamic Kubelet Configuration?
 
-Kubernetes v1.10 made it possible to configure the Kubelet via a beta [config file](https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/) API. Kubernetes already provides the ConfigMap abstraction for storing arbitrary file data in the API server.
+Kubernetes v1.10 made it possible to configure the Kubelet via a beta [config file](/docs/tasks/administer-cluster/kubelet-config-file/) API. Kubernetes already provides the ConfigMap abstraction for storing arbitrary file data in the API server.
 
 Dynamic Kubelet configuration extends the Node object so that a Node can refer to a ConfigMap that contains the same type of config file. When a Node is updated to refer to a new ConfigMap, the associated Kubelet will attempt to use the new configuration.
 
@@ -45,4 +45,4 @@ See the following diagram for a high-level overview of a configuration update fo
 
 ## How can I learn more?
 
-Please see the official tutorial at https://kubernetes.io/docs/tasks/administer-cluster/reconfigure-kubelet/, which contains more in-depth details on user workflow, how a configuration becomes "last-known-good," how the Kubelet "checkpoints" config, and possible failure modes.
+Please see the official tutorial at /docs/tasks/administer-cluster/reconfigure-kubelet/, which contains more in-depth details on user workflow, how a configuration becomes "last-known-good," how the Kubelet "checkpoints" config, and possible failure modes.

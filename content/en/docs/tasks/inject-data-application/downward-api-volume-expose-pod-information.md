@@ -56,7 +56,7 @@ fields of the Container in the Pod.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 ```
 
 Verify that Container in the Pod is running:
@@ -84,7 +84,7 @@ builder="john-doe"
 
 Get a shell into the Container that is running in your Pod:
 
-```
+```shell
 kubectl exec -it kubernetes-downwardapi-volume-example -- sh
 ```
 
@@ -172,12 +172,12 @@ default value of `1` which means cores for cpu and bytes for memory.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
 ```
 
 Get a shell into the Container that is running in your Pod:
 
-```
+```shell
 kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 ```
 

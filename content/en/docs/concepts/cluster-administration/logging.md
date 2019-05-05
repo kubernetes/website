@@ -35,14 +35,14 @@ a container that writes some text to standard output once per second.
 To run this pod, use the following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
 pod/counter created
 ```
 
 To fetch the logs, use the `kubectl logs` command, as follows:
 
 ```shell
-$ kubectl logs counter
+kubectl logs counter
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -76,8 +76,7 @@ and the former approach is used in any other environment. In both cases, by
 default rotation is configured to take place when log file exceeds 10MB.
 
 As an example, you can find detailed information about how `kube-up.sh` sets
-up logging for COS image on GCP in the corresponding [script]
-[cosConfigureHelper].
+up logging for COS image on GCP in the corresponding [script][cosConfigureHelper].
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
@@ -89,9 +88,9 @@ only the contents of the latest log file will be available through
 `kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
 the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
+{{< /note >}}
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-{{< /note >}}
 
 ### System component logs
 
@@ -104,7 +103,7 @@ that do not run in a container. For example:
 On machines with systemd, the kubelet and container runtime write to journald. If
 systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
-bypassing the default logging mechanism. They use the [glog][glog]
+bypassing the default logging mechanism. They use the [klog][klog]
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://git.k8s.io/community/contributors/devel/logging.md).
 
@@ -113,7 +112,7 @@ directory should be rotated. In Kubernetes clusters brought up by
 the `kube-up.sh` script, those logs are configured to be rotated by
 the `logrotate` tool daily or once the size exceeds 100MB.
 
-[glog]: https://godoc.org/github.com/golang/glog
+[klog]: https://github.com/kubernetes/klog
 
 ## Cluster-level logging architectures
 
@@ -179,7 +178,9 @@ Now when you run this pod, you can access each log stream separately by
 running the following commands:
 
 ```shell
-$ kubectl logs counter count-log-1
+kubectl logs counter count-log-1
+```
+```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -187,7 +188,9 @@ $ kubectl logs counter count-log-1
 ```
 
 ```shell
-$ kubectl logs counter count-log-2
+kubectl logs counter count-log-2
+```
+```
 Mon Jan  1 00:00:00 UTC 2001 INFO 0
 Mon Jan  1 00:00:01 UTC 2001 INFO 1
 Mon Jan  1 00:00:02 UTC 2001 INFO 2

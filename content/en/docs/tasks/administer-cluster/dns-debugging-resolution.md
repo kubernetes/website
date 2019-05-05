@@ -27,7 +27,7 @@ Create a file named busybox.yaml with the following contents:
 Then create a pod using this file and verify its status:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
+kubectl apply -f https://k8s.io/examples/admin/dns/busybox.yaml
 pod/busybox created
 
 kubectl get pods busybox
@@ -95,7 +95,7 @@ Use the `kubectl get pods` command to verify that the DNS pod is running.
 
 For CoreDNS:
 ```shell
-kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
+kubectl get pods --namespace=kube-system -l k8s-app=coredns
 NAME                       READY     STATUS    RESTARTS   AGE
 ...
 coredns-7b96bf9f76-5hsxb   1/1       Running   0           1h
@@ -122,7 +122,7 @@ Use `kubectl logs` command to see logs for the DNS containers.
 
 For CoreDNS:
 ```shell
-for p in $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name); do kubectl logs --namespace=kube-system $p; done
+for p in $(kubectl get pods --namespace=kube-system -l k8s-app=coredns -o name); do kubectl logs --namespace=kube-system $p; done
 ```
 
 Here is an example of a healthy CoreDNS log:

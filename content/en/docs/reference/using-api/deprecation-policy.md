@@ -87,7 +87,7 @@ no less than:**
    * **Beta: 9 months or 3 releases (whichever is longer)**
    * **Alpha: 0 releases**
 
-This covers the maximum supported version skew of 2 releases.
+This covers the [maximum supported version skew of 2 releases](/docs/setup/version-skew-policy/).
 
 {{< note >}}
 Until [#52185](https://github.com/kubernetes/kubernetes/issues/52185) is

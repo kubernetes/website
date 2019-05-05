@@ -29,4 +29,3 @@ intentionally lowercase), `M` (mega), `G` (giga), `T` (terra), `P` (peta),
 
 The accepted binary (power-of-2) units are `Ki` (kibi), `Mi` (mebi), `Gi` (gibi),
 `Ti` (tebi), `Pi` (pebi), `Ei` (exbi).
-

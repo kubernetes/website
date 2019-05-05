@@ -6,7 +6,7 @@ approvers:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: StatefulSet基本使用
+title: StatefulSet 基本使用
 content_template: templates/tutorial
 ---
 
@@ -20,7 +20,7 @@ content_template: templates/tutorial
 在开始本教程之前，你应该熟悉以下 Kubernetes 的概念：
 
 * [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
+* [集群 DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{< param "githubbranch" >}}/examples/persistent-volume-provisioning/)
@@ -49,7 +49,7 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 ## 创建 StatefulSet
 
 
-作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中的示例相似。它创建了一个  [Headless Service](/docs/user-guide/services/#headless-services)  `nginx` 用来发布StatefulSet `web` 中的 Pod 的 IP 地址。
+作为开始，使用如下示例创建一个 StatefulSet。它和 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中的示例相似。它创建了一个  [Headless Service](/docs/user-guide/services/#headless-services)  `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
 
 {{< code file="web.yaml" >}}
 
@@ -131,7 +131,7 @@ web-1     1/1       Running   0          1m
 ```
 
 
-如同 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中所提到的， StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。 Pod 的名称的形式为`<statefulset name>-<ordinal index>`。`web` StatefulSet 拥有两个副本，所以它创建了两个 Pod：`web-0`和`web-1`。
+如同 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)  概念中所提到的， StatefulSet 中的 Pod 拥有一个具有黏性的、独一无二的身份标志。这个标志基于 StatefulSet 控制器分配给每个 Pod 的唯一顺序索引。 Pod 的名称的形式为 `<statefulset name>-<ordinal index>`。`web` StatefulSet 拥有两个副本，所以它创建了两个 Pod：`web-0` 和 `web-1`。
 
 
 ### 使用稳定的网络身份标识

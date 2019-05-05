@@ -288,7 +288,7 @@ Various configuration files are written into the home directory *CLC_CLUSTER_HOM
 to access the cluster from machines other than where you created the cluster from.
 
 * ```config/```: Ansible variable files containing parameters describing the master and minion hosts
-* ```hosts/```: hosts files listing access information for the ansible playbooks
+* ```hosts/```: hosts files listing access information for the Ansible playbooks
 * ```kube/```: ```kubectl``` configuration files, and the basic-authentication password for admin access to the Kubernetes API
 * ```pki/```: public key infrastructure files enabling TLS communication in the cluster
 * ```ssh/```: SSH keys for root access to the hosts

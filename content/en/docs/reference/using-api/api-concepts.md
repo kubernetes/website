@@ -86,7 +86,7 @@ For example:
         }
         ...
 
-A given Kubernetes server will only preserve a historical list of changes for a limited time. Older clusters using etcd2 preserve a maximum of 1000 changes. Newer clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
+A given Kubernetes server will only preserve a historical list of changes for a limited time. Clusters using etcd3 preserve changes in the last 5 minutes by default.  When the requested watch operations fail because the historical version of that resource is not available, clients must handle the case by recognizing the status code `410 Gone`, clearing their local cache, performing a list operation, and starting the watch from the `resourceVersion` returned by that new list operation. Most client libraries offer some form of standard tool for this logic. (In Go this is called a `Reflector` and is located in the `k8s.io/client-go/cache` package.)
 
 ## Retrieving large results sets in chunks
 
@@ -287,26 +287,14 @@ Clients that receive a response in `application/vnd.kubernetes.protobuf` that do
 
 ## Dry run
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}} In version 1.12, if the dry run alpha feature is enabled, the modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry run mode. Dry run mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non dry run response. The system guarantees that dry run requests will not be persisted in storage or have any other side effects.
-
-
-### Enable the dry run alpha feature
-
-Dry run is an alpha feature, so it is disabled by default. To turn it on,
-you need to:
-
-* Include "DryRun=true" in the `--feature-gates` flag when starting
-  `kube-apiserver`. If you have multiple `kube-apiserver` replicas, all should
-  have the same flag setting.
-
-If this feature is not enabled, all requests with a modifying verb (`POST`, `PUT`, `PATCH`, and `DELETE`) which set the `dryRun` query parameter will be rejected with a 400 Bad Request error. Kubernetes 1.11 always rejects dry run requests like this, so it is safe for clients to make dry run requests even if the feature is not enabled on the server, as long as the server version is >= 1.11.
+{{< feature-state for_k8s_version="v1.13" state="beta" >}} In version 1.13, the dry run beta feature is enabled by default. The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests in a dry run mode. Dry run mode helps to evaluate a request through the typical request stages (admission chain, validation, merge conflicts) up until persisting objects to storage. The response body for the request is as close as possible to a non dry run response. The system guarantees that dry run requests will not be persisted in storage or have any other side effects.
 
 
 ### Make a dry run request
 
-Dry run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and in 1.12 the only accepted values are:
+Dry run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and in 1.13 the only accepted values are:
 
-* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. Admission webhooks can now declare (in their configuration object) that they do not have side effects to prevent this. All built in admission control plugins support dry run.
+* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. All built in admission control plugins support dry run. Additionally, admission webhooks can declare in their [configuration object](/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration-k8s-io) that they do not have side effects by setting the sideEffects field to "None". If a webhook actually does have side effects, then the sideEffects field should be set to "NoneOnDryRun", and the webhook should also be modified to understand the `DryRun` field in AdmissionReview, and prevent side effects on dry run requests.
 * Leave the value empty, which is also the default: Keep the default modifying behavior.
 
 For example:
@@ -329,6 +317,116 @@ Some values of an object are typically generated before the object is persisted.
 * Any field set by a mutating admission controller
 * For the `Service` resource: Ports or IPs that kube-apiserver assigns to v1.Service objects
 
-{{% /capture %}}
+## Server Side Apply
 
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}} Server Side Apply allows clients other than kubectl to perform the Apply operation, and will eventually fully replace the complicated Client Side Apply logic that only exists in kubectl. If the Server Side Apply feature is enabled, the `PATCH` endpoint accepts the additional `application/apply-patch+yaml` content type. Users of Server Side Apply can send partially specified objects to this endpoint. An applied config should always include every field that the applier has an opinion about.
 
+### Enable the Server Side Apply alpha feature
+
+Server Side Apply is an alpha feature, so it is disabled by default. To turn this [feature gate](/docs/reference/command-line-tools-reference/feature-gates) on,
+you need to include the `--feature-gates ServerSideApply=true` flag when starting `kube-apiserver`.
+If you have multiple `kube-apiserver` replicas, all should have the same flag setting.
+
+### Field Management
+
+Compared to the `last-applied` annotation managed by `kubectl`, Server Side Apply uses a more declarative approach, which tracks a user's field management, rather than a user's last applied state. This means that as a side effect of using Server Side Apply, information about which field manager manages each field in an object also becomes available.
+
+For a user to manage a field, in the Server Side Apply sense, means that the user relies on and expects the value of the field not to change. The user who last made an assertion about the value of a field will be recorded as the current field manager. This can be done either by changing the value with `POST`, `PUT`, or non-apply `PATCH`, or by including the field in a config sent to the Server Side Apply endpoint. Any applier that tries to change the field which is managed by someone else will get its request rejected (if not forced, see the Conflicts section below).
+
+Field management is stored in a newly introduced `managedFields` field that is part of an object's [`metadata`](/docs/reference/generated/kubernetes-api/v1.14/#objectmeta-v1-meta).
+
+A simple example of an object created by Server Side Apply could look like this:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cm
+  namespace: default
+  labels:
+    test-label: test
+  managedFields:
+  - manager: kubectl
+    operation: Apply
+    apiVersion: v1
+    fields:
+      f:metadata:
+        f:labels:
+          f:test-label: {}
+      f:data:
+        f:key: {}
+data:
+  key: some value
+```
+
+The above object contains a single manager in `metadata.managedFields`. The manager consists of basic information about the managing entity itself, like operation type, api version, and the fields managed by it.
+
+{{< note >}} This field is managed by the apiserver and should not be changed by the user. {{< /note >}}
+
+Nevertheless it is possible to change `metadata.managedFields` through an `Update` operation. Doing so is highly discouraged, but might be a reasonable option to try if, for example, the `managedFields` get into an inconsistent state (which clearly should not happen).
+
+### Operations
+
+The two operation types considered by this feature are `Apply` (`PATCH` with content type `application/apply-patch+yaml`) and `Update` (all other operations which modify the object). Both operations update the `managedFields`, but behave a little differently.
+
+For instance, only the apply operation fails on conflicts while update does not. Also, apply operations are required to identify themselves by providing a `fieldManager` query parameter, while the query parameter is optional for update operations.
+
+An example object with multiple managers could look like this:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cm
+  namespace: default
+  labels:
+    test-label: test
+  managedFields:
+  - manager: kubectl
+    operation: Apply
+    apiVersion: v1
+    fields:
+      f:metadata:
+        f:labels:
+          f:test-label: {}
+  - manager: kube-controller-manager
+    operation: Update
+    apiVersion: v1
+    time: '2019-03-30T16:00:00.000Z'
+    fields:
+      f:data:
+        f:key: {}
+data:
+  key: new value
+```
+
+In this example, a second operation was run as an `Update` by the manager called `kube-controller-manager`. The update changed a value in the data field which caused the field's management to change to the `kube-controller-manager`.
+{{< note >}}If this update would have been an `Apply` operation, the operation would have failed due to conflicting ownership.{{< /note >}}
+
+### Merge Strategy
+
+The merging strategy, implemented with Server Side Apply, provides a generally more stable object lifecycle.
+Server Side Apply tries to merge fields based on the fact who manages them instead of overruling just based on values.
+This way it is intended to make it easier and more stable for multiple actors updating the same object by causing less unexpected interference.
+
+When a user sends a partially specified object to the Server Side Apply endpoint, the server merges it with the live object favoring the value in the applied config if it is specified in both places. If the set of items present in the applied config is not a superset of the items applied by the same user last time, each missing item not managed by any other field manager is removed. For more information about how an object's schema is used to make decisions when merging, see [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
+
+### Conflicts
+
+A conflict is a special status error that occurs when an `Apply` operation tries to change a field, which another user also claims to manage. This prevents an applier from unintentionally overwriting the value set by another user. When this occurs, the applier has 3 options to resolve the conflicts:
+
+* **Overwrite value, become sole manager:** If overwriting the value was intentional (or if the applier is an automated process like a controller) the applier should set the `force` query parameter to true and make the request again. This forces the operation to succeed, changes the value of the field, and removes the field from all other managers' entries in managedFields.
+* **Don't overwrite value, give up management claim:** If the applier doesn't care about the value of the field anymore, they can remove it from their config and make the request again. This leaves the value unchanged, and causes the field to be removed from the applier's entry in managedFields.
+* **Don't overwrite value, become shared manager:** If the applier still cares about the value of the field, but doesn't want to overwrite it, they can change the value of the field in their config to match the value of the object on the server, and make the request again. This leaves the value unchanged, and causes the field's management to be shared by the applier and all other field managers that already claimed to manage it.
+
+### Comparison with Client Side Apply
+
+A consequence of the conflict detection and resolution implemented by Server Side Apply is that an applier always has up to date field values in their local state. If they don't, they get a conflict the next time they apply. Any of the three options to resolve conflicts results in the applied config being an up to date subset of the object on the server's fields.
+
+This is different from Client Side Apply, where outdated values which have been overwritten by other users are left in an applier's local config. These values only become accurate when the user updates that specific field, if ever, and an applier has no way of knowing whether their next apply will overwrite other users' changes.
+
+Another difference is that an applier using Client Side Apply is unable to change the API version they are using, but Server Side Apply supports this use case.
+
+### Custom Resources
+
+Server Side Apply currently treats all custom resources as unstructured data. All keys are treated the same as struct fields, and all lists are considered atomic. In the future, it will use the validation field in Custom Resource Definitions to allow Custom Resource authors to define how to how to merge their own objects.

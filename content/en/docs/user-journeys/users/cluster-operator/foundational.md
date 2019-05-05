@@ -65,7 +65,8 @@ These resources are covered in a number of articles within the Kubernetes docume
 
 As a cluster operator you may not need to use all these resources, although you should be familiar with them to understand how the cluster is being used.
 There are a number of additional resources that you should be aware of, some listed under [Intermediate Resources](/docs/user-journeys/users/cluster-operator/intermediate#section-1).
-You should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/).
+You should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/)
+and [supported versions and version skew between cluster components](/docs/setup/version-skew-policy/).
 
 ## Get information about your cluster
 
@@ -79,7 +80,7 @@ You can see the status of the core of kubernetes with the command `kubectl get c
 Some additional resources for getting information about your cluster and how it is operating include:
 
 * [Tools for Monitoring Compute, Storage, and Network Resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
-* [Core metrics pipeline](/docs/tasks/debug-application-cluster/core-metrics-pipeline/)
+* [Resource metrics pipeline](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)
   * [Metrics](/docs/concepts/cluster-administration/controller-metrics/)
 
 ## Explore additional resources

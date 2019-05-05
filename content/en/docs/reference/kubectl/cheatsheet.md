@@ -6,6 +6,9 @@ reviewers:
 - krousey
 - clove
 content_template: templates/concept
+card:
+  name: reference
+  weight: 30
 ---
 
 {{% capture overview %}}
@@ -29,6 +32,13 @@ source <(kubectl completion bash) # setup autocomplete in bash into the current 
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
+You can also use a shorthand alias for `kubectl` that also works with completion: 
+
+```bash
+alias k=kubectl
+complete -F __start_kubectl k
+```
+
 ### ZSH
 
 ```bash
@@ -48,11 +58,12 @@ kubectl config view # Show Merged kubeconfig settings.
 # use multiple kubeconfig files at the same time and view merged config
 KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
 
-# Get the password for the e2e user
+# get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config current-context              # Display the current-context
-kubectl config use-context my-cluster-name  # set the default context to my-cluster-name
+kubectl config view -o jsonpath='{.users[].name}'    # get a list of users
+kubectl config current-context			               # display the current-context
+kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new cluster to your kubeconf that supports basic auth
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
@@ -60,7 +71,12 @@ kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser -
 # set a context utilizing a specific username and namespace.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
+ 
+kubectl config unset users.foo                       # delete user foo
 ```
+
+## Apply
+`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
 ## Creating Objects
 
@@ -68,15 +84,15 @@ Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl create -f ./my-manifest.yaml           # create resource(s)
-kubectl create -f ./my1.yaml -f ./my2.yaml     # create from multiple files
-kubectl create -f ./dir                        # create resource(s) in all manifest files in dir
-kubectl create -f https://git.io/vPieo         # create resource(s) from url
-kubectl run nginx --image=nginx                # start a single instance of nginx
+kubectl apply -f ./my-manifest.yaml           # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml     # create from multiple files
+kubectl apply -f ./dir                        # create resource(s) in all manifest files in dir
+kubectl apply -f https://git.io/vPieo         # create resource(s) from url
+kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 kubectl explain pods,svc                       # get the documentation for pod and svc manifests
 
 # Create multiple YAML objects from stdin
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -103,7 +119,7 @@ spec:
 EOF
 
 # Create a secret with several keys
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -139,6 +155,10 @@ kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 kubectl get pods --selector=app=cassandra rc -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
+# Get all worker nodes (use a selector to exclude results that have a label
+# named 'node-role.kubernetes.io/master')
+kubectl get node --selector='!node-role.kubernetes.io/master'
+
 # Get all running pods in the namespace
 kubectl get pods --field-selector=status.phase=Running
 
@@ -149,6 +169,10 @@ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP
 # "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
+
+# Show labels for all pods (or any other Kubernetes object that supports labelling)
+# Also uses "jq"
+for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
 
 # Check which nodes are ready
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \

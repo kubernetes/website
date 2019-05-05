@@ -131,9 +131,9 @@
 /docs/contribute/style-guide/     /docs/home/contribute/style-guide/ 301
 
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
-/docs/deprecate/     /docs/reference/deprecation-policy/ 301
-/docs/deprecated/     /docs/reference/deprecation-policy/ 301
-/docs/deprecation-policy/     /docs/reference/deprecation-policy/ 301
+/docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
 /docs/federation/api-reference/     /docs/reference/federation/v1/operations/ 301
 /docs/federation/api-reference/v1/definitions.html    /docs/reference/generated/federation/v1/definitions/ 301
@@ -150,7 +150,7 @@
 
 /docs/getting-started-guide/*     /docs/setup/ 301
 /docs/getting-started-guides/     /docs/setup/pick-right-solution/ 301
-/docs/getting-started-guides/binary_release/    /docs/setup/building-from-source/ 301
+/docs/getting-started-guides/binary_release/    /docs/setup/release/building-from-source/ 301
 /docs/getting-started-guides/cloudstack/     /docs/setup/on-premises-vm/cloudstack/ 301
 /docs/getting-started-guides/dcos/     /docs/setup/on-premises-vm/dcos/ 301
 /docs/getting-started-guides/ovirt/     /docs/setup/on-premises-vm/ovirt/ 301

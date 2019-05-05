@@ -131,7 +131,7 @@ Cluster Federation is a control plane of cluster federation in Kubernetes. It of
 
  ![Screen Shot 2016-07-07 at 1.46.55 PM.png](https://lh6.googleusercontent.com/jJjQ6wbYYG1y7rS7SXFNj1dsLrTEBbiOB9TfrkJAqayHVzBZwLguxMB6HLObCgpVGLKF7xdPd3wfdvQzB2a7Cq6cuqqXRRl3L5OfVPwKB34BxdpRUc1g7EgOdEkILH9E4sAfzHyb)
 
-Each Kubernetes cluster exposes an API endpoint and gets registered to Cluster Federation as a part of Federation object. Then using Cluster Federation API, you can create federated services.  Those objects are comprised of multiple equivalent underlying Kubernetes resources. Assuming that the 3 clusters on the picture above belong to the same Federation object, each Service created via Cluster Federation, will get equivalent service created in each of the clusters. Besides that, a Cluster Federation service will get publicly resolvable DNS name resolvable to Kuberentes service’s public ip addresses (DNS record gets programmed to a one of the public DNS providers below):
+Each Kubernetes cluster exposes an API endpoint and gets registered to Cluster Federation as a part of Federation object. Then using Cluster Federation API, you can create federated services.  Those objects are comprised of multiple equivalent underlying Kubernetes resources. Assuming that the 3 clusters on the picture above belong to the same Federation object, each Service created via Cluster Federation, will get equivalent service created in each of the clusters. Besides that, a Cluster Federation service will get publicly resolvable DNS name resolvable to Kubernetes service’s public ip addresses (DNS record gets programmed to a one of the public DNS providers below):
 
 
 
@@ -168,7 +168,7 @@ When we launched Kubernetes support in Rancher we decided to maintain our own di
 - Rancher as a CredentialProvider (to support Rancher private registries).
 - Rancher Ingress controller to back up Kubernetes ingress resource.
 
-So we’ve decided to eliminate the need of Rancher Kubernetes distribution, and try to upstream all our changes to the Kubernetes repo. To do that, we will be reworking our networking integration, and support Rancher networking as a [CNI plugin for Kubernetes](http://kubernetes.io/docs/admin/network-plugins/#cni). More details on that will be shared as soon as the feature design is finalized, but expect it to come in the next 2-3 months. We will also continue investing in Rancher’s core capabilities integrated with Kubernetes, including, but not limited to:
+So we’ve decided to eliminate the need of Rancher Kubernetes distribution, and try to upstream all our changes to the Kubernetes repo. To do that, we will be reworking our networking integration, and support Rancher networking as a [CNI plugin for Kubernetes](/docs/admin/network-plugins/#cni). More details on that will be shared as soon as the feature design is finalized, but expect it to come in the next 2-3 months. We will also continue investing in Rancher’s core capabilities integrated with Kubernetes, including, but not limited to:
 
 - Access rights management via Rancher environment that represents Kubernetes cluster
 - Credential management and easy web-based access to standard kubectl cli

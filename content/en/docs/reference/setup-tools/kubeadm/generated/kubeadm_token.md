@@ -20,7 +20,7 @@ What is a bootstrap token more exactly?
  - The name of the Secret must be named "bootstrap-token-(token-id)".
 
 You can read more about bootstrap tokens here:
-  https://kubernetes.io/docs/admin/bootstrap-tokens/
+  /docs/admin/bootstrap-tokens/
 
 
 ```
@@ -54,7 +54,7 @@ kubeadm token [flags]
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The KubeConfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
     </tr>
 
   </tbody>
@@ -80,6 +80,3 @@ kubeadm token [flags]
 
   </tbody>
 </table>
-
-
-

@@ -2,6 +2,10 @@
 title: Installing kubeadm
 content_template: templates/task
 weight: 20
+card:
+  name: setup
+  weight: 20
+  title: Install the kubeadm setup tool
 ---
 
 {{% capture overview %}}
@@ -79,10 +83,28 @@ The pod network plugin you use (see below) may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
-## Installing runtime
+## Installing runtime {#installing-runtime}
 
 Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
-The container runtime used by default is Docker, which is enabled through the built-in
+
+Since v1.14.0, kubeadm will try to automatically detect the container runtime on Linux nodes
+by scanning through a list of well known domain sockets. The detectable runtimes and the
+socket paths, that are used, can be found in the table below.
+
+| Runtime    | Domain Socket                    |
+|------------|----------------------------------|
+| Docker     | /var/run/docker.sock             |
+| containerd | /run/containerd/containerd.sock  |
+| CRI-O      | /var/run/crio/crio.sock          |
+
+If both Docker and containerd are detected together, Docker takes precedence. This is
+needed, because Docker 18.09 ships with containerd and both are detectable.
+If any other two or more runtimes are detected, kubeadm will exit with an appropriate
+error message.
+
+On non-Linux nodes the container runtime used by default is Docker.
+
+If the container runtime of choice is Docker, it is used through the built-in
 `dockershim` CRI implementation inside of the `kubelet`.
 
 Other CRI-based runtimes include:
@@ -90,7 +112,6 @@ Other CRI-based runtimes include:
 - [containerd](https://github.com/containerd/cri) (CRI plugin built into containerd)
 - [cri-o](https://github.com/kubernetes-incubator/cri-o)
 - [frakti](https://github.com/kubernetes/frakti)
-- [rkt](https://github.com/kubernetes-incubator/rktlet)
 
 Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
 
@@ -106,7 +127,7 @@ You will install these packages on all of your machines:
 * `kubectl`: the command line util to talk to your cluster.
 
 kubeadm **will not** install or manage `kubelet` or `kubectl` for you, so you will
-need to ensure they match the version of the Kubernetes control panel you want
+need to ensure they match the version of the Kubernetes control plane you want
 kubeadm to install for you. If you do not, there is a risk of a version skew occurring that
 can lead to unexpected, buggy behaviour. However, _one_ minor version skew between the
 kubelet and the control plane is supported, but the kubelet version may never exceed the API
@@ -119,8 +140,10 @@ This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
 {{</ warning >}}
 
-For more information on version skews, please read our
-[version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy).
+For more information on version skews, see:
+
+* Kubernetes [version and version-skew policy](/docs/setup/version-skew-policy/)
+* Kubeadm-specific [version skew policy](/docs/setup/independent/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -154,7 +177,7 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-systemctl enable kubelet && systemctl start kubelet
+systemctl enable --now kubelet
 ```
 
   **Note:**
@@ -172,6 +195,7 @@ systemctl enable kubelet && systemctl start kubelet
     EOF
     sysctl --system
     ```
+  - Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
 Install CNI plugins (required for most pod network):
@@ -208,7 +232,7 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/bu
 Enable and start `kubelet`:
 
 ```bash
-systemctl enable kubelet && systemctl start kubelet
+systemctl enable --now kubelet
 ```
 {{% /tab %}}
 {{< /tabs >}}

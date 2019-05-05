@@ -61,9 +61,9 @@ a `proxyMode` endpoint:
 ```console
 $ kubectl get nodes
 NAME                           STATUS     ROLES    AGE     VERSION
-kubernetes-minion-group-6jst   Ready      <none>   2h      v1.12.0
-kubernetes-minion-group-cx31   Ready      <none>   2h      v1.12.0
-kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.12.0
+kubernetes-minion-group-6jst   Ready      <none>   2h      v1.13.0
+kubernetes-minion-group-cx31   Ready      <none>   2h      v1.13.0
+kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.13.0
 
 kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
 iptables
@@ -107,7 +107,7 @@ client_address=10.244.3.8
 command=GET
 ...
 ```
-If the client pod and server pod are in the same node, the client_address is the client pod's IP address. However, if the client pod and server pod are in different nodes, the client_address is the client pod's node flannel IP address.
+The client_address is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 
 ## Source IP for Services with Type=NodePort
 

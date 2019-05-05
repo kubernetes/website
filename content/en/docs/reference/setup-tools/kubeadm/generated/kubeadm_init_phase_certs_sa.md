@@ -1,0 +1,56 @@
+
+Generates a private key for signing service account tokens along with its public key
+
+### Synopsis
+
+
+Generates the private key for signing service account tokens along with its public key, and saves them into sa.key and sa.pub files. If both files already exist, kubeadm skips the generation step and existing files will be used. 
+
+Alpha Disclaimer: this command is currently alpha.
+
+```
+kubeadm init phase certs sa [flags]
+```
+
+### Options
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">-h, --help</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for sa</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+### Options inherited from parent commands
+
+<table style="width: 100%; table-layout: fixed;">
+  <colgroup>
+    <col span="1" style="width: 10px;" />
+    <col span="1" />
+  </colgroup>
+  <tbody>
+
+    <tr>
+      <td colspan="2">--rootfs string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
