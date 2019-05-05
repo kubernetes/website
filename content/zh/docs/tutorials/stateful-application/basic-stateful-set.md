@@ -448,7 +448,7 @@ kubectl delete pod web-0
 pod "web-0" deleted
 ```
 
-<--
+<!--
 Watch the `web-0` Pod, and wait for it to transition to Running and Ready.
 -->
 
@@ -482,7 +482,9 @@ web-2   k8s.gcr.io/nginx-slim:0.8
 `web-0` has had its image updated, but `web-0` and `web-1` still have the original 
 image. Complete the update by deleting the remaining Pods.
 -->
-`web-0` 已经更新了它的镜像，但是 `web-1` 和 `web-2` 仍保留了原始镜像。
+
+`web-0` 已经更新了它的容器镜像，但 `web-0` 和 `web-1` 仍然是原始版本的镜像。通过删除剩余的 Pod 来完成更新。
+
 
 ```shell
 kubectl delete pod web-1 web-2
@@ -1051,12 +1053,15 @@ web-2     1/1       Running   0         10s
 web-3     1/1       Running   0         26s
 ```
 
-<!
+<!--
 The StatefulSet controller launched two new Pods, and it did not wait for 
 the first to become Running and Ready prior to launching the second.
+-->
 
+<!--
 Keep this terminal open, and in another terminal delete the `web` StatefulSet.
 -->
+
 StatefulSet 控制器启动了两个新的 Pod，而且在启动第二个之前并没有等待第一个变成 Running 和 Ready 状态。
 
 保持这个终端打开，并在另一个终端删除 `web` StatefulSet。

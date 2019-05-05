@@ -1,3 +1,9 @@
+---
+title: 提供对集群中应用程序的负载均衡访问
+content_template: templates/tutorial
+weight: 50
+---
+
 <!--
 ---
 title: Provide Load-Balanced Access to an Application in a Cluster
@@ -5,11 +11,6 @@ content_template: templates/tutorial
 weight: 50
 ---
 -->
----
-title: 提供对集群中应用程序的负载均衡访问
-content_template: templates/tutorial
-weight: 50
----
 
 {{% capture overview %}}
 

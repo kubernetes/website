@@ -1,3 +1,13 @@
+---
+title: 设置一个扩展的 API server
+reviewers:
+- lavalamp
+- cheftako
+- chenopis
+content_template: templates/task
+weight: 15
+---
+
 <!--
 ---
 title: Setup an extension API server
@@ -9,15 +19,6 @@ content_template: templates/task
 weight: 15
 ---
 -->
----
-title: 设置一个扩展的 API server
-reviewers:
-- lavalamp
-- cheftako
-- chenopis
-content_template: templates/task
-weight: 15
----
 
 {{% capture overview %}}
 
