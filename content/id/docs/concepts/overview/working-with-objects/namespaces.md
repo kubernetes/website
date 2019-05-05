@@ -6,7 +6,7 @@ weight: 30
 
 {{% capture overview %}}
 
-Kubernetes mendukung banyak virtual kluster di dalam satu kluster fisik. Virtual kluster tersebut disebut dengan *namespace*.
+Kubernetes mendukung banyak kluster virtual di dalam satu kluster fisik. kluster virtual tersebut disebut dengan *namespace*.
 
 {{% /capture %}}
 
@@ -46,9 +46,9 @@ kube-public   Active    1d
 
 Kubernetes berjalan dengan tiga *namespace* awal:
 
-* `default`, *namespace default* untuk objek yang dibuat tanpa mencantumkan *namespace* pada spesifikasinya
-* `kube-system`, *namespace* yang digunakan untuk objek yang dibuat oleh sistem Kubernetes
-* `kube-public`, *namespace* ini dibuat secara otomatis dan dapat diakses oleh semua pengguna (termasuk yang tidak diutentikasi). *Namespace* ini disediakan untuk penggunaan kluster, jika beberapa *resouce* harus terlihat dan dapat dibaca secara publik diseluruh kluster. Aspek publik dari *namespace* ini hanya sebuah konvensi, bukan persyaratan.
+* `default`, *namespace default* untuk objek yang dibuat tanpa mencantumkan *namespace* pada spesifikasinya.
+* `kube-system`, *namespace* yang digunakan untuk objek yang dibuat oleh sistem Kubernetes.
+* `kube-public`, *namespace* ini dibuat secara otomatis dan dapat diakses oleh semua pengguna (termasuk yang tidak diutentikasi). *Namespace* ini disediakan untuk penggunaan kluster, jika beberapa *resouce* harus terlihat dan dapat dibaca secara publik di seluruh kluster. Aspek publik dari *namespace* ini hanya sebuah konvensi, bukan persyaratan.
 
 
 ### Mengkonfigurasi namespace untuk request
