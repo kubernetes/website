@@ -13,7 +13,7 @@ title: 节点设置校验
 
 ## 限制
 
-在 Kubernetes 1.5版本中，节点合规性测试存在以下限制：
+在 Kubernetes 1.5 版本中，节点合规性测试存在以下限制：
 
 * 节点合规性测试只支持 Docker 作为容器运行时环境。
 
@@ -60,7 +60,7 @@ Kubernetes 也为其他硬件体系结构的系统提供了节点合规性测试
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e FOCUS=MirrorPod \ # 只运行MirrorPod测试
+  -e FOCUS=MirrorPod \ # 只运行 MirrorPod 测试
   k8s.gcr.io/node-test:0.2
 ```
 
@@ -69,7 +69,7 @@ sudo docker run -it --rm --privileged --net=host \
 ```shell
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  -e SKIP=MirrorPod \ # 运行除MirrorPod外的所有测试
+  -e SKIP=MirrorPod \ # 运行除 MirrorPod 外的所有测试
   k8s.gcr.io/node-test:0.2
 ```
 
@@ -80,5 +80,5 @@ sudo docker run -it --rm --privileged --net=host \
 
 ## 注意事项
 
-* 测试会在节点上遗留一些Docker镜像， 包括节点合规性测试本身的镜像，和功能测试相关的镜像。
+* 测试会在节点上遗留一些 Docker 镜像， 包括节点合规性测试本身的镜像和功能测试相关的镜像。
 * 测试会在节点上遗留一些死的容器。这些容器是在功能测试的过程中创建的。

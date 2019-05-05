@@ -5,7 +5,7 @@ weight: 20
 ---
 {{% capture overview %}}
 <!-- This command initializes a Kubernetes master node. -->
-此命令初始化一个 Kubernetes master 节点
+此命令初始化一个 Kubernetes 主节点
 {{% /capture %}}
 
 {{% capture body %}}
@@ -16,7 +16,7 @@ weight: 20
 ### Init 命令的工作流程 {#init-workflow}
 <!-- `kubeadm init` bootstraps a Kubernetes master node by executing the
 following steps: -->
-`kubeadm init` 命令通过执行下列步骤来启动一个 Kubernetes master 节点。
+`kubeadm init` 命令通过执行下列步骤来启动一个 Kubernetes 主节点。
 
 <!-- 1. Runs a series of pre-flight checks to validate the system state
    before making changes. Some checks only trigger warnings, others are
@@ -30,14 +30,14 @@ following steps: -->
    (`/etc/kubernetes/pki` by default) this step is skipped as described in the
    [Using custom certificates](#custom-certificates) document.
    The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary. -->
-2. 生成一个自签名的 CA证书 (或者使用现有的证书，如果提供的话) 来为集群中的每一个组件建立身份标识。如果用户已经通过 `--cert-dir` 配置的证书目录（缺省值为 `/etc/kubernetes/pki`）提供了他们自己的 CA证书 以及/或者 密钥， 那么将会跳过这个步骤，正如文档[使用自定义证书](#custom-certificates)中所描述的那样。
+2. 生成一个自签名的 CA 证书 (或者使用现有的证书，如果提供的话) 来为集群中的每一个组件建立身份标识。如果用户已经通过 `--cert-dir` 配置的证书目录（缺省值为 `/etc/kubernetes/pki`）提供了他们自己的 CA证书 以及/或者 密钥， 那么将会跳过这个步骤，正如文档[使用自定义证书](#custom-certificates)中所描述的那样。
    如果指定了 `--apiserver-cert-extra-sans` 参数, APIServer 的证书将会有额外的 SAN 条目，如果必要的话，将会被转为小写。
 
 <!-- 3. Writes kubeconfig files in `/etc/kubernetes/`  for
    the kubelet, the controller-manager and the scheduler to use to connect to the
    API server, each with its own identity, as well as an additional
    kubeconfig file for administration named `admin.conf`. -->
-1. 将 kubeconfig 文件写入 `/etc/kubernetes/` 目录以便 kubelet、controller-manager 和 scheduler 用来连接到 API server，它们每一个都有自己的身份标识，同时生成一个名为 admin.conf 的独立的 kubeconfig 文件，用于管理操作。
+1. 将 kubeconfig 文件写入 `/etc/kubernetes/` 目录以便 kubelet、控制器管理器和调度器用来连接到 API 服务器，它们每一个都有自己的身份标识，同时生成一个名为 admin.conf 的独立的 kubeconfig 文件，用于管理操作。
 
 <!-- 4. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
    it writes the kubelet init configuration into the `/var/lib/kubelet/config/init/kubelet` file.
@@ -53,14 +53,14 @@ following steps: -->
 <!-- 5. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
    an additional static Pod manifest are generated for etcd. -->
-5. 为 API server、controller manager 和 scheduler 生成静态 Pod 的清单文件。假使没有提供一个外部的 etcd 服务的话，也会为 etcd 生成一份额外的静态 Pod 清单文件。
+1. 为 API 服务器、控制器管理器和调度器生成静态 Pod 的清单文件。假使没有提供一个外部的 etcd 服务的话，也会为 etcd 生成一份额外的静态 Pod 清单文件。
 
 <!-- Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet
    watches this directory for Pods to create on startup. -->
 静态 Pod 的清单文件被写入到 `/etc/kubernetes/manifests` 目录; kubelet 会监视这个目录以便在系统启动的时候创建 Pods。
 
 <!-- Once control plane Pods are up and running, the `kubeadm init` sequence can continue. -->
-一旦 control plane 的 Pods 都运行起来， `kubeadm init` 的工作流程就继续往下执行。
+一旦控制平面的 Pods 都运行起来， `kubeadm init` 的工作流程就继续往下执行。
 
 <!-- 1. If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig` enabled,
    it completes the kubelet dynamic configuration by creating a ConfigMap and some RBAC rules that enable
@@ -73,13 +73,13 @@ following steps: -->
 
 <!-- 2. Apply labels and taints to the master node so that no additional workloads will
    run there. -->
-2. 对 master 节点应用 labels 和 taints 以便不会在它上面运行其它的工作负载。
+1. 对主节点应用标签和污点标记以便不会在它上面运行其它的工作负载。
 
 <!-- 3. Generates the token that additional nodes can use to register
    themselves with the master in the future.  Optionally, the user can provide a
    token via `--token`, as described in the
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs. -->
-3. 生成令牌以便其它节点以后可以使用这个令牌向 master 节点注册它们自己。 可选的，用户可以通过 `--token` 提供一个令牌, 正如文档[kubeadm 的令牌](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 描述的那样。  
+3. 生成令牌以便其它节点以后可以使用这个令牌向主节点注册它们自己。 可选的，用户可以通过 `--token` 提供一个令牌, 正如文档 [kubeadm 的令牌](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 描述的那样。  
 
 <!-- 4. Makes all the necessary configurations for allowing node joining with the
    [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and
@@ -106,14 +106,14 @@ following steps: -->
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
    To install kube-dns instead of CoreDNS, kubeadm must be invoked with `--feature-gates=CoreDNS=false`.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed. -->
-1. 通过 API server 安装一个 DNS 服务器 (CoreDNS) 和 kube-proxy 附加组件。
+1. 通过 API 服务器安装一个 DNS 服务器 (CoreDNS) 和 kube-proxy 附加组件。
    在 1.11 版本以及更新版本的 Kubernetes 中 CoreDNS 是默认的 DNS 服务器。
    如果要安装 kube-dns 而不是 CoreDNS, 你需要在调用 kubeadm 的时候附加 `--feature-gates=CoreDNS=false` 参数。请注意，尽管 DNS 服务器已经被部署了，它并不会被调度直到你安装好了 CNI 网络插件。
 
 <!-- 2. If `kubeadm init` is invoked with the alpha self-hosting feature enabled,
    (`--feature-gates=SelfHosting=true`), the static Pod based control plane is
    transformed into a [self-hosted control plane](#self-hosting). -->
-2. 如果调用 `kubeadm init` 命令时启用了 alpha 状态的 self-hosting 功能(`--feature-gates=SelfHosting=true`)，基于静态 Pod 的 control plane 将被转换为 [self-hosted control plane](#self-hosting)。
+1. 如果调用 `kubeadm init` 命令时启用了 alpha 状态的自托管功能(`--feature-gates=SelfHosting=true`)，基于静态 Pod 的控制平面将被转换为 [自托管的控制平面](#self-hosting)。
 
 <!-- ### Using kubeadm init with a configuration file {#config-file} -->
 ### 结合一份配置文件来使用 kubeadm init {#config-file}
@@ -139,7 +139,7 @@ because `v1alpha3` will be removed in Kubernetes 1.14. -->
 
 <!-- For more details on each field in the `v1beta1` configuration you can navigate to our
 [API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1) -->
-如果你想获取 `v1beta1` 版本配置中每个字段的细节说明，你可以查看我们的[API reference 页面]。 (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
+如果你想获取 `v1beta1` 版本配置中每个字段的细节说明，你可以查看我们的 [API reference 页面](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
 
 <!-- ### Adding kube-proxy parameters {#kube-proxy} -->
 ### 添加 kube-proxy 参数 {#kube-proxy}
@@ -155,12 +155,12 @@ kubeadm 配置中有关 kube-proxy 的说明请查看:
 - [IPVS](https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/ipvs/README.md)
 
 <!-- ### Passing custom flags to control plane components {#control-plane-flags} -->
-### 向 control plane 组件传递自定义的 flags {#control-plane-flags}
+### 向控制平面组件传递自定义的命令行参数 {#control-plane-flags}
 
 <!-- For information about passing flags to control plane components see:
 - [control-plane-flags](/docs/setup/independent/control-plane-flags/) -->
-有关向 control plane 组件传递 flags 的说明请查看:
-- [control-plane-flags](/docs/setup/independent/control-plane-flags/)
+有关向控制平面组件传递命令行参数的说明请查看:
+- [控制平面命令行参数](/docs/setup/independent/control-plane-flags/)
 
 <!-- ### Using custom images {#custom-images} -->
 ### 使用自定义的镜像 {#custom-images}
@@ -168,7 +168,7 @@ kubeadm 配置中有关 kube-proxy 的说明请查看:
 <!-- By default, kubeadm pulls images from `k8s.gcr.io`, unless
 the requested Kubernetes version is a CI version. In this case,
 `gcr.io/kubernetes-ci-images` is used. -->
-默认情况下, kubeadm 会从 `k8s.gcr.io` 仓库拉取镜像, 除非请求的 Kubernetes 版本是一个持续集成版本。这这种情况下，则会使用 `gcr.io/kubernetes-ci-images` 仓库。
+默认情况下, kubeadm 会从 `k8s.gcr.io` 仓库拉取镜像, 除非请求的 Kubernetes 版本是一个持续集成版本。在这种情况下，则会使用 `gcr.io/kubernetes-ci-images` 仓库。
 
 <!-- You can override this behavior by using [kubeadm with a configuration file](#config-file). -->
 你可以通过这份文档里描述的方法 [结合一份配置文件来使用 kubeadm](#config-file) 来改变镜像拉取的策略。
@@ -180,7 +180,7 @@ the requested Kubernetes version is a CI version. In this case,
 * To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
 * To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`. -->
 * 提供一个替代的镜像仓库 `imageRepository` 而不是使用 `k8s.gcr.io`。
-* 提供一个统一的 Control Plane 镜像 `unifiedControlPlaneImage` 而不是对每一个 control plane 组件使用不同的镜像。
+* 提供一个统一的控制平面镜像 `unifiedControlPlaneImage` 而不是对每一个控制平面组件使用不同的镜像。
 * 提供一个指定的 etcd 服务的镜像 `etcd.image` 而不是在 `k8s.gcr.io` 仓库中的可用镜像。
 
 <!-- Please note that the configuration field `kubernetesVersion` or the command line flag
@@ -205,7 +205,7 @@ generation step and existing files are used for the prescribed
 use case. This means you can, for example, copy an existing CA into `/etc/kubernetes/pki/ca.crt`
 and `/etc/kubernetes/pki/ca.key`, and kubeadm will use this CA for signing the rest
 of the certs. -->
-如果给定的证书和密钥对已经存在，kubeadm 将会跳过生成证书的步骤并且直接将已经存在的文件用于规定的案例中。也就是说你可以拷贝一份已存在的 CA 文件到 `/etc/kubernetes/pki/ca.crt` 和 `/etc/kubernetes/pki/ca.key`，kubeadm将会使用这份 CA 来签发其余的证书。
+如果给定的证书和密钥对已经存在，kubeadm 将会跳过生成证书的步骤并且直接将已经存在的文件用于规定的案例中。也就是说你可以拷贝一份已存在的 CA 文件到 `/etc/kubernetes/pki/ca.crt` 和 `/etc/kubernetes/pki/ca.key`，kubeadm 将会使用这份 CA 来签发其余的证书。
 
 <!-- #### External CA mode {#external-ca-mode} -->
 #### 外部 CA 模式 {#external-ca-mode}
@@ -256,10 +256,10 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $K
 <!-- * `--kubeconfig=/etc/kubernetes/kubelet.conf` points to the kubeconfig file that
    tells the kubelet where the API server is. This file also has the kubelet's
    credentials. -->
-* `--kubeconfig=/etc/kubernetes/kubelet.conf` 指向 kubeconfig 文件，这份文件为 kubelet 指明 API server 的地址。这份文件也包含了 kubelet 的证书。
+* `--kubeconfig=/etc/kubernetes/kubelet.conf` 指向 kubeconfig 文件，这份文件为 kubelet 指明 API 服务器的地址。这份文件也包含了 kubelet 的证书。
 <!-- * `--pod-manifest-path=/etc/kubernetes/manifests` specifies from where to read
    static Pod manifests used for starting the control plane. -->
-* `--pod-manifest-path=/etc/kubernetes/manifests` 指明从哪里读取静态 Pod 的清单文件用于启动 control plane。
+* `--pod-manifest-path=/etc/kubernetes/manifests` 指明从哪里读取静态 Pod 的清单文件用于启动控制平面。
 <!-- * `--allow-privileged=true` allows this kubelet to run privileged Pods. -->
 * `--allow-privileged=true` 允许 kubelet 运行 privileged Pods。
 <!-- * `--network-plugin=cni` uses CNI networking. -->
@@ -280,7 +280,7 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $K
 * `--client-ca-file=/etc/kubernetes/pki/ca.crt` 使用这个 CA 证书认证发往 Kubelet API 的请求。
 <!-- * `--authorization-mode=Webhook` authorizes requests to the Kubelet API by `POST`-ing
    a `SubjectAccessReview` to the API server. -->
-* `--authorization-mode=Webhook` 通过 `POST` 方法向 API server 发送一个 `SubjectAccessReview` 对象来授权发往 Kubelet API 的请求。
+* `--authorization-mode=Webhook` 通过 `POST` 方法向 API 服务器发送一个 `SubjectAccessReview` 对象来授权发往 Kubelet API 的请求。
 <!-- * `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
    certificates from the `kube-apiserver` when the certificate expiration approaches. -->
 * `--rotate-certificates` 当证书临近过期的时候，通过从 `kube-apiserver` 请求新证书来自动替换 kubelet 客户端证书。
@@ -293,7 +293,7 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $K
 <!-- Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
 The container runtime used by default is Docker, which is enabled through the built-in
 `dockershim` CRI implementation inside of the `kubelet`. -->
-从v1.6.0版本开始, Kubernetes 默认启用了 CRI, 容器运行时接口。
+从 v1.6.0 版本开始, Kubernetes 默认启用了 CRI, 容器运行时接口。
 默认使用的容器运行时是 Docker, 这通过 `kubelet` 内置的 `dockershim` CRI 实现支持。
 
 <!-- Other CRI-based runtimes include: -->
@@ -339,37 +339,37 @@ using an external CRI implementation. -->
 ### 在你的集群中使用内网 IP
 
 <!-- In order to set up a cluster where the master and worker nodes communicate with internal IP addresses (instead of public ones), execute following steps. -->
-为了配置一个 master 与 worker 节点间使用内网 IP 地址通信的集群（而不是使用公网地址），执行以下操作。
+为了配置一个主节点与工作节点间使用内网 IP 地址通信的集群（而不是使用公网地址），执行以下操作。
 
 <!-- 1. When running init, you must make sure you specify an internal IP for the API server's bind address, like so: -->
-1. 当运行 init 命令的时候, 你必须为 API server 指定一个内网 IP 作为监听地址，像这样：
+1. 当运行 init 命令的时候, 你必须为 API 服务器指定一个内网 IP 作为监听地址，像这样：
 
    `kubeadm init --apiserver-advertise-address=<private-master-ip>`
 
 <!-- 2. When a master or worker node has been provisioned, add a flag to `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` that specifies the private IP of the worker node: -->
-2. 当一个 master 或者 worker 节点可供使用时，向 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 文件添加一个标记指明 worker 节点的私有 IP。
+2. 当一个主节点或者工作节点可供使用时，向 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` 文件添加一个标记指明工作节点的私有 IP。
 
    `--node-ip=<private-node-ip>`
 
 <!-- 3. Finally, when you run `kubeadm join`, make sure you provide the private IP of the API server addressed as defined in step 1. -->
-3. 最后, 当你运行 `kubeadm join` 的时候, 确保你提供了正确的 API server 所在的、步骤 1 中定义的私有 IP。
+3. 最后, 当你运行 `kubeadm join` 的时候, 确保你提供了正确的 API 服务器所在的、步骤 1 中定义的私有 IP。
 
 <!-- ### Setting the node name -->
 ### 设置节点的名称
 
 <!-- By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the  `--node-name`flag. -->
 默认情况下, `kubeadm` 基于机器的 host 地址分配一个节点名称。你可以使用 `--node-name` 参数覆盖这个设置。
-<!-- The flag passes the appropriate [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) to the kubelet. -->
-这个参数会向 kubelet 传递相应的 [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) 参数。
+<!-- The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) to the kubelet. -->
+这个参数会向 kubelet 传递相应的 [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) 参数。
 
 <!-- Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873). -->
 注意覆盖主机名称可能会 [干扰到云服务提供商](https://github.com/kubernetes/website/pull/8873)。
 
 <!-- ### Self-hosting the Kubernetes control plane {#self-hosting} -->
-### Self-hosting Kubernetes control plane {#self-hosting}
+### 自托管的 Kubernetes 控制平面 {#self-hosting}
 
 <!-- As of 1.8, you can experimentally create a _self-hosted_ Kubernetes control plane. This means that key components such as the API server, controller manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/) configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/) configured in the kubelet via static files. -->
-从1.8开始, 你可以试验性地创建一个 _self-hosted_ Kubernetes control plane. 这意味着诸如 API server、controller manager、 以及 scheduler 这些关键组件将作为通过 Kubernetes API 配置的 [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/) 运行，而不是在 kubelet 中通过静态文件配置的 [static pods](/docs/tasks/administer-cluster/static-pod/)。
+从1.8开始, 你可以试验性地创建一个 _self-hosted_ Kubernetes 控制平面。 这意味着诸如 API 服务器、控制器管理器、 以及调度器这些关键组件将作为通过 Kubernetes API 配置的 [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/) 运行，而不是在 kubelet 中通过静态文件配置的 [static pods](/docs/tasks/administer-cluster/static-pod/)。
 
 <!-- To create a self-hosted cluster, pass the flag `--feature-gates=SelfHosting=true` to `kubeadm init`. -->
 若要创建一个 self-hosted 的集群, 向 `kubeadm init` 命令传递 `--feature-gates=SelfHosting=true` 参数。
@@ -392,10 +392,10 @@ and will be removed in 1.13. -->
 self-hosted cluster _cannot recover from a reboot of the master node_
 without manual intervention. This and other limitations are expected to be
 resolved before self-hosting graduates from alpha. -->
-1.8 版本中的 Self-hosting 功能有一些重要的限制。特别的, 一个 self-hosted 的集群如果不手动介入的话 _不能够从 master node 的重新启动中恢复_ 。 这个以及其它的一些限制被期望在 self-hosting 功能从 alpha 状态毕业前解决。
+1.8 版本中的自托管功能有一些重要的限制。特别的, 一个自托管的集群如果不手动介入的话 _不能够从主节点的重新启动中恢复_ 。 这个以及其它的一些限制被期望在自托管功能从 alpha 状态毕业前解决。
 
-<!-- By default, self-hosted control plane Pods rely on credentials loaded from [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) volumes. Except for initial creation, these credentials are not managed by kubeadm. You can use `--feature-gates=StoreCertsInSecrets=true` to enable an experimental mode where control plane credentials are loaded from Secrets instead. This requires very careful control over the authentication and authorization configuration for your cluster, and may not be appropriate for your environment. -->
-默认情况下, self-hosted control plane Pods 依赖位于 [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) 数据卷中的证书。除了初始化创建证书的过程, 这些证书不被 kubeadm 管理。你可以使用 `--feature-gates=StoreCertsInSecrets=true` 参数来启用一个试验性的模式，在这个模式中 control plane 证书从 Secrets 加载。 这要求对你的集群进行非常小心的对鉴权和授权配置的控制, 并且可能并不适合你的环境。
+<!-- By default, self-hosted control plane Pods rely on credentials loaded from [`hostPath`](/docs/concepts/storage/volumes/#hostpath) volumes. Except for initial creation, these credentials are not managed by kubeadm. You can use `--feature-gates=StoreCertsInSecrets=true` to enable an experimental mode where control plane credentials are loaded from Secrets instead. This requires very careful control over the authentication and authorization configuration for your cluster, and may not be appropriate for your environment. -->
+默认情况下, self-hosted 控制平面 Pods 依赖位于 [`hostPath`](/docs/concepts/storage/volumes/#hostpath) 数据卷中的证书。除了初始化创建证书的过程, 这些证书不被 kubeadm 管理。你可以使用 `--feature-gates=StoreCertsInSecrets=true` 参数来启用一个试验性的模式，在这个模式中控制平面证书从 Secrets 加载。 这要求对你的集群进行非常小心的对鉴权和授权配置的控制, 并且可能并不适合你的环境。
 
 {{< caution >}}
 <!-- **Caution:** `StoreCertsInSecrets` is an alpha feature. It is deprecated in 1.12
@@ -405,25 +405,25 @@ and will be removed in 1.13. -->
 
 <!-- In kubeadm 1.8, the self-hosted portion of the control plane does not include etcd,
 which still runs as a static Pod. -->
-在 kubeadm 1.8 版本中, control plane 的 self-hosted 的组件并不包含 etcd，它仍然是作为静态 Pod 运行的。
+在 kubeadm 1.8 版本中, 控制平面的 self-hosted 的组件并不包含 etcd，它仍然是作为静态 Pod 运行的。
 
 #### 流程
 
 <!-- The self-hosting bootstrap process is documented in the [kubeadm design document](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-self-hosting). -->
-self-hosting 集群的启动过程写在了这份 [kubeadm 设计文档](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-self-hosting) 文档中。
+自托管集群的启动过程写在了这份 [kubeadm 设计文档](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-self-hosting) 文档中。
 
 <!-- In summary, `kubeadm init --feature-gates=SelfHosting=true` works as follows: -->
 总的说来, `kubeadm init --feature-gates=SelfHosting=true` 是按照以下步骤工作的:
 
   <!-- 1. Waits for this bootstrap static control plane to be running and
     healthy. This is identical to the `kubeadm init` process without self-hosting. -->
-  1. 等待 control plane 的相关组件成功运行起来。这与没有启用 self-hosting 的 `kubeadm init` 指令的流程是一致的。
+  1. 等待控制平面的相关组件成功运行起来。这与没有启用自托管的 `kubeadm init` 指令的流程是一致的。
 
   <!-- 2. Uses the static control plane Pod manifests to construct a set of
     DaemonSet manifests that will run the self-hosted control plane.
     It also modifies these manifests where necessary, for example adding new volumes
     for secrets. -->
-  2. 使用静态的 control plane Pod 清单文件构建一个 DaemonSet 清单文件用来运行 self-hosted control plane。有时也会在必要的时候修改这些清单文件，比如为 secrets 添加新的数据卷。
+  1. 使用静态的控制平面 Pod 清单文件构建一个 DaemonSet 清单文件用来运行自托管的控制平面。有时也会在必要的时候修改这些清单文件，比如为 secrets 添加新的数据卷。
 
   <!-- 3. Creates DaemonSets in the `kube-system` namespace and waits for the
      resulting Pods to be running. -->
@@ -436,8 +436,7 @@ self-hosting 集群的启动过程写在了这份 [kubeadm 设计文档](https:/
 
   <!-- 5. When the original static control plane stops, the new self-hosted control
     plane is able to bind to listening ports and become active. -->
-  5. 当原始的 static control plane 停止的时候, 新创建的 self-hosted control
-    plane 就能够绑定到端口并且可供使用。
+  5. 当原始的基于静态 Pod 的控制平面停止的时候, 新创建的自托管的控制平面就能够绑定到端口并且可供使用。
 
 <!-- This process (steps 3-6) can also be triggered with `kubeadm phase selfhosting convert-from-staticpods`. -->
 这个过程 （3-6步） 也可以通过 `kubeadm phase selfhosting convert-from-staticpods` 指令触发。
@@ -486,7 +485,7 @@ kubeadm config images pull
 ### kubeadm 自动化
 
 <!-- Rather than copying the token you obtained from `kubeadm init` to each node, as in the [basic kubeadm tutorial](/docs/setup/independent/create-cluster-kubeadm/), you can parallelize the token distribution for easier automation. To implement this automation, you must know the IP address that the master will have after it is started. -->
-与其如文档 [kubeadm 基础教程](/docs/setup/independent/create-cluster-kubeadm/) 所述，将从 `kubeadm init` 取得的令牌拷贝到每一个节点, 倒不如你可以使用更加简单的自动化的方式将令牌并行地分发出去。如果要实现这个自动化，你必须要知道 master node 启动后的 IP 地址。
+与其如文档 [kubeadm 基础教程](/docs/setup/independent/create-cluster-kubeadm/) 所述，将从 `kubeadm init` 取得的令牌拷贝到每一个节点, 倒不如你可以使用更加简单的自动化的方式将令牌并行地分发出去。如果要实现这个自动化，你必须要知道主节点启动后的 IP 地址。
 
 <!-- 1.  Generate a token. This token must have the form  `<6 character string>.<16
     character string>`.  More formally, it must match the regex:
@@ -505,11 +504,11 @@ kubeadm config images pull
 <!-- 2. Start both the master node and the worker nodes concurrently with this token.
    As they come up they should find each other and form the cluster.  The same
    `--token` argument can be used on both `kubeadm init` and `kubeadm join`. -->
-2. 使用这个令牌同时启动 master node 和 worker nodes。它们一旦运行起来应该就会互相寻找对方并且建立集群。同样的 `--token` 参数可以同时用于 `kubeadm init` 和 `kubeadm join` 命令。
+2. 使用这个令牌同时启动主节点和工作节点。它们一旦运行起来应该就会互相寻找对方并且建立集群。同样的 `--token` 参数可以同时用于 `kubeadm init` 和 `kubeadm join` 命令。
 
 <!-- Once the cluster is up, you can grab the admin credentials from the master node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster. -->
-一旦集群启动起来，你就可以从 master node 的 `/etc/kubernetes/admin.conf` 文件获取管理凭证，然后你就可以使用这个凭证同集群通信了。
+一旦集群启动起来，你就可以从主节点的 `/etc/kubernetes/admin.conf` 文件获取管理凭证，然后你就可以使用这个凭证同集群通信了。
 
 <!-- Note that this style of bootstrap has some relaxed security guarantees because
 it does not allow the root CA hash to be validated with
@@ -523,7 +522,7 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 <!-- * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join` -->
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 启动一个 Kubernetes worker node 并且将其加入到集群
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 启动一个 Kubernetes 工作节点并且将其加入到集群
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 将 Kubernetes 集群升级到新版本
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 使用 `kubeadm init` 或者 `kubeadm join`来恢复对节点的改变
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 使用 `kubeadm init` 或者 `kubeadm join` 来恢复对节点的改变
 {{% /capture %}}

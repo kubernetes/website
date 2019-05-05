@@ -1,3 +1,9 @@
+---
+title: 创建一个外部负载均衡器
+content_template: templates/task
+weight: 80
+---
+
 <!--
 ---
 title: Create an External Load Balancer
@@ -5,12 +11,6 @@ content_template: templates/task
 weight: 80
 ---
 -->
----
-title: 创建一个外部负载均衡器
-content_template: templates/task
-weight: 80
----
-
 
 {{% capture overview %}}
 
