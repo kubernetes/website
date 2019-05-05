@@ -1,5 +1,5 @@
 ---
-title: Instalasi _Addons_
+title: Instalasi Addons
 content_template: templates/concept
 ---
 
