@@ -15,8 +15,8 @@ You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
 objects in a common manner that all tools can understand.
 -->
-您可以使用 kubectl 和 dashboard 之外的更多工具来可视化和管理 Kubernetes 对象。
-一组通用的标签允许工具以交互操作的方式，用所有工具都能理解的通用方式进行描述对象。
+除了 kubectl 和 dashboard 之外，您可以其他工具来可视化和管理 Kubernetes 对象。
+一组通用的标签可以让多个工具之间互操作，用所有工具都能理解的通用方式描述对象。
 
 <!--
 In addition to supporting tooling, the recommended labels describe applications
@@ -33,7 +33,7 @@ a platform as a service (PaaS) and doesn't have or enforce a formal notion of an
 Instead, applications are informal and described with metadata. The definition of
 what an application contains is loose.
 -->
-元数据围绕 _application_ 的概念进行组织。Kubernetes 不是
+元数据围绕 _应用（application）_ 的概念进行组织。Kubernetes 不是
 平台即服务（PaaS），没有或强制执行正式的应用程序概念。
 相反，应用程序是非正式的，并使用元数据进行描述。应用程序包含的定义是松散的。
 
@@ -50,7 +50,7 @@ Shared labels and annotations share a common prefix: `app.kubernetes.io`. Labels
 without a prefix are private to users. The shared prefix ensures that shared labels
 do not interfere with custom user labels.
 -->
-共享标签和注释共享一个共同的前缀：`app.kubernetes.io`。标签没有前缀的用户是私有的。共享前缀可确保共享标签，不要干扰自定义用户标签。
+共享标签和注解都使用同一个前缀：`app.kubernetes.io`。没有前缀的标签是用户私有的。共享前缀可以确保共享标签不会干扰用户自定义的标签。
 
 <!--
 ## Labels
@@ -82,7 +82,7 @@ on every resource object.
 <!--
 To illustrate these labels in action, consider the following StatefulSet object:
 -->
-要说明这些标签的实际使用情况，请看下面的 StatefulSet 对象：
+为说明这些标签的实际使用情况，请看下面的 StatefulSet 对象：
 
 ```yaml
 apiVersion: apps/v1
@@ -110,12 +110,11 @@ an instance name, represented as `app.kubernetes.io/instance` with a value of
 `wordpress-abcxzy`. This enables the application and instance of the application
 to be identifiable. Every instance of an application must have a unique name.
 -->
-## 应用程序和应用的实例
+## 应用和应用实例
 
-应用程序可以在 Kubernetes 集群中安装一次或多次，在某些情况下，相同的命名空间。例如，可以不止一次地为不同的站点安装不同的 wordpress。
+应用可以在 Kubernetes 集群中安装一次或多次。在某些情况下，可以安装在同一命名空间中。例如，可以不止一次地为不同的站点安装不同的 wordpress。
 
-应用程序的名称和实例名称分别记录。例如，WordPress 有一个 `app.kubernetes.io/name` 的 `wordpress`
-实例名称，表示为 `app.kubernetes.io/instance` 值为 `wordpress-abcxzy`。这使应用程序和应用程序的实例成为可能是可识别的。应用程序的每个实例都必须具有唯一的名称。
+应用的名称和实例的名称是分别记录的。例如，某 WordPress 实例的 `app.kubernetes.io/name` 为 `wordpress`，而其实例名称表现为 `app.kubernetes.io/instance` 的属性值 `wordpress-abcxzy`。这使应用程序和应用程序的实例成为可能是可识别的。应用程序的每个实例都必须具有唯一的名称。
 
 <!--
 ## Examples
@@ -140,7 +139,7 @@ Consider the case for a simple stateless service deployed using `Deployment` and
 <!--
 The `Deployment` is used to oversee the pods running the application itself.
 -->
-`Deployment` 用于监督运行应用程序本身的 pods。
+下面的 `Deployment` 用于监督运行应用本身的 pods。
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -154,7 +153,7 @@ metadata:
 <!--
 The `Service` is used to expose the application.
 -->
-`Service` 用于暴露应用程序。
+下面的 `Service` 用于暴露应用。
 ```yaml
 apiVersion: v1
 kind: Service
@@ -177,7 +176,7 @@ the start of objects used to deploy this application.
 
 The start to the following `Deployment` is used for WordPress:
 -->
-考虑一个稍微复杂的应用程序：一个使用 Helm 安装 Web 应用程序（WordPress），其中
+考虑一个稍微复杂的应用：一个使用 Helm 安装的 Web 应用（WordPress），其中
 使用了数据库（MySQL）。以下代码片段说明用于部署此应用程序的对象的开始。
 
 以下 `Deployment` 的开头用于 WordPress：
