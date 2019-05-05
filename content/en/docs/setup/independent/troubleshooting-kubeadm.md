@@ -58,7 +58,7 @@ This may be caused by a number of problems. The most common are:
   There are two common ways to fix the cgroup driver problem:
 
  1. Install Docker again following instructions
-  [here](/docs/setup/independent/install-kubeadm/#installing-docker).
+  [here](/docs/setup/cri/#docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
     [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
     for detailed instructions.
@@ -219,7 +219,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
 where the `coredns` pods are not starting. To solve that you can try one of the following options:
 
-- Upgrade to a [newer version of Docker](/docs/setup/independent/install-kubeadm/#installing-docker).
+- Upgrade to a [newer version of Docker](/docs/setup/cri/#docker).
 - [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 - Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
 
@@ -273,7 +273,7 @@ If you decide to pass an argument that supports multiple, comma-separated values
 `--apiserver-extra-args` expects `key=value` pairs and in this case `NamespacesExists` is considered
 as a key that is missing a value.
 
-Alternativelly, you can try separating the `key=value` pairs like so:
+Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
