@@ -19,16 +19,16 @@ client and other tools for some of these tasks.
 
 ## Be the PR Wrangler for a week
 
-SIG Docs [approvers](/docs/contribute/participating/#approvers) take regular turns as the PR wrangler for the repository and are added to the [PR Wrangler rotation scheduler](https://https://github.com/kubernetes/website/wiki/PR-Wranglers#2019-schedule-q1q2) for weekly rotations. 
+SIG Docs [approvers](/docs/contribute/participating/#approvers) take regular turns as the PR wrangler for the repository and are added to the [PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers#2019-schedule-q1q2) for weekly rotations. 
 
 The PR wrangler’s duties include:
 
-- Review [open pull requests](https://https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [style guide](/docs/contribute/style/style-guide/).
+- Review [open pull requests](https://github.com/kubernetes/website/pulls) daily for quality and adherence to the [style guide](/docs/contribute/style/style-guide/).
     - Review the smallest PRs (`size/XS`) first, then iterate towards the largest (`size/XXL`).
     - Review as many PRs as you can.
 - Ensure that the CLA is signed by each contributor.
-    - Help new contributors sign the [CLA](https://https://github.com/kubernetes/community/blob/master/CLA.md).
-    - Use [this](https://https://github.com/zparnold/k8s-docs-pr-botherer) script to automatically remind contributors that haven’t signed the CLA to sign the CLA.
+    - Help new contributors sign the [CLA](https://github.com/kubernetes/community/blob/master/CLA.md).
+    - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to automatically remind contributors that haven’t signed the CLA to sign the CLA.
     - Close any PR where the CLA hasn’t been signed for two weeks. 
     PR authors can reopen the PR after signing the CLA, so this is a low-risk way to make sure nothing gets merged without a signed CLA.
 - Provide feedback on proposed changes and help facilitate technical reviews from members of other SIGs.
