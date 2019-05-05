@@ -50,7 +50,7 @@ Catatan: Tidak semua distro aktif dikelola. Pilihlah distro yang telah diuji den
 
 * [Otorisasi](/docs/reference/access-authn-authz/authorization/) dibedakan dari autentikasi, digunakan untuk mengontrol bagaimana *HTTP call* ditangani.
 
-* [Menggunakan *Admission Controllers*](/docs/reference/access-authn-authz/admission-controllers/) akan menjelaskan *plug-in* yang akan melakukan *intercept* atau cegatan permintaan sebelum menuju ke server Kubernetes API setelah autentikasi dan otorisasi dilakukan.
+* [Menggunakan *Admission Controllers*](/docs/reference/access-authn-authz/admission-controllers/) akan menjelaskan *plug-in* yang akan melakukan intersep permintaan sebelum menuju ke server Kubernetes API, setelah autentikasi dan otorisasi dilakukan.
 
 * [Menggunakan Sysctls pada Kluster Kubernetes](/docs/concepts/cluster-administration/sysctl-cluster/) akan menjabarkan tentang cara menggunakan perintah `sysctl` pada *command-line* untuk mengatur parameter kernel.
 
