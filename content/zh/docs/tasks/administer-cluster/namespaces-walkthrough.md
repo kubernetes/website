@@ -132,7 +132,7 @@ $ kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
 
 <!-- And then let's create the production namespace using kubectl. -->
 
-让我们使用 kubectl 创建生产命名空间。
+让我们使用 kubectl 创建 production 命名空间。
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
