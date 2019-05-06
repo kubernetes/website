@@ -95,7 +95,7 @@ default   Active    13m
 they use to build and run their application.  In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify resources
 are relaxed to enable agile development. -->
 
-开发团队希望在集群中维护一个空间，以便他们可以查看用于构建和运行其应用程序的 Pods, Services, 和 Deployments 列表。在这个空间里，Kubernetes 资源被自由的加入或移除，对谁能够或不能修改资源的限制被放宽，以实现敏捷开发。
+开发团队希望在集群中维护一个空间，以便他们可以查看用于构建和运行其应用程序的 Pods、Services 和 Deployments 列表。在这个空间里，Kubernetes 资源被自由地加入或移除，对谁能够或不能修改资源的限制被放宽，以实现敏捷开发。
 
 <!-- The operations team would like to maintain a space in the cluster where they can enforce strict procedures on who can or cannot manipulate the set of
 Pods, Services, and Deployments that run the production site. -->
