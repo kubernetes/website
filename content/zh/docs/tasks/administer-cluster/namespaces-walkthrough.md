@@ -164,7 +164,7 @@ Kubernetes 命名空间为集群中的 Pods、Services 和 Deployments 提供了
 
 <!-- To demonstrate this, let's spin up a simple Deployment and Pods in the development namespace. -->
 
-为了演示这一点，让我们在开发命名空间中启动一个简单的 Deployment 和 Pod。
+为了演示这一点，让我们在 development 命名空间中启动一个简单的 Deployment 和 Pod。
 
 <!-- We first check what is the current context: -->
 
