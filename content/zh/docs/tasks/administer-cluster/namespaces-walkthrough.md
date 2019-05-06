@@ -265,7 +265,7 @@ users:
 
 <!-- Let's switch to operate in the development namespace. -->
 
-让我们切换到开发命名空间进行操作。
+让我们切换到 development 命名空间进行操作。
 
 ```shell
 $ kubectl config use-context dev
