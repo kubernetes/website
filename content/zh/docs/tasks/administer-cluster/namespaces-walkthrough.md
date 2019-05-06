@@ -89,7 +89,7 @@ default   Active    13m
 
 <!-- Let's imagine a scenario where an organization is using a shared Kubernetes cluster for development and production use cases. -->
 
-我们假设一个场景，某组织正在使用共享的 Kubernetes 集群进行开发和生产用例：
+我们假设一个场景，某组织正在使用共享的 Kubernetes 集群来支持开发和生产：
 
 <!-- The development team would like to maintain a space in the cluster where they can get a view on the list of Pods, Services, and Deployments
 they use to build and run their application.  In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify resources
