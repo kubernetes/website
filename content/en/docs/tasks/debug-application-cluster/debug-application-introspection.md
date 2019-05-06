@@ -26,12 +26,20 @@ For this example we'll use a Deployment to create two pods, similar to the earli
 Create deployment by running following command:
 
 ```shell
-$ kubectl create -f https://k8s.io/examples/application/nginx-with-request.yaml
+kubectl create -f https://k8s.io/examples/application/nginx-with-request.yaml
+```
+
+```none
 deployment.apps/nginx-deployment created
 ```
 
+Check pod status by following command:
+
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+
+```none
 NAME                                READY     STATUS    RESTARTS   AGE
 nginx-deployment-1006230814-6winp   1/1       Running   0          11s
 nginx-deployment-1006230814-fmgu3   1/1       Running   0          11s
@@ -40,13 +48,16 @@ nginx-deployment-1006230814-fmgu3   1/1       Running   0          11s
 We can retrieve a lot more information about each of these pods using `kubectl describe pod`. For example:
 
 ```shell
-$ kubectl describe pod nginx-deployment-1006230814-6winp
+kubectl describe pod nginx-deployment-1006230814-6winp
+```
+
+```none
 Name:		nginx-deployment-1006230814-6winp
 Namespace:	default
 Node:		kubernetes-node-wul5/10.240.0.9
 Start Time:	Thu, 24 Mar 2016 01:39:49 +0000
 Labels:		app=nginx,pod-template-hash=1006230814
-Annotations:    kubernetes.io/created-by={"kind":"SerializedReference","apiVersion":"v1","reference":{"kind"                           :"ReplicaSet","namespace":"default","name":"nginx-deployment-1956810328","uid":"14e607e7-8ba1-11e7-b5cb-fa16"                             ...
+Annotations:    kubernetes.io/created-by={"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicaSet","namespace":"default","name":"nginx-deployment-1956810328","uid":"14e607e7-8ba1-11e7-b5cb-fa16" ...
 Status:		Running
 IP:		10.244.0.6
 Controllers:	ReplicaSet/nginx-deployment-1006230814
@@ -112,7 +123,10 @@ Lastly, you see a log of recent events related to your Pod. The system compresse
 A common scenario that you can detect using events is when you've created a Pod that won't fit on any node. For example, the Pod might request more resources than are free on any node, or it might specify a label selector that doesn't match any nodes. Let's say we created the previous Deployment with 5 replicas (instead of 2) and requesting 600 millicores instead of 500, on a four-node cluster where each (virtual) machine has 1 CPU. In that case one of the Pods will not be able to schedule. (Note that because of the cluster addon pods such as fluentd, skydns, etc., that run on each node, if we requested 1000 millicores then none of the Pods would be able to schedule.)
 
 ```shell
-$ kubectl get pods
+kubectl get pods
+```
+
+```none
 NAME                                READY     STATUS    RESTARTS   AGE
 nginx-deployment-1006230814-6winp   1/1       Running   0          7m
 nginx-deployment-1006230814-fmgu3   1/1       Running   0          7m
@@ -124,7 +138,10 @@ nginx-deployment-1370807587-fz9sd   0/1       Pending   0          1m
 To find out why the nginx-deployment-1370807587-fz9sd pod is not running, we can use `kubectl describe pod` on the pending Pod and look at its events:
 
 ```shell
-$ kubectl describe pod nginx-deployment-1370807587-fz9sd
+kubectl describe pod nginx-deployment-1370807587-fz9sd
+```
+
+```none
   Name:		nginx-deployment-1370807587-fz9sd
   Namespace:	default
   Node:		/
@@ -178,8 +195,11 @@ To see events from all namespaces, you can use the `--all-namespaces` argument.
 
 In addition to `kubectl describe pod`, another way to get extra information about a pod (beyond what is provided by `kubectl get pod`) is to pass the `-o yaml` output format flag to `kubectl get pod`. This will give you, in YAML format, even more information than `kubectl describe pod`--essentially all of the information the system has about the Pod. Here you will see things like annotations (which are key-value metadata without the label restrictions, that is used internally by Kubernetes system components), restart policy, ports, and volumes.
 
+```shell
+kubectl get pod nginx-deployment-1006230814-6winp -o yaml
+```
+
 ```yaml
-$ kubectl get pod nginx-deployment-1006230814-6winp -o yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -255,16 +275,22 @@ status:
 Sometimes when debugging it can be useful to look at the status of a node -- for example, because you've noticed strange behavior of a Pod that's running on the node, or to find out why a Pod won't schedule onto the node. As with Pods, you can use `kubectl describe node` and `kubectl get node -o yaml` to retrieve detailed information about nodes. For example, here's what you'll see if a node is down (disconnected from the network, or kubelet dies and won't restart, etc.). Notice the events that show the node is NotReady, and also notice that the pods are no longer running (they are evicted after five minutes of NotReady status).
 
 ```shell
-$ kubectl get nodes
+kubectl get nodes
+```
+
+```none
 NAME                     STATUS       ROLES     AGE     VERSION
-kubernetes-node-861h     NotReady     <none>    1h      v1.12.0
-kubernetes-node-bols     Ready        <none>    1h      v1.12.0
-kubernetes-node-st6x     Ready        <none>    1h      v1.12.0
-kubernetes-node-unaj     Ready        <none>    1h      v1.12.0
+kubernetes-node-861h     NotReady     <none>    1h      v1.13.0
+kubernetes-node-bols     Ready        <none>    1h      v1.13.0
+kubernetes-node-st6x     Ready        <none>    1h      v1.13.0
+kubernetes-node-unaj     Ready        <none>    1h      v1.13.0
 ```
 
 ```shell
-$ kubectl describe node kubernetes-node-861h
+kubectl describe node kubernetes-node-861h
+```
+
+```none
 Name:			kubernetes-node-861h
 Role
 Labels:		 beta.kubernetes.io/arch=amd64
@@ -318,8 +344,9 @@ Events:         <none>
 ```
 
 ```shell
-$ kubectl get node kubernetes-node-861h -o yaml
+kubectl get node kubernetes-node-861h -o yaml
 ```
+
 ```yaml
 apiVersion: v1
 kind: Node

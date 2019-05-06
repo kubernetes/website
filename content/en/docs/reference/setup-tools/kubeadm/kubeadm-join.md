@@ -146,7 +146,7 @@ for a kubelet when a Bootstrap Token was used when authenticating. If you don't 
 automatically approve kubelet client certs, you can turn it off by executing this command:
 
 ```console
-$ kubectl delete clusterrole kubeadm:node-autoapprove-bootstrap
+$ kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
 ```
 
 After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
@@ -223,7 +223,7 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes master node
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 {{% /capture %}}

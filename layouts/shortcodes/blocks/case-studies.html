@@ -1,4 +1,4 @@
-{{ $caseStudiesSection := .Site.GetPage "case-studies" }}
+{{ $caseStudiesSection := site.GetPage "case-studies" }}
 {{ if not $caseStudiesSection }}
 {{ errorf "[%s] No case-studies section found. Create content/%s/case-studies/_index.md"  $.Page.Lang $.Page.Lang }}
 {{ else }}

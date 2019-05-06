@@ -529,23 +529,12 @@ The following cloud providers have implemented CCMs:
 
 以下云服务提供商已实现了 CCM：
 
-<!--
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
 * [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
 * [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
 * [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
--->
-
-* [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
-* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
-* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
-* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
-
-<!--
-## Cluster Administration
--->
+* [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 
 ## 群集管理
 
@@ -556,4 +545,3 @@ Complete instructions for configuring and running the CCM are provided
 [这里](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了有关配置和运行 CCM 的完整说明。
 
 {{% /capture %}}
-

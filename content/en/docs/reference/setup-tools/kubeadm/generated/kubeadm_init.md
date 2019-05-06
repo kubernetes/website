@@ -1,10 +1,45 @@
 
-Run this command in order to set up the Kubernetes master.
+Run this command in order to set up the Kubernetes control plane.
 
 ### Synopsis
 
+The `init` command executes the following phases:
+```
+preflight                  Run master pre-flight checks
+kubelet-start              Writes kubelet settings and (re)starts the kubelet
+certs                      Certificate generation
+  /ca                        Generates the self-signed Kubernetes CA to provision identities for other Kubernetes components
+  /apiserver                 Generates the certificate for serving the Kubernetes API
+  /apiserver-kubelet-client  Generates the Client certificate for the API server to connect to kubelet
+  /front-proxy-ca            Generates the self-signed CA to provision identities for front proxy
+  /front-proxy-client        Generates the client for the front proxy
+  /etcd-ca                   Generates the self-signed CA to provision identities for etcd
+  /etcd-server               Generates the certificate for serving etcd
+  /etcd-peer                 Generates the credentials for etcd nodes to communicate with each other
+  /etcd-healthcheck-client   Generates the client certificate for liveness probes to healtcheck etcd
+  /apiserver-etcd-client     Generates the client apiserver uses to access etcd
+  /sa                        Generates a private key for signing service account tokens along with its public key
+kubeconfig                 Generates all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
+  /admin                     Generates a kubeconfig file for the admin to use and for kubeadm itself
+  /kubelet                   Generates a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
+  /controller-manager        Generates a kubeconfig file for the controller manager to use
+  /scheduler                 Generates a kubeconfig file for the scheduler to use
+control-plane              Generates all static Pod manifest files necessary to establish the control plane
+  /apiserver                 Generates the kube-apiserver static Pod manifest
+  /controller-manager        Generates the kube-controller-manager static Pod manifest
+  /scheduler                 Generates the kube-scheduler static Pod manifest
+etcd                       Generates static Pod manifest file for local etcd.
+  /local                     Generates the static Pod manifest file for a local, single-node local etcd instance.
+upload-config              Uploads the kubeadm and kubelet configuration to a ConfigMap
+  /kubeadm                   Uploads the kubeadm ClusterConfiguration to a ConfigMap
+  /kubelet                   Uploads the kubelet component config to a ConfigMap
+mark-control-plane         Mark a node as a control-plane
+bootstrap-token            Generates bootstrap tokens used to join a node to a cluster
+addon                      Installs required addons for passing Conformance tests
+  /coredns                   Installs the CoreDNS addon to a Kubernetes cluster
+  /kube-proxy                Installs the kube-proxy addon to a Kubernetes cluster
+```
 
-Run this command in order to set up the Kubernetes master.
 
 ```
 kubeadm init [flags]
@@ -72,7 +107,7 @@ kubeadm init [flags]
       <td colspan="2">--feature-gates string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/>Auditing=true|false (ALPHA - default=false)<br/>CoreDNS=true|false (default=true)<br/>DynamicKubeletConfig=true|false (BETA - default=false)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value pairs that describe feature gates for various features. Options are:<br/></td>
     </tr>
 
     <tr>
@@ -87,6 +122,13 @@ kubeadm init [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Choose a container registry to pull control plane images from</td>
     </tr>
 
     <tr>
@@ -122,6 +164,13 @@ kubeadm init [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Use alternative domain for services, e.g. "myorg.internal".</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--skip-phases stringSlice</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">List of phases to be skipped</td>
     </tr>
 
     <tr>

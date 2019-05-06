@@ -65,7 +65,8 @@ These resources are covered in a number of articles within the Kubernetes docume
 
 As a cluster operator you may not need to use all these resources, although you should be familiar with them to understand how the cluster is being used.
 There are a number of additional resources that you should be aware of, some listed under [Intermediate Resources](/docs/user-journeys/users/cluster-operator/intermediate#section-1).
-You should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/).
+You should also be familiar with [how to manage kubernetes resources](/docs/concepts/cluster-administration/manage-deployment/)
+and [supported versions and version skew between cluster components](/docs/setup/version-skew-policy/).
 
 ## Get information about your cluster
 

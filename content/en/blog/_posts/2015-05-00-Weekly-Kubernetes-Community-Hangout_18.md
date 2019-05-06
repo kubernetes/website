@@ -37,11 +37,11 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
     * additional status - additive, backward compatible
     * elimination of phase - won't make it for v1
 * Service discussion - Public IPs
-    * with public ips as it exists we can't go to v1
+    * with public IPs as it exists we can't go to v1
     * Tim has been developing a mitigation if we can't get Justin's overhaul in (but hopefully we will)
     * Justin's fix will describe public IPs in a much better way
-    * The general problem is it's too flexible and you can do things that are scary, the mitigation is to restrict public ip usage to specific use cases -- validated public ips would be copied to status, which is what kube-proxy would use
-    * public ips used for -
+    * The general problem is it's too flexible and you can do things that are scary, the mitigation is to restrict public ip usage to specific use cases -- validated public IPs would be copied to status, which is what kube-proxy would use
+    * public IPs used for -
         * binding to nodes / node
         * request a specific load balancer IP (GCE only)
         * emulate multi-port services -- now we support multi-port services, so no longer necessary

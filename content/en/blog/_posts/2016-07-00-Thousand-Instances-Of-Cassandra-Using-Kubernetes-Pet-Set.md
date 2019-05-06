@@ -13,7 +13,7 @@ _Editor’s note: this post is part of a [series of in-depth articles](https://k
 
 For the [Kubernetes 1.3 launch](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), we wanted to put the new Pet Set through its paces. By testing a thousand instances of [Cassandra](https://cassandra.apache.org/), we could make sure that Kubernetes 1.3 was production ready. Read on for how we adapted Cassandra to Kubernetes, and had our largest deployment ever.  
 
-It’s fairly straightforward to use containers with basic stateful applications today. Using a persistent volume, you can mount a disk in a pod, and ensure that your data lasts beyond the life of your pod. However, with deployments of distributed stateful applications, things can become more tricky. With Kubernetes 1.3, the new [Pet Set](http://kubernetes.io/docs/user-guide/petset/) component makes everything much easier. To test this new feature out at scale, we decided to host the Greek Pet Monster Races! We raced Centaurs and other Ancient Greek Monsters over hundreds of thousands of races across multiple availability zones.  
+It’s fairly straightforward to use containers with basic stateful applications today. Using a persistent volume, you can mount a disk in a pod, and ensure that your data lasts beyond the life of your pod. However, with deployments of distributed stateful applications, things can become more tricky. With Kubernetes 1.3, the new [Pet Set](/docs/user-guide/petset/) component makes everything much easier. To test this new feature out at scale, we decided to host the Greek Pet Monster Races! We raced Centaurs and other Ancient Greek Monsters over hundreds of thousands of races across multiple availability zones.  
 
 [![File:Cassandra1.jpeg](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Cassandra1.jpeg/283px-Cassandra1.jpeg)](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Cassandra1.jpeg/283px-Cassandra1.jpeg)  
 As many of you know Kubernetes is from the Ancient Greek: κυβερνήτης. This means helmsman, pilot, steersman, or ship master. So in order to keep track of race results, we needed a data store, and we choose Cassandra. Κασσάνδρα, Cassandra who was the daughter of King of Priam and Queen Hecuba of Troy. With multiple references to the ancient Greek language, we thought it would be appropriate to race ancient Greek monsters.
@@ -62,7 +62,7 @@ So back to our races!
 
 
 
-As we have mentioned, Cassandra was a perfect candidate to deploy via a Pet Set. A Pet Set is much like a [Replica Controller](http://kubernetes.io/docs/user-guide/replication-controller/) with a few new bells and whistles. Here's an example YAML manifest:  
+As we have mentioned, Cassandra was a perfect candidate to deploy via a Pet Set. A Pet Set is much like a [Replica Controller](/docs/user-guide/replication-controller/) with a few new bells and whistles. Here's an example YAML manifest:  
 
 
 
@@ -367,7 +367,7 @@ Yes we deployed 1,000 pets, but one really did not want to join the party! Techn
 
 
 - The source code for the demo is available on [GitHub](https://github.com/k8s-for-greeks/gpmr): (Pet Set examples will be merged into the Kubernetes Cassandra Examples).
-- More information about [Jobs](http://kubernetes.io/docs/user-guide/jobs/)
+- More information about [Jobs](/docs/user-guide/jobs/)
 - [Documentation for Pet Set](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.3/docs/user-guide/petset.md)
 - Image credits: Cassandra [image](https://commons.wikimedia.org/wiki/File:Cassandra1.jpeg) and Cyclops [image](https://commons.wikimedia.org/wiki/File:Polyphemus.gif)
 

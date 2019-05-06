@@ -7,46 +7,81 @@ content_template: templates/concept
 weight: 100
 ---
 {{% capture overview %}}
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
-This page contains installation instruction for various runtimes.
+{{< feature-state for_k8s_version="v1.6" state="stable" >}}
+To run containers in Pods, Kubernetes uses a container runtime. Here are
+the installation instruction for various runtimes.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-Please proceed with executing the following commands based on your OS as root.
-You may become the root user by executing `sudo -i` after SSH-ing to each host.
+
+{{< caution >}}
+A flaw was found in the way runc handled system file descriptors when running containers.
+A malicious container could use this flaw to overwrite contents of the runc binary and 
+consequently run arbitrary commands on the container host system.
+
+Please refer to this link for more information about this issue 
+[cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
+{{< /caution >}}
+
+### Applicability
+
+{{< note >}}
+This document is written for users installing CRI onto Linux. For other operating
+systems, look for documentation specific to your platform.
+{{< /note >}}
+
+You should execute all the commands in this guide as `root`. For example, prefix commands
+with `sudo `, or become `root` and run the commands as that user.
+
+### Cgroup drivers
+
+When systemd is chosen as the init system for a Linux distribution, the init process generates
+and consumes a root control group (`cgroup`) and acts as a cgroup manager. Systemd has a tight
+integration with cgroups and will allocate cgroups per process. It's possible to configure your
+container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside systemd means
+that there will then be two different cgroup managers.
+
+Control groups are used to constrain resources that are allocated to processes.
+A single cgroup manager will simplify the view of what resources are being allocated
+and will by default have a more consistent view of the available and in-use resources. When we have
+two managers we end up with two views of those resources. We have seen cases in the field
+where nodes that are configured to use `cgroupfs` for the kubelet and Docker, and `systemd`
+for the rest of the processes running on the node becomes unstable under resource pressure.
+
+Changing the settings such that your container runtime and kubelet use `systemd` as the cgroup driver
+stabilized the system. Please note the `native.cgroupdriver=systemd` option in the Docker setup below.
 
 ## Docker
 
 On each of your machines, install Docker.
-Version 18.06 is recommended, but 1.11, 1.12, 1.13 and 17.03 are known to work as well.
+Version 18.06.2 is recommended, but 1.11, 1.12, 1.13, 17.03 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# Install Docker from Ubuntu's repositories:
-apt-get update
-apt-get install -y docker.io
+# Install Docker CE
+## Set up the repository:
+### Update the apt package index
+    apt-get update
 
-# or install Docker CE 18.06 from Docker's repositories for Ubuntu or Debian:
+### Install packages to allow apt to use a repository over HTTPS
+    apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
-## Install prerequisites.
-apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+### Add Docker’s official GPG key
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-## Download GPG key.
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+### Add docker apt repository.
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
 
-## Add docker apt repository.
-add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-## Install docker.
-apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
+## Install docker ce.
+apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
@@ -68,21 +103,18 @@ systemctl restart docker
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# Install Docker from CentOS/RHEL repository:
-yum install -y docker
+# Install Docker CE
+## Set up the repository
+### Install required packages.
+    yum install yum-utils device-mapper-persistent-data lvm2
 
-# or install Docker CE 18.06 from Docker's CentOS repositories:
-
-## Install prerequisites.
-yum install yum-utils device-mapper-persistent-data lvm2
-
-## Add docker repository.
+### Add docker repository.
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-## Install docker.
-yum update && yum install docker-ce-18.06.1.ce
+## Install docker ce.
+yum update && yum install docker-ce-18.06.2.ce
 
 ## Create /etc/docker directory.
 mkdir /etc/docker
@@ -222,8 +254,8 @@ tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd6
 systemctl start containerd
 ```
 
-## Other CRI runtimes: rktlet and frakti
+## Other CRI runtimes: frakti
 
-Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) and [Rktlet Getting Started guide](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md) for more information.
+Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
 
 {{% /capture %}}

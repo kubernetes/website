@@ -33,22 +33,21 @@ content_template: templates/task
     ```shell
     kubectl create -f https://k8s.io/docs/tasks/inject-data-application/envars.yaml
     ```
-       
 1. 获取一下当前正在运行的Pods信息:
 
     ```shell
     kubectl get pods -l purpose=demonstrate-envars
     ```
-       
+
     查询结果应为:
-    
+
     ```shell
     NAME            READY     STATUS    RESTARTS   AGE
     envar-demo      1/1       Running   0          9s
     ```
-      
+
 1. 进入该Pod下的容器并打开一个命令终端:
-    
+
     ```shell
     kubectl exec -it envar-demo -- /bin/bash
     ```
@@ -58,9 +57,9 @@ content_template: templates/task
     ```shell
     root@envar-demo:/# printenv
     ```
-    
+
     打印结果应为:
-    
+
     ```shell
     NODE_VERSION=4.4.2
     EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
@@ -68,7 +67,6 @@ content_template: templates/task
     ...
     DEMO_GREETING=Hello from the environment
     ```
-        
 1. 通过键入`exit`退出命令终端。
 
 {{% /capture %}}
@@ -80,6 +78,3 @@ content_template: templates/task
 * 关于[EnvVarSource](/docs/api-reference/{{< param "version" >}}/#envvarsource-v1-core)资源的信息。
 
 {{% /capture %}}
-
-
-

@@ -13,10 +13,10 @@ weight: 50
 
 {{% capture overview %}}
 
-Objects of type `secret` are intended to hold sensitive information, such as
-passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
-is safer and more flexible than putting it verbatim in a `pod` definition or in
-a docker image. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
+Kubernetes `secret` objects let you store and manage sensitive information, such
+as passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
+is safer and more flexible than putting it verbatim in a
+{{< glossary_tooltip term_id="pod" >}} definition or in a {{< glossary_tooltip text="container image" term_id="image" >}}. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
 {{% /capture %}}
 
@@ -32,7 +32,8 @@ more control over how it is used, and reduces the risk of accidental exposure.
 Users can create secrets, and the system also creates some secrets.
 
 To use a secret, a pod needs to reference the secret.
-A secret can be used with a pod in two ways: as files in a [volume](/docs/concepts/storage/volumes/) mounted on one or more of
+A secret can be used with a pod in two ways: as files in a
+{{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
 its containers, or used by kubelet when pulling images for the pod.
 
 ### Built-in Secrets
@@ -60,8 +61,8 @@ username and password that the pods should use is in the files
 
 ```shell
 # Create files needed for rest of example.
-$ echo -n 'admin' > ./username.txt
-$ echo -n '1f2d1e2e67df' > ./password.txt
+echo -n 'admin' > ./username.txt
+echo -n '1f2d1e2e67df' > ./password.txt
 ```
 
 The `kubectl create secret` command
@@ -69,18 +70,25 @@ packages these files into a Secret and creates
 the object on the Apiserver.
 
 ```shell
-$ kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
+kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
+```
+```
 secret "db-user-pass" created
 ```
 
 You can check that the secret was created like this:
 
 ```shell
-$ kubectl get secrets
+kubectl get secrets
+```
+```
 NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
-
-$ kubectl describe secrets/db-user-pass
+```
+```shell
+kubectl describe secrets/db-user-pass
+```
+```
 Name:            db-user-pass
 Namespace:       default
 Labels:          <none>
@@ -94,11 +102,14 @@ password.txt:    12 bytes
 username.txt:    5 bytes
 ```
 
-Note that neither `get` nor `describe` shows the contents of the file by default.
-This is to protect the secret from being exposed accidentally to someone looking
+{{< note >}}
+`kubectl get` and `kubectl describe` avoid showing the contents of a secret by
+default.
+This is to protect the secret from being exposed accidentally to an onlooker,
 or from being stored in a terminal log.
+{{< /note >}}
 
-See [decoding a secret](#decoding-a-secret) for how to see the contents.
+See [decoding a secret](#decoding-a-secret) for how to see the contents of a secret.
 
 #### Creating a Secret Manually
 
@@ -135,7 +146,9 @@ data:
 Now create the Secret using [`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands#create):
 
 ```shell
-$ kubectl create -f ./secret.yaml
+kubectl create -f ./secret.yaml
+```
+```
 secret "mysecret" created
 ```
 
@@ -246,7 +259,9 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 Secrets can be retrieved via the `kubectl get secret` command. For example, to retrieve the secret created in the previous section:
 
 ```shell
-$ kubectl get secret mysecret -o yaml
+kubectl get secret mysecret -o yaml
+```
+```
 apiVersion: v1
 data:
   username: YWRtaW4=
@@ -265,14 +280,17 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
+echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
+```
+```
 1f2d1e2e67df
 ```
 
 ### Using Secrets
 
-Secrets can be mounted as data volumes or be exposed as environment variables to
-be used by a container in a pod.  They can also be used by other parts of the
+Secrets can be mounted as data volumes or be exposed as
+{{< glossary_tooltip text="environment variables" term_id="container-env-variables" >}}
+to be used by a container in a pod.  They can also be used by other parts of the
 system, without being directly exposed to the pod.  For example, they can hold
 credentials that other parts of the system should use to interact with external
 systems on your behalf.
@@ -424,12 +442,22 @@ This is the result of commands
 executed inside the container from the example above:
 
 ```shell
-$ ls /etc/foo/
+ls /etc/foo/
+```
+```
 username
 password
-$ cat /etc/foo/username
+```
+```shell
+cat /etc/foo/username
+```
+```
 admin
-$ cat /etc/foo/password
+```
+```shell
+cat /etc/foo/password
+```
+```
 1f2d1e2e67df
 ```
 
@@ -458,7 +486,8 @@ Secret updates.
 
 #### Using Secrets as Environment Variables
 
-To use a secret in an environment variable in a pod:
+To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
+in a pod:
 
 1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
 1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[].valueFrom.secretKeyRef`.
@@ -496,9 +525,15 @@ normal environment variables containing the base-64 decoded values of the secret
 This is the result of commands executed inside the container from the example above:
 
 ```shell
-$ echo $SECRET_USERNAME
+echo $SECRET_USERNAME
+```
+```
 admin
-$ echo $SECRET_PASSWORD
+```
+```shell
+echo $SECRET_PASSWORD
+```
+```
 1f2d1e2e67df
 ```
 
@@ -534,10 +569,10 @@ Secret volume sources are validated to ensure that the specified object
 reference actually points to an object of type `Secret`.  Therefore, a secret
 needs to be created before any pods that depend on it.
 
-Secret API objects reside in a namespace.   They can only be referenced by pods
-in that same namespace.
+Secret API objects reside in a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+They can only be referenced by pods in that same namespace.
 
-Individual secrets are limited to 1MB in size.  This is to discourage creation
+Individual secrets are limited to 1MiB in size.  This is to discourage creation
 of very large secrets which would exhaust apiserver and kubelet memory.
 However, creation of many smaller secrets could also exhaust memory.  More
 comprehensive limits on memory usage due to secrets is a planned feature.
@@ -549,8 +584,8 @@ controller.  It does not include pods created via the kubelets
 not common ways to create pods.)
 
 Secrets must be created before they are consumed in pods as environment
-variables unless they are marked as optional.  References to Secrets that do not exist will prevent
-the pod from starting.
+variables unless they are marked as optional.  References to Secrets that do
+not exist will prevent the pod from starting.
 
 References via `secretKeyRef` to keys that do not exist in a named Secret
 will prevent the pod from starting.
@@ -563,7 +598,9 @@ invalid keys that were skipped. The example shows a pod which refers to the
 default/mysecret that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
-$ kubectl get events
+kubectl get events
+```
+```
 LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
@@ -586,7 +623,10 @@ start until all the pod's volumes are mounted.
 Create a secret containing some ssh keys:
 
 ```shell
-$ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
+kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
+```
+```
+secret "ssh-key-secret" created
 ```
 
 {{< caution >}}
@@ -636,9 +676,16 @@ credentials.
 Make the secrets:
 
 ```shell
-$ kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
+kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
+```
+```
 secret "prod-db-secret" created
-$ kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
+```
+
+```shell
+kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
+```
+```
 secret "test-db-secret" created
 ```
 {{< note >}}
@@ -821,6 +868,7 @@ be available in future releases of Kubernetes.
 
 ## Security Properties
 
+
 ### Protections
 
 Because `secret` objects can be created independently of the `pods` that use
@@ -829,51 +877,52 @@ creating, viewing, and editing pods.  The system can also take additional
 precautions with `secret` objects, such as avoiding writing them to disk where
 possible.
 
-A secret is only sent to a node if a pod on that node requires it.  It is not
-written to disk.  It is stored in a tmpfs.  It is deleted once the pod that
-depends on it is deleted.
-
-On most Kubernetes-project-maintained distributions, communication between user
-to the apiserver, and from apiserver to the kubelets, is protected by SSL/TLS.
-Secrets are protected when transmitted over these channels.
-
-Secret data on nodes is stored in tmpfs volumes and thus does not come to rest
-on the node.
+A secret is only sent to a node if a pod on that node requires it.
+Kubelet stores the secret into a `tmpfs` so that the secret is not written
+to disk storage. Once the Pod that depends on the secret is deleted, kubelet
+will delete its local copy of the secret data as well.
 
 There may be secrets for several pods on the same node.  However, only the
 secrets that a pod requests are potentially visible within its containers.
-Therefore, one Pod does not have access to the secrets of another pod.
+Therefore, one Pod does not have access to the secrets of another Pod.
 
 There may be several containers in a pod.  However, each container in a pod has
 to request the secret volume in its `volumeMounts` for it to be visible within
 the container.  This can be used to construct useful [security partitions at the
 Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
+On most Kubernetes-project-maintained distributions, communication between user
+to the apiserver, and from apiserver to the kubelets, is protected by SSL/TLS.
+Secrets are protected when transmitted over these channels.
+
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
+
+You can enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
+for secret data, so that the secrets are not stored in the clear into {{< glossary_tooltip term_id="etcd" >}}.
+
 ### Risks
 
- - In the API server secret data is stored as plaintext in etcd; therefore:
+ - In the API server secret data is stored in {{< glossary_tooltip term_id="etcd" >}};
+   therefore:
+   - Administrators should enable encryption at rest for cluster data (requires v1.13 or later)
    - Administrators should limit access to etcd to admin users
-   - Secret data in the API server is at rest on the disk that etcd uses; admins may want to wipe/shred disks
-     used by etcd when no longer in use
+   - Administrators may want to wipe/shred disks used by etcd when no longer in use
+   - If running etcd in a cluster, administrators should make sure to use SSL/TLS
+     for etcd peer-to-peer communication.
  - If you configure the secret through a manifest (JSON or YAML) file which has
    the secret data encoded as base64, sharing this file or checking it in to a
-   source repository means the secret is compromised. Base64 encoding is not an
+   source repository means the secret is compromised. Base64 encoding is _not_ an
    encryption method and is considered the same as plain text.
  - Applications still need to protect the value of secret after reading it from the volume,
    such as not accidentally logging it or transmitting it to an untrusted party.
  - A user who can create a pod that uses a secret can also see the value of that secret.  Even
    if apiserver policy does not allow that user to read the secret object, the user could
    run a pod which exposes the secret.
- - If multiple replicas of etcd are run, then the secrets will be shared between them.
-   By default, etcd does not secure peer-to-peer communication with SSL/TLS, though this can be configured.
- - Currently, anyone with root on any node can read any secret from the apiserver,
+ - Currently, anyone with root on any node can read _any_ secret from the apiserver,
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
    single node.
 
-{{< note >}}
-As of 1.7 [encryption of secret data at rest is supported](/docs/tasks/administer-cluster/encrypt-data/).
-{{< /note >}}
 
 {{% capture whatsnext %}}
 

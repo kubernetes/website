@@ -156,6 +156,33 @@ Note: this file assumes that a user previous created 'l2bridge' host networks on
 }
 ```
 
+#### DNS configurations
+
+DNS configurations for Windows containers are set by CNI plugins which support `dns` capabilities. To enable `dns` capabilities, the following options should be included in the CNI configuration file:
+
+```json
+{
+    ...
+    "capabilities": {"dns": true},
+}
+```
+
+The following DNS options from kubelet will be passed to CNI plugins:
+
+- servers: List of DNS servers.
+- searches: List of DNS search domains.
+- options: List of DNS options.
+
+e.g.
+
+```json
+"dns" {
+  "servers": ["10.0.0.10"],
+  "searches": ["default.svc.cluster.local","svc.cluster.local","cluster.local"],
+  "options": []
+}
+```
+
 #### For 3. Open vSwitch (OVS) & Open Virtual Network (OVN) with Overlay
 
 {{< note >}}
@@ -245,14 +272,14 @@ Use your preferred method to start Kubernetes cluster on Linux. Please note that
 
 ## Support for kubeadm join
 
-If your cluster has been created by [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/),
+If your cluster has been created by [kubeadm](/docs/setup/independent/create-cluster-kubeadm/),
 and your networking is setup correctly using one of the methods listed above (networking is setup outside of kubeadm), you can use kubeadm to add a Windows node to your cluster. At a high level, you first have to initialize the master with kubeadm (Linux), then set up the CNI based networking (outside of kubeadm), and finally start joining Windows or Linux worker nodes to the cluster. For additional documentation and reference material, visit the kubeadm link above.
 
 The kubeadm binary can be found at [Kubernetes Releases](https://github.com/kubernetes/kubernetes/releases), inside the node binaries archive. Adding a Windows node is not any different than adding a Linux node:
 
 `kubeadm.exe join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>`
 
-See [joining-your-nodes](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) for more details.
+See [joining-your-nodes](/docs/setup/independent/create-cluster-kubeadm/#joining-your-nodes) for more details.
 
 ## Supported Features
 
@@ -327,13 +354,13 @@ This means that you can now register them as Windows services via `sc` command. 
 
 To create the service:
 ```
-PS > sc.exe create <component_name> binPath= "<path_to_binary> --service <other_args>"
-CMD > sc create <component_name> binPath= "<path_to_binary> --service <other_args>"
+PS > sc.exe create <component_name> binPath= "<path_to_binary> --windows-service <other_args>"
+CMD > sc create <component_name> binPath= "<path_to_binary> --windows-service <other_args>"
 ```
 Please note that if the arguments contain spaces, it must be escaped. Example:
 ```
-PS > sc.exe create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
-CMD > sc create kubelet binPath= "C:\kubelet.exe --service --hostname-override 'minion' <other_args>"
+PS > sc.exe create kubelet binPath= "C:\kubelet.exe --windows-service --hostname-override 'minion' <other_args>"
+CMD > sc create kubelet binPath= "C:\kubelet.exe --windows-service --hostname-override 'minion' <other_args>"
 ```
 To start the service:
 ```
@@ -360,7 +387,7 @@ Some of these limitations will be addressed by the community in future releases 
 - Mount propagation is not supported on Windows
 - The StatefulSet functionality for stateful applications is not supported
 - Horizontal Pod Autoscaling for Windows Server Container pods has not been verified to work end-to-end
-- Hyper-V isolated containers are not supported. 
+- Hyper-V isolated containers are not supported.
 - Windows container OS must match the Host OS. If it does not, the pod will get stuck in a crash loop.
 - Under the networking models of L3 or Host GW, Kubernetes Services are inaccessible to Windows nodes due to a Windows issue. This is not an issue if using OVN/OVS for networking.
 - Windows kubelet.exe may fail to start when running on Windows Server under VMware Fusion [issue 57110](https://github.com/kubernetes/kubernetes/pull/57124)
@@ -372,4 +399,3 @@ Some of these limitations will be addressed by the community in future releases 
 
 - Support for Windows is in Beta as of v1.9 and your feedback is welcome. For information on getting involved, please head to [SIG-Windows](https://github.com/kubernetes/community/blob/master/sig-windows/README.md)
 - Troubleshooting and Common Problems: [Link](https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems)
-

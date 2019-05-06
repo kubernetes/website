@@ -67,8 +67,8 @@ is provided below.
 ## 理解静态数据加密
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets
@@ -150,8 +150,8 @@ Create a new encryption config file:
 创建一个新的加密配置文件：
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets
@@ -300,8 +300,8 @@ To disable encryption at rest place the `identity` provider as the first entry i
 要禁用 rest 加密，请将 `identity` provider 作为配置中的第一个条目：
 
 ```yaml
-kind: EncryptionConfig
-apiVersion: v1
+kind: EncryptionConfiguration
+apiVersion: apiserver.config.k8s.io/v1
 resources:
   - resources:
     - secrets

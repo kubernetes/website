@@ -6,13 +6,13 @@ date:  2018-07-24
 
 **Authors**: Balaji Subramaniam ([Intel](mailto:balaji.subramaniam@intel.com)), Connor Doyle ([Intel](mailto:connor.p.doyle@intel.com))
 
-This blog post describes the [CPU Manager](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/), a beta feature in [Kubernetes](https://kubernetes.io/). The CPU manager feature enables better placement of workloads in the [Kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/), the Kubernetes node agent, by allocating exclusive CPUs to certain pod containers.
+This blog post describes the [CPU Manager](/docs/tasks/administer-cluster/cpu-management-policies/), a beta feature in [Kubernetes](https://kubernetes.io/). The CPU manager feature enables better placement of workloads in the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/), the Kubernetes node agent, by allocating exclusive CPUs to certain pod containers.
 
 ![cpu manager](/images/blog/2018-07-24-cpu-manager/cpu-manager.png)
 
 ## Sounds Good! But Does the CPU Manager Help Me?
 
-It depends on your workload. A single compute node in a Kubernetes cluster can run many [pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/) and some of these pods could be running CPU-intensive workloads. In such a scenario, the pods might contend for the CPU resources available in that compute node. When this contention intensifies, the workload can move to different CPUs depending on whether the pod is throttled and the availability of CPUs at scheduling time. There might also be cases where the workload could be sensitive to context switches. In all the above scenarios, the performance of the workload might be affected.
+It depends on your workload. A single compute node in a Kubernetes cluster can run many [pods](/docs/concepts/workloads/pods/pod/) and some of these pods could be running CPU-intensive workloads. In such a scenario, the pods might contend for the CPU resources available in that compute node. When this contention intensifies, the workload can move to different CPUs depending on whether the pod is throttled and the availability of CPUs at scheduling time. There might also be cases where the workload could be sensitive to context switches. In all the above scenarios, the performance of the workload might be affected.
 
 If your workload is sensitive to such scenarios, then CPU Manager can be enabled to provide better performance isolation by allocating exclusive CPUs for your workload.
 
@@ -27,7 +27,7 @@ CPU manager might help workloads with the following characteristics:
 
 ## Ok! How Do I use it?
 
-Using the CPU manager is simple. First, [enable CPU manager with the Static policy](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#cpu-management-policies) in the Kubelet running on the compute nodes of your cluster. Then configure your pod to be in the [Guaranteed Quality of Service (QoS) class](https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). Request whole numbers of CPU cores (e.g., `1000m`, `4000m`) for containers that need exclusive cores. Create your pod in the same way as before (e.g., `kubectl create -f pod.yaml`). And _voilà_, the CPU manager will assign exclusive CPUs to each of container in the pod according to their CPU requests.
+Using the CPU manager is simple. First, [enable CPU manager with the Static policy](/docs/tasks/administer-cluster/cpu-management-policies/#cpu-management-policies) in the Kubelet running on the compute nodes of your cluster. Then configure your pod to be in the [Guaranteed Quality of Service (QoS) class](/docs/tasks/configure-pod-container/quality-service-pod/#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed). Request whole numbers of CPU cores (e.g., `1000m`, `4000m`) for containers that need exclusive cores. Create your pod in the same way as before (e.g., `kubectl create -f pod.yaml`). And _voilà_, the CPU manager will assign exclusive CPUs to each of container in the pod according to their CPU requests.
 
 ```
 apiVersion: v1
@@ -54,7 +54,7 @@ _Pod specification requesting two exclusive CPUs._
 
 For Kubernetes, and the purposes of this blog post, we will discuss three kinds of CPU resource controls available in most Linux distributions. The first two are CFS shares (what's my weighted fair share of CPU time on this system) and CFS quota (what's my hard cap of CPU time over a period). The CPU manager uses a third control called CPU affinity (on what logical CPUs am I allowed to execute).
 
-By default, all the pods and the containers running on a compute node of your Kubernetes cluster can execute on any available cores in the system. The total amount of allocatable shares and quota are limited by the CPU resources explicitly [reserved for kubernetes and system daemons](https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/). However, limits on the CPU time being used can be specified using [CPU limits in the pod spec](https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit). Kubernetes uses [CFS quota](https://www.kernel.org/doc/Documentation/scheduler/sched-bwc.txt) to enforce CPU limits on pod containers.
+By default, all the pods and the containers running on a compute node of your Kubernetes cluster can execute on any available cores in the system. The total amount of allocatable shares and quota are limited by the CPU resources explicitly [reserved for kubernetes and system daemons](/docs/tasks/administer-cluster/reserve-compute-resources/). However, limits on the CPU time being used can be specified using [CPU limits in the pod spec](/docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit). Kubernetes uses [CFS quota](https://www.kernel.org/doc/Documentation/scheduler/sched-bwc.txt) to enforce CPU limits on pod containers.
 
 When CPU manager is enabled with the "static" policy, it manages a shared pool of CPUs. Initially this shared pool contains all the CPUs in the compute node. When a container with integer CPU request in a Guaranteed pod is created by the Kubelet, CPUs for that container are removed from the shared pool and assigned exclusively for the lifetime of the container. Other containers are migrated off these exclusively allocated CPUs.
 

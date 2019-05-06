@@ -75,6 +75,7 @@ Kubernetes supports several types of Volumes:
    * [downwardAPI](#downwardapi)
    * [emptyDir](#emptydir)
    * [fc (fibre channel)](#fc)
+   * [flexVolume](#flexVolume)
    * [flocker](#flocker)
    * [gcePersistentDisk](#gcepersistentdisk)
    * [gitRepo (deprecated)](#gitrepo)
@@ -789,9 +790,8 @@ receive updates for those volume sources.
 ### portworxVolume {#portworxvolume}
 
 A `portworxVolume` is an elastic block storage layer that runs hyperconverged with
-Kubernetes. Portworx fingerprints storage in a server, tiers based on capabilities,
-and aggregates capacity across multiple servers. Portworx runs in-guest in virtual
-machines or on bare metal Linux nodes.
+Kubernetes. [Portworx](https://portworx.com/use-case/kubernetes-storage/) fingerprints storage in a server, tiers based on capabilities,
+and aggregates capacity across multiple servers. Portworx runs in-guest in virtual machines or on bare metal Linux nodes.
 
 A `portworxVolume` can be dynamically created through Kubernetes or it can also
 be pre-provisioned and referenced inside a Kubernetes Pod.
@@ -834,7 +834,9 @@ You must have your own Quobyte setup running with the volumes
 created before you can use it.
 {{< /caution >}}
 
-See the [Quobyte example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/quobyte) for more details.
+Quobyte supports the {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}.
+CSI is the recommended plugin to use Quobyte volumes inside Kubernetes. Quobyte's
+GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte-csi) for deploying Quobyte using CSI, along with examples.
 
 ### rbd {#rbd}
 
@@ -1139,16 +1141,25 @@ to [this FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/vo
 
 ### CSI
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 [Container Storage Interface](https://github.com/container-storage-interface/spec/blob/master/spec.md) (CSI)
 defines a standard interface for container orchestration systems (like
 Kubernetes) to expose arbitrary storage systems to their container workloads.
 
 Please read the [CSI design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) for more information.
 
-CSI support was introduced as alpha in Kubernetes v1.9 and moved to beta in
-Kubernetes v1.10.
+CSI support was introduced as alpha in Kubernetes v1.9, moved to beta in
+Kubernetes v1.10, and is GA in Kubernetes v1.13.
+
+{{< note >}}
+Support for CSI spec versions 0.2 and 0.3 are deprecated in Kubernetes
+v1.13 and will be removed in a future release.
+{{< /note >}}
+
+{{< note >}}
+CSI drivers may not be compatible across all Kubernetes releases.
+Please check the specific CSI driver's documentation for supported
+deployments steps for each Kubernetes release and a compatibility matrix.
+{{< /note >}}
 
 Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
 may use the `csi` volume type to attach, mount, etc. the volumes exposed by the
@@ -1224,7 +1235,11 @@ Kubernetes component using the following feature gate flags:
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
-### Flexvolume
+#### Developer resources
+For more information on how to develop a CSI driver, refer to the [kubernetes-csi
+documentation](https://kubernetes-csi.github.io/docs/)
+
+### Flexvolume {#flexVolume}
 
 Flexvolume is an out-of-tree plugin interface that has existed in Kubernetes
 since version 1.2 (before CSI). It uses an exec-based model to interface with
@@ -1292,8 +1307,8 @@ MountFlags=shared
 ```
 Or, remove `MountFlags=slave` if present.  Then restart the Docker daemon:
 ```shell
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 

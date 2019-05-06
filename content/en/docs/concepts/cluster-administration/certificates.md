@@ -183,7 +183,7 @@ Finally, add the same parameters into the API server start parameters.
 
         ../cfssl gencert -initca ca-csr.json | ../cfssljson -bare ca
 1.  Create a JSON config file for generating keys and certificates for the API
-    server as shown below. Be sure to replace the values in angle brackets with
+    server, for example, `server-csr.json`. Be sure to replace the values in angle brackets with
     real values you want to use. The `MASTER_CLUSTER_IP` is the service cluster
     IP for the API server as described in previous subsection.
     The sample below also assumes that you are using `cluster.local` as the default
@@ -231,8 +231,11 @@ refresh the local list for valid certificates.
 On each client, perform the following operations:
 
 ```bash
-$ sudo cp ca.crt /usr/local/share/ca-certificates/kubernetes.crt
-$ sudo update-ca-certificates
+sudo cp ca.crt /usr/local/share/ca-certificates/kubernetes.crt
+sudo update-ca-certificates
+```
+
+```
 Updating certificates in /etc/ssl/certs...
 1 added, 0 removed; done.
 Running hooks in /etc/ca-certificates/update.d....

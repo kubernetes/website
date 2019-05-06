@@ -25,7 +25,7 @@ Static pod can be created in two ways: either by using configuration file(s) or 
 
 ### Configuration files
 
-The configuration files are just standard pod definitions in json or yaml format in a specific directory. Use `kubelet --pod-manifest-path=<the directory>` to start kubelet daemon, which periodically scans the directory and creates/deletes static pods as yaml/json files appear/disappear there.
+The configuration files are just standard pod definitions in json or yaml format in a specific directory. Use `kubelet --pod-manifest-path=<the directory>` to start kubelet daemon or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file), which periodically scans the directory and creates/deletes static pods as yaml/json files appear/disappear there.
 Note that kubelet will ignore files starting with dots when scanning the specified directory.
 
 For example, this is how to start a simple web server as a static pod:
@@ -58,7 +58,7 @@ spec:
 EOF
 ```
 
-3. Configure your kubelet daemon on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument.
+3. Configure your kubelet daemon on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file).
     On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
     ```
@@ -79,7 +79,7 @@ Kubelet periodically downloads a file specified by `--manifest-url=<URL>` argume
 
 ## Behavior of static pods
 
-When kubelet starts, it automatically starts all pods defined in directory specified in `--pod-manifest-path=` or `--manifest-url=` arguments, i.e. our static-web.  (It may take some time to pull nginx image, be patient…):
+When kubelet starts, it automatically starts all pods defined in directory specified in `--pod-manifest-path=` or `--manifest-url=` arguments or add the `staticPodPath: <the directory>` field in the [KubeletConfiguration file](/docs/tasks/administer-cluster/kubelet-config-file), i.e. our static-web.  (It may take some time to pull nginx image, be patient…):
 
 ```shell
 [joe@my-node1 ~] $ docker ps

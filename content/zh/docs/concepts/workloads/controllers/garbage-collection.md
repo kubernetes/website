@@ -26,7 +26,7 @@ Kubernetes 垃圾收集器的角色是删除指定的对象，这些对象曾经
 ## Owner 和 Dependent
 
 某些 Kubernetes 对象是其它一些对象的 Owner。例如，一个 ReplicaSet 是一组 Pod 的 Owner。
-具有 Owner 的对象被称为是 Owner 的 *Dependent*。
+具有 Owner 的对象被称为是 Owner 的 *Dependent* 。
 每个 Dependent 对象具有一个指向其所属对象的 `metadata.ownerReferences` 字段。
 
 有时，Kubernetes 会自动设置 `ownerReference` 的值。
@@ -73,10 +73,10 @@ metadata:
 ## 控制垃圾收集器删除 Dependent
 
 当删除对象时，可以指定是否该对象的 Dependent 也自动删除掉。
-自动删除 Dependent 也称为 *级联删除*。
+自动删除 Dependent 也称为 *级联删除* 。
 Kubernetes 中有两种 *级联删除* 的模式：*background* 模式和 *foreground* 模式。
 
-如果删除对象时，不自动删除它的 Dependent，这些 Dependent 被称作是原对象的 *孤儿*。
+如果删除对象时，不自动删除它的 Dependent，这些 Dependent 被称作是原对象的 *孤儿* 。
 
 
 

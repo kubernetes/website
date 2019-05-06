@@ -13,6 +13,7 @@ kubeadm 通过执行必要的操作来启动和运行一个最小可用的集群
 <!-- Instead, we expect higher-level and more tailored tooling to be built on top of kubeadm, and ideally, using kubeadm as the basis of all deployments will make it easier to create conformant clusters. -->
 相反，我们期望由一个基于 kubeadm 从更高层设计的更加合适的工具来做这些事情；并且，理想情况下，使用 kubeadm 作为所有部署的基础将会使得创建一个符合期望的集群变得容易。
 
+<!-- ## What's next -->
 ## 接下可以做什么
 
 <!-- * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) to bootstrap a Kubernetes master node -->

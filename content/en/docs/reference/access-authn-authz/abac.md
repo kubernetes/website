@@ -82,10 +82,9 @@ resource, and nonResourcePath properties set to `"*"`.
 
 ## Kubectl
 
-Kubectl uses the `/api` and `/apis` endpoints of api-server to negotiate
-client/server versions. To validate objects sent to the API by create/update
-operations, kubectl queries certain swagger resources. For API version `v1`
-those would be `/swaggerapi/api/v1` & `/swaggerapi/experimental/v1`.
+Kubectl uses the `/api` and `/apis` endpoints of api-server to discover
+served resource types, and validates objects sent to the API by create/update
+operations using schema information located at `/openapi/v2`.
 
 When using ABAC authorization, those special resources have to be explicitly
 exposed via the `nonResourcePath` property in a policy (see [examples](#examples) below):

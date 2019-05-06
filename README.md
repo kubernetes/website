@@ -1,6 +1,9 @@
 # The Kubernetes documentation
 
-Welcome! This repository houses all of the assets required to build the Kubernetes website and documentation. We're very pleased that you want to contribute!
+[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
+[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+
+Welcome! This repository houses all of the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're very pleased that you want to contribute!
 
 ## Contributing to the docs
 
@@ -15,6 +18,17 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
+
+## `README.md`'s Localizing Kubernetes Documentation
+
+### Korean
+
+See translation of `README.md` and more detail guidance for Korean contributors on the [Korean README](README-ko.md) page.
+
+You can reach the maintainers of Korean localization at:
+
+* June Yi ([GitHub - @gochist](https://github.com/gochist))
+* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
 
 ## Running the site locally using Docker
 
@@ -49,6 +63,19 @@ make serve
 ```
 
 This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the site. As you make changes to the source files, Hugo updates the site and forces a browser refresh.
+
+## Community, discussion, contribution, and support
+
+Learn how to engage with the Kubernetes community on the [community page](http://kubernetes.io/community/).
+
+You can reach the maintainers of this project at:
+
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+
+### Code of conduct
+
+Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
 
 ## Thank you!
 

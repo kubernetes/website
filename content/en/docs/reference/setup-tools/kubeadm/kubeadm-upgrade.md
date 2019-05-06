@@ -21,11 +21,14 @@ For more version-specific upgrade guidance, see the following resources:
 
  * [1.10 to 1.11 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/)
  * [1.11 to 1.12 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/)
+ * [1.12 to 1.13 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13/)
  
 _For older versions, please refer to older documentation sets on the Kubernetes website._
 
 In Kubernetes v1.11.0 and later, you can use `kubeadm upgrade diff` to see the changes that would be
 applied to static pod manifests.
+
+To use kube-dns with upgrades in Kubernetes v1.13.0 and later please follow [this guide](docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
 {{< include "generated/kubeadm_upgrade_plan.md" >}}

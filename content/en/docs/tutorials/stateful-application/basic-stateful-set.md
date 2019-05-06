@@ -160,7 +160,7 @@ Using `nslookup` on the Pods' hostnames, you can examine their in-cluster DNS
 addresses.
 
 ```shell
-kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh 
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm  
 nslookup web-0.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -218,7 +218,7 @@ for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
 web-0
 web-1
 
-kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh 
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh 
 nslookup web-0.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
