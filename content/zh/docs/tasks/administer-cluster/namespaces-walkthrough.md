@@ -158,7 +158,7 @@ production    Active    23s       name=production
 
 Users interacting with one namespace do not see the content in another namespace. -->
 
-Kubernetes 命名空间为集群中的 Pods, Services, 和 Deployments 提供了边界。
+Kubernetes 命名空间为集群中的 Pods、Services 和 Deployments 提供了作用域。
 
 与一个命名空间交互的用户不会在另一个命名空间中看到该内容。
 
