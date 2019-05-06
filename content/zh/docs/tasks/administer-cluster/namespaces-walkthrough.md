@@ -331,7 +331,7 @@ $ kubectl get pods
 
 <!-- Production likes to run cattle, so let's create some cattle pods. -->
 
-生产就如同放牛，让我们创建一些牛荚。
+生产就如同放牛，让我们创建一些名为 cattle 的 Pods。
 
 ```shell
 $ kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
