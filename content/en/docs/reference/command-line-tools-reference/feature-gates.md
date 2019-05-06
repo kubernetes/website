@@ -124,7 +124,7 @@ different Kubernetes components.
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | |
-| `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
+| `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
