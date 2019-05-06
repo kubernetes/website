@@ -54,8 +54,8 @@ For example:
 mkdir -p configure-pod-container/configmap/
 
 # Download the sample files into `configure-pod-container/configmap/` directory
-wget https://k8s.io/examples/configmap/game.properties -O configure-pod-container/configmap/game.properties
-wget https://k8s.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
+wget https://kubernetes.io/examples/configmap/game.properties -O configure-pod-container/configmap/game.properties
+wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
 
 # Create the configmap
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/
@@ -186,7 +186,7 @@ Use the option `--from-env-file` to create a ConfigMap from an env-file, for exa
 #   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value)).
 
 # Download the sample files into `configure-pod-container/configmap/` directory
-wget https://k8s.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
+wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
 
 # The env-file `game-env-file.properties` looks like below
 cat configure-pod-container/configmap/game-env-file.properties
@@ -446,7 +446,7 @@ configmap/special-config-2-c92b5mmcf2 created
    Create the Pod:
  
  ```shell
- kubectl create -f https://k8s.io/examples/pods/pod-single-configmap-env-variable.yaml
+ kubectl create -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
  ```
    
    Now, the Pod's output includes environment variable `SPECIAL_LEVEL_KEY=very`. 
@@ -460,7 +460,7 @@ configmap/special-config-2-c92b5mmcf2 created
    Create the ConfigMap:
  
  ```shell
- kubectl create -f https://k8s.io/examples/configmap/configmaps.yaml
+ kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
  ```
 
 * Define the environment variables in the Pod specification.
@@ -470,7 +470,7 @@ configmap/special-config-2-c92b5mmcf2 created
   Create the Pod:
  
  ```shell
- kubectl create -f https://k8s.io/examples/pods/pod-multiple-configmap-env-variable.yaml
+ kubectl create -f https://kubernetes.io/examples/pods/pod-multiple-configmap-env-variable.yaml
  ```
 
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`. 
@@ -488,7 +488,7 @@ This functionality is available in Kubernetes v1.6 and later.
   Create the ConfigMap:
  
  ```shell
- kubectl create -f https://k8s.io/examples/configmap/configmap-multikeys.yaml
+ kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
  ```
 
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
@@ -498,7 +498,7 @@ This functionality is available in Kubernetes v1.6 and later.
  Create the Pod:
  
  ```shell
- kubectl create -f https://k8s.io/examples/pods/pod-configmap-envFrom.yaml
+ kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
  ```
 
  Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
@@ -515,7 +515,7 @@ For example, the following Pod specification
 created by running
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
+kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
 ```
 
 produces the following output in the `test-container` container:
@@ -535,7 +535,7 @@ The examples in this section refer to a ConfigMap named special-config, shown be
 Create the ConfigMap:
  
 ```shell
-kubectl create -f https://k8s.io/examples/configmap/configmap-multikeys.yaml
+kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
 ```
 
 ### Populate a Volume with data stored in a ConfigMap
@@ -549,7 +549,7 @@ The `command` section references the `special.level` item stored in the ConfigMa
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/pod-configmap-volume.yaml
+kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume.yaml
 ```
 
 When the pod runs, the command `ls /etc/config/` produces the output below:
@@ -573,7 +573,7 @@ In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` vo
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/pod-configmap-volume-specific-key.yaml
+kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume-specific-key.yaml
 ```
 
 When the pod runs, the command `cat /etc/config/keys` produces the output below:
