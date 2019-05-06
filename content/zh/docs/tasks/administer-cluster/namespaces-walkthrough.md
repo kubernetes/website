@@ -310,7 +310,7 @@ snowflake-3968820950-vgc4n   1/1       Running   0          2m
 
 <!-- And this is great, developers are able to do what they want, and they do not have to worry about affecting content in the production namespace. -->
 
-这很棒，开发人员可以做他们想要的事情，而不必担心影响生产命名空间中的内容。
+这很棒，开发人员可以做他们想要的事情，而不必担心影响 production 命名空间中的内容。
 
 <!-- Let's switch to the production namespace and show how resources in one namespace are hidden from the other. -->
 
