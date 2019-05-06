@@ -58,7 +58,7 @@ Kubernetes _命名空间_ 帮助不同的项目、团队或客户去共享 Kuber
 此示例作如下假设：
 
 1. 您已拥有一个 [配置好的 Kubernetes 集群](/docs/setup/)。
-2. 已对 Kubernetes 的 _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_ 有基本理解。
+2. 您已对 Kubernetes 的 _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_ 和 _[Deployments](/docs/concepts/workloads/controllers/deployment/)_ 有基本理解。
 
 <!-- ## Understand the default namespace
 
