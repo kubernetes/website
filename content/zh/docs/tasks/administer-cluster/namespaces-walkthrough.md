@@ -118,7 +118,7 @@ Pods, Services, and Deployments that run the production site. -->
 
 <!-- Create the development namespace using kubectl. -->
 
-使用 kubectl 创建开发命名空间。
+使用 kubectl 创建 development 命名空间。
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
