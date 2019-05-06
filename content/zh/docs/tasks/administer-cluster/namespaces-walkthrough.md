@@ -314,7 +314,7 @@ snowflake-3968820950-vgc4n   1/1       Running   0          2m
 
 <!-- Let's switch to the production namespace and show how resources in one namespace are hidden from the other. -->
 
-让我们切换到生产命名空间，展示一个命名空间中的资源如何从另一个命名空间中隐藏。
+让我们切换到 production 命名空间，展示一个命名空间中的资源如何对另一个命名空间不可见。
 
 ```shell
 $ kubectl config use-context prod
