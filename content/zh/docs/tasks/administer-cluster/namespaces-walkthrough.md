@@ -218,7 +218,8 @@ $ kubectl config set-context prod --namespace=production \
 `.kube/config`. You can now view the contexts and alternate against the two
 new request contexts depending on which namespace you wish to work against. -->
 
-默认地，上述命令会添加两个保存在 `.kube/config` 文件中的上下文。您现在可以查看上下文并根据您希望使用的命名空间变换这两个新的请求上下文。
+默认地，上述命令会添加两个上下文到 `.kube/config` 文件中。
+您现在可以查看上下文并根据您希望使用的命名空间并在这两个新的请求上下文之间切换。
 
 <!-- To view the new contexts: -->
 
