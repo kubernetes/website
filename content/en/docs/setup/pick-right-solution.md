@@ -95,7 +95,7 @@ cluster.
 
 * [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
 
-* [Kubermatic](https://www.loodse.com) provides managed Kubernetes clusters for various public clouds, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
+* [Kubermatic](https://www.loodse.com) runs Kubernetes in Kubernetes to provide managed Kubernetes clusters for any public cloud, including AWS and Digital Ocean, as well as on-premises with OpenStack integration.
 
 * [Kublr](https://kublr.com) offers enterprise-grade secure, scalable, highly reliable Kubernetes clusters on AWS, Azure, GCP, and on-premise. It includes out-of-the-box backup and disaster recovery, multi-cluster centralized logging and monitoring, and built-in alerting.
 
@@ -141,7 +141,7 @@ few commands. These solutions are actively developed and have active community s
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
 * [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
-* [Kubermatic](https://cloud.kubermatic.io)
+* [Kubermatic](https://www.loodse.com/product/)
 * [Kublr](https://kublr.com/)
 * [Madcore.Ai](https://madcore.ai/)
 * [Nirmata](https://nirmata.com/)
@@ -168,7 +168,7 @@ few commands.
 * [IBM Cloud Private](https://www.ibm.com/cloud/private)
 * [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
-* [Kubermatic](https://www.loodse.com)
+* [Kubermatic](https://www.loodse.com/product/)
 * [Kublr](https://kublr.com/)
 * [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)
 * [Nirmata](https://nirmata.com/)
@@ -211,6 +211,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
+* [Kubermatic](https://www.loodse.com/product/)
 * [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [oVirt](/docs/setup/on-premises-vm/ovirt/)
@@ -226,6 +227,7 @@ These solutions are combinations of cloud providers and operating systems not co
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [k3s](https://k3s.io)
+* [Kubermatic](https://www.loodse.com/product/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubernetes on Ubuntu](https://www.ubuntu.com/kubernetes/docs/quickstart)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
@@ -251,6 +253,7 @@ Alibaba Cloud Container Service For Kubernetes | ROS        | CentOS | flannel/T
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 any                  | any          | any    | any         | [docs](/docs/setup/release/building-from-source/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
+any           |  Kubermatic            | multi-support | multi-support | [docs](http://docs.kubermatic.io/) | Commercial
 any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
 any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
@@ -279,7 +282,6 @@ IBM Cloud Kubernetes Service |               | Ubuntu | IBM Cloud Networking + C
 IBM Cloud Kubernetes Service | | Ubuntu | calico | [docs](https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index) | Commercial
 IBM Cloud Private  | Ansible  | multi-support  | multi-support  | [docs](https://www.ibm.com/support/knowledgecenter/SSBS6K/product_welcome_cloud_private.html) | [Commercial](https://www.ibm.com/mysupport/s/topic/0TO500000001o0fGAA/ibm-cloud-private?language=en_US&productId=01t50000004X1PWAA0) and [Community](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.1.2/troubleshoot/support_types.html) |
 Kublr                | custom       | multi-support | multi-support | [docs](http://docs.kublr.com/) | Commercial
-Kubermatic           |              | multi-support | multi-support | [docs](http://docs.kubermatic.io/) | Commercial
 KVM                  | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
 libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))
 lxd                  | Juju         | Ubuntu | flannel/canal            | [docs](https://www.ubuntu.com/kubernetes/docs/quickstart)              |  [Commercial](https://www.ubuntu.com/kubernetes) and [Community](https://jujucharms.com/kubernetes)
