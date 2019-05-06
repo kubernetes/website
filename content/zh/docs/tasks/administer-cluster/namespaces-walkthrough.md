@@ -100,7 +100,7 @@ are relaxed to enable agile development. -->
 <!-- The operations team would like to maintain a space in the cluster where they can enforce strict procedures on who can or cannot manipulate the set of
 Pods, Services, and Deployments that run the production site. -->
 
-运维团队希望在集群中维护一个空间，以便他们可以对谁可以或不可以操作运行生产站点的 Pods, Services, 和 Deployments 集执行严格的规程。
+运维团队希望在集群中维护一个空间，以便他们可以强制实施一些严格的规程，对谁可以或不可以操作运行生产站点的 Pods、Services 和 Deployments 集合进行控制。
 
 <!-- One pattern this organization could follow is to partition the Kubernetes cluster into two namespaces: development and production. -->
 
