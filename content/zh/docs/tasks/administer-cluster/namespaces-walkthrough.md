@@ -331,7 +331,7 @@ $ kubectl get pods
 
 <!-- Production likes to run cattle, so let's create some cattle pods. -->
 
-生产就如同放牛，让我们创建一些名为 cattle 的 Pods。
+生产环境需要运行 cattle，让我们创建一些名为 cattle 的 pods。
 
 ```shell
 $ kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
@@ -351,7 +351,7 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 
 <!-- At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace. -->
 
-此时，应该很清楚的展示了用户在一个命名空间中创建的资源对另一个命名空间是隐藏的。
+此时，应该很清楚的展示了用户在一个命名空间中创建的资源对另一个命名空间是不可见的。
 
 <!-- As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
 authorization rules for each namespace. -->
