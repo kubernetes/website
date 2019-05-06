@@ -89,7 +89,7 @@ Such approach gives you a lot of flexibility in adding new functionalities. It a
 
 ## Contribute and feedback
 
-Kyma is an open source project that we would love to drive it forward with you. After reading this post you already know we do not like to reinvent the wheel. We took the same approach when we were thinking about working model to enable community contributions. We work in [Special Interest Groups](
-https://github.com/kyma-project/community/tree/master/sig-and-wg) and have public recording meeting that you can join any time.
+Kyma is an open source project that we would love to drive forward with you. After reading this post you already know we do not like to reinvent the wheel. We took the same approach when we were thinking about working model to enable community contributions. We work in [Special Interest Groups](
+https://github.com/kyma-project/community/tree/master/sig-and-wg) and have public recording meeting that you can join any time, so we have a setup similar to what you know from Kubernetes itself.
 
 Feel free to share also your feedback with us, through [Twitter](https://twitter.com/kymaproject) or [Slack](http://slack.kyma-project.io).
