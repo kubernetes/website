@@ -322,7 +322,7 @@ $ kubectl config use-context prod
 
 <!-- The production namespace should be empty, and the following commands should return nothing. -->
 
-生产命名空间应该是空的，下列命令应该没有任何返回。
+production 命名空间应该是空的，下列命令应该返回的内容为空。
 
 ```shell
 $ kubectl get deployment
