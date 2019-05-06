@@ -112,7 +112,7 @@ Pods, Services, and Deployments that run the production site. -->
 
 <!-- Use the file [`namespace-dev.json`](/examples/admin/namespace-dev.json) which describes a development namespace: -->
 
-文件 [`namespace-dev.json`](/examples/admin/namespace-dev.json) 描述了开发命名空间:
+文件 [`namespace-dev.json`](/examples/admin/namespace-dev.json) 描述了 development 命名空间:
 
 {{< codenew language="json" file="admin/namespace-dev.json" >}}
 
