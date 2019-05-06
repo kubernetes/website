@@ -305,13 +305,13 @@ and private key to use for TLS, e.g.:
 
 ```yaml
 apiVersion: v1
-data:
-  tls.crt: base64 encoded cert
-  tls.key: base64 encoded key
 kind: Secret
 metadata:
   name: testsecret-tls
   namespace: default
+data:
+  tls.crt: base64 encoded cert
+  tls.key: base64 encoded key
 type: kubernetes.io/tls
 ```
 
