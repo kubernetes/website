@@ -38,7 +38,7 @@ content_template: templates/task
 <!-- The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd. The data is encrypted using a data encryption key (DEK); a new DEK is generated for each encryption. The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS. The KMS provider uses gRPC to communicate with a specific KMS 
 plugin. The KMS plugin, which is implemented as a gRPC server and deployed on the same host(s) as the Kubernetes master(s), is responsible for all communication with the remote KMS. -->
 
-KMS 加密提供商使用封套加密模型来加密 etcd 中的数据。数据使用数据加密秘钥（DEK）加密；每次加密都生成一个新的 DEK。这些 DEK 经一个秘钥加密秘钥（KEK）加密后在一个远端的 KMS 中存储和管理。KMS 提供商使用 gRPC 与一个特殊的 KMS 插件通信。这个 KMS 插件作为一个 gRPC 服务器被发布在 Kubernetes 主服务器的同一个主机上，负责与远端 KMS 的通信。
+KMS 加密提供商使用封套加密模型来加密 etcd 中的数据。数据使用数据加密秘钥（DEK）加密；每次加密都生成一个新的 DEK。这些 DEK 经一个秘钥加密秘钥（KEK）加密后在一个远端的 KMS 中存储和管理。KMS 提供商使用 gRPC 与一个特定的 KMS 插件通信。这个 KMS 插件作为一个 gRPC 服务器被部署在 Kubernetes 主服务器的同一个主机上，负责与远端 KMS 的通信。
 
 <!-- ## Configuring the KMS provider -->
 
@@ -58,7 +58,7 @@ KMS 加密提供商使用封套加密模型来加密 etcd 中的数据。数据�
 
 <!-- See [Understanding the encryption at rest configuration.](/docs/tasks/administer-cluster/encrypt-data) -->
 
-参见 [理解静态配置中的加密](/docs/tasks/administer-cluster/encrypt-data)
+参见 [理解静态数据加密配置](/docs/tasks/administer-cluster/encrypt-data)
 
 <!-- ## Implementing a KMS plugin -->
 
@@ -98,7 +98,7 @@ In response to procedure call Version, a compatible KMS plugin should return v1b
 
 * kms 插件版本：`v1beta1`
 
-响应过程调用版本，兼容的 KMS 插件应把 v1beta1 作为 VersionResponse.version 返回
+作为对过程调用 Version 的响应，兼容的 KMS 插件应把 v1beta1 作为 VersionResponse.version 返回
 
 <!-- * message version: `v1beta1`
 
@@ -239,8 +239,8 @@ kubectl get secrets --all-namespaces -o json| kubectl replace -f -
 
 <!-- ## Disabling encryption at rest
 To disable encryption at rest: -->
-## 安全禁用加密
-为了安全地禁用加密：
+## 禁用静态数据加密
+要禁用静态数据加密：
 
 <!-- 1. Place the `identity` provider as the first entry in the configuration file:  -->
 1. 将 `identity` 提供商作为配置文件中的第一个条目：
