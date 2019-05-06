@@ -1,4 +1,4 @@
 ---
-title: Custom Cloud Solutions
+title: Пользовательские облачные решения
 weight: 50
 ---

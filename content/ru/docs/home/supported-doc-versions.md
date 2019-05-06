@@ -1,27 +1,26 @@
 ---
-title: Supported Versions of the Kubernetes Documentation
+title: Версии Kubernetes с поддержкой документации 
 content_template: templates/concept
 card:
   name: about
   weight: 10
-  title: Supported Versions of the Documentation
+  title: Версии с поддержкой документации
 ---
 
 {{% capture overview %}}
 
-This website contains documentation for the current version of Kubernetes
-and the four previous versions of Kubernetes.
+На сайте можно найти документацию для текущей и четырёх прошлых версий Kubernetes.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Current version
+## Текущая версия
 
-The current version is
+Текущая версия:
 [{{< param "version" >}}](/).
 
-## Previous versions
+##Предыдущие версии
 
 {{< versions-other >}}
 

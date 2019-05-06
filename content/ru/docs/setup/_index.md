@@ -4,7 +4,7 @@ reviewers:
 - erictune
 - mikedanese
 no_issue: true
-title: Setup
+title: Настройка
 main_menu: true
 weight: 30
 content_template: templates/concept
@@ -12,84 +12,73 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Use this page to find the type of solution that best fits your needs.
+Используйте информацию на этой странице, чтобы найти наиболее подходящее для вас решение по установке и настройке.
 
-Deciding where to run Kubernetes depends on what resources you have available 
-and how much flexibility you need. You can run Kubernetes almost anywhere, 
-from your laptop to VMs on a cloud provider to a rack of bare metal servers. 
-You can also set up a fully-managed cluster by running a single command or craft 
-your own customized cluster on your bare metal servers.
+Решение о том, как запускать Kubernetes, зависит от доступных ресурсов и необходимого уровня гибкости использования. Запуск Kubernetes возмомжен практически на чём угодно, от вашего ноутбука или виртуальных машины у облачного провайдера и до физических серверов. Решения позволяют как настроить полностью управляемый кластер запуском единственной команды так и создать пользовательский кластер на физических серверах. 
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Local-machine Solutions
+## Решения для запуска на локальной машине
 
-A local-machine solution is an easy way to get started with Kubernetes. You
-can create and test Kubernetes clusters without worrying about consuming cloud
-resources and quotas.
+Запуск на локальной машине позволяет легко начать работу с Kubernetes. Можно создавать и тестировать кластер Kubernetes не беспокоясь о трате облачных ресурсов и квотах.
 
-You should pick a local solution if you want to:
+Вам следует выбрать запуск на локальной машине, если вы:
 
-* Try or start learning about Kubernetes
-* Develop and test clusters locally
+* Пробуете или начинаете работу с Kubernetes
+* Локально разрабатываете и тестируете кластер
 
-Pick a [local-machine solution](/docs/setup/pick-right-solution/#local-machine-solutions).
+Выбрать [решение для запуска на локальной машине](/docs/setup/pick-right-solution/#local-machine-solutions).
 
-## Hosted Solutions
+## Управляемые решения
 
-Hosted solutions are a convenient way to create and maintain Kubernetes clusters. They 
-manage and operate your clusters so you don’t have to.  
+Управляемые решения позволяют надёжно и удобно создавать и поддерживать кластеры Kubernetes. Они настраивают и управляют кластером самостоятельно, не требуя ручного вмешательства.  
 
-You should pick a hosted solution if you:
+Вам следует выбрать управляемое решение, если вы:
 
-* Want a fully-managed solution
-* Want to focus on developing your apps or services  
-* Don’t have dedicated site reliability engineering (SRE) team but want high availability
-* Don't have resources to host and monitor your clusters 
+* Хотите получить полностью самоуправляемое решение
+* Хотите сконцентрироваться на разработке собственных приложений или сервисов  
+* Хотите получить высокую доступность, но у вас нет выделенной команды по обеспечению надёжности прилодения (SRE).
+* Не имеете ресурсов для размещения и мониторинга собственных кластеров
 
-Pick a [hosted solution](/docs/setup/pick-right-solution/#hosted-solutions).
+Выбрать [управляемое решениеы](/docs/setup/pick-right-solution/#hosted-solutions).
 
-## Turnkey – Cloud Solutions
+## Облачные решения "под ключ"
 
 
-These solutions allow you to create Kubernetes clusters with only a few commands and 
+Такие решения озволяют создавать кластеры Kubernetes с помощью небольшого количества команд. Эти решения имеют большую поддежку сообществом и активно развиваются. Они могут быть размещены на разнообразных IaaS облачных провайдерах, при этом предлагая большую свободу и гибкость в обмен на приложенные усилия. (These solutions allow you to create Kubernetes clusters with only a few commands and 
 are actively developed and have active community support. They can also be hosted on 
 a range of Cloud IaaS providers, but they offer more freedom and flexibility in 
-exchange for effort. 
+exchange for effort. )
 
-You should pick a turnkey cloud solution if you:
+Вам следует выбрать облачное решение "под ключ", если вы":
 
-* Want more control over your clusters than the hosted solutions allow
-* Want to take on more operations ownership 
+* Хотите получить больший контроль над кластерами, чем позволяют размещённые решения
+* Хотите получить больше контроля над оперциями Want to take on more operations ownership 
 
-Pick a [turnkey cloud solution](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
+Выбрать [облачное решение "под ключ"](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
 
-## Turnkey – On-Premises Solutions
+## Местное резервное решение "под ключ"
 
-These solutions allow you to create Kubernetes clusters on your internal, secure,
-cloud network with only a few commands.
+Такие решения позволяют с помощью небольшого количества команд создавать кластеры Kubernetes в ваших внутренних, защищённых облачных сетях.
 
-You should pick a on-prem turnkey cloud solution if you:
+Вам следует выбрать местное резервное решение "под ключ", если:
 
-* Want to deploy clusters on your private cloud network
-* Have a dedicated SRE team
-* Have the resources to host and monitor your clusters
+* Вы хотите развернуть кластер в приватной облачной сети
+* У вас есть выделенная команда SRE специалистов
+* У вас есть ресурсы для размещения и мониторинга собственных кластеров
 
-Pick an [on-prem turnkey cloud solution](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions).
+Выбрать [местное резервное решение "под ключ"](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions).
 
-## Custom Solutions
+## Пользовательские решения
 
-Custom solutions give you the most freedom over your clusters but require the 
-most expertise. These solutions range from bare-metal to cloud providers on 
-different operating systems.
+Пользовательские решения позволяют достичь наибольшей свободы в управлении кластерами, но при этом требуют наибольшей экспертизы. Можно найти такие решения как для размещения на физических серверах, так и у облачных провайдеров на разных операционных системах.
 
-Pick a [custom solution](/docs/setup/pick-right-solution/#custom-solutions).
+Выбрать [пользовательское решение](/docs/setup/pick-right-solution/#custom-solutions).
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Go to [Picking the Right Solution](/docs/setup/pick-right-solution/) for a complete
-list of solutions.
+Перейти к [выбору подходящего решения](/docs/setup/pick-right-solution/), чтобы ознакомить с полным списком доступных решений.
 {{% /capture %}}

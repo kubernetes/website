@@ -4,10 +4,10 @@ content_template: templates/tutorial
 weight: 5
 menu:
   main:
-    title: "Get Started"
+    title: "Начало"
     weight: 10
     post: >
-      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
+      <p>Готовы испачкать руки? Создайте простой кластер Kubernetes с запуском "Hello World" на Node.js</p>
 card: 
   name: tutorials
   weight: 10
@@ -15,55 +15,54 @@ card:
 
 {{% capture overview %}}
 
-This tutorial shows you how to run a simple Hello World Node.js app
-on Kubernetes using [Minikube](/docs/getting-started-guides/minikube) and Katacoda.
-Katacoda provides a free, in-browser Kubernetes environment. 
+В этом уроке вы познакомитесе с запуском в Лгиуктуеуы простого Hello World приложения на Node.js с использованием [Minikube](/docs/getting-started-guides/minikube) и Katacoda.
+Katacoda предоставляес бесплатное внутрибраузерное окружение Kubernetes. 
 
 {{< note >}}
-You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
+Также вы можете начать работу установив [Minikube локально](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
 {{% /capture %}}
 
 {{% capture objectives %}}
 
-* Deploy a hello world application to Minikube.
-* Run the app.
-* View application logs.
+* Развёртывание hello world приложение в Minikube.
+* Запуск приложения.
+* Просмотр логов приложения.
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-This tutorial provides a container image built from the following files:
+Для этого примера создан образ контейнера, собранный на основе следующих файлов:
 
 {{< codenew language="js" file="minikube/server.js" >}}
 
 {{< codenew language="conf" file="minikube/Dockerfile" >}}
 
-For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
+Чтобы получить больше информации по запуску команды `docker build`, ознакомьтесь с [документацией по Docker](https://docs.docker.com/engine/reference/commandline/build/).
 
 {{% /capture %}}
 
 {{% capture lessoncontent %}}
 
-## Create a Minikube cluster
+## Создание кластера Minikube
 
-1. Click **Launch Terminal** 
+1. Нажмите **Запуск Терминала** 
 
     {{< kat-button >}}
 
-    {{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
+    {{< note >}}Если у вас локально установлен Minikube, выполните `minikube start`.{{< /note >}}
 
-2. Open the Kubernetes dashboard in a browser:
+2. Откройте панель Kubernetes в браузере:
 
     ```shell
     minikube dashboard
     ```
 
-3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
+3. Только для окружения Katacoda: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
 
-4. Katacoda environment only: Type `30000`, and then click **Display Port**. 
+4. Только для окружения Katacoda: Type `30000`, and then click **Display Port**. 
 
 ## Create a Deployment
 

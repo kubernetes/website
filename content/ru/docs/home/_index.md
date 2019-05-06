@@ -1,7 +1,7 @@
 ---
 approvers:
 - chenopis
-title: Kubernetes Documentation
+title: Документация по Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home
@@ -12,47 +12,47 @@ weight: 10
 hide_feedback: true
 menu:
   main:
-    title: "Documentation"
+    title: "Документация"
     weight: 20
     post: >
-      <p>Learn how to use Kubernetes with conceptual, tutorial, and reference documentation. You can even <a href="/editdocs/" data-auto-burger-exclude>help contribute to the docs</a>!</p>
+      <p>Научитесь использованию Kubernetes и узнайте основные понятия, изучите примеры и справочную информацию. Также вы можете<a href="/editdocs/" data-auto-burger-exclude>помочь в создании документации</a>!</p>
 overview: >
-  Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
+  Kubernetes - это открытое програмное обеспечение для автоматизации развёртывания, масштабирования и управления контейнеризированными приложениями. Проект находится под управлением Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:
 - name: concepts
-  title: "Understand the basics"
-  description: "Learn about Kubernetes and its fundamental concepts."
-  button: "Learn Concepts"
+  title: "Основы"
+  description: "Узнайте о Kubernetes и его фундаментальных концепциях."
+  button: "Перейти к изучению концепций"
   button_path: "/docs/concepts"
 - name: tutorials
-  title: "Try Kubernetes"
-  description: "Follow tutorials to learn how to deploy applications in Kubernetes."
-  button: "View Tutorials"
+  title: "Попробуйте Kubernetes"
+  description: "Пройдите серию уроков чтобы узнать, как развернуть приложение в Kubernetes."
+  button: "Перейти к просмотру уроков"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "Set up a cluster"
-  description: "Get Kubernetes running based on your resources and needs."
-  button: "Set up Kubernetes"
+  title: "Настройка кластера"
+  description: Запустите Kubernetes с требуемыми ресурсами."
+  button: "Перейти к настройке Kubernetes"
   button_path: "/docs/setup"
 - name: tasks
-  title: "Learn how to use Kubernetes"
-  description: "Look up common tasks and how to perform them using a short sequence of steps."
-  button: "View Tasks"
+  title: "Узнайте об использовании Kubernetes"
+  description: "Обзор общих решений и эффективных путей их реализации."
+  button: "Перейти к просмотру задач"
   button_path: "/docs/tasks"
 - name: reference
-  title: Look up reference information
-  description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
-  button: View Reference
+  title: Просмотр справочной информации
+  description: Обзор терминологии, синтаксиса командной строки, типов ресурсов API и документации по настройке инструментов.
+  button: Прейти к просмотру справочной информации
   button_path: /docs/reference
 - name: contribute
-  title: Contribute to the docs
-  description: Anyone can contribute, whether you’re new to the project or you’ve been around a long time.
-  button: Contribute to the docs
+  title: Внести вклад в документацию
+  description: Внести свой вклад может любой человек, как начинающий, так и тот, кто уже давно пользуется продуктом.
+  button: Внести свой вклад в документацию
   button_path: /docs/contribute
 - name: download
-  title: Download Kubernetes
-  description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
+  title: Загрузка Kubernetes
+  description: Если вы хотите установить Kubernetes или обновить Kubernetes до последней версии, обратитесь к списку актуальных версий.
 - name: about
-  title: About the documentation
-  description: This website contains documentation for the current and previous 4 versions of Kubernetes.
+  title: О документации
+  description: На сайте можно найти документацию для текущей и четырёх прошлых версий Kubernetes.
 ---
