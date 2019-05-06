@@ -203,7 +203,7 @@ lithe-cocoa-92103_kubernetes
 
 <!-- The next step is to define a context for the kubectl client to work in each namespace. The value of "cluster" and "user" fields are copied from the current context. -->
 
-下一步是为 kubectl 客户端定义一个上下文，以便在每个命名空间中工作。 “cluster”和“user”字段的值将从当前上下文中复制。
+下一步是为 kubectl 客户端定义一个上下文，以便在每个命名空间中工作。"cluster" 和 "user" 字段的值将从当前上下文中复制。
 
 ```shell
 $ kubectl config set-context dev --namespace=development \
