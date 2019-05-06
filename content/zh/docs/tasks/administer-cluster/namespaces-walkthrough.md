@@ -295,7 +295,7 @@ $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
 If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) for more details. -->
 
-我们刚刚创建了一个副本大小为2的部署，该部署运行名为 snowflake 的 pod，其中包含一个仅提供主机名服务的基本容器。请注意，`kubectl run` 仅在 Kubernetes 集群版本 >= v1.2 时创建部署。如果您运行在旧版本上，则会创建复制控制器。如果要获取旧行为，请使用 `--generator=run/v1` 创建复制控制器。 参见 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 获取更多细节。
+我们刚刚创建了一个副本大小为2的 deployment，该 deployment 运行名为 snowflake 的 pod，其中包含一个仅提供主机名服务的基本容器。请注意，`kubectl run` 仅在 Kubernetes 集群版本 >= v1.2 时创建 deployment。如果您运行在旧版本上，则会创建 replication controller。如果期望执行旧版本的行为，请使用 `--generator=run/v1` 创建 replication controller。 参见 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 获取更多细节。
 
 ```shell
 $ kubectl get deployment
