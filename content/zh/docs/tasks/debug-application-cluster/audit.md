@@ -9,8 +9,6 @@ title: Auditing
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
-
 <!--
 Kubernetes auditing provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators
