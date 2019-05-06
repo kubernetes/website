@@ -76,12 +76,12 @@ aliases:
     - rlenferink
     - lledru
     - micheleberardi
-  sig-docs-ja-owners: # Admins for Japanese content
+  sig-docs-ja-owners: # Admins for Japanese content 
     - cstoku
     - nasa9084
     - tnir
     - zacharysarah
-  sig-docs-ja-reviews: # PR reviews for Italian content
+  sig-docs-ja-reviews: # PR reviews for Italian content 
     - cstoku
     - makocchi-git
     - MasayaAoyama
@@ -125,14 +125,13 @@ aliases:
     - zacharysarah
     - zhangxiaoyu-zidif
   sig-docs-zh-reviews: # PR reviews for Chinese content
-    - AdamDang
     - chenrui333
     - idealhack
     - markthink
-    - Mr-Linus
     - SataQiu
     - tengqm
     - xiangpengzhao
     - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
+  
