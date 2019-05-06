@@ -26,8 +26,8 @@ content_template: templates/task
 <!-- * Have an [existing Kubernetes cluster](/docs/setup/).
 * Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_. -->
 
-* 拥有一个 [已配置好的 Kubernetes 集群](/docs/setup/)。
-* 已对 Kubernetes 的 _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_ 有基本理解。
+* 您已拥有一个 [配置好的 Kubernetes 集群](/docs/setup/)。
+* 您已对 Kubernetes 的 _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, 和 _[Deployments](/docs/concepts/workloads/controllers/deployment/)_ 有基本理解。
 
 {{% /capture %}}
 
@@ -187,7 +187,7 @@ Services, and Deployments used by the cluster. -->
 
 1. 理解默认命名空间
 
-默认的，Kubernetes 集群会在配置集群时实例化一个默认命名空间，以保留集群使用的默认 Pods, Services, 和 Deployments 集。
+默认情况下，Kubernetes 集群会在配置集群时实例化一个默认命名空间，用以存放集群所使用的默认 Pods、Services 和 Deployments 集合。
 
 <!-- Assuming you have a fresh cluster, you can introspect the available namespace's by doing the following: -->
 
@@ -209,22 +209,22 @@ default   Active    13m
 
 <!-- In a scenario where an organization is using a shared Kubernetes cluster for development and production use cases: -->
 
-在组织使用共享 Kubernetes 集群进行开发和生产用例的情况下：
+在某组织使用共享的 Kubernetes 集群进行开发和生产的场景中：
 
 <!-- The development team would like to maintain a space in the cluster where they can get a view on the list of Pods, Services, and Deployments
 they use to build and run their application.  In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify resources
 are relaxed to enable agile development. -->
 
-开发团队希望在集群中维护一个空间，以便他们可以查看用于构建和运行其应用程序的 Pods, Services, 和 Deployments 列表。在这个空间里，Kubernetes 资源被自由的加入或移除，对谁能够或不能修改资源的限制被放宽，以实现敏捷开发。
+开发团队希望在集群中维护一个空间，以便他们可以查看用于构建和运行其应用程序的 Pods、Services 和 Deployments 列表。在这个空间里，Kubernetes 资源被自由地加入或移除，对谁能够或不能修改资源的限制被放宽，以实现敏捷开发。
 
 <!-- The operations team would like to maintain a space in the cluster where they can enforce strict procedures on who can or cannot manipulate the set of
 Pods, Services, and Deployments that run the production site. -->
 
-运维团队希望在集群中维护一个空间，以便他们可以对谁可以或不可以操作运行生产站点的 Pods, Services, 和 Deployments 集执行严格的规程。
+运维团队希望在集群中维护一个空间，以便他们可以强制实施一些严格的规程，对谁可以或不可以操作运行生产站点的 Pods、Services 和 Deployments 集合进行控制。
 
 <!-- One pattern this organization could follow is to partition the Kubernetes cluster into two namespaces: development and production. -->
 
-该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个命名空间：开发和生产。
+该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个命名空间：development 和 production。
 
 <!-- Let's create two new namespaces to hold our work. -->
 
@@ -232,13 +232,13 @@ Pods, Services, and Deployments that run the production site. -->
 
 <!-- Use the file [`namespace-dev.json`](/examples/admin/namespace-dev.json) which describes a development namespace: -->
 
-文件 [`namespace-dev.json`](/examples/admin/namespace-dev.json) 描述了开发命名空间:
+文件 [`namespace-dev.json`](/examples/admin/namespace-dev.json) 描述了 development 命名空间:
 
 {{< codenew language="json" file="admin/namespace-dev.json" >}}
 
 <!-- Create the development namespace using kubectl. -->
 
-使用 kubectl 创建开发命名空间。
+使用 kubectl 创建 development 命名空间。
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
@@ -246,7 +246,7 @@ $ kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
 
 <!-- And then let's create the production namespace using kubectl. -->
 
-让我们使用 kubectl 创建生产命名空间。
+让我们使用 kubectl 创建 production 命名空间。
 
 ```shell
 $ kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
@@ -272,13 +272,13 @@ production    Active    23s       name=production
 
 Users interacting with one namespace do not see the content in another namespace.-->
 
-Kubernetes 命名空间为集群中的 Pods, Services, 和 Deployments 提供了边界。
+Kubernetes 命名空间为集群中的 Pods、Services 和 Deployments 提供了作用域。
 
-与一个命名空间交互的用户不会在另一个命名空间中看到该内容。
+与一个命名空间交互的用户不会看到另一个命名空间中的内容。
 
 <!-- To demonstrate this, let's spin up a simple Deployment and Pods in the development namespace. -->
 
-为了演示这一点，让我们在开发命名空间中启动一个简单的 Deployment 和 Pod。
+为了演示这一点，让我们在 development 命名空间中启动一个简单的 Deployment 和 Pod。
 
 <!-- We first check what is the current context: -->
 
@@ -317,7 +317,7 @@ lithe-cocoa-92103_kubernetes
 
 <!-- The next step is to define a context for the kubectl client to work in each namespace. The values of "cluster" and "user" fields are copied from the current context. -->
 
-下一步是为 kubectl 客户端定义一个上下文，以便在每个命名空间中工作。 “cluster”和“user”字段的值将从当前上下文中复制。
+下一步是为 kubectl 客户端定义一个上下文，以便在每个命名空间中工作。"cluster" 和 "user" 字段的值将从当前上下文中复制。
 
 ```shell
 $ kubectl config set-context dev --namespace=development --cluster=lithe-cocoa-92103_kubernetes --user=lithe-cocoa-92103_kubernetes
@@ -331,7 +331,7 @@ wish to work against. -->
 
 <!-- Let's switch to operate in the development namespace. -->
 
-让我们切换到开发命名空间进行操作。
+让我们切换到 development 命名空间进行操作。
 
 ```shell
 $ kubectl config use-context dev
@@ -348,7 +348,7 @@ dev
 
 <!-- At this point, all requests we make to the Kubernetes cluster from the command line are scoped to the development namespace. -->
 
-此时，我们从命令行向 Kubernetes 集群发出的所有请求都限定在开发命名空间中。
+此时，我们从命令行向 Kubernetes 集群发出的所有请求都限定在 development 命名空间中。
 
 <!-- Let's create some contents. -->
 
@@ -361,7 +361,7 @@ $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
 If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) for more details. -->
 
-我们刚刚创建了一个副本大小为2的部署，该部署运行名为 snowflake 的 pod，其中包含一个仅提供主机名服务的基本容器。请注意，`kubectl run` 仅在 Kubernetes 集群版本 >= v1.2 时创建部署。如果您运行在旧版本上，则会创建复制控制器。如果要获取旧行为，请使用 `--generator=run/v1` 创建复制控制器。 参见 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 获取更多细节。
+我们刚刚创建了一个副本大小为2的 deployment，该 deployment 运行名为 snowflake 的 pod，其中包含一个仅提供主机名服务的基本容器。请注意，`kubectl run` 仅在 Kubernetes 集群版本 >= v1.2 时创建 deployment。如果您运行在旧版本上，则会创建 replication controllers。如果期望执行旧版本的行为，请使用 `--generator=run/v1` 创建 replication controllers。 参见 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 获取更多细节。
 
 ```shell
 $ kubectl get deployment
@@ -376,11 +376,11 @@ snowflake-3968820950-vgc4n   1/1       Running   0          2m
 
 <!-- And this is great, developers are able to do what they want, and they do not have to worry about affecting content in the production namespace. -->
 
-这很棒，开发人员可以做他们想要的事情，而不必担心影响生产命名空间中的内容。
+这很棒，开发人员可以做他们想要的事情，而不必担心影响 production 命名空间中的内容。
 
 <!-- Let's switch to the production namespace and show how resources in one namespace are hidden from the other. -->
 
-让我们切换到生产命名空间，展示一个命名空间中的资源如何从另一个命名空间中隐藏。
+让我们切换到 production 命名空间，展示一个命名空间中的资源如何对另一个命名空间不可见。
 
 ```shell
 $ kubectl config use-context prod
@@ -388,7 +388,7 @@ $ kubectl config use-context prod
 
 <!-- The production namespace should be empty, and the following commands should return nothing. -->
 
-生产命名空间应该是空的，下列命令应该没有任何返回。
+production 命名空间应该是空的，下列命令应该返回的内容为空。
 
 ```shell
 $ kubectl get deployment
@@ -397,7 +397,7 @@ $ kubectl get pods
 
 <!-- Production likes to run cattle, so let's create some cattle pods. -->
 
-生产环境需要运行 cattle，就让我们创建一些 cattle pods。
+生产环境需要运行 cattle，让我们创建一些名为 cattle 的 pods。
 
 ```shell
 $ kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
@@ -445,10 +445,10 @@ Kubernetes _命名空间_ 帮助不同的项目、团队或客户去共享 Kuber
 1. A scope for [Names](/docs/concepts/overview/working-with-objects/names/).
 2. A mechanism to attach authorization and policy to a subsection of the cluster. -->
 
-它是通过以下内容实现的:
+名字空间通过以下方式实现这点：
 
-1. [命名](/docs/concepts/overview/working-with-objects/names/) 边界.
-2. 将授权和策略附加到群集子节点的机制。
+1. 为[名字](/docs/concepts/overview/working-with-objects/names/) 设置作用域.
+2. 为集群中的部分资源关联鉴权和策略的机制。
 
 <!-- Use of multiple namespaces is optional. -->
 
@@ -480,7 +480,7 @@ Kubernetes _命名空间_ 帮助不同的项目、团队或客户去共享 Kuber
 2. delegated management authority to trusted users
 3. ability to limit community resource consumption -->
 
-命名空间为下列内容提供唯一的边界：
+命名空间为下列内容提供唯一的作用域：
 
 1. 命名资源（避免基本的命名冲突）
 2. 将管理权限委派给可信用户
@@ -514,7 +514,7 @@ is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN). -->
 
-当您创建 [服务](/docs/concepts/services-networking/service/) 时，它会创建相应的 [DNS 条目](/docs/concepts/services-networking/dns-pod-service/)。此条目的格式为`<service-name>。<namespace-name> .svc.cluster.local`，这意味着如果容器只使用`<service-name>`，它将解析为本地服务到命名空间。 这对于在多个命名空间（如开发，分段和生产）中使用相同的配置非常有用。 如果要跨命名空间访问，则需要使用完全限定的域名（FQDN）。
+当您创建 [Service](/docs/concepts/services-networking/service/) 时，它会创建相应的 [DNS 条目](/docs/concepts/services-networking/dns-pod-service/)。此条目的格式为`<service-name>。<namespace-name> .svc.cluster.local`，这意味着如果容器只使用`<service-name>`，它将解析为本地服务到命名空间。 这对于在多个命名空间（如开发，暂存和生产）中使用相同的配置非常有用。 如果要跨命名空间访问，则需要使用完全限定的域名（FQDN）。
 
 {{% /capture %}}
 
