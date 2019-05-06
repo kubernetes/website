@@ -209,7 +209,7 @@ spec:
 status:
   conditions:
     - type: Ready  # this is a builtin PodCondition
-      status: "True"
+      status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
     - type: "www.example.com/feature-1"   # an extra PodCondition
