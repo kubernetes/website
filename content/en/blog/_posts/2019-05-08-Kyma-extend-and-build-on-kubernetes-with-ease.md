@@ -12,9 +12,24 @@ date: 2019-05-08
 
 Now, once you understand Kubernetes, your teams are trained, start building apps on top. You face another difficulty. Cloud Native is not just PaaS solution. Writing an application is the easiest part really, but what about logging? monitoring? tracing? alerting? service mesh? storage?. These are all the questions you need to answer, and you need to perform a proper investigation that takes time. CNCFs helps here a lot by providing a [landscape](https://landscape.cncf.io/) of all the cloud native technologies, but the list is huge and overwhelming. 
 
-Kyma simplifies you life here. Kyma mission statement is to enable flexible and easy way of extending applications. It may sound pretty generic, but we know what hides behind such a statement, we know what you need, to be able to write a production ready solution from end to end. Kyma is donated to open source community by [SAP](https://www.sap.com), by people with experience in writing production grade clound native applications. Most important is that Kyma 1.0 release is already out there https://twitter.com/kymaproject/status/1121426458243678209
+Kyma simplifies you life here. It's mission statement is to enable flexible and easy way of extending applications. 
+
+<img src="/images/blog/2019-05-08-Kyma-extend-and-build-on-kubernetes-with-ease/kyma-center.png" width="70%" alt="Kyma in center" />
+
+It may sound pretty generic, but we know what hides behind such a statement, we know what you need, to be able to write a production ready solution from end to end. Kyma is donated to open source community by [SAP](https://www.sap.com), by people with experience in writing production grade clound native applications. And guess what, we just reached our first major release, Kyma 1.0 release is already out there https://twitter.com/kymaproject/status/1121426458243678209.
 
 ## How Kyma helps 
+
+You first need to understand what Kyma is. Kyma runs on top of Kubernetes and consists of a number of different component where the 3 key components are:
+* Application connector that you can use to connect any application with a Kubernetes cluster and expose its APIs and Events through the Kubernetes Service Catalog.
+* Serverless that enables you to easily write extensions for your application. You function code can be triggered by API calls and also by event comming from external system. You can also securely call back the integrated system from your function.
+* Service Catalog is here not only to expose integrated systems. This integration also enables you to use services from hyperscalers like Azure or Google Cloud. Kyma contains easy integration of official service brokers maintained by Microsoft and Google.
+
+![core components](/images/blog/2019-05-08-Kyma-extend-and-build-on-kubernetes-with-ease/ac-s-sc.svg)
+
+You can provide such extensibility only if it is properly monitored and configured. We decided to follow here a rule to not reinvent the wheel. There are so many great project in the CNCF landscape with huge communities behind them, we decided to pick them and glue them all together in Kyma. You can see the same architecture diagram that is above but with clear visibility of what projects we glued inside Kyma:
+
+<img src="/images/blog/2019-05-08-Kyma-extend-and-build-on-kubernetes-with-ease/arch.png" width="70%" alt="Kyma architecture" />
 
 Kyma solves that issue, provides all tools glued together with 3 core concepts
 
