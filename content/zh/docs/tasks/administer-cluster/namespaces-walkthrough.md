@@ -104,7 +104,7 @@ Pods, Services, and Deployments that run the production site. -->
 
 <!-- One pattern this organization could follow is to partition the Kubernetes cluster into two namespaces: development and production. -->
 
-该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个命名空间：开发和生产。
+该组织可以遵循的一种模式是将 Kubernetes 集群划分为两个命名空间：development 和 production。
 
 <!-- Let's create two new namespaces to hold our work. -->
 
