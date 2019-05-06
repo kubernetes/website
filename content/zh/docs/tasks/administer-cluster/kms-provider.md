@@ -27,7 +27,7 @@ content_template: templates/task
 
 <!-- * etcd v3 or later is required -->
 
-* 需要 etcd v3 版或更新
+* 需要 etcd v3 或更新版本
 
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
