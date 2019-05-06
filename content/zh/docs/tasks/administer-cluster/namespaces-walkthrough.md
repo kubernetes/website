@@ -282,7 +282,7 @@ dev
 
 <!-- At this point, all requests we make to the Kubernetes cluster from the command line are scoped to the development namespace. -->
 
-此时，我们从命令行向 Kubernetes 集群发出的所有请求都限定在开发命名空间中。
+此时，我们从命令行向 Kubernetes 集群发出的所有请求都限定在 development 命名空间中。
 
 <!-- Let's create some contents. -->
 
