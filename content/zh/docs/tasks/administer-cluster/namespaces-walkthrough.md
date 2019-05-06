@@ -67,7 +67,7 @@ Services, and Deployments used by the cluster. -->
 
 1. 理解默认命名空间
 
-默认的，Kubernetes 集群会在配置集群时实例化一个默认命名空间，以保留集群使用的默认 Pods, Services, 和 Deployments 集。
+默认情况下，Kubernetes 集群会在配置集群时实例化一个默认命名空间，用以存放集群所使用的默认 Pods、Services 和 Deployments 集合。
 
 <!-- Assuming you have a fresh cluster, you can inspect the available namespaces by doing the following: -->
 
