@@ -2,7 +2,7 @@
 reviewers:
 - tallclair
 - dchen1107
-title: RuntimeClass
+title: Runtime Class
 content_template: templates/concept
 weight: 20
 ---
@@ -15,11 +15,10 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 
 {{% /capture %}}
 
-{{< toc >}}
 
 {{% capture body %}}
 
-## RuntimeClass
+## Runtime Class
 
 RuntimeClass is an alpha feature for selecting the container runtime configuration to use to run a
 pod's containers.
@@ -37,18 +36,19 @@ the RuntimeClass feature:
 #### 1. Enable the RuntimeClass feature gate
 
 See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation
-of enabling feature gates. The RuntimeClass feature gate must be enabled on apiservers _and_ kubelets.
+of enabling feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _and_
+kubelets.
 
 #### 2. Install the RuntimeClass CRD
 
-The RuntimeClass [CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/] (CRD) can be found in the addons directory of the
-Kubernetes git repo:
-
-https://github.com/kubernetes/kubernetes/tree/release-1.12/cluster/addons/runtimeclass/runtimeclass_crd.yaml
+The RuntimeClass [CustomResourceDefinition][] (CRD) can be found in the addons directory of the
+Kubernetes git repo: [kubernetes/cluster/addons/runtimeclass/runtimeclass_crd.yaml][runtimeclass_crd]
 
 Install the CRD with `kubectl apply -f runtimeclass_crd.yaml`.
 
-[CustomResourceDefinition][/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/]
+[CustomResourceDefinition]: /docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/
+[runtimeclass_crd]: https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/runtimeclass/runtimeclass_crd.yaml
+
 
 #### 3. Configure the CRI implementation on nodes
 
@@ -59,12 +59,12 @@ feature, not all CRIs support multiple RuntimeClasses yet.
 {{< note >}}
 RuntimeClass currently assumes a homogeneous node configuration across the cluster
 (which means that all nodes are configured the same way with respect to container runtimes). Any heterogeneity (varying configurations) must be
-managed independently of RuntimeClass through scheduling features
-(see [Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/)).
+managed independently of RuntimeClass through scheduling features (see [Assigning Pods to
+Nodes](/docs/concepts/configuration/assign-pod-node/)).
 {{< /note >}}
 
 The configurations have a corresponding `RuntimeHandler` name, referenced by the RuntimeClass. The
-RuntimeHandler must be a valid DNS-1123 subdomain (alpha-numeric characters, `-`, or `.`).
+RuntimeHandler must be a valid DNS 1123 subdomain (alpha-numeric + `-` and `.` characters).
 
 #### 4. Create the corresponding RuntimeClass resources
 
@@ -82,7 +82,7 @@ metadata:
   name: myclass  # The name the RuntimeClass will be referenced by
   # RuntimeClass is a non-namespaced resource
 spec:
-  runtimeHandler: myconfiguration  # The name of the correpsonding CRI configuration
+  runtimeHandler: myconfiguration  # The name of the corresponding CRI configuration
 ```
 
 
