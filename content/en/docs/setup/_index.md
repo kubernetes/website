@@ -42,7 +42,7 @@ If you want to get familiar with Kubernetes, you can use the Docker-based soluti
 
 The production environment solutions diagram lists the possible abstractions of a Kubernetes cluster and the level of expertise involved in managing the operations of a cluster.
 
-Production environment solutions![Production environment solutions](https://github.com/Rajakavitha1/Images/blob/master/KubernetesSolutions.svg)
+Production environment solutions![Production environment solutions](/images/docs/KubernetesSolutions.svg)
 
 
  
