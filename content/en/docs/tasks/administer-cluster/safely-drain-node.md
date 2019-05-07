@@ -10,7 +10,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 This page shows how to safely drain a machine, respecting the application-level
-disruption SLOs you have specified using PodDisruptionBudget.
+disruption SLOs (Service-Level Objectives) you have specified using PodDisruptionBudget.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
