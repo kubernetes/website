@@ -19,7 +19,7 @@ Objek-objek Kubernetes adalah entitas persisten di dalam sistem Kubernetes.
 Kubernetes menggunakan entitas ini untuk merepresentasikan _state_ yang ada pada 
 kluster kamu. Secara spesifik, hal itu dapat dideskripsikan sebagai:
 
-* Aplikasi-aplikasi terkontainerisasi apa sajakah yang sedang dijalankan (serta pada _node_ apa aplikasi tersebut dijalankan)
+* Aplikasi-aplikasi kontainer apa sajakah yang sedang dijalankan (serta pada _node_ apa aplikasi tersebut dijalankan)
 * _Resource_ yang tersedia untuk aplikasi tersebut
 * _Policy_ yang mengatur bagaimana aplikasi tersebut dijalankan, misalnya _restart_, _upgrade_, dan _fault-tolerance_.
 
@@ -31,7 +31,7 @@ dengan kata lain ini merupakan definisi _state_ kluster yang kamu inginkan.
 
 Untuk menggunakan objek-objek Kubernetes--baik membuat, mengubah, atau menghapus objek-objek tersebut--kamu 
 harus menggunakan [API Kubernetes](/docs/concepts/overview/kubernetes-api/). 
-Ketika kamu menggunakan perintah _kubectl_, perintah ini akan melakukan _API call_ untuk perintah 
+Ketika kamu menggunakan perintah `kubectl`, perintah ini akan melakukan _API call_ untuk perintah 
 yang kamu berikan. Kamu juga dapat menggunakan API Kubernetes secara langsung pada program yang kamu miliki 
 menggunakan salah satu [_library_ klien](/docs/reference/using-api/client-libraries/) yang disediakan.
 
@@ -58,8 +58,8 @@ Informasi lebih lanjut mengenai _spec_ objek, status, dan _metadata_ dapat kamu 
 Ketika kamu membuat sebuah objek di Kubernetes, kamu harus menyediakan _spec_ objek yang 
 mendeskripsikan _state_ yang diinginkan, serta beberapa informasi tentang objek tersebut (seperti nama). 
 Ketika kamu menggunakan API Kubernetes untuk membuat objek tersebut (baik secara langsung atau menggunakan perintah 
-_kubectl_), _request_ API yang dibuat harus mencakup informasi seperti _request body_ dalam format JSON. 
-Apabila kamu memberikan **informasi dalam bentuk `.yaml` ketika menggunakan perintah _kubectl_** maka _kubectl_ 
+`kubectl`), _request_ API yang dibuat harus mencakup informasi seperti _request body_ dalam format JSON. 
+Apabila kamu memberikan **informasi dalam bentuk `.yaml` ketika menggunakan perintah `kubectl`** maka `kubectl` 
 akan mengubah informasi yang kamu berikan ke dalam format JSON ketika melakukan _request_ API.
 
 Berikut merupakan contoh _file_ `.yaml` yang menunjukkan _field_ dan _spec_ objek untuk _Deployment_:
@@ -69,7 +69,7 @@ Berikut merupakan contoh _file_ `.yaml` yang menunjukkan _field_ dan _spec_ obje
 Salah satu cara untuk membuat _Deployment_ menggunakan _file_ `.yaml` 
 seperti yang dijabarkan di atas adalah dengan menggunakan perintah 
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 
-pada _command-line interface_ _kubectl_ kamu menerapkan _file_ `.yaml` sebagai sebuah argumen. 
+pada _command-line interface_ `kubectl` kamu menerapkan _file_ `.yaml` sebagai sebuah argumen. 
 Berikut merupakan contoh penggunaannya:
 
 ```shell
