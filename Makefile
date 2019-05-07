@@ -25,9 +25,9 @@ functions-build:
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: test-examples check-hugo-versions build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: accessibility-page test-examples check-hugo-versions build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
-non-production-build: test-examples check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
+non-production-build: accessibility-page test-examples check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
 
 sass-build:
