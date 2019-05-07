@@ -307,7 +307,7 @@ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 kubectl get pods my-nginx-v4-9gw19 -o yaml
 ```
 ```shell
-apiversion: v1
+apiVersion: v1
 kind: pod
 metadata:
   annotations:
