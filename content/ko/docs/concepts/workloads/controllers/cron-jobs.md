@@ -1,9 +1,5 @@
 ---
-reviewers:
-- erictune
-- soltysh
-- janetkuo
-title: CronJob
+title: 크론잡
 content_template: templates/concept
 weight: 80
 ---
@@ -19,7 +15,6 @@ _크론 잡은_ 시간 기반의 일정에 따라 [잡](/docs/concepts/workloads
 모든 **크론잡** `일정:` 시간은 잡이 처음 시작된 마스터의 시간대를 기반으로 한다.
 {{< /note >}}
 
-For instructions on creating and working with cron jobs, and for an example of a spec file for a cron job, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
 크론 잡을 생성하고 작동하는 방법은 크론 잡의 스펙 파일을 확안한다. 내용은 [크론 잡으로 자동 작업 실행하기](/docs/tasks/job/automated-tasks-with-cron-jobs)를 참조한다.
 
 
@@ -34,16 +29,16 @@ For instructions on creating and working with cron jobs, and for an example of a
 
 만약 `startingDeadlineSeconds` 가 큰 값으로 설정되거나, 설정되지 않고(디폴트 값), `concurrencyPolicy` 가 `Allow`로 설정될 경우, 잡은 항상 적어도 한 번은 실행될 것이다.
 
-모든 크론 잡에 대해 크론 잡 컨트롤러는 마지막 일정 부터 지금까지 얼마나 많은 일정을 놓쳤는지 체크를한다. 만약 100회 이상의 일정을 놓쳤으면, 잡을 실행하지 않고 아래와 같은 에러 로그를 남긴다.
+모든 크론 잡에 대해 크론잡 컨트롤러는 마지막 일정부터 지금까지 얼마나 많은 일정이 누락되었는지 확인한다. 만약 100회 이상의 일정이 누락되었다면, 잡을 실행하지 않고 아래와 같은 에러 로그를 남긴다.
 
 ````
 Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
 ````
 
-중요한 것은 만약 `startingDeadlineSeconds` 필드가 설정이 되면(`nil` 이 아닌 값으로), 컨트롤러는 마지막 일정부터 지금까지 대신 `startingDeadlineSeconds` 부터 지금까지 얼만큼 잡을 놓쳤는지 카운팅한다. 예를들면, `startingDeadlineSeconds` 가 `200` 이면, 컨트롤러는 최근 200초 안에서 얼만큼 잡을 놓쳤는지 카운팅한다.
+중요한 것은 만약 `startingDeadlineSeconds` 필드가 설정이 되면(`nil` 이 아닌 값으로), 컨트롤러는 마지막 일정부터 지금까지 대신 `startingDeadlineSeconds` 값에서 몇 개의 잡이 누락되었는지 카운팅한다. 예를 들면, `startingDeadlineSeconds` 가 `200` 이면, 컨트롤러는 최근 200초 내 몇 개의 잡이 누락되었는지 카운팅한다.
 
 
-크론 잡은 정해진 일정에 잡 실행을 실패하면 놓쳤다고 카운팅된다. 예를들면, `concurrencyPolicy` 가 `Forbid` 로 설정되고, 크론 잡이 이전 일정이 여전히 실행중인 상태에서 잡 실행을 시도하면 놓쳤다고 판단된다.
+크론잡은 정해진 일정에 잡 실행을 실패하면 놓쳤다고 카운팅된다. 예를 들면, `concurrencyPolicy` 가 `Forbid` 로 설정되었고, 크론 잡이 이전 일정이 스케줄되어 여전히 시도하고 있을 때, 그 때 누락되었다고 판단한다.
 
 즉, 크론잡이 `08:30:00` 에 시작하여 매 분마다 새로운 잡을 실행하도록 설정이 되었고, `startingDeadlineSeconds` 값이 설정되어 있지 않는다고 가정해보자. 만약 크론 잡 컨트롤러가 `08:29:00` 부터 `10:21:00` 까지 고장이 나면, 일정을 놓친 작업 수가 100개를 초과하여 잡이 실행되지 않을 것이다.
 
