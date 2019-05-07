@@ -8,6 +8,10 @@ title: Using ABAC Authorization
 content_template: templates/concept
 weight: 80
 ---
+{{< note >}}
+{{< feature-state state="deprecated" for_k8s_version="1.6" >}}
+The ABAC Authorization feature has been considered deprecated from the Kubernetes 1.6 release.
+{{< /note >}}
 
 {{% capture overview %}}
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
@@ -82,10 +86,9 @@ resource, and nonResourcePath properties set to `"*"`.
 
 ## Kubectl
 
-Kubectl uses the `/api` and `/apis` endpoints of api-server to negotiate
-client/server versions. To validate objects sent to the API by create/update
-operations, kubectl queries certain swagger resources. For API version `v1`
-those would be `/swaggerapi/api/v1` & `/swaggerapi/experimental/v1`.
+Kubectl uses the `/api` and `/apis` endpoints of api-server to discover
+served resource types, and validates objects sent to the API by create/update
+operations using schema information located at `/openapi/v2`.
 
 When using ABAC authorization, those special resources have to be explicitly
 exposed via the `nonResourcePath` property in a policy (see [examples](#examples) below):

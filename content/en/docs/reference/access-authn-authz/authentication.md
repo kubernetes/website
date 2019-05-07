@@ -120,7 +120,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 
 ### Bootstrap Tokens
 
-This feature is currently in **alpha**.
+This feature is currently in **beta**.
 
 To allow for streamlined bootstrapping for new clusters, Kubernetes includes a
 dynamically-managed Bearer token type called a *Bootstrap Token*. These tokens
@@ -322,6 +322,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-username-prefix` | Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `--oidc-user-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. The value `-` can be used to disable all prefixing. | `oidc:` | No |
 | `--oidc-groups-claim` | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
+| `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
@@ -348,7 +349,7 @@ Setup instructions for specific systems:
 
 - [UAA](http://apigee.com/about/blog/engineering/kubernetes-authentication-enterprise)
 - [Dex](https://speakerdeck.com/ericchiang/kubernetes-access-control-with-dex)
-- [OpenUnison](https://github.com/TremoloSecurity/openunison-qs-kubernetes)
+- [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
 
 #### Using kubectl
 

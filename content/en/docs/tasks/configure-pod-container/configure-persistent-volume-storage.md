@@ -41,11 +41,11 @@ shell to your Node by entering `minikube ssh`.
 
 In your shell, create a `/mnt/data` directory:
 
-    mkdir /mnt/data
+    sudo mkdir /mnt/data
 
 In the `/mnt/data` directory, create an `index.html` file:
 
-    echo 'Hello from Kubernetes storage' > /mnt/data/index.html
+    sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
 
 ## Create a PersistentVolume
 
@@ -73,7 +73,7 @@ PersistentVolumeClaim requests to this PersistentVolume.
 
 Create the PersistentVolume:
 
-    kubectl create -f https://k8s.io/examples/pods/storage/pv-volume.yaml
+    kubectl apply -f https://k8s.io/examples/pods/storage/pv-volume.yaml
 
 View information about the PersistentVolume:
 
@@ -98,7 +98,7 @@ Here is the configuration file for the PersistentVolumeClaim:
 
 Create the PersistentVolumeClaim:
 
-    kubectl create -f https://k8s.io/examples/pods/storage/pv-claim.yaml
+    kubectl apply -f https://k8s.io/examples/pods/storage/pv-claim.yaml
 
 After you create the PersistentVolumeClaim, the Kubernetes control plane looks
 for a PersistentVolume that satisfies the claim's requirements. If the control
@@ -138,7 +138,7 @@ is a volume.
 
 Create the Pod:
 
-    kubectl create -f https://k8s.io/examples/pods/storage/pv-pod.yaml
+    kubectl apply -f https://k8s.io/examples/pods/storage/pv-pod.yaml
 
 Verify that the Container in the Pod is running;
 

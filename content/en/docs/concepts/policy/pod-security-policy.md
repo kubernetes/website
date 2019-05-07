@@ -41,7 +41,7 @@ administrator to control the following:
 | Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
 | Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | The SELinux context of the container                | [`seLinux`](#selinux)                       |
-| The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedProcMountTypes) |
+| The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedprocmounttypes) |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
 | The sysctl profile used by containers               | [annotations](#sysctl)                      |
@@ -74,7 +74,7 @@ typically created indirectly as part of a
 [Deployment](/docs/concepts/workloads/controllers/deployment/),
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), or other
 templated controller via the controller manager. Granting the controller access
-to the policy would grant access for *all* pods created by that the controller,
+to the policy would grant access for *all* pods created by that controller,
 so the preferred method for authorizing policies is to grant access to the
 pod's service account (see [example](#run-another-pod)).
 
@@ -87,8 +87,8 @@ First, a `Role` or `ClusterRole` needs to grant access to `use` the desired
 policies. The rules to grant access look like this:
 
 ```yaml
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: <role name>
 rules:
@@ -102,8 +102,8 @@ rules:
 Then the `(Cluster)Role` is bound to the authorized user(s):
 
 ```yaml
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: <binding name>
 roleRef:
@@ -156,7 +156,7 @@ Roles](/docs/reference/access-authn-authz/rbac/#controller-roles).
 In addition to restricting pod creation and update, pod security policies can
 also be used to provide default values for many of the fields that it
 controls. When multiple policies are available, the pod security policy
-controller selects policies in the following order:
+controller selects policies according to the following criteria:
 
 1. If any policies successfully validate the pod without altering it, they are
    used.
@@ -336,7 +336,6 @@ pause-7774d79b5-qrgcb   0/1       Pending   0         1s
 pause-7774d79b5-qrgcb   0/1       Pending   0         1s
 pause-7774d79b5-qrgcb   0/1       ContainerCreating   0         1s
 pause-7774d79b5-qrgcb   1/1       Running   0         2s
-^C
 ```
 
 ### Clean up
@@ -465,7 +464,7 @@ Please make sure [`volumes`](#volumes-and-file-systems) field contains the
 For example:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: allow-flex-volumes
@@ -577,7 +576,7 @@ as the string `Default`.
 
 The only other ProcMountType is `UnmaskedProcMount`, which bypasses the
 default masking behavior of the container runtime and ensures the newly
-created /proc the container stays in tact with no modifications. This is
+created /proc the container stays intact with no modifications. This is
 denoted as the string `Unmasked`.
 
 ### AppArmor
@@ -610,6 +609,6 @@ default cannot be changed.
 ### Sysctl
 
 Controlled via annotations on the PodSecurityPolicy. Refer to the [Sysctl documentation](
-/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy-annotations).
+/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
 {{% /capture %}}

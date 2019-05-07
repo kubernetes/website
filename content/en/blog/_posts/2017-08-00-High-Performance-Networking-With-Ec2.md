@@ -15,7 +15,7 @@ When it comes to networking, however, EC2 has some limits that hinder performanc
 ## Traditional VPC Networking Performance Roadblocks
 
 
-A Kubernetes pod network is separate from an Amazon Virtual Private Cloud (VPC) instance network; consequently, off-instance pod traffic needs a route to the destination pods. Fortunately, VPCs support setting these routes. When building a cluster network with the [kubenet](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#kubenet) plugin, whenever new nodes are added, the AWS cloud provider will automatically add a VPC route to the pods running on that node.
+A Kubernetes pod network is separate from an Amazon Virtual Private Cloud (VPC) instance network; consequently, off-instance pod traffic needs a route to the destination pods. Fortunately, VPCs support setting these routes. When building a cluster network with the [kubenet](/docs/concepts/cluster-administration/network-plugins/#kubenet) plugin, whenever new nodes are added, the AWS cloud provider will automatically add a VPC route to the pods running on that node.
 
 
 Using kubenet to set routes provides native VPC network performance and visibility. However, since kubenet does not support more advanced network functions like network policy for pod traffic isolation, many users choose to run a Container Network Interface (CNI) provider on the back end.

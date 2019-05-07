@@ -81,11 +81,11 @@ range, end        | iterate list              | {range .items[*]}[{.metadata.nam
 Examples using `kubectl` and JSONPath expressions:
 
 ```shell
-$ kubectl get pods -o json
-$ kubectl get pods -o=jsonpath='{@}'
-$ kubectl get pods -o=jsonpath='{.items[0]}'
-$ kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
-$ kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
+kubectl get pods -o json
+kubectl get pods -o=jsonpath='{@}'
+kubectl get pods -o=jsonpath='{.items[0]}'
+kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
+kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
 ```
 
 On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:

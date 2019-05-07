@@ -43,7 +43,7 @@ Minikube can be installed locally, and runs a simple, single-node Kubernetes clu
 
 * {{< link text="Install kubectl" url="/docs/tasks/tools/install-kubectl/" >}}. ({{< glossary_tooltip text="What is kubectl?" term_id="kubectl" >}})
 
-* *(Optional)* {{< link text="Install Docker" url="/docs/setup/independent/install-kubeadm/#installing-docker" >}} if you plan to run your Minikube cluster as part of a local development environment.
+* *(Optional)* {{< link text="Install Docker" url="/docs/setup/cri/#docker" >}} if you plan to run your Minikube cluster as part of a local development environment.
 
    Minikube includes a Docker daemon, but if you're developing applications locally, you'll want an independent Docker instance to support your workflow. This allows you to create {{< glossary_tooltip text="containers" term_id="container" >}} and push them to a container registry.
 
@@ -53,9 +53,9 @@ Minikube can be installed locally, and runs a simple, single-node Kubernetes clu
 
 You can get basic information about your cluster with the commands `kubectl cluster-info` and `kubectl get nodes`. However, to get a good idea of what's really going on, you need to deploy an application to your cluster. This is covered in the next section.
 
-#### microk8s
+#### MicroK8s
 
-On Linux, *microk8s* is a good alternative to Minikube for a local
+On Linux, *MicroK8s* is a good alternative to Minikube for a local
 install of Kubernetes:
 
 * Runs on the native OS, so there is no overhead from running a virtual machine.
@@ -64,8 +64,8 @@ install of Kubernetes:
 
 * {{< link text="Install microk8s" url="https://microk8s.io/" >}}.
 
-After you install microk8s, you can use its tab-completion
-functionality. All microk8s commands start with `microk8s.`. Type
+After you install MicroK8s, you can use its tab-completion
+functionality. All MicroK8s commands start with `microk8s.`. Type
 `microk8s.` (with the period) and then use the tab key to see a list
 of available commands.
 
@@ -226,7 +226,7 @@ All of these controllers implement a *control loop*. For simplicity, you can thi
    or scaling the number of replicas of a given application. Return to 1.
 {{< /note >}}
 
-By continuously looping, these controllers ensure the cluster can pick up new updates and avoid drifting from the desired state. These ideas are covered in more detail {{< link text="here" url="https://kubernetes.io/docs/concepts/" >}}.
+By continuously looping, these controllers ensure the cluster can pick up new updates and avoid drifting from the desired state. These ideas are covered in more detail {{< link text="here" url="/docs/concepts/" >}}.
 
 ## Additional resources
 
@@ -258,6 +258,3 @@ If you feel fairly comfortable with the topics on this page and want to learn mo
 * {{< link text="Foundational Cluster Operator" url="/docs/user-journeys/users/cluster-operator/foundational/" >}} - Build breadth, by exploring other journeys.
 
 {{% /capture %}}
-
-
-

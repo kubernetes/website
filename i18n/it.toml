@@ -1,0 +1,82 @@
+# i18n strings for the Italian site.
+
+[main_read_about]
+other = "Leggi"
+
+[main_read_more]
+other = "Leggi di più"
+
+[main_github_invite]
+other = "Ti interessa l'hacking sulla base del codice di Kubernetes?"
+
+[main_github_view_on]
+other = "Visualizza su GitHub"
+
+[main_github_create_an_issue]
+other = "Crea un issue"
+
+[main_community_explore]
+other = "Explora la community"
+
+[main_kubernetes_features]
+other = "Caratteristiche di Kubernetes"
+
+[main_cncf_project]
+other = """Noi siamo un <a href="https://cncf.io/">CNCF</a> progetto </p>"""
+
+[main_kubeweekly_signup]
+other = "Sottoscrivi"
+
+[main_contribute]
+other = "Contribuire"
+
+[main_edit_this_page]
+other = "Modifica questa pagina"
+
+[main_page_history]
+other = "Lo Storico della Pagina"
+
+[main_page_last_modified_on]
+other = "Ultima modifica alla pagina"
+
+[main_by]
+other = "di"
+
+[main_documentation_license]
+other = """Gli autori di Kubernetes| Documentazione distribuita sotto <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. Tutti i diritti riservati. The Linux Foundation ha marchi registrati e utilizza marchi commerciali. Per un elenco dei marchi di Linux Foundation, consultare il nostro sito<a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "Sfoglia documenti"
+
+[docs_label_contributors]
+other = "Contributori"
+
+[docs_label_users]
+other = "Utenti"
+
+[docs_label_i_am]
+other = "Io Sono..."
+
+
+
+# Community links
+[community_twitter_name]
+other = "Twitter"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "Forum"
+[community_events_calendar]
+other = "Events Calendar"
+
+# UI elements
+[ui_search_placeholder]
+other = "Search"

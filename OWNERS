@@ -1,10 +1,10 @@
-# Reviewers can /lgtm /approve but not sufficient for auto-merge without an
-# approver
-reviewers:
-- sig-docs-en-reviews 
+# See the OWNERS docs at https://go.k8s.io/owners
 
-# Approvers have all the ability of reviewers but their /approve makes
-# auto-merge happen if a /lgtm exists, or vice versa, or they can do both
-# No need for approvers to also be listed as reviewers
+reviewers:
+- sig-docs-en-reviews # Defined in OWNERS_ALIASES
+
 approvers:
-- sig-docs-en-owners
+- sig-docs-en-owners # Defined in OWNERS_ALIASES
+
+labels:
+- sig/docs

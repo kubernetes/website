@@ -143,7 +143,7 @@ Open the file in an editor and replace the following values for `ClusterConfigur
 
 You must also modify the `ClusterStatus` to add a mapping for the current host under apiEndpoints.
 
-Add an annotation for the cri-socket to the current node, for example to use docker:
+Add an annotation for the cri-socket to the current node, for example to use Docker:
 
 ```shell
 kubectl annotate node <nodename> kubeadm.alpha.kubernetes.io/cri-socket=/var/run/dockershim.sock

@@ -1,0 +1,7 @@
+Fitur ini berada di dalam tingkatan *Alpha*, yang artinya:
+
+* Nama dari versi ini mengandung string `alpha` (misalnya, `v1alpha1`).
+* Bisa jadi terdapat *bug*. Secara *default* fitur ini tidak diekspos.
+* Ketersediaan untuk fitur yang ada bisa saja dihilangkan pada suatu waktu tanpa pemberitahuan sebelumnya.
+* API yang ada mungkin saja berubah tanpa memperhatikan kompatibilitas dengan versi perangkat lunak sebelumnya.
+* Hanya direkomendasikan untuk kluster yang digunakan untuk tujuan *testing*.

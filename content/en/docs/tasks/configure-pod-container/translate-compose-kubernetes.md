@@ -124,7 +124,7 @@ you need is an existing `docker-compose.yml` file.
       ```bash
       $ kompose up
       We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application.
-      If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead.
+      If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
       INFO Successfully created Service: redis          
       INFO Successfully created Service: web            
@@ -135,7 +135,7 @@ you need is an existing `docker-compose.yml` file.
       ```
 
 3.  To convert the `docker-compose.yml` file to files that you can use with
-    `kubectl`, run `kompose convert` and then `kubectl create -f <output file>`.
+    `kubectl`, run `kompose convert` and then `kubectl apply -f <output file>`.
 
       ```bash
       $ kompose convert                           
@@ -148,7 +148,7 @@ you need is an existing `docker-compose.yml` file.
       ```
 
       ```bash
-      $ kubectl create -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+      $ kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
       service/frontend created
       service/redis-master created
       service/redis-slave created
@@ -297,7 +297,7 @@ INFO OpenShift file "foo-buildconfig.yaml" created
 ```
 
 {{< note >}}
-If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
+If you are manually pushing the OpenShift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this OpenShift issue: https://github.com/openshift/origin/issues/4518 .
 {{< /note >}}
 
 ## `kompose up`
@@ -309,7 +309,7 @@ Kompose supports a straightforward way to deploy your "composed" application to 
 ```sh
 $ kompose --file ./examples/docker-guestbook.yml up
 We are going to create Kubernetes deployments and services for your Dockerized application.
-If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead.
+If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
 INFO Successfully created service: redis-master   
 INFO Successfully created service: redis-slave    
@@ -341,7 +341,7 @@ pod/redis-slave-2504961300-nve7b    1/1           Running       0            4m
 **Note**:
 
 - You must have a running Kubernetes cluster with a pre-configured kubectl context.
-- Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the `kompose convert` and `kubectl create -f` commands instead.
+- Only deployments and services are generated and deployed to Kubernetes. If you need different kind of resources, use the `kompose convert` and `kubectl apply -f` commands instead.
 
 ### OpenShift
 ```sh
@@ -426,7 +426,7 @@ INFO Image 'docker.io/foo/bar' from directory 'build' built successfully
 INFO Pushing image 'foo/bar:latest' to registry 'docker.io'
 INFO Attempting authentication credentials 'https://index.docker.io/v1/
 INFO Successfully pushed image 'foo/bar:latest' to registry 'docker.io'
-INFO We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. If you need different kind of resources, use the 'kompose convert' and 'kubectl create -f' commands instead.
+INFO We are going to create Kubernetes Deployments, Services and PersistentVolumeClaims for your Dockerized application. If you need different kind of resources, use the 'kompose convert' and 'kubectl apply -f' commands instead.
 
 INFO Deploying application in "default" namespace
 INFO Successfully created Service: foo            

@@ -4,7 +4,7 @@ date: 2017-07-28
 slug: happy-second-birthday-kubernetes
 url: /blog/2017/07/Happy-Second-Birthday-Kubernetes
 ---
-As we do every July, we’re excited to celebrate Kubernetes 2nd birthday! In the two years since GA 1.0 launched as an open source project, [Kubernetes](http://kubernetes.io/docs/whatisk8s/) (abbreviated as K8s) has grown to become the highest velocity cloud-related project. With more than 2,611 diverse contributors, from independents to leading global companies, the project has had 50,685 commits in the last 12 months. Of the 54 million projects on GitHub, Kubernetes is in the top 5 for number of unique developers contributing code. It also has [more pull requests and issue comments](https://www.cncf.io/blog/2017/02/27/measuring-popularity-kubernetes-using-bigquery/) than any other project on GitHub. &nbsp;
+As we do every July, we’re excited to celebrate Kubernetes 2nd birthday! In the two years since GA 1.0 launched as an open source project, [Kubernetes](/docs/whatisk8s/) (abbreviated as K8s) has grown to become the highest velocity cloud-related project. With more than 2,611 diverse contributors, from independents to leading global companies, the project has had 50,685 commits in the last 12 months. Of the 54 million projects on GitHub, Kubernetes is in the top 5 for number of unique developers contributing code. It also has [more pull requests and issue comments](https://www.cncf.io/blog/2017/02/27/measuring-popularity-kubernetes-using-bigquery/) than any other project on GitHub. &nbsp;
 
  ![Screen Shot 2017-07-18 at 9.39.42 AM.png](https://lh3.googleusercontent.com/ldb4PfuqammWmcPiFpMa48ALxD0kGrSre0WGMpuXKqAqnKhyWEmIcJXnQcAK2sdVCiE5cvw0H2FXtLt_dVihAk4b-XTA2HIQba3A0irnRaIHup4bhFUwPLSSFmw3zFk9ZOt61TKc)
 

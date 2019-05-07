@@ -21,7 +21,7 @@ Some typical uses of a DaemonSet are:
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), Datadog agent, New Relic agent, Ganglia `gmond` or Instana agent.
+  https://github.com/prometheus/node_exporter), [Sysdig Agent] (https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or Instana agent.
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -42,7 +42,7 @@ You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` f
 
 * Create a DaemonSet based on the YAML file:
 ```
-kubectl create -f https://k8s.io/examples/controllers/daemonset.yaml
+kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
 
 ### Required Fields
@@ -51,7 +51,7 @@ As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
 [configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/object-management-kubectl/overview/) documents.
 
-A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
+A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) section.
 
 ### Pod Template
 

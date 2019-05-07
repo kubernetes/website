@@ -111,7 +111,7 @@ containing the signing certificate, for example
 
 ### Initial bootstrap authentication
 In order for the bootstrapping kubelet to connect to kube-apiserver and request a certificate, it must first authenticate to the server.
-You can use any [authenticator](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) that can authenticate the kubelet.
+You can use any [authenticator](/docs/reference/access-authn-authz/authentication/) that can authenticate the kubelet.
 
 While any authentication strategy can be used for the kubelet's initial
 bootstrap credentials, the following two authenticators are recommended for ease
@@ -416,7 +416,7 @@ be used as serving certificates, or `server auth`.
 However, you _can_ enable its server certificate, at least partially, via certificate rotation.
 
 ### Certificate Rotation
-Kubernetes v1.7 and higher kubelet implements __beta__ features for enabling
+Kubernetes v1.8 and higher kubelet implements __beta__ features for enabling
 rotation of its client and/or serving certficates.  These can be enabled through
 the respective `RotateKubeletClientCertificate` and
 `RotateKubeletServerCertificate` feature flags on the kubelet and are enabled by

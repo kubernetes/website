@@ -36,11 +36,6 @@ Successfully running cloud-controller-manager requires some changes to your clus
 
 * `kube-apiserver` and `kube-controller-manager` MUST NOT specify the `--cloud-provider` flag. This ensures that it does not run any cloud specific loops that would be run by cloud controller manager. In the future, this flag will be deprecated and removed.
 * `kubelet` must run with `--cloud-provider=external`. This is to ensure that the kubelet is aware that it must be initialized by the cloud controller manager before it is scheduled any work.
-* `kube-apiserver` SHOULD NOT run the `PersistentVolumeLabel` admission controller
-  since the cloud controller manager takes over labeling persistent volumes.
-* For the `cloud-controller-manager` to label persistent volumes, initializers will need to be enabled and an InitializerConifguration needs to be added to the system.  Follow [these instructions](/docs/reference/access-authn-authz/extensible-admission-controllers/#enable-initializers-alpha-feature) to enable initializers.  Use the following YAML to create the InitializerConfiguration:
-
-{{< codenew file="admin/cloud/pvl-initializer-config.yaml" >}}
 
 Keep in mind that setting up your cluster to use cloud controller manager will change your cluster behaviour in a few ways:
 
@@ -53,7 +48,6 @@ As of v1.8, cloud controller manager can implement:
 * node controller - responsible for updating kubernetes nodes using cloud APIs and deleting kubernetes nodes that were deleted on your cloud.
 * service controller - responsible for loadbalancers on your cloud against services of type LoadBalancer.
 * route controller - responsible for setting up network routes on your cloud
-* persistent volume labels controller - responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
 * any other features you would like to implement if you are running an out-of-tree provider.
 
 

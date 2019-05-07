@@ -12,7 +12,7 @@ weight: 30
 {{% capture overview %}}
 
 You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/architecture/nodes/) or to prefer to
-run on particular nodes. There are several ways to do this, and they all use
+run on particular nodes. There are several ways to do this, and the recommended approaches all use
 [label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
 (e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
@@ -29,7 +29,7 @@ repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}
 
 ## nodeSelector
 
-`nodeSelector` is the simplest form of constraint.
+`nodeSelector` is the simplest recommended form of node selection constraint.
 `nodeSelector` is a field of PodSpec. It specifies a map of key-value pairs. For the pod to be eligible
 to run on a node, the node must have each of the indicated key-value pairs as labels (it can have
 additional labels as well). The most common usage is one key-value pair.
@@ -46,7 +46,7 @@ Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the o
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
 
-You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label.
+You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label. You can also use `kubectl describe node "nodename"` to see the full list of labels of the given node.
 
 ### Step Two: Add a nodeSelector field to your pod configuration
 
@@ -69,7 +69,7 @@ Then add a nodeSelector like so:
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
-When you then run `kubectl create -f https://k8s.io/examples/pods/pod-nginx.yaml`,
+When you then run `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`,
 the Pod will get scheduled on the node that you attached the label to. You can
 verify that it worked by running `kubectl get pods -o wide` and looking at the
 "NODE" that the Pod was assigned to.
@@ -83,8 +83,8 @@ with a standard set of labels. As of Kubernetes v1.4 these labels are
 * `failure-domain.beta.kubernetes.io/zone`
 * `failure-domain.beta.kubernetes.io/region`
 * `beta.kubernetes.io/instance-type`
-* `beta.kubernetes.io/os`
-* `beta.kubernetes.io/arch`
+* `kubernetes.io/os`
+* `kubernetes.io/arch`
 
 {{< note >}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
@@ -256,6 +256,7 @@ be co-located in the same defined topology, eg., the same node.
 ##### Always co-located in the same node
 
 In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.
+
 Here is the yaml snippet of a simple redis deployment with three replicas and selector label `app=store`. The deployment has `PodAntiAffinity` configured to ensure the scheduler does not co-locate replicas on a single node.
 
 ```yaml
@@ -361,6 +362,41 @@ For more information on inter-pod affinity/anti-affinity, see the
 
 You may want to check [Taints](/docs/concepts/configuration/taint-and-toleration/)
 as well, which allow a *node* to *repel* a set of pods.
+
+## nodeName
+
+`nodeName` is the simplest form of node selection constraint, but due
+to its limitations it is typically not used.  `nodeName` is a field of
+PodSpec.  If it is non-empty, the scheduler ignores the pod and the
+kubelet running on the named node tries to run the pod.  Thus, if
+`nodeName` is provided in the PodSpec, it takes precedence over the
+above methods for node selection.
+
+Some of the limitations of using `nodeName` to select nodes are:
+
+-   If the named node does not exist, the pod will not be run, and in
+    some cases may be automatically deleted.
+-   If the named node does not have the resources to accommodate the
+    pod, the pod will fail and its reason will indicate why,
+    e.g. OutOfmemory or OutOfcpu.
+-   Node names in cloud environments are not always predictable or
+    stable.
+
+Here is an example of a pod config file using the `nodeName` field:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  nodeName: kube-01
+```
+
+The above pod will run on the node kube-01.
 
 {{% /capture %}}
 

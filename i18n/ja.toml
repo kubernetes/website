@@ -1,0 +1,83 @@
+# i18n strings for the English (main) site.
+
+[main_read_about]
+other = "Read about"
+#other = "について参照する"
+
+[main_read_more]
+other = "続きを読む"
+
+[main_github_invite]
+other = "Kubernetesのコードを編集することに興味がありますか？"
+
+[main_github_view_on]
+other = "GitHubで参照する"
+
+[main_github_create_an_issue]
+other = "Issue作成"
+
+[main_community_explore]
+other = "コミュニティを探す"
+
+[main_kubernetes_features]
+other = "Kubernetesの機能"
+
+[main_cncf_project]
+other = """私達は<a href="https://cncf.io/">CNCF</a> graduated プロジェクトです</p>"""
+
+[main_kubeweekly_signup]
+other = "登録"
+
+[main_contribute]
+other = "コントリビュート"
+
+[main_edit_this_page]
+other = "ページ編集"
+
+[main_page_history]
+other ="ページ履歴"
+
+[main_page_last_modified_on]
+other = "ページの最終更新"
+
+[main_by]
+other = "by"
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "ドキュメントの参照"
+
+[docs_label_contributors]
+other = "コントリビューター"
+
+[docs_label_users]
+other = "ユーザー"
+
+[docs_label_i_am]
+other = "私は..."
+
+
+
+# Community links
+[community_twitter_name]
+other = "Twitter"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "フォーラム"
+[community_events_calendar]
+other = "イベントカレンダー"
+
+# UI elements
+[ui_search_placeholder]
+other = "検索"

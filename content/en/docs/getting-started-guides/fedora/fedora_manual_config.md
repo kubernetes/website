@@ -65,8 +65,7 @@ KUBE_MASTER="--master=http://fed-master:8080"
 systemctl mask firewalld.service
 systemctl stop firewalld.service
 
-systemctl disable iptables.service
-systemctl stop iptables.service
+systemctl disable --now iptables.service
 ```
 
 **Configure the Kubernetes services on the master.**
@@ -97,8 +96,7 @@ ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
 
 ```shell
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
-    systemctl restart $SERVICES
-    systemctl enable $SERVICES
+    systemctl enable --now $SERVICES
     systemctl status $SERVICES
 done
 ```
@@ -146,8 +144,7 @@ current-context: kubelet-context
 
 ```shell
 for SERVICES in kube-proxy kubelet docker; do 
-    systemctl restart $SERVICES
-    systemctl enable $SERVICES
+    systemctl enable --now $SERVICES
     systemctl status $SERVICES 
 done
 ```

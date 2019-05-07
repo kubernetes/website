@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="blog" lang="en" class="gr__kubernetes_io fontawesome-i2svg-active fontawesome-i2svg-complete">
+<html id="blog" lang="{{ .Language }}" class="gr__kubernetes_io fontawesome-i2svg-active fontawesome-i2svg-complete">
 	<head>
 		{{ partial "head.html" . }}
 		<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
@@ -21,8 +21,8 @@
           </div>
           <div class="col-xs-12 col-md-4 text">
             <div class="widget-content">
-              {{ with .Site.Home.OutputFormats.Get "rss" -}}
-              <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}">
+              {{ with site.Home.OutputFormats.Get "rss" -}}
+              <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
               <a class="widget-link" href="{{ .Permalink | safeURL }}"> <i class="fas fa-rss fab-icon"> </i> </a>
               {{ end -}}
               <a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square fab-icon"> </i> @Kubernetesio</a>

@@ -8,6 +8,9 @@ menu:
     weight: 10
     post: >
       <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
+card: 
+  name: tutorials
+  weight: 10
 ---
 
 {{% capture overview %}}
@@ -160,7 +163,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
 
-5. Katacoda environment only: Type `8080`, and then click **Display Port**. 
+5. Katacoda environment only: Type `30369` (see port opposite to `8080` in services output), and then click
 
     This opens up a browser window that serves your app and shows the "Hello World" message.
 

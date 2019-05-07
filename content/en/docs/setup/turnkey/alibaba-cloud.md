@@ -7,9 +7,9 @@ title: Running Kubernetes on Alibaba Cloud
 
 ## Alibaba Cloud Container Service
 
-The [Alibaba Cloud Container Service](https://www.aliyun.com/product/containerservice) lets you run and manage Docker applications on a cluster of Alibaba Cloud ECS instances. It supports the popular open source container orchestrators: Docker Swarm and Kubernetes.
+The [Alibaba Cloud Container Service](https://www.alibabacloud.com/product/container-service) lets you run and manage Docker applications on a cluster of Alibaba Cloud ECS instances. It supports the popular open source container orchestrators: Docker Swarm and Kubernetes.
 
-To simplify cluster deployment and management, use [Kubernetes Support for Alibaba Cloud Container Service](https://www.aliyun.com/solution/kubernetes/). You can get started quickly by following the [Kubernetes walk-through](https://help.aliyun.com/document_detail/53751.html), and there are some [tutorials for Kubernetes Support on Alibaba Cloud](https://yq.aliyun.com/teams/11/type_blog-cid_200-page_1) in Chinese. 
+To simplify cluster deployment and management, use [Kubernetes Support for Alibaba Cloud Container Service](https://www.alibabacloud.com/product/kubernetes). You can get started quickly by following the [Kubernetes walk-through](https://www.alibabacloud.com/help/doc-detail/86737.htm), and there are some [tutorials for Kubernetes Support on Alibaba Cloud](https://yq.aliyun.com/teams/11/type_blog-cid_200-page_1) in Chinese. 
 
 To use custom binaries or open source Kubernetes, follow the instructions below.
 
