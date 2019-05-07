@@ -521,12 +521,15 @@ ls /etc/foo/
 username
 password
 ```
+
 ```shell
 cat /etc/foo/username
 ```
 ```
 admin
 ```
+
+
 ```shell
 cat /etc/foo/password
 ```
@@ -694,9 +697,11 @@ start until all the pod's volumes are mounted.
 ### Use-Case: Pod with ssh keys
 
 Create a kustomization.yaml with SecretGenerator containing some ssh keys:
+
 ```shell
 kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
+
 ```
 secret "ssh-key-secret" created
 ```
@@ -710,8 +715,8 @@ Now we can create a pod which references the secret with the ssh key and
 consumes it in a volume:
 
 ```yaml
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: secret-test-pod
   labels:
@@ -746,12 +751,30 @@ credentials and another pod which consumes a secret with test environment
 credentials.
 
 Make the kustomization.yaml with SecretGenerator
+
 ```shell
 kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
 ```
 ```
 secret "prod-db-secret" created
 ```
+
+```shell
+kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
+```
+```
+secret "test-db-secret" created
+```
+{{< note >}}
+Special characters such as `$`, `\*`, and `!` require escaping.
+If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+
+```shell
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb
+```
+
+You do not need to escape special characters in passwords from files (`--from-file`).
+{{< /note >}}
 
 Now make the pods:
 
@@ -828,8 +851,8 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 `test-user` with the `test-db-secret`.  Then, the pod spec can be shortened to, for example:
 
 ```yaml
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: prod-db-client-pod
   labels:
@@ -847,15 +870,15 @@ In order to make piece of data 'hidden' (i.e., in a file whose name begins with 
 make that key begin with a dot.  For example, when the following secret is mounted into a volume:
 
 ```yaml
-kind: Secret
 apiVersion: v1
+kind: Secret
 metadata:
   name: dotfile-secret
 data:
   .secret-file: dmFsdWUtMg0KDQo=
 ---
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: secret-dotfiles-pod
 spec:

@@ -1,5 +1,6 @@
 ---
 title: Génération de la documentation de référence pour l'API de fédération Kubernetes
+description: Federation Référence API Kubernetes Documentation
 content_template: templates/task
 ---
 

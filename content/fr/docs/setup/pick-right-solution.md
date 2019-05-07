@@ -2,6 +2,7 @@
 reviewers:
 - yastij
 title: Choisir la bonne solution
+description: Panorama de solutions Kubernetes
 weight: 10
 content_template: templates/concept
 ---

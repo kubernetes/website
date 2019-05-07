@@ -80,6 +80,12 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
+  sig-docs-id-owners: # Admins for Indonesian content
+    - girikuncoro
+    - irfiva
+  sig-docs-id-reviews: # PR reviews for Indonesian content
+    - girikuncoro
+    - irfiva
   sig-docs-it-owners: # Admins for Italian content
     - rlenferink
     - micheleberardi
@@ -91,7 +97,7 @@ aliases:
     - nasa9084
     - tnir
     - zacharysarah
-  sig-docs-ja-reviews: # PR reviews for Italian content 
+  sig-docs-ja-reviews: # PR reviews for Japanese content 
     - cstoku
     - makocchi-git
     - MasayaAoyama
@@ -144,3 +150,9 @@ aliases:
     - xichengliudui
     - zhangxiaoyu-zidif
     - pigletfly
+  sig-docs-pt-owners: # Admins for Portuguese content
+    - femrtnz
+    - jcjesus
+  sig-docs-pt-reviews: # PR reviews for Portugese content
+    - femrtnz
+    - jcjesus
