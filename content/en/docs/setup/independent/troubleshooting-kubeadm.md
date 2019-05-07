@@ -58,7 +58,7 @@ This may be caused by a number of problems. The most common are:
   There are two common ways to fix the cgroup driver problem:
 
  1. Install Docker again following instructions
-  [here](/docs/setup/independent/install-kubeadm/#installing-docker).
+  [here](/docs/setup/cri/#docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
     [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
     for detailed instructions.
@@ -100,7 +100,7 @@ Right after `kubeadm init` there should not be any pods in these states.
   until you have deployed the network solution.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
   after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution that you installed is somehow broken. 
+  it's very likely that the Pod Network solution that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 - If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
@@ -113,7 +113,7 @@ Right after `kubeadm init` there should not be any pods in these states.
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
 should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
-before CoreDNS may deployed fully. Hence the `Pending` state before the network is set up.
+before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
 
 ## `HostPort` services do not work
 
@@ -219,7 +219,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
 where the `coredns` pods are not starting. To solve that you can try one of the following options:
 
-- Upgrade to a [newer version of Docker](/docs/setup/independent/install-kubeadm/#installing-docker).
+- Upgrade to a [newer version of Docker](/docs/setup/cri/#docker).
 - [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 - Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
 
@@ -273,7 +273,7 @@ If you decide to pass an argument that supports multiple, comma-separated values
 `--apiserver-extra-args` expects `key=value` pairs and in this case `NamespacesExists` is considered
 as a key that is missing a value.
 
-Alternativelly, you can try separating the `key=value` pairs like so:
+Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
@@ -302,4 +302,20 @@ kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec":
 
 The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
 
+## The NodeRegistration.Taints field is omitted when marshalling kubeadm configuration
+
+*Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
+
+By default, kubeadm applies the `role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
+If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
+the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
+
+There are at least two workarounds:
+
+1. Use the `role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
+
+2. Remove the taint after kubeadm init exits:
+```bash
+kubectl taint nodes NODE_NAME role.kubernetes.io/master:NoSchedule-
+```
 {{% /capture %}}

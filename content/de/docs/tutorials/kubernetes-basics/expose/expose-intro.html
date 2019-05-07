@@ -1,0 +1,114 @@
+---
+title: Verwendung eines Services zum Veröffentlichen Ihrer App
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+    		<h3>Ziele:</h3>
+				<ul>
+					<li>Erfahren Sie mehr über einen Service in Kubernetes</li>
+					<li>Verstehen, wie Labels und LabelSelector-Objekte sich auf einen Dienst beziehen</li>
+					<li>Stellen Sie eine Anwendung außerhalb eines Kubernetes-Clusters mithilfe eines Services bereit</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Überblick über Kubernetes Services</h3>
+
+			<p>Kubernetes <a href="/docs/concepts/workloads/pods/pod-overview/">Pods</a> sind sterblich. Pods haben tatsächlich einen <a href="/docs/concepts/workloads/pods/pod-lifecycle/">Lebenszyklus</a>. Wenn ein Worker-Node stirbt, gehen auch die auf dem Knoten laufenden Pods verloren. Ein <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> kann dann durch Erstellen neuer Pods dynamisch den Cluster in den gewünschten Status zurückversetzen, damit die Anwendung weiterhin ausgeführt werden kann. Als ein anderes Beispiel betrachten wir ein Bildverarbeitungs-Backend mit 3 Reproduktionen. Diese Repliken sind austauschbar; Das Front-End-System sollte sich nicht für Backend-Replikate interessieren, selbst wenn ein Pod verloren geht und neu erstellt wird. Allerdings hat jeder Pod in einem Kubernetes-Cluster eine eindeutige IP-Adresse, sogar Pods auf demselben Knoten. Daher müssen Änderungen automatisch zwischen den Pods abgeglichen werden, damit Ihre Anwendungen weiterhin funktionieren.</p>
+
+			<p>Ein Dienst in Kubernetes ist eine Abstraktion, die einen logischen Satz von Pods und eine Richtlinie für den Zugriff auf diese definiert. Services ermöglichen eine lose Kopplung zwischen abhängigen Pods. Ein Service ist in YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(bevorzugt)</a> oder JSON spezifiziert, wie alle Kubernetes-Objekte. Die Gruppe von Pods, auf die ein Service abzielt, wird normalerweise von einem <i>LabelSelector</i> bestimmt (Siehe unten, warum Sie möglicherweise wünschen, einen Service ohne <code>selector</code> in die Spezifikation aufzunehmen).</p>
+
+			<p>Obwohl jeder Pod über eine eindeutige IP-Adresse verfügt, werden diese IP-Adressen nicht außerhalb des Clusters ohne einen Service verfügbar gemacht. Services ermöglichen es Ihren Anwendungen, Datenverkehr zu empfangen. Services können auf unterschiedliche Weise verfügbar gemacht werden, indem Sie einen <code>type</code> in der ServiceSpec angeben:</p>
+			<ul>
+				<li><i>ClusterIP</i> (Standardeinstellung) - Macht den Service auf einer internen IP im Cluster verfügbar. Durch diesen Typ ist der Service nur innerhalb des Clusters erreichbar.</li>
+				<li><i>NodePort</i> - Macht den Dienst auf demselben Port jedes ausgewählten Knotens im Cluster mithilfe von NAT verfügbar. Macht einen Dienst von außerhalb des Clusters mit <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code> zugänglich. Oberhalb von ClusterIP positioniert.</li>
+				<li><i>LoadBalancer</i> - Erstellt einen externen Load-Balancer in der aktuellen Cloud (sofern unterstützt) und weist dem Service eine feste externe IP zu. Oberhalb von NodePort positioniert.</li>
+				<li><i>ExternalName</i> - Macht den Dienst mit einem beliebigen Namen verfügbar (Spezifiziert durch <code>externalName</code> in der Konfiguration) indem Sie einen CNAME-Datensatz mit dem Namen zurückgeben. Kein Proxy wird verwendet. Für diesen Typ ist v1.7 von <code>kube-dns</code> oder höher erforderlich.</li>
+			</ul>
+			<p>Weitere Informationen zu den verschiedenen Arten von Services finden Sie im <a href="/docs/tutorials/services/source-ip/">Verwendung von Source IP</a> Tutorial. Siehe auch <a href="/docs/concepts/services-networking/connect-applications-service">Anwendungen mit Services verbinden</a>.</p>
+			<p>Beachten Sie außerdem, dass es einige Anwendungsfälle mit Services gibt, bei denen keine <code>selector</code> Spezifikation in der Konfiguration nötig ist. Ein Service ohne <code>selector</code> erstellt auch nicht das entsprechende Endpunktobjekt. Auf diese Weise können Benutzer einen Service manuell bestimmten Endpunkten zuordnen. Eine andere Möglichkeit, warum es keinen Selektor gibt, ist die strikte Verwendung <code>type: ExternalName</code>.</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>Zusammenfassung:</h3>
+					<ul>
+						<li>Pods externen Verkehr aussetzen</li>
+						<li>Lastverteilung über mehrere Pods</li>
+						<li>Labels verwenden</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>Ein Kubernetes Service ist eine Abstraktionsschicht, die einen logischen Satz von Pods definiert und den externen Datenverkehr, Lastverteilung und Service Discovery für diese Pods ermöglicht.</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Services und Labels</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>Ein Service leitet den Traffic über eine Reihe von Pods. Services sind die Abstraktion, die es Pods ermöglichen, in Kubernetes zu sterben und sich zu replizieren, ohne die Anwendung zu beeinträchtigen. Die Erkennung und das Routing zwischen abhängigen Pods (z. B. Frontend- und Backend-Komponenten in einer Anwendung) werden von Kubernetes Services ausgeführt.</p>
+				<p>Services passen zu einem Satz von Pods mit <a href="/docs/concepts/overview/working-with-objects/labels">Labels und Selektoren</a>, eine einfache Gruppierung, die logische Operationen an Objekten in Kubernetes ermöglicht. Labels sind Schlüssel/Wert-Paare, die an Objekte angehängt werden, und können auf verschiedene Arten verwendet werden:</p>
+				<ul>
+					<li>Festlegen von Objekten für Entwicklung, Test und Produktion</li>
+					<li>Versions-Tags einbetten</li>
+					<li>Klassifizieren von Objekten mithilfe von Tags</li>
+				</ul>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i>Sie können einen Service gleichzeitig mit dem Erstellen eines Deployments erstellen, indem Sie <br><code>--expose</code> in kubectl verwenden.</i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Labels können zum Zeitpunkt der Erstellung oder zu einem späteren Zeitpunkt an Objekte angehängt werden. Sie können jederzeit geändert werden. Lassen Sie uns jetzt unsere Anwendung mit einem Service verfügbar machen und einige Labels anbringen.</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Interaktives Lernprogramm starten<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

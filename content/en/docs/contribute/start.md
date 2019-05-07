@@ -14,7 +14,7 @@ If you want to get started contributing to the Kubernetes documentation, this
 page and its linked topics can help you get started. You don't need to be a
 developer or a technical writer to make a big impact on the Kubernetes
 documentation and user experience! All you need for the topics on this page is
-a [Github account](https://github.com/join) and a web browser.
+a [GitHub account](https://github.com/join) and a web browser.
 
 If you're looking for information on how to start contributing to Kubernetes
 code repositories, refer to
@@ -27,12 +27,12 @@ code repositories, refer to
 
 ## The basics about our docs
 
-The Kubernetes documentation is written in Markdown and processed and deployed using Hugo. The source is in Github at [https://github.com/kubernetes/website](https://github.com/kubernetes/website). Most of the documentation source is stored in `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
+The Kubernetes documentation is written in Markdown and processed and deployed using Hugo. The source is in GitHub at [https://github.com/kubernetes/website](https://github.com/kubernetes/website). Most of the documentation source is stored in `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
 
 You can file issues, edit content, and review changes from others, all from the
-Github website. You can also use Github's embedded history and search tools.
+GitHub website. You can also use GitHub's embedded history and search tools.
 
-Not all tasks can be done in the Github UI, but these are discussed in the 
+Not all tasks can be done in the GitHub UI, but these are discussed in the 
 [intermediate](/docs/contribute/intermediate/) and
 [advanced](/docs/contribute/advanced/) docs contribution guides.
 
@@ -78,7 +78,7 @@ If you're interested in starting a new localization, see ["Localization"](/docs/
 
 ## File actionable issues
 
-Anyone with a Github account can file an issue (bug report) against the
+Anyone with a GitHub account can file an issue (bug report) against the
 Kubernetes documentation. If you see something wrong, even if you have no idea
 how to fix it, [file an issue](#how-to-file-an-issue). The exception to this
 rule is a tiny bug like a typo that you intend to fix yourself. In that case,
@@ -90,7 +90,7 @@ you can instead [fix it](#improve-existing-content) without filing a bug first.
 
     If you see a problem in an existing page in the [Kubernetes docs](/docs/),
     go to the bottom of the page and click the **Create an Issue** button. If
-    you are not currently logged in to Github, log in. A Github issue form
+    you are not currently logged in to GitHub, log in. A GitHub issue form
     appears with some pre-populated content.
 
     Using Markdown, fill in as many details as you can. In places where you see
@@ -125,7 +125,7 @@ in mind:
 - Be respectful and avoid venting. For instance, "The docs about X suck" is not
   helpful or actionable feedback. The
   [Code of Conduct](/community/code-of-conduct/) also applies to interactions on
-  Kubernetes Github repositories.
+  Kubernetes GitHub repositories.
 
 ## Participate in SIG Docs discussions
 
@@ -145,7 +145,7 @@ You can also check the SIG Docs weekly meeting on the [Kubernetes community meet
 ## Improve existing content
 
 To improve existing content, you file a _pull request (PR)_ after creating a
-_fork_. Those two terms are [specific to Github](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
+_fork_. Those two terms are [specific to GitHub](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/).
 For the purposes of this topic, you don't need to know everything about them,
 because you can do everything using your web browser. When you continue to the
 [intermediate docs contributor guide](/docs/contribute/intermediate/), you will
@@ -200,12 +200,10 @@ attend a weekly SIG Docs meeting to get clarity.
 Follow these steps to submit a pull request to improve the Kubernetes
 documentation.
 
-1.  On the page where you see the issue, click the pencil icon at the top left.
-    A new page appears, with some help text.
-2.  Click the first blue button, which has the text **Edit &lt;page name&gt;**.
-    
-    If you have never created a fork of the Kubernetes documentation
-    repository, you are prompted to do so. Create the fork under your Github
+1.  On the page where you see the issue, click the pencil icon at the top right.
+    A new GitHub page appears, with some help text.
+2.  If you have never created a fork of the Kubernetes documentation
+    repository, you are prompted to do so. Create the fork under your GitHub
     username, rather than another organization you may be a member of. The
     fork usually has a URL such as `https://github.com/<username>/website`,
     unless you already have a repository with a conflicting name.
@@ -213,14 +211,14 @@ documentation.
     The reason you are prompted to create a fork is that you do not have
     access to push a branch directly to the definitive Kubernetes repository.
 
-3.  The Github Markdown editor appears with the source Markdown file loaded.
+3.  The GitHub Markdown editor appears with the source Markdown file loaded.
     Make your changes. Below the editor, fill in the **Propose file change**
     form. The first field is the summary of your commit message and should be
     no more than 50 characters long. The second field is optional, but can
     include more detail if appropriate.
 
     {{< note >}}
-Do not include references to other Github issues or pull
+Do not include references to other GitHub issues or pull
 requests in your commit message. You can add those to the pull request
 description later.
 {{< /note >}}
@@ -240,7 +238,7 @@ description later.
     {{< note >}}
 If you don't want to create the pull request now, you can do it
 later, by browsing to the main URL of the Kubernetes website repository or
-your fork's repository. The Github website will prompt you to create the
+your fork's repository. The GitHub website will prompt you to create the
 pull request if it detects that you pushed a new branch to your fork.
 {{< /note >}}
     
@@ -270,8 +268,8 @@ pull request if it detects that you pushed a new branch to your fork.
     change is live on the Kubernetes website a few minutes later.
 
 This is only one way to submit a pull request. If you are already a Git and
-Github advanced user, you can use a local GUI or command-line Git client
-instead of using the Github UI. Some basics about using the command-line Git
+GitHub advanced user, you can use a local GUI or command-line Git client
+instead of using the GitHub UI. Some basics about using the command-line Git
 client are discussed in the [intermediate](/docs/contribute/intermediate/) docs
 contribution guide.
 
@@ -334,7 +332,7 @@ or follow the steps below.
     the blog post, but don't put the date in the file name. The blog reviewers
     will work with you on the final file name and the date the blog will be
     published.
-5.  When you save the file, Github will walk you through the pull request
+5.  When you save the file, GitHub will walk you through the pull request
     process.
 6.  A blog post reviewer will review your submission and work with you on
     feedback and final details. When the blog post is approved, the blog will be

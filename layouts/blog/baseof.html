@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="blog" lang="en" class="gr__kubernetes_io fontawesome-i2svg-active fontawesome-i2svg-complete">
+<html id="blog" lang="{{ .Language }}" class="gr__kubernetes_io fontawesome-i2svg-active fontawesome-i2svg-complete">
 	<head>
 		{{ partial "head.html" . }}
 		<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
@@ -24,11 +24,11 @@
 						{{ end -}}
 						<a class="widget-link" href="https://kubernetes.io/docs/contribute/start/#write-a-blog-post"><i class="fa fa-edit fab-icon"></i> Submit a Post</a>
 						<a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square fab-icon"> </i> @Kubernetesio</a>
-						<a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square fab-icon"></i> View on Github </a>
+						<a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square fab-icon"></i> View on GitHub </a>
 						<a class="widget-link" href="http://slack.k8s.io"><i class="fab fa-slack fab-icon"> </i> #kubernetes-users </a>
 						<a class="widget-link" href="https://stackoverflow.com/questions/tagged/kubernetes"><i class="fab fa-stack-overflow fab-icon"></i> Stack Overflow</a>
 						<a class="widget-link" href="https://discuss.kubernetes.io"><i class="fab fa-discourse fab-icon"></i>Forum</a>
-						<a class="widget-link" href="http://get.k8s.io/"><i class="fa fa-download fab-icon"></i> Download Kubernetes</a>
+						<a class="widget-link" href="https://kubernetes.io/docs/setup/pick-right-solution/"><i class="fa fa-download fab-icon"></i> Download Kubernetes</a>
 					</div>
 					{{ partialCached "blog/archive.html" . }}
 				</div>

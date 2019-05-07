@@ -313,7 +313,7 @@ Exit Codes follow the same convention where 0 is success, nonzero is failure. Th
 * V1.Pod.volumeDevices - this is a beta feature, and is not implemented on Windows. Windows cannot attach raw block devices to pods.
 * V1.Pod.volumes - EmptyDir, Secret, ConfigMap, HostPath - all work and have tests in TestGrid
   * V1.emptyDirVolumeSource - the Node default medium is disk on Windows. Memory is not supported, as Windows does not have a built-in RAM disk.
-* V1.VolumeMount.mountPropagation - only MountPropagationHostToContainer is available. Windows cannot create mounts within a pod or project them back to the node.
+* V1.VolumeMount.mountPropagation - mount propagation is not supported on Windows.
 
 ##### V1.PodSecurityContext
 
@@ -515,7 +515,7 @@ If these steps don't resolve your problem, you can get help running Windows cont
 
 ## Reporting Issues and Feature Requests
 
-If you have what looks like a bug, or you would like to make a feature request, please use the [Github issue tracking system](https://github.com/kubernetes/kubernetes/issues). You can open issues on [GitHub](https://github.com/kubernetes/kubernetes/issues/new/choose) and assign them to SIG-Windows. You should first search the list of issues in case it was reported previously and comment with your experience on the issue and add additional logs. SIG-Windows Slack is also a great avenue to get some initial support and troubleshooting ideas prior to creating a ticket.
+If you have what looks like a bug, or you would like to make a feature request, please use the [GitHub issue tracking system](https://github.com/kubernetes/kubernetes/issues). You can open issues on [GitHub](https://github.com/kubernetes/kubernetes/issues/new/choose) and assign them to SIG-Windows. You should first search the list of issues in case it was reported previously and comment with your experience on the issue and add additional logs. SIG-Windows Slack is also a great avenue to get some initial support and troubleshooting ideas prior to creating a ticket.
 
 If filing a bug, please include detailed information about how to reproduce the problem, such as:
 

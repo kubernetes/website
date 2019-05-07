@@ -67,7 +67,7 @@ and the [code of conduct](/community/code-of-conduct/)
 
 ### Find a PR to review
 
-To see all open PRs, go to the **Pull Requests** tab in the Github repository.
+To see all open PRs, go to the **Pull Requests** tab in the GitHub repository.
 A PR is eligible for review when it meets all of the following criteria:
 
 - Has the `cncf-cla:yes` tag
@@ -166,7 +166,7 @@ has signed the CLA.
           - If the PR does not need additional technical review, add the
             text `/lgtm` as well.
           - If the PR *does* need additional technical review, add the text
-            `/assign` with the Github username of the person who needs to
+            `/assign` with the GitHub username of the person who needs to
             provide technical review. Look at the `reviewers` field in the
             front-matter at the top of a given Markdown file to see who can
             provide technical review.
@@ -212,7 +212,7 @@ true:
 
 #### If the file is already changed by the PR
 
-This method uses the Github UI. If you prefer, you can use the command line
+This method uses the GitHub UI. If you prefer, you can use the command line
 even if the file you want to change is part of the PR, if you are more
 comfortable working that way.
 
@@ -227,7 +227,7 @@ author's fork) and now shows up in the PR and your changes are reflected in
 the **Files changed** tab. Leave a comment letting the PR author know you
 changed the PR.
 
-If the author is using the command line rather than the Github UI to work on
+If the author is using the command line rather than the GitHub UI to work on
 this PR, they need to fetch their fork's changes and rebase their local branch
 on the branch in their fork, before doing additional work on the PR.
 
@@ -235,7 +235,7 @@ on the branch in their fork, before doing additional work on the PR.
 
 If changes need to be made to a file that is not yet included in the PR, you
 need to use the command line. You can always use this method, if you prefer it
-to the Github UI.
+to the GitHub UI.
 
 1.  Get the URL for the author's fork. You can find it near the bottom of the
     **Conversation** tab. Look for the text **Add more commits by pushing to**.
@@ -244,7 +244,7 @@ to the Github UI.
 
 2.  Add the fork as a remote. In your terminal, go to your clone of the
     repository. Decide on a name to give the remote (such as the author's
-    Github username), and add the remote using the following syntax:
+    GitHub username), and add the remote using the following syntax:
 
       ```bash
       git remote add <name> <url-of-fork>
@@ -273,10 +273,10 @@ to the Github UI.
       git push <remote-name> <branch-name>
       ```
 
-7.  Go back to the Github IU and refresh the PR. Your changes appear. Leave the
+7.  Go back to the GitHub IU and refresh the PR. Your changes appear. Leave the
     PR author a comment letting them know you changed the PR.
 
-If the author is using the command line rather than the Github UI to work on
+If the author is using the command line rather than the GitHub UI to work on
 this PR, they need to fetch their fork's changes and rebase their local branch
 on the branch in their fork, before doing additional work on the PR.
 
@@ -284,7 +284,7 @@ on the branch in their fork, before doing additional work on the PR.
 
 For changes that require multiple files or changes that involve creating new
 files or moving files around, working from a local Git clone makes more sense
-than relying on the Github UI. These instructions use the `git` command and
+than relying on the GitHub UI. These instructions use the `git` command and
 assume that you have it installed locally. You can adapt them to use a local
 graphical Git client instead.
 
@@ -301,7 +301,7 @@ on the Kubernetes documentation.
       ```
 
       The new directory `website` is created in your current directory, with
-      the contents of the Github repository.
+      the contents of the GitHub repository.
 
 2.  Change to the new `website` directory. Rename the default `origin` remote
     to `upstream`.
@@ -312,7 +312,7 @@ on the Kubernetes documentation.
       git remote rename origin upstream
       ```
 
-3.  If you have not done so, create a fork of the repository on Github. In your
+3.  If you have not done so, create a fork of the repository on GitHub. In your
     web browser, go to
     [https://github.com/kubernetes/website](https://github.com/kubernetes/website)
     and click the **Fork** button. After a few seconds, you are redirected to
@@ -348,7 +348,7 @@ After you decide which branch to start your work (or _base it on_, in Git
 terminology), use the following workflow to be sure your work is based on the
 most up-to-date version of that branch.
 
-1.  Fetch both the `upstream` and `origin` branches. This updates your local
+1.  Fetch both the `upstream` and `origin` remotes. This updates your local
     notion of what those branches contain, but does not change your local
     branches at all.
 
@@ -389,10 +389,10 @@ most up-to-date version of that branch.
       ```
 
       {{< note >}}
-      Do not reference a Github issue or pull request by ID or URL in the
+      Do not reference a GitHub issue or pull request by ID or URL in the
       commit message. If you do, it will cause that issue or pull request to get
       a notification every time the commit shows up in a new Git branch. You can
-      link issues and pull requests together later, in the Github UI.
+      link issues and pull requests together later, in the GitHub UI.
       {{< /note >}}
 
 5.  Optionally, you can test your change by staging the site locally using the
@@ -413,13 +413,13 @@ most up-to-date version of that branch.
       The results are more repeatable if you include the branch name.
 
 7.  At this point, if you go to https://github.com/kubernetes/website in your
-    web browser, Github detects that you pushed a new branch to your fork and
+    web browser, GitHub detects that you pushed a new branch to your fork and
     offers to create a pull request. Fill in the pull request template.
 
       - The title should be no more than 50 characters and summarize the intent
         of the change.
       - The long-form description should contain more information about the fix,
-        including a line like `Fixes #12345` if the pull request fixes a Github
+        including a line like `Fixes #12345` if the pull request fixes a GitHub
         issue. This will cause the issue to be closed automatically when the
         pull request is merged.
       - You can add labels or other metadata and assign reviewers. See
@@ -458,7 +458,7 @@ most up-to-date version of that branch.
 11. If someone else's change is merged into the branch your work is based on,
     and you have made changes to the same parts of the same files, a conflict
     might occur. If the pull request shows that there are conflicts to resolve,
-    you can resolve them using the Github UI or you can resolve them locally.
+    you can resolve them using the GitHub UI or you can resolve them locally.
 
       First, do step 10 to be sure that your fork and your local branch are in
       the same state.
@@ -578,7 +578,7 @@ These guidelines are not set in stone and are subject to change.
   - Priority labels: define the relative severity of the issue. These do not
     conform to those outlined in the
     [Kubernetes contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/issue-triage.md#define-priority), and can be one of `P1`, `P2`, or `P3`, if set.
-- To add a label, you can use Github's **Labels** widget if you are a Sig Docs
+- To add a label, you can use GitHub's **Labels** widget if you are a Sig Docs
   approver. Anyone who is a member of the Kubernetes organization can add a
   label by leaving a comment like `/label <label-to-add>`. The label must
   already exist. If you try to add a label that does not exist, the command is
@@ -716,7 +716,7 @@ notes, and a document listing each person on the release team.
 The feature tracking sheet
 [for a given Kubernetes release](https://github.com/kubernetes/sig-release/tree/master/releases) lists each feature that is planned for a release.
 Each line item includes the name of the feature, a link to the feature's main
-Github issue, its stability level (Alpha, Beta, or Stable), the SIG and
+GitHub issue, its stability level (Alpha, Beta, or Stable), the SIG and
 individual responsible for implementing it, whether it
 needs docs, a draft release note for the feature, and whether it has been
 merged. Keep the following in mind:
@@ -790,7 +790,7 @@ individual repositories. Many of these repositories contain code or content that
 can be considered documentation, such as user-facing help text, error messages,
 user-facing text in API references, or even code comments.
 
-If you see text and you aren't sure where it comes from, you can use Github's
+If you see text and you aren't sure where it comes from, you can use GitHub's
 search tool at the level of the Kubernetes organization to search through all
 repositories for that text. This can help you figure out where to submit your
 issue or PR.

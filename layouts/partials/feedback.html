@@ -4,13 +4,18 @@
   <button class="button feedback--yes">{{ T "feedback_yes" }}</button>
   <button class="button feedback--no">{{ T "feedback_no" }}</button>
   <p class="feedback--response feedback--response__hidden">
-    Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes,
-    ask it on <a target="_blank" rel="noopener"
-    href="https://stackoverflow.com/questions/tagged/kubernetes">Stack Overflow</a>. Open
-    an issue in the GitHub repo if you want to <a class="feedback--link" target="_blank" rel="noopener"
-    href="https://github.com/kubernetes/website/issues/new?title=Issue%20with%20k8s.io">report a problem</a> or
+    {{ T "layouts_docs_partials_feedback_thanks" }}
+    <a target="_blank" rel="noopener"
+      href="https://stackoverflow.com/questions/tagged/kubernetes">
+      Stack Overflow</a>.
+    {{ T "layouts_docs_partials_feedback_issue" }}
     <a class="feedback--link" target="_blank" rel="noopener"
-    href="https://github.com/kubernetes/website/issues/new?title=Improvement%20for%20k8s.io">suggest an improvement</a>.
+      href="https://github.com/kubernetes/website/issues/new?title=Issue%20with%20k8s.io">
+      {{ T "layouts_docs_partials_feedback_problem" }}</a>
+    {{ T "layouts_docs_partials_feedback_or" }}
+    <a class="feedback--link" target="_blank" rel="noopener"
+      href="https://github.com/kubernetes/website/issues/new?title=Improvement%20for%20k8s.io">
+      {{ T "layouts_docs_partials_feedback_improvement" }}</a>.
   </p>
   <script>
     const yes = document.querySelector('.feedback--yes');

@@ -77,7 +77,7 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 ### 컨테이너 런타임
 
 컨테이너 런타임은 컨테이너의 동작을 책임지는 소프트웨어다. 
-쿠버네티스는 몇몇의 런타임을 지원하는데 [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) 그리고 [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md)를 구현한 모든 런타임이다.
+쿠버네티스는 몇몇의 런타임을 지원하는데 [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) 그리고 [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)를 구현한 모든 런타임이다.
 
 ## 애드온
 
@@ -107,3 +107,5 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 [클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 가진다.
 
 {{% /capture %}}
+
+

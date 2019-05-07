@@ -25,9 +25,9 @@ functions-build:
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: check-hugo-versions build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: test-examples check-hugo-versions build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
-non-production-build: check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
+non-production-build: test-examples check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
 
 sass-build:
@@ -54,12 +54,9 @@ accessibility-page:
 	--maximum-urls 10 \
 	https://kubernetes.io
 
-# This command is used only by Travis CI; do not run this locally
-travis-hugo-build:
-	curl -L https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-64bit.tar.gz | tar -xz
-	mkdir -p ${TRAVIS_HOME}/bin
-	mv hugo ${TRAVIS_HOME}/bin
-	export PATH=${TRAVIS_HOME}/bin:$PATH
+test-examples:
+	scripts/test_examples.sh install
+	scripts/test_examples.sh run
 
 check-hugo-versions:
 	scripts/hugo-version-check.sh $(HUGO_VERSION)

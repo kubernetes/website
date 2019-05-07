@@ -1,5 +1,6 @@
 ---
 title: Images
+description: Images conteneur Kubernetes
 content_template: templates/concept
 weight: 10
 ---

@@ -67,7 +67,7 @@ Horizontal Pod Autoscaler는 컨트롤러
 HorizontalPodAutoscaler는 보통 일련의 API 집합(`metrics.k8s.io`, 
 `custom.metrics.k8s.io`, `external.metrics.k8s.io`)에서 메트릭을 가져온다. `metrics.k8s.io` API는 대개 별도로 
 시작해야 하는 메트릭-서버에 의해 제공된다. 가이드는 
-[메트릭-서버](/docs/tasks/debug-application-cluster/core-metrics-pipeline/#metrics-server)를 
+[메트릭-서버](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server)를 
 참조한다. HorizontalPodAutoscaler는 힙스터(Heapster)에서 직접 메트릭을 가져올 수도 있다.
 
 {{< note >}}
@@ -157,7 +157,7 @@ HorizontalPodAutoscaler에 여러 메트릭이 지정된 경우, 이 계산은
 
 마지막으로, HPA가 목표를 스케일하기 직전에 스케일 권장 사항이 기록된다. 컨트롤러는 
 구성 가능한 창(window) 내에서 가장 높은 권장 사항을 선택하도록 해당 창 내의 
-모든 권장 사항을 고려한다. 이 값은 `--horizontal-pod-autoscaler-downscale-stabilization-window` 플래그를 사용하여 설정할 수 있고, 기본 값은 5분이다. 
+모든 권장 사항을 고려한다. 이 값은 `--horizontal-pod-autoscaler-downscale-stabilization` 플래그를 사용하여 설정할 수 있고, 기본 값은 5분이다. 
 즉, 스케일 다운이 점진적으로 발생하여 급격히 변동하는 메트릭 값의 
 영향을 완만하게 한다.
 

@@ -6,7 +6,9 @@ weight: 80
 
 {{% capture overview %}}
 
-{{< include "federation-current-state.md" >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 이 페이지는 여러 쿠버네티스 클러스터를 페더레이션을 통해서 관리해야 하는 이유와 방법을 
 설명한다.

@@ -20,11 +20,11 @@ This section of the Kubernetes documentation contains references.
 
 * [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - Overview of the API for Kubernetes.
 * Kubernetes API Versions
+  * [1.14](/docs/reference/generated/kubernetes-api/v1.14/)
   * [1.13](/docs/reference/generated/kubernetes-api/v1.13/)
   * [1.12](/docs/reference/generated/kubernetes-api/v1.12/)
   * [1.11](/docs/reference/generated/kubernetes-api/v1.11/)
-  * [1.10](https://v1-10.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.10/)
-  * [1.9](https://v1-9.docs.kubernetes.io/docs/api-reference/v1.9/)
+  * [1.10](/docs/reference/generated/kubernetes-api/v1.10/)
 
 ## API Client Libraries
 

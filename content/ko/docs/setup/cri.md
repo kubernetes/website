@@ -12,12 +12,13 @@ weight: 100
 
 {{% capture body %}}
 
+
 {{< caution >}}
 컨테이너를 실행할 때 runc가 시스템 파일 디스크립터를 처리하는 방식에서 결함이 발견되었다.
 악성 컨테이너는 이 결함을 사용하여 runc 바이너리의 내용을 덮어쓸 수 있으며 
 따라서 컨테이너 호스트 시스템에서 임의의 명령을 실행할 수 있다.
 
-이 문제에 대한 자세한 내용은 
+이 문제에 대한 자세한 내용은
 [cve-2019-5736 : runc 취약점 ] (https://access.redhat.com/security/cve/cve-2019-5736) 참고하자.
 {{< /caution >}}
 
@@ -25,7 +26,7 @@ weight: 100
 
 {{< note >}}
 이 문서는 Linux에 CRI를 설치하는 사용자를 위해 작성되었다.
-다른 운영 체제의 경우, 해당 플랫폼과 관련된 문서를 찾아보자.
+다른 운영 체제의 경우, 해당 플랫폼과 관련된 문서를 찾아보자.
 {{< /note >}}
 
 이 가이드의 모든 명령은 `root`로 실행해야 한다.
@@ -50,6 +51,14 @@ Control group은 프로세스에 할당된 리소스를 제한하는데 사용�
 컨테이너 런타임과 kubelet이 `systemd`를 cgroup 드라이버로 사용하도록 설정을 변경하면
 시스템이 안정화된다. 아래의 Docker 설정에서 `native.cgroupdriver=systemd` 옵션을 확인하라.
 
+{{< caution >}}
+클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 권장하지 않는다.
+하나의 cgroup 드라이버의 의미를 사용하여 kubelet이 파드를 생성해왔다면, 
+컨테이너 런타임을 다른 cgroup 드라이버로 변경하는 것은 존재하는 기존 파드에 대해 PodSandBox를 재생성을 시도할 때, 에러가 발생할 수 있다.
+kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
+추천하는 방법은 워크로드에서 노드를 제거하고, 클러스터에서 제거한 다음 다시 결합시키는 것이다.
+{{< /caution >}}
+
 ## Docker
 
 각 머신들에 대해서, Docker를 설치한다.
@@ -61,23 +70,20 @@ Control group은 프로세스에 할당된 리소스를 제한하는데 사용�
 {{< tabs name="tab-cri-docker-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
 # Docker CE 설치
-## 저장소 설정
-### apt 패키지 인덱스 업데이트
-    apt-get update
-
-### apt가 HTTPS 저장소를 사용할 수 있도록 해주는 패키지 설치
-    apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+## 리포지터리 설정
+### apt가 HTTPS 리포지터리를 사용할 수 있도록 해주는 패키지 설치
+apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
 ### Docker의 공식 GPG 키 추가
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-### Docker apt 저장소 추가.
-    add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
+### Docker apt 리포지터리 추가.
+add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) \
+  stable"
 
-## Docker ce 설치.
+## Docker CE 설치.
 apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
 # 데몬 설정.
@@ -101,19 +107,19 @@ systemctl restart docker
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
 # Docker CE 설치
-## 저장소 설정
+## 리포지터리 설정
 ### 필요한 패키지 설치.
-    yum install yum-utils device-mapper-persistent-data lvm2
+yum install yum-utils device-mapper-persistent-data lvm2
 
-### Docker 저장소 추가
+### Docker 리포지터리 추가
 yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
+  --add-repo \
+  https://download.docker.com/linux/centos/docker-ce.repo
 
-## Docker ce 설치.
+## Docker CE 설치.
 yum update && yum install docker-ce-18.06.2.ce
 
-## /etc/docker 디렉토리 생성.
+## /etc/docker 디렉터리 생성.
 mkdir /etc/docker
 
 # 데몬 설정.
@@ -220,36 +226,63 @@ EOF
 sysctl --system
 ```
 
+### containerd 설치
+
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
-apt-get install -y libseccomp2
+{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+# containerd 설치
+## 리포지터리 설정
+### apt가 HTTPS로 리포지터리를 사용하는 것을 허용하기 위한 패키지 설치
+apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+
+### Docker의 공식 GPG 키 추가
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+### Docker apt 리포지터리 추가.
+add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
+
+## containerd 설치
+apt-get update && apt-get install -y containerd.io
+
+# containerd 설정
+mkdir -p /etc/containerd
+containerd config default > /etc/containerd/config.toml
+
+# containerd 재시작
+systemctl restart containerd
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
-yum install -y libseccomp
+# containerd 설치
+## 리포지터리 설정
+### 필요한 패키지 설치
+yum install yum-utils device-mapper-persistent-data lvm2
+
+### Docker 리포지터리 추가리
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+## containerd 설치
+yum update && yum install containerd.io
+
+# containerd 설정
+mkdir -p /etc/containerd
+containerd config default > /etc/containerd/config.toml
+
+# containerd 재시작
+systemctl restart containerd
 {{< /tab >}}
 {{< /tabs >}}
 
-### Containerd 설치
+### systemd
 
-[Containerd 릴리스](https://github.com/containerd/containerd/releases)는 주기적으로 출판된다. 아래의 값들은 작성 당시에 가용한 최신 버전을 기준으로 하드코드 되었다. 새로운 버전과 해시는 [여기](https://storage.googleapis.com/cri-containerd-release)에서 참고한다.
-
-```shell
-# 요구되는 환경 변수 export.
-export CONTAINERD_VERSION="1.1.2"
-export CONTAINERD_SHA256="d4ed54891e90a5d1a45e3e96464e2e8a4770cd380c21285ef5c9895c40549218"
-
-# containerd tar 다운로드.
-wget https://storage.googleapis.com/cri-containerd-release/cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
-
-# 해시 확인.
-echo "${CONTAINERD_SHA256} cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz" | sha256sum --check -
-
-# 풀기.
-tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
-
-# containerd 시작.
-systemctl start containerd
-```
+`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`의 `plugins.cri.systemd_cgroup = true`을 설정한다.
+kubeadm을 사용하는 경우에도 마찬가지로, 수동으로
+[cgroup driver for kubelet](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)을 
+설정해준다.
 
 ## 다른 CRI 런타임: frakti
 
