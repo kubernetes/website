@@ -320,7 +320,7 @@ kubectl taint nodes <node-name> node-role.kubernetes.io/master:NoSchedule-
 To deploy Cilium you just need to run:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.4/examples/kubernetes/1.13/cilium.yaml
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.5/examples/kubernetes/1.14/cilium.yaml
 ```
 
 Once all Cilium pods are marked as `READY`, you start using your cluster.
