@@ -27,7 +27,7 @@ need the features they provide.
 
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
 but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes 
-resources can only be in one namespace.
+resource can only be in one namespace.
 
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 
