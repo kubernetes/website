@@ -318,7 +318,7 @@ same as the scheduler.
 A Pod can restart, causing re-execution of Init Containers, for the following
 reasons:
 
-* A user updates the PodSpec causing the Init Container image to change.
+* A user updates the PodSpec causing the Init Container image to restart the entire pod.
   App Container image changes only restart the app Container.
 * The Pod infrastructure container is restarted. This is uncommon and would
   have to be done by someone with root access to nodes.
