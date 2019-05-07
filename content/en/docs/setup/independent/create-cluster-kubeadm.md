@@ -44,7 +44,6 @@ but you may also build them from source for other OSes.
 | kubeadm alpha subcommands | alpha          |
 | High availability         | alpha          |
 | DynamicKubeletConfig      | alpha          |
-| Self-hosting              | alpha          |
 
 
 kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
