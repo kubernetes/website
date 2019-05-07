@@ -54,7 +54,7 @@ Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes clus
 create the defined ReplicaSet and the Pods that it manages.
 
 ```shell
-kubectl apply -f http://k8s.io/examples/controllers/frontend.yaml
+kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 You can then get the current ReplicaSets deployed:
@@ -162,7 +162,7 @@ Suppose you create the Pods after the frontend ReplicaSet has been deployed and 
 fulfill its replica count requirement:
 
 ```shell
-kubectl apply -f http://k8s.io/examples/pods/pod-rs.yaml
+kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
 The new Pods will be acquired by the ReplicaSet, and then immediately terminated as the ReplicaSet would be over
@@ -184,12 +184,12 @@ pod2             0/1     Terminating   0          4s
 
 If you create the Pods first:
 ```shell
-kubectl apply -f http://k8s.io/examples/pods/pod-rs.yaml
+kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
 And then create the ReplicaSet however:
 ```shell
-kubectl apply -f http://k8s.io/examples/controllers/frontend.yaml
+kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 You shall see that the ReplicaSet has acquired the Pods and has only created new ones according to its spec until the
