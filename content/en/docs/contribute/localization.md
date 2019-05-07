@@ -120,6 +120,58 @@ Provide guidance to localization contributors in the localized `README-**.md` fi
 
 After you create the localized README, add a link to the file from the main English `README.md`, and include contact information in English. You can provide a GitHub ID, email address, [Slack channel](https://slack.com/), or other method of contact. You must also provide a link to your localized Community Code of Conduct.
 
+### Setting up the OWNERS files
+
+To set the roles of each user contributing to the localization, create an `OWNERS` file inside the language-specific subdirectory with:
+
+- **reviewers**: A list of kubernetes teams with reviewer roles, in this case, the `sig-docs-**-reviews` team created in [Add your localization team in GitHub](#add-your-localization-team-in-github).
+- **approvers**: A list of kubernetes teams with approvers roles, in this case, the `sig-docs-**-owners` team created in [Add your localization team in GitHub](#add-your-localization-team-in-github).
+- **labels**: A list of GitHub labels to automatically apply to a PR, in this case, the language label created in [Configure the workflow](#configure-the-workflow).
+
+More information about the `OWNERS` file can be found at [go.k8s.io/owners](https://go.k8s.io/owners).
+
+The [Spanish OWNERS file](https://git.k8s.io/website/content/es/OWNERS), with language code `es`, looks like:
+
+```yaml
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# This is the localization project for Spanish.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+reviewers:
+- sig-docs-es-reviews
+
+approvers:
+- sig-docs-es-owners
+
+labels:
+- language/es
+```
+
+After adding the language-specific `OWNERS` file, update the [root `OWNERS_ALIASES`](https://git.k8s.io/website/OWNERS_ALIASES) file with the new Kubernetes teams for the localization, `sig-docs-**-owners` and `sig-docs-**-reviews`.
+
+For each team, add the list of GitHub users requested in [Add your localization team in GitHub](#add-your-localization-team-in-github), in alphabetical order.
+
+```diff
+--- a/OWNERS_ALIASES
++++ b/OWNERS_ALIASES
+@@ -48,6 +48,14 @@ aliases:
+     - stewart-yu
+     - xiangpengzhao
+     - zhangxiaoyu-zidif
++  sig-docs-es-owners: # Admins for Spanish content
++    - alexbrand
++    - raelga
++  sig-docs-es-reviews: # PR reviews for Spanish content
++    - alexbrand
++    - electrocucaracha
++    - glo-pena
++    - raelga
+   sig-docs-fr-owners: # Admins for French content
+     - perriea
+     - remyleone
+```
+
 ## Translating content
 
 Localizing *all* of the Kubernetes documentation is an enormous task. It's okay to start small and expand over time.

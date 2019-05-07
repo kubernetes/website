@@ -78,7 +78,7 @@ secret "db-user-pass" created
 {{< note >}}	
 Special characters such as `$`, `\*`, and `!` require escaping.	
 If the password you are using has special characters, you need to escape them using the `\\` character. For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:	
-     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\*d\\$zDsb	
+     kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password=S\\!B\\\\*d\\$zDsb	
  You do not need to escape special characters in passwords from files (`--from-file`).	
 {{< /note >}}
 
@@ -203,8 +203,6 @@ The output will be similar to:
 
 ```yaml
 apiVersion: v1
-data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:40:59Z
@@ -214,6 +212,8 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: c280ad2e-e916-11e8-98f2-025000000001
 type: Opaque
+data:
+  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 ```
 
 If a field is specified in both data and stringData, the value from stringData
@@ -235,8 +235,6 @@ Results in the following secret:
 
 ```yaml
 apiVersion: v1
-data:
-  username: YWRtaW5pc3RyYXRvcg==
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:46:46Z
@@ -246,6 +244,8 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
+data:
+  username: YWRtaW5pc3RyYXRvcg==
 ```
 
 Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
@@ -336,9 +336,6 @@ kubectl get secret mysecret -o yaml
 ```
 ```
 apiVersion: v1
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
 kind: Secret
 metadata:
   creationTimestamp: 2016-01-22T18:41:56Z
@@ -348,6 +345,9 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 ```
 
 Decode the password field:
@@ -359,7 +359,7 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 1f2d1e2e67df
 ```
 
-### Using Secrets
+## Using Secrets
 
 Secrets can be mounted as data volumes or be exposed as
 {{< glossary_tooltip text="environment variables" term_id="container-env-variables" >}}
@@ -368,7 +368,7 @@ system, without being directly exposed to the pod.  For example, they can hold
 credentials that other parts of the system should use to interact with external
 systems on your behalf.
 
-#### Using Secrets as Files from a Pod
+### Using Secrets as Files from a Pod
 
 To consume a Secret in a volume in a Pod:
 
@@ -560,7 +560,7 @@ A container using a Secret as a
 Secret updates.
 {{< /note >}}
 
-#### Using Secrets as Environment Variables
+### Using Secrets as Environment Variables
 
 To use a secret in an {{< glossary_tooltip text="environment variable" term_id="container-env-variables" >}}
 in a pod:
@@ -613,7 +613,7 @@ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
 
-#### Using imagePullSecrets
+### Using imagePullSecrets
 
 An imagePullSecret is a way to pass a secret that contains a Docker (or other) image registry
 password to the Kubelet so it can pull a private image on behalf of your Pod.

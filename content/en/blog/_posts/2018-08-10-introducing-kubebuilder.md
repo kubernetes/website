@@ -47,5 +47,5 @@ Kubebuilder is a project under [SIG API Machinery][SIG-APIMachinery] and is bein
  
  - Kubebuilder [chat room on Slack][slack-channel]
  - SIG [mailing list][mailing-list]
- - [Github issues][open-an-issue]
+ - [GitHub issues][open-an-issue]
  - Send a pull request in the [kubebuilder repo][kubebuilder-repo]

@@ -87,8 +87,8 @@ First, a `Role` or `ClusterRole` needs to grant access to `use` the desired
 policies. The rules to grant access look like this:
 
 ```yaml
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: <role name>
 rules:
@@ -102,8 +102,8 @@ rules:
 Then the `(Cluster)Role` is bound to the authorized user(s):
 
 ```yaml
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: <binding name>
 roleRef:

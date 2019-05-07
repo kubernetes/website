@@ -157,7 +157,7 @@ HorizontalPodAutoscaler에 여러 메트릭이 지정된 경우, 이 계산은
 
 마지막으로, HPA가 목표를 스케일하기 직전에 스케일 권장 사항이 기록된다. 컨트롤러는 
 구성 가능한 창(window) 내에서 가장 높은 권장 사항을 선택하도록 해당 창 내의 
-모든 권장 사항을 고려한다. 이 값은 `--horizontal-pod-autoscaler-downscale-stabilization-window` 플래그를 사용하여 설정할 수 있고, 기본 값은 5분이다. 
+모든 권장 사항을 고려한다. 이 값은 `--horizontal-pod-autoscaler-downscale-stabilization` 플래그를 사용하여 설정할 수 있고, 기본 값은 5분이다. 
 즉, 스케일 다운이 점진적으로 발생하여 급격히 변동하는 메트릭 값의 
 영향을 완만하게 한다.
 
