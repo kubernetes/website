@@ -86,9 +86,10 @@ sudo cp minikube /usr/local/bin && rm minikube
 ```
 
 ### Windows
+ or [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v). Hyper-V can be run on three versions of Windows 10: Windows 10 Enterprise, Windows 10 Professional, and Windows 10 Education. See the official Minikube GitHub repository for additional [installation information](https://github.com/kubernetes/minikube/#installation).
 
 {{< note >}}
-Minikube를 Windows에서 실행하려면, 우선 [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)를 설치할 필요가 있다. Hyper-V는 Windows 10 Enterprise, Windows 10 Professional 과 Windows 10 Education 세 버전의 Windows 10에서 동작한다.  
+Minikube를 Windows에서 실행하려면, 우선 첫번째로 [VirtualBox](https://www.virtualbox.org/) 또는 [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)를 설치할 필요가 있다. Hyper-V는 Windows 10 Enterprise, Windows 10 Professional 과 Windows 10 Education 세 버전의 Windows 10에서 동작한다.  
 {{< /note >}}
 
 Windows에서 Minikube를 설치하는 가장 쉬운 방법은 [Chocolatey](https://chocolatey.org/)를 사용하는 것이다. (관리자 권한으로 실행)

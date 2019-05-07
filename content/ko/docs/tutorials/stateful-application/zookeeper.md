@@ -8,7 +8,7 @@ weight: 40
 이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)
 쿠버네티스에서 [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)과
 [파드디스룹선버짓(PodDisruptionBudget)](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
-[파드안티어피피니티(PodAntiAffinity)](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
+[파드안티어피니티(PodAntiAffinity)](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
