@@ -203,8 +203,6 @@ The output will be similar to:
 
 ```yaml
 apiVersion: v1
-data:
-  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:40:59Z
@@ -214,6 +212,8 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: c280ad2e-e916-11e8-98f2-025000000001
 type: Opaque
+data:
+  config.yaml: YXBpVXJsOiAiaHR0cHM6Ly9teS5hcGkuY29tL2FwaS92MSIKdXNlcm5hbWU6IHt7dXNlcm5hbWV9fQpwYXNzd29yZDoge3twYXNzd29yZH19
 ```
 
 If a field is specified in both data and stringData, the value from stringData
@@ -235,8 +235,6 @@ Results in the following secret:
 
 ```yaml
 apiVersion: v1
-data:
-  username: YWRtaW5pc3RyYXRvcg==
 kind: Secret
 metadata:
   creationTimestamp: 2018-11-15T20:46:46Z
@@ -246,6 +244,8 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: 91460ecb-e917-11e8-98f2-025000000001
 type: Opaque
+data:
+  username: YWRtaW5pc3RyYXRvcg==
 ```
 
 Where `YWRtaW5pc3RyYXRvcg==` decodes to `administrator`.
@@ -336,9 +336,6 @@ kubectl get secret mysecret -o yaml
 ```
 ```
 apiVersion: v1
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
 kind: Secret
 metadata:
   creationTimestamp: 2016-01-22T18:41:56Z
@@ -348,6 +345,9 @@ metadata:
   selfLink: /api/v1/namespaces/default/secrets/mysecret
   uid: cfee02d6-c137-11e5-8d73-42010af00002
 type: Opaque
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 ```
 
 Decode the password field:
