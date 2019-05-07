@@ -1,13 +1,7 @@
 title: Cluster Registry
-<<<<<<< HEAD:content/en/docs/reference/glossary/cluster-registry.md
- id: cluster-registry
- full-link: /docs/concepts/workloads/pods/cluster_registry/
- tags:
-=======
-id: federation
+id: cluster-registry
 full-link: /docs/concepts/workloads/pods/cluster_registry/
 tags:
->>>>>>> 3598d51dcbc08e46815a60acfc1d14804e2a818f:content/en/docs/reference/glossary/cluster_registry.md
   - extension
   - tool
 short_description: >
@@ -15,4 +9,3 @@ short_description: >
  
 long-description: >
    A lightweight tool that maintains a list of {% glossary_tooltip text="Clusters" term_id="cluster" %} and their associated metadata. The API is defined as a {% glossary_tooltip text="Custom Resource Definition" term_id="customresourcedefinition" %}. The intent is to provide a common abstraction for other tools that perform operations on multiple {% glossary_tooltip text="Clusters" term_id="cluster" %}.
-
