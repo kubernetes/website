@@ -226,7 +226,7 @@ akan dilanjutkan melalui _proxy_ pada _backend_ yang sesuai, dan klien tidak per
 apa informasi mendetail soal Kubernetes, `Service`, atau `Pod`. afinitas _session_ (_session affinity_) berbasis 
 _Client-IP_ dapat dipilih dengan cara menerapkan nilai _"ClientIP"_ pada `service.spec.sessionAffinity` 
 (nilai _default_ untuk hal ini adalah _"None"_), kamu juga dapat mengatur nilai maximum _session_ 
-_timeout_ yang ada dengan mengatur opsi `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds`_ jika 
+_timeout_ yang ada dengan mengatur opsi `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` jika 
 sebelumnya kamu sudah menerapkan nilai _"ClusterIP"_ pada `service.spec.sessionAffinity` 
 (nilai _default_ untuk opsi ini adalah _"10800"_).
 
@@ -268,7 +268,7 @@ kamu harus mengisi _fields_ `.spec.clusterIP` field. Contoh penggunaannya adalah
 misalnya saja kamu sudah memiliki _entry_ DNS yang ingin kamu gunakan kembali, 
 atau sebuah sistem _legacy_ yang sudah diatur pada alamat IP spesifik 
 dan sulit untuk diubah. Alamat IP yang ingin digunakan pengguna haruslah merupakan alamat IP 
-yang valid dan berada di dalam _range_ _CIDR_ `service-cluster-ip-range`_ yang dispesifikasikan di dalam 
+yang valid dan berada di dalam _range_ _CIDR_ `service-cluster-ip-range` yang dispesifikasikan di dalam 
 penanda yang diberikan _apiserver_. Jika _value_ yang diberikan tidak valid, _apiserver_ akan 
 mengembalikan _response_ _code_ HTTP _422_ yang mengindikasikan _value_ yang diberikan tidak valid.
 
@@ -307,14 +307,14 @@ REDIS_MASTER_SERVICE_HOST=10.0.0.11
 REDIS_MASTER_SERVICE_PORT=6379
 REDIS_MASTER_PORT=tcp://10.0.0.11:6379
 REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_MASTER_PORT_6379`TCP`PROTO=tcp
-REDIS_MASTER_PORT_6379`TCP`PORT=6379
-REDIS_MASTER_PORT_6379`TCP`ADDR=10.0.0.11
+REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
+REDIS_MASTER_PORT_6379_TCP_PORT=6379
+REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
 ```
 
 Hal ini merupakan kebutuhan yang urutannya harus diperhatikan - `Service` apa pun yang 
 akan diakses oleh sebuah `Pod` harus dibuat sebelum `Pod` tersebut dibuat, 
-jika tidak _environment_ _variabel_ tidak akan diinisiasi. 
+jika tidak variabel _environment_ tidak akan diinisiasi. 
 Meskipun begitu, DNS tidak memiliki keterbatasan ini.
 
 ### DNS
@@ -664,7 +664,7 @@ memberikan spesifikasi hierarki logis yang kamu buat untuk _bucket_ Amazon S3 ya
 
 Mekanisme _draining_ untuk ELB klasik dapat dilakukan dengan menggunakan anotasi 
 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled` serta mengatur 
-_value_-nya menjadi _"true"_. Anotasi 
+_value_-nya menjadi `"true"`. Anotasi 
 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout` juga
 dapat digunakan untuk mengatur _maximum time_ (dalam detik), untuk menjaga koneksi yang ada 
 agar selalu terbuka sebelum melakukan _deregistering_ _instance_.
@@ -724,7 +724,7 @@ Ini merupakan tingkatan _alpha_ dan tidak direkomendasikan untuk digunakan pada 
 
 Sejak versi 1.9.0, Kubernetes mendukung _Network Load Balancer_ (NLB). Untuk
 menggunakan NLB pada AWS, gunakan anotasi `service.beta.kubernetes.io/aws-load-balancer-type`
-dan atur _value_-nya dengan _nlb_.
+dan atur _value_-nya dengan `nlb`.
 
 ```yaml
     metadata:
@@ -756,11 +756,11 @@ _security group_ dari _node_ akan diberikan _rules_ IP sebagai berikut:
 | _Rule_ | Protokol | `Port` | _IpRange(s)_ | Deskripsi _IpRange_ |
 |--------|----------|--------|--------------|---------------------|
 | _Health Check_   | TCP  | NodePort(s) (`.spec.healthCheckNodePort` for _.spec.externalTrafficPolicy = Local_) | VPC CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-| _Client Traffic_ | TCP  | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to _0.0.0.0/0_) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
-| _MTU Discovery_  | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to _0.0.0.0/0_) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
+| _Client Traffic_ | TCP  | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
+| _MTU Discovery_  | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
 
 Perhatikan bahwa jika `.spec.loadBalancerSourceRanges` tidak dispesifikasikan, 
-Kubernetes akan mengizinkan trafik dari _0.0.0.0/0_ ke_Node Security Group_. 
+Kubernetes akan mengizinkan trafik dari `0.0.0.0/0` ke _Node Security Group_. 
 Jika _node_ memiliki akses publik, maka kamu harus memperhatikan tersebut karena trafik yang tidak berasal 
 dari NLB juga dapat mengakses semua _instance_ di _security group_ tersebut.
 
@@ -1024,10 +1024,10 @@ yang kemudian diikuti data dari klien.
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
 Kubernetes memberikan dukungan bagi SCTP sebagai _value_ dari _definition_ yang ada pada 
-_Service_, `Endpoints`, _NetworkPolicy_ dan `Pod` sebagai fitur _alpha_. Untuk mengaktifkan fitur ini, 
-administrator kluster harus menaktifkan _feature gate_ _SCTPSupport_ pada _apiserver_, contohnya 
-_“--feature-gates=SCTPSupport=true,...”_. Ketika _fature gate_ ini diaktifkan, pengguna dapat 
-memberikan _value_ SCTP pada _field_ _protocol_ `Service`, `Endpoints`, _NetworkPolicy_ dan `Pod`. 
+_Service_, `Endpoints`, `NetworkPolicy` dan `Pod` sebagai fitur _alpha_. Untuk mengaktifkan fitur ini, 
+administrator kluster harus mengaktifkan _feature gate_ _SCTPSupport_ pada _apiserver_, contohnya 
+`“--feature-gates=SCTPSupport=true,...”`. Ketika _fature gate_ ini diaktifkan, pengguna dapat 
+memberikan _value_ SCTP pada _field_ _protocol_ `Service`, `Endpoints`, `NetworkPolicy` dan `Pod`. 
 Kubernetes kemudian akan melakukan pengaturan agar jaringan yang digunakan agar jaringan tersebut menggunakan SCTP, 
 seperti halnya Kubernetes mengatur jaringan agar menggunakan TCP.
 
