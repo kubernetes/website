@@ -58,6 +58,7 @@ For more information on the `docker build` command, read the [Docker documentati
 2. Open the Kubernetes dashboard in a browser:
 
     ```shell
+    apt install xdg-utils
     minikube dashboard
     ```
 
