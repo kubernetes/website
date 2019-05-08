@@ -156,8 +156,8 @@ spec:
 Yaml file below outlines the `mydb` and `myservice` services:
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: myservice
 spec:
@@ -166,8 +166,8 @@ spec:
     port: 80
     targetPort: 9376
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: mydb
 spec:
