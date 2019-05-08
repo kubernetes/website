@@ -271,7 +271,7 @@ object:
   metric:
     name: requests-per-second
   describedObject:
-    apiVersion: extensions/v1beta1
+    apiVersion: networking.k8s.io/v1beta1
     kind: Ingress
     name: main-route
   target:
@@ -316,7 +316,7 @@ spec:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
         name: main-route
       target:
@@ -339,7 +339,7 @@ status:
       metric:
         name: requests-per-second
       describedObject:
-        apiVersion: extensions/v1beta1
+        apiVersion: networking.k8s.io/v1beta1
         kind: Ingress
         name: main-route
       current:
