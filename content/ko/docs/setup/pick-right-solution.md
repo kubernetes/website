@@ -51,6 +51,8 @@ card:
 
 ### 생태계 도구
 
+* [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local)는 LXD 컨테이너가 존재하는 로컬호스트에서 9개 인스턴스 디플로이먼트를 지원한다.
+
 * [Docker Desktop](https://www.docker.com/products/docker-desktop)는
 Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다.
 수 분 내에 단일 노드 쿠버네티스 클러스터에서 컨테이너로 코딩과 배포를 
@@ -64,7 +66,9 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 
 * [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)는 Terraform/Packer/BASH 기반의 리눅스 호스트 상의 LXD 클러스터에 7개의 노드(부트 1개, 마스터 1개, 관리 1개, 프록시 1개 그리고 워커 3개)를 생성하기 위한 Infrastructure as Code (IaC) 스크립트이다.
 
-* [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local)는 로컬 호스트에서 9개의 인스턴스 배포를 지원한다.
+* [k3s](https://k3s.io)는 경량의 생산-등급 쿠버네티스 베포판이다. 간단한 설치 과정과 40MB의 바이너리 footprint로, 로컬-머신 개발에 이상적이다.
+
+* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local/)는 로컬호스트에서 9개 인스턴스 디플로이먼트를 지원한다.
 
 ## 호스트 된 솔루션
 
@@ -108,7 +112,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 
 * [SysEleven MetaKube](https://www.syseleven.io/products-services/managed-kubernetes/)는 자체 OpenStack 퍼블릭 클라우드 상에서 서비스로써 관리형 쿠버네티스를 제공한다. 라이프사이클 관리, 관리 대시보드, 모니터링, 오토스케일링과 그 밖에 많은 기능을 포함한다.
 
-* [VEXXHOST](https://vexxhost.com/public-cloud/container-services/kubernetes/) VEXXHOST는 공공 클라우드에서 공인된 쿠버네티스를 제공하며, 캐나다에서 가장 큰 OpenStack 퍼블릭 클라우드이다.
+* [VEXXHOST](https://vexxhost.com/public-cloud/container-services/kubernetes/) VEXXHOST는 VEXXHOST의 공공 클라우드에서 공인된 쿠버네티스를 제공하며, 캐나다에서 가장 큰 OpenStack 퍼블릭 클라우드이다.
 
 * [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)는 사용하기 쉽고, 기본적으로 안전하며, 비용 효율적인 SaaS 기반의 쿠버네티스 클러스터를 제공하는 VMWare 클라우드 서비스 포트폴리오의 엔터프라이즈 Kubernetes-as-a-Service 오퍼링이다.
 
@@ -129,6 +133,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [Giant Swarm](https://giantswarm.io)
 * [Google Compute Engine (GCE)](/docs/setup/turnkey/gce/)
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
+* [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://cloud.kubermatic.io)
 * [Kublr](https://kublr.com/)
@@ -138,7 +143,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/)
-* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [Rancher](https://rancher.com/docs/rancher/v2.x/en/)
 * [Stackpoint.io](/docs/setup/turnkey/stackpoint/)
 * [Supergiant.io](https://supergiant.io/)
 * [VEXXHOST](https://vexxhost.com/private-cloud/)
@@ -154,16 +159,17 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Giant Swarm](https://giantswarm.io)
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
-* [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/)
+* [IBM Cloud Private](https://www.ibm.com/cloud/private)
+* [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com)
-* [Kublr](www.kublr.com/kubernetes.io/setup-hosted-solution)
+* [Kublr](https://kublr.com/)
 * [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)
 * [Nirmata](https://nirmata.com/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) by [Red Hat](https://www.redhat.com)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/)
-* [Rancher 2.0](https://rancher.com/docs/rancher/v2.x/en/)
+* [Rancher](https://rancher.com/docs/rancher/v2.x/en/)
 * [SUSE CaaS Platform](https://www.suse.com/products/caas-platform)
 * [SUSE Cloud Application Platform](https://www.suse.com/products/cloud-application-platform/)
 * [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)
@@ -185,7 +191,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 
 * [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [Gardener](https://gardener.cloud/)
-* [Kublr](www.kublr.com/kubernetes.io/setup-hosted-solution)
+* [Kublr](https://kublr.com/)
 * [Kubernetes on Ubuntu](https://www.ubuntu.com/kubernetes/docs/quickstart)
 * [Kubespray](/docs/setup/custom-cloud/kubespray/)
 * [Rancher Kubernetes Engine (RKE)](https://github.com/rancher/rke)
@@ -210,6 +216,8 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [Docker Enterprise](https://www.docker.com/products/docker-enterprise)
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
+* [k3s](https://k3s.io)
+* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubernetes on Ubuntu](https://www.ubuntu.com/kubernetes/docs/quickstart)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/) works on any infrastructure: on-premises, bare metal, or private/hybrid cloud.

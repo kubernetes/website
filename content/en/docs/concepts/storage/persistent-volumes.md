@@ -198,8 +198,8 @@ the following types of volumes:
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
 ``` yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gluster-vol-default
 provisioner: kubernetes.io/glusterfs
@@ -442,8 +442,8 @@ The CLI will show the name of the PVC bound to the PV.
 Each PVC contains a spec and status, which is the specification and status of the claim.
 
 ```yaml
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: myclaim
 spec:
@@ -531,8 +531,8 @@ it won't be supported in a future Kubernetes release.
 Pods access storage by using the claim as a volume.  Claims must exist in the same namespace as the pod using the claim.  The cluster finds the claim in the pod's namespace and uses it to get the `PersistentVolume` backing the claim.  The volume is then mounted to the host and into the pod.
 
 ```yaml
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: mypod
 spec:
