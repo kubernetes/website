@@ -191,7 +191,7 @@ metadata:
   creationTimestamp: 2017-08-28T02:38:26Z
   generation: 1
   name: zk-pdb
-...
+…
 status:
   currentHealthy: 3
   desiredHealthy: 3
