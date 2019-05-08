@@ -20,18 +20,18 @@ menghilangkan kontainer-kontainer yang sebenarnya masih diperlukan.
 
 ## *Garbage Collection* untuk *Image*
 
-Kubernetes mengelola *lifecycle* untuk seluruh *image* melalui imageManager, dengan bantuan cadvisor.
+Kubernetes mengelola *lifecycle* untuk seluruh *image* melalui *imageManager*, dengan bantuan cadvisor.
 
-*Policy* untuk melakukan *garbage collection* memperhitungkan dua hal: `HighThresholdPercent` dan `LowThresholdPercent`. 
+*Policy* untuk melakukan *garbage collection* memperhatikan dua hal: `HighThresholdPercent` dan `LowThresholdPercent`. 
 Penggunaan disk yang melewati batas atas (*high threshold*) akan men-*trigger* *garbage collection*.
 *Garbage collection* akan mulai menghapus dari *image-image* yang paling jarang digunakan (*least recently used*)
 sampai menemui batas bawah (*low threshold*) kembali.
 
 ## *Garbage Collection* untuk Kontainer
 
-*Policy* untuk melakukan *garbage collection* pada kontainer memperhitungkan tiga variabel yang ditentukan oleh pengguna (*user-defined*).
+*Policy* untuk melakukan *garbage collection* pada kontainer memperhatikan tiga variabel yang ditentukan oleh pengguna (*user-defined*).
 `MinAge` merupakan umur minimal dimana suatu kontainer dapat terkena *garbage collection*.
-`MaxPerPodContainer` merupakan jumlah maksimal yang diperbolehkan untuk setiap pod (UID, container name) *pair* memiliki 
+`MaxPerPodContainer` merupakan jumlah maksimum yang diperbolehkan untuk setiap pod (UID, container name) *pair* memiliki 
 kontainer-kontainer yang sudah mati (*dead containers*). `MaxContainers` merupakan jumlah maksimal total dari seluruh kontainer yang sudah mati.
 Semua variabel ini dapat dinonaktifkan secara individual, dengan mengatur `MinAge` ke angka nol serta mengatur `MaxPerPodContainer` dan `MaxContainers`
 ke angka di bawah nol.
