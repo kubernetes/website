@@ -12,7 +12,7 @@ Laman ini menjelaskan tentang *resource* RuntimeClass dan proses pemilihan *runt
 
 {{< warning >}}
 RuntimeClass memiliki *breaking change* untuk pembaruan ke beta pada v1.14. Jika kamu menggunakan
-RuntimeClass sebelum v1.14, lihat [Pembaruan RuntimeClass dari Alpha ke Beta](#upgrading-runtimeclass-from-alpha-to-beta).
+RuntimeClass sebelum v1.14, lihat [Memperbarui RuntimeClass dari Alpha ke Beta](#memperbarui-runtimeclass-dari-alpha-ke-beta).
 {{< /warning >}}
 
 {{% /capture %}}
@@ -27,7 +27,7 @@ tersebut digunakan untuk menjalankan kontainer-kontainer milik suatu Pod.
 
 ### Persiapan
 
-Pastikan gerbang fitur (*feature gate*) RuntimeClass sudah aktif (secara *default* sudah aktif).
+Pastikan gerbang fitur (*feature gate*) `RuntimeClass` sudah aktif (secara *default* sudah aktif).
 Lihat [Gerbang Fitur](/docs/reference/command-line-tools-reference/feature-gates/) untuk lebih
 jelasnya soal pengaktifan gerbang fitur.
 Gerbang fitur RuntimeClass ini harus aktif pada semua apiserver dan kubelet.
@@ -38,7 +38,7 @@ Gerbang fitur RuntimeClass ini harus aktif pada semua apiserver dan kubelet.
 #### 1. Lakukan konfigurasi pada implementasi CRI untuk setiap *node*
 
 Pilihan konfigurasi yang tersedia melalui RuntimeClass tergantung pada implementasi
-*Container Runtime Interface* (CRI). Lihat bagian ([di bawah ini](#cri-configuration))
+*Container Runtime Interface* (CRI). Lihat bagian ([di bawah ini](#konfigurasi-cri))
 soal bagaimana melakukan konfigurasi untuk implementasi CRI yang kamu miliki.
 
 {{< note >}}
@@ -49,12 +49,12 @@ melalui fitur *scheduling* (lihat [Menempatkan Pod pada Node](/docs/concepts/con
 {{< /note >}}
 
 Seluruh konfigurasi memiliki nama `handler` yang terkait, dijadikan referensi oleh RuntimeClass.
-Nama *handler* harus berupa valid label 1123 DNS (alpha-numeric + karakter `-`).
+Nama *handler* harus berupa valid label 1123 DNS (alfanumerik + karakter `-`).
 
 #### 2. Buat *resource* `RuntimeClass` yang terkait
 
 Masing-masing konfigurasi pada langkah no.1 punya nama `handler` yang merepresentasikan 
-konfigurasi-konfigurasi tersebut. Untuk masing-masing *handler*, buatlah sebuah objek RuntimeClass terkait.
+konfigurasi-konfigurasi tersebut. Untuk masing-masing `handler`, buatlah sebuah objek RuntimeClass terkait.
 
 *Resource* RuntimeClass saat ini hanya memiliki 2 *field* yang penting: nama RuntimeClass tersebut
 (`metadata.name`) dan *handler* (`handler`). Definisi objek tersebut terlihat seperti ini:
