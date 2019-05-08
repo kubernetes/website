@@ -10,7 +10,7 @@ Metrik *controller manager* memberikan informasi penting tentang kinerja dan kes
 {{% /capture %}}
 
 {{% capture body %}}
-## Tentang metrik manager
+## Tentang metrik *controller manager*
 
 Metrik *controller manager* ini berfungsi untuk memberikan informasi penting tentang kinerja dan kesehatan dari *controller manager*.
 Metrik ini juga berisi tentang metrik umum dari *runtime* bahasa pemrograman Go language seperti jumlah *go_routine* dan metrik spesifik dari *controller* seperti
