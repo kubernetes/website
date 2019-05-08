@@ -24,7 +24,7 @@ It may sound pretty generic, but we know what hides behind such a statement, we 
 
 Try to google `monolith to cloud native` or `monolith to microsevices` and you get a list of different articles and talks recordings that tackle this challenge. There are different paths and our experience thought us to be quite opinionated in this area. First let's answer a question why would you event consideer moving from Monolith to Cloud Native? Reasoning is almost always:
 - Increase scalability
-- Increate the speed of providing new features
+- Increase the speed of providing new features
 - Enable more flexible extensibility
 You do not have to rewrite your monolith to achieve above. Why spending all the costs related to rewriting the functionality that you already sell. Just focus on enablign your monolith to follow [event-driven architecture](https://en.wikipedia.org/wiki/Event-driven_architecture).
 
