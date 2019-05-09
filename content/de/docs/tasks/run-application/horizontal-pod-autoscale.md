@@ -19,7 +19,6 @@ Der Controller passt die Anzahl der Replikate eines Replication Controller oder 
 
 {{% /capture %}}
 
-
 {{% capture body %}}
 
 ## Wie funktioniert der Horizontal Pod Autoscaler?
@@ -45,7 +44,7 @@ Der HorizontalPodAutoscaler holt Metriken normalerweise aus einer Reihe von aggr
 Das Verwenden von Metriken aus Heapster ist seit der Kubernetes Version 1.11 veraltet.
 {{< /note >}}
 
-Siehe [Unterstützung für Metrik APIs](#support-for-metrics-apis) für weitere Details.
+Siehe [Unterstützung der Metrik APIs](#unterstützung-der-metrik-apis) für weitere Details.
 
 Der Autoscaler greift über die Scale Sub-Ressource auf die entsprechenden skalierbaren Controller (z.B. Replication Controller, Deployments und Replika Sets) zu. Scale ist eine Schnittstelle, mit der Sie die Anzahl der Replikate dynamisch einstellen und jeden ihrer aktuellen Zustände untersuchen können. Weitere Details zu der Scale Sub-Ressource findest du [hier](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
 
@@ -140,9 +139,9 @@ Kubernetes 1.6 bietet Unterstützung für die Verwendung benutzerdefinierter Met
 Du kannst benutzerdefinierte Metriken für den Horizontal Pod Autoscaler hinzufügen, die in der `autoscaling/v2beta2` API verwendet werden.
 Kubernetes fragt dann die neue API für die benutzerdefinierte Metriken ab, um die Werte der entsprechenden benutzerdefinierten Metriken zu erhalten.
 
-Die Voraussetzungen hierfür werden im nachfolgenden Kapitel [Unterstützung für die Metrik APIs](unterstützung-für-die-metrik-apis) geklärt.
+Die Voraussetzungen hierfür werden im nachfolgenden Kapitel [Unterstützung für die Metrik APIs](#unterstützung-der-metrik-apis) geklärt.
 
-## Unterstützung für die Metrik APIs
+## Unterstützung der Metrik APIs
 
 Standardmäßig ruft der HorizontalPodAutoscaler Controller Metriken aus einer Reihe von APIs ab. Damit dieser auf die APIs zugreifen kann, muss der Cluster Administratoren sicherstellen, dass:
 
