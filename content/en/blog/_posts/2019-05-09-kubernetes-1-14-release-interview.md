@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Cat shirts and Groundhog Day: the Kubernetes 1.14 release interview"
-date: 2019-05-08
+date: 2019-05-09
 ---
 
 <b>Author</b>: Craig Box (Google)
