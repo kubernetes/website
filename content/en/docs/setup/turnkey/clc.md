@@ -2,7 +2,6 @@
 title: Running Kubernetes on CenturyLink Cloud
 ---
 
-{: toc}
 
 These scripts handle the creation, deletion and expansion of Kubernetes clusters on CenturyLink Cloud.
 
@@ -238,11 +237,10 @@ utility ```kubectl```.  If you do not already have a copy of this binary on your
 administrative machine, you may run the script ```install_kubectl.sh``` which will
 download it and install it in ```/usr/bin/local```.
 
-The script requires that the environment variable ```CLC_CLUSTER_NAME``` be defined
-
-```install_kubectl.sh``` also writes a configuration file which will embed the necessary
+The script requires that the environment variable ```CLC_CLUSTER_NAME``` be defined. ```install_kubectl.sh``` also writes a configuration file which will embed the necessary
 authentication certificates for the particular cluster.  The configuration file is
 written to the  ```${CLC_CLUSTER_HOME}/kube``` directory
+
 
 ```shell
 export KUBECONFIG=${CLC_CLUSTER_HOME}/kube/config
@@ -273,18 +271,18 @@ create a cluster, the script should output URLs for these interfaces like this:
 
 kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```.
 
-Note on Authentication to the UIs: The cluster is set up to use basic
-authentication for the user _admin_.   Hitting the url at
-```https://${MASTER_IP}:6443``` will require accepting the self-signed certificate
-from the apiserver, and then presenting the admin password written to file at:
+Note on Authentication to the UIs: 
 
-```> _${CLC_CLUSTER_HOME}/kube/admin_password.txt_```
+The cluster is set up to use basic authentication for the user _admin_.
+Hitting the url at ```https://${MASTER_IP}:6443``` will 
+require accepting the self-signed certificate
+from the apiserver, and then presenting the admin 
+password written to file at: ```> _${CLC_CLUSTER_HOME}/kube/admin_password.txt_```
 
 
 ### Configuration files
 
-Various configuration files are written into the home directory *CLC_CLUSTER_HOME* under
-```.clc_kube/${CLC_CLUSTER_NAME}``` in several subdirectories. You can use these files
+Various configuration files are written into the home directory *CLC_CLUSTER_HOME* under ```.clc_kube/${CLC_CLUSTER_NAME}``` in several subdirectories. You can use these files
 to access the cluster from machines other than where you created the cluster from.
 
 * ```config/```: Ansible variable files containing parameters describing the master and minion hosts
