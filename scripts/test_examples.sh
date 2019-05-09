@@ -13,8 +13,8 @@ if printf -- '%s\n' "${FILES[@]}" | grep -qE '^"?content/[^/]+/examples/'; then
 fi
 
 function install() {
-  if [[ $TEST_EXAMPLES == No ]]; then
-    echo "PR not touching examples, skipping example tests install"
+  if ! [[ $TEST_EXAMPLES == Yes ]]; then
+    echo "PR not touching examples, skipping example tests install" 1>&2
     exit 0
   fi
 
@@ -39,8 +39,8 @@ function install() {
 }
 
 function run_test() {
-  if [[ $TEST_EXAMPLES == No ]]; then
-    echo "PR not touching examples, skipping example tests execution"
+  if ! [[ $TEST_EXAMPLES == Yes ]]; then
+    echo "PR not touching examples, skipping example tests execution" 1>&2
     exit 0
   fi
   go test -v k8s.io/website/content/en/examples
