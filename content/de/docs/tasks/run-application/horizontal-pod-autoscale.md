@@ -19,7 +19,6 @@ Der Controller passt die Anzahl der Replikate eines Replication Controller oder 
 
 {{% /capture %}}
 
-
 {{% capture body %}}
 
 ## Wie funktioniert der Horizontal Pod Autoscaler?
