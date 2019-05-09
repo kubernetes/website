@@ -191,8 +191,8 @@ Create a volume using the dynamic volume creation (only PersistentVolumes are su
 ```json
 kubectl apply -f - <<EOF
 {
-  "kind": "PersistentVolumeClaim",
   "apiVersion": "v1",
+  "kind": "PersistentVolumeClaim",
   "metadata": {
     "name": "claim1",
     "annotations": {
@@ -241,8 +241,8 @@ this means that this pod can only be created in the same zone as the volume:
 
 ```yaml
 kubectl apply -f - <<EOF
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: mypod
 spec:
