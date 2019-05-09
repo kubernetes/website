@@ -10,7 +10,7 @@ content_template: templates/concept
 
 **¡Bienvenido a la documentación de Kubernetes en Castellano!**
 
-Cómo podrá comprobar, la mayor parte de la documentación aún está disponible solo en inglés, pero no se preocupes, hay un equipo trabajando en la traducción al castellano.
+Cómo podrá comprobar, la mayor parte de la documentación aún está disponible solo en inglés, pero no te preocupes, hay un equipo trabajando en la traducción al castellano.
 
 {{% /capture %}}
 
