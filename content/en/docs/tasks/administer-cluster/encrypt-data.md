@@ -33,8 +33,8 @@ The alpha version of the encryption feature prior to 1.13 used the `--experiment
 ## Understanding the encryption at rest configuration.
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets
@@ -97,8 +97,8 @@ is the first provider, the first key is used for encryption.
 Create a new encryption config file:
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets
@@ -190,8 +190,8 @@ With a single `kube-apiserver`, step 2 may be skipped.
 To disable encryption at rest place the `identity` provider as the first entry in the config:
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets
