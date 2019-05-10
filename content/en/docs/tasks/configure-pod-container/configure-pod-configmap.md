@@ -96,6 +96,14 @@ The output is similar to this:
 
 ```yaml
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2016-02-18T18:52:05Z
+  name: game-config
+  namespace: default
+  resourceVersion: "516"
+  selfLink: /api/v1/namespaces/default/configmaps/game-config
+  uid: b4952dc3-d670-11e5-8cd0-68f728db1985
 data:
   game.properties: |
     enemies=aliens
@@ -110,14 +118,6 @@ data:
     color.bad=yellow
     allow.textmode=true
     how.nice.to.look=fairlyNice
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-02-18T18:52:05Z
-  name: game-config
-  namespace: default
-  resourceVersion: "516"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config
-  uid: b4952dc3-d670-11e5-8cd0-68f728db1985
 ```
 
 #### Create ConfigMaps from files
@@ -211,10 +211,6 @@ kubectl get configmap game-config-env-file -o yaml
 where the output is similar to this:
 ```yaml
 apiVersion: v1
-data:
-  allowed: '"true"'
-  enemies: aliens
-  lives: "3"
 kind: ConfigMap
 metadata:
   creationTimestamp: 2017-12-27T18:36:28Z
@@ -223,6 +219,10 @@ metadata:
   resourceVersion: "809965"
   selfLink: /api/v1/namespaces/default/configmaps/game-config-env-file
   uid: d9d1ca5b-eb34-11e7-887b-42010a8002b8
+data:
+  allowed: '"true"'
+  enemies: aliens
+  lives: "3"
 ```
 
 When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
@@ -246,10 +246,6 @@ kubectl get configmap config-multi-env-files -o yaml
 where the output is similar to this:
 ```yaml
 apiVersion: v1
-data:
-  color: purple
-  how: fairlyNice
-  textmode: "true"
 kind: ConfigMap
 metadata:
   creationTimestamp: 2017-12-27T18:38:34Z
@@ -258,6 +254,10 @@ metadata:
   resourceVersion: "810136"
   selfLink: /api/v1/namespaces/default/configmaps/config-multi-env-files
   uid: 252c4572-eb35-11e7-887b-42010a8002b8
+data:
+  color: purple
+  how: fairlyNice
+  textmode: "true"
 ```
 
 #### Define the key to use when creating a ConfigMap from a file
@@ -284,6 +284,14 @@ kubectl get configmaps game-config-3 -o yaml
 where the output is similar to this:
 ```yaml
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2016-02-18T18:54:22Z
+  name: game-config-3
+  namespace: default
+  resourceVersion: "530"
+  selfLink: /api/v1/namespaces/default/configmaps/game-config-3
+  uid: 05f8da22-d671-11e5-8cd0-68f728db1985
 data:
   game-special-key: |
     enemies=aliens
@@ -293,14 +301,6 @@ data:
     secret.code.passphrase=UUDDLRLRBABAS
     secret.code.allowed=true
     secret.code.lives=30
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-02-18T18:54:22Z
-  name: game-config-3
-  namespace: default
-  resourceVersion: "530"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-3
-  uid: 05f8da22-d671-11e5-8cd0-68f728db1985
 ```
 
 #### Create ConfigMaps from literal values
@@ -320,9 +320,6 @@ kubectl get configmaps special-config -o yaml
 The output is similar to this:
 ```yaml
 apiVersion: v1
-data:
-  special.how: very
-  special.type: charm
 kind: ConfigMap
 metadata:
   creationTimestamp: 2016-02-18T19:14:38Z
@@ -331,6 +328,9 @@ metadata:
   resourceVersion: "651"
   selfLink: /api/v1/namespaces/default/configmaps/special-config
   uid: dadce046-d673-11e5-8cd0-68f728db1985
+data:
+  special.how: very
+  special.type: charm
 ```
 
 ### Create a ConfigMap from generator
@@ -610,8 +610,8 @@ ConfigMaps should reference properties files, not replace them. Think of the Con
 The ConfigMap's `data` field contains the configuration data. As shown in the example below, this can be simple -- like individual properties defined using `--from-literal` -- or complex -- like configuration files or JSON blobs defined using `--from-file`.
 
 ```yaml
-kind: ConfigMap
 apiVersion: v1
+kind: ConfigMap
 metadata:
   creationTimestamp: 2016-02-18T19:14:38Z
   name: example-config
