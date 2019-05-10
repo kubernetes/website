@@ -18,7 +18,7 @@ Generally such constraints are unnecessary, as the scheduler will automatically 
 (e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
 but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
-services that communicate a lot into the same availability zone.
+services that communicate a lot into the same failure zone.
 
 You can find all the files for these examples [in our docs
 repo here](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/).
@@ -143,7 +143,7 @@ met, the pod will still continue to run on the node. In the future we plan to of
 except that it will evict pods from nodes that cease to satisfy the pods' node affinity requirements.
 
 Thus an example of `requiredDuringSchedulingIgnoredDuringExecution` would be "only run the pod on nodes with Intel CPUs"
-and an example `preferredDuringSchedulingIgnoredDuringExecution` would be "try to run this set of pods in availability
+and an example `preferredDuringSchedulingIgnoredDuringExecution` would be "try to run this set of pods in failure
 zone XYZ, but if it's not possible, then allow some to run elsewhere".
 
 Node affinity is specified as field `nodeAffinity` of field `affinity` in the PodSpec.
