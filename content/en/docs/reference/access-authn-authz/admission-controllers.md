@@ -173,8 +173,8 @@ event requests. The cluster admin can specify event rate limits by:
    server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: EventRateLimit
   path: eventconfig.yaml
@@ -192,8 +192,8 @@ There are four types of limits that can be specified in the configuration:
 Below is a sample `eventconfig.yaml` for such a configuration:
 
 ```yaml
-kind: Configuration
 apiVersion: eventratelimit.admission.k8s.io/v1alpha1
+kind: Configuration
 limits:
 - type: Namespace
   qps: 50
@@ -241,8 +241,8 @@ imagePolicy:
 Reference the ImagePolicyWebhook configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: ImagePolicyWebhook
   path: imagepolicyconfig.yaml
@@ -481,8 +481,8 @@ podNodeSelectorPluginConfig:
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: PodNodeSelector
   path: podnodeselector.yaml
@@ -533,8 +533,8 @@ controller is recommended, too. This admission controller prevents resizing of a
 For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gluster-vol-default
 provisioner: kubernetes.io/glusterfs
