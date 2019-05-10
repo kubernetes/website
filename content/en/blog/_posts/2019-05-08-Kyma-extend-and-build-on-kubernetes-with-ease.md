@@ -68,15 +68,17 @@ Your monolith can at the moment register three different type of services: REST 
 Once your monolith's services are connected you can provision them in selected namespace thanks to the, previously mentioned, [Service Catalog](https://kyma-project.io/docs/components/service-catalog/) integration. So you can imagine, you as a developer go to the catalog and see a list of all the services you can consume. There are services from your monolith, and services from other 3rd party providers thanks to registered Service Brokers, like [Azure's OSBA](https://github.com/Azure/open-service-broker-azure). It is like entering a shop, a home improvement retailer, just one. You do not go for a hammer to Azure, and to GCP for screwdriver, and for wooden board to your Monolith. It is one single place with all of it. You want to build veranda in your home. You just pick up the tools from the shelves and take them. You do not write them from scrach, you have them all in one place, in one single tool belt and you focus just one one thing only, business logic, that is it.
 
 ### Finally some code
+
 Below you have a sample code I had to write to integrate one Monolith with Azure services. I wanted to understand sentiments shared by customers under products review section. On every event with a review comment I wanted to use some machine learning to call some sentiments analysis service and then in case of negative comment, I wanted to persist it in some database for later review. This is a code of a function created thanks to our [Serverless](https://kyma-project.io/docs/components/serverless) component. Pay attention to my code comments: 
+
+> You can watch [this](https://www.youtube.com/watch?v=wJzVWFGkiKk) short video for full demo of sentiment analysis function.
 ```js
-#It is a function powered by NodeJS runtime so I have to import some necessary dependencies
-#I choosed Azure's CosmoDB that is a Mongo-like database, so I could use a MongoClient
+/* It is a function powered by NodeJS runtime so I have to import some necessary dependencies. I choosed Azure's CosmoDB that is a Mongo-like database, so I could use a MongoClient */
 const axios = require("axios");
 const MongoClient = require('mongodb').MongoClient;
 
 module.exports = { main: async function (event, context) {
-    #My function was triggered because it was subscribed to customer review event. I have access to the payload of the event.
+    /* My function was triggered because it was subscribed to customer review event. I have access to the payload of the event. */
     let negative = await isNegative(event.data.comment)
     
     if (negative) {
@@ -87,7 +89,7 @@ module.exports = { main: async function (event, context) {
     }
 }}
 
-#Like in case of isNegative function, I focuse of usage of the MongoClient API. The necessary information about the database location and an authorization needed to call it is injected into my function and I just need to pick a proper environment variable
+/* Like in case of isNegative function, I focuse of usage of the MongoClient API. The necessary information about the database location and an authorization needed to call it is injected into my function and I just need to pick a proper environment variable. */
 async function mongoInsert(data) {
 
     try {
@@ -99,10 +101,7 @@ async function mongoInsert(data) {
       client.close();
     }
 }
-#This function calls Azure's Text Analytics service to get information about the sentiment.
-#Notice process.env.textAnalyticsEndpoint and process.env.textAnalyticsKey part
-#When I wrote this function I didn't have to go to Azure's console to get these details. 
-#I had these variables automatically injected into my function thanks to our integration with Service Catalog and our Service Binding Usage controller that pairs the binding with a function
+/* This function calls Azure's Text Analytics service to get information about the sentiment. Notice process.env.textAnalyticsEndpoint and process.env.textAnalyticsKey part. When I wrote this function I didn't have to go to Azure's console to get these details. I had these variables automatically injected into my function thanks to our integration with Service Catalog and our Service Binding Usage controller that pairs the binding with a function. */
 async function isNegative(comment) {
     let response = await axios.post(`${process.env.textAnalyticsEndpoint}/sentiment`,
       { documents: [{ id: '1', text: comment }] }, {headers:{...{ 'Ocp-Apim-Subscription-Key': process.env.textAnalyticsKey }}})
