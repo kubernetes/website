@@ -35,7 +35,7 @@ You do not have to rewrite your monolith to achieve above. Why spending all the 
 You first need to understand what [Kyma](https://kyma-project.io/docs/root/kyma/#overview-overview) is. Kyma runs on top of Kubernetes and consists of a number of different component where the 3 key components are:
 * [Application connector](https://kyma-project.io/docs/components/application-connector/) that you can use to connect any application with a Kubernetes cluster and expose its APIs and Events through the [Kubernetes Service Catalog](https://github.com/kubernetes-incubator/service-catalog).
 * [Serverless](https://kyma-project.io/docs/components/serverless/) that enables you to easily write extensions for your application. You function code can be triggered by API calls and also by event comming from external system. You can also securely call back the integrated system from your function.
-* [Service Catalog](https://kyma-project.io/docs/components/service-catalog/) is here not only to expose integrated systems. This integration also enables you to use services from hyperscalers like Azure or Google Cloud. [Kyma](https://kyma-project.io/docs/components/service-catalog/#service-brokers-service-brokers) contains easy integration of official service brokers maintained by Microsoft and Google.
+* [Service Catalog](https://kyma-project.io/docs/components/service-catalog/) is here not only to expose integrated systems. This integration also enables you to use services from hyperscalers like Azure, AWS or Google Cloud. [Kyma](https://kyma-project.io/docs/components/service-catalog/#service-brokers-service-brokers) contains easy integration of official service brokers maintained by Microsoft and Google.
 
 ![core components](/images/blog/2019-05-08-Kyma-extend-and-build-on-kubernetes-with-ease/ac-s-sc.svg)
 
@@ -59,31 +59,56 @@ You do not have to worry about integration of all those tools. We made sure they
 
 ### Do not rewrite your Monoliths
 
-Rewriting is hard, costs a fortune and in majority of cases is not needed. At the end what you need is to be able to write new features quicker. You can do it by connecting your monolith into Kyma using the [Application connector](https://kyma-project.io/docs/components/application-connector). The whole integration is based on [Custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) so just with **kubectl** you can create a new application:
-```
-cat <<EOF | kubectl apply -f -
-apiVersion: applicationconnector.kyma-project.io/v1alpha1
-kind: Application
-metadata:
-  name: {APP_NAME}
-spec:
-  description: {APP_DESCRIPTION}
-  labels:
-    region: us
-    kind: production
-EOF
-```
-Then you just request a token needed for initial pairing of your application with the Kyma cluster:
-```
-cat <<EOF | kubectl apply -f -
-apiVersion: applicationconnector.kyma-project.io/v1alpha1
-kind: TokenRequest
-metadata:
-  name: {APP_NAME}
-EOF
-```
+Rewriting is hard, costs a fortune and in majority of cases is not needed. At the end what you need is to be able to write and put on production new features quicker. You can do it by connecting your monolith into Kyma using the [Application Connector](https://kyma-project.io/docs/components/application-connector). In short, this component makes sure that securely:
+- You can call back registered monolith without a need of taking care of authorization, as Application Connector handles that
+- Events sent from your monolith get into Kyma's event bus
 
-Your monolith can at the moment register three different type of services: REST (with [OpenAPI](https://www.openapis.org/) specification) and OData (with Entity Data Model specification) for synchronous communication, and for asynchronous communication you can register a catalog of events based on [AsyncAPI](https://www.asyncapi.com/) specification. Then just make sure those events are delivered into Kyma cluster through it's event service. Your events are later delivered internally using [NATS Streaming](https://nats.io/) channel with [Knative eventing](https://github.com/knative/eventing/).
+Your monolith can at the moment register three different type of services: REST (with [OpenAPI](https://www.openapis.org/) specification) and OData (with Entity Data Model specification) for synchronous communication, and for asynchronous communication you can register a catalog of events based on [AsyncAPI](https://www.asyncapi.com/) specification. Your events are later delivered internally using [NATS Streaming](https://nats.io/) channel with [Knative eventing](https://github.com/knative/eventing/).
+
+Once your monolith's services are connected you can provision them in selected namespace thanks to the, previously mentioned, [Service Catalog](https://kyma-project.io/docs/components/service-catalog/) integration. So you can imagine, you as a developer go to the catalog and see a list of all the services you can consume. There are services from your monolith, and services from other 3rd party providers thanks to registered Service Brokers, like [Azure's OSBA](https://github.com/Azure/open-service-broker-azure). It is like entering a shop, a home improvement retailer, just one. You do not go for a hammer to Azure, and to GCP for screwdriver, and for wooden board to your Monolith. It is one single place with all of it. You want to build veranda in your home. You just pick up the tools from the shelves and take them. You do not write them from scrach, you have them all in one place, in one single tool belt and you focus just one one thing only, business logic, that is it.
+
+Below you have a sample code I had to write to integrate one Monolith with Azure services. I wanted to understand sentiments shared by customers under products review section. On every event with a review comment I wanted to use some machine learning to call some sentiments analysis service and then in case of negative comment, I wanted to persist it in some database for later review. This is a code of a function created thanks to our [Serverless](https://kyma-project.io/docs/components/serverless) component. Pay attention to my code comments: 
+```
+#It is a function powered by NodeJS runtime so I have to import some necessary dependencies
+#I choosed Azure's CosmoDB that is a Mongo-like database, so I could use a MongoClient
+const axios = require("axios");
+const MongoClient = require('mongodb').MongoClient;
+
+module.exports = { main: async function (event, context) {
+    #My function was triggered because it was subscribed to customer review event. I have access to the payload of the event.
+    let negative = await isNegative(event.data.comment)
+    
+    if (negative) {
+      console.log("Customer sentiment is negative:", event.data)
+      await mongoInsert(event.data)
+    } else {
+      console.log("This positive comment was not saved:", event.data) 
+    }
+}}
+
+#Like in case of isNegative function, I focuse of usage of the MongoClient API. The necessary information about the database location and an authorization needed to call it is injected into my function and I just need to pick a proper environment variable
+async function mongoInsert(data) {
+
+    try {
+          client = await MongoClient.connect(process.env.connectionString, { useNewUrlParser: true });
+          db = client.db('mycommerce');
+          const collection = db.collection('comments');
+          return await collection.insertOne(data);
+    } finally {
+      client.close();
+    }
+}
+#This function calls Azure's Text Analytics service to get information about the sentiment.
+#Notice process.env.textAnalyticsEndpoint and process.env.textAnalyticsKey part
+#When I wrote this function I didn't have to go to Azure's console to get these details. 
+#I had these variables automatically injected into my function thanks to our integration with Service Catalog and our Service Binding Usage controller that pairs the binding with a function
+async function isNegative(comment) {
+    let response = await axios.post(`${process.env.textAnalyticsEndpoint}/sentiment`,
+      { documents: [{ id: '1', text: comment }] }, {headers:{...{ 'Ocp-Apim-Subscription-Key': process.env.textAnalyticsKey }}})
+    return response.data.documents[0].score < 0.5
+}
+```
+I don't worry about learning to use Azure console. But even more imporant, I don't have to worry about my whole infrastructure around my function. As I mentioned I have all the tools needed in Kyma, and they are integrated together. I can quickly get access to my logs with support of [Loki](https://grafana.com/loki), and I can quickly get access to a preconfigured Grafana dashboard to see metrics of my Lambda delivered thanks to [Prometheus](https://prometheus.io/) and [Istio](https://istio.io/).
 
 Such approach gives you a lot of flexibility in adding new functionalities. It also gives you time to rethink a need for rewriting old functionalities and their step by step replacement. 
 
