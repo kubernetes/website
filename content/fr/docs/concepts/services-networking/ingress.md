@@ -39,7 +39,7 @@ Le routage du trafic est contrôlé par des règles définies sur la ressource I
    [ Services ]
 ```
 
-Un Ingress peut être configuré pour donner aux services des URLs accessibles de l'extérieur, du trafic de charge équilibrée, la terminaison SSL/TLS et un hébergement virtuel basé sur le nom. Un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) est responsable de l'exécution de le l'Ingress, généralement avec un équilibreur de charge, bien qu'il puisse également configurer votre routeur périphérique ou des interfaces supplémentaires pour aider à gérer le trafic.
+Un Ingress peut être configuré pour donner aux services des URLs accessibles de l'extérieur, du trafic de charge équilibrée, la terminaison SSL/TLS et un hébergement virtuel basé sur le nom. Un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) est responsable de l'exécution de le l'Ingress, généralement avec un load-balancer (équilibreue de charge), bien qu'il puisse également configurer votre routeur périphérique ou des interfaces supplémentaires pour aider à gérer le trafic.
 
 Un Ingress n'expose pas de ports ni de protocoles arbitraires. Exposer des services autres que HTTP et HTTPS à Internet généralement utilise un service de type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) ou [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
@@ -104,7 +104,7 @@ Chaque règle http contient les informations suivantes :
 * Un hôte optionnel. Dans cet exemple, aucun hôte n'est spécifié. La règle s'applique donc à tous les appels entrants.
   Le trafic HTTP via l'adresse IP est spécifié. Si un hôte est fourni (par exemple,
   foo.bar.com), les règles s’appliquent à cet hôte.
-* une liste de chemins (par exemple, /testpath), chacun étant associé à un backend associé défini par un `serviceName` et `servicePort`. L’hôte et le chemin doivent correspondre au contenu d’une demande entrante avant que l'équilibreur de charge dirige le trafic vers le service référencé.
+* une liste de chemins (par exemple, /testpath), chacun étant associé à un backend associé défini par un `serviceName` et `servicePort`. L’hôte et le chemin doivent correspondre au contenu d’une demande entrante avant que le load-balancer dirige le trafic vers le service référencé.
 * Un backend est une combinaison de noms de services et de ports, comme décrit dans
   [services doc](/docs/concepts/services-networking/service/). Les requêtes HTTP (et HTTPS) envoyées à l'Ingress correspondant aux hôtes et au chemin de la règle seront envoyées au backend indiqué.
 
@@ -149,7 +149,7 @@ test-ingress   *         107.178.254.228   80        59s
 Où `107.178.254.228` est l’adresse IP allouée par le contrôleur d’Ingress pour satisfaire cette entrée.
 
 {{< note >}}
-Les contrôleurs d'Ingress et les équilibreurs de charge peuvent prendre une minute ou deux pour allouer une adresse IP.
+Les contrôleurs d'Ingress et les load-balancers peuvent prendre une minute ou deux pour allouer une adresse IP.
 Jusque-là, vous verrez souvent l’adresse listée sous la forme `<pending>` (en attente).
 {{</ note >}}
 
@@ -211,8 +211,8 @@ Events:
   Normal   ADD     22s                loadbalancer-controller  default/test
 ```
 
-Le contrôleur d’Ingress fournit une implémentation spécifique aux équilibreurs de charge qui satisfait l'ingress, tant que les services (`s1`,` s2`) existent.
-Lorsque cela est fait, vous pouvez voir l’adresse de l’équilibreur de charge sur le champ d'adresse.
+Le contrôleur d’Ingress fournit une implémentation spécifique aux load-balancers qui satisfait l'ingress, tant que les services (`s1`,` s2`) existent.
+Lorsque cela est fait, vous pouvez voir l’adresse de le load-balancer sur le champ d'adresse.
 
 {{< note >}}
 En fonction du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) vous utilisez, vous devrez peut-être
@@ -229,7 +229,7 @@ foo.bar.com --|                 |-> foo.bar.com s1:80
 bar.foo.com --|                 |-> bar.foo.com s2:80
 ```
 
-L’ingress suivant indique à l’équilibreur de charge de router les requêtes en fonction de [En-tête du hôte](https://tools.ietf.org/html/rfc7230#section-5.4).
+L’ingress suivant indique au load-balancer de router les requêtes en fonction de [En-tête du hôte](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -298,7 +298,7 @@ metadata:
 type: kubernetes.io/tls
 ```
 
-Référencer ce secret dans un ingress indiquera au contrôleur d'ingress de sécuriser le canal du client à l'équilibreur de charge à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un CN pour `sslexample.foo.com`.
+Référencer ce secret dans un ingress indiquera au contrôleur d'ingress de sécuriser le canal du client au load-balancer à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un CN pour `sslexample.foo.com`.
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -387,7 +387,7 @@ spec:
 ..
 ```
 
-L'enregistrement du yaml mettra à jour la ressource dans le serveur d'API, ce qui devrait indiquer au contrôleur d'ingress de reconfigurer l'équilibreur de charge.
+L'enregistrement du yaml mettra à jour la ressource dans le serveur d'API, ce qui devrait indiquer au contrôleur d'ingress de reconfigurer le load-balancer.
 
 ```shell
 kubectl describe ingress test
