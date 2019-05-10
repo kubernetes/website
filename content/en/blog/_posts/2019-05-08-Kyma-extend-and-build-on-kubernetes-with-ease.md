@@ -67,8 +67,9 @@ Your monolith can at the moment register three different type of services: REST 
 
 Once your monolith's services are connected you can provision them in selected namespace thanks to the, previously mentioned, [Service Catalog](https://kyma-project.io/docs/components/service-catalog/) integration. So you can imagine, you as a developer go to the catalog and see a list of all the services you can consume. There are services from your monolith, and services from other 3rd party providers thanks to registered Service Brokers, like [Azure's OSBA](https://github.com/Azure/open-service-broker-azure). It is like entering a shop, a home improvement retailer, just one. You do not go for a hammer to Azure, and to GCP for screwdriver, and for wooden board to your Monolith. It is one single place with all of it. You want to build veranda in your home. You just pick up the tools from the shelves and take them. You do not write them from scrach, you have them all in one place, in one single tool belt and you focus just one one thing only, business logic, that is it.
 
+### Finally some code
 Below you have a sample code I had to write to integrate one Monolith with Azure services. I wanted to understand sentiments shared by customers under products review section. On every event with a review comment I wanted to use some machine learning to call some sentiments analysis service and then in case of negative comment, I wanted to persist it in some database for later review. This is a code of a function created thanks to our [Serverless](https://kyma-project.io/docs/components/serverless) component. Pay attention to my code comments: 
-```
+```js
 #It is a function powered by NodeJS runtime so I have to import some necessary dependencies
 #I choosed Azure's CosmoDB that is a Mongo-like database, so I could use a MongoClient
 const axios = require("axios");
@@ -108,13 +109,13 @@ async function isNegative(comment) {
     return response.data.documents[0].score < 0.5
 }
 ```
-I don't worry about learning to use Azure console. But even more imporant, I don't have to worry about my whole infrastructure around my function. As I mentioned I have all the tools needed in Kyma, and they are integrated together. I can quickly get access to my logs with support of [Loki](https://grafana.com/loki), and I can quickly get access to a preconfigured Grafana dashboard to see metrics of my Lambda delivered thanks to [Prometheus](https://prometheus.io/) and [Istio](https://istio.io/).
+And this is not all. Thanks to Kyma I don't have to worry about my whole infrastructure around my function. As I mentioned I have all the tools needed in Kyma, and they are integrated together. I can quickly get access to my logs with support of [Loki](https://grafana.com/loki), and I can quickly get access to a preconfigured Grafana dashboard to see metrics of my Lambda delivered thanks to [Prometheus](https://prometheus.io/) and [Istio](https://istio.io/).
 
 <img src="/images/blog/2019-05-08-Kyma-extend-and-build-on-kubernetes-with-ease/grafana-lambda.png" width="70%" alt="Grafana with preconfigured lambda dashboard" />
 
 Such approach gives you a lot of flexibility in adding new functionalities. It also gives you time to rethink a need for rewriting old functionalities and their step by step replacement. 
 
-## Contribute and feedback
+## Contribute and give feedback
 
 Kyma is an open source project that we would love to drive forward with you. After reading this post you already know we do not like to reinvent the wheel. We took the same approach when we were thinking about working model to enable community contributions. We work in [Special Interest Groups](
 https://github.com/kyma-project/community/tree/master/sig-and-wg) and have public recording meeting that you can join any time, so we have a setup similar to what you know from Kubernetes itself.
