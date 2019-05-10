@@ -111,7 +111,7 @@ For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.
 ## Affinity and anti-affinity
 
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
-feature, currently in beta, greatly expands the types of constraints you can express. The key enhancements are
+feature, greatly expands the types of constraints you can express. The key enhancements are
 
 1. the language is more expressive (not just "AND of exact match")
 2. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
@@ -127,9 +127,8 @@ described in the third item listed above, in addition to having the first and se
 `nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
 everything that `nodeSelector` can express.
 
-### Node affinity (beta feature)
+### Node affinity
 
-Node affinity was introduced as alpha in Kubernetes 1.2.
 Node affinity is conceptually similar to `nodeSelector` -- it allows you to constrain which nodes your
 pod is eligible to be scheduled on, based on labels on the node.
 
@@ -176,13 +175,12 @@ The `weight` field in `preferredDuringSchedulingIgnoredDuringExecution` is in th
 For more information on node affinity, see the
 [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md).
 
-### Inter-pod affinity and anti-affinity (beta feature)
+### Inter-pod affinity and anti-affinity
 
-Inter-pod affinity and anti-affinity were introduced in Kubernetes 1.4.
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled *based on
-labels on pods that are already running on the node* rather than based on labels on nodes. The rules are of the form "this pod should (or, in the case of
-anti-affinity, should not) run in an X if that X is already running one or more pods that meet rule Y". Y is expressed
-as a LabelSelector with an associated list of namespaces; unlike nodes, because pods are namespaced
+labels on pods that are already running on the node* rather than based on labels on nodes. The rules are of the form
+"this pod should (or, in the case of anti-affinity, should not) run in an X if that X is already running one or more pods that meet rule Y".
+Y is expressed as a LabelSelector with an associated list of namespaces; unlike nodes, because pods are namespaced
 (and therefore the labels on pods are implicitly namespaced),
 a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
 like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
