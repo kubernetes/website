@@ -110,6 +110,8 @@ async function isNegative(comment) {
 ```
 I don't worry about learning to use Azure console. But even more imporant, I don't have to worry about my whole infrastructure around my function. As I mentioned I have all the tools needed in Kyma, and they are integrated together. I can quickly get access to my logs with support of [Loki](https://grafana.com/loki), and I can quickly get access to a preconfigured Grafana dashboard to see metrics of my Lambda delivered thanks to [Prometheus](https://prometheus.io/) and [Istio](https://istio.io/).
 
+<img src="/images/blog/2019-05-08-Kyma-extend-and-build-on-kubernetes-with-ease/grafana-lambda.png" width="70%" alt="Grafana with preconfigured lambda dashboard" />
+
 Such approach gives you a lot of flexibility in adding new functionalities. It also gives you time to rethink a need for rewriting old functionalities and their step by step replacement. 
 
 ## Contribute and feedback
