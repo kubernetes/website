@@ -78,14 +78,14 @@ verify that it worked by running `kubectl get pods -o wide` and looking at the
 ## Interlude: built-in node labels {#built-in-node-labels}
 
 In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
-with a standard set of labels. As of Kubernetes v1.4 these labels are
+with a standard set of labels. These labels are
 
-* `kubernetes.io/hostname`
-* `failure-domain.beta.kubernetes.io/zone`
-* `failure-domain.beta.kubernetes.io/region`
-* `beta.kubernetes.io/instance-type`
-* `kubernetes.io/os`
-* `kubernetes.io/arch`
+* [`kubernetes.io/hostname`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
+* [`failure-domain.beta.kubernetes.io/zone`](/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domain-beta-kubernetes-io-zone)
+* [`failure-domain.beta.kubernetes.io/region`](/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domain-beta-kubernetes-io-region)
+* [`beta.kubernetes.io/instance-type`](/docs/reference/kubernetes-api/labels-annotations-taints/#beta-kubernetes-io-instance-type)
+* [`kubernetes.io/os`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-os)
+* [`kubernetes.io/arch`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-arch)
 
 {{< note >}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
