@@ -75,7 +75,7 @@ the Pod will get scheduled on the node that you attached the label to. You can
 verify that it worked by running `kubectl get pods -o wide` and looking at the
 "NODE" that the Pod was assigned to.
 
-## Interlude: built-in node labels
+## Interlude: built-in node labels {#built-in-node-labels}
 
 In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
 with a standard set of labels. As of Kubernetes v1.4 these labels are
@@ -187,7 +187,7 @@ as a LabelSelector with an associated list of namespaces; unlike nodes, because 
 a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
 like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
 key for the node label that the system uses to denote such a topology domain, e.g. see the label keys listed above
-in the section [Interlude: built-in node labels](#interlude-built-in-node-labels).
+in the section [Interlude: built-in node labels](#built-in-node-labels).
 
 {{< note >}}
 Inter-pod affinity and anti-affinity require substantial amount of
