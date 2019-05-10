@@ -22,7 +22,7 @@ Par souci de clarté, ce guide définit les termes suivants :
 * Noeud : une seule machine virtuelle ou physique dans un cluster Kubernetes.
 * Cluster : groupe de nœuds protégés par un pare-feu provenant d'Internet et constituant les principales ressources de calcul gérées par Kubernetes.
 * Routeur Edge : routeur appliquant la stratégie de pare-feu pour votre cluster. Il peut s’agir d’une passerelle gérée par un fournisseur de cloud ou d’un matériel physique.
-* Réseau de cluster: ensemble de liens, logiques ou physiques, facilitant la communication au sein d'un cluster selon le [modèle de réseau Kubernetes](/docs/concepts/cluster-administration/networking/).
+* Réseau de cluster : ensemble de liens, logiques ou physiques, facilitant la communication au sein d'un cluster selon le [modèle de réseau Kubernetes](/docs/concepts/cluster-administration/networking/).
 * Service : un Kubernetes [Service](/docs/concepts/services-networking/service/) identifiant un ensemble de pods à l'aide de sélecteurs d'étiquettes. Sauf indication contraire, les services sont supposés avoir des adresses IP virtuelles routables uniquement dans le réseau du cluster.
 
 ## Qu'est-ce qu'un ingress ?
@@ -39,7 +39,7 @@ Le routage du trafic est contrôlé par des règles définies sur la ressource I
    [ Services ]
 ```
 
-Un Ingress peut être configuré pour donner aux services des URLs accessibles de l'extérieur, du trafic de charge équilibrée, la résiliation de SSL et un hébergement virtuel basé sur le nom. Un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) est responsable de l'exécution de le l'Ingress, généralement avec un équilibreur de charge, bien qu'il puisse également configurer votre routeur périphérique ou des interfaces supplémentaires pour aider à gérer le trafic.
+Un Ingress peut être configuré pour donner aux services des URLs accessibles de l'extérieur, du trafic de charge équilibrée, la terminaison SSL/TLS et un hébergement virtuel basé sur le nom. Un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) est responsable de l'exécution de le l'Ingress, généralement avec un équilibreur de charge, bien qu'il puisse également configurer votre routeur périphérique ou des interfaces supplémentaires pour aider à gérer le trafic.
 
 Un Ingress n'expose pas de ports ni de protocoles arbitraires. Exposer des services autres que HTTP et HTTPS à Internet généralement utilise un service de type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) ou [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
@@ -53,14 +53,14 @@ Avant de commencer à utiliser un Ingress, vous devez comprendre certaines chose
 Vous devez avoir un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) pour lancer un Ingress. Seule la création d'une ressource Ingress n'a aucun effet.
 {{< /note >}}
 
-GCE/GKE (Google Cloud Engine / Google Kubernetes Engine) déploie un contrôleur d’Ingress sur le master (le maître de kubernetes). Revoir le [limitations bêta](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations) de ce contrôleur si vous utilisez GCE/GKE.
+GCE/GKE (Google Cloud Engine / Google Kubernetes Engine) déploie un contrôleur d’Ingress sur le master (le maître de kubernetes). Revoir les [limitations bêta](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations) de ce contrôleur si vous utilisez GCE/GKE.
 
 Dans les environnements autres que GCE/GKE, vous devrez peut-être [déployer un contrôleur d'Ingress](https://kubernetes.github.io/ingress-nginx/deploy/). Il y a un certain nombre de
 [contrôleurs d'Ingress](/docs/concepts/services-networking/ingress-controllers) parmi lesquels vous pouvez choisir.
 
 ### Avant de commencer
 
-Dans l’idéal, tous les contrôleurs d’Ingress devraient correspondre à cette spécification, mais les diverses contrôleurs sont légèrement différents.
+Dans l’idéal, tous les contrôleurs d’Ingress devraient correspondre à cette spécification, mais les divers contrôleurs sont légèrement différents.
 
 {{< note >}}
 Assurez-vous de consulter la documentation de votre contrôleur d’Ingress pour bien comprendre les mises en garde qu’il ya à faire pour le choisir.
@@ -104,7 +104,7 @@ Chaque règle http contient les informations suivantes :
 * Un hôte optionnel. Dans cet exemple, aucun hôte n'est spécifié. La règle s'applique donc à tous les appels entrants.
   Le trafic HTTP via l'adresse IP est spécifié. Si un hôte est fourni (par exemple,
   foo.bar.com), les règles s’appliquent à cet hôte.
-* une liste de chemins (par exemple, /testpath), chacun étant associé à un backend associé défini par un `serviceName` et `servicePort`. L’hôte et le chemin doivent correspondre au contenu d’une demande entrante avant que l'équilibreur de charge dirigera le trafic vers le service référencé.
+* une liste de chemins (par exemple, /testpath), chacun étant associé à un backend associé défini par un `serviceName` et `servicePort`. L’hôte et le chemin doivent correspondre au contenu d’une demande entrante avant que l'équilibreur de charge dirige le trafic vers le service référencé.
 * Un backend est une combinaison de noms de services et de ports, comme décrit dans
   [services doc](/docs/concepts/services-networking/service/). Les requêtes HTTP (et HTTPS) envoyées à l'Ingress correspondant aux hôtes et au chemin de la règle seront envoyées au backend indiqué.
 
@@ -211,9 +211,8 @@ Events:
   Normal   ADD     22s                loadbalancer-controller  default/test
 ```
 
-Le contrôleur d’Ingress fournit une implémentation spécifique équilibreur de charge qui satisfait l'ingress, tant que les services (`s1`,` s2`) existent.
-Lorsque cela est fait, vous pouvez voir l’adresse de l’équilibreur de charge sur le
-Champ d'adresse.
+Le contrôleur d’Ingress fournit une implémentation spécifique aux équilibreurs de charge qui satisfait l'ingress, tant que les services (`s1`,` s2`) existent.
+Lorsque cela est fait, vous pouvez voir l’adresse de l’équilibreur de charge sur le champ d'adresse.
 
 {{< note >}}
 En fonction du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) vous utilisez, vous devrez peut-être
