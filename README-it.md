@@ -7,7 +7,7 @@ Benvenuto! Questo repository contiene tutte le risorse necessarie per creare il 
 
 ## Contribuire ai documenti
 
-Puoi fare clic sul pulsante **Fork** nell'area in alto a destra dello schermo per creare una copia di questo repository nel tuo account GitHub. Questa copia è chiamata * fork *. Apporta le modifiche desiderate nella tua forcella e quando sei pronto a inviarci tali modifiche, vai alla tua forcella e crea una nuova richiesta di pull per farcelo sapere.
+Puoi fare clic sul pulsante **Fork** nell'area in alto a destra dello schermo per creare una copia di questo repository nel tuo account GitHub. Questa copia è chiamata * fork *. Apporta le modifiche desiderate nella tua fork e quando sei pronto a inviarci tali modifiche, vai alla tua fork e crea una nuova richiesta di pull per farcelo sapere.
 
 Una volta creata la richiesta di pull, un revisore di Kubernetes si assumerà la responsabilità di fornire un feedback chiaro e attuabile. Come proprietario della richiesta pull, ** è tua responsabilità modificare la tua richiesta di pull per rispondere al feedback che ti è stato fornito dal revisore di Kubernetes. ** Nota anche che potresti finire con più di un revisore di Kubernetes feedback o si potrebbe finire per ricevere feedback da un revisore di Kubernetes diverso da quello originariamente assegnato per fornire un feedback. Inoltre, in alcuni casi, uno dei revisori potrebbe chiedere una revisione tecnica da un [revisore tecnico di Kubernetes] (https://github.com/kubernetes/website/wiki/Tech-reviewers) quando necessario. I revisori faranno del loro meglio per fornire feedback in modo tempestivo, ma i tempi di risposta possono variare in base alle circostanze.
 
@@ -50,7 +50,7 @@ Una volta che l'immagine è stata creata, puoi eseguire il sito localmente:
 make docker-serve
 ```
 
-Aprire il browser a http://localhost: 1313 per visualizzare il sito. Man mano che si apportano modifiche ai file sorgente, Hugo aggiorna il sito e forza l'aggiornamento del browser.
+Aprire il browser a http://localhost:1313 per visualizzare il sito. Man mano che si apportano modifiche ai file sorgente, Hugo aggiorna il sito e forza l'aggiornamento del browser.
 
 ## Eseguire il sito localmente usando Hugo
 
