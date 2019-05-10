@@ -67,7 +67,6 @@ In this example:
   the Pods run one container, `nginx`, which runs the `nginx`
   [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
   * Create one container and name it `nginx` using the `name` field.
-  * Run the `nginx` image at version `1.7.9`.
   * Open port `80` so that the container can send and accept traffic.
 
 To create this Deployment, run the following command:
