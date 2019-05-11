@@ -104,6 +104,7 @@ Rather than specifying the current desired state of all replicas, pod templates 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+* Learn more about [Pods](/docs/concepts/workloads/pods/pod/)
 * Learn more about Pod behavior:
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/)
