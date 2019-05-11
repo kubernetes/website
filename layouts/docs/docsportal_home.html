@@ -32,10 +32,10 @@
             {{ $p := . }}
             {{ if (isset .Params.card "anchors") }}
               {{ range .Params.card.anchors }}
-                <li><a href="{{ $p.Permalink }}{{ .anchor }}">{{ .title }}</a></li>
+                <li><a href="{{ $p.RelPermalink }}{{ .anchor }}">{{ .title }}</a></li>
               {{ end }}
             {{ else }}
-              <li><a href={{ .Permalink }}>
+              <li><a href="{{ .RelPermalink }}">
                 {{ if (isset .Params.card "title") }}{{ .Params.card.title }}{{ else }}{{ .LinkTitle }}{{ end }}
               </a></li>
             {{ end }}
