@@ -173,9 +173,6 @@ If you remove or change the label of the node where the pod is scheduled, the po
 
 The `weight` field in `preferredDuringSchedulingIgnoredDuringExecution` is in the range 1-100. For each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling affinity expressions, etc.), the scheduler will compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding MatchExpressions. This score is then combined with the scores of other priority functions for the node. The node(s) with the highest total score are the most preferred.
 
-For more information on node affinity, see the
-[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md).
-
 ### Inter-pod affinity and anti-affinity
 
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to be scheduled *based on
@@ -360,12 +357,6 @@ no two instances are located on the same host.
 See [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
 for an example of a StatefulSet configured with anti-affinity for high availability, using the same technique.
 
-For more information on inter-pod affinity/anti-affinity, see the
-[design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
-
-You may want to check [Taints](/docs/concepts/configuration/taint-and-toleration/)
-as well, which allow a *node* to *repel* a set of pods.
-
 ## nodeName
 
 `nodeName` is the simplest form of node selection constraint, but due
@@ -404,5 +395,11 @@ The above pod will run on the node kube-01.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+
+[Taints](/docs/concepts/configuration/taint-and-toleration/) allow a Node to *repel* a set of Pods.
+
+The design documents for
+[node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)
+and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
 
 {{% /capture %}}
