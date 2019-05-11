@@ -17,8 +17,9 @@ managed in Kubernetes.
 
 ## What is a Pod?
 
-A _pod_ (as in a pod of whales or pea pod) is a group of one or more containers
-(such as Docker containers), with shared storage/network, and a specification
+A _pod_ (as in a pod of whales or pea pod) is a group of one or more
+{{< glossary_tooltip text="containers" term_id="container" >}} (such as
+Docker containers), with shared storage/network, and a specification
 for how to run the containers.  A pod's contents are always co-located and
 co-scheduled, and run in a shared context.  A pod models an
 application-specific "logical host" - it contains one or more application
@@ -42,19 +43,19 @@ and can not communicate by IPC without
 [special configuration](/docs/concepts/policy/pod-security-policy/).
 These containers usually communicate with each other via Pod IP addresses.
 
-Applications within a pod also have access to shared volumes, which are defined
+Applications within a pod also have access to shared {{< glossary_tooltip text="volumes" term_id="volume" >}}, which are defined
 as part of a pod and are made available to be mounted into each application's
 filesystem.
 
 In terms of [Docker](https://www.docker.com/) constructs, a pod is modelled as
-a group of Docker containers with shared namespaces and shared
-[volumes](/docs/concepts/storage/volumes/).
+a group of Docker containers with shared namespaces and shared filesystem
+volumes.
 
 Like individual application containers, pods are considered to be relatively
 ephemeral (rather than durable) entities. As discussed in [life of a
 pod](/docs/concepts/workloads/pods/pod-lifecycle/), pods are created, assigned a unique ID (UID), and
 scheduled to nodes where they remain until termination (according to restart
-policy) or deletion. If a node dies, the pods scheduled to that node are
+policy) or deletion. If a {{< glossary_tooltip term_id="node" >}} dies, the pods scheduled to that node are
 scheduled for deletion, after a timeout period. A given pod (as defined by a UID) is not
 "rescheduled" to a new node; instead, it can be replaced by an identical pod,
 with even the same name if desired, but with a new UID (see [replication
