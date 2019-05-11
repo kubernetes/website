@@ -190,7 +190,7 @@ Force deletions can be potentially dangerous for some pods and should be perform
 
 ## Privileged mode for pod containers
 
-Any container in a pod can enable privileged mode, using the `privileged` flag on the `SecurityContext` of the container spec. This is useful for containers that want to use Linux capabilities like manipulating the network stack and accessing devices. Processes within the container get almost the same privileges that are available to processes outside a container. With privileged mode, it should be easier to write network and volume plugins as separate pods that don't need to be compiled into the kubelet.
+Any container in a pod can enable privileged mode, using the `privileged` flag on the [security context](/docs/tasks/configure-pod-container/security-context/) of the container spec. This is useful for containers that want to use Linux capabilities like manipulating the network stack and accessing devices. Processes within the container get almost the same privileges that are available to processes outside a container. With privileged mode, it should be easier to write network and volume plugins as separate pods that don't need to be compiled into the kubelet.
 
 {{< note >}}
 Your container runtime must support the concept of a privileged container for this setting to be relevant.
@@ -198,8 +198,8 @@ Your container runtime must support the concept of a privileged container for th
 
 ## API Object
 
-Pod is a top-level resource in the Kubernetes REST API. More details about the
-API object can be found at:
-[Pod API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+Pod is a top-level resource in the Kubernetes REST API.
+The [Pod API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core) definition
+describes the object in detail.
 
 {{% /capture %}}
