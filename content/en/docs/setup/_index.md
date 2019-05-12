@@ -12,7 +12,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Depending on your requirements such as ease of maintenance, security, control, available resources, and level of expertise to operate and manage a Kubernetes cluster there are various solutions available. You can deploy a Kubernetes cluster on a local machine, cloud, on-premise cloud; or choose a managed Kubernetes cluster. You can also create custom solutions across a wide range of cloud providers, or bare metal environments to setup a Kubernetes cluster.
+Depending on your requirements such as ease of maintenance, security, control, available resources, and level of expertise to operate and manage a Kubernetes cluster, there are various solutions available. You can deploy a Kubernetes cluster on a local machine, cloud, on-prem datacenter; or choose a managed Kubernetes cluster. You can also create custom solutions across a wide range of cloud providers, or bare metal environments.
 
 Various solutions are available to create a Kubernetes cluster in learning and production environments.
 
@@ -22,9 +22,9 @@ Various solutions are available to create a Kubernetes cluster in learning and p
 
 ## Learning environment
 
-If you want to get familiar with Kubernetes, you can use the Docker-based solutions. You can use tools that are supported by the Kubernetes community or the tools in the ecosystem to setup a Kubernetes cluster on a local-machine. 
+If you want to get familiar with Kubernetes, you can use the Docker-based solutions. You can use tools that are supported by the Kubernetes community or the tools in the ecosystem to set up a Kubernetes cluster on a local machine.
 
-{{< table caption="Local-machine solutions table that lists the tools supported by the community and the ecosystem to deploy Kubernetes." >}}
+{{< table caption="Local machine solutions table that lists the tools supported by the community and the ecosystem to deploy Kubernetes." >}}
 
 |Community           |Ecosystem     |
 | ------------       | --------     |
@@ -40,57 +40,41 @@ If you want to get familiar with Kubernetes, you can use the Docker-based soluti
 
 ## Production environment
 
-The production environment solutions diagram lists the possible abstractions of a Kubernetes cluster and the level of expertise involved in managing the operations of a cluster.
+Some of the possible abstractions of a Kubernetes cluster are {{< glossary_tooltip text="applications" term_id="applications" >}}, {{< glossary_tooltip text="data plane" term_id="data-plane" >}}, {{< glossary_tooltip text="control plane" term_id="control-plane" >}}, {{< glossary_tooltip text="cluster infrastructure" term_id="cluster-infrastructure" >}}, and {{< glossary_tooltip text="cluster operations" term_id="cluster-operations" >}}.
+This production environment solutions diagram lists the possible abstractions of a Kubernetes cluster and the level of expertise involved in managing the operations of a cluster.
 
 Production environment solutions![Production environment solutions](/images/docs/KubernetesSolutions.svg)
 
+{{< table caption="Production environment solutions table lists the providers and the solutions." >}}
+Production environment solutions table lists the providers and the solutions that they offer.
 
- 
-### Applications
-The layer where various containerized applications run. 
- 
-### Data Plane
-The layer that provides capacity such as CPU, memory, network, and storage so that the containers can run and connect to a network.
-
-### Control Plane
-The container orchestration layer that exposes the API and interfaces to define, deploy, and manage the lifecycle of containers. 
-
-### Cluster Infrastructure
-The infrastructure layer provides and maintains VMs, networking, security groups and others. 
-
-### Cluster Operations
-Activities such as upgrading the clusters, implementing security, storage, ingress, networking, logging and monitoring, and other operations involved in managing a Kubernetes cluster.
-
-{{< table caption="Production environment solutions table that lists the solutions and the providers." >}}
-
-|Providers  | Managed | Turnkey cloud  | On-prem Cloud  | Custom (Cloud) | Custom (On-Premises VMs)| Custom (Bare Metal) |
+|Providers  | Managed | Turnkey cloud  | on-prem datacenter  | Custom (Cloud) | Custom (On-premises VMs)| Custom (Bare Metal) |
 | ---------  | ------  | ------         | ------         | ------         | ------                  | -----               |
-| [Agile Stacks](https://www.agilestacks.com/products/kubernetes)|                | &#x2714;       | &#x2714;         |       |                    | 
-| [Alibaba Cloud](https://www.alibabacloud.com/product/kubernetes)|     | &#x2714; |          |    |                      | 
-| [Amazon](https://aws.amazon.com)   | [Amazon EKS](https://aws.amazon.com/eks/)   |[Amazon EC2](https://aws.amazon.com/ec2/)  |          |        |                       | 
-| [AppsCode](https://appscode.com/products/pharmer/)          | &#x2714;      |  |       |         |  | 
+| [Agile Stacks](https://www.agilestacks.com/products/kubernetes)|                | &#x2714;       | &#x2714;         |       |                    |
+| [Alibaba Cloud](https://www.alibabacloud.com/product/kubernetes)|     | &#x2714; |          |    |                      |
+| [Amazon](https://aws.amazon.com)   | [Amazon EKS](https://aws.amazon.com/eks/)   |[Amazon EC2](https://aws.amazon.com/ec2/)  |          |        |                       |
+| [AppsCode](https://appscode.com/products/pharmer/)          | &#x2714;      |  |       |         |  |
 | [APPUiO](https://appuio.ch/)  | &#x2714;     | &#x2714;  |   &#x2714; | |  | |
-| [Microsoft Azure](https://azure.microsoft.com)    |  [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/)     |  |     |        |    | 
-| [CenturyLink Cloud](https://www.ctl.io/)     |       | &#x2714; |   |  | | 
-| [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)       |     |  |   | &#x2714; |&#x2714; | 
-| [CloudStack](https://cloudstack.apache.org/)           |      |  |   | | &#x2714;| 
+| [CenturyLink Cloud](https://www.ctl.io/)     |       | &#x2714; |   |  | |
+| [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)       |     |  |   | &#x2714; |&#x2714; |
+| [CloudStack](https://cloudstack.apache.org/)           |      |  |   | | &#x2714;|
 | [Canonical](https://www.ubuntu.com/kubernetes/docs/quickstart)      |              | &#x2714;       |             | &#x2714;     |&#x2714;  | &#x2714;
-| [Containership](https://containership.io/containership-platform)            | &#x2714;       |&#x2714;  |     |     |                   | 
+| [Containership](https://containership.io/containership-platform)            | &#x2714;       |&#x2714;  |     |     |                   |
 | [Digital Rebar](https://provision.readthedocs.io/en/tip/README.html)            |        |  |      |     |  | &#x2714;
-| [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)        | &#x2714;      |  |      |     |            | 
+| [DigitalOcean](https://www.digitalocean.com/products/kubernetes/)        | &#x2714;      |  |      |     |            |
 | [Docker Enterprise](https://www.docker.com/products/docker-enterprise) |       |&#x2714;  | &#x2714;     |  |     | &#x2714;
 | [Fedora (Multi Node)](https://kubernetes.io/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)     |      |  |      | |    &#x2714;       | &#x2714;
 | [Fedora (Single Node)](https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config/)     |      |  |      | |           | &#x2714;
-| [Gardner](https://gardener.cloud/)       |              |&#x2714;  |         | &#x2714;   |          | 
-| [Giant Swarm](https://giantswarm.io/)     | &#x2714;       | &#x2714; |   &#x2714;    |     | 
-| [Google](https://cloud.google.com/)           |  [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/)       | [Google Compute Engine (GCE)](https://cloud.google.com/compute/)|[GKE On-Prem](https://cloud.google.com/gke-on-prem/)       |  |  |     |  |      |       |  | 
+| [Gardner](https://gardener.cloud/)       |              |&#x2714;  |         | &#x2714;   |          |
+| [Giant Swarm](https://giantswarm.io/)     | &#x2714;       | &#x2714; |   &#x2714;    |     |
+| [Google](https://cloud.google.com/)           |  [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine/)       | [Google Compute Engine (GCE)](https://cloud.google.com/compute/)|[GKE On-Prem](https://cloud.google.com/gke-on-prem/)       |  |  |     |  |      |       |  |
 | [IBM](https://www.ibm.com/in-en/cloud)        | [IBM Cloud Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster)| |[IBM Cloud Private](https://www.ibm.com/in-en/cloud/private) | |
 | [Kontena Pharos](https://www.kontena.io/pharos/)          |    |&#x2714;|    &#x2714;    |        |         |
 | [Kubermatic](https://www.loodse.com/)         |     &#x2714;  | &#x2714; | &#x2714;     |     |  |
-| [KubeSail](https://kubesail.com/)    | &#x2714;       |  |      |     |        | 
+| [KubeSail](https://kubesail.com/)    | &#x2714;       |  |      |     |        |
 | [Kubespray](https://kubespray.io/#/)       |       |    |       |&#x2714;  |  |  |
 | [Kublr](https://kublr.com/)        |&#x2714; | &#x2714;  |&#x2714;       |&#x2714;  | |  |
-| Madcore.ai (404 and no official website)         |              |        |      |    |                      |
+| [Microsoft Azure](https://azure.microsoft.com)    |  [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/)     |  |     |        |    |
 | [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)    |       |  | &#x2714; |  |    |
 | [Nirmata](https://www.nirmata.com/)          |              |   &#x2714;     | &#x2714;            |      |          |
 | [Nutanix](https://www.nutanix.com/en)         | [Nutanix Karbon](https://www.nutanix.com/products/karbon)             | [Nutanix Karbon](https://www.nutanix.com/products/karbon)       |             |      | [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization)         |
@@ -108,5 +92,3 @@ Activities such as upgrading the clusters, implementing security, storage, ingre
 | [VMware](https://cloud.vmware.com/) | [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)              |[VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)        |   [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)          | [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)      |          |[VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)
 
 {{% /capture %}}
-
-
