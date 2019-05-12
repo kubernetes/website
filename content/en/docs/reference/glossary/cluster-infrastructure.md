@@ -9,6 +9,6 @@ The infrastructure layer provides and maintains VMs, networking, security groups
 
 aka:
 tags:
-- fundamental
+- operations
 ---
 The infrastructure layer provides and maintains VMs, networking, security groups and others.
