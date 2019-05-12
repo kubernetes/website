@@ -16,7 +16,7 @@ card:
 ## 마스터 컴포넌트
 
 마스터 컴포넌트는 클러스터의 컨트롤 플레인을 제공한다. 마스터 컴포넌트는 클러스터에 관한 전반적인 결정
-(예를 들어, 스케줄링)을 수행하고 클러스터 이벤트(레플리케이션 컨트롤러의 '레플리카' 필드가 요구조건을 충족되지 않을 경우 새로운 파드를 구동 시키는 것)를 감지하고 반응한다.
+(예를 들어, 스케줄링)을 수행하고 클러스터 이벤트(레플리케이션 컨트롤러의 `replicas` 필드가 요구조건을 충족되지 않을 경우 새로운 파드를 구동 시키는 것)를 감지하고 반응한다.
 
 마스터 컴포넌트는 클러스터 내 어떠한 머신에서든지 동작 될 수 있다. 그러나,
 간결성을 위하여, 구성 스크립트는 보통 동일 머신 상에 모든 마스터 컴포넌트를 구동시키고,
@@ -72,19 +72,21 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 
 ### kube-proxy
 
-[kube-proxy](/docs/admin/kube-proxy/)는 호스트 상에서 네트워크 규칙을 유지하고 연결에 대한 포워딩을 수행함으로서 쿠버네티스 서비스 추상화가 가능하도록 해준다.
+[kube-proxy](/docs/admin/kube-proxy/)는 호스트 상에서 네트워크 규칙을 유지하고 연결에 대한 포워딩을 수행함으로서
+ 쿠버네티스 서비스 추상화가 가능하도록 해준다.
 
 ### 컨테이너 런타임
 
-컨테이너 런타임은 컨테이너의 동작을 책임지는 소프트웨어다. 
+컨테이너 런타임은 컨테이너의 동작을 책임지는 소프트웨어다.
 쿠버네티스는 몇몇의 런타임을 지원하는데 [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) 그리고 [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md)를 구현한 모든 런타임이다.
 
 ## 애드온
 
-애드온은 클러스터 기능을 이행하는 파드와 서비스다. 이 파드는 디플로이먼트, 레플리케이션 컨트롤러, 기타 등등에 의해 관리될 수도 있다. 네임스페이스를 갖는 애드온 오브젝트는 `kube-system` 네임스페이스 내에서 생성되어 진다.
+애드온은 클러스터 기능을 이행하는 파드와 서비스다.
+이 파드는 디플로이먼트, 레플리케이션 컨트롤러, 기타 등등에 의해 관리될 수도 있다.
+네임스페이스를 갖는 애드온 오브젝트는 `kube-system` 네임스페이스 내에서 생성되어 진다.
 
-선택된 일부 애드온이 아래에 설명되었으며, 사용가능한 전체 확장 애드온 리스트는
-[애드온](/docs/concepts/cluster-administration/addons/)을 참조한다.
+선택된 일부 애드온이 아래에 설명되었으며, 사용가능한 전체 확장 애드온 리스트는 [애드온](/docs/concepts/cluster-administration/addons/)을 참조한다.
 
 ### DNS
 
@@ -100,11 +102,13 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 
 ### 컨테이너 리소스 모니터링
 
-[컨테이너 리소스 모니터링](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)은 중앙 데이터베이스 내에 컨테이너들에 대한 포괄적인 시계열 메트릭스를 기록하고 그 데이터를 열람하기 위한 UI를 제공해 준다.
+[컨테이너 리소스 모니터링](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)은
+중앙 데이터베이스 내에 컨테이너들에 대한 포괄적인 시계열 메트릭스를 기록하고 그 데이터를 열람하기 위한 UI를 제공해 준다.
 
 ### 클러스터-레벨 로깅
 
-[클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 가진다.
+[클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은
+검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 가진다.
 
 {{% /capture %}}
 

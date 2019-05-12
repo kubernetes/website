@@ -56,7 +56,9 @@ echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~
 kubectl config view # 병합된 kubeconfig 설정을 표시한다.
 
 # 동시에 여러 kubeconfig 파일을 사용하고 병합된 구성을 확인한다
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
+
+kubectl config view
 
 # e2e 사용자의 암호를 확인한다
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
@@ -265,6 +267,8 @@ kubectl delete pod,service baz foo                                        # "baz
 kubectl delete pods,services -l name=myLabel                              # name=myLabel 라벨을 가진 파드와 서비스 삭제
 kubectl delete pods,services -l name=myLabel --include-uninitialized      # 초기화되지 않은 것을 포함하여, name=myLabel 라벨을 가진 파드와 서비스 삭제
 kubectl -n my-ns delete po,svc --all                                      # 초기화되지 않은 것을 포함하여, my-ns 네임스페이스 내 모든 파드와 서비스 삭제
+# awk pattern1 또는 pattern2에 매칭되는 모든 파드 삭제
+kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
 ## 실행 중인 파드와 상호 작용
