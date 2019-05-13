@@ -219,3 +219,5 @@ kubectl convert -f pod.yaml --output-version v1
 ```
 
 For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) command.
+
+{{% /capture %}}
