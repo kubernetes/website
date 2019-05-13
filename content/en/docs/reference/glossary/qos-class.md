@@ -1,6 +1,6 @@
 ---
 title: QoS Class
-id: qosclass
+id: qos-class
 date: 2019-04-15
 full_link: 
 short_description: >
