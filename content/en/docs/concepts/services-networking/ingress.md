@@ -143,7 +143,7 @@ If you create it using `kubectl apply -f` you should see:
 kubectl get ingress test-ingress
 ```
 
-```shell
+```
 NAME           HOSTS     ADDRESS           PORTS     AGE
 test-ingress   *         107.178.254.228   80        59s
 ```
@@ -162,7 +162,7 @@ A fanout configuration routes traffic from a single IP address to more than one 
 based on the HTTP URI being requested. An Ingress allows you to keep the number of loadbalancers
 down to a minimum. For example, a setup like:
 
-```shell
+```none
 foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
                                  / bar    service2:8080
 ```
@@ -197,7 +197,7 @@ When you create the ingress with `kubectl apply -f`:
 kubectl describe ingress simple-fanout-example
 ```
 
-```shell
+```
 Name:             simple-fanout-example
 Namespace:        default
 Address:          178.91.123.132
@@ -374,7 +374,7 @@ To update an existing Ingress to add a new Host, you can update it by editing th
 kubectl describe ingress test
 ```
 
-```shell
+```
 Name:             test
 Namespace:        default
 Address:          178.91.123.132
@@ -425,7 +425,7 @@ Ingress controller to reconfigure the loadbalancer.
 kubectl describe ingress test
 ```
 
-```shell
+```
 Name:             test
 Namespace:        default
 Address:          178.91.123.132
