@@ -1,0 +1,651 @@
+# Creating AWS Volume Snapshots in Kubernetes Using the EBS CSI Driver
+
+Kirill Goltsman (**Supergiant.io**)
+
+[Volume snapshotting](https://kubernetes.io/blog/2018/10/09/introducing-volume-snapshot-alpha-for-kubernetes/) feature supports creating/deleting volume snapshots and using them as PersistentVolumeClaims (PVC) in Kubernetes workloads (e.g., Pods and Deployments). It was added as an alpha feature in Kubernetes v.1.12. 
+
+At this time, volume snapshots can be only created using the [CSI](https://github.com/container-storage-interface/spec) drivers for specific storage vendors. Users cannot create volume snapshots with in-tree Kubernetes volumes such as `awsElasticBlockSore` or `azureDisk` , and they have to deploy CSI-compliant storage plugins to take snapshots. A number of storage solutions are already supported, including [GCE Persistent Disk CSI Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver), [CSI Drive for AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver), [OpenSDS CSI Driver](https://github.com/opensds/nbp/tree/master/csi/server) and some others. 
+
+Enabling volume snapshotting in Kubernetes is still not straightforward because one needs to configure certain feature gates on the kubelet and the kube-apiserver, as well as install a specific CSI driver. In this tutorial, we'll show you how to take snapshots of your AWS EBS volumes using the [AWS EBS CSI driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) (still in Beta) developed by the Kubernetes community. 
+
+In what follows, we'll cover Snapshot API and walk you through deploying and using AWS EBS CSI driver in your Kubernetes cluster. Examples from this article can be used to enable volume snapshotting with other storage solutions as well. Let's get started!
+
+### Overview of the Volume Snapshotting API
+
+[This article](https://kubernetes.io/blog/2018/10/09/introducing-volume-snapshot-alpha-for-kubernetes/) from the Kubernetes blog provides an excellent introduction to the volume snapshotting feature in Kubernetes. According to the article, the main motivation behind this feature is abstracting storage solutions and operations from the Kubernetes API so Kubernetes can move away from incorporating additional in-tree plugins into the upstream code. As the document puts it,
+
+> ...Kubernetes users are now empowered to incorporate snapshot operations in a cluster-agnostic way into their tooling and policy with the comfort of knowing that it will work against arbitrary Kubernetes clusters regardless of the underlying storage.
+
+Kubernetes Volume Snapshot API includes three Custom Resource Definitions (CRDs): `VolumeSnapshot` , `VolumeSnapshotContent` , and `VolumeSnapshotClass`. 
+
+`VolumeSnapshot` is a request for a snapshot from the CSI driver (snapshotter), which is similar to how PVCs interact with built-in volume provisioners. 
+
+`VolumeSnapshotContent` is a snapshot of some volume in a K8s cluster. This primitive has a role similar to [PersistentVolumes (PVs)](https://supergiant.io/blog/persistent-storage-with-persistent-volumes-in-kubernetes/). You can use it for the static provisioning of snapshots similarly to how PVs are used for the static provisioning of Kubernetes volumes. If users create a `VolumeSnapshotContent`, it should refer to the real storage available for cluster users. In other words, volumes for `VolumeSnapshotContent` should be pre-provisioned. 
+
+Finally, `VolumeSnapshotClass` is a primitive that describes how snapshots should be taken. A VSC can specify driver information, secrets to pass to a driver, and various driver-specific options. This primitive is quite similar to `StorageClass` because it's used for the dynamic provisioning of volume snapshots without allocating a `VolumeSnapshotContent` beforehand. All these primitives require a CSI driver and snapshot-compatible Kubernetes cluster to work. In general, the following prerequisites should be met:
+
+- Kubernetes >= 1.12.0. Some CSI drivers may require Kubernetes > 1.13.0 or any specific K8s version.
+- Users may have to enable CSI-related and volume snapshot feature gates. At the minimum, you'll need `--feature-gates=VolumeSnapshotDataSource=true` set on the kube-apiserver binary during the cluster provisioning. Using volume snapshotting in the earlier K8s versions may also require enabling CSI-related feature gates. Follow the feature gate status in this [comprehensive doc](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) and consult the documentation of your CSI driver to find out more.
+- A CSI driver for your storage vendor deployed to the cluster.
+
+We'll describe all these requirements in detail using the example of the AWS EBS CSI driver. Let's move on to the tutorial.
+
+### Tutorial
+
+Examples in this tutorial were tested in the following environment:
+
+- Kubernetes 1.14.1 deployed with [Kops 1.14.0-alpha.1](https://github.com/kubernetes/kops/releases/tag/1.14.0-alpha.1) release on AWS
+- the latest release of the [AWS EBS CSI driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
+
+To complete these examples, you'll also need:
+
+- an AWS account with the ability to create IAM users
+- AWS CLI
+- kubectl
+
+In what follows, we'll first quickly provision a K8s cluster on AWS using Kops. The cluster will be configured with all required feature gates.
+
+**NOTE**: all code snippets and manifests used in this tutorial can be obtained from this [GitHub repo](https://github.com/supergiant/blog-code-examples/tree/master/volumesnapshots-aws-ebs-csi). 
+
+### Step #1: Provision a K8s Cluster with the Volume Snapshotting Support using Kops
+
+Before provisioning an AWS cluster, we should first create a Kops IAM user with the configured permissions to create instances, volumes, etc. At the minimum, the Kops user will require the following IAM permissions to function properly:
+
+```
+AmazonEC2FullAccess
+AmazonRoute53FullAccess
+AmazonS3FullAccess
+IAMFullAccess
+AmazonVPCFullAccess
+```
+
+**Note**: You can find more information on the Kops requirements [here](https://github.com/kubernetes/kops/blob/master/docs/aws.md). 
+
+We'll also need to create a dedicated S3 bucket for Kops to store the state of your cluster. This bucket will become the source of truth for your cluster configuration. If you have an AWS CLI installed on your machine, simply run the following command to create an S3 bucket (please replace the bucket name and region according to your requirements)
+
+```shell
+aws s3api create-bucket \
+    --bucket test-cluster-state-store \
+    --region us-east-1
+```
+
+Next, let's export some environmental variables to store AWS and cluster configuration:
+
+```shell
+export NAME=test.k8s.local
+export NODE_SIZE=${NODE_SIZE:-m4.large}
+export MASTER_SIZE=${MASTER_SIZE:-m4.large}
+export ZONES=${ZONES:-"us-east-1d"}
+export KOPS_STATE_STORE="s3://test-cluster-state-store"
+```
+
+**Note**: Please make sure to adjust these settings. Select your cluster name, node sizes, and appropriate region and/or availability zones. Next, run the command below to initialize the cluster:
+
+```shell
+kops create cluster $NAME --state $KOPS_STATE_STORE   --node-count 1   --zones $ZONES   --node-size $NODE_SIZE   --master-size $MASTER_SIZE
+```
+
+After the cluster has been initialized, we'll need to configure the kubelet and kube-apiserver features gates to enable support for volume snapshotting. Run `kops edit cluster $NAME` to open the Kops cluster configuration in the editor. Ensure that Kubernetes version is >= 1.12.0 because the `VolumeSnapshot` feature is supported as alpha since that version. We also need to enable the following flags and feature gates to use the AWS EBS CSI Driver:
+
+- a flag `--allow-privileged=true` on the kubelet and the kube-apiserver
+- `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true` on the kube-apiserver.
+- `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true` on the kubelet.
+
+**Note**: Depending on the K8s version you use, some of these feature gates may be already enabled by default. That's how your final Kops cluster configuration should look like:
+
+```yaml
+  kubeAPIServer:
+    allowPrivileged: true
+    featureGates:
+      CSINodeInfo: "true"
+      CSIDriverRegistry: "true"
+      CSIBlockVolume: "true"
+      VolumeSnapshotDataSource: "true"
+  kubelet:
+    anonymousAuth: false
+    allowPrivileged: true
+    featureGates:
+      CSINodeInfo: "true"
+      CSIDriverRegistry: "true"
+      CSIBlockVolume: "true"
+```
+
+Save these changes and update the Kops cluster by running:
+
+```shell
+kops update cluster ${NAME} --yes
+```
+
+### Step #2: Deploy the AWS EBS CSI driver to your K8s Cluster
+
+As we've already mentioned, volume snapshotting is currently supported only with CSI drivers. We used a CSI driver for AWS EBS snapshots for this tutorial. The driver supports static and dynamic provisioning of AWS EBS volumes, consuming EBS volumes as raw block devices, volume snapshots, and NVMe EBS volumes from EC2 Nitro instance. Let's follow these simple steps to deploy this CSI driver to your AWS cluster. First, download the AWS EBS CSI Driver from the GitHub repo and `cd` to it.
+
+```shell
+git clone https://github.com/kubernetes-sigs/aws-ebs-csi-driver.git
+```
+
+Next, we need to grant the driver the necessary permissions to create and manage AWS EBS volumes. The best practice is to create a dedicated AWS EBS CSI user with the required permissions and access credentials. At the minimum, this user should have the following privileges:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AttachVolume",
+        "ec2:CreateSnapshot",
+        "ec2:CreateTags",
+        "ec2:CreateVolume",
+        "ec2:DeleteSnapshot",
+        "ec2:DeleteTags",
+        "ec2:DeleteVolume",
+        "ec2:DescribeInstances",
+        "ec2:DescribeSnapshots",
+        "ec2:DescribeTags",
+        "ec2:DescribeVolumes",
+        "ec2:DetachVolume"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+First, create a new user group:
+
+```shell
+aws iam create-group --group-name awsebscsi
+{
+    "Group": {
+        "Path": "/", 
+        "CreateDate": "2019-03-27T11:38:43Z", 
+        "GroupId": "AGPAIQWYIYMRZ4XGGGK5O", 
+        "Arn": "arn:aws:iam::596068195916:group/awsebscsi", 
+        "GroupName": "awsebscsi"
+    }
+}
+```
+
+And attach `AmazonEC2FullAccess` policy to this group:
+
+```shell
+aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess --group-name awsebscsi
+```
+
+Then, create a new user
+
+```shell
+aws iam create-user --user-name awsebscsi
+ {
+    "User": {
+        "UserName": "awsebscsi", 
+        "Path": "/", 
+        "CreateDate": "2019-03-27T11:41:17Z", 
+        "UserId": "AIDAJE5XFYSUTIYV6PIW6", 
+        "Arn": "arn:aws:iam::596068195916:user/awsebscsi"
+    }
+}
+```
+
+And add it to the group:
+
+```shell
+aws iam add-user-to-group --user-name awsebscsi --group-name awsebscsi
+```
+
+Finally, generate access keys and secrets for the user and record them:
+
+```shell
+aws iam create-access-key --user-name awsebscsi
+{
+    "AccessKey": {
+        "UserName": "awsebscsi", 
+        "Status": "Active", 
+        "CreateDate": "2019-03-27T11:42:53Z", 
+        "SecretAccessKey": "--------------", 
+        "AccessKeyId": "------------------"
+    }
+}
+```
+
+Great! Now, let's add these credentials to the driver's Secret manifest. You'll need to edit this file:
+
+```shell
+nano deploy/kubernetes/secret.yaml 
+```
+
+After adding these credentials, the Secret manifest should look something like this.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-secret
+  namespace: kube-system
+stringData:
+  key_id: "YOUR_ACCESS_KEY_ID"
+  access_key: "YOUR_SECRET_KEY"
+```
+
+Once all edits are saved, deploy the Secret to your cluster:
+
+```shell
+kubectl apply -f deploy/kubernetes/secret.yaml
+secret/aws-secret created
+```
+
+If your cluster is < 1.14.0 , you'll also need to install the `CSINodeInfo` CRD:
+
+```shell
+kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.13/pkg/crd/manifests/csinodeinfo.yaml
+customresourcedefinition.apiextensions.k8s.io/csinodeinfos.csi.storage.k8s.io created
+```
+
+Now, you are all set to deploy the driver to the cluster:
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/master/deploy/kubernetes/manifest.yaml
+
+serviceaccount/csi-controller-sa created
+clusterrole.rbac.authorization.k8s.io/external-provisioner-role created
+clusterrolebinding.rbac.authorization.k8s.io/csi-provisioner-binding created
+.....
+```
+
+Verify that the driver has been successfully deployed:
+
+```shell
+kubectl get pods -n kube-system
+NAME                       READY   STATUS            RESTARTS   AGE
+
+ebs-csi-controller-0        6/6     Running             0        59s
+ebs-csi-node-kjxpq          3/3     Running             0        1m
+```
+
+### Step #3: Create a VolumeSnapshotClass
+
+Now you can use the volume snapshot API to create AWS EBS volume snapshots. First, you'll need to create a `VolumeSnapshotClass` to enable dynamic snapshot provisioning with the AWS EBS CSI driver. This is similar to how you use dynamic provisioning of persistent volumes with StorageClass primitive. At the minimum, you should set a snapshotter field to `ebs.csi.aws.com` as in the example below:
+
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-aws-vsc
+snapshotter: ebs.csi.aws.com
+```
+
+You can also use default `csiSnapshotterSecretName` and `csiSnapshotterSecretNamespace` parameters to fetch secrets and pass them to the CSI driver when creating and deleting snapshots. Also, you may need to set any parameters required by your CSI driver. With the AWS EBS CSI driver, we are good to go with the VSC defined above.
+
+```shell
+kubectl create -f vsclass.yaml
+volumesnapshotclass.snapshot.storage.k8s.io/csi-aws-vsc created
+```
+
+### Step #4: Create a StorageClass for AWS EBS Volumes
+
+Before taking snapshots, you also need to provision AWS EBS volumes for your cluster. In this example, we'll configure the dynamic provisioning of EBS volumes using the `StorageClass` API. Please, note that you have to use the AWS EBS CSI driver as the provisioner:
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: ebs-sc
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+```
+
+Also, note that we use the `WaitForFirstConsumer` volume binding mode, which ensures that an EBS volume is provisioned only when the PVC is attached to the Deployment or Pod, or whatever API resource you use. Go ahead and create the `StorageClass` :
+
+```shell
+kubectl create -f sc-aws.yaml
+storageclass.storage.k8s.io/ebs-sc created
+```
+
+### Step #4: Create a PVC using the StorageClass
+
+You also need a PVC to dynamically provision AWS EBS volumes. It should refer to the `StorageClass` created in the step above ( ebs-sc ).
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ebs-sc
+  resources:
+    requests:
+      storage: 4Gi
+```
+
+This PVC will require the `StorageClass` to provision 4GB AWS EBS volumes for the use in your cluster. Create the PVC:
+
+```shell
+kubectl create -f pvc-ebs.yaml
+persistentvolumeclaim/ebs-claim created
+```
+
+As the description below suggests, the PVC hasn't claimed any resources yet because it waits for the first consumer.
+
+```shell
+Name:          ebs-claim
+Namespace:     default
+StorageClass:  ebs-sc
+Status:        Pending
+Volume:        
+Labels:        <none>
+Annotations:   <none>
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      
+Access Modes:  
+Events:
+  Type       Reason                Age               From                         Message
+  ----       ------                ----              ----                         -------
+  Normal     WaitForFirstConsumer  1s (x4 over 25s)  persistentvolume-controller  waiting for first consumer to be created before binding
+Mounted By:  <none>
+```
+
+### Step #5: Creating a MySQL Deployment
+
+Let this first customer be a MySQL Deployment:
+
+```yaml
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+      version: "1"
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+        version: "1"
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        env:
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: ebs-claim
+```
+
+In the Deployment manifest, we defined a volume named `mysql-persistent-storage` using the PVC created above and mounted it to the MySQL container at its data path. Also, take note of the `MYSQL_USER` and `MYSQL_ROOT_PASSWORD` that will be used to access MySQL database inside the container. Now that you understand what this manifest does, let’s create the Deployment:
+
+```shell
+kubectl create -f mysql.yaml
+deployment.apps/mysql created
+```
+
+### Step #6: Add Data to MySQL to "Snapshot" It Later
+
+Our AWS EBS volume is currently empty, so let's add some data to the database. First, find and export the name of your MySQL Pod to the bash variable:
+
+```shell
+export MYSQLPOD=$(kubectl get pods -l app=mysql --no-headers | awk '{print $1}')
+```
+
+Get a shell to the running MySQL container:
+
+```shell
+kubectl exec -ti $MYSQLPOD -- bash
+```
+
+Log in to MySQL:
+
+```shell
+mysql --user=root --password=password
+```
+
+Create a new database:
+
+```shell
+create database FAILOVER_TEST;
+Query OK, 1 row affected (0.03 sec)
+```
+
+Change the context to the new database:
+
+```shell
+use FAILOVER_TEST;
+Database changed
+```
+
+Create a new table titled "tests:"
+
+```shell
+CREATE TABLE IF NOT EXISTS tests (
+    test_id INT AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    submission_date DATE,
+    author TEXT,
+    PRIMARY KEY (test_id)
+)  ENGINE=INNODB;
+
+Query OK, 0 rows affected (0.18 sec)
+```
+
+Insert a row into this table:
+
+```shell
+INSERT INTO tests (title, author, submission_date) VALUES ('MySQL Failover Test', 'John Carter', NOW());
+Query OK, 1 row affected (0.02 sec)
+```
+
+Finally, verify that the data was saved:
+
+```shell
+select * FROM tests;
++---------+---------------------+----------------+-----------+
+| test_id | title               | submission_date | author      |
++---------+---------------------+----------------+-----------+
+|       1 | MySQL Failover Test | 2019-02-20     | John Carter |
++---------+---------------------+-----------------+----------+
+1 row in set (0.00 sec)
+```
+
+Great! You have some data saved in the MySQL database.
+
+### Step #7: Make a Volume Snapshot
+
+Now you are ready to create a `VolumeSnapshot` of your AWS EBS volume. Remember that `VolumeSnapshot` is an API primitive used for the dynamic snapshot provisioning the same way as PVC is used for the dynamic volume provisioning. Your `VolumeSnapshot` manifest may look something like this:
+
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshot
+metadata:
+  name: mysql-snapshot
+spec:
+  snapshotClassName: csi-aws-vsc
+  source:
+    name: ebs-claim
+    kind: PersistentVolumeClaim
+```
+
+Several things to note here:
+
+- `spec.snapshotClassName` should match the `VolumeSnapshotClass` of the AWS EBS CSI driver.
+- You have to specify the PVC to take a snapshot from in the `spec.source.name` field.
+
+Let's create a volume snapshot:
+
+```shell
+kubectl create -f vsnap-mysql.yaml
+volumesnapshot.snapshot.storage.k8s.io/mysql-snapshot created
+```
+
+In response to this command, the CSI driver takes a volume snapshot and automatically creates a `VolumeSnapshotContent` object to represent a new snapshot. It also binds a new `VolumeSnapshotContent` object to the `VolumeSnapshot` , making it ready for use. This is similar to how the `StorageClass` creates a PV and binds it to the PVC to make it ready for use. 
+
+**Note**: the volume snapshotting alpha release does not provide any data consistency guarantees. For example, if some new data was added to the database during the snapshotting process, it may be not reflected in the snapshot. Users should take corresponding actions like pausing their app or freezing a filesystem to ensure data consistency while taking volume snapshots. 
+
+Great! We have a MySQL volume snapshot at our disposal! Now let's do something as crazy as deleting your MySQL Deployment and the PVC with the data:
+
+```
+kubectl delete deployment mysql
+kubectl delete pvc ebs-claim
+```
+
+### Step #8: Restoring MySQL Data using the Volume Snapshot
+
+We deleted the database we created earlier, and all the data was gone. However, we have a volume snapshot, so don't worry! To provision a new AWS EBS volume pre-populated with the data from our snapshot, we must use a new `dataSource` field in the `PersistentVolumeClaim` . This field supports three parameters:
+
+- `name` — name of the `VolumeSnapshot` to use as a source
+- `kind` — must be `VolumeSnapshot`
+- `apiGroup` — must be `snapshot.storage.k8s.io`
+
+Also, note that the `storageClassName` should match a CSI StorageClass: `ebs-sc` 
+
+**Note**: the namespace of the `VolumeSnapshot` object is assumed to be the same as the namespace of the `PersistentVolumeClaim` object.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-restore
+spec:
+  storageClassName: ebs-sc
+  dataSource:
+    name: mysql-snapshot
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+```
+
+Create this PVC:
+
+```shell
+kubectl create -f pvc-snapshot.yaml 
+persistentvolumeclaim/pvc-restore created
+```
+
+Let's now create a brand new MySQL deployment with this new `pvc-restore` PVC attached:
+
+```yaml
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mysql-clone
+spec:
+  selector:
+    matchLabels:
+      app: mysql-clone
+      version: "1"
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-clone
+        version: "1"
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        env:
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: pvc-restore
+```
+
+Save this spec to the mysql-clone.yaml , and create new Deployment:
+
+```shell
+kubectl create -f mysql-clone.yaml
+deployment.apps/mysql-clone created
+```
+
+Let's verify that our data is still there:
+
+```shell
+export MYSQL_POD=$(kubectl get pods -l app=mysql-clone --no-headers | awk '{print $1}')
+
+kubectl exec -ti $MYSQL_POD -- bash
+mysql --user=root --password=password
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| FAILOVER_TEST      |
+| mysql              |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+exit
+exit
+```
+
+Awesome! You've successfully restored your MySQL data from the AWS EBS snapshot.
+
+### Conclusion
+
+That's it! In this article, you've learned how to use the latest volume snapshotting feature in Kubernetes to take snapshots of AWS EBS volumes with the CSI driver. At this time, the volume snapshots are supported by the following CSI drivers:
+
+- [GCE Persistent Disk CSI Driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)
+- [OpenSDS CSI Driver](https://github.com/opensds/nbp/tree/master/csi/server)
+- [Ceph RBD CSI Driver](https://github.com/ceph/ceph-csi/tree/master/pkg/rbd)
+- [Portworx CSI Driver](https://github.com/libopenstorage/openstorage/tree/master/csi)
+- [GlusterFS CSI Driver](https://github.com/gluster/gluster-csi-driver)
+- [Digital Ocean CSI Driver](https://github.com/digitalocean/csi-digitalocean)
+- [Ember CSI Driver](https://github.com/embercsi/ember-csi)
+- [Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/tree/master/pkg/csi/cinder)
+- [Datera CSI Driver](https://github.com/Datera/datera-csi)
+- [NexentaStor CSI Driver](https://github.com/Nexenta/nexentastor-csi-driver)
+
+Specific CSI driver configuration might differ across these plugins, but you can use the basic process and primitives described in this article to create volume snapshots with any of these drivers.
+
+### References
+
+https://kubernetes.io/blog/2018/10/09/introducing-volume-snapshot-alpha-for-kubernetes/
+
+https://kubernetes.io/blog/2019/01/17/update-on-volume-snapshot-alpha-for-kubernetes/
+
+https://kubernetes.io/docs/concepts/storage/volume-snapshots/
+
+https://github.com/kubernetes-sigs/aws-ebs-csi-driver
+
+https://github.com/supergiant/blog-code-examples/tree/master/volumesnapshots-aws-ebs-csi
+
+https://supergiant.io/blog/persistent-storage-with-persistent-volumes-in-kubernetes/
+
+https://supergiant.io/blog/kubernetes-storage-introduction/
