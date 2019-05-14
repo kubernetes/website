@@ -37,7 +37,7 @@ Traffic routing is controlled by rules defined on the Ingress resource.
    [ Services ]
 ```
 
-An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
 uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) or
@@ -59,7 +59,7 @@ Make sure you review your ingress controller's documentation to understand the c
 
 ## The Ingress Resource
 
-A minimal ingress resource example:
+A minimal Ingress resource example:
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -78,7 +78,7 @@ spec:
           servicePort: 80
 ```
 
- As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  
+ As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
  For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
  is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
@@ -97,7 +97,7 @@ Each http rule contains the following information:
 * An optional host. In this example, no host is specified, so the rule applies to all inbound
   HTTP traffic through the IP address specified. If a host is provided (for example,
   foo.bar.com), the rules apply to that host.
-* a list of paths (for example, /testpath), each of which has an associated backend defined with a `serviceName`
+* a list of paths (for example, `/testpath`), each of which has an associated backend defined with a `serviceName`
   and `servicePort`. Both the host and path must match the content of an incoming request before the
   load balancer will direct traffic to the referenced service.
 * A backend is a combination of service and port names as described in the
@@ -125,7 +125,8 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 
 {{< codenew file="service/networking/ingress.yaml" >}}
 
-If you create it using `kubectl apply -f` you should see:
+If you create it using `kubectl apply -f` you should be able to view the state
+of the Ingress you just added:
 
 ```shell
 kubectl get ingress test-ingress
@@ -210,8 +211,9 @@ When it has done so, you can see the address of the load balancer at the
 Address field.
 
 {{< note >}}
-Depending on the [Ingress controller](/docs/concepts/services-networking/ingress-controllers) you are using, you may need to
-create a default-http-backend [Service](/docs/concepts/services-networking/service/).
+Depending on the [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
+you are using, you may need to create a default-http-backend
+[Service](/docs/concepts/services-networking/service/).
 {{< /note >}}
 
 ### Name based virtual hosting
@@ -250,7 +252,9 @@ spec:
 
 If you create an Ingress resource without any hosts defined in the rules, then any
 web traffic to the IP address of your Ingress controller can be matched without a name based
-virtual host being required. For example, the following Ingress resource will route traffic 
+virtual host being required.
+
+For example, the following Ingress resource will route traffic
 requested for `first.bar.com` to `service1`, `second.foo.com` to `service2`, and any traffic
 to the IP address without a hostname defined in request (that is, without a request header being
 presented) to `service3`.
@@ -343,14 +347,14 @@ An Ingress controller is bootstrapped with some load balancing policy settings
 that it applies to all Ingress, such as the load balancing algorithm, backend
 weight scheme, and others. More advanced load balancing concepts
 (e.g. persistent sessions, dynamic weights) are not yet exposed through the
-Ingress. You can still get these features through the
-[service loadbalancer](https://github.com/kubernetes/ingress-nginx).
+Ingress. You can instead get these features through the load balancer used for
+a Service.
 
 It's also worth noting that even though health checks are not exposed directly
 through the Ingress, there exist parallel concepts in Kubernetes such as
 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
-which allow you to achieve the same end result. Please review the controller
-specific docs to see how they handle health checks (
+that allow you to achieve the same end result. Please review the controller
+specific documentation to see how they handle health checks (
 [nginx](https://git.k8s.io/ingress-nginx/README.md),
 [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 
@@ -384,7 +388,8 @@ Events:
 kubectl edit ingress test
 ```
 
-This should pop up an editor with the existing yaml, modify it to include the new Host:
+This should pop up an editor with the existing configuration in yaml format.
+Modify it to include the new Host:
 
 ```yaml
 spec:
@@ -435,7 +440,7 @@ Events:
   Normal   ADD     45s                loadbalancer-controller  default/test
 ```
 
-You can achieve the same by invoking `kubectl replace -f` on a modified Ingress yaml file.
+You can achieve the same outcome by invoking `kubectl replace -f` on a modified Ingress yaml file.
 
 ## Failing across availability zones
 
@@ -446,7 +451,7 @@ for details on deploying Ingress in a federated cluster.
 ## Future Work
 
 Track [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)
-for more details on the evolution of the ingress and related resources. You may also track the
+for more details on the evolution of Ingress and related resources. You may also track the
 [Ingress repository](https://github.com/kubernetes/ingress/tree/master) for more details on the
 evolution of various Ingress controllers.
 
