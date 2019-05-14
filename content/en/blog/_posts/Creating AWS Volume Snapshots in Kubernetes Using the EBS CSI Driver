@@ -45,7 +45,8 @@ To complete these examples, you'll also need:
 
 In what follows, we'll first quickly provision a K8s cluster on AWS using Kops. The cluster will be configured with all required feature gates.
 
-**NOTE**: all code snippets and manifests used in this tutorial can be obtained from this [GitHub repo](https://github.com/supergiant/blog-code-examples/tree/master/volumesnapshots-aws-ebs-csi). 
+{{< note >}} All code snippets and manifests used in this tutorial can be obtained from this [GitHub repo](https://github.com/supergiant/blog-code-examples/tree/master/volumesnapshots-aws-ebs-csi). 
+{{< note >}} 
 
 ### Step #1: Provision a K8s Cluster with the Volume Snapshotting Support using Kops
 
@@ -59,7 +60,8 @@ IAMFullAccess
 AmazonVPCFullAccess
 ```
 
-**Note**: You can find more information on the Kops requirements [here](https://github.com/kubernetes/kops/blob/master/docs/aws.md). 
+{{< note >}}  You can find more information on the Kops requirements [here](https://github.com/kubernetes/kops/blob/master/docs/aws.md). 
+{{< note >}} 
 
 We'll also need to create a dedicated S3 bucket for Kops to store the state of your cluster. This bucket will become the source of truth for your cluster configuration. If you have an AWS CLI installed on your machine, simply run the following command to create an S3 bucket (please replace the bucket name and region according to your requirements)
 
@@ -79,7 +81,8 @@ export ZONES=${ZONES:-"us-east-1d"}
 export KOPS_STATE_STORE="s3://test-cluster-state-store"
 ```
 
-**Note**: Please make sure to adjust these settings. Select your cluster name, node sizes, and appropriate region and/or availability zones. Next, run the command below to initialize the cluster:
+{{< note >}}  Please make sure to adjust these settings. Select your cluster name, node sizes, and appropriate region and/or availability zones. Next, run the command below to initialize the cluster:
+{{< note >}} 
 
 ```shell
 kops create cluster $NAME --state $KOPS_STATE_STORE   --node-count 1   --zones $ZONES   --node-size $NODE_SIZE   --master-size $MASTER_SIZE
@@ -91,7 +94,8 @@ After the cluster has been initialized, we'll need to configure the kubelet and 
 - `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true` on the kube-apiserver.
 - `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true` on the kubelet.
 
-**Note**: Depending on the K8s version you use, some of these feature gates may be already enabled by default. That's how your final Kops cluster configuration should look like:
+{{< note >}}  Depending on the K8s version you use, some of these feature gates may be already enabled by default. That's how your final Kops cluster configuration should look like:
+{{< note >}} 
 
 ```yaml
   kubeAPIServer:
@@ -156,6 +160,10 @@ First, create a new user group:
 
 ```shell
 aws iam create-group --group-name awsebscsi
+```
+The output looks something like this:
+
+```json
 {
     "Group": {
         "Path": "/", 
@@ -177,7 +185,11 @@ Then, create a new user
 
 ```shell
 aws iam create-user --user-name awsebscsi
- {
+```
+The output:
+
+```json
+{
     "User": {
         "UserName": "awsebscsi", 
         "Path": "/", 
@@ -198,6 +210,10 @@ Finally, generate access keys and secrets for the user and record them:
 
 ```shell
 aws iam create-access-key --user-name awsebscsi
+```
+The output:
+
+```json
 {
     "AccessKey": {
         "UserName": "awsebscsi", 
@@ -232,31 +248,28 @@ Once all edits are saved, deploy the Secret to your cluster:
 
 ```shell
 kubectl apply -f deploy/kubernetes/secret.yaml
-secret/aws-secret created
 ```
 
 If your cluster is < 1.14.0 , you'll also need to install the `CSINodeInfo` CRD:
 
 ```shell
 kubectl create -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.13/pkg/crd/manifests/csinodeinfo.yaml
-customresourcedefinition.apiextensions.k8s.io/csinodeinfos.csi.storage.k8s.io created
 ```
 
 Now, you are all set to deploy the driver to the cluster:
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/master/deploy/kubernetes/manifest.yaml
-
-serviceaccount/csi-controller-sa created
-clusterrole.rbac.authorization.k8s.io/external-provisioner-role created
-clusterrolebinding.rbac.authorization.k8s.io/csi-provisioner-binding created
-.....
 ```
 
 Verify that the driver has been successfully deployed:
 
 ```shell
 kubectl get pods -n kube-system
+```
+The output should look something like this:
+
+```shell
 NAME                       READY   STATUS            RESTARTS   AGE
 
 ebs-csi-controller-0        6/6     Running             0        59s
@@ -279,7 +292,6 @@ You can also use default `csiSnapshotterSecretName` and `csiSnapshotterSecretNam
 
 ```shell
 kubectl create -f vsclass.yaml
-volumesnapshotclass.snapshot.storage.k8s.io/csi-aws-vsc created
 ```
 
 ### Step #4: Create a StorageClass for AWS EBS Volumes
@@ -299,7 +311,6 @@ Also, note that we use the `WaitForFirstConsumer` volume binding mode, which ens
 
 ```shell
 kubectl create -f sc-aws.yaml
-storageclass.storage.k8s.io/ebs-sc created
 ```
 
 ### Step #4: Create a PVC using the StorageClass
@@ -324,7 +335,6 @@ This PVC will require the `StorageClass` to provision 4GB AWS EBS volumes for th
 
 ```shell
 kubectl create -f pvc-ebs.yaml
-persistentvolumeclaim/ebs-claim created
 ```
 
 As the description below suggests, the PVC hasn't claimed any resources yet because it waits for the first consumer.
@@ -396,7 +406,6 @@ In the Deployment manifest, we defined a volume named `mysql-persistent-storage`
 
 ```shell
 kubectl create -f mysql.yaml
-deployment.apps/mysql created
 ```
 
 ### Step #6: Add Data to MySQL to "Snapshot" It Later
@@ -415,27 +424,25 @@ kubectl exec -ti $MYSQLPOD -- bash
 
 Log in to MySQL:
 
-```shell
+```sql
 mysql --user=root --password=password
 ```
 
 Create a new database:
 
-```shell
+```sql
 create database FAILOVER_TEST;
-Query OK, 1 row affected (0.03 sec)
 ```
 
 Change the context to the new database:
 
-```shell
+```sql
 use FAILOVER_TEST;
-Database changed
 ```
 
 Create a new table titled "tests:"
 
-```shell
+```sql
 CREATE TABLE IF NOT EXISTS tests (
     test_id INT AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
@@ -443,21 +450,22 @@ CREATE TABLE IF NOT EXISTS tests (
     author TEXT,
     PRIMARY KEY (test_id)
 )  ENGINE=INNODB;
-
-Query OK, 0 rows affected (0.18 sec)
 ```
 
 Insert a row into this table:
 
-```shell
+```sql
 INSERT INTO tests (title, author, submission_date) VALUES ('MySQL Failover Test', 'John Carter', NOW());
-Query OK, 1 row affected (0.02 sec)
 ```
 
 Finally, verify that the data was saved:
 
-```shell
+```sql
 select * FROM tests;
+```
+You should get:
+
+```sql
 +---------+---------------------+----------------+-----------+
 | test_id | title               | submission_date | author      |
 +---------+---------------------+----------------+-----------+
@@ -493,12 +501,12 @@ Let's create a volume snapshot:
 
 ```shell
 kubectl create -f vsnap-mysql.yaml
-volumesnapshot.snapshot.storage.k8s.io/mysql-snapshot created
 ```
 
 In response to this command, the CSI driver takes a volume snapshot and automatically creates a `VolumeSnapshotContent` object to represent a new snapshot. It also binds a new `VolumeSnapshotContent` object to the `VolumeSnapshot` , making it ready for use. This is similar to how the `StorageClass` creates a PV and binds it to the PVC to make it ready for use. 
 
-**Note**: the volume snapshotting alpha release does not provide any data consistency guarantees. For example, if some new data was added to the database during the snapshotting process, it may be not reflected in the snapshot. Users should take corresponding actions like pausing their app or freezing a filesystem to ensure data consistency while taking volume snapshots. 
+{{< note >}}  the volume snapshotting alpha release does not provide any data consistency guarantees. For example, if some new data was added to the database during the snapshotting process, it may be not reflected in the snapshot. Users should take corresponding actions like pausing their app or freezing a filesystem to ensure data consistency while taking volume snapshots. 
+{{< note >}} 
 
 Great! We have a MySQL volume snapshot at our disposal! Now let's do something as crazy as deleting your MySQL Deployment and the PVC with the data:
 
@@ -517,7 +525,8 @@ We deleted the database we created earlier, and all the data was gone. However, 
 
 Also, note that the `storageClassName` should match a CSI StorageClass: `ebs-sc` 
 
-**Note**: the namespace of the `VolumeSnapshot` object is assumed to be the same as the namespace of the `PersistentVolumeClaim` object.
+{{< note >}}  the namespace of the `VolumeSnapshot` object is assumed to be the same as the namespace of the `PersistentVolumeClaim` object.
+{{< note >}} 
 
 ```yaml
 apiVersion: v1
@@ -541,7 +550,6 @@ Create this PVC:
 
 ```shell
 kubectl create -f pvc-snapshot.yaml 
-persistentvolumeclaim/pvc-restore created
 ```
 
 Let's now create a brand new MySQL deployment with this new `pvc-restore` PVC attached:
@@ -591,17 +599,23 @@ Save this spec to the mysql-clone.yaml , and create new Deployment:
 
 ```shell
 kubectl create -f mysql-clone.yaml
-deployment.apps/mysql-clone created
 ```
 
 Let's verify that our data is still there:
 
 ```shell
 export MYSQL_POD=$(kubectl get pods -l app=mysql-clone --no-headers | awk '{print $1}')
-
 kubectl exec -ti $MYSQL_POD -- bash
+```
+Then:
+
+```sql
 mysql --user=root --password=password
 show databases;
+```
+The output:
+
+```sql
 +--------------------+
 | Database           |
 +--------------------+
@@ -611,10 +625,7 @@ show databases;
 | performance_schema |
 +--------------------+
 4 rows in set (0.00 sec)
-exit
-exit
 ```
-
 Awesome! You've successfully restored your MySQL data from the AWS EBS snapshot.
 
 ### Conclusion
