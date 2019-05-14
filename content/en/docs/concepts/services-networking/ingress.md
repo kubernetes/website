@@ -45,24 +45,12 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 
 ## Prerequisites
 
+You must have an [ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
 
-Before you start using an Ingress, there are a few things you should understand. The Ingress is a beta resource. 
-
-{{< note >}}
-You must have an [Ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
-{{< /note >}}
-
-GCE/Google Kubernetes Engine deploys an Ingress controller on the master. Review the
-[beta limitations](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations)
-of this controller if you are using GCE/GKE.
-
-In environments other than GCE/Google Kubernetes Engine, you may need to
-[deploy an ingress controller](https://kubernetes.github.io/ingress-nginx/deploy/). There are a number of
+You may need to deploy an ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). There are a number of
 [ingress controllers](/docs/concepts/services-networking/ingress-controllers) you may choose from.
 
-### Before you begin
-
-Ideally, all ingress controllers should fulfill this specification, but the various ingress
+Ideally, all ingress controllers should fit the reference specification. In reality, the various ingress
 controllers operate slightly differently.
 
 {{< note >}}
