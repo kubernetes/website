@@ -7,10 +7,12 @@ weight: 40
 ---
 
 {{% capture overview %}}
+{{< feature-state for_k8s_version="v1.1" state="beta" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
 {{% /capture %}}
 
 {{% capture body %}}
+
 ## Terminology
 
 For the sake of clarity, this guide defines the following terms:
@@ -23,7 +25,7 @@ For the sake of clarity, this guide defines the following terms:
 
 ## What is Ingress?
 
-Ingress, added in Kubernetes v1.1, exposes HTTP and HTTPS routes from outside the cluster to
+Ingress exposes HTTP and HTTPS routes from outside the cluster to
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
 Traffic routing is controlled by rules defined on the Ingress resource.
 
@@ -43,7 +45,6 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 
 ## Prerequisites
 
-{{< feature-state for_k8s_version="v1.1" state="beta" >}}
 
 Before you start using an Ingress, there are a few things you should understand. The Ingress is a beta resource. 
 
