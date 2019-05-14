@@ -18,17 +18,19 @@ This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
 To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
-```shell
-egrep --color 'vmx|svm' /proc/cpuinfo
+```
+grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
 {{% /tab %}}
+
 {{% tab name="macOS" %}}
 To check if virtualization is supported on macOS, run the following command on your terminal.
 ```
-sysctl -a | grep machdep.cpu.features
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
 ```
-If you see `VMX` in the output, the VT-x feature is supported on your OS.
+If you see `VMX` in the output (should be colored), the VT-x feature is enabled in your machine.
 {{% /tab %}}
+
 {{% tab name="Windows" %}}
 To check if virtualization is supported on Windows 8 and above, run the following command on your Windows terminal or command prompt.
 ```
