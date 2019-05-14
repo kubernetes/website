@@ -287,7 +287,7 @@ spec:
 
 ### TLS
 
-You can secure an Ingress by specifying a [secret](/docs/concepts/configuration/secret)
+You can secure an Ingress by specifying a {{< glossary_tooltip term_id="secret" >}}
 that contains a TLS private key and certificate. Currently the Ingress only
 supports a single TLS port, 443, and assumes TLS termination. If the TLS
 configuration section in an Ingress specifies different hosts, they will be
