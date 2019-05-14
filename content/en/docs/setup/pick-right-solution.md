@@ -111,7 +111,7 @@ cluster.
 
 * [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm) is a fully-managed, scalable, and highly available service that you can use to deploy your containerized applications to the cloud.
 
-* [Platform9](https://platform9.com/products/managed-kubernetes/) offers managed Kubernetes service that works on-premises or on any public cloud, with 99.9% SLA guarantee.
+* [Platform9](https://platform9.com/managed-kubernetes/) offers managed Kubernetes service that works on-premises or on any public cloud, with 99.9% SLA guarantee.
 
 * [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
