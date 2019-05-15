@@ -148,7 +148,14 @@ kubectl label nodes <node-with-k80> accelerator=nvidia-tesla-k80
 kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 ```
 
-For AMD GPUs, you can deploy [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller), which automatically labels your nodes with GPU properties. Currently supported properties:
+## Automatic node labelling {#node-labeller}
+
+If you're using AMD GPU devices, you can deploy
+[Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller).
+Node Labeller is a {{< glossary_tooltip text="controller" term_id="controller" >}} that automatically
+labels your nodes with GPU device properties.
+
+At the moment, that controller can add labels for:
 
 * Device ID (-device-id)
 * VRAM Size (-vram)
@@ -164,13 +171,11 @@ For AMD GPUs, you can deploy [Node Labeller](https://github.com/RadeonOpenComput
   * AI - Arctic Islands
   * RV - Raven
 
-Example result:
-
-```console
+```shell
 kubectl describe node cluster-node-23
 ```
-The output is similar to:
 
+```
     Name:               cluster-node-23
     Roles:              <none>
     Labels:             beta.amd.com/gpu.cu-count.64=1
@@ -183,9 +188,10 @@ The output is similar to:
                         kubernetes.io/hostname=cluster-node-23
     Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
                         node.alpha.kubernetes.io/ttl: 0
-    ......
+    …
+```
 
-Specify the GPU type in the pod spec:
+With the Node Labeller in use, you can specify the GPU type in the Pod spec:
 
 ```yaml
 apiVersion: v1
@@ -205,5 +211,5 @@ spec:
     accelerator: nvidia-tesla-p100 # or nvidia-tesla-k80 etc.
 ```
 
-This will ensure that the pod will be scheduled to a node that has the GPU type
+This will ensure that the Pod will be scheduled to a node that has the GPU type
 you specified.
