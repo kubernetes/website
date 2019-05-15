@@ -143,14 +143,14 @@ The following file is an Ingress resource that sends traffic to your Service via
       annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /
     spec:
-     rules:
-     - host: hello-world.info
-       http:
-         paths:
-         - path: /*
-           backend:
-             serviceName: web
-             servicePort: 8080
+      rules:
+      - host: hello-world.info
+        http:
+          paths:
+          - path: /*
+            backend:
+              serviceName: web
+              servicePort: 8080
     ```
 
 1. Create the Ingress resource by running the following command:
