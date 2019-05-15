@@ -4,13 +4,8 @@ title: kubefed options
 content_template: templates/tool-reference
 weight: 40
 ---
-{{% capture overview %}}
-This command print the list of flags inherited by all commands
-{{% /capture %}}
 
-{{% capture body %}}
-
-## Synopsis
+{{% capture synopsis %}}
 
 Print the list of flags inherited by all commands
 
@@ -25,7 +20,9 @@ kubefed options [flags]
   kubefed options
 ```
 
-### Options
+{{% /capture %}}
+
+{{% capture options %}}
 
 ```
   -h, --help   help for options
@@ -73,7 +70,8 @@ kubefed options [flags]
       --vmodule moduleSpec                           comma-separated list of pattern=N settings for file-filtered logging
 ```
 
-#{{% /capture %}}
+{{% /capture %}}
+
 {{% capture whatsnext %}}
 * [kubefed](kubefed.md)	 - kubefed controls a Kubernetes Cluster Federation
 {{% /capture %}}
