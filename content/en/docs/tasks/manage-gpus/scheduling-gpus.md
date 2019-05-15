@@ -29,9 +29,8 @@ As an administrator, you have to install GPU drivers from the corresponding
 hardware vendor on the nodes and run the corresponding device plugin from the
 GPU vendor:
 
-Then you have to install GPU drivers from the corresponding vendor on the nodes
-and run the corresponding device plugin from the GPU vendor
-([AMD](#deploying-amd-gpu-device-plugin), [NVIDIA](#deploying-nvidia-gpu-device-plugin)).
+* [AMD](#deploying-amd-gpu-device-plugin)
+* [NVIDIA](#deploying-nvidia-gpu-device-plugin)
 
 When the above conditions are true, Kubernetes will expose `amd.com/gpu` or
 `nvidia.com/gpu` as a schedulable resource.
@@ -96,9 +95,10 @@ has the following requirements:
 
 - Kubernetes nodes have to be pre-installed with NVIDIA drivers.
 - Kubernetes nodes have to be pre-installed with [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)
-- nvidia-container-runtime must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
-  for docker instead of runc.
-- NVIDIA drivers ~= 361.93
+- Kubelet must use Docker as its container runtime
+- `nvidia-container-runtime` must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
+  for Docker, instead of runc.
+- The version of the NVIDIA drivers must match the constraint ~= 361.93
 
 To deploy the NVIDIA device plugin once your cluster is running and the above
 requirements are satisfied:

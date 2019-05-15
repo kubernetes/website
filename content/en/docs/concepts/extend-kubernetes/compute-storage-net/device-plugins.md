@@ -48,7 +48,7 @@ list of devices it manages, and the kubelet is then in charge of advertising tho
 resources to the API server as part of the kubelet node status update.
 For example, after a device plugin registers `hardware-vendor.example/foo` with the kubelet
 and reports two healthy devices on a node, the node status is updated
-to advertise 2 `hardware-vendor.example/foo`.
+to advertise that the node has 2 “Foo” devices installed and available.
 
 Then, users can request devices in a
 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
@@ -126,17 +126,18 @@ of its Unix socket and re-register itself upon such an event.
 
 ## Device plugin deployment
 
-A device plugin can be deployed manually or as a DaemonSet. If you deploy a device
-plugin as a DaemonSet, you can benefit from having Kubernetes take care of restarting
-the device plugin if it fails.
-Otherwise, an extra mechanism is needed to recover from device plugin failures.
+You can deploy a device plugin as a DaemonSet, as a package for your node's operating system,
+or manually.
 
 The canonical directory `/var/lib/kubelet/device-plugins` requires privileged access,
 so a device plugin must run in a privileged security context.
-If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
+If you're deploying a device plugin as a DaemonSet, `/var/lib/kubelet/device-plugins`
 must be mounted as a {{< glossary_tooltip term_id="volume" >}}
 in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
+
+If you choose the DaemonSet approach you can rely on Kubernetes to: place the device plugin's
+Pod onto Nodes, to restart the daemon Pod after failure, and to help automate upgrades.
 
 ## API compatibility
 

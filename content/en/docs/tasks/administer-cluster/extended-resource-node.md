@@ -187,6 +187,8 @@ Verify that the dongle advertisement has been removed:
 kubectl describe node <your-node-name> | grep dongle
 ```
 
+(you should not see any output)
+
 {{% /capture %}}
 
 
