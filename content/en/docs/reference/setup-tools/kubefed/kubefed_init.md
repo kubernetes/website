@@ -5,13 +5,8 @@ title: kubefed init
 content_template: templates/tool-reference
 weight: 40
 ---
-{{% capture overview %}}
-This command initializes a federation control plane.
-{{% /capture %}}
 
-{{% capture body %}}
-
-## Synopsis
+{{% capture synopsis %}}
 
 Init initializes a federation control plane. 
 
@@ -31,8 +26,9 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT [flags]
   # context is bar.
   kubefed init foo --host-cluster-context=bar
 ```
+{{% /capture %}}
 
-### Options
+{{% capture options %}}
 
 ```
       --api-server-advertise-address string      Preferred address to advertise api server nodeport service. Valid only if 'api-server-service-type=NodePort'.
@@ -103,6 +99,7 @@ kubefed init FEDERATION_NAME --host-cluster-context=HOST_CONTEXT [flags]
       --vmodule moduleSpec                           comma-separated list of pattern=N settings for file-filtered logging
 ```
 {{% /capture %}}
+
 {{% capture whatsnext %}}
 * [kubefed](kubefed.md)	 - kubefed controls a Kubernetes Cluster Federation
 {{% /capture %}}
