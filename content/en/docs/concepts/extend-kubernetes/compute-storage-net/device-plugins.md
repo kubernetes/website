@@ -38,15 +38,15 @@ During the registration, the device plugin needs to send:
   * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
     [extended resource naming scheme](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
-    as `vendor-domain/resource`.
-    For example, an Nvidia GPU is advertised as `nvidia.com/gpu`.
+    as `vendor-domain/resourcetype`.
+    For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.
 
 Following a successful registration, the device plugin sends the kubelet the
 list of devices it manages, and the kubelet is then in charge of advertising those
 resources to the API server as part of the kubelet node status update.
-For example, after a device plugin registers `vendor-domain/foo` with the kubelet
+For example, after a device plugin registers `hardware-vendor.example/foo` with the kubelet
 and reports two healthy devices on a node, the node status is updated
-to advertise 2 `vendor-domain/foo`.
+to advertise 2 `hardware-vendor.example/foo`.
 
 Then, users can request devices in a
 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
@@ -55,10 +55,11 @@ specification as they request other types of resources, with the following limit
 * Extended resources are only supported as integer resources and cannot be overcommitted.
 * Devices cannot be shared among Containers.
 
-Suppose a Kubernetes cluster is running a device plugin that advertises resource `vendor-domain/resource`
-on certain nodes, here is an example user pod requesting this resource:
+Suppose a Kubernetes cluster is running a device plugin that advertises resource `hardware-vendor.example/foo`
+on certain nodes. Here is an example of a pod requesting this resource to run a demo workload:
 
 ```yaml
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -69,7 +70,14 @@ spec:
       image: k8s.gcr.io/pause:2.0
       resources:
         limits:
-          vendor-domain/resource: 2 # requesting 2 vendor-domain/resource
+          hardware-vendor.example/foo: 2
+#
+# This Pod needs 2 of the hardware-vendor.example/foo devices
+# and can only schedule onto a Node that's able to satisfy
+# that need.
+#
+# If the Node has more than 2 of those devices available, the
+# remainder would be available for other Pods to use.
 ```
 
 ## Device plugin implementation

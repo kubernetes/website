@@ -33,8 +33,8 @@ Then you have to install GPU drivers from the corresponding vendor on the nodes
 and run the corresponding device plugin from the GPU vendor
 ([AMD](#deploying-amd-gpu-device-plugin), [NVIDIA](#deploying-nvidia-gpu-device-plugin)).
 
-When the above conditions are true, Kubernetes will expose `nvidia.com/gpu` or
-`amd.com/gpu` as a schedulable resource.
+When the above conditions are true, Kubernetes will expose `amd.com/gpu` or
+`nvidia.com/gpu` as a schedulable resource.
 
 You can consume these GPUs from your containers by requesting
 `<vendor>.com/gpu` just like you request `cpu` or `memory`.
