@@ -4,13 +4,8 @@ title: Overview of kubefed
 content_template: templates/tool-reference
 weight: 40
 ---
-{{% capture overview %}}
-kubefed controls a Kubernetes Cluster Federation
-{{% /capture %}}
 
-{{% capture body %}}
-
-## Synopsis
+{{% capture synopsis %}}
 
 kubefed controls a Kubernetes Cluster Federation. 
 
@@ -19,8 +14,9 @@ Find more information at https://github.com/kubernetes/federation.
 ```
 kubefed [flags]
 ```
+{{% /capture %}}
 
-### Options
+{{% capture options %}}
 
 ```
       --alsologtostderr                              log to standard error as well as files
