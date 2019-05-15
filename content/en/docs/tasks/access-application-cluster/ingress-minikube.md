@@ -135,7 +135,8 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-    ```yaml
+    ```
+    yaml
     apiVersion: networking.k8s.io/v1beta1
     kind: Ingress
     metadata:
