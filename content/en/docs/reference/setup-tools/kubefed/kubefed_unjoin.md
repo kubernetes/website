@@ -4,12 +4,8 @@ title: kubefed unjoin
 content_template: templates/tool-reference
 weight: 40
 ---
-{{% capture overview %}}
-This command unjoin a cluster from a federation
-{{% /capture %}}
 
-{{% capture body %}}
-## Synopsis
+{{% capture synopsis %}}
 
 Unjoin a cluster from a federation. 
 
@@ -30,7 +26,9 @@ kubefed unjoin CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
   kubectl unjoin foo --host-cluster-context=bar --cluster-context=baz
 ```
 
-### Options
+{{% /capture %}}
+
+{{% capture options %}}
 
 ```
       --cluster-context string               Name of the cluster's context in the local kubeconfig. Defaults to cluster name if unspecified.
