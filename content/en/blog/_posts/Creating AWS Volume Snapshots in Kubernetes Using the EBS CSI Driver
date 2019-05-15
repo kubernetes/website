@@ -46,7 +46,7 @@ To complete these examples, you'll also need:
 In what follows, we'll first quickly provision a K8s cluster on AWS using Kops. The cluster will be configured with all required feature gates.
 
 {{< note >}} All code snippets and manifests used in this tutorial can be obtained from this [GitHub repo](https://github.com/supergiant/blog-code-examples/tree/master/volumesnapshots-aws-ebs-csi). 
-{{< note >}} 
+{{< /note >}} 
 
 ### Step #1: Provision a K8s Cluster with the Volume Snapshotting Support using Kops
 
@@ -61,7 +61,7 @@ AmazonVPCFullAccess
 ```
 
 {{< note >}}  You can find more information on the Kops requirements [here](https://github.com/kubernetes/kops/blob/master/docs/aws.md). 
-{{< note >}} 
+{{< /note >}} 
 
 We'll also need to create a dedicated S3 bucket for Kops to store the state of your cluster. This bucket will become the source of truth for your cluster configuration. If you have an AWS CLI installed on your machine, simply run the following command to create an S3 bucket (please replace the bucket name and region according to your requirements)
 
@@ -82,7 +82,7 @@ export KOPS_STATE_STORE="s3://test-cluster-state-store"
 ```
 
 {{< note >}}  Please make sure to adjust these settings. Select your cluster name, node sizes, and appropriate region and/or availability zones. Next, run the command below to initialize the cluster:
-{{< note >}} 
+{{< /note >}} 
 
 ```shell
 kops create cluster $NAME --state $KOPS_STATE_STORE   --node-count 1   --zones $ZONES   --node-size $NODE_SIZE   --master-size $MASTER_SIZE
@@ -95,7 +95,7 @@ After the cluster has been initialized, we'll need to configure the kubelet and 
 - `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true` on the kubelet.
 
 {{< note >}}  Depending on the K8s version you use, some of these feature gates may be already enabled by default. That's how your final Kops cluster configuration should look like:
-{{< note >}} 
+{{< /note >}} 
 
 ```yaml
   kubeAPIServer:
@@ -506,7 +506,7 @@ kubectl create -f vsnap-mysql.yaml
 In response to this command, the CSI driver takes a volume snapshot and automatically creates a `VolumeSnapshotContent` object to represent a new snapshot. It also binds a new `VolumeSnapshotContent` object to the `VolumeSnapshot` , making it ready for use. This is similar to how the `StorageClass` creates a PV and binds it to the PVC to make it ready for use. 
 
 {{< note >}}  the volume snapshotting alpha release does not provide any data consistency guarantees. For example, if some new data was added to the database during the snapshotting process, it may be not reflected in the snapshot. Users should take corresponding actions like pausing their app or freezing a filesystem to ensure data consistency while taking volume snapshots. 
-{{< note >}} 
+{{< /note >}} 
 
 Great! We have a MySQL volume snapshot at our disposal! Now let's do something as crazy as deleting your MySQL Deployment and the PVC with the data:
 
@@ -526,7 +526,7 @@ We deleted the database we created earlier, and all the data was gone. However, 
 Also, note that the `storageClassName` should match a CSI StorageClass: `ebs-sc` 
 
 {{< note >}}  the namespace of the `VolumeSnapshot` object is assumed to be the same as the namespace of the `PersistentVolumeClaim` object.
-{{< note >}} 
+{{< /note >}} 
 
 ```yaml
 apiVersion: v1
