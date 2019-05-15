@@ -47,7 +47,7 @@ when using GPUs:
   * You can specify GPU in both `limits` and `requests` but these two values
     must be equal.
   * You cannot specify GPU `requests` without specifying `limits`.
-- Containers (and pods) do not share GPUs. There's no overcommitting of GPUs.
+- Containers (and Pods) do not share GPUs. There's no overcommitting of GPUs.
 - Each container can request one or more GPUs. It is not possible to request a
   fraction of a GPU.
 
@@ -82,7 +82,8 @@ requirements are satisfied:
 kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/v1.10/k8s-ds-amdgpu-dp.yaml
 ```
 
-Report issues with this device plugin to [RadeonOpenCompute/k8s-device-plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin).
+You can report issues with this third-party device plugin by logging an issue in
+[RadeonOpenCompute/k8s-device-plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin).
 
 ### Deploying NVIDIA GPU device plugin
 
@@ -106,7 +107,8 @@ requirements are satisfied:
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta/nvidia-device-plugin.yml
 ```
 
-Report issues with this device plugin to [NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin).
+You can report issues with this third-party device plugin by logging an issue in
+[NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin).
 
 #### NVIDIA GPU device plugin used by GCE
 
@@ -129,10 +131,10 @@ kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/containe
 kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.14/cluster/addons/device-plugins/nvidia-gpu/daemonset.yaml
 ```
 
-Report issues with this device plugin and installation method to [GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators).
+You can report issues with using or deploying this third-party device plugin by logging an issue in
+[GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators).
 
-Instructions for using NVIDIA GPUs on GKE are
-[here](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus)
+Google publishes its own [instructions](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus) for using NVIDIA GPUs on GKE .
 
 ## Clusters containing different types of GPUs
 

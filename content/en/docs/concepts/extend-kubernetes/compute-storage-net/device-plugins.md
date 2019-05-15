@@ -10,13 +10,15 @@ weight: 20
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 Kubernetes provides a [device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
-for vendors to advertise their resources to the {{< glossary_tooltip term_id="kubelet" >}}
-without changing Kubernetes core code.
+that you can use to advertise system hardware resources to the
+{{< glossary_tooltip term_id="kubelet" >}}.
 
-Instead of writing custom Kubernetes code, vendors can implement a device plugin that can
-be deployed manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
-The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adapters, and
-other similar computing resources that may require vendor specific initialization and setup.
+Instead of customising the code for Kubernetes itself, vendors can implement a
+device plugin that you deploy either manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
+The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adapters,
+and other similar computing resources that may require vendor specific initialization
+and setup.
+
 {{% /capture %}}
 
 {{% capture body %}}
@@ -39,7 +41,7 @@ During the registration, the device plugin needs to send:
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
     [extended resource naming scheme](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
     as `vendor-domain/resourcetype`.
-    For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.
+    (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
 
 Following a successful registration, the device plugin sends the kubelet the
 list of devices it manages, and the kubelet is then in charge of advertising those
@@ -122,9 +124,11 @@ of its Unix socket and re-register itself upon such an event.
 
 ## Device plugin deployment
 
-A device plugin can be deployed manually or as a DaemonSet. Being deployed as a DaemonSet has
-the benefit that Kubernetes can restart the device plugin if it fails.
+A device plugin can be deployed manually or as a DaemonSet. If you deploy a device
+plugin as a DaemonSet, you can benefit from having Kubernetes take care of restarting
+the device plugin if it fails.
 Otherwise, an extra mechanism is needed to recover from device plugin failures.
+
 The canonical directory `/var/lib/kubelet/device-plugins` requires privileged access,
 so a device plugin must run in a privileged security context.
 If a device plugin is running as a DaemonSet, `/var/lib/kubelet/device-plugins`
@@ -132,15 +136,17 @@ must be mounted as a {{< glossary_tooltip term_id="volume" >}}
 in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Kubernetes device plugin support is in beta. As development continues, its API version can
-change. We recommend that device plugin developers do the following:
+## API compatibility
+
+Kubernetes device plugin support is in beta. The API may change before stabilization,
+in incompatible ways. As a project, Kubernetes recommends that device plugin developers:
 
 * Watch for changes in future releases.
 * Support multiple versions of the device plugin API for backward/forward compatibility.
 
 If you enable the DevicePlugins feature and run device plugins on nodes that need to be upgraded to
 a Kubernetes release with a newer device plugin API version, upgrade your device plugins
-to support both versions before upgrading these nodes to
+to support both versions before upgrading these nodes. Taking that approach will
 ensure the continuous functioning of the device allocations during the upgrade.
 
 ## Monitoring Device Plugin Resources
@@ -176,18 +182,16 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 Support for the "PodResources service" is in beta, and is enabled by default.
 
 ## Examples
+Here are some examples of device plugin implementations:
 
-For examples of device plugin implementations, see:
-
-* The official [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
-    * Requires [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker) which allows you to run GPU enabled docker containers.
-    * A detailed guide on how to [schedule NVIDIA GPUs](/docs/tasks/manage-gpus/scheduling-gpus) on k8s.
-* The [NVIDIA GPU device plugin for COS base OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
+* The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
+* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for Intel GPU, FPGA and QuickAssist devices
+* The [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
+    * Requires [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) 2.0, which allows you to run GPU-enabled Docker containers.
+* The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
-* The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-* The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for GPU, FPGA and QuickAssist devices
+* The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
 * The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
 
 {{% /capture %}}
