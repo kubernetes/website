@@ -4,13 +4,17 @@
 
 options:
   no_parent_owners: false
-  
+
 approvers:
   - kbarnard10
+  - zacharysarah
 
 reviewers:
-  - natekartchner
-  - sarahkconway
-  
+  - vonguard
+  - castrojo
+  - mrbobbytables
+  - cody-clark
+  - parispittman
+
 labels:
   - area/blog
