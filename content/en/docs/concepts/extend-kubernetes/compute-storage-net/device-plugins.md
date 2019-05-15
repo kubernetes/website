@@ -117,6 +117,8 @@ If the operations succeed, the device plugin returns an `AllocateResponse` that 
 runtime configurations for accessing the allocated devices. The kubelet passes this information
 to the container runtime.
 
+### Handling kubelet restarts
+
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
 kubelet instance. In the current implementation, a new kubelet instance deletes all the existing Unix sockets
 under `/var/lib/kubelet/device-plugins` when it starts. A device plugin can monitor the deletion
@@ -181,7 +183,8 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 
 Support for the "PodResources service" is in beta, and is enabled by default.
 
-## Examples
+## Device plugin examples {#examples}
+
 Here are some examples of device plugin implementations:
 
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
