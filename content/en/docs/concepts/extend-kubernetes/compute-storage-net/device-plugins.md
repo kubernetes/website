@@ -30,6 +30,7 @@ service Registration {
 	rpc Register(RegisterRequest) returns (Empty) {}
 }
 ```
+
 A device plugin can register itself with the kubelet through this gRPC service.
 During the registration, the device plugin needs to send:
 

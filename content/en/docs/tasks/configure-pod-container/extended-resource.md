@@ -141,9 +141,3 @@ kubectl delete pod extended-resource-demo-2
 * [Advertise Extended Resources for a Node](/docs/tasks/administer-cluster/extended-resource-node/)
 
 {{% /capture %}}
-
-
-
-
-
-

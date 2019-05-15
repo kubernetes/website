@@ -213,3 +213,5 @@ spec:
 
 This will ensure that the Pod will be scheduled to a node that has the GPU type
 you specified.
+
+{{% /capture %}}
