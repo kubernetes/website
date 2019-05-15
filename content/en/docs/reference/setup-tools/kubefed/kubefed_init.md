@@ -2,7 +2,7 @@
 reviewers:
 
 title: kubefed init
-content_template: templates/concept
+content_template: templates/tool-reference
 weight: 40
 ---
 {{% capture overview %}}
