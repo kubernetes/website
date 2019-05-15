@@ -7,7 +7,7 @@ weight: 110
 {{% capture overview %}}
 
 This page shows how to use a Volume to communicate between two Containers running
-in the same Pod. See also how to allow processes to communicate by [sharing process namespace](/docs/tasks/configure-pod-container/share-process-namespace/) between containers (Kubernetes server must be at or later than version v1.10).
+in the same Pod. See also how to allow processes to communicate by [sharing process namespace](/docs/tasks/configure-pod-container/share-process-namespace/) between containers.
 
 {{% /capture %}}
 
