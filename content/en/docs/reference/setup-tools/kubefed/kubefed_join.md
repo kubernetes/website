@@ -5,13 +5,8 @@ title: kubefed join
 content_template: templates/tool-reference
 weight: 40
 ---
-{{% capture overview %}}
-This command used to add a cluster to a federation.
-{{% /capture %}}
 
-{{% capture body %}}
-
-## Synopsis
+{{% capture synopsis %}}
 
 Join adds a cluster to a federation. 
 
@@ -34,7 +29,9 @@ kubefed join CLUSTER_NAME --host-cluster-context=HOST_CONTEXT [flags]
   kubefed join foo --host-cluster-context=bar
 ```
 
-### Options
+{{% /capture %}}
+
+{{% capture options %}}
 
 ```
       --allow-missing-template-keys          If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. (default true)
