@@ -4,12 +4,8 @@ title: kubefed version
 content_template: templates/tool-reference
 weight: 40
 ---
-{{% capture overview %}}
-This command print the client and server version information
-{{% /capture %}}
 
-{{% capture body %}}
-## Synopsis
+{{% capture synopsis %}}
 
 Print the client and server version information for the current context
 
@@ -24,7 +20,9 @@ kubefed version [flags]
   kubefed version
 ```
 
-### Options
+{{% /capture %}}
+
+{{% capture options %}}
 
 ```
       --client          Client version only (no server required).
