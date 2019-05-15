@@ -6,9 +6,9 @@ weight: 40
 
 {{% capture overview %}}
 
-This page shows how to assign extended resources to a Container.
-
 {{< feature-state state="stable" >}}
+
+This page shows how to assign extended resources to a Container.
 
 {{% /capture %}}
 

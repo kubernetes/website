@@ -6,12 +6,13 @@ content_template: templates/concept
 weight: 20
 ---
 
-{{< feature-state state="beta" >}}
-
 {{% capture overview %}}
-Starting in version 1.8, Kubernetes provides a
-[device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
-for vendors to advertise their resources to the kubelet without changing Kubernetes core code.
+{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+
+Kubernetes provides a [device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
+for vendors to advertise their resources to the {{< glossary_tooltip term_id="kubelet" >}}
+without changing Kubernetes core code.
+
 Instead of writing custom Kubernetes code, vendors can implement a device plugin that can
 be deployed manually or as a DaemonSet. The targeted devices include GPUs,
 High-performance NICs, FPGAs, InfiniBand, and other similar computing resources
@@ -22,9 +23,7 @@ that may require vendor specific initialization and setup.
 
 ## Device plugin registration
 
-The device plugins feature is gated by the `DevicePlugins` feature gate which
-is disabled by default before 1.10.  When the device plugins feature is enabled,
-the kubelet exports a `Registration` gRPC service:
+The kubelet exports a `Registration` gRPC service:
 
 ```gRPC
 service Registration {
@@ -138,6 +137,8 @@ ensure the continuous functioning of the device allocations during the upgrade.
 
 ## Monitoring Device Plugin Resources
 
+{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+
 In order to monitor resources provided by device plugins, monitoring agents need to be able to 
 discover the set of devices that are in-use on the node and obtain metadata to describe which 
 container the metric should be associated with.  Prometheus metrics exposed by device monitoring 
@@ -182,4 +183,3 @@ For examples of device plugin implementations, see:
 * The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
 
 {{% /capture %}}
-
