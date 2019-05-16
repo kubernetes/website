@@ -50,7 +50,7 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         ```shell        
         minikube start
         ```    
-   The output displays the kubernetes cluster is started:
+   The output shows that the kubernetes cluster is started:
    
         ```
         Starting local Kubernetes cluster...
