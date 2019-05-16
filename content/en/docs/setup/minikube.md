@@ -70,7 +70,7 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         deployment.apps/hello-minikube created
         ```
         
-1. Expose a echoserver deployment to create service       
+1. Expose an echo server deployment to create service       
 
         ```shell        
         kubectl expose deployment hello-minikube --type=NodePort
