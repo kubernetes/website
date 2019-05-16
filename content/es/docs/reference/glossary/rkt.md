@@ -11,7 +11,7 @@ tags:
 - security
 - tool
 ---
- Un motor de contennedores basado en el estandar y centrado en la seguridad.
+ Un motor de contenedores basado en el estándar y centrado en la seguridad.
 
 <!--more--> .
 
