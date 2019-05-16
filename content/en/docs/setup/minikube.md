@@ -48,12 +48,14 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 1. Start a minikube 
 
         ```shell
+        
         minikube start
         ```
     
    The output displays the kubernetes cluster is started:
    
         ```
+        
         Starting local Kubernetes cluster...
         Running pre-create checks...
         Creating machine...
@@ -63,6 +65,7 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 2. Create a echoserver deployment
 
         ```shell
+        
         kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
         ```
         
@@ -75,6 +78,7 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 3. Expose a echoserver deployment to create service       
 
         ```shell
+        
         kubectl expose deployment hello-minikube --type=NodePort
         ```
    The output of a successful command verifies that the service is created:
