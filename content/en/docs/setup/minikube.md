@@ -47,38 +47,32 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 
 1. Start a minikube 
 
-        ```shell
-        
+        ```shell        
         minikube start
-        ```
-    
+        ```    
    The output displays the kubernetes cluster is started:
    
         ```
-        
         Starting local Kubernetes cluster...
         Running pre-create checks...
         Creating machine...
         Starting local Kubernetes cluster...
         ```
         
-2. Create a echoserver deployment
+1. Create a echoserver deployment
 
-        ```shell
-        
+        ```shell        
         kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-        ```
-        
+        ```        
    The output of a successful command verifies that the deployment is created:
    
         ```
         deployment.apps/hello-minikube created
         ```
         
-3. Expose a echoserver deployment to create service       
+1. Expose a echoserver deployment to create service       
 
-        ```shell
-        
+        ```shell        
         kubectl expose deployment hello-minikube --type=NodePort
         ```
    The output of a successful command verifies that the service is created:
@@ -87,9 +81,9 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         service/hello-minikube exposed
         ```
 
-4. Check whether the pod is up and running
+1. Check whether the pod is up and running
 
-        ```
+        ```shell
         kubectl get pod
         ```
    The output displays the pod is still being created:     
@@ -99,9 +93,9 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
         ```
 
-5. Wait for while and then check again, whether the pod is up and running using same command
+1. Wait for while and then check again, whether the pod is up and running using same command
 
-         ```
+         ```shell
           kubectl get pod
          ```
    Now the output displays the pod is created and it is running:     
@@ -111,9 +105,9 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         hello-minikube-3383150820-vctvh   1/1       Running   0          13s
         ```
 
-6. Curl service which we have created
+1. Curl service which we have created
 
-        ```
+        ```shell
         curl $(minikube service hello-minikube --url)
         ```        
    Output looks similer to this:
@@ -144,7 +138,7 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         Request Body:
           -no body in request-
         ```
-7. Delete the service which we have created
+1. Delete the service which we have created
 
         ```shell
         kubectl delete services hello-minikube
@@ -154,7 +148,7 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         ```
         service "hello-minikube" deleted
         ```
-8. Delete the deployment which we have created
+1. Delete the deployment which we have created
 
         ```shell
         kubectl delete deployment hello-minikube
@@ -164,7 +158,7 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         ```
         deployment.extensions "hello-minikube" deleted
         ```
-9. Stop a minikube
+1. Stop a minikube
 
         ```shell
         minikube stop
