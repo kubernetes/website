@@ -348,7 +348,7 @@ Note that `flannel` works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` unde
 Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml
 ```
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
