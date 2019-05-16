@@ -4,7 +4,7 @@ id: job
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/jobs-run-to-completion
 short_description: >
-  A finite or batch task that runs to completion.
+  Una tarea finita o por lotes que se ejecuta hasta su finalización.
 
 aka: 
 tags:
@@ -12,9 +12,9 @@ tags:
 - core-object
 - workload
 ---
- A finite or batch task that runs to completion.
+ Una tarea finita o por lotes que se ejecuta hasta su finalización.
 
 <!--more--> 
 
-Creates one or more {{< glossary_tooltip term_id="pod" >}} objects and ensures that a specified number of them successfully terminate. As Pods successfully complete, the Job tracks the successful completions.
+Crea uno o más objetos {{< glossary_tooltip term_id="pod" >}} y se asegura que un número específico de los mismos finalicen exitosamente. Mientras los Pods terminan, la Tarea rastrea las finalizaciones exitosas.
 
