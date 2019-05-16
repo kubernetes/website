@@ -493,10 +493,8 @@ recommended with this strategy.
 
 - *MustRunAs* - Requires at least one `range` to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
-- *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
-`runAsUser` or have the `USER` directive defined (using a numeric GID) in the
-image. No default provided. Setting `allowPrivilegeEscalation=false` is strongly
-recommended with this strategy.
+- *MayRunAs* - Does not require that RunAsGroup be specified. However, when RunAsGroup
+is specified, they have to fall in the defined range.
 - *RunAsAny* - No default provided. Allows any `runAsGroup` to be specified.
 
 
