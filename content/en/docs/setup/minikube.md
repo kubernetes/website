@@ -59,7 +59,7 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
         Starting local Kubernetes cluster...
         ```
         
-1. Create a echoserver deployment
+1. Create an echo server deployment
 
         ```shell        
         kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
