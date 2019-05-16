@@ -126,7 +126,7 @@ cherry picked into the release branch.
 For example, suppose the master branch is being used to develop Kubernetes 1.10,
 and you want to backport your change to the release-1.9 branch. For instructions
 on how to do this, see
-[Propose a Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/cherry-picks.md).
+[Propose a Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
 
 Monitor your cherry-pick pull request until it is merged into the release branch.
 
