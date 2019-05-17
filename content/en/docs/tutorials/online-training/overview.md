@@ -11,7 +11,7 @@ Here are some of the sites that offer online training for Kubernetes:
 
 {{% capture body %}}
 
-* [AIOps Essentials (Autoscaling Kubernetes with Prometheus Metrics) with Hands-On Labs (Linux Academy)](https://linuxacademy.com/course/using-machine-learning-to-scale-kubernetes-clusters/
+* [AIOps Essentials (Autoscaling Kubernetes with Prometheus Metrics) with Hands-On Labs (Linux Academy)](https://linuxacademy.com/course/using-machine-learning-to-scale-kubernetes-clusters/)
 
 * [Amazon EKS Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/course/amazon-eks-deep-dive/)
 
