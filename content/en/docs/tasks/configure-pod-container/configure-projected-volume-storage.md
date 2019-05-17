@@ -31,37 +31,42 @@ Here is the configuration file for the Pod:
 {{< codenew file="pods/storage/projected.yaml" >}}
 
 1. Create the Secrets:
-```shell
+
+    ```shell
     # Create files containing the username and password:
-       echo -n "admin" > ./username.txt
-       echo -n "1f2d1e2e67df" > ./password.txt
+    echo -n "admin" > ./username.txt
+    echo -n "1f2d1e2e67df" > ./password.txt
 
     # Package these files into secrets:
-       kubectl create secret generic user --from-file=./username.txt
-       kubectl create secret generic pass --from-file=./password.txt
-```
+    kubectl create secret generic user --from-file=./username.txt
+    kubectl create secret generic pass --from-file=./password.txt
+    ```
 1. Create the Pod:
-```shell
-       kubectl apply -f https://k8s.io/examples/pods/storage/projected.yaml
-```
+
+    ```shell
+    kubectl apply -f https://k8s.io/examples/pods/storage/projected.yaml
+    ```
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
-```shell
-       kubectl get --watch pod test-projected-volume
-```
+
+    ```shell
+    kubectl get --watch pod test-projected-volume
+    ```
     The output looks like this:
-```shell
-       NAME                    READY     STATUS    RESTARTS   AGE
-       test-projected-volume   1/1       Running   0          14s
-```
+    ```shell
+    NAME                    READY     STATUS    RESTARTS   AGE
+    test-projected-volume   1/1       Running   0          14s
+    ```
 1. In another terminal, get a shell to the running Container:
-```shell
-       kubectl exec -it test-projected-volume -- /bin/sh
-```
+
+    ```shell
+    kubectl exec -it test-projected-volume -- /bin/sh
+    ```
 1. In your shell, verify that the `projected-volume` directory contains your projected sources:
-```shell
-       ls /projected-volume/
-```
+
+    ```shell
+    ls /projected-volume/
+    ```
 {{% /capture %}}
 
 {{% capture whatsnext %}}

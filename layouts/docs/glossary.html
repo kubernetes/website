@@ -6,9 +6,9 @@
 <h1>{{ .Title }}</h1>
 <link href="{{ "css/glossary.css" | relURL }}" rel="stylesheet">
 <script src="{{ "js/glossary.js" | relURL }}"></script>
-<p>This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to K8s, as well as more general terms that provide useful context.</p>
+<p>{{ T "layouts_docs_glossary_description" }}</p>
 <div id="tag-container">
-	<p>Filter terms according to their tags:</p>
+	<p>{{ T "layouts_docs_glossary_filter" }}</p>
 	<div class="tag-description invisible" id="placeholder">.</div>
 	{{ range (index site.Data "canonical-tags") }}
 	<div class="tag-description hide" id="{{ printf "tag-%s-description" .id  }}">
@@ -22,10 +22,10 @@
 		<a href="javascript:void(0)">{{  .name  }}</a>
 	</span>
 	{{ end }}
-	<span class="tag-option"><a id="select-all-tags" href="javascript:void(0)">Select all</a></span>
-	<span class="tag-option"><a id="deselect-all-tags" href="javascript:void(0)">Deselect all</a></span>
+	<span class="tag-option"><a id="select-all-tags" href="javascript:void(0)">{{ T "layouts_docs_glossary_select_all" }}</a></span>
+	<span class="tag-option"><a id="deselect-all-tags" href="javascript:void(0)">{{ T "layouts_docs_glossary_deselect_all" }}</a></span>
 </div>
-<p>Click on the <a href="javascript:void(0)" class="no-underline">[+]</a> indicators below to get a longer explanation for any particular term.</p>
+<p>{{ T "layouts_docs_glossary_click_details_before" }} <a href="javascript:void(0)" class="no-underline">[+]</a> {{ T "layouts_docs_glossary_click_details_after" }}</p>
 {{ partial "docs/glossary-terms.html" . }}
 {{ $glossary_items := $.Scratch.Get "glossary_items" }}
 {{ with $glossary_items }}
@@ -43,7 +43,7 @@
 		<div>
 			<div class="term-name"><b>{{ .Title }}</b><a href="{{ printf "#%s" $term_identifier }}" class="permalink hide">LINK</a></div>
 			{{ with .Params.aka }}
-			Also known as: <i>{{ delimit . ", " }}</i>
+			{{ T "layouts_docs_glossary_aka" }}:<i>{{ delimit . ", " }}</i>
 			<br>
 			{{ end }}
 			<span class="preview-text">{{ .Summary }} <a href="javascript:void(0)" class="click-controller no-underline" data-target="{{ .Params.id }}">[+]</a></span>

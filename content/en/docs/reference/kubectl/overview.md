@@ -11,7 +11,8 @@ card:
 ---
 
 {{% capture overview %}}
-Kubectl is a command line interface for running commands against Kubernetes clusters.
+Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
+
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
 
 {{% /capture %}}
@@ -82,7 +83,7 @@ Operation       | Syntax    |       Description
 `diff`        | `kubectl diff -f FILENAME [flags]`| Diff file or stdin against live configuration (**BETA**)
 `edit`        | `kubectl edit (-f FILENAME \| TYPE NAME \| TYPE/NAME) [flags]` | Edit and update the definition of one or more resources on the server by using the default editor.
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
-`explain`    | `kubectl explain [--include-extended-apis=true] [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
+`explain`    | `kubectl explain  [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
 `expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
 `get`        | `kubectl get (-f FILENAME \| TYPE [NAME \| /NAME \| -l label]) [--watch] [--sort-by=FIELD] [[-o \| --output]=OUTPUT_FORMAT] [flags]` | List one or more resources.
 `label`        | `kubectl label (-f FILENAME \| TYPE NAME \| TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the labels of one or more resources.
@@ -165,48 +166,48 @@ The default output format for all `kubectl` commands is the human readable plain
 #### Syntax
 
 ```shell
-kubectl [command] [TYPE] [NAME] -o=<output_format>
+kubectl [command] [TYPE] [NAME] -o <output_format>
 ```
 
 Depending on the `kubectl` operation, the following output formats are supported:
 
 Output format | Description
 --------------| -----------
-`-o=custom-columns=<spec>` | Print a table using a comma separated list of [custom columns](#custom-columns).
-`-o=custom-columns-file=<filename>` | Print a table using the [custom columns](#custom-columns) template in the `<filename>` file.
-`-o=json`     | Output a JSON formatted API object.
-`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
-`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath/) expression in the `<filename>` file.
-`-o=name`     | Print only the resource name and nothing else.
-`-o=wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
-`-o=yaml`     | Output a YAML formatted API object.
+`-o custom-columns=<spec>` | Print a table using a comma separated list of [custom columns](#custom-columns).
+`-o custom-columns-file=<filename>` | Print a table using the [custom columns](#custom-columns) template in the `<filename>` file.
+`-o json`     | Output a JSON formatted API object.
+`-o jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
+`-o jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath/) expression in the `<filename>` file.
+`-o name`     | Print only the resource name and nothing else.
+`-o wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
+`-o yaml`     | Output a YAML formatted API object.
 
 ##### Example
 
 In this example, the following command outputs the details for a single pod as a YAML formatted object:
 
 ```shell
-kubectl get pod web-pod-13je7 -o=yaml
+kubectl get pod web-pod-13je7 -o yaml
 ```
 
 Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
-To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option. You can choose to define the custom columns inline or use a template file: `-o=custom-columns=<spec>` or `-o=custom-columns-file=<filename>`.
+To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option. You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
 
 ##### Examples
 
 Inline:
 
 ```shell
-kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
+kubectl get pods <pod-name> -o custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
 ```
 
 Template file:
 
 ```shell
-kubectl get pods <pod-name> -o=custom-columns-file=template.txt
+kubectl get pods <pod-name> -o custom-columns-file=template.txt
 ```
 
 where the `template.txt` file contains:

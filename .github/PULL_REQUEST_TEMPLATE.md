@@ -3,7 +3,7 @@
 >
 > For 1.15 Features: set Milestone to 1.15 and Base Branch to dev-1.15
 > 
-> For Chinese localization, base branch to release-1.12
+> For Chinese localization, base branch to release-1.14
 >
 > For Korean Localization: set Base Branch to dev-1.14-ko.\<latest team milestone>
 >

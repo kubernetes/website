@@ -182,7 +182,7 @@ Par exemple, supposons que la branche principale soit utilisée pour développer
 Rappelez-vous que votre pull request a deux commits: un pour l'édition `types.go` et un pour les fichiers générés par des scripts.
 La prochaine étape consiste à proposer un cherry pick de votre premier commit dans la branche release-1.9.
 L'idée est de cherry pick le commit qui a édité `types.go`, mais pas le commit qui a pour résultat l'exécution des scripts.
-Pour les instructions, voir [Propose un Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/cherry-picks.md).
+Pour les instructions, voir [Propose un Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
 
 {{< note >}}
 Proposer un cherry pick nécessite que vous ayez la permission de définir un label et un milestone dans votre pull request.

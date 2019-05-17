@@ -148,9 +148,9 @@ The kubelet provides a gRPC service to enable discovery of in-use devices, and t
 for these devices:
 
 ```gRPC
-// PodResources is a service provided by the kubelet that provides information about the
+// PodResourcesLister is a service provided by the kubelet that provides information about the
 // node resources consumed by pods and containers on the node
-service PodResources {
+service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
 }
 ```
@@ -179,6 +179,7 @@ For examples of device plugin implementations, see:
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * The [SRIOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for GPU, FPGA and QuickAssist devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
 
 {{% /capture %}}
 

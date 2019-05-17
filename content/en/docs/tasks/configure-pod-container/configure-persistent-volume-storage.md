@@ -41,11 +41,11 @@ shell to your Node by entering `minikube ssh`.
 
 In your shell, create a `/mnt/data` directory:
 
-    mkdir /mnt/data
+    sudo mkdir /mnt/data
 
 In the `/mnt/data` directory, create an `index.html` file:
 
-    echo 'Hello from Kubernetes storage' > /mnt/data/index.html
+    sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
 
 ## Create a PersistentVolume
 
@@ -175,8 +175,8 @@ PersistentVolume.
 
 Use the `pv.beta.kubernetes.io/gid` annotation as follows:
 ```yaml
-kind: PersistentVolume
 apiVersion: v1
+kind: PersistentVolume
 metadata:
   name: pv1
   annotations:

@@ -61,7 +61,7 @@ other = "Weiterlesen"
 other = "Interested in hacking on the core Kubernetes code base?"
 
 [main_github_view_on]
-other = "Auf Github ansehen"
+other = "Auf GitHub ansehen"
 
 [main_github_create_an_issue]
 other = "Problem berichten"
@@ -118,6 +118,64 @@ other = "Users"
 [docs_label_i_am]
 other = "ICH BIN..."
 
+
+# layouts > blog > pager
+
+[layouts_blog_pager_prev]
+other = "<< Zurück"
+
+[layouts_blog_pager_next]
+other = "Vor >>"
+
+# layouts > blog > list
+
+[layouts_case_studies_list_tell]
+other = "Erzählen Sie Ihre Geschichte"
+
+# layouts > docs > glossary
+
+[layouts_docs_glossary_description]
+other = "Dieses Glossar soll eine umfassende, standardisierte Liste der Kubernetes-Terminologie darstellen. Es enthält technische Begriffe, die für K8 spezifisch sind, sowie allgemeinere Begriffe, die einen nützlichen Kontext bieten."
+
+[layouts_docs_glossary_filter]
+other = "Begriffe nach ihren Tags filtern"
+
+[layouts_docs_glossary_select_all]
+other = "Alle auswählen"
+
+[layouts_docs_glossary_deselect_all]
+other = "Alle abwählen"
+
+[layouts_docs_glossary_aka]
+other = "Auch bekannt als"
+
+[layouts_docs_glossary_click_details_before]
+other = "Klicken Sie auf die"
+
+[layouts_docs_glossary_click_details_after]
+other = "Indikatoren unten, um eine längere Erklärung für einen bestimmten Begriff zu erhalten."
+
+# layouts > docs > search
+
+[layouts_docs_search_fetching]
+other = "Ergebnisse werden abgerufen..."
+
+# layouts > partial > feedback
+
+[layouts_docs_partials_feedback_thanks]
+other = "Danke für die Rückmeldung. Wenn Sie eine spezifische, beantwortbare Frage zur Verwendung von Kubernetes haben, stellen Sie diese unter "
+
+[layouts_docs_partials_feedback_issue]
+other = "Öffnen Sie ein Problem im GitHub-Repo, wenn Sie möchten "
+
+[layouts_docs_partials_feedback_problem]
+other = "Ein Problem melden"
+
+[layouts_docs_partials_feedback_or]
+other = "oder"
+
+[layouts_docs_partials_feedback_improvement]
+other = "Eine Verbesserung vorschlagen"
 
 
 # Community links

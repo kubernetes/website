@@ -191,8 +191,8 @@ To do this, you just need to create a `ClusterRoleBinding` that binds the `syste
 
 ```
 # enable bootstrapping nodes to create CSR
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: create-csrs-for-bootstrapping
 subjects:
@@ -259,8 +259,8 @@ To enable the kubelet to request and receive a new certificate, create a `Cluste
 
 ```yml
 # Approve all CSRs for the group "system:bootstrappers"
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: auto-approve-csrs-for-group
 subjects:
@@ -278,8 +278,8 @@ grants it permission, `system:certificates.k8s.io:certificatesigningrequests:sel
 
 ```yml
 # Approve renewal CSRs for the group "system:nodes"
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: auto-approve-renewals-for-nodes
 subjects:
@@ -299,8 +299,8 @@ To create the `ClusterRole`s:
 ```yml
 # A ClusterRole which instructs the CSR approver to approve a user requesting
 # node client credentials.
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: system:certificates.k8s.io:certificatesigningrequests:nodeclient
 rules:
@@ -310,8 +310,8 @@ rules:
 ---
 # A ClusterRole which instructs the CSR approver to approve a node renewing its
 # own client credentials.
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
 rules:
@@ -348,6 +348,7 @@ Its format is identical to a normal `kubeconfig` file. A sample file might look 
 
 ```yml
 apiVersion: v1
+kind: Config
 clusters:
 - cluster:
     certificate-authority: /var/lib/kubernetes/ca.pem
@@ -359,7 +360,6 @@ contexts:
     user: kubelet-bootstrap
   name: bootstrap
 current-context: bootstrap
-kind: Config
 preferences: {}
 users:
 - name: kubelet-bootstrap
@@ -416,7 +416,7 @@ be used as serving certificates, or `server auth`.
 However, you _can_ enable its server certificate, at least partially, via certificate rotation.
 
 ### Certificate Rotation
-Kubernetes v1.7 and higher kubelet implements __beta__ features for enabling
+Kubernetes v1.8 and higher kubelet implements __beta__ features for enabling
 rotation of its client and/or serving certficates.  These can be enabled through
 the respective `RotateKubeletClientCertificate` and
 `RotateKubeletServerCertificate` feature flags on the kubelet and are enabled by

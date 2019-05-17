@@ -39,11 +39,10 @@ the following drivers:
 * virtualbox
 * vmwarefusion
 * kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
+* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
 * none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 
 ```shell
@@ -68,26 +67,30 @@ kubectl expose deployment hello-minikube --type=NodePort
 ```
 service/hello-minikube exposed
 ```
+
+We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
+via the exposed service.
+To check whether the pod is up and running we can use the following:
+
 ```
-# We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
-# via the exposed service.
-# To check whether the pod is up and running we can use the following:
 kubectl get pod
 ```
 ```
 NAME                              READY     STATUS              RESTARTS   AGE
 hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
 ```
-```
-# We can see that the pod is still being created from the ContainerCreating status
+
+We can see that the pod is still being created from the ContainerCreating status
 kubectl get pod
-```
+
 ```
 NAME                              READY     STATUS    RESTARTS   AGE
 hello-minikube-3383150820-vctvh   1/1       Running   0          13s
 ```
+
+We can see that the pod is now Running and we will now be able to curl it:
+
 ```
-# We can see that the pod is now Running and we will now be able to curl it:
 curl $(minikube service hello-minikube --url)
 ```
 ```

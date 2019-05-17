@@ -54,8 +54,8 @@ new instance.  For example, suppose you have a set of `Pods` that each expose
 port 9376 and carry a label `"app=MyApp"`.
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: my-service
 spec:
@@ -103,8 +103,8 @@ abstract other kinds of backends.  For example:
 In any of these scenarios you can define a service without a selector:
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: my-service
 spec:
@@ -118,8 +118,8 @@ Because this service has no selector, the corresponding `Endpoints` object will 
 created. You can manually map the service to your own specific endpoints:
 
 ```yaml
-kind: Endpoints
 apiVersion: v1
+kind: Endpoints
 metadata:
   name: my-service
 subsets:
@@ -189,7 +189,7 @@ having working [readiness probes](/docs/tasks/configure-pod-container/configure-
 
 ### Proxy-mode: ipvs
 
-{{< feature-state for_k8s_version="v1.9" state="beta" >}}
+{{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
 In this mode, kube-proxy watches Kubernetes Services and Endpoints,
 calls `netlink` interface to create ipvs rules accordingly and syncs ipvs rules with Kubernetes
@@ -236,8 +236,8 @@ ports you must give all of your ports names, so that endpoints can be
 disambiguated.  For example:
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: my-service
 spec:
@@ -427,8 +427,8 @@ information about the provisioned balancer will be published in the `Service`'s
 `.status.loadBalancer` field.  For example:
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: my-service
 spec:
@@ -773,8 +773,8 @@ This Service definition, for example, maps
 the `my-service` Service in the `prod` namespace to `my.database.example.com`:
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: my-service
   namespace: prod
@@ -811,8 +811,8 @@ In the `ServiceSpec`, `externalIPs` can be specified along with any of the `Serv
 In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10:80`" (`externalIP:port`)
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: my-service
 spec:

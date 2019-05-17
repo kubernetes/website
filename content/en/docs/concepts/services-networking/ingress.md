@@ -73,7 +73,7 @@ Make sure you review your ingress controller's documentation to understand the c
 A minimal ingress resource example:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: test-ingress
@@ -169,7 +169,7 @@ foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
 would require an Ingress such as:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: simple-fanout-example
@@ -239,7 +239,7 @@ The following Ingress tells the backing loadbalancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -267,7 +267,7 @@ to the IP address without a hostname defined in request (that is, without a requ
 presented) to `service3`.
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: name-virtual-host-ingress
@@ -305,13 +305,13 @@ and private key to use for TLS, e.g.:
 
 ```yaml
 apiVersion: v1
-data:
-  tls.crt: base64 encoded cert
-  tls.key: base64 encoded key
 kind: Secret
 metadata:
   name: testsecret-tls
   namespace: default
+data:
+  tls.crt: base64 encoded cert
+  tls.key: base64 encoded key
 type: kubernetes.io/tls
 ```
 
@@ -321,7 +321,7 @@ sure the TLS secret you created came from a certificate that contains a CN
 for `sslexample.foo.com`.
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: tls-example-ingress

@@ -49,11 +49,14 @@ The in-tree cloud providers typically need both `--cloud-provider` and `--cloud-
 for the [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and the
 [kubelet](/docs/admin/kubelet/). The contents of the file specified in `--cloud-config` for each provider is documented below as well.
 
-For all external cloud providers, please follow the instructions on the individual repositories.
+For all external cloud providers, please follow the instructions on the individual repositories,
+which are listed under their headings below, or one may view [the list of all repositories](https://github.com/kubernetes?q=cloud-provider-&type=&language=)
 
 ## AWS
 This section describes all the possible configurations which can
 be used when running Kubernetes on Amazon Web Services.
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-aws](https://github.com/kubernetes/cloud-provider-aws#readme)
 
 ### Node Name
 
@@ -105,6 +108,8 @@ The information for the annotations for AWS is taken from the comments on [aws.g
 
 ## Azure
 
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-azure](https://github.com/kubernetes/cloud-provider-azure#readme)
+
 ### Node Name
 
 The Azure cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
@@ -112,12 +117,16 @@ Note that the Kubernetes Node name must match the Azure VM name.
 
 ## CloudStack
 
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
+
 ### Node Name
 
 The CloudStack cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the CloudStack VM name.
 
 ## GCE
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-gcp](https://github.com/kubernetes/cloud-provider-gcp#readme)
 
 ### Node Name
 

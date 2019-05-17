@@ -107,3 +107,5 @@ cloud-controller-manager는 클라우드 밴더 코드와 쿠버네티스 코드
 [클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 가진다.
 
 {{% /capture %}}
+
+

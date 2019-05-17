@@ -80,8 +80,8 @@ To encrypt the data:
 1. Create a new encryption configuration file using the appropriate properties for the `kms` provider:
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets
@@ -136,8 +136,8 @@ To switch from a local encryption provider to the `kms` provider and re-encrypt 
 1. Add the `kms` provider as the first entry in the configuration file as shown in the following example.
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets
@@ -166,8 +166,8 @@ To disable encryption at rest:
 1. Place the `identity` provider as the first entry in the configuration file: 
 
 ```yaml
-kind: EncryptionConfiguration
 apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
 resources:
   - resources:
     - secrets

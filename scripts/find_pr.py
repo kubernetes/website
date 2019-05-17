@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import json
 
 import click
 import requests
@@ -25,6 +26,11 @@ def main(tags, token, path, last_n_pr):
     ex:
     ./find_pr.py --tags "language/fr" "content/fr/_index.html"
     """
+
+    if not token:
+        print("GitHub token not provided (required)")
+        exit(1)
+
     query = Template("""
     query {
       repository(name: "website", owner: "kubernetes") {
@@ -47,24 +53,37 @@ def main(tags, token, path, last_n_pr):
       }
     }
     """).render(tags=tags, last_n_pr=last_n_pr)
-    r = requests.post("https://api.github.com/graphql",
-                      json={"query": query},
-                      headers={
-                          "Authorization": "token %s" % token,
-                          "Accept": "application/vnd.github.ocelot-preview+json",
-                          "Accept-Encoding": "gzip"
-                      })
-    reply = r.json()
-    prs = reply['data']['repository']['pullRequests']['edges']
 
-    for pr in prs:
-        files = pr["node"]["files"]["edges"]
-        for f in files:
-            if path == f["node"]["path"]:
-                print("%s (%s)" % (pr["node"]["title"], pr["node"]["state"]))
-                print(pr["node"]["url"])
-                print("----------------")
+    try:
+        r = requests.post("https://api.github.com/graphql",
+                          json={"query": query},
+                          headers={
+                              "Authorization": "token %s" % token,
+                              "Accept": "application/vnd.github.ocelot-preview+json",
+                              "Accept-Encoding": "gzip"
+                          })
+        r.raise_for_status()
 
+        reply = r.json()
+        prs = reply['data']['repository']['pullRequests']['edges']
+
+        for pr in prs:
+            files = pr["node"]["files"]["edges"]
+            for f in files:
+                if path == f["node"]["path"]:
+                    print("%s (%s)" % (pr["node"]["title"], pr["node"]["state"]))
+                    print(pr["node"]["url"])
+                    print("----------------")
+
+    except requests.exceptions.HTTPError as err:
+        gh_err_response = json.loads(err.response.text)
+        print("HTTP Error: %d %s" % (err.response.status_code, gh_err_response['message']))
+    except requests.exceptions.ConnectionError as err:
+        print("Error Connecting: %s" % err)
+    except requests.exceptions.Timeout as err:
+        print("Timeout Error: %s" % err)
+    except requests.exceptions.RequestException as err:
+        print("Oops, another error occurred: %s" % err)
 
 if __name__ == '__main__':
     main()

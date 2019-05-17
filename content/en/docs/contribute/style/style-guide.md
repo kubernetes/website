@@ -62,7 +62,7 @@ represents.
 
 1. Display information about a Pod:
 
-       kubectl describe pod <pod-name>
+        kubectl describe pod <pod-name>
 
     where `<pod-name>` is the name of one of your Pods.
 
