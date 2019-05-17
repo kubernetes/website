@@ -1,8 +1,4 @@
 ---
-reviewers:
-- erictune
-- soltysh
-- janetkuo
 title: CronJob
 content_template: templates/concept
 weight: 80
