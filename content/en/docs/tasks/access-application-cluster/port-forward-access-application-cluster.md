@@ -90,30 +90,30 @@ for database debugging.
 
 ## Forward a local port to a port on the pod
 
-1.  `kubectl port-forward` allows using resource name, such as a service name, to select a matching pod to port forward to since Kubernetes v1.10.
+1.  `kubectl port-forward` allows using resource name, such as a service name, to select a matching pod to port forward to since Kubernetes v1.10. Example for using port forwarding to extend port 80 to 8081 as follows
 
-        kubectl port-forward redis-master-765d459796-258hz 6379:6379 
+        kubectl port-forward redis-master-765d459796-258hz 8081:80 
 
     which is the same as
 
-        kubectl port-forward pods/redis-master-765d459796-258hz 6379:6379
+        kubectl port-forward pods/redis-master-765d459796-258hz 8081:80 
 
     or  
 
-        kubectl port-forward deployment/redis-master 6379:6379 
+        kubectl port-forward deployment/redis-master 8081:80  
 
     or
 
-        kubectl port-forward rs/redis-master 6379:6379 
+        kubectl port-forward rs/redis-master 8081:80  
 
     or
 
-        kubectl port-forward svc/redis-master 6379:6379
+        kubectl port-forward svc/redis-master 8081:80 
 
     Any of the above commands works. The output is similar to this:
 
-        I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:6379 -> 6379
-        I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:6379 -> 6379
+        I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:80 -> 8081
+        I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:80 -> 8081
 
 2.  Start the Redis command line interface:
 
