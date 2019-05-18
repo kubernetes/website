@@ -7,7 +7,7 @@ date: 2019-05-17
 
 # Kubernetes, Cloud Native, and the Future of Software
 
-Five years ago this June, Google announced a new application management technology called Kubernetes. It began with a [simple open source commit](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56), followed the next day by a [one-paragraph blog mention](https://cloudplatform.googleblog.com/2014/06/an-update-on-container-support-on-google-cloud-platform.html) around container support. Later in the week, Eric Brewer [talked about Kubernetes for the first time](https://www.youtube.com/watch?v=YrxnVKZeqK8) at DockerCon. And soon the world was watching. 
+Five years ago this June, Google Cloud announced a new application management technology called Kubernetes. It began with a [simple open source commit](https://github.com/kubernetes/kubernetes/commit/2c4b3a562ce34cddc3f8218a2c4d11c7310e6d56), followed the next day by a [one-paragraph blog mention](https://cloudplatform.googleblog.com/2014/06/an-update-on-container-support-on-google-cloud-platform.html) around container support. Later in the week, Eric Brewer [talked about Kubernetes for the first time](https://www.youtube.com/watch?v=YrxnVKZeqK8) at DockerCon. And soon the world was watching. 
 
 We’re delighted to see Kubernetes become core to the creation and operation of modern software, and thereby a key part of the global economy. To us, the success of Kubernetes represents even more: A business transition with truly worldwide implications, thanks to the unprecedented cooperation afforded by the open source software movement. 
 
@@ -47,7 +47,7 @@ In other ways, it is just the start. New applications such as machine learning, 
 
 Kubernetes may be most successful if it becomes an invisible essential of daily life, like urban plumbing or electrical grids. True standards are dramatic, but they are also taken for granted. As Googler and KubeCon co-chair Janet Kuo said in a [recent keynote](https://www.youtube.com/watch?v=LAO7RuWwfzA), Kubernetes is going to become boring, and that’s a good thing, at least for the majority of people who don’t have to care about container management. 
 
-At Google, we’re still excited about the project, and we go to work on it every day. Yet it’s all of the solutions and extensions that expand from Kubernetes that will dramatically change the world as we know it.
+At Google Cloud, we’re still excited about the project, and we go to work on it every day. Yet it’s all of the solutions and extensions that expand from Kubernetes that will dramatically change the world as we know it.
 
 So, as we all celebrate the continued success of Kubernetes, remember to take the time and thank someone you see helping make the community better. It’s up to all of us to foster a cloud-native ecosystem that prizes the efforts of everyone who helps maintain and nurture the work we do together.
 
