@@ -31,9 +31,9 @@ Untuk informasi lebih lanjut mengenai latar belakang lihat [proposal desain untu
 
 Tiap *Pod* akan bisa dipasangkan oleh nol atau lebih *Pod Preset*; dan tiap *PodPreset* bisa diterapkan ke nol atau lebih *pod*. Ketika sebuah *PodPreset* diterapkan ke satu atau lebih *Pod*, *Kubernetes* memodifikasi spesifikasi *Pod*.
 
-```
-Catatan: Sebuah Pod Preset mampu memodifikasi kolom `.spec.containers` pada sebuah spesifikasi Pod jika sesuai. Tidak ada definisi *resource* dari Pod Preset yang akan diterapkan kepada kolom initContainer.
-```
+
+>Catatan: Sebuah *Pod Preset* mampu memodifikasi kolom `.spec.containers` pada sebuah spesifikasi *Pod* jika sesuai. Tidak ada definisi resource dari *Pod Preset* yang akan diterapkan kepada kolom `initContainer`.
+
 
 ### Menonaktifkan *Pod Preset* untuk sebuah *Pod* Spesifik
 Mungkin akan ada keadaan dimana kamu menginginkan sebuah *Pod* tidak bisa diubah oleh sebuah mutasi *Pod Preset*. Pada kasus ini, kamu bisa menambahkan sebuah anotasi pada spesifikasi *Pod* dalam bentuk: `podpreset.admission.kubernetes.io/exclude: "true"`.
@@ -41,15 +41,16 @@ Mungkin akan ada keadaan dimana kamu menginginkan sebuah *Pod* tidak bisa diubah
 ## Mengaktifkan *Pod Preset*
 ---
 Dalam rangka untuk menggunakan *Pod Preset* di dalam kluster kamu, kamu harus memastikan hal berikut:
+
 1. kamu telah mengaktifkan tipe API `settings.k8s.io/v1alpha1/podpreset`. Sebagai contoh, ini bisa dilakukan dengan menambahkan `settings.k8s.io/v1alpha1=true` di dalam opsi `--runtime-config` untuk API *server*. Dalam *minikube* tambahkan argumen berikut `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` saat memulai kluster.
+
 2. kamu telah mengaktifkan pengendali penerimaan dari *PodPreset*. Salah satu cara untuk melakukannya adalah dengan menambakan *PodPreset* di dalam nilai opsi `--enable-admission-plugins` yang dispesifikasikan untuk API *server*. Dalam *minikube* tambahkan argumen berikut `--extra-config=apiserver.enable-admission-plugins=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset ` saat memulai kluster.
+
 3. kamu telah mendefinisikan *Pod Preset* kamu dengan membuat objek *PodPreset* pada *namespace* yang akan kamu gunakan. 
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-## Berikutnya
----
   * [Memasukkan data kedalam sebuah *Pod* dengan *PodPreset*](/docs/concepts/workloads/pods/pod/#injecting-data-into-a-pod-using-podpreset.md)
 
 {{% /capture %}}
