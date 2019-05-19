@@ -29,6 +29,16 @@ is checked every 20 seconds (also configurable with a flag).
 HTTP server: The kubelet can also listen for HTTP and respond to a simple API
 (underspec'd currently) to submit a new manifest.
 
+#### Pod Lifecycle Event Generator (PLEG)
+
+The Pod Lifecycle Event Generator is a function of the kubelet that creates a list of 
+the states for all containers and pods then compares it to the previous states of the
+containers and pods in a process called Relisting. This allows the PLEG to know which 
+pods and containers need to be synced. In versions prior to 1.2, this was accomplished 
+by polling and was CPU intensive. By changing to this method, this significantly reduced
+resource utilization allowing for better container density. 
+
+
 ```
 kubelet [flags]
 ```
@@ -405,7 +415,7 @@ kubelet [flags]
        <td colspan="2">--enforce-node-allocatable stringSlice</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (default [pods])</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are 'pods', 'system-reserved' & 'kube-reserved'. If the latter two options are specified, '--system-reserved-cgroup' & '--kube-reserved-cgroup' must also be set respectively. See /docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (default [pods])</td>
     </tr>
 
      <tr>
@@ -489,7 +499,7 @@ kubelet [flags]
        <td colspan="2">--experimental-allocatable-ignore-eviction</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to 'true', Hard Eviction Thresholds will be ignored while calculating Node Allocatable. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. [default=false]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to 'true', Hard Eviction Thresholds will be ignored while calculating Node Allocatable. See /docs/tasks/administer-cluster/reserve-compute-resources/ for more details. [default=false]</td>
     </tr>
 
      <tr>
@@ -707,7 +717,7 @@ kubelet [flags]
        <td colspan="2">--kube-reserved mapStringString</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi) pairs that describe resources reserved for kubernetes system components. Currently cpu, memory and local ephemeral storage for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid=1000) pairs that describe resources reserved for kubernetes system components. Currently cpu, memory, pid, and local ephemeral storage for root file system are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]</td>
     </tr>
 
      <tr>
@@ -977,6 +987,13 @@ kubelet [flags]
     </tr>
 
      <tr>
+       <td colspan="2">--rotate-server-certificates</td> 
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"><Warning: Beta feature> Auto-request and rotate the kubelet serving certificates by requesting new certificates from the kube-apiserver when the certificate expiration approaches. Requires the RotateKubeletServerCertificate feature gate to be enabled, and approval of the submitted CertificateSigningRequest objects.</td>
+    </tr>
+    
+     <tr>
        <td colspan="2">--runonce</td> 
     </tr>
     <tr>
@@ -1092,7 +1109,7 @@ kubelet [flags]
        <td colspan="2">--system-reserved mapStringString</td> 
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi) pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid=1000) pairs that describe resources reserved for non-kubernetes components. Currently only cpu, memory, and pid are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]</td>
     </tr>
 
      <tr>
@@ -1167,6 +1184,3 @@ kubelet [flags]
 
   </tbody>
 </table>
-
-
-

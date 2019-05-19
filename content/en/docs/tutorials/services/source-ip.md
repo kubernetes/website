@@ -107,7 +107,7 @@ client_address=10.244.3.8
 command=GET
 ...
 ```
-If the client pod and server pod are in the same node, the client_address is the client pod's IP address. However, if the client pod and server pod are in different nodes, the client_address is the client pod's node flannel IP address.
+The client_address is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 
 ## Source IP for Services with Type=NodePort
 
@@ -119,7 +119,7 @@ $ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-por
 service/nodeport exposed
 
 $ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
+$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
 ```
 
 If you're running on a cloudprovider, you may need to open up a firewall-rule

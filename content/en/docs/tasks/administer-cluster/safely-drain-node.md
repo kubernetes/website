@@ -4,13 +4,12 @@ reviewers:
 - mml
 - foxish
 - kow3ns
-title: Safely Drain a Node while Respecting Application SLOs
+title: Safely Drain a Node while Respecting the PodDisruptionBudget
 content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows how to safely drain a machine, respecting the application-level
-disruption SLOs you have specified using PodDisruptionBudget.
+This page shows how to safely drain a machine, respecting the PodDisruptionBudget you have defined.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -46,11 +45,10 @@ documentation for more details.
 
 When `kubectl drain` returns successfully, that indicates that all of
 the pods (except the ones excluded as described in the previous paragraph)
-have been safely evicted (respecting the desired graceful
-termination period, and without violating any application-level
-disruption SLOs). It is then safe to bring down the node by powering
-down its physical machine or, if running on a cloud platform, deleting its
-virtual machine.
+have been safely evicted (respecting the desired graceful termination period,
+and respecting the PodDisruptionBudget you have defined). It is then safe to
+bring down the node by powering down its physical machine or, if running on a
+cloud platform, deleting its virtual machine.
 
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
 
@@ -117,7 +115,7 @@ itself. To attempt an eviction (perhaps more REST-precisely, to attempt to
 You can attempt an eviction using `curl`:
 
 ```bash
-$ curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/namespaces/default/pods/quux/eviction -d @eviction.json
+curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/namespaces/default/pods/quux/eviction -d @eviction.json
 ```
 
 The API can respond in one of three ways:

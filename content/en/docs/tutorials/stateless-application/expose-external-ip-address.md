@@ -72,8 +72,8 @@ external IP address.
 
     The output is similar to this:
 
-        NAME         TYPE        CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
-        my-service   ClusterIP   10.3.245.137   104.198.205.71   8080/TCP   54s
+        NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
+        my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
     Note: If the external IP address is shown as \<pending\>, wait for a minute
     and enter the same command again.

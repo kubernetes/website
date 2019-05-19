@@ -22,6 +22,13 @@ kubeadm init phase certs sa [flags]
   <tbody>
 
     <tr>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save and store the certificates.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>

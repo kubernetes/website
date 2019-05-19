@@ -1,13 +1,14 @@
 ---
 title: Set up placement policies in Federation
 content_template: templates/task
+weight: 135
 ---
 
 {{% capture overview %}}
 
-{{< note >}}
-{{< include "federation-current-state.md" >}}
-{{< /note >}}
+{{< deprecationfilewarning >}}
+{{< include "federation-deprecation-warning-note.md" >}}
+{{< /deprecationfilewarning >}}
 
 This page shows how to enforce policy-based placement decisions over Federated
 resources using an external policy engine.
@@ -32,7 +33,7 @@ After deploying the Federation control plane, you must configure an Admission
 Controller in the Federation API server that enforces placement decisions
 received from the external policy engine.
 
-    kubectl create -f scheduling-policy-admission.yaml
+    kubectl apply -f scheduling-policy-admission.yaml
 
 Shown below is an example ConfigMap for the Admission Controller:
 
@@ -82,7 +83,7 @@ decisions in the Federation control plane.
 
 Create a Service in the host cluster to contact the external policy engine:
 
-    kubectl create -f policy-engine-service.yaml
+    kubectl apply -f policy-engine-service.yaml
 
 Shown below is an example Service for OPA.
 
@@ -90,7 +91,7 @@ Shown below is an example Service for OPA.
 
 Create a Deployment in the host cluster with the Federation control plane:
 
-    kubectl create -f policy-engine-deployment.yaml
+    kubectl apply -f policy-engine-deployment.yaml
 
 Shown below is an example Deployment for OPA.
 

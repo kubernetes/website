@@ -1,0 +1,10 @@
+Fitur ini berada dalam tingkatan beta, yang artinya:
+
+* Nama dari versi ini mengandung string `beta` (misalnya `v2beta3`).
+* Kode yang ada sudah melalui mekanisme *testing* yang cukup baik. Menggunakan fitur ini dianggap cukup aman. Fitur ini diekspos secara *default*.
+* Ketersediaan untuk fitur secara menyeluruh tidak akan dihapus, meskipun begitu detail untuk suatu fitur bisa saja berubah.
+* Skema dan/atau semantik dari suatu obyek mungkin saja berubah tanpa memerhatikan kompatibilitas pada rilis *beta* selanjutnya.
+  Jika hal ini terjadi, kami akan menyediakan suatu instruksi untuk melakukan migrasi di versi rilis selanjutnya. Hal ini bisa saja terdiri dari penghapusan, pengubahan, ataupun pembuatan
+  obyek API. Proses pengubahan mungkin saja membutuhkan pemikiran yang matang. Dampak proses ini bisa saja menyebabkan *downtime* aplikasi yang bergantung pada fitur ini.
+* **Kami mohon untuk mencoba versi *beta* yang kami sediakan dan berikan masukan terhadap fitur yang kamu pakai! Apabila fitur tersebut sudah tidak lagi berada di dalam tingkatan *beta* perubahan yang kami buat terhadap fitur tersebut bisa jadi tidak lagi dapat digunakan**
+

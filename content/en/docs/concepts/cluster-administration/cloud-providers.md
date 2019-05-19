@@ -49,11 +49,14 @@ The in-tree cloud providers typically need both `--cloud-provider` and `--cloud-
 for the [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and the
 [kubelet](/docs/admin/kubelet/). The contents of the file specified in `--cloud-config` for each provider is documented below as well.
 
-For all external cloud providers, please follow the instructions on the individual repositories.
+For all external cloud providers, please follow the instructions on the individual repositories,
+which are listed under their headings below, or one may view [the list of all repositories](https://github.com/kubernetes?q=cloud-provider-&type=&language=)
 
 ## AWS
 This section describes all the possible configurations which can
 be used when running Kubernetes on Amazon Web Services.
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-aws](https://github.com/kubernetes/cloud-provider-aws#readme)
 
 ### Node Name
 
@@ -105,6 +108,8 @@ The information for the annotations for AWS is taken from the comments on [aws.g
 
 ## Azure
 
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-azure](https://github.com/kubernetes/cloud-provider-azure#readme)
+
 ### Node Name
 
 The Azure cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
@@ -112,12 +117,16 @@ Note that the Kubernetes Node name must match the Azure VM name.
 
 ## CloudStack
 
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
+
 ### Node Name
 
 The CloudStack cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the CloudStack VM name.
 
 ## GCE
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-gcp](https://github.com/kubernetes/cloud-provider-gcp#readme)
 
 ### Node Name
 
@@ -240,7 +249,7 @@ file:
   respective network to get its subnets.
 * `floating-network-id` (Optional): If specified, will create a floating IP for
   the load balancer.
-* `lb-method` (Optional): Used to specify algorithm by which load will be
+* `lb-method` (Optional): Used to specify an algorithm by which load will be
   distributed amongst members of the load balancer pool. The value can be
   `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP`. The default behavior if
   none is specified is `ROUND_ROBIN`.
@@ -338,7 +347,7 @@ Kubernetes network plugin and should appear in the `[Router]` section of the
   the default router for the node network).  This value is required to use [kubenet]
   on OpenStack.
 
-[kubenet]: https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#kubenet
+[kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
 {{% /capture %}}
 
@@ -367,14 +376,21 @@ The `--hostname-override` parameter is ignored by the VSphere cloud provider.
 ## IBM Cloud Kubernetes Service
 
 ### Compute nodes
-By using the IBM Cloud Kubernetes Service provider, you can create clusters with a mixture of virtual and physical (bare metal) nodes in a single zone or across multiple zones in a region. For more information, see [Planning your cluster and worker node setup](https://console.bluemix.net/docs/containers/cs_clusters_planning.html#plan_clusters).
+By using the IBM Cloud Kubernetes Service provider, you can create clusters with a mixture of virtual and physical (bare metal) nodes in a single zone or across multiple zones in a region. For more information, see [Planning your cluster and worker node setup](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters#plan_clusters).
 
 The name of the Kubernetes Node object is the private IP address of the IBM Cloud Kubernetes Service worker node instance.
 
 ### Networking
-The IBM Cloud Kubernetes Service provider provides VLANs for quality network performance and network isolation for nodes. You can set up custom firewalls and Calico network policies to add an extra layer of security for your cluster, or connect your cluster to your on-prem data center via VPN. For more information, see [Planning in-cluster and private networking](https://console.bluemix.net/docs/containers/cs_network_cluster.html#planning).
+The IBM Cloud Kubernetes Service provider provides VLANs for quality network performance and network isolation for nodes. You can set up custom firewalls and Calico network policies to add an extra layer of security for your cluster, or connect your cluster to your on-prem data center via VPN. For more information, see [Planning in-cluster and private networking](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster).
 
-To expose apps to the public or within the cluster, you can leverage NodePort, LoadBalancer, or Ingress services. You can also customize the Ingress application load balancer with annotations. For more information, see [Planning to expose your apps with external networking](https://console.bluemix.net/docs/containers/cs_network_planning.html#planning).
+To expose apps to the public or within the cluster, you can leverage NodePort, LoadBalancer, or Ingress services. You can also customize the Ingress application load balancer with annotations. For more information, see [Planning to expose your apps with external networking](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
 
 ### Storage
-The IBM Cloud Kubernetes Service provider leverages Kubernetes-native persistent volumes to enable users to mount file, block, and cloud object storage to their apps. You can also use database-as-a-service and third-party add-ons for persistent storage of your data. For more information, see [Planning highly available persistent storage](https://console.bluemix.net/docs/containers/cs_storage_planning.html#storage_planning).
+The IBM Cloud Kubernetes Service provider leverages Kubernetes-native persistent volumes to enable users to mount file, block, and cloud object storage to their apps. You can also use database-as-a-service and third-party add-ons for persistent storage of your data. For more information, see [Planning highly available persistent storage](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).
+
+## Baidu Cloud Container Engine
+
+### Node Name
+
+The Baidu cloud provider uses the private IP address of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+Note that the Kubernetes Node name must match the Baidu VM private IP.

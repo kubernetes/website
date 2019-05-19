@@ -1,5 +1,8 @@
 # 쿠버네티스 문서화
 
+[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
+[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+
 환영합니다! 이 저장소는 쿠버네티스 웹사이트 및 문서화를 만드는 데 필요로 하는 모든 asset에 대한 공간을 제공합니다. 여러 분이 기여를 원한다는 사실에 매우 기쁩니다!
 
 ## 문서에 기여하기
@@ -20,9 +23,9 @@
 
 ### 한국어
 
-`README.md` 번역 및 한국어 기여자를 위한 보다 자세한 가이드를 [한국어 README](README-ko.md) 페이지에서 살펴봅니다.
+`README.md` 번역 및 한국어 기여자를 위한 보다 자세한 가이드를 [한국어 README](README-ko.md) 페이지 혹은 [쿠버네티스 문서 한글화 가이드](https://kubernetes.io/ko/docs/contribute/localization_ko/)에서 살펴봅니다.
 
-한국어 번역 메인테이너에게 다음을 통해 연락 가능합니다:
+한국어 번역 메인테이너에게 다음을 통해 연락 가능합니다.
 
 * 이덕준 ([GitHub - @gochist](https://github.com/gochist))
 * [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)

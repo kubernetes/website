@@ -17,7 +17,7 @@ Note that markdown can be used in the description.
 <section id="features">
     <main>
         <h3 class="center">{{ T "main_kubernetes_features" }}</h3>
-        {{ $pages := where .Site.Pages ".Params.feature" "!=" nil }}
+        {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
         {{range $i, $p := $pages }}
         {{ if and (gt $i 0) (modBool $i 2) }}</div>{{ end }}
         {{ if modBool $i 2 }}

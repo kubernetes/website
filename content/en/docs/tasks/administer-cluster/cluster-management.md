@@ -26,8 +26,6 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 
 The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
-* [Upgrading to 1.6](/docs/admin/upgrade-1-6)
-
 ### Upgrading an Azure Kubernetes Service (AKS) cluster
 
 Azure Kubernetes Service enables easy self-service upgrades of the control plane and nodes in your cluster. The process is
@@ -64,6 +62,10 @@ cluster/gce/upgrade.sh release/stable
 Google Kubernetes Engine automatically updates master components (e.g. `kube-apiserver`, `kube-scheduler`) to the latest version. It also handles upgrading the operating system and other components that the master runs on.
 
 The node upgrade process is user-initiated and is described in the [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade).
+
+### Upgrading an Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) cluster
+
+Oracle creates and manages a set of master nodes in the Oracle control plane on your behalf (and associated Kubernetes infrastructure such as etcd nodes) to ensure you have a highly available managed Kubernetes control plane. You can also seamlessly upgrade these master nodes to new versions of Kubernetes with zero downtime. These actions are described in the [OKE documentation](https://docs.cloud.oracle.com/iaas/Content/ContEng/Tasks/contengupgradingk8smasternode.htm). 
 
 ### Upgrading clusters on other platforms
 
@@ -215,3 +217,5 @@ kubectl convert -f pod.yaml --output-version v1
 ```
 
 For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) command.
+
+{{% /capture %}}

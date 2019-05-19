@@ -18,7 +18,7 @@ kubeadm alpha kubelet config enable-dynamic [flags]
 
 ```
   # Enables dynamic kubelet configuration for a Node.
-  kubeadm alpha phase kubelet enable-dynamic-config --node-name node-1 --kubelet-version v1.12.0
+  kubeadm alpha phase kubelet enable-dynamic-config --node-name node-1 --kubelet-version 1.14.0
   
   WARNING: This feature is still experimental, and disabled by default. Enable only if you know what you are doing, as it
   may have surprising side-effects at this stage.
@@ -44,7 +44,7 @@ kubeadm alpha kubelet config enable-dynamic [flags]
       <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.conf"</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations are searched for an existing KubeConfig file.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
     </tr>
 
     <tr>

@@ -89,17 +89,17 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.13, they are:
+In 1.14, they are:
  
 ```shell
-NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeClaimResize,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
+NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
 ```
 
 ## What does each admission controller do?
 
-### AlwaysAdmit (DEPRECATED) {#alwaysadmit}
+### AlwaysAdmit {#alwaysadmit} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
-Use this admission controller by itself to pass-through all requests. AlwaysAdmit is DEPRECATED as no real meaning.
+This admission controller allows all pods into the cluster. It is deprecated because its behavior is the same as if there were no admission controller at all.
 
 ### AlwaysPullImages {#alwayspullimages}
 
@@ -111,7 +111,7 @@ scheduled onto the right node), without any authorization check against the imag
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
 
-### AlwaysDeny (DEPRECATED) {#alwaysdeny}
+### AlwaysDeny {#alwaysdeny} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 
@@ -138,26 +138,30 @@ if the pods don't already have toleration for taints
 `node.kubernetes.io/not-ready:NoExecute` or
 `node.alpha.kubernetes.io/unreachable:NoExecute`.
 
-### DenyExecOnPrivileged (deprecated) {#denyexeconprivileged}
+### DenyExecOnPrivileged {#denyexeconprivileged} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
 
-If your cluster supports privileged containers, and you want to restrict the ability of end-users to exec
-commands in those containers, we strongly encourage enabling this admission controller.
-
 This functionality has been merged into [DenyEscalatingExec](#denyescalatingexec).
+The DenyExecOnPrivileged admission plugin is deprecated and will be removed in v1.18.
 
-### DenyEscalatingExec {#denyescalatingexec}
+Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
+which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
+is recommended instead.
+
+### DenyEscalatingExec {#denyescalatingexec} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 This admission controller will deny exec and attach commands to pods that run with escalated privileges that
 allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
 have access to the host PID namespace.
 
-If your cluster supports containers that run with escalated privileges, and you want to
-restrict the ability of end-users to exec commands in those containers, we strongly encourage
-enabling this admission controller.
+The DenyEscalatingExec admission plugin is deprecated and will be removed in v1.18.
 
-### EventRateLimit (alpha) {#eventratelimit}
+Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypolicy) or a custom admission plugin)
+which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
+is recommended instead.
+
+### EventRateLimit {#eventratelimit} {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
 This admission controller mitigates the problem where the API server gets flooded by
 event requests. The cluster admin can specify event rate limits by:
@@ -169,8 +173,8 @@ event requests. The cluster admin can specify event rate limits by:
    server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: EventRateLimit
   path: eventconfig.yaml
@@ -188,8 +192,8 @@ There are four types of limits that can be specified in the configuration:
 Below is a sample `eventconfig.yaml` for such a configuration:
 
 ```yaml
-kind: Configuration
 apiVersion: eventratelimit.admission.k8s.io/v1alpha1
+kind: Configuration
 limits:
 - type: Namespace
   qps: 50
@@ -237,8 +241,8 @@ imagePolicy:
 Reference the ImagePolicyWebhook configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: ImagePolicyWebhook
   path: imagepolicyconfig.yaml
@@ -335,7 +339,7 @@ Examples of information you might put here are:
 
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of ImageReviewSpec.
 
-### Initializers (alpha) {#initializers}
+### Initializers {#initializers} {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
 The admission controller determines the initializers of a resource based on the existing
 `InitializerConfiguration`s. It sets the pending initializers by modifying the
@@ -357,7 +361,7 @@ applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
 See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
 
-### MutatingAdmissionWebhook (beta in 1.9) {#mutatingadmissionwebhook}
+### MutatingAdmissionWebhook {#mutatingadmissionwebhook} {{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 This admission controller calls any mutating webhooks which match the request. Matching
 webhooks are called in serial; each one may modify the object if it desires.
@@ -425,9 +429,9 @@ This label prefix is reserved for administrators to label their `Node` objects f
 and kubelets will not be allowed to modify labels with that prefix.
 * **Allows** kubelets to add/remove/update these labels and label prefixes:
   * `kubernetes.io/hostname`
-  * `beta.kubernetes.io/arch`
+  * `kubernetes.io/arch`
+  * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
-  * `beta.kubernetes.io/os`
   * `failure-domain.beta.kubernetes.io/region`
   * `failure-domain.beta.kubernetes.io/zone`
   * `kubelet.kubernetes.io/`-prefixed labels
@@ -445,7 +449,7 @@ This admission controller also protects the access to `metadata.ownerReferences[
 of an object, so that only users with "update" permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 
-### PersistentVolumeLabel (DEPRECATED) {#persistentvolumelabel}
+### PersistentVolumeLabel {#persistentvolumelabel} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 This admission controller automatically attaches region or zone labels to PersistentVolumes
 as defined by the cloud provider (for example, GCE or AWS).
@@ -477,8 +481,8 @@ podNodeSelectorPluginConfig:
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: PodNodeSelector
   path: podnodeselector.yaml
@@ -529,8 +533,8 @@ controller is recommended, too. This admission controller prevents resizing of a
 For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gluster-vol-default
 provisioner: kubernetes.io/glusterfs
@@ -602,11 +606,11 @@ This admission controller will deny any pod that attempts to set certain escalat
 This admission controller implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
 
-### Storage Object in Use Protection
+### StorageObjectInUseProtection
 
 The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
 
-### ValidatingAdmissionWebhook (alpha in 1.8; beta in 1.9) {#validatingadmissionwebhook}
+### ValidatingAdmissionWebhook {#validatingadmissionwebhook} {{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 This admission controller calls any validating webhooks which match the request. Matching
 webhooks are called in parallel; if any of them rejects the request, the request
@@ -634,7 +638,7 @@ For Kubernetes version 1.10 and later, we recommend running the following set of
 {{< /note >}}
 
 ```shell
---enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota
+--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,Priority,ResourceQuota
 ```
 
 For Kubernetes 1.9 and earlier, we recommend running the following set of admission controllers using the `--admission-control` flag (**order matters**).
@@ -654,27 +658,4 @@ in the mutating phase.
     For earlier versions, there was no concept of validating vs mutating and the
 admission controllers ran in the exact order specified.
 
-* v1.6 - v1.8
-
-  ```shell
-  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds
-  ```
-
-* v1.4 - v1.5
-
-  ```shell
-  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota
-  ```
-
-* v1.2 - v1.3
-
-  ```shell
-  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota
-  ```
-
-* v1.0 - v1.1
-
-  ```shell
-  --admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,PersistentVolumeLabel,ResourceQuota
-  ```
 {{% /capture %}}

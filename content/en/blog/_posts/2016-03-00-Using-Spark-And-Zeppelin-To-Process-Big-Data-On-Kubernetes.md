@@ -110,7 +110,7 @@ Computing the model and saving it is much slower than computing the model and th
 {{< /note >}}
 
 ### Using Horizontal Pod Autoscaling with Spark (Optional)&nbsp;
-Spark is somewhat elastic to workers coming and going, which means we have an opportunity: we can use use [Kubernetes Horizontal Pod Autoscaling](http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/) to scale-out the Spark worker pool automatically, setting a target CPU threshold for the workers and a minimum/maximum pool size. This obviates the need for having to configure the number of worker replicas manually.  
+Spark is somewhat elastic to workers coming and going, which means we have an opportunity: we can use use [Kubernetes Horizontal Pod Autoscaling](/docs/user-guide/horizontal-pod-autoscaling/) to scale-out the Spark worker pool automatically, setting a target CPU threshold for the workers and a minimum/maximum pool size. This obviates the need for having to configure the number of worker replicas manually.  
 
 Create the Autoscaler like this (note: if you didn’t change the machine type for the cluster, you probably want to limit the --max to something smaller):&nbsp;  
 

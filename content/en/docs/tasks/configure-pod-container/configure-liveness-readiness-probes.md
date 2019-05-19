@@ -62,7 +62,7 @@ code. After 30 seconds, `cat /tmp/healthy` returns a failure code.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
 ```
 
 Within 30 seconds, view the Pod events:
@@ -163,7 +163,7 @@ checks will fail, and the kubelet will kill and restart the Container.
 To try the HTTP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/http-liveness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/http-liveness.yaml
 ```
 
 After 10 seconds, view Pod events to verify that liveness probes have failed and
@@ -204,7 +204,7 @@ will be restarted.
 To try the TCP liveness check, create a Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
+kubectl apply -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
 ```
 
 After 15 seconds, view Pod events to verify that liveness probes:

@@ -73,7 +73,7 @@ that must be set:
 The `kubectl` command also supports update commands driven by an aspect of the object.
 Setting this aspect may set different fields for different object types:
 
-- `set` <field>: Set an aspect of an object.
+- `set` `<field>`: Set an aspect of an object.
 
 {{< note >}}
 In Kubernetes version 1.5, not every verb-driven command has an associated aspect-driven command.
@@ -85,7 +85,7 @@ however they require a better understanding of the Kubernetes object schema.
 - `edit`: Directly edit the raw configuration of a live object by opening its configuration in an editor.
 - `patch`: Directly modify specific fields of a live object by using a patch string.
 For more details on patch strings, see the patch section in
-[API Conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#patch-operations).
+[API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#patch-operations).
 
 ## How to delete objects
 
@@ -160,5 +160,3 @@ kubectl create --edit -f /tmp/srv.yaml
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}
-
-

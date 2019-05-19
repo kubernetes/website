@@ -55,7 +55,7 @@ spec:
 
 __必填字段__: 与所有其他的Kubernetes配置一样，`NetworkPolicy` 需要 `apiVersion`、 `kind`和 `metadata` 字段。 关于配置文件操作的一般信息，请参考 [这里](/docs/user-guide/simple-yaml)、 [这里](/docs/user-guide/configuring-containers)和 [这里](/docs/user-guide/working-with-resources)。
 
-__spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) 中包含了在一个命名空间中定义特定网络策略所需的所有信息
+__spec__: `NetworkPolicy` [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 中包含了在一个命名空间中定义特定网络策略所需的所有信息
 
 __podSelector__: 每个 `NetworkPolicy` 都包括一个 `podSelector` ，它对该策略所应用的一组Pod进行选择。因为 `NetworkPolicy` 目前只支持定义 `ingress` 规则，这里的 `podSelector` 本质上是为该策略定义 "目标pod" 。示例中的策略选择带有 "role=db" 标签的pod。空的 `podSelector` 选择命名空间下的所有pod。
 

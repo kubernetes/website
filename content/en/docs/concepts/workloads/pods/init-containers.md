@@ -83,7 +83,7 @@ Here are some ideas for how to use Init Containers:
 
 * Register this Pod with a remote server from the downward API with a command like:
 
-      curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
+      `curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'`
 
 * Wait for some time before starting the app Container with a command like `sleep 60`.
 * Clone a git repository into a volume.
@@ -112,19 +112,19 @@ metadata:
     pod.beta.kubernetes.io/init-containers: '[
         {
             "name": "init-myservice",
-            "image": "busybox",
+            "image": "busybox:1.28",
             "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]
         },
         {
             "name": "init-mydb",
-            "image": "busybox",
+            "image": "busybox:1.28",
             "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]
         }
     ]'
 spec:
   containers:
   - name: myapp-container
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
@@ -140,14 +140,14 @@ metadata:
 spec:
   containers:
   - name: myapp-container
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
   initContainers:
   - name: init-myservice
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
   - name: init-mydb
-    image: busybox
+    image: busybox:1.28
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
 ```
 
@@ -156,8 +156,8 @@ spec:
 Yaml file below outlines the `mydb` and `myservice` services:
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: myservice
 spec:
@@ -166,8 +166,8 @@ spec:
     port: 80
     targetPort: 9376
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: mydb
 spec:
@@ -180,12 +180,24 @@ spec:
 This Pod can be started and debugged with the following commands:
 
 ```shell
-$ kubectl create -f myapp.yaml
+kubectl apply -f myapp.yaml
+```
+```
 pod/myapp-pod created
-$ kubectl get -f myapp.yaml
+```
+
+```shell
+kubectl get -f myapp.yaml
+```
+```
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
-$ kubectl describe -f myapp.yaml
+```
+
+```shell
+kubectl describe -f myapp.yaml
+```
+```
 Name:          myapp-pod
 Namespace:     default
 [...]
@@ -218,18 +230,25 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulled        Successfully pulled image "busybox"
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created       Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started       Started container with docker id 5ced34a04634
-$ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
-$ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
+```
+```shell
+kubectl logs myapp-pod -c init-myservice # Inspect the first init container
+kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
 Once we start the `mydb` and `myservice` services, we can see the Init Containers
 complete and the `myapp-pod` is created:
 
 ```shell
-$ kubectl create -f services.yaml
+kubectl apply -f services.yaml
+```
+```
 service/myservice created
 service/mydb created
-$ kubectl get -f myapp.yaml
+```
+
+```shell
+kubectl get -f myapp.yaml
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
@@ -299,8 +318,9 @@ same as the scheduler.
 A Pod can restart, causing re-execution of Init Containers, for the following
 reasons:
 
-* A user updates the PodSpec causing the Init Container image to change.
-  App Container image changes only restart the app Container.
+* A user updates the PodSpec causing the Init Container image to change. Any
+  changes to the Init Container image restarts the Pod. App Container image 
+  changes only restart the app Container.
 * The Pod infrastructure container is restarted. This is uncommon and would
   have to be done by someone with root access to nodes.
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,
