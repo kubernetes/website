@@ -12,7 +12,7 @@ description: >
 
 content_template: templates/concept
 weight: 20
-- - - -
+---
 
 {{% capture overview %}}
 
