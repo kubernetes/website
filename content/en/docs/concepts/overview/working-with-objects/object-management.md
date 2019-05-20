@@ -1,7 +1,7 @@
 ---
 title: Kubernetes Object Management
 content_template: templates/concept
-weight: 10
+weight: 15
 ---
 
 {{% capture overview %}}
@@ -176,13 +176,13 @@ Disadvantages compared to imperative object configuration:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
+
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+- [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Managing Kubernetes Objects Using Kustomize (Declarative)](/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{< comment >}}
-{{< /comment >}}
 {{% /capture %}}

@@ -90,30 +90,30 @@ for database debugging.
 
 ## Forward a local port to a port on the pod
 
-1.  `kubectl port-forward` allows using resource name, such as a service name, to select a matching pod to port forward to since Kubernetes v1.10.
+1.  `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to since Kubernetes v1.10.
 
-        kubectl port-forward redis-master-765d459796-258hz 6379:6379 
+        kubectl port-forward redis-master-765d459796-258hz 7000:6379 
 
     which is the same as
 
-        kubectl port-forward pods/redis-master-765d459796-258hz 6379:6379
+        kubectl port-forward pods/redis-master-765d459796-258hz 7000:6379
 
     or  
 
-        kubectl port-forward deployment/redis-master 6379:6379 
+        kubectl port-forward deployment/redis-master 7000:6379 
 
     or
 
-        kubectl port-forward rs/redis-master 6379:6379 
+        kubectl port-forward rs/redis-master 7000:6379 
 
     or
 
-        kubectl port-forward svc/redis-master 6379:6379
+        kubectl port-forward svc/redis-master 7000:6379
 
     Any of the above commands works. The output is similar to this:
 
-        I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:6379 -> 6379
-        I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:6379 -> 6379
+        I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:7000 -> 6379
+        I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:7000 -> 6379
 
 2.  Start the Redis command line interface:
 
@@ -121,7 +121,7 @@ for database debugging.
 
 3.  At the Redis command line prompt, enter the `ping` command:
 
-        127.0.0.1:6379>ping
+        127.0.0.1:7000>ping
 
     A successful ping request returns PONG.
 
@@ -132,7 +132,7 @@ for database debugging.
 
 ## Discussion
 
-Connections made to local port 6379 are forwarded to port 6379 of the pod that
+Connections made to local port 7000 are forwarded to port 6379 of the pod that
 is running the Redis server. With this connection in place you can use your
 local workstation to debug the database that is running in the pod.
 
