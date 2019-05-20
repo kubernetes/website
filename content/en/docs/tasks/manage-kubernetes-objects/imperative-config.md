@@ -1,7 +1,7 @@
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
-content_template: templates/concept
-weight: 30
+content_template: templates/task
+weight: 40
 ---
 
 {{% capture overview %}}
@@ -10,7 +10,15 @@ command-line tool along with an object configuration file written in YAML or JSO
 This document explains how to define and manage objects using configuration files.
 {{% /capture %}}
 
-{{% capture body %}}
+{{% capture prerequisites %}}
+
+Install [`kubectl`](docs/tasks/tools/install-kubectl/).
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Trade-offs
 
@@ -29,7 +37,7 @@ You can use `kubectl create -f` to create an object from a configuration file.
 Refer to the [kubernetes API reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 for details.
 
-- `kubectl create -f <filename|url>`
+* `kubectl create -f <filename|url>`
 
 ## How to update objects
 
@@ -46,21 +54,21 @@ file to prevent `replace` from dropping them.
 You can use `kubectl replace -f` to update a live object according to a
 configuration file.
 
-- `kubectl replace -f <filename|url>`
+* `kubectl replace -f <filename|url>`
 
 ## How to delete objects
 
 You can use `kubectl delete -f` to delete an object that is described in a
 configuration file.
 
-- `kubectl delete -f <filename|url>`
+* `kubectl delete -f <filename|url>`
 
 ## How to view an object
 
 You can use `kubectl get -f` to view information about an object that is
 described in a configuration file.
 
-- `kubectl get -f <filename|url> -o yaml`
+* `kubectl get -f <filename|url> -o yaml`
 
 The `-o yaml` flag specifies that the full object configuration is printed.
 Use `kubectl get -h` to see a list of options.
@@ -90,7 +98,7 @@ Suppose you have the URL of an object configuration file. You can use
 object is created. This is particularly useful for tutorials and tasks
 that point to a configuration file that could be modified by the reader.
 
-```sh
+```shell
 kubectl create -f <url> --edit
 ```
 
@@ -100,17 +108,18 @@ Migrating from imperative commands to imperative object configuration involves
 several manual steps.
 
 1. Export the live object to a local object configuration file:
-```sh
+
+```shell
 kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
 ```
 
 1. Manually remove the status field from the object configuration file.
 
 1. For subsequent object management, use `replace` exclusively.
-```sh
+
+```shell
 kubectl replace -f <kind>_<name>.yaml
 ```
-
 
 ## Defining controller selectors and PodTemplate labels
 
@@ -136,10 +145,10 @@ template:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
-- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
+* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
 {{% /capture %}}
-
-
