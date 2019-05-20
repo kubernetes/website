@@ -8,7 +8,7 @@ title: Persistent Volumes
 feature:
 title: Storage orchestration
 description: >
-Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as GCP or AWS, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
+  Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as GCP or AWS, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
 
 content_template: templates/concept
 weight: 20
