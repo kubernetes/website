@@ -219,7 +219,7 @@ own cluster.
 You can also try this from a `Node` in the cluster:
 
 {{< note >}}
-10.0.0.10 is my DNS `Service`, yours might be different).
+10.0.0.10 is my DNS `Service`, yours might be different.
 {{< /note >}}
 
 ```shell
