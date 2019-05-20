@@ -11,7 +11,7 @@ explains how those commands are organized and how to use them to manage live obj
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-Install [`kubectl`](docs/tasks/tools/install-kubectl/).
+Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
