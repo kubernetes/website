@@ -47,72 +47,72 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 
 1. Start a minikube 
 
-        ```shell        
-        minikube start
-        ```    
+   ```        
+     minikube start
+   ```    
    The output shows that the kubernetes cluster is started:
    
-        ```
-        Starting local Kubernetes cluster...
-        Running pre-create checks...
-        Creating machine...
-        Starting local Kubernetes cluster...
-        ```
+   ```
+     Starting local Kubernetes cluster...
+     Running pre-create checks...
+     Creating machine...
+     Starting local Kubernetes cluster...
+   ```
         
 1. Create an echo server deployment
 
-        ```shell        
-        kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-        ```        
+   ```
+     kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+   ```        
    The output of a successful command verifies that the deployment is created:
    
-        ```
-        deployment.apps/hello-minikube created
-        ```
+   ```
+     deployment.apps/hello-minikube created
+   ```
         
 1. Expose an echo server deployment to create service       
 
-        ```shell        
-        kubectl expose deployment hello-minikube --type=NodePort
-        ```
+   ```
+     kubectl expose deployment hello-minikube --type=NodePort
+   ```
    The output of a successful command verifies that the service is created:
    
-        ```
-        service/hello-minikube exposed
-        ```
+   ```
+     service/hello-minikube exposed
+   ```
 
 1. Check whether the pod is up and running
 
-        ```shell
-        kubectl get pod
-        ```
+   ```
+     kubectl get pod
+   ```
    The output displays the pod is still being created:     
          
-        ```
-        NAME                              READY     STATUS              RESTARTS   AGE
-        hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-        ```
+   ```
+     NAME                              READY     STATUS              RESTARTS   AGE
+     hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+   ```
 
 1. Wait for while and then check again, whether the pod is up and running using same command
 
-         ```shell
-          kubectl get pod
-         ```
+   ```
+     kubectl get pod
+   ```
    Now the output displays the pod is created and it is running:     
    
-        ```
-        NAME                              READY     STATUS    RESTARTS   AGE
-        hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-        ```
+   ```
+     NAME                              READY     STATUS    RESTARTS   AGE
+     hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+   ```
 
 1. Curl service which we have created
 
-        ```shell
-        curl $(minikube service hello-minikube --url)
-        ```        
+   ```
+     curl $(minikube service hello-minikube --url)
+   ```        
    Output looks similer to this:
    
-        ```
+    ```
         Hostname: hello-minikube-7c77b68cff-8wdzq
 
         Pod Information:
@@ -137,38 +137,38 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 
         Request Body:
           -no body in request-
-        ```
+    ```
 1. Delete the service which we have created
 
-        ```shell
-        kubectl delete services hello-minikube
-        ```
+    ```
+      kubectl delete services hello-minikube
+    ```
    The output of a successful command verifies that the service is deleted:  
    
-        ```
-        service "hello-minikube" deleted
-        ```
+    ```
+      service "hello-minikube" deleted
+    ```
 1. Delete the deployment which we have created
 
-        ```shell
-        kubectl delete deployment hello-minikube
-        ```
+    ```
+      kubectl delete deployment hello-minikube
+    ```
    The output of a successful command verifies that the deployment is deleted:
    
-        ```
-        deployment.extensions "hello-minikube" deleted
-        ```
+   ```
+     deployment.extensions "hello-minikube" deleted
+   ```
 1. Stop a minikube
 
-        ```shell
-        minikube stop
-        ```
+   ```
+     minikube stop
+   ```
    The output displays the kubernetes cluster is stopping:
    
-        ```
-        Stopping local Kubernetes cluster...
-        Stopping "minikube"...
-        ```
+   ```
+     Stopping local Kubernetes cluster...
+     Stopping "minikube"...
+   ```
 
 ### Alternative Container Runtimes
 
