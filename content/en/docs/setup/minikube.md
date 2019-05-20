@@ -45,103 +45,130 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 * vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
 * none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 
-```shell
-minikube start
-```
-```
-Starting local Kubernetes cluster...
-Running pre-create checks...
-Creating machine...
-Starting local Kubernetes cluster...
-```
-```shell
-kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-```
-```
-deployment.apps/hello-minikube created
-```
+1. Start a minikube 
 
-```shell
-kubectl expose deployment hello-minikube --type=NodePort
-```
-```
-service/hello-minikube exposed
-```
+    ```        
+    minikube start
+    ```    
+    The output shows that the kubernetes cluster is started:
+   
+    ```
+    Starting local Kubernetes cluster...
+    Running pre-create checks...
+    Creating machine...
+    Starting local Kubernetes cluster...
+    ```
+        
+2. Create an echo server deployment
 
-We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
-via the exposed service.
-To check whether the pod is up and running we can use the following:
+    ```
+    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+    ```        
+    The output of a successful command verifies that the deployment is created:
+   
+    ```
+    deployment.apps/hello-minikube created
+    ```
+        
+3. Expose an echo server deployment to create service       
 
-```
-kubectl get pod
-```
-```
-NAME                              READY     STATUS              RESTARTS   AGE
-hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-```
+    ```
+    kubectl expose deployment hello-minikube --type=NodePort
+    ```
+    The output of a successful command verifies that the service is created:
+   
+    ```
+    service/hello-minikube exposed
+    ```
 
-We can see that the pod is still being created from the ContainerCreating status
-kubectl get pod
+4. Check whether the pod is up and running
 
-```
-NAME                              READY     STATUS    RESTARTS   AGE
-hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-```
+    ```
+    kubectl get pod
+    ```
+    The output displays the pod is still being created:     
+         
+    ```
+    NAME                              READY     STATUS              RESTARTS   AGE
+    hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+    ```
 
-We can see that the pod is now Running and we will now be able to curl it:
+5. Wait for while and then check again, whether the pod is up and running using same command
 
-```
-curl $(minikube service hello-minikube --url)
-```
-```
+    ```
+    kubectl get pod
+    ```
+    Now the output displays the pod is created and it is running:     
+   
+    ```
+    NAME                              READY     STATUS    RESTARTS   AGE
+    hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+    ```
 
-Hostname: hello-minikube-7c77b68cff-8wdzq
+6. Curl service which we have created
 
-Pod Information:
-	-no pod information available-
+    ```
+    curl $(minikube service hello-minikube --url)
+    ```        
+    Output looks similer to this:
+   
+    ```
+    Hostname: hello-minikube-7c77b68cff-8wdzq
 
-Server values:
-	server_version=nginx: 1.13.3 - lua: 10008
+    Pod Information:
+      -no pod information available-
 
-Request Information:
-	client_address=172.17.0.1
-	method=GET
-	real path=/
-	query=
-	request_version=1.1
-	request_scheme=http
-	request_uri=http://192.168.99.100:8080/
+    Server values:
+      server_version=nginx: 1.13.3 - lua: 10008
 
-Request Headers:
-	accept=*/*
-	host=192.168.99.100:30674
-	user-agent=curl/7.47.0
+    Request Information:
+      client_address=172.17.0.1
+      method=GET
+      real path=/
+      query=
+      request_version=1.1
+      request_scheme=http
+      request_uri=http://192.168.99.100:8080/
 
-Request Body:
-	-no body in request-
-```
+    Request Headers:
+      accept=*/*
+      host=192.168.99.100:30674
+      user-agent=curl/7.47.0
 
-```shell
-kubectl delete services hello-minikube
-```
-```
-service "hello-minikube" deleted
-```
+    Request Body:
+      -no body in request-
+    ```
+7. Delete the service which we have created
 
-```shell
-kubectl delete deployment hello-minikube
-```
-```
-deployment.extensions "hello-minikube" deleted
-```
+    ```
+    kubectl delete services hello-minikube
+    ```
+    The output of a successful command verifies that the service is deleted:  
+   
+    ```
+    service "hello-minikube" deleted
+    ```
+8. Delete the deployment which we have created
 
-```shell
-minikube stop
-```
-```
-Stopping local Kubernetes cluster...
-Stopping "minikube"...
-```
+    ```
+    kubectl delete deployment hello-minikube
+    ```
+    The output of a successful command verifies that the deployment is deleted:
+   
+    ```
+    deployment.extensions "hello-minikube" deleted
+    ```
+9. Stop a minikube
+
+    ```
+    minikube stop
+   ```
+   The output displays the kubernetes cluster is stopping:
+   
+   ```
+   Stopping local Kubernetes cluster...
+   Stopping "minikube"...
+   ```
 
 ### Alternative Container Runtimes
 
