@@ -8,27 +8,27 @@ card:
 ---
 
 {{% capture overview %}}
-このページでは、KubernetesオブジェクトがKubernetesAPIでどのように表現されているか、またそれらを`.yaml`フォーマットでどのように表現するかを説明します。
+このページでは、KubernetesオブジェクトがKubernetes APIでどのように表現されているか、またそれらを`.yaml`フォーマットでどのように表現するかを説明します。
 {{% /capture %}}
 
 {{% capture body %}}
 ## Kubernetesオブジェクトを理解する
 
-*Kubernetesオブジェクト* は、Kubernetes上で永続的なエンティティです。Kubernetesはこれらのエンティティを使い、クラスタの状態を表現します。具体的に言うと、下記のような内容が表現出来ます:
+*Kubernetesオブジェクト* は、Kubernetes上で永続的なエンティティです。Kubernetesはこれらのエンティティを使い、クラスターの状態を表現します。具体的に言うと、下記のような内容が表現出来ます:
 
 * どのようなコンテナ化されたアプリケーションが稼働しているか（またそれらはどのノード上で動いているか）
 * それらのアプリケーションから利用可能なリソース
 * アプリケーションがどのように振る舞うかのポリシー、例えば再起動、アップグレード、耐障害性ポリシーなど
 
-Kubernetesオブジェクトは"意図の記録"です。一度オブジェクトを作成すると、Kubernetesは常にそのオブジェクトが存在し続けるように動きます。オブジェクトを作成することで、Kubernetesに対し効果的にあなたのクラスタのワークロードがこのようになっていて欲しいと伝えているのです。これが、あなたのクラスタの**望ましい状態**です。
+Kubernetesオブジェクトは"意図の記録"です。一度オブジェクトを作成すると、Kubernetesは常にそのオブジェクトが存在し続けるように動きます。オブジェクトを作成することで、Kubernetesに対し効果的にあなたのクラスターのワークロードがこのようになっていて欲しいと伝えているのです。これが、あなたのクラスターの**望ましい状態**です。
 
-Kubernetesオブジェクトを操作するには、作成、変更、または削除に関わらず[Kubernetes API](/docs/concepts/overview/kubernetes-api/)を使う必要があるでしょう。例えば`kubectl`コマンドラインインターフェースを使った場合、このCLIが処理に必要なKubernetesAPI命令を、あなたに代わり発行します。あなたのプログラムから[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を利用し、直接KubernetesAPIを利用することも可能です。
+Kubernetesオブジェクトを操作するには、作成、変更、または削除に関わらず[Kubernetes API](/docs/concepts/overview/kubernetes-api/)を使う必要があるでしょう。例えば`kubectl`コマンドラインインターフェースを使った場合、このCLIが処理に必要なKubernetes API命令を、あなたに代わり発行します。あなたのプログラムから[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を利用し、直接Kubernetes APIを利用することも可能です。
 
 ### オブジェクトのspec（仕様）とstatus（状態）
 
 全てのKubernetesオブジェクトは、オブジェクトの設定を管理する２つの入れ子になったオブジェクトのフィールドを持っています。それは *spec* オブジェクトと *status* オブジェクトです。*spec* オブジェクトはあなたが指定しなければならない項目で、オブジェクトの *望ましい状態* を記述し、オブジェクトに持たせたい特徴を表現します。*status* オブジェクトはオブジェクトの *現在の状態* を示し、その情報はKubernetesから与えられ、更新されます。常に、Kubernetesコントロールプレーンは、あなたから指定された望ましい状態と現在の状態が一致するよう積極的に管理をします。
 
-例えば、KubernetesのDeploymentはクラスタ上で稼働するアプリケーションを表現するオブジェクトです。Deploymentを作成するとき、アプリケーションの複製を３つ稼働させるようDeploymentのspecで指定するかもしれません。KubernetesはDeploymentのspecを読み取り、指定されたアプリケーションを３つ起動し、現在の状態がspecに一致するようにします。もしこれらのインスタンスでどれかが落ちた場合（statusが変わる）、Kubernetesはspecと、statusの違いに反応し、修正しようとします。この場合は、落ちたインスタンスの代わりのインスタンスを立ち上げます。
+例えば、KubernetesのDeploymentはクラスター上で稼働するアプリケーションを表現するオブジェクトです。Deploymentを作成するとき、アプリケーションの複製を３つ稼働させるようDeploymentのspecで指定するかもしれません。KubernetesはDeploymentのspecを読み取り、指定されたアプリケーションを３つ起動し、現在の状態がspecに一致するようにします。もしこれらのインスタンスでどれかが落ちた場合（statusが変わる）、Kubernetesはspecと、statusの違いに反応し、修正しようとします。この場合は、落ちたインスタンスの代わりのインスタンスを立ち上げます。
 
 spec、status、metadataに関するさらなる情報は、[Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)をご確認ください。
 
