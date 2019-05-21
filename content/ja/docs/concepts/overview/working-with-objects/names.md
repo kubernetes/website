@@ -9,7 +9,7 @@ weight: 20
 
 KubernetesのREST API内の全てのオブジェクトは、名前とUIDで明確に識別されます。
 
-一意でないユーザーが付与する属性については、Kubernetesが[ラベル](/docs/user-guide/labels)と[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を付与します。
+ユーザーが付与する一意ではない属性については、Kubernetesが[ラベル](/docs/user-guide/labels)と[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を付与します。
 
 名前とUIDに関する正確な構文については、[識別子デザインドキュメント](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)を参照してください。
 
