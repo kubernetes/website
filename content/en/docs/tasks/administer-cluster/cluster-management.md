@@ -77,6 +77,8 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
 
+To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the [Skewed versions](docs/setup/version-skew-policy/#supported-component-upgrade-order) page.
+
 ## Resizing a cluster
 
 If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](/docs/admin/node/#self-registration-of-nodes).
