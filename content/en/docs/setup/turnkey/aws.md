@@ -82,8 +82,6 @@ AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https
 AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
 AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | [docs](/docs/getting-started-guides/ubuntu)      | 100%     | Commercial, Community
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
-
 ## Further reading
 
 Please see the [Kubernetes docs](/docs/) for more details on administering

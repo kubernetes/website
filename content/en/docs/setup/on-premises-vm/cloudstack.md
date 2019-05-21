@@ -28,7 +28,7 @@ sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install ansible
 ```
-    
+
 On CloudStack server you also have to install libselinux-python :
 
 ```shell
@@ -116,7 +116,5 @@ e9af8293...    <node #2 IP>   role=node
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/setup/on-premises-vm/cloudstack/)                             |          | Community ([@Guiques](https://github.com/ltupin/))
-
-For support level information on all solutions, see the [Table of solutions](/docs/setup/pick-right-solution/#table-of-solutions) chart.
 
 {{% /capture %}}
