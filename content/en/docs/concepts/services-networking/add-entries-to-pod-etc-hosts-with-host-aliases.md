@@ -82,7 +82,7 @@ pod/hostaliases-pod created
 Examine a Pod IP and status:
 
 ```shell
-kubectl get pod -o=wide
+kubectl get pod --output=wide
 ```
 
 ```shell
