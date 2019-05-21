@@ -143,9 +143,9 @@ current-context: kubelet-context
 * Start the appropriate services on the node (fed-node).
 
 ```shell
-for SERVICES in kube-proxy kubelet docker; do 
+for SERVICES in kube-proxy kubelet docker; do
     systemctl enable --now $SERVICES
-    systemctl status $SERVICES 
+    systemctl status $SERVICES
 done
 ```
 
@@ -175,6 +175,3 @@ kubectl delete -f ./node.json
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |          | Project
-
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
-
