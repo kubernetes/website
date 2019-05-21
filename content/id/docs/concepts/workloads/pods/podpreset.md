@@ -33,7 +33,7 @@ Tiap Pod akan bisa dipasangkan oleh nol atau lebih PodPreset; dan tiap PodPreset
 
 {{< note >}}
 Catatan: Sebuah Pod Preset mampu memodifikasi kolom `.spec.containers` pada sebuah Pod Spec jika sesuai. Tidak ada definisi resource dari Pod Preset yang akan diterapkan kepada kolom `initContainer`.
-{{< note >}}
+{{< /note >}}
 
 ### Menonaktifkan Pod Preset untuk sebuah Pod Spesifik
 Mungkin akan ada keadaan dimana kamu menginginkan sebuah Pod tidak bisa diubah oleh sebuah mutasi PodPreset. Pada kasus ini, kamu bisa menambahkan sebuah anotasi pada Pod Spec dalam bentuk: `podpreset.admission.kubernetes.io/exclude: "true"`.
