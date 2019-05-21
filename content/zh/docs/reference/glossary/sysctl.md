@@ -41,11 +41,11 @@ use to view and modify these settings, and also the system call that the tool
 uses.
 -->
 
-在类 Unix 系统上， `sysctl` 是管理员的工具,用于查看和修改这些设置，以及系统调用该工具使用。
+在类 Unix 系统上， `sysctl` 既是管理员用于查看和修改这些设置的工具的名称，也是该工具所调用的系统调用的名称。
 
 <!--
 {{< glossary_tooltip text="Container" term_id="container" >}} runtimes and
 network plugins may rely on `sysctl` values being set a certain way.
 -->
 
-{{< glossary_tooltip text="Container" term_id="container" >}} 容器运行时和网络插件可能依赖于 `sysctl` 设置的某种值。
+{{< glossary_tooltip text="容器" term_id="container" >}} 运行时和网络插件可能对 `sysctl` 的取值有一定的要求。
