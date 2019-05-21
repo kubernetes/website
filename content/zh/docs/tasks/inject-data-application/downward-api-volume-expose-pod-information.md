@@ -169,22 +169,34 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 
 下面这些信息可以通过环境变量和DownwardAPIVolumeFiles提供给容器：
 
-* 节点名称
-* 节点IP
-* Pod名称
-* Pod名字空间
-* Pod IP地址
-* Pod服务帐号名称
-* Pod的UID
-* 容器的CPU约束
-* 容器的CPU请求值
-* 容器的内存约束
-* 容器的内存请求值
+能通过`fieldRef`获得的：
+  * `metadata.name` - Pod名称
+  * `metadata.namespace` - Pod名字空间
+  * `metadata.uid` - Pod的UID, 版本要求 v1.8.0-alpha.2
+  * `metadata.labels['<KEY>']` - 单个 pod 标签值 `<KEY>` (例如, `metadata.labels['mylabel']`); 版本要求 Kubernetes 1.9+
+  * `metadata.annotations['<KEY>']` - 单个 pod 的标注值 `<KEY>` (例如, `metadata.annotations['myannotation']`); 版本要求 Kubernetes 1.9+
 
-此外，以下信息可通过DownwardAPIVolumeFiles获得：
+能通过`resourceFieldRef`获得的：
+  * 容器的CPU约束值
+  * 容器的CPU请求值
+  * 容器的内存约束值
+  * 容器的内存请求值
+  * 容器的临时存储约束值, 版本要求 v1.8.0-beta.0
+  * 容器的临时存储请求值, 版本要求 v1.8.0-beta.0
 
-* Pod的标签
-* Pod的注释
+此外，以下信息可通过DownwardAPIVolumeFiles从`fieldRef`获得：
+
+* `metadata.labels` - all of the pod’s labels, formatted as `label-key="escaped-label-value"` with one label per line
+* `metadata.annotations` - all of the pod’s annotations, formatted as `annotation-key="escaped-annotation-value"` with one annotation per line
+* `metadata.labels` - 所有Pod的标签，以`label-key="escaped-label-value"`格式显示，每行显示一个label
+* `metadata.annotations` - Pod的注释，以`annotation-key="escaped-annotation-value"`格式显示，每行显示一个标签
+
+以下信息可通过环境变量从`fieldRef`获得：
+
+* `status.podIP` - 节点IP
+* `spec.serviceAccountName` - Pod服务帐号名称, 版本要求 v1.4.0-alpha.3
+* `spec.nodeName` - 节点名称, 版本要求 v1.4.0-alpha.3
+* `status.hostIP` - 节点IP, 版本要求 v1.7.0-alpha.1
 
 {{< note >}}
 如果容器未指定CPU和memory limits，则Downward API默认为节点可分配值。
