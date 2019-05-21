@@ -16,5 +16,5 @@ tags:
 
 <!--more--> 
 
-Crea uno o más objetos {{< glossary_tooltip term_id="pod" >}} y se asegura que un número específico de los mismos finalicen exitosamente. Mientras los Pods terminan, la Tarea rastrea las finalizaciones exitosas.
+Crea uno o más objetos {{< glossary_tooltip term_id="pod" >}} y se asegura que un número específico de los mismos finalicen con éxito. A medida que los Pods terminan, el objeto Job registra las ejecuciones completadas correctamente.
 
