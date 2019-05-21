@@ -303,7 +303,7 @@ To determine the NodePort for your service, you can use a `kubectl` command like
 
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
-## 永続化ボリューム
+## 永続ボリューム
 Minikube supports [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) of type `hostPath`.
 These PersistentVolumes are mapped to a directory inside the Minikube VM.
 
