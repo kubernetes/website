@@ -55,6 +55,24 @@ The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core com
 
 Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
+For example, the sample Pod with the labels `environment: production` and `tier: frontend`:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cuda-test
+  labels:
+    environment: production
+    tier: frontend
+spec:
+  containers:
+    - name: cuda-test
+      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+```
 ## Label selectors
 
 Unlike [names and UIDs](/docs/user-guide/identifiers), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
