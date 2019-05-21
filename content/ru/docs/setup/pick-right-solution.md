@@ -3,7 +3,7 @@ reviewers:
 - brendandburns
 - erictune
 - mikedanese
-title: Picking the Right Solution
+title: Выбор лучшего решения
 weight: 10
 content_template: templates/concept
 card:
@@ -11,48 +11,44 @@ card:
   weight: 20
   anchors:
   - anchor: "#hosted-solutions"
-    title: Hosted Solutions
+    title: Hosted решения
   - anchor: "#turnkey-cloud-solutions"
-    title: Turnkey Cloud Solutions
+    title: Облачные решения "под ключ"
   - anchor: "#on-premises-turnkey-cloud-solutions"
-    title: On-Premises Solutions
+    title: Локальные облачные решения "под ключ"
   - anchor: "#custom-solutions"
-    title: Custom Solutions
+    title: Пользовательские решения
   - anchor: "#local-machine-solutions"
     title: Local Machine
 ---
 
 {{% capture overview %}}
 
-Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to a rack of
-bare metal servers. The effort required to set up a cluster varies from running a single command to
-crafting your own customized cluster. Use this guide to choose a solution that fits your needs.
+Kubernetes может быть запущен различных платформах: на ноутбуке, на виртуальной машине в облаке или же на физическом сервере. Также доступны гибкие настройки кластера, от запуска одной командой и до настройки кастомизированного кластера. Используйте данные материалы, чтобы выбрать решение, наилучшим образом подходящее под ваши требования.
 
-If you just want to "kick the tires" on Kubernetes, use the [local Docker-based solutions](#local-machine-solutions).
+Если вы просто хотите попробовать использовать Kubernetes, воспользуйтесь [локальным решением с ипользованием Docker](#local-machine-solutions).
 
-When you are ready to scale up to more machines and higher availability, a [hosted solution](#hosted-solutions) is the easiest to create and maintain.
+Когда вы будете готовы расширяться на большее количество машин и вам потребуется обеспечить более высокую доступность, вашим лучшим, с точки зрения создания и поддержки, решением станет [hosted решение](#hosted-solutions)
 
-[Turnkey cloud solutions](#turnkey-cloud-solutions) require only a few commands to create
-and cover a wide range of cloud providers. [On-Premises turnkey cloud solutions](#on-premises-turnkey-cloud-solutions) have the simplicity of the turnkey cloud solution combined with the security of your own private network.
+[Облачные решения "под ключ"](#turnkey-cloud-solutions) требуют небольшое количество команд для настройки и могут быть использованы с широким кругом облачных провайдеров. [Локальные облачные решения "под ключ"](#on-premises-turnkey-cloud-solutions) объединяют в себе простоту настройки готовых облачных решений и безопасность собственной сети.
 
-If you already have a way to configure hosting resources, use [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) to easily bring up a cluster with a single command per machine.
+Если вы уже знаете способ настройки размещённых ресурсов, воспользуйтесь [kubeadm](/docs/setup/independent/create-cluster-kubeadm/) чтобы легко поднять кластер на каждой из машин всего одной командой.
 
-[Custom solutions](#custom-solutions) vary from step-by-step instructions to general advice for setting up
-a Kubernetes cluster from scratch.
+[Кастомизированные решения](#custom-solutions) могут представлять собой как пошаговые инструкции, так и общие советы по настройке кластера Kubernetes с нуля.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Local-machine Solutions
+## Решения для использования на локальной машине
 
-### Community Supported Tools
+### Инструменты, поддерживаемые сообществом
 
-* [Minikube](/docs/setup/minikube/) is a method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
+* [Minikube](/docs/setup/minikube/) - это способ создания локального кластера Kubernetes с единственным узлом для разработки и тестирования. Установка польностью автоматизирована и не требует наличия аккаунта у облачного провайдера.
 
-* [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) is a multi-node (while minikube is single-node) Kubernetes cluster which only requires a docker daemon. It uses docker-in-docker technique to spawn the Kubernetes cluster.
+* [Kubeadm-dind](https://github.com/kubernetes-sigs/kubeadm-dind-cluster) - это многоузловый кластер Kubernetes (в отличии от единственного узла minikube), требующий для запуска только демон Docker. Инструмент использует технику докер в докере чтобы породить кластер Kubernetes.
 
-* [Kubernetes IN Docker](https://github.com/kubernetes-sigs/kind) is a tool for running local Kubernetes clusters using Docker container "nodes". It is primarily designed for testing Kubernetes 1.11+. You can use it to create multi-node or multi-control-plane Kubernetes clusters.
+* [Kubernetes IN Docker](https://github.com/kubernetes-sigs/kind) - это инструмент для локального запуска Kubernetes с использованием Docker контейнеров в качестве узлов. В прервую очередь он разработан для тестирования Kubernetes 1.11+. Вы можете использовать данный инструмент для создания многоузловых или multi-control-plane кластеров Kubernetes.
 
 ### Ecosystem Tools
 
