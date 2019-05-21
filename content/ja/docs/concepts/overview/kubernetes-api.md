@@ -16,9 +16,9 @@ APIエンドポイント、リソースタイプ、そしてサンプルは[API�
 
 APIへの外部からのアクセスは、[APIアクセス制御ドキュメント](/docs/reference/access-authn-authz/controlling-access/)に記載されています。
 
-KubernetesAPIは、システムの宣言的設定スキーマの基礎としても機能します。[kubectl](/docs/reference/kubectl/overview/)コマンドラインツールから、APIオブジェクトを作成、更新、削除、取得することが出来ます。 
+Kubernetes APIは、システムの宣言的設定スキーマの基礎としても機能します。[kubectl](/docs/reference/kubectl/overview/)コマンドラインツールから、APIオブジェクトを作成、更新、削除、取得することが出来ます。 
 
-Kubernetesはまた、シリアライズされた状態を(現在は[etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)に、)APIリソースの観点から保存しています。
+また、Kubernetesは、シリアライズされた状態を(現在は[etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)に)APIリソースの単位で保存しています。
 
 Kubernetesそれ自身は複数のコンポーネントから構成されており、APIを介して連携しています。
 
@@ -28,7 +28,7 @@ Kubernetesそれ自身は複数のコンポーネントから構成されてお�
 
 ## APIの変更
 
-我々の経験上、成功を収めているどのようなシステムも、新しいユースケースへの対応、既存の変更に合わせ、成長し変わっていく必要があります。したがって、Kubernetesにも継続的に変化、成長することを期待しています。しかしながら、長期間にわたり、既存のクライアントとの互換性を損なわないようにします。一般的に、新しいAPIリソースとリソースフィールドは頻繁に追加されることが予想されます。リソース、フィールドの削除は、[API廃止ポリシー](/docs/reference/using-api/deprecation-policy/)への準拠を必要とします。
+我々の経験上、成功を収めているどのようなシステムも、新しいユースケースへの対応、既存の変更に合わせ、成長し変わっていく必要があります。したがって、Kubernetesにも継続的に変化、成長することを期待しています。一方で、長期間にわたり、既存のクライアントとの互換性を損なわないようにする予定です。一般的に、新しいAPIリソースとリソースフィールドは頻繁に追加されることが予想されます。リソース、フィールドの削除は、[API廃止ポリシー](/docs/reference/using-api/deprecation-policy/)への準拠を必要とします。
 
 何が互換性のある変更を意味するか、またAPIをどのように変更するかは、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/api_changes.md)に詳解されています。
 
@@ -54,9 +54,9 @@ GET /swagger.json | GET /openapi/v2 **Accept**: application/json
 GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
 GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf **Accept-Encoding**: gzip
 
-Kubernetesは、他の手段として主にクラスター間の連携用途向けにProtocol buffersをベースにしたシリアライズフォーマットを実装しており、[デザイン提案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)に書かれています。また各スキーマのIDFファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
+Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しており、そのフォーマットの概要は[デザイン提案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)に記載されています。また各スキーマのIDFファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
 
-1.14より前のバージョンのKubernetesAPIサーバーではまた、[Swagger v1.2](http://swagger.io/)をベースにしたKubernetes仕様を、`/swaggerapi`で公開しています。
+また、1.14より前のバージョンのKubernetesAPIサーバーでは、[Swagger v1.2](http://swagger.io/)をベースにしたKubernetes仕様を、`/swaggerapi`で公開しています。
 このエンドポイントは非推奨となっており、Kubernetes1.14で削除される予定です。
 
 ## APIバージョニング
@@ -97,7 +97,7 @@ APIグループは、RESTのパスとシリアライズされたオブジェク�
 
 1. 名前付きのグループは、`/apis/$GROUP_NAME/$VERSION`というRESTのパスで、`apiVersion: $GROUP_NAME/$VERSION`（例、`apiVersion: batch/v1`）を使います。サポートされているAPIグループの全リストは、[Kubernetes APIリファレンス](/docs/reference/)を参照してください。
 
-[カスタムリソース](/docs/concepts/api-extension/custom-resources/)でAPIを拡張するために、2つのパスがサポートされています:
+[カスタムリソース](/docs/concepts/api-extension/custom-resources/)でAPIを拡張するために、2つの方法がサポートされています:
 
 1. [カスタムリソース定義](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)は、とても基本的なCRUDが必要なユーザー向けです。
 1. 独自のAPIサーバーを実装可能な、フルセットのKubernetes APIが必要なユーザーは、[アグリゲーター](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)を使い、クライアントにシームレスな形で拡張を行います。
