@@ -111,7 +111,7 @@ cluster.
 
 * [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm) is a fully-managed, scalable, and highly available service that you can use to deploy your containerized applications to the cloud.
 
-* [Platform9](https://platform9.com/products/managed-kubernetes/) offers managed Kubernetes service that works on-premises or on any public cloud, with 99.9% SLA guarantee.
+* [Platform9](https://platform9.com/managed-kubernetes/) offers managed Kubernetes service that works on-premises or on any public cloud, with 99.9% SLA guarantee.
 
 * [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
@@ -145,7 +145,6 @@ few commands. These solutions are actively developed and have active community s
 * [Kublr](https://kublr.com/)
 * [Madcore.Ai](https://madcore.ai/)
 * [Nirmata](https://nirmata.com/)
-* [Nutanix Karbon](https://www.nutanix.com/products/karbon/)
 * [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengprerequisites.htm)
 * [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)
 * [Platform9 Managed Kubernetes as a Service](https://platform9.com/managed-kubernetes/)
@@ -167,6 +166,7 @@ few commands.
 * [GKE On-Prem | Google Cloud](https://cloud.google.com/gke-on-prem/)
 * [IBM Cloud Private](https://www.ibm.com/cloud/private)
 * [k3s](https://k3s.io)
+* [Nutanix Karbon](https://www.nutanix.com/products/karbon/)
 * [Kontena Pharos](https://kontena.io/pharos/)
 * [Kubermatic](https://www.loodse.com/product/)
 * [Kublr](https://kublr.com/)

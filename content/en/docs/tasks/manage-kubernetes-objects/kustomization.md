@@ -1,28 +1,43 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Kustomize
-content_template: templates/concept
-weight: 40
+content_template: templates/task
+weight: 20
 ---
 
 {{% capture overview %}}
+
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) is a standalone tool
 to customize Kubernetes objects
-through a [kustomization file](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/kustomization.yaml). 
+through a [kustomization file](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/kustomization.yaml).
+
 Since 1.14, Kubectl also
 supports the management of Kubernetes objects using a kustomization file.
 To view Resources found in a directory containing a kustomization file, run the following command:
+
 ```shell
 kubectl kustomize <kustomization_directory>
-``` 
+```
+
 To apply those Resources, run `kubectl apply` with `--kustomize` or `-k` flag:
+
 ```shell
 kubectl apply -k <kustomization_directory>
-``` 
+```
+
 {{% /capture %}}
 
-{{% capture body %}}
+{{% capture prerequisites %}}
+
+Install [`kubectl`](docs/tasks/tools/install-kubectl/).
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Overview of Kustomize
+
 Kustomize is a tool for customizing Kubernetes configurations. It has the following features to manage application configuration files:
 
 * generating resources from other sources
@@ -30,13 +45,15 @@ Kustomize is a tool for customizing Kubernetes configurations. It has the follow
 * composing and customizing collections of resources
 
 ### Generating Resources
+
 ConfigMap and Secret hold config or sensitive data that are used by other Kubernetes objects, such as Pods. The source
 of truth of ConfigMap or Secret are usually from somewhere else, such as a `.properties` file or a ssh key file.
 Kustomize has `secretGenerator` and `configMapGenerator`, which generate Secret and ConfigMap from files or literals.
 
-
 #### configMapGenerator
+
 To generate a ConfigMap from a file, add an entry to `files` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a file content.
+
 ```shell
 # Create a application.properties file
 cat <<EOF >application.properties
@@ -50,11 +67,15 @@ configMapGenerator:
   - application.properties
 EOF
 ```
+
 The generated ConfigMap can be checked by the following command:
+
 ```shell
 kubectl kustomize ./
 ```
-The generated ConfigMap is
+
+The generated ConfigMap is:
+
 ```yaml
 apiVersion: v1
 data:
@@ -66,6 +87,7 @@ metadata:
 ```
 
 ConfigMap can also be generated from literal key-value pairs. To generate a ConfigMap from a literal key-value pair, add an entry to `literals` list in configMapGenerator. Here is an example of generating a ConfigMap with a data item from a key-value pair.
+
 ```shell
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
@@ -74,11 +96,15 @@ configMapGenerator:
   - FOO=Bar
 EOF
 ```
+
 The generated ConfigMap can be checked by the following command:
+
 ```shell
 kubectl kustomize ./
 ```
+
 The generated ConfigMap is
+
 ```yaml
 apiVersion: v1
 data:
@@ -89,7 +115,9 @@ metadata:
 ```
 
 #### secretGenerator
-Secret can also be generated from files or literal key-value pairs. To generate a Secret from a file, add an entry to `files` list in `secretGenerator`. Here is an example of generating a Secret with a data item from a file.
+
+You can generate Secrets from files or literal key-value pairs. To generate a Secret from a file, add an entry to `files` list in `secretGenerator`. Here is an example of generating a Secret with a data item from a file.
+
 ```shell
 # Create a password.txt file
 cat <<EOF >./password.txt
@@ -104,7 +132,9 @@ secretGenerator:
   - password.txt
 EOF
 ```
+
 The generated Secret is as follows:
+
 ```yaml
 apiVersion: v1
 data:
@@ -114,7 +144,9 @@ metadata:
   name: example-secret-1-t2kt65hgtb
 type: Opaque
 ```
+
 To generate a Secret from a literal key-value pair, add an entry to `literals` list in `secretGenerator`. Here is an example of generating a Secret with a data item from a key-value pair.
+
 ```shell
 cat <<EOF >./kustomization.yaml
 secretGenerator:
@@ -124,7 +156,9 @@ secretGenerator:
   - password=secert 
 EOF
 ```
+
 The generated Secret is as follows:
+
 ```yaml
 apiVersion: v1
 data:
@@ -137,7 +171,9 @@ type: Opaque
 ```
 
 #### generatorOptions
+
 The generated ConfigMaps and Secrets have a suffix appended by hashing the contents. This ensures that a new ConfigMap or Secret is generated when the content is changed. To disable the behavior of appending a suffix, one can use `generatorOptions`. Besides that, it is also possible to specify cross-cutting options for generated ConfigMaps and Secrets.
+
 ```shell
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
@@ -152,7 +188,9 @@ generatorOptions:
     note: generated
 EOF
 ```
+
 Run`kubectl kustomize ./` to view the generated ConfigMap:
+
 ```yaml
 apiVersion: v1
 data:
@@ -167,6 +205,7 @@ metadata:
 ```
 
 ### Setting cross-cutting fields
+
 It is quite common to set cross-cutting fields for all Kubernetes resources in a project. 
 Some use cases for setting cross-cutting fields:
 
@@ -176,6 +215,7 @@ Some use cases for setting cross-cutting fields:
 * adding the same set of annotations
 
 Here is an example:
+
 ```shell
 # Create a deployment.yaml
 cat <<EOF >./deployment.yaml
@@ -211,7 +251,9 @@ resources:
 - deployment.yaml
 EOF
 ```
+
 Run `kubectl kustomize ./` to view those fields are all set in the Deployment Resource:
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -239,13 +281,16 @@ spec:
 ```
 
 ### Composing and Customizing Resources
+
 It is common to compose a set of Resources in a project and manage them inside
 the same file or directory. 
 Kustomize offers composing Resources from different files and applying patches or other customization to them. 
 
 #### Composing
+
 Kustomize supports composition of different resources. The `resources` field, in the `kustomization.yaml` file, defines the list of resources to include in a configuration. Set the path to a resource's configuration file in the `resources` list.
 Here is an example for an nginx application with a Deployment and a Service.
+
 ```shell
 # Create a deployment.yaml file
 cat <<EOF > deployment.yaml
@@ -293,11 +338,14 @@ resources:
 - service.yaml
 EOF
 ```
+
 The Resources from `kubectl kustomize ./` contains both the Deployment and the Service objects.
 
 #### Customizing
+
 On top of Resources, one can apply different customizations by applying patches. Kustomize supports different patching
 mechanisms through `patchesStrategicMerge` and `patchesJson6902`. `patchesStrategicMerge` is a list of file paths. Each file should be resolved to a [strategic merge patch](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md). The names inside the patches must match Resource names that are already loaded. Small patches that do one thing are recommended. For example, create one patch for increasing the deployment replica number and another patch for setting the memory limit.
+
 ```shell
 # Create a deployment.yaml file
 cat <<EOF > deployment.yaml
@@ -356,7 +404,9 @@ patchesStrategicMerge:
 - set_memory.yaml
 EOF
 ```
+
 Run `kubectl kustomize ./` to view the Deployment:
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -380,11 +430,13 @@ spec:
         ports:
         - containerPort: 80
 ```
+
 Not all Resources or fields support strategic merge patches. To support modifying arbitrary fields in arbitrary Resources,
 Kustomize offers applying [JSON patch](https://tools.ietf.org/html/rfc6902) through `patchesJson6902`.
 To find the correct Resource for a Json patch, the group, version, kind and name of that Resource need to be
 specified in `kustomization.yaml`. For example, increasing the replica number of a Deployment object can also be done
 through `patchesJson6902`.
+
 ```shell
 # Create a deployment.yaml file
 cat <<EOF > deployment.yaml
@@ -430,7 +482,9 @@ patchesJson6902:
   path: patch.yaml  
 EOF
 ```
+
 Run `kubectl kustomize ./` to see the `replicas` field is updated:
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -452,8 +506,10 @@ spec:
         ports:
         - containerPort: 80
 ```
+
 In addition to patches, Kustomize also offers customizing container images or injecting field values from other objects into containers
 without creating patches. For example, you can change the image used inside containers by specifying the new image in `images` field in `kustomization.yaml`.
+
 ```shell
 cat <<EOF > deployment.yaml
 apiVersion: apps/v1
@@ -508,6 +564,7 @@ spec:
         ports:
         - containerPort: 80
 ```
+
 Sometimes, the application running in a Pod may need to use configuration values from other objects. For example,
 a Pod from a Deployment object need to read the corresponding Service name from Env or as a command argument.
 Since the Service name may change as `namePrefix` or `nameSuffix` is added in the `kustomization.yaml` file. It is
@@ -568,7 +625,9 @@ vars:
     apiVersion: v1
 EOF
 ```
+
 Run `kubectl kustomize ./` to see that the Service name injected into containers is `dev-my-nginx-001`:
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -594,6 +653,7 @@ spec:
 ```
 
 ## Bases and Overlays
+
 Kustomize has the concepts of **bases** and **overlays**. A **base** is a directory with a `kustomization.yaml`, which contains a
 set of resources and associated customization. A base could be either a local directory or a directory from a remote repo,
 as long as a `kustomization.yaml` is present inside. An **overlay** is a directory with a `kustomization.yaml` that refers to other
@@ -601,7 +661,8 @@ kustomization directories as its `bases`. A **base** has no knowledge of an over
 An overlay may have multiple bases and it composes all resources
 from bases and may also have customization on top of them.
 
-Here is an example of a base.
+Here is an example of a base:
+
 ```shell
 # Create a directory to hold the base
 mkdir base
@@ -647,8 +708,10 @@ resources:
 - deployment.yaml
 - service.yaml
 ```
+
 This base can be used in multiple overlays. You can add different `namePrefix` or other cross-cutting fields
 in different overlays. Here are two overlays using the same base.
+
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
@@ -666,13 +729,16 @@ EOF
 ```
 
 ## How to apply/view/delete objects using Kustomize
+
 Use `--kustomize` or `-k` in `kubectl` commands to recognize Resources managed by `kustomization.yaml`. 
 Note that `-k` should point to a kustomization directory, such as
 
 ```shell
 kubectl apply -k <kustomization directory>/
 ```
+
 Given the following `kustomization.yaml`,
+
 ```shell
 # Create a deployment.yaml file
 cat <<EOF > deployment.yaml
@@ -706,28 +772,32 @@ resources:
 - deployment.yaml
 EOF
 ```
-Running the following command will apply the Deployment object `dev-my-nginx`:
+
+Run the following command to apply the Deployment object `dev-my-nginx`:
+
 ```shell
 > kubectl apply -k ./
 deployment.apps/dev-my-nginx created
 ```
-Running the following command will get he Deployment object `dev-my-nginx`:
+
+Run one of the following commands to view the Deployment object `dev-my-nginx`:
+
 ```shell
 kubectl get -k ./
 ```
-or 
+
 ```shell
 kubectl describe -k ./
 ```
-Running the following command will delete the Deployment object `dev-my-nginx`:
+
+Run the following command to delete the Deployment object `dev-my-nginx`:
+
 ```shell
 > kubectl delete -k ./
 deployment.apps "dev-my-nginx" deleted
 ```
 
-
 ## Kustomize Feature List
-Here is a list of all the features in Kustomize.
 
 | Field                 | Type                                                                                                         | Explanation                                                                        |
 |-----------------------|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
@@ -748,11 +818,13 @@ Here is a list of all the features in Kustomize.
 | configurations        | []string                                                                                                     | Each entry in this list should resolve to a file containing [Kustomize transformer configurations](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) |
 | crds                  | []string                                                                                                     | Each entry in this list should resolve to an OpenAPI definition file for Kubernetes types |
 
-
+{{% /capture %}}
 
 {{% capture whatsnext %}}
-- [Kustomize](https://github.com/kubernetes-sigs/kustomize)
-- [Kubectl Book](https://kubectl.docs.kubernetes.io)
-- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
-- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
+* [Kustomize](https://github.com/kubernetes-sigs/kustomize)
+* [Kubectl Book](https://kubectl.docs.kubernetes.io)
+* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
 {{% /capture %}}

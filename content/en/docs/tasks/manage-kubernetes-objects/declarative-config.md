@@ -1,7 +1,7 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Configuration Files
-content_template: templates/concept
-weight: 40
+content_template: templates/task
+weight: 10
 ---
 
 {{% capture overview %}}
@@ -13,7 +13,15 @@ back into the object configuration files. `kubectl diff` also gives you a
 preview of what changes `apply` will make.
 {{% /capture %}}
 
-{{% capture body %}}
+{{% capture prerequisites %}}
+
+Install [`kubectl`](docs/tasks/tools/install-kubectl/).
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Trade-offs
 
@@ -26,14 +34,14 @@ The `kubectl` tool supports three kinds of object management:
 See [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
-## Before you begin
+## Overview
 
 Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration. Read and complete
 the following documents if you have not already:
 
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
+* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 
 Following are definitions for terms used in this document:
 
@@ -69,9 +77,11 @@ Here's an example of an object configuration file:
 {{< codenew file="application/simple_deployment.yaml" >}}
 
 Run `kubectl diff` to print the object that will be created:
+
 ```shell
 kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
+
 {{< note >}}
 `diff` uses [server-side dry-run](/docs/reference/using-api/api-concepts/#dry-run), which needs to be enabled on `kube-apiserver`.
 {{< /note >}}
@@ -278,18 +288,18 @@ kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 
 Print the live configuration using `kubectl get`:
 
-```
+```shell
 kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
 
-- The `replicas` field retains the value of 2 set by `kubectl scale`.
+* The `replicas` field retains the value of 2 set by `kubectl scale`.
   This is possible because it is omitted from the configuration file.
-- The `image` field has been updated to `nginx:1.11.9` from `nginx:1.7.9`.
-- The `last-applied-configuration` annotation has been updated with the new image.
-- The `minReadySeconds` field has been cleared.
-- The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
+* The `image` field has been updated to `nginx:1.11.9` from `nginx:1.7.9`.
+* The `last-applied-configuration` annotation has been updated with the new image.
+* The `minReadySeconds` field has been cleared.
+* The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
 
 ```yaml
 apiVersion: apps/v1
@@ -983,8 +993,10 @@ template:
 ```
 
 {{% capture whatsnext %}}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
-- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
+* [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
+* [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
 {{% /capture %}}

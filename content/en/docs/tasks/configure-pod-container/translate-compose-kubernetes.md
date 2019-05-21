@@ -102,7 +102,7 @@ you need is an existing `docker-compose.yml` file.
             - "6379"
 
         redis-slave:
-          image: gcr.io/google_samples/gb-redisslave:v1
+          image: gcr.io/google_samples/gb-redisslave:v3
           ports:
             - "6379"
           environment:

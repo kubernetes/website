@@ -228,9 +228,9 @@ are merged into a single document.
     {{< tabs name="k8s_install_kubelet" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.14.x-00 with the latest patch version
-    apt-mark unhold kubelet && \
+    apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.14.x-00 kubectl=1.14.x-00 && \
-    apt-mark hold kubelet
+    apt-mark hold kubelet kubectl
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.14.x-0 with the latest patch version

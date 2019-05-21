@@ -40,8 +40,8 @@ A `Role` can only be used to grant access to resources within a single namespace
 Here's an example `Role` in the "default" namespace that can be used to grant read access to pods:
 
 ```yaml
-kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
 metadata:
   namespace: default
   name: pod-reader
@@ -62,8 +62,8 @@ The following `ClusterRole` can be used to grant read access to secrets in any p
 or across all namespaces (depending on how it is [bound](#rolebinding-and-clusterrolebinding)):
 
 ```yaml
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   # "namespace" omitted since ClusterRoles are not namespaced
   name: secret-reader
@@ -86,9 +86,9 @@ This allows "jane" to read pods in the "default" namespace.
 `roleRef` is how you will actually create the binding.  The `kind` will be either `Role` or `ClusterRole`, and the `name` will reference the name of the specific `Role` or `ClusterRole` you want. In the example below, this RoleBinding is using `roleRef` to bind the user "jane" to the `Role` created above named `pod-reader`.
 
 ```yaml
+apiVersion: rbac.authorization.k8s.io/v1
 # This role binding allows "jane" to read pods in the "default" namespace.
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-pods
   namespace: default
@@ -112,9 +112,9 @@ For instance, even though the following `RoleBinding` refers to a `ClusterRole`,
 namespace (the namespace of the `RoleBinding`).
 
 ```yaml
+apiVersion: rbac.authorization.k8s.io/v1
 # This role binding allows "dave" to read secrets in the "development" namespace.
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-secrets
   namespace: development # This only grants permissions within the "development" namespace.
@@ -133,9 +133,9 @@ namespaces. The following `ClusterRoleBinding` allows any user in the group "man
 secrets in any namespace.
 
 ```yaml
+apiVersion: rbac.authorization.k8s.io/v1
 # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: read-secrets-global
 subjects:
@@ -181,8 +181,8 @@ this in an RBAC role, use a slash to delimit the resource and subresource. To al
 to read both pods and pod logs, you would write:
 
 ```yaml
-kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
 metadata:
   namespace: default
   name: pod-and-pod-logs-reader
@@ -193,13 +193,12 @@ rules:
 ```
 
 Resources can also be referred to by name for certain requests through the `resourceNames` list.
-When specified, requests using the "get", "delete", "update", and "patch" verbs can be restricted
-to individual instances of a resource. To restrict a subject to only "get" and "update" a single
-configmap, you would write:
+When specified, requests can be restricted to individual instances of a resource. To restrict a
+subject to only "get" and "update" a single configmap, you would write:
 
 ```yaml
-kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
 metadata:
   namespace: default
   name: configmap-updater
@@ -210,10 +209,8 @@ rules:
   verbs: ["update", "get"]
 ```
 
-Notably, if `resourceNames` are set, then the verb must not be list, watch, create, or deletecollection.
-Because resource names are not present in the URL for create, list, watch, and deletecollection API requests,
-those verbs would not be allowed by a rule with `resourceNames` set, since the `resourceNames` portion of the
-rule would not match the request.
+Note that `create` requests cannot be restricted by resourceName, as the object name is not known at
+authorization time. The other exception is `deletecollection`.
 
 ### Aggregated ClusterRoles
 
@@ -222,8 +219,8 @@ permissions of aggregated ClusterRoles are controller-managed, and filled in by 
 ClusterRole that matches the provided label selector. An example aggregated ClusterRole:
 
 ```yaml
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: monitoring
 aggregationRule:
@@ -238,8 +235,8 @@ rules can be added to the "monitoring" ClusterRole by creating another ClusterRo
 `rbac.example.com/aggregate-to-monitoring: true`.
 
 ```yaml
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: monitoring-endpoints
   labels:
@@ -259,8 +256,8 @@ For example, the following ClusterRoles let the "admin" and "edit" default roles
 "CronTabs" and the "view" role perform read-only actions on the resource.
 
 ```yaml
-kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
 metadata:
   name: aggregate-cron-tabs-edit
   labels:

@@ -40,6 +40,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     minikube start
     ```
     The output is similar to this:
+
     ```
     Starting local Kubernetes cluster...
     Running pre-create checks...
