@@ -8,13 +8,21 @@ title: Setup
 main_menu: true
 weight: 30
 content_template: templates/concept
+card:
+  name: setup
+  weight: 20
+  anchors:
+  - anchor: "#learning-environment"
+    title: Learning environment
+  - anchor: "#production-environment"
+    title: Production environment  
 ---
 
 {{% capture overview %}}
 
 This section covers different options to set up and run Kubernetes.
 
-Different Kubernetes solutions meet different requirements: ease of maintenance, security, control, available resources, and expertise required to operate and manage a cluster. 
+Different Kubernetes solutions meet different requirements: ease of maintenance, security, control, available resources, and expertise required to operate and manage a cluster.
 
 You can deploy a Kubernetes cluster on a local machine, cloud, on-prem datacenter; or choose a managed Kubernetes cluster. You can also create custom solutions across a wide range of cloud providers, or bare metal environments.
 
@@ -63,6 +71,7 @@ The following production environment solutions table lists the providers and the
 | [AppsCode](https://appscode.com/products/pharmer/)          | &#x2714;      |  |       |         |  |
 | [APPUiO](https://appuio.ch/)  | &#x2714;     | &#x2714;  |   &#x2714; | |  | |
 | [CenturyLink Cloud](https://www.ctl.io/)     |       | &#x2714; |   |  | |
+| [Cisco Container Platform](https://cisco.com/go/containers)     |       |  | &#x2714;  |  | |
 | [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)       |     |  |   | &#x2714; |&#x2714; |
 | [CloudStack](https://cloudstack.apache.org/)           |      |  |   | | &#x2714;|
 | [Canonical](https://www.ubuntu.com/kubernetes/docs/quickstart)      |              | &#x2714;       |             | &#x2714;     |&#x2714;  | &#x2714;
