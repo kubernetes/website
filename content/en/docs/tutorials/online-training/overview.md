@@ -19,7 +19,7 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Certified Kubernetes Administrator Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/certified-kubernetes-administrator-with-practice-tests)
 
-* [Certified Kubernetes Application Developer (CKAD) with Hands-On Labs & Practice Exams (Linux Academy)] (https://linuxacademy.com/containers/training/course/name/certified-kubernetes-application-developer-ckad)
+* [Certified Kubernetes Application Developer (CKAD) with Hands-On Labs & Practice Exams (Linux Academy)] (https://linuxacademy.com/containers/training/course/name/certified-kubernetes-application-developer-ckad/)
 
 * [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/kubernetes-certification-course)
 
