@@ -12,9 +12,13 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Depending on your requirements such as ease of maintenance, security, control, available resources, and level of expertise to operate and manage a Kubernetes cluster, there are various solutions available. You can deploy a Kubernetes cluster on a local machine, cloud, on-prem datacenter; or choose a managed Kubernetes cluster. You can also create custom solutions across a wide range of cloud providers, or bare metal environments.
+This section covers different options to set up and run Kubernetes.
 
-You can create a Kubernetes cluster in learning and production environments.
+Different Kubernetes solutions meet different requirements: ease of maintenance, security, control, available resources, and expertise required to operate and manage a cluster. 
+
+You can deploy a Kubernetes cluster on a local machine, cloud, on-prem datacenter; or choose a managed Kubernetes cluster. You can also create custom solutions across a wide range of cloud providers, or bare metal environments.
+
+More simply, you can create a Kubernetes cluster in learning and production environments.
 
 {{% /capture %}}
 
@@ -22,7 +26,7 @@ You can create a Kubernetes cluster in learning and production environments.
 
 ## Learning environment
 
-If you want to get familiar with Kubernetes, you can use the Docker-based solutions. You can use tools that are supported by the Kubernetes community or the tools in the ecosystem to set up a Kubernetes cluster on a local machine.
+If you're learning Kubernetes, use the Docker-based solutions: tools supported by the Kubernetes community, or tools in the ecosystem to set up a Kubernetes cluster on a local machine.
 
 {{< table caption="Local machine solutions table that lists the tools supported by the community and the ecosystem to deploy Kubernetes." >}}
 
@@ -40,8 +44,11 @@ If you want to get familiar with Kubernetes, you can use the Docker-based soluti
 
 ## Production environment
 
-Some of the possible abstractions of a Kubernetes cluster are {{< glossary_tooltip text="applications" term_id="applications" >}}, {{< glossary_tooltip text="data plane" term_id="data-plane" >}}, {{< glossary_tooltip text="control plane" term_id="control-plane" >}}, {{< glossary_tooltip text="cluster infrastructure" term_id="cluster-infrastructure" >}}, and {{< glossary_tooltip text="cluster operations" term_id="cluster-operations" >}}.
-The following production environment solutions diagram lists the possible abstractions of a Kubernetes cluster and the level of expertise involved in managing the operations of a cluster.
+When evaluating a solution for a production environment, consider which aspects of operating a Kubernetes cluster (or _abstractions_) you want to manage yourself or offload to a provider.
+
+Some possible abstractions of a Kubernetes cluster are {{< glossary_tooltip text="applications" term_id="applications" >}}, {{< glossary_tooltip text="data plane" term_id="data-plane" >}}, {{< glossary_tooltip text="control plane" term_id="control-plane" >}}, {{< glossary_tooltip text="cluster infrastructure" term_id="cluster-infrastructure" >}}, and {{< glossary_tooltip text="cluster operations" term_id="cluster-operations" >}}.
+
+The following diagram lists the possible abstractions of a Kubernetes cluster and whether an abstraction is self-managed or managed by a provider.
 
 Production environment solutions![Production environment solutions](/images/docs/KubernetesSolutions.svg)
 
