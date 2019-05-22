@@ -40,10 +40,10 @@ Following the [Digital Rebar installation](https://provision.readthedocs.io/en/t
 
 Upload the KRIB Content bundle (or build from [source](https://github.com/digitalrebar/provision-content/tree/master/krib)) and the Cert Plugin for your DRP platform. Both are freely available via the [RackN UX](https://portal.rackn.io) or using the upload from catalog feature of the DRPCLI (shown below).
 
-  ::
-
-    drpcli plugin_providers upload certs from catalog:certs-stable
-    drpcli contents upload catalog:krib-stable
+```
+drpcli plugin_providers upload certs from catalog:certs-stable
+drpcli contents upload catalog:krib-stable
+```
 
 ### (3/5) Start your cluster deployment
 
