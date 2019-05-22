@@ -78,5 +78,5 @@ Wählen Sie eine [individuelle Lösung](/docs/setup/pick-right-solution/#custom-
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Gehen Sie zu [Auswählen der richtigen Lösung](/docs/setup/) für eine vollständige Liste der möglichen Lösungen.
+Gehen Sie zu [Auswählen der richtigen Lösung](/docs/setup/pick-right-solution) für eine vollständige Liste der möglichen Lösungen.
 {{% /capture %}}
