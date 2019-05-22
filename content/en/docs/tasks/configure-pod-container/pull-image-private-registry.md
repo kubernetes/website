@@ -58,6 +58,10 @@ If you use a Docker credentials store, you won't see that `auth` entry but a `cr
 
 ## Create a Secret based on existing Docker credentials {#registry-secret-existing-credentials}
 
+{{< note >}}
+If you are using Kubernetes on Mac, you will need to provide credentials [via the command line](/#Create a Secret by providing credentials on the command line)
+{{< /note >}}
+
 A Kubernetes cluster uses the Secret of `docker-registry` type to authenticate with
 a container registry to pull a private image.
 
