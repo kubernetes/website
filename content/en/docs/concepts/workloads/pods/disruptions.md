@@ -16,6 +16,13 @@ what types of Disruptions can happen to Pods.
 It is also for Cluster Administrators who want to perform automated
 cluster actions, like upgrading and autoscaling clusters.
 
+It is most useful if your Pod has special requirements to run and not all your
+nodes provide this environment, eg. some are Linux and some are Windows. In this
+case, even though the cluster has resources left, the constraints for your Pod
+does not allow it to be scheduled on the other node pool. If all your nodes
+provide the same environment, you generally don't need Pod Disruption Budgets, as
+Kubernetes will try to keep your given amount of Pods available.
+
 {{% /capture %}}
 
 
