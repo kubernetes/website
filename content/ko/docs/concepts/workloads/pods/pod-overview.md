@@ -2,6 +2,9 @@
 title: 파드(Pod) 개요
 content_template: templates/concept
 weight: 10
+card:
+  name: concepts
+  weight: 60
 ---
 
 {{% capture overview %}}
@@ -103,5 +106,5 @@ spec:
 {{% capture whatsnext %}}
 * 파드의 다른 동작들을 더 배워보자.
   * [파드 종료](/docs/concepts/workloads/pods/pod/#termination-of-pods)
-  * [파드 라이프사이클](../pod-lifecycle)
+  * [파드 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)
 {{% /capture %}}

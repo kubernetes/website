@@ -30,6 +30,24 @@ other = "Non"
 [latest_version]
 other = "dernière version."
 
+[version_check_mustbe]
+other = "Votre serveur Kubernetes doit être version "
+
+[version_check_mustbeorlater]
+other = "Votre serveur Kubernetes doit être au moins à la version "
+
+[version_check_tocheck]
+other = "Pour consulter la version, entrez "
+
+[caution]
+other = "Avertissement:"
+
+[note]
+other = "Note:"
+
+[warning]
+other = "Attention:"
+
 [main_read_about]
 other = "A propos"
 
@@ -40,7 +58,7 @@ other = "Autres ressources"
 other = "Souhaitez vous contribuer au code de Kubernetes ?"
 
 [main_github_view_on]
-other = "Voir sur Github"
+other = "Voir sur GitHub"
 
 [main_github_create_an_issue]
 other = "Ouvrez un ticket"

@@ -131,13 +131,13 @@ The output is similar to this:
 
 ```yaml
 apiVersion: v1
-data:
-  .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
 kind: Secret
 metadata:
   ...
   name: regcred
   ...
+data:
+  .dockerconfigjson: eyJodHRwczovL2luZGV4L ... J0QUl6RTIifX0=
 type: kubernetes.io/dockerconfigjson
 ```
 
@@ -196,7 +196,7 @@ The `imagePullSecrets` field in the configuration file specifies that Kubernetes
 Create a Pod that uses your Secret, and verify that the Pod is running:
 
 ```shell
-kubectl create -f my-private-reg-pod.yaml
+kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 

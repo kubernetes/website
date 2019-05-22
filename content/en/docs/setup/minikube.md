@@ -39,106 +39,136 @@ the following drivers:
 * virtualbox
 * vmwarefusion
 * kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
+* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
 * none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
 
-```shell
-minikube start
-```
-```
-Starting local Kubernetes cluster...
-Running pre-create checks...
-Creating machine...
-Starting local Kubernetes cluster...
-```
-```shell
-kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-```
-```
-deployment.apps/hello-minikube created
-```
+1. Start a minikube 
 
-```shell
-kubectl expose deployment hello-minikube --type=NodePort
-```
-```
-service/hello-minikube exposed
-```
-```
-# We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
-# via the exposed service.
-# To check whether the pod is up and running we can use the following:
-kubectl get pod
-```
-```
-NAME                              READY     STATUS              RESTARTS   AGE
-hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-```
-```
-# We can see that the pod is still being created from the ContainerCreating status
-kubectl get pod
-```
-```
-NAME                              READY     STATUS    RESTARTS   AGE
-hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-```
-```
-# We can see that the pod is now Running and we will now be able to curl it:
-curl $(minikube service hello-minikube --url)
-```
-```
+    ```        
+    minikube start
+    ```    
+    The output shows that the kubernetes cluster is started:
+   
+    ```
+    Starting local Kubernetes cluster...
+    Running pre-create checks...
+    Creating machine...
+    Starting local Kubernetes cluster...
+    ```
+        
+2. Create an echo server deployment
 
-Hostname: hello-minikube-7c77b68cff-8wdzq
+    ```
+    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+    ```        
+    The output of a successful command verifies that the deployment is created:
+   
+    ```
+    deployment.apps/hello-minikube created
+    ```
+        
+3. Expose an echo server deployment to create service       
 
-Pod Information:
-	-no pod information available-
+    ```
+    kubectl expose deployment hello-minikube --type=NodePort
+    ```
+    The output of a successful command verifies that the service is created:
+   
+    ```
+    service/hello-minikube exposed
+    ```
 
-Server values:
-	server_version=nginx: 1.13.3 - lua: 10008
+4. Check whether the pod is up and running
 
-Request Information:
-	client_address=172.17.0.1
-	method=GET
-	real path=/
-	query=
-	request_version=1.1
-	request_scheme=http
-	request_uri=http://192.168.99.100:8080/
+    ```
+    kubectl get pod
+    ```
+    The output displays the pod is still being created:     
+         
+    ```
+    NAME                              READY     STATUS              RESTARTS   AGE
+    hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+    ```
 
-Request Headers:
-	accept=*/*
-	host=192.168.99.100:30674
-	user-agent=curl/7.47.0
+5. Wait for while and then check again, whether the pod is up and running using same command
 
-Request Body:
-	-no body in request-
-```
+    ```
+    kubectl get pod
+    ```
+    Now the output displays the pod is created and it is running:     
+   
+    ```
+    NAME                              READY     STATUS    RESTARTS   AGE
+    hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+    ```
 
-```shell
-kubectl delete services hello-minikube
-```
-```
-service "hello-minikube" deleted
-```
+6. Curl service which we have created
 
-```shell
-kubectl delete deployment hello-minikube
-```
-```
-deployment.extensions "hello-minikube" deleted
-```
+    ```
+    curl $(minikube service hello-minikube --url)
+    ```        
+    Output looks similer to this:
+   
+    ```
+    Hostname: hello-minikube-7c77b68cff-8wdzq
 
-```shell
-minikube stop
-```
-```
-Stopping local Kubernetes cluster...
-Stopping "minikube"...
-```
+    Pod Information:
+      -no pod information available-
+
+    Server values:
+      server_version=nginx: 1.13.3 - lua: 10008
+
+    Request Information:
+      client_address=172.17.0.1
+      method=GET
+      real path=/
+      query=
+      request_version=1.1
+      request_scheme=http
+      request_uri=http://192.168.99.100:8080/
+
+    Request Headers:
+      accept=*/*
+      host=192.168.99.100:30674
+      user-agent=curl/7.47.0
+
+    Request Body:
+      -no body in request-
+    ```
+7. Delete the service which we have created
+
+    ```
+    kubectl delete services hello-minikube
+    ```
+    The output of a successful command verifies that the service is deleted:  
+   
+    ```
+    service "hello-minikube" deleted
+    ```
+8. Delete the deployment which we have created
+
+    ```
+    kubectl delete deployment hello-minikube
+    ```
+    The output of a successful command verifies that the deployment is deleted:
+   
+    ```
+    deployment.extensions "hello-minikube" deleted
+    ```
+9. Stop a minikube
+
+    ```
+    minikube stop
+   ```
+   The output displays the kubernetes cluster is stopping:
+   
+   ```
+   Stopping local Kubernetes cluster...
+   Stopping "minikube"...
+   ```
 
 ### Alternative Container Runtimes
 
@@ -302,7 +332,7 @@ To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--ext
 ### Stopping a Cluster
 The `minikube stop` command can be used to stop your cluster.
 This command shuts down the Minikube Virtual Machine, but preserves all cluster state and data.
-Starting the cluster again will restore it to it's previous state.
+Starting the cluster again will restore it to its previous state.
 
 ### Deleting a Cluster
 The `minikube delete` command can be used to delete your cluster.

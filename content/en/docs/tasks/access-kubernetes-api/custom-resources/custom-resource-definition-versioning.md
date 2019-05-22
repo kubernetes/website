@@ -87,10 +87,10 @@ spec:
 ```
 
 You can save the CustomResourceDefinition in a YAML file, then use
-`kubectl create` to create it.
+`kubectl apply` to create it.
 
 ```shell
-kubectl create -f my-versioned-crontab.yaml
+kubectl apply -f my-versioned-crontab.yaml
 ```
 
 After creation, the API server starts to serve each enabled version at an HTTP
@@ -149,7 +149,7 @@ the version.
 
 {{< note >}}
 Webhook conversion is introduced in Kubernetes 1.13 as an alpha feature. To use it, the
-`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
 The above example has a None conversion between versions which only sets the `apiVersion` field
@@ -171,7 +171,7 @@ that is validated in a Kubernetes e2e test. The webhook handles the
 results wrapped in `ConversionResponse`. Note that the request
 contains a list of custom resources that need to be converted independently without
 changing the order of objects.
-The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file]((https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/converter/framework.go)) that leaves only [one function]((https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/converter/example-converter.go#L29-L80)) to be implemented for different conversions.
+The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file](https://github.com/kubernetes/kubernetes/tree/v1.14.0/test/images/crd-conversion-webhook/converter/framework.go) that leaves only [one function](https://github.com/kubernetes/kubernetes/blob/v1.13.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80) to be implemented for different conversions.
 
 {{< note >}}
 The example conversion webhook server leaves the `ClientAuth` field

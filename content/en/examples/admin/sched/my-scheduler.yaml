@@ -4,8 +4,8 @@ metadata:
   name: my-scheduler
   namespace: kube-system
 ---
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: my-scheduler-as-kube-scheduler
 subjects:

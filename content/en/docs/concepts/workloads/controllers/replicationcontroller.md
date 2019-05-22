@@ -55,7 +55,7 @@ This example ReplicationController config runs three copies of the nginx web ser
 Run the example job by downloading the example file and then running this command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/replication.yaml
+kubectl apply -f https://k8s.io/examples/controllers/replication.yaml
 ```
 ```
 replicationcontroller/nginx created
@@ -118,7 +118,7 @@ specifies an expression that just gets the name from each pod in the returned li
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
 For general information about working with config files, see [object management ](/docs/concepts/overview/object-management-kubectl/overview/).
 
-A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 ### Pod Template
 

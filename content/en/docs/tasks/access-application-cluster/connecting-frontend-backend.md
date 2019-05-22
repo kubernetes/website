@@ -49,7 +49,7 @@ file for the backend Deployment:
 Create the backend Deployment:
 
 ```shell
-kubectl create -f https://k8s.io/examples/service/access/hello.yaml
+kubectl apply -f https://k8s.io/examples/service/access/hello.yaml
 ```
 
 View information about the backend Deployment:
@@ -113,7 +113,7 @@ that have the labels `app: hello` and `tier: backend`.
 Create the `hello` Service:
 
 ```shell
-kubectl create -f https://k8s.io/examples/service/access/hello-service.yaml
+kubectl apply -f https://k8s.io/examples/service/access/hello-service.yaml
 ```
 
 At this point, you have a backend Deployment running, and you have a
@@ -140,7 +140,7 @@ the Service uses the default load balancer of your cloud provider.
 Create the frontend Deployment and Service:
 
 ```shell
-kubectl create -f https://k8s.io/examples/service/access/frontend.yaml
+kubectl apply -f https://k8s.io/examples/service/access/frontend.yaml
 ```
 
 The output verifies that both resources were created:

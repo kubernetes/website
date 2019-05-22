@@ -39,7 +39,7 @@ It takes around 10s to complete.
 You can run the example with this command:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/job.yaml
+kubectl apply -f https://k8s.io/examples/controllers/job.yaml
 ```
 ```
 job "pi" created
@@ -249,7 +249,7 @@ spec:
       restartPolicy: Never
 ```
 
-Note that both the Job spec and the [Pod template spec](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
+Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
 
 ## Clean Up Finished Jobs Automatically
 
@@ -340,7 +340,7 @@ The pattern names are also links to examples and more detailed description.
 | Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
-has an identical [`spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).  This means that
+has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
 all pods for a task will have the same command line and the same
 image, the same volumes, and (almost) the same environment variables.  These patterns
 are different ways to arrange for pods to work on different things.

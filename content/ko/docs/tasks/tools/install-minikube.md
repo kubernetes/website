@@ -2,6 +2,9 @@
 title: Minikube 설치
 content_template: templates/task
 weight: 20
+card:
+  name: tasks
+  weight: 10
 ---
 
 {{% capture overview %}}
@@ -69,7 +72,7 @@ sudo mv minikube /usr/local/bin
 이 문서는 Minikube를 리눅스에 정적 바이너리를 사용해서 설치하는 방법을 설명한다. 리눅스에 설치하는 다른 방법은, 공식 Minikube GitHub 저장소의 [Other Ways to Install](https://github.com/kubernetes/minikube#other-ways-to-install)를 참조한다.
 {{< /note >}}
 
-정적 바이너리를 내려받아서 리눅스에 Minikube를 설치할 수 있따.
+정적 바이너리를 내려받아서 리눅스에 Minikube를 설치할 수 있다.
 
 ```shell
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
@@ -83,9 +86,10 @@ sudo cp minikube /usr/local/bin && rm minikube
 ```
 
 ### Windows
+ or [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v). Hyper-V can be run on three versions of Windows 10: Windows 10 Enterprise, Windows 10 Professional, and Windows 10 Education. See the official Minikube GitHub repository for additional [installation information](https://github.com/kubernetes/minikube/#installation).
 
 {{< note >}}
-Minikube를 Windows에서 실행하려면, 우선 [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)를 설치할 필요가 있다. Hyper-V는 Windows 10 Enterprise, Windows 10 Professional 과 Windows 10 Education 세 버전의 Windows 10에서 동작한다.  
+Minikube를 Windows에서 실행하려면, 우선 첫번째로 [VirtualBox](https://www.virtualbox.org/) 또는 [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)를 설치할 필요가 있다. Hyper-V는 Windows 10 Enterprise, Windows 10 Professional 과 Windows 10 Education 세 버전의 Windows 10에서 동작한다.  
 {{< /note >}}
 
 Windows에서 Minikube를 설치하는 가장 쉬운 방법은 [Chocolatey](https://chocolatey.org/)를 사용하는 것이다. (관리자 권한으로 실행)
@@ -112,4 +116,19 @@ Windows에 Minikube를 수동으로 설치하려면, [`minikube-windows-amd64`](
 
 {{% /capture %}}
 
+## 새롭게 시작하기 위해 모두 정리하기
 
+이전에 minikube를 설치한 적이 있다면, 실행한다.
+```shell
+minikube start
+```
+
+이 커맨드는 에러를 리턴한다.
+```shell
+machine does not exist
+```
+
+구성 파일을 삭제해야 한다.
+```shell
+rm -rf ~/.minikube
+```

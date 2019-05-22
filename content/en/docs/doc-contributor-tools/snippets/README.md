@@ -46,6 +46,6 @@ Placeholder text is included.
 ## Submitting new snippets
 
 1.  Develop the snippet locally and verify that it works as expected.
-2.  Copy the template's code into the `atom-snippets.cson` file on Github. Raise a
+2.  Copy the template's code into the `atom-snippets.cson` file on GitHub. Raise a
     pull request, and ask for review from another Atom user in `#sig-docs` on
     Kubernetes Slack.
