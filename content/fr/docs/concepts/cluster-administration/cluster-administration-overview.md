@@ -13,7 +13,7 @@ Il suppose une certaine familiarité avec les [concepts](/docs/concepts/) de Kub
 {{% capture body %}}
 ## Planifier le déploiement d'un cluster
 
-Voir le guide: [choisir la bonne solution](/docs/setup/pick-right-solution) pour des exemples de planification, de mise en place et de configuration de clusters Kubernetes. Les solutions répertoriées dans cet article s'appellent des *distributions*.
+Voir le guide: [choisir la bonne solution](/docs/setup/pick-right-solution/) pour des exemples de planification, de mise en place et de configuration de clusters Kubernetes. Les solutions répertoriées dans cet article s'appellent des *distributions*.
 
 Avant de choisir un guide, voici quelques considérations:
 

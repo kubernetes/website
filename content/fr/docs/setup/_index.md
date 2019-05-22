@@ -91,5 +91,5 @@ Choisissez une [solution personnalisée] (/docs/setup/pick-right-solution/#custo
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Allez à [Choisir la bonne solution] (/docs/setup/pick-right-solution) pour une list complète de solutions.
+Allez à [Choisir la bonne solution] (/docs/setup/pick-right-solution/) pour une list complète de solutions.
 {{% /capture %}}
