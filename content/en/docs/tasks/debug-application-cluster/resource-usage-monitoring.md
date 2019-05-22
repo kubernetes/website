@@ -46,7 +46,7 @@ monitoring statistics by default:
 
 ### Kubelet
 
-The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from cAdvisor. It then exposes the aggregated pod resource usage statistics via a REST API.
+The Kubelet acts as a bridge between the Kubernetes master and the nodes. It manages the pods and containers running on a machine. Kubelet translates each pod into its constituent containers and fetches individual container usage statistics from the container runtime, through the container runtime interface. For the legacy docker integration, it fetches this information from cAdvisor.  It then exposes the aggregated pod resource usage statistics through the kubelet resource metrics api.  This api is served at `/metrics/resource/v1alpha1` on the kubelet's authenticated and read-only ports.
 
 ### cAdvisor
 
@@ -74,6 +74,14 @@ custom metrics API using the
 Prometheus provides a robust query language and a built-in dashboard for
 querying and visualizing your data. Prometheus is also a supported
 data source for [Grafana](https://prometheus.io/docs/visualization/grafana/).
+
+### Sysdig
+[Sysdig](http://sysdig.com) provides full spectrum container and platform intelligence, and is a
+true container native solution. Sysdig pulls together data from system calls, Kubernetes events,
+Prometheus metrics, statsD, JMX, and more into a single pane that gives you a comprehensive picture 
+of your environment. Sysdig also provides an API to query for providing robust and customizable 
+solutions. Sysdig is built on Open Source. [Sysdig and Sysdig Inspect](https://sysdig.com/opensource/inspect/) give you the 
+ability to freely perform troubleshooting, performance analyis and forensics. 
 
 ### Google Cloud Monitoring
 

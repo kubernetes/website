@@ -56,21 +56,33 @@ detailed config file information.
 kubectl config view # Show Merged kubeconfig settings.
 
 # use multiple kubeconfig files at the same time and view merged config
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 
 
-# Get the password for the e2e user
+kubectl config view
+
+# get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config current-context              # Display the current-context
-kubectl config use-context my-cluster-name  # set the default context to my-cluster-name
+kubectl config view -o jsonpath='{.users[].name}'    # get a list of users
+kubectl config get-contexts                          # display list of contexts 
+kubectl config current-context			               # display the current-context
+kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new cluster to your kubeconf that supports basic auth
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
+# permanently save the namespace for all subsequent kubectl commands in that context.
+kubectl config set-context --current --namespace=ggckad-s2
+
 # set a context utilizing a specific username and namespace.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
+ 
+kubectl config unset users.foo                       # delete user foo
 ```
+
+## Apply
+`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
 ## Creating Objects
 
@@ -78,15 +90,15 @@ Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
 ```bash
-kubectl create -f ./my-manifest.yaml           # create resource(s)
-kubectl create -f ./my1.yaml -f ./my2.yaml     # create from multiple files
-kubectl create -f ./dir                        # create resource(s) in all manifest files in dir
-kubectl create -f https://git.io/vPieo         # create resource(s) from url
+kubectl apply -f ./my-manifest.yaml           # create resource(s)
+kubectl apply -f ./my1.yaml -f ./my2.yaml     # create from multiple files
+kubectl apply -f ./dir                        # create resource(s) in all manifest files in dir
+kubectl apply -f https://git.io/vPieo         # create resource(s) from url
 kubectl create deployment nginx --image=nginx  # start a single instance of nginx
 kubectl explain pods,svc                       # get the documentation for pod and svc manifests
 
 # Create multiple YAML objects from stdin
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -113,7 +125,7 @@ spec:
 EOF
 
 # Create a secret with several keys
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -135,6 +147,8 @@ kubectl get pods --all-namespaces             # List all pods in all namespaces
 kubectl get pods -o wide                      # List all pods in the namespace, with more details
 kubectl get deployment my-dep                 # List a particular deployment
 kubectl get pods --include-uninitialized      # List all pods in the namespace, including uninitialized ones
+kubectl get pod my-pod -o yaml                # Get a pod's YAML
+kubectl get pod my-pod -o yaml --export       # Get a pod's YAML without cluster specific information
 
 # Describe commands with verbose output
 kubectl describe nodes my-node
@@ -253,17 +267,22 @@ kubectl delete pod,service baz foo                                        # Dele
 kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
 kubectl delete pods,services -l name=myLabel --include-uninitialized      # Delete pods and services, including uninitialized ones, with label name=myLabel
 kubectl -n my-ns delete po,svc --all                                      # Delete all pods and services, including uninitialized ones, in namespace my-ns,
+# Delete all pods matching the awk pattern1 or pattern2
+kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
 ## Interacting with running Pods
 
 ```bash
 kubectl logs my-pod                                 # dump pod logs (stdout)
+kubectl logs -l name=myLabel                        # dump pod logs, with label name=myLabel (stdout)
 kubectl logs my-pod --previous                      # dump pod logs (stdout) for a previous instantiation of a container
 kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
+kubectl logs -l name=myLabel -c my-container        # dump pod logs, with label name=myLabel (stdout)
 kubectl logs my-pod -c my-container --previous      # dump pod container logs (stdout, multi-container case) for a previous instantiation of a container
 kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
+kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod

@@ -14,7 +14,7 @@ kubeadm init phase kubelet-start [flags]
 
 ```
   # Writes a dynamic environment file with kubelet flags from a InitConfiguration file.
-  kubeadm init phase kubelet-start --config masterconfig.yaml
+  kubeadm init phase kubelet-start --config config.yaml
 ```
 
 ### Options
@@ -30,14 +30,14 @@ kubeadm init phase kubelet-start [flags]
       <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
     </tr>
 
     <tr>
-      <td colspan="2">--cri-socket string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/run/dockershim.sock"</td>
+      <td colspan="2">--cri-socket string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify the CRI socket to connect to.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</td>
     </tr>
 
     <tr>

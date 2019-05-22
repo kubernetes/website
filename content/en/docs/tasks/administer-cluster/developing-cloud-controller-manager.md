@@ -12,7 +12,7 @@ content_template: templates/concept
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 In upcoming releases, Cloud Controller Manager will
 be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers
-can develop their features independently from the core Kubernetes release cycles.**
+can develop their features independently from the core Kubernetes release cycles.
 
 {{< feature-state for_k8s_version="1.8" state="alpha" >}}
 
@@ -33,7 +33,7 @@ To build an out-of-tree cloud-controller-manager for your cloud, follow these st
 
 1. Create a go package with an implementation that satisfies [cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go).
 2. Use [main.go in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go) from Kubernetes core as a template for your main.go. As mentioned above, the only difference should be the cloud package that will be imported.
-3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/plugins.go#L42-L52).
+3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go).
 
 Using existing out-of-tree cloud providers as an example may be helpful. You can find the list [here](/docs/tasks/administer-cluster/running-cloud-controller.md#examples).
 

@@ -60,7 +60,7 @@ and a StatefulSet.
 Create the ConfigMap from the following YAML configuration file:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
+kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
 
 {{< codenew file="application/mysql/mysql-configmap.yaml" >}}
@@ -80,7 +80,7 @@ based on information provided by the StatefulSet controller.
 Create the Services from the following YAML configuration file:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/mysql/mysql-services.yaml
+kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 ```
 
 {{< codenew file="application/mysql/mysql-services.yaml" >}}
@@ -106,7 +106,7 @@ writes.
 Finally, create the StatefulSet from the following YAML configuration file:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
+kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
 ```
 
 {{< codenew file="application/mysql/mysql-statefulset.yaml" >}}

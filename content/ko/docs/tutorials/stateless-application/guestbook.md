@@ -2,6 +2,10 @@
 title: "예시: Redis를 사용한 PHP 방명록 애플리케이션 배포하기"
 content_template: templates/tutorial
 weight: 20
+card:
+  name: tutorials
+  weight: 30
+  title: "상태를 유지하지 않는 예제: Redis를 사용한 PHP 방명록"
 ---
 
 {{% capture overview %}}
@@ -219,7 +223,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      frontend       ClusterIP   10.0.0.112   <none>       80:31323/TCP   6s
+      frontend       NodePort    10.0.0.112   <none>       80:31323/TCP   6s
       kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP        4m
       redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP       2m
       redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP       1m

@@ -48,8 +48,6 @@ In version 1.9, the CCM runs the following controllers from the preceding list:
 * Route controller
 * Service controller
 
-Additionally, it runs another controller called the PersistentVolumeLabels controller. This controller is responsible for setting the zone and region labels on PersistentVolumes created in GCP and AWS clouds.
-
 {{< note >}}
 Volume controller was deliberately chosen to not be a part of CCM. Due to the complexity involved and due to the existing efforts to abstract away vendor specific volume logic, it was decided that volume controller will not be moved to CCM.
 {{< /note >}}
@@ -69,7 +67,6 @@ The majority of the CCM's functions are derived from the KCM. As mentioned in th
 * Node controller
 * Route controller
 * Service controller
-* PersistentVolumeLabels controller
 
 #### Node controller
 
@@ -87,25 +84,13 @@ The Route controller is responsible for configuring routes in the cloud appropri
 
 #### Service Controller
 
-The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB or Google LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
-
-#### PersistentVolumeLabels controller
-
-The PersistentVolumeLabels controller applies labels on AWS EBS/GCE PD volumes when they are created. This removes the need for users to manually set the labels on these volumes.
-
-These labels are essential for the scheduling of pods as these volumes are constrained to work only within the region/zone that they are in. Any Pod using these volumes needs to be scheduled in the same region/zone.
-
-The PersistentVolumeLabels controller was created specifically for the CCM; that is, it did not exist before the CCM was created. This was done to move the PV labelling logic in the Kubernetes API server (it was an admission controller) to the CCM. It does not run on the KCM.
+The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB , Google LB, or Oracle Cloud Infrastructure LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
 
 ### 2. Kubelet
 
 The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM.
 
 In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information. It then removes this taint.
-
-### 3. Kubernetes API server
-
-The PersistentVolumeLabels controller moves the cloud-dependent functionality of the Kubernetes API server to the CCM as described in the preceding sections.
 
 ## Plugin mechanism
 
@@ -155,17 +140,6 @@ v1/Service:
 - Get
 - Watch
 - Patch
-- Update
-
-### PersistentVolumeLabels controller
-
-The PersistentVolumeLabels controller listens on PersistentVolume (PV) create events and then updates them. This controller requires access to get and update PVs.
-
-v1/PersistentVolume:
-
-- Get
-- List
-- Watch
 - Update
 
 ### Others
@@ -252,9 +226,9 @@ The following cloud providers have implemented CCMs:
 
 * [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/azure)
-* [GCE](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/gce)
-* [AWS](https://github.com/kubernetes/kubernetes/tree/master/pkg/cloudprovider/providers/aws)
+* [Azure](https://github.com/kubernetes/cloud-provider-azure)
+* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 

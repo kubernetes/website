@@ -88,7 +88,7 @@ timeframe; which also applies to `kubeadm`.
 
 ## Objectives
 
-* Install a single master Kubernetes cluster or [high availability cluster](https://kubernetes.io/docs/setup/independent/high-availability/)
+* Install a single master Kubernetes cluster or [high availability cluster](/docs/setup/independent/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -117,6 +117,10 @@ communicates with).
 be passed to kubeadm initialization. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a pod network add-on](#pod-network).
+1. (Optional) Since version 1.14, kubeadm will try to detect the container runtime on Linux
+by using a list of well known domain socket paths. To use different container runtime or
+if there are more than one installed on the provisioned node, specify the `--cri-socket`
+argument to `kubeadm init`. See [Installing runtime](/docs/setup/independent/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated 
 with the default gateway to advertise the master's IP. To use a different 
 network interface, specify the `--apiserver-advertise-address=<ip-address>` argument 
@@ -210,7 +214,7 @@ To start using your cluster, you need to run the following as a regular user:
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+  /docs/concepts/cluster-administration/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
@@ -316,7 +320,7 @@ kubectl taint nodes <node-name> node-role.kubernetes.io/master:NoSchedule-
 To deploy Cilium you just need to run:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.4/examples/kubernetes/1.13/cilium.yaml
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.5/examples/kubernetes/1.14/cilium.yaml
 ```
 
 Once all Cilium pods are marked as `READY`, you start using your cluster.
@@ -334,13 +338,17 @@ For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16
 
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+
+Make sure that your firewall rules allow UDP ports 8285 and 8472 traffic for all hosts participating in the overlay network.
+see [here
+](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls).
 
 Note that `flannel` works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` under Linux.
 Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml
 ```
 
 For more information about `flannel`, see [the CoreOS flannel repository on GitHub
@@ -350,7 +358,7 @@ For more information about `flannel`, see [the CoreOS flannel repository on GitH
 {{% tab name="Kube-router" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 Kube-router relies on kube-controller-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
 
@@ -362,7 +370,7 @@ For information on setting up Kubernetes cluster with Kube-router using kubeadm,
 {{% tab name="Romana" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
 
@@ -376,7 +384,7 @@ kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containe
 {{% tab name="Weave Net" %}}
 Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
 to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+please see [here](/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
 
 The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
 
@@ -609,7 +617,7 @@ control of your Kubernetes cluster.
 
 ## Feedback {#feedback}
 
-* For bugs, visit [kubeadm Github issue tracker](https://github.com/kubernetes/kubeadm/issues)
+* For bugs, visit [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
 * For support, visit kubeadm Slack Channel:
   [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
 * General SIG Cluster Lifecycle Development Slack Channel:
@@ -663,7 +671,3 @@ addressed in due course.
 ## Troubleshooting {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
-
-
-
-

@@ -39,7 +39,7 @@ If you create the ReplicaSet and then view the Pod metadata, you can see
 OwnerReferences field:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/replicaset.yaml
+kubectl apply -f https://k8s.io/examples/controllers/replicaset.yaml
 kubectl get pods --output=yaml
 ```
 

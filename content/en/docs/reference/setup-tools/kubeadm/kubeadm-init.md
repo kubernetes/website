@@ -38,7 +38,7 @@ following steps:
 
 1. Generates static Pod manifests for the API server,
    controller manager and scheduler. In case an external etcd is not provided,
-   an additional static Pod manifest are generated for etcd.
+   an additional static Pod manifest is generated for etcd.
 
    Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet
    watches this directory for Pods to create on startup.
@@ -49,7 +49,7 @@ following steps:
    run there.
 
 1. Generates the token that additional nodes can use to register
-   themselves with the master in the future.  Optionally, the user can provide a
+   themselves with a control-plane in the future. Optionally, the user can provide a
    token via `--token`, as described in the
    [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) docs.
 
@@ -82,13 +82,13 @@ Note that by calling `kubeadm init` all of the phases and sub-phases will be exe
 
 Some phases have unique flags, so if you want to have a look at the list of available options add `--help`, for example:
 
-```bash
+```shell
 sudo kubeadm init phase control-plane controller-manager --help
 ```
 
 You can also use `--help` to see the list of sub-phases for a certain parent phase:
 
-```bash
+```shell
 sudo kubeadm init phase control-plane --help
 ```
 
@@ -96,7 +96,7 @@ sudo kubeadm init phase control-plane --help
 
 An example:
 
-```bash
+```shell
 sudo kubeadm init phase control-plane all --config=configfile.yaml
 sudo kubeadm init phase etcd local --config=configfile.yaml
 # you can now modify the control plane and etcd manifest files
@@ -117,12 +117,13 @@ configuration file options. This file is passed in the `--config` option.
 
 In Kubernetes 1.11 and later, the default configuration can be printed out using the
 [kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+
 It is **recommended** that you migrate your old `v1alpha3` configuration to `v1beta1` using
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
-because `v1alpha3` will be removed in Kubernetes 1.14.
+because `v1alpha3` will be removed in Kubernetes 1.15.
 
 For more details on each field in the `v1beta1` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
+[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -148,8 +149,8 @@ Allowed customization are:
 
 * To provide an alternative `imageRepository` to be used instead of
   `k8s.gcr.io`.
-* To provide a `unifiedControlPlaneImage` to be used instead of different images for control plane components.
-* To provide a specific `etcd.image` to be used instead of the image available at`k8s.gcr.io`.
+* To set `useHyperKubeImage` to `true` to use the HyperKube image.
+* To provide a specific `imageRepository` and `imageTag` for etcd or DNS add-on.
 
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
@@ -186,47 +187,8 @@ The kubeadm package ships with configuration for how the kubelet should
 be run. Note that the `kubeadm` CLI command never touches this drop-in file.
 This drop-in file belongs to the kubeadm deb/rpm package.
 
-This is what it looks like:
-
-
-```
-[Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
-Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manifests --allow-privileged=true"
-Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
-Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
-Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
-Environment="KUBELET_CADVISOR_ARGS="
-Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
-ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
-```
-
-Here's a breakdown of what/why:
-
-* `--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf` path to a kubeconfig
-   file that is used to get client certificates for kubelet during node join.
-   On success, a kubeconfig file is written to the path specified by `--kubeconfig`.
-* `--kubeconfig=/etc/kubernetes/kubelet.conf` points to the kubeconfig file that
-   tells the kubelet where the API server is. This file also has the kubelet's
-   credentials.
-* `--pod-manifest-path=/etc/kubernetes/manifests` specifies from where to read
-   static Pod manifests used for starting the control plane.
-* `--allow-privileged=true` allows this kubelet to run privileged Pods.
-* `--network-plugin=cni` uses CNI networking.
-* `--cni-conf-dir=/etc/cni/net.d` specifies where to look for the
-   [CNI spec file(s)](https://github.com/containernetworking/cni/blob/master/SPEC.md).
-* `--cni-bin-dir=/opt/cni/bin` specifies where to look for the actual CNI binaries.
-* `--cluster-dns=10.96.0.10` use this cluster-internal DNS server for `nameserver`
-   entries in Pods' `/etc/resolv.conf`.
-* `--cluster-domain=cluster.local` uses this cluster-internal DNS domain for
-   `search` entries in Pods' `/etc/resolv.conf`.
-* `--client-ca-file=/etc/kubernetes/pki/ca.crt` authenticates requests to the Kubelet
-   API using this CA certificate.
-* `--authorization-mode=Webhook` authorizes requests to the Kubelet API by `POST`-ing
-   a `SubjectAccessReview` to the API server.
-* `--rotate-certificates` auto rotate the kubelet client certificates by requesting new
-   certificates from the `kube-apiserver` when the certificate expiration approaches.
-* `--cert-dir`the directory where the TLS certs are located.
+To find out more about how kubeadm manages the kubelet have a look at
+[this page](/docs/setup/independent/kubelet-integration).
 
 ### Use kubeadm with CRI runtimes
 
@@ -266,24 +228,10 @@ with the `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster
 You may also want to set `--cri-socket` to `kubeadm init` and `kubeadm reset` when
 using an external CRI implementation.
 
-### Using internal IPs in your cluster
-
-In order to set up a cluster where the master and worker nodes communicate with internal IP addresses (instead of public ones), execute following steps.
-
-1. When running init, you must make sure you specify an internal IP for the API server's bind address, like so:
-
-   `kubeadm init --apiserver-advertise-address=<private-master-ip>`
-
-2. When a master or worker node has been provisioned, add a flag to `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` that specifies the private IP of the worker node:
-
-   `--node-ip=<private-node-ip>`
-
-3. Finally, when you run `kubeadm join`, make sure you provide the private IP of the API server addressed as defined in step 1.
-
 ### Setting the node name
 
 By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the `--node-name`flag.
-The flag passes the appropriate [`--hostname-override`](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options) 
+The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) 
 to the kubelet.
 
 Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
@@ -296,27 +244,23 @@ manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controll
 configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
 configured in the kubelet via static files.
 
-To create a self-hosted cluster, pass the flag `--feature-gates=SelfHosting=true` to `kubeadm init`.
-
-{{< caution >}}
-`SelfHosting` is an alpha feature. It is deprecated in 1.12
-and will be removed in 1.13.
-{{< /caution >}}
+To create a self-hosted cluster see the `kubeadm alpha selfhosting` command.
 
 #### Caveats
 
-Self-hosting in 1.8 and later has some important limitations. In particular, a
-self-hosted cluster _cannot recover from a reboot of the control-plane node_
-without manual intervention. This and other limitations are expected to be
-resolved before self-hosting graduates from alpha.
+1. Self-hosting in 1.8 and later has some important limitations. In particular, a
+  self-hosted cluster _cannot recover from a reboot of the control-plane node_
+  without manual intervention.
 
-By default, self-hosted control plane Pods rely on credentials loaded from
-[`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)
-volumes. Except for initial creation, these credentials are not managed by
-kubeadm.
+1. A self-hosted cluster is not upgradeable using `kubeadm upgrade`.
 
-In kubeadm 1.8, the self-hosted portion of the control plane does not include etcd,
-which still runs as a static Pod.
+1. By default, self-hosted control plane Pods rely on credentials loaded from
+  [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)
+  volumes. Except for initial creation, these credentials are not managed by
+  kubeadm.
+
+1. The self-hosted portion of the control plane does not include etcd,
+  which still runs as a static Pod.
 
 #### Process
 
@@ -345,35 +289,16 @@ In summary, `kubeadm alpha selfhosting` works as follows:
 
 ### Running kubeadm without an internet connection
 
-For running kubeadm without an internet connection you have to pre-pull the required master images for the version of choice:
-
-| Image Name                                 | v1.10 release branch version |
-|--------------------------------------------|------------------------------|
-| k8s.gcr.io/kube-apiserver-${ARCH}          | v1.10.x                      |
-| k8s.gcr.io/kube-controller-manager-${ARCH} | v1.10.x                      |
-| k8s.gcr.io/kube-scheduler-${ARCH}          | v1.10.x                      |
-| k8s.gcr.io/kube-proxy-${ARCH}              | v1.10.x                      |
-| k8s.gcr.io/etcd-${ARCH}                    | 3.1.12                       |
-| k8s.gcr.io/pause-${ARCH}                   | 3.1                          |
-| k8s.gcr.io/k8s-dns-sidecar-${ARCH}         | 1.14.8                       |
-| k8s.gcr.io/k8s-dns-kube-dns-${ARCH}        | 1.14.8                       |
-| k8s.gcr.io/k8s-dns-dnsmasq-nanny-${ARCH}   | 1.14.8                       |
-| coredns/coredns                            | 1.0.6                        |
-
-Here `v1.10.x` means the "latest patch release of the v1.10 branch".
-
-`${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
-
-If you run Kubernetes version 1.10 or earlier, and if you set `--feature-gates=CoreDNS=true`,
-you must also use the `coredns/coredns` image, instead of the three `k8s-dns-*` images.
+For running kubeadm without an internet connection you have to pre-pull the required control-plane images.
 
 In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
-```
+
+```shell
 kubeadm config images list
 kubeadm config images pull
 ```
 
-Starting with Kubernetes 1.12, the `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` images
+In Kubernetes 1.12 and later, the `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` images
 don't require an `-${ARCH}` suffix.
 
 ### Automating kubeadm
@@ -381,7 +306,7 @@ don't require an `-${ARCH}` suffix.
 Rather than copying the token you obtained from `kubeadm init` to each node, as
 in the [basic kubeadm tutorial](/docs/setup/independent/create-cluster-kubeadm/), you can parallelize the
 token distribution for easier automation. To implement this automation, you must
-know the IP address that the master will have after it is started.
+know the IP address that the control-plane node will have after it is started.
 
 1.  Generate a token. This token must have the form  `<6 character string>.<16
     character string>`.  More formally, it must match the regex:
@@ -389,7 +314,7 @@ know the IP address that the master will have after it is started.
 
     kubeadm can generate a token for you:
 
-    ```bash
+    ```shell
     kubeadm token generate
     ```
 

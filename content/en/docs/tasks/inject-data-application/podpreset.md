@@ -36,7 +36,7 @@ Preset.
 Create the PodPreset:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/preset.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/preset.yaml
 ```
 
 Examine the created PodPreset:

@@ -62,7 +62,7 @@ represents.
 
 1. Display information about a Pod:
 
-       kubectl describe pod <pod-name>
+        kubectl describe pod <pod-name>
 
     where `<pod-name>` is the name of one of your Pods.
 
@@ -211,7 +211,6 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
     {{</* /note */>}}
     ```
 
-
 The output is:
 
 {{< note >}}
@@ -235,6 +234,36 @@ The output is:
 {{< note >}}
 You can _still_ use Markdown inside these callouts.
 {{< /note >}}
+
+You can use a {{</* note */>}} in a list:
+
+```
+1. Use the note shortcode in a list
+
+1. A second item with an embedded note
+
+   {{</* note */>}}
+   Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
+   {{</* /note */>}}
+
+1. A third item in a list
+
+1. A fourth item in a list
+```
+
+The output is:
+
+1. Use the note shortcode in a list
+
+1. A second item with an embedded note
+
+    {{< note >}}
+    Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
+    {{< /note >}}
+
+1. A third item in a list
+
+1. A fourth item in a list
 
 ### Caution
 
@@ -266,7 +295,6 @@ Beware.
 {{</* /warning */>}}
 ```
 
-
 The output is:
 
 {{< warning >}}
@@ -276,7 +304,7 @@ Beware.
 ### Katacoda Embedded Live Environment
 
 This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel). 
-It lowers the barier of entry by allowing users to use Minikube with one click instead of going through the complete 
+It lowers the barrier of entry by allowing users to use Minikube with one click instead of going through the complete 
 Minikube and Kubectl installation process locally.
 
 The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window 
@@ -307,7 +335,7 @@ For example:
     1. Preheat oven to 350˚F
 
     1. Prepare the batter, and pour into springform pan.
-       {{</* note */>}}**Note:** Grease the pan for best results.{{</* /note */>}}
+       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
 
     1. Bake for 20-25 minutes or until set.
 
@@ -327,7 +355,7 @@ Shortcodes inside include statements will break the build. You must insert them 
 
 ```
 {{</* note */>}}
-{{</* include "federation-current-state.md" */>}}
+{{</* include "task-tutorial-prereqs.md" */>}}
 {{</* /note */>}}
 ```
 
@@ -432,9 +460,9 @@ considered new in a few months.
 
 {{% capture whatsnext %}}
 
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+* Learn about [using page templates](/docs/contribute/style/page-templates/).
+* Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
+* Learn about [creating a pull request](/docs/contribute/start/#submit-a-pull-request/).
 
 {{% /capture %}}

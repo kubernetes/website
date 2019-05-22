@@ -4,7 +4,7 @@
 {{ $menuSections := (where $docs.Sections ".Params.main_menu" true) }}
 {{ range $menuSections }}
 {{ if $p.IsDescendant . }}
-<h1>{{ if not (strings.Contains .Dir "home")}}{{ .Params.bigheader | default .Title }}{{ end }}</h1>
+<h1>{{ if not (strings.Contains .Path "home")}}{{ .Params.bigheader | default .Title }}{{ end }}</h1>
 <h5>{{ .Params.abstract }}</h5>
 {{ end }}
 {{ end }}

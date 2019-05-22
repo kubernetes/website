@@ -249,8 +249,8 @@ If you are a Cluster Administrator, and you need to perform a disruptive action 
 the nodes in your cluster, such as a node or system software upgrade, here are some options:
 
 - Accept downtime during the upgrade.
-- Fail over to another complete replica cluster.
-   -  No downtime, but may be costly both for the duplicated nodes,
+- Failover to another complete replica cluster.
+   -  No downtime, but may be costly both for the duplicated nodes
      and for human effort to orchestrate the switchover.
 - Write disruption tolerant applications and use PDBs.
    - No downtime.

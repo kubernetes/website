@@ -9,7 +9,7 @@ _Editor's note: Today’s post is by Sandeep Dinesh, Developer Advocate, Google 
 
 Conventional wisdom says you can’t run a database in a container. “Containers are stateless!” they say, and “databases are pointless without state!”   
 
-Of course, this is not true at all. At Google, everything runs in a container, including databases. You just need the right tools. [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) includes the new [StatefulSet](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/) API object (in previous versions, StatefulSet was known as PetSet). With StatefulSets, Kubernetes makes it much easier to run stateful workloads such as databases.  
+Of course, this is not true at all. At Google, everything runs in a container, including databases. You just need the right tools. [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) includes the new [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) API object (in previous versions, StatefulSet was known as PetSet). With StatefulSets, Kubernetes makes it much easier to run stateful workloads such as databases.  
 
 If you’ve followed my previous posts, you know how to create a [MEAN Stack app with Docker](http://blog.sandeepdinesh.com/2015/07/running-mean-web-application-in-docker.html), then [migrate it to Kubernetes](https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d) to provide easier management and reliability, and [create a MongoDB replica set](https://medium.com/google-cloud/mongodb-replica-sets-with-kubernetes-d96606bd9474) to provide redundancy and high availability.  
 
@@ -25,7 +25,7 @@ _Note: StatefulSets are currently a beta resource. The [sidecar container](https
 
 
 
-Before we get started, you’ll need a Kubernetes 1.5+ and the [Kubernetes command line tool](http://kubernetes.io/docs/user-guide/prereqs/). If you want to follow along with this tutorial and use Google Cloud Platform, you also need the [Google Cloud SDK](http://cloud.google.com/sdk).
+Before we get started, you’ll need a Kubernetes 1.5+ and the [Kubernetes command line tool](/docs/user-guide/prereqs/). If you want to follow along with this tutorial and use Google Cloud Platform, you also need the [Google Cloud SDK](http://cloud.google.com/sdk).
 
 
 
@@ -62,7 +62,7 @@ gcloud container clusters get-credentials test-cluster
 
 
 
-To set up the MongoDB replica set, you need three things: A [StorageClass](http://kubernetes.io/docs/user-guide/persistent-volumes/#storageclasses), a [Headless Service](http://kubernetes.io/docs/user-guide/services/#headless-services), and a [StatefulSet](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/).
+To set up the MongoDB replica set, you need three things: A [StorageClass](/docs/user-guide/persistent-volumes/#storageclasses), a [Headless Service](/docs/user-guide/services/#headless-services), and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/).
 
 
 
@@ -108,7 +108,7 @@ Let’s examine each piece in more detail.
 
 
 
-The storage class tells Kubernetes what kind of storage to use for the database nodes. You can set up many different types of StorageClasses in a ton of different environments. For example, if you run Kubernetes in your own datacenter, you can use [GlusterFS](https://www.gluster.org/). On GCP, your [storage choices](https://cloud.google.com/compute/docs/disks/) are SSDs and hard disks. There are currently drivers for [AWS](http://kubernetes.io/docs/user-guide/persistent-volumes/#aws), [Azure](http://kubernetes.io/docs/user-guide/persistent-volumes/#azure-disk), [Google Cloud](http://kubernetes.io/docs/user-guide/persistent-volumes/#gce), [GlusterFS](http://kubernetes.io/docs/user-guide/persistent-volumes/#glusterfs), [OpenStack Cinder](http://kubernetes.io/docs/user-guide/persistent-volumes/#openstack-cinder), [vSphere](http://kubernetes.io/docs/user-guide/persistent-volumes/#vsphere), [Ceph RBD](http://kubernetes.io/docs/user-guide/persistent-volumes/#ceph-rbd), and [Quobyte](http://kubernetes.io/docs/user-guide/persistent-volumes/#quobyte).
+The storage class tells Kubernetes what kind of storage to use for the database nodes. You can set up many different types of StorageClasses in a ton of different environments. For example, if you run Kubernetes in your own datacenter, you can use [GlusterFS](https://www.gluster.org/). On GCP, your [storage choices](https://cloud.google.com/compute/docs/disks/) are SSDs and hard disks. There are currently drivers for [AWS](/docs/user-guide/persistent-volumes/#aws), [Azure](/docs/user-guide/persistent-volumes/#azure-disk), [Google Cloud](/docs/user-guide/persistent-volumes/#gce), [GlusterFS](/docs/user-guide/persistent-volumes/#glusterfs), [OpenStack Cinder](/docs/user-guide/persistent-volumes/#openstack-cinder), [vSphere](/docs/user-guide/persistent-volumes/#vsphere), [Ceph RBD](/docs/user-guide/persistent-volumes/#ceph-rbd), and [Quobyte](/docs/user-guide/persistent-volumes/#quobyte).
 
 
 
@@ -189,7 +189,7 @@ You can tell this is a Headless Service because the clusterIP is set to “None.
 
 
 
-The pièce de résistance. The StatefulSet actually runs MongoDB and orchestrates everything together. StatefulSets differ from Kubernetes [ReplicaSets](http://kubernetes.io/docs/user-guide/replicasets/) (not to be confused with MongoDB replica sets!) in certain ways that makes them more suited for stateful applications. Unlike Kubernetes ReplicaSets, pods created under a StatefulSet have a few unique attributes. The name of the pod is not random, instead each pod gets an ordinal name. Combined with the Headless Service, this allows pods to have stable identification. In addition, pods are created one at a time instead of all at once, which can help when bootstrapping a stateful system. You can read more about StatefulSets in the [documentation](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/).
+The pièce de résistance. The StatefulSet actually runs MongoDB and orchestrates everything together. StatefulSets differ from Kubernetes [ReplicaSets](/docs/user-guide/replicasets/) (not to be confused with MongoDB replica sets!) in certain ways that makes them more suited for stateful applications. Unlike Kubernetes ReplicaSets, pods created under a StatefulSet have a few unique attributes. The name of the pod is not random, instead each pod gets an ordinal name. Combined with the Headless Service, this allows pods to have stable identification. In addition, pods are created one at a time instead of all at once, which can help when bootstrapping a stateful system. You can read more about StatefulSets in the [documentation](/docs/concepts/abstractions/controllers/statefulsets/).
 
 
 

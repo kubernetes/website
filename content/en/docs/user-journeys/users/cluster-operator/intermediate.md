@@ -82,7 +82,7 @@ Start with the [basics on Kubernetes logging](/docs/concepts/cluster-administrat
 * [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
 
 Like log aggregation, many clusters utilize additional software to help capture metrics and display them. There is an overview of tools at [Tools for Monitoring Compute, Storage, and Network Resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/).
-Kubernetes also supports a [core metrics pipeline](/docs/tasks/debug-application-cluster/core-metrics-pipeline/) which can be used by Horizontal Pod Autoscaler with custom metrics.
+Kubernetes also supports a [resource metrics pipeline](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/) which can be used by Horizontal Pod Autoscaler with custom metrics.
 
 [Prometheus](https://prometheus.io/), which is another CNCF project, is a common choice to support capture and temporary collection of metrics. There are several options for installing Prometheus, including using the [stable/prometheus](https://github.com/kubernetes/charts/tree/master/stable/prometheus) [helm](https://helm.sh/) chart, and CoreOS provides a [prometheus operator](https://github.com/coreos/prometheus-operator) and [kube-prometheus](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus), which adds on Grafana dashboards and common configurations.
 
@@ -91,7 +91,7 @@ A common configuration on [Minikube](https://github.com/kubernetes/minikube) and
 There is a [walkthrough of how to install this configuration in your cluster](https://blog.kublr.com/how-to-utilize-the-heapster-influxdb-grafana-stack-in-kubernetes-for-monitoring-pods-4a553f4d36c9).
 As of Kubernetes 1.11, Heapster is deprecated, as per [sig-instrumentation](https://github.com/kubernetes/community/tree/master/sig-instrumentation).  See [Prometheus vs. Heapster vs. Kubernetes Metrics APIs](https://brancz.com/2018/01/05/prometheus-vs-heapster-vs-kubernetes-metrics-apis/) for more information alternatives.
 
-Hosted data analytics services such as [Datadog](https://docs.datadoghq.com/integrations/kubernetes/) also offer Kubernetes integration.
+Hosted monitoring, APM, or data analytics services such as [Datadog](https://docs.datadoghq.com/integrations/kubernetes/) or [Instana](https://www.instana.com/supported-integrations/kubernetes-monitoring/) also offer Kubernetes integration.
 
 ## Additional resources
 

@@ -27,7 +27,7 @@ weight: 80
   참고하라.
 - SIG Docs _리뷰어_ 는 문서 풀 리퀘스트(pull request) 리뷰하는 일에 관심을 보여서 
   SIG Docs 승안자가 적합한 
-  Github 그룹 및 저장소 내 그룹과 `OWNERS` 파일에 등록한
+  GitHub 그룹 및 저장소 내 그룹과 `OWNERS` 파일에 등록한
   쿠버네티스 조직의 멤버이다. 
 - SIG Docs _승인자_ 는 지속적으로 프로젝트에 기여를 해온 좋은 입지를 가진 멤버이다.
   승인자는 풀 리퀘스트를 머지(merge)할 수 있고,
@@ -47,7 +47,7 @@ weight: 80
 시작하는 데에 도움이 될 것이다.
 
 - [누구나](/docs/contribute/start/)
-  - 조치 가능한 버그 리포트 제출
+  - 조치 가능한 이슈 열기
 - [멤버](/docs/contribute/start/)
   - 기존 문서 개선
   - [Slack](http://slack.k8s.io/) 또는 [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에서 개선을 위한 아이디어 제시

@@ -1,14 +1,13 @@
 ---
-reviewers:
-- sieben
 title: Communication Master-Node
 content_template: templates/concept
+description: Communication Master-Node Kubernetes
 weight: 20
 ---
 
 {{% capture overview %}}
 
-Ce document répertorie les canaux de communication entre l'API du noeud maître (apiserver of master node en anglais) et le rester du cluster Kubernetes.
+Ce document répertorie les canaux de communication entre l'API du noeud maître (apiserver of master node en anglais) et le reste du cluster Kubernetes.
 L'objectif est de permettre aux utilisateurs de personnaliser leur installation afin de sécuriser la configuration réseau, de sorte que le cluster puisse être exécuté sur un réseau non approuvé (ou sur des adresses IP entièrement publiques d'un fournisseur de cloud).
 
 {{% /capture %}}

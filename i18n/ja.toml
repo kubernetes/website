@@ -1,5 +1,56 @@
 # i18n strings for the English (main) site.
 
+[deprecation_warning]
+other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
+
+[deprecation_file_warning]
+other = "廃止予定"
+
+[objectives_heading]
+other = "目標"
+
+[cleanup_heading]
+other = "クリーンアップ"
+
+[prerequisites_heading]
+other = "始める前に"
+
+[whatsnext_heading]
+other = "次の項目"
+
+[feedback_heading]
+other = "フィードバック"
+
+[feedback_question]
+other = "このページは役に立ちましたか？"
+
+[feedback_yes]
+other = "はい"
+
+[feedback_no]
+other = "いいえ"
+
+[latest_version]
+other = "最新バージョン"
+
+[version_check_mustbe]
+other = "作業するKubernetesサーバーは次のバージョンである必要があります: "
+
+[version_check_mustbeorlater]
+other = "作業するKubernetesサーバーは次のバージョン以降のものである必要があります: "
+
+[version_check_tocheck]
+other = "バージョンを確認するには次のコマンドを実行してください: "
+
+[caution]
+other = "注意:"
+
+[note]
+other = "備考:"
+
+[warning]
+other = "警告:"
+
 [main_read_about]
 other = "Read about"
 #other = "について参照する"
@@ -11,7 +62,7 @@ other = "続きを読む"
 other = "Kubernetesのコードを編集することに興味がありますか？"
 
 [main_github_view_on]
-other = "Githubで参照する"
+other = "GitHubで参照する"
 
 [main_github_create_an_issue]
 other = "Issue作成"
@@ -24,6 +75,12 @@ other = "Kubernetesの機能"
 
 [main_cncf_project]
 other = """私達は<a href="https://cncf.io/">CNCF</a> graduated プロジェクトです</p>"""
+
+[main_kubeweekly_baseline]
+other = "最新のkubernetesのニュースを受け取りたいですか？ KubeWeeklyにサインアップしてください。"
+
+[main_kubernetes_past_link]
+other = "過去のニュースレターを見る"
 
 [main_kubeweekly_signup]
 other = "登録"

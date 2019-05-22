@@ -1,5 +1,6 @@
 ---
 title: Création de clusters hautement disponibles avec kubeadm
+description: Cluster Kubernetes haute-disponibilité kubeadm
 content_template: templates/task
 weight: 60
 ---

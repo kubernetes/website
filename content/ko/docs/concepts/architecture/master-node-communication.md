@@ -68,7 +68,7 @@ apiserver는 kubelet의 제공 인증서를 확인하지 않는데,
 루트 인증서 번들로 `--kubelet-certificate-authority` 플래그를 이용한다
 
 그것이 불가능한 경우, 신뢰할 수 없는 또는 공인 네트워크에 대한 연결을 피하고 싶다면,
-apiserver와 kubelet 사이에 [SSH 터널링](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)을
+apiserver와 kubelet 사이에 [SSH 터널링](/docs/concepts/architecture/master-node-communication/#ssh-tunnels)을
 사용한다.
 
 마지막으로, kubelet API를 안전하게 하기 위해

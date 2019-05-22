@@ -63,8 +63,8 @@ Required certificates:
 
 | Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client [<sup>1</sup>][etcdbug] | `localhost`, `127.0.0.1`                        |
-| kube-etcd-peer                | etcd-ca                   |                | server, client                                   | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
+| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
+| kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
 | kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]` |
@@ -84,7 +84,7 @@ where `kind` maps to one or more of the [x509 key usage][usage] types:
 
 Certificates should be placed in a recommended path (as used by [kubeadm][kubeadm]). Paths should be specified using the given argument regardless of location.
 
-| Default CN                   | recommend key path           | recommended cert path       | command        | key argument                 | cert argument                             |
+| Default CN                   | recommended key path         | recommended cert path       | command        | key argument                 | cert argument                             |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
 | etcd-ca                      |                              | etcd/ca.crt                 | kube-apiserver |                              | --etcd-cafile                             |
 | etcd-client                  | apiserver-etcd-client.key    | apiserver-etcd-client.crt   | kube-apiserver | --etcd-keyfile               | --etcd-certfile                           |

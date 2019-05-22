@@ -58,7 +58,7 @@ This may be caused by a number of problems. The most common are:
   There are two common ways to fix the cgroup driver problem:
 
  1. Install Docker again following instructions
-  [here](/docs/setup/independent/install-kubeadm/#installing-docker).
+  [here](/docs/setup/cri/#docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
     [Configure cgroup driver used by kubelet on Master Node](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
     for detailed instructions.
@@ -100,7 +100,7 @@ Right after `kubeadm init` there should not be any pods in these states.
   until you have deployed the network solution.
 - If you see Pods in the `RunContainerError`, `CrashLoopBackOff` or `Error` state
   after deploying the network solution and nothing happens to `coredns` (or `kube-dns`),
-  it's very likely that the Pod Network solution that you installed is somehow broken. 
+  it's very likely that the Pod Network solution that you installed is somehow broken.
   You might have to grant it more RBAC privileges or use a newer version. Please file
   an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 - If you install a version of Docker older than 1.12.1, remove the `MountFlags=slave` option
@@ -113,7 +113,7 @@ Right after `kubeadm init` there should not be any pods in these states.
 This is **expected** and part of the design. kubeadm is network provider-agnostic, so the admin
 should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
 of choice. You have to install a Pod Network
-before CoreDNS may deployed fully. Hence the `Pending` state before the network is set up.
+before CoreDNS may be deployed fully. Hence the `Pending` state before the network is set up.
 
 ## `HostPort` services do not work
 
@@ -130,7 +130,7 @@ services](/docs/concepts/services-networking/service/#nodeport) or use `HostNetw
 
 ## Pods are not accessible via their Service IP
 
-- Many network add-ons do not yet enable [hairpin mode](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
+- Many network add-ons do not yet enable [hairpin mode](/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)
   which allows pods to access themselves via their Service IP. This is an issue related to
   [CNI](https://github.com/containernetworking/cni/issues/476). Please contact the network
   add-on provider to get the latest status of their support for hairpin mode.
@@ -219,7 +219,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
 where the `coredns` pods are not starting. To solve that you can try one of the following options:
 
-- Upgrade to a [newer version of Docker](/docs/setup/independent/install-kubeadm/#installing-docker).
+- Upgrade to a [newer version of Docker](/docs/setup/cri/#docker).
 - [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 - Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
 
@@ -261,4 +261,61 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 yum install docker-ce-18.06.1.ce-3.el7.x86_64
 ```
 
+## Not possible to pass a comma separated list of values to arguments inside a `--component-extra-args` flag
+
+`kubeadm init` flags such as `--component-extra-args` allow you to pass custom arguments to a control-plane
+component like the kube-apiserver. However, this mechanism is limited due to the underlying type used for parsing
+the values (`mapStringString`).
+
+If you decide to pass an argument that supports multiple, comma-separated values such as
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,NamespaceExists"` this flag will fail with
+`flag: malformed pair, expect string=string`. This happens because the list of arguments for
+`--apiserver-extra-args` expects `key=value` pairs and in this case `NamespacesExists` is considered
+as a key that is missing a value.
+
+Alternatively, you can try separating the `key=value` pairs like so:
+`--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
+but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
+
+A known workaround is to use the kubeadm
+[configuration file](/docs/setup/independent/control-plane-flags/#apiserver-flags).
+
+## kube-proxy scheduled before node is initialized by cloud-controller-manager
+
+In cloud provider scenarios, kube-proxy can end up being scheduled on new worker nodes before
+the cloud-controller-manager has initialized the node addresses. This causes kube-proxy to fail
+to pick up the node's IP address properly and has knock-on effects to the proxy function managing
+load balancers.
+
+The following error can be seen in kube-proxy Pods:
+```
+server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
+proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
+```
+
+A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on control-plane
+nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
+conditions abate:
+```
+kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/master" } ] } } } }'
+```
+
+The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
+
+## The NodeRegistration.Taints field is omitted when marshalling kubeadm configuration
+
+*Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
+
+By default, kubeadm applies the `role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
+If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
+the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
+
+There are at least two workarounds:
+
+1. Use the `role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
+
+2. Remove the taint after kubeadm init exits:
+```bash
+kubectl taint nodes NODE_NAME role.kubernetes.io/master:NoSchedule-
+```
 {{% /capture %}}

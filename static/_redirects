@@ -114,6 +114,11 @@
 /docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
+/docs/concepts/overview/object-management-kubetcl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
+/docs/concepts/overview/object-management-kubectl/declarative-config/     /docs/tasks/manage-kubernetes-objects/declarative-config/ 301
+/docs/concepts/overview/object-management-kubectl/imperative-command/     /docs/tasks/manage-kubernetes-objects/imperative-command/ 301
+/docs/concepts/overview/object-management-kubectl/imperative-config/     /docs/tasks/manage-kubernetes-objects/imperative-config/ 301
+/docs/concepts/overview/object-management-kubectl/kustomization/         /docs/tasks/manage-kubernetes-objects/kustomization/ 301
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
@@ -131,9 +136,9 @@
 /docs/contribute/style-guide/     /docs/home/contribute/style-guide/ 301
 
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
-/docs/deprecate/     /docs/reference/deprecation-policy/ 301
-/docs/deprecated/     /docs/reference/deprecation-policy/ 301
-/docs/deprecation-policy/     /docs/reference/deprecation-policy/ 301
+/docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
+/docs/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
 
 /docs/federation/api-reference/     /docs/reference/federation/v1/operations/ 301
 /docs/federation/api-reference/v1/definitions.html    /docs/reference/generated/federation/v1/definitions/ 301
@@ -174,13 +179,14 @@
 /docs/getting-started-guides/network-policy/weave/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/getting-started-guides/rackspace/     /docs/setup/pick-right-solution/ 301
 /docs/getting-started-guides/running-cloud-controller/     /docs/tasks/administer-cluster/running-cloud-controller/ 301
-/docs/getting-started-guides/scratch/     /docs/setup/scratch/ 301
+/docs/getting-started-guides/scratch/     /docs/setup/release/building-from-source/ 301
 /docs/getting-started-guides/ubuntu-calico/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/ubuntu/automated/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/ubuntu/calico/     /docs/getting-started-guides/ubuntu/ 301
 /docs/getting-started-guides/vagrant/     /docs/getting-started-guides/alternatives/ 301
 /docs/getting-started-guides/vsphere/     https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/ 301
-/docs/getting-started-guides/windows/While/     /docs/getting-started-guides/windows/ 301
+/docs/getting-started-guides/windows/While/     /docs/setup/windows/ 301
+/docs/getting-started-guides/windows/     /docs/setup/windows/ 301
 /docs/getting-started-guides/centos/* /docs/setup/independent/create-cluster-kubeadm/ 301
 /docs/getting-started-guides/alibaba-cloud/ /docs/setup/turnkey/alibaba-cloud/ 301
 /docs/getting-started-guides/aws/ /docs/setup/turnkey/aws/ 301

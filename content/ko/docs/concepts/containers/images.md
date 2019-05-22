@@ -1,5 +1,5 @@
 ---
-title: Images
+title: 이미지
 content_template: templates/concept
 weight: 10
 ---
@@ -202,7 +202,7 @@ Docker는 프라이빗 레지스트리를 위한 키를 `$HOME/.dockercfg` 또�
 프라이빗 이미지를 사용하는 파드를 생성하여 검증한다. 예를 들면 다음과 같다.
 
 ```yaml
-kubectl create -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -275,54 +275,40 @@ GCE 및 자동 노드 교체를 수행하는 다른 클라우드 제공자에 �
 대문자 값을 적절히 대체하여, 다음 커맨드를 실행한다.
 
 ```shell
-kubectl create secret docker-registry myregistrykey --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
-secret/myregistrykey created.
+cat <<EOF > ./kustomization.yaml
+secretGenerator:
+- name: myregistrykey
+  type: docker-registry
+  literals:
+  - docker-server=DOCKER_REGISTRY_SERVER
+  - docker-username=DOCKER_USER
+  - docker-password=DOCKER_PASSWORD
+  - docker-email=DOCKER_EMAIL
+EOF
+
+kubectl apply -k .
+secret/myregistrykey-66h7d4d986 created
 ```
 
-만약 다중 레지스트리에 접근이 필요하다면, 각 레지스트리에 대한 하나의 시크릿을 생성할 수 있다.
-Kubelet은 파드를 위한 이미지를 풀링할 때 `imagePullSecrets`를 단일의 가상 `.docker/config.json`
-에 병합할 것이다.
+만약 Docer 자격 증명 파일이 이미 존재한다면, 위의 명령을 사용하지 않고, 
+자격 증명 파일을 쿠버네티스 시크릿으로 가져올 수 있다.
+[기존 Docker 자격 증명으로 시크릿 생성](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)에서 관련 방법을 설명하고 있다.
+`kubectl create secret docker-registry`는 
+하나의 개인 레지스트리에서만 작동하는 시크릿을 생성하기 때문에,
+여러 개인 컨테이너 레지스트리를 사용하는 경우 특히 유용하다.
 
+{{< note >}}
 파드는 이미지 풀 시크릿을 자신의 네임스페이스에서만 참조할 수 있다.
 따라서 이 과정은 네임스페이스 당 한 번만 수행될 필요가 있다.
-
-##### kubectl create secrets 우회
-
-어떤 이유에서 단일 `.docker/config.json`에 여러 항목이 필요하거나 
-위의 커맨드를 통해서는 주어지지 않는 제어가 필요한 경우, [json 또는 yaml로 
-시크릿 생성](/docs/user-guide/secrets/#creating-a-secret-manually)을 수행할 수 있다.
-
-다음 사항을 준수해야 한다.
-
-- `.dockerconfigjson`에 해당 데이터 항목의 이름을 설정
-- Docker 파일을 base64로 인코딩하여 해당 문자열을 붙여넣을 때,
-  `data[".dockerconfigjson"]` 필드의 값으로써 깨짐 방지
-- `kubernetes.io/dockerconfigjson`에 `type`을 설정
-
-예:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: myregistrykey
-  namespace: awesomeapps
-data:
-  .dockerconfigjson: UmVhbGx5IHJlYWxseSByZWVlZWVlZWVlZWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGxsbGx5eXl5eXl5eXl5eXl5eXl5eXl5eSBsbGxsbGxsbGxsbGxsbG9vb29vb29vb29vb29vb29vb29vb29vb29vb25ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubmdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2cgYXV0aCBrZXlzCg==
-type: kubernetes.io/dockerconfigjson
-```
-
-
-`error: no objects passed to create`라는 에러 메시지가 나오면, 그것은 base64 인코딩된 문자열이 유효하지 않다는 것을 뜻한다. 
-`Secret "myregistrykey" is invalid: data[.dockerconfigjson]: invalid value ...`와 유사한 에러 메시지가 나오면, 그것은 
-base64 인코딩 된 데이터가 성공적으로 디코딩되었지만, `.docker/config.json` 파일로는 파싱될 수 없었음을 의미한다.
+{{< /note >}}
 
 #### 파드의 imagePullSecrets 참조
 
 이제, `imagePullSecrets` 섹션을 파드의 정의에 추가함으로써 해당 시크릿을 
 참조하는 파드를 생성할 수 있다.
 
-```yaml
+```shell
+cat <<EOF > pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -334,6 +320,12 @@ spec:
       image: janedoe/awesomeapp:v1
   imagePullSecrets:
     - name: myregistrykey
+EOF
+
+cat <<EOF >> ./kustomization.yaml
+resources:
+- pod.yaml
+EOF
 ```
 
 이것은 프라이빗 레지스트리를 사용하는 각 파드에 대해서 수행될 필요가 있다.
@@ -374,3 +366,6 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
    - 테넌트는 해당 시크릿을 각 네임스페이스의 imagePullSecrets에 추가한다.
 
 {{% /capture %}}
+
+다중 레지스트리에 접근해야 하는 경우, 각 레지스트리에 대해 하나의 시크릿을 생성할 수 있다.
+Kubelet은 모든`imagePullSecrets` 파일을 하나의 가상`.docker / config.json` 파일로 병합한다.
