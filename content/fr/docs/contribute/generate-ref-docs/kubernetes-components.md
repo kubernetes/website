@@ -73,7 +73,7 @@ Faites le changement dans votre dépôt local `kubernetes/kubernetes`, puis soum
 [PR 56942](https://github.com/kubernetes/kubernetes/pull/56942) est un exemple de pull request qui modifie les commentaires dans le code source de Kubernetes.
 
 Surveillez votre pull request, et répondez aux commentaires des relecteurs.
-Continuez à surveiller votre pull request jusqu'à ce qu'elle soit merged dans la branche master du dépot `kubernetes/kubernetes`.
+Continuez à surveiller votre pull request jusqu'à ce qu'elle soit mergée dans la branche master du dépot `kubernetes/kubernetes`.
 
 ## Selectionnez vos commits dans une branche release
 
