@@ -65,5 +65,3 @@ A noter: Toutes les distributions ne sont pas activement maintenues. Choisissez 
 
 * [Journalisation et surveillance de l'activité du cluster](/docs/concepts/cluster-administration/logging/) explique le fonctionnement de la connexion à Kubernetes et son implémentation.
 {{% /capture %}}
-
-
