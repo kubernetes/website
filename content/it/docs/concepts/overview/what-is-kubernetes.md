@@ -15,8 +15,7 @@ dichiarativa che l'automazione. Ha un grande ecosistema in rapida crescita.
 I servizi, il supporto e gli strumenti di Kubernetes sono ampiamente disponibili.
 
 Google ha aperto il progetto Kubernetes nel 2014. Kubernetes si basa su un
-[decennio e mezzo di esperienza che Google ha con l'esecuzione di carichi di lavoro di produzione su larga scala](https://research.google.com/pubs/pub43438.html), combined with
-combinati con le migliori idee e pratiche della community.
+[decennio e mezzo di esperienza che Google ha con l'esecuzione di carichi di lavoro di produzione su larga scala](https://research.google.com/pubs/pub43438.html), combinati con le migliori idee e pratiche della community.
 
 ## Perché ho bisogno di Kubernetes e cosa può fare?
 
