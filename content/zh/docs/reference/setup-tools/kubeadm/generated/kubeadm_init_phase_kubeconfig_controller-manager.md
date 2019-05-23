@@ -33,7 +33,7 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td colspan="2">--apiserver-advertise-address 字符串</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"> API Server 将 advertise listening 设置的IP地址为当前监听的地址。“0.0.0.0”以使用默认指定的网络接口地址。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"> API Server 对外发布的当前监听地址。设置此值为 “0.0.0.0” 以使用默认网络接口的 IP 地址。</td>
     </tr>
 
 <!--     <tr>
@@ -127,7 +127,7 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td colspan="2">--rootfs 字符串</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] “真正的”主机 Rootfs 的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] 主机根文件系统的“真实”路径。</td>
     </tr>
 
   </tbody>

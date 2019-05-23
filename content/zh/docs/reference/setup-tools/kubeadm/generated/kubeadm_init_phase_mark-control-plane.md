@@ -17,11 +17,9 @@ kubeadm init phase mark-control-plane [flags]
 ### 例子
 
 ```
-  # Applies control-plane label and taint to the current node, functionally equivalent to what executed by kubeadm init.
   # 将控制平面的标签和污点应用于当前节点，功能上等同于 kubeadm init 执行的操作。
   kubeadm init phase mark-control-plane --config config.yml
 
-  # Applies control-plane label and taint to a specific node
   # 将控制平面的标签和污点应用于特定节点
   kubeadm init phase mark-control-plane --node-name myNode
 ```
@@ -60,7 +58,7 @@ kubeadm init phase mark-control-plane [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">标记控制平面的帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"> mark-control-plane 命令的帮助</td>
     </tr>
 
 <!--     <tr>
@@ -103,7 +101,7 @@ kubeadm init phase mark-control-plane [flags]
       <td colspan="2">--rootfs 字符串</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[实验] “真正的”主机 Rootfs 的路径。</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">主机根文件系统的“真实”路径。</td>
     </tr>
 
   </tbody>
