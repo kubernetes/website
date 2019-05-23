@@ -1,6 +1,10 @@
 ---
 title: Kubernetesドキュメントがサポートしているバージョン
 content_template: templates/concept
+card:
+  name: about
+  weight: 10
+  title: ドキュメントがサポートしているバージョン
 ---
 
 {{% capture overview %}}
