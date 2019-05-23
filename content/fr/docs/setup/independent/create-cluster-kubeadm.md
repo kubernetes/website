@@ -305,9 +305,9 @@ Pour plus d'informations sur l'utilisation de Calico, voir
 Pour que Calico fonctionne correctement, vous devez passer `--pod-network-cidr = 192.168.0.0 / 16`
 à` kubeadm init` ou mettre à jour le fichier `calico.yml` pour qu'il corresponde à votre réseau de Pod.
 Notez que Calico fonctionne uniquement sur `amd64`,` arm64`, `ppc64le` et` s390x`.
+
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/rbac-kdd.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/calico.yaml
 ```
 
 {{% /tab %}}
@@ -317,9 +317,9 @@ documentation Calico pour obtenir le [guide de démarrage officiel](https://docs
 
 Pour que Canal fonctionne correctement, `--pod-network-cidr = 10.244.0.0 / 16` doit être passé à
 ` kubeadm init`. Notez que Canal ne fonctionne que sur `amd64`.
+
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/rbac.yaml
-kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/canal/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
 ```
 
 {{% /tab %}}
