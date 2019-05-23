@@ -6,13 +6,13 @@ weight: 40
 
 
 {{% capture overview %}}
-Afinitas Node, seperti yang dideskripsikan [di](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
+Afinitas Node, seperti yang dideskripsikan [di sini](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
 adalah salah satu properti dari Pod yang menyebabkan pod tersebut memiliki preferensi 
 untuk ditempatkan di sekelompok Node tertentu (preferensi ini dapat berupa _soft constraints_ atau 
 _hard constraints_ yang harus dipenuhi). _Taint_ merupakan kebalikan dari afinitas -- 
 properti ini akan menyebabkan Pod memiliki preferensi untuk tidak ditempatkan pada sekelompok Node tertentu.
 
-_Taint_ dan _toleration_ bekerja sama untuk memastikan Pod dijadwalkan pada Pod 
+_Taint_ dan _toleration_ bekerja sama untuk memastikan Pod dijadwalkan pada Node  
 yang sesuai. Satu atau lebih _taint_ akan diterapkan pada suatu node; hal ini akan menyebabkan 
 node tidak akan menerima pod yang tidak mengikuti _taint_ yang sudah diterapkan. 
 
@@ -29,9 +29,9 @@ Misalnya,
 kubectl taint nodes node1 key=value:NoSchedule
 ```
 
-akan menerapkan _taint_ pada _node_ `node1`. _Taint_ tersebut memiliki _key_ `key`, value `value`, 
-and taint effect `NoSchedule`. This means that no pod will be able to schedule onto `node1` 
-unless it has a matching toleration.
+akan menerapkan _taint_ pada _node_ `node1`. _Taint_ tersebut memiliki _key_ `key`, _value_ `value`, 
+dan _effect_ _taint_ `NoSchedule`. Hal ini artinya pod yang ada tidak akan dapat dijadwalkan pada `node1` 
+kecuali memiliki _taint_ yang sesuai.
 
 Untuk menghilangkan _taint_ yang ditambahkan dengan perintah di atas, kamu dapat menggunakan 
 perintah di bawah ini:
@@ -92,7 +92,7 @@ Alternatif lain yang dapat digunakan adalah `effect` untuk `PreferNoSchedule`.
 `PreferNoSchedule` merupakan "preferensi" yang lebih fleksibel dari `NoSchedule` -- 
 sistem akan mencoba untuk tidak menempatkan pod yang tidak menoleransi _taint_ 
 pada _node_, tapi hal ini bukan merupakan sesuatu yang harus dipenuhi. Jenis ketiga 
-dari `effect` adalah `NoExecute`, akan jelaskan selanjutnya.
+dari `effect` adalah `NoExecute`, akan dijelaskan selanjutnya.
 
 Kamu dapat menerapkan beberapa _taint_ sekaligus pada _node_ atau 
 beberapa _toleration_ sekaligus pada sebuah _pod_. Mekanisme Kubernetes dapat 
@@ -109,7 +109,7 @@ tapi terdapat setidaknya satu _taint_ yang tidak tersaring dengan
 _effect_ `PreferNoSchedule` maka Kubernetes akan mencoba untuk tidak akan menempatkan 
 _pod_ pada _node_ tersebut
 * jika terdapat _taint_ yang tidak tersaring dengan _effect_  `NoExecute` maka _pod_ akan 
-berada dalam kondisi _evicted_ dari _node_ (jika _pod_ tersebut sudah terlanjut ditempatkan pada _node_ 
+berada dalam kondisi _evicted_ dari _node_ (jika _pod_ tersebut sudah terlanjur ditempatkan pada _node_ 
 tersebut), dan tidak akan di-_schedule_ lagi pada _node_ tersebut.
 
 Sebagai contoh, bayangkan kamu memberikan _taint_ pada _node_ sebagai berikut:
@@ -137,13 +137,13 @@ tolerations:
 Pada kasus ini, _pod_ tidak akan di-_schedule_ pada _node_, karena tidak ada 
 _toleration_ yang sesuai dengan _taint_ ketiga. Akan tetapi, _pod_ yang sebelumnya 
 sudah dijalankan di _node_ dimana _taint_ ditambahkan akan tetap jalan, karena _taint_ 
-ketiga merupakan _taint_ yang tidak ditoleransi oleg _pod_.
+ketiga merupakan _taint_ yang tidak ditoleransi oleh _pod_.
 
 Pada umumnya, jika sebuah _taint_ memiliki _effect_ `NoExecute` ditambahkan pada _node_, 
 maka semua pod yang tidak menoleransi _taint_ tersebut akan berada dalam _state_ 
 _evicted_ secara langsung, dan semua _pod_ yang menoleransi _taint_ tersebut 
 tidak akan berjalan seperti biasanya (tidak dalam _state_ _evicted_). Meskipun demikian, 
-_toleration_ dengan _effect_ `NoExecute` dapat dispesfikikasikan sebagai _field_ opsional 
+_toleration_ dengan _effect_ `NoExecute` dapat dispesfikasikan sebagai _field_ opsional 
 `tolerationSeconds` yang memberikan perintah berapa lama suatu _pod_ akan berada 
 pada _node_ apabila sebuah _taint_ ditambahkan. Contohnya:
 
@@ -165,27 +165,27 @@ tetap berjalan sebagaimana mestinya.
 ## Contoh Penggunaan
 
 _Taint_ dan _toleration_ adalah mekanisme fleksibel yang digunakan untuk 
-memaksa _pod_ agar didak dijadwalkan pada _node-node_ tertentu atau 
+memaksa _pod_ agar tidak dijadwalkan pada _node-node_ tertentu atau 
 mengubah _state_ _pod_ menjadi _evicted_. Berikut adalah beberapa contoh penggunaannya:
 
 * **Node-Node yang Sifatnya _Dedicated_**: Jika kamu ingin menggunakan 
-sekumpulan _node_ dengan untuk penggunaan eksklusif dari sekumpulan pengguna, 
+sekumpulan _node_ dengan penggunaan eksklusif dari sekumpulan pengguna, 
 kamu dapat menambahkan _taint_ pada _node-node_ tersebut (misalnya, 
 `kubectl taint nodes nodename dedicated=groupName:NoSchedule`) dan kemudian 
 menambahkan _toleration_ yang sesuai pada _pod-pod_ yang berada di dalamnya (hal ini 
 dapat dilakukan dengan mudah dengan cara menulis 
 [_admission controller_](/docs/reference/access-authn-authz/admission-controllers/) yang 
-bersifat khusus). _Pod-pod_ dengan _toleration_ nantinya akan diperbolehnya untuk menggunakan 
+bersifat khusus). _Pod-pod_ dengan _toleration_ nantinya akan diperbolehkannya untuk menggunakan 
 _node_ yang sudah di-_taint_ (atau dengan kata lain didedikasikan penggunaannya) maupun 
 _node_ lain yang ada di dalam kluster. Jika kamu ingin mendedikasikan _node_ khusus 
 yang hanya digunakan oleh _pod-pod_ tadi serta memastikan _pod-pod_ tadi hanya menggunakan 
 _node_ yang didedikasikan, maka kamu harus menambahkan sebuah _label_ yang serupa dengan 
 _taint_ yang diberikan pada sekelompok _node_ (misalnya, `dedicated=groupName`), dan 
-_admission controller_ sebaiknya menambahkan afininitas _node_ untuk memasyika _pod-pod_ 
+_admission controller_ sebaiknya menambahkan afininitas _node_ untuk memastikan _pod-pod_ 
 tadi hanya dijadwalkan pada _node_ dengan _label_ `dedicated=groupName`.
 
 * **Node-Node dengan Perangkat Keras Khusus**: Pada suatu kluster dimana 
-sebagian kecul _node_ memiliki perangkat keras khusus (misalnya GPU), kita ingin 
+sebagian kecuali _node_ memiliki perangkat keras khusus (misalnya GPU), kita ingin 
 memastikan hanya _pod-pod_ yang membutuhkan GPU saja yang dijadwalkan di _node_ dengan GPU. 
 Hal ini dapat dilakukan dengan memberikan _taint_ pada _node_ yang memiliki perangkat keras 
 khusus (misalnya, `kubectl taint nodes nodename special=true:NoSchedule` atau
@@ -198,7 +198,7 @@ untuk merepresentasikan perangkat keras khusus, kemudian _taint_ _node_ dengan p
 dengan nama _extended resource_ dan jalankan _admission controller_ 
 [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration). 
 Setelah itu, karena _node_ yang ada sudah di-_taint_, maka tidak akan ada _pod_ yang 
-tidak memiliki _toleration_ yang akan dijadwalkan pada _node_tersebut_. 
+tidak memiliki _toleration_ yang akan dijadwalkan pada _node_ tersebut_. 
 Meskipun begitu, ketika kamu membuat suatu _pod_ yang membutuhkan _extended resource_,
 maka _admission controller_ dari `ExtendedResourceToleration` akan mengoreksi 
 _toleration_ sehingga _pod_ tersebut dapat dijadwalkan pada _node_ dengan perangkat keras khusus. 
@@ -277,8 +277,8 @@ kecuali konfigurasi lain disediakan oleh pengguna.
 _Toleration_ yang ditambahkan secara otomatis ini menjamin bahwa 
 perilaku _default_ dari suatu _pod_ adalah tetap bertahan selama 5 menit pada 
 _node_ apabila salah satu masalah terdeteksi.
-Kedua _toleration_ _default_ tadi ditambahkan oleh DefaultTolerationSeconds
-admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
+Kedua _toleration_ _default_ tadi ditambahkan oleh [DefaultTolerationSeconds
+_admission controller_](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
 
 _Pod-pod_ pada [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) dibuat dengan _toleration_ 
 `NoExecute` untuk _taint_ tanpa `tolerationSeconds`:
@@ -291,16 +291,16 @@ _state_ _evicted_ apabila terjadi permasalahan pada _node_.
 
 ## _Taint_ pada _Node_ berdasarkan Kondisi Tertentu
 
-Pada verso 1.12, fitur `TaintNodesByCondition` menjadi fitur beta, dengan demikian _lifecycle_ 
+Pada versi 1.12, fitur `TaintNodesByCondition` menjadi fitur beta, dengan demikian _lifecycle_ 
 dari kontroler _node_ akan secara otomatis menambahkan _taint_ sesuai dengan kondisi _node_.
 Hal yang sama juga terjadi pada _scheduler_, _scheduler_ tidak bertugas memeriksa kondisi _node_ 
 tetapi kondisi _taint_. Hal ini memastikan bahwa kondisi _node_ tidak memengaruhi apa 
-yang dijadwalkan di _node_. Pengguna dapa memilih untuk mengabaikan beberapa permasalahan yang 
+yang dijadwalkan di _node_. Pengguna dapat memilih untuk mengabaikan beberapa permasalahan yang 
 ada pada _node_ (yang direpresentasikan oleh kondisi _Node_) dengan menambahkan _toleration_ _Pod_ `NoSchedule`. 
 Sedangkan _taint_ dengan _effect_ `NoExecute` dikendalikan oleh `TaintBasedEviction` yang merupakan 
 fitur beta yang diaktifkan secara _default_ oleh Kubernetes sejak versi 1.13.
 
-Sejak Kubernetes versi 1.8, kontroler DaemonSer akan secara otomatis 
+Sejak Kubernetes versi 1.8, kontroler DaemonSet akan secara otomatis 
 menambahkan _toleration_ `NoSchedule` pada semua _daemon_ untuk menjaga 
 fungsionalitas DaemonSet.
 
