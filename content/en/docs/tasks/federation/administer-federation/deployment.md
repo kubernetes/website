@@ -27,7 +27,7 @@ Some features
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * You should also have a basic
-[working knowledge of Kubernetes](/docs/setup/) in
+[working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general and [Deployments](/docs/concepts/workloads/controllers/deployment/) in particular.
 
 {{% /capture %}}

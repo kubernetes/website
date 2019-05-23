@@ -20,7 +20,7 @@ federation api-server.
 {{% capture prerequisites %}}
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
-* You should also have a basic [working knowledge of Kubernetes](/docs/setup/) in
+* You should also have a basic [working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general.
 
 {{% /capture %}}

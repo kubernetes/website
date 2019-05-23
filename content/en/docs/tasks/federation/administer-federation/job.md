@@ -21,8 +21,8 @@ parallelism and completions exist across the registered clusters.
 {{% capture prerequisites %}}
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
-* You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/setup/) in
+* You should also have a basic
+[working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general and [jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) in particular.
 {{% /capture %}}
 

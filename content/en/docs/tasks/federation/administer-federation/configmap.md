@@ -22,7 +22,7 @@ across all the clusters in federation.
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * You should also have a basic
-[working knowledge of Kubernetes](/docs/setup/) in
+[working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general and [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/) in particular.
 
 {{% /capture %}}
