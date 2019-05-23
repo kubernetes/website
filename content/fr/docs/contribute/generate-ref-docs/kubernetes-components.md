@@ -77,7 +77,7 @@ Continuez à surveiller votre pull request jusqu'à ce qu'elle soit mergée dans
 
 ## Selectionnez vos commits dans une branche release
 
-Vos commits sont sur la branche master, qui est utilisé pour le développement sur la prochaine sortie de Kubernetes.
+Vos commits sont sur la branche master, qui est utilisée pour le développement sur la prochaine sortie de Kubernetes.
 Si vous souhaitez que vos commits apparaissent dans la documentation d'une version Kubernetes déjà publiée, vous devez proposer que vos commits soit sélectionnée dans la branche de publication.
 
 Par exemple, supposons que la branche master est utilisée pour développer Kubernetes 1.10, et vous voulez transférer vos commits sur la branche release-1.9.
@@ -198,7 +198,7 @@ Quelques minutes après le merge votre pull request, vos références mises à j
 {{% capture whatsnext %}}
 
 * [Génération de documentation de référence pour les commandes kubectl](/docs/home/contribute/generated-reference/kubectl/)
-* [Génération de documentation de référence pour l'API Kubernetes](/docs/home/contribute/generated-reference/kubernetes-api/)
+* [Génération de documentation de référence pour l'API Kubernetes](/fr/docs/contribute/generate-ref-docs/kubernetes-api/)
 * [Génération de documentation de référence pour l'API de fédération Kubernetes](/docs/home/contribute/generated-reference/federation-api/)
 
 {{% /capture %}}
