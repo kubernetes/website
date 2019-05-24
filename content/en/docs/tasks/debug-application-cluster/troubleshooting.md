@@ -70,7 +70,7 @@ There are also many country specific/local language channels. Feel free to join
 these channels for localized support and info:
 
 - China: `#cn-users`, `#cn-events`
-- Finland: `fi-users`
+- Finland: `#fi-users`
 - France: `#fr-users`, `#fr-events`
 - Germany: `#de-users`, `#de-events`
 - India: `#in-users`, `#in-events`
