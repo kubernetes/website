@@ -57,7 +57,8 @@ Referensi pemilik lintas _namespace_ tidak diperbolehkan oleh desain. Artinya:
 
 Ketika kamu menghapus sebuah objek, kamu bisa menspesifikasi apakah _dependent_ objek tersebut juga dihapus secara otomatis. Menghapus _dependent_ secara otomatis disebut _cascading deletion_. _Cascading deletion_ memiliki dua mode: _background_ dan _foreground_
 
-# Foreground cascading deletion
+### Foreground cascading deletion
+
 Pada *foreground cascading deletion*, pertama objek utama akan memasuki keadaan "_deletion in progress_". Pada saat keadaan "_deletion in progress_", kondisi-kondisi berikut bernilai benar:
 
  * Objek masih terlihat via REST API
@@ -68,10 +69,11 @@ Pada *foreground cascading deletion*, pertama objek utama akan memasuki keadaan 
 
  Jika kolom `ownerReferences` sebuah objek ditentukan oleh sebuah _controller_ (seperti Deployment atau Replicaset), `blockOwnerDeletion` akan ditentukan secara otomatis dan kamu tidak perlu memodifikasi kolom ini secara manual.
 
- # Background cascading deletion
+ ### Background cascading deletion
+ 
  Pada *background cascading deletion*, Kubernetes segera menghapus objek pemilik dan _garbage collector_ kemudian menghapus _dependent_ pada _background_.
 
- # Mengatur kebijakan _cascading deletion_
+ ### Mengatur kebijakan _cascading deletion_
 
  Untuk mengatur kebijakan _cascading deletion_, tambahkan kolom `propagationPolicy` pada argumen `deleteOptions` ketika menghapus sebuah Object. Nilai yang dapat digunakan adalah "Orphan", "Foreground", atau "Background".
 
@@ -112,7 +114,7 @@ Berikut adalah contoh yang membuat _dependent_ ReplicaSet menjadi _orphan_.
 kubectl delete replicaset my-repset --cascade=false
 ```
 
-# Catatan tambahan untuk Deployment
+### Catatan tambahan untuk Deployment
 
 Sebelum versi 1.7, ketika menggunakan _cascading delete_ dengan Deployment, kamu *harus* menggunakan `propagationPolicy: Foreground` untuk menghapus tidak hanya ReplicaSet yang telah diciptakan, tetapi juga Pod yang mereka miliki. Jika tipe _propagationPolicy_ tidak digunakan, hanya ReplicaSet yag akan dihapus, dan Pod akan menjadi _orphan_. Lihat [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment-284766613) untuk informasi lebih lanjut.
 
