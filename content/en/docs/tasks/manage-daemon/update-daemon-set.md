@@ -95,7 +95,7 @@ update. This can be done with several different `kubectl` commands.
 #### Declarative commands
 
 If you update DaemonSets using
-[configuration files](/docs/concepts/overview/object-management-kubectl/declarative-config/),
+[configuration files](/docs/tasks/manage-kubernetes-objects/declarative-config/),
 use `kubectl apply`:
 
 ```shell
@@ -105,7 +105,7 @@ kubectl apply -f ds-v2.yaml
 #### Imperative commands
 
 If you update DaemonSets using
-[imperative commands](/docs/concepts/overview/object-management-kubectl/imperative-command/),
+[imperative commands](/docs/tasks/manage-kubernetes-objects/imperative-command/),
 use `kubectl edit` or `kubectl patch`:
 
 ```shell

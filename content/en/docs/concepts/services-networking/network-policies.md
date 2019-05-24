@@ -77,7 +77,7 @@ __Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy`
 needs `apiVersion`, `kind`, and `metadata` fields.  For general information
 about working with config files, see
 [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
-and [Object Management](/docs/concepts/overview/object-management-kubectl/overview/).
+and [Object Management](/docs/concepts/overview/working-with-objects/object-management).
 
 __spec__: `NetworkPolicy` [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
 
