@@ -15,7 +15,7 @@ It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 {{% capture body %}}
 ## Planning a cluster
 
-See the guides in [Picking the Right Solution](/docs/setup/pick-right-solution/) for examples of how to plan, set up, and configure Kubernetes clusters. The solutions listed in this article are called *distros*.
+See the guides in [Setup](/docs/setup/) for examples of how to plan, set up, and configure Kubernetes clusters. The solutions listed in this article are called *distros*.
 
 Before choosing a guide, here are some considerations:
 

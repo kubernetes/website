@@ -5,7 +5,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
+The example below creates a Kubernetes cluster with 3 worker node Virtual Machines and a master Virtual Machine (i.e. 4 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
 {{% /capture %}}
 
@@ -161,7 +161,7 @@ Likewise, the `kube-up.sh` in the same directory will bring it back up. You do n
 ## カスタマイズ
 
 The script above relies on Google Storage to stage the Kubernetes release. It
-then will start (by default) a single master VM along with 4 worker VMs.  You
+then will start (by default) a single master VM along with 3 worker VMs.  You
 can tweak some of these parameters by editing `kubernetes/cluster/gce/config-default.sh`
 You can view a transcript of a successful cluster creation
 [here](https://gist.github.com/satnam6502/fc689d1b46db9772adea).

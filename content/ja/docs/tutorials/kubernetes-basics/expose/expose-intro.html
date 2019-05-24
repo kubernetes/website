@@ -28,9 +28,9 @@ weight: 10
 			<div class="col-md-8">
 			<h3>Kubernetes Serviceの概要</h3>
 
-			<p>Kubernetes Podの寿命は永続的ではありません。実際、<a href="/ja/docs/concepts/workloads/pods/pod-overview/">Pod</a>には<a href="/ja/docs/concepts/workloads/pods/pod-lifecycle/">ライフサイクル</a>があります。ワーカーのNodeが停止すると、そのNodeで実行されているPodも失われます。そうなると、<a href="/ja/docs/user-guide/replication-controller/#what-is-a-replicationcontroller">ReplicationController</a>は、新しいPodを作成してアプリケーションを実行し続けるために、クラスタを動的に目的の状態に戻すことができます。別の例として、3つのレプリカを持つ画像処理バックエンドを考えます。それらのレプリカは交換可能です。フロントエンドシステムはバックエンドのレプリカを気にしたり、Podが失われて再作成されたとしても配慮すべきではありません。ただし、Kubernetesクラスタ内の各Podは、同じNode上のPodであっても一意のIPアドレスを持っているため、アプリケーションが機能し続けるように、Pod間の変更を自動的に調整する方法が必要です。</p>
-			
-			<p>KubernetesのServiceは、Podの論理セットと、それらにアクセスするためのポリシーを定義する抽象概念です。Serviceによって、依存Pod間の疎結合が可能になります。Serviceは、すべてのKubernetesオブジェクトのように、YAML<a href="/ja/docs/concepts/configuration/overview/#general-config-tips">(推奨)</a>またはJSONを使って定義されます。Serviceが対象とするPodのセットは通常、<i>LabelSelector</i>によって決定されます(なぜ仕様に<code>セレクタ</code>を含めずにServiceが必要になるのかについては下記を参照してください)。</p>
+			<p>Kubernetes Podの寿命は永続的ではありません。実際、<a href="/docs/concepts/workloads/pods/pod-overview/">Pod</a>には<a href="/docs/concepts/workloads/pods/pod-lifecycle/">ライフサイクル</a>があります。ワーカーのNodeが停止すると、そのNodeで実行されているPodも失われます。そうなると、<a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a>は、新しいPodを作成してアプリケーションを実行し続けるために、クラスタを動的に目的の状態に戻すことができます。別の例として、3つのレプリカを持つ画像処理バックエンドを考えます。それらのレプリカは交換可能です。フロントエンドシステムはバックエンドのレプリカを気にしたり、Podが失われて再作成されたとしても配慮すべきではありません。ただし、Kubernetesクラスタ内の各Podは、同じNode上のPodであっても一意のIPアドレスを持っているため、アプリケーションが機能し続けるように、Pod間の変更を自動的に調整する方法が必要です。</p>
+
+			<p>KubernetesのServiceは、Podの論理セットと、それらにアクセスするためのポリシーを定義する抽象概念です。Serviceによって、依存Pod間の疎結合が可能になります。Serviceは、すべてのKubernetesオブジェクトのように、YAML<a href="/docs/concepts/configuration/overview/#general-configuration-tips">(推奨)</a>またはJSONを使って定義されます。Serviceが対象とするPodのセットは通常、<i>LabelSelector</i>によって決定されます(なぜ仕様に<code>セレクタ</code>を含めずにServiceが必要になるのかについては下記を参照してください)。</p>
 
 			<p>各Podには固有のIPアドレスがありますが、それらのIPは、Serviceなしではクラスタの外部に公開されません。Serviceによって、アプリケーションはトラフィックを受信できるようになります。ServiceSpecで<code>type</code>を指定することで、Serviceをさまざまな方法で公開することができます。</p>
 			<ul>
@@ -39,7 +39,7 @@ weight: 10
 				<li><i>LoadBalancer</i> - 現在のクラウドに外部ロードバランサを作成し(サポートされている場合)、Serciceに固定の外部IPを割り当てます。これはNodePortのスーパーセットです。</li>
 				<li><i>ExternalName</i> - 仕様の<code>externalName</code>で指定した名前のCNAMEレコードを返すことによって、任意の名前を使ってServiceを公開します。プロキシは使用されません。このタイプはv1.7以上の<code>kube-dns</code>を必要とします。</li>
 			</ul>
-			<p>さまざまな種類のServiceに関する詳細情報は<a href="/ja/docs/tutorials/services/source-ip/">Using Source IP</a> tutorialにあります。<a href="/ja/docs/concepts/services-networking/connect-applications-service">アプリケーションとServiceの接続</a>も参照してください。</p>
+			<p>さまざまな種類のServiceに関する詳細情報は<a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorialにあります。<a href="/docs/concepts/services-networking/connect-applications-service">アプリケーションとServiceの接続</a>も参照してください。</p>
 			<p>加えて、Serviceには、仕様に<code>selector</code>を定義しないというユースケースがいくつかあります。<code>selector</code>を指定せずに作成したServiceについて、対応するEndpointsオブジェクトは作成されません。これによって、ユーザーは手動でServiceを特定のエンドポイントにマッピングできます。セレクタがない可能性があるもう1つの可能性は、<code>type：ExternalName</code>を厳密に使用していることです。</p>
 			</div>
 			<div class="col-md-4">
