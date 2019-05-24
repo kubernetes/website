@@ -1,7 +1,7 @@
 ---
 title: Managing Kubernetes Objects Using Imperative Commands
-content_template: templates/concept
-weight: 20
+content_template: templates/task
+weight: 30
 ---
 
 {{% capture overview %}}
@@ -10,7 +10,14 @@ imperative commands built into the `kubectl` command-line tool. This document
 explains how those commands are organized and how to use them to manage live objects.
 {{% /capture %}}
 
-{{% capture body %}}
+{{% capture prerequisites %}}
+Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+{{% /capture %}}
+
+{{% capture steps %}}
 
 ## Trade-offs
 
@@ -20,7 +27,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
+See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## How to create objects
@@ -155,8 +162,10 @@ kubectl create --edit -f /tmp/srv.yaml
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-- [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
-- [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
+* [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+* [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
 {{% /capture %}}

@@ -219,7 +219,6 @@ IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs               
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/turnkey/gce/)                                    |   | Project
 
-For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
 ## Further reading
 
