@@ -3,7 +3,7 @@ reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController
-feature: 
+feature:
   title: Self-healing
   anchor: How a ReplicationController Works
   description: >
@@ -116,7 +116,7 @@ specifies an expression that just gets the name from each pod in the returned li
 ## Writing a ReplicationController Spec
 
 As with all other Kubernetes config, a ReplicationController needs `apiVersion`, `kind`, and `metadata` fields.
-For general information about working with config files, see [object management ](/docs/concepts/overview/object-management-kubectl/overview/).
+For general information about working with config files, see [object management ](/docs/concepts/overview/working-with-objects/object-management/).
 
 A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -152,7 +152,7 @@ If specified, the `.spec.template.metadata.labels` must be equal to the `.spec.s
 be rejected by the API.  If `.spec.selector` is unspecified, it will be defaulted to
 `.spec.template.metadata.labels`.
 
-Also you should not normally create any pods whose labels match this selector, either directly, with 
+Also you should not normally create any pods whose labels match this selector, either directly, with
 another ReplicationController, or with another controller such as Job. If you do so, the
 ReplicationController thinks that it created the other pods.  Kubernetes does not stop you
 from doing this.
@@ -289,5 +289,3 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 Read [Run Stateless AP Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
 
 {{% /capture %}}
-
-
