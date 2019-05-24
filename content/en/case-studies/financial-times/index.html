@@ -1,0 +1,91 @@
+---
+title: Financial Times Case Study
+linkTitle: financial-times
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+featured: false
+---
+
+
+<div class="banner1" style="background-image: url('/images/CaseStudy_FT_banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/FT_logo.png" class="header_logo" style="width:32%;margin-bottom:%"><br> <div class="subhead" style="margin-top:1%">Financial Times: Migrating 150 Microservices to Kubernetes without Disruption</div></h1>
+
+</div>
+
+<div class="details" style="font-size:1em">
+    Company &nbsp;<b>Financial Times</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>London, England</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>News media</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1" style="width:100%">
+    <h2>Challenge</h2>
+         The company was an early adopter of <a href="https://www.docker.com/">Docker</a> containerization, and the content platform team at the Financial Times built its own platform to run the containers on <a href="https://aws.amazon.com/">AWS</a>. But by the end of 2016, that team realized it needed a cluster orchestration solution. "The problem when you run something yourself is that you can’t go and ask anyone else for help, and when the people who wrote the core of the system move on to another company, you don’t even necessarily know why decisions were made," says Sarah Wells, who was the Tech Lead for that content platform team and is now Technical Director for Operations and Reliability. "We wanted to make it much less stressful to operate the&nbsp;system."
+<br><br>
+ <h2>Solution</h2>
+      A Financial Timeser running a workshop to look at orchestration solutions, the team decided to go with Kubernetes. "We found it quite straightforward to get started with, but probably more importantly, we could see cloud providers starting to offer it as a managed platform," says Wells. "It looked as though it was becoming the standard." In 2017, the team began a migration of the 150 microservices of Financial Times’s content platform to Kubernetes.
+
+<h2>Impact</h2>
+      Adopting a microservices architecture and continuous delivery has had a huge impact on the content team’s delivery cycle. "We’re probably releasing 15 to 20 times a day versus once a month, and as a result the failure rate has gone from about 15% down to 1%," says Wells. Adopting containers made developing and deploying this microservice architecture easier but running their own container platform had operational challenges. The adoption of Kubernetes has had a huge impact on system stability: "We had three production incidents of some nodes going down in the month a Financial Timeser we went live compared to 17 in the same month in 2017." Going from one service per VM to containers had saved the company 40% in AWS costs, and moving the containers to Kubernetes saved an additional 35%. "Hosting and support costs are cheaper compared to our old stack, and several of the alternatives," says Wells. Taking into account the costs of the migration, "We break even in three years." One big bonus of embracing cloud native, she adds, is that "We have something we can learn from others. We can go to conferences. We can watch talks. We can talk to other companies, and we can send people to training, which we couldn’t do when it was our own stack."
+
+</div>
+
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+   "A good metric for satisfaction is the number of sarcastic comments in <a href="https://slack.com/" style="color:#ffffff;text-decoration:underline">Slack</a> from your development team. And I think it is honestly the case that I haven’t seen anyone being sarcastic about the new platform who were very sarcastic about the old platform. Definitely the number of sarcastic comments metric has gone way, way down." <br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— Sarah Wells, Technical Director for Operations and Reliability, Financial Times</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+ <h2>For years, the Financial Times was best known for its salmon-colored newspaper.</h2> Today, most people get their news online, and as a result, Financial Times has focused resources to support a paywall and subscription services. "Technology is absolutely central to what we do," says Sarah Wells, Technical Director for Operations and Reliability.
+The past few years have seen a Financial Times to the cloud, microservices, and a mixed strategy of PaaS, serverless or containerization at Financial Times, with different teams adopting different approaches depending on their needs. The company moved from data centers to private cloud to AWS, and was an early adopter of Docker, first using it in production in mid-2015. "We built a lot of the platform we were running containers on ourselves," says Wells. "But the problem when you run something yourself is that you can’t go and ask anyone else for help. And when the people who wrote the core of the system move on to another company, you don’t necessarily know why decisions were made."<br><br>
+By the end of 2016, Wells and her content platform team realized that they needed help with cluster orchestration. "We wanted to make it much less stressful to operate the system," she says. A Financial Timeser running a workshop to look at orchestration solutions, the company decided to go with Kubernetes. "We found it quite straightforward to get started with, but probably more importantly, we could see cloud providers starting to offer it as a managed platform," says Wells. "It looked as though it was becoming the standard. We were very keen to get something that was widely&nbsp;used."
+
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/CaseStudy_FT_banner3.jpg')">
+  <div class="banner3text">
+ "We found it quite straightforward to get started with, but probably more importantly, we could see cloud providers starting to offer it as a managed platform," says Wells. "It looked as though it was becoming the standard. We were very keen to get something that was widely&nbsp;used." <br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- Sarah Wells, Technical Director for Operations and Reliability, Financial Times</span>
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+  The team started its Kubernetes journey with 150 microservices and 650 instances already running in production. The plan was to do provisioning with <a href="https://github.com/coreos/coreos-kubernetes/tree/master/multi-node/aws">KubeAWS</a> and run deployments with <a href="https://helm.sh/">Helm</a> charts. Some dependencies made the migration tricky. "We had to do the migration without affecting all of the active development that was also happening and included complicated dependencies between different teams," says Wells. "To understand whether Kubernetes worked for us, we needed a lot of our services to be running. That meant we had to run in parallel for quite a long time."<br><br>
+In the end, the company did about 2,000 code releases while running at least part of the stack in parallel. The migration was a big undertaking. "To avoid having a single team working for days and days and days on the same repetitive task, we got everyone from five development teams involved in the migration," says Wells. "Every single person basically migrated some services. This was great because you want everyone on your team to understand the technologies you’re moving to, and have a chance to give you feedback about them." The Kubernetes cluster went live just before the cluster manager fleet, a key part of the old stack, went end-of-life.
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/CaseStudy_FT_banner4.jpg')">
+  <div class="banner4text">
+     "Compared to our original approach of one service per VM, we’ve saved 60%. Kubernetes takes care of load balancing, which wasn’t done on the old platform. Additionally, it’s a lot simpler for us to make changes in the same environment, so we don’t spin up as many environments for teams"<span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br><br>- Sarah Wells, Technical Director for Operations and Reliability, Financial Times</span>
+  </div>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+Despite the substantial cost of the migration, Financial Times expects to break even over three years. The company had already experienced an 40% reduction of AWS costs moving from VMs to containers, and the migration to Kubernetes led to even greater savings. "Hosting and support costs are cheaper compared to our old stack, and several of the alternatives. Compared to our original approach of one service per VM, we’ve saved 60%," says Wells. Kubernetes takes care of load balancing, which wasn’t done on the old platform. Additionally, "It’s a lot simpler for us to make changes in the same environment, so we don’t spin up as many environments for teams," says Wells. "We haven’t taken advantage of name spaces, and we think when we do that we will gain additional cost benefits."<br><br>
+Adopting a microservices architecture and continuous delivery has had a huge impact on the Financial Times’s delivery cycle as well. "We’ve had continuous integration at the Financial Times for a very long time, but I think we have more structure around it now," says Wells. "If we can release it very quickly and roll it back very quickly, and we have monitoring that lets us know that, we should be willing to accept a little bit more risk to move more quickly." The team is now releasing 15 to 20 times a day; before it was once a month. The failure rate has gone from about 15% down to 1%. With the adoption of Kubernetes, system stability has improved significantly: "We had three production incidents of some nodes going down in the month aFinancial Timeser we went live compared to 17 in the same month in 2017."
+
+
+</div>
+
+<div class="banner5">
+  <div class="banner5text">
+    "When I started out as a developer what you mostly did was write code, now the developers also set up platforms and investigate what the next technology is. They are comfortable with the idea that they might not be doing the same thing in a year’s time. It’s really important if you’re expecting people to support a system that they feel they understand it. I think it gives developers a strong sense of empowerment."<span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br><br>- Sarah Wells, Technical Director for Operations and Reliability, Financial Times</span>
+
+  </div>
+</div>
+
+<div class="fullcol">
+
+As for how the development team responded to the change, "A good metric for satisfaction is the number of sarcastic comments in Slack," says Wells. "And I think it is honestly the case that I haven’t seen anyone being sarcastic about the new platform who were very sarcastic about the old platform. Definitely the ‘number of sarcastic comments’ metric has gone way, way down."
+A different Financial Times team is already using another CNCF project, <a href="https://prometheus.io/">Prometheus</a>, for monitoring, and Wells expect that usage of cloud native technology will spread within the company: "If you’re running containers, Prometheus seems like a very sensible thing to use. I've been really interested in a lot of the things around security. Service mesh would probably be another thing. The team have a long list of things they want to tackle, because you always have to get across the line and then go back and do the things that are nice to have."<br><br>
+The fact that the team is getting excited about these new technologies is a sign that there’s been a big culture change. "When I started out as a developer what you mostly did was write code," says Wells. "Now the developers also set up platforms and investigate what the next technology is. They are comfortable with the idea that they might not be doing the same thing in a year’s time. The introduction of Kubernetes has made people feel, ‘Well, I can train on this, I can watch talks, I can learn.’ It’s really important if you’re expecting people to support a system that they feel they understand it. I think it gives developers a strong sense of empowerment."
+
+</div>
+
+</section>

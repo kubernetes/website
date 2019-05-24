@@ -1,0 +1,96 @@
+---
+title: Woorank Case Study
+linkTitle: woorank
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+featured: false
+---
+
+
+<div class="banner1" style="background-image: url('/images/CaseStudy_woorank_banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/woorank_logo.png" class="header_logo" style="width:25%;margin-bottom:-1%"><br> <div class="subhead" style="margin-top:1%">Woorank: How Kubernetes Helped a Startup Manage 50 Microservices with<br>12 Engineers—At 30% Less Cost
+</div></h1>
+
+</div>
+
+<div class="details">
+    Company &nbsp;<b>Woorank</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>Brussels, Belgium</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Digital marketing tool</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1" style="width:100%"">
+
+    <h2>Challenge</h2>
+    Founded in 2011, Woorank embraced microservices and containerization early on, so its core product, a tool that helps digital marketers improve their websites’ visibility on the internet, consists of 50 applications developed and maintained by a technical team of 12. For two years, the infrastructure ran smoothly on Mesos, but “there were still lots of our own libraries that we had to roll and applications that we had to bring in, so it was very cumbersome for us as a small team to keep those things alive and to update them,” says CTO/Cofounder Nils De Moor. So he began looking for a new solution with more automation and self-healing built in, that would better suit the company’s human resources.
+    <h2>Solution</h2>
+    De Moor decided to switch to <a href="https://kubernetes.io/">Kubernetes</a> running on <a href="https://aws.amazon.com/">AWS</a>, which “allows us to just define applications, how they need to run, how scalable they need to be, and it takes pain away from the developers thinking about that,” he says. “When things fail and errors pop up, the system tries to heal itself, and that’s really, for us, the key reason to work with Kubernetes.” The company now also uses <a href="https://www.fluentd.org/">Fluentd</a>, <a href="https://prometheus.io/">Prometheus</a>, and <a href="http://opentracing.io/">OpenTracing</a>.
+<h2>Impact</h2>
+    The company’s number one concern was immediately erased: Maintaining Kubernetes takes just one person on staff, and it’s not a fulltime job. Infrastructure updates used to take two active working days; now it’s just a matter of “a few hours of passively following the process,” says De Moor. Implementing new tools—which once took weeks of planning, installing, and onboarding—now only takes a few days. “We were already pretty flexible in our costs and taking on traffic peaks and higher load in general,” adds De Moor, “but with Kubernetes and the other CNCF tools we use, we have achieved about 30% in cost savings.” Plus, the rate of deployments per day has nearly doubled.
+
+</div>
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+    “It was definitely important for us to have CNCF as an umbrella above everything. We’ve always been working with open source libraries and tools and technologies. It works very well for us, but sometimes things can drift, maintainers drop out, and projects go haywire. For us, it was indeed important to know that whatever project gets taken under this umbrella, it’s taken very seriously. Our way of contributing back is also by joining this community. It’s, for us, a way to show our appreciation for what’s going on in this framework.”
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— NILS DE MOOR, CTO/COFOUNDER, WOORANK</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+  <h2>Woorank’s core product is a tool that enables digital marketers to improve their websites’ visibility on the internet.</h2>
+  “We help them acquire lots of data and then present it to them in meaningful ways so they can work with it,” says CTO/Cofounder Nils De Moor. In its seven years as a startup, the company followed a familiar technological path to build that product: starting with a monolithic application, breaking it down into microservices, and then embracing containerization. “That’s where our modern infrastructure started out,” says De Moor.
+<br><br>
+  As new features have been added to the product, it has grown to consist of 50 applications under the hood. Though Docker had made things easier to deploy, and the team had been using Mesos as an orchestration framework on AWS since 2015, De Moor realized there was still too much overhead to managing the infrastructure, especially with a technical team of just 12.
+<br><br>
+  “The pain point was that there were still lots of our own libraries that we had to roll and applications that we had to bring in, so it was very cumbersome for us as a small team to keep those things alive and to update them,” says De Moor. “When things went wrong during deployment, someone manually had to come in and figure it out. It wasn’t necessarily that the technology or anything was wrong with Mesos; it was just not really fitting our model of being a small company, not having the human resources to make sure it all works and can be updated.”
+
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/CaseStudy_woorank_banner3.jpg')">
+  <div class="banner3text">
+    "Cloud native technologies have brought to us a transparency on everything going on in our system, from the code to the server. It has brought huge cost savings and a better way of dealing with those costs and keeping them under control. And performance-wise, it has helped our team understand how we can make our code work better on the cloud native infrastructure."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>— NILS DE MOOR, CTO/COFOUNDER, WOORANK</span>
+
+  </div>
+</div>
+
+<section class="section3">
+<div class="fullcol">
+  Around the time Woorank was grappling with these issues, Kubernetes was emerging as a technology. De Moor knew that he wanted a platform that would be more automated and self-healing, and when he began experimenting with Kubernetes, he found that it checked all those boxes. “Kubernetes allows us to just define applications, how they need to run, how scalable they need to be, and it takes pain away from the developers thinking about that,” he says. “When things fail and errors pop up, the system tries to heal itself, and that’s really, for us, the key reason to work with Kubernetes. It allowed us to set up certain testing frameworks to just be alerted when things go wrong, instead of having to look at whether everything went right. It’s made people’s lives much easier. It’s quite a big mindset change.”
+<br><br>
+  Once one small Kubernetes cluster was up and running, the team began moving over a few applications at a time, gradually increasing the load over the course of several months. By early 2017, Woorank was 100% deployed on Kubernetes.
+<br><br>
+  The company’s number one concern was immediately erased: Maintaining Kubernetes is the responsibility of just one person on staff, and it’s not his fulltime job. Updating the old infrastructure “was always a pain,” says De Moor: It used to take two active working days, “and it was always a bit scary when we did that.” With Kubernetes, it’s just a matter of “a few hours of passively following the process.”
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/CaseStudy_woorank_banner4.jpg')" style="width:100%">
+  <div class="banner4text">
+  "When things fail and errors pop up, the system tries to heal itself, and that’s really, for us, the key reason to work with Kubernetes. It allowed us to set up certain testing frameworks to just be alerted when things go wrong, instead of having to look at whether everything went right. It’s made people’s lives much easier. It’s quite a big mindset change." <br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- NILS DE MOOR, CTO/COFOUNDER, WOORANK</span>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+  Transparency on all levels, from the code to the servers, has also been a byproduct of the move to Kubernetes. “It’s easier for the entire team to get a better understanding of the infrastructure, how it’s working, how it looks like, what’s going on,” says De Moor. “It’s not that thing that’s running, and no one really knows how it works except this one person. Now it’s really a team effort of everyone knowing, ‘Okay, when something goes wrong, it’s probably in this area or we need to check this.’”
+<br><br>
+  To that end, Woorank has begun implementing other cloud native tools that help with visibility, such as Fluentd for logging, Prometheus for monitoring, and OpenTracing for distributed tracing. Implementing these new tools—which once took weeks of planning, installing, and onboarding—now only takes a few days. “With all the tools and projects under the CNCF umbrella, it’s easier for us to test and play with technology than it used to be,” says De Moor. “With Prometheus, we used it fairly early and couldn’t get it fairly stable. A couple of months ago, the question reappeared, so we set it up in two days, and now everyone is using it.”
+<br><br>
+  Deployments, too, have been impacted: The rate has more than doubled, which De Moor partly attributes to the transparency of the new process. “With Kubernetes, you see that these three containers didn’t start for this reason,” he says. Plus, “now we bring deployment messages into Slack. If you see deployments rolling by every day, it does somehow indirectly enforce you, okay, I need to be part of this train, so I also need to deploy.”
+</div>
+
+<div class="banner5" >
+  <div class="banner5text">
+"We can plan those things over a certain timeline, try to fit our resource usage to that, and then bring in spot instances, which will hopefully drive the costs&nbsp;down&nbsp;more."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- NILS DE MOOR, CTO/COFOUNDER, WOORANK</span></div>
+</div>
+
+<div class="fullcol">
+  Perhaps the biggest impact, though, has been on the bottom line. “We were already pretty flexible in our costs and taking on traffic peaks and higher load in general, but with Kubernetes and the other CNCF tools we use, we have achieved about 30% in cost savings,” says De Moor.
+<br><br>
+  And there’s room for even greater savings. Currently, most of Woorank’s infrastructure is running on AWS on demand; the company pays a fixed price and makes some reservations for its planned amount of resources needed. De Moor is planning to experiment more with spot instances with certain resource-heavy workloads such as web crawls: “We can plan those things over a certain timeline, try to fit our resource usage to that, and then bring in spot instances, which will hopefully drive the costs down more.”
+<br><br>
+  Moving to Kubernetes has been so beneficial to Woorank that the company is doubling down on both cloud native technologies and the community. “It was definitely important for us to have CNCF as an umbrella above everything,” says De Moor. “We’ve always been working with open source libraries and tools and technologies. It works very well for us, but sometimes things can drift, maintainers drop out, and projects go haywire. For us, it was indeed important to know that whatever project gets taken under this umbrella, it’s taken very seriously. Our way of contributing back is also by joining this community. It’s, for us, a way to show our appreciation for what’s going on in this framework.”
+</div>
+</section>
