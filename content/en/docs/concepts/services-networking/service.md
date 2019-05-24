@@ -161,7 +161,7 @@ metadata:
   name: my-service
 subsets:
   - addresses:
-      - ip: 1.2.3.4
+      - ip: 192.0.2.42
     ports:
       - port: 9376
 ```
@@ -177,7 +177,7 @@ as a destination.
 
 Accessing a Service without a selector works the same as if it had a selector.
 In the example above, traffic will be routed to the single endpoint defined in
-the YAML: `1.2.3.4:9376` (TCP).
+the YAML: `192.0.2.42:9376` (TCP).
 
 An ExternalName Service is a special case of service that does not have
 selectors and uses DNS names instead. For more information, see the
@@ -493,7 +493,7 @@ Your service will report that allocated port in its `.spec.ports[*].nodePort` fi
 
 
 If you want to specify particular IP(s) to proxy the port, you can set the `--nodeport-addresses` flag in kube-proxy to particular IP block(s); this is supported since Kubernetes v1.10.
-This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 1.2.3.4/32) to specify IP address ranges that kube-proxy should consider as local to this node.
+This flag takes a comma-delimited list of IP blocks (e.g. 10.0.0.0/8, 192.0.2.0/25) to specify IP address ranges that kube-proxy should consider as local to this node.
 
 For example, if you start kube-proxy with flag `--nodeport-addresses=127.0.0.0/8`, kube-proxy will select only the loopback interface for NodePort Services. The default for `--nodeport-addresses` is an empty list, and means that kube-proxy  should consider all available network interfaces for NodePort. (That's also compatible with earlier Kubernetes releases).
 
