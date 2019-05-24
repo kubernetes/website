@@ -314,7 +314,7 @@ kube-scheduler [flags]
       <td colspan="2">--port int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10251</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">DEPRECATED: the port on which to serve HTTP insecurely without authentication and authorization. If 0, don't serve HTTPS at all. See --secure-port instead.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">DEPRECATED: the port on which to serve HTTP insecurely without authentication and authorization. If 0, don't serve HTTP at all. See --secure-port instead.</td>
     </tr>
 
     <tr>
