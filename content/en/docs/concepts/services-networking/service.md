@@ -5,7 +5,7 @@ title: Service
 feature:
   title: Service discovery and load balancing
   description: >
-    No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
+    No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives pods their own IP addresses and a single DNS name for a set of pods, and can load-balance across them.
 
 content_template: templates/concept
 weight: 10
@@ -191,25 +191,27 @@ than [`ExternalName`](#externalname).
 
 ### Why not use round-robin DNS?
 
-A question that pops up every now and then is why Kubernetes has uses proxying
-to direct incoming traffic to backends. Would it be possible to configure
-DNS records that have multiple A values (or AAAA for IPv6) and rely on round-robin
-name resoltion?
+A question that pops up every now and then is why Kubernetes relies on
+proxying to forward inbound traffic to backends. What about other
+approaches? For example, would it be possible to configure DNS records that
+have multiple A values (or AAAA for IPv6), and rely on round-robin name
+resolution?
 
 There are a few reasons for using proxying for Services:
 
- * There is a long history of DNS libraries not respecting DNS TTLs and
-   caching the results of name lookups.
- * Many apps do DNS lookups only once and cache the results indefinitely.
- * Even if apps and libraries did proper re-resolution, the load of every
-   client re-resolving DNS over and over would be difficult to manage.
+ * There is a long history of DNS implementations not respecting record TTLs,
+   and caching the results of name lookups after they should have expired.
+ * Some apps do DNS lookups only once and cache the results indefinitely.
+ * Even if apps and libraries did proper re-resolution, the low or zero TTLs
+   on the DNS records involve could impose a high load on DNS, that then
+   becomes difficult to manage.
 
 ### Version compatibility
 
-Services are a "layer 4" (TCP/UDP over IP) construct. Since Kubernetes v1.0
-you have been able to use the [userspace proxy mode](#proxy-mode-userspace).
-Kubernetes v1.1 added iptables mode proxying was added too, which became the
-default mode in Kubernetes v1.2.
+Since Kubernetes v1.0 you have been able to use the
+[userspace proxy mode](#proxy-mode-userspace).
+Kubernetes v1.1 added iptables mode proxying, and in Kubernetes v1.2 the
+iptables mode for kube-proxy became the default.
 Kubernetes v1.8 added ipvs proxy mode.
 
 ### User space proxy mode {#proxy-mode-userspace}
@@ -218,8 +220,8 @@ In this mode, kube-proxy watches the Kubernetes master for the addition and
 removal of Service and Endpoint objects. For each Service it opens a
 port (randomly chosen) on the local node.  Any connections to this "proxy port"
 will be proxied to one of the Service's backend Pods (as reported via
-Endpoints).  Which backend Pod  to use is decided based on the
-`SessionAffinity` of the Service.
+Endpoints). kube-proxy takes the `SessionAffinity` setting of the Service into
+account when deciding which backend Pod to use.
 
 Lastly, the user-space proxy installs iptables rules which capture traffic to
 the Service's `clusterIP` (which is virtual) and `port`. The rules
