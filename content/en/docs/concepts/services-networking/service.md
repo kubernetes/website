@@ -991,32 +991,56 @@ followed by the data from the client.
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-Kubernetes supports SCTP as a `protocol` value in `Service`, `Endpoint`, `NetworkPolicy` and `Pod` definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `“--feature-gates=SCTPSupport=true,...”`. When the feature gate is enabled, users can set the `protocol` field of a `Service`, `Endpoint`, `NetworkPolicy` and `Pod` to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
+Kubernetes supports SCTP as a `protocol` value in `Service`, `Endpoint`, `NetworkPolicy` and `Pod` definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `--feature-gates=SCTPSupport=true,…`.
+
+When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
 #### Warnings {#caveat-sctp-overview}
 
 ##### Support for multihomed SCTP associations {#caveat-sctp-multihomed}
 
-The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a `Pod`.
+{{< warning >}}
+The support of multihomed SCTP associations requires that the CNI plugin can support the assignment of multiple interfaces and IP addresses to a Pod.
 
 NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
+{{< /warning >}}
 
 ##### Service with type=LoadBalancer {#caveat-sctp-loadbalancer-service-type}
 
-A `Service` with `type` LoadBalancer and `protocol` SCTP can be created only if the cloud provider's load balancer implementation supports SCTP as a protocol. Otherwise the `Service` creation request is rejected. The current set of cloud load balancer providers (`Azure`, `AWS`, `CloudStack`, `GCE`, `OpenStack`) do not support SCTP.
+{{< warning >}}
+You can only create a Service with `type` LoadBalancer plus `protocol` SCTP if the cloud provider's load balancer implementation supports SCTP as a protocol. Otherwise, the Service creation request is rejected. The current set of cloud load balancer providers (Azure, AWS, CloudStack, GCE, OpenStack) all lack support for SCTP.
+{{< /warning >}}
 
 ##### Windows {#caveat-sctp-windows-os}
 
+{{< warning >}}
 SCTP is not supported on Windows based nodes.
+{{< /warning >}}
 
 ##### Userspace kube-proxy {#caveat-sctp-kube-proxy-userspace}
 
+{{< warning >}}
 The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
+{{< /warning >}}
+
+## Future work
+
+In the future we envision that the proxy policy can become more nuanced than
+simple round robin balancing, for example master-elected or sharded.  We also
+envision that some Services will have "real" load balancers, in which case the
+VIP will simply transport the packets there.
+
+We intend to improve our support for L7 (HTTP) Services.
+
+We intend to have more flexible ingress modes for `Services` which encompass
+the current `ClusterIP`, `NodePort`, and `LoadBalancer` modes and more.
+
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-Read [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/).
+* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Read about [Ingress](/docs/concepts/services-networking/ingress/)
 
 {{% /capture %}}
