@@ -12,6 +12,8 @@ Kubernetes cluster.
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+* This guide assumes your nodes use the AMD64 or Intel 64 CPU architecture
+
 * Make sure the [DNS feature](/docs/concepts/services-networking/dns-pod-service/) itself is enabled.
 
 * Kubernetes version 1.4.0 or later is recommended.
