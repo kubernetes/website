@@ -203,7 +203,7 @@ The output is:
 
 ### Option 3: Delete the dns-autoscaler manifest file from the master node
 
-This option works if dns-autoscaler is under control of the
+This option works if dns-autoscaler is under control of the (deprecated)
 [Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md),
 and you have write access to the master node.
 
@@ -256,6 +256,6 @@ is under consideration as a future development.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Learn more about the
+* Learn more about the
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
 {{% /capture %}}
