@@ -1,8 +1,8 @@
 ---
-title: Reference
+title: Documents de Référence
 approvers:
 - chenopis
-linkTitle: "Reference"
+linkTitle: "Référence"
 main_menu: true
 weight: 70
 content_template: templates/concept
