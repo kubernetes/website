@@ -18,17 +18,17 @@ Perintah `kubectl` mendukung tiga cara pengelolaan objek:
 * Konfigurasi objek imperatif
 * Konfigurasi objek deklaratif
 
-Lihat [Pengelolaan Objek Kubernetes](/id/docs/concepts/overview/object-management-kubectl/overview/) untuk menyimak diskusi mengenai kelebihan dan kekurangan dari tiap cara pengelolaan objek.
+Lihat [Pengelolaan Objek Kubernetes](/id/docs/concepts/overview/object-management-kubectl/overview/) untuk mengenali lebih lanjut kelebihan dan kekurangan dari tiap pengelolaan objek.
 
 ## Cara membuat objek
 
-*Tool* `kubectl` mendukung perintah-perintah berbentuk kata kerja untuk membuat beberapa tipe objek yang paling umum. Perintah-perintah tersebut diberi nama yang mudah dikenali oleh pengguna yang belum familiar dengan tipe-tipe objek Kubernetes.
+Perangkat `kubectl` mendukung perintah-perintah berbentuk kata kerja untuk membuat beberapa tipe objek yang paling umum. Perintah-perintah tersebut diberi nama yang mudah dikenali oleh pengguna yang belum familiar dengan tipe-tipe objek Kubernetes.
 
 - `run`: Membuat sebuah objek Deployment untuk menjalankan kontainer di satu atau lebih Pod.
 - `expose`: Membuat sebuah objek Service untuk mengatur lalu lintas beban antar Pod.
 - `autoscale`: Membuat sebuah objek Autoscaler untuk melakukan *scaling* horizontal secara otomatis terhadap sebuah objek *controller*, misalnya sebuah objek Deployment.
 
-*Tool* `kubectl` juga mendukung perintah-perintah pembuatan objek yang berdasarkan pada tipe objek. Perintah-perintah ini mendukung lebih banyak tipe objek dan lebih eksplisit tentang intensi mereka. Tapi, perintah-perintah ini memerlukan pengguna untuk memahami tipe dari objek-objek yang hendak mereka buat.
+Perangkat `kubectl` juga mendukung perintah-perintah pembuatan objek yang berdasarkan pada tipe objek. Perintah-perintah ini mendukung lebih banyak tipe objek dan lebih eksplisit tentang intensi mereka. Tapi, perintah-perintah ini memerlukan pengguna untuk memahami tipe dari objek-objek yang hendak mereka buat.
 
 - `create <objecttype> [<subtype>] <instancename>`
 
@@ -40,7 +40,7 @@ kubectl create service nodeport <myservicename>
 
 Pada contoh di atas, perintah `create service nodeport` merupakan sub perintah dari `create service`.
 
-Kamu bisa menggunakan *flag* `-h` untuk mencari argumen-argumen dan paramenter-parameter yang didukung oleh sebuah sub perintah:
+Kamu bisa menggunakan parameter `-h` untuk mencari argumen-argumen dan paramenter-parameter yang didukung oleh sebuah sub perintah:
 
 ```shell
 kubectl create service nodeport -h
@@ -56,25 +56,25 @@ Perintah `kubectl` mendukung perintah-perintah berbasis kata kerja untuk beberap
 
 Perintah `kubectl` juga mendukung perintah-perintah pembaruan berdasarkan salah satu aspek dari sebuah objek. Untuk tiap tipe objek yang berbeda, memperbarui sebuah aspek tertentu bisa berarti memperbarui sekumpulan *field* yang berbeda pula:
 
-- `set` `<field>`: Memperbarui sebuah satu aspek dari sebuah objek.
+- `set` `<field>`: Memperbarui salah satu aspek dari sebuah objek.
 
 {{< note >}}
 Pada Kubernetes versi 1.5, tidak semua perintah yang berdasarkan kata kerja berasosiasi dengan perintah yang berdasarkan aspek tertentu.
 {{< /note >}}
 
-*Tool* `kubectl` juga mendukung beberapa cara lain untuk memperbarui objek *live* secara langsung, meskipun cara-cara berikut membutuhkan pemahaman yang lebih tentang skema objek Kubernetes.
+Perangkat `kubectl` juga mendukung beberapa cara lain untuk memperbarui objek *live* secara langsung, meskipun cara-cara berikut membutuhkan pemahaman yang lebih tentang skema objek Kubernetes.
 
 - `edit`: Secara langsung mengedit konfigurasi mentah dari sebuah objek *live* dengan membuka konfigurasinya di sebuah editor.
 - `patch`: Secara langsung memodifikasi *field-field* spesifik dari sebuah objek *live* dengan menggunakan *patch string*. Untuk detil lebih lanjut mengenai `patch string`, lihat bagian tentang *patch* pada [Konvensi API](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#patch-operations).
 
 ## Cara menghapus objek
 
-Kamu bisa menggunakan perintah `hapus` pada sebuah objek dari sebuah kluster:
+Kamu bisa menggunakan perintah `delete` pada sebuah objek dari sebuah kluster:
 
 - `delete <type>/<name>`
 
 {{< note >}}
-Kamu bisa menggunakan `kubectl delete` baik untuk perintah imperatif maupun konfigurasi objek imperatif. Perbedaanya hanya pada argumen yang diberikan ke perintah tersebut. Untuk menggunakan `kubectl delete` sebagai perintah imperatif, argumen yang diberikan adalah objek yang hendak dihapus. Berikut adalah sebuah contoh perintah `kubectl delete` dengan sebuah objek Deployment bernama nginx sebagai argumen:
+Kamu bisa menggunakan `kubectl delete` baik untuk perintah imperatif maupun konfigurasi objek imperatif. Perbedaannya hanya pada argumen yang diberikan ke perintah tersebut. Untuk menggunakan `kubectl delete` sebagai perintah imperatif, argumen yang diberikan adalah objek yang hendak dihapus. Berikut adalah sebuah contoh perintah `kubectl delete` dengan sebuah objek Deployment bernama nginx sebagai argumen:
 {{< /note >}}
 
 ```shell
@@ -100,7 +100,7 @@ Ada beberapa perintah untuk menampilkan informasi tentang sebuah objek:
 
 ## Menggunakan perintah `set` untuk memodifikasi objek sebelum dibuat
 
-Ada beberapa *field* objek yang tidak memiliki *flag* yang bisa kamu gunakan pada perintah `create`. Pada kasus-kasus tersebut, kamu bisa menggunakan kombinasi dari perintah `set` dan `create` untuk menspesifikasikan nilai untuk *field-field* tersebut sebelum objek dibuat. Ini dilakukan dengan melakukan *piping* pada hasil dari perintah `create` ke perintah `set`, dan kemudian mengembalikan hasilnya ke perintah `create`. Simak contoh berikut:
+Ada beberapa *field* objek yang tidak memiliki parameter yang bisa kamu gunakan pada perintah `create`. Pada kasus-kasus tersebut, kamu bisa menggunakan kombinasi dari perintah `set` dan `create` untuk menspesifikasikan nilai untuk *field-field* tersebut sebelum objek dibuat. Ini dilakukan dengan melakukan *piping* pada hasil dari perintah `create` ke perintah `set`, dan kemudian mengembalikan hasilnya ke perintah `create`. Simak contoh berikut:
 
 ```sh
 kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
