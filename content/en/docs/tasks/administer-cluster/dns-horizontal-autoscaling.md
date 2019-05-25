@@ -22,7 +22,8 @@ Kubernetes cluster.
 
 ## Determining whether DNS horizontal autoscaling is already enabled
 
-List the Deployments in your cluster in the kube-system namespace:
+List the {{< glossary_tooltip text="Deployments" term_id="deployment" >}}
+in your cluster in the kube-system namespace:
 
 ```shell
 kubectl get deployment --namespace=kube-system
@@ -116,7 +117,7 @@ DNS horizontal autoscaling is now enabled.
 
 ## Tuning autoscaling parameters
 
-Verify that the dns-autoscaler ConfigMap exists:
+Verify that the dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} exists:
 
 ```shell
 kubectl get configmap --namespace=kube-system
