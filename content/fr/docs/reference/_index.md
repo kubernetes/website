@@ -1,7 +1,5 @@
 ---
 title: Documents de Référence
-approvers:
-- chenopis
 linkTitle: "Référence"
 main_menu: true
 weight: 70
