@@ -24,7 +24,7 @@ and `serviceAccountToken` volumes can be projected.
 {{% capture steps %}}
 ## Configure a projected volume for a pod
 
-In this exercise, you create username and password Secrets from local files. You then create a Pod that runs one Container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount the Secrets into the same shared directory.
+In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. You then create a Pod that runs one Container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount the Secrets into the same shared directory.
 
 Here is the configuration file for the Pod:
 
