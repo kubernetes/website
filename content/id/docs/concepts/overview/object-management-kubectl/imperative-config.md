@@ -24,7 +24,7 @@ Lihat [Pengelolaan Objek Kubernetes](/id/docs/concepts/overview/object-managemen
 
 Kamu bisa menggunakan perintah `kubectl create -f` untuk membuat sebuah objek dari sebuah file konfigurasi. Rujuk dokumen [referensi API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) untuk detil lebih lanjut.
 
-- `kubectl create -f <filename|url>`
+- `kubectl create -f <nama-file|url>`
 
 ## Cara memperbarui objek
 
@@ -34,19 +34,19 @@ Memperbarui objek dengan perintah `replace` akan menghilangkan semua bagian dari
 
 Kamu bisa menggunakan perintah `kubectl replace -f` untuk memperbarui sebuah objek *live* sesuai dengan sebuah file konfigurasi.
 
-- `kubectl replace -f <filename|url>`
+- `kubectl replace -f <nama-file|url>`
 
 ## Cara menghapus objek
 
 Kamu bisa menggunakan perintah `kubectl delete -f` untuk menghapus sebuah objek yang dideskripsikan pada sebuah file konfigurasi.
 
-- `kubectl delete -f <filename|url>`
+- `kubectl delete -f <nama-file|url>`
 
 ## Cara melihat objek
 
 Kamu bisa menggunakan perintah `kubectl get -f` untuk melihat informasi tentang sebuah objek yang dideskripsikan pada sebuah file konfigurasi.
 
-- `kubectl get -f <filename|url> -o yaml`
+- `kubectl get -f <nama-file|url> -o yaml`
 
 Parameter `-o yaml` menetapkan bahwa keseluruhan konfigurasi objek ditulis ke file yaml. Gunakan perintah `kubectl get -h` untuk melihat daftar pilihan selengkapnya.
 
@@ -109,7 +109,7 @@ template:
 {{% capture whatsnext %}}
 - [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/docs/concepts/overview/object-management-kubectl/declarative-config/)
-- [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+- [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
 - [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 {{% /capture %}}
 
