@@ -14,4 +14,4 @@ tags:
 
 <!--more--> 
 
-Manera de empaquetar software que permite almacenarse en un registro de contenedores, descargarse y ejecutarse como una aplicación. Los metadatos son incluidos en la imagen, los cuales indican información diversa como su ejecutable o quién la ha construido.
+Mecanismo para empaquetar software que permite almacenarlo en un registro de contenedores, descargarlo al entorno local y ejecutarlo como una aplicación. Los metadatos se incluyen en la imagen y proporcionan información diversa como el ejecutable por defecto o quién la ha construido.
