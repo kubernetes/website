@@ -27,7 +27,6 @@ Support for using kops with GCE and VMware vSphere are in alpha.
   * Self-healing&#58; everything runs in Auto-Scaling Groups
   * Limited OS support (Debian preferred, Ubuntu 16.04 supported, early support for CentOS & RHEL)
   * High availability (HA) support
-  * The ability to directly provision, or generate terraform manifests
+  * The ability to directly provision, or to generate Terraform manifests
 
 You can also build your own cluster using {{< glossary_tooltip term_id="kubeadm" >}} as a building block. `kops` builds on the kubeadm work.
-
