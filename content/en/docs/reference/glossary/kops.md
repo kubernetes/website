@@ -4,16 +4,21 @@ id: kops
 date: 2018-04-12
 full_link: /docs/getting-started-guides/kops/
 short_description: >
-  A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters. *NOTE&#58; Officially supports AWS only, with GCE and VMware vSphere in alpha*.
+  A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
 
 aka: 
 tags:
 - tool
 - operation
 ---
- A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters. *NOTE&#58; Officially supports AWS only, with GCE and VMware vSphere in alpha*.
+ A CLI tool that helps you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes clusters.
 
 <!--more--> 
+
+{{< note >}}
+kops has general availability support only for AWS.
+Support for using kops with GCE and VMware vSphere are in alpha.
+{{< /note >}}
 
 `kops` provisions your cluster with&#58;
 
