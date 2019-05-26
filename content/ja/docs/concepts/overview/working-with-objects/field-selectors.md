@@ -17,7 +17,7 @@ kubectl get pods --field-selector status.phase=Running
 ```
 
 {{< note >}}
-フィールドセレクターは本質的にリソースの*フィルタ*となります。デフォルトでは、セレクタ/フィルターが指定されていない場合は、全てのタイプのリソースが取得されます。これは、下記の2つの`kubectl`クエリが同じであることを意味します。  
+フィールドセレクターは本質的にリソースの*フィルタ*となります。デフォルトでは、セレクター/フィルターが指定されていない場合は、全てのタイプのリソースが取得されます。これは、下記の2つの`kubectl`クエリが同じであることを意味します。  
 
 ```shell
 kubectl get pods
@@ -37,17 +37,17 @@ kubectl get ingress --field-selector foo.bar=baz
 Error from server (BadRequest): Unable to find "ingresses" that match label selector "", field selector "foo.bar=baz": "foo.bar" is not a known field selector: only "metadata.name", "metadata.namespace"
 ```
 
-## サポートされているオペレータ
+## サポートされているオペレーター
 
-ユーザは、`=`、`==`や`!=`といったオペレータをフィールドセレクターと組み合わせて使用できます。(`=`と`==`は同義)  
+ユーザーは、`=`、`==`や`!=`といったオペレーターをフィールドセレクターと組み合わせて使用できます。(`=`と`==`は同義)  
 例として、下記の`kubectl`コマンドは`default`ネームスペースに属していない全てのKubernetes Serviceを選択します。
 
 ```shell
 kubectl get services --field-selector metadata.namespace!=default
 ```
 
-## 連結されたセレクタ
-[ラベル](/docs/concepts/overview/working-with-objects/labels)や他のセレクタと同様に、フィールドセレクターはコンマ区切りのリストとして連結することができます。  
+## 連結されたセレクター
+[ラベル](/docs/concepts/overview/working-with-objects/labels)や他のセレクターと同様に、フィールドセレクターはコンマ区切りのリストとして連結することができます。  
 下記の`kubectl`コマンドは、`status.phase`が`Runnning`でなく、かつ`spec.restartPolicy`フィールドが`Always`に等しいような全てのPodを選択します。  
 
 ```shell
@@ -56,7 +56,7 @@ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alway
 
 ## 複数のリソースタイプ
 
-ユーザは複数のリソースタイプにまたがったフィールドセレクターを利用できます。  
+ユーザーは複数のリソースタイプにまたがったフィールドセレクターを利用できます。  
 下記の`kubectl`コマンドは、`default`ネームスペースに属していない全てのStatefulSetとServiceを選択します。  
 
 ```shell
