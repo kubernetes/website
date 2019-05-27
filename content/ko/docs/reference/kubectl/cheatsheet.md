@@ -267,7 +267,7 @@ kubectl delete pod,service baz foo                                        # "baz
 kubectl delete pods,services -l name=myLabel                              # name=myLabel 라벨을 가진 파드와 서비스 삭제
 kubectl delete pods,services -l name=myLabel --include-uninitialized      # 초기화되지 않은 것을 포함하여, name=myLabel 라벨을 가진 파드와 서비스 삭제
 kubectl -n my-ns delete po,svc --all                                      # 초기화되지 않은 것을 포함하여, my-ns 네임스페이스 내 모든 파드와 서비스 삭제
-# awk pattern1 또는 pattern2 와 매칭하는 모든 파드 삭제
+# awk pattern1 또는 pattern2에 매칭되는 모든 파드 삭제
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
