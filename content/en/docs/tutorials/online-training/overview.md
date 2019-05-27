@@ -11,15 +11,15 @@ Here are some of the sites that offer online training for Kubernetes:
 
 {{% capture body %}}
 
-* [AIOps Essentials (Autoscaling Kubernetes with Prometheus Metrics) with Hands-On Labs (Linux Academy)](https://linuxacademy.com/course/using-machine-learning-to-scale-kubernetes-clusters/)
+* [AIOps Essentials (Autoscaling Kubernetes with Prometheus Metrics) with Hands-On Labs (Linux Academy)](https://linuxacademy.com/devops/training/course/name/using-machine-learning-to-scale-kubernetes-clusters)
 
-* [Amazon EKS Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/course/amazon-eks-deep-dive/)
+* [Amazon EKS Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/amazon-web-services/training/course/name/amazon-eks-deep-dive)
 
-* [Cloud Native Certified Kubernetes Administrator (CKA) with Hands-On Labs & Practice Exams (Linux Academy)](https://linuxacademy.com/course/cloud-native-certified-kubernetes-administrator-cka/)
+* [Cloud Native Certified Kubernetes Administrator (CKA) with Hands-On Labs & Practice Exams (Linux Academy)](https://linuxacademy.com/linux/training/course/name/cloud-native-certified-kubernetes-administrator-cka)
 
 * [Certified Kubernetes Administrator Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/certified-kubernetes-administrator-with-practice-tests)
 
-* [Certified Kubernetes Application Developer (CKAD) with Hands-On Labs & Practice Exams (Linux Academy)] (https://linuxacademy.com/course/certified-kubernetes-application-developer-ckad/)
+* [Certified Kubernetes Application Developer (CKAD) with Hands-On Labs & Practice Exams (Linux Academy)] (https://linuxacademy.com/containers/training/course/name/certified-kubernetes-application-developer-ckad/)
 
 * [Certified Kubernetes Application Developer Preparation Course with Practice Tests (KodeKloud)](https://kodekloud.com/p/kubernetes-certification-course)
 
@@ -31,7 +31,7 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Google Kubernetes Engine Deep Dive (Linux Academy)] (https://linuxacademy.com/google-cloud-platform/training/course/name/google-kubernetes-engine-deep-dive)
 
-* [Helm Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/course/helm-deep-dive-part-1/)
+* [Helm Deep Dive with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/helm-deep-dive-part-1)
 
 * [Hands-on Introduction to Kubernetes (Instruqt)](https://play.instruqt.com/public/topics/getting-started-with-kubernetes)
 
@@ -47,19 +47,19 @@ Here are some of the sites that offer online training for Kubernetes:
 
 * [Kubernetes the Hard Way with Hands-On Labs (Linux Academy)](https://linuxacademy.com/linux/training/course/name/kubernetes-the-hard-way)
 
-* [Kubernetes Security with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/course/kubernetes-security/) 
+* [Kubernetes Security with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-security)
 
-* [Launch Your First OpenShift Operator with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/course/red-hat-open-shift/)
+* [Launch Your First OpenShift Operator with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/containers/training/course/name/red-hat-open-shift)
 
-* [Learn Kubernetes by Doing - 100% Hands-On Experience (Linux Academy)] (https://linuxacademy.com/course/learn-kubernetes-by-doing/)
+* [Learn Kubernetes by Doing - 100% Hands-On Experience (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/learn-kubernetes-by-doing)
 
 * [Learn Kubernetes using Interactive Hands-on Scenarios (Katacoda)](https://www.katacoda.com/courses/kubernetes/)
 
-* [Microservice Applications in Kubernetes - 100% Hands-On Experience (Linux Academy)] (https://linuxacademy.com/course/learn-microservices-by-doing/)
+* [Microservice Applications in Kubernetes - 100% Hands-On Experience (Linux Academy)] (https://linuxacademy.com/devops/training/course/name/learn-microservices-by-doing)
 
 * [Monitoring Kubernetes With Prometheus with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/kubernetes-and-prometheus)
 
-* [Service Mesh with Istio with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/course/service-mesh-with-istio-part-1/)
+* [Service Mesh with Istio with Hands-On Labs (Linux Academy)] (https://linuxacademy.com/linux/training/course/name/service-mesh-with-istio-part-1)
 
 * [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
