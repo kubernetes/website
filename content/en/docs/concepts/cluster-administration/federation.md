@@ -170,7 +170,7 @@ users in the event of a cluster failure), then you need to have `R * (U + 1)` cl
 
 Finally, if any of your clusters would need more than the maximum recommended number of nodes for a Kubernetes cluster, then
 you may need even more clusters.  Kubernetes v1.3 supports clusters up to 1000 nodes in size. Kubernetes v1.8 supports
-clusters up to 5000 nodes. See [Building Large Clusters](/docs/setup/cluster-large/) for more guidance.
+clusters up to 5000 nodes. See [Building Large Clusters](/docs/setup/best-practices/cluster-large/) for more guidance.
 
 {{% /capture %}}
 

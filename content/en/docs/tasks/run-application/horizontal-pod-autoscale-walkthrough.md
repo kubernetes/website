@@ -25,8 +25,8 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server/) monitoring needs to be deployed in the cluster
-to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-incubator/metrics-server/), if you followed [getting started on GCE guide](/docs/setup/turnkey/gce/),
-metrics-server monitoring will be turned-on by default. 
+to provide metrics via the resource metrics API, as Horizontal Pod Autoscaler uses this API to collect metrics. The instructions for deploying this are on the GitHub repository of [metrics-server](https://github.com/kubernetes-incubator/metrics-server/), if you followed [getting started on GCE guide](/docs/setup/production-environment/turnkey/gce/),
+metrics-server monitoring will be turned-on by default.
 
 To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
 and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster

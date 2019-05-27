@@ -137,7 +137,7 @@ To install Minikube manually on windows using [Windows Installer](https://docs.m
 
 {{% capture whatsnext %}}
 
-* [Running Kubernetes Locally via Minikube](/docs/setup/minikube/)
+* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
 
 {{% /capture %}}
 
