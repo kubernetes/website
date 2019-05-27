@@ -44,7 +44,7 @@ base. Each of areas of focus will now be described in more detail below.
 In many ways, the Cloud (or Co-Located Servers, or Corporate Datacenter) is the
 [trusted computing base](https://en.wikipedia.org/wiki/Trusted_computing_base)
 of a Kubernetes cluster. If these components themselves are vulnerable (or
-configured in a vulnerable way,) then there's no real way to guarantee the security
+configured in a vulnerable way) then there's no real way to guarantee the security
 of any components built on top of this base. Each cloud provider has numerous
 security recommendations they make to their customers on how to run workloads securely
 in their environment. It is out of the scope of this article to give recommendations
