@@ -258,26 +258,27 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
-### `ipvs` proxy mode {#proxy-mode-ipvs}
+### IPVS proxy mode {#proxy-mode-ipvs}
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
-In this mode, kube-proxy watches Kubernetes Services and Endpoints,
-calls `netlink` interface to create ipvs rules accordingly and synchronizes
- ipvs rules with Kubernetes Services and Endpoints periodically.
-This control loop ensures that ipvs status matches the desired
+In `ipvs` mode, kube-proxy watches Kubernetes Services and Endpoints,
+calls `netlink` interface to create IPVS rules accordingly and synchronizes
+IPVS rules with Kubernetes Services and Endpoints periodically.
+This control loop ensures that IPVS status matches the desired
 state.
-When accessing a Service, ipvs will direct traffic to one of the backend Pods.
+When accessing a Service, IPVS will direct traffic to one of the backend Pods.
 
-The ipvs proxy mode is based on netfilter hook function that is similar to
+The IPVS proxy mode is based on netfilter hook function that is similar to
 iptables mode, but uses hash table as the underlying data structure and works
 in the kernel space.
-That means kube-proxy in ipvs mode redirects traffic with a lower latency than
+That means kube-proxy in IPVS mode redirects traffic with a lower latency than
 kube-proxy in iptables mode, with much better performance when synchronising
-proxy rules. Compared to the other proxy modes, ipvs mode also supports a
+proxy rules. Compared to the other proxy modes, IPVS mode also supports a
 higher throughput of network traffic.
 
-ipvs provides more options for balancing traffic to backend Pods; these are:
+IPVS provides more options for balancing traffic to backend Pods;
+these are:
 
 - `rr`: round-robin
 - `lc`: least connection (smallest number of open connections)
@@ -287,15 +288,15 @@ ipvs provides more options for balancing traffic to backend Pods; these are:
 - `nq`: never queue
 
 {{< note >}}
-To run kube-proxy in ipvs mode, you must make the IPVS Linux available on
+To run kube-proxy in IPVS mode, you must make the IPVS Linux available on
 the node before you starting kube-proxy.
 
-When kube-proxy starts in ipvs proxy mode, it will verify whether IPVS
+When kube-proxy starts in IPVS proxy mode, it will verify whether IPVS
 kernel modules are available, and if those are not detected then kube-proxy
 fall back to running in iptables proxy mode.
 {{< /note >}}
 
-![Services overview diagram for ipvs proxy](/images/docs/services-ipvs-overview.svg)
+![Services overview diagram for IPVS proxy](/images/docs/services-ipvs-overview.svg)
 
 In any of these proxy models, any traffic bound for the Service’s IP:Port is
 proxied to an appropriate backend without the clients knowing anything
@@ -994,7 +995,7 @@ VIP, their traffic is automatically transported to an appropriate endpoint.
 The environment variables and DNS for Services are actually populated in
 terms of the Service's virtual IP address (and port).
 
-kube-proxy supports three proxy modes&mdash;userspace, iptables and ipvs&mdash;which
+kube-proxy supports three proxy modes&mdash;userspace, iptables and IPVS&mdash;which
 each operate slightly differently.
 
 #### Userspace
@@ -1036,7 +1037,7 @@ address.
 This same basic flow executes when traffic comes in through a node-port or
 through a load-balancer, though in those cases the client IP does get altered.
 
-#### ipvs
+#### IPVS
 
 iptables operations slow down dramatically in large scale cluster e.g 10,000 Services.
 IPVS is designed for load balancing and based on in-kernel hash tables. So you can achieve performance consistency in large number of services from IPVS-based kube-proxy. Meanwhile, IPVS-based kube-proxy has more sophisticated load balancing algorithms (least conns, locality, weighted, persistence).
