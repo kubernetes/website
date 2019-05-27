@@ -1,7 +1,18 @@
 ---
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
 title: Kubernetesバージョンとバージョンスキューサポートポリシー
+=======
+reviewers:
+- sig-api-machinery
+- sig-architecture
+- sig-cli
+- sig-cluster-lifecycle
+- sig-node
+- sig-release
+title: Kubernetes version and version skew support policy
+>>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
 content_template: templates/concept
-weight: 70
+weight: 30
 ---
 
 {{% capture overview %}}
@@ -30,7 +41,11 @@ Minor releases occur approximately every 3 months, so each minor release branch 
 
 ### kube-apiserver
 
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
 In [highly-availabile (HA) clusters](https://kubernetes.io/docs/setup/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+=======
+In [highly-available (HA) clusters](/docs/setup/production-environment/tools/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+>>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
 
 Example:
 
@@ -112,8 +127,13 @@ Pre-requisites:
 Upgrade `kube-apiserver` to **1.(n+1)**
 
 {{< note >}}
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
 Project policies for [API deprecation](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) and 
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) 
+=======
+Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
+[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
+>>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}
 
@@ -139,3 +159,15 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 * they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
 * it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 {{</ warning >}}
+
+## Kubeadm version skew policy {#version-skew-policy}
+
+The kubeadm CLI tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
+kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
+
+Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
+
+Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
+v1.8.
+
+For more information on supported version skew between kubelets and the control plane, and other Kubernetes components, see Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)

@@ -1,6 +1,9 @@
 ---
+<<<<<<< HEAD
 reviewers:
 - sig-cluster-lifecycle
+=======
+>>>>>>> reorganized the left navigation of setup
 title: Options for Highly Available Topology
 content_template: templates/concept
 weight: 50

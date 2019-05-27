@@ -1,4 +1,4 @@
 ---
 title: "Windows in Kubernetes"
-weight: 65
+weight: 60
 ---

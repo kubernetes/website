@@ -1,4 +1,10 @@
 ---
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+title: Kubernetesバージョンとバージョンスキューサポートポリシー
+=======
+>>>>>>> reorganized the left navigation of setup
 reviewers:
 - sig-api-machinery
 - sig-architecture
@@ -7,6 +13,10 @@ reviewers:
 - sig-node
 - sig-release
 title: Kubernetes version and version skew support policy
+<<<<<<< HEAD
+=======
+>>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
+>>>>>>> reorganized the left navigation of setup
 content_template: templates/concept
 weight: 30
 ---
@@ -18,7 +28,11 @@ Specific cluster deployment tools may place additional restrictions on version s
 
 {{% capture body %}}
 
+<<<<<<< HEAD
 ## Supported versions
+=======
+## サポートされるバージョン
+>>>>>>> reorganized the left navigation of setup
 
 Kubernetes versions are expressed as **x.y.z**,
 where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](http://semver.org/) terminology.
@@ -33,11 +47,23 @@ The patch release manager is a member of the [release team for each release](htt
 
 Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
 
+<<<<<<< HEAD
 ## Supported version skew
 
 ### kube-apiserver
 
 In [highly-available (HA) clusters](/docs/setup/production-environment/tools/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+=======
+## サポートされるバージョンスキュー
+
+### kube-apiserver
+
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+In [highly-availabile (HA) clusters](https://kubernetes.io/docs/setup/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+=======
+In [highly-available (HA) clusters](/docs/setup/production-environment/tools/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+>>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
+>>>>>>> reorganized the left navigation of setup
 
 Example:
 
@@ -62,7 +88,11 @@ Example:
 * `kube-apiserver` instances are at **1.13** and **1.12**
 * `kubelet` is supported at **1.12**, and **1.11** (**1.13** is not supported because that would be newer than the `kube-apiserver` instance at version **1.12**)
 
+<<<<<<< HEAD
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
+=======
+### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
+>>>>>>> reorganized the left navigation of setup
 
 `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
 
@@ -99,7 +129,11 @@ Example:
 * `kube-apiserver` instances are at **1.13** and **1.12**
 * `kubectl` is supported at **1.13** and **1.12** (other versions would be more than one minor version skewed from one of the `kube-apiserver` components)
 
+<<<<<<< HEAD
 ## Supported component upgrade order
+=======
+## サポートされるコンポーネントのアップグレード順序
+>>>>>>> reorganized the left navigation of setup
 
 The supported version skew between components has implications on the order in which components must be upgraded.
 This section describes the order in which components must be upgraded to transition an existing cluster from version **1.n** to version **1.(n+1)**.
@@ -119,12 +153,26 @@ Pre-requisites:
 Upgrade `kube-apiserver` to **1.(n+1)**
 
 {{< note >}}
+<<<<<<< HEAD
 Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}
 
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
+=======
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+Project policies for [API deprecation](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) and 
+[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) 
+=======
+Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
+[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
+>>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
+require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
+{{< /note >}}
+
+### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
+>>>>>>> reorganized the left navigation of setup
 
 Pre-requisites:
 
