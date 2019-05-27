@@ -183,4 +183,5 @@ kube-scheduler has a default set of scheduling policies.
 * Read about [scheduler performance tuning](/docs/concepts/scheduling/scheduler-perf-tuning/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
 * Learn about [configuring multiple schedulers](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+* Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
 {{% /capture %}}

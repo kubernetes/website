@@ -171,6 +171,20 @@ Nodes](/docs/concepts/configuration/assign-pod-node/).
 
 [admission controller]: /docs/reference/access-authn-authz/admission-controllers/
 
+### Pod Overhead
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+As of Kubernetes v1.16, RuntimeClass includes support for specifying overhead associated with
+running a pod, as part of the [`PodOverhead`](/docs/concepts/configuration/pod-overhead.md) feature.
+To use `PodOverhead`, you must have the PodOverhead [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled (it is off by default).
+
+
+Pod overhead is defined in RuntimeClass through the `Overhead` fields. Through the use of these fields,
+you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
+are accounted for in Kubernetes.
+
 ### Upgrading RuntimeClass from Alpha to Beta
 
 The RuntimeClass Beta feature includes the following changes:
@@ -202,5 +216,7 @@ RuntimeClass feature to the beta version:
 
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
+- Read about the [Pod Overhead](/docs/concepts/configuration/pod-overhead/) concept
+- [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
 {{% /capture %}}
