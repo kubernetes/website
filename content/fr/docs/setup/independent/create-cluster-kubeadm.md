@@ -7,7 +7,7 @@ weight: 30
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum,
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum,
 viable et conforme aux meilleures pratiques. Avec kubeadm, votre cluster
 doit passer les [tests de Conformance Kubernetes](https://kubernetes.io/blog/2017/10/software-conformance-certification).
  Kubeadm prend également en charge d'autres fonctions du cycle de vie, telles que les mises
