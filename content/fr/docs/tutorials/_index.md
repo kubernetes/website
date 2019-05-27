@@ -37,7 +37,7 @@ Avant d'explorer chacun des tutoriels, il peut-être utile de garder un signet p
 
 * [Exemple: Déployer l'application PHP Guestbook avec Redis (EN)](/docs/tutorials/stateless-application/guestbook/)
 
-## Applications Sans États (stateful applications)
+## Applications Avec États (stateful applications)
 
 * [StatefulSet Élémentaire (EN)](/docs/tutorials/stateful-application/basic-stateful-set/)
 
