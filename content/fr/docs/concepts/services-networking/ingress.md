@@ -212,7 +212,7 @@ Events:
 ```
 
 Le contrôleur d’Ingress fournit une implémentation spécifique aux load-balancers qui satisfait l'ingress, tant que les services (`s1`,` s2`) existent.
-Lorsque cela est fait, vous pouvez voir l’adresse de le load-balancer sur le champ d'adresse.
+Lorsque cela est fait, vous pouvez voir l’adresse du load-balancer sur le champ d'adresse.
 
 {{< note >}}
 En fonction du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) vous utilisez, vous devrez peut-être
@@ -252,8 +252,7 @@ spec:
           servicePort: 80
 ```
 
-Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, alors tout
-le trafic Web vers l'adresse IP de votre contrôleur Ingress peut être mis en correspondance sans nom hôte virtuel étant requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1` `second.foo.com` au `service2`, et à tout trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
+Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, tout trafic Web à destination de l'adresse IP de votre contrôleur d'Ingress peut être mis en correspondance sans qu'un hôte virtuel basé sur le nom ne soit requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1` `second.foo.com` au `service2`, et à tout trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -321,7 +320,7 @@ spec:
 ```
 
 {{< note >}}
-Il existe un écart entre les fonctionnalités TLS prises en charge par divers contrôleurs. Veuillez vous référer à la documentation sur
+Les fonctionnalités TLS prisent en charge par les différents contrôleurs peuvent être différentes. Veuillez vous référer à la documentation sur
 [nginx](https://git.k8s.io/ingress-nginx/README.md#https),
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https),
 ou tout autre contrôleur d’Ingress spécifique à la plate-forme pour comprendre le fonctionnement de TLS dans votre environnement.
@@ -422,7 +421,7 @@ Veuillez consulter la documentation du [Contrôleur d'ingress](/docs/concepts/se
 
 ## Travail futur
 
-Suivre [réseau SIG](https://github.com/kubernetes/community/tree/master/sig-network) pour plus de détails sur l'évolution de l'entrée et des ressources associées. Vous pouvez également suivre le [Dépôt Ingress](https://github.com/kubernetes/ingress/tree/master) pour plus de détails sur l'évolution des différents contrôleurs d’ingress.
+Suivez [réseau SIG](https://github.com/kubernetes/community/tree/master/sig-network) pour plus de détails sur l'évolution de l'entrée et des ressources associées. Vous pouvez également suivre le [Dépôt Ingress](https://github.com/kubernetes/ingress/tree/master) pour plus de détails sur l'évolution des différents contrôleurs d’ingress.
 
 ## Alternatives
 
