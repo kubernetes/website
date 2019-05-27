@@ -38,7 +38,7 @@ Deberías elegir una solución de este tipo si buscas:
 * Probar o empezar a aprender sobre Kubernetes.
 * Desarrollar y testear clústeres localmente.
 
-Elige una [solución de máquina local](/docs/setup/pick-right-solution/#local-machine-solutions).
+Elige una [solución de máquina local](/docs/setup/).
 
 ## Soluciones gestionadas
 
@@ -53,7 +53,7 @@ Deberías elegir una solución de este tipo si:
 * No tienes un equipo dedicado de operaciones pero quieres alta disponibilidad.
 * No tienes recursos para alojar y monitorizar sus clústeres.
 
-Elige una [solución gestionada](/docs/setup/pick-right-solution/#hosted-solutions).
+Elige una [solución gestionada](/docs/setup/).
 
 ## Soluciones sobre IaaS en la nube
 
@@ -70,7 +70,7 @@ Deberías elegir una solución de este tipo si:
 * Necesitas más control que el permitido en las soluciones gestionadas.
 * Quieres responsabilizarte de la operativa de los clústeres.
 
-Elige una [solución sobre IaaS en la nube](/docs/setup/pick-right-solution/#turnkey-cloud-solutions)
+Elige una [solución sobre IaaS en la nube](/docs/setup/)
 
 ## Soluciones sobre virtualización On-Premises
 
@@ -83,7 +83,7 @@ Deberías elegir una solución de este tipo si:
 * Tienes un equipo de operaciones para desplegar y operar el clúster.
 * Tienes los recursos necesarios para ejecutar y monitorizar el clúster.
 
-Elige una [solución sobre virtualización On-Premises](/docs/setup/pick-right-solution/#on-premises-turnkey-cloud-solutions).
+Elige una [solución sobre virtualización On-Premises](/docs/setup/).
 
 ## Soluciones personalizadas
 
@@ -92,11 +92,11 @@ pero requiere mucho más conocimiento y experiencia. Este tipo de soluciones se
 pueden desplegar tanto en servidores físicos (_bare-metal_) como en instancias
 virtualizadas con diferentes sistemas operativos, en on-premises o en el cloud.
 
-Selecciona una [solución personalizada](/docs/setup/pick-right-solution/#custom-solutions).
+Selecciona una [solución personalizada](/docs/setup/).
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 Para una lista completa de soluciones, consulta la sección
-[Escoge la solución correcta](/docs/setup/pick-right-solution/).
+[Escoge la solución correcta](/docs/setup/).
 {{% /capture %}}
