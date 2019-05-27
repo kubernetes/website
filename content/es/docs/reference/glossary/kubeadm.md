@@ -11,7 +11,7 @@ tags:
 - tool
 - operation
 ---
- Utilidad para instalar Kubernetes con rápidez y configurar un clúster seguro.
+ Utilidad para instalar Kubernetes con rapidez y configurar un clúster seguro.
 
 <!--more--> 
 
