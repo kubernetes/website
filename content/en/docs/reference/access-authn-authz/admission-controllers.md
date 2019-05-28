@@ -37,6 +37,8 @@ mutating admission controllers are run. In the second phase, validating
 admission controllers are run. Note again that some of the controllers are
 both.
 
+TODO(jpbetz): Add section here about reinvocation.
+
 If any of the controllers in either phase reject the request, the entire
 request is rejected immediately and an error is returned to the end-user.
 

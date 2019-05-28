@@ -128,10 +128,13 @@ webhooks:
   admissionReviewVersions:
   - v1beta1
   timeoutSeconds: 1
+  reinvocationPolicy: "IfNeeded"
 ```
 
 The scope field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
 resources ("Namespaced") will match this rule. "*" means that there are no scope restrictions.
+
+TODO(jpbetz): Document the reinvocationPolicy field.
 
 {{< note >}}
 When using `clientConfig.service`, the server cert must be valid for
