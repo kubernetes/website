@@ -14,4 +14,4 @@ Docker (especialmente, Docker Engine) es una tecnología de software que proporc
 
 <!--more-->
 
-Docker utiliza características de aislamiento del kernal de Linux como cgroups y namespaces, además de sistemas de archivos con capacidad de unión como OverlayFS para permitir que contenedores independientes se ejecuten dentro de una misma instancia de Linux, evitando el coste de iniciar y mantener máquinas virtuales (VM).
+Docker utiliza características de aislamiento del Kernel de Linux como cgroups y namespaces, además de sistemas de archivos con capacidad de unión como OverlayFS para permitir que contenedores independientes se ejecuten dentro de una misma instancia de Linux, evitando el coste de iniciar y mantener máquinas virtuales (VM).
