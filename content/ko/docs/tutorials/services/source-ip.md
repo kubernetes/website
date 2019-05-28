@@ -119,10 +119,10 @@ $ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-por
 service/nodeport exposed
 
 $ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
+$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
 ```
 
-클라우드 공급자 상에서 실행한다면, 
+클라우드 공급자 상에서 실행한다면,
 위에 보고된 `nodes:nodeport`를 위한 방화벽 규칙을 열어주어야 한다.
 이제 위에 노드 포트로 할당받은 포트를 통해 클러스터 외부에서
 서비스에 도달할 수 있다.
@@ -310,7 +310,7 @@ __크로스 플랫폼 지원__
 
 첫 번째 범주의 로드밸런서는 진짜 클라이언트 IP를 통신하기 위해
 HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 헤더나
-[프록시 프로토콜](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)같이 로드밸런서와 
+[프록시 프로토콜](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)같이 로드밸런서와
 백엔드 간에 합의된 프로토콜을 사용해야 한다.
 두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드의 저장된 포트를 가르키는
 간단한 HTTP 헬스 체크를 생성하여
