@@ -72,7 +72,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
                 <p><b>Le maître est responsable de la gestion du cluster. </b> Le maître coordonne toutes les activités de votre cluster, telles que la planification des applications, la gestion de l'état souhaité des applications, la mise à l'échelle des applications et le déploiement de nouvelles mises à jour.</p>
-                <p><b>A node is a VM or a physical computer that serves as a worker machine in a Kubernetes cluster.</b> Each node has a Kubelet, which is an agent for managing the node and communicating with the Kubernetes master. The node should also have tools for handling container operations, such as Docker or rkt. A Kubernetes cluster that handles production traffic should have a minimum of three nodes.</p>
+                <p><b>Un nœud est une machine virtuelle ou un ordinateur physique servant d’ordinateur de travail dans un cluster Kubernetes. </b> Chaque nœud est doté d’un Kubelet, qui est un agent permettant de gérer le nœud et de communiquer avec le maître Kubernetes. Le nœud doit également disposer d'outils permettant de gérer les opérations de conteneur, telles que Docker ou rkt. Un cluster Kubernetes qui gère le trafic de production doit comporter au moins trois nœuds.</p>
 
             </div>
             <div class="col-md-4">
@@ -84,11 +84,11 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p>When you deploy applications on Kubernetes, you tell the master to start the application containers. The master schedules the containers to run on the cluster's nodes. <b>The nodes communicate with the master using the Kubernetes API</b>, which the master exposes. End users can also use the Kubernetes API directly to interact with the cluster.</p>
+                <p>Lorsque vous déployez des applications sur Kubernetes, vous indiquez au maître de démarrer les conteneurs d'applications. Le maître planifie l'exécution des conteneurs sur les nœuds du cluster. <b> Les nœuds communiquent avec le maître à l'aide de l'API Kubernetes </b>, que le maître expose. Les utilisateurs finaux peuvent également utiliser l'API Kubernetes directement pour interagir avec le cluster.</p>
 
-                <p>A Kubernetes cluster can be deployed on either physical or virtual machines. To get started with Kubernetes development, you can use Minikube.  Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node. Minikube is available for Linux, macOS, and Windows systems. The Minikube CLI provides basic bootstrapping operations for working with your cluster, including start, stop, status, and delete. For this tutorial, however, you'll use a provided online terminal with Minikube pre-installed.</p>
+                <p>Un cluster Kubernetes peut être déployé sur des machines physiques ou virtuelles. Pour démarrer avec le développement de Kubernetes, vous pouvez utiliser Minikube. Minikube est une implémentation Kubernetes légère qui crée une machine virtuelle sur votre machine locale et déploie un cluster simple contenant un seul nœud. Minikube est disponible pour les systèmes Linux, macOS et Windows. La CLI Minikube fournit des opérations d’amorçage de base permettant d’utiliser votre cluster, notamment les fonctions de démarrage, d’arrêt, de statut et de suppression. Pour ce tutoriel, toutefois, vous utiliserez un terminal en ligne fourni avec Minikube pré-installé.</p>
 
-                <p>Now that you know what Kubernetes is, let's go to the online tutorial and start our first cluster!</p>
+                <p>Maintenant que vous savez ce qu'est Kubernetes, allons au didacticiel en ligne et commençons notre premier cluster!</p>
 
             </div>
         </div>
