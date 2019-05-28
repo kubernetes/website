@@ -15,4 +15,4 @@ tags:
 
 <!--more--> 
 
-Puedes usar kubeadm para instalar el panel de control y los componentes de nodos worker.
+Puedes usar kubeadm para instalar el Control Plane, formado por los nodos _master_, y también los componentes de nodos _worker_.
