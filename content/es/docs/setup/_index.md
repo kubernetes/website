@@ -56,7 +56,7 @@ Deberías elegir una solución de este tipo si:
 Un solución sobre IaaS en la nube permite crear clústeres Kubernetes con solo
 unos pocos comandos, se encuentran en desarrollo activo, tienen el apoyo de la
 comunidad y algunas de ellas forman parte del proyecto Kubernetes.
-Se pueden desplegar en la infaestructura como servicio (IaaS) proporcionada por
+Se pueden desplegar en la infraestructura como servicio (IaaS) proporcionada por
 los proveedores en la nube y ofrecen más flexibilidad que las soluciones
 gestionadas, pero requieren más conocimientos para ponerlos en marcha y más
 esfuerzo para operarlos.
