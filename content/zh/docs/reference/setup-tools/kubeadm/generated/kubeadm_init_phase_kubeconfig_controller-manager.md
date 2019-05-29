@@ -1,13 +1,13 @@
 
 <!-- Generates a kubeconfig file for the controller manager to use -->
-为 controller manager 生成要使用的 kubeconfig 文件
+为控制器管理器生成要使用的 kubeconfig 文件
 
 <!-- ### Synopsis -->
 ### 概要
 
 
 <!-- Generates the kubeconfig file for the controller manager to use and saves it to controller-manager.conf file -->
-生成 controller manager 要使用的的 kubeconfig ，并保存到 controller-manager.conf 文件中
+生成控制器管理器要使用的 kubeconfig ，并保存到 controller-manager.conf 文件中
 
 ```
 kubeadm init phase kubeconfig controller-manager [flags]
@@ -43,7 +43,8 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Port for the API Server to bind to.</td>
     </tr> -->
     <tr>
-      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td>
+      <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      默认值: 6443</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">要绑定到 API Server 的端口。</td>
@@ -86,7 +87,7 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td colspan="2">-h, --help</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;"> controller-manager 的帮助</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;"> controller-manager 命令的帮助</td>
     </tr>
 
 <!--     <tr>
@@ -96,7 +97,8 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save the kubeconfig file.</td>
     </tr> -->
     <tr>
-      <td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes"</td>
+      <td colspan="2">--kubeconfig-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      默认值: "/etc/kubernetes"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">保存 kubeconfig 的路径。</td>
