@@ -24,16 +24,17 @@ card:
 클러스터 구성을 위해 필요한 노력은 하나의 단일 명령어를 실행시키는 수준에서 직접 자신만의 맞춤형 클러스터를 세밀하게 만드는 수준에 이르기까지 다양하다.
 알맞은 솔루션을 선택하기 위해서 이 가이드를 사용하자.
 
-쿠버네티스를 시도해보기를 원한다면, [로컬 Docker 기반의 솔루션](#로컬-머신-솔루션)을 사용하자. 
+쿠버네티스를 시도해보기를 원한다면, [로컬 Docker 기반의 솔루션](#로컬-머신-솔루션)을 사용하자.
 
-더 많은 머신과 높은 가용성으로 확장할 준비가 되었다면, [호스트 된 솔루션](#호스트-된-솔루션)이 생성하고 유지하기에 가장 쉽다. 
+더 많은 머신과 높은 가용성으로 확장할 준비가 되었다면, [호스트 된 솔루션](#호스트-된-솔루션)이 생성하고 유지하기에 가장 쉽다.
 
 [턴키 클라우드 솔루션](#턴키-클라우드-솔루션)은 클라우드 공급자들의 넓은 범위를 다루고 생성하기 위해서 약간의 명령어가 필요하다.
 [온-프레미스 턴키 클라우드 솔루션](#온-프레미스-턴키-클라우드-솔루션)은 프라이빗 네트워크의 보안과 결합된 턴키 클라우드 솔루션의 단순함을 가진다.
 
 호스팅한 자원을 구성하는 방법을 이미 가지고 있다면, 머신 당 단일 명령어로 클러스터를 만들어내기 위해서 [kubeadm](/docs/setup/independent/create-cluster-kubeadm/)을 사용하자.
 
-[사용자 지정 솔루션](#사용자-지정-솔루션)은 단계별 지침부터 쿠버네티스 클러스터를 처음부터 설정하기 위한 일반적인 조언까지 다양하다. 
+[사용자 지정 솔루션](#사용자-지정-솔루션)은 단계별 지침부터
+쿠버네티스 클러스터를 처음부터 설정하기 위한 일반적인 조언까지 다양하다.
 
 {{% /capture %}}
 
@@ -90,7 +91,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 
 * [IBM Cloud Kubernetes Service](https://cloud.ibm.com/docs/containers?topic=containers-container_index#container_index)는 관리형 쿠버네티스 클러스터를 제공한다. 그와 함께 격리 종류, 운영 도구, 이미지와 컨테이너 통합된 보안 통찰력, Watson, IoT, 데이터와의 통합도 제공한다. 
 
-* [Kubermatic](https://www.loodse.com)는 AWS와  Digital Ocean을 포함한 다양한 퍼블릭 클라우드뿐만 아니라 온-프레미스 상의 OpenStack 통합을 위한 관리형 쿠버네티스 클러스터를 제공한다.
+* [Kubermatic](https://www.loodse.com)는 AWS와  Digital Ocean을 포함한 다양한 퍼블릭 클라우드뿐만 아니라 온-프레미스 상의 OpenStack 통합을 위한 관리형 쿠버네티스 클러스터를 제공하는 여러 쿠버네티스에서 쿠버네티스를 운영한다.
 
 * [Kublr](https://kublr.com)는 AWS, Azure, GCP 및 온-프레미스에서 기업 수준의 안전하고, 확장 가능하며, 신뢰성 높은 쿠버네티스 클러스터를 제공한다. 여기에는 즉시 사용 가능한 백업 및 재해 복구, 중앙 집중식 다중 클러스터 로깅 및  모니터링, 내장 경고 서비스가 포함된다.
 
@@ -118,7 +119,8 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 
 ## 턴키 클라우드 솔루션
 
-다음 솔루션들은 클라우드 IaaS 공급자의 범위에서 몇 안 되는 명령어로 쿠버네티스 클러스터를 생성을 허용한다. 이러한 솔루션은 활발히 개발되었고 활발한 커뮤니티 지원을 한다. 
+다음 솔루션들은 클라우드 IaaS 공급자의 범위에서 몇 안 되는 명령어로 쿠버네티스 클러스터를 생성을 허용한다.
+이러한 솔루션은 활발히 개발되었고 활발한 커뮤니티 지원을 한다.
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [Alibaba Cloud](/docs/setup/turnkey/alibaba-cloud/)
@@ -135,7 +137,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [IBM Cloud](https://github.com/patrocinio/kubernetes-softlayer)
 * [k3s](https://k3s.io)
 * [Kontena Pharos](https://kontena.io/pharos/)
-* [Kubermatic](https://cloud.kubermatic.io)
+* [Kubermatic](https://www.loodse.com/product/)
 * [Kublr](https://kublr.com/)
 * [Madcore.Ai](https://madcore.ai/)
 * [Nirmata](https://nirmata.com/)
@@ -151,8 +153,8 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)
 
 ## 온-프레미스 턴키 클라우드 솔루션
-
-다음 솔루션들은 몇 안 되는 명령어를 사용하여 내부의 안전한 클라우드 네트워크에서 쿠버네티스 클러스터를 생성할 수 있다.
+다음 솔루션들은 몇 안 되는 명령어를 사용하여
+내부의 안전한 클라우드 네트워크에서 쿠버네티스 클러스터를 생성할 수 있다.
 
 * [Agile Stacks](https://www.agilestacks.com/products/kubernetes)
 * [APPUiO](https://appuio.ch)
@@ -177,13 +179,16 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 
 ## 사용자 지정 솔루션
 
-쿠버네티스는 넓은 범위의 클라우드 공급자와 베어메탈 환경에서, 그리고 많은 기반 운영 체제에서 동작할 수 있다.
+쿠버네티스는 넓은 범위의 클라우드 공급자와 베어메탈 환경에서,
+그리고 많은 기반 운영 체제에서 동작할 수 있다.
 
 필요에 맞는 가이드를 아래에서 찾았다면, 그것을 사용하자.
 
 ### 일반
 
-호스팅한 리소스를 구성하는 방법을 이미 알고 있다면, [kubeadm](/docs/setup/independent/create-cluster-kubeadm/)을 사용하면 머신당 단일 명령어로 클러스터를 가지고 올 수 있다. 
+호스팅한 리소스를 구성하는 방법을 이미 알고 있다면,
+[kubeadm](/docs/setup/independent/create-cluster-kubeadm/)을 사용하면
+머신당 단일 명령어로 클러스터를 가지고 올 수 있다. 
 
 ### 클라우드
 
@@ -202,6 +207,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [Cloud Foundry Container Runtime (CFCR)](https://docs-cfcr.cfapps.io/)
 * [CloudStack](/docs/setup/on-premises-vm/cloudstack/) (uses Ansible)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/) (uses Fedora and flannel)
+* [Kubermatic](https://www.loodse.com/product/)
 * [Nutanix AHV](https://www.nutanix.com/products/acropolis/virtualization/)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
 * [oVirt](/docs/setup/on-premises-vm/ovirt/)
@@ -217,6 +223,7 @@ Mac 또는 Windows 환경에서 쉽게 설치 가능한 애플리케이션이다
 * [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config/)
 * [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster/)
 * [k3s](https://k3s.io)
+* [Kubermatic](https://www.loodse.com/product/)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
 * [Kubernetes on Ubuntu](https://www.ubuntu.com/kubernetes/docs/quickstart)
 * [OpenShift Container Platform](https://www.openshift.com/products/container-platform/) (OCP) Kubernetes platform by [Red Hat](https://www.redhat.com)
@@ -242,6 +249,7 @@ Alibaba Cloud Container Service For Kubernetes | ROS        | CentOS | flannel/T
 any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 any                  | any          | any    | any         | [docs](/docs/setup/release/building-from-source/)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
+any           |  Kubermatic            | multi-support | multi-support | [docs](http://docs.kubermatic.io/) | Commercial
 any                  | RKE          | multi-support    | flannel or canal         | [docs](https://rancher.com/docs/rancher/v2.x/en/quick-start-guide/)                                |  [Commercial](https://rancher.com/what-is-rancher/overview/) and [Community](https://github.com/rancher/rancher)
 any                  | [Gardener Cluster-Operator](https://kubernetes.io/blog/2018/05/17/gardener/) | multi-support | multi-support | [docs](https://gardener.cloud) | [Project/Community](https://github.com/gardener) and [Commercial]( https://cloudplatform.sap.com/)
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
@@ -294,12 +302,13 @@ VMware Essential PKS     | any       | multi-support | multi-support | [docs](ht
 
 * **IaaS 공급자**는 쿠버네티스가 구동되는 가상 또는 물리적 머신(노드)를 제공하는 제품 또는 조직이다.
 * **OS**는 노드의 기본 운영 체제이다.
-* **구성 관리**는 노드에서 쿠버네티스를 설치하고 유지 관리하는 데 도움이 되는 구성 관리 시스템이다.
-  nodes.
+* **구성 관리**는 노드에서 쿠버네티스를 설치하고 유지 관리하는 데 도움이 되는
+  구성 관리 시스템이다.
 * **네트워킹**은 [네트워킹 모델](/docs/concepts/cluster-administration/networking/)을 구현하는 것이다. 네트워크 유형이
-  _none_인 노드는 단일 노드 이상을 지원하지 않거나, 단일 물리 노드에서 여러 VM 노드를 지원할 수 있다. 
+  _none_인 노드는 단일 노드 이상을 지원하지 않거나, 단일 물리 노드에서 여러 VM 노드를 지원할 수 있다.
 * **지원 레벨**
-  * **프로젝트**: 쿠버네티스 커미터는 현재 구성을 정기적으로 사용하므로, 일반적으로 최신 쿠버네티스 릴리즈와 함께 동작한다. 
+  * **프로젝트**: 쿠버네티스 커미터는 현재 구성을 정기적으로 사용하므로,
+    일반적으로 최신 쿠버네티스 릴리즈와 함께 동작한다.
   * **상업용**: 자체 지원 계약을 가진 상업용 제품.
   * **커뮤니티**: 커뮤니티 기여를 바탕으로 활발하게 지원. 쿠버네티스 최신 릴리즈에는 작동하지 않을 수도 있다.
   * **비활성**: 현재 유지되지 않는다. 쿠버네티스 최초 사용자에게 권장하지 않으며, 삭제될 수도 있다.

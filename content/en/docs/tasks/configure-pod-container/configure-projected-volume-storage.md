@@ -67,6 +67,16 @@ the Pod:
     ```shell
     ls /projected-volume/
     ```
+
+## Clean up
+
+Delete the Pod and the Secrets:
+
+```shell
+kubectl delete pod test-projected-volume
+kubectl delete secret user pass
+```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
