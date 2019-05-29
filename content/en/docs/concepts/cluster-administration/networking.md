@@ -323,7 +323,7 @@ To enable IPv4/IPv6 dual stack, the following modifications must be made to the 
 ### Known Issues
 
    * Cluster IPv6 CIDR mask larger than /24 will fail
-   * IPv6 cidr assignment is using the default ipv4 cidr /24
+   * IPv6 network block assignment is using the default IPv4 cidr block size (/24)
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
    * Masquerading is done via Kubenet not kube-proxy. Modifying kube-proxy to work with multi IP is scheduled for BETA stage (v1.16)
 
