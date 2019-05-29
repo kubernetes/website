@@ -284,7 +284,7 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 ## IPv4/IPv6 dual stack
 
 {{< feature-state state="alpha" >}}
-{{< warning >}}Alpha features change rapidly. {{< /warning >}}
+{{< warning >}}Kubernetes' implementation of dual-stack networking is in flux. You may well find that the design is changed in future releases.{{< /warning >}}
 
 IPv4/IPv6 dual stack enabled Kubernetes clusters allow the assignment of both IPv4 and IPv6 addresses simulatenously which enables the following capabilities:
 
