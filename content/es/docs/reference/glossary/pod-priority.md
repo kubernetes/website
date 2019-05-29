@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-[Pod Priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority) da la habilidad de configurar prioridades del programador de un Pod más altas o bajas que otros Pods - lo cual es una característica importante para Clusters Workload en producción. 
+[Pod Priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority) permite establecer prioridades para los diferentes {{< glossary_tooltip text="Pods" term_id="pod" >}}, dichas prioridades se tendrán en cuenta a la hora de planificar su ejecución en el clúster. Esta funcionalidad es muy importatnte en clústeres en producción, para poder priorizar la disponiblidad de las cargas de trabajo más críticas.
