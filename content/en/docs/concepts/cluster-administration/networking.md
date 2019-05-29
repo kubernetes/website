@@ -310,7 +310,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual stack 
 
 ### Enable IPv4/IPv6 dual stack
 
-To enable IPv4/IPv6 dual stack, the following modifications must be made to the following cluster componenets:
+To enable IPv4/IPv6 dual stack, the following flags must added to these cluster componenets:
 
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
