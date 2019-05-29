@@ -1,6 +1,5 @@
 ---
 reviewers:
-- jessfraz
 title: Pod Preset
 content_template: templates/concept
 weight: 50
@@ -32,7 +31,7 @@ Pod作成要求が発生した時、Kubernetesシステムは下記の処理を�
 1. それらの`PodPreset`のラベルセレクターが、作成されたPod上のラベルと一致するかチェックする。
 1. `PodPreset`によって定義された様々なリソースを、作成されたPodにマージしようと試みる。
 1. エラーが起きた時、そのPod上でマージエラーが起きたことを説明するイベントをスローし、`PodPreset`からリソースを1つも注入されていないPodを作成します。
-1. `PodPreset`によって修正されたことを示すために、マージ後の修正されたPodにアノテーションをつけます。そのアノテーションは`podpreset.admission.kubernetes.io/podpreset-<pod-preset name>: "<resource version>"`という形式になります。
+1. `PodPreset`によって修正されたことを示すために、マージ後の修正されたPodにアノテーションをつけます。そのアノテーションは`podpreset.admission.kubernetes.io/podpreset-<PodPreset名>: "<リソースのバージョン>"`という形式になります。
 
 各Podは0またはそれ以上のPodPresetにマッチすることができます。そして各`PodPreset`は0またはそれ以上のPodに適用されます。単一の`PodPreset`が1つかそれ以上のPodに適用された時、KubernetesはそのPodのSpecを修正します。`Env`、`EnvFrom`、`VolumeMounts`への変更があると、KubernetesはそのPod内の全てのコンテナのSpecを修正します。`Volume`への変更があった場合、KubernetesはそのPodのSpecを修正します。
 
