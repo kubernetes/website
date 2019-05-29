@@ -15,5 +15,5 @@ tags:
 
 <!--more--> 
 
-Always have a backup plan for etcd's data for your Kubernetes cluster. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).
+Always have a backup plan for etcd's data for your Kubernetes cluster. For in-depth information on etcd, see etcd's [documentation](https://etcd.io/docs/).
 
