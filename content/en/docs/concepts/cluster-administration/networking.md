@@ -281,6 +281,52 @@ Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-pl
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
+## IPv4/IPv6 dual stack
+
+{{< feature-state state="alpha" >}}
+{{< warning >}}Alpha features change rapidly. {{< /warning >}}
+
+IPv4/IPv6 dual stack enabled Kubernetes clusters allow the assignment of both IPv4 and IPv6 addresses simulatenously which enables the following capabilities:
+
+   * Awareness of multiple IPv4/IPv6 address assignments per Pod
+   * Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster
+
+Details on the implementation of this feature may be found in the [IPv4/IPv6 dual stack KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/20180612-ipv4-ipv6-dual-stack.md)
+
+### Supported Features
+
+Enabling IPv4/IPv6 dual stack on a Kubernetes cluster enables the following features:
+
+   * Dual stack Pod networking (multi-IP Pod)
+   * Kubenet multi address familiy support (IPv4 and IPv6)
+   * Egress Pod Internet routing via IPv4/IPv6 addresses
+
+### Prerequisites
+
+The following prerequisites are needed in order to utilize IPv4/IPv6 dual stack Kubernetes clusters:
+
+   * Provider support for dual stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
+   * Kubenet network plugin
+
+### Enable IPv4/IPv6 dual stack
+
+To enable IPv4/IPv6 dual stack, the following modifications must be made to the following cluster componenets:
+
+   * kube-controller-manager:
+      * `--feature-gates="IPv6DualStack=true"`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/24`
+   * kubelet:
+      * `--feature-gates="IPv6DualStack=true"`
+
+### Validate IPv4/IPv6 dual stack
+
+### Known Issues
+
+   * Cluster IPv6 CIDR mask larger than /24 will fail
+   * IPv6 cidr assignment is using the default ipv4 cidr /24
+   * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
+   * Masquerading is done via Kubenet not kube-proxy. Modifying kube-proxy to work with multi IP is scheduled for BETA stage (v1.16)
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
