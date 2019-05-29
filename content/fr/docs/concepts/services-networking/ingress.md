@@ -39,7 +39,7 @@ Le routage du trafic est contrôlé par des règles définies sur la ressource I
    [ Services ]
 ```
 
-Un Ingress peut être configuré pour donner aux services des URLs accessibles de l'extérieur, du trafic de charge équilibrée, la terminaison SSL/TLS et un hébergement virtuel basé sur le nom. Un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) est responsable de l'exécution de le l'Ingress, généralement avec un load-balancer (équilibreur de charge), bien qu'il puisse également configurer votre routeur périphérique ou des interfaces supplémentaires pour aider à gérer le trafic.
+Un Ingress peut être configuré pour donner aux services des URLs accessibles de l'extérieur, du trafic de charge équilibrée, la terminaison SSL/TLS et un hébergement virtuel basé sur le nom. Un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) est responsable de l'exécution de l'Ingress, généralement avec un load-balancer (équilibreur de charge), bien qu'il puisse également configurer votre routeur périphérique ou des interfaces supplémentaires pour aider à gérer le trafic.
 
 Un Ingress n'expose pas de ports ni de protocoles arbitraires. Exposer des services autres que HTTP et HTTPS à Internet généralement utilise un service de type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) ou [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
 
@@ -47,20 +47,19 @@ Un Ingress n'expose pas de ports ni de protocoles arbitraires. Exposer des servi
 
 {{<feature-state for_k8s_version = "v1.1" state = "beta">}}
 
-Avant de commencer à utiliser un Ingress, vous devez comprendre certaines choses. Un Ingress est une ressource bêta.
+Avant de commencer à utiliser un Ingress, vous devez comprendre certaines choses. Un Ingress est une ressource en "version Beta".
 
 {{< note >}}
 Vous devez avoir un [contrôleur d'Ingress](/docs/concepts/services-networking/ingress-controllers) pour lancer un Ingress. Seule la création d'une ressource Ingress n'a aucun effet.
 {{< /note >}}
 
-GCE/GKE (Google Cloud Engine / Google Kubernetes Engine) déploie un contrôleur d’Ingress sur le master (le maître de kubernetes). Revoir les [limitations bêta](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations) de ce contrôleur si vous utilisez GCE/GKE.
+GCE/GKE (Google Cloud Engine / Google Kubernetes Engine) déploie un contrôleur d’Ingress sur le master (le maître de kubernetes). Revoir les [limitations beta](https://github.com/kubernetes/ingress-gce/blob/master/BETA_LIMITATIONS.md#glbc-beta-limitations) de ce contrôleur si vous utilisez GCE/GKE.
 
-Dans les environnements autres que GCE/GKE, vous devrez peut-être [déployer un contrôleur d'Ingress](https://kubernetes.github.io/ingress-nginx/deploy/). Il y a un certain nombre de
-[contrôleurs d'Ingress](/docs/concepts/services-networking/ingress-controllers) parmi lesquels vous pouvez choisir.
+Dans les environnements autres que GCE/GKE, vous devrez peut-être [déployer un contrôleur d'Ingress](https://kubernetes.github.io/ingress-nginx/deploy/). Il y a un certain nombre de [contrôleurs d'Ingress](/docs/concepts/services-networking/ingress-controllers) parmi lesquels vous pouvez choisir.
 
 ### Avant de commencer
 
-Dans l’idéal, tous les contrôleurs d’Ingress devraient correspondre à cette spécification, mais les divers contrôleurs sont légèrement différents.
+Dans l’idéal, tous les contrôleurs d’Ingress devraient correspondre à cette spécification. Cependant le fonctionnement est légèrement différent d'un contrôleur à un autre.
 
 {{< note >}}
 Assurez-vous de consulter la documentation de votre contrôleur d’Ingress pour bien comprendre les mises en garde qu’il ya à faire pour le choisir.
