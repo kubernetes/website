@@ -58,7 +58,7 @@ kubeadm init phase kubeconfig controller-manager [flags]
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The path where to save and store the certificates.</td>
     </tr> -->
     <tr>
-      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
+      <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: "/etc/kubernetes/pki"</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">保存和存储证书的路径。</td>
