@@ -125,7 +125,7 @@ must be mounted as a
 in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Kubernetes device plugin support is still in alpha. As development continues, its API version can
+Kubernetes device plugin support is still in beta. As development continues, its API version can
 change in incompatible ways. We recommend that device plugin developers do the following:
 
 * Watch for changes in future releases.
