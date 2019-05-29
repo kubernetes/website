@@ -42,22 +42,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```
     The output is similar to this:
 =======
-* virtualbox
-* vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
-Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
-* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
-* none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
-
-1. Start a minikube
-
-    ```        
-    minikube start
-    ```    
-    The output shows that the kubernetes cluster is started:
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
+>>>>>>> resolved the incomplete merge conflicts
 
     ```
     Starting local Kubernetes cluster...
@@ -67,32 +52,29 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
     ```
 <<<<<<< HEAD:content/en/docs/setup/minikube.md
     For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
-=======
-
-2. Create an echo server deployment
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
 
 2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](docs/setup/minikube/#interacting-with-your-cluster).
 
     Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     ```shell
     kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-<<<<<<< HEAD:content/en/docs/setup/minikube.md
-=======
-    ```        
-    The output of a successful command verifies that the deployment is created:
-
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
     ```
     The output is similar to this:
     ```
-<<<<<<< HEAD:content/en/docs/setup/minikube.md
     deployment.apps/hello-minikube created
 =======
+    For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](docs/setup/minikube/#starting-a-cluster).
 
-3. Expose an echo server deployment to create service       
+2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](docs/setup/minikube/#interacting-with-your-cluster).
 
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
+    Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
+    ```shell
+    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+    ```
+    The output is similar to this:
+    ```
+    deployment.apps/hello-minikube created
+>>>>>>> resolved the incomplete merge conflicts
     ```
 3. To access the `hello-minikue` Deployment, expose it as a Service:
     ```shell
@@ -100,7 +82,9 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
     ```
 <<<<<<< HEAD:content/en/docs/setup/minikube.md
     The option `--type=NodePort` specifies the type of the Service.
+<<<<<<< HEAD
 
+>>>>>>> resolved the incomplete merge conflicts
     The output is similar to this:
     ```
     service/hello-minikube exposed
@@ -167,6 +151,10 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
     Output looks similer to this:
 
 >>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
+=======
+
+    The output is similar to this:
+>>>>>>> resolved the incomplete merge conflicts
     ```
     Hostname: hello-minikube-7c77b68cff-8wdzq
 
@@ -201,9 +189,8 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 <<<<<<< HEAD:content/en/docs/setup/minikube.md
     The output is similar to this:
 =======
-    The output of a successful command verifies that the service is deleted:  
-
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
+    The output is similar to this:
+>>>>>>> resolved the incomplete merge conflicts
     ```
     service "hello-minikube" deleted
     ```
@@ -214,9 +201,8 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 <<<<<<< HEAD:content/en/docs/setup/minikube.md
     The output is similar to this:
 =======
-    The output of a successful command verifies that the deployment is deleted:
-
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
+    The output is similar to this:
+>>>>>>> resolved the incomplete merge conflicts
     ```
     deployment.extensions "hello-minikube" deleted
     ```
@@ -252,6 +238,11 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
    Stopping "minikube"...
    ```
 >>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
+=======
+	For more information, see [Deleting a cluster](/docs/setup/minikube/#deleting-a-cluster).
+
+## Managing your Cluster
+>>>>>>> resolved the incomplete merge conflicts
 
 ### Starting a Cluster
 
