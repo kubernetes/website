@@ -593,7 +593,9 @@ are:
 
 - `unconfined` - Seccomp is not applied to the container processes (this is the
   default in Kubernetes), if no alternative is provided.
-- `docker/default` - The Docker default seccomp profile is used.
+- `runtime/default` - The default container runtime profile is used.
+- `docker/default` - The Docker default seccomp profile is used. Deprecated as of
+  Kubernetes 1.11. Use `runtime/default` instead.
 - `localhost/<path>` - Specify a profile as a file on the node located at
   `<seccomp_root>/<path>`, where `<seccomp_root>` is defined via the
   `--seccomp-profile-root` flag on the Kubelet.
