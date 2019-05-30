@@ -15,5 +15,5 @@ tags:
 
 <!--more--> 
 
-Normalmente un Pod se configura para ejecutar un solo contenedor primario, pero también puede ejecutar contenedores adicionales para implementar diferentes patrones como _sidecar_ or _ambassador_. Estos contenedores pueden ser parte de la aplicación o simplemente añadir funcionalidades adicionales como gestión de logs o actuar de proxy. Los Pods son comúnmente gestionados por un {{< glossary_tooltip term_id="deployment" >}}.
+Normalmente un Pod se configura para ejecutar un solo contenedor primario, pero también puede ejecutar contenedores adicionales para implementar diferentes patrones como _sidecar_ o _ambassador_. Estos contenedores pueden ser parte de la aplicación o simplemente añadir funcionalidades adicionales como gestión de logs o actuar de proxy. Los Pods son comúnmente gestionados por un {{< glossary_tooltip term_id="deployment" >}}.
 
