@@ -22,9 +22,9 @@ Kube-scheduler is the Kubernetes default scheduler. For every newly created pods
 
 Kube-scheduler selects a node for the pod in a 2-step operation:
 
-1. **Predicates**：filter the nodes
+1. **Predicates**: filter the nodes
 
-2. **Priorities**：prioritize the filtered list of nodes
+2. **Priorities**: prioritize the filtered list of nodes
 
 
 The predicates step is filtering out the inappropriate nodes based on some "predicates policies". For example, the PodFitsResources policy means whether node has enough available resource to meet node's specifies resource requests. After predicates step, the suitable node are remaining and it is ofen there are more than one nodes. 
