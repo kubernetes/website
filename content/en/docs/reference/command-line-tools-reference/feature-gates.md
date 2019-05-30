@@ -17,7 +17,7 @@ Feature gates are a set of key=value pairs that describe alpha or experimental
 features.
 An administrator can use the `--feature-gates` command line flag on each component
 to turn a feature on or off. Each component supports a set of feature gates unique to that component.
-Use `-h` flag to see a full set of feature gates for all components.  
+Use `-h` flag to see a full set of feature gates for all components.
 To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
 
 ```shell
@@ -97,7 +97,8 @@ different Kubernetes components.
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
-| `Initializers` | `false` | Alpha | 1.7 | |
+| `Initializers` | `false` | Alpha | 1.7 | 1.13 |
+| `Initializers` | - | Deprecated | 1.14 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
 | `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
@@ -265,9 +266,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
-- `Intializers`: Enable the [dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  as an extension to the built-in [admission controllers](/docs/reference/access-authn-authz/admission-controllers/).
-  When the `Initializers` admission controller is enabled, this feature is automatically enabled.
 - `KubeletConfigFile`: Enable loading kubelet configuration from a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/) for more details.
 - `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet

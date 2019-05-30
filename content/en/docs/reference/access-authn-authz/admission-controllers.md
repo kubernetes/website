@@ -90,7 +90,7 @@ kube-apiserver -h | grep enable-admission-plugins
 ```
 
 In 1.14, they are:
- 
+
 ```shell
 NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
 ```
@@ -218,7 +218,7 @@ add these tolerations.
 
 ### ImagePolicyWebhook {#imagepolicywebhook}
 
-The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions. 
+The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions.
 
 #### Configuration File Format
 
@@ -280,19 +280,19 @@ Note that webhook API objects are subject to the same versioning compatibility r
 An example request body:
 
 ```json
-{  
+{
   "apiVersion":"imagepolicy.k8s.io/v1alpha1",
   "kind":"ImageReview",
-  "spec":{  
-    "containers":[  
-      {  
+  "spec":{
+    "containers":[
+      {
         "image":"myrepo/myimage:v1"
       },
-      {  
+      {
         "image":"myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
       }
     ],
-    "annotations":[  
+    "annotations":[
       "mycluster.image-policy.k8s.io/ticket-1234": "break-glass"
     ],
     "namespace":"mynamespace"
@@ -338,13 +338,6 @@ Examples of information you might put here are:
  * provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of ImageReviewSpec.
-
-### Initializers {#initializers} {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
-
-The admission controller determines the initializers of a resource based on the existing
-`InitializerConfiguration`s. It sets the pending initializers by modifying the
-metadata of the resource to be created.
-For more information, please check [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 
@@ -513,7 +506,7 @@ plugin configuration file as the node selector.
 Conflicts result in rejection.
 
 {{< note >}}
-PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 
+PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction
 admission plugin, which allows preventing pods from running on specifically tainted nodes.
 {{< /note >}}
 
