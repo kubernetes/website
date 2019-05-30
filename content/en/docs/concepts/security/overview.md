@@ -142,7 +142,7 @@ Static Code Analysis | Most languages provide a way for a snippet of code to be 
 Dynamic probing attacks | There are a few automated tools that are able to be run against your service to try some of the well known attacks that commonly befall services. These include SQL injection, CSRF, and XSS. One of the most popular dynamic analysis tools is the OWASP Zed Attack proxy https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project |
 
 
-## Pipeline security
+## Robust automation
 
 Most of the above mentioned suggestions can actually be automated in your code
 delivery pipeline as part of a series of checks in security. To learn about a
