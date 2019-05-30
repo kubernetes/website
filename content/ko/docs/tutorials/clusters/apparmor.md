@@ -179,7 +179,7 @@ k8s-apparmor-example-deny-write (enforce)
 
 {{< code language="text" file="deny-write.profile" >}}
 
-파드를 언제 스캐쥴할지 알지 못하므로 모든 노드에 프로파일을 적재해야 한다.
+파드를 언제 스케줄할지 알지 못하므로 모든 노드에 프로파일을 적재해야 한다.
 이 예시에서는 SSH를 이용하여 프로파일을 설치할 것이나 다른 방법은
 [프로파일과 함께 노드 설정하기](#setting-up-nodes-with-profiles)에서 논의한다.
 
