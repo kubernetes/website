@@ -115,7 +115,8 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | |
 | `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
-| `PodPriority` | `true` | Beta | 1.11 | |
+| `PodPriority` | `true` | Beta | 1.11 | 1.13 |
+| `PodPriority` | `true` | GA | 1.14 | |
 | `PodReadinessGates` | `false` | Alpha | 1.11 | |
 | `PodReadinessGates` | `true` | Beta | 1.12 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
