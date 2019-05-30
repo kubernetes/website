@@ -81,9 +81,7 @@ one of these at random.
 
 ### Default policies
 
-kube-scheduler has a default set of scheduling policies. You can customize
-these; see [Scheduling Customization and Extension](/docs/concepts/scheduling/customization-and-extension/)
-for more details.
+kube-scheduler has a default set of scheduling policies.
 
 ### Filtering
 
