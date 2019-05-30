@@ -4,7 +4,7 @@ reviewers:
 title: The Kubernetes API
 content_template: templates/concept
 weight: 30
-card: 
+card:
   name: concepts
   weight: 30
 ---
@@ -47,7 +47,7 @@ Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+
 Accept-Encoding | `gzip` (not passing this header is acceptable)
 
 Prior to 1.14, format-separated endpoints (`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)
-serve the OpenAPI spec in different formats. These endpoints are deprecated, and will be removed in Kubernetes 1.14.
+serve the OpenAPI spec in different formats. These endpoints are deprecated, and are removed in Kubernetes 1.14.
 
 **Examples of getting OpenAPI spec**:
 
@@ -59,7 +59,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
-Prior to 1.14, the Kubernetes apiserver also exposes an API that can be used to retrieve 
+Prior to 1.14, the Kubernetes apiserver also exposes an API that can be used to retrieve
 the [Swagger v1.2](http://swagger.io/) Kubernetes API spec at `/swaggerapi`.
 This endpoint is deprecated, and will be removed in Kubernetes 1.14.
 
