@@ -1,5 +1,5 @@
 ---
-title: 主页
+title: 文档
 weight: 5
 ---
 
