@@ -370,32 +370,22 @@ However, the completion script depends on [**bash-completion**](https://github.c
 You can install bash-completion with Homebrew:
 
 ```shell
-brew install bash-completion@2
+brew install bash-completion
 ```
-
-{{< note >}}
-The `@2` stands for bash-completion 2, which is required by the kubectl completion script (it doesn't work with bash-completion 1). In turn, bash-completion 2 requires Bash 4.1+, that's why you needed to upgrade Bash.
-{{< /note >}}
 
 As stated in the output of `brew install` ("Caveats" section), add the following lines to your `~/.bashrc` or `~/.bash_profile` file:
 
 ```shell
-export BASH_COMPLETION_COMPAT_DIR=/usr/local/etc/bash_completion.d
-[[ -r /usr/local/etc/profile.d/bash_completion.sh ]] && . /usr/local/etc/profile.d/bash_completion.sh
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 ```
 
-Reload your shell and verify that bash-completion is correctly installed by typing `type _init_completion`.
+Reload your shell.
 
 ### Enable kubectl autocompletion
 
-You now need to ensure that the kubectl completion script gets sourced in all your shell sessions. There are multiple ways in which you can do this:
+If you installed kubectl with Homebrew (as explained [here](#install-with-homebrew-on-macos)), then the completion script was automatically installed to `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 
-- Source the completion script in your `~/.bashrc` file:
-
-    ```shell
-    echo 'source <(kubectl completion bash)' >>~/.bashrc
-
-    ```
+If you didn't install through Homebrew you now need to ensure that the kubectl completion script gets sourced in all your shell sessions as follows:
 
 - Add the completion script to `/usr/local/etc/bash_completion.d`:
 
@@ -403,13 +393,12 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
-- If you installed kubectl with Homebrew (as explained [here](#install-with-homebrew-on-macos)), then the completion script was automatically installed to `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 
 {{< note >}}
-bash-completion (if installed with Homebrew) sources all the completion scripts in the directory that is set in the `BASH_COMPLETION_COMPAT_DIR` environment variable.
+bash-completion (if installed with Homebrew) sources all the completion scripts in the directory.
 {{< /note >}}
 
-All approaches are equivalent. After reloading your shell, kubectl autocompletion should be working.
+After reloading your shell, kubectl autocompletion should be working.
 {{% /tab %}}
 
 {{% tab name="Zsh" %}}
