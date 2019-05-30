@@ -87,7 +87,7 @@ Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as
   total Pods. For instance, if you set `minUnavailable` to `.5`, then only 50% of the Pods can be unavailable during a
   disruption.
 
-When you specify a the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
+When you specify the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
 you set `minAvailable` to `.5`, it's not immediately obvious whether that means 3 Pods or 4 Pods must be available.
 Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. You can examine the
 [code](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)
