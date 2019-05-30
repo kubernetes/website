@@ -22,10 +22,6 @@ for finding the best Node for that Pod to run on. The scheduler reaches
 this placement decision taking into account the scheduling principles
 described below.
 
-In a cluster, Nodes that meet the scheduling requirements for a Pod
-are called _optimal_ nodes. If none of the nodes are suitable, the pod
-remains unscheduled until the scheduler is able to place it.
-
 If you want to understand why Pods are placed onto a particular Node,
 or if you're planning to implement a custom scheduler yourself, this
 page will help you learn about scheduling.
@@ -43,6 +39,15 @@ selects a optimal node for them to run on.  However, every container in
 pods has different requirements for resources and every pod also has
 different requirements. Therefore, existing nodes need to be filtered
 according to the specific scheduling requirements.
+
+In a cluster, Nodes that meet the scheduling requirements for a Pod
+are called _feasible_ nodes. If none of the nodes are suitable, the pod
+remains unscheduled until the scheduler is able to place it.
+
+The scheduler finds feasible Nodes for a Pod and then runs a set of
+functions to score the feasible Nodes and picks a Node with the highest
+score among the feasible ones to run the Pod. The scheduler then notifies
+the API server about this decision in a process called _binding_.
 
 Factors that need taken into account for scheduling decisions include
 individual and collective resource requirements, hardware / software /
