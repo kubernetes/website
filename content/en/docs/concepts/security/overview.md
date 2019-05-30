@@ -12,9 +12,9 @@ weight: 1
 Kubernetes Security (and security in general) is an immense topic that has many
 highly interrelated parts. In today's era where open source software is
 integrated into many of the systems that help web applications run,
-we need some overarching concepts to help guide our intuition about how we can
-think about security holistically. This guide will define a thought-framework for
-what we think of when we imagine "Kubernetes Security." The thought framework we selected is completely arbitrary
+there are some overarching concepts that can help guide your intuition about how you can
+think about security holistically. This guide will define a mental model for
+for some general concepts surrounding Cloud Native Security. The mental model is completely arbitrary
 and you should only use it if it helps you think about where to secure your software
 stack.
 {{% /capture %}}
@@ -22,7 +22,7 @@ stack.
 {{% capture body %}}
 
 ## The 4C's of Cloud Native Security
-Let's start with a diagram that may help you understand how we think about security in layers.
+Let's start with a diagram that may help you understand how you can think about security in layers.
 {{< note >}}
 This layered approach augments the [defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing))
 approach to security, which is widely regarded as a best practice for securing
@@ -30,26 +30,26 @@ software systems. The 4C's are Cloud, Clusters, Containers, and Code.
 {{< /note >}}
 
 {{< figure src="/images/docs/4c.png" title="The 4C's of Cloud Native Security" >}}
-<br/><br/><br/>
 
-As you can see from the above figure of increasingly smaller areas of focus that
-each one of of the 4C's depend on the security of the squares in which they fit. It
+
+As you can see from the above figure,
+each one of the 4C's depend on the security of the squares in which they fit. It
 is nearly impossibly to safeguard against poor security standards in Cloud, Containers, and Code
 by only addressing security at the code level. However, when these areas are dealt
 with appropriately, then adding security to your code augments an already strong
-base. Each of areas of focus will now be described in more detail below.
+base. These areas of concern will now be described in more detail below.
 
 ## Cloud
 
-In many ways, the Cloud (or Co-Located Servers, or Corporate Datacenter) is the
+In many ways, the Cloud (or co-located servers, or the corporate datacenter) is the
 [trusted computing base](https://en.wikipedia.org/wiki/Trusted_computing_base)
 of a Kubernetes cluster. If these components themselves are vulnerable (or
 configured in a vulnerable way) then there's no real way to guarantee the security
-of any components built on top of this base. Each cloud provider has numerous
+of any components built on top of this base. Each cloud provider has extensive
 security recommendations they make to their customers on how to run workloads securely
-in their environment. It is out of the scope of this article to give recommendations
-on cloud security since every cloud provider and workload is different. We will
-however provide links to some of the popular cloud providers' own documentation
+in their environment. It is out of the scope of this guide to give recommendations
+on cloud security since every cloud provider and workload is different. Here are some
+links to some of the popular cloud providers' documentation
 for security as well as give general guidance for securing the infrastructure that
 makes up a Kubernetes cluster.
 
@@ -59,11 +59,13 @@ makes up a Kubernetes cluster.
 
 IaaS Provider        | Link |
 -------------------- | ------------ |
+Alibaba Cloud | https://www.alibabacloud.com/trust-center |
 Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
-Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 IBM Cloud | https://www.ibm.com/cloud/security |
-Alibaba Cloud | https://www.alibabacloud.com/trust-center |
+Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
+VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
+
 
 If you are running on your own hardware or a different cloud provider you will need to
 consult your documentation for security best practices.
@@ -73,23 +75,23 @@ consult your documentation for security best practices.
 Area of Concern for Kubernetes Infrastructure | Recommendation |
 --------------------------------------------- | ------------ |
 Network access to API Server (Masters) | Ideally all access to the Kubernetes Masters is not allowed publicly on the internet and is controlled by network access control lists restricted to the set of IP addresses needed to administer the cluster.|
-Network access to Nodes (Worker Servers) | Nodes should be configured to _only_ accept connections (via network access control lists) from the masters on the specified ports, and accept connections for services in Kubernetes of type `NodePort` and `LoadBalancer`. If possible, this nodes should not exposed on the public internet entirely.
+Network access to Nodes (Worker Servers) | Nodes should be configured to _only_ accept connections (via network access control lists) from the masters on the specified ports, and accept connections for services in Kubernetes of type NodePort and LoadBalancer. If possible, this nodes should not exposed on the public internet entirely.
 Kubernetes access to Cloud Provider API | Each cloud provider will need to grant a different set of permissions to the Kubernetes Masters and Nodes, so this recommendation will be more generic. It is best to provide the cluster with cloud provider access that follows the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) for the resources it needs to administer. An example for Kops in AWS can be found here: https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles
 Access to etcd | Access to etcd (the datastore of Kubernetes) should be limited to the masters only. Depending on your configuration you should also attempt to use etcd over TLS. More info can be found here: https://github.com/etcd-io/etcd/tree/master/Documentation#security
 etcd Encryption | Wherever possible it's a good practice to encrypt all drives at rest, but since etcd holds the state of the entire cluster (including Secrets) its disk should especially be encrypted at rest.
 
 ## Cluster
 
-This section will provide links to more exploration for securing the aspects of
-workloads in Kubernetes. There are essentially two areas of concern for securing
+This section will provide links for securing
+workloads in Kubernetes. There are two areas of concern for securing
 Kubernetes:
 
-* Securing the components that are configurable which _make up_ the cluster
-* Securing the components which run _in_ the cluster
+* Securing the components that are configurable which make up the cluster
+* Securing the components which run in the cluster
 
 
 ### Components _of_ the Cluster
-For more information on securing the components of the cluster, go [here](/docs/tasks/administer-cluster/securing-a-cluster).
+For more information on securing the components of the cluster, [here is a link](/docs/tasks/administer-cluster/securing-a-cluster) to the associated documention.
 
 ### Components _in_ the Cluster (your application)
 Depending on the attack surface of your application, you may want to focus on specific
@@ -113,10 +115,10 @@ TLS For Kubernetes Ingress | https://kubernetes.io/docs/concepts/services-networ
 
 ## Container
 
-The price of admission to a Kubernetes cluster is a container. Because of this,
+In order to run software in Kubernetes, it must be in a container. Because of this,
 there are certain security considerations that must be taken into account in order
 to benefit from the workload security primitives of Kubernetes. Container security
-is also outside the scope of this article, but we will provide a table of general
+is also outside the scope of this guide, but here is a table of general
 recommendations and links for further exploration of this topic.
 
 Area of Concern for Containers | Recommendation |
@@ -129,7 +131,7 @@ Disallow privileged users | When constructing containers, consult your documenta
 
 Finally moving down into the application code level, this is one of the primary attack
 surfaces over which you have the most control. This is also outside of the scope
-of Kubernetes but we recommend a few of the following:
+of Kubernetes but here are a few recommendations:
 
 ### General Code Security Guidance Table
 
@@ -146,6 +148,6 @@ Dynamic probing attacks | There are a few automated tools that are able to be ru
 
 Most of the above mentioned suggestions can actually be automated in your code
 delivery pipeline as part of a series of checks in security. To learn about a
-more "Continuous Hacking" approach to software delivery click (or tap) [this link](https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/).
+more "Continuous Hacking" approach to software delivery, [this article](https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/) provides more detail.
 
 {{% /capture %}}
