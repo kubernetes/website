@@ -294,6 +294,8 @@ and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
   there are many Nova availability zones but only one Cinder availability zone.
   The default value is `false` to preserve the behavior used in earlier
   releases, but may change in the future.
+* `node-volume-attach-limit` (Optional): Maximum number of Volumes that can be
+  attached to the node, default is 256 for cinder.
 
 If deploying Kubernetes versions <= 1.8 on an OpenStack deployment that uses
 paths rather than ports to differentiate between endpoints it may be necessary
