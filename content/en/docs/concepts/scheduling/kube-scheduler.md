@@ -176,3 +176,8 @@ for more details.
 - `EqualPriorityMap`: Gives an equal weight of one to all nodes.
 
 {{% /capture %}}
+{{% capture whatsnext %}}
+* Read about [scheduler performance tuning](/docs/concepts/scheduling/scheduler-perf-tuning/)
+* Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
+* Learn about [configuring multiple schedulers](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+{{% /capture %}}
