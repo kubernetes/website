@@ -13,6 +13,7 @@ kubeadm join phase control-plane-join mark-control-plane [flags]
 
 ```
       --config string                Path to kubeadm config file.
+      --control-plane                Create a new control plane instance on this node
       --experimental-control-plane   Create a new control plane instance on this node
   -h, --help                         help for mark-control-plane
       --node-name string             Specify the node name.

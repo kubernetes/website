@@ -1,9 +1,9 @@
 
-Generates the certificates for the new control plane components
+Generate the certificates for the new control plane components
 
 ### Synopsis
 
-Generates the certificates for the new control plane components
+Generate the certificates for the new control plane components
 
 ```
 kubeadm join phase control-plane-prepare certs [api-server-endpoint] [flags]
@@ -14,6 +14,7 @@ kubeadm join phase control-plane-prepare certs [api-server-endpoint] [flags]
 ```
       --apiserver-advertise-address string            If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
       --config string                                 Path to kubeadm config file.
+      --control-plane                                 Create a new control plane instance on this node
       --discovery-file string                         For file-based discovery, a file or URL from which to load cluster information.
       --discovery-token string                        For token-based discovery, the token used to validate cluster information fetched from the API server.
       --discovery-token-ca-cert-hash strings          For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").
