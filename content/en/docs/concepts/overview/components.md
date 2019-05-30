@@ -111,5 +111,8 @@ A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechan
 saving container logs to a central log store with search/browsing interface.
 
 {{% /capture %}}
-
-
+{{% capture whatsnext %}}
+* Learn about [Nodes](/docs/concepts/architecture/nodes/)
+* Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* Read etcd's official [documentation](https://etcd.io/docs/)
+{{% /capture %}}
