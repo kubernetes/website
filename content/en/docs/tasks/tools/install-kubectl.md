@@ -385,7 +385,7 @@ Reload your shell.
 
 If you installed kubectl with Homebrew (as explained [here](#install-with-homebrew-on-macos)), then the completion script was automatically installed to `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 
-If you didn't install through homebrew you now need to ensure that the kubectl completion script gets sourced in all your shell sessions as follows:
+If you didn't install through Homebrew you now need to ensure that the kubectl completion script gets sourced in all your shell sessions as follows:
 
 - Add the completion script to `/usr/local/etc/bash_completion.d`:
 
