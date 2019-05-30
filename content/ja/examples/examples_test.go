@@ -89,9 +89,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	// Enable CustomPodDNS for testing
 	utilfeature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
-	case *admissionregistration.InitializerConfiguration:
-		// cluster scope resource
-		errors = ar_validation.ValidateInitializerConfiguration(t)
 	case *api.ConfigMap:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -299,7 +296,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"admin/cloud": {
 			"ccm-example":            {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &extensions.DaemonSet{}},
-			"pvl-initializer-config": {&admissionregistration.InitializerConfiguration{}},
 		},
 		"admin/dns": {
 			"busybox":                   {&api.Pod{}},
