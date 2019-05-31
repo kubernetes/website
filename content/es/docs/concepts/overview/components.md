@@ -1,0 +1,119 @@
+---
+reviewers:
+- raelga
+title: Componentes de Kubernetes
+content_template: templates/concept
+weight: 20
+card: 
+  name: concepts
+  weight: 20
+---
+
+{{% capture overview %}}
+Este documento describe los distintos componentes binarios que
+son necesarios para operar un cluster de Kubernetes.
+{{% /capture %}}
+
+{{% capture body %}}
+## Componentes maestros
+
+Los componentes maestros proveen el plano de control del cluster. Ellos toman decisiones globales sobre
+el cluster (por ejemplo, la planificación) y detectan y responden a eventos del cluster, como la creación
+de un nuevo pod cuando la propiedad `replicas` de un controlador de replicación no se cumpla.
+
+Estos componentes pueden ejecutarse en cualquier nodo del cluster. Sin embargo, y para simplificar, los
+scripts de instalación típicamente inician todos los componentes maestros en el mismo nodo, y no ejecutan
+contenedores de los usuarios allí. Vea [Construyendo clusters de alta disponibilidad](/docs/admin/high-availability/) para un ejemplo de configuración multi-master.
+
+### kube-apiserver
+
+{{< glossary_definition term_id="kube-apiserver" length="all" >}}
+
+### etcd
+
+{{< glossary_definition term_id="etcd" length="all" >}}
+
+### kube-scheduler
+
+{{< glossary_definition term_id="kube-scheduler" length="all" >}}
+
+### kube-controller-manager
+
+{{< glossary_definition term_id="kube-controller-manager" length="all" >}}
+
+Estos controladores incluyen:
+
+  * Controlador de nodos: es el responsable por detectar y responder cuando un nodo deja de funcionar
+  * Controlador de replicación: es el responsable de mantener el número correcto de pods para cada controlador
+  de replicación del sistema
+  * Controlador de endpoints: construye el objeto `Endpoints`, es decir, hace una unión entre los `Services` y los `Pods`
+  * Controladores de tokens y cuentas de servicio: crean cuentas y tokens de acceso a la API por defecto para los nuevos espacios de nombre
+
+### cloud-controller-manager
+
+[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) ejecuta controladores que
+interactúan con proveedores de la nube. El binario `cloud-controller-manager` es una característica alpha que debutó en la versión 1.6 de Kubernetes.
+
+`cloud-controller-manager` solo ejecuta ciclos de control específicos de cada proveedor de la nube. Debes
+desactivar estos ciclos en `kube-controller-manager`. Puedes desactivarlos pasando la opción `--cloud-provider= external` cuando arranques el `kube-controller-manager`.
+
+`cloud-controller-manager` permite que el código de Kubernetes y el del proveedor de la nube evolucionen de manera independiente. Anteriormente, el código de Kubernetes dependía de la funcionalidad específica de cada proveedor de la nube. En el futuro, el código que sea específico a una plataforma debería ser mantenido por el proveedor de la nube y enlazadao a `cloud-controller-manager` al correr Kubernetes.
+
+Los siguientes controladores dependen de alguna forma de un proveedor de la nube:
+
+  * Controlador de nodos: para verificar con el proveedor si un nodo ha sido eliminado después de que deja de responder
+  * Controlador de rutas: para configurar rutas en la infraestructura de nube subyacente
+  * Controlador de servicios: para crear, actualizar y eliminar balanceadores de carga en la nube
+  * Controlador de volúmenes: para crear, conectar y montar volúmenes e interactuar con el proveedor de la nube para orquestarlos
+
+## Componentes de nodo
+
+Los componentes de nodo corren en cada nodo, manteniendo a los pods en funcionamiento y proveyendo el entorno de ejecución de Kubernetes.
+
+### kubelet
+
+{{< glossary_definition term_id="kubelet" length="all" >}}
+
+### kube-proxy
+
+[kube-proxy](/docs/admin/kube-proxy/) permite abstraer un servicio en Kubernetes manteniendo las
+reglas de red en el anfitrión y haciendo reenvío de conexiones.
+
+### Runtime de contenedores
+
+El runtim de contenedores es el software responsable por ejecutar los contenedores. Kubernetes soporta varios de
+ellos: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) y cualquier implementación de la interfaz de runtime de contenedores de Kubernetes, o [Kubernetes CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+
+## Addons
+
+Los _addons_ son pods y servicios que implementan funcionalidades del cluster. Estos pueden ser administrados
+por `Deployments`, `ReplicationControllers` y otros. Los _addons_ asignados a un espacio de nombres se crean en el espacio `kube-system`.
+
+Describimos algunos _addons_ más abajo. Para una lista más completa de los _addons_ disponibles por favor visite [Addons](/docs/concepts/cluster-administration/addons/).
+
+### DNS
+
+Si bien los otros _addons_ no son estrictamente necesarios, todos los clusters de Kubernetes deberían tener [cluster DNS](/docs/concepts/services-networking/dns-pod-service/) ya que la mayoría de los ejemplos lo requieren.
+
+Cluster DNS es un servidor DNS, adicional a los que ya podrías tener en tu red, que sirven registros DNS de los servicios de Kubernetes.
+
+Los contenedores que son iniciados por Kubernetes incluyen automáticamente este servidor en sus búsquedas DNS.
+
+### Web UI (Dashboard)
+
+El [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) es una interfaz Web de propósito general para clusters de Kubernetes. Le permite a los usuarios administrar y resolver problemas que puedan presentar tanto las aplicaciones como el cluster.
+
+### Monitor de recursos de contenedores
+
+El [Monitor de recursos de contenedores](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) almacena
+de forma centralizada series de tiempo con métricas sobre los contenedores, y provee una interfaz para navegar estos
+datos.
+
+### Registros del cluster
+
+El mecanismo de [registros del cluster](/docs/concepts/cluster-administration/logging/) está a cargo de almacenar
+los registros de los contenedores en un almacen central con una interfaz de búsqueda y navegación.
+
+{{% /capture %}}
+
+
