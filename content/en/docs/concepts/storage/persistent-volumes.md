@@ -88,7 +88,7 @@ The purpose of the Storage Object in Use Protection feature is to ensure that Pe
 PVC is in active use by a pod when a pod object exists that is using the PVC.
 {{< /note >}}
 
-If a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is no longer no bound to a PVC.
+If a user deletes a PVC in active use by a pod, the PVC is not removed immediately. PVC removal is postponed until the PVC is no longer actively used by any pods, and also if admin deletes a PV that is bound to a PVC, the PV is not removed immediately. PV removal is postponed until the PV is no longer bound to a PVC.
 
 You can see that a PVC is protected when the PVC's status is `Terminating` and the `Finalizers` list includes `kubernetes.io/pvc-protection`:
 
@@ -198,8 +198,8 @@ the following types of volumes:
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 
 ``` yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gluster-vol-default
 provisioner: kubernetes.io/glusterfs
@@ -252,7 +252,7 @@ uses the PVC before the expansion can complete.
 Expanding in-use PVCs for FlexVolumes is added in release 1.13. To enable this feature use  `ExpandInUsePersistentVolumes` and `ExpandPersistentVolumes` feature gates. The `ExpandPersistentVolumes` feature gate is already enabled by default. If the `ExpandInUsePersistentVolumes` is set, FlexVolume can be resized online without pod restart. 
  
 {{< note >}}
-**Note:** FlexVolume resize is possible only when the underlying driver supports resize.
+FlexVolume resize is possible only when the underlying driver supports resize.
 {{< /note >}}
 
 {{< note >}}
@@ -442,8 +442,8 @@ The CLI will show the name of the PVC bound to the PV.
 Each PVC contains a spec and status, which is the specification and status of the claim.
 
 ```yaml
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: myclaim
 spec:
@@ -531,8 +531,8 @@ it won't be supported in a future Kubernetes release.
 Pods access storage by using the claim as a volume.  Claims must exist in the same namespace as the pod using the claim.  The cluster finds the claim in the pod's namespace and uses it to get the `PersistentVolume` backing the claim.  The volume is then mounted to the host and into the pod.
 
 ```yaml
-kind: Pod
 apiVersion: v1
+kind: Pod
 metadata:
   name: mypod
 spec:

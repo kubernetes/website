@@ -75,7 +75,7 @@ Next, deploy your cluster:
 Cluster deployment using [ansible-playbook](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
 
 ```shell
-ansible-playbook -i your/inventory/hosts.ini cluster.yml -b -v \
+ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
   --private-key=~/.ssh/private_key
 ```
 

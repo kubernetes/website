@@ -149,9 +149,6 @@ This is an example of a valid response:
 
 ```none
 apiVersion: v1
-data:
-  kubelet: |
-    {...}
 kind: ConfigMap
 metadata:
   creationTimestamp: 2017-09-14T20:23:33Z
@@ -160,6 +157,9 @@ metadata:
   resourceVersion: "119980"
   selfLink: /api/v1/namespaces/kube-system/configmaps/my-node-config-gkt4c2m4b2
   uid: 946d785e-998a-11e7-a8dd-42010a800006
+data:
+  kubelet: |
+    {...}
 ```
 
 The ConfigMap is created in the `kube-system` namespace because this

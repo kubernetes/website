@@ -34,7 +34,7 @@ With interest growing in stateful apps, work has already started to further enha
 Join the conversation and contribute! Here are some places to get started:  
 
 
-- Product Management [group](https://groups.google.com/forum/#!forum/kubernetes-pm)
+- Product Management [group](https://groups.google.com/forum/#!forum/kubernetes-sig-pm)
 - Kubernetes [Storage SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-storage)&nbsp;
 - Kubernetes [Cluster Federation SIG](https://groups.google.com/forum/#!forum/kubernetes-sig-federation)
 

@@ -1,5 +1,6 @@
 ---
 title: Vue d'ensemble des documents de référence
+description: Documentation références Kubernetes
 main_menu: true
 weight: 80
 ---

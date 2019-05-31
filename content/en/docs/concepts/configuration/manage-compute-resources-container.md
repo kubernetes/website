@@ -3,7 +3,7 @@ title: Managing Compute Resources for Containers
 content_template: templates/concept
 weight: 20
 feature:
-  title: Automatic binpacking
+  title: Automatic bin packing
   description: >
     Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
 ---

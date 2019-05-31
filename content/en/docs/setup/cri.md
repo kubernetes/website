@@ -53,6 +53,14 @@ for the rest of the processes running on the node becomes unstable under resourc
 Changing the settings such that your container runtime and kubelet use `systemd` as the cgroup driver
 stabilized the system. Please note the `native.cgroupdriver=systemd` option in the Docker setup below.
 
+{{< caution >}}
+Changing the cgroup driver of a Node that has joined a cluster is highly unrecommended.
+If the kubelet has created Pods using the semantics of one cgroup driver, changing the container
+runtime to another cgroup driver can cause errors when trying to re-create the PodSandbox
+for such existing Pods. Restarting the kubelet may not solve such errors. The recommendation
+is to drain the Node from its workloads, remove it from the cluster and re-join it.
+{{< /caution >}}
+
 ## Docker
 
 On each of your machines, install Docker.

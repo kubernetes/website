@@ -41,7 +41,7 @@ feature gates. The `RuntimeClass` feature gate must be enabled on apiservers _an
 #### 1. Configure the CRI implementation on nodes
 
 The configurations available through RuntimeClass are Container Runtime Interface (CRI)
-implementation dependent. See the corresponding documentation ([below](#cri-documentation)) for your
+implementation dependent. See the corresponding documentation ([below](#cri-configuration)) for your
 CRI implementation for how to configure.
 
 {{< note >}}

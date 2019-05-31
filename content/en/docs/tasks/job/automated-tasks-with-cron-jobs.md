@@ -114,7 +114,7 @@ The job name and pod name are different.
 
 ```shell
 # Replace "hello-4111706356" with the job name in your system
-pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items.metadata.name})
+pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items[].metadata.name})
 ```
 Show pod log:
 
@@ -145,7 +145,7 @@ As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and
 information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
 and [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
-A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
+A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
 {{< note >}}
 All modifications to a cron job, especially its `.spec`, are applied only to the following runs.

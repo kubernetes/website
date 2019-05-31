@@ -17,7 +17,7 @@ Feature gates are a set of key=value pairs that describe alpha or experimental
 features.
 An administrator can use the `--feature-gates` command line flag on each component
 to turn a feature on or off. Each component supports a set of feature gates unique to that component.
-Use `-h` flag to see a full set of feature gates for all components.  
+Use `-h` flag to see a full set of feature gates for all components.
 To set feature gates for a component, such as kubelet, use the `--feature-gates` flag assigned to a list of feature pairs:
 
 ```shell
@@ -50,7 +50,6 @@ different Kubernetes components.
 | `BlockVolume` | `false` | Alpha | 1.9 | |
 | `BlockVolume` | `true` | Beta | 1.13 | - |
 | `BoundServiceAccountTokenVolume` | `false` | Alpha | 1.13 | |
-| `CPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | |
 | `CRIContainerLogRotation` | `false` | Alpha | 1.10 | 1.10 |
@@ -59,7 +58,6 @@ different Kubernetes components.
 | `CSIBlockVolume` | `true` | Beta | 1.14 | |
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
-| `CSIInlineVolume` | `false` | Alpha | 1.14 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | |
@@ -69,6 +67,7 @@ different Kubernetes components.
 | `CSIPersistentVolume` | `false` | Alpha | 1.9 | 1.9 |
 | `CSIPersistentVolume` | `true` | Beta | 1.10 | 1.12 |
 | `CSIPersistentVolume` | `true` | GA | 1.13 | - |
+| `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | |
 | `CustomResourceSubresources` | `false` | Alpha | 1.10 | 1.11 |
@@ -98,7 +97,8 @@ different Kubernetes components.
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
 | `HugePages` | `true` | Beta| 1.10 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
-| `Initializers` | `false` | Alpha | 1.7 | |
+| `Initializers` | `false` | Alpha | 1.7 | 1.13 |
+| `Initializers` | - | Deprecated | 1.14 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
 | `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
@@ -115,7 +115,8 @@ different Kubernetes components.
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | |
 | `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
-| `PodPriority` | `true` | Beta | 1.11 | |
+| `PodPriority` | `true` | Beta | 1.11 | 1.13 |
+| `PodPriority` | `true` | GA | 1.14 | |
 | `PodReadinessGates` | `false` | Alpha | 1.11 | |
 | `PodReadinessGates` | `true` | Beta | 1.12 | |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | |
@@ -125,7 +126,7 @@ different Kubernetes components.
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | |
-| `RotateKubeletClientCertificate` | `true` | Beta | 1.7 | |
+| `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
@@ -140,7 +141,8 @@ different Kubernetes components.
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
 | `SupportIPVSProxyMode` | `true` | GA | 1.11 | |
-| `SupportPodPidsLimit` | `false` | Alpha | 1.10 | |
+| `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
+| `SupportPodPidsLimit` | `true` | Beta | 1.14 | |
 | `Sysctls` | `true` | Beta | 1.11 | |
 | `TaintBasedEvictions` | `false` | Alpha | 1.6 | 1.12 |
 | `TaintBasedEvictions` | `true` | Beta | 1.13 | |
@@ -220,7 +222,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
    ServiceAccountTokenVolumeProjection.
    Check [Service Account Token Volumes](https://git.k8s.io/community/contributors/design-proposals/storage/svcacct-token-volume-source.md)
    for more details.
-- `CPUCFSQuotaPeriod`: Enable nodes to change CPUCFSQuotaPeriod.
 - `CPUManager`: Enable container level CPU affinity support, see [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CRIContainerLogRotation`: Enable container log rotation for cri container runtime.
 - `CSIBlockVolume`: Enable external CSI volume drivers to support block storage. See the [`csi` raw block volume support](/docs/concepts/storage/volumes/#csi-raw-block-volume-support) documentation for more details.
@@ -234,7 +235,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [CSI (Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)
   compatible volume plugin.
   Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
-- `CSIInlineVolume`: Enable CSI volumes to be directly embedded in Pod specifications instead of a PersistentVolume.
+- `CustomCPUCFSQuotaPeriod`: Enable nodes to change CPUCFSQuotaPeriod.
 - `CustomPodDNS`: Enable customizing the DNS settings for a Pod using its `dnsConfig` property.
    Check [Pod's DNS Config](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)
    for more details.
@@ -266,9 +267,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `GCERegionalPersistentDisk`: Enable the regional PD feature on GCE.
 - `HugePages`: Enable the allocation and consumption of pre-allocated [huge pages](/docs/tasks/manage-hugepages/scheduling-hugepages/).
 - `HyperVContainer`: Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers.
-- `Intializers`: Enable the [dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  as an extension to the built-in [admission controllers](/docs/reference/access-authn-authz/admission-controllers/).
-  When the `Initializers` admission controller is enabled, this feature is automatically enabled.
 - `KubeletConfigFile`: Enable loading kubelet configuration from a file specified using a config file.
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/) for more details.
 - `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet
