@@ -58,7 +58,7 @@ This may be caused by a number of problems. The most common are:
   There are two common ways to fix the cgroup driver problem:
 
  1. Install Docker again following instructions
-  [here](/docs/setup/production-environment/cri/#docker).
+  [here](/docs/setup/production-environment/container-runtimes/#docker).
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
     [Configure cgroup driver used by kubelet on Master Node](/docs/setup/production-environment/tools/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
     for detailed instructions.
@@ -219,7 +219,7 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
 where the `coredns` pods are not starting. To solve that you can try one of the following options:
 
-- Upgrade to a [newer version of Docker](/docs/setup/production-environment/cri/#docker).
+- Upgrade to a [newer version of Docker](/docs/setup/production-environment/container-runtimes/#docker).
 - [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 - Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
 
