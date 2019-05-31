@@ -135,7 +135,7 @@ one of the three that is not tolerated by the pod.
 
 Normally, if a taint with effect `NoExecute` is added to a node, then any pods that do
 not tolerate the taint will be evicted immediately, and any pods that do tolerate the
-taint will never be evicted. However, a toleration with `NoExecute` effect can specify
+taint will never be scheduled. However, a toleration with `NoExecute` effect can specify
 an optional `tolerationSeconds` field that dictates how long the pod will stay bound
 to the node after the taint is added. For example,
 
