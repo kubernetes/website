@@ -32,7 +32,7 @@ Can be used to create all required certificates by kubeadm.
 {{< tab name="etcd-server" include="generated/kubeadm_init_phase_certs_etcd-server.md" />}}
 {{< tab name="front-proxy-ca" include="generated/kubeadm_init_phase_certs_front-proxy-ca.md" />}}
 {{< tab name="front-proxy-client" include="generated/kubeadm_init_phase_certs_front-proxy-client.md" />}}
-{{< tab name="certs_sa" include="generated/kubeadm_init_phase_certs_sa.md" />}}
+{{< tab name="sa" include="generated/kubeadm_init_phase_certs_sa.md" />}}
 {{< /tabs >}}
 
 ## kubeadm init phase kubeconfig {#cmd-phase-kubeconfig}

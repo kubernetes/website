@@ -22,7 +22,8 @@ etcd member of this node from the etcd cluster and also removes this node's info
 `ClusterStatus` object. `ClusterStatus` is a kubeadm managed Kubernetes API object that holds a list of kube-apiserver endpoints.
 
 `kubeadm reset phase` can be used to execute the separate phases of the above workflow.
-To skip a list of phases you can use the `--skip-phases` flag.
+To skip a list of phases you can use the `--skip-phases` flag, which works in a similar way to
+the `kubeadm join` and `kubeadm init` phase runners.
 
 ### External etcd clean up
 
