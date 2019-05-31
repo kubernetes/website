@@ -19,12 +19,10 @@ control plane nodes and etcd members are separated.
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
 and environment. [This comparison topic](/docs/setup/independent/ha-topology/) outlines the advantages and disadvantages of each.
 
-You should also be aware that setting up HA clusters with kubeadm is still experimental and will be further
-simplified in future versions. You might encounter issues with upgrading your clusters, for example.
-We encourage you to try either approach, and provide us with feedback in the kubeadm
-[issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
+If you encounter issues with setting up the HA cluster, please provide us with feedback
+in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
 
-See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14).
+See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15).
 
 {{< caution >}}
 This page does not address running your cluster on a cloud provider. In a cloud
@@ -127,20 +125,20 @@ the `networking` object of `ClusterConfiguration`.
 1.  Initialize the control plane:
 
     ```sh
-    sudo kubeadm init --config=kubeadm-config.yaml --experimental-upload-certs
+    sudo kubeadm init --config=kubeadm-config.yaml --upload-certs
     ```
-    - The `--experimental-upload-certs` flags is used to upload the certificates that should be shared
+    - The `--upload-certs` flags is used to upload the certificates that should be shared
     across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
     control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual
     certificate distribution](#manual-certs) section bellow.
 
     After the command completes you should see something like so:
-    
+
     ```sh
     ...
     You can now join any number of control-plane node by running the following command on each as a root:
-      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --experimental-control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
-    
+      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+
     Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
     As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
 
@@ -149,14 +147,26 @@ the `networking` object of `ClusterConfiguration`.
     ```
 
     - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
-    - When `--experimental-upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
+    - When `--upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
     are encrypted and uploaded in the `kubeadm-certs` Secret.
     - To re-upload the certificates and generate a new decryption key, use the following command on a control plane
     node that is already joined to the cluster:
 
       ```sh
-      sudo kubeadm init phase upload-certs --experimental-upload-certs
+      sudo kubeadm init phase upload-certs --upload-certs
       ```
+
+    - You can also specify a custom `--certificate-key` during `init` that can later be used by `join`.
+    To generate such a key you can use the following command:
+
+      ```sh
+      kubeadm alpha certs certificate-key
+      ```
+
+{{< note >}}
+The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
+to use the [kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
+{{< /note >}}
 
 {{< note >}}
 The `kubeadm-certs` Secret and decryption key expire after two hours.
@@ -186,9 +196,11 @@ As stated in the command output, the certificate-key gives access to cluster sen
 
 ### Steps for the rest of the control plane nodes
 
-{{< caution >}}
-You must join new control plane nodes sequentially, only after the first node has finished initializing.
-{{< /caution >}}
+{{< note >}}
+Since kubeadm version 1.15 you can join multiple control-plane nodes in parallel.
+Prior to this version, you must join new control plane nodes sequentially, only after
+the first node has finished initializing.
+{{< /note >}}
 
 For each additional control plane node you should:
 
@@ -196,10 +208,10 @@ For each additional control plane node you should:
     It should look something like this:
 
     ```sh
-    sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --experimental-control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+    sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
     ```
 
-    - The `--experimental-control-plane` flag tells `kubeadm join` to create a new control plane.
+    - The `--control-plane` flag tells `kubeadm join` to create a new control plane.
     - The `--certificate-key ...` will cause the control plane certificates to be downloaded
     from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
 
@@ -261,7 +273,7 @@ etcd topology this is managed automatically.
 
 The following steps are exactly the same as described for stacked etcd setup:
 
-1.  Run `sudo kubeadm init --config kubeadm-config.yaml --experimental-upload-certs` on this node.
+1.  Run `sudo kubeadm init --config kubeadm-config.yaml --upload-certs` on this node.
 
 1.  Write the output join commands that are returned to a text file for later use.
 
@@ -293,7 +305,7 @@ sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery
 
 ## Manual certificate distribution {#manual-certs}
 
-If you choose to not use `kubeadm init` with the `--experimental-upload-certs` flag this means that
+If you choose to not use `kubeadm init` with the `--upload-certs` flag this means that
 you are going to have to manually copy the certificates from the primary control plane node to the
 joining control plane nodes.
 
