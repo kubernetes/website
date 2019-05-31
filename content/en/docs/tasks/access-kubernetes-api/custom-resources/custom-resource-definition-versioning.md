@@ -29,6 +29,8 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 ## Overview
 
+TODO(jpbetz): Document that the apiserver ignores ObjectMeta from webhook converted objects other than labels and annotations
+
 The CustomResourceDefinition API supports a `versions` field that you can use to
 support multiple versions of custom resources that you have developed. Versions
 can have different schemas with a conversion webhook to convert custom resources between versions.
