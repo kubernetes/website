@@ -47,9 +47,9 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Creating machine...
     Starting local Kubernetes cluster...
     ```
-    For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](docs/setup/minikube/#starting-a-cluster).
+    For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
 
-2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](docs/setup/minikube/#interacting-with-your-cluster).
+2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](#interacting-with-your-cluster).
     
     Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     ```shell
@@ -144,7 +144,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Stopping "minikube"...
     "minikube" stopped.
     ```
-	For more information, see [Stopping a Cluster](docs/setup/minikube/#stopping-a-cluster).
+	For more information, see [Stopping a Cluster](#stopping-a-cluster).
 10. Delete the local Minikube cluster:
     ```shell
     minikube delete
@@ -154,7 +154,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
-	For more information, see [Deleting a cluster](/docs/setup/minikube/#deleting-a-cluster).
+	For more information, see [Deleting a cluster](#deleting-a-cluster).
   
 ## Managing your Cluster
 
