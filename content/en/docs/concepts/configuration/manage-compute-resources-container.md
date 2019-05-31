@@ -384,6 +384,70 @@ The scheduler ensures that the sum of the resource requests of the scheduled Con
 
 For container-level isolation, if a Container's writable layer and logs usage exceeds its storage limit, the Pod will be evicted. For pod-level isolation, if the sum of the local ephemeral storage usage from all containers and also the Pod's emptyDir volumes exceeds the limit, the Pod will be evicted.
 
+### Monitoring ephemeral-storage consumption
+
+When local ephemeral storage is used, it is monitored on an ongoing
+basis by the kubelet.  The monitoring is performed by scanning each
+emptyDir volume, log directories, and writable layers on a periodic
+basis.  Starting with Kubernetes 1.15, emptyDir volumes (but not log
+directories or writable layers) may, at the cluster operator's option,
+be managed by use of [project
+quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html).
+Project quotas were originally implemented in XFS, and have more
+recently been ported to ext4fs.  Project quotas can be used for both
+monitoring and enforcement; as of Kubernetes 1.15, they are available
+as alpha functionality for monitoring only.
+
+Quotas are faster and more accurate than directory scanning.  When a
+directory is assigned to a project, all files created under a
+directory are created in that project, and the kernel merely has to
+keep track of how many blocks are in use by files in that project.  If
+a file is created and deleted, but with an open file descriptor, it
+continues to consume space.  This space will be tracked by the quota,
+but will not be seen by a directory scan.
+
+Kubernetes uses project IDs starting from 1048576.  The IDs in use are
+registered in `/etc/projects` and `/etc/projid`.  If project IDs in
+this range are used for other purposes on the system, those project
+IDs must be registered in `/etc/projects` and `/etc/projid` to prevent
+Kubernetes from using them.
+
+To enable use of project quotas, the cluster operator must do the
+following:
+
+* Enable the `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
+  feature gate in the kubelet configuration.  This defaults to `false`
+  in Kubernetes 1.15, so must be explicitly set to `true`.
+
+* Ensure that the root partition (or optional runtime partition) is
+  built with project quotas enabled.  All XFS filesystems support
+  project quotas, but ext4 filesystems must be built specially.
+
+* Ensure that the root partition (or optional runtime partition) is
+  mounted with project quotas enabled.
+
+#### Building and mounting filesystems with project quotas enabled
+
+XFS filesystems require no special action when building; they are
+automatically built with project quotas enabled.
+
+Ext4fs filesystems must be built with quotas enabled, then they must
+be enabled in the filesystem:
+
+```
+% sudo mkfs.ext4 other_ext4fs_args... -E quotatype=prjquota /dev/block_device
+% sudo tune2fs -O project -Q prjquota /dev/block_device
+
+```
+
+To mount the filesystem, both ext4fs and XFS require the `prjquota`
+option set in `/etc/fstab`:
+
+```
+/dev/block_device	/var/kubernetes_data	defaults,prjquota	0	0
+```
+
+
 ## Extended resources
 
 Extended resources are fully-qualified resource names outside the
