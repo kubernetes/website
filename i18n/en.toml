@@ -1,7 +1,7 @@
 # i18n strings for the English (main) site.
 
 [deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see "
+other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
 
 [deprecation_file_warning]
 other = "Deprecated"
