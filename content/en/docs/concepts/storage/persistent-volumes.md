@@ -680,6 +680,33 @@ spec:
       storage: 10Gi
 ```
 
+## Volume Cloning
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+Volume clone feature was added to support CSI Volume Plugins only. For details, see [volume cloning](/docs/concepts/storage/volume-pvc-datasource/).
+
+To enable support for cloning a volume from a pvc data source, enable the
+`VolumePVCDataSource` feature gate on the apiserver and controller-manager.
+
+### Create Persistent Volume Claim from an existing pvc
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cloned-pvc
+spec:
+  storageClassName: my-csi-plugin
+  dataSource:
+    name: existing-src-pvc-name
+    kind: PersistentVolumeClaim
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
 ## Writing Portable Configuration
 
 If you're writing configuration templates or examples that run on a wide range of clusters
