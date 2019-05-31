@@ -69,7 +69,7 @@ cat <<EOF | cfssl genkey - | cfssljson -bare server
   "hosts": [
     "my-svc.my-namespace.svc.cluster.local",
     "my-pod.my-namespace.pod.cluster.local",
-    "172.168.0.24",
+    "192.0.2.24",
     "10.0.34.2"
   ],
   "CN": "my-pod.my-namespace.pod.cluster.local",
@@ -81,7 +81,7 @@ cat <<EOF | cfssl genkey - | cfssljson -bare server
 EOF
 ```
 
-Where `172.168.0.24` is the service's cluster IP,
+Where `192.0.2.24` is the service's cluster IP,
 `my-svc.my-namespace.svc.cluster.local` is the service's DNS name,
 `10.0.34.2` is the pod's IP and `my-pod.my-namespace.pod.cluster.local`
 is the pod's DNS name. You should see the following output:
@@ -147,7 +147,7 @@ Subject:
         Serial Number:
 Subject Alternative Names:
         DNS Names:      my-svc.my-namespace.svc.cluster.local
-        IP Addresses:   172.168.0.24
+        IP Addresses:   192.0.2.24
                         10.0.34.2
 Events: <none>
 ```
