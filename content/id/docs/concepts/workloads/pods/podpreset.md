@@ -44,7 +44,7 @@ Dalam rangka untuk menggunakan Pod Preset di dalam kluster kamu, kamu harus mema
 
 1. Kamu telah mengaktifkan tipe API `settings.k8s.io/v1alpha1/podpreset`. Sebagai contoh, ini bisa dilakukan dengan menambahkan `settings.k8s.io/v1alpha1=true` di dalam opsi `--runtime-config` untuk API _server_. Dalam _minikube_ tambahkan argumen berikut `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` saat menginisialisasi kluster.
 
-2. Kamu telah mengaktifkan _admission controller_ dari `PodPreset`. Salah satu cara untuk melakukannya adalah dengan menambahkan `PodPreset` di dalam nilai opsi `--enable-admission-plugins` yang dispesifikasikan untuk API _server_. Dalam _minikube_ tambahkan argumen berikut `--extra-config=apiserver.enable-admission-plugins=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset ` saat menginisialisasi kluster.
+2. Kamu telah mengaktifkan _admission controller_ dari `PodPreset`. Salah satu cara untuk melakukannya adalah dengan menambahkan `PodPreset` di dalam nilai opsi `--enable-admission-plugins` yang dispesifikasikan untuk API _server_. Dalam _minikube_ tambahkan argumen berikut `--extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset ` saat menginisialisasi kluster.
 
 3. Kamu telah membuat objek `PodPreset` pada _namespace_ yang kamu gunakan dengan cara mendefinisikan Pod Preset.
 
