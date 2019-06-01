@@ -35,14 +35,11 @@ See [Installing Minikube](/docs/tasks/tools/install-minikube/).
 
 This brief demo guides you on how to start, use, and delete Minikube locally. Follow the steps given below to start and explore Minikube.
 
-<<<<<<< HEAD:content/en/docs/setup/minikube.md
 1. Start Minikube and create a cluster:
     ```shell
     minikube start
     ```
     The output is similar to this:
-=======
->>>>>>> resolved the incomplete merge conflicts
 
     ```
     Starting local Kubernetes cluster...
@@ -62,11 +59,6 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     The output is similar to this:
     ```
     deployment.apps/hello-minikube created
-=======
-    For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](docs/setup/minikube/#starting-a-cluster).
-
-2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](docs/setup/minikube/#interacting-with-your-cluster).
-
     Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     ```shell
     kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
@@ -80,7 +72,6 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```shell
     kubectl expose deployment hello-minikube --type=NodePort
     ```
-<<<<<<< HEAD:content/en/docs/setup/minikube.md
     The option `--type=NodePort` specifies the type of the Service.
 <<<<<<< HEAD
 
@@ -112,45 +103,6 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 6. To view the details of your local cluster, copy and paste the URL you got as the output, on your browser.
 
     The output is similar to this:
-=======
-    The output of a successful command verifies that the service is created:
-
-    ```
-    service/hello-minikube exposed
-    ```
-
-4. Check whether the pod is up and running
-
-    ```
-    kubectl get pod
-    ```
-    The output displays the pod is still being created:     
-
-    ```
-    NAME                              READY     STATUS              RESTARTS   AGE
-    hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-    ```
-
-5. Wait for while and then check again, whether the pod is up and running using same command
-
-    ```
-    kubectl get pod
-    ```
-    Now the output displays the pod is created and it is running:     
-
-    ```
-    NAME                              READY     STATUS    RESTARTS   AGE
-    hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-    ```
-
-6. Curl service which we have created
-
-    ```
-    curl $(minikube service hello-minikube --url)
-    ```        
-    Output looks similer to this:
-
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
 =======
 
     The output is similar to this:
@@ -186,11 +138,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```shell
     kubectl delete services hello-minikube
     ```
-<<<<<<< HEAD:content/en/docs/setup/minikube.md
     The output is similar to this:
-=======
-    The output is similar to this:
->>>>>>> resolved the incomplete merge conflicts
     ```
     service "hello-minikube" deleted
     ```
@@ -198,18 +146,13 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```shell
     kubectl delete deployment hello-minikube
     ```
-<<<<<<< HEAD:content/en/docs/setup/minikube.md
     The output is similar to this:
-=======
-    The output is similar to this:
->>>>>>> resolved the incomplete merge conflicts
     ```
     deployment.extensions "hello-minikube" deleted
     ```
 9. Stop the local Minikube cluster:
     ```shell
     minikube stop
-<<<<<<< HEAD:content/en/docs/setup/minikube.md
     ```
     The output is similar to this:
     ```
@@ -226,21 +169,17 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
+<<<<<<< HEAD:content/en/docs/setup/learning-environment/minikube.md
 	For more information, see [Deleting a cluster](/docs/setup/minikube/#deleting-a-cluster).
 
 ## Managing your Cluster
 =======
-   ```
-   The output displays the kubernetes cluster is stopping:
-
-   ```
-   Stopping local Kubernetes cluster...
-   Stopping "minikube"...
-   ```
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/learning-environment/minikube.md
-=======
 	For more information, see [Deleting a cluster](/docs/setup/minikube/#deleting-a-cluster).
 
+=======
+	For more information, see [Deleting a cluster](#deleting-a-cluster).
+
+>>>>>>> Update minikube.md (#14662):content/en/docs/setup/minikube.md
 ## Managing your Cluster
 >>>>>>> resolved the incomplete merge conflicts
 
