@@ -12,13 +12,13 @@ Peran dari _garbage collector_ Kubernetes adalah untuk menghapus objek tertentu 
 
 {{% capture body %}}
 
-## Pemilik dan _dependent_
+## Pemilik dan dependen
 
-Beberapa objek Kubernetes adalah pemilik dari objek lainnya. Sebagai contoh, sebuah ReplicaSet adalah pemilik dari sekumpulan Pod. Objek-objek yang dimiliki disebut _dependent_ dari objek pemilik. Setiap objek _dependent_ memiliki sebuah kolom `metadata.ownerReferences` yang menunjuk ke objek pemilik.
+Beberapa objek Kubernetes adalah pemilik dari objek lainnya. Sebagai contoh, sebuah ReplicaSet adalah pemilik dari sekumpulan Pod. Objek-objek yang dimiliki disebut *dependen* dari objek pemilik. Setiap objek dependen memiliki sebuah kolom `metadata.ownerReferences` yang menunjuk ke objek pemilik.
 
 Terkadang, Kubernetes menentukan nilai dari `ownerReference` secara otomatis. Sebagai contoh, ketika kamu membuat sebuah ReplicaSet, Kubernetes secara otomatis akan menentukan tiap kolom `ownerReference` dari tiap Pod di dalam ReplicaSet. Pada versi 1.8, Kubernetes secara otomatis menentukan nilai dari `ownerReference` untuk objek yang diciptakan atau diadopsi oleh ReplicationController, ReplicaSet, StatefulSet, DaemonSet, Deployment, Job dan CronJob.
 
-Kamu juga bisa menspesifikasikan hubungan antara pemilik dan _dependent_ dengan cara menentukan kolom `ownerReference` secara manual.
+Kamu juga bisa menspesifikasikan hubungan antara pemilik dan dependen dengan cara menentukan kolom `ownerReference` secara manual.
 
 Berikut adalah berkas untuk sebuah ReplicaSet yang memiliki tiga Pod:
 
@@ -31,9 +31,9 @@ kubectl apply -f https://k8s.io/examples/controllers/replicaset.yaml
 kubectl get pods --output=yaml
 ```
 
-Keluaran menunjukkan bahwa pemilik Pod adalah sebuah ReplicaSet bernama `my-repset`
+Keluaran menunjukkan bahwa pemilik Pod adalah sebuah ReplicaSet bernama `my-repset`:
 
-```yaml
+```shell
 apiVersion: v1
 kind: Pod
 metadata:
@@ -49,13 +49,13 @@ metadata:
 ```
 {{< note >}}
 Referensi pemilik lintas _namespace_ tidak diperbolehkan oleh desain. Artinya:
-1) _Namespace-scoped dependent_ hanya bisa menspesifikasikan pemilik jika berada di _namespace_ yang sama, dan pemilik bersifat _cluster-scoped_. 
-2) _Cluster-scoped dependent_ hanya bisa menspesifikasikan pemilik bersifat _cluster-scoped_, tetapi tidak berlaku untuk pemilik bersifat _namespace-scoped_.
+1) Dependen dengan cakupan _namespace_ hanya bisa menspesifikasikan pemilik jika berada di _namespace_ yang sama, dan pemilik memiliki cakupan kluster. 
+2) Dependen dengan cakupan kluster hanya bisa menspesifikasikan pemilik yang memiliki cakupan kluster, tetapi tidak berlaku untuk pemilik yang memiliki cakupan kluster.
 {{< /note >}}
 
-## Mengontrol bagaimana _garbage collector_ menghapus _dependent_
+## Mengontrol bagaimana _garbage collector_ menghapus dependen
 
-Ketika kamu menghapus sebuah objek, kamu bisa menspesifikasi apakah _dependent_ objek tersebut juga dihapus secara otomatis. Menghapus _dependent_ secara otomatis disebut _cascading deletion_. _Cascading deletion_ memiliki dua mode: _background_ dan _foreground_
+Ketika kamu menghapus sebuah objek, kamu bisa menspesifikasi apakah dependen objek tersebut juga dihapus secara otomatis. Menghapus dependen secara otomatis disebut _cascading deletion_. _Cascading deletion_ memiliki dua mode: _background_ dan _foreground_.
 
 ### Foreground cascading deletion
 
@@ -65,21 +65,21 @@ Pada *foreground cascading deletion*, pertama objek utama akan memasuki keadaan 
  * `deletionTimestamp` objek telah ditentukan
  * `metadata.finalizers` objek memiliki nilai `foregroundDeletion`.
 
- Ketika dalam keadaan "_deletion in progress_", _garbage collector_ menghapus _dependent_ dari objek. Ketika _garbage collector_ telah menghapus semua "_blocking_" _dependent_ (objek dengan `ownerReference.blockOwnerDeleteion=true`), _garbage collector_ menghapus objek pemilik.
+ Ketika dalam keadaan "_deletion in progress_", _garbage collector_ menghapus dependen dari objek. Ketika _garbage collector_ telah menghapus semua "_blocking_" dependen (objek dengan `ownerReference.blockOwnerDeleteion=true`), _garbage collector_ menghapus objek pemilik.
 
  Jika kolom `ownerReferences` sebuah objek ditentukan oleh sebuah _controller_ (seperti Deployment atau Replicaset), `blockOwnerDeletion` akan ditentukan secara otomatis dan kamu tidak perlu memodifikasi kolom ini secara manual.
 
  ### Background cascading deletion
- 
- Pada *background cascading deletion*, Kubernetes segera menghapus objek pemilik dan _garbage collector_ kemudian menghapus _dependent_ pada _background_.
+
+ Pada *background cascading deletion*, Kubernetes segera menghapus objek pemilik dan _garbage collector_ kemudian menghapus dependen pada _background_.
 
  ### Mengatur kebijakan _cascading deletion_
 
  Untuk mengatur kebijakan _cascading deletion_, tambahkan kolom `propagationPolicy` pada argumen `deleteOptions` ketika menghapus sebuah Object. Nilai yang dapat digunakan adalah "Orphan", "Foreground", atau "Background".
 
- Sebelum Kubernetes 1.9, kebijakan default _garbage collection_ untuk banyak _resource controller_ adalah **orphan**. Ini meliputi ReplicationController, ReplicaSet, StatefulSet, DaemonSet, dan Deployment. Untuk jenis pada kelompok versi `extensions/v1beta1`, `apps/v1beta1`, dan `apps/v1beta2`, kecuali kamu menspesifikasikan dengan cara lain, objek _dependent_ adalah _orphan_ secara default. Pada Kubernetes 1.9, untuk semua jenis pada kelompok versi `apps/v1`, objek _dependent_ dihapus secara default.
+ Sebelum Kubernetes 1.9, kebijakan _default_ dari _garbage collection_ untuk banyak _resource controller_ adalah **orphan**. Ini meliputi ReplicationController, ReplicaSet, StatefulSet, DaemonSet, dan Deployment. Untuk jenis pada kelompok versi `extensions/v1beta1`, `apps/v1beta1`, dan `apps/v1beta2`, kecuali kamu menspesifikasikan dengan cara lain, objek dependen adalah _orphan_ secara _default_. Pada Kubernetes 1.9, untuk semua jenis pada kelompok versi `apps/v1`, objek dependen dihapus secara _default_.
 
- Berikut sebuah contoh yang menghapus _dependent_ di _background_:
+ Berikut sebuah contoh yang menghapus dependen di _background_:
  
 ```shell
 kubectl proxy --port=8080
@@ -88,7 +88,7 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 -H "Content-Type: application/json"
 ```
 
-Berikut adalah sebuah contoh yang mengapus _dependent_ di _foreground_:
+Berikut adalah sebuah contoh yang mengapus dependen di _foreground_:
 
 ```shell
 kubectl proxy --port=8080
@@ -97,7 +97,7 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 -H "Content-Type: application/json"
 ```
 
-Berikut adalah contoh _dependent orphan_:
+Berikut adalah contoh _orphan_ yang dependen:
 
 ```shell
 kubectl proxy --port=8080
@@ -106,9 +106,9 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 -H "Content-Type: application/json"
 ```
 
-kubectl juga mendukung _cascading deletion_. Untuk menghapus _dependent_ secara otomatis dengan menggunakan kubectl, Ubah nilai `--cascade` menjadi _true_. Untuk _orphan dependent_, ubah nilai `--cascade` menjadi _false_. Nilai default untuk `--cascade` adalah _true_.
+kubectl juga mendukung _cascading deletion_. Untuk menghapus dependen secara otomatis dengan menggunakan kubectl, Ubah nilai `--cascade` menjadi _true_. Untuk _orphan_ yang dependen, ubah nilai `--cascade` menjadi _false_. Nilai _default_ untuk `--cascade` adalah _true_.
 
-Berikut adalah contoh yang membuat _dependent_ ReplicaSet menjadi _orphan_.
+Berikut adalah contoh yang membuat dependen ReplicaSet menjadi _orphan_:
 
 ```shell
 kubectl delete replicaset my-repset --cascade=false
