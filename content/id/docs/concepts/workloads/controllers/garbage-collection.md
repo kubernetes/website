@@ -57,6 +57,8 @@ Referensi pemilik lintas _namespace_ tidak diperbolehkan oleh desain. Artinya:
 
 Ketika kamu menghapus sebuah objek, kamu bisa menspesifikasi apakah dependen objek tersebut juga dihapus secara otomatis. Menghapus dependen secara otomatis disebut _cascading deletion_. _Cascading deletion_ memiliki dua mode: _background_ dan _foreground_.
 
+
+
 ### Foreground cascading deletion
 
 Pada *foreground cascading deletion*, pertama objek utama akan memasuki keadaan "_deletion in progress_". Pada saat keadaan "_deletion in progress_", kondisi-kondisi berikut bernilai benar:
@@ -69,11 +71,11 @@ Pada *foreground cascading deletion*, pertama objek utama akan memasuki keadaan 
 
  Jika kolom `ownerReferences` sebuah objek ditentukan oleh sebuah _controller_ (seperti Deployment atau Replicaset), `blockOwnerDeletion` akan ditentukan secara otomatis dan kamu tidak perlu memodifikasi kolom ini secara manual.
 
- ### Background cascading deletion
+### Background cascading deletion
 
  Pada *background cascading deletion*, Kubernetes segera menghapus objek pemilik dan _garbage collector_ kemudian menghapus dependen pada _background_.
 
- ### Mengatur kebijakan _cascading deletion_
+### Mengatur kebijakan _cascading deletion_
 
  Untuk mengatur kebijakan _cascading deletion_, tambahkan kolom `propagationPolicy` pada argumen `deleteOptions` ketika menghapus sebuah Object. Nilai yang dapat digunakan adalah "Orphan", "Foreground", atau "Background".
 
