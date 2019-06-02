@@ -115,8 +115,8 @@ relative to the Container's code, but Kubernetes' management of the container
 blocks until the postStart handler completes. The Container's status is not
 set to RUNNING until the postStart handler completes.
 -->
-Kubernetes 在容器创建后立即发送 postStart 事件。然而，postStart 处理函数不保证在容器的入口点（entrypoint）
-被执行之前得到调用。postStart 钩子函数与容器的代码是异步执行的，但 Kubernetes
+Kubernetes 在容器创建后立即发送 postStart 事件。然而，postStart 处理函数的调用不保证早于容器的入口点（entrypoint）
+的执行。postStart 处理函数与容器的代码是异步执行的，但 Kubernetes
 的容器管理逻辑会一直阻塞等待 postStart 处理函数执行完毕。只有 postStart 处理函数执行完毕，容器的状态才会变成
 RUNNING。
 
