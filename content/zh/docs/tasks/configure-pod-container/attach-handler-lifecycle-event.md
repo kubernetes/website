@@ -19,9 +19,9 @@ the postStart and preStop events. Kubernetes sends the postStart event immediate
 after a Container is started, and it sends the preStop event immediately before the
 Container is terminated.
 -->
-这个页面将演示如何在容器的声明周期中设置钩子。Kubernetes 支持设置启动后钩子(postStart)
-和关闭前钩子(preStop)。当一个容器启动后，Kubernetes 将立即发送 postStart 事件，而当它关
-闭前，Kubernetes 将发送一个 preStop 事件。
+这个页面将演示如何为容器的生命周期事件挂接处理函数。Kubernetes 支持 postStart 和 preStop 事件。
+当一个容器启动后，Kubernetes 将立即发送 postStart 事件；在容器被终结之前，
+Kubernetes 将发送一个 preStop 事件。
 
 {{% /capture %}}
 
