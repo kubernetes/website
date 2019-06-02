@@ -148,19 +148,14 @@ preStop 的事件处理逻辑不会被触发。这个限制在
 
 {{% capture whatsnext %}}
 
-* 进一步了解[容器生命周期回调](/docs/concepts/containers/container-lifecycle-hooks/)
-* 进一步了解[Pod 的生命周期](/docs/concepts/workloads/pods/pod-lifecycle/).
 <!--
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 * Learn more about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 -->
+* 进一步了解[容器生命周期回调](/docs/concepts/containers/container-lifecycle-hooks/)。
+* 进一步了解[Pod 的生命周期](/docs/concepts/workloads/pods/pod-lifecycle/)。
 
 
-### 参考
-
-* [Lifecycle](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lifecycle-v1-core)
-* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-* 参阅 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中关于`terminationGracePeriodSeconds` 的部分
 <!--
 ### Reference
 
@@ -168,6 +163,11 @@ preStop 的事件处理逻辑不会被触发。这个限制在
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * See `terminationGracePeriodSeconds` in [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 -->
+### 参考
+
+* [Lifecycle](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lifecycle-v1-core)
+* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+* 参阅 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中关于`terminationGracePeriodSeconds` 的部分
 
 {{% /capture %}}
 
