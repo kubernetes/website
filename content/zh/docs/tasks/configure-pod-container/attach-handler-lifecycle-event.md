@@ -1,5 +1,5 @@
 ---
-title: 在容器的生命周期中设置钩子(handler)
+title: 为容器的生命周期事件设置处理函数
 content_template: templates/task
 weight: 140
 ---
@@ -38,13 +38,13 @@ Container is terminated.
 <!--
 ## Define postStart and preStop handlers
 -->
-## 定义 postStart 和 preStop 钩子函数
+## 定义 postStart 和 preStop 处理函数
 
 <!--
 In this exercise, you create a Pod that has one Container. The Container has handlers
 for the postStart and preStop events.
 -->
-在本练习中，你将创建一个带有某个容器的 Pod，该容器有对应的钩子函数响应 postStart 和 preStop 事件
+在本练习中，你将创建一个包含一个容器的 Pod，该容器为 postStart 和 preStop 事件提供对应的处理函数。 
 
 <!--
 Here is the configuration file for the Pod:
@@ -58,9 +58,8 @@ In the configuration file, you can see that the postStart command writes a `mess
 file to the Container's `/usr/share` directory. The preStop command shuts down
 nginx gracefully. This is helpful if the Container is being terminated because of a failure.
 -->
-在上述配置文件中，你可以看到 postStart 命令写了相应的信息到容器的 `/usr/share` 目录下的
-`message` 文件中，而 preStop 优雅的退出了 nginx。当程序发声错误时，上述命令对于容器的退
-出将十分有用。
+在上述配置文件中，你可以看到 postStart 命令在容器的 `/usr/share` 目录下写入文件 `message`。
+命令 preStop 负责优雅地终止 nginx 服务。当因为失效而导致容器终止时，这一处理方式很有用。```
 
 <!--
 Create the Pod:
@@ -86,14 +85,14 @@ Get a shell into the Container running in your Pod:
 <!--
 In your shell, verify that the `postStart` handler created the `message` file:
 -->
-在 shell 中，验证 `postStart` 钩子创建了 `message` 文件：
+在 shell 中，验证 `postStart` 处理函数创建了 `message` 文件：
 
     root@lifecycle-demo:/# cat /usr/share/message
 
 <!--
 The output shows the text written by the postStart handler:
 -->
-命令行将输出 `postStart` 钩子写入的内容
+命令行输出的是 `postStart` 处理函数所写入的文本
 
     Hello from the postStart handler
 
@@ -116,10 +115,10 @@ relative to the Container's code, but Kubernetes' management of the container
 blocks until the postStart handler completes. The Container's status is not
 set to RUNNING until the postStart handler completes.
 -->
-Kubernetes 在容器创建后立即发送 postStart 事件。然而，postStart 钩子函数不保证运行在容器
-的控件挂载点(entrypoint)之前。postStart 钩子函数与容器的代码是异步化执行的，但 Kubernetes
-在 postStart 钩子执行完毕前将一直阻塞容器。直到 postStart 钩子函数执行完毕，容器的状态才会变成
-运行中(RUNNING)
+Kubernetes 在容器创建后立即发送 postStart 事件。然而，postStart 处理函数不保证在容器的入口点（entrypoint）
+被执行之前得到调用。postStart 钩子函数与容器的代码是异步执行的，但 Kubernetes
+的容器管理逻辑会一直阻塞等待 postStart 处理函数执行完毕。只有 postStart 处理函数执行完毕，容器的状态才会变成
+RUNNING。
 
 <!--
 Kubernetes sends the preStop event immediately before the Container is terminated.
@@ -127,9 +126,9 @@ Kubernetes' management of the Container blocks until the preStop handler complet
 unless the Pod's grace period expires. For more details, see
 [Termination of Pods](/docs/user-guide/pods/#termination-of-pods).
 -->
-Kubernetes 在容器结束前立即发送 preStop 事件。除非 Pod 优雅阶段超时，Kubernetes 在
-preStop 钩子执行完毕前将一直阻塞容器。更多的细节可以在
-[Pods 的结束](/docs/user-guide/pods/#termination-of-pods)中了解。
+Kubernetes 在容器结束前立即发送 preStop 事件。除非 Pod 宽限期限超时，Kubernetes 的容器管理逻辑
+会一直阻塞等待 preStop 处理函数执行完毕。更多的相关细节，可以参阅
+[Pods 的结束](/docs/user-guide/pods/#termination-of-pods)。
 
 <!--
 {{< note >}}
@@ -139,8 +138,8 @@ This limitation is tracked in [issue #55087](https://github.com/kubernetes/kuber
 {{< /note >}}
 -->
 {{< note >}}
-Kubernetes 只有在 Pod *结束*的时候才会发送 preStop 事件，这意味着在 Pod *完成* 时
-preStop 的钩子将不会被触发。这个限制在
+Kubernetes 只有在 Pod *结束（Terminated）* 的时候才会发送 preStop 事件，这意味着在 Pod *完成（Completed）* 时
+preStop 的事件处理逻辑不会被触发。这个限制在
 [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807) 中被追踪。
 {{< /note >}}
 
@@ -149,8 +148,8 @@ preStop 的钩子将不会被触发。这个限制在
 
 {{% capture whatsnext %}}
 
-* 了解更多关于 [容器生命周期回调](/docs/concepts/containers/container-lifecycle-hooks/).
-* 了解更多关于 [一个 Pod 的生命周期](/docs/concepts/workloads/pods/pod-lifecycle/).
+* 进一步了解[容器生命周期回调](/docs/concepts/containers/container-lifecycle-hooks/)
+* 进一步了解[Pod 的生命周期](/docs/concepts/workloads/pods/pod-lifecycle/).
 <!--
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 * Learn more about the [lifecycle of a Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
@@ -159,9 +158,9 @@ preStop 的钩子将不会被触发。这个限制在
 
 ### 参考
 
-* [声明周期](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lifecycle-v1-core)
-* [容器](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
-* 可以在 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 了解更多`terminationGracePeriodSeconds`
+* [Lifecycle](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lifecycle-v1-core)
+* [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
+* 参阅 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中关于`terminationGracePeriodSeconds` 的部分
 <!--
 ### Reference
 
