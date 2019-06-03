@@ -69,23 +69,25 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
 
-For example, the sample Pod with the annotation `imageregistry: https://hub.docker.com/`
+For example, here’s the configuration file for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
 
 ```yaml
+
 apiVersion: v1
 kind: Pod
 metadata:
-  name: cuda-test
+  name: annotations-demo
   annotations:
     imageregistry: "https://hub.docker.com/"
 spec:
   containers:
-    - name: cuda-test
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
-      resources:
-        limits:
-          nvidia.com/gpu: 1
+  - name: nginx
+    image: nginx:1.7.9
+    ports:
+    - containerPort: 80
+          
 ```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
