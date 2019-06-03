@@ -24,7 +24,8 @@ Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 ### Deutsch
 Die Betreuer der deutschen Lokalisierung erreichen Sie unter:
 
-* Benedikt Rollik ([GitHub - @bene2k1](https://github.com/bene2k1))
+* Benedikt Rollik ([@bene2k1](https://github.com/bene2k1))
+* Max Körbächer ([@mkorbi](https://github.com/mkorbi))
 * [Slack Kanal](https://kubernetes.slack.com/messages/kubernetes-docs-de)
 
 ## Site lokal mit Docker ausführen
