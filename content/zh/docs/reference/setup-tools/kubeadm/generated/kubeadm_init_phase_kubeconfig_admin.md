@@ -9,6 +9,9 @@
 <!-- Generates the kubeconfig file for the admin and for kubeadm itself, and saves it to admin.conf file. -->
 生成一个kubeconfig文件，用于admin和kubeadm, 保存为admin.conf
 
+<!-- ```
+kubeadm init phase kubeconfig admin [flags]
+``` -->
 ```
 kubeadm init phase kubeconfig admin [flags]
 ```
