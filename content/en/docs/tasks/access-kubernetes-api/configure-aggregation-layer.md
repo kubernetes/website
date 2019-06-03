@@ -38,8 +38,8 @@ This section describes how the authentication and authorization flows work, and 
 
 The high-level flow is as follows:
 
-1. Kubenetes apiserver: authenticate the requesting user and authorize their rights to the requested API path.
-2. Kubenetes apiserver: proxy the request to the extension apiserver
+1. Kubernetes apiserver: authenticate the requesting user and authorize their rights to the requested API path.
+2. Kubernetes apiserver: proxy the request to the extension apiserver
 3. Extension apiserver: authenticate the request from the Kubernetes apiserver
 4. Extension apiserver: authorize the request from the original user
 5. Extension apiserver: execute
