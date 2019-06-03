@@ -34,7 +34,7 @@ weight: 110
 
 첫번째 컨테이너에는 nginx 서버를 실행하는 구성 파일이 나열되어 있다.
 공유 볼륨의 마운트 경로는 `/usr/share/nginx/html`이다.
-두번째 컨테이너는 debian 이미지 기반이고, 마운트 경로는 `/pod-data`이다.
+두 번째 컨테이너는 debian 이미지 기반이고, 마운트 경로는 `/pod-data`이다.
 두번째 컨테이너는 다음 명령어를 실행한 후에 종료한다.
 
     echo Hello from the debian container > /pod-data/index.html
