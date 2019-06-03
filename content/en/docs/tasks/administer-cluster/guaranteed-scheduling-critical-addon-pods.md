@@ -28,7 +28,7 @@ Note that critical pod is not meant to prevent pod evictions entirely. The criti
 
 Prior to v1.11, critical pod has to run in the `kube-system` namespace, this restriction was removed after v1.11 and pod in any namespace can be configed as a critical pod by the following either way:
 
-* Ensure the PodPriority [feature gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) is enabled, have the priorityClassName set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster. Available in v1.10+
+* Ensure the PodPriority [feature gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) is enabled. Have the priorityClassName set as "system-cluster-critical" or "system-node-critical", the latter being the highest for entire cluster, the two priority class names available since v1.10+
 
 * Alternatively, ensure both PodPriority and ExperimentalCriticalPodAnnotation feature gates are enabled, you could add an annotation `scheduler.alpha.kubernetes.io/critical-pod` as key and empty string as value to your pod, but this annotation is deprecated as of version 1.13 and will be removed in a future release.
 
