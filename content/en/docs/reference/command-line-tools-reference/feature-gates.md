@@ -95,7 +95,8 @@ different Kubernetes components.
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
-| `HugePages` | `true` | Beta| 1.10 | |
+| `HugePages` | `true` | Beta| 1.10 | 1.13 |
+| `HugePages` | `true` | GA | 1.14 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | |
@@ -110,7 +111,8 @@ different Kubernetes components.
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
 | `MountPropagation` | `true` | Beta | 1.10 | 1.11 |
 | `MountPropagation` | `true` | GA | 1.12 | |
-| `NodeLease` | `false` | Alpha | 1.12 | |
+| `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
+| `NodeLease` | `true` | Beta | 1.14 | |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | |
