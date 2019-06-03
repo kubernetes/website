@@ -32,21 +32,21 @@ weight: 110
 이 구성 파일에는 파드가 `shared-data`로 명명한 볼륨을 가진 것을
 알 수 있다.
 
-첫번째 컨테이너에는 nginx 서버를 실행하는 구성 파일이 나열되어 있다.
+첫 번째 컨테이너에는 nginx 웹 서버를 실행하는 구성 파일이 나열되어 있다.
 공유 볼륨의 마운트 경로는 `/usr/share/nginx/html`이다.
 두 번째 컨테이너는 debian 이미지 기반이고, 마운트 경로는 `/pod-data`이다.
-두번째 컨테이너는 다음 명령어를 실행한 후에 종료한다.
+두 번째 컨테이너는 다음 명령어를 실행한 후에 종료한다.
 
-    echo Hello from the debian container > /pod-data/index.html
+    echo debian 컨테이너에서 안녕하세요 > /pod-data/index.html
 
 두 번째 컨테이너는 `index.html` 파일을
-ngix 서버의 루트 디렉터리에 저장한다.
+nginx 웹 서버에서 호스팅하는 문서의 루트 디렉터리(`/usr/share/nginx/html/`)에 저장한다.
 
-파드와 두 개의 컨테이너를 생성한다.
+이제, 파드와 두 개의 컨테이너를 생성한다.
 
     kubectl apply -f https://k8s.io/examples/pods/two-container-pod.yaml
 
-파드와 컨테이너의 정보를 본다.
+파드와 컨테이너의 정보를 확인한다.
 
     kubectl get pod two-containers --output=yaml
 
@@ -88,7 +88,7 @@ nginx 컨테이너의 쉘(shell)을 실행한다.
 
     kubectl exec -it two-containers -c nginx-container -- /bin/bash
 
-쉘에서 nginx가 실행 중인지 확인한다.
+쉘에서 nginx 웹 서버가 실행 중인지 확인한다.
 
     root@two-containers:/# apt-get update
     root@two-containers:/# apt-get install curl procps
@@ -99,14 +99,14 @@ nginx 컨테이너의 쉘(shell)을 실행한다.
     USER       PID  ...  STAT START   TIME COMMAND
     root         1  ...  Ss   21:12   0:00 nginx: master process nginx -g daemon off;
 
-Debian 컨테이너는 nginx 루트 디렉터리에 `index.html` 파일을 생성했었다.
-`curl`을 이용하여 nginx 서버에 GET 요청을 보낸다.
+Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 디렉터리에 `index.html` 파일을 생성했었음을 상기하자.
+`curl`을 이용하여 nginx 웹 서버에 HTTP GET 요청을 보낸다.
 
     root@two-containers:/# curl localhost
 
-출력을 보면, nginx에서 debian 컨테이너에서 쓰여진 웹 페이지를 제공하는 것을 알 수 있다.
+출력을 보면, nginx 웹 서버에서 debian 컨테이너에서 쓰여진 웹 페이지를 제공하는 것을 알 수 있다.
 
-    Hello from the debian container
+    debian 컨테이너에서 안녕하세요
 
 {{% /capture %}}
 
@@ -119,11 +119,11 @@ Debian 컨테이너는 nginx 루트 디렉터리에 `index.html` 파일을 생�
 도우미(helper) 애플리케이션을 제공하기 위해서이다. 도우미 애플리케이션의 일반적인 예로는
 데이터를 가지고 오는 경우(data puller)나 데이터를 보내주는 경우(data pusher)이거나 프록시가 있다.
 도우미와 근본 애플리케이션은 종종 서로 간에 통신을 해야 할 수 있다.
-이는 보통은 이번 예제에서 살펴본 것 같이, 공유 파일 시스템을 통하거나,
+보통 이는 이번 예제에서 살펴본 것 같이, 공유 파일 시스템을 통하거나,
 루프백 네트워크 인터페이스 곧 로컬 호스트(localhost)를 통해서 이뤄진다. 이 패턴의 한가지 예는
 웹 서버가 도우미 프로그램과 함께 Git 저장소에서 새 업데이트를 받아오는 경우이다.
 
-이 예제에서 볼륨은 파드의 생명 주기 동안 컨테이너를 위한 통신 방법을 제공한다.
+이 예제에서 볼륨은 파드의 생명 주기 동안 컨테이너를 위한 통신 방법으로 이용했다.
 파드가 삭제되고 재생성되면, 공유 볼륨에 저장된 데이터는
 잃어버린다.
 
