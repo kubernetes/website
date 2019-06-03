@@ -177,7 +177,7 @@ you need is an existing `docker-compose.yml` file.
       Selector:               service=frontend
       Type:                   LoadBalancer
       IP:                     10.0.0.183
-      LoadBalancer Ingress:   123.45.67.89
+      LoadBalancer Ingress:   192.0.2.89
       Port:                   80      80/TCP
       NodePort:               80      31144/TCP
       Endpoints:              172.17.0.4:80
@@ -189,7 +189,7 @@ you need is an existing `docker-compose.yml` file.
       If you're using a cloud provider, your IP will be listed next to `LoadBalancer Ingress`.
 
       ```sh
-      $ curl http://123.45.67.89
+      $ curl http://192.0.2.89
       ```
 
 {{% /capture %}}
