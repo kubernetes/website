@@ -39,7 +39,7 @@ weight: 110
 
     echo Hello from the debian container > /pod-data/index.html
 
-두번째 컨테이너는 `index.html` 파일을
+두 번째 컨테이너는 `index.html` 파일을
 ngix 서버의 루트 디렉터리에 저장한다.
 
 파드와 두 개의 컨테이너를 생성한다.
