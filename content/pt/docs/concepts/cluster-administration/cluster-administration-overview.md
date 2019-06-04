@@ -2,34 +2,34 @@
 reviewers:
 - davidopp
 - lavalamp
-title: Cluster Administration Overview
+title: Visão Geral da Administração de Cluster
 content_template: templates/concept
 weight: 10
 ---
 
 {{% capture overview %}}
-O overview de administração de cluster é para qualquer um criando ou administrando um cluster Kubernetes.
-Assume alguma familiaridade com os [conceitos](/docs/concepts/) centrais do Kubernetes.
+A visão geral da administração de cluster é para qualquer um criando ou administrando um cluster Kubernetes.  Assume alguma familiaridade com os [conceitos](/docs/concepts/) centrais do Kubernetes.
 {{% /capture %}}
 
 {{% capture body %}}
 ## Planejando um cluster
 
-Veja os guias em [Setup] (/docs/setup/) para exemplos de como planejar, configurar e configurar clusters Kubernetes. As soluções listadas neste artigo são chamadas *distros*.
+Veja os guias em [Setup] (/docs/setup/) para exemplos de como planejar, configurar e configurar  
+clusters Kubernetes. As soluções listadas neste artigo são chamadas *distros*.
 
 Antes de escolher um guia, aqui estão algumas considerações.
 
 
-- Você quer experimentar o Kubernetes no seu computador, ou você quer construir um cluster de alta disponibilidade e multi-nós? Escolha as distros mais adequadas às suas necessidades.
+- Você quer experimentar o Kubernetes no seu computador, ou você quer construir um cluster de alta  disponibilidade e multi-nós? Escolha as distros mais adequadas às suas necessidades.
  - **Se você esta projetando para alta-disponibilidade**, aprender sobre configuração [clusters em múltiplas zonas](/docs/concepts/cluster-administration/federation/).
  - Você usará **um cluster Kubernetes hospedado**, como [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), ou **hospedará seu próprio cluster**?
- - Seu cluster será **on-premises**, ou **in the cloud (IaaS)**?
- Kubernetes não suporta diretamente clusters híbridos.
+ - Seu cluster será **on-premises**, ou **in the cloud (IaaS)**?  
+ Kubernetes não suporta diretamente clusters híbridos.  
  Em vez disso, você pode configurar vários clusters.
  - **Se você estiver configurando um Kubernetes on-premisess**, considere qual [modelo de rede](/docs/concepts/cluster-administration/networking/) melhor se adequa.
 - Você estará executando o Kubernetes em hardware **"bare metal"** ou em **máquinas virtuais (VMs)**?
 
-- Você **quer apenas rodar um cluster**, ou você espera fazer **desenvolvimento ativo do código de projeto do Kubernetes**? Se for a segunda opção, escolha uma distro mais ativa. Algumas distros fornecem apenas binários, mas oferecem uma maior variedade de opções.
+- Você **quer apenas rodar um cluster**, ou você espera fazer **desenvolvimento ativo do código de projeto do Kubernetes**?  Se for a segunda opção, escolha uma distro mais ativa. Algumas distros fornecem apenas binários, mas oferecem uma maior variedade de opções.
 
 - Familiarize-se com os [componentes](/docs/admin/cluster-components/) necessários para rodar um cluster.
 
@@ -37,11 +37,11 @@ Nota: Nem todas as distros são ativamente mantidas. Escolha as distros que fora
 
 ## Gerenciando um cluster
 
-* [Gerenciando um cluster](/docs/tasks/administer-cluster/cluster-management/) descreve vários tópicos relacionados ao ciclo de vida de um cluster: criando um novo cluster, atualizando o nó mestre e os nós de trabalho do cluster, executando manutenção de nó (por exemplo, atualizações de kernel) e atualizando a versão da API do Kubernetes de um cluster em execução.
+* [Gerenciando um cluster](/docs/tasks/administer-cluster/cluster-management/) descreve vários tópicos relacionados ao ciclo de vida de um cluster: criando um novo cluster,  atualizando o nó mestre e os nós de trabalho do cluster, executando manutenção de nó (por exemplo, atualizações de kernel) e atualizando a versão da API do Kubernetes de um cluster em execução.
 
-* Aprendar como [gerenciar um nó](/docs/concepts/nodes/node/).
+* Aprender como [gerenciar um nó](/docs/concepts/nodes/node/).
 
-* Aprendar como configurar e gerenciar o [recurso de quota](/docs/concepts/policy/resource-quotas/) para um cluster compartilhado.
+* Aprender como configurar e gerenciar o [recurso de quota](/docs/concepts/policy/resource-quotas/) para um cluster compartilhado.
 
 ## Protegendo um cluster
 
