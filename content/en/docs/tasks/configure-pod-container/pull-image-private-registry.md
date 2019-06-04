@@ -187,7 +187,7 @@ wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yam
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:
 
 ```none
-janedoe/jdoe-private:v1
+yourprivateregistry.com/janedoe/jdoe-private:v1
 ```
 
 To pull the image from the private registry, Kubernetes needs credentials.
