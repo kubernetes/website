@@ -16,7 +16,8 @@ A cluster may stop working properly if a critical add-on is evicted (either manu
 and becomes pending (for example when the cluster is highly utilized and either there are other pending pods that schedule into the space
 vacated by the evicted critical add-on pod or the amount of resources available on the node changed for some other reason).
 
-Note that critical pod is not meant to prevent pod evictions entirely. The critical pod prevents pods from becoming permanently unavailable.  For static pods, this means it can't be evicted, but for non-static pods, it just means they will always be rescheduled.
+Note that marking a pod as critical is not meant to prevent evictions entirely; it only prevents the pod from becoming permanently unavailable.
+For static pods, this means it can't be evicted, but for non-static pods, it just means they will always be rescheduled.
 
 {{% /capture %}}
 
