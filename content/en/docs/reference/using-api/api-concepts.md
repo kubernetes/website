@@ -433,14 +433,21 @@ Server Side Apply currently treats all custom resources as unstructured data. Al
 
 ### Clearing ManagedFields
 
-It is possible to strip all managedFields from an object by overwriting them using `MergePatch`.
-This can be done via a `POST` request with content type `application/merge-patch+json` on the targeted object and the following data:
+It is possible to strip all managedFields from an object by overwriting them using `MergePatch` or `JSONPatch`.
+This can be done via a `PATCH` request with the respective content type on the targeted object. Two examples are:
 
 ```json
-POST /api/v1/namespaces/default/configmaps/example-cm
-Content-Type: application/json
+PATCH /api/v1/namespaces/default/configmaps/example-cm
+Content-Type: application/merge-patch+json
 Accept: application/json
 Data: {"metadata":{"managedFields": [{}]}}
+```
+
+```json
+PATCH /api/v1/namespaces/default/configmaps/example-cm
+Content-Type: application/json-patch+json
+Accept: application/json
+Data: [{"op": "replace", "path": "/metadata/managedFields", "value": [{}]}]
 ```
 
 This will overwrite the managedFields with a list containing a single empty entry that then results in the managedFields being stripped entirely from the object.
