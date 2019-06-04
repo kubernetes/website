@@ -76,7 +76,12 @@ Kubernetes allows 39 volumes to be attached to a Node.
 
 * On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 
-* For CSI, any driver that advertises volume attach limits via CSI specs will have those limits available as the Node's allocatable property
+* For CSI, any driver that advertises volume attach limits via CSI specs will have those limits available as the CSINode instance `allocatable` property
   and the Scheduler will not schedule Pods with volumes on any Node that is already at its capacity. Refer to the [CSI specs](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for more details.
+
+## Migration of in-tree volume plugins to CSI
+When [migration of an in-tree volume plugin to CSI](/docs/concepts/storage/volumes/#migrating-to-csi-drivers-from-in-tree-plugins)
+is enabled, the limit from CSINode `allocatable` property is used for all volumes
+handled by the migrated volume plugin.
 
 {{% /capture %}}
