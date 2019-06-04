@@ -227,7 +227,7 @@ CSI volume expansion requires enabling `ExpandCSIVolumes` feature gate and also 
 You can only resize volumes containing a file system if the file system is XFS, Ext3, or Ext4.
 
 When a volume contains a file system, the file system is only resized when a new Pod is using
-the `PersistentVolumeClaim` in ReadWrite mode. File System expansion is either done when Pod is starting up
+the `PersistentVolumeClaim` in ReadWrite mode. File system expansion is either done when Pod is starting up
 or is done when Pod is running and underlying file system supports online expansion. 
 
 FlexVolumes allow resize if the driver is set with the `RequiresFSResize` capability to true. 
