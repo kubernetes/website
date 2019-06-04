@@ -91,7 +91,10 @@ Kubernetes:
 
 
 ### Components _of_ the Cluster
-For more information on securing the components of the cluster, [here is a link](/docs/tasks/administer-cluster/securing-a-cluster) to the associated documention.
+
+If you want to protect your cluster from accidental or malicious access, and adopt
+good information practices, read and follow the advice about
+[securing your cluster](/docs/tasks/administer-cluster/securing-a-cluster/).
 
 ### Components _in_ the Cluster (your application)
 Depending on the attack surface of your application, you may want to focus on specific
@@ -150,4 +153,12 @@ Most of the above mentioned suggestions can actually be automated in your code
 delivery pipeline as part of a series of checks in security. To learn about a
 more "Continuous Hacking" approach to software delivery, [this article](https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/) provides more detail.
 
+{{% /capture %}}
+{{% capture whatsnext %}}
+* Read about [network policies for Pods](/docs/concepts/services-networking/network-policies/)
+* Read about [securing your cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
+* Read about [API access control](/docs/reference/access-authn-authz/controlling-access/)
+* Read about [data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
+* Read about [data encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
+* Read about [Secrets in Kubernetes](/docs/concepts/configuration/secret/)
 {{% /capture %}}
