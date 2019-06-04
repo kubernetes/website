@@ -488,6 +488,32 @@ cilium-drxkl   1/1     Running   0          18m
 ```
 
 -->
+有关将 Cilium 与 Kubernetes 一起使用的更多信息，请参阅[适用于 Cilium 的 Kubernetes 安装指南](https://docs.cilium.io/en/stable/kubernetes/)。
+
+为了使 Cilium 正确工作，您必须向 `kubeadm init` 传递 `--pod-network-cidr=10.217.0.0/16` 参数。
+
+以下命令将部署 Cilium，包括其运行需要的 etcd（被 etcd operator 管理）。
+
+_注意_: 如果您在单节点运行 kubeadm，您需要解除该节点的污点（untaint），以便 etcd-operator pod 能被调度到该控制节点。
+
+```shell
+kubectl taint nodes <node-name> node-role.kubernetes.io/master:NoSchedule-
+```
+
+部署 Cilium，您只需执行：
+
+```shell
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.5/examples/kubernetes/1.14/cilium.yaml
+```
+
+一旦所有的 Cilium pod 的状态变成 `READY`，您就可以开始使用集群了。
+
+```shell
+$ kubectl get pods -n kube-system --selector=k8s-app=cilium
+NAME           READY   STATUS    RESTARTS   AGE
+cilium-drxkl   1/1     Running   0          18m
+```
+
 {{% /tab %}}
 
 
