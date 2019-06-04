@@ -458,36 +458,36 @@ kubectl apply -f https://docs.projectcalico.org/v3.1/getting-started/kubernetes/
 ```
 
 {{% /tab %}}
-
-
-
 {{% tab name="Cilium" %}}
-有关将 Cilium 与 Kubernetes 一起使用的更多信息，请参阅[关于 Kubernetes 的 Cilium 快速入门](http://docs.cilium.io/en/v1.2/kubernetes/quickinstall/) 和 [适用于 Ciliu m的 kubernetes 安装指南](http://docs.cilium.io/en/v1.2/kubernetes/install/)。
+<!--
+For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
 
-不需要将 `--pod-network-cidr` 选项传递给 `kubeadm init`，但强烈推荐你这么做。
+For Cilium to work correctly, you must pass `--pod-network-cidr=10.217.0.0/16` to `kubeadm init`.
 
-这些命令将通过 etcd 运算器管理的自己的 etcd 以部署 Cilium。
+These commands will deploy Cilium with its own etcd managed by etcd operator.
+
+_Note_: If you are running kubeadm in a single node please untaint it so that
+etcd-operator pods can be scheduled in the control-plane node.
 
 ```shell
-# 从 Cilium 仓库下载所需的清单
-wget https://github.com/cilium/cilium/archive/v1.2.0.zip
-unzip v1.2.0.zip
-cd cilium-1.2.0/examples/kubernetes/addons/etcd-operator
-
-# 生成并部署 etcd 证书
-export CLUSTER_DOMAIN=$(kubectl get ConfigMap --namespace kube-system coredns -o yaml | awk '/kubernetes/ {print $2}')
-tls/certs/gen-cert.sh $CLUSTER_DOMAIN
-tls/deploy-certs.sh
-
-# 标记具有固定标识标签的 kube-dns
-kubectl label -n kube-system pod $(kubectl -n kube-system get pods -l k8s-app=kube-dns -o jsonpath='{range .items[]}{.metadata.name}{" "}{end}') io.cilium.fixed-identity=kube-dns
-
-kubectl create -f ./
-
-# 等待几分钟，让 Cilium、coredns 和 etcd pod 收敛到工作状态
+kubectl taint nodes <node-name> node-role.kubernetes.io/master:NoSchedule-
 ```
 
+To deploy Cilium you just need to run:
 
+```shell
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.5/examples/kubernetes/1.14/cilium.yaml
+```
+
+Once all Cilium pods are marked as `READY`, you start using your cluster.
+
+```shell
+$ kubectl get pods -n kube-system --selector=k8s-app=cilium
+NAME           READY   STATUS    RESTARTS   AGE
+cilium-drxkl   1/1     Running   0          18m
+```
+
+-->
 {{% /tab %}}
 
 
