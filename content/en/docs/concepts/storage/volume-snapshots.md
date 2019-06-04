@@ -64,9 +64,97 @@ A user creates, or has already created in the case of dynamic provisioning, a `V
 
 VolumeSnapshots will remain unbound indefinitely if a matching VolumeSnapshotContent does not exist. VolumeSnapshots will be bound as matching VolumeSnapshotContents become available.
 
-### Delete
+### Snapshot Object in Use Protection
 
-Deletion removes both the `VolumeSnapshotContent` object from the Kubernetes API, as well as the associated storage asset in the external infrastructure.
+The purpose of the Snapshot Object in Use Protection feature is to ensure that in-use snapshot API objects are not removed from the system (as this may result in data loss). There are two cases that require “in-use” protection:
+
+* If a volume snapshot is in active use by a persistent volume claim as a source to create a volume.
+* If a `VolumeSnapshotContent` API object is bound to a `VolumeSnapshot` API object, the content object is considered in use.
+
+If a user deletes a `VolumeSnapshot` API object in active use by a PVC, the `VolumeSnapshot` object is not removed immediately. Instead, removal of the `VolumeSnapshot` object is postponed until the `VolumeSnapshot` is no longer actively used by any PVCs. Similarly, if an admin deletes a `VolumeSnapshotContent` that is bound to a `VolumeSnapshot`, the `VolumeSnapshotContent` is not removed immediately. Instead, the `VolumeSnapshotContent` removal is postponed until the `VolumeSnapshotContent` is not bound to the `VolumeSnapshot` object.
+
+### VolumeSnapshotContent Deletion/Retain Policy
+
+The Kubernetes snapshot APIs are similar to the PV/PVC APIs: just like a volume is represented by a bound PVC and PV pair, a snapshot is represented by a bound `VolumeSnapshot` and `VolumeSnapshotContent` pair.
+
+With PV/PVC pairs, when a user is done with a volume, they can delete the PVC. And the reclaim policy on the PV determines what happens to the PV (whether it is also deleted or retained).
+
+In the initial alpha release, snapshots did not support the ability to specify a reclaim policy. Instead when a snapshot object was deleted it always resulted in the snapshot being deleted. In Kubernetes v1.13, a snapshot content `DeletionPolicy` was added. It enables an admin to configure what happens to a `VolumeSnapshotContent` after the `VolumeSnapshot` object it is bound to is deleted. The `DeletionPolicy` of a volume snapshot can either be `Retain` or `Delete`. If the value is not specified, the default depends on whether the `VolumeSnapshotContent` object was created via static binding or dynamic provisioning.
+
+#### Retain
+
+The `Retain` policy allows for manual reclamation of the resource. If a `VolumeSnapshotContent` is statically created and bound, the default `DeletionPolicy` is `Retain`. When the `VolumeSnapshot` is deleted, the `VolumeSnapshotContent` continues to exist and the `VolumeSnapshotContent` is considered “released”. But it is not available for binding to other `VolumeSnapshot` objects because it contains data. It is up to an administrator to decide how to handle the remaining API object and resource cleanup.
+
+#### Delete
+
+A `Delete` policy enables automatic deletion of the bound `VolumeSnapshotContent` object from Kubernetes and the associated storage asset in the external infrastructure (such as an AWS EBS snapshot or GCE PD snapshot, etc.). Snapshots that are dynamically provisioned inherit the deletion policy of their `VolumeSnapshotClass`, which defaults to `Delete`. The administrator should configure the `VolumeSnapshotClass` with the desired retention policy. The policy may be changed for individual `VolumeSnapshotContent` after it is created by patching the object.
+
+The following example demonstrates how to check the deletion policy of a dynamically provisioned `VolumeSnapshotContent`.
+
+```
+$ kubectl create -f ./examples/kubernetes/demo-defaultsnapshotclass.yaml
+$ kubectl create -f ./examples/kubernetes/demo-snapshot.yaml
+$ kubectl get volumesnapshots demo-snapshot-podpvc -o yaml
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshot
+metadata:
+  creationTimestamp: "2018-11-27T23:57:09Z"
+...
+spec:
+  snapshotClassName: default-snapshot-class
+  snapshotContentName: snapcontent-26cd0db3-f2a0-11e8-8be6-42010a800002
+  source:
+    apiGroup: null
+    kind: PersistentVolumeClaim
+    name: podpvc
+status:
+…
+$ kubectl get volumesnapshotcontent snapcontent-26cd0db3-f2a0-11e8-8be6-42010a800002 -o yaml
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshotContent
+…
+spec:
+  csiVolumeSnapshotSource:
+    creationTime: 1546469777852000000
+    driver: pd.csi.storage.gke.io
+    restoreSize: 6442450944
+    snapshotHandle: projects/jing-k8s-dev/global/snapshots/snapshot-26cd0db3-f2a0-11e8-8be6-42010a800002
+  deletionPolicy: Delete
+  persistentVolumeRef:
+    apiVersion: v1
+    kind: PersistentVolume
+    name: pvc-853622a4-f28b-11e8-8be6-42010a800002
+    resourceVersion: "21117"
+    uid: ae400e9f-f28b-11e8-8be6-42010a800002
+  snapshotClassName: default-snapshot-class
+  volumeSnapshotRef:
+    apiVersion: snapshot.storage.k8s.io/v1alpha1
+    kind: VolumeSnapshot
+    name: demo-snapshot-podpvc
+    namespace: default
+    resourceVersion: "6948065"
+    uid: 26cd0db3-f2a0-11e8-8be6-42010a800002
+```
+
+User can change the deletion policy by using patch:
+
+```
+$ kubectl patch volumesnapshotcontent snapcontent-26cd0db3-f2a0-11e8-8be6-42010a800002 -p '{"spec":{"deletionPolicy":"Retain"}}' --type=merge
+
+$ kubectl get volumesnapshotcontent snapcontent-26cd0db3-f2a0-11e8-8be6-42010a800002 -o yaml
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+kind: VolumeSnapshotContent
+...
+spec:
+  csiVolumeSnapshotSource:
+...
+  deletionPolicy: Retain
+  persistentVolumeRef:
+    apiVersion: v1
+    kind: PersistentVolume
+    name: pvc-853622a4-f28b-11e8-8be6-42010a800002
+...
+```
 
 ## Volume Snapshot Contents
 

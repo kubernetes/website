@@ -54,6 +54,16 @@ parameters:
 Volume snapshot classes have a snapshotter that determines what CSI volume plugin is
 used for provisioning VolumeSnapshots. This field must be specified.
 
+### VolumeSnapshotContent Deletion/Retain Policy
+
+Volume snapshots that are dynamically created by a volume snapshot class will have the
+snapshot content deletion policy specified in the `deletionPolicy` field of the class, which can be
+either `Delete` or `Retain`. If no `deletionPolicy` is specified when a
+`VolumeSnapshotClass` object is created, it will default to `Delete`.
+
+Volume snapshots that are created manually and managed via a volume snapshot class will have
+whatever deletion policy they were assigned at creation.
+
 ## Parameters
 
 Volume snapshot classes have parameters that describe volume snapshots belonging to
