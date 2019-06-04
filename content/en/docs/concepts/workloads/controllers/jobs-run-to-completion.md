@@ -213,6 +213,10 @@ status check.
 {{< note >}}
 Issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) still exists for versions of Kubernetes prior to version 1.12
 {{< /note >}}
+{{< note >}}
+If your job have some error but your job restartPolicy is not `Never`, so your job created pods will be deleted, this logic make us find error log is difficult;
+So we suggest you set `.spec.template.spec.restartPolicy = "Never"` when you debug your job application on your dev kubernetes env;
+{{< /note >}}
 
 ## Job Termination and Cleanup
 
