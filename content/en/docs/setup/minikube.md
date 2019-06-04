@@ -59,7 +59,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     ```
     deployment.apps/hello-minikube created
     ```
-3. To access the `hello-minikue` Deployment, expose it as a Service:
+3. To access the `hello-minikube` Deployment, expose it as a Service:
     ```shell
     kubectl expose deployment hello-minikube --type=NodePort
     ```
