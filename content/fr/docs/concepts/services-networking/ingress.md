@@ -19,7 +19,7 @@ weight: 40
 
 Par souci de clarté, ce guide définit les termes suivants :
 
-* Noeud : une seule machine virtuelle ou physique dans un cluster Kubernetes.
+* Nœud (Node) : une seule machine virtuelle ou physique dans un cluster Kubernetes.
 * Cluster : groupe de nœuds protégés par un pare-feu provenant d'Internet et constituant les principales ressources de calcul gérées par Kubernetes.
 * Routeur Edge : routeur appliquant la stratégie de pare-feu pour votre cluster. Il peut s’agir d’une passerelle gérée par un fournisseur de cloud ou d’un matériel physique.
 * Réseau de cluster : ensemble de liens, logiques ou physiques, facilitant la communication au sein d'un cluster selon le [modèle de réseau Kubernetes](/docs/concepts/cluster-administration/networking/).
