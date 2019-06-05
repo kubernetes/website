@@ -10,7 +10,7 @@ weight: 40
 ---
 
 {{% capture overview %}}
-
+{{< glossary_definition term_id="ingress" length="all" >}}
 {{% /capture %}}
 
 {{% capture body %}}
