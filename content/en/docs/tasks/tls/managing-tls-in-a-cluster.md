@@ -110,8 +110,6 @@ kind: CertificateSigningRequest
 metadata:
   name: my-svc.my-namespace
 spec:
-  groups:
-  - system:authenticated
   request: $(cat server.csr | base64 | tr -d '\n')
   usages:
   - digital signature
