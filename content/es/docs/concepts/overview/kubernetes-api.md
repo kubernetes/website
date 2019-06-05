@@ -71,7 +71,7 @@ Elegimos versionar a nivel de la API en vez de a nivel de los recursos o propied
 
 Tenga en cuenta que hay una relación indirecta entre el versionado de la API y el versionado del resto del software. La propuesta de [versionado de la API y releases](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describe esta relación.
 
-Las distintas versiones de la API implican distintos niveles de estabilidad y soporte. El criterio para cada nivel se describe en detalle en la documentación de [Cambios a la API](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions). Se ofrece un sumario a continuación:
+Las distintas versiones de la API implican distintos niveles de estabilidad y soporte. El criterio para cada nivel se describe en detalle en la documentación de [Cambios a la API](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions). A continuación se ofrece un resumen:
 
 - Nivel "alpha":
   - El nombre de la versión contiene `alpha` (p. ej., `v1alpha1`).
