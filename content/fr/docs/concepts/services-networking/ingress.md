@@ -211,7 +211,7 @@ Events:
   Normal   ADD     22s                loadbalancer-controller  default/test
 ```
 
-Le contrôleur d’Ingress fournit une implémentation spécifique aux load-balancers qui satisfait l'ingress, tant que les services (`s1`,` s2`) existent.
+Le contrôleur d’ingress fournit une implémentation spécifique aux load-balancers qui satisfait l'Ingress, tant que les services (`s1`,` s2`) existent.
 Lorsque cela est fait, vous pouvez voir l’adresse du load-balancer sur le champ d'adresse.
 
 {{< note >}}
