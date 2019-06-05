@@ -421,7 +421,7 @@ Veuillez consulter la documentation du [Contrôleur d'ingress](/docs/concepts/se
 
 ## Travail futur
 
-Suivez [réseau SIG](https://github.com/kubernetes/community/tree/master/sig-network) pour plus de détails sur l'évolution de l'entrée et des ressources associées. Vous pouvez également suivre le [Dépôt Ingress](https://github.com/kubernetes/ingress/tree/master) pour plus de détails sur l'évolution des différents contrôleurs d’ingress.
+Suivez [SIG network](https://github.com/kubernetes/community/tree/master/sig-network) (groupe d'intérêt spécial Réseau) pour plus de détails sur l'évolution de l'entrée et des ressources associées. Vous pouvez également suivre le [Dépôt Ingress](https://github.com/kubernetes/ingress/tree/master) pour plus de détails sur l'évolution des différents contrôleurs d’ingress.
 
 ## Alternatives
 
