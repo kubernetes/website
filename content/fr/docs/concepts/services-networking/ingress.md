@@ -162,7 +162,7 @@ foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
                                  / bar    service2:8080
 ```
 
-ceci nécessitera un ingress défini comme suit :
+ceci nécessitera un Ingress défini comme suit :
 
 ```yaml
 apiVersion: extensions/v1beta1
