@@ -93,7 +93,7 @@ Comme pour toutes les autres ressources Kubernetes, un ingress (une entrée) a b
  est l'annotation [rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
  Différents [Ingress controller](/docs/concepts/services-networking/ingress-controllers) prennent en charge différentes annotations. Consultez la documentation de votre choix de contrôleur Ingress pour savoir quelles annotations sont prises en charge.
 
-L'Ingress [spec](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) dispose de toutes les informations nécessaires pour configurer un loadbalancer ou un serveur proxy. Plus important encore, il
+La [spécification de la ressource Ingress](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) dispose de toutes les informations nécessaires pour configurer un loadbalancer ou un serveur proxy. Plus important encore, il
 contient une liste de règles appariées à toutes les demandes entrantes. La ressource ingress ne supporte que les règles pour diriger le trafic HTTP.
 
 
