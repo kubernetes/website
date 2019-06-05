@@ -59,7 +59,7 @@ Dans les environnements autres que GCE/GKE, vous devrez peut-être [déployer un
 
 ### Avant de commencer
 
-Dans l’idéal, tous les contrôleurs d’Ingress devraient correspondre à cette spécification. Cependant le fonctionnement est légèrement différent d'un contrôleur à un autre.
+Dans l’idéal, tous les contrôleurs d’Ingress devraient correspondre à cette spécification. Cependant le fonctionnement est légèrement différent d'un contrôleur à un autre (en fonction de son implémentation).
 
 {{< note >}}
 Assurez-vous de consulter la documentation de votre contrôleur d’Ingress pour bien comprendre les mises en garde qu’il ya à faire pour le choisir.
