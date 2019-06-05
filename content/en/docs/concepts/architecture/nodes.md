@@ -26,7 +26,7 @@ architecture design doc for more details.
 A node's status contains the following information:
 
 * [Addresses](#addresses)
-* [Condition](#condition)
+* [Conditions](#condition)
 * [Capacity](#capacity)
 * [Info](#info)
 
@@ -41,9 +41,9 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 * InternalIP: Typically the IP address of the node that is routable only within the cluster.
 
 
-### Condition
+### Conditions {#condition}
 
-The `conditions` field describes the status of all `Running` nodes.
+The `conditions` field describes the status of all `Running` nodes. Examples of conditions include:
 
 | Node Condition | Description |
 |----------------|-------------|
@@ -60,7 +60,11 @@ The node condition is represented as a JSON object. For example, the following r
 "conditions": [
   {
     "type": "Ready",
-    "status": "True"
+    "status": "True",
+    "reason": "KubeletReady",
+    "message": "kubelet is posting ready status",
+    "lastHeartbeatTime": "2019-06-05T18:38:35Z",
+    "lastTransitionTime": "2019-06-05T11:41:27Z"
   }
 ]
 ```
