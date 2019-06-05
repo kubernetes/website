@@ -19,7 +19,7 @@ Within a namespace, a Pod or Container can consume as much CPU and memory as def
 
 A limit range, defined by a `LimitRange` object, provides constraints that can:
 
-- Enforce minimun and maximum compute resources usage per Pod or Container in a namespace.
+- Enforce minimum and maximum compute resources usage per Pod or Container in a namespace.
 - Enforce minimum and maximum storage request per PersistentVolumeClaim in a namespace.
 - Enforce a ratio between request and limit for a resource in a namespace.
 - Set default request/limit for compute resources in a namespace and automatically inject them to Containers at runtime.
