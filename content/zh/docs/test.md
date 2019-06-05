@@ -1,5 +1,5 @@
 ---
-title: 文档 smoke 测试页面
+title: 文档冒烟测试页面
 main_menu: false
 ---
 
@@ -103,11 +103,11 @@ culpa qui officia deserunt mollit anim id est laborum.
 - **`monospace bold`**
 -->
 
-- **bold**
+- **粗体**
 - _斜体_
 - ***加粗斜体***
 - ~~删除线~~
-- <u>强调</u>
+- <u>下划线</u>
 - _<u>强调斜体</u>_
 - **<u>强调 bold</u>**
 - ***<u>粗体斜体加下划线</u>***
@@ -139,13 +139,13 @@ Markdown 没有关于如何处理列表的严格规则。当我们从 Jekyll 搬
 
 - 确保缩进子列表项**4个空格**而不是您可能习惯的2个空格。与直觉相反，您需要将列表项中的块级内容缩进额外的4个空格。
 - 要结束列表并启动另一个列表，您需要在列表之间的新行上使用 HTML 注释块，并使用左侧边框刷新。
-  无论你在第二个列表和第二个列表之间放置多少空行，第一个列表都不会以其他方式结束。
+  无论你在第一个列表和第二个列表之间放置多少空行，第一个列表都不会以其他方式结束。
 
 <!--
 ### Bullet lists
 -->
 
-### Bullet 列表
+### 项目符号列表
 
 <!--
 - This is a list item
@@ -179,7 +179,7 @@ Markdown 没有关于如何处理列表的严格规则。当我们从 Jekyll 搬
       point. **This paragraph and the code block line up with the second `l` in
       `Bullet` above.**
 -->
-      将内容缩进到项目符号文本之外的一个制表符停止。**本段和代码块与上面 `Bullet` 中的第二个 `l` 对齐。**
+      将内容缩进到项目符号文本之外的一个制表符。**本段和代码块与上面 `Bullet` 中的第二个 `l` 对齐。**
 
       ```bash
       ls -l
@@ -219,7 +219,7 @@ Markdown 没有关于如何处理列表的严格规则。当我们从 Jekyll 搬
 1.  这是一个列表项
 2.  这是同一列表中的另一个列表项。在 Markdown 中使用的数字不一定与最终输出中的数字相关。按照惯例，我们使它们保持同步。
 3.  {{<note>}}
-    对于单位数字编号列表，在句点后使用两个空格可使内部块级内容沿制表位更好地排列。
+    对于单位数字编号列表，在句点后使用两个空格可使内部块级内容沿制表符更好地排列。
     {{</note>}}
 
 
@@ -362,7 +362,7 @@ the contents of the code block contain lines starting with `-` or `*` characters
 This is due to
 [blackfriday issue #239](https://github.com/russross/blackfriday/issues/239).
 -->
-有一种情况需要对代码块使用缩进：当代码块的内容包含以 `-` 或 `*` 字符开头的行时。这是由于 [blackfriday 问题 #239(https://github.com/russross/blackfriday/issues/239).
+有一种情况需要对代码块使用缩进：当代码块的内容包含以 `-` 或 `*` 字符开头的行时。这是由于 [blackfriday 问题 #239](https://github.com/russross/blackfriday/issues/239).
 
 {{< /warning >}}
 
@@ -461,7 +461,7 @@ You can also use HTML, but it is not preferred.
 <a href="https://kubernetes.io/">Link to Kubernetes.io</a>
 -->
 您也可以使用 HTML，但不推荐使用它。
-<a href="https://kubernetes.io/">连接到 Kubernetes.io</a>
+<a href="https://kubernetes.io/">链接到 Kubernetes.io</a>
 
 <!--
 ## Images
@@ -541,7 +541,7 @@ cell separators even, even if you heed to use extra space.
 
 | 标题单元 1     | 标题单元 2    |
 |---------------|----- ---------|
-| 身体单元 1     | 身体单元 2    |
+| 主体单元 1     | 主体单元 2    |
 
 
 <!--
