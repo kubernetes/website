@@ -57,17 +57,17 @@ That's how Kubernetes comes to the rescue! Kubernetes provides you with a framew
 Kubernetes provides you with:
 
 * Service discovery and load balancing
-    Kubernetes can expose containers using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
+Kubernetes can expose containers using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
 * Storage orchestration
-    Kubernetes allows you to automatically mount a storage system of your choice, such as local storages, public cloud providers, and more.
+Kubernetes allows you to automatically mount a storage system of your choice, such as local storages, public cloud providers, and more.
 * Automated rollouts and rollbacks
-    You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers and adopt all their resources to the new container.
+You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers and adopt all their resources to the new container.
 * Automatic bin packing
-    Kubernetes allows you to specify how much CPU and memory (RAM) each container needs. When containers have resource requests specified, Kubernetes can make better decisions to manage the resources for containers.
+Kubernetes allows you to specify how much CPU and memory (RAM) each container needs. When containers have resource requests specified, Kubernetes can make better decisions to manage the resources for containers.
 * Self-healing
-    Kubernetes restarts containers that fail, replaces containers, kills containers that don’t respond to your user-defined health check, and doesn’t advertise them to clients until they are ready to serve.
+Kubernetes restarts containers that fail, replaces containers, kills containers that don’t respond to your user-defined health check, and doesn’t advertise them to clients until they are ready to serve.
 * Secret and configuration management
-    Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. You can deploy and update secrets and application configuration without rebuilding your image, and without exposing secrets in your stack configuration.
+Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys. You can deploy and update secrets and application configuration without rebuilding your image, and without exposing secrets in your stack configuration.
 
 ## What Kubernetes is not
 
