@@ -121,7 +121,7 @@ Si aucun des hôtes ou chemins ne correspond à la demande HTTP dans les objets 
 ### Ingress pour service unique
 
 Il existe des concepts Kubernetes qui vous permettent d’exposer un seul service.
-(voir [alternatives](# alternatives)). Vous pouvez également le faire avec un ingress en spécifiant un *backend par défaut* sans règles.
+(voir [alternatives](#alternatives)). Vous pouvez également le faire avec un ingress en spécifiant un *backend par défaut* sans règles.
 
 
 ```yaml
