@@ -20,7 +20,7 @@ This page serves two purposes:
 -->
 
 - 演示 Kubernetes 文档如何使用 Markdown
-- 提供一个 "smoke 测试" 文档，我们可以使用它来测试影响整个文档的 HTML、CSS 和模板更改。
+- 提供一个 "冒烟测试" 文档，我们可以使用它来测试影响整个文档的 HTML、CSS 和模板更改。
 
 <!--
 ## Heading levels
@@ -188,14 +188,17 @@ Markdown 没有关于如何处理列表的严格规则。当我们从 Jekyll 搬
 <--
       - And a sub-list after some block-level content
 -->
+
       - 以及一些块级内容之后的子列表
+
 
 <!--
 - A bullet list item can contain a numbered list.
     1.  Numbered sub-list item 1
     2.  Numbered sub-list item 2
 -->
-- bullet 列表项可以包含编号列表。
+
+- 项目符号列表项可以包含编号列表。
     1.  编号的子列表项目 1
     2.  编号的子列表项目 2
 
@@ -329,12 +332,13 @@ Headers within tab lists will not appear in the Table of Contents.
 <!--
 Checklists are technically bullet lists, but the bullets are suppressed by CSS.
 -->
-检查列表在技术上是 bullet 列表，但是 bullet 被 CSS 抑制。
+检查列表在技术上是 bullet 列表，但项目符号被 CSS 抑制。
 
 <!--
 - [ ] This is a checklist item
 - [x] This is a selected checklist item
 -->
+
 - [ ] 这是一个检查列表项目
 - [x] 这是一个选定的检查表项
 
@@ -582,8 +586,8 @@ Markdown 在单元格中很难处理块级元素，例如列表项代码块或�
 </thead>
 <tbody>
   <tr>
-    <td>身体单元 1</td>
-    <td>身体单元 2</td>
+    <td>主体单元 1</td>
+    <td>主体单元 2</td>
   </tr>
 </tbody>
 </table>
@@ -625,6 +629,7 @@ A sidebar offsets text visually, but without the visual prominence of
 >
 -->
 
+
 > 这是一个侧边栏。
 >
 > 您可以在侧栏中包含段落和块级元素。
@@ -635,6 +640,7 @@ A sidebar offsets text visually, but without the visual prominence of
 > sudo dmesg
 > ```
 >
+
 
 <!--
 ### Admonitions
