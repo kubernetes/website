@@ -187,11 +187,6 @@ Markdown 没有关于如何处理列表的严格规则。当我们从 Jekyll 搬
 
       - 以及一些块级内容之后的子列表
 
-
-<--
-      And a sub-list after some block-level content
--->
-
 <!--
 - A bullet list item can contain a numbered list.
     1.  Numbered sub-list item 1
