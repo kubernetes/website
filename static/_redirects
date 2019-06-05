@@ -7,6 +7,13 @@
 /api-ref/     https://github.com/kubernetes/kubernetes/milestones/ 301
 /concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
 /docs/     /docs/home/ 301
+/de/docs/     /de/docs/home/ 301
+/es/docs/     /es/docs/home/ 301
+/fr/docs/     /fr/docs/home/ 301
+/id/docs/     /id/docs/home/ 301
+/ja/docs/     /ja/docs/home/ 301
+/ko/docs/     /ko/docs/home/ 301
+/pt/docs/     /pt/docs/home/ 301
 
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/27/kubernetes-1.10-stabilizing-storage-security-networking/     301
 
