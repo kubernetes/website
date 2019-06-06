@@ -166,12 +166,34 @@ A `azureDisk` is used to mount a Microsoft Azure [Data Disk](https://azure.micro
 
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_disk/README.md).
 
+#### CSI Migration
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+The CSI Migration feature for azureDisk, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `disk.csi.azure.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
+Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
+Alpha features must be enabled.
+
 ### azureFile {#azurefile}
 
 A `azureFile` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
 into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/volumes/azure_file/README.md).
+
+#### CSI Migration
+
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+
+The CSI Migration feature for azureFile, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `file.csi.azure.com` Container
+Storage Interface (CSI) Driver. In order to use this feature, the [Azure File CSI
+Driver](https://github.com/kubernetes-sigs/azurefile-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureFile`
+Alpha features must be enabled.
 
 ### cephfs {#cephfs}
 
@@ -1344,7 +1366,7 @@ configuration changes to existing Storage Classes, PVs or PVCs (referring to
 in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
 
 In the alpha state, the operations and features that are supported include 
-provisioning/delete, attach/detach and mount/unmount of volumes with `volumeMode` set to `filesystem`
+provisioning/delete, attach/detach, mount/unmount and resizing of volumes.
 
 In-tree plugins that support CSI Migration and have a corresponding CSI driver implemented 
 are listed in the "Types of Volumes" section above.
