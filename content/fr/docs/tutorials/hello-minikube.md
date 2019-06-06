@@ -10,7 +10,7 @@ menu:
     post: >
       <p>Prêt à vous salir les mains ? Créez un cluster Kubernetes simple qui exécute "Hello World" pour Node.js.</p>>.
 card: 
-  name: tutoriels
+  name: tutorials
   weight: 10
 ---
 
