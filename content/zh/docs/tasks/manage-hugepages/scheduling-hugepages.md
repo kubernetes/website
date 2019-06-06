@@ -99,7 +99,7 @@ to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
 token.
 --->
 
-- 巨页的资源请求必须等于资源限制。该条件在指定了资源限制，而没有指定请求的情况下默认成立。
+- 巨页的资源请求值必须等于其限制值。该条件在指定了资源限制，而没有指定请求的情况下默认成立。
 - 巨页是被隔离在 pod 作用域的，计划在将来的迭代中实现容器级别的隔离。
 - 巨页对 EmptyDir 卷提供支持，EmptyDir 卷所使用的巨页，不能够超出 pod 请求的巨页内存容量。
 - 通过带有 `SHM_HUGETLB` 的 `shmget()` 使用巨页的应用，必须运行在一个与
