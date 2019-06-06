@@ -27,7 +27,7 @@ A node's status contains the following information:
 
 * [Addresses](#addresses)
 * [Conditions](#condition)
-* [Capacity](#capacity)
+* [Capacity and Allocatable](#capacity)
 * [Info](#info)
 
 Each section is described in detail below.
@@ -92,10 +92,18 @@ Enabling this feature creates a small delay between the
 time when a condition is observed and when a taint is created. This delay is usually less than one second, but it can increase the number of Pods that are successfully scheduled but rejected by the kubelet.
 {{< /caution >}}
 
-### Capacity
+### Capacity and Allocatable {#capacity}
 
 Describes the resources available on the node: CPU, memory and the maximum
 number of pods that can be scheduled onto the node.
+
+The fields in the capacity block indicate the total amount of resources that a
+Node has. The allocatable block indicates the amount of resources that on a
+Node that are available to be consumed by normal Pods.
+
+You may read more about capacity and allocatable resources while learning how
+to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+on a Node.
 
 ### Info
 
