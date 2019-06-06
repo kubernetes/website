@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: '非代码类贡献者指南介绍'
+title: 非代码类贡献者指南介绍
 date: 2018-10-04
 ---
 
@@ -20,35 +20,53 @@ date: 2018-10-04
 <!--
 It was May 2018 in Copenhagen, and the Kubernetes community was enjoying the contributor summit at KubeCon/CloudNativeCon, complete with the first run of the New Contributor Workshop. As a time of tremendous collaboration between contributors, the topics covered ranged from signing the CLA to deep technical conversations. Along with the vast exchange of information and ideas, however, came continued scrutiny of the topics at hand to ensure that the community was being as inclusive and accommodating as possible. Over that spring week, some of the pieces under the microscope included the many themes being covered, and how they were being presented, but also the overarching characteristics of the people contributing and the skill sets involved. From the discussions and analysis that followed grew the idea that the community was not benefiting as much as it could from the many people who wanted to contribute, but whose strengths were in areas other than writing code.
  -->
-在 2018 年 5 月哥本哈根的会议上，Kubernetes 社区在 KubeCon/CloudNativeCon 上很高兴参与了贡献者峰会，并完成了首次新贡献者研讨会。在贡献者们广大协作下，涵盖的主题包括签署 CLA 和深入技术对话。然而，随着信息和思想的广泛交流，对手头的主题进行了持续的审查，以保社区尽可能具有广泛性和包容性。在那个春天的一周时间里，显微镜下的一些部分包括了所涵盖的许多主题，它们是如何呈现的，还包括人们贡献的总体特征和所涉及的技能。从随后的讨论和分析中可以看出，社区没有尽可能多地从许多想要贡献的人中受益，而这些人的优势在于编写代码以外的领域。
+2018 年 5 月 Kubernetes 社区在哥本哈根 KubeCon/CloudNativeCon 期间组织了贡献者峰会，并完成了首次新贡献者研讨会。
+在贡献者们大力协作下，讨论的主题既包含如何签署 CLA，也包含深入的技术对话。
+在大家广泛交流信息和思想的同时，也再次出现了对手头的主题的批评，其目的是确保社区尽可能具有接纳性和包容性。
+在那个春天的一周时间里，被详细讨论的既有许多主题以及它们是如何呈现的，也包括人们贡献的总体特征和所涉及的技能。
+基于随后的讨论和分析，大家得到的一个结论是社区并未因为有许多人想要参与并贡献而获益，相反，社区获益最多之处是另外一些人，这些人的优势并不是编写代码。
 
 <!--
 **This all led to an effort called the [Non-Code Contributor’s Guide](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md).**
  -->
-**在所有的努力的作用下，[非代码贡献指南](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md)出现了。**
+
+**在上述诸多因素的推动下，[非代码贡献指南](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md)出现了。**
 
 <!--
 Now, it’s important to note that Kubernetes is rare, if not unique, in the open source world, in that it was defined very early on as both a project and a community. While the project itself is focused on the codebase, it is the community of people driving it forward that makes the project successful. The community works together with an explicit set of [community values](https://github.com/kubernetes/steering/blob/master/values.md), guiding the day-to-day behavior of contributors whether on GitHub, Slack, Discourse, or sitting together over tea or coffee.
  -->
-现在，重要的是要注意 Kubernetes 在开源界是稀有的，但是非是独一无二的，因为它很早就被定义为是项目同时也是社区。项目本身聚焦于代码库，而社区里的人们推动着它使它成功。社区使用一组明确的[社区价值观](https://github.com/kubernetes/steering/blob/master/values.md)共同协作，无论是在 GitHub、Slack、演讲, 还是坐在一起喝咖啡或喝茶时，导引着贡献者们日复一日的行为。
+ 
+现在，重要的是要了解 Kubernetes 在很早就被定义为是既是一个项目也是一个社区，这在开源界即便不是独一无二的，也是不常见的。
+作为一个项目，其自身聚焦于代码库；而作为一个社区，是其中的人们推动着它使它成功。
+社区基于一组明确的[社区价值观](https://github.com/kubernetes/steering/blob/master/values.md)共同协作。
+这些价值观既体现在 GitHub、Slack、演讲形式的交流上, 也体现在坐在一起喝咖啡或喝茶时，它们指导着贡献者们日常的行为。
 
 <!--
 By having a community that values people first, and explicitly values a diversity of people, the Kubernetes project is building a product to serve people with diverse needs. The different backgrounds of the contributors bring different approaches to the problem solving, with different methods of collaboration, and all those different viewpoints ultimately create a better project.
  -->
-通过建造一个重视人为先的社区，并重视人群的多元化，Kubernetes 项目正在建造一个服务于多维度人群需求的产品。不同背景的贡献者带来了不同解决问题的方法，结合了这些不同的方法，所有这些不同的视角最终共同使这个项目变得更好。
 
-The Non-Code Contributor’s Guide aims to make it easy for anyone to contribute to the Kubernetes project in a way that makes sense for them. This can be in many forms, technical and non-technical, based on the person's knowledge of the project and their available time. Most individuals are not developers, and most of the world’s developers are not paid to fully work on open source projects. Based on this we have started an ever-growing list of possible ways to contribute to the Kubernetes project in a Non-Code way!
-非代码贡献着指南旨在使任何人都能以合理地方式轻松地进行贡献。可以有多种形式，技术的或者非技术的，基于个人的知识和他们可用的时间。大部分人都不是开发者，并且大部分的开发者都不是受雇佣的全职项目开发人员。基于这种情况，我们已经有了一个不断增长的列表，列出了以非代码方式为 Kubernetes 项目做出贡献的可能方法！
+通过建造一个以人为本的社区，并重视人群的多元化，Kubernetes 项目正在建造一个服务于需求各异的人群的产品。
+不同背景的贡献者带来了解决问题的不同方法以及进行协作的多种方式，所有这些不同的视角最终共同使这个项目变得更好。
+
+<!-- The Non-Code Contributor’s Guide aims to make it easy for anyone to contribute to the Kubernetes project in a way that makes sense for them. This can be in many forms, technical and non-technical, based on the person's knowledge of the project and their available time. Most individuals are not developers, and most of the world’s developers are not paid to fully work on open source projects. Based on this we have started an ever-growing list of possible ways to contribute to the Kubernetes project in a Non-Code way!
+-->
+
+非代码贡献者指南旨在使任何人都能以合理的方式轻松地为 Kubernetes 项目作出贡献。
+贡献可以有多种形式，可以是技术的也可以是非技术的，完全取决于个人对项目的了解和他们可用的时间。
+大部分人都不是开发者，并且大部分的开发者都不是受雇佣的全职开源项目开发人员。
+基于这种情况，我们已经有了一个不断增长的列表，列出了以非代码形式为 Kubernetes 项目做出贡献的可能途径！
 
 <!--
 ## Get Involved
  -->
+
 ## 参与其中
 
 <!--
 Some of the ways that you can contribute to the Kubernetes community without writing a single line of code include:
  -->
-例举一些可以参与 Kubernetes 社区贡献而不用写任何一行代码的方法：
+
+下面是一些可以参与 Kubernetes 社区贡献，而不用写任何一行代码的方法：
 
 <!--
 - Community education, answering questions on [Discuss](https://discuss.kubernetes.io/), [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes), and [Slack](http://slack.k8s.io/)
@@ -59,8 +77,9 @@ Some of the ways that you can contribute to the Kubernetes community without wri
 - Project, program, and [product management](https://github.com/kubernetes/community/blob/master/sig-pm/README.md)
 - And many more!
  -->
+
 - 社区教育，在 [Discuss](https://discuss.kubernetes.io/)，[StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes)，和 [Slack](http://slack.k8s.io/) 上回答问题
-- 对外的面对面社区工作比如 [主持 meetup](https://www.meetup.com/pro/cncf/) 和各类活动
+- 对外的面对面社区工作，比如 [主持 meetup](https://www.meetup.com/pro/cncf/) 和各类活动
 - 撰写[项目文档](https://github.com/kubernetes/community/tree/master/sig-docs)
 - 撰写操作手册，帮助用户理解如何运行 Kubernetes
 - 帮助交付 Kubernetes，作为[发布团队](https://github.com/kubernetes/sig-release/blob/master/release-team/README.md)的一部分
@@ -70,11 +89,15 @@ Some of the ways that you can contribute to the Kubernetes community without wri
 <!--
 The guide to get started with Kubernetes project contribution is [documented on Github](https://github.com/kubernetes/community/tree/master/contributors/guide), and as the Non-Code Contributors Guide is a part of that Kubernetes Contributors Guide, it can be found [here](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md). As stated earlier, this list is not exhaustive and will continue to be a work in progress.
  -->
-开始使用 Kubernetes 项目贡献的指南在 [Github 上](https://github.com/kubernetes/community/tree/master/contributors/guide)，并且由于非代码贡献指南是贡献者指南的一部分，内容同样可以在[这里](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md)找到。如前所述，该清单并非详尽无遗，它会是一项持续继续进行的工作。
+
+Kubernetes 项目贡献的起步指南在 [Github 上](https://github.com/kubernetes/community/tree/master/contributors/guide)。
+由于非代码贡献指南是贡献者指南的一部分，内容同样可以在[这里](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md)找到。
+如前所述，该清单并非详尽无遗，它会是一项持续继续进行的工作。
 
 <!--
 To date, the typical Non-Code contributions fall into the following categories:
  -->
+
 迄今为止，典型的非代码贡献分为以下几类：
 
 <!--
@@ -82,6 +105,7 @@ To date, the typical Non-Code contributions fall into the following categories:
 - Non-Code contributions in primarily code-based roles
 - “Post-Code” roles, that are not code-based, but require knowledge of either the code base or management of the code base
  -->
+
 - 基于“软件开发人员”以外的技能组合的角色
 - 主要基于代码的角色中的非代码贡献
 - “代码提交”角色，它不是基于代码的，但需要知道代码库或代码库的管理
@@ -89,6 +113,7 @@ To date, the typical Non-Code contributions fall into the following categories:
 <!--
 If you, dear reader, have any additional ideas for a Non-Code way to contribute, whether or not it fits in an existing category, the team will always appreciate if you could help us expand the list.
  -->
+
 亲爱的读者，如果您对非代码方式的贡献有任何其他想法，无论它是否适合现有类别，团队将始终感谢您如果可以帮助我们扩展列表。
 
 <!--
