@@ -412,6 +412,7 @@ kubectl apply -f <add-on.yaml>
 ```bash
 kubectl apply -f <add-on.yaml>
 ```
+
 <!-- You can install only one Pod network per cluster.
 
 {{< tabs name="tabs-Pod-install" >}}
