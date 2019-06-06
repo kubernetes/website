@@ -104,7 +104,8 @@ token.
 - 巨页可用于 EmptyDir 卷，不过 EmptyDir 卷所使用的巨页数量不能够超出 Pod 请求的巨页数量。
 - 通过带有 `SHM_HUGETLB` 的 `shmget()` 使用巨页的应用，必须运行在一个与
    `proc/sys/vm/hugetlb_shm_group` 匹配的补充组下。
-- 通过 ResourceQuota 可以控制每个命名空间下的巨页使用量，类似于使用 `hugepages-<size>` 标记的其他计算资源（如 cpu 或内存）。
+- 通过 ResourceQuota 资源，可以使用 `hugepages-<size>` 标记控制每个命名空间下的巨页使用量，
+  类似于使用 `cpu` 或 `memory` 来控制其他计算资源。
 
 <!--
 ## Future
