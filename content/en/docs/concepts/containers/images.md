@@ -63,6 +63,8 @@ Credentials can be provided in several ways:
   - Using AWS EC2 Container Registry (ECR)
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
+  - Using Oracle Cloud Infrastructure Registry (OCIR)
+    - use IAM roles and policies to control access to OCIR repositories
   - Using Azure Container Registry (ACR)
   - Using IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
