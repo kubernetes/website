@@ -56,7 +56,7 @@ be requested as well.
 --->
 
 用户可以通过在容器级别的资源需求中使用资源名称 `hugepages-<size>` 来使用巨页，其中的 size 是特定节点上支持的以整数值表示的最小二进制单位。 例如，如果节点支持 2048KiB 的页面规格， 它将暴露可供调度的资源 `hugepages-2Mi`。 与 CPU 或内存不同，巨页不支持过量使用（overcommit）。
-注意，在请求巨面资源时，还必须请求内存或 CPU 资源。
+注意，在请求巨页资源时，还必须请求内存或 CPU 资源。
 
 ```yaml
 apiVersion: v1
