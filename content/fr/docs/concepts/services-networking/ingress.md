@@ -111,7 +111,7 @@ Un backend par défaut est souvent configuré dans un contrôleur d’Ingress qu
 
 ### Backend par défaut
 
-Un Ingress sans règles envoie tout le trafic à un seul backend par défaut. Le backend par défault est généralement une option de configuration du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) et n'est pas spécifié dans vos ressources Ingress.
+Un Ingress sans règles envoie tout le trafic à un seul backend par défaut. Le backend par défaut est généralement une option de configuration du [Contrôleur d'ingress](/docs/concepts/services-networking/ingress-controllers) et n'est pas spécifié dans vos ressources Ingress.
 
 Si aucun des hôtes ou chemins ne correspond à la demande HTTP dans les objets Ingress, le trafic est routé vers votre backend par défaut.
 
@@ -281,8 +281,7 @@ spec:
 
 ### TLS
 
-Vous pouvez sécuriser un ingress en définissant un [secret](/docs/concepts/configuration/secret) qui contient une clé privée et un certificat TLS. Actuellement, l'ingress prend seulement en charge un seul port TLS, 443, et suppose une terminaison TLS. Si la section de configuration TLS dans un ingress spécifie différents hôtes, ils seront
-multiplexé sur le même port en fonction du nom d’hôte spécifié via l'extension SNI TLS (à condition que le contrôleur d’Ingress prenne en charge SNI). Le secret de TLS doit contenir les clés `tls.crt` et` tls.key` contenant le certificat et clé privée à utiliser pour TLS, par exemple :
+Vous pouvez sécuriser un ingress en définissant un [secret](/docs/concepts/configuration/secret) qui contient une clé privée et un certificat TLS. Actuellement, l'ingress prend seulement en charge un seul port TLS, 443, et suppose une terminaison TLS. Si la section de configuration TLS dans un ingress spécifie différents hôtes, ils seront multiplexés sur le même port en fonction du nom d’hôte spécifié via l'extension SNI TLS (à condition que le contrôleur d’Ingress prenne en charge SNI). Le secret de TLS doit contenir les clés `tls.crt` et `tls.key` contenant le certificat et clé privée à utiliser pour TLS, par exemple :
 
 ```yaml
 apiVersion: v1
