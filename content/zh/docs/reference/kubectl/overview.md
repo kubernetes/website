@@ -651,14 +651,14 @@ $ kubectl exec <pod-name> date
 // 运行输出 'date' 获取在容器的 <container-name> 中 pod <pod-name> 的输出。
 $ kubectl exec <pod-name> -c <container-name> date
 
-// 获取一个互动 TTY 和运行 /bin/bash <pod-name >。默认情况下，输出来自第一个容器。
+// 获取一个交互 TTY 并运行 /bin/bash <pod-name >。默认情况下，输出来自第一个容器。
 $ kubectl exec -ti <pod-name> /bin/bash
 ```
 
 <!--
 `kubectl logs` - Print the logs for a container in a pod.
 -->
-`kubectl logs` - 在容器中打印容器的日志。
+`kubectl logs` - 打印 Pod 中容器的日志。
 
 <!--
 // Return a snapshot of the logs from pod <pod-name>.
@@ -723,7 +723,7 @@ $ sudo rm /usr/local/bin/kubectl-hello
 In order to view all of the plugins that are available to `kubectl`, we can use
 the `kubectl plugin list` subcommand:
 -->
-为了查看可用的所有插件 `kubectl`，我们可以使用 `kubectl plugin list`子命令：
+为了查看可用的所有 `kubectl` 插件，我们可以使用 `kubectl plugin list` 子命令：
 
 <!--
 The following kubectl-compatible plugins are available:
@@ -781,15 +781,26 @@ context in our KUBECONFIG file:
 运行上面的插件可以得到一个输出，其中包含当前在 KUBECONFIG 文件中选择的上下文的用户:
 
 ```shell
-// make the file executable
+// 使文件可执行
 $ sudo chmod +x ./kubectl-whoami
 
-// and move it into our PATH
+// 把它移到我们的路径上
 $ sudo mv ./kubectl-whoami /usr/local/bin
 
 $ kubectl whoami
 Current user: plugins-user
 ```
+
+<!--
+// make the file executable
+$ sudo chmod +x ./kubectl-whoami
+// and move it into our PATH
+$ sudo mv ./kubectl-whoami /usr/local/bin
+
+$ kubectl whoami
+Current user: plugins-user
+-->
+
 
 <!--
 To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
