@@ -610,12 +610,23 @@ parameters:
   group are searched to find one that matches `skuName` and `location`. If a
   storage account is provided, it must reside in the same resource group as the
   cluster, and `skuName` and `location` are ignored.
+* `secretNamespace`: the namespace of the secret that contains Azure Storage 
+  Account Name and Key default is the same as the Pod
+* `secretName`: the name of secret that contains Azure Storage Account Name and
+  Key. Default is `azure-storage-account-" + accountName + "-secret`
+* `readOnly`: Defaults to false (read/write). ReadOnly here will force the 
+  ReadOnly setting in VolumeMounts.
 
-During provision, a secret is created for mounting credentials. If the cluster
-has enabled both [RBAC](/docs/reference/access-authn-authz/rbac/) and
+During provision, a secret (defined by parameter secretName)is created for 
+mounting credentials. If the cluster has enabled both 
+[RBAC](/docs/reference/access-authn-authz/rbac/) and 
 [Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles),
 add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
+
+In a multi tenancy context is strongly recommended to set the value of 
+`secretNamespace` otherwise customer can access to the credentials of storage
+account.
 
 ### Portworx Volume
 
