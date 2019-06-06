@@ -281,19 +281,7 @@ Kubernetes supports specifying registry keys on a pod.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
-cat <<EOF > ./kustomization.yaml
-secretGenerator:
-- name: myregistrykey
-  type: docker-registry
-  literals:
-  - docker-server=DOCKER_REGISTRY_SERVER
-  - docker-username=DOCKER_USER
-  - docker-password=DOCKER_PASSWORD
-  - docker-email=DOCKER_EMAIL
-EOF
-
-kubectl apply -k .
-secret/myregistrykey-66h7d4d986 created
+kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
 If you already have a Docker credentials file then, rather than using the above
