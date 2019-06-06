@@ -410,7 +410,7 @@ create a DNS record for `"my-service.my-ns"`. Pods in the `"my-ns"` Namespace
 should be able to find it by simply doing a name lookup for `my-service`
 (`"my-service.my-ns"` would also work).
 
-Pods n other Namespaces must qualify the name as `my-service.my-ns`. These names
+Pods in other Namespaces must qualify the name as `my-service.my-ns`. These names
 will resolve to the cluster IP assigned for the Service.
 
 Kubernetes also supports DNS SRV (service) records for named ports.  If the
