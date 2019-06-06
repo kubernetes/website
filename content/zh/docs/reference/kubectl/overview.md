@@ -2,7 +2,7 @@
 reviewers:
 - bgrant0607
 - hw-qiaolei
-title: kubectl 的概述
+title: kubectl 概述
 content_template: templates/concept
 weight: 20
 ---
@@ -24,8 +24,8 @@ weight: 20
 Kubectl is a command line interface for running commands against Kubernetes clusters.
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
 -->
-Kubectl 是一个命令行接口，用于运行 Kubernetes 集群运行命令。
-本文涵盖了 `kubectl` 语法，描述了命令操作，并提供了常见的示例。有关每个命令的详细信息，包括所有受支持的参数和子命令，请参阅 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 参考文档。有关安装说明，请参见[安装 kubectl](/docs/tasks/kubectl/install/)。
+Kubectl 是一个命令行接口，用于对 Kubernetes 集群运行命令。
+本文概述了 `kubectl` 语法和命令操作描述，并提供了常见的示例。有关每个命令的详细信息，包括所有受支持的参数和子命令，请参阅 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 参考文档。有关安装说明，请参见[安装 kubectl](/docs/tasks/kubectl/install/)。
 
 {{% /capture %}}
 
@@ -40,7 +40,7 @@ Kubectl 是一个命令行接口，用于运行 Kubernetes 集群运行命令。
 <!--
 Use the following syntax to run `kubectl` commands from your terminal window:
 -->
-使用以下命令 `kubectl` 从终端窗口运行命令：
+使用以下语法 `kubectl` 从终端窗口运行命令：
 
 ```shell
 kubectl [command] [TYPE] [NAME] [flags]
@@ -59,7 +59,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `command`：指定要对一个或多个资源执行的操作，例如 `create`、`get`、`describe`、`delete`。
 
-* `TYPE`：指定 [资源类型](#resource-types) 资源类型不区分大小写，可以指定单数、复数或缩写形式。例如，以下命令输出相同的结果:
+* `TYPE`：指定[资源类型](#resource-types)。资源类型不区分大小写，可以指定单数、复数或缩写形式。例如，以下命令输出相同的结果:
 
       ```shell
       $ kubectl get pod pod1
@@ -100,11 +100,11 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
       例子：`$ kubectl get pod example-pod1 example-pod2`
         
       * 分别指定多个资源类型：`TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`。<br/>
-      栗子：`$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
+      例子：`$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
         
    * 用一个或多个文件指定资源：`-f file1 -f file2 -f file<#>`
    
-      * [使用 YAML 而不是 JSON](/docs/concepts/configuration/overview/#general-config-tips) 因为 YAML 更容易使用，特别是对于配置文件。<br/>
+      * [使用 YAML 而不是 JSON](/docs/concepts/configuration/overview/#general-config-tips) 因为 YAML 更容易使用，特别是用于配置文件时。<br/>
      例子：`$ kubectl get pod -f ./pod.yaml`
 
 * `flags`: 指定可选的参数。例如，可以使用 `-s` 或 `-server` 参数指定 Kubernetes API 服务器的地址和端口。<br/>
@@ -114,7 +114,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 <!--
 Flags that you specify from the command line override default values and any corresponding environment variables.
 -->
-从命令行指定的参数覆盖默认值和任何相应的环境变量。
+从命令行指定的参数会覆盖默认值和任何相应的环境变量。
 {{< /caution >}}
 
 <!--
@@ -160,7 +160,7 @@ Execute a command against a container in a pod.
 `api-versions`    | `kubectl api-versions [flags]` | 列出可用的 API 版本。
 `apply`            | `kubectl apply -f FILENAME [flags]`| 从文件或 stdin 对资源应用配置更改。
 `attach`        | `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | 附加到正在运行的容器，查看输出流或与容器（stdin）交互。
-`autoscale`    | `kubectl autoscale (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]` | 自动缩放由复制控制器管理的一组 pod。
+`autoscale`    | `kubectl autoscale (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]` | 自动伸缩由副本控制器管理的一组 pod。
 `cluster-info`    | `kubectl cluster-info [flags]` | 显示有关集群中主服务器和服务的端口信息。
 `config`        | `kubectl config SUBCOMMAND [flags]` | 修改 kubeconfig 文件。有关详细信息，请参阅各个子命令。
 `create`        | `kubectl create -f FILENAME [flags]` | 从文件或 stdin 创建一个或多个资源。
@@ -169,7 +169,7 @@ Execute a command against a container in a pod.
 `edit`        | `kubectl edit (-f FILENAME \| TYPE NAME \| TYPE/NAME) [flags]` | 使用默认编辑器编辑和更新服务器上一个或多个资源的定义。
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | 对 pod 中的容器执行命令。
 `explain`    | `kubectl explain [--include-extended-apis=true] [--recursive=false] [flags]` | 获取各种资源的文档。例如 pod、节点、服务等。
-`expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]` | 将复制控制器、服务或 pod 作为新的 Kubernetes 服务暴露。
+`expose`        | `kubectl expose (-f FILENAME \| TYPE NAME \| TYPE/NAME) [--port=port] [--protocol=TCP\|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]` | 将副本控制器、服务或 pod 作为新的 Kubernetes 服务暴露。
 `get`        | `kubectl get (-f FILENAME \| TYPE [NAME \| /NAME \| -l label]) [--watch] [--sort-by=FIELD] [[-o \| --output]=OUTPUT_FORMAT] [flags]` | 列出一个或多个资源。
 `label`        | `kubectl label (-f FILENAME \| TYPE NAME \| TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | 添加或更新一个或多个资源的标签。
 `logs`        | `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | 在 pod 中打印容器的日志。
@@ -177,9 +177,9 @@ Execute a command against a container in a pod.
 `port-forward`    | `kubectl port-forward POD [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N] [flags]` | 将一个或多个本地端口转发到一个 pod。
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | 运行 Kubernetes API 服务器的代理。
 `replace`        | `kubectl replace -f FILENAME` | 从文件或标准输入中替换资源。
-`rolling-update`    | `kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE \| -f NEW_CONTROLLER_SPEC) [flags]` | 通过逐步替换指定的复制控制器及其 pod 来执行滚动更新。
+`rolling-update`    | `kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE \| -f NEW_CONTROLLER_SPEC) [flags]` | 通过逐步替换指定的副本控制器及其 pod 来执行滚动更新。
 `run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]` | 在集群上运行指定的镜像。
-`scale`        | `kubectl scale (-f FILENAME \| TYPE NAME \| TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]` | 更新指定复制控制器的大小。
+`scale`        | `kubectl scale (-f FILENAME \| TYPE NAME \| TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]` | 更新指定副本控制器的大小。
 `stop`        | `kubectl stop` | 不推荐：相反，请参阅 kubectl delete。
 `version`        | `kubectl version [--client] [flags]` | 显示运行在客户端和服务器上的 Kubernetes 版本。
 
@@ -273,7 +273,7 @@ Resource type    | Abbreviated alias
 Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
 -->
 有关如何格式化或排序某些命令的输出的信息，请使用以下部分。有关哪些命令支持各种输出选项的详细信息，请参阅kubectl参考文档。
-使用以下部分了解如何格式化或排序某些命令的输出。有关哪些命令支持各种输出选项的详细信息，请参阅 [kubectl](/docs/user-guide/kubectl/) 参考文档。
+通过以下部分了解如何格式化或排序某些命令的输出。有关哪些命令支持各种输出选项的详细信息，请参阅 [kubectl](/docs/user-guide/kubectl/) 参考文档。
 
 <!--
 ### Formatting output
@@ -321,9 +321,9 @@ Output a YAML formatted API object.
 输出格式       | 描述
 --------------| -----------
 `-o=custom-columns=<spec>` | 使用逗号分隔的[自定义列](#custom-columns)列表打印表。
-`-o=custom-columns-file=<filename>` | 使用文件中的[自定义列](#custom-columns)模板打印表 `<filename>`。
+`-o=custom-columns-file=<filename>` | 使用 `<filename>` 文件中的[自定义列](#custom-columns)模板打印表。
 `-o=json`     | 输出 JSON 格式的 API 对象。
-`-o=jsonpath=<template>` | 打印 [jsonpath](/docs/reference/kubectl/jsonpath/) 表达式中定义的字段。
+`-o=jsonpath-file=<filename>` | 打印 `<filename>` 文件中 [jsonpath](/docs/reference/kubectl/jsonpath/) 表达式定义的字段。
 `-o=jsonpath-file=<filename>` | 打印文件中 [jsonpath](/docs/reference/kubectl/jsonpath/) 表达式定义的字段 `<filename>`。
 `-o=name`     | 仅打印资源名称而不打印任何其他内容。
 `-o=wide`     | 以纯文本格式输出，包含任何附加信息。对于 pod 包含节点名。
@@ -459,7 +459,7 @@ pod-name   1/1       Running             0          1m
 <!--
 To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 -->
-要将对象输出到终端窗口中的已排序列表，可以将该 `--sort-by` 参数添加到支持的 `kubectl` 命令。通过使用 `--sort-by` 参数指定任何数字或字符串字段来对对象进行排序。要指定字段，请使用 [jsonpath](/docs/reference/kubectl/jsonpath/) 表达式。
+要将对象排序后输出到终端窗口，可以将 `--sort-by` 参数添加到支持的 `kubectl` 命令。通过使用 `--sort-by` 参数指定任何数字或字符串字段来对对象进行排序。要指定字段，请使用 [jsonpath](/docs/reference/kubectl/jsonpath/) 表达式。
 
 <!--
 #### Syntax
@@ -497,7 +497,11 @@ Use the following set of examples to help you familiarize yourself with running 
 -->
 使用以下示例集来帮助您熟悉运行常用 kubectl 操作：
 
+<!--
 `kubectl create` - Create a resource from a file or stdin.
+-->
+
+`kubectl create` - 从文件或标准输出创建资源。
 
 <!--
 // Create a service using the definition in example-service.yaml.
@@ -509,7 +513,7 @@ Use the following set of examples to help you familiarize yourself with running 
 // 使用 example-service.yaml 中的定义创建一个服务。
 $ kubectl create -f example-service.yaml
 
-// 使用 example-controller.yaml 中的定义创建复制控制器。
+// 使用 example-controller.yaml 中的定义创建副本控制器。
 $ kubectl create -f example-controller.yaml
 
 // 创建在目录中的任何 .yaml、.yml 或 .json 文件中定义的对象。
@@ -538,16 +542,16 @@ $ kubectl get pods
 // 以纯文本输出格式列出所有 pod，并包含附加信息(如节点名)。
 $ kubectl get pods -o wide
 
-// 以纯文本输出格式列出具有指定名称的复制控制器。提示：您可以使用别名 'rc' 缩短和替换 'replicationcontroller' 资源类型。
+// 以纯文本输出格式列出具有指定名称的副本控制器。提示：您可以使用别名 'rc' 缩短和替换 'replicationcontroller' 资源类型。
 $ kubectl get replicationcontroller <rc-name>
 
-// 以纯文本输出格式列出所有复制控制器和服务。
+// 以纯文本输出格式列出所有副本控制器和服务。
 $ kubectl get rc,services
 
 // 以纯文本输出格式列出所有守护程序集，包括未初始化的守护程序集。
 $ kubectl get ds --include-uninitialized
 
-// 列出在节点 server01 上运行的所有pod
+// 列出在节点 server01 上运行的所有 pod
 $ kubectl get pods --field-selector=spec.nodeName=server01
 
 // 以纯文本输出格式列出所有 pod，将打印细节委托给服务器
@@ -575,8 +579,8 @@ $ kubectl describe nodes <node-name>
 // 显示名为 <pod-name> 的 pod 的详细信息。
 $ kubectl describe pods/<pod-name>
 
-// 显示由名为 <rc-name> 的复制控制器管理的所有 pod 的详细信息。
-// 记住：复制控制器创建的任何 pod 都以复制控制器的名称为前缀。
+// 显示由名为 <rc-name> 的副本控制器管理的所有 pod 的详细信息。
+// 记住：副本控制器创建的任何 pod 都以复制控制器的名称为前缀。
 $ kubectl describe pods <rc-name>
 
 // 描述所有的 pod，不包括未初始化的 pod
@@ -616,7 +620,7 @@ the pods running on it, the events generated for the node etc.
 -->
 
 ```shell
-// 使用 pod 中指定的类型和名称删除 pod.yaml 文件。
+// 使用 pod.yaml 文件中指定的类型和名称删除 pod。
 $ kubectl delete -f pod.yaml
 
 // 删除标签名= <label-name> 的所有 pod 和服务。
