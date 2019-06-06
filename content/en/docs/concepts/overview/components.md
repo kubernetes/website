@@ -74,13 +74,11 @@ Node components run on every node, maintaining running pods and providing the Ku
 
 ### kube-proxy
 
-[kube-proxy](/docs/admin/kube-proxy/) enables the Kubernetes service abstraction by maintaining
-network rules on the host and performing connection forwarding.
+{{< glossary_definition term_id="kube-proxy" length="all" >}}
 
 ### Container Runtime
 
-The container runtime is the software that is responsible for running containers.
-Kubernetes supports several runtimes: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) and any implementation of the [Kubernetes CRI (Container Runtime Interface)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+{{< glossary_definition term_id="container-runtime" length="all" >}}
 
 ## Addons
 
