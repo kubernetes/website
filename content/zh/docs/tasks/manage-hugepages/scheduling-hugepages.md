@@ -101,7 +101,7 @@ token.
 
 - 巨页的资源请求值必须等于其限制值。该条件在指定了资源限制，而没有指定请求的情况下默认成立。
 - 巨页是被隔离在 pod 作用域的，计划在将来的迭代中实现容器级别的隔离。
-- 巨页对 EmptyDir 卷提供支持，EmptyDir 卷所使用的巨页，不能够超出 pod 请求的巨页内存容量。
+- 巨页可用于 EmptyDir 卷，不过 EmptyDir 卷所使用的巨页数量不能够超出 Pod 请求的巨页数量。
 - 通过带有 `SHM_HUGETLB` 的 `shmget()` 使用巨页的应用，必须运行在一个与
    `proc/sys/vm/hugetlb_shm_group` 匹配的补充组下。
 - 通过 ResourceQuota 可以控制每个命名空间下的巨页使用量，类似于使用 `hugepages-<size>` 标记的其他计算资源（如 cpu 或内存）。
