@@ -14,7 +14,7 @@ disponible traducido al castellano en
 <a href="https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/es.md">Código de Conducta para la Comunidad de la CNCF v1.0</a>.
 
 El texto del CNCF CoC se reproduce a partir de
-<a href="https://github.com/cncf/foundation/blob/0ce4694e5103c0c24ca90c189da81e5408a46632/code-of-conduct.md">commit 0ce4694</a>.
+<a href="https://github.com/cncf/foundation/blob/214585e24aab747fb85c2ea44fbf4a2442e30de6/code-of-conduct.md">commit 214585e</a>.
 
 Si detecta no está actualizado, por favor
 <a href="https://github.com/kubernetes/website/issues/new">abra un issue en GitHub</a>.
