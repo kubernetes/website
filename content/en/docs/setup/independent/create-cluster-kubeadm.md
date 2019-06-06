@@ -306,6 +306,8 @@ kubectl apply -f https://docs.projectcalico.org/v3.7/manifests/canal.yaml
 {{% tab name="Cilium" %}}
 For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
 
+For Cilium to work correctly, you must pass `--pod-network-cidr=10.217.0.0/16` to `kubeadm init`.
+
 These commands will deploy Cilium with its own etcd managed by etcd operator.
 
 _Note_: If you are running kubeadm in a single node please untaint it so that
