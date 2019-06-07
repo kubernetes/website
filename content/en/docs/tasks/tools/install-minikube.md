@@ -44,6 +44,12 @@ Hyper-V Requirements:     VM Monitor Mode Extensions: Yes
                           Data Execution Prevention Available: Yes
 ```
 
+If you see the following output, your system already has a Hypervisor installed and you can skip the next step.
+```
+Hyper-V Requirements:     A hypervisor has been detected. Features required for Hyper-V will not be displayed.
+```
+
+
 {{% /tab %}}
 {{< /tabs >}}
 
