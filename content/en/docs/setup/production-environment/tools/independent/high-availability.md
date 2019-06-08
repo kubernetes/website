@@ -357,7 +357,7 @@ the creation of additional nodes could fail due to a lack of required SANs.
 {{< /caution >}}
 
 1. Then on each joining control plane node you have to run the following script before running `kubeadm join`.
-   This script will move the previously copied certificates from the home directory to `/etc/kuberentes/pki`:
+   This script will move the previously copied certificates from the home directory to `/etc/kubernetes/pki`:
 
     ```sh
     USER=ubuntu # customizable
