@@ -203,8 +203,8 @@ There are a few reasons for using proxying for Services:
    and caching the results of name lookups after they should have expired.
  * Some apps do DNS lookups only once and cache the results indefinitely.
  * Even if apps and libraries did proper re-resolution, the low or zero TTLs
-   on the DNS records involve could impose a high load on DNS, that then
-   becomes difficult to manage.
+   on the DNS records could impose a high load on DNS that then becomes
+   difficult to manage.
 
 ### Version compatibility
 
