@@ -157,7 +157,8 @@ different Kubernetes components.
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | |
-| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | |
+| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
+| `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
