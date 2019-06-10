@@ -3,9 +3,12 @@ Run this command in order to set up the Kubernetes control plane.
 
 ### Synopsis
 
-The `init` command executes the following phases:
+
+Run this command in order to set up the Kubernetes control plane.
+
+The "init" command executes the following phases:
 ```
-preflight                  Run master pre-flight checks
+preflight                  Run pre-flight checks
 kubelet-start              Writes kubelet settings and (re)starts the kubelet
 certs                      Certificate generation
   /ca                        Generates the self-signed Kubernetes CA to provision identities for other Kubernetes components
@@ -15,9 +18,9 @@ certs                      Certificate generation
   /front-proxy-client        Generates the client for the front proxy
   /etcd-ca                   Generates the self-signed CA to provision identities for etcd
   /etcd-server               Generates the certificate for serving etcd
+  /apiserver-etcd-client     Generates the client apiserver uses to access etcd
   /etcd-peer                 Generates the credentials for etcd nodes to communicate with each other
   /etcd-healthcheck-client   Generates the client certificate for liveness probes to healtcheck etcd
-  /apiserver-etcd-client     Generates the client apiserver uses to access etcd
   /sa                        Generates a private key for signing service account tokens along with its public key
 kubeconfig                 Generates all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
   /admin                     Generates a kubeconfig file for the admin to use and for kubeadm itself
@@ -33,6 +36,7 @@ etcd                       Generates static Pod manifest file for local etcd.
 upload-config              Uploads the kubeadm and kubelet configuration to a ConfigMap
   /kubeadm                   Uploads the kubeadm ClusterConfiguration to a ConfigMap
   /kubelet                   Uploads the kubelet component config to a ConfigMap
+upload-certs               Upload certificates to kubeadm-certs
 mark-control-plane         Mark a node as a control-plane
 bootstrap-token            Generates bootstrap tokens used to join a node to a cluster
 addon                      Installs required addons for passing Conformance tests
@@ -58,7 +62,7 @@ kubeadm init [flags]
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address the API Server will advertise it's listening on. Specify '0.0.0.0' to use the address of the default network interface.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</td>
     </tr>
 
     <tr>
@@ -83,17 +87,24 @@ kubeadm init [flags]
     </tr>
 
     <tr>
-      <td colspan="2">--config string</td>
+      <td colspan="2">--certificate-key string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to kubeadm config file. WARNING: Usage of a configuration file is experimental.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.</td>
     </tr>
 
     <tr>
-      <td colspan="2">--cri-socket string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/var/run/dockershim.sock"</td>
+      <td colspan="2">--config string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Specify the CRI socket to connect to.</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--cri-socket string</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</td>
     </tr>
 
     <tr>
@@ -101,6 +112,13 @@ kubeadm init [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Don't apply any changes; just output what would be done.</td>
+    </tr>
+
+    <tr>
+      <td colspan="2">--experimental-upload-certs</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Upload control-plane certificates to the kubeadm-certs Secret.</td>
     </tr>
 
     <tr>
@@ -167,6 +185,13 @@ kubeadm init [flags]
     </tr>
 
     <tr>
+      <td colspan="2">--skip-certificate-key-print</td>
+    </tr>
+    <tr>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Don't print the key used to encrypt the control-plane certificates.</td>
+    </tr>
+
+    <tr>
       <td colspan="2">--skip-phases stringSlice</td>
     </tr>
     <tr>
@@ -184,7 +209,7 @@ kubeadm init [flags]
       <td colspan="2">--token string</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The token to use for establishing bidirectional trust between nodes and masters. The format is [a-z0-9]{6}\.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">The token to use for establishing bidirectional trust between nodes and control-plane nodes. The format is [a-z0-9]{6}\.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef</td>
     </tr>
 
     <tr>

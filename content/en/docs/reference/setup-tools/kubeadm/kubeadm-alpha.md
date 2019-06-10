@@ -48,15 +48,6 @@ to enable the DynamicKubeletConfiguration feature.
 {{< tab name="enable-dynamic" include="generated/kubeadm_alpha_kubelet_config_download.md" />}}
 {{< /tabs >}}
 
-## kubeadm alpha preflight node {#cmd-phase-preflight}
-
-You can use the `node` sub command to run preflight checks on a worker node.
-
-{{< tabs name="tab-preflight" >}}
-{{< tab name="preflight" include="generated/kubeadm_alpha_preflight.md" />}}
-{{< tab name="node" include="generated/kubeadm_alpha_preflight_node.md" />}}
-{{< /tabs >}}
-
 
 ## kubeadm alpha selfhosting pivot {#cmd-selfhosting}
 

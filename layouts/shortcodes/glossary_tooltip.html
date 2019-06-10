@@ -5,7 +5,7 @@
 {{- if not $glossary_items -}}
 {{- errorf "[%s] No glossary items found" site.Language.Lang -}}
 {{- else -}}
-{{- $term_info := $glossary_items.GetMatch (printf "%s*" $id ) -}}
+{{- $term_info := $glossary_items.GetMatch (printf "%s.md" $id ) -}}
 {{- if not $term_info -}}
 {{- errorf "[%s] %q: %q is not a valid glossary term_id, see ./docs/reference/glossary/* for a full list" site.Language.Lang .Page.Path $id -}}
 {{- end }}

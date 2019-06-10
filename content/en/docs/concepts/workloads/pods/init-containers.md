@@ -156,8 +156,8 @@ spec:
 Yaml file below outlines the `mydb` and `myservice` services:
 
 ```yaml
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: myservice
 spec:
@@ -166,8 +166,8 @@ spec:
     port: 80
     targetPort: 9376
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: mydb
 spec:
@@ -180,7 +180,7 @@ spec:
 This Pod can be started and debugged with the following commands:
 
 ```shell
-kubectl create -f myapp.yaml
+kubectl apply -f myapp.yaml
 ```
 ```
 pod/myapp-pod created
@@ -240,7 +240,7 @@ Once we start the `mydb` and `myservice` services, we can see the Init Container
 complete and the `myapp-pod` is created:
 
 ```shell
-kubectl create -f services.yaml
+kubectl apply -f services.yaml
 ```
 ```
 service/myservice created
@@ -318,8 +318,9 @@ same as the scheduler.
 A Pod can restart, causing re-execution of Init Containers, for the following
 reasons:
 
-* A user updates the PodSpec causing the Init Container image to change.
-  App Container image changes only restart the app Container.
+* A user updates the PodSpec causing the Init Container image to change. Any
+  changes to the Init Container image restarts the Pod. App Container image 
+  changes only restart the app Container.
 * The Pod infrastructure container is restarted. This is uncommon and would
   have to be done by someone with root access to nodes.
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,

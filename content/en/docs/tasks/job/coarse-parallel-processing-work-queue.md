@@ -245,7 +245,7 @@ done.  So we set, `.spec.completions: 8` for the example, since we put 8 items i
 So, now run the Job:
 
 ```shell
-kubectl create -f ./job.yaml
+kubectl apply -f ./job.yaml
 ```
 
 Now wait a bit, then check on the job.

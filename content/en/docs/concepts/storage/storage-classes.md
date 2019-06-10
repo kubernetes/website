@@ -45,8 +45,8 @@ request any particular class to bind to: see the
 for details.
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: standard
 provisioner: kubernetes.io/aws-ebs
@@ -151,6 +151,11 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * All of the above
 * [Local](#local)
 
+{{< feature-state state="beta" for_k8s_version="1.14" >}}
+[CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
+and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
+to see its supported topology keys and examples. The `CSINodeInfo` feature gate must be enabled.
+
 ### Allowed Topologies
 
 When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
@@ -162,8 +167,8 @@ zones and should be used as a replacement for the `zone` and `zones` parameters 
 supported plugins.
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: standard
 provisioner: kubernetes.io/gce-pd
@@ -189,8 +194,8 @@ used.
 ### AWS EBS
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: slow
 provisioner: kubernetes.io/aws-ebs
@@ -231,8 +236,8 @@ parameters:
 ### GCE PD
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: slow
 provisioner: kubernetes.io/gce-pd
@@ -351,8 +356,8 @@ parameters:
 ### OpenStack Cinder
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gold
 provisioner: kubernetes.io/cinder
@@ -373,8 +378,8 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
 1. Create a StorageClass with a user specified disk format.
 
     ```yaml
-    kind: StorageClass
     apiVersion: storage.k8s.io/v1
+    kind: StorageClass
     metadata:
       name: fast
     provisioner: kubernetes.io/vsphere-volume
@@ -387,8 +392,8 @@ This internal provisioner of OpenStack is deprecated. Please use [the external c
 2. Create a StorageClass with a disk format on a user specified datastore.
 
     ```yaml
-    kind: StorageClass
     apiVersion: storage.k8s.io/v1
+    kind: StorageClass
     metadata:
       name: fast
     provisioner: kubernetes.io/vsphere-volume
@@ -441,8 +446,8 @@ which you try out for persistent volume management inside Kubernetes for vSphere
 ### Ceph RBD
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: fast
 provisioner: kubernetes.io/rbd
@@ -539,8 +544,8 @@ parameters:
 #### Azure Unmanaged Disk Storage Class
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: slow
 provisioner: kubernetes.io/azure-disk
@@ -560,8 +565,8 @@ parameters:
 #### New Azure Disk Storage Class (starting from v1.7.2)
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: slow
 provisioner: kubernetes.io/azure-disk
@@ -587,8 +592,8 @@ parameters:
 ### Azure File
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: azurefile
 provisioner: kubernetes.io/azure-file
@@ -615,8 +620,8 @@ add the `create` permission of resource `secret` for clusterrole
 ### Portworx Volume
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: portworx-io-priority-high
 provisioner: kubernetes.io/portworx-volume
@@ -650,8 +655,8 @@ parameters:
 ### ScaleIO
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: slow
 provisioner: kubernetes.io/scaleio
@@ -691,8 +696,8 @@ kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
 ### StorageOS
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: fast
 provisioner: kubernetes.io/storageos
@@ -739,18 +744,18 @@ references it.
 
 ### Local
 
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: local-storage
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
 
-Local volumes do not support dynamic provisioning yet, however a StorageClass
+Local volumes do not currently support dynamic provisioning, however a StorageClass
 should still be created to delay volume binding until pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
 

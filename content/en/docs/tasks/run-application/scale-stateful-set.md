@@ -50,7 +50,7 @@ kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 
 Alternatively, you can do [in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) on your StatefulSets.
 
-If your StatefulSet was initially created with `kubectl apply` or `kubectl create --save-config`,
+If your StatefulSet was initially created with `kubectl apply`,
 update `.spec.replicas` of the StatefulSet manifests, and then do a `kubectl apply`:
 
 ```shell

@@ -11,23 +11,32 @@ This document serves both as a reference to the values, and as a coordination po
 {{% /capture %}}
 
 {{% capture body %}}
-## beta.kubernetes.io/arch
+## kubernetes.io/arch
 
-Example: `beta.kubernetes.io/arch=amd64`
+Example: `kubernetes.io/arch=amd64`
 
 Used on: Node
 
 Kubelet populates this with `runtime.GOARCH` as defined by Go.  This can be handy if you are mixing arm and x86 nodes,
 for example.
 
-## beta.kubernetes.io/os
+## kubernetes.io/os
 
-Example: `beta.kubernetes.io/os=linux`
+Example: `kubernetes.io/os=linux`
 
 Used on: Node
 
 Kubelet populates this with `runtime.GOOS` as defined by Go.  This can be handy if you are mixing operating systems
-in your cluster (although currently Linux is the only OS supported by Kubernetes).
+in your cluster (e.g., mixing Linux and Windows nodes).
+
+## beta.kubernetes.io/arch (deprecated)
+
+This label has been deprecated. Please use `kubernetes.io/arch` instead.
+
+## beta.kubernetes.io/os (deprecated)
+
+This label has been deprecated. Please use `kubernetes.io/os` instead.
+
 
 ## kubernetes.io/hostname
 

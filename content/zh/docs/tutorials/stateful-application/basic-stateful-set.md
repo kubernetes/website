@@ -484,7 +484,7 @@ image. Complete the update by deleting the remaining Pods.
 -->
 `web-0` 已经更新了它的镜像，但是 `web-1` 和 `web-2` 仍保留了原始镜像。
 
-​```shell
+```shell
 kubectl delete pod web-1 web-2
 pod "web-1" deleted
 pod "web-2" deleted
@@ -493,7 +493,7 @@ pod "web-2" deleted
 
 观察 StatefulSet 的 Pod，等待它们全部变成 Running 和 Ready。
 
-```
+```shell
 kubectl get pods -w -l app=nginx
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          8m

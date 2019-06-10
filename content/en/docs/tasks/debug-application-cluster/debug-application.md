@@ -107,7 +107,7 @@ For example, if you misspelled `command` as `commnd` then the pod will be create
 will not use the command line you intended it to use.
 
 The first thing to do is to delete your pod and try creating it again with the `--validate` option.
-For example, run `kubectl create --validate -f mypod.yaml`.
+For example, run `kubectl apply --validate -f mypod.yaml`.
 If you misspelled `command` as `commnd` then will give an error like this:
 
 ```shell

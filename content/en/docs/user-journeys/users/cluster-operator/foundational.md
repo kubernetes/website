@@ -80,7 +80,7 @@ You can see the status of the core of kubernetes with the command `kubectl get c
 Some additional resources for getting information about your cluster and how it is operating include:
 
 * [Tools for Monitoring Compute, Storage, and Network Resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
-* [Core metrics pipeline](/docs/tasks/debug-application-cluster/core-metrics-pipeline/)
+* [Resource metrics pipeline](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)
   * [Metrics](/docs/concepts/cluster-administration/controller-metrics/)
 
 ## Explore additional resources

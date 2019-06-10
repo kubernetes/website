@@ -97,7 +97,7 @@ than Google Kubernetes Engine. Proceed at your own risk.
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/examples/debug/fluentd-gcp-configmap.yaml
+    kubectl apply -f https://k8s.io/examples/debug/fluentd-gcp-configmap.yaml
     ```
 
     The command creates the `ConfigMap` in the `default` namespace. You can download the file
@@ -106,7 +106,7 @@ than Google Kubernetes Engine. Proceed at your own risk.
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
     ```
-    kubectl create -f https://k8s.io/examples/debug/fluentd-gcp-ds.yaml
+    kubectl apply -f https://k8s.io/examples/debug/fluentd-gcp-ds.yaml
     ```
 
     You can download and edit this file before using it as well.
@@ -139,7 +139,7 @@ that writes out the value of a counter and the datetime once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
-kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
 ```
 
 You can observe the running pod:

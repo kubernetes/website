@@ -26,8 +26,6 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 
 The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
-* [Upgrading to 1.6](/docs/admin/upgrade-1-6)
-
 ### Upgrading an Azure Kubernetes Service (AKS) cluster
 
 Azure Kubernetes Service enables easy self-service upgrades of the control plane and nodes in your cluster. The process is
@@ -78,6 +76,8 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 * [CoreOS Tectonic](https://coreos.com/tectonic/docs/latest/admin/upgrade.html)
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
+
+To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the [Skewed versions](docs/setup/version-skew-policy/#supported-component-upgrade-order) page.
 
 ## Resizing a cluster
 
@@ -219,3 +219,5 @@ kubectl convert -f pod.yaml --output-version v1
 ```
 
 For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) command.
+
+{{% /capture %}}

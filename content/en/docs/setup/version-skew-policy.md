@@ -37,7 +37,7 @@ Minor releases occur approximately every 3 months, so each minor release branch 
 
 ### kube-apiserver
 
-In [highly-availabile (HA) clusters](/docs/setup/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+In [highly-available (HA) clusters](/docs/setup/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
 
 Example:
 

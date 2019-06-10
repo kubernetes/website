@@ -90,8 +90,8 @@ Connecting to nginx (10.100.0.16:80)
 Let's say you want to limit access to the `nginx` service so that only pods with the label `access: true` can query it. To do that, create a `NetworkPolicy` that allows connections only from those pods:
 
 ```yaml
-kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
   name: access-nginx
 spec:
@@ -110,7 +110,7 @@ spec:
 Use kubectl to create a NetworkPolicy from the above nginx-policy.yaml file:
 
 ```console
-kubectl create -f nginx-policy.yaml
+kubectl apply -f nginx-policy.yaml
 ```
 
 ```none

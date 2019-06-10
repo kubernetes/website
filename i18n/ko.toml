@@ -3,6 +3,9 @@
 [deprecation_warning]
 other = " 문서는 더 이상 적극적으로 관리되지 않음. 현재 보고있는 문서는 정적 스냅샷임. 최신 문서를 위해서는, 다음을 참고. "
 
+[deprecation_file_warning]
+other = "사용 중단됨(deprecated)"
+
 [objectives_heading]
 other = "목적"
 
@@ -49,7 +52,7 @@ other = "참고:"
 other = "경고:"
 
 [main_read_about]
-other = "Read about"
+other = "읽어 보기"
 
 [main_read_more]
 other = "더 읽기"
@@ -94,7 +97,7 @@ other ="페이지 변경 이력"
 other = "최종 수정일시"
 
 [main_by]
-other = "by"
+other = ", 다음 변경에 의해서:"
 
 [main_documentation_license]
 other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
@@ -115,7 +118,63 @@ other = "사용자"
 [docs_label_i_am]
 other = "나는..."
 
+# layouts > blog > pager
 
+[layouts_blog_pager_prev]
+other = "<< 이전"
+
+[layouts_blog_pager_next]
+other = "다음 >>"
+
+# layouts > blog > list
+
+[layouts_case_studies_list_tell]
+other = "당신의 이야기를 들려주세요."
+
+# layouts > docs > glossary
+
+[layouts_docs_glossary_description]
+other = "이 용어집은 쿠버네티스 용어의 종합적이고 표준화된 리스트를 제공한다. 용어집은 K8s 고유의 기술 용어 뿐만 아니라, 맥락을 이해하는데 유용한 더 일반적인 용어도 포함한다. "
+
+[layouts_docs_glossary_filter]
+other = "태그에 따라 용어 필터링"
+
+[layouts_docs_glossary_select_all]
+other = "모두 선택"
+
+[layouts_docs_glossary_deselect_all]
+other = "모두 선택 해제"
+
+[layouts_docs_glossary_aka]
+other = "또 다른 명칭"
+
+[layouts_docs_glossary_click_details_before]
+other = "다음"
+
+[layouts_docs_glossary_click_details_after]
+other = "표시를 클릭하면 각 용어에 대한 더 자세한 설명을 볼 수 있다."
+
+# layouts > docs > search
+
+[layouts_docs_search_fetching]
+other = "결과를 가져오는 중.."
+
+# layouts > partial > feedback
+
+[layouts_docs_partials_feedback_thanks]
+other = "피드백 감사합니다. 쿠버네티스 사용 방법에 대해서 구체적이고 답변 가능한 질문이 있다면, 다음 링크에서 질문하십시오."
+
+[layouts_docs_partials_feedback_issue]
+other = "원한다면 GitHub 리포지터리에 이슈를 열어서"
+
+[layouts_docs_partials_feedback_problem]
+other = "문제 리포트"
+
+[layouts_docs_partials_feedback_or]
+other = "또는"
+
+[layouts_docs_partials_feedback_improvement]
+other = "개선 제안이 가능합니다."
 
 # Community links
 [community_twitter_name]

@@ -119,7 +119,7 @@ $ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-por
 service/nodeport exposed
 
 $ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
+$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
 ```
 
 If you're running on a cloudprovider, you may need to open up a firewall-rule

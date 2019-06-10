@@ -49,11 +49,14 @@ The in-tree cloud providers typically need both `--cloud-provider` and `--cloud-
 for the [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and the
 [kubelet](/docs/admin/kubelet/). The contents of the file specified in `--cloud-config` for each provider is documented below as well.
 
-For all external cloud providers, please follow the instructions on the individual repositories.
+For all external cloud providers, please follow the instructions on the individual repositories,
+which are listed under their headings below, or one may view [the list of all repositories](https://github.com/kubernetes?q=cloud-provider-&type=&language=)
 
 ## AWS
 This section describes all the possible configurations which can
 be used when running Kubernetes on Amazon Web Services.
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-aws](https://github.com/kubernetes/cloud-provider-aws#readme)
 
 ### Node Name
 
@@ -101,9 +104,11 @@ Different settings can be applied to a load balancer service in AWS using _annot
 * `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: Used on the service to enable the proxy protocol on an ELB. Right now we only accept the value `*` which means enabling the proxy protocol on all ELB backends. In the future we could adjust this to allow setting the proxy protocol only on certain backends.
 * `service.beta.kubernetes.io/aws-load-balancer-ssl-ports`: Used on the service to specify a comma-separated list of ports that will use SSL/HTTPS listeners. Defaults to `*` (all)
 
-The information for the annotations for AWS is taken from the comments on [aws.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/cloudprovider/providers/aws/aws.go)
+The information for the annotations for AWS is taken from the comments on [aws.go](https://github.com/kubernetes/cloud-provider-aws/blob/master/pkg/cloudprovider/providers/aws/aws.go)
 
 ## Azure
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-azure](https://github.com/kubernetes/cloud-provider-azure#readme)
 
 ### Node Name
 
@@ -112,12 +117,16 @@ Note that the Kubernetes Node name must match the Azure VM name.
 
 ## CloudStack
 
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-openstack](https://github.com/kubernetes/cloud-provider-openstack#readme)
+
 ### Node Name
 
 The CloudStack cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the CloudStack VM name.
 
 ## GCE
+
+If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-gcp](https://github.com/kubernetes/cloud-provider-gcp#readme)
 
 ### Node Name
 
@@ -240,7 +249,7 @@ file:
   respective network to get its subnets.
 * `floating-network-id` (Optional): If specified, will create a floating IP for
   the load balancer.
-* `lb-method` (Optional): Used to specify algorithm by which load will be
+* `lb-method` (Optional): Used to specify an algorithm by which load will be
   distributed amongst members of the load balancer pool. The value can be
   `ROUND_ROBIN`, `LEAST_CONNECTIONS`, or `SOURCE_IP`. The default behavior if
   none is specified is `ROUND_ROBIN`.
@@ -285,6 +294,8 @@ and should appear in the `[BlockStorage]` section of the `cloud.conf` file:
   there are many Nova availability zones but only one Cinder availability zone.
   The default value is `false` to preserve the behavior used in earlier
   releases, but may change in the future.
+* `node-volume-attach-limit` (Optional): Maximum number of Volumes that can be
+  attached to the node, default is 256 for cinder.
 
 If deploying Kubernetes versions <= 1.8 on an OpenStack deployment that uses
 paths rather than ports to differentiate between endpoints it may be necessary

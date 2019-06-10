@@ -38,7 +38,7 @@ about the complexity and nuances of how storage is provisioned, but still
 have the ability to select from multiple storage options.
 
 More information on storage classes can be found
-[here](/docs/concepts/storage/persistent-volumes/#storageclasses).
+[here](/docs/concepts/storage/storage-classes/).
 
 ## Enabling Dynamic Provisioning
 

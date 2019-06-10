@@ -120,7 +120,7 @@ Though etcd keeps unique member IDs internally, it is recommended to use a uniqu
 
       The following message is displayed:
 
-        8211f1d0f64f3269, started, member1, http://10.0.0.1:12380, http://10.0.0.1:2379
+        8211f1d0f64f3269, started, member1, http://10.0.0.1:2380, http://10.0.0.1:2379
         91bc3c398fb3c146, started, member2, http://10.0.0.2:2380, http://10.0.0.2:2379
         fd422379fda50e48, started, member3, http://10.0.0.3:2380, http://10.0.0.3:2379
 

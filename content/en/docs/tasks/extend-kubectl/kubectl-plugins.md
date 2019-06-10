@@ -9,7 +9,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
+{{< feature-state state="stable" >}}
 
 This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/). By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster, a cluster administrator can think
 of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
@@ -23,8 +23,6 @@ You need to have a working `kubectl` binary installed.
 {{< note >}}
 Plugins were officially introduced as an alpha feature in the v1.8.0 release. They have been re-worked in the v1.12.0 release to support a wider range of use-cases. So, while some parts of the plugins feature were already available in previous versions, a `kubectl` version of 1.12.0 or later is recommended if you are following these docs.
 {{< /note >}}
-
-Until a GA version is released, plugins should be considered unstable, and their underlying mechanism is prone to change.
 
 {{% /capture %}}
 

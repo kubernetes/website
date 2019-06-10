@@ -45,7 +45,7 @@ Here's the configuration file for a LimitRange:
 Create the LimitRange:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints.yaml --namespace=constraints-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints.yaml --namespace=constraints-mem-example
 ```
 
 View detailed information about the LimitRange:
@@ -90,7 +90,7 @@ minimum and maximum memory constraints imposed by the LimitRange.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints-pod.yaml --namespace=constraints-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod.yaml --namespace=constraints-mem-example
 ```
 
 Verify that the Pod's Container is running:
@@ -132,7 +132,7 @@ memory request of 800 MiB and a memory limit of 1.5 GiB.
 Attempt to create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints-pod-2.yaml --namespace=constraints-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-2.yaml --namespace=constraints-mem-example
 ```
 
 The output shows that the Pod does not get created, because the Container specifies a memory limit that is
@@ -153,7 +153,7 @@ memory request of 100 MiB and a memory limit of 800 MiB.
 Attempt to create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints-pod-3.yaml --namespace=constraints-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-3.yaml --namespace=constraints-mem-example
 ```
 
 The output shows that the Pod does not get created, because the Container specifies a memory
@@ -176,7 +176,7 @@ specify a memory request, and it does not specify a memory limit.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/memory-constraints-pod-4.yaml --namespace=constraints-mem-example
+kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-4.yaml --namespace=constraints-mem-example
 ```
 
 View detailed information about the Pod:

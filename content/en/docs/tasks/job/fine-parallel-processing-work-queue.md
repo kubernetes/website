@@ -182,7 +182,7 @@ too.
 So, now run the Job:
 
 ```shell
-kubectl create -f ./job.yaml
+kubectl apply -f ./job.yaml
 ```
 
 Now wait a bit, then check on the job.

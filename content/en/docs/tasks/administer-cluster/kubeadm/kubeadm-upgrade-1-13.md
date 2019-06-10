@@ -223,7 +223,7 @@ A possible workaround is described [here](https://github.com/kubernetes/kubeadm/
     {{% /tab %}}
     {{< /tabs >}}
 
-## Ugrade kubectl on all nodes
+## Upgrade kubectl on all nodes
 
 1.  Upgrade kubectl on all nodes:
 
@@ -285,8 +285,10 @@ A possible workaround is described [here](https://github.com/kubernetes/kubeadm/
     {{< tabs name="k8s_kubelet_and_kubeadm" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.13.x-00 with the latest patch version
+    apt-mark unhold kubelet kubeadm
     apt-get update
     apt-get install -y kubelet=1.13.x-00 kubeadm=1.13.x-00
+    apt-mark hold kubelet kubeadm
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.13.x-0 with the latest patch version

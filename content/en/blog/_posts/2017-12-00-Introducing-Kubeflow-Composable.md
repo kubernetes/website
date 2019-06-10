@@ -5,7 +5,7 @@ slug: introducing-kubeflow-composable
 url: /blog/2017/12/Introducing-Kubeflow-Composable
 ---
 
-**_Today’s post is by David Aronchick and Jeremy Lewi, a PM and Engineer on the Kubeflow project, a new open source Github repo dedicated to making using machine learning (ML) stacks on Kubernetes easy, fast and extensible._**  
+**_Today’s post is by David Aronchick and Jeremy Lewi, a PM and Engineer on the Kubeflow project, a new open source GitHub repo dedicated to making using machine learning (ML) stacks on Kubernetes easy, fast and extensible._**  
 
 
 
@@ -19,7 +19,7 @@ Worse, these deployments are so tied to the clusters they have been deployed to 
 
 
 ## Introducing Kubeflow
-To address these concerns, we’re announcing the creation of the Kubeflow project, a new open source Github repo dedicated to making using ML stacks on Kubernetes easy, fast and extensible. This repository contains:  
+To address these concerns, we’re announcing the creation of the Kubeflow project, a new open source GitHub repo dedicated to making using ML stacks on Kubernetes easy, fast and extensible. This repository contains:  
 
 - JupyterHub to create & manage interactive Jupyter notebooks
 - A Tensorflow [Custom Resource](/docs/concepts/api-extension/custom-resources/) (CRD) that can be configured to use CPUs or GPUs, and adjusted to the size of a cluster with a single setting

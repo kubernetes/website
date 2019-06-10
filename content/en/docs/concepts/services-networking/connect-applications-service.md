@@ -35,7 +35,7 @@ Create an nginx Pod, and note that it has a container port specification:
 This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
 
 ```shell
-kubectl create -f ./run-my-nginx.yaml
+kubectl apply -f ./run-my-nginx.yaml
 kubectl get pods -l run=my-nginx -o wide
 ```
 ```
@@ -71,7 +71,7 @@ kubectl expose deployment/my-nginx
 service/my-nginx exposed
 ```
 
-This is equivalent to `kubectl create -f` the following yaml:
+This is equivalent to `kubectl apply -f` the following yaml:
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
 
@@ -232,7 +232,7 @@ You can acquire all these from the [nginx https example](https://github.com/kube
 
 ```shell
 make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
-kubectl create -f /tmp/secret.json
+kubectl apply -f /tmp/secret.json
 ```
 ```
 secret/nginxsecret created
@@ -269,7 +269,7 @@ data:
 Now create the secrets using the file:
 
 ```shell
-kubectl create -f nginxsecrets.yaml
+kubectl apply -f nginxsecrets.yaml
 kubectl get secrets
 ```
 ```
@@ -312,7 +312,7 @@ Let's test this from a pod (the same secret is being reused for simplicity, the 
 {{< codenew file="service/networking/curlpod.yaml" >}}
 
 ```shell
-kubectl create -f ./curlpod.yaml
+kubectl apply -f ./curlpod.yaml
 kubectl get pods -l app=curlpod
 ```
 ```

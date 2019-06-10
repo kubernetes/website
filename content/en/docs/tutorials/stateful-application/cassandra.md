@@ -48,7 +48,7 @@ To complete this tutorial, you should already have a basic familiarity with [Pod
 * Have a supported Kubernetes cluster running
 
 {{< note >}}
-Please read the [getting started guides](/docs/setup/pick-right-solution/) if you do not already have a cluster.
+Please read the [setup](/docs/setup/) if you do not already have a cluster.
 {{< /note >}}
 
 ### Additional Minikube Setup Instructions
@@ -76,7 +76,7 @@ The following `Service` is used for DNS lookups between Cassandra Pods and clien
 1. Create a Service to track all Cassandra StatefulSet nodes from the `cassandra-service.yaml` file:
 
     ```shell
-    kubectl create -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
+    kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
     ```
 
 ### Validating (optional)
@@ -110,7 +110,7 @@ This example uses the default provisioner for Minikube. Please update the follow
 1. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 
     ```shell
-    kubectl create -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
+    kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
     ```
 
 ## Validating The Cassandra StatefulSet
