@@ -253,7 +253,7 @@ Pod had failed and would automatically retry with a different backend Pod.
 
 You can use Pod [readiness probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
 to verify that backend Pods are working OK, so that kube-proxy in iptables mode
-only sees backends that test out as healthy. Doing this means means you avoid
+only sees backends that test out as healthy. Doing this means you avoid
 having traffic sent via kube-proxy to a Pod that's known to have failed.
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
