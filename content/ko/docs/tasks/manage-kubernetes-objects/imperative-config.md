@@ -12,7 +12,7 @@ weight: 40
 
 {{% capture prerequisites %}}
 
-[`kubectl`](/docs/tasks/tools/install-kubectl/)를 설치한다.
+[`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 

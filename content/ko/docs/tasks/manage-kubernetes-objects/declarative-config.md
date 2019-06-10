@@ -31,7 +31,7 @@ weight: 10
 * 명령형 오브젝트 구성
 * 선언형 오브젝트 구성
 
-오브젝트 관리 방식의 종류별 장단점에 대한 논의는 [Kubernetes Object Management](/ko/docs/concepts/overview/working-with-objects/object-management/)를
+오브젝트 관리 방식의 종류별 장단점에 대한 논의는 [쿠버네티스 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/)를
 참고한다.
 
 ## 개요
