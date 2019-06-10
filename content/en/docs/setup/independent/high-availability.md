@@ -106,7 +106,7 @@ option. Your cluster requirements may need a different configuration.
 
 1.  On the first control plane node, create a configuration file called `kubeadm-config.yaml`:
 
-        apiVersion: kubeadm.k8s.io/v1beta1
+        apiVersion: kubeadm.k8s.io/v1beta2
         kind: ClusterConfiguration
         kubernetesVersion: stable
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
@@ -231,7 +231,7 @@ in the kubeadm config file.
 
 1.  Create a file called `kubeadm-config.yaml` with the following contents:
 
-        apiVersion: kubeadm.k8s.io/v1beta1
+        apiVersion: kubeadm.k8s.io/v1beta2
         kind: ClusterConfiguration
         kubernetesVersion: stable
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
