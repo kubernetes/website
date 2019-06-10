@@ -17,7 +17,7 @@ content_template: templates/concept
 {{% capture overview %}}
 
 Kubernetes 文档的这一部分包含教程。一个教程展示了如何完成一个比单个[任务](/docs/tasks/)更大的目标。
-通常，通常一个教程有几个部分，每个部分都有一系列步骤。在浏览每个教程之前，
+通常一个教程有几个部分，每个部分都有一系列步骤。在浏览每个教程之前，
 您可能希望将[标准化术语表](/docs/reference/glossary/)页面添加到书签，供以后参考。
 
 <!--
