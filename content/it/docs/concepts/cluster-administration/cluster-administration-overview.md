@@ -12,7 +12,7 @@ Presuppone una certa dimestichezza con i core Kubernetes [concetti](/docs/concep
 {{% capture body %}}
 ## Planning a cluster
 
-Consulta le guide in [Scelta della soluzione giusta](/docs/setup/pick-right-solution/) per esempio su come pianificare, 
+Consulta le guide in [Setup](/docs/setup) per esempio su come pianificare, 
 impostare e configurare i cluster di Kubernetes. Le soluzioni elencate in questo articolo sono chiamate *distros*.
 
 Prima di scegliere una guida, ecco alcune considerazioni:
