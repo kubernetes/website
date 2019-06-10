@@ -49,6 +49,8 @@ specified by one of the built-in Kubernetes controllers:
 In this case, make a note of the controller's `.spec.selector`; the same
 selector goes into the PDBs `.spec.selector`.
 
+From version 1.15 PDBs support custom controllers where the [scale subresource](docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
+
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
 described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-selectors).
