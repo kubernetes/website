@@ -10,7 +10,9 @@ weight: 40
 ---
 
 {{% capture overview %}}
+Un objet API qui gère l'accès externe aux services dans un cluster, généralement du traffic HTTP.
 
+Une resource Ingress peut fournir un équilibrage de charge, une terminaison SSL et un hébergement virtuel basé sur un nom.
 {{% /capture %}}
 
 {{% capture body %}}
