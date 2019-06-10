@@ -12,7 +12,7 @@ weight: 40
 {{% capture overview %}}
 Un objet API qui gère l'accès externe aux services dans un cluster, généralement du traffic HTTP.
 
-Une resource Ingress peut fournir un équilibrage de charge, une terminaison SSL et un hébergement virtuel basé sur un nom.
+Un Ingress est un objet Kubernetes qui peut fournir un équilibrage de charge, une terminaison TLS et un hébergement virtuel basé sur un nom.
 {{% /capture %}}
 
 {{% capture body %}}
@@ -253,7 +253,7 @@ spec:
           servicePort: 80
 ```
 
-Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, tout trafic Web à destination de l'adresse IP de votre contrôleur d'Ingress peut être mis en correspondance sans qu'un hôte virtuel basé sur le nom ne soit requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1` `second.foo.com` au `service2`, et à tout trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
+Si vous créez une ressource Ingress sans aucun hôte défini dans les règles, tout trafic Web à destination de l'adresse IP de votre contrôleur d'Ingress peut être mis en correspondance sans qu'un hôte virtuel basé sur le nom ne soit requis. Par exemple, la ressource Ingress suivante acheminera le trafic demandé pour `first.bar.com` au `service1` `second.foo.com` au `service2`, et le reste du trafic à l'adresse IP sans nom d'hôte défini dans la demande (c'est-à-dire sans en-tête de requête présenté) au `service3`.
 
 ```yaml
 apiVersion: extensions/v1beta1
