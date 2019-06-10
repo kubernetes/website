@@ -115,7 +115,7 @@ To activate the build-in signer, you must pass the `--cluster-signing-cert-file`
 If you're creating a new cluster, you can use a kubeadm [configuration file][config]:
 
   ```yaml
-  apiVersion: kubeadm.k8s.io/v1beta1
+  apiVersion: kubeadm.k8s.io/v1beta2
   kind: ClusterConfiguration
   controllerManager:
     extraArgs:

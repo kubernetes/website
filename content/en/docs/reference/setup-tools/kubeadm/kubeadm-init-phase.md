@@ -145,18 +145,18 @@ kubeadm config images list/pull --config=someconfig.yaml
 kubeadm upgrade apply --config=someconfig.yaml
 ```
 
-The file has to contain a [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1#ClusterConfiguration)
+The file has to contain a [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)
 and also a type for the addon - `kube-dns` (default value is `CoreDNS`).
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 dns:
   type: "kube-dns"
 ```
 
-For more details on each field in the `v1beta1` configuration you can navigate to our
-[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1)
+For more details on each field in the `v1beta2` configuration you can navigate to our
+[API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
 
 ## What's next
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
