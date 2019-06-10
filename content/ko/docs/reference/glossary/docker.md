@@ -1,5 +1,5 @@
 ---
-title: Docker
+title: 도커(Docker)
 id: docker
 date: 2018-04-12
 full_link: https://docs.docker.com/engine/
@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
-Docker (구체적으로, Docker 엔진)는 운영 시스템 수준의 가상화를 제공하는 소프트웨어 기술이며, {{< glossary_tooltip text="containers" term_id="container" >}} 로도 알려져 있다.
+도커(구체적으로, 도커 엔진)는 운영 시스템 수준의 가상화를 제공하는 소프트웨어 기술이며, {{< glossary_tooltip text="containers" term_id="container" >}} 로도 알려져 있다.
 
 <!--more-->
 
