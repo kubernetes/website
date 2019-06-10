@@ -54,7 +54,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 
 ## Check required ports
 
-### Master node(s)
+### Control-plane node(s)
 
 | Protocol | Direction | Port Range | Purpose                 | Used By                   |
 |----------|-----------|------------|-------------------------|---------------------------|
@@ -76,7 +76,7 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 Any port numbers marked with * are overridable, so you will need to ensure any
 custom ports you provide are also open.
 
-Although etcd ports are included in master nodes, you can also host your own
+Although etcd ports are included in control-plane nodes, you can also host your own
 etcd cluster externally or on custom ports.
 
 The pod network plugin you use (see below) may also require certain ports to be
@@ -201,7 +201,7 @@ systemctl enable --now kubelet
 Install CNI plugins (required for most pod network):
 
 ```bash
-CNI_VERSION="v0.6.0"
+CNI_VERSION="v0.7.5"
 mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
 ```
@@ -209,7 +209,7 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
-CRICTL_VERSION="v1.11.1"
+CRICTL_VERSION="v1.12.0"
 mkdir -p /opt/bin
 curl -L "https://github.com/kubernetes-incubator/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
 ```
@@ -241,7 +241,7 @@ systemctl enable --now kubelet
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 
-## Configure cgroup driver used by kubelet on Master Node
+## Configure cgroup driver used by kubelet on control-plane node
 
 When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
 and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
@@ -265,6 +265,9 @@ Restarting the kubelet is required:
 systemctl daemon-reload
 systemctl restart kubelet
 ```
+
+The automatic detection of cgroup driver for other container runtimes
+like CRI-O and containerd is work in progress.
 
 ## Troubleshooting
 
