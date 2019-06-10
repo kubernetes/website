@@ -1315,7 +1315,7 @@ Learn how to
 
 #### CSI ephemeral volumes
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
 This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
 
