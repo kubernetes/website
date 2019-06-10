@@ -52,7 +52,7 @@ weight: 10
                 <p>创建应用程序实例后，Kubernetes Deployment 控制器会持续监视这些实例。 如果托管实例的节点关闭或被删除，则 Deployment 控制器会将该实例替换为群集中另一个节点上的实例。 <b>这提供了一种自我修复机制来解决机器故障维护问题。</b></p>
 
                 <!-- <p>In a pre-orchestration world, installation scripts would often be used to start applications, but they did not allow recovery from machine failure.  By both creating your application instances and keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach to application management. </p> -->
-                <p>在没有 Kubernetes 这种编排系统之前，安装脚本通常用于启动应用程序，但它们不允许从机器故障中恢复。通过创建应用程序实例并使它们在节点之间运行，       Kubernetes Deployments 提供了一种与众不同的应用程序管理方法。</p>
+                <p>在没有 Kubernetes 这种编排系统之前，安装脚本通常用于启动应用程序，但它们不允许从机器故障中恢复。通过创建应用程序实例并使它们在节点之间运行， Kubernetes Deployments 提供了一种与众不同的应用程序管理方法。</p>
 
             </div>
 
@@ -95,13 +95,10 @@ weight: 10
             <div class="col-md-8">
 
                 <!-- <p>You can create and manage a Deployment by using the Kubernetes command line interface, <b>Kubectl</b>. Kubectl uses the Kubernetes API to interact with the cluster. In this module, you'll learn the most common Kubectl commands needed to create Deployments that run your applications on a Kubernetes cluster.</p> -->
-                <p>您可以使用 Kubernetes 命令行界面创建和管理 Deployment，<b>Kubectl</b>.  Kubectl 使用 Kubernetes API 与集群进行交互。在本单元中，您将学习创建在 Kubernetes 集群上运行应用程序的 Deployment 所需的最常见的 Kubectl 命令。</p>
+                <p>您可以使用 Kubernetes 命令行界面创建和管理 Deployment，<b>Kubectl</b>.Kubectl 使用 Kubernetes API 与集群进行交互。在本单元中，您将学习创建在 Kubernetes 集群上运行应用程序的 Deployment 所需的最常见的 Kubectl 命令。</p>
 
                 <!-- <p>When you create a Deployment, you'll need to specify the container image for your application and the number of replicas that you want to run. You can change that information later by updating your Deployment; Modules <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> and <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a> of the bootcamp discuss how you can scale and update your Deployments.</p> -->
                 <p>创建 Deployment 时，您需要指定应用程序的容器映像以及要运行的副本数。您可以稍后通过更新 Deployment 来更改该信息; 模块 <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> 和 <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a> 讨论了如何扩展和更新 Deployments。</p>
-
-
-
 
             </div>
             <div class="col-md-4">
