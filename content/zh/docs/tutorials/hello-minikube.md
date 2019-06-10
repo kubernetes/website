@@ -530,7 +530,7 @@ minikube delete
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
-* 学习更多关于 [Deployment 对象](/docs/concepts/workloads/controllers/deployment/)。
+* 进一步了解 [Deployment 对象](/docs/concepts/workloads/controllers/deployment/)。
 * 学习更多关于 [部署应用](/docs/user-guide/deploying-applications/)。
 * 学习更多关于 [Service 对象](/docs/concepts/services-networking/service/)。
 
