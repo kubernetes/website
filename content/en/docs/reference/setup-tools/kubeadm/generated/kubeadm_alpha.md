@@ -3,48 +3,17 @@ Kubeadm experimental sub-commands
 
 ### Synopsis
 
-
 Kubeadm experimental sub-commands
 
 ### Options
 
-<table style="width: 100%; table-layout: fixed;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
-
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">help for alpha</td>
-    </tr>
-
-  </tbody>
-</table>
-
-
+```
+  -h, --help   help for alpha
+```
 
 ### Options inherited from parent commands
 
-<table style="width: 100%; table-layout: fixed;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
-
-    <tr>
-      <td colspan="2">--rootfs string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] The path to the 'real' host root filesystem.</td>
-    </tr>
-
-  </tbody>
-</table>
-
-
+```
+      --rootfs string   [EXPERIMENTAL] The path to the 'real' host root filesystem.
+```
 

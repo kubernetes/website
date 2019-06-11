@@ -23,6 +23,7 @@ kubeadm join phase preflight [api-server-endpoint] [flags]
       --apiserver-bind-port int32                     If the node should host a new control plane instance, the port for the API Server to bind to. (default 6443)
       --certificate-key string                        Use this key to decrypt the certificate secrets uploaded by init.
       --config string                                 Path to kubeadm config file.
+      --control-plane                                 Create a new control plane instance on this node
       --cri-socket string                             Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
       --discovery-file string                         For file-based discovery, a file or URL from which to load cluster information.
       --discovery-token string                        For token-based discovery, the token used to validate cluster information fetched from the API server.

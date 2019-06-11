@@ -1,9 +1,9 @@
 
-Prepares the machine for serving a control plane.
+Prepare the machine for serving a control plane
 
 ### Synopsis
 
-Prepares the machine for serving a control plane.
+Prepare the machine for serving a control plane
 
 ```
 kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
@@ -16,6 +16,7 @@ kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
       --apiserver-bind-port int32                     If the node should host a new control plane instance, the port for the API Server to bind to. (default 6443)
       --certificate-key string                        Use this key to decrypt the certificate secrets uploaded by init.
       --config string                                 Path to kubeadm config file.
+      --control-plane                                 Create a new control plane instance on this node
       --discovery-file string                         For file-based discovery, a file or URL from which to load cluster information.
       --discovery-token string                        For token-based discovery, the token used to validate cluster information fetched from the API server.
       --discovery-token-ca-cert-hash strings          For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").

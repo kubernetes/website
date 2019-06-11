@@ -1,9 +1,9 @@
 
-Generates the kubeconfig for the new control plane components
+Generate the kubeconfig for the new control plane components
 
 ### Synopsis
 
-Generates the kubeconfig for the new control plane components
+Generate the kubeconfig for the new control plane components
 
 ```
 kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags]
@@ -14,6 +14,7 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 ```
       --certificate-key string                        Use this key to decrypt the certificate secrets uploaded by init.
       --config string                                 Path to kubeadm config file.
+      --control-plane                                 Create a new control plane instance on this node
       --discovery-file string                         For file-based discovery, a file or URL from which to load cluster information.
       --discovery-token string                        For token-based discovery, the token used to validate cluster information fetched from the API server.
       --discovery-token-ca-cert-hash strings          For token-based discovery, validate that the root CA public key matches this hash (format: "<type>:<value>").
