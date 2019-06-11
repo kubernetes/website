@@ -29,6 +29,8 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 ## Overview
 
+{{< feature-state state="beta" for_kubernetes_version="1.15" >}}
+
 The CustomResourceDefinition API supports a `versions` field that you can use to
 support multiple versions of custom resources that you have developed. Versions
 can have different schemas with a conversion webhook to convert custom resources between versions.
@@ -147,9 +149,11 @@ the version.
 
 ## Webhook conversion
 
+{{< feature-state state="beta" for_kubernetes_version="1.15" >}}
+
 {{< note >}}
-Webhook conversion is introduced in Kubernetes 1.13 as an alpha feature. To use it, the
-`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
+Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The
+`CustomResourceWebhookConversion` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 {{< /note >}}
 
 The above example has a None conversion between versions which only sets the `apiVersion` field
@@ -181,6 +185,10 @@ authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
 how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers).
 {{< /note >}}
+
+#### Permissible mutations
+
+A conversion webhook must not mutate anything inside of `metadata` of the converted object other than `labels` and `annotations`. Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request which caused the conversion. All other changes are just ignored.  
 
 ### Deploy the conversion webhook service
 
