@@ -51,9 +51,9 @@ Pods, Kubernetes modifies the Pod Spec. For changes to `Env`, `EnvFrom`, and
 the Pod; for changes to `Volume`, Kubernetes modifies the Pod Spec.
 
 {{< note >}}
-A Pod Preset is capable of modifying the `.spec.containers` field in a
-Pod spec when appropriate. *No* resource definition from the Pod Preset will be
-applied to the `initContainers` field.
+A Pod Preset is capable of modifying the following fields in a Pod spec when appropriate:
+- The `.spec.containers` field.
+- The `initContainers` field (requires Kubernetes version 1.14.0 or later).
 {{< /note >}}
 
 ### Disable Pod Preset for a Specific Pod
