@@ -310,6 +310,10 @@ and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should 
 to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
+For a probe, the kubelet makes the probe connection at the node, not in the pod, which
+means that you can not use a service name in the `host` parameter since the kubelet is unable
+to resolve it.
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}

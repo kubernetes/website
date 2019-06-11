@@ -44,7 +44,7 @@ administrator to control the following:
 | The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedprocmounttypes) |
 | The AppArmor profile used by containers             | [annotations](#apparmor)                    |
 | The seccomp profile used by containers              | [annotations](#seccomp)                     |
-| The sysctl profile used by containers               | [annotations](#sysctl)                      |
+| The sysctl profile used by containers               | [`forbiddenSysctls`,`allowedUnsafeSysctls`](#sysctl)                      |
 
 
 ## Enabling Pod Security Policies
@@ -608,7 +608,12 @@ default cannot be changed.
 
 ### Sysctl
 
-Controlled via annotations on the PodSecurityPolicy. Refer to the [Sysctl documentation](
+By default, all safe sysctls are allowed. 
+
+- `forbiddenSysctls` - excludes specific sysctls. You can forbid a combination of safe and unsafe sysctls in the list. To forbid setting any sysctls, use `*` on its own.
+- `allowedUnsafeSysctls` - allows specific sysctls that had been disallowed by the default list, so long as these are not listed in `forbiddenSysctls`.
+
+Refer to the [Sysctl documentation](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
 {{% /capture %}}

@@ -111,10 +111,11 @@ document, use the backtick (`).
   <tr><td>The <code>kubectl run</code> command creates a Deployment.</td><td>The "kubectl run" command creates a Deployment.</td></tr>
   <tr><td>For declarative management, use <code>kubectl apply</code>.</td><td>For declarative management, use "kubectl apply".</td></tr>
   <tr><td>Enclose code samples with triple backticks. <code>(```)</code></td><td>Enclose code samples with any other syntax.</td></tr>
+  <tr><td>Use single backticks to enclose inline code. For example, `var example = true`.</td><td>Use two asterisks (**) or an underscore (_) to enclose inline code. For example, **var example = true**.</td></tr><tr><td>Use triple backticks before and after a multi-line block of code for fenced code blocks.</td><td>Use multi-line blocks of code to create diagrams, flowcharts, or other illustrations.</td></tr><tr><td>Use meaningful variable names that have a context.</td><td>Use variable names such as 'foo','bar', and 'baz' that are not meaningful and lack context.</td></tr><tr><td>Remove trailing spaces in the code.</td><td>Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well.</td></tr>
 </table>
 
 {{< note >}} 
-The website supports syntax highlighting for code samples, but specifying a language is optional.
+The website supports syntax highlighting for code samples, but specifying a language is optional. Syntax highlighting in the code block should conform to the [contrast guidelines.](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
 {{< /note >}}
 
 ### Use code style for object field names
@@ -195,6 +196,7 @@ A list of Kubernetes-specific terms and words to be used consistently across the
   <tr><td>Kubernetes</td><td>Kubernetes should always be capitalized.</td></tr>
   <tr><td>Docker</td><td>Docker should always be capitalized.</td></tr>
   <tr><td>SIG Docs</td><td>SIG Docs rather than SIG-DOCS or other variations.</td></tr>
+  <tr><td>On-premises</td><td>On-premises or On-prem rather than On-premise or other variations.</td></tr>
 </table>
 
 ## Shortcodes
@@ -358,6 +360,60 @@ Shortcodes inside include statements will break the build. You must insert them 
 {{</* include "task-tutorial-prereqs.md" */>}}
 {{</* /note */>}}
 ```
+
+
+## Markdown elements
+
+### Line breaks
+Use a single newline to separate block-level content like headings, lists, images, code blocks, and others. The exception is second-level headings, where it should be two newlines. Second-level headings follow the first-level (or the title) without any preceding paragraphs or texts. A two line spacing helps visualize the overall structure of content in a code editor better.
+
+### Headings
+People accessing this documentation may use a screen reader or other assistive technology (AT). [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices, they output items on a page one at a time. If there is a lot of content on a page, you can use headings to give the page an internal structure. A good page structure helps all readers to easily navigate the page or filter topics of interest.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Update the title in the front matter of the page or blog post.</td><td>Use first level heading, as Hugo automatically converts the title in the front matter of the page into a first-level heading.</td></tr><tr><td>Use ordered headings to provide a meaningful high-level outline of your content.</td><td>Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.</td>
+  <tr><td>Use pound or hash signs (#) for non-blog post content.</td><td> Use underlines (--- or ===) to designate first-level headings.</td></tr> 
+  <tr><td>Use sentence case for headings. For example, <b>Extend kubectl with plugins</b></td><td>Use title case for headings. For example, <b>Extend Kubectl With Plugins</b></td></tr>  
+</table>
+
+### Paragraphs
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Try to keep paragraphs under 6 sentences.</td><td>Indent the first paragraph with space characters. For example, ⋅⋅⋅Three spaces before a paragraph will indent it.</td></tr>
+  <tr><td>Use three hyphens (---) to create a horizontal rule. Use horizontal rules for breaks in paragraph content. For example, a change of scene in a story, or a shift of topic within a section.</td><td>Use horizontal rules for decoration.</td></tr>
+</table>
+
+### Links
+ <table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Write hyperlinks that give you context for the content they link to. For example: Certain ports are open on your machines. See <a href="#check-required-ports">Check required ports</a> for more details.</td><td>Use ambiguous terms such as “click here”. For example: Certain ports are open on your machines. See <a href="#check-required-ports">here</a> for more details.</td></tr> <tr><td>Write Markdown-style links &lpar;&lsqb;link text&rsqb;&lpar;URL&rpar;&rpar;. For example, <code>&lsqb;Hugo shortcodes&rsqb;&lpar;/docs/contribute/style/hugo-shortcodes/#table-captions&rpar;</code> and the output is <a href="/docs/contribute/style/hugo-shortcodes/#table-captions">Hugo shortcodes.</td><td>Write HTML-style links <code>&lpar;&lt;link href="/media/examples/link-element-example.css" target="_blank"&gt;Visit our tutorial!&rpar;</code> or create links that open in new tabs or windows. For example, <code>&lsqb;example website&rsqb;&lpar;https://example.com&rpar;{target="_blank"}</code></td></tr>
+</table>
+
+### Lists
+Group items in a list that are related to each other and need to appear in a specific order or to indicate a correlation between multiple items. When a screen reader comes across a list—whether it is an ordered or unordered list—it will be announced to the user that there is a group of list items. The user can then use the arrow keys to move up and down between the various items in the list.
+Website navigation links can also be marked up as list items; after all they are nothing but a group of related links.
+
+ - End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
+ 
+   {{< note >}} Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.{{< /note >}}
+   
+ - Use the number one (1.) for ordered lists.
+ 
+ - Use (+), (* ), or (-) for unordered lists.
+ 
+ - Leave a blank line after each list. 
+ 
+ - Indent nested lists with four spaces (for example, ⋅⋅⋅⋅). 
+ 
+ - List items may consist of multiple paragraphs. Each subsequent paragraph in a list item must be indented by either four spaces or one tab.
+
+### Tables
+
+The semantic purpose of a data table is to present tabular data. Sighted users can quickly scan the table but a screen reader goes through line by line. A table caption is used to create a descriptive title for a data table. Assistive technologies (AT) use the HTML table caption element to identify the table contents to the user within the page structure.
+
+- Add table captions using [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions) for tables.
 
 ## Content best practices
 

@@ -88,8 +88,8 @@ The following production environment solutions table lists the providers and the
 | [Kontena Pharos](https://www.kontena.io/pharos/)          |    |&#x2714;|    &#x2714;    |        |         |
 | [Kubermatic](https://www.loodse.com/)         |     &#x2714;  | &#x2714; | &#x2714;     |     |  |
 | [KubeSail](https://kubesail.com/)    | &#x2714;       |  |      |     |        |
-| [Kubespray](https://kubespray.io/#/)       |       |    |       |&#x2714;  |  |  |
-| [Kublr](https://kublr.com/)        |&#x2714; | &#x2714;  |&#x2714;       |&#x2714;  | |  |
+| [Kubespray](https://kubespray.io/#/)       |       |    |       |&#x2714;  | &#x2714; | &#x2714; |
+| [Kublr](https://kublr.com/)        |&#x2714; | &#x2714;  |&#x2714;       |&#x2714;  |&#x2714; |&#x2714; |
 | [Microsoft Azure](https://azure.microsoft.com)    |  [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/en-us/services/kubernetes-service/)     |  |     |        |    |
 | [Mirantis Cloud Platform](https://www.mirantis.com/software/kubernetes/)    |       |  | &#x2714; |  |    |
 | [Nirmata](https://www.nirmata.com/)          |              |   &#x2714;     | &#x2714;            |      |          |
@@ -97,7 +97,7 @@ The following production environment solutions table lists the providers and the
 | [OpenShift](https://www.openshift.com)          |[OpenShift Dedicated](https://www.openshift.com/products/dedicated/) and [OpenShift Online](https://www.openshift.com/products/online/)              |        | [OpenShift Container Platform](https://www.openshift.com/products/container-platform/)            |      |  [OpenShift Container Platform](https://www.openshift.com/products/container-platform/)        |[OpenShift Container Platform](https://www.openshift.com/products/container-platform/)
 | [Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE)](https://docs.cloud.oracle.com/iaas/Content/ContEng/Concepts/contengoverview.htm)          | &#x2714;             |   &#x2714;     |             |      |          |
 | [oVirt](https://www.ovirt.org/)         |              |        |             |     | &#x2714;          |
-| [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service)         |              | &#x2714;       | &#x2714;           |      |          |
+| [Pivotal](https://pivotal.io/) | | [Enterprise Pivotal Container Service (PKS)](https://pivotal.io/platform/pivotal-container-service) | [Enterprise Pivotal Container Service (PKS)](https://pivotal.io/platform/pivotal-container-service)           |      |          |
 | [Platform9](https://platform9.com/)         | &#x2714;             | &#x2714;      | &#x2714;            |      |   &#x2714;       |&#x2714;
 | [Rancher](https://rancher.com/)         |              |   [Rancher 2.x](https://rancher.com/docs/rancher/v2.x/en/)     |             |  [Rancher Kubernetes Engine (RKE)](https://rancher.com/docs/rke/latest/en/)    |          | [k3s](https://k3s.io/)
 | [StackPoint](https://stackpoint.io/)          | &#x2714;            |  &#x2714;      |             |      |          |

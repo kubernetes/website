@@ -23,7 +23,7 @@ The `extraArgs` field consist of `key: value` pairs. To override a flag for a co
 2.  Add the flags to override to the field.
 
 For more details on each field in the configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration).
+[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
 
 {{% /capture %}}
 

@@ -1,5 +1,18 @@
+{{ $inServerMode := site.IsServer }}
+{{ $sass         := "sass/style.sass" }}
+{{ $cssOutput    := "css/style.css" }}
+{{ $devOpts      := (dict "targetPath" $cssOutput "enableSourceMap" true) }}
+{{ $prodOpts     := (dict "targetPath" $cssOutput "outputStyle" "compressed") }}
+{{ $cssOpts      := cond $inServerMode $devOpts $prodOpts }}
+{{ $css          := resources.Get $sass | resources.ExecuteAsTemplate $sass . | toCSS $cssOpts }}
+{{ if $inServerMode }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{ else }}
+{{ $prodCss := $css | fingerprint }}
+<link rel="stylesheet" href="{{ $prodCss.RelPermalink }}" integrity="{{ $prodCss.Data.Integrity }}">
+{{ end }}
+
 <link rel="stylesheet" href="/css/base_fonts.css">
-<link rel="stylesheet" href="/css/styles.css">
 {{- if .Params.case_study_styles }}
 <link rel="stylesheet" href="/css/case-study-styles.css">
 {{- end }}
