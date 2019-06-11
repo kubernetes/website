@@ -10,7 +10,9 @@ weight: 40
 ---
 
 {{% capture overview %}}
+Un Ingress est un objet Kubernetes qui gère l'accès externe aux services dans un cluster, généralement du trafic HTTP.
 
+Un Ingress peut fournir un équilibrage de charge, une terminaison TLS et un hébergement virtuel basé sur un nom.
 {{% /capture %}}
 
 {{% capture body %}}
