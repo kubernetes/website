@@ -213,6 +213,12 @@ status check.
 {{< note >}}
 Issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) still exists for versions of Kubernetes prior to version 1.12
 {{< /note >}}
+{{< note >}}
+If your job has `restartPolicy = "OnFailure"`, keep in mind that your container running the Job
+will be terminated once the job backoff limit has been reached. This can make debugging the Job's executable more difficult. We suggest setting
+`restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
+from failed Jobs is not lost inadvertently.
+{{< /note >}}
 
 ## Job Termination and Cleanup
 
