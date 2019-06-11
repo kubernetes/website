@@ -555,9 +555,7 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /code-of-conduct/     /community/code-of-conduct/   301
 
 /docs/setup/version-skew-policy/     /docs/setup/release/version-skew-policy/   301
-<<<<<<< HEAD
-/docs/setup/minikube/     /docs/setup/learning-environment/minikube/   301     
-=======
+
 /docs/setup/minikube/     /docs/setup/learning-environment/minikube/   301
 /docs/setup/cri/     /docs/setup/production-environment/container-runtimes/   301
 /docs/setup/independent/install-kubeadm/     /docs/setup/production-environment/tools/kubeadm/install-kubeadm/   301
@@ -588,4 +586,4 @@ https://kubernetes-io-v1-7.netlify.com/*    https://v1-7.docs.kubernetes.io/:spl
 /docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
 /docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301
 /docs/setup/certificates/     /docs/setup/best-practices/certificates/   301      
->>>>>>> restructure the left nav pane for setup
+
