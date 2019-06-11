@@ -23,7 +23,7 @@ The `extraArgs` field consist of `key: value` pairs. To override a flag for a co
 2.  Add the flags to override to the field.
 
 For more details on each field in the configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration).
+[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration).
 
 {{% /capture %}}
 
@@ -35,7 +35,7 @@ For details, see the [reference documentation for kube-apiserver](/docs/referenc
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
 metadata:
@@ -54,7 +54,7 @@ For details, see the [reference documentation for kube-controller-manager](/docs
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
 metadata:
@@ -72,7 +72,7 @@ For details, see the [reference documentation for kube-scheduler](/docs/referenc
 
 Example usage:
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
 metadata:

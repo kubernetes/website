@@ -1,18 +1,18 @@
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Creating a single master cluster with kubeadm
+title: Creating a single control-plane cluster with kubeadm
 content_template: templates/task
 weight: 30
 ---
 
 {{% capture overview %}}
 
-<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster 
-lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/). 
+<img src="https://raw.githubusercontent.com/cncf/artwork/master/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
+lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
 
-Because you can install kubeadm on various types of machine (e.g. laptop, server, 
-Raspberry Pi, etc.), it's well suited for integration with provisioning systems 
+Because you can install kubeadm on various types of machine (e.g. laptop, server,
+Raspberry Pi, etc.), it's well suited for integration with provisioning systems
 such as Terraform or Ansible.
 
 kubeadm's simplicity means it can serve a wide range of use cases:
@@ -33,17 +33,17 @@ installing deb or rpm packages. The responsible SIG for kubeadm,
 but you may also build them from source for other OSes.
 
 
-### kubeadm Maturity
+### kubeadm maturity
 
 | Area                      | Maturity Level |
 |---------------------------|--------------- |
 | Command line UX           | GA             |
 | Implementation            | GA             |
-| Config file API           | beta           |
+| Config file API           | Beta           |
 | CoreDNS                   | GA             |
-| kubeadm alpha subcommands | alpha          |
-| High availability         | alpha          |
-| DynamicKubeletConfig      | alpha          |
+| kubeadm alpha subcommands | Alpha          |
+| High availability         | Beta           |
+| DynamicKubeletConfig      | Alpha          |
 
 
 kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
@@ -69,6 +69,8 @@ timeframe; which also applies to `kubeadm`.
 | v1.11.x            | June 2018      | March 2019        |
 | v1.12.x            | September 2018 | June 2019         |
 | v1.13.x            | December 2018  | September 2019    |
+| v1.14.x            | March 2019     | December 2019     |
+| v1.15.x            | June 2019      | March 2020        |
 
 {{% /capture %}}
 
@@ -77,17 +79,17 @@ timeframe; which also applies to `kubeadm`.
 - One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
 - 2 GB or more of RAM per machine. Any less leaves little room for your
    apps.
-- 2 CPUs or more on the master
+- 2 CPUs or more on the control-plane node
 - Full network connectivity among all machines in the cluster. A public or
    private network is fine.
- 
+
 {{% /capture %}}
 
 {{% capture steps %}}
 
 ## Objectives
 
-* Install a single master Kubernetes cluster or [high availability cluster](/docs/setup/independent/high-availability/)
+* Install a single control-plane Kubernetes cluster or [high-availability cluster](/docs/setup/independent/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -102,17 +104,17 @@ If you have already installed kubeadm, run `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
-kubeadm to tell it what to do. This crashloop is expected and normal. 
-After you initialize your master, the kubelet runs normally.
+kubeadm to tell it what to do. This crashloop is expected and normal.
+After you initialize your control-plane, the kubelet runs normally.
 {{< /note >}}
 
-### Initializing your master
+### Initializing your control-plane node
 
-The master is the machine where the control plane components run, including
+The control-plane node is the machine where the control plane components run, including
 etcd (the cluster database) and the API server (which the kubectl CLI
 communicates with).
 
-1. Choose a pod network add-on, and verify whether it requires any arguments to 
+1. Choose a pod network add-on, and verify whether it requires any arguments to
 be passed to kubeadm initialization. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
 a provider-specific value. See [Installing a pod network add-on](#pod-network).
@@ -120,18 +122,18 @@ a provider-specific value. See [Installing a pod network add-on](#pod-network).
 by using a list of well known domain socket paths. To use different container runtime or
 if there are more than one installed on the provisioned node, specify the `--cri-socket`
 argument to `kubeadm init`. See [Installing runtime](/docs/setup/independent/install-kubeadm/#installing-runtime).
-1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated 
-with the default gateway to advertise the master's IP. To use a different 
-network interface, specify the `--apiserver-advertise-address=<ip-address>` argument 
-to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you 
+1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated
+with the default gateway to advertise the control-plane's IP. To use a different
+network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
+to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
-1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify 
-connectivity to gcr.io registries.   
+1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
+connectivity to gcr.io registries.
 
 Now run:
 
 ```bash
-kubeadm init <args> 
+kubeadm init <args>
 ```
 
 ### More information
@@ -150,7 +152,7 @@ components do not currently support multi-architecture.
 
 `kubeadm init` first runs a series of prechecks to ensure that the machine
 is ready to run Kubernetes. These prechecks expose warnings and exit on errors. `kubeadm init`
-then downloads and installs the cluster control plane components. This may take several minutes. 
+then downloads and installs the cluster control plane components. This may take several minutes.
 The output should look like:
 
 ```none
@@ -239,8 +241,8 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 need this command to [join nodes to your cluster](#join-nodes).
 
-The token is used for mutual authentication between the master and the joining
-nodes.  The token included here is secret. Keep it safe, because anyone with this
+The token is used for mutual authentication between the control-plane node and the joining
+nodes. The token included here is secret. Keep it safe, because anyone with this
 token can add authenticated nodes to your cluster. These tokens can be listed,
 created, and deleted with the `kubeadm token` command. See the
 [kubeadm reference guide](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
@@ -258,8 +260,8 @@ each other.
 kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons. 
-- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0). 
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
+- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
 - [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9.
 
 Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/docs/reference/access-authn-authz/rbac/).
@@ -423,8 +425,8 @@ out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/)
 
 ### Control plane node isolation
 
-By default, your cluster will not schedule pods on the master for security
-reasons. If you want to be able to schedule pods on the master, e.g. for a
+By default, your cluster will not schedule pods on the control-plane node for security
+reasons. If you want to be able to schedule pods on the control-plane node, e.g. for a
 single-machine Kubernetes cluster for development, run:
 
 ```bash
@@ -440,7 +442,7 @@ taint "node-role.kubernetes.io/master:" not found
 ```
 
 This will remove the `node-role.kubernetes.io/master` taint from any nodes that
-have it, including the master node, meaning that the scheduler will then be able
+have it, including the control-plane node, meaning that the scheduler will then be able
 to schedule pods everywhere.
 
 ### Joining your nodes {#join-nodes}
@@ -455,7 +457,7 @@ The nodes are where your workloads (containers and pods, etc) run. To add new no
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-If you do not have the token, you can get it by running the following command on the master node:
+If you do not have the token, you can get it by running the following command on the control-plane node:
 
 ``` bash
 kubeadm token list
@@ -472,7 +474,7 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
 ```
 
 By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
-you can create a new token by running the following command on the master node:
+you can create a new token by running the following command on the control-plane node:
 
 ``` bash
 kubeadm token create
@@ -484,7 +486,7 @@ The output is similar to this:
 5didvk.d09sbcov8ph2amjw
 ```
 
-If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the master node:
+If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the control-plane node:
 
 ``` bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
@@ -517,12 +519,12 @@ Run 'kubectl get nodes' on the master to see this machine join.
 ```
 
 A few seconds later, you should notice this node in the output from `kubectl get
-nodes` when run on the master.
+nodes` when run on the control-plane node.
 
-### (Optional) Controlling your cluster from machines other than the master
+### (Optional) Controlling your cluster from machines other than the control-plane node
 
 In order to get a kubectl on some other computer (e.g. laptop) to talk to your
-cluster, you need to copy the administrator kubeconfig file from your master
+cluster, you need to copy the administrator kubeconfig file from your control-plane node
 to your workstation like this:
 
 ``` bash
@@ -562,7 +564,7 @@ To undo what kubeadm did, you should first [drain the
 node](/docs/reference/generated/kubectl/kubectl-commands#drain) and make
 sure that the node is empty before shutting it down.
 
-Talking to the master with the appropriate credentials, run:
+Talking to the control-plane node with the appropriate credentials, run:
 
 ```bash
 kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
@@ -650,18 +652,17 @@ supports your chosen platform.
 
 ## Limitations {#limitations}
 
-Please note: kubeadm is a work in progress and these limitations will be
-addressed in due course.
+The cluster created here has a single control-plane node, with a single etcd database
+running on it. This means that if the control-plane node fails, your cluster may lose
+data and may need to be recreated from scratch.
 
-1. The cluster created here has a single master, with a single etcd database
-   running on it. This means that if the master fails, your cluster may lose
-   data and may need to be recreated from scratch. Adding HA support
-   (multiple etcd servers, multiple API servers, etc) to kubeadm is
-   still a work-in-progress.
+Workarounds:
 
-   Workaround: regularly
-   [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
-   etcd data directory configured by kubeadm is at `/var/lib/etcd` on the master.
+* Regularly [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
+  etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
+
+* Use multiple control-plane nodes by completing the
+  [HA setup](/docs/setup/independent/ha-topology) instead.
 
 ## Troubleshooting {#troubleshooting}
 

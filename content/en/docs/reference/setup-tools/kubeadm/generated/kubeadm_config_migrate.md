@@ -7,6 +7,8 @@ Read an older version of the kubeadm configuration API types from a file, and ou
 This command lets you convert configuration objects of older versions to the latest supported version,
 locally in the CLI tool without ever touching anything in the cluster.
 In this version of kubeadm, the following API versions are supported:
+
+- kubeadm.k8s.io/v1beta1
 - kubeadm.k8s.io/v1beta2
 
 Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1beta2", but read both types.

@@ -164,7 +164,7 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Support for the "PodResources service" is still in alpha.
+Support for the "PodResources service" is in beta, and is enabled by default.
 
 ## Examples
 

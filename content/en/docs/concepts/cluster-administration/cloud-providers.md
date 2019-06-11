@@ -17,14 +17,14 @@ kubeadm has configuration options to specify configuration information for cloud
 in-tree cloud provider can be configured using kubeadm as shown below:
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 nodeRegistration:
   kubeletExtraArgs:
     cloud-provider: "openstack"
     cloud-config: "/etc/kubernetes/cloud.conf"
 ---
-apiVersion: kubeadm.k8s.io/v1beta1
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: v1.13.0
 apiServer:
