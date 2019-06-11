@@ -155,9 +155,12 @@ used.
 
 If multiple metrics are specified in a HorizontalPodAutoscaler, this
 calculation is done for each metric, and then the largest of the desired
-replica counts is chosen.  If any of those metrics cannot be converted
+replica counts is chosen. If any of these metrics cannot be converted
 into a desired replica count (e.g. due to an error fetching the metrics
-from the metrics APIs), scaling is skipped.
+from the metrics APIs) and a scale down is suggested by the metrics which
+can be fetched, scaling is skipped. This means that the HPA is still capable
+of scaling up if one or more metrics give a `desiredReplicas` greater than
+the current value.
 
 Finally, just before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the

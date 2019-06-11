@@ -1,10 +1,9 @@
 
-Prepares the machine for serving a control plane.
+Prepare the machine for serving a control plane
 
 ### Synopsis
 
-
-Prepares the machine for serving a control plane.
+Prepare the machine for serving a control plane
 
 ```
 kubeadm join phase control-plane-prepare [flags]

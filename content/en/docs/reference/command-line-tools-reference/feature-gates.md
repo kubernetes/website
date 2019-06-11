@@ -58,8 +58,11 @@ different Kubernetes components.
 | `CSIBlockVolume` | `true` | Beta | 1.14 | |
 | `CSIDriverRegistry` | `false` | Alpha | 1.12 | 1.13 |
 | `CSIDriverRegistry` | `true` | Beta | 1.14 | |
+| `CSIInlineVolume` | `false` | Alpha | 1.15 | - |
 | `CSIMigration` | `false` | Alpha | 1.14 | |
 | `CSIMigrationAWS` | `false` | Alpha | 1.14 | |
+| `CSIMigrationAzureDisk` | `false` | Alpha | 1.15 | |
+| `CSIMigrationAzureFile` | `false` | Alpha | 1.15 | |
 | `CSIMigrationGCE` | `false` | Alpha | 1.14 | |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | |
 | `CSINodeInfo` | `false` | Alpha | 1.12 | 1.13 |
@@ -159,7 +162,8 @@ different Kubernetes components.
 | `VolumeScheduling` | `false` | Alpha | 1.9 | 1.9 |
 | `VolumeScheduling` | `true` | Beta | 1.10 | 1.12 |
 | `VolumeScheduling` | `true` | GA | 1.13 | |
-| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | |
+| `VolumeSubpathEnvExpansion` | `false` | Alpha | 1.14 | 1.14 |
+| `VolumeSubpathEnvExpansion` | `true` | Beta | 1.15 | |
 | `VolumeSnapshotDataSource` | `false` | Alpha | 1.12 | - |
 | `ScheduleDaemonSetPods` | `false` | Alpha | 1.11 | 1.11 |
 | `ScheduleDaemonSetPods` | `true` | Beta | 1.12 | |
@@ -231,6 +235,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CSIDriverRegistry`: Enable all logic related to the CSIDriver API object in csi.storage.k8s.io.
 - `CSIMigration`: Enables shims and translation logic to route volume operations from in-tree plugins to corresponding pre-installed CSI plugins
 - `CSIMigrationAWS`: Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin
+- `CSIMigrationAzureDisk`: Enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to Azure Disk CSI plugin
+- `CSIMigrationAzureFile`: Enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to Azure File CSI plugin
 - `CSIMigrationGCE`: Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin
 - `CSIMigrationOpenStack`: Enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin
 - `CSINodeInfo`: Enable all logic related to the CSINodeInfo API object in csi.storage.k8s.io.

@@ -81,7 +81,7 @@ controlled by the php-apache deployment we created in the first step of these in
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
 (since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
-See [here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
+See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details on the algorithm.
 
 ```shell
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10

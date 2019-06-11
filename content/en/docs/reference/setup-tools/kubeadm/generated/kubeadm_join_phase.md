@@ -1,10 +1,9 @@
 
-use this command to invoke single phase of the join workflow
+Use this command to invoke single phase of the join workflow
 
 ### Synopsis
 
-
-use this command to invoke single phase of the join workflow
+Use this command to invoke single phase of the join workflow
 
 ### Options
 

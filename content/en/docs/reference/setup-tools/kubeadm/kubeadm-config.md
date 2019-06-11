@@ -28,12 +28,6 @@ has to be used.
 {{% /capture %}}
 
 {{% capture body %}}
-## kubeadm config upload from-file {#cmd-config-from-file}
-{{< include "generated/kubeadm_config_upload_from-file.md" >}}
-
-## kubeadm config upload from-flags {#cmd-config-from-flags}
-{{< include "generated/kubeadm_config_upload_from-flags.md" >}}
-
 ## kubeadm config view {#cmd-config-view}
 {{< include "generated/kubeadm_config_view.md" >}}
 
