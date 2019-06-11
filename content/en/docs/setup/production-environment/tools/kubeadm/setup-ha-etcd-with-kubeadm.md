@@ -26,11 +26,7 @@ when using kubeadm to set up a kubernetes cluster.
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
   can satisfy this requirement.
 
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/setup-ha-etcd-with-kubeadm.md
-[toolbox]: /docs/setup/production-environment/tools/independent/install-kubeadm/
-=======
 [toolbox]: /docs/setup/production-environment/tools/kubeadm/install-kubeadm/
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm.md
 
 {{% /capture %}}
 

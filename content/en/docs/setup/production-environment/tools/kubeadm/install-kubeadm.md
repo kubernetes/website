@@ -141,8 +141,10 @@ This is because kubeadm and Kubernetes require
 [special attention to upgrade](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14/).
 {{</ warning >}}
 
-For more information on version skews, see Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
+For more information on version skews, see:
 
+* Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
+* Kubeadm-specific [version skew policy](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}

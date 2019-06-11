@@ -146,13 +146,3 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 * they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
 * it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 {{</ warning >}}
-
-## Kubeadm version skew policy {#version-skew-policy}
-
-The kubeadm CLI tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
-kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
-
-Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
-
-Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to v1.8.
-For more information on supported version skew between kubelets and the control plane, and other Kubernetes components, see Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)

@@ -58,20 +58,10 @@ This may be caused by a number of problems. The most common are:
   There are two common ways to fix the cgroup driver problem:
 
  1. Install Docker again following instructions
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/troubleshooting-kubeadm.md
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/troubleshooting-kubeadm.md
   [here](/docs/setup/production-environment/container-runtimes/#docker).
-=======
-  [here](/docs/setup/production-environment/cri/#docker).
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/production-environment/tools/independent/troubleshooting-kubeadm.md
- 1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
-    [Configure cgroup driver used by kubelet on Master Node](/docs/setup/production-environment/tools/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
-=======
-  [here](/docs/setup/production-environment/container-runtimes/#docker).
+
  1. Change the kubelet config to match the Docker cgroup driver manually, you can refer to
     [Configure cgroup driver used by kubelet on Master Node](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm.md
-    for detailed instructions.
 
 - control plane Docker containers are crashlooping or hanging. You can check this by running `docker ps` and investigating each container by running `docker logs`.
 
@@ -229,15 +219,8 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 If you have nodes that are running SELinux with an older version of Docker you might experience a scenario
 where the `coredns` pods are not starting. To solve that you can try one of the following options:
 
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/troubleshooting-kubeadm.md
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/troubleshooting-kubeadm.md
 - Upgrade to a [newer version of Docker](/docs/setup/production-environment/container-runtimes/#docker).
-=======
-- Upgrade to a [newer version of Docker](/docs/setup/production-environment/cri/#docker).
->>>>>>> reorganized the left navigation of setup:content/en/docs/setup/production-environment/tools/independent/troubleshooting-kubeadm.md
-=======
-- Upgrade to a [newer version of Docker](/docs/setup/production-environment/container-runtimes/#docker).
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm.md
+
 - [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 - Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
 
@@ -295,12 +278,7 @@ Alternatively, you can try separating the `key=value` pairs like so:
 `--apiserver-extra-args "enable-admission-plugins=LimitRanger,enable-admission-plugins=NamespaceExists"`
 but this will result in the key `enable-admission-plugins` only having the value of `NamespaceExists`.
 
-A known workaround is to use the kubeadm
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/troubleshooting-kubeadm.md
-[configuration file](/docs/setup/production-environment/tools/independent/control-plane-flags/#apiserver-flags).
-=======
-[configuration file](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags).
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm.md
+A known workaround is to use the kubeadm [configuration file](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#apiserver-flags).
 
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
 

@@ -17,11 +17,7 @@ and control plane nodes are co-located.
 control plane nodes and etcd members are separated.
 
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/high-availability.md
-and environment. [This comparison topic](/docs/setup/production-environment/tools/independent/ha-topology/) outlines the advantages and disadvantages of each.
-=======
 and environment. [This comparison topic](/docs/setup/production-environment/tools/kubeadm/ha-topology/) outlines the advantages and disadvantages of each.
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/high-availability.md
 
 You should also be aware that setting up HA clusters with kubeadm is still experimental and will be further
 simplified in future versions. You might encounter issues with upgrading your clusters, for example.
@@ -42,19 +38,10 @@ LoadBalancer, or with dynamic PersistentVolumes.
 
 For both methods you need this infrastructure:
 
-- Three machines that meet [kubeadm's minimum
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/high-availability.md
-  requirements](/docs/setup/production-environment/tools/independent/install-kubeadm/#before-you-begin) for
+- Three machines that meet [kubeadm's minimum requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
   the masters
 - Three machines that meet [kubeadm's minimum
-  requirements](/docs/setup/production-environment/tools/independent/install-kubeadm/#before-you-begin) for
-=======
-  requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
-  the masters
-- Three machines that meet [kubeadm's minimum
-  requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/high-availability.md
-  the workers
+  requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for the workers
 - Full network connectivity between all machines in the cluster (public or
   private network)
 - sudo privileges on all machines
@@ -129,12 +116,7 @@ option. Your cluster requirements may need a different configuration.
 
 {{< note >}}
 Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-some like Weave do not. See the [CNI network
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/high-availability.md
-documentation](/docs/setup/production-environment/tools/independent/create-cluster-kubeadm/#pod-network).
-=======
-documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/high-availability.md
+some like Weave do not. See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
 To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
 the `networking` object of `ClusterConfiguration`.
 {{< /note >}}
@@ -182,14 +164,7 @@ As stated in the command output, the certificate-key gives access to cluster sen
 {{< /caution >}}
 
 1.  Apply the CNI plugin of your choice:
-
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/high-availability.md
-    [Follow these instructions/docs/setup/production-environment/tools/independent/create-cluster-kubeadm/#pod-network) to install
-=======
-    [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) to install
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/high-availability.md
-    the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm
-    configuration file if applicable.
+    [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
 
     In this example we are using Weave Net:
 
@@ -230,12 +205,7 @@ in the kubeadm config file.
 
 ### Set up the etcd cluster
 
-<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/independent/high-availability.md
-1.  Follow [these instructions](/docs/setup/production-environment/tools/independent/setup-ha-etcd-with-kubeadm/)
-=======
-1.  Follow [these instructions](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
->>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/tools/kubeadm/high-availability.md
-    to set up the etcd cluster.
+1.  Follow [these instructions](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) to set up the etcd cluster.
 
 1.  Setup SSH as described [here](#manual-certs).
 
@@ -394,5 +364,4 @@ the creation of additional nodes could fail due to a lack of required SANs.
     mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
     mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     ```
-
 {{% /capture %}}
