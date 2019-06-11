@@ -465,7 +465,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
 * Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
-* Use a [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
 {{% /capture %}}
 
