@@ -326,7 +326,10 @@ kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.5/examples/
 Once all Cilium pods are marked as `READY`, you start using your cluster.
 
 ```shell
-$ kubectl get pods -n kube-system --selector=k8s-app=cilium
+kubectl get pods -n kube-system --selector=k8s-app=cilium
+```
+The output is similar to this:
+```
 NAME           READY   STATUS    RESTARTS   AGE
 cilium-drxkl   1/1     Running   0          18m
 ```

@@ -181,20 +181,33 @@ for a kubelet when a Bootstrap Token was used when authenticating. If you don't 
 automatically approve kubelet client certs, you can turn it off by executing this command:
 
 ```shell
-$ kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
+kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
 ```
 
 After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
 
 ```shell
 kubectl get csr
+```
+The output is similar to this:
+```
 NAME                                                   AGE       REQUESTOR                 CONDITION
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
+```
 
+```shell
 kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+```
+The output is similar to this:
+```
 certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
+```
 
+```shell
 kubectl get csr
+```
+The output is similar to this:
+```
 NAME                                                   AGE       REQUESTOR                 CONDITION
 node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
 ```
@@ -213,6 +226,9 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 
 ```shell
 kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+```
+The output is similar to this:
+```
 apiVersion: v1
 kind: Config
 clusters:
