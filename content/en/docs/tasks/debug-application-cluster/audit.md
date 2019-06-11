@@ -245,6 +245,76 @@ The AuditSink policy differs from the legacy audit runtime policy. This is becau
 
 The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
 
+#### Contacting the webhook
+
+Once the API server has determined a request should be sent to a audit sink webhook,
+it needs to know how to contact the webhook. This is specified in the `clientConfig`
+stanza of the webhook configuration.
+
+Audit sink webhooks can either be called via a URL or a service reference,
+and can optionally include a custom CA bundle to use to verify the TLS connection.
+
+##### URL
+
+`url` gives the location of the webhook, in standard URL form
+(`scheme://host:port/path`).
+
+The `host` should not refer to a service running in the cluster; use
+a service reference by specifying the `service` field instead.
+The host might be resolved via external DNS in some apiservers
+(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would 
+be a layering violation). `host` may also be an IP address.
+
+Please note that using `localhost` or `127.0.0.1` as a `host` is
+risky unless you take great care to run this webhook on all hosts
+which run an apiserver which might need to make calls to this
+webhook. Such installs are likely to be non-portable, i.e., not easy
+to turn up in a new cluster.
+
+The scheme must be "https"; the URL must begin with "https://".
+
+Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
+Fragments ("#...") and query parameters ("?...") are also not allowed.
+
+Here is an example of a webhook configured to call a URL
+(and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
+
+```yaml
+apiVersion: auditregistration.k8s.io/v1alpha1
+kind: AuditSink
+...
+spec:
+  webhook:
+    clientConfig:
+      url: "https://my-webhook.example.com:9443/my-webhook-path"
+```
+
+##### Service Reference
+
+The `service` stanza inside `clientConfig` is a reference to the service for a audit sink webhook.
+If the webhook is running within the cluster, then you should use `service` instead of `url`.
+The service namespace and name are required. The port is optional and defaults to 443.
+The path is optional and defaults to "/".
+
+Here is an example of a webhook that is configured to call a service on port "1234"
+at the subpath "/my-path", and to verify the TLS connection against the ServerName
+`my-service-name.my-service-namespace.svc` using a custom CA bundle.
+
+```yaml
+apiVersion: auditregistration.k8s.io/v1alpha1
+kind: AuditSink
+...
+spec:
+  webhook:
+    clientConfig:
+      service:
+        namespace: my-service-namespace
+        name: my-service-name
+        path: /my-path
+        port: 1234
+      caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
+```
+
 #### Security
 
 Administrators should be aware that allowing write access to this feature grants read access to all cluster data. Access should be treated as a `cluster-admin` level privilege.
