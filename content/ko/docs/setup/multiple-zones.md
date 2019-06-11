@@ -187,8 +187,8 @@ Create a volume using the dynamic volume creation (only PersistentVolumes are su
 ```json
 kubectl apply -f - <<EOF
 {
-  "kind": "PersistentVolumeClaim",
   "apiVersion": "v1",
+  "kind": "PersistentVolumeClaim",
   "metadata": {
     "name": "claim1",
     "annotations": {
