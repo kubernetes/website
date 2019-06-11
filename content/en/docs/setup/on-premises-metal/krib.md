@@ -24,7 +24,7 @@ KRIB features:
 * dynamic generation of a TLS infrastructure
 * composable attributes and automatic detection of hardware by profile
 * options for persistent, immutable and image-based deployments
-* support for Ubuntu 18.04, CentOS/RHEL 7 and others
+* support for Ubuntu 18.04, CentOS/RHEL 7, CoreOS, RancherOS and others
 
 ## Creating a cluster
 
@@ -38,7 +38,12 @@ Following the [Digital Rebar installation](https://provision.readthedocs.io/en/t
 
 ### (2/5) Install KRIB Content and Certificate Plugin
 
-Upload the KRIB Content bundle (or build from [source](https://github.com/digitalrebar/provision-content/tree/master/krib)) and the Cert Plugin for your DRP platform (e.g.: [amd64 Linux v2.4.0](https://s3-us-west-2.amazonaws.com/rebar-catalog/certs/v2.4.0-0-02301d35f9f664d6c81d904c92a9c81d3fd41d2c/amd64/linux/certs)). Both are freely available via the [RackN UX](https://portal.rackn.io).
+Upload the KRIB Content bundle (or build from [source](https://github.com/digitalrebar/provision-content/tree/master/krib)) and the Cert Plugin for your DRP platform. Both are freely available via the [RackN UX](https://portal.rackn.io) or using the upload from catalog feature of the DRPCLI (shown below).
+
+```
+drpcli plugin_providers upload certs from catalog:certs-stable
+drpcli contents upload catalog:krib-stable
+```
 
 ### (3/5) Start your cluster deployment
 

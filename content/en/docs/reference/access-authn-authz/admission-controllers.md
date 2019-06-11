@@ -89,10 +89,10 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.13, they are:
- 
+In 1.14, they are:
+
 ```shell
-NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeClaimResize,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority
+NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
 ```
 
 ## What does each admission controller do?
@@ -173,8 +173,8 @@ event requests. The cluster admin can specify event rate limits by:
    server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: EventRateLimit
   path: eventconfig.yaml
@@ -192,8 +192,8 @@ There are four types of limits that can be specified in the configuration:
 Below is a sample `eventconfig.yaml` for such a configuration:
 
 ```yaml
-kind: Configuration
 apiVersion: eventratelimit.admission.k8s.io/v1alpha1
+kind: Configuration
 limits:
 - type: Namespace
   qps: 50
@@ -218,7 +218,7 @@ add these tolerations.
 
 ### ImagePolicyWebhook {#imagepolicywebhook}
 
-The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions. 
+The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions.
 
 #### Configuration File Format
 
@@ -241,8 +241,8 @@ imagePolicy:
 Reference the ImagePolicyWebhook configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: ImagePolicyWebhook
   path: imagepolicyconfig.yaml
@@ -280,19 +280,19 @@ Note that webhook API objects are subject to the same versioning compatibility r
 An example request body:
 
 ```json
-{  
+{
   "apiVersion":"imagepolicy.k8s.io/v1alpha1",
   "kind":"ImageReview",
-  "spec":{  
-    "containers":[  
-      {  
+  "spec":{
+    "containers":[
+      {
         "image":"myrepo/myimage:v1"
       },
-      {  
+      {
         "image":"myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
       }
     ],
-    "annotations":[  
+    "annotations":[
       "mycluster.image-policy.k8s.io/ticket-1234": "break-glass"
     ],
     "namespace":"mynamespace"
@@ -338,13 +338,6 @@ Examples of information you might put here are:
  * provide a hint to the policy server as to the imageID of the image being provided, to save it a lookup
 
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way. In the future, if an annotation is determined to be widely useful, it may be promoted to a named field of ImageReviewSpec.
-
-### Initializers {#initializers} {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
-
-The admission controller determines the initializers of a resource based on the existing
-`InitializerConfiguration`s. It sets the pending initializers by modifying the
-metadata of the resource to be created.
-For more information, please check [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/).
 
 ### LimitPodHardAntiAffinityTopology {#limitpodhardantiaffinitytopology}
 
@@ -481,8 +474,8 @@ podNodeSelectorPluginConfig:
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 
 ```yaml
-kind: AdmissionConfiguration
 apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
 plugins:
 - name: PodNodeSelector
   path: podnodeselector.yaml
@@ -513,7 +506,7 @@ plugin configuration file as the node selector.
 Conflicts result in rejection.
 
 {{< note >}}
-PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction 
+PodNodeSelector allows forcing pods to run on specifically labeled nodes. Also see the PodTolerationRestriction
 admission plugin, which allows preventing pods from running on specifically tainted nodes.
 {{< /note >}}
 
@@ -533,8 +526,8 @@ controller is recommended, too. This admission controller prevents resizing of a
 For example: all `PersistentVolumeClaim`s created from the following `StorageClass` support volume expansion:
 
 ```yaml
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: gluster-vol-default
 provisioner: kubernetes.io/glusterfs
@@ -606,7 +599,7 @@ This admission controller will deny any pod that attempts to set certain escalat
 This admission controller implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
 We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
 
-### Storage Object in Use Protection
+### StorageObjectInUseProtection
 
 The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
 
@@ -629,17 +622,11 @@ versions 1.9 and later).
 
 ## Is there a recommended set of admission controllers to use?
 
-Yes.
-
-For Kubernetes version 1.10 and later, we recommend running the following set of admission controllers using the `--enable-admission-plugins` flag (**order doesn't matter**).
+Yes. For Kubernetes version 1.10 and later, the recommended admission controllers are enabled by default (shown [here](/docs/reference/command-line-tools-reference/kube-apiserver/#options)), so you do not need to explicitly specify them. You can enable additional admission controllers beyond the default set using the `--enable-admission-plugins` flag (**order doesn't matter**).
 
 {{< note >}}
 `--admission-control` was deprecated in 1.10 and replaced with `--enable-admission-plugins`.
 {{< /note >}}
-
-```shell
---enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,Priority,ResourceQuota
-```
 
 For Kubernetes 1.9 and earlier, we recommend running the following set of admission controllers using the `--admission-control` flag (**order matters**).
 

@@ -22,7 +22,7 @@ across all the clusters in federation.
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/setup/pick-right-solution/) in
+[working knowledge of Kubernetes](/docs/tutorials/kubernetes-basics/) in
 general and [Namespaces](/docs/concepts/overview/working-with-objects/namespaces/) in particular.
 
 {{% /capture %}}

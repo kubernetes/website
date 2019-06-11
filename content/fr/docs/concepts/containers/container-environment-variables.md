@@ -1,13 +1,6 @@
 ---
-reviewers:
-- sieben
-- perriea
-- lledru
-- awkif
-- yastij
-- rbenzair
-- oussemos
 title: Les variables d’environnement du conteneur
+description: Variables d'environnement pour conteneur Kubernetes
 content_template: templates/concept
 weight: 20
 ---

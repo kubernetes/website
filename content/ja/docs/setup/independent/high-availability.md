@@ -6,58 +6,42 @@ weight: 60
 
 {{% capture overview %}}
 
-This page explains two different approaches to setting up a highly available Kubernetes
-cluster using kubeadm:
+このページでは、kubeadmを使用して、高可用性クラスターを作成する、2つの異なるアプローチを説明します:
 
-- With stacked control plane nodes. This approach requires less infrastructure. The etcd members
-and control plane nodes are co-located.
-- With an external etcd cluster. This approach requires more infrastructure. The
-control plane nodes and etcd members are separated.
+- 積み重なったコントロールプレーンノードを使う方法。こちらのアプローチは、必要なインフラストラクチャーが少ないです。etcdのメンバーと、コントロールプレーンノードは同じ場所に置かれます。
+- 外部のetcdクラスターを使う方法。こちらのアプローチには、より多くのインフラストラクチャーが必要です。コントロールプレーンノードと、etcdのメンバーは分離されます。
 
-Before proceeding, you should carefully consideer which approach best meets the needs of your applications
-and environment. [This comparison topic](/docs/setup/independent/ha-topology/) outlines the advantages and disadvantages of each.
+先へ進む前に、どちらのアプローチがアプリケーションの要件と、環境に適合するか、慎重に検討してください。[こちらの比較](/docs/setup/independent/ha-topology/)が、それぞれの利点/欠点について概説しています。
 
-Your clusters must run Kubernetes version 1.12 or later. You should also be aware that
-setting up HA clusters with kubeadm is still experimental and will be further simplified
-in future versions. You might encounter issues with upgrading your clusters, for example.
-We encourage you to try either approach, and provide us with feedback in the kubeadm
-[issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
+クラスターではKubernetesのバージョン1.12以降を使用する必要があります。また、kubeadmを使用した高可用性クラスターはまだ実験的な段階であり、将来のバージョンではもっとシンプルになることに注意してください。たとえば、クラスターのアップグレードに際し問題に遭遇するかもしれません。両方のアプローチを試し、kueadmの[issue tracker](https://github.com/kubernetes/kubeadm/issues/new)で我々にフィードバックを提供してくれることを推奨します。
 
-Note that the alpha feature gate `HighAvailability` is deprecated in v1.12 and removed in v1.13.
+alpha feature gateである`HighAvailability`はv1.12で非推奨となり、v1.13で削除されたことに留意してください。
 
-See also [The HA upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha).
+[高可用性クラスターのアップグレード](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13)も参照してください。
 
 {{< caution >}}
-This page does not address running your cluster on a cloud provider. In a cloud
-environment, neither approach documented here works with Service objects of type
-LoadBalancer, or with dynamic PersistentVolumes.
+このページはクラウド上でクラスターを構築することには対応していません。ここで説明されているどちらのアプローチも、クラウド上で、LoadBalancerタイプのServiceオブジェクトや、動的なPersistentVolumeを利用して動かすことはできません。
 {{< /caution >}}
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-For both methods you need this infrastructure:
+どちらの方法でも、以下のインフラストラクチャーが必要です:
 
-- Three machines that meet [kubeadm's minimum
-  requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for
-  the masters
-- Three machines that meet [kubeadm's minimum
-  requirements](/docs/setup/independent/install-kubeadm/#before-you-begin) for
-  the workers
-- Full network connectivity between all machines in the cluster (public or
-  private network)
-- sudo privileges on all machines
-- SSH access from one device to all nodes in the system
-- `kubeadm` and `kubelet` installed on all machines. `kubectl` is optional.
+- master用に、[kubeadmの最小要件](/ja/docs/setup/independent/install-kubeadm/#before-you-begin)を満たす3台のマシン
+- worker用に、[kubeadmの最小要件](/ja/docs/setup/independent/install-kubeadm/#before-you-begin)を満たす3台のマシン
+- クラスター内のすべてのマシン間がフルにネットワーク接続可能であること(パブリック、もしくはプライベートネットワーク)
+- すべてのマシンにおいて、sudo権限
+- あるデバイスから、システム内のすべてのノードに対しSSH接続できること
+- `kubeadm`と`kubelet`がすべてのマシンにインストールされていること。 `kubectl`は任意です。
 
-For the external etcd cluster only, you also need:
+外部etcdクラスターには、以下も必要です:
 
-- Three additional machines for etcd members
+- etcdメンバー用に、追加で3台のマシン
 
 {{< note >}}
-The following examples run Calico as the Pod networking provider. If you run another
-networking provider, make sure to replace any default values as needed.
+以下の例では、CalicoをPodネットワーキングプロバイダーとして使用します。別のネットワーキングプロバイダーを使用する場合、必要に応じてデフォルトの値を変更してください。
 {{< /note >}}
 
 {{% /capture %}}
@@ -67,83 +51,63 @@ networking provider, make sure to replace any default values as needed.
 ## 両手順における最初のステップ
 
 {{< note >}}
-**Note**: All commands on any control plane or etcd node should be
-run as root.
+コントロールプレーンや、etcdノードでのコマンドはすべてrootとして実行してください。
 {{< /note >}}
 
-- Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-  some like Weave do not. See the see [the CNI network
-  documentation](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
-  To add a pod CIDR set the `podSubnet: 192.168.0.0/16` field under
-  the `networking` object of `ClusterConfiguration`.
+- CalicoなどのいくつかのCNIネットワークプラグインは`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。
 
 ### kube-apiserver用にロードバランサーを作成
 
 {{< note >}}
-There are many configurations for load balancers. The following example is only one
-option. Your cluster requirements may need a different configuration.
+ロードバランサーには多くの設定項目があります。以下の例は、一選択肢に過ぎません。あなたのクラスター要件には、異なった設定が必要かもしれません。
 {{< /note >}}
 
-1.  Create a kube-apiserver load balancer with a name that resolves to DNS.
+1.  DNSで解決される名前で、kube-apiserver用ロードバランサーを作成する。
+    - クラウド環境では、コントロールプレーンノードをTCPフォワーディングロードバランサーの後ろに置かなければなりません。このロードバランサーはターゲットリストに含まれる、すべての健全なコントロールプレーンノードにトラフィックを分配します。apiserverへのヘルスチェックはkube-apiserverがリッスンするポート(デフォルト値: `:6443`)に対する、TCPチェックです。
 
-    - In a cloud environment you should place your control plane nodes behind a TCP
-      forwarding load balancer. This load balancer distributes traffic to all
-      healthy control plane nodes in its target list. The health check for
-      an apiserver is a TCP check on the port the kube-apiserver listens on
-      (default value `:6443`).
+    - クラウド環境では、IPアドレスを直接使うことは推奨されません。
 
-    - It is not recommended to use an IP address directly in a cloud environment.
+    - ロードバランサーは、apiserverポートで、全てのコントロールプレーンノードと通信できなければなりません。また、リスニングポートに対する流入トラフィックも許可されていなければなりません。
 
-    - The load balancer must be able to communicate with all control plane nodes
-      on the apiserver port. It must also allow incoming traffic on its
-      listening port.
+    - [HAProxy](http://www.haproxy.org/)をロードバランサーとして使用することができます。
 
-    - [HAProxy](http://www.haproxy.org/) can be used as a load balancer.
+    - ロードバランサーのアドレスは、常にkubeadmの`ControlPlaneEndpoint`のアドレスと一致することを確認してください。
 
-    - Make sure the address of the load balancer always matches
-      the address of kubeadm's `ControlPlaneEndpoint`.
-
-1.  Add the first control plane nodes to the load balancer and test the
-    connection:
+1.  ロードバランサーに、最初のコントロールプレーンノードを追加し、接続をテストする:
 
     ```sh
     nc -v LOAD_BALANCER_IP PORT
     ```
 
-    - A connection refused error is expected because the apiserver is not yet
-      running. A timeout, however, means the load balancer cannot communicate
-      with the control plane node. If a timeout occurs, reconfigure the load
-      balancer to communicate with the control plane node.
+    - apiserverはまだ動いていないので、接続の拒否は想定通りです。しかし、タイムアウトしたのであれば、ロードバランサーはコントロールプレーンノードと通信できなかったことを意味します。もし、タイムアウトが起きたら、コントロールプレーンノードと通信できるように、ロードバランサーを再設定してください。
 
-1.  Add the remaining control plane nodes to the load balancer target group.
+1.  残りのコントロールプレーンノードを、ロードバランサーのターゲットグループに追加します。
 
 ### SSHの設定
 
-SSH is required if you want to control all nodes from a single machine.
+1台のマシンから全てのノードをコントロールしたいのであれば、SSHが必要です。
 
-1.  Enable ssh-agent on your main device that has access to all other nodes in
-    the system:
+1.  システム内の全ての他のノードにアクセスできるメインデバイスで、ssh-agentを有効にします
 
     ```
     eval $(ssh-agent)
     ```
 
-1.  Add your SSH identity to the session:
+1.  SSHの秘密鍵を、セッションに追加します:
 
     ```
     ssh-add ~/.ssh/path_to_private_key
     ```
 
-1.  SSH between nodes to check that the connection is working correctly.
+1.  正常に接続できることを確認するために、ノード間でSSHします。
 
-    - When you SSH to any node, make sure to add the `-A` flag:
+    - ノードにSSHする際は、必ず`-A`フラグをつけます:
 
         ```
         ssh -A 10.0.0.7
         ```
 
-    - When using sudo on any node, make sure to preserve the environment so SSH
-      forwarding works:
+    - ノードでsudoするときは、SSHフォワーディングが動くように、環境変数を引き継ぎます:
 
         ```
         sudo -E -s
@@ -153,7 +117,7 @@ SSH is required if you want to control all nodes from a single machine.
 
 ### 最初のコントロールプレーンノードの手順
 
-1.  On the first control plane node, create a configuration file called `kubeadm-config.yaml`:
+1.  最初のコントロールプレーンノードで、`kubeadm-config.yaml`という設定ファイルを作成します:
 
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
@@ -163,18 +127,17 @@ SSH is required if you want to control all nodes from a single machine.
           - "LOAD_BALANCER_DNS"
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
 
-    - `kubernetesVersion` should be set to the Kubernetes version to use. This
-  example uses `stable`.
-    - `controlPlaneEndpoint` should match the address or DNS and port of the load balancer.
-    - It's recommended that the versions of kubeadm, kubelet, kubectl and Kubernetes match.
+    - `kubernetesVersion`には使用するKubernetesのバージョンを設定します。この例では`stable`を使用しています。
+    - `controlPlaneEndpoint` はロードバランサーのアドレスかDNSと、ポートに一致する必要があります。
+    - kubeadm、kubelet、kubectlとKubernetesのバージョンを一致させることが推奨されます。
 
-1.  Make sure that the node is in a clean state:
+1.  ノードがきれいな状態であることを確認します:
 
     ```sh
     sudo kubeadm init --config=kubeadm-config.yaml
     ```
     
-    You should see something like:
+    このような出力がされます:
     
     ```sh
     ...
@@ -184,29 +147,27 @@ SSH is required if you want to control all nodes from a single machine.
     kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash    sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
     ```
 
-1.  Copy this output to a text file. You will need it later to join other control plane nodes to the
-    cluster.
+1.  この出力をテキストファイルにコピーします。あとで、他のコントロールプレーンノードをクラスターに参加させる際に必要になります。
 
-1.  Apply the Weave CNI plugin:
+1.  Weave CNIプラグインをapplyします:
 
     ```sh
     kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
     ```
 
-1.  Type the following and watch the pods of the components get started:
+1.  以下のコマンドを入力し、コンポーネントのPodが起動するのを確認します:
 
     ```sh
     kubectl get pod -n kube-system -w
     ```
 
-    - It's recommended that you join new control plane nodes only after the first node has finished initializing.
+    - 最初のコントロールプレーンノードが初期化を完了してから、新しいノードを参加させることが推奨されます。
 
-1.  Copy the certificate files from the first control plane node to the rest:
+1.  証明書ファイルを最初のコントロールプレーンノードから残りのノードにコピーします:
 
-    In the following example, replace `CONTROL_PLANE_IPS` with the IP addresses of the
-    other control plane nodes.
+    以下の例では、`CONTROL_PLANE_IPS`を他のコントロールプレーンノードのIPアドレスで置き換えます。
     ```sh
-    USER=ubuntu # customizable
+    USER=ubuntu # 変更可能
     CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
     for host in ${CONTROL_PLANE_IPS}; do
         scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
@@ -221,12 +182,16 @@ SSH is required if you want to control all nodes from a single machine.
     done
     ```
 
+{{< caution >}}
+上のリストにある証明書だけをコピーしてください。kubeadmが、参加するコントロールプレーンノード用に、残りの証明書と必要なSANの生成を行います。間違って全ての証明書をコピーしてしまったら、必要なSANがないため、追加ノードの作成は失敗するかもしれません。
+{{< /caution >}}
+
 ### 残りのコントロールプレーンノードの手順
 
-1.  Move the files created by the previous step where `scp` was used:
+1.  `scp`を使用する手順で作成したファイルを移動します:
 
     ```sh
-    USER=ubuntu # customizable
+    USER=ubuntu # 変更可能
     mkdir -p /etc/kubernetes/pki/etcd
     mv /home/${USER}/ca.crt /etc/kubernetes/pki/
     mv /home/${USER}/ca.key /etc/kubernetes/pki/
@@ -239,36 +204,32 @@ SSH is required if you want to control all nodes from a single machine.
     mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
     ```
 
-    This process writes all the requested files in the `/etc/kubernetes` folder.
+    この手順で、`/etc/kubernetes`フォルダーに必要な全てのファイルが書き込まれます。
 
-1.  Start `kubeadm join` on this node using the join command that was previously given to you by `kubeadm init` on
-    the first node. It should look something like this:
+1.  `kubeadm init`を最初のノードで実行した際に取得したjoinコマンドを使って、このノードで`kubeadm join`を開始します。このようなコマンドになるはずです:
 
     ```sh
     sudo kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f --experimental-control-plane
     ```
+    - `--experimental-control-plane`フラグが追加されています。このフラグは、コントロールプレーンノードのクラスターへの参加を自動化します。
 
-    - Notice the addition of the `--experimental-control-plane` flag. This flag automates joining this
-    control plane node to the cluster.
-
-1.  Type the following and watch the pods of the components get started:
+1.  以下のコマンドをタイプし、コンポーネントのPodが起動するのを確認します:
 
     ```sh
     kubectl get pod -n kube-system -w
     ```
 
-1.  Repeat these steps for the rest of the control plane nodes.
+1.  これらのステップを、残りのコントロールプレーンノードに対して繰り返します。
 
 ## 外部のetcdノード
 
 ### etcdクラスターの構築
 
-- Follow [these instructions](/docs/setup/independent/setup-ha-etcd-with-kubeadm/)
-  to set up the etcd cluster.
+- [こちらの手順](/ja/docs/setup/independent/setup-ha-etcd-with-kubeadm/)にしたがって、etcdクラスターを構築してください。
 
 ### 最初のコントロールプレーンノードの構築
 
-1.  Copy the following files from any node from the etcd cluster to this node:
+1.  以下のファイルをetcdクラスターのどれかのノードからこのノードへコピーしてください:
 
     ```sh
     export CONTROL_PLANE="ubuntu@10.0.0.7"
@@ -277,9 +238,9 @@ SSH is required if you want to control all nodes from a single machine.
     +scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
     ```
 
-    - Replace the value of `CONTROL_PLANE` with the `user@host` of this machine.
+    - `CONTROL_PLANE`の値を、このマシンの`user@host`で置き換えます。
 
-1.  Create a file called `kubeadm-config.yaml` with the following contents:
+1.  以下の内容で、`kubeadm-config.yaml`という名前の設定ファイルを作成します:
 
         apiVersion: kubeadm.k8s.io/v1beta1
         kind: ClusterConfiguration
@@ -298,9 +259,9 @@ SSH is required if you want to control all nodes from a single machine.
                 certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
-    - The difference between stacked etcd and external etcd here is that we are using the `external` field for `etcd` in the kubeadm config. In the case of the stacked etcd topology this is managed automatically.
+    - ここで、積み重なったetcdと外部etcdの違いは、kubeadmコンフィグの`etcd`に`external`フィールドを使用していることです。積み重なったetcdトポロジーの場合、これは自動で管理されます。
 
-    -  Replace the following variables in the template with the appropriate values for your cluster:
+    -  テンプレート内の以下の変数を、クラスターに合わせて適切な値に置き換えます:
 
         - `LOAD_BALANCER_DNS`
         - `LOAD_BALANCER_PORT`
@@ -308,11 +269,11 @@ SSH is required if you want to control all nodes from a single machine.
         - `ETCD_1_IP`
         - `ETCD_2_IP`
 
-1.  Run `kubeadm init --config kubeadm-config.yaml` on this node.
+1.  `kubeadm init --config kubeadm-config.yaml`をこのノードで実行します。
 
-1.  Write the join command that is returned to a text file for later use.
+1.  表示されたjoinコマンドを、あとで使うためにテキストファイルに書き込みます。
 
-1.  Apply the Weave CNI plugin:
+1.  Weave CNIプラグインをapplyします:
 
     ```sh
     kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
@@ -320,27 +281,22 @@ SSH is required if you want to control all nodes from a single machine.
 
 ### 残りのコントロールプレーンノードの手順
 
-To add the rest of the control plane nodes, follow [these instructions](#steps-for-the-rest-of-the-control-plane-nodes).
-The steps are the same as for the stacked etcd setup, with the exception that a local
-etcd member is not created.
+残りのコントロールプレーンノードを参加させるために、[こちらの手順](#残りのコントロールプレーンノードの手順)に従います。ローカルetcdメンバーが作られないことを除いて、積み重なったetcdの構築と同じ手順です。
 
-To summarize:
+まとめると:
 
-- Make sure the first control plane node is fully initialized.
-- Copy certificates between the first control plane node and the other control plane nodes.
-- Join each control plane node with the join command you saved to a text file, plus add the `--experimental-control-plane` flag.
+- 最初のコントロールプレーンノードが完全に初期化されているのを確認します。
+- 証明書を、最初のコントロールプレーンノードから他のコントロールプレーンノードへコピーします。
+- テキストファイルに保存したjoinコマンドに`--experimental-control-plane` フラグを加えたものを使って、それぞれのコントロールプレーンノードを参加させます。
 
 ## コントロールプレーン起動後の共通タスク
 
 ### Podネットワークのインストール
 
-[Follow these instructions](/docs/setup/independent/create-cluster-kubeadm/#pod-network) to install
-the pod network. Make sure this corresponds to whichever pod CIDR you provided
-in the master configuration file.
+Podネットワークをインストールするには、[こちらの手順に従ってください](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)。master設定ファイルで提供したPod CIDRのどれかに一致することを確認します。
 
-### ワーカーのインストール
+### workerのインストール
 
-Each worker node can now be joined to the cluster with the command returned from any of the
-`kubeadm init` commands. The flag `--experimental-control-plane` should not be added to worker nodes.
+`kubeadm init`コマンドから返されたコマンドを利用して、workerノードをクラスターに参加させることが可能です。workerノードには、`--experimental-control-plane`フラグを追加する必要はありません。
 
 {{% /capture %}}

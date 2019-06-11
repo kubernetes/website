@@ -230,6 +230,7 @@ kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | g
 The output is similar to this:
 ```
 apiVersion: v1
+kind: Config
 clusters:
 - cluster:
     certificate-authority-data: <ca-cert>
@@ -237,7 +238,6 @@ clusters:
   name: ""
 contexts: []
 current-context: ""
-kind: Config
 preferences: {}
 users: []
 ```
@@ -266,7 +266,7 @@ contain a `JoinConfiguration` structure.
 To print the default values of `JoinConfiguration` run the following command:
 
 ```shell
-kubeadm config print-default --api-objects=JoinConfiguration
+kubeadm config print join-defaults
 ```
 
 For details on individual fields in `JoinConfiguration` see [the godoc](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#JoinConfiguration).

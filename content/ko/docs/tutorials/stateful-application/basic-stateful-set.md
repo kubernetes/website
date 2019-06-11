@@ -67,11 +67,11 @@ kubectl get pods -w -l app=nginx
 ```
 
 두번째 터미널에서 
-[`kubectl create`](/docs/reference/generated/kubectl/kubectl-commands/#create)로 
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)로 
 `web.yaml`에 정의된 헤드리스 서비스와 스테이트풀셋을 생성한다.
 
 ```shell
-kubectl create -f web.yaml 
+kubectl apply -f web.yaml
 service/nginx created
 statefulset.apps/web created
 ```
@@ -154,7 +154,7 @@ web-1
 확인할 수 있다.
 
 ```shell
-kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh 
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm  
 nslookup web-0.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -212,7 +212,7 @@ for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
 web-0
 web-1
 
-kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh 
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh 
 nslookup web-0.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -774,7 +774,7 @@ kubectl get pods -w -l app=nginx
 볼 것이라는 것을 명심하자.
 
 ```shell
-kubectl create -f web.yaml 
+kubectl apply -f web.yaml
 statefulset.apps/web created
 Error from server (AlreadyExists): error when creating "web.yaml": services "nginx" already exists
 ```
@@ -874,7 +874,7 @@ service "nginx" deleted
 스테이트풀셋과 헤드리스 서비스를 한번 더 다시 생성하자.
 
 ```shell
-kubectl create -f web.yaml 
+kubectl apply -f web.yaml
 service/nginx created
 statefulset.apps/web created
 ```
@@ -938,7 +938,7 @@ kubectl get po -l app=nginx -w
 다른 터미널에서 매니페스트 안에 스테이트풀셋과 서비스를 생성하자.
 
 ```shell
-kubectl create -f web-parallel.yaml 
+kubectl apply -f web-parallel.yaml
 service/nginx created
 statefulset.apps/web created
 ```

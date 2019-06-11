@@ -4,48 +4,83 @@ content_template: templates/concept
 weight: 100
 ---
 {{% capture overview %}}
-Kubernetesでは、v1.6.0からデフォルトでCRI(Container Runtime Interface)を利用できます。
-このページでは、様々なCRIのインストール方法について説明します。
+{{< feature-state for_k8s_version="v1.6" state="stable" >}}
+Podのコンテナを実行するために、Kubernetesはコンテナランタイムを使用します。
+様々なランタイムのインストール手順は次のとおりです。
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-手順を進めるにあたっては、下記に示しているコマンドを、ご利用のOSのものに従ってrootユーザとして実行してください。
-環境によっては、それぞれのホストへSSHで接続した後に`sudo -i`を実行することで、rootユーザになることができる場合があります。
+
+{{< caution >}}
+コンテナ実行時にruncがシステムファイルディスクリプターを扱える脆弱性が見つかりました。
+悪意のあるコンテナがこの脆弱性を利用してruncのバイナリを上書きし、
+コンテナホストシステム上で任意のコマンドを実行する可能性があります。
+
+この問題の更なる情報は以下のリンクを参照してください。
+[cve-2019-5736 : runc vulnerability](https://access.redhat.com/security/cve/cve-2019-5736)
+{{< /caution >}}
+
+### 適用性
+
+{{< note >}}
+このドキュメントはLinuxにCRIをインストールするユーザーの為に書かれています。
+他のオペレーティングシステムの場合、プラットフォーム固有のドキュメントを見つけてください。
+{{< /note >}}
+
+このガイドでは全てのコマンドを `root` で実行します。
+例として、コマンドに `sudo` を付けたり、 `root` になってそのユーザーでコマンドを実行します。
+
+### Cgroupドライバー
+
+systemdがLinuxのディストリビューションのinitシステムとして選択されている場合、
+initプロセスが作成され、rootコントロールグループ(`cgroup`)を使い、cgroupマネージャーとして行動します。
+systemdはcgroupと密接に統合されており、プロセスごとにcgroupを割り当てます。
+`cgroupfs` を使うように、あなたのコンテナランライムとkubeletを設定することができます。
+systemdと一緒に `cgroupfs` を使用するということは、2つの異なるcgroupマネージャーがあることを意味します。
+
+コントロールグループはプロセスに割り当てられるリソースを制御するために使用されます。
+単一のcgroupマネージャーは、割り当てられているリソースのビューを単純化し、
+デフォルトでは使用可能なリソースと使用中のリソースについてより一貫性のあるビューになります。
+2つのマネージャーがある場合、それらのリソースについて2つのビューが得られます。
+kubeletとDockerに `cgroupfs` を使用し、ノード上で実行されている残りのプロセスに `systemd` を使用するように設定されたノードが、
+リソース圧迫下で不安定になる場合があります。
+
+あなたのコンテナランタイムとkubeletにcgroupドライバーとしてsystemdを使用するように設定を変更することはシステムを安定させました。
+以下のDocker設定の `native.cgroupdriver=systemd` オプションに注意してください。
 
 ## Docker
 
 それぞれのマシンに対してDockerをインストールします。
-バージョン18.06が推奨されていますが、1.11、1.12、1.13、17.03についても動作が確認されています。
+バージョン18.06.2が推奨されていますが、1.11、1.12、1.13、17.03、18.09についても動作が確認されています。
 Kubernetesのリリースノートにある、Dockerの動作確認済み最新バージョンについてもご確認ください。
 
 システムへDockerをインストールするには、次のコマンドを実行します。
 
 {{< tabs name="tab-cri-docker-installation" >}}
 {{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# UbuntuのリポジトリからDockerをインストールする場合は次を実行します:
-apt-get update
-apt-get install -y docker.io
+# Docker CEのインストール
+## リポジトリをセットアップ
+### aptパッケージインデックスを更新
+    apt-get update
 
-# または、UbuntuやDebian向けのDockerのリポジトリからDocker CE 18.06をインストールする場合は、次を実行します:
+### HTTPS越しのリポジトリの使用をaptに許可するために、パッケージをインストール
+    apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
 
-## 必要なパッケージをインストールします。
-apt-get update && apt-get install apt-transport-https ca-certificates curl software-properties-common
+### Docker公式のGPG鍵を追加
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 
-## GPGキーをダウンロードします。
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+### dockerのaptリポジトリを追加
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable"
 
-## dockerパッケージ用のaptリポジトリを追加します。
-add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
+## docker ceのインストール
+apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
 
-## dockerをインストールします。
-apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
-
-# デーモンをセットアップします。
+# デーモンをセットアップ
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -59,32 +94,29 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
-# dockerを再起動します。
+# dockerを再起動
 systemctl daemon-reload
 systemctl restart docker
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# CentOSやRHELのリポジトリからDockerをインストールする場合は、次を実行します:
-yum install -y docker
+# Docker CEのインストール
+## リポジトリをセットアップ
+### 必要なパッケージのインストール
+    yum install yum-utils device-mapper-persistent-data lvm2
 
-# または、CentOS向けのDockerのリポジトリからDocker CE 18.06をインストールする場合は、次を実行します:
-
-## 必要なパッケージをインストールします。
-yum install yum-utils device-mapper-persistent-data lvm2
-
-## dockerパッケージ用のyumリポジトリを追加します。
+### dockerパッケージ用のyumリポジトリを追加
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
-## dockerをインストールします。
-yum update && yum install docker-ce-18.06.1.ce
+## docker ceのインストール
+yum update && yum install docker-ce-18.06.2.ce
 
-## /etc/docker ディレクトリを作成します。
+## /etc/docker ディレクトリを作成
 mkdir /etc/docker
 
-# デーモンをセットアップします。
+# デーモンをセットアップ
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -101,7 +133,7 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 
-# dockerを再起動します。
+# dockerを再起動
 systemctl daemon-reload
 systemctl restart docker
 {{< /tab >}}
@@ -217,8 +249,8 @@ tar --no-overwrite-dir -C / -xzf cri-containerd-${CONTAINERD_VERSION}.linux-amd6
 systemctl start containerd
 ```
 
-## その他のCRIランタイム(rktletおよびfrakti)について
+## その他のCRIランタイム: frakti
 
-詳細については[Fraktiのクイックスタートガイド](https://github.com/kubernetes/frakti#quickstart)および[Rktletのクイックスタートガイド](https://github.com/kubernetes-incubator/rktlet/blob/master/docs/getting-started-guide.md)を参照してください。
+詳細については[Fraktiのクイックスタートガイド](https://github.com/kubernetes/frakti#quickstart)を参照してください。
 
 {{% /capture %}}

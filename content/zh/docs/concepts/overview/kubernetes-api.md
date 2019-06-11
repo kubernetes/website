@@ -1,6 +1,6 @@
 # Kubernetes API 概述
 
-[API协议文档](https://git.k8s.io/community/contributors/devel/api-conventions.md)描述了主系统和API概念。
+[API协议文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)描述了主系统和API概念。
 
 [API参考文档](https://kubernetes.io/docs/reference)描述了API整体规范。
 
@@ -59,7 +59,7 @@ Kubernetes实现了另一种基于Protobuf的序列化格式，该格式主要�
 
   * 对象的模式和/或语义可能会在后续的beta测试版或稳定版中以不兼容的方式进行更改。 发生这种情况时，我们将提供迁移到下一个版本的说明。 这可能需要删除、编辑和重新创建API对象。执行编辑操作时需要谨慎行事，这可能需要停用依赖该功能的应用程序。
 
-  * 建议仅用于非业务关键型用途，因为后续版本中可能存在不兼容的更改。 如果您有多个可以独立升级的群集，则可以放宽此限制。
+  * 建议仅用于非业务关键型用途，因为后续版本中可能存在不兼容的更改。 如果您有多个可以独立升级的集群，则可以放宽此限制。
 
   * **请尝试我们的 beta 版本功能并且给出反馈！一旦他们退出 beta 测试版，我们可能不会做出更多的改变。**
 

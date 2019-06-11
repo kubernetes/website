@@ -96,7 +96,7 @@ such as systemd.
 It is possible to configure the kubelet that kubeadm will start if a custom `KubeletConfiguration`
 API object is passed with a configuration file like so `kubeadm ... --config some-config-file.yaml`.
 
-By calling `kubeadm config print-default --api-objects KubeletConfiguration` you can
+By calling `kubeadm config print init-defaults --component-configs KubeletConfiguration` you can
 see all the default values for this structure.
 
 Also have a look at the [API reference for the

@@ -63,6 +63,8 @@ Credentials can be provided in several ways:
   - Using AWS EC2 Container Registry (ECR)
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
+  - Using Oracle Cloud Infrastructure Registry (OCIR)
+    - use IAM roles and policies to control access to OCIR repositories
   - Using Azure Container Registry (ACR)
   - Using IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
@@ -279,19 +281,7 @@ Kubernetes supports specifying registry keys on a pod.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
-cat <<EOF > ./kustomization.yaml
-secretGenerator:
-- name: myregistrykey
-  type: docker-registry
-  literals:
-  - docker-server=DOCKER_REGISTRY_SERVER
-  - docker-username=DOCKER_USER
-  - docker-password=DOCKER_PASSWORD
-  - docker-email=DOCKER_EMAIL
-EOF
-
-kubectl apply -k .
-secret/myregistrykey-66h7d4d986 created
+kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
 If you already have a Docker credentials file then, rather than using the above
@@ -360,7 +350,7 @@ common use cases and suggested solutions.
    - Or, when on GCE/Google Kubernetes Engine, use the project's Google Container Registry.
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
-1. Cluster with a proprietary images, a few of which require stricter access control.
+1. Cluster with proprietary images, a few of which require stricter access control.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 1. A multi-tenant cluster where each tenant needs own private registry.

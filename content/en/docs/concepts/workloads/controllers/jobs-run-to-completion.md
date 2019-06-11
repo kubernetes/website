@@ -216,6 +216,12 @@ status check.
 {{< note >}}
 Issue [#54870](https://github.com/kubernetes/kubernetes/issues/54870) still exists for versions of Kubernetes prior to version 1.12
 {{< /note >}}
+{{< note >}}
+If your job has `restartPolicy = "OnFailure"`, keep in mind that your container running the Job
+will be terminated once the job backoff limit has been reached. This can make debugging the Job's executable more difficult. We suggest setting
+`restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
+from failed Jobs is not lost inadvertently.
+{{< /note >}}
 
 ## Job Termination and Cleanup
 
@@ -343,7 +349,7 @@ The pattern names are also links to examples and more detailed description.
 | Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
-has an identical [`spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).  This means that
+has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
 all pods for a task will have the same command line and the same
 image, the same volumes, and (almost) the same environment variables.  These patterns
 are different ways to arrange for pods to work on different things.

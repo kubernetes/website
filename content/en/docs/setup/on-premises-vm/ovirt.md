@@ -68,6 +68,5 @@ IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs               
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 oVirt                |              |        |             | [docs](/docs/setup/on-premises-vm/ovirt/)                                  |          | Community ([@simon3z](https://github.com/simon3z))
 
-For support level information on all solutions, see the [Table of solutions](/docs/setup/pick-right-solution/#table-of-solutions) chart.
 
 {{% /capture %}}

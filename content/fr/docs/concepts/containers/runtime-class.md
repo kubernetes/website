@@ -1,13 +1,6 @@
 ---
-reviewers:
-- sieben
-- perriea
-- lledru
-- awkif
-- yastij
-- rbenzair
-- oussemos
 title: Classe d'exécution (Runtime Class)
+description: Classe d'execution conteneur pour Kubernetes
 content_template: templates/concept
 weight: 20
 ---
@@ -92,7 +85,7 @@ spec:
 
 {{< note >}}
 Il est recommandé de limiter les opérations d'écriture sur la RuntimeClass (create/update/patch/delete) à
-l'administrateur du cluster. C'est la configuration par défault. Voir [Vue d'ensemble d'autorisation](https://kubernetes.io/docs/reference/access-authn-authz/authorization/) pour plus de détails.
+l'administrateur du cluster. C'est la configuration par défault. Voir [Vue d'ensemble d'autorisation](/docs/reference/access-authn-authz/authorization/) pour plus de détails.
 {{< /note >}}
 
 ### Usage

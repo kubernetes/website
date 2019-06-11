@@ -85,7 +85,7 @@ kubectl create service nodeport -h
 - `edit`: 편집기에서 구성을 열어 활성 오브젝트에 대한 원래 그대로의 구성을 바로 편집한다.
 - `patch`: 패치 문자열를 사용하여 활성 오브젝트를 바로 편집한다.
 패치 문자열에 대한 보다 자세한 정보를 보려면
-[API 규정](https://git.k8s.io/community/contributors/devel/api-conventions.md#patch-operations)에서 패치 섹션을 참고한다.
+[API 규정](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#patch-operations)에서 패치 섹션을 참고한다.
 
 ## 오브젝트 삭제 방법
 

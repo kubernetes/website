@@ -129,7 +129,7 @@ the `networking` object of `ClusterConfiguration`.
     ```sh
     sudo kubeadm init --config=kubeadm-config.yaml --experimental-upload-certs
     ```
-    - The `--experimental-upload-certs` flags is used to upload the certificates that should be shared
+    - The `--experimental-upload-certs` flag is used to upload the certificates that should be shared
     across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
     control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual
     certificate distribution](#manual-certs) section bellow.
@@ -357,7 +357,7 @@ the creation of additional nodes could fail due to a lack of required SANs.
 {{< /caution >}}
 
 1. Then on each joining control plane node you have to run the following script before running `kubeadm join`.
-   This script will move the previously copied certificates from the home directory to `/etc/kuberentes/pki`:
+   This script will move the previously copied certificates from the home directory to `/etc/kubernetes/pki`:
 
     ```sh
     USER=ubuntu # customizable

@@ -10,8 +10,8 @@ metadata:
   name: cloud-controller-manager
   namespace: kube-system
 ---
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
 metadata:
   name: system:cloud-controller-manager
 roleRef:

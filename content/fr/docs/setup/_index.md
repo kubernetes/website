@@ -7,6 +7,7 @@ reviewers:
 - yastij
 no_issue: true
 title: Setup
+description: Panorama de solution Kubernetes
 main_menu: true
 weight: 30
 content_template: templates/concept
@@ -50,7 +51,7 @@ Vous devriez choisir une solution hébergée si vous :
 * N'avez pas d'équipe de Site Reliability Engineering (SRE) dédiée, mais que vous souhaitez une haute disponibilité.
 * Vous n'avez pas les ressources pour héberger et surveiller vos clusters 
 
-Choisissez une [solution hébergée] (/docs/setup/pick-right-solution/#hosted-solutions).
+Choisissez une [solution hébergée] (/fr/docs/setup/pick-right-solution/#hosted-solutions).
 
 ## Solutions cloud clés en main
 
