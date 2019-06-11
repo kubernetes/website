@@ -7,7 +7,7 @@ noedit: true
 cid: docsHome
 layout: docsportal_home
 class: gridPage
-linkTitle: "Home"
+linkTitle: "Accueil"
 main_menu: true
 weight: 10
 hide_feedback: true
@@ -47,7 +47,7 @@ cards:
   button_path: /docs/reference
 - name: contribute
   title: Contribuer à la documentation
-  description: Tout le monde peut contribuer, que vous soyez nouveau dans le projet ou experimenté.
+  description: Tout le monde peut contribuer, que vous soyez nouveau dans le projet ou expérimenté.
   button: Contribuer à la documentation
   button_path: /docs/contribute
 - name: download
