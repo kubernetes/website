@@ -700,15 +700,11 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # A list of additional security groups to be added to ELB
 ```
 
-#### Network Load Balancer support on AWS [alpha]
+#### Network Load Balancer support on AWS
 
-{{< warning >}}
-This is an alpha feature and not recommended for production clusters yet.
-{{< /warning >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
-Starting in version 1.9.0, Kubernetes supports Network Load Balancer (NLB). To
-use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type`
-with the value set to `nlb`.
+To use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type` with the value set to `nlb`.
 
 ```yaml
     metadata:
