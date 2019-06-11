@@ -1,7 +1,11 @@
 ---
 title: Installing Kubernetes with kops
 content_template: templates/concept
+<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/kops.md
 weight: 50
+=======
+weight: 20
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/custom-cloud/kops.md
 ---
 
 {{% capture overview %}}

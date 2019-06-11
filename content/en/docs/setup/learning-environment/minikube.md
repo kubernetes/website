@@ -50,6 +50,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 <<<<<<< HEAD:content/en/docs/setup/minikube.md
     For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
 
+<<<<<<< HEAD:content/en/docs/setup/learning-environment/minikube.md
 2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](docs/setup/minikube/#interacting-with-your-cluster).
 
     Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
@@ -59,6 +60,10 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     The output is similar to this:
     ```
     deployment.apps/hello-minikube created
+=======
+2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](#interacting-with-your-cluster).
+
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/minikube.md
     Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
     ```shell
     kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
@@ -73,9 +78,13 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     kubectl expose deployment hello-minikube --type=NodePort
     ```
     The option `--type=NodePort` specifies the type of the Service.
+<<<<<<< HEAD:content/en/docs/setup/learning-environment/minikube.md
 <<<<<<< HEAD
 
 >>>>>>> resolved the incomplete merge conflicts
+=======
+
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/minikube.md
     The output is similar to this:
     ```
     service/hello-minikube exposed
@@ -102,9 +111,12 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 	```
 6. To view the details of your local cluster, copy and paste the URL you got as the output, on your browser.
 
+<<<<<<< HEAD:content/en/docs/setup/learning-environment/minikube.md
     The output is similar to this:
 =======
 
+=======
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/minikube.md
     The output is similar to this:
 >>>>>>> resolved the incomplete merge conflicts
     ```
@@ -179,7 +191,10 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 =======
 	For more information, see [Deleting a cluster](#deleting-a-cluster).
 
+<<<<<<< HEAD:content/en/docs/setup/learning-environment/minikube.md
 >>>>>>> Update minikube.md (#14662):content/en/docs/setup/minikube.md
+=======
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/minikube.md
 ## Managing your Cluster
 >>>>>>> resolved the incomplete merge conflicts
 

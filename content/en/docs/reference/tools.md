@@ -16,7 +16,11 @@ Kubernetes contains several built-in tools to help you work with the Kubernetes 
 
 ## Kubeadm
 
+<<<<<<< HEAD
 [`kubeadm`](/docs/setup/production-environment/tools/independent/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
+=======
+[`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
+>>>>>>> restructure the left nav pane for setup
 
 ## Kubefed
 

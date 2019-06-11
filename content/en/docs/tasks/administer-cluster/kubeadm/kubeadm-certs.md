@@ -122,7 +122,11 @@ Kubeadm sets up [three CAs][cert-cas] by default. Make sure to sign the CSRs wit
 
 [openssl-ca]: https://superuser.com/questions/738612/openssl-ca-keyusage-extension
 [cfssl-usages]: https://github.com/cloudflare/cfssl/blob/master/doc/cmd/cfssl.txt#L170
+<<<<<<< HEAD
 [certs]: /docs/setup/best-practices/certificates
+=======
+[certs]: /docs/setup/best-practices/certificates/
+>>>>>>> restructure the left nav pane for setup
 [cert-cas]: /docs/setup/best-practices/certificates/#single-root-ca
 [cert-table]: /docs/setup/best-practices/certificates/#all-certificates
 

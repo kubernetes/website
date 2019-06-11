@@ -70,7 +70,7 @@ cluster/kube-up.sh
 
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
-If you run into trouble, please see the section on [troubleshooting](/docs/setup/turnkey/gce/#troubleshooting), post to the
+If you run into trouble, please see the section on [troubleshooting](/docs/setup/production-environment/turnkey/gce/#troubleshooting), post to the
 [Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on [Slack](/docs/troubleshooting/#slack).
 
 The next few steps will show you:
@@ -217,7 +217,7 @@ field values:
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/turnkey/gce/)                                    |   | Project
+GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/production-environment/turnkey/gce/)                                    |   | Project
 
 
 ## Further reading

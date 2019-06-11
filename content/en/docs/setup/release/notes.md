@@ -1,6 +1,10 @@
 ---
 title: v1.14 Release Notes
+<<<<<<< HEAD
 weight: 20
+=======
+weight: 10
+>>>>>>> restructure the left nav pane for setup
 card:
   name: download
   weight: 20

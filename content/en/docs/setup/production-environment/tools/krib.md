@@ -2,7 +2,11 @@
 title: Installing Kubernetes with KRIB
 krib-version: 2.4
 author: Rob Hirschfeld (zehicle)
+<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/krib.md
 weight: 70
+=======
+weight: 20
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/on-premises-metal/krib.md
 ---
 
 ## Overview

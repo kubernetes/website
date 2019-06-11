@@ -1,7 +1,11 @@
 ---
 title: Installing Kubernetes with Kubespray
 content_template: templates/concept
+<<<<<<< HEAD:content/en/docs/setup/production-environment/tools/kubespray.md
 weight: 60
+=======
+weight: 30
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/custom-cloud/kubespray.md
 ---
 
 {{% capture overview %}}

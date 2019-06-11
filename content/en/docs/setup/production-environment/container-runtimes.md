@@ -4,7 +4,15 @@ reviewers:
 - bart0sh
 title: Container runtimes
 content_template: templates/concept
+<<<<<<< HEAD
 weight: 20
+=======
+<<<<<<< HEAD:content/en/docs/setup/production-environment/cri.md
+weight: 20
+=======
+weight: 10
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/container-runtimes.md
+>>>>>>> restructure the left nav pane for setup
 ---
 {{% capture overview %}}
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
@@ -283,7 +291,15 @@ systemctl restart containerd
 
 To use the `systemd` cgroup driver, set `plugins.cri.systemd_cgroup = true` in `/etc/containerd/config.toml`.
 When using kubeadm, manually configure the
+<<<<<<< HEAD
 [cgroup driver for kubelet](/docs/setup/production-environment/tools/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+=======
+<<<<<<< HEAD:content/en/docs/setup/production-environment/cri.md
+[cgroup driver for kubelet](/docs/setup/production-environment/tools/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+=======
+[cgroup driver for kubelet](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/production-environment/container-runtimes.md
+>>>>>>> restructure the left nav pane for setup
 as well.
 
 ## Other CRI runtimes: frakti

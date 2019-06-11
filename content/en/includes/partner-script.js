@@ -1061,7 +1061,11 @@
 			type: 3,
 			name: 'Weaveworks',
 			logo: 'weave_works',
+<<<<<<< HEAD
 			link: '/docs/setup/production-environment/tools/independent/create-cluster-kubeadm/',
+=======
+			link: '/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/',
+>>>>>>> restructure the left nav pane for setup
 			blurb: 'Weaveworks - kubeadm'
 				},
 		{

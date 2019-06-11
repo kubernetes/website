@@ -136,7 +136,11 @@ For information about enabling IPVS mode with kubeadm see:
 ### Passing custom flags to control plane components {#control-plane-flags}
 
 For information about passing flags to control plane components see:
+<<<<<<< HEAD
 - [control-plane-flags](/docs/setup/production-environment/tools/independent/control-plane-flags/)
+=======
+- [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
+>>>>>>> restructure the left nav pane for setup
 
 ### Using custom images {#custom-images}
 
@@ -304,7 +308,11 @@ don't require an `-${ARCH}` suffix.
 ### Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
+<<<<<<< HEAD
 in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/independent/create-cluster-kubeadm/), you can parallelize the
+=======
+in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), you can parallelize the
+>>>>>>> restructure the left nav pane for setup
 token distribution for easier automation. To implement this automation, you must
 know the IP address that the control-plane node will have after it is started.
 

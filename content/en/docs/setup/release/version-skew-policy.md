@@ -1,10 +1,16 @@
 ---
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
 title: Kubernetesバージョンとバージョンスキューサポートポリシー
 =======
 >>>>>>> reorganized the left navigation of setup
+=======
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+title: Kubernetesバージョンとバージョンスキューサポートポリシー
+=======
+>>>>>>> restructure the left nav pane for setup
 reviewers:
 - sig-api-machinery
 - sig-architecture
@@ -14,11 +20,22 @@ reviewers:
 - sig-release
 title: Kubernetes version and version skew support policy
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
 >>>>>>> reorganized the left navigation of setup
 content_template: templates/concept
 weight: 30
+=======
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+>>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
+content_template: templates/concept
+weight: 30
+=======
+content_template: templates/concept
+weight: 20
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/release/version-skew-policy.md
+>>>>>>> restructure the left nav pane for setup
 ---
 
 {{% capture overview %}}
@@ -29,10 +46,14 @@ Specific cluster deployment tools may place additional restrictions on version s
 {{% capture body %}}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Supported versions
 =======
 ## サポートされるバージョン
 >>>>>>> reorganized the left navigation of setup
+=======
+## サポートされるバージョン
+>>>>>>> restructure the left nav pane for setup
 
 Kubernetes versions are expressed as **x.y.z**,
 where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](http://semver.org/) terminology.
@@ -48,22 +69,35 @@ The patch release manager is a member of the [release team for each release](htt
 Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Supported version skew
 
 ### kube-apiserver
 
 In [highly-available (HA) clusters](/docs/setup/production-environment/tools/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
 =======
+=======
+>>>>>>> restructure the left nav pane for setup
 ## サポートされるバージョンスキュー
 
 ### kube-apiserver
 
 <<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+>>>>>>> restructure the left nav pane for setup
 In [highly-availabile (HA) clusters](https://kubernetes.io/docs/setup/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
 =======
 In [highly-available (HA) clusters](/docs/setup/production-environment/tools/independent/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
 >>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
+<<<<<<< HEAD
 >>>>>>> reorganized the left navigation of setup
+=======
+=======
+In [highly-available (HA) clusters](/docs/setup/production-environment/tools/kubeadm/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/release/version-skew-policy.md
+>>>>>>> restructure the left nav pane for setup
 
 Example:
 
@@ -89,10 +123,14 @@ Example:
 * `kubelet` is supported at **1.12**, and **1.11** (**1.13** is not supported because that would be newer than the `kube-apiserver` instance at version **1.12**)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
 =======
 ### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
 >>>>>>> reorganized the left navigation of setup
+=======
+### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
+>>>>>>> restructure the left nav pane for setup
 
 `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
 
@@ -130,10 +168,14 @@ Example:
 * `kubectl` is supported at **1.13** and **1.12** (other versions would be more than one minor version skewed from one of the `kube-apiserver` components)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Supported component upgrade order
 =======
 ## サポートされるコンポーネントのアップグレード順序
 >>>>>>> reorganized the left navigation of setup
+=======
+## サポートされるコンポーネントのアップグレード順序
+>>>>>>> restructure the left nav pane for setup
 
 The supported version skew between components has implications on the order in which components must be upgraded.
 This section describes the order in which components must be upgraded to transition an existing cluster from version **1.n** to version **1.(n+1)**.
@@ -154,6 +196,7 @@ Upgrade `kube-apiserver` to **1.(n+1)**
 
 {{< note >}}
 <<<<<<< HEAD
+<<<<<<< HEAD
 Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
@@ -161,6 +204,9 @@ require `kube-apiserver` to not skip minor versions when upgrading, even in sing
 
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
 =======
+=======
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+>>>>>>> restructure the left nav pane for setup
 <<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
 Project policies for [API deprecation](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) and 
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md) 
@@ -168,11 +214,21 @@ Project policies for [API deprecation](https://kubernetes.io/docs/reference/usin
 Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
 >>>>>>> reorganized the left navigation of setup:content/en/docs/setup/release/version-skew-policy.md
+<<<<<<< HEAD
+=======
+=======
+Project policies for [API deprecation](/docs/reference/using-api/deprecation-policy/) and
+[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/api_changes.md)
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/release/version-skew-policy.md
+>>>>>>> restructure the left nav pane for setup
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 {{< /note >}}
 
 ### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
+<<<<<<< HEAD
 >>>>>>> reorganized the left navigation of setup
+=======
+>>>>>>> restructure the left nav pane for setup
 
 Pre-requisites:
 
@@ -195,6 +251,13 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 * it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 {{</ warning >}}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+=======
+
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/release/version-skew-policy.md
+>>>>>>> restructure the left nav pane for setup
 ## Kubeadm version skew policy {#version-skew-policy}
 
 The kubeadm CLI tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
@@ -205,4 +268,12 @@ Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be abl
 Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
 v1.8.
 
+<<<<<<< HEAD
 For more information on supported version skew between kubelets and the control plane, and other Kubernetes components, see Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+=======
+<<<<<<< HEAD:content/ja/docs/setup/version-skew-policy.md
+For more information on supported version skew between kubelets and the control plane, and other Kubernetes components, see Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+=======
+For more information on supported version skew between kubelets and the control plane, and other Kubernetes components, see Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+>>>>>>> restructure the left nav pane for setup:content/en/docs/setup/release/version-skew-policy.md
+>>>>>>> restructure the left nav pane for setup

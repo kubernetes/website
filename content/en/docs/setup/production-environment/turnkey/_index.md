@@ -1,4 +1,4 @@
 ---
-title: Turnkey cloud solutions
-weight: 40
+title: Turnkey Cloud Solutions
+weight: 30
 ---

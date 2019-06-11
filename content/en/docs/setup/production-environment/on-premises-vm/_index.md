@@ -1,4 +1,4 @@
 ---
-title: On-premises VMs
-weight: 50
+title: On-Premises VMs
+weight: 40
 ---
