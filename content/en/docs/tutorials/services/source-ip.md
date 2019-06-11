@@ -34,7 +34,10 @@ document. The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 
 ```console
-$ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+```
+The output is:
+```
 deployment.apps/source-ip-app created
 ```
 
@@ -59,23 +62,38 @@ which is the default since Kubernetes 1.2. Kube-proxy exposes its mode through
 a `proxyMode` endpoint:
 
 ```console
-$ kubectl get nodes
+kubectl get nodes
+```
+The output is similar to this:
+```
 NAME                           STATUS     ROLES    AGE     VERSION
 kubernetes-minion-group-6jst   Ready      <none>   2h      v1.13.0
 kubernetes-minion-group-cx31   Ready      <none>   2h      v1.13.0
 kubernetes-minion-group-jj1t   Ready      <none>   2h      v1.13.0
-
+```
+Get the proxy mode on one of the node
+```console
 kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
+```
+The output is:
+```
 iptables
 ```
 
 You can test source IP preservation by creating a Service over the source IP app:
 
 ```console
-$ kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
+kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
+```
+The output is:
+```
 service/clusterip exposed
-
-$ kubectl get svc clusterip
+```
+```console
+kubectl get svc clusterip
+```
+The output is similar to:
+```
 NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 ```
@@ -83,7 +101,10 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 And hitting the `ClusterIP` from a pod in the same cluster:
 
 ```console
-$ kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox --restart=Never --rm
+```
+The output is similar to this:
+```
 Waiting for pod default/busybox to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
 
@@ -115,11 +136,16 @@ As of Kubernetes 1.5, packets sent to Services with [Type=NodePort](/docs/concep
 are source NAT'd by default. You can test this by creating a `NodePort` Service:
 
 ```console
-$ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
+kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
+```
+The output is:
+```
 service/nodeport exposed
+```
 
-$ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
+```console
+NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
+NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
 ```
 
 If you're running on a cloudprovider, you may need to open up a firewall-rule
@@ -128,7 +154,10 @@ Now you can try reaching the Service from outside the cluster through the node
 port allocated above.
 
 ```console
-$ for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
+for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
+```
+The output is similar to:
+```
 client_address=10.180.1.1
 client_address=10.240.0.5
 client_address=10.240.0.3
@@ -170,14 +199,20 @@ packet that make it through to the endpoint.
 Set the `service.spec.externalTrafficPolicy` field as follows:
 
 ```console
-$ kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+```
+The output is:
+```
 service/nodeport patched
 ```
 
 Now, re-run the test:
 
 ```console
-$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
+for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
+```
+The output is:
+```
 client_address=104.132.1.79
 ```
 
@@ -219,14 +254,28 @@ described in the previous section).
 You can test this by exposing the source-ip-app through a loadbalancer
 
 ```console
-$ kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
+kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
+```
+The output is:
+```
 service/loadbalancer exposed
+```
 
-$ kubectl get svc loadbalancer
+Print IPs of the Service:
+```console
+kubectl get svc loadbalancer
+```
+The output is similar to this:
+```
 NAME           TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
 loadbalancer   LoadBalancer   10.0.65.118   104.198.149.140   80/TCP    5m
+```
 
-$ curl 104.198.149.140
+```console
+curl 104.198.149.140
+```
+The output is similar to this:
+```
 CLIENT VALUES:
 client_address=10.240.0.5
 ...
@@ -254,29 +303,44 @@ health check --->   node 1   node 2 <--- health check
 You can test this by setting the annotation:
 
 ```console
-$ kubectl patch svc loadbalancer -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+kubectl patch svc loadbalancer -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 ```
 
 You should immediately see the `service.spec.healthCheckNodePort` field allocated
 by Kubernetes:
 
 ```console
-$ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
+kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
+```
+The output is similar to this:
+```
   healthCheckNodePort: 32122
 ```
 
 The `service.spec.healthCheckNodePort` field points to a port on every node
 serving the health check at `/healthz`. You can test this:
 
+```console
+kubectl get pod -o wide -l run=source-ip-app
 ```
-$ kubectl get pod -o wide -l run=source-ip-app
+The output is similar to this:
+```
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
 source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-minion-group-6jst
-
+```
+Curl the `/healthz` endpoint on different nodes.
+```console
 kubernetes-minion-group-6jst $ curl localhost:32122/healthz
+```
+The output is similar to this:
+```
 1 Service Endpoints found
-
+```
+```console
 kubernetes-minion-group-jj1t $ curl localhost:32122/healthz
+```
+The output is similar to this:
+```
 No Service Endpoints Found
 ```
 
@@ -286,7 +350,10 @@ pointing to this port/path on each node. Wait about 10 seconds for the 2 nodes
 without endpoints to fail health checks, then curl the lb ip:
 
 ```console
-$ curl 104.198.149.140
+curl 104.198.149.140
+```
+The output is similar to this:
+```
 CLIENT VALUES:
 client_address=104.132.1.79
 ...
@@ -322,13 +389,13 @@ the `service.spec.healthCheckNodePort` field on the Service.
 Delete the Services:
 
 ```console
-$ kubectl delete svc -l run=source-ip-app
+kubectl delete svc -l run=source-ip-app
 ```
 
 Delete the Deployment, ReplicaSet and Pod:
 
 ```console
-$ kubectl delete deployment source-ip-app
+kubectl delete deployment source-ip-app
 ```
 
 {{% /capture %}}

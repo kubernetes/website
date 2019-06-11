@@ -240,8 +240,11 @@ options ndots:2 edns0
 
 For IPv6 setup, search path and name server should be setup like this:
 
+```shell
+kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
-$ kubectl exec -it dns-example -- cat /etc/resolv.conf
+The output is similar to this:
+```shell
 nameserver fd00:79:30::a
 search default.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
