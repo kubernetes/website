@@ -88,7 +88,7 @@ timeframe; which also applies to `kubeadm`.
 
 ## Objectives
 
-* Install a single master Kubernetes cluster or [high availability cluster](/docs/setup/independent/high-availability/)
+* Install a single master Kubernetes cluster or [high availability cluster](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -96,7 +96,7 @@ timeframe; which also applies to `kubeadm`.
 
 ### Installing kubeadm on your hosts
 
-See ["Installing kubeadm"](/docs/setup/independent/install-kubeadm/).
+See ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 {{< note >}}
 If you have already installed kubeadm, run `apt-get update &&
@@ -120,7 +120,7 @@ a provider-specific value. See [Installing a pod network add-on](#pod-network).
 1. (Optional) Since version 1.14, kubeadm will try to detect the container runtime on Linux
 by using a list of well known domain socket paths. To use different container runtime or
 if there are more than one installed on the provisioned node, specify the `--cri-socket`
-argument to `kubeadm init`. See [Installing runtime](/docs/setup/independent/install-kubeadm/#installing-runtime).
+argument to `kubeadm init`. See [Installing runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated
 with the default gateway to advertise the master's IP. To use a different
 network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
@@ -426,8 +426,7 @@ Once a pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS pod is Running in the output of `kubectl get pods --all-namespaces`.
 And once the CoreDNS pod is up and running, you can continue by joining your nodes.
 
-If your network is not working or CoreDNS is not in the Running state, check
-out our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
+If your network is not working or CoreDNS is not in the Running state, checkout our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
 ### Control plane node isolation
 
@@ -641,8 +640,8 @@ v1.8.
 
 These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
 
-* Kubernetes [version and version-skew policy](/docs/setup/version-skew-policy/)
-* Kubeadm-specific [installation guide](/docs/setup/independent/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
+* Kubernetes [version and version-skew policy](/docs/setup/release/version-skew-policy/)
+* Kubeadm-specific [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
 ## kubeadm works on multiple platforms {#multi-platform}
 
@@ -673,4 +672,4 @@ addressed in due course.
 
 ## Troubleshooting {#troubleshooting}
 
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/independent/troubleshooting-kubeadm/).
+If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).

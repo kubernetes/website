@@ -43,7 +43,7 @@ Minikube can be installed locally, and runs a simple, single-node Kubernetes clu
 
 * {{< link text="Install kubectl" url="/docs/tasks/tools/install-kubectl/" >}}. ({{< glossary_tooltip text="What is kubectl?" term_id="kubectl" >}})
 
-* *(Optional)* {{< link text="Install Docker" url="/docs/setup/cri/#docker" >}} if you plan to run your Minikube cluster as part of a local development environment.
+* *(Optional)* {{< link text="Install Docker" url="/docs/setup/production-environment/container-runtimes/#docker" >}} if you plan to run your Minikube cluster as part of a local development environment.
 
    Minikube includes a Docker daemon, but if you're developing applications locally, you'll want an independent Docker instance to support your workflow. This allows you to create {{< glossary_tooltip text="containers" term_id="container" >}} and push them to a container registry.
 
