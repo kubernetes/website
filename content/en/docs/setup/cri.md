@@ -282,6 +282,7 @@ systemctl restart containerd
 ### systemd
 
 To use the `systemd` cgroup driver, set `plugins.cri.systemd_cgroup = true` in `/etc/containerd/config.toml`.
+Provide a systemd service file `curl -o /etc/systemd/system/containerd.service https://raw.githubusercontent.com/containerd/cri/master/contrib/systemd-units/containerd.service`.
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/setup/independent/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
 as well.
