@@ -92,7 +92,7 @@ You can also use `--help` to see the list of sub-phases for a certain parent pha
 sudo kubeadm init phase control-plane --help
 ```
 
-`kubeadm init` also expose a flag called `--skip-phases` that can be used to skip certain phases. The flag accepts a list of phase names and the names can be taken from the above ordered list.
+`kubeadm init` also exposes a flag called `--skip-phases` that can be used to skip certain phases. The flag accepts a list of phase names and the names can be taken from the above ordered list.
 
 An example:
 
@@ -154,6 +154,30 @@ Allowed customization are:
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
 
+### Uploading control-plane certificates to the cluster
+
+By adding the flag `--upload-certs` to `kubeadm init` you can temporary upload
+the control-plane certificates to a Secret in the cluster. Please note that this Secret
+will expire automatically after 2 hours. The certificates are encrypted using
+a 32byte key that can be specified using `--certificate-key`. The same key can be used
+to download the certificates when additional control-plane nodes are joining, by passing
+`--control-plane` and `--certificate-key` to `kubeadm join`.
+
+The following phase command can be used to re-upload the certificates after expiration:
+
+```
+kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE
+```
+
+If the flag `--certificate-key` is not passed to `kubeadm init` and
+`kubeadm init phase upload-certs` a new key will be generated automatically.
+
+The following command can be used to generate a new key on demand:
+
+```
+kubeadm alpha certs certificate-key
+```
+
 ### Using custom certificates {#custom-certificates}
 
 By default, kubeadm generates all the certificates needed for a cluster to run.
@@ -191,14 +215,18 @@ This is what it looks like:
 
 ```
 [Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
-Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manifests --allow-privileged=true"
-Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
-Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
-Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
-Environment="KUBELET_CADVISOR_ARGS="
-Environment="KUBELET_CERTIFICATE_ARGS=--rotate-certificates=true --cert-dir=/var/lib/kubelet/pki"
-ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_CERTIFICATE_ARGS $KUBELET_EXTRA_ARGS
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf
+--kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
+# This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating
+the KUBELET_KUBEADM_ARGS variable dynamically
+EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
+# This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably,
+#the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
+# KUBELET_EXTRA_ARGS should be sourced from this file.
+EnvironmentFile=-/etc/default/kubelet
+ExecStart=
+ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
 ```
 
 Here's a breakdown of what/why:
@@ -269,7 +297,7 @@ using an external CRI implementation.
 ### Setting the node name
 
 By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the `--node-name`flag.
-The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) 
+The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options)
 to the kubelet.
 
 Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
@@ -305,9 +333,16 @@ know the IP address that the control-plane node will have after it is started.
     kubeadm token generate
     ```
 
-1. Start both the control-plane node and the worker nodes concurrently with this token.
-   As they come up they should find each other and form the cluster.  The same
-   `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
+1.  Start both the control-plane node and the worker nodes concurrently with this token.
+    As they come up they should find each other and form the cluster.  The same
+    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
+
+1.  Similar can be done for `--certificate-key` when joining additional control-plane
+    nodes. The key can be generated using:
+
+    ```shell
+    kubeadm alpha certs certificate-key
+    ```
 
 Once the cluster is up, you can grab the admin credentials from the control-plane node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
