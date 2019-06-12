@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Join us at the Contributor Summit in Shanghai'
-date: 2019-06-11
+date: 2019-06-12
 ---
 
 **Author**: Josh Berkus (Red Hat)
