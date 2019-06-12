@@ -22,7 +22,7 @@ While we do not yet have a full schedule up, the topics covered in the current c
 * Local Build & Test troubleshooting session
 * Guide to Non-Code Contribution opportunities
 * SIG-Azure face-to-face
-* SIG-Scheduling face-to-face
+* SIG-Scheduling face-to-face meeting
 * Other SIG face-to-face meetings as we confirm them
 
 The schedule will be on [the Community page](https://github.com/kubernetes/community/tree/master/events/2019/06-contributor-summit) once it is complete.
